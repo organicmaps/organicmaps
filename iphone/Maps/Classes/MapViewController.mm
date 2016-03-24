@@ -8,6 +8,7 @@
 #import "MWMAPIBar.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
+#import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMEditorViewController.h"
 #import "MWMFirstLaunchController.h"
 #import "MWMFrameworkListener.h"
@@ -49,6 +50,9 @@
 #import "../../../private.h"
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
+extern NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
+extern NSString * const kMap2FBLoginSegue = @"Map2FBLogin";
+extern NSString * const kMap2GoogleLoginSegue = @"Map2GoogleLogin";
 extern char const * kAdForbiddenSettingsKey;
 extern char const * kAdServerForbiddenKey;
 
@@ -68,7 +72,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 namespace
 {
-NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
@@ -686,12 +689,15 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 - (void)checkAuthorization
 {
   using namespace osm_auth_ios;
-  BOOL const isAfterFirstEdit = AuthorizationIsNeedCheck() && !AuthorizationHaveCredentials() && !AuthorizationIsUserSkip();
-  if (isAfterFirstEdit)
+  BOOL const isAfterEditing = AuthorizationIsNeedCheck() && !AuthorizationHaveCredentials();
+  if (isAfterEditing)
   {
+    AuthorizationSetNeedCheck(NO);
+    if (!Platform::IsConnected())
+      return;
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
                      withParameters:@{kStatValue : kStatAuthorization}];
-    [self performSegueWithIdentifier:kAuthorizationSegue sender:nil];
+    [self.alertController presentOsmAuthAlert];
   }
 }
 
@@ -829,12 +835,6 @@ NSString * const kReportSegue = @"Map2ReportSegue";
     MWMEditorViewController * dvc = segue.destinationViewController;
     [dvc setFeatureToEdit:static_cast<MWMPlacePageEntity *>(sender).featureID];
   }
-  else if ([segue.identifier isEqualToString:kAuthorizationSegue])
-  {
-    UINavigationController * dvc = segue.destinationViewController;
-    MWMAuthorizationLoginViewController * authVC = (MWMAuthorizationLoginViewController *)[dvc topViewController];
-    authVC.isCalledFromSettings = NO;
-  }
   else if ([segue.identifier isEqualToString:kDownloaderSegue])
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
@@ -844,6 +844,16 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   {
     MWMReportBaseController * dvc = segue.destinationViewController;
     dvc.point = static_cast<MWMPlacePageEntity *>(sender).mercator;
+  }
+  else if ([segue.identifier isEqualToString:kMap2FBLoginSegue])
+  {
+    MWMAuthorizationWebViewLoginViewController * dvc = segue.destinationViewController;
+    dvc.authType = MWMWebViewAuthorizationTypeFacebook;
+  }
+  else if ([segue.identifier isEqualToString:kMap2GoogleLoginSegue])
+  {
+    MWMAuthorizationWebViewLoginViewController * dvc = segue.destinationViewController;
+    dvc.authType = MWMWebViewAuthorizationTypeGoogle;
   }
 }
 

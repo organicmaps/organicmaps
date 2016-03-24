@@ -40,8 +40,6 @@ using namespace osm_auth_ios;
 @property (weak, nonatomic) IBOutlet UIImageView * googleImage;
 @property (weak, nonatomic) IBOutlet UIImageView * facebookImage;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem * leftBarButton;
-
 @property (weak, nonatomic) IBOutlet UIView * profileView;
 @property (weak, nonatomic) IBOutlet UIView * localChangesView;
 @property (weak, nonatomic) IBOutlet UILabel * localChangesLabel;
@@ -75,16 +73,9 @@ using namespace osm_auth_ios;
   if (AuthorizationHaveCredentials())
     [self configHaveAuth];
   else
-    [self configNoAuth:AuthorizationIsNeedCheck() && !AuthorizationIsUserSkip()];
+    [self configNoAuth];
 
   [self configChanges];
-  UINavigationBar * navBar = self.navigationController.navigationBar;
-  navBar.barStyle = UIBarStyleBlack;
-  navBar.tintColor = [UIColor clearColor];
-  navBar.barTintColor = [UIColor clearColor];
-  navBar.shadowImage = [[UIImage alloc] init];
-  [navBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-  navBar.translucent = YES;
   AuthorizationSetNeedCheck(NO);
 }
 
@@ -130,10 +121,9 @@ using namespace osm_auth_ios;
   self.googleImage.hidden = YES;
   self.facebookImage.hidden = YES;
   self.logoutButton.hidden = NO;
-  self.leftBarButton.image = [UIImage imageNamed:@"ic_nav_bar_back"];
 }
 
-- (void)configNoAuth:(BOOL)isAfterFirstEdit
+- (void)configNoAuth
 {
   self.message.hidden = NO;
   self.loginGoogleButton.hidden = NO;
@@ -144,18 +134,8 @@ using namespace osm_auth_ios;
   self.googleImage.hidden = NO;
   self.facebookImage.hidden = NO;
   self.logoutButton.hidden = YES;
-  if (isAfterFirstEdit)
-  {
-    self.title = L(@"thank_you").capitalizedString;
-    self.message.text = L(@"you_have_edited_your_first_object");
-    self.leftBarButton.image = [UIImage imageNamed:@"ic_nav_bar_close"];
-  }
-  else
-  {
-    self.title = L(@"profile").capitalizedString;
-    self.message.text = L(@"login_and_edit_map_motivation_message");
-    self.leftBarButton.image = [UIImage imageNamed:@"ic_nav_bar_back"];
-  }
+  self.title = L(@"profile").capitalizedString;
+  self.message.text = L(@"login_and_edit_map_motivation_message");
 }
 
 - (void)configChanges
@@ -218,40 +198,36 @@ using namespace osm_auth_ios;
 
 - (IBAction)loginGoogle
 {
-  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatGoogle}];
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEventName(kStatAuthorization, kStatGoogle)];
+    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatGoogle}];
     [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginGoogleButton];
   }];
 }
 
 - (IBAction)loginFacebook
 {
-  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatFacebook}];
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEventName(kStatAuthorization, kStatFacebook)];
+    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatFacebook}];
     [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginFacebookButton];
   }];
 }
 
 - (IBAction)loginOSM
 {
-  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatOSM}];
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEventName(kStatAuthorization, kStatOSM)];
+    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatOSM}];
     [self performSegueWithIdentifier:kOSMAuthSegue sender:self.loginOSMButton];
   }];
 }
 
 - (IBAction)signup
 {
-  [Statistics logEvent:kStatEditorRegRequest];
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEventName(kStatAuthorization, kStatSignup)];
+    [Statistics logEvent:kStatEditorRegRequest];
     OsmOAuth const auth = OsmOAuth::ServerAuth();
     NSURL * url = [NSURL URLWithString:@(auth.GetRegistrationURL().c_str())];
     [[UIApplication sharedApplication] openURL:url];
@@ -271,11 +247,6 @@ using namespace osm_auth_ios;
 
 - (IBAction)cancel
 {
-  if (!self.isCalledFromSettings)
-  {
-    [Statistics logEvent:kStatEditorAuthDeclinedByUser];
-    AuthorizationSetUserSkip();
-  }
   UINavigationController * parentNavController = self.navigationController.navigationController;
   if (parentNavController)
     [parentNavController popViewControllerAnimated:YES];

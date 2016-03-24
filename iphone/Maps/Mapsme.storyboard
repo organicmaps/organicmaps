@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -30,10 +30,12 @@
                     <connections>
                         <segue destination="eCI-mf-eCv" kind="custom" identifier="Map2MapDownloaderSegue" customClass="MWMSegue" id="Z0Z-aU-Vrq"/>
                         <segue destination="F1F-MH-A36" kind="custom" identifier="Map2MigrationSegue" customClass="MWMSegue" id="iqY-sY-TLu"/>
-                        <segue destination="2fX-ws-Tuc" kind="custom" identifier="Map2AuthorizationSegue" customClass="MWMSegue" id="CJ1-sY-Il4"/>
                         <segue destination="Lfa-Zp-orR" kind="custom" identifier="Map2EditorSegue" customClass="MWMSegue" id="OEF-kR-jKi"/>
                         <segue destination="Lgr-ZK-lGB" kind="custom" identifier="Map2ReportSegue" customClass="MWMSegue" id="gCh-Ix-flI"/>
                         <segue destination="QlF-CJ-cEG" kind="custom" identifier="MapToCategorySelectorSegue" customClass="MWMSegue" id="4Cc-99-mlN"/>
+                        <segue destination="4R7-Vk-fQr" kind="custom" identifier="Map2OsmLogin" customClass="MWMSegue" id="7YC-t5-0WN"/>
+                        <segue destination="anB-7S-ebY" kind="custom" identifier="Map2FBLogin" customClass="MWMSegue" id="nCr-QR-kY7"/>
+                        <segue destination="anB-7S-ebY" kind="custom" identifier="Map2GoogleLogin" customClass="MWMSegue" id="sMq-pa-AId"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKg-Q7-bFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1890,7 +1892,7 @@
         <!--Authorization Login View Controller-->
         <scene sceneID="brg-EE-ML1">
             <objects>
-                <viewController id="iZ6-Zi-bkZ" customClass="MWMAuthorizationLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthorizationLoginViewController" id="iZ6-Zi-bkZ" customClass="MWMAuthorizationLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yup-ms-er9"/>
                         <viewControllerLayoutGuide type="bottom" id="y41-VX-XhB"/>
@@ -1900,10 +1902,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7X8-ED-Si4">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="-44" width="600" height="644"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NhV-I9-K6M">
-                                <rect key="frame" x="16" y="66" width="568" height="112"/>
+                                <rect key="frame" x="16" y="2" width="568" height="112"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="76x-zf-kIz">
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
@@ -2030,7 +2032,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="tzz-yF-441">
-                                <rect key="frame" x="16" y="196" width="568" height="82"/>
+                                <rect key="frame" x="16" y="132" width="568" height="82"/>
                                 <string key="text">OpenStreetMap is built by a community of mappers that contribute and maintain data about roads, trails, cafés, railway stations, and much more, all over
 the world. Join us!</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -2042,7 +2044,7 @@ the world. Join us!</string>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cT8-b7-zTj">
-                                <rect key="frame" x="16" y="302" width="568" height="44"/>
+                                <rect key="frame" x="16" y="238" width="568" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="sre-fS-1iA"/>
                                 </constraints>
@@ -2067,14 +2069,14 @@ the world. Join us!</string>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_google" translatesAutoresizingMaskIntoConstraints="NO" id="VTY-T1-l6q">
-                                <rect key="frame" x="32" y="310" width="28" height="28"/>
+                                <rect key="frame" x="32" y="246" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="3pO-7k-3b7"/>
                                     <constraint firstAttribute="width" constant="28" id="hdo-64-JVl"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4B-pb-aFf">
-                                <rect key="frame" x="16" y="362" width="568" height="44"/>
+                                <rect key="frame" x="16" y="298" width="568" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Mm9-WB-LKh"/>
                                 </constraints>
@@ -2097,14 +2099,14 @@ the world. Join us!</string>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_facebook" translatesAutoresizingMaskIntoConstraints="NO" id="bGN-fy-oFg">
-                                <rect key="frame" x="32" y="370" width="28" height="28"/>
+                                <rect key="frame" x="32" y="306" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="5HC-P5-MxA"/>
                                     <constraint firstAttribute="height" constant="28" id="z1G-WV-nDv"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gqm-JS-hos">
-                                <rect key="frame" x="16" y="422" width="568" height="44"/>
+                                <rect key="frame" x="16" y="358" width="568" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="wqb-IS-uAC"/>
                                 </constraints>
@@ -2127,7 +2129,7 @@ the world. Join us!</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have OpenStreetMap account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="340" translatesAutoresizingMaskIntoConstraints="NO" id="nhm-W1-U8A">
-                                <rect key="frame" x="16" y="498" width="568" height="16"/>
+                                <rect key="frame" x="16" y="434" width="568" height="16"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2138,7 +2140,7 @@ the world. Join us!</string>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-dL-PG8">
-                                <rect key="frame" x="16" y="534" width="568" height="44"/>
+                                <rect key="frame" x="16" y="470" width="568" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="V0s-db-tR6"/>
                                 </constraints>
@@ -2198,7 +2200,7 @@ the world. Join us!</string>
                             <constraint firstAttribute="trailing" secondItem="nhm-W1-U8A" secondAttribute="trailing" constant="16" id="JXx-MF-idB"/>
                             <constraint firstItem="tzz-yF-441" firstAttribute="top" secondItem="NhV-I9-K6M" secondAttribute="bottom" priority="700" constant="18" id="TIM-Gb-mUW"/>
                             <constraint firstItem="U4B-pb-aFf" firstAttribute="leading" secondItem="i64-CY-UO1" secondAttribute="leading" constant="16" id="Txe-Bm-4r9"/>
-                            <constraint firstItem="NhV-I9-K6M" firstAttribute="top" secondItem="i64-CY-UO1" secondAttribute="top" constant="66" id="ViN-zN-DBO"/>
+                            <constraint firstItem="NhV-I9-K6M" firstAttribute="top" secondItem="i64-CY-UO1" secondAttribute="top" constant="2" id="ViN-zN-DBO"/>
                             <constraint firstAttribute="trailing" secondItem="Gqm-JS-hos" secondAttribute="trailing" constant="16" id="YOc-00-zbV"/>
                             <constraint firstAttribute="trailing" secondItem="cT8-b7-zTj" secondAttribute="trailing" constant="16" id="Z9E-Ty-Gdm"/>
                             <constraint firstItem="y41-VX-XhB" firstAttribute="top" secondItem="7X8-ED-Si4" secondAttribute="bottom" id="aG5-m9-gqr"/>
@@ -2228,7 +2230,6 @@ the world. Join us!</string>
                         <outlet property="facebookImage" destination="bGN-fy-oFg" id="aZg-jU-gxN"/>
                         <outlet property="googleImage" destination="VTY-T1-l6q" id="3Si-X9-VDE"/>
                         <outlet property="lastUploadLabel" destination="byf-d2-8rS" id="zUr-9t-H02"/>
-                        <outlet property="leftBarButton" destination="VjK-MF-Vva" id="Vmr-x5-xbE"/>
                         <outlet property="localChangesActionButton" destination="IHU-D3-OHh" id="p6c-et-S7V"/>
                         <outlet property="localChangesLabel" destination="6t0-ph-htV" id="4io-4R-QlC"/>
                         <outlet property="localChangesView" destination="76x-zf-kIz" id="sS1-4x-65O"/>
@@ -2253,286 +2254,6 @@ the world. Join us!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZd-gb-Aqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1955" y="4393"/>
-        </scene>
-        <!--Authorization Signup View Controller-->
-        <scene sceneID="GMe-KV-uTA">
-            <objects>
-                <viewController id="Ez0-RI-stE" customClass="MWMAuthorizationSignupViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Qw4-Gs-MQn"/>
-                        <viewControllerLayoutGuide type="bottom" id="8DQ-nZ-c9E"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PIQ-xR-Wg6">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7AG-pG-1YG">
-                                <rect key="frame" x="16" y="40" width="568" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="hzp-KM-mic"/>
-                                </constraints>
-                                <state key="normal" title="Login with Google">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_with_google"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="signupGoogle" destination="Ez0-RI-stE" eventType="touchUpInside" id="c1T-Gt-87R"/>
-                                    <segue destination="anB-7S-ebY" kind="custom" customClass="MWMSegue" id="c3T-gx-qb6"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_google" translatesAutoresizingMaskIntoConstraints="NO" id="RSi-uc-JmJ">
-                                <rect key="frame" x="32" y="48" width="28" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="Gfz-c6-Xjf"/>
-                                    <constraint firstAttribute="width" constant="28" id="NhS-br-L1c"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9A1-43-fvt">
-                                <rect key="frame" x="16" y="100" width="568" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="97I-Qc-kvf"/>
-                                </constraints>
-                                <state key="normal" title="Login with Facebook"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_with_facebook"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="signupFacebook" destination="Ez0-RI-stE" eventType="touchUpInside" id="TKi-nk-hHP"/>
-                                    <segue destination="anB-7S-ebY" kind="custom" customClass="MWMSegue" id="w48-2Y-VXA"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_facebook" translatesAutoresizingMaskIntoConstraints="NO" id="o80-wQ-rWg">
-                                <rect key="frame" x="32" y="108" width="28" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="G3u-Cn-PW6"/>
-                                    <constraint firstAttribute="width" constant="28" id="VBe-94-9iX"/>
-                                </constraints>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4aJ-cU-oON">
-                                <rect key="frame" x="0.0" y="176" width="600" height="136"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drO-vh-jYD" userLabel="Separator #1">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="QRt-Ch-zfE"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I07-mq-K3f">
-                                        <rect key="frame" x="16" y="1" width="568" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="4Cz-dF-zCt"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="email_address"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputEmailValidator"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="Ez0-RI-stE" id="YRX-t2-J0K"/>
-                                        </connections>
-                                    </textField>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5k-k6-jiO" userLabel="Separator #2">
-                                        <rect key="frame" x="16" y="45" width="584" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="3en-wo-i0y"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uyJ-EW-kYD">
-                                        <rect key="frame" x="16" y="46" width="568" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="PFF-yv-tAC"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="username"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputLoginValidator"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="Ez0-RI-stE" id="7Fd-3H-I6G"/>
-                                        </connections>
-                                    </textField>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cq4-U1-1mc" userLabel="Separator #3">
-                                        <rect key="frame" x="16" y="90" width="584" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="Zu3-Hb-TaC"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Rm-2L-kLn">
-                                        <rect key="frame" x="16" y="91" width="568" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="07H-dg-bQ6"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="password_8_chars_min"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputPasswordValidator"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="Ez0-RI-stE" id="pfw-oD-9bQ"/>
-                                        </connections>
-                                    </textField>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SQS-AE-zqD" userLabel="Separator #4">
-                                        <rect key="frame" x="0.0" y="135" width="600" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="fxc-JD-dUd"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="Cq4-U1-1mc" firstAttribute="top" secondItem="uyJ-EW-kYD" secondAttribute="bottom" id="2WM-4y-yuW"/>
-                                    <constraint firstItem="I5k-k6-jiO" firstAttribute="leading" secondItem="I07-mq-K3f" secondAttribute="leading" id="9jr-FT-0O0"/>
-                                    <constraint firstAttribute="trailing" secondItem="I5k-k6-jiO" secondAttribute="trailing" id="GVN-CV-sBh"/>
-                                    <constraint firstItem="1Rm-2L-kLn" firstAttribute="trailing" secondItem="uyJ-EW-kYD" secondAttribute="trailing" id="HxW-cY-FrF"/>
-                                    <constraint firstAttribute="trailing" secondItem="drO-vh-jYD" secondAttribute="trailing" id="JHU-Td-IQa"/>
-                                    <constraint firstItem="uyJ-EW-kYD" firstAttribute="top" secondItem="I5k-k6-jiO" secondAttribute="bottom" id="JTe-Q3-uRW"/>
-                                    <constraint firstItem="I5k-k6-jiO" firstAttribute="top" secondItem="I07-mq-K3f" secondAttribute="bottom" id="JXi-Pj-5XI"/>
-                                    <constraint firstItem="Cq4-U1-1mc" firstAttribute="leading" secondItem="I5k-k6-jiO" secondAttribute="leading" id="MLm-pd-wgx"/>
-                                    <constraint firstAttribute="trailing" secondItem="I07-mq-K3f" secondAttribute="trailing" constant="16" id="R2E-cL-3UD"/>
-                                    <constraint firstAttribute="bottom" secondItem="SQS-AE-zqD" secondAttribute="bottom" id="Sfw-Jp-r4d"/>
-                                    <constraint firstItem="SQS-AE-zqD" firstAttribute="trailing" secondItem="drO-vh-jYD" secondAttribute="trailing" id="V7R-eT-mSf"/>
-                                    <constraint firstItem="drO-vh-jYD" firstAttribute="top" secondItem="4aJ-cU-oON" secondAttribute="top" id="Vyy-y5-bdG"/>
-                                    <constraint firstItem="SQS-AE-zqD" firstAttribute="leading" secondItem="drO-vh-jYD" secondAttribute="leading" id="WAN-a4-oaS"/>
-                                    <constraint firstItem="uyJ-EW-kYD" firstAttribute="leading" secondItem="I07-mq-K3f" secondAttribute="leading" id="bzH-qt-Vy1"/>
-                                    <constraint firstItem="Cq4-U1-1mc" firstAttribute="trailing" secondItem="I5k-k6-jiO" secondAttribute="trailing" id="eqy-Ow-A8M"/>
-                                    <constraint firstItem="1Rm-2L-kLn" firstAttribute="leading" secondItem="uyJ-EW-kYD" secondAttribute="leading" id="fCC-Tv-Yvd"/>
-                                    <constraint firstItem="I07-mq-K3f" firstAttribute="top" secondItem="drO-vh-jYD" secondAttribute="bottom" id="k7D-Xd-sBj"/>
-                                    <constraint firstItem="1Rm-2L-kLn" firstAttribute="top" secondItem="Cq4-U1-1mc" secondAttribute="bottom" id="rdG-Sy-YHI"/>
-                                    <constraint firstItem="I07-mq-K3f" firstAttribute="leading" secondItem="4aJ-cU-oON" secondAttribute="leading" constant="16" id="uEx-oq-idQ"/>
-                                    <constraint firstItem="uyJ-EW-kYD" firstAttribute="trailing" secondItem="I07-mq-K3f" secondAttribute="trailing" id="v75-bc-rWA"/>
-                                    <constraint firstItem="SQS-AE-zqD" firstAttribute="top" secondItem="1Rm-2L-kLn" secondAttribute="bottom" id="vxu-AB-b1t"/>
-                                    <constraint firstItem="drO-vh-jYD" firstAttribute="leading" secondItem="4aJ-cU-oON" secondAttribute="leading" id="zi2-v1-wPd"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHO-xN-yQ5">
-                                <rect key="frame" x="16" y="332" width="568" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="DVP-P9-wrJ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <state key="normal" title="Sign Up"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlue"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="clearColor"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="signup"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="signupOSM" destination="Ez0-RI-stE" eventType="touchUpInside" id="Wun-5h-bas"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXj-re-T4j">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="j0p-YR-0qe"/>
-                                </constraints>
-                                <state key="normal" title="Sign up using www.openstreetmap.org"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="clearColor"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="signup_osm_site"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="signupOSMSite" destination="Ez0-RI-stE" eventType="touchUpInside" id="RyJ-Sr-gb2"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="7AG-pG-1YG" secondAttribute="trailing" constant="16" id="3EC-jy-htP"/>
-                            <constraint firstItem="ZXj-re-T4j" firstAttribute="leading" secondItem="PIQ-xR-Wg6" secondAttribute="leading" id="6sc-eM-e7t"/>
-                            <constraint firstItem="o80-wQ-rWg" firstAttribute="centerY" secondItem="9A1-43-fvt" secondAttribute="centerY" id="6tX-14-oBi"/>
-                            <constraint firstAttribute="trailing" secondItem="SHO-xN-yQ5" secondAttribute="trailing" constant="16" id="BzQ-bV-SMQ"/>
-                            <constraint firstItem="9A1-43-fvt" firstAttribute="top" secondItem="7AG-pG-1YG" secondAttribute="bottom" constant="16" id="JBm-iO-lGW"/>
-                            <constraint firstItem="SHO-xN-yQ5" firstAttribute="top" secondItem="4aJ-cU-oON" secondAttribute="bottom" constant="20" id="QfC-PB-jIC"/>
-                            <constraint firstItem="7AG-pG-1YG" firstAttribute="top" secondItem="PIQ-xR-Wg6" secondAttribute="topMargin" constant="40" id="WAd-6r-TbG"/>
-                            <constraint firstItem="RSi-uc-JmJ" firstAttribute="centerY" secondItem="7AG-pG-1YG" secondAttribute="centerY" id="c4g-X9-eL4"/>
-                            <constraint firstItem="4aJ-cU-oON" firstAttribute="leading" secondItem="PIQ-xR-Wg6" secondAttribute="leading" id="fMl-kj-UVD"/>
-                            <constraint firstItem="o80-wQ-rWg" firstAttribute="leading" secondItem="9A1-43-fvt" secondAttribute="leading" constant="16" id="hOl-aM-4BV"/>
-                            <constraint firstAttribute="trailing" secondItem="ZXj-re-T4j" secondAttribute="trailing" id="hgD-0R-rzY"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="ZXj-re-T4j" secondAttribute="bottom" id="i8c-FE-6mA"/>
-                            <constraint firstItem="9A1-43-fvt" firstAttribute="trailing" secondItem="7AG-pG-1YG" secondAttribute="trailing" id="icd-ak-qFi"/>
-                            <constraint firstItem="9A1-43-fvt" firstAttribute="leading" secondItem="7AG-pG-1YG" secondAttribute="leading" id="qq6-29-Deh"/>
-                            <constraint firstItem="SHO-xN-yQ5" firstAttribute="leading" secondItem="PIQ-xR-Wg6" secondAttribute="leading" constant="16" id="rjK-Fk-wdj"/>
-                            <constraint firstItem="RSi-uc-JmJ" firstAttribute="leading" secondItem="7AG-pG-1YG" secondAttribute="leading" constant="16" id="tTo-Nj-Bge"/>
-                            <constraint firstItem="4aJ-cU-oON" firstAttribute="top" secondItem="o80-wQ-rWg" secondAttribute="bottom" constant="40" id="uzt-g6-Uph"/>
-                            <constraint firstItem="7AG-pG-1YG" firstAttribute="leading" secondItem="PIQ-xR-Wg6" secondAttribute="leading" constant="16" id="vzZ-jz-NhL"/>
-                            <constraint firstAttribute="trailing" secondItem="4aJ-cU-oON" secondAttribute="trailing" id="yJw-Bt-mev"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                    <navigationItem key="navigationItem" id="C6C-2o-Zgb">
-                        <barButtonItem key="leftBarButtonItem" image="ic_nav_bar_back" id="rdp-Bp-r7o">
-                            <connections>
-                                <action selector="cancel" destination="Ez0-RI-stE" id="Sff-qi-sbv"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="emailTextField" destination="I07-mq-K3f" id="Nm0-zy-BDp"/>
-                        <outlet property="loginTextField" destination="uyJ-EW-kYD" id="Sql-bq-rIS"/>
-                        <outlet property="passwordTextField" destination="1Rm-2L-kLn" id="zTb-ic-q9q"/>
-                        <outlet property="signupFacebookButton" destination="9A1-43-fvt" id="ceU-ga-ddW"/>
-                        <outlet property="signupGoogleButton" destination="7AG-pG-1YG" id="ehB-45-MZJ"/>
-                        <outlet property="signupOSMButton" destination="SHO-xN-yQ5" id="vxx-c2-Cop"/>
-                        <outlet property="signupOSMSiteButton" destination="ZXj-re-T4j" id="q3v-LS-8T2"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fD2-AS-PNi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1955" y="5187"/>
         </scene>
         <!--Authorization Web View Login View Controller-->
         <scene sceneID="FkX-1E-Llw">
@@ -2725,25 +2446,6 @@ the world. Join us!</string>
             </objects>
             <point key="canvasLocation" x="3443" y="4393"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="1wu-X3-17f">
-            <objects>
-                <navigationController storyboardIdentifier="LoginNavigationController" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="2fX-ws-Tuc" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <value key="contentSizeForViewInPopover" type="size" width="520" height="600"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bSS-tg-Bry">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="iZ6-Zi-bkZ" kind="relationship" relationship="rootViewController" id="XiC-iT-peI"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8Gt-4P-ydf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1143" y="4393"/>
-        </scene>
         <!--Street Editor View Controller-->
         <scene sceneID="hgU-jB-a3C">
             <objects>
@@ -2863,9 +2565,10 @@ the world. Join us!</string>
         <image name="separator_image" width="1" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mF7-g4-gSS"/>
+        <segue reference="Z0Z-aU-Vrq"/>
+        <segue reference="OEF-kR-jKi"/>
+        <segue reference="4Cc-99-mlN"/>
         <segue reference="Pet-Wq-d4a"/>
-        <segue reference="gFM-Ca-ARt"/>
-        <segue reference="urr-1u-jhn"/>
+        <segue reference="nJf-7z-2TX"/>
     </inferredMetricsTieBreakers>
 </document>

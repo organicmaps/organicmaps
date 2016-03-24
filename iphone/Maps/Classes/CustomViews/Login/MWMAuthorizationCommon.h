@@ -19,8 +19,6 @@ BOOL AuthorizationHaveCredentials();
 // Returns empty key and secret if user has not beed authorized.
 osm::TKeySecret AuthorizationGetCredentials();
 
-void AuthorizationSetUserSkip();
-BOOL AuthorizationIsUserSkip();
 void AuthorizationSetNeedCheck(BOOL needCheck);
 BOOL AuthorizationIsNeedCheck();
 NSString * OSMUserName();
