@@ -227,3 +227,5 @@ private:
 };
 
 extern Platform & GetPlatform();
+
+string DebugPrint(Platform::EError err);
