@@ -53,6 +53,7 @@ UNIT_TEST(XMLFeature_Setters)
   feature.SetName("Gorki Park");
   feature.SetName("en", "Gorki Park");
   feature.SetName("ru", "Парк Горького");
+  feature.SetName("int_name", "Gorky Park");
 
   feature.SetHouse("10");
   feature.SetTagValue("opening_hours", "Mo-Fr 08:15-17:30");
@@ -66,6 +67,7 @@ UNIT_TEST(XMLFeature_Setters)
   <tag k="name" v="Gorki Park" />
   <tag k="name:en" v="Gorki Park" />
   <tag k="name:ru" v="Парк Горького" />
+  <tag k="int_name" v="Gorky Park" />
   <tag k="addr:housenumber" v="10" />
   <tag k="opening_hours" v="Mo-Fr 08:15-17:30" />
   <tag k="amenity" v="atm" />
@@ -73,6 +75,40 @@ UNIT_TEST(XMLFeature_Setters)
 )";
 
   TEST_EQUAL(sstr.str(), expectedString, ());
+}
+
+UNIT_TEST(XMLFeature_UintLang)
+{
+  XMLFeature feature(XMLFeature::Type::Node);
+
+  feature.SetCenter(MercatorBounds::FromLatLon(55.79, 37.47));
+  feature.SetModificationTime(my::StringToTimestamp("2015-11-27T21:13:32Z"));
+
+  feature.SetName(StringUtf8Multilang::kDefaultCode, "Gorki Park");
+  feature.SetName(StringUtf8Multilang::GetLangIndex("ru"), "Парк Горького");
+  feature.SetName(StringUtf8Multilang::kInternationalCode, "Gorky Park");
+  stringstream sstr;
+  feature.Save(sstr);
+
+  auto const expectedString = R"(<?xml version="1.0"?>
+<node lat="55.79" lon="37.47" timestamp="2015-11-27T21:13:32Z">
+  <tag k="name" v="Gorki Park" />
+  <tag k="name:ru" v="Парк Горького" />
+  <tag k="int_name" v="Gorky Park" />
+</node>
+)";
+
+  TEST_EQUAL(sstr.str(), expectedString, ());
+
+  XMLFeature f2(expectedString);
+  TEST_EQUAL(f2.GetName(StringUtf8Multilang::kDefaultCode), "Gorki Park", ());
+  TEST_EQUAL(f2.GetName(StringUtf8Multilang::GetLangIndex("ru")), "Парк Горького", ());
+  TEST_EQUAL(f2.GetName(StringUtf8Multilang::kInternationalCode), "Gorky Park", ());
+
+  TEST_EQUAL(f2.GetName(), "Gorki Park", ());
+  TEST_EQUAL(f2.GetName("default"), "Gorki Park", ());
+  TEST_EQUAL(f2.GetName("ru"), "Парк Горького", ());
+  TEST_EQUAL(f2.GetName("int_name"), "Gorky Park", ());
 }
 
 UNIT_TEST(XMLFeature_ToOSMString)
@@ -140,6 +176,7 @@ auto const kTestNode = R"(<?xml version="1.0"?>
   <tag k="name" v="Gorki Park" />
   <tag k="name:en" v="Gorki Park" />
   <tag k="name:ru" v="Парк Горького" />
+  <tag k="int_name" v="Gorky Park" />
   <tag k="addr:housenumber" v="10" />
   <tag k="opening_hours" v="Mo-Fr 08:15-17:30" />
   <tag k="amenity" v="atm" />
@@ -165,6 +202,7 @@ UNIT_TEST(XMLFeature_FromXml)
   TEST_EQUAL(feature.GetName("default"), "Gorki Park", ());
   TEST_EQUAL(feature.GetName("en"), "Gorki Park", ());
   TEST_EQUAL(feature.GetName("ru"), "Парк Горького", ());
+  TEST_EQUAL(feature.GetName("int_name"), "Gorky Park", ());
   TEST_EQUAL(feature.GetName("No such language"), "", ());
 
   TEST_EQUAL(feature.GetTagValue("opening_hours"), "Mo-Fr 08:15-17:30", ());

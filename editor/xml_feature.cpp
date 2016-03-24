@@ -64,6 +64,8 @@ namespace editor
 
 char const * const XMLFeature::kDefaultLang =
     StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode);
+char const * const XMLFeature::kIntlLang =
+    StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kInternationalCode);
 
 XMLFeature::XMLFeature(Type const type)
 {
@@ -228,6 +230,8 @@ XMLFeature::TMercatorGeometry XMLFeature::GetGeometry() const
 
 string XMLFeature::GetName(string const & lang) const
 {
+  if (lang == kIntlLang)
+    return GetTagValue(kIntlName);
   auto const suffix = (lang == kDefaultLang || lang.empty()) ? "" : ":" + lang;
   return GetTagValue(kDefaultName + suffix);
 }
@@ -244,8 +248,13 @@ void XMLFeature::SetName(string const & name)
 
 void XMLFeature::SetName(string const & lang, string const & name)
 {
-  auto const suffix = (lang == kDefaultLang || lang.empty()) ? "" : ":" + lang;
-  SetTagValue(kDefaultName + suffix, name);
+  if (lang == kIntlLang)
+    SetTagValue(kIntlName, name);
+  else
+  {
+    auto const suffix = (lang == kDefaultLang || lang.empty()) ? "" : ":" + lang;
+    SetTagValue(kDefaultName + suffix, name);
+  }
 }
 
 void XMLFeature::SetName(uint8_t const langCode, string const & name)
