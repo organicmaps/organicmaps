@@ -8,7 +8,8 @@ import com.mapswithme.util.Language;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;
 
-public enum SearchEngine implements NativeSearchListener
+public enum SearchEngine implements NativeSearchListener,
+                                    NativeMapSearchListener
 {
   INSTANCE;
 
@@ -45,7 +46,23 @@ public enum SearchEngine implements NativeSearchListener
     });
   }
 
+  @Override
+  public void onMapSearchResults(final NativeMapSearchListener.Result[] results, final long timestamp, final boolean isLast)
+  {
+    UiThread.run(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        for (NativeMapSearchListener listener : mMapListeners)
+          listener.onMapSearchResults(results, timestamp, isLast);
+        mMapListeners.finishIterate();
+      }
+    });
+  }
+
   private final Listeners<NativeSearchListener> mListeners = new Listeners<>();
+  private final Listeners<NativeMapSearchListener> mMapListeners = new Listeners<>();
 
   public void addListener(NativeSearchListener listener)
   {
@@ -55,6 +72,16 @@ public enum SearchEngine implements NativeSearchListener
   public void removeListener(NativeSearchListener listener)
   {
     mListeners.unregister(listener);
+  }
+
+  public void addMapListener(NativeMapSearchListener listener)
+  {
+    mMapListeners.register(listener);
+  }
+
+  public void removeMapListener(NativeMapSearchListener listener)
+  {
+    mMapListeners.unregister(listener);
   }
 
   SearchEngine()
