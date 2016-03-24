@@ -32,7 +32,8 @@ struct CountryIdAndName
 /// It's applicable for expandable and not expandable node id.
 struct NodeAttrs
 {
-  NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_mwmSize(0), m_localMwmSize(0),
+  NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_downloadingMwmCounter(0),
+    m_mwmSize(0), m_localMwmSize(0), m_downloadingMwmSize(0),
     m_downloadingProgress(make_pair(0, 0)),
     m_status(NodeStatus::Undefined), m_error(NodeErrorCode::NoError), m_present(false) {}
 
@@ -44,7 +45,7 @@ struct NodeAttrs
   /// Number of mwms belonging to the node which have been downloaded.
   uint32_t m_localMwmCounter;
 
-  /// Number of leafs belonging which have been downloaded
+  /// Number of leaves of the node which have been downloaded
   /// plus which is in progress of downloading (zero or one)
   /// plus which are staying in queue.
   uint32_t m_downloadingMwmCounter;
@@ -59,10 +60,10 @@ struct NodeAttrs
   /// have been downloaded.
   size_t m_localMwmSize;
 
-  /// Size of leafs belonging which have been downloaded
+  /// Size of leaves of the node which have been downloaded
   /// plus which is in progress of downloading (zero or one)
   /// plus which are staying in queue.
-  /// \note It's which is written in countries.txt.
+  /// \note The size of leaves is the size is written in countries.txt.
   size_t m_downloadingMwmSize;
 
   /// The name of the node in a local language. That means the language dependent on

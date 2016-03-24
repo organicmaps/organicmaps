@@ -1273,11 +1273,21 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
         CalculateProgress(downloadingMwm, subtree, downloadingMwmProgress, setQueue);
   }
 
-  // Local mwm information.
+  // Local mwm information and information about downloading mwms.
   nodeAttrs.m_localMwmCounter = 0;
   nodeAttrs.m_localMwmSize = 0;
+  nodeAttrs.m_downloadingMwmCounter = 0;
+  nodeAttrs.m_downloadingMwmSize = 0;
   node->ForEachInSubtree([this, &nodeAttrs](TCountryTreeNode const & d)
   {
+    // Downloading mwm information.
+    if (nodeAttrs.m_status != NodeStatus::NotDownloaded && d.ChildrenCount() == 0)
+    {
+      nodeAttrs.m_downloadingMwmCounter += 1;
+      nodeAttrs.m_downloadingMwmSize += d.Value().GetSubtreeMwmSizeBytes();
+    }
+
+    // Local mwm information.
     Storage::TLocalFilePtr const localFile =
         GetLatestLocalFile(d.Value().Name());
     if (localFile == nullptr)
