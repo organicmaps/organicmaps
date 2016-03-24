@@ -136,6 +136,11 @@ public final class MapManager
   public static native boolean nativeIsLegacyMode();
 
   /**
+   * Quickly determines if the migration is needed. In the most cases you should use {@link #nativeIsLegacyMode()} instead.
+   */
+  public static native boolean nativeNeedMigrate();
+
+  /**
    * Performs migration from old (large MWMs) mode.
    * @return {@code true} if prefetch was started. {@code false} if maps were queued to downloader and migration process is complete.
    *         In this case {@link MigrationListener#onComplete()} will be called before return from {@code nativeMigrate()}.

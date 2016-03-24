@@ -3,10 +3,11 @@ package com.mapswithme.maps.background;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
-import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.ConnectionState;
+
+import static com.mapswithme.maps.MwmApplication.prefs;
 
 public class ConnectivityChangedReceiver extends BroadcastReceiver
 {
@@ -16,18 +17,17 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
-    if (ConnectionState.isWifiConnected())
-      onWiFiConnected(context);
-  }
+    if (!ConnectionState.isWifiConnected() || MapManager.nativeNeedMigrate())
+      return;
 
-  public void onWiFiConnected(Context context)
-  {
-    final SharedPreferences prefs = MwmApplication.prefs();
-    final long lastEventTimestamp = prefs.getLong(DOWNLOAD_UPDATE_TIMESTAMP, 0);
+    final long lastEventTimestamp = prefs().getLong(DOWNLOAD_UPDATE_TIMESTAMP, 0);
 
     if (System.currentTimeMillis() - lastEventTimestamp > MIN_EVENT_DELTA_MILLIS)
     {
-      prefs.edit().putLong(DOWNLOAD_UPDATE_TIMESTAMP, System.currentTimeMillis()).apply();
+      prefs().edit()
+             .putLong(DOWNLOAD_UPDATE_TIMESTAMP, System.currentTimeMillis())
+             .apply();
+
       WorkerService.startActionDownload(context);
       WorkerService.startActionCheckUpdate(context);
     }

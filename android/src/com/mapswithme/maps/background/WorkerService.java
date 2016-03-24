@@ -91,7 +91,7 @@ public class WorkerService extends IntentService
   }
   private static void handleActionCheckUpdate()
   {
-    if (!Framework.nativeIsDataVersionChanged() || MapManager.nativeIsLegacyMode())
+    if (!Framework.nativeIsDataVersionChanged())
       return;
 
     final String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
@@ -103,9 +103,6 @@ public class WorkerService extends IntentService
 
   private void handleActionCheckLocation()
   {
-    if (MapManager.nativeIsLegacyMode())
-      return;
-
     final long delayMillis = 60000; // 60 seconds
     boolean isLocationValid = processLocation();
     if (!isLocationValid)
@@ -122,7 +119,7 @@ public class WorkerService extends IntentService
     }
   }
 
-  private void handleActionUploadOsmChanges()
+  private static void handleActionUploadOsmChanges()
   {
     Editor.uploadChanges();
   }

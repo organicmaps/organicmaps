@@ -8,6 +8,7 @@
 
 #include "base/thread_checker.hpp"
 
+#include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 
 #include "std/bind.hpp"
@@ -92,6 +93,13 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeIsLegacyMode(JNIEnv * env, jclass clazz)
 {
   return !version::IsSingleMwm(GetStorage().GetCurrentDataVersion());
+}
+
+// static native boolean nativeNeedMigrate();
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeNeedMigrate(JNIEnv * env, jclass clazz)
+{
+  return platform::migrate::NeedMigrate();
 }
 
 static void FinishMigration(JNIEnv * env)
