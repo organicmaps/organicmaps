@@ -5,6 +5,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
@@ -155,31 +156,33 @@ UserPreferences ServerApi06::GetUserPreferences() const
   return pref;
 }
 
-OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(m2::RectD const & latLonRect) const
+OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(double minLat, double minLon, double maxLat, double maxLon) const
 {
   using strings::to_string_dac;
 
   // Digits After Comma.
   static constexpr double kDAC = 7;
-  m2::PointD const lb = latLonRect.LeftBottom();
-  m2::PointD const rt = latLonRect.RightTop();
-  string const url = "/map?bbox=" + to_string_dac(lb.x, kDAC) + ',' + to_string_dac(lb.y, kDAC) + ',' +
-      to_string_dac(rt.x, kDAC) + ',' + to_string_dac(rt.y, kDAC);
+  string const url = "/map?bbox=" + to_string_dac(minLon, kDAC) + ',' + to_string_dac(minLat, kDAC) + ',' +
+      to_string_dac(maxLon, kDAC) + ',' + to_string_dac(maxLat, kDAC);
 
   return m_auth.DirectRequest(url);
 }
 
-OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon) const
+OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon, double radiusInMeters) const
 {
-  double const kInflateEpsilon = MercatorBounds::GetCellID2PointAbsEpsilon() / 2;
-  m2::RectD rect(lon, lat, lon, lat);
-  rect.Inflate(kInflateEpsilon, kInflateEpsilon);
-  return GetXmlFeaturesInRect(rect);
+  double const latDegreeOffset = radiusInMeters * MercatorBounds::degreeInMetres;
+  double const minLat = max(-90.0, lat - latDegreeOffset);
+  double const maxLat = min( 90.0, lat + latDegreeOffset);
+  double const cosL = max(cos(my::DegToRad(max(fabs(minLat), fabs(maxLat)))), 0.00001);
+  double const lonDegreeOffset = radiusInMeters * MercatorBounds::degreeInMetres / cosL;
+  double const minLon = max(-180.0, lon - lonDegreeOffset);
+  double const maxLon = min( 180.0, lon + lonDegreeOffset);
+  return GetXmlFeaturesInRect(minLat, minLon, maxLat, maxLon);
 }
 
-OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(ms::LatLon const & ll) const
+OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(ms::LatLon const & ll, double radiusInMeters) const
 {
-  return GetXmlFeaturesAtLatLon(ll.lat, ll.lon);
+  return GetXmlFeaturesAtLatLon(ll.lat, ll.lon, radiusInMeters);
 }
 
 } // namespace osm

@@ -53,8 +53,8 @@ public:
 private:
   /// Unfortunately, pugi can't return xml_documents from methods.
   /// Throws exceptions from above list.
-  void LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc);
-  void LoadXmlFromOSM(m2::RectD const & rect, pugi::xml_document & doc);
+  void LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc, double radiusInMeters = 1.0);
+  void LoadXmlFromOSM(ms::LatLon const & min, ms::LatLon const & max, pugi::xml_document & doc);
 
   ServerApi06::TKeyValueTags m_changesetComments;
   ServerApi06 m_api;
