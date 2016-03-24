@@ -732,6 +732,7 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
   place_page::Info info;
   FillBookmarkInfo(*mark, bnc, info);
   ActivateMapSelection(true, df::SelectionShape::OBJECT_USER_MARK, info);
+  m_lastTapEvent.reset(new df::TapInfo { m_currentModelView.GtoP(info.GetMercator()), false, false, info.GetID() });
 }
 
 void Framework::ShowTrack(Track const & track)
@@ -1289,6 +1290,7 @@ void Framework::ShowSearchResult(search::Result const & res)
 
   UserMarkContainer::UserMarkForPoi()->SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
+  m_lastTapEvent.reset(new df::TapInfo { m_currentModelView.GtoP(center), false, false, info.GetID() });
 }
 
 size_t Framework::ShowSearchResults(search::Results const & results)
@@ -1701,6 +1703,7 @@ bool Framework::ShowMapForURL(string const & url)
         FillPointInfo(point, name, info);
         ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
       }
+      m_lastTapEvent.reset(new df::TapInfo{ m_currentModelView.GtoP(info.GetMercator()), false, false, info.GetID() });
     }
 
     return true;
