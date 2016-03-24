@@ -59,6 +59,11 @@ extern NSString * const kLargeCountryCellIdentifier;
   return @(GetFramework().Storage().GetRootId().c_str());
 }
 
+- (BOOL)isParentRoot
+{
+  return NO;
+}
+
 - (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath
 {
   return self.searchCountryIds[indexPath.row];

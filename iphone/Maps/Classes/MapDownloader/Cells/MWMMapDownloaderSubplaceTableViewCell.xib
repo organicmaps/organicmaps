@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1KI-85-wsU" id="mRF-11-OKU">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="81.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yb5-r1-Z2X">
@@ -33,7 +33,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="760" text="London" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Db-Yq-FlD">
-                        <rect key="frame" x="60" y="32" width="195" height="20"/>
+                        <rect key="frame" x="60" y="33" width="195" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="20" id="CiU-uC-JVj"/>
                         </constraints>
@@ -46,7 +46,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UK" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fev-4l-MY3">
-                        <rect key="frame" x="60" y="56" width="199" height="14"/>
+                        <rect key="frame" x="60" y="57" width="199" height="14"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -73,8 +73,9 @@
                     <constraint firstItem="Yb5-r1-Z2X" firstAttribute="leading" secondItem="mRF-11-OKU" secondAttribute="leading" constant="12" id="GGp-H1-htH"/>
                     <constraint firstItem="rqh-iy-Sx9" firstAttribute="leading" secondItem="x7m-Zm-8y6" secondAttribute="trailing" constant="4" id="GsC-fa-5kk"/>
                     <constraint firstItem="rqh-iy-Sx9" firstAttribute="leading" secondItem="3Db-Yq-FlD" secondAttribute="trailing" constant="8" id="I7Q-yY-JMS"/>
-                    <constraint firstAttribute="bottom" secondItem="fev-4l-MY3" secondAttribute="bottom" constant="11.5" id="Rnj-5e-Hfy"/>
+                    <constraint firstAttribute="bottom" secondItem="fev-4l-MY3" secondAttribute="bottom" priority="500" constant="12" id="Rnj-5e-Hfy"/>
                     <constraint firstItem="fev-4l-MY3" firstAttribute="leading" secondItem="3Db-Yq-FlD" secondAttribute="leading" id="Yk6-jH-hKS"/>
+                    <constraint firstAttribute="bottom" secondItem="3Db-Yq-FlD" secondAttribute="bottom" priority="250" constant="12" id="Zic-It-hOL"/>
                     <constraint firstAttribute="trailing" secondItem="rqh-iy-Sx9" secondAttribute="trailing" constant="16" id="dil-Rw-64e"/>
                     <constraint firstItem="Yb5-r1-Z2X" firstAttribute="centerY" secondItem="mRF-11-OKU" secondAttribute="centerY" id="g72-Dp-9Ky"/>
                     <constraint firstItem="rqh-iy-Sx9" firstAttribute="leading" secondItem="fev-4l-MY3" secondAttribute="trailing" constant="4" id="oqd-UU-h0T"/>
@@ -93,6 +94,7 @@
                 <outlet property="stateWrapper" destination="Yb5-r1-Z2X" id="eb8-Ut-gh5"/>
                 <outlet property="subPlace" destination="x7m-Zm-8y6" id="63W-Bc-FdX"/>
                 <outlet property="title" destination="3Db-Yq-FlD" id="JdN-yn-xLw"/>
+                <outlet property="titleBottomOffset" destination="Zic-It-hOL" id="1gW-IS-6Fc"/>
             </connections>
             <point key="canvasLocation" x="282" y="403"/>
         </tableViewCell>
