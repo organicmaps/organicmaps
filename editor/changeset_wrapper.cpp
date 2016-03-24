@@ -275,7 +275,7 @@ string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount)
        });
 
   ostringstream ss;
-  auto const limit = min(3UL, items.size());
+  auto const limit = min(size_t(3), items.size());
   for (auto i = 0; i < limit; ++i)
   {
     if (i > 0)
