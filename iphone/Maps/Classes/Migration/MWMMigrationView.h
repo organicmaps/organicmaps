@@ -11,6 +11,7 @@ enum class MWMMigrationViewState
 @interface MWMMigrationView : UIView
 
 @property (nonatomic) MWMMigrationViewState state;
+@property (copy, nonatomic) NSString * nodeLocalName;
 @property (weak, nonatomic) id<MWMCircularProgressProtocol> delegate;
 
 - (void)setProgress:(CGFloat)progress;

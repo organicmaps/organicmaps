@@ -118,7 +118,7 @@
       break;
     case MWMMigrationViewState::Processing:
       self.info.hidden = NO;
-      self.info.text = L(@"migration_prefetch_status");
+      self.info.text = [NSString stringWithFormat:@"%@ %@", L(@"downloader_downloading"), self.nodeLocalName];
       [self startSpinner];
       self.primaryButton.enabled = NO;
       self.primaryButton.hidden = YES;
