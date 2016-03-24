@@ -31,6 +31,14 @@ struct TileKey
   uint64_t m_generation;
 };
 
+struct TileKeyStrictComparator
+{
+  bool operator() (TileKey const & lhs, TileKey const & rhs) const
+  {
+    return lhs.LessStrict(rhs);
+  }
+};
+
 string DebugPrint(TileKey const & key);
 
 } // namespace df

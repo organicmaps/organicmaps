@@ -271,6 +271,7 @@ private:
   TTapEventInfoFn m_tapEventInfoFn;
   TUserPositionChangedFn m_userPositionChangedFn;
 
+  ScreenBase m_lastReadedModelView;
   TTilesCollection m_notFinishedTiles;
 
   int m_currentZoomLevel = -1;
