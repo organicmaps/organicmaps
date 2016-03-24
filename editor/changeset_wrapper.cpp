@@ -29,7 +29,11 @@ m2::RectD GetBoundingRect(vector<m2::PointD> const & geometry)
   return rect;
 }
 
-bool OsmFeatureHasTags(pugi::xml_node const & osmFt) { return osmFt.child("tag"); }
+bool OsmFeatureHasTags(pugi::xml_node const & osmFt)
+{
+  return osmFt.child("tag");
+}
+
 vector<string> const static kMainTags = {"amenity", "shop",      "tourism", "historic",
                                          "craft",   "emergency", "barrier", "highway",
                                          "office",  "entrance",  "building"};
@@ -40,7 +44,7 @@ string GetTypeForFeature(XMLFeature const & node)
   {
     if (node.HasTag(key))
     {
-      string value = node.GetTagValue(key);
+      string const value = node.GetTagValue(key);
       if (value == "yes")
         return key;
       else if (key == "shop" || key == "office" || key == "building" || key == "entrance")
@@ -51,12 +55,7 @@ string GetTypeForFeature(XMLFeature const & node)
   }
 
   // Did not find any known tags.
-  bool foundTags = false;
-  node.ForEachTag([&foundTags](string const & k, string const & v)
-                  {
-                    foundTags = true;
-                  });
-  return foundTags ? "unknown object" : "empty object";
+  return node.HasAnyTags() ? "unknown object" : "empty object";
 }
 
 vector<m2::PointD> NaiveSample(vector<m2::PointD> const & source, size_t count)
@@ -275,7 +274,7 @@ string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount) const
        });
 
   ostringstream ss;
-  auto limit = items.size() > 3 ? 3 : items.size();
+  auto const limit = items.size() > 3 ? 3 : items.size();
   for (auto i = 0; i < limit; ++i)
   {
     if (i > 0)
