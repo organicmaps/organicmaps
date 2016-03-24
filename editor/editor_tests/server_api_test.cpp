@@ -47,7 +47,7 @@ ServerApi06 CreateAPI()
 void DeleteOSMNodeIfExists(ServerApi06 const & api, uint64_t changeSetId, ms::LatLon const & ll)
 {
   // Delete all test nodes left on the server (if any).
-  auto const response = api.GetXmlFeaturesAtLatLon(ll);
+  auto const response = api.GetXmlFeaturesAtLatLon(ll, 1.0);
   TEST_EQUAL(response.first, OsmOAuth::HTTP::OK, ());
   xml_document reply;
   reply.load_string(response.second.c_str());
@@ -72,6 +72,7 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
   uint64_t changeSetId = api.CreateChangeSet({{"created_by", "MAPS.ME Unit Test"},
                                               {"comment", "For test purposes only."}});
   auto const changesetCloser = [&]() { api.CloseChangeSet(changeSetId); };
+
   {
     MY_SCOPE_GUARD(guard, changesetCloser);
 
@@ -99,7 +100,7 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
     // It is done here via Scope Guard.
   }
 
-  auto const response = api.GetXmlFeaturesAtLatLon(kModifiedLocation);
+  auto const response = api.GetXmlFeaturesAtLatLon(kModifiedLocation, 1.0);
   TEST_EQUAL(response.first, OsmOAuth::HTTP::OK, ());
   auto const features = XMLFeature::FromOSM(response.second);
   TEST_EQUAL(1, features.size(), ());

@@ -93,9 +93,9 @@ ChangesetWrapper::~ChangesetWrapper()
   }
 }
 
-void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc)
+void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc, double radiusInMeters)
 {
-  auto const response = m_api.GetXmlFeaturesAtLatLon(ll.lat, ll.lon);
+  auto const response = m_api.GetXmlFeaturesAtLatLon(ll.lat, ll.lon, radiusInMeters);
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesAtLatLon", ll));
 
@@ -103,11 +103,11 @@ void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document 
     MYTHROW(OsmXmlParseException, ("Can't parse OSM server response for GetXmlFeaturesAtLatLon request", response.second));
 }
 
-void ChangesetWrapper::LoadXmlFromOSM(m2::RectD const & rect, pugi::xml_document & doc)
+void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & min, ms::LatLon const & max, pugi::xml_document & doc)
 {
-  auto const response = m_api.GetXmlFeaturesInRect(rect);
+  auto const response = m_api.GetXmlFeaturesInRect(min.lat, min.lon, max.lat, max.lon);
   if (response.first != OsmOAuth::HTTP::OK)
-    MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesInRect", rect));
+    MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesInRect", min, max));
 
   if (pugi::status_ok != doc.load(response.second.c_str()).status)
     MYTHROW(OsmXmlParseException, ("Can't parse OSM server response for GetXmlFeaturesInRect request", response.second));
@@ -154,7 +154,7 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
     if (doc.select_node("osm/relation"))
     {
       auto const rect = GetBoundingRect(geometry);
-      LoadXmlFromOSM(rect, doc);
+      LoadXmlFromOSM(ms::LatLon(rect.minY(), rect.minX()), ms::LatLon(rect.maxY(), rect.maxX()), doc);
       hasRelation = true;
     }
 
