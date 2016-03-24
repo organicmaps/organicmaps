@@ -287,7 +287,7 @@ double Street::GetPrefixLength(size_t numSegs) const
 void Street::SetName(string const & name)
 {
   m_name = name;
-  GetStreetNameAsKey(name, m_processedName);
+  m_processedName = strings::ToUtf8(GetStreetNameAsKey(name));
 }
 
 namespace

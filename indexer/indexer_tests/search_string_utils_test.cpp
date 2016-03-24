@@ -4,9 +4,12 @@
 
 #include "base/string_utils.hpp"
 
+using namespace search;
+using namespace strings;
+
 UNIT_TEST(FeatureTypeToString)
 {
-  TEST_EQUAL("!type:123", strings::ToUtf8(search::FeatureTypeToString(123)), ());
+  TEST_EQUAL("!type:123", ToUtf8(FeatureTypeToString(123)), ());
 }
 
 UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
@@ -37,18 +40,37 @@ UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
                        };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
-    TEST_EQUAL(arr[i + 1], strings::ToUtf8(search::NormalizeAndSimplifyString(arr[i])), (i));
+    TEST_EQUAL(arr[i + 1], ToUtf8(NormalizeAndSimplifyString(arr[i])), (i));
 }
 
 UNIT_TEST(Contains)
 {
   constexpr char const * kTestStr = "ØøÆæŒœ Ўвага!";
-  TEST(search::ContainsNormalized(kTestStr, ""), ());
-  TEST(!search::ContainsNormalized("", "z"), ());
-  TEST(search::ContainsNormalized(kTestStr, "ooae"), ());
-  TEST(search::ContainsNormalized(kTestStr, " у"), ());
-  TEST(search::ContainsNormalized(kTestStr, "Ў"), ());
-  TEST(search::ContainsNormalized(kTestStr, "ўв"), ());
-  TEST(!search::ContainsNormalized(kTestStr, "ага! "), ());
-  TEST(!search::ContainsNormalized(kTestStr, "z"), ());
+  TEST(ContainsNormalized(kTestStr, ""), ());
+  TEST(!ContainsNormalized("", "z"), ());
+  TEST(ContainsNormalized(kTestStr, "ooae"), ());
+  TEST(ContainsNormalized(kTestStr, " у"), ());
+  TEST(ContainsNormalized(kTestStr, "Ў"), ());
+  TEST(ContainsNormalized(kTestStr, "ўв"), ());
+  TEST(!ContainsNormalized(kTestStr, "ага! "), ());
+  TEST(!ContainsNormalized(kTestStr, "z"), ());
+}
+
+namespace
+{
+bool TestPrefixMatch(char const * s)
+{
+  return IsStreetSynonymPrefix(MakeUniString(s));
+}
+} // namespace
+
+UNIT_TEST(StreetPrefixMatch)
+{
+  TEST(TestPrefixMatch("п"), ());
+  TEST(TestPrefixMatch("пр"), ());
+  TEST(TestPrefixMatch("про"), ());
+  TEST(TestPrefixMatch("прое"), ());
+  TEST(TestPrefixMatch("проез"), ());
+  TEST(TestPrefixMatch("проезд"), ());
+  TEST(!TestPrefixMatch("проездд"), ());
 }

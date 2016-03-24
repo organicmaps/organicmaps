@@ -998,7 +998,7 @@ void Geocoder::GreedilyMatchStreets()
     for (; curToken < m_numTokens && !m_usedTokens[curToken]; ++curToken)
     {
       auto const & token = m_params.GetTokens(curToken).front();
-      if (IsStreetSynonym(token))
+      if (IsStreetSynonymPrefix(token))
         continue;
 
       if (feature::IsHouseNumber(token))

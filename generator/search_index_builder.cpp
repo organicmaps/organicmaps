@@ -334,8 +334,7 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
 
       size_t streetIndex;
       bool streetMatched = false;
-      string street;
-      search::GetStreetNameAsKey(data.Get(feature::AddressData::STREET), street);
+      strings::UniString const street = search::GetStreetNameAsKey(data.Get(feature::AddressData::STREET));
       if (!street.empty())
       {
         FeatureType ft;
