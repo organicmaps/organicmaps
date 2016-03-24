@@ -33,7 +33,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 
 + (instancetype)alert
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMRateAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kRateAlertNibName owner:self options:nil] firstObject];
   [alert configureButtons];
   return alert;
@@ -112,7 +112,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 
 - (IBAction)doneTap
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
   [Alohalytics logEvent:kRateAlertEventName withValue:@"notNowTap"];
   [self close];
 }
@@ -120,7 +120,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 - (IBAction)rateTap
 {
   NSUInteger const tag = self.selectedTag;
-  [[Statistics instance] logEvent:kStatEventName(kStatisticsEvent, kStatRate)
+  [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatRate)
                    withParameters:@{kStatValue : @(tag).stringValue}];
   if (tag == 5)
   {
@@ -144,7 +144,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 
 - (void)sendFeedback
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatisticsEvent, kStatSendEmail)];
+  [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatSendEmail)];
   [Alohalytics logEvent:kRateAlertEventName withValue:@"sendFeedback"];
   self.alpha = 0.;
   self.alertController.view.alpha = 0.;
@@ -196,7 +196,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 {
   [self.alertController.ownerViewController dismissViewControllerAnimated:YES completion:^
    {
-     [[Statistics instance] logEvent:kStatEventName(kStatisticsEvent, kStatClose)];
+     [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatClose)];
      [self close];
    }];
 }

@@ -97,7 +97,7 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
     statValue = [NSString stringWithFormat:@"%@ hour(s)", @(tracker.GetDuration().count())];
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
-  [[Statistics instance] logEvent:kStatChangeRecentTrack
+  [Statistics logEvent:kStatChangeRecentTrack
                    withParameters:@{kStatValue : statValue}];
 }
 

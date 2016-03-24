@@ -24,7 +24,7 @@
 
 - (IBAction)buttonTap
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, self.isReport ? kStatReport : kStatEdit)];
+  [Statistics logEvent:kStatEventName(kStatPlacePage, self.isReport ? kStatReport : kStatEdit)];
   if (self.isReport)
     [self.placePage reportProblem];
   else

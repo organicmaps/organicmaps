@@ -145,11 +145,11 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
       switch (btn.tag)
       {
       case MWMSearchTabbedViewCellHistory:
-        [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatSelectTab)
+        [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectTab)
                          withParameters:@{kStatValue : kStatHistory}];
         break;
       case MWMSearchTabbedViewCellCategories:
-        [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatSelectTab)
+        [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectTab)
                          withParameters:@{kStatValue : kStatCategories}];
         break;
       default:

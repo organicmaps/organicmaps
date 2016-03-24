@@ -84,7 +84,7 @@ static NSString * const DEFAULT_LANG = @"en-US";
 
 - (void)setNotificationsLocale:(NSString *)locale
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
+  [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
                    withParameters:@{kStatValue : locale}];
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];

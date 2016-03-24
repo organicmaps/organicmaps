@@ -60,7 +60,7 @@ using namespace storage;
   NSDictionary * userInfo = [notification userInfo];
   if ([userInfo[kDownloadMapActionKey] isEqualToString:kDownloadMapActionName])
   {
-    [[Statistics instance] logEvent:@"'Download Map' Notification Clicked"];
+    [Statistics logEvent:@"'Download Map' Notification Clicked"];
     MapViewController * mapViewController = [MapsAppDelegate theApp].mapViewController;
     [mapViewController.navigationController popToRootViewControllerAnimated:NO];
 
@@ -194,7 +194,7 @@ using namespace storage;
       }
     }
   }
-  [[Statistics instance] logEvent:flurryEventName withParameters:@{ @"WiFi" : @(onWiFi) }];
+  [Statistics logEvent:flurryEventName withParameters:@{ @"WiFi" : @(onWiFi) }];
   [self performCompletionHandler:result];
 }
 

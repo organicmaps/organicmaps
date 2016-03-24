@@ -93,7 +93,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)viewDidLoad
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatEdit, kStatOpen)];
+  [Statistics logEvent:kStatEventName(kStatEdit, kStatOpen)];
   [super viewDidLoad];
   [self configTable];
   [self configNavBar];
@@ -156,18 +156,23 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (void)onSave
 {
   auto & f = GetFramework();
+  auto const & featureID = m_mapObject.GetID();
+  NSDictionary * info = @{kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
+                          kStatEditorMWMVersion : @(featureID.GetMwmVersion())};
+
   switch (f.SaveEditedMapObject(m_mapObject))
   {
-    case osm::Editor::NothingWasChanged:
+    case osm::Editor::NothingWasChanged: 
       [self.navigationController popToRootViewControllerAnimated:YES];
       break;
     case osm::Editor::SavedSuccessfully:
-      [[Statistics instance] logEvent:kStatEventName(kStatEdit, kStatSave)];
+      [Statistics logEvent:(self.isCreating ? kStatEditorAddSuccess : kStatEditorEditSuccess) withParameters:info];
       osm_auth_ios::AuthorizationSetNeedCheck(YES);
       f.UpdatePlacePageInfoForCurrentSelection();
       [self.navigationController popToRootViewControllerAnimated:YES];
       break;
     case osm::Editor::NoFreeSpaceError:
+      [Statistics logEvent:(self.isCreating ? kStatEditorAddError : kStatEditorEditError) withParameters:info];
       [self.alertController presentDownloaderNotEnoughSpaceAlert];
       break;
   }

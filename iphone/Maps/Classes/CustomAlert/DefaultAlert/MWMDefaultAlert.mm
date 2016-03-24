@@ -314,7 +314,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                       leftButtonTitle:(nullable NSString *)leftButtonTitle
                     rightButtonAction:(nullable TMWMVoidBlock)action
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMDefaultAlert * alert = [
       [[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
   alert.titleLabel.localizedText = title;
@@ -342,7 +342,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 - (IBAction)rightButtonTap
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   if (self.rightButtonAction)
     self.rightButtonAction();
   [self close];
@@ -350,7 +350,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 - (IBAction)leftButtonTap
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
   if (self.leftButtonAction)
     self.leftButtonAction();
   [self close];

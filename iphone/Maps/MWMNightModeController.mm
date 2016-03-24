@@ -86,7 +86,7 @@
     statValue = kStatValue;
   }
 
-  [[Statistics instance] logEvent:kStatNightMode
+  [Statistics logEvent:kStatNightMode
                    withParameters:@{kStatValue : statValue}];
 }
 

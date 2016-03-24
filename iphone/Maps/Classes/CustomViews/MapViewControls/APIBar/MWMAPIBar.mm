@@ -52,7 +52,7 @@ static NSString * const kKeyPath = @"subviews";
 
 - (IBAction)back
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatAPI, kStatBack)];
+  [Statistics logEvent:kStatEventName(kStatAPI, kStatBack)];
   Framework & f = GetFramework();
   f.DeactivateMapSelection(true);
   UserMarkControllerGuard guard(f.GetBookmarkManager(), UserMarkType::API_MARK);

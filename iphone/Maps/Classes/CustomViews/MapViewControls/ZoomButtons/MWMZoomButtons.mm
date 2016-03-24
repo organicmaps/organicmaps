@@ -52,14 +52,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)zoomIn
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatZoom, kStatIn)];
+  [Statistics logEvent:kStatEventName(kStatZoom, kStatIn)];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"+"];
   GetFramework().Scale(Framework::SCALE_MAG, true);
 }
 
 - (void)zoomOut
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatZoom, kStatOut)];
+  [Statistics logEvent:kStatEventName(kStatZoom, kStatOut)];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
   GetFramework().Scale(Framework::SCALE_MIN, true);
 }

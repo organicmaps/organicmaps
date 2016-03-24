@@ -100,7 +100,7 @@ void InitLocalizedStrings()
 void InitCrashTrackers()
 {
 #ifdef OMIM_PRODUCTION
-  if (![[Statistics instance] isStatisticsEnabled])
+  if (![Statistics isStatisticsEnabled])
     return;
 
   NSString * hockeyKey = @(HOCKEY_APP_KEY);
@@ -186,7 +186,7 @@ using namespace osm_auth_ios;
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatPushReceived) withParameters:userInfo];
+  [Statistics logEvent:kStatEventName(kStatApplication, kStatPushReceived) withParameters:userInfo];
   if (![self handleURLPush:userInfo])
     [PFPush handlePush:userInfo];
   completionHandler(UIBackgroundFetchResultNoData);
@@ -216,7 +216,7 @@ using namespace osm_auth_ios;
   {
     if (f.ShowMapForURL([m_geoURL UTF8String]))
     {
-      [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatImport)
+      [Statistics logEvent:kStatEventName(kStatApplication, kStatImport)
                        withParameters:@{kStatValue : m_scheme}];
       [self showMap];
     }
@@ -237,7 +237,7 @@ using namespace osm_auth_ios;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
     [self showLoadFileAlertIsSuccessful:YES];
-    [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatImport)
+    [Statistics logEvent:kStatEventName(kStatApplication, kStatImport)
                      withParameters:@{kStatValue : kStatKML}];
   }
   else
@@ -617,7 +617,7 @@ using namespace osm_auth_ios;
   }
   if (!connectionType)
     connectionType = @"Offline";
-  [statistics logEvent:kStatDeviceInfo
+  [Statistics logEvent:kStatDeviceInfo
         withParameters:
             @{kStatCountry : [AppInfo sharedInfo].countryCode, kStatConnection : connectionType}];
 

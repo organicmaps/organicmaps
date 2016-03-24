@@ -66,7 +66,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * itemId = self.items[indexPath.section][@"Items"][indexPath.row][@"Id"];
-  [[Statistics instance] logEvent:kStatEventName(kStatSocial, kStatToggleCompassCalibration)
+  [Statistics logEvent:kStatEventName(kStatSocial, kStatToggleCompassCalibration)
                    withParameters:@{kStatValue : itemId}];
   if ([itemId isEqualToString:@"Facebook"])
   {

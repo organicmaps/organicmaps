@@ -56,7 +56,7 @@ NSString * httpGe0Url(NSString * shortUrl)
          itemForActivityType:(NSString *)activityType
 {
   NSString * event = @"MWMShareLocationActivityItem:activityViewController:itemForActivityType:";
-  [[Statistics instance] logEvent:kStatEventName(kStatShare, kStatLocation) withParameters:@{kStatAction : activityType}];
+  [Statistics logEvent:kStatEventName(kStatShare, kStatLocation) withParameters:@{kStatAction : activityType}];
   [Alohalytics logEvent:event withValue:activityType];
   if ([UIActivityTypeMessage isEqualToString:activityType])
     return [self itemForMessageApp];

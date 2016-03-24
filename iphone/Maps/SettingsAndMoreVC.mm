@@ -158,7 +158,7 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)settings
 {
-  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatSettings}];
+  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatSettings}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsMiles"];
   SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[SettingsViewController className]];
   [self.navigationController pushViewController:vc animated:YES];
@@ -166,7 +166,7 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)authorization
 {
-  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAuthorization}];
+  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAuthorization}];
   UINavigationController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:@"LoginNavigationController"];
   MWMAuthorizationLoginViewController * authVC = (MWMAuthorizationLoginViewController *)[vc topViewController];
   authVC.isCalledFromSettings = YES;
@@ -175,7 +175,7 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)community
 {
-  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatSocial}];
+  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatSocial}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"community"];
   CommunityVC * vc = [[CommunityVC alloc] initWithStyle:UITableViewStyleGrouped];
   [self.navigationController pushViewController:vc animated:YES];
@@ -183,7 +183,7 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)help
 {
-  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatHelp}];
+  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatHelp}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"help"];
   NSString * path = [[NSBundle mainBundle] pathForResource:@"faq" ofType:@"html"];
   NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -194,7 +194,7 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)about
 {
-  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAbout}];
+  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAbout}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"about"];
   RichTextVC * vc = [[RichTextVC alloc] initWithText:L(@"about_text")];
   vc.title = L(@"about_menu_title");
@@ -203,7 +203,7 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)copyright
 {
-  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatCopyright}];
+  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatCopyright}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"copyright"];
   string s; GetPlatform().GetReader("copyright.html")->ReadAsString(s);
   NSString * str = [NSString stringWithFormat:@"Version: %@ \n", [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
@@ -215,14 +215,14 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)rateApp
 {
-  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatRate}];
+  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatRate}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"rate"];
   [[UIApplication sharedApplication] rateVersionFrom:@"rate_menu_item"];
 }
 
 - (void)reportBug
 {
-  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatReport}];
+  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatReport}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"reportABug"];
   struct utsname systemInfo;
   uname(&systemInfo);

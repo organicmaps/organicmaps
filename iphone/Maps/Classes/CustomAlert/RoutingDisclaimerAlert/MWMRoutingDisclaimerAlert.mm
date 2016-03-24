@@ -19,7 +19,7 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 + (instancetype)alertWithInitialOrientation:(UIInterfaceOrientation)orientation
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMRoutingDisclaimerAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMRoutingDisclaimerAlert className]
                                                                      owner:nil
                                                                    options:nil] firstObject];
@@ -46,7 +46,7 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 - (IBAction)okTap
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   [self close];
 }
 

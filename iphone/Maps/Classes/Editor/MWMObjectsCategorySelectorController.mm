@@ -1,12 +1,16 @@
+#import "MWMAuthorizationCommon.h"
 #import "MWMEditorViewController.h"
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMTableViewCell.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"
 
 #include "indexer/search_string_utils.hpp"
+
+#include "platform/platform.hpp"
 
 using namespace osm;
 
@@ -152,6 +156,13 @@ namespace
   dest.isCreating = YES;
   auto const object = self.createdObject;
   [dest setEditableMapObject:object];
+
+  using namespace osm_auth_ios;
+  auto const & featureID = object.GetID();
+  [Statistics logEvent:kStatEditorAddStart withParameters:@{kStatEditorIsAuthenticated : @(AuthorizationHaveCredentials()),
+                                                            kStatIsOnline : Platform::IsConnected() ? kStatYes : kStatNo,
+                                                            kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
+                                                            kStatEditorMWMVersion : @(featureID.GetMwmVersion())}];
 }
 
 #pragma mark - Create object

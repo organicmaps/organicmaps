@@ -63,7 +63,7 @@ using namespace osm_auth_ios;
 
 - (void)viewDidLoad
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatOpen)];
+  [Statistics logEvent:kStatEventName(kStatAuthorization, kStatOpen)];
   [super viewDidLoad];
   self.backgroundImage.image = [UIImage imageWithColor:[UIColor primary]];
   [self checkConnection];
@@ -218,36 +218,40 @@ using namespace osm_auth_ios;
 
 - (IBAction)loginGoogle
 {
+  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatGoogle}];
   [self performOnlineAction:^
   {
-    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatGoogle)];
+    [Statistics logEvent:kStatEventName(kStatAuthorization, kStatGoogle)];
     [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginGoogleButton];
   }];
 }
 
 - (IBAction)loginFacebook
 {
+  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatFacebook}];
   [self performOnlineAction:^
   {
-    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatFacebook)];
+    [Statistics logEvent:kStatEventName(kStatAuthorization, kStatFacebook)];
     [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginFacebookButton];
   }];
 }
 
 - (IBAction)loginOSM
 {
+  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatOSM}];
   [self performOnlineAction:^
   {
-    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatOSM)];
+    [Statistics logEvent:kStatEventName(kStatAuthorization, kStatOSM)];
     [self performSegueWithIdentifier:kOSMAuthSegue sender:self.loginOSMButton];
   }];
 }
 
 - (IBAction)signup
 {
+  [Statistics logEvent:kStatEditorRegRequest];
   [self performOnlineAction:^
   {
-    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatSignup)];
+    [Statistics logEvent:kStatEventName(kStatAuthorization, kStatSignup)];
     OsmOAuth const auth = OsmOAuth::ServerAuth();
     NSURL * url = [NSURL URLWithString:@(auth.GetRegistrationURL().c_str())];
     [[UIApplication sharedApplication] openURL:url];
@@ -258,7 +262,7 @@ using namespace osm_auth_ios;
 {
   self.actionSheetFunctor = [self]
   {
-    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatLogout)];
+    [Statistics logEvent:kStatEventName(kStatAuthorization, kStatLogout)];
     AuthorizationStoreCredentials({});
     [self cancel];
   };
@@ -268,7 +272,10 @@ using namespace osm_auth_ios;
 - (IBAction)cancel
 {
   if (!self.isCalledFromSettings)
+  {
+    [Statistics logEvent:kStatEditorAuthDeclinedByUser];
     AuthorizationSetUserSkip();
+  }
   UINavigationController * parentNavController = self.navigationController.navigationController;
   if (parentNavController)
     [parentNavController popViewControllerAnimated:YES];

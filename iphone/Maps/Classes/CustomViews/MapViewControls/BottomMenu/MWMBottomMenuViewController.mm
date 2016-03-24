@@ -22,6 +22,8 @@
 
 #include "Framework.h"
 
+#include "platform/mwm_version.hpp"
+
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateWillChangeNotification;
 extern NSString * const kSearchStateKey;
@@ -277,11 +279,15 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   switch (indexPath.item)
   {
   case MWMBottomMenuViewCellAddPlace:
+  {
+    BOOL const isEnabled = self.controller.controlsManager.navigationState == MWMNavigationDashboardStateHidden &&
+                            version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion());
     [cell configureWithImageName:@"ic_add_place"
                            label:L(@"placepage_add_place_button")
                       badgeCount:0
-                       isEnabled:self.controller.controlsManager.navigationState == MWMNavigationDashboardStateHidden];
+                       isEnabled:isEnabled];
     break;
+  }
   case MWMBottomMenuViewCellDownload:
   {
     auto & s = GetFramework().Storage();
@@ -346,21 +352,21 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (void)menuActionAddPlace
 {
-  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatAddPlace}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatAddPlace}];
   self.state = self.restoreState;
   [self.delegate addPlace];
 }
 
 - (void)menuActionDownloadMaps
 {
-  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatDownloadMaps}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatDownloadMaps}];
   self.state = self.restoreState;
   [self.delegate actionDownloadMaps];
 }
 
 - (void)menuActionOpenSettings
 {
-  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
   self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
   SettingsAndMoreVC * const vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
@@ -369,7 +375,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (void)menuActionShareLocation
 {
-  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatShare}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatShare}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"share@"];
   CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
   if (!location)
@@ -394,15 +400,15 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   NSArray<MTRGNativeAppwallBanner *> * banners = self.controller.appWallAd.banners;
   NSAssert(banners.count != 0, @"Banners collection can not be empty!");
-  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatMoreApps}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatMoreApps}];
   self.state = self.restoreState;
   [self.controller.appWallAd showWithController:self.controller onComplete:^
   {
-    [[Statistics instance] logEvent:kStatMyTargetAppsDisplayed withParameters:@{kStatCount : @(banners.count)}];
+    [Statistics logEvent:kStatMyTargetAppsDisplayed withParameters:@{kStatCount : @(banners.count)}];
     NSMutableArray<NSString *> * appNames = [@[] mutableCopy];
     for (MTRGNativeAppwallBanner * banner in banners)
     {
-      [[Statistics instance] logEvent:kStatMyTargetAppsDisplayed withParameters:@{kStatName : banner.title}];
+      [Statistics logEvent:kStatMyTargetAppsDisplayed withParameters:@{kStatName : banner.title}];
       [appNames addObject:banner.title];
     }
     NSString * appNamesString = [appNames componentsJoinedByString:@";"];
@@ -418,7 +424,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     for (MTRGNativeAppwallBanner * banner in banners)
       [appNames addObject:banner.title];
     NSString * appNamesString = [appNames componentsJoinedByString:@";"];
-    [[Statistics instance] logEvent:kStatMyTargetAppsDisplayed
+    [Statistics logEvent:kStatMyTargetAppsDisplayed
                      withParameters:@{
                        kStatError : error,
                        kStatCount : @(banners.count),
@@ -429,13 +435,13 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)locationButtonTouchUpInside:(UIButton *)sender
 {
-  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatLocation}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatLocation}];
   GetFramework().SwitchMyPositionNextMode();
 }
 
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
 {
-  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatPointToPoint}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatPointToPoint}];
   self.state = self.restoreState;
   BOOL const isSelected = !sender.isSelected;
   sender.selected = isSelected;
@@ -455,7 +461,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)searchButtonTouchUpInside:(UIButton *)sender
 {
-  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatSearch}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSearch}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
   self.state = self.restoreState;
   self.controller.controlsManager.searchHidden = self.searchIsActive;
@@ -463,7 +469,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)bookmarksButtonTouchUpInside:(UIButton *)sender
 {
-  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatBookmarks}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatBookmarks}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
   self.state = self.restoreState;
   [self.controller openBookmarks];
@@ -480,15 +486,15 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
   case MWMBottomMenuStateText:
-    [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatExpand}];
+    [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatExpand}];
     self.state = MWMBottomMenuStateActive;
     break;
   case MWMBottomMenuStateActive:
-    [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatCollapse}];
+    [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatCollapse}];
     self.state = self.restoreState;
     break;
   case MWMBottomMenuStateCompact:
-    [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatRegular}];
+    [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatRegular}];
     [self.delegate closeInfoScreens];
     break;
   }
