@@ -107,7 +107,7 @@ void ServerApi06::UpdateChangeSet(uint64_t changesetId, TKeyValueTags const & kv
 {
   OsmOAuth::Response const response = m_auth.Request("/changeset/" + strings::to_string(changesetId), "PUT", KeyValueTagsToXML(kvTags));
   if (response.first != OsmOAuth::HTTP::OK)
-    MYTHROW(CreateChangeSetHasFailed, ("UpdateChangeSet request has failed:", response));
+    MYTHROW(UpdateChangeSetHasFailed, ("UpdateChangeSet request has failed:", response));
 }
 
 void ServerApi06::CloseChangeSet(uint64_t changesetId) const

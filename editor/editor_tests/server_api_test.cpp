@@ -95,6 +95,10 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
     // After modification, node version increases in ModifyElement.
     TEST_EQUAL(node.GetAttribute("version"), "2", ());
 
+    // All tags must be specified, because there is no merging of old and new tags.
+    api.UpdateChangeSet(changeSetId, {{"created_by", "MAPS.ME Unit Test"},
+                                      {"comment", "For test purposes only (updated)."}});
+
     // To retrieve created node, changeset should be closed first.
     // It is done here via Scope Guard.
   }

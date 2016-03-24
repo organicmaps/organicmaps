@@ -34,6 +34,7 @@ public:
   DECLARE_EXCEPTION(NotAuthorized, ServerApi06Exception);
   DECLARE_EXCEPTION(CantParseServerResponse, ServerApi06Exception);
   DECLARE_EXCEPTION(CreateChangeSetHasFailed, ServerApi06Exception);
+  DECLARE_EXCEPTION(UpdateChangeSetHasFailed, ServerApi06Exception);
   DECLARE_EXCEPTION(CreateElementHasFailed, ServerApi06Exception);
   DECLARE_EXCEPTION(ModifiedElementHasNoIdAttribute, ServerApi06Exception);
   DECLARE_EXCEPTION(ModifyElementHasFailed, ServerApi06Exception);

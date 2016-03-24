@@ -255,26 +255,27 @@ void ChangesetWrapper::Delete(XMLFeature node)
   // Changeset id should be updated for every OSM server commit.
   node.SetAttribute("changeset", strings::to_string(m_changesetId));
   m_api.DeleteElement(node);
+  m_deleted_types[GetTypeForFeature(node)]++;
 }
 
-string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount) const
+string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount)
 {
   if (typeCount.empty())
     return string();
 
   // Convert map to vector and sort pairs by count, descending.
-  vector<pair<string, uint16_t>> items;
+  vector<pair<string, size_t>> items;
   for (auto const & tc : typeCount)
     items.push_back(tc);
 
   sort(items.begin(), items.end(),
-       [](pair<string, uint16_t> const & a, pair<string, uint16_t> const & b)
+       [](pair<string, size_t> const & a, pair<string, size_t> const & b)
        {
          return a.second > b.second;
        });
 
   ostringstream ss;
-  auto const limit = items.size() > 3 ? 3 : items.size();
+  auto const limit = min(3UL, items.size());
   for (auto i = 0; i < limit; ++i)
   {
     if (i > 0)
@@ -320,6 +321,12 @@ string ChangesetWrapper::GetDescription() const
     if (!result.empty())
       result += "; ";
     result += "Updated " + TypeCountToString(m_modified_types);
+  }
+  if (!m_deleted_types.empty())
+  {
+    if (!result.empty())
+      result += "; ";
+    result += "Deleted " + TypeCountToString(m_deleted_types);
   }
   return result;
 }
