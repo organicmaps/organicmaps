@@ -38,6 +38,7 @@
 #include "std/unordered_map.hpp"
 #include "std/unordered_set.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/pugixml/src/pugixml.hpp"
 
 using namespace pugi;
@@ -553,6 +554,9 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
     LOG(LDEBUG, ("There are no local edits to upload."));
     return;
   }
+
+  alohalytics::LogEvent("Editor_DataSync_started");
+
   // TODO(AlexZ): features access should be synchronized.
   auto const upload = [this](string key, string secret, TChangesetTags tags, TFinishUploadCallback callBack)
   {
@@ -571,11 +575,15 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         if (!NeedsUpload(fti.m_uploadStatus))
           continue;
 
+        string ourDebugFeatureString;
+
         try
         {
           XMLFeature feature = fti.m_feature.ToXML();
           if (!fti.m_street.empty())
             feature.SetTagValue(kAddrStreetTag, fti.m_street);
+
+          ourDebugFeatureString = DebugPrint(feature);
 
           switch (fti.m_status)
           {
@@ -678,11 +686,24 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         }
         // TODO(AlexZ): Use timestamp from the server.
         fti.m_uploadAttemptTimestamp = time(nullptr);
+
+        if (fti.m_uploadStatus != kUploaded)
+        {
+          ms::LatLon const ll = MercatorBounds::ToLatLon(feature::GetCenter(fti.m_feature));
+          alohalytics::LogEvent("Editor_DataSync_error", {{"type", fti.m_uploadStatus},
+                                {"details", fti.m_uploadError}, {"our", ourDebugFeatureString},
+                                {"mwm", fti.m_feature.GetID().GetMwmName()},
+                                {"mwm_version", strings::to_string(fti.m_feature.GetID().GetMwmVersion())}},
+                                alohalytics::Location::FromLatLon(ll.lat, ll.lon));
+        }
         // Call Save every time we modify each feature's information.
         SaveUploadedInformation(fti);
       }
     }
 
+    alohalytics::LogEvent("Editor_DataSync_finished", {{"errors", strings::to_string(errorsCount)},
+                          {"uploaded", strings::to_string(uploadedFeaturesCount)},
+                          {"changeset", strings::to_string(changeset.GetChangesetId())}});
     if (callBack)
     {
       UploadResult result = UploadResult::NothingToUpload;
@@ -834,6 +855,7 @@ void Editor::CreateNote(m2::PointD const & point, string const & note)
 
 void Editor::UploadNotes(string const & key, string const & secret)
 {
+  alohalytics::LogEvent("Editor_UploadNotes", strings::to_string(m_notes->NotUploadedNotesCount()));
   m_notes->Upload(OsmOAuth::ServerAuth({key, secret}));
 }
 
