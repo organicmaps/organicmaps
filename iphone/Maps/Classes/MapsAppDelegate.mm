@@ -100,7 +100,7 @@ void InitLocalizedStrings()
 void InitCrashTrackers()
 {
 #ifdef OMIM_PRODUCTION
-  if (![Statistics isStatisticsEnabled])
+  if (![[Statistics instance] isStatisticsEnabled])
     return;
 
   NSString * hockeyKey = @(HOCKEY_APP_KEY);
