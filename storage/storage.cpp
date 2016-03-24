@@ -1057,6 +1057,7 @@ bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId, Map
     { // A deleted map should not be moved to m_justDownloaded.
       m_queue.erase(it);
     }
+    SaveDownloadQueue();
   }
 
   if (!m_queue.empty() && m_downloader->IsIdle())
