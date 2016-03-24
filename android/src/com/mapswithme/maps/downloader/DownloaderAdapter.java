@@ -532,6 +532,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private void collectHeaders()
   {
     mHeaders.clear();
+    if (mSearchResultsMode)
+      return;
 
     int headerId = 0;
     int prev = -1;
