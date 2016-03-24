@@ -21,12 +21,18 @@ string DebugPrint(feature::EGeomType type)
   }
 }
 
-pair<FeatureID::MwmName, FeatureID::MwmVersion> FeatureID::GetMwmNameAndVersion() const
-{
-  if (!IsValid())
-    return {"INVALID", 0};
+// static
+char const * const FeatureID::kInvalidFileName = "INVALID";
+// static
+int64_t const FeatureID::kInvalidMwmVersion = -1;
 
-  auto const & mwmInfo = m_mwmId.GetInfo();
-  return {mwmInfo->GetCountryName(), mwmInfo->GetVersion()};
+
+string FeatureID::GetMwmName() const
+{
+  return IsValid() ? m_mwmId.GetInfo()->GetCountryName() : kInvalidFileName;
 }
 
+int64_t FeatureID::GetMwmVersion() const
+{
+  return IsValid() ? m_mwmId.GetInfo()->GetVersion() : kInvalidMwmVersion;
+}
