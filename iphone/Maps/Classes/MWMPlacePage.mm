@@ -172,7 +172,7 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (void)setDistance:(NSString *)distance
 {
-  self.basePlacePageView.distanceLabel.text = distance;
+  self.basePlacePageView.distance = distance;
 }
 
 - (void)updateMyPositionStatus:(NSString *)status

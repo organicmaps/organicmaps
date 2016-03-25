@@ -236,11 +236,18 @@ enum class AttributePosition
   }
 }
 
+- (void)setDistance:(NSString *)distance
+{
+  self.distanceLabel.text = distance;
+  self.distanceLabel.width = placePageWidth() - kLabelsPadding;
+  [self.distanceLabel sizeToFit];
+  [self layoutDistanceBoxWithPosition:[self distanceAttributePosition]];
+  [self layoutIfNeeded];
+}
+
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.distanceLabel.width = placePageWidth() - kLabelsPadding;
-  [self.distanceLabel sizeToFit];
   CGFloat const bound = self.distanceLabel.width + kDirectionArrowSide + kOffsetFromDistanceToArrow + kOffsetFromTitleToDistance;
   AttributePosition const position = [self distanceAttributePosition];
   [self setupLabelsWidthWithBoundedWidth:bound distancePosition:position];
@@ -248,7 +255,6 @@ enum class AttributePosition
   [self.typeLabel sizeToFit];
   [self.addressLabel sizeToFit];
   [self layoutLabels];
-  [self layoutDistanceBoxWithPosition:position];
   [self layoutTableViewWithPosition:position];
   self.height = self.featureTable.height + self.separatorView.height + self.titleLabel.height +
                 (self.typeLabel.text.length > 0 ? self.typeLabel.height + kLabelsBetweenOffset : 0) +
