@@ -3,6 +3,7 @@
 #import "MWMAuthorizationOSMLoginViewController.h"
 #import "MWMCircularProgress.h"
 #import "Statistics.h"
+#import "SettingsAndMoreVC.h"
 #import "UIColor+MapsMeColor.h"
 #import "UITextField+RuntimeAttributes.h"
 
@@ -151,7 +152,19 @@ using namespace osm;
           osm_auth_ios::AuthorizationStoreCredentials(auth.GetKeySecret());
           [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatYes,
                                                                              kStatType : kStatOSM}];
-          [self.navigationController popToRootViewControllerAnimated:YES];
+          UIViewController * svc = nil;
+          for (UIViewController * vc in self.navigationController.viewControllers)
+          {
+            if ([vc isKindOfClass:[SettingsAndMoreVC class]])
+            {
+              svc = vc;
+              break;
+            }
+          }
+          if (svc)
+            [self.navigationController popToViewController:svc animated:YES];
+          else
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else
         {
