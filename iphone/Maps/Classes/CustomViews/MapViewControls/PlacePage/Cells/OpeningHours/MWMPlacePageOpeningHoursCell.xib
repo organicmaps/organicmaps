@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -108,17 +108,6 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fa-V6-tC5" userLabel="Toggle Button">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleButtonTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XDD-YV-Lea"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -176,6 +165,17 @@
                             <constraint firstAttribute="height" constant="122" id="Ifb-EB-LIb"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fa-V6-tC5" userLabel="Toggle Button">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <state key="normal">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="toggleButtonTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XDD-YV-Lea"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="fNU-1q-AiR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="08I-np-9jr"/>
@@ -184,8 +184,12 @@
                     <constraint firstAttribute="trailing" secondItem="0kQ-hh-2Cy" secondAttribute="trailing" constant="32" id="RqH-0b-AyG"/>
                     <constraint firstItem="swk-um-XzG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VsQ-qI-dIi"/>
                     <constraint firstItem="0kQ-hh-2Cy" firstAttribute="top" secondItem="swk-um-XzG" secondAttribute="bottom" id="Xrh-Vg-VYg"/>
+                    <constraint firstItem="3Fa-V6-tC5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="YP2-Vq-9U8"/>
+                    <constraint firstAttribute="trailing" secondItem="3Fa-V6-tC5" secondAttribute="trailing" id="c0w-WN-lls"/>
+                    <constraint firstItem="3Fa-V6-tC5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="kZa-7d-udx"/>
                     <constraint firstItem="swk-um-XzG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="p14-Mi-kcR"/>
                     <constraint firstItem="fNU-1q-AiR" firstAttribute="top" secondItem="0kQ-hh-2Cy" secondAttribute="bottom" id="uKD-bb-yHT"/>
+                    <constraint firstAttribute="bottom" secondItem="3Fa-V6-tC5" secondAttribute="bottom" constant="0.5" id="yXt-oU-yk9"/>
                     <constraint firstAttribute="trailing" secondItem="swk-um-XzG" secondAttribute="trailing" id="zir-No-59Q"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
