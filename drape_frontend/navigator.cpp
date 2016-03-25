@@ -63,13 +63,19 @@ void Navigator::SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double vi
 
   tmp.SetFromRect(r);
   tmp = ScaleInto(tmp, worldR);
-  if (CheckMaxScale(tmp, tileSize, visualScale))
+  if (!CheckMaxScale(tmp, tileSize, visualScale))
   {
-    m_Screen = tmp;
-
-    if (!m_InAction)
-      m_StartScreen = tmp;
+    int const scale = scales::GetUpperStyleScale() - 1;
+    m2::RectD newRect = df::GetRectForDrawScale(scale, r.Center());
+    CheckMinMaxVisibleScale(newRect, scale);
+    tmp = m_Screen;
+    tmp.SetFromRect(m2::AnyRectD(newRect));
+    ASSERT(CheckMaxScale(tmp, tileSize, visualScale), ());
   }
+  m_Screen = tmp;
+
+  if (!m_InAction)
+    m_StartScreen = tmp;
 }
 
 void Navigator::CenterViewport(m2::PointD const & p)
