@@ -79,6 +79,12 @@ OSRM_impl::OSRM_impl(libosrm_config &lib_config)
         query_data_facade = new InternalDataFacade<QueryEdge::EdgeData>(lib_config.server_paths);
     }
 
+    if (!osrm::LoadNodeDataFromFile(lib_config.server_paths["enodesdata"].string(), m_nodeData))
+    {
+      SimpleLogger().Write(logDEBUG) << "Can't load node data";
+      return;
+    }
+
     // The following plugins handle all requests.
     RegisterPlugin(new DistanceTablePlugin<BaseDataFacade<QueryEdge::EdgeData>>(
         query_data_facade, lib_config.max_locations_distance_table));
@@ -90,8 +96,8 @@ OSRM_impl::OSRM_impl(libosrm_config &lib_config)
     RegisterPlugin(new TimestampPlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade));
     RegisterPlugin(new ViaRoutePlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade));
     RegisterPlugin(new MapsMePlugin<BaseDataFacade<QueryEdge::EdgeData>>(
-        query_data_facade, lib_config.server_paths["borders"].string(), lib_config.server_paths["enodesdata"].string()));
-    RegisterPlugin(new WayIdPlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade, lib_config.server_paths["enodesdata"].string()));
+        query_data_facade, lib_config.server_paths["borders"].string(), m_nodeData));
+    RegisterPlugin(new WayIdPlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade, m_nodeData));
 }
 
 OSRM_impl::~OSRM_impl()

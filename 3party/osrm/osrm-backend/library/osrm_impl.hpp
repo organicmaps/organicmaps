@@ -31,6 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class BasePlugin;
 struct RouteParameters;
 
+#include "../data_structures/edge_based_node_data.hpp"
 #include "../data_structures/query_edge.hpp"
 
 #include <osrm/json_container.hpp>
@@ -66,6 +67,8 @@ class OSRM_impl
     void decrease_concurrent_query_count();
     // increase number of concurrent queries
     void increase_concurrent_query_count();
+
+    osrm::NodeDataVectorT m_nodeData;
 };
 
 #endif // OSRM_IMPL_HPP
