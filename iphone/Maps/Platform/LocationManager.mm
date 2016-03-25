@@ -180,7 +180,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   auto const newInfo = gpsInfoFromLocation(location);
   if (!MapsAppDelegate.theApp.isDaemonMode)
   {
-    for (id observer in self.observers)
+    for (id observer in self.observers.copy)
        [observer onLocationUpdate:newInfo];
     // TODO(AlexZ): Temporary, remove in the future.
   }
@@ -199,7 +199,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   {
     if (kRequestAuthStatus == kCLAuthorizationStatusAuthorizedAlways && [self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
       [Alohalytics logEvent:kAlohalyticsLocationRequestAlwaysFailed];
-    for (id observer in self.observers)
+    for (id observer in self.observers.copy)
       [self observer:observer onLocationError:location::EDenied];
   }
 }
@@ -330,7 +330,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
 - (BOOL)enabledOnMap
 {
-  for (id observer in self.observers)
+  for (id observer in self.observers.copy)
     if ([observer isKindOfClass:[MapViewController class]])
       return YES;
   return NO;
@@ -343,7 +343,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
 - (void)notifyCompassUpdate:(location::CompassInfo const &)newInfo
 {
-  for (id observer in self.observers)
+  for (id observer in self.observers.copy)
     if ([observer respondsToSelector:@selector(onCompassUpdate:)])
       [observer onCompassUpdate:newInfo];
 }
