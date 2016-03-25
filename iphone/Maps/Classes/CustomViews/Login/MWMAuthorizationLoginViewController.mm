@@ -20,6 +20,8 @@ namespace
 NSString * const kWebViewAuthSegue = @"Authorization2WebViewAuthorizationSegue";
 NSString * const kOSMAuthSegue = @"Authorization2OSMAuthorizationSegue";
 
+CGFloat const kUploadedChangesTopOffset = 48.;
+
 // I don't use block here because there is big chance to get retain cycle and std::function syntax looks prety easy and cute.
 using TActionSheetFunctor = std::function<void()>;
 } // namespace
@@ -29,30 +31,27 @@ using namespace osm_auth_ios;
 
 @interface MWMAuthorizationLoginViewController () <UIActionSheetDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView * backgroundImage;
+@property (weak, nonatomic) IBOutlet UIView * changesView;
+@property (weak, nonatomic) IBOutlet UIView * authView;
+
 @property (weak, nonatomic) IBOutlet UIButton * loginGoogleButton;
 @property (weak, nonatomic) IBOutlet UIButton * loginFacebookButton;
 @property (weak, nonatomic) IBOutlet UIButton * loginOSMButton;
 @property (weak, nonatomic) IBOutlet UIButton * signupButton;
-@property (weak, nonatomic) IBOutlet UILabel * message;
-@property (weak, nonatomic) IBOutlet UILabel * signupTitle;
-@property (weak, nonatomic) IBOutlet UIButton * logoutButton;
-@property (weak, nonatomic) IBOutlet UIImageView * googleImage;
-@property (weak, nonatomic) IBOutlet UIImageView * facebookImage;
 
-@property (weak, nonatomic) IBOutlet UIView * profileView;
+@property (weak, nonatomic) IBOutlet UIButton * logoutButton;
+
 @property (weak, nonatomic) IBOutlet UIView * localChangesView;
 @property (weak, nonatomic) IBOutlet UILabel * localChangesLabel;
-@property (weak, nonatomic) IBOutlet UIButton * localChangesActionButton;
 
 @property (weak, nonatomic) IBOutlet UIView * uploadedChangesView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesViewTopOffset;
 @property (weak, nonatomic) IBOutlet UILabel * uploadedChangesLabel;
 @property (weak, nonatomic) IBOutlet UILabel * lastUploadLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesViewHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesLabelCenter;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * messageTopOffset;
+@property (weak, nonatomic) IBOutlet UIImageView * emptyProfileImage;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * scrollViewContentHeight;
 
 @property (nonatomic) TActionSheetFunctor actionSheetFunctor;
 @end
@@ -61,33 +60,41 @@ using namespace osm_auth_ios;
 
 - (void)viewDidLoad
 {
-  [Statistics logEvent:kStatEventName(kStatAuthorization, kStatOpen)];
   [super viewDidLoad];
-  self.backgroundImage.image = [UIImage imageWithColor:[UIColor primary]];
-  [self checkConnection];
+  [Statistics logEvent:kStatEventName(kStatAuthorization, kStatOpen)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  [self checkConnection];
   if (AuthorizationHaveCredentials())
     [self configHaveAuth];
   else
     [self configNoAuth];
 
-  [self configChanges];
   AuthorizationSetNeedCheck(NO);
+
+  [self configChanges];
+  [self configEmptyProfile];
+  [self setContentHeight];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  UINavigationBar * navBar = self.navigationController.navigationBar;
-  [MapsAppDelegate customizeAppearanceForNavigationBar:navBar];
+  [self setContentHeight];
 }
 
-- (BOOL)shouldAutorotate
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-  return NO;
+  [self setContentHeight];
+}
+
+- (void)setContentHeight
+{
+  CGSize const size = [UIScreen mainScreen].bounds.size;
+  CGFloat const height = MAX(size.width, size.height) - self.navigationController.navigationBar.height - 20.;
+  self.scrollViewContentHeight.constant = height;
 }
 
 - (void)checkConnection
@@ -112,78 +119,62 @@ using namespace osm_auth_ios;
 {
   NSString * osmUserName = OSMUserName();
   self.title = osmUserName.length > 0 ? osmUserName : L(@"osm_account").capitalizedString;
-  self.message.hidden = YES;
-  self.loginGoogleButton.hidden = YES;
-  self.loginFacebookButton.hidden = YES;
-  self.loginOSMButton.hidden = YES;
-  self.signupTitle.hidden = YES;
-  self.signupButton.hidden = YES;
-  self.googleImage.hidden = YES;
-  self.facebookImage.hidden = YES;
+  self.authView.hidden = YES;
   self.logoutButton.hidden = NO;
 }
 
 - (void)configNoAuth
 {
-  self.message.hidden = NO;
-  self.loginGoogleButton.hidden = NO;
-  self.loginFacebookButton.hidden = NO;
-  self.loginOSMButton.hidden = NO;
-  self.signupTitle.hidden = NO;
-  self.signupButton.hidden = NO;
-  self.googleImage.hidden = NO;
-  self.facebookImage.hidden = NO;
-  self.logoutButton.hidden = YES;
   self.title = L(@"profile").capitalizedString;
-  self.message.text = L(@"login_and_edit_map_motivation_message");
+  self.logoutButton.hidden = YES;
+  self.authView.hidden = NO;
+}
+
+- (void)configEmptyProfile
+{
+  if (self.authView.hidden && self.changesView.hidden)
+    self.emptyProfileImage.hidden = NO;
 }
 
 - (void)configChanges
 {
   auto const stats = Editor::Instance().GetStats();
-  if (stats.m_edits.empty() && !AuthorizationHaveCredentials())
+  if (stats.m_edits.empty())
   {
-    self.profileView.hidden = YES;
-    self.messageTopOffset.priority = UILayoutPriorityDefaultHigh;
+    self.changesView.hidden = YES;
   }
   else
   {
+    self.changesView.hidden = NO;
     size_t const totalChanges = stats.m_edits.size();
     size_t const uploadedChanges = stats.m_uploadedCount;
     size_t const localChanges = totalChanges - uploadedChanges;
 
     BOOL const noLocalChanges = (localChanges == 0);
     [self setLocalChangesHidden:noLocalChanges];
+
     if (!noLocalChanges)
       self.localChangesLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"editor_profile_unsent_changes"), @(localChanges)];
 
     BOOL const noUploadedChanges = (uploadedChanges == 0);
-    [self setUploadedChangesDisabled:noUploadedChanges];
+    self.uploadedChangesView.hidden = noUploadedChanges;
+    if (noUploadedChanges)
+      return;
+
     self.uploadedChangesLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"editor_profile_changes"), @(uploadedChanges)];
-    self.lastUploadLabel.hidden = noUploadedChanges;
-    if (!noUploadedChanges)
-    {
-      NSString * lastUploadDate = [NSDateFormatter
-          localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:stats.m_lastUploadTimestamp]
-                        dateStyle:NSDateFormatterShortStyle
-                        timeStyle:NSDateFormatterNoStyle];
-      self.lastUploadLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"last_upload"), lastUploadDate];
-    }
-    self.uploadedChangesViewHeight.constant = noUploadedChanges ? 44.0 : 64.0;
-    self.uploadedChangesLabelCenter.priority = noUploadedChanges ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
-    self.messageTopOffset.priority = UILayoutPriorityDefaultLow;
+
+    NSString * lastUploadDate = [NSDateFormatter
+        localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:stats.m_lastUploadTimestamp]
+                      dateStyle:NSDateFormatterShortStyle
+                      timeStyle:NSDateFormatterNoStyle];
+    self.lastUploadLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"last_upload"), lastUploadDate];
   }
 }
 
-- (void)setLocalChangesHidden:(BOOL)isHidden
+- (void)setLocalChangesHidden:(BOOL)hidden
 {
-  self.localChangesView.hidden = isHidden;
-  self.uploadedChangesViewTopOffset.priority = isHidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
-}
-
-- (void)setUploadedChangesDisabled:(BOOL)isDisabled
-{
-  self.uploadedChangesView.alpha = isDisabled ? 0.4 : 1.;
+  self.uploadedChangesView.hidden = hidden;
+  self.uploadedChangesTop.constant = hidden ? 0 : kUploadedChangesTopOffset;
 }
 
 #pragma mark - Actions
@@ -256,6 +247,7 @@ using namespace osm_auth_ios;
   {
     Editor::Instance().ClearAllLocalEdits();
     [self configChanges];
+    [self configEmptyProfile];
   };
   [self showWarningActionSheetWithActionTitle:L(@"delete")];
 }

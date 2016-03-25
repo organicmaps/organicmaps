@@ -191,8 +191,6 @@
 		34ABA62C1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */; };
 		34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */; };
 		34ABA6301C2D58F300FE1BEC /* MWMInputEmailValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */; };
-		34ABA6341C2D64D400FE1BEC /* MWMAuthorizationForgottenPasswordViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA6331C2D64D400FE1BEC /* MWMAuthorizationForgottenPasswordViewController.mm */; };
-		34ABA6351C2D64D400FE1BEC /* MWMAuthorizationForgottenPasswordViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA6331C2D64D400FE1BEC /* MWMAuthorizationForgottenPasswordViewController.mm */; };
 		34B16C451B72655D000D3A0D /* MWMPedestrianShareAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */; };
 		34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */; };
 		34B82AB21B8344E300180497 /* MWMSearchTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB11B8344E300180497 /* MWMSearchTextField.mm */; };
@@ -1059,8 +1057,6 @@
 		34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMInputPasswordValidator.mm; sourceTree = "<group>"; };
 		34ABA62E1C2D58F300FE1BEC /* MWMInputEmailValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMInputEmailValidator.h; sourceTree = "<group>"; };
 		34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMInputEmailValidator.mm; sourceTree = "<group>"; };
-		34ABA6321C2D64D300FE1BEC /* MWMAuthorizationForgottenPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationForgottenPasswordViewController.h; sourceTree = "<group>"; };
-		34ABA6331C2D64D400FE1BEC /* MWMAuthorizationForgottenPasswordViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationForgottenPasswordViewController.mm; sourceTree = "<group>"; };
 		34B16C431B72655D000D3A0D /* MWMPedestrianShareAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPedestrianShareAlert.h; sourceTree = "<group>"; };
 		34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPedestrianShareAlert.mm; sourceTree = "<group>"; };
 		34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -2114,8 +2110,6 @@
 				342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */,
 				34ABA6141C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.h */,
 				34ABA6151C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm */,
-				34ABA6321C2D64D300FE1BEC /* MWMAuthorizationForgottenPasswordViewController.h */,
-				34ABA6331C2D64D400FE1BEC /* MWMAuthorizationForgottenPasswordViewController.mm */,
 				34BF0CC81C31306300D097EB /* MWMAuthorizationCommon.h */,
 				34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */,
 				342EE40F1C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.h */,
@@ -3577,7 +3571,6 @@
 				F6F722F81AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm in Sources */,
 				F6CB21681AEFC6AA00FB8963 /* MWMPlacePageActionBar.mm in Sources */,
 				F68E6BD21B8DB7AE0040566D /* MWMRouteHelperPanel.mm in Sources */,
-				34ABA6341C2D64D400FE1BEC /* MWMAuthorizationForgottenPasswordViewController.mm in Sources */,
 				34E273251C73876500463965 /* MWMMigrationView.mm in Sources */,
 				347FD87B1C60B2CE002FB65E /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				34BC72291B0DECAE0012A34B /* MWMZoomButtons.mm in Sources */,
@@ -3791,7 +3784,6 @@
 				6741A9C41BF340DE002C974C /* MWMRouteHelperPanel.mm in Sources */,
 				6741A9C51BF340DE002C974C /* MWMZoomButtons.mm in Sources */,
 				6741A9C61BF340DE002C974C /* MWMSearchCommonCell.mm in Sources */,
-				34ABA6351C2D64D400FE1BEC /* MWMAuthorizationForgottenPasswordViewController.mm in Sources */,
 				34E273261C73876500463965 /* MWMMigrationView.mm in Sources */,
 				340C20E41C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */,
 				6741A9C81BF340DE002C974C /* MWMiPhoneLandscapePlacePage.mm in Sources */,
