@@ -25,18 +25,13 @@ template <class DataFacadeT>
 class WayIdPlugin final : public BasePlugin
 {
 public:
-  WayIdPlugin(DataFacadeT * facade, std::string const & nodeDataFile)
-    : m_descriptorString("wayid"), m_facade(facade)
+  WayIdPlugin(DataFacadeT * facade, osrm::NodeDataVectorT const & nodeData)
+    : m_descriptorString("wayid"), m_facade(facade), m_nodeData(nodeData)
   {
 #ifndef MT_STRUCTURES
     SimpleLogger().Write(logWARNING) << "Multitreaded storage was not set on compile time!!! Do "
                                         "not use osrm-routed in several threads."
 #endif
-    if (!osrm::LoadNodeDataFromFile(nodeDataFile, m_nodeData))
-    {
-      SimpleLogger().Write(logDEBUG) << "Can't load node data";
-      return;
-    }
     m_searchEngine = osrm::make_unique<SearchEngine<DataFacadeT>>(facade);
   }
 
@@ -161,5 +156,5 @@ private:
   std::unique_ptr<SearchEngine<DataFacadeT>> m_searchEngine;
   std::string m_descriptorString;
   DataFacadeT * m_facade;
-  osrm::NodeDataVectorT m_nodeData;
+  osrm::NodeDataVectorT const & m_nodeData;
 };
