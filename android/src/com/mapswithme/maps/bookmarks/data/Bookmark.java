@@ -56,6 +56,12 @@ public class Bookmark extends MapObject
   }
 
   @Override
+  public String getAddress()
+  {
+    return nativeGetAddress(mCategoryId, mBookmarkId);
+  }
+
+  @Override
   public double getScale()
   {
     return nativeGetScale(mCategoryId, mBookmarkId);
@@ -154,6 +160,8 @@ public class Bookmark extends MapObject
   private native String nativeGetIcon(@IntRange(from = 0) int catId, @IntRange(from = 0) long bookmarkId);
 
   private native double nativeGetScale(@IntRange(from = 0) int catId, @IntRange(from = 0) long bookmarkId);
+
+  private native String nativeGetAddress(@IntRange(from = 0) int catId, @IntRange(from = 0) long bookmarkId);
 
   private native String nativeEncode2Ge0Url(@IntRange(from = 0) int catId, @IntRange(from = 0) long bookmarkId, boolean addName);
 
