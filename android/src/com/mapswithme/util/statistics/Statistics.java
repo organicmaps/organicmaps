@@ -114,9 +114,9 @@ public enum Statistics
     public static final String EDITOR_ERROR = "Editor_Edit_error";
     public static final String EDITOR_AUTH_DECLINED = "Editor_Auth_declined_by_user";
     public static final String EDITOR_AUTH_REQUEST = "Editor_Auth_request";
+    public static final String EDITOR_AUTH_REQUEST_RESULT = "Editor_Auth_request_result";
     public static final String EDITOR_REG_REQUEST = "Editor_Reg_request";
-    public static final String EDITOR_SYNC_SUCCESS = "Editor_DataSync_success";
-    public static final String EDITOR_SYNC_ERROR = "Editor_DataSync_error";
+    public static final String EDITOR_REG_RESULT = "Editor_Reg_request_result";
     public static final String EDITOR_SHARE_SHOW = "Editor_SecondTimeShare_show";
     public static final String EDITOR_SHARE_CLICK = "Editor_SecondTimeShare_click";
     public static final String EDITOR_REPORT = "Editor_Problem_report";
@@ -183,6 +183,10 @@ public enum Statistics
     public static final String SERVER_URL = "server_url";
     public static final String SERVER_PARAMS = "server_params_data";
     public static final String SERVER_RESPONSE = "server_response_data";
+    public static final String OSM = "OSM";
+    public static final String OSM_USERNAME = "osm_username";
+    public static final String FACEBOOK = "Facebook";
+    public static final String GOOGLE = "Google";
     public static final String UID = "uid";
     public static final String SHOWN = "shown";
     private EventParam() {}
@@ -378,6 +382,30 @@ public enum Statistics
     public ParameterBuilder add(String key, String value)
     {
       mParams.put(key, value);
+      return this;
+    }
+
+    public ParameterBuilder add(String key, boolean value)
+    {
+      mParams.put(key, String.valueOf(value));
+      return this;
+    }
+
+    public ParameterBuilder add(String key, int value)
+    {
+      mParams.put(key, String.valueOf(value));
+      return this;
+    }
+
+    public ParameterBuilder add(String key, float value)
+    {
+      mParams.put(key, String.valueOf(value));
+      return this;
+    }
+
+    public ParameterBuilder add(String key, double value)
+    {
+      mParams.put(key, String.valueOf(value));
       return this;
     }
 
