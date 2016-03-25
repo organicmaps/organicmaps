@@ -3,6 +3,7 @@ package com.mapswithme.maps;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
+import android.support.annotation.UiThread;
 
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -84,6 +85,7 @@ public class Framework
 
   public static native void nativeRemoveMapObjectListener();
 
+  @UiThread
   public static native String nativeGetOutdatedCountriesString();
 
   public static native boolean nativeIsDataVersionChanged();

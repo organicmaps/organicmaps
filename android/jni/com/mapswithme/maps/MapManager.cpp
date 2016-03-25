@@ -8,6 +8,7 @@
 
 #include "base/thread_checker.hpp"
 
+#include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 
 #include "std/bind.hpp"
@@ -92,6 +93,13 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeIsLegacyMode(JNIEnv * env, jclass clazz)
 {
   return !version::IsSingleMwm(GetStorage().GetCurrentDataVersion());
+}
+
+// static native boolean nativeNeedMigrate();
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeNeedMigrate(JNIEnv * env, jclass clazz)
+{
+  return platform::migrate::NeedMigrate();
 }
 
 static void FinishMigration(JNIEnv * env)
@@ -332,21 +340,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetAttributes(JNIEnv * env,
   GetStorage().GetNodeAttrs(jni::ToNativeString(env, id), attrs);
 
   UpdateItem(env, item, attrs);
-}
-
-// static void nativeGetShortAttributes(CountryItem item);
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeGetShortAttributes(JNIEnv * env, jclass clazz, jobject item)
-{
-  PrepareClassRefs(env);
-
-  static jfieldID countryItemFieldId = env->GetFieldID(g_countryItemClass, "id", "Ljava/lang/String;");
-  jstring id = static_cast<jstring>(env->GetObjectField(item, countryItemFieldId));
-
-  NodeStatuses ns;
-  GetStorage().GetNodeStatuses(jni::ToNativeString(env, id), ns);
-
-  UpdateItemShort(env, item, ns.m_status, ns.m_error);
 }
 
 // static @Nullable String nativeFindCountry(double lat, double lon);
