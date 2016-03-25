@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="249"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="248.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="swk-um-XzG" customClass="MWMPlacePageOpeningHoursDayView">
@@ -44,7 +44,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00—20:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="140" translatesAutoresizingMaskIntoConstraints="NO" id="oTF-IZ-Un1">
                                 <rect key="frame" x="140" y="12" width="140" height="19"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="up3-Kv-Z1P"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="300" constant="140" id="up3-Kv-Z1P"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -108,6 +108,17 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fa-V6-tC5" userLabel="Toggle Button">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleButtonTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XDD-YV-Lea"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -165,30 +176,15 @@
                             <constraint firstAttribute="height" constant="122" id="Ifb-EB-LIb"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fa-V6-tC5" userLabel="Toggle Button">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <state key="normal">
-                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="toggleButtonTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XDD-YV-Lea"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="fNU-1q-AiR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="08I-np-9jr"/>
-                    <constraint firstItem="3Fa-V6-tC5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0qO-zz-oxU"/>
                     <constraint firstAttribute="trailing" secondItem="fNU-1q-AiR" secondAttribute="trailing" id="2Hz-cA-KuN"/>
-                    <constraint firstAttribute="bottom" secondItem="3Fa-V6-tC5" secondAttribute="bottom" id="91c-X9-pLv"/>
                     <constraint firstItem="0kQ-hh-2Cy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="KwF-TF-PmH"/>
                     <constraint firstAttribute="trailing" secondItem="0kQ-hh-2Cy" secondAttribute="trailing" constant="32" id="RqH-0b-AyG"/>
                     <constraint firstItem="swk-um-XzG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VsQ-qI-dIi"/>
                     <constraint firstItem="0kQ-hh-2Cy" firstAttribute="top" secondItem="swk-um-XzG" secondAttribute="bottom" id="Xrh-Vg-VYg"/>
-                    <constraint firstItem="3Fa-V6-tC5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="lLN-LC-bnD"/>
                     <constraint firstItem="swk-um-XzG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="p14-Mi-kcR"/>
-                    <constraint firstAttribute="trailing" secondItem="3Fa-V6-tC5" secondAttribute="trailing" id="rnT-zR-yOq"/>
                     <constraint firstItem="fNU-1q-AiR" firstAttribute="top" secondItem="0kQ-hh-2Cy" secondAttribute="bottom" id="uKD-bb-yHT"/>
                     <constraint firstAttribute="trailing" secondItem="swk-um-XzG" secondAttribute="trailing" id="zir-No-59Q"/>
                 </constraints>
