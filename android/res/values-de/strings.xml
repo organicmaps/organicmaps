@@ -42,6 +42,8 @@
 	<string name="leave_a_review">Bericht abgeben</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Karten</string>
+	<!-- View and button titles for accessibility -->
+	<string name="downloader_maps">Karten:</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Zum Herunterladen vorgemerkt. Drücken, um abzubrechen</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->

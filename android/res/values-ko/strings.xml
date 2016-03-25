@@ -40,6 +40,8 @@
 	<string name="leave_a_review">평 남기기</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">지도</string>
+	<!-- View and button titles for accessibility -->
+	<string name="downloader_maps">지도:</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">다운로드로 표시하였습니다. 두드려 취소하십시요.</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->

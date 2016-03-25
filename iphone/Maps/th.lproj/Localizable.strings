@@ -64,6 +64,9 @@
 /* View and button titles for accessibility */
 "maps" = "แผนที่";
 
+/* View and button titles for accessibility */
+"downloader_maps" = "แผนที่:";
+
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "ทำเครื่องหมายสำหรับการดาวน์โหลดแล้ว แตะเพื่อยกเลิก";
 

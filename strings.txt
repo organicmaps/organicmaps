@@ -607,6 +607,37 @@
     nl = Kaarten
     pt = Mapas
 
+  [downloader_maps]
+    comment = View and button titles for accessibility
+    en = Maps:
+    ru = Карты:
+    fr = Cartes :
+    da = Kort:
+    id = Peta:
+    ko = 지도:
+    sv = Kartor:
+    tr = Haritalar:
+    uk = Карти:
+    vi = Bản đồ:
+    hu = Térképek:
+    de = Karten:
+    fi = Kartat:
+    cs = Mapy:
+    it = Mappe:
+    nb = Kart:
+    zh-Hant = 地圖：
+    zh-Hans = 地图：
+    th = แผนที่:
+    ja = マップ：
+    ro = Hărţi:
+    ar = الخرائط:
+    he = מפות:
+    sk = Mapy:
+    es = Mapas:
+    pl = Mapy:
+    nl = Kaarten:
+    pt = Mapas:
+
   [marked_for_downloading]
     en = Marked for downloading, touch to cancel
     comment = Settings/Downloader - info for country in the download queue

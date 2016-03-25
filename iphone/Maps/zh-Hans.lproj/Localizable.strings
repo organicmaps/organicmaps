@@ -64,6 +64,9 @@
 /* View and button titles for accessibility */
 "maps" = "地图";
 
+/* View and button titles for accessibility */
+"downloader_maps" = "地图：";
+
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "标记为下载,轻触取消";
 

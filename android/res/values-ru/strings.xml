@@ -42,6 +42,8 @@
 	<string name="leave_a_review">Написать отзыв</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Карты</string>
+	<!-- View and button titles for accessibility -->
+	<string name="downloader_maps">Карты:</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Поставлено в очередь на загрузку, нажмите для отмены</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->

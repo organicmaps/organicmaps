@@ -64,6 +64,9 @@
 /* View and button titles for accessibility */
 "maps" = "Kartor";
 
+/* View and button titles for accessibility */
+"downloader_maps" = "Kartor:";
+
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Markerad för nedladdning, tryck för att avbryta";
 

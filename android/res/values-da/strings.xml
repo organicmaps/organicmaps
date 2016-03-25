@@ -40,6 +40,8 @@
 	<string name="leave_a_review">Lav en bedømmelse</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Kort</string>
+	<!-- View and button titles for accessibility -->
+	<string name="downloader_maps">Kort:</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Markeret til download, tryk for at afbryde</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
