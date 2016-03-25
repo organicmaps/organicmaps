@@ -25,7 +25,7 @@ using namespace storage;
 namespace
 {
 
-string const kTestWebServer = "http://new-search.mapswithme.com/";
+string const kTestWebServer = "http://direct.mapswithme.com/";
 
 string const kMapTestDir = "map-tests";
 
