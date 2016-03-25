@@ -531,7 +531,7 @@ bool Framework::HasUnsavedEdits(storage::TCountryId const & countryId)
   {
     if (groupNode)
       return;
-    hasUnsavedChanges |= osm::Editor::Instance().HaveSomethingToUpload(
+    hasUnsavedChanges |= osm::Editor::Instance().HaveMapEditsToUpload(
           m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(fileName)));
   };
   Storage().ForEachInSubtree(countryId, forEachInSubtree);

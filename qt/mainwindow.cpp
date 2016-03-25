@@ -502,7 +502,7 @@ void MainWindow::OnUploadEditsMenuItem()
   else
   {
     auto & editor = osm::Editor::Instance();
-    if (editor.HaveSomethingToUpload())
+    if (editor.HaveMapEditsOrNotesToUpload())
       editor.UploadChanges(key, secret, {{"created_by", "MAPS.ME " OMIM_OS_NAME}});
   }
 }

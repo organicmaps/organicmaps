@@ -2,6 +2,7 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationOSMLoginViewController.h"
 #import "MWMCircularProgress.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UITextField+RuntimeAttributes.h"
 
@@ -138,6 +139,9 @@ using namespace osm;
       catch (exception const & ex)
       {
         LOG(LWARNING, ("Error login", ex.what()));
+        [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatNo,
+                                                                           kStatErrorData : @(ex.what()),
+                                                                           kStatType : kStatOSM}];
       }
       dispatch_async(dispatch_get_main_queue(), ^
       {
@@ -145,7 +149,9 @@ using namespace osm;
         if (auth.IsAuthorized())
         {
           osm_auth_ios::AuthorizationStoreCredentials(auth.GetKeySecret());
-          [self dismissViewControllerAnimated:YES completion:nil];
+          [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatYes,
+                                                                             kStatType : kStatOSM}];
+          [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else
         {

@@ -247,11 +247,7 @@ using namespace osm_auth_ios;
 
 - (IBAction)cancel
 {
-  UINavigationController * parentNavController = self.navigationController.navigationController;
-  if (parentNavController)
-    [parentNavController popViewControllerAnimated:YES];
-  else
-    [self dismissViewControllerAnimated:YES completion:nil];
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)localChangesAction

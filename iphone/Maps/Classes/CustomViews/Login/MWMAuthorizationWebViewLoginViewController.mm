@@ -2,6 +2,7 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMCircularProgress.h"
+#import "Statistics.h"
 
 #include "base/logging.hpp"
 #include "editor/osm_auth.hpp"
@@ -128,6 +129,15 @@ NSString * getVerifier(NSString * urlString)
   self.webView.userInteractionEnabled = YES;
 }
 
+- (NSString *)authTypeAsString
+{
+  switch (self.authType)
+  {
+    case MWMWebViewAuthorizationTypeGoogle: return kStatGoogle;
+    case MWMWebViewAuthorizationTypeFacebook: return kStatFacebook;
+  }
+}
+
 - (void)checkAuthorization:(NSString *)verifier
 {
   [self startSpinner];
@@ -142,6 +152,9 @@ NSString * getVerifier(NSString * urlString)
     catch (exception const & ex)
     {
       LOG(LWARNING, ("checkAuthorization error", ex.what()));
+      [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatNo,
+                                                                         kStatErrorData : @(ex.what()),
+                                                                         kStatType : self.authTypeAsString}];
     }
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -149,10 +162,13 @@ NSString * getVerifier(NSString * urlString)
       if (OsmOAuth::IsValid(ks))
       {
         osm_auth_ios::AuthorizationStoreCredentials(ks);
-        [self dismissViewControllerAnimated:NO completion:nil];
+        [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatYes,
+                                                                           kStatType : self.authTypeAsString}];
+        [self.navigationController popToRootViewControllerAnimated:YES];
       }
       else
       {
+        // Do not log statistics here because it has been already logged in catch above.
         [self loadAuthorizationPage];
         [self.alertController presentInvalidUserNameOrPasswordAlert];
       }
