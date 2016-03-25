@@ -29,7 +29,7 @@
 - (void)config:(storage::NodeAttrs const &)nodeAttrs
 {
   [super config:nodeAttrs];
-  BOOL const haveLocalMaps = (nodeAttrs.m_localMwmCounter != 0);
+  BOOL const haveLocalMaps = (nodeAttrs.m_downloadingMwmCounter != 0);
   NSString * ofMaps = haveLocalMaps ? [NSString stringWithFormat:L(@"downloader_of"), nodeAttrs.m_downloadingMwmCounter, nodeAttrs.m_mwmCounter] : @(nodeAttrs.m_mwmCounter).stringValue;
   self.mapsCount.text = [NSString stringWithFormat:@"%@: %@", L(@"downloader_status_maps"), ofMaps];
 }
