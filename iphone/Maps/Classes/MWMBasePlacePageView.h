@@ -16,5 +16,6 @@
 - (void)removeBookmark;
 - (void)reloadBookmarkCell;
 - (void)updateAndLayoutMyPositionSpeedAndAltitude:(NSString *)text;
+- (void)setDistance:(NSString *)distance;
 
 @end
