@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
@@ -16,12 +17,17 @@ NSString * const kVerifierKey = @"oauth_verifier";
 
 BOOL checkURLHasVerifierKey(NSString * urlString)
 {
-  return [urlString containsString:kVerifierKey];
+  return isIOS7 ? [urlString rangeOfString:kVerifierKey].location != NSNotFound :
+                  [urlString containsString:kVerifierKey];
 }
 
 BOOL checkURLNeedsReload(NSString * urlString)
 {
-  return [urlString hasSuffix:@"/"] || [urlString containsString:@"/welcome"];
+  BOOL const hasSlashSuffix = [urlString hasSuffix:@"/"];
+  if (!isIOS7)
+    return hasSlashSuffix || [urlString containsString:@"/welcome"];
+  return hasSlashSuffix || ([urlString rangeOfString:@"/welcome"].location != NSNotFound);
+
 }
 
 NSString * getVerifier(NSString * urlString)
