@@ -22,7 +22,8 @@
   objc_setAssociatedObject(self, @selector(mwm_coloring), @(mwm_coloring), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
   if (mwm_coloring == MWMImageColoringOther)
     return;
-  [self makeImageAlwaysTemplate];
+  if (isIOS7)
+    [self makeImageAlwaysTemplate];
   [self applyColoring];
 }
 
@@ -49,7 +50,8 @@
       self.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@", self.mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
     return;
   }
-  [self makeImageAlwaysTemplate];
+  if (isIOS7)
+    [self makeImageAlwaysTemplate];
   [self applyColoring];
 }
 

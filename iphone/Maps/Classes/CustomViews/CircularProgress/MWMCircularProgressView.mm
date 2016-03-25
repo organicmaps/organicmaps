@@ -29,6 +29,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 @property (weak, nonatomic) IBOutlet UIImageView * spinner;
 @property (weak, nonatomic) IBOutlet MWMButton * button;
 
+@property (nonatomic) BOOL suspendRefreshProgress;
+
 @end
 
 @implementation MWMCircularProgressView
@@ -39,9 +41,11 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 - (void)awakeFromNib
 {
   self.images = [NSMutableDictionary dictionary];
+  self.suspendRefreshProgress = YES;
   [self setupColors];
   [self setupButtonColoring];
   [self setupAnimationLayers];
+  self.suspendRefreshProgress = NO;
 }
 
 - (void)layoutSubviews
@@ -78,7 +82,9 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)mwm_refreshUI
 {
+  self.suspendRefreshProgress = YES;
   [self setupColors];
+  self.suspendRefreshProgress = NO;
 }
 
 - (void)setupAnimationLayers
@@ -113,6 +119,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)refreshProgress
 {
+  if (self.suspendRefreshProgress)
+    return;
   self.backgroundLayer.fillColor = self.progressLayer.fillColor = UIColor.clearColor.CGColor;
   self.backgroundLayer.lineWidth = self.progressLayer.lineWidth = kLineWidth;
   self.backgroundLayer.strokeColor = self.backgroundLayerColor;
@@ -227,6 +235,13 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 - (BOOL)animating
 {
   return [self.progressLayer animationForKey:kAnimationKey] != nil;
+}
+
+- (void)setSuspendRefreshProgress:(BOOL)suspendRefreshProgress
+{
+  _suspendRefreshProgress = suspendRefreshProgress;
+  if (!suspendRefreshProgress)
+    [self refreshProgress];
 }
 
 @end

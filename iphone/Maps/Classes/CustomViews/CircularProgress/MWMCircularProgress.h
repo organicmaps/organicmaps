@@ -28,7 +28,7 @@ using MWMCircularProgressStateVec = vector<MWMCircularProgressState>;
 
 @property (nonatomic) CGFloat progress;
 @property (nonatomic) MWMCircularProgressState state;
-@property (weak, nonatomic) id<MWMCircularProgressProtocol> delegate;
+@property (weak, nonatomic) id<MWMCircularProgressProtocol> _Nullable delegate;
 
 - (void)setImage:(nonnull UIImage *)image forStates:(MWMCircularProgressStateVec const &)states;
 - (void)setColor:(nonnull UIColor *)color forStates:(MWMCircularProgressStateVec const &)states;

@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMSearchManager.h"
 #import "MWMSearchTabButtonsView.h"
 #import "UIColor+MapsMeColor.h"
@@ -91,7 +92,8 @@ static CGFloat const kIconToLabelSpacing = 4.0;
 {
   _iconImage = iconImage;
   [self.icon setImage:iconImage forState:UIControlStateNormal];
-  [self.icon.imageView makeImageAlwaysTemplate];
+  if (isIOS7)
+    [self.icon.imageView makeImageAlwaysTemplate];
 }
 
 - (void)setLocalizedText:(NSString *)localizedText
