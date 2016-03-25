@@ -59,6 +59,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     initViews(view);
 
     // TODO(yunikkk): Add multilanguages support.
+    UiUtils.hide(mTvLocalizedNames);
     mEtName.setText(Editor.nativeGetDefaultName());
     mTvStreet.setText(Editor.nativeGetStreet());
     mEtHouseNumber.setText(Editor.nativeGetHouseNumber());
@@ -70,6 +71,23 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     refreshOpeningTime();
 
     refreshEditableFields();
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    setEdits();
+  }
+
+  protected void setEdits()
+  {
+    Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, getPhone());
+    Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, getWebsite());
+    Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, getEmail());
+    Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, getWifi());
+    Editor.nativeSetDefaultName(getName());
+    Editor.nativeSetHouseNumber(getHouseNumber());
   }
 
   public String getName()
@@ -116,18 +134,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   public String getOpeningHours()
   {
     return Editor.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-  }
-
-  public Metadata getMetadata()
-  {
-    final Metadata res = new Metadata();
-    res.addMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, mOpeningHours.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, mEtPhone.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_WEBSITE, mEtWebsite.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_EMAIL, mEtEmail.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_CUISINE, mTvCuisine.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_INTERNET, mSwWifi.isChecked() ? "Yes" : "");
-    return res;
   }
 
   private void refreshEditableFields()
@@ -201,6 +207,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mAddressBlock = view.findViewById(R.id.cv__address);
     mMetadataBlock = view.findViewById(R.id.cv__metadata);
     mEtName = findInput(view.findViewById(R.id.name));
+    mTvLocalizedNames = (TextView) view.findViewById(R.id.name_multilang);
     view.findViewById(R.id.block_street).setOnClickListener(this);
     mTvStreet = (TextView) view.findViewById(R.id.street);
     mEtHouseNumber = findInput(view.findViewById(R.id.building));

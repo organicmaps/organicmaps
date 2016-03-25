@@ -100,13 +100,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     return true;
   }
 
-  @Override
-  public void onSaveInstanceState(Bundle outState)
-  {
-    super.onSaveInstanceState(outState);
-    temporaryStoreEdits();
-  }
-
   protected void editMapObject()
   {
     mMode = Mode.MAP_OBJECT;
@@ -117,9 +110,10 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
                              .replace(R.id.fragment_container, editorFragment, EditorFragment.class.getName())
                              .commit();
   }
+
   protected void editTimetable()
   {
-    temporaryStoreEdits();
+    setEdits();
     mMode = Mode.OPENING_HOURS;
     mToolbarController.setTitle(R.string.editor_time_title);
     final Bundle args = new Bundle();
@@ -132,12 +126,10 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editStreet()
   {
-    temporaryStoreEdits();
+    setEdits();
     mMode = Mode.STREET;
     mToolbarController.setTitle(R.string.choose_street);
-    final Bundle args = new Bundle();
-    args.putString(StreetFragment.EXTRA_CURRENT_STREET, Editor.nativeGetStreet());
-    final Fragment streetFragment = Fragment.instantiate(getActivity(), StreetFragment.class.getName(), args);
+    final Fragment streetFragment = Fragment.instantiate(getActivity(), StreetFragment.class.getName());
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, streetFragment, StreetFragment.class.getName())
                              .commit();
@@ -145,7 +137,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editCuisine()
   {
-    temporaryStoreEdits();
+    setEdits();
     mMode = Mode.CUISINE;
     mToolbarController.setTitle("");
     ((SearchToolbarController) mToolbarController).showControls(true);
@@ -155,18 +147,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
                              .commit();
   }
 
-  protected void temporaryStoreEdits()
+  private void setEdits()
   {
-    final EditorFragment editorFragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
-    Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, editorFragment.getOpeningHours());
-    Editor.setMetadata(Metadata.MetadataType.FMD_CUISINE, editorFragment.getCuisine());
-    Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, editorFragment.getPhone());
-    Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, editorFragment.getWebsite());
-    Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, editorFragment.getEmail());
-    Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, editorFragment.getWifi());
-    Editor.nativeSetDefaultName(editorFragment.getName());
-    Editor.nativeSetHouseNumber(editorFragment.getHouseNumber());
-    Editor.nativeSetStreet(editorFragment.getStreet());
+    ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();
   }
 
   @Override
@@ -190,14 +173,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         editMapObject();
         break;
       case MAP_OBJECT:
-        final EditorFragment editorFragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
-        Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, editorFragment.getPhone());
-        Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, editorFragment.getWebsite());
-        Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, editorFragment.getEmail());
-        Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, editorFragment.getWifi());
-        Editor.nativeSetDefaultName(editorFragment.getName());
-        // Street, cuisine and opening hours are saved in separate cases.
-        Editor.nativeSetHouseNumber(editorFragment.getHouseNumber());
+        setEdits();
         if (Editor.nativeSaveEditedFeature())
         {
           Statistics.INSTANCE.trackEditorSuccess();
