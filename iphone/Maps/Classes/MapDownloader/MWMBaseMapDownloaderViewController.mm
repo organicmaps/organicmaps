@@ -24,14 +24,14 @@ extern NSString * const kLargeCountryCellIdentifier = @"MWMMapDownloaderLargeCou
 
 namespace
 {
-NSString * const kAllMapsLabelFormat = @"%@: %@ (%@)";
+NSString * const kAllMapsLabelFormat = @"%@ %@ (%@)";
 NSString * const kCancelActionTitle = L(@"cancel");
 NSString * const kCancelAllTitle = L(@"downloader_cancel_all");
 NSString * const kDeleteActionTitle = L(@"downloader_delete_map");
 NSString * const kDownloaAllTitle = L(@"downloader_download_all_button");
 NSString * const kDownloadActionTitle = L(@"downloader_download_map");
 NSString * const kDownloadingTitle = L(@"downloader_downloading");
-NSString * const kMapsTitle = L(@"maps");
+NSString * const kMapsTitle = L(@"downloader_maps");
 NSString * const kShowActionTitle = L(@"zoom_to_country");
 NSString * const kUpdateActionTitle = L(@"downloader_status_outdated");
 } // namespace
