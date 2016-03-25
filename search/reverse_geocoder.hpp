@@ -90,7 +90,7 @@ public:
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
   /// @return The exact address for feature.
   /// @precondition ft Should have house number.
-  void GetNearbyAddress(FeatureType & ft, Address & addr) const;
+  bool GetExactAddress(FeatureType & ft, Address & addr) const;
 
 private:
 
