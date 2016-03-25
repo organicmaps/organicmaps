@@ -1,6 +1,17 @@
 #import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
 
+namespace
+{
+UINib * const progressViewNib = [UINib nibWithNibName:@"MWMCircularProgress" bundle:[NSBundle mainBundle]];
+} // namespace
+
+@interface MWMCircularProgressView ()
+
+@property (nonatomic) BOOL suspendRefreshProgress;
+
+@end
+
 @interface MWMCircularProgress ()
 
 @property (nonatomic) IBOutlet MWMCircularProgressView * rootView;
@@ -13,6 +24,8 @@
 + (nonnull instancetype)downloaderProgressForParentView:(nonnull UIView *)parentView
 {
   MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
+
+  progress.rootView.suspendRefreshProgress = YES;
 
   [progress setImage:[UIImage imageNamed:@"ic_download"]
            forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateSelected}];
@@ -29,6 +42,8 @@
   [progress setColoring:MWMButtonColoringOther forStates:{MWMCircularProgressStateFailed}];
   [progress setColoring:MWMButtonColoringBlue forStates:{MWMCircularProgressStateCompleted}];
 
+  progress.rootView.suspendRefreshProgress = NO;
+
   return progress;
 }
 
@@ -37,7 +52,7 @@
   self = [super init];
   if (self)
   {
-    [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
+    [progressViewNib instantiateWithOwner:self options:nil];
     [parentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [parentView addSubview:self.rootView];
     self.state = MWMCircularProgressStateNormal;
