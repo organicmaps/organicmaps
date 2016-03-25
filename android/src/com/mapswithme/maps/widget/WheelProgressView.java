@@ -11,6 +11,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableWrapper;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -106,9 +107,12 @@ public class WheelProgressView extends ImageView
     mRadius = (Math.min(width, height) - mStrokeWidth) / 2;
     mCenter.set(left + width / 2, top + height / 2);
     mProgressRect.set(mCenter.x - mRadius, mCenter.y - mRadius, mCenter.x + mRadius, mCenter.y + mRadius);
-    if (mCenterDrawable instanceof BitmapDrawable)
+
+    Drawable d = ((mCenterDrawable instanceof DrawableWrapper) ? ((DrawableWrapper)mCenterDrawable).getWrappedDrawable()
+                                                               : mCenterDrawable);
+    if (d instanceof BitmapDrawable)
     {
-      Bitmap bmp = ((BitmapDrawable)mCenterDrawable).getBitmap();
+      Bitmap bmp = ((BitmapDrawable)d).getBitmap();
       int halfw = bmp.getWidth() / 2;
       int halfh = bmp.getHeight() / 2;
       mCenterDrawable.setBounds(mCenter.x - halfw, mCenter.y - halfh, mCenter.x + halfw, mCenter.y + halfh);

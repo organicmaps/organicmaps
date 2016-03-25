@@ -3,9 +3,9 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
   <item>
     <shape android:shape="oval">
-      <solid android:color="@color/base_accent"/>
+      <solid android:color="@color/base_accent_night"/>
     </shape>
   </item>
 
-  <item android:drawable="@drawable/ic_downloader_done"/>
+  <item android:drawable="@drawable/ic_downloader_done_night"/>
 </layer-list>
