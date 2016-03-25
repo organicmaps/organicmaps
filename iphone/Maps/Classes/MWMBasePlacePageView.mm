@@ -242,7 +242,6 @@ enum class AttributePosition
   self.distanceLabel.width = placePageWidth() - kLabelsPadding;
   [self.distanceLabel sizeToFit];
   [self layoutDistanceBoxWithPosition:[self distanceAttributePosition]];
-  [self layoutIfNeeded];
 }
 
 - (void)layoutSubviews
@@ -256,6 +255,7 @@ enum class AttributePosition
   [self.addressLabel sizeToFit];
   [self layoutLabels];
   [self layoutTableViewWithPosition:position];
+  [self setDistance:self.distanceLabel.text];
   self.height = self.featureTable.height + self.separatorView.height + self.titleLabel.height +
                 (self.typeLabel.text.length > 0 ? self.typeLabel.height + kLabelsBetweenOffset : 0) +
                 (self.addressLabel.text.length > 0 ? self.addressLabel.height + kLabelsBetweenOffset : 0) + kBottomPlacePageOffset;
