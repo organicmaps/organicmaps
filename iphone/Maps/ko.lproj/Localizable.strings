@@ -64,6 +64,9 @@
 /* View and button titles for accessibility */
 "maps" = "지도";
 
+/* View and button titles for accessibility */
+"downloader_maps" = "지도:";
+
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "다운로드로 표시하였습니다. 두드려 취소하십시요.";
 

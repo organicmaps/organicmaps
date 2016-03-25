@@ -64,6 +64,9 @@
 /* View and button titles for accessibility */
 "maps" = "Kartat";
 
+/* View and button titles for accessibility */
+"downloader_maps" = "Kartat:";
+
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Merkitty ladattavaksi, peruuta koskettamalla";
 

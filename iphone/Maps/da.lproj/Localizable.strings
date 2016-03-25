@@ -64,6 +64,9 @@
 /* View and button titles for accessibility */
 "maps" = "Kort";
 
+/* View and button titles for accessibility */
+"downloader_maps" = "Kort:";
+
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Markeret til download, tryk for at afbryde";
 

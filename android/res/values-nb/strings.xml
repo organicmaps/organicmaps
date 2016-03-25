@@ -42,6 +42,8 @@
 	<string name="leave_a_review">Legg inn en vurdering</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Kart</string>
+	<!-- View and button titles for accessibility -->
+	<string name="downloader_maps">Kart:</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Merket for nedlasting – trykk for å avbryte</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->

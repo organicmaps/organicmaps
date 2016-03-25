@@ -64,6 +64,9 @@
 /* View and button titles for accessibility */
 "maps" = "Mapas";
 
+/* View and button titles for accessibility */
+"downloader_maps" = "Mapas:";
+
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Marcado para descarga, toque para cancelar";
 

@@ -64,6 +64,9 @@
 /* View and button titles for accessibility */
 "maps" = "Карты";
 
+/* View and button titles for accessibility */
+"downloader_maps" = "Карты:";
+
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Поставлено в очередь на загрузку, нажмите для отмены";
 

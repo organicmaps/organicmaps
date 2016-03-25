@@ -40,6 +40,8 @@
 	<string name="leave_a_review">Deixe uma revisão</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Mapas</string>
+	<!-- View and button titles for accessibility -->
+	<string name="downloader_maps">Mapas:</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Marcado para descarga, toque para cancelar</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->

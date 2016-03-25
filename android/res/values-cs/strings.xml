@@ -40,6 +40,8 @@
 	<string name="leave_a_review">Zpětná vazba</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Mapy</string>
+	<!-- View and button titles for accessibility -->
+	<string name="downloader_maps">Mapy:</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Připraveno pro stažení, klepněte pro zrušení.</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
