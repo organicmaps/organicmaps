@@ -2,6 +2,8 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "UIFont+MapsMeFonts.h"
 
+#include "Framework.h"
+
 namespace
 {
   NSDictionary * const kSelectedAreaAttrs = @{ NSFontAttributeName : [UIFont bold12] };
@@ -43,11 +45,18 @@ namespace
 - (void)config:(storage::NodeAttrs const &)nodeAttrs
 {
   [super config:nodeAttrs];
-  BOOL const isAreaVisible = (self.needDisplayArea && nodeAttrs.m_parentInfo.size() == 1);
-  if (isAreaVisible)
-    self.area.attributedText = [self matchedString:@(nodeAttrs.m_parentInfo[0].m_localName.c_str())
-                                     selectedAttrs:kSelectedAreaAttrs
-                                   unselectedAttrs:kUnselectedAreaAttrs];
+  BOOL isAreaVisible = NO;
+  if (self.needDisplayArea)
+  {
+    string const areaName = nodeAttrs.m_parentInfo[0].m_localName;
+    BOOL const isParentRoot = (areaName == GetFramework().Storage().GetRootId());
+    BOOL const isOneParent = nodeAttrs.m_parentInfo.size() == 1;
+    isAreaVisible = (!isParentRoot && isOneParent);
+    if (isAreaVisible)
+      self.area.attributedText = [self matchedString:@(areaName.c_str())
+                                       selectedAttrs:kSelectedAreaAttrs
+                                     unselectedAttrs:kUnselectedAreaAttrs];
+  }
   self.area.hidden = !isAreaVisible;
   self.titleBottomOffset.priority = isAreaVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 }
