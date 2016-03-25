@@ -19,6 +19,7 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
@@ -109,9 +110,12 @@ public enum Statistics
     public static final String ROUTING_TOGGLE = "Routing. Toggle";
     public static final String ROUTING_SEARCH_POINT = "Routing. Search point";
     // editor
-    public static final String EDITOR_START = "Editor_Edit_start";
-    public static final String EDITOR_SUCCESS = "Editor_Edit_success";
-    public static final String EDITOR_ERROR = "Editor_Edit_error";
+    public static final String EDITOR_START_CREATE = "Editor_Add_start";
+    public static final String EDITOR_START_EDIT = "Editor_Edit_start";
+    public static final String EDITOR_SUCCESS_CREATE = "Editor_Add_success";
+    public static final String EDITOR_SUCCESS_EDIT = "Editor_Edit_success";
+    public static final String EDITOR_ERROR_CREATE = "Editor_Add_error";
+    public static final String EDITOR_ERROR_EDIT = "Editor_Edit_error";
     public static final String EDITOR_AUTH_DECLINED = "Editor_Auth_declined_by_user";
     public static final String EDITOR_AUTH_REQUEST = "Editor_Auth_request";
     public static final String EDITOR_AUTH_REQUEST_RESULT = "Editor_Auth_request_result";
@@ -355,24 +359,36 @@ public enum Statistics
                                                 .add(EventParam.TO, to));
   }
 
-  public void trackEditorLaunch()
+  public void trackEditorLaunch(boolean newObject)
   {
-    trackEvent(EventName.EDITOR_START, params().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
-                                               .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
-                                                // TODO
-//                                               .add(EventParam.FEATURE_ID, )
-//                                               .add(EventParam.MWM_NAME, )
-//                                               .add(EventParam.MWM_VERSION);
+    trackEvent(newObject ? EventName.EDITOR_START_CREATE : EventName.EDITOR_START_EDIT,
+               editorMwmParams().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
+                                .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
   }
 
-  public void trackEditorSuccess()
+  public void trackEditorSuccess(boolean newObject)
   {
-    trackEvent(EventName.EDITOR_SUCCESS, params()); // TODO featureid-mwmname-mwmversion
+    trackEvent(newObject ? EventName.EDITOR_SUCCESS_CREATE : EventName.EDITOR_SUCCESS_EDIT,
+               editorMwmParams().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
+                                .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
+  }
+
+  public void trackEditorError(boolean newObject)
+  {
+    trackEvent(newObject ? EventName.EDITOR_ERROR_CREATE : EventName.EDITOR_ERROR_EDIT,
+               editorMwmParams().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
+                                .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
   }
 
   public static ParameterBuilder params()
   {
     return new ParameterBuilder();
+  }
+
+  public static ParameterBuilder editorMwmParams()
+  {
+    return params().add(EventParam.MWM_NAME, Editor.nativeGetMwmName())
+                   .add(EventParam.MWM_VERSION, Editor.nativeGetMwmVersion());
   }
 
   public static class ParameterBuilder

@@ -176,7 +176,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         setEdits();
         if (Editor.nativeSaveEditedFeature())
         {
-          Statistics.INSTANCE.trackEditorSuccess();
+          Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);
           if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
             Utils.navigateToParent(getActivity());
           else
@@ -184,7 +184,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         }
         else
         {
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ERROR);
+          Statistics.INSTANCE.trackEditorError(mIsNewObject);
           // TODO(yunikkk) set correct error text.
           UiUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
         }
