@@ -1275,8 +1275,6 @@
 
 "migration_delete_all_download_current_button" = "Descărcați harta actuală și ștergeți toate hărțile vechi";
 
-"migration_prefetch_status" = "Pregătește actualizarea hărților…";
-
 "migration_download_error_dialog" = "Eroare de descărcare";
 
 "common_check_internet_connection_dialog" = "Vă rugăm să vă verificați setările și să vă asigurați că dispozitivul dvs. este conectat la Internet.";

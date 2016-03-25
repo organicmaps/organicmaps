@@ -1275,8 +1275,6 @@
 
 "migration_delete_all_download_current_button" = "Stiahnite si aktuálnu mapu a odstráňte neaktuálne mapy";
 
-"migration_prefetch_status" = "Prebieha príprava aktualizácie máp…";
-
 "migration_download_error_dialog" = "Chyba pri sťahovaní";
 
 "common_check_internet_connection_dialog" = "Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.";

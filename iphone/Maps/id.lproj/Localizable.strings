@@ -1275,8 +1275,6 @@
 
 "migration_delete_all_download_current_button" = "Unduh peta sekarang dan hapus peta lama";
 
-"migration_prefetch_status" = "Mempersiapkan pembaruan peta…";
-
 "migration_download_error_dialog" = "Unduh kesalahan";
 
 "common_check_internet_connection_dialog" = "Harap memeriksa pengaturan Anda dan pastikan perangkat Anda terhubung dengan internet.";

@@ -1275,8 +1275,6 @@
 
 "migration_delete_all_download_current_button" = "下载当前地图并删除旧地图";
 
-"migration_prefetch_status" = "正在准备地图更新…";
-
 "migration_download_error_dialog" = "下载错误";
 
 "common_check_internet_connection_dialog" = "请检查您的设置并确保您的设备已连接至网络。";

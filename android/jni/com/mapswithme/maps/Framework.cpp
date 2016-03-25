@@ -422,10 +422,10 @@ void Framework::Migrate(bool keepOldMaps)
   m_work.Migrate(keepOldMaps);
 }
 
-bool Framework::PreMigrate(ms::LatLon const & position, Storage::TChangeCountryFunction const & statusChangeListener,
-                                                        Storage::TProgressFunction const & progressListener)
+storage::TCountryId Framework::PreMigrate(ms::LatLon const & position, Storage::TChangeCountryFunction const & statusChangeListener,
+                                                                       Storage::TProgressFunction const & progressListener)
 {
-  return (m_work.PreMigrate(position, statusChangeListener, progressListener) != kInvalidCountryId);
+  return m_work.PreMigrate(position, statusChangeListener, progressListener);
 }
 
 }  // namespace android

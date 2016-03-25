@@ -748,7 +748,6 @@
 	<string name="downloader_search_field_hint">Etsi kartta</string>
 	<string name="migration_update_all_button">Päivitä kaikki kartat</string>
 	<string name="migration_delete_all_download_current_button">Lataa nykyinen kartta ja poista kaikki vanhat kartat</string>
-	<string name="migration_prefetch_status">Karttojen päivitystä ladataan…</string>
 	<string name="migration_download_error_dialog">Latausvirhe</string>
 	<string name="common_check_internet_connection_dialog">Tarkista asetuksesi ja varmista, että laitteesi on yhteydessä Internetiin.</string>
 	<string name="downloader_no_space_title">Ei tarpeeksi tilaa</string>

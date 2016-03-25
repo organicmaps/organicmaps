@@ -750,7 +750,6 @@
 	<string name="downloader_search_field_hint">Find kortet</string>
 	<string name="migration_update_all_button">Opdatér alle kort</string>
 	<string name="migration_delete_all_download_current_button">Download aktuelt kort og slet de gamle</string>
-	<string name="migration_prefetch_status">Forbereder kortopdatering…</string>
 	<string name="migration_download_error_dialog">Fejl ved download</string>
 	<string name="common_check_internet_connection_dialog">Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.</string>
 	<string name="downloader_no_space_title">Ikke nok plads</string>

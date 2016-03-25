@@ -1275,8 +1275,6 @@
 
 "migration_delete_all_download_current_button" = "現在の地図をダウンロードして古い地図を削除";
 
-"migration_prefetch_status" = "地図のアップデートの準備中…";
-
 "migration_download_error_dialog" = "ダウンロードエラー";
 
 "common_check_internet_connection_dialog" = "設定をチェックし、デバイスがインターネットに接続されているか確認してください。";

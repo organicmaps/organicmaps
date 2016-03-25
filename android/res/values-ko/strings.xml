@@ -740,7 +740,6 @@
 	<string name="downloader_search_field_hint">지도 찾기</string>
 	<string name="migration_update_all_button">모든지도 업데이트</string>
 	<string name="migration_delete_all_download_current_button">현재 지도 다운로드 및 기존 지도 삭제</string>
-	<string name="migration_prefetch_status">지도 업데이트 준비 중…</string>
 	<string name="migration_download_error_dialog">다운로드 오류</string>
 	<string name="common_check_internet_connection_dialog">설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.</string>
 	<string name="downloader_no_space_title">충분하지 않은 여유 공간</string>

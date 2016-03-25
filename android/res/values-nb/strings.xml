@@ -748,7 +748,6 @@
 	<string name="downloader_search_field_hint">Finn kartet</string>
 	<string name="migration_update_all_button">Oppdater alle kart</string>
 	<string name="migration_delete_all_download_current_button">Last ned det oppdaterte kartet og slett de gamle</string>
-	<string name="migration_prefetch_status">Forbereder oppdatering av kart…</string>
 	<string name="migration_download_error_dialog">Nedlastningsfeil</string>
 	<string name="common_check_internet_connection_dialog">Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.</string>
 	<string name="downloader_no_space_title">Ikke nok plass</string>

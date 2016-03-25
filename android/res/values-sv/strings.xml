@@ -752,7 +752,6 @@
 	<string name="downloader_search_field_hint">Hitta kartan</string>
 	<string name="migration_update_all_button">Uppdatera alla kartor</string>
 	<string name="migration_delete_all_download_current_button">Ladda ned senaste kartan och radera de gamla</string>
-	<string name="migration_prefetch_status">Förbereder kartuppdatering…</string>
 	<string name="migration_download_error_dialog">Nedladdningsfel</string>
 	<string name="common_check_internet_connection_dialog">Kontrollera dina inställningar och se till att din enhet är ansluten till internet.</string>
 	<string name="downloader_no_space_title">Ej tillräckligt utrymme</string>

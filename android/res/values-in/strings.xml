@@ -747,7 +747,6 @@
 	<string name="downloader_search_field_hint">Temukan peta</string>
 	<string name="migration_update_all_button">Perbarui semua peta</string>
 	<string name="migration_delete_all_download_current_button">Unduh peta sekarang dan hapus peta lama</string>
-	<string name="migration_prefetch_status">Mempersiapkan pembaruan peta…</string>
 	<string name="migration_download_error_dialog">Unduh kesalahan</string>
 	<string name="common_check_internet_connection_dialog">Harap memeriksa pengaturan Anda dan pastikan perangkat Anda terhubung dengan internet.</string>
 	<string name="downloader_no_space_title">Tidak cukup ruang</string>

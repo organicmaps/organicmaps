@@ -785,7 +785,6 @@
 	<string name="downloader_search_field_hint">Find the map</string>
 	<string name="migration_update_all_button">Update All Maps</string>
 	<string name="migration_delete_all_download_current_button">Download current map and delete the old ones</string>
-	<string name="migration_prefetch_status">Preparing maps update…</string>
 	<string name="migration_download_error_dialog">Download error</string>
 	<string name="common_check_internet_connection_dialog">Please check your settings and make sure your device is connected to the internet.</string>
 	<string name="downloader_no_space_title">Not enough space</string>

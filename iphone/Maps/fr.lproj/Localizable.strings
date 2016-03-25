@@ -1275,8 +1275,6 @@
 
 "migration_delete_all_download_current_button" = "Téléchargez la carte actuelle et supprimez les anciennes";
 
-"migration_prefetch_status" = "Préparation de la mise à jour des cartes…";
-
 "migration_download_error_dialog" = "Erreur de téléchargement";
 
 "common_check_internet_connection_dialog" = "Veuillez vérifier vos paramètres et vous assurer que votre appareil est bien connecté à Internet.";

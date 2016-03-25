@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -116,7 +117,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         {
           mProgress.setPending(false);
           mProgress.setProgress(mCurrentCountry.progress);
-          sizeText = mCurrentCountry.progress + "%";
+          sizeText = String.format(Locale.US, "%1$s %2$d%%", mActivity.getString(R.string.downloader_downloading), mCurrentCountry.progress);
         }
         else
         {

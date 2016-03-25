@@ -751,7 +751,6 @@
 	<string name="downloader_search_field_hint">Nájsť mapu</string>
 	<string name="migration_update_all_button">Aktualizovať všetky mapy</string>
 	<string name="migration_delete_all_download_current_button">Stiahnite si aktuálnu mapu a odstráňte neaktuálne mapy</string>
-	<string name="migration_prefetch_status">Prebieha príprava aktualizácie máp…</string>
 	<string name="migration_download_error_dialog">Chyba pri sťahovaní</string>
 	<string name="common_check_internet_connection_dialog">Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.</string>
 	<string name="downloader_no_space_title">Nemáte dostatok miesta</string>

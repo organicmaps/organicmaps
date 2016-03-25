@@ -759,7 +759,6 @@
 	<string name="downloader_search_field_hint">Trouver la carte</string>
 	<string name="migration_update_all_button">Mettre à jour toutes les cartes</string>
 	<string name="migration_delete_all_download_current_button">Téléchargez la carte actuelle et supprimez les anciennes</string>
-	<string name="migration_prefetch_status">Préparation de la mise à jour des cartes…</string>
 	<string name="migration_download_error_dialog">Erreur de téléchargement</string>
 	<string name="common_check_internet_connection_dialog">Veuillez vérifier vos paramètres et vous assurer que votre appareil est bien connecté à Internet.</string>
 	<string name="downloader_no_space_title">Espace insuffisant</string>

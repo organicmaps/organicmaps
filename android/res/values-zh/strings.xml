@@ -754,7 +754,6 @@
 	<string name="downloader_search_field_hint">找到地图</string>
 	<string name="migration_update_all_button">更新全部地图</string>
 	<string name="migration_delete_all_download_current_button">下载当前地图并删除旧地图</string>
-	<string name="migration_prefetch_status">正在准备地图更新…</string>
 	<string name="migration_download_error_dialog">下载错误</string>
 	<string name="common_check_internet_connection_dialog">请检查您的设置并确保您的设备已连接至网络。</string>
 	<string name="downloader_no_space_title">无足够的空间</string>

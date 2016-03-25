@@ -1275,8 +1275,6 @@
 
 "migration_delete_all_download_current_button" = "Lataa nykyinen kartta ja poista kaikki vanhat kartat";
 
-"migration_prefetch_status" = "Karttojen päivitystä ladataan…";
-
 "migration_download_error_dialog" = "Latausvirhe";
 
 "common_check_internet_connection_dialog" = "Tarkista asetuksesi ja varmista, että laitteesi on yhteydessä Internetiin.";

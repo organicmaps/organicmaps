@@ -121,8 +121,8 @@ static void OnMigrationError(NodeErrorCode error)
 
 static void MigrationStatusChangedCallback(TCountryId const & countryId, bool keepOldMaps)
 {
-  NodeAttrs attrs;
-  GetStorage().GetPrefetchStorage()->GetNodeAttrs(countryId, attrs);
+  NodeStatuses attrs;
+  GetStorage().GetPrefetchStorage()->GetNodeStatuses(countryId, attrs);
 
   switch (attrs.m_status)
   {
@@ -132,7 +132,7 @@ static void MigrationStatusChangedCallback(TCountryId const & countryId, bool ke
 
   case NodeStatus::Undefined:
   case NodeStatus::Error:
-    if (attrs.m_mwmCounter == 1)
+    if (!attrs.m_groupNode)
       OnMigrationError(attrs.m_error);
     break;
 
@@ -149,8 +149,8 @@ static void MigrationProgressCallback(TCountryId const & countryId, TLocalAndRem
   env->CallVoidMethod(g_migrationListener, callback, static_cast<jint>(sizes.first * 100 / sizes.second));
 }
 
-// static boolean nativeMigrate(MigrationListener listener, double lat, double lon, boolean hasLocation, boolean keepOldMaps);
-JNIEXPORT jboolean JNICALL
+// static @Nullable String nativeMigrate(MigrationListener listener, double lat, double lon, boolean hasLocation, boolean keepOldMaps);
+JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeMigrate(JNIEnv * env, jclass clazz, jobject listener, jdouble lat, jdouble lon, jboolean hasLocation, jboolean keepOldMaps)
 {
   ms::LatLon position{};
@@ -159,14 +159,17 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeMigrate(JNIEnv * env, jclas
 
   g_migrationListener = env->NewGlobalRef(listener);
 
-  if (g_framework->PreMigrate(position, bind(&MigrationStatusChangedCallback, _1, keepOldMaps),
-                                        bind(&MigrationProgressCallback, _1, _2)))
+  TCountryId id = g_framework->PreMigrate(position, bind(&MigrationStatusChangedCallback, _1, keepOldMaps),
+                                                    bind(&MigrationProgressCallback, _1, _2));
+  if (id != kInvalidCountryId)
   {
-    return true;
+    NodeAttrs attrs;
+    GetStorage().GetPrefetchStorage()->GetNodeAttrs(id, attrs);
+    return jni::ToJavaString(env, attrs.m_nodeLocalName);
   }
 
   OnPrefetchComplete(keepOldMaps);
-  return false;
+  return nullptr;
 }
 
 // static void nativeCancelMigration();

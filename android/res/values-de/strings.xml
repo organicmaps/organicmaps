@@ -770,7 +770,6 @@
 	<string name="downloader_search_field_hint">Karte finden</string>
 	<string name="migration_update_all_button">Alle Karten aktualisieren</string>
 	<string name="migration_delete_all_download_current_button">Laden Sie die aktuelle Karte herunter und löschen Sie alte Karten</string>
-	<string name="migration_prefetch_status">Karten-Update wird vorbereitet …</string>
 	<string name="migration_download_error_dialog">Download-Fehler</string>
 	<string name="common_check_internet_connection_dialog">Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.</string>
 	<string name="downloader_no_space_title">Nicht genügend Platz</string>

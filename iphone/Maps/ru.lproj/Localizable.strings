@@ -1275,8 +1275,6 @@
 
 "migration_delete_all_download_current_button" = "Скачать текущую и удалить все старые карты";
 
-"migration_prefetch_status" = "Подготовка обновления карт…";
-
 "migration_download_error_dialog" = "Ошибка загрузки";
 
 "common_check_internet_connection_dialog" = "Проверьте настройки и убедитесь, что устройство подключено к интернету.";

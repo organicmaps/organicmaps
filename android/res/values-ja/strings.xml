@@ -747,7 +747,6 @@
 	<string name="downloader_search_field_hint">地図を検索</string>
 	<string name="migration_update_all_button">全ての地図をアップデート</string>
 	<string name="migration_delete_all_download_current_button">現在の地図をダウンロードして古い地図を削除</string>
-	<string name="migration_prefetch_status">地図のアップデートの準備中…</string>
 	<string name="migration_download_error_dialog">ダウンロードエラー</string>
 	<string name="common_check_internet_connection_dialog">設定をチェックし、デバイスがインターネットに接続されているか確認してください。</string>
 	<string name="downloader_no_space_title">十分な空き容量がありません</string>

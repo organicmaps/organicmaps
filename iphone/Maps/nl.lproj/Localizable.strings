@@ -1275,8 +1275,6 @@
 
 "migration_delete_all_download_current_button" = "Download de huidige kaart en verwijder de oude";
 
-"migration_prefetch_status" = "Het voorbereiden van de update van de kaart…";
-
 "migration_download_error_dialog" = "Downloadfout";
 
 "common_check_internet_connection_dialog" = "Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.";
