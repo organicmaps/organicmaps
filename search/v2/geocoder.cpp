@@ -316,6 +316,27 @@ double GetSquaredDistance(m2::RectD const & pivot, m2::RectD const & rect)
   return center.SquareLength(pivot.Center());
 }
 
+struct KeyedMwmInfo
+{
+  KeyedMwmInfo(shared_ptr<MwmInfo> const & info, m2::RectD const & pivot) : m_info(info)
+  {
+    auto const & rect = m_info->m_limitRect;
+    m_similarity = GetSimilarity(pivot, rect);
+    m_distance = GetSquaredDistance(pivot, rect);
+  }
+
+  bool operator<(KeyedMwmInfo const & rhs) const
+  {
+    if (m_similarity != rhs.m_similarity)
+      return m_similarity > rhs.m_similarity;
+    return m_distance < rhs.m_distance;
+  }
+
+  shared_ptr<MwmInfo> m_info;
+  double m_similarity;
+  double m_distance;
+};
+
 // Reorders maps in a way that prefix consists of maps intersecting
 // with pivot, suffix consists of all other maps ordered by minimum
 // distance from pivot. Returns number of maps in prefix.
@@ -330,30 +351,21 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
           ("MwmSet invariant violated. Please, contact @y if you know how to reproduce this."));
   }
 
-  auto compareBySimilarity = [&](shared_ptr<MwmInfo> const & lhs, shared_ptr<MwmInfo> const & rhs)
-  {
-    auto const & lhsRect = lhs->m_limitRect;
-    auto const & rhsRect = rhs->m_limitRect;
+  vector<KeyedMwmInfo> keyedInfos;
+  keyedInfos.reserve(infos.size());
+  for (auto const & info : infos)
+    keyedInfos.emplace_back(info, pivot);
+  sort(keyedInfos.begin(), keyedInfos.end());
 
-    auto const lhsSimilarity = GetSimilarity(pivot, lhsRect);
-    auto const rhsSimilarity = GetSimilarity(pivot, rhsRect);
-
-    if (lhsSimilarity == 0.0 && rhsSimilarity == 0.0)
-    {
-      auto const lhsDistance = GetSquaredDistance(pivot, lhsRect);
-      auto const rhsDistance = GetSquaredDistance(pivot, rhsRect);
-      return lhsDistance < rhsDistance;
-    }
-
-    return lhsSimilarity > rhsSimilarity;
-  };
+  infos.clear();
+  for (auto const & info : keyedInfos)
+    infos.emplace_back(info.m_info);
 
   auto intersects = [&](shared_ptr<MwmInfo> const & info) -> bool
   {
     return pivot.IsIntersect(info->m_limitRect);
   };
 
-  sort(infos.begin(), infos.end(), compareBySimilarity);
   auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
   return distance(infos.begin(), sep);
 }
