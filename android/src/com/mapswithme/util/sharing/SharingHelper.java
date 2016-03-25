@@ -37,10 +37,8 @@ public final class SharingHelper
   private static boolean sInitialized;
   private static final SharingHelper sInstance = new SharingHelper();
 
-
   private final SharedPreferences mPrefs = MwmApplication.get().getSharedPreferences(PREFS_STORAGE, Context.MODE_PRIVATE);
   private final Map<String, SharingTarget> mItems = new HashMap<>();
-
 
   private SharingHelper()
   {}

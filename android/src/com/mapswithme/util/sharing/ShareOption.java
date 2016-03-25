@@ -45,7 +45,7 @@ public abstract class ShareOption
       super(R.string.share_by_message, new Intent(Intent.ACTION_VIEW));
     }
 
-    private void shareWithText(Activity activity, String body)
+    public void share(Activity activity, String body)
     {
       Intent smsIntent = new Intent();
       TargetUtils.fillSmsIntent(activity, smsIntent, body);
@@ -61,7 +61,7 @@ public abstract class ShareOption
       final int bodyId = MapObject.isOfType(MapObject.MY_POSITION, mapObject) ? R.string.my_position_share_sms : R.string.bookmark_share_sms;
       final String body = activity.getString(bodyId, ge0Url, httpUrl);
 
-      shareWithText(activity, body);
+      share(activity, body);
     }
   }
 
