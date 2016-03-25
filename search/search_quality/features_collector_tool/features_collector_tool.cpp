@@ -8,6 +8,12 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_algo.hpp"
 
+#include "storage/country_info_getter.hpp"
+#include "storage/index.hpp"
+#include "storage/storage.hpp"
+
+#include "coding/file_name_utils.hpp"
+
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -21,14 +27,28 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
+#include "defines.hpp"
+
 #include "3party/gflags/src/gflags/gflags.h"
 
 using namespace search::tests_support;
 using namespace search;
+using namespace storage;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 DEFINE_string(json_in, "", "Path to the json file with samples (default: stdin)");
+
+void DidDownload(TCountryId const & /* countryId */,
+                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
+{
+}
+
+bool WillDelete(TCountryId const & /* countryId */,
+                shared_ptr<platform::LocalCountryFile> const & /* localFile */)
+{
+  return false;
+}
 
 struct Context
 {
@@ -113,14 +133,23 @@ int main(int argc, char * argv[])
 
   Platform & platform = GetPlatform();
 
+  string countriesFile = COUNTRIES_FILE;
   if (!FLAGS_data_path.empty())
+  {
     platform.SetResourceDir(FLAGS_data_path);
+    countriesFile = my::JoinFoldersToPath(FLAGS_data_path, COUNTRIES_FILE);
+  }
 
   if (!FLAGS_mwm_path.empty())
     platform.SetWritableDirForTests(FLAGS_mwm_path);
 
   LOG(LINFO, ("writable dir =", platform.WritableDir()));
   LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
+
+  Storage storage(countriesFile, FLAGS_mwm_path);
+  storage.Init(&DidDownload, &WillDelete);
+  auto infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
+  infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
 
   string jsonStr;
   if (FLAGS_json_in.empty())
@@ -146,7 +175,8 @@ int main(int argc, char * argv[])
   }
 
   classificator::Load();
-  TestSearchEngine engine(make_unique<SearchQueryFactory>(), Engine::Params{});
+  TestSearchEngine engine(move(infoGetter), make_unique<SearchQueryFactory>(), Engine::Params{});
+
   vector<platform::LocalCountryFile> mwms;
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
                                        mwms);
