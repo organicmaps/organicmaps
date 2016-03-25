@@ -375,7 +375,7 @@ nl:Buurtwinkel|kruidenier|winkel
 nb:Nærbutikk|nærbutikk|butikk
 pt:Loja de conveniência|compras
 ro:4Magazin mixt|magazin
-ru:4Продуктовый|2магазин
+ru:4Продуктовый магазин|2магазин
 sk:Príležitostné potreby|obchod
 sv:Närbutik|butik
 th:ร้านสะดวกซื้อ|ร้านค้า
@@ -854,7 +854,7 @@ pt:Artigos esportivos|2loja|compras
 
 shop-supermarket
 en:3Supermarket|shop|U+1F3EA|U+1F3EC
-ru:3Универсам|3супермаркет|3гипермаркет|магазин
+ru:3Супермаркет|3универсам|3гипермаркет|магазин
 uk:3Супермаркет|3універсам|2магазин|крамниця
 de:3Supermarkt|Laden|Geschäft
 fr:3Supermarché|2magasin
