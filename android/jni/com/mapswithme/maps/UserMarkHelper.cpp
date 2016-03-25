@@ -43,24 +43,16 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title, s
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
-  ms::LatLon const ll = info.GetLatLon();
-
-  // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
-  // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
-  if (info.IsMyPosition())
-    return CreateMapObject(env, kMyPosition, "", "", ll.lat, ll.lon, info.GetAddress(), {}, "");
-
-  if (info.HasApiUrl())
-  {
-    return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
-                           info.GetAddress(), info.GetMetadata(), info.GetApiUrl());
-  }
-
   if (info.IsBookmark())
   {
     // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String name)
     static jmethodID const ctorId = jni::GetConstructorID(env, g_bookmarkClazz, "(IILjava/lang/String;)V");
-    jni::TScopedLocalRef jName(env, jni::ToJavaString(env, info.GetTitle()));
+
+    auto const & bac = info.GetBookmarkAndCategory();
+    BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.first);
+    BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.second))->GetData();
+
+    jni::TScopedLocalRef jName(env, jni::ToJavaString(env, data.GetName()));
     jobject mapObject = env->NewObject(g_bookmarkClazz, ctorId,
                                        static_cast<jint>(info.m_bac.first),
                                        static_cast<jint>(info.m_bac.second),
@@ -70,7 +62,18 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     return mapObject;
   }
 
-  return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, info.GetAddress(),
+  ms::LatLon const ll = info.GetLatLon();
+  search::AddressInfo const address = g_framework->NativeFramework()->GetAddressInfoAtPoint(info.GetMercator());
+
+  // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
+  // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
+  if (info.IsMyPosition())
+    return CreateMapObject(env, kMyPosition, "", "", ll.lat, ll.lon, address.FormatAddress(), {}, "");
+
+  if (info.HasApiUrl())
+    return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(), info.GetMetadata(), info.GetApiUrl());
+
+  return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(),
                          info.IsFeature() ? info.GetMetadata() : Metadata(), "");
 }
 }  // namespace usermark_helper

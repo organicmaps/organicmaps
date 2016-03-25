@@ -81,4 +81,13 @@ Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeEncode2Ge0Url(
 {
   return jni::ToJavaString(env, frm()->CodeGe0url(getBookmark(cat, bmk), addName));
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetAddress(
+     JNIEnv * env, jobject thiz, jint catId, jlong bmkId)
+{
+  Bookmark const * bmk = getBookmark(catId, bmkId);
+  search::AddressInfo const address = g_framework->NativeFramework()->GetAddressInfoAtPoint(MercatorBounds::FromLatLon(bmk->GetLatLon()));
+  return jni::ToJavaString(env, address.FormatAddress());
 }
+} // extern "C"
