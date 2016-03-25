@@ -15489,8 +15489,8 @@
 
   [whatsnew_smallmwm_message]
     tags = ios, android
-    en = We have divided maps into parts. Now you can download separate regions, not the whole country.
-    ru = Мы разрезали большие карты на части: теперь загружай только нужную область, а не всю страну целиком.
+    en = We have split maps into parts. Now you can download separate regions, not whole countries.
+    ru = Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.
     fr = Nous avons divisé la carte en plusieurs parties. Désormais, vous pouvez télécharger des régions bien précises, et non plus le pays tout entier.
     da = Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet.
     id = Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara.
@@ -15610,7 +15610,7 @@
   [whatsnew_editor_message_1]
     tags = ios, android
     en = Add new places to the map, and edit existing ones directly from the app.
-    ru = Добавляйте новые объекты и редактируйте информацию о старых прямо из приложения.
+    ru = Добавляйте новые объекты и редактируйте старые прямо из приложения.
     tr = Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.
     sv = Lägg till nya platser till kartan och redigera de befintliga direkt från appen.
     nb = Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.
