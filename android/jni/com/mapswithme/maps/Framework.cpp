@@ -711,8 +711,11 @@ Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass,
                                                     jdouble startLat,  jdouble startLon,
                                                     jdouble finishLat, jdouble finishLon)
 {
-  frm()->BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
-                    MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */);
+  g_framework->PostDrapeTask([startLat, startLon, finishLat, finishLon]()
+  {
+    frm()->BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
+                      MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */);
+  });
 }
 
 JNIEXPORT void JNICALL
