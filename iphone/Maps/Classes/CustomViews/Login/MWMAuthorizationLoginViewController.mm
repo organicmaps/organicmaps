@@ -21,6 +21,7 @@ NSString * const kWebViewAuthSegue = @"Authorization2WebViewAuthorizationSegue";
 NSString * const kOSMAuthSegue = @"Authorization2OSMAuthorizationSegue";
 
 CGFloat const kUploadedChangesTopOffset = 48.;
+CGFloat const kStatusBarHeight = 20.;
 
 // I don't use block here because there is big chance to get retain cycle and std::function syntax looks prety easy and cute.
 using TActionSheetFunctor = std::function<void()>;
@@ -93,7 +94,7 @@ using namespace osm_auth_ios;
 - (void)setContentHeight
 {
   CGSize const size = [UIScreen mainScreen].bounds.size;
-  CGFloat const height = MAX(size.width, size.height) - self.navigationController.navigationBar.height - 20.;
+  CGFloat const height = MAX(size.width, size.height) - self.navigationController.navigationBar.height - kStatusBarHeight;
   self.scrollViewContentHeight.constant = height;
 }
 

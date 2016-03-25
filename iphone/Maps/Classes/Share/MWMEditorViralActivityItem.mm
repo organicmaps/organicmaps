@@ -23,10 +23,11 @@
     return [NSURL URLWithString:url];
   }
 
-  if ([activityType isEqualToString:UIActivityTypeMail])
-    return L(@"whatsnew_editor_message_1");
+  NSString * mapsmeURL = @"http://maps.me/im_get";
+  if ([activityType isEqualToString:UIActivityTypePostToTwitter] || [activityType isEqualToString:UIActivityTypeMail])
+    return [NSString stringWithFormat:@"%@ %@", L(@"whatsnew_editor_message_1"), mapsmeURL];
 
-  return [NSString stringWithFormat:@"%@\n%@", L(@"editor_sharing_title"), L(@"whatsnew_editor_message_1")];
+  return [NSString stringWithFormat:@"%@\n%@\n%@", L(@"editor_sharing_title"), L(@"whatsnew_editor_message_1"), mapsmeURL];
 }
 
 - (NSString *)activityViewController:(UIActivityViewController *)activityViewController
