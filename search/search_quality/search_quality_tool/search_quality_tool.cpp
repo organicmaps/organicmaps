@@ -22,6 +22,10 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "storage/country_info_getter.hpp"
+#include "storage/index.hpp"
+#include "storage/storage.hpp"
+
 #include "coding/file_name_utils.hpp"
 #include "coding/reader_wrapper.hpp"
 
@@ -48,6 +52,8 @@
 #include "3party/gflags/src/gflags/gflags.h"
 
 using namespace search::tests_support;
+using namespace search;
+using namespace storage;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(locale, "en", "Locale of all the search queries");
@@ -82,16 +88,27 @@ struct CompletenessQuery
 
 DECLARE_EXCEPTION(MalformedQueryException, RootException);
 
-class SearchQueryV2Factory : public search::SearchQueryFactory
+class SearchQueryV2Factory : public SearchQueryFactory
 {
-  // search::SearchQueryFactory overrides:
-  unique_ptr<search::Query> BuildSearchQuery(Index & index, CategoriesHolder const & categories,
-                                             vector<search::Suggest> const & suggests,
-                                             storage::CountryInfoGetter const & infoGetter) override
+  // SearchQueryFactory overrides:
+  unique_ptr<Query> BuildSearchQuery(Index & index, CategoriesHolder const & categories,
+                                     vector<Suggest> const & suggests,
+                                     storage::CountryInfoGetter const & infoGetter) override
   {
-    return make_unique<search::v2::SearchQueryV2>(index, categories, suggests, infoGetter);
+    return make_unique<v2::SearchQueryV2>(index, categories, suggests, infoGetter);
   }
 };
+
+void DidDownload(TCountryId const & /* countryId */,
+                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
+{
+}
+
+bool WillDelete(TCountryId const & /* countryId */,
+                shared_ptr<platform::LocalCountryFile> const & /* localFile */)
+{
+  return false;
+}
 
 string MakePrefixFree(string const & query) { return query + " "; }
 
@@ -112,7 +129,7 @@ void ReadStringsFromFile(string const & path, vector<string> & result)
 // If n == 1, prints the query and the top result separated by a tab.
 // Otherwise, prints the query on a separate line
 // and then prints n top results on n lines starting with tabs.
-void PrintTopResults(string const & query, vector<search::Result> const & results, size_t n,
+void PrintTopResults(string const & query, vector<Result> const & results, size_t n,
                      double elapsedSeconds)
 {
   cout << query;
@@ -194,7 +211,7 @@ void Split(string const & s, char delim, vector<string> & parts)
 // Returns the position of the result that is expected to be found by geocoder completeness
 // tests in the |result| vector or -1 if it does not occur there.
 int FindResult(TestSearchEngine & engine, string const & mwmName, uint64_t const featureId,
-               double const lat, double const lon, vector<search::Result> const & results)
+               double const lat, double const lon, vector<Result> const & results)
 {
   auto const mwmId = engine.GetMwmIdByCountryFile(platform::CountryFile(mwmName));
   FeatureID const expectedFeatureId(mwmId, featureId);
@@ -301,7 +318,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
       CompletenessQuery q;
       ParseCompletenessQuery(s, q);
       q.m_request = make_unique<TestSearchRequest>(engine, q.m_query, FLAGS_locale,
-                                                   search::Mode::Everywhere, viewport);
+                                                   Mode::Everywhere, viewport);
       queries.push_back(move(q));
     }
     catch (MalformedQueryException e)
@@ -342,7 +359,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
 
 int main(int argc, char * argv[])
 {
-  search::ChangeMaxNumberOfOpenFiles(search::kMaxOpenFiles);
+  ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
 
   ios_base::sync_with_stdio(false);
   Platform & platform = GetPlatform();
@@ -350,8 +367,12 @@ int main(int argc, char * argv[])
   google::SetUsageMessage("Search quality tests.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
+  string countriesFile = COUNTRIES_FILE;
   if (!FLAGS_data_path.empty())
+  {
     platform.SetResourceDir(FLAGS_data_path);
+    countriesFile = my::JoinFoldersToPath(FLAGS_data_path, COUNTRIES_FILE);
+  }
 
   if (!FLAGS_mwm_path.empty())
     platform.SetWritableDirForTests(FLAGS_mwm_path);
@@ -359,12 +380,17 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("writable dir =", platform.WritableDir()));
   LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
 
+  Storage storage(countriesFile, FLAGS_mwm_path);
+  storage.Init(&DidDownload, &WillDelete);
+  auto infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
+  infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
+
   classificator::Load();
 
-  search::Engine::Params params;
+  Engine::Params params;
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
-  TestSearchEngine engine(make_unique<SearchQueryV2Factory>(), params);
+  TestSearchEngine engine(move(infoGetter), make_unique<SearchQueryV2Factory>(), Engine::Params{});
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())
@@ -422,8 +448,8 @@ int main(int argc, char * argv[])
   for (size_t i = 0; i < queries.size(); ++i)
   {
     // todo(@m) Add a bool flag to search with prefixes?
-    requests.emplace_back(make_unique<TestSearchRequest>(
-        engine, MakePrefixFree(queries[i]), FLAGS_locale, search::Mode::Everywhere, viewport));
+    requests.emplace_back(make_unique<TestSearchRequest>(engine, MakePrefixFree(queries[i]),
+                                                         FLAGS_locale, Mode::Everywhere, viewport));
   }
 
   ofstream csv;
@@ -439,7 +465,7 @@ int main(int argc, char * argv[])
 
   if (dumpCSV)
   {
-    search::v2::RankingInfo::PrintCSVHeader(csv);
+    v2::RankingInfo::PrintCSVHeader(csv);
     csv << endl;
   }
 
