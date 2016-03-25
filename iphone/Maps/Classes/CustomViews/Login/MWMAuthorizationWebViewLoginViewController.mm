@@ -3,6 +3,7 @@
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMCircularProgress.h"
 #import "Statistics.h"
+#import "SettingsAndMoreVC.h"
 
 #include "base/logging.hpp"
 #include "editor/osm_auth.hpp"
@@ -164,7 +165,19 @@ NSString * getVerifier(NSString * urlString)
         osm_auth_ios::AuthorizationStoreCredentials(ks);
         [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatYes,
                                                                            kStatType : self.authTypeAsString}];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        UIViewController * svc = nil;
+        for (UIViewController * vc in self.navigationController.viewControllers)
+        {
+          if ([vc isKindOfClass:[SettingsAndMoreVC class]])
+          {
+            svc = vc;
+            break;
+          }
+        }
+        if (svc)
+          [self.navigationController popToViewController:svc animated:YES];
+        else
+          [self.navigationController popToRootViewControllerAnimated:YES];
       }
       else
       {
