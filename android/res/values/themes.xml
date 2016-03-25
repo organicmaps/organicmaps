@@ -113,6 +113,7 @@
   </style>
 
   <style name="MwmTheme.Downloader.Night">
+    <item name="status_done">@drawable/downloader_done_night</item>
     <item name="status_downloadable">@drawable/downloader_download_night</item>
   </style>
 </resources>
