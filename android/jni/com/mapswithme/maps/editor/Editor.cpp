@@ -335,4 +335,16 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetFormattedCuisine(JNIEnv * env, j
 {
   return jni::ToJavaString(env, g_editableMapObject.FormatCuisines());
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetMwmName(JNIEnv * env, jclass clazz)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetID().GetMwmName());
+}
+
+JNIEXPORT jlong JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetMwmVersion(JNIEnv * env, jclass clazz)
+{
+  return g_editableMapObject.GetID().GetMwmVersion();
+}
 } // extern "C"

@@ -137,4 +137,7 @@ public final class Editor
    * @return properly formatted and appended cuisines string to display in UI.
    */
   public static native String nativeGetFormattedCuisine();
+
+  public static native String nativeGetMwmName();
+  public static native long nativeGetMwmVersion();
 }

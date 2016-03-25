@@ -269,7 +269,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // TODO(yunikkk) think about refactoring. It probably should be called in editor.
     Editor.nativeStartEdit();
-    Statistics.INSTANCE.trackEditorLaunch();
+    Statistics.INSTANCE.trackEditorLaunch(false);
     if (mIsFragmentContainer)
       replaceFragment(EditorHostFragment.class, null, null);
     else
@@ -411,6 +411,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showPositionChooser(boolean show)
   {
+    Statistics.INSTANCE.trackEditorLaunch(true);
     UiUtils.showIf(show, mPositionChooser);
     setFullscreen(show);
     Framework.nativeTurnChoosePositionMode(show);
