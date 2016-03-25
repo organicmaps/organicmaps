@@ -268,32 +268,32 @@ sw:Sheli|mafuta
 shop-bakery
 en:3Bakery|shop|U+1F35E
 ru:3Булочная|магазин
-uk:3Пекарня|магазин|крамниця
-de:3Bäckerei|Bäckerladen|Bäcker|Laden|Geschäft
-fr:3Boulangerie|magasin
-it:3Panetteria|negozio
-es:3Panadería|tienda
-ko:1베이커리|쇼핑
-ja:1パン屋|ベーカリー|パン|軽食|持ち帰り|買い物
+ar:مخبزี่|متجر|المتجر
 cs:3Pekárna|obchod
-sk:3Pekáreň|obchod
+da:2Bager|bageri|butik
+de:3Bäckerei|Bäckerladen|Bäcker|Laden|Geschäft
+es:3Panadería|tienda
+fi:3Leipomo|kauppa
+fr:3Boulangerie|magasin
+hu:3Pékség|bolt
+id:Toko roti|toko
+it:3Panetteria|negozio
+ja:1パン屋|ベーカリー|パン|軽食|持ち帰り|買い物
+ko:1베이커리|쇼핑
+nb:3Bakeri|butikk
 nl:3Bakkerij|winkel
-zh-Hant:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
 pl:4Piekarnia|sklep
 pt:3Padaria|compras
-hu:3Pékség|bolt
-th:3เบเกอรี่|ร้านค้า
-zh-Hans:1面包店|商店
-ar:مخبزี่|متجر|المتجر
-da:2Bager|bageri|butik
-tr:3Fırın|mağaza
-sv:3Bageri|butik
-vi:Hiệu bánh|cửa hàng
-id:Toko roti|toko
 ro:3Brutărie|magazin
-nb:3Bakeri|butikk
-fi:3Leipomo|kauppa
+sk:3Pekáreň|obchod
+sv:3Bageri|butik
 sw:Kituo cha kuwoka mikate
+th:3เบเกอรี่|ร้านค้า
+tr:3Fırın|mağaza
+uk:3Пекарня|магазин|крамниця
+vi:Hiệu bánh|cửa hàng
+zh-Hans:1面包店|商店
+zh-Hant:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
 
 shop
 en:2Shop|U+1F3EA|U+1F3EC
@@ -5041,39 +5041,269 @@ de:Leuchtturm
 shop-copyshop
 en:Copy Shop|Printer
 ru:Копировальный центр|печать|полиграфия
+ar:محل نسخ|طباعة
+cs:Kopírovací obchod|Tiskárny
+de:Kopierladen|Drucker
+es:Copistería|imprenta|poligrafía
+fi:Painotalo|Tulostaja
+fr:Boutique de photocopies|Imprimerie
+hu:Fénymásoló üzlet|Nyomtató
+id:Fotokopi|Printer
+it:Copisteria|Stampe
+ja:コピーショップ|印刷会社
+ko:복사 상점|프린터
+nb:Kopieringsbutikk|Trykkeri
+pl:Punkt ksero|Drukarnia
+pt:Copiadora|Impressões
+ro:Centru copiere|Imprimare
+sk:Kopírovacie služby|Tlačiarne
+sv:Kopieringsbutik|Tryckare
+th:ร้านถ่ายเอกสาร|เครื่องพิมพ์
+tr:Kopyalama Merkezi|Yazıcı
+uk:Копіювальний центр|друк|поліграфія
+vi:Cửa hàng Copy|Máy in
+zh-Hans:复印店|打印机
+zh-Hant:復印店|打印機
 
 shop-photo
 en:Photo Shop|frames|shop
 ru:Фототовары|магазин
+ar:محل صور|إطارات|محل
+cs:Fotografický obchod|rámy|obchod
+de:Fotofachgeschäft|Rahmen|Geschäft
+es:Artículos de fotografía|tienda
+fi:Valokuvakauppa|kehykset|kauppa
+fr:Matériel de photographie|Cadres|Boutique|magasin
+hu:Fénykép üzlet|keretek|üzlet|bolt
+id:Studio Foto|bingkai|toko
+it:Negozio di fotografia|cornici|negozio
+ja:写真屋|フレーム|店|買い物
+ko:사진 상점|프레임|상점
+nb:Fotobutikk|ramer|butikk
+pl:Fotograf|zdjęcia|punkt|sklep
+pt:Artigos para fotografia|molduras|comércio|compras
+ro:Centru fotografii|cadre|magazin
+sk:Fotografické služby|Rámovanie|Obchod
+sv:Fotoaffär|ramar|butik
+th:ร้านถ่ายภาพ|กรอบ|ร้าน
+tr:Fotoğrafçı|çerçeve|mağaza
+uk:Фототовари|магазин|крамниця
+vi:Hiệu Ảnh|khung ảnh|cửa hàng
+zh-Hans:照片店|画框|商店
+zh-Hant:照片店|畫框|商店
 
 shop-travel_agency
 en:Travel Agency|tours
 ru:Турагентство|путешествия
+ar:وكيل سفريات|جولات
+cs:Cestovní kancelář|cesty
+de:Reisebüro|Touren
+es:Agencia de viajes|viajes
+fi:Matkatoimisto|kiertueet
+fr:Agence de voyages|Voyages organisés
+hu:Utazási iroda|kirándulások
+id:Agen Perjalanan Wisata|tur
+it:Agenzia viaggi|tour
+ja:旅行会社|ツアー
+ko:여행사|투어
+nb:Reisebyrå|rundreiser
+pl:Agencja turystyczna|wycieczki
+pt:Agência de viagem|turismo
+ro:Agenție de voiaj|tururi
+sk:Cestovná kancelária|Zájazdy
+sv:Resebyrå|rundturer
+th:สำนักงานการท่องเที่ยว|ทัวร์
+tr:Seyahat Acentesi|turlar
+uk:Турагентство|подорожі
+vi:Đại lý Du lịch|chuyến du lịch
+zh-Hans:旅行社|游览
+zh-Hant:旅行社|遊覽
 
 shop-outdoor
 en:Outdoor Equipment|trekking|climbing|camping|shop
 ru:Снаряжение|магазин
+ar:معدات خارجية|ترحال|تسلق|تخييم|محل
+cs:Venkovní vybavení|trekking|lezení|kempování|obchod
+de:Outdoor-Ausrüstung|Trekking|Klettern|Camping|Geschäft
+es:Equipamiento|tienda
+fi:Ulkoiluvarusteet|vaellus|kiipeily|retkeily|kauppa
+fr:Matériel de loisirs de plein air|Randonnée|Escalade|Camping|Magasin
+hu:Kültéri felszerelés|trekking|mászás|kemping|üzlet|bolt
+id:Peralatan Outdoor|lintas alam|mendaki|kemah|toko
+it:Attrezzatura sportiva|trekking|arrampicata|campeggio|negozio
+ja:アウトドア用品|トレッキング|クライミング|店|買い物
+ko:야외 장비|트래킹|등반|캠핑|상점
+nb:Fritidsutstyr|vandring|klatring|camping|butikk
+pl:Sprzęt turystyczny|wędrowanie|wspinaczka|camping|sklep
+pt:Equipamentos esportivos|caminhada|escalada|camping|comércio|compras
+ro:Echipament de exterior|trekking|cățărare|campare|magazin
+sk:Outdoorové vybavenie|Treking|Lezenie|Kempy|obchod
+sv:Fritidsutrustning|vandring|klättring|camping|butik
+th:อุปกรณ์กลางแจ้ง|เดินป่า|ปีนเขา|ตั้งแคมป์|ร้าน
+tr:Dış Mekan Ekipmanları|yürüyüş|tırmanma|kamp|mağaza
+uk:Спорядження|магазин|крамниця
+vi:Thiết bị Ngoài trời|dã ngoại|leo|cắm trại|cửa hàng
+zh-Hans:室外设备|远足|攀岩|野营|商店
+zh-Hant:室外設備|遠足|攀巖|野營|商店
 
 shop-dry_cleaning
 en:Dry Cleaning|cleaning
 ru:Химчистка
+ar:غسيل جاف|غسيل
+cs:Chemické čištění|čistírna
+de:Chemische Reinigung|Reinigung
+es:Tintorería
+fi:Kuivapesula|siivous
+fr:Nettoyage à sec|Lavage
+hu:Ruhatisztító|tisztító
+id:Cuci Kering|kering
+it:Lavaggio a secco|lavanderia
+ja:クリーニング屋|クリーニング
+ko:드라이 클리닝|청소
+nb:Renseri|vaskeri
+pl:Pralnia chemiczna|czyszczenie
+pt:Lavagem a seco|lavanderia
+ro:Curățătorie chimică|curățătorie
+sk:Čistiareň|čistenie
+sv:Kemtvätt|tvätt
+th:ซักแห้ง|ทำความสะอาด
+tr:Kuru Temizleme|temizleme
+uk:Хімчистка
+vi:Giặt Sấy|giặt giũ
+zh-Hans:干洗|清洁
+zh-Hant:幹洗|清潔
 
 shop-tyres
 en:Tyre Shop|shop
 ru:Магазин шин|магазин
+ar:محل إطارات|محل
+cs:Obchod s pneumatikami|obchod
+de:Reifen-Shop|Geschäft
+es:Tienda de neumáticos|tienda
+fi:Rengasliike|kauppa
+fr:Magasin de pneus|Magasin
+hu:Gumi szaküzlet|üzlet|bolt
+id:Toko Ban|toko
+it:Gommista|negozio
+ja:タイヤ専門店|ショップ|買い物
+ko:타이어 상점|상점
+nb:Dekkforretning|butikk
+pl:Wulkanizacja|punkt
+pt:Borracheiro|comércio|compras
+ro:Magazin anvelope|magazin
+sk:Obchod s pneumatikami|obchod
+sv:Däckaffär|butik
+th:ร้านยาง|ร้านค้า
+tr:Tekerlekçi|dükkanı
+uk:Магазин шин|магазин|крамниця
+vi:Cửa hàng Lốp|cửa hàng
+zh-Hans:轮胎店|商店
+zh-Hant:輪胎店|商店
 
 amenity-car_wash
 en:Car Wash
 ru:Автомойка
+ar:مغسلة سيارات
+cs:Myčka aut
+de:Autowäsche
+es:Lavado de coches
+fi:Autopesula
+fr:Station de lavage
+hu:Autómosó
+id:Cuci Mobil
+it:Lavaggio auto
+ja:洗車
+ko:세차
+nb:Bilvask
+pl:Myjnia samochodowa
+pt:Lavagem de veículos
+ro:Spălătorie auto
+sk:Autoumývareň
+sv:Biltvätt
+th:ล้างรถ
+tr:Araba Yıkama
+uk:Автомийна
+vi:Rửa Xe
+zh-Hans:洗车
+zh-Hant:洗車
 
 amenity-veterinary
 en:Veterinary Doctor
 ru:Ветеринарная клиника
+ar:طبيب بيطري
+cs:Veterinář
+de:Tierarzt
+es:Clínica veterinaria
+fi:Eläinlääkäri
+fr:Docteur vétérinaire
+hu:Állatorvos
+id:Dokter Hewan
+it:Veterinario
+ja:獣医
+ko:수의학 박사
+nb:Veterinær
+pl:Weterynarz
+pt:Veterinário
+ro:Cabinet veterinar
+sk:Veterinár
+sv:Veterinär
+th:สัตวแพทย์
+tr:Veteriner
+uk:Ветеринарна клініка
+vi:Bác sĩ Thú y
+zh-Hans:兽医
+zh-Hant:獸醫
 
 amenity-charging_station
 en:Charging Station|charging
 ru:Зарядная станция
+ar:محطة شحن|شحن
+cs:Nabíjecí stanice|nabíjení
+de:Ladestation|Laden
+es:Estación de carga
+fi:Latausasema|lataus
+fr:Station de recharge|Recharge
+hu:Töltő állomás|töltés
+id:Pusat Pengisian Daya|pengisian daya
+it:Stazione di ricarica|ricarica
+ja:充電ステーション|充電
+ko:충전 역|충전
+nb:Ladestasjon|lading
+pl:Stacja ładowania|ładowanie
+pt:Posto de combustível|abastecimento
+ro:Stație încărcare|încărcare
+sk:Dobíjacia stanica|dobíjanie
+sv:Laddstation|laddning
+th:สถานีชาร์จ|ชาร์จ
+tr:Şarj İstasyonu|şarj etme
+uk:Зарядна станція
+vi:Trạm Sạc điện|sạc điện
+zh-Hans:充电站|充电
+zh-Hant:充電站|充電
 
 amenity-childcare
 en:Nursery|Child Care
 ru:Детская комната|ясли
+ar:حضانة|رعاية أطفال
+cs:Jesle|Péče o děti
+de:Kindergarten|Kinderbetreuung
+es:Habitación infantil|guardería
+fi:Päivähoito|Lastenhoito
+fr:Garderie|Garde d'enfant
+hu:Bölcsőde|Gyermekfelügyelet
+id:Penitipan Anak|Perawatan Anak
+it:Asilo|cura dell'infanzia
+ja:託児所|保育園
+ko:보육|탁아
+nb:Førskole|Barnehage
+pl:Żłobek|Przedszkole
+pt:Creche|jardim de infância
+ro:Grădiniță|Îngrijire copii
+sk:Jasle|Starostlivosť o deti
+sv:Förskola|Barnomsorg
+th:สถานรับเลี้ยงเด็ก|ดูแลเด็ก
+tr:Çocuk Yuvası|Kreş
+uk:Дитяча кімната|ясла
+vi:Nhà trẻ|Chăm sóc Trẻ em
+zh-Hans:幼儿园|儿童看护
+zh-Hant:幼兒園|兒童看護
