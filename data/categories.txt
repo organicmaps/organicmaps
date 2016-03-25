@@ -1565,7 +1565,7 @@ fi:3Näköalatasanne|nähtävyydet
 sw:Genge|utalii
 
 tourism-information
-en:4Tourist Information|4information|sights|U+2139|U+1F481
+en:4Tourist Information|4information|sights|U+1F481
 ru:4Туринформация|информация|достопримечательность
 uk:4Турінформація|інформація|пам’ятка|пам’ятні місця
 de:4Tourist-Information|Information|Sehenswürdigkeit

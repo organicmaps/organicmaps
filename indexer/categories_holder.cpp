@@ -154,14 +154,21 @@ void CategoriesHolder::LoadFromStream(istream & s)
           using namespace strings;
           if (StartsWith(name.m_name, "U+"))
           {
+            auto const code = name.m_name;
             int c;
             if (!to_int(name.m_name.c_str() + 2, c, 16))
             {
-              LOG(LWARNING, ("Bad emoji code:", name.m_name));
+              LOG(LWARNING, ("Bad emoji code:", code));
               continue;
             }
 
             name.m_name = ToUtf8(UniString(1, static_cast<UniChar>(c)));
+
+            if (IsASCIIString(ToUtf8(search::NormalizeAndSimplifyString(name.m_name))))
+            {
+              LOG(LWARNING, ("Bad emoji code:", code));
+              continue;
+            }
           }
 
           cat.m_synonyms.push_back(name);
