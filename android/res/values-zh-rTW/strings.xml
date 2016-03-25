@@ -732,7 +732,6 @@
 	<string name="downloader_search_field_hint">找到地圖</string>
 	<string name="migration_update_all_button">更新全部地圖</string>
 	<string name="migration_delete_all_download_current_button">下載當前地圖並刪除舊地圖</string>
-	<string name="migration_prefetch_status">正在準備地圖更新…</string>
 	<string name="migration_download_error_dialog">下載錯誤</string>
 	<string name="common_check_internet_connection_dialog">請檢查您的設置並確保您的設備已連接至網絡。</string>
 	<string name="downloader_no_space_title">無足夠的空間</string>

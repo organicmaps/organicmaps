@@ -1272,8 +1272,6 @@
 
 "migration_delete_all_download_current_button" = "현재 지도 다운로드 및 기존 지도 삭제";
 
-"migration_prefetch_status" = "지도 업데이트 준비 중…";
-
 "migration_download_error_dialog" = "다운로드 오류";
 
 "common_check_internet_connection_dialog" = "설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.";

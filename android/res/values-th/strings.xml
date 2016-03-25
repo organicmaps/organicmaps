@@ -750,7 +750,6 @@
 	<string name="downloader_search_field_hint">ค้นหาแผนที่</string>
 	<string name="migration_update_all_button">อัปเดตแผนที่ทั้งหมด</string>
 	<string name="migration_delete_all_download_current_button">ดาวน์โหลดแผนที่ปัจจุบันและลบแผนที่เก่า</string>
-	<string name="migration_prefetch_status">กำลังเตรียมการอัปเดตแผนที่…</string>
 	<string name="migration_download_error_dialog">ข้อผิดพลาดในการดาวน์โหลด</string>
 	<string name="common_check_internet_connection_dialog">กรุณาตรวจสอบการตั้งค่าของคุณแล้วทำให้แน่ใจว่าอุปกรณ์ของคุณได้รับการเชื่อมต่ออินเทอร์เน็ต</string>
 	<string name="downloader_no_space_title">มีพื้นที่ไม่เพียงพอ</string>

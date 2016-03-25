@@ -749,7 +749,6 @@
 	<string name="downloader_search_field_hint">Знайти карту</string>
 	<string name="migration_update_all_button">Оновити всі карти</string>
 	<string name="migration_delete_all_download_current_button">Завантажте поточну карту і видаліть старі</string>
-	<string name="migration_prefetch_status">Підготовка до оновлення карт…</string>
 	<string name="migration_download_error_dialog">Помилка завантаження</string>
 	<string name="common_check_internet_connection_dialog">Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.</string>
 	<string name="downloader_no_space_title">Недостатньо місця</string>

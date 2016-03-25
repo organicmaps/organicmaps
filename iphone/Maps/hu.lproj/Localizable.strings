@@ -1272,8 +1272,6 @@
 
 "migration_delete_all_download_current_button" = "Töltsd le a jelenlegi térképet és töröld a régieket";
 
-"migration_prefetch_status" = "Térképfrissítések előkészítése…";
-
 "migration_download_error_dialog" = "Letöltési hiba";
 
 "common_check_internet_connection_dialog" = "Kérjük, ellenőrizd a beállításaid és győződj meg arról, hogy a készüléked kapcsolódik az internethez.";

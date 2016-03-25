@@ -1272,8 +1272,6 @@
 
 "migration_delete_all_download_current_button" = "Descarregue o mapa atual e elimine os antigos";
 
-"migration_prefetch_status" = "A preparar a atualização de mapas…";
-
 "migration_download_error_dialog" = "Erro de download";
 
 "common_check_internet_connection_dialog" = "Por favor, verifique as suas opções e certifique-se de que o dispositivo está ligado à Internet.";

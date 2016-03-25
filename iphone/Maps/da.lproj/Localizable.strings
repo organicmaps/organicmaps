@@ -1272,8 +1272,6 @@
 
 "migration_delete_all_download_current_button" = "Download aktuelt kort og slet de gamle";
 
-"migration_prefetch_status" = "Forbereder kortopdatering…";
-
 "migration_download_error_dialog" = "Fejl ved download";
 
 "common_check_internet_connection_dialog" = "Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.";

@@ -1272,8 +1272,6 @@
 
 "migration_delete_all_download_current_button" = "تنزيل الخريطة الحالية وحذف الخرائط القديمة";
 
-"migration_prefetch_status" = "جار الإعداد لتحديث الخرائط…";
-
 "migration_download_error_dialog" = "خطأ بالتنزيل";
 
 "common_check_internet_connection_dialog" = "يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.";

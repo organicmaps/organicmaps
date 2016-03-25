@@ -747,7 +747,6 @@
 	<string name="downloader_search_field_hint">Térkép keresése</string>
 	<string name="migration_update_all_button">Minden térkép frissítése</string>
 	<string name="migration_delete_all_download_current_button">Töltsd le a jelenlegi térképet és töröld a régieket</string>
-	<string name="migration_prefetch_status">Térképfrissítések előkészítése…</string>
 	<string name="migration_download_error_dialog">Letöltési hiba</string>
 	<string name="common_check_internet_connection_dialog">Kérjük, ellenőrizd a beállításaid és győződj meg arról, hogy a készüléked kapcsolódik az internethez.</string>
 	<string name="downloader_no_space_title">Nincs elegendő tárhely</string>

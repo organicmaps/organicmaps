@@ -736,7 +736,6 @@
 	<string name="downloader_search_field_hint">Vind de kaart</string>
 	<string name="migration_update_all_button">Update alle kaarten</string>
 	<string name="migration_delete_all_download_current_button">Download de huidige kaart en verwijder de oude</string>
-	<string name="migration_prefetch_status">Het voorbereiden van de update van de kaart…</string>
 	<string name="migration_download_error_dialog">Downloadfout</string>
 	<string name="common_check_internet_connection_dialog">Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.</string>
 	<string name="downloader_no_space_title">Niet genoeg ruimte</string>

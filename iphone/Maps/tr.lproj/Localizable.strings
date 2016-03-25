@@ -1272,8 +1272,6 @@
 
 "migration_delete_all_download_current_button" = "Mevcut haritayı indir ve tüm eski haritaları sil";
 
-"migration_prefetch_status" = "Harita güncellemesi hazırlanıyor…";
-
 "migration_download_error_dialog" = "İndirme hatası";
 
 "common_check_internet_connection_dialog" = "Lütfen ayarlarınızı kontrol edin ve cihazınızın internete bağlı olduğundan emin olun.";

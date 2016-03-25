@@ -745,7 +745,6 @@
 	<string name="downloader_search_field_hint">Trova la mappa</string>
 	<string name="migration_update_all_button">Aggiorna tutte le mappe</string>
 	<string name="migration_delete_all_download_current_button">Scarica la mappa attuale e cancella quelle vecchie</string>
-	<string name="migration_prefetch_status">Preparazione aggiornamento delle mappe…</string>
 	<string name="migration_download_error_dialog">Errore nel download</string>
 	<string name="common_check_internet_connection_dialog">Sei pregato di verificare le tue impostazioni e assicurarti che il tuo dispositivo sia connesso a internet.</string>
 	<string name="downloader_no_space_title">Spazio insufficiente</string>

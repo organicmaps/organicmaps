@@ -1272,8 +1272,6 @@
 
 "migration_delete_all_download_current_button" = "Tải xuống bản đồ hiện tại và xóa những bản đồ cũ";
 
-"migration_prefetch_status" = "Đang chuẩn bị cập nhật các bản đồ…";
-
 "migration_download_error_dialog" = "Lỗi tải xuống";
 
 "common_check_internet_connection_dialog" = "Xin kiểm tra các thiết lập và đảm bảo thiết bị của bạn có kết nối Internet.";
