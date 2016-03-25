@@ -272,12 +272,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     private final WheelProgressView mProgress;
     private final ImageView mStatus;
     private final TextView mName;
-    private final View mSearchNamesFrame;
-    private final TextView mSearchName;
-    private final TextView mSearchFoundName;
-    private final TextView mSearchParent;
-    private final TextView mSizes;
-    private final TextView mCounts;
+    private final TextView mSubtitle;
+    private final TextView mFoundName;
+    private final TextView mSize;
 
     private CountryItem mItem;
 
@@ -390,12 +387,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       mProgress = (WheelProgressView) frame.findViewById(R.id.progress);
       mStatus = (ImageView) frame.findViewById(R.id.status);
       mName = (TextView) frame.findViewById(R.id.name);
-      mSearchNamesFrame = frame.findViewById(R.id.search_names);
-      mSearchName = (TextView) mSearchNamesFrame.findViewById(R.id.name);
-      mSearchFoundName = (TextView) mSearchNamesFrame.findViewById(R.id.found_name);
-      mSearchParent = (TextView) mSearchNamesFrame.findViewById(R.id.parent);
-      mSizes = (TextView) frame.findViewById(R.id.sizes);
-      mCounts = (TextView) frame.findViewById(R.id.counts);
+      mSubtitle = (TextView) frame.findViewById(R.id.subtitle);
+      mFoundName = (TextView) frame.findViewById(R.id.found_name);
+      mSize = (TextView) frame.findViewById(R.id.size);
 
       frame.setOnClickListener(new View.OnClickListener()
       {
@@ -491,11 +485,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     {
       mItem = item;
 
-      UiUtils.showIf(mSearchResultsMode, mSearchNamesFrame);
-      UiUtils.showIf(!mSearchResultsMode, mName);
-
       if (mSearchResultsMode)
       {
+        mName.setMaxLines(1);
+        mName.setText(mItem.name);
+
+        UiUtils.show(mFoundName);
+
         String found = mItem.searchResultName.toLowerCase();
         SpannableStringBuilder builder = new SpannableStringBuilder(mItem.searchResultName);
         int start = found.indexOf(mSearchQuery);
@@ -504,20 +500,29 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (start > -1)
           builder.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        mSearchFoundName.setText(builder);
+        mFoundName.setText(builder);
 
-        mSearchName.setText(mItem.name);
-        UiUtils.setTextAndHideIfEmpty(mSearchParent, mItem.parentName);
+        if (!mItem.isExpandable())
+          UiUtils.setTextAndHideIfEmpty(mSubtitle, mItem.topmostParentName);
       }
       else
+      {
+        UiUtils.hide(mFoundName);
+
+        mName.setMaxLines(2);
         mName.setText(mItem.name);
+        if (!mItem.isExpandable())
+          UiUtils.hide(mSubtitle);
+      }
 
-      mSizes.setText(StringUtils.getFileSizeString(mItem.totalSize));
-
-      UiUtils.showIf(mItem.isExpandable(), mCounts);
       if (mItem.isExpandable())
-        mCounts.setText(mItem.childCount + " / " + mItem.totalChildCount);
+      {
+        UiUtils.setTextAndHideIfEmpty(mSubtitle, String.format("%s: %s", mActivity.getString(R.string.downloader_status_maps),
+                                                                         mActivity.getString(R.string.downloader_of, mItem.childCount,
+                                                                                                                     mItem.totalChildCount)));
+      }
 
+      mSize.setText(StringUtils.getFileSizeString(mItem.totalSize));
       updateStatus();
     }
   }

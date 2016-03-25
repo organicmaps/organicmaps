@@ -189,8 +189,10 @@ public final class MapManager
    * <pre>
    * <ul>
    *   <li>name;</li>
-   *   <li>parentId;</li>
-   *   <li>parentName;</li>
+   *   <li>directParentId;</li>
+   *   <li>topmostParentId;</li>
+   *   <li>directParentName;</li>
+   *   <li>topmostParentName;</li>
    *   <li>size;</li>
    *   <li>totalSize;</li>
    *   <li>childCount;</li>

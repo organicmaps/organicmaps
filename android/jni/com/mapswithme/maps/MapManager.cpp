@@ -224,8 +224,10 @@ static void UpdateItemShort(JNIEnv * env, jobject item, NodeStatus const status,
 static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
 {
   static jfieldID const countryItemFieldName = env->GetFieldID(g_countryItemClass, "name", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldParentName = env->GetFieldID(g_countryItemClass, "parentName", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldDirectParentId = env->GetFieldID(g_countryItemClass, "directParentId", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldTopmostParentId = env->GetFieldID(g_countryItemClass, "topmostParentId", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldDirectParentName = env->GetFieldID(g_countryItemClass, "directParentName", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldTopmostParentName = env->GetFieldID(g_countryItemClass, "topmostParentName", "Ljava/lang/String;");
   static jfieldID const countryItemFieldSize = env->GetFieldID(g_countryItemClass, "size", "J");
   static jfieldID const countryItemFieldTotalSize = env->GetFieldID(g_countryItemClass, "totalSize", "J");
   static jfieldID const countryItemFieldChildCount = env->GetFieldID(g_countryItemClass, "childCount", "I");
@@ -237,22 +239,41 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   jni::TScopedLocalRef const name(env, jni::ToJavaString(env, attrs.m_nodeLocalName));
   env->SetObjectField(item, countryItemFieldName, name.get());
 
-  // Info about parent[s]. Do not specify if there are multiple parents or none.
+  // Direct parent[s]. Do not specify if there are multiple or none.
   if (attrs.m_parentInfo.size() == 1)
   {
     CountryIdAndName const & info = attrs.m_parentInfo[0];
 
     jni::TScopedLocalRef const parentId(env, jni::ToJavaString(env, info.m_id));
-    env->SetObjectField(item, countryItemFieldParentId, parentId.get());
+    env->SetObjectField(item, countryItemFieldDirectParentId, parentId.get());
 
     jni::TScopedLocalRef const parentName(env, jni::ToJavaString(env, info.m_localName));
-    env->SetObjectField(item, countryItemFieldParentName, parentName.get());
+    env->SetObjectField(item, countryItemFieldDirectParentName, parentName.get());
   }
   else
   {
-    env->SetObjectField(item, countryItemFieldParentId, nullptr);
-    env->SetObjectField(item, countryItemFieldParentName, nullptr);
+    env->SetObjectField(item, countryItemFieldDirectParentId, nullptr);
+    env->SetObjectField(item, countryItemFieldDirectParentName, nullptr);
   }
+
+  // Topmost parent[s]. Do not specify if there are multiple or none.
+  // TODO(trashkalmar): Fix after core part is implemented.
+  /*
+  if (attrs.m_parentInfo.size() == 1)
+  {
+    CountryIdAndName const & info = attrs.m_parentInfo[0];
+
+    jni::TScopedLocalRef const parentId(env, jni::ToJavaString(env, info.m_id));
+    env->SetObjectField(item, countryItemFieldTopmostParentId, parentId.get());
+
+    jni::TScopedLocalRef const parentName(env, jni::ToJavaString(env, info.m_localName));
+    env->SetObjectField(item, countryItemFieldTopmostParentName, parentName.get());
+  }
+  else
+  {
+    env->SetObjectField(item, countryItemFieldTopmostParentId, nullptr);
+    env->SetObjectField(item, countryItemFieldTopmostParentName, nullptr);
+  }*/
 
   // Sizes
   env->SetLongField(item, countryItemFieldSize, attrs.m_localMwmSize);
@@ -307,9 +328,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
 {
   PrepareClassRefs(env);
 
-  Storage const & storage = GetStorage();
-  static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
-
   if (hasLocation)
   {
     TCountriesVec near;
@@ -321,7 +339,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   }
 
   TCountriesVec downloaded, available;
-  storage.GetChildrenInGroups(GetRootId(env, parent), downloaded, available);
+  GetStorage().GetChildrenInGroups(GetRootId(env, parent), downloaded, available);
 
   PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED, nullptr);
   PutItemsToList(env, result, available, ItemCategory::AVAILABLE, nullptr);

@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:wheel="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="@dimen/height_item_oneline"
-  android:orientation="horizontal"
-  android:background="?clickableBackground"
   android:paddingLeft="@dimen/margin_base"
   android:paddingRight="@dimen/margin_base"
-  android:gravity="center_vertical"
-  android:baselineAligned="false">
+  android:background="?clickableBackground"
+  tools:background="#200000FF">
+
   <FrameLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/margin_base">
+    android:id="@+id/status_frame"
+    android:layout_width="@dimen/downloader_status_size"
+    android:layout_height="@dimen/downloader_status_size"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_centerVertical="true"
+    tools:background="#20000FF0">
     <com.mapswithme.maps.widget.WheelProgressView
       android:id="@+id/progress"
-      android:layout_width="@dimen/downloader_status_size"
-      android:layout_height="@dimen/downloader_status_size"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="?clickableBackground"
       android:visibility="gone"
       tools:visibility="visible"
       wheel:wheelProgressColor="?colorAccent"
@@ -27,8 +30,8 @@
 
     <ImageView
       android:id="@+id/status"
-      android:layout_width="@dimen/downloader_status_size"
-      android:layout_height="@dimen/downloader_status_size"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:scaleType="center"
       android:background="?clickableBackground"
       android:duplicateParentState="false"
@@ -37,71 +40,47 @@
       tools:src="@drawable/downloader_failed"/>
   </FrameLayout>
 
-  <FrameLayout
-    android:layout_width="0dp"
+  <TextView
+    android:id="@+id/size"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_weight="1">
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="5000 MB"
+    tools:background="#80008000"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:layout_toRightOf="@id/status_frame"
+    android:layout_toLeftOf="@id/size">
+    <TextView
+      android:id="@+id/found_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:maxLines="1"
+      tools:text="Крымск"
+      tools:background="#60FF00FF"/>
+
     <TextView
       android:id="@+id/name"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:paddingTop="@dimen/margin_half"
-      android:paddingBottom="@dimen/margin_half"
+      android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body1"
-      android:maxLines="2"
-      android:visibility="gone"
-      tools:text="Moscow\nLong Moscow"/>
+      tools:text="Донецкая область"
+      tools:background="#40FF0000"/>
 
-    <LinearLayout
-      android:id="@+id/search_names"
+    <TextView
+      android:id="@+id/subtitle"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical">
-      <TextView
-        android:id="@+id/found_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/MwmTextAppearance.Body4"
-        android:maxLines="1"
-        tools:text="Крымск"/>
-
-      <TextView
-        android:id="@id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/MwmTextAppearance.Body1"
-        android:maxLines="1"
-        tools:text="Донецкая область"/>
-
-      <TextView
-        android:id="@+id/parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/MwmTextAppearance.Body4"
-        android:maxLines="1"
-        tools:text="Украина"/>
-    </LinearLayout>
-  </FrameLayout>
-
-  <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/margin_half"
-    android:paddingBottom="@dimen/margin_half"
-    android:gravity="right">
-    <TextView
-      android:id="@+id/sizes"
-      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      tools:text="200 MB"/>
-
-    <TextView
-      android:id="@+id/counts"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      tools:text="10"/>
+      android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:maxLines="1"
+      tools:text="Украина"
+      tools:background="#60FFFF00"/>
   </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
