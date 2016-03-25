@@ -6,7 +6,7 @@
 
 namespace dp
 {
-  class OGLContextFactory;
+  class ThreadSafeFactory;
 }
 
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
@@ -14,7 +14,7 @@ namespace dp
 // Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
 @interface EAGLView : UIView
 {
-  drape_ptr<dp::OGLContextFactory> m_factory;
+  drape_ptr<dp::ThreadSafeFactory> m_factory;
   // Do not call onSize from layoutSubViews when real size wasn't changed.
   // It's possible when we add/remove subviews (bookmark balloons) and it hangs the map without this check
   CGRect lastViewSize;
@@ -28,5 +28,6 @@ namespace dp
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;
 - (CGPoint)globalPoint2ViewPoint:(CGPoint)pt;
 - (void)initialize;
+- (void)setPresentAvailable:(BOOL)available;
 
 @end
