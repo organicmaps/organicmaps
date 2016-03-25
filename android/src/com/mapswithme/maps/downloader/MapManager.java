@@ -137,10 +137,11 @@ public final class MapManager
 
   /**
    * Performs migration from old (large MWMs) mode.
-   * @return {@code true} if prefetch was started. {@code false} if maps were queued to downloader and migration process is complete.
-   *         In this case {@link MigrationListener#onComplete()} will be called before return from {@code nativeMigrate()}.
+   * @return Name of the country to be loaded during the prefetch.
+   *         Or {@code null} if maps were queued to downloader and migration process is complete.
+   *         In the latter case {@link MigrationListener#onComplete()} will be called before return from {@code nativeMigrate()}.
    */
-  public static native boolean nativeMigrate(MigrationListener listener, double lat, double lon, boolean hasLocation, boolean keepOldMaps);
+  public static native @Nullable String nativeMigrate(MigrationListener listener, double lat, double lon, boolean hasLocation, boolean keepOldMaps);
 
   /**
    * Aborts migration. Affects only prefetch process.

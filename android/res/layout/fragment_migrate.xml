@@ -55,7 +55,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/margin_base"
-      android:text="@string/migration_prefetch_status"
       android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
     <FrameLayout

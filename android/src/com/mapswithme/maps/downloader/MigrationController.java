@@ -19,7 +19,7 @@ final class MigrationController
   interface Container
   {
     void setReadyState();
-    void setProgressState();
+    void setProgressState(String countryName);
     void setErrorState(int code);
     void onComplete();
 
@@ -30,6 +30,7 @@ final class MigrationController
 
   private Container mContainer;
   private State mState;
+  private String mPrefetchingCountry;
   private int mProgress;
   private int mError;
 
@@ -90,7 +91,7 @@ final class MigrationController
   private void callStateProgress()
   {
     if (mContainer != null)
-      mContainer.setProgressState();
+      mContainer.setProgressState(mPrefetchingCountry);
   }
 
   private void callStateError()
@@ -152,7 +153,8 @@ final class MigrationController
     double lat = (loc == null ? 0.0 : loc.getLatitude());
     double lon = (loc == null ? 0.0 : loc.getLongitude());
 
-    if (!MapManager.nativeMigrate(mListener, lat, lon, (loc != null), keepOld))
+    mPrefetchingCountry = MapManager.nativeMigrate(mListener, lat, lon, (loc != null), keepOld);
+    if (mPrefetchingCountry == null)
       return;
 
     mState = State.PROGRESS;

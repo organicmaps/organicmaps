@@ -24,7 +24,7 @@ public class MigrationFragment extends BaseMwmFragment
                                        MigrationController.Container
 {
   private TextView mError;
-  private View mPrepare;
+  private TextView mPrepare;
   private WheelProgressView mProgress;
   private Button mButtonPrimary;
   private Button mButtonSecondary;
@@ -56,7 +56,7 @@ public class MigrationFragment extends BaseMwmFragment
     super.onViewCreated(view, savedInstanceState);
 
     mError = (TextView) view.findViewById(R.id.error);
-    mPrepare = view.findViewById(R.id.preparation);
+    mPrepare = (TextView) view.findViewById(R.id.preparation);
     mProgress = (WheelProgressView) view.findViewById(R.id.progress);
     mButtonPrimary = (Button) view.findViewById(R.id.button_primary);
     mButtonSecondary = (Button) view.findViewById(R.id.button_secondary);
@@ -107,10 +107,11 @@ public class MigrationFragment extends BaseMwmFragment
   }
 
   @Override
-  public void setProgressState()
+  public void setProgressState(String countryName)
   {
     UiUtils.show(mPrepare, mProgress);
     UiUtils.hide(mError, mButtonPrimary, mButtonSecondary);
+    mPrepare.setText(String.format("%1$2s %2$s", getString(R.string.downloader_downloading), countryName));
   }
 
   @Override
@@ -155,7 +156,9 @@ public class MigrationFragment extends BaseMwmFragment
   @Override
   public void setProgress(int percents)
   {
-    mProgress.setProgress(percents);
+    mProgress.setPending(percents == 0);
+    if (percents > 0)
+      mProgress.setProgress(percents);
   }
 
   @Override
