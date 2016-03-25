@@ -26,6 +26,11 @@ struct CountryIdAndName
 {
   TCountryId m_id;
   string m_localName;
+
+  bool operator==(CountryIdAndName const & other) const
+  {
+    return m_id == other.m_id && m_localName == other.m_localName;
+  }
 };
 
 /// \brief Contains all properties for a node in the country tree.
@@ -71,11 +76,19 @@ struct NodeAttrs
   string m_nodeLocalName;
 
   /// Node id and local name of the parents of the node.
-  /// For the root m_parentInfo.m_id == "" and m_parentInfo.m_localName == "".
+  /// For the root |m_parentInfo| is empty.
   /// Locale language is a language set by Storage::SetLocale().
-  /// Note. Most number of nodes have only one parent. But in case of a disputed territories
+  /// \note Most number of nodes have only one parent. But in case of a disputed territories
   /// an mwm could have two or even more parents. See Country description for details.
   vector<CountryIdAndName> m_parentInfo;
+
+  /// Node id and local name of the first level parents (root children nodes) of the node
+  /// if the node has one first level parent(s). Otherwise |m_topmostParentInfo| is empty.
+  /// That means for the root and for the root children |m_topmostParentInfo| is empty.
+  /// Locale language is a language set by Storage::SetLocale().
+  /// \note Most number of nodes have only first level parent. But in case of a disputed territories
+  /// an mwm could have two or even more parents. See Country description for details.
+   vector<CountryIdAndName> m_topmostParentInfo;
 
   /// Progress of downloading for the node expandable or not. It reflects downloading progress in case of
   /// downloading and updating mwm.
@@ -569,6 +582,8 @@ private:
                                                   TCountriesSet const & mwmsInQueue) const;
 
   void CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem);
+  template <class ToDo>
+  void ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const;
 };
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);
@@ -608,6 +623,12 @@ void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & countryId, ToDo
     return;
   }
 
+  ForEachAncestorExceptForTheRoot(nodes, forward<ToDo>(toDo));
+}
+
+template <class ToDo>
+void Storage::ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const
+{
   TCountriesSet visitedAncestors;
   // In most cases nodes.size() == 1. In case of disputable territories nodes.size()
   // may be more than one. It means |childId| is present in the country tree more than once.
