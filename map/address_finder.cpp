@@ -456,7 +456,7 @@ namespace
 
 search::AddressInfo Framework::GetAddressInfoAtPoint(m2::PointD const & pt) const
 {
-  double kDistanceThresholdMeters = 0.5;
+  double const kDistanceThresholdMeters = 0.5;
 
   search::AddressInfo info;
 
