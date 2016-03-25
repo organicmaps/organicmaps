@@ -21,6 +21,12 @@ namespace
   [self configNavBar];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  self.placeDoesntExistCell.accessoryType = UITableViewCellAccessoryNone;
+}
+
 - (void)configNavBar
 {
   [super configNavBar];
