@@ -1451,6 +1451,7 @@ void FrontendRenderer::Routine::Do()
     if (isActiveFrame)
       activityTimer.Reset();
 
+    bool isValidFrameTime = true;
     if (activityTimer.ElapsedSeconds() > kMaxInactiveSeconds)
     {
       // Process a message or wait for a message.
@@ -1458,6 +1459,8 @@ void FrontendRenderer::Routine::Do()
       // possibility of infinity waiting in ProcessSingleMessage.
       m_renderer.ProcessSingleMessage(m_renderer.IsRenderingEnabled());
       activityTimer.Reset();
+      timer.Reset();
+      isValidFrameTime = false;
     }
     else
     {
@@ -1481,7 +1484,7 @@ void FrontendRenderer::Routine::Do()
 
     // Limit fps in following mode.
     double constexpr kFrameTime = 1.0 / 30.0;
-    if (m_renderer.m_myPositionController->IsFollowingActive() && frameTime < kFrameTime)
+    if (isValidFrameTime && m_renderer.m_myPositionController->IsFollowingActive() && frameTime < kFrameTime)
     {
       uint32_t const ms = static_cast<uint32_t>((kFrameTime - frameTime) * 1000);
       this_thread::sleep_for(milliseconds(ms));
