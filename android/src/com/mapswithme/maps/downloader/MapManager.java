@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.annotation.UiThread;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.util.statistics.Statistics;
 
+@UiThread
 public final class MapManager
 {
   @SuppressWarnings("unused")
@@ -120,6 +124,18 @@ public final class MapManager
     sCurrentErrorDialog = new WeakReference<>(dlg);
   }
 
+  public static void checkUpdates()
+  {
+    if (!Framework.nativeIsDataVersionChanged())
+      return;
+
+    String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
+    if (!TextUtils.isEmpty(countriesToUpdate))
+      Notifier.notifyUpdateAvailable(countriesToUpdate);
+
+    Framework.nativeUpdateSavedDataVersion();
+  }
+
   /**
    * Moves a file from one place to another.
    */
@@ -186,17 +202,6 @@ public final class MapManager
    * </pre>
    */
   public static native void nativeGetAttributes(CountryItem item);
-
-  /**
-   * Sets following attributes of the given {@code item}:
-   * <pre>
-   * <ul>
-   *   <li>status;</li>
-   *   <li>errorCode</li>
-   * </ul>
-   * </pre>
-   */
-  public static native void nativeGetShortAttributes(CountryItem item);
 
   /**
    * Returns country ID corresponding to given coordinates or {@code null} on error.

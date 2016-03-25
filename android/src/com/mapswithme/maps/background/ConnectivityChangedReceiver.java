@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.ConnectionState;
 
@@ -28,8 +29,10 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
              .putLong(DOWNLOAD_UPDATE_TIMESTAMP, System.currentTimeMillis())
              .apply();
 
-      WorkerService.startActionDownload(context);
-      WorkerService.startActionCheckUpdate(context);
+      MwmApplication.get().initNativeCore();
+
+      MapManager.checkUpdates();
+      WorkerService.startActionCheckLocation(context);
     }
   }
 }

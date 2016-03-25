@@ -6,43 +6,32 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Handler;
 import android.text.TextUtils;
 
-import com.mapswithme.maps.Framework;
+import java.util.concurrent.CountDownLatch;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.concurrency.UiThread;
 
 public class WorkerService extends IntentService
 {
-  private static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
-  private static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
+  private static final String ACTION_CHECK_LOCATIION = "com.mapswithme.maps.action.check_location";
   private static final String ACTION_UPLOAD_OSM_CHANGES = "com.mapswithme.maps.action.upload_osm_changes";
 
   private static final SharedPreferences PREFS = MwmApplication.prefs();
 
   /**
-   * Starts this service to check map updates available with the given parameters. If the
-   * service is already performing a task this action will be queued.
-   */
-  static void startActionCheckUpdate(Context context)
-  {
-    Intent intent = new Intent(context, WorkerService.class);
-    intent.setAction(ACTION_CHECK_UPDATE);
-    context.startService(intent);
-  }
-
-  /**
    * Starts this service to check if map download for current location is available. If the
    * service is already performing a task this action will be queued.
    */
-  static void startActionDownload(Context context)
+  static void startActionCheckLocation(Context context)
   {
     final Intent intent = new Intent(context, WorkerService.class);
-    intent.setAction(WorkerService.ACTION_DOWNLOAD_COUNTRY);
+    intent.setAction(WorkerService.ACTION_CHECK_LOCATIION);
     context.startService(intent);
   }
 
@@ -77,46 +66,53 @@ public class WorkerService extends IntentService
 
       switch (action)
       {
-      case ACTION_CHECK_UPDATE:
-        handleActionCheckUpdate();
-        break;
-      case ACTION_DOWNLOAD_COUNTRY:
+      case ACTION_CHECK_LOCATIION:
         handleActionCheckLocation();
         break;
+
       case ACTION_UPLOAD_OSM_CHANGES:
         handleActionUploadOsmChanges();
         break;
       }
     }
   }
-  private static void handleActionCheckUpdate()
-  {
-    if (!Framework.nativeIsDataVersionChanged())
-      return;
 
-    final String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
-    if (!TextUtils.isEmpty(countriesToUpdate))
-      Notifier.notifyUpdateAvailable(countriesToUpdate);
-    // We are done with current version
-    Framework.nativeUpdateSavedDataVersion();
+  private static void handleActionCheckLocation()
+  {
+    if (!checkLocationDelayed(0))
+      checkLocationDelayed(60000);  // 1 minute delay
   }
 
-  private void handleActionCheckLocation()
+  private static boolean checkLocationDelayed(long delay)
   {
-    final long delayMillis = 60000; // 60 seconds
-    boolean isLocationValid = processLocation();
-    if (!isLocationValid)
+    class Holder
     {
-      final Handler handler = new Handler();
-      handler.postDelayed(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          processLocation();
-        }
-      }, delayMillis);
+      final CountDownLatch hook = new CountDownLatch(1);
+      boolean result;
     }
+
+    final Holder holder = new Holder();
+
+    UiThread.runLater(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        holder.result = processLocation();
+
+        // Release awaiting caller
+        holder.hook.countDown();
+      }
+    }, delay);
+
+    try
+    {
+      holder.hook.await();
+    }
+    catch (InterruptedException ignored) {}
+
+
+    return holder.result;
   }
 
   private static void handleActionUploadOsmChanges()
@@ -124,32 +120,17 @@ public class WorkerService extends IntentService
     Editor.uploadChanges();
   }
 
-  /**
-   * Adds notification if current location isnt expired.
-   *
-   * @return whether notification was added
-   */
-  private boolean processLocation()
+  @android.support.annotation.UiThread
+  private static boolean processLocation()
   {
-    final LocationManager manager = (LocationManager) getApplication().getSystemService(Context.LOCATION_SERVICE);
+    final LocationManager manager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
     final Location l = manager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-    if (l != null && !LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG))
-    {
-      placeDownloadNotification(l);
-      return true;
-    }
+    if (l == null || LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG))
+      return false;
 
-    return false;
-  }
-
-  /**
-   * Adds notification with download country suggest.
-   */
-  private static void placeDownloadNotification(Location l)
-  {
-    final String country = MapManager.nativeFindCountry(l.getLatitude(), l.getLongitude());
+    String country = MapManager.nativeFindCountry(l.getLatitude(), l.getLongitude());
     if (TextUtils.isEmpty(country))
-      return;
+      return false;
 
     final String lastNotification = PREFS.getString(country, null);
     if (lastNotification != null)
@@ -158,10 +139,11 @@ public class WorkerService extends IntentService
       final long timeStamp = Long.valueOf(lastNotification);
       final long outdatedMillis = 180L * 24 * 60 * 60 * 1000;
       if (System.currentTimeMillis() - timeStamp < outdatedMillis)
-        return;
+        return true;
     }
 
     Notifier.notifyDownloadSuggest(country, MwmApplication.get().getString(R.string.download_location_country, country), country);
     PREFS.edit().putString(country, String.valueOf(System.currentTimeMillis())).apply();
+    return true;
   }
 }
