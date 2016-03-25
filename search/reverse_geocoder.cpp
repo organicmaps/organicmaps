@@ -125,10 +125,12 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
   }
 }
 
-void ReverseGeocoder::GetNearbyAddress(FeatureType & ft, Address & addr) const
+bool ReverseGeocoder::GetExactAddress(FeatureType & ft, Address & addr) const
 {
+  if (ft.GetHouseNumber().empty())
+    return false;
   HouseTable table(m_index);
-  (void)GetNearbyAddress(table, FromFeature(ft, 0.0 /* distMeters */), addr);
+  return GetNearbyAddress(table, FromFeature(ft, 0.0 /* distMeters */), addr);
 }
 
 bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,

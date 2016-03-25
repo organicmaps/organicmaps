@@ -453,16 +453,25 @@ namespace
   }
 }
 */
+
 search::AddressInfo Framework::GetAddressInfoAtPoint(m2::PointD const & pt) const
 {
+  double const kDistanceThresholdMeters = 0.5;
+
   search::AddressInfo info;
 
   search::ReverseGeocoder const coder(m_model.GetIndex());
   search::ReverseGeocoder::Address addr;
   coder.GetNearbyAddress(pt, addr);
-  info.m_house = addr.GetHouseNumber();
-  info.m_street = addr.GetStreetName();
-  info.m_distanceMeters = addr.GetDistance();
+
+  // We do not init nearby address info for points that are located
+  // outside of the nearby building.
+  if (addr.GetDistance() < kDistanceThresholdMeters)
+  {
+    info.m_house = addr.GetHouseNumber();
+    info.m_street = addr.GetStreetName();
+    info.m_distanceMeters = addr.GetDistance();
+  }
 
   return info;
 }
@@ -482,9 +491,11 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType & ft) const
 
   search::ReverseGeocoder const coder(m_model.GetIndex());
   search::ReverseGeocoder::Address addr;
-  coder.GetNearbyAddress(ft, addr);
-  info.m_house = addr.GetHouseNumber();
-  info.m_street = addr.GetStreetName();
+  if (coder.GetExactAddress(ft, addr))
+  {
+    info.m_house = addr.GetHouseNumber();
+    info.m_street = addr.GetStreetName();
+  }
 
   // TODO(vng): Why AddressInfo is responsible for types and names? Refactor out.
   string defaultName, intName;
