@@ -64,6 +64,10 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
 
 uint64_t PoiSymbolShape::GetOverlayPriority() const
 {
+  // Set up minimal priority for shapes which belong to areas.
+  if (m_params.m_hasArea)
+    return 0;
+
   return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
 }
 

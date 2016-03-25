@@ -281,6 +281,10 @@ uint64_t TextShape::GetOverlayPriority() const
   if (m_disableDisplacing)
     return dp::kPriorityMaskAll;
 
+  // Set up minimal priority for shapes which belong to areas
+  if (m_params.m_hasArea)
+    return 0;
+
   // Overlay priority for text shapes considers length of the primary text
   // (the more text length, the more priority) and index of text.
   // [6 bytes - standard overlay priority][1 byte - length][1 byte - text index].
