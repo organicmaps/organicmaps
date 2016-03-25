@@ -805,11 +805,11 @@
 	<string name="placepage_add_place_button">Добавить место</string>
 	<string name="placepage_report_problem_button">Сообщить о проблеме</string>
 	<string name="whatsnew_smallmwm_header">Вы долго просили — мы наконец сделали</string>
-	<string name="whatsnew_smallmwm_message">Мы разрезали большие карты на части: теперь загружай только нужную область, а не всю страну целиком.</string>
+	<string name="whatsnew_smallmwm_message">Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.</string>
 	<string name="whatsnew_search_header">Новый поиск</string>
 	<string name="whatsnew_search_message">Качественно улучшили поиск по адресам. Проверяйте.</string>
 	<string name="whatsnew_editor_title">Редактируйте карту*</string>
-	<string name="whatsnew_editor_message_1">Добавляйте новые объекты и редактируйте информацию о старых прямо из приложения.</string>
+	<string name="whatsnew_editor_message_1">Добавляйте новые объекты и редактируйте старые прямо из приложения.</string>
 	<string name="whatsnew_editor_message_2">* MAPS.ME использует данные открытых карт сообщества OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Вы никогда больше не заблудитесь</string>
 	<string name="onboarding_offline_navigation_message">Прокладывайте самые оптимальные автомобильные и пешеходные маршруты даже там, где нет связи!</string>
