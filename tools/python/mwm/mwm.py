@@ -1,6 +1,7 @@
 # MWM Reader Module
 import struct
 import math
+from datetime import datetime
 
 # Unprocessed sections: geomN, trgN, idx, sdx (search index), addr (search address), offs (feature offsets - succinct)
 # Routing sections: mercedes (matrix), daewoo (edge data), infinity (edge id), skoda (shortcuts), chrysler (cross context), ftseg, node2ftseg
@@ -72,6 +73,10 @@ class MWM:
     self.f.read(4) # skip prolog
     fmt = self.read_varuint() + 1
     version = self.read_varuint()
+    if version < 161231:
+      version = datetime(2000 + int(version / 10000), int(version / 100) % 100, version % 100)
+    else:
+      version = datetime.fromtimestamp(version)
     return { 'fmt': fmt, 'version': version }
 
   def read_header(self):

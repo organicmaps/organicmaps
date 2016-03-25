@@ -10,8 +10,9 @@ if len(sys.argv) < 2:
 mwm = MWM(open(sys.argv[1], 'rb'))
 mwm.read_types(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'data', 'types.txt'))
 print 'Tags:'
-for tag, value in mwm.tags.iteritems():
-  print '  {0:<8}: offs {1:9} len {2:8}'.format(tag, value[0], value[1])
+tvv = sorted([(k, v[0], v[1]) for k, v in mwm.tags.iteritems()], key=lambda x: x[1])
+for tv in tvv:
+  print '  {0:<8}: offs {1:9} len {2:8}'.format(tv[0], tv[1], tv[2])
 print 'Version:', mwm.read_version()
 print 'Header:', mwm.read_header()
 print 'Metadata count:', len(mwm.read_metadata())
