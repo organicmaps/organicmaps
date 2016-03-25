@@ -522,6 +522,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     m_storage.DeleteCustomCountryVersion(localFile);
   };
 
+  // Call action on thread in which the framework was created
   if (m_storage.GetThreadChecker().CalledOnOriginalThread())
     action();
   else
