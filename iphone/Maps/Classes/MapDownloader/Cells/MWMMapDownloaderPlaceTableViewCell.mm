@@ -46,12 +46,10 @@ namespace
 {
   [super config:nodeAttrs];
   BOOL isAreaVisible = NO;
-  if (self.needDisplayArea)
+  if (self.needDisplayArea && nodeAttrs.m_topmostParentInfo.size() == 1)
   {
-    string const areaName = nodeAttrs.m_parentInfo[0].m_localName;
-    BOOL const isParentRoot = (areaName == GetFramework().Storage().GetRootId());
-    BOOL const isOneParent = nodeAttrs.m_parentInfo.size() == 1;
-    isAreaVisible = (!isParentRoot && isOneParent);
+    string const & areaName = nodeAttrs.m_topmostParentInfo[0].m_localName;
+    isAreaVisible = (areaName != GetFramework().Storage().GetRootId());
     if (isAreaVisible)
       self.area.attributedText = [self matchedString:@(areaName.c_str())
                                        selectedAttrs:kSelectedAreaAttrs
