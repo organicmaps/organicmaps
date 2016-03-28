@@ -2,12 +2,10 @@ package com.mapswithme.maps.editor;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,9 +14,8 @@ import java.util.Random;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.sharing.ShareOption;
+import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 public class ViralFragment extends BaseMwmDialogFragment
@@ -55,6 +52,7 @@ public class ViralFragment extends BaseMwmDialogFragment
       public void onClick(View v)
       {
         share();
+        dismiss();
         Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_CLICK);
       }
     });
@@ -64,7 +62,6 @@ public class ViralFragment extends BaseMwmDialogFragment
       public void onClick(View v)
       {
         dismiss();
-        // TODO send statistics
       }
     });
     return builder.setView(root).create();
@@ -72,41 +69,7 @@ public class ViralFragment extends BaseMwmDialogFragment
 
   private void share()
   {
-    // TODO add custom sharing in twitter and url to facebook sharing
-    BottomSheetHelper.Builder sheet = BottomSheetHelper.create(getActivity())
-                                                       .sheet(R.menu.menu_viral_editor)
-                                                       .listener(new MenuItem.OnMenuItemClickListener() {
-                                                         @Override
-                                                         public boolean onMenuItemClick(MenuItem item)
-                                                         {
-                                                           if (item.getItemId() == R.id.share_message)
-                                                           {
-                                                             ShareOption.SMS.share(getActivity(),
-                                                                                   getString(R.string.whatsnew_editor_message_1));
-                                                           }
-                                                           else
-                                                           {
-                                                             ShareOption.ANY.share(getActivity(),
-                                                                                   getString(R.string.whatsnew_editor_message_1),
-                                                                                   R.string.editor_sharing_title);
-                                                           }
-
-                                                           dismiss();
-                                                           return false;
-                                                         }
-                                                       });
-
-    if (!ShareOption.SMS.isSupported(getActivity()))
-      sheet.getMenu().removeItem(R.id.share_message);
-
-    sheet.tint().show();
-  }
-
-  @Override
-  public void onDismiss(DialogInterface dialog)
-  {
-    super.onDismiss(dialog);
-    // TODO remove before merge
+    SharingHelper.shareViralEditor(getActivity(), R.drawable.img_sharing_editor, R.string.editor_sharing_title, R.string.whatsnew_editor_message_1);
   }
 
   private void initViralText()

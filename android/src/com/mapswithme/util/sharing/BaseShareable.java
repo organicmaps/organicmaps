@@ -12,9 +12,9 @@ import com.mapswithme.util.statistics.AlohaHelper;
 public abstract class BaseShareable
 {
   private final Activity mActivity;
-  private Intent mBaseIntent;
-  private String mText;
-  private String mSubject;
+  protected Intent mBaseIntent;
+  protected String mText;
+  protected String mSubject;
 
   public BaseShareable(Activity activity)
   {

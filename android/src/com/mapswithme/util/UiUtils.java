@@ -2,9 +2,14 @@ package com.mapswithme.util;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.AnyRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -284,6 +289,15 @@ public final class UiUtils
   {
     button.setTextColor(ThemeUtils.getColor(button.getContext(), button.isEnabled() ? R.attr.accentButtonTextColor
                                                                                     : R.attr.accentButtonTextColorDisabled));
+  }
+
+  public static Uri getUriToResId(@NonNull Context context, @AnyRes int resId)
+  {
+    final Resources resources = context.getResources();
+    return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                         + resources.getResourcePackageName(resId) + '/'
+                         + resources.getResourceTypeName(resId) + '/'
+                         + resources.getResourceEntryName(resId));
   }
 
   // utility class
