@@ -26,7 +26,7 @@ string const kCountryId = "Angola";
 
 string const kMapTestDir = "map-tests";
 
-string const kTestWebServer = "http://new-search.mapswithme.com/";
+string const kTestWebServer = "http://direct.mapswithme.com/";
 
 void Update(TCountryId const &, storage::Storage::TLocalFilePtr const localCountryFile)
 {

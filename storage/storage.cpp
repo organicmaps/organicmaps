@@ -478,6 +478,8 @@ void Storage::DeleteCountry(TCountryId const & countryId, MapOptions opt)
 
 void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   CountryFile const countryFile = localFile.GetCountryFile();
   DeleteFromDiskWithIndexes(localFile, MapOptions::MapWithCarRouting);
 

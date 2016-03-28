@@ -20,17 +20,17 @@ using namespace storage;
 namespace
 {
 
-string const kTestWebServer = "http://new-search.mapswithme.com/";
+string const kTestWebServer = "http://direct.mapswithme.com/";
 
 string const kMapTestDir = "map-tests";
 
 string const kCountriesTxtFile = COUNTRIES_FILE;
 
-string const kMwmVersion1 = "160224";
-size_t const kCountriesTxtFileSize1 = 143739;
+string const kMwmVersion1 = "160316";
+size_t const kCountriesTxtFileSize1 = 353091;
 
-string const kMwmVersion2 = "160313";
-size_t const kCountriesTxtFileSize2 = 193637;
+string const kMwmVersion2 = "160317";
+size_t const kCountriesTxtFileSize2 = 348972;
 
 string const kGroupCountryId = "Belarus";
 

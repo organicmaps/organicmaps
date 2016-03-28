@@ -260,6 +260,8 @@ private:
   void DownloadNextFile(QueuedCountry const & country);
 
 public:
+  ThreadChecker const & GetThreadChecker() const {return m_threadChecker;}
+
   /// \brief Storage will create its directories in Writable Directory
   /// (gotten with platform::WritableDir) by default.
   /// \param pathToCountriesFile is a name of countries.txt file.

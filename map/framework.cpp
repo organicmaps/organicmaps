@@ -517,10 +517,17 @@ bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, stora
 
 void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 {
-  GetPlatform().RunOnGuiThread([this, localFile]
+  auto action = [this, localFile]
   {
     m_storage.DeleteCustomCountryVersion(localFile);
-  });
+  };
+
+  // Call action on thread in which the framework was created
+  // For more information look at comment for Observer class in mwm_set.hpp 
+  if (m_storage.GetThreadChecker().CalledOnOriginalThread())
+    action();
+  else
+    GetPlatform().RunOnGuiThread(action);
 }
 
 bool Framework::HasUnsavedEdits(storage::TCountryId const & countryId)
