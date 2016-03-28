@@ -1319,6 +1319,13 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
       countryIdAndName.m_localName = m_countryNameGetter(countryIdAndName.m_id);
     nodeAttrs.m_parentInfo.emplace_back(move(countryIdAndName));
   }
+  // Parents country.
+  nodeAttrs.m_topmostParentInfo.clear();
+  ForEachAncestorExceptForTheRoot(nodes, [&](TCountryId const & ancestorId, TCountryTreeNode const & node)
+  {
+    if (node.Value().GetParent() == GetRootId())
+      nodeAttrs.m_topmostParentInfo.push_back({ancestorId, m_countryNameGetter(ancestorId)});
+  });
 }
 
 void Storage::GetNodeStatuses(TCountryId const & countryId, NodeStatuses & nodeStatuses) const
