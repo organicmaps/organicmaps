@@ -120,7 +120,6 @@ public enum Statistics
     public static final String EDITOR_AUTH_REQUEST = "Editor_Auth_request";
     public static final String EDITOR_AUTH_REQUEST_RESULT = "Editor_Auth_request_result";
     public static final String EDITOR_REG_REQUEST = "Editor_Reg_request";
-    public static final String EDITOR_REG_RESULT = "Editor_Reg_request_result";
     public static final String EDITOR_SHARE_SHOW = "Editor_SecondTimeShare_show";
     public static final String EDITOR_SHARE_CLICK = "Editor_SecondTimeShare_click";
     public static final String EDITOR_REPORT = "Editor_Problem_report";
