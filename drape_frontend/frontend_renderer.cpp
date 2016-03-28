@@ -440,6 +440,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         if (m_userEventStream.GetCurrentScreen().isPerspective())
         {
           dp::TOverlayContainer selectResult;
+          if (m_overlayTree->IsNeedUpdate())
+            BuildOverlayTree(m_userEventStream.GetCurrentScreen());
           m_overlayTree->Select(msg->GetPosition(), selectResult);
           for (ref_ptr<dp::OverlayHandle> handle : selectResult)
             offsetZ = max(offsetZ, handle->GetPivotZ());
@@ -845,7 +847,7 @@ void FrontendRenderer::OnCompassTapped()
     m_userEventStream.AddEvent(RotateEvent(0.0));
 }
 
-FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint) const
+FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint)
 {
   double halfSize = VisualParams::Instance().GetTouchRectRadius();
   m2::PointD sizePoint(halfSize, halfSize);
@@ -853,16 +855,17 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint) const
   return GetVisiblePOI(selectRect);
 }
 
-FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect) const
+FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
 {
   m2::PointD pt = pixelRect.Center();
   dp::TOverlayContainer selectResult;
+  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+  if (m_overlayTree->IsNeedUpdate())
+    BuildOverlayTree(screen);
   m_overlayTree->Select(pixelRect, selectResult);
 
   double dist = numeric_limits<double>::max();
   FeatureID featureID;
-
-  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   for (ref_ptr<dp::OverlayHandle> handle : selectResult)
   {
     double const curDist = pt.SquareLength(handle->GetPivot(screen, screen.isPerspective()));
@@ -1037,13 +1040,19 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
 void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 {
   RenderLayer & overlay = m_layers[RenderLayer::OverlayID];
+  BuildOverlayTree(modelView);
+  for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
+    RenderSingleGroup(modelView, make_ref(group));
+}
+  
+void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
+{
+  RenderLayer & overlay = m_layers[RenderLayer::OverlayID];
   overlay.Sort(make_ref(m_overlayTree));
   BeginUpdateOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     UpdateOverlayTree(modelView, group);
   EndUpdateOverlayTree();
-  for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
-    RenderSingleGroup(modelView, make_ref(group));
 }
 
 void FrontendRenderer::PrepareBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> & bucket)
