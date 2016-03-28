@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1941,7 +1941,7 @@
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMGray"/>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
-                                                                    <action selector="localChangesAction" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="Ycj-6E-vDD"/>
+                                                                    <action selector="localChangesAction:" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="4Gi-vX-ESJ"/>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changes: 4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6t0-ph-htV">
@@ -2253,7 +2253,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.borderColorName" value="whitePrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="logout" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="BCT-mT-JzT"/>
+                                                    <action selector="logout:" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="FcC-iH-0c0"/>
                                                 </connections>
                                             </button>
                                         </subviews>

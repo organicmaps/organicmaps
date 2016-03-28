@@ -226,7 +226,7 @@ using namespace osm_auth_ios;
   }];
 }
 
-- (IBAction)logout
+- (IBAction)logout:(UIButton *)sender
 {
   self.actionSheetFunctor = [self]
   {
@@ -234,7 +234,7 @@ using namespace osm_auth_ios;
     AuthorizationStoreCredentials({});
     [self cancel];
   };
-  [self showWarningActionSheetWithActionTitle:L(@"logout")];
+  [self showWarningActionSheetWithActionTitle:L(@"logout") sourceView:sender];
 }
 
 - (IBAction)cancel
@@ -242,7 +242,7 @@ using namespace osm_auth_ios;
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)localChangesAction
+- (IBAction)localChangesAction:(UIButton *)sender
 {
   self.actionSheetFunctor = [self]
   {
@@ -250,12 +250,12 @@ using namespace osm_auth_ios;
     [self configChanges];
     [self configEmptyProfile];
   };
-  [self showWarningActionSheetWithActionTitle:L(@"delete")];
+  [self showWarningActionSheetWithActionTitle:L(@"delete") sourceView:sender];
 }
 
 #pragma mark - ActionSheet
 
-- (void)showWarningActionSheetWithActionTitle:(NSString *)title
+- (void)showWarningActionSheetWithActionTitle:(NSString *)title sourceView:(UIView *)view
 {
   NSString * cancel = L(@"cancel");
   if (isIOS7)
@@ -273,6 +273,12 @@ using namespace osm_auth_ios;
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:commonAction];
+
+    if (IPAD)
+    {
+      UIPopoverPresentationController * popPresenter = [alertController popoverPresentationController];
+      popPresenter.sourceView = view;
+    }
     [self presentViewController:alertController animated:YES completion:nil];
   }
 }
