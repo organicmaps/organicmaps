@@ -30,10 +30,12 @@ public final class CountryItem implements Comparable<CountryItem>
   public static final int ERROR_NO_INTERNET = 3;
 
   public final String id;
-  public String parentId;
+  public String directParentId;
+  public String topmostParentId;
 
   public String name;
-  public String parentName;
+  public String directParentName;
+  public String topmostParentName;
 
   public long size;
   public long totalSize;
@@ -109,12 +111,14 @@ public final class CountryItem implements Comparable<CountryItem>
   public String toString()
   {
     return "{ id: \"" + id +
-           "\", parentId: \"" + parentId +
+           "\", directParentId: \"" + directParentId +
+           "\", topmostParentId: \"" + topmostParentId +
            "\", category: \"" + category +
+           "\", name: \"" + name +
+           "\", directParentName: \"" + directParentName +
+           "\", topmostParentName: \"" + topmostParentName +
            "\", present: " + present +
-           ", name: \"" + name +
-           "\", parentName: \"" + parentName +
-           "\", status: " + status +
+           ", status: " + status +
            ", errorCode: " + errorCode +
            ", headerId: " + headerId +
            ", size: " + size +
