@@ -171,7 +171,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1729
+      priority: 1739
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -182,7 +182,7 @@ cont {
         dd: 1.0
         dd: 18.0
       }
-      priority: 1716
+      priority: 1726
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -192,7 +192,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1729
+      priority: 1739
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -203,7 +203,7 @@ cont {
         dd: 1.0
         dd: 18.0
       }
-      priority: 1716
+      priority: 1726
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -213,7 +213,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1729
+      priority: 1739
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -224,7 +224,7 @@ cont {
         dd: 1.0
         dd: 18.0
       }
-      priority: 1716
+      priority: 1726
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -234,7 +234,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1729
+      priority: 1739
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -245,7 +245,7 @@ cont {
         dd: 1.0
         dd: 18.0
       }
-      priority: 1716
+      priority: 1726
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -255,7 +255,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1729
+      priority: 1739
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -266,7 +266,7 @@ cont {
         dd: 1.0
         dd: 18.0
       }
-      priority: 1716
+      priority: 1726
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -276,7 +276,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1729
+      priority: 1739
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -287,7 +287,7 @@ cont {
         dd: 1.0
         dd: 18.0
       }
-      priority: 1716
+      priority: 1726
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -297,7 +297,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1729
+      priority: 1739
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -308,7 +308,7 @@ cont {
         dd: 1.0
         dd: 18.0
       }
-      priority: 1716
+      priority: 1726
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -2321,6 +2321,30 @@ cont {
 }
 cont {
   name: "amenity-car_wash"
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     caption {
@@ -6599,35 +6623,35 @@ cont {
     scale: 14
     area {
       color: 15591638
-      priority: -15838
+      priority: -15836
     }
   }
   element {
     scale: 15
     area {
       color: 15591638
-      priority: -15838
+      priority: -15836
     }
   }
   element {
     scale: 16
     area {
       color: 15591638
-      priority: -15838
+      priority: -15836
     }
   }
   element {
     scale: 17
     area {
       color: 15591638
-      priority: -15838
+      priority: -15836
     }
   }
   element {
     scale: 18
     area {
       color: 15591638
-      priority: -15838
+      priority: -15836
     }
   }
 }
@@ -34415,7 +34439,7 @@ cont {
     lines {
       width: 0.5
       color: 16742950
-      priority: 1621
+      priority: 1630
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -34425,7 +34449,7 @@ cont {
     lines {
       width: 0.5
       color: 16742950
-      priority: 1621
+      priority: 1630
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -34435,7 +34459,7 @@ cont {
     lines {
       width: 0.5
       color: 16742950
-      priority: 1621
+      priority: 1630
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -34445,7 +34469,7 @@ cont {
     lines {
       width: 0.5
       color: 16742950
-      priority: 1621
+      priority: 1630
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -34455,7 +34479,7 @@ cont {
     lines {
       width: 0.5
       color: 16742950
-      priority: 1621
+      priority: 1630
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -34468,7 +34492,7 @@ cont {
     lines {
       width: 0.9
       color: 16742950
-      priority: 1621
+      priority: 1630
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -34478,7 +34502,7 @@ cont {
     lines {
       width: 0.9
       color: 16742950
-      priority: 1621
+      priority: 1630
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -34488,7 +34512,7 @@ cont {
     lines {
       width: 0.9
       color: 16742950
-      priority: 1621
+      priority: 1630
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -43178,56 +43202,56 @@ cont {
     scale: 11
     area {
       color: 13229526
-      priority: -15798
+      priority: -15795
     }
   }
   element {
     scale: 12
     area {
       color: 13229526
-      priority: -15798
+      priority: -15795
     }
   }
   element {
     scale: 13
     area {
       color: 13229526
-      priority: -15798
+      priority: -15795
     }
   }
   element {
     scale: 14
     area {
       color: 13229526
-      priority: -15798
+      priority: -15795
     }
   }
   element {
     scale: 15
     area {
       color: 13229526
-      priority: -15798
+      priority: -15795
     }
   }
   element {
     scale: 16
     area {
       color: 13229526
-      priority: -15798
+      priority: -15795
     }
   }
   element {
     scale: 17
     area {
       color: 13229526
-      priority: -15798
+      priority: -15795
     }
   }
   element {
     scale: 18
     area {
       color: 13229526
-      priority: -15798
+      priority: -15795
     }
   }
 }
@@ -53874,7 +53898,7 @@ cont {
         dd: 6.3
         dd: 6.3
       }
-      priority: 1391
+      priority: 1397
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -53888,7 +53912,7 @@ cont {
         dd: 6.3
         dd: 6.3
       }
-      priority: 1391
+      priority: 1397
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -53902,7 +53926,7 @@ cont {
         dd: 6.3
         dd: 6.3
       }
-      priority: 1391
+      priority: 1397
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -53919,7 +53943,7 @@ cont {
         dd: 1.8
         dd: 5.4
       }
-      priority: 1391
+      priority: 1397
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -55481,7 +55505,7 @@ cont {
     lines {
       width: 0.8
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -55491,7 +55515,7 @@ cont {
     lines {
       width: 0.8
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -55501,7 +55525,7 @@ cont {
     lines {
       width: 0.8
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -55511,7 +55535,7 @@ cont {
     lines {
       width: 0.8
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -55521,7 +55545,7 @@ cont {
     lines {
       width: 0.8
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -55531,7 +55555,7 @@ cont {
     lines {
       width: 0.8
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -56729,7 +56753,7 @@ cont {
     lines {
       width: 1.2
       color: 9868678
-      priority: 1635
+      priority: 1643
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -56739,7 +56763,7 @@ cont {
     lines {
       width: 1.2
       color: 9868678
-      priority: 1635
+      priority: 1643
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -56749,7 +56773,7 @@ cont {
     lines {
       width: 1.2
       color: 9868678
-      priority: 1635
+      priority: 1643
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -56759,7 +56783,7 @@ cont {
     lines {
       width: 1.2
       color: 9868678
-      priority: 1635
+      priority: 1643
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -57287,7 +57311,7 @@ cont {
         dd: 6.3
         dd: 6.3
       }
-      priority: 1391
+      priority: 1397
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -57301,7 +57325,7 @@ cont {
         dd: 6.3
         dd: 6.3
       }
-      priority: 1391
+      priority: 1397
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -57315,7 +57339,7 @@ cont {
         dd: 6.3
         dd: 6.3
       }
-      priority: 1391
+      priority: 1397
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -58175,7 +58199,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58185,7 +58209,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58195,7 +58219,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58205,7 +58229,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58215,7 +58239,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58225,7 +58249,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58235,7 +58259,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58245,7 +58269,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -67798,7 +67822,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -67808,7 +67832,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -67818,7 +67842,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -67828,7 +67852,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -67838,7 +67862,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -67848,7 +67872,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -67858,7 +67882,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -67868,7 +67892,7 @@ cont {
     lines {
       width: 0.6
       color: 11710882
-      priority: 1486
+      priority: 1493
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -68368,20 +68392,6 @@ cont {
 }
 cont {
   name: "shop-alcohol"
-  element {
-    scale: 13
-    symbol {
-      name: "supermarket"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 14
-    symbol {
-      name: "supermarket"
-      priority: 16000
-    }
-  }
   element {
     scale: 15
     symbol {
@@ -73645,7 +73655,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -73662,7 +73672,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -73679,7 +73689,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -73696,7 +73706,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -73713,7 +73723,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -73730,7 +73740,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
 }
@@ -73926,7 +73936,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1959
+      priority: 1972
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -73940,7 +73950,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1959
+      priority: 1972
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -74253,7 +74263,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1959
+      priority: 1972
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -74267,7 +74277,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1959
+      priority: 1972
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -74385,7 +74395,7 @@ cont {
     symbol {
       name: "dot-m"
       apply_for_type: 1
-      priority: 16243
+      priority: 16246
     }
   }
   element {
@@ -74393,7 +74403,7 @@ cont {
     symbol {
       name: "dot-m"
       apply_for_type: 1
-      priority: 16243
+      priority: 16246
     }
   }
   element {
@@ -74401,7 +74411,7 @@ cont {
     symbol {
       name: "dot-m"
       apply_for_type: 1
-      priority: 16243
+      priority: 16246
     }
   }
 }
@@ -75132,7 +75142,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -75149,7 +75159,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -75166,7 +75176,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -75183,7 +75193,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -75200,7 +75210,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
   element {
@@ -75217,7 +75227,7 @@ cont {
         height: 10
         color: 4495803
       }
-      priority: 16959
+      priority: 16972
     }
   }
 }
@@ -75227,7 +75237,7 @@ cont {
     scale: 11
     symbol {
       name: "waterfall-s"
-      priority: 16878
+      priority: 16890
       min_distance: 15
     }
   }
@@ -75235,7 +75245,7 @@ cont {
     scale: 12
     symbol {
       name: "waterfall-s"
-      priority: 16878
+      priority: 16890
       min_distance: 15
     }
   }
@@ -75243,7 +75253,7 @@ cont {
     scale: 13
     symbol {
       name: "waterfall-s"
-      priority: 16878
+      priority: 16890
       min_distance: 15
     }
   }
@@ -75251,7 +75261,7 @@ cont {
     scale: 14
     symbol {
       name: "waterfall-s"
-      priority: 16878
+      priority: 16890
       min_distance: 15
     }
   }
@@ -75259,7 +75269,7 @@ cont {
     scale: 15
     symbol {
       name: "waterfall-s"
-      priority: 16878
+      priority: 16890
       min_distance: 15
     }
   }
@@ -75267,7 +75277,7 @@ cont {
     scale: 16
     symbol {
       name: "waterfall-s"
-      priority: 16878
+      priority: 16890
       min_distance: 15
     }
   }
@@ -75275,7 +75285,7 @@ cont {
     scale: 17
     symbol {
       name: "waterfall-s"
-      priority: 16878
+      priority: 16890
       min_distance: 15
     }
   }
@@ -75283,7 +75293,7 @@ cont {
     scale: 18
     symbol {
       name: "waterfall-s"
-      priority: 16878
+      priority: 16890
       min_distance: 15
     }
   }

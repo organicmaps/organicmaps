@@ -323,7 +323,6 @@ node|z13-14[amenity=pub], area|z13-14[amenity=pub] { icon-image: beer-s.svg; tex
 node|z15-16[amenity=fast_food], area|z15-16[amenity=fast_food] { icon-image: fastfood-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;icon-min-distance: 20;}
 node|z15-16[amenity=bar], area|z15-16[amenity=bar] { icon-image: beer-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;icon-min-distance: 20;}
 node|z15-16[amenity=pub], area|z15-16[amenity=pub] { icon-image: beer-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 20;}
-node|z15-16[shop=car_repair], area|z15-16[shop=car_repair] { icon-image: car-repair-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;  z-index: 2500;icon-min-distance: 0;}
 node|z15-16[amenity=fountain],area|z15-16[amenity=fountain] { icon-image: fountain-m.svg; z-index: 1000; text-offset: 10; font-size: 10;  text: name; text-color: @poi_label; z-index: 2500;icon-min-distance: 20;}
 node|z15-16[amenity=drinking_water],area|z15-16[amenity=drinking_water],node|z15-16[amenity=water_point] ,area|z15-16[amenity=water_point]{ icon-image: drinking-water-m.svg;z-index: 2400; icon-min-distance: 20;}
 
@@ -456,44 +455,49 @@ node|z16-[leisure=water_park], area|z16-[leisure=water_park]{ icon-image: swimmi
 node|z16-[man_made=windmill], area|z16-[man_made=windmill]{ icon-image: windmill-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[sport=equestrian], area|z16-[sport=equestrian]{ icon-image: equestrian-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 
+/* Declare common SHOPS for z15- */
+node|z15-[shop], area|z15-[shop] { icon-image: shop-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400; icon-min-distance: 0; }
 
-node|z16-[shop=books], area|z16-[shop=books]{ icon-image: book-shop-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=bakery], area|z16-[shop=bakery] { icon-image: bakery-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=beauty], area|z16-[shop=beauty] { icon-image: beauty-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=beverages], area|z16-[shop=beverages] { icon-image: alcohol-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=bicycle], area|z16-[shop=bicycle]{ icon-image: shop-bicycle-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=butcher], area|z16-[shop=butcher] { icon-image: butcher-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=car], area|z16-[shop=car]{ icon-image: car_sharing-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=car_repair], area|z16-[shop=car_repair] { icon-image: car-repair-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=chemist], area|z16-[shop=chemist] { icon-image: chemist-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=clothes], area|z16-[shop=clothes] { icon-image: clothes-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=computer], area|z16-[shop=computer]{ icon-image: computer-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=confectionery], area|z16-[shop=confectionery]{ icon-image: sweets-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=convenience], area|z16-[shop=convenience] { icon-image: convenience-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=department_store], area|z16-[shop=department_store]{ icon-image: department_store-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=doityourself], area|z16-[shop=doityourself] { icon-image: doityourself-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=electronics], area|z16-[shop=electronics] { icon-image: electronics-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=florist], area|z16-[shop=florist]{ icon-image: florist-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=furniture], area|z16-[shop=furniture]{ icon-image: furniture-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=garden_centre], area|z16-[shop=garden_centre]{ icon-image: garden_center-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=gift], area|z16-[shop=gift]{ icon-image: gift-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=greengrocer], area|z16-[shop=greengrocer]{ icon-image: greengrocer-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=hairdresser], area|z16-[shop=hairdresser] { icon-image: hairdresser-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=hardware], area|z16-[shop=hardware]{ icon-image: hardware-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=jewelry], area|z16-[shop=jewelry] { icon-image: jewelry-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=kiosk], area|z16-[shop=kiosk]{ icon-image: kiosk-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=mobile_phone], area|z16-[shop=mobile_phone]{ icon-image: mobile_phone-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=optician], area|z16-[shop=optician]{ icon-image: optician-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=shoes], area|z16-[shop=shoes]{ icon-image: shoes-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z16-[shop=sports], area|z16-[shop=sports]{ icon-image: sports-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z16-[shop=toys], area|z16-[shop=toys]{ icon-image: toys-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
+node|z15-[shop=alcohol], area|z15-[shop=alcohol] { icon-image: alcohol-m.svg; icon-min-distance: 20; }
+node|z15-[shop=books], area|z15-[shop=books] { icon-image: book-shop-m.svg; }
+node|z15-[shop=bakery], area|z15-[shop=bakery] { icon-image: bakery-m.svg; }
+node|z15-[shop=beauty], area|z15-[shop=beauty] { icon-image: beauty-m.svg; }
+node|z15-[shop=beverages], area|z15-[shop=beverages] { icon-image: alcohol-m.svg; }
+node|z15-[shop=bicycle], area|z15-[shop=bicycle] { icon-image: shop-bicycle-m.svg; }
+node|z15-[shop=butcher], area|z15-[shop=butcher] { icon-image: butcher-m.svg; }
+node|z15-[shop=car], area|z15-[shop=car] { icon-image: car_sharing-m.svg; }
+node|z15-[shop=car_repair], area|z15-[shop=car_repair] { icon-image: car-repair-m.svg; }
+node|z15-[amenity=car_wash], area|z15-[amenity=car_wash ] { icon-image: car_wash-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400; }
+node|z15-[shop=chemist], area|z15-[shop=chemist] { icon-image: chemist-m.svg; }
+node|z15-[shop=clothes], area|z15-[shop=clothes] { icon-image: clothes-m.svg; }
+node|z15-[shop=computer], area|z15-[shop=computer] { icon-image: computer-m.svg; }
+node|z15-[shop=confectionery], area|z15-[shop=confectionery] { icon-image: sweets-m.svg; }
+node|z15-[shop=convenience], area|z15-[shop=convenience] { icon-image: convenience-m.svg; }
+node|z15-[shop=department_store], area|z15-[shop=department_store] { icon-image: department_store-m.svg; }
+node|z15-[shop=doityourself], area|z15-[shop=doityourself] { icon-image: doityourself-m.svg; }
+node|z15-[shop=electronics], area|z15-[shop=electronics] { icon-image: electronics-m.svg; }
+node|z15-[shop=florist], area|z15-[shop=florist] { icon-image: florist-m.svg; }
+node|z15-[shop=furniture], area|z15-[shop=furniture] { icon-image: furniture-m.svg; }
+node|z15-[shop=garden_centre], area|z15-[shop=garden_centre] { icon-image: garden_center-m.svg; }
+node|z15-[shop=gift], area|z15-[shop=gift] { icon-image: gift-m.svg; }
+node|z15-[shop=greengrocer], area|z15-[shop=greengrocer] { icon-image: greengrocer-m.svg; }
+node|z15-[shop=hairdresser], area|z15-[shop=hairdresser] { icon-image: hairdresser-m.svg; }
+node|z15-[shop=hardware], area|z15-[shop=hardware] { icon-image: hardware-m.svg; }
+node|z15-[shop=jewelry], area|z15-[shop=jewelry] { icon-image: jewelry-m.svg; }
+node|z15-[shop=kiosk], area|z15-[shop=kiosk] { icon-image: kiosk-m.svg; }
+node|z15-[shop=laundry], area|z15-[shop=laundry] { icon-image:laundry-m.svg; icon-min-distance: 20; }
+node|z15-[shop=mobile_phone], area|z15-[shop=mobile_phone] { icon-image: mobile_phone-m.svg; }
+node|z15-[shop=optician], area|z15-[shop=optician] { icon-image: optician-m.svg; }
+node|z15-[shop=shoes], area|z15-[shop=shoes] { icon-image: shoes-m.svg; }
+node|z15-[shop=sports], area|z15-[shop=sports] { icon-image: sports-m.svg; }
+node|z15-[shop=toys], area|z15-[shop=toys] { icon-image: toys-m.svg; }
+
 
 node|z16-[tourism=caravan_site], area|z16-[tourism=caravan_site]{ icon-image: caravan_site-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 30; }
 node|z16-[tourism=guest_house], area|z16-[tourism=guest_house]{ icon-image: motel-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[tourism=alpine_hut], area|z16-[tourism=alpine_hut]{ icon-image: alpine_hut-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[tourism=motel], area|z16-[tourism=motel]{ icon-image: motel-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[tourism=picnic_site], area|z16-[tourism=picnic_site]{ icon-image: picnic-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
-
 
 
 node|z17-[amenity=casino], area|z17-[amenity=casino]{ icon-image: casino-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 20; }
@@ -511,44 +515,49 @@ node|z17-[leisure=water_park], area|z17-[leisure=water_park]{ icon-image: swimmi
 node|z17-[man_made=windmill], area|z17-[man_made=windmill]{ icon-image: windmill-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[sport=equestrian], area|z17-[sport=equestrian]{ icon-image: equestrian-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 
+/* Declare common SHOPS for z17- */
+node|z17-[shop], area|z17-[shop] { icon-image: shop-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400; icon-min-distance: 0; }
 
-node|z17-[shop=books], area|z17-[shop=books]{ icon-image: book-shop-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=bakery], area|z17-[shop=bakery] { icon-image: bakery-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=beauty], area|z17-[shop=beauty] { icon-image: beauty-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=beverages], area|z17-[shop=beverages] { icon-image: alcohol-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=bicycle], area|z17-[shop=bicycle]{ icon-image: shop-bicycle-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=butcher], area|z17-[shop=butcher] { icon-image: butcher-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=car], area|z17-[shop=car]{ icon-image: car_sharing-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=car_repair], area|z17-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=chemist], area|z17-[shop=chemist] { icon-image: chemist-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=clothes], area|z17-[shop=clothes] { icon-image: clothes-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=computer], area|z17-[shop=computer]{ icon-image: computer-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=confectionery], area|z17-[shop=confectionery]{ icon-image: sweets-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=convenience], area|z17-[shop=convenience] { icon-image: convenience-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=department_store], area|z17-[shop=department_store]{ icon-image: department_store-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=doityourself], area|z17-[shop=doityourself] { icon-image: doityourself-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=electronics], area|z17-[shop=electronics] { icon-image: electronics-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=florist], area|z17-[shop=florist]{ icon-image: florist-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=furniture], area|z17-[shop=furniture]{ icon-image: furniture-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=garden_centre], area|z17-[shop=garden_centre]{ icon-image: garden_center-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=gift], area|z17-[shop=gift]{ icon-image: gift-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=greengrocer], area|z17-[shop=greengrocer]{ icon-image: greengrocer-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=hairdresser], area|z17-[shop=hairdresser] { icon-image: hairdresser-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=hardware], area|z17-[shop=hardware]{ icon-image: hardware-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=jewelry], area|z17-[shop=jewelry] { icon-image: jewelry-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=kiosk], area|z17-[shop=kiosk]{ icon-image: kiosk-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=mobile_phone], area|z17-[shop=mobile_phone]{ icon-image: mobile_phone-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=optician], area|z17-[shop=optician]{ icon-image: optician-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=shoes], area|z17-[shop=shoes]{ icon-image: shoes-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
-node|z17-[shop=sports], area|z17-[shop=sports]{ icon-image: sports-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 0; }
-node|z17-[shop=toys], area|z17-[shop=toys]{ icon-image: toys-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 0;}
+node|z17-[shop=alcohol], area|z17-[shop=alcohol] { icon-image: alcohol-l.svg; icon-min-distance: 20; }
+node|z17-[shop=books], area|z17-[shop=books]{ icon-image: book-shop-l.svg; }
+node|z17-[shop=bakery], area|z17-[shop=bakery] { icon-image: bakery-l.svg; }
+node|z17-[shop=beauty], area|z17-[shop=beauty] { icon-image: beauty-l.svg; }
+node|z17-[shop=beverages], area|z17-[shop=beverages] { icon-image: alcohol-l.svg; }
+node|z17-[shop=bicycle], area|z17-[shop=bicycle]{ icon-image: shop-bicycle-l.svg; }
+node|z17-[shop=butcher], area|z17-[shop=butcher] { icon-image: butcher-l.svg; }
+node|z17-[shop=car], area|z17-[shop=car]{ icon-image: car_sharing-l.svg; }
+node|z17-[shop=car_repair], area|z17-[shop=car_repair] { icon-image: car-repair-l.svg; }
+node|z17-[amenity=car_wash], area|z17-[amenity=car_wash ] { icon-image: car_wash-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400; }
+node|z17-[shop=chemist], area|z17-[shop=chemist] { icon-image: chemist-l.svg; }
+node|z17-[shop=clothes], area|z17-[shop=clothes] { icon-image: clothes-l.svg; }
+node|z17-[shop=computer], area|z17-[shop=computer]{ icon-image: computer-l.svg; }
+node|z17-[shop=confectionery], area|z17-[shop=confectionery]{ icon-image: sweets-l.svg; }
+node|z17-[shop=convenience], area|z17-[shop=convenience] { icon-image: convenience-l.svg; }
+node|z17-[shop=department_store], area|z17-[shop=department_store]{ icon-image: department_store-l.svg; }
+node|z17-[shop=doityourself], area|z17-[shop=doityourself] { icon-image: doityourself-l.svg; }
+node|z17-[shop=electronics], area|z17-[shop=electronics] { icon-image: electronics-l.svg; }
+node|z17-[shop=florist], area|z17-[shop=florist]{ icon-image: florist-l.svg; }
+node|z17-[shop=furniture], area|z17-[shop=furniture]{ icon-image: furniture-l.svg; }
+node|z17-[shop=garden_centre], area|z17-[shop=garden_centre]{ icon-image: garden_center-l.svg; }
+node|z17-[shop=gift], area|z17-[shop=gift]{ icon-image: gift-l.svg; }
+node|z17-[shop=greengrocer], area|z17-[shop=greengrocer]{ icon-image: greengrocer-l.svg; }
+node|z17-[shop=hairdresser], area|z17-[shop=hairdresser] { icon-image: hairdresser-l.svg; }
+node|z17-[shop=hardware], area|z17-[shop=hardware]{ icon-image: hardware-l.svg; }
+node|z17-[shop=jewelry], area|z17-[shop=jewelry] { icon-image: jewelry-l.svg; }
+node|z17-[shop=kiosk], area|z17-[shop=kiosk]{ icon-image: kiosk-l.svg; }
+node|z17-[shop=laundry], area|z17-[shop=laundry] { icon-image:laundry-l.svg; icon-min-distance: 20; }
+node|z17-[shop=mobile_phone], area|z17-[shop=mobile_phone]{ icon-image: mobile_phone-l.svg; }
+node|z17-[shop=optician], area|z17-[shop=optician]{ icon-image: optician-l.svg; }
+node|z17-[shop=shoes], area|z17-[shop=shoes]{ icon-image: shoes-l.svg; }
+node|z17-[shop=sports], area|z17-[shop=sports]{ icon-image: sports-l.svg; }
+node|z17-[shop=toys], area|z17-[shop=toys]{ icon-image: toys-l.svg; }
+
 
 node|z17-[tourism=caravan_site], area|z17-[tourism=caravan_site]{ icon-image: caravan_site-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 20; }
 node|z17-[tourism=guest_house], area|z17-[tourism=guest_house]{ icon-image: motel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[tourism=alpine_hut], area|z17-[tourism=alpine_hut]{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[tourism=motel], area|z17-[tourism=motel]{ icon-image: motel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[tourism=picnic_site], area|z17-[tourism=picnic_site]{ icon-image: picnic-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
-
 
 
 node|z18-[amenity=casino], area|z18-[amenity=casino]{ icon-image: casino-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
@@ -566,37 +575,6 @@ node|z18-[leisure=water_park], area|z18-[leisure=water_park]{ icon-image: swimmi
 node|z18-[man_made=windmill], area|z18-[man_made=windmill]{ icon-image: windmill-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[sport=equestrian], area|z18-[sport=equestrian]{ icon-image: equestrian-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 
-
-node|z18-[shop=books], area|z18-[shop=books]{ icon-image: book-shop-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=bakery], area|z18-[shop=bakery] { icon-image: bakery-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=beauty], area|z18-[shop=beauty] { icon-image: beauty-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=beverages], area|z18-[shop=beverages] { icon-image: alcohol-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=bicycle], area|z18-[shop=bicycle]{ icon-image: shop-bicycle-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=butcher], area|z18-[shop=butcher] { icon-image: butcher-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=car], area|z18-[shop=car]{ icon-image: car_sharing-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=car_repair], area|z18-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=chemist], area|z18-[shop=chemist] { icon-image: chemist-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=clothes], area|z18-[shop=clothes] { icon-image: clothes-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=computer], area|z18-[shop=computer]{ icon-image: computer-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=confectionery], area|z18-[shop=confectionery]{ icon-image: sweets-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=convenience], area|z18-[shop=convenience] { icon-image: convenience-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=department_store], area|z18-[shop=department_store]{ icon-image: department_store-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=doityourself], area|z18-[shop=doityourself] { icon-image: doityourself-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=electronics], area|z18-[shop=electronics] { icon-image: electronics-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=florist], area|z18-[shop=florist]{ icon-image: florist-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=furniture], area|z18-[shop=furniture]{ icon-image: furniture-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=garden_centre], area|z18-[shop=garden_centre]{ icon-image: garden_center-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=gift], area|z18-[shop=gift]{ icon-image: gift-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=greengrocer], area|z18-[shop=greengrocer]{ icon-image: greengrocer-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=hairdresser], area|z18-[shop=hairdresser] { icon-image: hairdresser-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=hardware], area|z18-[shop=hardware]{ icon-image: hardware-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=jewelry], area|z18-[shop=jewelry] { icon-image: jewelry-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=kiosk], area|z18-[shop=kiosk]{ icon-image: kiosk-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=mobile_phone], area|z18-[shop=mobile_phone]{ icon-image: mobile_phone-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=optician], area|z18-[shop=optician]{ icon-image: optician-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=shoes], area|z18-[shop=shoes]{ icon-image: shoes-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[shop=sports], area|z18-[shop=sports]{ icon-image: sports-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[shop=toys], area|z18-[shop=toys]{ icon-image: toys-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 
 node|z18-[tourism=caravan_site], area|z18-[tourism=caravan_site]{ icon-image: caravan_site-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
 node|z18-[tourism=guest_house], area|z18-[tourism=guest_house]{ icon-image: motel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
@@ -616,34 +594,20 @@ node|z17-[amenity=recycling], area|z17-[amenity=recycling], { icon-image: recycl
 node|z19-[amenity=telephone] { icon-image: phone-l.svg; z-index: 2500; }
 node|z19-[amenity=recycling], area|z19-[amenity=recycling], { icon-image: recycling-l.svg;z-index: 2500; }
 
-/* SHOPS */
-node|z15-16[shop], area|z15-16[shop] { icon-image: shop-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2500;icon-min-distance: 0;}
-node|z17-[shop], area|z17-[shop] { icon-image: shop-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2500;icon-min-distance: 0;}
+node|z13-[shop=mall], area|z13-[shop=mall] { icon-image: shop-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; }
+node|z15-[shop=mall], area|z15-[shop=mall] { icon-image: shop-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600; }
+node|z17-[shop=mall], area|z17-[shop=mall] { icon-image: shop-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600; }
 
+node|z13-[shop=supermarket], area|z13-[shop=supermarket] { icon-image: grocery-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; }
+node|z15-[shop=supermarket], area|z15-[shop=supermarket] { icon-image: grocery-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; }
+node|z17-[shop=supermarket], area|z17-[shop=supermarket] { icon-image: grocery-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; }
 
-node|z13-14[shop=mall] { icon-image: shop-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 0;}
-node|z15-16[shop=mall] { icon-image: shop-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 0;}
-node|z17-[shop=mall] { icon-image: shop-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z13-[amenity=marketplace], area|z13-[amenity=marketplace] { icon-image: marketplace-s.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400; icon-min-distance: 20; }
+node|z15-[amenity=marketplace], area|z15-[amenity=marketplace] { icon-image: marketplace-m.svg; text-offset: 11; font-size: 11; text: name; text-color: @poi_label; z-index: 2400; icon-min-distance: 15; }
+node|z17-[amenity=marketplace], area|z17-[amenity=marketplace] { icon-image: marketplace-l.svg; text-offset: 11; font-size: 11; text: name; text-color: @poi_label; z-index: 2400; }
 
-
-node|z13-14[shop=supermarket] { icon-image: grocery-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; icon-min-distance: 0;}
-node|z15-16[shop=supermarket] { icon-image: grocery-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; icon-min-distance: 0;}
-node|z17-[shop=supermarket] { icon-image: grocery-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
-
-node|z13-14[amenity=marketplace], area|z13-14[amenity=marketplace]{ icon-image: marketplace-s.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
-node|z15-16[amenity=marketplace], area|z17-[amenity=marketplace]{ icon-image: marketplace-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 15;}
-node|z17-[amenity=marketplace], area|z17-[amenity=marketplace]{ icon-image: marketplace-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-
-node|z13-14[shop=alcohol] { icon-image: alcohol-s.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 20; }
-node|z15-16[shop=alcohol] { icon-image: alcohol-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 20; }
-node|z17-[shop=alcohol] { icon-image: alcohol-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 20; }
-node|z18-[shop=alcohol] { icon-image: alcohol-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-
-node|z15-16[shop=laundry], area|z15-16[shop=laundry] { icon-image:laundry-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 25001;icon-min-distance: 20; }
-node|z17-19[shop=laundry], area|z17-19[shop=laundry] { icon-image:laundry-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 25001; }
-
-node|z17-[shop=car_repair], area|z17-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;  z-index: 2500;}
-node|z18-[shop=car_repair], area|z18-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2500; }
+node|z17-[shop=alcohol], area|z17-[shop=alcohol] { icon-min-distance: 0; }
+node|z17-[shop=laundry], area|z17-[shop=laundry] { icon-min-distance: 0; }
 
 
 /* SPORT */
@@ -671,9 +635,6 @@ node|z13-14[sport=cricket], area|z13-14[sport=cricket]{ icon-image: cricket-s.sv
 node|z13-14[sport=curling], area|z13-14[sport=curling] { icon-image: curling-s.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 50;}
 node|z13-14[sport=diving], area|z13-14[sport=diving] { icon-image: diving-s.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 50; }
 node|z13-14[sport=scuba_diving], area|z13-14[sport=scuba_diving]{ icon-image: diving-s.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; icon-min-distance: 50;}
-
-
-
 node|z15-16[sport=soccer], area|z15-16[sport=soccer] { icon-image: soccer-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 6;icon-min-distance: 40; }
 
 node|z15-16[leisure=swimming_pool],area|z15-16[leisure=swimming_pool] { icon-image: swimming-m.svg;z-index: 2600;icon-min-distance: 40;  }
