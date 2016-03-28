@@ -1060,7 +1060,6 @@ Ukraine;Q212;ua;uk
  Ukraine_Zakarpattia Oblast;Q170213
  Ukraine_Zaporizhia Oblast;Q171334
  Ukraine_Zhytomyr Oblast;Q40637
- Crimea;Q7835
 United Arab Emirates;Q878;ae;ar
 United Kingdom;Q145;gb;en
  British Indian Ocean Territory;Q43448
