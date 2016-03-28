@@ -125,8 +125,8 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
 #endif
 
-  int const minVisibleScale = feature::GetMinDrawableScale(f);
-  auto insertShape = [this, minVisibleScale](drape_ptr<MapShape> && shape)
+  int minVisibleScale = 0;
+  auto insertShape = [this, &minVisibleScale](drape_ptr<MapShape> && shape)
   {
     int const index = static_cast<int>(shape->GetType());
     ASSERT_LESS(index, m_mapShapes.size(), ());
@@ -189,12 +189,16 @@ void RuleDrawer::operator()(FeatureType const & f)
       areaMinHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
     }
 
+    m2::PointD const featureCenter = feature::GetCenter(f, zoomLevel);
+    bool const applyPointStyle = s.PointStyleExists() && m_globalRect.IsPointInside(featureCenter);
+    if (applyPointStyle || is3dBuilding)
+      minVisibleScale = feature::GetMinDrawableScale(f);
+
     ApplyAreaFeature apply(insertShape, f.GetID(), m_globalRect, areaMinHeight, areaHeight,
                            minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangle(apply, zoomLevel);
 
-    m2::PointD const featureCenter = feature::GetCenter(f, zoomLevel);
-    if (s.PointStyleExists() && m_globalRect.IsPointInside(featureCenter))
+    if (applyPointStyle)
       apply(featureCenter, true /* hasArea */);
 
     if (CheckCancelled())
@@ -221,6 +225,8 @@ void RuleDrawer::operator()(FeatureType const & f)
   else
   {
     ASSERT(s.PointStyleExists(), ());
+
+    minVisibleScale = feature::GetMinDrawableScale(f);
     ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription(), 0.0f /* posZ */);
     f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
 
