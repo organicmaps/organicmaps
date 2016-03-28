@@ -683,8 +683,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Zilnic</string>
 	<string name="twentyfour_seven">Zi și noapte</string>
-	<string name="day_off_today">Zi liberă azi</string>
-	<string name="day_off">Zi liberă</string>
+	<string name="day_off_today">Astăzi închis</string>
+	<string name="day_off">Închis</string>
 	<string name="today">Azi</string>
 	<string name="sunrise_to_sunset">De la răsărit până la apus</string>
 	<string name="sunset_to_sunrise">De la apus până la răsărit</string>

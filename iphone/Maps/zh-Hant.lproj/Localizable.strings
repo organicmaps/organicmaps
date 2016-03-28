@@ -1153,9 +1153,9 @@
 
 "twentyfour_seven" = "白天和黑夜";
 
-"day_off_today" = "今天休息日";
+"day_off_today" = "今天沒有營業";
 
-"day_off" = "休息日";
+"day_off" = "沒有營業";
 
 "today" = "今天";
 

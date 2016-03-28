@@ -1153,9 +1153,9 @@
 
 "twentyfour_seven" = "24 시간";
 
-"day_off_today" = "오늘 휴가";
+"day_off_today" = "오늘 영업 종료됨";
 
-"day_off" = "휴가";
+"day_off" = "종료됨";
 
 "today" = "오늘";
 

@@ -678,8 +678,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">일별</string>
 	<string name="twentyfour_seven">24 시간</string>
-	<string name="day_off_today">오늘 휴가</string>
-	<string name="day_off">휴가</string>
+	<string name="day_off_today">오늘 영업 종료됨</string>
+	<string name="day_off">종료됨</string>
 	<string name="today">오늘</string>
 	<string name="sunrise_to_sunset">일출에서 일몰로</string>
 	<string name="sunset_to_sunrise">일출에서 일몰까지</string>

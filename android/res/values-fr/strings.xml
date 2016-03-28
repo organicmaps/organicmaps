@@ -697,8 +697,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Tous les jours</string>
 	<string name="twentyfour_seven">Jour et nuit</string>
-	<string name="day_off_today">Jour de fermeture aujourd\&#39;hui</string>
-	<string name="day_off">Jour de fermeture</string>
+	<string name="day_off_today">Fermé aujourd\&#39;hui</string>
+	<string name="day_off">Fermé</string>
 	<string name="today">Aujourd\&#39;hui</string>
 	<string name="sunrise_to_sunset">Du lever au coucher du soleil</string>
 	<string name="sunset_to_sunrise">Du coucher au lever du soleil</string>

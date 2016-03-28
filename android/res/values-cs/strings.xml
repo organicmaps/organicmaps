@@ -693,8 +693,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Denně</string>
 	<string name="twentyfour_seven">Den a noc</string>
-	<string name="day_off_today">Dnes je den volna</string>
-	<string name="day_off">Den volna</string>
+	<string name="day_off_today">Dnes zavřeno</string>
+	<string name="day_off">Zavřeno</string>
 	<string name="today">Dnes</string>
 	<string name="sunrise_to_sunset">Od úsvitu do soumraku</string>
 	<string name="sunset_to_sunrise">Od západu do východu slunce</string>

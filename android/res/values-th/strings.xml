@@ -690,8 +690,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">ทุกวัน</string>
 	<string name="twentyfour_seven">ทั้งกลางวันและกลางคืน</string>
-	<string name="day_off_today">ปิดในวันนี้</string>
-	<string name="day_off">วันปิด</string>
+	<string name="day_off_today">วันนี้ปิด</string>
+	<string name="day_off">ปิด</string>
 	<string name="today">วันนี้</string>
 	<string name="sunrise_to_sunset">ตั้งแต่พระอาทิตย์ขึ้นจนพระอาทิตย์ตก</string>
 	<string name="sunset_to_sunrise">ตั้งแต่พระอาทิตย์ตกจนพระอาทิตย์ขึ้น</string>

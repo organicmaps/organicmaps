@@ -692,8 +692,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">每天</string>
 	<string name="twentyfour_seven">白天和黑夜</string>
-	<string name="day_off_today">今天休息日</string>
-	<string name="day_off">休息日</string>
+	<string name="day_off_today">今天没有营业</string>
+	<string name="day_off">没有营业</string>
 	<string name="today">今天</string>
 	<string name="sunrise_to_sunset">从日出到日落</string>
 	<string name="sunset_to_sunrise">从日落到日出</string>

@@ -719,8 +719,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Daily</string>
 	<string name="twentyfour_seven">24/7</string>
-	<string name="day_off_today">Day off today</string>
-	<string name="day_off">Day off</string>
+	<string name="day_off_today">Closed today</string>
+	<string name="day_off">Closed</string>
 	<string name="today">Today</string>
 	<string name="sunrise_to_sunset">From sunrise to sunset</string>
 	<string name="sunset_to_sunrise">From sunset to sunrise</string>

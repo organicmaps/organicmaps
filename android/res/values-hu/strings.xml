@@ -687,8 +687,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Naponta</string>
 	<string name="twentyfour_seven">Nappal és éjszaka</string>
-	<string name="day_off_today">Ma szabadnap</string>
-	<string name="day_off">Szabadnap</string>
+	<string name="day_off_today">Ma zárva</string>
+	<string name="day_off">Zárva</string>
 	<string name="today">Ma</string>
 	<string name="sunrise_to_sunset">Napkeltétől napnyugtáig</string>
 	<string name="sunset_to_sunrise">Napkeltétől napnyugtáig</string>

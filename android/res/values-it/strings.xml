@@ -685,8 +685,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Tutti i giorni</string>
 	<string name="twentyfour_seven">Giorno e notte</string>
-	<string name="day_off_today">Oggi giorno di riposo</string>
-	<string name="day_off">Giorno di riposo</string>
+	<string name="day_off_today">Oggi chiuso</string>
+	<string name="day_off">Chiuso</string>
 	<string name="today">Oggi</string>
 	<string name="sunrise_to_sunset">Dall\&#39;alba al tramonto</string>
 	<string name="sunset_to_sunrise">Dal tramonto all\&#39;alba</string>

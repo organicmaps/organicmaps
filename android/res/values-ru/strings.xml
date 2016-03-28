@@ -715,8 +715,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Ежедневно</string>
 	<string name="twentyfour_seven">Круглосуточно</string>
-	<string name="day_off_today">Сегодня выходной</string>
-	<string name="day_off">Выходной</string>
+	<string name="day_off_today">Сегодня закрыто</string>
+	<string name="day_off">Закрыто</string>
 	<string name="today">Сегодня</string>
 	<string name="sunrise_to_sunset">От рассвета до заката</string>
 	<string name="sunset_to_sunrise">От заката до рассвета</string>
