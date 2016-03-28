@@ -1086,7 +1086,21 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
 
   // Clusters of features by search type. Each cluster is a sorted
   // list of ids.
-  vector<uint32_t> clusters[SearchModel::SEARCH_TYPE_STREET];
+  size_t const kNumClusters = SearchModel::SEARCH_TYPE_STREET;
+  vector<uint32_t> clusters[kNumClusters];
+
+  // Appends |featureId| to the end of the corresponding cluster, if
+  // any.
+  auto clusterize = [&](uint32_t featureId)
+  {
+    auto const searchType = GetSearchTypeInGeocoding(featureId);
+
+    // All SEARCH_TYPE_CITY features were filtered in
+    // MatchCities().  All SEARCH_TYPE_STREET features were
+    // filtered in GreedilyMatchStreets().
+    if (searchType < SearchModel::SEARCH_TYPE_STREET)
+      clusters[searchType].push_back(featureId);
+  };
 
   CBVPtr features;
   features.SetFull();
@@ -1110,41 +1124,57 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
     }
 
     features.Intersect(m_addressFeatures[curToken + n - 1].get());
-    if (m_filter->NeedToFilter(*features))
-      features.Set(m_filter->Filter(*features));
     ASSERT(features.Get(), ());
+
+    CBVPtr filtered;
+    if (m_filter->NeedToFilter(*features))
+      filtered.Set(m_filter->Filter(*features));
+    else
+      filtered.Set(features.Get(), false /* isOwner */);
+    ASSERT(filtered.Get(), ());
 
     bool const looksLikeHouseNumber = feature::IsHouseNumber(m_layers.back().m_subQuery);
 
-    if (features.IsEmpty() && !looksLikeHouseNumber)
+    if (filtered.IsEmpty() && !looksLikeHouseNumber)
       break;
 
     if (n == 1)
     {
-      auto clusterize = [&](uint32_t featureId)
-      {
-        auto const searchType = GetSearchTypeInGeocoding(featureId);
-
-        // All SEARCH_TYPE_CITY features were filtered in
-        // MatchCities().  All SEARCH_TYPE_STREET features were
-        // filtered in GreedilyMatchStreets().
-        if (searchType < SearchModel::SEARCH_TYPE_STREET)
-          clusters[searchType].push_back(featureId);
-      };
-
-      features.ForEach(clusterize);
+      filtered.ForEach(clusterize);
     }
     else
     {
-      auto noFeature = [&features](uint32_t featureId) -> bool
+      auto noFeature = [&filtered](uint32_t featureId) -> bool
       {
-        return !features->GetBit(featureId);
+        return !filtered->GetBit(featureId);
       };
       for (auto & cluster : clusters)
         my::EraseIf(cluster, noFeature);
+
+      size_t curs[kNumClusters] = {};
+      size_t ends[kNumClusters];
+      for (size_t i = 0; i < kNumClusters; ++i)
+        ends[i] = clusters[i].size();
+      filtered.ForEach([&](uint32_t featureId)
+      {
+        bool found = false;
+        for (size_t i = 0; i < kNumClusters && !found; ++i)
+        {
+          size_t & cur = curs[i];
+          size_t const end = ends[i];
+          while (cur != end && clusters[i][cur] < featureId)
+            ++cur;
+          if (cur != end && clusters[i][cur] == featureId)
+            found = true;
+        }
+        if (!found)
+          clusterize(featureId);
+      });
+      for (size_t i = 0; i < kNumClusters; ++i)
+        inplace_merge(clusters[i].begin(), clusters[i].begin() + ends[i], clusters[i].end());
     }
 
-    for (size_t i = 0; i < ARRAY_SIZE(clusters); ++i)
+    for (size_t i = 0; i < kNumClusters; ++i)
     {
       // ATTENTION: DO NOT USE layer after recursive calls to
       // MatchPOIsAndBuildings().  This may lead to use-after-free.
