@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "登錄並編輯地圖上的物品信息，我們就會讓數百萬其他用戶看到。";
 
-"not_sent" = "讓我們共同把世界變得更美好。";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "上次上傳";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "次改變";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "您已編輯您的第一件物品！";

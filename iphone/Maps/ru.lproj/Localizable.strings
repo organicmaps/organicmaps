@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "Авторизуйтесь и редактируйте информацию об объектах на карте. А мы сделаем её доступной для миллионов пользователей. Улучшим мир вместе!";
 
-"not_sent" = "Не отправлено";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Последняя отправка";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "правок";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "Вы отредактировали свой первый объект!";

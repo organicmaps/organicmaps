@@ -731,11 +731,8 @@
 	<string name="osm_account">OSM Konto</string>
 	<string name="logout">Abmelden</string>
 	<string name="login_and_edit_map_motivation_message">Anmelden und Informationen zu den Objekten auf der Karte bearbeiten. Wir werden sie für Millionen von anderen Nutzern verfügbar machen. Lassen Sie uns zusammen die Welt verbessern.</string>
-	<string name="not_sent">Nicht gesendet</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Zuletzt hochgeladen</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">Änderungen</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Sie haben Ihr erstes Objekt bearbeitet!</string>
 	<string name="thank_you">Danke</string>

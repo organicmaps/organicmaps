@@ -9,18 +9,20 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
 
 public class ProfileFragment extends AuthFragment implements View.OnClickListener
 {
-  protected View mEditsBlock;
-  protected TextView mEditsLocal;
-  protected View mEditsMore;
-  protected TextView mEditsSent;
-  protected TextView mEditsSentDate;
-  protected View mLogout;
+  private View mEditsBlock;
+  private TextView mEditsLocal;
+  private View mEditsMore;
+  private TextView mEditsSent;
+  private TextView mEditsSentDate;
+  private View mLogout;
   private View mAuthBlock;
 
   @Override
@@ -32,7 +34,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     refreshViews();
   }
 
-  protected void initViews(View view)
+  private void initViews(View view)
   {
     mLogout = mToolbarController.findViewById(R.id.logout);
     mLogout.setOnClickListener(this);
@@ -53,7 +55,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     ((TextView) mAuthBlock.findViewById(R.id.first_osm_edit)).setText(R.string.login_and_edit_map_motivation_message);
   }
 
-  protected void refreshViews()
+  private void refreshViews()
   {
     if (OsmOAuth.isAuthorized())
     {
@@ -66,8 +68,8 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
       UiUtils.hide(mLogout);
     }
     final long[] stats = Editor.nativeGetStats();
-    mEditsLocal.setText(getString(R.string.not_sent) + ": " + (stats[0] - stats[1]));
-    mEditsSent.setText(getString(R.string.changes) + ": " + stats[1]);
+    mEditsLocal.setText(String.format(Locale.US, "%s %d", getString(R.string.editor_profile_unsent_changes), stats[0] - stats[1]));
+    mEditsSent.setText(String.format(Locale.US, "%s %d", getString(R.string.editor_profile_changes), + stats[1]));
     if (stats[1] == 0)
       UiUtils.hide(mEditsSentDate);
     else

@@ -13761,36 +13761,6 @@
     nl = Log in en bewerk gegevens van de objecten op de kaart, dan zullen wij ze beschikbaar maken voor miljoenen andere gebruikers. Laten we samen de wereld beter maken.
     pt = Acesse e edite informações dos objetos no mapa e eles serão disponibilizados para milhões de outros usuários. Vamos melhorar o mundo juntos.
 
-  [not_sent]
-    tags = ios, android
-    en = Not Sent
-    ru = Не отправлено
-    fr = Non envoyé
-    da = Ikke sendt
-    id = Tidak terkirim
-    ko = 전송되지 않음
-    sv = Ej skickat
-    tr = Gönderilmedi
-    uk = Не надіслано
-    vi = Chưa được gửi
-    hu = Nincs elküldve
-    de = Nicht gesendet
-    fi = Ei lähetetty
-    cs = Neposláno
-    it = Non inviato
-    nb = Ikke sendt
-    zh-Hant = 讓我們共同把世界變得更美好。
-    zh-Hans = 让我们共同把世界变得更美好。
-    th = ไม่มีการส่ง
-    ja = 送信されませんでした
-    ro = Nu a fost trimis
-    ar = لم ترسل
-    sk = Neodoslaný
-    es = No enviado
-    pl = Nie wysłano
-    nl = Niet verzonden
-    pt = Não enviado
-
   [last_upload]
     tags = ios, android
     comment = Information text: "Last upload 11.01.2016"
@@ -13821,37 +13791,6 @@
     pl = Ostatnio przesłane
     nl = Laatste upload
     pt = Último upload
-
-  [changes]
-    tags = ios, android
-    comment = The number of changes made. As in "changes: 123".
-    en = changes
-    ru = правок
-    fr = modifications
-    da = ændringer
-    id = perubahan
-    ko = 가지 변경
-    sv = ändringar
-    tr = değişiklik
-    uk = змін
-    vi = thay đổi
-    hu = változtatás
-    de = Änderungen
-    fi = muutosta
-    cs = změn
-    it = modifiche
-    nb = endringer
-    zh-Hant = 次改變
-    zh-Hans = 次改变
-    th = การเปลี่ยนแปลง
-    ja = つの変更点
-    ro = modificări
-    ar = تغييرات
-    sk = zmien
-    es = cambios
-    pl = zmian
-    nl = wijzigingen
-    pt = alterações
 
   [you_have_edited_your_first_object]
     tags = ios, android

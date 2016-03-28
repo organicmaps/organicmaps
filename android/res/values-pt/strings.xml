@@ -706,11 +706,8 @@
 	<string name="osm_account">Conta OSM</string>
 	<string name="logout">Encerrar sessão</string>
 	<string name="login_and_edit_map_motivation_message">Acesse e edite informações dos objetos no mapa e eles serão disponibilizados para milhões de outros usuários. Vamos melhorar o mundo juntos.</string>
-	<string name="not_sent">Não enviado</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Último upload</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">alterações</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Você editou o seu primeiro objeto!</string>
 	<string name="thank_you">Obrigado</string>

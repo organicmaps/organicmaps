@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "Prihláste sa a upravte informácie o objektoch na mape, a my ich sprístupníme miliónom ďalších používateľov. Urobme svet spoločne lepším.";
 
-"not_sent" = "Neodoslaný";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Posledné nahrávanie";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "zmien";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "Upravili ste svoj prvý objekt!";

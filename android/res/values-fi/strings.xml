@@ -709,11 +709,8 @@
 	<string name="osm_account">OSM-tili</string>
 	<string name="logout">Kirjaudu ulos</string>
 	<string name="login_and_edit_map_motivation_message">Kirjaudu sisään ja muokkaa kartan kohteiden tietoja, ja me asetamme kohteet miljoonien muiden käyttäjien saataville. Tehdään maailmasta yhdessä parempi paikka.</string>
-	<string name="not_sent">Ei lähetetty</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Viimeisin lisäys</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">muutosta</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Olet muokannut ensimmäistä kohdettasi!</string>
 	<string name="thank_you">Kiitos</string>

@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "Autentificați-vă și editați informația despre obiectele de pe hartă, iar noi le vom face disponibile pentru milioane de alți utilizatori. Să facem împreună lumea mai bună.";
 
-"not_sent" = "Nu a fost trimis";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Ultima încărcare";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "modificări";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "Ați editat primul dvs. obiect!";

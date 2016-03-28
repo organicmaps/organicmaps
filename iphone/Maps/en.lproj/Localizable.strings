@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "Log in and edit objects on the map, and we will make them available for millions of users. Let’s make the world better together.";
 
-"not_sent" = "Not Sent";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Last upload";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "changes";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "You’ve edited your first object!";

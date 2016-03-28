@@ -701,11 +701,8 @@
 	<string name="osm_account">OSM 계정</string>
 	<string name="logout">로그 아웃</string>
 	<string name="login_and_edit_map_motivation_message">로그인하고 지도 상의 개체 정보를 편집하면 다른 수백만 명의 사용자가 사용할 수 있도록 하겠습니다. 함께 더 나은 세상으로 만들어 봅시다.</string>
-	<string name="not_sent">전송되지 않음</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">마지막 업로드</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">가지 변경</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">로그인하고 전 세계 수백만 사람들을 위해 변화를 더하십시오!</string>
 	<string name="thank_you">고맙습니다.</string>

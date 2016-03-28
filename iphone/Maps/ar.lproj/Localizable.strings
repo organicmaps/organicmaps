@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "قم بتسجيل الدخول وعدل البيانات الخاصة بالمكان على الخريطة وسنجعلها متاحة لملايين المستخدمين الآخرين. لنجعل العالم أفضل معا.";
 
-"not_sent" = "لم ترسل";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "آخر تحميل";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "تغييرات";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "لقد قمت بتعديلك الأول!";

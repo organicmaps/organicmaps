@@ -712,11 +712,8 @@
 	<string name="osm_account">Обліковий запис OSM</string>
 	<string name="logout">Вийти</string>
 	<string name="login_and_edit_map_motivation_message">Увійдіть та редагуйте інформацію про об\&#39;єкти на карті, і ми зробимо їх доступними для мільйонів інших користувачів. Давайте зробимо світ кращим разом.</string>
-	<string name="not_sent">Не надіслано</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Остання вiдправка</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">змін</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Ви редагували свій перший об\&#39;єкт!</string>
 	<string name="thank_you">Дякуємо</string>
