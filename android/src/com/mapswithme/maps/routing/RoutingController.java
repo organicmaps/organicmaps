@@ -761,7 +761,10 @@ public class RoutingController
 
   public boolean checkMigration(Activity activity)
   {
-    if (!MapManager.nativeIsLegacyMode() || !isNavigating())
+    if (!MapManager.nativeIsLegacyMode())
+      return false;
+
+    if (!isNavigating() && !isPlanning())
       return false;
 
     new AlertDialog.Builder(activity)
