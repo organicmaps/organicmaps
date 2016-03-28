@@ -364,8 +364,12 @@ void Editor::DeleteFeature(FeatureType const & feature)
 namespace
 {
 constexpr uint32_t kStartIndexForCreatedFeatures = numeric_limits<uint32_t>::max() - 0xfffff;
-bool IsCreatedFeature(FeatureID const & fid) { return fid.m_index >= kStartIndexForCreatedFeatures; }
 }  // namespace
+  
+bool Editor::IsCreatedFeature(FeatureID const & fid)
+{
+  return fid.m_index >= kStartIndexForCreatedFeatures;
+}
 
 Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
 {

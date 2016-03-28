@@ -64,6 +64,10 @@ void CircleShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager>
 
 uint64_t CircleShape::GetOverlayPriority() const
 {
+  // Set up maximum priority for shapes which created by user in the editor.
+  if (m_params.m_createdByEditor)
+    return dp::kPriorityMaskAll;
+  
   // Set up minimal priority for shapes which belong to areas.
   if (m_params.m_hasArea)
     return 0;

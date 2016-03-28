@@ -127,6 +127,8 @@ public:
     time_t m_lastUploadTimestamp = my::INVALID_TIME_STAMP;
   };
   Stats GetStats() const;
+  
+  static bool IsCreatedFeature(FeatureID const & fid);
 
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.

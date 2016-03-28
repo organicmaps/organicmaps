@@ -278,7 +278,8 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
 
 uint64_t TextShape::GetOverlayPriority() const
 {
-  if (m_disableDisplacing)
+  // Set up maximum priority for shapes which created by user in the editor.
+  if (m_params.m_createdByEditor || m_disableDisplacing)
     return dp::kPriorityMaskAll;
 
   // Set up minimal priority for shapes which belong to areas

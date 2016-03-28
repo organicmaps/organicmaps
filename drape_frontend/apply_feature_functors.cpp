@@ -12,6 +12,7 @@
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
+#include "indexer/osm_editor.hpp"
 
 #include "geometry/clipping.hpp"
 
@@ -243,6 +244,7 @@ ApplyPointFeature::ApplyPointFeature(TInsertShapeFn const & insertShape, Feature
   , m_posZ(posZ)
   , m_hasPoint(false)
   , m_hasArea(false)
+  , m_createdByEditor(false)
   , m_symbolDepth(dp::minDepth)
   , m_circleDepth(dp::minDepth)
   , m_symbolRule(NULL)
@@ -254,6 +256,7 @@ void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
 {
   m_hasPoint = true;
   m_hasArea = hasArea;
+  m_createdByEditor = osm::Editor::IsCreatedFeature(m_id);
   m_centerPoint = point;
 }
 
@@ -290,6 +293,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_rank = m_rank;
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
+    params.m_createdByEditor = m_createdByEditor;
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
     {
       m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, hasPOI, 0 /* textIndex */,
@@ -313,6 +317,7 @@ void ApplyPointFeature::Finish()
     params.m_color = ToDrapeColor(m_circleRule->color());
     params.m_radius = m_circleRule->radius();
     params.m_hasArea = m_hasArea;
+    params.m_createdByEditor = m_createdByEditor;
     m_insertShape(make_unique_dp<CircleShape>(m_centerPoint, params));
   }
   else if (m_symbolRule)
@@ -326,6 +331,7 @@ void ApplyPointFeature::Finish()
     params.m_extendingSize = m_symbolRule->has_min_distance() ? mainScale * m_symbolRule->min_distance() : 0;
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
+    params.m_createdByEditor = m_createdByEditor;
     m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
   }
 }
