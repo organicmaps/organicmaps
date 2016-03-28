@@ -347,4 +347,12 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetMwmVersion(JNIEnv * env, jclass 
 {
   return g_editableMapObject.GetID().GetMwmVersion();
 }
+
+// static void nativeCreateNote(double lat, double lon, String text);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jstring text)
+{
+  Editor::Instance().CreateNote(m2::PointD(lat, lon), jni::ToNativeString(env, text));
+}
+
 } // extern "C"

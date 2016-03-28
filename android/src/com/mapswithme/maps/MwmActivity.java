@@ -276,13 +276,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
       EditorActivity.start(this);
   }
 
-  public void showReportForm()
+  public void showReportForm(MapObject point)
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_REPORT);
     if (mIsFragmentContainer)
-      replaceFragment(ReportFragment.class, null, null);
+    {
+      Bundle args = new Bundle(2);
+      args.putDouble(ReportFragment.EXTRA_LAT, point.getLat());
+      args.putDouble(ReportFragment.EXTRA_LON, point.getLon());
+
+      replaceFragment(ReportFragment.class, args, null);
+    }
     else
-      ReportActivity.start(this);
+      ReportActivity.start(this, point);
   }
 
   private void shareMyLocation()

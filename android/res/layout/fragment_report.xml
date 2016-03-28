@@ -14,32 +14,10 @@
     android:gravity="end|center_vertical"
     android:theme="@style/MwmWidget.ToolbarTheme"
     tools:ignore="UnusedAttribute">
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:baselineAligned="false"
-      android:gravity="center_vertical"
-      android:orientation="horizontal">
-
-      <TextView
-        style="@style/MwmTextAppearance.Toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/editor_report_problem_title"/>
-
-      <TextView
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?selectableItemBackgroundBorderless"
-        android:padding="@dimen/margin_base"
-        android:text="@string/editor_report_problem_send_button"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
-    </LinearLayout>
-
+    <TextView
+      android:id="@+id/save"
+      style="@style/MwmWidget.Downloader.ToolbarButton"
+      android:text="@string/editor_report_problem_send_button"/>
   </android.support.v7.widget.Toolbar>
 
   <ScrollView
@@ -62,17 +40,19 @@
         <TextView
           android:id="@+id/problem_not_exist"
           style="@style/MwmWidget.Editor.Problem"
-          android:text="@string/editor_report_problem_no_place_title"/>
+          android:text="@string/editor_report_problem_no_place_title"
+          android:tag="@string/problem_does_not_exist"/>
 
-        <TextView
-          android:id="@+id/problem_closed_repair"
-          style="@style/MwmWidget.Editor.Problem"
-          android:text="@string/editor_report_problem_under_construction_title"/>
+        <!-- TODO: Uncomment when the multiple choices are supported -->
+        <!--<TextView-->
+          <!--android:id="@+id/problem_closed_repair"-->
+          <!--style="@style/MwmWidget.Editor.Problem"-->
+          <!--android:text="@string/editor_report_problem_under_construction_title"/>-->
 
-        <TextView
-          android:id="@+id/problem_duplicated_place"
-          style="@style/MwmWidget.Editor.Problem"
-          android:text="@string/editor_report_problem_duplicate_place_title"/>
+        <!--<TextView-->
+          <!--android:id="@+id/problem_duplicated_place"-->
+          <!--style="@style/MwmWidget.Editor.Problem"-->
+          <!--android:text="@string/editor_report_problem_duplicate_place_title"/>-->
 
         <TextView
           android:id="@+id/problem_other"
