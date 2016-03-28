@@ -159,7 +159,7 @@ NSString * getVerifier(NSString * urlString)
     catch (exception const & ex)
     {
       LOG(LWARNING, ("checkAuthorization error", ex.what()));
-      [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatNo,
+      [Statistics logEvent:@"Editor_Auth_request_result" withParameters:@{kStatIsSuccess : kStatNo,
                                                                          kStatErrorData : @(ex.what()),
                                                                          kStatType : self.authTypeAsString}];
     }
@@ -169,7 +169,7 @@ NSString * getVerifier(NSString * urlString)
       if (OsmOAuth::IsValid(ks))
       {
         osm_auth_ios::AuthorizationStoreCredentials(ks);
-        [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatYes,
+        [Statistics logEvent:@"Editor_Auth_request_result" withParameters:@{kStatIsSuccess : kStatYes,
                                                                            kStatType : self.authTypeAsString}];
         UIViewController * svc = nil;
         for (UIViewController * vc in self.navigationController.viewControllers)

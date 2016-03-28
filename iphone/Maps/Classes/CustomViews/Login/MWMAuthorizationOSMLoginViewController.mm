@@ -140,7 +140,7 @@ using namespace osm;
       catch (exception const & ex)
       {
         LOG(LWARNING, ("Error login", ex.what()));
-        [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatNo,
+        [Statistics logEvent:@"Editor_Auth_request_result" withParameters:@{kStatIsSuccess : kStatNo,
                                                                            kStatErrorData : @(ex.what()),
                                                                            kStatType : kStatOSM}];
       }
@@ -150,7 +150,7 @@ using namespace osm;
         if (auth.IsAuthorized())
         {
           osm_auth_ios::AuthorizationStoreCredentials(auth.GetKeySecret());
-          [Statistics logEvent:@"Editor_Reg_request_result" withParameters:@{kStatIsSuccess : kStatYes,
+          [Statistics logEvent:@"Editor_Auth_request_result" withParameters:@{kStatIsSuccess : kStatYes,
                                                                              kStatType : kStatOSM}];
           UIViewController * svc = nil;
           for (UIViewController * vc in self.navigationController.viewControllers)
