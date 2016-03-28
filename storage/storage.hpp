@@ -82,8 +82,8 @@ struct NodeAttrs
   /// an mwm could have two or even more parents. See Country description for details.
   vector<CountryIdAndName> m_parentInfo;
 
-  /// Node id and local name of the first level parents (root children nodes) of the node
-  /// if the node has one first level parent(s). Otherwise |m_topmostParentInfo| is empty.
+  /// Node id and local name of the first level parents (root children nodes)
+  /// if the node has first level parent(s). Otherwise |m_topmostParentInfo| is empty.
   /// That means for the root and for the root children |m_topmostParentInfo| is empty.
   /// Locale language is a language set by Storage::SetLocale().
   /// \note Most number of nodes have only first level parent. But in case of a disputed territories
