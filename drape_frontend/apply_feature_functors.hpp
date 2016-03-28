@@ -67,6 +67,7 @@ protected:
 private:
   bool m_hasPoint;
   bool m_hasArea;
+  bool m_createdByEditor;
   double m_symbolDepth;
   double m_circleDepth;
   SymbolRuleProto const * m_symbolRule;
