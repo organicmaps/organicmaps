@@ -324,15 +324,22 @@ void Framework::DeactivatePopup()
 string Framework::GetOutdatedCountriesString()
 {
   vector<Country const *> countries;
-  Storage().GetOutdatedCountries(countries);
+  class Storage const & storage = Storage();
+  storage.GetOutdatedCountries(countries);
 
   string res;
+  NodeAttrs attrs;
+
   for (size_t i = 0; i < countries.size(); ++i)
   {
-    res += countries[i]->Name();
-    if (i < countries.size() - 1)
+    storage.GetNodeAttrs(countries[i]->Name(), attrs);
+
+    if (i > 0)
       res += ", ";
+
+    res += attrs.m_nodeLocalName;
   }
+
   return res;
 }
 

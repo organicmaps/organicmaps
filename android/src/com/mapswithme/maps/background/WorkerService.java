@@ -12,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.util.LocationUtils;
@@ -142,7 +143,11 @@ public class WorkerService extends IntentService
         return true;
     }
 
-    Notifier.notifyDownloadSuggest(country, MwmApplication.get().getString(R.string.download_location_country, country), country);
+    CountryItem item = CountryItem.fill(country);
+    if (item.status != CountryItem.STATUS_DOWNLOADABLE)
+      return true;
+
+    Notifier.notifyDownloadSuggest(item.name, MwmApplication.get().getString(R.string.download_location_country, item.name), country);
     PREFS.edit().putString(country, String.valueOf(System.currentTimeMillis())).apply();
     return true;
   }
