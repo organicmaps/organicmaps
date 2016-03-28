@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.v7.app.AlertDialog;
@@ -15,45 +14,37 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.widget.InputWebView;
-import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.Statistics;
 
-public class AuthFragment extends BaseAuthFragment implements View.OnClickListener
+// TODO refactor together with with AuthFragment and BaseAuthFragment to avoid code duplication
+public class AuthDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
 {
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_auth_editor, container, false);
+    return inflater.inflate(R.layout.fragment_auth_editor_dialog, container, false);
+  }
+
+  @Override
+  protected int getStyle()
+  {
+    return STYLE_NO_TITLE;
   }
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mToolbarController.setTitle(R.string.thank_you);
     view.findViewById(R.id.login_osm).setOnClickListener(this);
     view.findViewById(R.id.login_facebook).setOnClickListener(this);
     view.findViewById(R.id.login_google).setOnClickListener(this);
     view.findViewById(R.id.register).setOnClickListener(this);
-  }
-
-  @Override
-  protected ToolbarController onCreateToolbarController(@NonNull View root)
-  {
-    return new ToolbarController(root, getActivity())
-    {
-      @Override
-      public void onUpClick()
-      {
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_DECLINED);
-        super.onUpClick();
-      }
-    };
   }
 
   @Override
@@ -88,6 +79,7 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
   protected void loginOsm()
   {
     getMwmActivity().replaceFragment(OsmAuthFragment.class, null, null);
+    dismiss();
   }
 
   protected void loginWebview(final OsmOAuth.AuthType type)
@@ -184,5 +176,28 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
   protected void register()
   {
     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.OSM_REGISTER)));
+    dismiss();
+  }
+
+  protected void processAuth(@Size(2) String[] auth, OsmOAuth.AuthType type)
+  {
+    if (auth == null)
+    {
+      if (isAdded())
+      {
+        // TODO set correct text
+        new AlertDialog.Builder(getActivity()).setTitle("Auth error!")
+                                              .setPositiveButton(android.R.string.ok, null).show();
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,
+                                       Statistics.params().add(Statistics.EventParam.IS_SUCCESS, false).add(Statistics.EventParam.TYPE, type.name));
+      }
+      return;
+    }
+
+    OsmOAuth.setAuthorization(auth[0], auth[1]);
+    dismiss();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,
+                                   Statistics.params().add(Statistics.EventParam.IS_SUCCESS, true).add(Statistics.EventParam.TYPE, type.name));
   }
 }

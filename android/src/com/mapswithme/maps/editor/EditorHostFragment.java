@@ -1,5 +1,7 @@
 package com.mapswithme.maps.editor;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -180,12 +182,20 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
           if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
             Utils.navigateToParent(getActivity());
           else
-            showAuthorization();
+          {
+            final Activity parent = getActivity();
+            Intent intent = new Intent(parent, MwmActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowAuthorizationTask());
+            parent.startActivity(intent);
+
+            if (!(parent instanceof MwmActivity))
+              parent.finish();
+          }
         }
         else
         {
           Statistics.INSTANCE.trackEditorError(mIsNewObject);
-          // TODO(yunikkk) set correct error text.
           UiUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
         }
         break;
@@ -197,16 +207,5 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     Editor.nativeSetStreet(street);
     editMapObject();
-  }
-
-  private void showAuthorization()
-  {
-    if (!MwmApplication.prefs().contains(PREF_LAST_AUTH_DISPLAY_TIMESTAMP))
-    {
-      MwmApplication.prefs().edit().putLong(PREF_LAST_AUTH_DISPLAY_TIMESTAMP, System.currentTimeMillis()).apply();
-      getMwmActivity().replaceFragment(AuthFragment.class, null, null);
-    }
-    else
-      mToolbarController.onUpClick();
   }
 }

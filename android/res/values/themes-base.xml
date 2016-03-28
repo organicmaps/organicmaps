@@ -54,7 +54,7 @@
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled</item>
 
     <item name="circleAccent">@drawable/circle_accent</item>
-    <item name="buttonLight">@drawable/editor_light_button</item>
+    <item name="buttonLight">@drawable/button_editor_light</item>
 
     <item name="menuBackgroundClosed">@color/bg_menu_closed</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open</item>
@@ -119,7 +119,7 @@
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled_night</item>
 
     <item name="circleAccent">@drawable/circle_accent_night</item>
-    <item name="buttonLight">@drawable/editor_light_button_night</item>
+    <item name="buttonLight">@drawable/button_editor_light_night</item>
 
     <item name="menuBackgroundClosed">@color/bg_menu_closed_night</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open_night</item>

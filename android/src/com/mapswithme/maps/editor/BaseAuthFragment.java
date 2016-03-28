@@ -9,21 +9,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 public abstract class BaseAuthFragment extends BaseMwmToolbarFragment
 {
-  public enum AuthType
-  {
-    OSM("OSM"),
-    FACEBOOK("Facebook"),
-    GOOGLE("Google");
-
-    String name;
-
-    AuthType(String name)
-    {
-      this.name = name;
-    }
-  }
-
-  protected void processAuth(@Size(2) String[] auth, AuthType type)
+  protected void processAuth(@Size(2) String[] auth, OsmOAuth.AuthType type)
   {
     if (auth == null)
     {

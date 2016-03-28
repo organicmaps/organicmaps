@@ -120,7 +120,7 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
             enableInput(true);
             UiUtils.hide(mProgress);
             mTvLogin.setText(R.string.login);
-            processAuth(auth, AuthType.OSM);
+            processAuth(auth, OsmOAuth.AuthType.OSM);
           }
         });
       }

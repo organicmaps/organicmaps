@@ -34,6 +34,7 @@ public class BaseMwmDialogFragment extends DialogFragment
     int style = getStyle();
     int theme = getCustomTheme();
     if (style != STYLE_NORMAL || theme != 0)
+      //noinspection WrongConstant
       setStyle(style, theme);
   }
 
@@ -50,5 +51,10 @@ public class BaseMwmDialogFragment extends DialogFragment
   {
     super.onPause();
     org.alohalytics.Statistics.logEvent("$onPause", getClass().getSimpleName());
+  }
+
+  public BaseMwmFragmentActivity getMwmActivity()
+  {
+    return (BaseMwmFragmentActivity) getActivity();
   }
 }
