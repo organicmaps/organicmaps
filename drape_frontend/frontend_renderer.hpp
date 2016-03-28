@@ -156,6 +156,7 @@ private:
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   void PrepareScene(ScreenBase const & modelView);
   void UpdateScene(ScreenBase const & modelView);
+  void BuildOverlayTree(ScreenBase const & modelView);
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
 
@@ -215,8 +216,8 @@ private:
 
   void OnCompassTapped();
 
-  FeatureID GetVisiblePOI(m2::PointD const & pixelPoint) const;
-  FeatureID GetVisiblePOI(m2::RectD const & pixelRect) const;
+  FeatureID GetVisiblePOI(m2::PointD const & pixelPoint);
+  FeatureID GetVisiblePOI(m2::RectD const & pixelRect);
 
   bool IsPerspective() const;
 
