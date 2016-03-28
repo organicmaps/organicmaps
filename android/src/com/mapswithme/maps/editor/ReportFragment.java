@@ -3,6 +3,7 @@ package com.mapswithme.maps.editor;
 import android.os.Bundle;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,20 @@ import com.mapswithme.util.UiUtils;
 
 public class ReportFragment extends BaseMwmToolbarFragment implements View.OnClickListener
 {
+  public static final String EXTRA_LAT = "lat";
+  public static final String EXTRA_LON = "lon";
+
   private View mSimpleProblems;
   private View mAdvancedProblem;
+  private View mSave;
   private EditText mProblemInput;
 
   private boolean mAdvancedMode;
   @IntRange(from = 0, to = 3)
   private int mSelectedProblem;
+
+  private double mLat;
+  private double mLon;
 
   @Nullable
   @Override
@@ -33,11 +41,18 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mToolbarController.findViewById(R.id.save).setOnClickListener(this);
+    mToolbarController.setTitle(R.string.editor_report_problem_title);
+
+    Bundle args = getArguments();
+    mLat = args.getDouble(EXTRA_LAT);
+    mLon = args.getDouble(EXTRA_LON);
+
+    mSave = mToolbarController.findViewById(R.id.save);
+    mSave.setOnClickListener(this);
     mSimpleProblems = view.findViewById(R.id.ll__problems);
     mSimpleProblems.findViewById(R.id.problem_not_exist).setOnClickListener(this);
-    mSimpleProblems.findViewById(R.id.problem_closed_repair).setOnClickListener(this);
-    mSimpleProblems.findViewById(R.id.problem_duplicated_place).setOnClickListener(this);
+//    mSimpleProblems.findViewById(R.id.problem_closed_repair).setOnClickListener(this);
+//    mSimpleProblems.findViewById(R.id.problem_duplicated_place).setOnClickListener(this);
     mSimpleProblems.findViewById(R.id.problem_other).setOnClickListener(this);
     mAdvancedProblem = view.findViewById(R.id.ll__other_problem);
     mProblemInput = (EditText) mAdvancedProblem.findViewById(R.id.input);
@@ -46,8 +61,14 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
 
   private void refreshProblems()
   {
-    UiUtils.showIf(mAdvancedMode, mAdvancedProblem);
+    UiUtils.showIf(mAdvancedMode, mAdvancedProblem, mSave);
     UiUtils.showIf(!mAdvancedMode, mSimpleProblems);
+  }
+
+  private void send(String text)
+  {
+    Editor.nativeCreateNote(mLat, mLon, text);
+    mToolbarController.onUpClick();
   }
 
   @Override
@@ -56,20 +77,22 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
     switch (v.getId())
     {
     case R.id.problem_not_exist:
-      // TODO
+//    case R.id.problem_closed_repair:
+//    case R.id.problem_duplicated_place:
+      send((String)v.getTag());
       break;
-    case R.id.problem_closed_repair:
-      // TODO
-      break;
-    case R.id.problem_duplicated_place:
-      // TODO
-      break;
+
     case R.id.problem_other:
       mAdvancedMode = true;
       refreshProblems();
       break;
+
     case R.id.save:
-      // TODO
+      String text = mProblemInput.getText().toString().trim();
+      if (TextUtils.isEmpty(text))
+        return;
+
+      send(text);
       break;
     }
   }

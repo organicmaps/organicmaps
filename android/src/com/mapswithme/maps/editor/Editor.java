@@ -11,7 +11,6 @@ import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.editor.data.FeatureCategory;
-import com.mapswithme.util.statistics.Statistics;
 
 
 /**
@@ -19,7 +18,7 @@ import com.mapswithme.util.statistics.Statistics;
  */
 public final class Editor
 {
-  private static AppBackgroundTracker.OnTransitionListener sOsmUploader = new AppBackgroundTracker.OnTransitionListener()
+  private static final AppBackgroundTracker.OnTransitionListener sOsmUploader = new AppBackgroundTracker.OnTransitionListener()
   {
     @Override
     public void onTransit(boolean foreground)
@@ -140,4 +139,6 @@ public final class Editor
 
   public static native String nativeGetMwmName();
   public static native long nativeGetMwmVersion();
+
+  public static native void nativeCreateNote(double lat, double lon, String text);
 }

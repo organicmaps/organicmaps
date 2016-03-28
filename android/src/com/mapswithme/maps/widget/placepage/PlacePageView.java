@@ -665,9 +665,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     ((MwmActivity) getContext()).showEditor();
   }
 
-  private void showReportForm()
+  private void showReportForm(MapObject point)
   {
-    ((MwmActivity) getContext()).showReportForm();
+    ((MwmActivity) getContext()).showReportForm(point);
   }
 
   @Override
@@ -679,7 +679,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       showEditor();
       break;
     case R.id.ll__report_problem:
-      showReportForm();
+      showReportForm(mMapObject);
       break;
     case R.id.iv__bookmark_color:
       saveBookmarkNameIfUpdated();
