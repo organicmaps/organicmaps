@@ -75,7 +75,10 @@ using namespace storage;
   self.center = {superview.midX, superview.midY};
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
-    self.size = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    CGSize const newSize = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    if (CGSizeEqualToSize(newSize, self.size))
+      return;
+    self.size = newSize;
     self.center = {superview.midX, superview.midY};
     [self layoutIfNeeded];
   }];
