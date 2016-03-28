@@ -18,13 +18,8 @@ namespace
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self configNavBar];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
   self.placeDoesntExistCell.accessoryType = UITableViewCellAccessoryNone;
+  [self configNavBar];
 }
 
 - (void)configNavBar
