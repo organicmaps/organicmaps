@@ -189,7 +189,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
             intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowAuthorizationTask());
             parent.startActivity(intent);
 
-            if (!(parent instanceof MwmActivity))
+            if (parent instanceof MwmActivity)
+              ((MwmActivity) parent).customOnNavigateUp();
+            else
               parent.finish();
           }
         }

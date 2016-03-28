@@ -19,7 +19,7 @@ public final class OsmOAuth
     FACEBOOK("Facebook"),
     GOOGLE("Google");
 
-    String name;
+    public final String name;
 
     AuthType(String name)
     {

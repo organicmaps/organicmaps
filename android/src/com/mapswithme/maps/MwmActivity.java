@@ -407,7 +407,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (Framework.nativeIsDownloadedMapAtScreenCenter())
           startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
         else
-           UiUtils.showAlertDialog(getActivity(), R.string.message_invalid_feature_position);
+          UiUtils.showAlertDialog(getActivity(), R.string.message_invalid_feature_position);
       }
     });
     UiUtils.hide(mPositionChooser);

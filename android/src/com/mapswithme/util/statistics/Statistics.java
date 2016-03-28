@@ -120,6 +120,7 @@ public enum Statistics
     public static final String EDITOR_AUTH_REQUEST = "Editor_Auth_request";
     public static final String EDITOR_AUTH_REQUEST_RESULT = "Editor_Auth_request_result";
     public static final String EDITOR_REG_REQUEST = "Editor_Reg_request";
+    public static final String EDITOR_LOST_PASSWORD = "Editor_Lost_password";
     public static final String EDITOR_SHARE_SHOW = "Editor_SecondTimeShare_show";
     public static final String EDITOR_SHARE_CLICK = "Editor_SecondTimeShare_click";
     public static final String EDITOR_REPORT = "Editor_Problem_report";
@@ -377,6 +378,11 @@ public enum Statistics
     trackEvent(newObject ? EventName.EDITOR_ERROR_CREATE : EventName.EDITOR_ERROR_EDIT,
                editorMwmParams().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
                                 .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
+  }
+
+  public void trackAuthRequest(OsmOAuth.AuthType type)
+  {
+    trackEvent(EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, type.name));
   }
 
   public static ParameterBuilder params()

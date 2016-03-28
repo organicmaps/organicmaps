@@ -3,8 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
-  android:layout_height="match_parent"
-  tools:ignore="DuplicateIds">
+  android:layout_height="match_parent">
 
   <LinearLayout
     android:id="@+id/block_auth"
@@ -18,7 +17,7 @@
     <ImageView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:src="@drawable/ic_img_login"/>
+      android:src="@drawable/img_auth"/>
 
     <TextView
       android:id="@+id/first_osm_edit"
@@ -29,8 +28,8 @@
       android:fontFamily="@string/robotoMedium"
       android:gravity="center"
       android:text="@string/login_to_make_edits_visible"
-      android:textAppearance="@style/MwmTextAppearance.Toolbar"
       android:textColor="@color/text_dark"
+      android:textSize="@dimen/text_size_toolbar"
       tools:ignore="UnusedAttribute"/>
 
     <LinearLayout
@@ -38,7 +37,7 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/margin_half_plus"
       android:orientation="horizontal"
-      tools:ignore="HardcodedText,ButtonStyle">
+      tools:ignore="ButtonStyle">
 
       <ImageButton
         android:id="@+id/login_google"

@@ -8,6 +8,8 @@
   <!-- App names -->
   <string name="facebook" translatable="false">Facebook</string>
   <string name="twitter" translatable="false">Twitter</string>
+  <string name="google" translatable="false">Google</string>
+  <string name="openstreetmap" translatable="false">OpenStreetMap</string>
 
   <!-- Font names -->
   <string name="robotoLight" translatable="false">sans-serif-light</string>

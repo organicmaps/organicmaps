@@ -54,19 +54,19 @@ public class AuthDialogFragment extends BaseMwmDialogFragment implements View.On
     switch (v.getId())
     {
     case R.id.login_osm:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, OsmOAuth.AuthType.OSM.name));
+      Statistics.INSTANCE.trackAuthRequest(OsmOAuth.AuthType.OSM);
       loginOsm();
       break;
     case R.id.login_facebook:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, OsmOAuth.AuthType.FACEBOOK.name));
+      Statistics.INSTANCE.trackAuthRequest(OsmOAuth.AuthType.FACEBOOK);
       loginWebview(OsmOAuth.AuthType.FACEBOOK);
       break;
     case R.id.login_google:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, OsmOAuth.AuthType.GOOGLE.name));
+      Statistics.INSTANCE.trackAuthRequest(OsmOAuth.AuthType.GOOGLE);
       loginWebview(OsmOAuth.AuthType.GOOGLE);
       break;
     case R.id.lost_password:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_LOST_PASSWORD);
       recoverPassword();
       break;
     case R.id.register:
@@ -185,8 +185,7 @@ public class AuthDialogFragment extends BaseMwmDialogFragment implements View.On
     {
       if (isAdded())
       {
-        // TODO set correct text
-        new AlertDialog.Builder(getActivity()).setTitle("Auth error!")
+        new AlertDialog.Builder(getActivity()).setTitle(R.string.editor_login_error_dialog)
                                               .setPositiveButton(android.R.string.ok, null).show();
 
         Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,

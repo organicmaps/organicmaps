@@ -83,7 +83,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
-          tools:ignore="HardcodedText,ButtonStyle">
+          tools:ignore="ButtonStyle">
 
           <Button
             android:id="@+id/login_google"
@@ -101,7 +101,7 @@
             android:paddingLeft="@dimen/margin_half"
             android:paddingRight="@dimen/margin_half"
             android:paddingStart="@dimen/margin_half"
-            android:text="Google"
+            android:text="@string/google"
             android:textAppearance="@style/MwmTextAppearance.Body1"
             tools:targetApi="jelly_bean"/>
 
@@ -119,7 +119,7 @@
             android:paddingLeft="@dimen/margin_half"
             android:paddingRight="@dimen/margin_half"
             android:paddingStart="@dimen/margin_half"
-            android:text="Facebook"
+            android:text="@string/facebook"
             android:textAppearance="@style/MwmTextAppearance.Body1.Light"
             tools:targetApi="jelly_bean"/>
 
@@ -131,7 +131,7 @@
           android:layout_width="match_parent"
           android:layout_height="@dimen/editor_auth_btn_height"
           android:fontFamily="@string/robotoMedium"
-          android:text="OpenStreetMap"
+          android:text="@string/openstreetmap"
           android:textAllCaps="false"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"
           tools:targetApi="jelly_bean"/>
