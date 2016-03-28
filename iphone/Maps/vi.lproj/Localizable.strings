@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "Đăng nhập và chỉnh sửa thông tin của các đối tượng trên bản đồ và chúng tôi sẽ hiển thị chúng cho hàng triệu người dùng khác. Hãy cùng nhau làm cho thế giới tốt đẹp hơn.";
 
-"not_sent" = "Chưa được gửi";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Tải lên mới nhất";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "thay đổi";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "Bạn đã chỉnh sửa đối tượng đầu tiên của mình!";

@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "Oturum aç ve haritada nesne bilgilerini düzenleyip diğer milyonlarca kullanıcıya aç. Birlikte dünyayı daha iyi bir yer haline getirelim.";
 
-"not_sent" = "Gönderilmedi";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Son yükleme";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "değişiklik";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "İlk nesneni düzenledin!";

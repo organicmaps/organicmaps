@@ -708,11 +708,8 @@
 	<string name="osm_account">Akun OSM</string>
 	<string name="logout">Keluar</string>
 	<string name="login_and_edit_map_motivation_message">Masuk dan sunting informasi objek pada peta dan kami akan membuatnya tersedia bagi jutaan pengguna lain. Mari kita menjadikan dunia lebih baik bersama-sama.</string>
-	<string name="not_sent">Tidak terkirim</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Pengunggahan terakhir</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">perubahan</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Anda menyunting objek pertama Anda!</string>
 	<string name="thank_you">Terima kasih</string>

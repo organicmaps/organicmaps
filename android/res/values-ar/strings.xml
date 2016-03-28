@@ -715,11 +715,8 @@
 	<string name="osm_account">حساب OSM</string>
 	<string name="logout">تسجيل الخروج</string>
 	<string name="login_and_edit_map_motivation_message">قم بتسجيل الدخول وعدل البيانات الخاصة بالمكان على الخريطة وسنجعلها متاحة لملايين المستخدمين الآخرين. لنجعل العالم أفضل معا.</string>
-	<string name="not_sent">لم ترسل</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">آخر تحميل</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">تغييرات</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">لقد قمت بتعديلك الأول!</string>
 	<string name="thank_you">شكرا لك</string>

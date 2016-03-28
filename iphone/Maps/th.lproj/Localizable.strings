@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "ล็อกอินและแก้ไขข้อมูลวัตถุบนแผนที่ และเราจะทำให้มันสามารถใช้งานได้สำหรับผู้ใช้ท่านอื่น ๆ อีกนับล้าน มาช่วยกันทำให้โลกดียิ่งขึ้นร่วมกัน";
 
-"not_sent" = "ไม่มีการส่ง";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "อัปโหลดครั้งสุดท้าย";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "การเปลี่ยนแปลง";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "คุณได้แก้ไขวัตถุแรกของคุณ!";

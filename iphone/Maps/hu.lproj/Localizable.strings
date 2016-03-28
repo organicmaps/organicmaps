@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "Jelentkezz be és szerkeszd az egyes objektumokhoz tartozó információkat a térképen, valamint tedd őket elérhetővé több millió felhasználó számára.";
 
-"not_sent" = "Nincs elküldve";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Utolsó frissítés";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "változtatás";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "Szerkesztetted az első objektumod!";

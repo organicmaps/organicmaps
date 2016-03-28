@@ -712,11 +712,8 @@
 	<string name="osm_account">OSM účet</string>
 	<string name="logout">Odhlásiť sa</string>
 	<string name="login_and_edit_map_motivation_message">Prihláste sa a upravte informácie o objektoch na mape, a my ich sprístupníme miliónom ďalších používateľov. Urobme svet spoločne lepším.</string>
-	<string name="not_sent">Neodoslaný</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Posledné nahrávanie</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">zmien</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Upravili ste svoj prvý objekt!</string>
 	<string name="thank_you">Ďakujeme Vám</string>

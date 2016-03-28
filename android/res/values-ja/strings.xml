@@ -708,11 +708,8 @@
 	<string name="osm_account">OSMアカウント</string>
 	<string name="logout">ログアウト</string>
 	<string name="login_and_edit_map_motivation_message">ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。</string>
-	<string name="not_sent">送信されませんでした</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">最終更新</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">つの変更点</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">初めてオブジェクトを編集しました！</string>
 	<string name="thank_you">ありがとうございます</string>

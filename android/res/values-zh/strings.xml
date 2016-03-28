@@ -715,11 +715,8 @@
 	<string name="osm_account">OSM账户</string>
 	<string name="logout">登出</string>
 	<string name="login_and_edit_map_motivation_message">登录并编辑地图上的物品信息，我们就会让数百万其他用户看到。</string>
-	<string name="not_sent">让我们共同把世界变得更美好。</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">上次上传</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">次改变</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">您已编辑您的第一件物品！</string>
 	<string name="thank_you">谢谢您</string>

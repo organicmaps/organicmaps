@@ -720,11 +720,8 @@
 	<string name="osm_account">Compte OSM</string>
 	<string name="logout">Déconnexion</string>
 	<string name="login_and_edit_map_motivation_message">Connectez-vous et modifiez les informations des objets présents sur la carte et nous allons les rendre disponibles pour des millions d\&#39;autres utilisateurs. Rendons le monde meilleur ensemble.</string>
-	<string name="not_sent">Non envoyé</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Dernier téléchargement</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">modifications</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Vous avez modifié votre premier objet!</string>
 	<string name="thank_you">Merci</string>

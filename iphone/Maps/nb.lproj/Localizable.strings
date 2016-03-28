@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "Logg deg inn og rediger informasjonen til objektene på kartet, så vil vi gjøre den tilgjengelig for millioner av andre brukere. La oss gjøre verden bedre sammen.";
 
-"not_sent" = "Ikke sendt";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Siste opplasting";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "endringer";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "Du har redigert ditt første objekt!";

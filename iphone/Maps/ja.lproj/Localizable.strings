@@ -1198,13 +1198,8 @@
 
 "login_and_edit_map_motivation_message" = "ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。";
 
-"not_sent" = "送信されませんでした";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "最終更新";
-
-/* The number of changes made. As in "changes: 123". */
-"changes" = "つの変更点";
 
 /* Motivates user to login/register, title above login buttons. */
 "you_have_edited_your_first_object" = "初めてオブジェクトを編集しました！";

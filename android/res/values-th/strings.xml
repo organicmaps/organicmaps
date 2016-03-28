@@ -713,11 +713,8 @@
 	<string name="osm_account">บัญชี OSM</string>
 	<string name="logout">ออกจากระบบ</string>
 	<string name="login_and_edit_map_motivation_message">ล็อกอินและแก้ไขข้อมูลวัตถุบนแผนที่ และเราจะทำให้มันสามารถใช้งานได้สำหรับผู้ใช้ท่านอื่น ๆ อีกนับล้าน มาช่วยกันทำให้โลกดียิ่งขึ้นร่วมกัน</string>
-	<string name="not_sent">ไม่มีการส่ง</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">อัปโหลดครั้งสุดท้าย</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">การเปลี่ยนแปลง</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">คุณได้แก้ไขวัตถุแรกของคุณ!</string>
 	<string name="thank_you">ขอบพระคุณ</string>

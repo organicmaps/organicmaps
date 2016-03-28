@@ -710,11 +710,8 @@
 	<string name="osm_account">OSM-felhasználói fiók</string>
 	<string name="logout">Kijelentkezés</string>
 	<string name="login_and_edit_map_motivation_message">Jelentkezz be és szerkeszd az egyes objektumokhoz tartozó információkat a térképen, valamint tedd őket elérhetővé több millió felhasználó számára.</string>
-	<string name="not_sent">Nincs elküldve</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Utolsó frissítés</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">változtatás</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Szerkesztetted az első objektumod!</string>
 	<string name="thank_you">Köszönjük</string>

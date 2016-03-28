@@ -709,11 +709,8 @@
 	<string name="osm_account">Tài khoản OSM</string>
 	<string name="logout">Đăng xuất</string>
 	<string name="login_and_edit_map_motivation_message">Đăng nhập và chỉnh sửa thông tin của các đối tượng trên bản đồ và chúng tôi sẽ hiển thị chúng cho hàng triệu người dùng khác. Hãy cùng nhau làm cho thế giới tốt đẹp hơn.</string>
-	<string name="not_sent">Chưa được gửi</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Tải lên mới nhất</string>
-	<!-- The number of changes made. As in "changes: 123". -->
-	<string name="changes">thay đổi</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Bạn đã chỉnh sửa đối tượng đầu tiên của mình!</string>
 	<string name="thank_you">Cảm ơn bạn</string>
