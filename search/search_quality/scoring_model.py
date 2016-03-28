@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import sys
 
-FEATURES = ['DistanceToPivot', 'Rank', 'NameScore', 'SearchType']
+FEATURES = ['DistanceToPivot', 'Rank', 'NameScore', 'NameCoverage', 'SearchType']
 
 DISTANCE_WINDOW = 1e9
 MAX_RANK = 255
@@ -122,11 +122,18 @@ def transform_data(data):
 
         n, total = len(group), 0
         for _, (i, j) in enumerate(itertools.combinations(range(n), 2)):
-            y = np.sign(relevances.iloc[j] - relevances.iloc[i])
+            dr = relevances.iloc[j] - relevances.iloc[i]
+            y = np.sign(dr)
             if y == 0:
                 continue
 
             x = np.array(features.iloc[j]) - np.array(features.iloc[i])
+
+            # Need to multiply x by average drop in NDCG when i-th and
+            # j-th are exchanged.
+            x *= abs(dr * (1 / log(j + 2, 2) - 1 / log(i + 2, 2)))
+
+            # This is needed to prevent disbalance in classes sizes.
             if y != k:
                 x = np.negative(x)
                 y = -y
