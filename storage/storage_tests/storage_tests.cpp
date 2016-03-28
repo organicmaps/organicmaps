@@ -1502,18 +1502,23 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Абхазия", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Весь мир", ());
+  TEST(nodeAttrs.m_topmostParentInfo.empty(), ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Алжир", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Весь мир", ());
+  TEST(nodeAttrs.m_topmostParentInfo.empty(), ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Алжир (побережье)", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Алжир", ());
+  TEST_EQUAL(nodeAttrs.m_topmostParentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_topmostParentInfo[0].m_id, "Algeria", ());
+  TEST_EQUAL(nodeAttrs.m_topmostParentInfo[0].m_localName, "Алжир", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria_Central", nodeAttrs);
@@ -1526,6 +1531,7 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "South Korea_South", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Весь мир", ());
+  TEST(nodeAttrs.m_topmostParentInfo.empty(), ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Disputable Territory", nodeAttrs);
@@ -1533,6 +1539,9 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Страна 1", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_localName, "Страна 2", ());
+  vector<CountryIdAndName> const expectedTopmostParentsRu = {{"Country1", "Страна 1"},
+                                                             {"Country2", "Страна 2"}};
+  TEST(nodeAttrs.m_topmostParentInfo == expectedTopmostParentsRu, ());
 
   // set french locale
   storage.SetLocaleForTesting(kFrJson, "fr");
@@ -1543,30 +1552,39 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Abkhazie", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Des pays", ());
+  TEST(nodeAttrs.m_topmostParentInfo.empty(), ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Algérie", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Des pays", ());
+  TEST(nodeAttrs.m_topmostParentInfo.empty(), ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Algérie (Côte)", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Algérie", ());
+  TEST_EQUAL(nodeAttrs.m_topmostParentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_topmostParentInfo[0].m_id, "Algeria", ());
+  TEST_EQUAL(nodeAttrs.m_topmostParentInfo[0].m_localName, "Algérie", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria_Central", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Algérie (partie centrale)", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Algérie", ());
+  TEST_EQUAL(nodeAttrs.m_topmostParentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_topmostParentInfo[0].m_id, "Algeria", ());
+  TEST_EQUAL(nodeAttrs.m_topmostParentInfo[0].m_localName, "Algérie", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "South Korea_South", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Des pays", ());
+  TEST(nodeAttrs.m_topmostParentInfo.empty(), ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Disputable Territory", nodeAttrs);
@@ -1574,6 +1592,9 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Pays 1", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_localName, "Pays 2", ());
+  vector<CountryIdAndName> const expectedTopmostParentsFr = {{"Country1", "Pays 1"},
+                                                             {"Country2", "Pays 2"}};
+  TEST(nodeAttrs.m_topmostParentInfo == expectedTopmostParentsFr, ());
 }
 
 UNIT_TEST(StorageTest_DeleteNodeWithoutDownloading)
