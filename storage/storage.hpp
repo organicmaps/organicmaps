@@ -230,7 +230,7 @@ private:
   // Note. |m_affiliations| is empty in case of countries_obsolete.txt.
   TMappingAffiliations m_affiliations;
 
-  DECLARE_THREAD_CHECKER(m_threadChecker);
+  ThreadChecker m_threadChecker;
 
   void DownloadNextCountryFromQueue();
 
