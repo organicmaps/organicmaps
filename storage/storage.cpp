@@ -17,6 +17,7 @@
 
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
@@ -1167,15 +1168,14 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
     }
   });
 
-  sort(disputedTerritoriesWithoutSiblings.begin(), disputedTerritoriesWithoutSiblings.end());
-  TCountriesVec uniqueDisputed(disputedTerritoriesWithoutSiblings.begin(),
-                               unique(disputedTerritoriesWithoutSiblings.begin(),
-                               disputedTerritoriesWithoutSiblings.end()));
+  TCountriesVec uniqueDisputed(disputedTerritoriesWithoutSiblings.begin(), disputedTerritoriesWithoutSiblings.end());
+  my::SortUnique(uniqueDisputed);
+
   for (auto const & countryId : uniqueDisputed)
   {
     // Checks that the number of disputed territories with |countryId| in subtree with root == |parent|
     // is equal to the number of disputed territories with out downloaded sibling
-    // with |countryId| in subtree with root == |parent| .
+    // with |countryId| in subtree with root == |parent|.
     if (count(disputedTerritoriesWithoutSiblings.begin(), disputedTerritoriesWithoutSiblings.end(), countryId)
         == count(allDisputedTerritories.begin(), allDisputedTerritories.end(), countryId))
     {
