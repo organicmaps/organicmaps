@@ -15,8 +15,8 @@ import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 
 public class TimetableFragment extends BaseMwmFragment
-    implements View.OnClickListener,
-               OnBackPressListener
+                            implements View.OnClickListener,
+                                       OnBackPressListener
 {
   interface TimetableProvider
   {
@@ -130,8 +130,6 @@ public class TimetableFragment extends BaseMwmFragment
     Fragment fragment = current == null ? Fragment.instantiate(getActivity(), className)
                                         : current;
     getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-
-
     return fragment;
   }
 }
