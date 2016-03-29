@@ -192,11 +192,12 @@ void RuleDrawer::operator()(FeatureType const & f)
     }
 
     bool applyPointStyle = s.PointStyleExists();
-
-    if (applyPointStyle && !is3dBuilding)
-      featureCenter = feature::GetCenter(f, zoomLevel);
-
-    applyPointStyle &= m_globalRect.IsPointInside(featureCenter);
+    if (applyPointStyle)
+    {
+      if (!is3dBuilding)
+        featureCenter = feature::GetCenter(f, zoomLevel);
+      applyPointStyle = m_globalRect.IsPointInside(featureCenter);
+    }
 
     if (applyPointStyle || is3dBuilding)
       minVisibleScale = feature::GetMinDrawableScale(f);
