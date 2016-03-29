@@ -1167,18 +1167,19 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
     }
   });
 
+  sort(disputedTerritoriesWithoutSiblings.begin(), disputedTerritoriesWithoutSiblings.end());
   TCountriesVec uniqueDisputed(disputedTerritoriesWithoutSiblings.begin(),
                                unique(disputedTerritoriesWithoutSiblings.begin(),
                                disputedTerritoriesWithoutSiblings.end()));
   for (auto const & countryId : uniqueDisputed)
   {
-    // Checking if the number of disputed territories with |countryId| in subtree with root == |parent|
-    // is equel to the number of disputed territories with out downloaded sibling
+    // Checks that the number of disputed territories with |countryId| in subtree with root == |parent|
+    // is equal to the number of disputed territories with out downloaded sibling
     // with |countryId| in subtree with root == |parent| .
     if (count(disputedTerritoriesWithoutSiblings.begin(), disputedTerritoriesWithoutSiblings.end(), countryId)
         == count(allDisputedTerritories.begin(), allDisputedTerritories.end(), countryId))
     {
-      // |countryId| is downloaded without any other map it its group.
+      // |countryId| is downloaded without any other map in its group.
       downloadedChildren.push_back(countryId);
     }
   }
@@ -1241,22 +1242,21 @@ StatusAndError Storage::GetNodeStatus(TCountryTreeNode const & node) const
   return GetNodeStatusInfo(node, disputedTerritories);
 }
 
+bool Storage::IsDisputed(TCountryTreeNode const & node) const
+{
+  vector<TCountryTreeNode const *> found;
+  m_countries.Find(node.Value().Name(), found);
+  return found.size() > 1;
+}
+
 StatusAndError Storage::GetNodeStatusInfo(TCountryTreeNode const & node,
                                           vector<pair<TCountryId, NodeStatus>> & disputedTerritories) const
 {
-  // Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
-  auto checkIfDisputed = [this](TCountryTreeNode const & node)
-  {
-    vector<TCountryTreeNode const *> found;
-    m_countries.Find(node.Value().Name(), found);
-    return found.size() > 1;
-  };
-
   // Leaf node status.
   if (node.ChildrenCount() == 0)
   {
     StatusAndError const statusAndError = ParseStatus(CountryStatusEx(node.Value().Name()));
-    if (checkIfDisputed(node))
+    if (IsDisputed(node))
       disputedTerritories.push_back(make_pair(node.Value().Name(), statusAndError.status));
     return statusAndError;
   }
@@ -1268,7 +1268,7 @@ StatusAndError Storage::GetNodeStatusInfo(TCountryTreeNode const & node,
   auto groupStatusCalculator = [&](TCountryTreeNode const & nodeInSubtree)
   {
     StatusAndError const statusAndError = ParseStatus(CountryStatusEx(nodeInSubtree.Value().Name()));
-    if (checkIfDisputed(nodeInSubtree))
+    if (IsDisputed(nodeInSubtree))
     {
       disputedTerritories.push_back(make_pair(nodeInSubtree.Value().Name(), statusAndError.status));
       return;

@@ -590,6 +590,8 @@ private:
   void CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem);
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const;
+  /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
+  bool IsDisputed(TCountryTreeNode const & node) const;
 };
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);
