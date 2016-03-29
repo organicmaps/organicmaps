@@ -141,22 +141,17 @@ using namespace storage;
   for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
     [cell processCountryEvent:countryId];
 
-  auto process = ^
+  BOOL needReload = NO;
+  auto const & s = GetFramework().Storage();
+  s.ForEachInSubtree(self.parentCountryId.UTF8String,
+                     [&needReload, &countryId](TCountryId const & descendantId, bool groupNode)
+                     {
+                       needReload = needReload || countryId == descendantId;
+                     });
+  if (needReload)
   {
     [self configAllMapsView];
     [self reloadData];
-  };
-
-  if (countryId == self.parentCountryId.UTF8String)
-  {
-    process();
-  }
-  else
-  {
-    TCountriesVec childrenId;
-    GetFramework().Storage().GetChildren(self.parentCountryId.UTF8String, childrenId);
-    if (find(childrenId.cbegin(), childrenId.cend(), countryId) != childrenId.cend())
-      process();
   }
 }
 
