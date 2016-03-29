@@ -37,8 +37,7 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
   private View mDoneButton;
   private ImageView[] mDots;
 
-  private final Adapter mAdapter = createAdapter();
-  private final int mPageCount = mAdapter.getCount();
+  private int mPageCount;
 
   abstract class Adapter extends PagerAdapter
   {
@@ -222,7 +221,10 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
     mPager = (ViewPager)content.findViewById(R.id.pager);
     fixPagerSize();
-    mPager.setAdapter(mAdapter);
+
+    Adapter adapter = createAdapter();
+    mPageCount = adapter.getCount();
+    mPager.setAdapter(adapter);
     mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
     {
       @Override
