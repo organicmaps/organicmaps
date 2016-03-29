@@ -18,21 +18,21 @@ extern NSString * const kMap2GoogleLoginSegue;
 
 - (IBAction)facebookTap
 {
-  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatFacebook}];
+  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatFacebook, kStatFrom : kStatEdit}];
   [self close];
   [self.alertController.ownerViewController performSegueWithIdentifier:kMap2FBLoginSegue sender:nil];
 }
 
 - (IBAction)googleTap
 {
-  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatGoogle}];
+  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatGoogle, kStatFrom : kStatEdit}];
   [self close];
   [self.alertController.ownerViewController performSegueWithIdentifier:kMap2GoogleLoginSegue sender:nil];
 }
 
 - (IBAction)osmTap
 {
-  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatOSM}];
+  [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatOSM, kStatFrom : kStatEdit}];
   [self close];
   [self.alertController.ownerViewController performSegueWithIdentifier:kMap2OsmLoginSegue sender:nil];
 }
@@ -40,7 +40,7 @@ extern NSString * const kMap2GoogleLoginSegue;
 - (IBAction)signUpTap
 {
   [self close];
-  [Statistics logEvent:kStatEditorRegRequest];
+  [Statistics logEvent:kStatEditorRegRequest withParameters:@{kStatFrom : kStatEdit}];
   NSURL * url = [NSURL URLWithString:@(osm::OsmOAuth::ServerAuth().GetRegistrationURL().c_str())];
   [[UIApplication sharedApplication] openURL:url];
 }
