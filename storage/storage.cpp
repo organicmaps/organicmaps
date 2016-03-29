@@ -1211,6 +1211,12 @@ StatusAndError Storage::GetNodeStatus(TCountryTreeNode const & node) const
 
   auto groupStatusCalculator = [&result, &allOnDisk, this](TCountryTreeNode const & nodeInSubtree)
   {
+    // Checks if it's a disputed teritory.
+    vector<TCountryTreeNode const *> found;
+    m_countries.Find(nodeInSubtree.Value().Name(), found);
+    if (found.size() > 1)
+      return; /* |nodeInSubtree.Value().Name()| is a disputed teritory. */
+
     if (result == NodeStatus::Downloading || nodeInSubtree.ChildrenCount() != 0)
       return;
 
