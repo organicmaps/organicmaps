@@ -192,7 +192,7 @@ using namespace osm_auth_ios;
 {
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatGoogle}];
+    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatGoogle, kStatFrom : kStatProfile}];
     [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginGoogleButton];
   }];
 }
@@ -201,7 +201,7 @@ using namespace osm_auth_ios;
 {
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatFacebook}];
+    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatFacebook, kStatFrom : kStatProfile}];
     [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginFacebookButton];
   }];
 }
@@ -210,7 +210,7 @@ using namespace osm_auth_ios;
 {
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatOSM}];
+    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatOSM, kStatFrom : kStatProfile}];
     [self performSegueWithIdentifier:kOSMAuthSegue sender:self.loginOSMButton];
   }];
 }
@@ -219,7 +219,7 @@ using namespace osm_auth_ios;
 {
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEditorRegRequest];
+    [Statistics logEvent:kStatEditorRegRequest withParameters:@{kStatFrom : kStatProfile}];
     OsmOAuth const auth = OsmOAuth::ServerAuth();
     NSURL * url = [NSURL URLWithString:@(auth.GetRegistrationURL().c_str())];
     [[UIApplication sharedApplication] openURL:url];

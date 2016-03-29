@@ -141,6 +141,7 @@ static NSString * const kStatPlacePage = @"Place page";
 static NSString * const kStatPointToPoint = @"Point to point";
 static NSString * const kStatPortrait = @"Portrait";
 static NSString * const kStatProblem = @"Problem";
+static NSString * const kStatProfile = @"Profile";
 static NSString * const kStatProgress = @"Progress";
 static NSString * const kStatPushReceived = @"Push received";
 static NSString * const kStatRate = @"Rate";
