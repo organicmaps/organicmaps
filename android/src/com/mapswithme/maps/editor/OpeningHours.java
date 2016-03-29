@@ -4,6 +4,8 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.sql.Time;
+
 import com.mapswithme.maps.editor.data.Timespan;
 import com.mapswithme.maps.editor.data.Timetable;
 
@@ -53,4 +55,11 @@ public final class OpeningHours
 
   @NonNull
   public static native String nativeTimetablesToString(Timetable timetables[]);
+
+  /**
+   * Sometimes timetables cannot be parsed with {@link #nativeTimetablesFromString} (hence can't be displayed in UI),
+   * but still are valid OSM timetables.
+   * @return true if timetable string is valid OSM timetable.
+   */
+  public static native boolean nativeIsTimetableStringValid(String source);
 }
