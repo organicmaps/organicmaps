@@ -202,7 +202,7 @@ highway|motorway_link
 leisure|golf_course
 highway|service|bridge
 power|minor_line
-natural|marsh
+natural|wetland|marsh
 leisure|stadium
 amenity|doctors
 railway|disused
@@ -1067,3 +1067,4 @@ amenity|car_wash
 amenity|veterinary
 amenity|charging_station
 amenity|childcare
+natural|wetland|marsh

@@ -478,7 +478,6 @@ world  +
         heath  -
         lake  -
         land  -
-        marsh  -
         meadow  -
         orchard  -
         peak  -
@@ -495,6 +494,7 @@ world  +
         waterfall  -
         wetland  +
             bog  -
+            marsh  -
             {}
         wood  +
             coniferous  -
