@@ -101,7 +101,7 @@ OsmOAuth OsmOAuth::ServerAuth(TKeySecret const & userKeySecret) noexcept
 // static
 OsmOAuth OsmOAuth::IZServerAuth() noexcept
 {
-  constexpr char const * kIZTestServer = "http://188.166.112.124:3000";
+  constexpr char const * kIZTestServer = "http://test.osmz.ru";
   constexpr char const * kIZConsumerKey = "QqwiALkYZ4Jd19lo1dtoPhcwGQUqMCMeVGIQ8Ahb";
   constexpr char const * kIZConsumerSecret = "wi9HZKFoNYS06Yad5s4J0bfFo2hClMlH7pXaXWS3";
   return OsmOAuth(kIZConsumerKey, kIZConsumerSecret, kIZTestServer, kIZTestServer);
