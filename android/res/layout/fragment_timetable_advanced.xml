@@ -46,7 +46,7 @@
       <RelativeLayout
         android:id="@+id/examples"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:animateLayoutChanges="true">
 
         <TextView
@@ -67,16 +67,12 @@
           android:layout_below="@id/tv__examples_title"
           android:background="?dividerHorizontal"/>
 
-        <TextView
-          android:id="@+id/tv__examples"
+        <WebView
+          android:id="@+id/wv__examples"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/tv__examples_title"
-          android:fontFamily="@string/robotoMedium"
-          android:padding="@dimen/margin_base"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          tools:ignore="UnusedAttribute"
-          tools:text="24/7 any non-stop facilities, 24 hours a day, 7 days a week; \n\nSa-Su 00:00-24:00 opens only the weekend but non-stop, 24 hours; \n\nsunrise-sunset. "/>
+          android:padding="@dimen/margin_base"/>
 
       </RelativeLayout>
 

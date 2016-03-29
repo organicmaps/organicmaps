@@ -17,6 +17,7 @@
 
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
@@ -1136,16 +1137,52 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
   downloadedChildren.clear();
   availChildren.clear();
 
+  // Vector of disputed territories which are downloaded but the other maps
+  // in their group are not downloaded. Only mwm in subtree with root == |parent|
+  // are taken into account.
+  TCountriesVec disputedTerritoriesWithoutSiblings;
+  // All disputed territories in subtree with root == |parent|.
+  TCountriesVec allDisputedTerritories;
   parentNode->ForEachChild([&](TCountryTreeNode const & childNode)
   {
-    NodeStatus const childStatus = GetNodeStatus(childNode).status;
+    vector<pair<TCountryId, NodeStatus>> disputedTerritoriesAndStatus;
+    StatusAndError const childStatus = GetNodeStatusInfo(childNode, disputedTerritoriesAndStatus);
+
     TCountryId const & childValue = childNode.Value().Name();
-    ASSERT_NOT_EQUAL(childStatus, NodeStatus::Undefined, ());
-    if (childStatus == NodeStatus::NotDownloaded)
+    ASSERT_NOT_EQUAL(childStatus.status, NodeStatus::Undefined, ());
+    for (auto const & disputed : disputedTerritoriesAndStatus)
+      allDisputedTerritories.push_back(disputed.first);
+
+    if (childStatus.status == NodeStatus::NotDownloaded)
+    {
       availChildren.push_back(childValue);
+      for (auto const & disputed : disputedTerritoriesAndStatus)
+      {
+        if (disputed.second != NodeStatus::NotDownloaded)
+          disputedTerritoriesWithoutSiblings.push_back(disputed.first);
+      }
+    }
     else
+    {
       downloadedChildren.push_back(childValue);
+    }
   });
+
+  TCountriesVec uniqueDisputed(disputedTerritoriesWithoutSiblings.begin(), disputedTerritoriesWithoutSiblings.end());
+  my::SortUnique(uniqueDisputed);
+
+  for (auto const & countryId : uniqueDisputed)
+  {
+    // Checks that the number of disputed territories with |countryId| in subtree with root == |parent|
+    // is equal to the number of disputed territories with out downloaded sibling
+    // with |countryId| in subtree with root == |parent|.
+    if (count(disputedTerritoriesWithoutSiblings.begin(), disputedTerritoriesWithoutSiblings.end(), countryId)
+        == count(allDisputedTerritories.begin(), allDisputedTerritories.end(), countryId))
+    {
+      // |countryId| is downloaded without any other map in its group.
+      downloadedChildren.push_back(countryId);
+    }
+  }
 }
 
 bool Storage::IsNodeDownloaded(TCountryId const & countryId) const
@@ -1201,20 +1238,45 @@ void Storage::DeleteNode(TCountryId const & countryId)
 
 StatusAndError Storage::GetNodeStatus(TCountryTreeNode const & node) const
 {
+  vector<pair<TCountryId, NodeStatus>> disputedTerritories;
+  return GetNodeStatusInfo(node, disputedTerritories);
+}
+
+bool Storage::IsDisputed(TCountryTreeNode const & node) const
+{
+  vector<TCountryTreeNode const *> found;
+  m_countries.Find(node.Value().Name(), found);
+  return found.size() > 1;
+}
+
+StatusAndError Storage::GetNodeStatusInfo(TCountryTreeNode const & node,
+                                          vector<pair<TCountryId, NodeStatus>> & disputedTerritories) const
+{
   // Leaf node status.
   if (node.ChildrenCount() == 0)
-    return ParseStatus(CountryStatusEx(node.Value().Name()));
+  {
+    StatusAndError const statusAndError = ParseStatus(CountryStatusEx(node.Value().Name()));
+    if (IsDisputed(node))
+      disputedTerritories.push_back(make_pair(node.Value().Name(), statusAndError.status));
+    return statusAndError;
+  }
 
   // Group node status.
   NodeStatus result = NodeStatus::NotDownloaded;
   bool allOnDisk = true;
 
-  auto groupStatusCalculator = [&result, &allOnDisk, this](TCountryTreeNode const & nodeInSubtree)
+  auto groupStatusCalculator = [&](TCountryTreeNode const & nodeInSubtree)
   {
+    StatusAndError const statusAndError = ParseStatus(CountryStatusEx(nodeInSubtree.Value().Name()));
+    if (IsDisputed(nodeInSubtree))
+    {
+      disputedTerritories.push_back(make_pair(nodeInSubtree.Value().Name(), statusAndError.status));
+      return;
+    }
+
     if (result == NodeStatus::Downloading || nodeInSubtree.ChildrenCount() != 0)
       return;
 
-    StatusAndError const statusAndError = ParseStatus(CountryStatusEx(nodeInSubtree.Value().Name()));
     if (statusAndError.status != NodeStatus::OnDisk)
       allOnDisk = false;
 

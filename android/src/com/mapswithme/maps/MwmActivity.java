@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -42,7 +43,7 @@ import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.MigrationFragment;
 import com.mapswithme.maps.downloader.OnmapDownloader;
-import com.mapswithme.maps.editor.AuthFragment;
+import com.mapswithme.maps.editor.AuthDialogFragment;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
@@ -110,7 +111,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      MigrationFragment.class.getName(),
                                                      RoutingPlanFragment.class.getName(),
                                                      EditorHostFragment.class.getName(),
-                                                     AuthFragment.class.getName(),
                                                      ReportFragment.class.getName() };
   // Instance state
   private static final String STATE_PP_OPENED = "PpOpened";
@@ -407,9 +407,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (Framework.nativeIsDownloadedMapAtScreenCenter())
           startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
         else
-          // TODO uncomment
-          // UiUtils.showAlertDialog(getActivity(), R.string.message_invalid_feature_position);
-          UiUtils.showAlertDialog(getActivity(), R.string.invalid_username_or_password);
+          UiUtils.showAlertDialog(getActivity(), R.string.message_invalid_feature_position);
       }
     });
     UiUtils.hide(mPositionChooser);
@@ -1309,6 +1307,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
         MapManager.nativeDownload(mCountryId);
 
       Framework.nativeShowCountry(mCountryId, mDoAutoDownload);
+      return true;
+    }
+  }
+
+  public static class ShowAuthorizationTask implements MapTask
+  {
+    @Override
+    public boolean run(MwmActivity target)
+    {
+      final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, AuthDialogFragment.class.getName());
+      fragment.show(target.getSupportFragmentManager(), AuthDialogFragment.class.getName());
       return true;
     }
   }

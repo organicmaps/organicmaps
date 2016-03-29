@@ -561,8 +561,12 @@ private:
   /// Fast version, doesn't check if country is out of date
   Status CountryStatus(TCountryId const & countryId) const;
 
-  /// Returns status for a node (group node or not)
+  /// Returns status for a node (group node or not).
   StatusAndError GetNodeStatus(TCountryTreeNode const & node) const;
+  /// Returns status for a node (group node or not).
+  /// Fills |disputedTeritories| with all disputed teritories in subtree with the root == |node|.
+  StatusAndError GetNodeStatusInfo(TCountryTreeNode const & node,
+                                   vector<pair<TCountryId, NodeStatus>> & disputedTeritories) const;
 
   void NotifyStatusChanged(TCountryId const & countryId);
   void NotifyStatusChangedForHierarchy(TCountryId const & countryId);
@@ -586,6 +590,8 @@ private:
   void CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem);
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const;
+  /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
+  bool IsDisputed(TCountryTreeNode const & node) const;
 };
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);

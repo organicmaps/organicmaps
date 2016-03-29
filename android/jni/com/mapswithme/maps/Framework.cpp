@@ -994,4 +994,10 @@ Java_com_mapswithme_maps_Framework_nativeIsDownloadedMapAtScreenCenter(JNIEnv *,
   ::Framework * fr = frm();
   return storage::IsPointCoveredByDownloadedMaps(fr->GetViewportCenter(), fr->Storage(), fr->CountryInfoGetter());
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatCuisines());
+}
 } // extern "C"

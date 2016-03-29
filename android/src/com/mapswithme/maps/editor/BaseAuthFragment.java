@@ -3,34 +3,20 @@ package com.mapswithme.maps.editor;
 import android.support.annotation.Size;
 import android.support.v7.app.AlertDialog;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 public abstract class BaseAuthFragment extends BaseMwmToolbarFragment
 {
-  public enum AuthType
-  {
-    OSM("OSM"),
-    FACEBOOK("Facebook"),
-    GOOGLE("Google");
-
-    String name;
-
-    AuthType(String name)
-    {
-      this.name = name;
-    }
-  }
-
-  protected void processAuth(@Size(2) String[] auth, AuthType type)
+  protected void processAuth(@Size(2) String[] auth, OsmOAuth.AuthType type)
   {
     if (auth == null)
     {
       if (isAdded())
       {
-        // TODO set correct text
-        new AlertDialog.Builder(getActivity()).setTitle("Auth error!")
+        new AlertDialog.Builder(getActivity()).setTitle(R.string.editor_login_error_dialog)
                                               .setPositiveButton(android.R.string.ok, null).show();
 
         Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,

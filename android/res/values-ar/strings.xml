@@ -692,8 +692,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">يوميا</string>
 	<string name="twentyfour_seven">ليلا ونهارا</string>
-	<string name="day_off_today">اليوم عطلة</string>
-	<string name="day_off">عطلة</string>
+	<string name="day_off_today">مغلق اليوم</string>
+	<string name="day_off">مغلق</string>
 	<string name="today">اليوم</string>
 	<string name="sunrise_to_sunset">من الشروق إلى المغيب</string>
 	<string name="sunset_to_sunrise">من غروب الشمس وحتى الشروق</string>

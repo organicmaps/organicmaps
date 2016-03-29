@@ -1517,9 +1517,7 @@ node|z16-[natural=bay],
 area|z16-[natural=water],
 area|z16-[natural=bay],
 node|z16-[natural=wetland],
-node|z16-[natural=marsh]
 area|z16-[natural=wetland],
-area|z16-[natural=marsh]
 {
   text: name;
   font-size: 11;
@@ -1562,22 +1560,15 @@ area|z12-[natural=water][bbox_area<10000000]
   {}
   */
 
-line[waterway] {
-    text-position: line;
-    z-index:10000;
+line[waterway]
+{
+  text-position: line;
+  z-index:10000;
 }
 
-line|z11-[waterway=river][!tunnel?] {
-  text: name;
-  font-size: 10;
-  text-color: @water_label;
-  text-halo-opacity: 0.1;
-  text-halo-color: @halo_water_lable;
-  text-halo-radius: 0;
-  z-index: 10000;
-}
-
-line|z11-[waterway=riverbank] {
+line|z11-[waterway=river],
+line|z11-[waterway=riverbank],
+{
   text: name;
   font-size: 10;
   text-color: @water_label;
@@ -1588,7 +1579,8 @@ line|z11-[waterway=riverbank] {
 }
 
 line|z13-[waterway=riverbank],
-line|z13-[waterway=river][!tunnel?] {
+line|z13-[waterway=river],
+{
   text: name;
   font-size: 10;
   text-color: @water_label;
@@ -1599,7 +1591,8 @@ line|z13-[waterway=river][!tunnel?] {
 }
 
 line|z13-[waterway=stream],
-line|z13-[waterway=canal] {
+line|z13-[waterway=canal],
+{
   text: name;
   font-size: 10;
   text-color: @water_label;
@@ -1608,17 +1601,10 @@ line|z13-[waterway=canal] {
   text-halo-radius: 0;
   z-index: 10000;
 }
-line|z15-[waterway=river][!tunnel?] {
-  text: name;
-  font-size: 12;
-  text-color: @water_label;
-  text-halo-opacity: 0.1;
-  text-halo-color: @halo_water_lable;
-  text-halo-radius: 0;
-  z-index: 10000;
-}
 
-line|z15-[waterway=riverbank] {
+line|z15-[waterway=river],
+line|z15-[waterway=riverbank],
+{
   text: name;
   font-size: 12;
   text-color: @water_label;
@@ -1629,7 +1615,8 @@ line|z15-[waterway=riverbank] {
 }
 
 line|z15-[waterway=stream],
-line|z15-[waterway=canal] {
+line|z15-[waterway=canal],
+{
   text: name;
   font-size: 11;
   text-color: @water_label;
@@ -1638,17 +1625,10 @@ line|z15-[waterway=canal] {
   text-halo-radius: 0;
   z-index: 10000;
 }
-line|z17-[waterway=river][!tunnel?] {
-  text: name;
-  font-size: 12;
-  text-color: @water_label;
-  text-halo-opacity: 0.1;
-  text-halo-color: @halo_water_lable;
-  text-halo-radius: 0;
-  z-index: 10000;
-}
 
-line|z17-[waterway=riverbank] {
+line|z17-[waterway=river],
+line|z17-[waterway=riverbank],
+{
   text: name;
   font-size: 12;
   text-color: @water_label;
@@ -1659,7 +1639,8 @@ line|z17-[waterway=riverbank] {
 }
 
 line|z17-[waterway=stream],
-line|z17-[waterway=canal] {
+line|z17-[waterway=canal],
+{
   text: name;
   font-size: 11;
   text-color: @water_label;
@@ -1668,17 +1649,10 @@ line|z17-[waterway=canal] {
   text-halo-radius: 0;
   z-index: 10000;
 }
-line|z18-[waterway=river][!tunnel?] {
-  text: name;
-  font-size: 12;
-  text-color: @water_label;
-  text-halo-opacity: 0.1;
-  text-halo-color: @halo_water_lable;
-  text-halo-radius: 0;
-  z-index: 10000;
-}
 
-line|z18-[waterway=riverbank] {
+line|z18-[waterway=river],
+line|z18-[waterway=riverbank],
+{
   text: name;
   font-size: 12;
   text-color: @water_label;
@@ -1689,7 +1663,8 @@ line|z18-[waterway=riverbank] {
 }
 
 line|z18-[waterway=stream],
-line|z18-[waterway=canal] {
+line|z18-[waterway=canal],
+{
   text: name;
   font-size: 12;
   text-color: @water_label;
@@ -1698,6 +1673,14 @@ line|z18-[waterway=canal] {
   text-halo-radius: 0;
   z-index: 10000;
 }
+
+/* Do not draw tunnel waterways */
+
+line[waterway][tunnel]
+{
+  text: none;
+}
+
 /* FERRY */
 
 line|z10-[route=ferry],

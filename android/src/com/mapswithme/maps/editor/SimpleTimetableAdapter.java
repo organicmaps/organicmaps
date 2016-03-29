@@ -59,9 +59,9 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
   }
 
   @Override
-  public Timetable[] getTimetables()
+  public String getTimetables()
   {
-    return mItems.toArray(new Timetable[mItems.size()]);
+    return OpeningHours.nativeTimetablesToString(mItems.toArray(new Timetable[mItems.size()]));
   }
 
   @Override
@@ -388,8 +388,11 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     @Override
     void onBind()
     {
-      add.setEnabled(mComplementItem != null && mComplementItem.weekdays.length != 0);
-      add.setText(TimeFormatUtils.formatWeekdays(mComplementItem));
+      final boolean enable = mComplementItem != null && mComplementItem.weekdays.length != 0;
+      final String text = mFragment.getString(R.string.editor_time_add);
+      add.setEnabled(enable);
+      add.setText(enable ? text + " (" + TimeFormatUtils.formatWeekdays(mComplementItem) + ")"
+                         : text);
     }
   }
 }

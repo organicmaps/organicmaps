@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
@@ -86,7 +87,6 @@ public final class SharingHelper
     mPrefs.edit().putString(PREFS_KEY_ITEMS, json).apply();
   }
 
-
   private static String guessAppName(PackageManager pm, ResolveInfo ri)
   {
     CharSequence name = ri.activityInfo.loadLabel(pm);
@@ -109,7 +109,6 @@ public final class SharingHelper
     Intent it = data.getTargetIntent(null);
     PackageManager pm = MwmApplication.get().getPackageManager();
     List<ResolveInfo> rlist = pm.queryIntentActivities(it, 0);
-
 
     final List<SharingTarget> res = new ArrayList<>(rlist.size());
     for (ResolveInfo ri : rlist)
@@ -216,17 +215,20 @@ public final class SharingHelper
 
   public static void shareBookmarksCategory(Activity context, int id)
   {
-    String path = MwmApplication.get().getTempPath();
-    String name = BookmarkManager.INSTANCE.nativeSaveToKmzFile(id, path);
+    String name = BookmarkManager.INSTANCE.nativeSaveToKmzFile(id, MwmApplication.get().getTempPath());
     if (name == null)
-      // some error occurred
       return;
 
-    path += name + ".kmz";
-
-    // FIXME bug with "%s.kmz"
-    shareOutside(new LocalFileShareable(context, path, "application/vnd.google-earth.kmz")
-        .setText(R.string.share_bookmarks_email_body)
-        .setSubject(R.string.share_bookmarks_email_subject));
+    shareOutside(new LocalFileShareable(context, name + ".kmz", "application/vnd.google-earth.kmz")
+                     .setText(R.string.share_bookmarks_email_body)
+                     .setSubject(R.string.share_bookmarks_email_subject));
   }
+
+  public static void shareViralEditor(Activity context, @DrawableRes int imageId, @StringRes int subject, @StringRes int text)
+  {
+    shareOutside(new ViralEditorShareable(context, imageId)
+                     .setText(text)
+                     .setSubject(subject));
+  }
+
 }

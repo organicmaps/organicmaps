@@ -314,4 +314,10 @@ Java_com_mapswithme_maps_editor_OpeningHours_nativeTimetablesToString(JNIEnv * e
   sstr << MakeOpeningHours(tts).GetRule();
   return jni::ToJavaString(env, sstr.str());
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_OpeningHours_nativeIsTimetableStringValid(JNIEnv * env, jclass clazz, jstring jSource)
+{
+  return OpeningHours(jni::ToNativeString(env, jSource)).IsValid();
 }
+} // extern "C"

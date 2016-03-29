@@ -48,6 +48,8 @@ public:
   XMLFeature(pugi::xml_document const & xml);
   XMLFeature(pugi::xml_node const & xml);
   XMLFeature(XMLFeature const & feature);
+  // TODO: It should make "deep" compare instead of converting to strings.
+  // Strings comparison does not work if tags order is different but tags are equal.
   bool operator==(XMLFeature const & other) const;
   /// @returns nodes and ways from osmXml. Vector can be empty.
   static vector<XMLFeature> FromOSM(string const & osmXml);

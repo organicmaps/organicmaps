@@ -96,6 +96,9 @@ public enum BookmarkManager
 
   public native void nativeShowBookmarkOnMap(int catId, int bmkId);
 
+  /**
+   * @return null, if wrong category is passed.
+   */
   public native @Nullable String nativeSaveToKmzFile(int catId, String tmpPath);
 
   public native Bookmark nativeAddBookmarkToLastEditedCategory(String name, double lat, double lon);

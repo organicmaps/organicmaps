@@ -687,8 +687,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Codziennie</string>
 	<string name="twentyfour_seven">Dzień i noc</string>
-	<string name="day_off_today">Dziś dzień wolny</string>
-	<string name="day_off">Dzień wolny</string>
+	<string name="day_off_today">Dziś nieczynne</string>
+	<string name="day_off">Nieczynne</string>
 	<string name="today">Dzisiaj</string>
 	<string name="sunrise_to_sunset">Od wschodu do zachodu słońca</string>
 	<string name="sunset_to_sunrise">Od zachodu do wschodu słońca</string>

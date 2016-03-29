@@ -13,6 +13,20 @@ public final class OsmOAuth
 {
   private OsmOAuth() {}
 
+  public enum AuthType
+  {
+    OSM("OSM"),
+    FACEBOOK("Facebook"),
+    GOOGLE("Google");
+
+    public final String name;
+
+    AuthType(String name)
+    {
+      this.name = name;
+    }
+  }
+
   // Result type corresponds to OsmOAuth::AuthResult.
   @IntDef({OK, FAIL_COOKIE, FAIL_LOGIN, NO_O_AUTH, FAIL_AUTH, NO_ACCESS, NETWORK_ERROR, SERVER_ERROR})
   public @interface AuthResult {}

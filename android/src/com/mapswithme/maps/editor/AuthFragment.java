@@ -63,19 +63,19 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
     switch (v.getId())
     {
     case R.id.login_osm:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, AuthType.OSM.name));
+      Statistics.INSTANCE.trackAuthRequest(OsmOAuth.AuthType.OSM);
       loginOsm();
       break;
     case R.id.login_facebook:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, AuthType.FACEBOOK.name));
-      loginWebview(AuthType.FACEBOOK);
+      Statistics.INSTANCE.trackAuthRequest(OsmOAuth.AuthType.FACEBOOK);
+      loginWebview(OsmOAuth.AuthType.FACEBOOK);
       break;
     case R.id.login_google:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, AuthType.GOOGLE.name));
-      loginWebview(AuthType.GOOGLE);
+      Statistics.INSTANCE.trackAuthRequest(OsmOAuth.AuthType.GOOGLE);
+      loginWebview(OsmOAuth.AuthType.GOOGLE);
       break;
     case R.id.lost_password:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_LOST_PASSWORD);
       recoverPassword();
       break;
     case R.id.register:
@@ -90,7 +90,7 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
     getMwmActivity().replaceFragment(OsmAuthFragment.class, null, null);
   }
 
-  protected void loginWebview(final AuthType type)
+  protected void loginWebview(final OsmOAuth.AuthType type)
   {
     final WebView webview = new InputWebView(getActivity());
     final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(webview).create();
@@ -100,8 +100,8 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
       @Override
       public void run()
       {
-        final String[] auth = (type == AuthType.FACEBOOK) ? OsmOAuth.nativeGetFacebookAuthUrl()
-                                                          : OsmOAuth.nativeGetGoogleAuthUrl();
+        final String[] auth = (type == OsmOAuth.AuthType.FACEBOOK) ? OsmOAuth.nativeGetFacebookAuthUrl()
+                                                                   : OsmOAuth.nativeGetGoogleAuthUrl();
 
         UiThread.run(new Runnable()
         {
@@ -118,7 +118,7 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
     dialog.show();
   }
 
-  protected void loadWebviewAuth(final AlertDialog dialog, final WebView webview, @Size(3) final String[] auth, final AuthType type)
+  protected void loadWebviewAuth(final AlertDialog dialog, final WebView webview, @Size(3) final String[] auth, final OsmOAuth.AuthType type)
   {
     if (auth == null)
     {
@@ -158,7 +158,7 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
     webview.loadUrl(authUrl);
   }
 
-  protected void finishWebviewAuth(final String key, final String secret, final String verifier, final AuthType type)
+  protected void finishWebviewAuth(final String key, final String secret, final String verifier, final OsmOAuth.AuthType type)
   {
     ThreadPool.getWorker().execute(new Runnable() {
       @Override

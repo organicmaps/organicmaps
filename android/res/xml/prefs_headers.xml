@@ -14,7 +14,7 @@
   <header
     android:id="@+id/osm_profile"
     android:key="@string/pref_osm_profile"
-    android:title="OSM profile"/>
+    android:title="@string/osm_account"/>
 
   <header
     android:id="@+id/group_misc"

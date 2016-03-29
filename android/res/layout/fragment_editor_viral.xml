@@ -45,7 +45,7 @@
       android:background="?clickableBackground"
       android:gravity="end|center_vertical"
       android:padding="@dimen/margin_half"
-      android:text="@string/tell_friends"
+      android:text="@string/share_with_friends"
       android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"/>
 
     <TextView

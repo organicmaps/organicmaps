@@ -2,7 +2,7 @@
 <ripple
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:color="@color/bg_editor_light_night_pressed">
-  <item>
+  <item android:id="@android:id/mask">
     <shape android:shape="rectangle">
       <solid android:color="@color/bg_editor_light_night"/>
       <corners android:radius="2dp"/>

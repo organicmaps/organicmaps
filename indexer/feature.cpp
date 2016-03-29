@@ -105,7 +105,7 @@ void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
   m_id = emo.GetID();
 }
 
-editor::XMLFeature FeatureType::ToXML() const
+editor::XMLFeature FeatureType::ToXML(bool serializeType) const
 {
   editor::XMLFeature feature(GetFeatureType() == feature::GEOM_POINT
                                  ? editor::XMLFeature::Type::Node
@@ -139,32 +139,35 @@ editor::XMLFeature FeatureType::ToXML() const
   // feature.m_params.layer =
   // feature.m_params.rank =
 
-  feature::TypesHolder th(*this);
-  // TODO(mgsergio): Use correct sorting instead of SortBySpec based on the config.
-  th.SortBySpec();
-  Classificator & cl = classif();
-  // TODO(mgsergio): Either improve "OSM"-compatible serialization for more complex types,
-  // or save all our types directly, to restore and reuse them in migration of modified features.
-  for (uint32_t const type : th)
+  if (serializeType)
   {
-    string const strType = cl.GetReadableObjectName(type);
-    strings::SimpleTokenizer iter(strType, "-");
-    string const k = *iter;
-    if (++iter)
+    feature::TypesHolder th(*this);
+    // TODO(mgsergio): Use correct sorting instead of SortBySpec based on the config.
+    th.SortBySpec();
+    Classificator & cl = classif();
+    // TODO(mgsergio): Either improve "OSM"-compatible serialization for more complex types,
+    // or save all our types directly, to restore and reuse them in migration of modified features.
+    for (uint32_t const type : th)
     {
-      // First (main) type is always stored as "k=amenity v=restaurant".
-      // Any other "k=amenity v=atm" is replaced by "k=atm v=yes".
-      if (feature.GetTagValue(k).empty())
-        feature.SetTagValue(k, *iter);
+      string const strType = cl.GetReadableObjectName(type);
+      strings::SimpleTokenizer iter(strType, "-");
+      string const k = *iter;
+      if (++iter)
+      {
+        // First (main) type is always stored as "k=amenity v=restaurant".
+        // Any other "k=amenity v=atm" is replaced by "k=atm v=yes".
+        if (feature.GetTagValue(k).empty())
+          feature.SetTagValue(k, *iter);
+        else
+          feature.SetTagValue(*iter, "yes");
+      }
       else
-        feature.SetTagValue(*iter, "yes");
-    }
-    else
-    {
-      // We're editing building, generic craft, shop, office, amenity etc.
-      // Skip it's serialization.
-      // TODO(mgsergio): Correcly serialize all types back and forth.
-      LOG(LDEBUG, ("Skipping type serialization:", k));
+      {
+        // We're editing building, generic craft, shop, office, amenity etc.
+        // Skip it's serialization.
+        // TODO(mgsergio): Correcly serialize all types back and forth.
+        LOG(LDEBUG, ("Skipping type serialization:", k));
+      }
     }
   }
 

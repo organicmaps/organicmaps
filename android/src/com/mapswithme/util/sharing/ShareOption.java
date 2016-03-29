@@ -48,7 +48,7 @@ public abstract class ShareOption
     public void share(Activity activity, String body)
     {
       Intent smsIntent = new Intent();
-      TargetUtils.fillSmsIntent(activity, smsIntent, body);
+      TargetUtils.fillSmsIntent(smsIntent, body);
       activity.startActivity(smsIntent);
       Statistics.INSTANCE.trackPlaceShared("SMS");
     }

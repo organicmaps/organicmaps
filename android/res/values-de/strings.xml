@@ -708,8 +708,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Täglich</string>
 	<string name="twentyfour_seven">Tag und Nacht</string>
-	<string name="day_off_today">Heute Ruhetag</string>
-	<string name="day_off">Ruhetag</string>
+	<string name="day_off_today">Heute geschlossen</string>
+	<string name="day_off">Geschlossen</string>
 	<string name="today">Heute</string>
 	<string name="sunrise_to_sunset">Von Sonnenauf- bis Sonnenuntergang</string>
 	<string name="sunset_to_sunrise">Von Sonnenuntergang bis Sonnenaufgang</string>

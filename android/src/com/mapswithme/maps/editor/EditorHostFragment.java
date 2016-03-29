@@ -1,15 +1,18 @@
 package com.mapswithme.maps.editor;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -24,7 +27,6 @@ import com.mapswithme.util.statistics.Statistics;
 public class EditorHostFragment extends BaseMwmToolbarFragment
                              implements OnBackPressListener, View.OnClickListener
 {
-  private static final String PREF_LAST_AUTH_DISPLAY_TIMESTAMP = "LastAuth";
   private boolean mIsNewObject;
 
   enum Mode
@@ -160,9 +162,19 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       switch (mMode)
       {
       case OPENING_HOURS:
-        final TimetableFragment fragment = (TimetableFragment) getChildFragmentManager().findFragmentByTag(TimetableFragment.class.getName());
-        Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, fragment.getTimetable());
-        editMapObject();
+        final String timetables = ((TimetableFragment) getChildFragmentManager().findFragmentByTag(TimetableFragment.class.getName())).getTimetable();
+        if (OpeningHours.nativeIsTimetableStringValid(timetables))
+        {
+          Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, timetables);
+          editMapObject();
+        }
+        else
+        {
+          new AlertDialog.Builder(getActivity())
+              .setMessage(R.string.editor_correct_mistake)
+              .setPositiveButton(android.R.string.ok, null)
+              .show();
+        }
         break;
       case STREET:
         setStreet(((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet());
@@ -180,12 +192,22 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
           if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
             Utils.navigateToParent(getActivity());
           else
-            showAuthorization();
+          {
+            final Activity parent = getActivity();
+            Intent intent = new Intent(parent, MwmActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowAuthorizationTask());
+            parent.startActivity(intent);
+
+            if (parent instanceof MwmActivity)
+              ((MwmActivity) parent).customOnNavigateUp();
+            else
+              parent.finish();
+          }
         }
         else
         {
           Statistics.INSTANCE.trackEditorError(mIsNewObject);
-          // TODO(yunikkk) set correct error text.
           UiUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
         }
         break;
@@ -197,16 +219,5 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     Editor.nativeSetStreet(street);
     editMapObject();
-  }
-
-  private void showAuthorization()
-  {
-    if (!MwmApplication.prefs().contains(PREF_LAST_AUTH_DISPLAY_TIMESTAMP))
-    {
-      MwmApplication.prefs().edit().putLong(PREF_LAST_AUTH_DISPLAY_TIMESTAMP, System.currentTimeMillis()).apply();
-      getMwmActivity().replaceFragment(AuthFragment.class, null, null);
-    }
-    else
-      mToolbarController.onUpClick();
   }
 }

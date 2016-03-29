@@ -39,7 +39,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical"
-      android:padding="@dimen/margin_base"
+      android:padding="@dimen/margin_half_plus"
       tools:ignore="ScrollViewSize">
 
       <LinearLayout
@@ -75,46 +75,55 @@
           android:id="@+id/first_osm_edit"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/margin_base"
-          android:padding="@dimen/margin_half"
-          android:text="@string/you_have_edited_your_first_object"
+          android:layout_marginBottom="20dp"
+          android:text="@string/login_to_make_edits_visible"
           android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
 
-        <Button
-          android:id="@+id/login_google"
+        <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="@dimen/editor_auth_btn_height"
-          android:layout_marginBottom="@dimen/margin_half_plus"
-          android:background="?buttonLight"
-          android:drawableLeft="@drawable/ic_login_google"
-          android:drawableStart="@drawable/ic_login_google"
-          android:fontFamily="@string/robotoMedium"
-          android:paddingEnd="@dimen/margin_half"
-          android:paddingLeft="@dimen/margin_half"
-          android:paddingRight="@dimen/margin_half"
-          android:paddingStart="@dimen/margin_half"
-          android:text="@string/login_with_google"
-          android:textAllCaps="true"
-          android:textAppearance="@style/MwmTextAppearance.Body1"
-          tools:targetApi="jelly_bean"/>
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          tools:ignore="ButtonStyle">
 
-        <Button
-          android:id="@+id/login_facebook"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/editor_auth_btn_height"
-          android:layout_marginBottom="@dimen/margin_half_plus"
-          android:background="@color/bg_editor_login_fb"
-          android:drawableLeft="@drawable/ic_login_fb"
-          android:drawableStart="@drawable/ic_login_fb"
-          android:fontFamily="@string/robotoMedium"
-          android:paddingEnd="@dimen/margin_half"
-          android:paddingLeft="@dimen/margin_half"
-          android:paddingRight="@dimen/margin_half"
-          android:paddingStart="@dimen/margin_half"
-          android:text="@string/login_with_facebook"
-          android:textAllCaps="true"
-          android:textAppearance="@style/MwmTextAppearance.Body1.Light"
-          tools:targetApi="jelly_bean"/>
+          <Button
+            android:id="@+id/login_google"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/editor_auth_btn_height"
+            android:layout_marginBottom="@dimen/margin_half_plus"
+            android:layout_marginEnd="@dimen/margin_half_plus"
+            android:layout_marginRight="@dimen/margin_half_plus"
+            android:layout_weight="1"
+            android:background="?buttonLight"
+            android:drawableLeft="@drawable/ic_login_google"
+            android:drawableStart="@drawable/ic_login_google"
+            android:fontFamily="@string/robotoMedium"
+            android:paddingEnd="@dimen/margin_half"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half"
+            android:paddingStart="@dimen/margin_half"
+            android:text="@string/google"
+            android:textAppearance="@style/MwmTextAppearance.Body1"
+            tools:targetApi="jelly_bean"/>
+
+          <Button
+            android:id="@+id/login_facebook"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/editor_auth_btn_height"
+            android:layout_marginBottom="@dimen/margin_half_plus"
+            android:layout_weight="1"
+            android:background="@color/bg_editor_login_fb"
+            android:drawableLeft="@drawable/ic_login_fb"
+            android:drawableStart="@drawable/ic_login_fb"
+            android:fontFamily="@string/robotoMedium"
+            android:paddingEnd="@dimen/margin_half"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half"
+            android:paddingStart="@dimen/margin_half"
+            android:text="@string/facebook"
+            android:textAppearance="@style/MwmTextAppearance.Body1.Light"
+            tools:targetApi="jelly_bean"/>
+
+        </LinearLayout>
 
         <Button
           android:id="@+id/login_osm"
@@ -122,7 +131,8 @@
           android:layout_width="match_parent"
           android:layout_height="@dimen/editor_auth_btn_height"
           android:fontFamily="@string/robotoMedium"
-          android:text="@string/login_with_openstreetmap"
+          android:text="@string/openstreetmap"
+          android:textAllCaps="false"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"
           tools:targetApi="jelly_bean"/>
 
@@ -130,9 +140,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_double"
-          android:padding="@dimen/margin_half"
           android:text="@string/no_osm_account"
-          android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
 
         <TextView
@@ -141,7 +149,8 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
           android:background="?clickableBackground"
-          android:padding="@dimen/margin_half"
+          android:paddingBottom="@dimen/margin_half"
+          android:paddingTop="@dimen/margin_half"
           android:text="@string/register_at_openstreetmap"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>

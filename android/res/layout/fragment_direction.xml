@@ -37,7 +37,7 @@
     android:gravity="center_horizontal"
     android:layout_marginBottom="@dimen/margin_direction_small"
     android:textSize="@dimen/text_direction_title"
-    tools:text="Place"/>
+    tools:text="Place, \n long, \n long"/>
 
   <TextView
     android:id="@+id/tv__straight_distance"

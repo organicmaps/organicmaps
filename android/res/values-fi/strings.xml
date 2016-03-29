@@ -686,8 +686,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Päivittäin</string>
 	<string name="twentyfour_seven">Päivin ja öin</string>
-	<string name="day_off_today">Vapaapäivä tänään</string>
-	<string name="day_off">Vapaapäivä</string>
+	<string name="day_off_today">Suljettu tänään</string>
+	<string name="day_off">Suljettu</string>
 	<string name="today">Tänään</string>
 	<string name="sunrise_to_sunset">Auringonnoususta auringonlaskuun</string>
 	<string name="sunset_to_sunrise">Auringonnoususta auringonlaskuun</string>

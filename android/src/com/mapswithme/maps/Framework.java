@@ -189,9 +189,6 @@ public class Framework
 
   public static native void nativeSet3dMode(boolean allow3d, boolean allow3dBuildings);
 
-  @Nullable
-  public static native MapObject nativeGetActiveMapObject();
-
   @NonNull
   public static native MapObject nativeDeleteBookmarkFromMapObject();
 
@@ -202,4 +199,5 @@ public class Framework
 
   public static native boolean nativeIsDownloadedMapAtScreenCenter();
 
+  public static native String nativeGetActiveObjectFormattedCuisine();
 }

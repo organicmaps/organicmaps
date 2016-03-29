@@ -685,8 +685,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">毎日</string>
 	<string name="twentyfour_seven">昼と夜</string>
-	<string name="day_off_today">今日は休み</string>
-	<string name="day_off">休み</string>
+	<string name="day_off_today">本日終業</string>
+	<string name="day_off">終業</string>
 	<string name="today">今日は</string>
 	<string name="sunrise_to_sunset">日の出から日没まで</string>
 	<string name="sunset_to_sunrise">日の出から日没まで</string>

@@ -692,8 +692,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Günlük</string>
 	<string name="twentyfour_seven">Gündüz ve gece</string>
-	<string name="day_off_today">Bugün izin günü</string>
-	<string name="day_off">İzin günü</string>
+	<string name="day_off_today">Bugün kapalı</string>
+	<string name="day_off">Kapalı</string>
 	<string name="today">Bugün</string>
 	<string name="sunrise_to_sunset">Güneşin doğuşundan batışına kadar</string>
 	<string name="sunset_to_sunrise">Gün doğumundan gün batımına</string>

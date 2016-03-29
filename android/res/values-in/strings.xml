@@ -685,8 +685,8 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">Setiap Hari</string>
 	<string name="twentyfour_seven">siang dan malam</string>
-	<string name="day_off_today">Hari ini libur</string>
-	<string name="day_off">Libur</string>
+	<string name="day_off_today">Tutup hari ini</string>
+	<string name="day_off">Tutup</string>
 	<string name="today">Hari ini</string>
 	<string name="sunrise_to_sunset">Dari matahari terbit sampai matahari terbenam</string>
 	<string name="sunset_to_sunrise">Dari matahari terbenam sampai matahari terbit</string>

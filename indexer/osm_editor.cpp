@@ -277,7 +277,7 @@ bool Editor::Save(string const & fullFilePath) const
     {
       FeatureTypeInfo const & fti = index.second;
       // TODO: Do we really need to serialize deleted features in full details? Looks like mwm ID and meta fields are enough.
-      XMLFeature xf = fti.m_feature.ToXML();
+      XMLFeature xf = fti.m_feature.ToXML(true /*type serializing helps during migration*/);
       xf.SetMWMFeatureIndex(index.first);
       if (!fti.m_street.empty())
         xf.SetTagValue(kAddrStreetTag, fti.m_street);
@@ -583,18 +583,17 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
 
         try
         {
-          XMLFeature feature = fti.m_feature.ToXML();
-          if (!fti.m_street.empty())
-            feature.SetTagValue(kAddrStreetTag, fti.m_street);
-
-          ourDebugFeatureString = DebugPrint(feature);
-
           switch (fti.m_status)
           {
           case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); continue;
 
           case FeatureStatus::Created:
             {
+              XMLFeature feature = fti.m_feature.ToXML(true);
+              if (!fti.m_street.empty())
+                feature.SetTagValue(kAddrStreetTag, fti.m_street);
+              ourDebugFeatureString = DebugPrint(feature);
+
               ASSERT_EQUAL(feature.GetType(), XMLFeature::Type::Node,
                            ("Linear and area features creation is not supported yet."));
               try
@@ -624,7 +623,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
               }
               catch (...)
               {
-                // Pas network or other errors to outside exception handler.
+                // Pass network or other errors to outside exception handler.
                 throw;
               }
             }
@@ -632,6 +631,13 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
 
           case FeatureStatus::Modified:
             {
+              // Do not serialize feature's type to avoid breaking OSM data.
+              // TODO: Implement correct types matching when we support modifying existing feature types.
+              XMLFeature feature = fti.m_feature.ToXML(false);
+              if (!fti.m_street.empty())
+                feature.SetTagValue(kAddrStreetTag, fti.m_street);
+              ourDebugFeatureString = DebugPrint(feature);
+
               XMLFeature osmFeature =
                   GetMatchingFeatureFromOSM(changeset, m_getOriginalFeatureFn(fti.m_feature.GetID()));
               XMLFeature const osmFeatureCopy = osmFeature;
