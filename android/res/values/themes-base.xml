@@ -37,7 +37,8 @@
 
     <item name="ppBackground">@color/bg_cards</item>
     <item name="ppButtonsBackground">?panel</item>
-    <item name="ppPreviewHead">@drawable/bg_place_page_back</item>
+    <item name="ppPreviewHeadOpen">@drawable/bg_place_page_head_open</item>
+    <item name="ppPreviewHeadClosed">@drawable/bg_place_page_head_closed</item>
     <item name="ppArrowDrawable">@drawable/direction</item>
 
     <item name="routingSlot">@drawable/routing_slot_background</item>
@@ -101,7 +102,8 @@
 
     <item name="ppBackground">@color/bg_cards_night</item>
     <item name="ppButtonsBackground">@color/bg_window_night</item>
-    <item name="ppPreviewHead">@drawable/bg_place_page_back_night</item>
+    <item name="ppPreviewHeadOpen">@drawable/bg_place_page_head_open_night</item>
+    <item name="ppPreviewHeadClosed">@drawable/bg_place_page_head_closed_night</item>
     <item name="ppArrowDrawable">@drawable/direction_night</item>
 
     <item name="routingSlot">@drawable/routing_slot_background_night</item>

@@ -21,7 +21,8 @@
 
     <attr name="ppBackground" format="color"/>
     <attr name="ppButtonsBackground" format="color"/>
-    <attr name="ppPreviewHead" format="reference"/>
+    <attr name="ppPreviewHeadOpen" format="reference"/>
+    <attr name="ppPreviewHeadClosed" format="reference"/>
     <attr name="ppArrowDrawable" format="reference"/>
 
     <attr name="routingSlot" format="reference"/>

@@ -339,6 +339,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     if (mMapObject != null)
       mAnimationController.setState(state, mMapObject.getMapObjectType());
+
+    if (!mIsDocked && !mIsFloating)
+      mPreview.setBackgroundResource(ThemeUtils.getResource(getContext(), state == State.PREVIEW ? R.attr.ppPreviewHeadClosed
+                                                                                                 : R.attr.ppPreviewHeadOpen));
   }
 
   public MapObject getMapObject()
