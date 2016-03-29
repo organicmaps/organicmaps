@@ -561,8 +561,12 @@ private:
   /// Fast version, doesn't check if country is out of date
   Status CountryStatus(TCountryId const & countryId) const;
 
-  /// Returns status for a node (group node or not)
+  /// Returns status for a node (group node or not).
   StatusAndError GetNodeStatus(TCountryTreeNode const & node) const;
+  /// Returns status for a node (group node or not).
+  /// Fills |disputedTeritories| with all disputed teritories in subtree with the root == |node|.
+  StatusAndError GetNodeStatusInfo(TCountryTreeNode const & node,
+                                   vector<pair<TCountryId, NodeStatus>> & disputedTeritories) const;
 
   void NotifyStatusChanged(TCountryId const & countryId);
   void NotifyStatusChangedForHierarchy(TCountryId const & countryId);
