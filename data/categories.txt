@@ -4354,7 +4354,7 @@ zh-Hans:3汽车修理店|服务站|
 ar:محل صيانة السيارات|محطة خدمات
 da:3Garage|3bilværksted|service station
 tr:3Oto tamir dükkanı|servis istasyonu|araba
-sv:3 bilreparatör|4servicestation|bil
+sv:3Bilreparatör|4servicestation|bil
 vi:Cửa hàng sửa chữa ô tô
 id:Bengkel mobil
 ro:Atelier de reparații auto
@@ -5043,6 +5043,7 @@ en:Copy Shop|Printer
 ru:Копировальный центр|печать|полиграфия
 ar:محل نسخ|طباعة
 cs:Kopírovací obchod|Tiskárny
+da:Kopieringsbutik|Trykkeri
 de:Kopierladen|Drucker
 es:Copistería|imprenta|poligrafía
 fi:Painotalo|Tulostaja
@@ -5070,6 +5071,7 @@ en:Photo Shop|frames|shop
 ru:Фототовары|магазин
 ar:محل صور|إطارات|محل
 cs:Fotografický obchod|rámy|obchod
+da:Fotobutik|rammer|butik
 de:Fotofachgeschäft|Rahmen|Geschäft
 es:Artículos de fotografía|tienda
 fi:Valokuvakauppa|kehykset|kauppa
@@ -5080,6 +5082,7 @@ it:Negozio di fotografia|cornici|negozio
 ja:写真屋|フレーム|店|買い物
 ko:사진 상점|프레임|상점
 nb:Fotobutikk|ramer|butikk
+nl:Fotowinkel|kaders|winkel
 pl:Fotograf|zdjęcia|punkt|sklep
 pt:Artigos para fotografia|molduras|comércio|compras
 ro:Centru fotografii|cadre|magazin
@@ -5097,6 +5100,7 @@ en:Travel Agency|tours
 ru:Турагентство|путешествия
 ar:وكيل سفريات|جولات
 cs:Cestovní kancelář|cesty
+da:Rejsebureau|rundrejser
 de:Reisebüro|Touren
 es:Agencia de viajes|viajes
 fi:Matkatoimisto|kiertueet
@@ -5107,6 +5111,7 @@ it:Agenzia viaggi|tour
 ja:旅行会社|ツアー
 ko:여행사|투어
 nb:Reisebyrå|rundreiser
+nl:Reisagentschap|reizen
 pl:Agencja turystyczna|wycieczki
 pt:Agência de viagem|turismo
 ro:Agenție de voiaj|tururi
@@ -5124,6 +5129,7 @@ en:Outdoor Equipment|trekking|climbing|camping|shop
 ru:Снаряжение|магазин
 ar:معدات خارجية|ترحال|تسلق|تخييم|محل
 cs:Venkovní vybavení|trekking|lezení|kempování|obchod
+da:Fritidsudstyr|vandring|klatring|camping|butik
 de:Outdoor-Ausrüstung|Trekking|Klettern|Camping|Geschäft
 es:Equipamiento|tienda
 fi:Ulkoiluvarusteet|vaellus|kiipeily|retkeily|kauppa
@@ -5134,6 +5140,7 @@ it:Attrezzatura sportiva|trekking|arrampicata|campeggio|negozio
 ja:アウトドア用品|トレッキング|クライミング|店|買い物
 ko:야외 장비|트래킹|등반|캠핑|상점
 nb:Fritidsutstyr|vandring|klatring|camping|butikk
+nl:Outdooruitrusting|trekking|klimmen|kamperen|winkel
 pl:Sprzęt turystyczny|wędrowanie|wspinaczka|camping|sklep
 pt:Equipamentos esportivos|caminhada|escalada|camping|comércio|compras
 ro:Echipament de exterior|trekking|cățărare|campare|magazin
@@ -5151,6 +5158,7 @@ en:Dry Cleaning|cleaning
 ru:Химчистка
 ar:غسيل جاف|غسيل
 cs:Chemické čištění|čistírna
+da:Renseri|vaskeri
 de:Chemische Reinigung|Reinigung
 es:Tintorería
 fi:Kuivapesula|siivous
@@ -5161,6 +5169,7 @@ it:Lavaggio a secco|lavanderia
 ja:クリーニング屋|クリーニング
 ko:드라이 클리닝|청소
 nb:Renseri|vaskeri
+nl:Droogkuis|wassen
 pl:Pralnia chemiczna|czyszczenie
 pt:Lavagem a seco|lavanderia
 ro:Curățătorie chimică|curățătorie
@@ -5178,6 +5187,7 @@ en:Tyre Shop|shop
 ru:Магазин шин|магазин
 ar:محل إطارات|محل
 cs:Obchod s pneumatikami|obchod
+da:Dækforretning|butik
 de:Reifen-Shop|Geschäft
 es:Tienda de neumáticos|tienda
 fi:Rengasliike|kauppa
@@ -5188,6 +5198,7 @@ it:Gommista|negozio
 ja:タイヤ専門店|ショップ|買い物
 ko:타이어 상점|상점
 nb:Dekkforretning|butikk
+nl:Bandenwinkel|winkel
 pl:Wulkanizacja|punkt
 pt:Borracheiro|comércio|compras
 ro:Magazin anvelope|magazin
@@ -5205,6 +5216,7 @@ en:Car Wash
 ru:Автомойка
 ar:مغسلة سيارات
 cs:Myčka aut
+da:Bilvask
 de:Autowäsche
 es:Lavado de coches
 fi:Autopesula
@@ -5215,6 +5227,7 @@ it:Lavaggio auto
 ja:洗車
 ko:세차
 nb:Bilvask
+nl:Car wash
 pl:Myjnia samochodowa
 pt:Lavagem de veículos
 ro:Spălătorie auto
@@ -5232,6 +5245,7 @@ en:Veterinary Doctor
 ru:Ветеринарная клиника
 ar:طبيب بيطري
 cs:Veterinář
+da:Dyrlæge
 de:Tierarzt
 es:Clínica veterinaria
 fi:Eläinlääkäri
@@ -5242,6 +5256,7 @@ it:Veterinario
 ja:獣医
 ko:수의학 박사
 nb:Veterinær
+nl:Dierenarts
 pl:Weterynarz
 pt:Veterinário
 ro:Cabinet veterinar
@@ -5259,6 +5274,7 @@ en:Charging Station|charging
 ru:Зарядная станция
 ar:محطة شحن|شحن
 cs:Nabíjecí stanice|nabíjení
+da:Ladestation|opladning
 de:Ladestation|Laden
 es:Estación de carga
 fi:Latausasema|lataus
@@ -5269,6 +5285,7 @@ it:Stazione di ricarica|ricarica
 ja:充電ステーション|充電
 ko:충전 역|충전
 nb:Ladestasjon|lading
+nl:Oplaadstation|opladen
 pl:Stacja ładowania|ładowanie
 pt:Posto de combustível|abastecimento
 ro:Stație încărcare|încărcare
@@ -5286,6 +5303,7 @@ en:Nursery|Child Care
 ru:Детская комната|ясли
 ar:حضانة|رعاية أطفال
 cs:Jesle|Péče o děti
+da:Vuggestue|Børnehave
 de:Kindergarten|Kinderbetreuung
 es:Habitación infantil|guardería
 fi:Päivähoito|Lastenhoito
@@ -5296,6 +5314,7 @@ it:Asilo|cura dell'infanzia
 ja:託児所|保育園
 ko:보육|탁아
 nb:Førskole|Barnehage
+nl:Crèche|kinderzorg
 pl:Żłobek|Przedszkole
 pt:Creche|jardim de infância
 ro:Grădiniță|Îngrijire copii
