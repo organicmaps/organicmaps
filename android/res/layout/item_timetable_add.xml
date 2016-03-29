@@ -8,11 +8,16 @@
 
   <Button
     android:id="@+id/btn__add_time"
-    android:layout_width="124dp"
+    android:layout_width="wrap_content"
     android:layout_height="36dp"
     android:layout_gravity="center"
     android:background="@drawable/timetable_add_complement"
     android:enabled="false"
+    android:minWidth="124dp"
+    android:paddingEnd="@dimen/margin_half"
+    android:paddingLeft="@dimen/margin_half"
+    android:paddingRight="@dimen/margin_half"
+    android:paddingStart="@dimen/margin_half"
     android:text="@string/editor_time_add"
     android:textAllCaps="true"
     android:textAppearance="@style/MwmTextAppearance.Body3.Light"

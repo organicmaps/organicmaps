@@ -388,8 +388,11 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     @Override
     void onBind()
     {
-      add.setEnabled(mComplementItem != null && mComplementItem.weekdays.length != 0);
-      add.setText(TimeFormatUtils.formatWeekdays(mComplementItem));
+      final boolean enable = mComplementItem != null && mComplementItem.weekdays.length != 0;
+      final String text = mFragment.getString(R.string.editor_time_add);
+      add.setEnabled(enable);
+      add.setText(enable ? text + "(" + TimeFormatUtils.formatWeekdays(mComplementItem) + ")"
+                         : text);
     }
   }
 }
