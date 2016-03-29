@@ -148,6 +148,8 @@ void RuleDrawer::operator()(FeatureType const & f)
           !ftypes::IsTunnelChecker::Instance()(f);
     }
 
+    m2::PointD featureCenter;
+
     float areaHeight = 0.0f;
     float areaMinHeight = 0.0f;
     if (is3dBuilding)
@@ -178,9 +180,9 @@ void RuleDrawer::operator()(FeatureType const & f)
       if (!value.empty())
         strings::to_double(value, minHeigthInMeters);
 
-      m2::PointD const pt = feature::GetCenter(f, zoomLevel);
-      double const lon = MercatorBounds::XToLon(pt.x);
-      double const lat = MercatorBounds::YToLat(pt.y);
+      featureCenter = feature::GetCenter(f, zoomLevel);
+      double const lon = MercatorBounds::XToLon(featureCenter.x);
+      double const lat = MercatorBounds::YToLat(featureCenter.y);
 
       m2::RectD rectMercator = MercatorBounds::MetresToXY(lon, lat, heightInMeters);
       areaHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
@@ -189,8 +191,14 @@ void RuleDrawer::operator()(FeatureType const & f)
       areaMinHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
     }
 
-    m2::PointD const featureCenter = feature::GetCenter(f, zoomLevel);
-    bool const applyPointStyle = s.PointStyleExists() && m_globalRect.IsPointInside(featureCenter);
+    bool applyPointStyle = s.PointStyleExists();
+    if (applyPointStyle)
+    {
+      if (!is3dBuilding)
+        featureCenter = feature::GetCenter(f, zoomLevel);
+      applyPointStyle = m_globalRect.IsPointInside(featureCenter);
+    }
+
     if (applyPointStyle || is3dBuilding)
       minVisibleScale = feature::GetMinDrawableScale(f);
 
