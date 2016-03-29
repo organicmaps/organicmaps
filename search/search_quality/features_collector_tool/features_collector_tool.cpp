@@ -37,18 +37,16 @@ using namespace storage;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
+DEFINE_string(stats_path, "", "Path to store stats about queries results (default: stderr)");
 DEFINE_string(json_in, "", "Path to the json file with samples (default: stdin)");
 
-void DidDownload(TCountryId const & /* countryId */,
-                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
-{
-}
+size_t constexpr kInvalidId = numeric_limits<size_t>::max();
 
-bool WillDelete(TCountryId const & /* countryId */,
-                shared_ptr<platform::LocalCountryFile> const & /* localFile */)
+struct Stats
 {
-  return false;
-}
+  // Indexes of not-found VITAL or RELEVANT results.
+  vector<size_t> m_notFound;
+};
 
 struct Context
 {
@@ -95,32 +93,65 @@ bool Matches(Context & context, Sample::Result const & golden, search::Result co
          my::AlmostEqualAbs(golden.m_pos, center, kEps);
 }
 
-void SetRelevanceValues(Context & context, vector<Sample::Result> const & golden,
-                        vector<search::Result> const & actual,
-                        vector<Sample::Result::Relevance> & relevances)
+void MatchResults(Context & context, vector<Sample::Result> const & golden,
+                  vector<search::Result> const & actual, vector<size_t> & goldenMatching,
+                  vector<size_t> & actualMatching)
 {
   auto const n = golden.size();
   auto const m = actual.size();
-  relevances.assign(m, Sample::Result::RELEVANCE_IRRELEVANT);
 
-  vector<bool> matched(m);
+  goldenMatching.assign(n, kInvalidId);
+  actualMatching.assign(m, kInvalidId);
 
   // TODO (@y, @m): use Kuhn algorithm here for maximum matching.
   for (size_t i = 0; i < n; ++i)
   {
+    if (goldenMatching[i] != kInvalidId)
+      continue;
     auto const & g = golden[i];
+
     for (size_t j = 0; j < m; ++j)
     {
-      if (matched[j])
+      if (actualMatching[j] != kInvalidId)
         continue;
+
       auto const & a = actual[j];
       if (Matches(context, g, a))
       {
-        matched[j] = true;
-        relevances[j] = g.m_relevance;
+        goldenMatching[i] = j;
+        actualMatching[j] = i;
         break;
       }
     }
+  }
+}
+
+void DidDownload(TCountryId const & /* countryId */,
+                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
+{
+}
+
+bool WillDelete(TCountryId const & /* countryId */,
+                shared_ptr<platform::LocalCountryFile> const & /* localFile */)
+{
+  return false;
+}
+
+void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> const & stats)
+{
+  auto const n = samples.size();
+  ASSERT_EQUAL(stats.size(), n, ());
+  for (size_t i = 0; i < n; ++i)
+  {
+    os << "Query #" << i << " \"" << strings::ToUtf8(samples[i].m_query) << "\"";
+    if (stats[i].m_notFound.empty())
+    {
+      os << ": OK" << endl;
+      continue;
+    }
+    os << ": WARNING" << endl;
+    for (auto const & j : stats[i].m_notFound)
+      os << "Not found: " << DebugPrint(samples[i].m_results[j]) << endl;
   }
 }
 
@@ -186,11 +217,13 @@ int main(int argc, char * argv[])
     engine.RegisterMap(mwm);
   }
 
+  vector<Stats> stats(samples.size());
+  Context context(engine);
+
   cout << "SampleId,";
   v2::RankingInfo::PrintCSVHeader(cout);
   cout << ",Relevance" << endl;
 
-  Context context(engine);
   for (size_t i = 0; i < samples.size(); ++i)
   {
     auto const & sample = samples[i];
@@ -210,10 +243,10 @@ int main(int argc, char * argv[])
 
     auto const & results = request.Results();
 
-    vector<Sample::Result::Relevance> relevances;
-    SetRelevanceValues(context, sample.m_results, results, relevances);
+    vector<size_t> goldenMatching;
+    vector<size_t> actualMatching;
+    MatchResults(context, sample.m_results, results, goldenMatching, actualMatching);
 
-    ASSERT_EQUAL(results.size(), relevances.size(), ());
     for (size_t j = 0; j < results.size(); ++j)
     {
       if (results[j].GetResultType() != Result::RESULT_FEATURE)
@@ -221,8 +254,37 @@ int main(int argc, char * argv[])
       auto const & info = results[j].GetRankingInfo();
       cout << i << ",";
       info.ToCSV(cout);
-      cout << "," << DebugPrint(relevances[j]) << endl;
+
+      auto relevance = Sample::Result::RELEVANCE_IRRELEVANT;
+      if (actualMatching[j] != kInvalidId)
+        relevance = sample.m_results[actualMatching[j]].m_relevance;
+      cout << "," << DebugPrint(relevance) << endl;
     }
+
+    auto & s = stats[i];
+    for (size_t j = 0; j < goldenMatching.size(); ++j)
+    {
+      if (goldenMatching[j] == kInvalidId &&
+          sample.m_results[j].m_relevance != Sample::Result::RELEVANCE_IRRELEVANT)
+      {
+        s.m_notFound.push_back(j);
+      }
+    }
+  }
+
+  if (FLAGS_stats_path.empty())
+  {
+    DisplayStats(cerr, samples, stats);
+  }
+  else
+  {
+    ofstream ofs(FLAGS_stats_path);
+    if (!ofs.is_open())
+    {
+      cerr << "Can't open output file for stats." << endl;
+      return -1;
+    }
+    DisplayStats(ofs, samples, stats);
   }
   return 0;
 }
