@@ -72,12 +72,11 @@ area|z10-[natural=bay],
 
 
 area|z11-19[natural=wetland],
-area|z11-19[natural=marsh] {
+{
 	z-index: 49;
 	fill-opacity: 1;
 	fill-color: @wetland;
 	fill-position: background;
-
 }
 
 /* rivers */

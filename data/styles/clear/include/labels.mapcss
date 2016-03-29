@@ -1517,9 +1517,7 @@ node|z16-[natural=bay],
 area|z16-[natural=water],
 area|z16-[natural=bay],
 node|z16-[natural=wetland],
-node|z16-[natural=marsh]
 area|z16-[natural=wetland],
-area|z16-[natural=marsh]
 {
   text: name;
   font-size: 11;

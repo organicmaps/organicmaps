@@ -202,7 +202,7 @@ highway|motorway_link;[highway=motorway_link];;name;int_name;201;
 leisure|golf_course;[leisure=golf_course];;name;int_name;202;
 highway|service|bridge;[highway=service][bridge?];;name;int_name;203;
 power|minor_line;[power=minor_line];;name;int_name;204;
-natural|marsh;[natural=marsh];;name;int_name;205;
+natural|marsh;[natural=marsh];x;name;int_name;205;natural|wetland|marsh
 leisure|stadium;[leisure=stadium];;name;int_name;206;
 amenity|doctors;[amenity=doctors];;name;int_name;207;
 railway|disused;[railway=disused];;name;int_name;208;
@@ -1067,3 +1067,4 @@ amenity|car_wash;[amenity=car_wash];;name;int_name;1066;
 amenity|veterinary;[amenity=veterinary];;name;int_name;1067;
 amenity|charging_station;[amenity=charging_station];;name;int_name;1068;
 amenity|childcare;[amenity=childcare];;name;int_name;1069;
+natural|wetland|marsh;[natural=wetland][wetland=marsh];;name;int_name;1070;
