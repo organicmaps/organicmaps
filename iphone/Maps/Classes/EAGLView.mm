@@ -99,7 +99,7 @@ double getExactDPI(double contentScaleFactor)
   p.m_visualScale = dp::VisualScale(getExactDPI(self.contentScaleFactor));
 
   [self.widgetsManager setupWidgets:p];
-  GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), move(p));
+  GetFramework().CreateDrapeEngine(make_ref(m_factory), move(p));
 
   _drapeEngineCreated = YES;
 
@@ -171,6 +171,11 @@ double getExactDPI(double contentScaleFactor)
   CGFloat const scaleFactor = self.contentScaleFactor;
   m2::PointD const ptP = GetFramework().GtoP(m2::PointD(pt.x, pt.y));
   return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
+}
+
+- (void)setPresentAvailable:(BOOL)available
+{
+  m_factory->CastFactory<iosOGLContextFactory>()->setPresentAvailable(available);
 }
 
 @end
