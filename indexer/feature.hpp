@@ -170,7 +170,10 @@ public:
   /// Replaces all FeatureType's components.
   void ReplaceBy(osm::EditableMapObject const & ef);
 
-  editor::XMLFeature ToXML() const;
+  /// @param serializeType if false, types are not serialized.
+  /// Useful for applying modifications to existing OSM features, to avoid ussues when someone
+  /// has changed a type in OSM, but our users uploaded invalid outdated type after modifying feature.
+  editor::XMLFeature ToXML(bool serializeType) const;
   /// Creates new feature, including geometry and types.
   /// @Note: only nodes (points) are supported at the moment.
   bool FromXML(editor::XMLFeature const & xml);
