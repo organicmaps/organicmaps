@@ -16,6 +16,7 @@ import com.mapswithme.util.UiUtils;
 public class ViralEditorShareable extends BaseShareable
 {
   private static final String FACEBOOK_SHARE_URL = "http://maps.me/fb-editor-v1?lang=" + Locale.getDefault().getLanguage();
+  private static final String VIRAL_TAIL = " http://maps.me/im_get";
 
   private final Uri mUri;
 
@@ -49,6 +50,8 @@ public class ViralEditorShareable extends BaseShareable
       shareFacebook();
       return;
     }
+
+    setText(mText + VIRAL_TAIL);
 
     if (lowerCaseName.contains("sms") || lowerCaseName.contains("mms"))
       TargetUtils.fillSmsIntent(intent, mText);
