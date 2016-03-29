@@ -32,6 +32,13 @@ DrapeEngine::DrapeEngine(Params && params)
   if (!params.m_initialMyPositionMode.second && !settings::Get(settings::kLocationStateMode, mode))
     mode = location::MODE_UNKNOWN_POSITION;
 
+  // If the screen rect setting in follow and rotate mode is missing or invalid, it could cause invalid animations,
+  // so the follow and rotate mode should be discarded.
+  m2::AnyRectD rect;
+  if (mode == location::MODE_ROTATE_AND_FOLLOW &&
+      !(settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect())))
+    mode = location::MODE_FOLLOW;
+
   FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
                                     make_ref(m_textureManager), m_viewport,
                                     bind(&DrapeEngine::ModelViewChanged, this, _1),
