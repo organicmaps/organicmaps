@@ -48,7 +48,7 @@ public class SimpleTimetableFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public Timetable[] getTimetables()
+  public String getTimetables()
   {
     return mAdapter.getTimetables();
   }
@@ -59,10 +59,10 @@ public class SimpleTimetableFragment extends BaseMwmRecyclerFragment
     mAdapter.onHoursMinutesPicked(from, to, id);
   }
 
-  public void setTimetables(Timetable[] tts)
+  public void setTimetables(String ttsString)
   {
-    if (tts == null)
+    if (ttsString == null)
       return;
-    mInitTts = tts;
+    mInitTts = OpeningHours.nativeTimetablesFromString(ttsString);
   }
 }

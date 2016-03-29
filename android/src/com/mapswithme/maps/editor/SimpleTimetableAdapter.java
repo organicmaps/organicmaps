@@ -59,9 +59,9 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
   }
 
   @Override
-  public Timetable[] getTimetables()
+  public String getTimetables()
   {
-    return mItems.toArray(new Timetable[mItems.size()]);
+    return OpeningHours.nativeTimetablesToString(mItems.toArray(new Timetable[mItems.size()]));
   }
 
   @Override

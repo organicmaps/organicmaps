@@ -13,15 +13,14 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.editor.data.Timetable;
 
 public class TimetableFragment extends BaseMwmFragment
-                            implements View.OnClickListener,
-                                       OnBackPressListener
+    implements View.OnClickListener,
+               OnBackPressListener
 {
   interface TimetableProvider
   {
-    Timetable[] getTimetables();
+    String getTimetables();
   }
 
   public static final String EXTRA_TIME = "Time";
@@ -51,17 +50,18 @@ public class TimetableFragment extends BaseMwmFragment
     mParent = (EditorHostFragment) getParentFragment();
 
     initViews(view);
-    simpleMode();
+    mIsAdvancedMode = true;
+    switchMode();
 
     final Bundle args = getArguments();
     if (args != null && !TextUtils.isEmpty(args.getString(EXTRA_TIME)))
-      mSimpleModeFragment.setTimetables(OpeningHours.nativeTimetablesFromString(args.getString(EXTRA_TIME)));
+      mSimpleModeFragment.setTimetables(args.getString(EXTRA_TIME));
   }
 
   public String getTimetable()
   {
-    return OpeningHours.nativeTimetablesToString(mIsAdvancedMode ? mAdvancedModeFragment.getTimetables()
-                                                                 : mSimpleModeFragment.getTimetables());
+    return mIsAdvancedMode ? mAdvancedModeFragment.getTimetables()
+                           : mSimpleModeFragment.getTimetables();
   }
 
   private void initViews(View root)
@@ -89,51 +89,40 @@ public class TimetableFragment extends BaseMwmFragment
 
   private void switchMode()
   {
-    if (mIsAdvancedMode)
-      simpleMode();
-    else
-      advancedMode();
-  }
-
-  private void simpleMode()
-  {
-    mIsAdvancedMode = false;
-    mSwitchMode.setText(R.string.editor_time_advanced);
-    final Timetable[] filledTimetables = getFilledTimetables(mAdvancedModeFragment, mAdvancedModeFragment);
-    mSimpleModeFragment = (SimpleTimetableFragment) attachFragment(mSimpleModeFragment, SimpleTimetableFragment.class.getName());
-    mSimpleModeFragment.setTimetables(filledTimetables);
-  }
-
-  private void advancedMode()
-  {
-    mIsAdvancedMode = true;
-    mSwitchMode.setText(R.string.editor_time_simple);
-    final Timetable[] filledTimetables = getFilledTimetables(mSimpleModeFragment, mSimpleModeFragment);
-    mAdvancedModeFragment = (AdvancedTimetableFragment) attachFragment(mAdvancedModeFragment, AdvancedTimetableFragment.class.getName());
-    mAdvancedModeFragment.setTimetables(filledTimetables);
-  }
-
-  private boolean hasFilledTimetables(Fragment fragment)
-  {
-    return fragment != null && fragment.isAdded();
-  }
-
-  @Nullable
-  private Timetable[] getFilledTimetables(Fragment fragment, TimetableProvider provider)
-  {
-    if (!hasFilledTimetables(fragment))
-      return null;
-
-    final Timetable[] timetables = provider.getTimetables();
-    if (timetables == null)
+    if (!mIsAdvancedMode)
     {
-      new AlertDialog.Builder(getActivity())
-          .setMessage(R.string.editor_correct_mistake)
-          .create();
-      return null;
+      final String filledTimetables = mSimpleModeFragment != null ? mSimpleModeFragment.getTimetables()
+                                                                  : OpeningHours.nativeTimetablesToString(OpeningHours.nativeGetDefaultTimetables());
+      if (!OpeningHours.nativeIsTimetableStringValid(filledTimetables))
+      {
+        new AlertDialog.Builder(getActivity())
+            .setMessage(R.string.editor_correct_mistake)
+            .setPositiveButton(android.R.string.ok, null)
+            .show();
+        return;
+      }
+      mIsAdvancedMode = true;
+      mSwitchMode.setText(R.string.editor_time_advanced);
+      mAdvancedModeFragment = (AdvancedTimetableFragment) attachFragment(mAdvancedModeFragment, AdvancedTimetableFragment.class.getName());
+      mAdvancedModeFragment.setTimetables(filledTimetables);
     }
-
-    return timetables;
+    else
+    {
+      final String filledTimetables = mAdvancedModeFragment != null ? mAdvancedModeFragment.getTimetables()
+                                                                    : OpeningHours.nativeTimetablesToString(OpeningHours.nativeGetDefaultTimetables());
+      if (!OpeningHours.nativeIsTimetableStringValid(filledTimetables))
+      {
+        new AlertDialog.Builder(getActivity())
+            .setMessage(R.string.editor_correct_mistake)
+            .setPositiveButton(android.R.string.ok, null)
+            .show();
+        return;
+      }
+      mIsAdvancedMode = false;
+      mSwitchMode.setText(R.string.editor_time_simple);
+      mSimpleModeFragment = (SimpleTimetableFragment) attachFragment(mSimpleModeFragment, SimpleTimetableFragment.class.getName());
+      mSimpleModeFragment.setTimetables(filledTimetables);
+    }
   }
 
   private Fragment attachFragment(Fragment current, String className)
@@ -141,6 +130,8 @@ public class TimetableFragment extends BaseMwmFragment
     Fragment fragment = current == null ? Fragment.instantiate(getActivity(), className)
                                         : current;
     getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+
+
     return fragment;
   }
 }

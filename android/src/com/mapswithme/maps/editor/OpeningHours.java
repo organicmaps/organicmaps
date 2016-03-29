@@ -54,7 +54,7 @@ public final class OpeningHours
   public static native Timetable[] nativeTimetablesFromString(String source);
 
   @NonNull
-  public static native String nativeTimetablesToString(Timetable timetables[]);
+  public static native String nativeTimetablesToString(@NonNull Timetable timetables[]);
 
   /**
    * Sometimes timetables cannot be parsed with {@link #nativeTimetablesFromString} (hence can't be displayed in UI),

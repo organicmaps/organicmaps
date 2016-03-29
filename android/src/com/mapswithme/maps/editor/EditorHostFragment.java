@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import com.mapswithme.util.statistics.Statistics;
 public class EditorHostFragment extends BaseMwmToolbarFragment
                              implements OnBackPressListener, View.OnClickListener
 {
-  private static final String PREF_LAST_AUTH_DISPLAY_TIMESTAMP = "LastAuth";
   private boolean mIsNewObject;
 
   enum Mode
@@ -162,9 +162,19 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       switch (mMode)
       {
       case OPENING_HOURS:
-        final TimetableFragment fragment = (TimetableFragment) getChildFragmentManager().findFragmentByTag(TimetableFragment.class.getName());
-        Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, fragment.getTimetable());
-        editMapObject();
+        final String timetables = ((TimetableFragment) getChildFragmentManager().findFragmentByTag(TimetableFragment.class.getName())).getTimetable();
+        if (OpeningHours.nativeIsTimetableStringValid(timetables))
+        {
+          Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, timetables);
+          editMapObject();
+        }
+        else
+        {
+          new AlertDialog.Builder(getActivity())
+              .setMessage(R.string.editor_correct_mistake)
+              .setPositiveButton(android.R.string.ok, null)
+              .show();
+        }
         break;
       case STREET:
         setStreet(((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet());

@@ -92,16 +92,14 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
   }
 
   @Override
-  public Timetable[] getTimetables()
+  public String getTimetables()
   {
-    if (mInput.length() == 0)
-      return OpeningHours.nativeGetDefaultTimetables();
-    return OpeningHours.nativeTimetablesFromString(mInput.getText().toString());
+    return mInput.getText().toString();
   }
 
-  public void setTimetables(Timetable[] timetables)
+  public void setTimetables(String timetables)
   {
-    mInitTimetables = timetables;
+    mInitTimetables = OpeningHours.nativeTimetablesFromString(timetables);
     refreshTimetables();
   }
 
