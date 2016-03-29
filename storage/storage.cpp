@@ -1284,8 +1284,14 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_localMwmSize = 0;
   nodeAttrs.m_downloadingMwmCounter = 0;
   nodeAttrs.m_downloadingMwmSize = 0;
-  node->ForEachInSubtree([this, &nodeAttrs](TCountryTreeNode const & d)
+  TCountriesSet visitedLocalNodes;
+  node->ForEachInSubtree([this, &nodeAttrs, &visitedLocalNodes](TCountryTreeNode const & d)
   {
+    TCountryId const countryId = d.Value().Name();
+    if (visitedLocalNodes.count(countryId) != 0)
+        return;
+    visitedLocalNodes.insert(countryId);
+
     // Downloading mwm information.
     StatusAndError const statusAndErr = GetNodeStatus(d);
     ASSERT_NOT_EQUAL(statusAndErr.status, NodeStatus::Undefined, ());
@@ -1297,8 +1303,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
     }
 
     // Local mwm information.
-    Storage::TLocalFilePtr const localFile =
-        GetLatestLocalFile(d.Value().Name());
+    Storage::TLocalFilePtr const localFile = GetLatestLocalFile(countryId);
     if (localFile == nullptr)
       return;
 
