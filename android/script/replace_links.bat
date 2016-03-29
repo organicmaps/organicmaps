@@ -22,6 +22,7 @@ cp ../data/packed_polygons_obsolete.bin assets/
 cp ../data/patterns.txt assets/
 cp ../data/types.txt assets/
 cp ../data/unicode_blocks.txt assets/
+cp ../data/opening_hours_how_to_edit.html assets/
 
 cp -r ../data/resources-hdpi_legacy/ assets/
 cp -r ../data/resources-hdpi_dark/ assets/

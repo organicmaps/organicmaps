@@ -6,12 +6,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.editor.data.Timetable;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 
@@ -21,7 +23,7 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
 {
   private boolean mIsExampleShown;
   private EditText mInput;
-  private TextView mExample;
+  private WebView mExample;
   private Timetable[] mInitTimetables;
   private TextView mExamplesTitle;
 
@@ -52,8 +54,8 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
   {
     view.findViewById(R.id.examples).setOnClickListener(this);
     mInput = (EditText) view.findViewById(R.id.et__timetable);
-    mExample = (TextView) view.findViewById(R.id.tv__examples);
-    // TODO set text of example from html stored in data/
+    mExample = (WebView) view.findViewById(R.id.wv__examples);
+    mExample.loadUrl(Constants.Url.OPENING_HOURS_MANUAL);
     mExamplesTitle = (TextView) view.findViewById(R.id.tv__examples_title);
     setExampleDrawables(R.drawable.ic_type_text, R.drawable.ic_expand_more);
   }
