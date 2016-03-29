@@ -37,6 +37,7 @@ class StringUtf8Multilang
 public:
   static int8_t constexpr kUnsupportedLanguageCode = -1;
   static int8_t constexpr kDefaultCode = 0;
+  static int8_t constexpr kEnglishCode = 1;
   static int8_t constexpr kInternationalCode = 7;
   /// How many languages we support on indexing stage. See full list in cpp file.
   /// TODO(AlexZ): Review and replace invalid languages by valid ones.

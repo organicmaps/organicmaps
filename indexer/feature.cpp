@@ -499,10 +499,10 @@ struct BestMatchedLangNames
 
   bool operator()(int8_t code, string const & name)
   {
-    static int8_t const defaultCode = StringUtf8Multilang::GetLangIndex("default");
+    int8_t const defaultCode = StringUtf8Multilang::kDefaultCode;
     static int8_t const nativeCode = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-    static int8_t const intCode = StringUtf8Multilang::GetLangIndex("int_name");
-    static int8_t const englishCode = StringUtf8Multilang::GetLangIndex("en");
+    int8_t const intCode = StringUtf8Multilang::kInternationalCode;
+    int8_t const englishCode = StringUtf8Multilang::kEnglishCode;
 
     if (code == defaultCode)
       m_defaultName = name;

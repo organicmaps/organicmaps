@@ -43,7 +43,7 @@ public:
       LOG(LERROR, ("Read World.mwm error:", ex.Msg()));
     }
 
-    m_finder.SetLanguage(StringUtf8Multilang::GetLangIndex("en"));
+    m_finder.SetLanguage(StringUtf8Multilang::kEnglishCode);
   }
 
   ~LocalityFinderTest()

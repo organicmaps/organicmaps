@@ -107,12 +107,10 @@ using namespace storage;
   }
   else
   {
-    NSArray<NSString *> * activeInputModes = [UITextInputMode activeInputModes];
-    if (activeInputModes.count != 0)
-    {
-      NSString * primaryLanguage = ((UITextInputMode *)activeInputModes[0]).primaryLanguage;
+    NSString * primaryLanguage = self.searchBar.textInputMode.primaryLanguage;
+    if (primaryLanguage)
       m_searchParams.m_inputLocale = primaryLanguage.UTF8String;
-    }
+
     m_searchParams.m_query = searchText.precomposedStringWithCompatibilityMapping.UTF8String;
     GetFramework().SearchInDownloader(m_searchParams);
   }
