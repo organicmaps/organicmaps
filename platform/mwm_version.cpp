@@ -19,7 +19,7 @@ namespace version
 {
 namespace
 {
-uint64_t VersionToSecondsSinceEpoch(uint32_t version)
+uint64_t VersionToSecondsSinceEpoch(uint64_t version)
 {
   auto constexpr partsCount = 3;
   // From left to right YY MM DD.
