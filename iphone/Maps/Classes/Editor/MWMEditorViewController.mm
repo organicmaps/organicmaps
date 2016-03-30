@@ -279,7 +279,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:[UIImage imageNamed:@"ic_placepage_phone_number"]
                            text:@(m_mapObject.GetPhone().c_str())
                     placeholder:L(@"phone")
-                   keyboardType:UIKeyboardTypePhonePad];
+                   keyboardType:UIKeyboardTypeNamePhonePad];
       break;
     }
     case MWMPlacePageCellTypeWebsite:
