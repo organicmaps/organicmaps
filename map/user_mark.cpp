@@ -96,3 +96,16 @@ string DebugMarkPoint::GetSymbolName() const
 {
   return "api-result";
 }
+
+string DebugPrint(UserMark::Type type)
+{
+  switch (type)
+  {
+  case UserMark::Type::API: return "API";
+  case UserMark::Type::SEARCH: return "SEARCH";
+  case UserMark::Type::POI: return "POI";
+  case UserMark::Type::BOOKMARK: return "BOOKMARK";
+  case UserMark::Type::MY_POSITION: return "MY_POSITION";
+  case UserMark::Type::DEBUG_MARK: return "DEBUG_MARK";
+  }
+}
