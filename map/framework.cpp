@@ -1386,7 +1386,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
     if (r.HasPoint())
     {
       SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(r.GetFeatureCenter()));
-      ASSERT(mark->GetMarkType() == UserMark::Type::SEARCH, ());
+      ASSERT_EQUAL(mark->GetMarkType(), UserMark::Type::SEARCH, ());
       if (r.GetResultType() == search::Result::RESULT_FEATURE)
         mark->m_foundFeatureID = r.GetFeatureID();
       mark->m_matchedName = r.GetString();

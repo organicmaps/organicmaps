@@ -104,3 +104,5 @@ public:
 
   Type GetMarkType() const override { return UserMark::Type::DEBUG_MARK; }
 };
+
+string DebugPrint(UserMark::Type type);
