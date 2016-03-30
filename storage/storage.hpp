@@ -637,7 +637,7 @@ void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & countryId, ToDo
 template <class ToDo>
 void Storage::ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const
 {
-  TCountriesSet visitedAncestors;
+  set<TCountryTreeNode const *> visitedAncestors;
   // In most cases nodes.size() == 1. In case of disputable territories nodes.size()
   // may be more than one. It means |childId| is present in the country tree more than once.
   for (auto const & node : nodes)
@@ -646,10 +646,10 @@ void Storage::ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> c
         [&](TCountryTreeNode const & container)
         {
           TCountryId const ancestorId = container.Value().Name();
-          if (visitedAncestors.find(ancestorId) != visitedAncestors.end())
+          if (visitedAncestors.find(&container) != visitedAncestors.end())
             return;  // The node was visited before because countryId is present in the tree more
                      // than once.
-          visitedAncestors.insert(ancestorId);
+          visitedAncestors.insert(&container);
           toDo(ancestorId, container);
         });
   }
