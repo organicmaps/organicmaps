@@ -155,34 +155,33 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)onSave
 {
-  [self.view endEditing:YES];
-// onEditing: method posts notifications which are call resignFirstResponder from each UITextField.
-// For prevent saving edited map object before it was changed we call saving action in async block.
-
-  dispatch_async(dispatch_get_main_queue(), ^
+  if (![self.view endEditing:YES])
   {
-    auto & f = GetFramework();
-    auto const & featureID = self->m_mapObject.GetID();
-    NSDictionary * info = @{kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
-                            kStatEditorMWMVersion : @(featureID.GetMwmVersion())};
+    NSAssert(false, @"We can't save map object because one of text fields can't apply it's text!");
+    return;
+  }
 
-    switch (f.SaveEditedMapObject(self->m_mapObject))
-    {
-      case osm::Editor::NothingWasChanged: 
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        break;
-      case osm::Editor::SavedSuccessfully:
-        [Statistics logEvent:(self.isCreating ? kStatEditorAddSuccess : kStatEditorEditSuccess) withParameters:info];
-        osm_auth_ios::AuthorizationSetNeedCheck(YES);
-        f.UpdatePlacePageInfoForCurrentSelection();
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        break;
-      case osm::Editor::NoFreeSpaceError:
-        [Statistics logEvent:(self.isCreating ? kStatEditorAddError : kStatEditorEditError) withParameters:info];
-        [self.alertController presentDownloaderNotEnoughSpaceAlert];
-        break;
-    }
-  });
+  auto & f = GetFramework();
+  auto const & featureID = m_mapObject.GetID();
+  NSDictionary * info = @{kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
+                          kStatEditorMWMVersion : @(featureID.GetMwmVersion())};
+
+  switch (f.SaveEditedMapObject(m_mapObject))
+  {
+    case osm::Editor::NothingWasChanged: 
+      [self.navigationController popToRootViewControllerAnimated:YES];
+      break;
+    case osm::Editor::SavedSuccessfully:
+      [Statistics logEvent:(self.isCreating ? kStatEditorAddSuccess : kStatEditorEditSuccess) withParameters:info];
+      osm_auth_ios::AuthorizationSetNeedCheck(YES);
+      f.UpdatePlacePageInfoForCurrentSelection();
+      [self.navigationController popToRootViewControllerAnimated:YES];
+      break;
+    case osm::Editor::NoFreeSpaceError:
+      [Statistics logEvent:(self.isCreating ? kStatEditorAddError : kStatEditorEditError) withParameters:info];
+      [self.alertController presentDownloaderNotEnoughSpaceAlert];
+      break;
+  }
 }
 
 #pragma mark - Offscreen cells
@@ -481,9 +480,10 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)cell:(UITableViewCell *)cell changedText:(NSString *)changeText
 {
+  NSAssert(changeText != nil, @"String can't be nil!");
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
-  string const val = changeText.length ? changeText.UTF8String : string();
+  string const val = changeText.UTF8String;
   switch (cellType)
   {
     // TODO(Vlad): Support multilanguage names.
