@@ -24,22 +24,44 @@ using namespace storage;
 namespace
 {
 string const kCountryId = "Angola";
+string const kDisputedCountryId1 = "Jerusalem";
+string const kDisputedCountryId2 = "Crimea";
+string const kDisputedCountryId3 = "Campo de Hielo Sur";
+string const kUndisputedCountryId = "Argentina_Buenos Aires_North";
 
-void Update(TCountryId const &, storage::Storage::TLocalFilePtr const localCountryFile)
+void Update(TCountryId const &, Storage::TLocalFilePtr const localCountryFile)
 {
   TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
 }
 
-} // namespace
-
-UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
+void UpdateWithoutChecks(TCountryId const &, Storage::TLocalFilePtr const /* localCountryFile */)
 {
-  WritableDirChanger writableDirChanger(kMapTestDir);
+}
 
-  Storage storage(COUNTRIES_FILE);
+string const GetMwmFullPath(string const & countryId, string const & version)
+{
+  return my::JoinFoldersToPath({GetPlatform().WritableDir(), version},
+                               countryId + DATA_FILE_EXTENSION);
+}
+
+string const GetDownloadingFullPath(string const & countryId, string const & version)
+{
+  return my::JoinFoldersToPath({GetPlatform().WritableDir(), version},
+                               kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
+}
+
+string const GetResumeFullPath(string const & countryId, string const & version)
+{
+  return my::JoinFoldersToPath({GetPlatform().WritableDir(), version},
+                               kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
+}
+
+void InitStorage(Storage & storage, Storage::TUpdateCallback const & didDownload,
+                 Storage::TProgressFunction const & progress)
+{
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
-  auto ChangeCountryFunction = [&](TCountryId const & countryId)
+  auto const changeCountryFunction = [&](TCountryId const & /* countryId */)
   {
     if (!storage.IsDownloadInProgress())
     {
@@ -48,7 +70,20 @@ UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
     }
   };
 
-  auto ProgressFunction = [&storage](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
+  storage.Init(didDownload, [](TCountryId const &, Storage::TLocalFilePtr const){return false;});
+  storage.RegisterAllLocalMaps();
+  storage.Subscribe(changeCountryFunction, progress);
+  storage.SetDownloadingUrlsForTesting({kTestWebServer});
+}
+} // namespace
+
+UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
+{
+  WritableDirChanger writableDirChanger(kMapTestDir);
+
+  Storage storage(COUNTRIES_FILE);
+
+  auto const progressFunction = [&storage](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
   {
     NodeAttrs nodeAttrs;
     storage.GetNodeAttrs(countryId, nodeAttrs);
@@ -58,28 +93,21 @@ UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
     TEST_EQUAL(countryId, kCountryId, (countryId));
   };
 
-  storage.Init(Update, [](TCountryId const &, storage::Storage::TLocalFilePtr const){return false;});
-  storage.RegisterAllLocalMaps();
-  storage.Subscribe(ChangeCountryFunction, ProgressFunction);
-  storage.SetDownloadingUrlsForTesting({kTestWebServer});
+  InitStorage(storage, Update, progressFunction);
+
   string const version = strings::to_string(storage.GetCurrentDataVersion());
   tests_support::ScopedDir cleanupVersionDir(version);
 
-  string const mwmFullPath = my::JoinFoldersToPath({GetPlatform().WritableDir(), version},
-                                                   kCountryId + DATA_FILE_EXTENSION);
-  string const downloadingFullPath = my::JoinFoldersToPath(
-      {GetPlatform().WritableDir(), version},
-      kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
-  string const resumeFullPath = my::JoinFoldersToPath(
-      {GetPlatform().WritableDir(), version},
-      kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
-  Platform & platform = GetPlatform();
+  string const mwmFullPath = GetMwmFullPath(kCountryId, version);
+  string const downloadingFullPath = GetDownloadingFullPath(kCountryId, version);
+  string const resumeFullPath = GetResumeFullPath(kCountryId, version);
 
   // Downloading to an empty directory.
   storage.DownloadNode(kCountryId);
   // Wait for downloading complete.
   testing::RunEventLoop();
 
+  Platform & platform = GetPlatform();
   TEST(platform.IsFileExistsByFullPath(mwmFullPath), ());
   TEST(!platform.IsFileExistsByFullPath(downloadingFullPath), ());
   TEST(!platform.IsFileExistsByFullPath(resumeFullPath), ());
@@ -93,4 +121,61 @@ UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
 
   storage.DeleteNode(kCountryId);
   TEST(!platform.IsFileExistsByFullPath(mwmFullPath), ());
+}
+
+UNIT_TEST(StorageDownloadAndDeleteDisputedNodeTests)
+{
+  WritableDirChanger writableDirChanger(kMapTestDir);
+
+  Storage storage(COUNTRIES_FILE);
+  auto const progressFunction = [&storage](TCountryId const & countryId,
+      TLocalAndRemoteSize const & mapSize)
+  {
+    NodeAttrs nodeAttrs;
+    storage.GetNodeAttrs(countryId, nodeAttrs);
+
+    TEST_EQUAL(mapSize.first, nodeAttrs.m_downloadingProgress.first, (countryId));
+    TEST_EQUAL(mapSize.second, nodeAttrs.m_downloadingProgress.second, (countryId));
+  };
+
+  InitStorage(storage, UpdateWithoutChecks, progressFunction);
+
+  string const version = strings::to_string(storage.GetCurrentDataVersion());
+  tests_support::ScopedDir cleanupVersionDir(version);
+
+  string const mwmFullPath1 = GetMwmFullPath(kDisputedCountryId1, version);
+  string const mwmFullPath2 = GetMwmFullPath(kDisputedCountryId2, version);
+  string const mwmFullPath3 = GetMwmFullPath(kDisputedCountryId3, version);
+  string const mwmFullPathUndisputed = GetMwmFullPath(kUndisputedCountryId, version);
+
+  // Downloading to an empty directory.
+  storage.DownloadNode(kDisputedCountryId1);
+  storage.DownloadNode(kDisputedCountryId2);
+  storage.DownloadNode(kDisputedCountryId3);
+  storage.DownloadNode(kUndisputedCountryId);
+  // Wait for downloading complete.
+  testing::RunEventLoop();
+
+  Platform & platform = GetPlatform();
+  TEST(platform.IsFileExistsByFullPath(mwmFullPath1), ());
+  TEST(platform.IsFileExistsByFullPath(mwmFullPath2), ());
+  TEST(platform.IsFileExistsByFullPath(mwmFullPath3), ());
+  TEST(platform.IsFileExistsByFullPath(mwmFullPathUndisputed), ());
+
+  TCountriesVec downloadedChildren;
+  TCountriesVec availChildren;
+  storage.GetChildrenInGroups(storage.GetRootId(), downloadedChildren, availChildren);
+
+  TCountriesVec const expectedDownloadedChildren = {"Argentina", kDisputedCountryId2,  kDisputedCountryId1};
+  TEST_EQUAL(downloadedChildren, expectedDownloadedChildren, ());
+  TEST_EQUAL(availChildren.size(), 221, ());
+
+  storage.DeleteNode(kDisputedCountryId1);
+  storage.DeleteNode(kDisputedCountryId2);
+  storage.DeleteNode(kDisputedCountryId3);
+  storage.DeleteNode(kUndisputedCountryId);
+  TEST(!platform.IsFileExistsByFullPath(mwmFullPath1), ());
+  TEST(!platform.IsFileExistsByFullPath(mwmFullPath2), ());
+  TEST(!platform.IsFileExistsByFullPath(mwmFullPath3), ());
+  TEST(!platform.IsFileExistsByFullPath(mwmFullPathUndisputed), ());
 }
