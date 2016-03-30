@@ -2,6 +2,7 @@
 
 #include "std/cmath.hpp"
 #include "std/limits.hpp"
+#include "std/sstream.hpp"
 
 namespace search
 {

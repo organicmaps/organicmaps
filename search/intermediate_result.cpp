@@ -57,14 +57,16 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 
 namespace impl
 {
+PreResult1::PreResult1(): PreResult1(0 /* priority */) {}
+
+PreResult1::PreResult1(double priority) : m_priority(priority) {}
+
 PreResult1::PreResult1(FeatureID const & fID, double priority, int8_t viewportID,
                        v2::PreRankingInfo const & info)
   : m_id(fID), m_priority(priority), m_viewportID(viewportID), m_info(info)
 {
   ASSERT(m_id.IsValid(), ());
 }
-
-PreResult1::PreResult1(double priority) : m_priority(priority) {}
 
 // static
 bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)

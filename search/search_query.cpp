@@ -565,6 +565,34 @@ public:
   bool operator()(ValueT const & r) const { return (m_val.GetID() == r.GetID()); }
 };
 
+void RemoveDuplicatingPreResults1(vector<impl::PreResult1> & results)
+{
+  sort(results.begin(), results.end(), LessFeatureID());
+  size_t i = 0;
+  size_t k = 0;
+  while (i != results.size())
+  {
+    size_t j = i;
+    size_t b = i;
+    while (j != results.size() && results[j].GetID() == results[i].GetID())
+    {
+      auto const & curr = results[j].GetInfo();
+      auto const & best = results[b].GetInfo();
+      if (curr.GetNumTokens() > best.GetNumTokens() ||
+          (curr.GetNumTokens() == best.GetNumTokens() && curr.m_startToken < best.m_startToken))
+      {
+        b = j;
+      }
+      ++j;
+    }
+
+    swap(results[k], results[b]);
+    ++k;
+    i = j;
+  }
+  results.resize(k);
+}
+
 bool IsResultExists(impl::PreResult2 const & p, vector<IndexedValue> const & indV)
 {
   impl::PreResult2::StrictEqualF equalCmp(p);
@@ -695,6 +723,8 @@ void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont
   // make unique set of PreResult1
   using TPreResultSet = set<impl::PreResult1, LessFeatureID>;
   TPreResultSet theSet;
+
+  RemoveDuplicatingPreResults1(m_results);
 
   sort(m_results.begin(), m_results.end(), &impl::PreResult1::LessPriority);
   if (kPreResultsCount != 0 && m_results.size() > kPreResultsCount)
