@@ -96,6 +96,13 @@ Then do a git clone, run `configure.sh` and compile with linux-clang spec:
 
     SPEC=linux-clang tools/unix/build_omim.sh -r
 
+### Debian Jessie
+
+Example [Dockerfile](debian/Dockerfile). In instruction have been compiled Generator Tool and, for routing indices, OSRM backend. I used this command:
+	
+    CONFIG=gtool omim/tools/unix/build_omim.sh -cro
+
+
 ### Windows
 
 We haven't compiled MAPS.ME on Windows in a long time, though it is possible. It is likely
