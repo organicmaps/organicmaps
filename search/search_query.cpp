@@ -551,19 +551,48 @@ namespace
 {
 struct LessFeatureID
 {
-  using ValueT = impl::PreResult1;
-  bool operator()(ValueT const & r1, ValueT const & r2) const { return (r1.GetID() < r2.GetID()); }
+  using TValue = impl::PreResult1;
+
+  inline bool operator()(TValue const & lhs, TValue const & rhs) const
+  {
+    return lhs.GetID() < rhs.GetID();
+  }
 };
 
-class EqualFeatureID
+struct EqualFeatureID
 {
-  using ValueT = impl::PreResult1;
-  ValueT const & m_val;
+  using TValue = impl::PreResult1;
 
-public:
-  explicit EqualFeatureID(ValueT const & v) : m_val(v) {}
-  bool operator()(ValueT const & r) const { return (m_val.GetID() == r.GetID()); }
+  inline bool operator()(TValue const & lhs, TValue const & rhs) const
+  {
+    return lhs.GetID() == rhs.GetID();
+  }
 };
+
+// Orders PreResult1 by following criterion:
+// 1. Feature Id (increasing), if same...
+// 2. Number of matched tokens from the query (decreasing), if same...
+// 3. Index of the first matched token from the query (increasing).
+struct ComparePreResult1
+{
+  bool operator()(impl::PreResult1 const & lhs, impl::PreResult1 const & rhs) const
+  {
+    if (lhs.GetID() != rhs.GetID())
+      return lhs.GetID() < rhs.GetID();
+
+    auto const & linfo = lhs.GetInfo();
+    auto const & rinfo = rhs.GetInfo();
+    if (linfo.GetNumTokens() != rinfo.GetNumTokens())
+      return linfo.GetNumTokens() > rinfo.GetNumTokens();
+    return linfo.m_startToken < rinfo.m_startToken;
+  }
+};
+
+void RemoveDuplicatingPreResults1(vector<impl::PreResult1> & results)
+{
+  sort(results.begin(), results.end(), ComparePreResult1());
+  results.erase(unique(results.begin(), results.end(), EqualFeatureID()), results.end());
+}
 
 bool IsResultExists(impl::PreResult2 const & p, vector<IndexedValue> const & indV)
 {
@@ -695,6 +724,8 @@ void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont
   // make unique set of PreResult1
   using TPreResultSet = set<impl::PreResult1, LessFeatureID>;
   TPreResultSet theSet;
+
+  RemoveDuplicatingPreResults1(m_results);
 
   sort(m_results.begin(), m_results.end(), &impl::PreResult1::LessPriority);
   if (kPreResultsCount != 0 && m_results.size() > kPreResultsCount)

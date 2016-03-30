@@ -98,6 +98,7 @@ SOURCES += \
     v2/locality_scorer.cpp \
     v2/mwm_context.cpp \
     v2/nested_rects_cache.cpp \
+    v2/pre_ranking_info.cpp \
     v2/rank_table_cache.cpp \
     v2/ranking_info.cpp \
     v2/ranking_utils.cpp \

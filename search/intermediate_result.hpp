@@ -33,10 +33,10 @@ class PreResult1
   v2::PreRankingInfo m_info;
 
 public:
+  explicit PreResult1(double priority);
+
   PreResult1(FeatureID const & fID, double priority, int8_t viewportID,
              v2::PreRankingInfo const & info);
-
-  explicit PreResult1(double priority);
 
   static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
   static bool LessPriority(PreResult1 const & r1, PreResult1 const & r2);

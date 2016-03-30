@@ -9,10 +9,13 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/math.hpp"
+
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
 
 using namespace search::tests_support;
+using namespace search::v2;
 
 using TRules = vector<shared_ptr<MatchingRule>>;
 
@@ -262,6 +265,57 @@ UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
     TRules rules = {ExactMatch(worldId, london1), ExactMatch(worldId, london2)};
 
     TEST(MatchResults(m_engine, rules, request.Results()), ());
+  }
+}
+
+UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
+{
+  string const countryName = "Wonderland";
+
+  TestCity sanFrancisco(m2::PointD(1, 1), "San Francisco", "en", 100 /* rank */);
+
+  // Golden Gate Bridge-bridge is located in this test on the Golden
+  // Gate Bridge-street. Therefore, there are several valid parses of
+  // the query "Golden Gate Bridge", and search engine must return
+  // both features (street and bridge) as they were matched by full
+  // name.
+  TestStreet goldenGateStreet(
+      vector<m2::PointD>{m2::PointD(-0.5, -0.5), m2::PointD(0, 0), m2::PointD(0.5, 0.5)},
+      "Golden Gate Bridge", "en");
+  TestPOI goldenGateBridge(m2::PointD(0, 0), "Golden Gate Bridge", "en");
+
+  auto worldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
+                          {
+                            builder.Add(sanFrancisco);
+                          });
+  auto wonderlandId = BuildMwm(countryName,  feature::DataHeader::country, [&](TestMwmBuilder & builder)
+                               {
+                                 builder.Add(goldenGateStreet);
+                                 builder.Add(goldenGateBridge);
+                               });
+  RegisterCountry("Wonderland", m2::RectD(m2::PointD(-2, -2), m2::PointD(2, 2)));
+
+  SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
+  {
+    SearchParams params;
+    params.m_query = "golden gate bridge ";
+    params.m_inputLocale = "en";
+    params.SetMode(Mode::Everywhere);
+    params.SetSuggestsEnabled(false);
+
+    TestSearchRequest request(m_engine, params, m_viewport);
+    request.Wait();
+
+    TRules rules = {ExactMatch(wonderlandId, goldenGateBridge),
+                    ExactMatch(wonderlandId, goldenGateStreet)};
+
+    TEST(MatchResults(m_engine, rules, request.Results()), ());
+    for (auto const & result : request.Results())
+    {
+      auto const & info = result.GetRankingInfo();
+      TEST_EQUAL(NAME_SCORE_FULL_MATCH, info.m_nameScore, ());
+      TEST(my::AlmostEqualAbs(1.0, info.m_nameCoverage, 1e-6), (info.m_nameCoverage));
+    }
   }
 }
 }  // namespace
