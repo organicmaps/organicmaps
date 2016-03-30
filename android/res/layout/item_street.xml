@@ -6,7 +6,12 @@
   android:background="?clickableBackground"
   android:gravity="center_vertical"
   android:orientation="horizontal"
-  android:padding="@dimen/margin_base">
+  android:paddingTop="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_base"
+  android:paddingLeft="@dimen/margin_half_plus"
+  android:paddingStart="@dimen/margin_half_plus"
+  android:paddingRight="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base">
 
   <RadioButton
     android:id="@+id/selected"

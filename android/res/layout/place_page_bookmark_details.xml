@@ -8,22 +8,22 @@
   android:clipChildren="false"
   android:orientation="vertical"
   android:paddingBottom="@dimen/margin_base"
-  android:paddingEnd="@dimen/margin_base"
-  android:paddingLeft="@dimen/margin_base"
-  android:paddingRight="@dimen/margin_base"
-  android:paddingStart="@dimen/margin_base"
   android:visibility="invisible"
   tools:visibility="visible">
 
   <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:background="?attr/dividerHorizontal"/>
+    android:background="?dividerHorizontal"/>
 
   <com.mapswithme.maps.widget.CustomTextInputLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_base">
 
     <EditText
@@ -39,6 +39,10 @@
   <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_base_plus"
     android:lineSpacingMultiplier="1.67"
     android:text="@string/set"
@@ -46,7 +50,11 @@
 
   <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base">
 
     <TextView
       android:id="@+id/tv__bookmark_group"
@@ -91,6 +99,10 @@
     android:id="@+id/tv__bookmark_notes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
     android:lineSpacingMultiplier="1.67"
     android:paddingBottom="@dimen/margin_half"
     android:paddingTop="@dimen/margin_base"
@@ -99,7 +111,11 @@
 
   <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base">
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -132,5 +148,5 @@
     android:layout_width="match_parent"
     android:layout_height="1dp"
     android:layout_marginTop="@dimen/margin_half"
-    android:background="?attr/dividerHorizontal"/>
+    android:background="?dividerHorizontal"/>
 </LinearLayout>

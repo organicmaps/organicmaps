@@ -341,8 +341,16 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mAnimationController.setState(state, mMapObject.getMapObjectType());
 
     if (!mIsDocked && !mIsFloating)
+    {
+      // After ninepatch background is set from code, all paddings are lost, so we need to restore it later.
+      int bottom = mPreview.getPaddingBottom();
+      int left = mPreview.getPaddingLeft();
+      int right = mPreview.getPaddingRight();
+      int top = mPreview.getPaddingTop();
       mPreview.setBackgroundResource(ThemeUtils.getResource(getContext(), state == State.PREVIEW ? R.attr.ppPreviewHeadClosed
                                                                                                  : R.attr.ppPreviewHeadOpen));
+      mPreview.setPadding(left, top, right, bottom);
+    }
   }
 
   public MapObject getMapObject()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout style="@style/PlacePagePreview">
-  <include layout="@layout/place_page_preview_common" />
+  <include layout="@layout/place_page_preview_common"/>
 </LinearLayout>
 

@@ -3,6 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
+
   <com.mapswithme.maps.widget.ObservableScrollView
     android:id="@+id/pp__details"
     android:layout_width="match_parent"
@@ -19,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="@dimen/margin_half"
-        android:background="?attr/dividerHorizontal"/>
+        android:background="?dividerHorizontal"/>
 
       <include layout="@layout/place_page_placename"/>
 
@@ -42,6 +43,13 @@
       <include layout="@layout/place_page_operator"/>
 
       <include layout="@layout/place_page_cuisine"/>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/margin_half"
+        android:layout_marginTop="@dimen/margin_half"
+        android:background="?dividerHorizontal"/>
 
       <include layout="@layout/place_page_editor"/>
 
