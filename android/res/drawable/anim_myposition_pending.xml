@@ -23,4 +23,40 @@
 
   <item android:drawable="@drawable/ic_menu_location_pending_8"
         android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_9"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_10"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_11"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_12"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_13"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_14"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_15"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_16"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_17"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_18"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_19"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_20"
+    android:duration="@integer/anim_location_pending_item"/>
 </animation-list>
