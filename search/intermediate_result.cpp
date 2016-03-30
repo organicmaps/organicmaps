@@ -57,8 +57,6 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 
 namespace impl
 {
-PreResult1::PreResult1(): PreResult1(0 /* priority */) {}
-
 PreResult1::PreResult1(double priority) : m_priority(priority) {}
 
 PreResult1::PreResult1(FeatureID const & fID, double priority, int8_t viewportID,

@@ -551,46 +551,47 @@ namespace
 {
 struct LessFeatureID
 {
-  using ValueT = impl::PreResult1;
-  bool operator()(ValueT const & r1, ValueT const & r2) const { return (r1.GetID() < r2.GetID()); }
+  using TValue = impl::PreResult1;
+
+  inline bool operator()(TValue const & lhs, TValue const & rhs) const
+  {
+    return lhs.GetID() < rhs.GetID();
+  }
 };
 
-class EqualFeatureID
+struct EqualFeatureID
 {
-  using ValueT = impl::PreResult1;
-  ValueT const & m_val;
+  using TValue = impl::PreResult1;
 
-public:
-  explicit EqualFeatureID(ValueT const & v) : m_val(v) {}
-  bool operator()(ValueT const & r) const { return (m_val.GetID() == r.GetID()); }
+  inline bool operator()(TValue const & lhs, TValue const & rhs) const
+  {
+    return lhs.GetID() == rhs.GetID();
+  }
+};
+
+// Orders PreResult1 by following criterion:
+// 1. Feature Id (increasing), if same...
+// 2. Number of matched tokens from the query (decreasing), if same...
+// 3. Index of the first matched token from the query (increasing).
+struct ComparePreResult1
+{
+  bool operator()(impl::PreResult1 const & lhs, impl::PreResult1 const & rhs) const
+  {
+    if (lhs.GetID() != rhs.GetID())
+      return lhs.GetID() < rhs.GetID();
+
+    auto const & linfo = lhs.GetInfo();
+    auto const & rinfo = rhs.GetInfo();
+    if (linfo.GetNumTokens() != rinfo.GetNumTokens())
+      return linfo.GetNumTokens() > rinfo.GetNumTokens();
+    return linfo.m_startToken < rinfo.m_startToken;
+  }
 };
 
 void RemoveDuplicatingPreResults1(vector<impl::PreResult1> & results)
 {
-  sort(results.begin(), results.end(), LessFeatureID());
-  size_t i = 0;
-  size_t k = 0;
-  while (i != results.size())
-  {
-    size_t j = i;
-    size_t b = i;
-    while (j != results.size() && results[j].GetID() == results[i].GetID())
-    {
-      auto const & curr = results[j].GetInfo();
-      auto const & best = results[b].GetInfo();
-      if (curr.GetNumTokens() > best.GetNumTokens() ||
-          (curr.GetNumTokens() == best.GetNumTokens() && curr.m_startToken < best.m_startToken))
-      {
-        b = j;
-      }
-      ++j;
-    }
-
-    swap(results[k], results[b]);
-    ++k;
-    i = j;
-  }
-  results.resize(k);
+  sort(results.begin(), results.end(), ComparePreResult1());
+  results.erase(unique(results.begin(), results.end(), EqualFeatureID()), results.end());
 }
 
 bool IsResultExists(impl::PreResult2 const & p, vector<IndexedValue> const & indV)

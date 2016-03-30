@@ -33,8 +33,6 @@ class PreResult1
   v2::PreRankingInfo m_info;
 
 public:
-  PreResult1();
-
   explicit PreResult1(double priority);
 
   PreResult1(FeatureID const & fID, double priority, int8_t viewportID,
