@@ -225,7 +225,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       {
         if (actionId == EditorInfo.IME_ACTION_DONE)
         {
-          saveBookmarkNameIfUpdated();
+          saveBookmarkTitleIfUpdated();
           refreshPreview();
         }
 
@@ -355,7 +355,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public MapObject getMapObject()
   {
-    saveBookmarkNameIfUpdated();
+    saveBookmarkTitleIfUpdated();
     return mMapObject;
   }
 
@@ -369,7 +369,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       return;
 
     if (!(mapObject instanceof Bookmark))
-      saveBookmarkNameIfUpdated();
+      saveBookmarkTitleIfUpdated();
 
     mMapObject = mapObject;
     refreshViews();
@@ -632,22 +632,22 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mAnimationController.setOnVisibilityChangedListener(listener);
   }
 
-  private void saveBookmarkNameIfUpdated()
+  private void saveBookmarkTitleIfUpdated()
   {
     // Can't save bookmark name if current object is not bookmark.
     if (mMapObject == null || !(mMapObject instanceof Bookmark))
       return;
 
     final Bookmark bookmark = (Bookmark) mMapObject;
-    final String name = mEtBookmarkName.getText().toString();
-    bookmark.setParams(name, null, bookmark.getBookmarkDescription());
+    final String title = mEtBookmarkName.getText().toString();
+    bookmark.setParams(title, null, bookmark.getBookmarkDescription());
   }
 
   /**
    * Adds listener to {@link EditDescriptionFragment} to catch notification about bookmark description edit is complete.
    * <br/>When the user rotates device screen the listener is lost, so we must re-subscribe again.
    *
-   * @param fragment if specified - explicitely subscribe to this fragment. Otherwise try to find the fragment by hands.
+   * @param fragment if specified - explicitly subscribe to this fragment. Otherwise try to find the fragment by hands.
    */
   private void subscribeBookmarkEditFragment(@Nullable EditDescriptionFragment fragment)
   {
@@ -666,7 +666,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       public void onSaved(Bookmark bookmark)
       {
         final Bookmark updatedBookmark = BookmarkManager.INSTANCE.getBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId());
-        setMapObject(updatedBookmark, false);
+        setMapObject(updatedBookmark, true);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_DESCRIPTION_CHANGED);
       }
     });
@@ -694,7 +694,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       showReportForm(mMapObject);
       break;
     case R.id.iv__bookmark_color:
-      saveBookmarkNameIfUpdated();
+      saveBookmarkTitleIfUpdated();
       selectBookmarkColor();
       break;
     case R.id.ll__bookmark:
@@ -743,7 +743,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       followUrl(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
       break;
     case R.id.tv__bookmark_group:
-      saveBookmarkNameIfUpdated();
+      saveBookmarkTitleIfUpdated();
       selectBookmarkSet();
       break;
     case R.id.av__direction:
@@ -759,7 +759,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.tv__bookmark_notes:
     case R.id.tv__description:
     case R.id.btn__edit_html_bookmark:
-      saveBookmarkNameIfUpdated();
+      saveBookmarkTitleIfUpdated();
       final Bundle args = new Bundle();
       args.putParcelable(EditDescriptionFragment.EXTRA_BOOKMARK, mMapObject);
       String name = EditDescriptionFragment.class.getName();
@@ -796,13 +796,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     // specific Bookmark object instance.
     if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
     {
-      final Bookmark currentBookmark = (Bookmark) mMapObject;
-      setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), false);
+      setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), true);
       setState(State.DETAILS);
     }
     else
     {
-      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(BookmarkManager.nativeFormatNewBookmarkName(), mMapObject.getLat(), mMapObject.getLon()), false);
+      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(BookmarkManager.nativeFormatNewBookmarkName(), mMapObject.getLat(), mMapObject.getLon()), true);
       // FIXME this hack is necessary to get correct views height in animation controller. remove after further investigation.
       post(new Runnable()
       {
@@ -823,7 +822,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     final Bundle args = new Bundle();
     args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, bookmark.getCategoryId());
     args.putInt(ChooseBookmarkCategoryFragment.BOOKMARK_ID, bookmark.getBookmarkId());
-    final ChooseBookmarkCategoryFragment fragment = (ChooseBookmarkCategoryFragment) Fragment.instantiate(activity, ChooseBookmarkCategoryFragment.class.getName(), args);
+    final ChooseBookmarkCategoryFragment fragment =
+        (ChooseBookmarkCategoryFragment) Fragment.instantiate(activity, ChooseBookmarkCategoryFragment.class.getName(), args);
     fragment.show(activity.getSupportFragmentManager(), null);
   }
 
@@ -843,12 +843,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         final Icon newIcon = BookmarkManager.ICONS.get(colorPos);
         final String from = bmk.getIcon().getName();
         final String to = newIcon.getName();
-        if (!TextUtils.equals(from, to))
-          Statistics.INSTANCE.trackColorChanged(from, to);
+        if (TextUtils.equals(from, to))
+          return;
 
+        Statistics.INSTANCE.trackColorChanged(from, to);
         bmk.setParams(bmk.getTitle(), newIcon, bmk.getBookmarkDescription());
         bmk = BookmarkManager.INSTANCE.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
-        setMapObject(bmk, false);
+        setMapObject(bmk, true);
       }
     });
 

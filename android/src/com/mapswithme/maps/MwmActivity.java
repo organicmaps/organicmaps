@@ -1344,7 +1344,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onCategoryChanged(int bookmarkId, int newCategoryId)
   {
-    mPlacePage.setMapObject(BookmarkManager.INSTANCE.getBookmark(newCategoryId, bookmarkId), false);
+    mPlacePage.setMapObject(BookmarkManager.INSTANCE.getBookmark(newCategoryId, bookmarkId), true);
   }
 
   @Override
