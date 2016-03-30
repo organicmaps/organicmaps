@@ -111,6 +111,7 @@ extern NSString * const kAlohalyticsTapEventKey;
       break;
     }
     case routing::IRouter::Cancelled:
+    case routing::IRouter::NeedMoreMaps:
       break;
     default:
       [self handleRoutingError];
