@@ -178,6 +178,9 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       UiUtils.showIf(!hasLocation, mLlNoLocation);
       refreshDownloadButton();
 
+      if (hasLocation)
+        mTvCountry.setText(mCurrentCountry.name);
+
       if (mDownloadingCountry != null)
       {
         mDownloadingCountry.progress = 0;
@@ -186,7 +189,6 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       return;
     }
 
-    mTvCountry.setText(mDownloadingCountry.name);
     mTvActiveCountry.setText(mDownloadingCountry.name);
     updateProgress();
   }
