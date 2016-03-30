@@ -24,14 +24,14 @@ public final class Notifier
 
   private Notifier() { }
 
-  public static void notifyUpdateAvailable(String countryName)
+  public static void notifyUpdateAvailable(String countriesName)
   {
     final String title = APP.getString(R.string.advise_update_maps);
 
     final PendingIntent pi = PendingIntent.getActivity(APP, 0, MwmActivity.createUpdateMapsIntent(),
         PendingIntent.FLAG_UPDATE_CURRENT);
 
-    placeNotification(title, countryName, pi, ID_UPDATE_AVAILABLE);
+    placeNotification(title, countriesName, pi, ID_UPDATE_AVAILABLE);
   }
 
   public static void notifyDownloadFailed(CountryItem country)
