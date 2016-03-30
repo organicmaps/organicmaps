@@ -33,26 +33,27 @@
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+//TODO: Here we need to validate textField and report to delegate if it's valid.
+/*
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-  [self.delegate cellBeginEditing:self];
-  return YES;
-}
-
-- (BOOL)textField:(UITextField *)textField
-    shouldChangeCharactersInRange:(NSRange)range
-                replacementString:(NSString *)string
-{
-  NSAssert(string, @"String can't be nil!");
   if (!string)
+  {
+    [self.delegate fieldIsCorrect:YES];
     return YES;
+  }
 
   NSString * newString =
-      [textField.text stringByReplacingCharactersInRange:range withString:string];
+  [textField.text stringByReplacingCharactersInRange:range withString:string];
   BOOL const isCorrect = [textField.validator validateString:newString];
-  if (isCorrect)
-    [self.delegate cell:self changeText:newString];
+  [self.delegate fieldIsCorrect:isCorrect];
   return YES;
+}
+*/
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+  [self.delegate cell:self changedText:textField.text];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
