@@ -155,6 +155,12 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)onSave
 {
+  if (![self.view endEditing:YES])
+  {
+    NSAssert(false, @"We can't save map object because one of text fields can't apply it's text!");
+    return;
+  }
+
   auto & f = GetFramework();
   auto const & featureID = m_mapObject.GetID();
   NSDictionary * info = @{kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
@@ -472,12 +478,9 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 #pragma mark - MWMEditorCellProtocol
 
-- (void)cellBeginEditing:(UITableViewCell *)cell
+- (void)cell:(UITableViewCell *)cell changedText:(NSString *)changeText
 {
-}
-
-- (void)cell:(UITableViewCell *)cell changeText:(NSString *)changeText
-{
+  NSAssert(changeText != nil, @"String can't be nil!");
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   string const val = changeText.UTF8String;

@@ -33,26 +33,9 @@
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+- (void)textFieldDidEndEditing:(UITextField *)textField
 {
-  [self.delegate cellBeginEditing:self];
-  return YES;
-}
-
-- (BOOL)textField:(UITextField *)textField
-    shouldChangeCharactersInRange:(NSRange)range
-                replacementString:(NSString *)string
-{
-  NSAssert(string, @"String can't be nil!");
-  if (!string)
-    return YES;
-
-  NSString * newString =
-      [textField.text stringByReplacingCharactersInRange:range withString:string];
-  BOOL const isCorrect = [textField.validator validateString:newString];
-  if (isCorrect)
-    [self.delegate cell:self changeText:newString];
-  return YES;
+  [self.delegate cell:self changedText:textField.text];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
