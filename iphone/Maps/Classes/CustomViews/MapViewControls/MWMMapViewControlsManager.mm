@@ -406,7 +406,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   self.routeSource = from;
   if ((from.IsMyPosition() && self.routeDestination.IsMyPosition()) || from == self.routeDestination)
+  {
+    GetFramework().CloseRouting();
     self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
+  }
 
   if (IPAD)
     self.searchManager.state = MWMSearchManagerStateHidden;
@@ -419,7 +422,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   self.routeDestination = to;
   if ((to.IsMyPosition() && self.routeSource.IsMyPosition()) || to == self.routeSource)
+  {
+    GetFramework().CloseRouting();
     self.routeSource = MWMRoutePoint::MWMRoutePointZero();
+  }
 
   if (IPAD)
     self.searchManager.state = MWMSearchManagerStateHidden;
