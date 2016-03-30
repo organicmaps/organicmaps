@@ -28,7 +28,7 @@
       android:fontFamily="@string/robotoMedium"
       android:gravity="center"
       android:text="@string/login_to_make_edits_visible"
-      android:textColor="@color/text_dark"
+      android:textColor="?android:textColorPrimary"
       android:textSize="@dimen/text_size_toolbar"
       tools:ignore="UnusedAttribute"/>
 
@@ -65,10 +65,9 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/editor_auth_btn_height"
       android:fontFamily="@string/robotoMedium"
-      android:text="OpenStreetMap"
+      android:text="@string/openstreetmap"
       android:textAllCaps="false"
       android:textAppearance="@style/MwmTextAppearance.Body1.Light"
-      tools:ignore="HardcodedText"
       tools:targetApi="jelly_bean"/>
 
     <Button
@@ -77,12 +76,12 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
-      android:background="?buttonLight"
+      android:background="@drawable/button_editor_light"
       android:fontFamily="@string/robotoMedium"
       android:padding="@dimen/margin_quarter"
       android:text="@string/register_at_openstreetmap"
       android:textAppearance="@style/MwmTextAppearance.Body1"
-      tools:ignore="HardcodedText"
+      android:textColor="@color/text_dark"
       tools:targetApi="jelly_bean"/>
 
   </LinearLayout>

@@ -38,7 +38,6 @@
     <attr name="accentButtonTextColorDisabled" format="color"/>
 
     <attr name="circleAccent" format="reference"/>
-    <attr name="buttonLight" format="reference"/>
 
     <attr name="menuBackgroundClosed" format="color"/>
     <attr name="menuBackgroundOpen" format="color"/>

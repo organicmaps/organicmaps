@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <include
           android:id="@+id/local_edits"
@@ -77,7 +77,8 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="20dp"
           android:text="@string/login_to_make_edits_visible"
-          android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
+          android:textAppearance="@style/MwmTextAppearance.Body3.Light"
+          android:textColor="@color/text_light"/>
 
         <LinearLayout
           android:layout_width="match_parent"
@@ -93,7 +94,7 @@
             android:layout_marginEnd="@dimen/margin_half_plus"
             android:layout_marginRight="@dimen/margin_half_plus"
             android:layout_weight="1"
-            android:background="?buttonLight"
+            android:background="@drawable/button_editor_light"
             android:drawableLeft="@drawable/ic_login_google"
             android:drawableStart="@drawable/ic_login_google"
             android:fontFamily="@string/robotoMedium"
@@ -103,6 +104,7 @@
             android:paddingStart="@dimen/margin_half"
             android:text="@string/google"
             android:textAppearance="@style/MwmTextAppearance.Body1"
+            android:textColor="@color/text_dark"
             tools:targetApi="jelly_bean"/>
 
           <Button
@@ -111,7 +113,7 @@
             android:layout_height="@dimen/editor_auth_btn_height"
             android:layout_marginBottom="@dimen/margin_half_plus"
             android:layout_weight="1"
-            android:background="@color/bg_editor_login_fb"
+            android:background="@drawable/com_facebook_button_background"
             android:drawableLeft="@drawable/ic_login_fb"
             android:drawableStart="@drawable/ic_login_fb"
             android:fontFamily="@string/robotoMedium"
@@ -121,6 +123,7 @@
             android:paddingStart="@dimen/margin_half"
             android:text="@string/facebook"
             android:textAppearance="@style/MwmTextAppearance.Body1.Light"
+            android:textColor="@color/text_light"
             tools:targetApi="jelly_bean"/>
 
         </LinearLayout>
@@ -141,7 +144,8 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_double"
           android:text="@string/no_osm_account"
-          android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
+          android:textAppearance="@style/MwmTextAppearance.Body3.Light"
+          android:textColor="@color/text_light"/>
 
         <TextView
           android:id="@+id/register"
@@ -153,7 +157,8 @@
           android:paddingTop="@dimen/margin_half"
           android:text="@string/register_at_openstreetmap"
           android:textAllCaps="true"
-          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"
+          android:textColor="@color/text_light"/>
 
       </LinearLayout>
 
