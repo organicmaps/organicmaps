@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "storage/storage_integration_tests/test_defines.hpp"
+
 #include "map/framework.hpp"
 
 #include "platform/http_request.hpp"
@@ -19,11 +21,6 @@ using namespace storage;
 
 namespace
 {
-
-string const kTestWebServer = "http://direct.mapswithme.com/";
-
-string const kMapTestDir = "map-tests";
-
 string const kCountriesTxtFile = COUNTRIES_FILE;
 
 string const kMwmVersion1 = "160316";

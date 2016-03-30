@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "storage/storage_integration_tests/test_defines.hpp"
+
 #include "map/framework.hpp"
 
 #include "platform/http_request.hpp"
@@ -24,11 +26,6 @@ using namespace storage;
 
 namespace
 {
-
-string const kTestWebServer = "http://direct.mapswithme.com/";
-
-string const kMapTestDir = "map-tests";
-
 TCountryId const kGroupCountryId = "New Zealand";
 TCountriesSet const kLeafCountriesIds = {"Tokelau",
                                          "New Zealand North_Auckland",

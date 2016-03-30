@@ -25,6 +25,7 @@ win32*|linux* {
 }
 
 HEADERS += \
+  test_defines.hpp
 
 SOURCES += \
   ../../testing/testingmain.cpp \
@@ -34,3 +35,4 @@ SOURCES += \
   storage_group_download_tests.cpp \
   storage_http_tests.cpp \
   storage_update_tests.cpp \
+    test_defines.cpp
