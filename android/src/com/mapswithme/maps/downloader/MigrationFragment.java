@@ -1,9 +1,11 @@
 package com.mapswithme.maps.downloader;
 
+import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.WheelProgressView;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -56,6 +59,51 @@ public class MigrationFragment extends BaseMwmFragment
     return inflater.inflate(R.layout.fragment_migrate, container, false);
   }
 
+  private void checkConnection()
+  {
+    if (!ConnectionState.isConnected())
+    {
+      class Holder
+      {
+        boolean accepted;
+      }
+
+      final Holder holder = new Holder();
+      new AlertDialog.Builder(getActivity())
+                     .setMessage(R.string.common_check_internet_connection_dialog)
+                     .setNegativeButton(android.R.string.cancel, null)
+                     .setPositiveButton(R.string.downloader_retry, new DialogInterface.OnClickListener()
+                     {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which)
+                       {
+                         holder.accepted = true;
+                         checkConnection();
+                       }
+                     }).setOnDismissListener(new DialogInterface.OnDismissListener()
+                     {
+                       @Override
+                       public void onDismiss(DialogInterface dialog)
+                       {
+                         if (holder.accepted)
+                           return;
+
+                         if (getActivity() instanceof MwmActivity)
+                           ((MwmActivity)getActivity()).closeSidePanel();
+                         else
+                           getActivity().finish();
+                       }
+                     }).show();
+    }
+  }
+
+  @Override
+  public void onActivityCreated(@Nullable Bundle savedInstanceState)
+  {
+    super.onActivityCreated(savedInstanceState);
+    checkConnection();
+  }
+
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
@@ -69,6 +117,7 @@ public class MigrationFragment extends BaseMwmFragment
 
     mButtonPrimary.setOnClickListener(mButtonClickListener);
     mButtonSecondary.setOnClickListener(mButtonClickListener);
+    UiUtils.updateAccentButton(mButtonPrimary);
 
     mProgress.setOnClickListener(new View.OnClickListener()
     {
@@ -101,15 +150,11 @@ public class MigrationFragment extends BaseMwmFragment
   @Override
   public void setReadyState()
   {
-    UiUtils.show(mButtonPrimary, mButtonSecondary);
+    UiUtils.show(mButtonPrimary);
     UiUtils.hide(mPrepare, mProgress, mError);
 
     Location loc = LocationHelper.INSTANCE.getLastLocation();
-    if (loc == null)
-      UiUtils.setTextAndShow(mError, getString(R.string.undefined_location));
-
-    mButtonPrimary.setEnabled(loc != null);
-    UiUtils.updateAccentButton(mButtonPrimary);
+    UiUtils.showIf(loc != null, mButtonSecondary);
   }
 
   @Override

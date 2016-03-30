@@ -59,8 +59,7 @@
 
     <FrameLayout
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_base">
+      android:layout_height="wrap_content">
       <Button
         android:id="@+id/button_primary"
         android:text="@string/migration_update_all_button"
@@ -81,6 +80,7 @@
     <Button
       android:id="@+id/button_secondary"
       style="@style/MwmWidget.Button"
+      android:layout_marginTop="@dimen/margin_base"
       android:text="@string/migration_delete_all_download_current_button"
       android:textColor="?colorAccent"/>
   </LinearLayout>

@@ -483,7 +483,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return true;
   }
 
-  private boolean closeSidePanel()
+  public boolean closeSidePanel()
   {
     if (interceptBackPress())
       return true;
