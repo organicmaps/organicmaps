@@ -121,6 +121,6 @@
       android:background="?clickableBackground"
       wheel:wheelProgressColor="?colorAccent"
       wheel:wheelSecondaryColor="?dividerHorizontal"
-      wheel:wheelThickness="@dimen/margin_quarter"/>
+      wheel:wheelThickness="@dimen/margin_eighth"/>
   </LinearLayout>
 </com.mapswithme.maps.widget.HeightLimitedFrameLayout>
