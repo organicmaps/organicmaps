@@ -1,15 +1,12 @@
-#import "MWMStreetEditorCommonTableViewCell.h"
 #import "MWMStreetEditorEditTableViewCell.h"
 #import "MWMStreetEditorViewController.h"
 
 namespace
 {
-  NSString * const kStreetEditorCommonCell = @"MWMStreetEditorCommonTableViewCell";
   NSString * const kStreetEditorEditCell = @"MWMStreetEditorEditTableViewCell";
 } // namespace
 
-@interface MWMStreetEditorViewController ()<MWMStreetEditorCommonTableViewCellProtocol,
-                                             MWMStreetEditorEditCellProtocol>
+@interface MWMStreetEditorViewController () <MWMStreetEditorEditCellProtocol>
 
 @property (nonatomic) NSMutableArray<NSString *> * streets;
 
@@ -64,8 +61,6 @@ namespace
 
 - (void)configTable
 {
-  [self.tableView registerNib:[UINib nibWithNibName:kStreetEditorCommonCell bundle:nil]
-       forCellReuseIdentifier:kStreetEditorCommonCell];
   [self.tableView registerNib:[UINib nibWithNibName:kStreetEditorEditCell bundle:nil]
        forCellReuseIdentifier:kStreetEditorEditCell];
 }
@@ -84,14 +79,6 @@ namespace
   [self onCancel];
 }
 
-#pragma mark - MWMStreetEditorCommonTableViewCellProtocol
-
-- (void)selectCell:(UITableViewCell *)selectedCell
-{
-  self.selectedStreet = [self.tableView indexPathForCell:selectedCell].row;
-  [self onDone];
-}
-
 - (void)fillCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
 {
   if ([cell isKindOfClass:[MWMStreetEditorEditTableViewCell class]])
@@ -99,13 +86,13 @@ namespace
     MWMStreetEditorEditTableViewCell * tCell = (MWMStreetEditorEditTableViewCell *)cell;
     [tCell configWithDelegate:self street:self.editedStreetName];
   }
-  else if ([cell isKindOfClass:[MWMStreetEditorCommonTableViewCell class]])
+  else
   {
     NSUInteger const index = indexPath.row;
-    MWMStreetEditorCommonTableViewCell * tCell = (MWMStreetEditorCommonTableViewCell *)cell;
     NSString * street = self.streets[index];
     BOOL const selected = (self.selectedStreet == index);
-    [tCell configWithDelegate:self street:street selected:selected];
+    cell.textLabel.text = street;
+    cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
   }
 }
 
@@ -130,7 +117,7 @@ namespace
   }
   for (UITableViewCell * cell in self.tableView.visibleCells)
   {
-    if (![cell isKindOfClass:[MWMStreetEditorCommonTableViewCell class]])
+    if ([cell isKindOfClass:[MWMStreetEditorEditTableViewCell class]])
       continue;
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     [self fillCell:cell indexPath:indexPath];
@@ -145,7 +132,7 @@ namespace
   if (streetsCount == 0)
     return [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
   if (indexPath.section == 0)
-    return [tableView dequeueReusableCellWithIdentifier:kStreetEditorCommonCell];
+    return [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
   else
     return [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
 }
@@ -164,6 +151,12 @@ namespace
 }
 
 #pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  self.selectedStreet = indexPath.row;
+  [self onDone];
+}
 
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {

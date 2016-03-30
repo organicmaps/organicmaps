@@ -276,10 +276,6 @@
 		34F45E8E1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F45E8D1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm */; };
 		34F45E901B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */; };
 		34F8ADD91B97229A004184CC /* MWMSearchTableView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */; };
-		34F9FB871C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F9FB831C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.mm */; };
-		34F9FB881C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F9FB831C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.mm */; };
-		34F9FB891C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F9FB841C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib */; };
-		34F9FB8A1C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F9FB841C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib */; };
 		34F9FB8B1C438ADB00F71201 /* MWMStreetEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F9FB861C438ADB00F71201 /* MWMStreetEditorViewController.mm */; };
 		34F9FB8C1C438ADB00F71201 /* MWMStreetEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F9FB861C438ADB00F71201 /* MWMStreetEditorViewController.mm */; };
 		34F9FB901C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F9FB8E1C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.mm */; };
@@ -1158,9 +1154,6 @@
 		34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchTabButtonsView.xib; sourceTree = "<group>"; };
 		34F8ADD71B97229A004184CC /* MWMSearchTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTableView.h; sourceTree = "<group>"; };
 		34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTableView.mm; sourceTree = "<group>"; };
-		34F9FB821C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStreetEditorCommonTableViewCell.h; sourceTree = "<group>"; };
-		34F9FB831C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStreetEditorCommonTableViewCell.mm; sourceTree = "<group>"; };
-		34F9FB841C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMStreetEditorCommonTableViewCell.xib; sourceTree = "<group>"; };
 		34F9FB851C438ADB00F71201 /* MWMStreetEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStreetEditorViewController.h; sourceTree = "<group>"; };
 		34F9FB861C438ADB00F71201 /* MWMStreetEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStreetEditorViewController.mm; sourceTree = "<group>"; };
 		34F9FB8D1C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStreetEditorEditTableViewCell.h; sourceTree = "<group>"; };
@@ -2406,9 +2399,6 @@
 			children = (
 				34F9FB851C438ADB00F71201 /* MWMStreetEditorViewController.h */,
 				34F9FB861C438ADB00F71201 /* MWMStreetEditorViewController.mm */,
-				34F9FB821C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.h */,
-				34F9FB831C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.mm */,
-				34F9FB841C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib */,
 				34F9FB8D1C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.h */,
 				34F9FB8E1C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.mm */,
 				34F9FB8F1C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.xib */,
@@ -3289,7 +3279,6 @@
 				34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */,
 				3401CD711C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib in Resources */,
 				347FD8751C60B2CE002FB65E /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
-				34F9FB891C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib in Resources */,
 				6B9978351C89A316003B8AA0 /* editor.config in Resources */,
 				F6588E381B15D87A00EE1E58 /* MWMBookmarkColorCell.xib in Resources */,
 				3401CD691C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib in Resources */,
@@ -3437,7 +3426,6 @@
 				6741A9781BF340DE002C974C /* AddSetTableViewCell.xib in Resources */,
 				6741A9791BF340DE002C974C /* Localizable.strings in Resources */,
 				9DA46A091C47E92100EF52BA /* resources-hdpi_legacy in Resources */,
-				34F9FB8A1C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib in Resources */,
 				34CCFDD81C22915600F28959 /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				6741A97A1BF340DE002C974C /* MWMSearchView.xib in Resources */,
 				6741A97C1BF340DE002C974C /* MWMBookmarkColorCell.xib in Resources */,
@@ -3701,7 +3689,6 @@
 				978F9244183B660F000D6C7C /* SwitchCell.mm in Sources */,
 				342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.mm in Sources */,
 				F626D52E1C3E6CAA00C17D15 /* MWMTableViewCell.mm in Sources */,
-				34F9FB871C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.mm in Sources */,
 				F64F4B6D1B46A51F0081A24A /* MWMDownloaderDialogCell.mm in Sources */,
 				3491E7CB1C06F1F10042FE24 /* MWMPlacePageButtonCell.mm in Sources */,
 				97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
@@ -3916,7 +3903,6 @@
 				6741AA191BF340DE002C974C /* MWMDownloaderDialogCell.mm in Sources */,
 				6741AA1A1BF340DE002C974C /* SettingsAndMoreVC.mm in Sources */,
 				6741AA1B1BF340DE002C974C /* MWMDirectionView.mm in Sources */,
-				34F9FB881C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.mm in Sources */,
 				3491E7CC1C06F1F10042FE24 /* MWMPlacePageButtonCell.mm in Sources */,
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.mm in Sources */,
 				6741AA1D1BF340DE002C974C /* MWMDownloadTransitMapAlert.mm in Sources */,
