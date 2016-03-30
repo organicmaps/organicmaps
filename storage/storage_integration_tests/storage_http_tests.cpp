@@ -75,35 +75,46 @@ void InitStorage(Storage & storage, Storage::TUpdateCallback const & didDownload
   storage.Subscribe(changeCountryFunction, progress);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 }
-} // namespace
 
-UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
+class StorageHttpTest
 {
-  WritableDirChanger writableDirChanger(kMapTestDir);
+protected:
+  WritableDirChanger const m_writableDirChanger;
+  Storage m_storage;
+  string const m_version;
+  tests_support::ScopedDir const m_cleanupVersionDir;
 
-  Storage storage(COUNTRIES_FILE);
+public:
+  StorageHttpTest()
+    : m_writableDirChanger(kMapTestDir), m_storage(COUNTRIES_FILE),
+      m_version(strings::to_string(m_storage.GetCurrentDataVersion())),
+      m_cleanupVersionDir(m_version)
+  {
+    TEST(version::IsSingleMwm(m_storage.GetCurrentDataVersion()), ());
+  }
+};
+}  // namespace
 
-  auto const progressFunction = [&storage](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
+UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
+{
+  auto const progressFunction = [this](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
   {
     NodeAttrs nodeAttrs;
-    storage.GetNodeAttrs(countryId, nodeAttrs);
+    m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
     TEST_EQUAL(mapSize.first, nodeAttrs.m_downloadingProgress.first, (countryId));
     TEST_EQUAL(mapSize.second, nodeAttrs.m_downloadingProgress.second, (countryId));
     TEST_EQUAL(countryId, kCountryId, (countryId));
   };
 
-  InitStorage(storage, Update, progressFunction);
+  InitStorage(m_storage, Update, progressFunction);
 
-  string const version = strings::to_string(storage.GetCurrentDataVersion());
-  tests_support::ScopedDir cleanupVersionDir(version);
-
-  string const mwmFullPath = GetMwmFullPath(kCountryId, version);
-  string const downloadingFullPath = GetDownloadingFullPath(kCountryId, version);
-  string const resumeFullPath = GetResumeFullPath(kCountryId, version);
+  string const mwmFullPath = GetMwmFullPath(kCountryId, m_version);
+  string const downloadingFullPath = GetDownloadingFullPath(kCountryId, m_version);
+  string const resumeFullPath = GetResumeFullPath(kCountryId, m_version);
 
   // Downloading to an empty directory.
-  storage.DownloadNode(kCountryId);
+  m_storage.DownloadNode(kCountryId);
   // Wait for downloading complete.
   testing::RunEventLoop();
 
@@ -113,46 +124,40 @@ UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
   TEST(!platform.IsFileExistsByFullPath(resumeFullPath), ());
 
   // Downloading to directory with Angola.mwm.
-  storage.DownloadNode(kCountryId);
+  m_storage.DownloadNode(kCountryId);
 
   TEST(platform.IsFileExistsByFullPath(mwmFullPath), ());
   TEST(!platform.IsFileExistsByFullPath(downloadingFullPath), ());
   TEST(!platform.IsFileExistsByFullPath(resumeFullPath), ());
 
-  storage.DeleteNode(kCountryId);
+  m_storage.DeleteNode(kCountryId);
   TEST(!platform.IsFileExistsByFullPath(mwmFullPath), ());
 }
 
-UNIT_TEST(StorageDownloadAndDeleteDisputedNodeTests)
+UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
 {
-  WritableDirChanger writableDirChanger(kMapTestDir);
-
-  Storage storage(COUNTRIES_FILE);
-  auto const progressFunction = [&storage](TCountryId const & countryId,
+  auto const progressFunction = [this](TCountryId const & countryId,
       TLocalAndRemoteSize const & mapSize)
   {
     NodeAttrs nodeAttrs;
-    storage.GetNodeAttrs(countryId, nodeAttrs);
+    m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
     TEST_EQUAL(mapSize.first, nodeAttrs.m_downloadingProgress.first, (countryId));
     TEST_EQUAL(mapSize.second, nodeAttrs.m_downloadingProgress.second, (countryId));
   };
 
-  InitStorage(storage, UpdateWithoutChecks, progressFunction);
+  InitStorage(m_storage, UpdateWithoutChecks, progressFunction);
 
-  string const version = strings::to_string(storage.GetCurrentDataVersion());
-  tests_support::ScopedDir cleanupVersionDir(version);
-
-  string const mwmFullPath1 = GetMwmFullPath(kDisputedCountryId1, version);
-  string const mwmFullPath2 = GetMwmFullPath(kDisputedCountryId2, version);
-  string const mwmFullPath3 = GetMwmFullPath(kDisputedCountryId3, version);
-  string const mwmFullPathUndisputed = GetMwmFullPath(kUndisputedCountryId, version);
+  string const mwmFullPath1 = GetMwmFullPath(kDisputedCountryId1, m_version);
+  string const mwmFullPath2 = GetMwmFullPath(kDisputedCountryId2, m_version);
+  string const mwmFullPath3 = GetMwmFullPath(kDisputedCountryId3, m_version);
+  string const mwmFullPathUndisputed = GetMwmFullPath(kUndisputedCountryId, m_version);
 
   // Downloading to an empty directory.
-  storage.DownloadNode(kDisputedCountryId1);
-  storage.DownloadNode(kDisputedCountryId2);
-  storage.DownloadNode(kDisputedCountryId3);
-  storage.DownloadNode(kUndisputedCountryId);
+  m_storage.DownloadNode(kDisputedCountryId1);
+  m_storage.DownloadNode(kDisputedCountryId2);
+  m_storage.DownloadNode(kDisputedCountryId3);
+  m_storage.DownloadNode(kUndisputedCountryId);
   // Wait for downloading complete.
   testing::RunEventLoop();
 
@@ -164,16 +169,16 @@ UNIT_TEST(StorageDownloadAndDeleteDisputedNodeTests)
 
   TCountriesVec downloadedChildren;
   TCountriesVec availChildren;
-  storage.GetChildrenInGroups(storage.GetRootId(), downloadedChildren, availChildren);
+  m_storage.GetChildrenInGroups(m_storage.GetRootId(), downloadedChildren, availChildren);
 
   TCountriesVec const expectedDownloadedChildren = {"Argentina", kDisputedCountryId2,  kDisputedCountryId1};
   TEST_EQUAL(downloadedChildren, expectedDownloadedChildren, ());
   TEST_EQUAL(availChildren.size(), 221, ());
 
-  storage.DeleteNode(kDisputedCountryId1);
-  storage.DeleteNode(kDisputedCountryId2);
-  storage.DeleteNode(kDisputedCountryId3);
-  storage.DeleteNode(kUndisputedCountryId);
+  m_storage.DeleteNode(kDisputedCountryId1);
+  m_storage.DeleteNode(kDisputedCountryId2);
+  m_storage.DeleteNode(kDisputedCountryId3);
+  m_storage.DeleteNode(kUndisputedCountryId);
   TEST(!platform.IsFileExistsByFullPath(mwmFullPath1), ());
   TEST(!platform.IsFileExistsByFullPath(mwmFullPath2), ());
   TEST(!platform.IsFileExistsByFullPath(mwmFullPath3), ());
