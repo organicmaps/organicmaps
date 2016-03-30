@@ -200,20 +200,27 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           return;
         }
 
-        boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
-        if (retry)
+        MapManager.warnDownloadOn3g(mActivity, new Runnable()
         {
-          Notifier.cancelDownloadFailed();
-          MapManager.nativeRetry(mCurrentCountry.id);
-        }
-        else
-          MapManager.nativeDownload(mCurrentCountry.id);
+          @Override
+          public void run()
+          {
+            boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
+            if (retry)
+            {
+              Notifier.cancelDownloadFailed();
+              MapManager.nativeRetry(mCurrentCountry.id);
+            }
+            else
+              MapManager.nativeDownload(mCurrentCountry.id);
 
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                       Statistics.params().add(Statistics.EventParam.ACTION, (retry ? "retry" : "download"))
-                                                          .add(Statistics.EventParam.FROM, "map")
-                                                          .add("is_auto", "false")
-                                                          .add("scenario", "download"));
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                           Statistics.params().add(Statistics.EventParam.ACTION, (retry ? "retry" : "download"))
+                                                              .add(Statistics.EventParam.FROM, "map")
+                                                              .add("is_auto", "false")
+                                                              .add("scenario", "download"));
+          }
+        });
       }
     });
 

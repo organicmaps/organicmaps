@@ -32,14 +32,20 @@ public class MigrationFragment extends BaseMwmFragment
   private final View.OnClickListener mButtonClickListener = new View.OnClickListener()
   {
     @Override
-    public void onClick(View v)
+    public void onClick(final View v)
     {
-      boolean keepOld = (v == mButtonPrimary);
-
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_STARTED,
-                                     Statistics.params().add(Statistics.EventParam.TYPE, keepOld ? "all_maps"
-                                                                                                 : "current_map"));
-      MigrationController.get().start(keepOld);
+      MapManager.warnDownloadOn3g(getActivity(), new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          boolean keepOld = (v == mButtonPrimary);
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_STARTED,
+                                         Statistics.params().add(Statistics.EventParam.TYPE, keepOld ? "all_maps"
+                                                                                                     : "current_map"));
+          MigrationController.get().start(keepOld);
+        }
+      });
     }
   };
 

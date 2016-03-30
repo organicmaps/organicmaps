@@ -2,6 +2,7 @@ package com.mapswithme.maps.downloader;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.UiThread;
@@ -14,6 +15,7 @@ import java.util.List;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.statistics.Statistics;
 
 @UiThread
@@ -58,6 +60,7 @@ public final class MapManager
   }
 
   private static WeakReference<AlertDialog> sCurrentErrorDialog;
+  private static boolean sSkip3gCheck;
 
   private MapManager() {}
 
@@ -81,7 +84,7 @@ public final class MapManager
     Statistics.INSTANCE.trackEvent(event, Statistics.params().add(Statistics.EventParam.TYPE, text));
   }
 
-  public static void showError(Activity activity, final StorageCallbackData errorData)
+  public static void showError(final Activity activity, final StorageCallbackData errorData)
   {
     if (sCurrentErrorDialog != null)
     {
@@ -116,8 +119,21 @@ public final class MapManager
                                        @Override
                                        public void onClick(DialogInterface dialog, int which)
                                        {
-                                         Notifier.cancelDownloadFailed();
-                                         MapManager.nativeRetry(errorData.countryId);
+                                         warn3gAndRetry(activity, errorData.countryId, new Runnable()
+                                         {
+                                           @Override
+                                           public void run()
+                                           {
+                                             Notifier.cancelDownloadFailed();
+                                           }
+                                         });
+                                       }
+                                     }).setOnDismissListener(new DialogInterface.OnDismissListener()
+                                     {
+                                       @Override
+                                       public void onDismiss(DialogInterface dialog)
+                                       {
+                                         sCurrentErrorDialog = null;
                                        }
                                      }).create();
     dlg.show();
@@ -134,6 +150,58 @@ public final class MapManager
       Notifier.notifyUpdateAvailable(countriesToUpdate);
 
     Framework.nativeUpdateSavedDataVersion();
+  }
+
+  public static boolean warnDownloadOn3g(Activity activity, @NonNull final Runnable onAcceptListener)
+  {
+    if (sSkip3gCheck || ConnectionState.isWifiConnected())
+    {
+      onAcceptListener.run();
+      return false;
+    }
+
+    new AlertDialog.Builder(activity)
+        .setMessage(R.string.no_wifi_ask_cellular_download)
+        .setNegativeButton(android.R.string.no, null)
+        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            sSkip3gCheck = true;
+            onAcceptListener.run();
+          }
+        }).show();
+
+    return true;
+  }
+
+  public static boolean warn3gAndDownload(Activity activity, final String countryId, @Nullable final Runnable onAcceptListener)
+  {
+    return warnDownloadOn3g(activity, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        if (onAcceptListener != null)
+          onAcceptListener.run();
+        nativeDownload(countryId);
+      }
+    });
+  }
+
+  public static boolean warn3gAndRetry(Activity activity, final String countryId, @Nullable final Runnable onAcceptListener)
+  {
+    return warnDownloadOn3g(activity, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        if (onAcceptListener != null)
+          onAcceptListener.run();
+        nativeRetry(countryId);
+      }
+    });
   }
 
   /**

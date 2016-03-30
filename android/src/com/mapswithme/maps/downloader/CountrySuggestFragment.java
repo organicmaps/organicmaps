@@ -206,8 +206,14 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     switch (v.getId())
     {
     case R.id.btn__download_map:
-      mDownloadingCountry = mCurrentCountry;
-      MapManager.nativeDownload(mCurrentCountry.id);
+      MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          mDownloadingCountry = mCurrentCountry;
+        }
+      });
       break;
 
     case R.id.btn__select_map:

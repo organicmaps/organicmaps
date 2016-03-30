@@ -74,16 +74,21 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     DOWNLOAD(R.drawable.ic_download, R.string.downloader_download_map)
     {
       @Override
-      void invoke(CountryItem item, DownloaderAdapter adapter)
+      void invoke(final CountryItem item, DownloaderAdapter adapter)
       {
-        MapManager.nativeDownload(item.id);
-
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                       Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                          .add(Statistics.EventParam.FROM, "downloader")
-                                                          .add("is_auto", "false")
-                                                          .add("scenario", (item.isExpandable() ? "download_group"
-                                                                                                : "download")));
+        MapManager.warn3gAndDownload(adapter.mActivity, item.id, new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                           Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                              .add(Statistics.EventParam.FROM, "downloader")
+                                                              .add("is_auto", "false")
+                                                              .add("scenario", (item.isExpandable() ? "download_group"
+                                                                                                    : "download")));
+          }
+        });
       }
     },
 
@@ -297,8 +302,14 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_FAILED:
-        Notifier.cancelDownloadFailed();
-        MapManager.nativeRetry(mItem.id);
+        MapManager.warn3gAndRetry(mActivity, mItem.id, new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            Notifier.cancelDownloadFailed();
+          }
+        });
         break;
 
       case CountryItem.STATUS_UPDATABLE:

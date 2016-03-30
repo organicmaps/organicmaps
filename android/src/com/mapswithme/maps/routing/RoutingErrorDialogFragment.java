@@ -45,7 +45,7 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
 
   public interface Listener
   {
-    void onDownload();
+    boolean onDownload();
     void onOk();
   }
 
@@ -82,15 +82,25 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
                                           : buildMultipleMapView(titleMessage.second));
     return builder.setView(view)
                   .setNegativeButton(android.R.string.cancel, null)
-                  .setPositiveButton(R.string.download, new Dialog.OnClickListener()
-                  {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                      if (mListener != null)
-                        mListener.onDownload();
-                    }
-                  }).create();
+                  .setPositiveButton(R.string.download, null)
+                  .create();
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+
+    final AlertDialog dlg = (AlertDialog) getDialog();
+    dlg.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        if (mListener == null || mListener.onDownload())
+          dlg.dismiss();
+      }
+    });
   }
 
   @Override
