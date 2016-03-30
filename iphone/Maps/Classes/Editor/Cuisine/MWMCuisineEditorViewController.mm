@@ -1,4 +1,5 @@
 #import "MWMCuisineEditorViewController.h"
+#import "MWMTableViewCell.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "indexer/search_string_utils.hpp"
@@ -27,6 +28,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   vector<string> m_untranslatedKeys;
 }
 
+@property (weak, nonatomic) IBOutlet UITableView * tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
 @property (nonatomic) BOOL isSearch;
 
@@ -40,6 +42,47 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   [self configNavBar];
   [self configSearchBar];
   [self configData];
+  [self configTable];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillShow:)
+                                               name:UIKeyboardWillShowNotification
+                                             object:nil];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillHide:)
+                                               name:UIKeyboardWillHideNotification
+                                             object:nil];
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+  CGSize const keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+  CGFloat const bottomInset = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ?
+  keyboardSize.height : keyboardSize.width;
+
+  UIEdgeInsets const contentInsets = {.bottom = bottomInset};
+
+  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+  [UIView animateWithDuration:rate.floatValue animations:^
+   {
+     self.tableView.contentInset = contentInsets;
+     self.tableView.scrollIndicatorInsets = contentInsets;
+   }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+  [UIView animateWithDuration:rate.floatValue animations:^
+   {
+     self.tableView.contentInset = {};
+     self.tableView.scrollIndicatorInsets = {};
+   }];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -149,6 +192,13 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
     if (translated.empty())
       m_untranslatedKeys.push_back(s);
   }
+}
+
+- (void)configTable
+{
+  self.tableView.backgroundColor = [UIColor pressBackground];
+  self.tableView.separatorColor = [UIColor blackDividers];
+  [self.tableView registerClass:[MWMTableViewCell class] forCellReuseIdentifier:[UITableViewCell className]];
 }
 
 #pragma mark - Actions
