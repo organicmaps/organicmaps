@@ -73,7 +73,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
           switch (item.newStatus)
           {
           case CountryItem.STATUS_FAILED:
-            refreshViews();
+            updateViews();
             return;
 
           case CountryItem.STATUS_DONE:
@@ -84,7 +84,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
           break;
         }
 
-        refreshViews();
+        updateViews();
       }
 
       @Override
@@ -95,11 +95,10 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
         if (mDownloadingCountry == null)
           mDownloadingCountry = CountryItem.fill(countryId);
+        else
+          mDownloadingCountry.update();
 
-        refreshViews();
-
-        int percent = (int)(localSize * 100 / remoteSize);
-        mWpvDownloadProgress.setProgress(percent);
+        updateProgress();
       }
     });
   }
@@ -123,7 +122,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
         mCurrentCountry = CountryItem.fill(id);
     }
 
-    refreshViews();
+    updateViews();
   }
 
   @Override
@@ -138,8 +137,9 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     if (mCurrentCountry == null || !isAdded())
       return;
 
-    mBtnDownloadMap.setText(getString(R.string.downloader_download_map) +
-                            " (" + StringUtils.getFileSizeString(mCurrentCountry.totalSize) + ")");
+    mBtnDownloadMap.setText(String.format(Locale.US, "%1$s (%2$s)",
+                                          getString(R.string.downloader_download_map),
+                                          StringUtils.getFileSizeString(mCurrentCountry.totalSize)));
   }
 
   private void initViews(View view)
@@ -162,7 +162,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     UiUtils.updateAccentButton(selectMap);
   }
 
-  private void refreshViews()
+  private void updateViews()
   {
     if (!isAdded() || MapManager.nativeGetDownloadedCount() > 0)
       return;
@@ -177,12 +177,25 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       UiUtils.showIf(hasLocation, mLlWithLocation);
       UiUtils.showIf(!hasLocation, mLlNoLocation);
       refreshDownloadButton();
+
+      if (mDownloadingCountry != null)
+      {
+        mDownloadingCountry.progress = 0;
+        updateProgress();
+      }
       return;
     }
 
     mTvCountry.setText(mDownloadingCountry.name);
     mTvActiveCountry.setText(mDownloadingCountry.name);
-    mTvProgress.setText(String.format(Locale.US, "%d%%", mDownloadingCountry.progress));
+    updateProgress();
+  }
+
+  private void updateProgress()
+  {
+    String text = String.format(Locale.US, "%1$s %2$d%%", getString(R.string.downloader_downloading), mDownloadingCountry.progress);
+    mTvProgress.setText(text);
+    mWpvDownloadProgress.setProgress(mDownloadingCountry.progress);
   }
 
   @Override
