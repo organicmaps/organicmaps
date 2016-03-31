@@ -225,7 +225,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       {
         if (actionId == EditorInfo.IME_ACTION_DONE)
         {
-          saveBookmarkTitleIfUpdated();
+          saveBookmarkTitle();
           refreshPreview();
         }
 
@@ -355,7 +355,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public MapObject getMapObject()
   {
-    saveBookmarkTitleIfUpdated();
     return mMapObject;
   }
 
@@ -367,9 +366,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     if (!force && MapObject.same(mMapObject, mapObject))
       return;
-
-    if (!(mapObject instanceof Bookmark))
-      saveBookmarkTitleIfUpdated();
 
     mMapObject = mapObject;
     refreshViews();
@@ -632,9 +628,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mAnimationController.setOnVisibilityChangedListener(listener);
   }
 
-  private void saveBookmarkTitleIfUpdated()
+  public void saveBookmarkTitle()
   {
-    // Can't save bookmark name if current object is not bookmark.
     if (mMapObject == null || !(mMapObject instanceof Bookmark))
       return;
 
@@ -694,7 +689,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       showReportForm(mMapObject);
       break;
     case R.id.iv__bookmark_color:
-      saveBookmarkTitleIfUpdated();
+      saveBookmarkTitle();
       selectBookmarkColor();
       break;
     case R.id.ll__bookmark:
@@ -743,7 +738,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       followUrl(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
       break;
     case R.id.tv__bookmark_group:
-      saveBookmarkTitleIfUpdated();
+      saveBookmarkTitle();
       selectBookmarkSet();
       break;
     case R.id.av__direction:
@@ -759,7 +754,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.tv__bookmark_notes:
     case R.id.tv__description:
     case R.id.btn__edit_html_bookmark:
-      saveBookmarkTitleIfUpdated();
+      saveBookmarkTitle();
       final Bundle args = new Bundle();
       args.putParcelable(EditDescriptionFragment.EXTRA_BOOKMARK, mMapObject);
       String name = EditDescriptionFragment.class.getName();

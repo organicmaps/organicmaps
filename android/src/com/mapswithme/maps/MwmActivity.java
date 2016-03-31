@@ -688,6 +688,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mPlacePage.getState() != State.HIDDEN)
     {
       outState.putBoolean(STATE_PP_OPENED, true);
+      mPlacePage.saveBookmarkTitle();
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
@@ -1124,6 +1125,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setFullscreen(false);
 
+    mPlacePage.saveBookmarkTitle();
     mPlacePage.setMapObject(object, true);
     mPlacePage.setState(State.PREVIEW);
 
@@ -1213,6 +1215,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       Framework.nativeDeactivatePopup();
+      mPlacePage.saveBookmarkTitle();
       mPlacePage.setMapObject(null, false);
       mMainMenu.show(true);
     }
@@ -1233,6 +1236,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     switch (v.getId())
     {
     case R.id.ll__route:
+      mPlacePage.saveBookmarkTitle();
       startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, mPlacePage.getMapObject());
       break;
     case R.id.map_button_plus:
@@ -1344,6 +1348,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onCategoryChanged(int bookmarkId, int newCategoryId)
   {
+    // TODO remove that hack after bookmarks will be refactored completely
+    Framework.nativeOnBookmarkCategoryChanged(newCategoryId, bookmarkId);
     mPlacePage.setMapObject(BookmarkManager.INSTANCE.getBookmark(newCategoryId, bookmarkId), true);
   }
 
