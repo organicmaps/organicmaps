@@ -47,7 +47,7 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="light12"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_hours_closed"/>
                     </userDefinedRuntimeAttributes>
                 </label>

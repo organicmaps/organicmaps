@@ -43,6 +43,7 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_route_planning"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="TC0-58-PO9">
@@ -143,6 +144,7 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_planning"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackHintText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
@@ -168,6 +170,7 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routing_planning_error"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="red"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
@@ -192,6 +195,7 @@
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Arrive at 12:24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oec-Ee-6ha">
@@ -201,6 +205,7 @@
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-pb-L88">

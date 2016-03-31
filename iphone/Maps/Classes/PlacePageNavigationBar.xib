@@ -30,6 +30,7 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                     </userDefinedRuntimeAttributes>
                 </label>
             </subviews>

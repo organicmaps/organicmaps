@@ -49,6 +49,7 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_route_planning"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_up_and_down" translatesAutoresizingMaskIntoConstraints="NO" id="y8P-JL-riK">
@@ -126,6 +127,7 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_planning"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackHintText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
@@ -149,6 +151,7 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routing_planning_error"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="red"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
@@ -171,6 +174,7 @@
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
