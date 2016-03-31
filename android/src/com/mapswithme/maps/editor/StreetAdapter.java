@@ -6,13 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Checkable;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
-import com.mapswithme.util.UiUtils;
 
 public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHolder>
 {
@@ -81,13 +80,13 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
   protected class StreetViewHolder extends BaseViewHolder
   {
     final TextView street;
-    final ImageView selected;
+    final Checkable selected;
 
     public StreetViewHolder(View itemView)
     {
       super(itemView);
       street = (TextView) itemView.findViewById(R.id.street);
-      selected = (ImageView) itemView.findViewById(R.id.selected);
+      selected = (Checkable) itemView.findViewById(R.id.selected);
       itemView.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -95,6 +94,7 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
         {
           mSelectedStreet = mStreets[getAdapterPosition()];
           notifyDataSetChanged();
+          mFragment.saveStreet(mSelectedStreet);
         }
       });
     }
@@ -103,7 +103,7 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     public void bind(int position)
     {
       final String text = mStreets[position];
-      UiUtils.showIf(mSelectedStreet.equals(text), selected);
+      selected.setChecked(mSelectedStreet.equals(text));
       street.setText(text);
     }
   }

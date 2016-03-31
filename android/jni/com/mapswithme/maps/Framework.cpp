@@ -1,6 +1,7 @@
 #include "Framework.hpp"
 #include "UserMarkHelper.hpp"
 #include "com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/maps/bookmarks/data/BookmarkManager.hpp"
 #include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 
@@ -966,18 +967,21 @@ Java_com_mapswithme_maps_Framework_nativeZoomToPoint(JNIEnv * env, jclass, jdoub
   g_framework->Scale(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), zoom, animate);
 }
 
-extern JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject, jint, jint);
-
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass)
 {
   place_page::Info & info = g_framework->GetPlacePageInfo();
-  // TODO(yunikkk): Reuse already existing implementation. It probably can be done better.
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(nullptr, nullptr,
-      info.m_bac.first, info.m_bac.second);
+  bookmarks_helper::RemoveBookmark(info.m_bac.first, info.m_bac.second);
   info.m_bac = MakeEmptyBookmarkAndCategory();
   return usermark_helper::CreateMapObject(env, info);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env, jclass, jint cat, jint bmk)
+{
+  place_page::Info & info = g_framework->GetPlacePageInfo();
+  info.m_bac.first = cat;
+  info.m_bac.second = bmk;
 }
 
 JNIEXPORT void JNICALL

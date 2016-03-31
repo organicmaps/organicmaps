@@ -1,12 +1,11 @@
 package com.mapswithme.maps.editor;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -21,7 +20,6 @@ import com.mapswithme.util.statistics.Statistics;
 public class ViralFragment extends BaseMwmDialogFragment
 {
   private static final String EXTRA_CONTRATS_SHOWN = "CongratsShown";
-  private TextView mViral;
 
   private static String sViralText;
 
@@ -32,20 +30,24 @@ public class ViralFragment extends BaseMwmDialogFragment
            ConnectionState.isConnected();
   }
 
-  @NonNull
   @Override
-  public Dialog onCreateDialog(Bundle savedInstanceState)
+  protected int getStyle()
+  {
+    return STYLE_NO_TITLE;
+  }
+
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     MwmApplication.prefs().edit().putBoolean(EXTRA_CONTRATS_SHOWN, true).apply();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_SHOW);
 
-    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setCancelable(true);
-    final LayoutInflater inflater = LayoutInflater.from(getActivity());
     @SuppressLint("InflateParams")
     final View root = inflater.inflate(R.layout.fragment_editor_viral, null);
-    mViral = (TextView) root.findViewById(R.id.viral);
+    TextView viralText = (TextView) root.findViewById(R.id.viral);
     initViralText();
-    mViral.setText(sViralText);
+    viralText.setText(sViralText);
     root.findViewById(R.id.tell_friend).setOnClickListener(new View.OnClickListener()
     {
       @Override
@@ -64,7 +66,7 @@ public class ViralFragment extends BaseMwmDialogFragment
         dismiss();
       }
     });
-    return builder.setView(root).create();
+    return root;
   }
 
   private void share()
@@ -90,9 +92,9 @@ public class ViralFragment extends BaseMwmDialogFragment
     }
   }
 
-  // Counts fake editor rank based on number of total edits made by user.
+  // Counts fake rank in the rating of editors.
   private int getUserEditorRank()
   {
-    return (int) ((1000 + new Random().nextInt(1000)) / Editor.nativeGetStats()[0] / 10);
+    return 1000 + new Random().nextInt(1000);
   }
 }

@@ -6,23 +6,26 @@
   android:background="?clickableBackground"
   android:gravity="center_vertical"
   android:orientation="horizontal"
-  android:padding="@dimen/margin_base">
+  android:paddingTop="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_base"
+  android:paddingLeft="@dimen/margin_half_plus"
+  android:paddingStart="@dimen/margin_half_plus"
+  android:paddingRight="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base">
+
+  <RadioButton
+    android:id="@+id/selected"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"/>
 
   <TextView
     android:id="@+id/street"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"
     android:singleLine="true"
     android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
-  <ImageView
-    android:id="@+id/selected"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:src="@drawable/ic_checkmark"
-    android:tint="?iconTint"/>
 
 </LinearLayout>

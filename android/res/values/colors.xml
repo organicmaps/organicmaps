@@ -105,10 +105,8 @@
   <color name="bg_editor_add_disabled">#0C000000</color>
   <color name="bg_editor_login_fb">#FF4861A3</color>
   <color name="bg_editor_login_fb_pressed">#FF405792</color>
-  <color name="bg_editor_light">#0C000000</color>
+  <color name="bg_editor_light">#FFF2F6F6</color>
   <color name="bg_editor_light_pressed">#3D000000</color>
-  <color name="bg_editor_light_night">#FFF2F6F6</color>
-  <color name="bg_editor_light_night_pressed">#FFDCD9D9</color>
 
   <color name="text_editor_add_disabled">#1A000000</color>
 

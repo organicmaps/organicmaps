@@ -1,3 +1,5 @@
+#include "BookmarkManager.hpp"
+
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/Framework.hpp"
 #include "com/mapswithme/maps/UserMarkHelper.hpp"
@@ -9,6 +11,22 @@ namespace
 {
 ::Framework * frm() { return g_framework->NativeFramework(); }
 }  // namespace
+
+namespace bookmarks_helper
+{
+void RemoveBookmark(int cat, int bmk)
+{
+  BookmarkCategory * pCat = frm()->GetBmCategory(cat);
+  if (pCat)
+  {
+    {
+      BookmarkCategory::Guard guard(*pCat);
+      guard.m_controller.DeleteUserMark(bmk);
+    }
+    pCat->SaveToKMLFile();
+  }
+}
+}  // namespace bookmarks_helper
 
 extern "C"
 {
@@ -54,13 +72,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteCategory(
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject, jint cat, jint bmk)
 {
-  BookmarkCategory * pCat = frm()->GetBmCategory(cat);
-  if (pCat)
-  {
-    BookmarkCategory::Guard guard(*pCat);
-    guard.m_controller.DeleteUserMark(bmk);
-    pCat->SaveToKMLFile();
-  }
+  bookmarks_helper::RemoveBookmark(cat, bmk);
 }
 
 JNIEXPORT void JNICALL

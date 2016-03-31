@@ -116,15 +116,15 @@ public class Bookmark extends MapObject
     mCategoryId = catId;
   }
 
-  public void setParams(String name, Icon icon, String description)
+  public void setParams(String title, Icon icon, String description)
   {
     if (icon == null)
       icon = mIcon;
 
-    if (!name.equals(getTitle()) || icon != mIcon || !description.equals(getBookmarkDescription()))
+    if (!title.equals(getTitle()) || icon != mIcon || !description.equals(getBookmarkDescription()))
     {
-      nativeSetBookmarkParams(mCategoryId, mBookmarkId, name, icon.getType(), description);
-      mTitle = name;
+      nativeSetBookmarkParams(mCategoryId, mBookmarkId, title, icon.getType(), description);
+      mTitle = title;
     }
   }
 

@@ -102,7 +102,7 @@ public class TimetableFragment extends BaseMwmFragment
         return;
       }
       mIsAdvancedMode = true;
-      mSwitchMode.setText(R.string.editor_time_advanced);
+      mSwitchMode.setText(R.string.editor_time_simple);
       mAdvancedModeFragment = (AdvancedTimetableFragment) attachFragment(mAdvancedModeFragment, AdvancedTimetableFragment.class.getName());
       mAdvancedModeFragment.setTimetables(filledTimetables);
     }
@@ -119,7 +119,7 @@ public class TimetableFragment extends BaseMwmFragment
         return;
       }
       mIsAdvancedMode = false;
-      mSwitchMode.setText(R.string.editor_time_simple);
+      mSwitchMode.setText(R.string.editor_time_advanced);
       mSimpleModeFragment = (SimpleTimetableFragment) attachFragment(mSimpleModeFragment, SimpleTimetableFragment.class.getName());
       mSimpleModeFragment.setTimetables(filledTimetables);
     }

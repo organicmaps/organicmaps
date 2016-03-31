@@ -78,7 +78,7 @@ public class AuthDialogFragment extends BaseMwmDialogFragment implements View.On
 
   protected void loginOsm()
   {
-    getMwmActivity().replaceFragment(OsmAuthFragment.class, null, null);
+    startActivity(new Intent(getActivity(), OsmAuthActivity.class));
     dismiss();
   }
 
