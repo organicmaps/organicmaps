@@ -291,6 +291,9 @@ public:
   static char const * END_FILTER;
   static char const * CANCEL_FILTER;
   static char const * TWO_FINGERS_TAP;
+  static char const * BEGIN_DOUBLE_TAP_AND_HOLD;
+  static char const * DOUBLE_TAP_AND_HOLD;
+  static char const * END_DOUBLE_TAP_AND_HOLD;
 
   using TTestBridge = function<void (char const * action)>;
   void SetTestBridge(TTestBridge const & fn) { m_testFn = fn; }
@@ -333,9 +336,14 @@ private:
   void DetectShortTap(Touch const & touch);
   void DetectLongTap(Touch const & touch);
   bool DetectDoubleTap(Touch const & touch);
+  void PerformDoubleTap(Touch const & touch);
   bool DetectForceTap(Touch const & touch);
   void EndTapDetector(Touch const & touch);
   void CancelTapDetector();
+  
+  void StartDoubleTapAndHold(Touch const & touch);
+  void UpdateDoubleTapAndHold(Touch const & touch);
+  void EndDoubleTapAndHold(Touch const & touch);
 
   void BeginTwoFingersTap(Touch const & t1, Touch const & t2);
   void EndTwoFingersTap();
@@ -358,6 +366,8 @@ private:
     STATE_TAP_DETECTION,
     STATE_WAIT_DOUBLE_TAP,
     STATE_TAP_TWO_FINGERS,
+    STATE_WAIT_DOUBLE_TAP_HOLD,
+    STATE_DOUBLE_TAP_HOLD,
     STATE_DRAG,
     STATE_SCALE
   } m_state;
@@ -379,6 +389,7 @@ private:
 #endif
   m2::PointD m_startDragOrg;
   array<m2::PointF, 2> m_twoFingersTouches;
+  m2::PointD m_startDoubleTapAndHold;
 
   KineticScroller m_scroller;
   my::Timer m_kineticTimer;

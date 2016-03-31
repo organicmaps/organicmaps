@@ -56,6 +56,9 @@ char const * UserEventStream::TRY_FILTER = "TryFilter";
 char const * UserEventStream::END_FILTER = "EndFilter";
 char const * UserEventStream::CANCEL_FILTER = "CancelFilter";
 char const * UserEventStream::TWO_FINGERS_TAP = "TwoFingersTap";
+char const * UserEventStream::BEGIN_DOUBLE_TAP_AND_HOLD = "BeginDoubleTapAndHold";
+char const * UserEventStream::DOUBLE_TAP_AND_HOLD = "DoubleTapAndHold";
+char const * UserEventStream::END_DOUBLE_TAP_AND_HOLD = "EndDoubleTapAndHold";
 #endif
 
 uint8_t const TouchEvent::INVALID_MASKED_POINTER = 0xFF;
@@ -114,6 +117,7 @@ void TouchEvent::Swap()
 UserEventStream::UserEventStream()
   : m_state(STATE_EMPTY)
   , m_startDragOrg(m2::PointD::Zero())
+  , m_startDoubleTapAndHold(m2::PointD::Zero())
 {
 }
 
@@ -639,8 +643,13 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
       break;
     case STATE_TAP_DETECTION:
     case STATE_WAIT_DOUBLE_TAP:
+    case STATE_WAIT_DOUBLE_TAP_HOLD:
       CancelTapDetector();
       BeginTwoFingersTap(touches[0], touches[1]);
+      break;
+    case STATE_DOUBLE_TAP_HOLD:
+      EndDoubleTapAndHold(touches[0]);
+      BeginScale(touches[0], touches[1]);
       break;
     case STATE_DRAG:
       isMapTouch = EndDrag(touches[0], true /* cancelled */);
@@ -657,7 +666,7 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 
 bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestamp)
 {
-  double const dragThreshold = my::sq(VisualParams::Instance().GetDragThreshold());
+  double const kDragThreshold = my::sq(VisualParams::Instance().GetDragThreshold());
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
 
@@ -666,7 +675,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
   case STATE_EMPTY:
     if (touchCount == 1)
     {
-      if (m_startDragOrg.SquareLength(touches[0].m_location) > dragThreshold)
+      if (m_startDragOrg.SquareLength(touches[0].m_location) > kDragThreshold)
         BeginDrag(touches[0], timestamp);
       else
         isMapTouch = false;
@@ -679,7 +688,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
   case STATE_TAP_TWO_FINGERS:
     if (touchCount == 2)
     {
-      float const threshold = static_cast<float>(dragThreshold);
+      float const threshold = static_cast<float>(kDragThreshold);
       if (m_twoFingersTouches[0].SquareLength(touches[0].m_location) > threshold ||
           m_twoFingersTouches[1].SquareLength(touches[1].m_location) > threshold)
         BeginScale(touches[0], touches[1]);
@@ -693,10 +702,17 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
     break;
   case STATE_TAP_DETECTION:
   case STATE_WAIT_DOUBLE_TAP:
-    if (m_startDragOrg.SquareLength(touches[0].m_location) > dragThreshold)
+    if (m_startDragOrg.SquareLength(touches[0].m_location) > kDragThreshold)
       CancelTapDetector();
     else
       isMapTouch = false;
+    break;
+  case STATE_WAIT_DOUBLE_TAP_HOLD:
+    if (m_startDragOrg.SquareLength(touches[0].m_location) > kDragThreshold)
+      StartDoubleTapAndHold(touches[0]);
+    break;
+  case STATE_DOUBLE_TAP_HOLD:
+    UpdateDoubleTapAndHold(touches[0]);
     break;
   case STATE_DRAG:
     if (touchCount > 1)
@@ -740,6 +756,11 @@ bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
   case STATE_WAIT_DOUBLE_TAP:
   case STATE_TAP_TWO_FINGERS:
     isMapTouch = false;
+    break;
+  case STATE_WAIT_DOUBLE_TAP_HOLD:
+  case STATE_DOUBLE_TAP_HOLD:
+    ASSERT_EQUAL(touchCount, 1, ());
+    EndDoubleTapAndHold(touches[0]);
     break;
   case STATE_FILTER:
     ASSERT_EQUAL(touchCount, 1, ());
@@ -787,10 +808,15 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
     break;
   case STATE_TAP_TWO_FINGERS:
     if (touchCount == 2)
-    {
       EndTwoFingersTap();
-      isMapTouch = true;
-    }
+    break;
+  case STATE_WAIT_DOUBLE_TAP_HOLD:
+    ASSERT_EQUAL(touchCount, 1, ());
+    PerformDoubleTap(touches[0]);
+    break;
+  case STATE_DOUBLE_TAP_HOLD:
+    ASSERT_EQUAL(touchCount, 1, ());
+    EndDoubleTapAndHold(touches[0]);
     break;
   case STATE_DRAG:
     ASSERT_EQUAL(touchCount, 1, ());
@@ -993,11 +1019,17 @@ bool UserEventStream::DetectDoubleTap(Touch const & touch)
   if (m_state != STATE_WAIT_DOUBLE_TAP || ms > kDoubleTapPauseMs)
     return false;
 
+  m_state = STATE_WAIT_DOUBLE_TAP_HOLD;
+
+  return true;
+}
+  
+void UserEventStream::PerformDoubleTap(Touch const & touch)
+{
+  ASSERT_EQUAL(m_state, STATE_WAIT_DOUBLE_TAP_HOLD, ());
   m_state = STATE_EMPTY;
   if (m_listener)
     m_listener->OnDoubleTap(touch.m_location);
-
-  return true;
 }
 
 bool UserEventStream::DetectForceTap(Touch const & touch)
@@ -1056,6 +1088,34 @@ void UserEventStream::CancelFilter(Touch const & t)
   m_state = STATE_EMPTY;
   if (m_listener)
     m_listener->OnSingleTouchFiltrate(t.m_location, TouchEvent::TOUCH_CANCEL);
+}
+  
+void UserEventStream::StartDoubleTapAndHold(Touch const & touch)
+{
+  TEST_CALL(BEGIN_DOUBLE_TAP_AND_HOLD);
+  ASSERT_EQUAL(m_state, STATE_WAIT_DOUBLE_TAP_HOLD, ());
+  m_state = STATE_DOUBLE_TAP_HOLD;
+  m_startDoubleTapAndHold = m_startDragOrg;
+}
+
+void UserEventStream::UpdateDoubleTapAndHold(Touch const & touch)
+{
+  TEST_CALL(DOUBLE_TAP_AND_HOLD);
+  ASSERT_EQUAL(m_state, STATE_DOUBLE_TAP_HOLD, ());
+  float const kPowerModifier = 10.0f;
+  float const scaleFactor = exp(kPowerModifier * (touch.m_location.y - m_startDoubleTapAndHold.y) / GetCurrentScreen().PixelRect().SizeY());
+  m_startDoubleTapAndHold = touch.m_location;
+  m2::PointD scaleCenter = m_startDragOrg;
+  if (m_listener)
+    m_listener->CorrectScalePoint(scaleCenter);
+  m_navigator.Scale(scaleCenter, scaleFactor);
+}
+
+void UserEventStream::EndDoubleTapAndHold(Touch const & touch)
+{
+  TEST_CALL(END_DOUBLE_TAP_AND_HOLD);
+  ASSERT_EQUAL(m_state, STATE_DOUBLE_TAP_HOLD, ());
+  m_state = STATE_EMPTY;
 }
 
 bool UserEventStream::IsInUserAction() const

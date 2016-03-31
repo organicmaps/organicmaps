@@ -74,7 +74,7 @@ public:
   void Invalidate();
 
   void AddTouchEvent(TouchEvent const & event);
-  void Scale(double  factor, m2::PointD const & pxPoint, bool isAnim);
+  void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
 
   /// if zoom == -1, then current zoom will not change
   void SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim);
