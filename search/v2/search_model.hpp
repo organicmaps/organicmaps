@@ -14,6 +14,8 @@ namespace search
 namespace v2
 {
 
+/// Describes 2-level POI-exception types that don't belong to any POI-common classes
+/// (amenity, shop, tourism, ...). Used in search algo and search categories index generation.
 class TwoLevelPOIChecker : public ftypes::BaseChecker
 {
 public:

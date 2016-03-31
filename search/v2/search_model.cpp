@@ -26,9 +26,9 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
     m_types.push_back(c.GetTypeByPath(arr[i]));
 }
 
-/// This checkers should be similar with ftypes::IsAddressObjectChecker, plus public transport.
 namespace
 {
+/// Should be similar with ftypes::IsAddressObjectChecker object classes.
 class OneLevelPOIChecker : public ftypes::BaseChecker
 {
 public:
