@@ -36,30 +36,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentLocationAlert
 {
-  NSString * title = L(@"location_is_disabled_long_text");
-  NSString * cancel = L(@"cancel");
-  NSString * openSettings = L(@"settings");
-  if (isIOS7)
-  {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:cancel otherButtonTitles:nil];
-    [alertView show];
-    return;
-  }
-  UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
-  UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
-  UIAlertAction * openSettingsAction = [UIAlertAction actionWithTitle:openSettings style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
-  {
-    [self openSettings];
-  }];
-  [alertController addAction:cancelAction];
-  [alertController addAction:openSettingsAction];
-  [self.ownerViewController presentViewController:alertController animated:YES completion:nil];
-//  dispatch_async(dispatch_get_main_queue(), ^
-//  {
-//    // @TODO Remove dispatch on LocationManager -> MWMLocationManager
-//    // Test case when location is denied by user on app launch/relaunch
-//    [self displayAlert:MWMAlert.locationAlert];
-//  });
+  [self displayAlert:[MWMAlert locationAlert]];
 }
 
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild
@@ -215,14 +192,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
   }];
-}
-
-- (void)openSettings
-{
-  NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-  UIApplication * a = [UIApplication sharedApplication];
-  if ([a canOpenURL:url])
-    [a openURL:url];
 }
 
 @end
