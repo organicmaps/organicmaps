@@ -5,32 +5,48 @@
 
 #include "platform/platform.hpp"
 
+namespace
+{
+NSString * const kStorageCanShowNoWifiAlert = @"StorageCanShowNoWifiAlert";
+} // namespace
+
+using namespace storage;
+
 @implementation MWMStorage
 
-+ (void)downloadNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess
++ (void)startSession
 {
-  [self countryId:countryId alertController:alertController performAction:^
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setBool:YES forKey:kStorageCanShowNoWifiAlert];
+  [ud synchronize];
+}
+
++ (void)downloadNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess
+{
+  [self performAction:^
   {
     GetFramework().Storage().DownloadNode(countryId);
     if (onSuccess)
       onSuccess();
-  }];
+  }
+  alertController:alertController];
 }
 
-+ (void)retryDownloadNode:(storage::TCountryId const &)countryId
++ (void)retryDownloadNode:(TCountryId const &)countryId
 {
   GetFramework().Storage().RetryDownloadNode(countryId);
 }
 
-+ (void)updateNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
++ (void)updateNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
 {
-  [self countryId:countryId alertController:alertController performAction:^
+  [self performAction:^
   {
     GetFramework().Storage().UpdateNode(countryId);
-  }];
+  }
+  alertController:alertController];
 }
 
-+ (void)deleteNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
++ (void)deleteNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
 {
   if (GetFramework().HasUnsavedEdits(countryId))
   {
@@ -45,17 +61,30 @@
   }
 }
 
-+ (void)cancelDownloadNode:(storage::TCountryId const &)countryId
++ (void)cancelDownloadNode:(TCountryId const &)countryId
 {
   GetFramework().Storage().CancelDownloadNode(countryId);
 }
 
-+ (void)showNode:(storage::TCountryId const &)countryId
++ (void)showNode:(TCountryId const &)countryId
 {
   GetFramework().ShowNode(countryId);
 }
 
-+ (void)countryId:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController performAction:(TMWMVoidBlock)action
++ (void)downloadNodes:(storage::TCountriesVec const &)countryIds alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess
+{
+  [self performAction:[countryIds, onSuccess]
+  {
+    auto & s = GetFramework().Storage();
+    for (auto const & countryId : countryIds)
+      s.DownloadNode(countryId);
+    if (onSuccess)
+      onSuccess();
+  }
+  alertController:alertController];
+}
+
++ (void)performAction:(TMWMVoidBlock)action alertController:(MWMAlertViewController *)alertController
 {
   switch (Platform::ConnectionStatus())
   {
@@ -67,13 +96,20 @@
       break;
     case Platform::EConnectionType::CONNECTION_WWAN:
     {
-      storage::NodeAttrs attrs;
-      GetFramework().Storage().GetNodeAttrs(countryId, attrs);
-      size_t const warningSizeForWWAN = 50 * MB;
-      if (attrs.m_mwmSize > warningSizeForWWAN)
-        [alertController presentNoWiFiAlertWithName:@(attrs.m_nodeLocalName.c_str()) okBlock:action];
+      NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+      if ([ud boolForKey:kStorageCanShowNoWifiAlert])
+      {
+        [alertController presentNoWiFiAlertWithOkBlock:^
+        {
+          [ud setBool:NO forKey:kStorageCanShowNoWifiAlert];
+          [ud synchronize];
+          action();
+        }];
+      }
       else
+      {
         action();
+      }
       break;
     }
   }

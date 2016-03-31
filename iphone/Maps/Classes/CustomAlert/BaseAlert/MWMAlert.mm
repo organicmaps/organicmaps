@@ -43,9 +43,9 @@
   return [MWMDefaultAlert disabledLocationAlert];
 }
 
-+ (MWMAlert *)noWiFiAlertWithName:(NSString *)name okBlock:(TMWMVoidBlock)okBlock
++ (MWMAlert *)noWiFiAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
-  return [MWMDefaultAlert noWiFiAlertWithName:name okBlock:okBlock];
+  return [MWMDefaultAlert noWiFiAlertWithOkBlock:okBlock];
 }
 
 + (MWMAlert *)noConnectionAlert
@@ -169,10 +169,7 @@
 
 - (void)close
 {
-  [self.alertController closeAlertWithCompletion:^
-  {
-    [self removeFromSuperview];
-  }];
+  [self.alertController closeAlert];
 }
 
 - (void)setNeedsCloseAlertAfterEnterBackground

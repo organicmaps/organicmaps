@@ -20,6 +20,12 @@ NSString * const kDownloaderSegue = @"Migration2MapDownloaderSegue";
 
 using namespace storage;
 
+@interface MWMStorage ()
+
++ (void)performAction:(TMWMVoidBlock)action alertController:(MWMAlertViewController *)alertController;
+
+@end
+
 @interface MWMMigrationViewController () <MWMCircularProgressProtocol>
 
 @end
@@ -97,11 +103,15 @@ using namespace storage;
     [view setProgress:static_cast<CGFloat>(progress.first) / progress.second];
   };
 
-  m_countryId = f.PreMigrate(position, onStatusChanged, onProgressChanged);
-  if (m_countryId != kInvalidCountryId)
-    [self setState:MWMMigrationViewState::Processing];
-  else
-    migrate();
+  [MWMStorage performAction:^
+  {
+    self->m_countryId = f.PreMigrate(position, onStatusChanged, onProgressChanged);
+    if (self->m_countryId != kInvalidCountryId)
+      [self setState:MWMMigrationViewState::Processing];
+    else
+      migrate();
+  }
+  alertController:self.alertController];
 }
 
 - (void)showError:(NodeErrorCode)errorCode countryId:(TCountryId const &)countryId
