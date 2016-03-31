@@ -1408,7 +1408,7 @@
 		F6830F101B85F6B900C42AAE /* MWMLanesPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLanesPanel.mm; sourceTree = "<group>"; };
 		F68E6BD01B8DB7AE0040566D /* MWMRouteHelperPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouteHelperPanel.h; sourceTree = "<group>"; };
 		F68E6BD11B8DB7AE0040566D /* MWMRouteHelperPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouteHelperPanel.mm; sourceTree = "<group>"; };
-		F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MyTrackerSDKCorp.framework; path = MyTracker/MyTrackerSDKCorp.framework; sourceTree = "<group>"; };
+		F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTrackerSDKCorp.framework; sourceTree = "<group>"; };
 		F6A218471CA3F26800BE2CC6 /* MWMEditorViralActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralActivityItem.h; sourceTree = "<group>"; };
 		F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorViralActivityItem.mm; sourceTree = "<group>"; };
 		F6A750B71BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchHistoryMyPositionCell.h; sourceTree = "<group>"; };
@@ -4032,15 +4032,11 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
@@ -4064,15 +4060,11 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
@@ -4097,7 +4089,6 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -4106,10 +4097,7 @@
 					"$(OMIM_ROOT)/3party/glm",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
@@ -4133,15 +4121,11 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
@@ -4166,7 +4150,6 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -4175,10 +4158,7 @@
 					"$(OMIM_ROOT)/3party/glm",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
@@ -4202,15 +4182,11 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
@@ -4329,7 +4305,6 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
@@ -4450,7 +4425,6 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
@@ -4575,7 +4549,6 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
@@ -4700,7 +4673,6 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
@@ -4823,7 +4795,6 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
@@ -4946,7 +4917,6 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
