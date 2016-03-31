@@ -92,9 +92,9 @@ public class ViralFragment extends BaseMwmDialogFragment
     }
   }
 
-  // Counts fake editor rank based on number of total edits made by user.
+  // Counts fake rank in the rating of editors.
   private int getUserEditorRank()
   {
-    return (int) ((1000 + new Random().nextInt(1000)) / Editor.nativeGetStats()[0] / 10);
+    return 1000 + new Random().nextInt(1000);
   }
 }
