@@ -25,8 +25,8 @@ CGFloat const kTopOffset = 25.;
   CGFloat const superviewWidth = self.superview.width;
   self.message.width = superviewWidth - 2 * kLeadingOffset;
   [self.message sizeToFit];
-  self.message.midX = self.superview.midX;
   self.size = {superviewWidth, kTopOffset + kBottomOffset + self.message.height};
+  self.message.midX = self.superview.midX;
   [super layoutSubviews];
 }
 
@@ -64,7 +64,7 @@ CGFloat const kTopOffset = 25.;
   [self.dropDown setNeedsLayout];
   [self.superview addSubview:self.dropDown];
   self.dropDown.origin = {0., -self.dropDown.height};
-  [self display];
+  [self show];
 }
 
 - (void)dismiss
@@ -82,7 +82,7 @@ CGFloat const kTopOffset = 25.;
 
 #pragma mark - Private
 
-- (void)display
+- (void)show
 {
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
