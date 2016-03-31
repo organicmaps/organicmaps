@@ -3,6 +3,7 @@
 #include "generator/osm_element.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/fstream.hpp"
@@ -101,18 +102,13 @@ public:
     }
   }
 
-  OsmElement * operator()(OsmElement * e)
+  void operator()(OsmElement * e)
   {
-    if (e == nullptr)
-      return e;
     if (e->type == OsmElement::EntityType::Way && m_ways.find(e->id) != m_ways.end())
     {
       // Exclude ferry routes.
-      if (find(e->Tags().begin(), e->Tags().end(), m_ferryTag) != e->Tags().end())
-        return e;
-
-      e->AddTag("highway", m_ways[e->id]);
-      return e;
+      if (find(e->Tags().begin(), e->Tags().end(), m_ferryTag) == e->Tags().end())
+        e->AddTag("highway", m_ways[e->id]);
     }
     else if (e->type == OsmElement::EntityType::Node && m_capitals.find(e->id) != m_capitals.end())
     {
@@ -126,11 +122,58 @@ public:
           v = "45000";
       });
     }
-    return e;
   }
 
 private:
   map<uint64_t, string> m_ways;
   set<uint64_t> m_capitals;
   OsmElement::Tag const m_ferryTag;
+};
+
+class TagReplacer
+{
+  vector<vector<string>> m_entries;
+public:
+  TagReplacer(string const & filePath)
+  {
+    try
+    {
+      ifstream stream(filePath);
+      while (stream.good())
+      {
+        string line;
+        std::getline(stream, line);
+        if (line.empty())
+          continue;
+
+        vector<string> v;
+        strings::Tokenize(line, " \t=,:", MakeBackInsertFunctor(v));
+        if (v.size() < 4 || v.size() % 2 == 1)
+          continue;
+
+        m_entries.push_back(move(v));
+      }
+    }
+    catch (ifstream::failure const &)
+    {
+      LOG(LWARNING, ("Can't read replacing tags info file", filePath));
+    }
+  }
+
+  void operator()(OsmElement * p)
+  {
+    for (auto & tag : p->m_tags)
+    {
+      for (auto const & entry : m_entries)
+      {
+        if (tag.key == entry[0] && tag.value == entry[1])
+        {
+          tag.key = entry[2];
+          tag.value = entry[3];
+          for (size_t i = 4; i < entry.size(); i += 2)
+            p->AddTag(entry[i], entry[i+1]);
+        }
+      }
+    }
+  }
 };

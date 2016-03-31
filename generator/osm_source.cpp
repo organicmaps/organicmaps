@@ -13,6 +13,9 @@
 #include "generator/world_map_generator.hpp"
 
 #include "indexer/classificator.hpp"
+
+#include "platform/platform.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "coding/parse_xml.hpp"
@@ -505,9 +508,17 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
         bucketer, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
         info.GetAddressesFileName());
 
-    TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways",".csv"), info.GetIntermediateFileName("towns",".csv"));
+    TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
+                          info.GetIntermediateFileName("towns", ".csv"));
+    TagReplacer tagReplacer(GetPlatform().ResourcesDir() + PEPLACED_TAGS_FILE);
+
     // Here we can add new tags to element!!!
-    auto fn = [&parser, &tagAdmixer](OsmElement * e) { parser.EmitElement(tagAdmixer(e)); };
+    auto fn = [&](OsmElement * e)
+    {
+      tagReplacer(e);
+      tagAdmixer(e);
+      parser.EmitElement(e);
+    };
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
     switch (info.m_osmFileType)

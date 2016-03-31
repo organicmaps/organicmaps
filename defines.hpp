@@ -68,3 +68,5 @@
 #define EXTERNAL_RESOURCES_FILE "external_resources.txt"
 
 #define GPS_TRACK_FILENAME "gps_track.dat"
+
+#define PEPLACED_TAGS_FILE "replaced_tags.txt"
