@@ -160,19 +160,28 @@ public class RoutingController
     mLastBuildProgress = 0;
     updateProgress();
 
-    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
+    final RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
     fragment.setListener(new RoutingErrorDialogFragment.Listener()
     {
       @Override
-      public void onDownload()
+      public boolean onDownload()
       {
-        cancel();
+        return !MapManager.warnDownloadOn3g(mContainer.getActivity(), new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            cancel();
 
-        for (String map: mLastMissingMaps)
-          MapManager.nativeDownload(map);
+            for (String map: mLastMissingMaps)
+              MapManager.nativeDownload(map);
 
-        if (mContainer != null)
-          mContainer.showDownloader(true);
+            if (mContainer != null)
+              mContainer.showDownloader(true);
+
+            fragment.dismiss();
+          }
+        });
       }
 
       @Override

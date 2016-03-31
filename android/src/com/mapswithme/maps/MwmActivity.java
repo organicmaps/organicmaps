@@ -483,7 +483,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return true;
   }
 
-  private boolean closeSidePanel()
+  public boolean closeSidePanel()
   {
     if (interceptBackPress())
       return true;
@@ -1304,7 +1304,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public boolean run(MwmActivity target)
     {
       if (mDoAutoDownload)
-        MapManager.nativeDownload(mCountryId);
+        MapManager.warn3gAndDownload(target, mCountryId, null);
 
       Framework.nativeShowCountry(mCountryId, mDoAutoDownload);
       return true;
