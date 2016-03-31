@@ -9,6 +9,8 @@
 
 #include "std/algorithm.hpp"
 #include "std/cctype.hpp"
+#include "std/cmath.hpp"
+#include "std/cstdlib.hpp"
 #include "std/unordered_set.hpp"
 
 namespace
@@ -158,12 +160,19 @@ string MetadataTagProcessorImpl::ValidateAndFormat_height(string const & v) cons
   return MeasurementUtils::OSMDistanceToMetersString(v, false /*supportZeroAndNegativeValues*/, 1);
 }
 
-string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(string const & v) const
+string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(string v) const
 {
-  double d;
-  if (!strings::to_double(v, d) || d == 0)
-    return {};
-  return strings::to_string_dac(d, 1);
+  // https://en.wikipedia.org/wiki/List_of_tallest_buildings_in_the_world
+  auto constexpr kMaxBuildingLevelsInTheWorld = 167;
+  // Some mappers use full width unicode digits. We can handle that.
+  strings::NormalizeDigits(v);
+  char * stop;
+  char const * s = v.c_str();
+  double const levels = strtod(s, &stop);
+  if (s != stop && isfinite(levels) && levels >= 0 && levels <= kMaxBuildingLevelsInTheWorld)
+    return strings::to_string_dac(levels, 1);
+
+  return {};
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_denomination(string const & v) const
