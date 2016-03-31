@@ -102,7 +102,7 @@
   <TextView
     android:id="@+id/error"
     style="@style/MwmWidget.TextView.PlanDetail.Status"
-    android:layout_toRightOf="@id/progress_frame"
+    android:layout_toRightOf="@id/route_type"
     android:layout_alignParentRight="true"
     android:text="@string/routing_planning_error"
     android:textColor="@color/base_red"
