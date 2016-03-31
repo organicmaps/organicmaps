@@ -205,6 +205,11 @@ public final class MapManager
   }
 
   /**
+   * Retrieves ID of root node.
+   */
+  public static native String nativeGetRoot();
+
+  /**
    * Moves a file from one place to another.
    */
   public static native boolean nativeMoveFile(String oldFile, String newFile);
