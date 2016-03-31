@@ -66,7 +66,7 @@ public:
     auto const & id = result.first;
     if (type == feature::DataHeader::country)
     {
-      if (auto info = id.GetInfo())
+      if (auto const & info = id.GetInfo())
         RegisterCountry(name, info->m_limitRect);
     }
     return id;
