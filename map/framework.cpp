@@ -523,7 +523,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   };
 
   // Call action on thread in which the framework was created
-  // For more information look at comment for Observer class in mwm_set.hpp 
+  // For more information look at comment for Observer class in mwm_set.hpp
   if (m_storage.GetThreadChecker().CalledOnOriginalThread())
     action();
   else
@@ -2235,12 +2235,7 @@ void Framework::CloseRouting()
 {
   if (m_routingSession.IsBuilt())
   {
-    auto const lastGoodPoint = MercatorBounds::ToLatLon(
-        m_routingSession.GetRoute().GetFollowedPolyline().GetCurrentIter().m_pt);
-    alohalytics::Stats::Instance().LogEvent(
-        "RouteTracking_RouteClosing",
-        {{"percent", strings::to_string(m_routingSession.GetCompletionPercent())}},
-        alohalytics::Location::FromLatLon(lastGoodPoint.lat, lastGoodPoint.lon));
+    m_routingSession.EmitCloseRoutingEvent();
   }
   m_routingSession.Reset();
   RemoveRoute(true /* deactivateFollowing */);

@@ -123,6 +123,8 @@ public:
   void GenerateTurnNotifications(vector<string> & turnNotifications);
   double GetCompletionPercent() const;
 
+  void EmitCloseRoutingEvent() const;
+
 private:
   struct DoReadyCallback
   {
