@@ -68,7 +68,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
   if (info.IsMyPosition())
-    return CreateMapObject(env, kMyPosition, "", "", ll.lat, ll.lon, address.FormatAddress(), {}, "");
+    return CreateMapObject(env, kMyPosition, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(), {}, "");
 
   if (info.HasApiUrl())
     return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(), info.GetMetadata(), info.GetApiUrl());

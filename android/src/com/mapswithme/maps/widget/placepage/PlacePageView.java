@@ -442,7 +442,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     UiUtils.showIf(mMapObject != null && Editor.nativeIsFeatureEditable() &&
                    !RoutingController.get().isNavigating() && !MapManager.nativeIsLegacyMode(),
                    mEditor);
-    UiUtils.showIf(!RoutingController.get().isNavigating() && !MapManager.nativeIsLegacyMode(), mReport);
+    UiUtils.showIf(!RoutingController.get().isNavigating() && !MapManager.nativeIsLegacyMode() &&
+                   !MapObject.isOfType(MapObject.MY_POSITION, mMapObject),
+                   mReport);
   }
 
   private void refreshOpeningHours()
