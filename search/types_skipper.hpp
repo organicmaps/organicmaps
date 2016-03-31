@@ -1,11 +1,8 @@
 #pragma once
 
-#include "base/buffer_vector.hpp"
+#include "v2/search_model.hpp"
 
-namespace feature
-{
-class TypesHolder;
-}
+#include "base/buffer_vector.hpp"
 
 namespace search
 {
@@ -34,7 +31,7 @@ private:
 
   // m_skipIfEmptyName and m_dontSkipIfEmptyName are used in the case 2 described above.
   TCont m_skipIfEmptyName[2];
-  TCont m_dontSkipIfEmptyName;
+  v2::TwoLevelPOIChecker m_dontSkipIfEmptyName;
 
   uint32_t m_country, m_state;
 };

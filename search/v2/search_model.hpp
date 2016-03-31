@@ -1,5 +1,7 @@
 #pragma once
 
+#include "indexer/ftypes_matcher.hpp"
+
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -7,15 +9,18 @@
 
 class FeatureType;
 
-namespace ftypes
-{
-class BaseChecker;
-}
-
 namespace search
 {
 namespace v2
 {
+
+class TwoLevelPOIChecker : public ftypes::BaseChecker
+{
+public:
+  TwoLevelPOIChecker();
+  bool Has(uint32_t type) const { return IsMatched(type); }
+};
+
 // This class is used to map feature types to a restricted set of
 // different search classes (do not confuse these classes with search
 // categories - they are completely different things).

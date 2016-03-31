@@ -54,7 +54,6 @@ SOURCES += \
     search_delimiters.cpp \    # it's in indexer because of CategoriesHolder dependency.
     search_string_utils.cpp \  # it's in indexer because of CategoriesHolder dependency.
     types_mapping.cpp \
-    types_skipper.cpp \
 
 HEADERS += \
     categories_holder.hpp \
@@ -117,7 +116,6 @@ HEADERS += \
     trie_builder.hpp \
     trie_reader.hpp \
     types_mapping.hpp \
-    types_skipper.hpp \
     unique_index.hpp \
 
 OTHER_FILES += drules_struct.proto

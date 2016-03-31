@@ -1,4 +1,4 @@
-#include "indexer/types_skipper.hpp"
+#include "types_skipper.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
@@ -18,12 +18,11 @@ TypesSkipper::TypesSkipper()
   for (auto const & e : (StringIL[]){{"building", "address"}})
     m_skipAlways[1].push_back(c.GetTypeByPath(e));
 
-  for (auto const & e : (StringIL[]){{"highway", "bus_stop"}, {"highway", "speed_camera"}})
-    m_dontSkipIfEmptyName.push_back(c.GetTypeByPath(e));
-
-  for (auto const & e :
-       (StringIL[]){{"building"}, {"highway"}, {"natural"}, {"waterway"}, {"landuse"}})
+  for (auto const & e : (StringIL[]){{"building"}, {"highway"}, {"natural"},
+                                     {"waterway"}, {"landuse"}})
+  {
     m_skipIfEmptyName[0].push_back(c.GetTypeByPath(e));
+  }
 
   for (auto const & e : (StringIL[]){{"place", "country"},
                                      {"place", "state"},
@@ -62,10 +61,10 @@ void TypesSkipper::SkipEmptyNameTypes(feature::TypesHolder & types) const
 {
   auto shouldBeRemoved = [this](uint32_t type)
   {
-    ftype::TruncValue(type, 2);
-    if (HasType(m_dontSkipIfEmptyName, type))
+    if (m_dontSkipIfEmptyName.Has(type))
       return false;
 
+    ftype::TruncValue(type, 2);
     if (HasType(m_skipIfEmptyName[1], type))
       return true;
 

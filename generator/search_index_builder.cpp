@@ -1,8 +1,10 @@
 #include "search_index_builder.hpp"
 
 #include "search/reverse_geocoder.hpp"
+#include "search/search_common.hpp"
 #include "search/search_index_values.hpp"
 #include "search/search_trie.hpp"
+#include "search/types_skipper.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
@@ -16,9 +18,6 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
-#include "indexer/types_skipper.hpp"
-
-#include "search/search_common.hpp"
 
 #include "defines.hpp"
 

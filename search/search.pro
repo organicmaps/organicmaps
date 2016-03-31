@@ -41,6 +41,7 @@ HEADERS += \
     search_string_intersection.hpp \
     search_trie.hpp \
     suggest.hpp \
+    types_skipper.hpp \
     v2/cbv_ptr.hpp \
     v2/features_filter.hpp \
     v2/features_layer.hpp \
@@ -85,6 +86,7 @@ SOURCES += \
     search_engine.cpp \
     search_query.cpp \
     search_query_params.cpp \
+    types_skipper.cpp \
     v2/cbv_ptr.cpp \
     v2/features_filter.cpp \
     v2/features_layer.cpp \
