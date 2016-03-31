@@ -43,8 +43,7 @@
 
 - (void)setFrame:(CGRect)frame
 {
-  if (!isIOS7)
-    [self updateForSize:frame.size];
+  [self updateForSize:frame.size];
   super.frame = frame;
 }
 
@@ -53,6 +52,7 @@
   BOOL const hideImage = (self.imageHeight.multiplier * size.height <= self.imageMinHeight.constant);
   self.titleImageOffset.priority = hideImage ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
   self.image.hidden = hideImage;
+  [self layoutIfNeeded];
 }
 
 - (void)configDefaultState
