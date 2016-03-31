@@ -154,6 +154,10 @@ namespace
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+  if ([cell isKindOfClass:[MWMStreetEditorEditTableViewCell class]])
+    return;
+
   self.selectedStreet = indexPath.row;
   [self onDone];
 }

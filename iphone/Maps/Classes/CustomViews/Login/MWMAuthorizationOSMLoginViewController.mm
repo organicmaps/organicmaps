@@ -47,6 +47,13 @@ using namespace osm;
   [self stopSpinner];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
+  if (!self.loginTextField.text.length && !self.passwordTextField.text.length)
+    [self.loginTextField becomeFirstResponder];
+}
+
 - (BOOL)shouldAutorotate
 {
   return NO;
