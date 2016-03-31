@@ -113,6 +113,21 @@ UniString Normalize(UniString const & s)
   return result;
 }
 
+void NormalizeDigits(string & utf8)
+{
+  for (size_t i = 0; i + 2 < utf8.size(); ++i)
+  {
+    if (utf8[i] == '\xEF' && utf8[i + 1] == '\xBC')
+    {
+      char const n = utf8[i + 2];
+      if (n < '\x90' || n > '\x99')
+        continue;
+      utf8[i] = n - 0x90 + '0';
+      utf8.erase(i + 1, 2);
+    }
+  }
+}
+
 namespace
 {
   char ascii_to_lower(char in)
