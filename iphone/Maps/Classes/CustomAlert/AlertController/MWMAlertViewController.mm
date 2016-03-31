@@ -69,9 +69,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert unsavedEditsAlertWithOkBlock:okBlock]];
 }
 
-- (void)presentNoWiFiAlertWithName:(nonnull NSString *)name okBlock:(nullable TMWMVoidBlock)okBlock
+- (void)presentNoWiFiAlertWithOkBlock:(nullable TMWMVoidBlock)okBlock
 {
-  [self displayAlert:[MWMAlert noWiFiAlertWithName:name okBlock:okBlock]];
+  [self displayAlert:[MWMAlert noWiFiAlertWithOkBlock:okBlock]];
 }
 
 - (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch
@@ -177,20 +177,25 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert osmAuthAlert]];
 }
 
-- (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion
+- (void)closeAlert
 {
-  MWMAlert * alert = self.view.subviews.firstObject;
+  NSArray * subviews = self.view.subviews;
+  MWMAlert * alert = subviews.firstObject;
+  BOOL const isLastAlert = (subviews.count == 1);
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     alert.alpha = 0.;
-    self.view.alpha = 0.;
+    if (isLastAlert)
+      self.view.alpha = 0.;
   }
   completion:^(BOOL finished)
   {
-    if (completion)
-      completion();
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
+    [alert removeFromSuperview];
+    if (isLastAlert)
+    {
+      [self.view removeFromSuperview];
+      [self removeFromParentViewController];
+    }
   }];
 }
 

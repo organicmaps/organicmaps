@@ -16,7 +16,7 @@
 + (MWMAlert *)locationAlert;
 + (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation;
 + (MWMAlert *)disabledLocationAlert;
-+ (MWMAlert *)noWiFiAlertWithName:(NSString *)name okBlock:(TMWMVoidBlock)okBlock;
++ (MWMAlert *)noWiFiAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)noConnectionAlert;
 + (MWMAlert *)migrationProhibitedAlert;
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock;

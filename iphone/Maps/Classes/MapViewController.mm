@@ -19,6 +19,7 @@
 #import "MWMPageController.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMReportBaseController.h"
+#import "MWMStorage.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
 #import "MWMWhatsNewDownloaderEditorController.h"
@@ -641,10 +642,9 @@ NSString * const kReportSegue = @"Map2ReportSegue";
       {
         [self presentDownloaderAlert:code countries:absentCountries okBlock:[self, absentCountries]
         {
-          auto & s = GetFramework().Storage();
-          for (auto const & countryId : absentCountries)
-            s.DownloadNode(countryId);
-          [self openMapsDownloader];
+          [MWMStorage downloadNodes:absentCountries
+                    alertController:self.alertController
+                          onSuccess:^{ [self openMapsDownloader]; }];
         }];
       }
       break;

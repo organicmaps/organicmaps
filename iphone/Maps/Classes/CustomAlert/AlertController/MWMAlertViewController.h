@@ -23,7 +23,7 @@
 - (void)presentNoConnectionAlert;
 - (void)presentMigrationProhibitedAlert;
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
-- (void)presentNoWiFiAlertWithName:(nonnull NSString *)name okBlock:(nullable TMWMVoidBlock)okBlock;
+- (void)presentNoWiFiAlertWithOkBlock:(nullable TMWMVoidBlock)okBlock;
 - (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch;
 - (void)presentIncorrectFeauturePositionAlert;
 - (void)presentInternalErrorAlert;
@@ -35,7 +35,7 @@
 - (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentEditorViralAlert;
 - (void)presentOsmAuthAlert;
-- (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion;
+- (void)closeAlert;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
 + (nonnull instancetype)new __attribute__((unavailable("call -initWithViewController: instead!")));

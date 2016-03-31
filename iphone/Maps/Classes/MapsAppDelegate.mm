@@ -10,6 +10,7 @@
 #import "MWMController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "Preferences.h"
 #import "RouteState.h"
@@ -404,6 +405,7 @@ using namespace osm_auth_ios;
   if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
     [notificationManager processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey] onLaunch:YES];
 
+  [MWMStorage startSession];
   if ([Alohalytics isFirstSession])
     [self firstLaunchSetup];
   else

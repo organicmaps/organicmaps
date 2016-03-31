@@ -13,7 +13,7 @@
 + (instancetype)noCurrentPositionAlert;
 + (instancetype)pointsInDifferentMWMAlert;
 + (instancetype)disabledLocationAlert;
-+ (instancetype)noWiFiAlertWithName:(NSString *)name okBlock:(TMWMVoidBlock)okBlock;
++ (instancetype)noWiFiAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)noConnectionAlert;
 + (instancetype)migrationProhibitedAlert;
 + (instancetype)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock;

@@ -97,12 +97,11 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                    rightButtonAction:okBlock];
 }
 
-+ (instancetype)noWiFiAlertWithName:(NSString *)name okBlock:(TMWMVoidBlock)okBlock
++ (instancetype)noWiFiAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"No WiFi Alert";
-  NSString * title = [NSString stringWithFormat:L(@"common_no_wifi_dialog"), name];
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:title
-                                                message:nil
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"download_over_mobile_header"
+                                                message:@"download_over_mobile_message"
                                        rightButtonTitle:@"use_cellular_data"
                                         leftButtonTitle:@"cancel"
                                       rightButtonAction:okBlock];
