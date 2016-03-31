@@ -37,7 +37,7 @@ static unordered_map<string, EType> const kNamesToFMD= {
   {"height", feature::Metadata::FMD_HEIGHT},
   // {"", feature::Metadata::FMD_MIN_HEIGHT},
   {"denomination", feature::Metadata::FMD_DENOMINATION},
-  {"building_levels", feature::Metadata::FMD_BUILDING_LEVELS}
+  {"building:levels", feature::Metadata::FMD_BUILDING_LEVELS}
   // description
 };
 
@@ -120,9 +120,22 @@ EditorConfig::EditorConfig(string const & fileName)
   Reload();
 }
 
-bool EditorConfig::GetTypeDescription(vector<string> const & classificatorTypes,
+bool EditorConfig::GetTypeDescription(vector<string> classificatorTypes,
                                       TypeAggregatedDescription & outDesc) const
 {
+  bool isBuilding = false;
+  for (auto it = classificatorTypes.begin(); it != classificatorTypes.end(); ++it)
+  {
+    if (*it == "building")
+    {
+      outDesc.m_address = isBuilding = true;
+      outDesc.m_editableFields.push_back(feature::Metadata::FMD_BUILDING_LEVELS);
+      outDesc.m_editableFields.push_back(feature::Metadata::FMD_POSTCODE);
+      classificatorTypes.erase(it);
+      break;
+    }
+  }
+
   auto const typeNodes = GetPrioritizedTypes(m_document);
   auto const it = find_if(begin(typeNodes), end(typeNodes),
                           [&classificatorTypes](pugi::xml_node const & node)
@@ -131,7 +144,7 @@ bool EditorConfig::GetTypeDescription(vector<string> const & classificatorTypes,
                                         node.attribute("id").value()) != end(classificatorTypes);
                           });
   if (it == end(typeNodes))
-    return false;
+    return isBuilding;
 
   return TypeDescriptionFromXml(m_document, *it, outDesc);
 }

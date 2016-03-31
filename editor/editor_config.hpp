@@ -43,7 +43,8 @@ class EditorConfig
 public:
   EditorConfig(string const & fileName = "editor.config");
 
-  bool GetTypeDescription(vector<string> const & classificatorTypes, TypeAggregatedDescription & outDesc) const;
+  // TODO(mgsergio): Reduce overhead by matching uint32_t types instead of strings.
+  bool GetTypeDescription(vector<string> classificatorTypes, TypeAggregatedDescription & outDesc) const;
   vector<string> GetTypesThatCanBeAdded() const;
 
   bool EditingEnable() const;
