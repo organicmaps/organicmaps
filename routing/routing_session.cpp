@@ -500,4 +500,23 @@ double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera,
   }
   return kInvalidSpeedCameraDistance;
 }
+
+void RoutingSession::EmitCloseRoutingEvent() const
+{
+  if (!m_route.IsValid())
+  {
+    ASSERT(false, ());
+    return;
+  }
+  auto const lastGoodPoint =
+      MercatorBounds::ToLatLon(m_route.GetFollowedPolyline().GetCurrentIter().m_pt);
+  alohalytics::Stats::Instance().LogEvent(
+      "RouteTracking_RouteClosing",
+      {{"percent", strings::to_string(GetCompletionPercent())},
+       {"distance", strings::to_string(m_passedDistanceOnRouteMeters +
+                                       m_route.GetCurrentDistanceToEndMeters())},
+       {"router", m_route.GetRouterId()},
+       {"rebuildCount", strings::to_string(m_routingRebuildCount)}},
+      alohalytics::Location::FromLatLon(lastGoodPoint.lat, lastGoodPoint.lon));
+}
 }  // namespace routing
