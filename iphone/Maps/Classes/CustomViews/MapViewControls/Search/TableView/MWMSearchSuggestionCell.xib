@@ -38,6 +38,7 @@
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>

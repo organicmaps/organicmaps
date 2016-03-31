@@ -27,6 +27,7 @@
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
@@ -54,6 +55,7 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="g71-7u-1M7" id="AJS-bY-hPY"/>

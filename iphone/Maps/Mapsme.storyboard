@@ -598,6 +598,7 @@
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
@@ -630,6 +631,7 @@
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="up5-BH-6Ii">
@@ -676,6 +678,7 @@
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>

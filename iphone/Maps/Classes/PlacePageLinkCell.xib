@@ -37,6 +37,8 @@
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="linkBlue"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="delegate" destination="DKh-ne-anv" id="KQo-Mn-gqx"/>

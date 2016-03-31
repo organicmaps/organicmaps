@@ -25,6 +25,7 @@
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_approve" translatesAutoresizingMaskIntoConstraints="NO" id="icw-Gw-rjx">
