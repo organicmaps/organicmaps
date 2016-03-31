@@ -10,7 +10,7 @@
 
 namespace
 {
-void SetUpWeekdays(osmoh::Weekdays const & wds, editor::ui::TimeTable & tt)
+editor::ui::TOpeningDays MakeOpeningDays(osmoh::Weekdays const & wds)
 {
   set<osmoh::Weekday> openingDays;
   for (auto const & wd : wds.GetWeekdayRanges())
@@ -30,7 +30,12 @@ void SetUpWeekdays(osmoh::Weekdays const & wds, editor::ui::TimeTable & tt)
     if (wd.HasSaturday())
       openingDays.insert(osmoh::Weekday::Saturday);
   }
-  tt.SetOpeningDays(openingDays);
+  return openingDays;
+}
+
+void SetUpWeekdays(osmoh::Weekdays const & wds, editor::ui::TimeTable & tt)
+{
+  tt.SetOpeningDays(MakeOpeningDays(wds));
 }
 
 void SetUpTimeTable(osmoh::TTimespans spans, editor::ui::TimeTable & tt)
@@ -164,6 +169,117 @@ editor::ui::TOpeningDays const kWholeWeek = {
   osmoh::Weekday::Saturday,
   osmoh::Weekday::Sunday
 };
+
+editor::ui::TOpeningDays GetCommonDays(editor::ui::TOpeningDays const & a,
+                                       editor::ui::TOpeningDays const & b)
+{
+  editor::ui::TOpeningDays result;
+  set_intersection(begin(a), end(a), begin(b), end(b), inserter(result, begin(result)));
+  return result;
+}
+
+osmoh::HourMinutes::TMinutes::rep GetDuration(osmoh::Time const & time)
+{
+  return time.GetHourMinutes().GetDurationCount();
+}
+
+bool Includes(osmoh::Timespan const & a, osmoh::Timespan const & b)
+{
+  return GetDuration(a.GetStart()) <= GetDuration(b.GetStart()) &&
+         GetDuration(b.GetEnd()) <= GetDuration(a.GetEnd());
+}
+
+bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTableSet & tts)
+{
+  auto const ttsInitialSize = tts.Size();
+  for (size_t i = 0; i < ttsInitialSize; ++i)
+  {
+    auto tt = tts.Get(i);
+    auto const ttOpeningDays = tt.GetOpeningDays();
+    auto const commonDays = GetCommonDays(ttOpeningDays,
+                                          MakeOpeningDays(rulePart.GetWeekdays()));
+
+    auto const removeCommonDays = [&commonDays](editor::ui::TTimeTableProxy & tt)
+    {
+      for (auto const day : commonDays)
+        VERIFY(tt.RemoveWorkingDay(day), ("Can't remove working day"));
+      VERIFY(tt.Commit(), ("Can't commit changes"));
+    };
+
+    auto const twentyFourHoursGuard = [](editor::ui::TimeTable & tt)
+    {
+      using osmoh::operator ""_h;
+      if (tt.IsTwentyFourHours())
+      {
+        tt.SetTwentyFourHours(false);
+        // TODO(mgsergio): Consider TimeTable refactoring:
+        // get rid of separation of TwentyFourHours and OpeningTime.
+        tt.SetOpeningTime({0_h, 24_h});
+      }
+    };
+
+    auto const & excludeTime = rulePart.GetTimes();
+    // The whole rule matches to the tt.
+    if (commonDays.size() == ttOpeningDays.size())
+    {
+      // rulePart applies to commonDays in a whole.
+      if (excludeTime.empty())
+        return tts.Remove(i);
+
+      twentyFourHoursGuard(tt);
+
+      for (auto const & time : excludeTime)
+      {
+        // Whatever it is, it's already closed at a time out of opening time.
+        if (!Includes(tt.GetOpeningTime(), time))
+          continue;
+
+        // The whole opening time interval should be switched off
+        if (!tt.AddExcludeTime(time))
+          return tts.Remove(i);
+      }
+      VERIFY(tt.Commit(), ("Can't update time table"));
+      return true;
+    }
+    // A rule is applied to a subset of a time table. We should
+    // subtract common parts from tt and add a new time table if needed.
+    if (commonDays.size() != 0)
+    {
+      // rulePart applies to commonDays in a whole.
+      if (excludeTime.empty())
+      {
+        removeCommonDays(tt);
+        continue;
+      }
+
+      twentyFourHoursGuard(tt);
+
+      editor::ui::TimeTable copy = tt;
+      VERIFY(copy.SetOpeningDays(commonDays), ("Can't set opening days"));
+
+      auto doAppendRest = true;
+      for (auto const & time : excludeTime)
+      {
+        // Whatever it is, it's already closed at a time out of opening time.
+        if (!Includes(copy.GetOpeningTime(), time))
+          continue;
+
+        // The whole opening time interval should be switched off
+        if (!copy.AddExcludeTime(time))
+        {
+          doAppendRest = false;
+          break;
+        }
+      }
+
+      removeCommonDays(tt);
+
+      if (doAppendRest)
+        VERIFY(tts.Append(copy), ("Can't add new time table"));
+    }
+  }
+  return true;
+}
 }  // namespace
 
 namespace editor
@@ -209,13 +325,21 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
     ui::TimeTable tt = ui::TimeTable::GetUninitializedTimeTable();
     tt.SetOpeningTime(tt.GetPredefinedOpeningTime());
 
-    // TODO(mgsergio): We don't handle cases with speciffic time off.
-    // I.e. Mo-Fr 08-20; Fr 18:00-17:00 off.
-    // Can be implemented later.
-    if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Closed ||
-        rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Unknown ||
+    // Comments and unknown rules belong to advanced mode.
+    if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Unknown ||
         rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Comment)
       return false;
+
+    if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Closed)
+    {
+      // off modifier in the first part in oh is useless.
+      if (first == true)
+        return false;
+
+      if (!ExcludeRulePart(rulePart, tts))
+        return false;
+      continue;
+    }
 
     if (rulePart.HasWeekdays())
       SetUpWeekdays(rulePart.GetWeekdays(), tt);
@@ -232,7 +356,8 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
       tt.SetTwentyFourHours(true);
     }
 
-    bool const appended = first ? tts.Replace(tt, 0) : tts.Append(tt);
+    // Check size as well since ExcludeRulePart can add new time tables.
+    bool const appended = first && tts.Size() == 1 ? tts.Replace(tt, 0) : tts.Append(tt);
     first = false;
     if (!appended)
       return false;
