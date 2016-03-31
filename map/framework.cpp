@@ -291,9 +291,9 @@ Framework::Framework()
   , m_lastReportedCountry(kInvalidCountryId)
 {
   // Restore map style before classificator loading
-  int mapStyle = MapStyleLight;
+  int mapStyle;
   if (!settings::Get(kMapStyleKey, mapStyle))
-    mapStyle = MapStyleClear;
+    mapStyle = kDefaultMapStyle;
   GetStyleReader().SetCurrentStyle(static_cast<MapStyle>(mapStyle));
 
   m_connectToGpsTrack = GpsTracker::Instance().IsEnabled();

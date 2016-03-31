@@ -2,6 +2,8 @@
 
 #include "base/assert.hpp"
 
+MapStyle kDefaultMapStyle = MapStyleClear;
+
 string DebugPrint(MapStyle mapStyle)
 {
   switch (mapStyle)

@@ -26,7 +26,8 @@ UNIT_TEST(FBuilder_ManyTypes)
   char const * arr2[][2] = {
     { "place", "country" },
     { "place", "state" },
-    { "place", "county" },
+    /// @todo Can't realize is it deprecated or we forgot to add clear styles for it.
+    //{ "place", "county" },
     { "place", "region" },
     { "place", "city" },
     { "place", "town" },
@@ -53,7 +54,7 @@ UNIT_TEST(FBuilder_ManyTypes)
 
   TEST(fb2.CheckValid(), ());
   TEST_EQUAL(fb1, fb2, ());
-  TEST_EQUAL(fb2.GetTypesCount(), 7, ());
+  TEST_EQUAL(fb2.GetTypesCount(), 6, ());
 }
 
 UNIT_TEST(FBuilder_LineTypes)
@@ -91,6 +92,35 @@ UNIT_TEST(FBuilder_LineTypes)
   TEST_EQUAL(fb2.GetTypesCount(), 4, ());
 }
 
+UNIT_TEST(FBuilder_Waterfall)
+{
+  classificator::Load();
+
+  FeatureBuilder1 fb1;
+  FeatureParams params;
+
+  char const * arr[][2] = {{"waterway", "waterfall"}};
+  AddTypes(params, arr);
+  TEST(params.FinishAddingTypes(), ());
+
+  fb1.SetParams(params);
+  fb1.SetCenter(m2::PointD(1, 1));
+
+  TEST(fb1.RemoveInvalidTypes(), ());
+  TEST(fb1.CheckValid(), ());
+
+  FeatureBuilder1::TBuffer buffer;
+  TEST(fb1.PreSerialize(), ());
+  fb1.Serialize(buffer);
+
+  FeatureBuilder1 fb2;
+  fb2.Deserialize(buffer);
+
+  TEST(fb2.CheckValid(), ());
+  TEST_EQUAL(fb1, fb2, ());
+  TEST_EQUAL(fb2.GetTypesCount(), 1, ());
+}
+
 UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
 {
   classificator::Load();
@@ -107,7 +137,7 @@ UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
 
   {
     vector<uint32_t> types;
-    types.push_back(c.GetTypeByPath({ "amenity" }));
+    types.push_back(c.GetTypeByPath({ "highway", "primary" }));
     types.push_back(c.GetTypeByPath({ "building" }));
 
     TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA, true), ());
