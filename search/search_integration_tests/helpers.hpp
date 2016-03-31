@@ -37,8 +37,17 @@ public:
   SearchTest();
   ~SearchTest();
 
+  // Registers country in internal records. Note that physical country
+  // file may be absent.
   void RegisterCountry(string const & name, m2::RectD const & rect);
 
+  // Creates a physical country file on a disk, which will be removed
+  // at the end of the test. |fn| is a delegate that accepts a single
+  // argument - TestMwmBuilder and adds all necessary features to the
+  // country file.
+  //
+  // *NOTE* when |type| is feature::DataHeader::country, the country
+  // with |name| will be automatically registered.
   template <typename TBuildFn>
   MwmSet::MwmId BuildMwm(string const & name, feature::DataHeader::MapType type, TBuildFn && fn)
   {
@@ -50,9 +59,17 @@ public:
       tests_support::TestMwmBuilder builder(file, type);
       fn(builder);
     }
+
     auto result = m_engine.RegisterMap(file);
-    ASSERT_EQUAL(result.second, MwmSet::RegResult::Success, ());
-    return result.first;
+    CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());
+
+    auto const & id = result.first;
+    if (type == feature::DataHeader::country)
+    {
+      if (auto info = id.GetInfo())
+        RegisterCountry(name, info->m_limitRect);
+    }
+    return id;
   }
 
   inline void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }

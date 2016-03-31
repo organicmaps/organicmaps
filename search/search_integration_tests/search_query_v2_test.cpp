@@ -103,10 +103,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
                  builder.Add(lantern2);
                });
 
-  RegisterCountry(countryName, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(10.1, 10.1)));
-
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
-
   {
     TRules rules = {ExactMatch(wonderlandId, busStop)};
     TEST(ResultsMatch("Bus stop", rules), ());
@@ -182,7 +179,6 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
                                 builder.Add(wonderland);
                                 builder.Add(losAlamos);
                               });
-
   RegisterCountry(countryName, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.5, -0.5)));
@@ -219,10 +215,8 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
                  builder.Add(hydePark);
                  builder.Add(cafe);
                });
-  RegisterCountry(countryName, m2::RectD(m2::PointD(0, 0), m2::PointD(2, 2)));
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.9, -0.9)));
-
   {
     TRules rules = {ExactMatch(wonderlandId, hydePark)};
     TEST(ResultsMatch("hyde park", rules), ());
@@ -251,7 +245,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
                             builder.Add(london1);
                             builder.Add(london2);
                           });
-  RegisterCountry("Wonderland", m2::RectD(m2::PointD(-2, -2), m2::PointD(2, 2)));
+
   SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
   {
     SearchParams params;
@@ -288,12 +282,11 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
                           {
                             builder.Add(sanFrancisco);
                           });
-  auto wonderlandId = BuildMwm(countryName,  feature::DataHeader::country, [&](TestMwmBuilder & builder)
+  auto wonderlandId = BuildMwm(countryName, feature::DataHeader::country, [&](TestMwmBuilder & builder)
                                {
                                  builder.Add(goldenGateStreet);
                                  builder.Add(goldenGateBridge);
                                });
-  RegisterCountry("Wonderland", m2::RectD(m2::PointD(-2, -2), m2::PointD(2, 2)));
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
   {
