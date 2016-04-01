@@ -378,7 +378,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     refreshPreview();
     refreshDetails();
-    final Location loc = LocationHelper.INSTANCE.getLastLocation();
+    final Location loc = LocationHelper.INSTANCE.getSavedLocation();
 
     switch (mMapObject.getMapObjectType())
     {
@@ -610,7 +610,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
       return;
 
-    final Location location = LocationHelper.INSTANCE.getLastLocation();
+    final Location location = LocationHelper.INSTANCE.getSavedLocation();
     if (location == null)
       return;
 

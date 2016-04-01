@@ -69,7 +69,7 @@ public enum LocationHelper implements SensorEventListener
 
   private boolean mActive;
 
-  private Location mLastLocation;
+  private Location mSavedLocation;
   private MapObject mMyPosition;
   private long mLastLocationTime;
 
@@ -175,22 +175,27 @@ public enum LocationHelper implements SensorEventListener
       return null;
     }
 
-    if (mLastLocation == null)
+    if (mSavedLocation == null)
       return null;
 
     if (mMyPosition == null)
-      mMyPosition = new MapObject(MapObject.MY_POSITION, "", "", "", mLastLocation.getLatitude(), mLastLocation.getLongitude(), "");
+      mMyPosition = new MapObject(MapObject.MY_POSITION, "", "", "", mSavedLocation.getLatitude(), mSavedLocation.getLongitude(), "");
 
     return mMyPosition;
   }
 
-  public Location getLastLocation() { return mLastLocation; }
+  /**
+   * <p>Obtains last known saved location. It depends on "My position" button state and is cleared on "No position" one.
+   * <p>If you need the location regardless of the button's state, use {@link #getLastKnownLocation()}.
+   * @return {@code null} if no location is saved or "My position" button is in "No position" state.
+   */
+  public Location getSavedLocation() { return mSavedLocation; }
 
-  public long getLastLocationTime() { return mLastLocationTime; }
+  public long getSavedLocationTime() { return mLastLocationTime; }
 
-  public void setLastLocation(@NonNull Location loc)
+  public void saveLocation(@NonNull Location loc)
   {
-    mLastLocation = loc;
+    mSavedLocation = loc;
     mMyPosition = null;
     mLastLocationTime = System.currentTimeMillis();
     notifyLocationUpdated();
@@ -198,11 +203,11 @@ public enum LocationHelper implements SensorEventListener
 
   protected void notifyLocationUpdated()
   {
-    if (mLastLocation == null)
+    if (mSavedLocation == null)
       return;
 
     for (LocationListener listener : mListeners)
-      listener.onLocationUpdated(mLastLocation);
+      listener.onLocationUpdated(mSavedLocation);
     mListeners.finishIterate();
   }
 
@@ -312,8 +317,8 @@ public enum LocationHelper implements SensorEventListener
     if (mSensorManager != null)
     {
       // Recreate magneticField if location has changed significantly
-      if (mMagneticField == null || mLastLocation == null ||
-          newLocation.distanceTo(mLastLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M)
+      if (mMagneticField == null || mSavedLocation == null ||
+          newLocation.distanceTo(mSavedLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M)
         mMagneticField = new GeomagneticField((float) newLocation.getLatitude(), (float) newLocation.getLongitude(),
             (float) newLocation.getAltitude(), newLocation.getTime());
     }
@@ -346,8 +351,8 @@ public enum LocationHelper implements SensorEventListener
    */
   public @Nullable Location getLastKnownLocation()
   {
-    if (mLastLocation != null)
-      return mLastLocation;
+    if (mSavedLocation != null)
+      return mSavedLocation;
 
     AndroidNativeProvider provider = new AndroidNativeProvider();
     List<String> providers = provider.getFilteredProviders();

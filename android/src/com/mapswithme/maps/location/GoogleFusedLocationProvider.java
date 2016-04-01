@@ -71,7 +71,7 @@ public class GoogleFusedLocationProvider extends BaseLocationProvider
     LocationHelper.INSTANCE.registerSensorListeners();
     final Location l = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     if (l != null)
-      LocationHelper.INSTANCE.setLastLocation(l);
+      LocationHelper.INSTANCE.saveLocation(l);
   }
 
   @Override

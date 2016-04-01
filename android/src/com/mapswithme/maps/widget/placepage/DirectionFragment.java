@@ -132,7 +132,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    final Location last = LocationHelper.INSTANCE.getLastLocation();
+    final Location last = LocationHelper.INSTANCE.getSavedLocation();
     if (last == null || mMapObject == null)
       return;
 

@@ -114,7 +114,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   {
     super.onResume();
 
-    Location loc = LocationHelper.INSTANCE.getLastLocation();
+    Location loc = LocationHelper.INSTANCE.getSavedLocation();
     if (loc != null)
     {
       String id = MapManager.nativeFindCountry(loc.getLatitude(), loc.getLongitude());

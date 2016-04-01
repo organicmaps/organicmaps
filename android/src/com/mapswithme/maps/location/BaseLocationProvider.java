@@ -32,7 +32,7 @@ abstract class BaseLocationProvider implements LocationListener
     if (newLocation == null)
       return false;
 
-    final Location lastLocation = LocationHelper.INSTANCE.getLastLocation();
+    final Location lastLocation = LocationHelper.INSTANCE.getSavedLocation();
     return (lastLocation == null || isLocationBetterThanLast(newLocation, lastLocation));
   }
 
@@ -46,7 +46,7 @@ abstract class BaseLocationProvider implements LocationListener
     if (isLocationBetterThanLast(location))
     {
       LocationHelper.INSTANCE.initMagneticField(location);
-      LocationHelper.INSTANCE.setLastLocation(location);
+      LocationHelper.INSTANCE.saveLocation(location);
     }
   }
 

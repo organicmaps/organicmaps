@@ -42,13 +42,13 @@ public class AndroidNativeProvider extends BaseLocationProvider
 
       final Location newLocation = findBestNotExpiredLocation(providers, LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT);
       if (isLocationBetterThanLast(newLocation))
-        LocationHelper.INSTANCE.setLastLocation(newLocation);
+        LocationHelper.INSTANCE.saveLocation(newLocation);
       else
       {
-        final Location lastLocation = LocationHelper.INSTANCE.getLastLocation();
-        if (lastLocation != null && !LocationUtils.isExpired(lastLocation, LocationHelper.INSTANCE.getLastLocationTime(),
+        final Location lastLocation = LocationHelper.INSTANCE.getSavedLocation();
+        if (lastLocation != null && !LocationUtils.isExpired(lastLocation, LocationHelper.INSTANCE.getSavedLocationTime(),
                                                              LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
-          LocationHelper.INSTANCE.setLastLocation(lastLocation);
+          LocationHelper.INSTANCE.saveLocation(lastLocation);
       }
     }
   }
@@ -60,13 +60,13 @@ public class AndroidNativeProvider extends BaseLocationProvider
     mIsActive = false;
   }
 
-  @Nullable Location findBestNotExpiredLocation(List<String> providers, long expiration)
+  @Nullable Location findBestNotExpiredLocation(List<String> providers, long expirationMs)
   {
     Location res = null;
     for (final String pr : providers)
     {
       final Location l = mLocationManager.getLastKnownLocation(pr);
-      if (l != null && !LocationUtils.isExpired(l, l.getTime(), expiration))
+      if (l != null && !LocationUtils.isExpired(l, l.getTime(), expirationMs))
       {
         if (res == null || res.getAccuracy() > l.getAccuracy())
           res = l;
