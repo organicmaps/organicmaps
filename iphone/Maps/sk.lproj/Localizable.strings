@@ -1368,3 +1368,7 @@
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d z %2$d";
+
+"download_over_mobile_header" = "Sťahovať prostredníctvom pripojenia na mobilnú sieť?";
+
+"download_over_mobile_message" = "V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.";

@@ -801,4 +801,6 @@
 	<string name="editor_unsupported_category_message">لقد قمت بإضافة مكان ينتمي لفئة غير متوفرة لدينا بعد. سوف تظهر على الخريطة لاحقا.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d من%2$d</string>
+	<string name="download_over_mobile_header">تنزيل باستخدام اتصال الشبكة الخلوية؟</string>
+	<string name="download_over_mobile_message">قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.</string>
 </resources>

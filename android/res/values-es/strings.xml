@@ -790,4 +790,6 @@
 	<string name="editor_unsupported_category_message">Has añadido un lugar de una categoría que no hemos incluido aún. Aparecerá en el mapa en unos momentos.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>
+	<string name="download_over_mobile_header">¿Descargar con conexión de red móvil?</string>
+	<string name="download_over_mobile_message">Podría ser muy caro con ciertos planes o con itinerancia de datos.</string>
 </resources>

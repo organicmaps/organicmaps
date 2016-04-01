@@ -792,4 +792,6 @@
 	<string name="editor_unsupported_category_message">Ați adăugat o locație pentru care nu avem încă o categorie creată. Aceasta va apărea pe hartă în viitorul apropiat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d din %2$d</string>
+	<string name="download_over_mobile_header">Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?</string>
+	<string name="download_over_mobile_message">Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.</string>
 </resources>

@@ -1368,3 +1368,7 @@
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d von %2$d";
+
+"download_over_mobile_header" = "Download mit einer mobilen Netzwerkverbindung?";
+
+"download_over_mobile_message" = "Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.";

@@ -785,4 +785,6 @@
 	<string name="editor_unsupported_category_message">U hebt een plaats of categorie toegevoegd die we nog niet ondersteunen. Het zal enige tijd duren voordat deze op de kaart verschijnt.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d van %2$d</string>
+	<string name="download_over_mobile_header">Downloaden via een mobiele gegevensverbinding?</string>
+	<string name="download_over_mobile_message">Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.</string>
 </resources>

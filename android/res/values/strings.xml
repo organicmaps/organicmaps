@@ -832,4 +832,6 @@
 	<string name="editor_unsupported_category_message">You have added an object whose category we do not support yet. It will appear on the map in the future.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d of %2$d</string>
+	<string name="download_over_mobile_header">Download by using a cellular network connection?</string>
+	<string name="download_over_mobile_message">This could be considerably expensive with some plans or if roaming.</string>
 </resources>

@@ -796,4 +796,6 @@
 	<string name="editor_unsupported_category_message">Olyan kategóriához adott helyet, amelyet még nem támogatunk. Ez a kategória később fog megjelenni a térképen.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
+	<string name="download_over_mobile_header">Letöltés mobilhálózati kapcsolat segítségével?</string>
+	<string name="download_over_mobile_message">Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.</string>
 </resources>
