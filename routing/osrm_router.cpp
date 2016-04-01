@@ -160,9 +160,10 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
                                                             RouterDelegate const & delegate,
                                                             Route & route)
 {
-  Route::TTurns TurnsDir;
-  Route::TTimes Times;
-  vector<m2::PointD> Points;
+  Route::TTurns turnsDir;
+  Route::TTimes times;
+  Route::TStreets streets;
+  vector<m2::PointD> points;
   for (RoutePathCross cross : path)
   {
     ASSERT_EQUAL(cross.startNode.mwmId, cross.finalNode.mwmId, ());
@@ -176,49 +177,59 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     if (!FindSingleRoute(cross.startNode, cross.finalNode, mwmMapping->m_dataFacade, routingResult))
       return RouteNotFound;
 
-    if (!Points.empty())
+    if (!points.empty())
     {
       // Remove road end point and turn instruction.
-      Points.pop_back();
-      TurnsDir.pop_back();
-      Times.pop_back();
+      points.pop_back();
+      turnsDir.pop_back();
+      times.pop_back();
     }
 
     // Get annotated route.
-    Route::TTurns mwmTurnsDir;
+    Route::TTurns mwmturnsDir;
     Route::TTimes mwmTimes;
+    Route::TStreets mwmStreets;
     vector<m2::PointD> mwmPoints;
-    if (MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes) != NoError)
+    if (MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmturnsDir, mwmTimes, mwmStreets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk for", mwmMapping->GetCountryName()));
       return RouteNotFound;
     }
     // Connect annotated route.
-    auto const pSize = static_cast<uint32_t>(Points.size());
-    for (auto turn : mwmTurnsDir)
+    auto const pSize = static_cast<uint32_t>(points.size());
+    for (auto turn : mwmturnsDir)
     {
       if (turn.m_index == 0)
         continue;
       turn.m_index += pSize;
-      TurnsDir.push_back(turn);
+      turnsDir.push_back(turn);
     }
 
-    double const estimationTime = Times.size() ? Times.back().second : 0.0;
+    for (auto street : mwmStreets)
+    {
+      if (street.first == 0)
+        continue;
+      street.first += pSize;
+      streets.push_back(street);
+    }
+
+    double const estimationTime = times.size() ? times.back().second : 0.0;
     for (auto time : mwmTimes)
     {
       if (time.first == 0)
         continue;
       time.first += pSize;
       time.second += estimationTime;
-      Times.push_back(time);
+      times.push_back(time);
     }
 
-    Points.insert(Points.end(), mwmPoints.begin(), mwmPoints.end());
+    points.insert(points.end(), mwmPoints.begin(), mwmPoints.end());
   }
 
-  route.SetGeometry(Points.begin(), Points.end());
-  route.SetTurnInstructions(TurnsDir);
-  route.SetSectionTimes(Times);
+  route.SetGeometry(points.begin(), points.end());
+  route.SetTurnInstructions(turnsDir);
+  route.SetSectionTimes(times);
+  route.SetStreetNames(streets);
   return NoError;
 }
 
@@ -343,9 +354,10 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
     Route::TTurns turnsDir;
     Route::TTimes times;
+    Route::TStreets streets;
     vector<m2::PointD> points;
 
-    if (MakeTurnAnnotation(routingResult, startMapping, delegate, points, turnsDir, times) != NoError)
+    if (MakeTurnAnnotation(routingResult, startMapping, delegate, points, turnsDir, times, streets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk!"));
       return RouteNotFound;
@@ -354,6 +366,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     route.SetGeometry(points.begin(), points.end());
     route.SetTurnInstructions(turnsDir);
     route.SetSectionTimes(times);
+    route.SetStreetNames(streets);
 
     return NoError;
   }
@@ -412,7 +425,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
 OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
     RawRoutingResult const & routingResult, TRoutingMappingPtr const & mapping,
     RouterDelegate const & delegate, vector<m2::PointD> & points, Route::TTurns & turnsDir,
-    Route::TTimes & times)
+    Route::TTimes & times, Route::TStreets & streets)
 {
   ASSERT(mapping, ());
 

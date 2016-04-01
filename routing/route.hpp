@@ -23,9 +23,11 @@ namespace routing
 class Route
 {
 public:
-  typedef vector<turns::TurnItem> TTurns;
-  typedef pair<uint32_t, double> TTimeItem;
-  typedef vector<TTimeItem> TTimes;
+  using TTurns = vector<turns::TurnItem>;
+  using TTimeItem = pair<uint32_t, double>;
+  using TTimes = vector<TTimeItem>;
+  using TStreetItem = pair<uint32_t, string>;
+  using TStreets = vector<TStreetItem>;
 
   explicit Route(string const & router)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()) {}
@@ -55,6 +57,11 @@ public:
   inline void SetSectionTimes(TTimes & v)
   {
     swap(m_times, v);
+  }
+
+  inline void SetStreetNames(TStreets & v)
+  {
+    swap(m_streets, v);
   }
 
   uint32_t GetTotalTimeSec() const;
@@ -130,6 +137,7 @@ private:
 
   TTurns m_turns;
   TTimes m_times;
+  TStreets m_streets;
 
   mutable double m_currentTime;
 };
