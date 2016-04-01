@@ -48,8 +48,6 @@
 	<string name="miles">Mérföld</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Saját helyzet</string>
-	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Nem találtam WiFi kapcsolatot. Használjunk mobil kapcsolatot (GPRS, EDGE, 3G vagy LTE) %s letöltéséhez?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást</string>
 	<!-- Settings/Downloader - No free space dialog message -->

@@ -52,8 +52,6 @@
 	<string name="miles">Dặm</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Vị trí của Tôi</string>
-	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Không có kết nối WiFi. Bạn có muốn sử dụng dữ liệu di động (GPRS, EDGE, 3G hoặc LTE) để tải xuống %s không?</string>
 	<string name="ok">OK</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Bạn vui lòng bật Dịch vụ Định vị</string>

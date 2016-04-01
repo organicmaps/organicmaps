@@ -79,9 +79,6 @@
 /* View and button titles for accessibility */
 "my_position" = "나의 위치";
 
-/* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "WiFi 연결이 감지되지 않았습니다. %@를 다운로드하기 위해 휴대 자료(GPRS, EDGE, 3G 혹은 LTE)를 사용하시겠습니까?";
-
 "ok" = "승인";
 
 /* not used? Search View - Location is disabled by user warning text */

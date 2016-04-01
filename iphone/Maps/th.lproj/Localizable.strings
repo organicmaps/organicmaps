@@ -79,9 +79,6 @@
 /* View and button titles for accessibility */
 "my_position" = "ตำแหน่งของฉัน";
 
-/* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE, 3G หรือ LTE) เพื่อดาวน์โหลด %@?";
-
 "ok" = "ตกลง";
 
 /* not used? Search View - Location is disabled by user warning text */

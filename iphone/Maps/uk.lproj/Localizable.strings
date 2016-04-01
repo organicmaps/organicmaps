@@ -79,9 +79,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Моє місце розташування";
 
-/* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Відсутнє WiFi з'єднання. Ви бажаєте завантажити %@ через стільникового оператора (GPRS, EDGE, 3G або LTE)?";
-
 "ok" = "OK";
 
 /* not used? Search View - Location is disabled by user warning text */

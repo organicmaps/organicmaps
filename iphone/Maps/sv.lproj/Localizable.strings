@@ -79,9 +79,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Min position";
 
-/* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Ingen WiFi-anslutning upptäcktes. Vill du använda mobildata (GPRS, EDGE, 3G eller LTE) till att ladda ner %@?";
-
 "ok" = "OK";
 
 /* not used? Search View - Location is disabled by user warning text */
