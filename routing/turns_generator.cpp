@@ -11,6 +11,7 @@
 
 #include "base/macros.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
 
 #include "std/cmath.hpp"
@@ -476,6 +477,17 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
 {
   buffer_vector<TSeg, 8> buffer;
   mapping.m_segMapping.ForEachFtSeg(osrmPathSegment.node, MakeBackInsertFunctor(buffer));
+  if (buffer.empty())
+  {
+    LOG(LWARNING, ("Can't unpack geometry for map:", mapping.GetCountryName(), " node: ",
+                   osrmPathSegment.node));
+    alohalytics::Stats::Instance().LogEvent(
+        "RouteTracking_UnpackingError",
+        {{"node", strings::to_string(osrmPathSegment.node)},
+         {"map", mapping.GetCountryName()},
+         {"version", strings::to_string(mapping.GetMwmId().GetInfo()->GetVersion())}});
+    return;
+  }
   LoadPathGeometry(buffer, 0, buffer.size(), index, mapping, FeatureGraphNode(), FeatureGraphNode(),
                    false /* isStartNode */, false /*isEndNode*/);
 }
@@ -924,7 +936,8 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
   ASSERT_GREATER(currentSegment, 0, ());
   ASSERT_GREATER(segments.size(), currentSegment, ());
   auto const & masterSegment = segments[currentSegment - 1];
-  ASSERT_GREATER(masterSegment.m_path.size(), 1, ());
+  if (masterSegment.m_path.size() < 2)
+    return 0;
   // Roundabout is not the UTurn.
   if (masterSegment.m_onRoundabout)
     return 0;
