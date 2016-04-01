@@ -99,7 +99,7 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
     @Override
     public Object instantiateItem(ViewGroup container, final int position)
     {
-      View res = LayoutInflater.from(getActivity()).inflate(R.layout.news_page, container, false);
+      View res = LayoutInflater.from(container.getContext()).inflate(R.layout.news_page, container, false);
 
       ((ImageView)res.findViewById(R.id.image))
         .setImageResource(mImages[position]);
