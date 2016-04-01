@@ -15,6 +15,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import java.util.List;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.LocationState;
@@ -336,6 +338,24 @@ public enum LocationHelper implements SensorEventListener
                           location.getAltitude(),
                           location.getSpeed(),
                           location.getBearing());
+  }
+
+  /**
+   * Obtains last known location regardless of "My position" button state.
+   * @return {@code null} on failure.
+   */
+  public @Nullable Location getLastKnownLocation()
+  {
+    if (mLastLocation != null)
+      return mLastLocation;
+
+    AndroidNativeProvider provider = new AndroidNativeProvider();
+    List<String> providers = provider.getFilteredProviders();
+
+    if (providers.isEmpty())
+      return null;
+
+    return provider.findBestNotExpiredLocation(providers, LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG);
   }
 
   public static native void nativeOnLocationError(int errorCode);

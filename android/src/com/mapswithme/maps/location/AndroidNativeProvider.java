@@ -4,6 +4,7 @@ package com.mapswithme.maps.location;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
 
     final List<String> providers = getFilteredProviders();
 
-    if (providers.size() == 0)
+    if (providers.isEmpty())
       LocationHelper.INSTANCE.notifyLocationError(LocationHelper.ERROR_DENIED);
     else
     {
@@ -39,7 +40,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
 
       LocationHelper.INSTANCE.registerSensorListeners();
 
-      final Location newLocation = findBestNotExpiredLocation(providers);
+      final Location newLocation = findBestNotExpiredLocation(providers, LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT);
       if (isLocationBetterThanLast(newLocation))
         LocationHelper.INSTANCE.setLastLocation(newLocation);
       else
@@ -59,13 +60,13 @@ public class AndroidNativeProvider extends BaseLocationProvider
     mIsActive = false;
   }
 
-  private Location findBestNotExpiredLocation(List<String> providers)
+  @Nullable Location findBestNotExpiredLocation(List<String> providers, long expiration)
   {
     Location res = null;
     for (final String pr : providers)
     {
       final Location l = mLocationManager.getLastKnownLocation(pr);
-      if (l != null && !LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
+      if (l != null && !LocationUtils.isExpired(l, l.getTime(), expiration))
       {
         if (res == null || res.getAccuracy() > l.getAccuracy())
           res = l;
@@ -74,7 +75,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
     return res;
   }
 
-  private List<String> getFilteredProviders()
+  List<String> getFilteredProviders()
   {
     final List<String> allProviders = mLocationManager.getProviders(false);
     final List<String> acceptedProviders = new ArrayList<>(allProviders.size());

@@ -153,7 +153,7 @@ public class MigrationFragment extends BaseMwmFragment
     UiUtils.show(mButtonPrimary);
     UiUtils.hide(mPrepare, mProgress, mError);
 
-    Location loc = LocationHelper.INSTANCE.getLastLocation();
+    Location loc = LocationHelper.INSTANCE.getLastKnownLocation();
     UiUtils.showIf(loc != null, mButtonSecondary);
   }
 

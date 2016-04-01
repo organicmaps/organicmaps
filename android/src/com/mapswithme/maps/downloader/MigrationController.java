@@ -149,7 +149,7 @@ final class MigrationController
     if (mState == State.PROGRESS)
       return;
 
-    Location loc = LocationHelper.INSTANCE.getLastLocation();
+    Location loc = LocationHelper.INSTANCE.getLastKnownLocation();
     double lat = (loc == null ? 0.0 : loc.getLatitude());
     double lon = (loc == null ? 0.0 : loc.getLongitude());
 
