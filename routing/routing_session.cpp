@@ -288,8 +288,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_exitNum = turn.m_exitNum;
   info.m_time = max(kMinimumETASec, m_route.GetCurrentTimeToEndSec());
-  info.m_sourceName = turn.m_sourceName;
-  info.m_targetName = turn.m_targetName;
+  m_route.GetCurrentStreetName(info.m_sourceName);
+  m_route.GetStreetNameAfterIdx(turn.m_index, info.m_targetName);
   info.m_completionPercent = GetCompletionPercent();
   // Lane information.
   if (distanceToTurnMeters < kShowLanesDistInMeters)

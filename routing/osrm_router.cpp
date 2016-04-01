@@ -183,21 +183,23 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       points.pop_back();
       turnsDir.pop_back();
       times.pop_back();
+      if (streets.back().first >= points.size())
+        streets.pop_back();
     }
 
     // Get annotated route.
-    Route::TTurns mwmturnsDir;
+    Route::TTurns mwmTurnsDir;
     Route::TTimes mwmTimes;
     Route::TStreets mwmStreets;
     vector<m2::PointD> mwmPoints;
-    if (MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmturnsDir, mwmTimes, mwmStreets) != NoError)
+    if (MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes, mwmStreets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk for", mwmMapping->GetCountryName()));
       return RouteNotFound;
     }
     // Connect annotated route.
     auto const pSize = static_cast<uint32_t>(points.size());
-    for (auto turn : mwmturnsDir)
+    for (auto turn : mwmTurnsDir)
     {
       if (turn.m_index == 0)
         continue;
@@ -205,6 +207,8 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       turnsDir.push_back(turn);
     }
 
+    if (!mwmStreets.empty() && !streets.empty() && mwmStreets.front().second == streets.back().second)
+      mwmStreets.erase(mwmStreets.begin());
     for (auto street : mwmStreets)
     {
       if (street.first == 0)
@@ -471,6 +475,10 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
       // ETA information.
       double const nodeTimeSeconds = loadedSegment.m_weight * kOSRMWeightToSecondsMultiplier;
+
+      // Street names. I put empty names too, to avoid freezing old street name while riding on
+      // unnamed street.
+      streets.emplace_back(max(points.size(), (size_t)1) - 1, loadedSegment.m_name);
 
       // Turns information.
       if (segmentIndex > 0 && !points.empty() && skipTurnSegments == 0)

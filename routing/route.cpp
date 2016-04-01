@@ -19,7 +19,7 @@ namespace
 {
 double constexpr kLocationTimeThreshold = 60.0 * 1.0;
 double constexpr kOnEndToleranceM = 10.0;
-
+double constexpr kSteetNameLinkMeters = 400.;
 }  //  namespace
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
@@ -39,6 +39,7 @@ void Route::Swap(Route & rhs)
   swap(m_currentTime, rhs.m_currentTime);
   swap(m_turns, rhs.m_turns);
   swap(m_times, rhs.m_times);
+  swap(m_streets, rhs.m_streets);
   m_absentCountries.swap(rhs.m_absentCountries);
 }
 
@@ -148,6 +149,52 @@ Route::TTurns::const_iterator Route::GetCurrentTurn() const
          {
            return lhs.m_index < rhs.m_index;
          });
+}
+
+void Route::GetCurrentStreetName(string & name) const
+{
+  auto it = GetCurrentStreetNameIterAfter(m_poly.GetCurrentIter());
+  if (it == m_streets.cend())
+    name.clear();
+  name = it->second;
+}
+
+void Route::GetStreetNameAfterIdx(uint32_t idx, string & name) const
+{
+  name.clear();
+  auto polyIter = m_poly.GetIterToIndex(idx);
+  auto it = GetCurrentStreetNameIterAfter(polyIter);
+  if (it == m_streets.cend())
+    return;
+  for (;it != m_streets.cend(); ++it)
+    if (!it->second.empty())
+    {
+      if (m_poly.GetDistanceM(polyIter, m_poly.GetIterToIndex(it->first)) < kSteetNameLinkMeters)
+        name = it->second;
+      return;
+    }
+}
+
+Route::TStreets::const_iterator Route::GetCurrentStreetNameIterAfter(FollowedPolyline::Iter iter) const
+{
+  if (m_streets.empty())
+  {
+    ASSERT(false, ());
+    return m_streets.cend();
+  }
+
+  TStreets::const_iterator curIter = m_streets.cbegin();
+  TStreets::const_iterator prevIter = curIter;
+  curIter++;
+
+  while (curIter->first<=iter.m_ind)
+  {
+    ++prevIter;
+    ++curIter;
+    if (curIter==m_streets.cend())
+      return curIter;
+  }
+  return prevIter;
 }
 
 bool Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
