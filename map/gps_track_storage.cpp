@@ -116,23 +116,24 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath, size_t maxItemCount)
   {
     uint32_t version = 0;
     if (!ReadVersion(m_stream, version))
-      MYTHROW(OpenException, ("File:", m_filePath));
+      MYTHROW(OpenException, ("Read version error.", m_filePath));
 
     if (version == kCurrentVersion)
     {
       // Seek to end to get file size
       m_stream.seekp(0, ios::end);
       if (!m_stream.good())
-        MYTHROW(OpenException, ("File:", m_filePath));
+        MYTHROW(OpenException, ("Seek to the end error.", m_filePath));
 
       size_t const fileSize = m_stream.tellp();
 
       m_itemCount = GetItemCount(fileSize);
 
       // Set write position after last item position
-      m_stream.seekp(GetItemOffset(m_itemCount), ios::beg);
+      size_t const offset = GetItemOffset(m_itemCount);
+      m_stream.seekp(offset, ios::beg);
       if (!m_stream.good())
-        MYTHROW(OpenException, ("File:", m_filePath));
+        MYTHROW(OpenException, ("Seek to the offset error:", offset, m_filePath));
     }
     else
     {
@@ -148,10 +149,10 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath, size_t maxItemCount)
     m_stream.open(m_filePath, ios::in | ios::out | ios::binary | ios::trunc);
 
     if (!m_stream)
-      MYTHROW(OpenException, ("File:", m_filePath));
+      MYTHROW(OpenException, ("Open file error.", m_filePath));
 
     if (!WriteVersion(m_stream, kCurrentVersion))
-      MYTHROW(OpenException, ("File:", m_filePath));
+      MYTHROW(OpenException, ("Write version error.", m_filePath));
 
     m_itemCount = 0;
   }
