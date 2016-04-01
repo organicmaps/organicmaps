@@ -1,6 +1,7 @@
 package com.mapswithme.maps.downloader;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 /**
  * Class representing a single item in countries hierarchy.
@@ -8,6 +9,8 @@ import android.support.annotation.NonNull;
  */
 public final class CountryItem implements Comparable<CountryItem>
 {
+  private static String ROOT;
+
   // Must correspond to ItemCategory in MapManager.cpp
   static final int CATEGORY_NEAR_ME = 0;
   static final int CATEGORY_DOWNLOADED = 1;
@@ -93,6 +96,12 @@ public final class CountryItem implements Comparable<CountryItem>
   public void update()
   {
     MapManager.nativeGetAttributes(this);
+
+    if (ROOT == null)
+      ROOT = MapManager.nativeGetRoot();
+
+    if (TextUtils.equals(ROOT, directParentName))
+      directParentName = "";
   }
 
   public static CountryItem fill(String countryId)

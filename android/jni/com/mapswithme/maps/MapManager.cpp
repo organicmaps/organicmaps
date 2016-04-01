@@ -74,6 +74,14 @@ static TCountryId const GetRootId(JNIEnv * env, jstring root)
 
 extern "C"
 {
+
+// static String nativeGetRoot();
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetRoot(JNIEnv * env, jclass clazz)
+{
+  return jni::ToJavaString(env, GetStorage().GetRootId());
+}
+
 // static boolean nativeMoveFile(String oldFile, String newFile);
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeMoveFile(JNIEnv * env, jclass clazz, jstring oldFile, jstring newFile)
