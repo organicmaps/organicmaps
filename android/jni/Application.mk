@@ -28,12 +28,5 @@ else
   APP_CFLAGS += -DRELEASE -D_RELEASE
   ifeq ($(PRODUCTION),1)
     APP_CFLAGS += -DOMIM_PRODUCTION
-    # Temporary workaround for crashes on x86 arch when throwing C++ exceptions, built with NDK r10e version.
-    # Requires patched NDK file "android-ndk-r10e/sources/cxx-stl/gabi++/src/cxxabi.cc" file,
-    # Patch can be found at "../tools/android/cxxabi.cc_patch".
-    # Gradle task patchNdkR10E will patch it for you.
-    # More details here: https://code.google.com/p/android/issues/detail?id=179410.
-    # TODO: Check if this workaround is needed in newer NDK versions.
-    LIBCXX_FORCE_REBUILD := true
   endif
 endif
