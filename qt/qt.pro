@@ -59,7 +59,9 @@ OTHER_RES.path = $$DATADIR
 OTHER_RES.files = ../data/copyright.html ../data/eula.html ../data/welcome.html \
                   ../data/countries.txt \
                   ../data/languages.txt ../data/categories.txt \
-                  ../data/packed_polygons.bin res/logo.png
+                  ../data/packed_polygons.bin res/logo.png \
+                  ../data/editor.config \
+
 CLASSIFICATOR_RES.path = $$DATADIR
 CLASSIFICATOR_RES.files = ../data/classificator.txt \
                           ../data/types.txt \
