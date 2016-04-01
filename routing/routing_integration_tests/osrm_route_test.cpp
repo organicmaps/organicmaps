@@ -62,6 +62,14 @@ namespace
         MercatorBounds::FromLatLon(37.33498, -122.03575), 1438.);
   }
 
+  // Path in the last map through the other map.
+  UNIT_TEST(RussiaUfaToUstKatavTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(54.7304, 55.9554), {0., 0.},
+        MercatorBounds::FromLatLon(54.9228, 58.1469), 164667.);
+  }
+
   // ASSERT on pedestrian edges
   UNIT_TEST(RussiaAssertHighwayClassOnPedestrianRouteInOSRM)
   {

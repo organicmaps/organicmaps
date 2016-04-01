@@ -177,7 +177,11 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
   if (it != m_virtualEdges.end())
   {
     adj.insert(adj.end(), it->second.begin(), it->second.end());
-    return;
+    // For last map we need to load virtual shortcuts and real cross roads. It takes to account case
+    // when we have a path from the mwmw border to the point inside the map throuh another map.
+    // See Ust-Katav test for more.
+    if (!it->second.front().GetTarget().toNode.isVirtual)
+      return;
   }
 
   // Loading cross routing section.
