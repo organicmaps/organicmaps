@@ -16139,3 +16139,57 @@
     fr = %1$d de %2$d
     ja = %2$d中%1$d
     vi = %1$d trên %2$d
+
+  [download_over_mobile_header]
+    en = Download by using a cellular network connection?
+    ru = Загрузить через сотовую связь?
+    fr = Téléchargement avec une connexion réseau cellulaire ?
+    id = Unduh dengan menggunakan koneksi jaringan seluler?
+    ko = 셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?
+    sv = Ladda ned med mobildata?
+    tr = Hücresel bir ağ bağlantısı kullanarak indir?
+    uk = Завантажити за допомогою мобільної мережі?
+    vi = Tải xuống qua kết nối mạng di động?
+    hu = Letöltés mobilhálózati kapcsolat segítségével?
+    de = Download mit einer mobilen Netzwerkverbindung?
+    fi = Lataa käyttämällä puhelinverkkoyhteyttä?
+    cs = Stáhnout pomocí připojení přes mobilní síť?
+    it = Vuoi scaricare utilizzando una connessione di rete cellulare?
+    zh-Hant = 用手機網絡連接下載嗎？
+    zh-Hans = 用手机网络连接下载吗？
+    th = ดาวน์โหลดโดยใช้การเชื่อมต่อเครือข่ายมือถือ?
+    ja = 携帯通信ネットワークで接続してダウンロードしますか？
+    ro = Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?
+    ar = تنزيل باستخدام اتصال الشبكة الخلوية؟
+    sk = Sťahovať prostredníctvom pripojenia na mobilnú sieť?
+    es = ¿Descargar con conexión de red móvil?
+    pl = Czy pobrać, używając połączenia z siecią komórkową?
+    nl = Downloaden via een mobiele gegevensverbinding?
+    pt = Baixar usando uma conexão de rede celular?
+
+  [download_over_mobile_message]
+    en = This could be considerably expensive with some plans or if roaming.
+    ru = На некоторых тарифных планах или в роуминге это может привести к значительным расходам.
+    fr = Cela pourrait être très cher avec certains abonnements ou si vous êtes en déplacement.
+    id = Ini bisa menjadi jauh mahal pada beberapa paket atau jika roaming.
+    ko = 이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.
+    sv = Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.
+    tr = Bu işlem bazı planlarla ya da dolaşım ise büyük ölçüde pahalı olabilir.
+    uk = Це може бути задорого за деякими планами або за умовами роумінгу.
+    vi = Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.
+    hu = Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.
+    de = Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.
+    fi = Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.
+    cs = Toto by mohli být s některými tarify nebo roamingem výrazně dražší.
+    it = Quest'operazione potrebbe essere piuttosto costosa con alcuni piani o in roaming.
+    zh-Hant = 用一些方案或漫遊的話這可能相當昂貴。
+    zh-Hans = 用一些方案或漫游的话这可能相当昂贵。
+    th = มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง
+    ja = プランによって、またはローミングしている場合、非常に高額になる可能性があります。
+    ro = Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.
+    ar = قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.
+    sk = V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.
+    es = Podría ser muy caro con ciertos planes o con itinerancia de datos.
+    pl = Może to być kosztowne przy niektórych planach taryfowych lub w roamingu.
+    nl = Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.
+    pt = Isto pode ser significativamente caro, com alguns planos ou se roaming.
