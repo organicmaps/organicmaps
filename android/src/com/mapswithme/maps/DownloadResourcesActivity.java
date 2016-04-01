@@ -624,7 +624,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       mMapTaskToForward = new MwmActivity.ShowCountryTask(countryId, autoDownload);
       org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process",
                                           new String[] { "autoDownload", String.valueOf(autoDownload) },
-                                          LocationHelper.INSTANCE.getLastLocation());
+                                          LocationHelper.INSTANCE.getSavedLocation());
       return true;
     }
   }

@@ -85,7 +85,7 @@ public class LocationUtils
         // Do compare current and previous system times in case when
         // we have incorrect time settings on a device.
         time = System.currentTimeMillis();
-        lastTime = LocationHelper.INSTANCE.getLastLocationTime();
+        lastTime = LocationHelper.INSTANCE.getSavedLocationTime();
       }
 
       return (time - lastTime) * 1.0E-3;

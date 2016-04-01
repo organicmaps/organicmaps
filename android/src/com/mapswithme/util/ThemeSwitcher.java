@@ -38,7 +38,7 @@ public final class ThemeSwitcher
 
       if (RoutingController.get().isNavigating())
       {
-        Location last = LocationHelper.INSTANCE.getLastLocation();
+        Location last = LocationHelper.INSTANCE.getSavedLocation();
         if (last == null)
         {
           LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);

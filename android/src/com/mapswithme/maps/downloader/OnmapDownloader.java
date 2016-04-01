@@ -136,7 +136,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                 !MapManager.nativeIsLegacyMode() &&
                 ConnectionState.isWifiConnected())
             {
-              Location loc = LocationHelper.INSTANCE.getLastLocation();
+              Location loc = LocationHelper.INSTANCE.getSavedLocation();
               if (loc != null)
               {
                 String country = MapManager.nativeFindCountry(loc.getLatitude(), loc.getLongitude());

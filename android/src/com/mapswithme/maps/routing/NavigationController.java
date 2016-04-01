@@ -86,7 +86,7 @@ public class NavigationController
   private void updatePedestrian(RoutingInfo info)
   {
     Location next = info.pedestrianNextDirection;
-    Location location = LocationHelper.INSTANCE.getLastLocation();
+    Location location = LocationHelper.INSTANCE.getSavedLocation();
     DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimuthFromLatLon(next.getLatitude(), next.getLongitude(),
                                                                            location.getLatitude(), location.getLongitude(),
                                                                            mNorth);

@@ -293,7 +293,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void shareMyLocation()
   {
-    final Location loc = LocationHelper.INSTANCE.getLastLocation();
+    final Location loc = LocationHelper.INSTANCE.getSavedLocation();
     if (loc != null)
     {
       final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), "");

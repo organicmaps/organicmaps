@@ -618,7 +618,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     if (TextUtils.isEmpty(parent))
     {
-      Location loc = LocationHelper.INSTANCE.getLastLocation();
+      Location loc = LocationHelper.INSTANCE.getSavedLocation();
       hasLocation = (loc != null);
       if (hasLocation)
       {
