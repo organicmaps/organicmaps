@@ -781,4 +781,6 @@
 	<string name="editor_unsupported_category_message">您已添加了一個我們尚未支持類別的地點。它將在一段時間之後顯示在地圖上。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d個/共%2$d個</string>
+	<string name="download_over_mobile_header">用手機網絡連接下載嗎？</string>
+	<string name="download_over_mobile_message">用一些方案或漫遊的話這可能相當昂貴。</string>
 </resources>

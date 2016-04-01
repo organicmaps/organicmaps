@@ -1368,3 +1368,7 @@
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d av %2$d";
+
+"download_over_mobile_header" = "Ladda ned med mobildata?";
+
+"download_over_mobile_message" = "Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.";

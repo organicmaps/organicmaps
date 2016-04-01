@@ -794,4 +794,6 @@
 	<string name="editor_unsupported_category_message">現在未対応のカテゴリーの場所を追加しました。地図には後程表示されるようになります。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d中%1$d</string>
+	<string name="download_over_mobile_header">携帯通信ネットワークで接続してダウンロードしますか？</string>
+	<string name="download_over_mobile_message">プランによって、またはローミングしている場合、非常に高額になる可能性があります。</string>
 </resources>

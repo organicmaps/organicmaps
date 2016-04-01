@@ -1368,3 +1368,7 @@
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d din %2$d";
+
+"download_over_mobile_header" = "Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?";
+
+"download_over_mobile_message" = "Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.";

@@ -1368,3 +1368,7 @@
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d/%2$d";
+
+"download_over_mobile_header" = "Hücresel bir ağ bağlantısı kullanarak indir?";
+
+"download_over_mobile_message" = "Bu işlem bazı planlarla ya da dolaşım ise büyük ölçüde pahalı olabilir.";

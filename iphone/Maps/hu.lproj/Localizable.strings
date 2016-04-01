@@ -1368,3 +1368,7 @@
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d/%2$d";
+
+"download_over_mobile_header" = "Letöltés mobilhálózati kapcsolat segítségével?";
+
+"download_over_mobile_message" = "Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.";

@@ -1368,3 +1368,7 @@
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d з %2$d";
+
+"download_over_mobile_header" = "Завантажити за допомогою мобільної мережі?";
+
+"download_over_mobile_message" = "Це може бути задорого за деякими планами або за умовами роумінгу.";
