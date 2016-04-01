@@ -2,6 +2,7 @@
 
 #include "search/cancel_exception.hpp"
 #include "search/v2/features_layer_matcher.hpp"
+#include "search/v2/house_numbers_matcher.hpp"
 
 #include "indexer/features_vector.hpp"
 
@@ -47,9 +48,9 @@ uint64_t CalcBottomUpPassCost(vector<FeaturesLayer const *> const & layers)
 
 bool LooksLikeHouseNumber(strings::UniString const & query)
 {
-  vector<strings::UniString> tokens;
-  NormalizeHouseNumber(query, tokens);
-  return !tokens.empty() && feature::IsHouseNumber(tokens.front());
+  Parse parse;
+  ParseHouseNumber(query, parse);
+  return !parse.IsEmpty() && feature::IsHouseNumber(parse.m_parts.front());
 }
 
 bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, TParentGraph const & parent,

@@ -1058,6 +1058,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(
   layer.m_endToken = endToken;
   JoinQueryTokens(m_params, layer.m_startToken, layer.m_endToken, kUniSpace /* sep */,
                   layer.m_subQuery);
+  layer.m_lastTokenIsPrefix = (layer.m_endToken > m_params.m_tokens.size());
 
   vector<uint32_t> sortedFeatures;
   sortedFeatures.reserve(features->PopCount());
@@ -1121,6 +1122,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
       layer.m_endToken = curToken + n;
       JoinQueryTokens(m_params, layer.m_startToken, layer.m_endToken, kUniSpace /* sep */,
                       layer.m_subQuery);
+      layer.m_lastTokenIsPrefix = (layer.m_endToken > m_params.m_tokens.size());
     }
 
     features.Intersect(m_addressFeatures[curToken + n - 1].get());
