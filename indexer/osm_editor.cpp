@@ -621,6 +621,11 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
                 // Object was never created by anyone else - it's safe to create it.
                 changeset.Create(feature);
               }
+              catch (ChangesetWrapper::EmptyFeatureException const &)
+              {
+                // There is another node nearby, but it should be safe to create a new one.
+                changeset.Create(feature);
+              }
               catch (...)
               {
                 // Pass network or other errors to outside exception handler.
