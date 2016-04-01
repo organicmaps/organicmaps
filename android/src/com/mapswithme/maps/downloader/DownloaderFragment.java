@@ -189,7 +189,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   public void onDestroy()
   {
     super.onDestroy();
-    getRecyclerView().removeOnScrollListener(mScrollListener);
+    if (getRecyclerView() != null)
+      getRecyclerView().removeOnScrollListener(mScrollListener);
   }
 
   @Override
