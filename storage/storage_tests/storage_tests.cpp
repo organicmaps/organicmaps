@@ -490,6 +490,29 @@ void InitStorage(Storage & storage, TaskRunner & runner,
   storage.RegisterAllLocalMaps();
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
 }
+
+class StorageWithRunner
+{
+protected:
+  Storage storage;
+  TaskRunner runner;
+
+public:
+ StorageWithRunner() { InitStorage(storage, runner); }
+};
+
+class TwoComponentStorageWithRunner
+{
+protected:
+  Storage storage;
+  TaskRunner runner;
+
+public:
+ TwoComponentStorageWithRunner() : storage(COUNTRIES_OBSOLETE_FILE)
+ {
+   InitStorage(storage, runner);
+ }
+};
 }  // namespace
 
 UNIT_TEST(StorageTest_Smoke)
@@ -513,12 +536,8 @@ UNIT_TEST(StorageTest_Smoke)
              "Georgia" DATA_FILE_EXTENSION ROUTING_FILE_EXTENSION, ());
 }
 
-UNIT_TEST(StorageTest_SingleCountryDownloading)
+UNIT_CLASS_TEST(StorageWithRunner, CountryDownloading)
 {
-  Storage storage;
-  TaskRunner runner;
-  InitStorage(storage, runner);
-
   TCountryId const azerbaijanCountryId = storage.FindCountryIdByFile("Azerbaijan");
   TEST(IsCountryIdValid(azerbaijanCountryId), ());
 
@@ -544,12 +563,8 @@ UNIT_TEST(StorageTest_SingleCountryDownloading)
   }
 }
 
-UNIT_TEST(StorageTest_TwoCountriesDownloading)
+UNIT_CLASS_TEST(TwoComponentStorageWithRunner, CountriesDownloading)
 {
-  Storage storage(COUNTRIES_OBSOLETE_FILE);
-  TaskRunner runner;
-  InitStorage(storage, runner);
-
   TCountryId const uruguayCountryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(uruguayCountryId), ());
   storage.DeleteCountry(uruguayCountryId, MapOptions::Map);
@@ -704,12 +719,8 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
   TEST_EQUAL(MapOptions::Map, id.GetInfo()->GetLocalFile().GetFiles(), ());
 }
 
-UNIT_TEST(StorageTest_DeletePendingCountry)
+UNIT_CLASS_TEST(StorageWithRunner, DeletePendingCountry)
 {
-  Storage storage;
-  TaskRunner runner;
-  InitStorage(storage, runner);
-
   TCountryId const countryId = storage.FindCountryIdByFile("Azerbaijan");
   TEST(IsCountryIdValid(countryId), ());
   storage.DeleteCountry(countryId, MapOptions::Map);
@@ -723,14 +734,10 @@ UNIT_TEST(StorageTest_DeletePendingCountry)
   }
 }
 
-UNIT_TEST(StorageTest_DownloadTwoCountriesAndDeleteSingleMwm)
+UNIT_CLASS_TEST(TwoComponentStorageWithRunner, CountriesAndDeleteSingleMwm)
 {
-  Storage storage(COUNTRIES_OBSOLETE_FILE);
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
-
-  TaskRunner runner;
-  InitStorage(storage, runner);
 
   TCountryId const uruguayCountryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(uruguayCountryId), ());
@@ -780,14 +787,10 @@ UNIT_TEST(StorageTest_DownloadTwoCountriesAndDeleteSingleMwm)
   TEST(!venezuelaFile.get(), ());
 }
 
-UNIT_TEST(StorageTest_DownloadTwoCountriesAndDeleteTwoComponentMwm)
+UNIT_CLASS_TEST(TwoComponentStorageWithRunner, DownloadTwoCountriesAndDelete)
 {
-  Storage storage;
   if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
-
-  TaskRunner runner;
-  InitStorage(storage, runner);
 
   TCountryId const uruguayCountryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(uruguayCountryId), ());
@@ -832,12 +835,8 @@ UNIT_TEST(StorageTest_DownloadTwoCountriesAndDeleteTwoComponentMwm)
   TEST_EQUAL(MapOptions::Map, venezuelaFile->GetFiles(), ());
 }
 
-UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
+UNIT_CLASS_TEST(StorageWithRunner, CancelDownloadingWhenAlmostDone)
 {
-  Storage storage(COUNTRIES_FILE, kMapTestDir);
-  TaskRunner runner;
-  InitStorage(storage, runner);
-
   TCountryId const countryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(countryId), ());
   storage.DeleteCountry(countryId, MapOptions::Map);
@@ -853,12 +852,8 @@ UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
   TEST(!file, (*file));
 }
 
-UNIT_TEST(StorageTest_DeleteCountrySingleMwm)
+UNIT_CLASS_TEST(StorageWithRunner, DeleteCountry)
 {
-  Storage storage(COUNTRIES_FILE, kMapTestDir);
-  TaskRunner runner;
-  InitStorage(storage, runner);
-
   tests_support::ScopedFile map("Wonderland.mwm", "map");
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_SINGLE_MWM1);
@@ -883,12 +878,8 @@ UNIT_TEST(StorageTest_DeleteCountrySingleMwm)
   map.Reset();
 }
 
-UNIT_TEST(StorageTest_DeleteCountryTwoComponentsMwm)
+UNIT_CLASS_TEST(TwoComponentStorageWithRunner, DeleteCountry)
 {
-  Storage storage;
-  TaskRunner runner;
-  InitStorage(storage, runner);
-
   tests_support::ScopedFile map("Wonderland.mwm", "map");
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
@@ -1032,13 +1023,8 @@ UNIT_TEST(StorageTest_HasCountryId)
   sort(middleEarthCountryIdVec.begin(), middleEarthCountryIdVec.end());
 }
 
-UNIT_TEST(StorageTest_DownloadedMapTests)
+UNIT_CLASS_TEST(StorageWithRunner, DownloadedMap)
 {
-  Storage storage(COUNTRIES_FILE);
-
-  TaskRunner runner;
-  InitStorage(storage, runner);
-
   TCountryId const algeriaCentralCountryId = storage.FindCountryIdByFile("Algeria_Central");
   TCountryId const algeriaCoastCountryId = storage.FindCountryIdByFile("Algeria_Coast");
   TEST(IsCountryIdValid(algeriaCentralCountryId), ());
@@ -1115,12 +1101,8 @@ UNIT_TEST(StorageTest_DownloadedMapTests)
   TEST(!storage.IsNodeDownloaded("Algeria_Coast"), ());
 }
 
-UNIT_TEST(StorageTest_IsPointCoveredByDownloadedMaps)
+UNIT_CLASS_TEST(StorageWithRunner, IsPointCoveredByDownloadedMaps)
 {
-  Storage storage;
-  TaskRunner runner;
-  InitStorage(storage, runner);
-
   bool const isSingleMwm = version::IsSingleMwm(storage.GetCurrentDataVersion());
   auto const countryInfoGetter = isSingleMwm ? CreateCountryInfoGetterMigrate()
                                              : CreateCountryInfoGetter();
@@ -1129,7 +1111,7 @@ UNIT_TEST(StorageTest_IsPointCoveredByDownloadedMaps)
   m2::PointD const montevideoUruguay = MercatorBounds::FromLatLon(-34.8094, -56.1558);
 
   storage.DeleteCountry(uruguayId, MapOptions::Map);
-  TEST(!IsPointCoveredByDownloadedMaps(montevideoUruguay, storage, *countryInfoGetter), ());
+  TEST(!storage::IsPointCoveredByDownloadedMaps(montevideoUruguay, storage, *countryInfoGetter), ());
 
   {
     MY_SCOPE_GUARD(cleanupCountryFiles,
@@ -1137,7 +1119,7 @@ UNIT_TEST(StorageTest_IsPointCoveredByDownloadedMaps)
     auto const checker = AbsentCountryDownloaderChecker(storage, uruguayId, MapOptions::Map);
     checker->StartDownload();
     runner.Run();
-    TEST(IsPointCoveredByDownloadedMaps(montevideoUruguay, storage, *countryInfoGetter), ());
+    TEST(storage::IsPointCoveredByDownloadedMaps(montevideoUruguay, storage, *countryInfoGetter), ());
   }
 }
 
@@ -1442,19 +1424,15 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
                                           forEachParentIndisputableTerritory);
 }
 
-UNIT_TEST(StorageTest_CalcLimitRect)
+UNIT_CLASS_TEST(StorageWithRunner, CalcLimitRect)
 {
-  Storage storage(COUNTRIES_FILE);
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
-
-  TaskRunner runner;
-  InitStorage(storage, runner);
 
   auto const countryInfoGetter = CreateCountryInfoGetterMigrate();
   ASSERT(countryInfoGetter, ());
 
-  m2::RectD const boundingBox = CalcLimitRect("Algeria", storage, *countryInfoGetter);
+  m2::RectD const boundingBox = storage::CalcLimitRect("Algeria", storage, *countryInfoGetter);
   m2::RectD const expectedBoundingBox = {-8.6689 /* minX */, 19.32443 /* minY */,
                                          11.99734 /* maxX */, 45.23 /* maxY */};
 
