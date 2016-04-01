@@ -349,7 +349,7 @@ public enum LocationHelper implements SensorEventListener
    * Obtains last known location regardless of "My position" button state.
    * @return {@code null} on failure.
    */
-  public @Nullable Location getLastKnownLocation()
+  public @Nullable Location getLastKnownLocation(long expirationMs)
   {
     if (mSavedLocation != null)
       return mSavedLocation;
@@ -360,7 +360,12 @@ public enum LocationHelper implements SensorEventListener
     if (providers.isEmpty())
       return null;
 
-    return provider.findBestNotExpiredLocation(providers, LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG);
+    return provider.findBestNotExpiredLocation(providers, expirationMs);
+  }
+
+  public @Nullable Location getLastKnownLocation()
+  {
+    return getLastKnownLocation(LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG);
   }
 
   public static native void nativeOnLocationError(int errorCode);
