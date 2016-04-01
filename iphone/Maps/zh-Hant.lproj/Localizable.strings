@@ -79,9 +79,6 @@
 /* View and button titles for accessibility */
 "my_position" = "我的位置";
 
-/* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE, 3G 或 LTE)來下載嗎 %@？";
-
 "ok" = "好";
 
 /* not used? Search View - Location is disabled by user warning text */

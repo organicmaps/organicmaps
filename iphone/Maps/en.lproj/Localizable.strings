@@ -79,9 +79,6 @@
 /* View and button titles for accessibility */
 "my_position" = "My Position";
 
-/* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE, 3G or LTE) to download %@?";
-
 "ok" = "OK";
 
 /* not used? Search View - Location is disabled by user warning text */

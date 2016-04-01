@@ -48,8 +48,6 @@
 	<string name="miles">英里</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">我的位置</string>
-	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">未检测到 WiFi 连接。您想使用蜂窝数据 (GPRS, EDGE, 3G 或 LTE)下载%s吗?</string>
 	<string name="ok">好</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">请启用位置服务</string>

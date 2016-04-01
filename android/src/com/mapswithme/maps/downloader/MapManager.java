@@ -161,7 +161,8 @@ public final class MapManager
     }
 
     new AlertDialog.Builder(activity)
-        .setMessage(R.string.no_wifi_ask_cellular_download)
+        .setMessage(String.format("%1$s\n\n%2$s", activity.getString(R.string.download_over_mobile_header),
+                                                  activity.getString(R.string.download_over_mobile_message)))
         .setNegativeButton(android.R.string.no, null)
         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
         {

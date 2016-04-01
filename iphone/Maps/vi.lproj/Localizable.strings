@@ -79,9 +79,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Vị trí của Tôi";
 
-/* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Không có kết nối WiFi. Bạn có muốn sử dụng dữ liệu di động (GPRS, EDGE, 3G hoặc LTE) để tải xuống %@ không?";
-
 "ok" = "OK";
 
 /* not used? Search View - Location is disabled by user warning text */

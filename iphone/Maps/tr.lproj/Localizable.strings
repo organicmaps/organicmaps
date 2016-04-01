@@ -79,9 +79,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Konumum";
 
-/* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "WiFi bağlantısı bulunamadı. %@ indirmek için hücresel veri (GPRS, EDGE, 3G veya LTE) kullanmak ister misiniz?";
-
 "ok" = "Tamam";
 
 /* not used? Search View - Location is disabled by user warning text */
