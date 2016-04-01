@@ -24,6 +24,7 @@ SOURCES += \
     helpers.cpp \
     search_query_v2_test.cpp \
     smoke_test.cpp \
+    generate_tests.cpp \
 
 HEADERS += \
     helpers.hpp \
