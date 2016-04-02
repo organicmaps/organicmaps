@@ -49,7 +49,8 @@ public:
   void operator() (TFeature const & ft, uint32_t index) const
   {
     m_scalesIdx = 0;
-    uint32_t minScaleClassif = feature::GetMinDrawableScaleClassifOnly(ft);
+    uint32_t const minScaleClassif = min(scales::GetUpperScale(),
+                                         feature::GetMinDrawableScaleClassifOnly(ft));
     // The classificator won't allow this feature to be drawable for smaller
     // scales so the first buckets can be safely skipped.
     // todo(@pimenov) Parallelizing this loop may be helpful.
