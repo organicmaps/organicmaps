@@ -1,6 +1,5 @@
 package com.mapswithme.maps.downloader;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -108,9 +107,9 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public void onAttach(Activity activity)
+  public void onViewCreated(View view, Bundle savedInstanceState)
   {
-    super.onAttach(activity);
+    super.onViewCreated(view, savedInstanceState);
     mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
       @Override
@@ -125,25 +124,6 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     });
 
     SearchEngine.INSTANCE.addMapListener(mSearchListener);
-  }
-
-  @Override
-  public void onDetach()
-  {
-    super.onDetach();
-    if (mSubscriberSlot != 0)
-    {
-      MapManager.nativeUnsubscribe(mSubscriberSlot);
-      mSubscriberSlot = 0;
-    }
-
-    SearchEngine.INSTANCE.removeMapListener(mSearchListener);
-  }
-
-  @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
-  {
-    super.onViewCreated(view, savedInstanceState);
 
     getRecyclerView().addOnScrollListener(mScrollListener);
     mAdapter.attach();
@@ -160,6 +140,14 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     super.onDestroyView();
     mAdapter.detach();
     mAdapter = null;
+
+    if (mSubscriberSlot != 0)
+    {
+      MapManager.nativeUnsubscribe(mSubscriberSlot);
+      mSubscriberSlot = 0;
+    }
+
+    SearchEngine.INSTANCE.removeMapListener(mSearchListener);
   }
 
   @Override
