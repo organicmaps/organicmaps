@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   CGSize const size = UIScreen.mainScreen.bounds.size;
   CGFloat const height = MAX(size.width, size.height);
   CGFloat const maximumY = height / 4.;
-  self.isHover = self.topY < maximumY ? YES : NO;
+  self.isHover = self.topY < maximumY;
 }
 
 - (void)show
@@ -121,7 +121,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
       [self.manager.ownerViewController.view endEditing:YES];
       break;
     case MWMiPhonePortraitPlacePageStatePreview:
-      self.isHover = NO;
       [MWMPlacePageNavigationBar remove];
       [self.manager.ownerViewController.view endEditing:YES];
       break;
@@ -222,40 +221,30 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     self.panVelocity = [sender velocityInView:ppvSuper].y;
     CGFloat const estimatedYPosition = [MWMSpringAnimation approxTargetFor:ppv.frame.origin.y velocity:self.panVelocity];
     CGFloat const bound1 = ppvSuper.height * 0.2;
-    CGFloat const bound2 = ppvSuper.height * (self.isHover ? 0.7 : 0.5);
+    CGFloat const bound2 = ppvSuper.height * (self.isHover ? 0.72 : 0.5);
+
     if (estimatedYPosition < bound1)
     {
       if (self.isHover)
       {
         if (self.state != MWMiPhonePortraitPlacePageStateHover)
           self.state = MWMiPhonePortraitPlacePageStateHover;
-        return;
       }
-      self.state = MWMiPhonePortraitPlacePageStateOpen;
+      else
+      {
+        self.state = MWMiPhonePortraitPlacePageStateOpen;
+      }
     }
     else if (self.panVelocity <= 0.0)
     {
-      if (self.isHover)
-      {
-        if (self.state != MWMiPhonePortraitPlacePageStateHover)
-          self.state = MWMiPhonePortraitPlacePageStateHover;
-        return;
-      }
-      self.state = MWMiPhonePortraitPlacePageStateOpen;
+      self.state = self.isHover ? MWMiPhonePortraitPlacePageStateHover : MWMiPhonePortraitPlacePageStateOpen;
     }
     else if (ppv.minY < bound2)
     {
-      if (self.isHover)
+      if (self.isHover && self.state == MWMiPhonePortraitPlacePageStateHover)
       {
-        if (self.state == MWMiPhonePortraitPlacePageStateHover)
-        {
-          if (self.targetPoint.y < self.getHoverTargetPoint.y)
-            self.state = MWMiPhonePortraitPlacePageStateHover;
-          else
-            self.state = MWMiPhonePortraitPlacePageStatePreview;
-          return;
-        }
-        self.state = MWMiPhonePortraitPlacePageStateHover;
+        if (self.targetPoint.y > self.getHoverTargetPoint.y)
+          self.state = MWMiPhonePortraitPlacePageStatePreview;
       }
       else
       {
