@@ -491,24 +491,24 @@ void InitStorage(Storage & storage, TaskRunner & runner,
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
 }
 
-class StorageWithRunner
+class StorageTest
 {
 protected:
   Storage storage;
   TaskRunner runner;
 
 public:
- StorageWithRunner() { InitStorage(storage, runner); }
+ StorageTest() { InitStorage(storage, runner); }
 };
 
-class TwoComponentStorageWithRunner
+class TwoComponentStorageTest
 {
 protected:
   Storage storage;
   TaskRunner runner;
 
 public:
- TwoComponentStorageWithRunner() : storage(COUNTRIES_OBSOLETE_FILE)
+ TwoComponentStorageTest() : storage(COUNTRIES_OBSOLETE_FILE)
  {
    InitStorage(storage, runner);
  }
@@ -536,7 +536,7 @@ UNIT_TEST(StorageTest_Smoke)
              "Georgia" DATA_FILE_EXTENSION ROUTING_FILE_EXTENSION, ());
 }
 
-UNIT_CLASS_TEST(StorageWithRunner, CountryDownloading)
+UNIT_CLASS_TEST(StorageTest, CountryDownloading)
 {
   TCountryId const azerbaijanCountryId = storage.FindCountryIdByFile("Azerbaijan");
   TEST(IsCountryIdValid(azerbaijanCountryId), ());
@@ -563,7 +563,7 @@ UNIT_CLASS_TEST(StorageWithRunner, CountryDownloading)
   }
 }
 
-UNIT_CLASS_TEST(TwoComponentStorageWithRunner, CountriesDownloading)
+UNIT_CLASS_TEST(TwoComponentStorageTest, CountriesDownloading)
 {
   TCountryId const uruguayCountryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(uruguayCountryId), ());
@@ -719,7 +719,7 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
   TEST_EQUAL(MapOptions::Map, id.GetInfo()->GetLocalFile().GetFiles(), ());
 }
 
-UNIT_CLASS_TEST(StorageWithRunner, DeletePendingCountry)
+UNIT_CLASS_TEST(StorageTest, DeletePendingCountry)
 {
   TCountryId const countryId = storage.FindCountryIdByFile("Azerbaijan");
   TEST(IsCountryIdValid(countryId), ());
@@ -734,7 +734,7 @@ UNIT_CLASS_TEST(StorageWithRunner, DeletePendingCountry)
   }
 }
 
-UNIT_CLASS_TEST(TwoComponentStorageWithRunner, CountriesAndDeleteSingleMwm)
+UNIT_CLASS_TEST(TwoComponentStorageTest, CountriesAndDeleteSingleMwm)
 {
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
@@ -787,7 +787,7 @@ UNIT_CLASS_TEST(TwoComponentStorageWithRunner, CountriesAndDeleteSingleMwm)
   TEST(!venezuelaFile.get(), ());
 }
 
-UNIT_CLASS_TEST(TwoComponentStorageWithRunner, DownloadTwoCountriesAndDelete)
+UNIT_CLASS_TEST(TwoComponentStorageTest, DownloadTwoCountriesAndDelete)
 {
   if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
@@ -835,7 +835,7 @@ UNIT_CLASS_TEST(TwoComponentStorageWithRunner, DownloadTwoCountriesAndDelete)
   TEST_EQUAL(MapOptions::Map, venezuelaFile->GetFiles(), ());
 }
 
-UNIT_CLASS_TEST(StorageWithRunner, CancelDownloadingWhenAlmostDone)
+UNIT_CLASS_TEST(StorageTest, CancelDownloadingWhenAlmostDone)
 {
   TCountryId const countryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(countryId), ());
@@ -852,7 +852,7 @@ UNIT_CLASS_TEST(StorageWithRunner, CancelDownloadingWhenAlmostDone)
   TEST(!file, (*file));
 }
 
-UNIT_CLASS_TEST(StorageWithRunner, DeleteCountry)
+UNIT_CLASS_TEST(StorageTest, DeleteCountry)
 {
   tests_support::ScopedFile map("Wonderland.mwm", "map");
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
@@ -878,7 +878,7 @@ UNIT_CLASS_TEST(StorageWithRunner, DeleteCountry)
   map.Reset();
 }
 
-UNIT_CLASS_TEST(TwoComponentStorageWithRunner, DeleteCountry)
+UNIT_CLASS_TEST(TwoComponentStorageTest, DeleteCountry)
 {
   tests_support::ScopedFile map("Wonderland.mwm", "map");
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
@@ -1023,7 +1023,7 @@ UNIT_TEST(StorageTest_HasCountryId)
   sort(middleEarthCountryIdVec.begin(), middleEarthCountryIdVec.end());
 }
 
-UNIT_CLASS_TEST(StorageWithRunner, DownloadedMap)
+UNIT_CLASS_TEST(StorageTest, DownloadedMap)
 {
   TCountryId const algeriaCentralCountryId = storage.FindCountryIdByFile("Algeria_Central");
   TCountryId const algeriaCoastCountryId = storage.FindCountryIdByFile("Algeria_Coast");
@@ -1101,7 +1101,7 @@ UNIT_CLASS_TEST(StorageWithRunner, DownloadedMap)
   TEST(!storage.IsNodeDownloaded("Algeria_Coast"), ());
 }
 
-UNIT_CLASS_TEST(StorageWithRunner, IsPointCoveredByDownloadedMaps)
+UNIT_CLASS_TEST(StorageTest, IsPointCoveredByDownloadedMaps)
 {
   bool const isSingleMwm = version::IsSingleMwm(storage.GetCurrentDataVersion());
   auto const countryInfoGetter = isSingleMwm ? CreateCountryInfoGetterMigrate()
@@ -1424,7 +1424,7 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
                                           forEachParentIndisputableTerritory);
 }
 
-UNIT_CLASS_TEST(StorageWithRunner, CalcLimitRect)
+UNIT_CLASS_TEST(StorageTest, CalcLimitRect)
 {
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;

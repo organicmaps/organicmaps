@@ -499,8 +499,8 @@ public:
   void SetLocaleForTesting(string const & jsonBuffer, string const & locale);
 
 private:
-  friend struct UnitClass_StorageWithRunner_DeleteCountry;
-  friend struct UnitClass_TwoComponentStorageWithRunner_DeleteCountry;
+  friend struct UnitClass_StorageTest_DeleteCountry;
+  friend struct UnitClass_TwoComponentStorageTest_DeleteCountry;
 
   void SaveDownloadQueue();
   void RestoreDownloadQueue();
