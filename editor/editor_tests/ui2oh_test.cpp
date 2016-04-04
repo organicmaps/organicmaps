@@ -16,7 +16,7 @@ string ToString(OpeningHours const & oh)
 }
 }  // namespace
 
-UNIT_TEST(OpeningHours2TimeTableSt)
+UNIT_TEST(OpeningHours2TimeTableSet)
 {
   {
     OpeningHours oh("08:00-22:00");
@@ -192,14 +192,120 @@ UNIT_TEST(OpeningHours2TimeTableSt)
       TEST_EQUAL(tt.GetOpeningDays().size(), 1, ());
     }
   }
+}
+
+UNIT_TEST(OpeningHours2TimeTableSet_off)
+{
   {
-    // We don't handle offs for for now.
-    OpeningHours oh("Mo-Fr 08:00-13:00,14:00-20:00; Sa 09:00-13:00,14:00-18:00; Su off");
+    OpeningHours oh("Mo-Fr 08:00-13:00,14:00-20:00; Su off");
     TEST(oh.IsValid(), ());
 
     TimeTableSet tts;
 
-    TEST(!MakeTimeTableSet(oh, tts), ());
+    TEST(MakeTimeTableSet(oh, tts), ());
+  }
+  {
+    OpeningHours oh("Mo-Su 08:00-13:00,14:00-20:00; Sa off");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.GetUnhandledDays(), TOpeningDays({osmoh::Weekday::Saturday}), ());
+  }
+  {
+    OpeningHours oh("Sa; Su; Sa off");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.GetUnhandledDays(),
+               TOpeningDays({osmoh::Weekday::Monday,
+                             osmoh::Weekday::Tuesday,
+                             osmoh::Weekday::Wednesday,
+                             osmoh::Weekday::Thursday,
+                             osmoh::Weekday::Friday,
+                             osmoh::Weekday::Saturday}), ());
+  }
+  {
+    OpeningHours oh("Mo-Su 08:00-13:00,14:00-20:00; Sa 10:00-11:00 off");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 2, ());
+
+    auto const tt = tts.Get(1);
+    TEST_EQUAL(tt.GetOpeningDays(), TOpeningDays({osmoh::Weekday::Saturday}), ());
+    TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 8, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 20, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 11, ());
+    TEST_EQUAL(tt.GetExcludeTime()[1].GetStart().GetHourMinutes().GetHoursCount(), 13, ());
+    TEST_EQUAL(tt.GetExcludeTime()[1].GetEnd().GetHourMinutes().GetHoursCount(), 14, ());
+  }
+  {
+    OpeningHours oh("Mo-Su; Sa 10:00-11:00 off");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 2, ());
+
+    auto const tt = tts.Get(1);
+
+    TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 0, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 24, ());
+
+    TEST_EQUAL(tt.GetOpeningDays(), TOpeningDays({osmoh::Weekday::Saturday}), ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 11, ());
+  }
+  {
+    OpeningHours oh("Mo-Fr 11:00-17:00; Sa-Su 12:00-16:00; Tu off");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 2, ());
+    TEST_EQUAL(tts.GetUnhandledDays(), TOpeningDays({osmoh::Weekday::Tuesday}), ());
+  }
+  {
+    OpeningHours oh("Mo-Fr 11:00-17:00; Sa-Su 12:00-16:00; Mo-Fr off");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+
+    TEST_EQUAL(tts.GetUnhandledDays(),
+               TOpeningDays({osmoh::Weekday::Monday,
+                             osmoh::Weekday::Tuesday,
+                             osmoh::Weekday::Wednesday,
+                             osmoh::Weekday::Thursday,
+                             osmoh::Weekday::Friday}), ());
+  }
+  {
+    OpeningHours oh("Mo-Fr 11:00-17:00; Sa-Su 12:00-16:00; Mo-Fr 11:00-13:00 off");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 2, ());
+
+    auto const tt = tts.Get(0);
+    TEST_EQUAL(tts.GetUnhandledDays(), TOpeningDays(), ());
+
+    TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 11, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 17, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 11, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 13, ());
   }
 }
 

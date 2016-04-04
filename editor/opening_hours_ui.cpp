@@ -338,7 +338,7 @@ bool TimeTableSet::Append(TimeTable const & tt)
 
 bool TimeTableSet::Remove(size_t const index)
 {
-  if (index == 0 || index >= Size())
+  if (Size() == 1 || index >= Size())
     return false;
 
   m_table.erase(m_table.begin() + index);

@@ -793,6 +793,11 @@ BOOST_AUTO_TEST_CASE(OpeningHoursWeekdays_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+  {
+    auto const rule = "Sa";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
 }
 
 BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
@@ -1062,6 +1067,12 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
   }
   {
     auto const rule = "Mo-Fr closed \"always closed\"";
+
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Sa; Su";
 
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
