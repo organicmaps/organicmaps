@@ -188,6 +188,23 @@ namespace integration
     TEST_EQUAL(route.GetTurns().size() - 1, expectedTurnCount, ());
   }
 
+  void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName)
+  {
+    string streetName;
+    route.GetCurrentStreetName(streetName);
+    TEST_EQUAL(streetName, expectedStreetName, ());
+  }
+
+  void TestNextStreetName(routing::Route const & route, string const & expectedStreetName)
+  {
+    string streetName;
+    double distance;
+    turns::TurnItem turn;
+    TEST(route.GetCurrentTurn(distance, turn), ());
+    route.GetStreetNameAfterIdx(turn.m_index, streetName);
+    TEST_EQUAL(streetName, expectedStreetName, ());
+  }
+
   void TestRouteLength(Route const & route, double expectedRouteMeters,
                        double relativeError)
   {
