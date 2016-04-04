@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "storage/storage_integration_tests/test_defines.hpp"
+
 #include "map/framework.hpp"
 
 #include "platform/local_country_file_utils.hpp"
@@ -17,11 +19,6 @@
 
 using namespace platform;
 using namespace storage;
-
-namespace
-{
-static string const kMapTestDir = "map-tests";
-}
 
 UNIT_TEST(StorageFastMigrationTests)
 {

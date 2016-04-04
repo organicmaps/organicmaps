@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "storage/storage_integration_tests/test_defines.hpp"
+
 #include "map/framework.hpp"
 
 #include "platform/platform.hpp"
@@ -17,11 +19,6 @@ using namespace storage;
 
 namespace
 {
-
-string const kTestWebServer = "http://direct.mapswithme.com/";
-
-string const kMapTestDir = "map-tests";
-
 string const kCountryId = "Germany"; // Germany has 3-levels hierachy
 
 int GetLevelCount(Storage & storage, TCountryId const & countryId)

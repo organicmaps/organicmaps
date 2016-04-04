@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "storage/storage_integration_tests/test_defines.hpp"
+
 #include "storage/storage.hpp"
 
 #include "platform/local_country_file_utils.hpp"
@@ -23,12 +25,7 @@ using namespace storage;
 
 namespace
 {
-
 string const kCountryId = "Angola";
-
-string const kTestWebServer = "http://direct.mapswithme.com/";
-
-string const kMapTestDir = "map-tests";
 
 class InterruptException : public exception {};
 
