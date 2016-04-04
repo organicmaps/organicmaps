@@ -75,15 +75,13 @@ using namespace storage;
       alertController:(MWMAlertViewController *)alertController
             onSuccess:(TMWMVoidBlock)onSuccess
 {
-  size_t requiredSize = accumulate(countryIds.begin(), countryIds.end(), 0,
+  size_t requiredSize = accumulate(countryIds.begin(), countryIds.end(), kMaxMwmSizeBytes,
                                    [](size_t const & size, TCountryId const & countryId)
                                    {
                                      NodeAttrs nodeAttrs;
                                      GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
                                      return size + nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
                                    });
-  size_t constexpr kDownloadExtraSpaceSize = 100 * MB;
-  requiredSize += kDownloadExtraSpaceSize;
   if (GetPlatform().GetWritableStorageStatus(requiredSize) == Platform::TStorageStatus::STORAGE_OK)
   {
     [self checkConnectionAndPerformAction:[countryIds, onSuccess]
