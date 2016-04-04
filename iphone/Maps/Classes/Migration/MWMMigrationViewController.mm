@@ -22,7 +22,7 @@ using namespace storage;
 
 @interface MWMStorage ()
 
-+ (void)performAction:(TMWMVoidBlock)action alertController:(MWMAlertViewController *)alertController;
++ (void)checkConnectionAndPerformAction:(TMWMVoidBlock)action alertController:(MWMAlertViewController *)alertController;
 
 @end
 
@@ -103,7 +103,7 @@ using namespace storage;
     [view setProgress:static_cast<CGFloat>(progress.first) / progress.second];
   };
 
-  [MWMStorage performAction:^
+  [MWMStorage checkConnectionAndPerformAction:^
   {
     self->m_countryId = f.PreMigrate(position, onStatusChanged, onProgressChanged);
     if (self->m_countryId != kInvalidCountryId)

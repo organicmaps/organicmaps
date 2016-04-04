@@ -11,6 +11,8 @@ namespace storage
 class CountryInfoGetter;
 class Storage;
 
+size_t constexpr kMaxMwmSizeBytes = 100 /*Mb*/ * 1024 * 1024;
+
 /// \returns true if |position| is covered by a downloaded mwms and false otherwise.
 /// \note |position| has coordinates in mercator.
 /// \note This method takes into acount only maps enumerated in countries.txt.

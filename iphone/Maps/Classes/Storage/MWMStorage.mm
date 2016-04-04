@@ -5,6 +5,8 @@
 
 #include "platform/platform.hpp"
 
+#include "storage/storage_helpers.hpp"
+
 namespace
 {
 NSString * const kStorageCanShowNoWifiAlert = @"StorageCanShowNoWifiAlert";
@@ -23,13 +25,12 @@ using namespace storage;
 
 + (void)downloadNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess
 {
-  [self performAction:^
+  [self checkEnoughSpaceFor:countryId andPerformAction:^
   {
     GetFramework().Storage().DownloadNode(countryId);
     if (onSuccess)
       onSuccess();
-  }
-  alertController:alertController];
+  } alertController:alertController];
 }
 
 + (void)retryDownloadNode:(TCountryId const &)countryId
@@ -39,11 +40,10 @@ using namespace storage;
 
 + (void)updateNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
 {
-  [self performAction:^
+  [self checkEnoughSpaceFor:countryId andPerformAction:^
   {
     GetFramework().Storage().UpdateNode(countryId);
-  }
-  alertController:alertController];
+  } alertController:alertController];
 }
 
 + (void)deleteNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
@@ -71,20 +71,46 @@ using namespace storage;
   GetFramework().ShowNode(countryId);
 }
 
-+ (void)downloadNodes:(storage::TCountriesVec const &)countryIds alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess
++ (void)downloadNodes:(TCountriesVec const &)countryIds
+      alertController:(MWMAlertViewController *)alertController
+            onSuccess:(TMWMVoidBlock)onSuccess
 {
-  [self performAction:[countryIds, onSuccess]
+  size_t requiredSize = accumulate(countryIds.begin(), countryIds.end(), kMaxMwmSizeBytes,
+                                   [](size_t const & size, TCountryId const & countryId)
+                                   {
+                                     NodeAttrs nodeAttrs;
+                                     GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
+                                     return size + nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
+                                   });
+  if (GetPlatform().GetWritableStorageStatus(requiredSize) == Platform::TStorageStatus::STORAGE_OK)
   {
-    auto & s = GetFramework().Storage();
-    for (auto const & countryId : countryIds)
-      s.DownloadNode(countryId);
-    if (onSuccess)
-      onSuccess();
+    [self checkConnectionAndPerformAction:[countryIds, onSuccess]
+    {
+      auto & s = GetFramework().Storage();
+      for (auto const & countryId : countryIds)
+        s.DownloadNode(countryId);
+      if (onSuccess)
+        onSuccess();
+    } alertController:alertController];
   }
-  alertController:alertController];
+  else
+  {
+    [alertController presentNotEnoughSpaceAlert];
+  }
 }
 
-+ (void)performAction:(TMWMVoidBlock)action alertController:(MWMAlertViewController *)alertController
++ (void)checkEnoughSpaceFor:(TCountryId const &)countryId
+           andPerformAction:(TMWMVoidBlock)action
+            alertController:(MWMAlertViewController *)alertController
+{
+  if (IsEnoughSpaceForDownload(countryId, GetFramework().Storage()))
+    [self checkConnectionAndPerformAction:action alertController:alertController];
+  else
+    [alertController presentNotEnoughSpaceAlert];
+}
+
++ (void)checkConnectionAndPerformAction:(TMWMVoidBlock)action
+                        alertController:(MWMAlertViewController *)alertController
 {
   switch (Platform::ConnectionStatus())
   {

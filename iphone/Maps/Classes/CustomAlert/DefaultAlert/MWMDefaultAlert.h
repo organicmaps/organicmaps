@@ -9,6 +9,7 @@
 + (instancetype)internalRoutingErrorAlert;
 + (instancetype)incorrectFeauturePositionAlert;
 + (instancetype)internalErrorAlert;
++ (instancetype)notEnoughSpaceAlert;
 + (instancetype)invalidUserNameOrPasswordAlert;
 + (instancetype)noCurrentPositionAlert;
 + (instancetype)pointsInDifferentMWMAlert;

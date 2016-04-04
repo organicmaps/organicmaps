@@ -89,6 +89,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert internalErrorAlert]];
 }
 
+- (void)presentNotEnoughSpaceAlert
+{
+  [self displayAlert:[MWMAlert notEnoughSpaceAlert]];
+}
+
 - (void)presentInvalidUserNameOrPasswordAlert
 {
   [self displayAlert:[MWMAlert invalidUserNameOrPasswordAlert]];
