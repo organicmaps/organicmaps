@@ -112,14 +112,14 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeNeedMigrate(JNIEnv * env, j
 
 static void FinishMigration(JNIEnv * env)
 {
-  ASSERT(g_migrationListener);
+  ASSERT(g_migrationListener, ());
   env->DeleteGlobalRef(g_migrationListener);
   g_migrationListener = nullptr;
 }
 
 static void OnPrefetchComplete(bool keepOldMaps)
 {
-  ASSERT(g_migrationListener);
+  ASSERT(g_migrationListener, ());
 
   g_framework->Migrate(keepOldMaps);
 
@@ -132,7 +132,7 @@ static void OnPrefetchComplete(bool keepOldMaps)
 
 static void OnMigrationError(NodeErrorCode error)
 {
-  ASSERT(g_migrationListener);
+  ASSERT(g_migrationListener, ());
 
   JNIEnv * env = jni::GetEnv();
   static jmethodID const callback = jni::GetMethodID(env, g_migrationListener, "onError", "(I)V");
