@@ -154,7 +154,7 @@ public final class MapManager
 
   public static boolean warnDownloadOn3g(Activity activity, @NonNull final Runnable onAcceptListener)
   {
-    if (sSkip3gCheck || ConnectionState.isWifiConnected())
+    if (sSkip3gCheck || !ConnectionState.isMobileConnected())
     {
       onAcceptListener.run();
       return false;
