@@ -6,7 +6,6 @@
 
 #include "platform/location.hpp"
 
-
 using namespace routing;
 using namespace routing::turns;
 
@@ -23,8 +22,7 @@ void MoveRoute(Route & route, ms::LatLon const & coords)
 UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.70839, 37.62145), {0., 0.},
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(55.70839, 37.62145), {0., 0.},
       MercatorBounds::FromLatLon(55.73198, 37.63945));
 
   Route & route = *routeResult.first;
@@ -38,7 +36,6 @@ UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
 
   integration::TestCurrentStreetName(route, "Подольское шоссе");
   integration::TestNextStreetName(route, "Валовая улица");
-
 
   MoveRoute(route, ms::LatLon(55.72059, 37.62766));
 

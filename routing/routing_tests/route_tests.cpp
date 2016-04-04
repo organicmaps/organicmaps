@@ -18,7 +18,7 @@ static vector<m2::PointD> const kTestGeometry({{0, 0}, {0,1}, {1,1}, {1,2}, {1,3
 static vector<turns::TurnItem> const kTestTurns({turns::TurnItem(1, turns::TurnDirection::TurnLeft),
                                turns::TurnItem(2, turns::TurnDirection::TurnRight),
                                turns::TurnItem(4, turns::TurnDirection::ReachedYourDestination)});
-static Route::TStreets const kTestNames({{0,"Street1"}, {1, "Street2"}, {4, "Street3"}});
+static Route::TStreets const kTestNames({{0, "Street1"}, {1, "Street2"}, {4, "Street3"}});
 
 location::GpsInfo GetGps(double x, double y)
 {

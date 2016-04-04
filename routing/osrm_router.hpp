@@ -85,9 +85,9 @@ protected:
    * \return routing operation result code.
    */
   ResultCode MakeTurnAnnotation(RawRoutingResult const & routingResult,
-                                TRoutingMappingPtr const & mapping,
-                                RouterDelegate const & delegate, vector<m2::PointD> & points,
-                                Route::TTurns & turnsDir, Route::TTimes & times, Route::TStreets & streets);
+                                TRoutingMappingPtr const & mapping, RouterDelegate const & delegate,
+                                vector<m2::PointD> & points, Route::TTurns & turnsDir,
+                                Route::TTimes & times, Route::TStreets & streets);
 
 private:
   /*!
