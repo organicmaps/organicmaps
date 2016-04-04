@@ -133,7 +133,7 @@ Notes::Notes(string const & fileName) : m_fileName(fileName)
   Load(m_fileName, m_notes, m_uploadedNotesCount);
 }
 
-void Notes::CreateNote(m2::PointD const & point, string const & text)
+void Notes::CreateNote(ms::LatLon const & latLon, string const & text)
 {
   if (text.empty())
   {
@@ -141,14 +141,14 @@ void Notes::CreateNote(m2::PointD const & point, string const & text)
     return;
   }
 
-  if (!MercatorBounds::ValidX(point.x) || !MercatorBounds::ValidY(point.y))
+  if (!MercatorBounds::ValidLat(latLon.lat) || !MercatorBounds::ValidLon(latLon.lon))
   {
-    LOG(LWARNING, ("A note attached to a wrong point", point));
+    LOG(LWARNING, ("A note attached to a wrong latLon", latLon));
     return;
   }
 
   lock_guard<mutex> g(m_mu);
-  m_notes.emplace_back(MercatorBounds::ToLatLon(point), text);
+  m_notes.emplace_back(latLon, text);
   Save(m_fileName, m_notes, m_uploadedNotesCount);
 }
 

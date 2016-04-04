@@ -19,9 +19,9 @@ UNIT_TEST(Notes_Smoke)
   platform::tests_support::ScopedFile sf(fileName);
   {
     auto const notes = Notes::MakeNotes(fullFileName, true);
-    notes->CreateNote({1, 2}, "Some note1");
-    notes->CreateNote({2, 2}, "Some note2");
-    notes->CreateNote({1, 1}, "Some note3");
+    notes->CreateNote(MercatorBounds::ToLatLon({1, 2}), "Some note1");
+    notes->CreateNote(MercatorBounds::ToLatLon({2, 2}), "Some note2");
+    notes->CreateNote(MercatorBounds::ToLatLon({1, 1}), "Some note3");
   }
   {
     auto const notes = Notes::MakeNotes(fullFileName, true);

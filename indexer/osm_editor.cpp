@@ -365,7 +365,7 @@ namespace
 {
 constexpr uint32_t kStartIndexForCreatedFeatures = numeric_limits<uint32_t>::max() - 0xfffff;
 }  // namespace
-  
+
 bool Editor::IsCreatedFeature(FeatureID const & fid)
 {
   return fid.m_index >= kStartIndexForCreatedFeatures;
@@ -863,9 +863,9 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
   return true;
 }
 
-void Editor::CreateNote(m2::PointD const & point, string const & note)
+void Editor::CreateNote(ms::LatLon const & latLon, string const & note)
 {
-  m_notes->CreateNote(point, note);
+  m_notes->CreateNote(latLon, note);
 }
 
 void Editor::UploadNotes(string const & key, string const & secret)
