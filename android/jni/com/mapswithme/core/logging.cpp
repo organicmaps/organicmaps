@@ -8,10 +8,14 @@
 #include "platform/file_logging.hpp"
 #include "platform/platform.hpp"
 
+#include "../util/crashlytics.h"
+
 #include <android/log.h>
 #include <cassert>
 #include <cstdlib>
 
+
+extern crashlytics_context_t * g_crashlytics;
 
 namespace jni
 {
@@ -32,6 +36,8 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, string const & s)
   }
 
   string const out = DebugPrint(src) + " " + s;
+  if (g_crashlytics)
+    g_crashlytics->log(g_crashlytics, out.c_str());
   __android_log_write(pr, "MapsWithMe_JNI", out.c_str());
 }
 

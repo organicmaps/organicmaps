@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.annotation.UiThread;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -176,8 +177,11 @@ public class MwmApplication extends Application
 
   private void initCrashlytics()
   {
-    if (!BuildConfig.FABRIC_API_KEY.startsWith("0000"))
-      Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
+    if (BuildConfig.FABRIC_API_KEY.startsWith("0000"))
+      return;
+
+    Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
+    nativeInitCrashlytics();
   }
 
   public boolean isFrameworkInitialized()
@@ -303,4 +307,7 @@ public class MwmApplication extends Application
   private static native void nativeAddLocalization(String name, String value);
 
   private static native void nativeProcessFunctor(long functorPointer);
+
+  @UiThread
+  private static native void nativeInitCrashlytics();
 }

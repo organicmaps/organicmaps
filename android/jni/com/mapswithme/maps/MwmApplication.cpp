@@ -1,8 +1,11 @@
 #include "Framework.hpp"
 
 #include "../core/jni_helper.hpp"
+#include "../util/crashlytics.h"
 
 #include "../platform/Platform.hpp"
+
+crashlytics_context_t * g_crashlytics;
 
 extern "C"
 {
@@ -37,5 +40,12 @@ extern "C"
   {
     g_framework->AddString(jni::ToNativeString(env, name),
                            jni::ToNativeString(env, value));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MwmApplication_nativeInitCrashlytics(JNIEnv * env, jclass clazz)
+  {
+    ASSERT(!g_crashlytics, ());
+    g_crashlytics = crashlytics_init();
   }
 }
