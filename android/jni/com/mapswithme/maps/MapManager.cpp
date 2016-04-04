@@ -272,11 +272,9 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   }
 
   // Topmost parent[s]. Do not specify if there are multiple or none.
-  // TODO(trashkalmar): Fix after core part is implemented.
-  /*
-  if (attrs.m_parentInfo.size() == 1)
+  if (attrs.m_topmostParentInfo.size() == 1)
   {
-    CountryIdAndName const & info = attrs.m_parentInfo[0];
+    CountryIdAndName const & info = attrs.m_topmostParentInfo[0];
 
     jni::TScopedLocalRef const parentId(env, jni::ToJavaString(env, info.m_id));
     env->SetObjectField(item, countryItemFieldTopmostParentId, parentId.get());
@@ -288,7 +286,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   {
     env->SetObjectField(item, countryItemFieldTopmostParentId, nullptr);
     env->SetObjectField(item, countryItemFieldTopmostParentName, nullptr);
-  }*/
+  }
 
   // Sizes
   env->SetLongField(item, countryItemFieldSize, attrs.m_localMwmSize);
