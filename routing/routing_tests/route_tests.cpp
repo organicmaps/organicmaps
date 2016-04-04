@@ -18,6 +18,7 @@ static vector<m2::PointD> const kTestGeometry({{0, 0}, {0,1}, {1,1}, {1,2}, {1,3
 static vector<turns::TurnItem> const kTestTurns({turns::TurnItem(1, turns::TurnDirection::TurnLeft),
                                turns::TurnItem(2, turns::TurnDirection::TurnRight),
                                turns::TurnItem(4, turns::TurnDirection::ReachedYourDestination)});
+static Route::TStreets const kTestNames({{0,"Street1"}, {1, "Street2"}, {4, "Street3"}});
 
 location::GpsInfo GetGps(double x, double y)
 {
@@ -156,4 +157,34 @@ UNIT_TEST(NextTurnsTest)
     TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 1, ());
   }
+}
+
+UNIT_TEST(RouteNameTest)
+{
+  Route route("TestRouter");
+
+  route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
+  vector<turns::TurnItem> turns(kTestTurns);
+  route.SetTurnInstructions(turns);
+  Route::TStreets names(kTestNames);
+  route.SetStreetNames(names);
+
+  string name;
+  route.GetCurrentStreetName(name);
+  TEST_EQUAL(name, "Street1", ());
+
+  route.GetStreetNameAfterIdx(0, name);
+  TEST_EQUAL(name, "Street1", ());
+
+  route.GetStreetNameAfterIdx(1, name);
+  TEST_EQUAL(name, "Street2", ());
+
+  route.GetStreetNameAfterIdx(2, name);
+  TEST_EQUAL(name, "Street2", ());
+
+  route.GetStreetNameAfterIdx(3, name);
+  TEST_EQUAL(name, "Street2", ());
+
+  route.GetStreetNameAfterIdx(4, name);
+  TEST_EQUAL(name, "Street3", ());
 }

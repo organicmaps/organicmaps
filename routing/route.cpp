@@ -169,7 +169,7 @@ void Route::GetStreetNameAfterIdx(uint32_t idx, string & name) const
   for (;it != m_streets.cend(); ++it)
     if (!it->second.empty())
     {
-      if (m_poly.GetDistanceM(polyIter, m_poly.GetIterToIndex(it->first)) < kSteetNameLinkMeters)
+      if (m_poly.GetDistanceM(polyIter, m_poly.GetIterToIndex(max(it->first, static_cast<uint32_t>(polyIter.m_ind)))) < kSteetNameLinkMeters)
         name = it->second;
       return;
     }
@@ -187,14 +187,14 @@ Route::TStreets::const_iterator Route::GetCurrentStreetNameIterAfter(FollowedPol
   TStreets::const_iterator prevIter = curIter;
   curIter++;
 
-  while (curIter->first<=iter.m_ind)
+  while (curIter->first < iter.m_ind)
   {
     ++prevIter;
     ++curIter;
     if (curIter==m_streets.cend())
       return curIter;
   }
-  return prevIter;
+  return curIter->first == iter.m_ind ? curIter : prevIter;
 }
 
 bool Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
