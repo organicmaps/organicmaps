@@ -789,7 +789,7 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
                    ("This method should not be called for empty files set."));
   {
     alohalytics::LogEvent("$OnMapDownloadFinished",
-        alohalytics::TStringMap({{"name", GetCountryFile(countryId).GetName()},
+        alohalytics::TStringMap({{"name", countryId},
                                  {"status", success ? "ok" : "failed"},
                                  {"version", strings::to_string(GetCurrentDataVersion())},
                                  {"option", DebugPrint(files)}}));
