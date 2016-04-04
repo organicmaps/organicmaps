@@ -51,7 +51,7 @@ UNIT_TEST(Generate_DeprecatedTypes)
   TEST_EQUAL(index.Register(file).second, MwmSet::RegResult::Success, ());
 
   // New types.
-  StringIL arr[] = { {"shop"}, {"office"} };
+  StringIL arr[] = {{"shop"}, {"office"}};
 
   Classificator const & cl = classif();
   set<uint32_t> types;

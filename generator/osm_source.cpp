@@ -513,7 +513,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     TagReplacer tagReplacer(GetPlatform().ResourcesDir() + PEPLACED_TAGS_FILE);
 
     // Here we can add new tags to element!!!
-    auto fn = [&](OsmElement * e)
+    auto const fn = [&](OsmElement * e)
     {
       tagReplacer(e);
       tagAdmixer(e);

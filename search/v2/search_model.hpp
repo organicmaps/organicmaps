@@ -20,7 +20,6 @@ class TwoLevelPOIChecker : public ftypes::BaseChecker
 {
 public:
   TwoLevelPOIChecker();
-  bool Has(uint32_t type) const { return IsMatched(type); }
 };
 
 // This class is used to map feature types to a restricted set of

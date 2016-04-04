@@ -2,7 +2,7 @@
 
 #include "base/assert.hpp"
 
-MapStyle kDefaultMapStyle = MapStyleClear;
+MapStyle const kDefaultMapStyle = MapStyleClear;
 
 string DebugPrint(MapStyle mapStyle)
 {

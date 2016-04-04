@@ -61,7 +61,7 @@ void TypesSkipper::SkipEmptyNameTypes(feature::TypesHolder & types) const
 {
   auto shouldBeRemoved = [this](uint32_t type)
   {
-    if (m_dontSkipIfEmptyName.Has(type))
+    if (m_dontSkipIfEmptyName.IsMatched(type))
       return false;
 
     ftype::TruncValue(type, 2);

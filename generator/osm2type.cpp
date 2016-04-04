@@ -472,7 +472,7 @@ namespace ftype
         highwayDone = true;
       }
 
-      /// @tdo Probably, we can delete this processing because cities
+      /// @todo Probably, we can delete this processing because cities
       /// are matched by limit rect in MatchCity.
       if (!subwayDone && types.IsRwSubway(vTypes[i]))
       {

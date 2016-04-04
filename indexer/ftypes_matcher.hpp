@@ -21,12 +21,12 @@ class BaseChecker
 protected:
   vector<uint32_t> m_types;
 
-  virtual bool IsMatched(uint32_t type) const;
-
   BaseChecker(size_t level = 2) : m_level(level) {}
   virtual ~BaseChecker() = default;
 
 public:
+  virtual bool IsMatched(uint32_t type) const;
+
   bool operator() (feature::TypesHolder const & types) const;
   bool operator() (FeatureType const & ft) const;
   bool operator() (vector<uint32_t> const & types) const;

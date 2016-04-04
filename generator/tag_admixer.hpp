@@ -132,31 +132,35 @@ private:
 
 class TagReplacer
 {
-  vector<vector<string>> m_entries;
+  map<OsmElement::Tag, vector<string>> m_entries;
 public:
   TagReplacer(string const & filePath)
   {
-    try
-    {
-      ifstream stream(filePath);
-      while (stream.good())
-      {
-        string line;
-        std::getline(stream, line);
-        if (line.empty())
-          continue;
+    ifstream stream(filePath);
 
-        vector<string> v;
-        strings::Tokenize(line, " \t=,:", MakeBackInsertFunctor(v));
-        if (v.size() < 4 || v.size() % 2 == 1)
-          continue;
-
-        m_entries.push_back(move(v));
-      }
-    }
-    catch (ifstream::failure const &)
+    OsmElement::Tag tag;
+    vector<string> values;
+    string line;
+    while (std::getline(stream, line))
     {
-      LOG(LWARNING, ("Can't read replacing tags info file", filePath));
+      if (line.empty())
+        continue;
+
+      strings::SimpleTokenizer iter(line, " \t=,:");
+      if (!iter)
+        continue;
+      tag.key = *iter;
+      ++iter;
+      if (!iter)
+        continue;
+      tag.value = *iter;
+
+      values.clear();
+      while (++iter)
+        values.push_back(*iter);
+
+      if (values.size() >= 2 && values.size() % 2 == 0)
+        m_entries[tag].swap(values);
     }
   }
 
@@ -164,15 +168,14 @@ public:
   {
     for (auto & tag : p->m_tags)
     {
-      for (auto const & entry : m_entries)
+      auto it = m_entries.find(tag);
+      if (it != m_entries.end())
       {
-        if (tag.key == entry[0] && tag.value == entry[1])
-        {
-          tag.key = entry[2];
-          tag.value = entry[3];
-          for (size_t i = 4; i < entry.size(); i += 2)
-            p->AddTag(entry[i], entry[i+1]);
-        }
+        auto const & v = it->second;
+        tag.key = v[2];
+        tag.value = v[3];
+        for (size_t i = 4; i < v.size(); i += 2)
+          p->AddTag(v[i], v[i + 1]);
       }
     }
   }
