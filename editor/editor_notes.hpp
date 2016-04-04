@@ -31,7 +31,7 @@ public:
   static shared_ptr<Notes> MakeNotes(string const & fileName = "notes.xml",
                                      bool const fullPath = false);
 
-  void CreateNote(m2::PointD const & point, string const & text);
+  void CreateNote(ms::LatLon const & latLon, string const & text);
 
   /// Uploads notes to the server in a separate thread.
   void Upload(osm::OsmOAuth const & auth);

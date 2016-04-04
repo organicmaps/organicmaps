@@ -116,7 +116,7 @@ public:
 
   bool CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id, EditableMapObject & outFeature);
 
-  void CreateNote(m2::PointD const & point, string const & note);
+  void CreateNote(ms::LatLon const & latLon, string const & note);
   void UploadNotes(string const & key, string const & secret);
 
   struct Stats
@@ -127,7 +127,7 @@ public:
     time_t m_lastUploadTimestamp = my::INVALID_TIME_STAMP;
   };
   Stats GetStats() const;
-  
+
   static bool IsCreatedFeature(FeatureID const & fid);
 
 private:
