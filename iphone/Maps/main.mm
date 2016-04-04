@@ -14,7 +14,7 @@ int main(int argc, char * argv[])
 #ifdef MWM_LOG_TO_FILE
   my::SetLogMessageFn(LogMessageFile);
 #elif OMIM_PRODUCTION
-  my::SetLogMessageFn(LogMessageFabric);
+  my::SetLogMessageFn(platform::LogMessageFabric);
 #endif
   LOG(LINFO, ("maps.me started, detected CPU cores:", GetPlatform().CpuCores()));
 
