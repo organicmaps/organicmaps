@@ -112,11 +112,15 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeNeedMigrate(JNIEnv * env, j
 
 static void FinishMigration(JNIEnv * env)
 {
+  ASSERT(g_migrationListener);
   env->DeleteGlobalRef(g_migrationListener);
+  g_migrationListener = nullptr;
 }
 
 static void OnPrefetchComplete(bool keepOldMaps)
 {
+  ASSERT(g_migrationListener);
+
   g_framework->Migrate(keepOldMaps);
 
   JNIEnv * env = jni::GetEnv();
@@ -128,6 +132,8 @@ static void OnPrefetchComplete(bool keepOldMaps)
 
 static void OnMigrationError(NodeErrorCode error)
 {
+  ASSERT(g_migrationListener);
+
   JNIEnv * env = jni::GetEnv();
   static jmethodID const callback = jni::GetMethodID(env, g_migrationListener, "onError", "(I)V");
   env->CallVoidMethod(g_migrationListener, callback, static_cast<jint>(error));
@@ -143,7 +149,8 @@ static void MigrationStatusChangedCallback(TCountryId const & countryId, bool ke
   switch (attrs.m_status)
   {
   case NodeStatus::OnDisk:
-    OnPrefetchComplete(keepOldMaps);
+    if (!attrs.m_groupNode)
+      OnPrefetchComplete(keepOldMaps);
     break;
 
   case NodeStatus::Undefined:
