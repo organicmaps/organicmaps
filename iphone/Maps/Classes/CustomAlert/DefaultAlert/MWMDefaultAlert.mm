@@ -168,6 +168,18 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                    rightButtonAction:nil];
 }
 
++ (instancetype)notEnoughSpaceAlert
+{
+  kStatisticsEvent = @"Not Enough Space Alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"migration_download_error_dialog"
+                                                message:@"migration_no_space_message"
+                                       rightButtonTitle:@"ok"
+                                        leftButtonTitle:nil
+                                      rightButtonAction:nil];
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
 + (instancetype)invalidUserNameOrPasswordAlert
 {
   kStatisticsEvent = @"Invalid User Name or Password Alert";

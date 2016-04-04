@@ -27,6 +27,7 @@
 - (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch;
 - (void)presentIncorrectFeauturePositionAlert;
 - (void)presentInternalErrorAlert;
+- (void)presentNotEnoughSpaceAlert;
 - (void)presentInvalidUserNameOrPasswordAlert;
 - (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock;

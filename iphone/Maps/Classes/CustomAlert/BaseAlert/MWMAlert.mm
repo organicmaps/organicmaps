@@ -122,6 +122,11 @@
   return [MWMDefaultAlert internalErrorAlert];
 }
 
++ (MWMAlert *)notEnoughSpaceAlert
+{
+  return [MWMDefaultAlert notEnoughSpaceAlert];
+}
+
 + (MWMAlert *)invalidUserNameOrPasswordAlert
 {
   return [MWMDefaultAlert invalidUserNameOrPasswordAlert];
