@@ -272,6 +272,8 @@
 		34EB5E7E1C900159002C4D37 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89301C89837900940D7F /* AssetsLibrary.framework */; };
 		34EB84581C073DF70004689F /* MWMOpeningHoursEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EB84571C073DF70004689F /* MWMOpeningHoursEditorViewController.mm */; };
 		34EB84591C073DF70004689F /* MWMOpeningHoursEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EB84571C073DF70004689F /* MWMOpeningHoursEditorViewController.mm */; };
+		34EC270A1CB2A7120084FA36 /* fabric_logging_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EC27081CB2A7120084FA36 /* fabric_logging_ios.mm */; };
+		34EC270B1CB2A7120084FA36 /* fabric_logging_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EC27081CB2A7120084FA36 /* fabric_logging_ios.mm */; };
 		34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
 		34F45E8E1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F45E8D1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm */; };
 		34F45E901B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */; };
@@ -1149,6 +1151,8 @@
 		34E273241C73876500463965 /* MWMMigrationView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMigrationView.mm; sourceTree = "<group>"; };
 		34EB84561C073DF70004689F /* MWMOpeningHoursEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursEditorViewController.h; sourceTree = "<group>"; };
 		34EB84571C073DF70004689F /* MWMOpeningHoursEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMOpeningHoursEditorViewController.mm; sourceTree = "<group>"; };
+		34EC27081CB2A7120084FA36 /* fabric_logging_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = fabric_logging_ios.mm; sourceTree = "<group>"; };
+		34EC27091CB2A7120084FA36 /* fabric_logging.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fabric_logging.hpp; sourceTree = "<group>"; };
 		34F45E8C1B96E88100AC93F8 /* MWMSearchTabButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTabButtonsView.h; sourceTree = "<group>"; };
 		34F45E8D1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTabButtonsView.mm; sourceTree = "<group>"; };
 		34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchTabButtonsView.xib; sourceTree = "<group>"; };
@@ -1737,6 +1741,8 @@
 			children = (
 				28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.mm */,
+				34EC27091CB2A7120084FA36 /* fabric_logging.hpp */,
+				34EC27081CB2A7120084FA36 /* fabric_logging_ios.mm */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -3632,6 +3638,7 @@
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				F668F6561BCD4507002D6FFC /* MWMTTSSettingsViewController.mm in Sources */,
 				34ABA61B1C2D4DCC00FE1BEC /* UITextField+RuntimeAttributes.mm in Sources */,
+				34EC270A1CB2A7120084FA36 /* fabric_logging_ios.mm in Sources */,
 				F6ED135B1B18AA930095C6DE /* MWMExtendedPlacePageView.mm in Sources */,
 				3401CD7D1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.mm in Sources */,
 				34B16C451B72655D000D3A0D /* MWMPedestrianShareAlert.mm in Sources */,
@@ -3847,6 +3854,7 @@
 				6741A9F81BF340DE002C974C /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */,
 				6741A9F91BF340DE002C974C /* MWMSearchSuggestionCell.mm in Sources */,
 				34ABA61C1C2D4DCC00FE1BEC /* UITextField+RuntimeAttributes.mm in Sources */,
+				34EC270B1CB2A7120084FA36 /* fabric_logging_ios.mm in Sources */,
 				6741A9FA1BF340DE002C974C /* MWMBookmarkColorViewController.mm in Sources */,
 				3401CD7E1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.mm in Sources */,
 				34EB84591C073DF70004689F /* MWMOpeningHoursEditorViewController.mm in Sources */,
