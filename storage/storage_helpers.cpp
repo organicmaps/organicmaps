@@ -24,8 +24,12 @@ bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & stor
 {
   NodeAttrs nodeAttrs;
   storage.GetNodeAttrs(countryId, nodeAttrs);
-  size_t constexpr kDownloadExtraSpaceSize = 1 /*Mb*/ * 1024 * 1024;
-  size_t const downloadSpaceSize = kDownloadExtraSpaceSize + nodeAttrs.m_mwmSize;
+  // Mwm size is less than 100 MB. In case of map update at first we download updated map and only
+  // after that we do delete the obsolete map. So in such a case we might need up to 100 MB of extra
+  // space.
+  size_t constexpr kDownloadExtraSpaceSize = 100 /*Mb*/ * 1024 * 1024;
+  size_t const downloadSpaceSize =
+      kDownloadExtraSpaceSize + nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
   return GetPlatform().GetWritableStorageStatus(downloadSpaceSize) ==
          Platform::TStorageStatus::STORAGE_OK;
 }
