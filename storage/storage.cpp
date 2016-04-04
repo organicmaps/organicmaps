@@ -438,7 +438,7 @@ void Storage::RestoreDownloadQueue()
   strings::SimpleTokenizer iter(queue, ";");
   while (iter)
   {
-    DownloadCountry(*iter, MapOptions::MapWithCarRouting);
+    DownloadNode(*iter);
     ++iter;
   }
 }
