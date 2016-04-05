@@ -1,7 +1,10 @@
 #import "MWMSearchCell.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
+
+#include "base/logging.hpp"
 
 @interface MWMSearchCell ()
 
@@ -45,9 +48,19 @@
   size_t const rangesCount = result.GetHighlightRangesCount();
   for (size_t i = 0; i < rangesCount; ++i)
   {
-    pair<uint16_t, uint16_t> const range = result.GetHighlightRange(i);
-    [attributedTitle addAttributes:selectedTitleAttributes
-                             range:NSMakeRange(range.first, range.second)];
+    pair<uint16_t, uint16_t> const & range = result.GetHighlightRange(i);
+
+    if (range.first + range.second <= title.length)
+    {
+      [attributedTitle addAttributes:selectedTitleAttributes range:NSMakeRange(range.first, range.second)];
+    }
+    else
+    {
+      [Statistics logEvent:@"Incorrect_highlight_range" withParametrs:@{@"range.first" : @(range.first),
+                                                                        @"range.second" : @(range.second),
+                                                                        @"string" : title}];
+      LOG(LERROR, ("Incorrect range: ", range, " for string: ", result.GetString()));
+    }
   }
   self.titleLabel.attributedText = attributedTitle;
   [self.titleLabel sizeToFit];
