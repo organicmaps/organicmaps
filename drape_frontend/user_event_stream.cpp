@@ -1,5 +1,6 @@
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/animation_constants.hpp"
+#include "drape_frontend/animation_system.h"
 #include "drape_frontend/animation_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -253,6 +254,12 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     if (m_animation->IsFinished())
       m_animation.reset();
   }
+  if (AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
+  {
+    m2::AnyRectD const rect = AnimationSystem::Instance().GetRect(GetCurrentScreen());
+    m_navigator.SetFromRect(rect);
+    modelViewChange = true;
+  }
 
   if (m_pendingEvent != nullptr &&
       m_pendingEvent->m_type == UserEvent::EVENT_ENABLE_PERSPECTIVE &&
@@ -322,7 +329,25 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
     m2::PointD const offset = GetCurrentScreen().PixelRect().Center() - m_navigator.P3dtoP(scaleCenter);
 
-    auto const creator = [this, &glbScaleCenter, &offset](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
+    ScreenBase const & startScreen = GetCurrentScreen();
+    ScreenBase endScreen = startScreen;
+    m_navigator.CalculateScale(scaleCenter, factor, endScreen);
+
+    drape_ptr<FollowAnimation> anim = make_unique_dp<FollowAnimation>();
+    anim->SetScale(startScreen.GetScale(), endScreen.GetScale());
+    anim->SetMove(startScreen.GlobalRect().GlobalZero(),
+                  endScreen.GlobalRect().GlobalZero(), startScreen);
+    anim->SetMaxDuration(kMaxAnimationTimeSec);
+    if (df::IsAnimationAllowed(anim->GetDuration(), startScreen))
+    {
+      AnimationSystem::Instance().AddAnimation(move(anim));
+      return false;
+    }
+
+    m_navigator.SetFromRect(endScreen.GlobalRect());
+    return true;
+
+    /*auto const creator = [this, &glbScaleCenter, &offset](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                                                           double aDuration, double mDuration, double sDuration)
     {
       m_animation.reset(new ScaleAnimation(startRect, endRect, aDuration, mDuration,
@@ -334,7 +359,7 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     ScreenBase screen = GetCurrentScreen();
     m_navigator.CalculateScale(scaleCenter, factor, screen);
 
-    return SetRect(screen.GlobalRect(), true, creator);
+    return SetRect(screen.GlobalRect(), true, creator);*/
   }
 
   m_navigator.Scale(scaleCenter, factor);

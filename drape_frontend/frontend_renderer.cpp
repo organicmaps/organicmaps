@@ -1,5 +1,6 @@
 #include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/animation_system.h"
 #include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -1506,6 +1507,7 @@ void FrontendRenderer::Routine::Do()
     m_renderer.RenderScene(modelView);
 
     isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
+    AnimationSystem::Instance().Advance(frameTime);
 
     if (modelViewChanged)
     {
