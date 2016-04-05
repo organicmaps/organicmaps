@@ -186,11 +186,14 @@ UNIT_TEST(TestAppendTimeTable)
     TEST(!tts.Append(tts.GetComplementTimeTable()), ());
     TEST_EQUAL(tts.Size(), 3, ());
 
-    TEST(!tts.Remove(0), ());
+    TEST(tts.Remove(0), ());
     TEST(tts.Remove(1), ());
-    TEST_EQUAL(tts.Size(), 2, ());
-    TEST_EQUAL(tts.GetUnhandledDays(), (set<osmoh::Weekday>{osmoh::Weekday::Sunday,
-              osmoh::Weekday::Saturday}), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+    TEST_EQUAL(tts.GetUnhandledDays(), (set<osmoh::Weekday>{osmoh::Weekday::Monday,
+              osmoh::Weekday::Tuesday,
+              osmoh::Weekday::Wednesday,
+              osmoh::Weekday::Thursday,
+              osmoh::Weekday::Friday}), ());
   }
   {
     TimeTableSet tts;
