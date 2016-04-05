@@ -125,16 +125,25 @@ class IndexedValue : public search::IndexedValueBase<Query::kQueuesCount>
   shared_ptr<impl::PreResult2> m_val;
 
   double m_rank;
+  double m_distanceToPivot;
 
 public:
   explicit IndexedValue(unique_ptr<impl::PreResult2> v)
-    : m_val(move(v)), m_rank(m_val ? m_val->GetRankingInfo().GetLinearModelRank() : 0)
+    : m_val(move(v)), m_rank(0), m_distanceToPivot(numeric_limits<double>::max())
   {
+    if (!m_val)
+      return;
+
+    auto const & info = m_val->GetRankingInfo();
+    m_rank = info.GetLinearModelRank();
+    m_distanceToPivot = info.m_distanceToPivot;
   }
 
   impl::PreResult2 const & operator*() const { return *m_val; }
 
   inline double GetRank() const { return m_rank; }
+
+  inline double GetDistanceToPivot() const { return m_distanceToPivot; }
 };
 
 string DebugPrint(IndexedValue const & value)
@@ -523,15 +532,17 @@ void Query::FlushViewportResults(v2::Geocoder::Params const & params, Results & 
   vector<FeatureID> streets;
 
   MakePreResult2(params, indV, streets);
+  RemoveDuplicatingLinear(indV);
   if (indV.empty())
     return;
 
-  RemoveDuplicatingLinear(indV);
+  sort(indV.begin(), indV.end(), my::CompareBy(&IndexedValue::GetDistanceToPivot));
 
   for (size_t i = 0; i < indV.size(); ++i)
   {
     if (IsCancelled())
       break;
+
     res.AddResultNoChecks((*(indV[i])).GenerateFinalResult(m_infoGetter, &m_categories,
         &m_prefferedTypes, m_currentLocaleCode, m_reverseGeocoder));
   }
@@ -781,6 +792,9 @@ void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont
     if (!p)
       continue;
 
+    if (params.m_mode == Mode::Viewport && !params.m_pivot.IsPointInside(p->GetCenter()))
+      continue;
+
     if (p->IsStreet())
       streets.push_back(p->GetID());
 
@@ -796,11 +810,9 @@ void Query::FlushResults(v2::Geocoder::Params const & params, Results & res, boo
   vector<FeatureID> streets;
 
   MakePreResult2(params, indV, streets);
-
+  RemoveDuplicatingLinear(indV);
   if (indV.empty())
     return;
-
-  RemoveDuplicatingLinear(indV);
 
   sort(indV.rbegin(), indV.rend(), my::CompareBy(&IndexedValue::GetRank));
 

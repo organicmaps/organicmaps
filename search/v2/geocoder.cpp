@@ -548,7 +548,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     // found.
     size_t const numIntersectingMaps = OrderCountries(m_params.m_pivot, infos);
 
-    // MatchViewportAndPosition() should always be matched in mwms
+    // MatchAroundPivot() should always be matched in mwms
     // intersecting with position and viewport.
     auto const & cancellable = static_cast<my::Cancellable const&>(*this);
     auto processCountry = [&](size_t index, unique_ptr<MwmContext> context)
