@@ -144,4 +144,8 @@ unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
   /// Extracting appropriate TestTurn if any. If not TestTurn::isValid() returns false.
   /// inaccuracy is set in meters.
   TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
+
+  void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName);
+
+  void TestNextStreetName(routing::Route const & route, string const & expectedStreetName);
 }

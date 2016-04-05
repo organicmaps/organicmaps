@@ -23,9 +23,11 @@ namespace routing
 class Route
 {
 public:
-  typedef vector<turns::TurnItem> TTurns;
-  typedef pair<uint32_t, double> TTimeItem;
-  typedef vector<TTimeItem> TTimes;
+  using TTurns = vector<turns::TurnItem>;
+  using TTimeItem = pair<uint32_t, double>;
+  using TTimes = vector<TTimeItem>;
+  using TStreetItem = pair<uint32_t, string>;
+  using TStreets = vector<TStreetItem>;
 
   explicit Route(string const & router)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()) {}
@@ -57,6 +59,11 @@ public:
     swap(m_times, v);
   }
 
+  inline void SetStreetNames(TStreets & v)
+  {
+    swap(m_streets, v);
+  }
+
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
 
@@ -78,6 +85,12 @@ public:
   /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
   /// \param turn is information about the nearest turn.
   bool GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+
+  /// \brief Returns a name of a street where the user rides at this moment.
+  void GetCurrentStreetName(string &) const;
+
+  /// \brief Returns a name of a street next to idx point of the path. Function avoids short unnamed links.
+  void GetStreetNameAfterIdx(uint32_t idx, string &) const;
 
   /// @return true if GetNextTurn() returns a valid result in parameters, false otherwise.
   /// \param distanceToTurnMeters is a distance from current position to the second turn.
@@ -115,6 +128,7 @@ private:
   void Update();
   double GetPolySegAngle(size_t ind) const;
   TTurns::const_iterator GetCurrentTurn() const;
+  TStreets::const_iterator GetCurrentStreetNameIterAfter(FollowedPolyline::Iter iter) const;
 
 private:
   friend string DebugPrint(Route const & r);
@@ -130,6 +144,7 @@ private:
 
   TTurns m_turns;
   TTimes m_times;
+  TStreets m_streets;
 
   mutable double m_currentTime;
 };

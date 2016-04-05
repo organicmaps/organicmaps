@@ -27,6 +27,7 @@ SOURCES += \
   cross_section_tests.cpp \
   online_cross_tests.cpp \
   osrm_route_test.cpp \
+  osrm_street_names_test.cpp \
   osrm_turn_test.cpp \
   pedestrian_route_test.cpp \
   routing_test_tools.cpp \
