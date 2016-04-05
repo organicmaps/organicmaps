@@ -128,16 +128,7 @@ public class MigrationFragment extends BaseMwmFragment
       }
     });
 
-    MigrationController.get().attach(this);
-
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_DIALOG_SEEN);
-  }
-
-  @Override
-  public void onDestroyView()
-  {
-    super.onDestroyView();
-    MigrationController.get().detach();
   }
 
   @Override
@@ -145,6 +136,20 @@ public class MigrationFragment extends BaseMwmFragment
   {
     super.onResume();
     MigrationController.get().restore();
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    MigrationController.get().attach(this);
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    MigrationController.get().detach();
   }
 
   @Override
