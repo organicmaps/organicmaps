@@ -183,8 +183,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       points.pop_back();
       turnsDir.pop_back();
       times.pop_back();
-      if (streets.back().first >= points.size())
-        streets.pop_back();
+      // Streets might not point to the last point of the path.
     }
 
     // Get annotated route.
@@ -478,7 +477,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
       // Street names. I put empty names too, to avoid freezing old street name while riding on
       // unnamed street.
-      streets.emplace_back(max(points.size(), (size_t)1) - 1, loadedSegment.m_name);
+      streets.emplace_back(max(points.size(), static_cast<size_t>(1)) - 1, loadedSegment.m_name);
 
       // Turns information.
       if (segmentIndex > 0 && !points.empty() && skipTurnSegments == 0)

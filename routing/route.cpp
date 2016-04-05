@@ -156,7 +156,8 @@ void Route::GetCurrentStreetName(string & name) const
   auto it = GetCurrentStreetNameIterAfter(m_poly.GetCurrentIter());
   if (it == m_streets.cend())
     name.clear();
-  name = it->second;
+  else
+    name = it->second;
 }
 
 void Route::GetStreetNameAfterIdx(uint32_t idx, string & name) const
@@ -191,7 +192,7 @@ Route::TStreets::const_iterator Route::GetCurrentStreetNameIterAfter(FollowedPol
   {
     ++prevIter;
     ++curIter;
-    if (curIter==m_streets.cend())
+    if (curIter == m_streets.cend())
       return curIter;
   }
   return curIter->first == iter.m_ind ? curIter : prevIter;
