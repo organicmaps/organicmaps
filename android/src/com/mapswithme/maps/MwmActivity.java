@@ -660,7 +660,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    mRoutingPlanInplaceController.setStartButton();
     if (mPlacePage.isDocked())
       mPlacePage.setLeftAnimationTrackListener(mMainMenu.getLeftAnimationTrackListener());
   }
@@ -1019,6 +1018,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onStart();
     initShowcase();
     RoutingController.get().attach(this);
+    if (!mIsFragmentContainer)
+      mRoutingPlanInplaceController.setStartButton();
   }
 
   @Override
