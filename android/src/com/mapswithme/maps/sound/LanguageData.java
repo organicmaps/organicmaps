@@ -10,8 +10,8 @@ import java.util.Locale;
  */
 public class LanguageData
 {
-  public static class NotAvailableException extends Exception {
-    public NotAvailableException(Locale locale)
+  static class NotAvailableException extends Exception {
+    NotAvailableException(Locale locale)
     {
       super("Locale \"" + locale + "\" is not supported by current TTS engine");
     }
@@ -22,7 +22,7 @@ public class LanguageData
   public final String internalCode;
   public final boolean downloaded;
 
-  public LanguageData(String line, String name, TextToSpeech tts) throws NotAvailableException
+  LanguageData(String line, String name, TextToSpeech tts) throws NotAvailableException, IllegalArgumentException
   {
     this.name = name;
 
@@ -36,6 +36,7 @@ public class LanguageData
     String country = (parts.length > 1 ? parts[1] : "");
     locale = new Locale(language, country);
 
+    // tts.isLanguageAvailable() may throw IllegalArgumentException if the TTS is corrupted internally.
     int status = tts.isLanguageAvailable(locale);
     if (status < TextToSpeech.LANG_MISSING_DATA)
       throw new NotAvailableException(locale);
@@ -43,7 +44,7 @@ public class LanguageData
     downloaded = (status >= TextToSpeech.LANG_AVAILABLE);
   }
 
-  public boolean matchesLocale(Locale locale)
+  boolean matchesLocale(Locale locale)
   {
     String lang = locale.getLanguage();
     if (!lang.equals(this.locale.getLanguage()))
@@ -61,7 +62,7 @@ public class LanguageData
     return true;
   }
 
-  public boolean matchesInternalCode(String internalCode)
+  boolean matchesInternalCode(String internalCode)
   {
     return this.internalCode.equals(internalCode);
   }
