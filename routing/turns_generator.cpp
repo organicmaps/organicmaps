@@ -479,8 +479,8 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
   mapping.m_segMapping.ForEachFtSeg(osrmPathSegment.node, MakeBackInsertFunctor(buffer));
   if (buffer.empty())
   {
-    LOG(LWARNING, ("Can't unpack geometry for map:", mapping.GetCountryName(), " node: ",
-                   osrmPathSegment.node));
+    LOG(LERROR, ("Can't unpack geometry for map:", mapping.GetCountryName(), " node: ",
+                 osrmPathSegment.node));
     alohalytics::Stats::Instance().LogEvent(
         "RouteTracking_UnpackingError",
         {{"node", strings::to_string(osrmPathSegment.node)},
