@@ -752,6 +752,7 @@ People's Republic of China;Q148;cn;zh
  China_Xinjiang;Q34800
  China_Yunnan;Q43194
  China_Zhejiang;Q16967
+Taiwan;Q865
  Taiwan_North;Q865-North
  Taiwan_South;Q865-South
 Peru;Q419;pe
