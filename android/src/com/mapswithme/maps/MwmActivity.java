@@ -379,7 +379,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     mNavigationController = new NavigationController(this);
-    RoutingController.get().attach(this);
     initMenu();
     initOnmapDownloader();
     initPositionChooser();
@@ -678,7 +677,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     Framework.nativeRemoveMapObjectListener();
     BottomSheetHelper.free();
-    RoutingController.get().detach();
     super.onDestroy();
   }
 
@@ -1019,6 +1017,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStart();
     initShowcase();
+    RoutingController.get().attach(this);
   }
 
   @Override
@@ -1026,6 +1025,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStop();
     mMytargetHelper.cancel();
+    RoutingController.get().detach();
   }
 
   @Override
