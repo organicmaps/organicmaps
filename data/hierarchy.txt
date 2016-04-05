@@ -384,7 +384,10 @@ France;Q142;fr;fr
  French Polynesia;Q30971;;fr
  Wallis and Futuna;Q35555
 Gabon;Q1000;ga;fr
-Georgia;Q230;ge;ka
+Georgia Region;Q230;ge;ka
+ Georgia;Q230;ge;ka
+ Abkhazia;Q23334;;ab,ru
+ South Ossetia;Q23427;;ru,ka,os
 Germany;Q183;de;de
  Germany_Baden-Wurttemberg;Q985
   Germany_Baden-Wurttemberg_Regierungsbezirk Freiburg;Q2833

@@ -11458,6 +11458,36 @@ nl = Gabon
 pt = Gabão
 he = גבון
 
+[Georgia Region]
+en = Georgia
+ru = Грузия
+fr = Géorgie
+da = Georgien
+id = Georgia
+ko = 조지아
+sv = Georgien
+tr = Gürcistan
+uk = Грузія
+vi = Gruzia
+hu = Grúzia
+de = Georgien
+fi = Georgia
+cs = Gruzie
+it = Georgia
+nb = Georgia
+zh-Hant = 格魯吉亞
+zh-Hans = 格鲁吉亚
+th = ประเทศจอร์เจีย
+ja = ジョージア
+ro = Georgia
+ar = جورجيا
+sk = Gruzínsko
+es = Georgia
+pl = Gruzja
+nl = Georgië
+pt = Geórgia
+he = גאורגיה
+
 [Georgia]
 en = Georgia
 ru = Грузия
