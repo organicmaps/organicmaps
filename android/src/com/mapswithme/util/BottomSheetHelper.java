@@ -2,6 +2,7 @@ package com.mapswithme.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
@@ -185,7 +186,12 @@ public final class BottomSheetHelper
     if (ref != null)
     {
       if (ref.isShowing())
-        ref.dismiss();
+      {
+        Activity activity = (Activity)((ContextWrapper)ref.getContext()).getBaseContext();
+        if (!activity.isFinishing())
+          ref.dismiss();
+      }
+
       sRef = null;
     }
   }
