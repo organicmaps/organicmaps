@@ -1402,7 +1402,7 @@ void Storage::GetNodeStatuses(TCountryId const & countryId, NodeStatuses & nodeS
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
-  CHECK(node, ());
+  CHECK(node, (countryId));
 
   StatusAndError statusAndErr = GetNodeStatus(*node);
   nodeStatuses.m_status = statusAndErr.status;
