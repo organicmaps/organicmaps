@@ -67,7 +67,7 @@ public class NewsFragment extends BaseNewsFragment
     if (fm.isDestroyed())
       return false;
 
-    if (Config.getLastWhatsNewVersion() >= BuildConfig.VERSION_CODE &&
+    if (Config.getLastWhatsNewVersion() / 10 >= BuildConfig.VERSION_CODE / 10 &&
         !recreate(activity, NewsFragment.class))
       return false;
 
