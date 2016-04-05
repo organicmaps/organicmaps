@@ -97,7 +97,7 @@ public class RoutingController
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
   {
     @Override
-    public void onRoutingEvent(final int resultCode, final String[] missingMaps)
+    public void onRoutingEvent(final int resultCode, @Nullable final String[] missingMaps)
     {
       Log.d(TAG, "onRoutingEvent(resultCode: " + resultCode + ")");
 
