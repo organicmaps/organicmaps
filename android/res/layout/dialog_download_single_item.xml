@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
 
   <TextView
-      android:id="@+id/tv__message"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base_plus"
-      android:paddingRight="@dimen/margin_base_plus"
-      android:textAppearance="@style/MwmTextAppearance.Body2"/>
+    android:id="@+id/tv__message"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_base"
+    android:paddingLeft="@dimen/margin_base_plus"
+    android:paddingRight="@dimen/margin_base_plus"
+    android:textAppearance="@style/MwmTextAppearance.Body2"/>
 
   <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="?attr/dividerHorizontal"/>
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
 
   <include
-      layout="@layout/item_country_dialog"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="?panel"/>
+    layout="@layout/item_country_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?panel"/>
 
   <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="?dividerHorizontal"/>
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
 
 </LinearLayout>
 
