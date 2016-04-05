@@ -160,7 +160,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     final Fragment fragment = Fragment.instantiate(this, name, args);
     getSupportFragmentManager().beginTransaction()
                                .replace(resId, fragment, name)
-                               .commit();
+                               .commitAllowingStateLoss();
     getSupportFragmentManager().executePendingTransactions();
 
     if (completionListener != null)
