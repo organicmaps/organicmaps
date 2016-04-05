@@ -280,7 +280,8 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
         // Rename finished file to it's original name.
         if (Platform::IsFileExistsByFullPath(m_filePath))
           (void)my::DeleteFileX(m_filePath);
-        CHECK(my::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath), ());
+        CHECK(my::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath),
+              (m_filePath, strerror(errno)));
 
         DisableBackupForFile(m_filePath);
       }
