@@ -121,7 +121,11 @@ class IntegrationRunner:
             exit(2)
 
         self.workspace_path = options.folder
-        self.runlist = filter(lambda x: x in tests_on_disk(self.workspace_path), options.runlist)
+        interim_runlist = list()
+        for opt in options.runlist:
+            interim_runlist.extend(map(lambda x: x.strip(), opt.split(",")))
+
+        self.runlist = filter(lambda x: x in tests_on_disk(self.workspace_path), interim_runlist)
         self.output = options.output
 
 
