@@ -81,6 +81,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                                       MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate>
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
+@property (nonatomic) NSMutableArray<NSIndexPath *> * invalidCells;
 
 @end
 
@@ -89,7 +90,6 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   vector<MWMEditorSection> m_sections;
   map<MWMEditorSection, vector<MWMPlacePageCellType>> m_cells;
   osm::EditableMapObject m_mapObject;
-  vector<pair<MWMPlacePageCellType, NSIndexPath *>> m_invalidCells;
 }
 
 - (void)viewDidLoad
@@ -162,10 +162,9 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     return;
   }
 
-  if (!m_invalidCells.empty())
+  if (self.invalidCells.count)
   {
-    auto const & firstInvalid = m_invalidCells.front();
-    MWMEditorTextTableViewCell * cell = [self.tableView cellForRowAtIndexPath:firstInvalid.second];
+    MWMEditorTextTableViewCell * cell = [self.tableView cellForRowAtIndexPath:self.invalidCells.firstObject];
     [cell.textField becomeFirstResponder];
     return;
   }
@@ -239,6 +238,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (void)configTable
 {
   self.offscreenCells = [NSMutableDictionary dictionary];
+  self.invalidCells = [NSMutableArray array];
   m_sections.clear();
   m_cells.clear();
   for (auto const & cellsSection : kCellTypesSectionMap)
@@ -360,6 +360,8 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:nil
                            text:@(m_mapObject.GetHouseNumber().c_str())
                     placeholder:L(@"house")
+                   errorMessage:@"error_enter_correct_house_number"
+                        isValid:![self.invalidCells containsObject:indexPath]
                    keyboardType:UIKeyboardTypeDefault];
       break;
     }
@@ -485,6 +487,14 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   [self performSegueWithIdentifier:kOpeningHoursEditorSegue sender:nil];
 }
 
+- (void)markCellAsInvalid:(NSIndexPath *)indexPath
+{
+  if (![self.invalidCells containsObject:indexPath])
+    [self.invalidCells addObject:indexPath];
+
+  [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 #pragma mark - MWMEditorCellProtocol
 
 - (void)tryToChangeInvalidStateForCell:(MWMEditorTextTableViewCell *)cell
@@ -492,12 +502,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   [self.tableView beginUpdates];
   
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-
-  m_invalidCells.erase(remove_if(m_invalidCells.begin(), m_invalidCells.end(),
-                            [indexPath](pair<MWMPlacePageCellType, NSIndexPath *> const & p)
-                            {
-                              return [p.second isEqual:indexPath];
-                            }));
+  [self.invalidCells removeObject:indexPath];
 
   [self.tableView endUpdates];
 }
@@ -515,18 +520,13 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypePhoneNumber: m_mapObject.SetPhone(val); break;
     case MWMPlacePageCellTypeWebsite: m_mapObject.SetWebsite(val); break;
     case MWMPlacePageCellTypeEmail: m_mapObject.SetEmail(val); break;
-    case MWMPlacePageCellTypeBuilding: m_mapObject.SetHouseNumber(val); break;
+    case MWMPlacePageCellTypeBuilding:
+      m_mapObject.SetHouseNumber(val);
+      if (!osm::EditableMapObject::ValidateHouseNumber(val))
+        [self markCellAsInvalid:indexPath];
+      break;
     default: NSAssert(false, @"Invalid field for changeText");
   }
-  //TODO: Here we need to process validation's result. Code below performs some UI updates and we should call it
-  // if validation finish with error.
-
-  /*
-  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-  m_invalidCells.emplace_back(cellType, indexPath);
-  [self.tableView reloadRowsAtIndexPaths:@[[self.tableView indexPathForCell:cell]] withRowAnimation:UITableViewRowAnimationFade];
-   */
-
 }
 
 - (void)cell:(UITableViewCell *)cell changeSwitch:(BOOL)changeSwitch

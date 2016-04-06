@@ -4,6 +4,11 @@
 #import "UIImageView+Coloring.h"
 #import "UITextField+RuntimeAttributes.h"
 
+namespace
+{
+  CGFloat const kErrorLabelDefaultTopSpace = 4.;
+} // namespace
+
 @interface MWMEditorTextTableViewCell () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView * icon;
@@ -59,28 +64,38 @@
   if (self.isValid)
   {
     self.labelHeight.priority = UILayoutPriorityDefaultHigh;
-    self.errorLabelTopSpace.constant = 0;
+    self.errorLabelTopSpace.constant = 0.;
     self.contentView.backgroundColor = [UIColor white];
   }
   else
   {
     self.labelHeight.priority = UILayoutPriorityDefaultLow;
-    self.errorLabelTopSpace.constant = 4;
+    self.errorLabelTopSpace.constant = kErrorLabelDefaultTopSpace;
     self.contentView.backgroundColor = [UIColor errorPink];
   }
   [self layoutIfNeeded];
+}
+
+- (void)changeInvalidCellState
+{
+  if (self.isValid)
+    return;
+  self.isValid = YES;
+  [self processValidation];
+  [self.delegate tryToChangeInvalidStateForCell:self];
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-  if (!self.isValid)
-  {
-    self.isValid = YES;
-    [self processValidation];
-    [self.delegate tryToChangeInvalidStateForCell:self];
-  }
+  [self changeInvalidCellState];
+  return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+  [self changeInvalidCellState];
   return YES;
 }
 
