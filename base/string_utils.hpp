@@ -45,6 +45,7 @@ UniString Normalize(UniString const & s);
 
 /// Replaces "full width" unicode digits with ascii ones.
 void NormalizeDigits(string & utf8);
+void NormalizeDigits(UniString & us);
 
 /// Counts number of start symbols in string s (that is not lower and not normalized) that maches
 /// to lower and normalized string low_s. If s doen't starts with low_s then returns 0; otherwise

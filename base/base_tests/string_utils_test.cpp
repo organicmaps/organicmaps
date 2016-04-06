@@ -625,3 +625,17 @@ UNIT_TEST(NormalizeDigits)
   TEST_EQUAL(nd("a０１9２ "), "a0192 ", ());
   TEST_EQUAL(nd("３４５６７８９"), "3456789", ());
 }
+
+UNIT_TEST(NormalizeDigits_UniString)
+{
+  auto const nd = [](string const & utf8) -> string
+  {
+    strings::UniString us = strings::MakeUniString(utf8);
+    strings::NormalizeDigits(us);
+    return strings::ToUtf8(us);
+  };
+  TEST_EQUAL(nd(""), "", ());
+  TEST_EQUAL(nd("z12345／／"), "z12345／／", ());
+  TEST_EQUAL(nd("a０１9２ "), "a0192 ", ());
+  TEST_EQUAL(nd("３４５６７８９"), "3456789", ());
+}
