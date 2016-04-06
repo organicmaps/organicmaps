@@ -255,11 +255,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
-  case Message::StopRendering:
-    {
-      ProcessStopRenderingMessage();
-      break;
-    }
   case Message::Allow3dBuildings:
     {
       ref_ptr<Allow3dBuildingsMessage> msg = message;
@@ -288,6 +283,8 @@ BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(rende
 
 void BackendRenderer::Routine::Do()
 {
+  m_renderer.m_contextFactory->waitForInitialization();
+
   m_renderer.m_contextFactory->getResourcesUploadContext()->makeCurrent();
   GLFunctions::Init();
 

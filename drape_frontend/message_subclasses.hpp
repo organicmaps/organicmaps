@@ -366,13 +366,6 @@ private:
   drape_ptr<SelectionShape> m_selection;
 };
 
-class StopRenderingMessage : public Message
-{
-public:
-  StopRenderingMessage(){}
-  Type GetType() const override { return Message::StopRendering; }
-};
-
 class ChangeMyPositionModeMessage : public Message
 {
 public:
