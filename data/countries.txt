@@ -13434,6 +13434,16 @@
    ]
   },
   {
+   "id": "Falkland Islands",
+   "s": 1412665,
+   "affiliations": [
+    "Falkland Islands"
+   ],
+   "old": [
+    "Falkland Islands"
+   ]
+  },
+  {
    "id": "United Kingdom",
    "g": [
     {
@@ -13444,16 +13454,6 @@
      ],
      "old": [
       "British Indian Ocean Territory"
-     ]
-    },
-    {
-     "id": "Falkland Islands",
-     "s": 1412665,
-     "affiliations": [
-      "Falkland Islands"
-     ],
-     "old": [
-      "Falkland Islands"
      ]
     },
     {
