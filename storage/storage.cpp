@@ -1300,7 +1300,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
 
   vector<TCountryTreeNode const *> nodes;
   m_countries.Find(countryId, nodes);
-  CHECK(!nodes.empty(), ());
+  CHECK(!nodes.empty(), (countryId));
   // If nodes.size() > 1 countryId corresponds to a disputed territories.
   // In that case it's guaranteed that most of attributes are equal for
   // each element of nodes. See Country class description for further details.
