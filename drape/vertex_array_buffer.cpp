@@ -230,8 +230,8 @@ void VertexArrayBuffer::UploadIndexes(void const * data, uint32_t count)
 void VertexArrayBuffer::ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
                                       ref_ptr<AttributeBufferMutator> attrMutator)
 {
-  /// If OES_vertex_array_object is supported than we need to bind current VAO before call glBindBuffer,
-  /// otherwise we could affect previously binded VAO.
+  /// We need to bind current VAO before calling glBindBuffer if OES_vertex_array_object is supported.
+  /// Otherwise we risk affecting a previously binded VAO.
   if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
     Bind();
 
