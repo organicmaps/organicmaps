@@ -15,22 +15,6 @@
 #include "std/map.hpp"
 #include "std/bind.hpp"
 
-#include <boost/gil/algorithm.hpp>
-#include <boost/gil/typedefs.hpp>
-
-using boost::gil::gray8c_pixel_t;
-using boost::gil::gray8_pixel_t;
-using boost::gil::gray8c_view_t;
-using boost::gil::gray8_view_t;
-using boost::gil::interleaved_view;
-using boost::gil::subimage_view;
-using boost::gil::copy_pixels;
-
-typedef gray8_view_t view_t;
-typedef gray8c_view_t const_view_t;
-typedef gray8_pixel_t pixel_t;
-typedef gray8c_pixel_t const_pixel_t;
-
 namespace dp
 {
 
@@ -241,71 +225,23 @@ void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
   if (pendingNodes.empty())
     return;
 
-  buffer_vector<size_t, 3> ranges;
-  buffer_vector<uint32_t, 2> maxHeights;
-  ranges.push_back(0);
-  uint32_t maxHeight = pendingNodes[0].first.SizeY();
-  for (size_t i = 1; i < pendingNodes.size(); ++i)
+  for (size_t i = 0; i < pendingNodes.size(); ++i)
   {
-    TPendingNode const & prevNode = pendingNodes[i - 1];
-    TPendingNode const & currentNode = pendingNodes[i];
-    if (ranges.size() < 2 && prevNode.first.minY() < currentNode.first.minY())
+    GlyphManager::Glyph & glyph = pendingNodes[i].second;
+    m2::RectU const rect = pendingNodes[i].first;
+    m2::PointU const zeroPoint = rect.LeftBottom();
+    if (glyph.m_image.m_width == 0 || glyph.m_image.m_height == 0 || rect.SizeX() == 0 || rect.SizeY() == 0)
     {
-      ranges.push_back(i);
-      maxHeights.push_back(maxHeight);
-      maxHeight = currentNode.first.SizeY();
-    }
-
-    maxHeight = max(maxHeight, currentNode.first.SizeY());
-  }
-  maxHeights.push_back(maxHeight);
-  ranges.push_back(pendingNodes.size());
-
-  ASSERT(maxHeights.size() < 3, ());
-  ASSERT(ranges.size() < 4, ());
-
-  for (size_t i = 1; i < ranges.size(); ++i)
-  {
-    size_t startIndex = ranges[i - 1];
-    size_t endIndex = ranges[i];
-    uint32_t height = maxHeights[i - 1];
-    uint32_t width = pendingNodes[endIndex - 1].first.maxX() - pendingNodes[startIndex].first.minX();
-    uint32_t byteCount = my::NextPowOf2(height * width);
-
-    if (byteCount == 0)
+      LOG(LWARNING, ("Glyph skipped", glyph.m_code));
       continue;
-
-    m2::PointU zeroPoint = pendingNodes[startIndex].first.LeftBottom();
-
-    SharedBufferManager::shared_buffer_ptr_t buffer = SharedBufferManager::instance().reserveSharedBuffer(byteCount);
-    uint8_t * dstMemory = SharedBufferManager::GetRawPointer(buffer);
-    view_t dstView = interleaved_view(width, height, (pixel_t *)dstMemory, width);
-    for (size_t node = startIndex; node < endIndex; ++node)
-    {
-      GlyphManager::Glyph & glyph = pendingNodes[node].second;
-      m2::RectU rect = pendingNodes[node].first;
-      if (rect.SizeX() == 0 || rect.SizeY() == 0)
-        continue;
-
-      rect.Offset(-zeroPoint);
-
-      uint32_t w = rect.SizeX();
-      uint32_t h = rect.SizeY();
-
-      ASSERT_EQUAL(glyph.m_image.m_width, w, ());
-      ASSERT_EQUAL(glyph.m_image.m_height, h, ());
-      ASSERT_GREATER_OR_EQUAL(height, h, ());
-
-      view_t dstSubView = subimage_view(dstView, rect.minX(), rect.minY(), w, h);
-      uint8_t * srcMemory = SharedBufferManager::GetRawPointer(glyph.m_image.m_data);
-      const_view_t srcView = interleaved_view(w, h, (const_pixel_t *)srcMemory, w);
-
-      copy_pixels(srcView, dstSubView);
-      glyph.m_image.Destroy();
     }
+    ASSERT_EQUAL(glyph.m_image.m_width, rect.SizeX(), ());
+    ASSERT_EQUAL(glyph.m_image.m_height, rect.SizeY(), ());
 
-    texture->UploadData(zeroPoint.x, zeroPoint.y, width, height, make_ref(dstMemory));
-    SharedBufferManager::instance().freeSharedBuffer(byteCount, buffer);
+    uint8_t * srcMemory = SharedBufferManager::GetRawPointer(glyph.m_image.m_data);
+    texture->UploadData(zeroPoint.x, zeroPoint.y, rect.SizeX(), rect.SizeY(), make_ref(srcMemory));
+    
+    glyph.m_image.Destroy();
   }
 }
 
