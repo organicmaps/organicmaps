@@ -7502,7 +7502,7 @@
     sk = Sťahovanie:
     it = In scaricamento:
     fr = Téléchargement en cours :
-    ja = づンロード中：
+    ja = ダウンロード中：
     vi = Đang tải về:
 
   [downloader_search_results]
@@ -13540,7 +13540,7 @@
     zh-Hant = 恢復密碼
     zh-Hans = 恢复密码
     th = เรียกคืนรหัสผ่าน
-    ja = パスワードをf復元
+    ja = パスワードを復元
     ro = Recuperare parolă
     ar = استعادة كلمة المرور
     sk = Obnovenie hesla
