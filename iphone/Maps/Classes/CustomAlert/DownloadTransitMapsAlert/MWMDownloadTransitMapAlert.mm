@@ -27,7 +27,7 @@
   if (self)
   {
     NSMutableArray * titles = [@[] mutableCopy];
-    size_t totalRoutingSize = 0;
+    storage::TMwmSize totalRoutingSize = 0;
     auto & s = GetFramework().Storage();
     for (auto const & countryId : countriesVec)
     {

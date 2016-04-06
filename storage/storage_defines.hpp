@@ -63,7 +63,9 @@ namespace storage
   };
   string DebugPrint(StatusAndError statusAndError);
 
-  using TLocalAndRemoteSize = pair<uint64_t, uint64_t>;
+  using TMwmCounter = uint32_t;
+  using TMwmSize = uint64_t;
+  using TLocalAndRemoteSize = pair<TMwmSize, TMwmSize>;
 
   StatusAndError ParseStatus(Status innerStatus);
 }  // namespace storage

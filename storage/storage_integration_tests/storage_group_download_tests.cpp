@@ -102,7 +102,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   TEST(downloaded.empty(), ());
 
   // Check status for the all children nodes is set to ENotDownloaded.
-  size_t totalGroupSize = 0;
+  TMwmSize totalGroupSize = 0;
   for (auto const & countryId : children)
   {
     TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
