@@ -109,12 +109,21 @@
     return;
   self.isAnimatingTransition = YES;
   __weak auto weakSelf = self;
-  [self setViewControllers:@[ currentController ]
-                 direction:UIPageViewControllerNavigationDirectionForward
+  NSArray<UIViewController *> * viewControllers = @[ currentController ];
+  UIPageViewControllerNavigationDirection const direction = UIPageViewControllerNavigationDirectionForward;
+  [self setViewControllers:viewControllers
+                 direction:direction
                   animated:YES
                 completion:^(BOOL finished)
   {
-    weakSelf.isAnimatingTransition = NO;
+    if (finished)
+    {
+      dispatch_async(dispatch_get_main_queue(), ^
+      {
+        weakSelf.isAnimatingTransition = NO;
+        [weakSelf setViewControllers:viewControllers direction:direction animated:NO completion:nil];
+      });
+    }
   }];
 }
 
