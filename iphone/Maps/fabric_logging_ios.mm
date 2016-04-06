@@ -2,19 +2,10 @@
 
 #include "fabric_logging.hpp"
 
-#include "std/mutex.hpp"
-
-namespace
-{
-mutex g_logMutex;
-}  //  namespace
-
 namespace platform
 {
 void LogMessageFabric(my::LogLevel level, my::SrcPoint const & srcPoint, string const & msg)
 {
-  lock_guard<mutex> lock(g_logMutex);
-
   string recordType;
   switch (level)
   {
