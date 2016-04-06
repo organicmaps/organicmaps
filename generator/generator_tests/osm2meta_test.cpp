@@ -40,3 +40,18 @@ UNIT_TEST(ValidateAndFormat_ele)
   TEST_EQUAL(tagProc.ValidateAndFormat_ele("11'"), "3.35", ());
   TEST_EQUAL(tagProc.ValidateAndFormat_ele("11'4\""), "3.45", ());
 }
+
+UNIT_TEST(ValidateAndFormat_building_levels)
+{
+  FeatureParams params;
+  MetadataTagProcessorImpl tp(params);
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("４"), "4", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("４floors"), "4", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("between 1 and ４"), "", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("0"), "0", ("OSM has many zero-level buildings."));
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("0.0"), "0", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels(""), "", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("Level 1"), "", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("2.51"), "2.5", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("250"), "", ("Too many levels."));
+}

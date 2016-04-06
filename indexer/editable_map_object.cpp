@@ -161,7 +161,10 @@ void EditableMapObject::SetFlats(string const & flats)
 
 void EditableMapObject::SetBuildingLevels(string const & buildingLevels)
 {
-  m_metadata.Set(feature::Metadata::FMD_BUILDING_LEVELS, buildingLevels);
+  auto constexpr kMaximumLevelsEditableByUsers = 50;
+  uint64_t levels;
+  if (strings::to_uint64(buildingLevels, levels) && levels <= kMaximumLevelsEditableByUsers)
+    m_metadata.Set(feature::Metadata::FMD_BUILDING_LEVELS, buildingLevels);
 }
 
 string const & EditableMapObject::GetStreet() const { return m_street; }

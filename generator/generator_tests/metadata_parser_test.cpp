@@ -138,49 +138,6 @@ UNIT_TEST(Metadata_ValidateAndFormat_height)
   TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "6", ());
 }
 
-UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
-{
-  FeatureParams params;
-  MetadataTagProcessor p(params);
-  Metadata & md = params.GetMetadata();
-
-  p("building:levels", "0");
-  TEST(md.Empty(), ());
-
-  p("building:levels", "0,0000");
-  TEST(md.Empty(), ());
-
-  p("building:levels", "0.0");
-  TEST(md.Empty(), ());
-
-  p("building:levels", "1");
-  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1", ());
-  md.Drop(Metadata::FMD_BUILDING_LEVELS);
-
-  p("building:levels", "3.2");
-  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "3.2", ());
-  md.Drop(Metadata::FMD_BUILDING_LEVELS);
-
-  p("building:levels", "1.0");
-  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1", ());
-  md.Drop(Metadata::FMD_BUILDING_LEVELS);
-
-
-  p("building:levels", "1.0");
-  p("height", "4.0");
-  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1", ());
-  md.Drop(Metadata::FMD_BUILDING_LEVELS);
-
-  p("height", "4.0");
-  p("building:levels", "1");
-  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1", ());
-  md.Drop(Metadata::FMD_BUILDING_LEVELS);
-  md.Drop(Metadata::FMD_HEIGHT);
-
-  p("building:levels", "Level 1");
-  TEST(md.Empty(), ());
-}
-
 UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 {
   char const * kWikiKey = "wikipedia";

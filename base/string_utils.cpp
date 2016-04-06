@@ -113,6 +113,44 @@ UniString Normalize(UniString const & s)
   return result;
 }
 
+void NormalizeDigits(string &utf8) {
+  size_t const n = utf8.size();
+  size_t const m = n >= 2 ? n - 2 : 0;
+
+  size_t i = 0;
+  while (i < n && utf8[i] != '\xEF')
+    ++i;
+  size_t j = i;
+
+  // Following invariant holds before/between/after loop iterations below:
+  // * utf8[0, i) represents a checked part of the input string.
+  // * utf8[0, j) represents a normalized version of the utf8[0, i).
+  while (i < m)
+  {
+    if (utf8[i] == '\xEF' && utf8[i + 1] == '\xBC')
+    {
+      auto const n = utf8[i + 2];
+      if (n >= '\x90' && n <= '\x99')
+      {
+        utf8[j++] = n - 0x90 + '0';
+        i += 3;
+      }
+      else
+      {
+        utf8[j++] = utf8[i++];
+        utf8[j++] = utf8[i++];
+      }
+    }
+    else
+    {
+      utf8[j++] = utf8[i++];
+    }
+  }
+  while (i < n)
+    utf8[j++] = utf8[i++];
+  utf8.resize(j);
+}
+
 namespace
 {
   char ascii_to_lower(char in)

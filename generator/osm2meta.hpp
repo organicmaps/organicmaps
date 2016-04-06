@@ -29,7 +29,7 @@ struct MetadataTagProcessorImpl
   string ValidateAndFormat_flats(string const & v) const;
   string ValidateAndFormat_internet(string v) const;
   string ValidateAndFormat_height(string const & v) const;
-  string ValidateAndFormat_building_levels(string const & v) const;
+  string ValidateAndFormat_building_levels(string v) const;
   string ValidateAndFormat_denomination(string const & v) const;
   string ValidateAndFormat_wikipedia(string v) const;
 
