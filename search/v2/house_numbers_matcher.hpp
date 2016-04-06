@@ -45,16 +45,13 @@ struct Parse
   bool m_hasTrailingBuildingPrefixSynonym = false;
 };
 
-// Splits house number by tokens, removes blanks and separators.
-void ParseHouseNumber(strings::UniString const & s, Parse & p);
-
+// Parses query for later faster processing, when multiple buildings
+// are matched against the query.
 void ParseQuery(strings::UniString const & query, bool queryIsPrefix, vector<Parse> & ps);
 
 // Returns true when |query| matches to |houseNumber|.
-bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query);
-
-// Returns true when parsed query matches to |houseNumber|.
-bool HouseNumbersMatch(strings::UniString const & houseNumber, Parse const & queryParse);
+bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query,
+                       bool queryIsPrefix);
 
 // Returns true when at least one parse of the query matches to
 // |houseNumber|.

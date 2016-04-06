@@ -65,8 +65,6 @@ size_t GetNumTokensForBuildingPartImpl(vector<HouseNumberTokenizer::Token> const
 {
   ASSERT_LESS(i, ts.size(), ());
 
-  // TODO (@y, @m, @vng): move these constans out.
-
   auto const & token = ts[i];
   if (token.m_klass != HouseNumberTokenizer::CharClass::Other)
     return 0;
@@ -226,13 +224,6 @@ void HouseNumberTokenizer::Tokenize(UniString const & s, vector<Token> & ts)
   }
 }
 
-void ParseHouseNumber(strings::UniString const & s, Parse & p)
-{
-  vector<HouseNumberTokenizer::Token> tokens;
-  HouseNumberTokenizer::Tokenize(MakeLowerCase(s), tokens);
-  MergeTokens(tokens, p.m_parts);
-}
-
 void ParseQuery(strings::UniString const & query, bool queryIsPrefix, vector<Parse> & ps)
 {
   vector<HouseNumberTokenizer::Token> tokens;
@@ -257,28 +248,16 @@ void ParseQuery(strings::UniString const & query, bool queryIsPrefix, vector<Par
   }
 }
 
-bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query)
+bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query,
+                       bool queryIsPrefix)
 {
   if (houseNumber == query)
     return true;
 
-  Parse queryParse;
-  ParseHouseNumber(query, queryParse);
+  vector<Parse> queryParses;
+  ParseQuery(query, queryIsPrefix, queryParses);
 
-  return HouseNumbersMatch(houseNumber, queryParse);
-}
-
-bool HouseNumbersMatch(strings::UniString const & houseNumber, Parse const & queryParse)
-{
-  if (houseNumber.empty() || queryParse.IsEmpty())
-    return false;
-  if (queryParse.m_parts[0][0] != houseNumber[0])
-    return false;
-
-  Parse houseNumberParse;
-  ParseHouseNumber(houseNumber, houseNumberParse);
-
-  return ParsesMatch(houseNumberParse, queryParse);
+  return HouseNumbersMatch(houseNumber, queryParses);
 }
 
 bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Parse> const & queryParses)
@@ -301,7 +280,12 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Parse> con
     return false;
 
   Parse houseNumberParse;
-  ParseHouseNumber(houseNumber, houseNumberParse);
+  {
+    vector<HouseNumberTokenizer::Token> tokens;
+    HouseNumberTokenizer::Tokenize(MakeLowerCase(houseNumber), tokens);
+    MergeTokens(tokens, houseNumberParse.m_parts);
+  }
+
   for (auto const & queryParse : queryParses)
   {
     if (ParsesMatch(houseNumberParse, queryParse))

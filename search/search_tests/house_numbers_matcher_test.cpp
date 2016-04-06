@@ -11,24 +11,24 @@ using namespace search::v2;
 
 namespace
 {
-void NormalizeHouseNumber(string const & s, vector<string> & ts)
+void ParseHouseNumber(string const & s, vector<vector<string>> & ts)
 {
-  Parse p;
-  ParseHouseNumber(MakeUniString(s), p);
-  for (auto const & part : p.m_parts)
-    ts.push_back(ToUtf8(part));
+  vector<Parse> parses;
+  ParseQuery(MakeUniString(s), false /* queryIsPrefix */, parses);
+  for (auto const & parse : parses)
+  {
+    ts.emplace_back();
+    auto & tsb = ts.back();
+    for (auto const & part : parse.m_parts)
+      tsb.push_back(ToUtf8(part));
+  }
 }
 
-bool HouseNumbersMatch(string const & houseNumber, string const & query)
+bool HouseNumbersMatch(string const & houseNumber, string const & query, bool queryIsPrefix = false)
 {
-  return search::v2::HouseNumbersMatch(MakeUniString(houseNumber), MakeUniString(query));
-}
-
-bool HouseNumbersMatch(string const & houseNumber, string const & query, bool queryIsPrefix)
-{
-  vector<Parse> queryParse;
-  ParseQuery(MakeUniString(query), queryIsPrefix, queryParse);
-  return search::v2::HouseNumbersMatch(MakeUniString(houseNumber), queryParse);
+  vector<Parse> queryParses;
+  ParseQuery(MakeUniString(query), queryIsPrefix, queryParses);
+  return search::v2::HouseNumbersMatch(MakeUniString(houseNumber), queryParses);
 }
 
 bool CheckTokenizer(string const & utf8s, vector<string> const & expected)
@@ -48,25 +48,26 @@ bool CheckTokenizer(string const & utf8s, vector<string> const & expected)
   return true;
 }
 
-bool CheckNormalizer(string const & utf8s, string const & expected)
+bool CheckParser(string const & utf8s, string const & expected)
 {
-  vector<string> tokens;
-  NormalizeHouseNumber(utf8s, tokens);
+  vector<vector<string>> parses;
+  ParseHouseNumber(utf8s, parses);
 
-  string actual;
-  for (size_t i = 0; i < tokens.size(); ++i)
+  for (auto const & parse : parses)
   {
-    actual.append(tokens[i]);
-    if (i + 1 != tokens.size())
-      actual.push_back(' ');
+    string actual;
+    for (size_t i = 0; i < parse.size(); ++i)
+    {
+      actual.append(parse[i]);
+      if (i + 1 != parse.size())
+        actual.push_back(' ');
+    }
+    if (actual == expected)
+      return true;
   }
 
-  if (actual != expected)
-  {
-    LOG(LINFO, ("actual:", actual, "expected:", expected));
-    return false;
-  }
-  return true;
+  LOG(LINFO, ("actual:", parses, "expected:", expected));
+  return false;
 }
 }  // namespace
 
@@ -79,14 +80,14 @@ UNIT_TEST(HouseNumberTokenizer_Smoke)
 
 UNIT_TEST(HouseNumberNormalizer_Smoke)
 {
-  TEST(CheckNormalizer("123Б", "123б"), ());
-  TEST(CheckNormalizer("123/4 Литер А", "123 4 а"), ());
-  TEST(CheckNormalizer("123а корп. 2б", "123а 2б"), ());
-  TEST(CheckNormalizer("123к4", "123 4"), ());
-  TEST(CheckNormalizer("123к Корпус 2", "123к 2"), ());
-  TEST(CheckNormalizer("9 литер А корпус 2", "9 2 а"), ());
-  TEST(CheckNormalizer("39с79", "39 79"), ());
-  TEST(CheckNormalizer("9 литер аб1", "9 аб1"), ());
+  TEST(CheckParser("123Б", "123б"), ());
+  TEST(CheckParser("123/4 Литер А", "123 4 а"), ());
+  TEST(CheckParser("123а корп. 2б", "123а 2б"), ());
+  TEST(CheckParser("123к4", "123 4"), ());
+  TEST(CheckParser("123к Корпус 2", "123к 2"), ());
+  TEST(CheckParser("9 литер А корпус 2", "9 2 а"), ());
+  TEST(CheckParser("39с79", "39 79"), ());
+  TEST(CheckParser("9 литер аб1", "9 аб1"), ());
 }
 
 UNIT_TEST(HouseNumbersMatcher_Smoke)
