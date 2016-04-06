@@ -23,6 +23,14 @@ namespace search
 {
 namespace
 {
+void MakeDefaultTestParams(string const & query, SearchParams & params)
+{
+  params.m_query = query;
+  params.m_inputLocale = "en";
+  params.SetMode(Mode::Everywhere);
+  params.SetSuggestsEnabled(false);
+}
+
 class SearchQueryV2Test : public SearchTest
 {
 };
@@ -267,7 +275,6 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
   string const countryName = "Wonderland";
 
   TestCity sanFrancisco(m2::PointD(1, 1), "San Francisco", "en", 100 /* rank */);
-
   // Golden Gate Bridge-bridge is located in this test on the Golden
   // Gate Bridge-street. Therefore, there are several valid parses of
   // the query "Golden Gate Bridge", and search engine must return
@@ -277,24 +284,35 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
       vector<m2::PointD>{m2::PointD(-0.5, -0.5), m2::PointD(0, 0), m2::PointD(0.5, 0.5)},
       "Golden Gate Bridge", "en");
   TestPOI goldenGateBridge(m2::PointD(0, 0), "Golden Gate Bridge", "en");
+  TestPOI lermontov(m2::PointD(1, 1), "Лермонтовъ", "en");
+  lermontov.SetTypes({{"amenity", "cafe"}});
+
+  // A city with two noname cafes.
+  TestCity lermontovo(m2::PointD(-1, -1), "Лермонтово", "en", 100 /* rank */);
+  TestPOI cafe1(m2::PointD(-1.01, -1.01), "", "en");
+  cafe1.SetTypes({{"amenity", "cafe"}});
+  TestPOI cafe2(m2::PointD(-0.99, -0.99), "", "en");
+  cafe2.SetTypes({{"amenity", "cafe"}});
+
 
   auto worldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
                           {
                             builder.Add(sanFrancisco);
+                            builder.Add(lermontovo);
                           });
   auto wonderlandId = BuildMwm(countryName, feature::DataHeader::country, [&](TestMwmBuilder & builder)
                                {
-                                 builder.Add(goldenGateStreet);
+                                 builder.Add(cafe1);
+                                 builder.Add(cafe2);
                                  builder.Add(goldenGateBridge);
+                                 builder.Add(goldenGateStreet);
+                                 builder.Add(lermontov);
                                });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
   {
     SearchParams params;
-    params.m_query = "golden gate bridge ";
-    params.m_inputLocale = "en";
-    params.SetMode(Mode::Everywhere);
-    params.SetSuggestsEnabled(false);
+    MakeDefaultTestParams("golden gate bridge ", params);
 
     TestSearchRequest request(m_engine, params, m_viewport);
     request.Wait();
@@ -309,6 +327,25 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
       TEST_EQUAL(NAME_SCORE_FULL_MATCH, info.m_nameScore, ());
       TEST(my::AlmostEqualAbs(1.0, info.m_nameCoverage, 1e-6), (info.m_nameCoverage));
     }
+  }
+
+  // This test is quite important and must always pass.
+  {
+    SearchParams params;
+    MakeDefaultTestParams("cafe лермонтов", params);
+
+    TestSearchRequest request(m_engine, params, m_viewport);
+    request.Wait();
+
+    auto const & results = request.Results();
+
+    TRules rules{ExactMatch(wonderlandId, cafe1), ExactMatch(wonderlandId, cafe2),
+                 ExactMatch(wonderlandId, lermontov)};
+    TEST(MatchResults(m_engine, rules, results), ());
+
+    TEST_EQUAL(3, results.size(), ("Unexpected number of retrieved cafes."));
+    auto const & top = results.front();
+    TEST(MatchResults(m_engine, {ExactMatch(wonderlandId, lermontov)}, {top}), ());
   }
 }
 }  // namespace

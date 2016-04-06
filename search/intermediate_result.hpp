@@ -115,6 +115,7 @@ public:
   inline FeatureID const & GetID() const { return m_id; }
   inline string const & GetName() const { return m_str; }
   inline feature::TypesHolder const & GetTypes() const { return m_types; }
+  inline m2::PointD GetCenter() const { return m_region.m_point; }
 
 private:
   bool IsEqualCommon(PreResult2 const & r) const;
@@ -142,8 +143,6 @@ private:
   } m_region;
 
   string GetRegionName(storage::CountryInfoGetter const & infoGetter, uint32_t fType) const;
-
-  m2::PointD GetCenter() const { return m_region.m_point; }
 
   double m_distance;
   ResultType m_resultType;

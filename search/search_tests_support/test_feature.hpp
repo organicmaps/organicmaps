@@ -94,10 +94,12 @@ public:
 
   inline void SetHouseNumber(string const & houseNumber) { m_houseNumber = houseNumber; }
   inline void SetStreet(TestStreet const & street) { m_streetName = street.GetName(); }
+  inline void SetTypes(vector<vector<string>> const & types) { m_types = types; }
 
 private:
   string m_houseNumber;
   string m_streetName;
+  vector<vector<string>> m_types;
 };
 
 class TestBuilding : public TestFeature

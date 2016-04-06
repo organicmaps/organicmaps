@@ -59,6 +59,7 @@ void SearchQueryV2::SearchViewportPoints(Results & res)
   Geocoder::Params params;
   InitParams(false /* localitySearch */, params);
   params.m_pivot = m_viewport[CURRENT_V];
+  params.m_accuratePivotCenter = params.m_pivot.Center();
   params.m_maxNumResults = kPreResultsCount;
   m_geocoder.SetParams(params);
 

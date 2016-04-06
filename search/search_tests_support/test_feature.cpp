@@ -52,7 +52,8 @@ void TestFeature::Serialize(FeatureBuilder1 & fb) const
   fb.SetTestId(m_id);
   if (m_hasCenter)
     fb.SetCenter(m_center);
-  CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
+  if (!m_name.empty())
+    CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
 }
 
 // TestCountry -------------------------------------------------------------------------------------
@@ -155,13 +156,17 @@ string TestStreet::ToString() const
 TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & lang)
   : TestFeature(center, name, lang)
 {
+  m_types = {{"railway", "station"}};
 }
 
 void TestPOI::Serialize(FeatureBuilder1 & fb) const
 {
   TestFeature::Serialize(fb);
   auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"railway", "station"}));
+
+  for (auto const & path : m_types)
+    fb.SetType(classificator.GetTypeByPath(path));
+
   if (!m_houseNumber.empty())
     fb.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
