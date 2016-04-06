@@ -52,7 +52,7 @@
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>
 
   <!-- "Report a problem" predefined texts -->
-  <string name="problem_does_not_exist" translatable="false">Amenity doesn\'t exist!</string>
+  <string name="problem_does_not_exist" translatable="false">The amenity has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be a month old), but cannot be found on the ground.</string>
 
   <!-- UI themes -->
   <string name="theme_default" translatable="false">default</string>
