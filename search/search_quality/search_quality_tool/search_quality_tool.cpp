@@ -13,6 +13,7 @@
 
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
+#include "search/search_query_factory.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 #include "search/v2/ranking_info.hpp"
@@ -87,17 +88,6 @@ struct CompletenessQuery
 };
 
 DECLARE_EXCEPTION(MalformedQueryException, RootException);
-
-class SearchQueryV2Factory : public SearchQueryFactory
-{
-  // SearchQueryFactory overrides:
-  unique_ptr<Query> BuildSearchQuery(Index & index, CategoriesHolder const & categories,
-                                     vector<Suggest> const & suggests,
-                                     storage::CountryInfoGetter const & infoGetter) override
-  {
-    return make_unique<v2::SearchQueryV2>(index, categories, suggests, infoGetter);
-  }
-};
 
 void DidDownload(TCountryId const & /* countryId */,
                  shared_ptr<platform::LocalCountryFile> const & /* localFile */)
@@ -390,7 +380,7 @@ int main(int argc, char * argv[])
   Engine::Params params;
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
-  TestSearchEngine engine(move(infoGetter), make_unique<SearchQueryV2Factory>(), Engine::Params{});
+  TestSearchEngine engine(move(infoGetter), make_unique<SearchQueryFactory>(), Engine::Params{});
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())

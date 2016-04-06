@@ -105,8 +105,8 @@ public:
 
   /// @name Different search functions.
   //@{
-  virtual void Search(Results & res, size_t resCount);
-  virtual void SearchViewportPoints(Results & res);
+  virtual void Search(Results & res, size_t resCount) = 0;
+  virtual void SearchViewportPoints(Results & res) = 0;
 
   // Tries to generate a (lat, lon) result from |m_query|.
   void SearchCoordinates(Results & res) const;
@@ -180,23 +180,6 @@ protected:
   void RemoveStringPrefix(string const & str, string & res) const;
   void GetSuggestion(string const & name, string & suggest) const;
   template <class T> void ProcessSuggestions(vector<T> & vec, Results & res) const;
-
-  void SearchAddress(Results & res);
-
-  /// Search for best localities by input tokens.
-  /// @param[in]  pMwm  MWM file for World
-  /// @param[out] res1  Best city-locality
-  /// @param[out] res2  Best region-locality
-  void SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2);
-
-  void SearchFeatures();
-  void SearchFeaturesInViewport(ViewportID viewportId);
-  void SearchFeaturesInViewport(SearchQueryParams const & params, TMWMVector const & mwmsInfo,
-                                ViewportID viewportId);
-
-  /// Do search in a set of maps.
-  void SearchInMwms(TMWMVector const & mwmsInfo, SearchQueryParams const & params,
-                    ViewportID viewportId);
 
   void SuggestStrings(Results & res);
   void MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res);
