@@ -25,7 +25,7 @@ using namespace storage;
 
 + (void)downloadNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess
 {
-  [self checkEnoughSpaceFor:countryId andPerformAction:^
+  [self checkEnoughSpaceFor:countryId andPerformAction:[countryId, onSuccess]
   {
     GetFramework().Storage().DownloadNode(countryId);
     if (onSuccess)
@@ -40,7 +40,7 @@ using namespace storage;
 
 + (void)updateNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
 {
-  [self checkEnoughSpaceFor:countryId andPerformAction:^
+  [self checkEnoughSpaceFor:countryId andPerformAction:[countryId]
   {
     GetFramework().Storage().UpdateNode(countryId);
   } alertController:alertController];
@@ -122,11 +122,11 @@ using namespace storage;
       break;
     case Platform::EConnectionType::CONNECTION_WWAN:
     {
-      NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-      if ([ud boolForKey:kStorageCanShowNoWifiAlert])
+      if ([[NSUserDefaults standardUserDefaults] boolForKey:kStorageCanShowNoWifiAlert])
       {
-        [alertController presentNoWiFiAlertWithOkBlock:^
+        [alertController presentNoWiFiAlertWithOkBlock:[action]
         {
+          NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
           [ud setBool:NO forKey:kStorageCanShowNoWifiAlert];
           [ud synchronize];
           action();
