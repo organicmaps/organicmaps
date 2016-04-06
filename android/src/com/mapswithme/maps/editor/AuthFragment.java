@@ -1,5 +1,6 @@
 package com.mapswithme.maps.editor;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.UrlQuerySanitizer;
@@ -90,9 +91,11 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
     getMwmActivity().replaceFragment(OsmAuthFragment.class, null, null);
   }
 
+  @SuppressLint("SetJavaScriptEnabled")
   protected void loginWebview(final OsmOAuth.AuthType type)
   {
     final WebView webview = new InputWebView(getActivity());
+    webview.getSettings().setJavaScriptEnabled(true);
     final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(webview).create();
 
     ThreadPool.getWorker().execute(new Runnable()
