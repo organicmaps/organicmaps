@@ -34,6 +34,7 @@ NSDictionary<NSString *, UIColor *> * night =
   @"pressBackground" : [UIColor colorWithRed:scaled(50.) green:scaled(54.) blue:scaled(58.) alpha:alpha100],
   // Red color (use for status closed in place page)
   @"red" : [UIColor colorWithRed:scaled(230.) green:scaled(70.) blue:scaled(60.) alpha:alpha100],
+  @"errorPink" : [UIColor colorWithRed:scaled(246.) green:scaled(60.) blue:scaled(51.) alpha:alpha26],
   // Orange color (use for status 15 min in place page)
   @"orange" : [UIColor colorWithRed:250. green:scaled(190.) blue:scaled(10.) alpha:alpha100],
   // Blue color (use for links and phone numbers)
@@ -63,6 +64,7 @@ NSDictionary<NSString *, UIColor *> * day =
   @"pressBackground" : [UIColor colorWithRed:scaled(245.) green:scaled(245.) blue:scaled(245.) alpha:alpha100],
   // Red color (use for status closed in place page)
   @"red" : [UIColor colorWithRed:scaled(230.) green:scaled(15.) blue:scaled(35.) alpha:alpha100],
+  @"errorPink" : [UIColor colorWithRed:scaled(246.) green:scaled(60.) blue:scaled(51.) alpha:alpha12],
   // Orange color (use for status 15 min in place page)
   @"orange" : [UIColor colorWithRed:1. green:scaled(120.) blue:scaled(5.) alpha:alpha100],
   // Blue color (use for links and phone numbers)
@@ -145,6 +147,11 @@ UIColor * color(SEL cmd)
 }
 // Red color (use for status closed in place page)
 + (UIColor *)red
+{
+  return color(_cmd);
+}
+// Pink background for invalid fields
++ (UIColor *)errorPink
 {
   return color(_cmd);
 }
