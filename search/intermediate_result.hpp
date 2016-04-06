@@ -82,9 +82,10 @@ public:
   /// @param[in]  pCat    Categories need to display readable type string.
   /// @param[in]  pTypes  Set of preffered types that match input tokens by categories.
   /// @param[in]  lang    Current system language.
+  /// @param[in]  coder   May be nullptr - no need to calculate address.
   Result GenerateFinalResult(storage::CountryInfoGetter const & infoGetter,
                              CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
-                             int8_t locale, ReverseGeocoder const & coder) const;
+                             int8_t locale, ReverseGeocoder const * coder) const;
 
   /// Filter equal features for different mwm's.
   class StrictEqualF
