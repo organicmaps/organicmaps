@@ -3,7 +3,6 @@
 #include "search/dummy_rank_table.hpp"
 #include "search/feature_offset_match.hpp"
 #include "search/geometry_utils.hpp"
-#include "search/indexed_value.hpp"
 #include "search/latlon_match.hpp"
 #include "search/locality.hpp"
 #include "search/region.hpp"
@@ -116,43 +115,43 @@ ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
   }
 }
 
-class IndexedValue : public search::IndexedValueBase<Query::kQueuesCount>
+class IndexedValue
 {
-  friend string DebugPrint(IndexedValue const & value);
-
   /// @todo Do not use shared_ptr for optimization issues.
   /// Need to rewrite std::unique algorithm.
-  shared_ptr<impl::PreResult2> m_val;
+  unique_ptr<impl::PreResult2> m_value;
 
   double m_rank;
   double m_distanceToPivot;
 
-public:
-  explicit IndexedValue(unique_ptr<impl::PreResult2> v)
-    : m_val(move(v)), m_rank(0), m_distanceToPivot(numeric_limits<double>::max())
+  friend string DebugPrint(IndexedValue const & value)
   {
-    if (!m_val)
+    ostringstream os;
+    os << "IndexedValue [";
+    if (value.m_value)
+      os << impl::DebugPrint(*value.m_value);
+    os << "]";
+    return os.str();
+  }
+
+public:
+  explicit IndexedValue(unique_ptr<impl::PreResult2> value)
+    : m_value(move(value)), m_rank(0.0), m_distanceToPivot(numeric_limits<double>::max())
+  {
+    if (!m_value)
       return;
 
-    auto const & info = m_val->GetRankingInfo();
+    auto const & info = m_value->GetRankingInfo();
     m_rank = info.GetLinearModelRank();
     m_distanceToPivot = info.m_distanceToPivot;
   }
 
-  impl::PreResult2 const & operator*() const { return *m_val; }
+  impl::PreResult2 const & operator*() const { return *m_value; }
 
   inline double GetRank() const { return m_rank; }
 
   inline double GetDistanceToPivot() const { return m_distanceToPivot; }
 };
-
-string DebugPrint(IndexedValue const & value)
-{
-  string index;
-  for (auto const & i : value.m_ind)
-    index.append(" " + strings::to_string(i));
-  return impl::DebugPrint(*value.m_val) + "; Index:" + index;
-}
 
 void RemoveDuplicatingLinear(vector<IndexedValue> & indV)
 {

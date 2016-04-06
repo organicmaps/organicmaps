@@ -1,5 +1,4 @@
 #pragma once
-#include "search/indexed_value.hpp"
 #include "search/projection_on_street.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -203,14 +202,14 @@ inline void swap(MergedStreet & s1, MergedStreet & s2)
   s1.Swap(s2);
 }
 
-struct HouseResult : public IndexedValueBase<1>
+struct HouseResult
 {
   House const * m_house;
   MergedStreet const * m_street;
 
-  HouseResult(House const * house, MergedStreet const * street)
-    : m_house(house), m_street(street)
-  {}
+  HouseResult(House const * house, MergedStreet const * street) : m_house(house), m_street(street)
+  {
+  }
 
   inline bool operator<(HouseResult const & a) const { return m_house < a.m_house; }
   inline bool operator==(HouseResult const & a) const { return m_house == a.m_house; }
