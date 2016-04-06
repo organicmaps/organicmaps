@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
-  <include layout="@layout/toolbar_downloader"/>
+  <include layout="@layout/toolbar_with_search"/>
 
   <include
     layout="@layout/recycler_default"

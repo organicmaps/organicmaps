@@ -373,6 +373,15 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetAttributes(JNIEnv * env,
   UpdateItem(env, item, attrs);
 }
 
+// static void nativeGetStatus(String root);
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetStatus(JNIEnv * env, jclass clazz, jstring root)
+{
+  NodeStatuses ns;
+  GetStorage().GetNodeStatuses(jni::ToNativeString(env, root), ns);
+  return static_cast<jint>(ns.m_status);
+}
+
 // static @Nullable String nativeFindCountry(double lat, double lon);
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeFindCountry(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)

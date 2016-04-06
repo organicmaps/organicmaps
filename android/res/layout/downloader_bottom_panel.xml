@@ -4,7 +4,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/height_block_base"
-  android:paddingLeft="@dimen/margin_half"
   android:background="?panel"
   android:gravity="center_vertical"
   android:orientation="horizontal">
@@ -13,11 +12,12 @@
     android:layout_width="0dp"
     android:layout_height="match_parent"
     android:layout_weight="1"
+    android:layout_marginLeft="@dimen/margin_half"
     android:gravity="center_vertical"
     android:singleLine="true"
     android:ellipsize="end"
     android:textAppearance="@style/MwmTextAppearance.Body2"
-    tools:text="@string/downloader_status_maps"/>
+    tools:text="Maps: 10 (1024 MB)"/>
 
   <Button
     android:id="@+id/btn__action"
@@ -28,5 +28,5 @@
     style="@style/MwmWidget.Button"
     android:textAppearance="@style/MwmTextAppearance.Button"
     android:textColor="?colorAccent"
-    android:text="@string/downloader_update_all_button"/>
+    tools:text="@string/downloader_update_all_button"/>
 </LinearLayout>
