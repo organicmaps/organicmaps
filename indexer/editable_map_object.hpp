@@ -72,6 +72,8 @@ public:
   //  void SetTypes(feature::TypesHolder const & types);
   void SetStreet(string const & street);
   void SetNearbyStreets(vector<string> && streets);
+  /// @returns false if house number fails validation.
+  static bool ValidateHouseNumber(string const & houseNumber);
   void SetHouseNumber(string const & houseNumber);
   void SetPostcode(string const & postcode);
   void SetPhone(string const & phone);

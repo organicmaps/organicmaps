@@ -4,6 +4,9 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/macros.hpp"
+#include "base/string_utils.hpp"
+
+#include "std/cctype.hpp"
 
 namespace osm
 {
@@ -94,12 +97,35 @@ void EditableMapObject::SetNearbyStreets(vector<string> && streets)
 {
   m_nearbyStreets = move(streets);
 }
+
+// static
+bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
+{
+  if (houseNumber.empty())
+    return true;
+
+  strings::UniString us = strings::MakeUniString(houseNumber);
+  // TODO: Improve this basic limit - it was choosen by @Zverik.
+  auto constexpr kMaxHouseNumberLength = 15;
+  if (us.size() > kMaxHouseNumberLength)
+    return false;
+
+  // TODO: Should we allow arabic numbers like U+0661 ١	Arabic-Indic Digit One?
+  strings::NormalizeDigits(us);
+  for (strings::UniChar const c : us)
+  {
+    // Valid house numbers contain at least one number.
+    if (c >= '0' && c <= '9')
+      return true;
+  }
+  return false;
+}
+
 void EditableMapObject::SetHouseNumber(string const & houseNumber)
 {
-  // TODO(AlexZ): Check house number for validity with feature::IsHouseNumber ?
-  // TODO(AlexZ): Store edited house number as house name if feature::IsHouseNumber() returned false.
   m_houseNumber = houseNumber;
 }
+
 void EditableMapObject::SetPostcode(string const & postcode)
 {
   m_metadata.Set(feature::Metadata::FMD_POSTCODE, postcode);
