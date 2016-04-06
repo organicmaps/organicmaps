@@ -1318,7 +1318,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   if (nodeAttrs.m_status == NodeStatus::OnDisk)
   {
     // Group or leaf node is on disk and up to date.
-    size_t const subTreeSizeBytes = node->Value().GetSubtreeMwmSizeBytes();
+    TMwmSize const subTreeSizeBytes = node->Value().GetSubtreeMwmSizeBytes();
     nodeAttrs.m_downloadingProgress.first = subTreeSizeBytes;
     nodeAttrs.m_downloadingProgress.second = subTreeSizeBytes;
   }

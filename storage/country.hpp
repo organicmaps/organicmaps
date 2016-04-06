@@ -50,10 +50,10 @@ class Country
   platform::CountryFile m_file;
   /// The number of descendant mwm files of |m_name|. Only files (leaves in tree) are counted.
   /// If |m_name| is a mwm file name |m_childrenNumber| == 1.
-  uint32_t m_subtreeMwmNumber;
+  TMwmCounter m_subtreeMwmNumber;
   /// Size of descendant mwm files of |m_name|.
   /// If |m_name| is a mwm file name |m_subtreeMwmSizeBytes| is equal to size of the mwm.
-  size_t m_subtreeMwmSizeBytes;
+  TMwmSize m_subtreeMwmSizeBytes;
 
 public:
   Country() = default;
@@ -61,13 +61,13 @@ public:
     : m_name(name), m_parent(parent) {}
 
   void SetFile(platform::CountryFile const & file) { m_file = file; }
-  void SetSubtreeAttrs(uint32_t subtreeMwmNumber, size_t subtreeMwmSizeBytes)
+  void SetSubtreeAttrs(TMwmCounter subtreeMwmNumber, TMwmSize subtreeMwmSizeBytes)
   {
     m_subtreeMwmNumber = subtreeMwmNumber;
     m_subtreeMwmSizeBytes = subtreeMwmSizeBytes;
   }
-  uint32_t GetSubtreeMwmCounter() const { return m_subtreeMwmNumber; }
-  size_t GetSubtreeMwmSizeBytes() const { return m_subtreeMwmSizeBytes; }
+  TMwmCounter GetSubtreeMwmCounter() const { return m_subtreeMwmNumber; }
+  TMwmSize GetSubtreeMwmSizeBytes() const { return m_subtreeMwmSizeBytes; }
   TCountryId GetParent() const { return m_parent; }
 
   /// This function valid for current logic - one file for one country (region).

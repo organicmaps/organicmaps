@@ -325,7 +325,7 @@ using namespace storage;
     s.GetQueuedChildren(parentCountryId, queuedChildren);
     if (!queuedChildren.empty())
     {
-      size_t queuedSize = 0;
+      storage::TMwmSize queuedSize = 0;
       for (TCountryId const & countryId : queuedChildren)
       {
         NodeAttrs nodeAttrs;

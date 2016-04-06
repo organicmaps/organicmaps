@@ -467,7 +467,7 @@ void OnCountryDownloaded(TCountryId const & countryId, TLocalFilePtr const local
   LOG(LINFO, ("OnCountryDownloaded:", *localFile));
 }
 
-TLocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version, size_t size)
+TLocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version, uint64_t size)
 {
   TLocalFilePtr localFile = PreparePlaceForCountryFiles(version, string() /* dataDir */, countryFile);
   TEST(localFile.get(), ("Can't prepare place for", countryFile, "(version", version, ")"));

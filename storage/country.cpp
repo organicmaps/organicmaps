@@ -17,7 +17,7 @@ namespace storage
 // Mwm subtree attributes. They can be calculated based on information contained in countries.txt.
 // The first in the pair is number of mwms in a subtree. The second is sum of sizes of
 // all mwms in a subtree.
-using TMwmSubtreeAttrs = pair<uint32_t, size_t>;
+using TMwmSubtreeAttrs = pair<TMwmCounter, TMwmSize>;
 
 namespace
 {
@@ -25,7 +25,7 @@ class StoreSingleMwmInterface
 {
 public:
   virtual ~StoreSingleMwmInterface() = default;
-  virtual Country * InsertToCountryTree(TCountryId const & id, uint32_t mapSize, size_t depth,
+  virtual Country * InsertToCountryTree(TCountryId const & id, TMwmSize mapSize, size_t depth,
                                         TCountryId const & parent) = 0;
   virtual void InsertOldMwmMapping(TCountryId const & newId, TCountryId const & oldId) = 0;
   virtual void InsertAffiliation(TCountryId const & countryId, string const & affilation) = 0;
@@ -50,7 +50,7 @@ public:
   }
 
   // StoreSingleMwmInterface overrides:
-  Country * InsertToCountryTree(TCountryId const & id, uint32_t mapSize, size_t depth,
+  Country * InsertToCountryTree(TCountryId const & id, TMwmSize mapSize, size_t depth,
                                 TCountryId const & parent) override
   {
     Country country(id, parent);
@@ -88,7 +88,7 @@ public:
   StoreFile2InfoSingleMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
 
   // StoreSingleMwmInterface overrides:
-  Country * InsertToCountryTree(TCountryId const & id, uint32_t /* mapSize */, size_t /* depth */,
+  Country * InsertToCountryTree(TCountryId const & id, TMwmSize /* mapSize */, size_t /* depth */,
                                 TCountryId const & /* parent */) override
   {
     CountryInfo info(id);
@@ -135,8 +135,8 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, TCountryId
   // We expect that mwm and routing files should be less than 2GB.
   Country * addedNode = store.InsertToCountryTree(id, nodeSize, depth, parent);
 
-  uint32_t mwmCounter = 0;
-  size_t mwmSize = 0;
+  TMwmCounter mwmCounter = 0;
+  TMwmSize mwmSize = 0;
   vector<json_t *> children;
   my::FromJSONObjectOptionalField(node, "g", children);
   if (children.empty())
@@ -181,7 +181,7 @@ class StoreTwoComponentMwmInterface
 {
 public:
   virtual ~StoreTwoComponentMwmInterface() = default;
-  virtual Country * Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, size_t depth,
+  virtual Country * Insert(string const & id, TMwmSize mapSize, TMwmSize /* routingSize */, size_t depth,
                            TCountryId const & parent) = 0;
 };
 
@@ -197,7 +197,7 @@ public:
   }
 
   // StoreTwoComponentMwmInterface overrides:
-  virtual Country * Insert(string const & id, uint32_t mapSize, uint32_t routingSize, size_t depth,
+  virtual Country * Insert(string const & id, TMwmSize mapSize, TMwmSize routingSize, size_t depth,
                            TCountryId const & parent) override
   {
     Country country(id, parent);
@@ -220,7 +220,7 @@ public:
   StoreFile2InfoTwoComponentMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
 
   // StoreTwoComponentMwmInterface overrides:
-  virtual Country * Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, size_t /* depth */,
+  virtual Country * Insert(string const & id, TMwmSize mapSize, TMwmSize /* routingSize */, size_t /* depth */,
                            TCountryId const & /* parent */) override
   {
     if (mapSize == 0)
@@ -250,11 +250,11 @@ TMwmSubtreeAttrs LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node, TCou
   ASSERT_LESS_OR_EQUAL(0, mwmSize, ());
   ASSERT_LESS_OR_EQUAL(0, routingSize, ());
 
-  Country * addedNode = store.Insert(file, static_cast<uint32_t>(mwmSize), static_cast<uint32_t>(routingSize),
+  Country * addedNode = store.Insert(file, static_cast<TMwmSize>(mwmSize), static_cast<TMwmSize>(routingSize),
                                      depth, parent);
 
-  uint32_t countryCounter = 0;
-  size_t countrySize = 0;
+  TMwmCounter countryCounter = 0;
+  TMwmSize countrySize = 0;
   vector<json_t *> children;
   my::FromJSONObjectOptionalField(node, "g", children);
   if (children.empty())

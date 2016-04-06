@@ -129,7 +129,7 @@ void DrawWidget::UpdateCountryStatus(storage::TCountryId const & countryId)
 
     auto status = m_framework->Storage().CountryStatusEx(countryId);
 
-    uint64_t sizeInBytes = 0;
+    storage::TMwmSize sizeInBytes = 0;
     if (!countryId.empty())
     {
       storage::NodeAttrs nodeAttrs;

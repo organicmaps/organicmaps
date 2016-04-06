@@ -51,7 +51,7 @@ public:
 
   // Returns size of a file. Return value may be zero until
   // SyncWithDisk() is called.
-  uint32_t GetSize(MapOptions filesMask) const;
+  uint64_t GetSize(MapOptions filesMask) const;
 
   // Returns a mask of all known country files. Return value may be
   // empty until SyncWithDisk() is called.

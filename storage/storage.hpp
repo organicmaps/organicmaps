@@ -3,6 +3,7 @@
 #include "storage/country.hpp"
 #include "storage/country_name_getter.hpp"
 #include "storage/country_tree.hpp"
+#include "storage/storage_defines.hpp"
 #include "storage/index.hpp"
 #include "storage/map_files_downloader.hpp"
 #include "storage/queued_country.hpp"
@@ -45,31 +46,31 @@ struct NodeAttrs
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
   /// belonging to the node. If the node isn't expandable |m_mwmCounter| == 1.
   /// Note. For every expandable node |m_mwmCounter| >= 2.
-  uint32_t m_mwmCounter;
+  TMwmCounter m_mwmCounter;
 
   /// Number of mwms belonging to the node which have been downloaded.
-  uint32_t m_localMwmCounter;
+  TMwmCounter m_localMwmCounter;
 
   /// Number of leaves of the node which have been downloaded
   /// plus which is in progress of downloading (zero or one)
   /// plus which are staying in queue.
-  uint32_t m_downloadingMwmCounter;
+  TMwmCounter m_downloadingMwmCounter;
 
   /// If it's not an expandable node, |m_mwmSize| is size of one mwm according to countries.txt.
   /// Otherwise |m_mwmSize| is the sum of all mwm file sizes which belong to the group
   /// according to countries.txt.
-  size_t m_mwmSize;
+  TMwmSize m_mwmSize;
 
   /// If it's not an expandable node, |m_localMwmSize| is size of one downloaded mwm.
   /// Otherwise |m_localNodeSize| is the sum of all mwm file sizes which belong to the group and
   /// have been downloaded.
-  size_t m_localMwmSize;
+  TMwmSize m_localMwmSize;
 
   /// Size of leaves of the node which have been downloaded
   /// plus which is in progress of downloading (zero or one)
   /// plus which are staying in queue.
   /// \note The size of leaves is the size is written in countries.txt.
-  size_t m_downloadingMwmSize;
+  TMwmSize m_downloadingMwmSize;
 
   /// The name of the node in a local language. That means the language dependent on
   /// a device locale.
@@ -88,7 +89,7 @@ struct NodeAttrs
   /// Locale language is a language set by Storage::SetLocale().
   /// \note Most number of nodes have only first level parent. But in case of a disputed territories
   /// an mwm could have two or even more parents. See Country description for details.
-   vector<CountryIdAndName> m_topmostParentInfo;
+  vector<CountryIdAndName> m_topmostParentInfo;
 
   /// Progress of downloading for the node expandable or not. It reflects downloading progress in case of
   /// downloading and updating mwm.
@@ -294,8 +295,8 @@ public:
   {
     UpdateInfo() : m_numberOfMwmFilesToUpdate(0), m_totalUpdateSizeInBytes(0) {}
 
-    size_t m_numberOfMwmFilesToUpdate;
-    size_t m_totalUpdateSizeInBytes;
+    uint32_t m_numberOfMwmFilesToUpdate;
+    uint64_t m_totalUpdateSizeInBytes;
   };
 
   struct StatusCallback
