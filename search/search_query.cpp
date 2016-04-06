@@ -543,7 +543,8 @@ void Query::FlushViewportResults(v2::Geocoder::Params const & params, Results & 
       break;
 
     res.AddResultNoChecks((*(indV[i])).GenerateFinalResult(m_infoGetter, &m_categories,
-        &m_prefferedTypes, m_currentLocaleCode, m_reverseGeocoder));
+        &m_prefferedTypes, m_currentLocaleCode,
+        nullptr /* Viewport results don't need calculated address */));
   }
 }
 
@@ -1028,7 +1029,7 @@ public:
 Result Query::MakeResult(impl::PreResult2 const & r) const
 {
   Result res = r.GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes,
-                                     m_currentLocaleCode, m_reverseGeocoder);
+                                     m_currentLocaleCode, &m_reverseGeocoder);
   MakeResultHighlight(res);
 
 #ifdef FIND_LOCALITY_TEST
