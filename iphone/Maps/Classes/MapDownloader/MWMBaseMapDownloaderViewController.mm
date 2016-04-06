@@ -501,6 +501,11 @@ using namespace storage;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+  if (buttonIndex >= actionSheet.numberOfButtons)
+  {
+    [actionSheet dismissWithClickedButtonIndex:0 animated:NO];
+    return;
+  }
   NSString * btnTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
   if ([btnTitle hasPrefix:kDownloadActionTitle])
     [self downloadNode:m_actionSheetId];
