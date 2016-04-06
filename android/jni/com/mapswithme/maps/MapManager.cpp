@@ -290,7 +290,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
 
   // Sizes
   env->SetLongField(item, countryItemFieldSize, attrs.m_localMwmSize);
-  env->SetLongField(item, countryItemFieldTotalSize, attrs.m_mwmSize);
+  env->SetLongField(item, countryItemFieldTotalSize, (attrs.m_downloadingMwmCounter ? attrs.m_downloadingMwmSize : attrs.m_mwmSize));
 
   // Child counts
   env->SetIntField(item, countryItemFieldChildCount, attrs.m_downloadingMwmCounter);
