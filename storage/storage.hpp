@@ -295,8 +295,8 @@ public:
   {
     UpdateInfo() : m_numberOfMwmFilesToUpdate(0), m_totalUpdateSizeInBytes(0) {}
 
-    uint32_t m_numberOfMwmFilesToUpdate;
-    uint64_t m_totalUpdateSizeInBytes;
+    TMwmCounter m_numberOfMwmFilesToUpdate;
+    TMwmSize m_totalUpdateSizeInBytes;
   };
 
   struct StatusCallback
