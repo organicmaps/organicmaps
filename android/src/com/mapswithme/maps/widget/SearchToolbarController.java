@@ -192,6 +192,8 @@ public class SearchToolbarController extends ToolbarController
   public void showControls(boolean show)
   {
     UiUtils.showIf(show, mContainer);
+    if (show)
+      clear();
   }
 
   public void onActivityResult(int requestCode, int resultCode, Intent data)

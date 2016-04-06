@@ -281,6 +281,11 @@ public final class MapManager
   public static native void nativeGetAttributes(CountryItem item);
 
   /**
+   * Returns status for given {@code root} node.
+   */
+  public static native int nativeGetStatus(String root);
+
+  /**
    * Returns country ID corresponding to given coordinates or {@code null} on error.
    */
   public static native @Nullable String nativeFindCountry(double lat, double lon);

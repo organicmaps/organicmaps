@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import com.mapswithme.maps.R;
@@ -19,17 +16,13 @@ import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.search.NativeMapSearchListener;
 import com.mapswithme.maps.search.SearchEngine;
-import com.mapswithme.util.StringUtils;
-import com.mapswithme.util.UiUtils;
 
 public class DownloaderFragment extends BaseMwmRecyclerFragment
                              implements OnBackPressListener
 {
   private DownloaderToolbarController mToolbarController;
 
-  private View mBottomPanel;
-  private Button mPanelAction;
-  private TextView mPanelText;
+  private BottomPanel mBottomPanel;
   private DownloaderAdapter mAdapter;
 
   private long mCurrentSearch;
@@ -102,21 +95,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     String rootName = mAdapter.getCurrentParentName();
     boolean onTop = (mAdapter.isSearchResultsMode() || rootName == null);
 
-    // Toolbar
-    mToolbarController.update(onTop ? null : mAdapter.getCurrentParent(), onTop ? "" : rootName);
-
-    // Bottom panel
-    boolean showBottom = (onTop && !mAdapter.isSearchResultsMode());
-    if (showBottom)
-    {
-      UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
-      showBottom = (info != null && info.filesCount > 0);
-
-      if (showBottom)
-        mPanelText.setText(String.format(Locale.US, "%s: %d (%s)", getString(R.string.downloader_status_maps), info.filesCount, StringUtils.getFileSizeString(info.totalSize)));
-    }
-
-    UiUtils.showIf(showBottom, mBottomPanel);
+    mToolbarController.update(onTop ? "" : rootName);
+    mBottomPanel.update();
   }
 
   @Override
@@ -160,19 +140,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     getRecyclerView().addOnScrollListener(mScrollListener);
     mAdapter.attach();
 
-    mBottomPanel = view.findViewById(R.id.bottom_panel);
-    mPanelAction = (Button) mBottomPanel.findViewById(R.id.btn__action);
-    mPanelText = (TextView) mBottomPanel.findViewById(R.id.tv__text);
+    mBottomPanel = new BottomPanel(this, view.findViewById(R.id.bottom_panel));
     mToolbarController = new DownloaderToolbarController(view, getActivity(), this);
-
-    mPanelAction.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        MapManager.nativeUpdate(mAdapter.getCurrentParent());
-      }
-    });
 
     update();
   }
