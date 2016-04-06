@@ -42,6 +42,21 @@ bool IsNumberOrShortWord(HouseNumberTokenizer::Token const & t)
   return IsNumber(t) || IsShortWord(t);
 }
 
+bool IsBuildingSynonymPrefix(UniString const & p)
+{
+  static UniString kSynonyms[] = {
+      MakeUniString("building"), MakeUniString("bld"),      MakeUniString("unit"),
+      MakeUniString("block"),    MakeUniString("blk"),      MakeUniString("корпус"),
+      MakeUniString("литер"),    MakeUniString("строение"), MakeUniString("блок")};
+
+  for (UniString const & s : kSynonyms)
+  {
+    if (StartsWith(s, p))
+      return true;
+  }
+  return false;
+}
+
 size_t GetNumTokensForBuildingPart(vector<HouseNumberTokenizer::Token> const & ts, size_t i,
                                    vector<size_t> & memory);
 
@@ -50,30 +65,22 @@ size_t GetNumTokensForBuildingPartImpl(vector<HouseNumberTokenizer::Token> const
 {
   ASSERT_LESS(i, ts.size(), ());
 
-  // TODO (@y, @m, @vng): move these constans out.
-  static UniString kSynonyms[] = {MakeUniString("building"), MakeUniString("unit"),
-                                  MakeUniString("block"),    MakeUniString("корпус"),
-                                  MakeUniString("литер"),    MakeUniString("строение"),
-                                  MakeUniString("блок")};
-
   auto const & token = ts[i];
   if (token.m_klass != HouseNumberTokenizer::CharClass::Other)
     return 0;
 
-  bool prefix = false;
-  for (UniString const & synonym : kSynonyms)
-  {
-    if (StartsWith(synonym, token.m_token))
-    {
-      prefix = true;
-      break;
-    }
-  }
-  if (!prefix)
+  if (!IsBuildingSynonymPrefix(token.m_token))
     return 0;
 
   // No sense in single "корпус" or "литер".
-  if (i + 1 >= ts.size() || !IsNumberOrShortWord(ts[i + 1]))
+  if (i + 1 >= ts.size())
+    return 0;
+
+  if (!IsNumberOrShortWord(ts[i + 1]))
+    return 0;
+
+  // No sense in "корпус корпус" or "литер литер".
+  if (ts[i + 1].m_token == token.m_token)
     return 0;
 
   // Consume next token, either number or short word.
@@ -156,6 +163,42 @@ void MergeTokens(vector<HouseNumberTokenizer::Token> const & ts, vector<UniStrin
     }
     }
   }
+
+  if (!rs.empty())
+    sort(rs.begin() + 1, rs.end());
+}
+
+bool ParsesMatch(Parse const & houseNumberParse, Parse const & queryParse)
+{
+  if (houseNumberParse.IsEmpty() || queryParse.IsEmpty())
+    return false;
+
+  auto const & h = houseNumberParse.m_parts;
+  auto const & q = queryParse.m_parts;
+
+  // Check first tokens, hope, house numbers.
+  if (h[0] != q[0])
+    return false;
+
+  size_t i = 1, j = 1;
+  while (i != h.size() && j != q.size())
+  {
+    while (i != h.size() && h[i] < q[j])
+      ++i;
+    if (i == h.size() || h[i] != q[j])
+      return false;
+    ++i;
+    ++j;
+  }
+
+  if (queryParse.m_hasTrailingBuildingPrefixSynonym)
+  {
+    // In this case, at least one more unmatched part must be in a
+    // house number.
+    return j == q.size() && h.size() > q.size();
+  }
+
+  return j == q.size();
 }
 }  // namespace
 
@@ -181,55 +224,74 @@ void HouseNumberTokenizer::Tokenize(UniString const & s, vector<Token> & ts)
   }
 }
 
-void NormalizeHouseNumber(strings::UniString const & s, vector<strings::UniString> & ts)
+void ParseQuery(strings::UniString const & query, bool queryIsPrefix, vector<Parse> & ps)
 {
   vector<HouseNumberTokenizer::Token> tokens;
-  HouseNumberTokenizer::Tokenize(MakeLowerCase(s), tokens);
-  MergeTokens(tokens, ts);
+  HouseNumberTokenizer::Tokenize(MakeLowerCase(query), tokens);
 
-  if (!ts.empty())
-    sort(ts.begin() + 1, ts.end());
+  {
+    ps.emplace_back();
+    Parse & p = ps.back();
+    MergeTokens(tokens, p.m_parts);
+  }
+
+  // *NOTE* |tokens| is modified in the following block.
+  if (queryIsPrefix && !tokens.empty() &&
+      tokens.back().m_klass == HouseNumberTokenizer::CharClass::Other &&
+      IsBuildingSynonymPrefix(tokens.back().m_token))
+  {
+    tokens.pop_back();
+    ps.emplace_back();
+    Parse & p = ps.back();
+    MergeTokens(tokens, p.m_parts);
+    p.m_hasTrailingBuildingPrefixSynonym = true;
+  }
 }
 
-bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query)
+bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query,
+                       bool queryIsPrefix)
 {
   if (houseNumber == query)
     return true;
 
-  vector<strings::UniString> queryTokens;
-  NormalizeHouseNumber(query, queryTokens);
+  vector<Parse> queryParses;
+  ParseQuery(query, queryIsPrefix, queryParses);
 
-  return HouseNumbersMatch(houseNumber, queryTokens);
+  return HouseNumbersMatch(houseNumber, queryParses);
 }
 
-bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<strings::UniString> const & queryTokens)
+bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Parse> const & queryParses)
 {
-  if (houseNumber.empty() || queryTokens.empty())
-    return false;
-  if (queryTokens[0][0] != houseNumber[0])
+  if (houseNumber.empty() || queryParses.empty())
     return false;
 
-  vector<strings::UniString> houseNumberTokens;
-  NormalizeHouseNumber(houseNumber, houseNumberTokens);
-
-  if (houseNumberTokens.empty())
-    return false;
-
-  // Check first tokens (hope, house numbers).
-  if (houseNumberTokens.front() != queryTokens.front())
-    return false;
-
-  size_t i = 1, j = 1;
-  while (i != houseNumberTokens.size() && j != queryTokens.size())
+  // Fast pre-check, helps to early exit without complex house number
+  // parsing.
+  bool good = false;
+  for (auto const & queryParse : queryParses)
   {
-    while (i != houseNumberTokens.size() && houseNumberTokens[i] < queryTokens[j])
-      ++i;
-    if (i == houseNumberTokens.size() || houseNumberTokens[i] != queryTokens[j])
-      return false;
-    ++i;
-    ++j;
+    if (!queryParse.IsEmpty() && houseNumber[0] == queryParse.m_parts.front()[0])
+    {
+      good = true;
+      break;
+    }
   }
-  return j == queryTokens.size();
+  if (!good)
+    return false;
+
+  Parse houseNumberParse;
+  {
+    vector<HouseNumberTokenizer::Token> tokens;
+    HouseNumberTokenizer::Tokenize(MakeLowerCase(houseNumber), tokens);
+    MergeTokens(tokens, houseNumberParse.m_parts);
+  }
+
+  for (auto const & queryParse : queryParses)
+  {
+    if (ParsesMatch(houseNumberParse, queryParse))
+      return true;
+  }
+  return false;
 }
 
 string DebugPrint(HouseNumberTokenizer::CharClass charClass)
@@ -247,6 +309,13 @@ string DebugPrint(HouseNumberTokenizer::Token const & token)
 {
   ostringstream os;
   os << "Token [" << DebugPrint(token.m_token) << ", " << DebugPrint(token.m_klass) << "]";
+  return os.str();
+}
+
+string DebugPrint(Parse const & parse)
+{
+  ostringstream os;
+  os << "Parse [" << DebugPrint(parse.m_parts) << "]";
   return os.str();
 }
 }  // namespace v2

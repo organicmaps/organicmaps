@@ -37,18 +37,30 @@ public:
   static void Tokenize(strings::UniString const & s, vector<Token> & ts);
 };
 
-// Splits house number by tokens, removes blanks and separators.
-void NormalizeHouseNumber(strings::UniString const & s, vector<strings::UniString> & ts);
+struct Parse
+{
+  inline bool IsEmpty() const { return m_parts.empty(); }
+
+  vector<strings::UniString> m_parts;
+  bool m_hasTrailingBuildingPrefixSynonym = false;
+};
+
+// Parses query for later faster processing, when multiple buildings
+// are matched against the query.
+void ParseQuery(strings::UniString const & query, bool queryIsPrefix, vector<Parse> & ps);
 
 // Returns true when |query| matches to |houseNumber|.
-bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query);
+bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query,
+                       bool queryIsPrefix);
 
-// Returns true when |queryTokens| match to |houseNumber|.
-bool HouseNumbersMatch(strings::UniString const & houseNumber,
-                       vector<strings::UniString> const & queryTokens);
+// Returns true when at least one parse of the query matches to
+// |houseNumber|.
+bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Parse> const & queryParses);
 
 string DebugPrint(HouseNumberTokenizer::CharClass charClass);
 
 string DebugPrint(HouseNumberTokenizer::Token const & token);
+
+string DebugPrint(Parse const & parse);
 }  // namespace v2
 }  // namespace search

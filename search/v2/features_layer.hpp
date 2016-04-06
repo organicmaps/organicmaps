@@ -36,6 +36,8 @@ struct FeaturesLayer
   // perform additional work to retrieve features matching by house
   // number.
   bool m_hasDelayedFeatures;
+
+  bool m_lastTokenIsPrefix;
 };
 
 string DebugPrint(FeaturesLayer const & layer);

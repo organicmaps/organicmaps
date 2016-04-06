@@ -2,6 +2,7 @@
 
 #include "search/cancel_exception.hpp"
 #include "search/v2/features_layer_matcher.hpp"
+#include "search/v2/house_numbers_matcher.hpp"
 
 #include "indexer/features_vector.hpp"
 
@@ -45,11 +46,18 @@ uint64_t CalcBottomUpPassCost(vector<FeaturesLayer const *> const & layers)
   return CalcPassCost(layers.begin(), layers.end());
 }
 
-bool LooksLikeHouseNumber(strings::UniString const & query)
+bool LooksLikeHouseNumber(strings::UniString const & query, bool queryIsPrefix)
 {
-  vector<strings::UniString> tokens;
-  NormalizeHouseNumber(query, tokens);
-  return !tokens.empty() && feature::IsHouseNumber(tokens.front());
+  vector<Parse> parses;
+  ParseQuery(query, queryIsPrefix, parses);
+  for (auto const & parse : parses)
+  {
+    if (parse.IsEmpty())
+      continue;
+    if (feature::IsHouseNumber(parse.m_parts.front()))
+      return true;
+  }
+  return false;
 }
 
 bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, TParentGraph const & parent,
@@ -123,8 +131,8 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
     parent.m_hasDelayedFeatures = false;
 
     FeaturesLayer child(*layers[i - 1]);
-    child.m_hasDelayedFeatures =
-        child.m_type == SearchModel::SEARCH_TYPE_BUILDING && LooksLikeHouseNumber(child.m_subQuery);
+    child.m_hasDelayedFeatures = child.m_type == SearchModel::SEARCH_TYPE_BUILDING &&
+                                 LooksLikeHouseNumber(child.m_subQuery, child.m_lastTokenIsPrefix);
 
     buffer.clear();
     matcher.Match(child, parent, addEdge);
@@ -170,8 +178,9 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
     child.m_hasDelayedFeatures = false;
 
     FeaturesLayer parent(*layers[i + 1]);
-    parent.m_hasDelayedFeatures = parent.m_type == SearchModel::SEARCH_TYPE_BUILDING &&
-                                  LooksLikeHouseNumber(parent.m_subQuery);
+    parent.m_hasDelayedFeatures =
+        parent.m_type == SearchModel::SEARCH_TYPE_BUILDING &&
+        LooksLikeHouseNumber(parent.m_subQuery, parent.m_lastTokenIsPrefix);
 
     buffer.clear();
     matcher.Match(child, parent, addEdge);

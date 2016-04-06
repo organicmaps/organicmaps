@@ -18,6 +18,7 @@ void FeaturesLayer::Clear()
   m_endToken = 0;
   m_type = SearchModel::SEARCH_TYPE_COUNT;
   m_hasDelayedFeatures = false;
+  m_lastTokenIsPrefix = false;
 }
 
 string DebugPrint(FeaturesLayer const & layer)
@@ -26,7 +27,8 @@ string DebugPrint(FeaturesLayer const & layer)
   os << "FeaturesLayer [ size of m_sortedFeatures: "
      << (layer.m_sortedFeatures ? layer.m_sortedFeatures->size() : 0)
      << ", m_subQuery: " << DebugPrint(layer.m_subQuery) << ", m_startToken: " << layer.m_startToken
-     << ", m_endToken: " << layer.m_endToken << ", m_type: " << DebugPrint(layer.m_type) << " ]";
+     << ", m_endToken: " << layer.m_endToken << ", m_type: " << DebugPrint(layer.m_type)
+     << ", m_lastTokenIsPrefix: " << layer.m_lastTokenIsPrefix << " ]";
   return os.str();
 }
 }  // namespace v2
