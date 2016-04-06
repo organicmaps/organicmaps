@@ -16,7 +16,6 @@ HEADERS += \
     feature_offset_match.hpp \
     geometry_utils.hpp \
     house_detector.hpp \
-    indexed_value.hpp \
     intermediate_result.hpp \
     interval_set.hpp \
     keyword_lang_matcher.hpp \
