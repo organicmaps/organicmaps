@@ -21,7 +21,7 @@
   {
   case MWMPlacePageCellTypeAddBusinessButton:
     [self.titleButton setTitleColor:[UIColor linkBlue] forState:UIControlStateNormal];
-    [self.titleButton setTitle:L(@"add_business_button") forState:UIControlStateNormal];
+    [self.titleButton setTitle:L(@"placepage_add_business_button") forState:UIControlStateNormal];
     break;
   case MWMPlacePageCellTypeReportButton:
     [self.titleButton setTitleColor:[UIColor red] forState:UIControlStateNormal];
