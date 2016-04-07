@@ -1229,7 +1229,7 @@
 "street" = "Đường";
 
 /* Editable House Number text field (in address block). */
-"house" = "Tòa nhà";
+"house_number" = "Số nhà";
 
 "details" = "Chi tiết";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "Tải xuống qua kết nối mạng di động?";
 
 "download_over_mobile_message" = "Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.";
+
+"add_business_button" = "Thêm tổ chức";
+
+"error_enter_correct_house_number" = "Nhập số nhà chính xác";

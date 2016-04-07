@@ -756,7 +756,7 @@
 	<string name="add_language">Добавить язык</string>
 	<string name="street">Улица</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Дом</string>
+	<string name="house_number">Номер дома</string>
 	<string name="details">Подробнее</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Добавить улицу</string>
@@ -829,4 +829,6 @@
 	<string name="downloader_of">%1$d из %2$d</string>
 	<string name="download_over_mobile_header">Загрузить через сотовую связь?</string>
 	<string name="download_over_mobile_message">На некоторых тарифных планах или в роуминге это может привести к значительным расходам.</string>
+	<string name="add_business_button">Добавить организацию</string>
+	<string name="error_enter_correct_house_number">Введите корректный номер дома</string>
 </resources>

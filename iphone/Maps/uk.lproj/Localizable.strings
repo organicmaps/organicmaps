@@ -1229,7 +1229,7 @@
 "street" = "Вулиця";
 
 /* Editable House Number text field (in address block). */
-"house" = "Будинок";
+"house_number" = "Номер будинку";
 
 "details" = "Детальніше";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "Завантажити за допомогою мобільної мережі?";
 
 "download_over_mobile_message" = "Це може бути задорого за деякими планами або за умовами роумінгу.";
+
+"add_business_button" = "Додати організацію";
+
+"error_enter_correct_house_number" = "Введіть правильний номер будинку";

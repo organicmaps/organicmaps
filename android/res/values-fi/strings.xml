@@ -723,7 +723,7 @@
 	<string name="add_language">Lisää kieli</string>
 	<string name="street">Katu</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Rakennus</string>
+	<string name="house_number">Talon numero</string>
 	<string name="details">Lisätiedot</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Lisää katu</string>
@@ -795,4 +795,6 @@
 	<string name="downloader_of">%1$d/%2$d</string>
 	<string name="download_over_mobile_header">Lataa käyttämällä puhelinverkkoyhteyttä?</string>
 	<string name="download_over_mobile_message">Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.</string>
+	<string name="add_business_button">Lisää organisaatio</string>
+	<string name="error_enter_correct_house_number">Syötä oikea talon numero</string>
 </resources>

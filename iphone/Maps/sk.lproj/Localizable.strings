@@ -1229,7 +1229,7 @@
 "street" = "Ulica";
 
 /* Editable House Number text field (in address block). */
-"house" = "Budova";
+"house_number" = "Číslo domu";
 
 "details" = "Podrobnosti";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "Sťahovať prostredníctvom pripojenia na mobilnú sieť?";
 
 "download_over_mobile_message" = "V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.";
+
+"add_business_button" = "Pridať organizáciu";
+
+"error_enter_correct_house_number" = "Zadajte správne číslo domu";

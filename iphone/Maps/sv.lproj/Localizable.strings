@@ -1229,7 +1229,7 @@
 "street" = "Gata";
 
 /* Editable House Number text field (in address block). */
-"house" = "Byggnad";
+"house_number" = "Husnummer";
 
 "details" = "Detaljer";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "Ladda ned med mobildata?";
 
 "download_over_mobile_message" = "Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.";
+
+"add_business_button" = "Lägg till organisation";
+
+"error_enter_correct_house_number" = "Ange korrekt husnummer";

@@ -1229,7 +1229,7 @@
 "street" = "Jalan";
 
 /* Editable House Number text field (in address block). */
-"house" = "Bangunan";
+"house_number" = "Nomor rumah";
 
 "details" = "Detail";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "Unduh dengan menggunakan koneksi jaringan seluler?";
 
 "download_over_mobile_message" = "Ini bisa menjadi jauh mahal pada beberapa paket atau jika roaming.";
+
+"add_business_button" = "Tambahkan organisasi";
+
+"error_enter_correct_house_number" = "Masukkan nomor rumah yang benar";

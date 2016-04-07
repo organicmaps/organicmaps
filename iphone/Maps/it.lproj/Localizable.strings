@@ -1229,7 +1229,7 @@
 "street" = "Via";
 
 /* Editable House Number text field (in address block). */
-"house" = "Edificio";
+"house_number" = "Numero civico";
 
 "details" = "Dettagli";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "Vuoi scaricare utilizzando una connessione di rete cellulare?";
 
 "download_over_mobile_message" = "Quest'operazione potrebbe essere piuttosto costosa con alcuni piani o in roaming.";
+
+"add_business_button" = "Aggiungi organizzazione";
+
+"error_enter_correct_house_number" = "Inserisci numero civico corretto";

@@ -1229,7 +1229,7 @@
 "street" = "Calle";
 
 /* Editable House Number text field (in address block). */
-"house" = "Edificio";
+"house_number" = "Un número de domicilio";
 
 "details" = "Detalles";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "¿Descargar con conexión de red móvil?";
 
 "download_over_mobile_message" = "Podría ser muy caro con ciertos planes o con itinerancia de datos.";
+
+"add_business_button" = "Añadir organización";
+
+"error_enter_correct_house_number" = "Introducir el número de domicilio correcto";

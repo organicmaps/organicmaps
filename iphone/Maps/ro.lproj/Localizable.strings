@@ -1229,7 +1229,7 @@
 "street" = "Stradă";
 
 /* Editable House Number text field (in address block). */
-"house" = "Clădire";
+"house_number" = "Număr casă";
 
 "details" = "Detalii";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?";
 
 "download_over_mobile_message" = "Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.";
+
+"add_business_button" = "Adăugare organizație";
+
+"error_enter_correct_house_number" = "Introduceți numărul corect al casei";

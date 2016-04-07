@@ -1229,7 +1229,7 @@
 "street" = "거리";
 
 /* Editable House Number text field (in address block). */
-"house" = "건물";
+"house_number" = "집 번호";
 
 "details" = "세부 정보";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?";
 
 "download_over_mobile_message" = "이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.";
+
+"add_business_button" = "조직 추가";
+
+"error_enter_correct_house_number" = "올바른 집 번호 입력";

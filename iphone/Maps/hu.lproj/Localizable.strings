@@ -1229,7 +1229,7 @@
 "street" = "Utca";
 
 /* Editable House Number text field (in address block). */
-"house" = "Épület";
+"house_number" = "Házszám";
 
 "details" = "Részletek";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "Letöltés mobilhálózati kapcsolat segítségével?";
 
 "download_over_mobile_message" = "Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.";
+
+"add_business_button" = "Szervezet hozzáadása";
+
+"error_enter_correct_house_number" = "Helyes házszámot adjon meg";

@@ -726,7 +726,7 @@
 	<string name="add_language">Pridať jazyk</string>
 	<string name="street">Ulica</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Budova</string>
+	<string name="house_number">Číslo domu</string>
 	<string name="details">Podrobnosti</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Pridať ulicu</string>
@@ -798,4 +798,6 @@
 	<string name="downloader_of">%1$d z %2$d</string>
 	<string name="download_over_mobile_header">Sťahovať prostredníctvom pripojenia na mobilnú sieť?</string>
 	<string name="download_over_mobile_message">V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.</string>
+	<string name="add_business_button">Pridať organizáciu</string>
+	<string name="error_enter_correct_house_number">Zadajte správne číslo domu</string>
 </resources>

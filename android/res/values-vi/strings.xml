@@ -723,7 +723,7 @@
 	<string name="add_language">Thêm ngôn ngữ</string>
 	<string name="street">Đường</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Tòa nhà</string>
+	<string name="house_number">Số nhà</string>
 	<string name="details">Chi tiết</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Thêm con đường</string>
@@ -795,4 +795,6 @@
 	<string name="downloader_of">%1$d trên %2$d</string>
 	<string name="download_over_mobile_header">Tải xuống qua kết nối mạng di động?</string>
 	<string name="download_over_mobile_message">Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.</string>
+	<string name="add_business_button">Thêm tổ chức</string>
+	<string name="error_enter_correct_house_number">Nhập số nhà chính xác</string>
 </resources>

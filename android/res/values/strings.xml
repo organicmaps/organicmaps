@@ -760,7 +760,7 @@
 	<string name="add_language">Add a language</string>
 	<string name="street">Street</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">House</string>
+	<string name="house_number">House number</string>
 	<string name="details">Details</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Add a street</string>
@@ -833,4 +833,6 @@
 	<string name="downloader_of">%1$d of %2$d</string>
 	<string name="download_over_mobile_header">Download by using a cellular network connection?</string>
 	<string name="download_over_mobile_message">This could be considerably expensive with some plans or if roaming.</string>
+	<string name="add_business_button">Add organization</string>
+	<string name="error_enter_correct_house_number">Enter correct house number</string>
 </resources>

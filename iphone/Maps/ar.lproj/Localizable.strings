@@ -1229,7 +1229,7 @@
 "street" = "الشارع";
 
 /* Editable House Number text field (in address block). */
-"house" = "المبني";
+"house_number" = "رقم المنزل";
 
 "details" = "التفاصيل";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "تنزيل باستخدام اتصال الشبكة الخلوية؟";
 
 "download_over_mobile_message" = "قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.";
+
+"add_business_button" = "إضافة مؤسسة";
+
+"error_enter_correct_house_number" = "أدخل رقم منزل صحيح";

@@ -709,7 +709,7 @@
 	<string name="add_language">添加語言</string>
 	<string name="street">街道</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">樓房</string>
+	<string name="house_number">門牌號碼</string>
 	<string name="details">詳細資訊</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">添加街道</string>
@@ -781,4 +781,6 @@
 	<string name="downloader_of">%1$d個/共%2$d個</string>
 	<string name="download_over_mobile_header">用手機網絡連接下載嗎？</string>
 	<string name="download_over_mobile_message">用一些方案或漫遊的話這可能相當昂貴。</string>
+	<string name="add_business_button">添加組織</string>
+	<string name="error_enter_correct_house_number">輸入正確的房屋號</string>
 </resources>

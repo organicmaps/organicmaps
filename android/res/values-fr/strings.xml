@@ -734,7 +734,7 @@
 	<string name="add_language">Ajouter une langue</string>
 	<string name="street">Rue</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Immeuble</string>
+	<string name="house_number">Numéro de la maison</string>
 	<string name="details">Détails</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Ajouter une rue</string>
@@ -806,4 +806,6 @@
 	<string name="downloader_of">%1$d de %2$d</string>
 	<string name="download_over_mobile_header">Téléchargement avec une connexion réseau cellulaire ?</string>
 	<string name="download_over_mobile_message">Cela pourrait être très cher avec certains abonnements ou si vous êtes en déplacement.</string>
+	<string name="add_business_button">Ajouter une organisation</string>
+	<string name="error_enter_correct_house_number">Saisir un numéro de maison correct</string>
 </resources>

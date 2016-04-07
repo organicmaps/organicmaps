@@ -1229,7 +1229,7 @@
 "street" = "Rua";
 
 /* Editable House Number text field (in address block). */
-"house" = "Edifício";
+"house_number" = "N.º de porta";
 
 "details" = "Detalhes";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "Baixar usando uma conexão de rede celular?";
 
 "download_over_mobile_message" = "Isto pode ser significativamente caro, com alguns planos ou se roaming.";
+
+"add_business_button" = "Adicionar uma organização";
+
+"error_enter_correct_house_number" = "Introduzir um número de casa correto";

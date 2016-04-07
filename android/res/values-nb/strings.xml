@@ -723,7 +723,7 @@
 	<string name="add_language">Legg til et språk</string>
 	<string name="street">Gate</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Bygning</string>
+	<string name="house_number">Et husnummer</string>
 	<string name="details">Detaljer</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Legg til en gate</string>
@@ -793,4 +793,6 @@
 	<string name="editor_unsupported_category_message">Du har lagt til et sted i en kategori som enda ikke har støtte. Den vil vises på kartet senere.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d av %2$d</string>
+	<string name="add_business_button">Legg til organisasjon</string>
+	<string name="error_enter_correct_house_number">Skriv riktig husnummer</string>
 </resources>

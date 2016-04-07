@@ -722,7 +722,7 @@
 	<string name="add_language">Tambahkan bahasa</string>
 	<string name="street">Jalan</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Bangunan</string>
+	<string name="house_number">Nomor rumah</string>
 	<string name="details">Detail</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Tambahkan jalan</string>
@@ -794,4 +794,6 @@
 	<string name="downloader_of">%1$d dari %2$d</string>
 	<string name="download_over_mobile_header">Unduh dengan menggunakan koneksi jaringan seluler?</string>
 	<string name="download_over_mobile_message">Ini bisa menjadi jauh mahal pada beberapa paket atau jika roaming.</string>
+	<string name="add_business_button">Tambahkan organisasi</string>
+	<string name="error_enter_correct_house_number">Masukkan nomor rumah yang benar</string>
 </resources>

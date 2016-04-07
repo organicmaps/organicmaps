@@ -1229,7 +1229,7 @@
 "street" = "街道";
 
 /* Editable House Number text field (in address block). */
-"house" = "楼房";
+"house_number" = "门牌号码";
 
 "details" = "细节";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "用手机网络连接下载吗？";
 
 "download_over_mobile_message" = "用一些方案或漫游的话这可能相当昂贵。";
+
+"add_business_button" = "添加组织";
+
+"error_enter_correct_house_number" = "输入正确的房屋号";

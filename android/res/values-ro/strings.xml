@@ -720,7 +720,7 @@
 	<string name="add_language">Adăugare limbă</string>
 	<string name="street">Stradă</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Clădire</string>
+	<string name="house_number">Număr casă</string>
 	<string name="details">Detalii</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Adăugare stradă</string>
@@ -792,4 +792,6 @@
 	<string name="downloader_of">%1$d din %2$d</string>
 	<string name="download_over_mobile_header">Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?</string>
 	<string name="download_over_mobile_message">Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.</string>
+	<string name="add_business_button">Adăugare organizație</string>
+	<string name="error_enter_correct_house_number">Introduceți numărul corect al casei</string>
 </resources>

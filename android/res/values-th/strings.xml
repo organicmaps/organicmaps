@@ -727,7 +727,7 @@
 	<string name="add_language">เพิ่มภาษา</string>
 	<string name="street">ถนน</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">อาคาร</string>
+	<string name="house_number">บ้านเลขที่</string>
 	<string name="details">รายละเอียด</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">เพิ่มถนน</string>
@@ -799,4 +799,6 @@
 	<string name="downloader_of">%1$d จาก %2$d</string>
 	<string name="download_over_mobile_header">ดาวน์โหลดโดยใช้การเชื่อมต่อเครือข่ายมือถือ?</string>
 	<string name="download_over_mobile_message">มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง</string>
+	<string name="add_business_button">เพิ่มองค์กร</string>
+	<string name="error_enter_correct_house_number">กรอกบ้านเลขที่ให้ถูกต้อง</string>
 </resources>

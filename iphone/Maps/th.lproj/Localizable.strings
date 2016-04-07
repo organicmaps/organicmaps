@@ -1229,7 +1229,7 @@
 "street" = "ถนน";
 
 /* Editable House Number text field (in address block). */
-"house" = "อาคาร";
+"house_number" = "บ้านเลขที่";
 
 "details" = "รายละเอียด";
 
@@ -1371,3 +1371,7 @@
 "download_over_mobile_header" = "ดาวน์โหลดโดยใช้การเชื่อมต่อเครือข่ายมือถือ?";
 
 "download_over_mobile_message" = "มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง";
+
+"add_business_button" = "เพิ่มองค์กร";
+
+"error_enter_correct_house_number" = "กรอกบ้านเลขที่ให้ถูกต้อง";

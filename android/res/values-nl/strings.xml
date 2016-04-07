@@ -713,7 +713,7 @@
 	<string name="add_language">Een taal toevoegen</string>
 	<string name="street">Straat</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Gebouw</string>
+	<string name="house_number">Huisnummer</string>
 	<string name="details">Details</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Een straat toevoegen</string>
@@ -785,4 +785,6 @@
 	<string name="downloader_of">%1$d van %2$d</string>
 	<string name="download_over_mobile_header">Downloaden via een mobiele gegevensverbinding?</string>
 	<string name="download_over_mobile_message">Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.</string>
+	<string name="add_business_button">Een organisatie toevoegen</string>
+	<string name="error_enter_correct_house_number">Een juist huisnummer invoeren</string>
 </resources>

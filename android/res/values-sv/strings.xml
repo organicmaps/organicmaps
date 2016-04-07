@@ -727,7 +727,7 @@
 	<string name="add_language">Lägg till ett språk</string>
 	<string name="street">Gata</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Byggnad</string>
+	<string name="house_number">Husnummer</string>
 	<string name="details">Detaljer</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Lägg till en gata</string>
@@ -799,4 +799,6 @@
 	<string name="downloader_of">%1$d av %2$d</string>
 	<string name="download_over_mobile_header">Ladda ned med mobildata?</string>
 	<string name="download_over_mobile_message">Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.</string>
+	<string name="add_business_button">Lägg till organisation</string>
+	<string name="error_enter_correct_house_number">Ange korrekt husnummer</string>
 </resources>
