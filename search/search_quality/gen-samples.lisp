@@ -1,5 +1,5 @@
 #|
-exec /usr/local/bin/sbcl --noinform --quit --load $0 --end-toplevel-options "$@"
+exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
 |#
 
 ;;; Silently loads :cl-json.

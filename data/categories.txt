@@ -237,7 +237,7 @@ sw:Hoteli|restorenti|mgahawa|chakula
 
 amenity-fuel
 en:Gas Station|3fuel|2gas|U+26FD
-ru:3Заправка|бензин|топливо
+ru:3Заправка|бензин|топливо|азс
 uk:3Заправка|бензин|газ
 de:3Tankstelle|Tankstation
 fr:Station-service|3carburant|2essence
