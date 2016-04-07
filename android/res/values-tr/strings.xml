@@ -773,6 +773,7 @@
 	<string name="editor_report_problem_other_title">Farklı bir problem</string>
 	<string name="placepage_add_place_button">Bir yer ekle</string>
 	<string name="placepage_report_problem_button">Bir problem bildirin</string>
+	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="whatsnew_smallmwm_header">Siz istediniz biz yaptık</string>
 	<string name="whatsnew_smallmwm_message">Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz.</string>
 	<string name="whatsnew_search_header">Yeni arama</string>
@@ -801,6 +802,5 @@
 	<string name="downloader_of">%1$d/%2$d</string>
 	<string name="download_over_mobile_header">Hücresel bir ağ bağlantısı kullanarak indir?</string>
 	<string name="download_over_mobile_message">Bu işlem bazı planlarla ya da dolaşım ise büyük ölçüde pahalı olabilir.</string>
-	<string name="add_business_button">Kuruluş ekle</string>
 	<string name="error_enter_correct_house_number">Doğru ev numarası girin</string>
 </resources>

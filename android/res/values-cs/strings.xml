@@ -774,6 +774,7 @@
 	<string name="editor_report_problem_other_title">Jiný problém</string>
 	<string name="placepage_add_place_button">Přidat místo</string>
 	<string name="placepage_report_problem_button">Nahlásit problém</string>
+	<string name="placepage_add_business_button">Přidat organizaci</string>
 	<string name="whatsnew_smallmwm_header">Říkali jste si o to, a my to udělali</string>
 	<string name="whatsnew_smallmwm_message">Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země.</string>
 	<string name="whatsnew_search_header">Nové hledání</string>
@@ -802,6 +803,5 @@
 	<string name="downloader_of">%1$d z %2$d</string>
 	<string name="download_over_mobile_header">Stáhnout pomocí připojení přes mobilní síť?</string>
 	<string name="download_over_mobile_message">Toto by mohli být s některými tarify nebo roamingem výrazně dražší.</string>
-	<string name="add_business_button">Přidat organizaci</string>
 	<string name="error_enter_correct_house_number">Zadejte správné číslo domu</string>
 </resources>

@@ -1315,7 +1315,7 @@
 
 "placepage_report_problem_button" = "報告一個問題";
 
-"placepage_add_business_button" = "Add business";
+"placepage_add_business_button" = "添加組織";
 
 "whatsnew_smallmwm_header" = "您一直在尋求，而我們已經完成";
 
@@ -1371,7 +1371,5 @@
 "download_over_mobile_header" = "用手機網絡連接下載嗎？";
 
 "download_over_mobile_message" = "用一些方案或漫遊的話這可能相當昂貴。";
-
-"add_business_button" = "添加組織";
 
 "error_enter_correct_house_number" = "輸入正確的房屋號";

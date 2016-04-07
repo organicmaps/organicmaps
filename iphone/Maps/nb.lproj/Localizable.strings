@@ -1315,7 +1315,7 @@
 
 "placepage_report_problem_button" = "Rapporter et problem";
 
-"placepage_add_business_button" = "Add business";
+"placepage_add_business_button" = "Legg til organisasjon";
 
 "whatsnew_smallmwm_header" = "Dere har bedt om det og vi har fått det til";
 
@@ -1371,7 +1371,5 @@
 "download_over_mobile_header" = "Download by using a cellular network connection?";
 
 "download_over_mobile_message" = "This could be considerably expensive with some plans or if roaming.";
-
-"add_business_button" = "Legg til organisasjon";
 
 "error_enter_correct_house_number" = "Skriv riktig husnummer";

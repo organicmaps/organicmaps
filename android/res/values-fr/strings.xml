@@ -778,6 +778,7 @@
 	<string name="editor_report_problem_other_title">Un problème différent</string>
 	<string name="placepage_add_place_button">Ajouter une position</string>
 	<string name="placepage_report_problem_button">Signaler un problème</string>
+	<string name="placepage_add_business_button">Ajouter une organisation</string>
 	<string name="whatsnew_smallmwm_header">Vous avez été nombreux à nous le demander et nous avons satisfait votre requête</string>
 	<string name="whatsnew_smallmwm_message">Nous avons divisé la carte en plusieurs parties. Désormais, vous pouvez télécharger des régions bien précises, et non plus le pays tout entier.</string>
 	<string name="whatsnew_search_header">Recherche améliorée</string>
@@ -806,6 +807,5 @@
 	<string name="downloader_of">%1$d de %2$d</string>
 	<string name="download_over_mobile_header">Téléchargement avec une connexion réseau cellulaire ?</string>
 	<string name="download_over_mobile_message">Cela pourrait être très cher avec certains abonnements ou si vous êtes en déplacement.</string>
-	<string name="add_business_button">Ajouter une organisation</string>
 	<string name="error_enter_correct_house_number">Saisir un numéro de maison correct</string>
 </resources>

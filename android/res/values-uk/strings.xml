@@ -770,6 +770,7 @@
 	<string name="editor_report_problem_other_title">Інші проблема</string>
 	<string name="placepage_add_place_button">Додати місце</string>
 	<string name="placepage_report_problem_button">Повідомити про проблему</string>
+	<string name="placepage_add_business_button">Додати організацію</string>
 	<string name="whatsnew_smallmwm_header">Ви просили і ми це зробили</string>
 	<string name="whatsnew_smallmwm_message">Ми поділили карти на частини. Тепер ви можете стягувати окремі регіони, а не країну цілком.</string>
 	<string name="whatsnew_search_header">Новий пошук</string>
@@ -798,6 +799,5 @@
 	<string name="downloader_of">%1$d з %2$d</string>
 	<string name="download_over_mobile_header">Завантажити за допомогою мобільної мережі?</string>
 	<string name="download_over_mobile_message">Це може бути задорого за деякими планами або за умовами роумінгу.</string>
-	<string name="add_business_button">Додати організацію</string>
 	<string name="error_enter_correct_house_number">Введіть правильний номер будинку</string>
 </resources>

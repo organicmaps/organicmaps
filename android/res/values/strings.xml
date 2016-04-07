@@ -804,7 +804,7 @@
 	<string name="editor_report_problem_other_title">A different problem</string>
 	<string name="placepage_add_place_button">Add a place</string>
 	<string name="placepage_report_problem_button">Report a problem</string>
-	<string name="placepage_add_business_button">Add business</string>
+	<string name="placepage_add_business_button">Add organization</string>
 	<string name="whatsnew_smallmwm_header">You\&#39;ve been asking for it and we\&#39;ve done it</string>
 	<string name="whatsnew_smallmwm_message">We have split maps into parts. Now you can download separate regions, not whole countries.</string>
 	<string name="whatsnew_search_header">New search</string>
@@ -833,6 +833,5 @@
 	<string name="downloader_of">%1$d of %2$d</string>
 	<string name="download_over_mobile_header">Download by using a cellular network connection?</string>
 	<string name="download_over_mobile_message">This could be considerably expensive with some plans or if roaming.</string>
-	<string name="add_business_button">Add organization</string>
 	<string name="error_enter_correct_house_number">Enter correct house number</string>
 </resources>

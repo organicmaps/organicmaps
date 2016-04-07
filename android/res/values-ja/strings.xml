@@ -766,6 +766,7 @@
 	<string name="editor_report_problem_other_title">異なる問題</string>
 	<string name="placepage_add_place_button">場所を追加</string>
 	<string name="placepage_report_problem_button">問題を報告</string>
+	<string name="placepage_add_business_button">団体を追加</string>
 	<string name="whatsnew_smallmwm_header">皆様のご要望にお応えして、実現を果たしました</string>
 	<string name="whatsnew_smallmwm_message">マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。</string>
 	<string name="whatsnew_search_header">新しい検索機能</string>
@@ -794,6 +795,5 @@
 	<string name="downloader_of">%2$d中%1$d</string>
 	<string name="download_over_mobile_header">携帯通信ネットワークで接続してダウンロードしますか？</string>
 	<string name="download_over_mobile_message">プランによって、またはローミングしている場合、非常に高額になる可能性があります。</string>
-	<string name="add_business_button">団体を追加</string>
 	<string name="error_enter_correct_house_number">正しい番地を入力してください</string>
 </resources>

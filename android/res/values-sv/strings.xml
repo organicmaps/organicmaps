@@ -771,6 +771,7 @@
 	<string name="editor_report_problem_other_title">Ett annat problem</string>
 	<string name="placepage_add_place_button">Lägg till en plats</string>
 	<string name="placepage_report_problem_button">Rapportera ett problem</string>
+	<string name="placepage_add_business_button">Lägg till organisation</string>
 	<string name="whatsnew_smallmwm_header">Du har bett om det och vi har gjort det</string>
 	<string name="whatsnew_smallmwm_message">Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet.</string>
 	<string name="whatsnew_search_header">Ny sökning</string>
@@ -799,6 +800,5 @@
 	<string name="downloader_of">%1$d av %2$d</string>
 	<string name="download_over_mobile_header">Ladda ned med mobildata?</string>
 	<string name="download_over_mobile_message">Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.</string>
-	<string name="add_business_button">Lägg till organisation</string>
 	<string name="error_enter_correct_house_number">Ange korrekt husnummer</string>
 </resources>

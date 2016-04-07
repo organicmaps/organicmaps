@@ -1315,7 +1315,7 @@
 
 "placepage_report_problem_button" = "문제 신고";
 
-"placepage_add_business_button" = "Add business";
+"placepage_add_business_button" = "조직 추가";
 
 "whatsnew_smallmwm_header" = "여러분이 요청한 것을 저희가 해냈습니다";
 
@@ -1371,7 +1371,5 @@
 "download_over_mobile_header" = "셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?";
 
 "download_over_mobile_message" = "이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.";
-
-"add_business_button" = "조직 추가";
 
 "error_enter_correct_house_number" = "올바른 집 번호 입력";

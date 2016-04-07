@@ -1315,7 +1315,7 @@
 
 "placepage_report_problem_button" = "Comunicar um problema";
 
-"placepage_add_business_button" = "Add business";
+"placepage_add_business_button" = "Adicionar uma organização";
 
 "whatsnew_smallmwm_header" = "Vocês têm pedido por isso e nós atendemos";
 
@@ -1371,7 +1371,5 @@
 "download_over_mobile_header" = "Baixar usando uma conexão de rede celular?";
 
 "download_over_mobile_message" = "Isto pode ser significativamente caro, com alguns planos ou se roaming.";
-
-"add_business_button" = "Adicionar uma organização";
 
 "error_enter_correct_house_number" = "Introduzir um número de casa correto";

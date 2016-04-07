@@ -1315,7 +1315,7 @@
 
 "placepage_report_problem_button" = "الإبلاغ عن مشكلة";
 
-"placepage_add_business_button" = "Add business";
+"placepage_add_business_button" = "إضافة مؤسسة";
 
 "whatsnew_smallmwm_header" = "لقد طلبتم ذلك، وها نحن قد لبينا طلبكم";
 
@@ -1371,7 +1371,5 @@
 "download_over_mobile_header" = "تنزيل باستخدام اتصال الشبكة الخلوية؟";
 
 "download_over_mobile_message" = "قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.";
-
-"add_business_button" = "إضافة مؤسسة";
 
 "error_enter_correct_house_number" = "أدخل رقم منزل صحيح";

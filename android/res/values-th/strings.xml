@@ -771,6 +771,7 @@
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_add_place_button">เพิ่มสถานที่</string>
 	<string name="placepage_report_problem_button">แจ้งปัญหา</string>
+	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
 	<string name="whatsnew_smallmwm_header">คุณได้ขอมา เราจึงทำมัน</string>
 	<string name="whatsnew_smallmwm_message">เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว</string>
 	<string name="whatsnew_search_header">การค้นหาใหม่</string>
@@ -799,6 +800,5 @@
 	<string name="downloader_of">%1$d จาก %2$d</string>
 	<string name="download_over_mobile_header">ดาวน์โหลดโดยใช้การเชื่อมต่อเครือข่ายมือถือ?</string>
 	<string name="download_over_mobile_message">มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง</string>
-	<string name="add_business_button">เพิ่มองค์กร</string>
 	<string name="error_enter_correct_house_number">กรอกบ้านเลขที่ให้ถูกต้อง</string>
 </resources>

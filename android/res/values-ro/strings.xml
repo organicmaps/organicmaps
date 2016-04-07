@@ -764,6 +764,7 @@
 	<string name="editor_report_problem_other_title">O problemă diferită</string>
 	<string name="placepage_add_place_button">Adăugați o locație</string>
 	<string name="placepage_report_problem_button">Raportați o problemă</string>
+	<string name="placepage_add_business_button">Adăugare organizație</string>
 	<string name="whatsnew_smallmwm_header">Ne-ați cerut, iar noi am făcut</string>
 	<string name="whatsnew_smallmwm_message">Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.</string>
 	<string name="whatsnew_search_header">Căutare nouă</string>
@@ -792,6 +793,5 @@
 	<string name="downloader_of">%1$d din %2$d</string>
 	<string name="download_over_mobile_header">Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?</string>
 	<string name="download_over_mobile_message">Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.</string>
-	<string name="add_business_button">Adăugare organizație</string>
 	<string name="error_enter_correct_house_number">Introduceți numărul corect al casei</string>
 </resources>

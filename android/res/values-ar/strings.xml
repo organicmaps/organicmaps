@@ -773,6 +773,7 @@
 	<string name="editor_report_problem_other_title">مشكلة مختلفة</string>
 	<string name="placepage_add_place_button">إضافة مكان</string>
 	<string name="placepage_report_problem_button">الإبلاغ عن مشكلة</string>
+	<string name="placepage_add_business_button">إضافة مؤسسة</string>
 	<string name="whatsnew_smallmwm_header">لقد طلبتم ذلك، وها نحن قد لبينا طلبكم</string>
 	<string name="whatsnew_smallmwm_message">لقد قسمنا الخرائط إلى أجزاء. الآن يمكنك تنزيل مناطق منفصلة، وليس البلد بأكمله.</string>
 	<string name="whatsnew_search_header">بحث جديد</string>
@@ -801,6 +802,5 @@
 	<string name="downloader_of">%1$d من%2$d</string>
 	<string name="download_over_mobile_header">تنزيل باستخدام اتصال الشبكة الخلوية؟</string>
 	<string name="download_over_mobile_message">قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.</string>
-	<string name="add_business_button">إضافة مؤسسة</string>
 	<string name="error_enter_correct_house_number">أدخل رقم منزل صحيح</string>
 </resources>

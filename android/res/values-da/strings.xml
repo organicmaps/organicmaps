@@ -769,6 +769,7 @@
 	<string name="editor_report_problem_other_title">Et anderledes problem</string>
 	<string name="placepage_add_place_button">Tilføj et sted</string>
 	<string name="placepage_report_problem_button">Anmeld et problem</string>
+	<string name="placepage_add_business_button">Tilføj organisationen</string>
 	<string name="whatsnew_smallmwm_header">I har bedt om det, og vi har gjort det</string>
 	<string name="whatsnew_smallmwm_message">Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet.</string>
 	<string name="whatsnew_search_header">Ny søgning</string>
@@ -795,6 +796,5 @@
 	<string name="editor_unsupported_category_message">Du har tilføjet en placering i en kategori som vi ikke understøtter på nuværende tidspunkt. Den vil vises på kortet på et senere tidspunkt.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d af %2$d</string>
-	<string name="add_business_button">Tilføj organisationen</string>
 	<string name="error_enter_correct_house_number">Skriv det rigtige husnummer</string>
 </resources>

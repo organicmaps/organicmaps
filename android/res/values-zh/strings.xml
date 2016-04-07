@@ -773,6 +773,7 @@
 	<string name="editor_report_problem_other_title">一个不同的问题</string>
 	<string name="placepage_add_place_button">添加一个地点</string>
 	<string name="placepage_report_problem_button">报告一个问题</string>
+	<string name="placepage_add_business_button">添加组织</string>
 	<string name="whatsnew_smallmwm_header">我们满足了您一直以来的要求</string>
 	<string name="whatsnew_smallmwm_message">我们将地图分成了几部分。现在，您可以下载独立的区域，而不是整个国家。</string>
 	<string name="whatsnew_search_header">新搜索</string>
@@ -801,6 +802,5 @@
 	<string name="downloader_of">%1$d个/共%2$d个</string>
 	<string name="download_over_mobile_header">用手机网络连接下载吗？</string>
 	<string name="download_over_mobile_message">用一些方案或漫游的话这可能相当昂贵。</string>
-	<string name="add_business_button">添加组织</string>
 	<string name="error_enter_correct_house_number">输入正确的房屋号</string>
 </resources>

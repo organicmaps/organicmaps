@@ -767,6 +767,7 @@
 	<string name="editor_report_problem_other_title">Eri ongelma</string>
 	<string name="placepage_add_place_button">Lisää paikka</string>
 	<string name="placepage_report_problem_button">Ilmoita ongelmasta</string>
+	<string name="placepage_add_business_button">Lisää organisaatio</string>
 	<string name="whatsnew_smallmwm_header">Sitä on pyydetty, ja nyt se on tarjolla</string>
 	<string name="whatsnew_smallmwm_message">Olemme jakaneet kartat osiin, joten voitkin nyt ladata pelkkiä alueita lataamatta koko maan karttaa.</string>
 	<string name="whatsnew_search_header">Uusittu haku</string>
@@ -795,6 +796,5 @@
 	<string name="downloader_of">%1$d/%2$d</string>
 	<string name="download_over_mobile_header">Lataa käyttämällä puhelinverkkoyhteyttä?</string>
 	<string name="download_over_mobile_message">Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.</string>
-	<string name="add_business_button">Lisää organisaatio</string>
 	<string name="error_enter_correct_house_number">Syötä oikea talon numero</string>
 </resources>

@@ -767,6 +767,7 @@
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_add_place_button">Nhập một địa điểm</string>
 	<string name="placepage_report_problem_button">Báo cáo vấn đề</string>
+	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="whatsnew_smallmwm_header">Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó</string>
 	<string name="whatsnew_smallmwm_message">Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia.</string>
 	<string name="whatsnew_search_header">Tìm kiếm mới</string>
@@ -795,6 +796,5 @@
 	<string name="downloader_of">%1$d trên %2$d</string>
 	<string name="download_over_mobile_header">Tải xuống qua kết nối mạng di động?</string>
 	<string name="download_over_mobile_message">Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.</string>
-	<string name="add_business_button">Thêm tổ chức</string>
 	<string name="error_enter_correct_house_number">Nhập số nhà chính xác</string>
 </resources>

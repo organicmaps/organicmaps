@@ -789,6 +789,7 @@
 	<string name="editor_report_problem_other_title">Ein anderes Problem</string>
 	<string name="placepage_add_place_button">Einen Ort hinzufügen</string>
 	<string name="placepage_report_problem_button">Problem melden</string>
+	<string name="placepage_add_business_button">Organisation hinzufügen</string>
 	<string name="whatsnew_smallmwm_header">Sie haben darum gebeten, und wir haben es geschafft</string>
 	<string name="whatsnew_smallmwm_message">Wir haben die Karten aufgeteilt. Jetzt können Sie einzelne Regionen herunterladen, ohne das ganze Land herunterzuladen.</string>
 	<string name="whatsnew_search_header">Neue Suche</string>
@@ -817,6 +818,5 @@
 	<string name="downloader_of">%1$d von %2$d</string>
 	<string name="download_over_mobile_header">Download mit einer mobilen Netzwerkverbindung?</string>
 	<string name="download_over_mobile_message">Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.</string>
-	<string name="add_business_button">Organisation hinzufügen</string>
 	<string name="error_enter_correct_house_number">Richtige Hausnummer eingeben</string>
 </resources>

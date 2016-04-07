@@ -762,6 +762,7 @@
 	<string name="editor_report_problem_other_title">Un problema diferente</string>
 	<string name="placepage_add_place_button">Añadir un lugar</string>
 	<string name="placepage_report_problem_button">Informar de un problema</string>
+	<string name="placepage_add_business_button">Añadir organización</string>
 	<string name="whatsnew_smallmwm_header">Llevas tiempo pidiéndolo y lo hemos hecho</string>
 	<string name="whatsnew_smallmwm_message">Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez de el país entero.</string>
 	<string name="whatsnew_search_header">Nueva búsqueda</string>
@@ -790,6 +791,5 @@
 	<string name="downloader_of">%1$d de %2$d</string>
 	<string name="download_over_mobile_header">¿Descargar con conexión de red móvil?</string>
 	<string name="download_over_mobile_message">Podría ser muy caro con ciertos planes o con itinerancia de datos.</string>
-	<string name="add_business_button">Añadir organización</string>
 	<string name="error_enter_correct_house_number">Introducir el número de domicilio correcto</string>
 </resources>

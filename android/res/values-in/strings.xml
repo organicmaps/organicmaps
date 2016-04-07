@@ -766,6 +766,7 @@
 	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
 	<string name="placepage_add_place_button">Tambahkan tempat</string>
 	<string name="placepage_report_problem_button">Laporkan masalah</string>
+	<string name="placepage_add_business_button">Tambahkan organisasi</string>
 	<string name="whatsnew_smallmwm_header">Anda memintanya dan kami telah malakukannya</string>
 	<string name="whatsnew_smallmwm_message">Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara.</string>
 	<string name="whatsnew_search_header">Penelusuran baru</string>
@@ -794,6 +795,5 @@
 	<string name="downloader_of">%1$d dari %2$d</string>
 	<string name="download_over_mobile_header">Unduh dengan menggunakan koneksi jaringan seluler?</string>
 	<string name="download_over_mobile_message">Ini bisa menjadi jauh mahal pada beberapa paket atau jika roaming.</string>
-	<string name="add_business_button">Tambahkan organisasi</string>
 	<string name="error_enter_correct_house_number">Masukkan nomor rumah yang benar</string>
 </resources>
