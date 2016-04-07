@@ -91,8 +91,6 @@ public final class MapManager
       AlertDialog dlg = sCurrentErrorDialog.get();
       if (dlg != null && dlg.isShowing())
         return;
-
-      sCurrentErrorDialog = null;
     }
 
     @StringRes int text;
@@ -107,7 +105,7 @@ public final class MapManager
       break;
 
     default:
-      throw new IllegalArgumentException("Give error can not be displayed: " + errorData.errorCode);
+      throw new IllegalArgumentException("Given error can not be displayed: " + errorData.errorCode);
     }
 
     AlertDialog dlg = new AlertDialog.Builder(activity)
