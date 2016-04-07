@@ -714,7 +714,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     int position = lm.findFirstVisibleItemPosition();
     int offset = lm.findViewByPosition(position).getTop();
 
+    boolean wasEmpty = mPath.isEmpty();
     mPath.push(new PathEntry(child.id, child.name, position, offset));
+
+    if (wasEmpty)
+      mFragment.clearSearchQuery();
+
     refreshData();
     lm.scrollToPosition(0);
 
