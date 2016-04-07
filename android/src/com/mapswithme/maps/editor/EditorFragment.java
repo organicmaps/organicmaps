@@ -15,6 +15,7 @@ import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.widget.CustomTextInputLayout;
+import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -75,8 +76,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
         if (!Editor.nativeIsHouseValid(text))
         {
-          // TODO set correct error text
-          mInputHouseNumber.setError("invalid house number");
+          mInputHouseNumber.setError(getString(R.string.error_enter_correct_house_number));
           return;
         }
 
@@ -117,7 +117,14 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private boolean validateFields()
   {
-    return Editor.nativeIsHouseValid(getHouseNumber());
+    if (!Editor.nativeIsHouseValid(getHouseNumber()))
+    {
+      mEtHouseNumber.requestFocus();
+      InputUtils.showKeyboard(mEtHouseNumber);
+      return false;
+    }
+
+    return true;
   }
 
   public String getName()

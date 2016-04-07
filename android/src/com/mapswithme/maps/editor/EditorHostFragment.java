@@ -157,13 +157,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private boolean setEdits()
   {
-    final boolean set = ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();
-
-    if (!set)
-      // TODO set correct text R.string.error_enter_correct_house_number
-      showMistakeDialog(R.string.editor_correct_mistake);
-
-    return set;
+    return ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();
   }
 
   @Override
