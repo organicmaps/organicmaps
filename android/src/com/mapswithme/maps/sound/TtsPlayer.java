@@ -16,6 +16,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.statistics.Statistics;
 
 /**
  * {@code TtsPlayer} class manages available TTS voice languages.
@@ -46,6 +47,13 @@ public enum TtsPlayer
   private boolean mUnavailable;
 
   TtsPlayer() {}
+
+  private static void reportFailure(IllegalArgumentException e, String location)
+  {
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.TTS_FAILURE_LOCATION,
+                                   Statistics.params().add(Statistics.EventParam.ERR_MSG, e.getMessage())
+                                                      .add(Statistics.EventParam.FROM, location));
+  }
 
   private static @Nullable LanguageData findSupportedLanguage(String internalCode, List<LanguageData> langs)
   {
@@ -83,6 +91,7 @@ public enum TtsPlayer
     }
     catch (IllegalArgumentException e)
     {
+      reportFailure(e, "setLanguageInternal(): " + lang.locale);
       lockDown();
       return false;
     }
@@ -164,6 +173,7 @@ public enum TtsPlayer
       }
       catch (IllegalArgumentException e)
       {
+        reportFailure(e, "speak()");
         lockDown();
       }
   }
@@ -187,6 +197,7 @@ public enum TtsPlayer
       }
       catch (IllegalArgumentException e)
       {
+        reportFailure(e, "stop()");
         lockDown();
       }
   }
@@ -213,10 +224,11 @@ public enum TtsPlayer
       try
       {
         outList.add(new LanguageData(codes[i], names[i], mTts));
-      } catch (LanguageData.NotAvailableException ignored)
-      {}
-      catch (IllegalArgumentException ignored)
+      }
+      catch (LanguageData.NotAvailableException ignored) {}
+      catch (IllegalArgumentException e)
       {
+        reportFailure(e, "getUsableLanguages()");
         lockDown();
         return false;
       }
