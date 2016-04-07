@@ -95,6 +95,8 @@ public:
   feature::Metadata const & GetMetadata() const;
 
   bool IsPointType() const;
+  /// @returns true if object is of building type.
+  bool IsBuilding() const;
 
 protected:
   FeatureID m_featureID;

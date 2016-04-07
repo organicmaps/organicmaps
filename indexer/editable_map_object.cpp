@@ -1,7 +1,6 @@
 #include "indexer/classificator.hpp"
 #include "indexer/cuisines.hpp"
 #include "indexer/editable_map_object.hpp"
-#include "indexer/ftypes_matcher.hpp"
 
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
@@ -12,11 +11,6 @@ namespace osm
 {
 bool EditableMapObject::IsNameEditable() const { return m_editableProperties.m_name; }
 bool EditableMapObject::IsAddressEditable() const { return m_editableProperties.m_address; }
-
-bool EditableMapObject::ShouldDisplayAddOrganisationButton() const
-{
-  return ftypes::IsBuildingChecker::Instance()(m_types);
-}
 
 vector<Props> EditableMapObject::GetEditableProperties() const
 {
