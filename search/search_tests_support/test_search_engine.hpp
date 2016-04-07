@@ -7,6 +7,7 @@
 #include "search/search_engine.hpp"
 
 #include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/weak_ptr.hpp"
 
 class Platform;
@@ -25,9 +26,6 @@ namespace tests_support
 class TestSearchEngine : public Index
 {
 public:
-  TestSearchEngine(Engine::Params const & params);
-  TestSearchEngine(unique_ptr<storage::CountryInfoGetter> infoGetter,
-                   Engine::Params const & params);
   TestSearchEngine(unique_ptr<storage::CountryInfoGetter> infoGetter,
                    unique_ptr<search::SearchQueryFactory> factory, Engine::Params const & params);
   TestSearchEngine(unique_ptr<::search::SearchQueryFactory> factory, Engine::Params const & params);
