@@ -398,10 +398,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showPositionChooser(boolean show)
   {
-    Statistics.INSTANCE.trackEditorLaunch(true);
+    if (show)
+      Statistics.INSTANCE.trackEditorLaunch(true);
     UiUtils.showIf(show, mPositionChooser);
     setFullscreen(show);
     Framework.nativeTurnChoosePositionMode(show);
+    closePlacePage();
   }
 
   private void initMap()
@@ -488,6 +490,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mFadeView.fadeOut(false);
     mMainMenu.close(true, procAfterClose);
+  }
+
+  private boolean closePositionChooser()
+  {
+    if (mPositionChooser.getVisibility() == View.VISIBLE)
+    {
+      showPositionChooser(false);
+      return true;
+    }
+
+    return false;
   }
 
   private void startLocationToPoint(String statisticsEvent, String alohaEvent, final @Nullable MapObject endPoint)
@@ -1029,7 +1042,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (!closePlacePage() && !closeSidePanel() && !RoutingController.get().cancel())
+    if (!closePlacePage() && !closeSidePanel() &&
+        !RoutingController.get().cancel() && !closePositionChooser())
       super.onBackPressed();
   }
 
