@@ -55,7 +55,7 @@ static NSString * const DEFAULT_LANG = @"en-US";
     if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) != _availableLanguages.end())
       [self setNotificationsLocale:preferedLanguageBcp47];
     else
-      [self setNotificationsLocale:DEFAULT_LANG];
+      [self setNotificationsLocale: isIOS7 || isIOS8 ? DEFAULT_LANG : AVSpeechSynthesisVoiceIdentifierAlex];
 
     // Before 9.0 version iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly.
     // It's a work around for iOS 7.x and 8.x.
@@ -151,7 +151,10 @@ static NSString * const DEFAULT_LANG = @"en-US";
     LOG(LERROR, ("locale is nil. Trying default locale."));
     locale = DEFAULT_LANG;
   }
-  
+
+  if (!(isIOS7 || isIOS8) && [locale isEqualToString:DEFAULT_LANG])
+    locale = AVSpeechSynthesisVoiceIdentifierAlex;
+
   NSArray * availTTSLangs = [AVSpeechSynthesisVoice speechVoices];
   
   if (!availTTSLangs)
@@ -163,7 +166,7 @@ static NSString * const DEFAULT_LANG = @"en-US";
   AVSpeechSynthesisVoice * voice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
   if (!voice || ![availTTSLangs containsObject:voice])
   {
-    locale = DEFAULT_LANG;
+    locale = isIOS7 || isIOS8 ? DEFAULT_LANG : AVSpeechSynthesisVoiceIdentifierAlex;
     AVSpeechSynthesisVoice * voice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
     if (!voice || ![availTTSLangs containsObject:voice])
     {
