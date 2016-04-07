@@ -153,7 +153,9 @@ void initFieldsMap()
       // TODO(Vlad): It's a really strange way to "display" cell if returned text is not nil.
       return m_info.IsEditable() && isNewMWM ? @"" : nil;
     case MWMPlacePageCellTypeReportButton:
-      return m_info.IsFeature() && isNewMWM ? @"" : nil;
+      return /* m_info.IsFeature() && isNewMWM ? @"" : */nil;
+    case MWMPlacePageCellTypeAddBusinessButton:
+      return m_info.IsBuilding() ? @"" : nil;
     default:
     {
       auto const it = m_values.find(cellType);

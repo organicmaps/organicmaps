@@ -359,6 +359,12 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
 }
 
+- (void)addBusinessToPoint:(m2::PointD const &)point
+{
+  GetFramework().SetViewportCenter(point);
+  [self addPlace];
+}
+
 - (void)updateStatusBarStyle
 {
   [self.ownerController updateStatusBarStyle];

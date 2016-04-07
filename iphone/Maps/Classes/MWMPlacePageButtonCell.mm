@@ -8,27 +8,58 @@
 
 @property (weak, nonatomic) MWMPlacePage * placePage;
 @property (weak, nonatomic) IBOutlet UIButton * titleButton;
-@property (nonatomic) BOOL isReport;
+@property (nonatomic) MWMPlacePageCellType type;
 
 @end
 
 @implementation MWMPlacePageButtonCell
 
-- (void)config:(MWMPlacePage *)placePage isReport:(BOOL)isReport
+- (void)config:(MWMPlacePage *)placePage forType:(MWMPlacePageCellType)type
 {
   self.placePage = placePage;
-  self.isReport = isReport;
-  [self.titleButton setTitleColor:isReport ? [UIColor red] : [UIColor linkBlue] forState:UIControlStateNormal];
-  [self.titleButton setTitle:isReport ? L(@"placepage_report_problem_button") : L(@"edit_place") forState:UIControlStateNormal];
+  switch (type)
+  {
+  case MWMPlacePageCellTypeAddBusinessButton:
+    [self.titleButton setTitleColor:[UIColor linkBlue] forState:UIControlStateNormal];
+    [self.titleButton setTitle:L(@"add_business_button") forState:UIControlStateNormal];
+    break;
+  case MWMPlacePageCellTypeReportButton:
+    [self.titleButton setTitleColor:[UIColor red] forState:UIControlStateNormal];
+    [self.titleButton setTitle:L(@"placepage_report_problem_button") forState:UIControlStateNormal];
+    break;
+  case MWMPlacePageCellTypeEditButton:
+    [self.titleButton setTitleColor:[UIColor linkBlue] forState:UIControlStateNormal];
+    [self.titleButton setTitle:L(@"edit_place") forState:UIControlStateNormal];
+    break;
+  default:
+    NSAssert(false, @"Invalid place page cell type!");
+    break;
+  }
+  self.type = type;
 }
 
 - (IBAction)buttonTap
 {
-  [Statistics logEvent:kStatEventName(kStatPlacePage, self.isReport ? kStatReport : kStatEdit)];
-  if (self.isReport)
-    [self.placePage reportProblem];
-  else
+  NSString * key = nil;
+  switch (self.type)
+  {
+  case MWMPlacePageCellTypeEditButton:
+    key = kStatEdit;
     [self.placePage editPlace];
+    break;
+  case MWMPlacePageCellTypeAddBusinessButton:
+    key = kStatAddPlace;
+    [self.placePage addBusiness];
+    break;
+  case MWMPlacePageCellTypeReportButton:
+    key = kStatReport;
+    [self.placePage reportProblem];
+    break;
+  default:
+    NSAssert(false, @"Incorrect cell type!");
+    break;
+  }
+  [Statistics logEvent:kStatEventName(kStatPlacePage, key)];
 }
 
 @end

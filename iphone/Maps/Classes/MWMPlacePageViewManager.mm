@@ -258,6 +258,11 @@ extern NSString * const kBookmarksChangedNotification;
   [(MapViewController *)self.ownerViewController openEditor];
 }
 
+- (void)addBusiness
+{
+  [self.delegate addBusinessToPoint:self.entity.mercator];
+}
+
 - (void)reportProblem
 {
   [static_cast<MapViewController *>(self.ownerViewController) showReportController];
