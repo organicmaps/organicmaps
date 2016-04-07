@@ -359,7 +359,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       [tCell configWithDelegate:self
                            icon:nil
                            text:@(m_mapObject.GetHouseNumber().c_str())
-                    placeholder:L(@"house")
+                    placeholder:L(@"house_number")
                    errorMessage:@"error_enter_correct_house_number"
                         isValid:![self.invalidCells containsObject:indexPath]
                    keyboardType:UIKeyboardTypeDefault];

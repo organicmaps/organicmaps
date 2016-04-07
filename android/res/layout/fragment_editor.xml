@@ -135,7 +135,7 @@
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
-              android:hint="@string/house"
+              android:hint="@string/house_number"
               tools:text="79-59"/>
 
           </com.mapswithme.maps.widget.CustomTextInputLayout>
