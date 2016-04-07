@@ -77,8 +77,16 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     mToolbarController.showProgress(true);
   }
 
+  void clearSearchQuery()
+  {
+    mToolbarController.clear();
+  }
+
   void cancelSearch()
   {
+    if (!mAdapter.isSearchResultsMode())
+      return;
+
     mAdapter.cancelSearch();
     onSearchEnd();
   }
