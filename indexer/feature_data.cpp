@@ -92,6 +92,8 @@ public:
     // 2-arity
     char const * arr2[][2] = {
       { "amenity", "atm" },
+      { "amenity", "bench" },
+      { "amenity", "shelter" },
       { "building", "address" },
     };
 
