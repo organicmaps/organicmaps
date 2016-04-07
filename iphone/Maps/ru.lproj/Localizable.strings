@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Сообщить о проблеме";
 
+"placepage_add_business_button" = "Добавить организацию";
+
 "whatsnew_smallmwm_header" = "Вы долго просили — мы наконец сделали";
 
 "whatsnew_smallmwm_message" = "Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.";

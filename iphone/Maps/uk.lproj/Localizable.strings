@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Повідомити про проблему";
 
+"placepage_add_business_button" = "Add business";
+
 "whatsnew_smallmwm_header" = "Ви просили і ми це зробили";
 
 "whatsnew_smallmwm_message" = "Ми поділили карти на частини. Тепер ви можете стягувати окремі регіони, а не країну цілком.";

@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Ilmoita ongelmasta";
 
+"placepage_add_business_button" = "Add business";
+
 "whatsnew_smallmwm_header" = "Sitä on pyydetty, ja nyt se on tarjolla";
 
 "whatsnew_smallmwm_message" = "Olemme jakaneet kartat osiin, joten voitkin nyt ladata pelkkiä alueita lataamatta koko maan karttaa.";

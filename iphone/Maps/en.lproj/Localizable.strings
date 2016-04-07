@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Report a problem";
 
+"placepage_add_business_button" = "Add business";
+
 "whatsnew_smallmwm_header" = "You've been asking for it and we've done it";
 
 "whatsnew_smallmwm_message" = "We have split maps into parts. Now you can download separate regions, not whole countries.";

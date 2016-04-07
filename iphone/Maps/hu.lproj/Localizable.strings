@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Hibabejelentés";
 
+"placepage_add_business_button" = "Add business";
+
 "whatsnew_smallmwm_header" = "Te kérted, mi elkészítettük";
 
 "whatsnew_smallmwm_message" = "Felosztottuk részekre a térképeket. Mostantól az egyes régiókat is letöltheted, nem csak az egész országot.";

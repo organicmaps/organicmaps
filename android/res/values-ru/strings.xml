@@ -800,6 +800,7 @@
 	<string name="editor_report_problem_other_title">Другая проблема</string>
 	<string name="placepage_add_place_button">Добавить место</string>
 	<string name="placepage_report_problem_button">Сообщить о проблеме</string>
+	<string name="placepage_add_business_button">Добавить организацию</string>
 	<string name="whatsnew_smallmwm_header">Вы долго просили — мы наконец сделали</string>
 	<string name="whatsnew_smallmwm_message">Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.</string>
 	<string name="whatsnew_search_header">Новый поиск</string>

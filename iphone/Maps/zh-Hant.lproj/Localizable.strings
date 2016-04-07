@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "報告一個問題";
 
+"placepage_add_business_button" = "Add business";
+
 "whatsnew_smallmwm_header" = "您一直在尋求，而我們已經完成";
 
 "whatsnew_smallmwm_message" = "我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。";

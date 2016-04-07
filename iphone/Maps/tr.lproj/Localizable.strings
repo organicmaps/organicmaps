@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Bir problem bildirin";
 
+"placepage_add_business_button" = "Add business";
+
 "whatsnew_smallmwm_header" = "Siz istediniz biz yaptık";
 
 "whatsnew_smallmwm_message" = "Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz.";
