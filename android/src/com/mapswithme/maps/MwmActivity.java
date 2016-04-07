@@ -386,6 +386,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void onClick(View v)
       {
+        Statistics.INSTANCE.trackEditorLaunch(true);
         showPositionChooser(false);
         if (Framework.nativeIsDownloadedMapAtScreenCenter())
           startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
@@ -398,8 +399,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showPositionChooser(boolean show)
   {
-    if (show)
-      Statistics.INSTANCE.trackEditorLaunch(true);
     UiUtils.showIf(show, mPositionChooser);
     setFullscreen(show);
     Framework.nativeTurnChoosePositionMode(show);
@@ -494,7 +493,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean closePositionChooser()
   {
-    if (mPositionChooser.getVisibility() == View.VISIBLE)
+    if (UiUtils.isVisible(mPositionChooser))
     {
       showPositionChooser(false);
       return true;
@@ -570,6 +569,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
             @Override
             public void run()
             {
+              Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
+                                             Statistics.params().add(Statistics.EventParam.FROM, "main_menu"));
               showPositionChooser(true);
             }
           });

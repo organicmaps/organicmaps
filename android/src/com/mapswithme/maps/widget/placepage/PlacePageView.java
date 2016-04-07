@@ -677,6 +677,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void addOrganisation()
   {
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
+                                   Statistics.params().add(Statistics.EventParam.FROM, "placepage"));
     ((MwmActivity) getContext()).showPositionChooser(true);
   }
 
