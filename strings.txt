@@ -15365,6 +15365,11 @@
     ja = 問題を報告
     vi = Báo cáo vấn đề
 
+  [placepage_add_business_button]
+    tags = ios, android
+    en = Add business
+    ru = Добавить организацию
+
   [whatsnew_smallmwm_header]
     tags = ios, android
     en = You've been asking for it and we've done it
