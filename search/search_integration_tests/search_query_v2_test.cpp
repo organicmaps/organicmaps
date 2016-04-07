@@ -283,7 +283,12 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
   TestStreet goldenGateStreet(
       vector<m2::PointD>{m2::PointD(-0.5, -0.5), m2::PointD(0, 0), m2::PointD(0.5, 0.5)},
       "Golden Gate Bridge", "en");
+
   TestPOI goldenGateBridge(m2::PointD(0, 0), "Golden Gate Bridge", "en");
+
+  TestPOI waterfall(m2::PointD(0.5, 0.5), "", "en");
+  waterfall.SetTypes({{"waterway", "waterfall"}});
+
   TestPOI lermontov(m2::PointD(1, 1), "Лермонтовъ", "en");
   lermontov.SetTypes({{"amenity", "cafe"}});
 
@@ -307,6 +312,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
                                  builder.Add(goldenGateBridge);
                                  builder.Add(goldenGateStreet);
                                  builder.Add(lermontov);
+                                 builder.Add(waterfall);
                                });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
@@ -346,6 +352,11 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
     TEST_EQUAL(3, results.size(), ("Unexpected number of retrieved cafes."));
     auto const & top = results.front();
     TEST(MatchResults(m_engine, {ExactMatch(wonderlandId, lermontov)}, {top}), ());
+  }
+
+  {
+    TRules rules{ExactMatch(wonderlandId, waterfall)};
+    TEST(ResultsMatch("waterfall", rules), ());
   }
 }
 }  // namespace
