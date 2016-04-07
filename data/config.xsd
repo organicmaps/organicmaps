@@ -173,7 +173,7 @@
 
   <xs:complexType name="typeType">
     <xs:sequence>
-      <xs:element name="include" minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="include" minOccurs="0" maxOccurs="unbounded">
         <xs:complexType>
           <xs:attribute name="field" type="xs:string" />
           <xs:attribute name="group" type="xs:string" />
