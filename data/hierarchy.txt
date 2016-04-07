@@ -1063,9 +1063,9 @@ Ukraine;Q212;ua;uk
  Ukraine_Zhytomyr Oblast;Q40637
  Crimea;Q7835
 United Arab Emirates;Q878;ae;ar
+Falkland Islands;Q9648
 United Kingdom;Q145;gb;en
  British Indian Ocean Territory;Q43448
- Falkland Islands;Q9648
  UK_England_East Midlands;Q47994
  UK_England_East of England_Essex;Q48006-Q23240
  UK_England_East of England_Norfolk;Q48006-Q23109
