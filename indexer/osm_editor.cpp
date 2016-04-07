@@ -371,34 +371,85 @@ bool Editor::IsCreatedFeature(FeatureID const & fid)
   return fid.m_index >= kStartIndexForCreatedFeatures;
 }
 
+/// Several cases should be handled while saving changes:
+/// 1) a feature is not in editor's cache
+///   I. a feature was created
+///      save it and mark as `Created'
+///   II. a feature was modified
+///      save it and mark as `Modified'
+/// 2) a feature is in editor's cache
+///   I. a feature was created
+///      save it and mark as `Created'
+///   II. a feature was modified and equals to the one in cache
+///      ignore it
+///   III. a feature was modified and equals to the one in mwm
+///      either delete it or save and mark as `Modified' depending on upload status
 Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
 {
   FeatureID const & fid = emo.GetID();
   FeatureTypeInfo fti;
-  bool const isCreated = IsCreatedFeature(fid);
-  if (isCreated)
+
+  auto const featureStatus = GetFeatureStatus(fid.m_mwmId, fid.m_index);
+  bool const wasCreatedByUser = IsCreatedFeature(fid);
+  if (wasCreatedByUser && featureStatus == FeatureStatus::Untouched)
   {
     fti.m_status = FeatureStatus::Created;
     fti.m_feature.ReplaceBy(emo);
   }
   else
   {
-    fti.m_feature = *m_getOriginalFeatureFn(fid);
+    ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Unexpected feature status"));
+
+    fti.m_feature = featureStatus == FeatureStatus::Untouched
+        ? *m_getOriginalFeatureFn(fid)
+        : m_features[fid.m_mwmId][fid.m_index].m_feature;
     fti.m_feature.ReplaceBy(emo);
-    if (AreFeaturesEqualButStreet(fti.m_feature, *m_getOriginalFeatureFn(fid)) &&
-        m_getOriginalFeatureStreetFn(fti.m_feature) == emo.GetStreet())
+    bool const sameAsInMWM = featureStatus != FeatureStatus::Created &&
+        AreFeaturesEqualButStreet(fti.m_feature, *m_getOriginalFeatureFn(fid)) &&
+        emo.GetStreet() == m_getOriginalFeatureStreetFn(fti.m_feature);
+
+    if (featureStatus != FeatureStatus::Untouched)
     {
-      RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
-      // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
-      Save(GetEditorFilePath());
-      Invalidate();
+      // A feature was modified and equals to the one in editor.
+      auto const & editedFeatureInfo = m_features[fid.m_mwmId][fid.m_index];
+      if (AreFeaturesEqualButStreet(fti.m_feature, editedFeatureInfo.m_feature) &&
+          emo.GetStreet() == editedFeatureInfo.m_street)
+      {
+        return NothingWasChanged;
+      }
+
+      // A feature was modified and equals to the one in mwm (changes are rolled back).
+      if (sameAsInMWM)
+      {
+        // Feature was not yet uploaded. Since it's equal to one mwm we can remove changes.
+        if (editedFeatureInfo.m_uploadStatus != kUploaded)
+        {
+          RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
+          // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
+          Save(GetEditorFilePath());
+          Invalidate();
+          return SavedSuccessfully;
+        }
+      }
+
+      // If a feature is not the same as in mwm or it was uploaded
+      // we must save it and mark for upload.
+    }
+    // A feature was NOT edited before and current changes are useless.
+    else if (sameAsInMWM)
+    {
       return NothingWasChanged;
     }
-    fti.m_status = FeatureStatus::Modified;
+
+    fti.m_status = featureStatus == FeatureStatus::Created
+      ? FeatureStatus::Created
+      : FeatureStatus::Modified;
   }
+
   // TODO: What if local client time is absolutely wrong?
   fti.m_modificationTimestamp = time(nullptr);
   fti.m_street = emo.GetStreet();
+
   // Reset upload status so already uploaded features can be uploaded again after modification.
   fti.m_uploadStatus = {};
   m_features[fid.m_mwmId][fid.m_index] = move(fti);
@@ -449,7 +500,8 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
   }
 }
 
-bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index, FeatureType & outFeature) const
+bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index,
+                              FeatureType & outFeature) const
 {
   auto const matchedMwm = m_features.find(mwmId);
   if (matchedMwm == m_features.end())
