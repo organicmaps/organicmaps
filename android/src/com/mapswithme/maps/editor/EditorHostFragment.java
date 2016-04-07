@@ -115,7 +115,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editTimetable()
   {
-    setEdits();
+    if (!setEdits())
+      return;
+
     mMode = Mode.OPENING_HOURS;
     mToolbarController.setTitle(R.string.editor_time_title);
     final Bundle args = new Bundle();
@@ -128,7 +130,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editStreet()
   {
-    setEdits();
+    if (!setEdits())
+      return;
+
     mMode = Mode.STREET;
     mToolbarController.setTitle(R.string.choose_street);
     final Fragment streetFragment = Fragment.instantiate(getActivity(), StreetFragment.class.getName());
@@ -139,7 +143,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editCuisine()
   {
-    setEdits();
+    if (!setEdits())
+      return;
+
     mMode = Mode.CUISINE;
     mToolbarController.setTitle("");
     ((SearchToolbarController) mToolbarController).showControls(true);
@@ -149,9 +155,15 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
                              .commit();
   }
 
-  private void setEdits()
+  private boolean setEdits()
   {
-    ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();
+    final boolean set = ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();
+
+    if (!set)
+      // TODO set correct text R.string.error_enter_correct_house_number
+      showMistakeDialog(R.string.editor_correct_mistake);
+
+    return set;
   }
 
   @Override
@@ -170,10 +182,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         }
         else
         {
-          new AlertDialog.Builder(getActivity())
-              .setMessage(R.string.editor_correct_mistake)
-              .setPositiveButton(android.R.string.ok, null)
-              .show();
+          showMistakeDialog(R.string.editor_correct_mistake);
         }
         break;
       case STREET:
@@ -185,7 +194,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         editMapObject();
         break;
       case MAP_OBJECT:
-        setEdits();
+        if (!setEdits())
+          return;
+
         if (Editor.nativeSaveEditedFeature())
         {
           Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);
@@ -213,6 +224,14 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         break;
       }
     }
+  }
+
+  private void showMistakeDialog(@StringRes int resId)
+  {
+    new AlertDialog.Builder(getActivity())
+        .setMessage(resId)
+        .setPositiveButton(android.R.string.ok, null)
+        .show();
   }
 
   public void setStreet(String street)

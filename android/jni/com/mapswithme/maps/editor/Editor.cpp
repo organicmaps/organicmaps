@@ -356,4 +356,10 @@ Java_com_mapswithme_maps_editor_Editor_nativeCreateNote(JNIEnv * env, jclass cla
   Editor::Instance().CreateNote(ms::LatLon(lat, lon), jni::ToNativeString(env, text));
 }
 
+// static boolean nativeIsHouseValid(String houseNumber);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsHouseValid(JNIEnv * env, jclass clazz, jstring houseNumber)
+{
+  return osm::EditableMapObject::ValidateHouseNumber(jni::ToNativeString(env, houseNumber));
+}
 } // extern "C"

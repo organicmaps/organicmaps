@@ -124,6 +124,7 @@
           style="@style/MwmWidget.Editor.MetadataBlock">
 
           <com.mapswithme.maps.widget.CustomTextInputLayout
+            android:id="@+id/custom_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
