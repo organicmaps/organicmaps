@@ -199,6 +199,10 @@ using namespace storage;
       stringWithFormat:@"%@, %@", kDownloadActionTitle, formattedSize(nodeAttrs.m_mwmSize)];
   if (isIOS7)
   {
+    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UIView * cellSuperView = cell.superview;
+    if (!cellSuperView)
+      return;
     UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title
                                                               delegate:self
                                                      cancelButtonTitle:nil
@@ -221,8 +225,7 @@ using namespace storage;
       [actionSheet addButtonWithTitle:kCancelActionTitle];
       actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
     }
-    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    [actionSheet showFromRect:cell.frame inView:cell.superview animated:YES];
+    [actionSheet showFromRect:cell.frame inView:cellSuperView animated:YES];
   }
   else
   {
