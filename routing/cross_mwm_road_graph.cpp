@@ -6,6 +6,7 @@
 namespace
 {
 inline bool IsValidEdgeWeight(EdgeWeight const & w) { return w != INVALID_EDGE_WEIGHT; }
+double constexpr kMwmCrossingNodeEqualityRadiusDegrees = 0.001;
 }
 
 namespace routing
@@ -58,7 +59,7 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
       for (auto const & nextCross : nextCrosses)
       {
         if (nextCross.toNode.IsValid())
-        dummyEdges.emplace_back(nextCross, weights[i]);
+          dummyEdges.emplace_back(nextCross, weights[i]);
     }
   }
   }
@@ -158,7 +159,7 @@ bool CrossMwmGraph::ConstructBorderCrossImpl(OutgoingCrossNode const & startNode
   nextMapping->LoadCrossContext();
   nextMapping->m_crossContext.ForEachIngoingNodeNearPoint(startNode.m_point, [&](IngoingCrossNode const & node)
     {
-    if (node.m_point == startNode.m_point)
+    if (node.m_point.EqualDxDy(startNode.m_point, kMwmCrossingNodeEqualityRadiusDegrees))
     {
       auto const toCross = CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point);
       if (toCross.IsValid())

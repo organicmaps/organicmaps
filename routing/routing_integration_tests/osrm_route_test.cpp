@@ -121,6 +121,13 @@ namespace
                                                   {37.40993977728661, 67.644784047393685}, 14296.);
   }
 
+  UNIT_TEST(NederlandLeeuwardenToDenOeverTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(integration::GetOsrmComponents(),
+                                                  MercatorBounds::FromLatLon(53.2076, 5.7082), {0., 0.},
+                                                  MercatorBounds::FromLatLon(52.9337, 5.0308), 59500.);
+  }
+
   UNIT_TEST(RussiaMoscowGerPanfilovtsev22SolodchaPravdiRouteTest)
   {
     integration::CalculateRouteAndTestRouteLength(
