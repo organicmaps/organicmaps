@@ -38,7 +38,7 @@ string GetStyleSuffix(MapStyle mapStyle)
 }  // namespace
 
 StyleReader::StyleReader()
-  : m_mapStyle(MapStyleLight)
+  : m_mapStyle(kDefaultMapStyle)
 {
 }
 

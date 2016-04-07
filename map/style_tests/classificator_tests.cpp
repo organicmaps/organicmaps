@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
+#include "helpers.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/feature_data.hpp"
-#include "indexer/map_style_reader.hpp"
 
 #include "base/logging.hpp"
 
@@ -22,41 +22,12 @@ namespace
         TEST(false, ("Inconsistency type", type, m_c.GetFullObjectName(type)));
     }
   };
-
-  // Some tests require MapStyleLight (legacy) set as default.
-  // But unfortunately current map style is stored as global variable.
-  // Therefore, to reset current map style to the MapStyleLight, this RAII is used.
-  class ResetMapStyleRAII
-  {
-  public:
-    ResetMapStyleRAII() = default;
-    ~ResetMapStyleRAII()
-    {
-      GetStyleReader().SetCurrentStyle(MapStyleLight);
-    }
-  };
-
-  void RunForEveryMapStyle(std::function<void()> const & fn)
-  {
-    ResetMapStyleRAII resetMapStype;
-    for (size_t s = 0; s < MapStyleCount; ++s)
-    {
-      MapStyle const mapStyle = static_cast<MapStyle>(s);
-      if (mapStyle != MapStyle::MapStyleMerged)
-      {
-        GetStyleReader().SetCurrentStyle(mapStyle);
-        LOG(LINFO, ("Test with map style", mapStyle));
-        fn();
-      }
-    }
-  }
 }  // namespace
 
 UNIT_TEST(Classificator_CheckConsistency)
 {
-  RunForEveryMapStyle([]()
+  styles::RunForEveryMapStyle([](MapStyle)
   {
-    classificator::Load();
     Classificator const & c = classif();
 
     DoCheckConsistency doCheck(c);
@@ -130,9 +101,8 @@ void CheckLineStyles(Classificator const & c, string const & name)
 
 UNIT_TEST(Classificator_DrawingRules)
 {
-  RunForEveryMapStyle([]()
+  styles::RunForEveryMapStyle([](MapStyle)
   {
-    classificator::Load();
     Classificator const & c = classif();
 
     LOG(LINFO, ("--------------- Point styles ---------------"));
@@ -192,9 +162,8 @@ pair<int, int> GetMinMax(int level, vector<uint32_t> const & types)
 
 UNIT_TEST(Classificator_AreaPriority)
 {
-  RunForEveryMapStyle([]()
+  styles::RunForEveryMapStyle([](MapStyle)
   {
-    classificator::Load();
     Classificator const & c = classif();
 
     vector<vector<uint32_t> > types;

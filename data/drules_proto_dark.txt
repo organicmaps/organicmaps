@@ -4520,7 +4520,7 @@ cont {
     symbol {
       name: "marketplace-l"
       priority: 16849
-      min_distance: 15
+      min_distance: 0
     }
     caption {
       primary {
@@ -4536,7 +4536,7 @@ cont {
     symbol {
       name: "marketplace-l"
       priority: 16849
-      min_distance: 15
+      min_distance: 0
     }
     caption {
       primary {
@@ -4552,7 +4552,7 @@ cont {
     symbol {
       name: "marketplace-l"
       priority: 16849
-      min_distance: 15
+      min_distance: 0
     }
     caption {
       primary {
@@ -12304,133 +12304,6 @@ cont {
   }
 }
 cont {
-  name: "highway-footway-no-access"
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 2828327
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.7
-      color: 2828327
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.0
-      color: 2828327
-      dashdot {
-        dd: 3.6
-        dd: 1.8
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.4
-      color: 2828327
-      dashdot {
-        dd: 4.5
-        dd: 1.8
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.4
-      color: 2828327
-      dashdot {
-        dd: 7.2
-        dd: 2.7
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 4.0
-      color: 2828327
-      dashdot {
-        dd: 9.0
-        dd: 3.6
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-}
-cont {
   name: "highway-footway-permissive"
   element {
     scale: 14
@@ -15456,278 +15329,6 @@ cont {
   }
 }
 cont {
-  name: "highway-path-bicycle-bridge"
-  element {
-    scale: 14
-    lines {
-      width: 0.9
-      color: 2828327
-      dashdot {
-        dd: 2.52
-        dd: 1.35
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.1
-      color: 2828327
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.8
-      color: 2828327
-      dashdot {
-        dd: 3.6
-        dd: 1.8
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.0
-      color: 2828327
-      dashdot {
-        dd: 4.5
-        dd: 1.8
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.0
-      color: 2828327
-      dashdot {
-        dd: 7.2
-        dd: 2.7
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 4.0
-      color: 2828327
-      dashdot {
-        dd: 9.0
-        dd: 3.6
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-}
-cont {
-  name: "highway-path-bicycle-tunnel"
-  element {
-    scale: 14
-    lines {
-      width: 0.9
-      color: 2828327
-      dashdot {
-        dd: 2.52
-        dd: 1.35
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.1
-      color: 2828327
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.8
-      color: 2828327
-      dashdot {
-        dd: 3.6
-        dd: 1.8
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.0
-      color: 2828327
-      dashdot {
-        dd: 4.5
-        dd: 1.8
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.0
-      color: 2828327
-      dashdot {
-        dd: 7.2
-        dd: 2.7
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 9.0
-      color: 2236945
-      priority: 1108
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 4473924
-      dashdot {
-        dd: 2.0
-        dd: 2.0
-      }
-      priority: 1094
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 4.0
-      color: 2828327
-      dashdot {
-        dd: 9.0
-        dd: 3.6
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-}
-cont {
   name: "highway-path-bridge"
   element {
     scale: 14
@@ -16491,133 +16092,6 @@ cont {
 }
 cont {
   name: "highway-path-mountain_hiking"
-  element {
-    scale: 14
-    lines {
-      width: 0.9
-      color: 2828327
-      dashdot {
-        dd: 2.52
-        dd: 1.35
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.1
-      color: 2828327
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.8
-      color: 2828327
-      dashdot {
-        dd: 3.6
-        dd: 1.8
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.0
-      color: 2828327
-      dashdot {
-        dd: 4.5
-        dd: 1.8
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.0
-      color: 2828327
-      dashdot {
-        dd: 7.2
-        dd: 2.7
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 4.0
-      color: 2828327
-      dashdot {
-        dd: 9.0
-        dd: 3.6
-      }
-      priority: 1452
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 16452
-    }
-  }
-}
-cont {
-  name: "highway-path-no-access"
   element {
     scale: 14
     lines {
@@ -40679,7 +40153,6 @@ cont {
     scale: 11
     symbol {
       name: "cave-s"
-      apply_for_type: 1
       priority: 16890
       min_distance: 20
     }
@@ -40688,7 +40161,6 @@ cont {
     scale: 12
     symbol {
       name: "cave-s"
-      apply_for_type: 1
       priority: 16890
       min_distance: 15
     }
@@ -40705,7 +40177,6 @@ cont {
     scale: 13
     symbol {
       name: "cave-s"
-      apply_for_type: 1
       priority: 16890
       min_distance: 15
     }
@@ -40722,7 +40193,6 @@ cont {
     scale: 14
     symbol {
       name: "cave-s"
-      apply_for_type: 1
       priority: 16890
     }
     caption {
@@ -40738,7 +40208,6 @@ cont {
     scale: 15
     symbol {
       name: "cave-m"
-      apply_for_type: 1
       priority: 16890
     }
     caption {
@@ -40754,7 +40223,6 @@ cont {
     scale: 16
     symbol {
       name: "cave-m"
-      apply_for_type: 1
       priority: 16890
     }
     caption {
@@ -40770,7 +40238,6 @@ cont {
     scale: 17
     symbol {
       name: "cave-m"
-      apply_for_type: 1
       priority: 16890
     }
     caption {
@@ -40786,7 +40253,6 @@ cont {
     scale: 18
     symbol {
       name: "cave-l"
-      apply_for_type: 1
       priority: 16890
     }
     caption {
@@ -40802,7 +40268,6 @@ cont {
     scale: 19
     symbol {
       name: "cave-l"
-      apply_for_type: 1
       priority: 16890
     }
     caption {
@@ -42886,138 +42351,6 @@ cont {
       priority: 15232
     }
     apply_if: "bbox_area<4000000"
-  }
-}
-cont {
-  name: "natural-waterfall"
-  element {
-    scale: 11
-    symbol {
-      name: "waterfall-s"
-      priority: 16890
-      min_distance: 15
-    }
-  }
-  element {
-    scale: 12
-    symbol {
-      name: "waterfall-s"
-      priority: 16890
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15890
-    }
-  }
-  element {
-    scale: 13
-    symbol {
-      name: "waterfall-s"
-      priority: 16890
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15890
-    }
-  }
-  element {
-    scale: 14
-    symbol {
-      name: "waterfall-s"
-      priority: 16890
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15890
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "waterfall-m"
-      priority: 16890
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15890
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "waterfall-m"
-      priority: 16890
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15890
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "waterfall-l"
-      apply_for_type: 1
-      priority: 16890
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15890
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "waterfall-l"
-      priority: 16890
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15890
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "waterfall-l"
-      priority: 16890
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15890
-    }
   }
 }
 cont {
@@ -61439,7 +60772,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61455,7 +60787,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61471,7 +60802,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61487,7 +60817,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61503,7 +60832,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61554,7 +60882,6 @@ cont {
     symbol {
       name: "alcohol-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61570,7 +60897,6 @@ cont {
     symbol {
       name: "alcohol-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61586,7 +60912,6 @@ cont {
     symbol {
       name: "alcohol-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61605,7 +60930,6 @@ cont {
     symbol {
       name: "bakery-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61621,7 +60945,6 @@ cont {
     symbol {
       name: "bakery-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61637,7 +60960,6 @@ cont {
     symbol {
       name: "bakery-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61653,7 +60975,6 @@ cont {
     symbol {
       name: "bakery-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61669,7 +60990,6 @@ cont {
     symbol {
       name: "bakery-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61688,7 +61008,6 @@ cont {
     symbol {
       name: "beauty-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61704,7 +61023,6 @@ cont {
     symbol {
       name: "beauty-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61720,7 +61038,6 @@ cont {
     symbol {
       name: "beauty-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61736,7 +61053,6 @@ cont {
     symbol {
       name: "beauty-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61752,7 +61068,6 @@ cont {
     symbol {
       name: "beauty-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61771,7 +61086,6 @@ cont {
     symbol {
       name: "alcohol-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61787,7 +61101,6 @@ cont {
     symbol {
       name: "alcohol-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61803,7 +61116,6 @@ cont {
     symbol {
       name: "alcohol-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61819,7 +61131,6 @@ cont {
     symbol {
       name: "alcohol-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61835,7 +61146,6 @@ cont {
     symbol {
       name: "alcohol-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61854,7 +61164,6 @@ cont {
     symbol {
       name: "shop-bicycle-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61870,7 +61179,6 @@ cont {
     symbol {
       name: "shop-bicycle-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61886,7 +61194,6 @@ cont {
     symbol {
       name: "shop-bicycle-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61902,7 +61209,6 @@ cont {
     symbol {
       name: "shop-bicycle-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61918,7 +61224,6 @@ cont {
     symbol {
       name: "shop-bicycle-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61937,7 +61242,6 @@ cont {
     symbol {
       name: "book-shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61953,7 +61257,6 @@ cont {
     symbol {
       name: "book-shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61969,7 +61272,6 @@ cont {
     symbol {
       name: "book-shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -61985,7 +61287,6 @@ cont {
     symbol {
       name: "book-shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62001,7 +61302,6 @@ cont {
     symbol {
       name: "book-shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62020,7 +61320,6 @@ cont {
     symbol {
       name: "butcher-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62036,7 +61335,6 @@ cont {
     symbol {
       name: "butcher-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62052,7 +61350,6 @@ cont {
     symbol {
       name: "butcher-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62068,7 +61365,6 @@ cont {
     symbol {
       name: "butcher-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62084,7 +61380,6 @@ cont {
     symbol {
       name: "butcher-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62103,7 +61398,6 @@ cont {
     symbol {
       name: "car_sharing-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62119,7 +61413,6 @@ cont {
     symbol {
       name: "car_sharing-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62135,7 +61428,6 @@ cont {
     symbol {
       name: "car_sharing-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62151,7 +61443,6 @@ cont {
     symbol {
       name: "car_sharing-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62167,7 +61458,6 @@ cont {
     symbol {
       name: "car_sharing-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62186,7 +61476,6 @@ cont {
     symbol {
       name: "car-repair-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62202,7 +61491,6 @@ cont {
     symbol {
       name: "car-repair-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62218,7 +61506,6 @@ cont {
     symbol {
       name: "car-repair-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62234,7 +61521,6 @@ cont {
     symbol {
       name: "car-repair-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62250,7 +61536,6 @@ cont {
     symbol {
       name: "car-repair-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62269,7 +61554,6 @@ cont {
     symbol {
       name: "chemist-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62285,7 +61569,6 @@ cont {
     symbol {
       name: "chemist-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62301,7 +61584,6 @@ cont {
     symbol {
       name: "chemist-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62317,7 +61599,6 @@ cont {
     symbol {
       name: "chemist-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62333,7 +61614,6 @@ cont {
     symbol {
       name: "chemist-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62352,7 +61632,6 @@ cont {
     symbol {
       name: "clothes-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62368,7 +61647,6 @@ cont {
     symbol {
       name: "clothes-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62384,7 +61662,6 @@ cont {
     symbol {
       name: "clothes-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62400,7 +61677,6 @@ cont {
     symbol {
       name: "clothes-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62416,7 +61692,6 @@ cont {
     symbol {
       name: "clothes-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62435,7 +61710,6 @@ cont {
     symbol {
       name: "computer-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62451,7 +61725,6 @@ cont {
     symbol {
       name: "computer-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62467,7 +61740,6 @@ cont {
     symbol {
       name: "computer-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62483,7 +61755,6 @@ cont {
     symbol {
       name: "computer-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62499,7 +61770,6 @@ cont {
     symbol {
       name: "computer-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62518,7 +61788,6 @@ cont {
     symbol {
       name: "sweets-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62534,7 +61803,6 @@ cont {
     symbol {
       name: "sweets-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62550,7 +61818,6 @@ cont {
     symbol {
       name: "sweets-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62566,7 +61833,6 @@ cont {
     symbol {
       name: "sweets-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62582,7 +61848,6 @@ cont {
     symbol {
       name: "sweets-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62601,7 +61866,6 @@ cont {
     symbol {
       name: "convenience-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62617,7 +61881,6 @@ cont {
     symbol {
       name: "convenience-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62633,7 +61896,6 @@ cont {
     symbol {
       name: "convenience-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62649,7 +61911,6 @@ cont {
     symbol {
       name: "convenience-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62665,7 +61926,6 @@ cont {
     symbol {
       name: "convenience-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62684,7 +61944,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62700,7 +61959,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62716,7 +61974,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62732,7 +61989,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62748,7 +62004,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62767,7 +62022,6 @@ cont {
     symbol {
       name: "department_store-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62783,7 +62037,6 @@ cont {
     symbol {
       name: "department_store-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62799,7 +62052,6 @@ cont {
     symbol {
       name: "department_store-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62815,7 +62067,6 @@ cont {
     symbol {
       name: "department_store-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62831,7 +62082,6 @@ cont {
     symbol {
       name: "department_store-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62850,7 +62100,6 @@ cont {
     symbol {
       name: "doityourself-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62866,7 +62115,6 @@ cont {
     symbol {
       name: "doityourself-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62882,7 +62130,6 @@ cont {
     symbol {
       name: "doityourself-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62898,7 +62145,6 @@ cont {
     symbol {
       name: "doityourself-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62914,7 +62160,6 @@ cont {
     symbol {
       name: "doityourself-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62933,7 +62178,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62949,7 +62193,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62965,7 +62208,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62981,7 +62223,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -62997,7 +62238,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63016,7 +62256,6 @@ cont {
     symbol {
       name: "electronics-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63032,7 +62271,6 @@ cont {
     symbol {
       name: "electronics-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63048,7 +62286,6 @@ cont {
     symbol {
       name: "electronics-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63064,7 +62301,6 @@ cont {
     symbol {
       name: "electronics-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63080,7 +62316,6 @@ cont {
     symbol {
       name: "electronics-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63099,7 +62334,6 @@ cont {
     symbol {
       name: "florist-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63115,7 +62349,6 @@ cont {
     symbol {
       name: "florist-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63131,7 +62364,6 @@ cont {
     symbol {
       name: "florist-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63147,7 +62379,6 @@ cont {
     symbol {
       name: "florist-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63163,7 +62394,6 @@ cont {
     symbol {
       name: "florist-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63182,7 +62412,6 @@ cont {
     symbol {
       name: "furniture-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63198,7 +62427,6 @@ cont {
     symbol {
       name: "furniture-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63214,7 +62442,6 @@ cont {
     symbol {
       name: "furniture-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63230,7 +62457,6 @@ cont {
     symbol {
       name: "furniture-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63246,7 +62472,6 @@ cont {
     symbol {
       name: "furniture-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63265,7 +62490,6 @@ cont {
     symbol {
       name: "garden_center-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63281,7 +62505,6 @@ cont {
     symbol {
       name: "garden_center-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63297,7 +62520,6 @@ cont {
     symbol {
       name: "garden_center-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63313,7 +62535,6 @@ cont {
     symbol {
       name: "garden_center-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63329,7 +62550,6 @@ cont {
     symbol {
       name: "garden_center-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63348,7 +62568,6 @@ cont {
     symbol {
       name: "gift-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63364,7 +62583,6 @@ cont {
     symbol {
       name: "gift-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63380,7 +62598,6 @@ cont {
     symbol {
       name: "gift-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63396,7 +62613,6 @@ cont {
     symbol {
       name: "gift-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63412,7 +62628,6 @@ cont {
     symbol {
       name: "gift-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63431,7 +62646,6 @@ cont {
     symbol {
       name: "greengrocer-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63447,7 +62661,6 @@ cont {
     symbol {
       name: "greengrocer-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63463,7 +62676,6 @@ cont {
     symbol {
       name: "greengrocer-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63479,7 +62691,6 @@ cont {
     symbol {
       name: "greengrocer-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63495,7 +62706,6 @@ cont {
     symbol {
       name: "greengrocer-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63514,7 +62724,6 @@ cont {
     symbol {
       name: "hairdresser-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63530,7 +62739,6 @@ cont {
     symbol {
       name: "hairdresser-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63546,7 +62754,6 @@ cont {
     symbol {
       name: "hairdresser-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63562,7 +62769,6 @@ cont {
     symbol {
       name: "hairdresser-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63578,7 +62784,6 @@ cont {
     symbol {
       name: "hairdresser-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63597,7 +62802,6 @@ cont {
     symbol {
       name: "hardware-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63613,7 +62817,6 @@ cont {
     symbol {
       name: "hardware-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63629,7 +62832,6 @@ cont {
     symbol {
       name: "hardware-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63645,7 +62847,6 @@ cont {
     symbol {
       name: "hardware-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63661,7 +62862,6 @@ cont {
     symbol {
       name: "hardware-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63680,7 +62880,6 @@ cont {
     symbol {
       name: "jewelry-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63696,7 +62895,6 @@ cont {
     symbol {
       name: "jewelry-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63712,7 +62910,6 @@ cont {
     symbol {
       name: "jewelry-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63728,7 +62925,6 @@ cont {
     symbol {
       name: "jewelry-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63744,7 +62940,6 @@ cont {
     symbol {
       name: "jewelry-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63763,7 +62958,6 @@ cont {
     symbol {
       name: "kiosk-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63779,7 +62973,6 @@ cont {
     symbol {
       name: "kiosk-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63795,7 +62988,6 @@ cont {
     symbol {
       name: "kiosk-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63811,7 +63003,6 @@ cont {
     symbol {
       name: "kiosk-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63827,7 +63018,6 @@ cont {
     symbol {
       name: "kiosk-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63878,7 +63068,6 @@ cont {
     symbol {
       name: "laundry-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63894,7 +63083,6 @@ cont {
     symbol {
       name: "laundry-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63910,7 +63098,6 @@ cont {
     symbol {
       name: "laundry-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -63959,7 +63146,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16876
-      min_distance: 0
     }
     caption {
       primary {
@@ -63975,7 +63161,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16876
-      min_distance: 0
     }
     caption {
       primary {
@@ -63991,7 +63176,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16876
-      min_distance: 0
     }
     caption {
       primary {
@@ -64007,7 +63191,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16876
-      min_distance: 0
     }
     caption {
       primary {
@@ -64023,7 +63206,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16876
-      min_distance: 0
     }
     caption {
       primary {
@@ -64042,7 +63224,6 @@ cont {
     symbol {
       name: "mobile_phone-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64058,7 +63239,6 @@ cont {
     symbol {
       name: "mobile_phone-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64074,7 +63254,6 @@ cont {
     symbol {
       name: "mobile_phone-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64090,7 +63269,6 @@ cont {
     symbol {
       name: "mobile_phone-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64106,7 +63284,6 @@ cont {
     symbol {
       name: "mobile_phone-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64125,7 +63302,6 @@ cont {
     symbol {
       name: "optician-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64141,7 +63317,6 @@ cont {
     symbol {
       name: "optician-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64157,7 +63332,6 @@ cont {
     symbol {
       name: "optician-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64173,7 +63347,6 @@ cont {
     symbol {
       name: "optician-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64189,7 +63362,6 @@ cont {
     symbol {
       name: "optician-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64208,7 +63380,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64224,7 +63395,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64240,7 +63410,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64256,7 +63425,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64272,7 +63440,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64291,7 +63458,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64307,7 +63473,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64323,7 +63488,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64339,7 +63503,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64355,7 +63518,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64374,7 +63536,6 @@ cont {
     symbol {
       name: "shoes-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64390,7 +63551,6 @@ cont {
     symbol {
       name: "shoes-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64406,7 +63566,6 @@ cont {
     symbol {
       name: "shoes-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64422,7 +63581,6 @@ cont {
     symbol {
       name: "shoes-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64438,7 +63596,6 @@ cont {
     symbol {
       name: "shoes-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64457,7 +63614,6 @@ cont {
     symbol {
       name: "sports-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64473,7 +63629,6 @@ cont {
     symbol {
       name: "sports-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64489,7 +63644,6 @@ cont {
     symbol {
       name: "sports-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64505,7 +63659,6 @@ cont {
     symbol {
       name: "sports-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64521,7 +63674,6 @@ cont {
     symbol {
       name: "sports-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64570,7 +63722,6 @@ cont {
     symbol {
       name: "grocery-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64586,7 +63737,6 @@ cont {
     symbol {
       name: "grocery-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64602,7 +63752,6 @@ cont {
     symbol {
       name: "grocery-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64618,7 +63767,6 @@ cont {
     symbol {
       name: "grocery-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64634,7 +63782,6 @@ cont {
     symbol {
       name: "grocery-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64653,7 +63800,6 @@ cont {
     symbol {
       name: "toys-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64669,7 +63815,6 @@ cont {
     symbol {
       name: "toys-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64685,7 +63830,6 @@ cont {
     symbol {
       name: "toys-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64701,7 +63845,6 @@ cont {
     symbol {
       name: "toys-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64717,7 +63860,6 @@ cont {
     symbol {
       name: "toys-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64736,7 +63878,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64752,7 +63893,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64768,7 +63908,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64784,7 +63923,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64800,7 +63938,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64819,7 +63956,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64835,7 +63971,6 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64851,7 +63986,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64867,7 +64001,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -64883,7 +64016,6 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16849
-      min_distance: 0
     }
     caption {
       primary {
@@ -69726,13 +68858,13 @@ cont {
       name: "waterfall-s"
       priority: 16890
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 16890
+      priority: 15890
     }
   }
   element {
@@ -69741,13 +68873,13 @@ cont {
       name: "waterfall-s"
       priority: 16890
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 16890
+      priority: 15890
     }
   }
   element {
@@ -69756,13 +68888,13 @@ cont {
       name: "waterfall-s"
       priority: 16890
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 16890
+      priority: 15890
     }
   }
   element {
@@ -69771,13 +68903,13 @@ cont {
       name: "waterfall-m"
       priority: 16890
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 16890
+      priority: 15890
     }
   }
   element {
@@ -69786,13 +68918,13 @@ cont {
       name: "waterfall-m"
       priority: 16890
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 16890
+      priority: 15890
     }
   }
   element {
@@ -69801,13 +68933,13 @@ cont {
       name: "waterfall-l"
       priority: 16890
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 16890
+      priority: 15890
     }
   }
   element {
@@ -69816,13 +68948,13 @@ cont {
       name: "waterfall-l"
       priority: 16890
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 16890
+      priority: 15890
     }
   }
   element {
@@ -69831,13 +68963,13 @@ cont {
       name: "waterfall-l"
       priority: 16890
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 16890
+      priority: 15890
     }
   }
 }

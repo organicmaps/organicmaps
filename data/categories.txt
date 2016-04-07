@@ -1887,7 +1887,7 @@ nb:3Museum|severdigheter
 fi:3Museo|nähtävyydet
 sw:Makumbusho|kivutio|utalii
 
-waterway-waterfall|natural-waterfall
+waterway-waterfall
 en:2Waterfall|sights
 cs:2Vodopád|zajímavost|pamětihodnost
 sk:2Vodopád|pamätihodnosť

@@ -14,4 +14,6 @@ enum MapStyle
   MapStyleCount
 };
 
+extern MapStyle const kDefaultMapStyle;
+
 string DebugPrint(MapStyle mapStyle);

@@ -54,6 +54,12 @@ struct OsmElement
     {
       return key == e.key && value == e.value;
     }
+    bool operator < (Tag const & e) const
+    {
+      if (key == e.key)
+        return value < e.value;
+      return key < e.key;
+    }
   };
 
   EntityType type = EntityType::Unknown;

@@ -210,7 +210,6 @@ world  +
             difficult_alpine_hiking  -
             hiking  -
             mountain_hiking  -
-            no-access  -
             permissive  -
             tunnel  -
             {}
@@ -231,8 +230,6 @@ world  +
         path  +
             alpine_hiking  -
             bicycle  -
-            bicycle-bridge  -
-            bicycle-tunnel  -
             bridge  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
@@ -240,7 +237,6 @@ world  +
             hiking  -
             horse  -
             mountain_hiking  -
-            no-access  -
             permissive  -
             tunnel  -
             {}
@@ -491,7 +487,6 @@ world  +
         vineyard  -
         volcano  -
         water  -
-        waterfall  -
         wetland  +
             bog  -
             marsh  -

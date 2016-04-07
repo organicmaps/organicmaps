@@ -1,9 +1,9 @@
 #include "testing/testing.hpp"
+#include "helpers.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_struct.pb.h"
-#include "indexer/map_style_reader.hpp"
 
 namespace
 {
@@ -16,15 +16,8 @@ double constexpr kMaxDashLength = 128 / kMaxVisualScale;
 
 UNIT_TEST(Test_Dashes)
 {
-  for (size_t s = 0; s < MapStyleCount; ++s)
+  styles::RunForEveryMapStyle([](MapStyle)
   {
-    MapStyle const mapStyle = static_cast<MapStyle>(s);
-    if (mapStyle == MapStyleMerged)
-      continue;
-
-    GetStyleReader().SetCurrentStyle(mapStyle);
-    classificator::Load();
-
     drule::rules().ForEachRule([](int, int, int, drule::BaseRule const * rule)
     {
       LineDefProto const * const line = rule->GetLine();
@@ -41,5 +34,5 @@ UNIT_TEST(Test_Dashes)
         TEST_LESS_OR_EQUAL(value, kMaxDashLength, ());
       }
     });
-  }
+  });
 }

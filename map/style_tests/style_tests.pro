@@ -19,3 +19,6 @@ SOURCES += \
   classificator_tests.cpp \
   dashes_test.cpp \
   style_symbols_consistency_test.cpp \
+
+HEADERS += \
+  helpers.hpp \

@@ -399,8 +399,7 @@ namespace ftype
     bool hasLayer = false;
     char const * layer = nullptr;
 
-    bool isSubwayEntrance = false;
-    bool isSubwayStation = false;
+    bool isSubway = false;
 
     TagProcessor(p).ApplyRules
     ({
@@ -408,20 +407,20 @@ namespace ftype
       { "tunnel", "yes", [&layer] { layer = "-1"; }},
       { "layer", "*", [&hasLayer] { hasLayer = true; }},
 
-      { "railway", "subway_entrance", [&isSubwayEntrance] { isSubwayEntrance = true; }},
+      { "railway", "subway_entrance", [&isSubway] { isSubway = true; }},
 
       /// @todo Unfortunatelly, it's not working in many cases (route=subway, transport=subway).
       /// Actually, it's better to process subways after feature types assignment.
-      { "station", "subway", [&isSubwayStation] { isSubwayStation = true; }},
+      { "station", "subway", [&isSubway] { isSubway = true; }},
     });
 
     if (!hasLayer && layer)
       p->AddTag("layer", layer);
 
     // Tag 'city' is needed for correct selection of metro icons.
-    if (isSubwayEntrance || isSubwayStation)
+    if (isSubway && p->type == OsmElement::EntityType::Node)
     {
-      string const & city = MatchCity(p);
+      string const city = MatchCity(p);
       if (!city.empty())
         p->AddTag("city", city);
     }
@@ -473,6 +472,8 @@ namespace ftype
         highwayDone = true;
       }
 
+      /// @todo Probably, we can delete this processing because cities
+      /// are matched by limit rect in MatchCity.
       if (!subwayDone && types.IsRwSubway(vTypes[i]))
       {
         TagProcessor(p).ApplyRules

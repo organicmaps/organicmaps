@@ -2,7 +2,6 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/ftypes_matcher.hpp"
 
 #include "base/macros.hpp"
 
@@ -12,9 +11,24 @@ namespace search
 {
 namespace v2
 {
-/// This checkers should be similar with ftypes::IsAddressObjectChecker, plus public transort.
+TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
+{
+  Classificator const & c = classif();
+  StringIL arr[] = {
+    {"highway", "bus_stop"},
+    {"highway", "speed_camera"},
+    {"waterway", "waterfall"},
+    {"natural", "volcano"},
+    {"natural", "cave_entrance"}
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    m_types.push_back(c.GetTypeByPath(arr[i]));
+}
+
 namespace
 {
+/// Should be similar with ftypes::IsAddressObjectChecker object classes.
 class OneLevelPOIChecker : public ftypes::BaseChecker
 {
 public:
@@ -25,16 +39,6 @@ public:
     auto paths = {"amenity", "historic", "office", "railway", "shop", "sport", "tourism", "craft"};
     for (auto const & path : paths)
       m_types.push_back(c.GetTypeByPath({path}));
-  }
-};
-
-class TwoLevelPOIChecker : public ftypes::BaseChecker
-{
-public:
-  TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
-  {
-    Classificator const & c = classif();
-    m_types.push_back(c.GetTypeByPath({"highway", "bus_stop"}));
   }
 };
 

@@ -328,7 +328,7 @@ UNIT_TEST(OsmType_Capital)
   {
     char const * arr[][2] = {
       { "place", "city" },
-      { "admin_level", "6" },
+      { "admin_level", "4" },
       { "boundary", "administrative" },
       { "capital", "2" },
       { "place", "city" },
@@ -342,7 +342,7 @@ UNIT_TEST(OsmType_Capital)
 
     TEST_EQUAL(params.m_Types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), ());
-    TEST(params.IsTypeExist(GetType({"boundary", "administrative", "6"})), ());
+    TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), ());
   }
 }
 
@@ -571,7 +571,7 @@ UNIT_TEST(OsmType_Ferry)
 UNIT_TEST(OsmType_Boundary)
 {
   char const * arr[][2] = {
-    { "admin_level", "6" },
+    { "admin_level", "4" },
     { "boundary", "administrative" },
     { "admin_level", "2" },
     { "boundary", "administrative" },
@@ -585,7 +585,7 @@ UNIT_TEST(OsmType_Boundary)
 
   TEST_EQUAL(params.m_Types.size(), 2, (params));
   TEST(params.IsTypeExist(GetType({"boundary", "administrative", "2"})), ());
-  TEST(params.IsTypeExist(GetType({"boundary", "administrative", "6"})), ());
+  TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), ());
 }
 
 UNIT_TEST(OsmType_Dibrugarh)

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "indexer/ftypes_matcher.hpp"
+
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -7,15 +9,19 @@
 
 class FeatureType;
 
-namespace ftypes
-{
-class BaseChecker;
-}
-
 namespace search
 {
 namespace v2
 {
+
+/// Describes 2-level POI-exception types that don't belong to any POI-common classes
+/// (amenity, shop, tourism, ...). Used in search algo and search categories index generation.
+class TwoLevelPOIChecker : public ftypes::BaseChecker
+{
+public:
+  TwoLevelPOIChecker();
+};
+
 // This class is used to map feature types to a restricted set of
 // different search classes (do not confuse these classes with search
 // categories - they are completely different things).
