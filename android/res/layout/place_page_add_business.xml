@@ -2,20 +2,20 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/ll__report_problem"
+  android:id="@+id/ll__add_organisation"
   style="@style/PlacePageItemFrame"
   android:visibility="visible"
   tools:visibility="visible">
 
   <ImageView
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_report_problem"
+    android:src="@drawable/ic_add_place"
     android:tint="?colorAccent"/>
 
   <TextView
     android:id="@+id/tv__editor"
     style="@style/PlacePageMetadataText"
-    android:text="@string/placepage_report_problem_button"
+    android:text="@string/placepage_add_business_button"
     android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"/>
 
 </LinearLayout>

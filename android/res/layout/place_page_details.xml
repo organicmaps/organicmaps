@@ -53,7 +53,7 @@
 
       <include layout="@layout/place_page_editor"/>
 
-      <include layout="@layout/place_page_report_problem"/>
+      <include layout="@layout/place_page_add_business"/>
 
       <Space
         android:layout_width="match_parent"

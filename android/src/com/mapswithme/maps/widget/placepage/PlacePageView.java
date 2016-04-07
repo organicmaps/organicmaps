@@ -113,7 +113,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private View mEntrance;
   private TextView mTvEntrance;
   private View mEditor;
-  private View mReport;
+  private View mAddOrganisation;
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
@@ -206,8 +206,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
     mEditor = mDetails.findViewById(R.id.ll__place_editor);
     mEditor.setOnClickListener(this);
-    mReport = mDetails.findViewById(R.id.ll__report_problem);
-    mReport.setOnClickListener(this);
+    mAddOrganisation = mDetails.findViewById(R.id.ll__add_organisation);
+    mAddOrganisation.setOnClickListener(this);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -443,8 +443,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
                    !RoutingController.get().isNavigating() && !MapManager.nativeIsLegacyMode(),
                    mEditor);
     UiUtils.showIf(!RoutingController.get().isNavigating() && !MapManager.nativeIsLegacyMode() &&
-                   !MapObject.isOfType(MapObject.MY_POSITION, mMapObject),
-                   mReport);
+                   !MapObject.isOfType(MapObject.MY_POSITION, mMapObject) &&
+                   Framework.nativeIsActiveObjectABuilding(),
+                   mAddOrganisation);
   }
 
   private void refreshOpeningHours()
@@ -674,9 +675,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     ((MwmActivity) getContext()).showEditor();
   }
 
-  private void showReportForm(MapObject point)
+  private void addOrganisation()
   {
-    ((MwmActivity) getContext()).showReportForm(point);
+    ((MwmActivity) getContext()).showPositionChooser(true);
   }
 
   @Override
@@ -687,8 +688,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.ll__place_editor:
       showEditor();
       break;
-    case R.id.ll__report_problem:
-      showReportForm(mMapObject);
+    case R.id.ll__add_organisation:
+      addOrganisation();
       break;
     case R.id.iv__bookmark_color:
       saveBookmarkTitle();
