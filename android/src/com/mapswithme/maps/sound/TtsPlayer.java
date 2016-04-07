@@ -7,14 +7,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
-import com.mapswithme.util.Config;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
+import com.mapswithme.util.Config;
+import com.mapswithme.util.statistics.Statistics;
 
 /**
  * {@code TtsPlayer} class manages available TTS voice languages.
@@ -46,6 +48,13 @@ public enum TtsPlayer
 
   TtsPlayer() {}
 
+  private static void reportFailure(IllegalArgumentException e, String location)
+  {
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.TTS_FAILURE_LOCATION,
+                                   Statistics.params().add(Statistics.EventParam.ERR_MSG, e.getMessage())
+                                                      .add(Statistics.EventParam.FROM, location));
+  }
+
   private static @Nullable LanguageData findSupportedLanguage(String internalCode, List<LanguageData> langs)
   {
     if (TextUtils.isEmpty(internalCode))
@@ -70,17 +79,27 @@ public enum TtsPlayer
     return null;
   }
 
-  private void setLanguageInternal(LanguageData lang)
+  private boolean setLanguageInternal(LanguageData lang)
   {
-    mTts.setLanguage(lang.locale);
-    nativeSetTurnNotificationsLocale(lang.internalCode);
-    Config.setTtsLanguage(lang.internalCode);
+    try
+    {
+      mTts.setLanguage(lang.locale);
+      nativeSetTurnNotificationsLocale(lang.internalCode);
+      Config.setTtsLanguage(lang.internalCode);
+
+      return true;
+    }
+    catch (IllegalArgumentException e)
+    {
+      reportFailure(e, "setLanguageInternal(): " + lang.locale);
+      lockDown();
+      return false;
+    }
   }
 
-  public void setLanguage(LanguageData lang)
+  public boolean setLanguage(LanguageData lang)
   {
-    if (lang != null)
-      setLanguageInternal(lang);
+    return (lang != null && setLanguageInternal(lang));
   }
 
   private static @Nullable LanguageData getDefaultLanguage(List<LanguageData> langs)
@@ -147,8 +166,16 @@ public enum TtsPlayer
   private void speak(String textToSpeak)
   {
     if (Config.isTtsEnabled())
-      //noinspection deprecation
-      mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
+      try
+      {
+        //noinspection deprecation
+        mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
+      }
+      catch (IllegalArgumentException e)
+      {
+        reportFailure(e, "speak()");
+        lockDown();
+      }
   }
 
   public void playTurnNotifications()
@@ -164,7 +191,15 @@ public enum TtsPlayer
   public void stop()
   {
     if (isReady())
-      mTts.stop();
+      try
+      {
+        mTts.stop();
+      }
+      catch (IllegalArgumentException e)
+      {
+        reportFailure(e, "stop()");
+        lockDown();
+      }
   }
 
   public boolean isEnabled()
@@ -178,7 +213,7 @@ public enum TtsPlayer
     nativeEnableTurnNotifications(enabled);
   }
 
-  private void getUsableLanguages(List<LanguageData> outList)
+  private boolean getUsableLanguages(List<LanguageData> outList)
   {
     Resources resources = MwmApplication.get().getResources();
     String[] codes = resources.getStringArray(R.array.tts_languages_supported);
@@ -189,14 +224,23 @@ public enum TtsPlayer
       try
       {
         outList.add(new LanguageData(codes[i], names[i], mTts));
-      } catch (LanguageData.NotAvailableException ignored)
-      {}
+      }
+      catch (LanguageData.NotAvailableException ignored) {}
+      catch (IllegalArgumentException e)
+      {
+        reportFailure(e, "getUsableLanguages()");
+        lockDown();
+        return false;
+      }
     }
+
+    return true;
   }
 
   private @Nullable LanguageData refreshLanguagesInternal(List<LanguageData> outList)
   {
-    getUsableLanguages(outList);
+    if (!getUsableLanguages(outList))
+      return null;
 
     if (outList.isEmpty())
     {
