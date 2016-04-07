@@ -76,7 +76,7 @@ void GetContents(istream & is, string & contents)
 
 bool Matches(Context & context, Sample::Result const & golden, search::Result const & actual)
 {
-  static double constexpr kEps = 2e-5;
+  static double constexpr kEps = 1e-4;
   if (actual.GetResultType() != Result::RESULT_FEATURE)
     return false;
 
