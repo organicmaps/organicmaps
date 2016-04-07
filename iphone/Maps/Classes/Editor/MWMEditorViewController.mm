@@ -360,7 +360,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:nil
                            text:@(m_mapObject.GetHouseNumber().c_str())
                     placeholder:L(@"house_number")
-                   errorMessage:@"error_enter_correct_house_number"
+                   errorMessage:L(@"error_enter_correct_house_number")
                         isValid:![self.invalidCells containsObject:indexPath]
                    keyboardType:UIKeyboardTypeDefault];
       break;
