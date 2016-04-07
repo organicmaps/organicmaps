@@ -15367,8 +15367,33 @@
 
   [placepage_add_business_button]
     tags = ios, android
-    en = Add business
+    en = Add organization
     ru = Добавить организацию
+    fr = Ajouter une organisation
+    da = Tilføj organisationen
+    id = Tambahkan organisasi
+    ko = 조직 추가
+    sv = Lägg till organisation
+    tr = Kuruluş ekle
+    uk = Додати організацію
+    vi = Thêm tổ chức
+    hu = Szervezet hozzáadása
+    de = Organisation hinzufügen
+    fi = Lisää organisaatio
+    cs = Přidat organizaci
+    it = Aggiungi organizzazione
+    nb = Legg til organisasjon
+    zh-Hant = 添加組織
+    zh-Hans = 添加组织
+    th = เพิ่มองค์กร
+    ja = 団体を追加
+    ro = Adăugare organizație
+    ar = إضافة مؤسسة
+    sk = Pridať organizáciu
+    es = Añadir organización
+    pl = Dodaj organizację
+    nl = Een organisatie toevoegen
+    pt = Adicionar uma organização
 
   [whatsnew_smallmwm_header]
     tags = ios, android
@@ -16166,35 +16191,6 @@
     pl = Może to być kosztowne przy niektórych planach taryfowych lub w roamingu.
     nl = Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.
     pt = Isto pode ser significativamente caro, com alguns planos ou se roaming.
-
-  [add_business_button]
-    en = Add organization
-    ru = Добавить организацию
-    fr = Ajouter une organisation
-    da = Tilføj organisationen
-    id = Tambahkan organisasi
-    ko = 조직 추가
-    sv = Lägg till organisation
-    tr = Kuruluş ekle
-    uk = Додати організацію
-    vi = Thêm tổ chức
-    hu = Szervezet hozzáadása
-    de = Organisation hinzufügen
-    fi = Lisää organisaatio
-    cs = Přidat organizaci
-    it = Aggiungi organizzazione
-    nb = Legg til organisasjon
-    zh-Hant = 添加組織
-    zh-Hans = 添加组织
-    th = เพิ่มองค์กร
-    ja = 団体を追加
-    ro = Adăugare organizație
-    ar = إضافة مؤسسة
-    sk = Pridať organizáciu
-    es = Añadir organización
-    pl = Dodaj organizację
-    nl = Een organisatie toevoegen
-    pt = Adicionar uma organização
 
   [error_enter_correct_house_number]
     en = Enter correct house number
