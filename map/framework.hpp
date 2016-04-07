@@ -354,7 +354,6 @@ public:
   void SetupMeasurementSystem();
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && layout);
-  const gui::TWidgetsSizeInfo & GetWidgetSizes();
 
   void PrepareToShutdown();
 

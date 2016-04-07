@@ -273,26 +273,21 @@ private:
   bool const m_needResetOldGui;
 };
 
-class GuiRecacheMessage : public BaseBlockingMessage
+class GuiRecacheMessage : public Message
 {
 public:
-  GuiRecacheMessage(Blocker & blocker, gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & resultInfo,
-                    bool needResetOldGui)
-    : BaseBlockingMessage(blocker)
-    , m_initInfo(initInfo)
-    , m_sizeInfo(resultInfo)
+  GuiRecacheMessage(gui::TWidgetsInitInfo const & initInfo, bool needResetOldGui)
+    : m_initInfo(initInfo)
     , m_needResetOldGui(needResetOldGui)
   {}
 
   Type GetType() const override { return Message::GuiRecache;}
 
   gui::TWidgetsInitInfo const & GetInitInfo() const { return m_initInfo; }
-  gui::TWidgetsSizeInfo & GetSizeInfoMap() const { return m_sizeInfo; }
   bool NeedResetOldGui() const { return m_needResetOldGui; }
 
 private:
   gui::TWidgetsInitInfo m_initInfo;
-  gui::TWidgetsSizeInfo & m_sizeInfo;
   bool const m_needResetOldGui;
 };
 

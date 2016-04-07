@@ -165,9 +165,7 @@ private:
 
 } // namespace
 
-drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & initInfo,
-                                                     TWidgetsSizeInfo & sizeInfo,
-                                                     ref_ptr<dp::TextureManager> textures)
+drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & initInfo, ref_ptr<dp::TextureManager> textures)
 {
   using TCacheShape = function<m2::PointF (Position anchor, ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures)>;
   static map<EWidget, TCacheShape> cacheFunctions
@@ -183,7 +181,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & in
   {
     auto cacheFunction = cacheFunctions.find(node.first);
     if (cacheFunction != cacheFunctions.end())
-      sizeInfo[node.first] = cacheFunction->second(node.second, make_ref(renderer), textures);
+      cacheFunction->second(node.second, make_ref(renderer), textures);
   }
 
   // Flush gui geometry.

@@ -1623,12 +1623,6 @@ void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
   m_drapeEngine->SetWidgetLayout(move(layout));
 }
 
-gui::TWidgetsSizeInfo const & Framework::GetWidgetSizes()
-{
-  ASSERT(m_drapeEngine != nullptr, ());
-  return m_drapeEngine->GetWidgetSizes();
-}
-
 bool Framework::ShowMapForURL(string const & url)
 {
   m2::PointD point;

@@ -44,7 +44,7 @@ void iosOGLContextFactory::setPresentAvailable(bool available)
     if (!m_isInitialized && available)
     {
       m_isInitialized = true;
-      m_initializationCondition.notify_one();
+      m_initializationCondition.notify_all();
     }
   }
   if (m_drawContext != nullptr)
