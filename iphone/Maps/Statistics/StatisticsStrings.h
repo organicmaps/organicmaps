@@ -65,6 +65,7 @@ static NSString * const kStatDownloaderMigrationError = @"Downloader_Migration_e
 static NSString * const kStatDownloaderMigrationProhibitedDialogue = @"Downloader_Migration_Prohibited_dialogue";
 static NSString * const kStatDownloaderMigrationStarted = @"Downloader_Migration_started";
 static NSString * const kStatEdit = @"Edit";
+static NSString * const kStatEditorAddClick = @"Editor_Add_click";
 static NSString * const kStatEditorAddError = @"Editor_Add_error";
 static NSString * const kStatEditorAddStart = @"Editor_Add_start";
 static NSString * const kStatEditorAddSuccess = @"Editor_Add_success";

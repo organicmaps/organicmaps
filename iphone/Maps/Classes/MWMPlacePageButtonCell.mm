@@ -40,26 +40,24 @@
 
 - (IBAction)buttonTap
 {
-  NSString * key = nil;
   switch (self.type)
   {
   case MWMPlacePageCellTypeEditButton:
-    key = kStatEdit;
+    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
     [self.placePage editPlace];
     break;
   case MWMPlacePageCellTypeAddBusinessButton:
-    key = kStatAddPlace;
+    [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePage}];
     [self.placePage addBusiness];
     break;
   case MWMPlacePageCellTypeReportButton:
-    key = kStatReport;
+    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatReport)];
     [self.placePage reportProblem];
     break;
   default:
     NSAssert(false, @"Incorrect cell type!");
     break;
   }
-  [Statistics logEvent:kStatEventName(kStatPlacePage, key)];
 }
 
 @end
