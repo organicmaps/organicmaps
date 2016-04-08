@@ -499,6 +499,11 @@ GlyphManager::~GlyphManager()
   delete m_impl;
 }
 
+uint32_t GlyphManager::GetBaseGlyphHeight() const
+{
+  return m_impl->m_baseGlyphHeight;
+}
+
 int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
 {
   TUniBlockIter iter = m_impl->m_blocks.end();

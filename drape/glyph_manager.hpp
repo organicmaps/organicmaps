@@ -85,6 +85,8 @@ public:
 
   Glyph GetInvalidGlyph() const;
 
+  uint32_t GetBaseGlyphHeight() const;
+
 private:
   int GetFontIndex(strings::UniChar unicodePoint);
   // Immutable version can be called from any thread and doesn't require internal synchronization.

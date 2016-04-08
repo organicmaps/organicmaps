@@ -186,12 +186,22 @@ private:
   void CalcGlyphRegions(TText const & text, TBuffer & buffers)
   {
     size_t const groupIndex = FindGlyphsGroup(text);
+    bool useHybridGroup = false;
     if (groupIndex != GetInvalidGlyphGroup())
     {
       GlyphGroup & group = m_glyphGroups[groupIndex];
-      FillResults<GlyphGroup>(text, buffers, group);
+      uint32_t const absentGlyphs = GetAbsentGlyphsCount(group.m_texture, text);
+      if (group.m_texture == nullptr || group.m_texture->HasEnoughSpace(absentGlyphs))
+        FillResults<GlyphGroup>(text, buffers, group);
+      else
+        useHybridGroup = true;
     }
     else
+    {
+      useHybridGroup = true;
+    }
+
+    if (useHybridGroup)
     {
       size_t const hybridGroupIndex = FindHybridGlyphsGroup(text);
       ASSERT(hybridGroupIndex != GetInvalidGlyphGroup(), ());
@@ -199,6 +209,9 @@ private:
       FillResults<HybridGlyphGroup>(text, buffers, group);
     }
   }
+
+  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text);
+  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text);
 
   template<typename TGlyphGroups>
   void UpdateGlyphTextures(TGlyphGroups & groups)

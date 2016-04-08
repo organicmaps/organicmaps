@@ -334,10 +334,18 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text)
     return 0;
   }
 
+  HybridGlyphGroup & group = m_hybridGlyphGroups.back();
+  bool hasEnoughSpace = true;
+  if (group.m_texture != nullptr)
+    hasEnoughSpace = group.m_texture->HasEnoughSpace(text.size());
+
   // if we have got the only hybrid texture (in most cases it is) we can omit checking of glyphs usage
-  size_t const glyphsCount = m_hybridGlyphGroups.back().m_glyphs.size() + text.size();
-  if (m_hybridGlyphGroups.size() == 1 && glyphsCount < m_maxGlypsCount)
-    return 0;
+  if (hasEnoughSpace)
+  {
+    size_t const glyphsCount = group.m_glyphs.size() + text.size();
+    if (m_hybridGlyphGroups.size() == 1 && glyphsCount < m_maxGlypsCount)
+      return 0;
+  }
 
   // looking for a hybrid texture which contains text entirely
   for (size_t i = 0; i < m_hybridGlyphGroups.size() - 1; i++)
@@ -345,9 +353,9 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text)
       return i;
 
   // check if we can contain text in the last hybrid texture
-  size_t const unfoundChars = GetNumberOfUnfoundCharacters(text, m_hybridGlyphGroups.back());
-  size_t const newCharsCount = m_hybridGlyphGroups.back().m_glyphs.size() + unfoundChars;
-  if (newCharsCount >= m_maxGlypsCount)
+  size_t const unfoundChars = GetNumberOfUnfoundCharacters(text, group);
+  size_t const newCharsCount = group.m_glyphs.size() + unfoundChars;
+  if (newCharsCount >= m_maxGlypsCount || !group.m_texture->HasEnoughSpace(unfoundChars))
     m_hybridGlyphGroups.push_back(HybridGlyphGroup());
 
   return m_hybridGlyphGroups.size() - 1;
@@ -467,6 +475,26 @@ void TextureManager::GetGlyphRegions(TMultilineText const & text, TMultilineGlyp
 void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions)
 {
   CalcGlyphRegions<strings::UniString, TGlyphsBuffer>(text, regions);
+}
+
+uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text)
+{
+  if (texture == nullptr)
+    return 0;
+
+  ASSERT(dynamic_cast<FontTexture *>(texture.get()) != nullptr, ());
+  return static_cast<FontTexture *>(texture.get())->GetAbsentGlyphsCount(text);
+}
+
+uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text)
+{
+  if (texture == nullptr)
+    return 0;
+
+  uint32_t count = 0;
+  for (size_t i = 0; i < text.size(); ++i)
+    count += GetAbsentGlyphsCount(texture, text[i]);
+  return count;
 }
 
 bool TextureManager::AreGlyphsReady(strings::UniString const & str) const

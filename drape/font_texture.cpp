@@ -49,6 +49,28 @@ bool GlyphPacker::PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect)
   return true;
 }
 
+bool GlyphPacker::CanBePacked(uint32_t glyphsCount, uint32_t width, uint32_t height) const
+{
+  uint32_t x = m_cursor.x;
+  uint32_t y = m_cursor.y;
+  uint32_t step = m_yStep;
+  for (uint32_t i = 0; i < glyphsCount; i++)
+  {
+    if (x + width > m_size.x)
+    {
+      x = 0;
+      y += step;
+    }
+
+    if (y + height > m_size.y)
+      return false;
+
+    x += width;
+    step = max(height, step);
+  }
+  return true;
+}
+
 m2::RectF GlyphPacker::MapTextureCoords(const m2::RectU & pixelRect) const
 {
   float fWidth = static_cast<float>(m_size.x);
@@ -184,6 +206,19 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
   return make_ref(&res.first->second);
 }
 
+bool GlyphIndex::CanBeGlyphPacked(uint32_t glyphsCount) const
+{
+  if (glyphsCount == 0)
+    return true;
+
+  if (m_packer.IsFull())
+    return false;
+
+  float const kGlyphScalar = 1.5f;
+  uint32_t const baseSize = static_cast<uint32_t>(m_mng->GetBaseGlyphHeight() * kGlyphScalar);
+  return m_packer.CanBePacked(glyphsCount, baseSize, baseSize);
+}
+
 bool GlyphIndex::HasAsyncRoutines() const
 {
   return !m_generator->IsSuspended();
@@ -243,6 +278,17 @@ void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
     
     glyph.m_image.Destroy();
   }
+}
+
+uint32_t GlyphIndex::GetAbsentGlyphsCount(strings::UniString const & text) const
+{
+  uint32_t count = 0;
+  for (strings::UniChar const & c : text)
+  {
+    if (m_index.find(c) == m_index.end())
+      count++;
+  }
+  return count;
 }
 
 } // namespace dp
