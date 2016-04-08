@@ -2448,21 +2448,23 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
 
 namespace
 {
-vector<string> FilterNearbyStreets(vector<search::ReverseGeocoder::Street> const & streets,
-                                   string const & exactFeatureStreet = "")
+vector<osm::LocalizedStreet> FilterNearbyStreets(vector<search::ReverseGeocoder::Street> const & streets,
+                                                 string const & exactFeatureStreet = "")
 {
-  vector<string> results;
+  vector<osm::LocalizedStreet> results;
   // Exact feature street always goes first in Editor UI street list.
+
+  // TODO: Push into result LocalizedStreet object with default and localized street name.
   if (!exactFeatureStreet.empty())
-    results.push_back(exactFeatureStreet);
+    results.push_back({exactFeatureStreet, ""});
   // Reasonable number of different nearby street names to display in UI.
   constexpr size_t kMaxNumberOfNearbyStreetsToDisplay = 8;
   for (auto const & street : streets)
   {
-    auto const e = results.end();
-    if (e == find(results.begin(), e, street.m_name))
+    osm::LocalizedStreet const st{street.m_name, ""};
+    if (find(results.begin(), results.end(), st) == results.end())
     {
-      results.push_back(street.m_name);
+      results.push_back(st);
       if (results.size() >= kMaxNumberOfNearbyStreetsToDisplay)
         break;
     }
@@ -2518,9 +2520,11 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
       street = streets.first[streets.second].m_name;
     emo.SetNearbyStreets(FilterNearbyStreets(streets.first, street));
   }
-  emo.SetStreet(street);
+  //TODO: We have to set default and localized name if last one exists.
+  emo.SetStreet({street, ""});
   return true;
 }
+
 
 osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject const & emo)
 {

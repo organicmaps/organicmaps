@@ -36,7 +36,7 @@ vector<LocalizedName> EditableMapObject::GetLocalizedNames() const
   return result;
 }
 
-vector<string> const & EditableMapObject::GetNearbyStreets() const { return m_nearbyStreets; }
+vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const { return m_nearbyStreets; }
 string const & EditableMapObject::GetHouseNumber() const { return m_houseNumber; }
 
 string EditableMapObject::GetPostcode() const
@@ -85,9 +85,9 @@ void EditableMapObject::SetType(uint32_t featureType)
 }
 
 void EditableMapObject::SetID(FeatureID const & fid) { m_featureID = fid; }
-void EditableMapObject::SetStreet(string const & street) { m_street = street; }
+void EditableMapObject::SetStreet(LocalizedStreet const & st) { m_street = st; }
 
-void EditableMapObject::SetNearbyStreets(vector<string> && streets)
+void EditableMapObject::SetNearbyStreets(vector<LocalizedStreet> && streets)
 {
   m_nearbyStreets = move(streets);
 }
@@ -193,7 +193,7 @@ void EditableMapObject::SetBuildingLevels(string const & buildingLevels)
     m_metadata.Set(feature::Metadata::FMD_BUILDING_LEVELS, buildingLevels);
 }
 
-string const & EditableMapObject::GetStreet() const { return m_street; }
+LocalizedStreet const & EditableMapObject::GetStreet() const { return m_street; }
 
 void EditableMapObject::SetCuisines(vector<string> const & cuisine)
 {
