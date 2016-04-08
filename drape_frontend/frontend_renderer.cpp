@@ -356,12 +356,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::StopRendering:
-    {
-      ProcessStopRenderingMessage();
-      break;
-    }
-
   case Message::MyPositionShape:
     {
       ref_ptr<MyPositionShapeMessage> msg = message;
@@ -1388,6 +1382,8 @@ FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(ren
 
 void FrontendRenderer::Routine::Do()
 {
+  m_renderer.m_contextFactory->waitForInitialization();
+
   gui::DrapeGui::Instance().ConnectOnCompassTappedHandler(bind(&FrontendRenderer::OnCompassTapped, &m_renderer));
   m_renderer.m_myPositionController->SetListener(ref_ptr<MyPositionController::Listener>(&m_renderer));
   m_renderer.m_userEventStream.SetListener(ref_ptr<UserEventStream::Listener>(&m_renderer));

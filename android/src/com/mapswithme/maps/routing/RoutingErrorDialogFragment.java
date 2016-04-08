@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Pair;
@@ -97,7 +98,18 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
       @Override
       public void onClick(View v)
       {
-        if (mListener == null || mListener.onDownload())
+        if (mListener == null)
+        {
+          dlg.dismiss();
+          return;
+        }
+
+        if (mMissingMaps.isEmpty())
+        {
+          mListener.onOk();
+          dlg.dismiss();
+        }
+        else if (mListener.onDownload())
           dlg.dismiss();
       }
     });
@@ -118,7 +130,7 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     if (maps == null)
       return;
 
-    for (String map: maps)
+    for (String map : maps)
       mMissingMaps.add(CountryItem.fill(map));
   }
 
@@ -205,7 +217,7 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     );
   }
 
-  public static RoutingErrorDialogFragment create(int resultCode, String[] missingMaps)
+  public static RoutingErrorDialogFragment create(int resultCode, @Nullable String[] missingMaps)
   {
     Bundle args = new Bundle();
     args.putInt(EXTRA_RESULT_CODE, resultCode);

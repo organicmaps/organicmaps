@@ -8,6 +8,7 @@
 + (UIColor *)downloadBadgeBackground;
 + (UIColor *)pressBackground;
 + (UIColor *)red;
++ (UIColor *)errorPink;
 + (UIColor *)orange;
 + (UIColor *)linkBlue;
 + (UIColor *)linkBlueHighlighted;

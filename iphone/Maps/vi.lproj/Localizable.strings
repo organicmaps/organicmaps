@@ -1229,7 +1229,7 @@
 "street" = "Đường";
 
 /* Editable House Number text field (in address block). */
-"house" = "Tòa nhà";
+"house_number" = "Số nhà";
 
 "details" = "Chi tiết";
 
@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Báo cáo vấn đề";
 
+"placepage_add_business_button" = "Thêm tổ chức";
+
 "whatsnew_smallmwm_header" = "Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó";
 
 "whatsnew_smallmwm_message" = "Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia.";
@@ -1369,3 +1371,5 @@
 "download_over_mobile_header" = "Tải xuống qua kết nối mạng di động?";
 
 "download_over_mobile_message" = "Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.";
+
+"error_enter_correct_house_number" = "Nhập số nhà chính xác";

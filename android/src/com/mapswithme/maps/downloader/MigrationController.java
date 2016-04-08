@@ -114,9 +114,6 @@ final class MigrationController
 
   void attach(Container container)
   {
-    if (mContainer != null)
-      throw new IllegalStateException("Must be detached before attach()");
-
     mContainer = container;
   }
 

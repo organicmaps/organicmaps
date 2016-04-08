@@ -81,6 +81,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                                       MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate>
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
+@property (nonatomic) NSMutableArray<NSIndexPath *> * invalidCells;
 
 @end
 
@@ -161,6 +162,13 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     return;
   }
 
+  if (self.invalidCells.count)
+  {
+    MWMEditorTextTableViewCell * cell = [self.tableView cellForRowAtIndexPath:self.invalidCells.firstObject];
+    [cell.textField becomeFirstResponder];
+    return;
+  }
+
   auto & f = GetFramework();
   auto const & featureID = m_mapObject.GetID();
   NSDictionary * info = @{kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
@@ -230,6 +238,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (void)configTable
 {
   self.offscreenCells = [NSMutableDictionary dictionary];
+  self.invalidCells = [NSMutableArray array];
   m_sections.clear();
   m_cells.clear();
   for (auto const & cellsSection : kCellTypesSectionMap)
@@ -350,7 +359,9 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       [tCell configWithDelegate:self
                            icon:nil
                            text:@(m_mapObject.GetHouseNumber().c_str())
-                    placeholder:L(@"house")
+                    placeholder:L(@"house_number")
+                   errorMessage:L(@"error_enter_correct_house_number")
+                        isValid:![self.invalidCells containsObject:indexPath]
                    keyboardType:UIKeyboardTypeDefault];
       break;
     }
@@ -476,9 +487,27 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   [self performSegueWithIdentifier:kOpeningHoursEditorSegue sender:nil];
 }
 
+- (void)markCellAsInvalid:(NSIndexPath *)indexPath
+{
+  if (![self.invalidCells containsObject:indexPath])
+    [self.invalidCells addObject:indexPath];
+
+  [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 #pragma mark - MWMEditorCellProtocol
 
-- (void)cell:(UITableViewCell *)cell changedText:(NSString *)changeText
+- (void)tryToChangeInvalidStateForCell:(MWMEditorTextTableViewCell *)cell
+{
+  [self.tableView beginUpdates];
+  
+  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  [self.invalidCells removeObject:indexPath];
+
+  [self.tableView endUpdates];
+}
+
+- (void)cell:(MWMEditorTextTableViewCell *)cell changedText:(NSString *)changeText
 {
   NSAssert(changeText != nil, @"String can't be nil!");
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -491,7 +520,11 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypePhoneNumber: m_mapObject.SetPhone(val); break;
     case MWMPlacePageCellTypeWebsite: m_mapObject.SetWebsite(val); break;
     case MWMPlacePageCellTypeEmail: m_mapObject.SetEmail(val); break;
-    case MWMPlacePageCellTypeBuilding: m_mapObject.SetHouseNumber(val); break;
+    case MWMPlacePageCellTypeBuilding:
+      m_mapObject.SetHouseNumber(val);
+      if (!osm::EditableMapObject::ValidateHouseNumber(val))
+        [self markCellAsInvalid:indexPath];
+      break;
     default: NSAssert(false, @"Invalid field for changeText");
   }
 }

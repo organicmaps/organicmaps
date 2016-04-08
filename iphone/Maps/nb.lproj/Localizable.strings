@@ -1229,7 +1229,7 @@
 "street" = "Gate";
 
 /* Editable House Number text field (in address block). */
-"house" = "Bygning";
+"house_number" = "Et husnummer";
 
 "details" = "Detaljer";
 
@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Rapporter et problem";
 
+"placepage_add_business_button" = "Legg til organisasjon";
+
 "whatsnew_smallmwm_header" = "Dere har bedt om det og vi har fått det til";
 
 "whatsnew_smallmwm_message" = "Vi har delt opp kartene i separate deler. Nå kan du laste ned separate regioner istedenfor hele land.";
@@ -1369,3 +1371,5 @@
 "download_over_mobile_header" = "Download by using a cellular network connection?";
 
 "download_over_mobile_message" = "This could be considerably expensive with some plans or if roaming.";
+
+"error_enter_correct_house_number" = "Skriv riktig husnummer";

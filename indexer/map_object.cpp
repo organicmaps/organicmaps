@@ -4,6 +4,7 @@
 #include "indexer/cuisines.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
@@ -188,5 +189,11 @@ string MapObject::GetBuildingLevels() const
 }
 
 feature::Metadata const & MapObject::GetMetadata() const { return m_metadata; }
+
 bool MapObject::IsPointType() const { return m_geomType == feature::EGeomType::GEOM_POINT; }
+
+bool MapObject::IsBuilding() const
+{
+  return ftypes::IsBuildingChecker::Instance()(m_types);
+}
 }  // namespace osm

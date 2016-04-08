@@ -113,7 +113,8 @@ UniString Normalize(UniString const & s)
   return result;
 }
 
-void NormalizeDigits(string &utf8) {
+void NormalizeDigits(string & utf8)
+{
   size_t const n = utf8.size();
   size_t const m = n >= 2 ? n - 2 : 0;
 
@@ -149,6 +150,17 @@ void NormalizeDigits(string &utf8) {
   while (i < n)
     utf8[j++] = utf8[i++];
   utf8.resize(j);
+}
+
+void NormalizeDigits(UniString & us)
+{
+  size_t const size = us.size();
+  for (size_t i = 0; i < size; ++i)
+  {
+    UniChar const c = us[i];
+    if (c >= 0xFF10 /* '０' */ && c <= 0xFF19 /* '９' */)
+      us[i] = c - 0xFF10 + '0';
+  }
 }
 
 namespace

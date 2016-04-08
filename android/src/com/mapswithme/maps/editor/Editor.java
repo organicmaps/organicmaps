@@ -141,4 +141,6 @@ public final class Editor
   public static native long nativeGetMwmVersion();
 
   public static native void nativeCreateNote(double lat, double lon, String text);
+
+  public static native boolean nativeIsHouseValid(String houseNumber);
 }

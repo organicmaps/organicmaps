@@ -1229,7 +1229,7 @@
 "street" = "Ulica";
 
 /* Editable House Number text field (in address block). */
-"house" = "Numer";
+"house_number" = "Numer domu";
 
 "details" = "Szczegóły";
 
@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Zgłoś problem";
 
+"placepage_add_business_button" = "Dodaj organizację";
+
 "whatsnew_smallmwm_header" = "Prosiliście o to, więc to zrobiliśmy";
 
 "whatsnew_smallmwm_message" = "Podzieliliśmy mapy na części. Teraz możesz pobierać oddzielne regiony, zamiast całego kraju";
@@ -1369,3 +1371,5 @@
 "download_over_mobile_header" = "Czy pobrać, używając połączenia z siecią komórkową?";
 
 "download_over_mobile_message" = "Może to być kosztowne przy niektórych planach taryfowych lub w roamingu.";
+
+"error_enter_correct_house_number" = "Wprowadź poprawny numer domu";

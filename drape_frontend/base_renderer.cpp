@@ -25,10 +25,9 @@ void BaseRenderer::StartThread()
 
 void BaseRenderer::StopThread()
 {
-  // send message to stop rendering in render thread
-  m_commutator->PostMessage(m_threadName,
-                            make_unique_dp<StopRenderingMessage>(),
-                            MessagePriority::High);
+  // stop rendering and close queue
+  m_selfThread.GetRoutine()->Cancel();
+  CloseQueue();
 
   // wake up render thread if necessary
   if (!m_isEnabled)
@@ -132,12 +131,6 @@ void BaseRenderer::WakeUp()
   lock_guard<mutex> lock(m_renderingEnablingMutex);
   m_wasNotified = true;
   m_renderingEnablingCondition.notify_one();
-}
-
-void BaseRenderer::ProcessStopRenderingMessage()
-{
-  m_selfThread.GetRoutine()->Cancel();
-  CloseQueue();
 }
 
 bool BaseRenderer::CanReceiveMessages()

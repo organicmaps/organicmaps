@@ -352,7 +352,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (void)menuActionAddPlace
 {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatAddPlace}];
+  [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatMenu}];
   self.state = self.restoreState;
   [self.delegate addPlace];
 }

@@ -124,6 +124,7 @@
           style="@style/MwmWidget.Editor.MetadataBlock">
 
           <com.mapswithme.maps.widget.CustomTextInputLayout
+            android:id="@+id/custom_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -134,7 +135,7 @@
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
-              android:hint="@string/house"
+              android:hint="@string/house_number"
               tools:text="79-59"/>
 
           </com.mapswithme.maps.widget.CustomTextInputLayout>

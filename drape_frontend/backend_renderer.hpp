@@ -59,7 +59,7 @@ protected:
   unique_ptr<threads::IRoutine> CreateRoutine() override;
 
 private:
-  void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, gui::TWidgetsSizeInfo & sizeInfo, bool needResetOldGui);
+  void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, bool needResetOldGui);
   void RecacheChoosePositionMark();
   void RecacheMyPosition();
 

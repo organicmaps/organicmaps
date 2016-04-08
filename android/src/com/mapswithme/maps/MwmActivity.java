@@ -48,7 +48,6 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.editor.FeatureCategoryActivity;
-import com.mapswithme.maps.editor.ReportActivity;
 import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -276,21 +275,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       EditorActivity.start(this);
   }
 
-  public void showReportForm(MapObject point)
-  {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_REPORT);
-    if (mIsFragmentContainer)
-    {
-      Bundle args = new Bundle(2);
-      args.putDouble(ReportFragment.EXTRA_LAT, point.getLat());
-      args.putDouble(ReportFragment.EXTRA_LON, point.getLon());
-
-      replaceFragment(ReportFragment.class, args, null);
-    }
-    else
-      ReportActivity.start(this, point);
-  }
-
   private void shareMyLocation()
   {
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
@@ -402,6 +386,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void onClick(View v)
       {
+        Statistics.INSTANCE.trackEditorLaunch(true);
         showPositionChooser(false);
         if (Framework.nativeIsDownloadedMapAtScreenCenter())
           startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
@@ -412,12 +397,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.hide(mPositionChooser);
   }
 
-  private void showPositionChooser(boolean show)
+  public void showPositionChooser(boolean show)
   {
-    Statistics.INSTANCE.trackEditorLaunch(true);
     UiUtils.showIf(show, mPositionChooser);
     setFullscreen(show);
     Framework.nativeTurnChoosePositionMode(show);
+    closePlacePage();
   }
 
   private void initMap()
@@ -506,6 +491,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu.close(true, procAfterClose);
   }
 
+  private boolean closePositionChooser()
+  {
+    if (UiUtils.isVisible(mPositionChooser))
+    {
+      showPositionChooser(false);
+      return true;
+    }
+
+    return false;
+  }
+
   private void startLocationToPoint(String statisticsEvent, String alohaEvent, final @Nullable MapObject endPoint)
   {
     closeMenu(statisticsEvent, alohaEvent, new Runnable()
@@ -573,6 +569,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
             @Override
             public void run()
             {
+              Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
+                                             Statistics.params().add(Statistics.EventParam.FROM, "main_menu"));
               showPositionChooser(true);
             }
           });
@@ -660,7 +658,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    mRoutingPlanInplaceController.setStartButton();
     if (mPlacePage.isDocked())
       mPlacePage.setLeftAnimationTrackListener(mMainMenu.getLeftAnimationTrackListener());
   }
@@ -675,6 +672,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onDestroy()
   {
+    // TODO move listeners attach-deattach to onStart-onStop since onDestroy isn't guaranteed.
     Framework.nativeRemoveMapObjectListener();
     BottomSheetHelper.free();
     super.onDestroy();
@@ -1018,6 +1016,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onStart();
     initShowcase();
     RoutingController.get().attach(this);
+    if (!mIsFragmentContainer)
+      mRoutingPlanInplaceController.setStartButton();
   }
 
   @Override
@@ -1043,7 +1043,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (!closePlacePage() && !closeSidePanel() && !RoutingController.get().cancel())
+    if (!closePlacePage() && !closeSidePanel() &&
+        !RoutingController.get().cancel() && !closePositionChooser())
       super.onBackPressed();
   }
 

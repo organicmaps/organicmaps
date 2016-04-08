@@ -2,8 +2,9 @@
 
 iosOGLContextFactory::iosOGLContextFactory(CAEAGLLayer * layer)
   : m_layer(layer)
-  , m_drawContext(NULL)
-  , m_uploadContext(NULL)
+  , m_drawContext(nullptr)
+  , m_uploadContext(nullptr)
+  , m_isInitialized(false)
 {}
 
 iosOGLContextFactory::~iosOGLContextFactory()
@@ -14,14 +15,14 @@ iosOGLContextFactory::~iosOGLContextFactory()
 
 dp::OGLContext * iosOGLContextFactory::getDrawContext()
 {
-  if (m_drawContext == NULL)
+  if (m_drawContext == nullptr)
     m_drawContext = new iosOGLContext(m_layer, m_uploadContext, true);
   return m_drawContext;
 }
 
 dp::OGLContext * iosOGLContextFactory::getResourcesUploadContext()
 {
-  if (m_uploadContext == NULL)
+  if (m_uploadContext == nullptr)
     m_uploadContext = new iosOGLContext(m_layer, m_drawContext, false);
   return m_uploadContext;
 }
@@ -38,6 +39,20 @@ bool iosOGLContextFactory::isUploadContextCreated() const
 
 void iosOGLContextFactory::setPresentAvailable(bool available)
 {
+  {
+    lock_guard<mutex> lock(m_initializationMutex);
+    if (!m_isInitialized && available)
+    {
+      m_isInitialized = true;
+      m_initializationCondition.notify_all();
+    }
+  }
   if (m_drawContext != nullptr)
     m_drawContext->setPresentAvailable(available);
+}
+
+void iosOGLContextFactory::waitForInitialization()
+{
+  unique_lock<mutex> lock(m_initializationMutex);
+  m_initializationCondition.wait(lock, [this] { return m_isInitialized; });
 }

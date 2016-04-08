@@ -1229,7 +1229,7 @@
 "street" = "거리";
 
 /* Editable House Number text field (in address block). */
-"house" = "건물";
+"house_number" = "집 번호";
 
 "details" = "세부 정보";
 
@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "문제 신고";
 
+"placepage_add_business_button" = "조직 추가";
+
 "whatsnew_smallmwm_header" = "여러분이 요청한 것을 저희가 해냈습니다";
 
 "whatsnew_smallmwm_message" = "지도를 여러 부분으로 나눴습니다. 이제는 전체 국가가 아닌 개별 지역을 다운로드할 수 있습니다.";
@@ -1369,3 +1371,5 @@
 "download_over_mobile_header" = "셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?";
 
 "download_over_mobile_message" = "이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.";
+
+"error_enter_correct_house_number" = "올바른 집 번호 입력";

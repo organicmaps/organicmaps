@@ -14,6 +14,9 @@ import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
+import com.mapswithme.maps.widget.CustomTextInputLayout;
+import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
@@ -25,6 +28,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mTvLocalizedNames;
   private TextView mTvStreet;
   private EditText mEtHouseNumber;
+  private CustomTextInputLayout mInputHouseNumber;
   private View mPhoneBlock;
   private EditText mEtPhone;
   private View mWebBlock;
@@ -63,6 +67,22 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEtName.setText(Editor.nativeGetDefaultName());
     mTvStreet.setText(Editor.nativeGetStreet());
     mEtHouseNumber.setText(Editor.nativeGetHouseNumber());
+    mEtHouseNumber.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        final String text = s.toString();
+
+        if (!Editor.nativeIsHouseValid(text))
+        {
+          mInputHouseNumber.setError(getString(R.string.error_enter_correct_house_number));
+          return;
+        }
+
+        mInputHouseNumber.setError(null);
+      }
+    });
     mEtPhone.setText(Editor.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
     mEtWebsite.setText(Editor.getMetadata(Metadata.MetadataType.FMD_WEBSITE));
     mEtEmail.setText(Editor.getMetadata(Metadata.MetadataType.FMD_EMAIL));
@@ -80,14 +100,31 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     setEdits();
   }
 
-  protected void setEdits()
+  protected boolean setEdits()
   {
+    if (!validateFields())
+      return false;
+
     Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, getPhone());
     Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, getWebsite());
     Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, getEmail());
     Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, getWifi());
     Editor.nativeSetDefaultName(getName());
     Editor.nativeSetHouseNumber(getHouseNumber());
+
+    return true;
+  }
+
+  private boolean validateFields()
+  {
+    if (!Editor.nativeIsHouseValid(getHouseNumber()))
+    {
+      mEtHouseNumber.requestFocus();
+      InputUtils.showKeyboard(mEtHouseNumber);
+      return false;
+    }
+
+    return true;
   }
 
   public String getName()
@@ -129,11 +166,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   public String getWifi()
   {
     return mSwWifi.isChecked() ? "wlan" : "";
-  }
-
-  public String getOpeningHours()
-  {
-    return Editor.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
   }
 
   private void refreshEditableFields()
@@ -211,6 +243,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     view.findViewById(R.id.block_street).setOnClickListener(this);
     mTvStreet = (TextView) view.findViewById(R.id.street);
     mEtHouseNumber = findInput(view.findViewById(R.id.building));
+    mInputHouseNumber = (CustomTextInputLayout) view.findViewById(R.id.building).findViewById(R.id.custom_input);
     mPhoneBlock = view.findViewById(R.id.block_phone);
     mEtPhone = findInput(mPhoneBlock);
     mWebBlock = view.findViewById(R.id.block_website);

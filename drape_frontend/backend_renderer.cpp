@@ -69,10 +69,9 @@ unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
   return make_unique<Routine>(*this);
 }
 
-void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & sizeInfo,
-                                 bool needResetOldGui)
+void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool needResetOldGui)
 {
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(initInfo, sizeInfo, m_texMng);
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(initInfo, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), needResetOldGui);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
 }
@@ -117,7 +116,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::GuiRecache:
     {
       ref_ptr<GuiRecacheMessage> msg = message;
-      RecacheGui(msg->GetInitInfo(), msg->GetSizeInfoMap(), msg->NeedResetOldGui());
+      RecacheGui(msg->GetInitInfo(), msg->NeedResetOldGui());
       break;
     }
   case Message::GuiLayerLayout:
@@ -255,11 +254,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
-  case Message::StopRendering:
-    {
-      ProcessStopRenderingMessage();
-      break;
-    }
   case Message::Allow3dBuildings:
     {
       ref_ptr<Allow3dBuildingsMessage> msg = message;
@@ -288,6 +282,8 @@ BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(rende
 
 void BackendRenderer::Routine::Do()
 {
+  m_renderer.m_contextFactory->waitForInitialization();
+
   m_renderer.m_contextFactory->getResourcesUploadContext()->makeCurrent();
   GLFunctions::Init();
 

@@ -1229,7 +1229,7 @@
 "street" = "Stradă";
 
 /* Editable House Number text field (in address block). */
-"house" = "Clădire";
+"house_number" = "Număr casă";
 
 "details" = "Detalii";
 
@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Raportați o problemă";
 
+"placepage_add_business_button" = "Adăugare organizație";
+
 "whatsnew_smallmwm_header" = "Ne-ați cerut, iar noi am făcut";
 
 "whatsnew_smallmwm_message" = "Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.";
@@ -1369,3 +1371,5 @@
 "download_over_mobile_header" = "Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?";
 
 "download_over_mobile_message" = "Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.";
+
+"error_enter_correct_house_number" = "Introduceți numărul corect al casei";

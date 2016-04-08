@@ -1229,7 +1229,7 @@
 "street" = "الشارع";
 
 /* Editable House Number text field (in address block). */
-"house" = "المبني";
+"house_number" = "رقم المنزل";
 
 "details" = "التفاصيل";
 
@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "الإبلاغ عن مشكلة";
 
+"placepage_add_business_button" = "إضافة مؤسسة";
+
 "whatsnew_smallmwm_header" = "لقد طلبتم ذلك، وها نحن قد لبينا طلبكم";
 
 "whatsnew_smallmwm_message" = "لقد قسمنا الخرائط إلى أجزاء. الآن يمكنك تنزيل مناطق منفصلة، وليس البلد بأكمله.";
@@ -1369,3 +1371,5 @@
 "download_over_mobile_header" = "تنزيل باستخدام اتصال الشبكة الخلوية؟";
 
 "download_over_mobile_message" = "قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.";
+
+"error_enter_correct_house_number" = "أدخل رقم منزل صحيح";

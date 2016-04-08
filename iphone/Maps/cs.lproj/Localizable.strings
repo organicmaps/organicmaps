@@ -1229,7 +1229,7 @@
 "street" = "Ulice";
 
 /* Editable House Number text field (in address block). */
-"house" = "Budova";
+"house_number" = "Číslo domu";
 
 "details" = "Podrobnosti";
 
@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Nahlásit problém";
 
+"placepage_add_business_button" = "Přidat organizaci";
+
 "whatsnew_smallmwm_header" = "Říkali jste si o to, a my to udělali";
 
 "whatsnew_smallmwm_message" = "Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země.";
@@ -1369,3 +1371,5 @@
 "download_over_mobile_header" = "Stáhnout pomocí připojení přes mobilní síť?";
 
 "download_over_mobile_message" = "Toto by mohli být s některými tarify nebo roamingem výrazně dražší.";
+
+"error_enter_correct_house_number" = "Zadejte správné číslo domu";

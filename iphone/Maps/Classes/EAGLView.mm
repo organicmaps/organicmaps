@@ -89,7 +89,7 @@ double getExactDPI(double contentScaleFactor)
 
 - (void)createDrapeEngineWithWidth:(int)width height:(int)height
 {
-  NSLog(@"EAGLView createDrapeEngine Started");
+  LOG(LINFO, ("EAGLView createDrapeEngine Started"));
   if (MapsAppDelegate.theApp.isDaemonMode)
     return;
 
@@ -103,7 +103,7 @@ double getExactDPI(double contentScaleFactor)
 
   _drapeEngineCreated = YES;
 
-  NSLog(@"EAGLView createDrapeEngine Ended");
+  LOG(LINFO, ("EAGLView createDrapeEngine Ended"));
 }
 
 - (void)addSubview:(UIView *)view

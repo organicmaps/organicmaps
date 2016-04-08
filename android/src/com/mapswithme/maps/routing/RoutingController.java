@@ -97,7 +97,7 @@ public class RoutingController
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
   {
     @Override
-    public void onRoutingEvent(final int resultCode, final String[] missingMaps)
+    public void onRoutingEvent(final int resultCode, @Nullable final String[] missingMaps)
     {
       Log.d(TAG, "onRoutingEvent(resultCode: " + resultCode + ")");
 
@@ -173,7 +173,7 @@ public class RoutingController
           {
             cancel();
 
-            for (String map: mLastMissingMaps)
+            for (String map : mLastMissingMaps)
               MapManager.nativeDownload(map);
 
             if (mContainer != null)
@@ -250,18 +250,11 @@ public class RoutingController
 
   public void attach(@NonNull Container container)
   {
-    Log.d(TAG, "attach");
-
-    if (mContainer != null)
-      throw new IllegalStateException("Must be detached before attach()");
-
     mContainer = container;
   }
 
   public void detach()
   {
-    Log.d(TAG, "detach");
-
     mContainer = null;
     mStartButton = null;
   }

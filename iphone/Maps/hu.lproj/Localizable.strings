@@ -1229,7 +1229,7 @@
 "street" = "Utca";
 
 /* Editable House Number text field (in address block). */
-"house" = "Épület";
+"house_number" = "Házszám";
 
 "details" = "Részletek";
 
@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Hibabejelentés";
 
+"placepage_add_business_button" = "Szervezet hozzáadása";
+
 "whatsnew_smallmwm_header" = "Te kérted, mi elkészítettük";
 
 "whatsnew_smallmwm_message" = "Felosztottuk részekre a térképeket. Mostantól az egyes régiókat is letöltheted, nem csak az egész országot.";
@@ -1369,3 +1371,5 @@
 "download_over_mobile_header" = "Letöltés mobilhálózati kapcsolat segítségével?";
 
 "download_over_mobile_message" = "Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.";
+
+"error_enter_correct_house_number" = "Helyes házszámot adjon meg";

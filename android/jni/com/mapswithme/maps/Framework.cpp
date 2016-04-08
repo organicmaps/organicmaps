@@ -1004,4 +1004,10 @@ Java_com_mapswithme_maps_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv 
 {
   return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatCuisines());
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsActiveObjectABuilding(JNIEnv * env, jclass)
+{
+  return g_framework->GetPlacePageInfo().IsBuilding();
+}
 } // extern "C"

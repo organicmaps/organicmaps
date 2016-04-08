@@ -53,7 +53,6 @@ class LayerCacher
 {
 public:
   drape_ptr<LayerRenderer> RecacheWidgets(TWidgetsInitInfo const & initInfo,
-                                          TWidgetsSizeInfo & sizeInfo,
                                           ref_ptr<dp::TextureManager> textures);
   drape_ptr<LayerRenderer> RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures);
 

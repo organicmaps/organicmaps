@@ -109,7 +109,7 @@ UNIT_TEST(UploadingGlyphs)
 
   DummyTexture tex;
   tex.Create(p);
-  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
+  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(make_ref(&tex));
 
   count = 0;
@@ -121,8 +121,7 @@ UNIT_TEST(UploadingGlyphs)
   count += (index.MapResource(GlyphKey(0x401)) != nullptr) ? 1 : 0;
   while (index.GetPendingNodesCount() < count);
 
-  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage))
-                                                .WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
+  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(make_ref(&tex));
 
   RunTestLoop("UploadingGlyphs", bind(&UploadedRender::Render, &r, _1));

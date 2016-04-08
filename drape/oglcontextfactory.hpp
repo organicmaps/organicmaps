@@ -18,6 +18,7 @@ public:
   virtual OGLContext * getResourcesUploadContext() = 0;
   virtual bool isDrawContextCreated() const { return false; }
   virtual bool isUploadContextCreated() const { return false; }
+  virtual void waitForInitialization() {}
 };
 
 class ThreadSafeFactory : public OGLContextFactory
@@ -25,8 +26,8 @@ class ThreadSafeFactory : public OGLContextFactory
 public:
   ThreadSafeFactory(OGLContextFactory * factory, bool enableSharing = true);
   ~ThreadSafeFactory();
-  virtual OGLContext * getDrawContext();
-  virtual OGLContext * getResourcesUploadContext();
+  OGLContext * getDrawContext() override;
+  OGLContext * getResourcesUploadContext() override;
 
   template<typename T>
   T * CastFactory()
@@ -34,6 +35,8 @@ public:
     ASSERT(dynamic_cast<T *>(m_factory) != nullptr, ());
     return static_cast<T *>(m_factory);
   }
+
+  void waitForInitialization() override;
 
 protected:
   typedef function<OGLContext * ()> TCreateCtxFn;

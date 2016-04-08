@@ -120,7 +120,6 @@ public:
   void SetRoutePoint(m2::PointD const & position, bool isStart, bool isValid);
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
-  gui::TWidgetsSizeInfo const & GetWidgetSizes();
 
   void Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings, double rotationAngle, double angleFOV);
   void EnablePerspective(double rotationAngle, double angleFOV);
@@ -162,7 +161,6 @@ private:
   TUserPositionChangedFn m_userPositionChangedFn;
 
   gui::TWidgetsInitInfo m_widgetsInfo;
-  gui::TWidgetsSizeInfo m_widgetSizes;
   gui::TWidgetsLayoutInfo m_widgetsLayout;
 
   bool m_choosePositionMode = false;

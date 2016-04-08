@@ -46,6 +46,7 @@ vector<MWMPlacePageCellType> const kSectionMetadataCellTypes {
 
 vector<MWMPlacePageCellType> const kSectionEditingCellTypes {
   MWMPlacePageCellTypeEditButton,
+  MWMPlacePageCellTypeAddBusinessButton,
   MWMPlacePageCellTypeReportButton
 };
 
@@ -68,6 +69,7 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeOpenHours, "MWMPlacePageOpeningHoursCell"},
     {MWMPlacePageCellTypeBookmark, "PlacePageBookmarkCell"},
     {MWMPlacePageCellTypeEditButton, "MWMPlacePageButtonCell"},
+    {MWMPlacePageCellTypeAddBusinessButton, "MWMPlacePageButtonCell"},
     {MWMPlacePageCellTypeReportButton, "MWMPlacePageButtonCell"}};
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
@@ -401,11 +403,6 @@ enum class AttributePosition
   [CATransaction commit];
 }
 
-- (void)editPlace
-{
-  [self.ownerPlacePage editPlace];
-}
-
 - (UITableViewCell *)offscreenCellForIdentifier:(NSString *)reuseIdentifier
 {
   UITableViewCell * cell = self.offscreenCells[reuseIdentifier];
@@ -438,9 +435,6 @@ enum class AttributePosition
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   switch (cellType)
   {
-    case MWMPlacePageCellTypeReportButton:
-      [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage isReport:YES];
-      break;
     case MWMPlacePageCellTypeBookmark:
       [(MWMPlacePageBookmarkCell *)cell config:self.ownerPlacePage forHeight:NO];
       break;
@@ -448,7 +442,9 @@ enum class AttributePosition
       [(MWMPlacePageOpeningHoursCell *)cell configWithDelegate:self info:[entity getCellValue:cellType]];
       break;
     case MWMPlacePageCellTypeEditButton:
-      [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage isReport:NO];
+    case MWMPlacePageCellTypeAddBusinessButton:
+    case MWMPlacePageCellTypeReportButton:
+      [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage forType:cellType];
       break;
     default:
     {

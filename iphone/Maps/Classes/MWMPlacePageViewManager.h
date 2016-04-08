@@ -25,6 +25,7 @@
 - (void)routeTo;
 - (void)share;
 - (void)editPlace;
+- (void)addBusiness;
 - (void)reportProblem;
 - (void)addBookmark;
 - (void)removeBookmark;

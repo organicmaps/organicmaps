@@ -203,4 +203,6 @@ public class Framework
   public static native boolean nativeIsDownloadedMapAtScreenCenter();
 
   public static native String nativeGetActiveObjectFormattedCuisine();
+
+  public static native boolean nativeIsActiveObjectABuilding();
 }

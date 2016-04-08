@@ -1229,7 +1229,7 @@
 "street" = "Katu";
 
 /* Editable House Number text field (in address block). */
-"house" = "Rakennus";
+"house_number" = "Talon numero";
 
 "details" = "Lisätiedot";
 
@@ -1315,6 +1315,8 @@
 
 "placepage_report_problem_button" = "Ilmoita ongelmasta";
 
+"placepage_add_business_button" = "Lisää organisaatio";
+
 "whatsnew_smallmwm_header" = "Sitä on pyydetty, ja nyt se on tarjolla";
 
 "whatsnew_smallmwm_message" = "Olemme jakaneet kartat osiin, joten voitkin nyt ladata pelkkiä alueita lataamatta koko maan karttaa.";
@@ -1369,3 +1371,5 @@
 "download_over_mobile_header" = "Lataa käyttämällä puhelinverkkoyhteyttä?";
 
 "download_over_mobile_message" = "Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.";
+
+"error_enter_correct_house_number" = "Syötä oikea talon numero";

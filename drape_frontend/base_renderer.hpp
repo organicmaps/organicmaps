@@ -52,7 +52,6 @@ protected:
   void StopThread();
 
   void CheckRenderingEnabled();
-  void ProcessStopRenderingMessage();
 
   virtual unique_ptr<threads::IRoutine> CreateRoutine() = 0;
 

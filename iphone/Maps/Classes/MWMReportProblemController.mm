@@ -3,7 +3,7 @@
 
 namespace
 {
- string const kAmenityDoesntExist = "Amenity doesn't exist!";
+ string const kAmenityDoesntExist = "The amenity has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be a month old), but cannot be found on the ground.";
 }
 
 @interface MWMReportProblemController ()

@@ -112,6 +112,7 @@ public enum Statistics
     public static final String ROUTING_SEARCH_POINT = "Routing. Search point";
     // editor
     public static final String EDITOR_START_CREATE = "Editor_Add_start";
+    public static final String EDITOR_ADD_CLICK = "Editor_Add_click";
     public static final String EDITOR_START_EDIT = "Editor_Edit_start";
     public static final String EDITOR_SUCCESS_CREATE = "Editor_Add_success";
     public static final String EDITOR_SUCCESS_EDIT = "Editor_Edit_success";

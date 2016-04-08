@@ -189,18 +189,15 @@ void DrapeEngine::UpdateMapStyle()
 
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
-                                    MessagePriority::High);
+                                    MessagePriority::Normal);
   }
 }
 
 void DrapeEngine::RecacheGui(bool needResetOldGui)
 {
-  GuiRecacheMessage::Blocker blocker;
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<GuiRecacheMessage>(blocker, m_widgetsInfo,
-                                                                    m_widgetSizes, needResetOldGui),
+                                  make_unique_dp<GuiRecacheMessage>(m_widgetsInfo, needResetOldGui),
                                   MessagePriority::High);
-  blocker.Wait();
 }
 
 void DrapeEngine::AddUserEvent(UserEvent const & e)
@@ -405,11 +402,6 @@ void DrapeEngine::SetWidgetLayout(gui::TWidgetsLayoutInfo && info)
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
                                   MessagePriority::Normal);
-}
-
-gui::TWidgetsSizeInfo const & DrapeEngine::GetWidgetSizes()
-{
-  return m_widgetSizes;
 }
 
 void DrapeEngine::Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings, double rotationAngle, double angleFOV)

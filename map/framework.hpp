@@ -133,6 +133,8 @@ protected:
 
   BookmarkManager m_bmManager;
 
+  bool m_isRenderingEnabled;
+
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
   void OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile);
@@ -352,7 +354,6 @@ public:
   void SetupMeasurementSystem();
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && layout);
-  const gui::TWidgetsSizeInfo & GetWidgetSizes();
 
   void PrepareToShutdown();
 

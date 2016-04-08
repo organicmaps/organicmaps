@@ -756,7 +756,7 @@
 	<string name="add_language">Добавить язык</string>
 	<string name="street">Улица</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house">Дом</string>
+	<string name="house_number">Номер дома</string>
 	<string name="details">Подробнее</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Добавить улицу</string>
@@ -800,6 +800,7 @@
 	<string name="editor_report_problem_other_title">Другая проблема</string>
 	<string name="placepage_add_place_button">Добавить место</string>
 	<string name="placepage_report_problem_button">Сообщить о проблеме</string>
+	<string name="placepage_add_business_button">Добавить организацию</string>
 	<string name="whatsnew_smallmwm_header">Вы долго просили — мы наконец сделали</string>
 	<string name="whatsnew_smallmwm_message">Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.</string>
 	<string name="whatsnew_search_header">Новый поиск</string>
@@ -828,4 +829,5 @@
 	<string name="downloader_of">%1$d из %2$d</string>
 	<string name="download_over_mobile_header">Загрузить через сотовую связь?</string>
 	<string name="download_over_mobile_message">На некоторых тарифных планах или в роуминге это может привести к значительным расходам.</string>
+	<string name="error_enter_correct_house_number">Введите корректный номер дома</string>
 </resources>
