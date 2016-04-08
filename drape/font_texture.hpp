@@ -152,9 +152,9 @@ public:
 
   ~FontTexture() { TBase::Reset(); }
 
-  bool IsFull(uint32_t newKeysCount) const override
+  bool HasEnoughSpace(uint32_t newKeysCount) const override
   {
-    return !m_index.CanBeGlyphPacked(newKeysCount);
+    return m_index.CanBeGlyphPacked(newKeysCount);
   }
 
   bool HasAsyncRoutines() const override

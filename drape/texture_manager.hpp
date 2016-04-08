@@ -191,7 +191,7 @@ private:
     {
       GlyphGroup & group = m_glyphGroups[groupIndex];
       uint32_t const absentGlyphs = GetAbsentGlyphsCount(group.m_texture, text);
-      if (group.m_texture == nullptr || !group.m_texture->IsFull(absentGlyphs))
+      if (group.m_texture == nullptr || group.m_texture->HasEnoughSpace(absentGlyphs))
         FillResults<GlyphGroup>(text, buffers, group);
       else
         useHybridGroup = true;

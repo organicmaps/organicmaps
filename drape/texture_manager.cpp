@@ -335,12 +335,12 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text)
   }
 
   HybridGlyphGroup & group = m_hybridGlyphGroups.back();
-  bool isFull = false;
+  bool hasEnoughSpace = true;
   if (group.m_texture != nullptr)
-    isFull = group.m_texture->IsFull(text.size());
+    hasEnoughSpace = group.m_texture->HasEnoughSpace(text.size());
 
   // if we have got the only hybrid texture (in most cases it is) we can omit checking of glyphs usage
-  if (!isFull)
+  if (hasEnoughSpace)
   {
     size_t const glyphsCount = group.m_glyphs.size() + text.size();
     if (m_hybridGlyphGroups.size() == 1 && glyphsCount < m_maxGlypsCount)
@@ -355,7 +355,7 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text)
   // check if we can contain text in the last hybrid texture
   size_t const unfoundChars = GetNumberOfUnfoundCharacters(text, group);
   size_t const newCharsCount = group.m_glyphs.size() + unfoundChars;
-  if (newCharsCount >= m_maxGlypsCount || group.m_texture->IsFull(unfoundChars))
+  if (newCharsCount >= m_maxGlypsCount || !group.m_texture->HasEnoughSpace(unfoundChars))
     m_hybridGlyphGroups.push_back(HybridGlyphGroup());
 
   return m_hybridGlyphGroups.size() - 1;
