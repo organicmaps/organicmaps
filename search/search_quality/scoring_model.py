@@ -11,7 +11,7 @@ import sys
 
 FEATURES = ['DistanceToPivot', 'Rank', 'NameScore', 'NameCoverage', 'SearchType']
 
-DISTANCE_WINDOW = 1e9
+MAX_DISTANCE_METERS = 2e7
 MAX_RANK = 255
 RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring Prefix', 'Substring', 'Full Match Prefix', 'Full Match']
@@ -26,7 +26,7 @@ SEARCH_TYPES = {'POI': 0,
 
 
 def normalize_data(data):
-    transform_distance = lambda d: exp(- d * 1000 / DISTANCE_WINDOW)
+    transform_distance = lambda d: 1 - min(d, MAX_DISTANCE_METERS) / MAX_DISTANCE_METERS
 
     max_name_score = len(NAME_SCORES) - 1
     max_search_type = SEARCH_TYPES['COUNTRY']

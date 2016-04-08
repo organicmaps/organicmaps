@@ -12,20 +12,20 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double const kDistanceToPivot = 24.443;
-double const kRank = 11.010;
-double const kNameScore = 1.0;
-double const kNameCoverage = 1.0;
-double const kSearchType = 22.378;
+double const kDistanceToPivot = 0.19933969103335503;
+double const kRank = 3.528698483480807;
+double const kNameScore = 1.0050524496846687;
+double const kNameCoverage = 0.33989660511789926;
+double const kSearchType = 1.1949307125113533;
 
 double TransformDistance(double distance)
 {
-  return exp(-distance * 1000 / RankingInfo::kMaxDistMeters);
+  return 1.0 - min(distance, RankingInfo::kMaxDistMeters) / RankingInfo::kMaxDistMeters;
 }
 }  // namespace
 
 // static
-double const RankingInfo::kMaxDistMeters = 1e9;
+double const RankingInfo::kMaxDistMeters = 2e7;
 
 // static
 void RankingInfo::PrintCSVHeader(ostream & os)

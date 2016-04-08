@@ -194,7 +194,7 @@ string DebugPrint(Sample::Result const & r)
   oss << "relevance: " << DebugPrint(r.m_relevance) << " ";
   oss << "name: " << DebugPrint(r.m_name) << " ";
   oss << "house number: " << r.m_houseNumber << " ";
-  oss << "pos: " << r.m_pos << " ";
+  oss << "pos: " << DebugPrint(r.m_pos) << " ";
   oss << "types: [";
   for (size_t i = 0; i < r.m_types.size(); ++i)
   {
