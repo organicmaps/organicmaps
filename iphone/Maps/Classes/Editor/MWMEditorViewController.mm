@@ -349,7 +349,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       MWMEditorSelectTableViewCell * tCell = (MWMEditorSelectTableViewCell *)cell;
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_adress"]
-                           text:@(m_mapObject.GetStreet().c_str())
+                           text:@(m_mapObject.GetStreet().m_defaultName.c_str())
                     placeholder:L(@"add_street")];
       break;
     }
@@ -594,23 +594,19 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 #pragma mark - MWMStreetEditorProtocol
 
-- (NSString *)getStreet
+- (void)setNearbyStreet:(osm::LocalizedStreet const &)street
 {
-  return @(m_mapObject.GetStreet().c_str());
+  m_mapObject.SetStreet(street);
 }
 
-- (void)setStreet:(NSString *)street
+- (osm::LocalizedStreet const &)currentStreet
 {
-  m_mapObject.SetStreet(street.UTF8String);
+  return m_mapObject.GetStreet();
 }
 
-- (NSArray<NSString *> *)getNearbyStreets
+- (vector<osm::LocalizedStreet> const &)nearbyStreets
 {
-  auto const & streets = m_mapObject.GetNearbyStreets();
-  NSMutableArray * arr = [[NSMutableArray alloc] initWithCapacity:streets.size()];
-  for (auto const & street : streets)
-    [arr addObject:@(street.c_str())];
-  return arr;
+  return m_mapObject.GetNearbyStreets();
 }
 
 #pragma mark - Segue
