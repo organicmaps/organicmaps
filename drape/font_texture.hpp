@@ -22,6 +22,7 @@ public:
   GlyphPacker(m2::PointU const & size);
 
   bool PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect);
+  bool CanBePacked(uint32_t glyphsCount, uint32_t width, uint32_t height) const;
   m2::RectF MapTextureCoords(m2::RectU const & pixelRect) const;
   bool IsFull() const;
 
@@ -108,7 +109,11 @@ public:
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);
   void UploadResources(ref_ptr<Texture> texture);
 
+  bool CanBeGlyphPacked(uint32_t glyphsCount) const;
+
   bool HasAsyncRoutines() const;
+
+  uint32_t GetAbsentGlyphsCount(strings::UniString const & text) const;
 
   // ONLY for unit-tests. DO NOT use this function anywhere else.
   size_t GetPendingNodesCount();
@@ -147,9 +152,19 @@ public:
 
   ~FontTexture() { TBase::Reset(); }
 
+  bool IsFull(uint32_t newKeysCount) const override
+  {
+    return !m_index.CanBeGlyphPacked(newKeysCount);
+  }
+
   bool HasAsyncRoutines() const override
   {
     return m_index.HasAsyncRoutines();
+  }
+
+  uint32_t GetAbsentGlyphsCount(strings::UniString const & text) const
+  {
+    return m_index.GetAbsentGlyphsCount(text);
   }
 
 private:
