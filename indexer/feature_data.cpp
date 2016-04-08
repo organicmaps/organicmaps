@@ -5,6 +5,7 @@
 
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
@@ -262,20 +263,31 @@ bool FeatureParams::AddHouseName(string const & s)
   return false;
 }
 
-bool FeatureParams::AddHouseNumber(string const & ss)
+bool FeatureParams::AddHouseNumber(string houseNumber)
 {
-  if (!feature::IsHouseNumber(ss))
+  ASSERT(!houseNumber.empty(), ("This check should be done by the caller."));
+  ASSERT_NOT_EQUAL(houseNumber.front(), ' ', ("Trim should be done by the caller."));
+
+  // Negative house numbers are not supported.
+  if (houseNumber.front() == '-' || houseNumber.find(u8"－") == 0)
     return false;
 
-  // Remove trailing zero's from house numbers.
-  // It's important for debug checks of serialized-deserialized feature.
-  string s(ss);
-  uint64_t n;
-  if (strings::to_uint64(s, n))
-    s = strings::to_string(n);
+  // Replace full-width digits, mostly in Japan, by ascii-ones.
+  strings::NormalizeDigits(houseNumber);
 
-  house.Set(s);
-  return true;
+  // Remove leading zeroes from house numbers.
+  // It's important for debug checks of serialized-deserialized feature.
+  size_t i = 0;
+  while (i < houseNumber.size() && houseNumber[i] != '0')
+    ++i;
+  houseNumber.erase(0, i);
+
+  if (any_of(houseNumber.cbegin(), houseNumber.cend(), IsDigit))
+  {
+    house.Set(houseNumber);
+    return true;
+  }
+  return false;
 }
 
 void FeatureParams::AddStreet(string s)
