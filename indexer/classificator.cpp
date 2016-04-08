@@ -121,12 +121,13 @@ void ClassifObject::ConcatChildNames(string & s) const
 // Classificator implementation
 /////////////////////////////////////////////////////////////////////////////////////////
 
+namespace
+{
 Classificator & classif(MapStyle mapStyle)
 {
-  size_t const index = static_cast<size_t>(mapStyle);
-  ASSERT_LESS(index, MapStyleCount, ());
   static Classificator c[MapStyleCount];
-  return c[index];
+  return c[mapStyle];
+}
 }
 
 Classificator & classif()

@@ -45,10 +45,16 @@ namespace classificator
     LOG(LDEBUG, ("Reading of classificator started"));
 
     Platform & p = GetPlatform();
+    StyleReader & reader = GetStyleReader();
 
-    ReadCommon(p.GetReader("classificator.txt"), p.GetReader("types.txt"));
+    for (auto style : { MapStyleLight, MapStyleDark, MapStyleClear })
+    {
+      reader.SetCurrentStyle(style);
 
-    drule::LoadRules();
+      ReadCommon(p.GetReader("classificator.txt"), p.GetReader("types.txt"));
+
+      drule::LoadRules();
+    }
 
     LOG(LDEBUG, ("Reading of classificator finished"));
   }

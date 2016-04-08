@@ -185,12 +185,13 @@ void RulesHolder::ResizeCaches(size_t s)
   ForEachRule(bind(&BaseRule::CheckCacheSize, _4, s));
 }
 
+namespace
+{
 RulesHolder & rules(MapStyle mapStyle)
 {
-  size_t const index = static_cast<size_t>(mapStyle);
-  ASSERT_LESS(index, MapStyleCount, ());
   static RulesHolder h[MapStyleCount];
-  return h[index];
+  return h[mapStyle];
+}
 }
 
 RulesHolder & rules()
