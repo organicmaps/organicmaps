@@ -172,7 +172,7 @@
     nl = Nooit meer vragen
     ru = Больше не спрашивать
     uk = Більше не питати
-    zh-Hant = 別再問我
+    zh-Hant = 不再詢問
     pl = Nie pytaj ponownie
     pt = Não volte a perguntar-me
     hu = Ne kérdezze többször
@@ -325,7 +325,7 @@
     nl = Download is afgebroken, klik om nog een keer te proberen
     ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
     uk = Помилка завантаження. Натисніть, щоб повторити спробу
-    zh-Hant = 下載失敗，請再試一次
+    zh-Hant = 下載失敗，輕觸以再試一次
     pl = Pobieranie nie powiodło się. Naciśnij, aby spróbować ponownie.
     pt = A descarga falhou, toque novamente para tentar uma vez mais.
     hu = Letöltés sikertelen. Kérjük próbálja újra!
@@ -356,7 +356,7 @@
     nl = (%1$qu %2$@) gedownload, klik om te verwijderen
     ru = Загружено (%1$qu %2$@), нажмите для удаления
     uk = Завантажено (%1$qu %2$@), натисніть для видалення
-    zh-Hant = 已下載的 (%qu %@), 輕觸以刪除
+    zh-Hant = 已下載的 (%1$qu %2$@), 輕觸以刪除
     pl = Pobrano (%1$qu %2$@). Naciśnij, aby usunąć.
     pt = Descarregado (%1$qu %2$@), toque para eliminar.
     hu = Letöltve (%1$qu %2$@), érintse meg a törléshez
@@ -483,8 +483,8 @@
     cs = Děkujeme, že používáte MAPS.ME! Líbí se Vám tato aplikace? Řekněte o ní svým přátelům! To bude pro nás nejlepší vyjádření vděčnosti.
     it = Grazie per aver utilizzato MAPS.ME! Ti piace l’app? Dillo ai tuoi amici! Questo è il miglior segno di gratitudine.
     nb = Tusen takk for at du bruker MAPS.ME! Liker du appen? Fortell vennene dine om den! Det er den beste takken vi kan få.
-    zh-Hant = 感謝您使用 MAPS.ME！您喜歡該應用嗎？告訴您的好友們吧！這會是對我們最好的感謝。
-    zh-Hans = 感谢您使用 MAPS.ME！您喜欢该应用吗？告诉您的好友们吧！这会是对我们最好的感谢。
+    zh-Hant = 感謝您使用 MAPS.ME！您喜歡此應用程式嗎？告訴好友們吧！這會是對我們最好的感謝。
+    zh-Hans = 感谢您使用 MAPS.ME！您喜欢此应用吗？告诉您的好友们吧！这会是对我们最好的感谢。
     th = ขอบพระคุณสำหรับการใช้ MAPS.ME! คุณชอบแอปหรือไม่? บอกเพื่อนของคุณเกี่ยวกับมัน! นี่จะเป็นการขอบคุณที่ดีที่สุดสำหรับเรา
     ja = MAPS.MEをご利用いただきありがとうございます! このアプリが好きですか? お友達にも教えてあげてください! アプリを広めていただければ大変嬉しく思います。
     ro = Vă mulțumim că folosiți MAPS.ME! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.
@@ -559,7 +559,7 @@
     nl = Laat een review achter
     ru = Написать отзыв
     uk = Написати відгук
-    zh-Hant = 發表評論
+    zh-Hant = 撰寫評論
     pl = Napisz recenzję
     pt = Deixe uma revisão
     hu = Ajánlás írása
@@ -753,9 +753,9 @@
   [ok]
     en = OK
     ko = 승인
-    zh-Hant = 好
+    zh-Hant = 確定
     th = ตกลง
-    zh-Hans = 好
+    zh-Hans = 确定
     ar = موافق
     da = Ok
     tr = Tamam
@@ -782,7 +782,7 @@
     nl = Schakel Locatie Services in
     ru = Пожалуйста, включите геолокацию в настройках телефона
     uk = Будь ласка, увімкніть геолокацію в налаштуваннях телефону
-    zh-Hant = 請啟動位置服務
+    zh-Hant = 請啟用定位服務
     pl = Proszę włączyć usługi lokalizacji
     pt = Por favor active os Serviços de Localização
     hu = Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást
@@ -813,7 +813,7 @@
     nl = Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden
     ru = Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@
     uk = Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@
-    zh-Hant = 如要下載%@ ，請先釋放一些空間!
+    zh-Hant = 如要下載%@ ，請先釋放一些空間！
     pt = Por favor liberte primeiro algum espaço no seu dispositivo para descarregar %@
     hu = Kérjük szabadítson fel helyet az eszközön, hogy le tudja tölteni %@-t
     th = โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %@
@@ -934,7 +934,7 @@
     nl = Meld een probleem
     ru = Сообщить о проблеме
     uk = Повідомити про проблему
-    zh-Hant = 回饋問題
+    zh-Hant = 回報問題
     pl = Zgłoś błąd
     pt = Reelatar um problema
     hu = Hiba jelentése
@@ -1026,7 +1026,7 @@
     nl = Klik om te downloaden
     ru = Нажмите для загрузки
     uk = Натисніть для завантаження
-    zh-Hant = 輕觸後下載
+    zh-Hant = 輕觸以下載
     pl = Naciśnij, aby pobrać.
     pt = Toque para descarregar
     hu = Érintse meg letöltéshez
@@ -1057,7 +1057,7 @@
     nl = Ja
     ru = Да
     uk = Так
-    zh-Hant = 是的
+    zh-Hant = 是
     pl = Tak
     pt = Sim
     hu = Igen
@@ -1089,7 +1089,7 @@
     nl = We raden WiFi aan om grote kaarten te downloaden
     ru = Мы рекомендуем загружать большие страны через WiFi
     uk = Ми рекомендуємо завантажувати великі країни через WiFi
-    zh-Hant = 我們建議透過WiFi連線來下載較大的地圖
+    zh-Hant = 我們建議透過 WiFi 連線來下載較大的地圖
     pl = Zalecamy korzystanie z WiFi przy pobieraniu dużych map
     pt = Recomendamos a utilização de WiFi para descarregar grandes mapas
     hu = WiFi használatát javasoljuk nagy térképek letöltéséhez
@@ -1120,7 +1120,7 @@
     nl = Welk meetstelsel heeft u liever?
     ru = Какую систему измерения вы предпочитаете?
     uk = Якій системі вимірювання ви віддаєте перевагу?
-    zh-Hant = 您偏好哪種測量單位系統？
+    zh-Hant = 您偏好哪種度量單位系統？
     pl = Który system miar bardziej ci odpowiada?
     pt = Que sistema de medidas prefere?
     hu = Milyen mértékegységet használjunk?
@@ -1156,7 +1156,7 @@
     pt = Atualmente tem todos os Serviços de Localização para este dispositivo ou aplicação desativados. Por favor ative-os nas Definições.
     hu = Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.
     th = ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า
-    zh-Hans = 您目前有此设备的所有位置服务或应用已禁 用。请在设置中启用它们。
+    zh-Hans = 您目前有此设备的所有位置服务或应用已禁用。请在设置中启用它们。
     ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
     da = Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.
     tr = Şu anda bu cihaz için tüm Yer Hizmetleri veya uygulama devre dışı bırakılmış. Lütfen Ayarlar bölümünden etkinleştirin.
@@ -1182,7 +1182,7 @@
     nl = Uw apparaat ondersteunt geen Locatie Services
     ru = Ваше устройство не поддерживает геолокацию
     uk = Ваш пристрій не підтримує геолокацію
-    zh-Hant = 你的裝置不支援定位服務唷!
+    zh-Hant = 您的裝置不支援定位服務
     pl = Twoje urządzenie nie wspiera usług lokalizacji
     pt = O seu dispositivo não suporta os Serviços de Localização
     hu = Az eszköz nem támogatja a helyzetmeghatározó szolgáltatásokat
@@ -1522,7 +1522,7 @@
     nl = Downloaded (%@), klik om te verwijderen
     ru = Загружено (%@), нажмите для удаления
     uk = Завантажено (%@), натисніть для видалення
-    zh-Hant = 已下載的 (%@), 輕觸以刪除
+    zh-Hant = 已下載的 (%@)，輕觸以刪除
     pl = Pobrano (%@). Naciśnij, aby usunąć.
     pt = Descarregado (%@), toque para eliminar
     hu = Letöltve (%@), érintse meg törléshez
@@ -1641,7 +1641,7 @@
     nl = Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.
     ru = Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.
     uk = Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.
-    zh-Hant = 需要OpenGL硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能!
+    zh-Hant = 需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！
     pl = OpenGL wymaga odpowiedniego urządzenia. Niestety twoje urządzenie nie wspiera tej technologii.
     pt = É necessário um OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é suportado.
     hu = Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.
@@ -1731,7 +1731,7 @@
     nl = Verwijder de USB kabel of plaats een geheugen kaart om MAPS.ME te gebruiken
     ru = Отключите USB кабель или вставьте SD-карту
     uk = Вимкніть USB кабель або вставте SD-карту
-    zh-Hant = 請拔除USB線或插入SD卡以使用MAPS.ME
+    zh-Hant = 請拔除 USB 線或插入 SD 卡以使用 MAPS.ME
     pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci by korzystać z MAPS.ME
     pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar MAPS.ME
     hu = Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a MAPS.ME használatához
@@ -1761,7 +1761,7 @@
     nl = Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken
     ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
     uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
-    zh-Hant = 如要繼續使用，請先釋放一些SD卡/ USB儲存空間
+    zh-Hant = 如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間
     pl = Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji
     pt = Por favor liberte primeiro algum espaço no cartão SD/armazenamento USB para utilizar a app
     hu = Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!
@@ -1791,7 +1791,7 @@
     nl = Not genoeg geheugen om app te starten
     ru = Недостаточно памяти для запуска программы
     uk = Недостатньо пам'яті для запуску програми
-    zh-Hant = 沒有足夠的記憶體以啟用程式
+    zh-Hant = 沒有足夠的記憶體以啟動應用程式
     pl = Za mało pamięci by uruchomić aplikację
     pt = Não há memória suficiente para executar a app
     hu = Nincs elegendő memória az alkalmazás futtatásához
@@ -1851,7 +1851,7 @@
     nl = Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %@ in beslag.
     ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %@ данных.
     uk = Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %@ даних.
-    zh-Hant = 在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。
+    zh-Hant = 在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。
     pl = Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\nWymaga to %@ danych.
     pt = Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %@ de dados.
     hu = Első használat előtt letöltjük a világtérképet.\n%@ tárolóhely szükséges.
@@ -1941,7 +1941,7 @@
     nl = %@ aan het downloaden. U kunt doorgaan\nnaar de kaart
     ru = Пока загружается %@\nвы можете пользоваться приложением.
     uk = Поки завантажується %@\nви можете користуватися програмою.
-    zh-Hant = 正在下載 %@. 您現在 可以繼續使用地圖了
+    zh-Hant = 正在下載 %@。您現在 可以繼續使用地圖了
     pl = Pobieranie %@. Możesz teraz\notworzyć mapę.
     pt = A descarregar %@. Pode agora\ncontinuar para o mapa.
     hu = %@ letöltése. Mos továbbléphet\na térképhez.
@@ -2001,7 +2001,7 @@
     nl = %@ updaten?
     ru = Обновить %@?
     uk = Oновити %@?
-    zh-Hant = 更新 %@?
+    zh-Hant = 更新 %@？
     pl = Zaktualizować %@?
     pt = Atualizar %@?
     hu = Frissítsem %@-t?
@@ -2279,7 +2279,7 @@
     nl = Update beschikbaar voor deze kaarten:
     ru = Доступно обновление для следующих карт:
     uk = Доступні оновлення для наступних карт:
-    zh-Hant = 以下為可用的更新地圖：
+    zh-Hant = 以下為可更新的地圖：
     pl = Aktualizacja dostępna dla tych map:
     pt = Atualização disponível para estes mapas:
     hu = Az aktuális térképhez elérhető frissítések:
@@ -2311,7 +2311,7 @@
     nl = U heeft MAPS.ME Lite niet meer nodig, dus u kunt de app deïnstalleren
     ru = MAPS.ME Lite больше не нужна. Рекомендуем её удалить.
     uk = MAPS.ME Lite більше не потрібна. Рекомендуємо її видалити.
-    zh-Hant = 你再也不需要 MAPS.ME Lite了,所以您可以移除它!
+    zh-Hant = 你再也不需要 MAPS.ME Lite 了，所以您可以移除它！
     pl = Nie potrzebujesz już więcej MAPS.ME Lite, więc możesz je usunąć.
     pt = Não precisa mais do MAPS.ME Lite, podendo portanto desinstalá-la.
     hu = Már nincs szüksége a MAPS.ME lite alkalmazásra, nyugodtan letörölheti.
@@ -2438,7 +2438,7 @@
     cs = Přidat k záložkám
     sk = Pridať k záložkám
     nl = Toevoegen aan Bladwijzers
-    zh-Hant = 添加到書簽
+    zh-Hant = 新增到書籤
     pl = Dodaj do zakładek
     uk = Зберегти мiтку
     hu = Könyvjelzőkhöz hozzáadás
@@ -2629,7 +2629,7 @@
     nl = Geplaatste Speld
     ru = Новая метка
     uk = Нова мітка
-    zh-Hant = 設下PIN
+    zh-Hant = 已放置圖釘
     pl = Znacznik
     pt = Marcador posicionado
     hu = Beszúrt jelző
@@ -2692,7 +2692,7 @@
     nl = Naam
     ru = Название
     uk = Iм'я
-    zh-Hant = 名字
+    zh-Hant = 名稱
     pl = Nazwa
     pt = Nome
     hu = Név
@@ -2758,7 +2758,7 @@
     nl = Verwijder speld
     ru = Удалить метку
     uk = Видалити мітку
-    zh-Hant = 移除PIN
+    zh-Hant = 移除圖釘
     pl = Usuń znacznik
     pt = Retirar o marcador
     hu = Jelző törlése
@@ -2822,7 +2822,7 @@
     nl = Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
     ru = У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.
     uk = У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка MAPS.ME. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.
-    zh-Hant = 您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
+    zh-Hant = 您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 MAPS.ME 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。
     pl = Nie masz jeszcze żadnych zakładek.\nDotknij dowolnego miejsca na mapie, aby dodać zakładkę.\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
     pt = Ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
     hu = Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
@@ -2854,7 +2854,7 @@
     nl = Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
     ru = Метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.
     uk = Мітки з інших ресурсів можна імпортувати для застосунка MAPS.ME. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.
-    zh-Hant = 其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
+    zh-Hant = 其他來源的書籤也可導入在 MAPS.ME 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。
     pl = Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
     pt = Os marcadores de outras fontes podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
     hu = Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
@@ -2890,7 +2890,7 @@
     cs = Nastavení
     it = Impostazioni
     nb = Innstillinger
-    zh-Hant = 設置
+    zh-Hant = 設定
     zh-Hans = 设置
     th = การตั้งค่า
     ja = 設定
@@ -3045,7 +3045,7 @@
     nl = Zichtbaar
     ru = Показывать на карте
     uk = Показувати на карті
-    zh-Hant = 看得到的
+    zh-Hant = 可見
     pl = Widoczne
     pt = Visível
     hu = látható
@@ -3077,7 +3077,7 @@
     nl = GPS is uitgeschakeld. Schakel ze in bij Instellingen.
     ru = GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.
     uk = GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть його для зручного використання програми.
-    zh-Hant = GPS 目前是關閉的，請在系統中設定為開啟使用
+    zh-Hant = GPS 目前是關閉的，請在系統中設定為啟用
     pl = GPS jest wyłączony. Proszę włączyć go w ustawieniach.
     pt = O GPS está desativado. Por favor ative-o nas Definições.
     hu = GPS kikapcsolva. Kérjük kapcsolja be a Beállítások között.
@@ -3227,7 +3227,7 @@
     nl = Op het scherm
     ru = На экране
     uk = На екрані
-    zh-Hant = 畫面中的地圖
+    zh-Hant = 畫面中
     pl = Na ekranie
     pt = No ecrã
     hu = A képernyőn
@@ -3675,7 +3675,7 @@
     nl = Post
     ru = Почта
     uk = Пошта
-    zh-Hant = 郵筒
+    zh-Hant = 郵局
     pl = Poczta
     pt = Correios
     hu = Posta
@@ -3802,7 +3802,7 @@
     nl = Delen via e-mail
     ru = Послать по email
     uk = Подiлитися по електронній пошті
-    zh-Hant = 以 email 分享
+    zh-Hant = 以電子郵件分享
     pl = Udostępnij przez email
     pt = Partilhar por e-mail
     hu = Megosztás email-en
@@ -3834,7 +3834,7 @@
     nl = Bladwijzers van MAPS.ME met u gedeeld
     ru = С вами поделились метками MAPS.ME
     uk = З вами поділилися мiтками MAPS.ME
-    zh-Hant = 您已分享了 MAPS.ME 書籤
+    zh-Hant = 已分享 MAPS.ME 書籤
     pl = Udostępniono ci zakładkę z MAPS.ME
     pt = Os favoritos do MAPS.ME foram partilhados consigo
     hu = Egy MAPS.ME könyvjelzőt osztottak meg Önnel
@@ -3866,7 +3866,7 @@
     nl = Hallo,\n\nHier zijn mijn bladwijzers uit de MAPS.ME offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u MAPS.ME al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz\n\nVeel plezier met MAPS.ME!
     ru = Здравствуйте!\n\nВ прикрепленном файле "%@.kmz" мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
     uk = Вітаю!\n\nОсь мої мiтки з офлайн карт MAPS.ME у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена MAPS.ME. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz\n\nПриємних розваг з MAPS.ME!
-    zh-Hant = 哈囉!\n\n這是我的MAPS.ME離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝MAPS.ME的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MAPS.ME愉快!
+    zh-Hant = 哈囉！\n\n這是我的 MAPS.ME 離線地圖中所夾帶的「%@.kmz」書籤檔案。若您已安裝 MAPS.ME 的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載 iOS 或 Android 平台的應用程式。\n\n祝您使用MAPS.ME愉快!
     pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację MAPS.ME. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!
     pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do MAPS.ME, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o MAPS.ME. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://maps.me/get?kmz\n\nDisfrute do MAPS.ME!
     hu = Üdvözlöm!\n\nA mellékelt "%@.kmz" fájl tartalmazza a MAPS.ME könyvjelzőimet. Kérem nyissa meg, ha a MAPS.ME már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz\n\nSok sikert a program használatához!
@@ -3930,7 +3930,7 @@
     nl = Bladwijzers met succes geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.
     ru = Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохраненных метках.
     uk = Мiтки успішно завантаженi! Ви можете знайти їх на карті або у ваших збережених мітках.
-    zh-Hant = 書籤上傳成功! 您可以在地圖上或是書籤管理畫面中找到書籤。
+    zh-Hant = 書籤上傳成功！ 您可以在地圖上或是書籤管理畫面中找到書籤。
     pl = Zakładki wczytane pomyślnie! Możesz znaleźć je na mapie lub w menedżerze zakładek.
     pt = Favoritos carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
     hu = Könyvjelzők letöltése sikeres! Megtalálja őket a térképen vagy a Könyvjelzők kezelése menüben.
@@ -3962,7 +3962,7 @@
     nl = Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.
     ru = Файл с метками не был загружен. Возможно, файл поврежден или неисправен.
     uk = Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.
-    zh-Hant = 書籤上傳失敗! 檔案可能有毀損或是不完全。
+    zh-Hant = 書籤上傳失敗。 檔案可能有毀損或是不完全。
     pl = Przesyłanie zakładek nie powiodło się. Plik może być uszkodzony lub posiadać defekty.
     pt = Falha no envio dos favoritos. O ficheiro pode estar corrompido ou com defeito.
     hu = Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.
@@ -4022,7 +4022,7 @@
     nl = Je plaats werd nog niet vastgesteld
     ru = Ваше местоположение еще не определено
     uk = Ваше місце розташування не визначено
-    zh-Hant = 您的位置尚未定未完成
+    zh-Hant = 您的位置尚未定位完成
     pl = Twoja lokalizacja nie została jeszcze określona
     pt = A sua localização ainda não foi determinada
     hu = Még nem határoztuk meg az aktuális helyzetét
@@ -4118,7 +4118,7 @@
     nl = Sorry, instellingen voor kaartopslag uitgeschakeld.
     ru = Извините, настройки места хранения карт сейчас недоступны.
     uk = Вибачте, налаштування папки з картами зараз недоступні.
-    zh-Hant = 很抱歉, 地圖儲存設定目前是停用的狀態!
+    zh-Hant = 很抱歉，地圖儲存設定目前已停用。
     pl = Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.
     pt = Lamentamos, as definições do Map Storage estão atualmente desativadas.
     hu = Sajnáljuk, a térképek tárolása jelenleg ki van kapcsolva.
@@ -4182,7 +4182,7 @@
     nl = Ik hoop dat u veel plezier hebt met MAPS.ME! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!
     ru = Надеемся, вам нравится пользоваться MAPS.ME! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!
     uk = Сподіваємося, що вам сподобалося користуватися MAPS.ME! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!
-    zh-Hant = 祝您使用 MAPS.ME愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!
+    zh-Hant = 祝您使用 MAPS.ME 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！
     pl = Mamy nadzieję, że podoba ci się aplikacja MAPS.ME! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie ci mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!
     pt = Esperamos que esteja a disfrutar da utilização do MAPS.ME! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!
     hu = Reméljük élvezi a MAPS.ME használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!
@@ -4213,7 +4213,7 @@
     nl = Nee, bedankt
     ru = Нет, спасибо
     uk = Ні, дякую
-    zh-Hant = 不, 謝了!
+    zh-Hant = 不，謝了
     pl = Nie, dziękuję
     pt = Não, obrigado
     hu = Köszönöm, nem
@@ -4249,6 +4249,7 @@
     pt = Veja o meu marcador no mapa do MAPS.ME. Abra a hiperligação: %1$@ ou %2$@
     hu = Nézd meg a MAPS.ME jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
     th = เฮ้ ตรวจสอบหมุดของฉันที่ MAPS.ME! %1$@ หรือ %2$@
+	zh-Hant = 嘿，看看我在 MAPS.ME 標記的圖釘吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: http://maps.me/get
     zh-Hans = 嘿,在 MAPS.ME 上查看我标注的图钉吧! %1$@ 或%2$@ 未安装离线地图?在此下 载: http://maps.me/get
     ar = هاي، تفقد الدبوس الخاص بي على MAPS.ME! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
     da = Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me/get
@@ -4279,6 +4280,7 @@
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
     hu = Nézd meg a MAPS.ME helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
     th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$@ หรือ %2$@ or %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get
+	zh-Hant = 嘿，在 MAPS.ME 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: http://maps.me/get
     zh-Hans = 嘿,在 MAPS.ME 上查看我目前的位置 吧!%1$@ 或%2$@ 未安装离线地图?在此 下载: http://maps.me/get
     ar = هاي، تفقد الموقع الخاص بي على MAPS.ME! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
     da = Hey, tjek min nuværende lokation ud på MAPS.ME! %1$@ or %2$@. Har du ikke offline kort? Download her: http://maps.me/get
@@ -4310,6 +4312,7 @@
     pt = Veja o meu marcador no mapa do MAPS.ME.
     hu = Nézze meg a MAPS.ME jelzőmet
     th = เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ MAPS.ME!
+	zh-Hant = 嘿，看看我在 MAPS.ME 地圖上的圖釘！
     zh-Hans = 嘿,在 MAPS.ME 上查看我标注的图钉吧!
     ar = هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!
     da = Hey, tjek min knappenål på MAPS.ME kortet ud!
@@ -4341,6 +4344,7 @@
     pt = Olá,\n\nFixei:%1$@ na MAPS.ME, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
     hu = Üdvözlöm,\n\nleszúrtam egy MAPS.ME jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.
     th = หวัดดี\n\nฉันปักหมุด: %1$@ ที่ MAPS.ME, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
+	zh-Hant = 嗨，\n\n我在 MAPS.ME 世界離線地圖上標記了%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來察看地圖上的位置。\n\n謝謝。
     zh-Hans = 嗨,\n\n我在 MAPS.ME 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。
     ar = مرحبا،\n\nقمت بوضع دبوس : %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
     da = Hey,\n\nI har lagt en knappenål: %1$@ på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$@ ellerdette %3$@ foratseknappenåletpåkortet.\n\nTak.
@@ -4371,7 +4375,8 @@
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu MAPS.ME
     pt = Veja a minha localização atual em MAPS.ME map
     hu = Nézze meg a helyzetemet a MAPS.ME térképen!
-    zh-Hans = 嗨，到MAPS.ME查看我的当前位置！
+	zh-Hant = 嗨，到 MAPS.ME 地圖查看我的目前位置！
+    zh-Hans = 嗨，到 MAPS.ME 查看我的当前位置！
     ar = يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!
     da = Hey, tjek min nuværende lokation ud på MAPS.ME kortet!
     tr = Hey, MAPS.ME’de geçerli konumumu incele!
@@ -4402,6 +4407,7 @@
     pt = Olá,\n\nEstou aqui agora: %1$@. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
     hu = Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.
     th = หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
+	zh-Hant = 嗨，\n\n我現在在這：%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來查看在地圖上的位置。\n\n謝謝。
     zh-Hans = 嗨,\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的 位置。\n\n谢谢。
     ar = مرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.
     da = Hey, her er jeg nu: %1$@. Tryk på dette link %2$@ eller dette %3$@ for at se stedet på kortet. Tak.
@@ -4427,7 +4433,7 @@
     it = Condividi con un messaggio
     ja = メッセージで共有
     nl = Delen via bericht
-    zh-Hant = 透過消息分享
+    zh-Hant = 透過訊息分享
     uk = Подiлитися за допомогою повідомлення
     ko = 메시지로 공유
     pl = Udostępnij przez wiadomość
@@ -4491,7 +4497,7 @@
     it = Messaggio
     ja = メッセージ
     nl = Bericht
-    zh-Hant = 消息
+    zh-Hant = 訊息
     uk = Повідомлення
     ko = 메시지
     pl = Wiadomość
@@ -4554,7 +4560,7 @@
     it = Copia link
     ja = リンクをコピー
     nl = Kopieer koppeling
-    zh-Hant = 拷贝链接
+    zh-Hant = 複製連結
     uk = Копіювати посилання
     ko = 링크 복사하기
     ru = Скопировать ссылку
@@ -4588,7 +4594,7 @@
     cs = Zobrazit další informace
     sk = Zobraziť ďaľšie informácie
     nl = Toon meer info
-    zh-Hant = 显示更多信息
+    zh-Hant = 顯示更多資訊
     pl = Pokaż więcej informacji
     uk = Докладніше
     pt = Mostrar informação adicional
@@ -4611,7 +4617,7 @@
     tags =ios,android
     comment = Text for message when used successfully copied something
     ru = Скопировано в буфер обмена: %1$@
-    zh-Hant = 已複製到剪貼板：%1$@
+    zh-Hant = 已複製到剪貼簿：%1$@
     it = Copiato sugli Appunti: %1$@
     ko = 클립보드에 복사됨: %1$@
     pt = Copiado para a Área de Transferência: %1$@
@@ -4685,7 +4691,7 @@
     de = Erlauben Sie uns das Sammeln von Nutzungsstatistiken zur Verbesserung der App
     pt = Permitir que recolhamos estatísticas de utilização para melhorar a aplicação
     es = Permítenos recopilar estadísticas de uso para mejorar la aplicación
-    zh-Hant = 它幫助我們打造更好的應用程序
+    zh-Hant = 它收集使用數據以幫助我們打造更好的應用程式
     it = Consentici di raccogliere le statistiche di utilizzo al fine di migliorare l'app
     ko = 앱을 개선하기 위해 사용 통계를 수집하도록 허용
     hu = Használati adatok gyűjtésének jóváhagyása a program továbbfejlesztéséhez.
@@ -4716,7 +4722,7 @@
     cs = Více informací
     sk = Viacej informácií
     nl = Info
-    zh-Hant = 简介
+    zh-Hant = 簡介
     pl = Informacje
     uk = Досьє
     pt = Info
@@ -4783,6 +4789,7 @@
     fr = Choisir les réglages de l'arrière-plan
     hu = Válassza ki a hátoldali képernyő-beállításokat
     th = เลือกการตั้งค่าหน้าจอส่วนหลัง
+	zh-Hant = 選擇第二螢幕設定
     zh-Hans = 选择背屏设置
     ar = اختر اعدادات الشاشة الخلفية
     da = Vælg bagskærmsindstillinger
@@ -4812,6 +4819,7 @@
     fr = Paramètres de l'arrière-plan
     hu = Hátoldali képernyő-beállítások
     th = การตั้งค่าหน้าจอส่วนหลัง
+	zh-Hant = 第二螢幕設定
     zh-Hans = 背屏设置
     ar = اعدادات الشاشة الخلفية
     da = Bagskærmsindstillinger
@@ -4841,6 +4849,7 @@
     uk = Показати на задньому екрані
     hu = Mutassa a vissza képernyőn
     th = แสดงหน้าจอส่วนหลัง
+	zh-Hant = 在第二螢幕上顯示
     zh-Hans = 显示在背屏上
     ar = إظهار في الشاشة الخلفية
     da = Vis på bagskærm
@@ -4891,6 +4900,7 @@
     en = Data version: %d
     ru = Версия данных: %d
     de = Datenversion: %d
+	zh-Hant = 資料版本： %d
 
   [are_you_sure]
     tags = android,tizen
@@ -4941,7 +4951,7 @@
     fr = Parcours
     ja = トラック
     ko = 트랙
-    zh-Hant = 軌道
+    zh-Hant = 軌跡
     hu = Csoportok
     th = การติดตาม
     zh-Hans = 轨迹
@@ -5252,7 +5262,7 @@
     cs = Vypnuto
     it = Spento
     nb = Av
-    zh-Hant = 關
+    zh-Hant = 關閉
     zh-Hans = 关闭
     th = ปิด
     ja = オフ
@@ -5283,7 +5293,7 @@
     cs = Zapnuto
     it = Acceso
     nb = På
-    zh-Hant = 開
+    zh-Hant = 開啟
     zh-Hans = 开启
     th = เปิด
     ja = オン
@@ -5376,8 +5386,8 @@
     cs = 3D budovy
     it = Edifici in 3D
     nb = Bygninger i 3D
-    zh-Hant = 3D建築
-    zh-Hans = 3D建筑
+    zh-Hant = 3D 建築
+    zh-Hans = 3D 建筑
     th = ตึก 3D
     ja = 3Dビルディング
     ro = Clădiri 3D
@@ -5407,8 +5417,8 @@
     cs = Ovlivňuje výdrž baterie
     it = Diminuisce la durata della batteria
     nb = Påvirker batteriets levetid
-    zh-Hant = 影響電池壽命
-    zh-Hans = 影响电池寿命
+    zh-Hant = 增加電池消耗
+    zh-Hans = 增加电池消耗
     th = มีผลกระทบต่ออายุการใช้งานแบตเตอรี่
     ja = 電池の持ち時間に影響します
     ro = Afectează durata de funcționare a bateriei
@@ -5561,7 +5571,7 @@
     cs = Jak nastavit hlas
     it = Come impostare la voce
     nb = Slik installerer du stemme
-    zh-Hant = 如何設置語音
+    zh-Hant = 如何設定語音
     zh-Hans = 如何设置语音
     th = วิธีตั้งค่าเสียง
     ja = 音声設定の仕方
@@ -5860,7 +5870,7 @@
     cs = Vyberte prosím časový rozsah uložené trasy.
     it = Seleziona un intervallo temporale per la registrazione del percorso.
     nb = Velg en tidsperiode for rutelagring.
-    zh-Hant = 請選擇保存軌跡的時間範圍。
+    zh-Hant = 請選擇儲存軌跡的時間範圍。
     zh-Hans = 请选择保存轨迹的时间范围。
     th = โปรดเลือกช่วงเวลาในการบันทึกการติดตาม
     ja = ルートを保存する期間を選択してください。
@@ -5914,7 +5924,7 @@
     cs = Souřadnice
     sk = Súradnice
     de = Koordinaten
-    zh-Hant = 坐标
+    zh-Hant = 座標
     ja = コーディネート
     es = Coordenadas
     ru = Координаты
@@ -5944,7 +5954,7 @@
     cs = Nezařazené
     sk = Nezaradené
     de = Unsortiert
-    zh-Hant = 未分类的
+    zh-Hant = 未分類
     ja = 未分類
     es = Sin clasificar
     ru = Без категории
@@ -5974,7 +5984,7 @@
     cs = Zobrazit na mapě
     sk = Zobraziť na mape
     de = Auf der Karte ansehen
-    zh-Hant = 在地图上查看
+    zh-Hant = 在地圖上查看
     ja = 地図に表示
     es = Ver en el mapa
     ru = Посмотреть на карте
@@ -5998,7 +6008,7 @@
     en = Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.
     ru = Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете её удалить.
     uk = Ми оптимiзували збереження данних. Для подальшої работи, будь ласка, перезавантажте програму.\n\nПапка MapsWithMe, яка знаходится на SD-картi, вже не потрiбна, її можна видалити.
-    zh-Hant = 地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的MapsWithMe資料夾，您可以將它 刪除。
+    zh-Hant = 地圖數據存儲已被最佳化。請重啟應用程式。\n\n不再需要 SD 卡根目錄中的 MapsWithMe 資料夾，您可以將它刪除。
     ko = 지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 MapsWithMe 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.
     it = L'archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l'app.\n\nLa cartella MapsWithMe nel canale della scheda SD non è più necessario ed è possibile eliminarla.
     fr = Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'appli.\n\nLe dossier MapsWithMe se trouvant sur la racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.
@@ -6028,7 +6038,7 @@
     comment = Used to warn user when fixing KitKat issue
     en = Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.
     ru = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни во внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
-    zh-Hant = 由於安卓4.4版本有所更改，我們需要對地圖數據存儲進行優化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些內存，否則將只能以只讀模式使用地圖。
+    zh-Hant = 由於 Android 4.4 版本有所更改，我們需要對地圖數據存儲進行最佳化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些記憶體，否則將只能以唯讀模式使用地圖。
     ko = Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.
     it = A causa di modifiche alla versione Android 4.4, abbiamo bisogno di ottimizzare l'archiviazione delle mappe, ma non c'è abbastanza spazio per copiarne i dati:\n\nTi preghiamo di liberare la memoria, altrimenti le mappe saranno disponibili in sola lettura.
     fr = En raison de changements dans Android 4.4, nous devons optimiser le stockage des données cartographiques, mais il n'y a pas assez d'espace pour les copier.\n\nVeuillez libérer de la mémoire, sinon les cartes seront disponibles en mode lecture seule.
@@ -6060,7 +6070,7 @@
     en = We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.
     ru = Для оптимизации хранения данных нам нужно переместить метки во внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.
     uk = Для оптимiзацiї збереження данних нам потрiбно перенести мітки до внутрiшньої пам'ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо мітки вам не будуть доступнi.
-    zh-Hant = 我們需要將您的書籤移至內存儲器中，但沒有足夠的存儲空間。請釋放一些內存，否則，書籤將不可用。
+    zh-Hant = 我們需要將您的書籤移至內部記憶體中，但沒有足夠的存儲空間。請釋放一些記憶體，否則，書籤將不可用。
     ko = 우리는 내부 메모리로 북마크를 이동해야 하지만, 이에 대한 사용 가능한 공간이 없습니다. 메모리를 확보하지 않으면, 북마크를 사용할 수 없습니다.
     it = Abbiamo bisogno di trasferire i tuoi preferiti nella memoria interna, ma non c'è abbastanza spazio disponibile. Ti preghiamo di liberare la memoria, altrimenti i preferiti non saranno disponibili.
     fr = Nous devons déplacer vos signets vers la mémoire interne, mais il n'y a pas d'espace disponible pour eux. Veuillez libérer de la mémoire, sinon les signets ne seront pas disponibles.
@@ -6091,7 +6101,7 @@
     en = Your map storage is being optimized now. Please wait, it may take a few minutes.
     ru = Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.
     uk = Наразi ми оптимiзуємо збереження данних. Це може зайняти декiлька хвилин, почекайте, будь ласка.
-    zh-Hant = 正在優化您的地圖存儲。請等待，這可能需要幾分鐘的時間。
+    zh-Hant = 正在最佳化您的地圖存儲。請等待，這可能需要幾分鐘的時間。
     ko = 지금 지도 저장소가 최적화되는 중입니다. 이는 몇 분 정도 걸릴 수 있으므로, 기다려 주십시오.
     it = L'archiviazione delle tue mappe è in fase di ottimizzazione. Ti preghiamo di attendere, il processo durerà alcuni minuti.
     fr = Votre stockage des cartes est en cours d'optimisation. Veuillez patienter, cela pourrait prendre quelques minutes.
@@ -6343,7 +6353,7 @@
     fr = Cette application utilise des données géographiques (incluant des cartes, des listes d'entreprises, des centres d'intérêt, des frontières de pays et de régions, etc.) extraites du projet OpenStreetMap. Nous ne garantissons aucune cohérence, exactitude, complétude ou applicabilité des données d'OpenStreetMap.
     ja = このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。
     zh-Hans = 这个应用程序使用了源自OpenStreetMap项目的地理数据（包括地图、商业清单、景点、国家和地区边界等）。我们对OpenStreetMap任何数据的一致性、准确性、完整性或适用性不做担保。
-    zh-Hant = 此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。
+    zh-Hant = 此應用程式使用從 OpenStreetMap 專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證 OpenStreetMap 數據的一致性、準確性、完整性、或適用性。
     sv = Detta program använder geografisk data (inkluderar kartor, företagsuppgifter, intressepunkter, landsgränser och regioner m.m.) från OpenStreetMap projektet. Vi garanterar ingen konsekvenshet, nogrannhet, fullständighet eller tillämpbarhet av OpenStreetMap datan.
     id = Aplikasi ini menggunakan data geografis (termasuk peta, daftar perusahaan, lokasi-lokasi menarik, batas-batas negara dan daerah, dll) yang diambil dari proyek OpenStreetMap. Kami tidak menjamin konsistensi, akurasi, kelengkapan atau kesesuaian data OpenStreetMap apa pun.
     vi = Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v…) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.
@@ -6444,7 +6454,7 @@
     th = เวอร์ชันเต็มของ MAPS.ME วันนี้ฟรี! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ
     uk = Повна версія MAPS.ME сьогодні безкоштовна! Завантажуй та розкажи друзям.
     zh-Hans = 完整版MAPS.ME是免费的今天! 立刻下载并告诉您的好友。
-    zh-Hant = 完整版MAPS.ME是免費的今天！馬上下載并告訴您的朋友。
+    zh-Hant = 現在完整版 MAPS.ME 是免費的！馬上下載並告訴您的朋友。
     da = Fuld version af MAPS.ME er gratis i dag! Download nu og fortæl dine venner om det.
     tr = MAPS.ME tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.
     sv = Fullständig version av MAPS.ME är gratis idag! Ladda ner den nu och berätta för dina vänner.
@@ -6465,7 +6475,7 @@
     nl = We verplaatsen uw gedownloade kaarten van MAPS.ME Lite naar MAPS.ME. Dit kan enkele minuten duren.
     ru = Мы переносим загруженные карты из MAPS.ME Lite в MAPS.ME. Это может занять несколько минут.
     uk = Ми переносимо завантажені карти з MAPS.ME Lite в MAPS.ME. Це може зайняти декілька хвилин.
-    zh-Hant = 我們正在將您從MAPS.ME Lite下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。
+    zh-Hant = 我們正在將您從 MAPS.ME Lite 下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。
     pl = Przenosimy twoje pobrane mapy z MAPS.ME Lite do MAPS.ME. Może to zająć kilka minut.
     pt = Estamos a transferir os seus mapas descarregados da MAPS.ME Lite para a MAPS.ME. Isto pode demorar alguns minutos.
     hu = Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.
@@ -6497,12 +6507,12 @@
     nl = Uw gedownloade kaarten werden met succes verplaatst naar MAPS.ME.
     ru = Ваши карты успешно перенесены в MAPS.ME.
     uk = Ваші карти успішно перенесено в MAPS.ME.
-    zh-Hant = 您下載的地圖已成功傳輸至MAPS.ME。
+    zh-Hant = 您下載的地圖已成功傳輸至 MAPS.ME。
     pl = Pomyślnie przeniesiono twoje pobrane mapy do MAPS.ME.
     pt = Os seus mapas descarregados estão transferidos com sucesso para a MAPS.ME.
     hu = Letöltött térképeidet sikeresen áthelyeztük a MAPS.ME-be.
     th = แผนที่ที่ดาวน์โหลดของคุณโอนไปยัง MAPS.ME สำเร็จ
-    zh-Hans = 您下载的地图已成功传输至MAPS.ME。
+    zh-Hans = 您下载的地图已成功传输至 MAPS.ME。
     ar = تم بنجاح نقل خرائطك التي تم تنزيلها إلى MAPS.ME.
     da = Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.
     tr = İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME'ye aktarıldı.
@@ -6529,12 +6539,12 @@
     nl = Verplaatsing van uw kaarten mislukt. Gelieve MAPS.ME Lite te verwijderen en de kaarten opnieuw te downloaden.
     ru = При переносе карт возникла ошибка. Пожалуйста, удалите MAPS.ME Lite и загрузите карты заново.
     uk = При переносі карт виникла помилка. Будь ласка, видаліть MAPS.ME Lite і завантажте карти знову.
-    zh-Hant = 您的地圖傳輸失敗。請刪除MAPS.ME Lite，然後再次下載地圖。
+    zh-Hant = 您的地圖傳輸失敗。請刪除 MAPS.ME Lite，然後再次下載地圖。
     pl = Nie udało się przenieść twoich map. Proszę skasować MAPS.ME Lite i pobrać mapy ponownie.
     pt = Falhou a transferência dos seus mapas. Por favor, elimine a MAPS.ME Lite e descarregue os mapas novamente.
     hu = Térképeid áthelyezése nem sikerült. Kérjük, töröld a MAPS.ME Lite-t és töltsd le a térképet megint.
     th = ล้มเหลวในการโอนแผนที่ของคุณ โปรดลบ MAPS.ME Lite และดาวน์โหลดแผนที่อีกครั้ง
-    zh-Hans = 您的地图传输失败。请删除MAPS.ME Lite，然后再次下载地图。
+    zh-Hans = 您的地图传输失败。请删除 MAPS.ME Lite，然后再次下载地图。
     ar = فشل نقل خرائطك يُرجى حذف MAPS.ME Lite وتنزيل الخرائط مرة أخرى.
     da = Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.
     tr = Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite'yi silin ve haritaları tekrar indirin.
@@ -6629,7 +6639,7 @@
     nl = Gemeenschap van MAPS.ME
     ru = Сообщество MAPS.ME
     uk = Спільнота MAPS.ME
-    zh-Hant = MAPS.ME社區
+    zh-Hant = MAPS.ME 社群
     pl = Społeczność MAPS.ME
     pt = Comunidade MAPS.ME
     hu = MAPS.ME közösség
@@ -6661,7 +6671,7 @@
     nl = Ons leuk vinden op Facebook
     ru = MAPS.ME в Facebook
     uk = MAPS.ME у Facebook
-    zh-Hant = 在Facebook 上點贊
+    zh-Hant = 在 Facebook 上按讚
     pl = Polub nas na Facebooku
     pt = Gostar no Facebook
     hu = Lájkolj minket Facebookon
@@ -6754,6 +6764,7 @@
     en = General feedback
     ru = Отправить отзыв
     de = Allgemeines Feedback
+	zh-Hant = 一般意見反應
 
   [subscribe_to_news]
     tags = ios, android
@@ -6802,7 +6813,7 @@
     nl = App beoordelen
     ru = Оценить приложение
     uk = Оцінити застосунок
-    zh-Hant = 為該應用打分
+    zh-Hant = 為該應用程式評分
     pl = Oceń aplikację
     pt = Classificar a aplicação
     hu = Értékeld az alkalmazást
@@ -6825,6 +6836,7 @@
     en = Rate on Google Play
     ru = Оценить в Google Play
     de = Bei Google Play bewerten
+	zh-Hant = 在 Google Play 評分
 
   [tell_friends]
     tags = android
@@ -6839,6 +6851,7 @@
     en = Hi! Install Maps.me!
     ru = Привет! Установи Maps.me!
     de = Hallo! Installiere dir MAPS.ME!
+	zh-Hant = 嗨！安裝 Maps.me！
 
   [help]
     tags = ios, android
@@ -6919,7 +6932,7 @@
     nl = Meld een fout
     ru = Сообщить о проблеме
     uk = Сповістити про помилку
-    zh-Hant = 報告漏洞
+    zh-Hant = 報告錯誤
     pl = Zgłoś błąd
     pt = Reportar um problema
     hu = Hibabejelentés
@@ -7021,12 +7034,12 @@
     nl = MAPS.ME biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nMAPS.ME zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.\n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we MAPS.ME volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@maps.me. We reageren op elke aanvraag!\n\nVindt je MAPS.ME leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren:\n- plaats een beoordeling op je App Market\n- like onze Facebook-pagina http://www.facebook.com/mapswithme\n- of vertel gewoon je ma, vrienden en collega’s over MAPS.ME :) Dank je dat je ons steunt. Wij waarderen dit heel erg!\n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op http://openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in MAPS.ME verschijnen.
     ru = MAPS.ME предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, MAPS.ME помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению MAPS.ME, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@maps.me. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о MAPS.ME своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте http://openstreetmap.org, и эти исправления появятся во время следующего обновления MAPS.ME.
     uk = MAPS.ME пропонує карти всіх міст, всіх країн світу, які працюють без підключення до інтернету. Подорожуйте з впевненістю: де б ви не були, MAPS.ME допоможуть вирішити будь-яку вашу проблему - допоможуть визначити ваше місцезнаходження, знайти ресторан, готель, заправку, банк, туалет і т.д.\n\nМи постійно працюємо над додаванням нових функцій, тому, якщо у вас є ідеї або пропозиції з покращення MAPS.ME, пишіть нам. Якщо у вам виникла проблема з програмою, сповістіть нас, будь ласка, про неї. Наш емейл support@maps.me. Ми відповідаємо на всі листи!\n\nЯкщо вам подобається програма і ви хочете підтримати нас, є декілька простих і абсолютно безкоштовних способів:\n\n- залиште відгук у вашому магазині програм\n- підпишіться на наші новини на сторінці у Facebook http://www.facebook.com/mapswithme\n- або просто розкажіть про MAPS.ME своїй мамі, друзям і колегам :)\n\nДякуємо за вашу підтримку!\n\nP.S. У програмі ми використовуємо картографічні дані проекту OpenStreetMap, який працює за принципом Вікіпедії, надаючи можливість користувачам зі всього світу створювати і редагувати карти. Якщо ви помітили, що на карті щось не відповідає дійсності або відсутнє, ви можете виправити це прямо на сайті http://openstreetmap.org, і ці виправлення з'являться під час наступного оновлення MAPS.ME.
-    zh-Hant = MAPS.ME提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪， MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為添加新功能而努力，并希望能夠聽到您對我們應如何改進MAPS.ME的想法。若您在使用本應用時遇到任何問題，請隨時聯繫我們：support@maps.me。我們會回覆每一條請求！\n\n您喜歡MAPS.ME并希望支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的App Market上發表評論\n- 在我們的Facebook頁面http://www.facebook.com/mapswithme上贊我們\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\n附言：我們從OpenStreetMap獲取地圖信息，這是一個類似于Wikipedia的地圖繪製項目，能夠讓用戶創建并編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在http://openstreetmap.org上進行糾正。在下一個版本發佈時，您做出的更改便會出現在MAPS.ME應用中。
+    zh-Hant = MAPS.ME 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 MAPS.ME 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support@maps.me。我們會回覆每一條請求！\n\n您喜歡 MAPS.ME 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 http://openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 MAPS.ME 應用程式中。
     pl = MAPS.ME oferuje najszybsze mapy offline wszystkich miast we wszystkich krajach świata. Podróżuj bez obaw: gdziekolwiek jesteś, MAPS.ME pomoże Ci odszukać się na mapie, znaleźć najbliższą restaurację, hotel, bank, stację benzynową itp. Aplikacja nie wymaga połączenia z Internetem.\n\nNieustannie pracujemy nad nowymi funkcjami i chcielibyśmy dowiedzieć się, jak Twoim zdaniem moglibyśmy poprawić MAPS.ME. Jeśli masz jakieś problemy z aplikacją, skontaktuj się z nami, pisząc na adres support@maps.me. Odpowiemy na każde zapytanie!\n\nLubisz aplikację MAPS.ME i chcesz udzielić nam wsparcia? Istnieje kilka prostych i absolutnie darmowych sposobów, jak to zrobić:\n\n- napisz recenzję w swoim sklepie z aplikacjami\n- polub naszą stronę na Facebooku: http://www.facebook.com/mapswithme\n- albo po prostu opowiedz o MAPS.ME swojej mamie, znajomym i kolegom :)\n\nDziękujemy, że jesteś z nami. Jesteśmy bardzo wdzięczni za Twoje wsparcie!\n\nP.S. Dane mapy pochodzą z OpenStreetMap, projektu kartograficznego podobnego do Wikipedii, który umożliwia użytkownikom tworzenie i edytowanie map. Jeśli zauważysz, że na mapie czegoś brakuje albo jest błąd, możesz nanieść poprawki bezpośrednio na stronie http://openstreetmap.org, a Twoje zmiany pojawią się w aplikacji MAPS.ME po wydaniu kolejnej wersji.
     pt = A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, a MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina mais próximos, etc. Não requer ligação à Internet.\n\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar a MAPS.ME. Se tiver algum problema com a app, não hesite em contactar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta da MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário no seu App Market\n- faça "gosto" na nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale da MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar connosco. Agradecemos imenso o seu apoio!\n\nP. S. Tiramos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer na app MAPS.ME com o lançamento da próxima versão.
     hu = A MAPS.ME kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a MAPS.ME segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a MAPS.ME-t. Bármely probléma esetén írj nekünk a support@maps.me e-mail címre. Minden levélre válaszolunk!\n\nSzereted a MAPS.ME-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a MAPS.ME-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a http://openstreetmap.org-on és változtatásaid a MAPS.ME következő verziójában már meg fognak jelenni.
     th = MAPS.ME ขอเสนอแผนที่ออฟไลน์ของทุกเมือง ทุกประเทศในโลกที่รวดเร็วที่สุด เดินทางด้วยความมั่นใจ: ไม่ว่าคุณจะอยู่ที่ไหน MAPS.ME จะช่วยระบุตำแหน่งที่ตั้งของตัวคุณบนแผนที่ ค้นหาร้านอาหาร โรงแรม ธนาคาร ปั๊มน้ำมัน และอื่น ๆ ที่ใกล้ที่สุด โดยไม่จำเป็นต้องใช้การเชื่อมต่ออินเทอร์เน็ต\n\nเราทำงานเพื่อพัฒนาฟีเจอร์ใหม่ ๆ อยู่เสมอและยินดีรับฟังว่าคุณมีความคิดเห็นว่าเราจะพัฒนา MAPS.ME ได้อย่างไร หากคุณมีปัญหาใด ๆ กับแอป อย่าลังเลที่จะติดต่อเราที่ support@maps.me โดยเราจะตอบรับทุกคำขอ!\n\nคุณชอบ MAPS.ME และต้องการสนับสนุนเราหรือไม่? มีวิธีง่าย ๆ และฟรีอยู่บ้าง:\n\n- โพสต์คำวิจารณ์ของคุณที่ ตลาดแอป (App Market)\n- ถูกใจเพจ Facebook ของเรา http://www.facebook.com/mapswithme\n- หรือเพียงแค่บอกแม่ เพื่อน ๆ และเพื่อนร่วมงานของคุณเกี่ยวกับ MAPS.ME :)\n\nขอบคุณที่ใช้บริการของเรา เราซาบซึ้งในการสนับสนุนของคุณมาก!\n\nป.ล. เรานำข้อมูลแผนที่มาจาก OpenStreetMap ซึ่งเป็นโครงการจัดทำแผนที่ที่เหมือนกับ Wikipedia ที่ช่วยให้ผู้ใช้สามารถสร้างและแก้ไขแผนที่ได้ หากคุณเห็นว่ามีสิ่งใดที่ขาดหายหรือไม่ถูกต้องบนแผนที่ คุณสามารถแก้ไขแผนที่ได้โดยตรงที่ http://openstreetmap.org และการเปลี่ยนแปลงของคุณจะปรากฏในแอป MAPS.ME ในการปล่อยเวอร์ชันถัดไป
-    zh-Hans = MAPS.ME提供全球所有国家和所有城市的最快速的离线地图。充满自信地出行：无论您在哪，MAPS.ME都能够帮助您在地图上找到您自己的位置，找到最近的餐馆、酒店、银行、加油站，等等。无需网络连接。\n\n我们始终在为添加新功能而努力，并希望能够听到您对我们应如何改进MAPS.ME的想法。若您在使用本应用时遇到任何问题，请随时联系我们：support@maps.me。我们会回复每一条请求！\n\n您喜欢MAPS.ME并希望支持我们吗？以下为一些简单且完全免费的方法：\n\n- 在您的App Market发表评论\n- 在我们的Facebook页面http://www.facebook.com/mapswithme赞我们\n- 或者向您的母亲、朋友，以及同事介绍MAPS.ME :)\n\n感谢您与我们在一起。非常感谢您的支持。\n\n附言：我们从OpenStreetMap获取地图信息，这是一个类似于Wikipedia的地图绘制项目，能够让用户创建并编辑地图。若您看到地图上缺少了什么或者有什么错误，可以直接在http://openstreetmap.org上进行纠正。在下一个版本发布时，您做出的更改便会出现在MAPS.ME应用中。
+    zh-Hans = MAPS.ME 提供全球所有国家和所有城市的最快速的离线地图。充满自信地出行：无论您在哪，MAPS.ME都能够帮助您在地图上找到您自己的位置，找到最近的餐馆、酒店、银行、加油站，等等。无需网络连接。\n\n我们始终在为添加新功能而努力，并希望能够听到您对我们应如何改进MAPS.ME的想法。若您在使用本应用时遇到任何问题，请随时联系我们：support@maps.me。我们会回复每一条请求！\n\n您喜欢MAPS.ME并希望支持我们吗？以下为一些简单且完全免费的方法：\n\n- 在您的App Market发表评论\n- 在我们的Facebook页面http://www.facebook.com/mapswithme赞我们\n- 或者向您的母亲、朋友，以及同事介绍MAPS.ME :)\n\n感谢您与我们在一起。非常感谢您的支持。\n\n附言：我们从OpenStreetMap获取地图信息，这是一个类似于Wikipedia的地图绘制项目，能够让用户创建并编辑地图。若您看到地图上缺少了什么或者有什么错误，可以直接在http://openstreetmap.org上进行纠正。在下一个版本发布时，您做出的更改便会出现在MAPS.ME应用中。
     ar = توفر لكم MAPS.ME أحدث الخرائط دون الاتصال بالإنترنت لكافة دول وكافة مدن العالم. سافر وتمتع بالثقة التامة: إينما كنت، تساعدك MAPS.ME على تحديد مكانك على الخريطة، والعثور على أقرب مطعم أو فندق أو بنك أو محطة غاز الخ لا يتطلب الاتصال بالإنترنت.\n\nنحن نعمل دوماً على إدخال مزايا جديدة على التطبيق ونود أن نسمع منك رأيك عن الكيفية التي يمكن بها تحسين تطبيق MAPS.ME في رأيك. إذا واجهتك أي مشاكل مع التطبيق، لا تتردد في الاتصال بنا على support@maps.me. نحن نرد على كافة الطلبات.\n\nهل أعجبك تطبيق MAPS.ME وترغب في دعمنا؟ هناك بعض الطرق السهلة والمجانية بالكامل لعمل ذلك.\n\n- انشر رأيك على متجر التطبيقات الخاص بك\n- اعجب بصفحتنا على موقع Facebook http://www.facebook.com/mapswithme\n- أو أخبر والدتك وأصدقائك وزملائك عن تطبيق MAPS.ME :)\n\nشكراً لك على وجودك معنا. نحن نقدر جداً دعمك لنا!\n\nيُرجى ملاحظة نحن نستقي بيانات الخرائط من OpenStreetMap، مشروع خرائط يشبه موسوعة Wikipedia ويتيح هذا المشروع للمستخدمين إنشاء وتحرير الخرائط. إذا كنت ترى أن هناك خطأ ما أو شيء غير موجود على الخريطة، يمكنك تصحيح الخرائط مباشرة على http://openstreetmap.org، وسوف تظهر تغييراتك على تطبيق MAPS.ME في الإصدار القادم للتطبيق.
     da = MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.
     tr = MAPS.ME dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, MAPS.ME harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin MAPS.ME'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@maps.me adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nMAPS.ME'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza MAPS.ME'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttp://openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler MAPS.ME'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.
@@ -7053,7 +7066,7 @@
     nl = De e-mailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@
     ru = Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %@.
     uk = Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв'язку. Наша адреса – %@.
-    zh-Hant = 電子郵件用戶端尚未建立。請設定或使用任何其他方式與我們聯絡%@
+    zh-Hant = 電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%@
     pl = Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@
     pt = O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contactar através de %@
     hu = Az e-mail kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ e-mail címen keresztül.
@@ -7149,7 +7162,7 @@
     nl = WiFi
     ru = WiFi
     uk = WiFi
-    zh-Hant = 無線網絡
+    zh-Hant = 無線網路
     pl = WiFi
     pt = WiFi
     hu = WiFi
@@ -7185,7 +7198,7 @@
     fr = Veuillez mettre à jour la carte pour créer un itinéraire.
     da = Venligst opdatér kortet for at oprette en rute.
     nl = Werk de kaart bij om een route te maken.
-    zh-Hant = 請更新地圖以創建一條路線。
+    zh-Hant = 請更新地圖以建立一條路線。
     cs = Pro funkci vytváření tras je nutné aktualizovat mapu.
     ar = يرجى تحديث الخريطة لإنشاء مسار.
     zh-Hans = 请更新地图以创建一条路线。
@@ -7217,7 +7230,7 @@
     fr = La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.
     da = Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.
     nl = Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.
-    zh-Hant = 使用新版本的MAPS.ME可以創建從您的當前位置至一個目的地的路線。請更新地圖以使用該功能。
+    zh-Hant = 使用新版本的 MAPS.ME 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。
     cs = Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Chcete-li tuto funkci používat, aktualizujte mapy.
     ar = إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.
     zh-Hans = 使用新版本的MAPS.ME可以创建从您的当前位置至一个目的地的路线。请更新地图以使用该功能。
@@ -7282,7 +7295,7 @@
     da = Aflys Alt
     nl = Alles annuleren
     cs = Zrušit vše
-    zh-Hant = 取消全部
+    zh-Hant = 全部取消
     ar = إلغاء الكل
     zh-Hans = 全部取消
     id = Batalkan Semuanya
@@ -7554,7 +7567,7 @@
     fr = Quand vous créez des itinéraires sur l'application MAPS.ME, veuillez garder à l'esprit les points suivants :\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu'une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.
     de = Beim Erstellen von Routen mit der MAPS.ME-App sollten Sie Folgendes beachten:\n\n  - Vorgeschlagenen Routen können nur als Empfehlungen angesehen werden.\n - Straßenbedingungen, Verkehrsregeln und Schilder haben höhere Priorität als Navigationsratschläge.\n - Die Karte kann falsch oder veraltet sein und Routen könnten somit nicht auf die bestmögliche Weise erstellt worden sein.\n\n  Bleiben Sie auf der Straße sicher und achten Sie auf sich selbst!
     he = כשאתם בונים מסלולים באמצעות אפליקציית MAPS.ME, שימו לב:\n\n  יש להתייחס למסלולים מוצעים כהמלצות בלבד.\n תנאי הדרך, חוקי התנועה והתמרורים נמצאים בעדיפות גבוהה יותר מאשר עצת הניווט.\n יתכן שהמפה אינה נכונה או\n    אינה מעודכנת, וקיימת אפשרות שהמסלולים לא ייבנו באופן הטוב ביותר.\n\n  נסיעה בטוחה ושמרו על עצמכם!\n\n
-    zh-Hant = 在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！
+    zh-Hant = 在 MAPS.ME 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！
     cs = Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!
     ar = عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!
     zh-Hans = 在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！
@@ -7745,7 +7758,7 @@
     nl = Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.
     fr = L'emplacement actuel n'est pas défini. Veuillez préciser l'emplacement pour créer l'itinéraire.
     zh-Hans = 当前地点未定。请明确地点以创建路线。
-    zh-Hant = 當前地點未定。請明確地點以創建路線。
+    zh-Hant = 目前地點未定。請等待明確地點以建立路線。
     cs = Aktuální poloha nebyla zatím zjištěna. Chcete-li naplánovat trasu, zadejte prosím umístění.
     ar = الموقع الحالي غير مُعَرّف. يرجى تحديد موقع لإنشاء مسار.
     de = Der aktuelle Standort ist nicht bekannt. Bitte geben Sie den Standort ein, um eine Route zu erstellen.
@@ -7774,7 +7787,7 @@
     sk = Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?
     fr = Des données supplémentaires sont nécessaires pour créer un itinéraire. Vous désirez lancer le téléchargement ?
     zh-Hans = 需要额外的数据才能创建路线。开始下载吗？
-    zh-Hant = 需要額外的數據才能創建路線。開始下載嗎？
+    zh-Hant = 需要額外的數據才能建立路線。開始下載嗎？
     ar = هناك حاجة إلى بيانات إضافية لإنشاء مسار. بدء التحميل؟
     nl = Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?
     de = Zusätzliche Daten werden zum Erstellen der Route benötigt. Mit dem Download beginnen?
@@ -7809,7 +7822,7 @@
     nl = Kan de route niet berekenen. Geen wegen in de buurt van uw beginpunt.
     fr = Impossible de calculer l'itinéraire. Aucune route à proximité de votre point de départ.
     zh-Hans = 无法计算路线。没有在您起点附近的路。
-    zh-Hant = 無法計算路線。沒有在您起點附近的路。
+    zh-Hant = 無法計算路線。沒有路在您的起點附近。
     cs = Trasu nelze vypočítat. Poblíž výchozího bodu nejsou žádné cesty.
     ar = لا يمكن حساب المسار. لا توجد طرق قرب نقطة البداية لديك.
     de = Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe Ihres Ausgangspunkts.
@@ -7841,7 +7854,7 @@
     nl = Kan de route niet berekenen. Geen wegen in de buurt van uw bestemming.
     fr = Impossible de calculer l'itinéraire. Aucune route à proximité de votre destination.
     zh-Hans = 无法计算路线。没有在您终点附近的路。
-    zh-Hant = 無法計算路線。沒有在您終點附近的路。
+    zh-Hant = 無法計算路線。沒有路在您的終點附近。
     cs = Trasu nelze vypočítat. Poblíž cílového bodu nejsou žádné cesty.
     ar = لا يمكن حساب المسار. لا توجد طرق بالقرب من وجهتك المقصودة.
     de = Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe Ihres Ziels.
@@ -7873,7 +7886,7 @@
     nl = Slechts de routes die volledig opgenomen zijn in één kaart kunnen gecreëerd worden.
     fr = Les itinéraires entièrement contenus sur une seule carte peuvent être créés.
     zh-Hans = 路程只能完全处在同一地图里时才能被创建。
-    zh-Hant = 路程只能完全處在同一地圖裏時才能被創建。
+    zh-Hant = 路程只能完全處在同一地圖裡時才能被建立。
     cs = Lze vytvářet jen takové trasy, které se nachází na území jediné mapy.
     ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة واحدة.
     de = Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.
@@ -7937,7 +7950,7 @@
     nl = Er is een interne fout opgetreden. Probeer het kaart te verwijderen en opnieuw te downloaden. Indien het probleem blijft optreden, neem dan contact met ons op support@maps.me.
     fr = Une erreur interne s'est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.
     zh-Hans = 出现内部错误。请尝试删除并再次下载地图。如果还有问题请联系我们：support@maps.me。
-    zh-Hant = 出現內部錯誤。請嘗試刪除并再次下載地圖。如果還有問題請聯系我們：support@maps.me。
+    zh-Hant = 出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support@maps.me。
     cs = Došlo k vnitřní chybě. Zkuste, prosím, mapu smazat a znovu stáhnout. Jestliže problém přetrvává, kontaktujte nás na support@maps.me.
     ar = حدث خطأ داخلي. يرجى محاولة حذف الخريطة وإعادة تنزيلها مرة أخرى. إذا استمرت المشكلة يرجى الاتصال بنا على support@maps.me.
     de = Es ist ein interner Fehler aufgetreten. Bitte versuchen Sie, die Karte zu löschen und erneut herunterzuladen.
@@ -7969,7 +7982,7 @@
     fr = Télécharger Carte + Itinéraire
     de = Karte + Routenplanung herunterladen
     zh-Hans = 下载地图 + 路线
-    zh-Hant = 下載地圖 + 佈置路線
+    zh-Hant = 下載地圖 + 路線
     cs = Stáhnout mapu + trasy
     ar = تنزيل الخريطة + تحديد المسار
     ru = Загрузить карту + маршруты
@@ -8158,7 +8171,7 @@
     da = Gentag
     cs = Opakovat
     zh-Hans = 重复
-    zh-Hant = 重復
+    zh-Hant = 重試
     ar = تكرار
     th = ทำซ้ำ
     uk = Повторити
@@ -8193,7 +8206,7 @@
     nl = Kaart + route
     fr = Carte + itinéraire
     zh-Hans = 地图 + 布置路线
-    zh-Hant = 地圖 + 布置路線
+    zh-Hant = 地圖 + 路線
     cs = Mapa + trasy
     ar = الخريطة + تحديد المسار
     de = Karte + Routenplanung
@@ -8289,7 +8302,7 @@
     nl = Kaart bijwerken + route
     fr = Mise à jour carte + itinéraire
     zh-Hans = 更新地图 + 布置路线
-    zh-Hant = 更新地圖 + 布置路線
+    zh-Hant = 更新地圖 + 路線
     cs = Aktualizovat mapu + trasy
     ar = تحديث الخريطة + تحديد المسار
     de = Karte + Routenplanung aktualisieren
@@ -8347,7 +8360,7 @@
     cs = Nabídka aplikace
     sk = Ponuka aplikácie
     nl = Applicatiemenu
-    zh-hant = 應用程序菜單
+    zh-hant = 應用程式功能表
     zh-hans = 应用程序菜单
     pl = Menu aplikacji
     pt = Menu de Aplicação
@@ -8375,7 +8388,7 @@
     fr = Utilisez l'application Google Play Services pour obtenir votre emplacement actuel
     de = Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten
     nl = Gebruik de diensten van Google Play om uw huidige locatie te bepalen
-    zh-hant = 使用Google Play Services來獲得您的當前位置
+    zh-hant = 使用 Google Play 服務來獲得您的目前位置
     es = Usar los servicios de Google Play para obtener tu ubicación actual
     uk = Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play
     pl = Użyj Usług Google Play do ustalenia swojej bieżącej lokalizacji
@@ -8457,7 +8470,7 @@
     da = Jeg er MAPS.ME bruger siden %@
     cs = Uživatelem MAPS.ME jsem od roku %@
     zh-Hans = 我是从%@年起的MAPS.ME用户
-    zh-Hant = 我是從%@年起的MAPS.ME用戶
+    zh-Hant = 我是從 %@ 年起的 MAPS.ME 使用者
     it = Sono un utente MAPS.ME dal %@
     ar = أنا مستخدم لتطبيق MAPS.ME منذ %@
     nb = Jeg har vært MAPS.ME-bruker siden %@
@@ -8490,7 +8503,7 @@
     da = Kan du lide MAPS.ME?
     cs = Líbí se vám aplikace MAPS.ME?
     zh-Hans = 您喜欢MAPS.ME吗？
-    zh-Hant = 您喜歡MAPS.ME嗎？
+    zh-Hant = 您喜歡 MAPS.ME 嗎？
     it = Ti piace MAPS.ME?
     ar = هل تطبيق MAPS.ME يعجبك؟
     nb = Liker du MAPS.ME?
@@ -8523,7 +8536,7 @@
     da = Tryk på en stjerne for at bedømme vores app.
     cs = Klepnutím na hvězdičku naši aplikaci ohodnotíte.
     zh-Hans = 点击星星给我们应用评分。
-    zh-Hant = 點擊星星給我們應用評分。
+    zh-Hant = 點擊星星給我們應用程式評分。
     it = Fai tap sulla stella per valutare la nostra app.
     ar = انقر على النجمة لتقييم التطبيق.
     nb = Trykk på en stjerne for å vurdere appen.
@@ -8589,7 +8602,7 @@
     da = Del dine ideer eller problemer med os, så vi kan forbedre appen for dig.
     cs = Podělte se s námi o své nápady nebo problémy, abychom mohli aplikaci vylepšit.
     zh-Hans = 分享任何主意或问题，这样我们可以为您改善应用。
-    zh-Hant = 分享任何主意或問題，這樣我們可以為您改善應用。
+    zh-Hant = 分享任何主意或問題，這樣我們可以為您改善應用程式。
     it = Condividi le tue idee o problemi così che possiamo migliorare l'app per te.
     ar = شارك أي أفكار أو مشاكل، حتى نتمكن من تحسين التطبيق من أجلك.
     nb = Del ideer med oss eller still spørsmål, slik at vi kan forbedre appen for deg.
@@ -8622,7 +8635,7 @@
     da = Send feedback
     cs = Odeslat názor
     zh-Hans = 发送反馈
-    zh-Hant = 發送反饋
+    zh-Hant = 發送回饋
     it = Invia feedback
     ar = إرسال التعليق
     nb = Send tilbakemelding
@@ -8655,7 +8668,7 @@
     da = Klik g+ for at fortælle dine venner om app'en.
     cs = Klikněte na g+ a povězte o aplikaci svým přátelům.
     zh-Hans = 点击g+向您的朋友们告知这款应用。
-    zh-Hant = 點擊g+向您的朋友們告知這款應用。
+    zh-Hant = 點擊g+向您的朋友們告知這款應用程式。
     it = Clicca su g+ per far conoscere l'app ai tuoi amici.
     ar = اضغط على g+ لتخبر أصدقاءك عن التطبيق.
     nb = Klikk på g+ for å fortelle vennene dine om denne appen.
@@ -8753,8 +8766,8 @@
     fi = Lataa päivitetty kartta ja reititysdata saadaksesi kaikki MAPS.ME -ominaisuudet.
     da = Download opdaterede kort og routing data for at få alle MAPS.ME funktioner.
     cs = Stáhněte si aktualizovanou mapu a data tras, ať můžete využít všechny funkce MAPS.ME.
-    zh-Hans = 下载更新的地图和路线数据，获取所有MAPS.ME的特色功能。
-    zh-Hant = 下載更新的地圖和路線數據，獲取所有MAPS.ME的特色功能。
+    zh-Hans = 下载更新的地图和路线数据，获取所有 MAPS.ME 的特色功能。
+    zh-Hant = 下載更新的地圖和路線數據，獲取所有 MAPS.ME 的特色功能。
     it = Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità MAPS.ME.
     ar = Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità MAPS.ME.
     nb = Last ned oppdatert kart og ruteinformasjon for å få alle MAPS.ME funksjonene
@@ -8820,7 +8833,7 @@
     da = Yderligere data er påkrævet for at oprette ruter fra din placering.
     cs = Další data potřebná k plánování tras z vašeho umístění.
     zh-Hans = 更多数据，从您的位置创建路线。
-    zh-Hant = 更多數據，從您的位置創建路線。
+    zh-Hant = 需要更多數據以從您的位置建立路線。
     it = dati aggiuntivi richiesti per creare i percorsi dalla tua posizione.
     ar = dati aggiuntivi richiesti per creare i percorsi dalla tua posizione.
     nb = Tilleggsinformasjon som er nødvendig for å opprette ruter fra ditt ståsted.
@@ -8853,7 +8866,7 @@
     da = Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.
     cs = Naplánování trasy vyžaduje stažení a aktualizaci všech map z vašeho umístění do cílového umístění.
     zh-Hans = 创建路线需要下载并更新好所有从您的位置到目的地的地图。
-    zh-Hant = 創建路線需要下載並更新好所有從您的位置到目的地的地圖。
+    zh-Hant = 建立路線需要下載並更新好所有從您的位置到目的地的地圖。
     it = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
     ar = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
     nb = Når du skal opprette en rute må du ha oppdatert alle kartene fra ditt ståsted til din destinasjon.
@@ -8886,7 +8899,7 @@
     da = Ikke nok plads
     cs = Nedostatek místa
     zh-Hans = 空间不够
-    zh-Hant = 空間不夠
+    zh-Hant = 空間不足
     it = Spazio non sufficiente
     ar = Spazio non sufficiente
     nb = Ikke nok ledig minne
@@ -8952,7 +8965,7 @@
     da = Du kommer til at downloade %@ MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.
     cs = Chystáte se stáhnout %@ MB pomocí mobilních dat (v roamingu). To může mít za následek další poplatky v závislosti na vašem mobilním datovém tarifu.
     zh-Hans = 您将使用移动数据下载%@ MB（漫游）。这取决于您的移动数据方案运营商，可能会产生额外的费用。
-    zh-Hant = 您將使用移動數據下載%@ MB（漫遊）。這取決於您的移動數據方案運營商，可能會產生額外的費用。
+    zh-Hant = 您將使用行動數據下載%@ MB（漫遊）。這取決於您的行動數據方案服務業者，可能會產生額外的費用。
     it = Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.
     ar = Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.
     nb = Du er på vei til å laste ned %@ MB via mobildata (under 'roaming'). Dette kan resultere i påløpende ekstragebyrer, avhengig av din mobiloperatørløsning.
@@ -9008,7 +9021,7 @@
     ko = 위치에 대한 지도가 다운로드되지 않음
     nl = De kaart voor uw locatie is niet gedownload
     uk = Карту місця, де ви знаходитеся, не завантажено
-    zh-Hant = 您地點的地圖沒有被下載
+    zh-Hant = 您地點的地圖尚未下載
     pl = Nie znaleziono mapy Twojej lokalizacji
     pt = O mapa para a sua localização não foi baixado
     hu = A helyszínéhez tartozó térképet letöltöttük
@@ -9039,7 +9052,7 @@
     nl = Schakel Locatie Services in
     ru = Пожалуйста, включите геолокацию
     uk = Будь ласка, увімкніть геолокацію
-    zh-Hant = 請啟動位置服務
+    zh-Hant = 請啟用定位服務
     pl = Proszę włączyć usługi lokalizacji
     pt = Por favor active os Serviços de Localização
     hu = Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást
@@ -9107,7 +9120,7 @@
     th = ดาวน์โหลดแผนที่สำหรับตำแหน่งปัจจุบันบน iPhone ของคุณ
     uk = Завантажити карту вашого місця розташування на iPhone
     zh-Hans = 在您的iPhone上下载当前位置的地图
-    zh-Hant = 在您的iPhone上下載當前位置的地圖
+    zh-Hant = 在您的 iPhone 上下載目前位置的地圖
     da = Download kortet for din placering til din iPhone
     tr = Mevcut konum için iPhone'nunuza haritayı indirin
     sv = Ladda ner kartan för aktuell plats på din iPhone
@@ -9163,7 +9176,7 @@
     nl = Speld wissen
     ru = убрать метку
     uk = Очисти мітку
-    zh-Hant = 清除針
+    zh-Hant = 清除圖釘
     pl = Wyczyść pinezkę
     pt = Limpar marcação
     hu = Pin törlése
@@ -9200,7 +9213,7 @@
     nl = Huidige locatie is niet gedefinieerd.
     fr = L'emplacement actuel n'est pas défini.
     zh-Hans = 当前地点未定。
-    zh-Hant = 當前地點未定。
+    zh-Hant = 目前地點未定。
     cs = Aktuální poloha zatím nebyla zjištěna.
     ar = الموقع الحالي غير مُعَرّف
     de = Der aktuelle Standort ist nicht definiert.
@@ -9331,7 +9344,7 @@
     da = Gem
     cs = Uložit
     zh-Hans = 保存
-    zh-Hant = 保存
+    zh-Hant = 儲存
     it = Salva
     nb = Lagre
 
@@ -9360,7 +9373,7 @@
     da = Dine beskrivelser (tekst eller html)
     cs = Popis (HTML nebo text)
     zh-Hans = 您的描述（文本或html）
-    zh-Hant = 您的描述（文本或html）
+    zh-Hant = 您的描述（文字或 html）
     it = Le tue descrizioni (formato testo o html)
     nb = Dine beskrivelser (tekst eller html)
 
@@ -9389,7 +9402,7 @@
     fi = uusi ryhmä
     da = ny gruppe
     cs = Nová skupina
-    zh-Hans = 新组
+    zh-Hans = 新群組
     zh-Hant = 新組
     it = nuovo gruppo
     nb = ny gruppe
@@ -9421,7 +9434,7 @@
     da = skabe
     cs = vytvořit
     zh-Hans = 创建
-    zh-Hant = 創建
+    zh-Hant = 建立
     it = crea
     id = buat
     nb = opprett
@@ -9605,7 +9618,7 @@
     nl = Oranje
     ru = Оранжевый
     uk = Помаранчевий
-    zh-Hant = 橘紅色
+    zh-Hant = 橘色
     pl = Pomarańczowy
     pt = Laranja
     hu = Narancssárga
@@ -9697,7 +9710,7 @@
     nl = Ja
     ru = Есть
     uk = Так
-    zh-Hant = 是的
+    zh-Hant = 是
     pl = Tak
     pt = Sim
     hu = Igen
@@ -9765,7 +9778,7 @@
     cs = • Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.
     it = — Le condizioni stradali, il codice della strada e la segnaletica stradale hanno sempre precedenza sui consigli di navigazione;
     nb = – Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;
-    zh-Hant = — 道路情形、交通規則及號誌較導航意見更為優先；
+    zh-Hant = — 路況、交通規則及號誌優先於導航意見；
     zh-Hans = — 路况、交通法规和路标始终优先于导航建议；
     th = — สภาพถนน กฎจราจร และสัญลักษณ์บนถนนย่อมมีความสำคัญกว่าคำแนะนำเพื่อบอกทางเสมอ;
     ja = — 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください。;
@@ -9796,7 +9809,7 @@
     cs = — Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;
     it = — La mappa potrebbe essere imprecisa e il percorso suggerito potrebbe non essere sempre quello ottimale per raggiungere la destinazione;
     nb = – Kartet kan inneholde unøyaktigheter, og den foreslåtte ruten er ikke nødvendigvis alltid den mest optimale veien;
-    zh-Hant = — 地圖可能有誤，建議的路線不盡然是最佳選擇；
+    zh-Hant = — 地圖可能不準確，建議的路線不盡然是最佳選擇；
     zh-Hans = — 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路径；
     th = — แผนที่อาจมีความคลาดเคลื่อนและเส้นทางที่แนะนำอาจไม่ใช่เส้นทางที่เหมาะสมที่สุดเสมอไปสำหรับการไปยังที่หมาย;
     ja = — マップは必ずしも正確であるとは限らず、また案内ルートが常に目的地までの最適なルートであるとは限りません。;
@@ -9858,7 +9871,7 @@
     cs = — U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;
     it = — Fai attenzione ai percorsi nelle zone di confine: i percorsi creati dalla nostra app possono, a volte, attraversare i confini di stato in zone non autorizzate;
     nb = — Vær forsiktig når det gjelder ruter i grenseområder: rutene som appen vår oppretter kan komme til å krysse landegrenser i uatoriserte områder;
-    zh-Hant = — 小心對待國界區的路線：我們應用創造的路線有時會在未經授權的地方跨越國界;
+    zh-Hant = — 小心對待國界區的路線：我們應用程式建立的路線有時會在未經授權的地方跨越國界；
     zh-Hans = — 小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界;
     th = — โปรดระมัดระวังเมื่อใช้เส้นทางในพื้นที่ชายแดน: บางครั้งเส้นทางที่สร้างขึ้นโดยแอปของเรานั้นอาจข้ามผ่านชายแดนประเทศในพื้นที่ที่ไม่ได้รับการอนุญา;
     ja = — 国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります;
@@ -9888,7 +9901,7 @@
     cs = Na silnici buďte pozorní a chovejte se bezpečně!
     it = Fai sempre attenzione e guida con prudenza!
     nb = Kjør trygt!
-    zh-Hant = 祝您出外安全，自身多加注意！
+    zh-Hant = 請保持警戒，一路平安！
     zh-Hans = 上路时请当心，祝您一路平安！
     th = โปรดมีสติอยู่เสมอและยึดถือความปลอดภัยบนถนน!
     ja = よく注意して安全運転を心がけましょう！
@@ -9919,7 +9932,7 @@
     cs = Zkontrolovat signál GPS
     it = Controlla il segnale GPS
     nb = Sjekk GPS-signal
-    zh-Hant = 查看 GPS
+    zh-Hant = 查看 GPS 訊號
     zh-Hans = 检查 GPS 信号
     th = ตรวจสอบสัญญาณ GPS
     ja = GPS信号をご確認ください
@@ -9950,7 +9963,7 @@
     cs = Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.
     it = Impossibile creare il percorso. Impossibile individuare le coordinate GPS attuali.
     nb = Ingen rute ble opprettet. Nåværende GPS-koordinater ble ikke funnet.
-    zh-Hant = 未產生路線。 目前位置尚未定義。
+    zh-Hant = 無法產生路線。 無法定位目前 GPS 座標。
     zh-Hans = 无法创建路线。当前 GPS 坐标无法识别。
     th = ไม่สามารถสร้างเส้นทางได้ ไม่สามารถระบุพิกัด GPS ปัจจุบันได้
     ja = 案内ルートを作成できません。現在地のGPSコードを確認できません。
@@ -9981,7 +9994,7 @@
     cs = Zkontrolujte signál GPS. Povolením připojení WiFi zpřesníte určení vaší polohy.
     it = Controlla il segnale GPS. Se abiliti il Wi-Fi, migliorerà la precisione della posizione.
     nb = Sjekk GPS-signalet. Resultatet blir mer nøyaktig når du bruker wi-fi.
-    zh-Hant = 請查看 GPS。 為提升地理位置定位品質，請啟用 Wi-Fi。
+    zh-Hant = 請確認您的 GPS 訊號。啟用 Wi-Fi 將提升地理位置定位準確度。
     zh-Hans = 请检查您的 GPS 信号。启用 Wi-Fi 将改善您的定位精度。
     th = กรุณาตรวจสอบสัญญาณ GPS ของคุณ การเปิดใช้ Wi-Fi จะช่วยเพิ่มความแม่นยำในการระบุตำแหน่งของคุณ
     ja = GPS信号をご確認ください。Wi-Fiを有効にするとより正確な位置情報を取得できます。
@@ -10012,7 +10025,7 @@
     cs = Povolit služby určování polohy
     it = Abilita i servizi di localizzazione
     nb = Aktiver stedstjenester
-    zh-Hant = 啟用位置定位
+    zh-Hant = 啟用定位服務
     zh-Hans = 启用定位服务
     th = เปิดใช้บริการหาตำแหน่ง
     ja = 位置情報サービスを有効にしてください
@@ -10043,7 +10056,7 @@
     cs = Aktuální souřadnice GPS se nepodařilo zjistit. Pro výpočet trasy povolte služby určování polohy.
     it = Impossibile individuare le coordinate GPS attuali. Per calcolare il percorso, abilita i servizi di localizzazione.
     nb = Nåværende GPS-koordinater ble ikke funnet. Aktiver stedstjenester for å beregne en rute.
-    zh-Hant = 目前位置尚未定義。 若要產生路線，請啟用位置定位。
+    zh-Hant = 無法定位目前 GPS 座標。請啟用定位服務以產生路線。
     zh-Hans = 无法定位当前 GPS 坐标。请启用定位服务以计算路线。
     th = ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้ เปิดใช้บริการหาตำแหน่งเพื่อคำนวณเส้นทาง
     ja = 現在地のGPSコードを確認できません。案内ルートを作成するには、位置情報サービスを有効にしてください。
@@ -10074,7 +10087,7 @@
     cs = Aktuální souřadnice GPS se nepodařilo zjistit.
     it = Impossibile individuare le coordinate GPS attuali.
     nb = Nåværende GPS-koordinater ble ikke funnet.
-    zh-Hant = 目前位置尚未定義。
+    zh-Hant = 無法定位目前 GPS 座標。
     zh-Hans = 无法定位当前 GPS 坐标。
     th = ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้
     ja = 現在地のGPSコードを確認できません。
@@ -10167,7 +10180,7 @@
     cs = Soubory s informacemi o trasách
     it = File di informazioni di itinerario
     nb = Ruteinformasjonsfiler
-    zh-Hant = 路線檔案
+    zh-Hant = 路線資訊檔案
     zh-Hans = 路线信息文件
     th = ไฟล์ข้อมูลเส้นทาง
     ja = ルート情報ファイル
@@ -10229,7 +10242,7 @@
     cs = Trasu se nepodařilo vytvořit.
     it = Impossibile creare il percorso.
     nb = Kunne ikke finne rute.
-    zh-Hant = 此路線尚未產生。
+    zh-Hant = 無法產生路線。
     zh-Hans = 无法创建路线。
     th = ไม่สามารถสร้างเส้นทางได้
     ja = 案内ルートを作成できません。
@@ -10322,7 +10335,7 @@
     cs = Trasa nebyla vytvořena. Výchozí bod se nepodařilo najít.
     it = Percorso non creato. Impossibile individuare il punto di partenza.
     nb = Ingen rute ble opprettet. Startpunktet ble ikke funnet.
-    zh-Hant = 此路線尚未產生。 未定義起點。
+    zh-Hant = 此路線尚未產生。無法定位起點。
     zh-Hans = 路线未创建。无法定位起点。
     th = ไม่มีการสร้างเส้นทาง ไม่สามารถหาจุดเริ่มต้นได้
     ja = 案内ルートを作成できません。出発地を確認できませんでした。
@@ -10384,7 +10397,7 @@
     cs = Upravit cíl
     it = Modifica la destinazione
     nb = Endre bestemmelsessted
-    zh-Hant = 變更最終目的地
+    zh-Hant = 變更目的地
     zh-Hans = 调整目的地
     th = ปรับที่หมาย
     ja = 目的地の位置調整をしてください
@@ -10415,7 +10428,7 @@
     cs = Trasa nebyla vytvořena. Cíl se nepodařilo najít.
     it = Percorso non creato. Impossibile individuare la destinazione.
     nb = Ingen rute ble opprettet. Bestemmelsesstedet ble ikke funnet.
-    zh-Hant = 未產生路線。 未定義最終目的地。
+    zh-Hant = 未產生路線。無法定位目的地。
     zh-Hans = 路线未创建。无法定位目的地。
     th = ไม่มีการสร้างเส้นทาง ไม่สามารถหาที่หมายได้
     ja = 案内ルートを作成できません。目的地を確認できませんでした。
@@ -10446,7 +10459,7 @@
     cs = Vyberte cílový bod blíže k silnici.
     it = Seleziona un punto di destinazione più vicino a una strada.
     nb = Velg et bestemmelsessted som er i nærheten av en vei.
-    zh-Hant = 請選擇更接近道路的最終目的地。
+    zh-Hant = 請選擇更接近道路的目的地。
     zh-Hans = 请选择更靠近公路的目的地位置。
     th = กรุณาเลือกที่หมายที่ใกล้ถนนมากขึ้น
     ja = 道路に近い位置にある目的地を設定してください。
@@ -10570,7 +10583,7 @@
     cs = Nahlásit problém
     it = Segnala il problema
     nb = Rapporter problemet
-    zh-Hant = 提報問題
+    zh-Hant = 回報問題
     zh-Hans = 报告问题
     th = รายงานปัญหา
     ja = 問題を報告する
@@ -10632,7 +10645,7 @@
     cs = K dispozici je optimálnější trasa, která překračuje hranice této mapy.
     it = È disponibile un percorso migliore che oltrepassa il limite di questa mappa.
     nb = En mer optimal rute som går utenfor dette kartet er tilgjengelig.
-    zh-Hant = 跨越邊界的路線更為理想。
+    zh-Hant = 有更理想的跨越邊界的路線可用。
     zh-Hans = 有一条跨越本地图边缘的更佳路线可用。
     th = มีเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้
     ja = このマップの境界を越えて複数マップを利用すると、より最適なルートを作成できます。
@@ -10663,7 +10676,7 @@
     cs = Vždy překročit tuto hranici
     it = Oltrepassa sempre questo limite
     nb = Kryss alltid denne grensen
-    zh-Hant = 一律跨越邊界。
+    zh-Hant = 一律跨越此邊界。
     zh-Hans = 始终跨越此边界线
     th = ข้ามขอบเขตนี้เสมอ
     ja = 常にこの境界を越える
@@ -10694,7 +10707,7 @@
     cs = Nyní ne
     it = Non ora
     nb = Ikke nå
-    zh-Hant = 先不要
+    zh-Hant = 現在不要
     zh-Hans = 现在不用
     th = ไว้คราวหลัง
     ja = あとで
@@ -10851,7 +10864,7 @@
     cs = Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.
     it = Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.
     nb = Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.
-    zh-Hant = 要開始搜索和創建路線，請下載地圖，那您就不再需要網絡連接了。
+    zh-Hant = 要開始搜索和建立路線，請下載地圖，那您就不再需要網絡連接了。
     zh-Hans = 要开始搜索和创建路线，请下载地图，那您就不再需要网络连接了。
     th = เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป
     ja = 検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は必要なくなります。
@@ -11007,7 +11020,7 @@
     cs = Přejmenovat
     it = Rinomina
     nb = Nytt navn
-    zh-Hant = 重命名
+    zh-Hant = 重新命名
     zh-Hans = 重命名
     th = เปลี่ยนชื่อ
     ja = 名前を変更する
@@ -11131,7 +11144,7 @@
     cs = Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.
     it = Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.
     nb = Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.
-    zh-Hant = 要創建路線，請下載並更新所有沿路線的地圖。
+    zh-Hant = 要建立路線，請下載並更新所有沿線的地圖。
     zh-Hans = 要创建路线，请下载并更新所有沿路线的地图。
     th = เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง
     ja = ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。
@@ -11161,7 +11174,7 @@
     cs = Líbí se vám aplikace?
     it = Ti piace l’app?
     nb = Liker du appen?
-    zh-Hant = 喜歡這個應用嗎？
+    zh-Hant = 喜歡這個應用程式嗎？
     zh-Hans = 喜欢这个应用吗？
     th = ชอบแอปหรือไม่?
     ja = このアプリが好きですか?
@@ -11191,7 +11204,7 @@
     cs = Děkujeme, že používáte MAPS.ME. Ohodnoťte, prosím, tuto aplikaci. Váš komentář nám pomůže ji ještě zlepšit.
     it = Grazie per aver utilizzato MAPS.ME. Valuta l’app. Il tuo feedback ci permette di migliorare.
     nb = Takk for at du bruker MAPS.ME. Vi setter stor pris på om du rangerer appen. Tilbakemeldinger hjelper oss med å bli bedre.
-    zh-Hant = 感謝您使用 MAPS.ME。請，評價該應用。您的反饋幫助我們變得更好。
+    zh-Hant = 感謝您使用 MAPS.ME。請評價此應用程式。您的回饋幫助我們改善我們的產品。
     zh-Hans = 感谢您使用 MAPS.ME。请，评价该应用。您的反馈帮助我们变得更好。
     th = ขอบพระคุณสำหรับการใช้ MAPS.ME โปรดให้คะแนนแอป ข้อเสนอแนะของคุณจะช่วยทำให้เราทำได้ดียิ่งขึ้น
     ja = MAPS.MEをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。
@@ -11401,7 +11414,7 @@
     cs = Zavřeno
     it = Chiuso
     nb = Stengt
-    zh-Hant = 關閉
+    zh-Hant = 已關閉
     zh-Hans = 已关闭
     th = ปิด
     ja = 閉鎖
@@ -11461,7 +11474,7 @@
     cs = Omlouvám se, nic nenalezeno.
     it = Spiacente, non ho trovato nulla.
     nb = Beklager, jeg fant ingenting.
-    zh-Hant = 很抱歉，我找不到任何東西。
+    zh-Hant = 很抱歉，找不到任何東西。
     zh-Hans = 抱歉，没有找到任何东西。
     th = ขออภัย ฉันไม่พบสิ่งใด
     ja = 申し訳ありませんが該当するものは見つかりませんでした。
@@ -11491,7 +11504,7 @@
     cs = Zkuste zadat jiný hledaný výraz.
     it = Prova con un'altra ricerca.
     nb = Vennligst prøv et annet søk.
-    zh-Hant = 請試另一條問題。
+    zh-Hant = 請嘗試其他搜尋字詞。
     zh-Hans = 请尝试其它查询。
     th = โปรดลองใช้คำถามอื่น
     ja = 別のクエリをお試しください。
@@ -11551,7 +11564,7 @@
     cs = Stáhněte si mapu své aktuální pozice.
     it = Scarica la mappa del luogo in cui ti trovi.
     nb = Last ned kartet til din nåværende beliggenhet.
-    zh-Hant = 下載你當前位置的地圖。
+    zh-Hant = 下載您目前位置的地圖。
     zh-Hans = 下载您当前位置的地图。
     th = ดาวน์โหลดแผนที่ของตำแหน่งปัจจุบันของคุณ
     ja = 現在地の地図をダウンロードしてください。
@@ -11582,7 +11595,7 @@
     it = Cerca nella cronologia
     nb = Søkehistorikk
     zh-Hant = 搜尋歷史紀錄
-    zh-Hans = 搜索历史。
+    zh-Hans = 搜索历史
     th = ประวัติการค้นหา
     ja = 検索履歴
     ro = Istoricul căutărilor
@@ -11611,7 +11624,7 @@
     cs = Získejte rychlý přístup k hledaným výrazům.
     it = Accedi velocemente alle stringhe di ricerca recenti.
     nb = Vis de siste søkene raskt.
-    zh-Hant = 快速存取最近搜尋的問題。
+    zh-Hant = 檢視最近的搜尋。
     zh-Hans = 快速访问最近的搜索查询。
     th = เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว
     ja = 最近の検索クエリに素早くアクセス。
@@ -11709,7 +11722,7 @@
     cs = Více aplikací My.com
     it = Altre app su My.com
     nb = Flere apper fra My.com
-    zh-Hant = 更多My.com 應用
+    zh-Hant = 更多 My.com 應用程式
     zh-Hans = 更多My.com应用
     th = แอป My.com เพิ่มเติม
     ja = 他のMy.comアプリ
@@ -11725,6 +11738,7 @@
     tags = ios, android
     comment = Place Page link to Wikipedia article (if map object has it).
     en = Wikipedia
+	zh-Hant = 維基百科
 
   [p2p_route_planning]
     tags = ios, android
@@ -12014,7 +12028,7 @@
     cs = Chcete, abychom naplánovali trasu z vašeho současného umístění?
     it = Vuoi che impostiamo il percorso dalla tua posizione corrente?
     nb = Vil du vi skal planlegge en rute fra din nåværende posisjon?
-    zh-Hant = 你是否想要規劃當前位置的路線？
+    zh-Hant = 你是否想要規劃目前位置的路線？
     zh-Hans = 你是否想要规划当前位置的路线？
     th = คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?
     ja = 現在位置からのルートを作成しますか？
@@ -12165,7 +12179,7 @@
     cs = Otevřeno
     it = Aperto
     nb = Åpen
-    zh-Hant = 營業時間
+    zh-Hant = 營業中
     zh-Hans = 营业中
     th = เปิด
     ja = 営業中
@@ -12491,7 +12505,7 @@
     da = Du har ændret verdenskortet. Lad andre det vide! Fortæl dine venner og redigér det sammen.
     cs = Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.
     zh-Hans = 您已经改变了世界地图。请不要隐藏这一点！告诉您的朋友们并一起编辑它。
-    zh-Hant = 您已經改變了世界地圖。請不要隱藏這一點！告訴您的朋友們並一起編輯它。
+    zh-Hant = 您已經改變了世界地圖。別藏私！告訴您的朋友們一起來編輯。
     ar = لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.
     th = คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน
     uk = Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.
@@ -12607,7 +12621,7 @@
     da = Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.
     cs = Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.
     zh-Hans = 请详细描述此问题以便OpenStreeMap社区能够修复此错误。
-    zh-Hant = 請詳細描述此問題以便OpenStreeMap社區能夠修復此錯誤。
+    zh-Hant = 請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。
     ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.
     th = กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้
     uk = Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.
@@ -12781,7 +12795,7 @@
     da = Duplikeret sted
     cs = Duplicitní místo
     zh-Hans = 重复的地点
-    zh-Hant = 重復的地點
+    zh-Hant = 重複的地點
     ar = مكان متكرر
     th = สถานที่ซ้ำ
     uk = Дубльовані місця
@@ -12810,7 +12824,7 @@
     da = MAPS.ME er klart til brug
     cs = MAPS.ME jsou připraveny k použití
     zh-Hans = MAPS.ME已经可用
-    zh-Hant = MAPS.ME已做好使用準備
+    zh-Hant = MAPS.ME 已做好使用準備
     ar = MAPS.ME جاهز للاستخدام
     th = MAPS.ME พร้อมใช้งานแล้ว
     uk = MAPS.ME готовий до роботи
@@ -12839,7 +12853,7 @@
     da = Søg og navigér i kort over alle verdens lande gratis.
     cs = Prohledávejte a navigujte offline zdarma kdekoliv na světě.
     zh-Hans = 在世界各地离线搜索和导航，免费。
-    zh-Hant = 在世界各地離線搜索和導航，免費。
+    zh-Hant = 在世界各地離線搜尋和導航，免費。
     ar = ابحث وتصفح كل مكان في العالم بدون اتصال, مجانا.
     th = ค้นหาและนำทางไปทุกที่ในโลกแบบออฟไลน์ ไม่มีค่าใช้จ่าย
     uk = Користуйтесь пошуком і навігацією по всьому світу без інтернету і безкоштовно.
@@ -12902,7 +12916,7 @@
     cs = Stáhnout vše
     it = Scarica tutto
     nb = Last ned alle
-    zh-Hant = 全部下載。
+    zh-Hant = 全部下載
     zh-Hans = 下载所有
     th = ดาวน์โหลดทั้งหมด
     ja = 全てをダウンロード
@@ -13054,7 +13068,7 @@
     cs = Den a noc
     it = Giorno e notte
     nb = Dag og natt
-    zh-Hant = 白天和黑夜
+    zh-Hant = 全天候
     zh-Hans = 白天和黑夜
     th = ทั้งกลางวันและกลางคืน
     ja = 昼と夜
@@ -13236,7 +13250,7 @@
     cs = Přidat otevírací dobu
     it = Aggiungi orari di apertura
     nb = Legg til åpningstider
-    zh-Hant = 添加工作時間
+    zh-Hant = 新增營業時間
     zh-Hans = 添加工作时间
     th = เพิ่มชั่วโมงทำการ
     ja = 営業時間を追加
@@ -13266,7 +13280,7 @@
     cs = Upravit otevírací dobu
     it = Modifica orari di apertura
     nb = Rediger åpningstider
-    zh-Hant = 編輯工作時間
+    zh-Hant = 編輯營業時間
     zh-Hans = 编辑工作时间
     th = แก้ไขชั่วโมงทำการ
     ja = 営業時間を編集
@@ -13326,7 +13340,7 @@
     cs = Nemáte účet u OpenStreetMap?
     it = Non hai un account su OpenStreetMap?
     nb = Har du ingen konto hos OpenStreetMap?
-    zh-Hant = OpenStreetMap上沒有賬戶嗎？
+    zh-Hant = 沒有 OpenStreeMap 帳號嗎？
     zh-Hans = OpenStreetMap上没有账户吗？
     th = ไม่มีบัญชีใน OpenStreetMap?
     ja = OpenStreetMapのアカウントがありませんか？
@@ -13386,7 +13400,7 @@
     cs = Heslo (minimálně 8 znaků)
     it = Password (minimo 8 caratteri)
     nb = Passord (minimum 8 tegn)
-    zh-Hant = 密碼（最少8個字符）
+    zh-Hant = 密碼（最少8個字母）
     zh-Hans = 密码（最少8个字符）
     th = รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)
     ja = パスワード(最低8文字)
@@ -13416,7 +13430,7 @@
     cs = Neplatné uživatelské jméno nebo heslo.
     it = Username o password non corretti.
     nb = Ugyldig brukernavn eller passord.
-    zh-Hant = 無效的用戶名或密碼。
+    zh-Hant = 無效的使用者名稱或密碼。
     zh-Hans = 无效的用户名或密码。
     th = ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง
     ja = ユーザー名またはパスワードが無効です。
@@ -13446,7 +13460,7 @@
     cs = Přihlásit se
     it = Accedi
     nb = Logg inn
-    zh-Hant = 登錄
+    zh-Hant = 登入
     zh-Hans = 登录
     th = ล็อกอิน
     ja = ログイン
@@ -13567,7 +13581,7 @@
     cs = Zadejte emailovou adresu, kterou jste používali během registrace a my Vám pošleme odkaz, abyste mohli obnovit svoje heslo.
     it = Inserisci l'indirizzo email utilizzato durante la registrazione e ti invieremo un link per recuperare la password.
     nb = Skriv inn e-postadressen du brukte ved registreringen, så vil vi sende deg en kobling for å fornye passordet ditt.
-    zh-Hant = 輸入您在註冊時所用的郵箱地址，我們會給您發送鏈接更新密碼
+    zh-Hant = 輸入您在註冊時所用的電子郵件地址，我們會發送連結給您更新密碼
     zh-Hans = 输入您在注册时所用的邮箱地址，我们会给您发送链接更新密码
     th = ใส่ที่อยู่อีเมลที่คุณใช้ระหว่างการลงทะเบียนแล้วเราจะส่งลิงก์ไปยังคุณเพื่อต่ออายุรหัสผ่านของคุณ
     ja = 登録の際に使用したメールアドレスを入力してください。パスワードを更新するリンクをお送りします。
@@ -13627,7 +13641,7 @@
     cs = Uživatelské jméno
     it = Nome utente
     nb = Brukernavn
-    zh-Hant = 用戶名
+    zh-Hant = 使用者名稱
     zh-Hans = 用户名
     th = ชื่อผู้ใช้
     ja = ユーザー名
@@ -13657,7 +13671,7 @@
     cs = Účet OSM
     it = Account OSM
     nb = OSM-konto
-    zh-Hant = OSM賬戶
+    zh-Hant = OSM 帳號
     zh-Hans = OSM账户
     th = บัญชี OSM
     ja = OSMアカウント
@@ -13717,7 +13731,7 @@
     cs = Přihlaste se a editujte informace o objektech na mapě a my je zpřístupníme miliónům dalších uživatelů. Udělejme společně svět dokonalejším místem.
     it = Accedi e modifica le informazioni degli oggetti sulla mappa e noi provvederemo a renderli disponibili a milioni di altri utenti. Creiamo un mondo migliore assieme.
     nb = Logg deg inn og rediger informasjonen til objektene på kartet, så vil vi gjøre den tilgjengelig for millioner av andre brukere. La oss gjøre verden bedre sammen.
-    zh-Hant = 登錄並編輯地圖上的物品信息，我們就會讓數百萬其他用戶看到。
+    zh-Hant = 登錄並編輯地圖上的物件資訊，我們就會讓其他數百萬用戶看到。
     zh-Hans = 登录并编辑地图上的物品信息，我们就会让数百万其他用户看到。
     th = ล็อกอินและแก้ไขข้อมูลวัตถุบนแผนที่ และเราจะทำให้มันสามารถใช้งานได้สำหรับผู้ใช้ท่านอื่น ๆ อีกนับล้าน มาช่วยกันทำให้โลกดียิ่งขึ้นร่วมกัน
     ja = ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。
@@ -13779,7 +13793,7 @@
     cs = Editovali jste svůj první objekt!
     it = Hai modificato il tuo primo oggetto!
     nb = Du har redigert ditt første objekt!
-    zh-Hant = 您已編輯您的第一件物品！
+    zh-Hant = 您已編輯您的第一個物件！
     zh-Hans = 您已编辑您的第一件物品！
     th = คุณได้แก้ไขวัตถุแรกของคุณ!
     ja = 初めてオブジェクトを編集しました！
@@ -13839,7 +13853,7 @@
     cs = Přihlásit se pomocí účtu Google
     it = Accedi con Google
     nb = Logg inn med Google
-    zh-Hant = 用谷歌登陸
+    zh-Hant = 用 Google 登入
     zh-Hans = 用谷歌登陆
     th = ล็อกอินด้วย Google
     ja = Googleでログイン
@@ -13869,7 +13883,7 @@
     cs = Přihlásit se pomocí účtu Facebook
     it = Accedi con Facebook
     nb = Logg inn med Facebook
-    zh-Hant = 用臉書登陸
+    zh-Hant = 用 Facebook 登入
     zh-Hans = 用脸书登陆
     th = ล็อกอินด้วย Facebook
     ja = Facebookでログイン
@@ -13899,7 +13913,7 @@
     cs = Přihlásit se pomocí účtu www.openstreetmap.org
     it = Accedi con www.openstreetmap.org
     nb = Logg inn med www.openstreetmap.org
-    zh-Hant = 登錄到www.openstreetmap.org
+    zh-Hant = 登入到 www.openstreetmap.org
     zh-Hans = 登录到www.openstreetmap.org
     th = ล็อกอินที่ www.openstreetmap.org
     ja = www.openstreetmap.orgでログインしてください
@@ -14037,12 +14051,14 @@
     comment = small button to open list with names in different languages
     en = Show More
     ru = Показать больше
+	zh-Hant = 顯示更多
 
   [show_less]
     tags = ios, android
     comment = small button to close list with names in different languages
     en = Show Less
     ru = Показать меньше
+	zh-Hant = 顯示較少
 
   [add_language]
     tags = ios, android
@@ -14062,7 +14078,7 @@
     cs = Přidat jazyk
     it = Aggiungi una lingua
     nb = Legg til et språk
-    zh-Hant = 添加語言
+    zh-Hant = 新增語言
     zh-Hans = 添加语言
     th = เพิ่มภาษา
     ja = 言語を追加
@@ -14184,7 +14200,7 @@
     cs = Přidat ulici
     it = Aggiungi una strada
     nb = Legg til en gate
-    zh-Hant = 添加街道
+    zh-Hant = 新增街道
     zh-Hans = 添加街道
     th = เพิ่มถนน
     ja = 通りを追加
@@ -14274,7 +14290,7 @@
     cs = PSČ
     it = Codice postale
     nb = Postnummer
-    zh-Hant = 郵政編碼
+    zh-Hant = 郵遞區號
     zh-Hans = 邮政编码
     th = รหัสไปรษณีย์
     ja = 郵便番号
@@ -14304,7 +14320,7 @@
     cs = Kuchyně
     it = Cucina
     nb = Matrett
-    zh-Hant = 菜肴
+    zh-Hant = 料理
     zh-Hans = 菜肴
     th = ประเภทอาหาร
     ja = 料理
@@ -14334,7 +14350,7 @@
     cs = Vybrat kuchyni
     it = Seleziona la cucina
     nb = Velg matrett
-    zh-Hant = 選擇菜肴
+    zh-Hant = 選擇料理
     zh-Hans = 选择菜肴
     th = เลือกประเภทอาหาร
     ja = 料理を選択
@@ -14365,7 +14381,7 @@
     cs = E-mail nebo uživatelské jméno
     it = E-mail o nome utente
     nb = E-postadresse eller brukernavn
-    zh-Hant = 郵箱或用戶名
+    zh-Hant = 電子郵件或使用者名稱
     zh-Hans = 邮箱或用户名
     th = อีเมลหรือชื่อผู้ใช้
     ja = メールアドレスまたはユーザー名
@@ -14452,8 +14468,8 @@
     nl = Geen WiFi-verbinding. Wil je doorgaan via mobiele data?
     da = Ingen WiFi-forbindelse. Vil du fortsætte med mobildata?
     cs = Žádné Wi-Fi připojení. Chcete pokračovat s mobilními daty?
-    zh-Hans = 无WiFi连接。您想继续使用移动数据进行连接吗？
-    zh-Hant = 無WiFi連接。您想繼續使用移動數據進行連接嗎？
+    zh-Hans = 无 WiFi 连接。您想继续使用移动数据进行连接吗？
+    zh-Hant = 無 WiFi 連接。您想繼續使用行動數據進行連接嗎？
     ar = لا يوجد اتصال واي فاي. هل ترغب في استخدام بيانات الهاتف للاتصال؟
     th = ไม่มีการเชื่อมต่อ WiFi คุณต้องการดำเนินการต่อโดยใช้ข้อมูลมือถือหรือไม่?
     uk = Немає WiFi з’єднання. Ви бажаєте продовжити роботу через мобільний інтернет?
@@ -14543,7 +14559,7 @@
     da = For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.
     cs = Chcete-li vytvořit trasu, pak musíte aktualizovat všechny mapy a poté trasu naplánovat znovu.
     zh-Hans = 为了创建路线，您需要更新全部地图并重新规划路线。
-    zh-Hant = 為了創建路線，您需要更新全部地圖並重新規劃路線。
+    zh-Hant = 為了建立路線，您需要更新全部地圖並重新規劃路線。
     ar = لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.
     th = ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง
     uk = Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.
@@ -14633,7 +14649,7 @@
     da = Download aktuelt kort og slet de gamle
     cs = Stáhněte si aktuální mapu a odstraňte staré
     zh-Hans = 下载当前地图并删除旧地图
-    zh-Hant = 下載當前地圖並刪除舊地圖
+    zh-Hant = 下載目前地圖並刪除舊地圖
     ar = تنزيل الخريطة الحالية وحذف الخرائط القديمة
     th = ดาวน์โหลดแผนที่ปัจจุบันและลบแผนที่เก่า
     uk = Завантажте поточну карту і видаліть старі
@@ -14693,7 +14709,7 @@
     da = Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.
     cs = Zkontrolujte prosím své nastavení a ujistěte se, že je vaše zařízení připojeno k internetu.
     zh-Hans = 请检查您的设置并确保您的设备已连接至网络。
-    zh-Hant = 請檢查您的設置並確保您的設備已連接至網絡。
+    zh-Hant = 請檢查您的設定並確保您的設備已連接至網路。
     ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
     th = กรุณาตรวจสอบการตั้งค่าของคุณแล้วทำให้แน่ใจว่าอุปกรณ์ของคุณได้รับการเชื่อมต่ออินเทอร์เน็ต
     uk = Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.
@@ -14753,7 +14769,7 @@
     da = Fjern unødvendig data
     cs = Odstraňte prosím nepotřebná data
     zh-Hans = 请删除不必要的数据
-    zh-Hant = 請刪除不必要的數據
+    zh-Hant = 請刪除不必要的資料
     ar = من فضلك، قم بإزالة البيانات غير الضرورية
     th = กรุณาลบข้อมูลที่ไม่จำเป็น
     uk = Видаліть непотрібні дані
@@ -14783,7 +14799,7 @@
     da = Generel fejl ved login.
     cs = Obecná chyba při přihlašování.
     zh-Hans = 一般登录错误。
-    zh-Hant = 一般登錄錯誤。
+    zh-Hant = 一般登入錯誤。
     ar = خطأ بتسجيل الدخول العام.
     th = ข้อผิดพลาดในการล็อกอินทั่วไป
     uk = Загальна помилка входу.
@@ -14813,7 +14829,7 @@
     da = Login-fejl.
     cs = Chyba při přihlašování.
     zh-Hans = 登录错误。
-    zh-Hant = 登錄錯誤。
+    zh-Hant = 登入錯誤。
     ar = خطأ في تسجيل الدخول.
     th = ข้อผิดพลาดในการล็อกอิน
     uk = Виникла помилка при авторизації.
@@ -14843,7 +14859,7 @@
     da = Login mislykkedes
     cs = Přihlašování selhalo
     zh-Hans = 登录失败
-    zh-Hant = 登錄失敗
+    zh-Hant = 登入失敗
     ar = فشل تسجيل الدخول
     th = การล็อกอินล้มเหลว
     uk = Помилка входу
@@ -14873,7 +14889,7 @@
     da = Ugyldigt brugernavn
     cs = Uživatelské jméno není platné
     zh-Hans = 用户名不存在
-    zh-Hant = 用戶名不存在
+    zh-Hant = 使用者名稱不存在
     ar = اسم المستخدم غير صحيح
     th = ชื่อผู้ใช้ไม่ถูกต้อง
     uk = Ім'я користувача є недійсним
@@ -14903,7 +14919,7 @@
     da = Du har redigeret et objekt!
     cs = Upravili jste objekt!
     zh-Hans = 您已编辑了一个对象！
-    zh-Hant = 您已編輯了一個對象！
+    zh-Hant = 您已編輯了一個物件！
     ar = لقد قمت بتعديل هدف!
     th = คุณได้แก้ไขวัตถุ!
     uk = Ви відредагували об’єкт!
@@ -14933,7 +14949,7 @@
     da = Login med OpenStreetMap
     cs = Přihlásit se pomocí OpenStreetMap
     zh-Hans = 使用OpenStreetMap进行登录
-    zh-Hant = 使用OpenStreetMap進行登錄
+    zh-Hant = 使用 OpenStreetMap 進行登入
     ar = تسجيل الدخول عبر OpenStreetMap
     th = ล็อกอินด้วย OpenStreetMap
     uk = Увійти через OpenStreetMap
@@ -15023,7 +15039,7 @@
     da = Træk kortet for at vælge objektets korrekte placering.
     cs = Táhněte mapu, abyste vybrali správné umístění objektu.
     zh-Hans = 拖动地图以选择此对象的正确位置。
-    zh-Hant = 拖動地圖以選擇此對象的正確位置。
+    zh-Hant = 拖動地圖以選擇此物件的正確位置。
     ar = اسحب الخريطة لتحدد الموقع الصحيح للهدف.
     th = ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง
     uk = Потягніть мапу, щоб вибрати правильне місцезнаходження об’єкту.
@@ -15173,7 +15189,7 @@
     da = Tilføjer
     cs = Probíhá přidávání
     zh-Hans = 添加中
-    zh-Hant = 添加中
+    zh-Hant = 新增中
     ar = إٍضافة
     th = กำลังเพิ่ม
     uk = Додовання
@@ -15321,7 +15337,7 @@
     da = Tilføj et sted
     cs = Přidat místo
     zh-Hans = 添加一个地点
-    zh-Hant = 添加一個地點
+    zh-Hant = 新增一個地點
     ar = إضافة مكان
     th = เพิ่มสถานที่
     uk = Додати місце
@@ -15351,7 +15367,7 @@
     da = Anmeld et problem
     cs = Nahlásit problém
     zh-Hans = 报告一个问题
-    zh-Hant = 報告一個問題
+    zh-Hant = 回報問題
     ar = الإبلاغ عن مشكلة
     th = แจ้งปัญหา
     uk = Повідомити про проблему
@@ -15383,7 +15399,7 @@
     cs = Přidat organizaci
     it = Aggiungi organizzazione
     nb = Legg til organisasjon
-    zh-Hant = 添加組織
+    zh-Hant = 新增組織
     zh-Hans = 添加组织
     th = เพิ่มองค์กร
     ja = 団体を追加
@@ -15413,7 +15429,7 @@
     cs = Říkali jste si o to, a my to udělali
     it = Ce lo avete chiesto e noi lo abbiamo fatto
     nb = Dere har bedt om det og vi har fått det til
-    zh-Hant = 您一直在尋求，而我們已經完成
+    zh-Hant = 您一直在要求，而我們已經完成
     zh-Hans = 我们满足了您一直以来的要求
     th = คุณได้ขอมา เราจึงทำมัน
     ja = 皆様のご要望にお応えして、実現を果たしました
@@ -15503,7 +15519,7 @@
     cs = Výrazně jsme vylepšili vyhledávání podle adresy. Podívejte se sami.
     it = Abbiamo migliorato significativamente la ricerca per indirizzo. Guarda tu stesso.
     nb = Nå er det mye enklere å søke etter adresse. Se selv.
-    zh-Hant = 我們已明顯改進了按地址的搜索。親自看看。
+    zh-Hant = 我們已明顯改進了按地址的搜尋。親自看看。
     zh-Hans = 我们已明显改进了按地址的搜索。亲自看看。
     th = เราได้ปรับปรุงครั้งใหญ่สำหรับการค้นหาตามที่อยู่ ลองดูด้วยตัวเอง
     ja = 住所での検索機能を大幅に改善しました。ご自身の目でご覧ください。
@@ -15561,7 +15577,7 @@
     da = Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.
     cs = Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.
     zh-Hans = 添加新地点到该地图，并直接通过此应用编辑已存在的地点。
-    zh-Hant = 添加新地點到該地圖，並直接通過此應用編輯已存在的地點。
+    zh-Hant = 新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。
     ar = قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.
     th = เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง
     uk = Додати нові місця до карти і редагувати існуючі місця прямо з програми.
@@ -15591,7 +15607,7 @@
     da = * MAPS.ME bruger fællesskabsdata fra OpenStreetMap.
     cs = * MAPS.ME používá komunitní data OpenStreetMap.
     zh-Hans = * MAPS.ME使用OpenStreetMap社区的数据。
-    zh-Hant = * MAPS.ME使用OpenStreetMap社區的數據。
+    zh-Hant = * MAPS.ME 使用 OpenStreetMap 社群的數據。
     ar = *تستخدم MAPS.ME البيانات الخاصة بخريطة OpenStreetMap.
     th = * MAPS.ME ใช้ข้อมูลจากชุมชน OpenStreetMap
     uk = * MAPS.ME використовує дані спільноти OpenStreetMap.
@@ -15651,7 +15667,7 @@
     da = Planlæg de optimale ruter i bil og til fods selv uden internetforbindelse!
     cs = Naplánujte si optimální trasy pro auto nebo pěší chůzi, i když tam nebude připojení k internetu!
     zh-Hans = 规划最佳的驾车和步行路线，即使在没有网络连接的情况下！
-    zh-Hant = 規劃最佳的駕車和步行路線，即使在沒有網絡連接的情況下！
+    zh-Hant = 規劃最佳的行車和步行路線，即使在沒有網絡連接的情況下！
     ar = قم بتخطيط أفضل طرق السيارات والمشاة، حتى مع عدم وجود اتصال بالإنترنت!
     th = วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด แม้ว่าจะไม่มีการเชื่อมต่ออินเทอร์เน็ต!
     uk = Плануйте оптимальні маршрути для поїздок і піших походів навіть без Інтернет з'єднання!
@@ -15711,7 +15727,7 @@
     da = Planlæg de optimale ruter i bil og til fods.
     cs = Naplánujte si optimální trasy pro auto nebo pěší chůzi.
     zh-Hans = 规划最佳的驾车和步行路线。
-    zh-Hant = 規劃最佳的駕車和步行路線。
+    zh-Hant = 規劃最佳的行車和步行路線。
     ar = خطط أفضل طرق السيارات والمشاة.
     th = วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด
     uk = Плануйте оптимальні маршрути для поїздок і піших походів.
@@ -15801,7 +15817,7 @@
     da = For at modtage de nyeste kort kan du få opdateringsnotifikationer
     cs = Chcete-li získat nejnovější mapy, pak zapněte upozornění na aktualizace
     zh-Hans = 为了接收最新的地图，请获取更新通知
-    zh-Hant = 為了接收最新的地圖，請獲取更新通知
+    zh-Hant = 為了接收最新的地圖，請接收更新通知
     ar = تابع إخطارات التحديث للحصول على أحدث الخرائط
     th = เพื่อรับแผนที่ล่าสุดและรับการแจ้งเตือนอัปเดต
     uk = Отримуйте повідомлення про оновлення, щоб завжди мати актуальні мапи
@@ -15949,7 +15965,7 @@
     da = Et objekt kan ikke placeres her
     cs = Objekt zde nemůže být umístěn
     zh-Hans = 对象无法设置在这里
-    zh-Hant = 對象無法設置在這裡
+    zh-Hant = 物件無法設置在這裡
     ar = لا يمكن تحديد موقع الكائن هنا
     th = ไม่สามารถตั้งวัตถุได้ที่นี่
     uk = Об'єкт не може перебувати в цьому місцезнаходженні
@@ -15978,7 +15994,7 @@
     da = Log på så andre brugere kan se ændringerne som du har foretaget.
     cs = Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.
     zh-Hans = 登陆，让其他用户能看到您所作出的修改。
-    zh-Hant = 登陸，讓其他用戶能看到您所作出的修改。
+    zh-Hant = 登入來讓其他使用者能看到您所作出的修改。
     ar = قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.
     th = ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้
     uk = Увійдіть, щоб ваші зміни побачили інші користувачі.
@@ -16036,7 +16052,7 @@
     da = Jeg forbedrede MAPS.ME kortene
     cs = Vylepšil jsem mapy MAPS.ME
     zh-Hans = 我改进了MAPS.ME地图
-    zh-Hant = 我改進了MAPS.ME地圖
+    zh-Hant = 我改進了 MAPS.ME 地圖
     ar = لقد قمت بتحديث خرائط تطبيق MAPS.ME
     th = ฉันได้ปรับปรุงแผนที่ MAPS.ME
     uk = Я покращив мапи MAPS.ME
@@ -16065,7 +16081,7 @@
     da = Vi vil sende dine kommentarer til kartograferne.
     cs = Váš komentář pošleme kartografům.
     zh-Hans = 我们将把您的评论发送给地图制作者。
-    zh-Hant = 我們將把您的評論發送給地圖制作者。
+    zh-Hant = 我們將把您的評論發送給地圖編輯者。
     ar = سوف نرسل تعليقك إلى فريق رسم الخرائط.
     th = เราจะส่งความคิดเห็นของคุณไปให้กับนักเขียนแผนที่
     uk = Ми обов'язково відправимо ваш коментар картографам.
@@ -16094,7 +16110,7 @@
     da = Du har tilføjet en placering i en kategori som vi ikke understøtter på nuværende tidspunkt. Den vil vises på kortet på et senere tidspunkt.
     cs = Přidali jste místo kategorie, kterou zatím nepodporujeme. Na mapě se objeví za nějaký čas.
     zh-Hans = 您已添加了一个我们尚未支持类别的地点。它将在一段时间之后显示在地图上。
-    zh-Hant = 您已添加了一個我們尚未支持類別的地點。它將在一段時間之後顯示在地圖上。
+    zh-Hant = 您已新增了一個我們尚未支援的類別的地點。它未來會顯示在地圖上。
     ar = لقد قمت بإضافة مكان ينتمي لفئة غير متوفرة لدينا بعد. سوف تظهر على الخريطة لاحقا.
     th = คุณได้เพิ่มสถานที่ในหมวดหมู่ที่เรายังไม่รองรับ มันจะปรากฏบนแผนที่หลังจากนี้สักพักหนึ่ง
     uk = Ви додали об'єкт, категорію якого ми поки що не підтримуємо. У майбутньому він з'явиться на мапі.
@@ -16180,7 +16196,7 @@
     fi = Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.
     cs = Toto by mohli být s některými tarify nebo roamingem výrazně dražší.
     it = Quest'operazione potrebbe essere piuttosto costosa con alcuni piani o in roaming.
-    zh-Hant = 用一些方案或漫遊的話這可能相當昂貴。
+    zh-Hant = 用某些方案或漫遊的話這可能相當昂貴。
     zh-Hans = 用一些方案或漫游的话这可能相当昂贵。
     th = มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง
     ja = プランによって、またはローミングしている場合、非常に高額になる可能性があります。
@@ -16209,7 +16225,7 @@
     cs = Zadejte správné číslo domu
     it = Inserisci numero civico corretto
     nb = Skriv riktig husnummer
-    zh-Hant = 輸入正確的房屋號
+    zh-Hant = 輸入正確的門牌號碼
     zh-Hans = 输入正确的房屋号
     th = กรอกบ้านเลขที่ให้ถูกต้อง
     ja = 正しい番地を入力してください

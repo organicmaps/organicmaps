@@ -22,7 +22,7 @@
     cs = Regionální kuchyně
     it = Cucina regionale
     nb = Regional mat
-    zh-Hant = 地区的
+    zh-Hant = 地方料理
     zh-Hans = 地方菜
     vi = Ẩm thực khu vực
     th = อาหารพื้นเมือง
@@ -54,7 +54,7 @@
     cs = Pizza
     it = Pizza
     nb = Pizza
-    zh-Hant = 匹薩
+    zh-Hant = 披薩
     zh-Hans = 匹萨
     vi = Bánh pizza
     th = พิซซ่า
@@ -86,7 +86,7 @@
     cs = Burger
     it = Hamburger
     nb = Burger
-    zh-Hant = 漢堡包
+    zh-Hant = 漢堡
     zh-Hans = 汉堡包
     vi = Bánh hamburger
     th = เบอร์เกอร์
@@ -118,7 +118,7 @@
     cs = Italská kuchyně
     it = Cucina italiana
     nb = Italiensk mat
-    zh-Hant = 意大利的
+    zh-Hant = 義大利料理
     zh-Hans = 意大利菜
     vi = Ẩm thực ý
     th = อาหารอิตาเลียน
@@ -150,7 +150,7 @@
     cs = Čínská kuchyně
     it = Cucina cinese
     nb = Kinesisk mat
-    zh-Hant = 中国的
+    zh-Hant = 中華料理
     zh-Hans = 中国菜
     vi = Ẩm thực trung quốc
     th = อาหารจีน
@@ -247,7 +247,7 @@
     cs = Německá kuchyně
     it = Cucina tedesca
     nb = Tysk mat
-    zh-Hant = 德国的
+    zh-Hant = 德國料理
     zh-Hans = 德国菜
     vi = Ẩm thực đức
     th = อาหารเยอรมัน
@@ -279,7 +279,7 @@
     cs = Japonská kuchyně
     it = Cucina giapponese
     nb = Japansk mat
-    zh-Hant = 日本的
+    zh-Hant = 日本料理
     zh-Hans = 日本菜
     vi = Ẩm thực nhật bản
     th = อาหารญี่ปุ่น
@@ -343,7 +343,7 @@
     cs = Mexická kuchyně
     it = Cucina messicana
     nb = Meksikansk mat
-    zh-Hant = 墨西哥的
+    zh-Hant = 墨西哥料理
     zh-Hans = 墨西哥菜
     vi = Ẩm thực mexico
     th = อาหารเม็กซิกัน
@@ -375,7 +375,7 @@
     cs = Indická kuchyně
     it = Cucina indiana
     nb = Indisk mat
-    zh-Hant = 印度的
+    zh-Hant = 印度料理
     zh-Hans = 印度菜
     vi = Ẩm thực ấn độ
     th = อาหารอินเดีย
@@ -407,7 +407,7 @@
     cs = Americká kuchyně
     it = Cucina americana
     nb = Amerikansk mat
-    zh-Hant = 美國菜
+    zh-Hant = 美國料理
     zh-Hans = 美国菜
     vi = Ẩm thực mỹ
     th = อาหารอเมริกัน
@@ -439,7 +439,7 @@
     cs = Francouzská kuchyně
     it = Cucina francese
     nb = Fransk mat
-    zh-Hant = 法國菜
+    zh-Hant = 法國料理
     zh-Hans = 法国菜
     vi = Ẩm thực pháp
     th = อาหารฝรั่งเศส
@@ -471,8 +471,8 @@
     cs = Zmrzlina
     it = Gelateria
     nb = Iskrem
-    zh-Hant = 冰_淇淋
-    zh-Hans = 冰_淇淋
+    zh-Hant = 冰淇淋
+    zh-Hans = 冰淇淋
     vi = Kem
     th = ไอศกรีม
     ja = アイスクリーム
@@ -503,7 +503,7 @@
     cs = Asijská kuchyně
     it = Cucina asiatica
     nb = Asiatisk mat
-    zh-Hant = 亞洲的
+    zh-Hant = 亞洲料理
     zh-Hans = 亚洲菜
     vi = Ẩm thực châu á
     th = อาหารเอเชีย
@@ -535,7 +535,7 @@
     cs = Kuře
     it = Pollo
     nb = Kylling
-    zh-Hant = 雞
+    zh-Hant = 雞肉
     zh-Hans = 鸡
     vi = Gà
     th = ไก่
@@ -567,7 +567,7 @@
     cs = Řecká kuchyně
     it = Cucina greca
     nb = Gresk mat
-    zh-Hant = 希臘菜
+    zh-Hant = 希臘料理
     zh-Hans = 希腊菜
     vi = Ẩm thực hy lạp
     th = อาหารกรีก
@@ -599,7 +599,7 @@
     cs = Thajská kuchyně
     it = Cucina tailandese
     nb = Thaimat
-    zh-Hant = 泰國菜
+    zh-Hant = 泰國料理
     zh-Hans = 泰国菜
     vi = Ẩm thực thái lan
     th = อาหารไทย
@@ -695,7 +695,7 @@
     cs = Ryba a hranolky
     it = Fish and chips
     nb = Fisk og pommes frites
-    zh-Hant = 炸魚 和 薯條
+    zh-Hant = 炸魚薯條
     zh-Hans = 炸鱼 和 薯条
     vi = Cá và khoai tây chiên
     th = ปลาและมันฝรั่งทอด
@@ -727,7 +727,7 @@
     cs = Turecká kuchyně
     it = Cucina turca
     nb = Tyrkisk mat
-    zh-Hant = 土耳其菜
+    zh-Hant = 土耳其料理
     zh-Hans = 土耳其菜
     vi = Ẩm thực thổ nhĩ kỳ
     th = ตุรกีอาหารตุรกี
@@ -791,8 +791,8 @@
     cs = Steaková restaurace
     it = Bisteccheria
     nb = Biffrestaurant
-    zh-Hant = 牛排_館
-    zh-Hans = 牛排_馆
+    zh-Hant = 牛排館
+    zh-Hans = 牛排馆
     vi = Steak house
     th = ร้านสเต๊ก
     ja = ステーキハウス
@@ -823,7 +823,7 @@
     cs = Španělská kuchyně
     it = Cucina spagnola
     nb = Spansk mat
-    zh-Hant = 西班牙菜
+    zh-Hant = 西班牙料理
     zh-Hans = 西班牙菜
     vi = Ẩm thực tây ban nha
     th = อาหารสเปน
@@ -887,7 +887,7 @@
     cs = Vietnamská kuchyně
     it = Cucina vietnamita
     nb = Vietnamesisk mat
-    zh-Hant = 越南菜
+    zh-Hant = 越南料理
     zh-Hans = 越南菜
     vi = Ẩm thực việt
     th = อาหารเวียดนาม
@@ -919,7 +919,7 @@
     cs = Nudle
     it = Noodles
     nb = Nudler
-    zh-Hant = 面
+    zh-Hant = 麵食
     zh-Hans = 面
     vi = Mì
     th = บะหมี่
@@ -951,7 +951,7 @@
     cs = Vegetariánská kuchyně
     it = Cucina vegetariana
     nb = Vegetar mat
-    zh-Hant = 素菜
+    zh-Hant = 素食
     zh-Hans = 素菜
     vi = Ẩm thực chay
     th = อาหารมังสวิรัติ
@@ -983,7 +983,7 @@
     cs = Korejská kuchyně
     it = Cucina coreana
     nb = Koreansk mat
-    zh-Hant = 韓國菜
+    zh-Hant = 韓國料理
     zh-Hans = 韩国菜
     vi = Ẩm thực hàn quốc
     th = อาหารเกาหลี
@@ -1079,7 +1079,7 @@
     cs = Bavorská kuchyně
     it = Cucina bavarese
     nb = Bayersk mat
-    zh-Hant = 巴伐利亞菜
+    zh-Hant = 巴伐利亞料理
     zh-Hans = 巴伐利亚菜
     vi = Ẩm thực bavarian
     th = อาหารบาวาเรีย
@@ -1111,7 +1111,7 @@
     cs = Ramen
     it = Ramen
     nb = Ramen
-    zh-Hant = 拉面
+    zh-Hant = 拉麵
     zh-Hans = 拉面
     vi = Mì ramen
     th = ราเม็ง
@@ -1143,7 +1143,7 @@
     cs = Italská, pizza
     it = Cucina italiana, pizza
     nb = Italiensk mat;pizza
-    zh-Hant = 意大利菜；匹薩
+    zh-Hant = 義大利料理；披薩
     zh-Hans = 意大利菜；匹萨
     vi = Ẩm thực ý, bánh pizza
     th = อาหารอิตาเลียน; พิซซ่า
@@ -1175,7 +1175,7 @@
     cs = Středomořská kuchyně
     it = Cucina mediterranea
     nb = Middelhavsmat
-    zh-Hant = 地中海菜
+    zh-Hant = 地中海料理
     zh-Hans = 地中海菜
     vi = Ẩm thực địa trung hải
     th = อาหารเมดิเตอร์เรเนียน
@@ -1239,7 +1239,7 @@
     cs = Miska hovězího
     it = Gyūdon
     nb = Biffbolle
-    zh-Hant = 牛肉 碗
+    zh-Hant = 牛丼
     zh-Hans = 牛肉 碗
     vi = Tô thịt bò
     th = ชามเนื้อวัว
@@ -1303,7 +1303,7 @@
     cs = Crêpe
     it = Crêpes
     nb = Crepe
-    zh-Hant = 千層餅
+    zh-Hant = 可麗餅
     zh-Hans = 千层饼
     vi = Bánh crepe
     th = เครป
@@ -1367,7 +1367,7 @@
     cs = Libanonská kuchyně
     it = Cucina libanese
     nb = Libanesisk mat
-    zh-Hant = 黎巴嫩菜
+    zh-Hant = 黎巴嫩料理
     zh-Hans = 黎巴嫩菜
     vi = Ẩm thực lebanon
     th = อาหารเลบานอน
@@ -1399,7 +1399,7 @@
     cs = Místní kuchyně
     it = Cucina locale
     nb = Lokal mat
-    zh-Hant = 本地菜
+    zh-Hant = 本地料理
     zh-Hans = 本地菜
     vi = Ẩm thực địa phương
     th = อาหารท้องถิ่น
@@ -1431,7 +1431,7 @@
     cs = Kari
     it = Curry
     nb = Karri
-    zh-Hant = 咖喱
+    zh-Hant = 咖哩
     zh-Hans = 咖喱
     vi = Món cà ri
     th = กะหรี่
@@ -1463,7 +1463,7 @@
     cs = Filipínská kuchyně
     it = Cucina filippina
     nb = Filippinsk mat
-    zh-Hant = 菲律賓菜
+    zh-Hant = 菲律賓料理
     zh-Hans = 菲律宾菜
     vi = Ẩm thực philipin
     th = อาหารฟิลิปปินส์
@@ -1495,7 +1495,7 @@
     cs = Ruská kuchyně
     it = Cucina russa
     nb = Russisk mat
-    zh-Hant = 俄羅斯菜
+    zh-Hant = 俄羅斯料理
     zh-Hans = 俄罗斯菜
     vi = Ẩm thực nga
     th = อาหารรัสเซีย
@@ -1591,7 +1591,7 @@
     cs = Bagel
     it = Bagel
     nb = Bagel
-    zh-Hant = 貝格
+    zh-Hant = 貝果
     zh-Hans = 贝格
     vi = Bánh mì vòng bagel
     th = เบเกิล
@@ -1623,7 +1623,7 @@
     cs = Těstoviny
     it = Pasta
     nb = Pasta
-    zh-Hant = 意大利面
+    zh-Hant = 義大利麵
     zh-Hans = 意大利面
     vi = Mỳ ống
     th = พาสต้า
@@ -1719,7 +1719,7 @@
     cs = Portugalská kuchyně
     it = Cucina portoghese
     nb = Portugisisk mat
-    zh-Hant = 葡萄牙菜
+    zh-Hant = 葡萄牙料理
     zh-Hans = 葡萄牙菜
     vi = Ẩm thực bồ đào nha
     th = อาหารโปรตุเกส
@@ -1815,7 +1815,7 @@
     cs = Madagaskarská kuchyně
     it = Cucina malgascia
     nb = Gassisk
-    zh-Hant = 馬達加斯加的
+    zh-Hant = 馬達加斯加料理
     zh-Hans = 马达加斯加的
     vi = Malagasy
     th = มาดากัสการ์
@@ -1847,7 +1847,7 @@
     cs = Polská kuchyně
     it = Cucina polacca
     nb = Polsk mat
-    zh-Hant = 波蘭菜
+    zh-Hant = 波蘭料理
     zh-Hans = 波兰菜
     vi = Ẩm thực ba lan
     th = อาหารโปแลนด์
@@ -1879,7 +1879,7 @@
     cs = Večeře
     it = Ristorantino
     nb = Middag
-    zh-Hant = 飯店
+    zh-Hant = 美式餐廳
     zh-Hans = 饭店
     vi = Bữa tối
     th = ร้านอาหาร
@@ -1911,7 +1911,7 @@
     cs = Africká kuchyně
     it = Cucina africana
     nb = Afrikansk mat
-    zh-Hant = 非洲菜
+    zh-Hant = 非洲料理
     zh-Hans = 非洲菜
     vi = Ẩm thực châu phi
     th = อาหารแอฟริกัน
@@ -1943,7 +1943,7 @@
     cs = Gruzínská kuchyně
     it = Cucina georgiana
     nb = Georgisk mat
-    zh-Hant = 格魯吉亞菜
+    zh-Hant = 喬治亞料理
     zh-Hans = 格鲁吉亚菜
     vi = Ẩm thực georgia
     th = อาหารจอร์เจีย
@@ -1975,7 +1975,7 @@
     cs = Chorvatská kuchyně
     it = Cucina croata
     nb = Kroatisk mat
-    zh-Hant = 克羅地亞菜
+    zh-Hant = 克羅埃西亞料理
     zh-Hans = 克罗地亚的
     vi = Ẩm thực croatia
     th = อาหารโครเอเชีย
@@ -2007,7 +2007,7 @@
     cs = Arabská kuchyně
     it = Cucina araba
     nb = Arabisk mat
-    zh-Hant = 阿拉伯菜
+    zh-Hant = 阿拉伯料理
     zh-Hans = 阿拉伯菜
     vi = Ẩm thực ả-rập
     th = อาหารอาหรับ
@@ -2039,7 +2039,7 @@
     cs = Balkánská kuchyně
     it = Cucina balcanica
     nb = Balkan mat
-    zh-Hant = 巴爾幹菜
+    zh-Hant = 巴爾幹料理
     zh-Hans = 巴尔干菜
     vi = Ẩm thực balkan
     th = อาหารบอลข่าน
@@ -2071,7 +2071,7 @@
     cs = Brazilská kuchyně
     it = Cucina brasiliana
     nb = Brasiliansk mat
-    zh-Hant = 巴西菜
+    zh-Hant = 巴西料理
     zh-Hans = 巴西菜
     vi = Ẩm thực brazil
     th = อาหารบราซิล
@@ -2103,7 +2103,7 @@
     cs = Karibská kuchyně
     it = Cucina caraibica
     nb = Karibisk mat
-    zh-Hant = 加勒比菜
+    zh-Hant = 加勒比料理
     zh-Hans = 加勒比菜
     vi = Ẩm thực caribê
     th = อาหารแคริบเบียน
@@ -2135,7 +2135,7 @@
     cs = Rakouská kuchyně
     it = Cucina austriaca
     nb = Østerriksk mat
-    zh-Hant = 奧地利菜
+    zh-Hant = 奧地利料理
     zh-Hans = 奥地利菜
     vi = Ẩm thực áo
     th = อาหารออสเตรีย
@@ -2167,7 +2167,7 @@
     cs = Veganská kuchyně
     it = Cucina vegana
     nb = Veganermat
-    zh-Hant = 全素菜
+    zh-Hant = 全素料理
     zh-Hans = 全素菜
     vi = Ẩm thực chay
     th = อาหารมังสวิรัติ
@@ -2199,7 +2199,7 @@
     cs = Argentinská kuchyně
     it = Cucina argentina
     nb = Argentinsk mat
-    zh-Hant = 阿根廷菜
+    zh-Hant = 阿根廷料理
     zh-Hans = 阿根廷菜
     vi = Ẩm thực argentina
     th = อาหารอาเจนติน่า
@@ -2231,7 +2231,7 @@
     cs = Perská kuchyně
     it = Cucina persiana
     nb = Persisk mat
-    zh-Hant = 波斯菜
+    zh-Hant = 波斯料理
     zh-Hans = 波斯菜
     vi = Ẩm thực ba tư
     th = อาหารเปอร์เซีย
@@ -2295,7 +2295,7 @@
     cs = Malajsijská kuchyně
     it = Cucina malese
     nb = Malaysisk mat
-    zh-Hant = 馬來西亞菜
+    zh-Hant = 馬來西亞料理
     zh-Hans = 马来西亚菜
     vi = Ẩm thực malaysia
     th = อาหารมาเลเซีย
@@ -2327,7 +2327,7 @@
     cs = Indonéská kuchyně
     it = Cucina indonesiana
     nb = Indonesisk mat
-    zh-Hant = 印度尼西亞菜
+    zh-Hant = 印度尼西亞料理
     zh-Hans = 印度尼西亚菜
     vi = Ẩm thực indonesia
     th = อาหารอินโดนีเซีย
@@ -2359,7 +2359,7 @@
     cs = Etiopská kuchyně
     it = Cucina etiope
     nb = Etiopisk mat
-    zh-Hant = 埃塞俄比亞菜
+    zh-Hant = 衣索比亞料理
     zh-Hans = 埃塞俄比亚菜
     vi = Ẩm thực ethiopia
     th = อาหารเอธิโอเปีย
@@ -2423,7 +2423,7 @@
     cs = Irská kuchyně
     it = Cucina irlandese
     nb = Irsk mat
-    zh-Hant = 愛爾蘭菜
+    zh-Hant = 愛爾蘭料理
     zh-Hans = 爱尔兰菜
     vi = Ẩm thực ai-len
     th = อาหารไอริช
@@ -2455,7 +2455,7 @@
     cs = Maďarská kuchyně
     it = Cucina ungherese
     nb = Ungarsk mat
-    zh-Hant = 匈牙利菜
+    zh-Hant = 匈牙利料理
     zh-Hans = 匈牙利菜
     vi = Ẩm thực hungary
     th = อาหารฮังการี
@@ -2487,7 +2487,7 @@
     cs = Laoská kuchyně
     it = Cucina laotiana
     nb = Lao mat
-    zh-Hant = 老撾菜
+    zh-Hant = 寮國料理
     zh-Hans = 老挝菜
     vi = Ẩm thực lào
     th = อาหารลาว
@@ -2551,7 +2551,7 @@
     cs = Orientální kuchyně
     it = Cucina orientale
     nb = Orientalsk mat
-    zh-Hant = 東方菜
+    zh-Hant = 東方料理
     zh-Hans = 东方菜
     vi = Ẩm thực phương đông
     th = อาหารโอเรียนทอล
@@ -2583,7 +2583,7 @@
     cs = Pikantní palačinky
     it = Pancake salati
     nb = Fylte pannekaker
-    zh-Hant = 鹹的 煎餅
+    zh-Hant = 大阪燒
     zh-Hans = 咸的_煎饼
     vi = Bánh kếp rau thơm
     th = แพนเค้กแบบเค็ม
@@ -2615,7 +2615,7 @@
     cs = Marocká kuchyně
     it = Cucina marocchina
     nb = Marokkansk mat
-    zh-Hant = 摩洛哥菜
+    zh-Hant = 摩洛哥料理
     zh-Hans = 摩洛哥菜
     vi = Ẩm thực ma-rốc
     th = อาหารโมร็อกโก
@@ -2647,7 +2647,7 @@
     cs = Peruánská kuchyně
     it = Cucina peruviana
     nb = Peruansk mat
-    zh-Hant = 秘魯的
+    zh-Hant = 秘魯料理
     zh-Hans = 秘鲁的
     vi = Ẩm thực Pê-ru
     th = อาหารเปรู
@@ -2679,8 +2679,8 @@
     cs = Zážitková gastronomie
     it = Ristorante elegante
     nb = Gourmet
-    zh-Hant = 高級 餐飲
-    zh-Hans = 高级 餐饮
+    zh-Hant = 高級餐飲
+    zh-Hans = 高级餐饮
     vi = Chuỗi nhà hàng
     th = อาหารหรูหรา
     ja = 高級料理
