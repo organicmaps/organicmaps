@@ -22,7 +22,7 @@
 "delete" = "刪除";
 
 /* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "別再問我";
+"do_not_ask_me_again" = "不再詢問";
 
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "繼續";
@@ -36,10 +36,10 @@
 "download_x_mb" = "下載 %qu MB";
 
 /* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "下載失敗，請再試一次";
+"download_has_failed" = "下載失敗，輕觸以再試一次";
 
 /* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "已下載的 (%qu %@), 輕觸以刪除";
+"downloaded_x_y_touch_to_delete" = "已下載的 (%1$qu %2$@), 輕觸以刪除";
 
 /* Settings/Downloader - country info current download progress */
 "downloading_x_touch_to_cancel" = "正在下載 %qu%%, 輕觸以取消";
@@ -50,7 +50,7 @@
 "get_it_now" = "馬上取得";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "感謝您使用 MAPS.ME！您喜歡該應用嗎？告訴您的好友們吧！這會是對我們最好的感謝。";
+"share_on_facebook_text" = "感謝您使用 MAPS.ME！您喜歡此應用程式嗎？告訴好友們吧！這會是對我們最好的感謝。";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -59,7 +59,7 @@
 "kilometres" = "公里";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "發表評論";
+"leave_a_review" = "撰寫評論";
 
 /* View and button titles for accessibility */
 "maps" = "地圖";
@@ -79,13 +79,13 @@
 /* View and button titles for accessibility */
 "my_position" = "我的位置";
 
-"ok" = "好";
+"ok" = "確定";
 
 /* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "請啟動位置服務";
+"enable_location_services" = "請啟用定位服務";
 
 /* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "如要下載%@ ，請先釋放一些空間!";
+"free_disk_space_for_country_x" = "如要下載%@ ，請先釋放一些空間！";
 
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "稍後提醒我";
@@ -97,7 +97,7 @@
 "never" = "不再提醒";
 
 /* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "回饋問題";
+"report_an_issue" = "回報問題";
 
 /* View and button titles for accessibility */
 "search" = "搜尋";
@@ -106,22 +106,22 @@
 "search_map" = "搜尋地圖";
 
 /* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "輕觸後下載";
+"touch_to_download" = "輕觸以下載";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
-"use_cellular_data" = "是的";
+"use_cellular_data" = "是";
 
 /* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "我們建議透過WiFi連線來下載較大的地圖";
+"use_wifi_recommendation_text" = "我們建議透過 WiFi 連線來下載較大的地圖";
 
 /* Choose measurement on first launch alert - title */
-"which_measurement_system" = "您偏好哪種測量單位系統？";
+"which_measurement_system" = "您偏好哪種度量單位系統？";
 
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。";
 
 /* Location Services are not available on the device alert - message */
-"device_doesnot_support_location_services" = "你的裝置不支援定位服務唷!";
+"device_doesnot_support_location_services" = "您的裝置不支援定位服務";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "在地圖上顯示";
@@ -153,7 +153,7 @@
 
 "downloading_touch_to_cancel" = "正在下載 %d%%, 輕觸以取消";
 
-"downloaded_touch_to_delete" = "已下載的 (%@), 輕觸以刪除";
+"downloaded_touch_to_delete" = "已下載的 (%@)，輕觸以刪除";
 
 "connection_settings" = "連線設定";
 
@@ -161,31 +161,31 @@
 
 "close" = "關閉";
 
-"unsupported_phone" = "需要OpenGL硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能!";
+"unsupported_phone" = "需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！";
 
 "download" = "下載";
 
 "external_storage_is_not_available" = "SD 卡/USB 無法有效儲存下載的地圖";
 
-"disconnect_usb_cable" = "請拔除USB線或插入SD卡以使用MAPS.ME";
+"disconnect_usb_cable" = "請拔除 USB 線或插入 SD 卡以使用 MAPS.ME";
 
-"not_enough_free_space_on_sdcard" = "如要繼續使用，請先釋放一些SD卡/ USB儲存空間";
+"not_enough_free_space_on_sdcard" = "如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間";
 
-"not_enough_memory" = "沒有足夠的記憶體以啟用程式";
+"not_enough_memory" = "沒有足夠的記憶體以啟動應用程式";
 
 "free_space_for_country" = "請先釋放 %1$@ 系統空間以下載 %2$@";
 
-"download_resources" = "在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。";
+"download_resources" = "在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。";
 
 "getting_position" = "取得目前所在位置";
 
 "download_resources_continue" = "跳到地圖";
 
-"downloading_country_can_proceed" = "正在下載 %@. 您現在 可以繼續使用地圖了";
+"downloading_country_can_proceed" = "正在下載 %@。您現在 可以繼續使用地圖了";
 
 "download_country_ask" = "下載 %@?";
 
-"update_country_ask" = "更新 %@?";
+"update_country_ask" = "更新 %@？";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "download_location_map_proposal" = "您可以下載目前所在位置的地圖。";
@@ -210,10 +210,10 @@
 "search_update_maps" = "您需要更新地圖以使用搜尋功能：";
 
 /* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "以下為可用的更新地圖：";
+"advise_update_maps" = "以下為可更新的地圖：";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "你再也不需要 MAPS.ME Lite了,所以您可以移除它!";
+"suggest_uninstall_lite" = "你再也不需要 MAPS.ME Lite 了，所以您可以移除它！";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ 已成功下載";
@@ -225,7 +225,7 @@
 "add_new_set" = "新增收藏夾";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "添加到書簽";
+"add_to_bookmarks" = "新增到書籤";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "書籤顏色";
@@ -243,31 +243,31 @@
 "color" = "顏色";
 
 /* Unknown Dropped Pin title, when name can't be determined */
-"dropped_pin" = "設下PIN";
+"dropped_pin" = "已放置圖釘";
 
 /* Default bookmarks set name */
 "my_places" = "我的地點";
 
 /* Add bookmark dialog - bookmark name */
-"name" = "名字";
+"name" = "名稱";
 
 /* Editor title above street and house number */
 "address" = "位址";
 
 /* Place Page - Remove Pin button */
-"remove_pin" = "移除PIN";
+"remove_pin" = "移除圖釘";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "收藏夾";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。";
+"bookmarks_usage_hint" = "您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 MAPS.ME 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。";
+"bookmarks_usage_hint_import_only" = "其他來源的書籤也可導入在 MAPS.ME 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。";
 
 /* Settings button in system menu */
-"settings" = "設置";
+"settings" = "設定";
 
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "地圖儲存";
@@ -282,10 +282,10 @@
 "wait_several_minutes" = "這可能需要幾分鐘\n請稍候…";
 
 /* Show bookmarks from this category on a map or not */
-"visible" = "看得到的";
+"visible" = "可見";
 
 /* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS 目前是關閉的，請在系統中設定為開啟使用";
+"gps_is_disabled_long_text" = "GPS 目前是關閉的，請在系統中設定為啟用";
 
 /* Measurement units title in settings activity */
 "measurement_units" = "測量單位";
@@ -300,7 +300,7 @@
 "search_mode_nearme" = "我的附近";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "畫面中的地圖";
+"search_mode_viewport" = "畫面中";
 
 /* Search Suggestion */
 "food" = "飲食";
@@ -341,7 +341,7 @@
 "toilet" = "廁所";
 
 /* Search Suggestion */
-"post" = "郵筒";
+"post" = "郵局";
 
 /* Search Suggestion */
 "police" = "警察局";
@@ -353,28 +353,28 @@
 "description" = "描述說明";
 
 /* Button text */
-"share_by_email" = "以 email 分享";
+"share_by_email" = "以電子郵件分享";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "您已分享了 MAPS.ME 書籤";
+"share_bookmarks_email_subject" = "已分享 MAPS.ME 書籤";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "哈囉!\n\n這是我的MAPS.ME離線地圖中所夾帶的 \"%@.kmz\" 書籤檔案。若您已安裝MAPS.ME的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MAPS.ME愉快!";
+"share_bookmarks_email_body" = "哈囉！\n\n這是我的 MAPS.ME 離線地圖中所夾帶的「%@.kmz」書籤檔案。若您已安裝 MAPS.ME 的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載 iOS 或 Android 平台的應用程式。\n\n祝您使用MAPS.ME愉快!";
 
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤…";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "書籤上傳成功! 您可以在地圖上或是書籤管理畫面中找到書籤。";
+"load_kmz_successful" = "書籤上傳成功！ 您可以在地圖上或是書籤管理畫面中找到書籤。";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "書籤上傳失敗! 檔案可能有毀損或是不完全。";
+"load_kmz_failed" = "書籤上傳失敗。 檔案可能有毀損或是不完全。";
 
 /* resource for context menu */
 "edit" = "編輯";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "您的位置尚未定未完成";
+"unknown_current_position" = "您的位置尚未定位完成";
 
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "下載您目前所在位置的國家 地圖 (%@)";
@@ -383,88 +383,88 @@
 "download_viewport_country_to_search" = "下載您正在搜尋的國家 地圖 (%@)";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "很抱歉, 地圖儲存設定目前是停用的狀態!";
+"cant_change_this_setting" = "很抱歉，地圖儲存設定目前已停用。";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "國家地圖正在進行下載";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "祝您使用 MAPS.ME愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!";
+"appStore_message" = "祝您使用 MAPS.ME 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！";
 
 /* No, thanks */
-"no_thanks" = "不, 謝了!";
+"no_thanks" = "不，謝了";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, check out my pin at MAPS.ME! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get";
+"bookmark_share_sms" = "嘿，看看我在 MAPS.ME 標記的圖釘吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, check out my current location at MAPS.ME! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get";
+"my_position_share_sms" = "嘿，在 MAPS.ME 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: http://maps.me/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, check out my pin at MAPS.ME map!";
+"bookmark_share_email_subject" = "嘿，看看我在 MAPS.ME 地圖上的圖釘！";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Hi,\n\nI pinned: %1$@ at MAPS.ME, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
+"bookmark_share_email" = "嗨，\n\n我在 MAPS.ME 世界離線地圖上標記了%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來察看地圖上的位置。\n\n謝謝。";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, check out my current location at MAPS.ME map!";
+"my_position_share_email_subject" = "嗨，到 MAPS.ME 地圖查看我的目前位置！";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
+"my_position_share_email" = "嗨，\n\n我現在在這：%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來查看在地圖上的位置。\n\n謝謝。";
 
 /* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "透過消息分享";
+"share_by_message" = "透過訊息分享";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "分享";
 
 /* iOS share by Message button text (including SMS) */
-"message" = "消息";
+"message" = "訊息";
 
 /* Share by email button text, also used in editor. */
 "email" = "電子郵件";
 
 /* Copy Link */
-"copy_link" = "拷贝链接";
+"copy_link" = "複製連結";
 
 /* Text for the button that returns to caller application */
-"more_info" = "显示更多信息";
+"more_info" = "顯示更多資訊";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "已複製到剪貼板：%1$@";
+"copied_to_clipboard" = "已複製到剪貼簿：%1$@";
 
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "啟用匿名使用數據";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "它幫助我們打造更好的應用程序";
+"allow_statistics_hint" = "它收集使用數據以幫助我們打造更好的應用程式";
 
 /* place preview title */
-"info" = "简介";
+"info" = "簡介";
 
 /* Used for bookmark editing */
 "done" = "完成";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Choose Back Screen settings";
+"yopme_pref_summary" = "選擇第二螢幕設定";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Back Screen Settings";
+"yopme_pref_title" = "第二螢幕設定";
 
 /* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Show on Back screen";
+"show_on_backscreen" = "在第二螢幕上顯示";
 
 /* Prints version number in About dialog */
 "version" = "版本： %@";
 
 /* Data version in «About» screen */
-"data_version" = "Data version: %d";
+"data_version" = "資料版本： %d";
 
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "確定要繼續嗎？";
 
 /* Title for tracks category in bookmarks manager */
-"tracks" = "軌道";
+"tracks" = "軌跡";
 
 /* Length of track in cell that describes route */
 "length" = "長度";
@@ -489,10 +489,10 @@
 "pref_map_style_title" = "夜間模式";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "關";
+"pref_map_style_default" = "關閉";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "開";
+"pref_map_style_night" = "開啟";
 
 /* «Map style» entry value */
 "pref_map_style_auto" = "自動";
@@ -501,10 +501,10 @@
 "pref_map_3d_title" = "透視圖";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D建築";
+"pref_map_3d_buildings_title" = "3D 建築";
 
 /* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "影響電池壽命";
+"pref_map_3d_buildings_subtitle" = "增加電池消耗";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "語音指示";
@@ -518,7 +518,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "其他";
 
-"pref_tts_how_to_set_up_voice" = "如何設置語音";
+"pref_tts_how_to_set_up_voice" = "如何設定語音";
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "最近的軌跡";
@@ -539,27 +539,27 @@
 
 "pref_track_ios_caption" = "近期軌跡顯示您的行進道路。";
 
-"pref_track_ios_subcaption" = "請選擇保存軌跡的時間範圍。";
+"pref_track_ios_subcaption" = "請選擇儲存軌跡的時間範圍。";
 
 "placepage_distance" = "距离";
 
-"placepage_coordinates" = "坐标";
+"placepage_coordinates" = "座標";
 
-"placepage_unsorted" = "未分类的";
+"placepage_unsorted" = "未分類";
 
-"search_show_on_map" = "在地图上查看";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的MapsWithMe資料夾，您可以將它 刪除。";
+"search_show_on_map" = "在地圖上查看";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "由於安卓4.4版本有所更改，我們需要對地圖數據存儲進行優化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些內存，否則將只能以只讀模式使用地圖。";
+"kitkat_migrate_ok" = "地圖數據存儲已被最佳化。請重啟應用程式。\n\n不再需要 SD 卡根目錄中的 MapsWithMe 資料夾，您可以將它刪除。";
 
 /* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "我們需要將您的書籤移至內存儲器中，但沒有足夠的存儲空間。請釋放一些內存，否則，書籤將不可用。";
+"kitkat_migrate_failed" = "由於 Android 4.4 版本有所更改，我們需要對地圖數據存儲進行最佳化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些記憶體，否則將只能以唯讀模式使用地圖。";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "正在優化您的地圖存儲。請等待，這可能需要幾分鐘的時間。";
+"bookmark_move_fail" = "我們需要將您的書籤移至內部記憶體中，但沒有足夠的存儲空間。請釋放一些記憶體，否則，書籤將不可用。";
+
+/* Used to warn user when fixing KitKat issue */
+"kitkat_optimization_in_progress" = "正在最佳化您的地圖存儲。請等待，這可能需要幾分鐘的時間。";
 
 /* Used in More Apps menu */
 "free" = "免費";
@@ -580,7 +580,7 @@
 "routes" = "路線";
 
 /* Show on first launch. */
-"maps_licence_info" = "此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。";
+"maps_licence_info" = "此應用程式使用從 OpenStreetMap 專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證 OpenStreetMap 數據的一致性、準確性、完整性、或適用性。";
 
 /* Show on first launch. */
 "agree" = "我同意";
@@ -592,16 +592,16 @@
 "download_map_notification" = "下載您所在地方的地圖";
 
 /* text of notification */
-"pro_version_is_free_today" = "完整版MAPS.ME是免費的今天！馬上下載并告訴您的朋友。";
+"pro_version_is_free_today" = "現在完整版 MAPS.ME 是免費的！馬上下載並告訴您的朋友。";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "我們正在將您從MAPS.ME Lite下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。";
+"move_lite_maps_to_pro" = "我們正在將您從 MAPS.ME Lite 下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "您下載的地圖已成功傳輸至MAPS.ME。";
+"move_lite_maps_to_pro_ok" = "您下載的地圖已成功傳輸至 MAPS.ME。";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "您的地圖傳輸失敗。請刪除MAPS.ME Lite，然後再次下載地圖。";
+"move_lite_maps_to_pro_failed" = "您的地圖傳輸失敗。請刪除 MAPS.ME Lite，然後再次下載地圖。";
 
 /* Text in menu */
 "settings_and_more" = "設定及更多";
@@ -613,10 +613,10 @@
 "blog" = "Blog";
 
 /* Text in menu */
-"maps_me_community" = "MAPS.ME社區";
+"maps_me_community" = "MAPS.ME 社群";
 
 /* Text in menu */
-"like_on_facebook" = "在Facebook 上點贊";
+"like_on_facebook" = "在 Facebook 上按讚";
 
 /* Text in menu */
 "follow_on_twitter" = "在Twitter 上關注";
@@ -628,22 +628,22 @@
 "feedback" = "Feedback";
 
 /* Settings: "Send general feedback" button */
-"feedback_general" = "General feedback";
+"feedback_general" = "一般意見反應";
 
 /* Text in menu */
 "subscribe_to_news" = "訂閱我們的新聞";
 
 /* Text in menu */
-"rate_the_app" = "為該應用打分";
+"rate_the_app" = "為該應用程式評分";
 
 /* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
+"rate_gp" = "在 Google Play 評分";
 
 /* Share with friends: menu item title */
 "tell_friends" = "Tell a Friend";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install Maps.me!";
+"tell_friends_text" = "嗨！安裝 Maps.me！";
 
 /* Text in menu */
 "help" = "幫助";
@@ -652,7 +652,7 @@
 "copyright" = "版權";
 
 /* Text in menu */
-"report_a_bug" = "報告漏洞";
+"report_a_bug" = "報告錯誤";
 
 /* Email subject */
 "subscribe_me_subject" = "請幫我訂閱 MAPS.ME 新聞郵件、";
@@ -664,10 +664,10 @@
 "about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
-"about_text" = "MAPS.ME提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪， MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為添加新功能而努力，并希望能夠聽到您對我們應如何改進MAPS.ME的想法。若您在使用本應用時遇到任何問題，請隨時聯繫我們：support@maps.me。我們會回覆每一條請求！\n\n您喜歡MAPS.ME并希望支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的App Market上發表評論\n- 在我們的Facebook頁面http://www.facebook.com/mapswithme上贊我們\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\n附言：我們從OpenStreetMap獲取地圖信息，這是一個類似于Wikipedia的地圖繪製項目，能夠讓用戶創建并編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在http://openstreetmap.org上進行糾正。在下一個版本發佈時，您做出的更改便會出現在MAPS.ME應用中。";
+"about_text" = "MAPS.ME 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 MAPS.ME 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support@maps.me。我們會回覆每一條請求！\n\n您喜歡 MAPS.ME 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 http://openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 MAPS.ME 應用程式中。";
 
 /* Alert text */
-"email_error_body" = "電子郵件用戶端尚未建立。請設定或使用任何其他方式與我們聯絡%@";
+"email_error_body" = "電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%@";
 
 /* Alert title */
 "email_error_title" = "電子郵件發送錯誤";
@@ -676,19 +676,19 @@
 "pref_calibration_title" = "指南針校準";
 
 /* Search Suggestion */
-"wifi" = "無線網絡";
+"wifi" = "無線網路";
 
 /* Update map suggestion */
-"routing_map_outdated" = "請更新地圖以創建一條路線。";
+"routing_map_outdated" = "請更新地圖以建立一條路線。";
 
 /* Update maps suggestion */
-"routing_update_maps" = "使用新版本的MAPS.ME可以創建從您的當前位置至一個目的地的路線。請更新地圖以使用該功能。";
+"routing_update_maps" = "使用新版本的 MAPS.ME 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。";
 
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
 
 /* Cancel all button text */
-"downloader_cancel_all" = "取消全部";
+"downloader_cancel_all" = "全部取消";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "已下載";
@@ -710,7 +710,7 @@
 "downloader_search_results" = "已找到";
 
 /* Disclaimer message */
-"routing_disclaimer" = "在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！";
+"routing_disclaimer" = "在 MAPS.ME 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "過時的";
@@ -728,28 +728,28 @@
 "downloader_delete_map_while_routing_dialog" = "如欲刪除地圖，請停止導航。";
 
 /* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "當前地點未定。請明確地點以創建路線。";
+"routing_failed_unknown_my_position" = "目前地點未定。請等待明確地點以建立路線。";
 
 /* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "需要額外的數據才能創建路線。開始下載嗎？";
+"routing_failed_has_no_routing_file" = "需要額外的數據才能建立路線。開始下載嗎？";
 
 /* StartPointNotFound */
-"routing_failed_start_point_not_found" = "無法計算路線。沒有在您起點附近的路。";
+"routing_failed_start_point_not_found" = "無法計算路線。沒有路在您的起點附近。";
 
 /* EndPointNotFound */
-"routing_failed_dst_point_not_found" = "無法計算路線。沒有在您終點附近的路。";
+"routing_failed_dst_point_not_found" = "無法計算路線。沒有路在您的終點附近。";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "路程只能完全處在同一地圖裏時才能被創建。";
+"routing_failed_cross_mwm_building" = "路程只能完全處在同一地圖裡時才能被建立。";
 
 /* RouteNotFound */
 "routing_failed_route_not_found" = "找不到所選起點和終點間的路程。請選擇不同的起點或終點。";
 
 /* InternalError */
-"routing_failed_internal_error" = "出現內部錯誤。請嘗試刪除并再次下載地圖。如果還有問題請聯系我們：support@maps.me。";
+"routing_failed_internal_error" = "出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support@maps.me。";
 
 /* Context menu item for downloader. */
-"downloader_download_map_and_routing" = "下載地圖 + 佈置路線";
+"downloader_download_map_and_routing" = "下載地圖 + 路線";
 
 /* Context menu item for downloader. */
 "downloader_download_routing" = "下載路線";
@@ -766,10 +766,10 @@
 "routing_go" = "開始！";
 
 /* Item status in downloader. */
-"downloader_retry" = "重復";
+"downloader_retry" = "重試";
 
 /* Item in context menu. */
-"downloader_map_and_routing" = "地圖 + 布置路線";
+"downloader_map_and_routing" = "地圖 + 路線";
 
 /* Item in context menu. */
 "downloader_delete_map" = "刪除地圖";
@@ -778,7 +778,7 @@
 "downloader_update_map" = "更新地圖";
 
 /* Item in context menu. */
-"downloader_update_map_and_routing" = "更新地圖 + 布置路線";
+"downloader_update_map_and_routing" = "更新地圖 + 路線";
 
 /* Item in context menu. */
 "downloader_map_only" = "只有地圖";
@@ -793,25 +793,25 @@
 "rating_just_rated" = "我剛剛評價了您的應用";
 
 /* Text for rating dialog */
-"rating_user_since" = "我是從%@年起的MAPS.ME用戶";
+"rating_user_since" = "我是從 %@ 年起的 MAPS.ME 使用者";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "您喜歡MAPS.ME嗎？";
+"rating_do_like_maps" = "您喜歡 MAPS.ME 嗎？";
 
 /* Text for rating dialog */
-"rating_tap_star" = "點擊星星給我們應用評分。";
+"rating_tap_star" = "點擊星星給我們應用程式評分。";
 
 /* Text for rating dialog */
 "rating_thanks" = "謝謝您！";
 
 /* Text for rating dialog */
-"rating_share_ideas" = "分享任何主意或問題，這樣我們可以為您改善應用。";
+"rating_share_ideas" = "分享任何主意或問題，這樣我們可以為您改善應用程式。";
 
 /* Text for rating dialog */
-"rating_send_feedback" = "發送反饋";
+"rating_send_feedback" = "發送回饋";
 
 /* Text for g+ dialog */
-"rating_google_plus" = "點擊g+向您的朋友們告知這款應用。";
+"rating_google_plus" = "點擊g+向您的朋友們告知這款應用程式。";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "下載沿線地圖";
@@ -820,49 +820,49 @@
 "routing_download_map" = "獲取地圖";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "下載更新的地圖和路線數據，獲取所有MAPS.ME的特色功能。";
+"routing_download_map_and_routing" = "下載更新的地圖和路線數據，獲取所有 MAPS.ME 的特色功能。";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "獲取所需的路線數據";
 
 /* Text for routing error dialog */
-"routing_get_additional_data" = "更多數據，從您的位置創建路線。";
+"routing_get_additional_data" = "需要更多數據以從您的位置建立路線。";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "創建路線需要下載並更新好所有從您的位置到目的地的地圖。";
+"routing_requires_all_map" = "建立路線需要下載並更新好所有從您的位置到目的地的地圖。";
 
 /* Text for routing error dialog */
-"routing_not_enough_space" = "空間不夠";
+"routing_not_enough_space" = "空間不足";
 
 /* Text for routing error dialog */
 "routing_download_more_than_avail" = "您需要下載%@ MB，但只有%@ MB空間。";
 
 /* Text for routing error dialog */
-"routing_download_roaming" = "您將使用移動數據下載%@ MB（漫遊）。這取決於您的移動數據方案運營商，可能會產生額外的費用。";
+"routing_download_roaming" = "您將使用行動數據下載%@ MB（漫遊）。這取決於您的行動數據方案服務業者，可能會產生額外的費用。";
 
 /* bookmark button text */
 "bookmark" = "書籤";
 
 /* map is not downloaded */
-"not_found_map" = "您地點的地圖沒有被下載";
+"not_found_map" = "您地點的地圖尚未下載";
 
 /* location service disabled */
-"enable_location_service" = "請啟動位置服務";
+"enable_location_service" = "請啟用定位服務";
 
 /* download map */
 "download_map" = "為您的地點下載地圖";
 
 /* download map on iPhone */
-"download_map_iphone" = "在您的iPhone上下載當前位置的地圖";
+"download_map_iphone" = "在您的 iPhone 上下載目前位置的地圖";
 
 /* clear pin */
 "nearby" = "附近的";
 
 /* clear pin */
-"clear_pin" = "清除針";
+"clear_pin" = "清除圖釘";
 
 /* location is undefined */
-"undefined_location" = "當前地點未定。";
+"undefined_location" = "目前地點未定。";
 
 /* download country of your location */
 "download_country" = "下載您目前所在位置的國家 地圖";
@@ -873,13 +873,13 @@
 /* get the map */
 "get_the_map" = "獲取地圖";
 
-"save" = "保存";
+"save" = "儲存";
 
-"edit_description_hint" = "您的描述（文本或html）";
+"edit_description_hint" = "您的描述（文字或 html）";
 
 "new_group" = "新組";
 
-"create" = "創建";
+"create" = "建立";
 
 /* red color */
 "red" = "紅色";
@@ -897,7 +897,7 @@
 "purple" = "紫色";
 
 /* orange color */
-"orange" = "橘紅色";
+"orange" = "橘色";
 
 /* brown color */
 "brown" = "棕色";
@@ -906,57 +906,57 @@
 "pink" = "粉色";
 
 /* Wi-Fi available */
-"WiFi_available" = "是的";
+"WiFi_available" = "是";
 
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "依照路線行進時，請牢記：";
 
-"dialog_routing_disclaimer_priority" = "— 道路情形、交通規則及號誌較導航意見更為優先；";
+"dialog_routing_disclaimer_priority" = "— 路況、交通規則及號誌優先於導航意見；";
 
-"dialog_routing_disclaimer_precision" = "— 地圖可能有誤，建議的路線不盡然是最佳選擇；";
+"dialog_routing_disclaimer_precision" = "— 地圖可能不準確，建議的路線不盡然是最佳選擇；";
 
 "dialog_routing_disclaimer_recommendations" = "— 建議的路線僅供推薦參考；";
 
-"dialog_routing_disclaimer_borders" = "— 小心對待國界區的路線：我們應用創造的路線有時會在未經授權的地方跨越國界;";
+"dialog_routing_disclaimer_borders" = "— 小心對待國界區的路線：我們應用程式建立的路線有時會在未經授權的地方跨越國界；";
 
-"dialog_routing_disclaimer_beware" = "祝您出外安全，自身多加注意！";
+"dialog_routing_disclaimer_beware" = "請保持警戒，一路平安！";
 
-"dialog_routing_check_gps" = "查看 GPS";
+"dialog_routing_check_gps" = "查看 GPS 訊號";
 
-"dialog_routing_error_location_not_found" = "未產生路線。 目前位置尚未定義。";
+"dialog_routing_error_location_not_found" = "無法產生路線。 無法定位目前 GPS 座標。";
 
-"dialog_routing_location_turn_wifi" = "請查看 GPS。 為提升地理位置定位品質，請啟用 Wi-Fi。";
+"dialog_routing_location_turn_wifi" = "請確認您的 GPS 訊號。啟用 Wi-Fi 將提升地理位置定位準確度。";
 
-"dialog_routing_location_turn_on" = "啟用位置定位";
+"dialog_routing_location_turn_on" = "啟用定位服務";
 
-"dialog_routing_location_unknown_turn_on" = "目前位置尚未定義。 若要產生路線，請啟用位置定位。";
+"dialog_routing_location_unknown_turn_on" = "無法定位目前 GPS 座標。請啟用定位服務以產生路線。";
 
-"dialog_routing_location_unknown" = "目前位置尚未定義。";
+"dialog_routing_location_unknown" = "無法定位目前 GPS 座標。";
 
 "dialog_routing_download_files" = "下載所需檔案";
 
 "dialog_routing_download_and_update_all" = "若要產生路線，請下載並更新所有地圖及沿路線的路線檔案。";
 
-"dialog_routing_routes_size" = "路線檔案";
+"dialog_routing_routes_size" = "路線資訊檔案";
 
 "dialog_routing_unable_locate_route" = "路線未找到";
 
-"dialog_routing_cant_build_route" = "此路線尚未產生。";
+"dialog_routing_cant_build_route" = "無法產生路線。";
 
 "dialog_routing_change_start_or_end" = "請變更起點或最終目的地。";
 
 "dialog_routing_change_start" = "變更起點";
 
-"dialog_routing_start_not_determined" = "此路線尚未產生。 未定義起點。";
+"dialog_routing_start_not_determined" = "此路線尚未產生。無法定位起點。";
 
 "dialog_routing_select_closer_start" = "請選擇更接近道路的起點。";
 
-"dialog_routing_change_end" = "變更最終目的地";
+"dialog_routing_change_end" = "變更目的地";
 
-"dialog_routing_end_not_determined" = "未產生路線。 未定義最終目的地。";
+"dialog_routing_end_not_determined" = "未產生路線。無法定位目的地。";
 
-"dialog_routing_select_closer_end" = "請選擇更接近道路的最終目的地。";
+"dialog_routing_select_closer_end" = "請選擇更接近道路的目的地。";
 
 "dialog_routing_system_error" = "系統錯誤";
 
@@ -964,15 +964,15 @@
 
 "dialog_routing_try_again" = "請再試一次";
 
-"dialog_routing_send_error" = "提報問題";
+"dialog_routing_send_error" = "回報問題";
 
 "dialog_routing_if_get_cross_route" = "您想產生跨越邊界的更好路線嗎？";
 
-"dialog_routing_cross_route_is_optimal" = "跨越邊界的路線更為理想。";
+"dialog_routing_cross_route_is_optimal" = "有更理想的跨越邊界的路線可用。";
 
-"dialog_routing_always_cross_that_border" = "一律跨越邊界。";
+"dialog_routing_always_cross_that_border" = "一律跨越此邊界。";
 
-"not_now" = "先不要";
+"not_now" = "現在不要";
 
 "dialog_routing_build_route" = "產生";
 
@@ -984,7 +984,7 @@
 
 /********** Strings for downloading map from search **********/
 
-"search_without_internet_advertisement" = "要開始搜索和創建路線，請下載地圖，那您就不再需要網絡連接了。";
+"search_without_internet_advertisement" = "要開始搜索和建立路線，請下載地圖，那您就不再需要網絡連接了。";
 
 "search_select_map" = "選擇地圖";
 
@@ -997,7 +997,7 @@
 "hide" = "隱藏";
 
 /* «Rename» context menu */
-"rename" = "重命名";
+"rename" = "重新命名";
 
 /* Bottom sheet: expand button (should be short) */
 "bottom_sheet_more" = "更多…";
@@ -1009,11 +1009,11 @@
 "routing_arrive" = "抵達:%s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "要創建路線，請下載並更新所有沿路線的地圖。";
+"dialog_routing_download_and_update_maps" = "要建立路線，請下載並更新所有沿線的地圖。";
 
-"rate_alert_title" = "喜歡這個應用嗎？";
+"rate_alert_title" = "喜歡這個應用程式嗎？";
 
-"rate_alert_default_message" = "感謝您使用 MAPS.ME。請，評價該應用。您的反饋幫助我們變得更好。";
+"rate_alert_default_message" = "感謝您使用 MAPS.ME。請評價此應用程式。您的回饋幫助我們改善我們的產品。";
 
 "rate_alert_five_star_message" = "太棒了！我們也愛您！";
 
@@ -1027,21 +1027,21 @@
 
 "next_turn_then" = "然後";
 
-"closed" = "關閉";
+"closed" = "已關閉";
 
 "back_to" = "返回 %@";
 
-"search_not_found" = "很抱歉，我找不到任何東西。";
+"search_not_found" = "很抱歉，找不到任何東西。";
 
-"search_not_found_query" = "請試另一條問題。";
+"search_not_found_query" = "請嘗試其他搜尋字詞。";
 
 "search_not_found_map" = "請下載你搜尋的地圖。";
 
-"search_not_found_location" = "下載你當前位置的地圖。";
+"search_not_found_location" = "下載您目前位置的地圖。";
 
 "search_history_title" = "搜尋歷史紀錄";
 
-"search_history_text" = "快速存取最近搜尋的問題。";
+"search_history_text" = "檢視最近的搜尋。";
 
 "clear_search" = "清除搜尋記錄";
 
@@ -1051,10 +1051,10 @@
 /* Showcase menu item. */
 "showcase_plan_your_trip" = "Plan your trip";
 
-"showcase_more_apps" = "更多My.com 應用";
+"showcase_more_apps" = "更多 My.com 應用程式";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "維基百科";
 
 "p2p_route_planning" = "路線計劃";
 
@@ -1074,7 +1074,7 @@
 
 "p2p_only_from_current" = "導航只能從您目前的位置開始。";
 
-"p2p_reroute_from_current" = "你是否想要規劃當前位置的路線？";
+"p2p_reroute_from_current" = "你是否想要規劃目前位置的路線？";
 
 "whats_new_next_button" = "下一頁";
 
@@ -1085,7 +1085,7 @@
 /* Text for allday switch. */
 "editor_time_allday" = "全天 (24 小時)";
 
-"editor_time_open" = "營業時間";
+"editor_time_open" = "營業中";
 
 "editor_time_close" = "休息時間";
 
@@ -1107,7 +1107,7 @@
 
 "editor_add_select_location" = "位置";
 
-"editor_done_dialog_1" = "您已經改變了世界地圖。請不要隱藏這一點！告訴您的朋友們並一起編輯它。";
+"editor_done_dialog_1" = "您已經改變了世界地圖。別藏私！告訴您的朋友們一起來編輯。";
 
 "editor_done_dialog_2" = "這是您的第二次地圖改進。現在您在地圖編輯者排行榜中排在第%d名。把它告訴您的朋友們。";
 
@@ -1115,7 +1115,7 @@
 
 "share_with_friends" = "和朋友分享";
 
-"editor_report_problem_desription_1" = "請詳細描述此問題以便OpenStreeMap社區能夠修復此錯誤。";
+"editor_report_problem_desription_1" = "請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。";
 
 "editor_report_problem_desription_2" = "或者在http://www.openstreetmap.org/上親自修復此錯誤";
 
@@ -1127,16 +1127,16 @@
 
 "editor_report_problem_under_construction_title" = "因維護而關閉";
 
-"editor_report_problem_duplicate_place_title" = "重復的地點";
+"editor_report_problem_duplicate_place_title" = "重複的地點";
 
-"first_launch_congrats_title" = "MAPS.ME已做好使用準備";
+"first_launch_congrats_title" = "MAPS.ME 已做好使用準備";
 
-"first_launch_congrats_text" = "在世界各地離線搜索和導航，免費。";
+"first_launch_congrats_text" = "在世界各地離線搜尋和導航，免費。";
 
 "migrate_title" = "重要！";
 
 /* Android uses image instead of text. */
-"download_all" = "全部下載。";
+"download_all" = "全部下載";
 
 "delete_all" = "刪除全部";
 
@@ -1148,7 +1148,7 @@
 /* Place Page opening hours text */
 "daily" = "每天";
 
-"twentyfour_seven" = "白天和黑夜";
+"twentyfour_seven" = "全天候";
 
 "day_off_today" = "今天沒有營業";
 
@@ -1160,21 +1160,21 @@
 
 "sunset_to_sunrise" = "從日落到日出";
 
-"add_opening_hours" = "添加工作時間";
+"add_opening_hours" = "新增營業時間";
 
-"edit_opening_hours" = "編輯工作時間";
+"edit_opening_hours" = "編輯營業時間";
 
 "profile" = "資料";
 
-"no_osm_account" = "OpenStreetMap上沒有賬戶嗎？";
+"no_osm_account" = "沒有 OpenStreeMap 帳號嗎？";
 
 "register_at_openstreetmap" = "註冊";
 
-"password_8_chars_min" = "密碼（最少8個字符）";
+"password_8_chars_min" = "密碼（最少8個字母）";
 
-"invalid_username_or_password" = "無效的用戶名或密碼。";
+"invalid_username_or_password" = "無效的使用者名稱或密碼。";
 
-"login" = "登錄";
+"login" = "登入";
 
 "password" = "密碼";
 
@@ -1183,31 +1183,31 @@
 /* Forgot Password dialog title */
 "restore_password" = "恢復密碼";
 
-"enter_email_address_to_reset_password" = "輸入您在註冊時所用的郵箱地址，我們會給您發送鏈接更新密碼";
+"enter_email_address_to_reset_password" = "輸入您在註冊時所用的電子郵件地址，我們會發送連結給您更新密碼";
 
 "reset_password" = "重置密碼";
 
-"username" = "用戶名";
+"username" = "使用者名稱";
 
-"osm_account" = "OSM賬戶";
+"osm_account" = "OSM 帳號";
 
 "logout" = "登出";
 
-"login_and_edit_map_motivation_message" = "登錄並編輯地圖上的物品信息，我們就會讓數百萬其他用戶看到。";
+"login_and_edit_map_motivation_message" = "登錄並編輯地圖上的物件資訊，我們就會讓其他數百萬用戶看到。";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "上次上傳";
 
 /* Motivates user to login/register, title above login buttons. */
-"you_have_edited_your_first_object" = "您已編輯您的第一件物品！";
+"you_have_edited_your_first_object" = "您已編輯您的第一個物件！";
 
 "thank_you" = "謝謝您";
 
-"login_with_google" = "用谷歌登陸";
+"login_with_google" = "用 Google 登入";
 
-"login_with_facebook" = "用臉書登陸";
+"login_with_facebook" = "用 Facebook 登入";
 
-"login_with_openstreetmap" = "登錄到www.openstreetmap.org";
+"login_with_openstreetmap" = "登入到 www.openstreetmap.org";
 
 "edit_place" = "編輯地點";
 
@@ -1219,12 +1219,12 @@
 "other_languages" = "其他語言";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "顯示更多";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "顯示較少";
 
-"add_language" = "添加語言";
+"add_language" = "新增語言";
 
 "street" = "街道";
 
@@ -1234,64 +1234,64 @@
 "details" = "詳細資訊";
 
 /* Text field to enter non-existing street name, below list of known streets around */
-"add_street" = "添加街道";
+"add_street" = "新增街道";
 
 "choose_language" = "選擇語言";
 
 "choose_street" = "選擇街道";
 
-"postal_code" = "郵政編碼";
+"postal_code" = "郵遞區號";
 
-"cuisine" = "菜肴";
+"cuisine" = "料理";
 
-"select_cuisine" = "選擇菜肴";
+"select_cuisine" = "選擇料理";
 
 /* login text field */
-"email_or_username" = "郵箱或用戶名";
+"email_or_username" = "電子郵件或使用者名稱";
 
 "phone" = "電話";
 
 "please_note" = "請註意";
 
-"common_no_wifi_dialog" = "無WiFi連接。您想繼續使用移動數據進行連接嗎？";
+"common_no_wifi_dialog" = "無 WiFi 連接。您想繼續使用行動數據進行連接嗎？";
 
 "downloader_delete_map_dialog" = "所有對地圖的修改都將與地圖一起被刪除。";
 
 "downloader_update_maps" = "更新地圖";
 
-"downloader_mwm_migration_dialog" = "為了創建路線，您需要更新全部地圖並重新規劃路線。";
+"downloader_mwm_migration_dialog" = "為了建立路線，您需要更新全部地圖並重新規劃路線。";
 
 "downloader_search_field_hint" = "找到地圖";
 
 "migration_update_all_button" = "更新全部地圖";
 
-"migration_delete_all_download_current_button" = "下載當前地圖並刪除舊地圖";
+"migration_delete_all_download_current_button" = "下載目前地圖並刪除舊地圖";
 
 "migration_download_error_dialog" = "下載錯誤";
 
-"common_check_internet_connection_dialog" = "請檢查您的設置並確保您的設備已連接至網絡。";
+"common_check_internet_connection_dialog" = "請檢查您的設定並確保您的設備已連接至網路。";
 
 "downloader_no_space_title" = "無足夠的空間";
 
-"downloader_no_space_message" = "請刪除不必要的數據";
+"downloader_no_space_message" = "請刪除不必要的資料";
 
-"editor_general_auth_error_dialog" = "一般登錄錯誤。";
+"editor_general_auth_error_dialog" = "一般登入錯誤。";
 
-"editor_login_error_dialog" = "登錄錯誤。";
+"editor_login_error_dialog" = "登入錯誤。";
 
-"editor_login_failed_dialog" = "登錄失敗";
+"editor_login_failed_dialog" = "登入失敗";
 
-"editor_username_error_dialog" = "用戶名不存在";
+"editor_username_error_dialog" = "使用者名稱不存在";
 
-"editor_place_edited_dialog" = "您已編輯了一個對象！";
+"editor_place_edited_dialog" = "您已編輯了一個物件！";
 
-"editor_login_with_osm" = "使用OpenStreetMap進行登錄";
+"editor_login_with_osm" = "使用 OpenStreetMap 進行登入";
 
 "editor_profile_changes" = "更改：";
 
 "editor_profile_unsent_changes" = "未發送：";
 
-"editor_focus_map_on_location" = "拖動地圖以選擇此對象的正確位置。";
+"editor_focus_map_on_location" = "拖動地圖以選擇此物件的正確位置。";
 
 "editor_add_select_category" = "選擇類別";
 
@@ -1301,7 +1301,7 @@
 
 "editor_edit_place_title" = "編輯中";
 
-"editor_add_place_title" = "添加中";
+"editor_add_place_title" = "新增中";
 
 "editor_edit_place_name_hint" = "該地點的名稱";
 
@@ -1311,39 +1311,39 @@
 
 "editor_report_problem_other_title" = "一個不同的問題";
 
-"placepage_add_place_button" = "添加一個地點";
+"placepage_add_place_button" = "新增一個地點";
 
-"placepage_report_problem_button" = "報告一個問題";
+"placepage_report_problem_button" = "回報問題";
 
-"placepage_add_business_button" = "添加組織";
+"placepage_add_business_button" = "新增組織";
 
-"whatsnew_smallmwm_header" = "您一直在尋求，而我們已經完成";
+"whatsnew_smallmwm_header" = "您一直在要求，而我們已經完成";
 
 "whatsnew_smallmwm_message" = "我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。";
 
 "whatsnew_search_header" = "新搜尋";
 
-"whatsnew_search_message" = "我們已明顯改進了按地址的搜索。親自看看。";
+"whatsnew_search_message" = "我們已明顯改進了按地址的搜尋。親自看看。";
 
 "whatsnew_editor_title" = "編輯此地圖*";
 
-"whatsnew_editor_message_1" = "添加新地點到該地圖，並直接通過此應用編輯已存在的地點。";
+"whatsnew_editor_message_1" = "新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。";
 
-"whatsnew_editor_message_2" = "* MAPS.ME使用OpenStreetMap社區的數據。";
+"whatsnew_editor_message_2" = "* MAPS.ME 使用 OpenStreetMap 社群的數據。";
 
 "onboarding_offline_navigation_title" = "您將不再迷路";
 
-"onboarding_offline_navigation_message" = "規劃最佳的駕車和步行路線，即使在沒有網絡連接的情況下！";
+"onboarding_offline_navigation_message" = "規劃最佳的行車和步行路線，即使在沒有網絡連接的情況下！";
 
 "onboarding_offline_navigation_title_2" = "離線導航";
 
-"onboarding_offline_navigation_message_2" = "規劃最佳的駕車和步行路線。";
+"onboarding_offline_navigation_message_2" = "規劃最佳的行車和步行路線。";
 
 "onboarding_offline_maps_title" = "MAPS.ME — 無需網際網路獲取全球地圖";
 
 "onboarding_offline_maps_message" = "一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。";
 
-"onboarding_notifications_message" = "為了接收最新的地圖，請獲取更新通知";
+"onboarding_notifications_message" = "為了接收最新的地圖，請接收更新通知";
 
 "onboarding_notifications_title" = "啟用更新通知";
 
@@ -1353,23 +1353,23 @@
 
 "dialog_incorrect_feature_position" = "改變位置";
 
-"message_invalid_feature_position" = "對象無法設置在這裡";
+"message_invalid_feature_position" = "物件無法設置在這裡";
 
-"login_to_make_edits_visible" = "登陸，讓其他用戶能看到您所作出的修改。";
+"login_to_make_edits_visible" = "登入來讓其他使用者能看到您所作出的修改。";
 
 "no_migration_during_navigation" = "導航中禁止更新。";
 
-"editor_sharing_title" = "我改進了MAPS.ME地圖";
+"editor_sharing_title" = "我改進了 MAPS.ME 地圖";
 
-"editor_comment_will_be_sent" = "我們將把您的評論發送給地圖制作者。";
+"editor_comment_will_be_sent" = "我們將把您的評論發送給地圖編輯者。";
 
-"editor_unsupported_category_message" = "您已添加了一個我們尚未支持類別的地點。它將在一段時間之後顯示在地圖上。";
+"editor_unsupported_category_message" = "您已新增了一個我們尚未支援的類別的地點。它未來會顯示在地圖上。";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d個/共%2$d個";
 
 "download_over_mobile_header" = "用手機網絡連接下載嗎？";
 
-"download_over_mobile_message" = "用一些方案或漫遊的話這可能相當昂貴。";
+"download_over_mobile_message" = "用某些方案或漫遊的話這可能相當昂貴。";
 
-"error_enter_correct_house_number" = "輸入正確的房屋號";
+"error_enter_correct_house_number" = "輸入正確的門牌號碼";

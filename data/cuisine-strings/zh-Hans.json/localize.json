@@ -13,7 +13,7 @@
 "indian":"印度菜",
 "american":"美国菜",
 "french":"法国菜",
-"ice_cream":"冰_淇淋",
+"ice_cream":"冰淇淋",
 "asian":"亚洲菜",
 "chicken":"鸡",
 "greek":"希腊菜",
@@ -23,7 +23,7 @@
 "fish_and_chips":"炸鱼 和 薯条",
 "turkish":"土耳其菜",
 "seafood":"海鲜",
-"steak_house":"牛排_馆",
+"steak_house":"牛排馆",
 "spanish":"西班牙菜",
 "fish":"鱼",
 "vietnamese":"越南菜",
@@ -82,6 +82,6 @@
 "savory_pancakes":"咸的_煎饼",
 "moroccan":"摩洛哥菜",
 "peruvian":"秘鲁的",
-"fine_dining":"高级 餐饮",
+"fine_dining":"高级餐饮",
 "tea":"茶"
 }

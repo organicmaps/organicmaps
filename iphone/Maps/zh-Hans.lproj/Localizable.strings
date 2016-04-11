@@ -50,7 +50,7 @@
 "get_it_now" = "现在就获取它";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "感谢您使用 MAPS.ME！您喜欢该应用吗？告诉您的好友们吧！这会是对我们最好的感谢。";
+"share_on_facebook_text" = "感谢您使用 MAPS.ME！您喜欢此应用吗？告诉您的好友们吧！这会是对我们最好的感谢。";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -79,7 +79,7 @@
 /* View and button titles for accessibility */
 "my_position" = "我的位置";
 
-"ok" = "好";
+"ok" = "确定";
 
 /* not used? Search View - Location is disabled by user warning text */
 "enable_location_services" = "请启用位置服务";
@@ -118,7 +118,7 @@
 "which_measurement_system" = "您喜欢哪种测量系统?";
 
 /* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "您目前有此设备的所有位置服务或应用已禁 用。请在设置中启用它们。";
+"location_is_disabled_long_text" = "您目前有此设备的所有位置服务或应用已禁用。请在设置中启用它们。";
 
 /* Location Services are not available on the device alert - message */
 "device_doesnot_support_location_services" = "您的设备不支持位置服务。";
@@ -407,7 +407,7 @@
 "bookmark_share_email" = "嗨,\n\n我在 MAPS.ME 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "嗨，到MAPS.ME查看我的当前位置！";
+"my_position_share_email_subject" = "嗨，到 MAPS.ME 查看我的当前位置！";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "嗨,\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的 位置。\n\n谢谢。";
@@ -501,10 +501,10 @@
 "pref_map_3d_title" = "透视图";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D建筑";
+"pref_map_3d_buildings_title" = "3D 建筑";
 
 /* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "影响电池寿命";
+"pref_map_3d_buildings_subtitle" = "增加电池消耗";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "语音指导";
@@ -598,10 +598,10 @@
 "move_lite_maps_to_pro" = "我们正在将您从MAPS.ME Lite 下载的地图传输至 MAPS.ME。这可能需要几分钟的时间。";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "您下载的地图已成功传输至MAPS.ME。";
+"move_lite_maps_to_pro_ok" = "您下载的地图已成功传输至 MAPS.ME。";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "您的地图传输失败。请删除MAPS.ME Lite，然后再次下载地图。";
+"move_lite_maps_to_pro_failed" = "您的地图传输失败。请删除 MAPS.ME Lite，然后再次下载地图。";
 
 /* Text in menu */
 "settings_and_more" = "设置及更多";
@@ -664,7 +664,7 @@
 "about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
-"about_text" = "MAPS.ME提供全球所有国家和所有城市的最快速的离线地图。充满自信地出行：无论您在哪，MAPS.ME都能够帮助您在地图上找到您自己的位置，找到最近的餐馆、酒店、银行、加油站，等等。无需网络连接。\n\n我们始终在为添加新功能而努力，并希望能够听到您对我们应如何改进MAPS.ME的想法。若您在使用本应用时遇到任何问题，请随时联系我们：support@maps.me。我们会回复每一条请求！\n\n您喜欢MAPS.ME并希望支持我们吗？以下为一些简单且完全免费的方法：\n\n- 在您的App Market发表评论\n- 在我们的Facebook页面http://www.facebook.com/mapswithme赞我们\n- 或者向您的母亲、朋友，以及同事介绍MAPS.ME :)\n\n感谢您与我们在一起。非常感谢您的支持。\n\n附言：我们从OpenStreetMap获取地图信息，这是一个类似于Wikipedia的地图绘制项目，能够让用户创建并编辑地图。若您看到地图上缺少了什么或者有什么错误，可以直接在http://openstreetmap.org上进行纠正。在下一个版本发布时，您做出的更改便会出现在MAPS.ME应用中。";
+"about_text" = "MAPS.ME 提供全球所有国家和所有城市的最快速的离线地图。充满自信地出行：无论您在哪，MAPS.ME都能够帮助您在地图上找到您自己的位置，找到最近的餐馆、酒店、银行、加油站，等等。无需网络连接。\n\n我们始终在为添加新功能而努力，并希望能够听到您对我们应如何改进MAPS.ME的想法。若您在使用本应用时遇到任何问题，请随时联系我们：support@maps.me。我们会回复每一条请求！\n\n您喜欢MAPS.ME并希望支持我们吗？以下为一些简单且完全免费的方法：\n\n- 在您的App Market发表评论\n- 在我们的Facebook页面http://www.facebook.com/mapswithme赞我们\n- 或者向您的母亲、朋友，以及同事介绍MAPS.ME :)\n\n感谢您与我们在一起。非常感谢您的支持。\n\n附言：我们从OpenStreetMap获取地图信息，这是一个类似于Wikipedia的地图绘制项目，能够让用户创建并编辑地图。若您看到地图上缺少了什么或者有什么错误，可以直接在http://openstreetmap.org上进行纠正。在下一个版本发布时，您做出的更改便会出现在MAPS.ME应用中。";
 
 /* Alert text */
 "email_error_body" = "电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%@";
@@ -820,7 +820,7 @@
 "routing_download_map" = "获取地图";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "下载更新的地图和路线数据，获取所有MAPS.ME的特色功能。";
+"routing_download_map_and_routing" = "下载更新的地图和路线数据，获取所有 MAPS.ME 的特色功能。";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "获取所需的路线数据";
@@ -877,7 +877,7 @@
 
 "edit_description_hint" = "您的描述（文本或html）";
 
-"new_group" = "新组";
+"new_group" = "新群組";
 
 "create" = "创建";
 
@@ -1039,7 +1039,7 @@
 
 "search_not_found_location" = "下载您当前位置的地图。";
 
-"search_history_title" = "搜索历史。";
+"search_history_title" = "搜索历史";
 
 "search_history_text" = "快速访问最近的搜索查询。";
 
@@ -1253,7 +1253,7 @@
 
 "please_note" = "请注意";
 
-"common_no_wifi_dialog" = "无WiFi连接。您想继续使用移动数据进行连接吗？";
+"common_no_wifi_dialog" = "无 WiFi 连接。您想继续使用移动数据进行连接吗？";
 
 "downloader_delete_map_dialog" = "所有对地图的修改都将与地图一起被删除。";
 

@@ -705,7 +705,7 @@
 
 "downloader_download_all_button" = "全てをダウンロード";
 
-"downloader_downloading" = "づンロード中：";
+"downloader_downloading" = "ダウンロード中：";
 
 "downloader_search_results" = "見つかりました";
 
@@ -1181,7 +1181,7 @@
 "forgot_password" = "パスワードをお忘れですか？";
 
 /* Forgot Password dialog title */
-"restore_password" = "パスワードをf復元";
+"restore_password" = "パスワードを復元";
 
 "enter_email_address_to_reset_password" = "登録の際に使用したメールアドレスを入力してください。パスワードを更新するリンクをお送りします。";
 

@@ -424,7 +424,7 @@
 	<string name="downloader_near_me_subtitle">付近</string>
 	<string name="downloader_status_maps">地図</string>
 	<string name="downloader_download_all_button">全てをダウンロード</string>
-	<string name="downloader_downloading">づンロード中：</string>
+	<string name="downloader_downloading">ダウンロード中：</string>
 	<string name="downloader_search_results">見つかりました</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！</string>
@@ -699,7 +699,7 @@
 	<string name="password">パスワード</string>
 	<string name="forgot_password">パスワードをお忘れですか？</string>
 	<!-- Forgot Password dialog title -->
-	<string name="restore_password">パスワードをf復元</string>
+	<string name="restore_password">パスワードを復元</string>
 	<string name="enter_email_address_to_reset_password">登録の際に使用したメールアドレスを入力してください。パスワードを更新するリンクをお送りします。</string>
 	<string name="reset_password">パスワードをリセット</string>
 	<string name="username">ユーザー名</string>
