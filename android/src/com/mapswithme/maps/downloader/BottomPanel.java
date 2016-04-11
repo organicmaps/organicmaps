@@ -23,13 +23,18 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-      MapManager.nativeDownload(mFragment.getAdapter().getCurrentParent());
-
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                     Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                        .add(Statistics.EventParam.FROM, "downloader")
-                                                        .add("is_auto", "false")
-                                                        .add("scenario", "download_group"));
+      MapManager.warn3gAndDownload(mFragment.getActivity(), mFragment.getAdapter().getCurrentParent(), new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                         Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                            .add(Statistics.EventParam.FROM, "downloader")
+                                                            .add("is_auto", "false")
+                                                            .add("scenario", "download_group"));
+        }
+      });
     }
   };
 
@@ -38,13 +43,21 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-      MapManager.nativeUpdate(mFragment.getAdapter().getCurrentParent());
+      final String country = mFragment.getAdapter().getCurrentParent();
+      MapManager.warnOn3g(mFragment.getActivity(), country, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          MapManager.nativeUpdate(country);
 
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                     Statistics.params().add(Statistics.EventParam.ACTION, "update")
-                                                        .add(Statistics.EventParam.FROM, "downloader")
-                                                        .add("is_auto", "false")
-                                                        .add("scenario", "update_all"));
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                         Statistics.params().add(Statistics.EventParam.ACTION, "update")
+                                                            .add(Statistics.EventParam.FROM, "downloader")
+                                                            .add("is_auto", "false")
+                                                            .add("scenario", "update_all"));
+        }
+      });
     }
   };
 

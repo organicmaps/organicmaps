@@ -174,19 +174,28 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     UPDATE(R.drawable.ic_update, R.string.downloader_update_map)
     {
       @Override
-      void invoke(CountryItem item, DownloaderAdapter adapter)
+      void invoke(final CountryItem item, DownloaderAdapter adapter)
       {
         item.update();
 
-        if (item.status == CountryItem.STATUS_UPDATABLE)
-          MapManager.nativeUpdate(item.id);
+        if (item.status != CountryItem.STATUS_UPDATABLE)
+          return;
 
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                       Statistics.params().add(Statistics.EventParam.ACTION, "update")
-                                                          .add(Statistics.EventParam.FROM, "downloader")
-                                                          .add("is_auto", "false")
-                                                          .add("scenario", (item.isExpandable() ? "update_group"
-                                                                                                : "update")));
+        MapManager.warnOn3g(adapter.mActivity, item.id, new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            MapManager.nativeUpdate(item.id);
+
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                           Statistics.params().add(Statistics.EventParam.ACTION, "update")
+                                                              .add(Statistics.EventParam.FROM, "downloader")
+                                                              .add("is_auto", "false")
+                                                              .add("scenario", (item.isExpandable() ? "update_group"
+                                                                                                    : "update")));
+          }
+        });
       }
     };
 
@@ -313,14 +322,21 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_UPDATABLE:
-        MapManager.nativeUpdate(mItem.id);
+        MapManager.warnOn3g(mActivity, mItem.id, new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            MapManager.nativeUpdate(mItem.id);
 
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                       Statistics.params().add(Statistics.EventParam.ACTION, "update")
-                                                          .add(Statistics.EventParam.FROM, "downloader")
-                                                          .add("is_auto", "false")
-                                                          .add("scenario", (mItem.isExpandable() ? "update_group"
-                                                                                                 : "update")));
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                           Statistics.params().add(Statistics.EventParam.ACTION, "update")
+                                                              .add(Statistics.EventParam.FROM, "downloader")
+                                                              .add("is_auto", "false")
+                                                              .add("scenario", (mItem.isExpandable() ? "update_group"
+                                                                                                     : "update")));
+          }
+        });
         break;
 
       default:

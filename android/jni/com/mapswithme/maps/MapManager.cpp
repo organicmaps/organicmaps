@@ -5,6 +5,7 @@
 #include "coding/internal/file_data.hpp"
 
 #include "storage/storage.hpp"
+#include "storage/storage_helpers.hpp"
 
 #include "base/thread_checker.hpp"
 
@@ -94,6 +95,20 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceForMigration(JNIEnv * env, jclass clazz)
 {
   return g_framework->HasSpaceForMigration();
+}
+
+// static boolean nativeHasSpaceToDownloadAmount(String root);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToDownloadAmount(JNIEnv * env, jclass clazz, jlong size)
+{
+  return IsEnoughSpaceForDownload(size);
+}
+
+// static boolean nativeHasSpaceForDownloadCountry(long size);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToDownloadCountry(JNIEnv * env, jclass clazz, jstring root)
+{
+  return IsEnoughSpaceForDownload(jni::ToNativeString(env, root), GetStorage());
 }
 
 // static native boolean nativeIsLegacyMode();
