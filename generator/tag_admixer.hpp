@@ -172,9 +172,9 @@ public:
       if (it != m_entries.end())
       {
         auto const & v = it->second;
-        tag.key = v[2];
-        tag.value = v[3];
-        for (size_t i = 4; i < v.size(); i += 2)
+        tag.key = v[0];
+        tag.value = v[1];
+        for (size_t i = 2; i < v.size(); i += 2)
           p->AddTag(v[i], v[i + 1]);
       }
     }
