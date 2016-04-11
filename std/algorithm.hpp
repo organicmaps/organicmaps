@@ -7,6 +7,7 @@
 #include <algorithm>
 
 using std::all_of;
+using std::any_of;
 using std::binary_search;
 using std::copy;
 using std::equal;

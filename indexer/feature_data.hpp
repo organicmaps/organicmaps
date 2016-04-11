@@ -224,7 +224,7 @@ public:
 
   bool AddName(string const & lang, string const & s);
   bool AddHouseName(string const & s);
-  bool AddHouseNumber(string const & s);
+  bool AddHouseNumber(string houseNumber);
 
   /// @name Used in storing full street address only.
   //@{
