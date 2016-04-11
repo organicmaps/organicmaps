@@ -41,7 +41,8 @@ using namespace storage;
   [super reload];
 
   NSInteger const closestCoutriesCountAfterUpdate = self.nearmeCountries.count;
-  if (closestCoutriesCountBeforeUpdate == 0 || closestCoutriesCountAfterUpdate == 0)
+  if (closestCoutriesCountBeforeUpdate != closestCoutriesCountAfterUpdate &&
+      (closestCoutriesCountBeforeUpdate == 0 || closestCoutriesCountAfterUpdate == 0))
     self.needFullReload = YES;
   if (self.needFullReload)
     return;

@@ -81,7 +81,7 @@ namespace
   self.downloadSize.text = formattedSize(haveDownloadingCountries ? nodeAttrs.m_downloadingMwmSize : nodeAttrs.m_mwmSize);
 }
 
-- (void)configProgress:(const storage::NodeAttrs &)nodeAttrs
+- (void)configProgress:(storage::NodeAttrs const &)nodeAttrs
 {
   MWMCircularProgress * progress = self.progress;
   switch (nodeAttrs.m_status)

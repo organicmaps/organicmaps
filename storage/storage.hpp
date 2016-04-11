@@ -579,6 +579,7 @@ private:
   /// Calculates progress of downloading for expandable nodes in country tree.
   /// |descendants| All descendants of the parent node.
   /// |downloadingMwm| Downloading leaf node country id if any. If not, downloadingMwm == kInvalidCountryId.
+  /// |downloadingMwm| Must be only leaf.
   /// If downloadingMwm != kInvalidCountryId |downloadingMwmProgress| is a progress of downloading
   /// the leaf node in bytes. |downloadingMwmProgress.first| == number of downloaded bytes.
   /// |downloadingMwmProgress.second| == number of bytes in downloading files.
