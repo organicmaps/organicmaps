@@ -53,13 +53,17 @@ using namespace osm;
   BOOL const haveCurrentStreet = !currentStreet.m_defaultName.empty();
   if (haveCurrentStreet)
   {
-    m_streets.erase(remove(m_streets.begin(), m_streets.end(), currentStreet));
-    m_streets.insert(m_streets.begin(), currentStreet);
+    auto const it = find(m_streets.begin(), m_streets.end(), currentStreet);
+    self.selectedStreet = it - m_streets.begin();
   }
-  m_editedStreetName = "";
-  self.selectedStreet = haveCurrentStreet ? 0 : NSNotFound;
-  self.lastSelectedStreet = NSNotFound;
+  else
+  {
+    self.selectedStreet = NSNotFound;
+  }
   self.navigationItem.rightBarButtonItem.enabled = haveCurrentStreet;
+  self.lastSelectedStreet = NSNotFound;
+
+  m_editedStreetName = "";
 }
 
 - (void)configTable
