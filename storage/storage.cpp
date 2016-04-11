@@ -1333,7 +1333,12 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
                                                                : kInvalidCountryId;
     MapFilesDownloader::TProgress downloadingMwmProgress(0, 0);
     if (!m_downloader->IsIdle())
+    {
       downloadingMwmProgress = m_downloader->GetDownloadingProgress();
+      // If we don't know estimated file size then we ignore its progress.
+      if (downloadingMwmProgress.second == -1)
+        downloadingMwmProgress = {0, 0};
+    }
 
     TCountriesSet setQueue;
     GetQueuedCountries(m_queue, setQueue);
