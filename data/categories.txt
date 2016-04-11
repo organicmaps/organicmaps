@@ -354,7 +354,7 @@ th:เครื่องสำอาง|ร้านค้า
 tr:Bakım ürünleri|güzellik merkezi|mağaza
 uk:4Косметика|крамниця
 vi:Mỹ phẩm|cửa hàng
-zh-Hans:化妆品|商店
+zh-Hans:化妝品|商店
 zh-Hant:化妆品|美妝店|購物
 
 shop-convenience
@@ -634,7 +634,7 @@ fi:Elektroniikka|3kauppa
 cs:Elektronika|2obchod
 it:Negozio di elettronica|2negozio
 nb:Elektronikk forhandler|3butikk
-zh-Hant:電子產品|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hant:電子產品|電器店|1購物|店鋪|商店|雜貨店|便利商店
 zh-Hans:电子产品|商店
 th:ร้านขายอุปกรณ์อิเล็กทรอนิกส์|2ร้านค้า
 ja:電気店|1買い物|お買い物|ショップ|商店|雑貨
@@ -673,7 +673,7 @@ tr:Hırdavatçı|Nalbur|mağaza
 uk:Будматеріали|господарський|магазин|крамниця
 vi:Cửa hàng phần cứng|cửa hàng
 zh-Hans:硬件店|自助商店|商店
-zh-Hant:硬件店|購物|店鋪|商店|雜貨店|便利商店
+zh-Hant:五金行|硬件店|購物|店鋪|商店|雜貨店|便利商店
 
 shop-jewelry
 en:Jewelry|U+1F48D|2shop
@@ -1367,7 +1367,7 @@ ja:1地下鉄|地下鉄駅|電車|鉄道|交通|交通機関|交通|鉄|電
 cs:3Metro|3podzemka|doprava
 sk:3Metro|podzemná doprava|doprava
 nl:3Metro|transport
-zh-Hant:1地鐵|2地下鐵|運輸
+zh-Hant:1地鐵|捷運|2地下鐵|運輸
 pl:3Metro|kolej podziemna|transport
 pt:Metro|transporte
 hu:3Földalatti|3metro|közlekedés
@@ -2380,7 +2380,7 @@ ja:1水飲み場|飲料水|飲水|水
 cs:4Pitná voda
 sk:4Pitná voda
 nl:4Drinkwater
-zh-Hant:1飲用水|可喝的水|2飲水設施|喝水|口渴
+zh-Hant:1飲用水|飲水機|可喝的水|2飲水設施|喝水|口渴
 pl:4Picie wody|woda|picie
 pt:Água potável
 hu:4Ivóvíz
@@ -2643,7 +2643,7 @@ ja:1幼稚園|保育園|託児|託児所
 cs:Školka|mateřská škola|dětská školka|mateřská školka
 sk:Škôlka|materská škola|detská škôlka
 nl:Kleuterschool
-zh-Hant:1幼稚園
+zh-Hant:幼兒園|1幼稚園
 pl:4Przedszkole|dzieci|zerówka
 pt:Jardim de infância
 hu:Óvoda
@@ -5180,7 +5180,7 @@ tr:Kuru Temizleme|temizleme
 uk:Хімчистка
 vi:Giặt Sấy|giặt giũ
 zh-Hans:干洗|清洁
-zh-Hant:幹洗|清潔
+zh-Hant:乾洗|清潔
 
 shop-tyres
 en:Tyre Shop|shop
