@@ -6,14 +6,16 @@ namespace
   NSString * const kStreetEditorEditCell = @"MWMStreetEditorEditTableViewCell";
 } // namespace
 
-@interface MWMStreetEditorViewController () <MWMStreetEditorEditCellProtocol>
+using namespace osm;
 
-@property (nonatomic) NSMutableArray<NSString *> * streets;
+@interface MWMStreetEditorViewController () <MWMStreetEditorEditCellProtocol>
+{
+  vector<osm::LocalizedStreet> m_streets;
+  string m_editedStreetName;
+}
 
 @property (nonatomic) NSUInteger selectedStreet;
 @property (nonatomic) NSUInteger lastSelectedStreet;
-
-@property (nonatomic) NSString * editedStreetName;
 
 @end
 
@@ -45,18 +47,23 @@ namespace
 
 - (void)configData
 {
-  self.streets = [[self.delegate getNearbyStreets] mutableCopy];
-  NSString * currentStreet = [self.delegate getStreet];
-  BOOL const haveCurrentStreet = (currentStreet && currentStreet.length != 0);
+  m_streets = self.delegate.nearbyStreets;
+  auto const & currentStreet = self.delegate.currentStreet;
+
+  BOOL const haveCurrentStreet = !currentStreet.m_defaultName.empty();
   if (haveCurrentStreet)
   {
-    [self.streets removeObject:currentStreet];
-    [self.streets insertObject:currentStreet atIndex:0];
+    auto const it = find(m_streets.begin(), m_streets.end(), currentStreet);
+    self.selectedStreet = it - m_streets.begin();
   }
-  self.editedStreetName = @"";
-  self.selectedStreet = haveCurrentStreet ? 0 : NSNotFound;
-  self.lastSelectedStreet = NSNotFound;
+  else
+  {
+    self.selectedStreet = NSNotFound;
+  }
   self.navigationItem.rightBarButtonItem.enabled = haveCurrentStreet;
+  self.lastSelectedStreet = NSNotFound;
+
+  m_editedStreetName = "";
 }
 
 - (void)configTable
@@ -74,8 +81,11 @@ namespace
 
 - (void)onDone
 {
-  NSString * street = (self.selectedStreet == NSNotFound ? self.editedStreetName : self.streets[self.selectedStreet]);
-  [self.delegate setStreet:street];
+  if (self.selectedStreet == NSNotFound)
+    [self.delegate setNearbyStreet:{m_editedStreetName, ""}];
+  else
+    [self.delegate setNearbyStreet:m_streets[self.selectedStreet]];
+
   [self onCancel];
 }
 
@@ -84,12 +94,13 @@ namespace
   if ([cell isKindOfClass:[MWMStreetEditorEditTableViewCell class]])
   {
     MWMStreetEditorEditTableViewCell * tCell = (MWMStreetEditorEditTableViewCell *)cell;
-    [tCell configWithDelegate:self street:self.editedStreetName];
+    [tCell configWithDelegate:self street:@(m_editedStreetName.c_str())];
   }
   else
   {
     NSUInteger const index = indexPath.row;
-    NSString * street = self.streets[index];
+    // TODO: also display localized name if it exists.
+    NSString * street = @(m_streets[index].m_defaultName.c_str());
     BOOL const selected = (self.selectedStreet == index);
     cell.textLabel.text = street;
     cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -103,7 +114,7 @@ namespace
   if (text && text.length != 0)
   {
     self.navigationItem.rightBarButtonItem.enabled = YES;
-    self.editedStreetName = text;
+    m_editedStreetName = text.UTF8String;
     if (self.selectedStreet != NSNotFound)
     {
       self.lastSelectedStreet = self.selectedStreet;
@@ -128,8 +139,7 @@ namespace
 
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  NSUInteger const streetsCount = self.streets.count;
-  if (streetsCount == 0)
+  if (m_streets.empty())
     return [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
   if (indexPath.section == 0)
     return [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
@@ -139,7 +149,7 @@ namespace
 
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section
 {
-  NSUInteger const count = self.streets.count;
+  auto const count = m_streets.size();
   if ((section == 0 && count == 0) || section != 0)
     return 1;
   return count;
@@ -147,7 +157,7 @@ namespace
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return self.streets.count > 0 ? 2 : 1;
+  return m_streets.empty()? 1 : 2;
 }
 
 #pragma mark - UITableViewDelegate

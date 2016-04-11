@@ -406,14 +406,14 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     fti.m_feature.ReplaceBy(emo);
     bool const sameAsInMWM = featureStatus != FeatureStatus::Created &&
         AreFeaturesEqualButStreet(fti.m_feature, *m_getOriginalFeatureFn(fid)) &&
-        emo.GetStreet() == m_getOriginalFeatureStreetFn(fti.m_feature);
+        emo.GetStreet().m_defaultName == m_getOriginalFeatureStreetFn(fti.m_feature);
 
     if (featureStatus != FeatureStatus::Untouched)
     {
       // A feature was modified and equals to the one in editor.
       auto const & editedFeatureInfo = m_features[fid.m_mwmId][fid.m_index];
       if (AreFeaturesEqualButStreet(fti.m_feature, editedFeatureInfo.m_feature) &&
-          emo.GetStreet() == editedFeatureInfo.m_street)
+          emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
         return NothingWasChanged;
       }
@@ -448,7 +448,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
 
   // TODO: What if local client time is absolutely wrong?
   fti.m_modificationTimestamp = time(nullptr);
-  fti.m_street = emo.GetStreet();
+  fti.m_street = emo.GetStreet().m_defaultName;
 
   // Reset upload status so already uploaded features can be uploaded again after modification.
   fti.m_uploadStatus = {};

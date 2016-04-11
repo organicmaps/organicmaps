@@ -43,6 +43,14 @@ struct LocalizedName
   string const m_name;
 };
 
+struct LocalizedStreet
+{
+  string m_defaultName;
+  string m_localizedName;
+
+  bool operator==(LocalizedStreet const & st) const { return m_defaultName == st.m_defaultName; }
+};
+
 class EditableMapObject : public MapObject
 {
 public:
@@ -55,8 +63,8 @@ public:
 
   StringUtf8Multilang const & GetName() const;
   vector<LocalizedName> GetLocalizedNames() const;
-  string const & GetStreet() const;
-  vector<string> const & GetNearbyStreets() const;
+  LocalizedStreet const & GetStreet() const;
+  vector<LocalizedStreet> const & GetNearbyStreets() const;
   string const & GetHouseNumber() const;
   string GetPostcode() const;
   string GetWikipedia() const;
@@ -69,8 +77,8 @@ public:
   void SetType(uint32_t featureType);
   void SetID(FeatureID const & fid);
   //  void SetTypes(feature::TypesHolder const & types);
-  void SetStreet(string const & street);
-  void SetNearbyStreets(vector<string> && streets);
+  void SetStreet(LocalizedStreet const & st);
+  void SetNearbyStreets(vector<LocalizedStreet> && streets);
   /// @returns false if house number fails validation.
   static bool ValidateHouseNumber(string const & houseNumber);
   void SetHouseNumber(string const & houseNumber);
@@ -95,8 +103,8 @@ public:
 
 private:
   string m_houseNumber;
-  string m_street;
-  vector<string> m_nearbyStreets;
+  LocalizedStreet m_street;
+  vector<LocalizedStreet> m_nearbyStreets;
   EditableProperties m_editableProperties;
 };
 }  // namespace osm

@@ -1,11 +1,14 @@
 #import "MWMTableViewController.h"
 
+#include "indexer/editable_map_object.hpp"
+
+#include "std/vector.hpp"
+
 @protocol MWMStreetEditorProtocol <NSObject>
 
-- (NSString *)getStreet;
-- (void)setStreet:(NSString *)street;
-
-- (NSArray<NSString *> *)getNearbyStreets;
+- (osm::LocalizedStreet const &)currentStreet;
+- (void)setNearbyStreet:(osm::LocalizedStreet const &)street;
+- (vector<osm::LocalizedStreet> const &)nearbyStreets;
 
 @end
 
