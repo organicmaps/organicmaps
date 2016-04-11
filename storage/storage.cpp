@@ -88,6 +88,25 @@ void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCou
     resultCountries.insert(country.GetCountryId());
 }
 
+MapFilesDownloader::TProgress Storage::GetOverallProgress(TCountriesVec const & countries)
+{
+  MapFilesDownloader::TProgress overallProgress = {0, 0};
+  for (auto const & country : countries)
+  {
+    NodeAttrs attr;
+    GetNodeAttrs(country, attr);
+    
+    ASSERT_EQUAL(attr.m_mwmCounter, 1, ());
+    
+    if (attr.m_downloadingProgress.second != -1)
+    {
+      overallProgress.first += attr.m_downloadingProgress.first;
+      overallProgress.second += attr.m_downloadingProgress.second;
+    }
+  }
+  return overallProgress;
+}
+  
 Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */, string const & dataDir /* = string() */)
   : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId(0), m_dataDir(dataDir),
     m_downloadMapOnTheMap(nullptr)

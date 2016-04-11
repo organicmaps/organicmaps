@@ -444,6 +444,10 @@ public:
   int Subscribe(TChangeCountryFunction const & change, TProgressFunction const & progress);
   void Unsubscribe(int slotId);
 
+  /// Returns information about selected counties downloading progress.
+  /// |countries| - watched CountryId, ONLY leaf expected.
+  MapFilesDownloader::TProgress GetOverallProgress(TCountriesVec const &countries);
+  
   Country const & CountryLeafByCountryId(TCountryId const & countryId) const;
   Country const & CountryByCountryId(TCountryId const & countryId) const;
 

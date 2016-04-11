@@ -1588,6 +1588,17 @@ UNIT_TEST(StorageTest_DeleteNodeWithoutDownloading)
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
 }
 
+UNIT_TEST(StorageTest_GetOverallProgressSmokeTest)
+{
+  Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+  TaskRunner runner;
+  InitStorage(storage, runner);
+  
+  MapFilesDownloader::TProgress currentProgress = storage.GetOverallProgress({"Abkhazia","Algeria_Coast"});
+  TEST_EQUAL(currentProgress.first, 0, ());
+  TEST_EQUAL(currentProgress.second, 0, ());
+}
+
 UNIT_TEST(StorageTest_GetQueuedChildrenSmokeTest)
 {
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());

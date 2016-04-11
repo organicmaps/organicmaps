@@ -21,6 +21,7 @@
 		671182D51C7F0D6500CB8177 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */; };
 		671182D61C7F0D6800CB8177 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */; };
 		671182D71C7F0D6900CB8177 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */; };
+		67239C961CBBDB1700C530A8 /* download_calc_size_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67239C941CBBDB0E00C530A8 /* download_calc_size_test.cpp */; };
 		67247FCF1C60BA8A00EDE56A /* fake_map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FC51C60BA8A00EDE56A /* fake_map_files_downloader.hpp */; };
 		67247FD41C60BA8A00EDE56A /* task_runner.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FCA1C60BA8A00EDE56A /* task_runner.hpp */; };
 		67247FD61C60BA8A00EDE56A /* test_map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FCC1C60BA8A00EDE56A /* test_map_files_downloader.hpp */; };
@@ -167,6 +168,7 @@
 		671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries_obsolete.txt; sourceTree = "<group>"; };
 		671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons_obsolete.bin; sourceTree = "<group>"; };
 		671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
+		67239C941CBBDB0E00C530A8 /* download_calc_size_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = download_calc_size_test.cpp; sourceTree = "<group>"; };
 		67247FC31C60BA8A00EDE56A /* country_info_getter_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_info_getter_test.cpp; sourceTree = "<group>"; };
 		67247FC41C60BA8A00EDE56A /* fake_map_files_downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_map_files_downloader.cpp; sourceTree = "<group>"; };
 		67247FC51C60BA8A00EDE56A /* fake_map_files_downloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_map_files_downloader.hpp; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 		672480071C60CE3D00EDE56A /* storage_integration_tests */ = {
 			isa = PBXGroup;
 			children = (
+				67239C941CBBDB0E00C530A8 /* download_calc_size_test.cpp */,
 				56D8CB971CAC17A80003F420 /* test_defines.cpp */,
 				56D8CB981CAC17A80003F420 /* test_defines.hpp */,
 				671182CC1C7E069C00CB8177 /* storage_3levels_tests.cpp */,
@@ -721,6 +724,7 @@
 				67F90BD01C6A2A1E00CD458E /* storage_group_download_tests.cpp in Sources */,
 				67F90BCF1C6A2A1E00CD458E /* migrate_tests.cpp in Sources */,
 				67F90BD11C6A2A1E00CD458E /* storage_http_tests.cpp in Sources */,
+				67239C961CBBDB1700C530A8 /* download_calc_size_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
