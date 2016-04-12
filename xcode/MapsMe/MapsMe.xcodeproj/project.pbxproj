@@ -13,7 +13,6 @@
 		45B5B58D1CA4219C00D93E36 /* place_page_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5B5891CA4216B00D93E36 /* place_page_dialog.hpp */; };
 		45B5B58F1CA4222300D93E36 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B58E1CA4222300D93E36 /* countries-strings */; };
 		45B5B5911CA4226800D93E36 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5901CA4226800D93E36 /* editor.config */; };
-		45B5B5921CA4227F00D93E36 /* editor.config in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45B5B5901CA4226800D93E36 /* editor.config */; };
 		45B5B5981CA422C800D93E36 /* resources-6plus_clear in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5931CA422C800D93E36 /* resources-6plus_clear */; };
 		45B5B5991CA422C800D93E36 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5941CA422C800D93E36 /* resources-hdpi_clear */; };
 		45B5B59A1CA422C800D93E36 /* resources-ldpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5951CA422C800D93E36 /* resources-ldpi_clear */; };
@@ -161,7 +160,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				45B5B5921CA4227F00D93E36 /* editor.config in CopyFiles */,
 				67A461A71C2172C400B18739 /* 07_roboto_medium.ttf in CopyFiles */,
 				6714E5E41BD13F67008AB603 /* drules_proto_clear.bin in CopyFiles */,
 				6714E5E61BD13F67008AB603 /* drules_proto_dark.bin in CopyFiles */,
