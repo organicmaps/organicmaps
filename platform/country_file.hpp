@@ -20,8 +20,8 @@ public:
   string const & GetName() const;
 
   /// \note Remote size is size of mwm in bytes. This mwm contains routing and map sections.
-  void SetRemoteSizes(uint32_t mapSize, uint32_t routingSize);
-  uint32_t GetRemoteSize(MapOptions file) const;
+  void SetRemoteSizes(TMwmSize mapSize, TMwmSize routingSize);
+  TMwmSize GetRemoteSize(MapOptions file) const;
 
   inline bool operator<(const CountryFile & rhs) const { return m_name < rhs.m_name; }
   inline bool operator==(const CountryFile & rhs) const { return m_name == rhs.m_name; }
@@ -32,8 +32,8 @@ private:
 
   /// Base name (without any extensions) of the file. Same as id of country/region.
   string m_name;
-  uint32_t m_mapSize;
-  uint32_t m_routingSize;
+  TMwmSize m_mapSize;
+  TMwmSize m_routingSize;
 };
 
 /// \returns This method returns file name with extension. For example Abkhazia.mwm or

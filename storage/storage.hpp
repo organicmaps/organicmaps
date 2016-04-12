@@ -136,7 +136,7 @@ public:
   using TUpdateCallback = function<void(storage::TCountryId const &, TLocalFilePtr const)>;
   using TDeleteCallback = function<bool(storage::TCountryId const &, TLocalFilePtr const)>;
   using TChangeCountryFunction = function<void(TCountryId const &)>;
-  using TProgressFunction = function<void(TCountryId const &, TLocalAndRemoteSize const &)>;
+  using TProgressFunction = function<void(TCountryId const &, MapFilesDownloader::TProgress const &)>;
   using TQueue = list<QueuedCountry>;
 
 private:
