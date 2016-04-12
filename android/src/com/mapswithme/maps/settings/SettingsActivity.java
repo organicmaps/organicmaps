@@ -25,6 +25,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.editor.ProfileActivity;
 import com.mapswithme.util.FragmentListHelper;
 import com.mapswithme.util.ThemeUtils;
@@ -80,7 +81,11 @@ public class SettingsActivity extends PreferenceActivity
 
     mHeaders.clear();
     for (Header h : target)
+    {
       mHeaders.put(h.id, h);
+      if (h.id == R.id.osm_profile && OsmOAuth.isAuthorized())
+        h.title = OsmOAuth.getUsername();
+    }
   }
 
   @Override
