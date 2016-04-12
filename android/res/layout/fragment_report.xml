@@ -70,7 +70,7 @@
           android:id="@+id/input"
           android:layout_width="match_parent"
           android:layout_height="128dp"
-          android:background="@android:color/white"
+          android:background="?cardBackground"
           android:gravity="start|top"
           android:hint="@string/detailed_problem_description"
           android:padding="@dimen/margin_base"
