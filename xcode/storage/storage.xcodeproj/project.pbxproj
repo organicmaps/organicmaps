@@ -62,6 +62,7 @@
 		678CB3801CA5884800E9118D /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 678CB37F1CA5881B00E9118D /* editor.config */; };
 		67AF4A001BC579DD0048B1ED /* country_info_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */; };
 		67AF4A011BC579DD0048B1ED /* country_info_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */; };
+		67CCFA911CBD1628007FC750 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67CCFA901CBD1628007FC750 /* Images.xcassets */; };
 		67F90B6F1C6A277900CD458E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FD71C60BA9900EDE56A /* testingmain.cpp */; };
 		67F90B701C6A277900CD458E /* country_info_getter_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FC31C60BA8A00EDE56A /* country_info_getter_test.cpp */; };
 		67F90B711C6A277900CD458E /* fake_map_files_downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FC41C60BA8A00EDE56A /* fake_map_files_downloader.cpp */; };
@@ -253,6 +254,7 @@
 		678CB37F1CA5881B00E9118D /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = editor.config; sourceTree = "<group>"; };
 		67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_info_getter.cpp; sourceTree = "<group>"; };
 		67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_info_getter.hpp; sourceTree = "<group>"; };
+		67CCFA901CBD1628007FC750 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../iphone/Maps/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		67F90B581C6A275B00CD458E /* storage_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = storage_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F90BB61C6A29F700CD458E /* storage_integration_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = storage_integration_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -363,6 +365,7 @@
 				67247FCA1C60BA8A00EDE56A /* task_runner.hpp */,
 				67247FCB1C60BA8A00EDE56A /* test_map_files_downloader.cpp */,
 				67247FCC1C60BA8A00EDE56A /* test_map_files_downloader.hpp */,
+				67CCFA901CBD1628007FC750 /* Images.xcassets */,
 			);
 			name = storage_tests;
 			path = ../../storage/storage_tests;
@@ -639,6 +642,7 @@
 				671182D31C7F0D5D00CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				678338DF1C72460700FD6263 /* drules_proto_legacy.bin in Resources */,
 				678338E01C72460700FD6263 /* drules_proto-bw.bin in Resources */,
+				67CCFA911CBD1628007FC750 /* Images.xcassets in Resources */,
 				678338DC1C72460700FD6263 /* countries.txt in Resources */,
 				678338D91C72460700FD6263 /* categories.txt in Resources */,
 				678338E21C72460700FD6263 /* patterns.txt in Resources */,
@@ -850,6 +854,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -858,7 +863,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.storage-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -872,12 +876,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1";
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.storage-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -892,6 +896,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -913,6 +918,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
