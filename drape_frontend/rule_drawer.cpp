@@ -84,18 +84,13 @@ void RuleDrawer::operator()(FeatureType const & f)
   if (CheckCancelled())
     return;
 
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-
-  m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
-
-  if (!m_globalRect.IsIntersect(limitRect))
-    return;
-
   Stylist s;
   m_callback(f, s);
 
   if (s.IsEmpty())
     return;
+
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
   if (s.IsCoastLine() &&
       zoomLevel > scales::GetUpperWorldScale() &&
@@ -114,6 +109,12 @@ void RuleDrawer::operator()(FeatureType const & f)
       }
     }
   }
+
+  // FeatureType::GetLimitRect call invokes full geometry reading and decoding.
+  // That's why this code follows after all lightweight return options.
+  m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
+  if (!m_globalRect.IsIntersect(limitRect))
+    return;
 
 #ifdef DEBUG
   // Validate on feature styles
