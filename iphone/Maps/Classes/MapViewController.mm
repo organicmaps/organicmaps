@@ -640,12 +640,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
       }
       else
       {
-        [self presentDownloaderAlert:code countries:absentCountries okBlock:[self, absentCountries]
-        {
-          [MWMStorage downloadNodes:absentCountries
-                    alertController:self.alertController
-                          onSuccess:^{ [self openMapsDownloader]; }];
-        }];
+        [self presentDownloaderAlert:code countries:absentCountries];
       }
       break;
     }
@@ -789,12 +784,28 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
                      countries:(storage::TCountriesVec const &)countries
-                       okBlock:(TMWMVoidBlock)okBlock
 {
   if (countries.size())
-    [self.alertController presentDownloaderAlertWithCountries:countries code:code okBlock:okBlock];
+  {
+    [self.alertController presentDownloaderAlertWithCountries:countries
+        code:code
+        cancelBlock:^
+        {
+          [self.controlsManager routingHidden];
+        }
+        downloadBlock:^(storage::TCountriesVec const & downloadCountries, TMWMVoidBlock onSuccess)
+        {
+          [MWMStorage downloadNodes:downloadCountries alertController:self.alertController onSuccess:onSuccess];
+        }
+        downloadCompleteBlock:^
+        {
+          [self.controlsManager buildRoute];
+        }];
+  }
   else
+  {
     [self presentDefaultAlert:code];
+  }
 }
 
 - (void)presentDisabledLocationAlert

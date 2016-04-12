@@ -106,9 +106,15 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
                                        code:(routing::IRouter::ResultCode)code
-                                    okBlock:(TMWMVoidBlock)okBlock
+                                cancelBlock:(TMWMVoidBlock)cancelBlock
+                              downloadBlock:(TMWMDownloadBlock)downloadBlock
+                      downloadCompleteBlock:(TMWMVoidBlock)downloadCompleteBlock
 {
-  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries code:code okBlock:okBlock]];
+  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries
+                                                             code:code
+                                                      cancelBlock:cancelBlock
+                                                    downloadBlock:downloadBlock
+                                            downloadCompleteBlock:downloadCompleteBlock]];
 }
 
 - (void)presentRoutingDisclaimerAlert

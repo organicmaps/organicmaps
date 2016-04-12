@@ -12,7 +12,9 @@
 - (void)presentRoutingMigrationAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
                                        code:(routing::IRouter::ResultCode)code
-                                    okBlock:(nonnull TMWMVoidBlock)okBlock;
+                                cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
+                              downloadBlock:(nonnull TMWMDownloadBlock)downloadBlock
+                      downloadCompleteBlock:(nonnull TMWMVoidBlock)downloadCompleteBlock;
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
