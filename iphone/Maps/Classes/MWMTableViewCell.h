@@ -4,3 +4,7 @@
 - (void)configure;
 
 @end
+
+@interface MWMTableViewSubtitleCell : MWMTableViewCell
+
+@end

@@ -20,8 +20,18 @@
 {
   self.backgroundColor = [UIColor white];
   self.textLabel.textColor = [UIColor blackPrimaryText];
+  self.detailTextLabel.textColor = [UIColor blackSecondaryText];
   self.selectedBackgroundView = [[UIView alloc] init];
   self.selectedBackgroundView.backgroundColor = [UIColor pressBackground];
+}
+
+@end
+
+@implementation MWMTableViewSubtitleCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+  return [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
 }
 
 @end

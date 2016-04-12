@@ -6,8 +6,6 @@ namespace
   NSString * const kStreetEditorEditCell = @"MWMStreetEditorEditTableViewCell";
 } // namespace
 
-using namespace osm;
-
 @interface MWMStreetEditorViewController () <MWMStreetEditorEditCellProtocol>
 {
   vector<osm::LocalizedStreet> m_streets;
@@ -54,7 +52,15 @@ using namespace osm;
   if (haveCurrentStreet)
   {
     auto const it = find(m_streets.begin(), m_streets.end(), currentStreet);
-    self.selectedStreet = it - m_streets.begin();
+    if (it == m_streets.end())
+    {
+      m_streets.insert(m_streets.begin(), currentStreet);
+      self.selectedStreet = 0;
+    }
+    else
+    {
+      self.selectedStreet = it - m_streets.begin();
+    }
   }
   else
   {
@@ -70,6 +76,7 @@ using namespace osm;
 {
   [self.tableView registerNib:[UINib nibWithNibName:kStreetEditorEditCell bundle:nil]
        forCellReuseIdentifier:kStreetEditorEditCell];
+  [self.tableView registerClass:[MWMTableViewSubtitleCell class] forCellReuseIdentifier:[MWMTableViewSubtitleCell className]];
 }
 
 #pragma mark - Actions
@@ -99,10 +106,11 @@ using namespace osm;
   else
   {
     NSUInteger const index = indexPath.row;
-    // TODO: also display localized name if it exists.
-    NSString * street = @(m_streets[index].m_defaultName.c_str());
+    auto const & localizedStreet = m_streets[index];
+    NSString * street = @(localizedStreet.m_defaultName.c_str());
     BOOL const selected = (self.selectedStreet == index);
     cell.textLabel.text = street;
+    cell.detailTextLabel.text = @(localizedStreet.m_localizedName.c_str());
     cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
   }
 }
@@ -139,12 +147,26 @@ using namespace osm;
 
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
+  UITableViewCell * cell = nil;
   if (m_streets.empty())
-    return [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
-  if (indexPath.section == 0)
-    return [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+  {
+    cell = [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
+  }
   else
-    return [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
+  {
+    if (indexPath.section == 0)
+    {
+      NSString * identifier = m_streets[indexPath.row].m_localizedName.empty() ? [UITableViewCell className] : [MWMTableViewSubtitleCell className];
+      cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    }
+    else
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
+    }
+  }
+
+  [self fillCell:cell indexPath:indexPath];
+  return cell;
 }
 
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section
@@ -170,11 +192,6 @@ using namespace osm;
 
   self.selectedStreet = indexPath.row;
   [self onDone];
-}
-
-- (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
-{
-  [self fillCell:cell indexPath:indexPath];
 }
 
 @end
