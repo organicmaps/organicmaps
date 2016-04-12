@@ -194,9 +194,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void runTasks()
   {
-    // Task are not UI-thread bounded,
-    // if any task need UI-thread it should implicitly
-    // use Activity.runOnUiThread().
     while (!mTasks.isEmpty())
       mTasks.pop().run(this);
   }
