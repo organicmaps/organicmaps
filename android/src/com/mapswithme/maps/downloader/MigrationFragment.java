@@ -37,7 +37,7 @@ public class MigrationFragment extends BaseMwmFragment
     @Override
     public void onClick(final View v)
     {
-      MapManager.warnDownloadOn3g(getActivity(), new Runnable()
+      MapManager.warnOn3g(getActivity(), null, new Runnable()
       {
         @Override
         public void run()

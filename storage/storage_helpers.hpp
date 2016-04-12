@@ -11,7 +11,7 @@ namespace storage
 class CountryInfoGetter;
 class Storage;
 
-size_t constexpr kMaxMwmSizeBytes = 100 /*Mb*/ * 1024 * 1024;
+TMwmSize constexpr kMaxMwmSizeBytes = 100 /*Mb*/ * 1024 * 1024;
 
 /// \returns true if |position| is covered by a downloaded mwms and false otherwise.
 /// \note |position| has coordinates in mercator.
@@ -22,6 +22,7 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
 
 bool IsDownloadFailed(Status status);
 
+bool IsEnoughSpaceForDownload(TMwmSize size);
 bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & storage);
 
 /// \brief Calculates limit rect for |countryId| (expandable or not).

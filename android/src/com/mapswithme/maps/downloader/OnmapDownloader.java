@@ -140,7 +140,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
               if (loc != null)
               {
                 String country = MapManager.nativeFindCountry(loc.getLatitude(), loc.getLongitude());
-                if (TextUtils.equals(mCurrentCountry.id, country))
+                if (TextUtils.equals(mCurrentCountry.id, country) &&
+                    MapManager.nativeHasSpaceToDownloadCountry(country))
                 {
                   MapManager.nativeDownload(mCurrentCountry.id);
 
@@ -200,7 +201,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           return;
         }
 
-        MapManager.warnDownloadOn3g(mActivity, new Runnable()
+        MapManager.warnOn3g(mActivity, mCurrentCountry.id, new Runnable()
         {
           @Override
           public void run()

@@ -21,6 +21,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
@@ -166,7 +167,15 @@ public class RoutingController
       @Override
       public boolean onDownload()
       {
-        return !MapManager.warnDownloadOn3g(mContainer.getActivity(), new Runnable()
+        long size = 0;
+        for (String map : mLastMissingMaps)
+        {
+          CountryItem country = CountryItem.fill(map);
+          if (country.status != CountryItem.STATUS_PROGRESS)
+            size += (country.totalSize - country.size);
+        }
+
+        return !MapManager.warnOn3g(mContainer.getActivity(), size, new Runnable()
         {
           @Override
           public void run()
