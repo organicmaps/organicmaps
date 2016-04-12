@@ -274,7 +274,7 @@ public final class MapManager
   /**
    * Returns {@code true} if there is enough storage space to download specified amount of data. Or {@code false} otherwise.
    */
-  public static native boolean nativeHasSpaceToDownloadAmount(long size);
+  public static native boolean nativeHasSpaceToDownloadAmount(long bytes);
 
   /**
    * Returns {@code true} if there is enough storage space to download maps with specified {@code root}. Or {@code false} otherwise.
