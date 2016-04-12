@@ -227,7 +227,6 @@ Java_com_mapswithme_maps_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
   return g_editableMapObject.GetMetadata().Get(feature::Metadata::FMD_INTERNET) == "wlan";
 }
 
-
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeHasSomethingToUpload(JNIEnv * env, jclass clazz)
 {

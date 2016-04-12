@@ -68,9 +68,8 @@ jobjectArray JavaTimespans(JNIEnv * env, vector<Timespan> const & spans)
   jobjectArray const result = env->NewObjectArray(size, g_clazzTimespan, 0);
   for (int i = 0; i < size; i++)
   {
-    jobject const jSpan = JavaTimespan(env, spans[i]);
-    env->SetObjectArrayElement(result, i, jSpan);
-    env->DeleteLocalRef(jSpan);
+    jni::TScopedLocalRef jSpan(env, JavaTimespan(env, spans[i]));
+    env->SetObjectArrayElement(result, i, jSpan.get());
   }
 
   return result;
@@ -109,9 +108,8 @@ jobjectArray JavaTimetables(JNIEnv * env, TimeTableSet & tts)
   jobjectArray const result = env->NewObjectArray(size, g_clazzTimetable, 0);
   for (int i = 0; i < size; i++)
   {
-    jobject const jTable = JavaTimetable(env, tts.Get(i));
-    env->SetObjectArrayElement(result, i, jTable);
-    env->DeleteLocalRef(jTable);
+    jni::TScopedLocalRef jTable(env, JavaTimetable(env, tts.Get(i)));
+    env->SetObjectArrayElement(result, i, jTable.get());
   }
 
   return result;
@@ -149,12 +147,9 @@ TimeTable NativeTimetable(JNIEnv * env, jobject jTimetable)
   size = env->GetArrayLength(jClosedSpans);
   for (int i = 0; i < size; i++)
   {
-    jobject const jSpan = env->GetObjectArrayElement(jClosedSpans, i);
-    if (jSpan)
-    {
-      tt.AddExcludeTime(NativeTimespan(env, jSpan));
-      env->DeleteLocalRef(jSpan);
-    }
+    jni::TScopedLocalRef jSpan(env, env->GetObjectArrayElement(jClosedSpans, i));
+    if (jSpan.get())
+      tt.AddExcludeTime(NativeTimespan(env, jSpan.get()));
   }
   return tt;
 }
@@ -168,9 +163,8 @@ TimeTableSet NativeTimetableSet(JNIEnv * env, jobjectArray jTimetables)
 
   for (int i = 1; i < size; i++)
   {
-    jobject const timetable = env->GetObjectArrayElement(jTimetables, i);
-    tts.Append(NativeTimetable(env, timetable));
-    env->DeleteLocalRef(timetable);
+    jni::TScopedLocalRef timetable(env, env->GetObjectArrayElement(jTimetables, i));
+    tts.Append(NativeTimetable(env, timetable.get()));
   }
 
   return tts;
