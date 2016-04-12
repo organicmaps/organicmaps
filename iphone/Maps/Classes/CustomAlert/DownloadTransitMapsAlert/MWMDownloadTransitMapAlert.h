@@ -1,13 +1,14 @@
 #import "MWMAlert.h"
 
 #include "storage/storage.hpp"
-#include "std/vector.hpp"
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
 
-+ (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)maps
++ (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)countries
                                    code:(routing::IRouter::ResultCode)code
-                                okBlock:(TMWMVoidBlock)okBlock;
+                            cancelBlock:(TMWMVoidBlock)cancelBlock
+                          downloadBlock:(TMWMDownloadBlock)downloadBlock
+                  downloadCompleteBlock:(TMWMVoidBlock)downloadCompleteBlock;
 - (void)showDownloadDetail:(UIButton *)sender;
 
 @end

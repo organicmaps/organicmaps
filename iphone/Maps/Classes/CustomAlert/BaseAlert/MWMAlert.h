@@ -1,6 +1,8 @@
 #include "routing/router.hpp"
 #include "storage/storage.hpp"
 
+using TMWMDownloadBlock = void (^)(storage::TCountriesVec const &, TMWMVoidBlock);
+
 @class MWMAlertViewController;
 @interface MWMAlert : UIView
 
@@ -10,7 +12,9 @@
 + (MWMAlert *)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
                                             code:(routing::IRouter::ResultCode)code
-                                         okBlock:(TMWMVoidBlock)okBlock;
+                                     cancelBlock:(TMWMVoidBlock)cancelBlock
+                                   downloadBlock:(TMWMDownloadBlock)downloadBlock
+                           downloadCompleteBlock:(TMWMVoidBlock)downloadCompleteBlock;
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;

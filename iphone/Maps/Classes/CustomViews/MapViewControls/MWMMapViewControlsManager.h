@@ -47,5 +47,6 @@
 - (void)routingPrepare;
 - (void)routingNavigation;
 - (void)handleRoutingError;
+- (void)buildRoute;
 
 @end

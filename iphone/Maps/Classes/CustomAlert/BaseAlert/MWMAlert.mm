@@ -75,9 +75,15 @@
 
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
                                             code:(routing::IRouter::ResultCode)code
-                                         okBlock:(TMWMVoidBlock)okBlock
+                                     cancelBlock:(TMWMVoidBlock)cancelBlock
+                                   downloadBlock:(TMWMDownloadBlock)downloadBlock
+                           downloadCompleteBlock:(TMWMVoidBlock)downloadCompleteBlock
 {
-  return [MWMDownloadTransitMapAlert downloaderAlertWithMaps:countries code:code okBlock:okBlock];
+  return [MWMDownloadTransitMapAlert downloaderAlertWithMaps:countries
+                                                        code:code
+                                                 cancelBlock:cancelBlock
+                                               downloadBlock:downloadBlock
+                                       downloadCompleteBlock:downloadCompleteBlock];
 }
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type

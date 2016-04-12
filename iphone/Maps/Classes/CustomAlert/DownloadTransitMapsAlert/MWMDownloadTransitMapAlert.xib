@@ -36,6 +36,14 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
                             </userDefinedRuntimeAttributes>
                         </label>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bco-zh-ekL">
+                            <rect key="frame" x="122" y="65" width="36" height="36"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="0Pg-8w-QZa"/>
+                                <constraint firstAttribute="width" constant="36" id="cjU-dH-SAG"/>
+                            </constraints>
+                        </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3X-9G-3PT">
                             <rect key="frame" x="23" y="61" width="234" height="17"/>
                             <constraints>
@@ -94,7 +102,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="downloadButtonTap:" destination="jqI-GQ-yDh" eventType="touchUpInside" id="L2t-kQ-AzL"/>
+                                <action selector="downloadButtonTap" destination="jqI-GQ-yDh" eventType="touchUpInside" id="wBd-0C-U51"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dhS-fg-rNl">
@@ -115,7 +123,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="notNowButtonTap:" destination="jqI-GQ-yDh" eventType="touchUpInside" id="6pb-Gg-9sN"/>
+                                <action selector="cancelButtonTap" destination="jqI-GQ-yDh" eventType="touchUpInside" id="xii-qA-4BV"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jjh-VP-emP" userLabel="vDivider">
@@ -132,14 +140,18 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="0.88" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="dhS-fg-rNl" firstAttribute="top" secondItem="1lL-cj-2oS" secondAttribute="bottom" id="2aT-au-ilL"/>
+                        <constraint firstItem="dhS-fg-rNl" firstAttribute="top" secondItem="1lL-cj-2oS" secondAttribute="bottom" priority="500" id="2aT-au-ilL"/>
                         <constraint firstAttribute="bottom" secondItem="dhS-fg-rNl" secondAttribute="bottom" id="2bS-ac-iDr"/>
+                        <constraint firstItem="bco-zh-ekL" firstAttribute="centerX" secondItem="Hay-Qx-kVw" secondAttribute="centerX" id="3xy-PQ-9lP"/>
                         <constraint firstAttribute="bottom" secondItem="q87-qQ-0rn" secondAttribute="bottom" id="3yg-r8-Lm3"/>
+                        <constraint firstAttribute="bottom" secondItem="1lL-cj-2oS" secondAttribute="bottom" priority="250" id="58e-JY-U6g"/>
                         <constraint firstAttribute="centerX" secondItem="2nQ-k3-Rx3" secondAttribute="centerX" id="5S3-Lh-pMR"/>
                         <constraint firstAttribute="trailing" secondItem="q87-qQ-0rn" secondAttribute="trailing" id="Bud-qr-UTy"/>
-                        <constraint firstItem="q87-qQ-0rn" firstAttribute="top" secondItem="1lL-cj-2oS" secondAttribute="bottom" id="Lpk-cS-FHG"/>
+                        <constraint firstItem="bco-zh-ekL" firstAttribute="top" secondItem="MvX-7q-CIH" secondAttribute="bottom" constant="16" id="D9b-za-yb8"/>
+                        <constraint firstItem="q87-qQ-0rn" firstAttribute="top" secondItem="1lL-cj-2oS" secondAttribute="bottom" priority="500" id="Lpk-cS-FHG"/>
                         <constraint firstItem="Q3X-9G-3PT" firstAttribute="top" secondItem="MvX-7q-CIH" secondAttribute="bottom" constant="12" id="PN3-Vl-yKe"/>
                         <constraint firstAttribute="width" constant="280" id="PoR-0E-Yd5"/>
+                        <constraint firstItem="1lL-cj-2oS" firstAttribute="top" secondItem="bco-zh-ekL" secondAttribute="bottom" priority="250" constant="20" id="QQh-zT-bWE"/>
                         <constraint firstAttribute="centerX" secondItem="1lL-cj-2oS" secondAttribute="centerX" id="Td0-Pa-b2s"/>
                         <constraint firstAttribute="centerX" secondItem="MvX-7q-CIH" secondAttribute="centerX" id="Uwa-a8-9bd"/>
                         <constraint firstAttribute="bottom" secondItem="Jjh-VP-emP" secondAttribute="bottom" id="YL8-fj-ENd"/>
@@ -149,7 +161,7 @@
                         <constraint firstItem="1lL-cj-2oS" firstAttribute="width" secondItem="Hay-Qx-kVw" secondAttribute="width" id="i3L-zR-0ay"/>
                         <constraint firstAttribute="centerX" secondItem="Q3X-9G-3PT" secondAttribute="centerX" id="l5p-jN-Vvq"/>
                         <constraint firstItem="MvX-7q-CIH" firstAttribute="top" secondItem="Hay-Qx-kVw" secondAttribute="top" constant="20" id="xBi-k5-Mze"/>
-                        <constraint firstItem="1lL-cj-2oS" firstAttribute="top" secondItem="Q3X-9G-3PT" secondAttribute="bottom" constant="20" id="xQk-cL-cLn"/>
+                        <constraint firstItem="1lL-cj-2oS" firstAttribute="top" secondItem="Q3X-9G-3PT" secondAttribute="bottom" priority="500" constant="20" id="xQk-cL-cLn"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
@@ -174,10 +186,17 @@
                 <constraint firstAttribute="centerX" secondItem="Hay-Qx-kVw" secondAttribute="centerX" id="e0c-Aj-Anh"/>
             </constraints>
             <connections>
+                <outlet property="dialogsBottomOffset" destination="58e-JY-U6g" id="D2s-m8-XQl"/>
                 <outlet property="dialogsTableView" destination="1lL-cj-2oS" id="QPh-bX-GfH"/>
+                <outlet property="hDivider" destination="2nQ-k3-Rx3" id="5BD-2K-Qcc"/>
+                <outlet property="leftButton" destination="dhS-fg-rNl" id="t6u-5i-zwZ"/>
                 <outlet property="messageLabel" destination="Q3X-9G-3PT" id="AUA-bn-mAy"/>
+                <outlet property="progressWrapper" destination="bco-zh-ekL" id="AB4-SS-xCc"/>
+                <outlet property="progressWrapperBottomOffset" destination="QQh-zT-bWE" id="vBy-LT-WOC"/>
+                <outlet property="rightButton" destination="q87-qQ-0rn" id="91J-mu-sXT"/>
                 <outlet property="tableViewHeight" destination="92H-Th-Xgt" id="qnm-KF-Hb7"/>
                 <outlet property="titleLabel" destination="MvX-7q-CIH" id="hej-5l-48z"/>
+                <outlet property="vDivider" destination="Jjh-VP-emP" id="bNj-9y-l3s"/>
             </connections>
             <point key="canvasLocation" x="295" y="401"/>
         </view>
