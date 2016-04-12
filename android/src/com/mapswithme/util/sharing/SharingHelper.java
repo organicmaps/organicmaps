@@ -215,12 +215,14 @@ public final class SharingHelper
 
   public static void shareBookmarksCategory(Activity context, int id)
   {
-    String name = BookmarkManager.INSTANCE.nativeSaveToKmzFile(id, MwmApplication.get().getTempPath());
+    String path = MwmApplication.get().getTempPath();
+    String name = BookmarkManager.INSTANCE.nativeSaveToKmzFile(id, path);
     if (name == null)
       return;
 
-    shareOutside(new LocalFileShareable(context, name + ".kmz", "application/vnd.google-earth.kmz")
-                     .setText(R.string.share_bookmarks_email_body)
+    shareOutside(new LocalFileShareable(context, path + name + ".kmz", "application/vnd.google-earth.kmz")
+                              // TODO fix translation for some languages, that doesn't contain holder for filename
+                     .setText(context.getString(R.string.share_bookmarks_email_body, name))
                      .setSubject(R.string.share_bookmarks_email_subject));
   }
 

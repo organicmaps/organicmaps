@@ -89,7 +89,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
       @Override
       public void onClick(View v)
       {
-        BookmarkManager.INSTANCE.toggleCategoryVisibility(position);
+        BookmarkManager.INSTANCE.toggleCategoryVisibility(holder.getAdapterPosition());
         holder.setVisibilityState(set.isVisible());
       }
     });
