@@ -1,7 +1,9 @@
 #include "indexer/feature_data.hpp"
-#include "indexer/feature_impl.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_impl.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
@@ -470,6 +472,10 @@ bool FeatureParams::FinishAddingTypes()
 
   if (m_Types.size() > kMaxTypesCount)
     m_Types.resize(kMaxTypesCount);
+
+  // Patch fix that removes house number from localities.
+  if (!house.IsEmpty() && ftypes::IsLocalityChecker::Instance()(m_Types))
+    house.Clear();
 
   return !m_Types.empty();
 }
