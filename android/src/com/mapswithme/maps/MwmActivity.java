@@ -403,6 +403,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setFullscreen(show);
     Framework.nativeTurnChoosePositionMode(show);
     closePlacePage();
+    mSearchController.hide();
   }
 
   private void initMap()
