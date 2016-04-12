@@ -93,10 +93,10 @@ CGFloat const kAnimationDuration = .05;
 
 + (instancetype)alertWithCountries:(storage::TCountriesVec const &)countries
 {
-  NSAssert(!countries.empty(), @"TCountriesVec can not be empty.");
+  NSAssert(!countries.empty(), @"countries can not be empty.");
   MWMDownloadTransitMapAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil] firstObject];
 
-  NSMutableArray * titles = [@[] mutableCopy];
+  NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   storage::TMwmSize totalSize = 0;
   auto const & s = GetFramework().Storage();
   for (auto const & countryId : countries)
@@ -135,6 +135,7 @@ CGFloat const kAnimationDuration = .05;
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
   auto const overallProgress = GetFramework().Storage().GetOverallProgress(m_countries);
+  // Test if downloading has finished by comparing downloaded and total sizes.
   if (overallProgress.first == overallProgress.second)
   {
     self.downloadCompleteBlock();
@@ -202,7 +203,7 @@ CGFloat const kAnimationDuration = .05;
     CGFloat const actualHeight = kCellHeight * m_countries.size() + kHeaderHeight;
     CGFloat const height = [self bounded:actualHeight withHeight:self.superview.height];
     self.tableViewHeight.constant = height;
-    self.dialogsTableView.scrollEnabled = actualHeight > self.tableViewHeight.constant ? YES : NO;
+    self.dialogsTableView.scrollEnabled = actualHeight > self.tableViewHeight.constant;
     [UIView animateWithDuration:kAnimationDuration animations:^{ [self layoutSubviews]; }
                      completion:^(BOOL finished)
     {
