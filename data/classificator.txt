@@ -24,6 +24,7 @@ world  +
         bar  -
         bbq  -
         bench  -
+        bicycle_parking  -
         bicycle_rental  -
         brothel  -
         bureau_de_change  -
@@ -38,6 +39,8 @@ world  +
         cinema  -
         clinic  -
         college  -
+        community_centre  -
+        courthouse  -
         dentist  -
         doctors  -
         drinking_water  -
@@ -97,10 +100,13 @@ world  +
         townhall  -
         university  -
         vending_machine  +
+            cigarettes  -
+            drinks  -
             parking_tickets  -
             public_transport_tickets  -
             {}
         veterinary  -
+        waste_basket  -
         waste_disposal  -
         {}
     area:highway  +
@@ -163,6 +169,7 @@ world  +
         {}
     building  +
         address  -
+        garage  -
         train_station  -
         {}
     building:part  -
@@ -186,6 +193,9 @@ world  +
         {}
     earthquake:damage  +
         spontaneous_camp  -
+        {}
+    emergency  +
+        phone  -
         {}
     entrance  -
     highway  +
@@ -261,6 +271,7 @@ world  +
             bridge  -
             tunnel  -
             {}
+        rest_area  -
         road  +
             bridge  -
             tunnel  -
@@ -318,6 +329,7 @@ world  +
             permissive  -
             tunnel  -
             {}
+        traffic_signals  -
         trunk  +
             bridge  -
             tunnel  -
@@ -407,6 +419,7 @@ world  +
         dog_park  +
             tennis  -
             {}
+        fitness_centre  -
         garden  -
         golf_course  -
         landscape_reserve  -
@@ -426,6 +439,7 @@ world  +
             tennis  -
             {}
         recreation_ground  -
+        sauna  -
         slipway  -
         sports_centre  -
         stadium  -
@@ -436,15 +450,17 @@ world  +
     man_made  +
         breakwater  -
         cairn  -
+        chimney  -
         cutline  -
         lighthouse  -
         pier  -
         pipeline  +
             overground  -
             {}
-        survey_point  -
+        tower  -
         wastewater_plant  -
         water_tower  -
+        water_well  -
         windmill  -
         {}
     mapswithme  +
@@ -573,7 +589,7 @@ world  +
         minor_line  -
         pole  -
         station  -
-        sub_station  -
+        substation  -
         tower  -
         {}
     public_transport  +
@@ -712,16 +728,20 @@ world  +
         beauty  -
         beverages  -
         bicycle  -
+        bookmaker  -
         books  -
         butcher  -
         car  -
-        car_repair  -
+        car_repair  +
+            tyres  -
+            {}
         chemist  -
         clothes  -
         computer  -
         confectionery  -
         convenience  -
         copyshop  -
+        cosmetics  -
         department_store  -
         doityourself  -
         dry_cleaning  -
@@ -740,13 +760,17 @@ world  +
         mobile_phone  -
         optician  -
         outdoor  -
+        pet  -
         photo  -
+        seafood  -
         shoes  -
         sports  -
         supermarket  -
+        ticket  -
         toys  -
         travel_agency  -
         tyres  -
+        wine  -
         {}
     sport  +
         american_football  -
@@ -778,11 +802,14 @@ world  +
         attraction  -
         camp_site  -
         caravan_site  -
+        chalet  -
         guest_house  -
         hostel  -
         hotel  -
         information  +
+            board  -
             guidepost  -
+            map  -
             office  -
             {}
         motel  -
@@ -790,6 +817,10 @@ world  +
         picnic_site  -
         viewpoint  -
         zoo  -
+        {}
+    traffic_calming  +
+        bump  -
+        hump  -
         {}
     waterway  +
         canal  +
