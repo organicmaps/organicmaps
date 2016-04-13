@@ -155,7 +155,7 @@ using namespace storage;
   }
 }
 
-- (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress
+- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
 {
   for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
     [cell processCountry:countryId progress:progress];
@@ -328,7 +328,7 @@ using namespace storage;
     s.GetQueuedChildren(parentCountryId, queuedChildren);
     if (!queuedChildren.empty())
     {
-      storage::TMwmSize queuedSize = 0;
+      TMwmSize queuedSize = 0;
       for (TCountryId const & countryId : queuedChildren)
       {
         NodeAttrs nodeAttrs;

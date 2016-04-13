@@ -133,7 +133,7 @@ namespace
   [self config:nodeAttrs];
 }
 
-- (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress
+- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
 {
   if (countryId != m_countryId)
     return;

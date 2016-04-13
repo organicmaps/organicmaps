@@ -133,7 +133,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
     for (TStorageObserver observer in observers)
       [observer processCountryEvent:countryId];
   },
-  [observers](TCountryId const & countryId, TLocalAndRemoteSize const & progress)
+  [observers](TCountryId const & countryId, MapFilesDownloader::TProgress const & progress)
   {
     for (TStorageObserver observer in observers)
     {

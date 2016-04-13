@@ -1,6 +1,6 @@
 #include "routing/router.hpp"
 #include "storage/index.hpp"
-#include "storage/storage_defines.hpp"
+#include "storage/storage.hpp"
 
 using namespace storage;
 
@@ -25,7 +25,7 @@ using namespace storage;
 
 @optional
 
-- (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress;
+- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress;
 
 @end
 
