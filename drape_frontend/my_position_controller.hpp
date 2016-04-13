@@ -43,7 +43,7 @@ public:
     RenderMyPosition = 0x2
   };
 
-  MyPositionController(location::EMyPositionMode initMode, bool isFirstLaunch);
+  MyPositionController(location::EMyPositionMode initMode, double timeInBackground, bool isFirstLaunch);
   ~MyPositionController();
 
   void OnNewPixelRect();
@@ -77,6 +77,8 @@ public:
   void StopLocationFollow();
   void NextMode();
   void LoseLocation();
+
+  void SetTimeInBackground(double time);
 
   void OnCompassTapped();
 

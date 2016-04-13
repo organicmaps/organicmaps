@@ -761,4 +761,18 @@ public:
   Type GetType() const override { return Message::ClearGpsTrackPoints; }
 };
 
+class SetTimeInBackgroundMessage : public Message
+{
+public:
+  SetTimeInBackgroundMessage(double time)
+    : m_time(time)
+  {}
+
+  Type GetType() const override { return Message::SetTimeInBackground; }
+  double GetTime() const { return m_time; }
+
+private:
+  double m_time;
+};
+
 } // namespace df

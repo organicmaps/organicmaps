@@ -22,7 +22,10 @@ int const kPositionOffsetYIn3D = 80;
 double const kGpsBearingLifetimeSec = 5.0;
 double const kMinSpeedThresholdMps = 1.0;
 
-double const kMaxPendingLocationTimeSec = 15.0;
+double const kMaxPendingLocationTimeSec = 60.0;
+double const kMaxTimeInBackgroundSec = 60.0 * 60;
+
+int const kDoNotChangeZoom = -1;
 
 string LocationModeStatisticsName(location::EMyPositionMode mode)
 {
@@ -83,7 +86,8 @@ private:
   double m_rotateDuration;
 };
 
-MyPositionController::MyPositionController(location::EMyPositionMode initMode, bool isFirstLaunch)
+MyPositionController::MyPositionController(location::EMyPositionMode initMode,
+                                           double timeInBackground, bool isFirstLaunch)
   : m_mode(initMode)
   , m_isFirstLaunch(isFirstLaunch)
   , m_isInRouting(false)
@@ -104,7 +108,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, b
 {
   if (isFirstLaunch)
     m_mode = location::NotFollowNoPosition;
-  else if (m_mode == location::NotFollowNoPosition)
+  else if (m_mode == location::NotFollowNoPosition || timeInBackground >= kMaxTimeInBackgroundSec)
     m_mode = location::Follow;
 }
 
@@ -307,12 +311,16 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     }
     else
     {
-      ChangeModelView(m_position, -1);
+      ChangeModelView(m_position, kDoNotChangeZoom);
     }
   }
   else if (!m_isPositionAssigned)
   {
     ChangeMode(m_mode);
+    if (m_mode == location::Follow)
+      ChangeModelView(m_position, kDoNotChangeZoom);
+    else if (m_mode == location::FollowAndRotate)
+      ChangeModelView(m_position, m_drawDirection, GetRotationPixelCenter(), kDoNotChangeZoom);
   }
 
   m_isPositionAssigned = true;
@@ -321,9 +329,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
 void MyPositionController::LoseLocation()
 {
-  if (IsWaitingForLocation())
-    ChangeMode(location::NotFollowNoPosition);
-
+  ChangeMode(location::NotFollowNoPosition);
   SetIsVisible(false);
 }
 
@@ -442,6 +448,15 @@ void MyPositionController::StopLocationFollow()
     ChangeMode(location::NotFollow);
 }
 
+void MyPositionController::SetTimeInBackground(double time)
+{
+  if (time >= kMaxTimeInBackgroundSec && m_mode == location::NotFollow)
+  {
+    ChangeMode(location::Follow);
+    UpdateViewport();
+  }
+}
+
 void MyPositionController::OnCompassTapped()
 {
   alohalytics::LogEvent("$compassClicked", {{"mode", LocationModeStatisticsName(m_mode)},
@@ -485,9 +500,9 @@ void MyPositionController::UpdateViewport()
     return;
   
   if (m_mode == location::Follow)
-    ChangeModelView(m_position, -1);
+    ChangeModelView(m_position, kDoNotChangeZoom);
   else if (m_mode == location::FollowAndRotate)
-    ChangeModelView(m_position, m_drawDirection, GetRotationPixelCenter(), -1);
+    ChangeModelView(m_position, m_drawDirection, GetRotationPixelCenter(), kDoNotChangeZoom);
 }
 
 m2::PointD MyPositionController::GetRotationPixelCenter() const
@@ -596,7 +611,7 @@ void MyPositionController::DeactivateRouting()
 
     ChangeMode(location::Follow);
     if (m_mode == location::FollowAndRotate)
-      ChangeModelView(m_position, 0.0, m_centerPixelPosition, -1);
+      ChangeModelView(m_position, 0.0, m_centerPixelPosition, kDoNotChangeZoom);
     else
       ChangeModelView(0.0);
   }

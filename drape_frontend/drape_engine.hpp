@@ -134,6 +134,8 @@ public:
 
   void SetKineticScrollEnabled(bool enabled);
 
+  void SetTimeInBackground(double time);
+
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);

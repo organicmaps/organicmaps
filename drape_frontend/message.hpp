@@ -53,7 +53,8 @@ public:
     ClearGpsTrackPoints,
     ShowChoosePositionMark,
     SetKineticScrollEnabled,
-    BlockTapEvents
+    BlockTapEvents,
+    SetTimeInBackground
   };
 
   virtual ~Message() {}

@@ -138,7 +138,8 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   ASSERT(m_tapEventInfoFn, ());
   ASSERT(m_userPositionChangedFn, ());
 
-  m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode, params.m_firstLaunch));
+  m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode,
+                                                        params.m_timeInBackground, params.m_firstLaunch));
   m_myPositionController->SetModeListener(params.m_myPositionModeCallback);
 
   StartThread();
@@ -683,6 +684,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<SetKineticScrollEnabledMessage> msg = message;
       m_userEventStream.SetKineticScrollEnabled(msg->IsEnabled());
+      break;
+    }
+
+  case Message::SetTimeInBackground:
+    {
+      ref_ptr<SetTimeInBackgroundMessage> msg = message;
+      m_myPositionController->SetTimeInBackground(msg->GetTime());
       break;
     }
 

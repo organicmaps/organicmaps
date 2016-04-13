@@ -126,6 +126,7 @@ protected:
   drape_ptr<df::watch::CPUDrawer> m_cpuDrawer;
 
   double m_startForegroundTime;
+  double m_startBackgroundTime;
 
   storage::Storage m_storage;
 

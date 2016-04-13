@@ -286,8 +286,11 @@ Framework::Framework()
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
   , m_fixedSearchResults(0)
+  , m_startForegroundTime(0.0)
   , m_lastReportedCountry(kInvalidCountryId)
 {
+  m_startBackgroundTime = my::Timer::LocalTime();
+
   // Restore map style before classificator loading
   int mapStyle;
   if (!settings::Get(kMapStyleKey, mapStyle))
@@ -1156,12 +1159,15 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
+  m_startBackgroundTime = my::Timer::LocalTime();
+  settings::Set("LastEnterBackground", m_startBackgroundTime);
+
   SaveViewport();
 
   ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
                                           {"foregroundSeconds", strings::to_string(
-                                           static_cast<int>(my::Timer::LocalTime() - m_startForegroundTime))}},
+                                           static_cast<int>(m_startBackgroundTime - m_startForegroundTime))}},
                                           alohalytics::Location::FromLatLon(ll.lat, ll.lon));
   // Do not clear caches for Android. This function is called when main activity is paused,
   // but at the same time search activity (for example) is enabled.
@@ -1174,6 +1180,8 @@ void Framework::EnterBackground()
 void Framework::EnterForeground()
 {
   m_startForegroundTime = my::Timer::LocalTime();
+  double const time = m_startForegroundTime - m_startBackgroundTime;
+  CallDrapeFunction(bind(&df::DrapeEngine::SetTimeInBackground, _1, time));
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const

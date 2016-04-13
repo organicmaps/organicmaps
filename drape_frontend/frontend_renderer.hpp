@@ -79,6 +79,7 @@ public:
            location::TMyPositionModeChanged myPositionModeCallback,
            location::EMyPositionMode initMode,
            ref_ptr<RequestedTiles> requestedTiles,
+           double timeInBackground,
            bool allow3dBuildings,
            bool blockTapEvents,
            bool firstLaunch)
@@ -90,6 +91,7 @@ public:
       , m_myPositionModeCallback(myPositionModeCallback)
       , m_initMyPositionMode(initMode)
       , m_requestedTiles(requestedTiles)
+      , m_timeInBackground(timeInBackground)
       , m_allow3dBuildings(allow3dBuildings)
       , m_blockTapEvents(blockTapEvents)
       , m_firstLaunch(firstLaunch)
@@ -102,6 +104,7 @@ public:
     location::TMyPositionModeChanged m_myPositionModeCallback;
     location::EMyPositionMode m_initMyPositionMode;
     ref_ptr<RequestedTiles> m_requestedTiles;
+    double m_timeInBackground;
     bool m_allow3dBuildings;
     bool m_blockTapEvents;
     bool m_firstLaunch;

@@ -42,14 +42,20 @@ DrapeEngine::DrapeEngine(Params && params)
       mode = location::Follow;
   }
 
+  double timeInBackground = 0.0;
+  double lastEnterBackground = 0.0;
+  if (settings::Get("LastEnterBackground", lastEnterBackground))
+    timeInBackground = my::Timer::LocalTime() - lastEnterBackground;
+
   FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
                                     make_ref(m_textureManager), m_viewport,
                                     bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     bind(&DrapeEngine::TapEvent, this, _1),
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2),
-                                    mode, make_ref(m_requestedTiles), params.m_allow3dBuildings,
-                                    params.m_blockTapEvents, params.m_isFirstLaunch);
+                                    mode, make_ref(m_requestedTiles), timeInBackground,
+                                    params.m_allow3dBuildings, params.m_blockTapEvents,
+                                    params.m_isFirstLaunch);
 
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 
@@ -467,6 +473,13 @@ void DrapeEngine::SetKineticScrollEnabled(bool enabled)
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<SetKineticScrollEnabledMessage>(m_kineticScrollEnabled),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::SetTimeInBackground(double time)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetTimeInBackgroundMessage>(time),
                                   MessagePriority::High);
 }
 
