@@ -265,7 +265,7 @@ using namespace storage;
     [self removeFromSuperview];
 }
 
-- (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress
+- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
 {
   if (self.superview && m_countryId == countryId)
     [self showDownloading:static_cast<CGFloat>(progress.first) / progress.second];

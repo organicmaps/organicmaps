@@ -1,6 +1,7 @@
 #pragma once
 
 #include "std/string.hpp"
+#include "std/utility.hpp"
 
 enum class MapOptions : uint8_t
 {
@@ -9,6 +10,10 @@ enum class MapOptions : uint8_t
   CarRouting = 0x2,
   MapWithCarRouting = 0x3
 };
+
+using TMwmCounter = uint32_t;
+using TMwmSize = uint64_t;
+using TLocalAndRemoteSize = pair<TMwmSize, TMwmSize>;
 
 bool HasOptions(MapOptions mask, MapOptions options);
 

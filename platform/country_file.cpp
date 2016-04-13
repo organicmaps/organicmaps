@@ -35,13 +35,13 @@ CountryFile::CountryFile(string const & name) : m_name(name), m_mapSize(0), m_ro
 
 string const & CountryFile::GetName() const { return m_name; }
 
-void CountryFile::SetRemoteSizes(uint32_t mapSize, uint32_t routingSize)
+void CountryFile::SetRemoteSizes(TMwmSize mapSize, TMwmSize routingSize)
 {
   m_mapSize = mapSize;
   m_routingSize = routingSize;
 }
 
-uint32_t CountryFile::GetRemoteSize(MapOptions filesMask) const
+TMwmSize CountryFile::GetRemoteSize(MapOptions filesMask) const
 {
   uint32_t size = 0;
   if (HasOptions(filesMask, MapOptions::Map))

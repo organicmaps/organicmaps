@@ -97,7 +97,7 @@ CGFloat const kAnimationDuration = .05;
   MWMDownloadTransitMapAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil] firstObject];
 
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
-  storage::TMwmSize totalSize = 0;
+  TMwmSize totalSize = 0;
   auto const & s = GetFramework().Storage();
   for (auto const & countryId : countries)
   {
@@ -143,7 +143,7 @@ CGFloat const kAnimationDuration = .05;
   }
 }
 
-- (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress
+- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
 {
   auto const overallProgress = GetFramework().Storage().GetOverallProgress(m_countries);
   CGFloat const progressValue = static_cast<CGFloat>(overallProgress.first) / overallProgress.second;

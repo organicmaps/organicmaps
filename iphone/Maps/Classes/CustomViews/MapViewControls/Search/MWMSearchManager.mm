@@ -216,7 +216,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   }
 }
 
-- (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::TLocalAndRemoteSize const &)progress
+- (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::MapFilesDownloader::TProgress const &)progress
 {
   [self.downloadController downloadProgress:static_cast<CGFloat>(progress.first) / progress.second];
 }
