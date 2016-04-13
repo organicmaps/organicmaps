@@ -27,8 +27,7 @@ class Place
   FeatureBuilder1 m_ft;
   m2::PointD m_pt;
   uint32_t m_type;
-
-  static constexpr double EQUAL_PLACE_SEARCH_RADIUS_M = 20000.0;
+  double m_threshold;
 
   bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
   static bool IsEqualTypes(uint32_t t1, uint32_t t2)
@@ -41,13 +40,26 @@ class Place
   }
 
 public:
-  Place(FeatureBuilder1 const & ft, uint32_t type) : m_ft(ft), m_pt(ft.GetKeyPoint()), m_type(type) {}
+  Place(FeatureBuilder1 const & ft, uint32_t type) : m_ft(ft), m_pt(ft.GetKeyPoint()), m_type(type)
+  {
+    using namespace ftypes;
+
+    switch (IsLocalityChecker::Instance().GetType(m_type))
+    {
+    case COUNTRY: m_threshold = 300000.0; break;
+    case STATE: m_threshold = 100000.0; break;
+    case CITY: m_threshold = 30000.0; break;
+    case TOWN: m_threshold = 20000.0; break;
+    case VILLAGE: m_threshold = 10000.0; break;
+    default: m_threshold = 10000.0; break;
+    }
+  }
 
   FeatureBuilder1 const & GetFeature() const { return m_ft; }
 
   m2::RectD GetLimitRect() const
   {
-    return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, EQUAL_PLACE_SEARCH_RADIUS_M);
+    return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, m_threshold);
   }
 
   bool IsEqual(Place const & r) const
@@ -55,7 +67,7 @@ public:
     return (IsEqualTypes(m_type, r.m_type) &&
             m_ft.GetName() == r.m_ft.GetName() &&
             (IsPoint() || r.IsPoint()) &&
-            MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < EQUAL_PLACE_SEARCH_RADIUS_M);
+            MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < m_threshold);
   }
 
   /// Check whether we need to replace place @r with place @this.

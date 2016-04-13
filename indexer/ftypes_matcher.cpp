@@ -290,26 +290,34 @@ bool IsTunnelChecker::IsMatched(uint32_t type) const
   return IsTypeConformed(type, {"highway", "*", "tunnel"});
 }
 
-Type IsLocalityChecker::GetType(feature::TypesHolder const & types) const
+Type IsLocalityChecker::GetType(uint32_t t) const
 {
-  for (uint32_t t : types)
-  {
-    ftype::TruncValue(t, 2);
+  ftype::TruncValue(t, 2);
 
-    size_t j = COUNTRY;
-    for (; j < LOCALITY_COUNT; ++j)
-      if (t == m_types[j])
-        return static_cast<Type>(j);
+  size_t j = COUNTRY;
+  for (; j < LOCALITY_COUNT; ++j)
+    if (t == m_types[j])
+      return static_cast<Type>(j);
 
-    for (; j < m_types.size(); ++j)
-      if (t == m_types[j])
-        return VILLAGE;
-  }
+  for (; j < m_types.size(); ++j)
+    if (t == m_types[j])
+      return VILLAGE;
 
   return NONE;
 }
 
-Type IsLocalityChecker::GetType(const FeatureType & f) const
+Type IsLocalityChecker::GetType(feature::TypesHolder const & types) const
+{
+  for (uint32_t t : types)
+  {
+    Type const type = GetType(t);
+    if (type != NONE)
+      return type;
+  }
+  return NONE;
+}
+
+Type IsLocalityChecker::GetType(FeatureType const & f) const
 {
   feature::TypesHolder types(f);
   return GetType(types);
