@@ -325,7 +325,7 @@ nb:3Butikk
 fi:3Kauppa
 sw:Duka
 
-shop-chemist
+shop-cosmetics
 en:4Beauty Care|home care|shop|U+1F3EC|U+1F3EA
 ar:ﻞﻴﻤﺠﺘﻟﺍ ﺕﺍﺮﻀﺤﺘﺴﻣ|تجميل|المتجر
 cs:4Kosmetika|domácí péče|obchod
@@ -5326,3 +5326,199 @@ uk:Дитяча кімната|ясла
 vi:Nhà trẻ|Chăm sóc Trẻ em
 zh-Hans:幼儿园|儿童看护
 zh-Hant:幼兒園|兒童看護
+
+amenity=bicycle_parking
+en:Bicycle Parking
+ru:Велостоянка
+
+amenity-waste_basket
+en:Trash Bin
+ru:Мусорная корзина
+
+emergency-phone
+en:Phone
+ru:Телефон
+
+leisure-fitness_centre
+en:Fitness Centre|Gym
+ru:Фитнес-зал
+
+leisure-sauna
+en:Sauna
+ru:Баня
+
+man_made-water_well
+en:Water Well
+ru:Колодец
+
+shop-car_repairtyres
+en:Tyre Repair
+ru:Шиномонтаж
+
+shop-chemist
+en:Chemist Shop
+ru:Бытовая химия
+
+shop-pet
+en:Petshop
+ru:Зоотовары
+
+tourism-information-office
+en:Tourist Office
+ru:Туристический офис
+
+amenity-community_centre
+en:Community Centre
+ru:Культурно-досуговый центр|Дом культуры
+
+amenity-courthouse
+en:Courthouse
+ru:Суд
+
+amenity-vending_machine-cigarettes
+en:Cigarette Dispenser
+ru:Сигаретный автомат
+
+amenity-vending_machine-drinks
+en:Drink Dispenser
+ru:Автомат с напитками
+
+building-garage
+en:Garage
+ru:Гараж
+
+highway-rest_area
+en:Rest Area
+ru:Зона отдыха
+
+highway-traffic_signals
+en:Traffic Lights
+ru:Светофор
+
+man_made-chimney
+en:Factory Chimney
+ru:Заводская труба
+
+man_made-tower
+en:Tower
+ru:Башня
+
+power-substation
+en:Substation
+ru:Подстанция
+
+shop-bookmaker
+en:Bookmaker
+ru:Букмекерская контора
+
+shop-seafood
+en:Seafood Shop
+ru:Рыбный магазин
+
+shop-ticket
+en:Ticket Shop
+ru:Билетная касса
+
+shop-wine
+en:Wine Shop
+ru:Винный магазин
+
+tourism-chalet
+en:Chalet
+ru:Шале
+
+tourism-information-board
+en:Information Board
+ru:Информационный щит
+
+tourism-information-map
+en:Tourist Map
+ru:Карта
+
+aerialway-station
+en:Aerialway Station
+ru:Канатная дорога
+
+aeroway-helipad
+en:Helipad
+ru:Вертолётная площадка
+
+amenity-vending_machine-parking_tickets
+en:Parking Tickets
+ru:Паркомат
+
+barrier-block
+en:Block
+ru:Блок
+
+barrier-bollard
+en:Pillar
+ru:Столбик
+
+barrier-border_control
+en:Border Control
+ru:Погранконтроль
+
+barrier-entrance
+en:Entrance
+ru:Проход
+
+barrier-gate
+en:Gate
+ru:Ворота
+
+barrier-lift_gate
+en:Lift Gate
+ru:Шлагбаум
+
+barrier-stile
+en:Stile
+ru:Перелаз
+
+barrier-tool_booth
+en:Toll Booth
+ru:Пункт оплаты
+
+entrance
+en:Entrance
+ru:Вход
+
+leisure-water_park
+en:Water Park
+ru:Аквапарк
+
+man_made-water_tower
+en:Water Tower
+ru:Водонапорная башня
+
+man_made-windmill
+en:Windmill
+ru:Ветряная мельница
+
+military-bunker
+en:Bunker
+ru:Бункер
+
+natural-cave_entrance
+en:Cave Entrance
+ru:Пещера
+
+natural-tree
+en:Tree
+ru:Дерево
+
+natural-volcano
+en:Volcano
+ru:Вулкан
+
+office-estate_agent
+en:Estate Agent|Realtor
+ru:Агентство недвижимости|риэлтор
+
+power-pole|power-tower
+en:Power Tower
+ru:Опора ЛЭП
+
+waterway-lock_gate
+en:Lock Gate
+ru:Шлюз
