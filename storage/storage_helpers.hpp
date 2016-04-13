@@ -3,6 +3,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "platform/country_defines.hpp"
+
 #include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
 
