@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
@@ -24,8 +25,10 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 
-public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickListener
+public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnClickListener
 {
+  private OsmAuthFragmentDelegate mDelegate;
+
   private ProgressBar mProgress;
   private TextView mTvLogin;
   private View mTvLostPassword;
@@ -61,6 +64,7 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+    mDelegate = new OsmAuthFragmentDelegate(this);
     mToolbarController.setTitle(R.string.login);
     mEtLogin = (EditText) view.findViewById(R.id.osm_username);
     mEtPassword = (EditText) view.findViewById(R.id.osm_password);
@@ -108,7 +112,7 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
       public void run()
       {
         final String[] auth = OsmOAuth.nativeAuthWithPassword(username, password);
-
+        final String username = auth == null ? null : OsmOAuth.nativeGetOsmUsername(auth[0], auth[1]);
         UiThread.run(new Runnable()
         {
           @Override
@@ -120,7 +124,7 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
             enableInput(true);
             UiUtils.hide(mProgress);
             mTvLogin.setText(R.string.login);
-            processAuth(auth, OsmOAuth.AuthType.OSM);
+            mDelegate.processAuth(auth, OsmOAuth.AuthType.OSM, username);
           }
         });
       }

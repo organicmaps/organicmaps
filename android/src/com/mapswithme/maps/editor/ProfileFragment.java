@@ -17,7 +17,6 @@ import com.mapswithme.util.UiUtils;
 
 public class ProfileFragment extends AuthFragment implements View.OnClickListener
 {
-  private View mEditsBlock;
   private TextView mEditsLocal;
   private View mEditsMore;
   private TextView mEditsSent;
@@ -38,7 +37,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
   {
     mLogout = mToolbarController.findViewById(R.id.logout);
     mLogout.setOnClickListener(this);
-    mEditsBlock = view.findViewById(R.id.block_edits);
+    View mEditsBlock = view.findViewById(R.id.block_edits);
     UiUtils.show(mEditsBlock);
     final View localEdits = mEditsBlock.findViewById(R.id.local_edits);
     ((ImageView) localEdits.findViewById(R.id.image)).setImageResource(R.drawable.ic_device);
@@ -101,8 +100,6 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
                          }
                        }).tint().show();
       break;
-    default:
-      super.onClick(v);
     }
   }
 }
