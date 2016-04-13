@@ -153,6 +153,8 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont, platform::LocalCountry
   {
     ReaderSource<FileReader> src(cont.GetReader(ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG));
     uint32_t const count = ReadVarUint<uint32_t>(src);
+    if (count == 0)
+      return;
     m_offsets.resize(count);
     for (uint32_t i = 0; i < count; ++i)
     {
