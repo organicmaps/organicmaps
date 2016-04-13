@@ -156,6 +156,10 @@
 		347FDDA11BB59B4E00871410 /* Mapsme.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347FDDA01BB59B4E00871410 /* Mapsme.storyboard */; };
 		3485C0121B85C20E00F7712D /* MWMSearchTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3485C0101B85C20E00F7712D /* MWMSearchTableViewController.mm */; };
 		3485C0131B85C20E00F7712D /* MWMSearchTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3485C0111B85C20E00F7712D /* MWMSearchTableViewController.xib */; };
+		348B62F21CBE3AAD0031915E /* MapDownloader.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 348B62F11CBE3AAD0031915E /* MapDownloader.storyboard */; };
+		348B62F31CBE3AAD0031915E /* MapDownloader.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 348B62F11CBE3AAD0031915E /* MapDownloader.storyboard */; };
+		348B62F51CBE45DE0031915E /* Migration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 348B62F41CBE45DE0031915E /* Migration.storyboard */; };
+		348B62F61CBE45DE0031915E /* Migration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 348B62F41CBE45DE0031915E /* Migration.storyboard */; };
 		3491E7CB1C06F1F10042FE24 /* MWMPlacePageButtonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3491E7C91C06F1F10042FE24 /* MWMPlacePageButtonCell.mm */; };
 		3491E7CC1C06F1F10042FE24 /* MWMPlacePageButtonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3491E7C91C06F1F10042FE24 /* MWMPlacePageButtonCell.mm */; };
 		3491E7CD1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3491E7CA1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib */; };
@@ -1016,6 +1020,8 @@
 		3485C00F1B85C20E00F7712D /* MWMSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTableViewController.h; sourceTree = "<group>"; };
 		3485C0101B85C20E00F7712D /* MWMSearchTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTableViewController.mm; sourceTree = "<group>"; };
 		3485C0111B85C20E00F7712D /* MWMSearchTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchTableViewController.xib; sourceTree = "<group>"; };
+		348B62F11CBE3AAD0031915E /* MapDownloader.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MapDownloader.storyboard; sourceTree = "<group>"; };
+		348B62F41CBE45DE0031915E /* Migration.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Migration.storyboard; sourceTree = "<group>"; };
 		348D1DF91C525B8300860465 /* MWMTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTypes.h; sourceTree = "<group>"; };
 		348E57981B0F49D8000FA02A /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3491E7C81C06F1F10042FE24 /* MWMPlacePageButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageButtonCell.h; sourceTree = "<group>"; };
@@ -1913,6 +1919,7 @@
 		342AF0DD1BE24E7C0016F3AE /* MapDownloader */ = {
 			isa = PBXGroup;
 			children = (
+				348B62F11CBE3AAD0031915E /* MapDownloader.storyboard */,
 				34DCDE3D1C76195F00652CAC /* MWMMapDownloaderProtocol.h */,
 				341223B91BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.h */,
 				341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */,
@@ -2348,6 +2355,7 @@
 		34E2731E1C7379EA00463965 /* Migration */ = {
 			isa = PBXGroup;
 			children = (
+				348B62F41CBE45DE0031915E /* Migration.storyboard */,
 				34E2731F1C737A4100463965 /* MWMMigrationViewController.h */,
 				34E273201C737A4100463965 /* MWMMigrationViewController.mm */,
 				34E273231C73876500463965 /* MWMMigrationView.h */,
@@ -3269,6 +3277,7 @@
 				F6AD57BD1C870A3C00CED368 /* MWMEditorCategoryCell.xib in Resources */,
 				34B82AD71B84746E00180497 /* MWMSearchSuggestionCell.xib in Resources */,
 				9DA46A0A1C47E92100EF52BA /* resources-mdpi_legacy in Resources */,
+				348B62F21CBE3AAD0031915E /* MapDownloader.storyboard in Resources */,
 				34CCFDD71C22915600F28959 /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				347FD87D1C60B2CE002FB65E /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
 				F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */,
@@ -3301,6 +3310,7 @@
 				3438CDF91B8616760051AA78 /* MWMSearchShowOnMapCell.xib in Resources */,
 				671182E11C7F0DD400CB8177 /* countries_obsolete.txt in Resources */,
 				4A300ED41C6DCFD400140018 /* countries-strings in Resources */,
+				348B62F51CBE45DE0031915E /* Migration.storyboard in Resources */,
 				34BAB6EE1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				F6BD1D231CA412E30047B8E8 /* MWMOsmAuthAlert.xib in Resources */,
 				3401CD7F1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.xib in Resources */,
@@ -3366,6 +3376,7 @@
 				6741A94E1BF340DE002C974C /* MWMLandscapeNavigationDashboard.xib in Resources */,
 				F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */,
 				6741A94F1BF340DE002C974C /* MWMDefaultAlert.xib in Resources */,
+				348B62F31CBE3AAD0031915E /* MapDownloader.storyboard in Resources */,
 				6741A9501BF340DE002C974C /* fonts_whitelist.txt in Resources */,
 				6741A9511BF340DE002C974C /* MWMDownloaderDialogHeader.xib in Resources */,
 				6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */,
@@ -3473,6 +3484,7 @@
 				6741A9971BF340DE002C974C /* MWMBookmarkDescriptionViewController.xib in Resources */,
 				6741A9981BF340DE002C974C /* resources-xhdpi_clear in Resources */,
 				347FD87E1C60B2CE002FB65E /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
+				348B62F61CBE45DE0031915E /* Migration.storyboard in Resources */,
 				6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */,
 				6741A99A1BF340DE002C974C /* MWMBookmarkColorViewController.xib in Resources */,
 				6741A99B1BF340DE002C974C /* PlacePageInfoCell.xib in Resources */,
