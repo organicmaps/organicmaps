@@ -519,7 +519,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   f.SetMapSelectionListeners([self](place_page::Info const & info) { [self onMapObjectSelected:info]; },
                              [self](bool switchFullScreen) { [self onMapObjectDeselected:switchFullScreen]; });
   // TODO: Review and improve this code.
-  f.SetMyPositionModeListener([self](location::EMyPositionMode mode)
+  f.SetMyPositionModeListener([self](location::EMyPositionMode mode, bool routingActive)
   {
     // TODO: Two global listeners are subscribed to the same event from the core.
     // Probably it's better to subscribe only wnen needed and usubscribe in other cases.
@@ -579,22 +579,19 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
   switch (mode)
   {
-    case location::MODE_UNKNOWN_POSITION:
-    {
-      self.disableStandbyOnLocationStateMode = NO;
-      if (![Alohalytics isFirstSession])
-        [[MapsAppDelegate theApp].locationManager stop:self];
-      break;
-    }
-    case location::MODE_PENDING_POSITION:
+    case location::PendingPosition:
       self.disableStandbyOnLocationStateMode = NO;
       [[MapsAppDelegate theApp].locationManager start:self];
       break;
-    case location::MODE_NOT_FOLLOW:
+    case location::NotFollowNoPosition:
+      //TODO(iOS team): show dialog if it is not first launch
       self.disableStandbyOnLocationStateMode = NO;
       break;
-    case location::MODE_FOLLOW:
-    case location::MODE_ROTATE_AND_FOLLOW:
+    case location::NotFollow:
+      self.disableStandbyOnLocationStateMode = NO;
+      break;
+    case location::Follow:
+    case location::FollowAndRotate:
       self.disableStandbyOnLocationStateMode = YES;
       break;
   }

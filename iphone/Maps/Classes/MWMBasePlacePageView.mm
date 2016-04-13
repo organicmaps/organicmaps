@@ -185,7 +185,7 @@ enum class AttributePosition
   BOOL const isMyPosition = entity.isMyPosition;
   self.addressLabel.text = entity.address;
   BOOL const isHeadingAvaible = [CLLocationManager headingAvailable];
-  BOOL const noLocation = MapsAppDelegate.theApp.locationManager.isLocationModeUnknownOrPending;
+  BOOL const noLocation = MapsAppDelegate.theApp.locationManager.isLocationPendingOrNoPosition;
   self.distanceLabel.hidden = noLocation || isMyPosition;
   BOOL const hideDirection = noLocation || isMyPosition || !isHeadingAvaible;
   self.directionArrow.hidden = hideDirection;

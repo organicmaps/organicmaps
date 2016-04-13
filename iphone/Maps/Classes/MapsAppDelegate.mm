@@ -277,8 +277,6 @@ using namespace osm_auth_ios;
   [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
   [self startAdServerForbiddenCheckTimer];
   [self updateApplicationIconBadgeNumber];
-
-  GetFramework().InvalidateMyPosition();
 }
 
 - (void)determineMapStyle

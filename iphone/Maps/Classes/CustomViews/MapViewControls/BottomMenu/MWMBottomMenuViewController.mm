@@ -175,11 +175,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [locBtn.imageView.layer removeAllAnimations];
   switch (mode)
   {
-    case location::MODE_UNKNOWN_POSITION:
-    case location::MODE_NOT_FOLLOW:
-    case location::MODE_FOLLOW:
+    case location::NotFollow:
+    case location::NotFollowNoPosition:
+    case location::Follow:
       break;
-    case location::MODE_PENDING_POSITION:
+    case location::PendingPosition:
     {
       [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_pending"]
               forState:UIControlStateNormal];
@@ -192,7 +192,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       [locBtn.imageView.layer addAnimation:rotation forKey:@"locationImage"];
       break;
     }
-    case location::MODE_ROTATE_AND_FOLLOW:
+    case location::FollowAndRotate:
     {
       NSUInteger const morphImagesCount = 6;
       NSUInteger const endValue = morphImagesCount + 1;
@@ -227,22 +227,19 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       MWMButton * locBtn = self.locationButton;
       switch (state)
       {
-        case location::MODE_PENDING_POSITION:
+        case location::PendingPosition:
           locBtn.coloring = MWMButtonColoringBlue;
           break;
-        case location::MODE_UNKNOWN_POSITION:
-          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow"] forState:UIControlStateNormal];
-          locBtn.coloring = MWMButtonColoringGray;
-          break;
-        case location::MODE_NOT_FOLLOW:
+        case location::NotFollow:
+        case location::NotFollowNoPosition:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_get_position"] forState:UIControlStateNormal];
           locBtn.coloring = MWMButtonColoringBlack;
           break;
-        case location::MODE_FOLLOW:
+        case location::Follow:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow"] forState:UIControlStateNormal];
           locBtn.coloring = MWMButtonColoringBlue;
           break;
-        case location::MODE_ROTATE_AND_FOLLOW:
+        case location::FollowAndRotate:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow_and_rotate"] forState:UIControlStateNormal];
           locBtn.coloring = MWMButtonColoringBlue;
           break;

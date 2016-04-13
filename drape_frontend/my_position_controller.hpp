@@ -33,7 +33,7 @@ public:
     virtual void ChangeModelView(m2::RectD const & rect) = 0;
     /// Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos"
     virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                                 int preferredZoomLevel) = 0;
+                                 int zoomLevel) = 0;
   };
 
   // Render bits
@@ -43,7 +43,7 @@ public:
     RenderMyPosition = 0x2
   };
 
-  MyPositionController(location::EMyPositionMode initMode);
+  MyPositionController(location::EMyPositionMode initMode, bool isFirstLaunch);
   ~MyPositionController();
 
   void OnNewPixelRect();
@@ -53,30 +53,32 @@ public:
   m2::PointD const & Position() const;
   double GetErrorRadius() const;
 
-  bool IsModeChangeViewport() const;
   bool IsModeHasPosition() const;
 
   void DragStarted();
   void DragEnded(m2::PointD const & distance);
 
-  void AnimationStarted(ref_ptr<BaseModelViewAnimation> anim);
   void ScaleStarted();
+  void ScaleEnded();
+
+  void AnimationStarted(ref_ptr<BaseModelViewAnimation> anim);
+
   void Rotated();
+
   void CorrectScalePoint(m2::PointD & pt) const;
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const;
   void CorrectGlobalScalePoint(m2::PointD & pt) const;
-  void ScaleEnded();
 
   void SetRenderShape(drape_ptr<MyPosition> && shape);
 
-  void ActivateRouting();
+  void ActivateRouting(int zoomLevel);
   void DeactivateRouting();
 
   void StopLocationFollow();
-  bool StopCompassFollow();
-  void NextMode(int preferredZoomLevel = -1);
-  void TurnOff();
-  void Invalidate();
+  void NextMode();
+  void LoseLocation();
+
+  void OnCompassTapped();
 
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
@@ -86,20 +88,15 @@ public:
   void Render(uint32_t renderMode, ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
-  bool IsFollowingActive() const;
-  bool IsRotationActive() const;
-  bool IsInRouting() const;
+  bool IsRotationAvailable() const { return m_isDirectionAssigned; }
+  bool IsInRouting() const { return m_isInRouting; }
+  bool IsRouteFollowingActive() const;
+  bool IsWaitingForLocation() const;
 
 private:
-  void AnimateStateTransition(location::EMyPositionMode oldMode, location::EMyPositionMode newMode);
-
-  void Assign(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
-  void Assign(location::CompassInfo const & info, ScreenBase const & screen);
+  bool IsModeChangeViewport() const;
+  void ChangeMode(location::EMyPositionMode newMode);
   void SetDirection(double bearing);
-
-  void SetModeInfo(uint32_t modeInfo, bool force = false);
-  location::EMyPositionMode GetMode() const;
-  void CallModeListener(uint32_t mode);
 
   bool IsVisible() const { return m_isVisible; }
   void SetIsVisible(bool isVisible) { m_isVisible = isVisible; }
@@ -107,12 +104,11 @@ private:
   void ChangeModelView(m2::PointD const & center, int zoomLevel);
   void ChangeModelView(double azimuth);
   void ChangeModelView(m2::RectD const & rect);
-  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                       int preferredZoomLevel);
+  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel);
 
-  void Follow(int preferredZoomLevel = -1);
-  m2::PointD GetRaFPixelBinding() const;
-  m2::PointD GetCurrentPixelBinding() const;
+  void UpdateViewport();
+  m2::PointD GetRotationPixelCenter() const;
+  m2::PointD GetRoutingRotationPixelCenter() const;
 
   m2::PointD GetDrawablePosition() const;
   double GetDrawableAzimut() const;
@@ -123,16 +119,13 @@ private:
   bool AlmostCurrentAzimut(double azimut) const;
 
 private:
-  // Mode bits
-  // {
-  static uint32_t const RoutingSessionBit = 0x40;
-  static uint32_t const KnownDirectionBit = 0x80;
-  static uint32_t const BlockAnimation = 0x100;
-  static uint32_t const StopFollowOnActionEnd = 0x200;
-  // }
+  location::EMyPositionMode m_mode;
+  bool m_isFirstLaunch;
 
-  uint32_t m_modeInfo; // combination of Mode enum and "Mode bits"
-  location::EMyPositionMode m_afterPendingMode;
+  bool m_isInRouting;
+
+  bool m_needBlockAnimation;
+  bool m_wasRotationInScaling;
 
   location::TMyPositionModeChanged m_modeChangeCallback;
   drape_ptr<MyPosition> m_shape;
@@ -141,19 +134,20 @@ private:
   double m_errorRadius;  // error radius in mercator
   m2::PointD m_position; // position in mercator
   double m_drawDirection;
-  my::HighResTimer m_lastGPSBearing;
+  m2::PointD m_oldPosition; // position in mercator
+  double m_oldDrawDirection;
+
+  my::Timer m_lastGPSBearing;
+  my::Timer m_pendingTimer;
 
   m2::RectD m_pixelRect;
-  m2::PointD m_pixelPositionRaF;
-  m2::PointD m_pixelPositionF;
+  m2::PointD m_centerPixelPositionRouting;
+  m2::PointD m_centerPixelPosition;
   double m_positionYOffset;
 
   bool m_isVisible;
   bool m_isDirtyViewport;
-  bool m_isPendingAnimation = false;
-
-  m2::PointD m_oldPosition; // position in mercator
-  double m_oldDrawDirection;
+  bool m_isPendingAnimation;
 
   class MyPositionAnim;
   mutable drape_ptr<MyPositionAnim> m_anim;
@@ -162,6 +156,7 @@ private:
   TAnimationCreator m_animCreator;
 
   bool m_isPositionAssigned;
+  bool m_isDirectionAssigned;
 };
 
 }

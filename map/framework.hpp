@@ -309,8 +309,7 @@ public:
   void OnLocationError(location::TLocationError error);
   void OnLocationUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
-  void SwitchMyPositionNextMode(int preferredZoomLevel = -1);
-  void InvalidateMyPosition();
+  void SwitchMyPositionNextMode();
   /// Should be set before Drape initialization. Guarantees that fn is called in main thread context.
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 
@@ -327,9 +326,11 @@ public:
     gui::TWidgetsInitInfo m_widgetsInitInfo;
 
     bool m_hasMyPositionState = false;
-    location::EMyPositionMode m_initialMyPositionState = location::MODE_UNKNOWN_POSITION;
+    location::EMyPositionMode m_initialMyPositionState = location::PendingPosition;
 
     bool m_isChoosePositionMode = false;
+
+    bool m_isFirstLaunch = false;
   };
 
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);

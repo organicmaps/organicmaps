@@ -343,15 +343,15 @@ private:
   bool const m_needBlock;
 };
 
-class MyPositionShapeMessage : public Message
+class MapShapesMessage : public Message
 {
 public:
-  MyPositionShapeMessage(drape_ptr<MyPosition> && shape, drape_ptr<SelectionShape> && selection)
+  MapShapesMessage(drape_ptr<MyPosition> && shape, drape_ptr<SelectionShape> && selection)
     : m_shape(move(shape))
     , m_selection(move(selection))
   {}
 
-  Type GetType() const override { return Message::MyPositionShape; }
+  Type GetType() const override { return Message::MapShapes; }
 
   drape_ptr<MyPosition> && AcceptShape() { return move(m_shape); }
   drape_ptr<SelectionShape> AcceptSelection() { return move(m_selection); }
@@ -366,30 +366,20 @@ class ChangeMyPositionModeMessage : public Message
 public:
   enum EChangeType
   {
-    TYPE_NEXT,
-    TYPE_CANCEL,
-    TYPE_STOP_FOLLOW,
-    TYPE_INVALIDATE
+    SwitchNextMode,
+    LoseLocation,
+    StopFollowing
   };
 
   explicit ChangeMyPositionModeMessage(EChangeType changeType)
     : m_changeType(changeType)
-    , m_preferredZoomLevel(-1)
-  {}
-
-  explicit ChangeMyPositionModeMessage(EChangeType changeType, int zoomLevel)
-    : m_changeType(changeType)
-    , m_preferredZoomLevel(zoomLevel)
   {}
 
   EChangeType GetChangeType() const { return m_changeType; }
   Type GetType() const override { return Message::ChangeMyPostitionMode; }
 
-  int GetPreferredZoomLevel() const { return m_preferredZoomLevel; }
-
 private:
   EChangeType const m_changeType;
-  int m_preferredZoomLevel;
 };
 
 class CompassInfoMessage : public Message

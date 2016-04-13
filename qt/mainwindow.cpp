@@ -189,16 +189,13 @@ bool MainWindow::winEvent(MSG * msg, long * result)
 
 void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
 {
-  if (mode == location::MODE_PENDING_POSITION)
+  if (mode == location::PendingPosition)
   {
     m_locationService->Start();
     m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
     m_pMyPositionAction->setToolTip(tr("Looking for position..."));
     return;
   }
-
-  if (mode == location::MODE_UNKNOWN_POSITION)
-    m_locationService->Stop();
 
   m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
   m_pMyPositionAction->setToolTip(tr("My Position"));
@@ -509,7 +506,7 @@ void MainWindow::OnUploadEditsMenuItem()
 
 void MainWindow::OnBeforeEngineCreation()
 {
-  m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode)
+  m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode, bool routingActive)
   {
     LocationStateModeChanged(mode);
   });

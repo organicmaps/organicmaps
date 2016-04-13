@@ -64,9 +64,9 @@ Java_com_mapswithme_maps_MapFragment_nativeShowMapForUrl(JNIEnv * env, jclass cl
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeCreateEngine(JNIEnv * env, jclass clazz, jobject surface, jint density)
+Java_com_mapswithme_maps_MapFragment_nativeCreateEngine(JNIEnv * env, jclass clazz, jobject surface, jint density, jboolean firstLaunch)
 {
-  return g_framework->CreateDrapeEngine(env, surface, density);
+  return g_framework->CreateDrapeEngine(env, surface, density, firstLaunch);
 }
 
 JNIEXPORT void JNICALL

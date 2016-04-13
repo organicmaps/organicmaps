@@ -61,7 +61,7 @@ enum MultiTouchAction
 
 Framework::Framework()
   : m_lastCompass(0.0)
-  , m_currentMode(location::MODE_UNKNOWN_POSITION)
+  , m_currentMode(location::PendingPosition)
   , m_isCurrentModeInitialized(false)
   , m_isChoosePositionMode(false)
 {
@@ -97,13 +97,13 @@ void Framework::UpdateCompassSensor(int ind, float * arr)
   m_sensors[ind].Next(arr);
 }
 
-void Framework::MyPositionModeChanged(location::EMyPositionMode mode)
+void Framework::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
   if (m_myPositionModeSignal != nullptr)
-    m_myPositionModeSignal(mode);
+    m_myPositionModeSignal(mode, routingActive);
 }
 
-bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi)
+bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch)
 {
   m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new AndroidOGLContextFactory(env, jSurface));
   AndroidOGLContextFactory const * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
@@ -117,11 +117,12 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   p.m_hasMyPositionState = m_isCurrentModeInitialized;
   p.m_initialMyPositionState = m_currentMode;
   p.m_isChoosePositionMode = m_isChoosePositionMode;
+  p.m_isFirstLaunch = firstLaunch;
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
   p.m_widgetsInitInfo = m_guiPositions;
 
   m_work.LoadBookmarks();
-  m_work.SetMyPositionModeListener(bind(&Framework::MyPositionModeChanged, this, _1));
+  m_work.SetMyPositionModeListener(bind(&Framework::MyPositionModeChanged, this, _1, _2));
 
   m_work.CreateDrapeEngine(make_ref(m_contextFactory), move(p));
   m_work.EnterForeground();
@@ -358,7 +359,7 @@ void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const
 location::EMyPositionMode Framework::GetMyPositionMode() const
 {
   if (!m_isCurrentModeInitialized)
-    return location::MODE_UNKNOWN_POSITION;
+    return location::PendingPosition;
 
   return m_currentMode;
 }

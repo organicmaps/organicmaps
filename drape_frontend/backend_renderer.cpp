@@ -240,7 +240,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::InvalidateTextures:
     {
       m_texMng->Invalidate(VisualParams::Instance().GetResourcePostfix());
-      RecacheMyPosition();
+      RecacheMapShapes();
       break;
     }
   case Message::CacheGpsTrackPoints:
@@ -316,13 +316,13 @@ void BackendRenderer::InitGLDependentResource()
 
   m_texMng->Init(params);
 
-  RecacheMyPosition();
+  RecacheMapShapes();
 }
 
-void BackendRenderer::RecacheMyPosition()
+void BackendRenderer::RecacheMapShapes()
 {
-  auto msg = make_unique_dp<MyPositionShapeMessage>(make_unique_dp<MyPosition>(m_texMng),
-                                                    make_unique_dp<SelectionShape>(m_texMng));
+  auto msg = make_unique_dp<MapShapesMessage>(make_unique_dp<MyPosition>(m_texMng),
+                                              make_unique_dp<SelectionShape>(m_texMng));
 
   GLFunctions::glFlush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(msg), MessagePriority::High);

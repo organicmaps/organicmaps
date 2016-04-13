@@ -149,7 +149,7 @@ pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
 
 void Framework::OnLocationError(TLocationError /*error*/)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::CancelMyPosition, _1));
+  CallDrapeFunction(bind(&df::DrapeEngine::LoseLocation, _1));
 }
 
 void Framework::OnLocationUpdate(GpsInfo const & info)
@@ -203,14 +203,9 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
   CallDrapeFunction(bind(&df::DrapeEngine::SetCompassInfo, _1, rInfo));
 }
 
-void Framework::SwitchMyPositionNextMode(int preferredZoomLevel)
+void Framework::SwitchMyPositionNextMode()
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::MyPositionNextMode, _1, preferredZoomLevel));
-}
-
-void Framework::InvalidateMyPosition()
-{
-  CallDrapeFunction(bind(&df::DrapeEngine::InvalidateMyPosition, _1));
+  CallDrapeFunction(bind(&df::DrapeEngine::SwitchMyPositionNextMode, _1));
 }
 
 void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
@@ -1470,7 +1465,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedByNameFn, updateCurrentCountryFn),
                             params.m_visualScale, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
-                            allow3dBuildings, params.m_isChoosePositionMode, params.m_isChoosePositionMode);
+                            allow3dBuildings, params.m_isChoosePositionMode,
+                            params.m_isChoosePositionMode, params.m_isFirstLaunch);
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
@@ -1484,7 +1480,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
   m_drapeEngine->SetMyPositionModeListener(m_myPositionListener);
-  m_drapeEngine->InvalidateMyPosition();
 
   InvalidateUserMarks();
 
@@ -2134,6 +2129,7 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
       double const kRouteScaleMultiplier = 1.5;
 
       InsertRoute(route);
+      StopLocationFollow();
       m2::RectD routeRect = route.GetPoly().GetLimitRect();
       routeRect.Scale(kRouteScaleMultiplier);
       ShowRect(routeRect, -1);

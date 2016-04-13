@@ -26,7 +26,7 @@ public:
     GuiLayerRecached,
     GuiRecache,
     GuiLayerLayout,
-    MyPositionShape,
+    MapShapes,
     ChangeMyPostitionMode,
     CompassInfo,
     GpsInfo,

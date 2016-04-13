@@ -558,7 +558,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
     LocationManager * manager = MapsAppDelegate.theApp.locationManager;
-    BOOL const needToRebuild = manager.lastLocationIsValid && !manager.isLocationModeUnknownOrPending && !isDestinationMyPosition;
+    BOOL const needToRebuild = manager.lastLocationIsValid && !manager.isLocationPendingOrNoPosition && !isDestinationMyPosition;
     m2::PointD const locationPoint = manager.lastLocation.mercator;
     [controller presentPoint2PointAlertWithOkBlock:^
     {

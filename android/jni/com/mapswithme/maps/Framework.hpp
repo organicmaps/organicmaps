@@ -42,7 +42,7 @@ namespace android
 
     map<gui::EWidget, gui::Position> m_guiPositions;
 
-    void MyPositionModeChanged(location::EMyPositionMode mode);
+    void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
 
     location::TMyPositionModeChanged m_myPositionModeSignal;
     location::EMyPositionMode m_currentMode;
@@ -66,7 +66,7 @@ namespace android
 
     void Invalidate();
 
-    bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi);
+    bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch);
     void DeleteDrapeEngine();
     bool IsDrapeEngineCreated();
 

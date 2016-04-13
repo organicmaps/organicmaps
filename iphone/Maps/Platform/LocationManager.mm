@@ -319,13 +319,13 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   return (([self lastLocation] != nil) && ([self.lastLocationTime timeIntervalSinceNow] > -300.0));
 }
 
-- (bool)isLocationModeUnknownOrPending
+- (bool)isLocationPendingOrNoPosition
 {
   using location::EMyPositionMode;
   EMyPositionMode mode;
   if (!settings::Get(settings::kLocationStateMode, mode))
     return true;
-  return mode == EMyPositionMode::MODE_PENDING_POSITION || mode == EMyPositionMode::MODE_UNKNOWN_POSITION;
+  return mode == EMyPositionMode::PendingPosition || mode == EMyPositionMode::NotFollowNoPosition;
 }
 
 - (BOOL)enabledOnMap

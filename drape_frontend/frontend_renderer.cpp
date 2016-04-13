@@ -138,7 +138,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   ASSERT(m_tapEventInfoFn, ());
   ASSERT(m_userPositionChangedFn, ());
 
-  m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode));
+  m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode, params.m_firstLaunch));
   m_myPositionController->SetModeListener(params.m_myPositionModeCallback);
 
   StartThread();
@@ -356,9 +356,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::MyPositionShape:
+  case Message::MapShapes:
     {
-      ref_ptr<MyPositionShapeMessage> msg = message;
+      ref_ptr<MapShapesMessage> msg = message;
       m_myPositionController->SetRenderShape(msg->AcceptShape());
       m_selectionShape = msg->AcceptSelection();
     }
@@ -369,17 +369,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<ChangeMyPositionModeMessage> msg = message;
       switch (msg->GetChangeType())
       {
-      case ChangeMyPositionModeMessage::TYPE_NEXT:
-        m_myPositionController->NextMode(msg->GetPreferredZoomLevel());
+      case ChangeMyPositionModeMessage::SwitchNextMode:
+        m_myPositionController->NextMode();
         break;
-      case ChangeMyPositionModeMessage::TYPE_STOP_FOLLOW:
+      case ChangeMyPositionModeMessage::StopFollowing:
         m_myPositionController->StopLocationFollow();
         break;
-      case ChangeMyPositionModeMessage::TYPE_INVALIDATE:
-        m_myPositionController->Invalidate();
-        break;
-      case ChangeMyPositionModeMessage::TYPE_CANCEL:
-        m_myPositionController->TurnOff();
+      case ChangeMyPositionModeMessage::LoseLocation:
+        m_myPositionController->LoseLocation();
         break;
       default:
         ASSERT(false, ("Unknown change type:", static_cast<int>(msg->GetChangeType())));
@@ -476,7 +473,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                   MessagePriority::High);
       }
 
-      m_myPositionController->ActivateRouting();
       if (m_pendingFollowRoute != nullptr)
       {
         FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel, m_pendingFollowRoute->m_preferredZoomLevelIn3d,
@@ -512,9 +508,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FollowRouteMessage> const msg = message;
 
-      // After night style switching and drape engine reinitialization FrontendRenderer
+      // After night style switching or drape engine reinitialization FrontendRenderer can
       // receive FollowRoute message before FlushRoute message, so we need to postpone its processing.
-      if (!m_myPositionController->IsInRouting())
+      if (m_routeRenderer->GetRouteData() == nullptr)
       {
         m_pendingFollowRoute.reset(
               new FollowRouteData(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(),
@@ -709,17 +705,16 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
 void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d,
                                    double rotationAngle, double angleFOV)
 {
+
   if (m_enablePerspectiveInNavigation)
   {
-    bool immediatelyStart = !m_myPositionController->IsRotationActive();
-    AddUserEvent(EnablePerspectiveEvent(rotationAngle, angleFOV,
-                                        true /* animated */, immediatelyStart));
+    bool immediatelyStart = !m_myPositionController->IsRotationAvailable();
+    AddUserEvent(EnablePerspectiveEvent(rotationAngle, angleFOV, true /* animated */, immediatelyStart));
   }
 
-  m_myPositionController->NextMode(!m_enablePerspectiveInNavigation ? preferredZoomLevel
-                                                                    : preferredZoomLevelIn3d);
+  m_myPositionController->ActivateRouting(!m_enablePerspectiveInNavigation ? preferredZoomLevel
+                                                                           : preferredZoomLevelIn3d);
   m_overlayTree->SetFollowingMode(true);
-
 }
 
 void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
@@ -837,8 +832,7 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
 
 void FrontendRenderer::OnCompassTapped()
 {
-  if (!m_myPositionController->StopCompassFollow())
-    m_userEventStream.AddEvent(RotateEvent(0.0));
+  m_myPositionController->OnCompassTapped();
 }
 
 FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint)
@@ -1438,7 +1432,8 @@ void FrontendRenderer::Routine::Do()
       m_renderer.PrepareScene(modelView);
 
     // Check for a frame is active.
-    bool isActiveFrame = modelViewChanged || viewportChanged;
+    bool isActiveFrame = modelViewChanged || viewportChanged ||
+                         m_renderer.m_myPositionController->IsWaitingForLocation();
 
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
@@ -1487,7 +1482,7 @@ void FrontendRenderer::Routine::Do()
 
     // Limit fps in following mode.
     double constexpr kFrameTime = 1.0 / 30.0;
-    if (isValidFrameTime && m_renderer.m_myPositionController->IsFollowingActive() && frameTime < kFrameTime)
+    if (isValidFrameTime && m_renderer.m_myPositionController->IsRouteFollowingActive() && frameTime < kFrameTime)
     {
       uint32_t const ms = static_cast<uint32_t>((kFrameTime - frameTime) * 1000);
       this_thread::sleep_for(milliseconds(ms));

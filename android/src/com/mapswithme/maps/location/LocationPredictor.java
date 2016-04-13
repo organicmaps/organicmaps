@@ -52,7 +52,7 @@ public class LocationPredictor
     if (mode < LocationState.NOT_FOLLOW)
       mLastLocation = null;
 
-    mGeneratePredictions = (mode == LocationState.ROTATE_AND_FOLLOW);
+    mGeneratePredictions = (mode == LocationState.FOLLOW_AND_ROTATE);
     resetHandler();
   }
 
