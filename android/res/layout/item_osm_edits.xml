@@ -25,6 +25,7 @@
       android:layout_marginStart="@dimen/margin_half"
       android:background="?circleAccent"
       android:scaleType="center"
+      android:tint="?cardBackground"
       tools:src="@drawable/ic_device"/>
 
     <LinearLayout

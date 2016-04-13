@@ -83,8 +83,12 @@ public class SettingsActivity extends PreferenceActivity
     for (Header h : target)
     {
       mHeaders.put(h.id, h);
+      // Hack to change profile header to username, if user is logged in.
       if (h.id == R.id.osm_profile && OsmOAuth.isAuthorized())
+      {
+        h.titleRes = 0;
         h.title = OsmOAuth.getUsername();
+      }
     }
   }
 
