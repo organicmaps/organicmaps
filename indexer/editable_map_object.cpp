@@ -9,6 +9,9 @@
 
 namespace osm
 {
+// static
+int8_t const EditableMapObject::kMaximumLevelsEditableByUsers = 25;
+
 bool EditableMapObject::IsNameEditable() const { return m_editableProperties.m_name; }
 bool EditableMapObject::IsAddressEditable() const { return m_editableProperties.m_address; }
 
@@ -188,7 +191,6 @@ void EditableMapObject::SetFlats(string const & flats)
 // static
 bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
 {
-  auto constexpr kMaximumLevelsEditableByUsers = 25;
   uint64_t levels;
   return strings::to_uint64(buildingLevels, levels) && levels <= kMaximumLevelsEditableByUsers;
 }
