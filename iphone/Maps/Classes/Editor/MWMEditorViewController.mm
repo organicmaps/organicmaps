@@ -315,7 +315,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:[UIImage imageNamed:@"ic_placepage_phone_number"]
                            text:@(m_mapObject.GetPhone().c_str())
                     placeholder:L(@"phone")
-                   keyboardType:UIKeyboardTypeNamePhonePad];
+                   keyboardType:UIKeyboardTypeNamePhonePad
+                 capitalization:UITextAutocapitalizationTypeNone];
       break;
     }
     case MWMPlacePageCellTypeWebsite:
@@ -325,7 +326,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:[UIImage imageNamed:@"ic_placepage_website"]
                            text:@(m_mapObject.GetWebsite().c_str())
                     placeholder:L(@"website")
-                   keyboardType:UIKeyboardTypeURL];
+                   keyboardType:UIKeyboardTypeURL
+                 capitalization:UITextAutocapitalizationTypeNone];
       break;
     }
     case MWMPlacePageCellTypeEmail:
@@ -335,7 +337,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:[UIImage imageNamed:@"ic_placepage_email"]
                            text:@(m_mapObject.GetEmail().c_str())
                     placeholder:L(@"email")
-                   keyboardType:UIKeyboardTypeEmailAddress];
+                   keyboardType:UIKeyboardTypeEmailAddress
+                 capitalization:UITextAutocapitalizationTypeNone];
       break;
     }
     case MWMPlacePageCellTypeOperator:
@@ -345,7 +348,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:[UIImage imageNamed:@"ic_operator"]
                            text:@(m_mapObject.GetOperator().c_str())
                     placeholder:L(@"editor_operator")
-                   keyboardType:UIKeyboardTypeEmailAddress];
+                   keyboardType:UIKeyboardTypeEmailAddress
+                 capitalization:UITextAutocapitalizationTypeSentences];
       break;
     }
     case MWMPlacePageCellTypeOpenHours:
@@ -372,7 +376,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:nil
                            text:@(m_mapObject.GetDefaultName().c_str())
                     placeholder:L(@"name")
-                   keyboardType:UIKeyboardTypeDefault];
+                   keyboardType:UIKeyboardTypeDefault
+                 capitalization:UITextAutocapitalizationTypeSentences];
       break;
     }
     case MWMPlacePageCellTypeStreet:
@@ -393,7 +398,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                     placeholder:L(@"house_number")
                    errorMessage:L(@"error_enter_correct_house_number")
                         isValid:isValid
-                   keyboardType:UIKeyboardTypeDefault];
+                   keyboardType:UIKeyboardTypeDefault
+                 capitalization:UITextAutocapitalizationTypeNone];
       break;
     }
     case MWMPlacePageCellTypeZipCode:
@@ -405,7 +411,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                     placeholder:L(@"editor_zip_code")
                    errorMessage:L(@"error_enter_correct_zip_code")
                         isValid:isValid
-                   keyboardType:UIKeyboardTypeDefault];
+                   keyboardType:UIKeyboardTypeDefault
+                 capitalization:UITextAutocapitalizationTypeAllCharacters];
       break;
     }
     case MWMPlacePageCellTypeBuildingLevels:
@@ -421,7 +428,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                     placeholder:placeholder
                    errorMessage:errorMessage
                         isValid:isValid
-                   keyboardType:UIKeyboardTypeNumberPad];
+                   keyboardType:UIKeyboardTypeNumberPad
+                 capitalization:UITextAutocapitalizationTypeNone];
       break;
     }
     case MWMPlacePageCellTypeCuisine:
