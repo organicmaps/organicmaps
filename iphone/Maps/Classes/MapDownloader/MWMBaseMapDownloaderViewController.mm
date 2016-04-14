@@ -636,13 +636,12 @@ using namespace storage;
 
 - (void)setDataSource:(MWMMapDownloaderDataSource *)dataSource
 {
-  self.tableView.dataSource = dataSource;
   self.forceFullReload = YES;
-}
 
-- (MWMMapDownloaderDataSource *)dataSource
-{
-  return static_cast<MWMMapDownloaderDataSource *>(self.tableView.dataSource);
+  // Order matters. _dataSource must be set last since self.tableView does not retain dataSource.
+  // In different order outdated datasource gets reclaimed between assignments.
+  self.tableView.dataSource = dataSource;
+  _dataSource = dataSource;
 }
 
 #pragma mark - Helpers
