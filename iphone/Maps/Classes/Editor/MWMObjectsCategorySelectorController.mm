@@ -105,7 +105,7 @@ namespace
     return c.m_name == category;
   });
   NSAssert(it != all.end(), @"Incorrect category!");
-  self.selectedIndexPath = [NSIndexPath indexPathForRow:(it - all.begin())
+  self.selectedIndexPath = [NSIndexPath indexPathForRow:(distance(all.begin(), it))
                                               inSection:m_categories.m_lastUsed.empty() ? 0 : 1];
 }
 

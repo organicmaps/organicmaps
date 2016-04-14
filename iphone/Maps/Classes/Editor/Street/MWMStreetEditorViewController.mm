@@ -59,7 +59,7 @@ namespace
     }
     else
     {
-      self.selectedStreet = it - m_streets.begin();
+      self.selectedStreet = distance(m_streets.begin(), it);
     }
   }
   else
