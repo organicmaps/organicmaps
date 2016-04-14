@@ -10,6 +10,8 @@
 #include "storage/storage_tests/task_runner.hpp"
 #include "storage/storage_tests/test_map_files_downloader.hpp"
 
+#include "storage/storage_integration_tests/test_defines.hpp"
+
 #include "indexer/indexer_tests/test_mwm_set.hpp"
 
 #include "platform/country_file.hpp"
@@ -19,6 +21,7 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
+#include "platform/platform_tests_support/write_dir_changer.hpp"
 
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
@@ -496,9 +499,10 @@ class StorageTest
 protected:
   Storage storage;
   TaskRunner runner;
+  WritableDirChanger writableDirChanger;
 
 public:
- StorageTest() { InitStorage(storage, runner); }
+  StorageTest() : writableDirChanger(kMapTestDir) { InitStorage(storage, runner); }
 };
 
 class TwoComponentStorageTest
@@ -506,9 +510,10 @@ class TwoComponentStorageTest
 protected:
   Storage storage;
   TaskRunner runner;
+  WritableDirChanger writableDirChanger;
 
 public:
- TwoComponentStorageTest() : storage(COUNTRIES_OBSOLETE_FILE)
+ TwoComponentStorageTest() : storage(COUNTRIES_OBSOLETE_FILE), writableDirChanger(kMapTestDir)
  {
    InitStorage(storage, runner);
  }
@@ -1067,21 +1072,45 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   // Storage::GetChildrenInGroups test when at least Algeria_Central and Algeria_Coast have been downloaded.
   TCountryId const rootCountryId = storage.GetRootId();
   TEST_EQUAL(rootCountryId, "Countries", ());
+
   TCountriesVec downloaded, available;
+  TCountriesVec downloadedWithKeep, availableWithKeep;
+
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
-  sort(downloaded.begin(), downloaded.end());
+  TEST_EQUAL(downloaded.size(), 1, (downloaded));
+  TEST_EQUAL(available.size(), 223, ());
+
+  storage.GetChildrenInGroups(rootCountryId, downloadedWithKeep,
+                              availableWithKeep, true /* keepAvailableChildren*/);
+  TEST_EQUAL(downloadedWithKeep.size(), 1, (downloadedWithKeep));
+  TEST_EQUAL(availableWithKeep.size(), 224, ());
 
   storage.GetChildrenInGroups("Algeria", downloaded, available);
-  sort(downloaded.begin(), downloaded.end());
+  TEST_EQUAL(downloaded.size(), 2, (downloaded));
+
+  storage.GetChildrenInGroups("Algeria", downloadedWithKeep,
+                              availableWithKeep, true /* keepAvailableChildren*/);
+  TEST_EQUAL(downloadedWithKeep.size(), 2, (downloadedWithKeep));
+  TEST_EQUAL(availableWithKeep.size(), 2, (availableWithKeep));
 
   storage.GetChildrenInGroups("Algeria_Central", downloaded, available);
   TEST(downloaded.empty(), ());
+
+  storage.GetChildrenInGroups("Algeria_Central", downloadedWithKeep,
+                              availableWithKeep, true /* keepAvailableChildren*/);
+  TEST_EQUAL(downloadedWithKeep.size(), 0, (downloadedWithKeep));
+  TEST_EQUAL(availableWithKeep.size(), 0, (availableWithKeep));
 
   storage.DeleteCountry(algeriaCentralCountryId, MapOptions::Map);
   // Storage::GetChildrenInGroups test when Algeria_Coast has been downloaded and
   // Algeria_Central has been deleted.
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
-  sort(downloaded.begin(), downloaded.end());
+  TEST_EQUAL(downloaded.size(), 1, (downloaded));
+
+  storage.GetChildrenInGroups("Algeria", downloadedWithKeep,
+                              availableWithKeep, true /* keepAvailableChildren*/);
+  TEST_EQUAL(downloadedWithKeep.size(), 1, (downloadedWithKeep));
+  TEST_EQUAL(availableWithKeep.size(), 2, (availableWithKeep));
 
   storage.GetChildrenInGroups("Algeria_Central", downloaded, available);
   TEST(downloaded.empty(), ());

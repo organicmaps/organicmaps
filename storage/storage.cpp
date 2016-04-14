@@ -1142,7 +1142,8 @@ void Storage::GetLocalRealMaps(TCountriesVec & localMaps) const
 }
 
 void Storage::GetChildrenInGroups(TCountryId const & parent,
-                                  TCountriesVec & downloadedChildren, TCountriesVec & availChildren) const
+                                  TCountriesVec & downloadedChildren, TCountriesVec & availChildren,
+                                  bool keepAvailableChildren) const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
@@ -1172,7 +1173,10 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
     for (auto const & disputed : disputedTerritoriesAndStatus)
       allDisputedTerritories.push_back(disputed.first);
 
-    if (childStatus.status == NodeStatus::NotDownloaded)
+    if (childStatus.status != NodeStatus::NotDownloaded)
+      downloadedChildren.push_back(childValue);
+
+    if (keepAvailableChildren || childStatus.status == NodeStatus::NotDownloaded)
     {
       availChildren.push_back(childValue);
       for (auto const & disputed : disputedTerritoriesAndStatus)
@@ -1180,10 +1184,6 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
         if (disputed.second != NodeStatus::NotDownloaded)
           disputedTerritoriesWithoutSiblings.push_back(disputed.first);
       }
-    }
-    else
-    {
-      downloadedChildren.push_back(childValue);
     }
   });
 
