@@ -399,12 +399,16 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     }
     case MWMPlacePageCellTypeBuildingLevels:
     {
+      NSString * placeholder = [NSString stringWithFormat:L(@"editor_storey_number"),
+                                                          osm::EditableMapObject::kMaximumLevelsEditableByUsers];
+      NSString * errorMessage = [NSString stringWithFormat:L(@"error_enter_correct_storey_number"),
+                                                           osm::EditableMapObject::kMaximumLevelsEditableByUsers];
       MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
       [tCell configWithDelegate:self
                            icon:nil
                            text:@(m_mapObject.GetBuildingLevels().c_str())
-                    placeholder:L(@"editor_storey_number")
-                   errorMessage:L(@"error_enter_correct_storey_number")
+                    placeholder:placeholder
+                   errorMessage:errorMessage
                         isValid:isValid
                    keyboardType:UIKeyboardTypeNumberPad];
       break;
