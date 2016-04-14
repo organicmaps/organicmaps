@@ -20,6 +20,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageCellType)
   MWMPlacePageCellTypeName,
   MWMPlacePageCellTypeStreet,
   MWMPlacePageCellTypeBuilding,
+  MWMPlacePageCellTypeZipCode,
+  MWMPlacePageCellTypeBuildingLevels,
   MWMPlacePageCellTypeCuisine,
   MWMPlacePageCellTypeCount
 };

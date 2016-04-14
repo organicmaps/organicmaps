@@ -39,13 +39,15 @@ vector<MWMPlacePageCellType> const kSectionCategoryCellTypes{MWMPlacePageCellTyp
 vector<MWMPlacePageCellType> const kSectionNameCellTypes{MWMPlacePageCellTypeName};
 
 vector<MWMPlacePageCellType> const kSectionAddressCellTypes{
-    MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding};
+    MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding, MWMPlacePageCellTypeZipCode};
 
 MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeCategory, "MWMEditorCategoryCell"},
     {MWMPlacePageCellTypeName, "MWMEditorNameTableViewCell"},
     {MWMPlacePageCellTypeStreet, "MWMEditorSelectTableViewCell"},
     {MWMPlacePageCellTypeBuilding, "MWMEditorTextTableViewCell"},
+    {MWMPlacePageCellTypeZipCode, "MWMEditorTextTableViewCell"},
+    {MWMPlacePageCellTypeBuildingLevels, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeOpenHours, "MWMPlacePageOpeningHoursCell"},
     {MWMPlacePageCellTypePhoneNumber, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeWebsite, "MWMEditorTextTableViewCell"},
@@ -265,6 +267,9 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   {
     m_sections.push_back(MWMEditorSectionAddress);
     m_cells[MWMEditorSectionAddress] = kSectionAddressCellTypes;
+    if (m_mapObject.IsBuilding())
+      m_cells[MWMEditorSectionAddress].push_back(MWMPlacePageCellTypeBuildingLevels);
+
     registerCellsForTableView(kSectionAddressCellTypes, self.tableView);
   }
   if (!m_mapObject.GetEditableProperties().empty())
@@ -293,6 +298,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
 - (void)fillCell:(UITableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
+  BOOL const isValid = ![self.invalidCells containsObject:indexPath];
   switch ([self cellTypeForIndexPath:indexPath])
   {
     case MWMPlacePageCellTypeCategory:
@@ -375,8 +381,32 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            text:@(m_mapObject.GetHouseNumber().c_str())
                     placeholder:L(@"house_number")
                    errorMessage:L(@"error_enter_correct_house_number")
-                        isValid:![self.invalidCells containsObject:indexPath]
+                        isValid:isValid
                    keyboardType:UIKeyboardTypeDefault];
+      break;
+    }
+    case MWMPlacePageCellTypeZipCode:
+    {
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
+      [tCell configWithDelegate:self
+                           icon:nil
+                           text:@(m_mapObject.GetPostcode().c_str())
+                    placeholder:L(@"editor_zip_code")
+                   errorMessage:L(@"error_enter_correct_zip_code")
+                        isValid:isValid
+                   keyboardType:UIKeyboardTypeDefault];
+      break;
+    }
+    case MWMPlacePageCellTypeBuildingLevels:
+    {
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
+      [tCell configWithDelegate:self
+                           icon:nil
+                           text:@(m_mapObject.GetBuildingLevels().c_str())
+                    placeholder:L(@"editor_storey_number")
+                   errorMessage:L(@"error_enter_correct_storey_number")
+                        isValid:isValid
+                   keyboardType:UIKeyboardTypeNumberPad];
       break;
     }
     case MWMPlacePageCellTypeCuisine:
@@ -534,6 +564,15 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     case MWMPlacePageCellTypeBuilding:
       m_mapObject.SetHouseNumber(val);
       if (!osm::EditableMapObject::ValidateHouseNumber(val))
+        [self markCellAsInvalid:indexPath];
+      break;
+    case MWMPlacePageCellTypeZipCode:
+      m_mapObject.SetPostcode(val);
+      // TODO: Validate postcode.
+      break;
+    case MWMPlacePageCellTypeBuildingLevels:
+      m_mapObject.SetBuildingLevels(val);
+      if (!osm::EditableMapObject::ValidateBuildingLevels(val))
         [self markCellAsInvalid:indexPath];
       break;
     default: NSAssert(false, @"Invalid field for changeText");
