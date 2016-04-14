@@ -16254,3 +16254,8 @@
     tags = ios, android
     en = Enter correct ZIP Code
     ru = Введите корректный почтовый индекс
+
+  [editor_operator]
+    tags = ios, android
+    en = Operator
+    ru = Владелец
