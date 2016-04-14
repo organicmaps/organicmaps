@@ -1373,3 +1373,9 @@
 "download_over_mobile_message" = "이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.";
 
 "error_enter_correct_house_number" = "올바른 집 번호 입력";
+
+
+
+"editor_zip_code" = "ZIP Code";
+
+"error_enter_correct_zip_code" = "Enter correct ZIP Code";

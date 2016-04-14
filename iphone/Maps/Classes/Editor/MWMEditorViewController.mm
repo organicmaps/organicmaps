@@ -39,25 +39,15 @@ vector<MWMPlacePageCellType> const kSectionCategoryCellTypes{MWMPlacePageCellTyp
 vector<MWMPlacePageCellType> const kSectionNameCellTypes{MWMPlacePageCellTypeName};
 
 vector<MWMPlacePageCellType> const kSectionAddressCellTypes{
-    {MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding}};
-
-vector<MWMPlacePageCellType> const kSectionDetailsCellTypes{
-    {MWMPlacePageCellTypeOpenHours, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite,
-     MWMPlacePageCellTypeEmail, MWMPlacePageCellTypeCuisine, MWMPlacePageCellTypeWiFi}};
-
-using CellTypesSectionMap = pair<vector<MWMPlacePageCellType>, MWMEditorSection>;
-
-vector<CellTypesSectionMap> const kCellTypesSectionMap{
-    {kSectionCategoryCellTypes, MWMEditorSectionCategory},
-    {kSectionNameCellTypes, MWMEditorSectionName},
-    {kSectionAddressCellTypes, MWMEditorSectionAddress},
-    {kSectionDetailsCellTypes, MWMEditorSectionDetails}};
+    MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding, MWMPlacePageCellTypeZipCode};
 
 MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeCategory, "MWMEditorCategoryCell"},
     {MWMPlacePageCellTypeName, "MWMEditorNameTableViewCell"},
     {MWMPlacePageCellTypeStreet, "MWMEditorSelectTableViewCell"},
     {MWMPlacePageCellTypeBuilding, "MWMEditorTextTableViewCell"},
+    {MWMPlacePageCellTypeZipCode, "MWMEditorTextTableViewCell"},
+    {MWMPlacePageCellTypeBuildingLevels, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeOpenHours, "MWMPlacePageOpeningHoursCell"},
     {MWMPlacePageCellTypePhoneNumber, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeWebsite, "MWMEditorTextTableViewCell"},
@@ -71,6 +61,57 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   BOOL const haveCell = (it != kCellType2ReuseIdentifier.end());
   ASSERT(haveCell, ());
   return haveCell ? @(it->second.c_str()) : @"";
+}
+
+vector<MWMPlacePageCellType> cellsForProperties(vector<osm::Props> const & props)
+{
+  using namespace osm;
+  vector<MWMPlacePageCellType> res;
+  for (auto const p : props)
+  {
+    switch (p)
+    {
+    case Props::OpeningHours:
+      res.push_back(MWMPlacePageCellTypeOpenHours);
+      break;
+    case Props::Phone:
+      res.push_back(MWMPlacePageCellTypePhoneNumber);
+      break;
+    case Props::Website:
+      res.push_back(MWMPlacePageCellTypeWebsite);
+      break;
+    case Props::Email:
+      res.push_back(MWMPlacePageCellTypeEmail);
+      break;
+    case Props::Cuisine:
+      res.push_back(MWMPlacePageCellTypeCuisine);
+      break;
+    case Props::Internet:
+      res.push_back(MWMPlacePageCellTypeWiFi);
+      break;
+    case Props::Wikipedia:
+    case Props::Fax:
+    case Props::Stars:
+    case Props::Operator:
+    case Props::Elevation:
+    case Props::Flats:
+    case Props::BuildingLevels:
+      break;
+    }
+  }
+  return res;
+}
+
+void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITableView * tv)
+{
+  for (auto const c : cells)
+  {
+    NSString * identifier = reuseIdentifier(c);
+    if (UINib * nib = [UINib nibWithNibName:identifier bundle:nil])
+      [tv registerNib:nib forCellReuseIdentifier:identifier];
+    else
+      ASSERT(false, ("Incorrect cell"));
+  }
 }
 } // namespace
 
@@ -205,81 +246,60 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   return cell;
 }
 
-// TODO(Vlad): This code can be much better.
-- (bool)hasField:(feature::Metadata::EType)field
-{
-  auto const & editable = m_mapObject.GetEditableFields();
-  return editable.end() != find(editable.begin(), editable.end(), field);
-}
-// TODO(Vlad): This code can be much better.
-- (bool)isEditable:(MWMPlacePageCellType)cellType
-{
-  switch (cellType)
-  {
-    case MWMPlacePageCellTypePostcode: return [self hasField:feature::Metadata::FMD_POSTCODE];
-    case MWMPlacePageCellTypePhoneNumber: return [self hasField:feature::Metadata::FMD_PHONE_NUMBER];
-    case MWMPlacePageCellTypeWebsite: return [self hasField:feature::Metadata::FMD_WEBSITE];
-    // TODO(Vlad): We should not have URL field in the UI. Website should always be used instead.
-    case MWMPlacePageCellTypeURL: return [self hasField:feature::Metadata::FMD_URL];
-    case MWMPlacePageCellTypeEmail: return [self hasField:feature::Metadata::FMD_EMAIL];
-    case MWMPlacePageCellTypeOpenHours: return [self hasField:feature::Metadata::FMD_OPEN_HOURS];
-    case MWMPlacePageCellTypeWiFi: return [self hasField:feature::Metadata::FMD_INTERNET];
-    case MWMPlacePageCellTypeCuisine: return [self hasField:feature::Metadata::FMD_CUISINE];
-    // TODO(Vlad): return true when we allow coordinates editing.
-    case MWMPlacePageCellTypeCoordinate: return false;
-    case MWMPlacePageCellTypeName: return m_mapObject.IsNameEditable();
-    case MWMPlacePageCellTypeStreet: return m_mapObject.IsAddressEditable();
-    case MWMPlacePageCellTypeBuilding: return m_mapObject.IsAddressEditable();
-    case MWMPlacePageCellTypeCategory: return self.isCreating;
-    default: NSAssert(false, @"Invalid cell type %@", @(cellType)); return false;
-  }
-}
-
 - (void)configTable
 {
   self.offscreenCells = [NSMutableDictionary dictionary];
   self.invalidCells = [NSMutableArray array];
-  m_sections.clear();
-  m_cells.clear();
-  for (auto const & cellsSection : kCellTypesSectionMap)
-  {
-    for (auto cellType : cellsSection.first)
-    {
-      if (![self isEditable:cellType])
-        continue;
-      m_sections.emplace_back(cellsSection.second);
-      m_cells[cellsSection.second].emplace_back(cellType);
-      NSString * identifier = reuseIdentifier(cellType);
 
-      if (UINib * nib = [UINib nibWithNibName:identifier bundle:nil])
-        [self.tableView registerNib:nib forCellReuseIdentifier:identifier];
-      else
-        NSAssert(false, @"Incorrect cell");
+  if (self.isCreating)
+  {
+    m_sections.push_back(MWMEditorSectionCategory);
+    m_cells[MWMEditorSectionCategory] = kSectionCategoryCellTypes;
+    registerCellsForTableView(kSectionCategoryCellTypes, self.tableView);
+  }
+  if (m_mapObject.IsNameEditable())
+  {
+    m_sections.push_back(MWMEditorSectionName);
+    m_cells[MWMEditorSectionName] = kSectionNameCellTypes;
+    registerCellsForTableView(kSectionNameCellTypes, self.tableView);
+  }
+  if (m_mapObject.IsAddressEditable())
+  {
+    m_sections.push_back(MWMEditorSectionAddress);
+    m_cells[MWMEditorSectionAddress] = kSectionAddressCellTypes;
+    if (m_mapObject.IsBuilding())
+      m_cells[MWMEditorSectionAddress].push_back(MWMPlacePageCellTypeBuildingLevels);
+
+    registerCellsForTableView(kSectionAddressCellTypes, self.tableView);
+  }
+  if (!m_mapObject.GetEditableProperties().empty())
+  {
+    auto const cells = cellsForProperties(m_mapObject.GetEditableProperties());
+    if (!cells.empty())
+    {
+      m_sections.push_back(MWMEditorSectionDetails);
+      m_cells[MWMEditorSectionDetails] = cells;
+      registerCellsForTableView(cells, self.tableView);
     }
   }
-  sort(m_sections.begin(), m_sections.end());
-  m_sections.erase(unique(m_sections.begin(), m_sections.end()), m_sections.end());
 }
 
 - (MWMPlacePageCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
 {
-  MWMEditorSection const section = m_sections[indexPath.section];
-  MWMPlacePageCellType const cellType = m_cells[section][indexPath.row];
-  return cellType;
+  return m_cells[m_sections[indexPath.section]][indexPath.row];
 }
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
 {
-  MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
-  return reuseIdentifier(cellType);
+  return reuseIdentifier([self cellTypeForIndexPath:indexPath]);
 }
 
 #pragma mark - Fill cells with data
 
 - (void)fillCell:(UITableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
-  switch (cellType)
+  BOOL const isValid = ![self.invalidCells containsObject:indexPath];
+  switch ([self cellTypeForIndexPath:indexPath])
   {
     case MWMPlacePageCellTypeCategory:
     {
@@ -361,8 +381,36 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            text:@(m_mapObject.GetHouseNumber().c_str())
                     placeholder:L(@"house_number")
                    errorMessage:L(@"error_enter_correct_house_number")
-                        isValid:![self.invalidCells containsObject:indexPath]
+                        isValid:isValid
                    keyboardType:UIKeyboardTypeDefault];
+      break;
+    }
+    case MWMPlacePageCellTypeZipCode:
+    {
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
+      [tCell configWithDelegate:self
+                           icon:nil
+                           text:@(m_mapObject.GetPostcode().c_str())
+                    placeholder:L(@"editor_zip_code")
+                   errorMessage:L(@"error_enter_correct_zip_code")
+                        isValid:isValid
+                   keyboardType:UIKeyboardTypeDefault];
+      break;
+    }
+    case MWMPlacePageCellTypeBuildingLevels:
+    {
+      NSString * placeholder = [NSString stringWithFormat:L(@"editor_storey_number"),
+                                                          osm::EditableMapObject::kMaximumLevelsEditableByUsers];
+      NSString * errorMessage = [NSString stringWithFormat:L(@"error_enter_correct_storey_number"),
+                                                           osm::EditableMapObject::kMaximumLevelsEditableByUsers];
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
+      [tCell configWithDelegate:self
+                           icon:nil
+                           text:@(m_mapObject.GetBuildingLevels().c_str())
+                    placeholder:placeholder
+                   errorMessage:errorMessage
+                        isValid:isValid
+                   keyboardType:UIKeyboardTypeNumberPad];
       break;
     }
     case MWMPlacePageCellTypeCuisine:
@@ -385,7 +433,9 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
-  return [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  [self fillCell:cell atIndexPath:indexPath];
+  return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView
@@ -395,8 +445,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section
 {
-  MWMEditorSection const sec = m_sections[section];
-  return m_cells[sec].size();
+  return m_cells[m_sections[section]].size();
 }
 
 #pragma mark - UITableViewDelegate
@@ -404,6 +453,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
+
   UITableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
   // TODO(Vlad, IGrechuhin): It's bad idea to fill cells here.
   // heightForRowAtIndexPath is called way too often for the table.
@@ -426,11 +476,6 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       return size.height;
     }
   }
-}
-
-- (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
-{
-  [self fillCell:cell atIndexPath:indexPath];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -523,6 +568,15 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeBuilding:
       m_mapObject.SetHouseNumber(val);
       if (!osm::EditableMapObject::ValidateHouseNumber(val))
+        [self markCellAsInvalid:indexPath];
+      break;
+    case MWMPlacePageCellTypeZipCode:
+      m_mapObject.SetPostcode(val);
+      // TODO: Validate postcode.
+      break;
+    case MWMPlacePageCellTypeBuildingLevels:
+      m_mapObject.SetBuildingLevels(val);
+      if (!osm::EditableMapObject::ValidateBuildingLevels(val))
         [self markCellAsInvalid:indexPath];
       break;
     default: NSAssert(false, @"Invalid field for changeText");

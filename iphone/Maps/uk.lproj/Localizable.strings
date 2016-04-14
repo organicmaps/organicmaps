@@ -1373,3 +1373,9 @@
 "download_over_mobile_message" = "Це може бути задорого за деякими планами або за умовами роумінгу.";
 
 "error_enter_correct_house_number" = "Введіть правильний номер будинку";
+
+
+
+"editor_zip_code" = "ZIP Code";
+
+"error_enter_correct_zip_code" = "Enter correct ZIP Code";

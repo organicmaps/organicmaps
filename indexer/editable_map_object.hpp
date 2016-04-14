@@ -54,6 +54,8 @@ struct LocalizedStreet
 class EditableMapObject : public MapObject
 {
 public:
+  static int8_t const kMaximumLevelsEditableByUsers;
+
   bool IsNameEditable() const;
   bool IsAddressEditable() const;
 
@@ -93,6 +95,7 @@ public:
   void SetElevation(double ele);
   void SetWikipedia(string const & wikipedia);
   void SetFlats(string const & flats);
+  static bool ValidateBuildingLevels(string const & buildingLevels);
   void SetBuildingLevels(string const & buildingLevels);
   /// @param[in] cuisine is a vector of osm cuisine ids.
   void SetCuisines(vector<string> const & cuisine);

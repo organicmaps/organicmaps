@@ -16236,3 +16236,21 @@
     pl = Wprowadź poprawny numer domu
     nl = Een juist huisnummer invoeren
     pt = Introduzir um número de casa correto
+
+  [editor_storey_number]
+    tags = ios, android
+    ru = Количество этажей (максимум %1$@)
+
+  [error_enter_correct_storey_number]
+    tags = ios, android
+    ru = Редактируйте здания высотой максимум %1$@ этажей.
+  
+  [editor_zip_code]
+    tags = ios, android
+    en = ZIP Code
+    ru = Почтовый индекс
+
+  [error_enter_correct_zip_code]
+    tags = ios, android
+    en = Enter correct ZIP Code
+    ru = Введите корректный почтовый индекс

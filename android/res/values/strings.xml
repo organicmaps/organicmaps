@@ -834,4 +834,6 @@
 	<string name="download_over_mobile_header">Download by using a cellular network connection?</string>
 	<string name="download_over_mobile_message">This could be considerably expensive with some plans or if roaming.</string>
 	<string name="error_enter_correct_house_number">Enter correct house number</string>
+	<string name="editor_zip_code">ZIP Code</string>
+	<string name="error_enter_correct_zip_code">Enter correct ZIP Code</string>
 </resources>
