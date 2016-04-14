@@ -69,4 +69,4 @@
 
 #define GPS_TRACK_FILENAME "gps_track.dat"
 
-#define PEPLACED_TAGS_FILE "replaced_tags.txt"
+#define REPLACED_TAGS_FILE "replaced_tags.txt"

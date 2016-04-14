@@ -1,4 +1,6 @@
 atm=yes : amenity=atm
+bench=yes : amenity=bench
+shelter=yes : amenity=shelter
 restaurant=yes : amenity=restaurant
 hotel=yes : tourism=hotel
 building=entrance : entrance=yes

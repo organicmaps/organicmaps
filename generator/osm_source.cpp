@@ -510,7 +510,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
 
     TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
                           info.GetIntermediateFileName("towns", ".csv"));
-    TagReplacer tagReplacer(GetPlatform().ResourcesDir() + PEPLACED_TAGS_FILE);
+    TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
 
     // Here we can add new tags to element!!!
     auto const fn = [&](OsmElement * e)
