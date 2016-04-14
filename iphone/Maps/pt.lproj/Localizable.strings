@@ -1373,3 +1373,9 @@
 "download_over_mobile_message" = "Isto pode ser significativamente caro, com alguns planos ou se roaming.";
 
 "error_enter_correct_house_number" = "Introduzir um número de casa correto";
+
+
+
+"editor_zip_code" = "ZIP Code";
+
+"error_enter_correct_zip_code" = "Enter correct ZIP Code";

@@ -1373,3 +1373,9 @@
 "download_over_mobile_message" = "قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.";
 
 "error_enter_correct_house_number" = "أدخل رقم منزل صحيح";
+
+
+
+"editor_zip_code" = "ZIP Code";
+
+"error_enter_correct_zip_code" = "Enter correct ZIP Code";

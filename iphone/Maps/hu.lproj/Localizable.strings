@@ -1373,3 +1373,9 @@
 "download_over_mobile_message" = "Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.";
 
 "error_enter_correct_house_number" = "Helyes házszámot adjon meg";
+
+
+
+"editor_zip_code" = "ZIP Code";
+
+"error_enter_correct_zip_code" = "Enter correct ZIP Code";
