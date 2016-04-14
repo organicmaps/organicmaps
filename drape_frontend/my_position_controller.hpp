@@ -93,12 +93,14 @@ public:
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
   bool IsRouteFollowingActive() const;
-  bool IsWaitingForLocation() const;
+  bool IsWaitingForTimers() const;
 
 private:
   bool IsModeChangeViewport() const;
   void ChangeMode(location::EMyPositionMode newMode);
   void SetDirection(double bearing);
+  
+  bool IsWaitingForLocation() const;
 
   bool IsVisible() const { return m_isVisible; }
   void SetIsVisible(bool isVisible) { m_isVisible = isVisible; }
@@ -141,6 +143,7 @@ private:
 
   my::Timer m_lastGPSBearing;
   my::Timer m_pendingTimer;
+  my::Timer m_routingNotFollowTimer;
 
   m2::RectD m_pixelRect;
   m2::PointD m_centerPixelPositionRouting;

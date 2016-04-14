@@ -282,11 +282,11 @@ void Framework::Migrate(bool keepDownloaded)
 }
 
 Framework::Framework()
-  : m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
+  : m_startForegroundTime(0.0)
+  , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
   , m_fixedSearchResults(0)
-  , m_startForegroundTime(0.0)
   , m_lastReportedCountry(kInvalidCountryId)
 {
   m_startBackgroundTime = my::Timer::LocalTime();

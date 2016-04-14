@@ -1441,7 +1441,7 @@ void FrontendRenderer::Routine::Do()
 
     // Check for a frame is active.
     bool isActiveFrame = modelViewChanged || viewportChanged ||
-                         m_renderer.m_myPositionController->IsWaitingForLocation();
+                         m_renderer.m_myPositionController->IsWaitingForTimers();
 
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);

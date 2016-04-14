@@ -24,6 +24,7 @@ double const kMinSpeedThresholdMps = 1.0;
 
 double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
+double const kMaxNotFollowRoutingTimeSec = 10.0;
 
 int const kDoNotChangeZoom = -1;
 
@@ -374,6 +375,13 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
       ChangeMode(location::NotFollowNoPosition);
   }
 
+  if (IsInRouting() && m_mode == location::NotFollow &&
+      m_routingNotFollowTimer.ElapsedSeconds() >= kMaxNotFollowRoutingTimeSec)
+  {
+    ChangeMode(location::FollowAndRotate);
+    UpdateViewport();
+  }
+
   if (m_shape != nullptr && IsVisible() && IsModeHasPosition())
   {
     if (m_isDirtyViewport && !m_needBlockAnimation)
@@ -442,10 +450,18 @@ bool MyPositionController::IsWaitingForLocation() const
   return m_mode == location::PendingPosition;
 }
 
+bool MyPositionController::IsWaitingForTimers() const
+{
+  return IsWaitingForLocation() || (IsInRouting() && m_mode == location::NotFollow);
+}
+
 void MyPositionController::StopLocationFollow()
 {
   if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
     ChangeMode(location::NotFollow);
+  
+  if (m_isInRouting)
+    m_routingNotFollowTimer.Reset();
 }
 
 void MyPositionController::SetTimeInBackground(double time)
