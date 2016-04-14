@@ -836,4 +836,5 @@
 	<string name="error_enter_correct_house_number">Enter correct house number</string>
 	<string name="editor_zip_code">ZIP Code</string>
 	<string name="error_enter_correct_zip_code">Enter correct ZIP Code</string>
+	<string name="editor_operator">Operator</string>
 </resources>

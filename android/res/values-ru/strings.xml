@@ -834,4 +834,5 @@
 	<string name="error_enter_correct_storey_number">Редактируйте здания высотой максимум %1$s этажей.</string>
 	<string name="editor_zip_code">Почтовый индекс</string>
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
+	<string name="editor_operator">Владелец</string>
 </resources>
