@@ -254,12 +254,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   self.offscreenCells = [NSMutableDictionary dictionary];
   self.invalidCells = [NSMutableArray array];
 
-  if (self.isCreating)
-  {
-    m_sections.push_back(MWMEditorSectionCategory);
-    m_cells[MWMEditorSectionCategory] = kSectionCategoryCellTypes;
-    registerCellsForTableView(kSectionCategoryCellTypes, self.tableView);
-  }
+  m_sections.push_back(MWMEditorSectionCategory);
+  m_cells[MWMEditorSectionCategory] = kSectionCategoryCellTypes;
+  registerCellsForTableView(kSectionCategoryCellTypes, self.tableView);
+
   if (m_mapObject.IsNameEditable())
   {
     m_sections.push_back(MWMEditorSectionName);
