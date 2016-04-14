@@ -9,6 +9,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageCellType)
   MWMPlacePageCellTypeWebsite,
   MWMPlacePageCellTypeURL,
   MWMPlacePageCellTypeEmail,
+  MWMPlacePageCellTypeOperator,
   MWMPlacePageCellTypeOpenHours,
   MWMPlacePageCellTypeWiFi,
   MWMPlacePageCellTypeCoordinate,
