@@ -185,12 +185,17 @@ void EditableMapObject::SetFlats(string const & flats)
   m_metadata.Set(feature::Metadata::FMD_FLATS, flats);
 }
 
+// static
+bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
+{
+  auto constexpr kMaximumLevelsEditableByUsers = 25;
+  uint64_t levels;
+  return strings::to_uint64(buildingLevels, levels) && levels <= kMaximumLevelsEditableByUsers;
+}
+
 void EditableMapObject::SetBuildingLevels(string const & buildingLevels)
 {
-  auto constexpr kMaximumLevelsEditableByUsers = 50;
-  uint64_t levels;
-  if (strings::to_uint64(buildingLevels, levels) && levels <= kMaximumLevelsEditableByUsers)
-    m_metadata.Set(feature::Metadata::FMD_BUILDING_LEVELS, buildingLevels);
+  m_metadata.Set(feature::Metadata::FMD_BUILDING_LEVELS, buildingLevels);
 }
 
 LocalizedStreet const & EditableMapObject::GetStreet() const { return m_street; }
