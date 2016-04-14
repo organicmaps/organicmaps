@@ -1,24 +1,26 @@
 #pragma once
 
+#include "generator/feature_builder.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
-#include "generator/feature_builder.hpp"
 #include "generator/ways_merger.hpp"
 
-#include "indexer/ftypes_matcher.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/tree4d.hpp"
 
-#include "base/string_utils.hpp"
+#include "coding/file_writer.hpp"
+
+#include "base/cache.hpp"
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
-#include "base/cache.hpp"
+#include "base/string_utils.hpp"
 
-#include "std/unordered_set.hpp"
 #include "std/list.hpp"
 #include "std/type_traits.hpp"
+#include "std/unordered_set.hpp"
 
 namespace
 {
@@ -27,7 +29,7 @@ class Place
   FeatureBuilder1 m_ft;
   m2::PointD m_pt;
   uint32_t m_type;
-  double m_threshold;
+  double m_thresholdM;
 
   bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
   static bool IsEqualTypes(uint32_t t1, uint32_t t2)
@@ -46,12 +48,12 @@ public:
 
     switch (IsLocalityChecker::Instance().GetType(m_type))
     {
-    case COUNTRY: m_threshold = 300000.0; break;
-    case STATE: m_threshold = 100000.0; break;
-    case CITY: m_threshold = 30000.0; break;
-    case TOWN: m_threshold = 20000.0; break;
-    case VILLAGE: m_threshold = 10000.0; break;
-    default: m_threshold = 10000.0; break;
+    case COUNTRY: m_thresholdM = 300000.0; break;
+    case STATE: m_thresholdM = 100000.0; break;
+    case CITY: m_thresholdM = 30000.0; break;
+    case TOWN: m_thresholdM = 20000.0; break;
+    case VILLAGE: m_thresholdM = 10000.0; break;
+    default: m_thresholdM = 10000.0; break;
     }
   }
 
@@ -59,7 +61,7 @@ public:
 
   m2::RectD GetLimitRect() const
   {
-    return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, m_threshold);
+    return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, m_thresholdM);
   }
 
   bool IsEqual(Place const & r) const
@@ -67,7 +69,7 @@ public:
     return (IsEqualTypes(m_type, r.m_type) &&
             m_ft.GetName() == r.m_ft.GetName() &&
             (IsPoint() || r.IsPoint()) &&
-            MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < m_threshold);
+            MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < m_thresholdM);
   }
 
   /// Check whether we need to replace place @r with place @this.
@@ -87,6 +89,8 @@ public:
       return (l2 < l1);
 
     // Assume that area places has better priority than point places at the very end ...
+    /// @todo It was usefull when place=XXX type has any area fill style.
+    /// Need to review priority logic here (leave the native osm label).
     return !IsPoint();
   }
 };
