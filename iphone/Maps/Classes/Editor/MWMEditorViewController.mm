@@ -52,6 +52,7 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypePhoneNumber, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeWebsite, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeEmail, "MWMEditorTextTableViewCell"},
+    {MWMPlacePageCellTypeOperator, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeCuisine, "MWMEditorSelectTableViewCell"},
     {MWMPlacePageCellTypeWiFi, "MWMEditorSwitchTableViewCell"}};
 
@@ -86,13 +87,15 @@ vector<MWMPlacePageCellType> cellsForProperties(vector<osm::Props> const & props
     case Props::Cuisine:
       res.push_back(MWMPlacePageCellTypeCuisine);
       break;
+    case Props::Operator:
+      res.push_back(MWMPlacePageCellTypeOperator);
+      break;
     case Props::Internet:
       res.push_back(MWMPlacePageCellTypeWiFi);
       break;
     case Props::Wikipedia:
     case Props::Fax:
     case Props::Stars:
-    case Props::Operator:
     case Props::Elevation:
     case Props::Flats:
     case Props::BuildingLevels:
@@ -251,12 +254,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   self.offscreenCells = [NSMutableDictionary dictionary];
   self.invalidCells = [NSMutableArray array];
 
-  if (self.isCreating)
-  {
-    m_sections.push_back(MWMEditorSectionCategory);
-    m_cells[MWMEditorSectionCategory] = kSectionCategoryCellTypes;
-    registerCellsForTableView(kSectionCategoryCellTypes, self.tableView);
-  }
+  m_sections.push_back(MWMEditorSectionCategory);
+  m_cells[MWMEditorSectionCategory] = kSectionCategoryCellTypes;
+  registerCellsForTableView(kSectionCategoryCellTypes, self.tableView);
+
   if (m_mapObject.IsNameEditable())
   {
     m_sections.push_back(MWMEditorSectionName);
@@ -334,6 +335,16 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:[UIImage imageNamed:@"ic_placepage_email"]
                            text:@(m_mapObject.GetEmail().c_str())
                     placeholder:L(@"email")
+                   keyboardType:UIKeyboardTypeEmailAddress];
+      break;
+    }
+    case MWMPlacePageCellTypeOperator:
+    {
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
+      [tCell configWithDelegate:self
+                           icon:[UIImage imageNamed:@"ic_operator"]
+                           text:@(m_mapObject.GetOperator().c_str())
+                    placeholder:L(@"editor_operator")
                    keyboardType:UIKeyboardTypeEmailAddress];
       break;
     }
@@ -565,6 +576,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     case MWMPlacePageCellTypePhoneNumber: m_mapObject.SetPhone(val); break;
     case MWMPlacePageCellTypeWebsite: m_mapObject.SetWebsite(val); break;
     case MWMPlacePageCellTypeEmail: m_mapObject.SetEmail(val); break;
+    case MWMPlacePageCellTypeOperator: m_mapObject.SetOperator(val); break;
     case MWMPlacePageCellTypeBuilding:
       m_mapObject.SetHouseNumber(val);
       if (!osm::EditableMapObject::ValidateHouseNumber(val))

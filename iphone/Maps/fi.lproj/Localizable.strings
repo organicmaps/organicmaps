@@ -1379,3 +1379,5 @@
 "editor_zip_code" = "ZIP Code";
 
 "error_enter_correct_zip_code" = "Enter correct ZIP Code";
+
+"editor_operator" = "Operator";

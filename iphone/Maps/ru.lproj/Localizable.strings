@@ -1381,3 +1381,5 @@
 "editor_zip_code" = "Почтовый индекс";
 
 "error_enter_correct_zip_code" = "Введите корректный почтовый индекс";
+
+"editor_operator" = "Владелец";
