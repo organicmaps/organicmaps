@@ -5327,7 +5327,7 @@ vi:Nhà trẻ|Chăm sóc Trẻ em
 zh-Hans:幼儿园|儿童看护
 zh-Hant:幼兒園|兒童看護
 
-amenity=bicycle_parking
+amenity-bicycle_parking
 en:Bicycle Parking
 ru:Велостоянка
 
@@ -5351,7 +5351,7 @@ man_made-water_well
 en:Water Well
 ru:Колодец
 
-shop-car_repairtyres
+shop-car_repair-tyres
 en:Tyre Repair
 ru:Шиномонтаж
 
@@ -5475,7 +5475,7 @@ barrier-stile
 en:Stile
 ru:Перелаз
 
-barrier-tool_booth
+barrier-toll_booth
 en:Toll Booth
 ru:Пункт оплаты
 
