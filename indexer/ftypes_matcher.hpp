@@ -165,6 +165,7 @@ class IsLocalityChecker : public BaseChecker
 {
   IsLocalityChecker();
 public:
+  Type GetType(uint32_t t) const;
   Type GetType(feature::TypesHolder const & types) const;
   Type GetType(FeatureType const & f) const;
 
