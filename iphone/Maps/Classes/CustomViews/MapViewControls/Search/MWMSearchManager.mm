@@ -2,8 +2,8 @@
 #import "MapsAppDelegate.h"
 #import "MWMConsole.h"
 #import "MWMFrameworkListener.h"
+#import "MWMNoMapsViewController.h"
 #import "MWMRoutingProtocol.h"
-#import "MWMSearchDownloadViewController.h"
 #import "MWMSearchManager.h"
 #import "MWMSearchTabbedViewController.h"
 #import "MWMSearchTabButtonsView.h"
@@ -20,9 +20,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateWillChangeNotification = @"SearchStateWillChangeNotification";
 extern NSString * const kSearchStateKey = @"SearchStateKey";
 
-@interface MWMSearchManager ()<MWMSearchTableViewProtocol, MWMSearchDownloadProtocol,
-                               MWMSearchTabbedViewProtocol, MWMSearchTabButtonsViewProtocol,
-                               UITextFieldDelegate, MWMFrameworkStorageObserver>
+@interface MWMSearchManager ()<MWMSearchTableViewProtocol, MWMSearchTabbedViewProtocol,
+                               MWMSearchTabButtonsViewProtocol, UITextFieldDelegate,
+                               MWMFrameworkStorageObserver, MWMNoMapsViewControllerProtocol>
 
 @property (weak, nonatomic) UIView * parentView;
 @property (nonatomic) IBOutlet MWMSearchView * rootView;
@@ -35,7 +35,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 @property (nonatomic) UINavigationController * navigationController;
 @property (nonatomic) MWMSearchTabbedViewController * tabbedController;
 @property (nonatomic) MWMSearchTableViewController * tableViewController;
-@property (nonatomic) MWMSearchDownloadViewController * downloadController;
+@property (nonatomic) MWMNoMapsViewController * noMapsController;
 
 @end
 
@@ -202,11 +202,11 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 - (void)processCountryEvent:(storage::TCountryId const &)countryId
 {
   using namespace storage;
-  [self updateTopController];
   NodeStatuses nodeStatuses{};
   GetFramework().Storage().GetNodeStatuses(countryId, nodeStatuses);
-  if (nodeStatuses.m_status == NodeStatus::Error)
-    [self.downloadController setDownloadFailed];
+  if (nodeStatuses.m_status != NodeStatus::OnDisk)
+    return;
+  [self updateTopController];
   if (self.state == MWMSearchManagerStateTableSearch || self.state == MWMSearchManagerStateMapSearch)
   {
     NSString * text = self.searchTextField.text;
@@ -216,19 +216,9 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   }
 }
 
-- (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::MapFilesDownloader::TProgress const &)progress
-{
-  [self.downloadController downloadProgress:static_cast<CGFloat>(progress.first) / progress.second];
-}
+#pragma mark - MWMNoMapsViewControllerProtocol
 
-#pragma mark - MWMSearchDownloadProtocol
-
-- (MWMAlertViewController *)alertController
-{
-  return self.delegate.alertController;
-}
-
-- (void)selectMapsAction
+- (void)handleDownloadMapsAction
 {
   [self.delegate actionDownloadMaps];
 }
@@ -252,7 +242,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   [self endSearch];
   [self.tabbedController resetSelectedTab];
   self.tableViewController = nil;
-  self.downloadController = nil;
+  self.noMapsController = nil;
   self.rootView.isVisible = NO;
 }
 
@@ -264,7 +254,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   [self.parentView addSubview:self.rootView];
   self.rootView.compact = NO;
   self.rootView.isVisible = YES;
-  if (![self.topController isEqual:self.downloadController])
+  if (self.topController != self.noMapsController)
     [self.searchTextField becomeFirstResponder];
 }
 
@@ -311,16 +301,20 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   }
   else
   {
-    if (!self.downloadController)
-      self.downloadController = [[MWMSearchDownloadViewController alloc] initWithDelegate:self];
-    return self.downloadController;
+    if (!self.noMapsController)
+    {
+      UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Mapsme" bundle:[NSBundle mainBundle]];
+      self.noMapsController = [storyboard instantiateViewControllerWithIdentifier:@"MWMNoMapsViewController"];
+      self.noMapsController.delegate = self;
+    }
+    return self.noMapsController;
   }
 }
 
-- (void)setDownloadController:(MWMSearchDownloadViewController *)downloadController
+- (void)setNoMapsController:(MWMNoMapsViewController *)noMapsController
 {
-  _downloadController = downloadController;
-  if (downloadController)
+  _noMapsController = noMapsController;
+  if (noMapsController)
     [MWMFrameworkListener addObserver:self];
   else
     [MWMFrameworkListener removeObserver:self];

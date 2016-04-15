@@ -73,6 +73,9 @@ namespace
       case MWMButtonColoringBlack:
         self.tintColor = [UIColor blackHintText];
         break;
+      case MWMButtonColoringWhite:
+        self.tintColor = [UIColor white];
+        break;
       case MWMButtonColoringGray:
         self.tintColor = [UIColor blackDividers];
         break;
@@ -101,6 +104,7 @@ namespace
       case MWMButtonColoringBlack:
         self.tintColor = [UIColor linkBlue];
         break;
+      case MWMButtonColoringWhite:
       case MWMButtonColoringBlue:
       case MWMButtonColoringOther:
       case MWMButtonColoringGray:
@@ -120,6 +124,9 @@ namespace
     case MWMButtonColoringBlack:
       self.tintColor = [UIColor blackSecondaryText];
       break;
+    case MWMButtonColoringWhite:
+      self.tintColor = [UIColor white];
+      break;
     case MWMButtonColoringBlue:
       self.tintColor = [UIColor linkBlue];
       break;
@@ -138,6 +145,8 @@ namespace
     self.coloring = MWMButtonColoringBlue;
   else if ([coloring isEqualToString:@"MWMBlack"])
     self.coloring = MWMButtonColoringBlack;
+  else if ([coloring isEqualToString:@"MWMWhite"])
+    self.coloring = MWMButtonColoringWhite;
   else if ([coloring isEqualToString:@"MWMOther"])
     self.coloring = MWMButtonColoringOther;
   else if ([coloring isEqualToString:@"MWMGray"])
