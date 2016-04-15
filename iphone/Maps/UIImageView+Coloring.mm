@@ -79,7 +79,6 @@
   case MWMImageColoringBlack:
     self.tintColor = highlighted ? [UIColor blackHintText] : [UIColor blackSecondaryText];
     break;
-
   case MWMImageColoringGray:
     self.tintColor = highlighted ? [UIColor blackSecondaryText] : [UIColor blackHintText];
     break;

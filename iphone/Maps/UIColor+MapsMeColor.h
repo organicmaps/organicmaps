@@ -21,6 +21,7 @@
 + (UIColor *)white;
 + (UIColor *)whitePrimaryText;
 + (UIColor *)whiteSecondaryText;
++ (UIColor *)whiteHintText;
 + (UIColor *)whiteDividers;
 + (UIColor *)buttonDisabledBlueText;
 + (UIColor *)buttonHighlightedBlueText;
