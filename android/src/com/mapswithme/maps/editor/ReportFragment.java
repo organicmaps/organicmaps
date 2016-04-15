@@ -71,6 +71,12 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
     mToolbarController.onUpClick();
   }
 
+  private void sendNotExist()
+  {
+    Editor.nativePlaceDoesNotExist(mLat, mLon);
+    mToolbarController.onUpClick();
+  }
+
   @Override
   public void onClick(View v)
   {
@@ -79,7 +85,7 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
     case R.id.problem_not_exist:
 //    case R.id.problem_closed_repair:
 //    case R.id.problem_duplicated_place:
-      send((String)v.getTag());
+      sendNotExist();
       break;
 
     case R.id.problem_other:
