@@ -824,6 +824,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("unused")
   public void onMyPositionModeChangedCallback(final int newMode, final boolean routingActive)
   {
+    //TODO(Android team): Use routingActive flag to change location polling frequency
     mLocationPredictor.myPositionModeChanged(newMode);
     mMainMenu.getMyPositionButton().update(newMode);
     switch (newMode)

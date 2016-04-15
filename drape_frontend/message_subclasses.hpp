@@ -764,7 +764,7 @@ public:
 class SetTimeInBackgroundMessage : public Message
 {
 public:
-  SetTimeInBackgroundMessage(double time)
+  explicit SetTimeInBackgroundMessage(double time)
     : m_time(time)
   {}
 

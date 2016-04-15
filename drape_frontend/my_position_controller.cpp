@@ -280,8 +280,8 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m2::PointD const oldPos = GetDrawablePosition();
   double const oldAzimut = GetDrawableAzimut();
 
-  m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude, info.m_latitude,
-                                              info.m_horizontalAccuracy);
+  m2::RectD const rect = MercatorBounds::MetresToXY(info.m_longitude, info.m_latitude,
+                                                    info.m_horizontalAccuracy);
   m_position = rect.Center();
   m_errorRadius = rect.SizeX() * 0.5;
 
