@@ -15,22 +15,18 @@ extern "C"
     if (items.empty())
       return;
 
-    static jclass const pairClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("android/util/Pair")));
-    static jmethodID const pairCtor = env->GetMethodID(pairClass, "<init>", "(Ljava/lang/Object;Ljava/lang/Object;)V");
-    static jmethodID const listAddMethod = env->GetMethodID(env->GetObjectClass(result), "add", "(Ljava/lang/Object;)Z");
+    static jclass const pairClass = jni::GetGlobalClassRef(env, "android/util/Pair");
+    static jmethodID const pairCtor = jni::GetConstructorID(env, pairClass, "(Ljava/lang/Object;Ljava/lang/Object;)V");
+    static jmethodID const listAddMethod = jni::GetMethodID(env, result, "add", "(Ljava/lang/Object;)Z");
 
     for (TSearchRequest const & item : items)
     {
-      jstring locale = jni::ToJavaString(env, item.first.c_str());
-      jstring query = jni::ToJavaString(env, item.second.c_str());
-      jobject pair = env->NewObject(pairClass, pairCtor, locale, query);
-      ASSERT(pair, (jni::DescribeException()));
+      jni::TScopedLocalRef locale(env, jni::ToJavaString(env, item.first.c_str()));
+      jni::TScopedLocalRef query(env, jni::ToJavaString(env, item.second.c_str()));
+      jni::TScopedLocalRef pair(env, env->NewObject(pairClass, pairCtor, locale.get(), query.get()));
+      ASSERT(pair.get(), (jni::DescribeException()));
 
-      env->CallBooleanMethod(result, listAddMethod, pair);
-
-      env->DeleteLocalRef(locale);
-      env->DeleteLocalRef(query);
-      env->DeleteLocalRef(pair);
+      env->CallBooleanMethod(result, listAddMethod, pair.get());
     }
   }
 

@@ -105,8 +105,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetTrack(
 
   ASSERT(nTrack, ("Track must not be null with index:)", bmkId));
 
-  string formattedLenght;
-  MeasurementUtils::FormatDistance(nTrack->GetLengthMeters(), formattedLenght);
+  string formattedLength;
+  MeasurementUtils::FormatDistance(nTrack->GetLengthMeters(), formattedLength);
 
   dp::Color nColor = nTrack->GetColor(0);
 
@@ -117,6 +117,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetTrack(
 
   return env->NewObject(trackClazz, cId,
                         bmkId, id, jni::ToJavaString(env, nTrack->GetName()),
-                        jni::ToJavaString(env, formattedLenght), androidColor);
+                        jni::ToJavaString(env, formattedLength), androidColor);
 }
 } // extern "C"

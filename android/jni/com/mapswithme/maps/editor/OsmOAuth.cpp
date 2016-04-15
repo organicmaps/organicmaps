@@ -3,7 +3,9 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 
 #include "base/logging.hpp"
+
 #include "editor/osm_auth.hpp"
+#include "editor/server_api.hpp"
 
 namespace
 {
@@ -94,6 +96,22 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetGoogleAuthUrl(JNIEnv * env, jc
   catch (exception const & ex)
   {
     LOG(LWARNING, ("nativeGetGoogleAuthUrl error ", ex.what()));
+    return nullptr;
+  }
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetOsmUsername(JNIEnv * env, jclass clazz, jstring token, jstring secret)
+{
+  try
+  {
+    TKeySecret keySecret(jni::ToNativeString(env, token), jni::ToNativeString(env, secret));
+    ServerApi06 const api(OsmOAuth::ServerAuth(keySecret));
+    return jni::ToJavaString(env, api.GetUserPreferences().m_displayName);
+  }
+  catch (exception const & ex)
+  {
+    LOG(LWARNING, ("Can't load user preferences from server: ", ex.what()));
     return nullptr;
   }
 }

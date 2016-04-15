@@ -42,6 +42,7 @@ public final class OsmOAuth
 
   private static final String PREF_OSM_TOKEN = "OsmToken";
   private static final String PREF_OSM_SECRET = "OsmSecret";
+  private static final String PREF_OSM_USERNAME = "OsmUsername";
 
   public static final String URL_PARAM_VERIFIER = "oauth_verifier";
 
@@ -61,11 +62,17 @@ public final class OsmOAuth
     return MwmApplication.prefs().getString(PREF_OSM_SECRET, "");
   }
 
-  public static void setAuthorization(String token, String secret)
+  public static String getUsername()
+  {
+    return MwmApplication.prefs().getString(PREF_OSM_USERNAME, "");
+  }
+
+  public static void setAuthorization(String token, String secret, String username)
   {
     MwmApplication.prefs().edit()
                   .putString(PREF_OSM_TOKEN, token)
                   .putString(PREF_OSM_SECRET, secret)
+                  .putString(PREF_OSM_USERNAME, username)
                   .apply();
   }
 
@@ -74,6 +81,7 @@ public final class OsmOAuth
     MwmApplication.prefs().edit()
                   .remove(PREF_OSM_TOKEN)
                   .remove(PREF_OSM_SECRET)
+                  .remove(PREF_OSM_USERNAME)
                   .apply();
   }
 
@@ -100,7 +108,7 @@ public final class OsmOAuth
   @WorkerThread
   @Size(2)
   @Nullable
-  public static native String[] nativeAuthWithWebviewToken(String secret, String token, String verifier);
+  public static native String[] nativeAuthWithWebviewToken(String key, String secret, String verifier);
 
   /**
    * @return url for web auth, and token with secret for finishing authorization later
@@ -115,4 +123,8 @@ public final class OsmOAuth
   @Size(3)
   @Nullable
   public static native String[] nativeGetGoogleAuthUrl();
+
+  @WorkerThread
+  @Nullable
+  public static native String nativeGetOsmUsername(String token, String secret);
 }

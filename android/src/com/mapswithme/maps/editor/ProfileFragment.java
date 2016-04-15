@@ -17,7 +17,6 @@ import com.mapswithme.util.UiUtils;
 
 public class ProfileFragment extends AuthFragment implements View.OnClickListener
 {
-  private View mEditsBlock;
   private TextView mEditsLocal;
   private View mEditsMore;
   private TextView mEditsSent;
@@ -38,15 +37,15 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
   {
     mLogout = mToolbarController.findViewById(R.id.logout);
     mLogout.setOnClickListener(this);
-    mEditsBlock = view.findViewById(R.id.block_edits);
-    UiUtils.show(mEditsBlock);
-    final View localEdits = mEditsBlock.findViewById(R.id.local_edits);
+    View editsBlock = view.findViewById(R.id.block_edits);
+    UiUtils.show(editsBlock);
+    final View localEdits = editsBlock.findViewById(R.id.local_edits);
     ((ImageView) localEdits.findViewById(R.id.image)).setImageResource(R.drawable.ic_device);
     mEditsLocal = (TextView) localEdits.findViewById(R.id.title);
     mEditsMore = localEdits.findViewById(R.id.more);
     mEditsMore.setOnClickListener(this);
     UiUtils.hide(localEdits.findViewById(R.id.subtitle), localEdits.findViewById(R.id.more));
-    final View sentEdits = mEditsBlock.findViewById(R.id.sent_edits);
+    final View sentEdits = editsBlock.findViewById(R.id.sent_edits);
     ((ImageView) sentEdits.findViewById(R.id.image)).setImageResource(R.drawable.ic_upload);
     mEditsSent = (TextView) sentEdits.findViewById(R.id.title);
     mEditsSentDate = (TextView) sentEdits.findViewById(R.id.subtitle);
@@ -101,8 +100,6 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
                          }
                        }).tint().show();
       break;
-    default:
-      super.onClick(v);
     }
   }
 }
