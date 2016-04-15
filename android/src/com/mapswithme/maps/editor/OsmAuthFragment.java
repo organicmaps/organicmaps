@@ -65,6 +65,7 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
   {
     super.onViewCreated(view, savedInstanceState);
     mDelegate = new OsmAuthFragmentDelegate(this);
+    mDelegate.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(R.string.login);
     mEtLogin = (EditText) view.findViewById(R.id.osm_username);
     mEtPassword = (EditText) view.findViewById(R.id.osm_password);

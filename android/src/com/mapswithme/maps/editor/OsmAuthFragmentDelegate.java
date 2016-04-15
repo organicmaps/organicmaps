@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.v4.app.Fragment;
@@ -33,10 +34,12 @@ public class OsmAuthFragmentDelegate implements View.OnClickListener
 
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
-    view.findViewById(R.id.login_osm).setOnClickListener(this);
-    view.findViewById(R.id.login_facebook).setOnClickListener(this);
-    view.findViewById(R.id.login_google).setOnClickListener(this);
-    view.findViewById(R.id.register).setOnClickListener(this);
+    for (@IdRes int childId : new int[] {R.id.login_osm, R.id.login_facebook, R.id.login_google, R.id.register})
+    {
+      final View v = view.findViewById(childId);
+      if (v != null)
+        v.setOnClickListener(this);
+    }
   }
 
   @Override
