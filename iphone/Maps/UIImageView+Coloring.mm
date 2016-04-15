@@ -61,8 +61,6 @@
   {
   case MWMImageColoringBlack:
     return @selector(blackSecondaryText);
-  case MWMImageColoringWhite:
-    return @selector(whiteSecondaryText);
   case MWMImageColoringBlue:
     return @selector(linkBlue);
   case MWMImageColoringGray:
@@ -81,9 +79,6 @@
   case MWMImageColoringBlack:
     self.tintColor = highlighted ? [UIColor blackHintText] : [UIColor blackSecondaryText];
     break;
-  case MWMImageColoringWhite:
-    self.tintColor = highlighted ? [UIColor whiteHintText] : [UIColor whiteSecondaryText];
-    break;
   case MWMImageColoringGray:
     self.tintColor = highlighted ? [UIColor blackSecondaryText] : [UIColor blackHintText];
     break;
@@ -100,8 +95,6 @@
     self.mwm_coloring = MWMImageColoringBlue;
   else if ([coloring isEqualToString:@"MWMBlack"])
     self.mwm_coloring = MWMImageColoringBlack;
-  else if ([coloring isEqualToString:@"MWMWhite"])
-    self.mwm_coloring = MWMImageColoringWhite;
   else if ([coloring isEqualToString:@"MWMOther"])
     self.mwm_coloring = MWMImageColoringOther;
   else if ([coloring isEqualToString:@"MWMGray"])

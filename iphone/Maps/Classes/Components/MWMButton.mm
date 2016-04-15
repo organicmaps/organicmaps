@@ -73,12 +73,10 @@ namespace
       case MWMButtonColoringBlack:
         self.tintColor = [UIColor blackHintText];
         break;
-      case MWMButtonColoringWhite:
-        self.tintColor = [UIColor white];
-        break;
       case MWMButtonColoringGray:
         self.tintColor = [UIColor blackDividers];
         break;
+      case MWMButtonColoringWhite:
       case MWMButtonColoringOther:
         break;
     }
