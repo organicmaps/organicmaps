@@ -250,13 +250,14 @@ using namespace osm_auth_ios;
   }
   else
   {
-    UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
-    if ([pasteboard.string length])
+    // Take a copy of pasteboard string since it can accidentally become nil while we still use it.
+    NSString * pasteboard = [[UIPasteboard generalPasteboard].string copy];
+    if (pasteboard && pasteboard.length)
     {
-      if (f.ShowMapForURL([pasteboard.string UTF8String]))
+      if (f.ShowMapForURL([pasteboard UTF8String]))
       {
         [self showMap];
-        pasteboard.string = @"";
+        [UIPasteboard generalPasteboard].string = @"";
       }
     }
   }
