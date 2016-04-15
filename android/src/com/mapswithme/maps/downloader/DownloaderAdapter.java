@@ -667,7 +667,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private void processData()
   {
-    Collections.sort(mItems);
+    if (!mSearchResultsMode)
+      Collections.sort(mItems);
+
     collectHeaders();
 
     mCountryIndex.clear();
