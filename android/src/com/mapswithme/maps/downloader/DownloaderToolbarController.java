@@ -22,7 +22,7 @@ class DownloaderToolbarController extends SearchToolbarController
   @Override
   protected void onTextChanged(String query)
   {
-    if (!mFragment.isAdded() || mFragment.getAdapter().canGoUpdwards())
+    if (!mFragment.isAdded() || !mFragment.shouldShowSearch())
       return;
 
     if (TextUtils.isEmpty(query))
@@ -31,16 +31,12 @@ class DownloaderToolbarController extends SearchToolbarController
       mFragment.startSearch();
   }
 
-  @Override
-  public void onUpClick()
+  public void update()
   {
-    if (!mFragment.onBackPressed())
-      super.onUpClick();
-  }
+    boolean showSearch = mFragment.shouldShowSearch();
+    String title = (showSearch ? "" : mFragment.getAdapter().getCurrentRootName());
 
-  public void update(String title)
-  {
-    showControls(!mFragment.getAdapter().canGoUpdwards());
+    showControls(showSearch);
     setTitle(title);
   }
 

@@ -2,6 +2,7 @@ package com.mapswithme.maps.downloader;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -68,6 +69,11 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     }
   };
 
+  boolean shouldShowSearch()
+  {
+    return CountryItem.isRoot(getCurrentRoot());
+  }
+
   void startSearch()
   {
     mSearchRunning = true;
@@ -99,10 +105,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
 
   void update()
   {
-    String rootName = mAdapter.getCurrentParentName();
-    boolean onTop = (mAdapter.isSearchResultsMode() || rootName == null);
-
-    mToolbarController.update(onTop ? "" : rootName);
+    mToolbarController.update();
     mBottomPanel.update();
   }
 
@@ -196,5 +199,10 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   public DownloaderAdapter getAdapter()
   {
     return mAdapter;
+  }
+
+  @NonNull public String getCurrentRoot()
+  {
+    return mAdapter.getCurrentRoot();
   }
 }

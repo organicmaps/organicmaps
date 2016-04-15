@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   style="@style/MwmWidget.Floating"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -13,9 +14,30 @@
     android:layout_height="0dp"
     android:layout_weight="1"/>
 
-  <include
+  <LinearLayout
     android:id="@+id/bottom_panel"
-    layout="@layout/downloader_bottom_panel"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_block_base"/>
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="bottom">
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="right|bottom"
+      android:layout_marginRight="@dimen/margin_base"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:src="@drawable/ic_add_place"/>
+
+    <Button
+      android:id="@+id/action"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_block_base"
+      android:paddingLeft="@dimen/margin_base"
+      android:paddingRight="@dimen/margin_base"
+      style="@style/MwmWidget.Button.Accent"
+      android:textAppearance="@style/MwmTextAppearance.Button"
+      android:textColor="?colorAccent"
+      tools:text="@string/downloader_update_all_button"/>
+  </LinearLayout>
 </LinearLayout>

@@ -9,7 +9,7 @@ import android.text.TextUtils;
  */
 public final class CountryItem implements Comparable<CountryItem>
 {
-  private static String ROOT;
+  private static String sRootId;
 
   // Must correspond to ItemCategory in MapManager.cpp
   static final int CATEGORY_NEAR_ME = 0;
@@ -59,6 +59,12 @@ public final class CountryItem implements Comparable<CountryItem>
   // Internal field to store search result name
   String searchResultName;
 
+  private static void ensureRootIdKnown()
+  {
+    if (sRootId == null)
+      sRootId = MapManager.nativeGetRoot();
+  }
+
   public CountryItem(String id)
   {
     this.id = id;
@@ -97,11 +103,9 @@ public final class CountryItem implements Comparable<CountryItem>
   {
     MapManager.nativeGetAttributes(this);
 
-    if (ROOT == null)
-      ROOT = MapManager.nativeGetRoot();
-
-    if (TextUtils.equals(ROOT, directParentName))
-      directParentName = "";
+    ensureRootIdKnown();
+    if (TextUtils.equals(sRootId, directParentId))
+      directParentId = "";
   }
 
   public static CountryItem fill(String countryId)
@@ -109,6 +113,18 @@ public final class CountryItem implements Comparable<CountryItem>
     CountryItem res = new CountryItem(countryId);
     res.update();
     return res;
+  }
+
+  public static boolean isRoot(String id)
+  {
+    ensureRootIdKnown();
+    return sRootId.equals(id);
+  }
+
+  public static String getRootId()
+  {
+    ensureRootIdKnown();
+    return sRootId;
   }
 
   public boolean isExpandable()

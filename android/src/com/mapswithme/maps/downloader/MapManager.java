@@ -315,9 +315,10 @@ public final class MapManager
   public static native @Nullable UpdateInfo nativeGetUpdateInfo(@Nullable String root);
 
   /**
-   * Retrieves list of country items with its status info. Uses root as parent if {@code root} is null.
+   * Retrieves list of country items with its status info.
+   * if {@code root} is {@code null}, list of downloaded countries is returned.
    */
-  public static native void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, List<CountryItem> result);
+  public static native void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, boolean myMapsMode, List<CountryItem> result);
 
   /**
    * Sets following attributes of the given {@code item}:

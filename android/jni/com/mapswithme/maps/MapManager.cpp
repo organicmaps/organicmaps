@@ -350,13 +350,13 @@ static void PutItemsToList(JNIEnv * env, jobject const list, TCountriesVec const
   }
 }
 
-// static void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, List<CountryItem> result);
+// static void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, boolean myMapsMode, List<CountryItem> result);
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz, jstring parent, jdouble lat, jdouble lon, jboolean hasLocation, jobject result)
+Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz, jstring parent, jdouble lat, jdouble lon, jboolean hasLocation, jboolean myMapsMode, jobject result)
 {
   PrepareClassRefs(env);
 
-  if (hasLocation)
+  if (hasLocation && !myMapsMode)
   {
     TCountriesVec near;
     g_framework->NativeFramework()->CountryInfoGetter().GetRegionsCountryId(MercatorBounds::FromLatLon(lat, lon), near);
@@ -369,8 +369,10 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   TCountriesVec downloaded, available;
   GetStorage().GetChildrenInGroups(GetRootId(env, parent), downloaded, available);
 
-  PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED, nullptr);
-  PutItemsToList(env, result, available, ItemCategory::AVAILABLE, nullptr);
+  if (myMapsMode)
+    PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED, nullptr);
+  else
+    PutItemsToList(env, result, available, ItemCategory::AVAILABLE, nullptr);
 }
 
 // static void nativeUpdateItem(CountryItem item);

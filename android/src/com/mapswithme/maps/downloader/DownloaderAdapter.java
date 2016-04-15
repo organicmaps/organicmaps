@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
@@ -14,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -56,6 +56,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private final DownloaderFragment mFragment;
   private final StickyRecyclerHeadersDecoration mHeadersDecoration;
 
+  private boolean mMyMapsMode = true;
   private boolean mSearchResultsMode;
   private String mSearchQuery;
 
@@ -215,13 +216,15 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     final String countryId;
     final String name;
+    final boolean myMapsMode;
     final int topPosition;
     final int topOffset;
 
-    private PathEntry(String countryId, String name, int topPosition, int topOffset)
+    private PathEntry(String countryId, String name, boolean myMapsMode, int topPosition, int topOffset)
     {
       this.countryId = countryId;
       this.name = name;
+      this.myMapsMode = myMapsMode;
       this.topPosition = topPosition;
       this.topOffset = topOffset;
     }
@@ -247,11 +250,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         ViewHolder vh = (ViewHolder)mRecycler.findViewHolderForAdapterPosition(i);
         if (vh != null && vh.mItem.id.equals(countryId))
-        {
           vh.bind(vh.mItem);
-          // No duplcates allowed in the list
-          return;
-        }
       }
     }
 
@@ -424,7 +423,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         public void onClick(View v)
         {
           if (mItem.isExpandable())
-            goDeeper(mItem);
+            goDeeper(mItem.id, mItem.name, true);
           else
             processClick(false);
         }
@@ -627,12 +626,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     mItems.clear();
 
-    String parent = getCurrentParent();
+    String parent = getCurrentRoot();
     boolean hasLocation = false;
     double lat = 0.0;
     double lon = 0.0;
 
-    if (TextUtils.isEmpty(parent))
+    if (!mMyMapsMode && CountryItem.isRoot(parent))
     {
       Location loc = LocationHelper.INSTANCE.getSavedLocation();
       hasLocation = (loc != null);
@@ -643,7 +642,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
     }
 
-    MapManager.nativeListItems(parent, lat, lon, hasLocation, mItems);
+    MapManager.nativeListItems(parent, lat, lon, hasLocation, mMyMapsMode, mItems);
     processData();
   }
 
@@ -722,7 +721,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     return mItems.size();
   }
 
-  private void goDeeper(CountryItem child)
+  private void goDeeper(String childId, String childName, boolean refresh)
   {
     LinearLayoutManager lm = (LinearLayoutManager)mRecycler.getLayoutManager();
 
@@ -731,28 +730,32 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     int offset = lm.findViewByPosition(position).getTop();
 
     boolean wasEmpty = mPath.isEmpty();
-    mPath.push(new PathEntry(child.id, child.name, position, offset));
+    mPath.push(new PathEntry(childId, childName, mMyMapsMode, position, offset));
 
     if (wasEmpty)
       mFragment.clearSearchQuery();
 
-    refreshData();
     lm.scrollToPosition(0);
 
+    if (!refresh)
+      return;
+
+    refreshData();
     mFragment.update();
   }
 
-  boolean canGoUpdwards()
+  private boolean canGoUpwards()
   {
     return !mPath.isEmpty();
   }
 
   boolean goUpwards()
   {
-    if (!canGoUpdwards())
+    if (!canGoUpwards())
       return false;
 
     final PathEntry entry = mPath.pop();
+    mMyMapsMode = entry.myMapsMode;
     refreshData();
 
     LinearLayoutManager lm = (LinearLayoutManager)mRecycler.getLayoutManager();
@@ -762,14 +765,26 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     return true;
   }
 
-  @Nullable String getCurrentParent()
+  void setAvailableMapsMode()
   {
-    return (canGoUpdwards() ? mPath.peek().countryId : null);
+    goDeeper(getCurrentRoot(), getCurrentRootName(), false);
+    mMyMapsMode = false;
+    refreshData();
   }
 
-  @Nullable String getCurrentParentName()
+  @NonNull String getCurrentRoot()
   {
-    return (canGoUpdwards() ? mPath.peek().name : null);
+    return (canGoUpwards() ? mPath.peek().countryId : CountryItem.getRootId());
+  }
+
+  @Nullable String getCurrentRootName()
+  {
+    return (canGoUpwards() ? mPath.peek().name : null);
+  }
+
+  boolean isMyMapsMode()
+  {
+    return mMyMapsMode;
   }
 
   void attach()
