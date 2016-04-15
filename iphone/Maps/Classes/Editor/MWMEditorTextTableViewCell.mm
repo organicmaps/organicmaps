@@ -31,9 +31,10 @@ namespace
                       text:(NSString *)text
                placeholder:(NSString *)placeholder
               keyboardType:(UIKeyboardType)keyboardType
+             capitalization:(UITextAutocapitalizationType)capitalization
 {
   [self configWithDelegate:delegate icon:icon text:text placeholder:placeholder
-                            errorMessage:nil isValid:YES keyboardType:keyboardType];
+                            errorMessage:nil isValid:YES keyboardType:keyboardType capitalization:capitalization];
 }
 
 - (void)configWithDelegate:(id<MWMEditorCellProtocol>)delegate
@@ -43,6 +44,7 @@ namespace
               errorMessage:(NSString *)errorMessage
                    isValid:(BOOL)isValid
               keyboardType:(UIKeyboardType)keyboardType
+             capitalization:(UITextAutocapitalizationType)capitalization
 {
   self.delegate = delegate;
   self.icon.image = icon;
@@ -56,6 +58,7 @@ namespace
   self.textField.keyboardType = keyboardType;
   self.textField.backgroundColor = [UIColor clearColor];
   self.isValid = isValid;
+  self.textField.autocapitalizationType = capitalization;
   [self processValidation];
 }
 
