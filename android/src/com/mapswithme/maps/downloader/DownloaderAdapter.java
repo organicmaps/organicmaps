@@ -554,12 +554,15 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   }
 
   class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private final TextView mTitle;
+
     HeaderViewHolder(View frame) {
       super(frame);
+      mTitle = (TextView) frame.findViewById(R.id.title);
     }
 
     void bind(int position) {
-      ((TextView)itemView).setText(mHeaders.get(mItems.get(position).headerId));
+      mTitle.setText(mHeaders.get(mItems.get(position).headerId));
     }
   }
 

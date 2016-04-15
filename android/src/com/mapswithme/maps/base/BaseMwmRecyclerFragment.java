@@ -17,7 +17,7 @@ import com.mapswithme.util.Utils;
 public abstract class BaseMwmRecyclerFragment extends Fragment
 {
   private Toolbar mToolbar;
-  protected RecyclerView mRecycler;
+  private RecyclerView mRecycler;
 
   protected abstract RecyclerView.Adapter createAdapter();
 
@@ -61,6 +61,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
       throw new IllegalStateException("RecyclerView not found in layout");
 
     LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
+    manager.setSmoothScrollbarEnabled(true);
     mRecycler.setLayoutManager(manager);
     mRecycler.setAdapter(createAdapter());
   }
@@ -88,10 +89,5 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
   {
     super.onPause();
     org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
-  }
-
-  public BaseMwmFragmentActivity getMwmActivity()
-  {
-    return (BaseMwmFragmentActivity) getActivity();
   }
 }
