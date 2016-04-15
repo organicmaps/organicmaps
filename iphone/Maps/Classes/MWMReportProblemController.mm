@@ -1,10 +1,7 @@
 #import "MWMReportProblemController.h"
 #import "SelectableCell.h"
 
-namespace
-{
- string const kAmenityDoesntExist = "The amenity has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be a month old), but cannot be found on the ground.";
-}
+#include "indexer/osm_editor.hpp"
 
 @interface MWMReportProblemController ()
 
@@ -32,7 +29,7 @@ namespace
 {
   if (!self.isCellSelected)
     return;
-  [self sendNote:kAmenityDoesntExist];
+  [self sendNote:osm::Editor::kPlaceDoesNotExistMessage];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
