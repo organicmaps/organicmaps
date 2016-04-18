@@ -25,7 +25,8 @@ using namespace storage;
 - (void)load
 {
   [super load];
-  [self configNearMeSection];
+  if (self.mode == TMWMMapDownloaderMode::Available)
+    [self configNearMeSection];
 }
 
 - (void)configNearMeSection
@@ -37,14 +38,8 @@ using namespace storage;
   TCountriesVec closestCoutryIds;
   countryInfoGetter.GetRegionsCountryId(lm.lastLocation.mercator, closestCoutryIds);
   NSMutableArray<NSString *> * nearmeCountries = [@[] mutableCopy];
-  auto const & s = GetFramework().Storage();
   for (auto const & countryId : closestCoutryIds)
-  {
-    NodeStatuses nodeStatuses{};
-    s.GetNodeStatuses(countryId, nodeStatuses);
-    if (nodeStatuses.m_status == NodeStatus::NotDownloaded)
-      [nearmeCountries addObject:@(countryId.c_str())];
-  }
+    [nearmeCountries addObject:@(countryId.c_str())];
   self.nearmeCountries = nearmeCountries;
 }
 
