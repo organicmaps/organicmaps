@@ -175,21 +175,19 @@ bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
 // TODO: This code only for demonstration purposes and will be removed soon
 bool SearchPanel::TryChangeRouterCmd(QString const & str)
 {
-  bool const isPedestrian = (str == "?pedestrian");
-  bool const isVehicle = isPedestrian ? false : (str == "?vehicle");
-  bool const isBicycle = isPedestrian || isVehicle ? false : (str == "?bicycle");
-
-  if (!isPedestrian && !isVehicle && !isBicycle)
+  routing::RouterType routerType;
+  if (str == "?pedestrian")
+    routerType = routing::RouterType::Pedestrian;
+  else if (str == "?vehicle")
+    routerType = routing::RouterType::Vehicle;
+  else if (str == "?bicycle")
+    routerType = routing::RouterType::Bicycle;
+  else
     return false;
 
   m_pEditor->setText("");
   parentWidget()->hide();
-
-  routing::RouterType const routerType = isPedestrian ? routing::RouterType::Pedestrian :
-                                                       isVehicle ? routing::RouterType::Vehicle :
-                                                                   routing::RouterType::Bicycle;
   m_pDrawWidget->SetRouter(routerType);
-
   return true;
 }
 

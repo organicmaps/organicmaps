@@ -49,7 +49,7 @@ double constexpr kSpeedFootwayKMpH = 5.0;
 double constexpr kSpeedPlatformKMpH = 5.0;
 
 // Default
-routing::VehicleModel::InitListT const s_pedestrianLimits_Default =
+routing::VehicleModel::InitListT const g_pedestrianLimitsDefault =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -73,7 +73,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Default =
 };
 
 // All options available.
-routing::VehicleModel::InitListT const s_pedestrianLimits_All =
+routing::VehicleModel::InitListT const g_pedestrianLimitsAll =
 {
   { {"highway", "trunk"},          kSpeedPedestrianKMpH },
   { {"highway", "trunk_link"},     kSpeedPedestrianKMpH },
@@ -99,7 +99,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_All =
 };
 
 // Australia
-routing::VehicleModel::InitListT const s_pedestrianLimits_Australia =
+routing::VehicleModel::InitListT const g_pedestrianLimitsAustralia =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -125,7 +125,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Australia =
 };
 
 // Austria
-routing::VehicleModel::InitListT const s_pedestrianLimits_Austria =
+routing::VehicleModel::InitListT const g_pedestrianLimitsAustria =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -148,7 +148,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Austria =
 };
 
 // Belarus
-routing::VehicleModel::InitListT const s_pedestrianLimits_Belarus =
+routing::VehicleModel::InitListT const g_pedestrianLimitsBelarus =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -173,7 +173,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Belarus =
 };
 
 // Belgium
-routing::VehicleModel::InitListT const s_pedestrianLimits_Belgium =
+routing::VehicleModel::InitListT const g_pedestrianLimitsBelgium =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -197,7 +197,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Belgium =
 };
 
 // Brazil
-routing::VehicleModel::InitListT const s_pedestrianLimits_Brazil =
+routing::VehicleModel::InitListT const g_pedestrianLimitsBrazil =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -223,7 +223,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Brazil =
 };
 
 // Denmark
-routing::VehicleModel::InitListT const s_pedestrianLimits_Denmark =
+routing::VehicleModel::InitListT const g_pedestrianLimitsDenmark =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -246,7 +246,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Denmark =
 };
 
 // France
-routing::VehicleModel::InitListT const s_pedestrianLimits_France =
+routing::VehicleModel::InitListT const g_pedestrianLimitsFrance =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -268,7 +268,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_France =
 };
 
 // Finland
-routing::VehicleModel::InitListT const s_pedestrianLimits_Finland =
+routing::VehicleModel::InitListT const g_pedestrianLimitsFinland =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -293,7 +293,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Finland =
 };
 
 // Germany
-routing::VehicleModel::InitListT const s_pedestrianLimits_Germany =
+routing::VehicleModel::InitListT const g_pedestrianLimitsGermany =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -317,7 +317,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Germany =
 };
 
 // Hungary
-routing::VehicleModel::InitListT const s_pedestrianLimits_Hungary =
+routing::VehicleModel::InitListT const g_pedestrianLimitsHungary =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -339,7 +339,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Hungary =
 };
 
 // Netherlands
-routing::VehicleModel::InitListT const s_pedestrianLimits_Netherlands =
+routing::VehicleModel::InitListT const g_pedestrianLimitsNetherlands =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -362,7 +362,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Netherlands =
 };
 
 // Norway
-routing::VehicleModel::InitListT const s_pedestrianLimits_Norway =
+routing::VehicleModel::InitListT const g_pedestrianLimitsNorway =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -388,7 +388,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Norway =
 };
 
 // Poland
-routing::VehicleModel::InitListT const s_pedestrianLimits_Poland =
+routing::VehicleModel::InitListT const g_pedestrianLimitsPoland =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -410,7 +410,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Poland =
 };
 
 // Romania
-routing::VehicleModel::InitListT const s_pedestrianLimits_Romania =
+routing::VehicleModel::InitListT const g_pedestrianLimitsRomania =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -432,7 +432,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Romania =
 };
 
 // Russia
-routing::VehicleModel::InitListT const s_pedestrianLimits_Russia =
+routing::VehicleModel::InitListT const g_pedestrianLimitsRussia =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -457,7 +457,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Russia =
 };
 
 // Slovakia
-routing::VehicleModel::InitListT const s_pedestrianLimits_Slovakia =
+routing::VehicleModel::InitListT const g_pedestrianLimitsSlovakia =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -479,7 +479,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Slovakia =
 };
 
 // Switzerland
-routing::VehicleModel::InitListT const s_pedestrianLimits_Switzerland =
+routing::VehicleModel::InitListT const g_pedestrianLimitsSwitzerland =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -501,7 +501,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Switzerland =
 };
 
 // Turkey
-routing::VehicleModel::InitListT const s_pedestrianLimits_Turkey =
+routing::VehicleModel::InitListT const g_pedestrianLimitsTurkey =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -527,7 +527,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Turkey =
 };
 
 // Ukraine
-routing::VehicleModel::InitListT const s_pedestrianLimits_Ukraine =
+routing::VehicleModel::InitListT const g_pedestrianLimitsUkraine =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -549,7 +549,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Ukraine =
 };
 
 // United Kingdom
-routing::VehicleModel::InitListT const s_pedestrianLimits_UK =
+routing::VehicleModel::InitListT const g_pedestrianLimitsUK =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -575,7 +575,7 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_UK =
 };
 
 // USA
-routing::VehicleModel::InitListT const s_pedestrianLimits_USA =
+routing::VehicleModel::InitListT const g_pedestrianLimitsUSA =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -607,7 +607,8 @@ namespace routing
 
 // If one of feature types will be disabled for pedestrian, features of this type will be simplyfied
 // in generator. Look FeatureBuilder1::IsRoad() for more details.
-PedestrianModel::PedestrianModel() : VehicleModel(classif(), s_pedestrianLimits_All)
+PedestrianModel::PedestrianModel()
+  : VehicleModel(classif(), g_pedestrianLimitsAll)
 {
   Init();
 }
@@ -657,28 +658,28 @@ double PedestrianModel::GetSpeed(FeatureType const & f) const
 
 PedestrianModelFactory::PedestrianModelFactory()
 {
-  m_models[string()] = make_shared<PedestrianModel>(s_pedestrianLimits_Default);
-  m_models["Australia"] = make_shared<PedestrianModel>(s_pedestrianLimits_Australia);
-  m_models["Austria"] = make_shared<PedestrianModel>(s_pedestrianLimits_Austria);
-  m_models["Belarus"] = make_shared<PedestrianModel>(s_pedestrianLimits_Belarus);
-  m_models["Belgium"] = make_shared<PedestrianModel>(s_pedestrianLimits_Belgium);
-  m_models["Brazil"] = make_shared<PedestrianModel>(s_pedestrianLimits_Brazil);
-  m_models["Denmark"] = make_shared<PedestrianModel>(s_pedestrianLimits_Denmark);
-  m_models["France"] = make_shared<PedestrianModel>(s_pedestrianLimits_France);
-  m_models["Finland"] = make_shared<PedestrianModel>(s_pedestrianLimits_Finland);
-  m_models["Germany"] = make_shared<PedestrianModel>(s_pedestrianLimits_Germany);
-  m_models["Hungary"] = make_shared<PedestrianModel>(s_pedestrianLimits_Hungary);
-  m_models["Netherlands"] = make_shared<PedestrianModel>(s_pedestrianLimits_Netherlands);
-  m_models["Norway"] = make_shared<PedestrianModel>(s_pedestrianLimits_Norway);
-  m_models["Poland"] = make_shared<PedestrianModel>(s_pedestrianLimits_Poland);
-  m_models["Romania"] = make_shared<PedestrianModel>(s_pedestrianLimits_Romania);
-  m_models["Russia"] = make_shared<PedestrianModel>(s_pedestrianLimits_Russia);
-  m_models["Slovakia"] = make_shared<PedestrianModel>(s_pedestrianLimits_Slovakia);
-  m_models["Switzerland"] = make_shared<PedestrianModel>(s_pedestrianLimits_Switzerland);
-  m_models["Turkey"] = make_shared<PedestrianModel>(s_pedestrianLimits_Turkey);
-  m_models["Ukraine"] = make_shared<PedestrianModel>(s_pedestrianLimits_Ukraine);
-  m_models["UK"] = make_shared<PedestrianModel>(s_pedestrianLimits_UK);
-  m_models["USA"] = make_shared<PedestrianModel>(s_pedestrianLimits_USA);
+  m_models[string()] = make_shared<PedestrianModel>(g_pedestrianLimitsDefault);
+  m_models["Australia"] = make_shared<PedestrianModel>(g_pedestrianLimitsAustralia);
+  m_models["Austria"] = make_shared<PedestrianModel>(g_pedestrianLimitsAustria);
+  m_models["Belarus"] = make_shared<PedestrianModel>(g_pedestrianLimitsBelarus);
+  m_models["Belgium"] = make_shared<PedestrianModel>(g_pedestrianLimitsBelgium);
+  m_models["Brazil"] = make_shared<PedestrianModel>(g_pedestrianLimitsBrazil);
+  m_models["Denmark"] = make_shared<PedestrianModel>(g_pedestrianLimitsDenmark);
+  m_models["France"] = make_shared<PedestrianModel>(g_pedestrianLimitsFrance);
+  m_models["Finland"] = make_shared<PedestrianModel>(g_pedestrianLimitsFinland);
+  m_models["Germany"] = make_shared<PedestrianModel>(g_pedestrianLimitsGermany);
+  m_models["Hungary"] = make_shared<PedestrianModel>(g_pedestrianLimitsHungary);
+  m_models["Netherlands"] = make_shared<PedestrianModel>(g_pedestrianLimitsNetherlands);
+  m_models["Norway"] = make_shared<PedestrianModel>(g_pedestrianLimitsNorway);
+  m_models["Poland"] = make_shared<PedestrianModel>(g_pedestrianLimitsPoland);
+  m_models["Romania"] = make_shared<PedestrianModel>(g_pedestrianLimitsRomania);
+  m_models["Russia"] = make_shared<PedestrianModel>(g_pedestrianLimitsRussia);
+  m_models["Slovakia"] = make_shared<PedestrianModel>(g_pedestrianLimitsSlovakia);
+  m_models["Switzerland"] = make_shared<PedestrianModel>(g_pedestrianLimitsSwitzerland);
+  m_models["Turkey"] = make_shared<PedestrianModel>(g_pedestrianLimitsTurkey);
+  m_models["Ukraine"] = make_shared<PedestrianModel>(g_pedestrianLimitsUkraine);
+  m_models["UK"] = make_shared<PedestrianModel>(g_pedestrianLimitsUK);
+  m_models["USA"] = make_shared<PedestrianModel>(g_pedestrianLimitsUSA);
 }
 
 shared_ptr<IVehicleModel> PedestrianModelFactory::GetVehicleModel() const

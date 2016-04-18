@@ -31,8 +31,8 @@ private:
   /// but if function returns false, real allowance is unknown.
   bool IsYesBicycle(feature::TypesHolder const & types) const;
 
-  uint32_t m_noBicycleType;
-  uint32_t m_yesBicycleType;
+  uint32_t m_noBicycleType = 0;
+  uint32_t m_yesBicycleType = 0;
 };
 
 class BicycleModelFactory : public IVehicleModelFactory

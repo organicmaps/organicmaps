@@ -49,7 +49,7 @@ double constexpr kSpeedFootwayKMpH = 7.0;
 double constexpr kSpeedPlatformKMpH = 3.0;
 
 // Default
-routing::VehicleModel::InitListT const s_bicycleLimits_Default =
+routing::VehicleModel::InitListT const g_bicycleLimitsDefault =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -72,7 +72,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Default =
 };
 
 // All options available.
-routing::VehicleModel::InitListT const s_bicycleLimits_All =
+routing::VehicleModel::InitListT const g_bicycleLimitsAll =
 {
   { {"highway", "trunk"},          kSpeedPedestrianKMpH },
   { {"highway", "trunk_link"},     kSpeedPedestrianKMpH },
@@ -98,7 +98,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_All =
 };
 
 // Australia
-routing::VehicleModel::InitListT const s_bicycleLimits_Australia =
+routing::VehicleModel::InitListT const g_bicycleLimitsAustralia =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -124,7 +124,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Australia =
 };
 
 // Austria
-routing::VehicleModel::InitListT const s_bicycleLimits_Austria =
+routing::VehicleModel::InitListT const g_bicycleLimitsAustria =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -144,7 +144,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Austria =
 };
 
 // Belarus
-routing::VehicleModel::InitListT const s_bicycleLimits_Belarus =
+routing::VehicleModel::InitListT const g_bicycleLimitsBelarus =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -169,7 +169,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Belarus =
 };
 
 // Belgium
-routing::VehicleModel::InitListT const s_bicycleLimits_Belgium =
+routing::VehicleModel::InitListT const g_bicycleLimitsBelgium =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -191,7 +191,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Belgium =
 };
 
 // Brazil
-routing::VehicleModel::InitListT const s_bicycleLimits_Brazil =
+routing::VehicleModel::InitListT const g_bicycleLimitsBrazil =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -217,7 +217,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Brazil =
 };
 
 // Denmark
-routing::VehicleModel::InitListT const s_bicycleLimits_Denmark =
+routing::VehicleModel::InitListT const g_bicycleLimitsDenmark =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -238,7 +238,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Denmark =
 };
 
 // France
-routing::VehicleModel::InitListT const s_bicycleLimits_France =
+routing::VehicleModel::InitListT const g_bicycleLimitsFrance =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -260,7 +260,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_France =
 };
 
 // Finland
-routing::VehicleModel::InitListT const s_bicycleLimits_Finland =
+routing::VehicleModel::InitListT const g_bicycleLimitsFinland =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -284,7 +284,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Finland =
 };
 
 // Germany
-routing::VehicleModel::InitListT const s_bicycleLimits_Germany =
+routing::VehicleModel::InitListT const g_bicycleLimitsGermany =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -307,7 +307,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Germany =
 };
 
 // Hungary
-routing::VehicleModel::InitListT const s_bicycleLimits_Hungary =
+routing::VehicleModel::InitListT const g_bicycleLimitsHungary =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -328,7 +328,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Hungary =
 };
 
 // Netherlands
-routing::VehicleModel::InitListT const s_bicycleLimits_Netherlands =
+routing::VehicleModel::InitListT const g_bicycleLimitsNetherlands =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -349,7 +349,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Netherlands =
 };
 
 // Norway
-routing::VehicleModel::InitListT const s_bicycleLimits_Norway =
+routing::VehicleModel::InitListT const g_bicycleLimitsNorway =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -375,7 +375,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Norway =
 };
 
 // Poland
-routing::VehicleModel::InitListT const s_bicycleLimits_Poland =
+routing::VehicleModel::InitListT const g_bicycleLimitsPoland =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -396,7 +396,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Poland =
 };
 
 // Romania
-routing::VehicleModel::InitListT const s_bicycleLimits_Romania =
+routing::VehicleModel::InitListT const g_bicycleLimitsRomania =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -417,7 +417,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Romania =
 };
 
 // Russia
-routing::VehicleModel::InitListT const s_bicycleLimits_Russia =
+routing::VehicleModel::InitListT const g_bicycleLimitsRussia =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -440,7 +440,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Russia =
 };
 
 // Slovakia
-routing::VehicleModel::InitListT const s_bicycleLimits_Slovakia =
+routing::VehicleModel::InitListT const g_bicycleLimitsSlovakia =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -461,7 +461,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Slovakia =
 };
 
 // Switzerland
-routing::VehicleModel::InitListT const s_bicycleLimits_Switzerland =
+routing::VehicleModel::InitListT const g_bicycleLimitsSwitzerland =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -484,7 +484,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Switzerland =
 };
 
 // Turkey
-routing::VehicleModel::InitListT const s_bicycleLimits_Turkey =
+routing::VehicleModel::InitListT const g_bicycleLimitsTurkey =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -507,7 +507,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Turkey =
 };
 
 // Ukraine
-routing::VehicleModel::InitListT const s_bicycleLimits_Ukraine =
+routing::VehicleModel::InitListT const g_bicycleLimitsUkraine =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -529,7 +529,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_Ukraine =
 };
 
 // United Kingdom
-routing::VehicleModel::InitListT const s_bicycleLimits_UK =
+routing::VehicleModel::InitListT const g_bicycleLimitsUK =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -553,7 +553,7 @@ routing::VehicleModel::InitListT const s_bicycleLimits_UK =
 };
 
 // USA
-routing::VehicleModel::InitListT const s_bicycleLimits_USA =
+routing::VehicleModel::InitListT const g_bicycleLimitsUSA =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -584,7 +584,8 @@ namespace routing
 
 // If one of feature types will be disabled for bicycles, features of this type will be simplyfied
 // in generator. Look FeatureBuilder1::IsRoad() for more details.
-BicycleModel::BicycleModel() : VehicleModel(classif(), s_bicycleLimits_All)
+BicycleModel::BicycleModel()
+  : VehicleModel(classif(), g_bicycleLimitsAll)
 {
   Init();
 }
@@ -635,28 +636,28 @@ double BicycleModel::GetSpeed(FeatureType const & f) const
 
 BicycleModelFactory::BicycleModelFactory()
 {
-  m_models[string()] = make_shared<BicycleModel>(s_bicycleLimits_Default);
-  m_models["Australia"] = make_shared<BicycleModel>(s_bicycleLimits_Australia);
-  m_models["Austria"] = make_shared<BicycleModel>(s_bicycleLimits_Austria);
-  m_models["Belarus"] = make_shared<BicycleModel>(s_bicycleLimits_Belarus);
-  m_models["Belgium"] = make_shared<BicycleModel>(s_bicycleLimits_Belgium);
-  m_models["Brazil"] = make_shared<BicycleModel>(s_bicycleLimits_Brazil);
-  m_models["Denmark"] = make_shared<BicycleModel>(s_bicycleLimits_Denmark);
-  m_models["France"] = make_shared<BicycleModel>(s_bicycleLimits_France);
-  m_models["Finland"] = make_shared<BicycleModel>(s_bicycleLimits_Finland);
-  m_models["Germany"] = make_shared<BicycleModel>(s_bicycleLimits_Germany);
-  m_models["Hungary"] = make_shared<BicycleModel>(s_bicycleLimits_Hungary);
-  m_models["Netherlands"] = make_shared<BicycleModel>(s_bicycleLimits_Netherlands);
-  m_models["Norway"] = make_shared<BicycleModel>(s_bicycleLimits_Norway);
-  m_models["Poland"] = make_shared<BicycleModel>(s_bicycleLimits_Poland);
-  m_models["Romania"] = make_shared<BicycleModel>(s_bicycleLimits_Romania);
-  m_models["Russia"] = make_shared<BicycleModel>(s_bicycleLimits_Russia);
-  m_models["Slovakia"] = make_shared<BicycleModel>(s_bicycleLimits_Slovakia);
-  m_models["Switzerland"] = make_shared<BicycleModel>(s_bicycleLimits_Switzerland);
-  m_models["Turkey"] = make_shared<BicycleModel>(s_bicycleLimits_Turkey);
-  m_models["Ukraine"] = make_shared<BicycleModel>(s_bicycleLimits_Ukraine);
-  m_models["UK"] = make_shared<BicycleModel>(s_bicycleLimits_UK);
-  m_models["USA"] = make_shared<BicycleModel>(s_bicycleLimits_USA);
+  m_models[string()] = make_shared<BicycleModel>(g_bicycleLimitsDefault);
+  m_models["Australia"] = make_shared<BicycleModel>(g_bicycleLimitsAustralia);
+  m_models["Austria"] = make_shared<BicycleModel>(g_bicycleLimitsAustria);
+  m_models["Belarus"] = make_shared<BicycleModel>(g_bicycleLimitsBelarus);
+  m_models["Belgium"] = make_shared<BicycleModel>(g_bicycleLimitsBelgium);
+  m_models["Brazil"] = make_shared<BicycleModel>(g_bicycleLimitsBrazil);
+  m_models["Denmark"] = make_shared<BicycleModel>(g_bicycleLimitsDenmark);
+  m_models["France"] = make_shared<BicycleModel>(g_bicycleLimitsFrance);
+  m_models["Finland"] = make_shared<BicycleModel>(g_bicycleLimitsFinland);
+  m_models["Germany"] = make_shared<BicycleModel>(g_bicycleLimitsGermany);
+  m_models["Hungary"] = make_shared<BicycleModel>(g_bicycleLimitsHungary);
+  m_models["Netherlands"] = make_shared<BicycleModel>(g_bicycleLimitsNetherlands);
+  m_models["Norway"] = make_shared<BicycleModel>(g_bicycleLimitsNorway);
+  m_models["Poland"] = make_shared<BicycleModel>(g_bicycleLimitsPoland);
+  m_models["Romania"] = make_shared<BicycleModel>(g_bicycleLimitsRomania);
+  m_models["Russia"] = make_shared<BicycleModel>(g_bicycleLimitsRussia);
+  m_models["Slovakia"] = make_shared<BicycleModel>(g_bicycleLimitsSlovakia);
+  m_models["Switzerland"] = make_shared<BicycleModel>(g_bicycleLimitsSwitzerland);
+  m_models["Turkey"] = make_shared<BicycleModel>(g_bicycleLimitsTurkey);
+  m_models["Ukraine"] = make_shared<BicycleModel>(g_bicycleLimitsUkraine);
+  m_models["UK"] = make_shared<BicycleModel>(g_bicycleLimitsUK);
+  m_models["USA"] = make_shared<BicycleModel>(g_bicycleLimitsUSA);
 }
 
 shared_ptr<IVehicleModel> BicycleModelFactory::GetVehicleModel() const

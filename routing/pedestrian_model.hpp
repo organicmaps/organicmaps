@@ -31,8 +31,8 @@ private:
   /// but if function returns False, real allowance is unknown.
   bool IsYesFoot(feature::TypesHolder const & types) const;
 
-  uint32_t m_noFootType;
-  uint32_t m_yesFootType;
+  uint32_t m_noFootType = 0;
+  uint32_t m_yesFootType = 0;
 };
 
 class PedestrianModelFactory : public IVehicleModelFactory
