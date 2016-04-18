@@ -41,51 +41,6 @@ double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::P
 }
 
 /*!
- * \brief The Point2Geometry class is responsable for looking for all adjacent to junctionPoint
- * road network edges. Including the current edge.
- */
-class Point2Geometry
-{
-  m2::PointD m_junctionPoint, m_ingoingPoint;
-  TGeomTurnCandidate & m_candidates;
-
-public:
-  Point2Geometry(m2::PointD const & junctionPoint, m2::PointD const & ingoingPoint,
-                 TGeomTurnCandidate & candidates)
-      : m_junctionPoint(junctionPoint), m_ingoingPoint(ingoingPoint), m_candidates(candidates)
-  {
-  }
-
-  void operator()(FeatureType const & ft)
-  {
-    if (!CarModel::Instance().IsRoad(ft))
-      return;
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    size_t const count = ft.GetPointsCount();
-    ASSERT_GREATER(count, 1, ());
-
-    // @TODO(vbykoianko) instead of checking all the feature points probably
-    // it's enough just to check the start and the finish of the feature.
-    for (size_t i = 0; i < count; ++i)
-    {
-      if (MercatorBounds::DistanceOnEarth(m_junctionPoint, ft.GetPoint(i)) <
-          kFeaturesNearTurnMeters)
-      {
-        if (i > 0)
-          m_candidates.push_back(my::RadToDeg(
-              PiMinusTwoVectorsAngle(m_junctionPoint, m_ingoingPoint, ft.GetPoint(i - 1))));
-        if (i < count - 1)
-          m_candidates.push_back(my::RadToDeg(
-              PiMinusTwoVectorsAngle(m_junctionPoint, m_ingoingPoint, ft.GetPoint(i + 1))));
-        return;
-      }
-    }
-  }
-
-  DISALLOW_COPY_AND_MOVE(Point2Geometry);
-};
-
-/*!
  * \brief Returns false when
  * - the route leads from one big road to another one;
  * - and the other possible turns lead to small roads;
@@ -160,10 +115,11 @@ bool DiscardTurnByIngoingAndOutgoingEdges(TurnDirection intermediateDirection,
          turn.m_sourceName == turn.m_targetName;
 }
 
+// turnEdgesCount calculates both ingoing ond outgoing edges without user's edge.
 bool KeepTurnByIngoingEdges(m2::PointD const & junctionPoint,
                             m2::PointD const & ingoingPointOneSegment,
                             m2::PointD const & outgoingPoint, bool hasMultiTurns,
-                            TTurnCandidates const & nodes)
+                            size_t const turnEdgesCount)
 {
   double const turnAngle =
     my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint));
@@ -172,7 +128,7 @@ bool KeepTurnByIngoingEdges(m2::PointD const & junctionPoint,
   // The code below is resposible for cases when there is only one way to leave the junction.
   // Such junction has to be kept as a turn when it's not a slight turn and it has ingoing edges
   // (one or more);
-  return hasMultiTurns || (!isGoStraightOrSlightTurn && nodes.size() > 2);
+  return hasMultiTurns || (!isGoStraightOrSlightTurn && turnEdgesCount > 1);
 }
 
 bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes,
@@ -474,12 +430,6 @@ bool TurnInfo::IsSegmentsValid() const
   return true;
 }
 
-// @todo(vbykoianko) This method shall to be refactored. It shall be split into several
-// methods. All the functionality shall be moved to the turns_generator unit.
-
-// @todo(vbykoianko) For the time being MakeTurnAnnotation generates the turn annotation
-// and the route polyline at the same time. It is better to generate it separately
-// to be able to use the route without turn annotation.
 IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result,
                                        RouterDelegate const & delegate, vector<m2::PointD> & points,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
@@ -560,8 +510,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result
   points.back() = result.GetEndPoint();
 
   times.push_back(Route::TTimeItem(points.size() - 1, estimatedTime));
-  turnsDir.emplace_back(turns::TurnItem(static_cast<uint32_t>(points.size()) - 1,
-                                        turns::TurnDirection::ReachedYourDestination));
+  turnsDir.emplace_back(turns::TurnItem(static_cast<uint32_t>(points.size()) - 1, turns::TurnDirection::ReachedYourDestination));
   turns::FixupTurns(points, turnsDir);
 
 #ifdef DEBUG
@@ -797,6 +746,8 @@ void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, T
   ASSERT_LESS(MercatorBounds::DistanceOnEarth(turnInfo.m_ingoing.m_path.back(),
                                               turnInfo.m_outgoing.m_path.front()),
               kFeaturesNearTurnMeters, ());
+  ASSERT(!turnInfo.m_ingoing.m_path.empty(), ());
+  ASSERT(!turnInfo.m_outgoing.m_path.empty(), ());
 
   m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back();
   m2::PointD const ingoingPoint = GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint,
@@ -820,8 +771,9 @@ void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, T
   ASSERT_GREATER(turnInfo.m_ingoing.m_path.size(), 1, ());
   m2::PointD const ingoingPointOneSegment = turnInfo.m_ingoing.m_path[turnInfo.m_ingoing.m_path.size() - 2];
   TTurnCandidates nodes;
+  size_t ingoingCount;
   result.GetPossibleTurns(turnInfo.m_ingoing.m_nodeId, ingoingPointOneSegment, junctionPoint,
-                          nodes);
+                          ingoingCount, nodes);
 
   size_t const numNodes = nodes.size();
   bool const hasMultiTurns = numNodes > 1;
@@ -865,7 +817,7 @@ void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, T
                       kNotSoCloseMinDistMeters, GetIngoingPointIndex);
 
   if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns,
-                              nodes))
+                              nodes.size() + ingoingCount))
   {
     turn.m_turn = TurnDirection::NoTurn;
     return;

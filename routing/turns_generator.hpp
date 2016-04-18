@@ -102,7 +102,8 @@ public:
   virtual vector<LoadedPathSegment> const & GetSegments() const = 0;
   virtual void GetPossibleTurns(NodeID node, m2::PointD const & ingoingPoint,
                                 m2::PointD const & junctionPoint,
-                                TTurnCandidates & candidates) const = 0;
+                                size_t & ingoingCount,
+                                TTurnCandidates & outgoingTurns) const = 0;
   virtual double GetShortestPathLength() const = 0;
   virtual m2::PointD const & GetStartPoint() const = 0;
   virtual m2::PointD const & GetEndPoint() const = 0;

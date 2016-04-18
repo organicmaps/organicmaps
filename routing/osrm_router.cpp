@@ -68,7 +68,8 @@ public:
   }
   virtual void GetPossibleTurns(NodeID node, m2::PointD const & ingoingPoint,
                                 m2::PointD const & junctionPoint,
-                                turns::TTurnCandidates & candidates) const override
+                                size_t & ingoingCount,
+                                turns::TTurnCandidates & outgoingTurns) const override
   {
     double const kReadCrossEpsilon = 1.0E-4;
     double const kFeaturesNearTurnMeters = 3.0;
@@ -87,13 +88,20 @@ public:
 
     // Filtering virtual edges.
     vector<NodeID> adjacentNodes;
+    ingoingCount = 0;
     for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node))
     {
       QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node);
-      if (data.forward && !data.shortcut)
+      if (data.shortcut)
+        continue;
+      if (data.forward)
       {
         adjacentNodes.push_back(m_routingMapping.m_dataFacade.GetTarget(e));
         ASSERT_NOT_EQUAL(m_routingMapping.m_dataFacade.GetTarget(e), SPECIAL_NODEID, ());
+      }
+      else
+      {
+        ++ingoingCount;
       }
     }
 
@@ -106,8 +114,12 @@ public:
         if (m_routingMapping.m_dataFacade.GetTarget(e) != node)
           continue;
         QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, adjacentNode);
-        if (!data.shortcut && data.backward)
+        if (data.shortcut)
+          continue;
+        if (data.backward)
           adjacentNodes.push_back(adjacentNode);
+        else
+          ++ingoingCount;
       }
     }
 
@@ -132,10 +144,10 @@ public:
 
       double const a =
           my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-      candidates.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
+      outgoingTurns.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
     }
 
-    sort(candidates.begin(), candidates.end(),
+    sort(outgoingTurns.begin(), outgoingTurns.end(),
          [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2)
          {
            return t1.angle < t2.angle;
