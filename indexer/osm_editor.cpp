@@ -795,6 +795,7 @@ void Editor::SaveUploadedInformation(FeatureTypeInfo const & fromUploader)
 #define GET_FEATURE_TYPE_INFO_BODY                                        \
   do                                                                      \
   {                                                                       \
+    /* TODO(mgsergio): machedMwm should be synchronized. */               \
     auto const matchedMwm = m_features.find(mwmId);                       \
     if (matchedMwm == m_features.end())                                   \
       return nullptr;                                                     \

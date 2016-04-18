@@ -2448,10 +2448,10 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
 
 namespace
 {
-osm::LocalizedStreet LocalizeStreet(model::FeaturesFetcher const & model, FeatureID const & fid)
+osm::LocalizedStreet LocalizeStreet(Index const & index, FeatureID const & fid)
 {
   osm::LocalizedStreet result;
-  Index::FeaturesLoaderGuard g(model.GetIndex(), fid.m_mwmId);
+  Index::FeaturesLoaderGuard g(index, fid.m_mwmId);
   FeatureType ft;
   g.GetFeatureByIndex(fid.m_index, ft);
   ft.GetPreferredNames(result.m_defaultName, result.m_localizedName);
@@ -2459,7 +2459,7 @@ osm::LocalizedStreet LocalizeStreet(model::FeaturesFetcher const & model, Featur
 }
 
 vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
-    vector<search::ReverseGeocoder::Street> const & streets, model::FeaturesFetcher const & model)
+    vector<search::ReverseGeocoder::Street> const & streets, Index const & index)
 
 {
   vector<osm::LocalizedStreet> results;
@@ -2477,7 +2477,7 @@ vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
     if (isDuplicate)
       continue;
 
-    results.push_back(LocalizeStreet(model, street.m_id));
+    results.push_back(LocalizeStreet(index, street.m_id));
     if (results.size() >= kMaxNumberOfNearbyStreetsToDisplay)
       break;
   }
@@ -2498,7 +2498,7 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
   vector<search::ReverseGeocoder::Street> streets;
 
   coder.GetNearbyStreets(mwmId, mercator, streets);
-  emo.SetNearbyStreets(TakeSomeStreetsAndLocalize(streets, m_model));
+  emo.SetNearbyStreets(TakeSomeStreetsAndLocalize(streets, m_model.GetIndex()));
   return osm::Editor::Instance().CreatePoint(featureType, mercator, mwmId, emo);
 }
 
@@ -2518,26 +2518,28 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   // together with all nearby streets.
   search::ReverseGeocoder const coder(m_model.GetIndex());
   auto const streets = coder.GetNearbyFeatureStreets(ft);
+  auto const & streetsPool = streets.first;
+  auto const & featureStreetIndex = streets.second;
 
   string street;
   bool const featureIsInEditor = editor.GetEditedFeatureStreet(fid, street);
-  bool const featureHasStreetInMwm = streets.second < streets.first.size();
+  bool const featureHasStreetInMwm = featureStreetIndex < streetsPool.size();
   if (!featureIsInEditor && featureHasStreetInMwm)
-    street = streets.first[streets.second].m_name;
+    street = streetsPool[featureStreetIndex].m_name;
 
-  auto localizedStreets = TakeSomeStreetsAndLocalize(streets.first, m_model);
+  auto localizedStreets = TakeSomeStreetsAndLocalize(streetsPool, m_model.GetIndex());
 
   if (!street.empty())
   {
-    auto it = find_if(begin(streets.first), end(streets.first),
+    auto it = find_if(begin(streetsPool), end(streetsPool),
                       [&street](search::ReverseGeocoder::Street const & s)
                       {
                         return s.m_name == street;
                       });
 
-    if (it != end(streets.first))
+    if (it != end(streetsPool))
     {
-      auto const localizedStreet = LocalizeStreet(m_model, it->m_id);
+      auto const localizedStreet = LocalizeStreet(m_model.GetIndex(), it->m_id);
       emo.SetStreet(localizedStreet);
 
       // A street that a feature belongs to should alwas be in the first place in the list.
