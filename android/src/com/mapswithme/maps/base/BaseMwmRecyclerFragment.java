@@ -18,6 +18,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
 {
   private Toolbar mToolbar;
   private RecyclerView mRecycler;
+  private View mPlaceholder;
 
   protected abstract RecyclerView.Adapter createAdapter();
 
@@ -64,6 +65,9 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     manager.setSmoothScrollbarEnabled(true);
     mRecycler.setLayoutManager(manager);
     mRecycler.setAdapter(createAdapter());
+
+    mPlaceholder = view.findViewById(R.id.placeholder);
+    setupPlaceholder(mPlaceholder);
   }
 
   public Toolbar getToolbar()
@@ -89,5 +93,18 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
   {
     super.onPause();
     org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
+  }
+
+  protected void setupPlaceholder(View placeholder) {}
+
+  public void setupPlaceholder()
+  {
+    setupPlaceholder(mPlaceholder);
+  }
+
+  public void showPlaceholder(boolean show)
+  {
+    if (mPlaceholder != null)
+      UiUtils.showIf(show, mPlaceholder);
   }
 }

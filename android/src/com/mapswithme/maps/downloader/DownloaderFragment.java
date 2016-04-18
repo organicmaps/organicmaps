@@ -16,6 +16,7 @@ import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.search.NativeMapSearchListener;
 import com.mapswithme.maps.search.SearchEngine;
+import com.mapswithme.util.UiUtils;
 
 public class DownloaderFragment extends BaseMwmRecyclerFragment
                              implements OnBackPressListener
@@ -129,9 +130,10 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     SearchEngine.INSTANCE.addMapListener(mSearchListener);
 
     getRecyclerView().addOnScrollListener(mScrollListener);
+    mAdapter.refreshData();
     mAdapter.attach();
 
-    mBottomPanel = new BottomPanel(this, view.findViewById(R.id.bottom_panel));
+    mBottomPanel = new BottomPanel(this, view);
     mToolbarController = new DownloaderToolbarController(view, getActivity(), this);
 
     update();
@@ -201,8 +203,18 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     return mAdapter;
   }
 
-  @NonNull public String getCurrentRoot()
+  @NonNull String getCurrentRoot()
   {
     return mAdapter.getCurrentRoot();
+  }
+
+  @Override
+  protected void setupPlaceholder(View placeholder)
+  {
+    // TODO (trashkalmar): Set actual resources
+    if (mAdapter.isSearchResultsMode())
+      UiUtils.setupPlaceholder(placeholder, R.drawable.img_search_nothing_found_light, R.string.search_not_found, R.string.search_not_found_query);
+    else
+      UiUtils.setupPlaceholder(placeholder, R.drawable.img_search_no_maps, R.string.search_history_title, R.string.search_history_text);
   }
 }

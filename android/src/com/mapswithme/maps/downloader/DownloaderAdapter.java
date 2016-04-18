@@ -622,7 +622,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
   }
 
-  private void refreshData()
+  void refreshData()
   {
     mSearchResultsMode = false;
     mSearchQuery = null;
@@ -678,6 +678,11 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     mHeadersDecoration.invalidateHeaders();
     notifyDataSetChanged();
+
+    if (mItems.isEmpty())
+      mFragment.setupPlaceholder();
+
+    mFragment.showPlaceholder(mItems.isEmpty());
   }
 
   DownloaderAdapter(DownloaderFragment fragment)
@@ -687,7 +692,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mRecycler = mFragment.getRecyclerView();
     mHeadersDecoration = new StickyRecyclerHeadersDecoration(this);
     mRecycler.addItemDecoration(mHeadersDecoration);
-    refreshData();
   }
 
   @Override
@@ -732,7 +736,15 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     // Save scroll positions (top item + item`s offset) for current hierarchy level
     int position = lm.findFirstVisibleItemPosition();
-    int offset = lm.findViewByPosition(position).getTop();
+    int offset;
+
+    if (position > -1)
+      offset = lm.findViewByPosition(position).getTop();
+    else
+    {
+      position = 0;
+      offset = 0;
+    }
 
     boolean wasEmpty = mPath.isEmpty();
     mPath.push(new PathEntry(childId, childName, mMyMapsMode, position, offset));

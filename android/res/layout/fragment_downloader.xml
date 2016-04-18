@@ -1,43 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   style="@style/MwmWidget.Floating"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical">
+  android:layout_height="match_parent">
   <include layout="@layout/toolbar_with_search"/>
+
+  <Button
+    android:id="@+id/action"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:layout_alignParentBottom="true"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
+    style="@style/MwmWidget.Button.Accent"
+    android:textAppearance="@style/MwmTextAppearance.Button"
+    android:textColor="?colorAccent"
+    tools:text="@string/downloader_update_all_button"/>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/action"
+    android:layout_alignWithParentIfMissing="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginBottom="@dimen/margin_base"
+    android:src="@drawable/ic_add_place"/>
 
   <include
     layout="@layout/recycler_default"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"/>
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar"
+    android:layout_above="@id/action"/>
 
-  <LinearLayout
-    android:id="@+id/bottom_panel"
+  <include
+    layout="@layout/placeholder"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_gravity="bottom">
-    <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="right|bottom"
-      android:layout_marginRight="@dimen/margin_base"
-      android:layout_marginBottom="@dimen/margin_base"
-      android:src="@drawable/ic_add_place"/>
-
-    <Button
-      android:id="@+id/action"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/height_block_base"
-      android:paddingLeft="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      style="@style/MwmWidget.Button.Accent"
-      android:textAppearance="@style/MwmTextAppearance.Button"
-      android:textColor="?colorAccent"
-      tools:text="@string/downloader_update_all_button"/>
-  </LinearLayout>
-</LinearLayout>
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar"
+    android:layout_above="@id/action"/>
+</RelativeLayout>

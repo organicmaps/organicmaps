@@ -53,43 +53,7 @@
       android:background="?windowBackgroundForced">
       <include layout="@layout/recycler_default"/>
 
-      <!-- "Nothing found" placeholder -->
-      <com.mapswithme.maps.widget.HeightLimitedFrameLayout
-        android:id="@+id/placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        tools:visibility="visible">
-        <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:layout_marginTop="@dimen/margin_double"
-          android:layout_gravity="center_horizontal"
-          android:gravity="center">
-          <ImageView
-            android:layout_width="@dimen/placeholder_size"
-            android:layout_height="@dimen/placeholder_size"
-            android:src="@drawable/img_search_nothing_found_light"
-            android:layout_marginBottom="@dimen/margin_base_plus"
-            android:tag="@string/tag_height_limited"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_base"
-            android:text="@string/search_not_found"
-            android:textAppearance="@style/MwmTextAppearance.Title"
-            android:gravity="center_horizontal"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_not_found_query"
-            android:textAppearance="@style/MwmTextAppearance.Body2"
-            android:gravity="center_horizontal"/>
-        </LinearLayout>
-      </com.mapswithme.maps.widget.HeightLimitedFrameLayout>
+      <include layout="@layout/placeholder"/>
     </FrameLayout>
 
     <!-- Country download suggest fragment -->

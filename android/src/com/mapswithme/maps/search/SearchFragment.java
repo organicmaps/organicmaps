@@ -232,6 +232,7 @@ public class SearchFragment extends BaseMwmFragment
     RecyclerView results = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(results);
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
+    UiUtils.setupPlaceholder(mResultsPlaceholder, R.drawable.img_search_nothing_found_light, R.string.search_not_found, R.string.search_not_found_query);
 
     if (mSearchAdapter == null)
     {

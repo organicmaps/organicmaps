@@ -132,6 +132,7 @@ class BottomPanel
           setUpdateAllState(info);
           break;
 
+        case CountryItem.STATUS_DOWNLOADABLE:  // Special case for "Countries" node when no maps currently downloaded.
         case CountryItem.STATUS_DONE:
         case CountryItem.STATUS_PARTLY:
           show = false;
