@@ -28,7 +28,7 @@
     android:layout_alignParentRight="true"
     android:layout_marginRight="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_base"
-    android:src="@drawable/ic_add_place"/>
+    android:src="?fabAdd"/>
 
   <include
     layout="@layout/recycler_default"

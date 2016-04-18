@@ -62,6 +62,8 @@
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
 
     <item name="downloaderTheme">@style/MwmTheme.Downloader</item>
+
+    <item name="fabAdd">@drawable/ic_fab_add</item>
   </style>
 
   <!-- Night theme -->
@@ -126,5 +128,7 @@
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending_night</item>
 
     <item name="downloaderTheme">@style/MwmTheme.Downloader.Night</item>
+
+    <item name="fabAdd">@drawable/ic_fab_add_night</item>
   </style>
 </resources>

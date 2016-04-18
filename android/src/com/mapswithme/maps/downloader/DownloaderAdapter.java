@@ -488,7 +488,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       case CountryItem.STATUS_DOWNLOADABLE:
       case CountryItem.STATUS_PARTLY:
-        iconAttr = R.attr.status_downloadable;
+        iconAttr = (mItem.isExpandable() ? (mMyMapsMode ? R.attr.status_folder_done
+                                                        : R.attr.status_folder)
+                                         : R.attr.status_downloadable);
         break;
 
       case CountryItem.STATUS_FAILED:
