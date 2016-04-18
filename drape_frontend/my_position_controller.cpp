@@ -568,9 +568,9 @@ void MyPositionController::CheckAnimFinished() const
 
 void MyPositionController::AnimationStarted(ref_ptr<BaseModelViewAnimation> anim)
 {
-  if (m_isPendingAnimation && m_animCreator != nullptr && anim != nullptr &&
-      (anim->GetType() == ModelViewAnimationType::FollowAndRotate ||
-       anim->GetType() == ModelViewAnimationType::Default))
+  if (m_isPendingAnimation && m_animCreator != nullptr)// && anim != nullptr &&
+  //    (anim->GetType() == ModelViewAnimationType::FollowAndRotate ||
+  //     anim->GetType() == ModelViewAnimationType::Default))
   {
     m_isPendingAnimation = false;
     m_animCreator();

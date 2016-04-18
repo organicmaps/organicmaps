@@ -6,20 +6,14 @@
 
 #include "geometry/screenbase.hpp"
 
+#include "std/set.hpp"
 #include "std/deque.hpp"
 #include "std/noncopyable.hpp"
 
+#include "boost/variant/variant_fwd.hpp"
+
 namespace df
 {
-
-uint32_t constexpr kMoveAnimationBit = 1;
-uint32_t constexpr kScaleAnimationBit = 1 << 1;
-uint32_t constexpr kRotateAnimationBit = 1 << 2;
-uint32_t constexpr kPerspectiveAnimationBit = 1 << 3;
-
-uint32_t constexpr kArrowAnimObjBit = 1;
-uint32_t constexpr kPlaneAnimObjBit = 1 << 1;
-uint32_t constexpr kSelectionAnimBit = 1 << 2;
 
 class Animation
 {
@@ -40,6 +34,19 @@ public:
     Selection
   };
 
+  enum ObjectProperty
+  {
+    Position,
+    Scale,
+    Angle
+  };
+
+  using TObject = uint32_t;
+  using TProperty = uint32_t;
+  using TPropValue = boost::variant<double, m2::PointD>;
+  using TAnimObjects = set<TObject>;
+  using TObjectProperties = set<TProperty>;
+
   Animation(bool couldBeInterrupted, bool couldBeMixed)
     : m_couldBeInterrupted(couldBeInterrupted)
     , m_couldBeMixed(couldBeMixed)
@@ -47,11 +54,14 @@ public:
 
   virtual void OnStart() {}
   virtual void OnFinish() {}
+  virtual void Interrupt() {}
 
   virtual Type GetType() const = 0;
 
-  virtual uint32_t GetMask(uint32_t object) const = 0;
-  virtual uint32_t GetObjects() const = 0;
+  virtual TAnimObjects const & GetObjects() const = 0;
+  virtual bool HasObject(TObject object) const = 0;
+  virtual TObjectProperties const & GetProperties(TObject object) const = 0;
+  virtual bool HasProperty(TObject object, TProperty property) const = 0;
 
   virtual void SetMaxDuration(double maxDuration) = 0;
   virtual double GetDuration() const = 0;
@@ -59,16 +69,12 @@ public:
 
   virtual void Advance(double elapsedSeconds) = 0;
 
-  virtual double GetScale(uint32_t object) const = 0;
-  virtual double GetAngle(uint32_t object) const = 0;
-  virtual m2::PointD GetPosition(uint32_t object) const = 0;
+  virtual TPropValue GetProperty(TObject object, TProperty property) const = 0;
 
   bool CouldBeInterrupted() const { return m_couldBeInterrupted; }
   bool CouldBeMixed() const { return m_couldBeMixed; }
-  bool CouldBeMixedWith(uint32_t object, int mask)
-  {
-    return m_couldBeMixed && !(mask & GetMask(object));
-  }
+  bool CouldBeMixedWith(TObject object, TObjectProperties const & properties);
+  bool CouldBeMixedWith(Animation const & animation);
 
 protected:
   bool m_couldBeInterrupted;
@@ -163,27 +169,31 @@ public:
   {
     m_positionInterpolator.reset(new PositionInterpolator(startPos, endPos, convertor));
     m_angleInterpolator.reset(new AngleInterpolator(startAngle, endAngle));
+    m_objects.insert(Animation::MyPositionArrow);
+    m_properties.insert(Animation::Position);
+    m_properties.insert(Animation::Angle);
   }
 
   Animation::Type GetType() const override { return Animation::Arrow; }
 
-  uint32_t GetMask(uint32_t object) const override
+  TAnimObjects const & GetObjects() const override
   {
-    return (object & kArrowAnimObjBit) &&
-        ((m_angleInterpolator != nullptr ? kRotateAnimationBit : 0) |
-        (m_positionInterpolator != nullptr ? kMoveAnimationBit : 0));
+     return m_objects;
   }
-
-  uint32_t GetObjects() const override
+  bool HasObject(TObject object) const override
   {
-     return kArrowAnimObjBit;
+    return object == Animation::MyPositionArrow;
   }
+  TObjectProperties const & GetProperties(TObject object) const override;
+  bool HasProperty(TObject object, TProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
 
 private:
   drape_ptr<PositionInterpolator> m_positionInterpolator;
   drape_ptr<AngleInterpolator> m_angleInterpolator;
+  TAnimObjects m_objects;
+  TObjectProperties m_properties;
 };
 
 class PerspectiveSwitchAnimation : public Animation
@@ -194,21 +204,23 @@ class PerspectiveSwitchAnimation : public Animation
 
   Animation::Type GetType() const override { return Animation::Perspective; }
 
-  uint32_t GetMask(uint32_t object) const override
+  TAnimObjects const & GetObjects() const override
   {
-    return (object & kPlaneAnimObjBit) &&
-        (m_angleInterpolator != nullptr ? kPerspectiveAnimationBit : 0);
+     return m_objects;
   }
-
-  uint32_t GetObjects() const override
+  bool HasObject(TObject object) const override
   {
-     return kPlaneAnimObjBit;
+    return m_objects.find(object) != m_objects.end();
   }
+  TObjectProperties const & GetProperties(TObject object) const override;
+  bool HasProperty(TObject object, TProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
 
 private:
   drape_ptr<AngleInterpolator> m_angleInterpolator;
+  TAnimObjects m_objects;
+  TObjectProperties m_properties;
 };
 
 class FollowAnimation : public Animation
@@ -225,18 +237,16 @@ public:
 
   Animation::Type GetType() const override { return Animation::ModelView; }
 
-  uint32_t GetMask(uint32_t object) const override
+  TAnimObjects const & GetObjects() const override
   {
-    return (object & kPlaneAnimObjBit) ?
-        ((m_angleInterpolator != nullptr ? kPerspectiveAnimationBit : 0) |
-        (m_positionInterpolator != nullptr ? kMoveAnimationBit : 0) |
-        (m_scaleInterpolator != nullptr ? kScaleAnimationBit : 0)) : 0;
+     return m_objects;
   }
-
-  uint32_t GetObjects() const override
+  bool HasObject(TObject object) const override
   {
-     return kPlaneAnimObjBit;
+    return object == Animation::MapPlane;
   }
+  TObjectProperties const & GetProperties(TObject object) const override;
+  bool HasProperty(TObject object, TProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
 
@@ -244,26 +254,26 @@ public:
   double GetDuration() const override;
   bool IsFinished() const override;
 
-  double GetScale(uint32_t object) const override;
-  double GetAngle(uint32_t object) const override;
-  m2::PointD GetPosition(uint32_t object) const override;
+  TPropValue GetProperty(TObject object, TProperty property) const override;
 
 private:
   drape_ptr<AngleInterpolator> m_angleInterpolator;
   drape_ptr<PositionInterpolator> m_positionInterpolator;
   drape_ptr<ScaleInterpolator> m_scaleInterpolator;
+  TObjectProperties m_properties;
+  TAnimObjects m_objects;
 };
-
-using TAnimations = vector<ref_ptr<Animation>>;
 
 class SequenceAnimation : public Animation
 {
 public:
   Animation::Type GetType() const override { return Animation::Sequence; }
-  uint32_t GetMask(uint32_t object) const override;
-  uint32_t GetObjects() const override;
+  TAnimObjects const & GetObjects() const override;
+  bool HasObject(TObject object) const override;
+  TObjectProperties const & GetProperties(TObject object) const override;
+  bool HasProperty(TObject object, TProperty property) const override;
 
-  void AddAnimation(ref_ptr<Animation> animation);
+  void AddAnimation(drape_ptr<Animation> && animation);
 
   void OnStart() override;
   void OnFinish() override;
@@ -271,17 +281,25 @@ public:
   void Advance(double elapsedSeconds) override;
 
 private:
-  deque<ref_ptr<Animation>> m_animations;
+  deque<drape_ptr<Animation>> m_animations;
 };
 
 class ParallelAnimation : public Animation
 {
 public:
   Animation::Type GetType() const override { return Animation::Parallel; }
-  uint32_t GetMask(uint32_t object) const override;
-  uint32_t GetObjects() const override;
+  TAnimObjects const & GetObjects() const override
+  {
+    return m_objects;
+  }
+  bool HasObject(TObject object) const override
+  {
+    return m_objects.find(object) != m_objects.end();
+  }
+  TObjectProperties const & GetProperties(TObject object) const override;
+  bool HasProperty(TObject object, TProperty property) const override;
 
-  void AddAnimation(ref_ptr<Animation> animation);
+  void AddAnimation(drape_ptr<Animation> && animation);
 
   void OnStart() override;
   void OnFinish() override;
@@ -289,7 +307,9 @@ public:
   void Advance(double elapsedSeconds) override;
 
 private:
-  TAnimations m_animations;
+  list<drape_ptr<Animation>> m_animations;
+  TAnimObjects m_objects;
+  map<TObject, TObjectProperties> m_properties;
 };
 
 class AnimationSystem : private noncopyable
@@ -299,18 +319,25 @@ public:
 
   m2::AnyRectD GetRect(ScreenBase const & currentScreen);
 
-  bool AnimationExists(Animation::Object object);
+  bool AnimationExists(Animation::TObject object) const;
 
-  void AddAnimation(drape_ptr<Animation> && animation);
+  void AddAnimation(drape_ptr<Animation> && animation, bool force);
+  void PushAnimation(drape_ptr<Animation> && animation);
 
   void Advance(double elapsedSeconds);
 
 private:
-  AnimationSystem() {}
+  Animation::TPropValue GetProperty(Animation::TObject object, Animation::TProperty property, Animation::TPropValue current) const;
+  void SaveAnimationResult(Animation const & animation);
+
+  AnimationSystem();
 
 private:
-
-  set<drape_ptr<Animation>> m_animations;
+  using TAnimationList = list<drape_ptr<Animation>>;
+  using TAnimationChain = deque<TAnimationList>;
+  using TPropertyCache = map<pair<Animation::TObject, Animation::TProperty>, Animation::TPropValue>;
+  TAnimationChain m_animationChain;
+  mutable TPropertyCache m_propertyCache;
 };
 
 }

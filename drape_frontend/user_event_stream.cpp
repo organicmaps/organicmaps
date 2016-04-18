@@ -340,7 +340,7 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     anim->SetMaxDuration(kMaxAnimationTimeSec);
     if (df::IsAnimationAllowed(anim->GetDuration(), startScreen))
     {
-      AnimationSystem::Instance().AddAnimation(move(anim));
+      AnimationSystem::Instance().AddAnimation(move(anim), true /* force */);
       return false;
     }
 
@@ -463,7 +463,16 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
   return SetRect(rect, isAnim, [this](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                                       double aDuration, double mDuration, double sDuration)
   {
-    m_animation.reset(new ModelViewAnimation(startRect, endRect, aDuration, mDuration, sDuration));
+    drape_ptr<FollowAnimation> anim = make_unique_dp<FollowAnimation>();
+    anim->SetRotate(startRect.Angle().val(), endRect.Angle().val());
+    anim->SetMove(startRect.GlobalCenter(), endRect.GlobalCenter(), GetCurrentScreen());
+    m2::RectD pixelRect = GetCurrentScreen().PixelRect();
+    anim->SetScale(max(startRect.GetLocalRect().SizeX() / pixelRect.SizeX(),
+                       startRect.GetLocalRect().SizeY() / pixelRect.SizeY()),
+                   max(endRect.GetLocalRect().SizeX() / pixelRect.SizeX(),
+                       endRect.GetLocalRect().SizeY() / pixelRect.SizeY()));
+    AnimationSystem::Instance().AddAnimation(move(anim), true /* force */);
+    //m_animation.reset(new ModelViewAnimation(startRect, endRect, aDuration, mDuration, sDuration));
     if (m_listener)
       m_listener->OnAnimationStarted(make_ref(m_animation));
   });
@@ -525,15 +534,21 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     m2::PointD const newCenter = FollowAndRotateAnimation::CalculateCenter(screen, userPos, pixelPos, -azimuth);
 
     m2::AnyRectD const startRect = GetCurrentRect();
-    double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), -azimuth);
-    double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), newCenter, screen);
-    double const duration = max(angleDuration, moveDuration);
-    if (df::IsAnimationAllowed(duration, screen))
+    //double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), -azimuth);
+    //double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), newCenter, screen);
+    //double const duration = max(angleDuration, moveDuration);
+
+    drape_ptr<FollowAnimation> anim = make_unique_dp<FollowAnimation>();
+    anim->SetRotate(startRect.Angle().val(), -azimuth);
+    anim->SetMove(startRect.GlobalZero(), newCenter, screen);
+
+    if (df::IsAnimationAllowed(anim->GetDuration(), screen))
     {
-      m_animation.reset(new FollowAndRotateAnimation(startRect, targetLocalRect, userPos,
-                                                     screen.GtoP(userPos), pixelPos, azimuth, duration));
+      AnimationSystem::Instance().AddAnimation(move(anim), true /* force */);
+      //m_animation.reset(new FollowAndRotateAnimation(startRect, targetLocalRect, userPos,
+      //                                               screen.GtoP(userPos), pixelPos, azimuth, duration));
       if (m_listener)
-        m_listener->OnAnimationStarted(make_ref(m_animation));
+        m_listener->OnAnimationStarted(make_ref<FollowAndRotateAnimation>(nullptr/*m_animation*/));
       return false;
     }
   }
