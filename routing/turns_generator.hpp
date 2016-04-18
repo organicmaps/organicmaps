@@ -3,6 +3,7 @@
 #include "routing/osrm2feature_map.hpp"
 #include "routing/osrm_engine.hpp"
 #include "routing/route.hpp"
+#include "routing/router.hpp"
 #include "routing/turns.hpp"
 
 #include "std/function.hpp"
@@ -60,6 +61,69 @@ private:
                         FeatureGraphNode const & startGraphNode,
                         FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
 };
+
+/*!
+ * \brief The TurnCandidate struct contains information about possible ways from a junction.
+ */
+struct TurnCandidate
+{
+  /*!
+   * angle is an angle of the turn in degrees. It means angle is 180 minus
+   * an angle between the current edge and the edge of the candidate. A counterclockwise rotation.
+   * The current edge is an edge which belongs the route and located before the junction.
+   * angle belongs to the range [-180; 180];
+   */
+  double angle;
+  /*!
+   * node is a possible node (a possible way) from the juction.
+   * May be NodeId for OSRM router or FeatureId::index for graph router.
+   */
+  uint32_t node;
+  /*!
+   * \brief highwayClass field for the road class caching. Because feature reading is a long
+   * function.
+   */
+  ftypes::HighwayClass highwayClass;
+
+  TurnCandidate(double a, uint32_t n, ftypes::HighwayClass c) : angle(a), node(n), highwayClass(c)
+  {
+  }
+};
+
+using TTurnCandidates = vector<TurnCandidate>;
+
+/*!
+ * \brief The IRoutingResultGraph interface for the routing result. Uncouple router from the
+ * annotation code that describes turns. See routers for detail implementations.
+ */
+class IRoutingResultGraph
+{
+public:
+  virtual vector<LoadedPathSegment> const & GetSegments() const = 0;
+  virtual void GetPossibleTurns(NodeID node, m2::PointD const & ingoingPoint,
+                                m2::PointD const & junctionPoint,
+                                TTurnCandidates & candidates) const = 0;
+  virtual double GetShortestPathLength() const = 0;
+  virtual m2::PointD const & GetStartPoint() const = 0;
+  virtual m2::PointD const & GetEndPoint() const = 0;
+
+  virtual ~IRoutingResultGraph() {}
+};
+
+/*!
+ * \brief Compute turn and time estimation structs for the abstract route result.
+ * \param routingResult abstract routing result to annotate.
+ * \param delegate Routing callbacks delegate.
+ * \param points Storage for unpacked points of the path.
+ * \param turnsDir output turns annotation storage.
+ * \param times output times annotation storage.
+ * \param streets output street names along the path.
+ * \return routing operation result code.
+ */
+IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result,
+                                       RouterDelegate const & delegate, vector<m2::PointD> & points,
+                                       Route::TTurns & turnsDir, Route::TTimes & times,
+                                       Route::TStreets & streets);
 
 /*!
  * \brief The TurnInfo struct is a representation of a junction.
@@ -141,7 +205,7 @@ TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoi
  * \param turnInfo is used for cashing some information while turn calculation.
  * \param turn is used for keeping the result of turn calculation.
  */
-void GetTurnDirection(Index const & index, RoutingMapping & mapping, turns::TurnInfo & turnInfo,
+void GetTurnDirection(IRoutingResultGraph const & result, turns::TurnInfo & turnInfo,
                       TurnItem & turn);
 
 /*!
