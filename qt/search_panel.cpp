@@ -177,14 +177,17 @@ bool SearchPanel::TryChangeRouterCmd(QString const & str)
 {
   bool const isPedestrian = (str == "?pedestrian");
   bool const isVehicle = isPedestrian ? false : (str == "?vehicle");
+  bool const isBicycle = isPedestrian || isVehicle ? false : (str == "?bicycle");
 
-  if (!isPedestrian && !isVehicle)
+  if (!isPedestrian && !isVehicle && !isBicycle)
     return false;
 
   m_pEditor->setText("");
   parentWidget()->hide();
 
-  routing::RouterType const routerType = isPedestrian ? routing::RouterType::Pedestrian : routing::RouterType::Vehicle;
+  routing::RouterType const routerType = isPedestrian ? routing::RouterType::Pedestrian :
+                                                       isVehicle ? routing::RouterType::Vehicle :
+                                                                   routing::RouterType::Bicycle;
   m_pDrawWidget->SetRouter(routerType);
 
   return true;
