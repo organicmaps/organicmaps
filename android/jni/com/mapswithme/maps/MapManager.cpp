@@ -362,12 +362,12 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
     g_framework->NativeFramework()->CountryInfoGetter().GetRegionsCountryId(MercatorBounds::FromLatLon(lat, lon), near);
     PutItemsToList(env, result, near, ItemCategory::NEAR_ME, [](TCountryId const & countryId, NodeAttrs const & attrs) -> bool
     {
-      return (attrs.m_status == NodeStatus::NotDownloaded);
+      return !attrs.m_present;
     });
   }
 
   TCountriesVec downloaded, available;
-  GetStorage().GetChildrenInGroups(GetRootId(env, parent), downloaded, available);
+  GetStorage().GetChildrenInGroups(GetRootId(env, parent), downloaded, available, true);
 
   if (myMapsMode)
     PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED, nullptr);
