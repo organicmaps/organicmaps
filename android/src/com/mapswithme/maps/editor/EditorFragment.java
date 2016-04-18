@@ -21,6 +21,7 @@ import com.mapswithme.util.UiUtils;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
+  private TextView mCategory;
   private View mNameBlock;
   private View mAddressBlock;
   private View mMetadataBlock;
@@ -62,6 +63,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     initViews(view);
 
+    mCategory.setText(Editor.nativeGetCategory());
     // TODO(yunikkk): Add multilanguages support.
     UiUtils.hide(mTvLocalizedNames);
     mEtName.setText(Editor.nativeGetDefaultName());
@@ -235,10 +237,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void initViews(View view)
   {
+    final View categoryBlock = view.findViewById(R.id.category);
+    categoryBlock.setOnClickListener(this);
+    // TODO show icon and fill it when core will implement that
+    UiUtils.hide(categoryBlock.findViewById(R.id.icon));
+    mCategory = (TextView) categoryBlock.findViewById(R.id.name);
     mNameBlock = view.findViewById(R.id.cv__name);
     mAddressBlock = view.findViewById(R.id.cv__address);
     mMetadataBlock = view.findViewById(R.id.cv__metadata);
-    mEtName = findInput(view.findViewById(R.id.name));
+    mEtName = findInput(mNameBlock);
     mTvLocalizedNames = (TextView) view.findViewById(R.id.name_multilang);
     view.findViewById(R.id.block_street).setOnClickListener(this);
     mTvStreet = (TextView) view.findViewById(R.id.street);
@@ -289,6 +296,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     case R.id.block_cuisine:
       mParent.editCuisine();
       break;
+    case R.id.category:
+      mParent.editCategory();
     }
   }
 }

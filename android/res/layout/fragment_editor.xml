@@ -4,18 +4,73 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:padding="@dimen/margin_half"
   tools:context=".editor.EditorActivity"
   tools:ignore="DuplicateIds">
-
+  
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+    
+    <android.support.v7.widget.CardView
+      android:id="@+id/cv__category"
+      style="@style/MwmWidget.Editor.CardView">
+      
+      <RelativeLayout
+        android:id="@+id/category"
+        style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginBottom="0dp"
+        android:padding="@dimen/margin_half_plus">
+        
+        <ImageView
+          android:id="@+id/icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/margin_half_plus"
+          android:layout_marginLeft="@dimen/margin_quarter"
+          android:layout_marginRight="@dimen/margin_half_plus"
+          android:layout_marginStart="@dimen/margin_quarter"
+          tools:src="@drawable/ic_category_atm"/>
 
+        <Space
+          android:id="@+id/anchor_center"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_centerVertical="true"/>
+
+        <TextView
+          android:id="@+id/title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_above="@id/anchor_center"
+          android:layout_marginLeft="@dimen/margin_quarter"
+          android:layout_marginStart="@dimen/margin_quarter"
+          android:layout_toEndOf="@id/icon"
+          android:layout_toRightOf="@id/icon"
+          android:textAppearance="@style/MwmTextAppearance.Body4"
+          android:text="@string/editor_edit_place_category_title"/>
+
+        <TextView
+          android:id="@+id/name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignLeft="@id/title"
+          android:layout_alignStart="@id/title"
+          android:layout_below="@id/title"
+          android:textAppearance="@style/MwmTextAppearance.Body1"
+          tools:text="Ololo"/>
+
+      </RelativeLayout>
+    
+    </android.support.v7.widget.CardView>
+    
     <android.support.v7.widget.CardView
       android:id="@+id/cv__name"
       style="@style/MwmWidget.Editor.CardView">
-
+      
       <LinearLayout
         android:id="@+id/name"
         android:layout_width="match_parent"
@@ -28,19 +83,19 @@
         android:paddingLeft="@dimen/margin_base"
         android:paddingRight="@dimen/margin_base"
         android:paddingStart="@dimen/margin_base">
-
+        
         <com.mapswithme.maps.widget.CustomTextInputLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
-
+          
           <EditText
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:hint="@string/editor_edit_place_name_hint"
             android:singleLine="true"/>
-
+        
         </com.mapswithme.maps.widget.CustomTextInputLayout>
-
+        
         <TextView
           android:id="@+id/name_multilang"
           android:layout_width="match_parent"
@@ -51,15 +106,15 @@
           android:gravity="center_vertical"
           android:text="@string/add_language"
           android:textAppearance="@style/MwmTextAppearance.Body3"/>
-
+      
       </LinearLayout>
-
+    
     </android.support.v7.widget.CardView>
-
+    
     <android.support.v7.widget.CardView
       android:id="@+id/cv__address"
       style="@style/MwmWidget.Editor.CardView">
-
+      
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,7 +123,7 @@
         android:paddingLeft="@dimen/margin_base"
         android:paddingRight="@dimen/margin_base"
         android:paddingStart="@dimen/margin_base">
-
+        
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -77,17 +132,17 @@
           android:text="@string/address"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           tools:ignore="UnusedAttribute"/>
-
+        
         <RelativeLayout
           android:id="@+id/block_street"
           style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
           android:paddingBottom="@dimen/margin_half"
           android:paddingTop="@dimen/margin_half">
-
+          
           <ImageView
             style="@style/MwmWidget.Editor.MetadataIcon"
             android:src="@drawable/ic_coordinates"/>
-
+          
           <TextView
             android:id="@+id/street_title"
             android:layout_width="match_parent"
@@ -96,7 +151,7 @@
             android:layout_marginStart="@dimen/editor_margin_left"
             android:text="@string/street"
             android:textAppearance="@style/MwmTextAppearance.Body4"/>
-
+          
           <TextView
             android:id="@+id/street"
             style="@style/MwmWidget.Editor.FieldLayout"
@@ -107,7 +162,7 @@
             android:gravity="center_vertical"
             android:textAppearance="@style/MwmTextAppearance.Body1"
             tools:text="Red str."/>
-
+          
           <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -116,13 +171,13 @@
             android:layout_below="@id/street"
             android:layout_marginTop="@dimen/margin_quarter_plus"
             android:background="?dividerHorizontal"/>
-
+        
         </RelativeLayout>
-
+        
         <RelativeLayout
           android:id="@+id/building"
           style="@style/MwmWidget.Editor.MetadataBlock">
-
+          
           <com.mapswithme.maps.widget.CustomTextInputLayout
             android:id="@+id/custom_input"
             android:layout_width="match_parent"
@@ -131,25 +186,25 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="54dp"
             android:layout_marginStart="54dp">
-
+            
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
               android:hint="@string/house_number"
               tools:text="79-59"/>
-
+          
           </com.mapswithme.maps.widget.CustomTextInputLayout>
-
+        
         </RelativeLayout>
-
+      
       </LinearLayout>
-
+    
     </android.support.v7.widget.CardView>
-
+    
     <android.support.v7.widget.CardView
       android:id="@+id/cv__metadata"
       style="@style/MwmWidget.Editor.CardView">
-
+      
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -158,7 +213,7 @@
         android:paddingLeft="@dimen/margin_base"
         android:paddingRight="@dimen/margin_base"
         android:paddingStart="@dimen/margin_base">
-
+        
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -167,88 +222,88 @@
           android:text="@string/details"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           tools:ignore="UnusedAttribute"/>
-
+        
         <include
           android:id="@+id/block_opening_hours"
           layout="@layout/item_opening_hours"/>
-
+        
         <RelativeLayout
           android:id="@+id/block_phone"
           style="@style/MwmWidget.Editor.MetadataBlock">
-
+          
           <ImageView
             style="@style/MwmWidget.Editor.MetadataIcon"
             android:src="@drawable/ic_phone"/>
-
+          
           <com.mapswithme.maps.widget.CustomTextInputLayout
             style="@style/MwmWidget.Editor.FieldLayout"
             android:layout_centerVertical="true">
-
+            
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
               android:hint="@string/phone"
               android:inputType="phone"
               tools:text="+937 99 92"/>
-
+          
           </com.mapswithme.maps.widget.CustomTextInputLayout>
-
+        
         </RelativeLayout>
-
+        
         <RelativeLayout
           android:id="@+id/block_website"
           style="@style/MwmWidget.Editor.MetadataBlock">
-
+          
           <ImageView
             style="@style/MwmWidget.Editor.MetadataIcon"
             android:src="@drawable/ic_website"/>
-
+          
           <com.mapswithme.maps.widget.CustomTextInputLayout
             style="@style/MwmWidget.Editor.FieldLayout"
             android:layout_centerVertical="true">
-
+            
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
               android:hint="@string/website"
               tools:text="maps.me"/>
-
+          
           </com.mapswithme.maps.widget.CustomTextInputLayout>
-
+        
         </RelativeLayout>
-
+        
         <RelativeLayout
           android:id="@+id/block_email"
           style="@style/MwmWidget.Editor.MetadataBlock">
-
+          
           <ImageView
             style="@style/MwmWidget.Editor.MetadataIcon"
             android:src="@drawable/ic_email"/>
-
+          
           <com.mapswithme.maps.widget.CustomTextInputLayout
             style="@style/MwmWidget.Editor.FieldLayout"
             android:layout_centerVertical="true">
-
+            
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
               android:hint="@string/email"
               tools:text="bugs@maps.me"/>
-
+          
           </com.mapswithme.maps.widget.CustomTextInputLayout>
-
+        
         </RelativeLayout>
-
+        
         <RelativeLayout
           android:id="@+id/block_cuisine"
           style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
           android:paddingBottom="@dimen/margin_half"
           android:paddingTop="@dimen/margin_half">
-
+          
           <ImageView
             style="@style/MwmWidget.Editor.MetadataIcon"
             android:src="@drawable/ic_cuisine"/>
-
+          
           <TextView
             android:id="@+id/title_cuisine"
             android:layout_width="match_parent"
@@ -257,7 +312,7 @@
             android:layout_marginStart="@dimen/editor_margin_left"
             android:text="@string/cuisine"
             android:textAppearance="@style/MwmTextAppearance.Body4"/>
-
+          
           <TextView
             android:id="@+id/cuisine"
             style="@style/MwmWidget.Editor.FieldLayout"
@@ -268,7 +323,7 @@
             android:gravity="center_vertical"
             android:textAppearance="@style/MwmTextAppearance.Body1"
             tools:text="Italian, russian, russian, russian, russian, russian, russian, russian, russian"/>
-
+          
           <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -277,17 +332,17 @@
             android:layout_below="@id/cuisine"
             android:layout_marginTop="@dimen/margin_quarter_plus"
             android:background="?dividerHorizontal"/>
-
+        
         </RelativeLayout>
-
+        
         <RelativeLayout
           android:id="@+id/block_wifi"
           style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
-
+          
           <ImageView
             style="@style/MwmWidget.Editor.MetadataIcon"
             android:src="@drawable/ic_wifi"/>
-
+          
           <TextView
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:layout_width="match_parent"
@@ -298,7 +353,7 @@
             android:layout_toLeftOf="@+id/sw__wifi"
             android:layout_toStartOf="@+id/sw__wifi"
             android:text="@string/wifi"/>
-
+          
           <android.support.v7.widget.SwitchCompat
             android:id="@+id/sw__wifi"
             android:layout_width="wrap_content"
@@ -307,11 +362,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
         </RelativeLayout>
-
+      
       </LinearLayout>
-
+    
     </android.support.v7.widget.CardView>
-
+  
   </LinearLayout>
 
 </ScrollView>

@@ -144,4 +144,6 @@ public final class Editor
   public static native void nativePlaceDoesNotExist(double lat, double lon);
 
   public static native boolean nativeIsHouseValid(String houseNumber);
+
+  public static native String nativeGetCategory();
 }

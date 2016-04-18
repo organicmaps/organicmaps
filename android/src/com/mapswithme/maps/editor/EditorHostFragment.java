@@ -155,6 +155,16 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
                              .commit();
   }
 
+  protected void editCategory()
+  {
+    if (!mIsNewObject)
+      return;
+
+    final EditorActivity host = (EditorActivity) getActivity();
+    host.finish();
+    startActivity(new Intent(host, FeatureCategoryActivity.class));
+  }
+
   private boolean setEdits()
   {
     return ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();

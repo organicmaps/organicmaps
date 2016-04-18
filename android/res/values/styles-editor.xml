@@ -27,6 +27,7 @@
 
   <style name="MwmWidget.Editor.MetadataBlock.Clickable">
     <item name="android:background">?clickableBackground</item>
+    <item name="android:clickable">true</item>
   </style>
 
   <style name="MwmWidget.Editor.MetadataIcon">

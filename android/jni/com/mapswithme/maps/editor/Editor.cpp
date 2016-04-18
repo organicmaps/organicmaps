@@ -373,4 +373,11 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsHouseValid(JNIEnv * env, jclass c
 {
   return osm::EditableMapObject::ValidateHouseNumber(jni::ToNativeString(env, houseNumber));
 }
+
+// static boolean nativeGetCategory();
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetCategory(JNIEnv * env, jclass clazz)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetLocalizedType());
+}
 } // extern "C"

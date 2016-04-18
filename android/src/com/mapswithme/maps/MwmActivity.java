@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -323,6 +324,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return super.getThemeResourceId(theme);
   }
 
+  @SuppressLint("InlinedApi")
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
