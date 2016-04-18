@@ -2459,8 +2459,7 @@ osm::LocalizedStreet LocalizeStreet(model::FeaturesFetcher const & model, Featur
 }
 
 vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
-    vector<search::ReverseGeocoder::Street> const & streets,
-    model::FeaturesFetcher const & model)
+    vector<search::ReverseGeocoder::Street> const & streets, model::FeaturesFetcher const & model)
 
 {
   vector<osm::LocalizedStreet> results;

@@ -793,7 +793,8 @@ void Editor::SaveUploadedInformation(FeatureTypeInfo const & fromUploader)
 
 // Macros is used to avoid code duplication.
 #define GET_FEATURE_TYPE_INFO_BODY                                        \
-  do {                                                                    \
+  do                                                                      \
+  {                                                                       \
     auto const matchedMwm = m_features.find(mwmId);                       \
     if (matchedMwm == m_features.end())                                   \
       return nullptr;                                                     \
@@ -804,8 +805,7 @@ void Editor::SaveUploadedInformation(FeatureTypeInfo const & fromUploader)
                                                                           \
     /* TODO(AlexZ): Should we process deleted/created features as well?*/ \
     return &matchedIndex->second;                                         \
-  }                                                                       \
-  while (false)                                                           \
+  } while (false)
 
 Editor::FeatureTypeInfo const * Editor::GetFeatureTypeInfo(MwmSet::MwmId const & mwmId,
                                                            uint32_t index) const
