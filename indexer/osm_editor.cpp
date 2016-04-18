@@ -930,9 +930,13 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
   return true;
 }
 
-void Editor::CreateNote(ms::LatLon const & latLon, string const & note)
+void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid, string const & note)
 {
-  m_notes->CreateNote(latLon, note);
+  auto const version = GetMwmCreationTimeByMwmId(fid.m_mwmId);
+  auto const stringVersion = my::TimestampToString(my::SecondsSinceEpochToTimeT(version));
+  ostringstream sstr(note, ios_base::ate);
+  sstr << " (OSM data version: " << stringVersion << ')';
+  m_notes->CreateNote(latLon, sstr.str());
 }
 
 void Editor::UploadNotes(string const & key, string const & secret)
@@ -951,4 +955,6 @@ string DebugPrint(Editor::FeatureStatus fs)
   case Editor::FeatureStatus::Created: return "Created";
   };
 }
+
+const char * const Editor::kPlaceDoesNotExistMessage = "The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground.";
 }  // namespace osm

@@ -114,9 +114,13 @@ public:
   // Editor should silently ignore all types in config which are unknown to him.
   NewFeatureCategories GetNewFeatureCategories() const;
 
-  bool CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id, EditableMapObject & outFeature);
+  bool CreatePoint(uint32_t type, m2::PointD const & mercator,
+                   MwmSet::MwmId const & id, EditableMapObject & outFeature);
 
-  void CreateNote(ms::LatLon const & latLon, string const & note);
+  // Predefined messages.
+  static const char * const kPlaceDoesNotExistMessage;
+
+  void CreateNote(ms::LatLon const & latLon, FeatureID const & fid, string const & note);
   void UploadNotes(string const & key, string const & secret);
 
   struct Stats

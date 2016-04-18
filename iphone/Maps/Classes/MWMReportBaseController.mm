@@ -30,7 +30,7 @@
   NSAssert(!note.empty(), @"String can't be empty!");
   auto const & featureID = MapsAppDelegate.theApp.mapViewController.controlsManager.placePageEntity.info.GetID();
   auto const latLon = ToLatLon(m_point);
-  osm::Editor::Instance().CreateNote(latLon, note);
+  osm::Editor::Instance().CreateNote(latLon, featureID, note);
   [Statistics logEvent:kStatEditorProblemReport withParameters:@{kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
                                                                  kStatEditorMWMVersion : @(featureID.GetMwmVersion()),
                                                                  kStatProblem : @(note.c_str()),
