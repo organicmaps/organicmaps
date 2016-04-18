@@ -194,7 +194,7 @@
     comment = Button "do not interrupt download" if user touched actively downloading country
     cs = Pokračovat
     sk = Pokračovať
-    de = Download fortsetzen
+    de = Herunterladen fortsetzen
     es = Seguir descarga
     fr = Continuer
     it = Continua
@@ -347,7 +347,7 @@
     comment = Settings/Downloader - info for downloaded country
     cs = Staženo (%1$qu %2$@), klepněte pro smazání.
     sk = Stiahnuté (%1$qu %2$@), stlačte pre vymazanie.
-    de = Heruntergeladen (%1$qu %2$@). Drücken, um zu löschen
+    de = Heruntergeladen (%1$qu %2$@). Antippen, um zu löschen
     es = Descargado (%1$qu %2$@), apreté para eliminar
     fr = Téléchargé (%1$qu %2$@), toucher pour supprimer
     it = Scaricato (%1$qu %2$@), tocca per annullare
@@ -378,7 +378,7 @@
     comment = Settings/Downloader - country info current download progress
     cs = Stahování %qu%%, klepněte pro zrušení.
     sk = Sťahovanie %qu%%, stlačte pre zrušenie.
-    de = Herunterladen %qu%%. Drücken, um abzubrechen
+    de = Herunterladen %qu%%. Antippen, um abzubrechen
     es = Descarga %qu%%, presionar para cancelar
     fr = Téléchargement de %qu%%, toucher pour annuler
     it = Download di %qu%%, tocca per annullare
@@ -643,7 +643,7 @@
     comment = Settings/Downloader - info for country in the download queue
     cs = Připraveno pro stažení, klepněte pro zrušení.
     sk = Pripravené k stiahnutiu, stlačte pre zrušenie.
-    de = Zum Herunterladen vorgemerkt. Drücken, um abzubrechen
+    de = Zum Herunterladen vorgemerkt. Antippen, um abzubrechen
     es = Marcado para descarga, presionar para cancelar
     fr = Marqué pour le téléchargement, toucher pour annuler
     it = Contrassegnato per il download, tocca per cancellare
@@ -1080,7 +1080,7 @@
     comment = Settings/Downloader - No internet connection dialog message
     cs = Pro stahování větších map doporučujeme používat WiFi
     sk = Doporučujeme použiť WiFi pre sťahovanie väčších máp
-    de = Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen
+    de = Wir empfehlen Ihnen, große Länder über eine WLAN-Verbindung herunterzuladen
     es = Recomendamos usar WiFi para descarga de los países grandes
     fr = Nous recommandons d'utiliser une connexion Wi-Fi pour télécharger de grandes cartes
     it = Ti consigliamo di utilizzare il WiFi per scaricare mappe di grandi dimensioni
@@ -1389,7 +1389,7 @@
     comment = Message to display at the center of the screen when the country download has failed
     cs = Stahování selhalo
     sk = Sťahovanie zlyhalo
-    de = Download fehlgeschlagen
+    de = Herunterladen fehlgeschlagen
     es = Error durante la descarga
     fr = Échec lors du téléchargement
     it = Lo scaricamento è fallito
@@ -1932,7 +1932,7 @@
     en = Downloading %@. You can now\nproceed to the map.
     cs = Stahování %@. Nyní můžete\npřejít na mapu.
     sk = Sťahovanie %@. Teraz môžete\nprejsť na mapu.
-    de = Lade %@ herunter. Sie können jetzt\nzur Karte weitergehen.
+    de = %@ wird heruntergeladen. Sie können jetzt\nzur Karte weitergehen.
     es = Descargando %@. Puede ahora\nproceder al mapa
     fr = %@ en téléchargement. Vous pouvez\nmaintenant aller sur la carte.
     it = Sto scaricando %@. Puoi ora\nprocedere con la mappa.
@@ -6630,7 +6630,7 @@
     en = MAPS.ME Community
     cs = Komunita MAPS.ME
     sk = Komunita MAPS.ME
-    de = MAPS.ME-Community
+    de = MAPS.ME-Gemeinschaft
     es = Comunidad de MAPS.ME
     fr = Communauté MAPS.ME
     it = Comunità MAPS.ME
@@ -6756,15 +6756,16 @@
     tags = android
     comment = Settings: Send feedback button and dialog title
     en = Feedback
+    de = Rückmeldung
     ru = Связаться с нами
 
   [feedback_general]
     tags = android
     comment = Settings: "Send general feedback" button
     en = General feedback
+    de = Allgemeine Rückmeldung
     ru = Отправить отзыв
-    de = Allgemeines Feedback
-	zh-Hant = 一般意見反應
+    zh-Hant = 一般意見反應
 
   [subscribe_to_news]
     tags = ios, android
@@ -6987,7 +6988,7 @@
     en = I want to be the first to learn about latest news updates and promotions. I can cancel my subscription at any time.
     cs = Chci se vždy jako první dozvídat o nejnovějších zprávách, aktualizacích a akčních nabídkách. Své přihlášení k odběru mohu kdykoli zrušit.
     sk = Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.
-    de = Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Updates und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.
+    de = Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Aktualisierungen und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.
     es = Quiero ser el primero en conocer las últimas noticias actualizaciones y promociones. Puedo cancelar mi suscripción en cualquier momento.
     fr = Informez-moi en priorité des dernières nouvelles, des mises à jour et des promotions. Je peux annuler mon abonnement à tout moment.
     it = Voglio essere tra i primi a sapere delle ultime novità aggiornamenti e promozioni. Potrò annullare l'iscrizione in ogni momento.
@@ -7017,6 +7018,7 @@
     tags = ios, android
     comment = About short text (below logo)
     en = Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!
+    de = Gemeinsame Bemühungen der Mail.Ru-Gruppe und OpenStreetMap machen die nützlichste Anwendung für Reisende!
     ru = Объединив усилия Mail.Ru Group и данные OpenStreetMap, мы создаем незаменимое приложение для путешествий.
 
  [about_text]
@@ -7790,7 +7792,7 @@
     zh-Hant = 需要額外的數據才能建立路線。開始下載嗎？
     ar = هناك حاجة إلى بيانات إضافية لإنشاء مسار. بدء التحميل؟
     nl = Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?
-    de = Zusätzliche Daten werden zum Erstellen der Route benötigt. Mit dem Download beginnen?
+    de = Zusätzliche Daten werden zum Erstellen der Route benötigt. Mit dem Herunterladen beginnen?
     uk = Для прокладання маршруту необхідна додаткова інформація. Перейти до завантаження?
     pt = São necessários dados adicionais para criar uma rota. Iniciar o download?
     da = Yderligere data er nødvendig, for at oprette en rute. Begynde download?
@@ -8628,7 +8630,7 @@
     hu = Visszajelzés elküldése
     el = Αποστολή σχολίου
     ar = שלח משוב
-    de = Feedback senden
+    de = Rückmeldung senden
     fr = Envoyez vos commentaires
     nl = Feedback verzenden
     fi = Lähetä palautetta
@@ -8925,7 +8927,7 @@
     hu = %@ MB-t kell letöltened, de csak %@ MB hely szabad.
     el = Πρέπει να κάνετε λήψη %@ MB, αλλά μόνο %@ MB είναι διαθέσιμα.
     ar = تحتاج إلى تحميل %@ ميجابايت، ولكن لا يتوافر سوى %@ ميجا بايت.
-    de = Der Download erfordert %@ MB, es sind jedoch nur %@ MB verfügbar.
+    de = Sie wollen %@ MB herunterladen, der Speicherplatz reicht aber nur für %@ MB.
     fr = Vous devez télécharger %@ Mo, mais seulement %@ Mo sont disponibles.
     nl = U dient %@ MB te downloaden, maar er is slechts %@ MB beschikbaar.
     fi = Sinun täytyy ladata %@ MB, mutta saatavilla on vain %@ MB.
@@ -11199,7 +11201,7 @@
     uk = Дякуємо за використання MAPS.ME. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.
     vi = Cám ơn bạn đã sử dụng MAPS.ME. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.
     hu = Köszönjük, hogy a MAPS.ME-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.
-    de = Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns, besser zu werden.
+    de = Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihre Rückmeldung hilft uns, besser zu werden.
     fi = Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.
     cs = Děkujeme, že používáte MAPS.ME. Ohodnoťte, prosím, tuto aplikaci. Váš komentář nám pomůže ji ještě zlepšit.
     it = Grazie per aver utilizzato MAPS.ME. Valuta l’app. Il tuo feedback ci permette di migliorare.
@@ -12615,7 +12617,7 @@
     ko = OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.
     id = Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.
     hu = Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.
-    de = Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Community den Fehler beheben kann.
+    de = Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Gemeinschaft den Fehler beheben kann.
     fi = Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.
     nl = Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.
     da = Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.
@@ -12971,7 +12973,7 @@
     uk = Автоматичне завантаження
     vi = Tự động tải về
     hu = Automatikus letöltés
-    de = Automatisch Herunterladen
+    de = Automatisch herunterladen
     fi = Lataa automaattisesti
     cs = Automaticky stahovat
     it = Scaricamento automatico
@@ -13335,7 +13337,7 @@
     uk = Не зареєстровані в OpenStreetMap?
     vi = Bạn chưa có tài khoản tại OpenStreetMap ư?
     hu = Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?
-    de = Kein Konto in OpenStreetMap?
+    de = Kein Konto bei OpenStreetMap?
     fi = Eikö sinulla ole tiliä OpenStreetMap?
     cs = Nemáte účet u OpenStreetMap?
     it = Non hai un account su OpenStreetMap?
@@ -13998,7 +14000,7 @@
     uk = Введіть назву як на вивісці або табличці
     vi = Nhập tên theo như trên chữ ký hoặc biển tên
     hu = Adja meg a táblán vagy az utcatáblán megjelenő nevet
-    de = Den Namen wie auf dem Schild oder dem Namensschild angegeben eingeben
+    de = Geben Sie den Namen wie auf dem Schild oder dem Namensschild angegeben ein
     fi = Syötä nimi kuten nimikyltissä kirjoitettu
     cs = Zadejte název tak, jak je uveden na ceduli nebo vývěsním štítu
     it = Inserisci il nome riportato nel segnale o nella targhetta
@@ -14050,6 +14052,7 @@
     tags = ios, android
     comment = small button to open list with names in different languages
     en = Show More
+    de = Mehr anzeigen
     ru = Показать больше
 	zh-Hant = 顯示更多
 
@@ -14057,6 +14060,7 @@
     tags = ios, android
     comment = small button to close list with names in different languages
     en = Show Less
+    de = Weniger anzeigen
     ru = Показать меньше
 	zh-Hant = 顯示較少
 
@@ -14673,7 +14677,7 @@
     ko = 다운로드 오류
     id = Unduh kesalahan
     hu = Letöltési hiba
-    de = Download-Fehler
+    de = Fehler beim Herunterladen
     fi = Latausvirhe
     nl = Downloadfout
     da = Fejl ved download
@@ -14733,7 +14737,7 @@
     ko = 충분하지 않은 여유 공간
     id = Tidak cukup ruang
     hu = Nincs elegendő tárhely
-    de = Nicht genügend Platz
+    de = Nicht genug Speicherplatz
     fi = Ei tarpeeksi tilaa
     nl = Niet genoeg ruimte
     da = Ikke nok plads
@@ -15811,7 +15815,7 @@
     ko = 최신지도를 받으려면, 업데이트 알림 받기
     id = Untuk menerima peta-peta terbaru, dapatkan pemberitahuan pembaruan
     hu = Fogadj értesítő üzeneteket a legfrissebb térképekről
-    de = Um die neuesten Karten zu erhalten, aktivieren Sie bitte die Update-Benachrichtigungen
+    de = Erhalten Sie Aktualisierungsbenachrichtigungen, um die neuesten Karten zu erhalten
     fi = Ota päivitysilmoitukset käyttöön saadaksesi tuoreimmat kartat
     nl = Ontvang update-meldingen om de nieuwste kaarten te ontvangen
     da = For at modtage de nyeste kort kan du få opdateringsnotifikationer
@@ -15841,7 +15845,7 @@
     ko = 업데이트 알림 활성화
     id = Aktifkan pemberitahuan pembaruan
     hu = Értesítések engedélyezése
-    de = Update-Benachrichtigungen aktualisieren
+    de = Aktualisierungsbenachrichtigungen aktivieren
     fi = Ota päivitysilmoitukset käyttöön
     nl = Schakel update-meldingen in
     da = Aktivér opdateringsnotifikationer
@@ -15959,7 +15963,7 @@
     ko = 목적지를 이곳에서 찾을 수 없습니다
     id = Objek tidak dapat diletakkan di sini
     hu = Célpont áthelyezése ide nem lehetséges
-    de = Ein Objekt kann nicht hier positioniert werden
+    de = Ein Objekt kann hier nicht positioniert werden
     fi = Objektia ei voida asettaa tänne
     nl = Hier kan geen object worden geplaatst
     da = Et objekt kan ikke placeres her
@@ -16075,7 +16079,7 @@
     ko = 지도 제작자에게 의견을 보낼 것입니다.
     id = Kami akan mengirim komen Anda ke pembuat peta.
     hu = Megjegyzését elküldjük a térképészeknek.
-    de = Wir werden Ihr Kommentar an die Kartografierer weiterleiten.
+    de = Wir werden Ihren Kommentar an die Kartografierer weiterleiten.
     fi = Lähetämme kommenttisi kartanpiirtäjille.
     nl = We zullen uw opmerking doorsturen naar de kaartmakers.
     da = Vi vil sende dine kommentarer til kartograferne.
@@ -16165,7 +16169,7 @@
     uk = Завантажити за допомогою мобільної мережі?
     vi = Tải xuống qua kết nối mạng di động?
     hu = Letöltés mobilhálózati kapcsolat segítségével?
-    de = Download mit einer mobilen Netzwerkverbindung?
+    de = Über eine Mobilfunknetzverbindung herunterladen?
     fi = Lataa käyttämällä puhelinverkkoyhteyttä?
     cs = Stáhnout pomocí připojení přes mobilní síť?
     it = Vuoi scaricare utilizzando una connessione di rete cellulare?
@@ -16248,11 +16252,13 @@
   [editor_zip_code]
     tags = ios, android
     en = ZIP Code
+    de = Postleitzahl
     ru = Почтовый индекс
 
   [error_enter_correct_zip_code]
     tags = ios, android
     en = Enter correct ZIP Code
+    de = Richtige Postleitzahl eingeben
     ru = Введите корректный почтовый индекс
 
   [editor_operator]
