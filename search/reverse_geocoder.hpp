@@ -82,7 +82,8 @@ public:
   void GetNearbyStreets(FeatureType & ft, vector<Street> & streets) const;
   //@}
 
-  /// @returns [a lot of] nearby feature's streets and feature's street index, if valid ( < vector.size()).
+  /// @returns [a lot of] nearby feature's streets and an index of a feature's street.
+  /// Returns a value greater than vector size when there are no Street the feature belongs to.
   /// @note returned vector can contain duplicated street segments.
   pair<vector<Street>, uint32_t> GetNearbyFeatureStreets(FeatureType & ft) const;
 

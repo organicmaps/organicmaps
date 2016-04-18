@@ -154,6 +154,9 @@ private:
     string m_uploadStatus;
     string m_uploadError;
   };
+  /// @returns pointer to m_features[id][index] if exists, nullptr otherwise.
+  FeatureTypeInfo const * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index) const;
+  FeatureTypeInfo * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index);
   void SaveUploadedInformation(FeatureTypeInfo const & fromUploader);
 
   // TODO(AlexZ): Synchronize multithread access.

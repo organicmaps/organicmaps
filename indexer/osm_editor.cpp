@@ -322,15 +322,11 @@ Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint
   if (m_features.empty())
     return FeatureStatus::Untouched;
 
-  auto const matchedMwm = m_features.find(mwmId);
-  if (matchedMwm == m_features.end())
+  auto const * featureInfo = GetFeatureTypeInfo(mwmId, index);
+  if (featureInfo == nullptr)
     return FeatureStatus::Untouched;
 
-  auto const matchedIndex = matchedMwm->second.find(index);
-  if (matchedIndex == matchedMwm->second.end())
-    return FeatureStatus::Untouched;
-
-  return matchedIndex->second.m_status;
+  return featureInfo->m_status;
 }
 
 void Editor::DeleteFeature(FeatureType const & feature)
@@ -503,32 +499,21 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
 bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index,
                               FeatureType & outFeature) const
 {
-  auto const matchedMwm = m_features.find(mwmId);
-  if (matchedMwm == m_features.end())
+  auto const * featureInfo = GetFeatureTypeInfo(mwmId, index);
+  if (featureInfo == nullptr)
     return false;
 
-  auto const matchedIndex = matchedMwm->second.find(index);
-  if (matchedIndex == matchedMwm->second.end())
-    return false;
-
-  // TODO(AlexZ): Should we process deleted/created features as well?
-  outFeature = matchedIndex->second.m_feature;
+  outFeature = featureInfo->m_feature;
   return true;
 }
 
 bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureStreet) const
 {
-  // TODO(AlexZ): Reuse common code or better make better getters/setters for edited features.
-  auto const matchedMwm = m_features.find(fid.m_mwmId);
-  if (matchedMwm == m_features.end())
+  auto const * featureInfo = GetFeatureTypeInfo(fid.m_mwmId, fid.m_index);
+  if (featureInfo == nullptr)
     return false;
 
-  auto const matchedIndex = matchedMwm->second.find(fid.m_index);
-  if (matchedIndex == matchedMwm->second.end())
-    return false;
-
-  // TODO(AlexZ): Should we process deleted/created features as well?
-  outFeatureStreet = matchedIndex->second.m_street;
+  outFeatureStreet = featureInfo->m_street;
   return true;
 }
 
@@ -805,6 +790,36 @@ void Editor::SaveUploadedInformation(FeatureTypeInfo const & fromUploader)
   fti.m_uploadError = fromUploader.m_uploadError;
   Save(GetEditorFilePath());
 }
+
+// Macros is used to avoid code duplication.
+#define GET_FEATURE_TYPE_INFO_BODY                                        \
+  do                                                                      \
+  {                                                                       \
+    /* TODO(mgsergio): machedMwm should be synchronized. */               \
+    auto const matchedMwm = m_features.find(mwmId);                       \
+    if (matchedMwm == m_features.end())                                   \
+      return nullptr;                                                     \
+                                                                          \
+    auto const matchedIndex = matchedMwm->second.find(index);             \
+    if (matchedIndex == matchedMwm->second.end())                         \
+      return nullptr;                                                     \
+                                                                          \
+    /* TODO(AlexZ): Should we process deleted/created features as well?*/ \
+    return &matchedIndex->second;                                         \
+  } while (false)
+
+Editor::FeatureTypeInfo const * Editor::GetFeatureTypeInfo(MwmSet::MwmId const & mwmId,
+                                                           uint32_t index) const
+{
+  GET_FEATURE_TYPE_INFO_BODY;
+}
+
+Editor::FeatureTypeInfo * Editor::GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index)
+{
+  GET_FEATURE_TYPE_INFO_BODY;
+}
+
+#undef GET_FEATURE_TYPE_INFO_BODY
 
 void Editor::RemoveFeatureFromStorageIfExists(MwmSet::MwmId const & mwmId, uint32_t index)
 {
