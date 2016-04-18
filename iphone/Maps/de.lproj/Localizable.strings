@@ -25,7 +25,7 @@
 "do_not_ask_me_again" = "Nicht mehr fragen";
 
 /* Button "do not interrupt download" if user touched actively downloading country */
-"do_nothing" = "Download fortsetzen";
+"do_nothing" = "Herunterladen fortsetzen";
 
 "download_maps" = "Karten herunterladen";
 
@@ -39,10 +39,10 @@
 "download_has_failed" = "Herunterladen fehlgeschlagen. Antippen für einen neuen Versuch.";
 
 /* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Heruntergeladen (%1$qu %2$@). Drücken, um zu löschen";
+"downloaded_x_y_touch_to_delete" = "Heruntergeladen (%1$qu %2$@). Antippen, um zu löschen";
 
 /* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Herunterladen %qu%%. Drücken, um abzubrechen";
+"downloading_x_touch_to_cancel" = "Herunterladen %qu%%. Antippen, um abzubrechen";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Wird heruntergeladen…";
@@ -68,7 +68,7 @@
 "downloader_maps" = "Karten:";
 
 /* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Zum Herunterladen vorgemerkt. Drücken, um abzubrechen";
+"marked_for_downloading" = "Zum Herunterladen vorgemerkt. Antippen, um abzubrechen";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
@@ -112,7 +112,7 @@
 "use_cellular_data" = "Ja";
 
 /* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen";
+"use_wifi_recommendation_text" = "Wir empfehlen Ihnen, große Länder über eine WLAN-Verbindung herunterzuladen";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Welches Einheitensystem bevorzugen Sie?";
@@ -142,7 +142,7 @@
 "country_status_download_without_routing" = "Karte ohne Routenplanung\nherunterladen (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Download fehlgeschlagen";
+"country_status_download_failed" = "Herunterladen fehlgeschlagen";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Erneut versuchen";
@@ -181,7 +181,7 @@
 
 "download_resources_continue" = "Zur Karte";
 
-"downloading_country_can_proceed" = "Lade %@ herunter. Sie können jetzt\nzur Karte weitergehen.";
+"downloading_country_can_proceed" = "%@ wird heruntergeladen. Sie können jetzt\nzur Karte weitergehen.";
 
 "download_country_ask" = "%@ herunterladen?";
 
@@ -613,7 +613,7 @@
 "blog" = "Blog";
 
 /* Text in menu */
-"maps_me_community" = "MAPS.ME-Community";
+"maps_me_community" = "MAPS.ME-Gemeinschaft";
 
 /* Text in menu */
 "like_on_facebook" = "„Gefällt mir“ auf Facebook";
@@ -625,10 +625,10 @@
 "contact_us" = "Kontaktieren Sie uns";
 
 /* Settings: Send feedback button and dialog title */
-"feedback" = "Feedback";
+"feedback" = "Rückmeldung";
 
 /* Settings: "Send general feedback" button */
-"feedback_general" = "Allgemeines Feedback";
+"feedback_general" = "Allgemeine Rückmeldung";
 
 /* Text in menu */
 "subscribe_to_news" = "Abonnieren Sie unsere News";
@@ -658,10 +658,10 @@
 "subscribe_me_subject" = "Ich möchte gerne den MAPS.ME-Newsletter abonnieren";
 
 /* Email body */
-"subscribe_me_body" = "Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Updates und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.";
+"subscribe_me_body" = "Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Aktualisierungen und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.";
 
 /* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
+"about_description" = "Gemeinsame Bemühungen der Mail.Ru-Gruppe und OpenStreetMap machen die nützlichste Anwendung für Reisende!";
 
 /* About text */
 "about_text" = "MAPS.ME bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen MAPS.ME, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der MAPS.ME-App.";
@@ -731,7 +731,7 @@
 "routing_failed_unknown_my_position" = "Der aktuelle Standort ist nicht bekannt. Bitte geben Sie den Standort ein, um eine Route zu erstellen.";
 
 /* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Zusätzliche Daten werden zum Erstellen der Route benötigt. Mit dem Download beginnen?";
+"routing_failed_has_no_routing_file" = "Zusätzliche Daten werden zum Erstellen der Route benötigt. Mit dem Herunterladen beginnen?";
 
 /* StartPointNotFound */
 "routing_failed_start_point_not_found" = "Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe Ihres Ausgangspunkts.";
@@ -808,7 +808,7 @@
 "rating_share_ideas" = "Teilen Sie uns Ihre Anregungen und Probleme mit, so dass wir die App für Sie verbessern können.";
 
 /* Text for rating dialog */
-"rating_send_feedback" = "Feedback senden";
+"rating_send_feedback" = "Rückmeldung senden";
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Klick auf G+, um deinen Freunden über die App zu erzählen.";
@@ -835,7 +835,7 @@
 "routing_not_enough_space" = "Nicht genug Speicherplatz";
 
 /* Text for routing error dialog */
-"routing_download_more_than_avail" = "Der Download erfordert %@ MB, es sind jedoch nur %@ MB verfügbar.";
+"routing_download_more_than_avail" = "Sie wollen %@ MB herunterladen, der Speicherplatz reicht aber nur für %@ MB.";
 
 /* Text for routing error dialog */
 "routing_download_roaming" = "Sie sind im Begriff, %@ MB unter Nutzung einer mobilen Datenverbindung (mit Roaming) herunterzuladen. Dies kann je nach Anbieter Ihres mobilen Datentarifs zusätzliche Kosten verursachen.";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Gefällt Ihnen die App?";
 
-"rate_alert_default_message" = "Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns, besser zu werden.";
+"rate_alert_default_message" = "Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihre Rückmeldung hilft uns, besser zu werden.";
 
 "rate_alert_five_star_message" = "Hurra! Wir lieben Sie auch!";
 
@@ -1115,7 +1115,7 @@
 
 "share_with_friends" = "Mit Freunden teilen";
 
-"editor_report_problem_desription_1" = "Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Community den Fehler beheben kann.";
+"editor_report_problem_desription_1" = "Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Gemeinschaft den Fehler beheben kann.";
 
 "editor_report_problem_desription_2" = "Oder kümmern Sie sich selbst darum auf http://www.openstreetmap.org/";
 
@@ -1140,7 +1140,7 @@
 
 "delete_all" = "Alle löschen";
 
-"autodownload" = "Automatisch Herunterladen";
+"autodownload" = "Automatisch herunterladen";
 
 /* Place Page opening hours text */
 "closed_now" = "Jetzt geschlossen";
@@ -1166,7 +1166,7 @@
 
 "profile" = "Profil";
 
-"no_osm_account" = "Kein Konto in OpenStreetMap?";
+"no_osm_account" = "Kein Konto bei OpenStreetMap?";
 
 "register_at_openstreetmap" = "Registrieren";
 
@@ -1213,16 +1213,16 @@
 
 "place_name" = "Name des Platzes";
 
-"place_name_caption" = "Den Namen wie auf dem Schild oder dem Namensschild angegeben eingeben";
+"place_name_caption" = "Geben Sie den Namen wie auf dem Schild oder dem Namensschild angegeben ein";
 
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Andere Sprachen";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "Mehr anzeigen";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "Weniger anzeigen";
 
 "add_language" = "Eine Sprache hinzufügen";
 
@@ -1267,11 +1267,11 @@
 
 "migration_delete_all_download_current_button" = "Laden Sie die aktuelle Karte herunter und löschen Sie alte Karten";
 
-"migration_download_error_dialog" = "Download-Fehler";
+"migration_download_error_dialog" = "Fehler beim Herunterladen";
 
 "common_check_internet_connection_dialog" = "Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.";
 
-"downloader_no_space_title" = "Nicht genügend Platz";
+"downloader_no_space_title" = "Nicht genug Speicherplatz";
 
 "downloader_no_space_message" = "Bitte entfernen Sie unnötige Daten";
 
@@ -1343,9 +1343,9 @@
 
 "onboarding_offline_maps_message" = "Laden Sie die Karten für das gewünschte Gebiet auf einmal herunter und verwenden Sie die Navigation- und Such-Funktion ohne eine Internetverbindung.";
 
-"onboarding_notifications_message" = "Um die neuesten Karten zu erhalten, aktivieren Sie bitte die Update-Benachrichtigungen";
+"onboarding_notifications_message" = "Erhalten Sie Aktualisierungsbenachrichtigungen, um die neuesten Karten zu erhalten";
 
-"onboarding_notifications_title" = "Update-Benachrichtigungen aktualisieren";
+"onboarding_notifications_title" = "Aktualisierungsbenachrichtigungen aktivieren";
 
 "onboarding_location_title" = "Helfen Sie uns dabei, Sie zu finden";
 
@@ -1353,7 +1353,7 @@
 
 "dialog_incorrect_feature_position" = "Standort wechseln";
 
-"message_invalid_feature_position" = "Ein Objekt kann nicht hier positioniert werden";
+"message_invalid_feature_position" = "Ein Objekt kann hier nicht positioniert werden";
 
 "login_to_make_edits_visible" = "Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.";
 
@@ -1361,14 +1361,14 @@
 
 "editor_sharing_title" = "Ich habe die MAPS.ME-Karten verbessert";
 
-"editor_comment_will_be_sent" = "Wir werden Ihr Kommentar an die Kartografierer weiterleiten.";
+"editor_comment_will_be_sent" = "Wir werden Ihren Kommentar an die Kartografierer weiterleiten.";
 
 "editor_unsupported_category_message" = "Sie haben einen Ort in einer Kategorie hinzugefügt, die wir noch nicht unterstützten. Er wird zu einem späteren Zeitpunkt auf der Karte erscheinen.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d von %2$d";
 
-"download_over_mobile_header" = "Download mit einer mobilen Netzwerkverbindung?";
+"download_over_mobile_header" = "Über eine Mobilfunknetzverbindung herunterladen?";
 
 "download_over_mobile_message" = "Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.";
 
@@ -1376,8 +1376,8 @@
 
 
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Postleitzahl";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Richtige Postleitzahl eingeben";
 
 "editor_operator" = "Operator";
