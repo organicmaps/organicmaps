@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		563B91C51CC4F1DC00222BC1 /* bicycle_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563B91C31CC4F1DC00222BC1 /* bicycle_model.cpp */; };
+		563B91C61CC4F1DC00222BC1 /* bicycle_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 563B91C41CC4F1DC00222BC1 /* bicycle_model.hpp */; };
 		670B84C01A9381D900CE4492 /* cross_routing_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */; };
 		670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */; };
 		670C62131AC5A15700C38A8C /* routing_mapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670C62111AC5A15700C38A8C /* routing_mapping.cpp */; };
@@ -176,6 +178,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		563B91C31CC4F1DC00222BC1 /* bicycle_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bicycle_model.cpp; sourceTree = "<group>"; };
+		563B91C41CC4F1DC00222BC1 /* bicycle_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bicycle_model.hpp; sourceTree = "<group>"; };
 		670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_routing_context.cpp; sourceTree = "<group>"; };
 		670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_routing_context.hpp; sourceTree = "<group>"; };
 		670C62111AC5A15700C38A8C /* routing_mapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mapping.cpp; sourceTree = "<group>"; };
@@ -533,6 +537,8 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				563B91C31CC4F1DC00222BC1 /* bicycle_model.cpp */,
+				563B91C41CC4F1DC00222BC1 /* bicycle_model.hpp */,
 				A17B42961BCFBD0E00A1EAE4 /* osrm_helpers.cpp */,
 				A17B42971BCFBD0E00A1EAE4 /* osrm_helpers.hpp */,
 				6741AA9A1BF35331002C974C /* turns_notification_manager.cpp */,
@@ -660,6 +666,7 @@
 				A120B3511B4A7C0A002F3808 /* routing_algorithm.hpp in Headers */,
 				675344211A3F644F00A0A8C3 /* vehicle_model.hpp in Headers */,
 				670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */,
+				563B91C61CC4F1DC00222BC1 /* bicycle_model.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,6 +848,7 @@
 				674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */,
 				675344171A3F644F00A0A8C3 /* osrm_router.cpp in Sources */,
 				A17B42981BCFBD0E00A1EAE4 /* osrm_helpers.cpp in Sources */,
+				563B91C51CC4F1DC00222BC1 /* bicycle_model.cpp in Sources */,
 				674F9BD21B0A580E00704FFA /* road_graph_router.cpp in Sources */,
 				A1876BC61BB19C4300C9C743 /* speed_camera.cpp in Sources */,
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,

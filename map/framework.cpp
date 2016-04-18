@@ -2210,6 +2210,11 @@ void Framework::SetRouterImpl(RouterType type)
     router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter);
     m_routingSession.SetRoutingSettings(routing::GetPedestrianRoutingSettings());
   }
+  else if (type == RouterType::Bicycle)
+  {
+    router = CreateBicycleAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter);
+    m_routingSession.SetRoutingSettings(routing::GetBicycleRoutingSettings());
+  }
   else
   {
     auto localFileChecker = [this](string const & countryFile) -> bool

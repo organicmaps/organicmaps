@@ -8,11 +8,11 @@
 namespace routing
 {
 
-class PedestrianModel : public VehicleModel
+class BicycleModel : public VehicleModel
 {
 public:
-  PedestrianModel();
-  PedestrianModel(VehicleModel::InitListT const & speedLimits);
+  BicycleModel();
+  BicycleModel(VehicleModel::InitListT const & speedLimits);
 
   /// @name Overrides from VehicleModel.
   //@{
@@ -23,22 +23,22 @@ public:
 private:
   void Init();
 
-  /// @return True if road is prohibited for pedestrian,
-  /// but if function returns False, real prohibition is unknown.
-  bool IsNoFoot(feature::TypesHolder const & types) const;
+  /// @return true if road is prohibited for bicycle,
+  /// but if function returns false, real prohibition is unknown.
+  bool IsNoBicycle(feature::TypesHolder const & types) const;
 
-  /// @return True if road is allowed for pedestrian,
-  /// but if function returns False, real allowance is unknown.
-  bool IsYesFoot(feature::TypesHolder const & types) const;
+  /// @return true if road is allowed for bicycle,
+  /// but if function returns false, real allowance is unknown.
+  bool IsYesBicycle(feature::TypesHolder const & types) const;
 
-  uint32_t m_noFootType = 0;
-  uint32_t m_yesFootType = 0;
+  uint32_t m_noBicycleType = 0;
+  uint32_t m_yesBicycleType = 0;
 };
 
-class PedestrianModelFactory : public IVehicleModelFactory
+class BicycleModelFactory : public IVehicleModelFactory
 {
 public:
-  PedestrianModelFactory();
+  BicycleModelFactory();
 
   /// @name Overrides from IVehicleModelFactory.
   //@{

@@ -50,4 +50,11 @@ inline RoutingSettings GetCarRoutingSettings()
                            50. /* m_matchingThresholdM */, false /* m_keepPedestrianInfo */,
                            true /* m_showTurnAfterNext */, true /* m_speedCameraWarning*/});
 }
+
+inline RoutingSettings GetBicycleRoutingSettings()
+{
+  return RoutingSettings({ false /* m_matchRoute */, false /* m_soundDirection */,
+                           20. /* m_matchingThresholdM */, true /* m_keepPedestrianInfo */,
+                           false /* m_showTurnAfterNext */, false /* m_speedCameraWarning*/});
+}
 }  // namespace routing
