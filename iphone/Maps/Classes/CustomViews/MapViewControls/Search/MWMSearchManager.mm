@@ -220,7 +220,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (void)handleDownloadMapsAction
 {
-  [self.delegate actionDownloadMaps];
+  [self.delegate actionDownloadMaps:TMWMMapDownloaderMode::Available];
 }
 
 #pragma mark - State changes

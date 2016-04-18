@@ -3,6 +3,7 @@
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
+#import "MWMMapDownloaderTypes.h"
 
 #include "Framework.h"
 
@@ -11,20 +12,19 @@ using namespace storage;
 @interface MWMMapDownloaderDataSource ()
 
 @property (weak, nonatomic) id<MWMMapDownloaderProtocol> delegate;
-
-@property (nonatomic, readwrite) BOOL needFullReload;
+@property (nonatomic) TMWMMapDownloaderMode mode;
 
 @end
 
 @implementation MWMMapDownloaderDataSource
 
-- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate
+- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate mode:(TMWMMapDownloaderMode)mode
 {
   self = [super init];
   if (self)
   {
     _delegate = delegate;
-    _reloadSections = [NSMutableIndexSet indexSet];
+    _mode = mode;
   }
   return self;
 }
@@ -106,13 +106,6 @@ using namespace storage;
 - (NSString *)searchQuery
 {
   return nil;
-}
-
-- (void)setNeedFullReload:(BOOL)needFullReload
-{
-  _needFullReload = needFullReload;
-  if (needFullReload)
-    [self.reloadSections removeAllIndexes];
 }
 
 @end

@@ -12,6 +12,7 @@
 #import "MWMStorage.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIViewController+Navigation.h"
 
 #include "Framework.h"
 
@@ -34,6 +35,9 @@ NSString * const kDownloadingTitle = L(@"downloader_downloading");
 NSString * const kMapsTitle = L(@"downloader_maps");
 NSString * const kShowActionTitle = L(@"zoom_to_country");
 NSString * const kUpdateActionTitle = L(@"downloader_status_outdated");
+
+NSString * const kBaseControllerIdentifier = @"MWMBaseMapDownloaderViewController";
+NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
 } // namespace
 
 @interface MWMBaseMapDownloaderViewController () <UIActionSheetDelegate, MWMFrameworkStorageObserver>
@@ -58,6 +62,9 @@ NSString * const kUpdateActionTitle = L(@"downloader_status_outdated");
 @property (nonatomic) BOOL skipCountryEventProcessing;
 @property (nonatomic) BOOL forceFullReload;
 
+@property (nonatomic, readonly) NSString * parentCountryId;
+@property (nonatomic, readonly) TMWMMapDownloaderMode mode;
+
 @end
 
 using namespace storage;
@@ -72,7 +79,6 @@ using namespace storage;
   [super viewDidLoad];
   [self configNavBar];
   [self configTable];
-  [self configAllMapsView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -86,6 +92,7 @@ using namespace storage;
                forBarMetrics:UIBarMetricsDefault];
   navBar.shadowImage = [[UIImage alloc] init];
   [MWMFrameworkListener addObserver:self];
+  [self configViews];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -98,17 +105,32 @@ using namespace storage;
   [self notifyParentController];
 }
 
+- (void)configViews
+{
+  [self configAllMapsView];
+}
+
 - (void)configNavBar
 {
+  BOOL const downloaded = self.mode == TMWMMapDownloaderMode::Downloaded;
   if (self.dataSource.isParentRoot)
   {
-    self.title = L(@"download_maps");
+    self.title = downloaded ? L(@"downloader_my_maps_title") : L(@"download_maps");
   }
   else
   {
     NodeAttrs nodeAttrs;
     GetFramework().Storage().GetNodeAttrs(self.parentCountryId.UTF8String, nodeAttrs);
     self.title = @(nodeAttrs.m_nodeLocalName.c_str());
+  }
+
+  if (downloaded)
+  {
+    UIBarButtonItem * addButton =
+        [self navBarButtonWithImage:[UIImage imageNamed:@"ic_nav_bar_add"]
+                   highlightedImage:[UIImage imageNamed:@"ic_nav_bar_add_press"]
+                             action:@selector(openAvailableMaps)];
+    self.navigationItem.rightBarButtonItems = [self alignedNavBarButtonItems:@[ addButton ]];
   }
 }
 
@@ -150,7 +172,7 @@ using namespace storage;
                      });
   if (needReload)
   {
-    [self configAllMapsView];
+    [self configViews];
     [self reloadData];
   }
 }
@@ -436,6 +458,24 @@ using namespace storage;
   [self processCountryEvent:parentCountryId];
 }
 
+#pragma mark - Countries tree(s) navigation
+
+- (void)openAvailableMaps
+{
+  BOOL const isParentRoot = [self.parentCountryId isEqualToString:@(GetFramework().Storage().GetRootId().c_str())];
+  NSString * identifier = isParentRoot ? kControllerIdentifier : kBaseControllerIdentifier;
+  MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+  [vc setParentCountryId:self.parentCountryId mode:TMWMMapDownloaderMode::Available];
+  [MWMSegue segueFrom:self to:vc];
+}
+
+- (void)openSubtreeForParentCountryId:(NSString *)parentCountryId
+{
+  MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:kBaseControllerIdentifier];
+  [vc setParentCountryId:parentCountryId mode:self.mode];
+  [MWMSegue segueFrom:self to:vc];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -443,15 +483,9 @@ using namespace storage;
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   NSString * identifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
   if ([identifier isEqualToString:kLargeCountryCellIdentifier])
-  {
-    MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MWMBaseMapDownloaderViewController"];
-    vc.parentCountryId = [self.dataSource countryIdForIndexPath:indexPath];
-    [MWMSegue segueFrom:self to:vc];
-  }
+    [self openSubtreeForParentCountryId:[self.dataSource countryIdForIndexPath:indexPath]];
   else
-  {
     [self showActionSheetForRowAtIndexPath:indexPath];
-  }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -609,6 +643,15 @@ using namespace storage;
   return UIStatusBarStyleLightContent;
 }
 
+#pragma mark - Configuration
+
+- (void)setParentCountryId:(NSString *)parentId mode:(TMWMMapDownloaderMode)mode
+{
+  self.defaultDataSource = [[MWMMapDownloaderDefaultDataSource alloc] initForRootCountryId:parentId
+                                                                                  delegate:self
+                                                                                      mode:mode];
+}
+
 #pragma mark - Properties
 
 - (void)setTableView:(UITableView *)tableView
@@ -626,12 +669,12 @@ using namespace storage;
 
 - (NSString *)parentCountryId
 {
-  return [self.dataSource parentCountryId];
+  return self.dataSource.parentCountryId;
 }
 
-- (void)setParentCountryId:(NSString *)parentId
+- (TMWMMapDownloaderMode)mode
 {
-  self.defaultDataSource = [[MWMMapDownloaderDefaultDataSource alloc] initForRootCountryId:parentId delegate:self];
+  return self.dataSource.mode;
 }
 
 - (void)setDataSource:(MWMMapDownloaderDataSource *)dataSource
@@ -649,8 +692,8 @@ using namespace storage;
 - (void)reloadData
 {
   MWMMapDownloaderDefaultDataSource * defaultDataSource = self.defaultDataSource;
-  [defaultDataSource reload];
-  if ([self.dataSource isEqual:defaultDataSource])
+  [defaultDataSource load];
+  if (self.dataSource == defaultDataSource)
     [self reloadTable];
 }
 
@@ -658,27 +701,16 @@ using namespace storage;
 {
   [self.cellHeightCache removeAllObjects];
 
-  MWMMapDownloaderDataSource * dataSource = self.dataSource;
   UITableView * tableView = self.tableView;
-  if (self.forceFullReload || dataSource.needFullReload)
-  {
-    self.forceFullReload = NO;
-    // If these methods are not called, tableView will not call tableView:cellForRowAtIndexPath:
-    [tableView setNeedsLayout];
-    [tableView layoutIfNeeded];
+  // If these methods are not called, tableView will not call tableView:cellForRowAtIndexPath:
+  [tableView setNeedsLayout];
+  [tableView layoutIfNeeded];
 
-    [tableView reloadData];
+  [tableView reloadData];
 
-    // If these methods are not called, tableView will not display new cells
-    [tableView setNeedsLayout];
-    [tableView layoutIfNeeded];
-  }
-  else
-  {
-    NSMutableIndexSet * reloadSections = dataSource.reloadSections;
-    if (reloadSections.count)
-      [tableView reloadSections:reloadSections withRowAnimation:UITableViewRowAnimationAutomatic];
-  }
+  // If these methods are not called, tableView will not display new cells
+  [tableView setNeedsLayout];
+  [tableView layoutIfNeeded];
 }
 
 @end

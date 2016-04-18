@@ -358,7 +358,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatDownloadMaps}];
   self.state = self.restoreState;
-  [self.delegate actionDownloadMaps];
+  [self.delegate actionDownloadMaps:TMWMMapDownloaderMode::Downloaded];
 }
 
 - (void)menuActionOpenSettings

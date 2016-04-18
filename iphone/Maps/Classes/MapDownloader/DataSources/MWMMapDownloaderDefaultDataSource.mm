@@ -28,12 +28,6 @@ auto compareLocalNames = ^NSComparisonResult(NSString * s1, NSString * s2)
 
 using namespace storage;
 
-@interface MWMMapDownloaderDataSource ()
-
-@property (nonatomic, readwrite) BOOL needFullReload;
-
-@end
-
 @interface MWMMapDownloaderDefaultDataSource ()
 
 @property (copy, nonatomic) NSArray<NSString *> * indexes;
@@ -49,9 +43,9 @@ using namespace storage;
 
 @synthesize isParentRoot = _isParentRoot;
 
-- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate
+- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate mode:(TMWMMapDownloaderMode)mode
 {
-  self = [super initWithDelegate:delegate];
+  self = [super initWithDelegate:delegate mode:mode];
   if (self)
   {
     m_parentId = countryId.UTF8String;
@@ -66,45 +60,18 @@ using namespace storage;
   auto const & s = GetFramework().Storage();
   TCountriesVec downloadedChildren;
   TCountriesVec availableChildren;
-  s.GetChildrenInGroups(m_parentId, downloadedChildren, availableChildren);
-  [self configAvailableSections:availableChildren];
-  [self configDownloadedSection:downloadedChildren];
-}
-
-- (void)reload
-{
-  [self.reloadSections removeAllIndexes];
-  // Get old data for comparison.
-  NSDictionary<NSString *, NSArray<NSString *> *> * availableCountriesBeforeUpdate = self.availableCountries;
-  NSInteger const downloadedCountriesCountBeforeUpdate = self.downloadedCountries.count;
-
-  // Load updated data.
-  [self load];
-
-  // Compare new data vs old data to understand what kind of reload is required and what sections need reload.
-  NSInteger const downloadedCountriesCountAfterUpdate = self.downloadedCountries.count;
-  self.needFullReload =
-      (downloadedCountriesCountBeforeUpdate == 0 || downloadedCountriesCountAfterUpdate == 0 ||
-       availableCountriesBeforeUpdate.count != self.availableCountries.count ||
-       availableCountriesBeforeUpdate.count == 0);
-  if (self.needFullReload)
-    return;
-  [availableCountriesBeforeUpdate enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSArray<NSString *> * obj, BOOL * stop)
+  s.GetChildrenInGroups(m_parentId, downloadedChildren, availableChildren, true);
+  if (self.mode == TMWMMapDownloaderMode::Available)
   {
-    NSUInteger const sectionIndex = [self.indexes indexOfObject:key];
-    if (sectionIndex == NSNotFound)
-    {
-      self.needFullReload = YES;
-      *stop = YES;
-    }
-    else if (obj.count != self.availableCountries[key].count)
-    {
-      [self.reloadSections addIndex:sectionIndex];
-    }
-  }];
-  [self.reloadSections shiftIndexesStartingAtIndex:0 by:self.downloadedSectionShift];
-  if (downloadedCountriesCountBeforeUpdate != downloadedCountriesCountAfterUpdate)
-    [self.reloadSections addIndex:self.downloadedSection];
+    self.downloadedCountries = nil;
+    [self configAvailableSections:availableChildren];
+  }
+  else
+  {
+    self.indexes = nil;
+    self.availableCountries = nil;
+    [self configDownloadedSection:downloadedChildren];
+  }
 }
 
 - (void)configAvailableSections:(TCountriesVec const &)availableChildren
@@ -145,14 +112,14 @@ using namespace storage;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return self.indexes.count + self.downloadedSectionShift;
+  return self.downloadedCountries ? 1 : self.indexes.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == self.downloadedSection)
+  if (self.downloadedCountries)
     return self.downloadedCountries.count;
-  NSString * index = self.indexes[section - self.downloadedSectionShift];
+  NSString * index = self.indexes[section];
   return self.availableCountries[index].count;
 }
 
@@ -163,12 +130,12 @@ using namespace storage;
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-  return index + self.downloadedSectionShift;
+  return index;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  if (section == self.downloadedSection)
+  if (self.downloadedCountries)
   {
     NodeAttrs nodeAttrs;
     GetFramework().Storage().GetNodeAttrs(m_parentId, nodeAttrs);
@@ -177,7 +144,7 @@ using namespace storage;
     else
       return [NSString stringWithFormat:@"%@ (%@)", L(@"downloader_downloaded_subtitle"), formattedSize(nodeAttrs.m_localMwmSize)];
   }
-  return self.indexes[section - self.downloadedSectionShift];
+  return self.indexes[section];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
@@ -204,9 +171,9 @@ using namespace storage;
 {
   NSInteger const section = indexPath.section;
   NSInteger const row = indexPath.row;
-  if (section == self.downloadedSection)
+  if (self.downloadedCountries)
     return self.downloadedCountries[row];
-  NSString * index = self.indexes[section - self.downloadedSectionShift];
+  NSString * index = self.indexes[section];
   NSArray<NSString *> * availableCountries = self.availableCountries[index];
   NSString * nsCountryId = availableCountries[indexPath.row];
   return nsCountryId;
@@ -221,18 +188,6 @@ using namespace storage;
   if (haveChildren)
     return kLargeCountryCellIdentifier;
   return self.isParentRoot ? kCountryCellIdentifier : kPlaceCellIdentifier;
-}
-
-#pragma mark - Properties
-
-- (NSInteger)downloadedSectionShift
-{
-  return (self.downloadedCountries.count != 0 ? self.downloadedSection + 1 : 0);
-}
-
-- (NSInteger)downloadedSection
-{
-  return self.downloadedCountries.count != 0 ? 0 : NSNotFound;
 }
 
 @end

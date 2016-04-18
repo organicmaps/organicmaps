@@ -2,12 +2,18 @@
 #import "MWMMapDownloaderExtendedDataSource.h"
 #import "MWMMapDownloaderSearchDataSource.h"
 #import "MWMMapDownloaderViewController.h"
+#import "MWMNoMapsViewController.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
 
 #include "Framework.h"
 
 #include "storage/downloader_search_params.hpp"
+
+namespace
+{
+NSString * const kNoMapsSegue = @"MapDownloaderEmbedNoMapsSegue";
+} // namespace
 
 using namespace storage;
 
@@ -18,14 +24,23 @@ using namespace storage;
 @property (nonatomic) MWMMapDownloaderDataSource * dataSource;
 @property (nonatomic) MWMMapDownloaderDataSource * defaultDataSource;
 
+@property (nonatomic, readonly) NSString * parentCountryId;
+@property (nonatomic, readonly) TMWMMapDownloaderMode mode;
+
+- (void)configViews;
+
+- (void)openAvailableMaps;
+
 - (void)reloadTable;
 
 @end
 
-@interface MWMMapDownloaderViewController () <UISearchBarDelegate, UIScrollViewDelegate>
+@interface MWMMapDownloaderViewController () <UISearchBarDelegate, UIScrollViewDelegate, MWMNoMapsViewControllerProtocol>
 
 @property (weak, nonatomic) IBOutlet UIView * statusBarBackground;
 @property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
+@property (weak, nonatomic) IBOutlet UIView * noMapsContainer;
+@property (nonatomic) MWMNoMapsViewController * noMapsController;
 
 @property (nonatomic) MWMMapDownloaderDataSource * searchDataSource;
 
@@ -53,7 +68,39 @@ using namespace storage;
 
 - (void)backTap
 {
-  [self.navigationController popToRootViewControllerAnimated:YES];
+  NSArray<UIViewController *> * viewControllers = self.navigationController.viewControllers;
+  UIViewController * previousViewController = viewControllers[viewControllers.count - 2];
+  if ([previousViewController isKindOfClass:[MWMBaseMapDownloaderViewController class]])
+    [self.navigationController popViewControllerAnimated:YES];
+  else
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)configViews
+{
+  [super configViews];
+  [self checkAndConfigNoMapsView];
+}
+
+#pragma mark - No Maps
+
+- (void)checkAndConfigNoMapsView
+{
+  auto const & s = GetFramework().Storage();
+  if (![self.parentCountryId isEqualToString:@(s.GetRootId().c_str())])
+    return;
+  if (self.mode == TMWMMapDownloaderMode::Available || s.HaveDownloadedCountries())
+  {
+    [self configAllMapsView];
+    self.tableView.hidden = NO;
+    self.noMapsContainer.hidden = YES;
+  }
+  else
+  {
+    self.showAllMapsView = NO;
+    self.tableView.hidden = YES;
+    self.noMapsContainer.hidden = NO;
+  }
 }
 
 #pragma mark - All Maps Action
@@ -142,11 +189,32 @@ using namespace storage;
   };
 }
 
-#pragma mark - Properties
+#pragma mark - MWMNoMapsViewControllerProtocol
 
-- (void)setParentCountryId:(NSString *)parentId
+- (void)handleDownloadMapsAction
 {
-  self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId delegate:self];
+  [self openAvailableMaps];
+}
+
+#pragma mark - Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  [super prepareForSegue:segue sender:sender];
+  if ([segue.identifier isEqualToString:kNoMapsSegue])
+  {
+    self.noMapsController = segue.destinationViewController;
+    self.noMapsController.delegate = self;
+  }
+}
+
+#pragma mark - Configuration
+
+- (void)setParentCountryId:(NSString *)parentId mode:(TMWMMapDownloaderMode)mode
+{
+  self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId
+                                                                                   delegate:self
+                                                                                       mode:mode];
 }
 
 @end

@@ -6,12 +6,6 @@
 
 using namespace storage;
 
-@interface MWMMapDownloaderDataSource ()
-
-@property (nonatomic, readwrite) BOOL needFullReload;
-
-@end
-
 @interface MWMMapDownloaderDefaultDataSource ()
 
 @property (nonatomic, readonly) NSInteger downloadedCountrySection;
@@ -32,23 +26,6 @@ using namespace storage;
 {
   [super load];
   [self configNearMeSection];
-}
-
-- (void)reload
-{
-  NSInteger const closestCoutriesCountBeforeUpdate = self.nearmeCountries.count;
-
-  [super reload];
-
-  NSInteger const closestCoutriesCountAfterUpdate = self.nearmeCountries.count;
-  if (closestCoutriesCountBeforeUpdate != closestCoutriesCountAfterUpdate &&
-      (closestCoutriesCountBeforeUpdate == 0 || closestCoutriesCountAfterUpdate == 0))
-    self.needFullReload = YES;
-  if (self.needFullReload)
-    return;
-  [self.reloadSections shiftIndexesStartingAtIndex:0 by:self.nearmeSectionShift];
-  if (closestCoutriesCountBeforeUpdate != closestCoutriesCountAfterUpdate)
-    [self.reloadSections addIndex:self.nearmeSection];
 }
 
 - (void)configNearMeSection

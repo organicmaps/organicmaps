@@ -1,4 +1,5 @@
 #import "MWMAlertViewController.h"
+#import "MWMMapDownloaderTypes.h"
 #import "MWMSearchTextField.h"
 #import "MWMSearchView.h"
 
@@ -15,7 +16,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 @property (nonnull, nonatomic, readonly) MWMAlertViewController * alertController;
 
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state;
-- (void)actionDownloadMaps;
+- (void)actionDownloadMaps:(TMWMMapDownloaderMode)mode;
 
 @end
 

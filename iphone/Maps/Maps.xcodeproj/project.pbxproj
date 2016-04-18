@@ -1140,6 +1140,7 @@
 		34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AddSetTableViewCell.mm; sourceTree = "<group>"; };
 		34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSetTableViewCell.xib; sourceTree = "<group>"; };
 		34DCDE3D1C76195F00652CAC /* MWMMapDownloaderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderProtocol.h; sourceTree = "<group>"; };
+		34E0EECA1CC4F36B008E4919 /* MWMMapDownloaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderTypes.h; sourceTree = "<group>"; };
 		34E2731F1C737A4100463965 /* MWMMigrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMigrationViewController.h; sourceTree = "<group>"; };
 		34E273201C737A4100463965 /* MWMMigrationViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMigrationViewController.mm; sourceTree = "<group>"; };
 		34E273231C73876500463965 /* MWMMigrationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMigrationView.h; sourceTree = "<group>"; };
@@ -1925,6 +1926,7 @@
 			isa = PBXGroup;
 			children = (
 				3418CEAB1CBF9D7700641B25 /* NoMaps */,
+				34E0EECA1CC4F36B008E4919 /* MWMMapDownloaderTypes.h */,
 				34DCDE3D1C76195F00652CAC /* MWMMapDownloaderProtocol.h */,
 				341223B91BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.h */,
 				341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */,
