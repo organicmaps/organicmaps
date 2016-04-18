@@ -9,16 +9,9 @@
 
 using namespace storage;
 
-@interface MWMMapDownloaderDataSource ()
-
-@property (weak, nonatomic) id<MWMMapDownloaderProtocol> delegate;
-@property (nonatomic) TMWMMapDownloaderMode mode;
-
-@end
-
 @implementation MWMMapDownloaderDataSource
 
-- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate mode:(TMWMMapDownloaderMode)mode
+- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(TMWMMapDownloaderMode)mode
 {
   self = [super init];
   if (self)
@@ -31,10 +24,13 @@ using namespace storage;
 
 #pragma mark - Fill cells with data
 
-- (void)fillCell:(MWMMapDownloaderTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)fillCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+  if (![cell isKindOfClass:[MWMMapDownloaderTableViewCell class]])
+    return;
+  MWMMapDownloaderTableViewCell * tCell = static_cast<MWMMapDownloaderTableViewCell *>(cell);
   NSString * countryId = [self countryIdForIndexPath:indexPath];
-  [cell setCountryId:countryId searchQuery:[self searchQuery]];
+  [tCell setCountryId:countryId searchQuery:[self searchQuery]];
 
   if ([cell isKindOfClass:[MWMMapDownloaderPlaceTableViewCell class]])
   {
@@ -106,6 +102,13 @@ using namespace storage;
 - (NSString *)searchQuery
 {
   return nil;
+}
+
+#pragma mark - Helpers
+
+- (BOOL)isButtonCell:(NSInteger)section
+{
+  return NO;
 }
 
 @end

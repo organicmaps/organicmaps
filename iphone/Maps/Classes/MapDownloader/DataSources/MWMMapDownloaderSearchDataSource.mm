@@ -19,7 +19,7 @@ extern NSString * const kLargeCountryCellIdentifier;
 
 @implementation MWMMapDownloaderSearchDataSource
 
-- (instancetype)initWithSearchResults:(DownloaderSearchResults const &)results delegate:(id<MWMMapDownloaderProtocol>)delegate
+- (instancetype)initWithSearchResults:(DownloaderSearchResults const &)results delegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate
 {
   self = [super initWithDelegate:delegate mode:TMWMMapDownloaderMode::Available];
   if (self)

@@ -22,6 +22,7 @@ extern NSString * const kCountryCellIdentifier = @"MWMMapDownloaderTableViewCell
 extern NSString * const kSubplaceCellIdentifier = @"MWMMapDownloaderSubplaceTableViewCell";
 extern NSString * const kPlaceCellIdentifier = @"MWMMapDownloaderPlaceTableViewCell";
 extern NSString * const kLargeCountryCellIdentifier = @"MWMMapDownloaderLargeCountryTableViewCell";
+extern NSString * const kButtonCellIdentifier = @"MWMMapDownloaderButtonTableViewCell";
 
 namespace
 {
@@ -160,8 +161,11 @@ using namespace storage;
   if (self.skipCountryEventProcessing)
     return;
 
-  for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
-    [cell processCountryEvent:countryId];
+  for (UITableViewCell * cell in self.tableView.visibleCells)
+  {
+    if ([cell conformsToProtocol:@protocol(MWMFrameworkStorageObserver)])
+      [static_cast<id<MWMFrameworkStorageObserver>>(cell) processCountryEvent:countryId];
+  }
 
   BOOL needReload = NO;
   auto const & s = GetFramework().Storage();
@@ -179,8 +183,11 @@ using namespace storage;
 
 - (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
 {
-  for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
-    [cell processCountry:countryId progress:progress];
+  for (UITableViewCell * cell in self.tableView.visibleCells)
+  {
+    if ([cell conformsToProtocol:@protocol(MWMFrameworkStorageObserver)])
+      [static_cast<id<MWMFrameworkStorageObserver>>(cell) processCountry:countryId progress:progress];
+  }
 }
 
 #pragma mark - Table
@@ -202,6 +209,7 @@ using namespace storage;
   [self registerCellWithIdentifier:kCountryCellIdentifier];
   [self registerCellWithIdentifier:kLargeCountryCellIdentifier];
   [self registerCellWithIdentifier:kSubplaceCellIdentifier];
+  [self registerCellWithIdentifier:kButtonCellIdentifier];
 }
 
 - (void)showActionSheetForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -509,12 +517,16 @@ using namespace storage;
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if ([self.dataSource isButtonCell:indexPath.section])
+    return [MWMMapDownloaderButtonTableViewCell estimatedHeight];
   Class<MWMMapDownloaderTableViewCellProtocol> cellClass = NSClassFromString([self.dataSource cellIdentifierForIndexPath:indexPath]);
   return [cellClass estimatedHeight];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+  if ([self.dataSource isButtonCell:section])
+    return 36.0;
   return 28.0;
 }
 
@@ -530,7 +542,7 @@ using namespace storage;
   if (sender.state != UIGestureRecognizerStateBegan)
     return;
   NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:[sender locationInView:self.tableView]];
-  if (indexPath)
+  if (indexPath && ![self.dataSource isButtonCell:indexPath.section])
     [self showActionSheetForRowAtIndexPath:indexPath];
 }
 

@@ -1,4 +1,5 @@
 #import "Common.h"
+#import "MWMMapDownloaderButtonTableViewCell.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
 #import "MWMStorage.h"
 #import "Statistics.h"
@@ -9,6 +10,7 @@ extern NSString * const kCountryCellIdentifier;
 extern NSString * const kSubplaceCellIdentifier;
 extern NSString * const kPlaceCellIdentifier;
 extern NSString * const kLargeCountryCellIdentifier;
+extern NSString * const kButtonCellIdentifier;
 
 namespace
 {
@@ -43,7 +45,7 @@ using namespace storage;
 
 @synthesize isParentRoot = _isParentRoot;
 
-- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate mode:(TMWMMapDownloaderMode)mode
+- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(TMWMMapDownloaderMode)mode
 {
   self = [super initWithDelegate:delegate mode:mode];
   if (self)
@@ -112,15 +114,33 @@ using namespace storage;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return self.downloadedCountries ? 1 : self.indexes.count;
+  if (self.downloadedCountries)
+    return self.isParentRoot ? 2 : 1;
+  return self.indexes.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+  if ([self isButtonCell:section])
+    return 1;
   if (self.downloadedCountries)
     return self.downloadedCountries.count;
   NSString * index = self.indexes[section];
   return self.availableCountries[index].count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if ([self isButtonCell:indexPath.section])
+  {
+    MWMMapDownloaderButtonTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:kButtonCellIdentifier];
+    cell.delegate = self.delegate;
+    return cell;
+  }
+  else
+  {
+    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+  }
 }
 
 - (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView
@@ -137,6 +157,8 @@ using namespace storage;
 {
   if (self.downloadedCountries)
   {
+    if ([self isButtonCell:section])
+      return @"";
     NodeAttrs nodeAttrs;
     GetFramework().Storage().GetNodeAttrs(m_parentId, nodeAttrs);
     if (nodeAttrs.m_localMwmSize == 0)
@@ -154,6 +176,8 @@ using namespace storage;
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if ([self isButtonCell:indexPath.section])
+    return NO;
   NodeAttrs nodeAttrs;
   GetFramework().Storage().GetNodeAttrs([self countryIdForIndexPath:indexPath].UTF8String, nodeAttrs);
   NodeStatus const status = nodeAttrs.m_status;
@@ -188,6 +212,13 @@ using namespace storage;
   if (haveChildren)
     return kLargeCountryCellIdentifier;
   return self.isParentRoot ? kCountryCellIdentifier : kPlaceCellIdentifier;
+}
+
+#pragma mark - Helpers
+
+- (BOOL)isButtonCell:(NSInteger)section
+{
+  return self.downloadedCountries && self.isParentRoot && section != 0;
 }
 
 @end

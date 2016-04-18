@@ -1,14 +1,9 @@
 #import "MWMFrameworkObservers.h"
 #import "MWMMapDownloaderProtocol.h"
+#import "MWMMapDownloaderTableViewCellProtocol.h"
 #import "MWMTableViewCell.h"
 
 #include "storage/storage.hpp"
-
-@protocol MWMMapDownloaderTableViewCellProtocol <NSObject>
-
-+ (CGFloat)estimatedHeight;
-
-@end
 
 @interface MWMMapDownloaderTableViewCell : MWMTableViewCell <MWMMapDownloaderTableViewCellProtocol, MWMFrameworkStorageObserver>
 
