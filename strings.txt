@@ -8927,7 +8927,7 @@
     hu = %@ MB-t kell letöltened, de csak %@ MB hely szabad.
     el = Πρέπει να κάνετε λήψη %@ MB, αλλά μόνο %@ MB είναι διαθέσιμα.
     ar = تحتاج إلى تحميل %@ ميجابايت، ولكن لا يتوافر سوى %@ ميجا بايت.
-    de = Sie müssen %@ MB herunterladen, aber es sind nur %@ MB verfügbar.
+    de = Sie wollen %@ MB herunterladen, der Speicherplatz reicht aber nur für %@ MB.
     fr = Vous devez télécharger %@ Mo, mais seulement %@ Mo sont disponibles.
     nl = U dient %@ MB te downloaden, maar er is slechts %@ MB beschikbaar.
     fi = Sinun täytyy ladata %@ MB, mutta saatavilla on vain %@ MB.
