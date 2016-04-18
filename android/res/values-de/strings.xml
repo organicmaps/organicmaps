@@ -17,7 +17,7 @@
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Nicht mehr fragen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
-	<string name="do_nothing">Download fortsetzen</string>
+	<string name="do_nothing">Herunterladen fortsetzen</string>
 	<string name="download_maps">Karten herunterladen</string>
 	<!-- Settings/Downloader - Download confirmation button -->
 	<string name="download_x_kb">Herunterladen %qu kB</string>
@@ -26,9 +26,9 @@
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Herunterladen fehlgeschlagen. Antippen für einen neuen Versuch.</string>
 	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Heruntergeladen (%1$qu %2$s). Drücken, um zu löschen</string>
+	<string name="downloaded_x_y_touch_to_delete">Heruntergeladen (%1$qu %2$s). Antippen, um zu löschen</string>
 	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Herunterladen %qu%%. Drücken, um abzubrechen</string>
+	<string name="downloading_x_touch_to_cancel">Herunterladen %qu%%. Antippen, um abzubrechen</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Wird heruntergeladen…</string>
 	<string name="get_it_now">Installieren</string>
@@ -45,7 +45,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">Karten:</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Zum Herunterladen vorgemerkt. Drücken, um abzubrechen</string>
+	<string name="marked_for_downloading">Zum Herunterladen vorgemerkt. Antippen, um abzubrechen</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -74,7 +74,7 @@
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen</string>
+	<string name="use_wifi_recommendation_text">Wir empfehlen Ihnen, große Länder über eine WLAN-Verbindung herunterzuladen</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Welches Einheitensystem bevorzugen Sie?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -94,7 +94,7 @@
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Karte ohne Routenplanung\nherunterladen (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Download fehlgeschlagen</string>
+	<string name="country_status_download_failed">Herunterladen fehlgeschlagen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Erneut versuchen</string>
 	<string name="about_menu_title">Über MAPS.ME</string>
@@ -113,7 +113,7 @@
 	<string name="download_resources">Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %s Speicherplatz benötigt.</string>
 	<string name="getting_position">Ermittle momentane Position</string>
 	<string name="download_resources_continue">Zur Karte</string>
-	<string name="downloading_country_can_proceed">Lade %s herunter. Sie können jetzt\nzur Karte weitergehen.</string>
+	<string name="downloading_country_can_proceed">%s wird heruntergeladen. Sie können jetzt\nzur Karte weitergehen.</string>
 	<string name="download_country_ask">%s herunterladen?</string>
 	<string name="update_country_ask">%s aktualisieren?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -391,15 +391,17 @@
 	<!-- Text in menu -->
 	<string name="website">Webseite</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">MAPS.ME-Community</string>
+	<string name="maps_me_community">MAPS.ME-Gemeinschaft</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">„Gefällt mir“ auf Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Bei Twitter folgen</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Kontaktieren Sie uns</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Rückmeldung</string>
 	<!-- Settings: "Send general feedback" button -->
-	<string name="feedback_general">Allgemeines Feedback</string>
+	<string name="feedback_general">Allgemeine Rückmeldung</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Abonnieren Sie unsere News</string>
 	<!-- Text in menu -->
@@ -419,7 +421,9 @@
 	<!-- Email subject -->
 	<string name="subscribe_me_subject">Ich möchte gerne den MAPS.ME-Newsletter abonnieren</string>
 	<!-- Email body -->
-	<string name="subscribe_me_body">Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Updates und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.</string>
+	<string name="subscribe_me_body">Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Aktualisierungen und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">Gemeinsame Bemühungen der Mail.Ru-Gruppe und OpenStreetMap machen die nützlichste Anwendung für Reisende!</string>
 	<!-- About text -->
 	<string name="about_text">MAPS.ME bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen MAPS.ME, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der MAPS.ME-App.</string>
 	<!-- Alert text -->
@@ -464,7 +468,7 @@
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Der aktuelle Standort ist nicht bekannt. Bitte geben Sie den Standort ein, um eine Route zu erstellen.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
-	<string name="routing_failed_has_no_routing_file">Zusätzliche Daten werden zum Erstellen der Route benötigt. Mit dem Download beginnen?</string>
+	<string name="routing_failed_has_no_routing_file">Zusätzliche Daten werden zum Erstellen der Route benötigt. Mit dem Herunterladen beginnen?</string>
 	<!-- StartPointNotFound -->
 	<string name="routing_failed_start_point_not_found">Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe Ihres Ausgangspunkts.</string>
 	<!-- EndPointNotFound -->
@@ -515,7 +519,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_share_ideas">Teilen Sie uns Ihre Anregungen und Probleme mit, so dass wir die App für Sie verbessern können.</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">Feedback senden</string>
+	<string name="rating_send_feedback">Rückmeldung senden</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Klick auf G+, um deinen Freunden über die App zu erzählen.</string>
 	<!-- Text for routing error dialog -->
@@ -533,7 +537,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Nicht genug Speicherplatz</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_more_than_avail">Der Download erfordert %1$s MB, es sind jedoch nur %2$s MB verfügbar.</string>
+	<string name="routing_download_more_than_avail">Sie wollen %1$s MB herunterladen, der Speicherplatz reicht aber nur für %2$s MB.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Sie sind im Begriff, %s MB unter Nutzung einer mobilen Datenverbindung (mit Roaming) herunterzuladen. Dies kann je nach Anbieter Ihres mobilen Datentarifs zusätzliche Kosten verursachen.</string>
 	<!-- bookmark button text -->
@@ -638,7 +642,7 @@
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, auf der die Route liegt.</string>
 	<string name="rate_alert_title">Gefällt Ihnen die App?</string>
-	<string name="rate_alert_default_message">Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns, besser zu werden.</string>
+	<string name="rate_alert_default_message">Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihre Rückmeldung hilft uns, besser zu werden.</string>
 	<string name="rate_alert_five_star_message">Hurra! Wir lieben Sie auch!</string>
 	<string name="rate_alert_four_star_message">Danke, wir geben unser Bestes!</string>
 	<string name="rate_alert_less_than_four_star_message">Haben Sie eine Idee, wie wir besser werden können?</string>
@@ -687,7 +691,7 @@
 	<string name="editor_done_dialog_2">Das ist Ihre zweite Kartenverbesserung. Sie befinden sich jetzt auf Platz %d auf der Liste der Personen, die die Karte bearbeitet haben. Erzählen Sie Ihren Freunden davon.</string>
 	<string name="editor_done_dialog_3">Sie haben die Karte verbessert, erzählen Sie Ihren Freunden davon und bearbeiten Sie die Karte zusammen.</string>
 	<string name="share_with_friends">Mit Freunden teilen</string>
-	<string name="editor_report_problem_desription_1">Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Community den Fehler beheben kann.</string>
+	<string name="editor_report_problem_desription_1">Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Gemeinschaft den Fehler beheben kann.</string>
 	<string name="editor_report_problem_desription_2">Oder kümmern Sie sich selbst darum auf http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Senden</string>
 	<string name="editor_report_problem_title">Problem</string>
@@ -700,7 +704,7 @@
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Alle herunterladen</string>
 	<string name="delete_all">Alle löschen</string>
-	<string name="autodownload">Automatisch Herunterladen</string>
+	<string name="autodownload">Automatisch herunterladen</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Jetzt geschlossen</string>
 	<!-- Place Page opening hours text -->
@@ -714,7 +718,7 @@
 	<string name="add_opening_hours">Geschäftszeiten hinzufügen</string>
 	<string name="edit_opening_hours">Geschäftszeiten bearbeiten</string>
 	<string name="profile">Profil</string>
-	<string name="no_osm_account">Kein Konto in OpenStreetMap?</string>
+	<string name="no_osm_account">Kein Konto bei OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrieren</string>
 	<string name="password_8_chars_min">Passwort (mindestens 8 Zeichen)</string>
 	<string name="invalid_username_or_password">Ungültiger Benutzername oder Passwort.</string>
@@ -739,9 +743,13 @@
 	<string name="login_with_openstreetmap">Mit www.openstreetmap.org anmelden</string>
 	<string name="edit_place">Platz bearbeiten</string>
 	<string name="place_name">Name des Platzes</string>
-	<string name="place_name_caption">Den Namen wie auf dem Schild oder dem Namensschild angegeben eingeben</string>
+	<string name="place_name_caption">Geben Sie den Namen wie auf dem Schild oder dem Namensschild angegeben ein</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Andere Sprachen</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Mehr anzeigen</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Weniger anzeigen</string>
 	<string name="add_language">Eine Sprache hinzufügen</string>
 	<string name="street">Straße</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -765,9 +773,9 @@
 	<string name="downloader_search_field_hint">Karte finden</string>
 	<string name="migration_update_all_button">Alle Karten aktualisieren</string>
 	<string name="migration_delete_all_download_current_button">Laden Sie die aktuelle Karte herunter und löschen Sie alte Karten</string>
-	<string name="migration_download_error_dialog">Download-Fehler</string>
+	<string name="migration_download_error_dialog">Fehler beim Herunterladen</string>
 	<string name="common_check_internet_connection_dialog">Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.</string>
-	<string name="downloader_no_space_title">Nicht genügend Platz</string>
+	<string name="downloader_no_space_title">Nicht genug Speicherplatz</string>
 	<string name="downloader_no_space_message">Bitte entfernen Sie unnötige Daten</string>
 	<string name="editor_general_auth_error_dialog">Allgemeiner Login-Fehler.</string>
 	<string name="editor_login_error_dialog">Login-Fehler.</string>
@@ -803,20 +811,22 @@
 	<string name="onboarding_offline_navigation_message_2">Planen Sie optimale Auto- und Fußgängerstrecken.</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — weltweit ohne Internetzugriff auf die Karte zugreifen</string>
 	<string name="onboarding_offline_maps_message">Laden Sie die Karten für das gewünschte Gebiet auf einmal herunter und verwenden Sie die Navigation- und Such-Funktion ohne eine Internetverbindung.</string>
-	<string name="onboarding_notifications_message">Um die neuesten Karten zu erhalten, aktivieren Sie bitte die Update-Benachrichtigungen</string>
-	<string name="onboarding_notifications_title">Update-Benachrichtigungen aktualisieren</string>
+	<string name="onboarding_notifications_message">Erhalten Sie Aktualisierungsbenachrichtigungen, um die neuesten Karten zu erhalten</string>
+	<string name="onboarding_notifications_title">Aktualisierungsbenachrichtigungen aktivieren</string>
 	<string name="onboarding_location_title">Helfen Sie uns dabei, Sie zu finden</string>
 	<string name="onboarding_location_message">Um Navigation und andere Funktionen zu verwenden, brauchen wir Zugriff auf Ihren Geo-Standort.</string>
 	<string name="dialog_incorrect_feature_position">Standort wechseln</string>
-	<string name="message_invalid_feature_position">Ein Objekt kann nicht hier positioniert werden</string>
+	<string name="message_invalid_feature_position">Ein Objekt kann hier nicht positioniert werden</string>
 	<string name="login_to_make_edits_visible">Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.</string>
 	<string name="no_migration_during_navigation">Aktualisieren ist während der Navigation verboten.</string>
 	<string name="editor_sharing_title">Ich habe die MAPS.ME-Karten verbessert</string>
-	<string name="editor_comment_will_be_sent">Wir werden Ihr Kommentar an die Kartografierer weiterleiten.</string>
+	<string name="editor_comment_will_be_sent">Wir werden Ihren Kommentar an die Kartografierer weiterleiten.</string>
 	<string name="editor_unsupported_category_message">Sie haben einen Ort in einer Kategorie hinzugefügt, die wir noch nicht unterstützten. Er wird zu einem späteren Zeitpunkt auf der Karte erscheinen.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d von %2$d</string>
-	<string name="download_over_mobile_header">Download mit einer mobilen Netzwerkverbindung?</string>
+	<string name="download_over_mobile_header">Über eine Mobilfunknetzverbindung herunterladen?</string>
 	<string name="download_over_mobile_message">Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.</string>
 	<string name="error_enter_correct_house_number">Richtige Hausnummer eingeben</string>
+	<string name="editor_zip_code">Postleitzahl</string>
+	<string name="error_enter_correct_zip_code">Richtige Postleitzahl eingeben</string>
 </resources>
