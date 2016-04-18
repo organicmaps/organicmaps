@@ -1655,16 +1655,21 @@ UNIT_TEST(StorageTest_GetGroupNodePathToRootTest)
   TEST(path.empty(), ());
   
   storage.GetGroupNodePathToRoot("France_Auvergne", path);
-  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path.size(), 2, (path));
+  TEST_EQUAL(path[0], "France", ());
+  TEST_EQUAL(path[1], "Countries", ());
   
   storage.GetGroupNodePathToRoot("France", path);
-  TEST(path.empty(), ());
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "Countries", ());
   
   storage.GetGroupNodePathToRoot("US_Florida_Miami", path);
   TEST(path.empty(), ());
 
   storage.GetGroupNodePathToRoot("Florida", path);
-  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path.size(), 2, (path));
+  TEST_EQUAL(path[0], "United States of America", ());
+  TEST_EQUAL(path[1], "Countries", ());
 
   storage.GetGroupNodePathToRoot("Country1", path);
   TEST(path.empty(), ());

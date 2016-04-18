@@ -1577,7 +1577,7 @@ void Storage::GetGroupNodePathToRoot(TCountryId const & groupNode, TCountriesVec
   
   if (nodes.size() != 1)
   {
-    LOG(LWARNING, (groupNode, "Group node can't have more then one parent."));
+    LOG(LWARNING, (groupNode, "Group node can't have more than one parent."));
     return;
   }
   
@@ -1591,6 +1591,7 @@ void Storage::GetGroupNodePathToRoot(TCountryId const & groupNode, TCountriesVec
   {
     path.push_back(id);
   });
+  path.push_back(m_countries.GetRoot().Value().Name());
 }
   
 }  // namespace storage
