@@ -1562,4 +1562,35 @@ void Storage::GetQueuedChildren(TCountryId const & parent, TCountriesVec & queue
       queuedChildren.push_back(child.Value().Name());
   });
 }
+  
+void Storage::GetGroupNodePathToRoot(TCountryId const & groupNode, TCountriesVec & path) const
+{
+  path.clear();
+
+  vector<TCountryTreeNode const *> nodes;
+  m_countries.Find(groupNode, nodes);
+  if (nodes.empty())
+  {
+    LOG(LWARNING, ("TCountryId =", groupNode, "not found in m_countries."));
+    return;
+  }
+  
+  if (nodes.size() != 1)
+  {
+    LOG(LWARNING, (groupNode, "Group node can't have more then one parent."));
+    return;
+  }
+  
+  if (nodes[0]->ChildrenCount() == 0)
+  {
+    LOG(LWARNING, (nodes[0]->Value().Name(), "is a leaf node."));
+    return;
+  }
+  
+  ForEachAncestorExceptForTheRoot(nodes, [&path](TCountryId const & id, TCountryTreeNode const &)
+  {
+    path.push_back(id);
+  });
+}
+  
 }  // namespace storage
