@@ -19,8 +19,9 @@ class Route;
 /// Routing engine type.
 enum class RouterType
 {
-  Vehicle = 0, /// For OSRM vehicle routing
-  Pedestrian   /// For A star pedestrian routing
+  Vehicle = 0,  /// For OSRM vehicle routing
+  Pedestrian,   /// For A star pedestrian routing
+  Bicycle,      /// For A star bicycle routing
 };
 
 string ToString(RouterType type);

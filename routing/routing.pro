@@ -15,6 +15,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
 SOURCES += \
     async_router.cpp \
     base/followed_polyline.cpp \
+    bicycle_model.cpp \
     car_model.cpp \
     cross_mwm_road_graph.cpp \
     cross_mwm_router.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     async_router.hpp \
     base/astar_algorithm.hpp \
     base/followed_polyline.hpp \
+    bicycle_model.cpp \
     car_model.hpp \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
@@ -81,3 +83,4 @@ HEADERS += \
     turns_sound_settings.hpp \
     turns_tts_text.hpp \
     vehicle_model.hpp \
+    bicycle_model.hpp
