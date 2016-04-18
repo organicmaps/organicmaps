@@ -819,15 +819,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Callback from native location state mode element processing.
   @SuppressWarnings("unused")
-  public void onMyPositionModeChangedCallback(final int newMode)
+  public void onMyPositionModeChangedCallback(final int newMode, final boolean routingActive)
   {
+    //TODO(Android team): Use routingActive flag to change location polling frequency
     mLocationPredictor.myPositionModeChanged(newMode);
     mMainMenu.getMyPositionButton().update(newMode);
     switch (newMode)
     {
-    case LocationState.UNKNOWN_POSITION:
-      pauseLocation();
-      break;
     case LocationState.PENDING_POSITION:
       resumeLocation();
       break;
@@ -840,7 +838,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onResume();
 
     LocationState.INSTANCE.setMyPositionModeListener(this);
-    invalidateLocationState();
 
     mSearchController.refreshToolbar();
 
@@ -986,26 +983,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     switch (newMode)
     {
-    case LocationState.UNKNOWN_POSITION:
-      pauseLocation();
-      break;
     case LocationState.PENDING_POSITION:
       resumeLocation();
       break;
     default:
       break;
     }
-  }
-
-  /**
-   * Invalidates location state in core.
-   * Updates location button accordingly.
-   */
-  public void invalidateLocationState()
-  {
-    final int currentLocationMode = LocationState.INSTANCE.getLocationStateMode();
-    refreshLocationState(currentLocationMode);
-    LocationState.INSTANCE.invalidatePosition();
   }
 
   @Override

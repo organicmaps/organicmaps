@@ -37,10 +37,11 @@ public class MyPositionButton
     Drawable image;
     switch (state)
     {
-    case LocationState.UNKNOWN_POSITION:
-      image = Graphics.tint(mButton.getContext(), R.drawable.ic_follow, R.attr.iconTintLight);
+    case LocationState.PENDING_POSITION:
+      image = mButton.getResources().getDrawable(ThemeUtils.getResource(mButton.getContext(), R.attr.myPositionButtonAnimation));
       break;
 
+    case LocationState.NOT_FOLLOW_NO_POSITION:
     case LocationState.NOT_FOLLOW:
       image = Graphics.tint(mButton.getContext(), R.drawable.ic_not_follow);
       break;
@@ -49,12 +50,8 @@ public class MyPositionButton
       image = Graphics.tint(mButton.getContext(), R.drawable.ic_follow, R.attr.colorAccent);
       break;
 
-    case LocationState.ROTATE_AND_FOLLOW:
+    case LocationState.FOLLOW_AND_ROTATE:
       image = Graphics.tint(mButton.getContext(), R.drawable.ic_follow_and_rotate, R.attr.colorAccent);
-      break;
-
-    case LocationState.PENDING_POSITION:
-      image = mButton.getResources().getDrawable(ThemeUtils.getResource(mButton.getContext(), R.attr.myPositionButtonAnimation));
       break;
 
     default:

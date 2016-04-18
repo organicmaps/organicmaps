@@ -26,7 +26,7 @@ public:
     GuiLayerRecached,
     GuiRecache,
     GuiLayerLayout,
-    MyPositionShape,
+    MapShapes,
     ChangeMyPostitionMode,
     CompassInfo,
     GpsInfo,
@@ -53,7 +53,8 @@ public:
     ClearGpsTrackPoints,
     ShowChoosePositionMark,
     SetKineticScrollEnabled,
-    BlockTapEvents
+    BlockTapEvents,
+    SetTimeInBackground
   };
 
   virtual ~Message() {}

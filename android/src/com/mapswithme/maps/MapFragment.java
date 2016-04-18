@@ -152,7 +152,8 @@ public class MapFragment extends BaseMwmFragment
     getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     final float exactDensityDpi = metrics.densityDpi;
 
-    mEngineCreated = nativeCreateEngine(surface, (int) exactDensityDpi);
+    boolean isFirstLaunch = false; //TODO(Android team): set correct value
+    mEngineCreated = nativeCreateEngine(surface, (int) exactDensityDpi, isFirstLaunch);
     if (!mEngineCreated)
     {
       reportUnsupported();
@@ -274,7 +275,7 @@ public class MapFragment extends BaseMwmFragment
   static native void nativeScaleMinus();
   static native boolean nativeShowMapForUrl(String url);
   static native boolean nativeIsEngineCreated();
-  private static native boolean nativeCreateEngine(Surface surface, int density);
+  private static native boolean nativeCreateEngine(Surface surface, int density, boolean firstLaunch);
   private static native void nativeDestroyEngine();
   private static native void nativeAttachSurface(Surface surface);
   private static native void nativeDetachSurface();

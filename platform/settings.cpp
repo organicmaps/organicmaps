@@ -392,28 +392,28 @@ string ToString<location::EMyPositionMode>(location::EMyPositionMode const & v)
 {
   switch (v)
   {
-  case location::MODE_UNKNOWN_POSITION: return "Unknown";
-  case location::MODE_PENDING_POSITION: return "Pending";
-  case location::MODE_NOT_FOLLOW: return "NotFollow";
-  case location::MODE_FOLLOW: return "Follow";
-  case location::MODE_ROTATE_AND_FOLLOW: return "RotateAndFollow";
-  default: return "Unknown";
+  case location::PendingPosition: return "PendingPosition";
+  case location::NotFollow: return "NotFollow";
+  case location::NotFollowNoPosition: return "NotFollowNoPosition";
+  case location::Follow: return "Follow";
+  case location::FollowAndRotate: return "FollowAndRotate";
+  default: return "Pending";
   }
 }
 
 template <>
 bool FromString<location::EMyPositionMode>(string const & s, location::EMyPositionMode & v)
 {
-  if (s == "Unknown")
-    v = location::MODE_UNKNOWN_POSITION;
-  else if (s == "Pending")
-    v = location::MODE_PENDING_POSITION;
+  if (s == "PendingPosition")
+    v = location::PendingPosition;
   else if (s == "NotFollow")
-    v = location::MODE_NOT_FOLLOW;
+    v = location::NotFollow;
+  else if (s == "NotFollowNoPosition")
+    v = location::NotFollowNoPosition;
   else if (s == "Follow")
-    v = location::MODE_FOLLOW;
-  else if (s == "RotateAndFollow")
-    v = location::MODE_ROTATE_AND_FOLLOW;
+    v = location::Follow;
+  else if (s == "FollowAndRotate")
+    v = location::FollowAndRotate;
   else
     return false;
 

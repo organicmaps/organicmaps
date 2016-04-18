@@ -6,6 +6,8 @@
 
 #import "../Platform/opengl/iosOGLContextFactory.h"
 
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
 #include "Framework.h"
 #include "indexer/classificator_loader.hpp"
 
@@ -92,11 +94,12 @@ double getExactDPI(double contentScaleFactor)
   LOG(LINFO, ("EAGLView createDrapeEngine Started"));
   if (MapsAppDelegate.theApp.isDaemonMode)
     return;
-
+  
   Framework::DrapeCreationParams p;
   p.m_surfaceWidth = width;
   p.m_surfaceHeight = height;
   p.m_visualScale = dp::VisualScale(getExactDPI(self.contentScaleFactor));
+  p.m_isFirstLaunch = [Alohalytics isFirstSession];
 
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref(m_factory), move(p));

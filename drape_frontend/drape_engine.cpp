@@ -31,25 +31,31 @@ DrapeEngine::DrapeEngine(Params && params)
   location::EMyPositionMode mode = params.m_initialMyPositionMode.first;
   if (!params.m_initialMyPositionMode.second && !settings::Get(settings::kLocationStateMode, mode))
   {
-    mode = location::MODE_UNKNOWN_POSITION;
+    mode = location::PendingPosition;
   }
-  else if (mode == location::MODE_ROTATE_AND_FOLLOW)
+  else if (mode == location::FollowAndRotate)
   {
     // If the screen rect setting in follow and rotate mode is missing or invalid, it could cause invalid animations,
     // so the follow and rotate mode should be discarded.
     m2::AnyRectD rect;
     if (!(settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect())))
-      mode = location::MODE_FOLLOW;
+      mode = location::Follow;
   }
+
+  double timeInBackground = 0.0;
+  double lastEnterBackground = 0.0;
+  if (settings::Get("LastEnterBackground", lastEnterBackground))
+    timeInBackground = my::Timer::LocalTime() - lastEnterBackground;
 
   FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
                                     make_ref(m_textureManager), m_viewport,
                                     bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     bind(&DrapeEngine::TapEvent, this, _1),
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
-                                    bind(&DrapeEngine::MyPositionModeChanged, this, _1),
-                                    mode, make_ref(m_requestedTiles), params.m_allow3dBuildings,
-                                    params.m_blockTapEvents);
+                                    bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2),
+                                    mode, make_ref(m_requestedTiles), timeInBackground,
+                                    params.m_allow3dBuildings, params.m_blockTapEvents,
+                                    params.m_isFirstLaunch);
 
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 
@@ -217,13 +223,13 @@ void DrapeEngine::ModelViewChangedGuiThread(ScreenBase const & screen)
     p.second(screen);
 }
 
-void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode)
+void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
   settings::Set(settings::kLocationStateMode, mode);
-  GetPlatform().RunOnGuiThread([this, mode]()
+  GetPlatform().RunOnGuiThread([this, mode, routingActive]()
   {
     if (m_myPositionModeChanged != nullptr)
-      m_myPositionModeChanged(mode);
+      m_myPositionModeChanged(mode, routingActive);
   });
 }
 
@@ -266,10 +272,24 @@ void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable, c
                                   MessagePriority::High);
 }
 
-void DrapeEngine::MyPositionNextMode(int preferredZoomLevel)
+void DrapeEngine::SwitchMyPositionNextMode()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_NEXT, preferredZoomLevel),
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::SwitchNextMode),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::LoseLocation()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::LoseLocation),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::StopLocationFollow()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::StopFollowing),
                                   MessagePriority::High);
 }
 
@@ -278,27 +298,6 @@ void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<FollowRouteMessage>(preferredZoomLevel, preferredZoomLevel3d,
                                                                      rotationAngle, angleFOV),
-                                  MessagePriority::High);
-}
-
-void DrapeEngine::CancelMyPosition()
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_CANCEL),
-                                  MessagePriority::High);
-}
-
-void DrapeEngine::StopLocationFollow()
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_STOP_FOLLOW),
-                                  MessagePriority::High);
-}
-
-void DrapeEngine::InvalidateMyPosition()
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_INVALIDATE),
                                   MessagePriority::High);
 }
 
@@ -474,6 +473,13 @@ void DrapeEngine::SetKineticScrollEnabled(bool enabled)
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<SetKineticScrollEnabledMessage>(m_kineticScrollEnabled),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::SetTimeInBackground(double time)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetTimeInBackgroundMessage>(time),
                                   MessagePriority::High);
 }
 

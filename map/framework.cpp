@@ -149,7 +149,7 @@ pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
 
 void Framework::OnLocationError(TLocationError /*error*/)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::CancelMyPosition, _1));
+  CallDrapeFunction(bind(&df::DrapeEngine::LoseLocation, _1));
 }
 
 void Framework::OnLocationUpdate(GpsInfo const & info)
@@ -203,14 +203,9 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
   CallDrapeFunction(bind(&df::DrapeEngine::SetCompassInfo, _1, rInfo));
 }
 
-void Framework::SwitchMyPositionNextMode(int preferredZoomLevel)
+void Framework::SwitchMyPositionNextMode()
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::MyPositionNextMode, _1, preferredZoomLevel));
-}
-
-void Framework::InvalidateMyPosition()
-{
-  CallDrapeFunction(bind(&df::DrapeEngine::InvalidateMyPosition, _1));
+  CallDrapeFunction(bind(&df::DrapeEngine::SwitchMyPositionNextMode, _1));
 }
 
 void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
@@ -287,12 +282,15 @@ void Framework::Migrate(bool keepDownloaded)
 }
 
 Framework::Framework()
-  : m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
+  : m_startForegroundTime(0.0)
+  , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
   , m_fixedSearchResults(0)
   , m_lastReportedCountry(kInvalidCountryId)
 {
+  m_startBackgroundTime = my::Timer::LocalTime();
+
   // Restore map style before classificator loading
   int mapStyle;
   if (!settings::Get(kMapStyleKey, mapStyle))
@@ -1161,12 +1159,15 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
+  m_startBackgroundTime = my::Timer::LocalTime();
+  settings::Set("LastEnterBackground", m_startBackgroundTime);
+
   SaveViewport();
 
   ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
                                           {"foregroundSeconds", strings::to_string(
-                                           static_cast<int>(my::Timer::LocalTime() - m_startForegroundTime))}},
+                                           static_cast<int>(m_startBackgroundTime - m_startForegroundTime))}},
                                           alohalytics::Location::FromLatLon(ll.lat, ll.lon));
   // Do not clear caches for Android. This function is called when main activity is paused,
   // but at the same time search activity (for example) is enabled.
@@ -1179,6 +1180,8 @@ void Framework::EnterBackground()
 void Framework::EnterForeground()
 {
   m_startForegroundTime = my::Timer::LocalTime();
+  double const time = m_startForegroundTime - m_startBackgroundTime;
+  CallDrapeFunction(bind(&df::DrapeEngine::SetTimeInBackground, _1, time));
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
@@ -1470,7 +1473,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedByNameFn, updateCurrentCountryFn),
                             params.m_visualScale, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
-                            allow3dBuildings, params.m_isChoosePositionMode, params.m_isChoosePositionMode);
+                            allow3dBuildings, params.m_isChoosePositionMode,
+                            params.m_isChoosePositionMode, params.m_isFirstLaunch);
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
@@ -1484,7 +1488,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
   m_drapeEngine->SetMyPositionModeListener(m_myPositionListener);
-  m_drapeEngine->InvalidateMyPosition();
 
   InvalidateUserMarks();
 
@@ -2134,6 +2137,7 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
       double const kRouteScaleMultiplier = 1.5;
 
       InsertRoute(route);
+      StopLocationFollow();
       m2::RectD routeRect = route.GetPoly().GetLimitRect();
       routeRect.Scale(kRouteScaleMultiplier);
       ShowRect(routeRect, -1);

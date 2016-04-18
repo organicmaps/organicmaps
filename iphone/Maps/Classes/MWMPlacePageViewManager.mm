@@ -189,8 +189,8 @@ extern NSString * const kBookmarksChangedNotification;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
 
   LocationManager * lm = MapsAppDelegate.theApp.locationManager;
-  [self.delegate buildRouteFrom:lm.isLocationModeUnknownOrPending ? MWMRoutePoint::MWMRoutePointZero()
-                                                                  : MWMRoutePoint(lm.lastLocation.mercator)
+  [self.delegate buildRouteFrom:lm.isLocationPendingOrNoPosition ? MWMRoutePoint::MWMRoutePointZero()
+                                                                 : MWMRoutePoint(lm.lastLocation.mercator)
                              to:self.target];
 }
 

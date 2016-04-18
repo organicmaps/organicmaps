@@ -42,7 +42,8 @@ public:
            pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
            bool allow3dBuildings,
            bool blockTapEvents,
-           bool showChoosePositionMark)
+           bool showChoosePositionMark,
+           bool firstLaunch)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
@@ -53,6 +54,7 @@ public:
       , m_allow3dBuildings(allow3dBuildings)
       , m_blockTapEvents(blockTapEvents)
       , m_showChoosePositionMark(showChoosePositionMark)
+      , m_isFirstLaunch(firstLaunch)
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -65,6 +67,7 @@ public:
     bool m_allow3dBuildings;
     bool m_blockTapEvents;
     bool m_showChoosePositionMark;
+    bool m_isFirstLaunch;
   };
 
   DrapeEngine(Params && params);
@@ -95,10 +98,9 @@ public:
 
   void SetCompassInfo(location::CompassInfo const & info);
   void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);
-  void MyPositionNextMode(int preferredZoomLevel = -1);
-  void CancelMyPosition();
+  void SwitchMyPositionNextMode();
+  void LoseLocation();
   void StopLocationFollow();
-  void InvalidateMyPosition();
   void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
 
   using TTapEventInfoFn = FrontendRenderer::TTapEventInfoFn;
@@ -132,12 +134,14 @@ public:
 
   void SetKineticScrollEnabled(bool enabled);
 
+  void SetTimeInBackground(double time);
+
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);
   void ModelViewChangedGuiThread(ScreenBase const & screen);
 
-  void MyPositionModeChanged(location::EMyPositionMode mode);
+  void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
   void TapEvent(TapInfo const & tapInfo);
   void UserPositionChanged(m2::PointD const & position);
 
