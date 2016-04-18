@@ -29,9 +29,10 @@ namespace
 
     return drule::text_type_name;
   }
-}
+} // namespace
 
-namespace drule {
+namespace drule
+{
 
 BaseRule::BaseRule() : m_type(node | way)
 {}
@@ -192,7 +193,7 @@ RulesHolder & rules(MapStyle mapStyle)
   static RulesHolder h[MapStyleCount];
   return h[mapStyle];
 }
-}
+} // namespace
 
 RulesHolder & rules()
 {
@@ -459,7 +460,7 @@ namespace
       m_names.pop_back();
     }
   };
-}
+} // namespace
 
 void RulesHolder::InitBackgroundColors(ContainerProto const & cont)
 {
@@ -532,4 +533,4 @@ void LoadRules()
   rules().LoadFromBinaryProto(buffer);
 }
 
-}
+} // namespace drule

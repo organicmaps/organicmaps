@@ -128,7 +128,7 @@ Classificator & classif(MapStyle mapStyle)
   static Classificator c[MapStyleCount];
   return c[mapStyle];
 }
-}
+} // namespace
 
 Classificator & classif()
 {
@@ -239,7 +239,7 @@ namespace ftype
   {
     return get_control_level(type);
   }
-}
+} // namespace ftype
 
 namespace
 {
@@ -281,7 +281,7 @@ namespace
         add_rule(ft, i++);
     }
   };
-}
+} // namespace
 
 void ClassifObject::GetSuitable(int scale, feature::EGeomType ft, drule::KeysT & keys) const
 {
