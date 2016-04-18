@@ -178,9 +178,9 @@ void Route::GetStreetNameAfterIdx(uint32_t idx, string & name) const
 
 Route::TStreets::const_iterator Route::GetCurrentStreetNameIterAfter(FollowedPolyline::Iter iter) const
 {
+  // m_streets empty for pedestrian router.
   if (m_streets.empty())
   {
-    ASSERT(false, ());
     return m_streets.cend();
   }
 
