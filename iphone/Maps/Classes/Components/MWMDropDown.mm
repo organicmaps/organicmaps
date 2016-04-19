@@ -89,6 +89,11 @@ CGFloat const kTopOffset = 25.;
     self.dropDown.alpha = 1.;
     self.dropDown.origin = {};
   }];
+
+  [self performAfterDelay:3 block:^
+  {
+    [self dismiss];
+  }];
 }
 
 @end
