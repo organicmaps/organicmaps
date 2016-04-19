@@ -29,22 +29,30 @@ public class StringUtils
    * @return result text
    */
   public static String removeEditTextHtmlTags(String text)
-
   {
     return text.replaceAll("</p>", "").replaceAll("<br>", "").replaceAll("<p dir=\"ltr\">", "");
   }
 
   /**
-   * Formats size in bytes to "x.x MB" or "x.x KB" format.
+   * Formats size in bytes to "x MB" or "x.x GB" format.
+   * Small values rounded to 1 MB without fractions.
    *
    * @param size size in bytes
    * @return formatted string
    */
   public static String getFileSizeString(long size)
   {
-    boolean mb = (size >= Constants.MB);
-    float value = ((float)size / (mb ? Constants.MB : Constants.KB));
-    return formatUsingUsLocale("%1$.1f %2$s", value, MwmApplication.get().getString(mb ? R.string.mb : R.string.kb));
+    if (size < Constants.GB)
+    {
+      int value = (int)((float)size / Constants.MB + 0.5f);
+      if (value == 0)
+        value = 1;
+
+      return String.format(Locale.US, "%1$d %2$s", value, MwmApplication.get().getString(R.string.mb));
+    }
+
+    float value = ((float)size / Constants.GB);
+    return String.format(Locale.US, "%1$.1f %2$s", value, MwmApplication.get().getString(R.string.gb));
   }
 
   public static boolean isRtl()
