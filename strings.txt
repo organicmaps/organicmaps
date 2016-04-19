@@ -676,7 +676,7 @@
     fr = Mo
     ru = МБ
     uk = МБ
-    th = เมกกะไบต์
+    th = MB
     ar = م.ب.
     da = MB
     tr = MB
@@ -686,6 +686,12 @@
     nb = MB
     de = MB
     fi = Mt
+
+  [gb]
+    tags = ios, android
+    en = GB
+    ru = ГБ
+    uk = ГБ
 
   [miles]
     tags = tizen
