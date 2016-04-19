@@ -151,7 +151,7 @@ public class MwmApplication extends Application
     nativeAddLocalization("country_status_download_failed", getString(R.string.country_status_download_failed));
     nativeAddLocalization("try_again", getString(R.string.try_again));
     nativeAddLocalization("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
-    nativeAddLocalization("dropped_pin", getString(R.string.dropped_pin));
+    nativeAddLocalization("placepage_unknown_place", getString(R.string.placepage_unknown_place));
     nativeAddLocalization("my_places", getString(R.string.my_places));
     nativeAddLocalization("my_position", getString(R.string.my_position));
     nativeAddLocalization("routes", getString(R.string.routes));
