@@ -337,6 +337,11 @@ public:
   /// and will be added to |queuedChildren|.
   void GetQueuedChildren(TCountryId const & parent, TCountriesVec & queuedChildren) const;
 
+  /// \brief Fills |path| with list of TCountryId corresponding with path to the root of hierachy.
+  /// \param groupNode is start of path, can't be a leaf node.
+  /// \param path is resulting array of TCountryId.
+  void GetGroupNodePathToRoot(TCountryId const & groupNode, TCountriesVec & path) const;
+  
   /// \brief Returns current version for mwms which are used by storage.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
 

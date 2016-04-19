@@ -1644,4 +1644,34 @@ UNIT_TEST(StorageTest_GetQueuedChildrenSmokeTest)
   storage.GetQueuedChildren("Country1", queuedChildren);
   TEST(queuedChildren.empty(), ());
 }
+  
+UNIT_TEST(StorageTest_GetGroupNodePathToRootTest)
+{
+  Storage storage;
+  
+  TCountriesVec path;
+  
+  storage.GetGroupNodePathToRoot("France_Auvergne_Allier", path);
+  TEST(path.empty(), ());
+  
+  storage.GetGroupNodePathToRoot("France_Auvergne", path);
+  TEST_EQUAL(path.size(), 2, (path));
+  TEST_EQUAL(path[0], "France", ());
+  TEST_EQUAL(path[1], "Countries", ());
+  
+  storage.GetGroupNodePathToRoot("France", path);
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "Countries", ());
+  
+  storage.GetGroupNodePathToRoot("US_Florida_Miami", path);
+  TEST(path.empty(), ());
+
+  storage.GetGroupNodePathToRoot("Florida", path);
+  TEST_EQUAL(path.size(), 2, (path));
+  TEST_EQUAL(path[0], "United States of America", ());
+  TEST_EQUAL(path[1], "Countries", ());
+
+  storage.GetGroupNodePathToRoot("Country1", path);
+  TEST(path.empty(), ());
+}
 }  // namespace storage
