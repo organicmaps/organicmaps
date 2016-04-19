@@ -121,13 +121,14 @@ void ClassifObject::ConcatChildNames(string & s) const
 // Classificator implementation
 /////////////////////////////////////////////////////////////////////////////////////////
 
+namespace
+{
 Classificator & classif(MapStyle mapStyle)
 {
-  size_t const index = static_cast<size_t>(mapStyle);
-  ASSERT_LESS(index, MapStyleCount, ());
   static Classificator c[MapStyleCount];
-  return c[index];
+  return c[mapStyle];
 }
+} // namespace
 
 Classificator & classif()
 {
@@ -238,7 +239,7 @@ namespace ftype
   {
     return get_control_level(type);
   }
-}
+} // namespace ftype
 
 namespace
 {
@@ -280,7 +281,7 @@ namespace
         add_rule(ft, i++);
     }
   };
-}
+} // namespace
 
 void ClassifObject::GetSuitable(int scale, feature::EGeomType ft, drule::KeysT & keys) const
 {

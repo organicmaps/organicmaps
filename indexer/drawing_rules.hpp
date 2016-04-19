@@ -122,7 +122,6 @@ namespace drule
     void InitBackgroundColors(ContainerProto const & cp);
   };
 
-  RulesHolder & rules(MapStyle mapStyle);
   RulesHolder & rules();
 
   void LoadRules();

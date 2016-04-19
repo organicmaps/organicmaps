@@ -226,5 +226,4 @@ public:
   string GetReadableObjectName(uint32_t type) const;
 };
 
-Classificator & classif(MapStyle mapStyle);
 Classificator & classif();
