@@ -930,11 +930,25 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
   return true;
 }
 
-void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid, string const & note)
+void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
+                        NoteProblemType const type, string const & note)
 {
   auto const version = GetMwmCreationTimeByMwmId(fid.m_mwmId);
   auto const stringVersion = my::TimestampToString(my::SecondsSinceEpochToTimeT(version));
-  ostringstream sstr(note, ios_base::ate);
+  ostringstream sstr;
+
+  switch (type)
+  {
+    case NoteProblemType::PlaceDoesNotExist:
+      sstr << kPlaceDoesNotExistMessage;
+      if (!note.empty())
+        sstr << " User comments: \"" << note << '\"';
+      break;
+    case NoteProblemType::General:
+      sstr << note;
+      break;
+  }
+
   sstr << " (OSM data version: " << stringVersion << ')';
   m_notes->CreateNote(latLon, sstr.str());
 }

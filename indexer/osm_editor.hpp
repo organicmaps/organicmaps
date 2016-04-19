@@ -120,7 +120,14 @@ public:
   // Predefined messages.
   static const char * const kPlaceDoesNotExistMessage;
 
-  void CreateNote(ms::LatLon const & latLon, FeatureID const & fid, string const & note);
+  enum class NoteProblemType
+  {
+    General,
+    PlaceDoesNotExist
+  };
+
+  void CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
+                  NoteProblemType const type, string const & note);
   void UploadNotes(string const & key, string const & secret);
 
   struct Stats
