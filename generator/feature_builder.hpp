@@ -39,6 +39,8 @@ public:
 
   void AddStreet(string const & streetName);
 
+  void AddPostcode(string const & postcode);
+
   /// Add point to geometry.
   void AddPoint(m2::PointD const & p);
 

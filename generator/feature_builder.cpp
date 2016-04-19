@@ -90,6 +90,11 @@ void FeatureBuilder1::AddHouseNumber(string const & houseNumber)
 
 void FeatureBuilder1::AddStreet(string const & streetName) { m_params.AddStreet(streetName); }
 
+void FeatureBuilder1::AddPostcode(string const & postcode)
+{
+  m_params.GetMetadata().Set(Metadata::FMD_POSTCODE, postcode);
+}
+
 void FeatureBuilder1::AddPoint(m2::PointD const & p)
 {
   m_polygons.front().push_back(p);
