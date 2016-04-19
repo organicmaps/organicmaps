@@ -1384,3 +1384,11 @@
 "editor_operator" = "Владелец";
 
 "placepage_unknown_place" = "Неизвестное место";
+
+"editor_other_info" = "Other information about place";
+
+"editor_detailed_description_hint" = "Detailed description";
+
+"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+
+"editor_more_about_osm" = "More about OpenStreetMap";

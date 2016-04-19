@@ -1373,7 +1373,9 @@
 
 "error_enter_correct_house_number" = "Wprowadź poprawny numer domu";
 
+"editor_storey_number" = "Storey number (maximum %1$@)";
 
+"error_enter_correct_storey_number" = "Edit buildings with maximum of %1$@ floors";
 
 "editor_zip_code" = "ZIP Code";
 
@@ -1382,3 +1384,11 @@
 "editor_operator" = "Operator";
 
 "placepage_unknown_place" = "Unknown Place";
+
+"editor_other_info" = "Other information about place";
+
+"editor_detailed_description_hint" = "Detailed description";
+
+"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+
+"editor_more_about_osm" = "More about OpenStreetMap";
