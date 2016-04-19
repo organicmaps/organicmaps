@@ -224,7 +224,7 @@ extern NSString * const kBookmarksChangedNotification;
   else if (self.entity.isBookmark)
     name = self.entity.bookmarkTitle;
   else
-    name = L(@"dropped_pin");
+    name = L(@"placepage_unknown_place");
   
   m2::PointD const & org = self.entity.mercator;
   return self.entity.isMyPosition ? MWMRoutePoint(org)
