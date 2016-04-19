@@ -1902,30 +1902,35 @@
                                             <constraint firstAttribute="height" constant="1" id="6LI-Em-15P"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 Outdated Maps (108 MB)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="464" translatesAutoresizingMaskIntoConstraints="NO" id="VGz-7h-6K5">
-                                        <rect key="frame" x="16" y="14" width="444" height="17"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GN0-2F-Ytz" customClass="MWMButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <color key="backgroundColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" title="Update All">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GN0-2F-Ytz">
-                                        <rect key="frame" x="460" y="0.0" width="140" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="140" id="ker-jb-D1t"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <state key="normal" title="Update All"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="downloader_update_all_button"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMWhite"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="allMapsAction" destination="h4a-ne-bSJ" eventType="touchUpInside" id="swH-BL-Egj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQM-6x-WHa" customClass="MWMButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Update All">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="red"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="allMapsCancelAction" destination="h4a-ne-bSJ" eventType="touchUpInside" id="UOO-Sn-8Cf"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1933,15 +1938,17 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="GN0-2F-Ytz" secondAttribute="bottom" id="1d7-Jm-x6G"/>
                                     <constraint firstAttribute="trailing" secondItem="GN0-2F-Ytz" secondAttribute="trailing" id="Fla-om-Cu2"/>
+                                    <constraint firstAttribute="bottom" secondItem="bQM-6x-WHa" secondAttribute="bottom" id="GhH-Ej-y9d"/>
                                     <constraint firstItem="GN0-2F-Ytz" firstAttribute="top" secondItem="st5-ZJ-F0A" secondAttribute="top" id="JFl-uF-Jcg"/>
-                                    <constraint firstItem="GN0-2F-Ytz" firstAttribute="leading" secondItem="VGz-7h-6K5" secondAttribute="trailing" id="MKo-d0-s9t"/>
-                                    <constraint firstItem="VGz-7h-6K5" firstAttribute="leading" secondItem="st5-ZJ-F0A" secondAttribute="leading" constant="16" id="NSY-0Y-fsn"/>
                                     <constraint firstItem="0aj-pt-FjD" firstAttribute="leading" secondItem="st5-ZJ-F0A" secondAttribute="leading" id="T1h-9e-CHh"/>
                                     <constraint firstItem="GN0-2F-Ytz" firstAttribute="centerY" secondItem="st5-ZJ-F0A" secondAttribute="centerY" id="TYj-uT-caw"/>
                                     <constraint firstAttribute="trailing" secondItem="0aj-pt-FjD" secondAttribute="trailing" id="X27-uq-GY8"/>
+                                    <constraint firstItem="bQM-6x-WHa" firstAttribute="leading" secondItem="st5-ZJ-F0A" secondAttribute="leading" id="YLa-6K-Khm"/>
                                     <constraint firstItem="0aj-pt-FjD" firstAttribute="top" secondItem="st5-ZJ-F0A" secondAttribute="top" id="k6u-bm-1dm"/>
+                                    <constraint firstItem="bQM-6x-WHa" firstAttribute="top" secondItem="st5-ZJ-F0A" secondAttribute="top" id="lgd-lj-2Qq"/>
+                                    <constraint firstItem="GN0-2F-Ytz" firstAttribute="leading" secondItem="st5-ZJ-F0A" secondAttribute="leading" id="nUN-rN-AXo"/>
+                                    <constraint firstAttribute="trailing" secondItem="bQM-6x-WHa" secondAttribute="trailing" id="pIt-FK-n43"/>
                                     <constraint firstAttribute="height" constant="44" id="r0c-5a-Stj"/>
-                                    <constraint firstItem="VGz-7h-6K5" firstAttribute="centerY" secondItem="st5-ZJ-F0A" secondAttribute="centerY" id="r2v-H3-L2q"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -2020,7 +2027,8 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
-                        <outlet property="allMapsLabel" destination="VGz-7h-6K5" id="eoI-x5-VSc"/>
+                        <outlet property="allMapsButton" destination="GN0-2F-Ytz" id="Oi0-99-SSP"/>
+                        <outlet property="allMapsCancelButton" destination="bQM-6x-WHa" id="GhS-AQ-EZd"/>
                         <outlet property="allMapsView" destination="st5-ZJ-F0A" id="KAY-Rx-kCC"/>
                         <outlet property="allMapsViewBottomOffset" destination="wj3-ZU-xMA" id="jfn-W1-TEn"/>
                         <outlet property="noMapsContainer" destination="kXO-Oh-2vO" id="fpe-Gj-ZmD"/>
@@ -2072,29 +2080,35 @@
                                             <constraint firstAttribute="height" constant="1" id="77N-Bp-ThF"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 Maps (291 MB)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="464" translatesAutoresizingMaskIntoConstraints="NO" id="ks9-BF-szs">
-                                        <rect key="frame" x="16" y="14" width="444" height="17"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xL5-0u-TaG" customClass="MWMButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <color key="backgroundColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" title="Download All">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xL5-0u-TaG">
-                                        <rect key="frame" x="460" y="0.0" width="140" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="140" id="Fbl-8r-jNo"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <state key="normal" title="Download All"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMWhite"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="allMapsAction" destination="ccD-FK-8j5" eventType="touchUpInside" id="EtQ-2G-MEd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MmB-HW-cD5" customClass="MWMButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Download All">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="red"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="allMapsCancelAction" destination="ccD-FK-8j5" eventType="touchUpInside" id="Wob-NQ-ZJX"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2103,14 +2117,16 @@
                                     <constraint firstItem="C2D-Ac-wjh" firstAttribute="leading" secondItem="9vd-CW-37q" secondAttribute="leading" id="00a-wh-BaK"/>
                                     <constraint firstItem="xL5-0u-TaG" firstAttribute="top" secondItem="9vd-CW-37q" secondAttribute="top" id="6ui-Df-HR9"/>
                                     <constraint firstItem="xL5-0u-TaG" firstAttribute="centerY" secondItem="9vd-CW-37q" secondAttribute="centerY" id="8ea-Gk-AzX"/>
-                                    <constraint firstItem="ks9-BF-szs" firstAttribute="leading" secondItem="9vd-CW-37q" secondAttribute="leading" constant="16" id="AhA-nC-yx9"/>
+                                    <constraint firstItem="MmB-HW-cD5" firstAttribute="leading" secondItem="9vd-CW-37q" secondAttribute="leading" id="Dh1-Fr-eWw"/>
                                     <constraint firstAttribute="height" constant="44" id="Dow-HV-Frg"/>
-                                    <constraint firstItem="ks9-BF-szs" firstAttribute="centerY" secondItem="9vd-CW-37q" secondAttribute="centerY" id="KfJ-Rr-IJu"/>
-                                    <constraint firstItem="xL5-0u-TaG" firstAttribute="leading" secondItem="ks9-BF-szs" secondAttribute="trailing" id="UiT-gI-4fB"/>
+                                    <constraint firstItem="xL5-0u-TaG" firstAttribute="leading" secondItem="9vd-CW-37q" secondAttribute="leading" id="EdJ-xv-Ddl"/>
+                                    <constraint firstAttribute="bottom" secondItem="MmB-HW-cD5" secondAttribute="bottom" id="M2K-ym-QIN"/>
+                                    <constraint firstAttribute="trailing" secondItem="MmB-HW-cD5" secondAttribute="trailing" id="Qpf-le-AUb"/>
                                     <constraint firstAttribute="trailing" secondItem="C2D-Ac-wjh" secondAttribute="trailing" id="ZvS-18-Itc"/>
                                     <constraint firstItem="C2D-Ac-wjh" firstAttribute="top" secondItem="9vd-CW-37q" secondAttribute="top" id="aCR-gV-D3e"/>
                                     <constraint firstAttribute="trailing" secondItem="xL5-0u-TaG" secondAttribute="trailing" id="gm9-AZ-44g"/>
                                     <constraint firstAttribute="bottom" secondItem="xL5-0u-TaG" secondAttribute="bottom" id="rd1-SA-czc"/>
+                                    <constraint firstItem="MmB-HW-cD5" firstAttribute="top" secondItem="9vd-CW-37q" secondAttribute="top" id="xAU-rg-nW4"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -2169,7 +2185,7 @@
                     </view>
                     <connections>
                         <outlet property="allMapsButton" destination="xL5-0u-TaG" id="09K-th-orY"/>
-                        <outlet property="allMapsLabel" destination="ks9-BF-szs" id="fWQ-TU-r6w"/>
+                        <outlet property="allMapsCancelButton" destination="MmB-HW-cD5" id="wsr-lk-f32"/>
                         <outlet property="allMapsView" destination="9vd-CW-37q" id="XZs-Bj-AmZ"/>
                         <outlet property="allMapsViewBottomOffset" destination="Vzi-ku-bUf" id="jSf-BP-6Ii"/>
                         <outlet property="tableView" destination="bgs-Kf-cQA" id="Nri-qd-wNS"/>

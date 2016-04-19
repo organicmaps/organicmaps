@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
+#import "MWMButton.h"
 #import "MWMFrameworkListener.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
@@ -18,24 +19,25 @@
 
 #include "storage/index.hpp"
 
-extern NSString * const kCountryCellIdentifier = @"MWMMapDownloaderTableViewCell";
-extern NSString * const kSubplaceCellIdentifier = @"MWMMapDownloaderSubplaceTableViewCell";
-extern NSString * const kPlaceCellIdentifier = @"MWMMapDownloaderPlaceTableViewCell";
-extern NSString * const kLargeCountryCellIdentifier = @"MWMMapDownloaderLargeCountryTableViewCell";
 extern NSString * const kButtonCellIdentifier = @"MWMMapDownloaderButtonTableViewCell";
+extern NSString * const kCountryCellIdentifier = @"MWMMapDownloaderTableViewCell";
+extern NSString * const kLargeCountryCellIdentifier = @"MWMMapDownloaderLargeCountryTableViewCell";
+extern NSString * const kPlaceCellIdentifier = @"MWMMapDownloaderPlaceTableViewCell";
+extern NSString * const kSubplaceCellIdentifier = @"MWMMapDownloaderSubplaceTableViewCell";
 
 namespace
 {
-NSString * const kAllMapsLabelFormat = @"%@ %@ (%@)";
+NSString * const kAllMapsLabelFormat = @"%@ (%@)";
 NSString * const kCancelActionTitle = L(@"cancel");
 NSString * const kCancelAllTitle = L(@"downloader_cancel_all");
 NSString * const kDeleteActionTitle = L(@"downloader_delete_map");
-NSString * const kDownloaAllTitle = L(@"downloader_download_all_button");
 NSString * const kDownloadActionTitle = L(@"downloader_download_map");
+NSString * const kDownloadAllTitle = L(@"downloader_download_all_button");
 NSString * const kDownloadingTitle = L(@"downloader_downloading");
 NSString * const kMapsTitle = L(@"downloader_maps");
 NSString * const kShowActionTitle = L(@"zoom_to_country");
 NSString * const kUpdateActionTitle = L(@"downloader_status_outdated");
+NSString * const kUpdateAllTitle = L(@"downloader_update_all_button");
 
 NSString * const kBaseControllerIdentifier = @"MWMBaseMapDownloaderViewController";
 NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
@@ -47,7 +49,8 @@ NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
 
 @property (weak, nonatomic) IBOutlet UIView * allMapsView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * allMapsViewBottomOffset;
-@property (weak, nonatomic) IBOutlet UIButton * allMapsButton;
+@property (weak, nonatomic) IBOutlet MWMButton * allMapsButton;
+@property (weak, nonatomic) IBOutlet MWMButton * allMapsCancelButton;
 
 @property (nonatomic) UIImage * navBarBackground;
 @property (nonatomic) UIImage * navBarShadow;
@@ -65,6 +68,8 @@ NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
 
 @property (nonatomic, readonly) NSString * parentCountryId;
 @property (nonatomic, readonly) TMWMMapDownloaderMode mode;
+
+@property (nonatomic) BOOL showAllMapsButtons;
 
 @end
 
@@ -345,18 +350,47 @@ using namespace storage;
 
 - (void)configAllMapsView
 {
-  self.showAllMapsView = YES;
   auto const & s = GetFramework().Storage();
-  TCountriesVec downloadedChildren;
-  TCountriesVec availableChildren;
   TCountryId const parentCountryId = self.parentCountryId.UTF8String;
-  s.GetChildrenInGroups(parentCountryId, downloadedChildren, availableChildren);
-
-  if (availableChildren.empty())
+  if (self.mode == TMWMMapDownloaderMode::Downloaded)
+  {
+    Storage::UpdateInfo updateInfo{};
+    s.GetUpdateInfo(parentCountryId, updateInfo);
+    self.showAllMapsButtons = updateInfo.m_numberOfMwmFilesToUpdate != 0;
+    if (self.showAllMapsButtons)
+    {
+      self.allMapsButton.hidden = NO;
+      [self.allMapsButton
+          setTitle:[NSString stringWithFormat:kAllMapsLabelFormat, kUpdateAllTitle,
+                                              formattedSize(updateInfo.m_totalUpdateSizeInBytes)]
+          forState:UIControlStateNormal];
+      self.allMapsCancelButton.hidden = YES;
+    }
+  }
+  else if (parentCountryId != s.GetRootId())
   {
     TCountriesVec queuedChildren;
     s.GetQueuedChildren(parentCountryId, queuedChildren);
-    if (!queuedChildren.empty())
+    if (queuedChildren.empty())
+    {
+      TCountriesVec downloadedChildren;
+      TCountriesVec availableChildren;
+      s.GetChildrenInGroups(parentCountryId, downloadedChildren, availableChildren, true /* keepAvailableChildren */);
+      self.showAllMapsButtons = downloadedChildren.size() != availableChildren.size();
+      if (self.showAllMapsButtons)
+      {
+        NodeAttrs nodeAttrs;
+        s.GetNodeAttrs(parentCountryId, nodeAttrs);
+        self.allMapsButton.hidden = NO;
+        [self.allMapsButton
+         setTitle:[NSString stringWithFormat:kAllMapsLabelFormat, kDownloadAllTitle,
+                   formattedSize(nodeAttrs.m_mwmSize -
+                                 nodeAttrs.m_localMwmSize)]
+         forState:UIControlStateNormal];
+        self.allMapsCancelButton.hidden = YES;
+      }
+    }
+    else
     {
       TMwmSize queuedSize = 0;
       for (TCountryId const & countryId : queuedChildren)
@@ -365,29 +399,19 @@ using namespace storage;
         s.GetNodeAttrs(countryId, nodeAttrs);
         queuedSize += nodeAttrs.m_mwmSize;
       }
-      self.allMapsLabel.text =
-          [NSString stringWithFormat:kAllMapsLabelFormat, kDownloadingTitle,
-                                     @(queuedChildren.size()), formattedSize(queuedSize)];
-      [self.allMapsButton setTitle:kCancelAllTitle forState:UIControlStateNormal];
-      return;
+      self.showAllMapsButtons = YES;
+      self.allMapsButton.hidden = YES;
+      self.allMapsCancelButton.hidden = NO;
+      [self.allMapsCancelButton
+       setTitle:[NSString stringWithFormat:kAllMapsLabelFormat, kCancelAllTitle,
+                 formattedSize(queuedSize)]
+       forState:UIControlStateNormal];
     }
   }
   else
   {
-    NodeAttrs nodeAttrs;
-    s.GetNodeAttrs(parentCountryId, nodeAttrs);
-    uint32_t remoteMWMCounter = nodeAttrs.m_mwmCounter - nodeAttrs.m_localMwmCounter;
-    if (remoteMWMCounter != 0)
-    {
-      self.allMapsLabel.text =
-          [NSString stringWithFormat:kAllMapsLabelFormat, kMapsTitle, @(remoteMWMCounter),
-                                     formattedSize(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize)];
-      [self.allMapsButton setTitle:kDownloaAllTitle forState:UIControlStateNormal];
-      return;
-    }
+    self.showAllMapsButtons = NO;
   }
-
-  self.showAllMapsView = NO;
 }
 
 - (void)refreshAllMapsView
@@ -397,7 +421,7 @@ using namespace storage;
 
 - (void)refreshAllMapsViewForOffset:(CGFloat)scrollOffset
 {
-  if (!self.showAllMapsView)
+  if (!self.showAllMapsButtons)
     return;
   BOOL const hide = (scrollOffset >= self.lastScrollOffset) && !equalScreenDimensions(scrollOffset, 0.0);
   self.lastScrollOffset = scrollOffset;
@@ -423,7 +447,7 @@ using namespace storage;
 {
   self.skipCountryEventProcessing = YES;
   TCountryId const parentCountryId = self.parentCountryId.UTF8String;
-  if (parentCountryId == GetFramework().Storage().GetRootId())
+  if (self.mode == TMWMMapDownloaderMode::Downloaded)
   {
     [Statistics logEvent:kStatDownloaderMapAction
           withParameters:@{
@@ -436,32 +460,33 @@ using namespace storage;
   }
   else
   {
-    NSString * allMapsButtonTitle = [self.allMapsButton titleForState:UIControlStateNormal];
-    if ([allMapsButtonTitle isEqualToString:kDownloaAllTitle])
-    {
-      [Statistics logEvent:kStatDownloaderMapAction
-            withParameters:@{
-              kStatAction : kStatDownload,
-              kStatIsAuto : kStatNo,
-              kStatFrom : kStatDownloader,
-              kStatScenario : kStatDownloadGroup
-            }];
-      [MWMStorage downloadNode:parentCountryId
-               alertController:self.alertController
-                     onSuccess:nil];
-    }
-    else if ([allMapsButtonTitle isEqualToString:kCancelAllTitle])
-    {
-      [Statistics logEvent:kStatDownloaderMapAction
-            withParameters:@{
-              kStatAction : kStatCancel,
-              kStatIsAuto : kStatNo,
-              kStatFrom : kStatDownloader,
-              kStatScenario : kStatDownloadGroup
-            }];
-      [MWMStorage cancelDownloadNode:parentCountryId];
-    }
+    [Statistics logEvent:kStatDownloaderMapAction
+          withParameters:@{
+                           kStatAction : kStatDownload,
+                           kStatIsAuto : kStatNo,
+                           kStatFrom : kStatDownloader,
+                           kStatScenario : kStatDownloadGroup
+                           }];
+    [MWMStorage downloadNode:parentCountryId
+             alertController:self.alertController
+                   onSuccess:nil];
   }
+  self.skipCountryEventProcessing = NO;
+  [self processCountryEvent:parentCountryId];
+}
+
+- (IBAction)allMapsCancelAction
+{
+  self.skipCountryEventProcessing = YES;
+  [Statistics logEvent:kStatDownloaderMapAction
+        withParameters:@{
+                         kStatAction : kStatCancel,
+                         kStatIsAuto : kStatNo,
+                         kStatFrom : kStatDownloader,
+                         kStatScenario : kStatDownloadGroup
+                         }];
+  TCountryId const parentCountryId = self.parentCountryId.UTF8String;
+  [MWMStorage cancelDownloadNode:parentCountryId];
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:parentCountryId];
 }
@@ -673,10 +698,10 @@ using namespace storage;
   self.dataSource = self.defaultDataSource;
 }
 
-- (void)setShowAllMapsView:(BOOL)showAllMapsView
+- (void)setShowAllMapsButtons:(BOOL)showAllMapsButtons
 {
-  _showAllMapsView = showAllMapsView;
-  self.allMapsView.hidden = !showAllMapsView;
+  _showAllMapsButtons = showAllMapsButtons;
+  self.allMapsView.hidden = !showAllMapsButtons;
 }
 
 - (NSString *)parentCountryId

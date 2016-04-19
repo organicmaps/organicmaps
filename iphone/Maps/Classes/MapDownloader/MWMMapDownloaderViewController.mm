@@ -27,6 +27,8 @@ using namespace storage;
 @property (nonatomic, readonly) NSString * parentCountryId;
 @property (nonatomic, readonly) TMWMMapDownloaderMode mode;
 
+@property (nonatomic) BOOL showAllMapsButtons;
+
 - (void)configViews;
 
 - (void)openAvailableMaps;
@@ -97,26 +99,10 @@ using namespace storage;
   }
   else
   {
-    self.showAllMapsView = NO;
+    self.showAllMapsButtons = NO;
     self.tableView.hidden = YES;
     self.noMapsContainer.hidden = NO;
   }
-}
-
-#pragma mark - All Maps Action
-
-- (void)configAllMapsView
-{
-  self.showAllMapsView = NO;
-  auto const & s = GetFramework().Storage();
-  Storage::UpdateInfo updateInfo{};
-  if (!s.GetUpdateInfo(s.GetRootId(), updateInfo) || updateInfo.m_numberOfMwmFilesToUpdate == 0)
-    return;
-  self.allMapsLabel.text =
-      [NSString stringWithFormat:@"%@: %@ (%@)", L(@"downloader_outdated_maps"),
-                                 @(updateInfo.m_numberOfMwmFilesToUpdate),
-                                 formattedSize(updateInfo.m_totalUpdateSizeInBytes)];
-  self.showAllMapsView = YES;
 }
 
 #pragma mark - UISearchBarDelegate

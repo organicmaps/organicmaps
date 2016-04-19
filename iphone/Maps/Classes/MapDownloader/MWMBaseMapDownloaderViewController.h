@@ -5,10 +5,6 @@
 
 @interface MWMBaseMapDownloaderViewController : MWMViewController <UITableViewDelegate, MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>
 
-@property (weak, nonatomic) IBOutlet UILabel * allMapsLabel;
-
-@property (nonatomic) BOOL showAllMapsView;
-
 - (void)configTable;
 - (void)configAllMapsView;
 
