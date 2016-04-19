@@ -71,7 +71,9 @@
 "marked_for_downloading" = "ทำเครื่องหมายสำหรับการดาวน์โหลดแล้ว แตะเพื่อยกเลิก";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "เมกกะไบต์";
+"mb" = "MB";
+
+"gb" = "GB";
 
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "ไมล์";
