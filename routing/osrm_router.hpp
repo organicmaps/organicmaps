@@ -6,7 +6,6 @@
 #include "routing/router.hpp"
 #include "routing/routing_mapping.hpp"
 
-
 namespace feature { class TypesHolder; }
 
 class Index;
@@ -72,22 +71,6 @@ protected:
   IRouter::ResultCode FindPhantomNodes(m2::PointD const & point,
                                        m2::PointD const & direction, TFeatureGraphNodeVec & res,
                                        size_t maxCount, TRoutingMappingPtr const & mapping);
-
-  /*!
-   * \brief Compute turn and time estimation structs for OSRM raw route.
-   * \param routingResult OSRM routing result structure to annotate.
-   * \param mapping Feature mappings.
-   * \param delegate Routing callbacks delegate.
-   * \param points Storage for unpacked points of the path.
-   * \param turnsDir output turns annotation storage.
-   * \param times output times annotation storage.
-   * \param streets output street names along the path.
-   * \return routing operation result code.
-   */
-  ResultCode MakeTurnAnnotation(RawRoutingResult const & routingResult,
-                                TRoutingMappingPtr const & mapping, RouterDelegate const & delegate,
-                                vector<m2::PointD> & points, Route::TTurns & turnsDir,
-                                Route::TTimes & times, Route::TStreets & streets);
 
 private:
   /*!

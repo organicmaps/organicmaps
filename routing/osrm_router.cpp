@@ -50,11 +50,152 @@ double constexpr kMwmLoadedProgress = 10.0f;
 double constexpr kPointsFoundProgress = 15.0f;
 double constexpr kCrossPathFoundProgress = 50.0f;
 double constexpr kPathFoundProgress = 70.0f;
-// Osrm multiples seconds to 10, so we need to divide it back.
-double constexpr kOSRMWeightToSecondsMultiplier = 1./10.;
+
+double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
+{
+  return math::pi - ang::TwoVectorsAngle(p, p1, p2);
+}
 } //  namespace
-// TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
+
 using RawRouteData = InternalRouteResult;
+
+class OSRMRoutingResultGraph : public turns::IRoutingResultGraph
+{
+public:
+  virtual vector<turns::LoadedPathSegment> const & GetSegments() const override
+  {
+    return m_loadedSegments;
+  }
+  virtual void GetPossibleTurns(NodeID node, m2::PointD const & ingoingPoint,
+                                m2::PointD const & junctionPoint,
+                                size_t & ingoingCount,
+                                turns::TTurnCandidates & outgoingTurns) const override
+  {
+    double const kReadCrossEpsilon = 1.0E-4;
+    double const kFeaturesNearTurnMeters = 3.0;
+
+    // Geting nodes by geometry.
+    vector<NodeID> geomNodes;
+    helpers::Point2Node p2n(m_routingMapping, geomNodes);
+
+    m_index.ForEachInRectForMWM(
+        p2n, m2::RectD(junctionPoint.x - kReadCrossEpsilon, junctionPoint.y - kReadCrossEpsilon,
+                       junctionPoint.x + kReadCrossEpsilon, junctionPoint.y + kReadCrossEpsilon),
+        scales::GetUpperScale(), m_routingMapping.GetMwmId());
+
+    sort(geomNodes.begin(), geomNodes.end());
+    geomNodes.erase(unique(geomNodes.begin(), geomNodes.end()), geomNodes.end());
+
+    // Filtering virtual edges.
+    vector<NodeID> adjacentNodes;
+    ingoingCount = 0;
+    for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node))
+    {
+      QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node);
+      if (data.shortcut)
+        continue;
+      if (data.forward)
+      {
+        adjacentNodes.push_back(m_routingMapping.m_dataFacade.GetTarget(e));
+        ASSERT_NOT_EQUAL(m_routingMapping.m_dataFacade.GetTarget(e), SPECIAL_NODEID, ());
+      }
+      else
+      {
+        ++ingoingCount;
+      }
+    }
+
+    for (NodeID const adjacentNode : geomNodes)
+    {
+      if (adjacentNode == node)
+        continue;
+      for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(adjacentNode))
+      {
+        if (m_routingMapping.m_dataFacade.GetTarget(e) != node)
+          continue;
+        QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, adjacentNode);
+        if (data.shortcut)
+          continue;
+        if (data.backward)
+          adjacentNodes.push_back(adjacentNode);
+        else
+          ++ingoingCount;
+      }
+    }
+
+    // Preparing candidates.
+    for (NodeID const targetNode : adjacentNodes)
+    {
+      auto const range = m_routingMapping.m_segMapping.GetSegmentsRange(targetNode);
+      OsrmMappingTypes::FtSeg seg;
+      m_routingMapping.m_segMapping.GetSegmentByIndex(range.first, seg);
+      if (!seg.IsValid())
+        continue;
+
+      FeatureType ft;
+      Index::FeaturesLoaderGuard loader(m_index, m_routingMapping.GetMwmId());
+      loader.GetFeatureByIndex(seg.m_fid, ft);
+      ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+      m2::PointD const outgoingPoint = ft.GetPoint(
+          seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
+      ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, ft.GetPoint(seg.m_pointStart)),
+                  kFeaturesNearTurnMeters, ());
+
+      double const a =
+          my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+      outgoingTurns.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
+    }
+
+    sort(outgoingTurns.begin(), outgoingTurns.end(),
+         [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2)
+         {
+           return t1.angle < t2.angle;
+         });
+  }
+
+  virtual double GetShortestPathLength() const override { return m_rawResult.shortestPathLength; }
+  virtual m2::PointD const & GetStartPoint() const override
+  {
+    return m_rawResult.sourceEdge.segmentPoint;
+  }
+  virtual m2::PointD const & GetEndPoint() const override
+  {
+    return m_rawResult.targetEdge.segmentPoint;
+  }
+
+  OSRMRoutingResultGraph(Index const & index, RoutingMapping & mapping, RawRoutingResult & result)
+    : m_rawResult(result), m_index(index), m_routingMapping(mapping)
+  {
+    for (auto const & pathSegments : m_rawResult.unpackedPathSegments)
+    {
+      auto numSegments = pathSegments.size();
+      m_loadedSegments.reserve(numSegments);
+      for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
+      {
+        bool isStartNode = (segmentIndex == 0);
+        bool isEndNode = (segmentIndex == numSegments - 1);
+        if (isStartNode || isEndNode)
+        {
+          m_loadedSegments.emplace_back(m_routingMapping, m_index, pathSegments[segmentIndex],
+                                        m_rawResult.sourceEdge, m_rawResult.targetEdge, isStartNode,
+                                        isEndNode);
+        }
+        else
+        {
+          m_loadedSegments.emplace_back(m_routingMapping, m_index, pathSegments[segmentIndex]);
+        }
+      }
+    }
+  }
+
+  ~OSRMRoutingResultGraph() {}
+private:
+  vector<turns::LoadedPathSegment> m_loadedSegments;
+  RawRoutingResult m_rawResult;
+  Index const & m_index;
+  RoutingMapping & m_routingMapping;
+};
 
 // static
 bool OsrmRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
@@ -191,7 +332,8 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     Route::TTimes mwmTimes;
     Route::TStreets mwmStreets;
     vector<m2::PointD> mwmPoints;
-    if (MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes, mwmStreets) != NoError)
+    OSRMRoutingResultGraph resultGraph(*m_pIndex, *mwmMapping, routingResult);
+    if (MakeTurnAnnotation(resultGraph, delegate, mwmPoints, mwmTurnsDir, mwmTimes, mwmStreets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk for", mwmMapping->GetCountryName()));
       return RouteNotFound;
@@ -360,7 +502,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     Route::TStreets streets;
     vector<m2::PointD> points;
 
-    if (MakeTurnAnnotation(routingResult, startMapping, delegate, points, turnsDir, times, streets) != NoError)
+    OSRMRoutingResultGraph resultGraph(*m_pIndex, *startMapping, routingResult);
+    if (MakeTurnAnnotation(resultGraph, delegate, points, turnsDir, times, streets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk!"));
       return RouteNotFound;
@@ -419,149 +562,6 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
   return NoError;
 }
 
-// @todo(vbykoianko) This method shall to be refactored. It shall be split into several
-// methods. All the functionality shall be moved to the turns_generator unit.
 
-// @todo(vbykoianko) For the time being MakeTurnAnnotation generates the turn annotation
-// and the route polyline at the same time. It is better to generate it separately
-// to be able to use the route without turn annotation.
-OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
-    RawRoutingResult const & routingResult, TRoutingMappingPtr const & mapping,
-    RouterDelegate const & delegate, vector<m2::PointD> & points, Route::TTurns & turnsDir,
-    Route::TTimes & times, Route::TStreets & streets)
-{
-  ASSERT(mapping, ());
 
-  double estimatedTime = 0;
-
-  LOG(LDEBUG, ("Shortest path length:", routingResult.shortestPathLength));
-
-#ifdef DEBUG
-  size_t lastIdx = 0;
-#endif
-
-  for (auto const & pathSegments : routingResult.unpackedPathSegments)
-  {
-    INTERRUPT_WHEN_CANCELLED(delegate);
-
-    // Get all computed route coordinates.
-    size_t const numSegments = pathSegments.size();
-
-    // Construct loaded segments.
-    vector<turns::LoadedPathSegment> loadedSegments;
-    loadedSegments.reserve(numSegments);
-    for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
-    {
-      bool isStartNode = (segmentIndex == 0);
-      bool isEndNode = (segmentIndex == numSegments - 1);
-      if (isStartNode || isEndNode)
-      {
-        loadedSegments.emplace_back(*mapping, *m_pIndex, pathSegments[segmentIndex],
-                                    routingResult.sourceEdge, routingResult.targetEdge, isStartNode,
-                                    isEndNode);
-      }
-      else
-      {
-        loadedSegments.emplace_back(*mapping, *m_pIndex, pathSegments[segmentIndex]);
-      }
-    }
-
-    // Annotate turns.
-    size_t skipTurnSegments = 0;
-    for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
-    {
-      auto const & loadedSegment = loadedSegments[segmentIndex];
-
-      // ETA information.
-      double const nodeTimeSeconds = loadedSegment.m_weight * kOSRMWeightToSecondsMultiplier;
-
-      // Street names. I put empty names too, to avoid freezing old street name while riding on
-      // unnamed street.
-      streets.emplace_back(max(points.size(), static_cast<size_t>(1)) - 1, loadedSegment.m_name);
-
-      // Turns information.
-      if (segmentIndex > 0 && !points.empty() && skipTurnSegments == 0)
-      {
-        turns::TurnItem turnItem;
-        turnItem.m_index = static_cast<uint32_t>(points.size() - 1);
-
-        skipTurnSegments = CheckUTurnOnRoute(loadedSegments, segmentIndex, turnItem);
-
-        turns::TurnInfo turnInfo(loadedSegments[segmentIndex - 1], loadedSegments[segmentIndex]);
-
-        if (turnItem.m_turn == turns::TurnDirection::NoTurn)
-          turns::GetTurnDirection(*m_pIndex, *mapping, turnInfo, turnItem);
-
-#ifdef DEBUG
-        double distMeters = 0.0;
-        for (size_t k = lastIdx + 1; k < points.size(); ++k)
-          distMeters += MercatorBounds::DistanceOnEarth(points[k - 1], points[k]);
-        LOG(LDEBUG, ("Speed:", 3.6 * distMeters / nodeTimeSeconds, "kmph; Dist:", distMeters, "Time:",
-                     nodeTimeSeconds, "s", lastIdx, "e", points.size(), "source:", turnItem.m_sourceName,
-                     "target:", turnItem.m_targetName));
-        lastIdx = points.size();
-#endif
-        times.push_back(Route::TTimeItem(points.size(), estimatedTime));
-
-        //  Lane information.
-        if (turnItem.m_turn != turns::TurnDirection::NoTurn)
-        {
-          turnItem.m_lanes = turnInfo.m_ingoing.m_lanes;
-          turnsDir.push_back(move(turnItem));
-        }
-      }
-
-      estimatedTime += nodeTimeSeconds;
-      if (skipTurnSegments > 0)
-        --skipTurnSegments;
-
-      // Path geometry.
-      points.insert(points.end(), loadedSegment.m_path.begin(), loadedSegment.m_path.end());
-    }
-  }
-
-  // Path found. Points will be replaced by start and end edges points.
-  if (points.size() == 1)
-    points.push_back(points.front());
-
-  if (points.size() < 2)
-    return RouteNotFound;
-
-  if (routingResult.sourceEdge.segment.IsValid())
-    points.front() = routingResult.sourceEdge.segmentPoint;
-  if (routingResult.targetEdge.segment.IsValid())
-    points.back() = routingResult.targetEdge.segmentPoint;
-
-  times.push_back(Route::TTimeItem(points.size() - 1, estimatedTime));
-  if (routingResult.targetEdge.segment.IsValid())
-  {
-    turnsDir.emplace_back(
-        turns::TurnItem(static_cast<uint32_t>(points.size()) - 1, turns::TurnDirection::ReachedYourDestination));
-  }
-  turns::FixupTurns(points, turnsDir);
-
-#ifdef DEBUG
-  for (auto t : turnsDir)
-  {
-    LOG(LDEBUG, (turns::GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-", t.m_targetName, "exit:", t.m_exitNum));
-  }
-
-  size_t last = 0;
-  double lastTime = 0;
-  for (Route::TTimeItem & t : times)
-  {
-    double dist = 0;
-    for (size_t i = last + 1; i <= t.first; ++i)
-      dist += MercatorBounds::DistanceOnEarth(points[i - 1], points[i]);
-
-    double time = t.second - lastTime;
-
-    LOG(LDEBUG, ("distance:", dist, "start:", last, "end:", t.first, "Time:", time, "Speed:", 3.6 * dist / time));
-    last = t.first;
-    lastTime = t.second;
-  }
-#endif
-  LOG(LDEBUG, ("Estimated time:", estimatedTime, "s"));
-  return OsrmRouter::NoError;
-}
 }  // namespace routing
