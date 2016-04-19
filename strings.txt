@@ -2614,38 +2614,6 @@
     nb = Farge
     fi = Väri
 
-  [dropped_pin]
-    en = Dropped Pin
-    tags = ios
-    comment = Unknown Dropped Pin title, when name can't be determined
-    cs = Špendlík
-    sk = Špendlík
-    de = Gesetzte Stecknadel
-    es = Etiqueta colocada
-    fr = Épingle placée
-    it = Pin trascinato
-    ja = ドロップしたピン
-    ko = 알수 없는 핀
-    nl = Geplaatste Speld
-    ru = Новая метка
-    uk = Нова мітка
-    zh-Hant = 已放置圖釘
-    pl = Znacznik
-    pt = Marcador posicionado
-    hu = Beszúrt jelző
-    th = ปักหมุด
-    zh-Hans = 已放置图钉
-    ar = الدبوس المُثَبَت
-    da = Placeret knappenål
-    tr = Bırakılan Pin
-    sv = Släppt knappnål
-    he = סיכת סימון
-    id = Pin yang Ditancapkan
-    vi = Con Dấu đã Đặt
-    ro = Poziție marcată
-    nb = Droppet merke
-    fi = Pudotettu nasta
-
   [my_places]
     en = My Places
     tags = ios
@@ -16265,3 +16233,8 @@
     tags = ios, android
     en = Operator
     ru = Владелец
+
+  [placepage_unknown_place]
+    tags = ios, android
+    en = Unknown Place
+    ru = Неизвестное место
