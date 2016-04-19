@@ -29,7 +29,6 @@
 - (void)changeBookmarkDescription;
 - (void)editPlace;
 - (void)addBusiness;
-- (void)reportProblem;
 - (void)share;
 - (void)route;
 - (void)reloadBookmark;
