@@ -119,6 +119,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_enable3dBuildings(params.m_allow3dBuildings)
   , m_isIsometry(false)
   , m_blockTapEvents(params.m_blockTapEvents)
+  , m_choosePositionMode(false)
   , m_viewport(params.m_viewport)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
   , m_tapEventInfoFn(params.m_tapEventFn)
@@ -347,6 +348,26 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_guiRenderer = move(renderer);
       else
         m_guiRenderer->Merge(make_ref(renderer));
+
+      bool oldMode = m_choosePositionMode;
+      m_choosePositionMode = m_guiRenderer->HasWidget(gui::WIDGET_CHOOSE_POSITION_MARK);
+      if (oldMode != m_choosePositionMode)
+      {
+        ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+        CheckIsometryMinScale(screen);
+        UpdateDisplacementEnabled();
+        if (!m_choosePositionMode || m_currentZoomLevel >= scales::GetAddNewPlaceScale())
+        {
+          InvalidateRect(screen.ClipRect());
+        }
+        else
+        {
+          m2::PointD pt = screen.GlobalRect().Center();
+          if (!m_myPositionController->IsWaitingForLocation())
+            pt = m_myPositionController->GetDrawablePosition();
+          AddUserEvent(SetCenterEvent(pt, scales::GetAddNewPlaceScale(), true));
+        }
+      }
       break;
     }
 
@@ -1189,10 +1210,10 @@ void FrontendRenderer::DisablePerspective()
   AddUserEvent(DisablePerspectiveEvent());
 }
 
-void FrontendRenderer::CheckIsometryMinScale(const ScreenBase &screen)
+void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
 {
   bool const isScaleAllowableIn3d = UserEventStream::IsScaleAllowableIn3d(m_currentZoomLevel);
-  bool const isIsometry = m_enable3dBuildings && isScaleAllowableIn3d;
+  bool const isIsometry = m_enable3dBuildings && !m_choosePositionMode && isScaleAllowableIn3d;
   if (m_isIsometry != isIsometry)
   {
     m_isIsometry = isIsometry;
@@ -1224,6 +1245,15 @@ void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 
   CheckIsometryMinScale(screen);
   CheckPerspectiveMinScale();
+  UpdateDisplacementEnabled();
+}
+
+void FrontendRenderer::UpdateDisplacementEnabled()
+{
+  if (m_choosePositionMode)
+    m_overlayTree->SetDisplacementEnabled(m_currentZoomLevel < scales::GetAddNewPlaceScale());
+  else
+    m_overlayTree->SetDisplacementEnabled(true);
 }
 
 void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)

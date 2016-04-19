@@ -168,6 +168,7 @@ private:
 
   TTilesCollection ResolveTileKeys(ScreenBase const & screen);
   void ResolveZoomLevel(ScreenBase const & screen);
+  void UpdateDisplacementEnabled();
   void CheckPerspectiveMinScale();
   void CheckIsometryMinScale(ScreenBase const & screen);
 
@@ -271,6 +272,8 @@ private:
   bool m_isIsometry;
 
   bool m_blockTapEvents;
+
+  bool m_choosePositionMode;
 
   Viewport m_viewport;
   UserEventStream m_userEventStream;

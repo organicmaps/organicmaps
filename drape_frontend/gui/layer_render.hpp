@@ -35,6 +35,8 @@ public:
   void OnTouchUp(m2::RectD const & touchArea);
   void OnTouchCancel(m2::RectD const & touchArea);
 
+  bool HasWidget(EWidget widget) const;
+
 private:
   void DestroyRenderers();
 

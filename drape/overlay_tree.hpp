@@ -63,6 +63,8 @@ public:
 
   void SetFollowingMode(bool mode);
 
+  void SetDisplacementEnabled(bool enabled);
+
 #ifdef COLLECT_DISPLACEMENT_INFO
   struct DisplacementData
   {
@@ -89,6 +91,8 @@ private:
   array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
   unordered_set<ref_ptr<OverlayHandle>, detail::OverlayHasher> m_handlesCache;
   bool m_followingMode;
+
+  bool m_isDisplacementEnabled;
 
 #ifdef COLLECT_DISPLACEMENT_INFO
   TDisplacementInfo m_displacementInfo;
