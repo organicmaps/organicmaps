@@ -151,9 +151,7 @@ void initFieldsMap()
       return m_info.IsBookmark() ? @"" : nil;
     case MWMPlacePageCellTypeEditButton:
       // TODO(Vlad): It's a really strange way to "display" cell if returned text is not nil.
-      return m_info.IsEditable() && isNewMWM ? @"" : nil;
-    case MWMPlacePageCellTypeReportButton:
-      return /* m_info.IsFeature() && isNewMWM ? @"" : */nil;
+      return isNewMWM ? @"": nil;
     case MWMPlacePageCellTypeAddBusinessButton:
       return m_info.IsBuilding() ? @"" : nil;
     default:

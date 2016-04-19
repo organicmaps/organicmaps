@@ -36,6 +36,9 @@
 - (void)presentDownloaderNotEnoughSpaceAlert;
 - (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock;
 - (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
+- (void)presentPlaceDoesntExistAlertWithBlock:(nonnull MWMStringBlock)block;
+- (void)presentResetChangesAlertWithBlock:(nonnull TMWMVoidBlock)block;
+- (void)presentDeleteFeatureAlertWithBlock:(nonnull TMWMVoidBlock)block;
 - (void)presentEditorViralAlert;
 - (void)presentOsmAuthAlert;
 - (void)closeAlert;

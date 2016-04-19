@@ -319,6 +319,28 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)resetChangesAlertWithBlock:(TMWMVoidBlock)block
+{
+  kStatisticsEvent = @"Reset changes alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"editor_reset_edits_message"
+                                                message:nil
+                                       rightButtonTitle:@"editor_reset_edits_button"
+                                        leftButtonTitle:@"cancel"
+                                      rightButtonAction:block];
+  return alert;
+}
+
++ (instancetype)deleteFeatureAlertWithBlock:(TMWMVoidBlock)block
+{
+  kStatisticsEvent = @"Delete feature alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"editor_remove_place_message"
+                                                message:nil
+                                       rightButtonTitle:@"editor_remove_place_button"
+                                        leftButtonTitle:@"cancel"
+                                      rightButtonAction:block];
+  return alert;
+}
+
 + (instancetype)defaultAlertWithTitle:(nonnull NSString *)title
                               message:(nullable NSString *)message
                      rightButtonTitle:(nonnull NSString *)rightButtonTitle

@@ -20,15 +20,9 @@
   switch (type)
   {
   case MWMPlacePageCellTypeAddBusinessButton:
-    [self.titleButton setTitleColor:[UIColor linkBlue] forState:UIControlStateNormal];
     [self.titleButton setTitle:L(@"placepage_add_business_button") forState:UIControlStateNormal];
     break;
-  case MWMPlacePageCellTypeReportButton:
-    [self.titleButton setTitleColor:[UIColor red] forState:UIControlStateNormal];
-    [self.titleButton setTitle:L(@"placepage_report_problem_button") forState:UIControlStateNormal];
-    break;
   case MWMPlacePageCellTypeEditButton:
-    [self.titleButton setTitleColor:[UIColor linkBlue] forState:UIControlStateNormal];
     [self.titleButton setTitle:L(@"edit_place") forState:UIControlStateNormal];
     break;
   default:
@@ -49,10 +43,6 @@
   case MWMPlacePageCellTypeAddBusinessButton:
     [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePage}];
     [self.placePage addBusiness];
-    break;
-  case MWMPlacePageCellTypeReportButton:
-    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatReport)];
-    [self.placePage reportProblem];
     break;
   default:
     NSAssert(false, @"Incorrect cell type!");

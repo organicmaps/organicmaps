@@ -8,7 +8,4 @@
 - (void)cellSelect:(UITableViewCell *)cell;
 - (void)tryToChangeInvalidStateForCell:(MWMEditorTextTableViewCell *)cell;
 
-@optional
-- (void)fieldIsCorrect:(BOOL)isCorrect;
-
 @end

@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageCellType)
   MWMPlacePageCellTypeZipCode,
   MWMPlacePageCellTypeBuildingLevels,
   MWMPlacePageCellTypeCuisine,
+  MWMPlacePageCellTypeNote,
   MWMPlacePageCellTypeCount
 };
 

@@ -61,9 +61,9 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-  CGSize const keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+  CGSize const keyboardSize = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
   CGFloat const bottomInset = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ?
-  keyboardSize.height : keyboardSize.width;
+                                                                              keyboardSize.height : keyboardSize.width;
 
   UIEdgeInsets const contentInsets = {.bottom = bottomInset};
 
