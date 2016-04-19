@@ -779,15 +779,13 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     {
     case osm::Editor::FeatureStatus::Untouched:
     {
-      __weak auto wself = self;
       [self.alertController presentPlaceDoesntExistAlertWithBlock:^(NSString * additionalMessage)
       {
-        __strong auto self = wself;
         auto const & fid = self->m_mapObject.GetID();
         auto const latLon = self->m_mapObject.GetLatLon();
         if (additionalMessage.length)
         {
-          //TODO(Vlad): Pass additional message as second parametr into CreateNote.
+          //TODO(Vlad): Pass additional message as second parameter into CreateNote.
         }
 
         [Statistics logEvent:kStatEditorProblemReport withParameters:@{
