@@ -579,4 +579,14 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeHasUnsavedEditorChanges(JNI
   return g_framework->NativeFramework()->HasUnsavedEdits(jni::ToNativeString(env, root));
 }
 
+// static void nativeGetPathTo(String root, List<String> result);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetPathTo(JNIEnv * env, jclass clazz, jstring root, jobject result)
+{
+  TCountriesVec path;
+  GetStorage().GetGroupNodePathToRoot(jni::ToNativeString(env, root), path);
+  for (TCountryId const & node : path)
+    env->CallBooleanMethod(result, g_listAddMethod, jni::TScopedLocalRef(env, jni::ToJavaString(env, node)).get());
+}
+
 } // extern "C"
