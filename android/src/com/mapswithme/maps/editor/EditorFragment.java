@@ -85,9 +85,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
         mInputHouseNumber.setError(null);
       }
     });
-    mEtPhone.setText(Editor.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
-    mEtWebsite.setText(Editor.getMetadata(Metadata.MetadataType.FMD_WEBSITE));
-    mEtEmail.setText(Editor.getMetadata(Metadata.MetadataType.FMD_EMAIL));
+    mEtPhone.setText(Editor.nativeGetPhone());
+    mEtWebsite.setText(Editor.nativeGetWebsite());
+    mEtEmail.setText(Editor.nativeGetEmail());
     mTvCuisine.setText(Editor.nativeGetFormattedCuisine());
     mSwWifi.setChecked(Editor.nativeHasWifi());
     refreshOpeningTime();
@@ -107,10 +107,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     if (!validateFields())
       return false;
 
-    Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, getPhone());
-    Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, getWebsite());
-    Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, getEmail());
-    Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, getWifi());
+    Editor.nativeSetPhone(getPhone());
+    Editor.nativeSetWebsite(getWebsite());
+    Editor.nativeSetEmail(getEmail());
+    Editor.nativeSetHasWifi(hasWifi());
     Editor.nativeSetDefaultName(getName());
     Editor.nativeSetHouseNumber(getHouseNumber());
 
@@ -165,9 +165,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return mTvCuisine.getText().toString();
   }
 
-  public String getWifi()
+  public boolean hasWifi()
   {
-    return mSwWifi.isChecked() ? "wlan" : "";
+    return mSwWifi.isChecked();
   }
 
   private void refreshEditableFields()
@@ -221,7 +221,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void refreshOpeningTime()
   {
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(Editor.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
+    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(Editor.nativeGetOpeningHours());
     if (timetables == null)
     {
       UiUtils.show(mEmptyOpeningHours);

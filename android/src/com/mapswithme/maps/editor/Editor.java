@@ -54,19 +54,31 @@ public final class Editor
   @NonNull
   public static native int[] nativeGetEditableFields();
 
-  public static String getMetadata(Metadata.MetadataType type)
-  {
-    return nativeGetMetadata(type.toInt());
-  }
-  public static void setMetadata(Metadata.MetadataType type, String value)
-  {
-    nativeSetMetadata(type.toInt(), value);
-  }
-  private static native String nativeGetMetadata(int type);
-  private static native void nativeSetMetadata(int type, String value);
+  public static native String nativeGetCategory();
+  public static native String nativeGetOpeningHours();
+  public static native void nativeSetOpeningHours(String openingHours);
+  public static native String nativeGetPhone();
+  public static native void nativeSetPhone(String phone);
+  public static native String nativeGetWebsite();
+  public static native void nativeSetWebsite(String website);
+  public static native String nativeGetEmail();
+  public static native void nativeSetEmail(String email);
+  public static native int nativeGetStars();
+  public static native void nativeSetStars(String stars);
+  public static native String nativeGetOperator();
+  public static native void nativeSetOperator(String operator);
+  public static native String nativeGetWikipedia();
+  public static native void nativeSetWikipedia(String wikipedia);
+  public static native String nativeGetFlats();
+  public static native void nativeSetFlats(String flats);
+  public static native String nativeGetBuildingLevels();
+  public static native void nativeSetBuildingLevels(String levels);
+  public static native String nativeGetZipCode();
+  public static native void nativeSetZipCode(String zipCode);
+  public static native boolean nativeHasWifi();
+  public static native boolean nativeSetHasWifi(boolean hasWifi);
 
   public static native boolean nativeIsAddressEditable();
-
   public static native boolean nativeIsNameEditable();
 
   @NonNull
@@ -83,9 +95,6 @@ public final class Editor
 
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);
-
-  // TODO(AlexZ): Support 3-state: Yes, No, Unknown.
-  public static native boolean nativeHasWifi();
 
   public static native boolean nativeHasSomethingToUpload();
   @WorkerThread
@@ -144,6 +153,4 @@ public final class Editor
   public static native void nativePlaceDoesNotExist(double lat, double lon);
 
   public static native boolean nativeIsHouseValid(String houseNumber);
-
-  public static native String nativeGetCategory();
 }
