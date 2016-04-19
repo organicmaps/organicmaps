@@ -29,7 +29,7 @@
                         <rect key="frame" x="60" y="0.0" width="252" height="28"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="28" id="P3n-mD-g5V"/>
+                            <constraint firstAttribute="height" priority="750" constant="28" id="P3n-mD-g5V"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
