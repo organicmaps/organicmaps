@@ -743,11 +743,11 @@ void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, T
   if (!turnInfo.IsSegmentsValid())
     return;
 
+  ASSERT(!turnInfo.m_ingoing.m_path.empty(), ());
+  ASSERT(!turnInfo.m_outgoing.m_path.empty(), ());
   ASSERT_LESS(MercatorBounds::DistanceOnEarth(turnInfo.m_ingoing.m_path.back(),
                                               turnInfo.m_outgoing.m_path.front()),
               kFeaturesNearTurnMeters, ());
-  ASSERT(!turnInfo.m_ingoing.m_path.empty(), ());
-  ASSERT(!turnInfo.m_outgoing.m_path.empty(), ());
 
   m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back();
   m2::PointD const ingoingPoint = GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint,
