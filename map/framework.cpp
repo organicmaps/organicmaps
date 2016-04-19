@@ -304,7 +304,7 @@ Framework::Framework()
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
   // It's better to use strings form strings.txt intead of hardcoding them here.
-  m_stringsBundle.SetDefaultString("dropped_pin", "Dropped Pin");
+  m_stringsBundle.SetDefaultString("placepage_unknown_place", "Unknown Place");
   m_stringsBundle.SetDefaultString("my_places", "My Places");
   m_stringsBundle.SetDefaultString("routes", "Routes");
   m_stringsBundle.SetDefaultString("wifi", "WiFi");
@@ -687,7 +687,7 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
   if (feature)
     FillInfoFromFeatureType(*feature, info);
   else
-    info.m_customName = customTitle.empty() ? m_stringsBundle.GetString("dropped_pin") : customTitle;
+    info.m_customName = customTitle.empty() ? m_stringsBundle.GetString("placepage_unknown_place") : customTitle;
 
   // This line overwrites mercator center from area feature which can be far away.
   info.SetMercator(mercator);
