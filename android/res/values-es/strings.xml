@@ -143,8 +143,6 @@
 	<string name="bookmark_sets">Grupos de marcadores</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Marcadores</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Etiqueta colocada</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Mis lugares</string>
 	<!-- Add bookmark dialog - bookmark name -->

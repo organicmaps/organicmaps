@@ -153,8 +153,6 @@
 	<string name="bookmarks">Bookmarks</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Color</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Dropped Pin</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">My Places</string>
 	<!-- Add bookmark dialog - bookmark name -->
@@ -837,4 +835,5 @@
 	<string name="editor_zip_code">ZIP Code</string>
 	<string name="error_enter_correct_zip_code">Enter correct ZIP Code</string>
 	<string name="editor_operator">Operator</string>
+	<string name="placepage_unknown_place">Unknown Place</string>
 </resources>

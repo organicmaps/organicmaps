@@ -151,8 +151,6 @@
 	<string name="bookmarks">Мітки</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Колір</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Нова мітка</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Мої Мітки</string>
 	<!-- Add bookmark dialog - bookmark name -->

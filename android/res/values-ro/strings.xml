@@ -152,8 +152,6 @@
 	<string name="bookmarks">Marcaje</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Culoare</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Poziție marcată</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Locurile mele</string>
 	<!-- Add bookmark dialog - bookmark name -->

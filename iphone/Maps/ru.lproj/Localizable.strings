@@ -242,9 +242,6 @@
 /* Add bookmark dialog - bookmark color */
 "color" = "Цвет";
 
-/* Unknown Dropped Pin title, when name can't be determined */
-"dropped_pin" = "Новая метка";
-
 /* Default bookmarks set name */
 "my_places" = "Мои Метки";
 
@@ -1383,3 +1380,5 @@
 "error_enter_correct_zip_code" = "Введите корректный почтовый индекс";
 
 "editor_operator" = "Владелец";
+
+"placepage_unknown_place" = "Неизвестное место";

@@ -147,8 +147,6 @@
 	<string name="bookmarks">ブックマーク</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">表示色</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">ドロップしたピン</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">マイロケーション</string>
 	<!-- Add bookmark dialog - bookmark name -->

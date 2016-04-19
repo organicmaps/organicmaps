@@ -147,8 +147,6 @@
 	<string name="bookmarks">Záložky</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Barva</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Špendlík</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Moje místa</string>
 	<!-- Add bookmark dialog - bookmark name -->

@@ -147,8 +147,6 @@
 	<string name="bookmarks">Könyvjelzők</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Szín</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Beszúrt jelző</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Saját helyeim</string>
 	<!-- Add bookmark dialog - bookmark name -->

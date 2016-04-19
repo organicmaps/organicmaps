@@ -152,8 +152,6 @@
 	<string name="bookmarks">Penanda</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Warna</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Pin yang Ditancapkan</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Tempat-tempat Saya</string>
 	<!-- Add bookmark dialog - bookmark name -->

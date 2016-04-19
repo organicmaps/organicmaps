@@ -150,8 +150,6 @@
 	<string name="bookmarks">Bogmærker</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Farve</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Placeret knappenål</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Mine Steder</string>
 	<!-- Add bookmark dialog - bookmark name -->

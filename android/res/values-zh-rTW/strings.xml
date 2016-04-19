@@ -148,8 +148,6 @@
 	<string name="bookmarks">書籤</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">顏色</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">已放置圖釘</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">我的地點</string>
 	<!-- Add bookmark dialog - bookmark name -->
