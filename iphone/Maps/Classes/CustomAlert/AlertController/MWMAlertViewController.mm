@@ -178,6 +178,21 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert downloaderNeedUpdateAlertWithOkBlock:okBlock]];
 }
 
+- (void)presentPlaceDoesntExistAlertWithBlock:(MWMStringBlock)block
+{
+  [self displayAlert:[MWMAlert placeDoesntExistAlertWithBlock:block]];
+}
+
+- (void)presentResetChangesAlertWithBlock:(TMWMVoidBlock)block
+{
+  [self displayAlert:[MWMAlert resetChangesAlertWithBlock:block]];
+}
+
+- (void)presentDeleteFeatureAlertWithBlock:(TMWMVoidBlock)block
+{
+  [self displayAlert:[MWMAlert deleteFeatureAlertWithBlock:block]];
+}
+
 - (void)presentEditorViralAlert
 {
   [self displayAlert:[MWMAlert editorViralAlert]];

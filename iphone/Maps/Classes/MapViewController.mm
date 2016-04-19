@@ -18,7 +18,6 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPageController.h"
 #import "MWMPlacePageEntity.h"
-#import "MWMReportBaseController.h"
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
@@ -77,7 +76,6 @@ NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
-NSString * const kReportSegue = @"Map2ReportSegue";
 } // namespace
 
 @interface NSValueWrapper : NSObject
@@ -568,11 +566,6 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.placePageEntity];
 }
 
-- (void)showReportController
-{
-  [self performSegueWithIdentifier:kReportSegue sender:self.controlsManager.placePageEntity];
-}
-
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
 {
   [m_predictor setMode:mode];
@@ -852,11 +845,6 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
     dvc.parentCountryId = @(GetFramework().Storage().GetRootId().c_str());
-  }
-  else if ([segue.identifier isEqualToString:kReportSegue])
-  {
-    MWMReportBaseController * dvc = segue.destinationViewController;
-    dvc.point = static_cast<MWMPlacePageEntity *>(sender).mercator;
   }
   else if ([segue.identifier isEqualToString:kMap2FBLoginSegue])
   {

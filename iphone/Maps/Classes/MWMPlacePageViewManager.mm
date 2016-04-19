@@ -263,11 +263,6 @@ extern NSString * const kBookmarksChangedNotification;
   [self.delegate addBusinessToPoint:self.entity.mercator];
 }
 
-- (void)reportProblem
-{
-  [static_cast<MapViewController *>(self.ownerViewController) showReportController];
-}
-
 - (void)addBookmark
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)

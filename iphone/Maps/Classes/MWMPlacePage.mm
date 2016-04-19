@@ -143,11 +143,6 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
   [self.manager addBusiness];
 }
 
-- (void)reportProblem
-{
-  [self.manager reportProblem];
-}
-
 - (void)share
 {
   [self.manager share];

@@ -1,8 +1,8 @@
+// Default drop down which dismiss automaticaly after 3 seconds.
 @interface MWMDropDown : NSObject
 
 - (instancetype)initWithSuperview:(UIView *)view;
 - (void)showWithMessage:(NSString *)message;
-- (void)dismiss;
 
 - (instancetype)init __attribute__((unavailable("call -initWithSuperview: instead!")));
 + (instancetype)new __attribute__((unavailable("call -initWithSuperview: instead!")));

@@ -26,5 +26,7 @@
 + (instancetype)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock;
 + (instancetype)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock;
++ (instancetype)resetChangesAlertWithBlock:(TMWMVoidBlock)block;
++ (instancetype)deleteFeatureAlertWithBlock:(TMWMVoidBlock)block;
 
 @end

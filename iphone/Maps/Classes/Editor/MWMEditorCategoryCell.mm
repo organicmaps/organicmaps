@@ -3,6 +3,11 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
+namespace
+{
+  CGFloat const kDetailShortRightSpace = 16;
+} // namespace
+
 @interface MWMEditorCategoryCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView * accessoryIcon;
@@ -27,7 +32,7 @@
   else
   {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.detailRightSpace.constant -= self.accessoryIcon.width / 2;
+    self.detailRightSpace.constant = kDetailShortRightSpace;
   }
 }
 

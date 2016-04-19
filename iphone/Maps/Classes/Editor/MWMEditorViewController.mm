@@ -1,14 +1,19 @@
+#import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMCuisineEditorViewController.h"
+#import "MWMDropDown.h"
 #import "MWMEditorCategoryCell.h"
 #import "MWMEditorCommon.h"
+#import "MWMEditorNotesFooter.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMEditorSwitchTableViewCell.h"
 #import "MWMEditorTextTableViewCell.h"
 #import "MWMEditorViewController.h"
+#import "MWMNoteCell.h"
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMOpeningHoursEditorViewController.h"
+#import "MWMNoteButtonCell.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMStreetEditorViewController.h"
@@ -25,21 +30,26 @@ NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
 NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 NSString * const kStreetEditorSegue = @"Editor2StreetEditorSegue";
 NSString * const kCategoryEditorSegue = @"Editor2CategoryEditorSegue";
+CGFloat const kDefaultFooterHeight = 32.;
 
 typedef NS_ENUM(NSUInteger, MWMEditorSection)
 {
   MWMEditorSectionCategory,
   MWMEditorSectionName,
   MWMEditorSectionAddress,
-  MWMEditorSectionDetails
+  MWMEditorSectionDetails,
+  MWMEditorSectionNote,
+  MWMEditorSectionButton
 };
 
 vector<MWMPlacePageCellType> const kSectionCategoryCellTypes{MWMPlacePageCellTypeCategory};
-
 vector<MWMPlacePageCellType> const kSectionNameCellTypes{MWMPlacePageCellTypeName};
 
 vector<MWMPlacePageCellType> const kSectionAddressCellTypes{
     MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding, MWMPlacePageCellTypeZipCode};
+
+vector<MWMPlacePageCellType> const kSectionNoteCellTypes{MWMPlacePageCellTypeNote};
+vector<MWMPlacePageCellType> const kSectionButtonCellTypes{MWMPlacePageCellTypeReportButton};
 
 MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeCategory, "MWMEditorCategoryCell"},
@@ -54,7 +64,9 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeEmail, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeOperator, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeCuisine, "MWMEditorSelectTableViewCell"},
-    {MWMPlacePageCellTypeWiFi, "MWMEditorSwitchTableViewCell"}};
+    {MWMPlacePageCellTypeWiFi, "MWMEditorSwitchTableViewCell"},
+    {MWMPlacePageCellTypeNote, "MWMNoteCell"},
+    {MWMPlacePageCellTypeReportButton, "MWMNoteButtonCell"}};
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
@@ -122,10 +134,14 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                                       UITextFieldDelegate, MWMOpeningHoursEditorProtocol,
                                       MWMPlacePageOpeningHoursCellProtocol,
                                       MWMEditorCellProtocol, MWMCuisineEditorProtocol,
-                                      MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate>
+                                      MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate,
+                                      MWMNoteCelLDelegate>
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
 @property (nonatomic) NSMutableArray<NSIndexPath *> * invalidCells;
+@property (nonatomic) MWMEditorNotesFooter * footer;
+@property (copy, nonatomic) NSString * note;
+@property (nonatomic) osm::Editor::FeatureStatus featureStatus;
 
 @end
 
@@ -142,6 +158,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   [super viewDidLoad];
   [self configTable];
   [self configNavBar];
+  auto const & featureID = m_mapObject.GetID();
+  self.featureStatus = osm::Editor::Instance().GetFeatureStatus(featureID.m_mwmId, featureID.m_index);
 }
 
 - (void)setFeatureToEdit:(FeatureID const &)fid
@@ -215,13 +233,27 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
   auto & f = GetFramework();
   auto const & featureID = m_mapObject.GetID();
-  NSDictionary * info = @{kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
+  NSDictionary<NSString *, NSString *> * info = @{kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
                           kStatEditorMWMVersion : @(featureID.GetMwmVersion())};
+  BOOL const haveNote = self.note.length;
+
+  if (haveNote)
+  {
+    auto const latLon = m_mapObject.GetLatLon();
+    NSMutableDictionary * noteInfo = [info mutableCopy];
+    noteInfo[kStatProblem] = self.note;
+    noteInfo[kStatLat] = @(latLon.lat);
+    noteInfo[kStatLon] = @(latLon.lon);
+    [Statistics logEvent:kStatEditorProblemReport withParameters:noteInfo];
+    osm::Editor::Instance().CreateNote(latLon, featureID, self.note.UTF8String);
+  }
 
   switch (f.SaveEditedMapObject(m_mapObject))
   {
-    case osm::Editor::NothingWasChanged: 
+    case osm::Editor::NothingWasChanged:
       [self.navigationController popToRootViewControllerAnimated:YES];
+      if (haveNote)
+        [self showDropDown];
       break;
     case osm::Editor::SavedSuccessfully:
       [Statistics logEvent:(self.isCreating ? kStatEditorAddSuccess : kStatEditorEditSuccess) withParameters:info];
@@ -234,6 +266,20 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
       [self.alertController presentDownloaderNotEnoughSpaceAlert];
       break;
   }
+}
+
+- (void)showDropDown
+{
+  UIViewController * parent = static_cast<UIViewController *>([MapsAppDelegate theApp].mapViewController);
+  MWMDropDown * dd = [[MWMDropDown alloc] initWithSuperview:parent.view];
+  [dd showWithMessage:L(@"editor_edits_sent_message")];
+}
+
+- (MWMEditorNotesFooter *)footer
+{
+  if (!_footer)
+    _footer = [MWMEditorNotesFooter footer];
+  return _footer;
 }
 
 #pragma mark - Offscreen cells
@@ -283,6 +329,15 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
       registerCellsForTableView(cells, self.tableView);
     }
   }
+  m_sections.push_back(MWMEditorSectionNote);
+  m_cells[MWMEditorSectionNote] = kSectionNoteCellTypes;
+  registerCellsForTableView(kSectionNoteCellTypes, self.tableView);
+
+  if (self.isCreating)
+    return;
+  m_sections.push_back(MWMEditorSectionButton);
+  m_cells[MWMEditorSectionButton] = kSectionButtonCellTypes;
+  registerCellsForTableView(kSectionButtonCellTypes, self.tableView);
 }
 
 - (MWMPlacePageCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
@@ -441,6 +496,35 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                     placeholder:L(@"select_cuisine")];
       break;
     }
+    case MWMPlacePageCellTypeNote:
+    {
+      MWMNoteCell * tCell = static_cast<MWMNoteCell *>(cell);
+      [tCell configWithDelegate:self noteText:self.note];
+      break;
+    }
+    case MWMPlacePageCellTypeReportButton:
+    {
+      MWMNoteButtonCell * tCell = static_cast<MWMNoteButtonCell *>(cell);
+
+      auto title = ^ NSString * (osm::Editor::FeatureStatus s)
+      {
+        switch (s)
+        {
+        case osm::Editor::FeatureStatus::Untouched:
+          return L(@"editor_place_doesnt_exist");
+        case osm::Editor::FeatureStatus::Deleted:
+          NSAssert(false, @"Incorrect feature status!");
+          return L(@"editor_place_doesnt_exist");
+        case osm::Editor::FeatureStatus::Modified:
+          return L(@"editor_reset_edits_button");
+        case osm::Editor::FeatureStatus::Created:
+          return L(@"editor_remove_place_message");
+        }
+      };
+
+      [tCell configureWithDelegate:self title:title(self.featureStatus)];
+      break;
+    }
     default:
       NSAssert(false, @"Invalid field for editor");
       break;
@@ -483,7 +567,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     case MWMPlacePageCellTypeOpenHours:
       return ((MWMPlacePageOpeningHoursCell *)cell).cellHeight;
     case MWMPlacePageCellTypeCategory:
+    case MWMPlacePageCellTypeReportButton:
       return self.tableView.rowHeight;
+    case MWMPlacePageCellTypeNote:
+      return static_cast<MWMNoteCell *>(cell).cellHeight;
     default:
     {
       [cell setNeedsUpdateConstraints];
@@ -503,7 +590,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   {
   case MWMEditorSectionName:
   case MWMEditorSectionCategory:
+  case MWMEditorSectionButton:
     return nil;
+  case MWMEditorSectionNote:
+    return L(@"editor_notes_header");
   case MWMEditorSectionAddress:
     return L(@"address");
   case MWMEditorSectionDetails:
@@ -520,7 +610,40 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   case MWMEditorSectionAddress:
   case MWMEditorSectionDetails:
   case MWMEditorSectionCategory:
+  case MWMEditorSectionNote:
+  case MWMEditorSectionButton:
     return nil;
+  }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+  switch (m_sections[section])
+  {
+  case MWMEditorSectionAddress:
+  case MWMEditorSectionDetails:
+  case MWMEditorSectionCategory:
+  case MWMEditorSectionName:
+  case MWMEditorSectionButton:
+    return nil;
+  case MWMEditorSectionNote:
+    return self.footer;
+  }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  switch (m_sections[section])
+  {
+  case MWMEditorSectionAddress:
+  case MWMEditorSectionDetails:
+  case MWMEditorSectionCategory:
+    return 0.;
+  case MWMEditorSectionNote:
+    return self.footer.height;
+  case MWMEditorSectionName:
+  case MWMEditorSectionButton:
+    return kDefaultFooterHeight;
   }
 }
 
@@ -557,6 +680,24 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     [self.invalidCells addObject:indexPath];
 
   [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+#pragma mark - MWMNoteCellDelegate
+
+- (void)cellShouldChangeSize:(MWMNoteCell *)cell text:(NSString *)text
+{
+  self.offscreenCells[reuseIdentifier(MWMPlacePageCellTypeNote)] = cell;
+  self.note = text;
+  [self.tableView beginUpdates];
+  [self.tableView endUpdates];
+  [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:cell]
+                        atScrollPosition:UITableViewScrollPositionBottom
+                                animated:YES];
+}
+
+- (void)cell:(MWMNoteCell *)cell didFinishEditingWithText:(NSString *)text
+{
+  self.note = text;
 }
 
 #pragma mark - MWMEditorCellProtocol
@@ -624,18 +765,66 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   switch (cellType)
   {
-    case MWMPlacePageCellTypeStreet:
-      [self performSegueWithIdentifier:kStreetEditorSegue sender:nil];
+  case MWMPlacePageCellTypeStreet:
+    [self performSegueWithIdentifier:kStreetEditorSegue sender:nil];
+    break;
+  case MWMPlacePageCellTypeCuisine:
+    [self performSegueWithIdentifier:kCuisineEditorSegue sender:nil];
+    break;
+  case MWMPlacePageCellTypeCategory:
+    [self performSegueWithIdentifier:kCategoryEditorSegue sender:nil];
+    break;
+  case MWMPlacePageCellTypeReportButton:
+    switch (self.featureStatus)
+    {
+    case osm::Editor::FeatureStatus::Untouched:
+    {
+      [self.alertController presentPlaceDoesntExistAlertWithBlock:^(NSString * additionalMessage)
+      {
+        auto const & fid = self->m_mapObject.GetID();
+        auto const latLon = self->m_mapObject.GetLatLon();
+        if (additionalMessage.length)
+        {
+          //TODO(Vlad): Pass additional message as second parameter into CreateNote.
+        }
+
+        [Statistics logEvent:kStatEditorProblemReport withParameters:@{
+                                                 kStatEditorMWMName : @(fid.GetMwmName().c_str()),
+                                                 kStatEditorMWMVersion : @(fid.GetMwmVersion()),
+                                                 kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage),
+                                                 kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)}];
+        osm::Editor::Instance().CreateNote(latLon, fid, osm::Editor::kPlaceDoesNotExistMessage);
+        [self backTap];
+        [self showDropDown];
+      }];
       break;
-    case MWMPlacePageCellTypeCuisine:
-      [self performSegueWithIdentifier:kCuisineEditorSegue sender:nil];
+    }
+    case osm::Editor::FeatureStatus::Modified:
+    {
+      [self.alertController presentResetChangesAlertWithBlock:^
+      {
+        // TODO(Vlad): reset all changes
+        [self backTap];
+      }];
       break;
-    case MWMPlacePageCellTypeCategory:
-      [self performSegueWithIdentifier:kCategoryEditorSegue sender:nil];
+    }
+    case osm::Editor::FeatureStatus::Created:
+    {
+      [self.alertController presentDeleteFeatureAlertWithBlock:^
+      {
+        //TODO(Vlad): delete feature
+        [self backTap];
+      }];
       break;
-    default:
-      NSAssert(false, @"Invalid field for cellSelect");
+    }
+    case osm::Editor::FeatureStatus::Deleted:
       break;
+    }
+
+    break;
+  default:
+    NSAssert(false, @"Invalid field for cellSelect");
+    break;
   }
 }
 

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -26,7 +25,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfx-Kc-WOc">
-                        <rect key="frame" x="16" y="12" width="218" height="20"/>
+                        <rect key="frame" x="16" y="12" width="226" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="BaE-rI-CN2"/>
                             <constraint firstAttribute="height" constant="20" id="oLW-um-5dA"/>
@@ -41,12 +40,12 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="501" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrd-hP-nIJ">
-                        <rect key="frame" x="242" y="12" width="42" height="21"/>
+                        <rect key="frame" x="250" y="12" width="42" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="hsO-dV-WsY"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
@@ -64,7 +63,7 @@
                     <constraint firstItem="Jfx-Kc-WOc" firstAttribute="leading" secondItem="mWc-I7-4kZ" secondAttribute="leading" constant="16" id="5lg-6C-NQt"/>
                     <constraint firstItem="qrd-hP-nIJ" firstAttribute="leading" secondItem="Jfx-Kc-WOc" secondAttribute="trailing" constant="8" id="ETn-mX-ysj"/>
                     <constraint firstItem="Jfx-Kc-WOc" firstAttribute="centerY" secondItem="mWc-I7-4kZ" secondAttribute="centerY" id="P6u-UL-5f7"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="qrd-hP-nIJ" secondAttribute="trailing" constant="28" id="Rwj-G9-EoG"/>
+                    <constraint firstAttribute="trailing" secondItem="qrd-hP-nIJ" secondAttribute="trailing" constant="28" id="Rwj-G9-EoG"/>
                     <constraint firstAttribute="trailing" secondItem="uA3-ru-Ja1" secondAttribute="trailing" constant="6" id="byM-mn-aQu"/>
                     <constraint firstItem="uA3-ru-Ja1" firstAttribute="centerY" secondItem="mWc-I7-4kZ" secondAttribute="centerY" id="sVc-Kt-8ZX"/>
                     <constraint firstItem="qrd-hP-nIJ" firstAttribute="centerY" secondItem="mWc-I7-4kZ" secondAttribute="centerY" id="wSH-Lz-TEL"/>

@@ -8,6 +8,7 @@
 #import "MWMLocationAlert.h"
 #import "MWMOsmAuthAlert.h"
 #import "MWMPedestrianShareAlert.h"
+#import "MWMPlaceDoesntExistAlert.h"
 #import "MWMRateAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
 
@@ -161,6 +162,21 @@
 + (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert downloaderNeedUpdateAlertWithOkBlock:okBlock];
+}
+
++ (MWMAlert *)placeDoesntExistAlertWithBlock:(MWMStringBlock)block
+{
+  return [MWMPlaceDoesntExistAlert alertWithBlock:block];
+}
+
++ (MWMAlert *)resetChangesAlertWithBlock:(TMWMVoidBlock)block
+{
+  return [MWMDefaultAlert resetChangesAlertWithBlock:block];
+}
+
++ (MWMAlert *)deleteFeatureAlertWithBlock:(TMWMVoidBlock)block
+{
+  return [MWMDefaultAlert resetChangesAlertWithBlock:block];
 }
 
 + (MWMAlert *)editorViralAlert

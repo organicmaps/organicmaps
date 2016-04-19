@@ -36,6 +36,9 @@ using TMWMDownloadBlock = void (^)(storage::TCountriesVec const &, TMWMVoidBlock
 + (MWMAlert *)downloaderNotEnoughSpaceAlert;
 + (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock;
 + (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock;
++ (MWMAlert *)placeDoesntExistAlertWithBlock:(MWMStringBlock)block;
++ (MWMAlert *)resetChangesAlertWithBlock:(TMWMVoidBlock)block;
++ (MWMAlert *)deleteFeatureAlertWithBlock:(TMWMVoidBlock)block;
 + (MWMAlert *)editorViralAlert;
 + (MWMAlert *)osmAuthAlert;
 - (void)close;
