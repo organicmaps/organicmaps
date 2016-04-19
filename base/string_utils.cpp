@@ -1,6 +1,7 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/cmath.hpp"
 #include "std/iomanip.hpp"
 #include "std/iterator.hpp"
@@ -310,7 +311,8 @@ bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCoun
 
   for (size_t i = 0; i <= mismatchedCount; ++i)
   {
-    mis = mismatch(mis.first, str1End, mis.second);
+    auto const end = mis.first + min(distance(mis.first, str1End), distance(mis.second, str2End));
+    mis = mismatch(mis.first, end, mis.second);
     if (mis.first == str1End && mis.second == str2End)
       return true;
     if (mis.first != str1End)
