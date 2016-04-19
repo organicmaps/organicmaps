@@ -242,9 +242,6 @@
 /* Add bookmark dialog - bookmark color */
 "color" = "สี";
 
-/* Unknown Dropped Pin title, when name can't be determined */
-"dropped_pin" = "ปักหมุด";
-
 /* Default bookmarks set name */
 "my_places" = "สถานที่ของฉัน";
 
@@ -1381,3 +1378,5 @@
 "error_enter_correct_zip_code" = "Enter correct ZIP Code";
 
 "editor_operator" = "Operator";
+
+"placepage_unknown_place" = "Unknown Place";

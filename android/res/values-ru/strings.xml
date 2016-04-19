@@ -151,8 +151,6 @@
 	<string name="bookmarks">Метки</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Цвет</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Новая метка</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Мои Метки</string>
 	<!-- Add bookmark dialog - bookmark name -->
@@ -835,4 +833,5 @@
 	<string name="editor_zip_code">Почтовый индекс</string>
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
 	<string name="editor_operator">Владелец</string>
+	<string name="placepage_unknown_place">Неизвестное место</string>
 </resources>

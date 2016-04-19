@@ -83,7 +83,7 @@ void InitLocalizedStrings()
   f.AddString("cancel", [L(@"cancel") UTF8String]);
   f.AddString("try_again", [L(@"try_again") UTF8String]);
   // Default texts for bookmarks added in C++ code (by URL Scheme API)
-  f.AddString("dropped_pin", [L(@"dropped_pin") UTF8String]);
+  f.AddString("placepage_unknown_place", [L(@"placepage_unknown_place") UTF8String]);
   f.AddString("my_places", [L(@"my_places") UTF8String]);
   f.AddString("my_position", [L(@"my_position") UTF8String]);
   f.AddString("routes", [L(@"routes") UTF8String]);

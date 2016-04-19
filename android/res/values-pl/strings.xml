@@ -147,8 +147,6 @@
 	<string name="bookmarks">Zakładki</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Kolor</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Znacznik</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Moje miejsca</string>
 	<!-- Add bookmark dialog - bookmark name -->

@@ -152,8 +152,6 @@
 	<string name="bookmarks">الإشارات المرجعية</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">اللون</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">الدبوس المُثَبَت</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">أماكني</string>
 	<!-- Add bookmark dialog - bookmark name -->

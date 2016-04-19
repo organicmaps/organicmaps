@@ -152,8 +152,6 @@
 	<string name="bookmarks">บุ๊กมาร์ก</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">สี</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">ปักหมุด</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">สถานที่ของฉัน</string>
 	<!-- Add bookmark dialog - bookmark name -->

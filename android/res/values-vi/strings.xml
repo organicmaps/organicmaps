@@ -152,8 +152,6 @@
 	<string name="bookmarks">Đánh dấu</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Màu sắc</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Con Dấu đã Đặt</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Các Địa chỉ của Tôi</string>
 	<!-- Add bookmark dialog - bookmark name -->

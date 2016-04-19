@@ -152,8 +152,6 @@
 	<string name="bookmarks">Kirjanmerkit</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Väri</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Pudotettu nasta</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Paikkani</string>
 	<!-- Add bookmark dialog - bookmark name -->

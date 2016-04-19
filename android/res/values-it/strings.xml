@@ -147,8 +147,6 @@
 	<string name="bookmarks">Segnalibri</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Colore</string>
-	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">Pin trascinato</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">I miei luoghi</string>
 	<!-- Editor title above street and house number -->
