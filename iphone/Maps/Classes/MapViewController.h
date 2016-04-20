@@ -1,5 +1,6 @@
 #import "LocationManager.h"
 #import "LocationPredictor.h"
+#import "MWMMapDownloaderTypes.h"
 #import "MWMViewController.h"
 #import <MyTargetSDKCorp/MTRGNativeAppwallAd.h>
 
@@ -33,7 +34,7 @@ namespace search { struct AddressInfo; }
 
 - (void)openMigration;
 - (void)openBookmarks;
-- (void)openMapsDownloader;
+- (void)openMapsDownloader:(mwm::DownloaderMode)mode;
 - (void)openEditor;
 
 - (void)refreshAd;

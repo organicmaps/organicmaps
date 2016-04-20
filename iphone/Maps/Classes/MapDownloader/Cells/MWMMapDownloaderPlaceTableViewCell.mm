@@ -18,7 +18,7 @@ namespace
 
 @interface MWMMapDownloaderPlaceTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel * area;
+@property (weak, nonatomic) IBOutlet UILabel * descriptionLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleBottomOffset;
 
 @end
@@ -35,7 +35,7 @@ namespace
   [super layoutSubviews];
   if (isIOS7)
   {
-    self.area.preferredMaxLayoutWidth = self.area.width;
+    self.descriptionLabel.preferredMaxLayoutWidth = self.descriptionLabel.width;
     [super layoutSubviews];
   }
 }
@@ -45,18 +45,25 @@ namespace
 - (void)config:(storage::NodeAttrs const &)nodeAttrs
 {
   [super config:nodeAttrs];
-  BOOL isAreaVisible = NO;
+  BOOL isDescriptionVisible = NO;
   if (self.needDisplayArea && nodeAttrs.m_topmostParentInfo.size() == 1)
   {
     string const & areaName = nodeAttrs.m_topmostParentInfo[0].m_localName;
-    isAreaVisible = (areaName != GetFramework().Storage().GetRootId());
-    if (isAreaVisible)
-      self.area.attributedText = [self matchedString:@(areaName.c_str())
-                                       selectedAttrs:kSelectedAreaAttrs
-                                     unselectedAttrs:kUnselectedAreaAttrs];
+    isDescriptionVisible = (areaName != GetFramework().Storage().GetRootId());
+    if (isDescriptionVisible)
+      self.descriptionLabel.attributedText = [self matchedString:@(areaName.c_str())
+                                                   selectedAttrs:kSelectedAreaAttrs
+                                                 unselectedAttrs:kUnselectedAreaAttrs];
   }
-  self.area.hidden = !isAreaVisible;
-  self.titleBottomOffset.priority = isAreaVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
+  else if (!nodeAttrs.m_nodeLocalDescription.empty())
+  {
+    isDescriptionVisible = YES;
+    self.descriptionLabel.attributedText = [self matchedString:@(nodeAttrs.m_nodeLocalDescription.c_str())
+                                                 selectedAttrs:kSelectedAreaAttrs
+                                               unselectedAttrs:kUnselectedAreaAttrs];
+  }
+  self.descriptionLabel.hidden = !isDescriptionVisible;
+  self.titleBottomOffset.priority = isDescriptionVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 }
 
 @end

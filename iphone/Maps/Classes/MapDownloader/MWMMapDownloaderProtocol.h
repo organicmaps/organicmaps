@@ -2,6 +2,7 @@
 
 @protocol MWMMapDownloaderProtocol <NSObject>
 
+- (void)openNodeSubtree:(storage::TCountryId const &)countryId;
 - (void)downloadNode:(storage::TCountryId const &)countryId;
 - (void)retryDownloadNode:(storage::TCountryId const &)countryId;
 - (void)updateNode:(storage::TCountryId const &)countryId;

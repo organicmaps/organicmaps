@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MWMMapDownloaderButtonTableViewCell" id="KGk-i7-Jjw" customClass="MWMMapDownloaderButtonTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22f-XO-fEh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="ppe-HK-X6q"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="download_maps"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="buttonPressed" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wi2-kT-ib1"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="22f-XO-fEh" secondAttribute="bottom" id="Dmd-Qj-hkL"/>
+                    <constraint firstItem="22f-XO-fEh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VTQ-nl-h3g"/>
+                    <constraint firstAttribute="trailing" secondItem="22f-XO-fEh" secondAttribute="trailing" id="j9Y-lb-BeQ"/>
+                    <constraint firstItem="22f-XO-fEh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rRj-TU-xPW"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -2,7 +2,7 @@
 
 @interface MWMMapDownloaderDefaultDataSource : MWMMapDownloaderDataSource
 
-- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate;
-- (void)reload;
+- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(mwm::DownloaderMode)mode;
+- (void)load;
 
 @end

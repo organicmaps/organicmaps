@@ -6,12 +6,6 @@
 
 using namespace storage;
 
-@interface MWMMapDownloaderDataSource ()
-
-@property (nonatomic, readwrite) BOOL needFullReload;
-
-@end
-
 @interface MWMMapDownloaderDefaultDataSource ()
 
 @property (nonatomic, readonly) NSInteger downloadedCountrySection;
@@ -31,24 +25,8 @@ using namespace storage;
 - (void)load
 {
   [super load];
-  [self configNearMeSection];
-}
-
-- (void)reload
-{
-  NSInteger const closestCoutriesCountBeforeUpdate = self.nearmeCountries.count;
-
-  [super reload];
-
-  NSInteger const closestCoutriesCountAfterUpdate = self.nearmeCountries.count;
-  if (closestCoutriesCountBeforeUpdate != closestCoutriesCountAfterUpdate &&
-      (closestCoutriesCountBeforeUpdate == 0 || closestCoutriesCountAfterUpdate == 0))
-    self.needFullReload = YES;
-  if (self.needFullReload)
-    return;
-  [self.reloadSections shiftIndexesStartingAtIndex:0 by:self.nearmeSectionShift];
-  if (closestCoutriesCountBeforeUpdate != closestCoutriesCountAfterUpdate)
-    [self.reloadSections addIndex:self.nearmeSection];
+  if (self.mode == mwm::DownloaderMode::Available)
+    [self configNearMeSection];
 }
 
 - (void)configNearMeSection
@@ -60,14 +38,8 @@ using namespace storage;
   TCountriesVec closestCoutryIds;
   countryInfoGetter.GetRegionsCountryId(lm.lastLocation.mercator, closestCoutryIds);
   NSMutableArray<NSString *> * nearmeCountries = [@[] mutableCopy];
-  auto const & s = GetFramework().Storage();
   for (auto const & countryId : closestCoutryIds)
-  {
-    NodeStatuses nodeStatuses{};
-    s.GetNodeStatuses(countryId, nodeStatuses);
-    if (nodeStatuses.m_status == NodeStatus::NotDownloaded)
-      [nearmeCountries addObject:@(countryId.c_str())];
-  }
+    [nearmeCountries addObject:@(countryId.c_str())];
   self.nearmeCountries = nearmeCountries;
 }
 

@@ -2,12 +2,18 @@
 #import "MWMMapDownloaderExtendedDataSource.h"
 #import "MWMMapDownloaderSearchDataSource.h"
 #import "MWMMapDownloaderViewController.h"
+#import "MWMNoMapsViewController.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
 
 #include "Framework.h"
 
 #include "storage/downloader_search_params.hpp"
+
+namespace
+{
+NSString * const kNoMapsSegue = @"MapDownloaderEmbedNoMapsSegue";
+} // namespace
 
 using namespace storage;
 
@@ -18,14 +24,25 @@ using namespace storage;
 @property (nonatomic) MWMMapDownloaderDataSource * dataSource;
 @property (nonatomic) MWMMapDownloaderDataSource * defaultDataSource;
 
+@property (nonatomic, readonly) NSString * parentCountryId;
+@property (nonatomic, readonly) mwm::DownloaderMode mode;
+
+@property (nonatomic) BOOL showAllMapsButtons;
+
+- (void)configViews;
+
+- (void)openAvailableMaps;
+
 - (void)reloadTable;
 
 @end
 
-@interface MWMMapDownloaderViewController () <UISearchBarDelegate, UIScrollViewDelegate>
+@interface MWMMapDownloaderViewController () <UISearchBarDelegate, UIScrollViewDelegate, MWMNoMapsViewControllerProtocol>
 
 @property (weak, nonatomic) IBOutlet UIView * statusBarBackground;
 @property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
+@property (weak, nonatomic) IBOutlet UIView * noMapsContainer;
+@property (nonatomic) MWMNoMapsViewController * noMapsController;
 
 @property (nonatomic) MWMMapDownloaderDataSource * searchDataSource;
 
@@ -53,23 +70,39 @@ using namespace storage;
 
 - (void)backTap
 {
-  [self.navigationController popToRootViewControllerAnimated:YES];
+  NSArray<UIViewController *> * viewControllers = self.navigationController.viewControllers;
+  UIViewController * previousViewController = viewControllers[viewControllers.count - 2];
+  if ([previousViewController isKindOfClass:[MWMBaseMapDownloaderViewController class]])
+    [self.navigationController popViewControllerAnimated:YES];
+  else
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-#pragma mark - All Maps Action
-
-- (void)configAllMapsView
+- (void)configViews
 {
-  self.showAllMapsView = NO;
+  [super configViews];
+  [self checkAndConfigNoMapsView];
+}
+
+#pragma mark - No Maps
+
+- (void)checkAndConfigNoMapsView
+{
   auto const & s = GetFramework().Storage();
-  Storage::UpdateInfo updateInfo{};
-  if (!s.GetUpdateInfo(s.GetRootId(), updateInfo) || updateInfo.m_numberOfMwmFilesToUpdate == 0)
+  if (![self.parentCountryId isEqualToString:@(s.GetRootId().c_str())])
     return;
-  self.allMapsLabel.text =
-      [NSString stringWithFormat:@"%@: %@ (%@)", L(@"downloader_outdated_maps"),
-                                 @(updateInfo.m_numberOfMwmFilesToUpdate),
-                                 formattedSize(updateInfo.m_totalUpdateSizeInBytes)];
-  self.showAllMapsView = YES;
+  if (self.mode == mwm::DownloaderMode::Available || s.HaveDownloadedCountries())
+  {
+    [self configAllMapsView];
+    self.tableView.hidden = NO;
+    self.noMapsContainer.hidden = YES;
+  }
+  else
+  {
+    self.showAllMapsButtons = NO;
+    self.tableView.hidden = YES;
+    self.noMapsContainer.hidden = NO;
+  }
 }
 
 #pragma mark - UISearchBarDelegate
@@ -142,11 +175,39 @@ using namespace storage;
   };
 }
 
-#pragma mark - Properties
+#pragma mark - UIScrollViewDelegate
 
-- (void)setParentCountryId:(NSString *)parentId
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-  self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId delegate:self];
+  [self.searchBar resignFirstResponder];
+}
+
+#pragma mark - MWMNoMapsViewControllerProtocol
+
+- (void)handleDownloadMapsAction
+{
+  [self openAvailableMaps];
+}
+
+#pragma mark - Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  [super prepareForSegue:segue sender:sender];
+  if ([segue.identifier isEqualToString:kNoMapsSegue])
+  {
+    self.noMapsController = segue.destinationViewController;
+    self.noMapsController.delegate = self;
+  }
+}
+
+#pragma mark - Configuration
+
+- (void)setParentCountryId:(NSString *)parentId mode:(mwm::DownloaderMode)mode
+{
+  self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId
+                                                                                   delegate:self
+                                                                                       mode:mode];
 }
 
 @end

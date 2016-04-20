@@ -1,4 +1,5 @@
 #import "MWMBottomMenuView.h"
+#import "MWMMapDownloaderTypes.h"
 
 #include "platform/location.hpp"
 
@@ -6,7 +7,7 @@
 
 @protocol MWMBottomMenuControllerProtocol<NSObject>
 
-- (void)actionDownloadMaps;
+- (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
 - (void)closeInfoScreens;
 - (void)addPlace;
 - (void)didFinishAddingPlace;

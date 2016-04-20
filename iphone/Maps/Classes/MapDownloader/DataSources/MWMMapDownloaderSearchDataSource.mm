@@ -19,9 +19,9 @@ extern NSString * const kLargeCountryCellIdentifier;
 
 @implementation MWMMapDownloaderSearchDataSource
 
-- (instancetype)initWithSearchResults:(DownloaderSearchResults const &)results delegate:(id<MWMMapDownloaderProtocol>)delegate
+- (instancetype)initWithSearchResults:(DownloaderSearchResults const &)results delegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate
 {
-  self = [super initWithDelegate:delegate];
+  self = [super initWithDelegate:delegate mode:mwm::DownloaderMode::Available];
   if (self)
   {
     NSMutableOrderedSet<NSString *> * nsSearchCountryIds =
@@ -87,11 +87,6 @@ extern NSString * const kLargeCountryCellIdentifier;
 - (NSString *)searchMatchedResultForCountryId:(NSString *)countryId
 {
   return self.searchMatchedResults[countryId];
-}
-
-- (BOOL)needFullReload
-{
-  return YES;
 }
 
 @end

@@ -3,39 +3,33 @@
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
+#import "MWMMapDownloaderTypes.h"
 
 #include "Framework.h"
 
 using namespace storage;
 
-@interface MWMMapDownloaderDataSource ()
-
-@property (weak, nonatomic) id<MWMMapDownloaderProtocol> delegate;
-
-@property (nonatomic, readwrite) BOOL needFullReload;
-
-@end
-
 @implementation MWMMapDownloaderDataSource
 
-- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate
+- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(mwm::DownloaderMode)mode
 {
   self = [super init];
   if (self)
   {
     _delegate = delegate;
-    _reloadSections = [NSMutableIndexSet indexSet];
+    _mode = mode;
   }
   return self;
 }
 
 #pragma mark - Fill cells with data
 
-- (void)fillCell:(MWMMapDownloaderTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)fillCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-  NSString * countryId = [self countryIdForIndexPath:indexPath];
-  [cell setCountryId:countryId searchQuery:[self searchQuery]];
+  if (![cell isKindOfClass:[MWMMapDownloaderTableViewCell class]])
+    return;
 
+  NSString * countryId = [self countryIdForIndexPath:indexPath];
   if ([cell isKindOfClass:[MWMMapDownloaderPlaceTableViewCell class]])
   {
     MWMMapDownloaderPlaceTableViewCell * placeCell = static_cast<MWMMapDownloaderPlaceTableViewCell *>(cell);
@@ -47,6 +41,9 @@ using namespace storage;
     MWMMapDownloaderSubplaceTableViewCell * subplaceCell = static_cast<MWMMapDownloaderSubplaceTableViewCell *>(cell);
     [subplaceCell setSubplaceText:[self searchMatchedResultForCountryId:countryId]];
   }
+
+  MWMMapDownloaderTableViewCell * tCell = static_cast<MWMMapDownloaderTableViewCell *>(cell);
+  [tCell setCountryId:countryId searchQuery:[self searchQuery]];
 }
 
 #pragma mark - UITableViewDataSource
@@ -61,6 +58,7 @@ using namespace storage;
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
   MWMMapDownloaderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   cell.delegate = self.delegate;
+  cell.mode = self.mode;
   [self fillCell:cell atIndexPath:indexPath];
   return cell;
 }
@@ -108,11 +106,11 @@ using namespace storage;
   return nil;
 }
 
-- (void)setNeedFullReload:(BOOL)needFullReload
+#pragma mark - Helpers
+
+- (BOOL)isButtonCell:(NSInteger)section
 {
-  _needFullReload = needFullReload;
-  if (needFullReload)
-    [self.reloadSections removeAllIndexes];
+  return NO;
 }
 
 @end

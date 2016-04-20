@@ -1,5 +1,6 @@
 #import "Common.h"
 #import "MWMCircularProgress.h"
+#import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderTableViewCell.h"
 #import "NSString+Categories.h"
 #import "UIFont+MapsMeFonts.h"
@@ -84,14 +85,21 @@ namespace
 - (void)configProgress:(storage::NodeAttrs const &)nodeAttrs
 {
   MWMCircularProgress * progress = self.progress;
+  MWMButtonColoring const coloring = self.mode == mwm::DownloaderMode::Downloaded
+                                         ? MWMButtonColoringBlack
+                                         : MWMButtonColoringBlue;
   switch (nodeAttrs.m_status)
   {
     case NodeStatus::NotDownloaded:
     case NodeStatus::Partly:
     {
-      auto const affectedStates = {MWMCircularProgressStateNormal, MWMCircularProgressStateSelected};
-      [progress setImage:[UIImage imageNamed:@"ic_download"] forStates:affectedStates];
-      [progress setColoring:MWMButtonColoringBlack forStates:affectedStates];
+      MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
+                                                          MWMCircularProgressStateSelected};
+      UIImage * image = [self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]]
+                            ? [UIImage imageNamed:@"ic_folder"]
+                            : [UIImage imageNamed:@"ic_download"];
+      [progress setImage:image forStates:affectedStates];
+      [progress setColoring:coloring forStates:affectedStates];
       progress.state = MWMCircularProgressStateNormal;
       break;
     }
@@ -113,7 +121,8 @@ namespace
       break;
     case NodeStatus::OnDiskOutOfDate:
     {
-      auto const affectedStates = {MWMCircularProgressStateNormal, MWMCircularProgressStateSelected};
+      MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
+                                                          MWMCircularProgressStateSelected};
       [progress setImage:[UIImage imageNamed:@"ic_update"] forStates:affectedStates];
       [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
       progress.state = MWMCircularProgressStateNormal;
@@ -150,7 +159,10 @@ namespace
   {
     case NodeStatus::NotDownloaded:
     case NodeStatus::Partly:
-      [self.delegate downloadNode:m_countryId];
+      if ([self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]])
+        [self.delegate openNodeSubtree:m_countryId];
+      else
+        [self.delegate downloadNode:m_countryId];
       break;
     case NodeStatus::Undefined:
     case NodeStatus::Error:
