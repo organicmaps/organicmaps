@@ -1,9 +1,10 @@
-#include "cross_mwm_router.hpp"
-#include "online_cross_fetcher.hpp"
-#include "osrm2feature_map.hpp"
-#include "osrm_helpers.hpp"
-#include "osrm_router.hpp"
-#include "turns_generator.hpp"
+#include "routing/cross_mwm_router.hpp"
+#include "routing/loaded_path_segment.hpp"
+#include "routing/online_cross_fetcher.hpp"
+#include "routing/osrm2feature_map.hpp"
+#include "routing/osrm_helpers.hpp"
+#include "routing/osrm_router.hpp"
+#include "routing/turns_generator.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
@@ -11,9 +12,9 @@
 #include "geometry/angles.hpp"
 #include "geometry/distance.hpp"
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
-#include "geometry/mercator.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
@@ -66,7 +67,7 @@ public:
   {
     return m_loadedSegments;
   }
-  virtual void GetPossibleTurns(NodeID node, m2::PointD const & ingoingPoint,
+  virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
                                 m2::PointD const & junctionPoint,
                                 size_t & ingoingCount,
                                 turns::TTurnCandidates & outgoingTurns) const override
