@@ -148,7 +148,6 @@ NODE_STORAGE=${NODE_STORAGE:-${NS:-mem}}
 ASYNC_PBF=${ASYNC_PBF-}
 KEEP_INTDIR=${KEEP_INTDIR-1}
 OSRM_URL=${OSRM_URL-}
-MIGRATE=${MIGRATE-1}
 # nproc is linux-only
 if [ "$(uname -s)" == "Darwin" ]; then
   CPUS="$(sysctl -n hw.ncpu)"
@@ -284,23 +283,7 @@ if [ "$MODE" == "coast" ]; then
           fail
         fi
       fi
-
-    if [ -z "$TRY_AGAIN" ]; then
-      if [ -z "$OSRM_URL" ]; then
-        log "OSRM_URL variable not set. Generate local world OSRM server."
-        putmode "Step RO: Generating whole world OSRM files for osrm-routed server."
-        bash "$ROUTING_SCRIPT" online >> "$PLANET_LOG" 2>&1
-        OSRM_URL="127.0.0.1:10012/"
-        bash "$ROUTING_SCRIPT" server >> "$PLANET_LOG" 2>&1
-      fi
-
-      if [ -z "$OSRM_URL" ]; then
-        log "OSRM_URL still abcent. Generating without world level roads."
-      else
-        python "$ROADS_SCRIPT" "$INTCOASTSDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
-      fi
     fi
-fi
   done
   # Make a working copy of generated coastlines file
   if [ -n "$OPT_COAST" ]; then
@@ -319,6 +302,16 @@ fi
 
 # This mode is started only after updating or processing a planet file
 if [ "$MODE" == "roads" ]; then
+  if [ -z "$OSRM_URL" ]; then
+    log "OSRM_URL variable not set. Generate local world OSRM server."
+    putmode "Step RO: Generating whole world OSRM files for osrm-routed server."
+
+    bash "$ROUTING_SCRIPT" stop >> "$PLANET_LOG" 2>&1
+    bash "$ROUTING_SCRIPT" online >> "$PLANET_LOG" 2>&1
+    OSRM_URL="127.0.0.1:10012"
+    bash "$ROUTING_SCRIPT" server >> "$PLANET_LOG" 2>&1
+  fi
+
   if [ -z "${OSRM_URL-}" ]; then
     log "OSRM_URL variable not set. World roads will not be calculated."
   else

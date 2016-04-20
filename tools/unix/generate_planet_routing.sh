@@ -54,7 +54,7 @@ if [ "$1" == "pbf" ]; then
   export PLANET
   export INTDIR
   find "$TMPBORDERS" -maxdepth 1 -name '*.poly' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
-    sh -c '"$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 -B="%" --complex-ways --out-pbf -o="$INTDIR/$(basename "%" .poly).pbf"'
+    sh -c '"$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 -B="%" --complete-ways --out-pbf -o="$INTDIR/$(basename "%" .poly).pbf"'
   rm -r "$TMPBORDERS"
 
 elif [ "$1" == "prepare" ]; then
@@ -127,6 +127,10 @@ elif [ "$1" == "mwm" ]; then
     fi
   fi
 
+elif [ "$1" == "stop" ]; then
+  LOG="$LOG_PATH/planet.log"
+  echo "Stopping osrm server..." >> "$LOG"
+  pkill osrm-routed || true
 elif [ "$1" == "online" ]; then
   PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
   OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
@@ -178,10 +182,7 @@ elif [ "$1" == "server" ]; then
   LOG="$LOG_PATH/planet.log"
   if [ -s "$OSRM_FILE" ]; then
     echo "Starting: $OSRM_FILE" >> "$LOG"
-    pkill osrm-routed
-    echo "killed: $OSRM_FILE" >> "$LOG"
     "$OSRM_BUILD_PATH/osrm-routed" "$OSRM_FILE" --borders "$OMIM_PATH/data/" --port "$PORT" >> "$LOG" 2>&1 &
-    echo "started: $OSRM_FILE" >> "$LOG"
 
     echo "Waiting until OSRM server starts:" >> "$LOG"
     until $(curl --output /dev/null --silent --head --fail http://localhost:$PORT/mapsme); do
