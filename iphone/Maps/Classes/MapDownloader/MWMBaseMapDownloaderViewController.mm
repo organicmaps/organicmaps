@@ -27,15 +27,29 @@ extern NSString * const kSubplaceCellIdentifier = @"MWMMapDownloaderSubplaceTabl
 
 namespace
 {
+
+typedef NS_OPTIONS(NSUInteger, ActionButtons)
+{
+  NoAction             = 0,
+  ShowOnMapAction      = 1 << 1,
+  DownloadAction       = 1 << 2,
+  UpdateAction         = 1 << 3,
+  CancelDownloadAction = 1 << 4,
+  RetryDownloadAction  = 1 << 5,
+  DeleteAction         = 1 << 6
+};
+
 NSString * const kAllMapsLabelFormat = @"%@ (%@)";
 NSString * const kCancelActionTitle = L(@"cancel");
 NSString * const kCancelAllTitle = L(@"downloader_cancel_all");
+NSString * const kCancelDownloadActionTitle = L(@"cancel_download");
 NSString * const kDeleteActionTitle = L(@"downloader_delete_map");
 NSString * const kDownloadActionTitle = L(@"downloader_download_map");
-NSString * const kDownloadAllTitle = L(@"downloader_download_all_button");
+NSString * const kDownloadAllActionTitle = L(@"downloader_download_all_button");
 NSString * const kDownloadingTitle = L(@"downloader_downloading");
 NSString * const kMapsTitle = L(@"downloader_maps");
-NSString * const kShowActionTitle = L(@"zoom_to_country");
+NSString * const kRetryActionTitle = L(@"downloader_retry");
+NSString * const kShowOnMapActionTitle = L(@"zoom_to_country");
 NSString * const kUpdateActionTitle = L(@"downloader_status_outdated");
 NSString * const kUpdateAllTitle = L(@"downloader_update_all_button");
 
@@ -217,106 +231,6 @@ using namespace storage;
   [self registerCellWithIdentifier:kButtonCellIdentifier];
 }
 
-- (void)showActionSheetForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  auto const & s = GetFramework().Storage();
-  NodeAttrs nodeAttrs;
-  m_actionSheetId = [self.dataSource countryIdForIndexPath:indexPath].UTF8String;
-  s.GetNodeAttrs(m_actionSheetId, nodeAttrs);
-  BOOL const needsUpdate = (nodeAttrs.m_status == NodeStatus::OnDiskOutOfDate);
-  BOOL const isDownloaded = (needsUpdate || nodeAttrs.m_status == NodeStatus::OnDisk);
-  NSString * title = @(nodeAttrs.m_nodeLocalName.c_str());
-  BOOL const isMultiParent = (nodeAttrs.m_parentInfo.size() > 1);
-  NSString * message = (self.dataSource.isParentRoot || isMultiParent)
-                           ? nil
-                           : @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
-  NSString * downloadActionTitle = [NSString
-      stringWithFormat:@"%@, %@", kDownloadActionTitle, formattedSize(nodeAttrs.m_mwmSize)];
-  if (isIOS7)
-  {
-    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    UIView * cellSuperView = cell.superview;
-    if (!cellSuperView)
-      return;
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title
-                                                              delegate:self
-                                                     cancelButtonTitle:nil
-                                                destructiveButtonTitle:nil
-                                                     otherButtonTitles:nil];
-    if (isDownloaded)
-    {
-      [actionSheet addButtonWithTitle:kShowActionTitle];
-      if (needsUpdate)
-        [actionSheet addButtonWithTitle:kUpdateActionTitle];
-      [actionSheet addButtonWithTitle:kDeleteActionTitle];
-      actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
-    }
-    else
-    {
-      [actionSheet addButtonWithTitle:downloadActionTitle];
-    }
-    if (!IPAD)
-    {
-      [actionSheet addButtonWithTitle:kCancelActionTitle];
-      actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
-    }
-    [actionSheet showFromRect:cell.frame inView:cellSuperView animated:YES];
-  }
-  else
-  {
-    UIAlertController * alertController =
-        [UIAlertController alertControllerWithTitle:title
-                                            message:message
-                                     preferredStyle:UIAlertControllerStyleActionSheet];
-    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    alertController.popoverPresentationController.sourceView = cell;
-    alertController.popoverPresentationController.sourceRect = cell.bounds;
-    if (isDownloaded)
-    {
-      UIAlertAction * showAction = [UIAlertAction actionWithTitle:kShowActionTitle
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action)
-                                    {
-                                      [self showNode:self->m_actionSheetId];
-                                    }];
-      [alertController addAction:showAction];
-      if (needsUpdate)
-      {
-        UIAlertAction * updateAction = [UIAlertAction actionWithTitle:kUpdateActionTitle
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action)
-                                        {
-                                          [self updateNode:self->m_actionSheetId];
-                                        }];
-        [alertController addAction:updateAction];
-      }
-      UIAlertAction * deleteAction = [UIAlertAction actionWithTitle:kDeleteActionTitle
-                                                              style:UIAlertActionStyleDestructive
-                                                            handler:^(UIAlertAction * action)
-                                      {
-                                        [self deleteNode:self->m_actionSheetId];
-                                      }];
-      [alertController addAction:deleteAction];
-    }
-    else
-    {
-      UIAlertAction * downloadAction = [UIAlertAction actionWithTitle:downloadActionTitle
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action)
-                                        {
-                                          [self downloadNode:self->m_actionSheetId];
-                                        }];
-      [alertController addAction:downloadAction];
-    }
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:kCancelActionTitle
-                                                            style:UIAlertActionStyleCancel
-                                                          handler:nil];
-    [alertController addAction:cancelAction];
-
-    [self presentViewController:alertController animated:YES completion:nil];
-  }
-}
-
 #pragma mark - Offscreen cells
 
 - (MWMMapDownloaderTableViewCell *)offscreenCellForIdentifier:(NSString *)reuseIdentifier
@@ -383,7 +297,7 @@ using namespace storage;
         s.GetNodeAttrs(parentCountryId, nodeAttrs);
         self.allMapsButton.hidden = NO;
         [self.allMapsButton
-         setTitle:[NSString stringWithFormat:kAllMapsLabelFormat, kDownloadAllTitle,
+         setTitle:[NSString stringWithFormat:kAllMapsLabelFormat, kDownloadAllActionTitle,
                    formattedSize(nodeAttrs.m_mwmSize -
                                  nodeAttrs.m_localMwmSize)]
          forState:UIControlStateNormal];
@@ -571,6 +485,186 @@ using namespace storage;
     [self showActionSheetForRowAtIndexPath:indexPath];
 }
 
+#pragma mark - Action Sheet
+
+- (void)showActionSheetForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  auto const & s = GetFramework().Storage();
+  NodeAttrs nodeAttrs;
+  m_actionSheetId = [self.dataSource countryIdForIndexPath:indexPath].UTF8String;
+  s.GetNodeAttrs(m_actionSheetId, nodeAttrs);
+
+  ActionButtons buttons = NoAction;
+  switch (nodeAttrs.m_status)
+  {
+    case NodeStatus::Undefined:
+      break;
+    case NodeStatus::NotDownloaded:
+      buttons |= DownloadAction;
+      break;
+    case NodeStatus::Downloading:
+    case NodeStatus::InQueue:
+      buttons |= CancelDownloadAction;
+      break;
+    case NodeStatus::OnDiskOutOfDate:
+      buttons |= ShowOnMapAction;
+      buttons |= UpdateAction;
+      buttons |= DeleteAction;
+      break;
+    case NodeStatus::OnDisk:
+      buttons |= ShowOnMapAction;
+      buttons |= DeleteAction;
+      break;
+    case NodeStatus::Partly:
+      buttons |= DownloadAction;
+      buttons |= DeleteAction;
+      break;
+    case NodeStatus::Error:
+      buttons |= RetryDownloadAction;
+      if (nodeAttrs.m_localMwmCounter != 0)
+        buttons |= DeleteAction;
+      break;
+  }
+
+  NSAssert(buttons != NoAction, @"No action buttons defined.");
+  if (buttons == NoAction)
+    return;
+
+  UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
+  UIView * cellSuperView = cell.superview;
+  if (!cellSuperView)
+    return;
+
+  NSString * title = @(nodeAttrs.m_nodeLocalName.c_str());
+  BOOL const isMultiParent = (nodeAttrs.m_parentInfo.size() > 1);
+  NSString * message = (self.dataSource.isParentRoot || isMultiParent)
+  ? nil
+  : @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
+
+  if (isIOS7)
+  {
+    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title
+                                                              delegate:self
+                                                     cancelButtonTitle:nil
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:nil];
+    [self addButtons:buttons toActionComponent:actionSheet];
+    [actionSheet showFromRect:cell.frame inView:cellSuperView animated:YES];
+  }
+  else
+  {
+    UIAlertController * alertController =
+    [UIAlertController alertControllerWithTitle:title
+                                        message:message
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    alertController.popoverPresentationController.sourceView = cell;
+    alertController.popoverPresentationController.sourceRect = cell.bounds;
+    [self addButtons:buttons toActionComponent:alertController];
+    [self presentViewController:alertController animated:YES completion:nil];
+  }
+}
+
+- (void)addButtons:(ActionButtons)buttons toActionComponent:(id)component
+{
+  UIActionSheet * actionSheet = nil;
+  UIAlertController * alertController = nil;
+  if ([component isKindOfClass:[UIActionSheet class]])
+    actionSheet = component;
+  else if ([component isKindOfClass:[UIAlertController class]])
+    alertController = component;
+
+  if (buttons & ShowOnMapAction)
+  {
+    [actionSheet addButtonWithTitle:kShowOnMapActionTitle];
+    UIAlertAction * action = [UIAlertAction actionWithTitle:kShowOnMapActionTitle
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction * action)
+                              { [self showNode:self->m_actionSheetId]; }];
+    [alertController addAction:action];
+  }
+
+  auto const & s = GetFramework().Storage();
+  if (buttons & DownloadAction)
+  {
+    NodeAttrs nodeAttrs;
+    s.GetNodeAttrs(m_actionSheetId, nodeAttrs);
+    NSString * prefix = nodeAttrs.m_mwmCounter == 1 ? kDownloadActionTitle : kDownloadAllActionTitle;
+    NSString * title = [NSString stringWithFormat:kAllMapsLabelFormat, prefix,
+                        formattedSize(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize)];
+    [actionSheet addButtonWithTitle:title];
+    UIAlertAction * action = [UIAlertAction actionWithTitle:title
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction * action)
+                              { [self downloadNode:self->m_actionSheetId]; }];
+    [alertController addAction:action];
+  }
+
+  if (buttons & UpdateAction)
+  {
+    TCountriesVec downloadedChildren;
+    TCountriesVec availableChildren;
+    s.GetChildrenInGroups(m_actionSheetId, downloadedChildren, availableChildren);
+    TMwmSize updateSize = 0;
+    for (TCountryId const & countryId : downloadedChildren)
+    {
+      NodeAttrs nodeAttrs;
+      s.GetNodeAttrs(countryId, nodeAttrs);
+      updateSize += nodeAttrs.m_mwmSize;
+    }
+    NSString * title = [NSString stringWithFormat:kAllMapsLabelFormat, kUpdateActionTitle,
+                        formattedSize(updateSize)];
+    [actionSheet addButtonWithTitle:title];
+    UIAlertAction * action = [UIAlertAction actionWithTitle:title
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction * action)
+                              { [self updateNode:self->m_actionSheetId]; }];
+    [alertController addAction:action];
+  }
+
+  if (buttons & CancelDownloadAction)
+  {
+    [actionSheet addButtonWithTitle:kCancelDownloadActionTitle];
+    actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+    UIAlertAction * action = [UIAlertAction actionWithTitle:kCancelDownloadActionTitle
+                                                      style:UIAlertActionStyleDestructive
+                                                    handler:^(UIAlertAction * action)
+                              { [self cancelNode:self->m_actionSheetId]; }];
+    [alertController addAction:action];
+  }
+
+  if (buttons & RetryDownloadAction)
+  {
+    [actionSheet addButtonWithTitle:kRetryActionTitle];
+    UIAlertAction * action = [UIAlertAction actionWithTitle:kRetryActionTitle
+                                                      style:UIAlertActionStyleDestructive
+                                                    handler:^(UIAlertAction * action)
+                              { [self retryDownloadNode:self->m_actionSheetId]; }];
+    [alertController addAction:action];
+  }
+
+  if (buttons & DeleteAction)
+  {
+    [actionSheet addButtonWithTitle:kDeleteActionTitle];
+    actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+    UIAlertAction * action = [UIAlertAction actionWithTitle:kDeleteActionTitle
+                                                      style:UIAlertActionStyleDestructive
+                                                    handler:^(UIAlertAction * action)
+                              { [self deleteNode:self->m_actionSheetId]; }];
+    [alertController addAction:action];
+  }
+
+  if (!IPAD)
+  {
+    [actionSheet addButtonWithTitle:kCancelActionTitle];
+    actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
+  }
+  UIAlertAction * action = [UIAlertAction actionWithTitle:kCancelActionTitle
+                                                    style:UIAlertActionStyleCancel
+                                                  handler:nil];
+  [alertController addAction:action];
+}
+
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -581,14 +675,20 @@ using namespace storage;
     return;
   }
   NSString * btnTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-  if ([btnTitle hasPrefix:kDownloadActionTitle])
-    [self downloadNode:m_actionSheetId];
-  else if ([btnTitle isEqualToString:kDeleteActionTitle])
-    [self deleteNode:m_actionSheetId];
-  else if ([btnTitle isEqualToString:kUpdateActionTitle])
-    [self updateNode:m_actionSheetId];
-  else if ([btnTitle isEqualToString:kShowActionTitle])
+  if ([btnTitle containsString:kShowOnMapActionTitle])
     [self showNode:m_actionSheetId];
+  else if ([btnTitle containsString:kDownloadAllActionTitle])
+    [self downloadNode:m_actionSheetId];
+  else if ([btnTitle containsString:kDownloadActionTitle])
+    [self downloadNode:m_actionSheetId];
+  else if ([btnTitle containsString:kUpdateActionTitle])
+    [self updateNode:m_actionSheetId];
+  else if ([btnTitle containsString:kCancelDownloadActionTitle])
+    [self cancelNode:m_actionSheetId];
+  else if ([btnTitle containsString:kRetryActionTitle])
+    [self retryDownloadNode:m_actionSheetId];
+  else if ([btnTitle containsString:kDeleteActionTitle])
+    [self deleteNode:m_actionSheetId];
 }
 
 #pragma mark - MWMMapDownloaderProtocol
