@@ -11,8 +11,8 @@
 
 namespace routing
 {
-using TUniversalNodeId = uint32_t;
-using TUniversalEdgeWeight = double;
+using TNodeId = uint32_t;
+using TEdgeWeight = double;
 
 namespace turns
 {

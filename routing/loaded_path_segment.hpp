@@ -33,9 +33,9 @@ struct LoadedPathSegment
   ftypes::HighwayClass m_highwayClass;
   bool m_onRoundabout;
   bool m_isLink;
-  TUniversalEdgeWeight m_weight;
+  TEdgeWeight m_weight;
   string m_name;
-  TUniversalNodeId m_nodeId;
+  TNodeId m_nodeId;
   vector<SingleLaneInfo> m_lanes;
 
   // General constructor.

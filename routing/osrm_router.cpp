@@ -67,7 +67,7 @@ public:
   {
     return m_loadedSegments;
   }
-  virtual void GetPossibleTurns(TUniversalNodeId node, m2::PointD const & ingoingPoint,
+  virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
                                 m2::PointD const & junctionPoint,
                                 size_t & ingoingCount,
                                 turns::TTurnCandidates & outgoingTurns) const override

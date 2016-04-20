@@ -27,7 +27,7 @@ double constexpr kMinDistMeters = 200.;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
 double constexpr kNotSoCloseMinDistMeters = 30.;
 
-typedef vector<double> TGeomTurnCandidate;
+using TGeomTurnCandidate = vector<double>;
 
 double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
 {

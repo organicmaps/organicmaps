@@ -29,14 +29,14 @@ struct TurnCandidate
    * node is a possible node (a possible way) from the juction.
    * May be NodeId for OSRM router or FeatureId::index for graph router.
    */
-  TUniversalNodeId node;
+  TNodeId node;
   /*!
    * \brief highwayClass field for the road class caching. Because feature reading is a long
    * function.
    */
   ftypes::HighwayClass highwayClass;
 
-  TurnCandidate(double a, TUniversalNodeId n, ftypes::HighwayClass c) : angle(a), node(n), highwayClass(c)
+  TurnCandidate(double a, TNodeId n, ftypes::HighwayClass c) : angle(a), node(n), highwayClass(c)
   {
   }
 };
