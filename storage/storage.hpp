@@ -342,6 +342,9 @@ public:
   /// \param path is resulting array of TCountryId.
   void GetGroupNodePathToRoot(TCountryId const & groupNode, TCountriesVec & path) const;
   
+  /// \brief TODO
+  void GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & nodes) const;
+
   /// \brief Returns current version for mwms which are used by storage.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
 
