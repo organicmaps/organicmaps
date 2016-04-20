@@ -175,6 +175,13 @@ using namespace storage;
   };
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+  [self.searchBar resignFirstResponder];
+}
+
 #pragma mark - MWMNoMapsViewControllerProtocol
 
 - (void)handleDownloadMapsAction

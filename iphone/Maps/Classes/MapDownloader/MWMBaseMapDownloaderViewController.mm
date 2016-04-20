@@ -57,7 +57,7 @@ NSString * const kBaseControllerIdentifier = @"MWMBaseMapDownloaderViewControlle
 NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
 } // namespace
 
-@interface MWMBaseMapDownloaderViewController () <UIActionSheetDelegate, MWMFrameworkStorageObserver>
+@interface MWMBaseMapDownloaderViewController () <UIActionSheetDelegate, UIScrollViewDelegate, MWMFrameworkStorageObserver>
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
 
