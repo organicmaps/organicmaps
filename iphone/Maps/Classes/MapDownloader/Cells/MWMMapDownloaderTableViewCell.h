@@ -1,6 +1,7 @@
 #import "MWMFrameworkObservers.h"
 #import "MWMMapDownloaderProtocol.h"
 #import "MWMMapDownloaderTableViewCellProtocol.h"
+#import "MWMMapDownloaderTypes.h"
 #import "MWMTableViewCell.h"
 
 #include "storage/storage.hpp"
@@ -9,6 +10,7 @@
 
 @property (nonatomic) BOOL isHeightCell;
 @property (weak, nonatomic) id<MWMMapDownloaderProtocol> delegate;
+@property (nonatomic) TMWMMapDownloaderMode mode;
 
 - (void)config:(storage::NodeAttrs const &)nodeAttrs;
 - (void)setCountryId:(NSString *)countryId searchQuery:(NSString *)query;

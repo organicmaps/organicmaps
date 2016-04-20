@@ -405,24 +405,6 @@ using namespace storage;
   [self processCountryEvent:parentCountryId];
 }
 
-#pragma mark - Countries tree(s) navigation
-
-- (void)openAvailableMaps
-{
-  BOOL const isParentRoot = [self.parentCountryId isEqualToString:@(GetFramework().Storage().GetRootId().c_str())];
-  NSString * identifier = isParentRoot ? kControllerIdentifier : kBaseControllerIdentifier;
-  MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
-  [vc setParentCountryId:self.parentCountryId mode:TMWMMapDownloaderMode::Available];
-  [MWMSegue segueFrom:self to:vc];
-}
-
-- (void)openSubtreeForParentCountryId:(NSString *)parentCountryId
-{
-  MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:kBaseControllerIdentifier];
-  [vc setParentCountryId:parentCountryId mode:self.mode];
-  [MWMSegue segueFrom:self to:vc];
-}
-
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -430,7 +412,7 @@ using namespace storage;
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   NSString * identifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
   if ([identifier isEqualToString:kLargeCountryCellIdentifier])
-    [self openSubtreeForParentCountryId:[self.dataSource countryIdForIndexPath:indexPath]];
+    [self openNodeSubtree:[self.dataSource countryIdForIndexPath:indexPath].UTF8String];
   else
     [self showActionSheetForRowAtIndexPath:indexPath];
 }
@@ -691,7 +673,25 @@ using namespace storage;
     [self deleteNode:m_actionSheetId];
 }
 
+#pragma mark - Countries tree(s) navigation
+
+- (void)openAvailableMaps
+{
+  BOOL const isParentRoot = [self.parentCountryId isEqualToString:@(GetFramework().Storage().GetRootId().c_str())];
+  NSString * identifier = isParentRoot ? kControllerIdentifier : kBaseControllerIdentifier;
+  MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+  [vc setParentCountryId:self.parentCountryId mode:TMWMMapDownloaderMode::Available];
+  [MWMSegue segueFrom:self to:vc];
+}
+
 #pragma mark - MWMMapDownloaderProtocol
+
+- (void)openNodeSubtree:(storage::TCountryId const &)countryId
+{
+  MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:kBaseControllerIdentifier];
+  [vc setParentCountryId:@(countryId.c_str()) mode:self.mode];
+  [MWMSegue segueFrom:self to:vc];
+}
 
 - (void)downloadNode:(storage::TCountryId const &)countryId
 {
