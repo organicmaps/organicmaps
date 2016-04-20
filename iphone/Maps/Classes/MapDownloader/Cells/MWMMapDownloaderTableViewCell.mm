@@ -85,7 +85,7 @@ namespace
 - (void)configProgress:(storage::NodeAttrs const &)nodeAttrs
 {
   MWMCircularProgress * progress = self.progress;
-  MWMButtonColoring const coloring = self.mode == TMWMMapDownloaderMode::Downloaded
+  MWMButtonColoring const coloring = self.mode == mwm::DownloaderMode::Downloaded
                                          ? MWMButtonColoringBlack
                                          : MWMButtonColoringBlue;
   switch (nodeAttrs.m_status)
@@ -93,8 +93,8 @@ namespace
     case NodeStatus::NotDownloaded:
     case NodeStatus::Partly:
     {
-      auto const affectedStates = {MWMCircularProgressStateNormal,
-                                   MWMCircularProgressStateSelected};
+      MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
+                                                          MWMCircularProgressStateSelected};
       UIImage * image = [self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]]
                             ? [UIImage imageNamed:@"ic_folder"]
                             : [UIImage imageNamed:@"ic_download"];
@@ -121,7 +121,8 @@ namespace
       break;
     case NodeStatus::OnDiskOutOfDate:
     {
-      auto const affectedStates = {MWMCircularProgressStateNormal, MWMCircularProgressStateSelected};
+      MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
+                                                          MWMCircularProgressStateSelected};
       [progress setImage:[UIImage imageNamed:@"ic_update"] forStates:affectedStates];
       [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
       progress.state = MWMCircularProgressStateNormal;

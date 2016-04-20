@@ -25,7 +25,7 @@ using namespace storage;
 - (void)load
 {
   [super load];
-  if (self.mode == TMWMMapDownloaderMode::Available)
+  if (self.mode == mwm::DownloaderMode::Available)
     [self configNearMeSection];
 }
 

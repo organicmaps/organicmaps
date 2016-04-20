@@ -34,7 +34,7 @@ namespace search { struct AddressInfo; }
 
 - (void)openMigration;
 - (void)openBookmarks;
-- (void)openMapsDownloader:(TMWMMapDownloaderMode)mode;
+- (void)openMapsDownloader:(mwm::DownloaderMode)mode;
 - (void)openEditor;
 
 - (void)refreshAd;

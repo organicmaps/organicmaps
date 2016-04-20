@@ -179,7 +179,7 @@ using namespace storage;
   if ([segue.identifier isEqualToString:kDownloaderSegue])
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
-    [dvc setParentCountryId:@(GetFramework().Storage().GetRootId().c_str()) mode:TMWMMapDownloaderMode::Downloaded];
+    [dvc setParentCountryId:@(GetFramework().Storage().GetRootId().c_str()) mode:mwm::DownloaderMode::Downloaded];
   }
 }
 

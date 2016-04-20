@@ -57,6 +57,9 @@ NSString * const kBaseControllerIdentifier = @"MWMBaseMapDownloaderViewControlle
 NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
 } // namespace
 
+using namespace storage;
+using namespace mwm;
+
 @interface MWMBaseMapDownloaderViewController () <UIActionSheetDelegate, UIScrollViewDelegate, MWMFrameworkStorageObserver>
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
@@ -81,13 +84,11 @@ NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
 @property (nonatomic) BOOL forceFullReload;
 
 @property (nonatomic, readonly) NSString * parentCountryId;
-@property (nonatomic, readonly) TMWMMapDownloaderMode mode;
+@property (nonatomic, readonly) DownloaderMode mode;
 
 @property (nonatomic) BOOL showAllMapsButtons;
 
 @end
-
-using namespace storage;
 
 @implementation MWMBaseMapDownloaderViewController
 {
@@ -132,7 +133,7 @@ using namespace storage;
 
 - (void)configNavBar
 {
-  BOOL const downloaded = self.mode == TMWMMapDownloaderMode::Downloaded;
+  BOOL const downloaded = self.mode == DownloaderMode::Downloaded;
   if (self.dataSource.isParentRoot)
   {
     self.title = downloaded ? L(@"downloader_my_maps_title") : L(@"download_maps");
@@ -146,10 +147,8 @@ using namespace storage;
 
   if (downloaded)
   {
-    UIBarButtonItem * addButton =
-        [self navBarButtonWithImage:[UIImage imageNamed:@"ic_nav_bar_add"]
-                   highlightedImage:[UIImage imageNamed:@"ic_nav_bar_add_press"]
-                             action:@selector(openAvailableMaps)];
+    UIBarButtonItem * addButton = [self buttonWithImage:[UIImage imageNamed:@"ic_nav_bar_add"]
+                                                 action:@selector(openAvailableMaps)];
     self.navigationItem.rightBarButtonItems = [self alignedNavBarButtonItems:@[ addButton ]];
   }
 }
@@ -266,7 +265,7 @@ using namespace storage;
 {
   auto const & s = GetFramework().Storage();
   TCountryId const parentCountryId = self.parentCountryId.UTF8String;
-  if (self.mode == TMWMMapDownloaderMode::Downloaded)
+  if (self.mode == DownloaderMode::Downloaded)
   {
     Storage::UpdateInfo updateInfo{};
     s.GetUpdateInfo(parentCountryId, updateInfo);
@@ -361,7 +360,7 @@ using namespace storage;
 {
   self.skipCountryEventProcessing = YES;
   TCountryId const parentCountryId = self.parentCountryId.UTF8String;
-  if (self.mode == TMWMMapDownloaderMode::Downloaded)
+  if (self.mode == DownloaderMode::Downloaded)
   {
     [Statistics logEvent:kStatDownloaderMapAction
           withParameters:@{
@@ -412,9 +411,16 @@ using namespace storage;
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   NSString * identifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
   if ([identifier isEqualToString:kLargeCountryCellIdentifier])
-    [self openNodeSubtree:[self.dataSource countryIdForIndexPath:indexPath].UTF8String];
+  {
+    NSAssert(self.dataSource != nil, @"Datasource is nil.");
+    NSString * countyId = [self.dataSource countryIdForIndexPath:indexPath];
+    NSAssert(countyId != nil, @"CountryId is nil.");
+    [self openNodeSubtree:countyId.UTF8String];
+  }
   else
+  {
     [self showActionSheetForRowAtIndexPath:indexPath];
+  }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -473,7 +479,10 @@ using namespace storage;
 {
   auto const & s = GetFramework().Storage();
   NodeAttrs nodeAttrs;
-  m_actionSheetId = [self.dataSource countryIdForIndexPath:indexPath].UTF8String;
+  NSAssert(self.dataSource != nil, @"Datasource is nil.");
+  NSString * countyId = [self.dataSource countryIdForIndexPath:indexPath];
+  NSAssert(countyId != nil, @"CountryId is nil.");
+  m_actionSheetId = countyId.UTF8String;
   s.GetNodeAttrs(m_actionSheetId, nodeAttrs);
 
   ActionButtons buttons = NoAction;
@@ -592,7 +601,8 @@ using namespace storage;
     {
       NodeAttrs nodeAttrs;
       s.GetNodeAttrs(countryId, nodeAttrs);
-      updateSize += nodeAttrs.m_mwmSize;
+      if (nodeAttrs.m_status == NodeStatus::OnDiskOutOfDate)
+        updateSize += nodeAttrs.m_mwmSize;
     }
     NSString * title = [NSString stringWithFormat:kAllMapsLabelFormat, kUpdateActionTitle,
                         formattedSize(updateSize)];
@@ -680,7 +690,7 @@ using namespace storage;
   BOOL const isParentRoot = [self.parentCountryId isEqualToString:@(GetFramework().Storage().GetRootId().c_str())];
   NSString * identifier = isParentRoot ? kControllerIdentifier : kBaseControllerIdentifier;
   MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
-  [vc setParentCountryId:self.parentCountryId mode:TMWMMapDownloaderMode::Available];
+  [vc setParentCountryId:self.parentCountryId mode:DownloaderMode::Available];
   [MWMSegue segueFrom:self to:vc];
 }
 
@@ -782,7 +792,7 @@ using namespace storage;
 
 #pragma mark - Configuration
 
-- (void)setParentCountryId:(NSString *)parentId mode:(TMWMMapDownloaderMode)mode
+- (void)setParentCountryId:(NSString *)parentId mode:(DownloaderMode)mode
 {
   self.defaultDataSource = [[MWMMapDownloaderDefaultDataSource alloc] initForRootCountryId:parentId
                                                                                   delegate:self
@@ -809,7 +819,7 @@ using namespace storage;
   return self.dataSource.parentCountryId;
 }
 
-- (TMWMMapDownloaderMode)mode
+- (DownloaderMode)mode
 {
   return self.dataSource.mode;
 }

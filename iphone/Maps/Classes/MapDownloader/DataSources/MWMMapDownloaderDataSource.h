@@ -8,10 +8,10 @@
 @interface MWMMapDownloaderDataSource : NSObject <UITableViewDataSource>
 
 @property (nonatomic, readonly) BOOL isParentRoot;
-@property (nonatomic, readonly) TMWMMapDownloaderMode mode;
+@property (nonatomic, readonly) mwm::DownloaderMode mode;
 @property (weak, nonatomic, readonly) id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol> delegate;
 
-- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(TMWMMapDownloaderMode)mode;
+- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(mwm::DownloaderMode)mode;
 - (NSString *)parentCountryId;
 - (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath;

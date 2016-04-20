@@ -25,7 +25,7 @@ using namespace storage;
 @property (nonatomic) MWMMapDownloaderDataSource * defaultDataSource;
 
 @property (nonatomic, readonly) NSString * parentCountryId;
-@property (nonatomic, readonly) TMWMMapDownloaderMode mode;
+@property (nonatomic, readonly) mwm::DownloaderMode mode;
 
 @property (nonatomic) BOOL showAllMapsButtons;
 
@@ -91,7 +91,7 @@ using namespace storage;
   auto const & s = GetFramework().Storage();
   if (![self.parentCountryId isEqualToString:@(s.GetRootId().c_str())])
     return;
-  if (self.mode == TMWMMapDownloaderMode::Available || s.HaveDownloadedCountries())
+  if (self.mode == mwm::DownloaderMode::Available || s.HaveDownloadedCountries())
   {
     [self configAllMapsView];
     self.tableView.hidden = NO;
@@ -203,7 +203,7 @@ using namespace storage;
 
 #pragma mark - Configuration
 
-- (void)setParentCountryId:(NSString *)parentId mode:(TMWMMapDownloaderMode)mode
+- (void)setParentCountryId:(NSString *)parentId mode:(mwm::DownloaderMode)mode
 {
   self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId
                                                                                    delegate:self

@@ -255,7 +255,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - MWMSearchManagerProtocol & MWMBottomMenuControllerProtocol
 
-- (void)actionDownloadMaps:(TMWMMapDownloaderMode)mode
+- (void)actionDownloadMaps:(mwm::DownloaderMode)mode
 {
   if (platform::migrate::NeedMigrate())
   {

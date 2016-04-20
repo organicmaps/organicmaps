@@ -548,7 +548,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
   [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)openMapsDownloader:(TMWMMapDownloaderMode)mode
+- (void)openMapsDownloader:(mwm::DownloaderMode)mode
 {
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
   [self performSegueWithIdentifier:kDownloaderSegue sender:@(static_cast<NSInteger>(mode))];
@@ -845,7 +845,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
     NSNumber * mode = sender;
-    [dvc setParentCountryId:@(GetFramework().Storage().GetRootId().c_str()) mode:static_cast<TMWMMapDownloaderMode>(mode.integerValue)];
+    [dvc setParentCountryId:@(GetFramework().Storage().GetRootId().c_str()) mode:static_cast<mwm::DownloaderMode>(mode.integerValue)];
   }
   else if ([segue.identifier isEqualToString:kMap2FBLoginSegue])
   {

@@ -10,7 +10,7 @@
 
 @property (nonatomic) BOOL isHeightCell;
 @property (weak, nonatomic) id<MWMMapDownloaderProtocol> delegate;
-@property (nonatomic) TMWMMapDownloaderMode mode;
+@property (nonatomic) mwm::DownloaderMode mode;
 
 - (void)config:(storage::NodeAttrs const &)nodeAttrs;
 - (void)setCountryId:(NSString *)countryId searchQuery:(NSString *)query;

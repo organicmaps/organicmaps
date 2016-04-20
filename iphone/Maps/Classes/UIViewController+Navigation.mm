@@ -18,14 +18,11 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
   return spacer;
 }
 
-- (UIBarButtonItem *)navBarButtonWithImage:(UIImage *)image
-                          highlightedImage:(UIImage *)highlightedImage
-                                    action:(SEL)action
+- (UIBarButtonItem *)buttonWithImage:(UIImage *)image action:(SEL)action
 {
   CGSize const buttonSize = {image.size.width + kButtonExtraWidth, image.size.height};
   UIButton * button = [[UIButton alloc] initWithFrame:{{}, buttonSize}];
   [button setImage:image forState:UIControlStateNormal];
-  [button setImage:highlightedImage forState:UIControlStateHighlighted];
   [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
   return [[UIBarButtonItem alloc] initWithCustomView:button];
 }
@@ -37,9 +34,7 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
 
 - (UIBarButtonItem *)backButton
 {
-  return [self navBarButtonWithImage:[UIImage imageNamed:@"ic_nav_bar_back"]
-                    highlightedImage:[UIImage imageNamed:@"ic_nav_bar_back_press"]
-                              action:@selector(backTap)];
+  return [self buttonWithImage:[UIImage imageNamed:@"ic_nav_bar_back"] action:@selector(backTap)];
 }
 
 - (void)showBackButton

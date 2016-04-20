@@ -8,6 +8,6 @@
 - (void)configTable;
 - (void)configAllMapsView;
 
-- (void)setParentCountryId:(NSString *)parentId mode:(TMWMMapDownloaderMode)mode;
+- (void)setParentCountryId:(NSString *)parentId mode:(mwm::DownloaderMode)mode;
 
 @end

@@ -7,7 +7,7 @@
 
 @protocol MWMBottomMenuControllerProtocol<NSObject>
 
-- (void)actionDownloadMaps:(TMWMMapDownloaderMode)mode;
+- (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
 - (void)closeInfoScreens;
 - (void)addPlace;
 - (void)didFinishAddingPlace;

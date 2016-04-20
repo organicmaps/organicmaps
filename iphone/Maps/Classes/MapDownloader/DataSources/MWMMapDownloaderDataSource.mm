@@ -11,7 +11,7 @@ using namespace storage;
 
 @implementation MWMMapDownloaderDataSource
 
-- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(TMWMMapDownloaderMode)mode
+- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(mwm::DownloaderMode)mode
 {
   self = [super init];
   if (self)

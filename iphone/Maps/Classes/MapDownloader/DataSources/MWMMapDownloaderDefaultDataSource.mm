@@ -29,6 +29,7 @@ auto compareLocalNames = ^NSComparisonResult(NSString * s1, NSString * s2)
 } // namespace
 
 using namespace storage;
+using namespace mwm;
 
 @interface MWMMapDownloaderDefaultDataSource ()
 
@@ -45,7 +46,7 @@ using namespace storage;
 
 @synthesize isParentRoot = _isParentRoot;
 
-- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(TMWMMapDownloaderMode)mode
+- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(DownloaderMode)mode
 {
   self = [super initWithDelegate:delegate mode:mode];
   if (self)
@@ -62,8 +63,8 @@ using namespace storage;
   auto const & s = GetFramework().Storage();
   TCountriesVec downloadedChildren;
   TCountriesVec availableChildren;
-  s.GetChildrenInGroups(m_parentId, downloadedChildren, availableChildren, true);
-  if (self.mode == TMWMMapDownloaderMode::Available)
+  s.GetChildrenInGroups(m_parentId, downloadedChildren, availableChildren, true /* keepAvailableChildren */);
+  if (self.mode == DownloaderMode::Available)
   {
     self.downloadedCountries = nil;
     [self configAvailableSections:availableChildren];

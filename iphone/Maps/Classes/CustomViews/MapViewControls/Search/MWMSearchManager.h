@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 @property (nonnull, nonatomic, readonly) MWMAlertViewController * alertController;
 
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state;
-- (void)actionDownloadMaps:(TMWMMapDownloaderMode)mode;
+- (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
 
 @end
 
