@@ -76,6 +76,10 @@ struct NodeAttrs
   /// a device locale.
   string m_nodeLocalName;
 
+  /// The description of the node in a local language. That means the language dependent on
+  /// a device locale.
+  string m_nodeLocalDescription;
+
   /// Node id and local name of the parents of the node.
   /// For the root |m_parentInfo| is empty.
   /// Locale language is a language set by Storage::SetLocale().
