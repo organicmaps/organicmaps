@@ -148,12 +148,12 @@ void initFieldsMap()
     case MWMPlacePageCellTypeCoordinate:
       return [self coordinate];
     case MWMPlacePageCellTypeAddPlaceButton:
-      return m_info.IsLongTap() ? @"" : nil;
+      return m_info.ShouldShowAddPlace() && isNewMWM ? @"" : nil;
     case MWMPlacePageCellTypeBookmark:
       return m_info.IsBookmark() ? @"" : nil;
     case MWMPlacePageCellTypeEditButton:
       // TODO(Vlad): It's a really strange way to "display" cell if returned text is not nil.
-      return isNewMWM && !m_info.IsMyPosition() && !m_info.GetSubtitle().empty() ? @"": nil;
+      return isNewMWM && !m_info.IsMyPosition() && m_info.IsFeature() ? @"": nil;
     case MWMPlacePageCellTypeAddBusinessButton:
       return m_info.IsBuilding() ? @"" : nil;
     default:

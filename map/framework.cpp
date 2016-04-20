@@ -1891,7 +1891,6 @@ void Framework::OnTapEvent(df::TapInfo const & tapInfo)
   df::SelectionShape::ESelectedObject const selection = OnTapEventImpl(tapInfo, info);
   if (selection != df::SelectionShape::OBJECT_EMPTY)
   {
-    info.m_isLongTap = tapInfo.m_isLong;
     // Back up last tap event to recover selection in case of Drape reinitialization.
     m_lastTapEvent.reset(new df::TapInfo(tapInfo));
 

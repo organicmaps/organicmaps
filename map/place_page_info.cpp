@@ -16,7 +16,7 @@ bool Info::IsMyPosition() const { return m_isMyPosition; }
 bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
 bool Info::IsEditable() const { return m_isEditable; }
 bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
-bool Info::IsLongTap() const { return m_isLongTap; }
+bool Info::ShouldShowAddPlace() const { return !IsFeature() || (!IsPointType() && !IsBuilding()); }
 
 string Info::FormatNewBookmarkName() const
 {

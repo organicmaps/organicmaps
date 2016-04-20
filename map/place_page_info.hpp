@@ -24,7 +24,7 @@ public:
   bool IsFeature() const;
   bool IsBookmark() const;
   bool IsMyPosition() const;
-  bool IsLongTap() const;
+  bool ShouldShowAddPlace() const;
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const;
   /// @returns true if Edit Place button should be displayed.
@@ -65,7 +65,6 @@ public:
 
   bool m_isMyPosition = false;
   bool m_isEditable = false;
-  bool m_isLongTap = false;
 
   // TODO(AlexZ): Temporary solution. It's better to use a wifi icon in UI instead of text.
   string m_localizedWifiString;
