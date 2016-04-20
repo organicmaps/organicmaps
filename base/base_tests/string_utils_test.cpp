@@ -582,6 +582,11 @@ UNIT_TEST(AlmostEqual)
   TEST(!AlmostEqual("MKAD, 600 km", "MKAD, 599 km", 2), ());
   TEST(!AlmostEqual("MKAD, 45-y kilometre", "MKAD, 46", 2), ());
   TEST(!AlmostEqual("ул. Героев Панфиловцев", "ул. Планерная", 2), ());
+
+  string small(10, '\0');
+  string large(1000, '\0');
+  TEST(AlmostEqual(small, large, large.length()), ());
+  TEST(AlmostEqual(large, small, large.length()), ());
 }
 
 UNIT_TEST(EditDistance)
