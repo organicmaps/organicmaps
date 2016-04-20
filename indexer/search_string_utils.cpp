@@ -90,6 +90,12 @@ UniString FeatureTypeToString(uint32_t type)
   return UniString(s.begin(), s.end());
 }
 
+UniString PostcodeToString(strings::UniString const & postcode)
+{
+  static UniString const kPrefix = MakeUniString("!postcode:");
+  return kPrefix + postcode;
+}
+
 namespace
 {
 char const * kStreetTokensSeparator = "\t -,.";

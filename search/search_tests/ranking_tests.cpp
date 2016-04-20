@@ -2,6 +2,7 @@
 
 #include "search/search_query_params.hpp"
 #include "search/v2/ranking_utils.hpp"
+#include "search/v2/tokens_slice.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"

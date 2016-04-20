@@ -19,6 +19,8 @@ void SplitUniString(strings::UniString const & uniS, F f, DelimsT const & delims
 
 strings::UniString FeatureTypeToString(uint32_t type);
 
+strings::UniString PostcodeToString(strings::UniString const & postcode);
+
 template <class ContainerT, class DelimsT>
 bool TokenizeStringAndCheckIfLastTokenIsPrefix(strings::UniString const & s,
                                                ContainerT & tokens,

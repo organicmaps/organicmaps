@@ -33,7 +33,14 @@ void SearchTest::RegisterCountry(string const & name, m2::RectD const & rect)
 bool SearchTest::ResultsMatch(string const & query,
                               vector<shared_ptr<tests_support::MatchingRule>> const & rules)
 {
-  tests_support::TestSearchRequest request(m_engine, query, "en", Mode::Everywhere, m_viewport);
+  return ResultsMatch(query, "en" /* locale */, rules);
+}
+
+bool SearchTest::ResultsMatch(string const & query,
+                              string const & locale,
+                              vector<shared_ptr<tests_support::MatchingRule>> const & rules)
+{
+  tests_support::TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);
   request.Wait();
   return MatchResults(m_engine, rules, request.Results());
 }

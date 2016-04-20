@@ -162,6 +162,40 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
   return SortFeaturesAndBuildCBV(move(features));
 }
 
+template <typename T>
+struct RetrieveAddressFeaturesAdaptor
+{
+  template <typename... TArgs>
+  unique_ptr<coding::CompressedBitVector> operator()(TArgs &&... args)
+  {
+    return RetrieveAddressFeaturesImpl<T>(forward<TArgs>(args)...);
+  }
+};
+
+template <template <typename> class T>
+struct Selector
+{
+  template <typename... TArgs>
+  unique_ptr<coding::CompressedBitVector> operator()(MwmSet::MwmId const & id, MwmValue & value,
+                                                     TArgs &&... args)
+  {
+    version::MwmTraits mwmTraits(value.GetMwmVersion().GetFormat());
+
+    if (mwmTraits.GetSearchIndexFormat() ==
+        version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
+    {
+      T<FeatureWithRankAndCenter> t;
+      return t(id, value, forward<TArgs>(args)...);
+    }
+    if (mwmTraits.GetSearchIndexFormat() ==
+        version::MwmTraits::SearchIndexFormat::CompressedBitVector)
+    {
+      T<FeatureIndexValue> t;
+      return t(id, value, forward<TArgs>(args)...);
+    }
+    return unique_ptr<coding::CompressedBitVector>();
+  }
+};
 }  // namespace
 
 namespace v2
@@ -170,21 +204,8 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
     MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
     SearchQueryParams const & params)
 {
-  version::MwmTraits mwmTraits(value.GetMwmVersion().GetFormat());
-
-  if (mwmTraits.GetSearchIndexFormat() ==
-      version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
-  {
-    using TValue = FeatureWithRankAndCenter;
-    return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);
-  }
-  else if (mwmTraits.GetSearchIndexFormat() ==
-           version::MwmTraits::SearchIndexFormat::CompressedBitVector)
-  {
-    using TValue = FeatureIndexValue;
-    return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);
-  }
-  return unique_ptr<coding::CompressedBitVector>();
+  Selector<RetrieveAddressFeaturesAdaptor> selector;
+  return selector(id, value, cancellable, params);
 }
 
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(

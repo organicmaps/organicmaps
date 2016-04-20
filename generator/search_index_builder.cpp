@@ -136,11 +136,11 @@ struct FeatureNameInserter
   {
   }
 
-  void AddToken(signed char lang, strings::UniString const & s) const
+  void AddToken(uint8_t lang, strings::UniString const & s) const
   {
     strings::UniString key;
     key.reserve(s.size() + 1);
-    key.push_back(static_cast<uint8_t>(lang));
+    key.push_back(lang);
     key.append(s.begin(), s.end());
 
     m_keyValuePairs.emplace_back(key, m_val);
@@ -277,6 +277,18 @@ public:
     FeatureNameInserter<TKey, TValue> inserter(
         skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs, hasStreetType);
     m_valueBuilder.MakeValue(f, types, index, inserter.m_val);
+
+    string const postcode = f.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
+    if (!postcode.empty())
+    {
+      // See OSM TagInfo or Wiki about modern postcodes format. The average number of tokens is less
+      // than two.
+      buffer_vector<strings::UniString, 2> tokens;
+      SplitUniString(search::NormalizeAndSimplifyString(postcode), MakeBackInsertFunctor(tokens),
+                     search::Delimiters());
+      for (auto const & token : tokens)
+        inserter.AddToken(search::kCategoriesLang, search::PostcodeToString(token));
+    }
 
     // Skip types for features without names.
     if (!f.ForEachName(inserter))

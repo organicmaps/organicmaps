@@ -29,6 +29,19 @@ public:
   template <class IterT> UniString(IterT b, IterT e) : BaseT(b, e) {}
 
   bool IsEqualAscii(char const * s) const;
+
+  UniString & operator+=(UniString const & rhs)
+  {
+    append(rhs);
+    return *this;
+  }
+
+  UniString operator+(UniString const & rhs) const
+  {
+    UniString result(*this);
+    result += rhs;
+    return result;
+  }
 };
 
 /// Performs full case folding for string to make it search-compatible according
@@ -67,6 +80,8 @@ bool EqualNoCase(string const & s1, string const & s2);
 UniString MakeUniString(string const & utf8s);
 string ToUtf8(UniString const & s);
 bool IsASCIIString(string const & str);
+bool IsASCIIDigit(UniChar c);
+bool IsASCIILatin(UniChar c);
 
 inline string DebugPrint(UniString const & s)
 {

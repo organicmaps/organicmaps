@@ -1,5 +1,7 @@
 #include "search/v2/locality_scorer.hpp"
 
+#include "search/v2/tokens_slice.hpp"
+
 #include "std/algorithm.hpp"
 
 namespace search

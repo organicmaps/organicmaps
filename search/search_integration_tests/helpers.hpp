@@ -72,9 +72,24 @@ public:
     return id;
   }
 
+  template <typename TBuildFn>
+  MwmSet::MwmId BuildWorld(TBuildFn && fn)
+  {
+    return BuildMwm("testWorld", feature::DataHeader::world, forward<TBuildFn>(fn));
+  }
+
+  template <typename TBuildFn>
+  MwmSet::MwmId BuildCountry(string const & name, TBuildFn && fn)
+  {
+    return BuildMwm(name, feature::DataHeader::country, forward<TBuildFn>(fn));
+  }
+
   inline void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }
 
   bool ResultsMatch(string const & query,
+                    vector<shared_ptr<tests_support::MatchingRule>> const & rules);
+
+  bool ResultsMatch(string const & query, string const & locale,
                     vector<shared_ptr<tests_support::MatchingRule>> const & rules);
 
   bool ResultsMatch(string const & query, Mode mode,
