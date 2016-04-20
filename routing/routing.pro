@@ -21,6 +21,7 @@ SOURCES += \
     cross_mwm_router.cpp \
     cross_routing_context.cpp \
     features_road_graph.cpp \
+    loaded_path_segment.cpp \
     nearest_edge_finder.cpp \
     online_absent_fetcher.cpp \
     online_cross_fetcher.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     cross_routing_context.hpp \
     directions_engine.hpp \
     features_road_graph.hpp \
+    loaded_path_segment.hpp \
     nearest_edge_finder.hpp \
     online_absent_fetcher.hpp \
     online_cross_fetcher.hpp \
@@ -74,9 +76,11 @@ HEADERS += \
     router_delegate.hpp \
     routing_algorithm.hpp \
     routing_mapping.hpp \
+    routing_result_graph.hpp \
     routing_session.hpp \
     routing_settings.hpp \
     speed_camera.hpp \
+    turn_candidate.hpp \
     turns.hpp \
     turns_generator.hpp \
     turns_notification_manager.hpp \
