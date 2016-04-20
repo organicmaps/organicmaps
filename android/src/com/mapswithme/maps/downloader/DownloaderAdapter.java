@@ -64,7 +64,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private final Map<String, CountryItem> mCountryIndex = new HashMap<>();  // Country.id -> Country
 
   private final SparseArray<String> mHeaders = new SparseArray<>();
-  private final Stack<PathEntry> mPath = new Stack<>();
+  private final Stack<PathEntry> mPath = new Stack<>();  // Holds navigation history. The last element is the current level.
 
   private final SparseIntArray mIconsCache = new SparseIntArray();
 
@@ -227,6 +227,15 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       this.myMapsMode = myMapsMode;
       this.topPosition = topPosition;
       this.topOffset = topOffset;
+    }
+
+    @Override
+    public String toString()
+    {
+      return countryId + " (" + name + "), " +
+             "myMapsMode: " + myMapsMode +
+             ", topPosition: " + topPosition +
+             ", topOffset: " + topOffset;
     }
   }
 
@@ -773,11 +782,11 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     if (!canGoUpwards())
       return false;
 
-    final PathEntry entry = mPath.pop();
+    PathEntry entry = mPath.pop();
     mMyMapsMode = entry.myMapsMode;
     refreshData();
 
-    LinearLayoutManager lm = (LinearLayoutManager)mRecycler.getLayoutManager();
+    LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
     lm.scrollToPositionWithOffset(entry.topPosition, entry.topOffset);
 
     mFragment.update();

@@ -399,6 +399,22 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetStatus(JNIEnv * env, jcl
   return static_cast<jint>(ns.m_status);
 }
 
+// static void nativeGetError(String root);
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetError(JNIEnv * env, jclass clazz, jstring root)
+{
+  NodeStatuses ns;
+  GetStorage().GetNodeStatuses(jni::ToNativeString(env, root), ns);
+  return static_cast<jint>(ns.m_error);
+}
+
+// static String nativeGetName(String root);
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetName(JNIEnv * env, jclass clazz, jstring root)
+{
+  return jni::ToJavaString(env, GetStorage().GetNodeLocalName(jni::ToNativeString(env, root)));
+}
+
 // static @Nullable String nativeFindCountry(double lat, double lon);
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeFindCountry(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)

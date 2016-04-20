@@ -10,7 +10,6 @@ import android.support.v4.app.NotificationCompat;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -34,12 +33,12 @@ public final class Notifier
     placeNotification(title, countriesName, pi, ID_UPDATE_AVAILABLE);
   }
 
-  public static void notifyDownloadFailed(CountryItem country)
+  public static void notifyDownloadFailed(String id, String name)
   {
     String title = APP.getString(R.string.app_name);
-    String content = APP.getString(R.string.download_country_failed, country.name);
+    String content = APP.getString(R.string.download_country_failed, name);
 
-    PendingIntent pi = PendingIntent.getActivity(APP, 0, MwmActivity.createShowMapIntent(APP, country.id, false)
+    PendingIntent pi = PendingIntent.getActivity(APP, 0, MwmActivity.createShowMapIntent(APP, id, false)
                                                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
                                                  PendingIntent.FLAG_UPDATE_CURRENT);
 

@@ -66,9 +66,8 @@ public class MwmApplication extends Application
         {
           Notifier.cancelDownloadSuggest();
 
-          CountryItem country = CountryItem.fill(item.countryId);
-          Notifier.notifyDownloadFailed(country);
-          MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, country.errorCode);
+          Notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
+          MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, MapManager.nativeGetError(item.countryId));
 
           return;
         }

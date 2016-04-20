@@ -348,6 +348,16 @@ public final class MapManager
   public static native int nativeGetStatus(String root);
 
   /**
+   * Returns downloading error for given {@code root} node.
+   */
+  public static native int nativeGetError(String root);
+
+  /**
+   * Returns localized name for given {@code root} node.
+   */
+  public static native String nativeGetName(String root);
+
+  /**
    * Returns country ID corresponding to given coordinates or {@code null} on error.
    */
   public static native @Nullable String nativeFindCountry(double lat, double lon);
