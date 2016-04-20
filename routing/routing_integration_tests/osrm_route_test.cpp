@@ -11,8 +11,8 @@ namespace
   UNIT_TEST(StrangeCaseInAfrica)
   {
     integration::CalculateRouteAndTestRouteLength(
-        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(19.207890000000002573, 30.506630000000001246), {0., 0.},
-        MercatorBounds::FromLatLon(19.172889999999998878, 30.473150000000000404), 7250.);
+        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(19.20789, 30.50663), {0., 0.},
+        MercatorBounds::FromLatLon(19.17289, 30.47315), 9186.);
   }
 
   UNIT_TEST(MoscowShortRoadUnpacking)

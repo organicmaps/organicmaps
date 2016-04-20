@@ -156,7 +156,7 @@ UNIT_TEST(RussiaMoscowPlanetnaiTurnTest)
   integration::TestTurnCount(route, 1);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
 
-  integration::TestRouteLength(route, 214.);
+  integration::TestRouteLength(route, 217.);
 }
 
 UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
