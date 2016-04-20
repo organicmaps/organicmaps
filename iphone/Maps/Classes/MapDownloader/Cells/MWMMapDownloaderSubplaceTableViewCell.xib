@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1KI-85-wsU" id="mRF-11-OKU">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="81.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yb5-r1-Z2X">
@@ -89,7 +89,7 @@
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="area" destination="fev-4l-MY3" id="3BY-9T-0E9"/>
+                <outlet property="descriptionLabel" destination="fev-4l-MY3" id="1C2-OF-Vhu"/>
                 <outlet property="downloadSize" destination="rqh-iy-Sx9" id="q4T-Pv-DrI"/>
                 <outlet property="stateWrapper" destination="Yb5-r1-Z2X" id="eb8-Ut-gh5"/>
                 <outlet property="subPlace" destination="x7m-Zm-8y6" id="63W-Bc-FdX"/>

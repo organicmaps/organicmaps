@@ -28,10 +28,8 @@ using namespace storage;
 {
   if (![cell isKindOfClass:[MWMMapDownloaderTableViewCell class]])
     return;
-  MWMMapDownloaderTableViewCell * tCell = static_cast<MWMMapDownloaderTableViewCell *>(cell);
-  NSString * countryId = [self countryIdForIndexPath:indexPath];
-  [tCell setCountryId:countryId searchQuery:[self searchQuery]];
 
+  NSString * countryId = [self countryIdForIndexPath:indexPath];
   if ([cell isKindOfClass:[MWMMapDownloaderPlaceTableViewCell class]])
   {
     MWMMapDownloaderPlaceTableViewCell * placeCell = static_cast<MWMMapDownloaderPlaceTableViewCell *>(cell);
@@ -43,6 +41,9 @@ using namespace storage;
     MWMMapDownloaderSubplaceTableViewCell * subplaceCell = static_cast<MWMMapDownloaderSubplaceTableViewCell *>(cell);
     [subplaceCell setSubplaceText:[self searchMatchedResultForCountryId:countryId]];
   }
+
+  MWMMapDownloaderTableViewCell * tCell = static_cast<MWMMapDownloaderTableViewCell *>(cell);
+  [tCell setCountryId:countryId searchQuery:[self searchQuery]];
 }
 
 #pragma mark - UITableViewDataSource
