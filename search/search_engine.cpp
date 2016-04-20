@@ -82,6 +82,7 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
       {"viewportMaxX", strings::to_string(viewport.maxX())},
       {"viewportMaxY", strings::to_string(viewport.maxY())},
       {"query", params.m_query},
+      {"locale", params.m_inputLocale},
       {"results", resultString},
   };
   alohalytics::LogEvent("searchEmitResultsAndCoords", stats);
