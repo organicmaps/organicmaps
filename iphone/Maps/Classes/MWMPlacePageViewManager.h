@@ -26,6 +26,7 @@
 - (void)share;
 - (void)editPlace;
 - (void)addBusiness;
+- (void)addPlace;
 - (void)addBookmark;
 - (void)removeBookmark;
 - (void)apiBack;

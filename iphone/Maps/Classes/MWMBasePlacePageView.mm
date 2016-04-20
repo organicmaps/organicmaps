@@ -47,6 +47,7 @@ vector<MWMPlacePageCellType> const kSectionMetadataCellTypes {
 vector<MWMPlacePageCellType> const kSectionEditingCellTypes {
   MWMPlacePageCellTypeEditButton,
   MWMPlacePageCellTypeAddBusinessButton,
+  MWMPlacePageCellTypeAddPlaceButton
 };
 
 using TCellTypesSectionMap = pair<vector<MWMPlacePageCellType>, PlacePageSection>;
@@ -68,7 +69,8 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeOpenHours, "MWMPlacePageOpeningHoursCell"},
     {MWMPlacePageCellTypeBookmark, "PlacePageBookmarkCell"},
     {MWMPlacePageCellTypeEditButton, "MWMPlacePageButtonCell"},
-    {MWMPlacePageCellTypeAddBusinessButton, "MWMPlacePageButtonCell"}};
+    {MWMPlacePageCellTypeAddBusinessButton, "MWMPlacePageButtonCell"},
+    {MWMPlacePageCellTypeAddPlaceButton, "MWMPlacePageButtonCell"}};
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
@@ -441,6 +443,7 @@ enum class AttributePosition
       break;
     case MWMPlacePageCellTypeEditButton:
     case MWMPlacePageCellTypeAddBusinessButton:
+    case MWMPlacePageCellTypeAddPlaceButton:
       [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage forType:cellType];
       break;
     default:

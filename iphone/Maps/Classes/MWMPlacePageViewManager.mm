@@ -263,6 +263,11 @@ extern NSString * const kBookmarksChangedNotification;
   [self.delegate addBusinessToPoint:self.entity.mercator];
 }
 
+- (void)addPlace
+{
+  [self.delegate addPlace];
+}
+
 - (void)addBookmark
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)

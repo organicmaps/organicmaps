@@ -10,5 +10,6 @@
 - (void)apiBack;
 - (void)placePageDidClose;
 - (void)addBusinessToPoint:(m2::PointD const &)point;
+- (void)addPlace;
 
 @end
