@@ -1594,5 +1594,30 @@ void Storage::GetGroupNodePathToRoot(TCountryId const & groupNode, TCountriesVec
   });
   path.push_back(m_countries.GetRoot().Value().Name());
 }
+
+void Storage::GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & nodes) const
+{
+  nodes.clear();
   
+  vector<TCountryTreeNode const *> treeNodes;
+  m_countries.Find(countryId, treeNodes);
+  if (treeNodes.empty())
+  {
+    LOG(LWARNING, ("TCountryId =", countryId, "not found in m_countries."));
+    return;
+  }
+
+  nodes.clear();
+  nodes.resize(treeNodes.size());
+  for (auto & node : nodes)
+  {
+    node = countryId;
+    ForEachAncestorExceptForTheRoot(treeNodes,
+                                    [&node](TCountryId const & id, TCountryTreeNode const &)
+                                    {
+                                      node = id;
+                                    });
+  }
+}
+
 }  // namespace storage

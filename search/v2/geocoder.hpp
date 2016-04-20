@@ -118,7 +118,7 @@ public:
   {
     Region(Locality const & l, RegionType type) : Locality(l), m_center(0, 0), m_type(type) {}
 
-    storage::CountryInfoGetter::IdSet m_ids;
+    storage::CountryInfoGetter::TRegionIdSet m_ids;
     string m_enName;
     m2::PointD m_center;
     RegionType m_type;

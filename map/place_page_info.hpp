@@ -62,6 +62,10 @@ public:
   /// Formatted feature address.
   string m_address;
 
+  /// Which country this MapObject is in.
+  /// For a country point it will be set to topmost node for country.
+  storage::TCountryId m_countryId = storage::kInvalidCountryId;
+  
   bool m_isMyPosition = false;
   bool m_isEditable = false;
 

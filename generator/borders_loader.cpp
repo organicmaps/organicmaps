@@ -176,8 +176,8 @@ void UnpackBorders(string const & baseDir, string const & targetDir)
 
   for (size_t id = 0; id < countries.size(); id++)
   {
-    ofstream poly(my::JoinFoldersToPath(targetDir, countries[id].m_name + ".poly"));
-    poly << countries[id].m_name << endl;
+    ofstream poly(my::JoinFoldersToPath(targetDir, countries[id].m_countryId + ".poly"));
+    poly << countries[id].m_countryId << endl;
     src = reader.GetReader(strings::to_string(id));
     uint32_t const count = ReadVarUint<uint32_t>(src);
     for (size_t i = 0; i < count; ++i)

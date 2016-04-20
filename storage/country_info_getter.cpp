@@ -39,9 +39,9 @@ public:
 
   void operator()(CountryDef const & c)
   {
-    if (c.m_name == "USA_Alaska")
+    if (c.m_countryId == "USA_Alaska")
       m_rects[1] = c.m_rect;
-    else if (c.m_name == "USA_Hawaii")
+    else if (c.m_countryId == "USA_Hawaii")
       m_rects[2] = c.m_rect;
     else
       m_rects[0].Add(c.m_rect);
@@ -55,8 +55,8 @@ private:
 // CountryInfoGetter -------------------------------------------------------------------------------
 TCountryId CountryInfoGetter::GetRegionCountryId(m2::PointD const & pt) const
 {
-  IdType const id = FindFirstCountry(pt);
-  return id != kInvalidId ? m_countries[id].m_name : kInvalidCountryId;
+  TRegionId const id = FindFirstCountry(pt);
+  return id != kInvalidId ? m_countries[id].m_countryId : kInvalidCountryId;
 }
 
 void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, TCountriesVec & closestCoutryIds)
@@ -70,26 +70,26 @@ void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, TCountriesVec
   for (size_t id = 0; id < m_countries.size(); ++id)
   {
     if (m_countries[id].m_rect.IsIntersect(lookupRect) && IsCloseEnough(id, pt, kLookupRadiusM))
-      closestCoutryIds.emplace_back(m_countries[id].m_name);
+      closestCoutryIds.emplace_back(m_countries[id].m_countryId);
   }
 }
 
 void CountryInfoGetter::GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const
 {
-  IdType const id = FindFirstCountry(pt);
+  TRegionId const id = FindFirstCountry(pt);
   if (id != kInvalidId)
-    GetRegionInfo(m_countries[id].m_name, info);
+    GetRegionInfo(m_countries[id].m_countryId, info);
 }
 
-void CountryInfoGetter::GetRegionInfo(string const & id, CountryInfo & info) const
+void CountryInfoGetter::GetRegionInfo(TCountryId const & countryId, CountryInfo & info) const
 {
-  auto const it = m_id2info.find(id);
+  auto const it = m_id2info.find(countryId);
   if (it == m_id2info.end())
     return;
 
   info = it->second;
   if (info.m_name.empty())
-    info.m_name = id;
+    info.m_name = countryId;
 
   CountryInfo::FileName2FullName(info.m_name);
 }
@@ -117,7 +117,7 @@ m2::RectD CountryInfoGetter::GetLimitRectForLeaf(TCountryId const & leafCountryI
   return m_countries[it->second].m_rect;
 }
 
-void CountryInfoGetter::GetMatchedRegions(string const & affiliation, IdSet & regions) const
+void CountryInfoGetter::GetMatchedRegions(string const & affiliation, TRegionIdSet & regions) const
 {
   CHECK(m_affiliations, ());
   auto it = m_affiliations->find(affiliation);
@@ -126,12 +126,12 @@ void CountryInfoGetter::GetMatchedRegions(string const & affiliation, IdSet & re
 
   for (size_t i = 0; i < m_countries.size(); ++i)
   {
-    if (binary_search(it->second.begin(), it->second.end(), m_countries[i].m_name))
+    if (binary_search(it->second.begin(), it->second.end(), m_countries[i].m_countryId))
       regions.push_back(i);
   }
 }
 
-bool CountryInfoGetter::IsBelongToRegions(m2::PointD const & pt, IdSet const & regions) const
+bool CountryInfoGetter::IsBelongToRegions(m2::PointD const & pt, TRegionIdSet const & regions) const
 {
   for (auto const & id : regions)
   {
@@ -141,22 +141,28 @@ bool CountryInfoGetter::IsBelongToRegions(m2::PointD const & pt, IdSet const & r
   return false;
 }
 
-bool CountryInfoGetter::IsBelongToRegions(string const & fileName, IdSet const & regions) const
+bool CountryInfoGetter::IsBelongToRegions(TCountryId const & countryId, TRegionIdSet const & regions) const
 {
   for (auto const & id : regions)
   {
-    if (m_countries[id].m_name == fileName)
+    if (m_countries[id].m_countryId == countryId)
       return true;
   }
   return false;
 }
 
+void CountryInfoGetter::RegionIdsToCountryIds(TRegionIdSet const & regions, TCountriesVec & countries) const
+{
+  for (auto const & id : regions)
+    countries.push_back(m_countries[id].m_countryId);
+}
+  
 void CountryInfoGetter::InitAffiliationsInfo(TMappingAffiliations const * affiliations)
 {
   m_affiliations = affiliations;
 }
 
-CountryInfoGetter::IdType CountryInfoGetter::FindFirstCountry(m2::PointD const & pt) const
+CountryInfoGetter::TRegionId CountryInfoGetter::FindFirstCountry(m2::PointD const & pt) const
 {
   for (size_t id = 0; id < m_countries.size(); ++id)
   {
@@ -176,7 +182,7 @@ void CountryInfoGetter::ForEachCountry(string const & prefix, ToDo && toDo) cons
 {
   for (auto const & country : m_countries)
   {
-    if (strings::StartsWith(country.m_name, prefix.c_str()))
+    if (strings::StartsWith(country.m_countryId, prefix.c_str()))
       toDo(country);
   }
 }
@@ -234,7 +240,7 @@ CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countr
   size_t const countrySz = m_countries.size();
   m_countryIndex.reserve(countrySz);
   for (size_t i = 0; i < countrySz; ++i)
-    m_countryIndex[m_countries[i].m_name] = i;
+    m_countryIndex[m_countries[i].m_countryId] = i;
 
   string buffer;
   countryR.ReadAsString(buffer);
@@ -318,16 +324,16 @@ CountryInfoGetterForTesting::CountryInfoGetterForTesting(vector<CountryDef> cons
 void CountryInfoGetterForTesting::AddCountry(CountryDef const & country)
 {
   m_countries.push_back(country);
-  string const & name = country.m_name;
+  string const & name = country.m_countryId;
   m_id2info[name].m_name = name;
 }
 
 void CountryInfoGetterForTesting::GetMatchedRegions(string const & affiliation,
-                                                    IdSet & regions) const
+                                                    TRegionIdSet & regions) const
 {
   for (size_t i = 0; i < m_countries.size(); ++i)
   {
-    if (m_countries[i].m_name == affiliation)
+    if (m_countries[i].m_countryId == affiliation)
       regions.push_back(i);
   }
 }
