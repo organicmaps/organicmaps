@@ -11,6 +11,9 @@
 
 namespace routing
 {
+using TUniversalNodeId = uint32_t;
+using TUniversalEdgeWeight = double;
+
 namespace turns
 {
 /// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
