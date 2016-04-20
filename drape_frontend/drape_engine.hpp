@@ -13,6 +13,7 @@
 
 #include "geometry/polyline2d.hpp"
 #include "geometry/screenbase.hpp"
+#include "geometry/triangle2d.hpp"
 
 #include "base/strings_bundle.hpp"
 
@@ -43,6 +44,7 @@ public:
            bool allow3dBuildings,
            bool blockTapEvents,
            bool showChoosePositionMark,
+           vector<m2::TriangleD> && boundAreaTriangles,
            bool firstLaunch)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
@@ -54,6 +56,7 @@ public:
       , m_allow3dBuildings(allow3dBuildings)
       , m_blockTapEvents(blockTapEvents)
       , m_showChoosePositionMark(showChoosePositionMark)
+      , m_boundAreaTriangles(move(boundAreaTriangles))
       , m_isFirstLaunch(firstLaunch)
     {}
 
@@ -67,6 +70,7 @@ public:
     bool m_allow3dBuildings;
     bool m_blockTapEvents;
     bool m_showChoosePositionMark;
+    vector<m2::TriangleD> m_boundAreaTriangles;
     bool m_isFirstLaunch;
   };
 
@@ -129,7 +133,7 @@ public:
   void UpdateGpsTrackPoints(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove);
   void ClearGpsTrackPoints();
 
-  void EnableChoosePositionMode(bool enable);
+  void EnableChoosePositionMode(bool enable, vector<m2::TriangleD> && boundAreaTriangles);
   void BlockTapEvents(bool block);
 
   void SetKineticScrollEnabled(bool enabled);

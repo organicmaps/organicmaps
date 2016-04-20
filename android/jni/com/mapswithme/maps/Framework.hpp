@@ -137,7 +137,7 @@ namespace android
     void Set3dMode(bool allow3d, bool allow3dBuildings);
     void Get3dMode(bool & allow3d, bool & allow3dBuildings);
 
-    void SetChoosePositionMode(bool isChoosePositionMode);
+    void SetChoosePositionMode(bool isChoosePositionMode, bool isBusiness);
 
     void SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor);
     void ApplyWidgets();

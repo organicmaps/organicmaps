@@ -197,7 +197,7 @@ public class Framework
 
   public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 
-  public static native void nativeTurnChoosePositionMode(boolean turnedOn);
+  public static native void nativeTurnChoosePositionMode(boolean turnedOn, boolean isBusiness);
 
   public static native boolean nativeIsDownloadedMapAtScreenCenter();
 

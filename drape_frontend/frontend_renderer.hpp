@@ -32,6 +32,7 @@
 #include "platform/location.hpp"
 
 #include "geometry/screenbase.hpp"
+#include "geometry/triangle2d.hpp"
 
 #include "std/function.hpp"
 #include "std/map.hpp"
@@ -230,6 +231,8 @@ private:
 
   void PrepareGpsTrackPoints(size_t pointsCount);
 
+  void PullToBoundArea(bool applyZoom = false);
+
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
@@ -311,6 +314,8 @@ private:
   };
 
   unique_ptr<FollowRouteData> m_pendingFollowRoute;
+
+  vector<m2::TriangleD> m_dragBoundArea;
 
 #ifdef DEBUG
   bool m_isTeardowned;

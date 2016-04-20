@@ -351,7 +351,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatMenu}];
   self.state = self.restoreState;
-  [self.delegate addPlace];
+  [self.delegate addPlace:NO];
 }
 
 - (void)menuActionDownloadMaps

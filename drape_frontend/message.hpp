@@ -54,7 +54,8 @@ public:
     ShowChoosePositionMark,
     SetKineticScrollEnabled,
     BlockTapEvents,
-    SetTimeInBackground
+    SetTimeInBackground,
+    SetAddNewPlaceMode
   };
 
   virtual ~Message() {}

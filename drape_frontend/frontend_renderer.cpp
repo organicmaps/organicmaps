@@ -356,17 +356,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
         CheckIsometryMinScale(screen);
         UpdateDisplacementEnabled();
-        if (!m_choosePositionMode || m_currentZoomLevel >= scales::GetAddNewPlaceScale())
-        {
-          InvalidateRect(screen.ClipRect());
-        }
-        else
-        {
-          m2::PointD pt = screen.GlobalRect().Center();
-          if (!m_myPositionController->IsWaitingForLocation())
-            pt = m_myPositionController->GetDrawablePosition();
-          AddUserEvent(SetCenterEvent(pt, scales::GetAddNewPlaceScale(), true));
-        }
+        InvalidateRect(screen.ClipRect());
       }
       break;
     }
@@ -715,6 +705,29 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::SetAddNewPlaceMode:
+    {
+      ref_ptr<SetAddNewPlaceModeMessage> msg = message;
+      m_userEventStream.SetKineticScrollEnabled(msg->IsKineticScrollEnabled());
+      m_dragBoundArea = msg->AcceptBoundArea();
+      if (msg->IsEnabled())
+      {
+        if (!m_dragBoundArea.empty())
+        {
+          PullToBoundArea(true /* applyZoom */);
+        }
+        else
+        {
+          ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+          m2::PointD pt = screen.GlobalRect().Center();
+          if (!m_myPositionController->IsWaitingForLocation())
+            pt = m_myPositionController->GetDrawablePosition();
+          AddUserEvent(SetCenterEvent(pt, scales::GetAddNewPlaceScale(), true));
+        }
+      }
+      break;
+    }
+
   case Message::Invalidate:
     {
       // Do nothing here, new frame will be rendered because of this message processing.
@@ -901,6 +914,21 @@ void FrontendRenderer::PrepareGpsTrackPoints(size_t pointsCount)
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<CacheGpsTrackPointsMessage>(pointsCount),
                             MessagePriority::Normal);
+}
+
+void FrontendRenderer::PullToBoundArea(bool applyZoom)
+{
+  if (m_dragBoundArea.empty())
+    return;
+
+  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+  m2::PointD const center = screen.GlobalRect().Center();
+  if (!m2::IsPointInsideTriangles(center, m_dragBoundArea))
+  {
+    m2::PointD const dest = m2::GetNearestPointToTriangles(center, m_dragBoundArea);
+    int const zoom = applyZoom ? scales::GetAddNewPlaceScale() : m_currentZoomLevel;
+    AddUserEvent(SetCenterEvent(dest, zoom, true));
+  }
 }
 
 void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
@@ -1328,6 +1356,7 @@ void FrontendRenderer::OnDragStarted()
 void FrontendRenderer::OnDragEnded(m2::PointD const & distance)
 {
   m_myPositionController->DragEnded(distance);
+  PullToBoundArea();
 }
 
 void FrontendRenderer::OnScaleStarted()
@@ -1358,6 +1387,7 @@ void FrontendRenderer::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) con
 void FrontendRenderer::OnScaleEnded()
 {
   m_myPositionController->ScaleEnded();
+  PullToBoundArea();
 }
 
 void FrontendRenderer::OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim)

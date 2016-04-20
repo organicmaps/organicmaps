@@ -260,7 +260,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)addBusiness
 {
-  [self.delegate addBusinessToPoint:self.entity.mercator];
+  [self.delegate addBusiness];
 }
 
 - (void)addPlace

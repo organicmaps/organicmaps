@@ -276,7 +276,7 @@ public:
 
   void InvalidateRendering();
 
-  void EnableChoosePositionMode(bool enable);
+  void EnableChoosePositionMode(bool enable, bool enableBounds);
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = function<void(storage::TCountryId const &)>;
@@ -302,6 +302,11 @@ private:
 
   TActivateMapSelectionFn m_activateMapSelectionFn;
   TDeactivateMapSelectionFn m_deactivateMapSelectionFn;
+
+  mutable FeatureID m_selectedFeature;
+
+private:
+  vector<m2::TriangleD> GetBoundAreaTriangles() const;
 
 public:
 

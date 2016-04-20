@@ -9,7 +9,7 @@
 
 - (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
 - (void)closeInfoScreens;
-- (void)addPlace;
+- (void)addPlace:(BOOL)isBusiness;
 - (void)didFinishAddingPlace;
 
 @end

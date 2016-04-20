@@ -60,6 +60,7 @@
 
 #include "geometry/angles.hpp"
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/triangle2d.hpp"
 
 #include "base/math.hpp"
 #include "base/timer.hpp"
@@ -1486,7 +1487,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             params.m_visualScale, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
                             allow3dBuildings, params.m_isChoosePositionMode,
-                            params.m_isChoosePositionMode, params.m_isFirstLaunch);
+                            params.m_isChoosePositionMode, GetBoundAreaTriangles(), params.m_isFirstLaunch);
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
@@ -1855,6 +1856,7 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
                                      place_page::Info const & info) const
 {
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
+  m_selectedFeature = info.GetID();
   CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(),
                          needAnimation));
   if (m_activateMapSelectionFn)
@@ -2415,9 +2417,31 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
     allow3dBuildings = true;
 }
 
-void Framework::EnableChoosePositionMode(bool enable)
+void Framework::EnableChoosePositionMode(bool enable, bool enableBounds)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::EnableChoosePositionMode, _1, enable));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->EnableChoosePositionMode(enable, enableBounds ? GetBoundAreaTriangles() : vector<m2::TriangleD>());
+}
+
+vector<m2::TriangleD> Framework::GetBoundAreaTriangles() const
+{
+  vector<m2::TriangleD> triangles;
+  if (m_selectedFeature.IsValid())
+  {
+    Index::FeaturesLoaderGuard const guard(m_model.GetIndex(), m_selectedFeature.m_mwmId);
+    FeatureType ft;
+    guard.GetFeatureByIndex(m_selectedFeature.m_index, ft);
+    if (ftypes::IsBuildingChecker::Instance()(feature::TypesHolder(ft)))
+    {
+      triangles.reserve(10);
+      ft.ForEachTriangle([&](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+      {
+        triangles.push_back(m2::TriangleD(p1, p2, p3));
+      }, scales::GetUpperScale());
+    }
+    m_selectedFeature = FeatureID();
+  }
+  return triangles;
 }
 
 void Framework::BlockTapEvents(bool block)

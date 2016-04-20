@@ -203,11 +203,11 @@ void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
   m_work.Load3dMode(allow3d, allow3dBuildings);
 }
 
-void Framework::SetChoosePositionMode(bool isChoosePositionMode)
+void Framework::SetChoosePositionMode(bool isChoosePositionMode, bool isBusiness)
 {
   m_isChoosePositionMode = isChoosePositionMode;
   m_work.BlockTapEvents(isChoosePositionMode);
-  m_work.EnableChoosePositionMode(isChoosePositionMode);
+  m_work.EnableChoosePositionMode(isChoosePositionMode, isBusiness);
 }
 
 Storage & Framework::Storage()
@@ -986,11 +986,9 @@ Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env,
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeTurnChoosePositionMode(JNIEnv *, jclass, jboolean turnOn)
+Java_com_mapswithme_maps_Framework_nativeTurnChoosePositionMode(JNIEnv *, jclass, jboolean turnOn, jboolean isBusiness)
 {
-  ::Framework * fr = frm();
-  fr->EnableChoosePositionMode(turnOn);
-  fr->BlockTapEvents(turnOn);
+  g_framework->SetChoosePositionMode(turnOn, isBusiness);
 }
 
 JNIEXPORT jboolean JNICALL

@@ -9,7 +9,7 @@
 - (void)updateStatusBarStyle;
 - (void)apiBack;
 - (void)placePageDidClose;
-- (void)addBusinessToPoint:(m2::PointD const &)point;
+- (void)addBusiness;
 - (void)addPlace;
 
 @end
