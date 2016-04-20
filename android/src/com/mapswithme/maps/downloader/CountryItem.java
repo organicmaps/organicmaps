@@ -39,6 +39,7 @@ public final class CountryItem implements Comparable<CountryItem>
   public String name;
   public String directParentName;
   public String topmostParentName;
+  public String description;
 
   public long size;
   public long totalSize;

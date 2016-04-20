@@ -258,6 +258,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   static jfieldID const countryItemFieldTopmostParentId = env->GetFieldID(g_countryItemClass, "topmostParentId", "Ljava/lang/String;");
   static jfieldID const countryItemFieldDirectParentName = env->GetFieldID(g_countryItemClass, "directParentName", "Ljava/lang/String;");
   static jfieldID const countryItemFieldTopmostParentName = env->GetFieldID(g_countryItemClass, "topmostParentName", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldDescription = env->GetFieldID(g_countryItemClass, "description", "Ljava/lang/String;");
   static jfieldID const countryItemFieldSize = env->GetFieldID(g_countryItemClass, "size", "J");
   static jfieldID const countryItemFieldTotalSize = env->GetFieldID(g_countryItemClass, "totalSize", "J");
   static jfieldID const countryItemFieldChildCount = env->GetFieldID(g_countryItemClass, "childCount", "I");
@@ -302,6 +303,9 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
     env->SetObjectField(item, countryItemFieldTopmostParentId, nullptr);
     env->SetObjectField(item, countryItemFieldTopmostParentName, nullptr);
   }
+
+  // Description
+  env->SetObjectField(item, countryItemFieldDescription, jni::TScopedLocalRef(env, jni::ToJavaString(env, attrs.m_nodeLocalDescription)));
 
   // Sizes
   env->SetLongField(item, countryItemFieldSize, attrs.m_localMwmSize);
