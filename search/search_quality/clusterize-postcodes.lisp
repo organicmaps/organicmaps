@@ -12,14 +12,14 @@ exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
   (ql:quickload "sqlite"))
 
 (defstruct cluster
-  "A cluster of postcodes with the same pattern, i.e.  all six-digirs
+  "A cluster of postcodes with the same pattern, i.e.  all six-digits
    postcodes or all four-digits-two-letters postcodes."
-  (key "") (num-samples 0) (samples (list)))
+  (key "") (num-samples 0) (samples nil))
 
 (defun add-sample (cluster sample)
   "Adds a postcode sample to a cluster of samples."
-  (push sample (slot-value cluster 'samples))
-  (incf (slot-value cluster 'num-samples)))
+  (push sample (cluster-samples cluster))
+  (incf (cluster-num-samples cluster)))
 
 (defparameter *seps* '(#\Space #\Tab #\Newline #\Backspace #\Return #\Rubout #\Linefeed #\"))
 
@@ -41,13 +41,13 @@ exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
 (defun get-pattern-clusters (postcodes)
   "Constructs a list of clusters by a list of postcodes."
   (let ((table (make-hash-table :test #'equal))
-        (clusters (list)))
+        (clusters nil))
     (dolist (postcode postcodes)
       (let* ((trimmed-postcode (trim postcode))
-             (pattern (get-postcode-pattern trimmed-postcode)))
-        (unless (gethash pattern table)
-          (setf (gethash pattern table) (make-cluster :key pattern)))
-        (add-sample (gethash pattern table) trimmed-postcode)))
+             (pattern (get-postcode-pattern trimmed-postcode))
+             (cluster (gethash pattern table (make-cluster :key pattern))))
+        (add-sample cluster trimmed-postcode)
+        (setf (gethash pattern table) cluster)))
     (maphash #'(lambda (pattern cluster)
                  (declare (ignore pattern))
                  (push cluster clusters))
@@ -63,25 +63,25 @@ exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
 (defparameter *postcodes*
   (sqlite:with-open-database (db *db-path*)
     (let ((rows (sqlite:execute-to-list db "select value from tags where key=\"addr:postcode\";"))
-          (result (list)))
+          (result nil))
       ; Flattens rows into a single list.
       (dolist (row rows result)
         (dolist (value row)
           (push value result))))))
 
-(defparameter *clusters* (get-pattern-clusters *postcodes*))
-(setf *clusters* (sort *clusters*
-                       #'(lambda (lhs rhs) (> (slot-value lhs 'num-samples)
-                                              (slot-value rhs 'num-samples)))))
+(defparameter *clusters*
+  (sort (get-pattern-clusters *postcodes*)
+        #'(lambda (lhs rhs) (> (cluster-num-samples lhs)
+                               (cluster-num-samples rhs)))))
 
 (defparameter *total*
   (loop for cluster in *clusters*
-     summing (slot-value cluster 'num-samples)))
+     summing (cluster-num-samples cluster)))
 
 (format t "Total: ~a~%" *total*)
 (loop for cluster in *clusters*
    for prev-prefix-sum = 0 then curr-prefix-sum
-   for curr-prefix-sum = (+ prev-prefix-sum (slot-value cluster 'num-samples))
+   for curr-prefix-sum = (+ prev-prefix-sum (cluster-num-samples cluster))
 
    do (let ((key (slot-value cluster 'key))
             (num-samples (slot-value cluster 'num-samples))
