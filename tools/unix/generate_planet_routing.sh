@@ -131,6 +131,7 @@ elif [ "$1" == "stop" ]; then
   LOG="$LOG_PATH/planet.log"
   echo "Stopping osrm server..." >> "$LOG"
   pkill osrm-routed || true
+
 elif [ "$1" == "online" ]; then
   PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
   OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
@@ -167,6 +168,7 @@ elif [ "$1" == "online" ]; then
   else
       echo "Failed to create $OSRM_FILE" >> "$LOG"
   fi
+
 elif [ "$1" == "server" ]; then
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
   OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OMIM_PATH/../osrm-backend-release}"

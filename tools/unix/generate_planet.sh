@@ -312,12 +312,9 @@ if [ "$MODE" == "roads" ]; then
     bash "$ROUTING_SCRIPT" server >> "$PLANET_LOG" 2>&1
   fi
 
-  if [ -z "${OSRM_URL-}" ]; then
-    log "OSRM_URL variable not set. World roads will not be calculated."
-  else
-    putmode "Step 2a: Generating road networks for the World map"
-    python "$ROADS_SCRIPT" "$INTDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
-  fi
+  putmode "Step 2a: Generating road networks for the World map"
+  python "$ROADS_SCRIPT" "$INTDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
+
   MODE=inter
 fi
 
