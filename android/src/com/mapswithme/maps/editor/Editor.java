@@ -80,6 +80,7 @@ public final class Editor
 
   public static native boolean nativeIsAddressEditable();
   public static native boolean nativeIsNameEditable();
+  public static native boolean nativeIsBuilding();
 
   @NonNull
   public static native String[] nativeGetNearbyStreets();

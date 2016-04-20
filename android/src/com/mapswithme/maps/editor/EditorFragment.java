@@ -34,7 +34,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mStreet;
   private EditText mHouseNumber;
   private EditText mZipcode;
-  private EditText mLevels;
+  private View mBlockLevels;
+  private EditText mBuildingLevels;
   private TextInputLayout mInputHouseNumber;
   private EditText mPhone;
   private EditText mWebsite;
@@ -89,7 +90,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       }
     });
     mZipcode.setText(Editor.nativeGetZipCode());
-    mLevels.setText(Editor.nativeGetBuildingLevels());
+    mBuildingLevels.setText(Editor.nativeGetBuildingLevels());
     mPhone.setText(Editor.nativeGetPhone());
     mWebsite.setText(Editor.nativeGetWebsite());
     mEmail.setText(Editor.nativeGetEmail());
@@ -115,7 +116,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetDefaultName(mName.getText().toString());
     Editor.nativeSetHouseNumber(mHouseNumber.getText().toString());
     Editor.nativeSetZipCode(mZipcode.getText().toString());
-    Editor.nativeSetBuildingLevels(mLevels.getText().toString());
+    Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
     Editor.nativeSetPhone(mPhone.getText().toString());
     Editor.nativeSetWebsite(mWebsite.getText().toString());
     Editor.nativeSetEmail(mEmail.getText().toString());
@@ -140,6 +141,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     UiUtils.showIf(Editor.nativeIsNameEditable(), mCardName);
     UiUtils.showIf(Editor.nativeIsAddressEditable(), mCardAddress);
+    UiUtils.showIf(Editor.nativeIsBuilding(), mBlockLevels);
 
     final int[] editableMeta = Editor.nativeGetEditableFields();
     if (editableMeta.length == 0)
@@ -200,9 +202,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mInputHouseNumber = (TextInputLayout) blockHouseNumber.findViewById(R.id.custom_input);
     View blockZipcode = view.findViewById(R.id.block_zipcode);
     mZipcode = findInputAndInitBlock(blockZipcode, 0, R.string.editor_zip_code);
-    View blockLevels = view.findViewById(R.id.block_levels);
+    mBlockLevels = view.findViewById(R.id.block_levels);
     // TODO set levels limit (25 or more, get it from the core)
-    mLevels = findInputAndInitBlock(blockLevels, 0, R.string.editor_storey_number);
+    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, R.string.editor_storey_number);
     // Details
     View blockPhone = view.findViewById(R.id.block_phone);
     mPhone = findInputAndInitBlock(blockPhone, R.drawable.ic_phone, R.string.phone);

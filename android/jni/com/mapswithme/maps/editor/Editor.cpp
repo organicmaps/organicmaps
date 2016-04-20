@@ -245,6 +245,12 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsNameEditable(JNIEnv * env, jclass
   return g_editableMapObject.IsNameEditable();
 }
 
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass clazz)
+{
+  return g_editableMapObject.IsBuilding();
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetDefaultName(JNIEnv * env, jclass)
 {
