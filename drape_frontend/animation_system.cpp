@@ -3,9 +3,6 @@
 
 #include "base/logging.hpp"
 
-#include "boost/variant/variant.hpp"
-#include "boost/variant/get.hpp"
-
 namespace df
 {
 
@@ -73,6 +70,11 @@ bool Interpolator::IsFinished() const
 void Interpolator::Advance(double elapsedSeconds)
 {
   m_elapsedTime += elapsedSeconds;
+}
+
+void Interpolator::Finish()
+{
+  m_elapsedTime = m_duration + m_delay + 1.0;
 }
 
 void Interpolator::SetMaxDuration(double maxDuration)
@@ -172,6 +174,12 @@ void PositionInterpolator::Advance(double elapsedSeconds)
   m_position = InterpolatePoint(m_startPosition, m_endPosition, GetT());
 }
 
+void PositionInterpolator::Finish()
+{
+  TBase::Finish();
+  m_position = m_endPosition;
+}
+
 // static
 double AngleInterpolator::GetRotateDuration(double startAngle, double endAngle)
 {
@@ -197,6 +205,12 @@ void AngleInterpolator::Advance(double elapsedSeconds)
 {
   TBase::Advance(elapsedSeconds);
   m_angle = InterpolateDouble(m_startAngle, m_endAngle, GetT());
+}
+
+void AngleInterpolator::Finish()
+{
+  TBase::Finish();
+  m_angle = m_endAngle;
 }
 
 // static
@@ -228,6 +242,12 @@ void ScaleInterpolator::Advance(double elapsedSeconds)
 {
   TBase::Advance(elapsedSeconds);
   m_scale = InterpolateDouble(m_startScale, m_endScale, GetT());
+}
+
+void ScaleInterpolator::Finish()
+{
+  TBase::Finish();
+  m_scale = m_endScale;
 }
 
 MapLinearAnimation::MapLinearAnimation(m2::PointD const & startPos, m2::PointD const & endPos,
@@ -296,6 +316,17 @@ void MapLinearAnimation::Advance(double elapsedSeconds)
     m_positionInterpolator->Advance(elapsedSeconds);
 }
 
+void MapLinearAnimation::Finish()
+{
+  if (m_angleInterpolator != nullptr)
+    m_angleInterpolator->Finish();
+  if (m_scaleInterpolator != nullptr)
+    m_scaleInterpolator->Finish();
+  if (m_positionInterpolator != nullptr)
+    m_positionInterpolator->Finish();
+  Animation::Finish();
+}
+
 void MapLinearAnimation::SetMaxDuration(double maxDuration)
 {
   if (m_angleInterpolator != nullptr)
@@ -325,7 +356,7 @@ bool MapLinearAnimation::IsFinished() const
       && (m_positionInterpolator == nullptr || m_positionInterpolator->IsFinished()));
 }
 
-Animation::TPropValue MapLinearAnimation::GetProperty(TObject object, TProperty property) const
+Animation::PropertyValue MapLinearAnimation::GetProperty(TObject object, TProperty property) const
 {
   ASSERT(object == Animation::MapPlane, ());
 
@@ -381,6 +412,12 @@ void MapScaleAnimation::Advance(double elapsedSeconds)
   m_scaleInterpolator->Advance(elapsedSeconds);
 }
 
+void MapScaleAnimation::Finish()
+{
+  m_scaleInterpolator->Finish();
+  Animation::Finish();
+}
+
 void MapScaleAnimation::SetMaxDuration(double maxDuration)
 {
   m_scaleInterpolator->SetMaxDuration(maxDuration);
@@ -396,7 +433,7 @@ bool MapScaleAnimation::IsFinished() const
   return m_scaleInterpolator->IsFinished();
 }
 
-Animation::TPropValue MapScaleAnimation::GetProperty(TObject object, TProperty property) const
+Animation::PropertyValue MapScaleAnimation::GetProperty(TObject object, TProperty property) const
 {
 
   if (property == Animation::Position)
@@ -453,6 +490,14 @@ void MapFollowAnimation::Advance(double elapsedSeconds)
   m_pixelPosInterpolator->Advance(elapsedSeconds);
 }
 
+void MapFollowAnimation::Finish()
+{
+  m_angleInterpolator->Finish();
+  m_scaleInterpolator->Finish();
+  m_pixelPosInterpolator->Finish();
+  Animation::Finish();
+}
+
 void MapFollowAnimation::SetMaxDuration(double maxDuration)
 {
   m_angleInterpolator->SetMaxDuration(maxDuration);
@@ -479,7 +524,7 @@ bool MapFollowAnimation::IsFinished() const
       && (m_scaleInterpolator == nullptr || m_scaleInterpolator->IsFinished()));
 }
 
-Animation::TPropValue MapFollowAnimation::GetProperty(TObject object, TProperty property) const
+Animation::PropertyValue MapFollowAnimation::GetProperty(TObject object, TProperty property) const
 {
 
   if (property == Animation::Position)
@@ -503,6 +548,66 @@ Animation::TPropValue MapFollowAnimation::GetProperty(TObject object, TProperty 
   return 0.0;
 }
 
+PerspectiveSwitchAnimation::PerspectiveSwitchAnimation(double startAngle, double endAngle)
+  : Animation(false, false)
+{
+  m_angleInterpolator = make_unique_dp<AngleInterpolator>(startAngle, endAngle);
+  m_objects.insert(Animation::MapPlane);
+  m_properties.insert(Animation::AnglePerspective);
+}
+
+Animation::TObjectProperties const & PerspectiveSwitchAnimation::GetProperties(TObject object) const
+{
+  ASSERT(object == Animation::MapPlane, ());
+  return m_properties;
+}
+
+bool PerspectiveSwitchAnimation::HasProperty(TObject object, TProperty property) const
+{
+  return HasObject(object) && m_properties.find(property) != m_properties.end();
+}
+
+void PerspectiveSwitchAnimation::Advance(double elapsedSeconds)
+{
+  m_angleInterpolator->Advance(elapsedSeconds);
+}
+
+void PerspectiveSwitchAnimation::Finish()
+{
+  m_angleInterpolator->Finish();
+  Animation::Finish();
+}
+
+void PerspectiveSwitchAnimation::SetMaxDuration(double maxDuration)
+{
+  m_angleInterpolator->SetMaxDuration(maxDuration);
+}
+
+double PerspectiveSwitchAnimation::GetDuration() const
+{
+  return m_angleInterpolator->GetDuration();
+}
+
+bool PerspectiveSwitchAnimation::IsFinished() const
+{
+  return m_angleInterpolator->IsFinished();
+}
+
+Animation::PropertyValue PerspectiveSwitchAnimation::GetProperty(TObject object, TProperty property) const
+{
+  ASSERT(object == Animation::MapPlane, ());
+
+  switch (property)
+  {
+  case Animation::AnglePerspective:
+    return m_angleInterpolator->GetAngle();
+    break;
+  default:
+    ASSERT(!"Wrong property", ());
+  }
+
+  return 0.0;
+}
 
 Animation::TObjectProperties const & ParallelAnimation::GetProperties(TObject object) const
 {
@@ -555,6 +660,13 @@ void ParallelAnimation::Advance(double elapsedSeconds)
     else
       ++iter;
   }
+}
+
+void ParallelAnimation::Finish()
+{
+  for (auto & anim : m_animations)
+    anim->Finish();
+  Animation::Finish();
 }
 
 Animation::TAnimObjects const & SequenceAnimation::GetObjects() const
@@ -615,16 +727,19 @@ AnimationSystem::AnimationSystem()
 
 }
 
-m2::AnyRectD AnimationSystem::GetRect(ScreenBase const & currentScreen)
+double AnimationSystem::GetPerspectiveAngle(double currentAngle)
+{
+  return GetProperty(Animation::MapPlane, Animation::AnglePerspective, currentAngle).m_valueD;
+}
+
+m2::AnyRectD AnimationSystem::GetRect(ScreenBase const & currentScreen, bool & viewportChanged)
 {
   const Animation::TObject obj = Animation::MapPlane;
+  viewportChanged |= m_lastScreen != nullptr && (m_lastScreen->isPerspective() != currentScreen.isPerspective());
   m_lastScreen = make_unique_dp<ScreenBase>(currentScreen);
-  double scale = boost::get<double>(
-        GetProperty(obj, Animation::Scale, currentScreen.GetScale()));
-  double angle = boost::get<double>(
-        GetProperty(obj, Animation::Angle, currentScreen.GetAngle()));
-  m2::PointD pos = boost::get<m2::PointD>(
-        GetProperty(obj, Animation::Position, currentScreen.GlobalRect().GlobalZero()));
+  double scale = GetProperty(obj, Animation::Scale, currentScreen.GetScale()).m_valueD;
+  double angle = GetProperty(obj, Animation::Angle, currentScreen.GetAngle()).m_valueD;
+  m2::PointD pos = GetProperty(obj, Animation::Position, currentScreen.GlobalRect().GlobalZero()).m_valuePointD;
   m2::RectD rect = currentScreen.PixelRect();
   rect.Offset(-rect.Center());
   rect.Scale(scale);
@@ -633,12 +748,13 @@ m2::AnyRectD AnimationSystem::GetRect(ScreenBase const & currentScreen)
 
 bool AnimationSystem::AnimationExists(Animation::TObject object) const
 {
-  if (m_animationChain.empty())
-    return false;
-  for (auto const & anim : m_animationChain.front())
+  if (!m_animationChain.empty())
   {
-    if (anim->HasObject(object))
-      return true;
+    for (auto const & anim : m_animationChain.front())
+    {
+      if (anim->HasObject(object))
+        return true;
+    }
   }
   for (auto it = m_propertyCache.begin(); it != m_propertyCache.end(); ++it)
   {
@@ -692,10 +808,63 @@ void AnimationSystem::AddAnimation(drape_ptr<Animation> && animation, bool force
 
 void AnimationSystem::PushAnimation(drape_ptr<Animation> && animation)
 {
-  animation->OnStart();
+  if (m_animationChain.empty())
+    animation->OnStart();
+
   TAnimationList list;
   list.emplace_back(move(animation));
+
   m_animationChain.emplace_back(move(list));
+}
+
+void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind)
+{
+  if (m_animationChain.empty())
+    return;
+
+  TAnimationList & frontList = m_animationChain.front();
+  for (auto it = frontList.begin(); it != frontList.end();)
+  {
+    auto & anim = *it;
+    if (anim->GetType() == type)
+    {
+      if (rewind)
+        anim->Finish();
+      SaveAnimationResult(*anim);
+      it = frontList.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+  if (frontList.empty())
+    StartNextAnimations();
+}
+
+void AnimationSystem::FinishObjectAnimations(Animation::TObject object, bool rewind)
+{
+  if (m_animationChain.empty())
+    return;
+
+  TAnimationList & frontList = m_animationChain.front();
+  for (auto it = frontList.begin(); it != frontList.end();)
+  {
+    auto & anim = *it;
+    if (anim->HasObject(object))
+    {
+      if (rewind)
+        anim->Finish();
+      SaveAnimationResult(*anim);
+      it = frontList.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+  if (frontList.empty())
+    StartNextAnimations();
 }
 
 void AnimationSystem::Advance(double elapsedSeconds)
@@ -719,9 +888,11 @@ void AnimationSystem::Advance(double elapsedSeconds)
       ++it;
     }
   }
+  if (frontList.empty())
+    StartNextAnimations();
 }
 
-Animation::TPropValue AnimationSystem::GetProperty(Animation::TObject object, Animation::TProperty property, Animation::TPropValue current) const
+Animation::PropertyValue AnimationSystem::GetProperty(Animation::TObject object, Animation::TProperty property, Animation::PropertyValue current) const
 {
   if (!m_animationChain.empty())
   {
@@ -734,7 +905,7 @@ Animation::TPropValue AnimationSystem::GetProperty(Animation::TObject object, An
   auto it = m_propertyCache.find(make_pair(object, property));
   if (it != m_propertyCache.end())
   {
-    Animation::TPropValue value(it->second);
+    Animation::PropertyValue value(it->second);
     m_propertyCache.erase(it);
     return value;
   }
@@ -749,6 +920,18 @@ void AnimationSystem::SaveAnimationResult(Animation const & animation)
     {
       m_propertyCache[make_pair(object, property)] = animation.GetProperty(object, property);
     }
+  }
+}
+
+void AnimationSystem::StartNextAnimations()
+{
+  m_animationChain.pop_front();
+  if (m_animationChain.empty())
+    return;
+  for (auto & anim : m_animationChain.front())
+  {
+    // TODO: use propertyCache to load start values to the next animations
+    anim->OnStart();
   }
 }
 

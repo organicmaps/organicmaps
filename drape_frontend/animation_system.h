@@ -10,8 +10,6 @@
 #include "std/deque.hpp"
 #include "std/noncopyable.hpp"
 
-#include "boost/variant/variant_fwd.hpp"
-
 namespace df
 {
 
@@ -40,22 +38,53 @@ public:
   {
     Position,
     Scale,
-    Angle
+    Angle,
+    AnglePerspective
+  };
+
+  enum PropertyValueType
+  {
+    ValueD,
+    ValuePointD
+  };
+
+  struct PropertyValue
+  {
+    PropertyValue()
+    {
+    }
+
+    PropertyValue(double value)
+      : m_type(ValueD),
+        m_valueD(value)
+    {}
+
+    PropertyValue(m2::PointD value)
+      : m_type(ValuePointD),
+        m_valuePointD(value)
+    {}
+
+    PropertyValueType m_type;
+    union
+    {
+      m2::PointD m_valuePointD;
+      double m_valueD;
+    };
   };
 
   using TObject = uint32_t;
   using TProperty = uint32_t;
-  using TPropValue = boost::variant<double, m2::PointD>;
   using TAnimObjects = set<TObject>;
   using TObjectProperties = set<TProperty>;
+  using TAction = function<void(Animation const &)>;
 
   Animation(bool couldBeInterrupted, bool couldBeMixed)
     : m_couldBeInterrupted(couldBeInterrupted)
     , m_couldBeMixed(couldBeMixed)
   {}
 
-  virtual void OnStart() {}
-  virtual void OnFinish() {}
+  virtual void OnStart() {if (m_onStartAction != nullptr) m_onStartAction(*this);}
+  virtual void OnFinish() {if (m_onFinishAction != nullptr) m_onFinishAction(*this);}
   virtual void Interrupt() {}
 
   virtual Type GetType() const = 0;
@@ -70,8 +99,13 @@ public:
   virtual bool IsFinished() const = 0;
 
   virtual void Advance(double elapsedSeconds) = 0;
+  virtual void Finish() { OnFinish(); }
 
-  virtual TPropValue GetProperty(TObject object, TProperty property) const = 0;
+  virtual PropertyValue GetProperty(TObject object, TProperty property) const = 0;
+
+  void SetOnStartAction(TAction const & action) { m_onStartAction = action; }
+  void SetOnFinishAction(TAction const & action) { m_onFinishAction = action; }
+  void SetOnInterruptAction(TAction const & action) { m_onInterruptAction = action; }
 
   bool CouldBeInterrupted() const { return m_couldBeInterrupted; }
   bool CouldBeMixed() const { return m_couldBeMixed; }
@@ -79,6 +113,9 @@ public:
   bool CouldBeMixedWith(Animation const & animation);
 
 protected:
+  TAction m_onStartAction;
+  TAction m_onFinishAction;
+  TAction m_onInterruptAction;
   bool m_couldBeInterrupted;
   bool m_couldBeMixed;
 };
@@ -91,6 +128,7 @@ public:
 
   bool IsFinished() const;
   virtual void Advance(double elapsedSeconds);
+  virtual void Finish();
   void SetMaxDuration(double maxDuration);
   void SetMinDuration(double minDuration);
   double GetDuration() const;
@@ -121,6 +159,7 @@ public:
   static double GetPixelMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition, m2::RectD const & pixelRect);
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
   virtual m2::PointD GetPosition() const { return m_position; }
 
 private:
@@ -140,6 +179,7 @@ public:
   static double GetScaleDuration(double startScale, double endScale);
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
   virtual double GetScale() const { return m_scale; }
 
 private:
@@ -159,6 +199,7 @@ public:
   static double GetRotateDuration(double startAngle, double endAngle);
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
   virtual double GetAngle() const { return m_angle; }
 
 private:
@@ -195,6 +236,7 @@ public:
   bool HasProperty(TObject object, TProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
 
 private:
   drape_ptr<PositionInterpolator> m_positionInterpolator;
@@ -205,9 +247,8 @@ private:
 
 class PerspectiveSwitchAnimation : public Animation
 {
-  PerspectiveSwitchAnimation()
-    : Animation(false, false)
-  {}
+public:
+  PerspectiveSwitchAnimation(double startAngle, double endAngle);
 
   Animation::Type GetType() const override { return Animation::MapPerspective; }
 
@@ -223,6 +264,13 @@ class PerspectiveSwitchAnimation : public Animation
   bool HasProperty(TObject object, TProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
+
+  void SetMaxDuration(double maxDuration) override;
+  double GetDuration() const override;
+  bool IsFinished() const override;
+
+  PropertyValue GetProperty(TObject object, TProperty property) const override;
 
 private:
   drape_ptr<AngleInterpolator> m_angleInterpolator;
@@ -256,12 +304,13 @@ public:
   bool HasProperty(TObject object, TProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
 
   void SetMaxDuration(double maxDuration) override;
   double GetDuration() const override;
   bool IsFinished() const override;
 
-  TPropValue GetProperty(TObject object, TProperty property) const override;
+  PropertyValue GetProperty(TObject object, TProperty property) const override;
 
 private:
   drape_ptr<AngleInterpolator> m_angleInterpolator;
@@ -291,12 +340,13 @@ public:
   bool HasProperty(TObject object, TProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
 
   void SetMaxDuration(double maxDuration) override;
   double GetDuration() const override;
   bool IsFinished() const override;
 
-  TPropValue GetProperty(TObject object, TProperty property) const override;
+  PropertyValue GetProperty(TObject object, TProperty property) const override;
 
 private:
   drape_ptr<ScaleInterpolator> m_scaleInterpolator;
@@ -329,12 +379,13 @@ public:
   bool HasProperty(TObject object, TProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
 
   void SetMaxDuration(double maxDuration) override;
   double GetDuration() const override;
   bool IsFinished() const override;
 
-  TPropValue GetProperty(TObject object, TProperty property) const override;
+  PropertyValue GetProperty(TObject object, TProperty property) const override;
 
 private:
   drape_ptr<ScaleInterpolator> m_scaleInterpolator;
@@ -388,6 +439,7 @@ public:
   void OnFinish() override;
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
 
 private:
   list<drape_ptr<Animation>> m_animations;
@@ -400,27 +452,32 @@ class AnimationSystem : private noncopyable
 public:
   static AnimationSystem & Instance();
 
-  m2::AnyRectD GetRect(ScreenBase const & currentScreen);
+  m2::AnyRectD GetRect(ScreenBase const & currentScreen, bool & viewportChanged);
+  double GetPerspectiveAngle(double currentAngle);
 
   bool AnimationExists(Animation::TObject object) const;
 
   void AddAnimation(drape_ptr<Animation> && animation, bool force);
   void PushAnimation(drape_ptr<Animation> && animation);
 
+  void FinishAnimations(Animation::Type type, bool rewind);
+  void FinishObjectAnimations(Animation::TObject object, bool rewind);
+
   void Advance(double elapsedSeconds);
 
   ScreenBase const & GetLastScreen() { return *m_lastScreen.get(); }
 
 private:
-  Animation::TPropValue GetProperty(Animation::TObject object, Animation::TProperty property, Animation::TPropValue current) const;
+  Animation::PropertyValue GetProperty(Animation::TObject object, Animation::TProperty property, Animation::PropertyValue current) const;
   void SaveAnimationResult(Animation const & animation);
+  void StartNextAnimations();
 
   AnimationSystem();
 
 private:
   using TAnimationList = list<drape_ptr<Animation>>;
   using TAnimationChain = deque<TAnimationList>;
-  using TPropertyCache = map<pair<Animation::TObject, Animation::TProperty>, Animation::TPropValue>;
+  using TPropertyCache = map<pair<Animation::TObject, Animation::TProperty>, Animation::PropertyValue>;
   TAnimationChain m_animationChain;
   mutable TPropertyCache m_propertyCache;
 

@@ -310,8 +310,9 @@ private:
                           double azimuth, int preferredZoomLevel, bool isAnim);
 
   bool FilterEventWhile3dAnimation(UserEvent::EEventType type) const;
-  void SetEnable3dMode(double maxRotationAngle, double angleFOV, bool isAnim, bool & viewportChanged);
-  void SetDisable3dModeAnimation();
+  void SetEnable3dMode(double maxRotationAngle, double angleFOV,
+                       bool isAnim, bool immediatelyStart, bool & viewportChanged);
+  void SetDisable3dModeAnimation(bool & viewportChanged);
 
   m2::AnyRectD GetCurrentRect() const;
 
@@ -376,8 +377,7 @@ private:
 
   drape_ptr<BaseModelViewAnimation> m_animation;
 
-  unique_ptr<PerspectiveAnimation> m_perspectiveAnimation;
-  bool m_pendingPerspective = false;
+  bool m_perspectiveAnimation;
   unique_ptr<UserEvent> m_pendingEvent;
   double m_discardedFOV = 0.0;
   double m_discardedAngle = 0.0;

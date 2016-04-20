@@ -747,14 +747,15 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
                                    double rotationAngle, double angleFOV)
 {
 
+  m_myPositionController->ActivateRouting(!m_enablePerspectiveInNavigation ? preferredZoomLevel
+                                                                           : preferredZoomLevelIn3d);
+
   if (m_enablePerspectiveInNavigation)
   {
     bool immediatelyStart = !m_myPositionController->IsRotationAvailable();
     AddUserEvent(EnablePerspectiveEvent(rotationAngle, angleFOV, true /* animated */, immediatelyStart));
   }
 
-  m_myPositionController->ActivateRouting(!m_enablePerspectiveInNavigation ? preferredZoomLevel
-                                                                           : preferredZoomLevelIn3d);
   m_overlayTree->SetFollowingMode(true);
 }
 
