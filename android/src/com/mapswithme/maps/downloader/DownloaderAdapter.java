@@ -527,8 +527,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         mName.setMaxLines(1);
         mName.setText(mItem.name);
 
-        UiUtils.show(mFoundName);
-
         String found = mItem.searchResultName.toLowerCase();
         SpannableStringBuilder builder = new SpannableStringBuilder(mItem.searchResultName);
         int start = found.indexOf(mSearchQuery);
@@ -544,12 +542,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
       else
       {
-        UiUtils.hide(mFoundName);
-
         mName.setMaxLines(2);
         mName.setText(mItem.name);
         if (!mItem.isExpandable())
-          UiUtils.hide(mSubtitle);
+          UiUtils.setTextAndHideIfEmpty(mSubtitle, mItem.description);
       }
 
       if (mItem.isExpandable())
@@ -559,6 +555,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
                                                                                                                      mItem.totalChildCount)));
       }
 
+      UiUtils.showIf(mSearchResultsMode, mFoundName);
       mSize.setText(StringUtils.getFileSizeString(mItem.totalSize));
       updateStatus();
     }
