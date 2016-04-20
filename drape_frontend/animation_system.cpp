@@ -80,6 +80,11 @@ void Interpolator::SetMaxDuration(double maxDuration)
   m_duration = min(m_duration, maxDuration);
 }
 
+void Interpolator::SetMinDuration(double minDuration)
+{
+  m_duration = max(m_duration, minDuration);
+}
+
 double Interpolator::GetT() const
 {
   if (IsFinished())
@@ -101,22 +106,35 @@ double Interpolator::GetDuration() const
 //static
 double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition, ScreenBase const & convertor)
 {
+  return GetPixelMoveDuration(convertor.GtoP(startPosition), convertor.GtoP(endPosition), convertor.PixelRectIn3d());
+}
+
+double PositionInterpolator::GetPixelMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition, m2::RectD const & pixelRect)
+{
   double const kMinMoveDuration = 0.2;
   double const kMinSpeedScalar = 0.2;
   double const kMaxSpeedScalar = 7.0;
   double const kEps = 1e-5;
 
-  m2::RectD const & dispPxRect = convertor.PixelRect();
-  double const pixelLength = convertor.GtoP(endPosition).Length(convertor.GtoP(startPosition));
+  double const pixelLength = endPosition.Length(startPosition);
   if (pixelLength < kEps)
     return 0.0;
 
-  double const minSize = min(dispPxRect.SizeX(), dispPxRect.SizeY());
+  double const minSize = min(pixelRect.SizeX(), pixelRect.SizeY());
   if (pixelLength < kMinSpeedScalar * minSize)
     return kMinMoveDuration;
 
   double const pixelSpeed = kMaxSpeedScalar * minSize;
   return CalcAnimSpeedDuration(pixelLength, pixelSpeed);
+}
+
+PositionInterpolator::PositionInterpolator(double duration, double delay, m2::PointD const & startPosition, m2::PointD const & endPosition)
+  : Interpolator(duration, delay)
+  , m_startPosition(startPosition)
+  , m_endPosition(endPosition)
+  , m_position(startPosition)
+{
+
 }
 
 PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition, ScreenBase const & convertor)
@@ -133,6 +151,21 @@ PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & star
 
 }
 
+PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition, m2::RectD const & pixelRect)
+  : PositionInterpolator(0.0 /* delay */, startPosition, endPosition, pixelRect)
+{
+
+}
+
+PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & startPosition, m2::PointD const & endPosition, m2::RectD const & pixelRect)
+  : Interpolator(PositionInterpolator::GetPixelMoveDuration(startPosition, endPosition, pixelRect), delay)
+  , m_startPosition(startPosition)
+  , m_endPosition(endPosition)
+  , m_position(startPosition)
+{
+
+}
+
 void PositionInterpolator::Advance(double elapsedSeconds)
 {
   TBase::Advance(elapsedSeconds);
@@ -142,7 +175,9 @@ void PositionInterpolator::Advance(double elapsedSeconds)
 // static
 double AngleInterpolator::GetRotateDuration(double startAngle, double endAngle)
 {
-  return 0.5 * fabs(endAngle - startAngle) / math::pi4;
+  double const kRotateDurationScalar = 0.75;
+
+  return kRotateDurationScalar * fabs(ang::GetShortestDistance(startAngle, endAngle)) / math::pi;
 }
 
 AngleInterpolator::AngleInterpolator(double startAngle, double endAngle)
@@ -195,7 +230,7 @@ void ScaleInterpolator::Advance(double elapsedSeconds)
   m_scale = InterpolateDouble(m_startScale, m_endScale, GetT());
 }
 
-FollowAnimation::FollowAnimation(m2::PointD const & startPos, m2::PointD const & endPos,
+MapLinearAnimation::MapLinearAnimation(m2::PointD const & startPos, m2::PointD const & endPos,
                                  double startAngle, double endAngle,
                                  double startScale, double endScale, ScreenBase const & convertor)
   : Animation(true /* couldBeInterrupted */, false /* couldBeMixed */)
@@ -206,13 +241,13 @@ FollowAnimation::FollowAnimation(m2::PointD const & startPos, m2::PointD const &
   SetScale(startScale, endScale);
 }
 
-FollowAnimation::FollowAnimation()
+MapLinearAnimation::MapLinearAnimation()
   : Animation(true /* couldBeInterrupted */, false /* couldBeMixed */)
 {
   m_objects.insert(Animation::MapPlane);
 }
 
-void FollowAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos,
+void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos,
                               ScreenBase const & convertor)
 {
   if (startPos != endPos)
@@ -222,7 +257,7 @@ void FollowAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & en
   }
 }
 
-void FollowAnimation::SetRotate(double startAngle, double endAngle)
+void MapLinearAnimation::SetRotate(double startAngle, double endAngle)
 {
   if (startAngle != endAngle)
   {
@@ -231,7 +266,7 @@ void FollowAnimation::SetRotate(double startAngle, double endAngle)
   }
 }
 
-void FollowAnimation::SetScale(double startScale, double endScale)
+void MapLinearAnimation::SetScale(double startScale, double endScale)
 {
   if (startScale != endScale)
   {
@@ -240,18 +275,18 @@ void FollowAnimation::SetScale(double startScale, double endScale)
   }
 }
 
-Animation::TObjectProperties const & FollowAnimation::GetProperties(TObject object) const
+Animation::TObjectProperties const & MapLinearAnimation::GetProperties(TObject object) const
 {
   ASSERT(object == Animation::MapPlane, ());
   return m_properties;
 }
 
-bool FollowAnimation::HasProperty(TObject object, TProperty property) const
+bool MapLinearAnimation::HasProperty(TObject object, TProperty property) const
 {
   return HasObject(object) && m_properties.find(property) != m_properties.end();
 }
 
-void FollowAnimation::Advance(double elapsedSeconds)
+void MapLinearAnimation::Advance(double elapsedSeconds)
 {
   if (m_angleInterpolator != nullptr)
     m_angleInterpolator->Advance(elapsedSeconds);
@@ -261,7 +296,7 @@ void FollowAnimation::Advance(double elapsedSeconds)
     m_positionInterpolator->Advance(elapsedSeconds);
 }
 
-void FollowAnimation::SetMaxDuration(double maxDuration)
+void MapLinearAnimation::SetMaxDuration(double maxDuration)
 {
   if (m_angleInterpolator != nullptr)
     m_angleInterpolator->SetMaxDuration(maxDuration);
@@ -271,7 +306,7 @@ void FollowAnimation::SetMaxDuration(double maxDuration)
     m_positionInterpolator->SetMaxDuration(maxDuration);
 }
 
-double FollowAnimation::GetDuration() const
+double MapLinearAnimation::GetDuration() const
 {
   double duration = 0;
   if (m_angleInterpolator != nullptr)
@@ -283,14 +318,14 @@ double FollowAnimation::GetDuration() const
   return duration;
 }
 
-bool FollowAnimation::IsFinished() const
+bool MapLinearAnimation::IsFinished() const
 {
   return ((m_angleInterpolator == nullptr || m_angleInterpolator->IsFinished())
       && (m_scaleInterpolator == nullptr || m_scaleInterpolator->IsFinished())
       && (m_positionInterpolator == nullptr || m_positionInterpolator->IsFinished()));
 }
 
-Animation::TPropValue FollowAnimation::GetProperty(TObject object, TProperty property) const
+Animation::TPropValue MapLinearAnimation::GetProperty(TObject object, TProperty property) const
 {
   ASSERT(object == Animation::MapPlane, ());
 
@@ -317,6 +352,157 @@ Animation::TPropValue FollowAnimation::GetProperty(TObject object, TProperty pro
 
   return 0.0;
 }
+
+MapScaleAnimation::MapScaleAnimation(double startScale, double endScale,
+                               m2::PointD const & globalPosition, m2::PointD const & offset)
+  : Animation(true /* couldBeInterrupted */, false /* couldBeMixed */)
+  , m_pixelOffset(offset)
+  , m_globalPosition(globalPosition)
+{
+  m_scaleInterpolator = make_unique_dp<ScaleInterpolator>(startScale, endScale);
+  m_objects.insert(Animation::MapPlane);
+  m_properties.insert(Animation::Scale);
+  m_properties.insert(Animation::Position);
+}
+
+Animation::TObjectProperties const & MapScaleAnimation::GetProperties(TObject object) const
+{
+  ASSERT(object == Animation::MapPlane, ());
+  return m_properties;
+}
+
+bool MapScaleAnimation::HasProperty(TObject object, TProperty property) const
+{
+  return HasObject(object) && m_properties.find(property) != m_properties.end();
+}
+
+void MapScaleAnimation::Advance(double elapsedSeconds)
+{
+  m_scaleInterpolator->Advance(elapsedSeconds);
+}
+
+void MapScaleAnimation::SetMaxDuration(double maxDuration)
+{
+  m_scaleInterpolator->SetMaxDuration(maxDuration);
+}
+
+double MapScaleAnimation::GetDuration() const
+{
+  return m_scaleInterpolator->GetDuration();
+}
+
+bool MapScaleAnimation::IsFinished() const
+{
+  return m_scaleInterpolator->IsFinished();
+}
+
+Animation::TPropValue MapScaleAnimation::GetProperty(TObject object, TProperty property) const
+{
+
+  if (property == Animation::Position)
+  {
+    ScreenBase screen = AnimationSystem::Instance().GetLastScreen();
+    screen.SetScale(m_scaleInterpolator->GetScale());
+    return screen.PtoG(screen.GtoP(m_globalPosition) + m_pixelOffset);
+  }
+  if (property == Animation::Scale)
+  {
+    return m_scaleInterpolator->GetScale();
+  }
+  ASSERT(!"Wrong property", ());
+  return 0.0;
+}
+
+MapFollowAnimation::MapFollowAnimation(m2::PointD const & globalPosition,
+                                       double startScale, double endScale,
+                                       double startAngle, double endAngle,
+                                       m2::PointD const & startPixelPosition, m2::PointD const & endPixelPosition,
+                                       m2::RectD const & pixelRect)
+  : Animation(true /* couldBeInterrupted */, false /* couldBeMixed */)
+  , m_globalPosition(globalPosition)
+{
+  m_scaleInterpolator = make_unique_dp<ScaleInterpolator>(startScale, endScale);
+  m_angleInterpolator = make_unique_dp<AngleInterpolator>(startAngle, endAngle);
+  m_pixelPosInterpolator = make_unique_dp<PositionInterpolator>(startPixelPosition, endPixelPosition, pixelRect);
+  double const duration = GetDuration();
+  m_scaleInterpolator->SetMinDuration(duration);
+  m_angleInterpolator->SetMinDuration(duration);
+  m_pixelPosInterpolator->SetMinDuration(duration);
+
+  m_objects.insert(Animation::MapPlane);
+  m_properties.insert(Animation::Scale);
+  m_properties.insert(Animation::Angle);
+  m_properties.insert(Animation::Position);
+}
+
+Animation::TObjectProperties const & MapFollowAnimation::GetProperties(TObject object) const
+{
+  ASSERT(object == Animation::MapPlane, ());
+  return m_properties;
+}
+
+bool MapFollowAnimation::HasProperty(TObject object, TProperty property) const
+{
+  return HasObject(object) && m_properties.find(property) != m_properties.end();
+}
+
+void MapFollowAnimation::Advance(double elapsedSeconds)
+{
+  m_angleInterpolator->Advance(elapsedSeconds);
+  m_scaleInterpolator->Advance(elapsedSeconds);
+  m_pixelPosInterpolator->Advance(elapsedSeconds);
+}
+
+void MapFollowAnimation::SetMaxDuration(double maxDuration)
+{
+  m_angleInterpolator->SetMaxDuration(maxDuration);
+  m_scaleInterpolator->SetMaxDuration(maxDuration);
+  m_pixelPosInterpolator->SetMaxDuration(maxDuration);
+}
+
+double MapFollowAnimation::GetDuration() const
+{
+  double duration = 0.0;
+  if (m_pixelPosInterpolator != nullptr)
+    duration = m_angleInterpolator->GetDuration();
+  if (m_angleInterpolator != nullptr)
+    duration = max(duration, m_angleInterpolator->GetDuration());
+  if (m_scaleInterpolator != nullptr)
+    duration = max(duration, m_scaleInterpolator->GetDuration());
+  return duration;
+}
+
+bool MapFollowAnimation::IsFinished() const
+{
+  return ((m_pixelPosInterpolator == nullptr || m_pixelPosInterpolator->IsFinished())
+      && (m_angleInterpolator == nullptr || m_angleInterpolator->IsFinished())
+      && (m_scaleInterpolator == nullptr || m_scaleInterpolator->IsFinished()));
+}
+
+Animation::TPropValue MapFollowAnimation::GetProperty(TObject object, TProperty property) const
+{
+
+  if (property == Animation::Position)
+  {
+    m2::RectD const pixelRect = AnimationSystem::Instance().GetLastScreen().PixelRect();
+    m2::PointD const pixelPos = m_pixelPosInterpolator->GetPosition();
+    m2::PointD formingVector = (pixelRect.Center() - pixelPos) * m_scaleInterpolator->GetScale();
+    formingVector.y = -formingVector.y;
+    formingVector.Rotate(m_angleInterpolator->GetAngle());
+    return m_globalPosition + formingVector;
+  }
+  if (property == Animation::Angle)
+  {
+    return m_angleInterpolator->GetAngle();
+  }
+  if (property == Animation::Scale)
+  {
+    return m_scaleInterpolator->GetScale();
+  }
+  ASSERT(!"Wrong property", ());
+  return 0.0;
+}
+
 
 Animation::TObjectProperties const & ParallelAnimation::GetProperties(TObject object) const
 {
@@ -432,6 +618,7 @@ AnimationSystem::AnimationSystem()
 m2::AnyRectD AnimationSystem::GetRect(ScreenBase const & currentScreen)
 {
   const Animation::TObject obj = Animation::MapPlane;
+  m_lastScreen = make_unique_dp<ScreenBase>(currentScreen);
   double scale = boost::get<double>(
         GetProperty(obj, Animation::Scale, currentScreen.GetScale()));
   double angle = boost::get<double>(
