@@ -15,14 +15,19 @@ void CountryNameGetter::SetLocaleForTesting(string const & jsonBuffer, string co
   m_getCurLang = platform::ForTestingGetTextByIdFactory(jsonBuffer, locale);
 }
 
-string CountryNameGetter::operator()(TCountryId const & countryId) const
+string CountryNameGetter::Get(string const & key) const
 {
-  ASSERT(!countryId.empty(), ());
+  ASSERT(!key.empty(), ());
 
   if (m_getCurLang == nullptr)
-    return countryId;
+    return string();
 
-  string name = (*m_getCurLang)(countryId);
+  return (*m_getCurLang)(key);
+}
+
+string CountryNameGetter::operator()(TCountryId const & countryId) const
+{
+  string const name = Get(countryId);
   if (name.empty())
     return countryId;
 

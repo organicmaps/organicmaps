@@ -1332,7 +1332,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_status = statusAndErr.status;
   nodeAttrs.m_error = statusAndErr.error;
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);
-  nodeAttrs.m_nodeLocalDescription = m_countryNameGetter(countryId + LOCALIZATION_DESCRIPTION_SUFFIX);
+  nodeAttrs.m_nodeLocalDescription = m_countryNameGetter.Get(countryId + LOCALIZATION_DESCRIPTION_SUFFIX);
 
   // Progress.
   if (nodeAttrs.m_status == NodeStatus::OnDisk)

@@ -27,6 +27,11 @@ public:
   /// \note See countries/languages.txt for the full list of available locales.
   void SetLocale(string const & locale);
 
+  /// \brief Gets localized string for key. If not found returns empty string.
+  /// @param key is a string for lookup.
+  /// \note Unlike operator (), does not return key if localized string is not found.
+  string Get(string const & key) const;
+
   string operator()(TCountryId const & countryId) const;
 
   // for testing
