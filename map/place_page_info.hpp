@@ -24,6 +24,7 @@ public:
   bool IsFeature() const;
   bool IsBookmark() const;
   bool IsMyPosition() const;
+  bool ShouldShowAddPlace() const;
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const;
   /// @returns true if Edit Place button should be displayed.

@@ -297,6 +297,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - MWMBottomMenuControllerProtocol
 
+- (void)didFinishAddingPlace
+{
+  self.menuState = MWMBottomMenuStateInactive;
+  static_cast<EAGLView *>(self.ownerController.view).widgetsManager.fullScreen = NO;
+}
+
+#pragma mark - MWMBottomMenuControllerProtocol && MWMPlacePageViewManagerProtocol
+
 - (void)addPlace
 {
   self.menuState = MWMBottomMenuStateHidden;
@@ -319,12 +327,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [self didFinishAddingPlace];
   }];
-}
-
-- (void)didFinishAddingPlace
-{
-  self.menuState = MWMBottomMenuStateInactive;
-  static_cast<EAGLView *>(self.ownerController.view).widgetsManager.fullScreen = NO;
 }
 
 #pragma mark - MWMPlacePageViewManagerDelegate
