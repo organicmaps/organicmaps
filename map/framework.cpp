@@ -679,6 +679,18 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   FeatureType ft;
   guard.GetFeatureByIndex(fid.m_index, ft);
   FillInfoFromFeatureType(ft, info);
+
+  // Fill countryId for place page info
+  info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+
+  uint32_t placeCountryType = classif().GetTypeByPath({"place", "country"});
+  if (info.GetTypes().Has(placeCountryType))
+  {
+    TCountriesVec countries;
+    Storage().GetTopmostNodesFor(info.m_countryId, countries);
+    if (countries.size() == 1)
+      info.m_countryId = countries.front();
+  }
 }
 
 void Framework::FillPointInfo(m2::PointD const & mercator, string const & customTitle, place_page::Info & info) const
