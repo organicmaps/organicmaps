@@ -54,6 +54,8 @@ void TestFeature::Serialize(FeatureBuilder1 & fb) const
     fb.SetCenter(m_center);
   if (!m_name.empty())
     CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
+  if (!m_postcode.empty())
+    fb.AddPostcode(m_postcode);
 }
 
 // TestCountry -------------------------------------------------------------------------------------

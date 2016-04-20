@@ -25,6 +25,7 @@ SOURCES += \
     feature_metadata_test.cpp \
     feature_xml_test.cpp \
     features_offsets_table_test.cpp \
+    features_vector_test.cpp \
     geometry_coding_test.cpp \
     geometry_serialization_test.cpp \
     index_builder_test.cpp \

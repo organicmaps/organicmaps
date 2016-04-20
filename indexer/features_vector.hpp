@@ -29,6 +29,12 @@ public:
     {
       FeatureType ft;
       ft.Deserialize(m_LoadInfo.GetLoader(), data);
+
+      // We can't properly set MwmId here, because FeaturesVector
+      // works with FileContainerR, not with MwmId/MwmHandle/MwmValue.
+      // But it's OK to set at least feature's index, because it can
+      // be used later for Metadata loading.
+      ft.SetID(FeatureID(MwmSet::MwmId(), index));
       toDo(ft, m_table ? index++ : pos);
     });
   }

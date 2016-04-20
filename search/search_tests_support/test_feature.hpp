@@ -18,6 +18,7 @@ public:
   virtual ~TestFeature() = default;
 
   bool Matches(FeatureType const & feature) const;
+  inline void SetPostcode(string const & postcode) { m_postcode = postcode; }
   inline string const & GetName() const { return m_name; }
 
   virtual void Serialize(FeatureBuilder1 & fb) const;
@@ -32,6 +33,7 @@ protected:
   bool const m_hasCenter;
   string const m_name;
   string const m_lang;
+  string m_postcode;
 };
 
 class TestCountry : public TestFeature

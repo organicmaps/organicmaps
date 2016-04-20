@@ -524,7 +524,9 @@ namespace ftype
       { "addr:street", "*", [&params](string & k, string & v) { params.AddStreet(v); k.clear(); v.clear(); }},
       //{ "addr:streetnumber", "*", [&params](string & k, string & v) { params.AddStreet(v); k.clear(); v.clear(); }},
       //{ "addr:full", "*", [&params](string & k, string & v) { params.AddAddress(v); k.clear(); v.clear(); }},
-      { "addr:postcode", "*", [&params](string & k, string & v) { params.AddPostcode(v); k.clear(); v.clear(); }},
+
+      // addr:postcode must be passed to the metadata processor.
+      // { "addr:postcode", "*", [&params](string & k, string & v) { params.AddPostcode(v); k.clear(); v.clear(); }},
 
       { "population", "*", [&params](string & k, string & v)
         {
