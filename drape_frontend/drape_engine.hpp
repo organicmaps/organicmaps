@@ -133,7 +133,8 @@ public:
   void UpdateGpsTrackPoints(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove);
   void ClearGpsTrackPoints();
 
-  void EnableChoosePositionMode(bool enable, vector<m2::TriangleD> && boundAreaTriangles);
+  void EnableChoosePositionMode(bool enable, vector<m2::TriangleD> && boundAreaTriangles,
+                                bool hasPosition, m2::PointD const & position);
   void BlockTapEvents(bool block);
 
   void SetKineticScrollEnabled(bool enabled);

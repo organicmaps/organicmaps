@@ -2417,10 +2417,11 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
     allow3dBuildings = true;
 }
 
-void Framework::EnableChoosePositionMode(bool enable, bool enableBounds)
+void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position)
 {
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->EnableChoosePositionMode(enable, enableBounds ? GetBoundAreaTriangles() : vector<m2::TriangleD>());
+    m_drapeEngine->EnableChoosePositionMode(enable, enableBounds ? GetBoundAreaTriangles() : vector<m2::TriangleD>(),
+                                            applyPosition, position);
 }
 
 vector<m2::TriangleD> Framework::GetBoundAreaTriangles() const

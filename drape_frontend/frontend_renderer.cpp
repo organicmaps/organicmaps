@@ -718,10 +718,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         }
         else
         {
-          ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
-          m2::PointD pt = screen.GlobalRect().Center();
-          if (!m_myPositionController->IsWaitingForLocation())
-            pt = m_myPositionController->GetDrawablePosition();
+          m2::PointD const pt = msg->HasPosition()? msg->GetPosition() :
+                                m_userEventStream.GetCurrentScreen().GlobalRect().Center();
           AddUserEvent(SetCenterEvent(pt, scales::GetAddNewPlaceScale(), true));
         }
       }

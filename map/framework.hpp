@@ -276,7 +276,7 @@ public:
 
   void InvalidateRendering();
 
-  void EnableChoosePositionMode(bool enable, bool enableBounds);
+  void EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position);
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = function<void(storage::TCountryId const &)>;

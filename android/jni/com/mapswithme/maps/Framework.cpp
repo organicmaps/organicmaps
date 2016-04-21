@@ -203,11 +203,12 @@ void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
   m_work.Load3dMode(allow3d, allow3dBuildings);
 }
 
-void Framework::SetChoosePositionMode(bool isChoosePositionMode, bool isBusiness)
+void Framework::SetChoosePositionMode(bool isChoosePositionMode, bool isBusiness,
+                                      bool hasPosition, m2::PointD const & position)
 {
   m_isChoosePositionMode = isChoosePositionMode;
   m_work.BlockTapEvents(isChoosePositionMode);
-  m_work.EnableChoosePositionMode(isChoosePositionMode, isBusiness);
+  m_work.EnableChoosePositionMode(isChoosePositionMode, isBusiness, hasPosition, position);
 }
 
 Storage & Framework::Storage()
@@ -988,7 +989,8 @@ Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env,
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeTurnChoosePositionMode(JNIEnv *, jclass, jboolean turnOn, jboolean isBusiness)
 {
-  g_framework->SetChoosePositionMode(turnOn, isBusiness);
+  //TODO(Android team): implement positioning
+  g_framework->SetChoosePositionMode(turnOn, isBusiness, false /* hasPosition */, m2::PointD());
 }
 
 JNIEXPORT jboolean JNICALL

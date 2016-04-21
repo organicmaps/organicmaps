@@ -70,7 +70,7 @@ DrapeEngine::DrapeEngine(Params && params)
   RecacheGui(false);
 
   if (params.m_showChoosePositionMark)
-    EnableChoosePositionMode(true, move(params.m_boundAreaTriangles));
+    EnableChoosePositionMode(true, move(params.m_boundAreaTriangles), false, m2::PointD());
 
   ResizeImpl(m_viewport.GetWidth(), m_viewport.GetHeight());
 }
@@ -436,7 +436,8 @@ void DrapeEngine::ClearGpsTrackPoints()
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::EnableChoosePositionMode(bool enable, vector<m2::TriangleD> && boundAreaTriangles)
+void DrapeEngine::EnableChoosePositionMode(bool enable, vector<m2::TriangleD> && boundAreaTriangles,
+                                           bool hasPosition, m2::PointD const & position)
 {
   m_choosePositionMode = enable;
   bool kineticScroll = m_kineticScrollEnabled;
@@ -453,7 +454,8 @@ void DrapeEngine::EnableChoosePositionMode(bool enable, vector<m2::TriangleD> &&
     RecacheGui(true);
   }
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SetAddNewPlaceModeMessage>(enable, move(boundAreaTriangles), kineticScroll),
+                                  make_unique_dp<SetAddNewPlaceModeMessage>(enable, move(boundAreaTriangles),
+                                                                            kineticScroll, hasPosition, position),
                                   MessagePriority::High);
 }
 

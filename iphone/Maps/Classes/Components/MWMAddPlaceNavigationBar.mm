@@ -12,7 +12,9 @@
 
 @implementation MWMAddPlaceNavigationBar
 
-+ (void)showInSuperview:(UIView *)superview isBusiness:(BOOL)isBusiness doneBlock:(TMWMVoidBlock)done cancelBlock:(TMWMVoidBlock)cancel
++ (void)showInSuperview:(UIView *)superview isBusiness:(BOOL)isBusiness
+                        applyPosition:(BOOL)applyPosition position:(m2::PointD const &)position
+                        doneBlock:(TMWMVoidBlock)done cancelBlock:(TMWMVoidBlock)cancel
 {
   MWMAddPlaceNavigationBar * navBar = [[[NSBundle mainBundle] loadNibNamed:self.className owner:nil options:nil] firstObject];
   navBar.width = superview.width;
@@ -22,13 +24,13 @@
   [navBar setNeedsLayout];
   navBar.origin = {0., -navBar.height};
   [superview addSubview:navBar];
-  [navBar show:isBusiness];
+  [navBar show:isBusiness applyPosition:applyPosition position:position];
 }
 
-- (void)show:(BOOL)enableBounds
+- (void)show:(BOOL)enableBounds applyPosition:(BOOL)applyPosition position:(m2::PointD const &)position
 {
   auto & f = GetFramework();
-  f.EnableChoosePositionMode(true /* enable */, enableBounds);
+  f.EnableChoosePositionMode(true /* enable */, enableBounds, applyPosition, position);
   f.BlockTapEvents(true);
 
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
@@ -40,7 +42,7 @@
 - (void)dismiss
 {
   auto & f = GetFramework();
-  f.EnableChoosePositionMode(false /* enable */, false /* enableBounds */);
+  f.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, false /* applyPosition */, m2::PointD());
   f.BlockTapEvents(false);
 
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
