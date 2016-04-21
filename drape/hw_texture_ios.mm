@@ -125,7 +125,7 @@ HWTextureApple::HWTextureApple(ref_ptr<HWTextureAllocatorApple> allocator)
 
 HWTextureApple::~HWTextureApple()
 {
-  if (m_allocator == nullptr)
+  if (m_allocator != nullptr)
   {
     m_allocator->CVDestroyTexture(m_texture);
     m_allocator->CVDestroyPixelBuffer(m_directBuffer);
