@@ -321,7 +321,8 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     if (m_mode == location::Follow)
       ChangeModelView(m_position, kDoNotChangeZoom);
     else if (m_mode == location::FollowAndRotate)
-      ChangeModelView(m_position, m_drawDirection, GetRotationPixelCenter(), kDoNotChangeZoom);
+      ChangeModelView(m_position, m_drawDirection,
+                      m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition, kDoNotChangeZoom);
   }
 
   m_isPositionAssigned = true;
@@ -518,16 +519,17 @@ void MyPositionController::UpdateViewport()
   if (m_mode == location::Follow)
     ChangeModelView(m_position, kDoNotChangeZoom);
   else if (m_mode == location::FollowAndRotate)
-    ChangeModelView(m_position, m_drawDirection, GetRotationPixelCenter(), kDoNotChangeZoom);
+    ChangeModelView(m_position, m_drawDirection,
+                    m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition, kDoNotChangeZoom);
 }
 
 m2::PointD MyPositionController::GetRotationPixelCenter() const
 {
   if (m_mode == location::Follow)
-    return m_centerPixelPosition;
+    return m_pixelRect.Center();
   
   if (m_mode == location::FollowAndRotate)
-    return m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition;
+    return m_isInRouting ? GetRoutingRotationPixelCenter() : m_pixelRect.Center();
 
   return m2::PointD::Zero();
 }
@@ -609,7 +611,7 @@ void MyPositionController::ActivateRouting(int zoomLevel)
     if (IsRotationAvailable())
     {
       ChangeMode(location::FollowAndRotate);
-      ChangeModelView(m_position, m_drawDirection, GetRotationPixelCenter(), zoomLevel);
+      ChangeModelView(m_position, m_drawDirection, m_centerPixelPositionRouting, zoomLevel);
     }
     else
     {
