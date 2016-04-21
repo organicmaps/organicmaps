@@ -56,71 +56,148 @@ Java_com_mapswithme_maps_editor_Editor_nativeInit(JNIEnv * env, jclass)
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetMetadata(JNIEnv * env, jclass, jint type)
+Java_com_mapswithme_maps_editor_Editor_nativeGetOpeningHours(JNIEnv * env, jclass)
 {
-  // TODO(yunikkk): Switch to osm::Props enum instead of metadata, and use separate getters instead a generic one.
-  return jni::ToJavaString(env, g_editableMapObject.GetMetadata().Get(static_cast<feature::Metadata::EType>(type)));
+  return jni::ToJavaString(env, g_editableMapObject.GetOpeningHours());
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetMetadata(JNIEnv * env, jclass clazz, jint type, jstring value)
+Java_com_mapswithme_maps_editor_Editor_nativeSetOpeningHours(JNIEnv * env, jclass, jstring value)
 {
-  // TODO(yunikkk): I would recommend to use separate setters/getters for each metadata field.
-  string const v = jni::ToNativeString(env, value);
-  using feature::Metadata;
-  switch (type)
-  {
-  case Metadata::FMD_OPEN_HOURS: g_editableMapObject.SetOpeningHours(v); break;
-  case Metadata::FMD_PHONE_NUMBER: g_editableMapObject.SetPhone(v); break;
-  case Metadata::FMD_FAX_NUMBER: g_editableMapObject.SetFax(v); break;
-  case Metadata::FMD_STARS:
-    {
-      // TODO(yunikkk): Pass stars in a separate integer setter.
-      int stars;
-      if (strings::to_int(v, stars))
-        g_editableMapObject.SetStars(stars);
-      break;
-    }
-  case Metadata::FMD_OPERATOR: g_editableMapObject.SetOperator(v); break;
-  case Metadata::FMD_URL:  // We don't allow url in UI. Website should be used instead.
-  case Metadata::FMD_WEBSITE: g_editableMapObject.SetWebsite(v); break;
-  case Metadata::FMD_INTERNET: // TODO(yunikkk): use separate setter for Internet.
-    {
-      osm::Internet inet = osm::Internet::Unknown;
-      if (v == DebugPrint(osm::Internet::Wlan))
-        inet = osm::Internet::Wlan;
-      if (v == DebugPrint(osm::Internet::Wired))
-        inet = osm::Internet::Wired;
-      if (v == DebugPrint(osm::Internet::No))
-        inet = osm::Internet::No;
-      if (v == DebugPrint(osm::Internet::Yes))
-        inet = osm::Internet::Yes;
-      g_editableMapObject.SetInternet(inet);
-    }
-    break;
-  case Metadata::FMD_ELE:
-    {
-      double ele;
-      if (strings::to_double(v, ele))
-        g_editableMapObject.SetElevation(ele);
-      break;
-    }
-  case Metadata::FMD_EMAIL: g_editableMapObject.SetEmail(v); break;
-  case Metadata::FMD_POSTCODE: g_editableMapObject.SetPostcode(v); break;
-  case Metadata::FMD_WIKIPEDIA: g_editableMapObject.SetWikipedia(v); break;
-  case Metadata::FMD_FLATS: g_editableMapObject.SetFlats(v); break;
-  case Metadata::FMD_BUILDING_LEVELS: g_editableMapObject.SetBuildingLevels(v); break;
-  case Metadata::FMD_TURN_LANES:
-  case Metadata::FMD_TURN_LANES_FORWARD:
-  case Metadata::FMD_TURN_LANES_BACKWARD:
-  case Metadata::FMD_MAXSPEED:
-  case Metadata::FMD_HEIGHT:
-  case Metadata::FMD_MIN_HEIGHT:
-  case Metadata::FMD_DENOMINATION:
-  case Metadata::FMD_TEST_ID:
-  case Metadata::FMD_COUNT:
-    break;
-  }
+  g_editableMapObject.SetOpeningHours(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetPhone(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetPhone());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetPhone(JNIEnv * env, jclass, jstring value)
+{
+  g_editableMapObject.SetPhone(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetWebsite(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetWebsite());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetWebsite(JNIEnv * env, jclass, jstring value)
+{
+  g_editableMapObject.SetWebsite(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetEmail(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetEmail());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetEmail(JNIEnv * env, jclass, jstring value)
+{
+  g_editableMapObject.SetEmail(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetStars(JNIEnv * env, jclass)
+{
+  return g_editableMapObject.GetStars();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetStars(JNIEnv * env, jclass, jint value)
+{
+  g_editableMapObject.SetStars(value);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetOperator(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetOperator());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetOperator(JNIEnv * env, jclass, jstring value)
+{
+  g_editableMapObject.SetOperator(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jdouble JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetElevation(JNIEnv * env, jclass)
+{
+  double elevation;
+  return g_editableMapObject.GetElevation(elevation) ? elevation : -1;
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetElevation(JNIEnv * env, jclass, jdouble value)
+{
+  g_editableMapObject.SetElevation(value);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetWikipedia(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetWikipedia());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetWikipedia(JNIEnv * env, jclass, jstring value)
+{
+  g_editableMapObject.SetWikipedia(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetFlats(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetFlats());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetFlats(JNIEnv * env, jclass, jstring value)
+{
+  g_editableMapObject.SetFlats(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetBuildingLevels(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetBuildingLevels());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetBuildingLevels(JNIEnv * env, jclass, jstring value)
+{
+  g_editableMapObject.SetBuildingLevels(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetZipCode(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetPostcode());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetZipCode(JNIEnv * env, jclass clazz, jstring value)
+{
+  g_editableMapObject.SetPostcode(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
+{
+  return g_editableMapObject.GetInternet() == osm::Internet::Wlan;
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetHasWifi(JNIEnv *, jclass, jboolean hasWifi)
+{
+  g_editableMapObject.SetInternet(osm::Internet::Wlan);
 }
 
 JNIEXPORT jboolean JNICALL
@@ -166,6 +243,12 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsNameEditable(JNIEnv * env, jclass clazz)
 {
   return g_editableMapObject.IsNameEditable();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass clazz)
+{
+  return g_editableMapObject.IsBuilding();
 }
 
 JNIEXPORT jstring JNICALL
@@ -218,13 +301,6 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetNearbyStreets(JNIEnv * env, jcla
     // TODO(yunikkk): use "streets[i].m_localizedName" to get localized street.
     env->SetObjectArrayElement(jStreets, i, jni::TScopedLocalRef(env, jni::ToJavaString(env, streets[i].m_defaultName)).get());
   return jStreets;
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
-{
-  // TODO(AlexZ): Support 3-state: yes, no, unknown.
-  return g_editableMapObject.GetMetadata().Get(feature::Metadata::FMD_INTERNET) == "wlan";
 }
 
 JNIEXPORT jboolean JNICALL
@@ -351,19 +427,19 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetMwmVersion(JNIEnv * env, jclass 
   return g_editableMapObject.GetID().GetMwmVersion();
 }
 
-// static void nativeCreateNote(double lat, double lon, String text);
+// static void nativeCreateNote(String text);
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jstring text)
+Java_com_mapswithme_maps_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jstring text)
 {
-  Editor::Instance().CreateNote(ms::LatLon(lat, lon), g_editableMapObject.GetID(),
+  Editor::Instance().CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
                                 osm::Editor::NoteProblemType::General, jni::ToNativeString(env, text));
 }
 
-// static void nativePlaceDoesNotExist(double lat, double lon);
+// static void nativePlaceDoesNotExist();
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+Java_com_mapswithme_maps_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz)
 {
-  Editor::Instance().CreateNote(ms::LatLon(lat, lon), g_editableMapObject.GetID(),
+  Editor::Instance().CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
                                 osm::Editor::NoteProblemType::PlaceDoesNotExist, "");
 }
 
@@ -372,5 +448,11 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsHouseValid(JNIEnv * env, jclass clazz, jstring houseNumber)
 {
   return osm::EditableMapObject::ValidateHouseNumber(jni::ToNativeString(env, houseNumber));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetCategory(JNIEnv * env, jclass clazz)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetLocalizedType());
 }
 } // extern "C"

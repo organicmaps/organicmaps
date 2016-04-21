@@ -47,7 +47,7 @@ public class CustomTextInputLayout extends TextInputLayout
       // We have to reset the previous hint so that equals check pass
       setHint(null);
 
-      // In case that hint is changed programatically
+      // In case that hint is changed programmatically
       CharSequence currentEditTextHint = getEditText().getHint();
       if (currentEditTextHint != null && currentEditTextHint.length() > 0)
         mHint = currentEditTextHint;
@@ -55,5 +55,4 @@ public class CustomTextInputLayout extends TextInputLayout
       mIsHintSet = true;
     }
   }
-
 }

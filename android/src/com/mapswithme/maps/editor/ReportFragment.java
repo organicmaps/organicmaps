@@ -15,9 +15,6 @@ import com.mapswithme.util.UiUtils;
 
 public class ReportFragment extends BaseMwmToolbarFragment implements View.OnClickListener
 {
-  public static final String EXTRA_LAT = "lat";
-  public static final String EXTRA_LON = "lon";
-
   private View mSimpleProblems;
   private View mAdvancedProblem;
   private View mSave;
@@ -26,9 +23,6 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
   private boolean mAdvancedMode;
   @IntRange(from = 0, to = 3)
   private int mSelectedProblem;
-
-  private double mLat;
-  private double mLon;
 
   @Nullable
   @Override
@@ -42,10 +36,6 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
   {
     super.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(R.string.editor_report_problem_title);
-
-    Bundle args = getArguments();
-    mLat = args.getDouble(EXTRA_LAT);
-    mLon = args.getDouble(EXTRA_LON);
 
     mSave = mToolbarController.findViewById(R.id.save);
     mSave.setOnClickListener(this);
@@ -67,13 +57,13 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
 
   private void send(String text)
   {
-    Editor.nativeCreateNote(mLat, mLon, text);
+    Editor.nativeCreateNote(text);
     mToolbarController.onUpClick();
   }
 
   private void sendNotExist()
   {
-    Editor.nativePlaceDoesNotExist(mLat, mLon);
+    Editor.nativePlaceDoesNotExist();
     mToolbarController.onUpClick();
   }
 

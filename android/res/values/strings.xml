@@ -833,8 +833,14 @@
 	<string name="download_over_mobile_header">Download by using a cellular network connection?</string>
 	<string name="download_over_mobile_message">This could be considerably expensive with some plans or if roaming.</string>
 	<string name="error_enter_correct_house_number">Enter correct house number</string>
+	<string name="editor_storey_number">Storey number (maximum %d)</string>
+	<string name="error_enter_correct_storey_number">Maximum building levels number is limited to %d.</string>
 	<string name="editor_zip_code">ZIP Code</string>
 	<string name="error_enter_correct_zip_code">Enter correct ZIP Code</string>
 	<string name="editor_operator">Operator</string>
 	<string name="placepage_unknown_place">Unknown Place</string>
+	<string name="editor_other_info">Other information about place</string>
+	<string name="editor_detailed_description_hint">Detailed description</string>
+	<string name="editor_detailed_description">Suggested changes will be send to OpenStreetMap...</string>
+	<string name="editor_more_about_osm">More about OpenStreetMap</string>
 </resources>

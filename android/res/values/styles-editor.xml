@@ -12,7 +12,7 @@
   <style name="MwmWidget.Editor.CardView">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_marginBottom">@dimen/margin_base</item>
+    <item name="android:layout_marginBottom">@dimen/margin_half</item>
     <item name="cardBackgroundColor">?cardBackground</item>
     <item name="android:padding">@dimen/margin_base</item>
     <item name="cardPreventCornerOverlap">false</item>
@@ -27,6 +27,7 @@
 
   <style name="MwmWidget.Editor.MetadataBlock.Clickable">
     <item name="android:background">?clickableBackground</item>
+    <item name="android:clickable">true</item>
   </style>
 
   <style name="MwmWidget.Editor.MetadataIcon">

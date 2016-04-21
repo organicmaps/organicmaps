@@ -16,7 +16,6 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
@@ -121,7 +120,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     mMode = Mode.OPENING_HOURS;
     mToolbarController.setTitle(R.string.editor_time_title);
     final Bundle args = new Bundle();
-    args.putString(TimetableFragment.EXTRA_TIME, Editor.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
+    args.putString(TimetableFragment.EXTRA_TIME, Editor.nativeGetOpeningHours());
     final Fragment editorFragment = Fragment.instantiate(getActivity(), TimetableFragment.class.getName(), args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, editorFragment, TimetableFragment.class.getName())
@@ -155,6 +154,16 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
                              .commit();
   }
 
+  protected void editCategory()
+  {
+    if (!mIsNewObject)
+      return;
+
+    final Activity host = getActivity();
+    host.finish();
+    startActivity(new Intent(host, FeatureCategoryActivity.class));
+  }
+
   private boolean setEdits()
   {
     return ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();
@@ -171,11 +180,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         final String timetables = ((TimetableFragment) getChildFragmentManager().findFragmentByTag(TimetableFragment.class.getName())).getTimetable();
         if (OpeningHours.nativeIsTimetableStringValid(timetables))
         {
-          Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, timetables);
+          Editor.nativeSetOpeningHours(timetables);
           editMapObject();
         }
         else
         {
+          // TODO (yunikkk) correct translation
           showMistakeDialog(R.string.editor_correct_mistake);
         }
         break;
@@ -191,6 +201,11 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         if (!setEdits())
           return;
 
+        // Save note
+        final String note = ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).getDescription();
+        if (note.length() != 0)
+          Editor.nativeCreateNote(note);
+        // Save object edits
         if (Editor.nativeSaveEditedFeature())
         {
           Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);

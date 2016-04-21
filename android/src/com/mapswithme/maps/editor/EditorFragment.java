@@ -1,48 +1,54 @@
 package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.SwitchCompat;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.bookmarks.data.Metadata.MetadataType;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
-import com.mapswithme.maps.widget.CustomTextInputLayout;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
-  private View mNameBlock;
-  private View mAddressBlock;
-  private View mMetadataBlock;
-  private EditText mEtName;
-  private TextView mTvLocalizedNames;
-  private TextView mTvStreet;
-  private EditText mEtHouseNumber;
-  private CustomTextInputLayout mInputHouseNumber;
-  private View mPhoneBlock;
-  private EditText mEtPhone;
-  private View mWebBlock;
-  private EditText mEtWebsite;
-  private View mEmailBlock;
-  private EditText mEtEmail;
-  private View mCuisineBlock;
-  private TextView mTvCuisine;
-  private View mWifiBlock;
-  private SwitchCompat mSwWifi;
-  private View mOpeningHoursBlock;
+  private TextView mCategory;
+  private View mCardName;
+  private View mCardAddress;
+  private View mCardMetadata;
+  private EditText mName;
+  private TextView mLocalizedNames;
+  private TextView mStreet;
+  private EditText mHouseNumber;
+  private EditText mZipcode;
+  private View mBlockLevels;
+  private EditText mBuildingLevels;
+  private TextInputLayout mInputHouseNumber;
+  private EditText mPhone;
+  private EditText mWebsite;
+  private EditText mEmail;
+  private TextView mCuisine;
+  private EditText mOperator;
+  private SwitchCompat mWifi;
   private View mEmptyOpeningHours;
   private TextView mOpeningHours;
   private View mEditOpeningHours;
+  private EditText mDescription;
+  private final SparseArray<View> mMetaBlocks = new SparseArray<>(7);
 
   protected EditorHostFragment mParent;
 
@@ -62,12 +68,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     initViews(view);
 
+    mCategory.setText(Editor.nativeGetCategory());
     // TODO(yunikkk): Add multilanguages support.
-    UiUtils.hide(mTvLocalizedNames);
-    mEtName.setText(Editor.nativeGetDefaultName());
-    mTvStreet.setText(Editor.nativeGetStreet());
-    mEtHouseNumber.setText(Editor.nativeGetHouseNumber());
-    mEtHouseNumber.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    UiUtils.hide(mLocalizedNames);
+    mName.setText(Editor.nativeGetDefaultName());
+    mStreet.setText(Editor.nativeGetStreet());
+    mHouseNumber.setText(Editor.nativeGetHouseNumber());
+    mHouseNumber.addTextChangedListener(new StringUtils.SimpleTextWatcher()
     {
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -83,13 +90,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
         mInputHouseNumber.setError(null);
       }
     });
-    mEtPhone.setText(Editor.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
-    mEtWebsite.setText(Editor.getMetadata(Metadata.MetadataType.FMD_WEBSITE));
-    mEtEmail.setText(Editor.getMetadata(Metadata.MetadataType.FMD_EMAIL));
-    mTvCuisine.setText(Editor.nativeGetFormattedCuisine());
-    mSwWifi.setChecked(Editor.nativeHasWifi());
+    mZipcode.setText(Editor.nativeGetZipCode());
+    mBuildingLevels.setText(Editor.nativeGetBuildingLevels());
+    mPhone.setText(Editor.nativeGetPhone());
+    mWebsite.setText(Editor.nativeGetWebsite());
+    mEmail.setText(Editor.nativeGetEmail());
+    mCuisine.setText(Editor.nativeGetFormattedCuisine());
+    mOperator.setText(Editor.nativeGetOperator());
+    mWifi.setChecked(Editor.nativeHasWifi());
     refreshOpeningTime();
-
     refreshEditableFields();
   }
 
@@ -105,121 +114,68 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     if (!validateFields())
       return false;
 
-    Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, getPhone());
-    Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, getWebsite());
-    Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, getEmail());
-    Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, getWifi());
-    Editor.nativeSetDefaultName(getName());
-    Editor.nativeSetHouseNumber(getHouseNumber());
+    Editor.nativeSetDefaultName(mName.getText().toString());
+    Editor.nativeSetHouseNumber(mHouseNumber.getText().toString());
+    Editor.nativeSetZipCode(mZipcode.getText().toString());
+    Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
+    Editor.nativeSetPhone(mPhone.getText().toString());
+    Editor.nativeSetWebsite(mWebsite.getText().toString());
+    Editor.nativeSetEmail(mEmail.getText().toString());
+    Editor.nativeSetHasWifi(mWifi.isChecked());
 
     return true;
   }
 
+  @NonNull
+  protected String getDescription()
+  {
+    return mDescription.getText().toString().trim();
+  }
+
   private boolean validateFields()
   {
-    if (!Editor.nativeIsHouseValid(getHouseNumber()))
+    if (!Editor.nativeIsHouseValid(mHouseNumber.getText().toString()))
     {
-      mEtHouseNumber.requestFocus();
-      InputUtils.showKeyboard(mEtHouseNumber);
+      mHouseNumber.requestFocus();
+      InputUtils.showKeyboard(mHouseNumber);
       return false;
     }
 
     return true;
   }
 
-  public String getName()
-  {
-    // TODO add localized names
-    return mEtName.getText().toString();
-  }
-
-  public String getStreet()
-  {
-    return mTvStreet.getText().toString();
-  }
-
-  public String getHouseNumber()
-  {
-    return mEtHouseNumber.getText().toString();
-  }
-
-  public String getPhone()
-  {
-    return mEtPhone.getText().toString();
-  }
-
-  public String getWebsite()
-  {
-    return mEtWebsite.getText().toString();
-  }
-
-  public String getEmail()
-  {
-    return mEtEmail.getText().toString();
-  }
-
-  public String getCuisine()
-  {
-    return mTvCuisine.getText().toString();
-  }
-
-  public String getWifi()
-  {
-    return mSwWifi.isChecked() ? "wlan" : "";
-  }
-
   private void refreshEditableFields()
   {
-    UiUtils.showIf(Editor.nativeIsNameEditable(), mNameBlock);
-    UiUtils.showIf(Editor.nativeIsAddressEditable(), mAddressBlock);
+    UiUtils.showIf(Editor.nativeIsNameEditable(), mCardName);
+    UiUtils.showIf(Editor.nativeIsAddressEditable(), mCardAddress);
+    UiUtils.showIf(Editor.nativeIsBuilding(), mBlockLevels);
 
     final int[] editableMeta = Editor.nativeGetEditableFields();
     if (editableMeta.length == 0)
     {
-      UiUtils.hide(mMetadataBlock);
+      UiUtils.hide(mCardMetadata);
       return;
     }
 
-    UiUtils.show(mMetadataBlock);
-    UiUtils.hide(mOpeningHoursBlock, mPhoneBlock, mWebBlock, mEmailBlock, mCuisineBlock, mWifiBlock);
+    for (int i = 0; i < mMetaBlocks.size(); i++)
+      UiUtils.hide(mMetaBlocks.valueAt(i));
+
     boolean anyEditableMeta = false;
     for (int type : editableMeta)
     {
-      switch (Metadata.MetadataType.fromInt(type))
-      {
-      case FMD_OPEN_HOURS:
-        anyEditableMeta = true;
-        UiUtils.show(mOpeningHoursBlock);
-        break;
-      case FMD_PHONE_NUMBER:
-        anyEditableMeta = true;
-        UiUtils.show(mPhoneBlock);
-        break;
-      case FMD_WEBSITE:
-        anyEditableMeta = true;
-        UiUtils.show(mWebBlock);
-        break;
-      case FMD_EMAIL:
-        anyEditableMeta = true;
-        UiUtils.show(mEmailBlock);
-        break;
-      case FMD_CUISINE:
-        anyEditableMeta = true;
-        UiUtils.show(mCuisineBlock);
-        break;
-      case FMD_INTERNET:
-        anyEditableMeta = true;
-        UiUtils.show(mWifiBlock);
-        break;
-      }
+      final View metaBlock = mMetaBlocks.get(type);
+      if (metaBlock == null)
+        continue;
+
+      anyEditableMeta = true;
+      UiUtils.show(metaBlock);
     }
-    if (!anyEditableMeta)
-      UiUtils.hide(mMetadataBlock);
+    UiUtils.showIf(anyEditableMeta, mCardMetadata);
   }
 
   private void refreshOpeningTime()
   {
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(Editor.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
+    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(Editor.nativeGetOpeningHours());
     if (timetables == null)
     {
       UiUtils.show(mEmptyOpeningHours);
@@ -235,39 +191,71 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void initViews(View view)
   {
-    mNameBlock = view.findViewById(R.id.cv__name);
-    mAddressBlock = view.findViewById(R.id.cv__address);
-    mMetadataBlock = view.findViewById(R.id.cv__metadata);
-    mEtName = findInput(view.findViewById(R.id.name));
-    mTvLocalizedNames = (TextView) view.findViewById(R.id.name_multilang);
+    final View categoryBlock = view.findViewById(R.id.category);
+    categoryBlock.setOnClickListener(this);
+    // TODO show icon and fill it when core will implement that
+    UiUtils.hide(categoryBlock.findViewById(R.id.icon));
+    mCategory = (TextView) categoryBlock.findViewById(R.id.name);
+    mCardName = view.findViewById(R.id.cv__name);
+    mCardAddress = view.findViewById(R.id.cv__address);
+    mCardMetadata = view.findViewById(R.id.cv__metadata);
+    mName = findInput(mCardName);
+    mLocalizedNames = (TextView) view.findViewById(R.id.name_multilang);
+    // Address
     view.findViewById(R.id.block_street).setOnClickListener(this);
-    mTvStreet = (TextView) view.findViewById(R.id.street);
-    mEtHouseNumber = findInput(view.findViewById(R.id.building));
-    mInputHouseNumber = (CustomTextInputLayout) view.findViewById(R.id.building).findViewById(R.id.custom_input);
-    mPhoneBlock = view.findViewById(R.id.block_phone);
-    mEtPhone = findInput(mPhoneBlock);
-    mWebBlock = view.findViewById(R.id.block_website);
-    mEtWebsite = findInput(mWebBlock);
-    mEmailBlock = view.findViewById(R.id.block_email);
-    mEtEmail = findInput(mEmailBlock);
-    mCuisineBlock = view.findViewById(R.id.block_cuisine);
-    mCuisineBlock.setOnClickListener(this);
-    mTvCuisine = (TextView) view.findViewById(R.id.cuisine);
-    mWifiBlock = view.findViewById(R.id.block_wifi);
-    mSwWifi = (SwitchCompat) view.findViewById(R.id.sw__wifi);
-    mWifiBlock.setOnClickListener(this);
-    mOpeningHoursBlock = view.findViewById(R.id.block_opening_hours);
-    mEditOpeningHours = mOpeningHoursBlock.findViewById(R.id.edit_opening_hours);
+    mStreet = (TextView) view.findViewById(R.id.street);
+    View blockHouseNumber = view.findViewById(R.id.block_building);
+    mHouseNumber = findInputAndInitBlock(blockHouseNumber, 0, R.string.house_number);
+    mInputHouseNumber = (TextInputLayout) blockHouseNumber.findViewById(R.id.custom_input);
+    View blockZipcode = view.findViewById(R.id.block_zipcode);
+    mZipcode = findInputAndInitBlock(blockZipcode, 0, R.string.editor_zip_code);
+    mBlockLevels = view.findViewById(R.id.block_levels);
+    // TODO set levels limit (25 or more, get it from the core)
+    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, R.string.editor_storey_number);
+    // Details
+    View blockPhone = view.findViewById(R.id.block_phone);
+    mPhone = findInputAndInitBlock(blockPhone, R.drawable.ic_phone, R.string.phone);
+    View blockWeb = view.findViewById(R.id.block_website);
+    mWebsite = findInputAndInitBlock(blockWeb, R.drawable.ic_website, R.string.website);
+    View blockEmail = view.findViewById(R.id.block_email);
+    mEmail = findInputAndInitBlock(blockEmail, R.drawable.ic_email, R.string.email);
+    View blockCuisine = view.findViewById(R.id.block_cuisine);
+    blockCuisine.setOnClickListener(this);
+    mCuisine = (TextView) view.findViewById(R.id.cuisine);
+    View blockOperator = view.findViewById(R.id.block_operator);
+    mOperator = findInputAndInitBlock(blockOperator, R.drawable.ic_operator, R.string.editor_operator);
+    View blockWifi = view.findViewById(R.id.block_wifi);
+    mWifi = (SwitchCompat) view.findViewById(R.id.sw__wifi);
+    blockWifi.setOnClickListener(this);
+    View blockOpeningHours = view.findViewById(R.id.block_opening_hours);
+    mEditOpeningHours = blockOpeningHours.findViewById(R.id.edit_opening_hours);
     mEditOpeningHours.setOnClickListener(this);
-    mEmptyOpeningHours = mOpeningHoursBlock.findViewById(R.id.empty_opening_hours);
+    mEmptyOpeningHours = blockOpeningHours.findViewById(R.id.empty_opening_hours);
     mEmptyOpeningHours.setOnClickListener(this);
-    mOpeningHours = (TextView) mOpeningHoursBlock.findViewById(R.id.opening_hours);
+    mOpeningHours = (TextView) blockOpeningHours.findViewById(R.id.opening_hours);
     mOpeningHours.setOnClickListener(this);
+    mDescription = findInput(view.findViewById(R.id.cv__more));
+
+    mMetaBlocks.append(MetadataType.FMD_OPEN_HOURS.toInt(), blockOpeningHours);
+    mMetaBlocks.append(MetadataType.FMD_PHONE_NUMBER.toInt(), blockPhone);
+    mMetaBlocks.append(MetadataType.FMD_WEBSITE.toInt(), blockWeb);
+    mMetaBlocks.append(MetadataType.FMD_EMAIL.toInt(), blockEmail);
+    mMetaBlocks.append(MetadataType.FMD_CUISINE.toInt(), blockCuisine);
+    mMetaBlocks.append(MetadataType.FMD_OPERATOR.toInt(), blockOperator);
+    mMetaBlocks.append(MetadataType.FMD_INTERNET.toInt(), blockWifi);
   }
 
-  private EditText findInput(View view)
+  private EditText findInput(View blockWithInput)
   {
-    return (EditText) view.findViewById(R.id.input);
+    return (EditText) blockWithInput.findViewById(R.id.input);
+  }
+
+  private EditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, @StringRes int hint)
+  {
+    ((ImageView) blockWithInput.findViewById(R.id.icon)).setImageResource(icon);
+    final TextInputLayout input = (TextInputLayout) blockWithInput.findViewById(R.id.custom_input);
+    input.setHint(getString(hint));
+    return (EditText) input.findViewById(R.id.input);
   }
 
   @Override
@@ -281,7 +269,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       mParent.editTimetable();
       break;
     case R.id.block_wifi:
-      mSwWifi.toggle();
+      mWifi.toggle();
       break;
     case R.id.block_street:
       mParent.editStreet();
@@ -289,6 +277,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     case R.id.block_cuisine:
       mParent.editCuisine();
       break;
+    case R.id.category:
+      mParent.editCategory();
     }
   }
 }

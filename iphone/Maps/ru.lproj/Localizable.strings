@@ -1373,9 +1373,9 @@
 
 "error_enter_correct_house_number" = "Введите корректный номер дома";
 
-"editor_storey_number" = "Количество этажей (максимум %1$@)";
+"editor_storey_number" = "Количество этажей (максимум %d)";
 
-"error_enter_correct_storey_number" = "Редактируйте здания высотой максимум %1$@ этажей.";
+"error_enter_correct_storey_number" = "Редактируйте здания высотой максимум %d этажей.";
 
 "editor_zip_code" = "Почтовый индекс";
 
@@ -1384,3 +1384,11 @@
 "editor_operator" = "Владелец";
 
 "placepage_unknown_place" = "Неизвестное место";
+
+"editor_other_info" = "Other information about place";
+
+"editor_detailed_description_hint" = "Detailed description";
+
+"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+
+"editor_more_about_osm" = "More about OpenStreetMap";
