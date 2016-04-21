@@ -84,6 +84,12 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 #pragma mark - Actions
 
+- (IBAction)textFieldDidBeginEditing:(UITextField *)textField
+{
+  if (self.state == MWMSearchManagerStateMapSearch)
+    self.state = MWMSearchManagerStateTableSearch;
+}
+
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField
 {
   if (textField.text.length == 0)
@@ -260,9 +266,11 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (void)changeToTableSearchState
 {
+  self.rootView.compact = NO;
   self.rootView.tabBarIsVisible = NO;
   self.tableViewController.searchOnMap = NO;
-  [self.navigationController pushViewController:self.tableViewController animated:NO];
+  if (![self.navigationController.viewControllers containsObject:self.tableViewController])
+    [self.navigationController pushViewController:self.tableViewController animated:NO];
 }
 
 - (void)changeToMapSearchState

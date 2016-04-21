@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSearchManager">
@@ -26,7 +26,6 @@
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView">
                             <rect key="frame" x="0.0" y="64" width="320" height="440"/>
-                            <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -37,7 +36,6 @@
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHM-kd-o0T" userLabel="History" customClass="MWMSearchTabButtonsView">
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="60"/>
-                                    <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="ic_history_tab"/>
@@ -49,7 +47,6 @@
                                 </view>
                                 <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YT7-kp-bFI" userLabel="Categories" customClass="MWMSearchTabButtonsView">
                                     <rect key="frame" x="160" y="0.0" width="160" height="60"/>
-                                    <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="categories"/>
@@ -61,7 +58,6 @@
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6M-wl-tUg" userLabel="ScrollIndicator">
                                     <rect key="frame" x="0.0" y="60" width="160" height="4"/>
-                                    <animations/>
                                     <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="4" id="k6i-ll-1hB"/>
@@ -71,7 +67,6 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                             </subviews>
-                            <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="yHM-kd-o0T" firstAttribute="top" secondItem="Smx-UL-Mcd" secondAttribute="top" id="3j1-jw-8LX"/>
@@ -104,7 +99,6 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="u9y-bx-NGd" firstAttribute="top" secondItem="Smx-UL-Mcd" secondAttribute="bottom" id="D3P-cI-mTV"/>
@@ -124,7 +118,6 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8lb-Vi-0oJ" userLabel="StatusBarBackground">
                             <rect key="frame" x="0.0" y="-20" width="320" height="20"/>
-                            <animations/>
                             <color key="backgroundColor" red="0.12549019610000001" green="0.59607843140000005" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="uq8-gE-5iC"/>
@@ -135,7 +128,6 @@
                         </view>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="hna-zw-Zor" userLabel="Search" customClass="MWMSearchTextField">
                             <rect key="frame" x="8" y="4" width="246" height="36"/>
-                            <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
                             <userDefinedRuntimeAttributes>
@@ -144,6 +136,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
+                                <action selector="textFieldDidBeginEditing:" destination="-1" eventType="editingDidBegin" id="MvO-ga-X7R"/>
                                 <action selector="textFieldDidEndEditing:" destination="-1" eventType="editingDidEnd" id="1NS-lr-9DA"/>
                                 <action selector="textFieldTextDidChange:" destination="-1" eventType="editingChanged" id="lni-qP-88W"/>
                                 <outlet property="delegate" destination="-1" id="1dg-Kn-jnV"/>
@@ -151,7 +144,6 @@
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Hu-71-uqb">
                             <rect key="frame" x="254" y="0.0" width="66" height="44"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="66" id="vlY-Wi-Dvw"/>
                             </constraints>
@@ -168,7 +160,6 @@
                             </connections>
                         </button>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" red="0.12549019607843137" green="0.59607843137254901" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="92s-Aa-9VQ"/>
@@ -200,7 +191,6 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <animations/>
             <constraints>
                 <constraint firstItem="grH-Hm-JRD" firstAttribute="top" secondItem="HcT-Cg-vp3" secondAttribute="bottom" id="6u9-eF-rU6"/>
                 <constraint firstAttribute="bottom" secondItem="grH-Hm-JRD" secondAttribute="bottom" id="HgS-sO-zcO"/>
