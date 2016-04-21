@@ -150,8 +150,8 @@ public final class Editor
   public static native String nativeGetMwmName();
   public static native long nativeGetMwmVersion();
 
-  public static native void nativeCreateNote(double lat, double lon, String text);
-  public static native void nativePlaceDoesNotExist(double lat, double lon);
+  public static native void nativeCreateNote(String text);
+  public static native void nativePlaceDoesNotExist();
 
   public static native boolean nativeIsHouseValid(String houseNumber);
 }

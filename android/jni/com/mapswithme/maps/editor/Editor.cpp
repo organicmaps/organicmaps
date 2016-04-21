@@ -427,19 +427,19 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetMwmVersion(JNIEnv * env, jclass 
   return g_editableMapObject.GetID().GetMwmVersion();
 }
 
-// static void nativeCreateNote(double lat, double lon, String text);
+// static void nativeCreateNote(String text);
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jstring text)
+Java_com_mapswithme_maps_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jstring text)
 {
-  Editor::Instance().CreateNote(ms::LatLon(lat, lon), g_editableMapObject.GetID(),
+  Editor::Instance().CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
                                 osm::Editor::NoteProblemType::General, jni::ToNativeString(env, text));
 }
 
-// static void nativePlaceDoesNotExist(double lat, double lon);
+// static void nativePlaceDoesNotExist();
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+Java_com_mapswithme_maps_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz)
 {
-  Editor::Instance().CreateNote(ms::LatLon(lat, lon), g_editableMapObject.GetID(),
+  Editor::Instance().CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
                                 osm::Editor::NoteProblemType::PlaceDoesNotExist, "");
 }
 

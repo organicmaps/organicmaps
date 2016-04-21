@@ -2,6 +2,7 @@ package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
@@ -125,6 +126,12 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return true;
   }
 
+  @NonNull
+  protected String getDescription()
+  {
+    return mDescription.getText().toString().trim();
+  }
+
   private boolean validateFields()
   {
     if (!Editor.nativeIsHouseValid(mHouseNumber.getText().toString()))
@@ -238,15 +245,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mMetaBlocks.append(MetadataType.FMD_INTERNET.toInt(), blockWifi);
   }
 
-  private EditText findInput(View view)
+  private EditText findInput(View blockWithInput)
   {
-    return (EditText) view.findViewById(R.id.input);
+    return (EditText) blockWithInput.findViewById(R.id.input);
   }
 
-  private EditText findInputAndInitBlock(View block, @DrawableRes int icon, @StringRes int hint)
+  private EditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, @StringRes int hint)
   {
-    ((ImageView) block.findViewById(R.id.icon)).setImageResource(icon);
-    final TextInputLayout input = (TextInputLayout) block.findViewById(R.id.custom_input);
+    ((ImageView) blockWithInput.findViewById(R.id.icon)).setImageResource(icon);
+    final TextInputLayout input = (TextInputLayout) blockWithInput.findViewById(R.id.custom_input);
     input.setHint(getString(hint));
     return (EditText) input.findViewById(R.id.input);
   }

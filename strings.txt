@@ -4874,7 +4874,7 @@
     en = Data version: %d
     ru = Версия данных: %d
     de = Datenversion: %d
-	zh-Hant = 資料版本： %d
+    zh-Hant = 資料版本： %d
 
   [are_you_sure]
     tags = android,tizen
@@ -16217,13 +16217,13 @@
 
   [editor_storey_number]
     tags = ios, android
-    en = Storey number (maximum %1$@)
-    ru = Количество этажей (максимум %1$@)
+    en = Storey number (maximum %d)
+    ru = Количество этажей (максимум %d)
 
   [error_enter_correct_storey_number]
     tags = ios, android
-    en = Edit buildings with maximum of %1$@ floors
-    ru = Редактируйте здания высотой максимум %1$@ этажей.
+    en = Maximum building levels number is limited to %d.
+    ru = Редактируйте здания высотой максимум %d этажей.
   
   [editor_zip_code]
     tags = ios, android

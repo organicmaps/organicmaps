@@ -159,7 +159,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     if (!mIsNewObject)
       return;
 
-    final EditorActivity host = (EditorActivity) getActivity();
+    final Activity host = getActivity();
     host.finish();
     startActivity(new Intent(host, FeatureCategoryActivity.class));
   }
@@ -185,6 +185,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         }
         else
         {
+          // TODO (yunikkk) correct translation
           showMistakeDialog(R.string.editor_correct_mistake);
         }
         break;
@@ -200,6 +201,11 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         if (!setEdits())
           return;
 
+        // Save note
+        final String note = ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).getDescription();
+        if (note.length() != 0)
+          Editor.nativeCreateNote(note);
+        // Save object edits
         if (Editor.nativeSaveEditedFeature())
         {
           Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);
