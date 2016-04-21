@@ -58,7 +58,7 @@ public class AboutFragment extends BaseSettingsFragment
         .setText(getString(R.string.version, BuildConfig.VERSION_NAME));
 
     ((TextView) mFrame.findViewById(R.id.data_version))
-      .setText(getString(R.string.data_version, Framework.nativeGetDataVersion()));
+        .setText(getString(R.string.data_version, Framework.nativeGetDataVersion()));
 
     setupItem(R.id.web, true);
     setupItem(R.id.blog, true);
