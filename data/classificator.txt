@@ -441,7 +441,12 @@ world  +
         recreation_ground  -
         sauna  -
         slipway  -
-        sports_centre  -
+        sports_centre  +
+            climbing  -
+            shooting  -
+            swimming  -
+            yoga  -
+            {}
         stadium  -
         swimming_pool  -
         track  -
@@ -732,6 +737,7 @@ world  +
         books  -
         butcher  -
         car  -
+        car_parts  -
         car_repair  +
             tyres  -
             {}

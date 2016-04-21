@@ -1101,3 +1101,8 @@ tourism|information|map
 tourism|information|office
 traffic_calming|bump
 traffic_calming|hump
+shop|car_parts
+leisure|sports_centre|climbing
+leisure|sports_centre|shooting
+leisure|sports_centre|swimming
+leisure|sports_centre|yoga

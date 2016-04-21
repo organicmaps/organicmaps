@@ -1101,3 +1101,8 @@ tourism|information|map;[tourism=information][information=map];;name;int_name;11
 tourism|information|office;[tourism=information][information=office];;name;int_name;1101;
 traffic_calming|bump;1102;
 traffic_calming|hump;1103;
+shop|car_parts;1104;
+leisure|sports_centre|climbing;[leisure=sports_centre][sport=climbing];;name;int_name;1105;
+leisure|sports_centre|shooting;[leisure=sports_centre][sport=shooting];;name;int_name;1106;
+leisure|sports_centre|swimming;[leisure=sports_centre][sport=swimming];;name;int_name;1107;
+leisure|sports_centre|yoga;[leisure=sports_centre][sport=yoga];;name;int_name;1108;

@@ -37541,7 +37541,7 @@ cont {
   }
 }
 cont {
-  name: "leisure-stadium"
+  name: "leisure-sports_centre-climbing"
   element {
     scale: 12
     area {
@@ -37624,6 +37624,362 @@ cont {
   }
 }
 cont {
+  name: "leisure-sports_centre-shooting"
+  element {
+    scale: 12
+    area {
+      color: 13691076
+      priority: -16304
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13691076
+      priority: -16305
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13691076
+      priority: -16306
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13691076
+      priority: -16307
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13691076
+      priority: -16308
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13691076
+      priority: -16309
+    }
+    symbol {
+      name: "shooting-borderless"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13691076
+      priority: -16310
+    }
+    symbol {
+      name: "shooting-borderless"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13691076
+      priority: -16311
+    }
+    symbol {
+      name: "shooting-borderless"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "leisure-sports_centre-swimming"
+  element {
+    scale: 12
+    area {
+      color: 13691076
+      priority: -16312
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13691076
+      priority: -16313
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13691076
+      priority: -16314
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13691076
+      priority: -16315
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13691076
+      priority: -16316
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13691076
+      priority: -16317
+    }
+    symbol {
+      name: "swimming-borderless"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13691076
+      priority: -16318
+    }
+    symbol {
+      name: "swimming-borderless"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13691076
+      priority: -16319
+    }
+    symbol {
+      name: "swimming-borderless"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "leisure-sports_centre-yoga"
+  element {
+    scale: 12
+    area {
+      color: 13691076
+      priority: -16320
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13691076
+      priority: -16321
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13691076
+      priority: -16322
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13691076
+      priority: -16323
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13691076
+      priority: -16324
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13691076
+      priority: -16325
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13691076
+      priority: -16326
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13691076
+      priority: -16327
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "leisure-stadium"
+  element {
+    scale: 12
+    area {
+      color: 13691076
+      priority: -16328
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13691076
+      priority: -16329
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13691076
+      priority: -16330
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13691076
+      priority: -16331
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13691076
+      priority: -16332
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13691076
+      priority: -16333
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13691076
+      priority: -16334
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13691076
+      priority: -16335
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "leisure-swimming_pool"
   element {
     scale: 13
@@ -37681,56 +38037,56 @@ cont {
     scale: 12
     area {
       color: 13691076
-      priority: -16304
+      priority: -16336
     }
   }
   element {
     scale: 13
     area {
       color: 13691076
-      priority: -16305
+      priority: -16337
     }
   }
   element {
     scale: 14
     area {
       color: 13691076
-      priority: -16306
+      priority: -16338
     }
   }
   element {
     scale: 15
     area {
       color: 13691076
-      priority: -16307
+      priority: -16339
     }
   }
   element {
     scale: 16
     area {
       color: 13691076
-      priority: -16308
+      priority: -16340
     }
   }
   element {
     scale: 17
     area {
       color: 13691076
-      priority: -16309
+      priority: -16341
     }
   }
   element {
     scale: 18
     area {
       color: 13691076
-      priority: -16310
+      priority: -16342
     }
   }
   element {
     scale: 19
     area {
       color: 13691076
-      priority: -16311
+      priority: -16343
     }
   }
 }
@@ -38379,56 +38735,56 @@ cont {
     scale: 12
     area {
       color: 15000804
-      priority: -16312
+      priority: -16344
     }
   }
   element {
     scale: 13
     area {
       color: 15000804
-      priority: -16313
+      priority: -16345
     }
   }
   element {
     scale: 14
     area {
       color: 15000804
-      priority: -16314
+      priority: -16346
     }
   }
   element {
     scale: 15
     area {
       color: 15000804
-      priority: -16315
+      priority: -16347
     }
   }
   element {
     scale: 16
     area {
       color: 15000804
-      priority: -16316
+      priority: -16348
     }
   }
   element {
     scale: 17
     area {
       color: 15000804
-      priority: -16317
+      priority: -16349
     }
   }
   element {
     scale: 18
     area {
       color: 15000804
-      priority: -16318
+      priority: -16350
     }
   }
   element {
     scale: 19
     area {
       color: 15000804
-      priority: -16319
+      priority: -16351
     }
   }
 }
@@ -39099,7 +39455,7 @@ cont {
     scale: 14
     area {
       color: 15649877
-      priority: -16320
+      priority: -16352
     }
     caption {
       primary {
@@ -39114,7 +39470,7 @@ cont {
     scale: 15
     area {
       color: 15649877
-      priority: -16321
+      priority: -16353
     }
     caption {
       primary {
@@ -39129,7 +39485,7 @@ cont {
     scale: 16
     area {
       color: 15649877
-      priority: -16322
+      priority: -16354
     }
     caption {
       primary {
@@ -39144,7 +39500,7 @@ cont {
     scale: 17
     area {
       color: 15649877
-      priority: -16323
+      priority: -16355
     }
     caption {
       primary {
@@ -39159,7 +39515,7 @@ cont {
     scale: 18
     area {
       color: 15649877
-      priority: -16324
+      priority: -16356
     }
     caption {
       primary {
@@ -39174,7 +39530,7 @@ cont {
     scale: 19
     area {
       color: 15649877
-      priority: -16325
+      priority: -16357
     }
     caption {
       primary {
@@ -39497,140 +39853,140 @@ cont {
     scale: 0
     area {
       color: 16777215
-      priority: -16326
+      priority: -16358
     }
   }
   element {
     scale: 1
     area {
       color: 16777215
-      priority: -16327
+      priority: -16359
     }
   }
   element {
     scale: 2
     area {
       color: 16777215
-      priority: -16328
+      priority: -16360
     }
   }
   element {
     scale: 3
     area {
       color: 16777215
-      priority: -16329
+      priority: -16361
     }
   }
   element {
     scale: 4
     area {
       color: 16777215
-      priority: -16330
+      priority: -16362
     }
   }
   element {
     scale: 5
     area {
       color: 16777215
-      priority: -16331
+      priority: -16363
     }
   }
   element {
     scale: 6
     area {
       color: 16777215
-      priority: -16332
+      priority: -16364
     }
   }
   element {
     scale: 7
     area {
       color: 16777215
-      priority: -16333
+      priority: -16365
     }
   }
   element {
     scale: 8
     area {
       color: 16777215
-      priority: -16334
+      priority: -16366
     }
   }
   element {
     scale: 9
     area {
       color: 16777215
-      priority: -16335
+      priority: -16367
     }
   }
   element {
     scale: 10
     area {
       color: 16777215
-      priority: -16336
+      priority: -16368
     }
   }
   element {
     scale: 11
     area {
       color: 16777215
-      priority: -16337
+      priority: -16369
     }
   }
   element {
     scale: 12
     area {
       color: 16777215
-      priority: -16338
+      priority: -16370
     }
   }
   element {
     scale: 13
     area {
       color: 16777215
-      priority: -16339
+      priority: -16371
     }
   }
   element {
     scale: 14
     area {
       color: 16777215
-      priority: -16340
+      priority: -16372
     }
   }
   element {
     scale: 15
     area {
       color: 16777215
-      priority: -16341
+      priority: -16373
     }
   }
   element {
     scale: 16
     area {
       color: 16777215
-      priority: -16342
+      priority: -16374
     }
   }
   element {
     scale: 17
     area {
       color: 16777215
-      priority: -16343
+      priority: -16375
     }
   }
   element {
     scale: 18
     area {
       color: 16777215
-      priority: -16344
+      priority: -16376
     }
   }
   element {
     scale: 19
     area {
       color: 16777215
-      priority: -16345
+      priority: -16377
     }
   }
 }
@@ -39640,28 +39996,28 @@ cont {
     scale: 12
     area {
       color: 13691076
-      priority: -16346
+      priority: -16378
     }
   }
   element {
     scale: 13
     area {
       color: 13691076
-      priority: -16347
+      priority: -16379
     }
   }
   element {
     scale: 14
     area {
       color: 13691076
-      priority: -16348
+      priority: -16380
     }
   }
   element {
     scale: 15
     area {
       color: 13691076
-      priority: -16349
+      priority: -16381
     }
     caption {
       primary {
@@ -39675,7 +40031,7 @@ cont {
     scale: 16
     area {
       color: 13691076
-      priority: -16350
+      priority: -16382
     }
     caption {
       primary {
@@ -39689,7 +40045,7 @@ cont {
     scale: 17
     area {
       color: 13691076
-      priority: -16351
+      priority: -16383
     }
     caption {
       primary {
@@ -39703,7 +40059,7 @@ cont {
     scale: 18
     area {
       color: 13691076
-      priority: -16352
+      priority: -16384
     }
     caption {
       primary {
@@ -39717,7 +40073,7 @@ cont {
     scale: 19
     area {
       color: 13691076
-      priority: -16353
+      priority: -16385
     }
     caption {
       primary {
@@ -40653,56 +41009,56 @@ cont {
     scale: 12
     area {
       color: 13691076
-      priority: -16354
+      priority: -16386
     }
   }
   element {
     scale: 13
     area {
       color: 13691076
-      priority: -16355
+      priority: -16387
     }
   }
   element {
     scale: 14
     area {
       color: 13691076
-      priority: -16356
+      priority: -16388
     }
   }
   element {
     scale: 15
     area {
       color: 13691076
-      priority: -16357
+      priority: -16389
     }
   }
   element {
     scale: 16
     area {
       color: 13691076
-      priority: -16358
+      priority: -16390
     }
   }
   element {
     scale: 17
     area {
       color: 13691076
-      priority: -16359
+      priority: -16391
     }
   }
   element {
     scale: 18
     area {
       color: 13691076
-      priority: -16360
+      priority: -16392
     }
   }
   element {
     scale: 19
     area {
       color: 13691076
-      priority: -16361
+      priority: -16393
     }
   }
 }
@@ -41273,42 +41629,42 @@ cont {
     scale: 14
     area {
       color: 10535864
-      priority: -16362
+      priority: -16394
     }
   }
   element {
     scale: 15
     area {
       color: 10535864
-      priority: -16363
+      priority: -16395
     }
   }
   element {
     scale: 16
     area {
       color: 10535864
-      priority: -16364
+      priority: -16396
     }
   }
   element {
     scale: 17
     area {
       color: 10535864
-      priority: -16365
+      priority: -16397
     }
   }
   element {
     scale: 18
     area {
       color: 10535864
-      priority: -16366
+      priority: -16398
     }
   }
   element {
     scale: 19
     area {
       color: 10535864
-      priority: -16367
+      priority: -16399
     }
   }
 }
@@ -41318,56 +41674,56 @@ cont {
     scale: 12
     area {
       color: 10535864
-      priority: -16368
+      priority: -16400
     }
   }
   element {
     scale: 13
     area {
       color: 10535864
-      priority: -16369
+      priority: -16401
     }
   }
   element {
     scale: 14
     area {
       color: 10535864
-      priority: -16370
+      priority: -16402
     }
   }
   element {
     scale: 15
     area {
       color: 10535864
-      priority: -16371
+      priority: -16403
     }
   }
   element {
     scale: 16
     area {
       color: 10535864
-      priority: -16372
+      priority: -16404
     }
   }
   element {
     scale: 17
     area {
       color: 10535864
-      priority: -16373
+      priority: -16405
     }
   }
   element {
     scale: 18
     area {
       color: 10535864
-      priority: -16374
+      priority: -16406
     }
   }
   element {
     scale: 19
     area {
       color: 10535864
-      priority: -16375
+      priority: -16407
     }
   }
 }
@@ -41377,42 +41733,42 @@ cont {
     scale: 14
     area {
       color: 10535864
-      priority: -16376
+      priority: -16408
     }
   }
   element {
     scale: 15
     area {
       color: 10535864
-      priority: -16377
+      priority: -16409
     }
   }
   element {
     scale: 16
     area {
       color: 10535864
-      priority: -16378
+      priority: -16410
     }
   }
   element {
     scale: 17
     area {
       color: 10535864
-      priority: -16379
+      priority: -16411
     }
   }
   element {
     scale: 18
     area {
       color: 10535864
-      priority: -16380
+      priority: -16412
     }
   }
   element {
     scale: 19
     area {
       color: 10535864
-      priority: -16381
+      priority: -16413
     }
   }
 }
@@ -41422,42 +41778,42 @@ cont {
     scale: 10
     area {
       color: 11720357
-      priority: -16382
+      priority: -16414
     }
   }
   element {
     scale: 11
     area {
       color: 11720357
-      priority: -16383
+      priority: -16415
     }
   }
   element {
     scale: 12
     area {
       color: 11720357
-      priority: -16384
+      priority: -16416
     }
   }
   element {
     scale: 13
     area {
       color: 11720357
-      priority: -16385
+      priority: -16417
     }
   }
   element {
     scale: 14
     area {
       color: 11720357
-      priority: -16386
+      priority: -16418
     }
   }
   element {
     scale: 15
     area {
       color: 11720357
-      priority: -16387
+      priority: -16419
     }
     caption {
       primary {
@@ -41471,7 +41827,7 @@ cont {
     scale: 16
     area {
       color: 11720357
-      priority: -16388
+      priority: -16420
     }
     caption {
       primary {
@@ -41486,7 +41842,7 @@ cont {
     scale: 17
     area {
       color: 11720357
-      priority: -16389
+      priority: -16421
     }
     caption {
       primary {
@@ -41501,7 +41857,7 @@ cont {
     scale: 18
     area {
       color: 11720357
-      priority: -16390
+      priority: -16422
     }
     caption {
       primary {
@@ -41516,7 +41872,7 @@ cont {
     scale: 19
     area {
       color: 11720357
-      priority: -16391
+      priority: -16423
     }
     caption {
       primary {
@@ -41534,42 +41890,42 @@ cont {
     scale: 10
     area {
       color: 11720357
-      priority: -16392
+      priority: -16424
     }
   }
   element {
     scale: 11
     area {
       color: 11720357
-      priority: -16393
+      priority: -16425
     }
   }
   element {
     scale: 12
     area {
       color: 11720357
-      priority: -16394
+      priority: -16426
     }
   }
   element {
     scale: 13
     area {
       color: 11720357
-      priority: -16395
+      priority: -16427
     }
   }
   element {
     scale: 14
     area {
       color: 11720357
-      priority: -16396
+      priority: -16428
     }
   }
   element {
     scale: 15
     area {
       color: 11720357
-      priority: -16397
+      priority: -16429
     }
     caption {
       primary {
@@ -41583,7 +41939,7 @@ cont {
     scale: 16
     area {
       color: 11720357
-      priority: -16398
+      priority: -16430
     }
     caption {
       primary {
@@ -41598,7 +41954,7 @@ cont {
     scale: 17
     area {
       color: 11720357
-      priority: -16399
+      priority: -16431
     }
     caption {
       primary {
@@ -41613,7 +41969,7 @@ cont {
     scale: 18
     area {
       color: 11720357
-      priority: -16400
+      priority: -16432
     }
     caption {
       primary {
@@ -41628,7 +41984,7 @@ cont {
     scale: 19
     area {
       color: 11720357
-      priority: -16401
+      priority: -16433
     }
     caption {
       primary {
@@ -41646,42 +42002,42 @@ cont {
     scale: 10
     area {
       color: 11720357
-      priority: -16402
+      priority: -16434
     }
   }
   element {
     scale: 11
     area {
       color: 11720357
-      priority: -16403
+      priority: -16435
     }
   }
   element {
     scale: 12
     area {
       color: 11720357
-      priority: -16404
+      priority: -16436
     }
   }
   element {
     scale: 13
     area {
       color: 11720357
-      priority: -16405
+      priority: -16437
     }
   }
   element {
     scale: 14
     area {
       color: 11720357
-      priority: -16406
+      priority: -16438
     }
   }
   element {
     scale: 15
     area {
       color: 11720357
-      priority: -16407
+      priority: -16439
     }
     caption {
       primary {
@@ -41695,7 +42051,7 @@ cont {
     scale: 16
     area {
       color: 11720357
-      priority: -16408
+      priority: -16440
     }
     caption {
       primary {
@@ -41710,7 +42066,7 @@ cont {
     scale: 17
     area {
       color: 11720357
-      priority: -16409
+      priority: -16441
     }
     caption {
       primary {
@@ -41725,7 +42081,7 @@ cont {
     scale: 18
     area {
       color: 11720357
-      priority: -16410
+      priority: -16442
     }
     caption {
       primary {
@@ -41740,7 +42096,7 @@ cont {
     scale: 19
     area {
       color: 11720357
-      priority: -16411
+      priority: -16443
     }
     caption {
       primary {
@@ -41758,42 +42114,42 @@ cont {
     scale: 10
     area {
       color: 11720357
-      priority: -16412
+      priority: -16444
     }
   }
   element {
     scale: 11
     area {
       color: 11720357
-      priority: -16413
+      priority: -16445
     }
   }
   element {
     scale: 12
     area {
       color: 11720357
-      priority: -16414
+      priority: -16446
     }
   }
   element {
     scale: 13
     area {
       color: 11720357
-      priority: -16415
+      priority: -16447
     }
   }
   element {
     scale: 14
     area {
       color: 11720357
-      priority: -16416
+      priority: -16448
     }
   }
   element {
     scale: 15
     area {
       color: 11720357
-      priority: -16417
+      priority: -16449
     }
     caption {
       primary {
@@ -41807,7 +42163,7 @@ cont {
     scale: 16
     area {
       color: 11720357
-      priority: -16418
+      priority: -16450
     }
     caption {
       primary {
@@ -41822,7 +42178,7 @@ cont {
     scale: 17
     area {
       color: 11720357
-      priority: -16419
+      priority: -16451
     }
     caption {
       primary {
@@ -41837,7 +42193,7 @@ cont {
     scale: 18
     area {
       color: 11720357
-      priority: -16420
+      priority: -16452
     }
     caption {
       primary {
@@ -41852,7 +42208,7 @@ cont {
     scale: 19
     area {
       color: 11720357
-      priority: -16421
+      priority: -16453
     }
     caption {
       primary {
@@ -45814,7 +46170,7 @@ cont {
     scale: 14
     area {
       color: 14539465
-      priority: -16422
+      priority: -16454
     }
     caption {
       primary {
@@ -45828,7 +46184,7 @@ cont {
     scale: 15
     area {
       color: 14539465
-      priority: -16423
+      priority: -16455
     }
     caption {
       primary {
@@ -45842,7 +46198,7 @@ cont {
     scale: 16
     area {
       color: 14539465
-      priority: -16424
+      priority: -16456
     }
     caption {
       primary {
@@ -45856,7 +46212,7 @@ cont {
     scale: 17
     area {
       color: 14539465
-      priority: -16425
+      priority: -16457
     }
     caption {
       primary {
@@ -45870,7 +46226,7 @@ cont {
     scale: 18
     area {
       color: 14539465
-      priority: -16426
+      priority: -16458
     }
     caption {
       primary {
@@ -45884,7 +46240,7 @@ cont {
     scale: 19
     area {
       color: 14539465
-      priority: -16427
+      priority: -16459
     }
     caption {
       primary {
@@ -46929,14 +47285,14 @@ cont {
     scale: 11
     area {
       color: 14539465
-      priority: -16428
+      priority: -16460
     }
   }
   element {
     scale: 12
     area {
       color: 14539465
-      priority: -16429
+      priority: -16461
     }
     caption {
       primary {
@@ -46951,7 +47307,7 @@ cont {
     scale: 13
     area {
       color: 14539465
-      priority: -16430
+      priority: -16462
     }
     caption {
       primary {
@@ -46973,7 +47329,7 @@ cont {
     scale: 14
     area {
       color: 14539465
-      priority: -16431
+      priority: -16463
     }
     caption {
       primary {
@@ -46995,7 +47351,7 @@ cont {
     scale: 15
     area {
       color: 14539465
-      priority: -16432
+      priority: -16464
     }
     caption {
       primary {
@@ -47017,7 +47373,7 @@ cont {
     scale: 16
     area {
       color: 14539465
-      priority: -16433
+      priority: -16465
     }
     caption {
       primary {
@@ -47039,7 +47395,7 @@ cont {
     scale: 17
     area {
       color: 14539465
-      priority: -16434
+      priority: -16466
     }
     caption {
       primary {
@@ -47061,7 +47417,7 @@ cont {
     scale: 18
     area {
       color: 14539465
-      priority: -16435
+      priority: -16467
     }
     caption {
       primary {
@@ -47083,7 +47439,7 @@ cont {
     scale: 19
     area {
       color: 14539465
-      priority: -16436
+      priority: -16468
     }
     caption {
       primary {
@@ -62706,6 +63062,45 @@ cont {
   }
 }
 cont {
+  name: "shop-car_parts"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
   name: "shop-car_repair"
   element {
     scale: 16
@@ -65215,21 +65610,21 @@ cont {
     scale: 12
     area {
       color: 13626551
-      priority: -16437
+      priority: -16469
     }
   }
   element {
     scale: 13
     area {
       color: 13626551
-      priority: -16438
+      priority: -16470
     }
   }
   element {
     scale: 14
     area {
       color: 13626551
-      priority: -16439
+      priority: -16471
     }
     symbol {
       name: "campsite"
@@ -65240,7 +65635,7 @@ cont {
     scale: 15
     area {
       color: 13626551
-      priority: -16440
+      priority: -16472
     }
     symbol {
       name: "campsite"
@@ -65251,7 +65646,7 @@ cont {
     scale: 16
     area {
       color: 13626551
-      priority: -16441
+      priority: -16473
     }
     symbol {
       name: "campsite"
@@ -65325,35 +65720,35 @@ cont {
     scale: 12
     area {
       color: 13626551
-      priority: -16442
+      priority: -16474
     }
   }
   element {
     scale: 13
     area {
       color: 13626551
-      priority: -16443
+      priority: -16475
     }
   }
   element {
     scale: 14
     area {
       color: 13626551
-      priority: -16444
+      priority: -16476
     }
   }
   element {
     scale: 15
     area {
       color: 13626551
-      priority: -16445
+      priority: -16477
     }
   }
   element {
     scale: 16
     area {
       color: 13626551
-      priority: -16446
+      priority: -16478
     }
   }
   element {
@@ -66046,35 +66441,35 @@ cont {
     scale: 12
     area {
       color: 13626551
-      priority: -16447
+      priority: -16479
     }
   }
   element {
     scale: 13
     area {
       color: 13626551
-      priority: -16448
+      priority: -16480
     }
   }
   element {
     scale: 14
     area {
       color: 13626551
-      priority: -16449
+      priority: -16481
     }
   }
   element {
     scale: 15
     area {
       color: 13626551
-      priority: -16450
+      priority: -16482
     }
   }
   element {
     scale: 16
     area {
       color: 13626551
-      priority: -16451
+      priority: -16483
     }
   }
   element {
@@ -66209,35 +66604,35 @@ cont {
     scale: 12
     area {
       color: 13626551
-      priority: -16452
+      priority: -16484
     }
   }
   element {
     scale: 13
     area {
       color: 13626551
-      priority: -16453
+      priority: -16485
     }
   }
   element {
     scale: 14
     area {
       color: 13626551
-      priority: -16454
+      priority: -16486
     }
   }
   element {
     scale: 15
     area {
       color: 13626551
-      priority: -16455
+      priority: -16487
     }
   }
   element {
     scale: 16
     area {
       color: 13626551
-      priority: -16456
+      priority: -16488
     }
   }
   element {

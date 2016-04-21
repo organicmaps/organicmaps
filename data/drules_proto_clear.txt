@@ -38988,6 +38988,487 @@ cont {
   }
 }
 cont {
+  name: "leisure-sports_centre-climbing"
+  element {
+    scale: 13
+    symbol {
+      name: "pitch-s"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "pitch-s"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "pitch-m"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "pitch-m"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "pitch-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "pitch-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "pitch-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+}
+cont {
+  name: "leisure-sports_centre-shooting"
+  element {
+    scale: 13
+    symbol {
+      name: "archery-s"
+      priority: 16849
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "archery-s"
+      priority: 16849
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "archery-m"
+      priority: 16849
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "archery-m"
+      priority: 16849
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "archery-l"
+      priority: 16849
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "archery-l"
+      priority: 16849
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "archery-l"
+      priority: 16849
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+}
+cont {
+  name: "leisure-sports_centre-swimming"
+  element {
+    scale: 13
+    symbol {
+      name: "pitch-s"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "pitch-s"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "pitch-m"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "pitch-m"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "pitch-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "swimming-l"
+      apply_for_type: 1
+      priority: 16863
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "swimming-l"
+      apply_for_type: 1
+      priority: 16863
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+}
+cont {
+  name: "leisure-sports_centre-yoga"
+  element {
+    scale: 13
+    symbol {
+      name: "pitch-s"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "pitch-s"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "pitch-m"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "pitch-m"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "pitch-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "pitch-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "pitch-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+}
+cont {
   name: "leisure-stadium"
   element {
     scale: 13
@@ -61829,6 +62310,84 @@ cont {
     scale: 19
     symbol {
       name: "car_sharing-l"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+}
+cont {
+  name: "shop-car_parts"
+  element {
+    scale: 15
+    symbol {
+      name: "shop-m"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
       priority: 16849
     }
     caption {
