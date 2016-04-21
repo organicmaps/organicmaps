@@ -272,7 +272,7 @@ public:
             osrm::json::Array pointArray;
             pointArray.values.push_back(mwm.second.x);
             pointArray.values.push_back(mwm.second.y);
-            pointArray.values.push_back(m_countries[mwm.first].m_name);
+            pointArray.values.push_back(m_countries[mwm.first].m_countryId);
             json_array.values.push_back(pointArray);
         }
         reply.values["used_mwms"] = json_array;
