@@ -813,6 +813,18 @@ void SequenceAnimation::Advance(double elapsedSeconds)
   }
 }
 
+void SequenceAnimation::Finish()
+{
+  for (auto & anim : m_animations)
+  {
+    anim->Finish();
+    AnimationSystem::Instance().SaveAnimationResult(*anim);
+  }
+  m_animations.clear();
+  ObtainObjectProperties();
+  Animation::Finish();
+}
+
 void SequenceAnimation::ObtainObjectProperties()
 {
   m_objects.clear();

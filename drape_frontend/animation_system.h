@@ -24,7 +24,8 @@ public:
     MapScale,
     MapFollow,
     MapPerspective,
-    Arrow
+    Arrow,
+    KineticScroll
   };
 
   enum Object
@@ -460,6 +461,7 @@ public:
   void OnFinish() override;
 
   void Advance(double elapsedSeconds) override;
+  void Finish() override;
 
 private:
   void ObtainObjectProperties();

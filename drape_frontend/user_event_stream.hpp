@@ -376,7 +376,7 @@ private:
 
   drape_ptr<BaseModelViewAnimation> m_animation;
 
-  bool m_perspectiveAnimation;
+  bool m_perspectiveAnimation = false;
   unique_ptr<UserEvent> m_pendingEvent;
   double m_discardedFOV = 0.0;
   double m_discardedAngle = 0.0;

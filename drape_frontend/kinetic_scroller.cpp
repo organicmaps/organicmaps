@@ -25,39 +25,84 @@ double CalculateKineticMaxSpeed(ScreenBase const & modelView)
   return (kKineticMaxSpeedStart * lerpCoef + kKineticMaxSpeedEnd * (1.0 - lerpCoef)) * VisualParams::Instance().GetVisualScale();
 }
 
-class KineticScrollAnimation : public BaseModelViewAnimation
+class KineticScrollAnimation : public Animation
 {
 public:
   // startRect - mercator visible on screen rect in moment when user release fingers.
   // direction - mercator space direction of moving. length(direction) - mercator distance on wich map will be offset.
-  KineticScrollAnimation(m2::AnyRectD const & startRect, m2::PointD const & direction, double duration)
-    : BaseModelViewAnimation(duration)
-    , m_targetCenter(startRect.GlobalCenter() + direction)
-    , m_angle(startRect.Angle())
-    , m_localRect(startRect.GetLocalRect())
+  KineticScrollAnimation(m2::PointD const & startPos, m2::PointD const & direction, double duration)
+    : Animation(true /* couldBeInterrupted */, true /* couldBeMixed */)
+    , m_endPos(startPos + direction)
     , m_direction(direction)
+    , m_duration(duration)
+    , m_elapsedTime(0.0)
   {
+    m_objects.insert(Animation::MapPlane);
+    m_properties.insert(Animation::Position);
   }
 
-  ModelViewAnimationType GetType() const override { return ModelViewAnimationType::KineticScroll; }
+  Animation::Type GetType() const override { return Animation::KineticScroll; }
 
-  m2::AnyRectD GetCurrentRect(ScreenBase const & screen) const override
+  TAnimObjects const & GetObjects() const override
   {
+    return m_objects;
+  }
+
+  bool HasObject(TObject object) const override
+  {
+    return m_objects.find(object) != m_objects.end();
+  }
+
+  TObjectProperties const & GetProperties(TObject object) const override
+  {
+    ASSERT(HasObject(object), ());
+    return m_properties;
+  }
+
+  bool HasProperty(TObject object, TProperty property) const override
+  {
+    return HasObject(object) && m_properties.find(property) != m_properties.end();
+  }
+
+  void SetMaxDuration(double maxDuration) override
+  {
+    if (m_duration > maxDuration)
+      m_duration = maxDuration;
+  }
+
+  double GetDuration() const override { return m_duration; }
+  bool IsFinished() const override { return m_elapsedTime >= m_duration; }
+
+  void Advance(double elapsedSeconds) override
+  {
+    m_elapsedTime += elapsedSeconds;
+  }
+  void Finish() override {
+    m_elapsedTime = m_duration;
+    Animation::Finish();
+  }
+
+  bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override
+  {
+    ASSERT(HasProperty(object, property), ());
     // Current position = target position - amplutide * e ^ (elapsed / duration).
     // We calculate current position not based on start position, but based on target position.
-    return m2::AnyRectD(m_targetCenter - m_direction * exp(-kKineticFadeoff * GetT()), m_angle, m_localRect);
-  }
-
-  m2::AnyRectD GetTargetRect(ScreenBase const & screen) const override
-  {
-    return GetCurrentRect(screen);
+    value.m_valuePointD = m_endPos - m_direction * exp(-kKineticFadeoff * GetT());
+    return true;
   }
 
 private:
-  m2::PointD m_targetCenter;
-  ang::AngleD m_angle;
-  m2::RectD m_localRect;
+  double GetT() const
+  {
+    return IsFinished() ? 1.0 : m_elapsedTime / m_duration;
+  }
+
+  m2::PointD m_endPos;
   m2::PointD m_direction;
+  double m_duration;
+  double m_elapsedTime;
+  TAnimObjects m_objects;
+  TObjectProperties m_properties;
 };
 
 KineticScroller::KineticScroller()
@@ -116,11 +161,11 @@ void KineticScroller::CancelGrab()
   m_direction = m2::PointD::Zero();
 }
 
-drape_ptr<BaseModelViewAnimation> KineticScroller::CreateKineticAnimation(ScreenBase const & modelView)
+drape_ptr<Animation> KineticScroller::CreateKineticAnimation(ScreenBase const & modelView)
 {
   static double kVelocityThreshold = kKineticThreshold * VisualParams::Instance().GetVisualScale();
   if (m_direction.Length() < kVelocityThreshold)
-    return drape_ptr<BaseModelViewAnimation>();
+    return drape_ptr<Animation>();
 
   // Before we start animation we have to convert length(m_direction) from pixel space to mercator space.
   m2::PointD center = m_lastRect.GlobalCenter();
@@ -129,9 +174,9 @@ drape_ptr<BaseModelViewAnimation> KineticScroller::CreateKineticAnimation(Screen
   m2::PointD const glbDirection = m_direction.Normalize() * glbLength;
   m2::PointD const targetCenter = center + glbDirection;
   if (!df::GetWorldRect().IsPointInside(targetCenter))
-    return drape_ptr<BaseModelViewAnimation>();
+    return drape_ptr<Animation>();
 
-  return make_unique_dp<KineticScrollAnimation>(m_lastRect, glbDirection, kKineticDuration);
+  return make_unique_dp<KineticScrollAnimation>(center, glbDirection, kKineticDuration);
 }
 
 } // namespace df

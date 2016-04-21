@@ -953,9 +953,13 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
 
   if (m_kineticScrollEnabled && m_kineticTimer.TimeElapsedAs<milliseconds>().count() >= kKineticDelayMs)
   {
-    m_animation = m_scroller.CreateKineticAnimation(m_navigator.Screen());
-    if (m_listener)
-      m_listener->OnAnimationStarted(make_ref(m_animation));
+    drape_ptr<Animation> anim = m_scroller.CreateKineticAnimation(m_navigator.Screen());
+    if (anim != nullptr)
+    {
+      AnimationSystem::Instance().AddAnimation(move(anim), true /* force */);
+      if (m_listener)
+        m_listener->OnAnimationStarted(nullptr);
+    }
     m_scroller.CancelGrab();
     return false;
   }
