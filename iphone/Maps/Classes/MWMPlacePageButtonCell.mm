@@ -48,6 +48,7 @@
     [self.placePage addBusiness];
     break;
   case MWMPlacePageCellTypeAddPlaceButton:
+    [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePageNonBuilding}];
     [self.placePage addPlace];
     break;
   default:
