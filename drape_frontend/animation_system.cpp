@@ -201,6 +201,14 @@ AngleInterpolator::AngleInterpolator(double delay, double startAngle, double end
 {
 }
 
+AngleInterpolator::AngleInterpolator(double delay, double duration, double startAngle, double endAngle)
+  : Interpolator(duration, delay)
+  , m_startAngle(startAngle)
+  , m_endAngle(endAngle)
+  , m_angle(startAngle)
+{
+}
+
 void AngleInterpolator::Advance(double elapsedSeconds)
 {
   TBase::Advance(elapsedSeconds);
@@ -551,9 +559,15 @@ Animation::PropertyValue MapFollowAnimation::GetProperty(TObject object, TProper
 PerspectiveSwitchAnimation::PerspectiveSwitchAnimation(double startAngle, double endAngle)
   : Animation(false, false)
 {
-  m_angleInterpolator = make_unique_dp<AngleInterpolator>(startAngle, endAngle);
+  m_angleInterpolator = make_unique_dp<AngleInterpolator>(GetRotateDuration(startAngle, endAngle), startAngle, endAngle);
   m_objects.insert(Animation::MapPlane);
   m_properties.insert(Animation::AnglePerspective);
+}
+
+// static
+double PerspectiveSwitchAnimation::GetRotateDuration(double startAngle, double endAngle)
+{
+  return 0.5 * fabs(endAngle - startAngle) / math::pi4;
 }
 
 Animation::TObjectProperties const & PerspectiveSwitchAnimation::GetProperties(TObject object) const

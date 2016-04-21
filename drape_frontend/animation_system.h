@@ -195,6 +195,7 @@ class AngleInterpolator: public Interpolator
 public:
   AngleInterpolator(double startAngle, double endAngle);
   AngleInterpolator(double delay, double startAngle, double endAngle);
+  AngleInterpolator(double delay, double duration, double startAngle, double endAngle);
 
   static double GetRotateDuration(double startAngle, double endAngle);
 
@@ -249,6 +250,8 @@ class PerspectiveSwitchAnimation : public Animation
 {
 public:
   PerspectiveSwitchAnimation(double startAngle, double endAngle);
+
+  static double GetRotateDuration(double startAngle, double endAngle);
 
   Animation::Type GetType() const override { return Animation::MapPerspective; }
 
