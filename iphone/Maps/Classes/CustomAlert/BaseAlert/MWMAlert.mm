@@ -69,6 +69,11 @@
   return [MWMDefaultAlert locationServiceNotSupportedAlert];
 }
 
++ (MWMAlert *)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock
+{
+  return [MWMDefaultAlert locationNotFoundAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
+}
+
 + (MWMAlert *)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert routingMigrationAlertWithOkBlock:okBlock];

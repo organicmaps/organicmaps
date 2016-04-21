@@ -22,8 +22,8 @@ auto compareStrings = ^NSComparisonResult(NSString * s1, NSString * s2)
 auto compareLocalNames = ^NSComparisonResult(NSString * s1, NSString * s2)
 {
   auto const & s = GetFramework().Storage();
-  string l1 = s.GetNodeLocalName(s1.UTF8String);
-  string l2 = s.GetNodeLocalName(s2.UTF8String);
+  string const l1 = s.GetNodeLocalName(s1.UTF8String);
+  string const l2 = s.GetNodeLocalName(s2.UTF8String);
   return compareStrings(@(l1.c_str()), @(l2.c_str()));
 };
 } // namespace
