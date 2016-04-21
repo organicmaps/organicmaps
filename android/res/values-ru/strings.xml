@@ -829,8 +829,8 @@
 	<string name="download_over_mobile_header">Загрузить через сотовую связь?</string>
 	<string name="download_over_mobile_message">На некоторых тарифных планах или в роуминге это может привести к значительным расходам.</string>
 	<string name="error_enter_correct_house_number">Введите корректный номер дома</string>
-	<string name="editor_storey_number">Количество этажей (максимум %1$s)</string>
-	<string name="error_enter_correct_storey_number">Редактируйте здания высотой максимум %1$s этажей.</string>
+	<string name="editor_storey_number">Количество этажей (максимум %d)</string>
+	<string name="error_enter_correct_storey_number">Редактируйте здания высотой максимум %d этажей.</string>
 	<string name="editor_zip_code">Почтовый индекс</string>
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
 	<string name="editor_operator">Владелец</string>

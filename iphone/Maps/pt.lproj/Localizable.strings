@@ -1373,9 +1373,9 @@
 
 "error_enter_correct_house_number" = "Introduzir um número de casa correto";
 
-"editor_storey_number" = "Storey number (maximum %1$@)";
+"editor_storey_number" = "Storey number (maximum %d)";
 
-"error_enter_correct_storey_number" = "Edit buildings with maximum of %1$@ floors";
+"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
 
 "editor_zip_code" = "ZIP Code";
 
