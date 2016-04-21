@@ -56,11 +56,24 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)locationServiceNotSupportedAlert
 {
   kStatisticsEvent = @"Location Service Not Supported Alert";
-  return [self defaultAlertWithTitle:@"device_doesnot_support_location_services"
-                             message:nil
+  return [self defaultAlertWithTitle:@"current_location_unknown_error_title"
+                             message:@"current_location_unknown_error_message"
                     rightButtonTitle:@"ok"
                      leftButtonTitle:nil
                    rightButtonAction:nil];
+}
+
++ (instancetype)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock
+{
+  kStatisticsEvent = @"Location Not Found Alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"current_location_unknown_title"
+                                                message:@"current_location_unknown_message"
+                                       rightButtonTitle:@"current_location_unknown_continue_button"
+                                        leftButtonTitle:@"current_location_unknown_stop_button"
+                                      rightButtonAction:okBlock];
+  alert.leftButtonAction = cancelBlock;
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
 }
 
 + (instancetype)noConnectionAlert

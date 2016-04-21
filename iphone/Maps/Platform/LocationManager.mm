@@ -202,6 +202,11 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
     for (id observer in self.observers.copy)
       [self observer:observer onLocationError:location::EDenied];
   }
+  else if (error.code != kCLErrorLocationUnknown)
+  {
+    for (id observer in self.observers.copy)
+      [self observer:observer onLocationError:location::ENotSupported];
+  }
 }
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
