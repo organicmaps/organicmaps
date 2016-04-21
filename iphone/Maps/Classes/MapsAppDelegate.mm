@@ -123,6 +123,13 @@ void InitCrashTrackers()
 #endif
 }
 
+void ConfigCrashTrackers()
+{
+#ifdef OMIM_PRODUCTION
+  [[Crashlytics sharedInstance] setObjectValue:[Alohalytics installationId] forKey:@"AlohalyticsInstallationId"];
+#endif
+}
+
 using namespace osm_auth_ios;
 
 @interface MapsAppDelegate () <MWMFrameworkStorageObserver>
@@ -381,6 +388,10 @@ using namespace osm_auth_ios;
     self.isDaemonMode = YES;
     return returnValue;
   }
+
+  // We send Alohalytics installation id to Fabric.
+  // To make sure id is created, ConfigCrashTrackers must be called after Statistics initialization.
+  ConfigCrashTrackers();
 
   NSURL * urlUsedToLaunchMaps = launchOptions[UIApplicationLaunchOptionsURLKey];
   if (urlUsedToLaunchMaps != nil)
