@@ -12,6 +12,7 @@
     android:id="@+id/ll__select_download"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minWidth="@dimen/placeholder_size"
     android:layout_gravity="center"
     android:gravity="center_horizontal"
     android:orientation="vertical"
@@ -79,14 +80,6 @@
         android:layout_marginTop="@dimen/margin_half"
         android:text="@string/search_select_map"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
-      <Button
-        android:id="@+id/btn__select_other_map"
-        style="@style/MwmWidget.Button"
-        android:layout_marginTop="@dimen/margin_base_plus"
-        android:text="@string/search_select_other_map"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        android:textColor="?colorAccent"/>
     </LinearLayout>
   </LinearLayout>
 
