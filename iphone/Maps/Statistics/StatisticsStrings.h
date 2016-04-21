@@ -139,6 +139,7 @@ static NSString * const kStatOther = @"Other";
 static NSString * const kStatOut = @"Out";
 static NSString * const kStatPedestrian = @"Pedestrian";
 static NSString * const kStatPlacePage = @"Place page";
+static NSString * const kStatPlacePageNonBuilding = @"placepage_nonbuilding:
 static NSString * const kStatPointToPoint = @"Point to point";
 static NSString * const kStatPortrait = @"Portrait";
 static NSString * const kStatProblem = @"Problem";
