@@ -1,9 +1,9 @@
 #include "routing/cross_mwm_router.hpp"
 #include "routing/loaded_path_segment.hpp"
-#include "routing/osrm_path_segment_factory.hpp"
 #include "routing/online_cross_fetcher.hpp"
 #include "routing/osrm2feature_map.hpp"
 #include "routing/osrm_helpers.hpp"
+#include "routing/osrm_path_segment_factory.hpp"
 #include "routing/osrm_router.hpp"
 #include "routing/turns_generator.hpp"
 
@@ -29,7 +29,6 @@
 #include "std/algorithm.hpp"
 #include "std/limits.hpp"
 #include "std/string.hpp"
-#include "std/unique_ptr.hpp"
 
 #include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
@@ -65,7 +64,8 @@ using RawRouteData = InternalRouteResult;
 class OSRMRoutingResultGraph : public turns::IRoutingResultGraph
 {
 public:
-  virtual vector<unique_ptr<turns::LoadedPathSegment>> const & GetSegments() const override
+  // turns::IRoutingResultGraph overrides:
+  virtual TUnpackedPathSegments const & GetSegments() const override
   {
     return m_loadedSegments;
   }
@@ -173,21 +173,21 @@ public:
     for (auto const & pathSegments : m_rawResult.unpackedPathSegments)
     {
       auto numSegments = pathSegments.size();
-      m_loadedSegments.reserve(numSegments);
+      m_loadedSegments.resize(numSegments);
       for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
       {
         bool isStartNode = (segmentIndex == 0);
         bool isEndNode = (segmentIndex == numSegments - 1);
         if (isStartNode || isEndNode)
         {
-          m_loadedSegments.push_back(turns::LoadedPathSegmentFactory(m_routingMapping, m_index,
-                                                                     pathSegments[segmentIndex], m_rawResult.sourceEdge,
-                                                                     m_rawResult.targetEdge, isStartNode, isEndNode));
+          OsrmPathSegmentFactory(m_routingMapping, m_index,
+                                 pathSegments[segmentIndex], m_rawResult.sourceEdge,
+                                 m_rawResult.targetEdge, isStartNode, isEndNode, m_loadedSegments[segmentIndex]);
         }
         else
         {
-          m_loadedSegments.push_back(turns::LoadedPathSegmentFactory(m_routingMapping, m_index,
-                                                                     pathSegments[segmentIndex]));
+          OsrmPathSegmentFactory(m_routingMapping, m_index,
+                                 pathSegments[segmentIndex], m_loadedSegments[segmentIndex]);
         }
       }
     }
@@ -195,7 +195,7 @@ public:
 
   ~OSRMRoutingResultGraph() {}
 private:
-  vector<unique_ptr<turns::LoadedPathSegment>> m_loadedSegments;
+  TUnpackedPathSegments m_loadedSegments;
   RawRoutingResult m_rawResult;
   Index const & m_index;
   RoutingMapping & m_routingMapping;

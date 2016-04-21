@@ -2,27 +2,17 @@
 
 #include "routing/loaded_path_segment.hpp"
 
-#include "std/unique_ptr.hpp"
-
 namespace routing
 {
-struct RoutingMapping;
-struct RawPathData;
 struct FeatureGraphNode;
-
-namespace turns
-{
-using TSeg = OsrmMappingTypes::FtSeg;
+struct RawPathData;
+struct RoutingMapping;
 
 // General constructor.
-unique_ptr<LoadedPathSegment> LoadedPathSegmentFactory(RoutingMapping & mapping,
-                                                       Index const & index,
-                                                       RawPathData const & osrmPathSegment);
+void OsrmPathSegmentFactory(RoutingMapping & mapping, Index const & index,
+                            RawPathData const & osrmPathSegment, LoadedPathSegment & loadedPathSegment);
 // Special constructor for side nodes. Splits OSRM node by information from the FeatureGraphNode.
-unique_ptr<LoadedPathSegment> LoadedPathSegmentFactory(RoutingMapping & mapping, Index const & index,
-                                                       RawPathData const & osrmPathSegment,
-                                                       FeatureGraphNode const & startGraphNode,
-                                                       FeatureGraphNode const & endGraphNode,
-                                                       bool isStartNode, bool isEndNode);
+void OsrmPathSegmentFactory(RoutingMapping & mapping, Index const & index, RawPathData const & osrmPathSegment,
+                            FeatureGraphNode const & startGraphNode, FeatureGraphNode const & endGraphNode,
+                            bool isStartNode, bool isEndNode, LoadedPathSegment & loadedPathSegment);
 }  // namespace routing
-}  // namespace turns

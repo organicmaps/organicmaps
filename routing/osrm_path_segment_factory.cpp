@@ -13,11 +13,13 @@ namespace
 // Osrm multiples seconds to 10, so we need to divide it back.
 double constexpr kOSRMWeightToSecondsMultiplier = 1. / 10.;
 
-void LoadPathGeometry(buffer_vector<routing::turns::TSeg, 8> const & buffer, size_t startIndex,
+using TSeg = routing::OsrmMappingTypes::FtSeg;
+
+void LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startIndex,
                       size_t endIndex, Index const & index, routing::RoutingMapping & mapping,
                       routing::FeatureGraphNode const & startGraphNode,
                       routing::FeatureGraphNode const & endGraphNode, bool isStartNode,
-                      bool isEndNode, routing::turns::LoadedPathSegment & loadPathGeometry)
+                      bool isEndNode, routing::LoadedPathSegment & loadPathGeometry)
 {
   ASSERT_LESS(startIndex, endIndex, ());
   ASSERT_LESS_OR_EQUAL(endIndex, buffer.size(), ());
@@ -78,25 +80,22 @@ void LoadPathGeometry(buffer_vector<routing::turns::TSeg, 8> const & buffer, siz
     loadPathGeometry.m_highwayClass = ftypes::GetHighwayClass(ft);
     string name;
     ft.GetName(FeatureType::DEFAULT_LANG, name);
-    if (!name.empty())
-      loadPathGeometry.m_name = name;
+    loadPathGeometry.m_name = name;
   }
 }
 }  // namespace
 
 namespace routing
 {
-namespace turns
+void OsrmPathSegmentFactory(RoutingMapping & mapping, Index const & index,
+                            RawPathData const & osrmPathSegment, LoadedPathSegment & loadedPathSegment)
 {
-unique_ptr<LoadedPathSegment> LoadedPathSegmentFactory(RoutingMapping & mapping,
-                                                       Index const & index,
-                                                       RawPathData const & osrmPathSegment)
-{
+  loadedPathSegment.Clear();
+
   buffer_vector<TSeg, 8> buffer;
   mapping.m_segMapping.ForEachFtSeg(osrmPathSegment.node, MakeBackInsertFunctor(buffer));
-  unique_ptr<LoadedPathSegment> loadedPathSegment =
-      make_unique<LoadedPathSegment>(osrmPathSegment.segmentWeight * kOSRMWeightToSecondsMultiplier,
-                                     osrmPathSegment.node);
+  loadedPathSegment.m_weight = osrmPathSegment.segmentWeight * kOSRMWeightToSecondsMultiplier;
+  loadedPathSegment.m_nodeId = osrmPathSegment.node;
   if (buffer.empty())
   {
     LOG(LERROR, ("Can't unpack geometry for map:", mapping.GetCountryName(), " node: ",
@@ -106,23 +105,22 @@ unique_ptr<LoadedPathSegment> LoadedPathSegmentFactory(RoutingMapping & mapping,
         {{"node", strings::to_string(osrmPathSegment.node)},
          {"map", mapping.GetCountryName()},
          {"version", strings::to_string(mapping.GetMwmId().GetInfo()->GetVersion())}});
-    return loadedPathSegment;
+    return;
   }
   LoadPathGeometry(buffer, 0, buffer.size(), index, mapping, FeatureGraphNode(), FeatureGraphNode(),
-                   false /* isStartNode */, false /*isEndNode*/, *loadedPathSegment);
-  return loadedPathSegment;
+                   false /* isStartNode */, false /*isEndNode*/, loadedPathSegment);
 }
 
-unique_ptr<LoadedPathSegment> LoadedPathSegmentFactory(RoutingMapping & mapping, Index const & index,
-                                                       RawPathData const & osrmPathSegment,
-                                                       FeatureGraphNode const & startGraphNode,
-                                                       FeatureGraphNode const & endGraphNode,
-                                                       bool isStartNode, bool isEndNode)
+void OsrmPathSegmentFactory(RoutingMapping & mapping, Index const & index, RawPathData const & osrmPathSegment,
+                            FeatureGraphNode const & startGraphNode, FeatureGraphNode const & endGraphNode,
+                            bool isStartNode, bool isEndNode, LoadedPathSegment & loadedPathSegment)
 {
   ASSERT(isStartNode || isEndNode, ("This function process only corner cases."));
-  unique_ptr<LoadedPathSegment> loadedPathSegment = make_unique<LoadedPathSegment>(0, osrmPathSegment.node);
+  loadedPathSegment.Clear();
+
+  loadedPathSegment.m_nodeId = osrmPathSegment.node;
   if (!startGraphNode.segment.IsValid() || !endGraphNode.segment.IsValid())
-    return loadedPathSegment;
+    return;
   buffer_vector<TSeg, 8> buffer;
   mapping.m_segMapping.ForEachFtSeg(osrmPathSegment.node, MakeBackInsertFunctor(buffer));
 
@@ -152,7 +150,7 @@ unique_ptr<LoadedPathSegment> LoadedPathSegmentFactory(RoutingMapping & mapping,
                                    : startGraphNode.node.reverse_offset;
     // Sum because weights in forward/backward_weight fields are negative. Look osrm_helpers for
     // more info.
-    loadedPathSegment->m_weight = wholeWeight + forwardWeight + backwardWeight;
+    loadedPathSegment.m_weight = wholeWeight + forwardWeight + backwardWeight;
   }
   else
   {
@@ -163,17 +161,15 @@ unique_ptr<LoadedPathSegment> LoadedPathSegmentFactory(RoutingMapping & mapping,
       node = &endGraphNode.node;
     if (node)
     {
-      loadedPathSegment->m_weight = (osrmPathSegment.node == node->forward_weight)
-                  ? node->GetForwardWeightPlusOffset() : node->GetReverseWeightPlusOffset();
+      loadedPathSegment.m_weight = (osrmPathSegment.node == node->forward_weight)
+          ? node->GetForwardWeightPlusOffset() : node->GetReverseWeightPlusOffset();
     }
   }
 
   size_t startIndex = isStartNode ? findIntersectingSeg(startGraphNode.segment) : 0;
   size_t endIndex = isEndNode ? findIntersectingSeg(endGraphNode.segment) + 1 : buffer.size();
   LoadPathGeometry(buffer, startIndex, endIndex, index, mapping, startGraphNode, endGraphNode, isStartNode,
-                   isEndNode, *loadedPathSegment);
-  loadedPathSegment->m_weight *= kOSRMWeightToSecondsMultiplier;
-  return loadedPathSegment;
+                   isEndNode, loadedPathSegment);
+  loadedPathSegment.m_weight *= kOSRMWeightToSecondsMultiplier;
 }
 }  // namespace routing
-}  // namespace turns

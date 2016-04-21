@@ -10,7 +10,6 @@
 #include "routing/turn_candidate.hpp"
 
 #include "std/function.hpp"
-#include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -136,7 +135,7 @@ void GetTurnDirection(IRoutingResultGraph const & result, turns::TurnInfo & turn
  * Returns 0 if there is no UTurn.
  * Warning! currentSegment must be greater than 0.
  */
-size_t CheckUTurnOnRoute(vector<unique_ptr<turns::LoadedPathSegment>> const & segments,
+size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
                          size_t currentSegment, TurnItem & turn);
 }  // namespace routing
 }  // namespace turns
