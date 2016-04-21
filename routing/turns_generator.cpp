@@ -283,11 +283,11 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result
        ++loadedSegmentIt)
   {
     // ETA information.
-    double const nodeTimeSeconds = loadedSegmentIt->m_weight;
+    double const nodeTimeSeconds = (*loadedSegmentIt)->m_weight;
 
     // Street names. I put empty names too, to avoid freezing old street name while riding on
     // unnamed street.
-    streets.emplace_back(max(points.size(), static_cast<size_t>(1)) - 1, loadedSegmentIt->m_name);
+    streets.emplace_back(max(points.size(), static_cast<size_t>(1)) - 1, (*loadedSegmentIt)->m_name);
 
     // Turns information.
     if (!points.empty() && skipTurnSegments == 0)
@@ -298,7 +298,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result
       size_t segmentIndex = distance(loadedSegments.begin(), loadedSegmentIt);
       skipTurnSegments = CheckUTurnOnRoute(loadedSegments, segmentIndex, turnItem);
 
-      turns::TurnInfo turnInfo(loadedSegments[segmentIndex - 1], *loadedSegmentIt);
+      turns::TurnInfo turnInfo(*(loadedSegments[segmentIndex - 1]), **loadedSegmentIt);
 
       if (turnItem.m_turn == turns::TurnDirection::NoTurn)
         turns::GetTurnDirection(result, turnInfo, turnItem);
@@ -327,7 +327,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result
       --skipTurnSegments;
 
     // Path geometry.
-    points.insert(points.end(), loadedSegmentIt->m_path.begin(), loadedSegmentIt->m_path.end());
+    points.insert(points.end(), (*loadedSegmentIt)->m_path.begin(), (*loadedSegmentIt)->m_path.end());
   }
 
   // Path found. Points will be replaced by start and end edges points.
@@ -662,7 +662,8 @@ void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, T
   }
 }
 
-size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t currentSegment, TurnItem & turn)
+size_t CheckUTurnOnRoute(vector<unique_ptr<turns::LoadedPathSegment>> const & segments,
+                         size_t currentSegment, TurnItem & turn)
 {
   size_t constexpr kUTurnLookAhead = 3;
   double constexpr kUTurnHeadingSensitivity = math::pi / 10.0;
@@ -672,7 +673,7 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
   ASSERT_GREATER(segments.size(), 1, ());
   ASSERT_GREATER(currentSegment, 0, ());
   ASSERT_GREATER(segments.size(), currentSegment, ());
-  auto const & masterSegment = segments[currentSegment - 1];
+  auto const & masterSegment = *(segments[currentSegment - 1]);
   if (masterSegment.m_path.size() < 2)
     return 0;
   // Roundabout is not the UTurn.
@@ -680,7 +681,7 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
     return 0;
   for (size_t i = 0; i < kUTurnLookAhead && i + currentSegment < segments.size(); ++i)
   {
-    auto const & checkedSegment = segments[currentSegment + i];
+    auto const & checkedSegment = *(segments[currentSegment + i]);
     if (checkedSegment.m_name == masterSegment.m_name &&
         checkedSegment.m_highwayClass == masterSegment.m_highwayClass &&
         checkedSegment.m_isLink == masterSegment.m_isLink && !checkedSegment.m_onRoundabout)
@@ -722,7 +723,7 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
       m2::PointD const ingoingPoint = GetPointForTurn(masterSegment.m_path, junctionPoint,
                                                       kMaxPointsCount, kMinDistMeters,
                                                       GetIngoingPointIndex);
-      m2::PointD const outgoingPoint = GetPointForTurn(segments[currentSegment].m_path, junctionPoint,
+      m2::PointD const outgoingPoint = GetPointForTurn(segments[currentSegment]->m_path, junctionPoint,
                                                        kMaxPointsCount, kMinDistMeters,
                                                        GetOutgoingPointIndex);
       if (PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint) < 0)

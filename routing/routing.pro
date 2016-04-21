@@ -21,13 +21,13 @@ SOURCES += \
     cross_mwm_router.cpp \
     cross_routing_context.cpp \
     features_road_graph.cpp \
-    loaded_path_segment.cpp \
     nearest_edge_finder.cpp \
     online_absent_fetcher.cpp \
     online_cross_fetcher.cpp \
     osrm2feature_map.cpp \
     osrm_engine.cpp \
     osrm_helpers.cpp \
+    osrm_path_segment_factory.cpp \
     osrm_router.cpp \
     pedestrian_directions.cpp \
     pedestrian_model.cpp \
@@ -66,6 +66,7 @@ HEADERS += \
     osrm_data_facade.hpp \
     osrm_engine.hpp \
     osrm_helpers.hpp \
+    osrm_path_segment_factory.hpp \
     osrm_router.hpp \
     pedestrian_directions.hpp \
     pedestrian_model.hpp \

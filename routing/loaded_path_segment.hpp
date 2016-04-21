@@ -20,8 +20,6 @@ struct FeatureGraphNode;
 
 namespace turns
 {
-using TSeg = OsrmMappingTypes::FtSeg;
-
 /*!
  * \brief The LoadedPathSegment struct is a representation of a single node path.
  * It unpacks and stores information about path and road type flags.
@@ -38,21 +36,14 @@ struct LoadedPathSegment
   TNodeId m_nodeId;
   vector<SingleLaneInfo> m_lanes;
 
-  // General constructor.
-  LoadedPathSegment(RoutingMapping & mapping, Index const & index,
-                    RawPathData const & osrmPathSegment);
-  // Special constructor for side nodes. Splits OSRM node by information from the FeatureGraphNode.
-  LoadedPathSegment(RoutingMapping & mapping, Index const & index,
-                    RawPathData const & osrmPathSegment, FeatureGraphNode const & startGraphNode,
-                    FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
-
-private:
-  // Load information about road, that described as the sequence of FtSegs and start/end indexes in
-  // in it. For the side case, it has information about start/end graph nodes.
-  void LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startIndex,
-                        size_t endIndex, Index const & index, RoutingMapping & mapping,
-                        FeatureGraphNode const & startGraphNode,
-                        FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
+  LoadedPathSegment(TEdgeWeight weight, TNodeId nodeId)
+    : m_highwayClass(ftypes::HighwayClass::Undefined)
+    , m_onRoundabout(false)
+    , m_isLink(false)
+    , m_weight(weight)
+    , m_nodeId(nodeId)
+  {
+  }
 };
 }  // namespace routing
 }  // namespace turns
