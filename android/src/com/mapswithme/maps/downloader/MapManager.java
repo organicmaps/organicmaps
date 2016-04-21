@@ -315,9 +315,10 @@ public final class MapManager
   public static native @Nullable UpdateInfo nativeGetUpdateInfo(@Nullable String root);
 
   /**
-   * Retrieves list of country items with its status info. Uses root as parent if {@code root} is null.
+   * Retrieves list of country items with its status info.
+   * if {@code root} is {@code null}, list of downloaded countries is returned.
    */
-  public static native void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, List<CountryItem> result);
+  public static native void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, boolean myMapsMode, List<CountryItem> result);
 
   /**
    * Sets following attributes of the given {@code item}:
@@ -345,6 +346,16 @@ public final class MapManager
    * Returns status for given {@code root} node.
    */
   public static native int nativeGetStatus(String root);
+
+  /**
+   * Returns downloading error for given {@code root} node.
+   */
+  public static native int nativeGetError(String root);
+
+  /**
+   * Returns localized name for given {@code root} node.
+   */
+  public static native String nativeGetName(String root);
 
   /**
    * Returns country ID corresponding to given coordinates or {@code null} on error.
@@ -406,4 +417,10 @@ public final class MapManager
    * Determines if there are unsaved editor changes present for given {@code root}.
    */
   public static native boolean nativeHasUnsavedEditorChanges(String root);
+
+  /**
+   * Fills given {@code result} list with intermediate nodes from the root node (including) to the given {@code root} (excluding).
+   * For instance, for {@code root == "Florida"} the resulting list is filled with values: {@code { "United States of America", "Countries" }}.
+   */
+  public static native void nativeGetPathTo(String root, List<String> result);
 }

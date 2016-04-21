@@ -48,6 +48,7 @@
 	<string name="marked_for_downloading">Поставлено в очередь на загрузку, нажмите для отмены</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
+	<string name="gb">ГБ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Мили</string>
 	<!-- View and button titles for accessibility -->

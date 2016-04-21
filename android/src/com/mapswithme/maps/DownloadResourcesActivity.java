@@ -117,12 +117,13 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
         return;
       }
 
-      CountryItem item = CountryItem.fill(mCurrentCountry);
+      int status = MapManager.nativeGetStatus(mCurrentCountry);
+      String name = MapManager.nativeGetName(mCurrentCountry);
 
       UiUtils.show(mTvLocation);
 
-      if (item.status == CountryItem.STATUS_DONE)
-        mTvLocation.setText(String.format(getString(R.string.download_location_map_up_to_date), item.name));
+      if (status == CountryItem.STATUS_DONE)
+        mTvLocation.setText(String.format(getString(R.string.download_location_map_up_to_date), name));
       else
       {
         final CheckBox checkBox = (CheckBox) findViewById(R.id.chb__download_country);
@@ -131,15 +132,15 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
         String locationText;
         String checkBoxText;
 
-        if (item.status == CountryItem.STATUS_UPDATABLE)
+        if (status == CountryItem.STATUS_UPDATABLE)
         {
           locationText = getString(R.string.download_location_update_map_proposal);
-          checkBoxText = String.format(getString(R.string.update_country_ask), item.name);
+          checkBoxText = String.format(getString(R.string.update_country_ask), name);
         }
         else
         {
           locationText = getString(R.string.download_location_map_proposal);
-          checkBoxText = String.format(getString(R.string.download_country_ask), item.name);
+          checkBoxText = String.format(getString(R.string.download_country_ask), name);
         }
 
         mTvLocation.setText(locationText);

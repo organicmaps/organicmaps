@@ -46,6 +46,8 @@
     <attr name="wheelPendingAnimation" format="reference"/>
 
     <attr name="downloaderTheme" format="reference"/>
+
+    <attr name="fabAdd" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.Downloader">
@@ -53,5 +55,7 @@
     <attr name="status_downloadable" format="reference"/>
     <attr name="status_failed" format="reference"/>
     <attr name="status_updatable" format="reference"/>
+    <attr name="status_folder" format="reference"/>
+    <attr name="status_folder_done" format="reference"/>
   </declare-styleable>
 </resources>

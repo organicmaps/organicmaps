@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:paddingLeft="@dimen/margin_base"
-  android:paddingTop="@dimen/margin_half"
-  android:paddingBottom="@dimen/margin_half"
-  android:textAppearance="@style/MwmTextAppearance.Caption"
-  android:background="?panel"
-  tools:text="Downloaded"/>
+  tools:background="#400000FF">
+  <TextView
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingTop="@dimen/margin_half"
+    android:paddingBottom="@dimen/margin_half"
+    android:layout_marginRight="@dimen/margin_base"
+    android:background="?panel"
+    android:textAppearance="@style/MwmTextAppearance.Caption"
+    tools:text="Downloaded"
+    tools:background="#80FF0000"/>
+</FrameLayout>

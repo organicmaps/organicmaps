@@ -143,11 +143,11 @@ public class WorkerService extends IntentService
         return true;
     }
 
-    CountryItem item = CountryItem.fill(country);
-    if (item.status != CountryItem.STATUS_DOWNLOADABLE)
+    if (MapManager.nativeGetStatus(country) != CountryItem.STATUS_DOWNLOADABLE)
       return true;
 
-    Notifier.notifyDownloadSuggest(item.name, MwmApplication.get().getString(R.string.download_location_country, item.name), country);
+    String name = MapManager.nativeGetName(country);
+    Notifier.notifyDownloadSuggest(name, MwmApplication.get().getString(R.string.download_location_country, name), country);
     PREFS.edit().putString(country, String.valueOf(System.currentTimeMillis())).apply();
     return true;
   }

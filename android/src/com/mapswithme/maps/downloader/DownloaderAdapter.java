@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
@@ -14,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -56,6 +56,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private final DownloaderFragment mFragment;
   private final StickyRecyclerHeadersDecoration mHeadersDecoration;
 
+  private boolean mMyMapsMode = true;
   private boolean mSearchResultsMode;
   private String mSearchQuery;
 
@@ -63,7 +64,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private final Map<String, CountryItem> mCountryIndex = new HashMap<>();  // Country.id -> Country
 
   private final SparseArray<String> mHeaders = new SparseArray<>();
-  private final Stack<PathEntry> mPath = new Stack<>();
+  private final Stack<PathEntry> mPath = new Stack<>();  // Holds navigation history. The last element is the current level.
 
   private final SparseIntArray mIconsCache = new SparseIntArray();
 
@@ -215,15 +216,26 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     final String countryId;
     final String name;
+    final boolean myMapsMode;
     final int topPosition;
     final int topOffset;
 
-    private PathEntry(String countryId, String name, int topPosition, int topOffset)
+    private PathEntry(String countryId, String name, boolean myMapsMode, int topPosition, int topOffset)
     {
       this.countryId = countryId;
       this.name = name;
+      this.myMapsMode = myMapsMode;
       this.topPosition = topPosition;
       this.topOffset = topOffset;
+    }
+
+    @Override
+    public String toString()
+    {
+      return countryId + " (" + name + "), " +
+             "myMapsMode: " + myMapsMode +
+             ", topPosition: " + topPosition +
+             ", topOffset: " + topOffset;
     }
   }
 
@@ -247,11 +259,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         ViewHolder vh = (ViewHolder)mRecycler.findViewHolderForAdapterPosition(i);
         if (vh != null && vh.mItem.id.equals(countryId))
-        {
           vh.bind(vh.mItem);
-          // No duplcates allowed in the list
-          return;
-        }
       }
     }
 
@@ -424,7 +432,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         public void onClick(View v)
         {
           if (mItem.isExpandable())
-            goDeeper(mItem);
+            goDeeper(mItem.id, mItem.name, true);
           else
             processClick(false);
         }
@@ -489,7 +497,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       case CountryItem.STATUS_DOWNLOADABLE:
       case CountryItem.STATUS_PARTLY:
-        iconAttr = R.attr.status_downloadable;
+        iconAttr = (mItem.isExpandable() ? (mMyMapsMode ? R.attr.status_folder_done
+                                                        : R.attr.status_folder)
+                                         : R.attr.status_downloadable);
         break;
 
       case CountryItem.STATUS_FAILED:
@@ -517,8 +527,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         mName.setMaxLines(1);
         mName.setText(mItem.name);
 
-        UiUtils.show(mFoundName);
-
         String found = mItem.searchResultName.toLowerCase();
         SpannableStringBuilder builder = new SpannableStringBuilder(mItem.searchResultName);
         int start = found.indexOf(mSearchQuery);
@@ -534,12 +542,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
       else
       {
-        UiUtils.hide(mFoundName);
-
         mName.setMaxLines(2);
         mName.setText(mItem.name);
         if (!mItem.isExpandable())
-          UiUtils.hide(mSubtitle);
+          UiUtils.setTextAndHideIfEmpty(mSubtitle, mItem.description);
       }
 
       if (mItem.isExpandable())
@@ -549,18 +555,22 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
                                                                                                                      mItem.totalChildCount)));
       }
 
+      UiUtils.showIf(mSearchResultsMode, mFoundName);
       mSize.setText(StringUtils.getFileSizeString(mItem.totalSize));
       updateStatus();
     }
   }
 
   class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private final TextView mTitle;
+
     HeaderViewHolder(View frame) {
       super(frame);
+      mTitle = (TextView) frame.findViewById(R.id.title);
     }
 
     void bind(int position) {
-      ((TextView)itemView).setText(mHeaders.get(mItems.get(position).headerId));
+      mTitle.setText(mHeaders.get(mItems.get(position).headerId));
     }
   }
 
@@ -620,19 +630,19 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
   }
 
-  private void refreshData()
+  void refreshData()
   {
     mSearchResultsMode = false;
     mSearchQuery = null;
 
     mItems.clear();
 
-    String parent = getCurrentParent();
+    String parent = getCurrentRoot();
     boolean hasLocation = false;
     double lat = 0.0;
     double lon = 0.0;
 
-    if (TextUtils.isEmpty(parent))
+    if (!mMyMapsMode && CountryItem.isRoot(parent))
     {
       Location loc = LocationHelper.INSTANCE.getSavedLocation();
       hasLocation = (loc != null);
@@ -643,7 +653,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
     }
 
-    MapManager.nativeListItems(parent, lat, lon, hasLocation, mItems);
+    MapManager.nativeListItems(parent, lat, lon, hasLocation, mMyMapsMode, mItems);
     processData();
   }
 
@@ -665,7 +675,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private void processData()
   {
-    Collections.sort(mItems);
+    if (!mSearchResultsMode)
+      Collections.sort(mItems);
+
     collectHeaders();
 
     mCountryIndex.clear();
@@ -674,6 +686,11 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     mHeadersDecoration.invalidateHeaders();
     notifyDataSetChanged();
+
+    if (mItems.isEmpty())
+      mFragment.setupPlaceholder();
+
+    mFragment.showPlaceholder(mItems.isEmpty());
   }
 
   DownloaderAdapter(DownloaderFragment fragment)
@@ -683,7 +700,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mRecycler = mFragment.getRecyclerView();
     mHeadersDecoration = new StickyRecyclerHeadersDecoration(this);
     mRecycler.addItemDecoration(mHeadersDecoration);
-    refreshData();
   }
 
   @Override
@@ -722,54 +738,78 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     return mItems.size();
   }
 
-  private void goDeeper(CountryItem child)
+  private void goDeeper(String childId, String childName, boolean refresh)
   {
     LinearLayoutManager lm = (LinearLayoutManager)mRecycler.getLayoutManager();
 
     // Save scroll positions (top item + item`s offset) for current hierarchy level
     int position = lm.findFirstVisibleItemPosition();
-    int offset = lm.findViewByPosition(position).getTop();
+    int offset;
+
+    if (position > -1)
+      offset = lm.findViewByPosition(position).getTop();
+    else
+    {
+      position = 0;
+      offset = 0;
+    }
 
     boolean wasEmpty = mPath.isEmpty();
-    mPath.push(new PathEntry(child.id, child.name, position, offset));
+    mPath.push(new PathEntry(childId, childName, mMyMapsMode, position, offset));
 
     if (wasEmpty)
       mFragment.clearSearchQuery();
 
-    refreshData();
     lm.scrollToPosition(0);
 
+    if (!refresh)
+      return;
+
+    refreshData();
     mFragment.update();
   }
 
-  boolean canGoUpdwards()
+  private boolean canGoUpwards()
   {
     return !mPath.isEmpty();
   }
 
   boolean goUpwards()
   {
-    if (!canGoUpdwards())
+    if (!canGoUpwards())
       return false;
 
-    final PathEntry entry = mPath.pop();
+    PathEntry entry = mPath.pop();
+    mMyMapsMode = entry.myMapsMode;
     refreshData();
 
-    LinearLayoutManager lm = (LinearLayoutManager)mRecycler.getLayoutManager();
+    LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
     lm.scrollToPositionWithOffset(entry.topPosition, entry.topOffset);
 
     mFragment.update();
     return true;
   }
 
-  @Nullable String getCurrentParent()
+  void setAvailableMapsMode()
   {
-    return (canGoUpdwards() ? mPath.peek().countryId : null);
+    goDeeper(getCurrentRoot(), getCurrentRootName(), false);
+    mMyMapsMode = false;
+    refreshData();
   }
 
-  @Nullable String getCurrentParentName()
+  @NonNull String getCurrentRoot()
   {
-    return (canGoUpdwards() ? mPath.peek().name : null);
+    return (canGoUpwards() ? mPath.peek().countryId : CountryItem.getRootId());
+  }
+
+  @Nullable String getCurrentRootName()
+  {
+    return (canGoUpwards() ? mPath.peek().name : null);
+  }
+
+  boolean isMyMapsMode()
+  {
+    return mMyMapsMode;
   }
 
   void attach()

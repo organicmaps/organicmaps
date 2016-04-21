@@ -30,6 +30,7 @@
   <!-- base sizes -->
   <dimen name="height_block_base">48dp</dimen>
   <dimen name="height_item_oneline">56dp</dimen>
+  <dimen name="height_item_multiline">72dp</dimen>
   <dimen name="height_item_edit_bookmark">72dp</dimen>
 
   <dimen name="dialog_max_height">320dp</dimen>

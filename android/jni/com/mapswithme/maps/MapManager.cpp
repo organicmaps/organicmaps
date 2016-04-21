@@ -258,6 +258,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   static jfieldID const countryItemFieldTopmostParentId = env->GetFieldID(g_countryItemClass, "topmostParentId", "Ljava/lang/String;");
   static jfieldID const countryItemFieldDirectParentName = env->GetFieldID(g_countryItemClass, "directParentName", "Ljava/lang/String;");
   static jfieldID const countryItemFieldTopmostParentName = env->GetFieldID(g_countryItemClass, "topmostParentName", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldDescription = env->GetFieldID(g_countryItemClass, "description", "Ljava/lang/String;");
   static jfieldID const countryItemFieldSize = env->GetFieldID(g_countryItemClass, "size", "J");
   static jfieldID const countryItemFieldTotalSize = env->GetFieldID(g_countryItemClass, "totalSize", "J");
   static jfieldID const countryItemFieldChildCount = env->GetFieldID(g_countryItemClass, "childCount", "I");
@@ -302,6 +303,9 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
     env->SetObjectField(item, countryItemFieldTopmostParentId, nullptr);
     env->SetObjectField(item, countryItemFieldTopmostParentName, nullptr);
   }
+
+  // Description
+  env->SetObjectField(item, countryItemFieldDescription, jni::TScopedLocalRef(env, jni::ToJavaString(env, attrs.m_nodeLocalDescription)));
 
   // Sizes
   env->SetLongField(item, countryItemFieldSize, attrs.m_localMwmSize);
@@ -350,27 +354,29 @@ static void PutItemsToList(JNIEnv * env, jobject const list, TCountriesVec const
   }
 }
 
-// static void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, List<CountryItem> result);
+// static void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, boolean myMapsMode, List<CountryItem> result);
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz, jstring parent, jdouble lat, jdouble lon, jboolean hasLocation, jobject result)
+Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz, jstring parent, jdouble lat, jdouble lon, jboolean hasLocation, jboolean myMapsMode, jobject result)
 {
   PrepareClassRefs(env);
 
-  if (hasLocation)
+  if (hasLocation && !myMapsMode)
   {
     TCountriesVec near;
     g_framework->NativeFramework()->CountryInfoGetter().GetRegionsCountryId(MercatorBounds::FromLatLon(lat, lon), near);
     PutItemsToList(env, result, near, ItemCategory::NEAR_ME, [](TCountryId const & countryId, NodeAttrs const & attrs) -> bool
     {
-      return (attrs.m_status == NodeStatus::NotDownloaded);
+      return !attrs.m_present;
     });
   }
 
   TCountriesVec downloaded, available;
-  GetStorage().GetChildrenInGroups(GetRootId(env, parent), downloaded, available);
+  GetStorage().GetChildrenInGroups(GetRootId(env, parent), downloaded, available, true);
 
-  PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED, nullptr);
-  PutItemsToList(env, result, available, ItemCategory::AVAILABLE, nullptr);
+  if (myMapsMode)
+    PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED, nullptr);
+  else
+    PutItemsToList(env, result, available, ItemCategory::AVAILABLE, nullptr);
 }
 
 // static void nativeUpdateItem(CountryItem item);
@@ -395,6 +401,22 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetStatus(JNIEnv * env, jcl
   NodeStatuses ns;
   GetStorage().GetNodeStatuses(jni::ToNativeString(env, root), ns);
   return static_cast<jint>(ns.m_status);
+}
+
+// static void nativeGetError(String root);
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetError(JNIEnv * env, jclass clazz, jstring root)
+{
+  NodeStatuses ns;
+  GetStorage().GetNodeStatuses(jni::ToNativeString(env, root), ns);
+  return static_cast<jint>(ns.m_error);
+}
+
+// static String nativeGetName(String root);
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetName(JNIEnv * env, jclass clazz, jstring root)
+{
+  return jni::ToJavaString(env, GetStorage().GetNodeLocalName(jni::ToNativeString(env, root)));
 }
 
 // static @Nullable String nativeFindCountry(double lat, double lon);
@@ -575,6 +597,16 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeHasUnsavedEditorChanges(JNIEnv * env, jclass clazz, jstring root)
 {
   return g_framework->NativeFramework()->HasUnsavedEdits(jni::ToNativeString(env, root));
+}
+
+// static void nativeGetPathTo(String root, List<String> result);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetPathTo(JNIEnv * env, jclass clazz, jstring root, jobject result)
+{
+  TCountriesVec path;
+  GetStorage().GetGroupNodePathToRoot(jni::ToNativeString(env, root), path);
+  for (TCountryId const & node : path)
+    env->CallBooleanMethod(result, g_listAddMethod, jni::TScopedLocalRef(env, jni::ToJavaString(env, node)).get());
 }
 
 } // extern "C"
