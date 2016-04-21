@@ -23,6 +23,9 @@ public class ViralFragment extends BaseMwmDialogFragment
 
   private static String sViralText;
 
+  private final String viralChangesMsg = getString(R.string.editor_done_dialog_1);
+  private final String viralRatingMsg = getString(R.string.editor_done_dialog_2, getUserEditorRank());
+
   public static boolean shouldDisplay()
   {
     return !MwmApplication.prefs().contains(EXTRA_CONTRATS_SHOWN) &&
@@ -41,7 +44,6 @@ public class ViralFragment extends BaseMwmDialogFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     MwmApplication.prefs().edit().putBoolean(EXTRA_CONTRATS_SHOWN, true).apply();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_SHOW);
 
     @SuppressLint("InflateParams")
     final View root = inflater.inflate(R.layout.fragment_editor_viral, null);
@@ -66,6 +68,8 @@ public class ViralFragment extends BaseMwmDialogFragment
         dismiss();
       }
     });
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_SHOW,
+                                   Statistics.params().add("showed", sViralText.equals(viralChangesMsg) ? "change" : "rating"));
     return root;
   }
 
@@ -79,21 +83,11 @@ public class ViralFragment extends BaseMwmDialogFragment
     if (sViralText != null)
       return;
 
-    switch (new Random().nextInt(2))
-    {
-    case 0:
-      sViralText = getString(R.string.editor_done_dialog_1);
-      break;
-    case 1:
-      sViralText = getString(R.string.editor_done_dialog_2, getUserEditorRank());
-      break;
-    default:
-      sViralText = getString(R.string.editor_done_dialog_3);
-    }
+    sViralText = new Random().nextBoolean() ? viralChangesMsg : viralRatingMsg;
   }
 
   // Counts fake rank in the rating of editors.
-  private int getUserEditorRank()
+  private static int getUserEditorRank()
   {
     return 1000 + new Random().nextInt(1000);
   }
