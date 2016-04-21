@@ -20,6 +20,7 @@ SOURCES += \
     cross_mwm_road_graph.cpp \
     cross_mwm_router.cpp \
     cross_routing_context.cpp \
+    directions_engine.cpp \
     features_road_graph.cpp \
     nearest_edge_finder.cpp \
     online_absent_fetcher.cpp \
@@ -51,7 +52,7 @@ HEADERS += \
     async_router.hpp \
     base/astar_algorithm.hpp \
     base/followed_polyline.hpp \
-    bicycle_model.cpp \
+    bicycle_model.hpp \
     car_model.hpp \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
