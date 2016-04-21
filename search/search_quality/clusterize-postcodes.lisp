@@ -29,14 +29,16 @@ exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
 
 (defun get-postcode-pattern (postcode)
   "Simplifies postcode in a following way:
-   * all letters are replaced by 'a'
-   * all digits are replaced by '0'
+   * all letters are replaced by 'n'
+   * all digits are replaced by 'a'
+   * hyphens and dots are replaced by a space
    * other characters are left as-is
   "
-  (map 'string #'(lambda (c) (cond ((alpha-char-p c) #\a)
-                                   ((digit-char-p c) #\0)
+  (map 'string #'(lambda (c) (cond ((alpha-char-p c) #\A)
+                                   ((digit-char-p c) #\N)
+                                   ((or (char= #\- c) (char= #\. c)) #\Space)
                                    (T c)))
-       postcode))
+       (string-upcase postcode)))
 
 (defun get-pattern-clusters (postcodes)
   "Constructs a list of clusters by a list of postcodes."
