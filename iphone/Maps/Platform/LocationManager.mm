@@ -25,7 +25,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
 @property (nonatomic) CLLocationManager * locationManager;
 
-@property (nonatomic) BOOL isStarted;
+@property (nonatomic, readwrite) BOOL isStarted;
 @property (nonatomic) NSMutableSet * observers;
 @property (nonatomic) NSDate * lastLocationTime;
 

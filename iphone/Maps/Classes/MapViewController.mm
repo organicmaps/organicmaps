@@ -577,9 +577,9 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
       [[MapsAppDelegate theApp].locationManager start:self];
       break;
     case location::NotFollowNoPosition:
-      //TODO(iOS team): show dialog if it is not first launch
       self.disableStandbyOnLocationStateMode = NO;
-      if (![Alohalytics isFirstSession])
+      if (![Alohalytics isFirstSession] && [MapsAppDelegate theApp].locationManager.isStarted)
+      {
         [self.alertController presentLocationNotFoundAlertWithOkBlock:^
         {
           GetFramework().SwitchMyPositionNextMode();
@@ -588,6 +588,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
         {
           [[MapsAppDelegate theApp].locationManager stop:self];
         }];
+      }
       break;
     case location::NotFollow:
       self.disableStandbyOnLocationStateMode = NO;
