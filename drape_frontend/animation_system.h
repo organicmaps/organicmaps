@@ -462,7 +462,7 @@ public:
   void Advance(double elapsedSeconds) override;
 
 private:
-  void CalculateObjectProperties();
+  void ObtainObjectProperties();
 
   deque<drape_ptr<Animation>> m_animations;
   TAnimObjects m_objects;

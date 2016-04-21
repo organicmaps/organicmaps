@@ -775,25 +775,15 @@ bool SequenceAnimation::IsFinished() const
 
 bool SequenceAnimation::GetProperty(TObject object, TProperty property, PropertyValue &value) const
 {
-  for (auto const & anim : m_animations)
-  {
-    if (anim->HasProperty(object, property))
-      return anim->GetProperty(object, property, value);
-  }
-  return false;
+  ASSERT(!m_animations.empty(), ());
+  return m_animations.front()->GetProperty(object, property, value);
 }
 
 void SequenceAnimation::AddAnimation(drape_ptr<Animation> && animation)
 {
-  // TODO: Add only current animation's properties.
-  TAnimObjects const & objects = animation->GetObjects();
-  m_objects.insert(objects.begin(), objects.end());
-  for (auto const & object : objects)
-  {
-    TObjectProperties const & properties = animation->GetProperties(object);
-    m_properties[object].insert(properties.begin(), properties.end());
-  }
   m_animations.push_back(move(animation));
+  if (m_animations.size() == 1)
+    ObtainObjectProperties();
 }
 
 void SequenceAnimation::OnStart()
@@ -801,11 +791,12 @@ void SequenceAnimation::OnStart()
   if (m_animations.empty())
     return;
   m_animations.front()->OnStart();
+  Animation::OnStart();
 }
 
 void SequenceAnimation::OnFinish()
 {
-
+  Animation::OnFinish();
 }
 
 void SequenceAnimation::Advance(double elapsedSeconds)
@@ -818,21 +809,21 @@ void SequenceAnimation::Advance(double elapsedSeconds)
     m_animations.front()->OnFinish();
     AnimationSystem::Instance().SaveAnimationResult(*m_animations.front());
     m_animations.pop_front();
-    CalculateObjectProperties();
+    ObtainObjectProperties();
   }
 }
 
-void SequenceAnimation::CalculateObjectProperties()
+void SequenceAnimation::ObtainObjectProperties()
 {
   m_objects.clear();
   m_properties.clear();
-  for (auto const & anim : m_animations)
+  if (!m_animations.empty())
   {
-    TAnimObjects const & objects = anim->GetObjects();
+    TAnimObjects const & objects = m_animations.front()->GetObjects();
     m_objects.insert(objects.begin(), objects.end());
     for (auto const & object : objects)
     {
-      TObjectProperties const & properties = anim->GetProperties(object);
+      TObjectProperties const & properties = m_animations.front()->GetProperties(object);
       m_properties[object].insert(properties.begin(), properties.end());
     }
   }
