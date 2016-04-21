@@ -333,6 +333,7 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
     drape_ptr<MapScaleAnimation> anim = make_unique_dp<MapScaleAnimation>(startScreen.GetScale(), endScreen.GetScale(),
                                                                           glbScaleCenter, offset);
+    anim->SetMaxDuration(kMaxAnimationTimeSec);
     if (df::IsAnimationAllowed(anim->GetDuration(), startScreen))
     {
       AnimationSystem::Instance().AddAnimation(move(anim), true /* force */);
@@ -341,20 +342,6 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
     m_navigator.SetFromRect(endScreen.GlobalRect());
     return true;
-
-    /*auto const creator = [this, &glbScaleCenter, &offset](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
-                                                          double aDuration, double mDuration, double sDuration)
-    {
-      m_animation.reset(new ScaleAnimation(startRect, endRect, aDuration, mDuration,
-                                           sDuration, glbScaleCenter, offset));
-      if (m_listener)
-        m_listener->OnAnimationStarted(make_ref(m_animation));
-    };
-
-    ScreenBase screen = GetCurrentScreen();
-    m_navigator.CalculateScale(scaleCenter, factor, screen);
-
-    return SetRect(screen.GlobalRect(), true, creator);*/
   }
 
   m_navigator.Scale(scaleCenter, factor);
@@ -455,39 +442,26 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
   // Reset current animation if there is any.
   ResetCurrentAnimation();
 
-  return SetRect(rect, isAnim, [this](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
-                                      double aDuration, double mDuration, double sDuration)
-  {
-    drape_ptr<MapLinearAnimation> anim = make_unique_dp<MapLinearAnimation>();
-    anim->SetRotate(startRect.Angle().val(), endRect.Angle().val());
-    anim->SetMove(startRect.GlobalCenter(), endRect.GlobalCenter(), GetCurrentScreen());
-    m2::RectD pixelRect = GetCurrentScreen().PixelRect();
-    anim->SetScale(max(startRect.GetLocalRect().SizeX() / pixelRect.SizeX(),
-                       startRect.GetLocalRect().SizeY() / pixelRect.SizeY()),
-                   max(endRect.GetLocalRect().SizeX() / pixelRect.SizeX(),
-                       endRect.GetLocalRect().SizeY() / pixelRect.SizeY()));
-    AnimationSystem::Instance().AddAnimation(move(anim), true /* force */);
-    //m_animation.reset(new ModelViewAnimation(startRect, endRect, aDuration, mDuration, sDuration));
-    if (m_listener)
-      m_listener->OnAnimationStarted(make_ref(m_animation));
-  });
-}
-
-bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator const & animCreator)
-{
   if (isAnim)
   {
-    ScreenBase const & screen = m_navigator.Screen();
+    ScreenBase const & screen = GetCurrentScreen();
     m2::AnyRectD const startRect = GetCurrentRect();
-    double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), rect.Angle().val());
-    double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), rect.GlobalZero(), screen);
-    double scaleDuration = ModelViewAnimation::GetScaleDuration(startRect.GetLocalRect().SizeX(), rect.GetLocalRect().SizeX());
-    if (scaleDuration > kMaxAnimationTimeSec)
-      scaleDuration = kMaxAnimationTimeSec;
-    if (df::IsAnimationAllowed(max(max(angleDuration, moveDuration), scaleDuration), screen))
+    m2::RectD const pixelRect = screen.PixelRect();
+
+    drape_ptr<MapLinearAnimation> anim = make_unique_dp<MapLinearAnimation>();
+    anim->SetRotate(startRect.Angle().val(), rect.Angle().val());
+    anim->SetMove(startRect.GlobalCenter(), rect.GlobalCenter(), screen);
+
+    anim->SetScale(max(startRect.GetLocalRect().SizeX() / pixelRect.SizeX(),
+                       startRect.GetLocalRect().SizeY() / pixelRect.SizeY()),
+                   max(rect.GetLocalRect().SizeX() / pixelRect.SizeX(),
+                       rect.GetLocalRect().SizeY() / pixelRect.SizeY()));
+
+    if (df::IsAnimationAllowed(anim->GetDuration(), screen))
     {
-      ASSERT(animCreator != nullptr, ());
-      animCreator(startRect, rect, angleDuration, moveDuration, scaleDuration);
+      AnimationSystem::Instance().AddAnimation(move(anim), true /* force */);
+      if (m_listener)
+        m_listener->OnAnimationStarted(nullptr);
       return false;
     }
   }

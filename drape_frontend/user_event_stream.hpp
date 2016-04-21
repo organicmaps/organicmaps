@@ -300,12 +300,10 @@ public:
 #endif
 
 private:
-  using TAnimationCreator = function<void(m2::AnyRectD const &, m2::AnyRectD const &, double, double, double)>;
   bool SetScale(m2::PointD const & pxScaleCenter, double factor, bool isAnim);
   bool SetCenter(m2::PointD const & center, int zoom, bool isAnim);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
-  bool SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator const & animCreator);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, bool isAnim);
 
