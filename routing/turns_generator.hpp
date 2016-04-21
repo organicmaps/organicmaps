@@ -135,6 +135,7 @@ void GetTurnDirection(IRoutingResultGraph const & result, turns::TurnInfo & turn
  * Returns 0 if there is no UTurn.
  * Warning! currentSegment must be greater than 0.
  */
-size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t currentSegment, TurnItem & turn);
+size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
+                         size_t currentSegment, TurnItem & turn);
 }  // namespace routing
 }  // namespace turns

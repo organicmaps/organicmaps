@@ -18,10 +18,6 @@ struct RoutingMapping;
 struct RawPathData;
 struct FeatureGraphNode;
 
-namespace turns
-{
-using TSeg = OsrmMappingTypes::FtSeg;
-
 /*!
  * \brief The LoadedPathSegment struct is a representation of a single node path.
  * It unpacks and stores information about path and road type flags.
@@ -30,29 +26,31 @@ using TSeg = OsrmMappingTypes::FtSeg;
 struct LoadedPathSegment
 {
   vector<m2::PointD> m_path;
+  vector<turns::SingleLaneInfo> m_lanes;
+  string m_name;
+  TEdgeWeight m_weight;
+  TNodeId m_nodeId;
   ftypes::HighwayClass m_highwayClass;
   bool m_onRoundabout;
   bool m_isLink;
-  TEdgeWeight m_weight;
-  string m_name;
-  TNodeId m_nodeId;
-  vector<SingleLaneInfo> m_lanes;
 
-  // General constructor.
-  LoadedPathSegment(RoutingMapping & mapping, Index const & index,
-                    RawPathData const & osrmPathSegment);
-  // Special constructor for side nodes. Splits OSRM node by information from the FeatureGraphNode.
-  LoadedPathSegment(RoutingMapping & mapping, Index const & index,
-                    RawPathData const & osrmPathSegment, FeatureGraphNode const & startGraphNode,
-                    FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
+  LoadedPathSegment()
+  {
+    Clear();
+  }
 
-private:
-  // Load information about road, that described as the sequence of FtSegs and start/end indexes in
-  // in it. For the side case, it has information about start/end graph nodes.
-  void LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startIndex,
-                        size_t endIndex, Index const & index, RoutingMapping & mapping,
-                        FeatureGraphNode const & startGraphNode,
-                        FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
+  void Clear()
+  {
+    m_path.clear();
+    m_lanes.clear();
+    m_name.clear();
+    m_weight = 0;
+    m_nodeId = 0;
+    m_highwayClass = ftypes::HighwayClass::Undefined;
+    m_onRoundabout = false;
+    m_isLink = false;
+  }
 };
+
+using TUnpackedPathSegments = vector<LoadedPathSegment>;
 }  // namespace routing
-}  // namespace turns

@@ -662,7 +662,8 @@ void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, T
   }
 }
 
-size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t currentSegment, TurnItem & turn)
+size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
+                         size_t currentSegment, TurnItem & turn)
 {
   size_t constexpr kUTurnLookAhead = 3;
   double constexpr kUTurnHeadingSensitivity = math::pi / 10.0;

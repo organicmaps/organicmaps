@@ -17,7 +17,7 @@ namespace turns
 class IRoutingResultGraph
 {
 public:
-  virtual vector<LoadedPathSegment> const & GetSegments() const = 0;
+  virtual TUnpackedPathSegments const & GetSegments() const = 0;
   virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
                                 m2::PointD const & junctionPoint,
                                 size_t & ingoingCount,

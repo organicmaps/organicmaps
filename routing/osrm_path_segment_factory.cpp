@@ -1,4 +1,4 @@
-#include "routing/loaded_path_segment.hpp"
+#include "routing/osrm_path_segment_factory.hpp"
 #include "routing/routing_mapping.hpp"
 
 #include "indexer/feature.hpp"
@@ -8,43 +8,18 @@
 
 #include "base/buffer_vector.hpp"
 
-namespace routing
-{
-namespace turns
+namespace
 {
 // Osrm multiples seconds to 10, so we need to divide it back.
 double constexpr kOSRMWeightToSecondsMultiplier = 1. / 10.;
 
-LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & index,
-                                     RawPathData const & osrmPathSegment)
-  : m_highwayClass(ftypes::HighwayClass::Undefined)
-  , m_onRoundabout(false)
-  , m_isLink(false)
-  , m_weight(osrmPathSegment.segmentWeight * kOSRMWeightToSecondsMultiplier)
-  , m_nodeId(osrmPathSegment.node)
-{
-  buffer_vector<TSeg, 8> buffer;
-  mapping.m_segMapping.ForEachFtSeg(osrmPathSegment.node, MakeBackInsertFunctor(buffer));
-  if (buffer.empty())
-  {
-    LOG(LERROR, ("Can't unpack geometry for map:", mapping.GetCountryName(), " node: ",
-                 osrmPathSegment.node));
-    alohalytics::Stats::Instance().LogEvent(
-        "RouteTracking_UnpackingError",
-        {{"node", strings::to_string(osrmPathSegment.node)},
-         {"map", mapping.GetCountryName()},
-         {"version", strings::to_string(mapping.GetMwmId().GetInfo()->GetVersion())}});
-    return;
-  }
-  LoadPathGeometry(buffer, 0, buffer.size(), index, mapping, FeatureGraphNode(), FeatureGraphNode(),
-                   false /* isStartNode */, false /*isEndNode*/);
-}
+using TSeg = routing::OsrmMappingTypes::FtSeg;
 
-void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startIndex,
-                                         size_t endIndex, Index const & index, RoutingMapping & mapping,
-                                         FeatureGraphNode const & startGraphNode,
-                                         FeatureGraphNode const & endGraphNode, bool isStartNode,
-                                         bool isEndNode)
+void LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startIndex,
+                      size_t endIndex, Index const & index, routing::RoutingMapping & mapping,
+                      routing::FeatureGraphNode const & startGraphNode,
+                      routing::FeatureGraphNode const & endGraphNode, bool isStartNode,
+                      bool isEndNode, routing::LoadedPathSegment & loadPathGeometry)
 {
   ASSERT_LESS(startIndex, endIndex, ());
   ASSERT_LESS_OR_EQUAL(endIndex, buffer.size(), ());
@@ -54,7 +29,7 @@ void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, 
     auto const & segment = buffer[k];
     if (!segment.IsValid())
     {
-      m_path.clear();
+      loadPathGeometry.m_path.clear();
       return;
     }
     // Load data from drive.
@@ -75,13 +50,13 @@ void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, 
     if (startIdx < endIdx)
     {
       for (auto idx = startIdx; idx <= endIdx; ++idx)
-        m_path.push_back(ft.GetPoint(idx));
+        loadPathGeometry.m_path.push_back(ft.GetPoint(idx));
     }
     else
     {
       // I use big signed type because endIdx can be 0.
       for (int64_t idx = startIdx; idx >= static_cast<int64_t>(endIdx); --idx)
-        m_path.push_back(ft.GetPoint(idx));
+        loadPathGeometry.m_path.push_back(ft.GetPoint(idx));
     }
 
     // Load lanes if it is a last segment before junction.
@@ -97,31 +72,53 @@ void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, 
         directionType = (startIdx < endIdx) ? Metadata::FMD_TURN_LANES_FORWARD
                                             : Metadata::FMD_TURN_LANES_BACKWARD;
       }
-      ParseLanes(md.Get(directionType), m_lanes);
+      ParseLanes(md.Get(directionType), loadPathGeometry.m_lanes);
     }
     // Calculate node flags.
-    m_onRoundabout |= ftypes::IsRoundAboutChecker::Instance()(ft);
-    m_isLink |= ftypes::IsLinkChecker::Instance()(ft);
-    m_highwayClass = ftypes::GetHighwayClass(ft);
+    loadPathGeometry.m_onRoundabout |= ftypes::IsRoundAboutChecker::Instance()(ft);
+    loadPathGeometry.m_isLink |= ftypes::IsLinkChecker::Instance()(ft);
+    loadPathGeometry.m_highwayClass = ftypes::GetHighwayClass(ft);
     string name;
     ft.GetName(FeatureType::DEFAULT_LANG, name);
-    if (!name.empty())
-      m_name = name;
+    loadPathGeometry.m_name = name;
   }
 }
+}  // namespace
 
-LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & index,
-                                     RawPathData const & osrmPathSegment,
-                                     FeatureGraphNode const & startGraphNode,
-                                     FeatureGraphNode const & endGraphNode, bool isStartNode,
-                                     bool isEndNode)
-  : m_highwayClass(ftypes::HighwayClass::Undefined)
-  , m_onRoundabout(false)
-  , m_isLink(false)
-  , m_weight(0)
-  , m_nodeId(osrmPathSegment.node)
+namespace routing
+{
+void OsrmPathSegmentFactory(RoutingMapping & mapping, Index const & index,
+                            RawPathData const & osrmPathSegment, LoadedPathSegment & loadedPathSegment)
+{
+  loadedPathSegment.Clear();
+
+  buffer_vector<TSeg, 8> buffer;
+  mapping.m_segMapping.ForEachFtSeg(osrmPathSegment.node, MakeBackInsertFunctor(buffer));
+  loadedPathSegment.m_weight = osrmPathSegment.segmentWeight * kOSRMWeightToSecondsMultiplier;
+  loadedPathSegment.m_nodeId = osrmPathSegment.node;
+  if (buffer.empty())
+  {
+    LOG(LERROR, ("Can't unpack geometry for map:", mapping.GetCountryName(), " node: ",
+                 osrmPathSegment.node));
+    alohalytics::Stats::Instance().LogEvent(
+        "RouteTracking_UnpackingError",
+        {{"node", strings::to_string(osrmPathSegment.node)},
+         {"map", mapping.GetCountryName()},
+         {"version", strings::to_string(mapping.GetMwmId().GetInfo()->GetVersion())}});
+    return;
+  }
+  LoadPathGeometry(buffer, 0, buffer.size(), index, mapping, FeatureGraphNode(), FeatureGraphNode(),
+                   false /* isStartNode */, false /*isEndNode*/, loadedPathSegment);
+}
+
+void OsrmPathSegmentFactory(RoutingMapping & mapping, Index const & index, RawPathData const & osrmPathSegment,
+                            FeatureGraphNode const & startGraphNode, FeatureGraphNode const & endGraphNode,
+                            bool isStartNode, bool isEndNode, LoadedPathSegment & loadedPathSegment)
 {
   ASSERT(isStartNode || isEndNode, ("This function process only corner cases."));
+  loadedPathSegment.Clear();
+
+  loadedPathSegment.m_nodeId = osrmPathSegment.node;
   if (!startGraphNode.segment.IsValid() || !endGraphNode.segment.IsValid())
     return;
   buffer_vector<TSeg, 8> buffer;
@@ -153,7 +150,7 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
                                    : startGraphNode.node.reverse_offset;
     // Sum because weights in forward/backward_weight fields are negative. Look osrm_helpers for
     // more info.
-    m_weight = wholeWeight + forwardWeight + backwardWeight;
+    loadedPathSegment.m_weight = wholeWeight + forwardWeight + backwardWeight;
   }
   else
   {
@@ -164,16 +161,15 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
       node = &endGraphNode.node;
     if (node)
     {
-      m_weight = (osrmPathSegment.node == node->forward_weight)
-                  ? node->GetForwardWeightPlusOffset() : node->GetReverseWeightPlusOffset();
+      loadedPathSegment.m_weight = (osrmPathSegment.node == node->forward_weight)
+          ? node->GetForwardWeightPlusOffset() : node->GetReverseWeightPlusOffset();
     }
   }
 
   size_t startIndex = isStartNode ? findIntersectingSeg(startGraphNode.segment) : 0;
   size_t endIndex = isEndNode ? findIntersectingSeg(endGraphNode.segment) + 1 : buffer.size();
   LoadPathGeometry(buffer, startIndex, endIndex, index, mapping, startGraphNode, endGraphNode, isStartNode,
-                   isEndNode);
-  m_weight *= kOSRMWeightToSecondsMultiplier;
+                   isEndNode, loadedPathSegment);
+  loadedPathSegment.m_weight *= kOSRMWeightToSecondsMultiplier;
 }
 }  // namespace routing
-}  // namespace turns
