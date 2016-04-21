@@ -724,10 +724,15 @@ void ParallelAnimation::Finish()
   Animation::Finish();
 }
 
+SequenceAnimation::SequenceAnimation()
+  : Animation(false /* couldBeInterrupted */, false /* couldBeMixed */)
+{
+
+}
+
 Animation::TAnimObjects const & SequenceAnimation::GetObjects() const
 {
-  ASSERT(!m_animations.empty(), ());
-  return m_animations.front()->GetObjects();
+  return m_objects;
 }
 
 bool SequenceAnimation::HasObject(TObject object) const
@@ -738,8 +743,8 @@ bool SequenceAnimation::HasObject(TObject object) const
 
 Animation::TObjectProperties const & SequenceAnimation::GetProperties(TObject object) const
 {
-  ASSERT(!m_animations.empty(), ());
-  return m_animations.front()->GetProperties(object);
+  ASSERT(HasObject(object), ());
+  return m_properties.find(object)->second;
 }
 
 bool SequenceAnimation::HasProperty(TObject object, TProperty property) const
@@ -748,8 +753,46 @@ bool SequenceAnimation::HasProperty(TObject object, TProperty property) const
   return m_animations.front()->HasProperty(object, property);
 }
 
+void SequenceAnimation::SetMaxDuration(double maxDuration)
+{
+  ASSERT(!"Not implemented", ());
+}
+
+double SequenceAnimation::GetDuration() const
+{
+  double duration = 0.0;
+  for (auto const & anim : m_animations)
+  {
+    duration += anim->GetDuration();
+  }
+  return duration;
+}
+
+bool SequenceAnimation::IsFinished() const
+{
+  return m_animations.empty();
+}
+
+bool SequenceAnimation::GetProperty(TObject object, TProperty property, PropertyValue &value) const
+{
+  for (auto const & anim : m_animations)
+  {
+    if (anim->HasProperty(object, property))
+      return anim->GetProperty(object, property, value);
+  }
+  return false;
+}
+
 void SequenceAnimation::AddAnimation(drape_ptr<Animation> && animation)
 {
+  // TODO: Add only current animation's properties.
+  TAnimObjects const & objects = animation->GetObjects();
+  m_objects.insert(objects.begin(), objects.end());
+  for (auto const & object : objects)
+  {
+    TObjectProperties const & properties = animation->GetProperties(object);
+    m_properties[object].insert(properties.begin(), properties.end());
+  }
   m_animations.push_back(move(animation));
 }
 
@@ -773,7 +816,25 @@ void SequenceAnimation::Advance(double elapsedSeconds)
   if (m_animations.front()->IsFinished())
   {
     m_animations.front()->OnFinish();
+    AnimationSystem::Instance().SaveAnimationResult(*m_animations.front());
     m_animations.pop_front();
+    CalculateObjectProperties();
+  }
+}
+
+void SequenceAnimation::CalculateObjectProperties()
+{
+  m_objects.clear();
+  m_properties.clear();
+  for (auto const & anim : m_animations)
+  {
+    TAnimObjects const & objects = anim->GetObjects();
+    m_objects.insert(objects.begin(), objects.end());
+    for (auto const & object : objects)
+    {
+      TObjectProperties const & properties = anim->GetProperties(object);
+      m_properties[object].insert(properties.begin(), properties.end());
+    }
   }
 }
 

@@ -441,11 +441,18 @@ private:
 class SequenceAnimation : public Animation
 {
 public:
+  SequenceAnimation();
   Animation::Type GetType() const override { return Animation::Sequence; }
   TAnimObjects const & GetObjects() const override;
   bool HasObject(TObject object) const override;
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
+
+  void SetMaxDuration(double maxDuration) override;
+  double GetDuration() const override;
+  bool IsFinished() const override;
+
+  bool GetProperty(TObject object, TProperty property, PropertyValue &value) const override;
 
   void AddAnimation(drape_ptr<Animation> && animation);
 
@@ -455,7 +462,11 @@ public:
   void Advance(double elapsedSeconds) override;
 
 private:
+  void CalculateObjectProperties();
+
   deque<drape_ptr<Animation>> m_animations;
+  TAnimObjects m_objects;
+  map<TObject, TObjectProperties> m_properties;
 };
 
 class ParallelAnimation : public Animation
@@ -508,10 +519,10 @@ public:
   void Advance(double elapsedSeconds);
 
   ScreenBase const & GetLastScreen() { return m_lastScreen; }
+  void SaveAnimationResult(Animation const & animation);
 
 private:
   bool GetProperty(Animation::TObject object, Animation::TProperty property, Animation::PropertyValue & value) const;
-  void SaveAnimationResult(Animation const & animation);
   void StartNextAnimations();
 
   AnimationSystem();

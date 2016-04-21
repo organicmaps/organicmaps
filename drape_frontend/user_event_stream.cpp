@@ -448,14 +448,14 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
     m2::AnyRectD const startRect = GetCurrentRect();
     m2::RectD const pixelRect = screen.PixelRect();
 
+    double const startScale = max(startRect.GetLocalRect().SizeX() / pixelRect.SizeX(),
+                                  startRect.GetLocalRect().SizeY() / pixelRect.SizeY());
+    double const endScale = max(rect.GetLocalRect().SizeX() / pixelRect.SizeX(),
+                                rect.GetLocalRect().SizeY() / pixelRect.SizeY());
     drape_ptr<MapLinearAnimation> anim = make_unique_dp<MapLinearAnimation>();
     anim->SetRotate(startRect.Angle().val(), rect.Angle().val());
     anim->SetMove(startRect.GlobalCenter(), rect.GlobalCenter(), screen);
-
-    anim->SetScale(max(startRect.GetLocalRect().SizeX() / pixelRect.SizeX(),
-                       startRect.GetLocalRect().SizeY() / pixelRect.SizeY()),
-                   max(rect.GetLocalRect().SizeX() / pixelRect.SizeX(),
-                       rect.GetLocalRect().SizeY() / pixelRect.SizeY()));
+    anim->SetScale(startScale, endScale);
 
     if (df::IsAnimationAllowed(anim->GetDuration(), screen))
     {
@@ -464,9 +464,39 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
         m_listener->OnAnimationStarted(nullptr);
       return false;
     }
+    else
+    {
+      double const moveDuration = PositionInterpolator::GetMoveDuration(startRect.GlobalCenter(), rect.GlobalCenter(), screen);
+      if (moveDuration > kMaxAnimationTimeSec)
+      {
+        double const scaleFactor = moveDuration / kMaxAnimationTimeSec * 2.0;
+
+        drape_ptr<SequenceAnimation> sequenceAnim = make_unique_dp<SequenceAnimation>();
+        drape_ptr<MapLinearAnimation> zoomOutAnim = make_unique_dp<MapLinearAnimation>();
+        zoomOutAnim->SetScale(startScale, startScale * scaleFactor);
+        zoomOutAnim->SetMaxDuration(kMaxAnimationTimeSec / 2.0);
+
+        // TODO: Pass fixed duration instead of screen.
+        drape_ptr<MapLinearAnimation> moveAnim = make_unique_dp<MapLinearAnimation>();
+        moveAnim->SetMove(startRect.GlobalCenter(), rect.GlobalCenter(), screen);
+        moveAnim->SetMaxDuration(kMaxAnimationTimeSec);
+
+        drape_ptr<MapLinearAnimation> zoomInAnim = make_unique_dp<MapLinearAnimation>();
+        zoomInAnim->SetScale(startScale * scaleFactor, endScale);
+        zoomInAnim->SetMaxDuration(kMaxAnimationTimeSec / 2.0);
+
+        sequenceAnim->AddAnimation(move(zoomOutAnim));
+        sequenceAnim->AddAnimation(move(moveAnim));
+        sequenceAnim->AddAnimation(move(zoomInAnim));
+        AnimationSystem::Instance().AddAnimation(move(sequenceAnim), true /* force */);
+        if (m_listener)
+          m_listener->OnAnimationStarted(nullptr);
+        return false;
+      }
+    }
+
   }
 
-  m_animation.reset();
   m_navigator.SetFromRect(rect);
   return true;
 }
