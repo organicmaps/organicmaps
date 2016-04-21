@@ -39,13 +39,34 @@ public:
     Position,
     Scale,
     Angle,
-    AnglePerspective
+    AnglePerspective,
+    SwitchPerspective
   };
 
   enum PropertyValueType
   {
     ValueD,
-    ValuePointD
+    ValuePointD,
+    ValuePerspectiveParams
+  };
+
+  struct SwitchPerspectiveParams
+  {
+    SwitchPerspectiveParams()
+      : m_enable(false)
+    {}
+
+    SwitchPerspectiveParams(bool enable, double startAngle, double endAngle, double angleFOV)
+      : m_enable(enable)
+      , m_startAngle(startAngle)
+      , m_endAngle(endAngle)
+      , m_angleFOV(angleFOV)
+    {}
+
+    bool m_enable;
+    double m_startAngle;
+    double m_endAngle;
+    double m_angleFOV;
   };
 
   struct PropertyValue
@@ -55,20 +76,27 @@ public:
     }
 
     PropertyValue(double value)
-      : m_type(ValueD),
-        m_valueD(value)
+      : m_type(ValueD)
+      , m_valueD(value)
     {}
 
     PropertyValue(m2::PointD value)
-      : m_type(ValuePointD),
-        m_valuePointD(value)
+      : m_type(ValuePointD)
+      , m_valuePointD(value)
     {}
+
+    PropertyValue(SwitchPerspectiveParams const & params)
+      : m_type(ValuePerspectiveParams)
+    {
+      m_valuePerspectiveParams = params;
+    }
 
     PropertyValueType m_type;
     union
     {
       m2::PointD m_valuePointD;
       double m_valueD;
+      SwitchPerspectiveParams m_valuePerspectiveParams;
     };
   };
 
@@ -101,7 +129,7 @@ public:
   virtual void Advance(double elapsedSeconds) = 0;
   virtual void Finish() { OnFinish(); }
 
-  virtual PropertyValue GetProperty(TObject object, TProperty property) const = 0;
+  virtual bool GetProperty(TObject object, TProperty property, PropertyValue & value) const = 0;
 
   void SetOnStartAction(TAction const & action) { m_onStartAction = action; }
   void SetOnFinishAction(TAction const & action) { m_onFinishAction = action; }
@@ -249,7 +277,7 @@ private:
 class PerspectiveSwitchAnimation : public Animation
 {
 public:
-  PerspectiveSwitchAnimation(double startAngle, double endAngle);
+  PerspectiveSwitchAnimation(double startAngle, double endAngle, double angleFOV);
 
   static double GetRotateDuration(double startAngle, double endAngle);
 
@@ -269,14 +297,23 @@ public:
   void Advance(double elapsedSeconds) override;
   void Finish() override;
 
+  void OnStart() override;
+  void OnFinish() override;
+
   void SetMaxDuration(double maxDuration) override;
   double GetDuration() const override;
   bool IsFinished() const override;
 
-  PropertyValue GetProperty(TObject object, TProperty property) const override;
+  bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
   drape_ptr<AngleInterpolator> m_angleInterpolator;
+  double m_startAngle;
+  double m_endAngle;
+  double m_angleFOV;
+
+  bool m_isEnablePerspectiveAnim;
+  mutable bool m_needPerspectiveSwitch;
   TAnimObjects m_objects;
   TObjectProperties m_properties;
 };
@@ -313,7 +350,7 @@ public:
   double GetDuration() const override;
   bool IsFinished() const override;
 
-  PropertyValue GetProperty(TObject object, TProperty property) const override;
+  bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
   drape_ptr<AngleInterpolator> m_angleInterpolator;
@@ -349,7 +386,7 @@ public:
   double GetDuration() const override;
   bool IsFinished() const override;
 
-  PropertyValue GetProperty(TObject object, TProperty property) const override;
+  bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
   drape_ptr<ScaleInterpolator> m_scaleInterpolator;
@@ -388,7 +425,7 @@ public:
   double GetDuration() const override;
   bool IsFinished() const override;
 
-  PropertyValue GetProperty(TObject object, TProperty property) const override;
+  bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
   drape_ptr<ScaleInterpolator> m_scaleInterpolator;
@@ -455,8 +492,10 @@ class AnimationSystem : private noncopyable
 public:
   static AnimationSystem & Instance();
 
-  m2::AnyRectD GetRect(ScreenBase const & currentScreen, bool & viewportChanged);
-  double GetPerspectiveAngle(double currentAngle);
+  bool GetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect);
+
+  bool SwitchPerspective(Animation::SwitchPerspectiveParams & params);
+  bool GetPerspectiveAngle(double & angle);
 
   bool AnimationExists(Animation::TObject object) const;
 
@@ -468,10 +507,10 @@ public:
 
   void Advance(double elapsedSeconds);
 
-  ScreenBase const & GetLastScreen() { return *m_lastScreen.get(); }
+  ScreenBase const & GetLastScreen() { return m_lastScreen; }
 
 private:
-  Animation::PropertyValue GetProperty(Animation::TObject object, Animation::TProperty property, Animation::PropertyValue current) const;
+  bool GetProperty(Animation::TObject object, Animation::TProperty property, Animation::PropertyValue & value) const;
   void SaveAnimationResult(Animation const & animation);
   void StartNextAnimations();
 
@@ -484,7 +523,7 @@ private:
   TAnimationChain m_animationChain;
   mutable TPropertyCache m_propertyCache;
 
-  drape_ptr<ScreenBase> m_lastScreen;
+  ScreenBase m_lastScreen;
 };
 
 }

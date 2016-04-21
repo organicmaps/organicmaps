@@ -1507,14 +1507,14 @@ void FrontendRenderer::Routine::Do()
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
 
-    isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
-    AnimationSystem::Instance().Advance(frameTime);
-
     if (modelViewChanged)
     {
       m_renderer.UpdateScene(modelView);
       m_renderer.EmitModelViewChanged(modelView);
     }
+
+    isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
+    AnimationSystem::Instance().Advance(frameTime);
 
     isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
 

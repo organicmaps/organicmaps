@@ -311,8 +311,8 @@ private:
 
   bool FilterEventWhile3dAnimation(UserEvent::EEventType type) const;
   void SetEnable3dMode(double maxRotationAngle, double angleFOV,
-                       bool isAnim, bool immediatelyStart, bool & viewportChanged);
-  void SetDisable3dModeAnimation(bool & viewportChanged);
+                       bool isAnim, bool immediatelyStart);
+  void SetDisable3dModeAnimation();
 
   m2::AnyRectD GetCurrentRect() const;
 
@@ -353,6 +353,7 @@ private:
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
 
+  void ApplyAnimations(bool & modelViewChanged, bool & viewportChanged);
   void ResetCurrentAnimation(bool finishAnimation = false);
 
   list<UserEvent> m_events;

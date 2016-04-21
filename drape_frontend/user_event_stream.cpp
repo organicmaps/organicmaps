@@ -206,13 +206,12 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       break;
     case UserEvent::EVENT_ENABLE_PERSPECTIVE:
       SetEnable3dMode(e.m_enable3dMode.m_rotationAngle, e.m_enable3dMode.m_angleFOV,
-                      e.m_enable3dMode.m_isAnim, e.m_enable3dMode.m_immediatelyStart,
-                      viewportChanged);
+                      e.m_enable3dMode.m_isAnim, e.m_enable3dMode.m_immediatelyStart);
       m_discardedFOV = m_discardedAngle = 0.0;
       break;
     case UserEvent::EVENT_DISABLE_PERSPECTIVE:
       if (m_navigator.Screen().isPerspective())
-        SetDisable3dModeAnimation(viewportChanged);
+        SetDisable3dModeAnimation();
       m_discardedFOV = m_discardedAngle = 0.0;
       break;
     case UserEvent::EVENT_SWITCH_VIEW_MODE:
@@ -220,12 +219,11 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       {
         m_discardedFOV = m_navigator.Screen().GetAngleFOV();
         m_discardedAngle = m_navigator.Screen().GetRotationAngle();
-        SetDisable3dModeAnimation(viewportChanged);
+        SetDisable3dModeAnimation();
       }
       else if (m_discardedFOV > 0.0)
       {
-        SetEnable3dMode(m_discardedAngle, m_discardedFOV, true /* isAnim */, true /* immediatelyStart */,
-                        viewportChanged);
+        SetEnable3dMode(m_discardedAngle, m_discardedFOV, true /* isAnim */, true /* immediatelyStart */);
         m_discardedFOV = m_discardedAngle = 0.0;
       }
       break;
@@ -249,22 +247,23 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     if (m_animation->IsFinished())
       m_animation.reset();
   }
-  if (AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
-  {
-    m2::AnyRectD const rect = AnimationSystem::Instance().GetRect(GetCurrentScreen(), viewportChanged);
-    m_navigator.SetFromRect(rect);
 
-    ScreenBase const & screen = GetCurrentScreen();
-    if (screen.isPerspective())
-    {
-      double const angle = AnimationSystem::Instance().GetPerspectiveAngle(screen.GetRotationAngle());
-      m_navigator.SetRotationIn3dMode(angle);
-    }
-    modelViewChange = true;
-  }
+  ApplyAnimations(modelViewChange, viewportChanged);
 
   if (m_perspectiveAnimation)
+  {
     TouchCancel(m_touches);
+  }
+  else
+  {
+    if (m_pendingEvent != nullptr && m_pendingEvent->m_type == UserEvent::EVENT_SET_RECT)
+    {
+      SetRect(m_pendingEvent->m_rectEvent.m_rect, m_pendingEvent->m_rectEvent.m_zoom,
+              m_pendingEvent->m_rectEvent.m_applyRotation, m_pendingEvent->m_rectEvent.m_isAnim);
+      m_pendingEvent.reset();
+      modelViewChange = true;
+    }
+  }
 
   if (GetValidTouchesCount(m_touches) == 1)
   {
@@ -275,6 +274,35 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
   }
 
   return m_navigator.Screen();
+}
+
+void UserEventStream::ApplyAnimations(bool & modelViewChanged, bool & viewportChanged)
+{
+  if (AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
+  {
+    m2::AnyRectD rect;
+    if (AnimationSystem::Instance().GetRect(GetCurrentScreen(), rect))
+      m_navigator.SetFromRect(rect);
+
+    Animation::SwitchPerspectiveParams switchPerspective;
+    if (AnimationSystem::Instance().SwitchPerspective(switchPerspective))
+    {
+      if (switchPerspective.m_enable)
+        m_navigator.Enable3dMode(switchPerspective.m_startAngle, switchPerspective.m_endAngle, switchPerspective.m_angleFOV);
+      else
+        m_navigator.Disable3dMode();
+      viewportChanged = true;
+    }
+
+    double perspectiveAngle;
+    if (AnimationSystem::Instance().GetPerspectiveAngle(perspectiveAngle) &&
+        GetCurrentScreen().isPerspective())
+    {
+      m_navigator.SetRotationIn3dMode(perspectiveAngle);
+    }
+
+    modelViewChanged = true;
+  }
 }
 
 ScreenBase const & UserEventStream::GetCurrentScreen() const
@@ -526,22 +554,20 @@ bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) co
 }
 
 void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
-                                      bool isAnim, bool immediatelyStart,
-                                      bool & viewportChanged)
+                                      bool isAnim, bool immediatelyStart)
 {
   AnimationSystem::Instance().FinishAnimations(Animation::MapLinear, true /* rewind */);
-
-  m_navigator.SetFromRect(AnimationSystem::Instance().GetRect(GetCurrentScreen(), viewportChanged));
+  m2::AnyRectD rect;
+  if (AnimationSystem::Instance().GetRect(GetCurrentScreen(), rect))
+    m_navigator.SetFromRect(rect);
 
   double const startAngle = isAnim ? 0.0 : maxRotationAngle;
   double const endAngle = maxRotationAngle;
 
-  drape_ptr<PerspectiveSwitchAnimation> anim = make_unique_dp<PerspectiveSwitchAnimation>(startAngle, endAngle);
-  anim->SetOnStartAction([this, startAngle, endAngle, angleFOV, &viewportChanged](Animation const &)
+  drape_ptr<PerspectiveSwitchAnimation> anim = make_unique_dp<PerspectiveSwitchAnimation>(startAngle, endAngle, angleFOV);
+  anim->SetOnStartAction([this, startAngle, endAngle, angleFOV](Animation const &)
   {
     m_perspectiveAnimation = true;
-    m_navigator.SetFromRect(AnimationSystem::Instance().GetRect(GetCurrentScreen(), viewportChanged));
-    m_navigator.Enable3dMode(startAngle, endAngle, angleFOV);
   });
   anim->SetOnFinishAction([this](Animation const &)
   {
@@ -553,31 +579,24 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
     AnimationSystem::Instance().PushAnimation(move(anim));
 }
 
-void UserEventStream::SetDisable3dModeAnimation(bool & viewportChanged)
+void UserEventStream::SetDisable3dModeAnimation()
 {
   AnimationSystem::Instance().FinishAnimations(Animation::MapLinear, true /* rewind */);
-
-  m_navigator.SetFromRect(AnimationSystem::Instance().GetRect(GetCurrentScreen(), viewportChanged));
+  m2::AnyRectD rect;
+  if (AnimationSystem::Instance().GetRect(GetCurrentScreen(), rect))
+    m_navigator.SetFromRect(rect);
 
   double const startAngle = m_navigator.Screen().GetRotationAngle();
   double const endAngle = 0.0;
 
-  drape_ptr<PerspectiveSwitchAnimation> anim = make_unique_dp<PerspectiveSwitchAnimation>(startAngle, endAngle);
+  drape_ptr<PerspectiveSwitchAnimation> anim = make_unique_dp<PerspectiveSwitchAnimation>(startAngle, endAngle, m_navigator.Screen().GetAngleFOV());
   anim->SetOnStartAction([this](Animation const &)
   {
     m_perspectiveAnimation = true;
   });
-  anim->SetOnFinishAction([this, &viewportChanged](Animation const &)
+  anim->SetOnFinishAction([this](Animation const &)
   {
     m_perspectiveAnimation = false;
-    m_navigator.SetFromRect(AnimationSystem::Instance().GetRect(GetCurrentScreen(), viewportChanged));
-    m_navigator.Disable3dMode();
-    if (m_pendingEvent != nullptr && m_pendingEvent->m_type == UserEvent::EVENT_SET_RECT)
-    {
-      SetRect(m_pendingEvent->m_rectEvent.m_rect, m_pendingEvent->m_rectEvent.m_zoom,
-              m_pendingEvent->m_rectEvent.m_applyRotation, m_pendingEvent->m_rectEvent.m_isAnim);
-      m_pendingEvent.reset();
-    }
   });
   AnimationSystem::Instance().AddAnimation(move(anim), true /* force */);
 }

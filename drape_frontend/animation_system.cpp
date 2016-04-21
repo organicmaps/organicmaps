@@ -364,7 +364,7 @@ bool MapLinearAnimation::IsFinished() const
       && (m_positionInterpolator == nullptr || m_positionInterpolator->IsFinished()));
 }
 
-Animation::PropertyValue MapLinearAnimation::GetProperty(TObject object, TProperty property) const
+bool MapLinearAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
 {
   ASSERT(object == Animation::MapPlane, ());
 
@@ -373,23 +373,32 @@ Animation::PropertyValue MapLinearAnimation::GetProperty(TObject object, TProper
   case Animation::Position:
     ASSERT(m_positionInterpolator != nullptr, ());
     if (m_positionInterpolator != nullptr)
-      return m_positionInterpolator->GetPosition();
-    break;
+    {
+      value = m_positionInterpolator->GetPosition();
+      return true;
+    }
+    return false;
   case Animation::Scale:
     ASSERT(m_scaleInterpolator != nullptr, ());
     if (m_scaleInterpolator != nullptr)
-      return m_scaleInterpolator->GetScale();
-    break;
+    {
+      value = m_scaleInterpolator->GetScale();
+      return true;
+    }
+    return false;
   case Animation::Angle:
     ASSERT(m_angleInterpolator != nullptr, ());
     if (m_angleInterpolator != nullptr)
-      return m_angleInterpolator->GetAngle();
-    break;
+    {
+      value = m_angleInterpolator->GetAngle();
+      return true;
+    }
+    return false;
   default:
     ASSERT(!"Wrong property", ());
   }
 
-  return 0.0;
+  return false;
 }
 
 MapScaleAnimation::MapScaleAnimation(double startScale, double endScale,
@@ -441,21 +450,22 @@ bool MapScaleAnimation::IsFinished() const
   return m_scaleInterpolator->IsFinished();
 }
 
-Animation::PropertyValue MapScaleAnimation::GetProperty(TObject object, TProperty property) const
+bool MapScaleAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
 {
-
   if (property == Animation::Position)
   {
     ScreenBase screen = AnimationSystem::Instance().GetLastScreen();
     screen.SetScale(m_scaleInterpolator->GetScale());
-    return screen.PtoG(screen.GtoP(m_globalPosition) + m_pixelOffset);
+    value = screen.PtoG(screen.GtoP(m_globalPosition) + m_pixelOffset);
+    return true;
   }
   if (property == Animation::Scale)
   {
-    return m_scaleInterpolator->GetScale();
+    value = m_scaleInterpolator->GetScale();
+    return true;
   }
   ASSERT(!"Wrong property", ());
-  return 0.0;
+  return false;
 }
 
 MapFollowAnimation::MapFollowAnimation(m2::PointD const & globalPosition,
@@ -532,9 +542,8 @@ bool MapFollowAnimation::IsFinished() const
       && (m_scaleInterpolator == nullptr || m_scaleInterpolator->IsFinished()));
 }
 
-Animation::PropertyValue MapFollowAnimation::GetProperty(TObject object, TProperty property) const
+bool MapFollowAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
 {
-
   if (property == Animation::Position)
   {
     m2::RectD const pixelRect = AnimationSystem::Instance().GetLastScreen().PixelRect();
@@ -542,26 +551,35 @@ Animation::PropertyValue MapFollowAnimation::GetProperty(TObject object, TProper
     m2::PointD formingVector = (pixelRect.Center() - pixelPos) * m_scaleInterpolator->GetScale();
     formingVector.y = -formingVector.y;
     formingVector.Rotate(m_angleInterpolator->GetAngle());
-    return m_globalPosition + formingVector;
+    value = m_globalPosition + formingVector;
+    return true;
   }
   if (property == Animation::Angle)
   {
-    return m_angleInterpolator->GetAngle();
+    value = m_angleInterpolator->GetAngle();
+    return true;
   }
   if (property == Animation::Scale)
   {
-    return m_scaleInterpolator->GetScale();
+    value = m_scaleInterpolator->GetScale();
+    return true;
   }
   ASSERT(!"Wrong property", ());
-  return 0.0;
+  return false;
 }
 
-PerspectiveSwitchAnimation::PerspectiveSwitchAnimation(double startAngle, double endAngle)
+PerspectiveSwitchAnimation::PerspectiveSwitchAnimation(double startAngle, double endAngle, double angleFOV)
   : Animation(false, false)
+  , m_startAngle(startAngle)
+  , m_endAngle(endAngle)
+  , m_angleFOV(angleFOV)
+  , m_needPerspectiveSwitch(false)
 {
+  m_isEnablePerspectiveAnim = m_endAngle > 0.0;
   m_angleInterpolator = make_unique_dp<AngleInterpolator>(GetRotateDuration(startAngle, endAngle), startAngle, endAngle);
   m_objects.insert(Animation::MapPlane);
   m_properties.insert(Animation::AnglePerspective);
+  m_properties.insert(Animation::SwitchPerspective);
 }
 
 // static
@@ -592,6 +610,20 @@ void PerspectiveSwitchAnimation::Finish()
   Animation::Finish();
 }
 
+void PerspectiveSwitchAnimation::OnStart()
+{
+  if (m_isEnablePerspectiveAnim)
+    m_needPerspectiveSwitch = true;
+  Animation::OnStart();
+}
+
+void PerspectiveSwitchAnimation::OnFinish()
+{
+  if (!m_isEnablePerspectiveAnim)
+    m_needPerspectiveSwitch = true;
+  Animation::OnFinish();
+}
+
 void PerspectiveSwitchAnimation::SetMaxDuration(double maxDuration)
 {
   m_angleInterpolator->SetMaxDuration(maxDuration);
@@ -607,20 +639,29 @@ bool PerspectiveSwitchAnimation::IsFinished() const
   return m_angleInterpolator->IsFinished();
 }
 
-Animation::PropertyValue PerspectiveSwitchAnimation::GetProperty(TObject object, TProperty property) const
+bool PerspectiveSwitchAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
 {
   ASSERT(object == Animation::MapPlane, ());
 
   switch (property)
   {
   case Animation::AnglePerspective:
-    return m_angleInterpolator->GetAngle();
-    break;
+    value = m_angleInterpolator->GetAngle();
+    return true;
+  case Animation::SwitchPerspective:
+    if (m_needPerspectiveSwitch)
+    {
+      m_needPerspectiveSwitch = false;
+      value = SwitchPerspectiveParams(m_isEnablePerspectiveAnim,
+                                      m_startAngle, m_endAngle, m_angleFOV);
+      return true;
+    }
+    return false;
   default:
     ASSERT(!"Wrong property", ());
   }
 
-  return 0.0;
+  return false;
 }
 
 Animation::TObjectProperties const & ParallelAnimation::GetProperties(TObject object) const
@@ -741,23 +782,52 @@ AnimationSystem::AnimationSystem()
 
 }
 
-double AnimationSystem::GetPerspectiveAngle(double currentAngle)
+bool AnimationSystem::GetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect)
 {
-  return GetProperty(Animation::MapPlane, Animation::AnglePerspective, currentAngle).m_valueD;
+  m_lastScreen = currentScreen;
+
+  double scale = currentScreen.GetScale();
+  double angle = currentScreen.GetAngle();
+  m2::PointD pos = currentScreen.GlobalRect().GlobalZero();
+
+  Animation::PropertyValue value;
+  if (GetProperty(Animation::MapPlane, Animation::Scale, value))
+    scale = value.m_valueD;
+
+  if (GetProperty(Animation::MapPlane, Animation::Angle, value))
+    angle = value.m_valueD;
+
+  if (GetProperty(Animation::MapPlane, Animation::Position, value))
+    pos = value.m_valuePointD;
+
+  m2::RectD localRect = currentScreen.PixelRect();
+  localRect.Offset(-localRect.Center());
+  localRect.Scale(scale);
+  rect = m2::AnyRectD(pos, angle, localRect);
+
+  return true;
 }
 
-m2::AnyRectD AnimationSystem::GetRect(ScreenBase const & currentScreen, bool & viewportChanged)
+bool AnimationSystem::GetPerspectiveAngle(double & angle)
 {
-  const Animation::TObject obj = Animation::MapPlane;
-  viewportChanged |= m_lastScreen != nullptr && (m_lastScreen->isPerspective() != currentScreen.isPerspective());
-  m_lastScreen = make_unique_dp<ScreenBase>(currentScreen);
-  double scale = GetProperty(obj, Animation::Scale, currentScreen.GetScale()).m_valueD;
-  double angle = GetProperty(obj, Animation::Angle, currentScreen.GetAngle()).m_valueD;
-  m2::PointD pos = GetProperty(obj, Animation::Position, currentScreen.GlobalRect().GlobalZero()).m_valuePointD;
-  m2::RectD rect = currentScreen.PixelRect();
-  rect.Offset(-rect.Center());
-  rect.Scale(scale);
-  return m2::AnyRectD(pos, angle, rect);
+  Animation::PropertyValue value;
+  if (GetProperty(Animation::MapPlane, Animation::AnglePerspective, value))
+  {
+    angle = value.m_valueD;
+    return true;
+  }
+  return false;
+}
+
+bool AnimationSystem::SwitchPerspective(Animation::SwitchPerspectiveParams & params)
+{
+  Animation::PropertyValue value;
+  if (GetProperty(Animation::MapPlane, Animation::SwitchPerspective, value))
+  {
+    params = value.m_valuePerspectiveParams;
+    return true;
+  }
+  return false;
 }
 
 bool AnimationSystem::AnimationExists(Animation::TObject object) const
@@ -906,24 +976,24 @@ void AnimationSystem::Advance(double elapsedSeconds)
     StartNextAnimations();
 }
 
-Animation::PropertyValue AnimationSystem::GetProperty(Animation::TObject object, Animation::TProperty property, Animation::PropertyValue current) const
+bool AnimationSystem::GetProperty(Animation::TObject object, Animation::TProperty property, Animation::PropertyValue & value) const
 {
   if (!m_animationChain.empty())
   {
     for (auto const & anim : m_animationChain.front())
     {
       if (anim->HasProperty(object, property))
-        return anim->GetProperty(object, property);
+        return anim->GetProperty(object, property, value);
     }
   }
   auto it = m_propertyCache.find(make_pair(object, property));
   if (it != m_propertyCache.end())
   {
-    Animation::PropertyValue value(it->second);
+    value = it->second;
     m_propertyCache.erase(it);
-    return value;
+    return true;
   }
-  return current;
+  return false;
 }
 
 void AnimationSystem::SaveAnimationResult(Animation const & animation)
@@ -932,7 +1002,9 @@ void AnimationSystem::SaveAnimationResult(Animation const & animation)
   {
     for (auto const & property : animation.GetProperties(object))
     {
-      m_propertyCache[make_pair(object, property)] = animation.GetProperty(object, property);
+      Animation::PropertyValue value;
+      if (animation.GetProperty(object, property, value))
+        m_propertyCache[make_pair(object, property)] = value;
     }
   }
 }
