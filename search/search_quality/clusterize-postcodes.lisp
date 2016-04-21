@@ -28,15 +28,19 @@ exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
   (string-trim *seps* string))
 
 (defun get-postcode-pattern (postcode)
-  "Simplifies postcode in a following way:
-   * all letters are replaced by 'a'
-   * all digits are replaced by '0'
-   * other characters are left as-is
+  "Simplifies postcode in the following way:
+   * all letters are replaced by 'A'
+   * all digits are replaced by 'N'
+   * hyphens and dots are replaced by a space
+   * other characters are capitalized
+
+   This format follows https://en.wikipedia.org/wiki/List_of_postal_codes.
   "
-  (map 'string #'(lambda (c) (cond ((alpha-char-p c) #\a)
-                                   ((digit-char-p c) #\0)
+  (map 'string #'(lambda (c) (cond ((alpha-char-p c) #\A)
+                                   ((digit-char-p c) #\N)
+                                   ((or (char= #\- c) (char= #\. c)) #\Space)
                                    (T c)))
-       postcode))
+       (string-upcase postcode)))
 
 (defun get-pattern-clusters (postcodes)
   "Constructs a list of clusters by a list of postcodes."
@@ -89,8 +93,9 @@ exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
         ; Prints number of postcodes in a cluster, accumulated
         ; percent of postcodes clustered so far, simplified version
         ; of a postcode and examples of postcodes.
-        (format t "~a (~2$%) ~a [~{~a~^, ~}]~%"
+        (format t "~a (~2$%) ~a [~{~a~^, ~}~:[~;, ...~]]~%"
                 num-samples
-                (coerce (* 100 (/ curr-prefix-sum *total*)) 'double-float)
+                (* 100 (/ curr-prefix-sum *total*))
                 key
-                (subseq samples 0 (min num-samples 5)))))
+                (subseq samples 0 (min num-samples 5))
+                (> num-samples 5))))
