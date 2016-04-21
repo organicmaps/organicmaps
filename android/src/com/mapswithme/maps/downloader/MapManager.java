@@ -419,8 +419,8 @@ public final class MapManager
   public static native boolean nativeHasUnsavedEditorChanges(String root);
 
   /**
-   * Fills given {@code result} array with intermediate nodes from the root node (including) to the given {@code root} (excluding).
-   * For instance, for {@code root == "Florida"} the resulting array is filled with values: {@code { "United States of America", "Countries" }}.
+   * Fills given {@code result} list with intermediate nodes from the root node (including) to the given {@code root} (excluding).
+   * For instance, for {@code root == "Florida"} the resulting list is filled with values: {@code { "United States of America", "Countries" }}.
    */
   public static native void nativeGetPathTo(String root, List<String> result);
 }
