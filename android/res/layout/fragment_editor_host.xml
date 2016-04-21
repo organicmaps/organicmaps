@@ -34,7 +34,7 @@
         android:layout_gravity="end|center_vertical"
         android:background="?selectableItemBackgroundBorderless"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_downloader_done"/>
+        android:src="@drawable/ic_done"/>
 
     </RelativeLayout>
 
