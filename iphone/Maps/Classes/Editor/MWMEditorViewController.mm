@@ -245,7 +245,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     noteInfo[kStatLat] = @(latLon.lat);
     noteInfo[kStatLon] = @(latLon.lon);
     [Statistics logEvent:kStatEditorProblemReport withParameters:noteInfo];
-    osm::Editor::Instance().CreateNote(latLon, featureID, self.note.UTF8String);
+    osm::Editor::Instance().CreateNote(latLon, featureID, osm::Editor::NoteProblemType::General ,self.note.UTF8String);
   }
 
   switch (f.SaveEditedMapObject(m_mapObject))
@@ -783,17 +783,14 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
       {
         auto const & fid = self->m_mapObject.GetID();
         auto const latLon = self->m_mapObject.GetLatLon();
-        if (additionalMessage.length)
-        {
-          //TODO(Vlad): Pass additional message as second parameter into CreateNote.
-        }
+        string const additional = additionalMessage.length ? additionalMessage.UTF8String : "";
 
         [Statistics logEvent:kStatEditorProblemReport withParameters:@{
                                                  kStatEditorMWMName : @(fid.GetMwmName().c_str()),
                                                  kStatEditorMWMVersion : @(fid.GetMwmVersion()),
                                                  kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage),
                                                  kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)}];
-        osm::Editor::Instance().CreateNote(latLon, fid, osm::Editor::kPlaceDoesNotExistMessage);
+        osm::Editor::Instance().CreateNote(latLon, fid, osm::Editor::NoteProblemType::PlaceDoesNotExist, additional);
         [self backTap];
         [self showDropDown];
       }];
