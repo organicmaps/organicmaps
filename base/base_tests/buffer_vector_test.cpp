@@ -3,6 +3,7 @@
 #include "base/buffer_vector.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/unique_ptr.hpp"
 
 namespace
 {
@@ -350,4 +351,16 @@ UNIT_TEST(BufferVector_EraseIf)
 
   v.erase_if([] (int x) { return true; });
   TEST_EQUAL(v.size(), 0, ());
+}
+
+UNIT_TEST(BufferVector_OnlyMoveableItems)
+{
+  buffer_vector<unique_ptr<size_t>, 4> v;
+
+  for (size_t i = 0; i < 10; ++i)
+    v.emplace_back(make_unique<size_t>(i));
+
+  TEST_EQUAL(v.size(), 10, ());
+  for (size_t i = 0; i < 10; ++i)
+    TEST_EQUAL(*v[i], i, ());
 }
