@@ -1487,7 +1487,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             params.m_visualScale, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
                             allow3dBuildings, params.m_isChoosePositionMode,
-                            params.m_isChoosePositionMode, GetBoundAreaTriangles(), params.m_isFirstLaunch);
+                            params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch);
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
@@ -2420,11 +2420,11 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position)
 {
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->EnableChoosePositionMode(enable, enableBounds ? GetBoundAreaTriangles() : vector<m2::TriangleD>(),
+    m_drapeEngine->EnableChoosePositionMode(enable, enableBounds ? GetSelectedFeatureTriangles() : vector<m2::TriangleD>(),
                                             applyPosition, position);
 }
 
-vector<m2::TriangleD> Framework::GetBoundAreaTriangles() const
+vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
 {
   vector<m2::TriangleD> triangles;
   if (m_selectedFeature.IsValid())

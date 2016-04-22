@@ -35,7 +35,9 @@ double GetTriangleArea(Point<T> const & p1, Point<T> const & p2, Point<T> const 
 m2::PointD GetRandomPointInsideTriangle(m2::TriangleD const & t);
 m2::PointD GetRandomPointInsideTriangles(vector<m2::TriangleD> const & v);
 
-m2::PointD GetNearestPointToTriangles(m2::PointD const & pt, vector<m2::TriangleD> const & v);
+// Project point to the nearest edge of the nearest triangle from list of triangles.
+// pt must be outside triangles.
+m2::PointD ProjectPointToTriangles(m2::PointD const & pt, vector<m2::TriangleD> const & v);
 
 /// @param[in] pt - Point to check
 /// @param[in] p1, p2, p3 - Triangle

@@ -74,8 +74,11 @@ m2::PointD GetRandomPointInsideTriangles(vector<m2::TriangleD> const & v)
   return GetRandomPointInsideTriangle(v[distrib(engine)]);
 }
 
-m2::PointD GetNearestPointToTriangles(m2::PointD const & pt, vector<m2::TriangleD> const & v)
+m2::PointD ProjectPointToTriangles(m2::PointD const & pt, vector<m2::TriangleD> const & v)
 {
+  if (v.empty())
+    return pt;
+
   auto distToLine = m2::DistanceToLineSquare<m2::PointD>();
   int minT = -1;
   int minI = -1;

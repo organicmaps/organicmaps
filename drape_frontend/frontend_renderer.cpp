@@ -714,7 +714,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         if (!m_dragBoundArea.empty())
         {
-          PullToBoundArea(true /* applyZoom */);
+          PullToBoundArea(true /* randomPlace */, true /* applyZoom */);
         }
         else
         {
@@ -914,7 +914,7 @@ void FrontendRenderer::PrepareGpsTrackPoints(size_t pointsCount)
                             MessagePriority::Normal);
 }
 
-void FrontendRenderer::PullToBoundArea(bool applyZoom)
+void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
 {
   if (m_dragBoundArea.empty())
     return;
@@ -923,7 +923,8 @@ void FrontendRenderer::PullToBoundArea(bool applyZoom)
   m2::PointD const center = screen.GlobalRect().Center();
   if (!m2::IsPointInsideTriangles(center, m_dragBoundArea))
   {
-    m2::PointD const dest = m2::GetNearestPointToTriangles(center, m_dragBoundArea);
+    m2::PointD const dest = randomPlace ? m2::GetRandomPointInsideTriangles(m_dragBoundArea) :
+                                          m2::ProjectPointToTriangles(center, m_dragBoundArea);
     int const zoom = applyZoom ? scales::GetAddNewPlaceScale() : m_currentZoomLevel;
     AddUserEvent(SetCenterEvent(dest, zoom, true));
   }
@@ -1354,7 +1355,7 @@ void FrontendRenderer::OnDragStarted()
 void FrontendRenderer::OnDragEnded(m2::PointD const & distance)
 {
   m_myPositionController->DragEnded(distance);
-  PullToBoundArea();
+  PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
 }
 
 void FrontendRenderer::OnScaleStarted()
@@ -1385,7 +1386,7 @@ void FrontendRenderer::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) con
 void FrontendRenderer::OnScaleEnded()
 {
   m_myPositionController->ScaleEnded();
-  PullToBoundArea();
+  PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
 }
 
 void FrontendRenderer::OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim)

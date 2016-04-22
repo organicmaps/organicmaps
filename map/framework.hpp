@@ -303,10 +303,11 @@ private:
   TActivateMapSelectionFn m_activateMapSelectionFn;
   TDeactivateMapSelectionFn m_deactivateMapSelectionFn;
 
+  /// Here we store last selected feature to get its polygons in case of adding organization.
   mutable FeatureID m_selectedFeature;
 
 private:
-  vector<m2::TriangleD> GetBoundAreaTriangles() const;
+  vector<m2::TriangleD> GetSelectedFeatureTriangles() const;
 
 public:
 

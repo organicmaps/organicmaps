@@ -231,7 +231,7 @@ private:
 
   void PrepareGpsTrackPoints(size_t pointsCount);
 
-  void PullToBoundArea(bool applyZoom = false);
+  void PullToBoundArea(bool randomPlace, bool applyZoom);
 
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
