@@ -524,6 +524,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
     // May be better solution would be multiobservers support in the C++ core.
     [self processMyPositionStateModeEvent:mode];
     [self.controlsManager.menuController processMyPositionStateModeEvent:mode];
+    [[MapsAppDelegate theApp].locationManager processMyPositionStateModeEvent:mode];
   });
 
   m_predictor = [[LocationPredictor alloc] initWithObserver:self];

@@ -44,6 +44,8 @@
 
 - (void)reset;
 
+- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
+
 @end
 
 @interface CLLocation (Mercator)
