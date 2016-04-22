@@ -37,7 +37,9 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     routing_integration_tests.depends = $$SUBDIRS
     routing_consistency_tests.subdir = routing/routing_consistency_tests
     routing_consistency_tests.depends = $$SUBDIRS
-    SUBDIRS *= routing_integration_tests routing_consistency_tests
+    srtm_source_tests.subdir = generator/srtm_source_tests
+    srtm_source_tests.depends = $$SUBDIRS routing
+    SUBDIRS *= routing_integration_tests routing_consistency_tests srtm_source_tests
   }
 
   CONFIG(desktop) {
@@ -167,6 +169,10 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     routing_consistency_tests.subdir = routing/routing_consistency_tests
     routing_consistency_tests.depends = $$MapDepLibs routing
     SUBDIRS *= routing_consistency_tests
+
+    srtm_source_tests.subdir = generator/srtm_source_tests
+    srtm_source_tests.depends = $$MapDepLibs routing
+    SUBDIRS *= srtm_source_tests
 
     # TODO(AlexZ): Move pedestrian tests into routing dir.
     pedestrian_routing_tests.depends = $$MapDepLibs routing

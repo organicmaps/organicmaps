@@ -30,6 +30,7 @@ SOURCES += \
     osm_source.cpp \
     routing_generator.cpp \
     search_index_builder.cpp \
+    srtm_parser.cpp \
     statistics.cpp \
     tesselator.cpp \
     towns_dumper.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
     polygonizer.hpp \
     routing_generator.hpp \
     search_index_builder.hpp \
+    srtm_parser.hpp \
     statistics.hpp \
     tag_admixer.hpp \
     tesselator.hpp \

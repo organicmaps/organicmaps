@@ -32,6 +32,9 @@ public:
   static void UnzipFile(string const & zipContainer, string const & fileInZip,
                         string const & outFilePath, ProgressFn progressFn = ProgressFn());
 
+  /// @warning Counsumer must manually free result
+  static char* UnzipFileToMemory(string const & zipContainer, string const & fileInZip);
+
   static void FilesList(string const & zipContainer, FileListT & filesList);
 
   /// Quick version without exceptions

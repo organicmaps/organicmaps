@@ -117,3 +117,31 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
 
   outFileGuard.release();
 }
+
+char* ZipFileReader::UnzipFileToMemory(string const & zipContainer, string const & fileInZip)
+{
+  unzFile zip = unzOpen64(zipContainer.c_str());
+  if (!zip)
+    MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
+  MY_SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
+
+  if (UNZ_OK != unzLocateFile(zip, fileInZip.c_str(), 1))
+    MYTHROW(LocateZipException, ("Can't locate file inside zip", fileInZip));
+
+  if (UNZ_OK != unzOpenCurrentFile(zip))
+    MYTHROW(LocateZipException, ("Can't open file inside zip", fileInZip));
+  MY_SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
+
+  unz_file_info64 fileInfo;
+  if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
+    MYTHROW(LocateZipException, ("Can't get uncompressed file size inside zip", fileInZip));
+  size_t const uncompressedFileSize = fileInfo.uncompressed_size;
+
+  char* buf= new char[uncompressedFileSize];
+
+    int const readBytes = unzReadCurrentFile(zip, buf, uncompressedFileSize);
+    if (readBytes < 0)
+      MYTHROW(InvalidZipException, ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
+
+  return buf;
+}
