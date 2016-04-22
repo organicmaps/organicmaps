@@ -57,6 +57,7 @@ MyPosition::MyPosition(ref_ptr<dp::TextureManager> mng)
   , m_accuracy(0.0f)
   , m_showAzimuth(false)
   , m_isRoutingMode(false)
+  , m_obsoletePosition(false)
 {
   m_parts.resize(4);
   CacheAccuracySector(mng);
@@ -86,6 +87,12 @@ void MyPosition::SetAccuracy(float accuracy)
 void MyPosition::SetRoutingMode(bool routingMode)
 {
   m_isRoutingMode = routingMode;
+}
+
+void MyPosition::SetPositionObsolete(bool obsolete)
+{
+  m_obsoletePosition = obsolete;
+  m_arrow3d.SetPositionObsolete(obsolete);
 }
 
 void MyPosition::RenderAccuracy(ScreenBase const & screen,
@@ -119,7 +126,9 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen,
     uniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::MY_POSITION_MARK);
     uniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
     uniforms.SetFloatValue("u_opacity", 1.0);
-    RenderPart(mng, uniforms, (m_showAzimuth == true) ? MY_POSITION_ARROW : MY_POSITION_POINT);
+    RenderPart(mng, uniforms, (m_showAzimuth == true) ?
+                              (m_obsoletePosition ? MY_POSITION_ARROW_GRAY : MY_POSITION_ARROW) :
+                              MY_POSITION_POINT);
   }
 }
 
@@ -168,43 +177,47 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
   }
 }
 
+void MyPosition::CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,
+                             dp::GLState const & state, dp::Batcher & batcher,
+                             EMyPositionPart part)
+{
+  m2::RectF const & texRect = symbol.GetTexRect();
+  m2::PointF const halfSize = m2::PointF(symbol.GetPixelSize()) * 0.5f;
+
+  Vertex data[4] =
+  {
+    { glsl::vec2(-halfSize.x,  halfSize.y), glsl::ToVec2(texRect.LeftTop()) },
+    { glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom()) },
+    { glsl::vec2( halfSize.x,  halfSize.y), glsl::ToVec2(texRect.RightTop()) },
+    { glsl::vec2( halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom())}
+  };
+
+  dp::AttributeProvider provider(1 /* streamCount */, dp::Batcher::VertexPerQuad);
+  provider.InitStream(0 /* streamIndex */, GetBindingInfo(), make_ref(data));
+  m_parts[part].first = batcher.InsertTriangleStrip(state, make_ref(&provider), nullptr);
+  ASSERT(m_parts[part].first.IsValid(), ());
+}
+
 void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 {
-  dp::TextureManager::SymbolRegion pointSymbol, arrowSymbol;
+  int const kSymbolsCount = 3;
+  dp::TextureManager::SymbolRegion pointSymbol, arrowSymbol, arrowGraySymbol;
   mng->GetSymbolRegion("current-position", pointSymbol);
   mng->GetSymbolRegion("current-position-compas", arrowSymbol);
-
-  m2::RectF const & pointTexRect = pointSymbol.GetTexRect();
-  m2::PointF pointHalfSize = m2::PointF(pointSymbol.GetPixelSize()) * 0.5f;
-
-  Vertex pointData[4]=
-  {
-    { glsl::vec2(-pointHalfSize.x,  pointHalfSize.y), glsl::ToVec2(pointTexRect.LeftTop()) },
-    { glsl::vec2(-pointHalfSize.x, -pointHalfSize.y), glsl::ToVec2(pointTexRect.LeftBottom()) },
-    { glsl::vec2( pointHalfSize.x,  pointHalfSize.y), glsl::ToVec2(pointTexRect.RightTop()) },
-    { glsl::vec2( pointHalfSize.x, -pointHalfSize.y), glsl::ToVec2(pointTexRect.RightBottom())}
-  };
-
-  m2::RectF const & arrowTexRect = arrowSymbol.GetTexRect();
-  m2::PointF arrowHalfSize = m2::PointF(arrowSymbol.GetPixelSize()) * 0.5f;
-
-  Vertex arrowData[4]=
-  {
-    { glsl::vec2(-arrowHalfSize.x,  arrowHalfSize.y), glsl::ToVec2(arrowTexRect.LeftTop()) },
-    { glsl::vec2(-arrowHalfSize.x, -arrowHalfSize.y), glsl::ToVec2(arrowTexRect.LeftBottom()) },
-    { glsl::vec2( arrowHalfSize.x,  arrowHalfSize.y), glsl::ToVec2(arrowTexRect.RightTop()) },
-    { glsl::vec2( arrowHalfSize.x, -arrowHalfSize.y), glsl::ToVec2(arrowTexRect.RightBottom())}
-  };
+  mng->GetSymbolRegion("current-position-obsolete", arrowGraySymbol);
 
   m_arrow3d.SetSize(arrowSymbol.GetPixelSize().x, arrowSymbol.GetPixelSize().y);
   m_arrow3d.SetTexture(mng);
 
   ASSERT(pointSymbol.GetTexture() == arrowSymbol.GetTexture(), ());
+  ASSERT(pointSymbol.GetTexture() == arrowGraySymbol.GetTexture(), ());
   dp::GLState state(gpu::MY_POSITION_PROGRAM, dp::GLState::OverlayLayer);
   state.SetColorTexture(pointSymbol.GetTexture());
 
+  dp::TextureManager::SymbolRegion * symbols[kSymbolsCount] = { &pointSymbol, &arrowSymbol, &arrowGraySymbol };
+  EMyPositionPart partIndices[kSymbolsCount] = { MY_POSITION_POINT, MY_POSITION_ARROW, MY_POSITION_ARROW_GRAY };
   {
-    dp::Batcher batcher(2 * dp::Batcher::IndexPerQuad, 2 * dp::Batcher::VertexPerQuad);
+    dp::Batcher batcher(kSymbolsCount * dp::Batcher::IndexPerQuad, kSymbolsCount * dp::Batcher::VertexPerQuad);
     dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = move(b);
@@ -213,20 +226,12 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
       m_nodes.emplace_back(state, bucket->MoveBuffer());
     });
 
-    dp::AttributeProvider pointProvider(1 /*stream count*/, dp::Batcher::VertexPerQuad);
-    pointProvider.InitStream(0 /*stream index*/, GetBindingInfo(), make_ref(pointData));
-
-    dp::AttributeProvider arrowProvider(1 /*stream count*/, dp::Batcher::VertexPerQuad);
-    arrowProvider.InitStream(0 /*stream index*/, GetBindingInfo(), make_ref(arrowData));
-
-    m_parts[MY_POSITION_POINT].second = m_nodes.size();
-    m_parts[MY_POSITION_ARROW].second = m_nodes.size();
-
-    m_parts[MY_POSITION_POINT].first = batcher.InsertTriangleStrip(state, make_ref(&pointProvider), nullptr);
-    ASSERT(m_parts[MY_POSITION_POINT].first.IsValid(), ());
-
-    m_parts[MY_POSITION_ARROW].first = batcher.InsertTriangleStrip(state, make_ref(&arrowProvider), nullptr);
-    ASSERT(m_parts[MY_POSITION_ARROW].first.IsValid(), ());
+    int const partIndex = m_nodes.size();
+    for (int i = 0; i < kSymbolsCount; i++)
+    {
+      m_parts[partIndices[i]].second = partIndex;
+      CacheSymbol(*symbols[i], state, batcher, partIndices[i]);
+    }
   }
 }
 
@@ -234,9 +239,8 @@ void MyPosition::RenderPart(ref_ptr<dp::GpuProgramManager> mng,
                             dp::UniformValuesStorage const & uniforms,
                             MyPosition::EMyPositionPart part)
 {
-  TPart const & accuracy = m_parts[part];
-  RenderNode & node = m_nodes[accuracy.second];
-  node.Render(mng, uniforms, accuracy.first);
+  TPart const & p = m_parts[part];
+  m_nodes[p.second].Render(mng, uniforms, p.first);
 }
 
 }

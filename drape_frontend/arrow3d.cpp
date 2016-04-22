@@ -125,6 +125,11 @@ void Arrow3d::Build(ref_ptr<dp::GpuProgram> prg)
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
+void Arrow3d::SetPositionObsolete(bool obsolete)
+{
+  m_obsoletePosition = obsolete;
+}
+
 void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng)
 {
   // Unbind current VAO, because glVertexAttributePointer and glEnableVertexAttribute can affect it.
@@ -177,7 +182,8 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   dp::UniformValuesStorage uniforms;
   uniforms.SetMatrix4x4Value("m_transform", modelTransform.m_data);
 
-  glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::Arrow3D));
+  glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
+                                        m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D));
   uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
 
   dp::ApplyUniforms(uniforms, prg);

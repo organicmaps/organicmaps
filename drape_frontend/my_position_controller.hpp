@@ -144,6 +144,7 @@ private:
   my::Timer m_lastGPSBearing;
   my::Timer m_pendingTimer;
   my::Timer m_routingNotFollowTimer;
+  my::Timer m_updateLocationTimer;
 
   m2::RectD m_pixelRect;
   m2::PointD m_centerPixelPositionRouting;

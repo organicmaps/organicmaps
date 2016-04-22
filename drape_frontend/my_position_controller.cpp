@@ -25,6 +25,7 @@ double const kMinSpeedThresholdMps = 1.0;
 double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
 double const kMaxNotFollowRoutingTimeSec = 10.0;
+double const kMaxUpdateLocationInvervalSec = 30.0;
 
 int const kDoNotChangeZoom = -1;
 
@@ -326,6 +327,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
   m_isPositionAssigned = true;
   SetIsVisible(true);
+  m_updateLocationTimer.Reset();
 }
 
 void MyPositionController::LoseLocation()
@@ -398,6 +400,9 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
     m_shape->SetIsValidAzimuth(IsRotationAvailable());
     m_shape->SetAccuracy(m_errorRadius);
     m_shape->SetRoutingMode(IsInRouting());
+
+    double const updateInterval = m_updateLocationTimer.ElapsedSeconds();
+    m_shape->SetPositionObsolete(updateInterval >= kMaxUpdateLocationInvervalSec);
 
     if ((renderMode & RenderAccuracy) != 0)
       m_shape->RenderAccuracy(screen, mng, commonUniforms);

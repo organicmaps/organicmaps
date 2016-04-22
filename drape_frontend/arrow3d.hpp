@@ -29,6 +29,7 @@ public:
   void SetAzimuth(double azimuth);
   void SetSize(uint32_t width, uint32_t height);
   void SetTexture(ref_ptr<dp::TextureManager> texMng);
+  void SetPositionObsolete(bool obsolete);
 
   void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng);
 
@@ -36,7 +37,8 @@ private:
   void Build(ref_ptr<dp::GpuProgram> prg);
 
   m2::PointD m_position;
-  double m_azimuth;
+  double m_azimuth = 0.0;
+  bool m_obsoletePosition = false;
 
   uint32_t m_pixelWidth = 0;
   uint32_t m_pixelHeight = 0;
