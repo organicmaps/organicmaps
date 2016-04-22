@@ -1106,3 +1106,4 @@ leisure|sports_centre|climbing
 leisure|sports_centre|shooting
 leisure|sports_centre|swimming
 leisure|sports_centre|yoga
+amenity|public_bookcase

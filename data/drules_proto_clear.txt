@@ -6469,6 +6469,24 @@ cont {
   }
 }
 cont {
+  name: "amenity-public_bookcase"
+  element {
+    scale: 19
+    symbol {
+      name: "none"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "amenity-recycling"
   element {
     scale: 17
