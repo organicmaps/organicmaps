@@ -63,9 +63,9 @@ private:
 class EditedFeaturesHolder
 {
 public:
-  EditedFeaturesHolder(MwmSet::MwmId const & id)
+  EditedFeaturesHolder(MwmSet::MwmId const & id) : m_id(id)
   {
-    Editor & editor = Editor::Instance();
+    auto & editor = Editor::Instance();
     m_deleted = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Deleted);
     m_modified = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Modified);
     m_created = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Created);
@@ -78,13 +78,26 @@ public:
   }
 
   template <typename TFn>
-  void ForEachModifiedOrCreated(TFn & fn)
+  void ForEachModifiedOrCreated(TFn && fn)
   {
-    for_each(m_modified.begin(), m_modified.end(), fn);
-    for_each(m_created.begin(), m_created.end(), fn);
+    ReadFeatures(m_modified, fn);
+    ReadFeatures(m_created, fn);
   }
 
 private:
+  template <typename TFn>
+  void ReadFeatures(vector<uint32_t> const & features, TFn & fn)
+  {
+    auto & editor = Editor::Instance();
+    for (auto const index : features)
+    {
+      FeatureType ft;
+      VERIFY(editor.GetEditedFeature(m_id, index, ft), ());
+      fn(ft, index);
+    }
+  }
+
+  MwmSet::MwmId const & m_id;
   vector<uint32_t> m_deleted;
   vector<uint32_t> m_modified;
   vector<uint32_t> m_created;
@@ -125,7 +138,7 @@ bool MatchFeatureByName(FeatureType const & ft, SearchQueryParams const & params
       return true;
 
     vector<UniString> nameTokens;
-    SplitUniString(NormalizeAndSimplifyString(utf8Name), MakeBackInsertFunctor(nameTokens), Delimiters());
+    NormalizeAndTokenizeString(utf8Name, nameTokens, Delimiters());
 
     auto const matchPrefix = [](UniString const & s1, UniString const & s2)
     {
@@ -150,8 +163,38 @@ bool MatchFeatureByName(FeatureType const & ft, SearchQueryParams const & params
 bool MatchFeatureByPostcode(FeatureType const & ft, v2::TokenSlice const & slice)
 {
   string const postcode = ft.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
-  // TODO(@y): implement this.
-  return false;
+  vector<strings::UniString> tokens;
+  NormalizeAndTokenizeString(postcode, tokens, Delimiters());
+  if (slice.Size() > tokens.size())
+    return false;
+  for (size_t i = 0; i < slice.Size(); ++i)
+  {
+    if (slice.IsPrefix(i))
+    {
+      if (!StartsWith(tokens[i], slice.Get(i).front()))
+        return false;
+    }
+    else if (tokens[i] != slice.Get(i).front())
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+template<typename TValue>
+using TrieRoot = trie::Iterator<ValueList<TValue>>;
+
+template <typename TValue, typename TFn>
+void WithSearchTrieRoot(MwmValue & value, TFn && fn)
+{
+  serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
+  ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+
+  auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
+      SubReaderWrapper<Reader>(searchReader.GetPtr()), SingleValueSerializer<TValue>(codingParams));
+
+  return fn(*trieRoot);
 }
 
 // Retrieves from the search index corresponding to |value| all
@@ -162,37 +205,22 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
     SearchQueryParams const & params)
 {
   EditedFeaturesHolder holder(id);
-
-  serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
-  ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-
-  auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
-      SubReaderWrapper<Reader>(searchReader.GetPtr()), SingleValueSerializer<TValue>(codingParams));
-
-  // TODO (@y, @m): This code may be optimized in the case where
-  // bit vectors are sorted in the search index.
   vector<uint64_t> features;
   FeaturesCollector collector(cancellable, features);
 
-  MatchFeaturesInTrie(params, *trieRoot, [&holder](uint32_t featureIndex)
-                      {
-                        return !holder.ModifiedOrDeleted(featureIndex);
-                      },
-                      collector);
-
-  // Match all edited/created features separately.
-  Editor & editor = Editor::Instance();
-  auto const matcher = [&](uint32_t featureIndex)
+  WithSearchTrieRoot<TValue>(value, [&](TrieRoot<TValue> const & root)
   {
-    FeatureType ft;
-    VERIFY(editor.GetEditedFeature(id, featureIndex, ft), ());
-    // TODO(AlexZ): Should we match by some feature's metafields too?
-    if (MatchFeatureByName(ft, params))
-      features.push_back(featureIndex);
-  };
-
-  holder.ForEachModifiedOrCreated(matcher);
-
+    MatchFeaturesInTrie(params, root, [&holder](uint32_t featureIndex)
+                        {
+                          return !holder.ModifiedOrDeleted(featureIndex);
+                        },
+                        collector);
+  });
+  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index)
+                                  {
+                                    if (MatchFeatureByName(ft, params))
+                                      features.push_back(index);
+                                  });
   return SortFeaturesAndBuildCBV(move(features));
 }
 
@@ -202,37 +230,22 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
     TokenSlice const & slice)
 {
   EditedFeaturesHolder holder(id);
-
-  serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
-  ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-
-  auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
-      SubReaderWrapper<Reader>(searchReader.GetPtr()), SingleValueSerializer<TValue>(codingParams));
-
-  // TODO (@y, @m): This code may be optimized in the case where
-  // bit vectors are sorted in the search index.
   vector<uint64_t> features;
   FeaturesCollector collector(cancellable, features);
 
-  MatchPostcodesInTrie(slice, *trieRoot, [&holder](uint32_t featureIndex)
-                       {
-                         return !holder.ModifiedOrDeleted(featureIndex);
-                       },
-                       collector);
-
-  // Match all edited/created features separately.
-  Editor & editor = Editor::Instance();
-  auto const matcher = [&](uint32_t featureIndex)
+  WithSearchTrieRoot<TValue>(value, [&](TrieRoot<TValue> const & root)
   {
-    FeatureType ft;
-    VERIFY(editor.GetEditedFeature(id, featureIndex, ft), ());
-    // TODO(AlexZ): Should we match by some feature's metafields too?
-    if (MatchFeatureByPostcode(ft, slice))
-      features.push_back(featureIndex);
-  };
-
-  holder.ForEachModifiedOrCreated(matcher);
-
+    MatchPostcodesInTrie(slice, root, [&holder](uint32_t featureIndex)
+                         {
+                           return !holder.ModifiedOrDeleted(featureIndex);
+                         },
+                         collector);
+  });
+  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index)
+                                  {
+                                    if (MatchFeatureByPostcode(ft, slice))
+                                      features.push_back(index);
+                                  });
   return SortFeaturesAndBuildCBV(move(features));
 }
 
