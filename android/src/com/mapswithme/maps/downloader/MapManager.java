@@ -16,6 +16,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 @UiThread
@@ -84,7 +85,7 @@ public final class MapManager
     Statistics.INSTANCE.trackEvent(event, Statistics.params().add(Statistics.EventParam.TYPE, text));
   }
 
-  public static void showError(final Activity activity, final StorageCallbackData errorData)
+  public static void showError(final Activity activity, final StorageCallbackData errorData, @Nullable final Utils.Proc<Boolean> dialogClickListener)
   {
     if (sCurrentErrorDialog != null)
     {
@@ -92,6 +93,9 @@ public final class MapManager
       if (dlg != null && dlg.isShowing())
         return;
     }
+
+    if (!nativeIsAutoretryFailed())
+      return;
 
     @StringRes int text;
     switch (errorData.errorCode)
@@ -123,6 +127,9 @@ public final class MapManager
                                            public void run()
                                            {
                                              Notifier.cancelDownloadFailed();
+
+                                             if (dialogClickListener != null)
+                                               dialogClickListener.invoke(true);
                                            }
                                          });
                                        }
@@ -132,6 +139,8 @@ public final class MapManager
                                        public void onDismiss(DialogInterface dialog)
                                        {
                                          sCurrentErrorDialog = null;
+                                         if (dialogClickListener != null)
+                                           dialogClickListener.invoke(false);
                                        }
                                      }).create();
     dlg.show();
@@ -329,6 +338,7 @@ public final class MapManager
    *   <li>topmostParentId;</li>
    *   <li>directParentName;</li>
    *   <li>topmostParentName;</li>
+   *   <li>description;</li>
    *   <li>size;</li>
    *   <li>totalSize;</li>
    *   <li>childCount;</li>
@@ -423,4 +433,15 @@ public final class MapManager
    * For instance, for {@code root == "Florida"} the resulting list is filled with values: {@code { "United States of America", "Countries" }}.
    */
   public static native void nativeGetPathTo(String root, List<String> result);
+
+  /**
+   * Calculates joint progress of downloading countries specified by {@code countries} array.
+   * @return 0 to 100 percent.
+   */
+  public static native int nativeGetOverallProgress(String[] countries);
+
+  /**
+   * Returns {@code true} if the core will NOT do attempts to download failed maps anymore.
+   */
+  public static native boolean nativeIsAutoretryFailed();
 }

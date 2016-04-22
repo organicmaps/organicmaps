@@ -609,4 +609,34 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetPathTo(JNIEnv * env, jcl
     env->CallBooleanMethod(result, g_listAddMethod, jni::TScopedLocalRef(env, jni::ToJavaString(env, node)).get());
 }
 
+// static int nativeGetOverallProgress(String[] countries);
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetOverallProgress(JNIEnv * env, jclass clazz, jobjectArray jcountries)
+{
+  int const size = env->GetArrayLength(jcountries);
+  TCountriesVec countries;
+  countries.reserve(size);
+
+  for (int i = 0; i < size; i++)
+  {
+    jni::TScopedLocalRef const item(env, env->GetObjectArrayElement(jcountries, i));
+    countries.push_back(jni::ToNativeString(env, static_cast<jstring>(item.get())));
+  }
+
+  MapFilesDownloader::TProgress const progress = GetStorage().GetOverallProgress(countries);
+
+  int res = 0;
+  if (progress.second)
+    res = (jint) (progress.first * 100.0 / progress.second);
+
+  return res;
+}
+
+// static boolean nativeIsAutoretryFailed();
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeIsAutoretryFailed(JNIEnv * env, jclass clazz)
+{
+  return GetStorage().IsAutoRetryDownloadFailed();
+}
+
 } // extern "C"
