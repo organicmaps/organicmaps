@@ -1,6 +1,6 @@
 #include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
-#include "drape_frontend/animation_system.h"
+#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -1391,7 +1391,7 @@ void FrontendRenderer::OnScaleEnded()
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
 }
 
-void FrontendRenderer::OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim)
+void FrontendRenderer::OnAnimationStarted(ref_ptr<Animation> anim)
 {
   m_myPositionController->AnimationStarted(anim);
 }

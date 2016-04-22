@@ -1,6 +1,6 @@
 #pragma once
 
-#include "animation_system.h"
+#include "animation_system.hpp"
 
 #include "drape/pointers.hpp"
 

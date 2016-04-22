@@ -105,15 +105,15 @@ public:
   using TProperty = uint32_t;
   using TAnimObjects = set<TObject>;
   using TObjectProperties = set<TProperty>;
-  using TAction = function<void(Animation const &)>;
+  using TAction = function<void(ref_ptr<Animation>)>;
 
   Animation(bool couldBeInterrupted, bool couldBeMixed)
     : m_couldBeInterrupted(couldBeInterrupted)
     , m_couldBeMixed(couldBeMixed)
   {}
 
-  virtual void OnStart() {if (m_onStartAction != nullptr) m_onStartAction(*this);}
-  virtual void OnFinish() {if (m_onFinishAction != nullptr) m_onFinishAction(*this);}
+  virtual void OnStart() {if (m_onStartAction != nullptr) m_onStartAction(this);}
+  virtual void OnFinish() {if (m_onFinishAction != nullptr) m_onFinishAction(this);}
   virtual void Interrupt() {}
 
   virtual Type GetType() const = 0;
@@ -364,8 +364,7 @@ private:
 class MapScaleAnimation : public Animation
 {
 public:
-  MapScaleAnimation(double startScale, double endScale,
-                    m2::PointD const & globalPosition, m2::PointD const & offset);
+  MapScaleAnimation(double startScale, double endScale, m2::PointD const & globalPosition, m2::PointD const & offset);
 
   Animation::Type GetType() const override { return Animation::MapScale; }
 
@@ -405,6 +404,12 @@ public:
                      double startAngle, double endAngle,
                      m2::PointD const & startPixelPosition, m2::PointD const & endPixelPosition,
                      m2::RectD const & pixelRect);
+
+  static m2::PointD CalculateCenter(ScreenBase const & screen, m2::PointD const & userPos,
+                                    m2::PointD const & pixelPos, double azimuth);
+
+  static m2::PointD CalculateCenter(double scale, m2::RectD const & pixelRect,
+                                    m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth);
 
   Animation::Type GetType() const override { return Animation::MapFollow; }
 

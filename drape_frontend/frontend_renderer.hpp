@@ -189,7 +189,7 @@ private:
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override;
   void CorrectGlobalScalePoint(m2::PointD & pt) const override;
   void OnScaleEnded() override;
-  void OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim) override;
+  void OnAnimationStarted(ref_ptr<Animation> anim) override;
 
   class Routine : public threads::IRoutine
   {

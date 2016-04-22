@@ -1,9 +1,9 @@
 #include "drape_frontend/my_position_controller.hpp"
+#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/animation_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/animation/base_interpolator.hpp"
 #include "drape_frontend/animation/interpolations.hpp"
-#include "drape_frontend/animation/model_view_animation.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -568,11 +568,11 @@ void MyPositionController::CheckAnimFinished() const
     m_anim.reset();
 }
 
-void MyPositionController::AnimationStarted(ref_ptr<BaseModelViewAnimation> anim)
+void MyPositionController::AnimationStarted(ref_ptr<Animation> anim)
 {
-  if (m_isPendingAnimation && m_animCreator != nullptr)// && anim != nullptr &&
-  //    (anim->GetType() == ModelViewAnimationType::FollowAndRotate ||
-  //     anim->GetType() == ModelViewAnimationType::Default))
+  if (m_isPendingAnimation && m_animCreator != nullptr && anim != nullptr &&
+      (anim->GetType() == Animation::MapFollow ||
+       anim->GetType() == Animation::MapLinear))
   {
     m_isPendingAnimation = false;
     m_animCreator();
@@ -581,8 +581,8 @@ void MyPositionController::AnimationStarted(ref_ptr<BaseModelViewAnimation> anim
 
 void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen)
 {
-  double const moveDuration = ModelViewAnimation::GetMoveDuration(oldPos, m_position, screen);
-  double const rotateDuration = ModelViewAnimation::GetRotateDuration(oldAzimut, m_drawDirection);
+  double const moveDuration = PositionInterpolator::GetMoveDuration(oldPos, m_position, screen);
+  double const rotateDuration = AngleInterpolator::GetRotateDuration(oldAzimut, m_drawDirection);
   if (df::IsAnimationAllowed(max(moveDuration, rotateDuration), screen))
   {
     if (IsModeChangeViewport())

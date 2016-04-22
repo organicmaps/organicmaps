@@ -2,8 +2,6 @@
 
 #include "drape_frontend/kinetic_scroller.hpp"
 #include "drape_frontend/navigator.hpp"
-#include "drape_frontend/animation/model_view_animation.hpp"
-#include "drape_frontend/animation/perspective_animation.hpp"
 
 #include "drape/pointers.hpp"
 
@@ -257,7 +255,7 @@ public:
     virtual void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const = 0;
     virtual void OnScaleEnded() = 0;
 
-    virtual void OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim) = 0;
+    virtual void OnAnimationStarted(ref_ptr<Animation> anim) = 0;
   };
 
   UserEventStream();
@@ -352,7 +350,7 @@ private:
   void CancelFilter(Touch const & t);
 
   void ApplyAnimations(bool & modelViewChanged, bool & viewportChanged);
-  void ResetCurrentAnimation(bool finishAnimation = false);
+  void ResetCurrentAnimation(bool finishAll, pair<bool, uint32_t> finishAnim);
 
   list<UserEvent> m_events;
   mutable mutex m_lock;
@@ -374,7 +372,7 @@ private:
 
   array<Touch, 2> m_touches;
 
-  drape_ptr<BaseModelViewAnimation> m_animation;
+  AnimationSystem & m_animationSystem;
 
   bool m_perspectiveAnimation = false;
   unique_ptr<UserEvent> m_pendingEvent;

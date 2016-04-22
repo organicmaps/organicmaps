@@ -1,4 +1,4 @@
-#include "animation_system.h"
+#include "animation_system.hpp"
 #include "animation/interpolations.hpp"
 
 #include "base/logging.hpp"
@@ -542,16 +542,33 @@ bool MapFollowAnimation::IsFinished() const
       && (m_scaleInterpolator == nullptr || m_scaleInterpolator->IsFinished()));
 }
 
+// static
+m2::PointD MapFollowAnimation::CalculateCenter(ScreenBase const & screen, m2::PointD const & userPos,
+                                               m2::PointD const & pixelPos, double azimuth)
+{
+  double const scale = screen.GlobalRect().GetLocalRect().SizeX() / screen.PixelRect().SizeX();
+  return CalculateCenter(scale, screen.PixelRect(), userPos, pixelPos, azimuth);
+}
+
+// static
+m2::PointD MapFollowAnimation::CalculateCenter(double scale, m2::RectD const & pixelRect,
+                                               m2::PointD const & userPos, m2::PointD const & pixelPos,
+                                               double azimuth)
+{
+  m2::PointD formingVector = (pixelRect.Center() - pixelPos) * scale;
+  formingVector.y = -formingVector.y;
+  formingVector.Rotate(azimuth);
+  return userPos + formingVector;
+}
+
+// static
 bool MapFollowAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
 {
   if (property == Animation::Position)
   {
     m2::RectD const pixelRect = AnimationSystem::Instance().GetLastScreen().PixelRect();
-    m2::PointD const pixelPos = m_pixelPosInterpolator->GetPosition();
-    m2::PointD formingVector = (pixelRect.Center() - pixelPos) * m_scaleInterpolator->GetScale();
-    formingVector.y = -formingVector.y;
-    formingVector.Rotate(m_angleInterpolator->GetAngle());
-    value = m_globalPosition + formingVector;
+    value = CalculateCenter(m_scaleInterpolator->GetScale(), pixelRect, m_globalPosition,
+                            m_pixelPosInterpolator->GetPosition(), m_angleInterpolator->GetAngle());
     return true;
   }
   if (property == Animation::Angle)
