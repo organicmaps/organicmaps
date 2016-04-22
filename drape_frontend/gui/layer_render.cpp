@@ -129,6 +129,11 @@ void LayerRenderer::OnTouchCancel(m2::RectD const & touchArea)
   }
 }
 
+bool LayerRenderer::HasWidget(EWidget widget) const
+{
+  return m_renderers.find(widget) != m_renderers.end();
+}
+
 namespace
 {
 

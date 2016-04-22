@@ -1,5 +1,9 @@
+#include "geometry/point2d.hpp"
+
 @interface MWMAddPlaceNavigationBar : SolidTouchView
 
-+ (void)showInSuperview:(nonnull UIView *)superview doneBlock:(nonnull TMWMVoidBlock)done cancelBlock:(nonnull TMWMVoidBlock)cancel;
++ (void)showInSuperview:(UIView *)superview isBusiness:(BOOL)isBusiness
+          applyPosition:(BOOL)applyPosition position:(m2::PointD const &)position
+              doneBlock:(TMWMVoidBlock)done cancelBlock:(TMWMVoidBlock)cancel;
 
 @end

@@ -32,6 +32,7 @@
 #include "platform/location.hpp"
 
 #include "geometry/screenbase.hpp"
+#include "geometry/triangle2d.hpp"
 
 #include "std/function.hpp"
 #include "std/map.hpp"
@@ -168,6 +169,7 @@ private:
 
   TTilesCollection ResolveTileKeys(ScreenBase const & screen);
   void ResolveZoomLevel(ScreenBase const & screen);
+  void UpdateDisplacementEnabled();
   void CheckPerspectiveMinScale();
   void CheckIsometryMinScale(ScreenBase const & screen);
 
@@ -229,6 +231,8 @@ private:
 
   void PrepareGpsTrackPoints(size_t pointsCount);
 
+  void PullToBoundArea(bool randomPlace, bool applyZoom);
+
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
@@ -272,6 +276,8 @@ private:
 
   bool m_blockTapEvents;
 
+  bool m_choosePositionMode;
+
   Viewport m_viewport;
   UserEventStream m_userEventStream;
   TModelViewChanged m_modelViewChangedFn;
@@ -308,6 +314,8 @@ private:
   };
 
   unique_ptr<FollowRouteData> m_pendingFollowRoute;
+
+  vector<m2::TriangleD> m_dragBoundArea;
 
 #ifdef DEBUG
   bool m_isTeardowned;

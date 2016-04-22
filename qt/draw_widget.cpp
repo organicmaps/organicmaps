@@ -231,12 +231,12 @@ void DrawWidget::SliderReleased()
 void DrawWidget::ChoosePositionModeEnable()
 {
   m_framework->BlockTapEvents(true);
-  m_framework->EnableChoosePositionMode(true);
+  m_framework->EnableChoosePositionMode(true, false, false, m2::PointD());
 }
 
 void DrawWidget::ChoosePositionModeDisable()
 {
-  m_framework->EnableChoosePositionMode(false);
+  m_framework->EnableChoosePositionMode(false, false, false, m2::PointD());
   m_framework->BlockTapEvents(false);
 }
 

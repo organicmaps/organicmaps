@@ -305,14 +305,15 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - MWMBottomMenuControllerProtocol && MWMPlacePageViewManagerProtocol
 
-- (void)addPlace
+- (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point
 {
   self.menuState = MWMBottomMenuStateHidden;
   static_cast<EAGLView *>(self.ownerController.view).widgetsManager.fullScreen = YES;
   [self.placePageManager dismissPlacePage];
   self.searchManager.state = MWMSearchManagerStateHidden;
 
-  [MWMAddPlaceNavigationBar showInSuperview:self.ownerController.view doneBlock:^
+  [MWMAddPlaceNavigationBar showInSuperview:self.ownerController.view
+                                 isBusiness:isBusiness applyPosition:hasPoint position:point doneBlock:^
   {
     auto & f = GetFramework();
 
@@ -359,12 +360,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     [ownerView bringSubviewToFront:self.menuController.view];
     [ownerView bringSubviewToFront:self.navigationManager.routePreview];
   }
-}
-
-- (void)addBusinessToPoint:(m2::PointD const &)point
-{
-  GetFramework().SetViewportCenter(point);
-  [self addPlace];
 }
 
 - (void)updateStatusBarStyle

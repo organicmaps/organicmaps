@@ -18,14 +18,16 @@ namespace scales
   constexpr int GetUpperCountryScale() { return GetUpperWorldScale() + 1; }
   /// Upper scale for user comfort view (e.g. location zoom).
   constexpr int GetUpperComfortScale() { return UPPER_STYLE_SCALE - 2; }
-  /// Default navigation mode scale
+  /// Default navigation mode scale.
   constexpr int GetNavigationScale() { return UPPER_STYLE_SCALE - 3; }
-  /// Default pedestrian navigation mode scale
+  /// Default pedestrian navigation mode scale.
   constexpr int GetPedestrianNavigationScale() { return UPPER_STYLE_SCALE - 2; }
-  /// Default navigation 3d mode scale
+  /// Default navigation 3d mode scale.
   constexpr int GetNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
-  /// Default pedestrian navigation 3d mode scale
+  /// Default pedestrian navigation 3d mode scale.
   constexpr int GetPedestrianNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
+  /// Default scale in adding-new-place mode.
+  constexpr int GetAddNewPlaceScale() { return 18; }
 
   int GetMinAllowableIn3dScale();
 

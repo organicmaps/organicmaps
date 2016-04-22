@@ -8,6 +8,7 @@ namespace dp
 
 int const kFrameUpdatePeriod = 10;
 int const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
+int const kInvalidFrame = -1;
 
 namespace
 {
@@ -59,8 +60,9 @@ private:
 } // namespace
 
 OverlayTree::OverlayTree()
-  : m_frameCounter(-1)
+  : m_frameCounter(kInvalidFrame)
   , m_followingMode(false)
+  , m_isDisplacementEnabled(true)
 {
   for (size_t i = 0; i < m_handles.size(); i++)
     m_handles[i].reserve(kAverageHandlesCount[i]);
@@ -73,14 +75,14 @@ bool OverlayTree::Frame()
 
   m_frameCounter++;
   if (m_frameCounter >= kFrameUpdatePeriod)
-    m_frameCounter = -1;
+    m_frameCounter = kInvalidFrame;
 
   return IsNeedUpdate();
 }
 
 bool OverlayTree::IsNeedUpdate() const
 {
-  return m_frameCounter == -1;
+  return m_frameCounter == kInvalidFrame;
 }
 
 void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
@@ -97,11 +99,11 @@ void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
 
 void OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
 {
-  if (m_frameCounter == -1)
+  if (m_frameCounter == kInvalidFrame)
     return;
 
   if (m_handlesCache.find(handle) != m_handlesCache.end())
-    m_frameCounter = -1;
+    m_frameCounter = kInvalidFrame;
 }
 
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
@@ -161,6 +163,12 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
 
   ScreenBase const & modelView = GetModelView();
   m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
+  if (!m_isDisplacementEnabled)
+  {
+    m_handlesCache.insert(handle);
+    TBase::Add(handle, pixelRect);
+    return;
+  }
 
   TOverlayContainer rivals;
   HandleComparator comparator(true /* enableMask */, m_followingMode);
@@ -381,6 +389,12 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
 void OverlayTree::SetFollowingMode(bool mode)
 {
   m_followingMode = mode;
+}
+
+void OverlayTree::SetDisplacementEnabled(bool enabled)
+{
+  m_isDisplacementEnabled = enabled;
+  m_frameCounter = kInvalidFrame;
 }
 
 #ifdef COLLECT_DISPLACEMENT_INFO

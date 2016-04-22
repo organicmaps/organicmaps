@@ -95,12 +95,14 @@ public:
   bool IsRouteFollowingActive() const;
   bool IsWaitingForTimers() const;
 
+  bool IsWaitingForLocation() const;
+  m2::PointD GetDrawablePosition() const;
+
 private:
   bool IsModeChangeViewport() const;
   void ChangeMode(location::EMyPositionMode newMode);
   void SetDirection(double bearing);
   
-  bool IsWaitingForLocation() const;
 
   bool IsVisible() const { return m_isVisible; }
   void SetIsVisible(bool isVisible) { m_isVisible = isVisible; }
@@ -114,7 +116,6 @@ private:
   m2::PointD GetRotationPixelCenter() const;
   m2::PointD GetRoutingRotationPixelCenter() const;
 
-  m2::PointD GetDrawablePosition() const;
   double GetDrawableAzimut() const;
   void CheckAnimFinished() const;
   void CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen);

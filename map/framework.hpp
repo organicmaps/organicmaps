@@ -276,7 +276,7 @@ public:
 
   void InvalidateRendering();
 
-  void EnableChoosePositionMode(bool enable);
+  void EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position);
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = function<void(storage::TCountryId const &)>;
@@ -302,6 +302,12 @@ private:
 
   TActivateMapSelectionFn m_activateMapSelectionFn;
   TDeactivateMapSelectionFn m_deactivateMapSelectionFn;
+
+  /// Here we store last selected feature to get its polygons in case of adding organization.
+  mutable FeatureID m_selectedFeature;
+
+private:
+  vector<m2::TriangleD> GetSelectedFeatureTriangles() const;
 
 public:
 

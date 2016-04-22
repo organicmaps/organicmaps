@@ -18,6 +18,7 @@
 #include "geometry/polyline2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
+#include "geometry/triangle2d.hpp"
 
 #include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
@@ -326,6 +327,33 @@ public:
 
 private:
   bool m_enabled;
+};
+
+class SetAddNewPlaceModeMessage : public Message
+{
+public:
+  SetAddNewPlaceModeMessage(bool enable, vector<m2::TriangleD> && boundArea, bool enableKineticScroll,
+                            bool hasPosition, m2::PointD const & position)
+    : m_enable(enable)
+    , m_boundArea(move(boundArea))
+    , m_enableKineticScroll(enableKineticScroll)
+    , m_hasPosition(hasPosition)
+    , m_position(position)
+  {}
+
+  Type GetType() const override { return Message::SetAddNewPlaceMode; }
+  vector<m2::TriangleD> && AcceptBoundArea() { return move(m_boundArea); }
+  bool IsEnabled() const { return m_enable; }
+  bool IsKineticScrollEnabled() const { return m_enableKineticScroll; }
+  bool HasPosition() const { return m_hasPosition; }
+  m2::PointD const & GetPosition() const { return m_position; }
+
+private:
+  bool m_enable;
+  vector<m2::TriangleD> m_boundArea;
+  bool m_enableKineticScroll;
+  bool m_hasPosition;
+  m2::PointD m_position;
 };
 
 class BlockTapEventsMessage : public Message

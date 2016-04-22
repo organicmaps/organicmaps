@@ -400,7 +400,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     UiUtils.showIf(show, mPositionChooser);
     setFullscreen(show);
-    Framework.nativeTurnChoosePositionMode(show);
+    Framework.nativeTurnChoosePositionMode(show, false /* isBusiness */); //TODO(Android team): set isBusiness correctly
     closePlacePage();
     mSearchController.hide();
   }

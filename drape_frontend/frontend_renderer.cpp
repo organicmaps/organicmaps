@@ -119,6 +119,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_enable3dBuildings(params.m_allow3dBuildings)
   , m_isIsometry(false)
   , m_blockTapEvents(params.m_blockTapEvents)
+  , m_choosePositionMode(false)
   , m_viewport(params.m_viewport)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
   , m_tapEventInfoFn(params.m_tapEventFn)
@@ -347,6 +348,16 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_guiRenderer = move(renderer);
       else
         m_guiRenderer->Merge(make_ref(renderer));
+
+      bool oldMode = m_choosePositionMode;
+      m_choosePositionMode = m_guiRenderer->HasWidget(gui::WIDGET_CHOOSE_POSITION_MARK);
+      if (oldMode != m_choosePositionMode)
+      {
+        ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+        CheckIsometryMinScale(screen);
+        UpdateDisplacementEnabled();
+        InvalidateRect(screen.ClipRect());
+      }
       break;
     }
 
@@ -694,6 +705,27 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::SetAddNewPlaceMode:
+    {
+      ref_ptr<SetAddNewPlaceModeMessage> msg = message;
+      m_userEventStream.SetKineticScrollEnabled(msg->IsKineticScrollEnabled());
+      m_dragBoundArea = msg->AcceptBoundArea();
+      if (msg->IsEnabled())
+      {
+        if (!m_dragBoundArea.empty())
+        {
+          PullToBoundArea(true /* randomPlace */, true /* applyZoom */);
+        }
+        else
+        {
+          m2::PointD const pt = msg->HasPosition()? msg->GetPosition() :
+                                m_userEventStream.GetCurrentScreen().GlobalRect().Center();
+          AddUserEvent(SetCenterEvent(pt, scales::GetAddNewPlaceScale(), true));
+        }
+      }
+      break;
+    }
+
   case Message::Invalidate:
     {
       // Do nothing here, new frame will be rendered because of this message processing.
@@ -880,6 +912,22 @@ void FrontendRenderer::PrepareGpsTrackPoints(size_t pointsCount)
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<CacheGpsTrackPointsMessage>(pointsCount),
                             MessagePriority::Normal);
+}
+
+void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
+{
+  if (m_dragBoundArea.empty())
+    return;
+
+  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+  m2::PointD const center = screen.GlobalRect().Center();
+  if (!m2::IsPointInsideTriangles(center, m_dragBoundArea))
+  {
+    m2::PointD const dest = randomPlace ? m2::GetRandomPointInsideTriangles(m_dragBoundArea) :
+                                          m2::ProjectPointToTriangles(center, m_dragBoundArea);
+    int const zoom = applyZoom ? scales::GetAddNewPlaceScale() : m_currentZoomLevel;
+    AddUserEvent(SetCenterEvent(dest, zoom, true));
+  }
 }
 
 void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
@@ -1189,10 +1237,10 @@ void FrontendRenderer::DisablePerspective()
   AddUserEvent(DisablePerspectiveEvent());
 }
 
-void FrontendRenderer::CheckIsometryMinScale(const ScreenBase &screen)
+void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
 {
   bool const isScaleAllowableIn3d = UserEventStream::IsScaleAllowableIn3d(m_currentZoomLevel);
-  bool const isIsometry = m_enable3dBuildings && isScaleAllowableIn3d;
+  bool const isIsometry = m_enable3dBuildings && !m_choosePositionMode && isScaleAllowableIn3d;
   if (m_isIsometry != isIsometry)
   {
     m_isIsometry = isIsometry;
@@ -1224,6 +1272,15 @@ void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 
   CheckIsometryMinScale(screen);
   CheckPerspectiveMinScale();
+  UpdateDisplacementEnabled();
+}
+
+void FrontendRenderer::UpdateDisplacementEnabled()
+{
+  if (m_choosePositionMode)
+    m_overlayTree->SetDisplacementEnabled(m_currentZoomLevel < scales::GetAddNewPlaceScale());
+  else
+    m_overlayTree->SetDisplacementEnabled(true);
 }
 
 void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
@@ -1298,6 +1355,7 @@ void FrontendRenderer::OnDragStarted()
 void FrontendRenderer::OnDragEnded(m2::PointD const & distance)
 {
   m_myPositionController->DragEnded(distance);
+  PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
 }
 
 void FrontendRenderer::OnScaleStarted()
@@ -1328,6 +1386,7 @@ void FrontendRenderer::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) con
 void FrontendRenderer::OnScaleEnded()
 {
   m_myPositionController->ScaleEnded();
+  PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
 }
 
 void FrontendRenderer::OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim)
