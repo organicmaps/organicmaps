@@ -22,6 +22,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
+#include "std/chrono.hpp"
 #include "std/sstream.hpp"
 #include "std/target_os.hpp"
 
@@ -108,8 +109,9 @@ MapFilesDownloader::TProgress Storage::GetOverallProgress(TCountriesVec const & 
 }
   
 Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */, string const & dataDir /* = string() */)
-  : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId(0), m_dataDir(dataDir),
-    m_downloadMapOnTheMap(nullptr)
+  : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId(0), m_dataDir(dataDir)
+  , m_autoRetryWorker(seconds(20))
+  , m_downloadMapOnTheMap(nullptr)
 {
   SetLocale(languages::GetCurrentTwine());
   LoadCountriesFile(pathToCountriesFile, m_dataDir);
@@ -117,8 +119,9 @@ Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */, stri
 
 Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
                  unique_ptr<MapFilesDownloader> mapDownloaderForTesting)
-  : m_downloader(move(mapDownloaderForTesting)), m_currentSlotId(0),
-    m_downloadMapOnTheMap(nullptr)
+  : m_downloader(move(mapDownloaderForTesting)), m_currentSlotId(0)
+  , m_autoRetryWorker(seconds(20))
+  , m_downloadMapOnTheMap(nullptr)
 {
   m_currentVersion =
       LoadCountries(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
@@ -546,7 +549,29 @@ void Storage::DownloadNextCountryFromQueue()
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   if (m_queue.empty())
+  {
+    if (!m_failedCountries.empty() && m_autoRetryCounter > 0)
+    {
+      auto needReload = m_failedCountries;
+      auto action = [this, needReload]
+      {
+        --m_autoRetryCounter;
+        for (auto const & country : needReload)
+        {
+          NodeStatuses status;
+          GetNodeStatuses(country, status);
+          if (status.m_error == NodeErrorCode::NoInetConnection)
+            RetryDownloadNode(country);
+        }
+      };
+      m_autoRetryWorker.RestartWith([action]{Platform().RunOnGuiThread(action);});
+    }
+    else
+    {
+      m_autoRetryCounter = kAutoRetryCounterMax;
+    }
     return;
+  }
 
   QueuedCountry & queuedCountry = m_queue.front();
   TCountryId const & countryId = queuedCountry.GetCountryId();

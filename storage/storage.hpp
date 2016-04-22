@@ -11,6 +11,7 @@
 
 #include "platform/local_country_file.hpp"
 
+#include "base/deferred_task.hpp"
 #include "base/thread_checker.hpp"
 
 #include "std/function.hpp"
@@ -237,6 +238,12 @@ private:
 
   ThreadChecker m_threadChecker;
 
+  static size_t constexpr kAutoRetryCounterMax = 3;
+  size_t m_autoRetryCounter = kAutoRetryCounterMax;
+  my::DeferredTask m_autoRetryWorker;
+  
+  inline bool IsAutoRetryDownloadFailed() const { return m_autoRetryCounter == 0; }
+  
   void DownloadNextCountryFromQueue();
 
   void LoadCountriesFile(string const & pathToCountriesFile, string const & dataDir,
