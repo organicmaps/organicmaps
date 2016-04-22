@@ -2,7 +2,7 @@
 
 #include "search/search_query_params.hpp"
 #include "search/v2/postcodes_matcher.hpp"
-#include "search/v2/tokens_slice.hpp"
+#include "search/v2/token_slice.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -42,7 +42,7 @@ bool LooksLikePostcode(string const & s, bool checkPrefix)
     params.m_tokens.back().push_back(token);
   }
 
-  return LooksLikePostcode(TokensSlice(params, 0, numTokens));
+  return LooksLikePostcode(TokenSlice(params, 0, numTokens));
 }
 
 UNIT_TEST(PostcodesMatcher_Smoke)

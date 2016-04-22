@@ -261,9 +261,11 @@ public:
 
   void operator() (FeatureType const & f, uint32_t index) const
   {
+    using namespace search;
+
     feature::TypesHolder types(f);
 
-    static search::TypesSkipper skipIndex;
+    static TypesSkipper skipIndex;
 
     skipIndex.SkipTypes(types);
     if (types.Empty())
@@ -284,10 +286,10 @@ public:
       // See OSM TagInfo or Wiki about modern postcodes format. The average number of tokens is less
       // than two.
       buffer_vector<strings::UniString, 2> tokens;
-      SplitUniString(search::NormalizeAndSimplifyString(postcode), MakeBackInsertFunctor(tokens),
-                     search::Delimiters());
+      SplitUniString(NormalizeAndSimplifyString(postcode), MakeBackInsertFunctor(tokens),
+                     Delimiters());
       for (auto const & token : tokens)
-        inserter.AddToken(search::kCategoriesLang, search::PostcodeToString(token));
+        inserter.AddToken(kPostcodesLang, PostcodeToString(token));
     }
 
     // Skip types for features without names.
@@ -303,7 +305,7 @@ public:
 
     // add names of categories of the feature
     for (uint32_t t : categoryTypes)
-      inserter.AddToken(search::kCategoriesLang, search::FeatureTypeToString(c.GetIndexForType(t)));
+      inserter.AddToken(kCategoriesLang, FeatureTypeToString(c.GetIndexForType(t)));
   }
 };
 

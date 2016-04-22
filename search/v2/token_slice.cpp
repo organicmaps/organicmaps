@@ -1,17 +1,17 @@
-#include "search/v2/tokens_slice.hpp"
+#include "search/v2/token_slice.hpp"
 
 namespace search
 {
 namespace v2
 {
-TokensSlice::TokensSlice(SearchQueryParams const & params, size_t startToken, size_t endToken)
+TokenSlice::TokenSlice(SearchQueryParams const & params, size_t startToken, size_t endToken)
   : m_params(params), m_offset(startToken), m_size(endToken - startToken)
 {
   ASSERT_LESS_OR_EQUAL(startToken, endToken, ());
 }
 
-TokensSliceNoCategories::TokensSliceNoCategories(SearchQueryParams const & params,
-                                                 size_t startToken, size_t endToken)
+TokenSliceNoCategories::TokenSliceNoCategories(SearchQueryParams const & params, size_t startToken,
+                                               size_t endToken)
   : m_params(params)
 {
   ASSERT_LESS_OR_EQUAL(startToken, endToken, ());

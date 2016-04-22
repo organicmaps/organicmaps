@@ -12,7 +12,7 @@
 #include "search/v2/pre_ranking_info.hpp"
 #include "search/v2/ranking_info.hpp"
 #include "search/v2/ranking_utils.hpp"
-#include "search/v2/tokens_slice.hpp"
+#include "search/v2/token_slice.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/index.hpp"
@@ -622,7 +622,7 @@ class PreResult2Maker
 
     info.m_nameScore = v2::NAME_SCORE_ZERO;
 
-    v2::TokensSliceNoCategories slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
+    v2::TokenSliceNoCategories slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
 
     for (auto const & lang : m_params.m_langs)
     {

@@ -63,7 +63,7 @@ HEADERS += \
     v2/search_query_v2.hpp \
     v2/stats_cache.hpp \
     v2/street_vicinity_loader.hpp \
-    v2/tokens_slice.hpp \
+    v2/token_slice.hpp \
 
 SOURCES += \
     approximate_string_match.cpp \
@@ -109,4 +109,4 @@ SOURCES += \
     v2/search_model.cpp \
     v2/search_query_v2.cpp \
     v2/street_vicinity_loader.cpp \
-    v2/tokens_slice.cpp \
+    v2/token_slice.cpp \

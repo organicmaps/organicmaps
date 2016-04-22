@@ -2,7 +2,7 @@
 
 #include "search/search_query_params.hpp"
 #include "search/v2/ranking_utils.hpp"
-#include "search/v2/tokens_slice.hpp"
+#include "search/v2/token_slice.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -33,7 +33,7 @@ NameScore GetScore(string const & name, string const & query, size_t startToken,
     params.m_prefixTokens.swap(params.m_tokens.back());
     params.m_tokens.pop_back();
   }
-  return GetNameScore(name, TokensSlice(params, startToken, endToken));
+  return GetNameScore(name, TokenSlice(params, startToken, endToken));
 }
 
 UNIT_TEST(NameTest_Smoke)

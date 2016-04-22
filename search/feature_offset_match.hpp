@@ -3,6 +3,7 @@
 #include "search/search_index_values.hpp"
 #include "search/search_query.hpp"
 #include "search/search_query_params.hpp"
+#include "search/v2/token_slice.hpp"
 
 #include "indexer/trie.hpp"
 
@@ -101,6 +102,25 @@ bool CheckMatchString(strings::UniChar const * rootPrefix, size_t rootPrefixSize
     return true;
   }
 
+  return false;
+}
+
+template <typename TValue>
+bool FindLangIndex(trie::Iterator<ValueList<TValue>> const & trieRoot, uint8_t lang, uint32_t & langIx)
+{
+  ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
+
+  uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edge.size());
+  for (uint32_t i = 0; i < numLangs; ++i)
+  {
+    auto const & edge = trieRoot.m_edge[i].m_label;
+    ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
+    if (edge[0] == lang)
+    {
+      langIx = i;
+      return true;
+    }
+  }
   return false;
 }
 }  // namespace
@@ -222,7 +242,7 @@ public:
       toDo(value);
   }
 };
-}  // namespace search::impl
+}  // impl
 
 template <typename TValue>
 struct TrieRootPrefix
@@ -345,27 +365,23 @@ template <typename TValue, typename THolder>
 bool MatchCategoriesInTrie(SearchQueryParams const & params,
                            trie::Iterator<ValueList<TValue>> const & trieRoot, THolder && holder)
 {
-  ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
-  uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edge.size());
-  for (uint32_t langIx = 0; langIx < numLangs; ++langIx)
-  {
-    auto const & edge = trieRoot.m_edge[langIx].m_label;
-    ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
-    if (edge[0] == search::kCategoriesLang)
-    {
-      auto const catRoot = trieRoot.GoToEdge(langIx);
-      MatchTokensInTrie(params.m_tokens, TrieRootPrefix<TValue>(*catRoot, edge), holder);
+  uint32_t langIx = 0;
+  if (!impl::FindLangIndex(trieRoot, search::kCategoriesLang, langIx))
+    return false;
 
-      // Last token's prefix is used as a complete token here, to
-      // limit the number of features in the last bucket of a
-      // holder. Probably, this is a false optimization.
-      holder.Resize(params.m_tokens.size() + 1);
-      holder.SwitchTo(params.m_tokens.size());
-      MatchTokenInTrie(params.m_prefixTokens, TrieRootPrefix<TValue>(*catRoot, edge), holder);
-      return true;
-    }
-  }
-  return false;
+  auto const & edge = trieRoot.m_edge[langIx].m_label;
+  ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
+
+  auto const catRoot = trieRoot.GoToEdge(langIx);
+  MatchTokensInTrie(params.m_tokens, TrieRootPrefix<TValue>(*catRoot, edge), holder);
+
+  // Last token's prefix is used as a complete token here, to limit
+  // the number of features in the last bucket of a holder. Probably,
+  // this is a false optimization.
+  holder.Resize(params.m_tokens.size() + 1);
+  holder.SwitchTo(params.m_tokens.size());
+  MatchTokenInTrie(params.m_prefixTokens, TrieRootPrefix<TValue>(*catRoot, edge), holder);
+  return true;
 }
 
 // Calls toDo with trie root prefix and language code on each language
@@ -422,6 +438,31 @@ void MatchFeaturesInTrie(SearchQueryParams const & params,
                       });
     if (categoriesMatched)
       categoriesHolder.ForEachValue(params.m_tokens.size(), intersecter);
+    intersecter.NextStep();
+  }
+
+  intersecter.ForEachResult(forward<ToDo>(toDo));
+}
+
+template <typename TValue, typename TFilter, typename ToDo>
+void MatchPostcodesInTrie(v2::TokenSlice const & slice,
+                          trie::Iterator<ValueList<TValue>> const & trieRoot,
+                          TFilter const & filter, ToDo && toDo)
+{
+  uint32_t langIx = 0;
+  if (!impl::FindLangIndex(trieRoot, search::kPostcodesLang, langIx))
+    return;
+
+  auto const & edge = trieRoot.m_edge[langIx].m_label;
+  auto const postcodesRoot = trieRoot.GoToEdge(langIx);
+
+  impl::OffsetIntersecter<TFilter, TValue> intersecter(filter);
+  for (size_t i = 0; i < slice.Size(); ++i)
+  {
+    if (slice.IsPrefix(i))
+      MatchTokenPrefixInTrie(slice.Get(i), TrieRootPrefix<TValue>(*postcodesRoot, edge), intersecter);
+    else
+      MatchTokenInTrie(slice.Get(i), TrieRootPrefix<TValue>(*postcodesRoot, edge), intersecter);
     intersecter.NextStep();
   }
 

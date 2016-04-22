@@ -11,10 +11,10 @@ namespace search
 {
 namespace v2
 {
-class TokensSlice
+class TokenSlice
 {
 public:
-  TokensSlice(SearchQueryParams const & params, size_t startToken, size_t endToken);
+  TokenSlice(SearchQueryParams const & params, size_t startToken, size_t endToken);
 
   inline SearchQueryParams::TSynonymsVector const & Get(size_t i) const
   {
@@ -38,10 +38,10 @@ private:
   size_t const m_size;
 };
 
-class TokensSliceNoCategories
+class TokenSliceNoCategories
 {
 public:
-  TokensSliceNoCategories(SearchQueryParams const & params, size_t startToken, size_t endToken);
+  TokenSliceNoCategories(SearchQueryParams const & params, size_t startToken, size_t endToken);
 
   inline SearchQueryParams::TSynonymsVector const & Get(size_t i) const
   {

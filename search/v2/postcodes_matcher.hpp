@@ -6,9 +6,9 @@ namespace search
 {
 namespace v2
 {
-class TokensSlice;
+class TokenSlice;
 
-bool LooksLikePostcode(TokensSlice const & slice);
+bool LooksLikePostcode(TokenSlice const & slice);
 
 size_t GetMaxNumTokensInPostcode();
 }  // namespace v2

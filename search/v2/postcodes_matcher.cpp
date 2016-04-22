@@ -1,6 +1,6 @@
 #include "search/v2/postcodes_matcher.hpp"
 
-#include "search/v2/tokens_slice.hpp"
+#include "search/v2/token_slice.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -24,7 +24,8 @@ namespace v2
 namespace
 {
 // Top patterns for postcodes. See
-// search/search_quality/clusterize_postcodes.lisp for details.
+// search/search_quality/clusterize_postcodes.lisp for details how
+// these patterns were constructed.
 char const * const g_patterns[] = {
     "aa nnnn",   "aa nnnnn",   "aaa nnnn",    "aan",      "aan naa",  "aana naa", "aann",
     "aann naa",  "aannaa",     "aannnaa",     "aannnn",   "an naa",   "ana naa",  "ana nan",
@@ -90,6 +91,8 @@ struct Node
   DISALLOW_COPY(Node);
 };
 
+// This class puts all strings from g_patterns to a trie with a low
+// branching factor and matches queries against these patterns.
 class PostcodesMatcher
 {
 public:
@@ -100,7 +103,11 @@ public:
       AddString(MakeUniString(pattern), delimiters);
   }
 
-  bool HasString(TokensSlice const & slice) const
+  // Checks that given tokens match to at least one of postcodes
+  // patterns.
+  //
+  // Complexity: O(total length of tokens in |slice|).
+  bool HasString(TokenSlice const & slice) const
   {
     Node const * cur = &m_root;
     for (size_t i = 0; i < slice.Size() && cur; ++i)
@@ -154,7 +161,7 @@ PostcodesMatcher const & GetPostcodesMatcher()
 }
 }  // namespace
 
-bool LooksLikePostcode(TokensSlice const & slice) { return GetPostcodesMatcher().HasString(slice); }
+bool LooksLikePostcode(TokenSlice const & slice) { return GetPostcodesMatcher().HasString(slice); }
 
 size_t GetMaxNumTokensInPostcode() { return GetPostcodesMatcher().GetMaxNumTokensInPostcode(); }
 }  // namespace v2

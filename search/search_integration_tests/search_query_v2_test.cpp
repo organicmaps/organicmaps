@@ -1,10 +1,15 @@
 #include "testing/testing.hpp"
 
+#include "search/retrieval.hpp"
 #include "search/search_integration_tests/helpers.hpp"
 #include "search/search_tests_support/test_feature.hpp"
 #include "search/search_tests_support/test_mwm_builder.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
+#include "search/v2/token_slice.hpp"
+
+#include "indexer/feature.hpp"
+#include "indexer/index.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -377,6 +382,32 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
                                   builder.Add(street);
                                   builder.Add(building);
                                 });
+
+  // Tests that postcode is added to the search index.
+  {
+    auto handle = m_engine.GetMwmHandleById(countryId);
+    TEST(handle.IsAlive(), ());
+    my::Cancellable cancellable;
+
+    SearchQueryParams params;
+    params.m_tokens.emplace_back();
+    params.m_tokens.back().push_back(PostcodeToString(strings::MakeUniString("141701")));
+    auto * value = handle.GetValue<MwmValue>();
+    auto features = v2::RetrievePostcodeFeatures(countryId, *value, cancellable,
+                                                 TokenSlice(params, 0, params.m_tokens.size()));
+    TEST_EQUAL(1, features->PopCount(), ());
+
+    uint64_t index = 0;
+    while (!features->GetBit(index))
+      ++index;
+
+    Index::FeaturesLoaderGuard loader(m_engine, countryId);
+    FeatureType ft;
+    loader.GetFeatureByIndex(index, ft);
+
+    auto rule = ExactMatch(countryId, building);
+    TEST(rule->Matches(ft), ());
+  }
   {
     TRules rules{ExactMatch(countryId, building)};
     TEST(ResultsMatch("Долгопрудный первомайская 28а", "ru" /* locale */, rules), ());
