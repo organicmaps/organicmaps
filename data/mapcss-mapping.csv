@@ -1106,3 +1106,4 @@ leisure|sports_centre|climbing;[leisure=sports_centre][sport=climbing];;name;int
 leisure|sports_centre|shooting;[leisure=sports_centre][sport=shooting];;name;int_name;1106;
 leisure|sports_centre|swimming;[leisure=sports_centre][sport=swimming];;name;int_name;1107;
 leisure|sports_centre|yoga;[leisure=sports_centre][sport=yoga];;name;int_name;1108;
+amenity|public_bookcase;1109;

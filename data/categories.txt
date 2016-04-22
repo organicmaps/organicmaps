@@ -5522,3 +5522,7 @@ ru:Опора ЛЭП
 waterway-lock_gate
 en:Lock Gate
 ru:Шлюз
+
+amenity-public_bookcase
+en:Book Exchange|Bookcase
+ru:Книжный шкаф|Обмен книг
