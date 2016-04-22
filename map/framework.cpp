@@ -718,7 +718,10 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
 {
-  FillPointInfo(api.GetPivot(), api.GetName(), info);
+  FillPointInfo(api.GetPivot(), "", info);
+  string const & name = api.GetName();
+  if (!name.empty())
+    info.m_customName = name;
   info.m_apiId = api.GetID();
   info.m_apiUrl = GenerateApiBackUrl(api);
 }
