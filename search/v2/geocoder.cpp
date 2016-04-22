@@ -979,6 +979,8 @@ void Geocoder::LimitedSearch(FeaturesFilter const & filter)
   m_filter = &filter;
   MY_SCOPE_GUARD(resetFilter, [&]() { m_filter = nullptr; });
 
+  // TODO (@y): implement postcodes matching here.
+
   // The order is rather important. Match streets first, then all other stuff.
   GreedilyMatchStreets();
   MatchPOIsAndBuildings(0 /* curToken */);

@@ -7,7 +7,6 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/assert.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
@@ -40,74 +39,6 @@ enum NameScore
   NAME_SCORE_FULL_MATCH = 4,
 
   NAME_SCORE_COUNT
-};
-
-class TokensSlice
-{
-public:
-  TokensSlice(SearchQueryParams const & params, size_t startToken, size_t endToken)
-    : m_params(params), m_offset(startToken), m_size(endToken - startToken)
-  {
-    ASSERT_LESS_OR_EQUAL(startToken, endToken, ());
-  }
-
-  inline SearchQueryParams::TSynonymsVector const & Get(size_t i) const
-  {
-    ASSERT_LESS(i, Size(), ());
-    return m_params.GetTokens(m_offset + i);
-  }
-
-  inline size_t Size() const { return m_size; }
-
-  inline bool Empty() const { return Size() == 0; }
-
-  inline bool IsPrefix(size_t i) const
-  {
-    ASSERT_LESS(i, Size(), ());
-    return m_offset + i == m_params.m_tokens.size();
-  }
-
-private:
-  SearchQueryParams const & m_params;
-  size_t const m_offset;
-  size_t const m_size;
-};
-
-class TokensSliceNoCategories
-{
-public:
-  TokensSliceNoCategories(SearchQueryParams const & params, size_t startToken, size_t endToken)
-    : m_params(params)
-  {
-    ASSERT_LESS_OR_EQUAL(startToken, endToken, ());
-
-    m_indexes.reserve(endToken - startToken);
-    for (size_t i = startToken; i < endToken; ++i)
-    {
-      if (!m_params.m_isCategorySynonym[i])
-        m_indexes.push_back(i);
-    }
-  }
-
-  inline SearchQueryParams::TSynonymsVector const & Get(size_t i) const
-  {
-    ASSERT_LESS(i, Size(), ());
-    return m_params.GetTokens(m_indexes[i]);
-  }
-
-  inline size_t Size() const { return m_indexes.size(); }
-
-  inline bool Empty() const { return Size() == 0; }
-
-  inline bool IsPrefix(size_t i) const
-  {
-    ASSERT_LESS(i, Size(), ());
-    return m_indexes[i] == m_params.m_tokens.size();
-  }
-
-private:
-  SearchQueryParams const & m_params;
-  vector<size_t> m_indexes;
 };
 
 template <typename TSlice>

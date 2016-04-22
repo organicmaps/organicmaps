@@ -7,6 +7,7 @@
 #include "search_trie.hpp"
 
 #include "v2/mwm_context.hpp"
+#include "v2/token_slice.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -29,8 +30,65 @@ using osm::Editor;
 
 namespace search
 {
+namespace v2
+{
 namespace
 {
+class FeaturesCollector
+{
+public:
+  FeaturesCollector(my::Cancellable const & cancellable, vector<uint64_t> & features)
+    : m_cancellable(cancellable), m_features(features), m_counter(0)
+  {
+  }
+
+  template <typename TValue>
+  void operator()(TValue const & value)
+  {
+    if ((++m_counter & 0xFF) == 0)
+      BailIfCancelled(m_cancellable);
+    m_features.push_back(value.m_featureId);
+  }
+
+  inline void operator()(uint32_t feature) { m_features.push_back(feature); }
+
+  inline void operator()(uint64_t feature) { m_features.push_back(feature); }
+
+private:
+  my::Cancellable const & m_cancellable;
+  vector<uint64_t> & m_features;
+  uint32_t m_counter;
+};
+
+class EditedFeaturesHolder
+{
+public:
+  EditedFeaturesHolder(MwmSet::MwmId const & id)
+  {
+    Editor & editor = Editor::Instance();
+    m_deleted = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Deleted);
+    m_modified = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Modified);
+    m_created = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Created);
+  }
+
+  bool ModifiedOrDeleted(uint32_t featureIndex) const
+  {
+    return binary_search(m_deleted.begin(), m_deleted.end(), featureIndex) ||
+           binary_search(m_modified.begin(), m_modified.end(), featureIndex);
+  }
+
+  template <typename TFn>
+  void ForEachModifiedOrCreated(TFn & fn)
+  {
+    for_each(m_modified.begin(), m_modified.end(), fn);
+    for_each(m_created.begin(), m_created.end(), fn);
+  }
+
+private:
+  vector<uint32_t> m_deleted;
+  vector<uint32_t> m_modified;
+  vector<uint32_t> m_created;
+};
 
 unique_ptr<coding::CompressedBitVector> SortFeaturesAndBuildCBV(vector<uint64_t> && features)
 {
@@ -89,6 +147,13 @@ bool MatchFeatureByName(FeatureType const & ft, SearchQueryParams const & params
   return matched;
 }
 
+bool MatchFeatureByPostcode(FeatureType const & ft, v2::TokenSlice const & slice)
+{
+  string const postcode = ft.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
+  // TODO(@y): implement this.
+  return false;
+}
+
 // Retrieves from the search index corresponding to |value| all
 // features matching to |params|.
 template <typename TValue>
@@ -96,16 +161,7 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
     MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
     SearchQueryParams const & params)
 {
-  // Exclude from search all deleted/modified features and match all edited/created features separately.
-  Editor & editor = Editor::Instance();
-
-  auto const deleted = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Deleted);
-  auto const modified = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Modified);
-  auto const filter = [&](uint32_t featureIndex) -> bool
-  {
-    return (!binary_search(deleted.begin(), deleted.end(), featureIndex) &&
-            !binary_search(modified.begin(), modified.end(), featureIndex));
-  };
+  EditedFeaturesHolder holder(id);
 
   serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
   ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
@@ -116,17 +172,16 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
   // TODO (@y, @m): This code may be optimized in the case where
   // bit vectors are sorted in the search index.
   vector<uint64_t> features;
-  uint32_t counter = 0;
-  auto const collector = [&](TValue const & value)
-  {
-    if ((++counter & 0xFF) == 0)
-      BailIfCancelled(cancellable);
-    features.push_back(value.m_featureId);
-  };
+  FeaturesCollector collector(cancellable, features);
 
-  MatchFeaturesInTrie(params, *trieRoot, filter, collector);
+  MatchFeaturesInTrie(params, *trieRoot, [&holder](uint32_t featureIndex)
+                      {
+                        return !holder.ModifiedOrDeleted(featureIndex);
+                      },
+                      collector);
 
   // Match all edited/created features separately.
+  Editor & editor = Editor::Instance();
   auto const matcher = [&](uint32_t featureIndex)
   {
     FeatureType ft;
@@ -136,9 +191,47 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
       features.push_back(featureIndex);
   };
 
-  for_each(modified.begin(), modified.end(), matcher);
-  auto const created = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Created);
-  for_each(created.begin(), created.end(), matcher);
+  holder.ForEachModifiedOrCreated(matcher);
+
+  return SortFeaturesAndBuildCBV(move(features));
+}
+
+template <typename TValue>
+unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
+    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    TokenSlice const & slice)
+{
+  EditedFeaturesHolder holder(id);
+
+  serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
+  ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+
+  auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
+      SubReaderWrapper<Reader>(searchReader.GetPtr()), SingleValueSerializer<TValue>(codingParams));
+
+  // TODO (@y, @m): This code may be optimized in the case where
+  // bit vectors are sorted in the search index.
+  vector<uint64_t> features;
+  FeaturesCollector collector(cancellable, features);
+
+  MatchPostcodesInTrie(slice, *trieRoot, [&holder](uint32_t featureIndex)
+                       {
+                         return !holder.ModifiedOrDeleted(featureIndex);
+                       },
+                       collector);
+
+  // Match all edited/created features separately.
+  Editor & editor = Editor::Instance();
+  auto const matcher = [&](uint32_t featureIndex)
+  {
+    FeatureType ft;
+    VERIFY(editor.GetEditedFeature(id, featureIndex, ft), ());
+    // TODO(AlexZ): Should we match by some feature's metafields too?
+    if (MatchFeatureByPostcode(ft, slice))
+      features.push_back(featureIndex);
+  };
+
+  holder.ForEachModifiedOrCreated(matcher);
 
   return SortFeaturesAndBuildCBV(move(features));
 }
@@ -149,42 +242,74 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
     v2::MwmContext const & context, my::Cancellable const & cancellable,
     covering::IntervalsT const & coverage, int scale)
 {
-  uint32_t counter = 0;
   vector<uint64_t> features;
 
-  context.ForEachIndex(coverage, scale, [&](uint64_t featureId)
-  {
-    if ((++counter & 0xFF) == 0)
-      BailIfCancelled(cancellable);
-    features.push_back(featureId);
-  });
+  FeaturesCollector collector(cancellable, features);
 
+  context.ForEachIndex(coverage, scale, collector);
   return SortFeaturesAndBuildCBV(move(features));
 }
 
+template <typename T>
+struct RetrieveAddressFeaturesAdaptor
+{
+  template <typename... TArgs>
+  unique_ptr<coding::CompressedBitVector> operator()(TArgs &&... args)
+  {
+    return RetrieveAddressFeaturesImpl<T>(forward<TArgs>(args)...);
+  }
+};
+
+template <typename T>
+struct RetrievePostcodeFeaturesAdaptor
+{
+  template <typename... TArgs>
+  unique_ptr<coding::CompressedBitVector> operator()(TArgs &&... args)
+  {
+    return RetrievePostcodeFeaturesImpl<T>(forward<TArgs>(args)...);
+  }
+};
+
+template <template <typename> class T>
+struct Selector
+{
+  template <typename... TArgs>
+  unique_ptr<coding::CompressedBitVector> operator()(MwmSet::MwmId const & id, MwmValue & value,
+                                                     TArgs &&... args)
+  {
+    version::MwmTraits mwmTraits(value.GetMwmVersion().GetFormat());
+
+    if (mwmTraits.GetSearchIndexFormat() ==
+        version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
+    {
+      T<FeatureWithRankAndCenter> t;
+      return t(id, value, forward<TArgs>(args)...);
+    }
+    if (mwmTraits.GetSearchIndexFormat() ==
+        version::MwmTraits::SearchIndexFormat::CompressedBitVector)
+    {
+      T<FeatureIndexValue> t;
+      return t(id, value, forward<TArgs>(args)...);
+    }
+    return unique_ptr<coding::CompressedBitVector>();
+  }
+};
 }  // namespace
 
-namespace v2
-{
 unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
     MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
     SearchQueryParams const & params)
 {
-  version::MwmTraits mwmTraits(value.GetMwmVersion().GetFormat());
+  Selector<RetrieveAddressFeaturesAdaptor> selector;
+  return selector(id, value, cancellable, params);
+}
 
-  if (mwmTraits.GetSearchIndexFormat() ==
-      version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
-  {
-    using TValue = FeatureWithRankAndCenter;
-    return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);
-  }
-  else if (mwmTraits.GetSearchIndexFormat() ==
-           version::MwmTraits::SearchIndexFormat::CompressedBitVector)
-  {
-    using TValue = FeatureIndexValue;
-    return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);
-  }
-  return unique_ptr<coding::CompressedBitVector>();
+unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(
+    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    TokenSlice const & slice)
+{
+  Selector<RetrievePostcodeFeaturesAdaptor> selector;
+  return selector(id, value, cancellable, slice);
 }
 
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(

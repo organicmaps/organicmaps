@@ -54,6 +54,7 @@ HEADERS += \
     v2/locality_scorer.hpp \
     v2/mwm_context.hpp \
     v2/nested_rects_cache.hpp \
+    v2/postcodes_matcher.hpp \
     v2/pre_ranking_info.hpp \
     v2/rank_table_cache.hpp \
     v2/ranking_info.hpp \
@@ -62,6 +63,7 @@ HEADERS += \
     v2/search_query_v2.hpp \
     v2/stats_cache.hpp \
     v2/street_vicinity_loader.hpp \
+    v2/token_slice.hpp \
 
 SOURCES += \
     approximate_string_match.cpp \
@@ -99,6 +101,7 @@ SOURCES += \
     v2/locality_scorer.cpp \
     v2/mwm_context.cpp \
     v2/nested_rects_cache.cpp \
+    v2/postcodes_matcher.cpp \
     v2/pre_ranking_info.cpp \
     v2/rank_table_cache.cpp \
     v2/ranking_info.cpp \
@@ -106,3 +109,4 @@ SOURCES += \
     v2/search_model.cpp \
     v2/search_query_v2.cpp \
     v2/street_vicinity_loader.cpp \
+    v2/token_slice.cpp \

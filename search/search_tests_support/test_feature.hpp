@@ -19,6 +19,7 @@ public:
 
   bool Matches(FeatureType const & feature) const;
   inline void SetPostcode(string const & postcode) { m_postcode = postcode; }
+  inline uint64_t GetId() const { return m_id; }
   inline string const & GetName() const { return m_name; }
 
   virtual void Serialize(FeatureBuilder1 & fb) const;

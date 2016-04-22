@@ -1,5 +1,7 @@
 #include "search/v2/locality_scorer.hpp"
 
+#include "search/v2/token_slice.hpp"
+
 #include "std/algorithm.hpp"
 
 namespace search
@@ -99,8 +101,8 @@ void LocalityScorer::SortByName(vector<ExLocality> & ls) const
     auto score = NAME_SCORE_ZERO;
     for (auto const & name : names)
     {
-      score = max(score, GetNameScore(name, v2::TokensSlice(m_params, l.m_locality.m_startToken,
-                                                            l.m_locality.m_endToken)));
+      score = max(score, GetNameScore(name, v2::TokenSlice(m_params, l.m_locality.m_startToken,
+                                                           l.m_locality.m_endToken)));
     }
     l.m_nameScore = score;
   }

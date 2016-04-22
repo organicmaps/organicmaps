@@ -1,10 +1,15 @@
 #include "testing/testing.hpp"
 
+#include "search/retrieval.hpp"
 #include "search/search_integration_tests/helpers.hpp"
 #include "search/search_tests_support/test_feature.hpp"
 #include "search/search_tests_support/test_mwm_builder.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
+#include "search/v2/token_slice.hpp"
+
+#include "indexer/feature.hpp"
+#include "indexer/index.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -77,39 +82,38 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
   TestPOI lantern1(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
   TestPOI lantern2(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
 
-  BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
-           {
-             builder.Add(wonderlandCountry);
-             builder.Add(losAlamosCity);
-             builder.Add(mskCity);
-           });
-  auto wonderlandId =
-      BuildMwm(countryName, feature::DataHeader::country, [&](TestMwmBuilder & builder)
-               {
-                 builder.Add(losAlamosCity);
-                 builder.Add(mskCity);
-                 builder.Add(longPondVillage);
+  BuildWorld([&](TestMwmBuilder & builder)
+             {
+               builder.Add(wonderlandCountry);
+               builder.Add(losAlamosCity);
+               builder.Add(mskCity);
+             });
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+                                   {
+                                     builder.Add(losAlamosCity);
+                                     builder.Add(mskCity);
+                                     builder.Add(longPondVillage);
 
-                 builder.Add(feynmanStreet);
-                 builder.Add(bohrStreet1);
-                 builder.Add(bohrStreet2);
-                 builder.Add(bohrStreet3);
-                 builder.Add(firstAprilStreet);
+                                     builder.Add(feynmanStreet);
+                                     builder.Add(bohrStreet1);
+                                     builder.Add(bohrStreet2);
+                                     builder.Add(bohrStreet3);
+                                     builder.Add(firstAprilStreet);
 
-                 builder.Add(feynmanHouse);
-                 builder.Add(bohrHouse);
-                 builder.Add(hilbertHouse);
-                 builder.Add(descartesHouse);
-                 builder.Add(bornHouse);
+                                     builder.Add(feynmanHouse);
+                                     builder.Add(bohrHouse);
+                                     builder.Add(hilbertHouse);
+                                     builder.Add(descartesHouse);
+                                     builder.Add(bornHouse);
 
-                 builder.Add(busStop);
-                 builder.Add(tramStop);
-                 builder.Add(quantumTeleport1);
-                 builder.Add(quantumTeleport2);
-                 builder.Add(quantumCafe);
-                 builder.Add(lantern1);
-                 builder.Add(lantern2);
-               });
+                                     builder.Add(busStop);
+                                     builder.Add(tramStop);
+                                     builder.Add(quantumTeleport1);
+                                     builder.Add(quantumTeleport2);
+                                     builder.Add(quantumCafe);
+                                     builder.Add(lantern1);
+                                     builder.Add(lantern2);
+                                   });
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
   {
@@ -182,11 +186,11 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
   TestCountry wonderland(m2::PointD(0, 0), countryName, "en");
   TestCity losAlamos(m2::PointD(0, 0), "Los Alamos", "en", 100 /* rank */);
 
-  auto testWorldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
-                              {
-                                builder.Add(wonderland);
-                                builder.Add(losAlamos);
-                              });
+  auto testWorldId = BuildWorld([&](TestMwmBuilder & builder)
+                                {
+                                  builder.Add(wonderland);
+                                  builder.Add(losAlamos);
+                                });
   RegisterCountry(countryName, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.5, -0.5)));
@@ -213,16 +217,15 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
                     "Hyde Park", "en");
   TestPOI cafe(m2::PointD(1.0, 1.0), "London Cafe", "en");
 
-  auto worldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
-                          {
-                            builder.Add(london);
-                          });
-  auto wonderlandId =
-      BuildMwm(countryName, feature::DataHeader::country, [&](TestMwmBuilder & builder)
-               {
-                 builder.Add(hydePark);
-                 builder.Add(cafe);
-               });
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder)
+                            {
+                              builder.Add(london);
+                            });
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+                                   {
+                                     builder.Add(hydePark);
+                                     builder.Add(cafe);
+                                   });
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.9, -0.9)));
   {
@@ -248,11 +251,11 @@ UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
   TestCity london1(m2::PointD(1, 1), "London", "en", 100 /* rank */);
   TestCity london2(m2::PointD(-1, -1), "London", "en", 100 /* rank */);
 
-  auto worldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
-                          {
-                            builder.Add(london1);
-                            builder.Add(london2);
-                          });
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder)
+                            {
+                              builder.Add(london1);
+                              builder.Add(london2);
+                            });
 
   SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
   {
@@ -299,21 +302,20 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
   TestPOI cafe2(m2::PointD(-0.99, -0.99), "", "en");
   cafe2.SetTypes({{"amenity", "cafe"}});
 
-
-  auto worldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
-                          {
-                            builder.Add(sanFrancisco);
-                            builder.Add(lermontovo);
-                          });
-  auto wonderlandId = BuildMwm(countryName, feature::DataHeader::country, [&](TestMwmBuilder & builder)
-                               {
-                                 builder.Add(cafe1);
-                                 builder.Add(cafe2);
-                                 builder.Add(goldenGateBridge);
-                                 builder.Add(goldenGateStreet);
-                                 builder.Add(lermontov);
-                                 builder.Add(waterfall);
-                               });
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder)
+                            {
+                              builder.Add(sanFrancisco);
+                              builder.Add(lermontovo);
+                            });
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+                                   {
+                                     builder.Add(cafe1);
+                                     builder.Add(cafe2);
+                                     builder.Add(goldenGateBridge);
+                                     builder.Add(goldenGateStreet);
+                                     builder.Add(lermontov);
+                                     builder.Add(waterfall);
+                                   });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
   {
@@ -358,6 +360,66 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
     TRules rules{ExactMatch(wonderlandId, waterfall)};
     TEST(ResultsMatch("waterfall", rules), ());
   }
+}
+
+UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
+{
+  string const countryName = "Russia";
+
+  TestCity city(m2::PointD(0, 0), "Долгопрудный", "ru", 100 /* rank */);
+  TestStreet street(
+      vector<m2::PointD>{m2::PointD(-0.5, 0.0), m2::PointD(0, 0), m2::PointD(0.5, 0.0)},
+      "Первомайская", "ru");
+  TestBuilding building(m2::PointD(0.0, 0.00001), "", "28 а", street, "ru");
+  building.SetPostcode("141701");
+
+  BuildWorld([&](TestMwmBuilder & builder)
+             {
+               builder.Add(city);
+             });
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+                                {
+                                  builder.Add(street);
+                                  builder.Add(building);
+                                });
+
+  // Tests that postcode is added to the search index.
+  {
+    auto handle = m_engine.GetMwmHandleById(countryId);
+    TEST(handle.IsAlive(), ());
+    my::Cancellable cancellable;
+
+    SearchQueryParams params;
+    params.m_tokens.emplace_back();
+    params.m_tokens.back().push_back(PostcodeToString(strings::MakeUniString("141701")));
+    auto * value = handle.GetValue<MwmValue>();
+    auto features = v2::RetrievePostcodeFeatures(countryId, *value, cancellable,
+                                                 TokenSlice(params, 0, params.m_tokens.size()));
+    TEST_EQUAL(1, features->PopCount(), ());
+
+    uint64_t index = 0;
+    while (!features->GetBit(index))
+      ++index;
+
+    Index::FeaturesLoaderGuard loader(m_engine, countryId);
+    FeatureType ft;
+    loader.GetFeatureByIndex(index, ft);
+
+    auto rule = ExactMatch(countryId, building);
+    TEST(rule->Matches(ft), ());
+  }
+  {
+    TRules rules{ExactMatch(countryId, building)};
+    TEST(ResultsMatch("Долгопрудный первомайская 28а", "ru" /* locale */, rules), ());
+  }
+
+  // TODO (@y): uncomment this test and add more tests when postcodes
+  // search will be implemented.
+  //
+  // {
+  //   TRules rules{ExactMatch(countryId, building)};
+  //   TEST(ResultsMatch("Долгопрудный первомайская 28а, 141701", "ru" /* locale */, rules), ());
+  // }
 }
 }  // namespace
 }  // namespace search

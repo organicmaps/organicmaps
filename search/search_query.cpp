@@ -12,6 +12,7 @@
 #include "search/v2/pre_ranking_info.hpp"
 #include "search/v2/ranking_info.hpp"
 #include "search/v2/ranking_utils.hpp"
+#include "search/v2/token_slice.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/index.hpp"
@@ -464,10 +465,8 @@ void Query::SetQuery(string const & query)
   search::Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
 
-  bool checkPrefix = true;
-
   // Assign prefix with last parsed token.
-  if (checkPrefix && !m_tokens.empty() && !delims(strings::LastUniChar(query)))
+  if (!m_tokens.empty() && !delims(strings::LastUniChar(query)))
   {
     m_prefix.swap(m_tokens.back());
     m_tokens.pop_back();
@@ -623,7 +622,7 @@ class PreResult2Maker
 
     info.m_nameScore = v2::NAME_SCORE_ZERO;
 
-    v2::TokensSliceNoCategories slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
+    v2::TokenSliceNoCategories slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
 
     for (auto const & lang : m_params.m_langs)
     {
