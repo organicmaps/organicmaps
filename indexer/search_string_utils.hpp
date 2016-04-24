@@ -17,6 +17,12 @@ void SplitUniString(strings::UniString const & uniS, F f, DelimsT const & delims
     f(iter.GetUniString());
 }
 
+template <typename TCont, typename TDelims>
+void NormalizeAndTokenizeString(string const & s, TCont & tokens, TDelims const & delims)
+{
+  SplitUniString(NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens), delims);
+}
+
 strings::UniString FeatureTypeToString(uint32_t type);
 
 strings::UniString PostcodeToString(strings::UniString const & postcode);
