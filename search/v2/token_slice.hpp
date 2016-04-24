@@ -26,11 +26,13 @@ public:
 
   inline bool Empty() const { return Size() == 0; }
 
-  inline bool IsPrefix(size_t i) const
-  {
-    ASSERT_LESS(i, Size(), ());
-    return m_offset + i == m_params.m_tokens.size();
-  }
+  // Returns true if the |i|-th token in the slice is the incomplete
+  // (prefix) token.
+  bool IsPrefix(size_t i) const;
+
+  // Returns true if the |i|-th token in the slice is the last
+  // (regardless - full or not) token in the query.
+  bool IsLast(size_t i) const;
 
 private:
   SearchQueryParams const & m_params;
