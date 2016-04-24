@@ -19,6 +19,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "coding/compressed_bit_vector.hpp"
+
 #include "base/cancellable.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -61,6 +63,7 @@ public:
 
   FeaturesLayerMatcher(Index & index, my::Cancellable const & cancellable);
   void SetContext(MwmContext * context);
+  void SetPostcodes(coding::CompressedBitVector const * postcodes);
 
   template <typename TFn>
   void Match(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
@@ -164,6 +167,8 @@ private:
             MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i], kBuildingRadiusMeters),
             [&](FeatureType & ft)
             {
+              if (m_postcodes && !m_postcodes->GetBit(ft.GetID().m_index))
+                return;
               if (HouseNumbersMatch(strings::MakeUniString(ft.GetHouseNumber()), queryParses))
               {
                 double const distanceM = MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i]);
@@ -247,6 +252,9 @@ private:
 
       if (binary_search(buildings.begin(), buildings.end(), id))
         return true;
+
+      if (m_postcodes && !m_postcodes->GetBit(id))
+        return false;
 
       // HouseNumbersMatch() calls are expensive, so following code
       // tries to reduce the number of calls. The most important
@@ -343,6 +351,8 @@ private:
   }
 
   MwmContext * m_context;
+
+  coding::CompressedBitVector const * m_postcodes;
 
   ReverseGeocoder m_reverseGeocoder;
 

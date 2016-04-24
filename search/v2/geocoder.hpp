@@ -53,6 +53,7 @@ namespace v2
 class FeaturesFilter;
 class FeaturesLayerMatcher;
 class SearchModel;
+class TokenSlice;
 
 // This class is used to retrieve all features corresponding to a
 // search query.  Search query is represented as a sequence of tokens
@@ -165,6 +166,22 @@ private:
     RECT_ID_COUNT
   };
 
+  struct Postcodes
+  {
+    void Clear()
+    {
+      m_startToken = 0;
+      m_endToken = 0;
+      m_features.reset();
+    }
+
+    inline bool IsEmpty() const { return coding::CompressedBitVector::IsEmpty(m_features); }
+
+    size_t m_startToken = 0;
+    size_t m_endToken = 0;
+    unique_ptr<coding::CompressedBitVector> m_features;
+  };
+
   void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename TLocality>
@@ -179,6 +196,9 @@ private:
   // Creates a cache of posting lists corresponding to features in m_context
   // for each token and saves it to m_addressFeatures.
   void PrepareAddressFeatures();
+
+  void InitLayer(SearchModel::SearchType type, size_t startToken, size_t endToken,
+                 FeaturesLayer & layer);
 
   void FillLocalityCandidates(coding::CompressedBitVector const * filter,
                               size_t const maxNumLocalities, vector<Locality> & preLocalities);
@@ -214,6 +234,9 @@ private:
   // about high-level features, like cities or countries, is
   // incorporated into |filter|.
   void LimitedSearch(FeaturesFilter const & filter);
+
+  template<typename TFn>
+  void WithPostcodes(TFn && fn);
 
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in street vicinities.
@@ -257,7 +280,11 @@ private:
 
   unique_ptr<coding::CompressedBitVector> LoadVillages(MwmContext & context);
 
-  /// A caching wrapper around Retrieval::RetrieveGeometryFeatures.
+  // A wrapper around RetrievePostcodeFeatures.
+  unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(MwmContext const & context,
+                                                                   TokenSlice const & slice);
+
+  // A caching wrapper around Retrieval::RetrieveGeometryFeatures.
   coding::CompressedBitVector const * RetrieveGeometryFeatures(MwmContext const & context,
                                                                m2::RectD const & rect, RectId id);
 
@@ -328,6 +355,9 @@ private:
 
   // Village features in the mwm that is currently being processed.
   unique_ptr<coding::CompressedBitVector> m_villages;
+
+  // Postcodes features in the mwm that is currently being processed.
+  Postcodes m_postcodes;
 
   // This vector is used to indicate what tokens were matched by
   // locality and can't be re-used during the geocoding process.
