@@ -45,6 +45,8 @@ private:
   Name2CatContT m_name2type;
 
 public:
+  static size_t const kNumLanguages;
+
   explicit CategoriesHolder(unique_ptr<Reader> && reader);
   void LoadFromStream(istream & s);
 
@@ -56,11 +58,28 @@ public:
   }
 
   template <class ToDo>
+  void ForEachTypeAndCategory(ToDo && toDo) const
+  {
+    for (IteratorT i = m_type2cat.begin(); i != m_type2cat.end(); ++i)
+      toDo(i->first, *i->second);
+  }
+
+  template <class ToDo>
   void ForEachName(ToDo && toDo) const
   {
     for (IteratorT i = m_type2cat.begin(); i != m_type2cat.end(); ++i)
       for (size_t j = 0; j < i->second->m_synonyms.size(); ++j)
         toDo(i->second->m_synonyms[j]);
+  }
+
+  template <class ToDo>
+  void ForEachNameByType(uint32_t type, ToDo && toDo) const
+  {
+    auto it = m_type2cat.find(type);
+    if (it == m_type2cat.end())
+      return;
+    for (auto const & name : it->second->m_synonyms)
+      toDo(name);
   }
 
   template <class ToDo>

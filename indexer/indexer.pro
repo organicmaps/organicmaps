@@ -12,10 +12,11 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
     categories_holder.cpp \
     categories_holder_loader.cpp \
+    categories_index.cpp \
     classificator.cpp \
     classificator_loader.cpp \
-    cuisines.cpp \
     coding_params.cpp \
+    cuisines.cpp \
     data_factory.cpp \
     data_header.cpp \
     drawing_rule_def.cpp \
@@ -57,6 +58,7 @@ SOURCES += \
 
 HEADERS += \
     categories_holder.hpp \
+    categories_index.hpp \
     cell_coverer.hpp \
     cell_id.hpp \
     classificator.hpp \
@@ -117,6 +119,7 @@ HEADERS += \
     trie_reader.hpp \
     types_mapping.hpp \
     unique_index.hpp \
+
 
 OTHER_FILES += drules_struct.proto
 

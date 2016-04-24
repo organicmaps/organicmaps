@@ -21,6 +21,8 @@ enum State
 
 }  // unnamed namespace
 
+// static
+size_t const CategoriesHolder::kNumLanguages = 30;
 
 CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
 {
@@ -275,7 +277,8 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     {"he", 29 },
     {"sw", 30 }
   };
-  for (size_t i = 0; i < ARRAY_SIZE(mapping); ++i)
+  ASSERT_EQUAL(ARRAY_SIZE(mapping), kNumLanguages, ());
+  for (size_t i = 0; i < kNumLanguages; ++i)
     if (locale.find(mapping[i].m_name) == 0)
       return mapping[i].m_code;
 
