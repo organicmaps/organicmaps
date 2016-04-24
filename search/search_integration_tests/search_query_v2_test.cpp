@@ -366,7 +366,9 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
 {
   string const countryName = "Russia";
 
-  TestCity city(m2::PointD(0, 0), "Долгопрудный", "ru", 100 /* rank */);
+  TestCity dolgoprudny(m2::PointD(0, 0), "Долгопрудный", "ru", 100 /* rank */);
+  TestCity london(m2::PointD(10, 10), "London", "en", 100 /* rank */);
+
   TestStreet street(
       vector<m2::PointD>{m2::PointD(-0.5, 0.0), m2::PointD(0, 0), m2::PointD(0.5, 0.0)},
       "Первомайская", "ru");
@@ -379,9 +381,13 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
   TestBuilding building30(m2::PointD(0.00001, 0.00001), "", "30", street, "ru");
   building30.SetPostcode("141702");
 
+  TestBuilding building1(m2::PointD(10, 10), "", "1", "en");
+  building1.SetPostcode("WC2H 7BX");
+
   BuildWorld([&](TestMwmBuilder & builder)
              {
-               builder.Add(city);
+               builder.Add(dolgoprudny);
+               builder.Add(london);
              });
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
                                 {
@@ -389,6 +395,8 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
                                   builder.Add(building28);
                                   builder.Add(building29);
                                   builder.Add(building30);
+
+                                  builder.Add(building1);
                                 });
 
   // Tests that postcode is added to the search index.
@@ -437,6 +445,15 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
   {
     TRules rules{ExactMatch(countryId, building30)};
     TEST(ResultsMatch("Долгопрудный 141702", "ru", rules), ());
+  }
+
+  {
+    string const kQueries[] = {"london WC2H 7BX", "london WC2H 7", "london WC2H ", "london WC"};
+    for (auto const & query : kQueries)
+    {
+      TRules rules{ExactMatch(countryId, building1)};
+      TEST(ResultsMatch(query, rules), (query));
+    }
   }
 }
 }  // namespace

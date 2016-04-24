@@ -1018,19 +1018,16 @@ void Geocoder::WithPostcodes(TFn && fn)
 
   for (size_t startToken = 0; startToken != m_numTokens; ++startToken)
   {
-    if (m_usedTokens[startToken])
-      continue;
-
     size_t endToken = startToken;
-    for (; endToken < m_numTokens && endToken - startToken < maxPostcodeTokens &&
-               !m_usedTokens[endToken];
-         ++endToken)
+    for (size_t n = 1; startToken + n <= m_numTokens && n <= maxPostcodeTokens; ++n)
     {
-      TokenSlice slice(m_params, startToken, endToken + 1);
-      if (!LooksLikePostcode(slice))
+      if (m_usedTokens[startToken + n - 1])
         break;
-    }
 
+      TokenSlice slice(m_params, startToken, startToken + n);
+      if (LooksLikePostcode(slice))
+        endToken = startToken + n;
+    }
     if (startToken == endToken)
       continue;
 

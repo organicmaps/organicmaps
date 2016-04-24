@@ -109,6 +109,9 @@ public:
   // Complexity: O(total length of tokens in |slice|).
   bool HasString(TokenSlice const & slice) const
   {
+    if (slice.Size() == 0)
+      return m_root.m_isLeaf;
+
     Node const * cur = &m_root;
     for (size_t i = 0; i < slice.Size() && cur; ++i)
     {
@@ -122,7 +125,11 @@ public:
     if (!cur)
       return false;
 
-    if (slice.Size() > 0 && slice.IsPrefix(slice.Size() - 1))
+    if (slice.IsPrefix(slice.Size() - 1))
+      return true;
+
+    // Last token may be not a prefix, but just a part of a multi-token postcode.
+    if (slice.IsLast(slice.Size() - 1) && cur->Move(' ') != nullptr)
       return true;
 
     return cur->m_isLeaf;
