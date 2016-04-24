@@ -80,13 +80,13 @@ public:
   template <typename TFn>
   void ForEachModifiedOrCreated(TFn && fn)
   {
-    ReadFeatures(m_modified, fn);
-    ReadFeatures(m_created, fn);
+    ForEach(m_modified, fn);
+    ForEach(m_created, fn);
   }
 
 private:
   template <typename TFn>
-  void ReadFeatures(vector<uint32_t> const & features, TFn & fn)
+  void ForEach(vector<uint32_t> const & features, TFn & fn)
   {
     auto & editor = Editor::Instance();
     for (auto const index : features)
