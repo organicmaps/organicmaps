@@ -109,7 +109,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
   vector<uint32_t> reachable = *(layers.back()->m_sortedFeatures);
   vector<uint32_t> buffer;
 
-  TParentGraph parent(layers.size() - 1);
+  TParentGraph parent;
 
   auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
   {
@@ -156,7 +156,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
   vector<uint32_t> reachable = *(layers.front()->m_sortedFeatures);
   vector<uint32_t> buffer;
 
-  TParentGraph parent(layers.size() - 1);
+  TParentGraph parent;
 
   auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
   {

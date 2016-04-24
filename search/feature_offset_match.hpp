@@ -242,7 +242,7 @@ public:
       toDo(value);
   }
 };
-}  // impl
+}  // namespace impl
 
 template <typename TValue>
 struct TrieRootPrefix

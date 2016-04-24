@@ -18,6 +18,7 @@ int constexpr kMaxApproxStreetDistanceM = 100;
 
 FeaturesLayerMatcher::FeaturesLayerMatcher(Index & index, my::Cancellable const & cancellable)
   : m_context(nullptr)
+  , m_postcodes(nullptr)
   , m_reverseGeocoder(index)
   , m_nearbyStreetsCache("FeatureToNearbyStreets")
   , m_matchingStreetsCache("BuildingToStreet")
@@ -34,6 +35,11 @@ void FeaturesLayerMatcher::SetContext(MwmContext * context)
 
   m_context = context;
   m_loader.SetContext(context);
+}
+
+void FeaturesLayerMatcher::SetPostcodes(coding::CompressedBitVector const * postcodes)
+{
+  m_postcodes = postcodes;
 }
 
 void FeaturesLayerMatcher::OnQueryFinished()

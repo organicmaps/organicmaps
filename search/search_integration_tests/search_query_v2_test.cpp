@@ -370,8 +370,14 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
   TestStreet street(
       vector<m2::PointD>{m2::PointD(-0.5, 0.0), m2::PointD(0, 0), m2::PointD(0.5, 0.0)},
       "Первомайская", "ru");
-  TestBuilding building(m2::PointD(0.0, 0.00001), "", "28 а", street, "ru");
-  building.SetPostcode("141701");
+  TestBuilding building28(m2::PointD(0.0, 0.00001), "", "28а", street, "ru");
+  building28.SetPostcode("141701");
+
+  TestBuilding building29(m2::PointD(0.0, -0.00001), "", "29", street, "ru");
+  building29.SetPostcode("141701");
+
+  TestBuilding building30(m2::PointD(0.00001, 0.00001), "", "30", street, "ru");
+  building30.SetPostcode("141702");
 
   BuildWorld([&](TestMwmBuilder & builder)
              {
@@ -380,7 +386,9 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
                                 {
                                   builder.Add(street);
-                                  builder.Add(building);
+                                  builder.Add(building28);
+                                  builder.Add(building29);
+                                  builder.Add(building30);
                                 });
 
   // Tests that postcode is added to the search index.
@@ -391,7 +399,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
 
     SearchQueryParams params;
     params.m_tokens.emplace_back();
-    params.m_tokens.back().push_back(PostcodeToString(strings::MakeUniString("141701")));
+    params.m_tokens.back().push_back(PostcodeToString(strings::MakeUniString("141702")));
     auto * value = handle.GetValue<MwmValue>();
     auto features = v2::RetrievePostcodeFeatures(countryId, *value, cancellable,
                                                  TokenSlice(params, 0, params.m_tokens.size()));
@@ -405,21 +413,31 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
     FeatureType ft;
     loader.GetFeatureByIndex(index, ft);
 
-    auto rule = ExactMatch(countryId, building);
+    auto rule = ExactMatch(countryId, building30);
     TEST(rule->Matches(ft), ());
   }
-  {
-    TRules rules{ExactMatch(countryId, building)};
-    TEST(ResultsMatch("Долгопрудный первомайская 28а", "ru" /* locale */, rules), ());
-  }
 
-  // TODO (@y): uncomment this test and add more tests when postcodes
-  // search will be implemented.
-  //
-  // {
-  //   TRules rules{ExactMatch(countryId, building)};
-  //   TEST(ResultsMatch("Долгопрудный первомайская 28а, 141701", "ru" /* locale */, rules), ());
-  // }
+  {
+    TRules rules{ExactMatch(countryId, building28)};
+    TEST(ResultsMatch("Долгопрудный первомайская 28а", "ru", rules), ());
+  }
+  {
+    TRules rules{ExactMatch(countryId, building28)};
+    TEST(ResultsMatch("Долгопрудный первомайская 28а, 141701", "ru", rules), ());
+  }
+  {
+    TRules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29)};
+    TEST(ResultsMatch("Долгопрудный первомайская 141701", "ru", rules), ());
+
+  }
+  {
+    TRules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29)};
+    TEST(ResultsMatch("Долгопрудный 141701", "ru", rules), ());
+  }
+  {
+    TRules rules{ExactMatch(countryId, building30)};
+    TEST(ResultsMatch("Долгопрудный 141702", "ru", rules), ());
+  }
 }
 }  // namespace
 }  // namespace search
