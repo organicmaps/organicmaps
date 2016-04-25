@@ -89,7 +89,7 @@ void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCou
     resultCountries.insert(country.GetCountryId());
 }
 
-MapFilesDownloader::TProgress Storage::GetOverallProgress(TCountriesVec const & countries)
+MapFilesDownloader::TProgress Storage::GetOverallProgress(TCountriesVec const & countries) const 
 {
   MapFilesDownloader::TProgress overallProgress = {0, 0};
   for (auto const & country : countries)
@@ -1130,6 +1130,16 @@ uint64_t Storage::GetDownloadSize(QueuedCountry const & queuedCountry) const
 string Storage::GetFileDownloadPath(TCountryId const & countryId, MapOptions file) const
 {
   return platform::GetFileDownloadPath(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId), file);
+}
+
+bool Storage::CheckFailedCountries(TCountriesVec const & countries) const
+{
+  for (auto const & country : countries)
+  {
+    if (m_failedCountries.count(country))
+      return true;
+  }
+  return false;
 }
 
 TCountryId const Storage::GetRootId() const
