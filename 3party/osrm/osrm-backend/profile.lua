@@ -125,6 +125,10 @@ maxspeed_table = {
   ["uk:nsl_single"] = (60*1609)/1000,
   ["uk:nsl_dual"] = (70*1609)/1000,
   ["uk:motorway"] = (70*1609)/1000,
+  ["nl:rural"] = 80,
+  ["nl:trunk"] = 100,
+  ["nl:motorway"] = 130,
+  ["none"] = 140
   ["none"] = 140
 }
 
