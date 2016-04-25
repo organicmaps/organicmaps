@@ -387,14 +387,15 @@ public class RoutingController
     ThemeSwitcher.restart();
 
     Framework.nativeFollowRoute();
+    LocationHelper.INSTANCE.restart();
   }
 
   private void suggestRebuildRoute()
   {
     final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.getActivity())
-                                            .setMessage(R.string.p2p_reroute_from_current)
-                                            .setCancelable(false)
-                                            .setNegativeButton(R.string.cancel, null);
+                                                       .setMessage(R.string.p2p_reroute_from_current)
+                                                       .setCancelable(false)
+                                                       .setNegativeButton(R.string.cancel, null);
 
     TextView titleView = (TextView)View.inflate(mContainer.getActivity(), R.layout.dialog_suggest_reroute_title, null);
     titleView.setText(R.string.p2p_only_from_current);
@@ -467,6 +468,7 @@ public class RoutingController
 
     ThemeSwitcher.restart();
     Framework.nativeCloseRouting();
+    LocationHelper.INSTANCE.restart();
   }
 
   public boolean cancel()

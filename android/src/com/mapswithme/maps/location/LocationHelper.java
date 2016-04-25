@@ -14,16 +14,18 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.List;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.concurrency.UiThread;
@@ -41,6 +43,12 @@ public enum LocationHelper implements SensorEventListener
   public static final int ERROR_DENIED = 2;
   public static final int ERROR_GPS_OFF = 3;
   public static final int ERROR_UNKNOWN = 0;
+
+  private static final long INTERVAL_IN_POSITION_MS = 3000;
+  private static final long INTERVAL_FOLLOWING_MS = 3000;
+  private static final long INTERVAL_NOT_POSITION_MS = 10000;
+  private static final long INTERVAL_NAVIGATION_VEHICLE_MS = 500;
+  private static final long INTERVAL_NAVIGATION_PEDESTRIAN_MS = 3000;
 
   public static final String LOCATION_PREDICTOR_PROVIDER = "LocationPredictorProvider";
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
@@ -79,6 +87,9 @@ public enum LocationHelper implements SensorEventListener
   private GeomagneticField mMagneticField;
   private BaseLocationProvider mLocationProvider;
 
+  private long mInterval;
+  private boolean mHighAccuracy;
+
   private float[] mGravity;
   private float[] mGeomagnetic;
   private final float[] mR = new float[9];
@@ -110,15 +121,6 @@ public enum LocationHelper implements SensorEventListener
       mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
       mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
-
-    MwmApplication.backgroundTracker().addListener(new AppBackgroundTracker.OnTransitionListener()
-    {
-      @Override
-      public void onTransit(boolean foreground)
-      {
-        setForegroundMode();
-      }
-    });
   }
 
   @SuppressWarnings("deprecation")
@@ -163,7 +165,7 @@ public enum LocationHelper implements SensorEventListener
 
     mActive = !mListeners.isEmpty();
     if (mActive)
-      mLocationProvider.startUpdates();
+      start();
   }
 
   @Nullable
@@ -231,10 +233,7 @@ public enum LocationHelper implements SensorEventListener
     UiThread.cancelDelayedTasks(mStopLocationTask);
 
     if (mListeners.isEmpty())
-    {
-      mActive = true;
-      mLocationProvider.startUpdates();
-    }
+      start();
 
     mListeners.register(listener);
 
@@ -320,18 +319,67 @@ public enum LocationHelper implements SensorEventListener
       if (mMagneticField == null || mSavedLocation == null ||
           newLocation.distanceTo(mSavedLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M)
         mMagneticField = new GeomagneticField((float) newLocation.getLatitude(), (float) newLocation.getLongitude(),
-            (float) newLocation.getAltitude(), newLocation.getTime());
+                                              (float) newLocation.getAltitude(), newLocation.getTime());
     }
   }
 
-  private void setForegroundMode()
+  private void calcParams()
   {
-    if (!mActive)
+    mHighAccuracy = true;
+    if (RoutingController.get().isNavigating())
+    {
+      mInterval = (Framework.nativeGetRouter() == Framework.ROUTER_TYPE_VEHICLE ? INTERVAL_NAVIGATION_VEHICLE_MS
+                                                                                : INTERVAL_NAVIGATION_PEDESTRIAN_MS);
       return;
+    }
+
+    int mode = LocationState.INSTANCE.getLocationStateMode();
+    switch (mode)
+    {
+    default:
+    case LocationState.NOT_FOLLOW:
+      mHighAccuracy = false;
+      mInterval = INTERVAL_NOT_POSITION_MS;
+      break;
+
+    case LocationState.FOLLOW:
+      mInterval = INTERVAL_FOLLOWING_MS;
+      break;
+
+    case LocationState.FOLLOW_AND_ROTATE:
+      mInterval = INTERVAL_IN_POSITION_MS;
+      break;
+    }
+  }
+
+  long getInterval()
+  {
+    return mInterval;
+  }
+
+  boolean isHighAccuracy()
+  {
+    return mHighAccuracy;
+  }
+
+  public void restart()
+  {
+    Log.d("LOCATION", "restart");
 
     mLocationProvider.stopUpdates();
-    if (!mListeners.isEmpty())
-      mLocationProvider.startUpdates();
+
+    mActive &= !mListeners.isEmpty();
+    if (mActive)
+      start();
+  }
+
+  private void start()
+  {
+    mActive = true;
+    calcParams();
+
+    Log.d("LOCATION", "start. Params: " + mInterval + ", high: " + mHighAccuracy);
+    mLocationProvider.startUpdates();
   }
 
   public static void onLocationUpdated(@NonNull Location location)

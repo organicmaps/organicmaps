@@ -12,12 +12,12 @@ import java.util.List;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.LocationUtils;
 
-public class AndroidNativeProvider extends BaseLocationProvider
+class AndroidNativeProvider extends BaseLocationProvider
 {
   private final LocationManager mLocationManager;
   private boolean mIsActive;
 
-  public AndroidNativeProvider()
+  AndroidNativeProvider()
   {
     mLocationManager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
   }
@@ -36,7 +36,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
     {
       mIsActive = true;
       for (final String provider : providers)
-        mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_MS, 0, this);
+        mLocationManager.requestLocationUpdates(provider, LocationHelper.INSTANCE.getInterval(), 0, this);
 
       LocationHelper.INSTANCE.registerSensorListeners();
 
