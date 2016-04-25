@@ -91,7 +91,8 @@ using namespace storage;
   auto const & s = GetFramework().Storage();
   if (![self.parentCountryId isEqualToString:@(s.GetRootId().c_str())])
     return;
-  if (self.mode == mwm::DownloaderMode::Available || s.HaveDownloadedCountries())
+  if (self.mode == mwm::DownloaderMode::Available || s.HaveDownloadedCountries() ||
+      self.dataSource == self.searchDataSource)
   {
     [self configAllMapsView];
     self.tableView.hidden = NO;
@@ -208,6 +209,14 @@ using namespace storage;
   self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId
                                                                                    delegate:self
                                                                                        mode:mode];
+}
+
+#pragma mark - Helpers
+
+- (void)reloadTable
+{
+  [super reloadTable];
+  [self checkAndConfigNoMapsView];
 }
 
 @end
