@@ -18,6 +18,7 @@ namespace
 
 @property (weak, nonatomic) IBOutlet UILabel * message;
 @property (weak, nonatomic) IBOutlet UIButton * shareButton;
+@property (nonatomic) int indexOfMessage;
 
 @end
 
@@ -26,15 +27,15 @@ namespace
 + (nonnull instancetype)alert
 {
   MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorViralAlert className] owner:nil options:nil] firstObject];
-  int const index = rand() % kMessages.size();
-  NSString * message = kMessages[index];
-  if (index == 1)
+  alert.indexOfMessage = rand() % kMessages.size();
+  NSString * message = kMessages[alert.indexOfMessage];
+  if (alert.indexOfMessage == 1)
   {
     int const ratingValue = (rand() % 1000) + 1000;
     message = [NSString stringWithFormat:message, ratingValue];
   }
   alert.message.text = message;
-  NSMutableDictionary <NSString *, NSString *> * info = [@{kStatValue : message} mutableCopy];
+  NSMutableDictionary <NSString *, NSString *> * info = [@{kStatValue : alert.statMessage} mutableCopy];
   if (NSString * un = osm_auth_ios::OSMUserName())
     [info setObject:un forKey:kStatOSMUserName];
 
@@ -44,7 +45,7 @@ namespace
 
 - (IBAction)shareTap
 {
-  [Statistics logEvent:kStatEditorSecondTimeShareClick withParameters:@{kStatValue : self.message.text}];
+  [Statistics logEvent:kStatEditorSecondTimeShareClick withParameters:@{kStatValue : self.statMessage}];
   MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForEditorViral];
   [self close];
   [shareVC presentInParentViewController:self.alertController.ownerViewController anchorView:self.shareButton];
@@ -53,6 +54,11 @@ namespace
 - (IBAction)cancelTap
 {
   [self close];
+}
+
+- (NSString *)statMessage
+{
+  return self.indexOfMessage ? @"change" : @"rating";
 }
 
 @end
