@@ -10,14 +10,66 @@
 #include "Framework.h"
 
 #include "map/gps_tracker.hpp"
+#include "routing/router.hpp"
+#include "platform/file_logging.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
-#include "base/math.hpp"
 
-#include "platform/file_logging.hpp"
+#include "base/math.hpp"
 
 static CLAuthorizationStatus const kRequestAuthStatus = kCLAuthorizationStatusAuthorizedAlways;
 static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlwaysRequestErrorDenied";
+
+namespace
+{
+enum class GeoMode
+{
+  InPosition,
+  NotInPosition,
+  FollowAndRotate,
+  VehicleRouting,
+  PedestrianRouting,
+  BicycleRouting
+};
+
+struct DesiredAccuracy
+{
+  CLLocationAccuracy charging;
+  CLLocationAccuracy battery;
+};
+
+struct GeoModeSettings
+{
+  CLLocationDistance distanceFilter;
+  DesiredAccuracy accuracy;
+};
+
+map<GeoMode, GeoModeSettings> const kGeoSettings{
+    {GeoMode::InPosition,
+     {.distanceFilter = 5,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
+                   .battery = kCLLocationAccuracyBest}}},
+    {GeoMode::NotInPosition,
+     {.distanceFilter = 15,
+      .accuracy = {.charging = kCLLocationAccuracyNearestTenMeters,
+                   .battery = kCLLocationAccuracyNearestTenMeters}}},
+    {GeoMode::FollowAndRotate,
+     {.distanceFilter = 5,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
+                   .battery = kCLLocationAccuracyBest}}},
+    {GeoMode::VehicleRouting,
+     {.distanceFilter = 10,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
+                   .battery = kCLLocationAccuracyBest}}},
+    {GeoMode::PedestrianRouting,
+     {.distanceFilter = 5,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
+                   .battery = kCLLocationAccuracyBest}}},
+    {GeoMode::BicycleRouting,
+     {.distanceFilter = 5,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
+                   .battery = kCLLocationAccuracyBest}}}};
+}  // namespace
 
 @interface LocationManager ()
 
@@ -29,19 +81,24 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 @property (nonatomic) NSMutableSet * observers;
 @property (nonatomic) NSDate * lastLocationTime;
 
+@property (nonatomic) GeoMode geoMode;
+
 @end
 
 @implementation LocationManager
 
 - (void)batteryStateChangedNotification:(NSNotification *)notification
 {
-  [self refreshAccuracy];
+  [self refreshGeoModeSettings];
 }
 
-- (void)refreshAccuracy
+- (void)refreshGeoModeSettings
 {
-  UIDeviceBatteryState state = [UIDevice currentDevice].batteryState;
-  self.locationManager.desiredAccuracy = (state == UIDeviceBatteryStateCharging) ? kCLLocationAccuracyBestForNavigation : kCLLocationAccuracyBest;
+  UIDeviceBatteryState const state = [UIDevice currentDevice].batteryState;
+  BOOL const isCharging = (state == UIDeviceBatteryStateCharging || state == UIDeviceBatteryStateFull);
+  GeoModeSettings const settings = kGeoSettings.at(self.geoMode);
+  self.locationManager.desiredAccuracy = isCharging ? settings.accuracy.charging : settings.accuracy.battery;
+  self.locationManager.distanceFilter = settings.distanceFilter;
 }
 
 - (void)dealloc
@@ -405,6 +462,45 @@ location::CompassInfo compasInfoFromHeading(CLHeading const * h)
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
+{
+  auto const & f = GetFramework();
+  if (f.IsRoutingActive())
+  {
+    switch (f.GetRouter())
+    {
+      case routing::RouterType::Vehicle:
+        self.geoMode = GeoMode::VehicleRouting;
+        break;
+      case routing::RouterType::Pedestrian:
+        self.geoMode = GeoMode::PedestrianRouting;
+        break;
+      case routing::RouterType::Bicycle:
+        self.geoMode = GeoMode::BicycleRouting;
+        break;
+    }
+  }
+  else
+  {
+    switch (mode)
+    {
+      case location::EMyPositionMode::PendingPosition:
+        break;
+      case location::EMyPositionMode::NotFollowNoPosition:
+      case location::EMyPositionMode::NotFollow:
+        self.geoMode = GeoMode::NotInPosition;
+        break;
+      case location::EMyPositionMode::Follow:
+        self.geoMode = GeoMode::InPosition;
+        break;
+      case location::EMyPositionMode::FollowAndRotate:
+        self.geoMode = GeoMode::FollowAndRotate;
+        break;
+    }
+  }
+  [self refreshGeoModeSettings];
+}
+
 #pragma mark - Properties
 
 - (CLLocationManager *)locationManager
@@ -415,7 +511,7 @@ location::CompassInfo compasInfoFromHeading(CLHeading const * h)
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     [UIDevice currentDevice].batteryMonitoringEnabled = YES;
-    [self refreshAccuracy];
+    [self refreshGeoModeSettings];
     if (!(isIOS7 || isIOS8))
       _locationManager.allowsBackgroundLocationUpdates = YES;
     _locationManager.pausesLocationUpdatesAutomatically = YES;
