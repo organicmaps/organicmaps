@@ -407,7 +407,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
 
     SearchQueryParams params;
     params.m_tokens.emplace_back();
-    params.m_tokens.back().push_back(PostcodeToString(strings::MakeUniString("141702")));
+    params.m_tokens.back().push_back(strings::MakeUniString("141702"));
     auto * value = handle.GetValue<MwmValue>();
     auto features = v2::RetrievePostcodeFeatures(countryId, *value, cancellable,
                                                  TokenSlice(params, 0, params.m_tokens.size()));

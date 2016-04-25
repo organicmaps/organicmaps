@@ -289,7 +289,7 @@ public:
       SplitUniString(NormalizeAndSimplifyString(postcode), MakeBackInsertFunctor(tokens),
                      Delimiters());
       for (auto const & token : tokens)
-        inserter.AddToken(kPostcodesLang, PostcodeToString(token));
+        inserter.AddToken(kPostcodesLang, token);
     }
 
     // Skip types for features without names.
