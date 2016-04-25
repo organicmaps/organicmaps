@@ -575,7 +575,7 @@ routing::VehicleModel::InitListT const g_pedestrianLimitsUK =
 };
 
 // USA
-routing::VehicleModel::InitListT const g_pedestrianLimitsUSA =
+routing::VehicleModel::InitListT const g_pedestrianLimitsUS =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -679,7 +679,7 @@ PedestrianModelFactory::PedestrianModelFactory()
   m_models["Turkey"] = make_shared<PedestrianModel>(g_pedestrianLimitsTurkey);
   m_models["Ukraine"] = make_shared<PedestrianModel>(g_pedestrianLimitsUkraine);
   m_models["UK"] = make_shared<PedestrianModel>(g_pedestrianLimitsUK);
-  m_models["USA"] = make_shared<PedestrianModel>(g_pedestrianLimitsUSA);
+  m_models["US"] = make_shared<PedestrianModel>(g_pedestrianLimitsUS);
 }
 
 shared_ptr<IVehicleModel> PedestrianModelFactory::GetVehicleModel() const
