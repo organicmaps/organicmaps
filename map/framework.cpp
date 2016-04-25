@@ -2743,7 +2743,8 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
 
   if (shouldNotify)
   {
-    editor.CreateNote(issueLatLon, emo.GetID(),
+    // TODO @mgsergio fill with correct NoteProblemType
+    editor.CreateNote(issueLatLon, emo.GetID(), osm::Editor::NoteProblemType::General,
                       "The address on this POI is different from the building address."
                       " It is either a user's mistake, or an issue in the data. Please"
                       " check this and fix if needed. (This note was created automatically"
