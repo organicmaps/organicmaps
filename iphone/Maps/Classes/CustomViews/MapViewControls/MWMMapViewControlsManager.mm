@@ -486,7 +486,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
 
   LocationManager * locMgr = [MapsAppDelegate theApp].locationManager;
-  if (!locMgr.lastLocationIsValid && self.routeSource.IsMyPosition())
+  if (!locMgr.lastLocation && self.routeSource.IsMyPosition())
   {
     MWMAlertViewController * alert =
         [[MWMAlertViewController alloc] initWithViewController:self.ownerController];

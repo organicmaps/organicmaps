@@ -35,7 +35,6 @@
 - (bool)lastLocationIsValid;
 - (bool)isLocationPendingOrNoPosition;
 - (BOOL)enabledOnMap;
-- (void)triggerCompass;
 
 - (void)onDaemonMode;
 - (void)onForeground;
