@@ -95,10 +95,12 @@ using namespace storage;
                                                 selector:@selector(timerSelector:)
                                                 userInfo:nil
                                                  repeats:NO];
+    LOG(LINFO, ("startUpdatingLocation"));
     [self.locationManager startUpdatingLocation];
   }
   else
   {
+    LOG(LINFO, ("stopUpdatingLocation"));
     [self.locationManager stopUpdatingLocation];
     completionHandler(UIBackgroundFetchResultFailed);
   }
@@ -129,6 +131,7 @@ using namespace storage;
 - (void)timerSelector:(id)sender
 {
   // Location still was not received but it's time to finish up so system will not kill us.
+  LOG(LINFO, ("stopUpdatingLocation"));
   [self.locationManager stopUpdatingLocation];
   [self performCompletionHandler:UIBackgroundFetchResultFailed];
 }
@@ -158,6 +161,7 @@ using namespace storage;
      didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
   [self.timer invalidate];
+  LOG(LINFO, ("stopUpdatingLocation"));
   [self.locationManager stopUpdatingLocation];
   NSString * flurryEventName = @"'Download Map' Notification Didn't Schedule";
   UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
