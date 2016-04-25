@@ -27,13 +27,6 @@ double constexpr kMinDistMeters = 200.;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
 double constexpr kNotSoCloseMinDistMeters = 30.;
 
-using TGeomTurnCandidate = vector<double>;
-
-double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
-{
-  return math::pi - ang::TwoVectorsAngle(p, p1, p2);
-}
-
 /*!
  * \brief Returns false when
  * - the route leads from one big road to another one;

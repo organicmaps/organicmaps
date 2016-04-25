@@ -1,5 +1,7 @@
 #include "routing/turns.hpp"
 
+#include "geometry/angles.hpp"
+
 #include "base/internal/message.hpp"
 
 #include "std/array.hpp"
@@ -276,6 +278,11 @@ string DebugPrint(SingleLaneInfo const & singleLaneInfo)
   out << "SingleLaneInfo [ m_isRecommended == " << singleLaneInfo.m_isRecommended
       << ", m_lane == " << ::DebugPrint(singleLaneInfo.m_lane) << " ]" << endl;
   return out.str();
+}
+
+double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
+{
+  return math::pi - ang::TwoVectorsAngle(p, p1, p2);
 }
 }  // namespace turns
 }  // namespace routing

@@ -19,6 +19,8 @@ namespace turns
 /// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
 /// For the time being several separate entities reflect the turn information. Like Route::TTurns
 
+using TGeomTurnCandidate = vector<double>;
+
 /*!
  * \warning The order of values below shall not be changed.
  * TurnRight(TurnLeft) must have a minimal value and
@@ -202,5 +204,6 @@ bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t);
 bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes);
 void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes);
 bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & lane);
+double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2);
 }  // namespace turns
 }  // namespace routing
