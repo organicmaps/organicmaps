@@ -157,7 +157,7 @@ using namespace osm_auth_ios;
     if (!noLocalChanges)
       self.localChangesLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"editor_profile_unsent_changes"), @(localChanges)];
 
-    BOOL const noUploadedChanges = (uploadedChanges == 0);
+    BOOL const noUploadedChanges = (uploadedChanges == 0) || !AuthorizationHaveCredentials();
     self.uploadedChangesView.hidden = noUploadedChanges;
     if (noUploadedChanges)
       return;
