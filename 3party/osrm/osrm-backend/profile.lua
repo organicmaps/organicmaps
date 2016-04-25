@@ -129,7 +129,6 @@ maxspeed_table = {
   ["nl:trunk"] = 100,
   ["nl:motorway"] = 130,
   ["none"] = 140
-  ["none"] = 140
 }
 
 traffic_signal_penalty          = 2
