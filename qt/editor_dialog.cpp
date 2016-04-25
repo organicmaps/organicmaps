@@ -82,9 +82,6 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
   if (emo.IsAddressEditable())
   {  // Address rows.
     auto nearbyStreets = emo.GetNearbyStreets();
-    // If feature does not have a specified street, display empty combo box.
-    if (emo.GetStreet().m_defaultName.empty())
-      nearbyStreets.insert(nearbyStreets.begin(), {});
     grid->addWidget(new QLabel(kStreetObjectName), row, 0);
     QComboBox * cmb = new QComboBox();
     cmb->setEditable(true);

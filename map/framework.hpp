@@ -642,7 +642,7 @@ public:
   bool CreateMapObject(m2::PointD const & mercator, uint32_t const featureType, osm::EditableMapObject & emo) const;
   /// @returns false if feature is invalid or can't be edited.
   bool GetEditableMapObject(FeatureID const & fid, osm:: EditableMapObject & emo) const;
-  osm::Editor::SaveResult SaveEditedMapObject(osm:: EditableMapObject const & emo);
+  osm::Editor::SaveResult SaveEditedMapObject(osm::EditableMapObject emo);
   void DeleteFeature(FeatureID const & fid) const;
   osm::NewFeatureCategories GetEditorCategories() const;
   //@}

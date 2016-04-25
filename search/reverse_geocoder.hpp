@@ -89,8 +89,8 @@ public:
 
   /// @return The nearest exact address where building has house number and valid street match.
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
-  /// @return The exact address for feature.
-  /// @precondition ft Should have house number.
+  /// @param addr (out) the exact address of a feature.
+  /// @returns false if  can't extruct address or ft have no house number.
   bool GetExactAddress(FeatureType & ft, Address & addr) const;
 
 private:
