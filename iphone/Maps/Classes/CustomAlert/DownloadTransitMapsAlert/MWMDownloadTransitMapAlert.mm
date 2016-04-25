@@ -134,7 +134,14 @@ CGFloat const kAnimationDuration = .05;
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
-  auto const overallProgress = GetFramework().Storage().GetOverallProgress(m_countries);
+  auto const & s = GetFramework().Storage();
+  if (s.CheckFailedCountries(m_countries))
+  {
+    if (s.IsAutoRetryDownloadFailed())
+      [self close];
+    return;
+  }
+  auto const overallProgress = s.GetOverallProgress(m_countries);
   // Test if downloading has finished by comparing downloaded and total sizes.
   if (overallProgress.first == overallProgress.second)
   {
