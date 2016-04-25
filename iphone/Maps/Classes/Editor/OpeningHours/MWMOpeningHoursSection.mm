@@ -203,7 +203,6 @@ using namespace osmoh;
 {
   NSUInteger const closedTimesCountBeforeUpdate = [self closedTimesCount];
   self.skipStoreCachedData = [self isRowSelected:row];
-  self.selectedRow = nil;
   if (closedTimesCountBeforeUpdate == [self closedTimesCount])
   {
     UITableView * tableView = self.delegate.tableView;
@@ -213,6 +212,7 @@ using namespace osmoh;
     timeTable.RemoveExcludeTime([self closedTimeIndex:row]);
     timeTable.Commit();
 
+    self.selectedRow = nil;
     [self deleteRow:row];
     [tableView endUpdates];
   }
