@@ -44,9 +44,9 @@ public enum LocationHelper implements SensorEventListener
   public static final int ERROR_GPS_OFF = 3;
   public static final int ERROR_UNKNOWN = 0;
 
-  private static final long INTERVAL_IN_POSITION_MS = 3000;
-  private static final long INTERVAL_FOLLOWING_MS = 3000;
-  private static final long INTERVAL_NOT_POSITION_MS = 10000;
+  private static final long INTERVAL_FOLLOW_AND_ROTATE_MS = 3000;
+  private static final long INTERVAL_FOLLOW_MS = 3000;
+  private static final long INTERVAL_NOT_FOLLOW_MS = 10000;
   private static final long INTERVAL_NAVIGATION_VEHICLE_MS = 500;
   private static final long INTERVAL_NAVIGATION_PEDESTRIAN_MS = 3000;
 
@@ -339,15 +339,15 @@ public enum LocationHelper implements SensorEventListener
     default:
     case LocationState.NOT_FOLLOW:
       mHighAccuracy = false;
-      mInterval = INTERVAL_NOT_POSITION_MS;
+      mInterval = INTERVAL_NOT_FOLLOW_MS;
       break;
 
     case LocationState.FOLLOW:
-      mInterval = INTERVAL_FOLLOWING_MS;
+      mInterval = INTERVAL_FOLLOW_MS;
       break;
 
     case LocationState.FOLLOW_AND_ROTATE:
-      mInterval = INTERVAL_IN_POSITION_MS;
+      mInterval = INTERVAL_FOLLOW_AND_ROTATE_MS;
       break;
     }
   }
