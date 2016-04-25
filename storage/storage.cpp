@@ -1642,15 +1642,14 @@ void Storage::GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & n
     return;
   }
 
-  nodes.clear();
   nodes.resize(treeNodes.size());
-  for (auto & node : nodes)
+  for (size_t i = 0; i < treeNodes.size(); ++i)
   {
-    node = countryId;
-    ForEachAncestorExceptForTheRoot(treeNodes,
-                                    [&node](TCountryId const & id, TCountryTreeNode const &)
+    nodes[i] = countryId;
+    ForEachAncestorExceptForTheRoot({treeNodes[i]},
+                                    [&nodes, i](TCountryId const & id, TCountryTreeNode const &)
                                     {
-                                      node = id;
+                                      nodes[i] = id;
                                     });
   }
 }
