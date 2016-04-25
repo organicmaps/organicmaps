@@ -319,6 +319,8 @@ public:
 
   inline bool IsAutoRetryDownloadFailed() const { return m_autoRetryCounter == 0; }
 
+  bool CheckFailedCountries(TCountriesVec const & countries) const;
+
   /// \brief Returns root country id of the country tree.
   TCountryId const GetRootId() const;
 
@@ -468,7 +470,7 @@ public:
 
   /// Returns information about selected counties downloading progress.
   /// |countries| - watched CountryId, ONLY leaf expected.
-  MapFilesDownloader::TProgress GetOverallProgress(TCountriesVec const &countries);
+  MapFilesDownloader::TProgress GetOverallProgress(TCountriesVec const &countries) const;
   
   Country const & CountryLeafByCountryId(TCountryId const & countryId) const;
   Country const & CountryByCountryId(TCountryId const & countryId) const;
