@@ -831,6 +831,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     case LocationState.PENDING_POSITION:
       resumeLocation();
       break;
+
+    default:
+      LocationHelper.INSTANCE.restart();
+      break;
     }
   }
 

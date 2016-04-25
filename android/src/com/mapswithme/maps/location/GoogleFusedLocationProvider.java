@@ -10,10 +10,10 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.mapswithme.maps.MwmApplication;
 
-public class GoogleFusedLocationProvider extends BaseLocationProvider
-                                      implements GoogleApiClient.ConnectionCallbacks,
-                                                 GoogleApiClient.OnConnectionFailedListener,
-                                                 LocationListener
+class GoogleFusedLocationProvider extends BaseLocationProvider
+                               implements GoogleApiClient.ConnectionCallbacks,
+                                          GoogleApiClient.OnConnectionFailedListener,
+                                          LocationListener
 {
   private static final String GS_LOCATION_PROVIDER = "fused";
 
@@ -35,9 +35,11 @@ public class GoogleFusedLocationProvider extends BaseLocationProvider
     if (mGoogleApiClient != null && !mGoogleApiClient.isConnected() && !mGoogleApiClient.isConnecting())
     {
       mLocationRequest = LocationRequest.create();
-      mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-      mLocationRequest.setInterval(UPDATE_INTERVAL_MS);
-      mLocationRequest.setFastestInterval(UPDATE_INTERVAL_MS / 2);
+      mLocationRequest.setPriority(LocationHelper.INSTANCE.isHighAccuracy() ? LocationRequest.PRIORITY_HIGH_ACCURACY
+                                                                            : LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+      long interval = LocationHelper.INSTANCE.getInterval();
+      mLocationRequest.setInterval(interval);
+      mLocationRequest.setFastestInterval(interval / 2);
 
       mGoogleApiClient.connect();
     }
