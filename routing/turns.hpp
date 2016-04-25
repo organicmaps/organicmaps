@@ -21,6 +21,8 @@ namespace turns
 
 using TGeomTurnCandidate = vector<double>;
 
+double constexpr kFeaturesNearTurnMeters = 3.0;
+
 /*!
  * \warning The order of values below shall not be changed.
  * TurnRight(TurnLeft) must have a minimal value and

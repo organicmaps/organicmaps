@@ -252,6 +252,7 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
 
   Route::TTimes times;
   Route::TTurns turnsDir;
+  // @TODO(bykoianko) streetNames is not filled in Generate(). It should be done.
   Route::TStreets streetNames;
   if (m_directionsEngine)
     m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, cancellable);

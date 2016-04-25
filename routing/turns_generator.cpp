@@ -21,7 +21,6 @@ using namespace routing::turns;
 
 namespace
 {
-double const kFeaturesNearTurnMeters = 3.0;
 size_t constexpr kMaxPointsCount = 5;
 double constexpr kMinDistMeters = 200.;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
@@ -261,7 +260,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result
 {
   double estimatedTime = 0;
 
-  LOG(LDEBUG, ("Shortest th length:", result.GetShortestPathLength()));
+  LOG(LDEBUG, ("Shortest th length:", result.GetPathLength()));
 
 #ifdef DEBUG
   size_t lastIdx = 0;

@@ -75,7 +75,6 @@ public:
                                 turns::TTurnCandidates & outgoingTurns) const override
   {
     double const kReadCrossEpsilon = 1.0E-4;
-    double const kFeaturesNearTurnMeters = 3.0;
 
     // Geting nodes by geometry.
     vector<NodeID> geomNodes;
@@ -143,7 +142,7 @@ public:
       m2::PointD const outgoingPoint = ft.GetPoint(
           seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
       ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, ft.GetPoint(seg.m_pointStart)),
-                  kFeaturesNearTurnMeters, ());
+                  turns::kFeaturesNearTurnMeters, ());
 
       double const a =
           my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
@@ -157,7 +156,7 @@ public:
          });
   }
 
-  virtual double GetShortestPathLength() const override { return m_rawResult.shortestPathLength; }
+  virtual double GetPathLength() const override { return m_rawResult.shortestPathLength; }
   virtual m2::PointD const & GetStartPoint() const override
   {
     return m_rawResult.sourceEdge.segmentPoint;
