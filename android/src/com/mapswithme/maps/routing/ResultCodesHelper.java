@@ -85,7 +85,12 @@ class ResultCodesHelper
 
     StringBuilder builder = new StringBuilder();
     for (String messagePart : messages)
-      builder.append(messagePart).append("\n\n");
+    {
+      if (builder.length() > 0)
+        builder.append("\n\n");
+
+      builder.append(messagePart);
+    }
 
     return new Pair<>(titleRes == 0 ? "" : resources.getString(titleRes), builder.toString());
   }

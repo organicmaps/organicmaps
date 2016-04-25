@@ -269,7 +269,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       for (MapManager.StorageCallbackData item : data)
         if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
         {
-          MapManager.showError(mActivity, item);
+          MapManager.showError(mActivity, item, null);
           break;
         }
 
