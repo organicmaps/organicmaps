@@ -2811,16 +2811,16 @@ fi:Posti
 sw:Posta
 
 amenity-waste_disposal
-en:Trash|bin|garbage|waste disposal|dumpster|U+1F6AE
-ar:ﺔﻣﺎﻤﻗ
+en:Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
+ar:القمامة|ﺔﻣﺎﻤﻗ
 cs:Odpadky|koš|popelnice|uložiště odpadu
 da:Skraldespand|Genbrug|skrald
-de:Mülltonne|Abfälle|Müll
+de:Müllcontainer|Mülltonne|Abfälle|Müll
 el:Σκουπίδια
 es:Basura
 fi:Roska
 fr:Déchets|poubelle|déchet
-he:הפשא
+he:במכולה|הפשא
 hu:Szemét
 id:Sampah
 it:Spazzatura
@@ -2828,15 +2828,15 @@ ja:ゴミ|ごみ|リサイクル|再利用|ダストボックス
 ko:쓰레기|휴지통
 nb:Søppel
 nl:Uitschot|afval|prullenbak|vuilnis
-pl:Śmieci|ponowne odtworzenie|odpady
+pl:Wysypisko|Śmieci|ponowne odtworzenie|odpady
 pt:Lixo|lixo
 ro:Gunoi
-ru:Мусорный бак|мусорка
+ru:Мусорный контейнер|мусорка
 sk:Odpadky|kôš
-sv:Soptunna|skräp|avfall
+sv:Avfallscontainer|Soptunna|skräp|avfall
 th:ขยะ|ถังขยะ
-tr:Çöp|çöplük
-uk:Сміттєвий бак|сміття|смітник
+tr:Çöplüğü|Çöp|çöplük
+uk:Сміттєвий контейнер|сміття|смітник
 vi:Rác
 zh-Hans:垃圾
 zh-Hant:垃圾|回收|回收場
@@ -5332,20 +5332,20 @@ en:Bicycle Parking
 ru:Велостоянка
 
 amenity-waste_basket
-en:Trash Bin
-ru:Мусорная корзина
+en:Trash Bin|Waste Basket
+ru:Урна|Мусорная корзина
 
 emergency-phone
-en:Phone
-ru:Телефон
+en:Emergency Phone
+ru:Телефон для экстренных вызовов
 
 leisure-fitness_centre
 en:Fitness Centre|Gym
-ru:Фитнес-зал
+ru:Фитнес-клуб
 
 leisure-sauna
 en:Sauna
-ru:Баня
+ru:Баня|Сауна
 
 man_made-water_well
 en:Water Well
@@ -5388,8 +5388,8 @@ en:Garage
 ru:Гараж
 
 highway-rest_area
-en:Rest Area
-ru:Зона отдыха
+en:Highway Rest Area
+ru:Зона отдыха на трассе
 
 highway-traffic_signals
 en:Traffic Lights
@@ -5526,3 +5526,7 @@ ru:Шлюз
 amenity-public_bookcase
 en:Book Exchange|Bookcase
 ru:Книжный шкаф|Обмен книг
+
+shop-car_parts
+en:Car Parts Shop
+ru:Автозапчасти
