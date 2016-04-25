@@ -1031,19 +1031,8 @@ void Geocoder::WithPostcodes(TFn && fn)
     if (startToken == endToken)
       continue;
 
-    PrepareRetrievalParams(startToken, endToken);
-    for (auto & tokens : m_retrievalParams.m_tokens)
-    {
-      tokens.resize(1);
-      tokens[0] = PostcodeToString(tokens[0]);
-    }
-    if (!m_retrievalParams.m_prefixTokens.empty())
-    {
-      m_retrievalParams.m_prefixTokens.resize(1);
-      m_retrievalParams.m_prefixTokens[0] = PostcodeToString(m_retrievalParams.m_prefixTokens[0]);
-    }
-    auto postcodes = RetrievePostcodeFeatures(
-        *m_context, TokenSlice(m_retrievalParams, 0, endToken - startToken));
+    auto postcodes =
+        RetrievePostcodeFeatures(*m_context, TokenSlice(m_params, startToken, endToken));
     if (!coding::CompressedBitVector::IsEmpty(postcodes))
     {
       ScopedMarkTokens mark(m_usedTokens, startToken, endToken);

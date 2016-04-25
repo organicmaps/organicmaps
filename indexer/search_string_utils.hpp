@@ -25,8 +25,6 @@ void NormalizeAndTokenizeString(string const & s, TCont & tokens, TDelims const 
 
 strings::UniString FeatureTypeToString(uint32_t type);
 
-strings::UniString PostcodeToString(strings::UniString const & postcode);
-
 template <class ContainerT, class DelimsT>
 bool TokenizeStringAndCheckIfLastTokenIsPrefix(strings::UniString const & s,
                                                ContainerT & tokens,
