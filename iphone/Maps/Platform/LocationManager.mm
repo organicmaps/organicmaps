@@ -191,17 +191,16 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
 
 - (CLLocation *)lastLocation
 {
-  return self.isStarted ? self.locationManager.location : nil;
+  if (!self.isStarted || self.locationManager.location.horizontalAccuracy < 0.)
+    return nil;
+  return self.locationManager.location;
 }
 
 - (CLHeading *)lastHeading
 {
-  return self.isStarted ? self.locationManager.heading : nil;
-}
-
-- (void)triggerCompass
-{
-  [self locationManager:self.locationManager didUpdateHeading:self.locationManager.heading];
+  if (!self.isStarted || self.locationManager.heading.headingAccuracy < 0.)
+    return nil;
+  return self.locationManager.heading;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)heading
