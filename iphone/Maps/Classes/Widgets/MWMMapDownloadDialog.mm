@@ -151,7 +151,8 @@ using namespace storage;
         break;
       case NodeStatus::Undefined:
       case NodeStatus::Error:
-        [self showError:nodeAttrs.m_error];
+        if (s.IsAutoRetryDownloadFailed())
+          [self showError:nodeAttrs.m_error];
         break;
       case NodeStatus::OnDisk:
       case NodeStatus::OnDiskOutOfDate:

@@ -242,8 +242,6 @@ private:
   size_t m_autoRetryCounter = kAutoRetryCounterMax;
   my::DeferredTask m_autoRetryWorker;
   
-  inline bool IsAutoRetryDownloadFailed() const { return m_autoRetryCounter == 0; }
-  
   void DownloadNextCountryFromQueue();
 
   void LoadCountriesFile(string const & pathToCountriesFile, string const & dataDir,
@@ -318,6 +316,8 @@ public:
     /// \param CountryId is id of mwm or an mwm group which status has been changed.
     TOnStatusChangedCallback m_onStatusChanged;
   };
+
+  inline bool IsAutoRetryDownloadFailed() const { return m_autoRetryCounter == 0; }
 
   /// \brief Returns root country id of the country tree.
   TCountryId const GetRootId() const;

@@ -110,8 +110,8 @@ MapFilesDownloader::TProgress Storage::GetOverallProgress(TCountriesVec const & 
   
 Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */, string const & dataDir /* = string() */)
   : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId(0), m_dataDir(dataDir)
-  , m_autoRetryWorker(seconds(20))
   , m_downloadMapOnTheMap(nullptr)
+  , m_autoRetryWorker(seconds(20))
 {
   SetLocale(languages::GetCurrentTwine());
   LoadCountriesFile(pathToCountriesFile, m_dataDir);
@@ -120,8 +120,8 @@ Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */, stri
 Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
                  unique_ptr<MapFilesDownloader> mapDownloaderForTesting)
   : m_downloader(move(mapDownloaderForTesting)), m_currentSlotId(0)
-  , m_autoRetryWorker(seconds(20))
   , m_downloadMapOnTheMap(nullptr)
+  , m_autoRetryWorker(seconds(20))
 {
   m_currentVersion =
       LoadCountries(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
