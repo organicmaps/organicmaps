@@ -263,6 +263,8 @@ using namespace mwm;
 
 - (void)configAllMapsView
 {
+  if (self.dataSource != self.defaultDataSource)
+    return;
   auto const & s = GetFramework().Storage();
   TCountryId const parentCountryId = self.parentCountryId.UTF8String;
   if (self.mode == DownloaderMode::Downloaded)
