@@ -507,6 +507,11 @@ bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index,
   return true;
 }
 
+bool Editor::GetEditedFeature(FeatureID const & fid, FeatureType & outFeature) const
+{
+  return GetEditedFeature(fid.m_mwmId, fid.m_index, outFeature);
+}
+
 bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureStreet) const
 {
   auto const * featureInfo = GetFeatureTypeInfo(fid.m_mwmId, fid.m_index);

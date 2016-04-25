@@ -83,6 +83,7 @@ public:
   /// @returns false if feature wasn't edited.
   /// @param outFeature is valid only if true was returned.
   bool GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index, FeatureType & outFeature) const;
+  bool GetEditedFeature(FeatureID const & fid, FeatureType & outFeature) const;
 
   /// @returns false if feature wasn't edited.
   /// @param outFeatureStreet is valid only if true was returned.
