@@ -5340,8 +5340,8 @@ en:Emergency Phone
 ru:Телефон для экстренных вызовов
 
 leisure-fitness_centre
-en:Fitness Centre|Gym
-ru:Фитнес-клуб
+en:Fitness Centre|Gym|U+1F4AA
+ru:Фитнес-клуб|качалка|джим
 
 leisure-sauna
 en:Sauna
@@ -5356,16 +5356,16 @@ en:Tyre Repair
 ru:Шиномонтаж
 
 shop-chemist
-en:Chemist Shop
-ru:Бытовая химия
+en:Chemist Shop|shop
+ru:Бытовая химия|магазин
 
 shop-pet
-en:Petshop
-ru:Зоотовары
+en:Petshop|shop
+ru:Зоотовары|магазин
 
 tourism-information-office
-en:Tourist Office
-ru:Туристический офис
+en:Tourist Office|sights
+ru:Туристический офис|достопримечательност|достопримечательностьь
 
 amenity-community_centre
 en:Community Centre
@@ -5412,28 +5412,32 @@ en:Bookmaker
 ru:Букмекерская контора
 
 shop-seafood
-en:Seafood Shop
-ru:Рыбный магазин
+en:Seafood Shop|shop
+ru:Рыбный магазин|магазин
 
 shop-ticket
-en:Ticket Shop
-ru:Билетная касса
+en:Ticket Shop|shop
+ru:Билетная касса|магазин
 
 shop-wine
-en:Wine Shop
-ru:Винный магазин
+en:Wine Shop|shop
+ru:Винный магазин|магазин
+
+shop-car_parts
+en:Car Parts Shop|shop
+ru:Автозапчасти|магазин
 
 tourism-chalet
 en:Chalet
 ru:Шале
 
 tourism-information-board
-en:Information Board
-ru:Информационный щит
+en:Information Board|sights
+ru:Информационный щит|достопримечательность
 
 tourism-information-map
-en:Tourist Map
-ru:Карта
+en:Tourist Map|sights
+ru:Карта|достопримечательность
 
 aerialway-station
 en:Aerialway Station
@@ -5527,6 +5531,18 @@ amenity-public_bookcase
 en:Book Exchange|Bookcase
 ru:Книжный шкаф|Обмен книг
 
-shop-car_parts
-en:Car Parts Shop
-ru:Автозапчасти
+leisure-sports_centre-climbing
+en:Climbing Centre
+ru:Скалодром
+
+leisure-sports_centre-shooting
+en:Shooting Range
+ru:Тир|стрельбище
+
+leisure-sports_centre-swimming
+en:Swimming Centre
+ru:Плавательный бассейн
+
+leisure-sports_centre-yoga
+en:Yoga Studio
+ru:Йога-центр|Студия йоги
