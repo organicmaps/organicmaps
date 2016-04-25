@@ -109,13 +109,17 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
 - (void)onDaemonMode
 {
   [self.locationManager stopMonitoringSignificantLocationChanges];
+  LOG(LINFO, ("startUpdatingLocation"));
   [self.locationManager startUpdatingLocation];
 }
 
 - (void)onBackground
 {
   if (!GpsTracker::Instance().IsEnabled())
+  {
+    LOG(LINFO, ("stopUpdatingLocation"));
     [self.locationManager stopUpdatingLocation];
+  }
 }
 
 - (void)beforeTerminate
@@ -148,6 +152,7 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
         case kCLAuthorizationStatusNotDetermined:
           if (kRequestAuthStatus == kCLAuthorizationStatusAuthorizedAlways && [self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
             [self.locationManager requestAlwaysAuthorization];
+          LOG(LINFO, ("startUpdatingLocation"));
           [self.locationManager startUpdatingLocation];
           if ([CLLocationManager headingAvailable])
             [self.locationManager startUpdatingHeading];
@@ -185,6 +190,7 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
     self.isStarted = NO;
     if ([CLLocationManager headingAvailable])
       [self.locationManager stopUpdatingHeading];
+    LOG(LINFO, ("stopUpdatingLocation"));
     [self.locationManager stopUpdatingLocation];
   }
 }
