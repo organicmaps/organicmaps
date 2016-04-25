@@ -197,7 +197,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeSetHasWifi(JNIEnv *, jclass, jboolean hasWifi)
 {
-  g_editableMapObject.SetInternet(osm::Internet::Wlan);
+  g_editableMapObject.SetInternet(hasWifi ? osm::Internet::Wlan : osm::Internet::Unknown);
 }
 
 JNIEXPORT jboolean JNICALL
