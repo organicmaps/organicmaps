@@ -15,9 +15,7 @@ SOURCES += \
     animation/base_interpolator.cpp \
     animation/interpolation_holder.cpp \
     animation/interpolations.cpp \
-    animation/model_view_animation.cpp \
     animation/opacity_animation.cpp \
-    animation/perspective_animation.cpp \
     animation/show_hide_animation.cpp \
     gui/choose_position_mark.cpp \
     gui/compass.cpp \
@@ -98,9 +96,7 @@ HEADERS += \
     animation/base_interpolator.hpp \
     animation/interpolation_holder.hpp \
     animation/interpolations.hpp \
-    animation/model_view_animation.hpp \
     animation/opacity_animation.hpp \
-    animation/perspective_animation.hpp \
     animation/show_hide_animation.hpp \
     animation/value_mapping.hpp \
     gui/choose_position_mark.hpp \

@@ -1,14 +1,12 @@
 #pragma once
 
-#include "animation/base_interpolator.hpp"
-
 #include "drape/pointers.hpp"
 
 #include "geometry/screenbase.hpp"
 
-#include "std/set.hpp"
 #include "std/deque.hpp"
 #include "std/noncopyable.hpp"
+#include "std/unordered_set.hpp"
 
 namespace df
 {
@@ -44,55 +42,54 @@ public:
     SwitchPerspective
   };
 
-  enum PropertyValueType
-  {
-    ValueD,
-    ValuePointD,
-    ValuePerspectiveParams
-  };
-
   struct SwitchPerspectiveParams
   {
-    SwitchPerspectiveParams()
-      : m_enable(false)
-    {}
+    SwitchPerspectiveParams() = default;
 
-    SwitchPerspectiveParams(bool enable, double startAngle, double endAngle, double angleFOV)
+    SwitchPerspectiveParams(bool enable,
+                            double startAngle, double endAngle,
+                            double angleFOV)
       : m_enable(enable)
       , m_startAngle(startAngle)
       , m_endAngle(endAngle)
       , m_angleFOV(angleFOV)
     {}
 
-    bool m_enable;
-    double m_startAngle;
-    double m_endAngle;
-    double m_angleFOV;
+    bool m_enable = false;
+    double m_startAngle = 0.0;
+    double m_endAngle = 0.0;
+    double m_angleFOV = 0.0;
   };
 
   struct PropertyValue
   {
-    PropertyValue()
+    enum Type
     {
-    }
+      ValueD,
+      ValuePointD,
+      ValuePerspectiveParams
+    };
 
-    PropertyValue(double value)
+    PropertyValue()
+    {}
+
+    explicit PropertyValue(double value)
       : m_type(ValueD)
       , m_valueD(value)
     {}
 
-    PropertyValue(m2::PointD value)
+    explicit PropertyValue(m2::PointD const & value)
       : m_type(ValuePointD)
       , m_valuePointD(value)
     {}
 
-    PropertyValue(SwitchPerspectiveParams const & params)
+    explicit PropertyValue(SwitchPerspectiveParams const & params)
       : m_type(ValuePerspectiveParams)
     {
       m_valuePerspectiveParams = params;
     }
 
-    PropertyValueType m_type;
+    Type m_type;
     union
     {
       m2::PointD m_valuePointD;
@@ -103,18 +100,18 @@ public:
 
   using TObject = uint32_t;
   using TProperty = uint32_t;
-  using TAnimObjects = set<TObject>;
-  using TObjectProperties = set<TProperty>;
+  using TAnimObjects = unordered_set<TObject>;
+  using TObjectProperties = unordered_set<TProperty>;
   using TAction = function<void(ref_ptr<Animation>)>;
 
-  Animation(bool couldBeInterrupted, bool couldBeMixed)
+  Animation(bool couldBeInterrupted, bool couldBeBlended)
     : m_couldBeInterrupted(couldBeInterrupted)
-    , m_couldBeMixed(couldBeMixed)
+    , m_couldBeBlended(couldBeBlended)
   {}
 
-  virtual void OnStart() {if (m_onStartAction != nullptr) m_onStartAction(this);}
-  virtual void OnFinish() {if (m_onFinishAction != nullptr) m_onFinishAction(this);}
-  virtual void Interrupt() {}
+  virtual void OnStart() { if (m_onStartAction != nullptr) m_onStartAction(this); }
+  virtual void OnFinish() { if (m_onFinishAction != nullptr) m_onFinishAction(this); }
+  virtual void Interrupt() { if (m_onInterruptAction != nullptr) m_onInterruptAction(this); }
 
   virtual Type GetType() const = 0;
 
@@ -137,27 +134,26 @@ public:
   void SetOnInterruptAction(TAction const & action) { m_onInterruptAction = action; }
 
   bool CouldBeInterrupted() const { return m_couldBeInterrupted; }
-  bool CouldBeMixed() const { return m_couldBeMixed; }
-  bool CouldBeMixedWith(TObject object, TObjectProperties const & properties);
-  bool CouldBeMixedWith(Animation const & animation);
+  bool CouldBeBlendedWith(Animation const & animation) const;
 
 protected:
   TAction m_onStartAction;
   TAction m_onFinishAction;
   TAction m_onInterruptAction;
   bool m_couldBeInterrupted;
-  bool m_couldBeMixed;
+  bool m_couldBeBlended;
 };
 
 class Interpolator
 {
 public:
   Interpolator(double duration, double delay = 0);
-  virtual ~Interpolator();
+  virtual ~Interpolator(){}
 
-  bool IsFinished() const;
   virtual void Advance(double elapsedSeconds);
   virtual void Finish();
+
+  bool IsFinished() const;
   void SetMaxDuration(double maxDuration);
   void SetMinDuration(double minDuration);
   double GetDuration() const;
@@ -172,23 +168,36 @@ private:
   double m_delay;
 };
 
-
 class PositionInterpolator: public Interpolator
 {
   using TBase = Interpolator;
 
 public:
-  PositionInterpolator(double duration, double delay, m2::PointD const & startPosition, m2::PointD const & endPosition);
-  PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition, ScreenBase const & convertor);
-  PositionInterpolator(double delay, m2::PointD const & startPosition, m2::PointD const & endPosition, ScreenBase const & convertor);
-  PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition, m2::RectD const & pixelRect);
-  PositionInterpolator(double delay, m2::PointD const & startPosition, m2::PointD const & endPosition, m2::RectD const & pixelRect);
+  PositionInterpolator(double duration, double delay,
+                       m2::PointD const & startPosition,
+                       m2::PointD const & endPosition);
+  PositionInterpolator(m2::PointD const & startPosition,
+                       m2::PointD const & endPosition,
+                       ScreenBase const & convertor);
+  PositionInterpolator(double delay, m2::PointD const & startPosition,
+                       m2::PointD const & endPosition,
+                       ScreenBase const & convertor);
+  PositionInterpolator(m2::PointD const & startPosition,
+                       m2::PointD const & endPosition,
+                       m2::RectD const & pixelRect);
+  PositionInterpolator(double delay, m2::PointD const & startPosition,
+                       m2::PointD const & endPosition,
+                       m2::RectD const & pixelRect);
 
-  static double GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition, ScreenBase const & convertor);
-  static double GetPixelMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition, m2::RectD const & pixelRect);
+  static double GetMoveDuration(m2::PointD const & startPosition,
+                                m2::PointD const & endPosition, ScreenBase const & convertor);
+  static double GetPixelMoveDuration(m2::PointD const & startPosition,
+                                     m2::PointD const & endPosition, m2::RectD const & pixelRect);
 
+  // Interpolator overrides:
   void Advance(double elapsedSeconds) override;
   void Finish() override;
+
   virtual m2::PointD GetPosition() const { return m_position; }
 
 private:
@@ -207,8 +216,10 @@ public:
 
   static double GetScaleDuration(double startScale, double endScale);
 
+  // Interpolator overrides:
   void Advance(double elapsedSeconds) override;
   void Finish() override;
+
   virtual double GetScale() const { return m_scale; }
 
 private:
@@ -228,8 +239,10 @@ public:
 
   static double GetRotateDuration(double startAngle, double endAngle);
 
+  // Interpolator overrides:
   void Advance(double elapsedSeconds) override;
   void Finish() override;
+
   virtual double GetAngle() const { return m_angle; }
 
 private:
@@ -238,7 +251,8 @@ private:
   double m_angle;
 };
 
-class ArrowAnimation : public Animation
+//TODO (in future): implement arrow animation on new animation system.
+/*class ArrowAnimation : public Animation
 {
 public:
   ArrowAnimation(m2::PointD const & startPos, m2::PointD const & endPos,
@@ -258,10 +272,12 @@ public:
   {
      return m_objects;
   }
+
   bool HasObject(TObject object) const override
   {
     return object == Animation::MyPositionArrow;
   }
+
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
 
@@ -273,7 +289,7 @@ private:
   drape_ptr<AngleInterpolator> m_angleInterpolator;
   TAnimObjects m_objects;
   TObjectProperties m_properties;
-};
+};*/
 
 class PerspectiveSwitchAnimation : public Animation
 {
@@ -288,10 +304,12 @@ public:
   {
      return m_objects;
   }
+
   bool HasObject(TObject object) const override
   {
     return m_objects.find(object) != m_objects.end();
   }
+
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
 
@@ -308,7 +326,7 @@ public:
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
-  drape_ptr<AngleInterpolator> m_angleInterpolator;
+  AngleInterpolator m_angleInterpolator;
   double m_startAngle;
   double m_endAngle;
   double m_angleFOV;
@@ -323,8 +341,8 @@ class MapLinearAnimation : public Animation
 {
 public:
   MapLinearAnimation(m2::PointD const & startPos, m2::PointD const & endPos,
-                  double startAngle, double endAngle,
-                  double startScale, double endScale, ScreenBase const & convertor);
+                     double startAngle, double endAngle,
+                     double startScale, double endScale, ScreenBase const & convertor);
   MapLinearAnimation();
 
   void SetMove(m2::PointD const & startPos, m2::PointD const & endPos, ScreenBase const & convertor);
@@ -337,10 +355,12 @@ public:
   {
      return m_objects;
   }
+
   bool HasObject(TObject object) const override
   {
     return object == Animation::MapPlane;
   }
+
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
 
@@ -352,6 +372,8 @@ public:
   bool IsFinished() const override;
 
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
+  
+  void SetMaxScaleDuration(double maxDuration);
 
 private:
   drape_ptr<AngleInterpolator> m_angleInterpolator;
@@ -364,7 +386,8 @@ private:
 class MapScaleAnimation : public Animation
 {
 public:
-  MapScaleAnimation(double startScale, double endScale, m2::PointD const & globalPosition, m2::PointD const & offset);
+  MapScaleAnimation(double startScale, double endScale,
+                    m2::PointD const & globalPosition, m2::PointD const & offset);
 
   Animation::Type GetType() const override { return Animation::MapScale; }
 
@@ -372,10 +395,12 @@ public:
   {
     return m_objects;
   }
+
   bool HasObject(TObject object) const override
   {
     return object == Animation::MapPlane;
   }
+
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
 
@@ -389,7 +414,7 @@ public:
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
-  drape_ptr<ScaleInterpolator> m_scaleInterpolator;
+  ScaleInterpolator m_scaleInterpolator;
   m2::PointD const m_pixelOffset;
   m2::PointD const m_globalPosition;
   TObjectProperties m_properties;
@@ -402,7 +427,8 @@ public:
   MapFollowAnimation(m2::PointD const & globalPosition,
                      double startScale, double endScale,
                      double startAngle, double endAngle,
-                     m2::PointD const & startPixelPosition, m2::PointD const & endPixelPosition,
+                     m2::PointD const & startPixelPosition,
+                     m2::PointD const & endPixelPosition,
                      m2::RectD const & pixelRect);
 
   static m2::PointD CalculateCenter(ScreenBase const & screen, m2::PointD const & userPos,
@@ -417,10 +443,12 @@ public:
   {
     return m_objects;
   }
+
   bool HasObject(TObject object) const override
   {
     return object == Animation::MapPlane;
   }
+
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
 
@@ -434,9 +462,11 @@ public:
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
-  drape_ptr<ScaleInterpolator> m_scaleInterpolator;
-  drape_ptr<PositionInterpolator> m_pixelPosInterpolator;
-  drape_ptr<AngleInterpolator> m_angleInterpolator;
+  double CalculateDuration() const;
+
+  ScaleInterpolator m_scaleInterpolator;
+  PositionInterpolator m_pixelPosInterpolator;
+  AngleInterpolator m_angleInterpolator;
 
   m2::PointD const m_globalPosition;
 
@@ -460,7 +490,7 @@ public:
 
   bool GetProperty(TObject object, TProperty property, PropertyValue &value) const override;
 
-  void AddAnimation(drape_ptr<Animation> && animation);
+  void AddAnimation(drape_ptr<Animation> animation);
 
   void OnStart() override;
   void OnFinish() override;
@@ -479,19 +509,24 @@ private:
 class ParallelAnimation : public Animation
 {
 public:
+  ParallelAnimation();
+
   Animation::Type GetType() const override { return Animation::Parallel; }
+
   TAnimObjects const & GetObjects() const override
   {
     return m_objects;
   }
+
   bool HasObject(TObject object) const override
   {
     return m_objects.find(object) != m_objects.end();
   }
+
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
 
-  void AddAnimation(drape_ptr<Animation> && animation);
+  void AddAnimation(drape_ptr<Animation> animation);
 
   void OnStart() override;
   void OnFinish() override;
@@ -516,9 +551,10 @@ public:
   bool GetPerspectiveAngle(double & angle);
 
   bool AnimationExists(Animation::TObject object) const;
+  bool HasAnimations() const;
 
-  void AddAnimation(drape_ptr<Animation> && animation, bool force);
-  void PushAnimation(drape_ptr<Animation> && animation);
+  void CombineAnimation(drape_ptr<Animation> animation);
+  void PushAnimation(drape_ptr<Animation> animation);
 
   void FinishAnimations(Animation::Type type, bool rewind);
   void FinishObjectAnimations(Animation::TObject object, bool rewind);
@@ -538,6 +574,7 @@ private:
   using TAnimationList = list<drape_ptr<Animation>>;
   using TAnimationChain = deque<TAnimationList>;
   using TPropertyCache = map<pair<Animation::TObject, Animation::TProperty>, Animation::PropertyValue>;
+
   TAnimationChain m_animationChain;
   mutable TPropertyCache m_propertyCache;
 

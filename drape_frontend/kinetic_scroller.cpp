@@ -31,7 +31,7 @@ public:
   // startRect - mercator visible on screen rect in moment when user release fingers.
   // direction - mercator space direction of moving. length(direction) - mercator distance on wich map will be offset.
   KineticScrollAnimation(m2::PointD const & startPos, m2::PointD const & direction, double duration)
-    : Animation(true /* couldBeInterrupted */, true /* couldBeMixed */)
+    : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
     , m_endPos(startPos + direction)
     , m_direction(direction)
     , m_duration(duration)
@@ -77,7 +77,9 @@ public:
   {
     m_elapsedTime += elapsedSeconds;
   }
-  void Finish() override {
+
+  void Finish() override
+  {
     m_elapsedTime = m_duration;
     Animation::Finish();
   }
@@ -87,7 +89,7 @@ public:
     ASSERT(HasProperty(object, property), ());
     // Current position = target position - amplutide * e ^ (elapsed / duration).
     // We calculate current position not based on start position, but based on target position.
-    value.m_valuePointD = m_endPos - m_direction * exp(-kKineticFadeoff * GetT());
+    value = PropertyValue(m_endPos - m_direction * exp(-kKineticFadeoff * GetT()));
     return true;
   }
 

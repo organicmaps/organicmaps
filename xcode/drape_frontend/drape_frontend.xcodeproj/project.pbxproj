@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */; };
 		3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */; };
+		454C19BB1CCE3EC0002A2C86 /* animation_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */; };
+		454C19BC1CCE3EC0002A2C86 /* animation_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 454C19B91CCE3EC0002A2C86 /* animation_system.cpp */; };
+		454C19BD1CCE3EC0002A2C86 /* animation_system.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */; };
 		56BF56DA1C7608C0006DD7CB /* choose_position_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */; };
 		56BF56DB1C7608C0006DD7CB /* choose_position_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */; };
 		56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D545641C74A44900E3719C /* overlay_batcher.cpp */; };
@@ -102,8 +105,6 @@
 		670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709480A1BDF9C39005014C0 /* interpolation_holder.hpp */; };
 		670948181BDF9C39005014C0 /* interpolations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709480B1BDF9C39005014C0 /* interpolations.cpp */; };
 		670948191BDF9C39005014C0 /* interpolations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709480C1BDF9C39005014C0 /* interpolations.hpp */; };
-		6709481A1BDF9C39005014C0 /* model_view_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709480D1BDF9C39005014C0 /* model_view_animation.cpp */; };
-		6709481B1BDF9C39005014C0 /* model_view_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709480E1BDF9C39005014C0 /* model_view_animation.hpp */; };
 		6709481C1BDF9C39005014C0 /* opacity_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709480F1BDF9C39005014C0 /* opacity_animation.cpp */; };
 		6709481D1BDF9C39005014C0 /* opacity_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948101BDF9C39005014C0 /* opacity_animation.hpp */; };
 		6709481E1BDF9C39005014C0 /* show_hide_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948111BDF9C39005014C0 /* show_hide_animation.cpp */; };
@@ -156,8 +157,6 @@
 		6743D3701C3A9F090095054B /* framebuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6743D36A1C3A9F090095054B /* framebuffer.hpp */; };
 		6743D3711C3A9F090095054B /* transparent_layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6743D36B1C3A9F090095054B /* transparent_layer.cpp */; };
 		6743D3721C3A9F090095054B /* transparent_layer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6743D36C1C3A9F090095054B /* transparent_layer.hpp */; };
-		6743D3751C3A9F530095054B /* perspective_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6743D3731C3A9F530095054B /* perspective_animation.cpp */; };
-		6743D3761C3A9F530095054B /* perspective_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6743D3741C3A9F530095054B /* perspective_animation.hpp */; };
 		675D21661BFB785900717E4F /* ruler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948331BDF9C48005014C0 /* ruler.cpp */; };
 		675D218C1BFB871D00717E4F /* proto_to_styles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D21851BFB871D00717E4F /* proto_to_styles.cpp */; };
 		675D218D1BFB871D00717E4F /* proto_to_styles.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675D21861BFB871D00717E4F /* proto_to_styles.hpp */; };
@@ -187,6 +186,9 @@
 /* Begin PBXFileReference section */
 		3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_utils.cpp; sourceTree = "<group>"; };
 		3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_utils.hpp; sourceTree = "<group>"; };
+		454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_constants.hpp; sourceTree = "<group>"; };
+		454C19B91CCE3EC0002A2C86 /* animation_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_system.cpp; sourceTree = "<group>"; };
+		454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_system.hpp; sourceTree = "<group>"; };
 		56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = choose_position_mark.cpp; sourceTree = "<group>"; };
 		56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = choose_position_mark.hpp; sourceTree = "<group>"; };
 		56D545641C74A44900E3719C /* overlay_batcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = overlay_batcher.cpp; sourceTree = "<group>"; };
@@ -289,8 +291,6 @@
 		6709480A1BDF9C39005014C0 /* interpolation_holder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = interpolation_holder.hpp; sourceTree = "<group>"; };
 		6709480B1BDF9C39005014C0 /* interpolations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interpolations.cpp; sourceTree = "<group>"; };
 		6709480C1BDF9C39005014C0 /* interpolations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = interpolations.hpp; sourceTree = "<group>"; };
-		6709480D1BDF9C39005014C0 /* model_view_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = model_view_animation.cpp; sourceTree = "<group>"; };
-		6709480E1BDF9C39005014C0 /* model_view_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = model_view_animation.hpp; sourceTree = "<group>"; };
 		6709480F1BDF9C39005014C0 /* opacity_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opacity_animation.cpp; sourceTree = "<group>"; };
 		670948101BDF9C39005014C0 /* opacity_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opacity_animation.hpp; sourceTree = "<group>"; };
 		670948111BDF9C39005014C0 /* show_hide_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = show_hide_animation.cpp; sourceTree = "<group>"; };
@@ -347,8 +347,6 @@
 		6743D36A1C3A9F090095054B /* framebuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = framebuffer.hpp; sourceTree = "<group>"; };
 		6743D36B1C3A9F090095054B /* transparent_layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transparent_layer.cpp; sourceTree = "<group>"; };
 		6743D36C1C3A9F090095054B /* transparent_layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transparent_layer.hpp; sourceTree = "<group>"; };
-		6743D3731C3A9F530095054B /* perspective_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = perspective_animation.cpp; sourceTree = "<group>"; };
-		6743D3741C3A9F530095054B /* perspective_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = perspective_animation.hpp; sourceTree = "<group>"; };
 		675D21851BFB871D00717E4F /* proto_to_styles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = proto_to_styles.cpp; sourceTree = "<group>"; };
 		675D21861BFB871D00717E4F /* proto_to_styles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = proto_to_styles.hpp; sourceTree = "<group>"; };
 		675D21871BFB871D00717E4F /* rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rect.h; sourceTree = "<group>"; };
@@ -396,6 +394,9 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */,
+				454C19B91CCE3EC0002A2C86 /* animation_system.cpp */,
+				454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */,
 				3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */,
 				3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */,
 				56D545641C74A44900E3719C /* overlay_batcher.cpp */,
@@ -519,16 +520,12 @@
 		670948051BDF9C0D005014C0 /* animation */ = {
 			isa = PBXGroup;
 			children = (
-				6743D3731C3A9F530095054B /* perspective_animation.cpp */,
-				6743D3741C3A9F530095054B /* perspective_animation.hpp */,
 				670948071BDF9C39005014C0 /* base_interpolator.cpp */,
 				670948081BDF9C39005014C0 /* base_interpolator.hpp */,
 				670948091BDF9C39005014C0 /* interpolation_holder.cpp */,
 				6709480A1BDF9C39005014C0 /* interpolation_holder.hpp */,
 				6709480B1BDF9C39005014C0 /* interpolations.cpp */,
 				6709480C1BDF9C39005014C0 /* interpolations.hpp */,
-				6709480D1BDF9C39005014C0 /* model_view_animation.cpp */,
-				6709480E1BDF9C39005014C0 /* model_view_animation.hpp */,
 				6709480F1BDF9C39005014C0 /* opacity_animation.cpp */,
 				670948101BDF9C39005014C0 /* opacity_animation.hpp */,
 				670948111BDF9C39005014C0 /* show_hide_animation.cpp */,
@@ -642,7 +639,6 @@
 				675D218D1BFB871D00717E4F /* proto_to_styles.hpp in Headers */,
 				670947951BDF9BE1005014C0 /* line_shape_helper.hpp in Headers */,
 				670948501BDF9C48005014C0 /* skin.hpp in Headers */,
-				6709481B1BDF9C39005014C0 /* model_view_animation.hpp in Headers */,
 				56D545671C74A44900E3719C /* overlay_batcher.hpp in Headers */,
 				670947B21BDF9BE1005014C0 /* read_mwm_task.hpp in Headers */,
 				670947C91BDF9BE1005014C0 /* text_shape.hpp in Headers */,
@@ -659,13 +655,14 @@
 				670948731BDF9C7F005014C0 /* frame_image.hpp in Headers */,
 				3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */,
 				670947FB1BDF9BF5005014C0 /* backend_renderer.hpp in Headers */,
+				454C19BD1CCE3EC0002A2C86 /* animation_system.hpp in Headers */,
 				670947DF1BDF9BE1005014C0 /* visual_params.hpp in Headers */,
 				670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */,
 				670947FD1BDF9BF5005014C0 /* base_renderer.hpp in Headers */,
 				670947D51BDF9BE1005014C0 /* tile_utils.hpp in Headers */,
 				670947D91BDF9BE1005014C0 /* user_mark_shapes.hpp in Headers */,
+				454C19BB1CCE3EC0002A2C86 /* animation_constants.hpp in Headers */,
 				6709481F1BDF9C39005014C0 /* show_hide_animation.hpp in Headers */,
-				6743D3761C3A9F530095054B /* perspective_animation.hpp in Headers */,
 				670E393B1C46C59000E9C0A6 /* batch_merge_helper.hpp in Headers */,
 				670947931BDF9BE1005014C0 /* kinetic_scroller.hpp in Headers */,
 				670947E71BDF9BEC005014C0 /* frontend_renderer.hpp in Headers */,
@@ -770,6 +767,7 @@
 				67E91C791BDFC85E005CEE88 /* base_renderer.cpp in Sources */,
 				67E91C7A1BDFC85E005CEE88 /* circle_shape.cpp in Sources */,
 				67E91C7B1BDFC85E005CEE88 /* my_position_controller.cpp in Sources */,
+				454C19BC1CCE3EC0002A2C86 /* animation_system.cpp in Sources */,
 				67E91C7C1BDFC85E005CEE88 /* selection_shape.cpp in Sources */,
 				67E91C7D1BDFC85E005CEE88 /* user_marks_provider.cpp in Sources */,
 				67E91C7E1BDFC85E005CEE88 /* visual_params.cpp in Sources */,
@@ -796,7 +794,6 @@
 				670948711BDF9C7F005014C0 /* feature_styler.cpp in Sources */,
 				670948471BDF9C48005014C0 /* layer_render.cpp in Sources */,
 				6709486C1BDF9C7F005014C0 /* cpu_drawer.cpp in Sources */,
-				6743D3751C3A9F530095054B /* perspective_animation.cpp in Sources */,
 				670947C41BDF9BE1005014C0 /* text_handle.cpp in Sources */,
 				670947BD1BDF9BE1005014C0 /* rule_drawer.cpp in Sources */,
 				6709481E1BDF9C39005014C0 /* show_hide_animation.cpp in Sources */,
@@ -804,7 +801,6 @@
 				6709483D1BDF9C48005014C0 /* copyright_label.cpp in Sources */,
 				670947C81BDF9BE1005014C0 /* text_shape.cpp in Sources */,
 				670947CC1BDF9BE1005014C0 /* tile_info.cpp in Sources */,
-				6709481A1BDF9C39005014C0 /* model_view_animation.cpp in Sources */,
 				670947961BDF9BE1005014C0 /* line_shape.cpp in Sources */,
 				670948681BDF9C7F005014C0 /* agg_curves.cpp in Sources */,
 				670947A91BDF9BE1005014C0 /* path_symbol_shape.cpp in Sources */,
