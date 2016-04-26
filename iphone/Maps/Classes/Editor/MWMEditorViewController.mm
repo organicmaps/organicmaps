@@ -403,7 +403,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:[UIImage imageNamed:@"ic_operator"]
                            text:@(m_mapObject.GetOperator().c_str())
                     placeholder:L(@"editor_operator")
-                   keyboardType:UIKeyboardTypeEmailAddress
+                   keyboardType:UIKeyboardTypeDefault
                  capitalization:UITextAutocapitalizationTypeSentences];
       break;
     }
