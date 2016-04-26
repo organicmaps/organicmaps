@@ -1,26 +1,5 @@
 #import "MWMPlaceDoesntExistAlert.h"
 
-// This private class needs for change default text field's content inset.
-@interface _MWMTextField : UITextField
-
-@end
-
-@implementation _MWMTextField
-
-// placeholder position
-- (CGRect)textRectForBounds:(CGRect)bounds
-{
-  return CGRectInset(bounds, 4, 4);
-}
-
-// text position
-- (CGRect)editingRectForBounds:(CGRect)bounds
-{
-  return CGRectInset(bounds, 4, 4);
-}
-
-@end
-
 @interface MWMPlaceDoesntExistAlert ()
 
 @property (weak, nonatomic) IBOutlet UITextField * textField;

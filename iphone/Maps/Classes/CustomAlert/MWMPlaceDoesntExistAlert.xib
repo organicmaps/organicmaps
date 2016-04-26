@@ -50,30 +50,45 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_notes_write_additional_info"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0f8-vD-nJT" customClass="_MWMTextField">
-                            <rect key="frame" x="16" y="86" width="249" height="24"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npf-dH-f50">
+                            <rect key="frame" x="16" y="86" width="248" height="24"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0f8-vD-nJT">
+                                    <rect key="frame" x="4" y="0.0" width="240" height="24"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="240" id="uql-Jo-4VK"/>
+                                    </constraints>
+                                    <edgeInsets key="layoutMargins" top="4" left="4" bottom="4" right="4"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_notes_comment"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                    </userDefinedRuntimeAttributes>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="24" id="C7T-xQ-Aui"/>
-                                <constraint firstAttribute="width" constant="249" id="pFJ-Ry-C0u"/>
+                                <constraint firstItem="0f8-vD-nJT" firstAttribute="centerX" secondItem="npf-dH-f50" secondAttribute="centerX" id="Pm7-RK-HAq"/>
+                                <constraint firstItem="0f8-vD-nJT" firstAttribute="centerY" secondItem="npf-dH-f50" secondAttribute="centerY" id="T6e-qA-hJ1"/>
+                                <constraint firstAttribute="height" constant="24" id="ZAd-qX-QyG"/>
+                                <constraint firstAttribute="width" constant="248" id="x63-Bq-F0w"/>
+                                <constraint firstItem="0f8-vD-nJT" firstAttribute="height" secondItem="npf-dH-f50" secondAttribute="height" id="zHi-xB-aCQ"/>
                             </constraints>
-                            <edgeInsets key="layoutMargins" top="4" left="4" bottom="4" right="4"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_notes_comment"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                                 <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
                                     <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                     <real key="value" value="0.5"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                             </userDefinedRuntimeAttributes>
-                        </textField>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kEx-DM-ynC" userLabel="hDivider">
                             <rect key="frame" x="0.0" y="122" width="280" height="1"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
@@ -146,17 +161,17 @@
                         <constraint firstAttribute="bottom" secondItem="MkK-sG-n6m" secondAttribute="bottom" id="K0E-y1-z0P"/>
                         <constraint firstAttribute="bottom" secondItem="zaM-0A-71d" secondAttribute="bottom" id="KzG-74-cDe"/>
                         <constraint firstItem="kEx-DM-ynC" firstAttribute="width" secondItem="XjH-qf-m6h" secondAttribute="width" id="Ldw-GJ-Ulm"/>
-                        <constraint firstItem="0f8-vD-nJT" firstAttribute="top" secondItem="VvH-Bb-fV9" secondAttribute="bottom" constant="12" id="LhK-01-SkA"/>
                         <constraint firstAttribute="bottom" secondItem="Tyn-yU-dk3" secondAttribute="bottom" id="Mb3-VE-bBR"/>
                         <constraint firstItem="Tyn-yU-dk3" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="PkD-5c-ltY"/>
                         <constraint firstItem="zaM-0A-71d" firstAttribute="leading" secondItem="XjH-qf-m6h" secondAttribute="leading" id="RCZ-fs-HwM"/>
+                        <constraint firstItem="kEx-DM-ynC" firstAttribute="top" secondItem="npf-dH-f50" secondAttribute="bottom" constant="12" id="TD5-DZ-mt2"/>
                         <constraint firstItem="NwN-e5-YQR" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="ZbO-Kn-lsV"/>
+                        <constraint firstItem="npf-dH-f50" firstAttribute="top" secondItem="VvH-Bb-fV9" secondAttribute="bottom" constant="12" id="apH-SR-1Ir"/>
                         <constraint firstItem="zaM-0A-71d" firstAttribute="top" secondItem="kEx-DM-ynC" secondAttribute="bottom" constant="-1" id="cPx-SM-J1B"/>
-                        <constraint firstItem="kEx-DM-ynC" firstAttribute="top" secondItem="0f8-vD-nJT" secondAttribute="bottom" constant="12" id="kX8-Lm-Oyt"/>
                         <constraint firstItem="VvH-Bb-fV9" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="mPb-7n-Ns1"/>
+                        <constraint firstItem="npf-dH-f50" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="nfD-rk-FZo"/>
                         <constraint firstAttribute="width" constant="280" id="uve-xM-xfj"/>
                         <constraint firstItem="kEx-DM-ynC" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="vop-cl-2u7"/>
-                        <constraint firstItem="0f8-vD-nJT" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="xds-vV-Goi"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
