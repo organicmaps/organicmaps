@@ -263,7 +263,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
       break;
     case osm::Editor::NoFreeSpaceError:
       [Statistics logEvent:(self.isCreating ? kStatEditorAddError : kStatEditorEditError) withParameters:info];
-      [self.alertController presentDownloaderNotEnoughSpaceAlert];
+      [self.alertController presentNotEnoughSpaceAlert];
       break;
   }
 }
