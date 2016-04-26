@@ -23,14 +23,23 @@ using namespace storage;
   [ud synchronize];
 }
 
-+ (void)downloadNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess
++ (void)downloadNode:(TCountryId const &)countryId
+     alertController:(MWMAlertViewController *)alertController
+           onSuccess:(TMWMVoidBlock)onSuccess
 {
-  [self checkEnoughSpaceFor:countryId andPerformAction:[countryId, onSuccess]
+  if (IsEnoughSpaceForDownload(countryId, GetFramework().Storage()))
   {
-    GetFramework().Storage().DownloadNode(countryId);
-    if (onSuccess)
-      onSuccess();
-  } alertController:alertController];
+    [self checkConnectionAndPerformAction:[countryId, onSuccess]
+    {
+      GetFramework().Storage().DownloadNode(countryId);
+      if (onSuccess)
+        onSuccess();
+    } alertController:alertController];
+  }
+  else
+  {
+    [alertController presentNotEnoughSpaceAlert];
+  }
 }
 
 + (void)retryDownloadNode:(TCountryId const &)countryId
@@ -38,12 +47,20 @@ using namespace storage;
   GetFramework().Storage().RetryDownloadNode(countryId);
 }
 
-+ (void)updateNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
++ (void)updateNode:(TCountryId const &)countryId
+   alertController:(MWMAlertViewController *)alertController
 {
-  [self checkEnoughSpaceFor:countryId andPerformAction:[countryId]
+  if (IsEnoughSpaceForUpdate(countryId, GetFramework().Storage()))
   {
-    GetFramework().Storage().UpdateNode(countryId);
-  } alertController:alertController];
+    [self checkConnectionAndPerformAction:[countryId]
+    {
+      GetFramework().Storage().UpdateNode(countryId);
+    } alertController:alertController];
+  }
+  else
+  {
+    [alertController presentNotEnoughSpaceAlert];
+  }
 }
 
 + (void)deleteNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
@@ -97,16 +114,6 @@ using namespace storage;
   {
     [alertController presentNotEnoughSpaceAlert];
   }
-}
-
-+ (void)checkEnoughSpaceFor:(TCountryId const &)countryId
-           andPerformAction:(TMWMVoidBlock)action
-            alertController:(MWMAlertViewController *)alertController
-{
-  if (IsEnoughSpaceForDownload(countryId, GetFramework().Storage()))
-    [self checkConnectionAndPerformAction:action alertController:alertController];
-  else
-    [alertController presentNotEnoughSpaceAlert];
 }
 
 + (void)checkConnectionAndPerformAction:(TMWMVoidBlock)action
