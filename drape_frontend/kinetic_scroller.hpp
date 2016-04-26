@@ -1,6 +1,6 @@
 #pragma once
 
-#include "animation/model_view_animation.hpp"
+#include "animation_system.hpp"
 
 #include "drape/pointers.hpp"
 
@@ -18,7 +18,7 @@ public:
   bool IsActive() const;
   void GrabViewRect(ScreenBase const & modelView, double timeStamp);
   void CancelGrab();
-  drape_ptr<BaseModelViewAnimation> CreateKineticAnimation(ScreenBase const & modelView);
+  drape_ptr<Animation> CreateKineticAnimation(ScreenBase const & modelView);
 
 private:
   double m_lastTimestamp;

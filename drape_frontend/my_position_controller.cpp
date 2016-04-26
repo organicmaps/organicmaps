@@ -1,9 +1,9 @@
 #include "drape_frontend/my_position_controller.hpp"
+#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/animation_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/animation/base_interpolator.hpp"
 #include "drape_frontend/animation/interpolations.hpp"
-#include "drape_frontend/animation/model_view_animation.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -323,7 +323,8 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     if (m_mode == location::Follow)
       ChangeModelView(m_position, kDoNotChangeZoom);
     else if (m_mode == location::FollowAndRotate)
-      ChangeModelView(m_position, m_drawDirection, GetRotationPixelCenter(), kDoNotChangeZoom);
+      ChangeModelView(m_position, m_drawDirection,
+                      m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition, kDoNotChangeZoom);
   }
 
   m_isPositionAssigned = true;
@@ -533,16 +534,17 @@ void MyPositionController::UpdateViewport()
   if (m_mode == location::Follow)
     ChangeModelView(m_position, kDoNotChangeZoom);
   else if (m_mode == location::FollowAndRotate)
-    ChangeModelView(m_position, m_drawDirection, GetRotationPixelCenter(), kDoNotChangeZoom);
+    ChangeModelView(m_position, m_drawDirection,
+                    m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition, kDoNotChangeZoom);
 }
 
 m2::PointD MyPositionController::GetRotationPixelCenter() const
 {
   if (m_mode == location::Follow)
-    return m_centerPixelPosition;
+    return m_pixelRect.Center();
   
   if (m_mode == location::FollowAndRotate)
-    return m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition;
+    return m_isInRouting ? GetRoutingRotationPixelCenter() : m_pixelRect.Center();
 
   return m2::PointD::Zero();
 }
@@ -581,11 +583,11 @@ void MyPositionController::CheckAnimFinished() const
     m_anim.reset();
 }
 
-void MyPositionController::AnimationStarted(ref_ptr<BaseModelViewAnimation> anim)
+void MyPositionController::AnimationStarted(ref_ptr<Animation> anim)
 {
   if (m_isPendingAnimation && m_animCreator != nullptr && anim != nullptr &&
-      (anim->GetType() == ModelViewAnimationType::FollowAndRotate ||
-       anim->GetType() == ModelViewAnimationType::Default))
+      (anim->GetType() == Animation::MapFollow ||
+       anim->GetType() == Animation::MapLinear))
   {
     m_isPendingAnimation = false;
     m_animCreator();
@@ -594,8 +596,8 @@ void MyPositionController::AnimationStarted(ref_ptr<BaseModelViewAnimation> anim
 
 void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen)
 {
-  double const moveDuration = ModelViewAnimation::GetMoveDuration(oldPos, m_position, screen);
-  double const rotateDuration = ModelViewAnimation::GetRotateDuration(oldAzimut, m_drawDirection);
+  double const moveDuration = PositionInterpolator::GetMoveDuration(oldPos, m_position, screen);
+  double const rotateDuration = AngleInterpolator::GetRotateDuration(oldAzimut, m_drawDirection);
   if (df::IsAnimationAllowed(max(moveDuration, rotateDuration), screen))
   {
     if (IsModeChangeViewport())
@@ -624,7 +626,7 @@ void MyPositionController::ActivateRouting(int zoomLevel)
     if (IsRotationAvailable())
     {
       ChangeMode(location::FollowAndRotate);
-      ChangeModelView(m_position, m_drawDirection, GetRotationPixelCenter(), zoomLevel);
+      ChangeModelView(m_position, m_drawDirection, m_centerPixelPositionRouting, zoomLevel);
     }
     else
     {

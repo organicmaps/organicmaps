@@ -2,8 +2,6 @@
 
 #include "drape_frontend/kinetic_scroller.hpp"
 #include "drape_frontend/navigator.hpp"
-#include "drape_frontend/animation/model_view_animation.hpp"
-#include "drape_frontend/animation/perspective_animation.hpp"
 
 #include "drape/pointers.hpp"
 
@@ -257,7 +255,7 @@ public:
     virtual void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const = 0;
     virtual void OnScaleEnded() = 0;
 
-    virtual void OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim) = 0;
+    virtual void OnAnimationStarted(ref_ptr<Animation> anim) = 0;
   };
 
   UserEventStream();
@@ -300,17 +298,16 @@ public:
 #endif
 
 private:
-  using TAnimationCreator = function<void(m2::AnyRectD const &, m2::AnyRectD const &, double, double, double)>;
   bool SetScale(m2::PointD const & pxScaleCenter, double factor, bool isAnim);
   bool SetCenter(m2::PointD const & center, int zoom, bool isAnim);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
-  bool SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator const & animCreator);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, bool isAnim);
 
   bool FilterEventWhile3dAnimation(UserEvent::EEventType type) const;
-  void SetEnable3dMode(double maxRotationAngle, double angleFOV, bool isAnim, bool & viewportChanged);
+  void SetEnable3dMode(double maxRotationAngle, double angleFOV,
+                       bool isAnim, bool immediatelyStart);
   void SetDisable3dModeAnimation();
 
   m2::AnyRectD GetCurrentRect() const;
@@ -352,7 +349,10 @@ private:
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
 
-  void ResetCurrentAnimation(bool finishAnimation = false);
+  void ApplyAnimations(bool & modelViewChanged, bool & viewportChanged);
+  void ResetCurrentAnimations();
+  void ResetMapLinearAnimations();
+  void ResetCurrentAnimations(bool finishAll, pair<bool, uint32_t> finishAnim);
 
   list<UserEvent> m_events;
   mutable mutex m_lock;
@@ -374,10 +374,9 @@ private:
 
   array<Touch, 2> m_touches;
 
-  drape_ptr<BaseModelViewAnimation> m_animation;
+  AnimationSystem & m_animationSystem;
 
-  unique_ptr<PerspectiveAnimation> m_perspectiveAnimation;
-  bool m_pendingPerspective = false;
+  bool m_perspectiveAnimation = false;
   unique_ptr<UserEvent> m_pendingEvent;
   double m_discardedFOV = 0.0;
   double m_discardedAngle = 0.0;

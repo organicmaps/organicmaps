@@ -1,5 +1,6 @@
 #include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -746,14 +747,15 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
                                    double rotationAngle, double angleFOV)
 {
 
+  m_myPositionController->ActivateRouting(!m_enablePerspectiveInNavigation ? preferredZoomLevel
+                                                                           : preferredZoomLevelIn3d);
+
   if (m_enablePerspectiveInNavigation)
   {
     bool immediatelyStart = !m_myPositionController->IsRotationAvailable();
     AddUserEvent(EnablePerspectiveEvent(rotationAngle, angleFOV, true /* animated */, immediatelyStart));
   }
 
-  m_myPositionController->ActivateRouting(!m_enablePerspectiveInNavigation ? preferredZoomLevel
-                                                                           : preferredZoomLevelIn3d);
   m_overlayTree->SetFollowingMode(true);
 }
 
@@ -1389,7 +1391,7 @@ void FrontendRenderer::OnScaleEnded()
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
 }
 
-void FrontendRenderer::OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim)
+void FrontendRenderer::OnAnimationStarted(ref_ptr<Animation> anim)
 {
   m_myPositionController->AnimationStarted(anim);
 }
@@ -1505,13 +1507,14 @@ void FrontendRenderer::Routine::Do()
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
 
-    isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
-
     if (modelViewChanged)
     {
       m_renderer.UpdateScene(modelView);
       m_renderer.EmitModelViewChanged(modelView);
     }
+
+    isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
+    AnimationSystem::Instance().Advance(frameTime);
 
     isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
 

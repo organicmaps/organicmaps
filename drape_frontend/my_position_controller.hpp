@@ -15,7 +15,7 @@
 
 namespace df
 {
-class BaseModelViewAnimation;
+class Animation;
 
 class MyPositionController
 {
@@ -61,7 +61,7 @@ public:
   void ScaleStarted();
   void ScaleEnded();
 
-  void AnimationStarted(ref_ptr<BaseModelViewAnimation> anim);
+  void AnimationStarted(ref_ptr<Animation> anim);
 
   void Rotated();
 
