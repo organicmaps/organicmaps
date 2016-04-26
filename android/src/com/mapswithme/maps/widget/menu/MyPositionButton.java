@@ -41,6 +41,7 @@ public class MyPositionButton
       image = mButton.getResources().getDrawable(ThemeUtils.getResource(mButton.getContext(), R.attr.myPositionButtonAnimation));
       break;
 
+    case LocationState.NOT_FOLLOW_NO_POSITION:
     case LocationState.NOT_FOLLOW:
       image = Graphics.tint(mButton.getContext(), R.drawable.ic_not_follow);
       break;

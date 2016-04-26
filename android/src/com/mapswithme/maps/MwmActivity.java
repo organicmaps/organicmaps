@@ -844,6 +844,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onResume();
 
     LocationState.INSTANCE.setMyPositionModeListener(this);
+    refreshLocationState();
 
     mSearchController.refreshToolbar();
 
@@ -983,18 +984,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationPredictor.pause();
   }
 
-  private void refreshLocationState(int newMode)
+  private void refreshLocationState()
   {
+    int newMode = LocationState.INSTANCE.getLocationStateMode();
     mMainMenu.getMyPositionButton().update(newMode);
 
-    switch (newMode)
-    {
-    case LocationState.PENDING_POSITION:
+    if (newMode != LocationState.NOT_FOLLOW_NO_POSITION)
       resumeLocation();
-      break;
-    default:
-      break;
-    }
   }
 
   @Override
