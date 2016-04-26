@@ -23,23 +23,23 @@ osm::EditableMapObject g_editableMapObject;
 
 jclass g_featureCategoryClazz;
 jmethodID g_featureCtor;
+jclass g_localNameClazz;
+jmethodID g_localNameCtor;
+jfieldID g_localNameFieldCode;
+jfieldID g_localNameFieldName;
 
 jobject ToJavaFeatureCategory(JNIEnv * env, osm::Category const & category)
 {
   return env->NewObject(g_featureCategoryClazz, g_featureCtor, category.m_type, jni::TScopedLocalRef(env, jni::ToJavaString(env, category.m_name)).get());
 }
 
-jobjectArray ToJavaArray(JNIEnv * env, vector<string> const & src)
+jobject ToJavaName(JNIEnv * env, osm::LocalizedName const & name)
 {
-  int const size = src.size();
-  auto jArray = env->NewObjectArray(size, jni::GetStringClass(env), 0);
-  for (size_t i = 0; i < size; i++)
-  {
-    jni::TScopedLocalRef jItem(env, jni::ToJavaString(env, src[i]));
-    env->SetObjectArrayElement(jArray, i, jItem.get());
-  }
-
-  return jArray;
+  jni::TScopedLocalRef jName(env, jni::ToJavaString(env, name.m_name));
+  jni::TScopedLocalRef jLang(env, jni::ToJavaString(env, name.m_lang));
+  jni::TScopedLocalRef jLangName(env, jni::ToJavaString(env, name.m_langName));
+  return env->NewObject(g_localNameClazz, g_localNameCtor, name.m_code,
+                        jName.get(), jLang.get(), jLangName.get());
 }
 }  // namespace
 
@@ -50,9 +50,15 @@ using osm::Editor;
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeInit(JNIEnv * env, jclass)
 {
-  g_featureCategoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/FeatureCategory");;
+  g_featureCategoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/FeatureCategory");
   // public FeatureCategory(int category, String name)
   g_featureCtor = jni::GetConstructorID(env, g_featureCategoryClazz, "(ILjava/lang/String;)V");
+
+  g_localNameClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/LocalizedName");
+  // public LocalizedName(int code, @NonNull String name, @NonNull String lang, @NonNull String langName)
+  g_localNameCtor = jni::GetConstructorID(env, g_localNameClazz, "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+  g_localNameFieldCode = env->GetFieldID(g_localNameClazz, "code", "I");
+  g_localNameFieldName = env->GetFieldID(g_localNameClazz, "name", "Ljava/lang/String;");
 }
 
 JNIEXPORT jstring JNICALL
@@ -254,29 +260,55 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass cla
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetDefaultName(JNIEnv * env, jclass)
 {
-  // TODO(yunikkk): add multilanguage names support via EditableMapObject::GetLocalizedName().
   return jni::ToJavaString(env, g_editableMapObject.GetDefaultName());
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeSetDefaultName(JNIEnv * env, jclass, jstring name)
 {
-  // TODO(yunikkk): add multilanguage names support.
   g_editableMapObject.SetName(jni::ToNativeString(env, name), StringUtf8Multilang::kDefaultCode);
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetLocalizedNames(JNIEnv * env, jclass)
+{
+  return jni::ToJavaArray(env, g_localNameClazz, g_editableMapObject.GetLocalizedNames(), ToJavaName);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetLocalizedNames(JNIEnv * env, jclass, jobjectArray names)
+{
+  int const length = env->GetArrayLength(names);
+  for (int i = 0; i < length; i++)
+  {
+    auto jName = env->GetObjectArrayElement(names, i);
+    g_editableMapObject.SetName(jni::ToNativeString(env, static_cast<jstring>(env->GetObjectField(jName, g_localNameFieldName))),
+                                env->GetIntField(jName, g_localNameFieldCode));
+  }
 }
 
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetStreet(JNIEnv * env, jclass)
 {
-  // TODO(yunikkk): use "GetStreet().m_localizedName" to get localized street
   return jni::ToJavaString(env, g_editableMapObject.GetStreet().m_defaultName);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetLocalizedStreet(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetStreet().m_localizedName);
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeSetStreet(JNIEnv * env, jclass, jstring street)
 {
-  //TODO(yunikkk): pass original localized street name as a second parameter.
   g_editableMapObject.SetStreet({jni::ToNativeString(env, street), ""});
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetLocalizedStreet(JNIEnv * env, jclass, jstring street, jstring localizedStreet)
+{
+  g_editableMapObject.SetStreet({jni::ToNativeString(env, street), jni::ToNativeString(env, localizedStreet)});
 }
 
 JNIEXPORT jstring JNICALL
@@ -354,17 +386,15 @@ Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv *, jclass, j
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetNewFeatureCategories(JNIEnv * env, jclass clazz)
 {
-  osm::NewFeatureCategories const & printableTypes = g_framework->NativeFramework()->GetEditorCategories();
-  int const size = printableTypes.m_allSorted.size();
-  auto jCategories = env->NewObjectArray(size, g_featureCategoryClazz, 0);
-  for (size_t i = 0; i < size; i++)
-  {
-    // TODO pass used categories section, too
-    jni::TScopedLocalRef jCategory(env, ToJavaFeatureCategory(env, printableTypes.m_allSorted[i]));
-    env->SetObjectArrayElement(jCategories, i, jCategory.get());
-  }
+  return jni::ToJavaArray(env, g_featureCategoryClazz, g_framework->NativeFramework()->GetEditorCategories().m_allSorted,
+                          ToJavaFeatureCategory);
+}
 
-  return jCategories;
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetUsedFeatureCategories(JNIEnv * env, jclass clazz)
+{
+  return jni::ToJavaArray(env, g_featureCategoryClazz, g_framework->NativeFramework()->GetEditorCategories().m_lastUsed,
+                          ToJavaFeatureCategory);
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -375,13 +405,13 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetCuisines(JNIEnv * env, jclass cl
   keys.reserve(cuisines.size());
   for (TCuisine const & cuisine : cuisines)
     keys.push_back(cuisine.first);
-  return ToJavaArray(env, keys);
+  return jni::ToJavaStringArray(env, keys);
 }
 
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetSelectedCuisines(JNIEnv * env, jclass clazz)
 {
-  return ToJavaArray(env, g_editableMapObject.GetCuisines());
+  return jni::ToJavaStringArray(env, g_editableMapObject.GetCuisines());
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -395,7 +425,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeTranslateCuisines(JNIEnv * env, jcl
     string const & key = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(jKeys, i));
     translations.push_back(osm::Cuisines::Instance().Translate(key));
   }
-  return ToJavaArray(env, translations);
+  return jni::ToJavaStringArray(env, translations);
 }
 
 JNIEXPORT void JNICALL
