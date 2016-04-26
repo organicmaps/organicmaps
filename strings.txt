@@ -4272,7 +4272,7 @@
     tags = ios,android,tizen
     comment = Subject for emailed bookmark
     ru = Смотри мою метку на карте MAPS.ME
-    uk = Поглянь на мою позначку на карті MAPS.ME
+    uk = Поглянь на мою мiтку на карті MAPS.ME
     ko = MAPS.ME 지도에서 내 핀 보기
     ja = MAPS.MEでピン情報を確認
     it = Dai uno sguardo al mio pin sulla mappa di MAPS.ME
@@ -12964,7 +12964,7 @@
     nl = Automatische download
     pt = Download automático
 
-[closed_now]
+  [closed_now]
     tags = ios, android
     comment = Place Page opening hours text
     en = Closed now
@@ -14881,7 +14881,7 @@
     ja = ユーザー名が無効です
     vi = Tên đăng nhập không hợp lệ
 
-[editor_place_edited_dialog]
+  [editor_place_edited_dialog]
     tags = ios, android
     en = You’ve edited an object!
     ru = Вы отредактировали объект!
@@ -15361,7 +15361,7 @@
 
   [placepage_add_business_button]
     tags = ios, android
-    en = Add organization
+    en = Add business
     ru = Добавить организацию
     fr = Ajouter une organisation
     da = Tilføj organisationen
@@ -15377,7 +15377,7 @@
     cs = Přidat organizaci
     it = Aggiungi organizzazione
     nb = Legg til organisasjon
-    zh-Hant = 新增組織
+    zh-Hant = 添加組織
     zh-Hans = 添加组织
     th = เพิ่มองค์กร
     ja = 団体を追加
@@ -16217,11 +16217,11 @@
 
   [editor_storey_number]
     tags = ios, android
-    en = Number of floors (max %d)
+    en = Building levels (max %d)
     ru = Количество этажей (максимум %d)
     fr = Nombre d'étages (max %d)
     da = Antal etager (maks %d)
-    id = Jumlah lantai (maksimum %25)
+    id = Jumlah lantai (maksimum %d)
     ko = 층 수(최대 %d)
     sv = Antal våningar (max %d)
     tr = Kat sayısı (en fazla %d)
@@ -16245,18 +16245,18 @@
 
   [error_enter_correct_storey_number]
     tags = ios, android
-    en = Edit the building with maximum 25 floors
-    ru = Редактируйте здания высотой максимум %25 этажей.
+    en = Buildigns at highest of 25 levels can be edited
+    ru = Редактируйте здания высотой максимум 25 этажей
     fr = Modifier l'immeuble avec un maximum de 25 étages
     da = Rediger bygningen med maksimum 25 etager
     id = Edit bangunan dengan maksimum 25 lantai
     ko = 최대 25층까지 입력하세요
     sv = Redigera byggnaden med max 25 våningar
     tr = Binayı en fazla 25 katlı düzenle
-    uk = Редагуйте будівлі висотою максимум %25 поверхів.
+    uk = Редагуйте будівлі висотою максимум 25 поверхів
     vi = Sửa tòa nhà có tối đa 25 tầng
-    hu = Legfeljebb %25 emeletes épület szerkesztése
-    de = Bearbeiten Sie die Gebäude mit maximal 25% Etagen.
+    hu = Legfeljebb 25 emeletes épület szerkesztése
+    de = Bearbeiten Sie die Gebäude mit maximal 25% Etagen
     fi = Muokkaa kerroksia, enintään 25 kerrosta
     cs = Opravte počet poschodí, max. 25
     it = Modificare l'edificio con un massimo di 25 piani
@@ -16414,31 +16414,31 @@
 
   [editor_detailed_description]
     tags = ios, android
-    en = Your Suggested changes will be sent to the OpenStreetMap community. Describe the details which cannot be edited in MAPS.ME
+    en = Your suggested changes will be sent to the OpenStreetMap community. Describe the details which cannot be edited in MAPS.ME.
     ru = Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые MAPS.ME не позволяет отредактировать.
-    fr = Vos modifications suggérées ont été envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans MAPS.ME
-    da = Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i MAPS.ME
-    id = Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di MAPS.ME
-    ko = 귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. MAPS.ME에서 편집할 수 없는 세부정보를 작성해 주세요
-    sv = Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i MAPS.ME
-    tr = Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. MAPS.ME’de düzenlenemeyen ayrıntıları açıklayın
-    uk = Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об'єкт, які не можна редагувати у MAPS.ME
-    vi = Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong MAPS.ME
+    fr = Vos modifications suggérées ont été envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans MAPS.ME.
+    da = Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i MAPS.ME.
+    id = Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di MAPS.ME.
+    ko = 귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. MAPS.ME에서 편집할 수 없는 세부정보를 작성해 주세요.
+    sv = Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i MAPS.ME.
+    tr = Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. MAPS.ME’de düzenlenemeyen ayrıntıları açıklayın.
+    uk = Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об'єкт, які не можна редагувати у MAPS.ME.
+    vi = Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong MAPS.ME.
     hu = Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a MAPS.ME-ben.
     de = Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in MAPS.ME nicht bearbeiten können.
-    fi = Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata MAPS.ME:ssä
+    fi = Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata MAPS.ME:ssä.
     cs = Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v MAPS.ME.
-    it = Le modifiche suggerite saranno inviate alla community OpenStreetMap. Descrivere i dettagli che non è possibile modificare in MAPS.ME
-    nb = De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i MAPS.ME
+    it = Le modifiche suggerite saranno inviate alla community OpenStreetMap. Descrivere i dettagli che non è possibile modificare in MAPS.ME.
+    nb = De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i MAPS.ME.
     zh-Hans = 您建议的更改将发送至 OpenStreetMap 社区。说明无法在 MAPS.ME 编辑的详情。
     th = คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ MAPS.ME ไม่สามารถแก้ไขได้
     ja = あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。MAPS.MEで編集できない詳細を説明してください。
-    ro = Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME
+    ro = Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME.
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في MAPS.ME
-    sk = Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME
+    sk = Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.
     es = Los cambios que ha sugerido se enviarán a la comunidad de OpenStreetMap. Describa los detalles que no pueden editarse en MAPS.ME.
-    pl = Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w MAPS.ME
-    nl = Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in MAPS.ME
+    pl = Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w MAPS.ME.
+    nl = Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in MAPS.ME.
 
   [editor_more_about_osm]
     tags = ios, android
@@ -16469,7 +16469,6 @@
     nl = Meer over OpenStreetMap
 
   [editor_operator]
-    comment = Строка в редакторе
     en = Operator
     ru = Владелец
     fr = Opérateur
@@ -16497,8 +16496,7 @@
     nl = Uitvoerder
 
   [editor_tag_description]
-    comment = Подсказка в редаторе
-    en = Enter company, organisation or individual responible for the facilities.
+    en = Enter company, organization or individual responsible for the facilities.
     ru = Укажите компанию, организацию или лицо, которое отвечает за работоспособность объекта.
     fr = Entrer la société, l'organisation ou l'individu responsable des installations.
     da = Angiv firmaet, organisationen eller personen som er ansvarlig for faciliteterne.
@@ -16525,7 +16523,6 @@
     nl = Voer het bedrijf, de organisatie of het individu in dat verantwoordelijk is voor de faciliteiten.
 
   [editor_no_local_edits_title]
-    comment = Заголовок в пустом профиле
     en = You don't have local edits
     ru = У вас пока нет локальных правок
     fr = Vous n'avez pas de modifications locales
@@ -16553,8 +16550,7 @@
     nl = U hebt geen lokale bewerkingen
 
   [editor_no_local_edits_description]
-    comment = Текст в пустом профиле
-    en = This shows the number of your suggested changes on the map that are currently only accessible on your device.
+    en = This shows the number of your suggested changes on the map that are currently accessible only on your device.
     ru = Здесь отображается количество предложенных вами изменений на карте, которые доступны пока только на вашем устройстве.
     fr = Affiche le nombre de modifications suggérées dans la carte actuellement uniquement accessible sur votre périphérique.
     da = Den viser antallet af dine foreslåede ændringer på kortet, der kun er tilgængelige på din enhed.
@@ -16581,7 +16577,6 @@
     nl = Dit toont het aantal voorgestelde wijzigingen voor de kaart die momenteel alleen toegankelijk zijn op uw apparaat.
 
   [editor_international_names_subtitle]
-    comment = Подзаголовок в редакторе
     en = Name in other languages
     ru = Название на других языках
     fr = Nom dans d'autres langues
@@ -16609,7 +16604,6 @@
     nl = Naam in andere talen
 
   [editor_send_to_osm]
-    comment = Button (Action Sheet)
     en = Send to OSM
     ru = Отправить в OSM
     fr = Envoyer à OSM
@@ -16664,7 +16658,6 @@
     nl = Verwijderen
 
   [downloader_my_maps_title]
-    comment = Заголовок экрана в загрузчике
     en = My maps
     ru = Мои карты
     fr = Mes cartes
@@ -16692,7 +16685,6 @@
     nl = Mijn kaarten
 
   [downloader_no_downloaded_maps_title]
-    comment = Заголовок в пустом загрузчике
     en = You haven't downloaded any maps
     ru = У вас нет загруженных карт
     fr = Vous n'avez téléchargé aucune carte
@@ -16720,7 +16712,6 @@
     nl = U hebt geen kaarten gedownload
 
   [downloader_no_downloaded_maps_message]
-    comment = Текст в пустом загрузчике
     en = Download maps to search location and use navigation offline.
     ru = Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.
     fr = Téléchargez des cartes pour rechercher l'emplacement et naviguer hors ligne
@@ -16729,7 +16720,7 @@
     ko = 오프라인으로 위치를 검색하려면 지도를 다운로드하세요.
     sv = Ladda ner kartor för att hitta platsen och navigera offline.
     tr = Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.
-    uk = Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без Інтернету.
+    uk = Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.
     vi = Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.
     hu = Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.
     de = Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.
@@ -16748,7 +16739,6 @@
     nl = Download kaarten om de locatie te zoeken en offline te navigeren.
 
   [downloader_find_place_hint]
-    comment = Хинт в строке поиска загрузчика
     en = Search city or country
     ru = Найти город или страну
     fr = Rechercher ville ou pays
@@ -16775,92 +16765,8 @@
     pl = Szukaj miasta lub kraju
     nl = Stad of land zoeken
 
-  [downloader_download_maps_button]
-    comment = Кнопка загружающая все карты
-    en = Download map
-    ru = Загрузить карты
-    fr = Télécharger la carte
-    da = Hent kortet
-    id = Unduh peta
-    ko = 지도 다운로드
-    sv = Ladda ner kartan
-    tr = Haritayı indir
-    uk = Завантажити мапи
-    vi = Tải về bản đồ
-    hu = Térkép letöltése
-    de = Karten laden
-    fi = Lataa kartta
-    cs = Stáhnout mapu
-    it = Scarica la mappa
-    nb = Last ned kartet
-    zh-Hans = 下载地图
-    th = ดาวน์โหลดแผนที่
-    ja = マップをダウンロード
-    ro = Descărcați harta
-    ar = تنزيل الخريطة
-    sk = Prevziať mapu
-    es = Descargar el mapa
-    pl = Pobierz mapę
-    nl = Download de kaart
-
-  [downloader_cancel_download_button]
-    comment = Кнопка отменяющая загрузку
-    en = Cancel download
-    ru = Отменить загрузку
-    fr = Annuler le téléchargement
-    da = Annuller download
-    id = Batalkan unduhan
-    ko = 다운로드 취소
-    sv = Avbryt nerladdningen
-    tr = İndirmeyi iptal et
-    uk = Відмінити завантаження
-    vi = Hủy thao tác tải về
-    hu = Letöltés megszakítása
-    de = Laden abbrechen
-    fi = Peruuta lataus
-    cs = Zrušit stahování
-    it = Annulla download
-    nb = Avbryt nedlastingen
-    zh-Hans = 取消下载
-    th = ยกเลิกการดาวน์โหลด
-    ja = ダウンロードをキャンセル
-    ro = Anulare descărcare
-    ar = إلغاء التنزيل
-    sk = Zrušiť prevzatie
-    es = Cancelar descarga
-    pl = Anuluj pobieranie
-    nl = Download annuleren
-
-  [downloader_status_downloading]
-    comment = Процесс загрузки
-    en = Downloading...
-    ru = Загрузка...
-    fr = Téléchargement en cours…
-    da = Downloader...
-    id = Mengunduh…
-    ko = 다운로드 중…
-    sv = Laddar ner…
-    tr = İndiriliyor...
-    uk = Завантаження…
-    vi = Đang tải về...
-    hu = Letöltés
-    de = Laden...
-    fi = Ladataan…
-    cs = Stahování...
-    it = Download in corso…
-    nb = Laster ned...
-    zh-Hans = 正在下载...
-    th = กำลังดาวน์โหลด.....
-    ja = ダウンロード中...
-    ro = Se descarcă...
-    ar = جارِ التنزيل...
-    sk = Preberá sa...
-    es = Descargando…
-    pl = Pobieranie…
-    nl = Downloaden...
-
   [current_location_unknown_title]
-    comment = Заголовок ошибки при поиске поизиции которая возникает через определенное время
+    comment = Error title that appears after certain time without location.
     en = Continue detecting your current location?
     ru = Продолжить поиск местоположения?
     fr = Continuer la détection de votre emplacement actuel ?
@@ -16888,16 +16794,16 @@
     nl = Doorgaan met het detecteren van uw huidige locatie?
 
   [current_location_unknown_message]
-    comment = Текст ошибки при поиске поизиции которая возникает через определенное время
+    comment = Error that appears after certain time without location.
     en = Current location is unknown. Maybe you are in a building or in a tunnel.
-    ru = Местоположение не найдено, возможно вы находитесь в помещении или в туннеле.
+    ru = Местоположение не найдено. Возможно, вы находитесь в помещении или в туннеле.
     fr = L'emplacement actuel est inconnu. Vous êtes peut-être dans un immeuble ou sous un tunnel.
     da = Aktuel placering er ukendt. Måske er du i en bygning eller i en tunnel.
     id = Lokasi saat ini tidak diketahui. Anda mungkin berada dalam bangunan atau terowongan.
     ko = 현재 위치를 알 수 없습니다. 건물 안이나 터널 안에서는 검색할 수 없습니다
     sv = Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.
     tr = Geçerli konum bilinmiyor Muhtemelen bir binanın içinde veya tüneldesiniz.
-    uk = Місцезнаходження не знайдено, можливо ви знаходитесь у приміщенні або тунелі.
+    uk = Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.
     vi = Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.
     hu = Tartózkodási helye ismeretlen. Lehet, hogy épületben vagy alagútban tartózkodik.
     de = Standort nicht gefunden. Möglicherweise befinden Sie sich in einem Gebäude oder einem Tunnel.
@@ -16916,7 +16822,6 @@
     nl = Huidige locatie is onbekend. Misschien bevindt u zich in een gebouw of tunnel.
 
   [current_location_unknown_continue_button]
-    comment = Кнопка ошибки при поиске поизиции которая возникает через определенное время
     en = Continue
     ru = Продолжить
     fr = Continuer
@@ -16971,18 +16876,17 @@
     nl = Stoppen
 
   [current_location_unknown_error_title]
-    comment = Заголовок ошибки при поиске поизиции которая возникает по непонятной системной причине
     en = Current location is unknown.
-    ru = Местоположение не найдено
+    ru = Местоположение не найдено.
     fr = L'emplacement actuel est inconnu.
     da = Aktuel position er ukendt.
     id = Lokasi saat ini tidak diketahui.
     ko = 현재 위치를 알 수 없습니다.
     sv = Den nuvarande platsen är okänd.
-    tr = Geçerli konum bilinmiyor
-    uk = Місцезнаходження не знайдено
+    tr = Geçerli konum bilinmiyor.
+    uk = Місцезнаходження не знайдено.
     vi = Chưa biết địa điểm hiện tại.
-    de = Standort nicht gefunden
+    de = Standort nicht gefunden.
     fi = Nykyinen paikka on tuntematon.
     cs = Současná poloha nezjištěna.
     it = La posizione attuale è sconosciuta.
@@ -16998,7 +16902,6 @@
     nl = Huidige locatie is onbekend.
 
   [current_location_unknown_error_message]
-    comment = Текст ошибки при поиске поизиции которая возникает по непонятной системной причине
     en = An error occured while searching for your location. Check that your device is working properly and try again later.
     ru = При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.
     fr = Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que le périphérique fonctionne correctement et réessayez ultérieurement
@@ -17026,7 +16929,6 @@
     nl = Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.
 
   [whatsnew_update_editor_title]
-    comment = Заголовок в whats new
     en = We've updated the map editor
     ru = Мы обновили редактор
     fr = Nous avons mis à jour l'éditeur de cartes
@@ -17046,7 +16948,7 @@
     zh-Hans = 我们已经更新了地图编辑器
     th = เราได้ทำการอัพเดตตัวแก้ไขแผนที่แล้ว
     ja = マップエディタを更新しました
-    ro = Am actualizat editorul de hărți.
+    ro = Am actualizat editorul de hărți
     ar = لقد قمنا بتحديث محرر الخريطة
     sk = Aktualizovali sme program na úpravu máp
     es = Hemos actualizado el editor de mapas
@@ -17054,9 +16956,8 @@
     nl = We hebben de kaarteditor bijgewerkt
 
   [whatsnew_update_editor_message]
-    comment = текст в whats new
     en = MAPS.ME users have made 50 000 map changes. Together we are making the most detailed maps in the World. Join us!
-    ru = Пользователи MAPS.ME внесли уже 50 000 правок на карту, вместе мы сделаем карты самыми подробными в мире. Присоединяйся.
+    ru = Пользователи MAPS.ME внесли уже 50 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!
     fr = Les utilisateurs de MAPS.ME ont procédé à 50 000 modifications de cartes. Nous créons ensemble les cartes les plus détaillées du monde. Rejoignez-nous !
     da = MAPS.ME brugere har foretaget 50.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!
     id = Pengguna MAPS.ME telah membuat 50 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!
@@ -17079,70 +16980,9 @@
     sk = Používatelia MAPS.ME urobili 50 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!
     es = Los usuarios de MAPS.ME han realizado 50 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!
     pl = Użytkownicy MAPS.ME dokonali 50 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!
-    nl = MAPS.ME-gebruikers hebben 50.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld! Doe met ons mee!
-
-  [download_over_mobile_header]
-    comment = Заголовок ошибки при загрузке через сотовую связь
-    en = Download by using a cellular network connection?
-    ru = Загрузить через сотовую связь?
-    fr = Téléchargement avec une connexion réseau cellulaire ?
-    da = Downloader du ved hjælp af en mobilforbindelse?
-    id = Unduh dengan menggunakan koneksi jaringan seluler?
-    ko = 셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?
-    sv = Ladda ned med mobildata?
-    tr = Hücresel bir ağ bağlantısı kullanarak indir?
-    uk = Завантажити за допомогою мобільної мережі?
-    vi = Tải xuống qua kết nối mạng di động?
-    hu = Letöltés mobilhálózati kapcsolat segítségével?
-    de = Download mit einer mobilen Netzwerkverbindung?
-    fi = Lataa käyttämällä puhelinverkkoyhteyttä?
-    cs = Stáhnout pomocí připojení přes mobilní síť?
-    it = Vuoi scaricare utilizzando una connessione di rete cellulare?
-    nb = Last ned via en mobil nettverkskobling?
-    zh-Hant = 用手機網絡連接下載嗎？
-    zh-Hans = 用手机网络连接下载吗？
-    th = ดาวน์โหลดโดยใช้การเชื่อมต่อเครือข่ายมือถือ?
-    ja = 携帯通信ネットワークで接続してダウンロードしますか？
-    ro = Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?
-    ar = تنزيل باستخدام اتصال الشبكة الخلوية؟
-    sk = Sťahovať prostredníctvom pripojenia na mobilnú sieť?
-    es = ¿Descargar con conexión de red móvil?
-    pl = Czy pobrać, używając połączenia z siecią komórkową?
-    nl = Downloaden via een mobiele gegevensverbinding?
-    pt = Baixar usando uma conexão de rede celular?
-
-  [download_over_mobile_message]
-    comment = Текст ошибки при загрузке через сотовую связь
-    en = This could be considerably expensive with some plans or if roaming.
-    ru = На некоторых тарифных планах или в роуминге это может привести к значительным расходам.
-    fr = Cela pourrait être très cher avec certains abonnements ou si vous êtes en déplacement.
-    da = Det kan blive temmelig dyrt med nogle abonnementer eller via roaming.
-    id = Ini bisa menjadi jauh mahal pada beberapa paket atau jika roaming.
-    ko = 이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.
-    sv = Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.
-    tr = Bu işlem bazı planlarla ya da dolaşım ise büyük ölçüde pahalı olabilir.
-    uk = Це може бути задорого за деякими планами або за умовами роумінгу.
-    vi = Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.
-    hu = Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.
-    de = Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.
-    fi = Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.
-    cs = Toto by mohli být s některými tarify nebo roamingem výrazně dražší.
-    it = Quest'operazione potrebbe essere piuttosto costosa con alcuni piani o in roaming.
-    nb = Dette kan bli betraktelig dyrere med enkelte abonnement, eller ved bruk av roaming.
-    zh-Hant = 用一些方案或漫遊的話這可能相當昂貴。
-    zh-Hans = 用一些方案或漫游的话这可能相当昂贵。
-    th = มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง
-    ja = プランによって、またはローミングしている場合、非常に高額になる可能性があります。
-    ro = Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.
-    ar = قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.
-    sk = V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.
-    es = Podría ser muy caro con ciertos planes o con itinerancia de datos.
-    pl = Może to być kosztowne przy niektórych planach taryfowych lub w roamingu.
-    nl = Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.
-    pt = Isto pode ser significativamente caro, com alguns planos ou se roaming.
+    nl = MAPS.ME-gebruikers hebben 50.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!
 
   [location_services_disabled_header]
-    comment = iOS Заголовок Диалога при отключенном пермишине на поиск геопозиции
     en = Location services are disabled
     ru = Определение местоположения отключено
     fr = L'identification de la localisation est désactivée
@@ -17173,7 +17013,7 @@
     he = זיהוי המיקום אינו מופעל
 
   [location_services_disabled_1]
-    comment = iOS Текст Диалога при отключенном пермишине на поиск геопозиции
+    tags = ios
     en = 1. Open Settings
     ru = 1. Откройте Настройки
     fr = 1. Ouvrir Paramètres
@@ -17204,6 +17044,7 @@
     he = 1. פתחו את "הגדרות" (Settings)
 
   [location_services_disabled_2]
+    tags = ios
     en = 2. Tap Location
     ru = 2. Нажмите Геопозиция
     fr = 2. Appuyer sur Localisation
@@ -17234,6 +17075,7 @@
     he = 2. געו ב"מיקום" (Location)
 
   [location_services_disabled_3]
+    tags = ios
     en = 3. Select Always
     ru = 3. Выберите «Всегда»
     fr = 3. Sélectionner Toujours
@@ -17263,69 +17105,7 @@
     pt = 3. Selecionar sempre
     he = 3. בחרו ב"תמיד" (Always)
 
-  [not_now_button]
-    comment = iOS Кнопка Диалога при отключенном пермишине на поиск геопозиции
-    en = Not now
-    ru = Не сейчас
-    fr = Pas maintenant
-    da = Ikke nu
-    id = Tidak Sekarang
-    ko = 지금 아님
-    sv = Inte nu
-    tr = Şimdi değil
-    uk = Не зараз
-    vi = Không phải lúc này
-    hu = Most nem
-    de = Nicht jetzt
-    fi = Niet nu
-    cs = Později
-    it = Non ora
-    nb = Ikke nå
-    zh-Hant = 現在不要
-    zh-Hans = 现在不要
-    th = ไม่ใช่ตอนนี้
-    ja = 後で
-    ro = Nu acum
-    ar = ليس الآن
-    sk = Nie teraz
-    es = Ahora no
-    pl = Nie teraz
-    nl = Niet nu
-    pt = Agora não
-    he = לא עכשיו
-
-  [settings_button]
-    en = Settings
-    ru = Настройки
-    fr = Paramètres
-    da = Indstillinger
-    id = Pengaturan
-    ko = 설정
-    sv = Inställningar
-    tr = Ayarlar
-    uk = Налаштування
-    vi = Thiết lập
-    hu = Beállítások
-    de = Einstellungen
-    fi = İnstellingen
-    cs = Nastavení
-    it = Impostazioni
-    nb = Innstillinger
-    zh-Hant = 設置
-    zh-Hans = 设置
-    th = การตั้งค่า
-    ja = 設定
-    ro = Setări
-    ar = الإعدادات
-    sk = Nastavenia
-    es = Ajustes
-    pl = Ustawienia
-    nl = İnstellingen
-    pt = Configurações
-    he = הגדרות
-
   [placepage_parking_surface]
-    comment = Parking type in Place Page
     en = Surface
     ru = Открытая парковка
     fr = Surface
@@ -17595,7 +17375,6 @@
     nl = Intervalbetaling
 
   [placepage_entrance_number]
-    comment = Entrance number in Place Page
     en = No.
     ru = №
     fr = N°
@@ -17623,7 +17402,6 @@
     nl = Nr.
 
   [placepage_entrance_type]
-    comment = Entrance type in Place Page
     en = Entrance
     ru = Подъезд
     fr = Entrée
@@ -17651,7 +17429,6 @@
     nl = Ingang
 
   [placepage_flat]
-    comment = Flat number in place page
     en = app.
     ru = кв.
     fr = app.
@@ -17677,61 +17454,6 @@
     es = aplicación
     pl = Mieszkanie
     nl = app.
-
-  [placepage_open_status]
-    comment = Place status in Place Page
-    en = Open
-    ru = Открыто
-    fr = Ouvrir
-    da = Åbn
-    id = Buka
-    ko = 개점
-    sv = Öppen
-    tr = Açık
-    uk = Відкрито
-    vi = Mở cửa
-    hu = Nyitott
-    de = Geöffnet
-    fi = Auki
-    cs = Otevřeno
-    it = Aperto
-    nb = Åpen
-    zh-Hans = 开放
-    th = เปิด
-    ja = 開く
-    ro = Deschis
-    ar = مفتوح
-    sk = Otvorené
-    es = Abierto
-    pl = Otwarte
-    nl = Open
-
-  [placepage_closed_status]
-    en = Closed
-    ru = Закрыто
-    fr = Fermé
-    da = Lukket
-    id = Tutup
-    ko = 폐점
-    sv = Stängd
-    tr = Kapalı
-    uk = Закрито
-    vi = Đóng cửa
-    hu = Zárt
-    de = Geschlossen
-    fi = Kiinni
-    cs = Zavřeno
-    it = Chiuso
-    nb = Lukket
-    zh-Hans = 已关闭
-    th = ปิด
-    ja = 閉じる
-    ro = Închis
-    ar = مغلق
-    sk = Zatvorené
-    es = Cerrado
-    pl = Zamknięte
-    nl = Gesloten
 
   [placepage_open_24_7]
     en = 24 / 7
@@ -17871,7 +17593,7 @@
     fr = Description
     da = Beskrivelse
     id = Deskripsi
-    ko = 설명….
+    ko = 설명
     sv = Beskrivning
     tr = Açıklama
     uk = Опис
@@ -17893,9 +17615,8 @@
     nl = Beschrijving
 
   [placepage_more_button]
-    comment = Place Page
     en = More
-    ru = Еще
+    ru = Ещё
     fr = Plus
     da = Mere
     id = Lainnya
@@ -17965,7 +17686,7 @@
     it = Chiama
     nb = Ring
     zh-Hans = 呼叫
-    th = โทร.
+    th = โทร
     ja = コール
     ro = Apel
     ar = اتصال
@@ -17973,60 +17694,6 @@
     es = Llamar
     pl = Zadzwoń
     nl = Bellen
-
-  [placepage_route_from_button]
-    en = Route from
-    ru = Отсюда
-    fr = Itinéraire de
-    da = Rute fra
-    id = Rute dari
-    ko = 출발지
-    sv = Rutt från
-    tr = Çıkış yeri:
-    uk = Звідси
-    vi = Tuyến từ
-    hu = Innen
-    de = Von
-    fi = Reitin alkupiste
-    cs = Cesta k
-    it = Percorso da
-    nb = Rute fra
-    zh-Hans = 发送自
-    th = เส้นทางจาก
-    ja = からのルート
-    ro = Ruta de la
-    ar = الطريق من
-    sk = Cesta z
-    es = Ruta desde
-    pl = Droga z
-    nl = Route van
-
-  [placepage_route_to_button]
-    en = Route to
-    ru = Сюда
-    fr = Itinéraire vers
-    da = Rute til
-    id = Rute ke
-    ko = 목적지
-    sv = Rutt till
-    tr = Varış yeri:
-    uk = Сюди
-    vi = Tuyến đến
-    hu = Ide
-    de = Nach
-    fi = Reitin loppupiste
-    cs = Cesta od
-    it = Percorso per
-    nb = Rute til
-    zh-Hans = 发送至
-    th = เส้นทางถึง
-    ja = へのルート
-    ro = Ruta la
-    ar = الطريق إلى
-    sk = Cesta do
-    es = Ruta hasta
-    pl = Droga do
-    nl = Route naar
 
   [placepage_edit_bookmark_button]
     en = Edit Bookmark
@@ -18037,7 +17704,7 @@
     ko = 즐겨찾기 편집
     sv = Redigera bokmärke
     tr = Yer İmini Düzenle
-    uk = Редагувати позначку
+    uk = Редагувати мiтку
     vi = Sửa Dấu Trang
     hu = Könyvjelző szerkesztése
     de = Lesezeichen bearbeiten
@@ -18064,7 +17731,7 @@
     ko = 즐겨찾기 이름
     sv = Namn bokmärke
     tr = Yer İmi Adı
-    uk = Назва позначки
+    uk = Назва мiтки
     vi = Tên Dấu Trang
     hu = Könyvjelző neve
     de = Name des Lesezeichens
@@ -18083,31 +17750,31 @@
     nl = Bladwijzernaam
 
   [placepage_personal_notes_hint]
-    en = Personal notes...
+    en = Personal notes
     ru = Примечание
-    fr = Remarques personnelles…
-    da = Personlige notater...
-    id = Catatan pribadi…
-    ko = 개인 메모 …
+    fr = Remarques personnelles
+    da = Personlige notater
+    id = Catatan pribadi
+    ko = 개인 메모
     sv = Personlig anteckning
-    tr = Kişisel notlar...
+    tr = Kişisel notlar
     uk = Примітка
-    vi = Ghi chú cá nhân...
+    vi = Ghi chú cá nhân
     hu = Jegyzet
     de = Anmerkung
-    fi = Henkilökohtaiset merkinnät…
-    cs = Vlastní poznámka...
-    it = Note personali…
+    fi = Henkilökohtaiset merkinnät
+    cs = Vlastní poznámka
+    it = Note personali
     nb = Personlige notater
-    zh-Hans = 个人备注...
+    zh-Hans = 个人备注
     th = ข้อความส่วนตัว
-    ja = パーソナルメモ...
-    ro = Note personale...
-    ar = ملاحظات شخصية...
-    sk = Osobné poznámky...
-    es = Notas personales…
-    pl = Notatki osobiste…
-    nl = Persoonlijke aantekeningen...
+    ja = パーソナルメモ
+    ro = Note personale
+    ar = ملاحظات شخصية
+    sk = Osobné poznámky
+    es = Notas personales
+    pl = Notatki osobiste
+    nl = Persoonlijke aantekeningen
 
   [placepage_delete_bookmark_button]
     en = Delete Bookmark
@@ -18118,7 +17785,7 @@
     ko = 즐겨찾기 삭제
     sv = Radera bokmärke
     tr = Yer İmini Sil
-    uk = Видалити позначку
+    uk = Видалити мiтку
     vi = Xóa Dấu Trang
     hu = Könyvjelző törlése
     de = Lesezeichen löschen
@@ -18136,70 +17803,13 @@
     pl = Usuń zakładkę
     nl = Bladwijzer verwijderen
 
-  [placepage_add_business_button]
-    en = Add business
-    ru = Добавить организацию
-    fr = Ajouter une organisation
-    da = Tilføj organisationen
-    id = Tambahkan organisasi
-    ko = 조직 추가
-    sv = Lägg till organisation
-    tr = Kuruluş ekle
-    uk = Додати організацію
-    vi = Thêm tổ chức
-    hu = Szervezet hozzáadása
-    de = Organisation hinzufügen
-    fi = Lisää organisaatio
-    cs = Přidat organizaci
-    it = Aggiungi organizzazione
-    nb = Legg til organisasjon
-    zh-Hant = 添加組織
-    zh-Hans = 添加组织
-    th = เพิ่มองค์กร
-    ja = 団体を追加
-    ro = Adăugare organizație
-    ar = إضافة مؤسسة
-    sk = Pridať organizáciu
-    es = Añadir organización
-    pl = Dodaj organizację
-    nl = Een organisatie toevoegen
-    pt = Adicionar uma organização
-
-  [thank_you]
-    comment = Snackbar
-    en = Thank you!
-    ru = Спасибо!
-    fr = Merci !
-    da = Tak!
-    id = Terima kasih!
-    ko = 감사합니다!
-    sv = Tack!
-    tr = Teşekkürler!
-    uk = Дякуємо!
-    vi = Xin cám ơn!
-    hu = Köszönjük!
-    de = Vielen Dank!
-    fi = Kiitos
-    cs = Děkujeme!
-    it = Grazie!
-    nb = Tusen takk!
-    zh-Hans = 谢谢您！
-    th = ขอบคุณ!
-    ja = ありがとうございました！
-    ro = Vă mulțumim!
-    ar = شكرًا!
-    sk = Ďakujeme!
-    es = ¡Gracias!
-    pl = Dziękujemy!
-    nl = Bedankt!
-
   [editor_edits_sent_message]
     en = Your suggested changes have been sent
     ru = Предложенные вами изменения отправлены
     fr = Vos modifications suggérées ont été envoyées
     da = Dine foreslåede ændringer er blevet sendt
     id = Saran perubahan Anda telah dikirim
-    ko = 귀하의 제안 변경사항이 전송되었습니다.
+    ko = 귀하의 제안 변경사항이 전송되었습니다
     sv = Dina föreslagna ändringar har skickats
     tr = Önerdiğiniz değişiklikler gönderildi
     uk = Зміни, що ви запропонували, відправлено
@@ -18221,30 +17831,30 @@
     nl = Uw voorgestelde wijzigingen zijn verzonden
 
   [editor_comment_hint]
-    en = Comment...
-    ru = Коментарий...
+    en = Comment…
+    ru = Коментарий…
     fr = Commentaire…
-    da = Kommentar...
+    da = Kommentar…
     id = Komentar…
     sv = kommentar…
-    tr = Yorum...
+    tr = Yorum…
     uk = Коментар…
-    vi = Nhận xét...
-    hu = Megjegyzés
-    de = Kommentar...
+    vi = Nhận xét…
+    hu = Megjegyzés…
+    de = Kommentar…
     fi = Kommentti…
-    cs = Poznámka...
+    cs = Poznámka…
     it = Commenta…
-    nb = Kommentar...
-    zh-Hans = 备注...
+    nb = Kommentar…
+    zh-Hans = 备注…
     th = ข้อคิดเห็น
-    ja = コメント...
-    ro = Comentariu...
-    ar = تعليق...
-    sk = Poznámka...
+    ja = コメント…
+    ro = Comentariu…
+    ar = تعليق…
+    sk = Poznámka…
     es = Comentario…
     pl = Komentarz…
-    nl = Reactie...
+    nl = Reactie…
 
   [editor_reset_edits_message]
     en = Reset all local changes?
@@ -18309,7 +17919,7 @@
     ko = 추가한 장소를 삭제하시겠습니까?
     sv = Ta bort en tillagd plats?
     tr = Eklenen bir yer kaldırılsın mı?
-    uk = Видалити об'єкт, що ви додати?
+    uk = Видалити об'єкт, що ви додали?
     vi = Xóa một địa điểm đã thêm?
     hu = Eltávolít egy hozzáadott objektumot?
     de = Hinzugefügtes Objekt löschen?
@@ -18355,34 +17965,33 @@
     nl = Verwijderen
 
   [editor_status_sending]
-    en = Sending...
-    ru = Отправка...
+    en = Sending…
+    ru = Отправка…
     fr = Envoyer…
-    da = Send...
+    da = Send…
     id = Mengirim…
     ko = 보내는 중…
     sv = Skickar…
     tr = Gönderiliyor…
     uk = Відправка…
-    vi = Đang gửi ...
-    hu = Küldés
-    de = Senden...
+    vi = Đang gửi …
+    hu = Küldés…
+    de = Senden…
     fi = Lähetetään…
-    cs = Odesílání...
+    cs = Odesílání…
     it = Invio…
-    nb = Sender...
-    zh-Hans = 正在发送...
-    th = กำลังส่ง
-    ja = 送信中...
-    ro = Se trimite...
-    ar = جارِ الإرسال...
-    sk = Odosiela sa...
+    nb = Sender…
+    zh-Hans = 正在发送…
+    th = กำลังส่ง…
+    ja = 送信中…
+    ro = Se trimite…
+    ar = جارِ الإرسال…
+    sk = Odosiela sa…
     es = Enviando…
     pl = Wysyłanie…
-    nl = Verzenden...
+    nl = Verzenden…
 
   [editor_place_doesnt_exist]
-    comment = Editor
     en = Place does not exist
     ru = Места не существует
     fr = La place n'existe pas
