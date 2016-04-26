@@ -50,5 +50,20 @@ namespace jni
   jobject GetNewPoint(JNIEnv * env, m2::PointD const & point);
   jobject GetNewPoint(JNIEnv * env, m2::PointI const & point);
 
+  template<typename TValue, typename TToJavaFn>
+  jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, vector<TValue> const & src, TToJavaFn && toJavaFn)
+  {
+    int const size = src.size();
+    auto jArray = env->NewObjectArray(size, clazz, 0);
+    for (size_t i = 0; i < size; i++)
+    {
+      TScopedLocalRef jItem(env, toJavaFn(env, src[i]));
+      env->SetObjectArrayElement(jArray, i, jItem.get());
+    }
+
+    return jArray;
+  }
+  jobjectArray ToJavaStringArray(JNIEnv * env, vector<string> const & src);
+
   void DumpDalvikReferenceTables();
 }

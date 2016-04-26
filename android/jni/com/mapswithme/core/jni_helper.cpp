@@ -109,6 +109,15 @@ namespace jni
     return env->NewStringUTF(s);
   }
 
+  jobjectArray ToJavaStringArray(JNIEnv * env, vector<string> const & src)
+  {
+    return ToJavaArray(env, GetStringClass(env), src,
+                       [](JNIEnv * env, string const & item)
+                       {
+                         return ToJavaString(env, item.c_str());
+                       });
+  }
+
   jclass GetStringClass(JNIEnv * env)
   {
     return env->FindClass(GetStringClassName());
@@ -181,8 +190,8 @@ namespace jni
     jmethodID methodID = GetConstructorID(env, klass, "(II)V");
 
     return env->NewObject(klass, methodID,
-                              static_cast<jint>(point.x),
-                              static_cast<jint>(point.y));
+                          static_cast<jint>(point.x),
+                          static_cast<jint>(point.y));
   }
 
   // This util method dumps content of local and global reference jni tables to logcat for debug and testing purposes
