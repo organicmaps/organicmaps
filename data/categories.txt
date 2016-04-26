@@ -325,7 +325,7 @@ nb:3Butikk
 fi:3Kauppa
 sw:Duka
 
-shop-chemist
+shop-cosmetics
 en:4Beauty Care|home care|shop|U+1F3EC|U+1F3EA
 ar:ﻞﻴﻤﺠﺘﻟﺍ ﺕﺍﺮﻀﺤﺘﺴﻣ|تجميل|المتجر
 cs:4Kosmetika|domácí péče|obchod
@@ -2811,16 +2811,16 @@ fi:Posti
 sw:Posta
 
 amenity-waste_disposal
-en:Trash|bin|garbage|waste disposal|dumpster|U+1F6AE
-ar:ﺔﻣﺎﻤﻗ
+en:Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
+ar:القمامة|ﺔﻣﺎﻤﻗ
 cs:Odpadky|koš|popelnice|uložiště odpadu
 da:Skraldespand|Genbrug|skrald
-de:Mülltonne|Abfälle|Müll
+de:Müllcontainer|Mülltonne|Abfälle|Müll
 el:Σκουπίδια
 es:Basura
 fi:Roska
 fr:Déchets|poubelle|déchet
-he:הפשא
+he:במכולה|הפשא
 hu:Szemét
 id:Sampah
 it:Spazzatura
@@ -2828,15 +2828,15 @@ ja:ゴミ|ごみ|リサイクル|再利用|ダストボックス
 ko:쓰레기|휴지통
 nb:Søppel
 nl:Uitschot|afval|prullenbak|vuilnis
-pl:Śmieci|ponowne odtworzenie|odpady
+pl:Wysypisko|Śmieci|ponowne odtworzenie|odpady
 pt:Lixo|lixo
 ro:Gunoi
-ru:Мусорный бак|мусорка
+ru:Мусорный контейнер|мусорка
 sk:Odpadky|kôš
-sv:Soptunna|skräp|avfall
+sv:Avfallscontainer|Soptunna|skräp|avfall
 th:ขยะ|ถังขยะ
-tr:Çöp|çöplük
-uk:Сміттєвий бак|сміття|смітник
+tr:Çöplüğü|Çöp|çöplük
+uk:Сміттєвий контейнер|сміття|смітник
 vi:Rác
 zh-Hans:垃圾
 zh-Hant:垃圾|回收|回收場
@@ -5326,3 +5326,223 @@ uk:Дитяча кімната|ясла
 vi:Nhà trẻ|Chăm sóc Trẻ em
 zh-Hans:幼儿园|儿童看护
 zh-Hant:幼兒園|兒童看護
+
+amenity-bicycle_parking
+en:Bicycle Parking
+ru:Велостоянка
+
+amenity-waste_basket
+en:Trash Bin|Waste Basket
+ru:Урна|Мусорная корзина
+
+emergency-phone
+en:Emergency Phone
+ru:Телефон для экстренных вызовов
+
+leisure-fitness_centre
+en:Fitness Centre|Gym|U+1F4AA
+ru:Фитнес-клуб|качалка|джим
+
+leisure-sauna
+en:Sauna
+ru:Баня|Сауна
+
+man_made-water_well
+en:Water Well
+ru:Колодец
+
+shop-car_repair-tyres
+en:Tyre Repair
+ru:Шиномонтаж
+
+shop-chemist
+en:Chemist Shop|shop
+ru:Бытовая химия|магазин
+
+shop-pet
+en:Petshop|shop
+ru:Зоотовары|магазин
+
+tourism-information-office
+en:Tourist Office|sights
+ru:Туристический офис|достопримечательност|достопримечательностьь
+
+amenity-community_centre
+en:Community Centre
+ru:Культурно-досуговый центр|Дом культуры
+
+amenity-courthouse
+en:Courthouse
+ru:Суд
+
+amenity-vending_machine-cigarettes
+en:Cigarette Dispenser
+ru:Сигаретный автомат
+
+amenity-vending_machine-drinks
+en:Drink Dispenser
+ru:Автомат с напитками
+
+building-garage
+en:Garage
+ru:Гараж
+
+highway-rest_area
+en:Highway Rest Area
+ru:Зона отдыха на трассе
+
+highway-traffic_signals
+en:Traffic Lights
+ru:Светофор
+
+man_made-chimney
+en:Factory Chimney
+ru:Заводская труба
+
+man_made-tower
+en:Tower
+ru:Башня
+
+power-substation
+en:Substation
+ru:Подстанция
+
+shop-bookmaker
+en:Bookmaker
+ru:Букмекерская контора
+
+shop-seafood
+en:Seafood Shop|shop
+ru:Рыбный магазин|магазин
+
+shop-ticket
+en:Ticket Shop|shop
+ru:Билетная касса|магазин
+
+shop-wine
+en:Wine Shop|shop
+ru:Винный магазин|магазин
+
+shop-car_parts
+en:Car Parts Shop|shop
+ru:Автозапчасти|магазин
+
+tourism-chalet
+en:Chalet
+ru:Шале
+
+tourism-information-board
+en:Information Board|sights
+ru:Информационный щит|достопримечательность
+
+tourism-information-map
+en:Tourist Map|sights
+ru:Карта|достопримечательность
+
+aerialway-station
+en:Aerialway Station
+ru:Канатная дорога
+
+aeroway-helipad
+en:Helipad
+ru:Вертолётная площадка
+
+amenity-vending_machine-parking_tickets
+en:Parking Tickets
+ru:Паркомат
+
+barrier-block
+en:Block
+ru:Блок
+
+barrier-bollard
+en:Pillar
+ru:Столбик
+
+barrier-border_control
+en:Border Control
+ru:Погранконтроль
+
+barrier-entrance
+en:Entrance
+ru:Проход
+
+barrier-gate
+en:Gate
+ru:Ворота
+
+barrier-lift_gate
+en:Lift Gate
+ru:Шлагбаум
+
+barrier-stile
+en:Stile
+ru:Перелаз
+
+barrier-toll_booth
+en:Toll Booth
+ru:Пункт оплаты
+
+entrance
+en:Entrance
+ru:Вход
+
+leisure-water_park
+en:Water Park
+ru:Аквапарк
+
+man_made-water_tower
+en:Water Tower
+ru:Водонапорная башня
+
+man_made-windmill
+en:Windmill
+ru:Ветряная мельница
+
+military-bunker
+en:Bunker
+ru:Бункер
+
+natural-cave_entrance
+en:Cave Entrance
+ru:Пещера
+
+natural-tree
+en:Tree
+ru:Дерево
+
+natural-volcano
+en:Volcano
+ru:Вулкан
+
+office-estate_agent
+en:Estate Agent|Realtor
+ru:Агентство недвижимости|риэлтор
+
+power-pole|power-tower
+en:Power Tower
+ru:Опора ЛЭП
+
+waterway-lock_gate
+en:Lock Gate
+ru:Шлюз
+
+amenity-public_bookcase
+en:Book Exchange|Bookcase
+ru:Книжный шкаф|Обмен книг
+
+leisure-sports_centre-climbing
+en:Climbing Centre
+ru:Скалодром
+
+leisure-sports_centre-shooting
+en:Shooting Range
+ru:Тир|стрельбище
+
+leisure-sports_centre-swimming
+en:Swimming Centre
+ru:Плавательный бассейн
+
+leisure-sports_centre-yoga
+en:Yoga Studio
+ru:Йога-центр|Студия йоги
