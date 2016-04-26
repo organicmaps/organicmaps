@@ -18,10 +18,9 @@
     tools:visibility="visible"/>
 
   <View
-    android:id="@+id/divider_top"
     android:layout_width="match_parent"
-    android:layout_height="1px"
-    android:background="?android:attr/listDivider"/>
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
 
   <ExpandableListView
     android:id="@+id/items_frame"
@@ -32,8 +31,7 @@
     android:drawSelectorOnTop="true"/>
 
   <View
-    android:id="@+id/divider_bottom"
     android:layout_width="match_parent"
-    android:layout_height="1px"
-    android:background="?android:listDivider"/>
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
 </LinearLayout>

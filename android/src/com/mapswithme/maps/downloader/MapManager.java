@@ -226,15 +226,9 @@ public final class MapManager
     return true;
   }
 
-  public static boolean warnOn3g(Activity activity, long size, @NonNull final Runnable onAcceptListener)
+  public static boolean warnOn3g(Activity activity, long size, @NonNull Runnable onAcceptListener)
   {
-    if (!notifyNoSpace(activity, size))
-    {
-      onAcceptListener.run();
-      return false;
-    }
-
-    return warnOn3gInternal(activity, onAcceptListener);
+    return !notifyNoSpace(activity, size) && warnOn3gInternal(activity, onAcceptListener);
   }
 
   public static boolean warn3gAndDownload(Activity activity, final String countryId, @Nullable final Runnable onAcceptListener)

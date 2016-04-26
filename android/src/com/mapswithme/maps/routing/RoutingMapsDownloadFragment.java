@@ -1,12 +1,11 @@
 package com.mapswithme.maps.routing;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +23,6 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
   private ViewGroup mItemsFrame;
 
   private final Set<String> mMaps = new HashSet<>();
-  private String[] mMapsArray;
 
   private int mSubscribeSlot;
 
@@ -41,45 +39,6 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
       mMaps.add(item.id);
       mMapsArray[i] = item.id;
     }
-
-    mSubscribeSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
-    {
-      private void update()
-      {
-        WheelProgressView wheel = getWheel();
-        if (wheel != null)
-          updateWheel(wheel);
-      }
-
-      @Override
-      public void onStatusChanged(List<MapManager.StorageCallbackData> data)
-      {
-        for (MapManager.StorageCallbackData item : data)
-          if (mMaps.contains(item.countryId))
-          {
-            if (item.newStatus == CountryItem.STATUS_DONE)
-            {
-              mMaps.remove(item.countryId);
-              if (mMaps.isEmpty())
-              {
-                RoutingController.get().checkAndBuildRoute();
-                dismissAllowingStateLoss();
-                return;
-              }
-            }
-
-            update();
-            return;
-          }
-      }
-
-      @Override
-      public void onProgress(String countryId, long localSize, long remoteSize)
-      {
-        if (mMaps.contains(countryId))
-          update();
-      }
-    });
 
     for (String map : mMaps)
       MapManager.nativeDownload(map);
@@ -112,6 +71,9 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
       return null;
 
     View frame = mItemsFrame.getChildAt(0);
+    if (frame == null)
+      return null;
+
     WheelProgressView res = (WheelProgressView) frame.findViewById(R.id.progress);
     return ((res != null && UiUtils.isVisible(res)) ? res : null);
   }
@@ -137,31 +99,70 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
   }
 
   @Override
+  public void onDismiss(DialogInterface dialog)
+  {
+    if (mCancelled)
+      for (String item : mMaps)
+        MapManager.nativeCancel(item);
+
+    super.onDismiss(dialog);
+  }
+
+  @Override
   public void onStart()
   {
     super.onStart();
+    setCancelable(false);
 
-    final AlertDialog dlg = (AlertDialog) getDialog();
-    dlg.setCancelable(false);
-    Button button = dlg.getButton(AlertDialog.BUTTON_NEGATIVE);
-    button.setOnClickListener(new View.OnClickListener()
+    mSubscribeSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
-      @Override
-      public void onClick(View v)
       {
-        for (String item : mMaps)
-          MapManager.nativeCancel(item);
+        update();
+      }
 
-        dlg.dismiss();
-        RoutingController.get().cancel();
+      private void update()
+      {
+        WheelProgressView wheel = getWheel();
+        if (wheel != null)
+          updateWheel(wheel);
+      }
+
+      @Override
+      public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+      {
+        for (MapManager.StorageCallbackData item : data)
+          if (mMaps.contains(item.countryId))
+          {
+            if (item.newStatus == CountryItem.STATUS_DONE)
+            {
+              mMaps.remove(item.countryId);
+              if (mMaps.isEmpty())
+              {
+                mCancelled = false;
+                RoutingController.get().checkAndBuildRoute();
+                dismissAllowingStateLoss();
+                return;
+              }
+            }
+
+            update();
+            return;
+          }
+      }
+
+      @Override
+      public void onProgress(String countryId, long localSize, long remoteSize)
+      {
+        if (mMaps.contains(countryId))
+          update();
       }
     });
   }
 
   @Override
-  public void onDestroyView()
+  public void onStop()
   {
-    super.onDestroyView();
+    super.onStop();
 
     if (mSubscribeSlot != 0)
     {
@@ -170,7 +171,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     }
   }
 
-  public static RoutingMapsDownloadFragment create(@Nullable String[] missingMaps)
+  public static RoutingMapsDownloadFragment create(String[] missingMaps)
   {
     Bundle args = new Bundle();
     args.putStringArray(EXTRA_MISSING_MAPS, missingMaps);

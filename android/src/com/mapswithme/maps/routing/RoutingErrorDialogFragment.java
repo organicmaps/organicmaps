@@ -1,5 +1,6 @@
 package com.mapswithme.maps.routing;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.CountryItem;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.UiUtils;
 
 public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
@@ -20,18 +22,6 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 
   private int mResultCode;
   private String mMessage;
-
-  interface Listener
-  {
-    boolean onDownload();
-  }
-
-  private Listener mListener;
-
-  public void setListener(Listener listener)
-  {
-    mListener = listener;
-  }
 
   @Override
   void beforeDialogCreated(AlertDialog.Builder builder)
@@ -64,6 +54,35 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     return addMessage(super.buildMultipleMapView());
   }
 
+  private void startDownload()
+  {
+    if (mMissingMaps.isEmpty())
+    {
+      dismiss();
+      return;
+    }
+
+    long size = 0;
+    for (CountryItem country : mMissingMaps)
+    {
+      if (country.status != CountryItem.STATUS_PROGRESS)
+        size += (country.totalSize - country.size);
+    }
+
+    MapManager.warnOn3g(getActivity(), size, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        RoutingMapsDownloadFragment downloader = RoutingMapsDownloadFragment.create(mMapsArray);
+        downloader.show(getActivity().getSupportFragmentManager(), downloader.getClass().getSimpleName());
+
+        mCancelled = false;
+        dismiss();
+      }
+    });
+  }
+
   @Override
   public void onStart()
   {
@@ -79,36 +98,16 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
       @Override
       public void onClick(View v)
       {
-        if (mListener == null)
-        {
-          dlg.dismiss();
-          return;
-        }
-
-        if (mMissingMaps.isEmpty())
-          dlg.dismiss();
-        else if (mListener.onDownload())
-          dlg.dismiss();
-      }
-    });
-
-    button = dlg.getButton(AlertDialog.BUTTON_NEGATIVE);
-    button.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        dlg.dismiss();
-        RoutingController.get().cancel();
+        startDownload();
       }
     });
   }
 
   @Override
-  public void onDestroyView()
+  public void onCancel(DialogInterface dialog)
   {
-    super.onDestroyView();
-    mListener = null;
+    mCancelled = true;
+    super.onCancel(dialog);
   }
 
   @Override

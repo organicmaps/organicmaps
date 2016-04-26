@@ -2,6 +2,7 @@ package com.mapswithme.maps.routing;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
   private static final String COUNTRY_NAME = "CountryName";
 
   final List<CountryItem> mMissingMaps = new ArrayList<>();
+  String[] mMapsArray;
+  boolean mCancelled;
 
   void beforeDialogCreated(AlertDialog.Builder builder) {}
   void bindGroup(View view) {}
@@ -60,14 +63,37 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     return createDialog(builder);
   }
 
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+
+    AlertDialog dlg = (AlertDialog) getDialog();
+    dlg.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        mCancelled = true;
+        dismiss();
+      }
+    });
+  }
+
+  @Override
+  public void onDismiss(DialogInterface dialog)
+  {
+    if (mCancelled)
+      RoutingController.get().cancel();
+
+    super.onDismiss(dialog);
+  }
+
   void parseArguments()
   {
     Bundle args = getArguments();
-    String[] maps = args.getStringArray(EXTRA_MISSING_MAPS);
-    if (maps == null)
-      return;
-
-    for (String map : maps)
+    mMapsArray = args.getStringArray(EXTRA_MISSING_MAPS);
+    for (String map : mMapsArray)
       mMissingMaps.add(CountryItem.fill(map));
   }
 
