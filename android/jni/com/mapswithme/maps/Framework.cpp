@@ -457,14 +457,7 @@ void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<sto
   jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
   ASSERT(method, ());
 
-  jni::TScopedLocalObjectArrayRef const countries(env, env->NewObjectArray(absentMaps.size(), jni::GetStringClass(env), 0));
-  for (size_t i = 0; i < absentMaps.size(); i++)
-  {
-    jni::TScopedLocalRef id(env, jni::ToJavaString(env, absentMaps[i]));
-    env->SetObjectArrayElement(countries.get(), i, id.get());
-  }
-
-  env->CallVoidMethod(*listener, method, errorCode, countries.get());
+  env->CallVoidMethod(*listener, method, errorCode, jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, absentMaps)).get());
 }
 
 void CallRouteProgressListener(shared_ptr<jobject> listener, float progress)
@@ -496,7 +489,7 @@ Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jcla
   g_mapObjectListener = env->NewGlobalRef(jListener);
   // void onMapObjectActivated(MapObject object);
   jmethodID const activatedId = jni::GetMethodID(env, g_mapObjectListener, "onMapObjectActivated",
-                                              "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
+                                                 "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
   // void onDismiss(boolean switchFullScreenMode);
   jmethodID const dismissId = jni::GetMethodID(env, g_mapObjectListener, "onDismiss", "(Z)V");
   frm()->SetMapSelectionListeners([activatedId](place_page::Info const & info)
@@ -663,12 +656,7 @@ Java_com_mapswithme_maps_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclas
 {
   vector<string> exts = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION, ROUTING_FILE_EXTENSION };
   platform::CountryIndexes::GetIndexesExts(exts);
-  jobjectArray resultArray = env->NewObjectArray(exts.size(), jni::GetStringClass(env), 0);
-
-  for (size_t i = 0; i < exts.size(); ++i)
-    env->SetObjectArrayElement(resultArray, i, jni::ToJavaString(env, exts[i]));
-
-  return resultArray;
+  return jni::ToJavaStringArray(env, exts);
 }
 
 JNIEXPORT jstring JNICALL
@@ -755,18 +743,7 @@ Java_com_mapswithme_maps_Framework_nativeGenerateTurnNotifications(JNIEnv * env,
   if (turnNotifications.empty())
     return nullptr;
 
-  // A new java array of Strings for TTS information is allocated here.
-  // Then it will be passed to client and then removed by java GC.
-  size_t const notificationsSize = turnNotifications.size();
-  jobjectArray jNotificationTexts = env->NewObjectArray(notificationsSize, jni::GetStringClass(env), nullptr);
-
-  for (size_t i = 0; i < notificationsSize; ++i)
-  {
-    jni::TScopedLocalRef jNotificationText(env, jni::ToJavaString(env, turnNotifications[i]));
-    env->SetObjectArrayElement(jNotificationTexts, i, jNotificationText.get());
-  }
-
-  return jNotificationTexts;
+  return jni::ToJavaStringArray(env, turnNotifications);
 }
 
 JNIEXPORT jobject JNICALL
