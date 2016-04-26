@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/name"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="@dimen/margin_base"
+  android:animateLayoutChanges="true"
+  android:focusable="true"
+  android:focusableInTouchMode="true"
+  android:orientation="vertical"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingRight="@dimen/margin_base"
+  android:paddingStart="@dimen/margin_base">
+
+  <android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+      android:id="@+id/input"
+      style="@style/MwmWidget.Editor.FieldLayout.EditText"
+      android:hint="@string/editor_edit_place_name_hint"
+      android:singleLine="true"/>
+
+  </android.support.design.widget.TextInputLayout>
+
+  <TextView
+    android:id="@+id/show_langs"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:fontFamily="@string/robotoMedium"
+    android:gravity="center_vertical"
+    android:text="@string/other_languages"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:drawableRight="@drawable/ic_expand_more"
+    tools:ignore="UnusedAttribute"/>
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/names"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+  <TextView
+    android:id="@+id/add_langs"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:gravity="center_vertical"
+    android:text="@string/add_language"
+    android:textAppearance="@style/MwmTextAppearance.Button"/>
+
+</LinearLayout>

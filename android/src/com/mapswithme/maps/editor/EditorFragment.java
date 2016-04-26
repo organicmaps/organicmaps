@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import org.solovyev.android.views.llm.LinearLayoutManager;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -31,7 +33,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private View mCardAddress;
   private View mCardMetadata;
   private EditText mName;
-  private TextView mLocalizedNames;
+  private RecyclerView mLocalizedNames;
+  private View mLocalizedAdd;
+  private View mLocalizedShow;
   private TextView mStreet;
   private EditText mHouseNumber;
   private EditText mZipcode;
@@ -69,8 +73,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     initViews(view);
 
     mCategory.setText(Editor.nativeGetCategory());
-    // TODO(yunikkk): Add multilanguages support.
-    UiUtils.hide(mLocalizedNames);
     mName.setText(Editor.nativeGetDefaultName());
     mStreet.setText(Editor.nativeGetStreet());
     mHouseNumber.setText(Editor.nativeGetHouseNumber());
@@ -200,7 +202,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mCardAddress = view.findViewById(R.id.cv__address);
     mCardMetadata = view.findViewById(R.id.cv__metadata);
     mName = findInput(mCardName);
-    mLocalizedNames = (TextView) view.findViewById(R.id.name_multilang);
+    mLocalizedAdd = view.findViewById(R.id.add_langs);
+    mLocalizedShow = view.findViewById(R.id.show_langs);
+    mLocalizedNames = (RecyclerView) view.findViewById(R.id.names);
+    mLocalizedNames.setLayoutManager(new LinearLayoutManager(getActivity()));
+    mLocalizedNames.setAdapter(new MultilanguageAdapter(Editor.nativeGetLocalizedNames()));
     // Address
     view.findViewById(R.id.block_street).setOnClickListener(this);
     mStreet = (TextView) view.findViewById(R.id.street);
