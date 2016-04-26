@@ -6,6 +6,7 @@ import android.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 
@@ -33,9 +34,17 @@ class ResultCodesHelper
     switch (errorCode)
     {
     case NO_POSITION:
-      titleRes = R.string.dialog_routing_check_gps;
-      messages.add(resources.getString(R.string.dialog_routing_error_location_not_found));
-      messages.add(resources.getString(R.string.dialog_routing_location_turn_wifi));
+      if (LocationState.INSTANCE.getLocationStateMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+      {
+        titleRes = R.string.dialog_routing_location_turn_on;
+        messages.add(resources.getString(R.string.dialog_routing_location_unknown_turn_on));
+      }
+      else
+      {
+        titleRes = R.string.dialog_routing_check_gps;
+        messages.add(resources.getString(R.string.dialog_routing_error_location_not_found));
+        messages.add(resources.getString(R.string.dialog_routing_location_turn_wifi));
+      }
       break;
     case INCONSISTENT_MWM_ROUTE:
     case ROUTING_FILE_NOT_EXIST:

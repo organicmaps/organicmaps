@@ -7,6 +7,7 @@ public enum LocationState
   /// These values should correspond to values of
   /// location::EMyPositionMode defined in platform/location.hpp
   public static final int PENDING_POSITION = 0;
+  public static final int NOT_FOLLOW_NO_POSITION = 1;
   public static final int NOT_FOLLOW = 2;
   public static final int FOLLOW = 3;
   public static final int FOLLOW_AND_ROTATE = 4;

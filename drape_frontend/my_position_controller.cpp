@@ -330,8 +330,11 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
 void MyPositionController::LoseLocation()
 {
-  ChangeMode(location::NotFollowNoPosition);
-  SetIsVisible(false);
+  if (m_mode != location::NotFollowNoPosition)
+  {
+    ChangeMode(location::NotFollowNoPosition);
+    SetIsVisible(false);
+  }
 }
 
 void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen)
