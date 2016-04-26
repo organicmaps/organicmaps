@@ -26,6 +26,7 @@ public:
   void SetIsValidAzimuth(bool isValid);
   void SetAccuracy(float accuracy);
   void SetRoutingMode(bool routingMode);
+  void SetPositionObsolete(bool obsolete);
 
   void RenderAccuracy(ScreenBase const & screen,
                       ref_ptr<dp::GpuProgramManager> mng,
@@ -39,25 +40,29 @@ private:
   void CacheAccuracySector(ref_ptr<dp::TextureManager> mng);
   void CachePointPosition(ref_ptr<dp::TextureManager> mng);
 
-private:
   enum EMyPositionPart
   {
     // don't change order and values
     MY_POSITION_ACCURACY = 0,
     MY_POSITION_ARROW = 1,
-    MY_POSITION_POINT = 2
+    MY_POSITION_POINT = 2,
+    MY_POSITION_ARROW_GRAY = 3
   };
 
   void RenderPart(ref_ptr<dp::GpuProgramManager> mng,
                   dp::UniformValuesStorage const & uniforms,
                   EMyPositionPart part);
 
-private:
+  void CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,
+                   dp::GLState const & state, dp::Batcher & batcher,
+                   EMyPositionPart part);
+
   m2::PointF m_position;
   float m_azimuth;
   float m_accuracy;
   bool m_showAzimuth;
   bool m_isRoutingMode;
+  bool m_obsoletePosition;
 
   using TPart = pair<dp::IndicesRange, size_t>;
 

@@ -25,6 +25,7 @@ double const kMinSpeedThresholdMps = 1.0;
 double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
 double const kMaxNotFollowRoutingTimeSec = 10.0;
+double const kMaxUpdateLocationInvervalSec = 30.0;
 
 int const kDoNotChangeZoom = -1;
 
@@ -100,6 +101,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode,
   , m_oldPosition(m2::PointD::Zero())
   , m_oldDrawDirection(0.0)
   , m_lastGPSBearing(false)
+  , m_lastLocationTimestamp(0.0)
   , m_positionYOffset(kPositionOffsetY)
   , m_isVisible(false)
   , m_isDirtyViewport(false)
@@ -326,6 +328,13 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
   m_isPositionAssigned = true;
   SetIsVisible(true);
+
+  double const kEps = 1e-5;
+  if (fabs(m_lastLocationTimestamp - info.m_timestamp) > kEps)
+  {
+    m_lastLocationTimestamp = info.m_timestamp;
+    m_updateLocationTimer.Reset();
+  }
 }
 
 void MyPositionController::LoseLocation()
@@ -401,6 +410,9 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
     m_shape->SetIsValidAzimuth(IsRotationAvailable());
     m_shape->SetAccuracy(m_errorRadius);
     m_shape->SetRoutingMode(IsInRouting());
+
+    double const updateInterval = m_updateLocationTimer.ElapsedSeconds();
+    m_shape->SetPositionObsolete(updateInterval >= kMaxUpdateLocationInvervalSec);
 
     if ((renderMode & RenderAccuracy) != 0)
       m_shape->RenderAccuracy(screen, mng, commonUniforms);
