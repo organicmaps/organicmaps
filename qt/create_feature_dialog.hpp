@@ -5,7 +5,7 @@
 class QModelIndex;
 namespace osm
 {
-struct NewFeatureCategories;
+class NewFeatureCategories;
 }  // namespace osm
 
 class CreateFeatureDialog : public QDialog

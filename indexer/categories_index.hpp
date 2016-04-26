@@ -22,6 +22,13 @@ public:
 
   CategoriesIndex(CategoriesHolder const & catHolder) : m_catHolder(catHolder) {}
 
+  CategoriesIndex(CategoriesIndex && other)
+    : m_catHolder(other.m_catHolder), m_trie(move(other.m_trie))
+  {
+  }
+
+  CategoriesHolder const & GetCategoriesHolder() const { return m_catHolder; }
+
   // Adds all categories that match |type|. Only synonyms
   // in language |lang| are added. See indexer/categories_holder.cpp
   // for language enumeration.

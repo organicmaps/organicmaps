@@ -27,11 +27,12 @@ void AddAllNonemptySubstrings(my::MemTrie<string, uint32_t> & trie, string const
   }
 }
 
-template<typename TF>
+template <typename TF>
 void ForEachToken(string const & s, TF && fn)
 {
   vector<strings::UniString> tokens;
-  SplitUniString(search::NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens), search::Delimiters());
+  SplitUniString(search::NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens),
+                 search::Delimiters());
   for (auto const & token : tokens)
     fn(strings::ToUtf8(token));
 }
@@ -101,7 +102,7 @@ void CategoriesIndex::GetAssociatedTypes(string const & query, vector<uint32_t> 
 {
   bool first = true;
   set<uint32_t> intersection;
-  ForEachToken(query, [&](string const & token)
+  auto processToken = [&](string const & token)
   {
     set<uint32_t> types;
     auto fn = [&](string const &, uint32_t type)
@@ -109,6 +110,7 @@ void CategoriesIndex::GetAssociatedTypes(string const & query, vector<uint32_t> 
       types.insert(type);
     };
     m_trie.ForEachInSubtree(token, fn);
+
     if (first)
     {
       intersection.swap(types);
@@ -116,12 +118,14 @@ void CategoriesIndex::GetAssociatedTypes(string const & query, vector<uint32_t> 
     else
     {
       set<uint32_t> tmp;
-      set_intersection(intersection.begin(),intersection.end(),types.begin(),types.end(),inserter(tmp,tmp.begin()));
+      set_intersection(intersection.begin(), intersection.end(), types.begin(), types.end(),
+                       inserter(tmp, tmp.begin()));
       intersection.swap(tmp);
     }
     first = false;
-  });
-  
+  };
+  ForEachToken(query, processToken);
+
   result.insert(result.end(), intersection.begin(), intersection.end());
 }
 }  // namespace indexer
