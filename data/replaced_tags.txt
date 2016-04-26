@@ -9,3 +9,6 @@ office=travel_agent : shop=travel_agency
 shop=tailor : craft=tailor
 shop=estate_agent : office=estate_agent
 amenity=swimming_pool : leisure=swimming_pool
+building=garages : building=garage
+amenity=gym : leisure=fitness_centre
+amenity=sauna : leisure=sauna
