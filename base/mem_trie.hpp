@@ -7,39 +7,49 @@
 
 namespace my
 {
-/// This class is a simple in-memory trie which allows to add
-/// key-value pairs and then traverse them in a sorted order.
-template <typename StringT, typename ValueT>
+// This class is a simple in-memory trie which allows to add
+// key-value pairs and then traverse them in a sorted order.
+template <typename TString, typename TValue>
 class MemTrie
 {
 public:
   MemTrie() = default;
 
-  /// Adds a key-value pair to the trie.
-  void Add(StringT const & key, ValueT const & value)
+  // Adds a key-value pair to the trie.
+  void Add(TString const & key, TValue const & value)
   {
     Node * cur = &m_root;
     for (auto const & c : key)
-      cur = cur->GetMove(c);
+    {
+      size_t numNewNodes;
+      cur = cur->GetMove(c, numNewNodes);
+      m_numNodes += numNewNodes;
+    }
     cur->AddValue(value);
   }
 
-  /// Traverses all key-value pairs in the trie in a sorted order.
-  ///
-  /// \param toDo A callable object that will be called on an each
-  ///             key-value pair.
+  // Traverses all key-value pairs in the trie and calls |toDo| on each of them.
   template <typename ToDo>
-  void ForEach(ToDo const & toDo)
+  void ForEach(ToDo && toDo)
   {
-    StringT prefix;
-    ForEach(&m_root, prefix, toDo);
+    TString prefix;
+    ForEach(&m_root, prefix, forward<ToDo>(toDo));
   }
+
+  template <typename ToDo>
+  void ForEachInSubtree(TString prefix, ToDo && toDo) const
+  {
+    Node const * node = MoveTo(prefix);
+    if (node)
+      ForEach(node, prefix, forward<ToDo>(toDo));
+  }
+
+  size_t GetNumNodes() const { return m_numNodes; }
 
 private:
   struct Node
   {
-    using CharT = typename StringT::value_type;
-    using MovesMap = map<CharT, Node *>;
+    using TChar = typename TString::value_type;
 
     Node() = default;
 
@@ -49,28 +59,44 @@ private:
         delete move.second;
     }
 
-    Node * GetMove(CharT const & c)
+    Node * GetMove(TChar const & c, size_t & numNewNodes)
     {
+      numNewNodes = 0;
       Node *& node = m_moves[c];
       if (!node)
+      {
         node = new Node();
+        ++numNewNodes;
+      }
       return node;
     }
 
-    void AddValue(const ValueT & value) { m_values.push_back(value); }
+    void AddValue(TValue const & value) { m_values.push_back(value); }
 
-    MovesMap m_moves;
-    vector<ValueT> m_values;
+    map<TChar, Node *> m_moves;
+    vector<TValue> m_values;
 
     DISALLOW_COPY_AND_MOVE(Node);
   };
 
+  Node const * MoveTo(TString const & key) const
+  {
+    Node const * cur = &m_root;
+    for (auto const & c : key)
+    {
+      auto const it = cur->m_moves.find(c);
+      if (it == cur->m_moves.end())
+        return nullptr;
+      cur = it->second;
+    }
+    return cur;
+  }
+
   template <typename ToDo>
-  void ForEach(Node * root, StringT & prefix, ToDo const & toDo)
+  void ForEach(Node const * root, TString & prefix, ToDo && toDo) const
   {
     if (!root->m_values.empty())
     {
-      sort(root->m_values.begin(), root->m_values.end());
       for (auto const & value : root->m_values)
         toDo(prefix, value);
     }
@@ -84,6 +110,7 @@ private:
   }
 
   Node m_root;
+  size_t m_numNodes = 0;
 
   DISALLOW_COPY_AND_MOVE(MemTrie);
 };  // class MemTrie
