@@ -115,16 +115,18 @@ using namespace mwm;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  if (self.downloadedCountries)
+  if (self.downloadedCountries && self.downloadedCountries.count)
     return self.isParentRoot ? 2 : 1;
-  return self.indexes.count;
+  if (self.indexes)
+    return self.indexes.count;
+  return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   if ([self isButtonCell:section])
     return 1;
-  if (self.downloadedCountries)
+  if (self.downloadedCountries && self.downloadedCountries.count)
     return self.downloadedCountries.count;
   NSString * index = self.indexes[section];
   return self.availableCountries[index].count;

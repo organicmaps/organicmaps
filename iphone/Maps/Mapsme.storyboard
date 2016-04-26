@@ -70,7 +70,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectableCell" id="6zO-4O-plh" customClass="SelectableCell">
-                                <rect key="frame" x="0.0" y="113" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6zO-4O-plh" id="9W6-2l-MFB">
                                     <rect key="frame" x="0.0" y="0.0" width="561" height="43"/>
@@ -102,7 +102,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SwitchCell" id="5Ht-CR-a67" customClass="SwitchCell">
-                                <rect key="frame" x="0.0" y="157" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="158" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Ht-CR-a67" id="egv-pz-GkJ">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -150,7 +150,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LinkCell" id="yh8-cr-14c" customClass="LinkCell">
-                                <rect key="frame" x="0.0" y="201" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="202" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yh8-cr-14c" id="MYm-HI-oOR">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
@@ -568,7 +568,7 @@
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectableCell" id="79I-kz-hl4" customClass="SelectableCell">
-                                <rect key="frame" x="0.0" y="49" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="79I-kz-hl4" id="gBB-ji-big">
                                     <rect key="frame" x="0.0" y="0.0" width="561" height="43"/>
@@ -600,7 +600,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LinkCell" id="lO6-zb-qb8" customClass="LinkCell">
-                                <rect key="frame" x="0.0" y="93" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="94" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lO6-zb-qb8" id="35k-Nb-XSD">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
@@ -657,7 +657,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectableCell" id="6Px-TO-sMc" customClass="SelectableCell">
-                                <rect key="frame" x="0.0" y="49" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Px-TO-sMc" id="aqp-aV-B3y">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -815,7 +815,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example values" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="120" translatesAutoresizingMaskIntoConstraints="NO" id="dAM-iT-fzu">
-                                                        <rect key="frame" x="16" y="12" width="119" height="20"/>
+                                                        <rect key="frame" x="16" y="12" width="120" height="20"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1236,7 +1236,7 @@
                                                             <constraint firstAttribute="width" constant="552" id="uc1-SE-ctk"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
@@ -1251,7 +1251,7 @@
                                                             <constraint firstAttribute="width" constant="552" id="UBa-Yp-6ML"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
@@ -1406,7 +1406,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0n-BM-V4o" userLabel="Auth view">
-                                                <rect key="frame" x="16" y="96" width="568" height="248"/>
+                                                <rect key="frame" x="16" y="96" width="568" height="249"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzz-yF-441">
                                                         <rect key="frame" x="0.0" y="0.0" width="568" height="40"/>
@@ -1534,7 +1534,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have OpenStreetMap account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhm-W1-U8A">
-                                                        <rect key="frame" x="0.0" y="180" width="568" height="16"/>
+                                                        <rect key="frame" x="0.0" y="180" width="568" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="ntS-Lm-ZFB"/>
                                                         </constraints>
@@ -1548,7 +1548,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-dL-PG8">
-                                                        <rect key="frame" x="0.0" y="204" width="568" height="44"/>
+                                                        <rect key="frame" x="0.0" y="205" width="568" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="4EG-ux-LH6"/>
                                                         </constraints>
@@ -1949,7 +1949,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="6LI-Em-15P"/>
+                                            <constraint firstAttribute="height" priority="750" constant="1" id="6LI-Em-15P"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GN0-2F-Ytz" customClass="MWMButton">
@@ -1998,7 +1998,7 @@
                                     <constraint firstItem="bQM-6x-WHa" firstAttribute="top" secondItem="st5-ZJ-F0A" secondAttribute="top" id="lgd-lj-2Qq"/>
                                     <constraint firstItem="GN0-2F-Ytz" firstAttribute="leading" secondItem="st5-ZJ-F0A" secondAttribute="leading" id="nUN-rN-AXo"/>
                                     <constraint firstAttribute="trailing" secondItem="bQM-6x-WHa" secondAttribute="trailing" id="pIt-FK-n43"/>
-                                    <constraint firstAttribute="height" constant="44" id="r0c-5a-Stj"/>
+                                    <constraint firstAttribute="height" priority="750" constant="44" id="r0c-5a-Stj"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -2127,7 +2127,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="77N-Bp-ThF"/>
+                                            <constraint firstAttribute="height" priority="750" constant="1" id="77N-Bp-ThF"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xL5-0u-TaG" customClass="MWMButton">
@@ -2168,7 +2168,7 @@
                                     <constraint firstItem="xL5-0u-TaG" firstAttribute="top" secondItem="9vd-CW-37q" secondAttribute="top" id="6ui-Df-HR9"/>
                                     <constraint firstItem="xL5-0u-TaG" firstAttribute="centerY" secondItem="9vd-CW-37q" secondAttribute="centerY" id="8ea-Gk-AzX"/>
                                     <constraint firstItem="MmB-HW-cD5" firstAttribute="leading" secondItem="9vd-CW-37q" secondAttribute="leading" id="Dh1-Fr-eWw"/>
-                                    <constraint firstAttribute="height" constant="44" id="Dow-HV-Frg"/>
+                                    <constraint firstAttribute="height" priority="750" constant="44" id="Dow-HV-Frg"/>
                                     <constraint firstItem="xL5-0u-TaG" firstAttribute="leading" secondItem="9vd-CW-37q" secondAttribute="leading" id="EdJ-xv-Ddl"/>
                                     <constraint firstAttribute="bottom" secondItem="MmB-HW-cD5" secondAttribute="bottom" id="M2K-ym-QIN"/>
                                     <constraint firstAttribute="trailing" secondItem="MmB-HW-cD5" secondAttribute="trailing" id="Qpf-le-AUb"/>
