@@ -141,21 +141,29 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
                                        my::Cancellable const & cancellable)
 {
   CHECK_GREATER(path.size(), 1, ());
+  times.clear();
+  turnsDir.clear();
+  m_adjacentEdges.clear();
 
   CalculateTimes(graph, path, times);
+
+  auto emptyPathWorkaround = [&]()
+  {
+    turnsDir.emplace_back(path.size() - 1, turns::TurnDirection::ReachedYourDestination);
+    this->m_adjacentEdges[0] = {{}, 1}; // There's one ingoing edge to the finish.
+  };
 
   vector<Edge> routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
     LOG(LDEBUG, ("Couldn't reconstruct path"));
-    // use only "arrival" direction
-    turnsDir.emplace_back(path.size() - 1, turns::TurnDirection::ReachedYourDestination);
+    emptyPathWorkaround();
     return;
   }
   if (routeEdges.empty())
   {
     ASSERT(false, ());
-    turnsDir.emplace_back(path.size() - 1, turns::TurnDirection::ReachedYourDestination);
+    emptyPathWorkaround();
     return;
   }
 
@@ -165,5 +173,14 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   Route::TTimes turnAnnotationTimes;
   Route::TStreets streetNames;
   MakeTurnAnnotation(resultGraph, delegate, routePoints, turnsDir, turnAnnotationTimes, streetNames);
+
+  //m_adjacentEdges
+  for (auto const & junction : path)
+  {
+    IRoadGraph::TEdgeVector outgoingEdges, ingoingEdges;
+    graph.GetOutgoingEdges(junction, outgoingEdges);
+    graph.GetIngoingEdges(junction, ingoingEdges);
+  }
+
 }
 }  // namespace routing
