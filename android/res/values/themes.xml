@@ -108,8 +108,8 @@
   <style name="MwmTheme.Downloader">
     <item name="status_done">@drawable/ic_downloader_done</item>
     <item name="status_downloadable">@drawable/ic_downloader_download</item>
-    <item name="status_failed">@drawable/ic_downloader_retry</item>
-    <item name="status_updatable">@drawable/ic_downloader_update</item>
+    <item name="status_failed">@drawable/downloader_failed</item>
+    <item name="status_updatable">@drawable/downloader_update</item>
     <item name="status_folder">@drawable/ic_downloader_folder</item>
     <item name="status_folder_done">@drawable/ic_downloader_folder_done</item>
   </style>
