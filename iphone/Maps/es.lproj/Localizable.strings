@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Introducir el número de domicilio correcto";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Número de plantas (máx. %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Edite el edificio con un máximo de 25 plantas";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Código postal";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Introduzca el código postal correcto";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Lugar desconocido";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "Información adicional";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Comentario detallado";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Los cambios que ha sugerido se enviarán a la comunidad de OpenStreetMap. Describa los detalles que no pueden editarse en MAPS.ME.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "Más acerca de OpenStreetMap";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "Operador";
+
+"editor_tag_description" = "Introduzca la empresa, organización o individuo responsable de las instalaciones.";
+
+"editor_no_local_edits_title" = "No tiene ediciones locales";
+
+"editor_no_local_edits_description" = "Esto muestra el número de sus cambios sugeridos en el mapa que actualmente solo son accesibles desde su dispositivo.";
+
+"editor_international_names_subtitle" = "Nombre en otros idiomas";
+
+"editor_send_to_osm" = "Enviar a OSM";
+
+"editor_remove" = "Eliminar";
+
+"downloader_my_maps_title" = "Mis mapas";
+
+"downloader_no_downloaded_maps_title" = "No ha descargado ningún mapa";
+
+"downloader_no_downloaded_maps_message" = "Descargue mapas para encontrar la ubicación y navegar sin conexión.";
+
+"downloader_find_place_hint" = "Buscar ciudad o país";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "¿Continuar detectando su ubicación actual?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "La ubicación actual es desconocida. Quizá esté en un edificio o en un túnel.";
+
+"current_location_unknown_continue_button" = "Continuar";
+
+"current_location_unknown_stop_button" = "Detener";
+
+"current_location_unknown_error_title" = "La ubicación actual es desconocida.";
+
+"current_location_unknown_error_message" = "Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.";
+
+"whatsnew_update_editor_title" = "Hemos actualizado el editor de mapas";
+
+"whatsnew_update_editor_message" = "Los usuarios de MAPS.ME han realizado 50 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!";
+
+"location_services_disabled_header" = "La identificación de la ubicación está desactivada";
+
+"location_services_disabled_1" = "1. Abre los ajustes";
+
+"location_services_disabled_2" = "2. Pulsa \"Ubicación\"";
+
+"location_services_disabled_3" = "3. Selecciona \"Siempre\"";
+
+"placepage_parking_surface" = "Superficie";
+
+"placepage_parking_multistorey" = "Varias plantas";
+
+"placepage_parking_underground" = "Subterráneo";
+
+"placepage_parking_rooftop" = "Azotea";
+
+"placepage_parking_sheds" = "Cobertizos";
+
+"placepage_parking_carports" = "Cochera";
+
+"placepage_parking_boxes" = "Garaje";
+
+"placepage_parking_pay" = "De pago";
+
+"placepage_parking_free" = "Gratuito";
+
+"placepage_parking_interval" = "Pago por intervalos";
+
+"placepage_entrance_number" = "N.º";
+
+"placepage_entrance_type" = "Entrada";
+
+"placepage_flat" = "aplicación";
+
+"placepage_open_24_7" = "24 / 7";
+
+"placepage_place_rating" = "Valoración:";
+
+"place_page_starting_from" = "desde %d";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Descripción";
+
+"placepage_more_button" = "Más";
+
+"bookingcom_book_button" = "Reservar";
+
+"placepage_call_button" = "Llamar";
+
+"placepage_edit_bookmark_button" = "Editar marcador";
+
+"placepage_bookmark_name_hint" = "Nombre del marcador";
+
+"placepage_personal_notes_hint" = "Notas personales";
+
+"placepage_delete_bookmark_button" = "Eliminar marcador";
+
+"editor_edits_sent_message" = "Se han enviado sus cambios sugeridos";
+
+"editor_comment_hint" = "Comentario…";
+
+"editor_reset_edits_message" = "¿Restablecer todos los cambios locales?";
+
+"editor_reset_edits_button" = "Restablecer";
+
+"editor_remove_place_message" = "¿Eliminar el lugar añadido?";
+
+"editor_remove_place_button" = "Eliminar";
+
+"editor_status_sending" = "Enviando…";
+
+"editor_place_doesnt_exist" = "El lugar no existe";

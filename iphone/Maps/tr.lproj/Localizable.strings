@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Doğru ev numarası girin";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Kat sayısı (en fazla %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Binayı en fazla 25 katlı düzenle";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Posta Kodu";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Doğru Posta Kodunu girin";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Bilinmeyen Yer";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "Ek bilgi";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Ayrıntılı yorum";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. MAPS.ME’de düzenlenemeyen ayrıntıları açıklayın.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "OpenStreetMap hakkında ek bilgi";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "İşletmeci";
+
+"editor_tag_description" = "Tesislerden sorumlu şirketi, kurumu veya bireyi girin.";
+
+"editor_no_local_edits_title" = "Yerel düzenlemeniz yok";
+
+"editor_no_local_edits_description" = "Bu, harita üzerinde önerdiğiniz değişikliklerden sadece şu anda cihazınızda erişilebilenlerin sayısını gösterir.";
+
+"editor_international_names_subtitle" = "Diğer dillerdeki adı";
+
+"editor_send_to_osm" = "OSM’ye gönder";
+
+"editor_remove" = "Kaldır";
+
+"downloader_my_maps_title" = "Haritalarım";
+
+"downloader_no_downloaded_maps_title" = "Hiç harita indirmediniz";
+
+"downloader_no_downloaded_maps_message" = "Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.";
+
+"downloader_find_place_hint" = "Şehirde veya ülkede arama yapın";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Geçerli konumunuzuz izlenmeye devam edilsin mi";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Geçerli konum bilinmiyor Muhtemelen bir binanın içinde veya tüneldesiniz.";
+
+"current_location_unknown_continue_button" = "Devam";
+
+"current_location_unknown_stop_button" = "Dur";
+
+"current_location_unknown_error_title" = "Geçerli konum bilinmiyor.";
+
+"current_location_unknown_error_message" = "Konumunuz aranırken bir hata oluştu. Cihazının düzgün çalışıp çalışmadığını kontrol edip daha sonra tekrar deneyin.";
+
+"whatsnew_update_editor_title" = "Harita düzenleyicisini güncelledik";
+
+"whatsnew_update_editor_message" = "MAPS.ME kullanıcıları, haritalar üzerinde 50.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!";
+
+"location_services_disabled_header" = "Konum tanımlama devre dışı bırakıldı";
+
+"location_services_disabled_1" = "1. Ayarları Açın";
+
+"location_services_disabled_2" = "2. Konuma Dokunun";
+
+"location_services_disabled_3" = "3. Her Zamanı Seçin";
+
+"placepage_parking_surface" = "Yüzey";
+
+"placepage_parking_multistorey" = "Çok Katlı";
+
+"placepage_parking_underground" = "Metro";
+
+"placepage_parking_rooftop" = "Çatı üstü";
+
+"placepage_parking_sheds" = "Kulübe";
+
+"placepage_parking_carports" = "Açık Park Alanları";
+
+"placepage_parking_boxes" = "Garaj kutuları";
+
+"placepage_parking_pay" = "Ücretli";
+
+"placepage_parking_free" = "Ücretsiz";
+
+"placepage_parking_interval" = "Süre Ücretli";
+
+"placepage_entrance_number" = "No.";
+
+"placepage_entrance_type" = "Giriş";
+
+"placepage_flat" = "uygulama";
+
+"placepage_open_24_7" = "24 / 7";
+
+"placepage_place_rating" = "Derecelendirme:";
+
+"place_page_starting_from" = "%d’dan";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Açıklama";
+
+"placepage_more_button" = "Diğer";
+
+"bookingcom_book_button" = "Rezervasyon";
+
+"placepage_call_button" = "Çağrı";
+
+"placepage_edit_bookmark_button" = "Yer İmini Düzenle";
+
+"placepage_bookmark_name_hint" = "Yer İmi Adı";
+
+"placepage_personal_notes_hint" = "Kişisel notlar";
+
+"placepage_delete_bookmark_button" = "Yer İmini Sil";
+
+"editor_edits_sent_message" = "Önerdiğiniz değişiklikler gönderildi";
+
+"editor_comment_hint" = "Yorum…";
+
+"editor_reset_edits_message" = "Tüm yerel değişiklikler sıfırlansın mı?";
+
+"editor_reset_edits_button" = "Sıfırla";
+
+"editor_remove_place_message" = "Eklenen bir yer kaldırılsın mı?";
+
+"editor_remove_place_button" = "Kaldır";
+
+"editor_status_sending" = "Gönderiliyor…";
+
+"editor_place_doesnt_exist" = "Bu yer mevcut değil";

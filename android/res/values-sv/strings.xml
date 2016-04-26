@@ -725,7 +725,7 @@
 	<string name="add_language">Lägg till ett språk</string>
 	<string name="street">Gata</string>
 	<!-- Editable House Number text field (in address block). -->
-	<string name="house_number">Husnummer</string>
+	<string name="house_number">Ett husnummer</string>
 	<string name="details">Detaljer</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Lägg till en gata</string>
@@ -799,4 +799,73 @@
 	<string name="download_over_mobile_header">Ladda ned med mobildata?</string>
 	<string name="download_over_mobile_message">Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.</string>
 	<string name="error_enter_correct_house_number">Ange korrekt husnummer</string>
+	<string name="editor_storey_number">Antal våningar (max %d)</string>
+	<string name="error_enter_correct_storey_number">Redigera byggnaden med max 25 våningar</string>
+	<string name="editor_zip_code">Postnr</string>
+	<string name="error_enter_correct_zip_code">Ange korrekt postnr</string>
+	<!-- Place Page title for long tap -->
+	<string name="placepage_unknown_place">Okänd plats</string>
+	<string name="editor_other_info">Mer info</string>
+	<string name="editor_detailed_description_hint">Detaljerad kommentar</string>
+	<string name="editor_detailed_description">Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i MAPS.ME.</string>
+	<string name="editor_more_about_osm">Mer om OpenStreetMap</string>
+	<string name="editor_operator">Användare</string>
+	<string name="editor_tag_description">Ange företag, organisation eller person som är ansvarig för lokalerna.</string>
+	<string name="editor_no_local_edits_title">Du har inga lokala redigeraingar</string>
+	<string name="editor_no_local_edits_description">Detta visar antalet föreslagna förändringar på kartan som som endast är tillgängliga på din enhet.</string>
+	<string name="editor_international_names_subtitle">Namn på andra språk</string>
+	<string name="editor_send_to_osm">Skicka till OSM</string>
+	<string name="editor_remove">Ta bord</string>
+	<string name="downloader_my_maps_title">Mina kartor</string>
+	<string name="downloader_no_downloaded_maps_title">Du har inte laddat ner några kartor</string>
+	<string name="downloader_no_downloaded_maps_message">Ladda ner kartor för att hitta platsen och navigera offline.</string>
+	<string name="downloader_find_place_hint">Sök stad eller land</string>
+	<!-- Error title that appears after certain time without location. -->
+	<string name="current_location_unknown_title">Fortsätt detektera din nuvarande plats?</string>
+	<!-- Error that appears after certain time without location. -->
+	<string name="current_location_unknown_message">Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.</string>
+	<string name="current_location_unknown_continue_button">Fortsätt</string>
+	<string name="current_location_unknown_stop_button">Stopp</string>
+	<string name="current_location_unknown_error_title">Den nuvarande platsen är okänd.</string>
+	<string name="current_location_unknown_error_message">Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.</string>
+	<string name="whatsnew_update_editor_title">Vi har uppdaterat kartredigeraren</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME-användare har gjort 50 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!</string>
+	<string name="location_services_disabled_header">Platsidentifiering avaktiverad</string>
+	<string name="location_services_disabled_1">1. Öppna inställningar</string>
+	<string name="location_services_disabled_2">2. Tryck på Plats</string>
+	<string name="location_services_disabled_3">3. Välj Alltid</string>
+	<string name="placepage_parking_surface">Yta</string>
+	<string name="placepage_parking_multistorey">Flera våningar</string>
+	<string name="placepage_parking_underground">Under mark</string>
+	<string name="placepage_parking_rooftop">Hustak</string>
+	<string name="placepage_parking_sheds">Skjul</string>
+	<string name="placepage_parking_carports">Garage</string>
+	<string name="placepage_parking_boxes">Garageboxar</string>
+	<string name="placepage_parking_pay">Kostnadsbelagd</string>
+	<string name="placepage_parking_free">Gratis</string>
+	<string name="placepage_parking_interval">Delvis kostnadsbelagd</string>
+	<string name="placepage_entrance_number">Nr</string>
+	<string name="placepage_entrance_type">Entré</string>
+	<string name="placepage_flat">lgh</string>
+	<string name="placepage_open_24_7">Døgnet rundt</string>
+	<string name="placepage_place_rating">Betyg:</string>
+	<string name="place_page_starting_from">från %d</string>
+	<string name="meter">m</string>
+	<string name="kilometer">km</string>
+	<string name="placepage_place_description">Beskrivning</string>
+	<string name="placepage_more_button">Mer</string>
+	<string name="bookingcom_book_button">Boka</string>
+	<string name="placepage_call_button">Ring</string>
+	<string name="placepage_edit_bookmark_button">Redigera bokmärke</string>
+	<string name="placepage_bookmark_name_hint">Namn bokmärke</string>
+	<string name="placepage_personal_notes_hint">Personlig anteckning</string>
+	<string name="placepage_delete_bookmark_button">Radera bokmärke</string>
+	<string name="editor_edits_sent_message">Dina föreslagna ändringar har skickats</string>
+	<string name="editor_comment_hint">kommentar…</string>
+	<string name="editor_reset_edits_message">Återställ alla lokala ändringar?</string>
+	<string name="editor_reset_edits_button">Återställ</string>
+	<string name="editor_remove_place_message">Ta bort en tillagd plats?</string>
+	<string name="editor_remove_place_button">Ta bort</string>
+	<string name="editor_status_sending">Skickar…</string>
+	<string name="editor_place_doesnt_exist">Platsen finns inte</string>
 </resources>

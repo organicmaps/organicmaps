@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Helyes házszámot adjon meg";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Az emeletek száma (legfeljebb %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Legfeljebb 25 emeletes épület szerkesztése";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Irányítószám";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Írja be a helyes irányítószámot";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Ismeretlen hely";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "További információk";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Részletes megjegyzés";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a MAPS.ME-ben.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "További részletek az OpenStreetMap-ról";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "Üzemeltető";
+
+"editor_tag_description" = "Írja ide a működtetésért felelős cég, szervezet vagy magánszemély nevét.";
+
+"editor_no_local_edits_title" = "Nincsenek helyi módosításai";
+
+"editor_no_local_edits_description" = "Itt a pillanatnyilag csak az Ön készülékén elérhető térképek javasolt módosításainak száma látható.";
+
+"editor_international_names_subtitle" = "Név más nyelveken";
+
+"editor_send_to_osm" = "Küldés az OSM-nek";
+
+"editor_remove" = "Eltávolítás";
+
+"downloader_my_maps_title" = "Térképeim";
+
+"downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
+
+"downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";
+
+"downloader_find_place_hint" = "Város vagy ország keresése";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Folytatja tartózkodási helyének keresését?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Tartózkodási helye ismeretlen. Lehet, hogy épületben vagy alagútban tartózkodik.";
+
+"current_location_unknown_continue_button" = "Folytatás";
+
+"current_location_unknown_stop_button" = "Leállítás";
+
+"current_location_unknown_error_title" = "Current location is unknown.";
+
+"current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
+
+"whatsnew_update_editor_title" = "Frissítettük a szerkesztőt";
+
+"whatsnew_update_editor_message" = "A MAPS.ME felhasználói 50 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!";
+
+"location_services_disabled_header" = "Helyzetmeghatározás kikapcsolva";
+
+"location_services_disabled_1" = "1. Nyissa meg a Beállításokat";
+
+"location_services_disabled_2" = "2. Érintse meg a Helyzet gombot";
+
+"location_services_disabled_3" = "3. Válassza ki a Mindig gombot";
+
+"placepage_parking_surface" = "Szabadtéri parkoló";
+
+"placepage_parking_multistorey" = "Parkolóház";
+
+"placepage_parking_underground" = "Föld alatti parkoló";
+
+"placepage_parking_rooftop" = "Tetőparkoló";
+
+"placepage_parking_sheds" = "Fedett parkolóállás";
+
+"placepage_parking_carports" = "Nagyobb fedett parkoló";
+
+"placepage_parking_boxes" = "Garázsbox";
+
+"placepage_parking_pay" = "Fizetős";
+
+"placepage_parking_free" = "Díjmentes";
+
+"placepage_parking_interval" = "Idősávos fizetős";
+
+"placepage_entrance_number" = "Szám";
+
+"placepage_entrance_type" = "Bejárat";
+
+"placepage_flat" = "lakás";
+
+"placepage_open_24_7" = "24 órás";
+
+"placepage_place_rating" = "Kategória";
+
+"place_page_starting_from" = "kezdőár %d";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Leírás";
+
+"placepage_more_button" = "Még";
+
+"bookingcom_book_button" = "Foglalás";
+
+"placepage_call_button" = "Hívás";
+
+"placepage_edit_bookmark_button" = "Könyvjelző szerkesztése";
+
+"placepage_bookmark_name_hint" = "Könyvjelző neve";
+
+"placepage_personal_notes_hint" = "Jegyzet";
+
+"placepage_delete_bookmark_button" = "Könyvjelző törlése";
+
+"editor_edits_sent_message" = "Javasolt változtatásainak elküldése sikerült";
+
+"editor_comment_hint" = "Megjegyzés…";
+
+"editor_reset_edits_message" = "Elveti az összes helyi módosítást?";
+
+"editor_reset_edits_button" = "Elvetés";
+
+"editor_remove_place_message" = "Eltávolít egy hozzáadott objektumot?";
+
+"editor_remove_place_button" = "Eltávolítás";
+
+"editor_status_sending" = "Küldés…";
+
+"editor_place_doesnt_exist" = "A hely nem létezik";

@@ -1375,20 +1375,135 @@
 
 "editor_storey_number" = "Количество этажей (максимум %d)";
 
-"error_enter_correct_storey_number" = "Редактируйте здания высотой максимум %d этажей.";
+"error_enter_correct_storey_number" = "Редактируйте здания высотой максимум 25 этажей";
 
 "editor_zip_code" = "Почтовый индекс";
 
 "error_enter_correct_zip_code" = "Введите корректный почтовый индекс";
 
-"editor_operator" = "Владелец";
-
+/* Place Page title for long tap */
 "placepage_unknown_place" = "Неизвестное место";
 
-"editor_other_info" = "Other information about place";
+"editor_other_info" = "Дополнительные сведения";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description_hint" = "Подробный комментарий";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_detailed_description" = "Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые MAPS.ME не позволяет отредактировать.";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_more_about_osm" = "Подробнее об OpenStreetMap";
+
+"editor_operator" = "Владелец";
+
+"editor_tag_description" = "Укажите компанию, организацию или лицо, которое отвечает за работоспособность объекта.";
+
+"editor_no_local_edits_title" = "У вас пока нет локальных правок";
+
+"editor_no_local_edits_description" = "Здесь отображается количество предложенных вами изменений на карте, которые доступны пока только на вашем устройстве.";
+
+"editor_international_names_subtitle" = "Название на других языках";
+
+"editor_send_to_osm" = "Отправить в OSM";
+
+"editor_remove" = "Удалить";
+
+"downloader_my_maps_title" = "Мои карты";
+
+"downloader_no_downloaded_maps_title" = "У вас нет загруженных карт";
+
+"downloader_no_downloaded_maps_message" = "Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.";
+
+"downloader_find_place_hint" = "Найти город или страну";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Продолжить поиск местоположения?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Местоположение не найдено. Возможно, вы находитесь в помещении или в туннеле.";
+
+"current_location_unknown_continue_button" = "Продолжить";
+
+"current_location_unknown_stop_button" = "Остановить";
+
+"current_location_unknown_error_title" = "Местоположение не найдено.";
+
+"current_location_unknown_error_message" = "При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.";
+
+"whatsnew_update_editor_title" = "Мы обновили редактор";
+
+"whatsnew_update_editor_message" = "Пользователи MAPS.ME внесли уже 50 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!";
+
+"location_services_disabled_header" = "Определение местоположения отключено";
+
+"location_services_disabled_1" = "1. Откройте Настройки";
+
+"location_services_disabled_2" = "2. Нажмите Геопозиция";
+
+"location_services_disabled_3" = "3. Выберите «Всегда»";
+
+"placepage_parking_surface" = "Открытая парковка";
+
+"placepage_parking_multistorey" = "Многоэтажная наземная парковка";
+
+"placepage_parking_underground" = "Подземная парковка";
+
+"placepage_parking_rooftop" = "Парковка на крыше здания";
+
+"placepage_parking_sheds" = "Частное легкое укрытие для автомобилей";
+
+"placepage_parking_carports" = "Капитальный навес";
+
+"placepage_parking_boxes" = "Гаражный бокс";
+
+"placepage_parking_pay" = "Платная";
+
+"placepage_parking_free" = "Бесплатная";
+
+"placepage_parking_interval" = "Переменно платная";
+
+"placepage_entrance_number" = "№";
+
+"placepage_entrance_type" = "Подъезд";
+
+"placepage_flat" = "кв.";
+
+"placepage_open_24_7" = "Круглосуточно";
+
+"placepage_place_rating" = "Рейтинг:";
+
+"place_page_starting_from" = "от %d";
+
+"meter" = "м";
+
+"kilometer" = "км";
+
+"placepage_place_description" = "Описание";
+
+"placepage_more_button" = "Ещё";
+
+"bookingcom_book_button" = "Забронировать";
+
+"placepage_call_button" = "Позвонить";
+
+"placepage_edit_bookmark_button" = "Редактировать метку";
+
+"placepage_bookmark_name_hint" = "Название метки";
+
+"placepage_personal_notes_hint" = "Примечание";
+
+"placepage_delete_bookmark_button" = "Удалить метку";
+
+"editor_edits_sent_message" = "Предложенные вами изменения отправлены";
+
+"editor_comment_hint" = "Коментарий…";
+
+"editor_reset_edits_message" = "Сбросить все локальные правки?";
+
+"editor_reset_edits_button" = "Сбросить";
+
+"editor_remove_place_message" = "Удалить добавленный вами объект?";
+
+"editor_remove_place_button" = "Удалить";
+
+"editor_status_sending" = "Отправка…";
+
+"editor_place_doesnt_exist" = "Места не существует";

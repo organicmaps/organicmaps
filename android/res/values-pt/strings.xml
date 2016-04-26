@@ -792,4 +792,8 @@
 	<string name="download_over_mobile_header">Baixar usando uma conexão de rede celular?</string>
 	<string name="download_over_mobile_message">Isto pode ser significativamente caro, com alguns planos ou se roaming.</string>
 	<string name="error_enter_correct_house_number">Introduzir um número de casa correto</string>
+	<string name="location_services_disabled_header">A identificação do local está desativada</string>
+	<string name="location_services_disabled_1">1. Abrir configurações</string>
+	<string name="location_services_disabled_2">2. Tocar em localização</string>
+	<string name="location_services_disabled_3">3. Selecionar sempre</string>
 </resources>

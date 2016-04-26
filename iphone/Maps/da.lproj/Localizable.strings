@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Skriv det rigtige husnummer";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Antal etager (maks %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Rediger bygningen med maksimum 25 etager";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Postnummer";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Indtast det korrekte postnummer";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Ukendt sted";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "Yderligere info";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Detaljerede bemærkninger";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i MAPS.ME.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "Mere om OpenStreetMap";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "Bruger";
+
+"editor_tag_description" = "Angiv firmaet, organisationen eller personen som er ansvarlig for faciliteterne.";
+
+"editor_no_local_edits_title" = "Du har ikke lokale ændringer";
+
+"editor_no_local_edits_description" = "Den viser antallet af dine foreslåede ændringer på kortet, der kun er tilgængelige på din enhed.";
+
+"editor_international_names_subtitle" = "Navn på andre sprog";
+
+"editor_send_to_osm" = "Send til OSM";
+
+"editor_remove" = "Fjern";
+
+"downloader_my_maps_title" = "Mine kort";
+
+"downloader_no_downloaded_maps_title" = "Du har ikke hentet alle kort";
+
+"downloader_no_downloaded_maps_message" = "Download kort for at finde position og navigere offline.";
+
+"downloader_find_place_hint" = "Søg by eller land";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Fortsæt med at registrere din aktuelle position?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Aktuel placering er ukendt. Måske er du i en bygning eller i en tunnel.";
+
+"current_location_unknown_continue_button" = "Fortsæt";
+
+"current_location_unknown_stop_button" = "Stop";
+
+"current_location_unknown_error_title" = "Aktuel position er ukendt.";
+
+"current_location_unknown_error_message" = "Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.";
+
+"whatsnew_update_editor_title" = "Har vi opdateret korteditoren";
+
+"whatsnew_update_editor_message" = "MAPS.ME brugere har foretaget 50.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!";
+
+"location_services_disabled_header" = "Placeringsservices er slået fra";
+
+"location_services_disabled_1" = "1. Åbn Indstillinger";
+
+"location_services_disabled_2" = "2. Tryk på Placering";
+
+"location_services_disabled_3" = "3. Vælg Altid";
+
+"placepage_parking_surface" = "Overflade";
+
+"placepage_parking_multistorey" = "Flere etager";
+
+"placepage_parking_underground" = "Underjordisk";
+
+"placepage_parking_rooftop" = "Tagterrasse";
+
+"placepage_parking_sheds" = "Skure";
+
+"placepage_parking_carports" = "Carporte";
+
+"placepage_parking_boxes" = "Garagekasser";
+
+"placepage_parking_pay" = "Betal";
+
+"placepage_parking_free" = "Gratis";
+
+"placepage_parking_interval" = "Intervalbetaling";
+
+"placepage_entrance_number" = "Nr.";
+
+"placepage_entrance_type" = "Indgang";
+
+"placepage_flat" = "app.";
+
+"placepage_open_24_7" = "24 / 7";
+
+"placepage_place_rating" = "Bedømmelse:";
+
+"place_page_starting_from" = "fra %d";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Beskrivelse";
+
+"placepage_more_button" = "Mere";
+
+"bookingcom_book_button" = "Bog";
+
+"placepage_call_button" = "Ring";
+
+"placepage_edit_bookmark_button" = "Rediger bogmærke";
+
+"placepage_bookmark_name_hint" = "Bogmærke";
+
+"placepage_personal_notes_hint" = "Personlige notater";
+
+"placepage_delete_bookmark_button" = "Slet bogmærke";
+
+"editor_edits_sent_message" = "Dine foreslåede ændringer er blevet sendt";
+
+"editor_comment_hint" = "Kommentar…";
+
+"editor_reset_edits_message" = "Nulstil alle lokale ændringer?";
+
+"editor_reset_edits_button" = "Nulstil";
+
+"editor_remove_place_message" = "Fjern en ekstra plads?";
+
+"editor_remove_place_button" = "Fjern";
+
+"editor_status_sending" = "Send…";
+
+"editor_place_doesnt_exist" = "Stedet eksisterer ikke";

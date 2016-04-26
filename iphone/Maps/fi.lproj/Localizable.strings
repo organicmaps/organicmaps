@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Syötä oikea talon numero";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Kerrosten määrä (maks. %2d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Muokkaa kerroksia, enintään 25 kerrosta";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Postinumero";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Anna kelvollinen postinumero";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Tuntematon paikka";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "Lisätiedot";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Yksityiskohtainen kommentti";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata MAPS.ME:ssä.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "Lisätietoja OpenStreetMap:ista";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "Operaattori";
+
+"editor_tag_description" = "Syötä tiloista vastuussa oleva yhtiö, organisaatio tai henkilö";
+
+"editor_no_local_edits_title" = "Sinulla ei ole paikallisia muokkauksia";
+
+"editor_no_local_edits_description" = "Tämä näyttää ehdottamiesi muutosten lukumäärän tällä hetkellä vain sinun laitteessasi saatavissa olevassa kartassa.";
+
+"editor_international_names_subtitle" = "Nimi toisella kielellä";
+
+"editor_send_to_osm" = "Lähetä OSM:ään";
+
+"editor_remove" = "Poista";
+
+"downloader_my_maps_title" = "Omat kartat";
+
+"downloader_no_downloaded_maps_title" = "Et ole ladannut yhtään karttaa";
+
+"downloader_no_downloaded_maps_message" = "Lataa kartat löytääksesi paikan ja navigoidaksesi offline.";
+
+"downloader_find_place_hint" = "Etsi kaupunki tai maa";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Jatketaanko nykyisen paikkasi havaitsemista?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Nykyinen paikka on tuntematon. Kenties olet rakennuksessa tai tunnelissa.";
+
+"current_location_unknown_continue_button" = "Jatka";
+
+"current_location_unknown_stop_button" = "Seis";
+
+"current_location_unknown_error_title" = "Nykyinen paikka on tuntematon.";
+
+"current_location_unknown_error_message" = "Tapahtui virhe etsittäessä paikkaasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.";
+
+"whatsnew_update_editor_title" = "Olemme päivittäneet karttamuokkaimen";
+
+"whatsnew_update_editor_message" = "MAPS.ME -käyttäjät ovat tehneet 50 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!";
+
+"location_services_disabled_header" = "Locatie-identificatie is uitgeschakeld";
+
+"location_services_disabled_1" = "1. Instellingen openen";
+
+"location_services_disabled_2" = "2. Tik op locatie";
+
+"location_services_disabled_3" = "3. Selecteer 'Altijd'";
+
+"placepage_parking_surface" = "Pinta";
+
+"placepage_parking_multistorey" = "Monikerroksinen";
+
+"placepage_parking_underground" = "Maan alla";
+
+"placepage_parking_rooftop" = "Katolla";
+
+"placepage_parking_sheds" = "Suojat";
+
+"placepage_parking_carports" = "Autokatokset";
+
+"placepage_parking_boxes" = "Autotalliruudut";
+
+"placepage_parking_pay" = "Maksullinen";
+
+"placepage_parking_free" = "Ilmainen";
+
+"placepage_parking_interval" = "Aikamaksu";
+
+"placepage_entrance_number" = "Nro.";
+
+"placepage_entrance_type" = "Sisäänkäynti";
+
+"placepage_flat" = "sov.";
+
+"placepage_open_24_7" = "24_7";
+
+"placepage_place_rating" = "Luokitus";
+
+"place_page_starting_from" = "%d:stä";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Kuvaus";
+
+"placepage_more_button" = "Lisää";
+
+"bookingcom_book_button" = "Varaa";
+
+"placepage_call_button" = "Soita";
+
+"placepage_edit_bookmark_button" = "Muokkaa kirjanmerkkiä";
+
+"placepage_bookmark_name_hint" = "Kirjanmerkin nimi";
+
+"placepage_personal_notes_hint" = "Henkilökohtaiset merkinnät";
+
+"placepage_delete_bookmark_button" = "Poista kirjanmerkki";
+
+"editor_edits_sent_message" = "Ehdottamasi muutokset on lähetetty";
+
+"editor_comment_hint" = "Kommentti…";
+
+"editor_reset_edits_message" = "Nollataanko kaikki paikalliset muutokset?";
+
+"editor_reset_edits_button" = "Nollaa";
+
+"editor_remove_place_message" = "Poistetaanko lisätty paikka?";
+
+"editor_remove_place_button" = "Poista";
+
+"editor_status_sending" = "Lähetetään…";
+
+"editor_place_doesnt_exist" = "Paikkaa ei ole";

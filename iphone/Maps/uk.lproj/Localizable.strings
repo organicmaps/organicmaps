@@ -400,7 +400,7 @@
 "my_position_share_sms" = "Глянь де я зараз. Іди %1$@ або %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Поглянь на мою позначку на карті MAPS.ME";
+"bookmark_share_email_subject" = "Поглянь на мою мiтку на карті MAPS.ME";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
 "bookmark_share_email" = "Привіт,\n\nЯ позначив: %1$@ на MAPS.ME, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті.\n\nДякую.";
@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Введіть правильний номер будинку";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Кількість поверхів (максимум %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Редагуйте будівлі висотою максимум 25 поверхів";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Поштовий індекс";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Введіть коректний поштовий індекс";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Невідоме місце";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "Додаткові дані";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Докладний коментар";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об'єкт, які не можна редагувати у MAPS.ME.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "Більше про OpenStreetMap";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "Володар";
+
+"editor_tag_description" = "Вкажіть компанію, організацію або особу, що відповідає за працездатність об'єкта";
+
+"editor_no_local_edits_title" = "Поки що ви не маєте локальних виправлень";
+
+"editor_no_local_edits_description" = "Тут відображається кількість запропонованих вами змін на карті, які доступні тільки на вашому пристрою";
+
+"editor_international_names_subtitle" = "Назва на інших мовах";
+
+"editor_send_to_osm" = "Відправити до OSM";
+
+"editor_remove" = "Видалити";
+
+"downloader_my_maps_title" = "Мої мапи";
+
+"downloader_no_downloaded_maps_title" = "Ви не маєте завантажених мап";
+
+"downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.";
+
+"downloader_find_place_hint" = "Знайти місто або країну";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Продовжити пошук місцезнаходження?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.";
+
+"current_location_unknown_continue_button" = "Продовжити";
+
+"current_location_unknown_stop_button" = "Зупинити";
+
+"current_location_unknown_error_title" = "Місцезнаходження не знайдено.";
+
+"current_location_unknown_error_message" = "Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.";
+
+"whatsnew_update_editor_title" = "Ми обновили редактор";
+
+"whatsnew_update_editor_message" = "Користувачі MAPS.ME вже внесли 50 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!";
+
+"location_services_disabled_header" = "Ідентифікацію місцезнаходження відключено";
+
+"location_services_disabled_1" = "1. Відкрийте «Налаштування»";
+
+"location_services_disabled_2" = "2. Клацніть «Місцезнаходження»";
+
+"location_services_disabled_3" = "3. Виберіть «Завжди»";
+
+"placepage_parking_surface" = "Відкрите паркування";
+
+"placepage_parking_multistorey" = "Багатоповерхове наземне паркування";
+
+"placepage_parking_underground" = "Підземне паркування";
+
+"placepage_parking_rooftop" = "Паркування на даху будівлі";
+
+"placepage_parking_sheds" = "Приватне легке укриття для автомобілів";
+
+"placepage_parking_carports" = "Капітальний навіс";
+
+"placepage_parking_boxes" = "Гаражний бокс";
+
+"placepage_parking_pay" = "Платне";
+
+"placepage_parking_free" = "Безкоштовне";
+
+"placepage_parking_interval" = "Змінно платне";
+
+"placepage_entrance_number" = "№";
+
+"placepage_entrance_type" = "Під'їзд";
+
+"placepage_flat" = "кв.";
+
+"placepage_open_24_7" = "Цілодобово";
+
+"placepage_place_rating" = "Рейтинг:";
+
+"place_page_starting_from" = "від %d";
+
+"meter" = "м";
+
+"kilometer" = "км";
+
+"placepage_place_description" = "Опис";
+
+"placepage_more_button" = "Ще";
+
+"bookingcom_book_button" = "Забронювати";
+
+"placepage_call_button" = "Подзвонити";
+
+"placepage_edit_bookmark_button" = "Редагувати мiтку";
+
+"placepage_bookmark_name_hint" = "Назва мiтки";
+
+"placepage_personal_notes_hint" = "Примітка";
+
+"placepage_delete_bookmark_button" = "Видалити мiтку";
+
+"editor_edits_sent_message" = "Зміни, що ви запропонували, відправлено";
+
+"editor_comment_hint" = "Коментар…";
+
+"editor_reset_edits_message" = "Скинути усі локальні виправлення?";
+
+"editor_reset_edits_button" = "Скинути";
+
+"editor_remove_place_message" = "Видалити об'єкт, що ви додали?";
+
+"editor_remove_place_button" = "Видалити";
+
+"editor_status_sending" = "Відправка…";
+
+"editor_place_doesnt_exist" = "Місце не існує";

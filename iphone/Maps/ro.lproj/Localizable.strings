@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Introduceți numărul corect al casei";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Număr de etaje (max %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Editare clădire cu maximum 25 de etaje";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Cod poștal";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Introduceți codul poștal corect";
+
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Loc necunoscut";
+
+"editor_other_info" = "Informații suplimentare";
+
+"editor_detailed_description_hint" = "Comentariu detaliat";
+
+"editor_detailed_description" = "Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME.";
+
+"editor_more_about_osm" = "Mai multe despre OpenStreetMap";
 
 "editor_operator" = "Operator";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_tag_description" = "Introduceți compania, organizația sau persoana responsabilă de facilități.";
 
-"editor_other_info" = "Other information about place";
+"editor_no_local_edits_title" = "Nu aveți modificări locale";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_no_local_edits_description" = "Acesta arată numărul de modificări sugerate pe hartă care sunt momentan accesibile doar pe dispozitivul dvs.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_international_names_subtitle" = "Nume în alte limbi";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_send_to_osm" = "Trimitere la OSM";
+
+"editor_remove" = "Eliminare";
+
+"downloader_my_maps_title" = "Hărțile mele";
+
+"downloader_no_downloaded_maps_title" = "Nu ați descărcat nicio hartă";
+
+"downloader_no_downloaded_maps_message" = "Descărcați hărți pt. a găsi locația și navigați offline.";
+
+"downloader_find_place_hint" = "Căutare oraș sau țară";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Continuați cu detectarea locației dvs. curente?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Locația curentă este necunoscută. Poate vă aflați într-o clădire sau un tunel.";
+
+"current_location_unknown_continue_button" = "Continuare";
+
+"current_location_unknown_stop_button" = "Oprire";
+
+"current_location_unknown_error_title" = "Locația curentă este necunoscută.";
+
+"current_location_unknown_error_message" = "S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.";
+
+"whatsnew_update_editor_title" = "Am actualizat editorul de hărți";
+
+"whatsnew_update_editor_message" = "Utilizatorii MAPS.ME au făcut 50.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!";
+
+"location_services_disabled_header" = "Geolocalizarea este dezactivată";
+
+"location_services_disabled_1" = "1. Deschideți setările";
+
+"location_services_disabled_2" = "2. Apăsați pe Localizare";
+
+"location_services_disabled_3" = "3. Selectați Întotdeauna";
+
+"placepage_parking_surface" = "Suprafață";
+
+"placepage_parking_multistorey" = "Multi-etajat";
+
+"placepage_parking_underground" = "Subteran";
+
+"placepage_parking_rooftop" = "Pe acoperiș";
+
+"placepage_parking_sheds" = "Garaj";
+
+"placepage_parking_carports" = "Garaje";
+
+"placepage_parking_boxes" = "Garage boxes";
+
+"placepage_parking_pay" = "Cu plată";
+
+"placepage_parking_free" = "Gratuit";
+
+"placepage_parking_interval" = "Interval de plată";
+
+"placepage_entrance_number" = "Nr.";
+
+"placepage_entrance_type" = "Intrare";
+
+"placepage_flat" = "ap.";
+
+"placepage_open_24_7" = "24 / 7";
+
+"placepage_place_rating" = "Evaluare:";
+
+"place_page_starting_from" = "din %d";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Descriere";
+
+"placepage_more_button" = "Mai multe";
+
+"bookingcom_book_button" = "Rezervare";
+
+"placepage_call_button" = "Apel";
+
+"placepage_edit_bookmark_button" = "Editare marcaj";
+
+"placepage_bookmark_name_hint" = "Nume marcaj";
+
+"placepage_personal_notes_hint" = "Note personale";
+
+"placepage_delete_bookmark_button" = "Ștergere marcaj";
+
+"editor_edits_sent_message" = "Modificările sugerate au fost trimise";
+
+"editor_comment_hint" = "Comentariu…";
+
+"editor_reset_edits_message" = "Resetați toate modificările locale?";
+
+"editor_reset_edits_button" = "Resetare";
+
+"editor_remove_place_message" = "Eliminați locul adăugat?";
+
+"editor_remove_place_button" = "Eliminare";
+
+"editor_status_sending" = "Se trimite…";
+
+"editor_place_doesnt_exist" = "Locul nu există";

@@ -1228,7 +1228,7 @@
 "street" = "Gata";
 
 /* Editable House Number text field (in address block). */
-"house_number" = "Husnummer";
+"house_number" = "Ett husnummer";
 
 "details" = "Detaljer";
 
@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Ange korrekt husnummer";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Antal våningar (max %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Redigera byggnaden med max 25 våningar";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Postnr";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Ange korrekt postnr";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Okänd plats";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "Mer info";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Detaljerad kommentar";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i MAPS.ME.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "Mer om OpenStreetMap";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "Användare";
+
+"editor_tag_description" = "Ange företag, organisation eller person som är ansvarig för lokalerna.";
+
+"editor_no_local_edits_title" = "Du har inga lokala redigeraingar";
+
+"editor_no_local_edits_description" = "Detta visar antalet föreslagna förändringar på kartan som som endast är tillgängliga på din enhet.";
+
+"editor_international_names_subtitle" = "Namn på andra språk";
+
+"editor_send_to_osm" = "Skicka till OSM";
+
+"editor_remove" = "Ta bord";
+
+"downloader_my_maps_title" = "Mina kartor";
+
+"downloader_no_downloaded_maps_title" = "Du har inte laddat ner några kartor";
+
+"downloader_no_downloaded_maps_message" = "Ladda ner kartor för att hitta platsen och navigera offline.";
+
+"downloader_find_place_hint" = "Sök stad eller land";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Fortsätt detektera din nuvarande plats?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.";
+
+"current_location_unknown_continue_button" = "Fortsätt";
+
+"current_location_unknown_stop_button" = "Stopp";
+
+"current_location_unknown_error_title" = "Den nuvarande platsen är okänd.";
+
+"current_location_unknown_error_message" = "Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.";
+
+"whatsnew_update_editor_title" = "Vi har uppdaterat kartredigeraren";
+
+"whatsnew_update_editor_message" = "MAPS.ME-användare har gjort 50 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!";
+
+"location_services_disabled_header" = "Platsidentifiering avaktiverad";
+
+"location_services_disabled_1" = "1. Öppna inställningar";
+
+"location_services_disabled_2" = "2. Tryck på Plats";
+
+"location_services_disabled_3" = "3. Välj Alltid";
+
+"placepage_parking_surface" = "Yta";
+
+"placepage_parking_multistorey" = "Flera våningar";
+
+"placepage_parking_underground" = "Under mark";
+
+"placepage_parking_rooftop" = "Hustak";
+
+"placepage_parking_sheds" = "Skjul";
+
+"placepage_parking_carports" = "Garage";
+
+"placepage_parking_boxes" = "Garageboxar";
+
+"placepage_parking_pay" = "Kostnadsbelagd";
+
+"placepage_parking_free" = "Gratis";
+
+"placepage_parking_interval" = "Delvis kostnadsbelagd";
+
+"placepage_entrance_number" = "Nr";
+
+"placepage_entrance_type" = "Entré";
+
+"placepage_flat" = "lgh";
+
+"placepage_open_24_7" = "Døgnet rundt";
+
+"placepage_place_rating" = "Betyg:";
+
+"place_page_starting_from" = "från %d";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Beskrivning";
+
+"placepage_more_button" = "Mer";
+
+"bookingcom_book_button" = "Boka";
+
+"placepage_call_button" = "Ring";
+
+"placepage_edit_bookmark_button" = "Redigera bokmärke";
+
+"placepage_bookmark_name_hint" = "Namn bokmärke";
+
+"placepage_personal_notes_hint" = "Personlig anteckning";
+
+"placepage_delete_bookmark_button" = "Radera bokmärke";
+
+"editor_edits_sent_message" = "Dina föreslagna ändringar har skickats";
+
+"editor_comment_hint" = "kommentar…";
+
+"editor_reset_edits_message" = "Återställ alla lokala ändringar?";
+
+"editor_reset_edits_button" = "Återställ";
+
+"editor_remove_place_message" = "Ta bort en tillagd plats?";
+
+"editor_remove_place_button" = "Ta bort";
+
+"editor_status_sending" = "Skickar…";
+
+"editor_place_doesnt_exist" = "Platsen finns inte";
