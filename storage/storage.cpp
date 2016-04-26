@@ -1559,6 +1559,8 @@ bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInf
       return;
     updateInfo.m_numberOfMwmFilesToUpdate += 1; // It's not a group mwm.
     updateInfo.m_totalUpdateSizeInBytes += descendantNode.Value().GetSubtreeMwmSizeBytes();
+    TLocalAndRemoteSize sizes = CountrySizeInBytes(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
+    updateInfo.m_sizeDifference += static_cast<int64_t>(sizes.second) - static_cast<int64_t>(sizes.first);
   };
 
   TCountryTreeNode const * const node = m_countries.FindFirst(countryId);

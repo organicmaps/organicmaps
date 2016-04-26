@@ -26,6 +26,8 @@ bool IsDownloadFailed(Status status);
 
 bool IsEnoughSpaceForDownload(TMwmSize size);
 bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & storage);
+bool IsEnoughSpaceForUpdate(TCountryId const & countryId, Storage const & storage);
+
 
 /// \brief Calculates limit rect for |countryId| (expandable or not).
 /// \returns bounding box in mercator coordinates.
