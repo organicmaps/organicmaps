@@ -597,19 +597,10 @@ using namespace mwm;
 
   if (buttons & UpdateAction)
   {
-    TCountriesVec downloadedChildren;
-    TCountriesVec availableChildren;
-    s.GetChildrenInGroups(m_actionSheetId, downloadedChildren, availableChildren);
-    TMwmSize updateSize = 0;
-    for (TCountryId const & countryId : downloadedChildren)
-    {
-      NodeAttrs nodeAttrs;
-      s.GetNodeAttrs(countryId, nodeAttrs);
-      if (nodeAttrs.m_status == NodeStatus::OnDiskOutOfDate)
-        updateSize += nodeAttrs.m_mwmSize;
-    }
+    Storage::UpdateInfo updateInfo;
+    s.GetUpdateInfo(m_actionSheetId, updateInfo);
     NSString * title = [NSString stringWithFormat:kAllMapsLabelFormat, kUpdateActionTitle,
-                        formattedSize(updateSize)];
+                        formattedSize(updateInfo.m_totalUpdateSizeInBytes)];
     [actionSheet addButtonWithTitle:title];
     UIAlertAction * action = [UIAlertAction actionWithTitle:title
                                                       style:UIAlertActionStyleDefault
