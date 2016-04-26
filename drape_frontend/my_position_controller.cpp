@@ -101,6 +101,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode,
   , m_oldPosition(m2::PointD::Zero())
   , m_oldDrawDirection(0.0)
   , m_lastGPSBearing(false)
+  , m_lastLocationTimestamp(0.0)
   , m_positionYOffset(kPositionOffsetY)
   , m_isVisible(false)
   , m_isDirtyViewport(false)
@@ -327,7 +328,13 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
   m_isPositionAssigned = true;
   SetIsVisible(true);
-  m_updateLocationTimer.Reset();
+
+  double const kEps = 1e-5;
+  if (fabs(m_lastLocationTimestamp - info.m_timestamp) > kEps)
+  {
+    m_lastLocationTimestamp = info.m_timestamp;
+    m_updateLocationTimer.Reset();
+  }
 }
 
 void MyPositionController::LoseLocation()

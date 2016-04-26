@@ -145,6 +145,7 @@ private:
   my::Timer m_pendingTimer;
   my::Timer m_routingNotFollowTimer;
   my::Timer m_updateLocationTimer;
+  double m_lastLocationTimestamp;
 
   m2::RectD m_pixelRect;
   m2::PointD m_centerPixelPositionRouting;
