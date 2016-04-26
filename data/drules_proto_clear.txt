@@ -10141,6 +10141,36 @@ cont {
   }
 }
 cont {
+  name: "emergency-phone"
+  element {
+    scale: 17
+    symbol {
+      name: "phone-l"
+      apply_for_type: 1
+      priority: 16863
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "phone-l"
+      apply_for_type: 1
+      priority: 16863
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "phone-l"
+      apply_for_type: 1
+      priority: 16863
+      min_distance: 30
+    }
+  }
+}
+cont {
   name: "entrance"
   element {
     scale: 18
@@ -67644,25 +67674,99 @@ cont {
 cont {
   name: "tourism-chalet"
   element {
-    scale: 18
+    scale: 14
+    symbol {
+      name: "alpine_hut-s"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 30
+    }
     caption {
       primary {
         height: 11
         color: 4473924
-        offset_y: 12
+        offset_y: 10
       }
-      priority: 15890
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
     }
   }
   element {
     scale: 19
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
     caption {
       primary {
         height: 11
         color: 4473924
-        offset_y: 12
+        offset_y: 10
       }
-      priority: 15890
+      priority: 15849
     }
   }
 }
