@@ -1287,7 +1287,7 @@
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHU-D3-OHh" customClass="MWMButton">
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHU-D3-OHh" customClass="MWMButton">
                                                                 <rect key="frame" x="520" y="0.0" width="48" height="44"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="44" id="kpz-KB-mBX"/>
