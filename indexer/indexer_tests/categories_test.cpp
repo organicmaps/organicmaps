@@ -16,7 +16,7 @@
 
 using namespace indexer;
 
-char const * g_testCategoriesTxt =
+char const g_testCategoriesTxt[] =
     "amenity-bench\n"
     "en:1bench|sit down|to sit\n"
     "de:0bank|auf die strafbank schicken\n"
@@ -94,7 +94,7 @@ UNIT_TEST(LoadCategories)
 {
   classificator::Load();
 
-  CategoriesHolder h(make_unique<MemReader>(g_testCategoriesTxt, strlen(g_testCategoriesTxt)));
+  CategoriesHolder h(make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
   size_t count = 0;
   Checker f(count);
   h.ForEachCategory(f);
@@ -105,62 +105,110 @@ UNIT_TEST(CategoriesIndex_Smoke)
 {
   classificator::Load();
 
-  CategoriesHolder catHolder(
-      make_unique<MemReader>(g_testCategoriesTxt, strlen(g_testCategoriesTxt)));
-  CategoriesIndex catIndex(catHolder);
-  
+  CategoriesHolder holder(
+      make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
+  CategoriesIndex index(holder);
+
   uint32_t type1 = classif().GetTypeByPath({"amenity", "bench"});
   uint32_t type2 = classif().GetTypeByPath({"place", "village"});
   if (type1 > type2)
     swap(type1, type2);
   int8_t lang1 = CategoriesHolder::MapLocaleToInteger("en");
   int8_t lang2 = CategoriesHolder::MapLocaleToInteger("de");
-  
-  auto testTypes = [&](string const & query, vector<uint32_t> && expected)
+
+  auto testTypes = [&](string const & query, vector<uint32_t> const & expected)
   {
     vector<uint32_t> result;
-    catIndex.GetAssociatedTypes(query, result);
+    index.GetAssociatedTypes(query, result);
     TEST_EQUAL(result, expected, (query));
   };
-  
-  catIndex.AddCategoryByTypeAndLang(type1, lang1);
+
+  index.AddCategoryByTypeAndLang(type1, lang1);
   testTypes("bench", {type1});
+  testTypes("BENCH", {type1});
   testTypes("down", {type1});
   testTypes("benck", {});
   testTypes("strafbank", {});
-  catIndex.AddCategoryByTypeAndLang(type1, lang2);
+  index.AddCategoryByTypeAndLang(type1, lang2);
   testTypes("strafbank", {type1});
-  catIndex.AddCategoryByTypeAndLang(type2, lang1);
+  testTypes("ie strafbank sc", {type1});
+  testTypes("rafb", {type1});
+  index.AddCategoryByTypeAndLang(type2, lang1);
   testTypes("i", {type1, type2});
+
+  CategoriesIndex fullIndex(holder);
+  fullIndex.AddCategoryByTypeAllLangs(type1);
+  fullIndex.AddCategoryByTypeAllLangs(type2);
+  vector<CategoriesHolder::Category> cats;
+
+  // The letter 'a' matches "strafbank" and "village".
+  // One language is not enough.
+  fullIndex.GetCategories("a", cats);
+
+  TEST_EQUAL(cats.size(), 2, ());
+
+  TEST_EQUAL(cats[0].m_synonyms.size(), 8, ());
+  TEST_EQUAL(cats[0].m_synonyms[4].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
+  TEST_EQUAL(cats[0].m_synonyms[4].m_name, "auf die strafbank schicken", ());
+
+  TEST_EQUAL(cats[1].m_synonyms.size(), 3, ());
+  TEST_EQUAL(cats[1].m_synonyms[0].m_locale, CategoriesHolder::MapLocaleToInteger("en"), ());
+  TEST_EQUAL(cats[1].m_synonyms[0].m_name, "village", ());
 }
 
+UNIT_TEST(CategoriesIndex_MultipleTokens)
+{
+  char const kCategories[] =
+      "shop-bakery\n"
+      "en:shop of buns\n"
+      "\n"
+      "shop-butcher\n"
+      "en:shop of meat";
+
+  classificator::Load();
+  CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
+  CategoriesIndex index(holder);
+
+  index.AddAllCategoriesInAllLangs();
+  auto testTypes = [&](string const & query, vector<uint32_t> const & expected)
+  {
+    vector<uint32_t> result;
+    index.GetAssociatedTypes(query, result);
+    TEST_EQUAL(result, expected, (query));
+  };
+
+  uint32_t type1 = classif().GetTypeByPath({"shop", "bakery"});
+  uint32_t type2 = classif().GetTypeByPath({"shop", "butcher"});
+  if (type1 > type2)
+    swap(type1, type2);
+
+  testTypes("shop", {type1, type2});
+  testTypes("shop buns", {type1});
+  testTypes("shop meat", {type2});
+}
+
+#ifdef DEBUG
+// A check that this data structure is not too heavy.
 UNIT_TEST(CategoriesIndex_AllCategories)
 {
   classificator::Load();
 
-  CategoriesIndex catIndex;
+  CategoriesIndex index;
 
-  catIndex.AddAllCategoriesAllLangs();
-  vector<uint32_t> types;
-  catIndex.GetAssociatedTypes("", types);
-  TEST_LESS(types.size(), 300, ());
-#ifdef DEBUG
-  TEST_LESS(catIndex.GetNumTrieNodes(), 400000, ());
-#endif
+  index.AddAllCategoriesInAllLangs();
+  TEST_LESS(index.GetNumTrieNodes(), 250000, ());
 }
+#endif
 
+#ifdef DEBUG
+// A check that this data structure is not too heavy.
 UNIT_TEST(CategoriesIndex_AllCategoriesEnglishName)
 {
   classificator::Load();
 
-  CategoriesIndex catIndex;
+  CategoriesIndex index;
 
-  catIndex.AddAllCategoriesInLang(CategoriesHolder::MapLocaleToInteger("en"));
-  vector<uint32_t> types;
-  catIndex.GetAssociatedTypes("", types);
-  my::SortUnique(types);
-  TEST_LESS(types.size(), 300, ());
-#ifdef DEBUG
-  TEST_LESS(catIndex.GetNumTrieNodes(), 10000, ());
-#endif
+  index.AddAllCategoriesInLang(CategoriesHolder::MapLocaleToInteger("en"));
+  TEST_LESS(index.GetNumTrieNodes(), 6000, ());
 }
+#endif

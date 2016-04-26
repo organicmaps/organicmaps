@@ -60,8 +60,8 @@ public:
   template <class ToDo>
   void ForEachTypeAndCategory(ToDo && toDo) const
   {
-    for (IteratorT i = m_type2cat.begin(); i != m_type2cat.end(); ++i)
-      toDo(i->first, *i->second);
+    for (auto const it : m_type2cat)
+      toDo(it.first, *it.second);
   }
 
   template <class ToDo>

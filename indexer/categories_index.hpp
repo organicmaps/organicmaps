@@ -16,7 +16,7 @@ namespace indexer
 class CategoriesIndex
 {
 public:
-  using Category = CategoriesHolder::Category;
+  using TCategory = CategoriesHolder::Category;
 
   CategoriesIndex() : m_catHolder(GetDefaultCategories()) {}
 
@@ -36,21 +36,22 @@ public:
   void AddAllCategoriesInLang(int8_t lang);
 
   // Adds all categories from data/classificator.txt.
-  void AddAllCategoriesAllLangs();
+  void AddAllCategoriesInAllLangs();
 
   // Returns all categories that have |query| as a substring. Note
   // that all synonyms for a category are contained in a returned
   // value even if only one language was used when adding this
   // category's name to index.
   // Beware weird results when query is a malformed UTF-8 string.
-  void GetCategories(string const & query, vector<Category> & result);
+  void GetCategories(string const & query, vector<TCategory> & result) const;
 
   // Returns all types that match to categories that have |query| as substring.
   // Beware weird results when query is a malformed UTF-8 string.
-  void GetAssociatedTypes(string const & query, vector<uint32_t> & result);
+  // Note: no types are returned if the query is empty.
+  void GetAssociatedTypes(string const & query, vector<uint32_t> & result) const;
 
 #ifdef DEBUG
-  int GetNumTrieNodes() { return m_trie.GetNumNodes(); }
+  inline int GetNumTrieNodes() const { return m_trie.GetNumNodes(); }
 #endif
 
 private:

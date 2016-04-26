@@ -33,15 +33,15 @@ public:
   void ForEach(ToDo && toDo)
   {
     TString prefix;
-    ForEach(&m_root, prefix, toDo);
+    ForEach(&m_root, prefix, forward<ToDo>(toDo));
   }
 
   template <typename ToDo>
-  void ForEachInSubtree(TString prefix, ToDo && toDo)
+  void ForEachInSubtree(TString prefix, ToDo && toDo) const
   {
-    Node * nd = MoveTo(prefix);
-    if (nd)
-      ForEach(nd, prefix, toDo);
+    Node const * node = MoveTo(prefix);
+    if (node)
+      ForEach(node, prefix, forward<ToDo>(toDo));
   }
 
   size_t GetNumNodes() const { return m_numNodes; }
@@ -79,22 +79,21 @@ private:
     DISALLOW_COPY_AND_MOVE(Node);
   };
 
-  Node * MoveTo(TString const & key)
+  Node const * MoveTo(TString const & key) const
   {
-    Node * cur = &m_root;
+    Node const * cur = &m_root;
     for (auto const & c : key)
     {
       auto const it = cur->m_moves.find(c);
-      if (it != cur->m_moves.end())
-        cur = it->second;
-      else
+      if (it == cur->m_moves.end())
         return nullptr;
+      cur = it->second;
     }
     return cur;
   }
 
   template <typename ToDo>
-  void ForEach(Node * root, TString & prefix, ToDo && toDo)
+  void ForEach(Node const * root, TString & prefix, ToDo && toDo) const
   {
     if (!root->m_values.empty())
     {

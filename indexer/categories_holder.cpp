@@ -277,10 +277,12 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     {"he", 29 },
     {"sw", 30 }
   };
-  ASSERT_EQUAL(ARRAY_SIZE(mapping), kNumLanguages, ());
+  static_assert(ARRAY_SIZE(mapping) == kNumLanguages, "");
   for (size_t i = 0; i < kNumLanguages; ++i)
+  {
     if (locale.find(mapping[i].m_name) == 0)
       return mapping[i].m_code;
+  }
 
   // Special cases for different Chinese variations
   if (locale.find("zh") == 0)
