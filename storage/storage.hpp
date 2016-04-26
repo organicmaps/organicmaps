@@ -302,10 +302,12 @@ public:
   /// \brief Information for "Update all mwms" button.
   struct UpdateInfo
   {
-    UpdateInfo() : m_numberOfMwmFilesToUpdate(0), m_totalUpdateSizeInBytes(0) {}
+    UpdateInfo() : m_numberOfMwmFilesToUpdate(0), m_totalUpdateSizeInBytes(0), m_sizeDifference(0) {}
 
     TMwmCounter m_numberOfMwmFilesToUpdate;
     TMwmSize m_totalUpdateSizeInBytes;
+    // Difference size in bytes between before update and after update.
+    int64_t m_sizeDifference;
   };
 
   struct StatusCallback

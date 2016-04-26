@@ -36,6 +36,15 @@ bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & stor
   return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize);
 }
 
+bool IsEnoughSpaceForUpdate(TCountryId const & countryId, Storage const & storage)
+{
+  Storage::UpdateInfo updateInfo;
+  
+  storage.GetUpdateInfo(countryId, updateInfo);
+  TMwmSize spaceNeedForUpdate = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
+  return IsEnoughSpaceForDownload(spaceNeedForUpdate);
+}
+
 m2::RectD CalcLimitRect(TCountryId const & countryId,
                         Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter)
