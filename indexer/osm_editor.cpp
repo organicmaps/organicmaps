@@ -329,6 +329,11 @@ Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint
   return featureInfo->m_status;
 }
 
+bool Editor::IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const
+{
+  return GetFeatureTypeInfo(mwmId, index)->m_uploadStatus == kUploaded;
+}
+
 void Editor::DeleteFeature(FeatureType const & feature)
 {
   FeatureID const & fid = feature.GetID();
@@ -454,6 +459,15 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   bool const savedSuccessfully = Save(GetEditorFilePath());
   Invalidate();
   return savedSuccessfully ? SavedSuccessfully : NoFreeSpaceError;
+}
+
+bool Editor::RollBackChanges(FeatureID const & fid)
+{
+  if (IsFeatureUploaded(fid.m_mwmId, fid.m_index))
+    return false;
+
+  RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
+  return true;
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
