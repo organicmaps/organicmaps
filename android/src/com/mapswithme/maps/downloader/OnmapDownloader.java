@@ -51,7 +51,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           continue;
 
         if (item.newStatus == CountryItem.STATUS_FAILED)
-          MapManager.showError(mActivity, item);
+          MapManager.showError(mActivity, item, null);
 
         if (mCurrentCountry.id.equals(item.countryId))
         {

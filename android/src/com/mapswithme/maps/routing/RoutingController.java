@@ -21,7 +21,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
@@ -36,7 +35,7 @@ import com.mapswithme.util.statistics.Statistics;
 @android.support.annotation.UiThread
 public class RoutingController
 {
-  public static final int NO_SLOT = 0;
+  private static final int NO_SLOT = 0;
 
   private static final String TAG = "RCSTATE";
 
@@ -161,52 +160,8 @@ public class RoutingController
     mLastBuildProgress = 0;
     updateProgress();
 
-    final RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
-    fragment.setListener(new RoutingErrorDialogFragment.Listener()
-    {
-      @Override
-      public boolean onDownload()
-      {
-        long size = 0;
-        for (String map : mLastMissingMaps)
-        {
-          CountryItem country = CountryItem.fill(map);
-          if (country.status != CountryItem.STATUS_PROGRESS)
-            size += (country.totalSize - country.size);
-        }
-
-        return !MapManager.warnOn3g(mContainer.getActivity(), size, new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            cancel();
-
-            for (String map : mLastMissingMaps)
-              MapManager.nativeDownload(map);
-
-            if (mContainer != null)
-              mContainer.showDownloader(true);
-
-            fragment.dismiss();
-          }
-        });
-      }
-
-      @Override
-      public void onOk()
-      {
-        if (ResultCodesHelper.isDownloadable(mLastResultCode))
-        {
-          cancel();
-
-          if (mContainer != null)
-            mContainer.showDownloader(false);
-        }
-      }
-    });
-
-    fragment.show(mContainer.getActivity().getSupportFragmentManager(), fragment.getClass().getSimpleName());
+    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
+    fragment.show(mContainer.getActivity().getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
   }
 
   private RoutingController()
@@ -567,7 +522,7 @@ public class RoutingController
       Framework.nativeSetRouteEndPoint(mEndPoint.getLat(), mEndPoint.getLon(), true);
   }
 
-  private void checkAndBuildRoute()
+  void checkAndBuildRoute()
   {
     if (mContainer != null)
     {

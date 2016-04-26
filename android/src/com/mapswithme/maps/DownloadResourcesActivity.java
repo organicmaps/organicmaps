@@ -195,7 +195,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
           return;
 
         case CountryItem.STATUS_FAILED:
-          MapManager.showError(DownloadResourcesActivity.this, item);
+          MapManager.showError(DownloadResourcesActivity.this, item, null);
           return;
         }
       }

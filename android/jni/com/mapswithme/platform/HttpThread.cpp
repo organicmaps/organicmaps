@@ -50,7 +50,6 @@ public:
     ASSERT(m_self, ());
 
     env->CallVoidMethod(m_self, startMethodId);
-    jni::DumpDalvikReferenceTables();
   }
 
   ~HttpThread()
