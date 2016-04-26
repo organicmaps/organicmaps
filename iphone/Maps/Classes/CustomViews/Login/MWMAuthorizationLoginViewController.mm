@@ -49,7 +49,7 @@ using namespace osm_auth_ios;
 @property (weak, nonatomic) IBOutlet UILabel * uploadedChangesLabel;
 @property (weak, nonatomic) IBOutlet UILabel * lastUploadLabel;
 
-@property (weak, nonatomic) IBOutlet UIImageView * emptyProfileImage;
+@property (weak, nonatomic) IBOutlet UIView * emptyProfileView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesTop;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * scrollViewContentHeight;
@@ -134,7 +134,7 @@ using namespace osm_auth_ios;
 - (void)configEmptyProfile
 {
   if (self.authView.hidden && self.changesView.hidden)
-    self.emptyProfileImage.hidden = NO;
+    self.emptyProfileView.hidden = NO;
 }
 
 - (void)configChanges

@@ -1216,13 +1216,61 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YBb-Op-jt9" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
-                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_profile_empty" translatesAutoresizingMaskIntoConstraints="NO" id="e2l-P3-VEv">
-                                                <rect key="frame" x="200" y="36" width="200" height="200"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qmM-9t-aS0" userLabel="Empty profile view">
+                                                <rect key="frame" x="16" y="40" width="568" height="278"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_profile_empty_light" translatesAutoresizingMaskIntoConstraints="NO" id="e2l-P3-VEv">
+                                                        <rect key="frame" x="184" y="0.0" width="200" height="200"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="200" id="GMT-cg-0fn"/>
+                                                            <constraint firstAttribute="width" constant="200" id="TVp-f8-pS5"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="img_profile_empty"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="552" translatesAutoresizingMaskIntoConstraints="NO" id="o6T-mk-245">
+                                                        <rect key="frame" x="8" y="220" width="552" height="21"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="8ae-3X-Zyn"/>
+                                                            <constraint firstAttribute="width" constant="552" id="uc1-SE-ctk"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium20"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_no_local_edits_description"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="552" translatesAutoresizingMaskIntoConstraints="NO" id="OrE-1s-ae6">
+                                                        <rect key="frame" x="8" y="257" width="552" height="21"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="9bh-ZR-dEg"/>
+                                                            <constraint firstAttribute="width" constant="552" id="UBa-Yp-6ML"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_no_local_edits_title"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="1Yi-LQ-q52"/>
-                                                    <constraint firstAttribute="height" constant="200" id="7gy-ka-heh"/>
+                                                    <constraint firstAttribute="bottom" secondItem="OrE-1s-ae6" secondAttribute="bottom" id="5Ox-ws-JlO"/>
+                                                    <constraint firstItem="OrE-1s-ae6" firstAttribute="centerX" secondItem="qmM-9t-aS0" secondAttribute="centerX" id="D3m-YD-MJ7"/>
+                                                    <constraint firstItem="e2l-P3-VEv" firstAttribute="top" secondItem="qmM-9t-aS0" secondAttribute="top" id="IlA-5v-0kP"/>
+                                                    <constraint firstItem="o6T-mk-245" firstAttribute="centerX" secondItem="qmM-9t-aS0" secondAttribute="centerX" id="ItS-zK-knS"/>
+                                                    <constraint firstItem="e2l-P3-VEv" firstAttribute="centerX" secondItem="qmM-9t-aS0" secondAttribute="centerX" id="QYh-cG-Srm"/>
+                                                    <constraint firstItem="o6T-mk-245" firstAttribute="top" secondItem="e2l-P3-VEv" secondAttribute="bottom" constant="20" id="Z6Q-mu-0iM"/>
+                                                    <constraint firstItem="OrE-1s-ae6" firstAttribute="top" secondItem="o6T-mk-245" secondAttribute="bottom" constant="16" id="tcK-Am-O99"/>
                                                 </constraints>
-                                            </imageView>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NhV-I9-K6M" userLabel="Changes view">
                                                 <rect key="frame" x="20" y="16" width="568" height="112"/>
                                                 <subviews>
@@ -1495,7 +1543,7 @@
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whiteSecondaryText"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="no_osm_account"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
@@ -1568,17 +1616,19 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="qmM-9t-aS0" secondAttribute="trailing" constant="16" id="1Od-p5-8e0"/>
                                             <constraint firstItem="S0n-BM-V4o" firstAttribute="top" secondItem="YBb-Op-jt9" secondAttribute="top" constant="96" id="2cN-Zu-cbN"/>
-                                            <constraint firstItem="e2l-P3-VEv" firstAttribute="centerX" secondItem="YBb-Op-jt9" secondAttribute="centerX" id="7sb-9d-e94"/>
                                             <constraint firstAttribute="trailing" secondItem="Swf-Rn-H3g" secondAttribute="trailing" constant="12" id="BeZ-Um-N2J"/>
                                             <constraint firstAttribute="bottom" secondItem="Swf-Rn-H3g" secondAttribute="bottom" constant="12" id="Kp2-li-yC7"/>
                                             <constraint firstItem="NhV-I9-K6M" firstAttribute="leading" secondItem="YBb-Op-jt9" secondAttribute="leading" constant="20" id="P0J-zr-wVr"/>
+                                            <constraint firstItem="qmM-9t-aS0" firstAttribute="leading" secondItem="YBb-Op-jt9" secondAttribute="leading" constant="16" id="Q0X-Im-EBz"/>
                                             <constraint firstAttribute="trailing" secondItem="S0n-BM-V4o" secondAttribute="trailing" constant="16" id="T9b-2e-Krf"/>
-                                            <constraint firstItem="e2l-P3-VEv" firstAttribute="top" secondItem="YBb-Op-jt9" secondAttribute="top" constant="36" id="Xpz-oa-caZ"/>
                                             <constraint firstItem="Swf-Rn-H3g" firstAttribute="leading" secondItem="YBb-Op-jt9" secondAttribute="leading" constant="20" id="aH5-Iq-fIZ"/>
                                             <constraint firstAttribute="bottom" secondItem="Swf-Rn-H3g" secondAttribute="bottom" constant="12" id="izw-7u-WX0"/>
+                                            <constraint firstItem="qmM-9t-aS0" firstAttribute="top" secondItem="YBb-Op-jt9" secondAttribute="top" constant="40" id="lxR-oy-eBb"/>
                                             <constraint firstItem="Swf-Rn-H3g" firstAttribute="leading" secondItem="YBb-Op-jt9" secondAttribute="leading" constant="20" id="oHC-PU-oOR"/>
                                             <constraint firstItem="NhV-I9-K6M" firstAttribute="top" secondItem="YBb-Op-jt9" secondAttribute="top" constant="16" id="sqM-bX-m2V"/>
+                                            <constraint firstItem="qmM-9t-aS0" firstAttribute="centerX" secondItem="YBb-Op-jt9" secondAttribute="centerX" id="uXt-Kv-pFd"/>
                                             <constraint firstAttribute="height" constant="600" id="w1I-mi-hQq"/>
                                             <constraint firstItem="S0n-BM-V4o" firstAttribute="leading" secondItem="YBb-Op-jt9" secondAttribute="leading" constant="16" id="xnz-4R-L7R"/>
                                             <constraint firstAttribute="trailing" secondItem="NhV-I9-K6M" secondAttribute="trailing" constant="12" id="yLL-6w-S3m"/>
@@ -1610,7 +1660,7 @@
                     <connections>
                         <outlet property="authView" destination="S0n-BM-V4o" id="pei-fj-H81"/>
                         <outlet property="changesView" destination="NhV-I9-K6M" id="rAf-gd-z6l"/>
-                        <outlet property="emptyProfileImage" destination="e2l-P3-VEv" id="PYc-xe-RLU"/>
+                        <outlet property="emptyProfileView" destination="qmM-9t-aS0" id="PcV-ha-4j5"/>
                         <outlet property="lastUploadLabel" destination="byf-d2-8rS" id="zUr-9t-H02"/>
                         <outlet property="localChangesLabel" destination="6t0-ph-htV" id="4io-4R-QlC"/>
                         <outlet property="localChangesView" destination="76x-zf-kIz" id="0kI-AG-WLp"/>
@@ -2564,7 +2614,7 @@
         <image name="ic_nav_bar_back" width="14" height="22"/>
         <image name="ic_upload" width="28" height="28"/>
         <image name="img_no_maps" width="160" height="160"/>
-        <image name="img_profile_empty" width="200" height="200"/>
+        <image name="img_profile_empty_light" width="200" height="200"/>
         <image name="img_whatsnew_migration" width="240" height="240"/>
         <image name="login_facebook" width="28" height="28"/>
         <image name="login_google" width="28" height="28"/>
