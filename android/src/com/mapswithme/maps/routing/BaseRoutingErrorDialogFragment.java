@@ -38,6 +38,8 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
 
   final List<CountryItem> mMissingMaps = new ArrayList<>();
   String[] mMapsArray;
+
+  private boolean mCancelRoute = true;
   boolean mCancelled;
 
   void beforeDialogCreated(AlertDialog.Builder builder) {}
@@ -83,7 +85,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
   @Override
   public void onDismiss(DialogInterface dialog)
   {
-    if (mCancelled)
+    if (mCancelled && mCancelRoute)
       RoutingController.get().cancel();
 
     super.onDismiss(dialog);
@@ -118,6 +120,16 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     final View countriesView = View.inflate(getActivity(), R.layout.dialog_missed_maps, null);
 
     final ExpandableListView listView = (ExpandableListView) countriesView.findViewById(R.id.items_frame);
+    if (mMissingMaps.isEmpty())
+    {
+      mCancelRoute = false;
+
+      UiUtils.hide(listView);
+      UiUtils.hide(countriesView.findViewById(R.id.divider_top));
+      UiUtils.hide(countriesView.findViewById(R.id.divider_bottom));
+      return countriesView;
+    }
+
     listView.setAdapter(buildAdapter());
     listView.setChildDivider(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
