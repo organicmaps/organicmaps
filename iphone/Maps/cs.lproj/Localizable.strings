@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Zadejte správné číslo domu";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Počet poschodí (max. %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Opravte počet poschodí, max. 25";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "PSČ";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Zadejte správné PSČ";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Neznámé místo";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "Doplňkové informace";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Podrobný komentář";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v MAPS.ME.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "Více o projektu OpenStreetMap";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "Operátor";
+
+"editor_tag_description" = "Zadejte osobu, společnost nebo organizaci, která zodpovídá za zařízení.";
+
+"editor_no_local_edits_title" = "Neprovedli jste žádné místní úpravy";
+
+"editor_no_local_edits_description" = "Zde vidíte počet navržených změn, které jsou v tuto chvíli dostupné pouze na Vašem zařízení.";
+
+"editor_international_names_subtitle" = "Název v jiných jazycích";
+
+"editor_send_to_osm" = "Odeslat do OSM";
+
+"editor_remove" = "Odstranit";
+
+"downloader_my_maps_title" = "Mé mapy";
+
+"downloader_no_downloaded_maps_title" = "Nemáte stažené žádné mapy";
+
+"downloader_no_downloaded_maps_message" = "Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.";
+
+"downloader_find_place_hint" = "Prohledat město nebo zemi";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Pokračovat se zjišťováním současné polohy?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Nezjistili jsme vaši současnou polohu. Možná jste v budově nebo tunelu.";
+
+"current_location_unknown_continue_button" = "Pokračovat";
+
+"current_location_unknown_stop_button" = "Zastavit";
+
+"current_location_unknown_error_title" = "Současná poloha nezjištěna.";
+
+"current_location_unknown_error_message" = "Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.";
+
+"whatsnew_update_editor_title" = "Aktualizovali jsme editor map";
+
+"whatsnew_update_editor_message" = "Uživatelé aplikace MAPS.ME už provedli na 50 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!";
+
+"location_services_disabled_header" = "Určení polohy je zakázáno";
+
+"location_services_disabled_1" = "1. Otevřete Nastavení";
+
+"location_services_disabled_2" = "2. Klepněte na položku Poloha";
+
+"location_services_disabled_3" = "3. Vyberte Vždy zapnuto";
+
+"placepage_parking_surface" = "Povrch";
+
+"placepage_parking_multistorey" = "Vícepatrové";
+
+"placepage_parking_underground" = "Podzemní";
+
+"placepage_parking_rooftop" = "Na střeše";
+
+"placepage_parking_sheds" = "Samostatné";
+
+"placepage_parking_carports" = "Přístřešek";
+
+"placepage_parking_boxes" = "Garáž";
+
+"placepage_parking_pay" = "Placené";
+
+"placepage_parking_free" = "Zdarma";
+
+"placepage_parking_interval" = "Placeno za čas";
+
+"placepage_entrance_number" = "Č.";
+
+"placepage_entrance_type" = "Vchod";
+
+"placepage_flat" = "byt";
+
+"placepage_open_24_7" = "Nonstop";
+
+"placepage_place_rating" = "Hodnocení:";
+
+"place_page_starting_from" = "od %d";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Popis";
+
+"placepage_more_button" = "Více";
+
+"bookingcom_book_button" = "Rezervace";
+
+"placepage_call_button" = "Volat";
+
+"placepage_edit_bookmark_button" = "Upravit záložku";
+
+"placepage_bookmark_name_hint" = "Název záložky";
+
+"placepage_personal_notes_hint" = "Vlastní poznámka";
+
+"placepage_delete_bookmark_button" = "Smazat záložku";
+
+"editor_edits_sent_message" = "Odeslali jsme Vámi navržené změny";
+
+"editor_comment_hint" = "Poznámka…";
+
+"editor_reset_edits_message" = "Vymazat všechny místní změny?";
+
+"editor_reset_edits_button" = "Vymazat";
+
+"editor_remove_place_message" = "Odstranit přidané místo?";
+
+"editor_remove_place_button" = "Odstranit";
+
+"editor_status_sending" = "Odesílání…";
+
+"editor_place_doesnt_exist" = "Místo neexistuje";

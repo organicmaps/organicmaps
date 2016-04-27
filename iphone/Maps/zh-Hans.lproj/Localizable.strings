@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "输入正确的房屋号";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "楼号 (最大 %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "编辑最多 25 层的建筑";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "邮编";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "输入正确的邮编";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "未知位置";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "附加信息";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "详细备注";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "您建议的更改将发送至 OpenStreetMap 社区。说明无法在 MAPS.ME 编辑的详情。";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "关于 OpenStreetMap 的更多信息";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "运营者";
+
+"editor_tag_description" = "输入公司、组织或设施负责人。";
+
+"editor_no_local_edits_title" = "您没有本地编辑";
+
+"editor_no_local_edits_description" = "这显示了当前仅在您设备上能够访问的对地图建议修改的数量。";
+
+"editor_international_names_subtitle" = "其他语言的名称";
+
+"editor_send_to_osm" = "发送至 OSM";
+
+"editor_remove" = "删除";
+
+"downloader_my_maps_title" = "我的地图";
+
+"downloader_no_downloaded_maps_title" = "您尚未下载任何地图";
+
+"downloader_no_downloaded_maps_message" = "下载地图来查找位置和离线浏览";
+
+"downloader_find_place_hint" = "搜索城市或国家";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "继续检测您的当前位置？";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "当前位置未知，可能您在建筑内或隧道内。";
+
+"current_location_unknown_continue_button" = "继续";
+
+"current_location_unknown_stop_button" = "停止";
+
+"current_location_unknown_error_title" = "当前位置未知";
+
+"current_location_unknown_error_message" = "搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。";
+
+"whatsnew_update_editor_title" = "我们已经更新了地图编辑器";
+
+"whatsnew_update_editor_message" = "MAPS.ME 用户已经进行了 50 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！";
+
+"location_services_disabled_header" = "地点定位被禁用";
+
+"location_services_disabled_1" = "1. 打开设置";
+
+"location_services_disabled_2" = "2. 点击位置";
+
+"location_services_disabled_3" = "3. 选择总是";
+
+"placepage_parking_surface" = "表面";
+
+"placepage_parking_multistorey" = "多层";
+
+"placepage_parking_underground" = "地下";
+
+"placepage_parking_rooftop" = "楼顶";
+
+"placepage_parking_sheds" = "小屋";
+
+"placepage_parking_carports" = "屋侧车库";
+
+"placepage_parking_boxes" = "停车房";
+
+"placepage_parking_pay" = "付款";
+
+"placepage_parking_free" = "免费";
+
+"placepage_parking_interval" = "间隔付款";
+
+"placepage_entrance_number" = "编号";
+
+"placepage_entrance_type" = "入口";
+
+"placepage_flat" = "公寓";
+
+"placepage_open_24_7" = "24 / 7";
+
+"placepage_place_rating" = "评价";
+
+"place_page_starting_from" = "从 %d";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "说明";
+
+"placepage_more_button" = "更多";
+
+"bookingcom_book_button" = "图书";
+
+"placepage_call_button" = "呼叫";
+
+"placepage_edit_bookmark_button" = "编辑书签";
+
+"placepage_bookmark_name_hint" = "书签名称";
+
+"placepage_personal_notes_hint" = "个人备注";
+
+"placepage_delete_bookmark_button" = "删除书签";
+
+"editor_edits_sent_message" = "您的建议已发送";
+
+"editor_comment_hint" = "备注…";
+
+"editor_reset_edits_message" = "重置所有本地更改？";
+
+"editor_reset_edits_button" = "重置";
+
+"editor_remove_place_message" = "删除已添加的位置？";
+
+"editor_remove_place_button" = "删除";
+
+"editor_status_sending" = "正在发送…";
+
+"editor_place_doesnt_exist" = "位置不存在";

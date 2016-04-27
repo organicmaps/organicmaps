@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Zadajte správne číslo domu";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Počet poschodí (max %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Upraviť s maximálne 25 poschodiami";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "PSČ";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Zadajte správne PSČ";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Neznáme miesto";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "Dodatočné informácie";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Zmazaná poznámka";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "Viac o OpenStreetMap";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "Prevádzkovateľ";
+
+"editor_tag_description" = "Zadajte spoločnosť, organizáciu alebo osobu zodpovednú za prevádzku.";
+
+"editor_no_local_edits_title" = "Nemáte miestne poznámky";
+
+"editor_no_local_edits_description" = "Tu sa zobrazuje počet navrhovaných zmien na mape momentálne dostupných len vo vašom zariadení.";
+
+"editor_international_names_subtitle" = "Názov v iných jazykoch";
+
+"editor_send_to_osm" = "Odoslať do OSM";
+
+"editor_remove" = "Odstrániť";
+
+"downloader_my_maps_title" = "Moje mapy";
+
+"downloader_no_downloaded_maps_title" = "Neprevzali ste žiadne mapy";
+
+"downloader_no_downloaded_maps_message" = "Prevziať mapy na nájdenie pozície a navigovanie off-line.";
+
+"downloader_find_place_hint" = "Hľadať mesto alebo krajinu";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Pokračovať v mazaní vašej súčasnej pozície?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Súčasná pozícia je neznáma. Možno sa nachádzate v budove alebo v tuneli.";
+
+"current_location_unknown_continue_button" = "Pokračovať";
+
+"current_location_unknown_stop_button" = "Zastaviť";
+
+"current_location_unknown_error_title" = "Súčasná pozícia je neznáma.";
+
+"current_location_unknown_error_message" = "Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.";
+
+"whatsnew_update_editor_title" = "Aktualizovali sme program na úpravu máp";
+
+"whatsnew_update_editor_message" = "Používatelia MAPS.ME urobili 50 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!";
+
+"location_services_disabled_header" = "Identifikácia lokality je zablokovaná";
+
+"location_services_disabled_1" = "1. Otvorte Nastavenia";
+
+"location_services_disabled_2" = "2. Kliknite na položku Lokalita";
+
+"location_services_disabled_3" = "3. Vyberte Vždy";
+
+"placepage_parking_surface" = "Typ parkoviska";
+
+"placepage_parking_multistorey" = "Viacpodlažné";
+
+"placepage_parking_underground" = "Podzemné";
+
+"placepage_parking_rooftop" = "Na streche";
+
+"placepage_parking_sheds" = "Garáž";
+
+"placepage_parking_carports" = "Otvorené garáže";
+
+"placepage_parking_boxes" = "Hromadné garáže";
+
+"placepage_parking_pay" = "Platené";
+
+"placepage_parking_free" = "Zdarma";
+
+"placepage_parking_interval" = "Platba v intervaloch";
+
+"placepage_entrance_number" = "Číslo";
+
+"placepage_entrance_type" = "Vstup";
+
+"placepage_flat" = "Byt";
+
+"placepage_open_24_7" = "24 / 7";
+
+"placepage_place_rating" = "Hodnotenie:";
+
+"place_page_starting_from" = "od %d";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Popis";
+
+"placepage_more_button" = "Viac";
+
+"bookingcom_book_button" = "Rezervovať";
+
+"placepage_call_button" = "Zavolať";
+
+"placepage_edit_bookmark_button" = "Upraviť záložku";
+
+"placepage_bookmark_name_hint" = "Názov záložky";
+
+"placepage_personal_notes_hint" = "Osobné poznámky";
+
+"placepage_delete_bookmark_button" = "Zmazať záložku";
+
+"editor_edits_sent_message" = "Vykonali sa vami odporúčané zmeny";
+
+"editor_comment_hint" = "Poznámka…";
+
+"editor_reset_edits_message" = "Resetovať všetky miestne časy?";
+
+"editor_reset_edits_button" = "Resetovať";
+
+"editor_remove_place_message" = "Odstrániť pridané miesto?";
+
+"editor_remove_place_button" = "Odstrániť";
+
+"editor_status_sending" = "Odosiela sa…";
+
+"editor_place_doesnt_exist" = "Miesto neexistuje";

@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "أدخل رقم منزل صحيح";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "عدد الطوابق (بحد أقصى %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "تحرير المبنى بحد أقصى 25 طابقًا";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "الرمز البريدي";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "أدخل الرمز البريدي الصحيح";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "مكان غير معروف";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "معلومات إضافية";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "تعليق مفصل";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في MAPS.ME";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "المزيد عن OpenStreetMap";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "معامل";
+
+"editor_tag_description" = "أدخل الشركة أو المؤسسة أو الشخص المسؤول عن المنشآت.";
+
+"editor_no_local_edits_title" = "ليست لديك تعديلات محلية";
+
+"editor_no_local_edits_description" = "يوضح هذا عدد التغييرات المقترحة على الخريطة والتي يمكن الوصول إليها حاليًا فقط من على جهازك.";
+
+"editor_international_names_subtitle" = "الاسم بلغات أخرى";
+
+"editor_send_to_osm" = "إرسال الى OSM";
+
+"editor_remove" = "إزالة";
+
+"downloader_my_maps_title" = "خرائطي";
+
+"downloader_no_downloaded_maps_title" = "لم تقم بتنزيل أية خرائط";
+
+"downloader_no_downloaded_maps_message" = "قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.";
+
+"downloader_find_place_hint" = "البحث في المدينة أو البلد";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "هل تريد متابعة اكتشاف موقعك الحالي؟";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.";
+
+"current_location_unknown_continue_button" = "استمرار";
+
+"current_location_unknown_stop_button" = "إيقاف";
+
+"current_location_unknown_error_title" = "الموقع الحالي غير معروف.";
+
+"current_location_unknown_error_message" = "حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.";
+
+"whatsnew_update_editor_title" = "لقد قمنا بتحديث محرر الخريطة";
+
+"whatsnew_update_editor_message" = "قام مستخدمو MAPS.ME بإجراء 50000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!";
+
+"location_services_disabled_header" = "تم تعطيل تحديد الموقع";
+
+"location_services_disabled_1" = "1. افتح الإعدادات";
+
+"location_services_disabled_2" = "2. انقر على الموقع";
+
+"location_services_disabled_3" = "3. اختر دائما";
+
+"placepage_parking_surface" = "سطح";
+
+"placepage_parking_multistorey" = "متعدد الطوابق";
+
+"placepage_parking_underground" = "تحت الارض";
+
+"placepage_parking_rooftop" = "سطح المبنى";
+
+"placepage_parking_sheds" = "حظائر";
+
+"placepage_parking_carports" = "مظلات سيارات";
+
+"placepage_parking_boxes" = "صناديق جراج";
+
+"placepage_parking_pay" = "دفع";
+
+"placepage_parking_free" = "مجانًا";
+
+"placepage_parking_interval" = "دفع عن فترة";
+
+"placepage_entrance_number" = "رقم";
+
+"placepage_entrance_type" = "المدخل";
+
+"placepage_flat" = "تطبيق";
+
+"placepage_open_24_7" = "24 / 7";
+
+"placepage_place_rating" = "التصنيف:";
+
+"place_page_starting_from" = "من%d";
+
+"meter" = "متر";
+
+"kilometer" = "كم";
+
+"placepage_place_description" = "الوصف";
+
+"placepage_more_button" = "المزيد";
+
+"bookingcom_book_button" = "حجز";
+
+"placepage_call_button" = "اتصال";
+
+"placepage_edit_bookmark_button" = "تحرير العلامة المرجعية";
+
+"placepage_bookmark_name_hint" = "اسم العلامة المرجعية";
+
+"placepage_personal_notes_hint" = "ملاحظات شخصية";
+
+"placepage_delete_bookmark_button" = "حذف العلامة المرجعية";
+
+"editor_edits_sent_message" = "لقد تم إرسال التغييرات التي اقترحتها";
+
+"editor_comment_hint" = "تعليق…";
+
+"editor_reset_edits_message" = "هل تريد مسح كافة التغييرات المحلية؟";
+
+"editor_reset_edits_button" = "مسح";
+
+"editor_remove_place_message" = "إزالة مكان تمت إضافته؟";
+
+"editor_remove_place_button" = "إزالة";
+
+"editor_status_sending" = "جارِ الإرسال…";
+
+"editor_place_doesnt_exist" = "المكان غير موجود";

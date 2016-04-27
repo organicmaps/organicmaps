@@ -783,7 +783,7 @@
 	<string name="editor_report_problem_other_title">一個不同的問題</string>
 	<string name="placepage_add_place_button">新增一個地點</string>
 	<string name="placepage_report_problem_button">回報問題</string>
-	<string name="placepage_add_business_button">新增組織</string>
+	<string name="placepage_add_business_button">添加組織</string>
 	<string name="whatsnew_smallmwm_header">您一直在要求，而我們已經完成</string>
 	<string name="whatsnew_smallmwm_message">我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。</string>
 	<string name="whatsnew_search_header">新搜尋</string>
@@ -813,4 +813,8 @@
 	<string name="download_over_mobile_header">用手機網絡連接下載嗎？</string>
 	<string name="download_over_mobile_message">用某些方案或漫遊的話這可能相當昂貴。</string>
 	<string name="error_enter_correct_house_number">輸入正確的門牌號碼</string>
+	<string name="location_services_disabled_header">地點定位被禁用</string>
+	<string name="location_services_disabled_1">1. 打開設置</string>
+	<string name="location_services_disabled_2">2. 點擊位置</string>
+	<string name="location_services_disabled_3">3. 選擇總是</string>
 </resources>

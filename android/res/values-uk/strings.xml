@@ -256,7 +256,7 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Глянь де я зараз. Іди %1$s або %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Поглянь на мою позначку на карті MAPS.ME</string>
+	<string name="bookmark_share_email_subject">Поглянь на мою мiтку на карті MAPS.ME</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
 	<string name="bookmark_share_email">Привіт,\n\nЯ позначив: %1$s на MAPS.ME, офлайн картах світу. Натисни на це посилання %2$s або на це посилання %3$s, щоб побачити місце на карті.\n\nДякую.</string>
 	<!-- Subject for emailed position -->
@@ -799,4 +799,73 @@
 	<string name="download_over_mobile_header">Завантажити за допомогою мобільної мережі?</string>
 	<string name="download_over_mobile_message">Це може бути задорого за деякими планами або за умовами роумінгу.</string>
 	<string name="error_enter_correct_house_number">Введіть правильний номер будинку</string>
+	<string name="editor_storey_number">Кількість поверхів (максимум %d)</string>
+	<string name="error_enter_correct_storey_number">Редагуйте будівлі висотою максимум 25 поверхів</string>
+	<string name="editor_zip_code">Поштовий індекс</string>
+	<string name="error_enter_correct_zip_code">Введіть коректний поштовий індекс</string>
+	<!-- Place Page title for long tap -->
+	<string name="placepage_unknown_place">Невідоме місце</string>
+	<string name="editor_other_info">Додаткові дані</string>
+	<string name="editor_detailed_description_hint">Докладний коментар</string>
+	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\&#39;єкт, які не можна редагувати у MAPS.ME.</string>
+	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>
+	<string name="editor_operator">Володар</string>
+	<string name="editor_tag_description">Вкажіть компанію, організацію або особу, що відповідає за працездатність об\&#39;єкта</string>
+	<string name="editor_no_local_edits_title">Поки що ви не маєте локальних виправлень</string>
+	<string name="editor_no_local_edits_description">Тут відображається кількість запропонованих вами змін на карті, які доступні тільки на вашому пристрою</string>
+	<string name="editor_international_names_subtitle">Назва на інших мовах</string>
+	<string name="editor_send_to_osm">Відправити до OSM</string>
+	<string name="editor_remove">Видалити</string>
+	<string name="downloader_my_maps_title">Мої мапи</string>
+	<string name="downloader_no_downloaded_maps_title">Ви не маєте завантажених мап</string>
+	<string name="downloader_no_downloaded_maps_message">Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.</string>
+	<string name="downloader_find_place_hint">Знайти місто або країну</string>
+	<!-- Error title that appears after certain time without location. -->
+	<string name="current_location_unknown_title">Продовжити пошук місцезнаходження?</string>
+	<!-- Error that appears after certain time without location. -->
+	<string name="current_location_unknown_message">Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.</string>
+	<string name="current_location_unknown_continue_button">Продовжити</string>
+	<string name="current_location_unknown_stop_button">Зупинити</string>
+	<string name="current_location_unknown_error_title">Місцезнаходження не знайдено.</string>
+	<string name="current_location_unknown_error_message">Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.</string>
+	<string name="whatsnew_update_editor_title">Ми обновили редактор</string>
+	<string name="whatsnew_update_editor_message">Користувачі MAPS.ME вже внесли 50 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!</string>
+	<string name="location_services_disabled_header">Ідентифікацію місцезнаходження відключено</string>
+	<string name="location_services_disabled_1">1. Відкрийте «Налаштування»</string>
+	<string name="location_services_disabled_2">2. Клацніть «Місцезнаходження»</string>
+	<string name="location_services_disabled_3">3. Виберіть «Завжди»</string>
+	<string name="placepage_parking_surface">Відкрите паркування</string>
+	<string name="placepage_parking_multistorey">Багатоповерхове наземне паркування</string>
+	<string name="placepage_parking_underground">Підземне паркування</string>
+	<string name="placepage_parking_rooftop">Паркування на даху будівлі</string>
+	<string name="placepage_parking_sheds">Приватне легке укриття для автомобілів</string>
+	<string name="placepage_parking_carports">Капітальний навіс</string>
+	<string name="placepage_parking_boxes">Гаражний бокс</string>
+	<string name="placepage_parking_pay">Платне</string>
+	<string name="placepage_parking_free">Безкоштовне</string>
+	<string name="placepage_parking_interval">Змінно платне</string>
+	<string name="placepage_entrance_number">№</string>
+	<string name="placepage_entrance_type">Під\&#39;їзд</string>
+	<string name="placepage_flat">кв.</string>
+	<string name="placepage_open_24_7">Цілодобово</string>
+	<string name="placepage_place_rating">Рейтинг:</string>
+	<string name="place_page_starting_from">від %d</string>
+	<string name="meter">м</string>
+	<string name="kilometer">км</string>
+	<string name="placepage_place_description">Опис</string>
+	<string name="placepage_more_button">Ще</string>
+	<string name="bookingcom_book_button">Забронювати</string>
+	<string name="placepage_call_button">Подзвонити</string>
+	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
+	<string name="placepage_bookmark_name_hint">Назва мiтки</string>
+	<string name="placepage_personal_notes_hint">Примітка</string>
+	<string name="placepage_delete_bookmark_button">Видалити мiтку</string>
+	<string name="editor_edits_sent_message">Зміни, що ви запропонували, відправлено</string>
+	<string name="editor_comment_hint">Коментар…</string>
+	<string name="editor_reset_edits_message">Скинути усі локальні виправлення?</string>
+	<string name="editor_reset_edits_button">Скинути</string>
+	<string name="editor_remove_place_message">Видалити об\&#39;єкт, що ви додали?</string>
+	<string name="editor_remove_place_button">Видалити</string>
+	<string name="editor_status_sending">Відправка…</string>
+	<string name="editor_place_doesnt_exist">Місце не існує</string>
 </resources>

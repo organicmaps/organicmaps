@@ -1373,22 +1373,137 @@
 
 "error_enter_correct_house_number" = "Masukkan nomor rumah yang benar";
 
-"editor_storey_number" = "Storey number (maximum %d)";
+"editor_storey_number" = "Jumlah lantai (maksimum %d)";
 
-"error_enter_correct_storey_number" = "Maximum building levels number is limited to %d.";
+"error_enter_correct_storey_number" = "Edit bangunan dengan maksimum 25 lantai";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Kode Pos";
 
-"error_enter_correct_zip_code" = "Enter correct ZIP Code";
+"error_enter_correct_zip_code" = "Masukkan Kode Pos yang benar";
 
-"editor_operator" = "Operator";
+/* Place Page title for long tap */
+"placepage_unknown_place" = "Tempat Tidak Dikenal";
 
-"placepage_unknown_place" = "Unknown Place";
+"editor_other_info" = "Info tambahan";
 
-"editor_other_info" = "Other information about place";
+"editor_detailed_description_hint" = "Komentar mendetail";
 
-"editor_detailed_description_hint" = "Detailed description";
+"editor_detailed_description" = "Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di MAPS.ME.";
 
-"editor_detailed_description" = "Suggested changes will be send to OpenStreetMap...";
+"editor_more_about_osm" = "Selengkapnya tentang OpenStreetMap";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_operator" = "Pemilik";
+
+"editor_tag_description" = "Masukkan perusahaan, organisasi, atau individu yang bertanggung jawab atas fasilitas tersebut.";
+
+"editor_no_local_edits_title" = "Anda tidak memiliki pengeditan lokal";
+
+"editor_no_local_edits_description" = "Ini menunjukkan jumlah saran perubahan dalam peta yang saat ini hanya dapat diakses di perangkat Anda.";
+
+"editor_international_names_subtitle" = "Nama dalam bahasa lain";
+
+"editor_send_to_osm" = "Kirim ke OSM";
+
+"editor_remove" = "Hapus";
+
+"downloader_my_maps_title" = "Peta saya";
+
+"downloader_no_downloaded_maps_title" = "Tidak ada peta apa pun yang diunduh";
+
+"downloader_no_downloaded_maps_message" = "Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.";
+
+"downloader_find_place_hint" = "Cari kota atau negara";
+
+/* Error title that appears after certain time without location. */
+"current_location_unknown_title" = "Terus mendeteksi lokasi Anda saat ini?";
+
+/* Error that appears after certain time without location. */
+"current_location_unknown_message" = "Lokasi saat ini tidak diketahui. Anda mungkin berada dalam bangunan atau terowongan.";
+
+"current_location_unknown_continue_button" = "Lanjutkan";
+
+"current_location_unknown_stop_button" = "Berhenti";
+
+"current_location_unknown_error_title" = "Lokasi saat ini tidak diketahui.";
+
+"current_location_unknown_error_message" = "Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.";
+
+"whatsnew_update_editor_title" = "Kami telah memperbarui editor peta";
+
+"whatsnew_update_editor_message" = "Pengguna MAPS.ME telah membuat 50 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!";
+
+"location_services_disabled_header" = "Identifikasi lokasi dinonaktifkan";
+
+"location_services_disabled_1" = "1. Buka Pengaturan";
+
+"location_services_disabled_2" = "2. Ketuk Lokasi";
+
+"location_services_disabled_3" = "3. Pilih Selalu";
+
+"placepage_parking_surface" = "Parkir Luar";
+
+"placepage_parking_multistorey" = "Bertingkat";
+
+"placepage_parking_underground" = "Bawah Tanah";
+
+"placepage_parking_rooftop" = "Atap";
+
+"placepage_parking_sheds" = "Gudang";
+
+"placepage_parking_carports" = "Parkir Beratap";
+
+"placepage_parking_boxes" = "Sasana tinju";
+
+"placepage_parking_pay" = "Berbayar";
+
+"placepage_parking_free" = "Gratis";
+
+"placepage_parking_interval" = "Biaya Rutin";
+
+"placepage_entrance_number" = "Nomor";
+
+"placepage_entrance_type" = "Gerbang Masuk";
+
+"placepage_flat" = "persegi";
+
+"placepage_open_24_7" = "24 jam sehari, 7 hari seminggu";
+
+"placepage_place_rating" = "Nilai:";
+
+"place_page_starting_from" = "dari %d";
+
+"meter" = "m";
+
+"kilometer" = "km";
+
+"placepage_place_description" = "Deskripsi";
+
+"placepage_more_button" = "Lainnya";
+
+"bookingcom_book_button" = "Pesan";
+
+"placepage_call_button" = "Hubungi";
+
+"placepage_edit_bookmark_button" = "Edit Bookmark";
+
+"placepage_bookmark_name_hint" = "Nama Bookmark";
+
+"placepage_personal_notes_hint" = "Catatan pribadi";
+
+"placepage_delete_bookmark_button" = "Hapus Bookmark";
+
+"editor_edits_sent_message" = "Saran perubahan Anda telah dikirim";
+
+"editor_comment_hint" = "Komentar…";
+
+"editor_reset_edits_message" = "Atur ulang perubahan lokal?";
+
+"editor_reset_edits_button" = "Atur Ulang";
+
+"editor_remove_place_message" = "Hapus tempat yang ditambahkan?";
+
+"editor_remove_place_button" = "Hapus";
+
+"editor_status_sending" = "Mengirim…";
+
+"editor_place_doesnt_exist" = "Tempat tidak ada";
