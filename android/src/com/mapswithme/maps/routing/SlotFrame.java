@@ -100,7 +100,18 @@ public class SlotFrame extends LinearLayout
       if (MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
         mText.setText(R.string.p2p_your_location);
       else
-        mText.setText(!TextUtils.isEmpty(mMapObject.getTitle()) ? mMapObject.getTitle() : mMapObject.getSubtitle());
+      {
+        String text = mMapObject.getTitle();
+        if (TextUtils.isEmpty(text))
+        {
+          text = mMapObject.getAddress();
+
+          if (TextUtils.isEmpty(text))
+            text = mMapObject.getSubtitle();
+        }
+
+        mText.setText(text);
+      }
 
       mText.setTextColor(mTextColor);
     }
