@@ -823,13 +823,31 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("unused")
   public void onMyPositionModeChangedCallback(final int newMode, final boolean routingActive)
   {
-    //TODO(Android team): Use routingActive flag to change location polling frequency
     mLocationPredictor.myPositionModeChanged(newMode);
     mMainMenu.getMyPositionButton().update(newMode);
+
     switch (newMode)
     {
     case LocationState.PENDING_POSITION:
       resumeLocation();
+      break;
+
+    case LocationState.NOT_FOLLOW_NO_POSITION:
+      pauseLocation();
+
+      // TODO (trashkalmar): Set correct texts
+      new AlertDialog.Builder(this)
+                     .setTitle("GPS error")
+                     .setMessage("Failed to get location. Try again?")
+                     .setNegativeButton(R.string.cancel, null)
+                     .setPositiveButton(R.string.downloader_retry, new DialogInterface.OnClickListener()
+                     {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which)
+                       {
+                         LocationState.INSTANCE.switchToNextMode();
+                       }
+                     }).show();
       break;
 
     default:
@@ -952,7 +970,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     });
   }
 
-  private boolean showZoomButtons()
+  private static boolean showZoomButtons()
   {
     return RoutingController.get().isNavigating() || Config.showZoomButtons();
   }

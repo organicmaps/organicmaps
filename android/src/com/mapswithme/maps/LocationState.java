@@ -24,6 +24,6 @@ public enum LocationState
    */
   public static boolean isTurnedOn()
   {
-    return INSTANCE.getLocationStateMode() > PENDING_POSITION;
+    return INSTANCE.getLocationStateMode() > NOT_FOLLOW_NO_POSITION;
   }
 }
