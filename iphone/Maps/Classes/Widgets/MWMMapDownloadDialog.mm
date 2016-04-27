@@ -95,6 +95,8 @@ using namespace storage;
 - (void)configDialog
 {
   auto & s = GetFramework().Storage();
+  auto & p = GetFramework().DownloadingPolicy();
+
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(m_countryId, nodeAttrs);
 
@@ -151,7 +153,7 @@ using namespace storage;
         break;
       case NodeStatus::Undefined:
       case NodeStatus::Error:
-        if (s.IsAutoRetryDownloadFailed())
+        if (p.IsAutoRetryDownloadFailed())
           [self showError:nodeAttrs.m_error];
         break;
       case NodeStatus::OnDisk:

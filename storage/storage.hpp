@@ -3,6 +3,7 @@
 #include "storage/country.hpp"
 #include "storage/country_name_getter.hpp"
 #include "storage/country_tree.hpp"
+#include "storage/downloading_policy.hpp"
 #include "storage/storage_defines.hpp"
 #include "storage/index.hpp"
 #include "storage/map_files_downloader.hpp"
@@ -184,6 +185,9 @@ private:
   /// <current, total>
   MapFilesDownloader::TProgress m_countryProgress;
 
+  DownloadingPolicy m_defaultDownloadingPolicy;
+  DownloadingPolicy * m_downloadingPolicy = &m_defaultDownloadingPolicy;
+
   /// @name Communicate with GUI
   //@{
 
@@ -238,10 +242,6 @@ private:
 
   ThreadChecker m_threadChecker;
 
-  static size_t constexpr kAutoRetryCounterMax = 3;
-  size_t m_autoRetryCounter = kAutoRetryCounterMax;
-  my::DeferredTask m_autoRetryWorker;
-  
   void DownloadNextCountryFromQueue();
 
   void LoadCountriesFile(string const & pathToCountriesFile, string const & dataDir,
@@ -290,6 +290,8 @@ public:
 
   void Init(TUpdateCallback const & didDownload, TDeleteCallback const & willDelete);
 
+  inline void SetDownloadingPolicy(DownloadingPolicy * policy) { m_downloadingPolicy = policy; }
+
   /// @name Interface with clients (Android/iOS).
   /// \brief It represents the interface which can be used by clients (Android/iOS).
   /// The term node means an mwm or a group of mwm like a big country.
@@ -318,8 +320,6 @@ public:
     /// \param CountryId is id of mwm or an mwm group which status has been changed.
     TOnStatusChangedCallback m_onStatusChanged;
   };
-
-  inline bool IsAutoRetryDownloadFailed() const { return m_autoRetryCounter == 0; }
 
   bool CheckFailedCountries(TCountriesVec const & countries) const;
 
