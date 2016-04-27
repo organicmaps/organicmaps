@@ -79,6 +79,16 @@ for p1, p2 in tasks:
         filtered.append((p1,p2))
 tasks = filtered
 
+if not len(tasks):
+    print("Towns not found. No job.")
+    exit(1)
+
+try:
+    get_way_ids(tasks[0][0], tasks[0][1], sys.argv[2])
+except:
+    print("Can't connect to remote server: {0}".format(sys.argv[2]))
+    exit(1)
+
 qtasks = Queue()
 capitals_list = set()
 towns_list = set()
