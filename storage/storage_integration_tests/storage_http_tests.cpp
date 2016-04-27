@@ -173,7 +173,7 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
 
   TCountriesVec const expectedDownloadedChildren = {"Argentina", kDisputedCountryId2,  kDisputedCountryId1};
   TEST_EQUAL(downloadedChildren, expectedDownloadedChildren, ());
-  TEST_EQUAL(availChildren.size(), 223, ());
+  TEST_EQUAL(availChildren.size(), 224, ());
 
   m_storage.DeleteNode(kDisputedCountryId1);
   m_storage.DeleteNode(kDisputedCountryId2);
