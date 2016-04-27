@@ -21,11 +21,12 @@ UNIT_TEST(MemTrie_Basic)
   for (auto const & p : data)
     trie.Add(p.first, p.second);
 
-  vector<pair<string, int>> ordered_data;
-  trie.ForEach([&ordered_data](string const & k, int v)
+  vector<pair<string, int>> trie_data;
+  trie.ForEach([&trie_data](string const & k, int v)
                {
-                 ordered_data.emplace_back(k, v);
+                 trie_data.emplace_back(k, v);
                });
   sort(data.begin(), data.end());
-  TEST_EQUAL(data, ordered_data, ());
+  sort(trie_data.begin(), trie_data.end());
+  TEST_EQUAL(data, trie_data, ());
 }
