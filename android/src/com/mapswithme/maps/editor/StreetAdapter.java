@@ -120,19 +120,19 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     }
   }
 
-  protected class AddViewHolder extends BaseViewHolder
-  {
-    public AddViewHolder(View itemView)
+    protected class AddViewHolder extends BaseViewHolder
     {
-      super(itemView);
-      itemView.setOnClickListener(new View.OnClickListener()
+      public AddViewHolder(View itemView)
       {
-        @Override
-        public void onClick(View v)
+        super(itemView);
+        itemView.setOnClickListener(new View.OnClickListener()
         {
-          addStreet();
-        }
-      });
+          @Override
+          public void onClick(View v)
+          {
+            addStreet();
+          }
+        });
+      }
     }
   }
-}
