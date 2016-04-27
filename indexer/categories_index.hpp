@@ -20,7 +20,7 @@ public:
 
   CategoriesIndex() : m_catHolder(&GetDefaultCategories()) {}
 
-  CategoriesIndex(CategoriesHolder const * catHolder) : m_catHolder(catHolder) {}
+  CategoriesIndex(CategoriesHolder const & catHolder) : m_catHolder(&catHolder) {}
 
   CategoriesIndex(CategoriesIndex && other)
     : m_catHolder(other.m_catHolder), m_trie(move(other.m_trie))

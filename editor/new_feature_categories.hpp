@@ -23,12 +23,7 @@ public:
 
   NewFeatureCategories(editor::EditorConfig const & config);
 
-  NewFeatureCategories(NewFeatureCategories && other)
-    : m_index(move(other.m_index))
-    , m_types(move(other.m_types))
-    , m_categoriesByLang(move(other.m_categoriesByLang))
-  {
-  }
+  NewFeatureCategories(NewFeatureCategories && other);
 
   NewFeatureCategories() = default;
 
@@ -36,15 +31,20 @@ public:
 
   // Adds all known synonyms in language |lang| for all categories that
   // can be applied to a newly added feature.
-  void AddLanguage(string const & lang);
+  // If one language is added more than once, all the calls except for the
+  // first one are ignored.
+  // If |lang| is not supported, "en" is used.
+  void AddLanguage(string lang);
 
   // Returns names (in language |lang|) and types of categories that have a synonym containing
   // the substring |query| (in any language that was added before).
+  // If |lang| is not supported, "en" is used.
   // The returned list is sorted.
-  TNames Search(string const & query, string const & lang) const;
+  TNames Search(string const & query, string lang) const;
 
   // Returns all registered names of categories in language |lang| and
   // types corresponding to these names. The language must have been added before.
+  // If |lang| is not supported, "en" is used.
   // The returned list is sorted.
   TNames const & GetAllCategoryNames(string const & lang) const;
 

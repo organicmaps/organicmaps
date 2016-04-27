@@ -21,7 +21,13 @@ public:
     other.m_numNodes = 0;
   }
 
-  MemTrie & operator=(MemTrie && other) = default;
+  MemTrie & operator=(MemTrie && other)
+  {
+    m_root = move(other.m_root);
+    m_numNodes = other.m_numNodes;
+    other.m_numNodes = 0;
+    return *this;
+  }
 
   // Adds a key-value pair to the trie.
   void Add(TString const & key, TValue const & value)
@@ -63,13 +69,13 @@ private:
 
     Node(Node && other) = default;
 
-    Node & operator=(Node && other) = default;
-
     ~Node()
     {
       for (auto const & move : m_moves)
         delete move.second;
     }
+
+    Node & operator=(Node && other) = default;
 
     Node * GetMove(TChar const & c, size_t & numNewNodes)
     {

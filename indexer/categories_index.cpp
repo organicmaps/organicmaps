@@ -52,6 +52,7 @@ namespace indexer
 {
 void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
 {
+  ASSERT(lang >= 1 && lang <= CategoriesHolder::kNumLanguages, ("Invalid lang code:", lang));
   m_catHolder->ForEachNameByType(type, [&](TCategory::Name const & name)
                                  {
                                    if (name.m_locale == lang)
@@ -67,6 +68,7 @@ void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
 
 void CategoriesIndex::AddAllCategoriesInLang(int8_t lang)
 {
+  ASSERT(lang >= 1 && lang <= CategoriesHolder::kNumLanguages, ("Invalid lang code:", lang));
   m_catHolder->ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
                                       {
                                         for (auto const & name : cat.m_synonyms)

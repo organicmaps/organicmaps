@@ -21,6 +21,7 @@ enum State
 
 // static
 size_t const CategoriesHolder::kNumLanguages = 30;
+size_t const CategoriesHolder::kEnglishCode = 1;
 
 CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
 {
@@ -286,6 +287,9 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
       {"da", 19}, {"tr", 20}, {"sk", 21}, {"sv", 22}, {"vi", 23},      {"id", 24},
       {"ro", 25}, {"nb", 26}, {"fi", 27}, {"el", 28}, {"he", 29},      {"sw", 30}};
   static_assert(ARRAY_SIZE(mapping) == kNumLanguages, "");
+  static_assert(CategoriesHolder::kEnglishCode == 1, "");
+  ASSERT_EQUAL(string(mapping[0].m_name), "en", ());
+  ASSERT_EQUAL(mapping[0].m_code, CategoriesHolder::kEnglishCode, ());
   for (size_t i = 0; i < kNumLanguages; ++i)
   {
     if (locale.find(mapping[i].m_name) == 0)

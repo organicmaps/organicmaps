@@ -30,7 +30,6 @@
 namespace tts
 {
 
-string bcp47ToTwineLanguage(NSString const * bcp47LangName);
 string translatedTwine(string const & twine);
 
 } // namespace tts

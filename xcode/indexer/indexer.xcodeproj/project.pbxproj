@@ -152,6 +152,8 @@
 		6758AED31BB4413000C26E27 /* drules_selector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6758AECF1BB4413000C26E27 /* drules_selector.cpp */; };
 		6758AED41BB4413000C26E27 /* drules_selector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6758AED01BB4413000C26E27 /* drules_selector.hpp */; };
 		67F183731BD4FCF500AB1840 /* map_style.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67F183721BD4FCF500AB1840 /* map_style.cpp */; };
+		F6381BF91CD26C9C004CA943 /* new_feature_categories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6381BF71CD26C9C004CA943 /* new_feature_categories.cpp */; };
+		F6381BFA1CD26C9C004CA943 /* new_feature_categories.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6381BF81CD26C9C004CA943 /* new_feature_categories.hpp */; };
 		F6DF5F2D1CD0FC9D00A87154 /* categories_index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF5F2C1CD0FC9D00A87154 /* categories_index.cpp */; };
 		F6DF5F311CD0FD9A00A87154 /* categories_index.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6DF5F301CD0FD9A00A87154 /* categories_index.hpp */; };
 /* End PBXBuildFile section */
@@ -320,6 +322,8 @@
 		6758AECF1BB4413000C26E27 /* drules_selector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drules_selector.cpp; sourceTree = "<group>"; };
 		6758AED01BB4413000C26E27 /* drules_selector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drules_selector.hpp; sourceTree = "<group>"; };
 		67F183721BD4FCF500AB1840 /* map_style.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_style.cpp; sourceTree = "<group>"; };
+		F6381BF71CD26C9C004CA943 /* new_feature_categories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = new_feature_categories.cpp; sourceTree = "<group>"; };
+		F6381BF81CD26C9C004CA943 /* new_feature_categories.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = new_feature_categories.hpp; sourceTree = "<group>"; };
 		F6DF5F2C1CD0FC9D00A87154 /* categories_index.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = categories_index.cpp; sourceTree = "<group>"; };
 		F6DF5F301CD0FD9A00A87154 /* categories_index.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = categories_index.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -441,6 +445,8 @@
 		6753409C1A3F53CB00A0A8C3 /* indexer */ = {
 			isa = PBXGroup;
 			children = (
+				F6381BF71CD26C9C004CA943 /* new_feature_categories.cpp */,
+				F6381BF81CD26C9C004CA943 /* new_feature_categories.hpp */,
 				F6DF5F301CD0FD9A00A87154 /* categories_index.hpp */,
 				F6DF5F2C1CD0FC9D00A87154 /* categories_index.cpp */,
 				34583BC11C88552100F94664 /* cuisines.cpp */,
@@ -571,6 +577,7 @@
 				675341341A3F540F00A0A8C3 /* interval_index.hpp in Headers */,
 				675341241A3F540F00A0A8C3 /* feature_visibility.hpp in Headers */,
 				6753411D1A3F540F00A0A8C3 /* feature_loader_base.hpp in Headers */,
+				F6381BFA1CD26C9C004CA943 /* new_feature_categories.hpp in Headers */,
 				56C74C231C749E4700B71B9F /* search_delimiters.hpp in Headers */,
 				675341131A3F540F00A0A8C3 /* feature_algo.hpp in Headers */,
 				6726C1D21A49DAAC005EEA39 /* feature_meta.hpp in Headers */,
@@ -769,6 +776,7 @@
 				670C61181AB065B100C38A8C /* point_to_int64_test.cpp in Sources */,
 				670C611A1AB065B100C38A8C /* sort_and_merge_intervals_test.cpp in Sources */,
 				670C61101AB065B100C38A8C /* features_offsets_table_test.cpp in Sources */,
+				F6381BF91CD26C9C004CA943 /* new_feature_categories.cpp in Sources */,
 				670C611B1AB065B100C38A8C /* test_polylines.cpp in Sources */,
 				F6DF5F2D1CD0FC9D00A87154 /* categories_index.cpp in Sources */,
 				674125131B4C02F100A3E828 /* map_style_reader.cpp in Sources */,

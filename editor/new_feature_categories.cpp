@@ -29,9 +29,24 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
   }
 }
 
-void NewFeatureCategories::AddLanguage(string const & lang)
+NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other)
+  : m_index(move(other.m_index))
+  , m_types(move(other.m_types))
+  , m_categoriesByLang(move(other.m_categoriesByLang))
 {
-  auto const langCode = CategoriesHolder::MapLocaleToInteger(lang);
+}
+
+void NewFeatureCategories::AddLanguage(string lang)
+{
+  auto langCode = CategoriesHolder::MapLocaleToInteger(lang);
+  if (langCode == CategoriesHolder::kUnsupportedLocaleCode)
+  {
+    lang = "en";
+    langCode = CategoriesHolder::kEnglishCode;
+  }
+  if (m_categoriesByLang.find(lang) != m_categoriesByLang.end())
+    return;
+
   NewFeatureCategories::TNames names;
   names.reserve(m_types.size());
   for (auto const & type : m_types)
@@ -43,17 +58,24 @@ void NewFeatureCategories::AddLanguage(string const & lang)
   m_categoriesByLang[lang] = names;
 }
 
-NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query,
-                                                          string const & lang) const
+NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query, string lang) const
 {
-  auto const langCode = CategoriesHolder::MapLocaleToInteger(lang);
+  auto langCode = CategoriesHolder::MapLocaleToInteger(lang);
+  if (langCode == CategoriesHolder::kUnsupportedLocaleCode)
+  {
+    lang = "en";
+    langCode = CategoriesHolder::kEnglishCode;
+  }
   vector<uint32_t> resultTypes;
   m_index.GetAssociatedTypes(query, resultTypes);
 
   NewFeatureCategories::TNames result(resultTypes.size());
   for (size_t i = 0; i < result.size(); ++i)
-    result[i] = {m_index.GetCategoriesHolder()->GetReadableFeatureType(resultTypes[i], langCode),
-                 resultTypes[i]};
+  {
+    result[i].first =
+        m_index.GetCategoriesHolder()->GetReadableFeatureType(resultTypes[i], langCode);
+    result[i].second = resultTypes[i];
+  }
   my::SortUnique(result);
   return result;
 }
@@ -61,7 +83,9 @@ NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query,
 NewFeatureCategories::TNames const & NewFeatureCategories::GetAllCategoryNames(
     string const & lang) const
 {
-  auto const it = m_categoriesByLang.find(lang);
+  auto it = m_categoriesByLang.find(lang);
+  if (it == m_categoriesByLang.end())
+    it = m_categoriesByLang.find("en");
   CHECK(it != m_categoriesByLang.end(), ());
   return it->second;
 }
