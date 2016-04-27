@@ -3,6 +3,7 @@
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 
+#include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
@@ -31,35 +32,37 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
 void NewFeatureCategories::AddLanguage(string const & lang)
 {
   auto const langCode = CategoriesHolder::MapLocaleToInteger(lang);
-  vector<string> names;
+  NewFeatureCategories::TNames names;
   names.reserve(m_types.size());
   for (auto const & type : m_types)
   {
     m_index.AddCategoryByTypeAndLang(type, langCode);
-    names.push_back(m_index.GetCategoriesHolder()->GetReadableFeatureType(type, langCode));
+    names.emplace_back(m_index.GetCategoriesHolder()->GetReadableFeatureType(type, langCode), type);
   }
   my::SortUnique(names);
-  m_categoryNames[lang] = names;
+  m_categoriesByLang[lang] = names;
 }
 
-vector<string> NewFeatureCategories::Search(string const & query, string const & lang) const
+NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query,
+                                                          string const & lang) const
 {
   auto const langCode = CategoriesHolder::MapLocaleToInteger(lang);
   vector<uint32_t> resultTypes;
   m_index.GetAssociatedTypes(query, resultTypes);
 
-  vector<string> result(resultTypes.size());
+  NewFeatureCategories::TNames result(resultTypes.size());
   for (size_t i = 0; i < result.size(); ++i)
-    result[i] = m_index.GetCategoriesHolder()->GetReadableFeatureType(resultTypes[i], langCode);
+    result[i] = {m_index.GetCategoriesHolder()->GetReadableFeatureType(resultTypes[i], langCode),
+                 resultTypes[i]};
   my::SortUnique(result);
   return result;
 }
 
-vector<string> NewFeatureCategories::GetAllCategoryNames(string const & lang)
+NewFeatureCategories::TNames const & NewFeatureCategories::GetAllCategoryNames(
+    string const & lang) const
 {
-  auto const it = m_categoryNames.find(lang);
-  if (it == m_categoryNames.end())
-    return {};
+  auto const it = m_categoriesByLang.find(lang);
+  CHECK(it != m_categoriesByLang.end(), ());
   return it->second;
 }
 }  // namespace osm

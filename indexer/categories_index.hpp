@@ -63,6 +63,9 @@ public:
 #endif
 
 private:
+  // There is a raw pointer instead of const reference
+  // here because this class may be used from Objectvie-C
+  // so a default constructor is needed.
   CategoriesHolder const * m_catHolder = nullptr;
   my::MemTrie<string, uint32_t> m_trie;
 };
