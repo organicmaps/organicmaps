@@ -485,7 +485,6 @@
 		6741AA041BF340DE002C974C /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */; };
 		6741AA061BF340DE002C974C /* MWMSearchHistoryRequestCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB81B837FFD00180497 /* MWMSearchHistoryRequestCell.mm */; };
 		6741AA071BF340DE002C974C /* MWMBottomMenuLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BAB6E81BB2DA0C00DB941B /* MWMBottomMenuLayout.mm */; };
-		6741AA091BF340DE002C974C /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
 		6741AA0A1BF340DE002C974C /* MWMBottomMenuCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BAB6EB1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewCell.mm */; };
 		6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
 		6741AA0C1BF340DE002C974C /* MWMNavigationDashboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33761B62400E00F2CE18 /* MWMNavigationDashboard.mm */; };
@@ -733,6 +732,10 @@
 		F6AD57BD1C870A3C00CED368 /* MWMEditorCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6AD57BC1C870A3C00CED368 /* MWMEditorCategoryCell.xib */; };
 		F6AD57BE1C870A3C00CED368 /* MWMEditorCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6AD57BC1C870A3C00CED368 /* MWMEditorCategoryCell.xib */; };
 		F6B2E61F1C3D5F31005562DF /* MWMNightModeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */; };
+		F6B97B261CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */; };
+		F6B97B271CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */; };
+		F6B97B291CD0CB170009B612 /* MWMBookmarkNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6B97B281CD0CB170009B612 /* MWMBookmarkNameCell.xib */; };
+		F6B97B2A1CD0CB170009B612 /* MWMBookmarkNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6B97B281CD0CB170009B612 /* MWMBookmarkNameCell.xib */; };
 		F6BB6CBE1BB15A5E00DF1DF2 /* MWMRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBD1BB15A5E00DF1DF2 /* MWMRoutePreview.xib */; };
 		F6BB6CC01BB17D7000DF1DF2 /* MWMRoutePointCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBF1BB17D7000DF1DF2 /* MWMRoutePointCell.xib */; };
 		F6BB6CC31BB1860D00DF1DF2 /* MWMRoutePointLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BB6CC21BB1860D00DF1DF2 /* MWMRoutePointLayout.mm */; };
@@ -795,7 +798,6 @@
 		F6FEA82D1C58E89B007223CC /* MWMButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA82C1C58E89B007223CC /* MWMButton.mm */; };
 		F6FEA82E1C58F108007223CC /* MWMButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA82C1C58E89B007223CC /* MWMButton.mm */; };
 		F6FF2E2B1B8C5C020063FD1F /* MWMNextTurnPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FF2E2A1B8C5C020063FD1F /* MWMNextTurnPanel.xib */; };
-		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
 		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
 		FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
@@ -1421,6 +1423,9 @@
 		F6AD57BC1C870A3C00CED368 /* MWMEditorCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorCategoryCell.xib; sourceTree = "<group>"; };
 		F6B2E61D1C3D5F31005562DF /* MWMNightModeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNightModeController.h; sourceTree = "<group>"; };
 		F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNightModeController.mm; sourceTree = "<group>"; };
+		F6B97B241CD0CA990009B612 /* MWMBookmarkNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkNameCell.h; sourceTree = "<group>"; };
+		F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkNameCell.mm; sourceTree = "<group>"; };
+		F6B97B281CD0CB170009B612 /* MWMBookmarkNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkNameCell.xib; sourceTree = "<group>"; };
 		F6BB6CBD1BB15A5E00DF1DF2 /* MWMRoutePreview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutePreview.xib; sourceTree = "<group>"; };
 		F6BB6CBF1BB17D7000DF1DF2 /* MWMRoutePointCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutePointCell.xib; sourceTree = "<group>"; };
 		F6BB6CC11BB1860D00DF1DF2 /* MWMRoutePointLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutePointLayout.h; sourceTree = "<group>"; };
@@ -1502,8 +1507,6 @@
 		F6FEA82B1C58E89B007223CC /* MWMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMButton.h; sourceTree = "<group>"; };
 		F6FEA82C1C58E89B007223CC /* MWMButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMButton.mm; sourceTree = "<group>"; };
 		F6FF2E2A1B8C5C020063FD1F /* MWMNextTurnPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNextTurnPanel.xib; sourceTree = "<group>"; };
-		F785EB3E16386FC4003A38A8 /* BookmarkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkCell.h; path = Bookmarks/BookmarkCell.h; sourceTree = SOURCE_ROOT; };
-		F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BookmarkCell.mm; path = Bookmarks/BookmarkCell.mm; sourceTree = SOURCE_ROOT; };
 		F7DD848414FE77F8005695E1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F7DD848514FE7C7F005695E1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F7DD848614FE7FE0005695E1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -3039,14 +3042,15 @@
 		FA36B8011540388B004560CC /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
-				F785EB3E16386FC4003A38A8 /* BookmarkCell.h */,
-				F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */,
 				FAA614B6155F16950031C345 /* AddSetVC.h */,
 				FAA614B7155F16950031C345 /* AddSetVC.mm */,
 				FA054610155C465E001F4E37 /* SelectSetVC.h */,
 				FA054611155C465E001F4E37 /* SelectSetVC.mm */,
 				FA36B80515403A4F004560CC /* BookmarksVC.h */,
 				FA36B80615403A4F004560CC /* BookmarksVC.mm */,
+				F6B97B241CD0CA990009B612 /* MWMBookmarkNameCell.h */,
+				F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */,
+				F6B97B281CD0CB170009B612 /* MWMBookmarkNameCell.xib */,
 				FAAEA7D4161D8D3100CCD661 /* BookmarksRootVC.h */,
 				FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */,
 				34D15BA51BD8F93C00C8BCBE /* AddSetTableViewCell.h */,
@@ -3311,6 +3315,7 @@
 				F6FE2C111B03A016009814AA /* PlacePageNavigationBar.xib in Resources */,
 				F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */,
 				845C891F1C78748000940D7F /* me.maps.enterprise.entitlements in Resources */,
+				F6B97B291CD0CB170009B612 /* MWMBookmarkNameCell.xib in Resources */,
 				347FD8791C60B2CE002FB65E /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
 				34CD81D31C92AD4D007D2A60 /* Welcome.storyboard in Resources */,
 				34634B1B1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */,
@@ -3456,6 +3461,7 @@
 				6741A97C1BF340DE002C974C /* MWMBookmarkColorCell.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				6741A97E1BF340DE002C974C /* drules_proto_dark.bin in Resources */,
+				F6B97B2A1CD0CB170009B612 /* MWMBookmarkNameCell.xib in Resources */,
 				6741A97F1BF340DE002C974C /* resources-mdpi_clear in Resources */,
 				6741A9801BF340DE002C974C /* PlacePageNavigationBar.xib in Resources */,
 				3401CD791C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.xib in Resources */,
@@ -3684,7 +3690,6 @@
 				345FDD261C3BB3AF0070C459 /* MWMEditorViewController.mm in Sources */,
 				34B82ABA1B837FFD00180497 /* MWMSearchHistoryRequestCell.mm in Sources */,
 				34BAB6E91BB2DA0C00DB941B /* MWMBottomMenuLayout.mm in Sources */,
-				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				34BAB6ED1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				34CCFDE01C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				341F99E11C6B1165001C67B8 /* MWMMapDownloaderTableViewCell.mm in Sources */,
@@ -3694,6 +3699,7 @@
 				F6BD1D201CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
 				347FD8891C60B2CE002FB65E /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				34CD81C31C91C281007D2A60 /* MWMWhatsNewNightModeController.mm in Sources */,
+				F6B97B261CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */,
 				974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */,
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
 				F6A750B91BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm in Sources */,
@@ -3896,7 +3902,6 @@
 				6741AA071BF340DE002C974C /* MWMBottomMenuLayout.mm in Sources */,
 				3401CD771C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				345FDD271C3BB3AF0070C459 /* MWMEditorViewController.mm in Sources */,
-				6741AA091BF340DE002C974C /* BookmarkCell.mm in Sources */,
 				6741AA0A1BF340DE002C974C /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				34181EBA1C0ED1C30081B586 /* MWMOpeningHoursSection.mm in Sources */,
 				341F99E21C6B1165001C67B8 /* MWMMapDownloaderTableViewCell.mm in Sources */,
@@ -3910,6 +3915,7 @@
 				6741AA0F1BF340DE002C974C /* MWMSearchHistoryMyPositionCell.mm in Sources */,
 				34CD81C41C91C281007D2A60 /* MWMWhatsNewNightModeController.mm in Sources */,
 				6741AA101BF340DE002C974C /* SelectableCell.mm in Sources */,
+				F6B97B271CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */,
 				6741AA111BF340DE002C974C /* MWMSearchCategoriesManager.mm in Sources */,
 				34ABA6211C2D517500FE1BEC /* MWMInputValidator.mm in Sources */,
 				34CD81D11C92A884007D2A60 /* MWMPageControllerDataSource.mm in Sources */,
