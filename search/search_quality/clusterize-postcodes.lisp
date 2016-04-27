@@ -27,16 +27,20 @@ exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
   "Removes leading and trailing garbage from a string."
   (string-trim *seps* string))
 
+(defun latin-char-p (char)
+  (or (and (char>= char #\a) (char<= char #\z))
+      (and (char>= char #\A) (char<= char #\Z))))
+
 (defun get-postcode-pattern (postcode)
   "Simplifies postcode in the following way:
-   * all letters are replaced by 'A'
+   * all latin letters are replaced by 'A'
    * all digits are replaced by 'N'
    * hyphens and dots are replaced by a space
    * other characters are capitalized
 
    This format follows https://en.wikipedia.org/wiki/List_of_postal_codes.
   "
-  (map 'string #'(lambda (c) (cond ((alpha-char-p c) #\A)
+  (map 'string #'(lambda (c) (cond ((latin-char-p c) #\A)
                                    ((digit-char-p c) #\N)
                                    ((or (char= #\- c) (char= #\. c)) #\Space)
                                    (T c)))
