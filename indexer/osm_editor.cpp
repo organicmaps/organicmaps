@@ -329,6 +329,11 @@ Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint
   return featureInfo->m_status;
 }
 
+Editor::FeatureStatus Editor::GetFeatureStatus(FeatureID const & fid) const
+{
+  return GetFeatureStatus(fid.m_mwmId, fid.m_index);
+}
+
 bool Editor::IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const
 {
   auto const * info = GetFeatureTypeInfo(mwmId, index);

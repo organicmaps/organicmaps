@@ -78,6 +78,7 @@ public:
 
   /// Easy way to check if a feature was deleted, modified, created or not changed at all.
   FeatureStatus GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const;
+  FeatureStatus GetFeatureStatus(FeatureID const & fid) const;
 
   /// @returns true if a feature was uploaded to osm.
   bool IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const;
