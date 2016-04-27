@@ -258,6 +258,8 @@
 		34CFFE901B7DE83D009D0C9F /* MWMSearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CFFE8F1B7DE83D009D0C9F /* MWMSearchView.mm */; };
 		34D15BA81BD8F93C00C8BCBE /* AddSetTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */; };
 		34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */; };
+		34D349FB1CD0A3EE00895216 /* MWMWhatsNewEditorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D349FA1CD0A3EE00895216 /* MWMWhatsNewEditorController.mm */; };
+		34D349FC1CD0A3EE00895216 /* MWMWhatsNewEditorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D349FA1CD0A3EE00895216 /* MWMWhatsNewEditorController.mm */; };
 		34DCDE3A1C75CD8100652CAC /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34479C751C60C6130065D261 /* Framework.cpp */; };
 		34DCDE3B1C75CE1F00652CAC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347FD85A1C60B2CE002FB65E /* MWMOpeningHoursDeleteScheduleTableViewCell.mm */; };
 		34DDD5341BFDB0B600407F2F /* MWMMapDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342AF0DF1BE24E9A0016F3AE /* MWMMapDownloaderViewController.mm */; };
@@ -1145,6 +1147,8 @@
 		34D15BA51BD8F93C00C8BCBE /* AddSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSetTableViewCell.h; sourceTree = "<group>"; };
 		34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AddSetTableViewCell.mm; sourceTree = "<group>"; };
 		34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSetTableViewCell.xib; sourceTree = "<group>"; };
+		34D349F91CD0A3EE00895216 /* MWMWhatsNewEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWMWhatsNewEditorController.h; path = Welcome/MWMWhatsNewEditorController.h; sourceTree = "<group>"; };
+		34D349FA1CD0A3EE00895216 /* MWMWhatsNewEditorController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MWMWhatsNewEditorController.mm; path = Welcome/MWMWhatsNewEditorController.mm; sourceTree = "<group>"; };
 		34DCDE3D1C76195F00652CAC /* MWMMapDownloaderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderProtocol.h; sourceTree = "<group>"; };
 		34E0EECA1CC4F36B008E4919 /* MWMMapDownloaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderTypes.h; sourceTree = "<group>"; };
 		34E0EECB1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderButtonTableViewCell.h; sourceTree = "<group>"; };
@@ -2789,6 +2793,8 @@
 				34CD81C01C91C281007D2A60 /* MWMWhatsNewNightModeController.mm */,
 				34679F3B1C92FE3700114F20 /* MWMWhatsNewDownloaderEditorController.h */,
 				34679F3C1C92FE3700114F20 /* MWMWhatsNewDownloaderEditorController.mm */,
+				34D349F91CD0A3EE00895216 /* MWMWhatsNewEditorController.h */,
+				34D349FA1CD0A3EE00895216 /* MWMWhatsNewEditorController.mm */,
 			);
 			name = Welcome;
 			sourceTree = "<group>";
@@ -3694,6 +3700,7 @@
 				34CCFDE01C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				341F99E11C6B1165001C67B8 /* MWMMapDownloaderTableViewCell.mm in Sources */,
 				34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */,
+				34D349FB1CD0A3EE00895216 /* MWMWhatsNewEditorController.mm in Sources */,
 				F6B2E61F1C3D5F31005562DF /* MWMNightModeController.mm in Sources */,
 				F6BD33791B62400E00F2CE18 /* MWMNavigationDashboard.mm in Sources */,
 				F6BD1D201CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
@@ -3910,6 +3917,7 @@
 				34CCFDE11C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				6741AA0D1BF340DE002C974C /* LocalNotificationManager.mm in Sources */,
 				347FD88A1C60B2CE002FB65E /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
+				34D349FC1CD0A3EE00895216 /* MWMWhatsNewEditorController.mm in Sources */,
 				6741AA0E1BF340DE002C974C /* AppInfo.mm in Sources */,
 				F6BD1D211CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
 				6741AA0F1BF340DE002C974C /* MWMSearchHistoryMyPositionCell.mm in Sources */,

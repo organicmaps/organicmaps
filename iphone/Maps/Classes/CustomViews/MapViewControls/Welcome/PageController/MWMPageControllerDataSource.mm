@@ -10,7 +10,7 @@
 
 @implementation MWMPageControllerDataSource
 
-- (instancetype)initWithPageController:(MWMPageController *)pageController welcomeClass:(Class<MWMWelcomeControllerProtocol>)welcomeClass
+- (instancetype)initWithWelcomeClass:(Class<MWMWelcomeControllerProtocol>)welcomeClass
 {
   self = [super init];
   if (self)
@@ -21,7 +21,6 @@
     {
       MWMWelcomeController * vc = [self.welcomeClass welcomeController];
       vc.pageIndex = index;
-      vc.pageController = pageController;
       [controllers addObject:vc];
     }
     self.controllers = controllers;
@@ -32,6 +31,12 @@
 - (MWMWelcomeController *)firstWelcomeController
 {
   return self.controllers.firstObject;
+}
+
+- (void)setPageController:(MWMPageController *)pageController
+{
+  for (MWMWelcomeController * vc in self.controllers)
+    vc.pageController = pageController;
 }
 
 #pragma mark - UIPageViewControllerDataSource

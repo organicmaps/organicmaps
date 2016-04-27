@@ -1,8 +1,8 @@
 #import "LocationManager.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMFirstLaunchController.h"
 #import "MWMPageController.h"
-#import "MapViewController.h"
-#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 

@@ -21,7 +21,7 @@
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
-#import "MWMWhatsNewDownloaderEditorController.h"
+#import "MWMWhatsNewEditorController.h"
 #import "RouteState.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -414,7 +414,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
   if (isIOS7)
     return;
 
-  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewDownloaderEditorController class];
+  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewEditorController class];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   Class<MWMWelcomeControllerProtocol> welcomeClass = isFirstSession ? [MWMFirstLaunchController class] : whatsNewClass;
 
@@ -422,8 +422,8 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
   if ([ud boolForKey:[welcomeClass udWelcomeWasShownKey]])
     return;
 
-  self.pageViewController = [MWMPageController pageControllerWithParent:self];
-  [self.pageViewController show:welcomeClass];
+  self.pageViewController = [MWMPageController pageControllerWithParent:self welcomeClass:welcomeClass];
+  [self.pageViewController show];
 
   [ud setBool:YES forKey:[whatsNewClass udWelcomeWasShownKey]];
   [ud setBool:YES forKey:[welcomeClass udWelcomeWasShownKey]];
