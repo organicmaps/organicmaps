@@ -64,9 +64,6 @@
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                        </userDefinedRuntimeAttributes>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="rOS-aO-0gb">
                         <rect key="frame" x="0.0" y="179" width="320" height="1"/>
