@@ -27,6 +27,10 @@ jclass g_localNameClazz;
 jmethodID g_localNameCtor;
 jfieldID g_localNameFieldCode;
 jfieldID g_localNameFieldName;
+jclass g_localStreetClazz;
+jmethodID g_localStreetCtor;
+jfieldID g_localStreetFieldDef;
+jfieldID g_localStreetFieldLoc;
 
 jobject ToJavaFeatureCategory(JNIEnv * env, osm::Category const & category)
 {
@@ -41,6 +45,13 @@ jobject ToJavaName(JNIEnv * env, osm::LocalizedName const & name)
   return env->NewObject(g_localNameClazz, g_localNameCtor, name.m_code,
                         jName.get(), jLang.get(), jLangName.get());
 }
+
+jobject ToJavaStreet(JNIEnv * env, osm::LocalizedStreet const & street)
+{
+  return env->NewObject(g_localStreetClazz, g_localStreetCtor,
+                        jni::TScopedLocalRef(env, jni::ToJavaString(env, street.m_defaultName)).get(),
+                        jni::TScopedLocalRef(env, jni::ToJavaString(env, street.m_localizedName)).get());
+}
 }  // namespace
 
 extern "C"
@@ -51,14 +62,20 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeInit(JNIEnv * env, jclass)
 {
   g_featureCategoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/FeatureCategory");
-  // public FeatureCategory(int category, String name)
+  // FeatureCategory(int category, String name)
   g_featureCtor = jni::GetConstructorID(env, g_featureCategoryClazz, "(ILjava/lang/String;)V");
 
   g_localNameClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/LocalizedName");
-  // public LocalizedName(int code, @NonNull String name, @NonNull String lang, @NonNull String langName)
+  // LocalizedName(int code, @NonNull String name, @NonNull String lang, @NonNull String langName)
   g_localNameCtor = jni::GetConstructorID(env, g_localNameClazz, "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
   g_localNameFieldCode = env->GetFieldID(g_localNameClazz, "code", "I");
   g_localNameFieldName = env->GetFieldID(g_localNameClazz, "name", "Ljava/lang/String;");
+
+  g_localStreetClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/LocalizedStreet");
+  // LocalizedStreet(@NonNull String defaultName, @NonNull String localizedName)
+  g_localStreetCtor = jni::GetConstructorID(env, g_localStreetClazz, "(Ljava/lang/String;Ljava/lang/String;)V");
+  g_localStreetFieldDef = env->GetFieldID(g_localStreetClazz, "defaultName", "Ljava/lang/String;");
+  g_localStreetFieldLoc = env->GetFieldID(g_localStreetClazz, "localizedName", "Ljava/lang/String;");
 }
 
 JNIEXPORT jstring JNICALL
@@ -287,28 +304,22 @@ Java_com_mapswithme_maps_editor_Editor_nativeSetLocalizedNames(JNIEnv * env, jcl
   }
 }
 
-JNIEXPORT jstring JNICALL
+JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetStreet(JNIEnv * env, jclass)
 {
-  return jni::ToJavaString(env, g_editableMapObject.GetStreet().m_defaultName);
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetLocalizedStreet(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetStreet().m_localizedName);
+  return ToJavaStreet(env, g_editableMapObject.GetStreet());
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetStreet(JNIEnv * env, jclass, jstring street)
+Java_com_mapswithme_maps_editor_Editor_nativeSetStreet(JNIEnv * env, jclass, jobject street)
 {
-  g_editableMapObject.SetStreet({jni::ToNativeString(env, street), ""});
+  g_editableMapObject.SetStreet({jni::ToNativeString(env, (jstring) env->GetObjectField(street, g_localStreetFieldDef)),
+                                 jni::ToNativeString(env, (jstring) env->GetObjectField(street, g_localStreetFieldLoc))});
 }
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetLocalizedStreet(JNIEnv * env, jclass, jstring street, jstring localizedStreet)
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetNearbyStreets(JNIEnv * env, jclass clazz)
 {
-  g_editableMapObject.SetStreet({jni::ToNativeString(env, street), jni::ToNativeString(env, localizedStreet)});
+  return jni::ToJavaArray(env, g_localStreetClazz, g_editableMapObject.GetNearbyStreets(), ToJavaStreet);
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -333,18 +344,6 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeSetHouseNumber(JNIEnv * env, jclass, jstring houseNumber)
 {
   g_editableMapObject.SetHouseNumber(jni::ToNativeString(env, houseNumber));
-}
-
-JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetNearbyStreets(JNIEnv * env, jclass clazz)
-{
-  auto const & streets = g_editableMapObject.GetNearbyStreets();
-  int const size = streets.size();
-  jobjectArray jStreets = env->NewObjectArray(size, jni::GetStringClass(env), 0);
-  for (int i = 0; i < size; ++i)
-    // TODO(yunikkk): use "streets[i].m_localizedName" to get localized street.
-    env->SetObjectArrayElement(jStreets, i, jni::TScopedLocalRef(env, jni::ToJavaString(env, streets[i].m_defaultName)).get());
-  return jStreets;
 }
 
 JNIEXPORT jboolean JNICALL

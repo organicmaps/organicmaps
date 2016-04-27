@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.Metadata.MetadataType;
+import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.Graphics;
@@ -110,7 +111,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     mCategory.setText(Editor.nativeGetCategory());
     mName.setText(Editor.nativeGetDefaultName());
-    mStreet.setText(Editor.nativeGetStreet());
+    final LocalizedStreet street = Editor.nativeGetStreet();
+    mStreet.setText(street.defaultName);
     mHouseNumber.setText(Editor.nativeGetHouseNumber());
     mHouseNumber.addTextChangedListener(new StringUtils.SimpleTextWatcher()
     {

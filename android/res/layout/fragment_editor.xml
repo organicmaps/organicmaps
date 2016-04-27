@@ -54,7 +54,8 @@
           android:layout_toEndOf="@id/icon"
           android:layout_toRightOf="@id/icon"
           android:text="@string/editor_edit_place_category_title"
-          android:textAppearance="@style/MwmTextAppearance.Body4"/>
+          android:textAppearance="@style/MwmTextAppearance.Body4"
+          tools:text="Trololo"/>
 
         <TextView
           android:id="@+id/name"
@@ -62,7 +63,7 @@
           android:layout_height="wrap_content"
           android:layout_alignLeft="@id/title"
           android:layout_alignStart="@id/title"
-          android:layout_below="@id/title"
+          android:layout_below="@id/anchor_center"
           android:textAppearance="@style/MwmTextAppearance.Body1"
           tools:text="Ololo"/>
 

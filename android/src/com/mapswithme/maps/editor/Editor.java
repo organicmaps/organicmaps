@@ -12,6 +12,7 @@ import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.editor.data.FeatureCategory;
 import com.mapswithme.maps.editor.data.Language;
 import com.mapswithme.maps.editor.data.LocalizedName;
+import com.mapswithme.maps.editor.data.LocalizedStreet;
 
 
 /**
@@ -89,13 +90,10 @@ public final class Editor
   public static native void nativeSetLocalizedNames(@NonNull LocalizedName[] names);
   public static native Language[] nativeGetSupportedLanguages();
 
-  public static native String nativeGetStreet();
-  public static native String nativeGetLocalizedStreet();
-  public static native void nativeSetStreet(String street);
-  public static native void nativeSetLocalizedStreet(String street, String localizedStreet);
-
+  public static native LocalizedStreet nativeGetStreet();
+  public static native void nativeSetStreet(LocalizedStreet street);
   @NonNull
-  public static native String[] nativeGetNearbyStreets();
+  public static native LocalizedStreet[] nativeGetNearbyStreets();
 
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);

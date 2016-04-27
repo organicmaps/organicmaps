@@ -16,6 +16,7 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
@@ -238,7 +239,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         .show();
   }
 
-  public void setStreet(String street)
+  public void setStreet(LocalizedStreet street)
   {
     Editor.nativeSetStreet(street);
     editMapObject();
