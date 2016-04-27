@@ -48,6 +48,8 @@ using namespace platform;
 
 namespace storage
 {
+string const kMapTestDir = string("map-tests");
+
 namespace
 {
 using TLocalFilePtr = shared_ptr<LocalCountryFile>;
@@ -1009,7 +1011,7 @@ UNIT_TEST(StorageTest_GetChildren)
 
   TCountriesVec countriesList;
   storage.GetChildren(world, countriesList);
-  TEST_EQUAL(countriesList.size(), 5, ());
+  TEST_EQUAL(countriesList.size(), 7, ());
   TEST_EQUAL(countriesList.front(), "Abkhazia", ());
   TEST_EQUAL(countriesList.back(), "Country2", ());
 
@@ -1457,7 +1459,8 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
   };
   storage.ForEachInSubtree(storage.GetRootId(), forEach);
 
-  TCountriesVec const expectedLeafVec = {"Abkhazia", "Algeria_Central", "Algeria_Coast", "South Korea_South",
+  TCountriesVec const expectedLeafVec = {"Abkhazia", "OutdatedCountry1", "OutdatedCountry2", "Algeria_Central",
+                                         "Algeria_Coast", "South Korea_South",
                                          "Disputable Territory", "Indisputable Territory Of Country1",
                                          "Indisputable Territory Of Country2", "Disputable Territory"};
   TEST_EQUAL(leafVec, expectedLeafVec, ());
