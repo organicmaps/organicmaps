@@ -129,10 +129,10 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
   return 0;
 }
 
-void ChunksDownloadStrategy::ChunkFinished(bool success, RangeT const & range)
+string ChunksDownloadStrategy::ChunkFinished(bool success, RangeT const & range)
 {
   pair<ChunkT *, int> res = GetChunk(range);
-
+  string url;
   // find server which was downloading this chunk
   if (res.first)
   {
@@ -140,6 +140,7 @@ void ChunksDownloadStrategy::ChunkFinished(bool success, RangeT const & range)
     {
       if (m_servers[s].m_chunkIndex == res.second)
       {
+        url = m_servers[s].m_url;
         if (success)
         {
           // mark server as free and chunk as ready
@@ -150,7 +151,6 @@ void ChunksDownloadStrategy::ChunkFinished(bool success, RangeT const & range)
         {
           LOG(LINFO, ("Thread for url", m_servers[s].m_url,
                       "failed to download chunk number", m_servers[s].m_chunkIndex));
-
           // remove failed server and mark chunk as free
           m_servers.erase(m_servers.begin() + s);
           res.first->m_status = CHUNK_FREE;
@@ -159,6 +159,7 @@ void ChunksDownloadStrategy::ChunkFinished(bool success, RangeT const & range)
       }
     }
   }
+  return url;
 }
 
 ChunksDownloadStrategy::ResultT
