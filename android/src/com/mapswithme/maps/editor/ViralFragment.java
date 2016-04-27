@@ -19,16 +19,16 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class ViralFragment extends BaseMwmDialogFragment
 {
-  private static final String EXTRA_CONTRATS_SHOWN = "CongratsShown";
+  private static final String EXTRA_CONGRATS_SHOWN = "CongratsShown";
 
   private String mViralText;
 
-  private final String viralChangesMsg = getString(R.string.editor_done_dialog_1);
-  private final String viralRatingMsg = getString(R.string.editor_done_dialog_2, getUserEditorRank());
+  private final String viralChangesMsg = MwmApplication.get().getString(R.string.editor_done_dialog_1);
+  private final String viralRatingMsg = MwmApplication.get().getString(R.string.editor_done_dialog_2, getUserEditorRank());
 
   public static boolean shouldDisplay()
   {
-    return !MwmApplication.prefs().contains(EXTRA_CONTRATS_SHOWN) &&
+    return !MwmApplication.prefs().contains(EXTRA_CONGRATS_SHOWN) &&
            Editor.nativeGetStats()[0] >= 2 &&
            ConnectionState.isConnected();
   }
@@ -43,7 +43,7 @@ public class ViralFragment extends BaseMwmDialogFragment
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    MwmApplication.prefs().edit().putBoolean(EXTRA_CONTRATS_SHOWN, true).apply();
+    MwmApplication.prefs().edit().putBoolean(EXTRA_CONGRATS_SHOWN, true).apply();
 
     @SuppressLint("InflateParams")
     final View root = inflater.inflate(R.layout.fragment_editor_viral, null);
