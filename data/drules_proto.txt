@@ -2475,6 +2475,54 @@ cont {
 cont {
   name: "amenity-charging_station"
   element {
+    scale: 13
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -2752,6 +2800,54 @@ cont {
 }
 cont {
   name: "amenity-community_centre"
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     caption {
@@ -6596,6 +6692,18 @@ cont {
 cont {
   name: "amenity-vending_machine-parking_tickets"
   element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -6673,6 +6781,18 @@ cont {
 }
 cont {
   name: "amenity-veterinary"
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     caption {
@@ -11112,9 +11232,27 @@ cont {
 cont {
   name: "emergency-phone"
   element {
+    scale: 15
+    symbol {
+      name: "phone-m"
+      apply_for_type: 1
+      priority: 16863
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "phone-m"
+      apply_for_type: 1
+      priority: 16863
+      min_distance: 30
+    }
+  }
+  element {
     scale: 17
     symbol {
-      name: "phone-l"
+      name: "phone-m"
       apply_for_type: 1
       priority: 16863
       min_distance: 30
@@ -11123,7 +11261,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "phone-l"
+      name: "phone-m"
       apply_for_type: 1
       priority: 16863
       min_distance: 30
@@ -38505,6 +38643,105 @@ cont {
   }
 }
 cont {
+  name: "leisure-fitness_centre"
+  element {
+    scale: 13
+    symbol {
+      name: "gym-s"
+      priority: 16876
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "gym-s"
+      priority: 16876
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "gym-s"
+      priority: 16876
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "gym-s"
+      priority: 16876
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "gym-s"
+      priority: 16876
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "gym-s"
+      priority: 16876
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+}
+cont {
   name: "leisure-garden"
   element {
     scale: 12
@@ -39879,6 +40116,73 @@ cont {
   }
 }
 cont {
+  name: "leisure-sauna"
+  element {
+    scale: 15
+    symbol {
+      name: "sauna-m"
+      priority: 16876
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "sauna-m"
+      priority: 16876
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "sauna-m"
+      priority: 16876
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "sauna-m"
+      priority: 16876
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+}
+cont {
   name: "leisure-slipway"
   element {
     scale: 17
@@ -40719,6 +41023,73 @@ cont {
   }
 }
 cont {
+  name: "man_made-chimney"
+  element {
+    scale: 15
+    symbol {
+      name: "chimney-m"
+      priority: 16863
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15863
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "chimney-m"
+      priority: 16863
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15863
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "chimney-m"
+      priority: 16863
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15863
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "chimney-m"
+      priority: 16863
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15863
+    }
+  }
+}
+cont {
   name: "man_made-cutline"
   element {
     scale: 12
@@ -41382,6 +41753,105 @@ cont {
     symbol {
       name: "hunting_closed_high"
       priority: 16000
+    }
+  }
+}
+cont {
+  name: "man_made-water_well"
+  element {
+    scale: 13
+    symbol {
+      name: "drinking-water-s"
+      priority: 16890
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "drinking-water-s"
+      priority: 16890
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "drinking-water-s"
+      priority: 16890
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "drinking-water-s"
+      priority: 16890
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking-water-s"
+      priority: 16890
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-s"
+      priority: 16890
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+      }
+      priority: 15890
     }
   }
 }
@@ -69044,6 +69514,20 @@ cont {
 }
 cont {
   name: "shop-car_repair-tyres"
+  element {
+    scale: 13
+    symbol {
+      name: "car_repair"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "car_repair"
+      priority: 16000
+    }
+  }
   element {
     scale: 15
     symbol {
