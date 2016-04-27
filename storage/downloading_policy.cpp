@@ -8,8 +8,8 @@ bool StorageDownloadingPolicy::IsDownloadingAllowed() const
            !IsCellularDownloadEnabled());
 }
 
-void StorageDownloadingPolicy::ScheduleRetry(
-    storage::TCountriesSet const & failedCountries, TProcessFunc const & func)
+void StorageDownloadingPolicy::ScheduleRetry(storage::TCountriesSet const & failedCountries,
+                                             TProcessFunc const & func)
 {
   if (IsDownloadingAllowed() && !failedCountries.empty() && m_autoRetryCounter > 0)
   {
