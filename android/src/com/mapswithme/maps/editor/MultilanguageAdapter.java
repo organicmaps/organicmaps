@@ -40,7 +40,19 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
                               },
                               names.length);
 
-    mNames.addAll(names);
+    // skip default name
+    for (int i = 1; i < names.length; i++)
+      mNames.add(names[i]);
+  }
+
+  public void setNames(SortedList<LocalizedName> names)
+  {
+    mNames = names;
+  }
+
+  public SortedList<LocalizedName> getNames()
+  {
+    return mNames;
   }
 
   @Override
@@ -64,13 +76,22 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
     return mNames.size();
   }
 
-  public static class Holder extends RecyclerView.ViewHolder
+  public class Holder extends RecyclerView.ViewHolder
   {
     EditText input;
 
     public Holder(View itemView)
     {
       super(itemView);
+      input = (EditText) itemView.findViewById(R.id.input);
+      itemView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener()
+                                                            {
+                                                              @Override
+                                                              public void onClick(View v)
+                                                              {
+                                                                mNames.removeItemAt(getAdapterPosition());
+                                                              }
+                                                            });
     }
   }
 }

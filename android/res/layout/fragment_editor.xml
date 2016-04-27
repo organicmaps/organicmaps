@@ -74,7 +74,7 @@
       android:id="@+id/cv__name"
       style="@style/MwmWidget.Editor.CardView">
 
-      <include layout="@layout/item_localized_name"/>
+      <include layout="@layout/localized_name"/>
 
     </android.support.v7.widget.CardView>
 

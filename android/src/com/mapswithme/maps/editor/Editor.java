@@ -10,6 +10,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.editor.data.FeatureCategory;
+import com.mapswithme.maps.editor.data.Language;
 import com.mapswithme.maps.editor.data.LocalizedName;
 
 
@@ -86,6 +87,7 @@ public final class Editor
   public static native void nativeSetDefaultName(String name);
   public static native @NonNull LocalizedName[] nativeGetLocalizedNames();
   public static native void nativeSetLocalizedNames(@NonNull LocalizedName[] names);
+  public static native Language[] nativeGetSupportedLanguages();
 
   public static native String nativeGetStreet();
   public static native String nativeGetLocalizedStreet();

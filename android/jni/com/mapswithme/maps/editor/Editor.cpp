@@ -311,6 +311,18 @@ Java_com_mapswithme_maps_editor_Editor_nativeSetLocalizedStreet(JNIEnv * env, jc
   g_editableMapObject.SetStreet({jni::ToNativeString(env, street), jni::ToNativeString(env, localizedStreet)});
 }
 
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetSupportedLanguages(JNIEnv * env, jclass clazz)
+{
+  // TODO (yunikkk) implement
+  //public Language(@NonNull String code, @NonNull String name)
+//  static jclass const langClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/Language");
+//  static jmethodID const langCtor = jni::GetConstructorID(env, langClass, "(Ljava/lang/String;Ljava/lang/String;)V");
+
+//  return jni::ToJavaArray(env, langClass, g_editableMapObject.GetBuildingLevels(), );
+  return nullptr;
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetHouseNumber(JNIEnv * env, jclass)
 {
