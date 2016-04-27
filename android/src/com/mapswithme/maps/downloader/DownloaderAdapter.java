@@ -182,7 +182,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (item.status != CountryItem.STATUS_UPDATABLE)
           return;
 
-        MapManager.warnOn3g(adapter.mActivity, item.id, new Runnable()
+        MapManager.warnOn3gUpdate(adapter.mActivity, item.id, new Runnable()
         {
           @Override
           public void run()
@@ -330,7 +330,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_UPDATABLE:
-        MapManager.warnOn3g(mActivity, mItem.id, new Runnable()
+        MapManager.warnOn3gUpdate(mActivity, mItem.id, new Runnable()
         {
           @Override
           public void run()

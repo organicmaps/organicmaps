@@ -104,11 +104,18 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToDownloadAmount(JN
   return IsEnoughSpaceForDownload(bytes);
 }
 
-// static boolean nativeHasSpaceForDownloadCountry(String root);
+// static boolean nativeHasSpaceToDownloadCountry(String root);
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToDownloadCountry(JNIEnv * env, jclass clazz, jstring root)
 {
   return IsEnoughSpaceForDownload(jni::ToNativeString(env, root), GetStorage());
+}
+
+// static boolean nativeHasSpaceToUpdate(String root);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToUpdate(JNIEnv * env, jclass clazz, jstring root)
+{
+  return IsEnoughSpaceForUpdate(jni::ToNativeString(env, root), GetStorage());
 }
 
 // static native boolean nativeIsLegacyMode();

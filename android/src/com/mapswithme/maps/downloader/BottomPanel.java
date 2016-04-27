@@ -43,7 +43,7 @@ class BottomPanel
     public void onClick(View v)
     {
       final String country = mFragment.getCurrentRoot();
-      MapManager.warnOn3g(mFragment.getActivity(), country, new Runnable()
+      MapManager.warnOn3gUpdate(mFragment.getActivity(), country, new Runnable()
       {
         @Override
         public void run()

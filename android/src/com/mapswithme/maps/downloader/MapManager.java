@@ -169,9 +169,21 @@ public final class MapManager
   }
 
   /**
+   * @return true if there is no space to update the given {@code root}, so the alert dialog will be shown.
+   */
+  private static boolean notifyNoSpaceToUpdate(Activity activity, String root)
+  {
+    if (nativeHasSpaceToUpdate(root))
+      return false;
+
+    notifyNoSpaceInternal(activity);
+    return true;
+  }
+
+  /**
    * @return true if there is no space to download the given {@code root}, so the alert dialog will be shown.
    */
-  public static boolean notifyNoSpace(Activity activity, String root)
+  private static boolean notifyNoSpace(Activity activity, String root)
   {
     if (nativeHasSpaceToDownloadCountry(root))
       return false;
@@ -183,7 +195,7 @@ public final class MapManager
   /**
    * @return true if there is no space to download {@code size} bytes, so the alert dialog will be shown.
    */
-  public static boolean notifyNoSpace(Activity activity, long size)
+  private static boolean notifyNoSpace(Activity activity, long size)
   {
     if (nativeHasSpaceToDownloadAmount(size))
       return false;
@@ -217,7 +229,16 @@ public final class MapManager
     return true;
   }
 
-  public static boolean warnOn3g(Activity activity, @Nullable String countryId, @NonNull final Runnable onAcceptListener)
+  static boolean warnOn3gUpdate(Activity activity, @Nullable String countryId, @NonNull final Runnable onAcceptListener)
+  {
+    //noinspection SimplifiableIfStatement
+    if (TextUtils.isEmpty(countryId) || !notifyNoSpaceToUpdate(activity, countryId))
+      return warnOn3gInternal(activity, onAcceptListener);
+
+    return true;
+  }
+
+  static boolean warnOn3g(Activity activity, @Nullable String countryId, @NonNull final Runnable onAcceptListener)
   {
     //noinspection SimplifiableIfStatement
     if (TextUtils.isEmpty(countryId) || !notifyNoSpace(activity, countryId))
@@ -245,7 +266,7 @@ public final class MapManager
     });
   }
 
-  public static boolean warn3gAndRetry(Activity activity, final String countryId, @Nullable final Runnable onAcceptListener)
+  static boolean warn3gAndRetry(Activity activity, final String countryId, @Nullable final Runnable onAcceptListener)
   {
     return warnOn3g(activity, countryId, new Runnable()
     {
@@ -283,6 +304,11 @@ public final class MapManager
    * Returns {@code true} if there is enough storage space to download maps with specified {@code root}. Or {@code false} otherwise.
    */
   public static native boolean nativeHasSpaceToDownloadCountry(String root);
+
+  /**
+   * Returns {@code true} if there is enough storage space to update maps with specified {@code root}. Or {@code false} otherwise.
+   */
+  public static native boolean nativeHasSpaceToUpdate(String root);
 
   /**
    * Determines whether the legacy (large MWMs) mode is used.
