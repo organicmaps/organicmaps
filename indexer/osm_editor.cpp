@@ -331,7 +331,8 @@ Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint
 
 bool Editor::IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const
 {
-  return GetFeatureTypeInfo(mwmId, index)->m_uploadStatus == kUploaded;
+  auto const * info = GetFeatureTypeInfo(mwmId, index)
+  return info && info->m_uploadStatus == kUploaded;
 }
 
 void Editor::DeleteFeature(FeatureType const & feature)
