@@ -211,10 +211,11 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   @Override
   protected void setupPlaceholder(View placeholder)
   {
-    // TODO (trashkalmar): Set actual resources
     if (mAdapter.isSearchResultsMode())
-      UiUtils.setupPlaceholder(placeholder, R.drawable.img_search_nothing_found_light, R.string.search_not_found, R.string.search_not_found_query);
+      UiUtils.setupPlaceholder(placeholder, R.drawable.img_search_nothing_found_light,
+                               R.string.search_not_found, R.string.search_not_found_query);
     else
-      UiUtils.setupPlaceholder(placeholder, R.drawable.img_search_no_maps, R.string.search_history_title, R.string.search_history_text);
+      UiUtils.setupPlaceholder(placeholder, R.drawable.img_search_no_maps,
+                               R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
   }
 }

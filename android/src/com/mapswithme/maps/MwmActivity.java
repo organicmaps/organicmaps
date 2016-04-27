@@ -835,12 +835,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     case LocationState.NOT_FOLLOW_NO_POSITION:
       pauseLocation();
 
-      // TODO (trashkalmar): Set correct texts
+      String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
+                                                 getString(R.string.current_location_unknown_title));
       new AlertDialog.Builder(this)
-                     .setTitle("GPS error")
-                     .setMessage("Failed to get location. Try again?")
-                     .setNegativeButton(R.string.cancel, null)
-                     .setPositiveButton(R.string.downloader_retry, new DialogInterface.OnClickListener()
+                     .setMessage(message)
+                     .setNegativeButton(R.string.current_location_unknown_stop_button, null)
+                     .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
                      {
                        @Override
                        public void onClick(DialogInterface dialog, int which)
