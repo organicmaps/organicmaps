@@ -2540,6 +2540,16 @@ vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
 void SetStreet(search::ReverseGeocoder const & coder, Index const & index,
                FeatureType & ft, osm::EditableMapObject & emo)
 {
+  auto const & editor = osm::Editor::Instance();
+
+  if (editor.GetFeatureStatus(emo.GetID()) == osm::Editor::FeatureStatus::Created)
+  {
+    string street;
+    VERIFY(editor.GetEditedFeatureStreet(emo.GetID(), street), ("Feature is in editor."));
+    emo.SetStreet({street, ""});
+    return;
+  }
+
   // Get exact feature's street address (if any) from mwm,
   // together with all nearby streets.
   auto const streets = coder.GetNearbyFeatureStreets(ft);
@@ -2547,7 +2557,7 @@ void SetStreet(search::ReverseGeocoder const & coder, Index const & index,
   auto const & featureStreetIndex = streets.second;
 
   string street;
-  bool const featureIsInEditor = osm::Editor::Instance().GetEditedFeatureStreet(ft.GetID(), street);
+  bool const featureIsInEditor = editor.GetEditedFeatureStreet(ft.GetID(), street);
   bool const featureHasStreetInMwm = featureStreetIndex < streetsPool.size();
   if (!featureIsInEditor && featureHasStreetInMwm)
     street = streetsPool[featureStreetIndex].m_name;
@@ -2636,7 +2646,7 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   FeatureType & ft = *feature;
   emo.SetFromFeatureType(ft);
   emo.SetHouseNumber(ft.GetHouseNumber());
-  osm::Editor & editor = osm::Editor::Instance();
+  auto const & editor = osm::Editor::Instance();
   emo.SetEditableProperties(editor.GetEditableProperties(ft));
 
   auto const & index = m_model.GetIndex();
@@ -2669,10 +2679,16 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
   // Notify if a poi address and it's hosting building address differ.
   do
   {
+    auto const isCreatedFeature = editor.IsCreatedFeature(emo.GetID());
+
     search::ReverseGeocoder::Address hostingBuildingAddress;
     Index::FeaturesLoaderGuard g(m_model.GetIndex(), emo.GetID().m_mwmId);
     FeatureType originalFeature;
-    g.GetOriginalFeatureByIndex(emo.GetID().m_index, originalFeature);
+
+    if (!isCreatedFeature)
+      g.GetOriginalFeatureByIndex(emo.GetID().m_index, originalFeature);
+    else
+      originalFeature.ReplaceBy(emo);
 
     // Handle only pois.
     if (ftypes::IsBuildingChecker::Instance()(originalFeature))
@@ -2693,9 +2709,16 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
       break;
 
     string originalFeatureStreet;
-    auto const streets = coder.GetNearbyFeatureStreets(originalFeature);
-    if (streets.second < streets.first.size())
-      originalFeatureStreet = streets.first[streets.second].m_name;
+    if (!isCreatedFeature)
+    {
+      auto const streets = coder.GetNearbyFeatureStreets(originalFeature);
+      if (streets.second < streets.first.size())
+        originalFeatureStreet = streets.first[streets.second].m_name;
+    }
+    else
+    {
+      originalFeatureStreet = emo.GetStreet().m_defaultName;
+    }
 
     auto isStreetOverridden = false;
     if (!hostingBuildingAddress.GetStreetName().empty() &&
@@ -2712,11 +2735,19 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
       shouldNotify = true;
     }
 
+    // TODO(mgsergio): Consider this:
+    // User changed a feature that had no original address and the address he entered
+    // is different from the one on the hosting building. He saved it and the changes
+    // were uploaded to OSM. Then he set the address from the hosting building back
+    // to the feature. As a result this address won't be merged in OSM because emo.SetStreet({})
+    // and emo.SetHouseNumber("") will be called in the following code. So OSM ends up
+    // with incorrect data.
+
     // Do not save street if it was taken from hosting building.
-    if (originalFeatureStreet.empty() && !isStreetOverridden)
+    if ((originalFeatureStreet.empty() || isCreatedFeature) && !isStreetOverridden)
         emo.SetStreet({});
     // Do not save house number if it was taken from hosting building.
-    if (originalFeature.GetHouseNumber().empty() && !isHouseNumberOverridden)
+    if ((originalFeature.GetHouseNumber().empty() || isCreatedFeature) && !isHouseNumberOverridden)
       emo.SetHouseNumber("");
 
     if (!isStreetOverridden && !isHouseNumberOverridden)
@@ -2732,7 +2763,8 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
       string editedFeatureStreet;
       // Such a notification have been already sent. I.e at least one of
       // street of house number should differ in emo and editor.
-      shouldNotify = (editor.GetEditedFeature(emo.GetID(), editedFeature) &&
+      shouldNotify = !isCreatedFeature &&
+                     (editor.GetEditedFeature(emo.GetID(), editedFeature) &&
                       !editedFeature.GetHouseNumber().empty() &&
                       editedFeature.GetHouseNumber() != emo.GetHouseNumber()) ||
                      (editor.GetEditedFeatureStreet(emo.GetID(), editedFeatureStreet) &&
