@@ -1739,4 +1739,25 @@ UNIT_TEST(StorageTest_GetGroupNodePathToRootTest)
   storage.GetGroupNodePathToRoot("Country1", path);
   TEST(path.empty(), ());
 }
+
+UNIT_TEST(StorageTest_GetTopmostNodesFor)
+{
+  Storage storage;
+
+  TCountriesVec path;
+
+  storage.GetTopmostNodesFor("France_Auvergne_Allier", path);
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "France", ());
+
+  storage.GetTopmostNodesFor("France_Auvergne", path);
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "France", ());
+
+  storage.GetTopmostNodesFor("Jerusalem", path);
+  TEST_EQUAL(path.size(), 2, (path));
+  TEST_EQUAL(path[0], "Israel Region", (path));
+  TEST_EQUAL(path[1], "Palestine Region", (path));
+}
+
 }  // namespace storage

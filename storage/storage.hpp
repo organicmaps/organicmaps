@@ -357,7 +357,8 @@ public:
   /// \param path is resulting array of TCountryId.
   void GetGroupNodePathToRoot(TCountryId const & groupNode, TCountriesVec & path) const;
   
-  /// \brief TODO
+  /// \brief Fills |nodes| with CountryIds of topmost nodes for this |countryId|.
+  /// For disputed territories all possible owners will be added.
   void GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & nodes) const;
 
   /// \brief Returns current version for mwms which are used by storage.
