@@ -84,6 +84,8 @@ void CategoriesHolder::LoadFromStream(istream & s)
 
   Category cat;
   vector<uint32_t> types;
+  vector<string> currentGroups;
+  multimap<string, Category::Name> groupTranslations;
 
   Classificator const & c = classif();
 
@@ -92,6 +94,10 @@ void CategoriesHolder::LoadFromStream(istream & s)
   {
     ++lineNumber;
     getline(s, line);
+    strings::Trim(line);
+    // Allow for comments starting with '#' character.
+    if (!line.empty() && line[0] == '#')
+      continue;
     strings::SimpleTokenizer iter(line, state == EParseTypes ? "|" : ":|");
 
     switch (state)
@@ -99,24 +105,34 @@ void CategoriesHolder::LoadFromStream(istream & s)
     case EParseTypes:
       {
         AddCategory(cat, types);
+        currentGroups.clear();
 
         while (iter)
         {
-          // split category to sub categories for classificator
-          vector<string> v;
-          strings::Tokenize(*iter, "-", MakeBackInsertFunctor(v));
-
-          // get classificator type
-          uint32_t const type = c.GetTypeByPathSafe(v);
-          if (type != 0)
-            types.push_back(type);
+          // Check if category is a group reference.
+          if ((*iter)[0] == '@')
+          {
+            CHECK((currentGroups.empty() || !types.empty()), ("Two groups in a group definition at line", lineNumber));
+            currentGroups.push_back(*iter);
+          }
           else
-            LOG(LWARNING, ("Invalid type:", v, "at line:", lineNumber));
+          {
+            // Split category to subcategories for classificator.
+            vector<string> v;
+            strings::Tokenize(*iter, "-", MakeBackInsertFunctor(v));
+
+            // Get classificator type.
+            uint32_t const type = c.GetTypeByPathSafe(v);
+            if (type != 0)
+              types.push_back(type);
+            else
+              LOG(LWARNING, ("Invalid type:", v, "at line:", lineNumber));
+          }
 
           ++iter;
         }
 
-        if (!types.empty())
+        if (!types.empty() || currentGroups.size() == 1)
           state = EParseLanguages;
       }
       break;
@@ -173,7 +189,24 @@ void CategoriesHolder::LoadFromStream(istream & s)
             }
           }
 
-          cat.m_synonyms.push_back(name);
+          if (currentGroups.size() == 1 && types.empty())
+          {
+            // Not a translation, but a category group definition
+            groupTranslations.emplace(currentGroups[0], name);
+          }
+          else
+            cat.m_synonyms.push_back(name);
+        }
+
+        if (!types.empty())
+        {
+          // If a category group is specified, add translations from it.
+          for (string const & group : currentGroups)
+          {
+            auto trans = groupTranslations.equal_range(group);
+            for (auto it = trans.first; it != trans.second; ++it)
+              cat.m_synonyms.push_back(it->second);
+          }
         }
       }
       break;

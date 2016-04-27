@@ -187,6 +187,47 @@ UNIT_TEST(CategoriesIndex_MultipleTokens)
   testTypes("shop meat", {type2});
 }
 
+UNIT_TEST(CategoriesIndex_Groups)
+{
+  char const kCategories[] =
+      "@shop\n"
+      "en:shop\n"
+      "ru:магазин\n"
+      "\n"
+      "@meat\n"
+      "en:meat\n"
+      "\n"
+      "shop-bakery|@shop\n"
+      "en:buns\n"
+      "\n"
+      "shop-butcher|@shop|@meat\n"
+      "en:butcher";
+
+  classificator::Load();
+  CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
+  CategoriesIndex index(holder);
+
+  index.AddAllCategoriesInAllLangs();
+  auto testTypes = [&](string const & query, vector<uint32_t> const & expected)
+  {
+    vector<uint32_t> result;
+    index.GetAssociatedTypes(query, result);
+    TEST_EQUAL(result, expected, (query));
+  };
+
+  uint32_t type1 = classif().GetTypeByPath({"shop", "bakery"});
+  uint32_t type2 = classif().GetTypeByPath({"shop", "butcher"});
+  if (type1 > type2)
+    swap(type1, type2);
+
+  testTypes("buns", {type1});
+  testTypes("butcher", {type2});
+  testTypes("meat", {type2});
+  testTypes("shop", {type1, type2});
+  testTypes("магазин", {type1, type2});
+  testTypes("http", {});
+}
+
 #ifdef DEBUG
 // A check that this data structure is not too heavy.
 UNIT_TEST(CategoriesIndex_AllCategories)
