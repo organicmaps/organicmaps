@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/directions_engine.hpp"
+#include "loaded_path_segment.hpp"
 #include "routing/turn_candidate.hpp"
 
 #include "std/map.hpp"
@@ -13,6 +14,8 @@ struct AdjacentEdges
   size_t ingoingTurnCount;
 };
 
+using AdjacentEdgesMap = map<TNodeId, AdjacentEdges>;
+
 class BicycleDirectionsEngine : public IDirectionsEngine
 {
 public:
@@ -24,6 +27,7 @@ public:
                 Route::TTurns & turnsDir,
                 my::Cancellable const & cancellable) override;
 private:
-  map<TNodeId, AdjacentEdges> m_adjacentEdges;
+  AdjacentEdgesMap m_adjacentEdges;
+  TUnpackedPathSegments m_pathSegments;
 };
 }  // namespace routing
