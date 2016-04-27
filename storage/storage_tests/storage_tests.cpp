@@ -48,6 +48,8 @@ using namespace platform;
 
 namespace storage
 {
+string const kMapTestDir = string("map-tests");
+
 namespace
 {
 using TLocalFilePtr = shared_ptr<LocalCountryFile>;
