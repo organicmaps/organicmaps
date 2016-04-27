@@ -147,7 +147,6 @@ MERGE_INTERVAL=${MERGE_INTERVAL:-40}
 NODE_STORAGE=${NODE_STORAGE:-${NS:-mem}}
 ASYNC_PBF=${ASYNC_PBF-}
 KEEP_INTDIR=${KEEP_INTDIR-1}
-OSRM_URL=${OSRM_URL-}
 # nproc is linux-only
 if [ "$(uname -s)" == "Darwin" ]; then
   CPUS="$(sysctl -n hw.ncpu)"
@@ -302,19 +301,12 @@ fi
 
 # This mode is started only after updating or processing a planet file
 if [ "$MODE" == "roads" ]; then
-  if [ -z "$OSRM_URL" ]; then
-    log "OSRM_URL variable not set. Generate local world OSRM server."
-    putmode "Step RO: Generating whole world OSRM files for osrm-routed server."
-
-    bash "$ROUTING_SCRIPT" stop >> "$PLANET_LOG" 2>&1
-    bash "$ROUTING_SCRIPT" online >> "$PLANET_LOG" 2>&1
-    OSRM_URL="127.0.0.1:10012"
-    bash "$ROUTING_SCRIPT" server >> "$PLANET_LOG" 2>&1
+  if [ -z "${OSRM_URL-}" ]; then
+    log "OSRM_URL variable not set. World roads will not be calculated."
+  else
+    putmode "Step 2a: Generating road networks for the World map"
+    python "$ROADS_SCRIPT" "$INTDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
   fi
-
-  putmode "Step 2a: Generating road networks for the World map"
-  python "$ROADS_SCRIPT" "$INTDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
-
   MODE=inter
 fi
 
@@ -348,6 +340,11 @@ if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
       ) &
     fi
   fi
+fi
+
+if [ -n "$OPT_ONLINE_ROUTING" -a -z "$NO_REGIONS" ]; then
+  putmode "Step RO: Generating OSRM files for osrm-routed server."
+  bash "$ROUTING_SCRIPT" online >> "$PLANET_LOG" 2>&1
 fi
 
 if [ "$MODE" == "inter" ]; then
