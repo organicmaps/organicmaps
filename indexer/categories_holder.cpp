@@ -9,10 +9,8 @@
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
-
 namespace
 {
-
 enum State
 {
   EParseTypes,
@@ -53,7 +51,8 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
       for (size_t j = 0; j < tokens.size(); ++j)
         for (size_t k = 0; k < types.size(); ++k)
           if (ValidKeyToken(tokens[j]))
-            m_name2type.insert(make_pair(make_pair(p->m_synonyms[i].m_locale, tokens[j]), types[k]));
+            m_name2type.insert(
+                make_pair(make_pair(p->m_synonyms[i].m_locale, tokens[j]), types[k]));
     }
   }
 
@@ -67,7 +66,7 @@ bool CategoriesHolder::ValidKeyToken(StringT const & s)
     return true;
 
   /// @todo We need to have global stop words array for the most used languages.
-  for (char const * token : { "a", "z", "s", "d", "di", "de", "le", "wi", "fi", "ra", "ao" })
+  for (char const * token : {"a", "z", "s", "d", "di", "de", "le", "wi", "fi", "ra", "ao"})
     if (s.IsEqualAscii(token))
       return false;
 
@@ -103,113 +102,115 @@ void CategoriesHolder::LoadFromStream(istream & s)
     switch (state)
     {
     case EParseTypes:
+    {
+      AddCategory(cat, types);
+      currentGroups.clear();
+
+      while (iter)
       {
-        AddCategory(cat, types);
-        currentGroups.clear();
-
-        while (iter)
+        // Check if category is a group reference.
+        if ((*iter)[0] == '@')
         {
-          // Check if category is a group reference.
-          if ((*iter)[0] == '@')
-          {
-            CHECK((currentGroups.empty() || !types.empty()), ("Two groups in a group definition at line", lineNumber));
-            currentGroups.push_back(*iter);
-          }
+          CHECK((currentGroups.empty() || !types.empty()),
+                ("Two groups in a group definition at line", lineNumber));
+          currentGroups.push_back(*iter);
+        }
+        else
+        {
+          // Split category to subcategories for classificator.
+          vector<string> v;
+          strings::Tokenize(*iter, "-", MakeBackInsertFunctor(v));
+
+          // Get classificator type.
+          uint32_t const type = c.GetTypeByPathSafe(v);
+          if (type != 0)
+            types.push_back(type);
           else
-          {
-            // Split category to subcategories for classificator.
-            vector<string> v;
-            strings::Tokenize(*iter, "-", MakeBackInsertFunctor(v));
-
-            // Get classificator type.
-            uint32_t const type = c.GetTypeByPathSafe(v);
-            if (type != 0)
-              types.push_back(type);
-            else
-              LOG(LWARNING, ("Invalid type:", v, "at line:", lineNumber));
-          }
-
-          ++iter;
+            LOG(LWARNING, ("Invalid type:", v, "at line:", lineNumber));
         }
 
-        if (!types.empty() || currentGroups.size() == 1)
-          state = EParseLanguages;
+        ++iter;
       }
-      break;
+
+      if (!types.empty() || currentGroups.size() == 1)
+        state = EParseLanguages;
+    }
+    break;
 
     case EParseLanguages:
+    {
+      if (!iter)
       {
-        if (!iter)
+        state = EParseTypes;
+        continue;
+      }
+
+      int8_t const langCode = MapLocaleToInteger(*iter);
+      CHECK(langCode != kUnsupportedLocaleCode,
+            ("Invalid language code:", *iter, "at line:", lineNumber));
+
+      while (++iter)
+      {
+        Category::Name name;
+        name.m_locale = langCode;
+        name.m_name = *iter;
+
+        if (name.m_name.empty())
         {
-          state = EParseTypes;
+          LOG(LWARNING, ("Empty category name at line:", lineNumber));
           continue;
         }
 
-        int8_t const langCode = MapLocaleToInteger(*iter);
-        CHECK(langCode != kUnsupportedLocaleCode, ("Invalid language code:", *iter, "at line:", lineNumber));
-
-        while (++iter)
+        if (name.m_name[0] >= '0' && name.m_name[0] <= '9')
         {
-          Category::Name name;
-          name.m_locale = langCode;
-          name.m_name = *iter;
+          name.m_prefixLengthToSuggest = name.m_name[0] - '0';
+          name.m_name = name.m_name.substr(1);
+        }
+        else
+          name.m_prefixLengthToSuggest = Category::kEmptyPrefixLength;
 
-          if (name.m_name.empty())
+        // Process emoji symbols.
+        using namespace strings;
+        if (StartsWith(name.m_name, "U+"))
+        {
+          auto const code = name.m_name;
+          int c;
+          if (!to_int(name.m_name.c_str() + 2, c, 16))
           {
-            LOG(LWARNING, ("Empty category name at line:", lineNumber));
+            LOG(LWARNING, ("Bad emoji code:", code));
             continue;
           }
 
-          if (name.m_name[0] >= '0' && name.m_name[0] <= '9')
+          name.m_name = ToUtf8(UniString(1, static_cast<UniChar>(c)));
+
+          if (IsASCIIString(ToUtf8(search::NormalizeAndSimplifyString(name.m_name))))
           {
-            name.m_prefixLengthToSuggest = name.m_name[0] - '0';
-            name.m_name = name.m_name.substr(1);
+            LOG(LWARNING, ("Bad emoji code:", code));
+            continue;
           }
-          else
-            name.m_prefixLengthToSuggest = Category::kEmptyPrefixLength;
-
-          // Process emoji symbols.
-          using namespace strings;
-          if (StartsWith(name.m_name, "U+"))
-          {
-            auto const code = name.m_name;
-            int c;
-            if (!to_int(name.m_name.c_str() + 2, c, 16))
-            {
-              LOG(LWARNING, ("Bad emoji code:", code));
-              continue;
-            }
-
-            name.m_name = ToUtf8(UniString(1, static_cast<UniChar>(c)));
-
-            if (IsASCIIString(ToUtf8(search::NormalizeAndSimplifyString(name.m_name))))
-            {
-              LOG(LWARNING, ("Bad emoji code:", code));
-              continue;
-            }
-          }
-
-          if (currentGroups.size() == 1 && types.empty())
-          {
-            // Not a translation, but a category group definition
-            groupTranslations.emplace(currentGroups[0], name);
-          }
-          else
-            cat.m_synonyms.push_back(name);
         }
 
-        if (!types.empty())
+        if (currentGroups.size() == 1 && types.empty())
         {
-          // If a category group is specified, add translations from it.
-          for (string const & group : currentGroups)
-          {
-            auto trans = groupTranslations.equal_range(group);
-            for (auto it = trans.first; it != trans.second; ++it)
-              cat.m_synonyms.push_back(it->second);
-          }
+          // Not a translation, but a category group definition
+          groupTranslations.emplace(currentGroups[0], name);
+        }
+        else
+          cat.m_synonyms.push_back(name);
+      }
+
+      if (!types.empty())
+      {
+        // If a category group is specified, add translations from it.
+        for (string const & group : currentGroups)
+        {
+          auto trans = groupTranslations.equal_range(group);
+          for (auto it = trans.first; it != trans.second; ++it)
+            cat.m_synonyms.push_back(it->second);
         }
       }
-      break;
+    }
+    break;
     }
   }
 
@@ -279,37 +280,11 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
   // TODO(AlexZ): These constants should be updated when adding new
   // translation into categories.txt
   static const Mapping mapping[] = {
-    {"en", 1 },
-    {"ru", 2 },
-    {"uk", 3 },
-    {"de", 4 },
-    {"fr", 5 },
-    {"it", 6 },
-    {"es", 7 },
-    {"ko", 8 },
-    {"ja", 9 },
-    {"cs", 10 },
-    {"nl", 11 },
-    {"zh-Hant", 12 },
-    {"pl", 13 },
-    {"pt", 14 },
-    {"hu", 15 },
-    {"th", 16 },
-    {"zh-Hans", 17 },
-    {"ar", 18 },
-    {"da", 19 },
-    {"tr", 20 },
-    {"sk", 21 },
-    {"sv", 22 },
-    {"vi", 23 },
-    {"id", 24 },
-    {"ro", 25 },
-    {"nb", 26 },
-    {"fi", 27 },
-    {"el", 28 },
-    {"he", 29 },
-    {"sw", 30 }
-  };
+      {"en", 1},  {"ru", 2},  {"uk", 3},  {"de", 4},  {"fr", 5},       {"it", 6},
+      {"es", 7},  {"ko", 8},  {"ja", 9},  {"cs", 10}, {"nl", 11},      {"zh-Hant", 12},
+      {"pl", 13}, {"pt", 14}, {"hu", 15}, {"th", 16}, {"zh-Hans", 17}, {"ar", 18},
+      {"da", 19}, {"tr", 20}, {"sk", 21}, {"sv", 22}, {"vi", 23},      {"id", 24},
+      {"ro", 25}, {"nb", 26}, {"fi", 27}, {"el", 28}, {"he", 29},      {"sw", 30}};
   static_assert(ARRAY_SIZE(mapping) == kNumLanguages, "");
   for (size_t i = 0; i < kNumLanguages; ++i)
   {
@@ -325,9 +300,9 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
 
     for (char const * s : {"hant", "tw", "hk", "mo"})
       if (lower.find(s) != string::npos)
-        return 12; // Traditional Chinese
+        return 12;  // Traditional Chinese
 
-    return 17; // Simplified Chinese by default for all other cases
+    return 17;  // Simplified Chinese by default for all other cases
   }
 
   return kUnsupportedLocaleCode;
