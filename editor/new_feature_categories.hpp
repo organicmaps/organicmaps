@@ -27,6 +27,10 @@ public:
   {
   }
 
+  NewFeatureCategories() = default;
+
+  NewFeatureCategories & operator=(NewFeatureCategories && other) = default;
+
   // Adds all known synonyms in language |lang| for all categories that
   // can be applied to a newly added feature.
   void AddLanguage(string const & lang);

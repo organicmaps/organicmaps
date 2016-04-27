@@ -21,6 +21,8 @@ public:
     other.m_numNodes = 0;
   }
 
+  MemTrie & operator=(MemTrie && other) = default;
+
   // Adds a key-value pair to the trie.
   void Add(TString const & key, TValue const & value)
   {
@@ -60,6 +62,8 @@ private:
     Node() = default;
 
     Node(Node && other) = default;
+
+    Node & operator=(Node && other) = default;
 
     ~Node()
     {

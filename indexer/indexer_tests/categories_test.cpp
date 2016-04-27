@@ -107,7 +107,7 @@ UNIT_TEST(CategoriesIndex_Smoke)
 
   CategoriesHolder holder(
       make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
-  CategoriesIndex index(holder);
+  CategoriesIndex index(&holder);
 
   uint32_t type1 = classif().GetTypeByPath({"amenity", "bench"});
   uint32_t type2 = classif().GetTypeByPath({"place", "village"});
@@ -136,7 +136,7 @@ UNIT_TEST(CategoriesIndex_Smoke)
   index.AddCategoryByTypeAndLang(type2, lang1);
   testTypes("i", {type1, type2});
 
-  CategoriesIndex fullIndex(holder);
+  CategoriesIndex fullIndex(&holder);
   fullIndex.AddCategoryByTypeAllLangs(type1);
   fullIndex.AddCategoryByTypeAllLangs(type2);
   vector<CategoriesHolder::Category> cats;
@@ -167,7 +167,7 @@ UNIT_TEST(CategoriesIndex_MultipleTokens)
 
   classificator::Load();
   CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
-  CategoriesIndex index(holder);
+  CategoriesIndex index(&holder);
 
   index.AddAllCategoriesInAllLangs();
   auto testTypes = [&](string const & query, vector<uint32_t> const & expected)

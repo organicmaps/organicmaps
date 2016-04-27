@@ -27,6 +27,7 @@
 		34FFB34D1C316A7600BFF6C3 /* server_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34FFB34B1C316A7600BFF6C3 /* server_api.hpp */; };
 		F60F02EE1C92CBF1003A0AF6 /* editor_notes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F60F02EC1C92CBF1003A0AF6 /* editor_notes.cpp */; };
 		F60F02EF1C92CBF1003A0AF6 /* editor_notes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F60F02ED1C92CBF1003A0AF6 /* editor_notes.hpp */; };
+		F6DF5F2F1CD0FD6A00A87154 /* new_feature_categories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF5F2E1CD0FD6A00A87154 /* new_feature_categories.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		34FFB34B1C316A7600BFF6C3 /* server_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server_api.hpp; sourceTree = "<group>"; };
 		F60F02EC1C92CBF1003A0AF6 /* editor_notes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor_notes.cpp; sourceTree = "<group>"; };
 		F60F02ED1C92CBF1003A0AF6 /* editor_notes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_notes.hpp; sourceTree = "<group>"; };
+		F6DF5F2E1CD0FD6A00A87154 /* new_feature_categories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = new_feature_categories.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 		341138731C15AE02002E3B3E /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				F6DF5F2E1CD0FD6A00A87154 /* new_feature_categories.cpp */,
 				F60F02EC1C92CBF1003A0AF6 /* editor_notes.cpp */,
 				F60F02ED1C92CBF1003A0AF6 /* editor_notes.hpp */,
 				34527C4F1C89B1770015050E /* editor_config.cpp */,
@@ -196,6 +199,7 @@
 				34527C511C89B1770015050E /* editor_config.cpp in Sources */,
 				34FFB34C1C316A7600BFF6C3 /* server_api.cpp in Sources */,
 				F60F02EE1C92CBF1003A0AF6 /* editor_notes.cpp in Sources */,
+				F6DF5F2F1CD0FD6A00A87154 /* new_feature_categories.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

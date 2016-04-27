@@ -52,11 +52,11 @@ namespace indexer
 {
 void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
 {
-  m_catHolder.ForEachNameByType(type, [&](TCategory::Name const & name)
-                                {
-                                  if (name.m_locale == lang)
-                                    TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
-                                });
+  m_catHolder->ForEachNameByType(type, [&](TCategory::Name const & name)
+                                 {
+                                   if (name.m_locale == lang)
+                                     TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
+                                 });
 }
 
 void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
@@ -67,23 +67,23 @@ void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
 
 void CategoriesIndex::AddAllCategoriesInLang(int8_t lang)
 {
-  m_catHolder.ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
-                                     {
-                                       for (auto const & name : cat.m_synonyms)
-                                       {
-                                         if (name.m_locale == lang)
-                                           TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
-                                       }
-                                     });
+  m_catHolder->ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
+                                      {
+                                        for (auto const & name : cat.m_synonyms)
+                                        {
+                                          if (name.m_locale == lang)
+                                            TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
+                                        }
+                                      });
 }
 
 void CategoriesIndex::AddAllCategoriesInAllLangs()
 {
-  m_catHolder.ForEachTypeAndCategory([this](uint32_t type, TCategory const & cat)
-                                     {
-                                       for (auto const & name : cat.m_synonyms)
-                                         TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
-                                     });
+  m_catHolder->ForEachTypeAndCategory([this](uint32_t type, TCategory const & cat)
+                                      {
+                                        for (auto const & name : cat.m_synonyms)
+                                          TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
+                                      });
 }
 
 void CategoriesIndex::GetCategories(string const & query, vector<TCategory> & result) const
@@ -91,11 +91,11 @@ void CategoriesIndex::GetCategories(string const & query, vector<TCategory> & re
   vector<uint32_t> types;
   GetAssociatedTypes(query, types);
   my::SortUnique(types);
-  m_catHolder.ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
-                                     {
-                                       if (binary_search(types.begin(), types.end(), type))
-                                         result.push_back(cat);
-                                     });
+  m_catHolder->ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
+                                      {
+                                        if (binary_search(types.begin(), types.end(), type))
+                                          result.push_back(cat);
+                                      });
 }
 
 void CategoriesIndex::GetAssociatedTypes(string const & query, vector<uint32_t> & result) const

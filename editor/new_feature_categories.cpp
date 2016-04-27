@@ -36,7 +36,7 @@ void NewFeatureCategories::AddLanguage(string const & lang)
   for (auto const & type : m_types)
   {
     m_index.AddCategoryByTypeAndLang(type, langCode);
-    names.push_back(m_index.GetCategoriesHolder().GetReadableFeatureType(type, langCode));
+    names.push_back(m_index.GetCategoriesHolder()->GetReadableFeatureType(type, langCode));
   }
   my::SortUnique(names);
   m_categoryNames[lang] = names;
@@ -50,7 +50,7 @@ vector<string> NewFeatureCategories::Search(string const & query, string const &
 
   vector<string> result(resultTypes.size());
   for (size_t i = 0; i < result.size(); ++i)
-    result[i] = m_index.GetCategoriesHolder().GetReadableFeatureType(resultTypes[i], langCode);
+    result[i] = m_index.GetCategoriesHolder()->GetReadableFeatureType(resultTypes[i], langCode);
   my::SortUnique(result);
   return result;
 }
