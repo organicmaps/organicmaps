@@ -314,7 +314,8 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     }
     else
     {
-      ChangeModelView(m_position, kDoNotChangeZoom);
+      if (!AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
+        ChangeModelView(m_position, kDoNotChangeZoom);
     }
   }
   else if (!m_isPositionAssigned)
