@@ -19,7 +19,8 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
     {"highway", "speed_camera"},
     {"waterway", "waterfall"},
     {"natural", "volcano"},
-    {"natural", "cave_entrance"}
+    {"natural", "cave_entrance"},
+    {"natural", "beach"}
   };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
