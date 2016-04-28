@@ -54,7 +54,7 @@ import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.news.FirstStartFragment;
-import com.mapswithme.maps.news.NewsFragment;
+import com.mapswithme.maps.news.SinglePageNewsFragment;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.RoutingInfo;
@@ -931,7 +931,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           }
         });
       }
-      if (!isFirstStart && !NewsFragment.showOn(this))
+      if (!isFirstStart && !SinglePageNewsFragment.showOn(this))
       {
         if (ViralFragment.shouldDisplay())
           new ViralFragment().show(getSupportFragmentManager(), "");
