@@ -317,6 +317,7 @@ public:
   void OnLocationUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
   void SwitchMyPositionNextMode();
+  bool GetMyPosition(m2::PointD & myPosition);
   /// Should be set before Drape initialization. Guarantees that fn is called in main thread context.
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 

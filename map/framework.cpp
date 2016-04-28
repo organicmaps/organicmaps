@@ -2124,18 +2124,22 @@ int64_t Framework::GetCurrentDataVersion()
   return m_storage.GetCurrentDataVersion();
 }
 
+bool Framework::GetMyPosition(m2::PointD & myPosition)
+{
+  return m_drapeEngine->GetMyPosition(myPosition);
+}
+
 void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
   ASSERT(m_drapeEngine != nullptr, ());
 
   m2::PointD start;
-  if (!m_drapeEngine->GetMyPosition(start))
+  if (!GetMyPosition(start))
   {
     CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
     return;
   }
-
   BuildRoute(start, finish, timeoutSec);
 }
 
