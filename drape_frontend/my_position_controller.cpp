@@ -644,10 +644,7 @@ void MyPositionController::DeactivateRouting()
     m_isInRouting = false;
 
     ChangeMode(location::Follow);
-    if (m_mode == location::FollowAndRotate)
-      ChangeModelView(m_position, 0.0, m_centerPixelPosition, kDoNotChangeZoom);
-    else
-      ChangeModelView(0.0);
+    ChangeModelView(m_position, 0.0, m_centerPixelPosition, kDoNotChangeZoom);
   }
 }
 

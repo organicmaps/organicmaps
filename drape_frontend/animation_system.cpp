@@ -991,7 +991,13 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
     for (auto it = lst.begin(); it != lst.end();)
     {
       auto & anim = *it;
-      if (!anim->CouldBeBlendedWith(*animation))
+      if (anim->GetInterruptedOnCombine())
+      {
+        anim->Interrupt();
+        SaveAnimationResult(*anim);
+        it = lst.erase(it);
+      }
+      else if (!anim->CouldBeBlendedWith(*animation))
       {
         if (!anim->CouldBeInterrupted())
         {
@@ -1014,6 +1020,7 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
       return;
     }
   }
+
   PushAnimation(move(animation));
 }
 
