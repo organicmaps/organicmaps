@@ -462,11 +462,6 @@ using namespace mwm;
   return 28.0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-  return 0.0;
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
   CGFloat const width = CGRectGetWidth(tableView.bounds);
