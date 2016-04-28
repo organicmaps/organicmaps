@@ -578,8 +578,11 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
       [[MapsAppDelegate theApp].locationManager start:self];
       break;
     case location::NotFollowNoPosition:
+    {
       self.disableStandbyOnLocationStateMode = NO;
-      if (![Alohalytics isFirstSession] && [MapsAppDelegate theApp].locationManager.isStarted)
+      BOOL const isLocationManagerStarted = [MapsAppDelegate theApp].locationManager.isStarted;
+      BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
+      if (isLocationManagerStarted && isMapVisible && ![Alohalytics isFirstSession])
       {
         [self.alertController presentLocationNotFoundAlertWithOkBlock:^
         {
@@ -591,6 +594,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
         }];
       }
       break;
+    }
     case location::NotFollow:
       self.disableStandbyOnLocationStateMode = NO;
       break;
