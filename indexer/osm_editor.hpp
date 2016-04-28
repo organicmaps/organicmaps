@@ -35,6 +35,7 @@ public:
   using TFeatureOriginalStreetFn = function<string(FeatureType & /*ft*/)>;
   using TForEachFeaturesNearByFn =
       function<void(TFeatureTypeFn && /*fn*/, m2::PointD const & /*mercator*/)>;
+
   enum class UploadResult
   {
     Success,

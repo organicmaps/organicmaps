@@ -313,7 +313,7 @@ void Editor::ClearAllLocalEdits()
 {
   m_features.clear();
   Save(GetEditorFilePath());
-  m_invalidateFn();
+  Invalidate();
 }
 
 Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
@@ -473,6 +473,7 @@ bool Editor::RollBackChanges(FeatureID const & fid)
     return false;
 
   RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
+  Invalidate();
   return true;
 }
 
