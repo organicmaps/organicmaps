@@ -32,9 +32,10 @@ jmethodID g_localStreetCtor;
 jfieldID g_localStreetFieldDef;
 jfieldID g_localStreetFieldLoc;
 
-jobject ToJavaFeatureCategory(JNIEnv * env, osm::Category const & category)
+jobject ToJavaFeatureCategory(JNIEnv * env, osm::NewFeatureCategories::TName const & category)
 {
-  return env->NewObject(g_featureCategoryClazz, g_featureCtor, category.m_type, jni::TScopedLocalRef(env, jni::ToJavaString(env, category.m_name)).get());
+  return env->NewObject(g_featureCategoryClazz, g_featureCtor, category.second,
+                        jni::TScopedLocalRef(env, jni::ToJavaString(env, category.first)).get());
 }
 
 jobject ToJavaName(JNIEnv * env, osm::LocalizedName const & name)
@@ -51,6 +52,12 @@ jobject ToJavaStreet(JNIEnv * env, osm::LocalizedStreet const & street)
   return env->NewObject(g_localStreetClazz, g_localStreetCtor,
                         jni::TScopedLocalRef(env, jni::ToJavaString(env, street.m_defaultName)).get(),
                         jni::TScopedLocalRef(env, jni::ToJavaString(env, street.m_localizedName)).get());
+}
+
+osm::NewFeatureCategories & GetFeatureCategories()
+{
+  static osm::NewFeatureCategories categories = g_framework->NativeFramework()->GetEditorCategories();
+  return categories;
 }
 }  // namespace
 
@@ -395,16 +402,22 @@ Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv *, jclass, j
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetNewFeatureCategories(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_editor_Editor_nativeGetAllFeatureCategories(JNIEnv * env, jclass clazz, jstring jLang)
 {
-  return jni::ToJavaArray(env, g_featureCategoryClazz, g_framework->NativeFramework()->GetEditorCategories().m_allSorted,
+  string const & lang = jni::ToNativeString(env, jLang);
+  GetFeatureCategories().AddLanguage(lang);
+  return jni::ToJavaArray(env, g_featureCategoryClazz,
+                          GetFeatureCategories().GetAllCategoryNames(lang),
                           ToJavaFeatureCategory);
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetUsedFeatureCategories(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_editor_Editor_nativeSearchFeatureCategories(JNIEnv * env, jclass clazz, jstring query, jstring jLang)
 {
-  return jni::ToJavaArray(env, g_featureCategoryClazz, g_framework->NativeFramework()->GetEditorCategories().m_lastUsed,
+  string const & lang = jni::ToNativeString(env, jLang);
+  GetFeatureCategories().AddLanguage(lang);
+  return jni::ToJavaArray(env, g_featureCategoryClazz,
+                          GetFeatureCategories().Search(jni::ToNativeString(env, query), lang),
                           ToJavaFeatureCategory);
 }
 

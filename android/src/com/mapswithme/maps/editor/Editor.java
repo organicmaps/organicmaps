@@ -119,8 +119,10 @@ public final class Editor
    */
   public static native boolean nativeSaveEditedFeature();
 
-  public static native FeatureCategory[] nativeGetNewFeatureCategories();
-  public static native FeatureCategory[] nativeGetUsedFeatureCategories();
+  @NonNull
+  public static native FeatureCategory[] nativeGetAllFeatureCategories(String lang);
+  @NonNull
+  public static native FeatureCategory[] nativeSearchFeatureCategories(String query, String lang);
 
   /**
    * Creates new object on the map. Places it in the center of current viewport.
