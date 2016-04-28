@@ -53,6 +53,7 @@ public class MapFragment extends BaseMwmFragment
   private int mWidth;
   private boolean mRequireResize;
   private boolean mEngineCreated;
+  private boolean mFirstStart;
   private static boolean sWasCopyrightDisplayed;
 
   interface MapRenderingListener
@@ -152,8 +153,8 @@ public class MapFragment extends BaseMwmFragment
     getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     final float exactDensityDpi = metrics.densityDpi;
 
-    boolean isFirstLaunch = false; //TODO(Android team): set correct value
-    mEngineCreated = nativeCreateEngine(surface, (int) exactDensityDpi, isFirstLaunch);
+    mFirstStart = ((MwmActivity) getMwmActivity()).isFirstStart();
+    mEngineCreated = nativeCreateEngine(surface, (int) exactDensityDpi, mFirstStart);
     if (!mEngineCreated)
     {
       reportUnsupported();
@@ -268,6 +269,16 @@ public class MapFragment extends BaseMwmFragment
                       event.getPointerId(1), event.getX(1), event.getY(1), pointerIndex);
         return true;
     }
+  }
+
+  boolean isFirstStart()
+  {
+    return mFirstStart;
+  }
+
+  void clearFirstStart()
+  {
+    mFirstStart = false;
   }
 
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);

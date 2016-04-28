@@ -120,6 +120,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private final Stack<MapTask> mTasks = new Stack<>();
   private final StoragePathManager mPathManager = new StoragePathManager();
 
+  private boolean mFirstStart;
+
   private View mMapFrame;
 
   private MapFragment mMapFragment;
@@ -835,6 +837,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     case LocationState.NOT_FOLLOW_NO_POSITION:
       pauseLocation();
 
+      if (mMapFragment != null && mMapFragment.isFirstStart())
+      {
+        mMapFragment.clearFirstStart();
+        return;
+      }
+
       String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
                                                  getString(R.string.current_location_unknown_title));
       new AlertDialog.Builder(this)
@@ -918,8 +926,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!RoutingController.get().isNavigating())
     {
-      boolean isFirstStart = FirstStartFragment.showOn(this);
-      if (isFirstStart)
+      mFirstStart = FirstStartFragment.showOn(this);
+      if (mFirstStart)
       {
         addTask(new MwmActivity.MapTask()
         {
@@ -931,7 +939,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           }
         });
       }
-      if (!isFirstStart && !SinglePageNewsFragment.showOn(this))
+      if (!mFirstStart && !SinglePageNewsFragment.showOn(this))
       {
         if (ViralFragment.shouldDisplay())
           new ViralFragment().show(getSupportFragmentManager(), "");
@@ -1464,5 +1472,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mRoutingPlanInplaceController.updateBuildProgress(progress, router);
     }
+  }
+
+  boolean isFirstStart()
+  {
+    boolean res = mFirstStart;
+    mFirstStart = false;
+    return res;
   }
 }
