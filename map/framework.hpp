@@ -639,14 +639,20 @@ public:
 public:
   /// @name Editor interface.
   //@{
+  osm::Editor const & GetEditor() const { return m_editor; };
+
   /// Initializes feature for Create Object UI.
   /// @returns false in case when coordinate is in the ocean or mwm is not downloaded.
   bool CreateMapObject(m2::PointD const & mercator, uint32_t const featureType, osm::EditableMapObject & emo) const;
   /// @returns false if feature is invalid or can't be edited.
   bool GetEditableMapObject(FeatureID const & fid, osm:: EditableMapObject & emo) const;
   osm::Editor::SaveResult SaveEditedMapObject(osm::EditableMapObject emo);
+
   void DeleteFeature(FeatureID const & fid) const;
   osm::NewFeatureCategories GetEditorCategories() const;
+
+private:
+  osm::Editor m_editor;
   //@}
 
 private:

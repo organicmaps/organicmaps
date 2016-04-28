@@ -137,10 +137,16 @@ namespace osm
 // (e.g. insert/remove spaces after ';' delimeter);
 
 Editor::Editor() : m_notes(editor::Notes::MakeNotes()) {}
+
 Editor & Editor::Instance()
 {
-  static Editor instance;
-  return instance;
+  ASSERT(s_instance, ("nullptr dereference."));
+  return *s_instance;
+}
+
+void Editor::SetInstance(Editor * editor)
+{
+  s_instance = editor;
 }
 
 void Editor::LoadMapEdits()
@@ -968,4 +974,6 @@ string DebugPrint(Editor::FeatureStatus fs)
 }
 
 const char * const Editor::kPlaceDoesNotExistMessage = "The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground.";
+
+Editor * Editor::s_instance = nullptr;
 }  // namespace osm

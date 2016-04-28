@@ -24,8 +24,6 @@ namespace osm
 {
 class Editor final
 {
-  Editor();
-
 public:
   using TFeatureTypeFn = function<void(FeatureType &)>;  // Mimics Framework::TFeatureTypeFn.
 
@@ -52,7 +50,10 @@ public:
     Created
   };
 
+  Editor();
+
   static Editor & Instance();
+  static void SetInstance(Editor * editor);
 
   void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn const & fn) { m_mwmIdByMapNameFn = fn; }
   void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
@@ -202,6 +203,8 @@ private:
 
   /// Notes to be sent to osm.
   shared_ptr<editor::Notes> m_notes;
+
+  static Editor * s_instance;
 };  // class Editor
 
 string DebugPrint(Editor::FeatureStatus fs);

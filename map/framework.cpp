@@ -366,13 +366,13 @@ Framework::Framework()
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 
-  osm::Editor & editor = osm::Editor::Instance();
-  editor.SetMwmIdByNameAndVersionFn([this](string const & name) -> MwmSet::MwmId
+  osm::Editor::SetInstance(&m_editor);
+  m_editor.SetMwmIdByNameAndVersionFn([this](string const & name) -> MwmSet::MwmId
   {
     return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
   });
-  editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
-  editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> unique_ptr<FeatureType>
+  m_editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
+  m_editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> unique_ptr<FeatureType>
   {
     unique_ptr<FeatureType> feature(new FeatureType());
     Index::FeaturesLoaderGuard const guard(m_model.GetIndex(), fid.m_mwmId);
@@ -380,7 +380,7 @@ Framework::Framework()
     feature->ParseEverything();
     return feature;
   });
-  editor.SetFeatureOriginalStreetFn([this](FeatureType & ft) -> string
+  m_editor.SetFeatureOriginalStreetFn([this](FeatureType & ft) -> string
   {
     search::ReverseGeocoder const coder(m_model.GetIndex());
     auto const streets = coder.GetNearbyFeatureStreets(ft);
@@ -388,8 +388,8 @@ Framework::Framework()
       return streets.first[streets.second].m_name;
     return {};
   });
-  editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2));
-  editor.LoadMapEdits();
+  m_editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2));
+  m_editor.LoadMapEdits();
 }
 
 Framework::~Framework()
@@ -397,6 +397,7 @@ Framework::~Framework()
   m_drapeEngine.reset();
 
   m_model.SetOnMapDeregisteredCallback(nullptr);
+  m_editor.SetInstance(nullptr);
 }
 
 void Framework::DrawWatchFrame(m2::PointD const & center, int zoomModifier,
@@ -2763,12 +2764,12 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
       // Such a notification have been already sent. I.e at least one of
       // street of house number should differ in emo and editor.
       shouldNotify = !isCreatedFeature &&
-                     (editor.GetEditedFeature(emo.GetID(), editedFeature) &&
-                      !editedFeature.GetHouseNumber().empty() &&
-                      editedFeature.GetHouseNumber() != emo.GetHouseNumber()) ||
-                     (editor.GetEditedFeatureStreet(emo.GetID(), editedFeatureStreet) &&
-                      !editedFeatureStreet.empty() &&
-                      editedFeatureStreet != emo.GetStreet().m_defaultName);
+                     ((editor.GetEditedFeature(emo.GetID(), editedFeature) &&
+                       !editedFeature.GetHouseNumber().empty() &&
+                       editedFeature.GetHouseNumber() != emo.GetHouseNumber()) ||
+                      (editor.GetEditedFeatureStreet(emo.GetID(), editedFeatureStreet) &&
+                       !editedFeatureStreet.empty() &&
+                       editedFeatureStreet != emo.GetStreet().m_defaultName));
     }
   } while (0);
 
