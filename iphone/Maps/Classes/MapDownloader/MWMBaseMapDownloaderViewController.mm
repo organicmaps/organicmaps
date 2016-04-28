@@ -3,6 +3,7 @@
 #import "MWMAlertViewController.h"
 #import "MWMButton.h"
 #import "MWMFrameworkListener.h"
+#import "MWMMapDownloaderCellHeader.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
@@ -464,6 +465,16 @@ using namespace mwm;
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
   return 0.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  CGFloat const width = CGRectGetWidth(tableView.bounds);
+  CGFloat const height = [self tableView:tableView heightForHeaderInSection:section];
+  MWMMapDownloaderCellHeader * headerView =
+      [[MWMMapDownloaderCellHeader alloc] initWithFrame:{{}, {width, height}}];
+  headerView.text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+  return headerView;
 }
 
 #pragma mark - UILongPressGestureRecognizer
