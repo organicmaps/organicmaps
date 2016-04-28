@@ -6,9 +6,15 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map drape_frontend routing search storage indexer drape platform_tests_support platform editor opening_hours geometry \
-               coding base freetype expat fribidi tomcrypt jansson protobuf osrm stats_client \
-               minizip succinct pugixml oauthcpp
+
+macx*|win32*|linux* {
+DEPENDENCIES = generator_tests_support generator
+}
+
+DEPENDENCIES *= drape_frontend map routing \
+                search storage indexer drape platform_tests_support platform editor opening_hours geometry \
+                coding base freetype expat fribidi tomcrypt jansson tess2 protobuf osrm stats_client \
+                minizip succinct pugixml oauthcpp
 
 include($$ROOT_DIR/common.pri)
 

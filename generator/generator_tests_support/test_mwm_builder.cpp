@@ -1,10 +1,9 @@
-#include "search/search_tests_support/test_mwm_builder.hpp"
-
-#include "search/search_tests_support/test_feature.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
+#include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/search_index_builder.hpp"
 
 #include "indexer/data_header.hpp"
@@ -20,7 +19,7 @@
 
 #include "defines.hpp"
 
-namespace search
+namespace generator
 {
 namespace tests_support
 {
@@ -87,4 +86,4 @@ void TestMwmBuilder::Finish()
   m_file.SyncWithDisk();
 }
 }  // namespace tests_support
-}  // namespace search
+}  // namespace generator

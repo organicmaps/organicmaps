@@ -622,7 +622,9 @@ class PreResult2Maker
 
     info.m_nameScore = v2::NAME_SCORE_ZERO;
 
-    v2::TokenSliceNoCategories slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
+    v2::TokenSlice slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
+    v2::TokenSliceNoCategories sliceNoCategories(m_params, preInfo.m_startToken,
+                                                 preInfo.m_endToken);
 
     for (auto const & lang : m_params.m_langs)
     {
@@ -633,10 +635,11 @@ class PreResult2Maker
       SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
 
       UpdateNameScore(tokens, slice, info.m_nameScore, info.m_nameCoverage);
+      UpdateNameScore(tokens, sliceNoCategories, info.m_nameScore, info.m_nameCoverage);
     }
 
     if (info.m_searchType == v2::SearchModel::SEARCH_TYPE_BUILDING)
-      UpdateNameScore(ft.GetHouseNumber(), slice, info.m_nameScore);
+      UpdateNameScore(ft.GetHouseNumber(), sliceNoCategories, info.m_nameScore);
   }
 
   uint8_t NormalizeRank(uint8_t rank, v2::SearchModel::SearchType type, m2::PointD const & center,

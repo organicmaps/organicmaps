@@ -12,6 +12,11 @@
 
 #include "storage/storage_integration_tests/test_defines.hpp"
 
+#if defined(OMIM_OS_DESKTOP)
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
+#endif  // defined(OMIM_OS_DESKTOP)
+
+#include "indexer/classificator_loader.hpp"
 #include "indexer/indexer_tests/test_mwm_set.hpp"
 
 #include "platform/country_file.hpp"
@@ -44,11 +49,13 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
+using namespace generator::tests_support;
+using namespace platform::tests_support;
 using namespace platform;
 
 namespace storage
 {
-string const kMapTestDir = string("map-tests");
+string const kMapTestDir = "map-tests";
 
 namespace
 {
@@ -1372,52 +1379,46 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST(!nodeAttrs.m_present, ());
 }
 
+#if defined(OMIM_OS_DESKTOP)
 UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
 {
-  string const kFakeMwmDir = "1";
+  classificator::Load();
   WritableDirChanger writableDirChanger(kMapTestDir);
-  
-  string const kFakeMwmPath = my::JoinFoldersToPath(GetPlatform().WritableDir(), kFakeMwmDir);
-  GetPlatform().MkDir(kFakeMwmPath);
-  
-  // First 150 bytes of http://direct.mapswithme.com/direct/160315/Norway_Bouvet Island.mwm
-  unsigned char const kMwmData[] =
-  {0xA5,0x35,0x00,0x00,0x00,0x00,0x00,0x00,0x4D,0x57,0x4D,0x00,0x07,0xAA,0xBB
-  ,0x9B,0xB7,0x05,0x00,0x00,0x00,0x00,0x00,0x00,0x1B,0x82,0x8C,0xD8,0x9C,0xFB
-  ,0xB4,0xA0,0x0C,0x80,0x80,0x80,0x80,0x80,0x80,0xC0,0x18,0xAA,0xD5,0xAA,0xD5
-  ,0xAA,0xD5,0x8A,0x1A,0x04,0x0A,0x0C,0x0E,0x11,0x00,0x04,0x07,0x40,0x13,0xF0
-  ,0x00,0x00,0x00,0x00,0x0F,0x21,0xBE,0x01,0x6A,0xF0,0xB5,0x90,0xE3,0xB2,0x98
-  ,0x02,0x00,0x00,0x00,0x00,0x0C,0x40,0xF9,0x01,0xF0,0xD1,0x01,0xC1,0x03,0xE2
-  ,0x04,0x95,0x05,0x9D,0x01,0x48,0x5D,0x8F,0x01,0x80,0x42,0x6F,0x75,0x76,0x65
-  ,0x74,0xC3,0xB8,0x79,0x61,0x86,0x42,0x6F,0x75,0x76,0x65,0x74,0x69,0x6E,0x73
-  ,0x65,0x6C,0x81,0x42,0x6F,0x75,0x76,0x65,0x74,0x20,0x49,0x73,0x6C,0x61,0x6E
-  ,0x64,0x95,0x49,0x73,0x6C,0x61,0x20,0x42,0x6F,0x75,0x76,0x65,0x74,0x83,0xC3
-  };
-  static_assert(150 == sizeof(kMwmData), "Incorrect data size");
-  
+
+  Platform & platform = GetPlatform();
+
+  string const kVersion1Dir = my::JoinFoldersToPath(platform.WritableDir(), "1");
+  platform.MkDir(kVersion1Dir);
+
+  LocalCountryFile country1(kVersion1Dir, CountryFile("OutdatedCountry1"), 1);
+  LocalCountryFile country2(kVersion1Dir, CountryFile("OutdatedCountry2"), 1);
+
   {
-    FileWriter file(my::JoinFoldersToPath(GetPlatform().WritableDir(), "OutdatedCountry1.mwm"));
-    file.Write(kMwmData, sizeof(kMwmData));
+    TestMwmBuilder builder(country1, feature::DataHeader::country);
   }
   {
-    FileWriter file(my::JoinFoldersToPath(GetPlatform().WritableDir(), "OutdatedCountry2.mwm"));
-    file.Write(kMwmData, sizeof(kMwmData));
+    TestMwmBuilder builder(country2, feature::DataHeader::country);
   }
-  
+
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
   storage.RegisterAllLocalMaps();
+
+  country1.SyncWithDisk();
+  country2.SyncWithDisk();
+  auto const country1Size = country1.GetSize(MapOptions::Map);
+  auto const country2Size = country2.GetSize(MapOptions::Map);
 
   Storage::UpdateInfo updateInfo;
 
   storage.GetUpdateInfo("OutdatedCountry1", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 1, ());
   TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 50, ());
-  TEST_EQUAL(updateInfo.m_sizeDifference, -100, ());
+  TEST_EQUAL(updateInfo.m_sizeDifference, 50 - country1Size, ());
 
   storage.GetUpdateInfo("OutdatedCountry2", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 1, ());
   TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 1000, ());
-  TEST_EQUAL(updateInfo.m_sizeDifference, 850, ());
+  TEST_EQUAL(updateInfo.m_sizeDifference, 1000 - country2Size, ());
 
   storage.GetUpdateInfo("Abkhazia", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 0, ());
@@ -1434,8 +1435,9 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   storage.GetUpdateInfo(storage.GetRootId(), updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 2, ());
   TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 1050, ());
-  TEST_EQUAL(updateInfo.m_sizeDifference, 750, ());
+  TEST_EQUAL(updateInfo.m_sizeDifference, (1000 + 50) - (country1Size + country2Size), ());
 }
+#endif  // defined(OMIM_OS_DESKTOP)
 
 UNIT_TEST(StorageTest_ParseStatus)
 {
