@@ -415,7 +415,6 @@ using namespace osm_auth_ios;
   if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
     [notificationManager processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey] onLaunch:YES];
 
-  [MWMStorage startSession];
   if ([Alohalytics isFirstSession])
     [self firstLaunchSetup];
   else
