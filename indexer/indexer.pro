@@ -47,6 +47,7 @@ SOURCES += \
     map_style.cpp \
     map_style_reader.cpp \
     mwm_set.cpp \
+    new_feature_categories.cpp \  # it's in indexer because of CategoriesHolder dependency.
     old/feature_loader_101.cpp \
     osm_editor.cpp \
     point_to_int64.cpp \
@@ -100,6 +101,7 @@ HEADERS += \
     map_style.hpp \
     map_style_reader.hpp \
     mwm_set.hpp \
+    new_feature_categories.hpp \  # it's in indexer because of CategoriesHolder dependency.
     old/feature_loader_101.hpp \
     old/interval_index_101.hpp \
     osm_editor.hpp \

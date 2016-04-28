@@ -17,6 +17,7 @@
 
 #include "indexer/data_header.hpp"
 #include "indexer/map_style.hpp"
+#include "indexer/new_feature_categories.hpp"
 
 #include "search/query_saver.hpp"
 #include "search/search_engine.hpp"
@@ -30,8 +31,6 @@
 
 #include "routing/router.hpp"
 #include "routing/routing_session.hpp"
-
-#include "editor/new_feature_categories.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"

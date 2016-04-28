@@ -12,7 +12,6 @@ SOURCES += \
   changeset_wrapper.cpp \
   editor_config.cpp \
   editor_notes.cpp \
-  new_feature_categories.cpp \
   opening_hours_ui.cpp \
   osm_auth.cpp \
   osm_feature_matcher.cpp \
@@ -24,7 +23,6 @@ HEADERS += \
   changeset_wrapper.hpp \
   editor_config.hpp \
   editor_notes.hpp \
-  new_feature_categories.hpp \
   opening_hours_ui.hpp \
   osm_auth.hpp \
   osm_feature_matcher.hpp \
