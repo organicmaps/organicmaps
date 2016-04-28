@@ -142,6 +142,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 @property (nonatomic) MWMEditorNotesFooter * footer;
 @property (copy, nonatomic) NSString * note;
 @property (nonatomic) osm::Editor::FeatureStatus featureStatus;
+@property (nonatomic) BOOL isFeatureUploaded;
 
 @end
 
@@ -158,8 +159,9 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   [super viewDidLoad];
   [self configTable];
   [self configNavBar];
-  auto const & featureID = m_mapObject.GetID();
-  self.featureStatus = osm::Editor::Instance().GetFeatureStatus(featureID.m_mwmId, featureID.m_index);
+  auto const & fid = m_mapObject.GetID();
+  self.featureStatus = osm::Editor::Instance().GetFeatureStatus(fid.m_mwmId, fid.m_index);
+  self.isFeatureUploaded = osm::Editor::Instance().IsFeatureUploaded(fid.m_mwmId, fid.m_index);
 }
 
 - (void)setFeatureToEdit:(FeatureID const &)fid
@@ -506,8 +508,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     {
       MWMNoteButtonCell * tCell = static_cast<MWMNoteButtonCell *>(cell);
 
-      auto title = ^ NSString * (osm::Editor::FeatureStatus s)
+      auto title = ^ NSString * (osm::Editor::FeatureStatus s, BOOL isUploaded)
       {
+        if (isUploaded)
+          return L(@"editor_place_doesnt_exist");
         switch (s)
         {
         case osm::Editor::FeatureStatus::Untouched:
@@ -522,7 +526,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
         }
       };
 
-      [tCell configureWithDelegate:self title:title(self.featureStatus)];
+      [tCell configureWithDelegate:self title:title(self.featureStatus, self.isFeatureUploaded)];
       break;
     }
     default:
@@ -775,33 +779,72 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     [self performSegueWithIdentifier:kCategoryEditorSegue sender:nil];
     break;
   case MWMPlacePageCellTypeReportButton:
+    [self tapOnButtonCell:cell];
+    break;
+  default:
+    NSAssert(false, @"Invalid field for cellSelect");
+    break;
+  }
+}
+
+- (void)tapOnButtonCell:(UITableViewCell *)cell
+{
+  auto const & fid = m_mapObject.GetID();
+  auto const latLon = m_mapObject.GetLatLon();
+  self.isFeatureUploaded = osm::Editor::Instance().IsFeatureUploaded(fid.m_mwmId, fid.m_index);
+  [self.tableView reloadRowsAtIndexPaths:@[[self.tableView indexPathForCell:cell]]
+                        withRowAnimation:UITableViewRowAnimationFade];
+
+  auto placeDoesntExistAction = ^
+  {
+    [self.alertController presentPlaceDoesntExistAlertWithBlock:^(NSString * additionalMessage)
+    {
+       string const additional = additionalMessage.length ? additionalMessage.UTF8String : "";
+       [Statistics logEvent:kStatEditorProblemReport withParameters:@{
+                                                            kStatEditorMWMName : @(fid.GetMwmName().c_str()),
+                                                            kStatEditorMWMVersion : @(fid.GetMwmVersion()),
+                                                            kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage),
+                                                            kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)}];
+       osm::Editor::Instance().CreateNote(latLon, fid, osm::Editor::NoteProblemType::PlaceDoesNotExist, additional);
+       [self backTap];
+       [self showDropDown];
+     }];
+  };
+
+  auto revertAction = ^(BOOL isCreated)
+  {
+    [Statistics logEvent:isCreated ? kStatEditorAddCancel : kStatEditorEditCancel withParameters:@{
+                                                                   kStatEditorMWMName : @(fid.GetMwmName().c_str()),
+                                                                   kStatEditorMWMVersion : @(fid.GetMwmVersion()),
+                                                                   kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)}];
+    if (!osm::Editor::Instance().RollBackChanges(fid))
+      NSAssert(false, @"We shouldn't call this if we can't roll back!");
+
+    auto & f = GetFramework();
+    if (isCreated)
+      f.DeactivateMapSelection(true);
+    else
+      f.UpdatePlacePageInfoForCurrentSelection();
+
+    [self backTap];
+  };
+
+  if (self.isFeatureUploaded)
+  {
+    placeDoesntExistAction();
+  }
+  else
+  {
     switch (self.featureStatus)
     {
     case osm::Editor::FeatureStatus::Untouched:
-    {
-      [self.alertController presentPlaceDoesntExistAlertWithBlock:^(NSString * additionalMessage)
-      {
-        auto const & fid = self->m_mapObject.GetID();
-        auto const latLon = self->m_mapObject.GetLatLon();
-        string const additional = additionalMessage.length ? additionalMessage.UTF8String : "";
-
-        [Statistics logEvent:kStatEditorProblemReport withParameters:@{
-                                                 kStatEditorMWMName : @(fid.GetMwmName().c_str()),
-                                                 kStatEditorMWMVersion : @(fid.GetMwmVersion()),
-                                                 kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage),
-                                                 kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)}];
-        osm::Editor::Instance().CreateNote(latLon, fid, osm::Editor::NoteProblemType::PlaceDoesNotExist, additional);
-        [self backTap];
-        [self showDropDown];
-      }];
+      placeDoesntExistAction();
       break;
-    }
     case osm::Editor::FeatureStatus::Modified:
     {
       [self.alertController presentResetChangesAlertWithBlock:^
       {
-        // TODO(Vlad): reset all changes
-        [self backTap];
+         revertAction(NO);
       }];
       break;
     }
@@ -809,19 +852,13 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     {
       [self.alertController presentDeleteFeatureAlertWithBlock:^
       {
-        //TODO(Vlad): delete feature
-        [self backTap];
+         revertAction(YES);
       }];
       break;
     }
     case osm::Editor::FeatureStatus::Deleted:
       break;
     }
-
-    break;
-  default:
-    NSAssert(false, @"Invalid field for cellSelect");
-    break;
   }
 }
 
