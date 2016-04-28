@@ -44,7 +44,7 @@ void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD cons
 
     ASSERT(!name.empty(), ());
 
-    streets.push_back({ft.GetID(), feature::GetMinDistanceMeters(ft, center), name});
+    streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name);
   };
 
   MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(id);
