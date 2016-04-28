@@ -136,7 +136,7 @@ public:
 
   bool CouldBeInterrupted() const { return m_couldBeInterrupted; }
   bool CouldBeBlendedWith(Animation const & animation) const;
-
+  
   void SetInterruptedOnCombine(bool enable) { m_interruptedOnCombine = enable; }
   bool GetInterruptedOnCombine() const { return m_interruptedOnCombine; }
 

@@ -1020,7 +1020,6 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
       return;
     }
   }
-
   PushAnimation(move(animation));
 }
 
