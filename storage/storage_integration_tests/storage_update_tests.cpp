@@ -7,7 +7,7 @@
 #include "platform/http_request.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/write_dir_changer.hpp"
+#include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"

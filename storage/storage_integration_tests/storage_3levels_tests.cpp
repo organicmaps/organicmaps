@@ -5,7 +5,7 @@
 #include "map/framework.hpp"
 
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/write_dir_changer.hpp"
+#include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 #include "coding/file_name_utils.hpp"
 

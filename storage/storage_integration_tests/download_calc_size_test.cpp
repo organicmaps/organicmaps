@@ -6,7 +6,7 @@
 
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/write_dir_changer.hpp"
+#include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 using namespace storage;
 
