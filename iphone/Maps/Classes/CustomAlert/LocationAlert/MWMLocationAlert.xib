@@ -18,10 +18,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8dg-2G-Gkm" userLabel="ContainerView">
-                    <rect key="frame" x="20" y="149" width="280" height="291"/>
+                    <rect key="frame" x="20" y="148" width="280" height="291"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5k-he-a1F" userLabel="Title">
-                            <rect key="frame" x="20" y="20" width="240" height="21.5"/>
+                            <rect key="frame" x="20" y="20" width="240" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="240" id="gGL-U8-TMu"/>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="h5g-o2-ynw"/>
@@ -95,7 +95,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="settings_button"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="settings"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
                             <connections>

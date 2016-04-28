@@ -522,7 +522,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
         case osm::Editor::FeatureStatus::Modified:
           return L(@"editor_reset_edits_button");
         case osm::Editor::FeatureStatus::Created:
-          return L(@"editor_remove_place_message");
+          return L(@"editor_remove_place_button");
         }
       };
 
@@ -597,7 +597,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   case MWMEditorSectionButton:
     return nil;
   case MWMEditorSectionNote:
-    return L(@"editor_notes_header");
+    return L(@"editor_other_info");
   case MWMEditorSectionAddress:
     return L(@"address");
   case MWMEditorSectionDetails:

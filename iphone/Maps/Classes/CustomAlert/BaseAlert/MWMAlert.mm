@@ -181,7 +181,7 @@
 
 + (MWMAlert *)deleteFeatureAlertWithBlock:(TMWMVoidBlock)block
 {
-  return [MWMDefaultAlert resetChangesAlertWithBlock:block];
+  return [MWMDefaultAlert deleteFeatureAlertWithBlock:block];
 }
 
 + (MWMAlert *)editorViralAlert

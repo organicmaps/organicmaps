@@ -26,7 +26,7 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_will_be_sent_message"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_detailed_description"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60F-c7-enR">
