@@ -61,7 +61,6 @@ public final class MapManager
   }
 
   private static WeakReference<AlertDialog> sCurrentErrorDialog;
-  private static boolean sSkip3gCheck;
 
   private MapManager() {}
 
@@ -206,7 +205,7 @@ public final class MapManager
 
   private static boolean warnOn3gInternal(Activity activity, @NonNull final Runnable onAcceptListener)
   {
-    if (sSkip3gCheck || !ConnectionState.isMobileConnected())
+    if (nativeIsDownloadOn3gEnabled() || !ConnectionState.isMobileConnected())
     {
       onAcceptListener.run();
       return false;
@@ -221,7 +220,7 @@ public final class MapManager
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            sSkip3gCheck = true;
+            nativeEnableDownloadOn3g();
             onAcceptListener.run();
           }
         }).show();
@@ -464,4 +463,14 @@ public final class MapManager
    * Returns {@code true} if the core will NOT do attempts to download failed maps anymore.
    */
   public static native boolean nativeIsAutoretryFailed();
+
+  /**
+   * Returns {@code true} if the core is allowed to download maps while on 3g network. {@code false} otherwise.
+   */
+  public static native boolean nativeIsDownloadOn3gEnabled();
+
+  /**
+   * Sets flag which allows to download maps on 3G.
+   */
+  public static native void nativeEnableDownloadOn3g();
 }

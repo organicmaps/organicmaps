@@ -438,6 +438,22 @@ storage::TCountryId Framework::PreMigrate(ms::LatLon const & position, Storage::
   return m_work.PreMigrate(position, statusChangeListener, progressListener);
 }
 
+bool Framework::IsAutoRetryDownloadFailed()
+{
+  return m_work.DownloadingPolicy().IsAutoRetryDownloadFailed();
+}
+
+bool Framework::IsDownloadOn3gEnabled()
+{
+  return m_work.DownloadingPolicy().IsCellularDownloadEnabled();
+}
+
+void Framework::EnableDownloadOn3g()
+{
+  m_work.DownloadingPolicy().EnableCellularDownload(true);
+}
+
+
 }  // namespace android
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
