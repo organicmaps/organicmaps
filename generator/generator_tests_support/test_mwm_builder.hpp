@@ -14,7 +14,7 @@ class LocalCountryFile;
 }
 class FeatureBuilder1;
 
-namespace search
+namespace generator
 {
 namespace tests_support
 {
@@ -38,4 +38,4 @@ private:
   unique_ptr<feature::FeaturesCollector> m_collector;
 };
 }  // namespace tests_support
-}  // namespace search
+}  // namespace generator

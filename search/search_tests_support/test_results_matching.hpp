@@ -11,12 +11,18 @@
 class FeatureType;
 class Index;
 
-namespace search
+namespace generator
 {
 namespace tests_support
 {
 class TestFeature;
+}
+}
 
+namespace search
+{
+namespace tests_support
+{
 class MatchingRule
 {
 public:
@@ -29,7 +35,7 @@ public:
 class ExactMatchingRule : public MatchingRule
 {
 public:
-  ExactMatchingRule(MwmSet::MwmId const & mwmId, TestFeature & feature);
+  ExactMatchingRule(MwmSet::MwmId const & mwmId, generator::tests_support::TestFeature & feature);
 
   // MatchingRule overrides:
   bool Matches(FeatureType const & feature) const override;
@@ -37,7 +43,7 @@ public:
 
 private:
   MwmSet::MwmId m_mwmId;
-  TestFeature & m_feature;
+  generator::tests_support::TestFeature & m_feature;
 };
 
 class AlternativesMatchingRule : public MatchingRule

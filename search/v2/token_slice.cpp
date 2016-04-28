@@ -1,9 +1,29 @@
 #include "search/v2/token_slice.hpp"
 
+#include "std/sstream.hpp"
+
 namespace search
 {
 namespace v2
 {
+namespace
+{
+template <typename TSlice>
+string SliceToString(string const & name, TSlice const & slice)
+{
+  ostringstream os;
+  os << name << " [";
+  for (size_t i = 0; i < slice.Size(); ++i)
+  {
+    os << DebugPrint(slice.Get(i));
+    if (i + 1 != slice.Size())
+      os << ", ";
+  }
+  os << "]";
+  return os.str();
+}
+}  // namespace
+
 TokenSlice::TokenSlice(SearchQueryParams const & params, size_t startToken, size_t endToken)
   : m_params(params), m_offset(startToken), m_size(endToken - startToken)
 {
@@ -36,6 +56,16 @@ TokenSliceNoCategories::TokenSliceNoCategories(SearchQueryParams const & params,
     if (!m_params.m_isCategorySynonym[i])
       m_indexes.push_back(i);
   }
+}
+
+string DebugPrint(TokenSlice const & slice)
+{
+  return SliceToString("TokenSlice", slice);
+}
+
+string DebugPrint(TokenSliceNoCategories const & slice)
+{
+  return SliceToString("TokenSliceNoCategories", slice);
 }
 }  // namespace v2
 }  // namespace search

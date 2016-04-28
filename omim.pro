@@ -68,6 +68,12 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     qt.depends = $$SUBDIRS
 
     SUBDIRS *= benchmark_tool mapshot qt
+    }
+
+  CONFIG(desktop) {
+    # Desktop-only support library, used in tests and search quality tools.
+    generator_tests_support.subdir = generator/generator_tests_support
+    SUBDIRS *= generator_tests_support
   }
 
   CONFIG(desktop) {
@@ -77,14 +83,15 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
 
     search_quality.subdir = search/search_quality
     search_quality.depends = $$SUBDIRS
+    SUBDIRS *= search_quality
 
     search_quality_tool.subdir = search/search_quality/search_quality_tool
-    search_quality_tool.depends = $$SUBDIRS search_quality
+    search_quality_tool.depends = $$SUBDIRS
 
     features_collector_tool.subdir = search/search_quality/features_collector_tool
-    features_collector_tool.depends = $$SUBDIRS search_quality
+    features_collector_tool.depends = $$SUBDIRS
 
-    SUBDIRS *= search_quality search_quality_tool features_collector_tool
+    SUBDIRS *= search_quality_tool features_collector_tool
   }
 
   CONFIG(desktop):!CONFIG(no-tests) {
@@ -130,7 +137,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     # storage_tests.depends should be set to |3party base coding geometry platform storage indexer stats|
     # as it was before.
     storage_tests.subdir = storage/storage_tests
-    storage_tests.depends = $$MapDepLibs
+    storage_tests.depends = $$MapDepLibs generator_tests_support generator
     SUBDIRS *= storage_tests
 
     storage_integration_tests.subdir = storage/storage_integration_tests
@@ -166,15 +173,16 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     SUBDIRS *= pedestrian_routing_tests
 
     search_tests_support.subdir = search/search_tests_support
-    search_tests_support.depends = $$MapDepLibs generator
+    search_tests_support.depends = $$MapDepLibs
     SUBDIRS *= search_tests_support
 
     search_integration_tests.subdir = search/search_integration_tests
-    search_integration_tests.depends = $$MapDepLibs search_tests_support generator
+    search_integration_tests.depends = $$MapDepLibs search_tests_support \
+                                       generator_tests_support generator
     SUBDIRS *= search_integration_tests
 
     search_quality_tests.subdir = search/search_quality/search_quality_tests
-    search_quality_tests.depends = $$MapDepLibs generator search_quality search_tests_support
+    search_quality_tests.depends = $$MapDepLibs search_quality search_tests_support
     SUBDIRS *= search_quality_tests
 
     generator_tests.subdir = generator/generator_tests

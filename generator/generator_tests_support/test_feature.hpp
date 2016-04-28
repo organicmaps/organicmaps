@@ -8,7 +8,7 @@
 class FeatureBuilder1;
 class FeatureType;
 
-namespace search
+namespace generator
 {
 namespace tests_support
 {
@@ -140,4 +140,4 @@ private:
 
 string DebugPrint(TestFeature const & feature);
 }  // namespace tests_support
-}  // namespace search
+}  // namespace generator

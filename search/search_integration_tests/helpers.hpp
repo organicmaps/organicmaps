@@ -1,8 +1,9 @@
 #pragma once
 
-#include "search/search_tests_support/test_mwm_builder.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
+
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "storage/country_decl.hpp"
 #include "storage/country_info_getter.hpp"
@@ -56,7 +57,7 @@ public:
     Cleanup(file);
 
     {
-      tests_support::TestMwmBuilder builder(file, type);
+      generator::tests_support::TestMwmBuilder builder(file, type);
       fn(builder);
     }
 

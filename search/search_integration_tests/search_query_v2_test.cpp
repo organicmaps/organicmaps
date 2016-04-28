@@ -2,11 +2,12 @@
 
 #include "search/retrieval.hpp"
 #include "search/search_integration_tests/helpers.hpp"
-#include "search/search_tests_support/test_feature.hpp"
-#include "search/search_tests_support/test_mwm_builder.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 #include "search/v2/token_slice.hpp"
+
+#include "generator/generator_tests_support/test_feature.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/index.hpp"
@@ -19,6 +20,7 @@
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
 
+using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace search::v2;
 

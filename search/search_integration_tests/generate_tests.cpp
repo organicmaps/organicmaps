@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/search_tests_support/test_mwm_builder.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "generator/feature_builder.hpp"
 #include "generator/osm_element.hpp"
@@ -16,7 +16,7 @@
 
 namespace
 {
-using TBuilder = search::tests_support::TestMwmBuilder;
+using TBuilder = generator::tests_support::TestMwmBuilder;
 
 void MakeFeature(TBuilder & builder, pair<string, string> const & tag, m2::PointD const & pt)
 {

@@ -1,10 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "search/search_integration_tests/helpers.hpp"
-#include "search/search_tests_support/test_feature.hpp"
-#include "search/search_tests_support/test_mwm_builder.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
+
+#include "generator/generator_tests_support/test_feature.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -12,6 +13,7 @@
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
 
+using namespace generator::tests_support;
 using namespace search::tests_support;
 
 using TRules = vector<shared_ptr<MatchingRule>>;

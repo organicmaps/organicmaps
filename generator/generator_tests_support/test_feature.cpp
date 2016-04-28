@@ -1,4 +1,4 @@
-#include "search/search_tests_support/test_feature.hpp"
+#include "generator/generator_tests_support/test_feature.hpp"
 
 #include "generator/feature_builder.hpp"
 
@@ -15,7 +15,7 @@
 #include "std/atomic.hpp"
 #include "std/sstream.hpp"
 
-namespace search
+namespace generator
 {
 namespace tests_support
 {
@@ -265,4 +265,4 @@ string TestPark::ToString() const
 
 string DebugPrint(TestFeature const & feature) { return feature.ToString(); }
 }  // namespace tests_support
-}  // namespace search
+}  // namespace generator
