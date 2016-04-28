@@ -284,7 +284,9 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
   m2::RectD const rect = MercatorBounds::MetresToXY(info.m_longitude, info.m_latitude,
                                                     info.m_horizontalAccuracy);
-  m_position = rect.Center();
+  // Use FromLatLon instead of rect.Center() since in case of large info.m_horizontalAccuracy
+  // there is significant difference between the real location and the estimated one.
+  m_position = MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude);
   m_errorRadius = rect.SizeX() * 0.5;
 
   bool const hasBearing = info.HasBearing();
