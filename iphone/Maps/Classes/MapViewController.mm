@@ -156,20 +156,16 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  // TODO: Remove this hack for location changing bug
-  if (self.navigationController.visibleViewController == self)
-  {
-    if (info.m_source != location::EPredictor)
-      [m_predictor reset:info];
-    Framework & frm = GetFramework();
-    frm.OnLocationUpdate(info);
-    LOG_MEMORY_INFO();
+  if (info.m_source != location::EPredictor)
+    [m_predictor reset:info];
+  Framework & frm = GetFramework();
+  frm.OnLocationUpdate(info);
+  LOG_MEMORY_INFO();
 
-    [self updateRoutingInfo];
+  [self updateRoutingInfo];
 
-    if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
-      [self restoreRoute];
-  }
+  if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
+    [self restoreRoute];
 }
 
 - (void)updateRoutingInfo
@@ -190,9 +186,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
-  // TODO: Remove this hack for orientation changing bug
-  if (self.navigationController.visibleViewController == self)
-    GetFramework().OnCompassUpdate(info);
+  GetFramework().OnCompassUpdate(info);
 }
 
 #pragma mark - Restore route
