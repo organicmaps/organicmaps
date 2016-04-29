@@ -367,7 +367,7 @@ en:2Pub|bar|beer|food|U+1F37A|U+1F37B
 ar:بار|الحانة|خمارة์|بيرة ์|شراب|الطعام
 cs:Hospoda|Bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
 da:Kro|Bar|øl|drink|mad
-de:Bar|Kneipe|Bier|Essen
+de:Kneipe|Bar|Kneipe|Bier|Essen
 es:Pub|Bar|comer
 fi:Pubi|Baari|ruoka
 fr:Bistrot|Bar|bière|boisson|nourriture
@@ -376,20 +376,20 @@ id:Pub|Bar|minuman|makanan
 it:Pub|Bar|birra|mangiare|cibo
 ja:バー|パブ|ビール|居酒屋|飲食|飲み屋|呑み屋|酒
 ko:바|술집|맥주|음료|음식
-nb:Bar|mat
-nl:Bar|bier|drinken|eten
+nb:Pub|Bar|mat
+nl:Kroeg|Bar|bier|drinken|eten
 pl:Pub|Bar|piwo|napoje|jedzenie
 pt:Pub|Bar|cerveja|beber|alimentação
 ro:Pub|Bar|cârciumă|băutură|alimentație
 ru:Паб|бар|пиво|выпить|еда
 sk:Pohostinstvo|Bar|pivo|pitie|jedlo|voda|pitná voda|tekutiny
 sv:Krog|Bar|öl|drink|mat
-th:บาร์|ผับ|เบียร์|เครื่องดื่ม|อาหาร
+th:ผับ|บาร์|ผับ|เบียร์|เครื่องดื่ม|อาหาร
 tr:Pub|bar|Bira|içki|yemek
 uk:Паб|Бар|пиво|напої|їжа
-vi:Quán bar|quán rượu|đồ uống|ẩm thực
+vi:Quán rượu|Quán bar|quán rượu|đồ uống|ẩm thực
 zh-Hans:酒吧์|酒馆์|啤酒|饮料|食物
-zh-Hant:酒吧|酒館|飲酒|PUB|吧台|飲食
+zh-Hant:啤酒吧|酒吧|酒館|飲酒|PUB|吧台|飲食
 
 amenity-cafe
 en:3Cafe|3restaurant|3food|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
@@ -575,7 +575,7 @@ en:4Beauty Care|home care|shop|U+1F3EC|U+1F3EA
 ar:ﻞﻴﻤﺠﺘﻟﺍ ﺕﺍﺮﻀﺤﺘﺴﻣ|تجميل|المتجر
 cs:4Kosmetika|domácí péče|obchod
 da:4Kosmetik|hjemmepleje|butik
-de:4Schönheitssalon|Geschäft
+de:4Kosmetik|Geschäft
 el:Καλλυντικά|Μαγαζί
 es:4Productos cosméticos|tienda
 fi:Kosmetiikka|kotihoito|kauppa
@@ -591,7 +591,7 @@ nl:4Schoonheidsmiddelen|winkel
 pl:Kosmetyki|sklep
 pt:Cosméticos|estética|compras
 ro:Cosmetică|centru de îngrijire|magazin
-ru:4Косметика|бытовая химия|магазин
+ru:Магазин косметики|4Косметика|бытовая химия|магазин
 sk:4Kozmetika|obchod
 sv:Kosmetika|butik
 sw:Vipodozi|Duka
@@ -678,7 +678,7 @@ nb:Mobiltelefonbutikk|elektronikkbutikk|butikk
 pl:Sklep z elektroniką|sklep elektroniczny|sklep
 pt:Loja de telemóveis|loja de aparelhos eletrónicos|compras
 ro:Magazin de telefoane mobile|magazin de electronice|magazin
-ru:Сотовые|3Мобильные телефоны|электроника|салон связи|магазин
+ru:Магазин мобильных телефонов|Сотовые|3Мобильные телефоны|электроника|салон связи|магазин
 sk:Mobilné telefóny|obchod
 sv:Mobilbutik|elektronikaffär|butik
 th:ร้านขายโทรศัพท์มือถือ|ร้านขายอุปกรณ์อิเล็กโทรนิก|ร้านค้า
@@ -848,7 +848,7 @@ hu:Cipőbolt|2bolt
 de:Schuhgeschäft|Schuhladen|Geschäft|2Laden
 fi:Kenkäkauppa|3kauppa
 cs:Obuv|2obchod
-it:Calzolaio|2negozio
+it:Negozio di scarpe|2negozio
 nb:Skobutikk|3butikk
 zh-Hant:鞋店|1購物|店鋪|商店|雜貨店|便利商店
 zh-Hans:鞋店|商店
@@ -980,7 +980,7 @@ pt:Oculista|2loja|compras
 
 shop-gift
 en:Gift Shop|U+1F381|2shop
-ru:Сувениры|2магазин
+ru:Магазин сувениров|сувенирная лавка|cувениры|2магазин
 fr:Boutique de souvenirs|2magasin
 da:Gavebutik|2butik
 id:Toko hadiah|2toko
@@ -1070,7 +1070,7 @@ pt:Quitanda|2loja|compras
 
 shop-sports
 en:Sports Goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3|2shop
-ru:Спорттовары|товары для спорта|2магазин
+ru:Магазин спорттоваров|Спорттовары|товары для спорта|2магазин
 fr:Articles de sport|2magasin
 da:Sportsudstyr|2butik
 id:Barang olahraga|2toko
@@ -1254,7 +1254,7 @@ es:Confitería|confitería|tienda
 fi:Makeiskauppa|kauppa
 fr:Pâtisserie|confiserie|magasin
 hu:Cukrászüzlet|édességbolt|bolt
-id:Toko roti|toko
+id:Penganan|toko
 it:Pasticceria|drogheria|negozio
 ja:菓子類|菓子屋|買い物
 ko:제과점|베이커리|쇼핑
@@ -1386,7 +1386,7 @@ sv:Kläder butik|4kläder|butik
 vi:Cửa hàng quần áo|cửa hàng
 id:Toko baju|toko
 ro:Magazin de haine|magazin
-nb:Bilverksted|butikk
+nb:Klesbutikk|butikk
 fi:Vaatekauppa|kauppa
 sw:Duka la nguo|nguo
 
@@ -1414,10 +1414,10 @@ da:Bilforhandler|butik
 tr:Otomobil mağazası|mağaza
 sv:Bilåterförsäljare|butik
 vi:Cửa hàng xe|cửa hàng
-id:Bengkel mobil|toko
+id:Toko mobil|toko
 ro:Magazin auto|magazin
-nb:Bensinstasjon|butikk
-fi:Autokorjaamo|kauppa
+nb:Bil butikk|butikk
+fi:Autonäyttelyssä|kauppa
 sw:Yadi|duka la gari|gari
 
 shop-bicycle
@@ -1443,8 +1443,8 @@ ar:دراجة هوائية|المتجر
 da:Cykelforretning|butik
 tr:Bisiklet|mağaza
 sv:4Cykelaffär|cykel|cykel|butik
-vi:3Thuê ô tô|cửa hàng
-id:3Sepeda|toko
+vi:3Cửa hàng xe đạp|cửa hàng
+id:3Toko sepeda|toko
 ro:3Bicicletă|magazin
 nb:3Sykkel|butikk
 fi:3Polkupyörä|kauppa
@@ -1541,8 +1541,8 @@ fi:4Raitiovaunupysäkki|liikenne
 
 amenity-bus_station
 en:Bus Station|2bus|station|4transport|U+1F68C|U+1F68F|U+1F68D
-ru:Автостанция|4автобус|4остановка|4транспорт
-uk:Автовокзал|4автобус|4зупинка|4транспорт
+ru:Автовокзал|Автостанция|4автобус|4остановка|4транспорт
+uk:Автовокзал|Автостанція|4автобус|4зупинка|4транспорт
 de:4Busbahnhof|Haltestelle|Bus|Autobus|Verkehr|ÖPNV
 fr:Gare routière|2bus|2autobus|arrêt|4transport
 it:Autostazione|fermata|autobus|4transporto
@@ -1560,11 +1560,11 @@ th:สถานีขนส่ง|ขนส่ง|สถานี|การข�
 zh-Hans:1公车站|公交车|运输|交通
 ar:محطة الباص|حافلة|نقل|النقل
 da:2Busstation|2bus|station|4transport
-tr:3Otobüs durağı|3otobüs|2ulaşım
+tr:4Otobüs terminali|3Otobüs durağı|3otobüs|2ulaşım
 sv:Busstation|2buss|station|4transport
-vi:2Bến xe buýt|giao thông
+vi:Trạm xe buýt|2Bến xe buýt|giao thông
 id:3Stasiun bus|transportasi
-ro:3Stație de autobuz|transport
+ro:3Gara de autobuz|transport
 nb:3Busstasjon|transport
 fi:3Bussiasema|liikenne
 sw:Stendi ya basi|basi|stendi|usafiri
@@ -1766,7 +1766,7 @@ zh-Hant:1藝術品|3旅遊景點
 pl:3Rzeźba|turystyka|osobliwości miasta
 pt:3Artwork|turismo|vistas
 hu:3Szobor|3látnivaló
-th:3การท่องเที่ยว|สถานที่ท่องเที่ยว
+th:งานศิลปะ|3การท่องเที่ยว|สถานที่ท่องเที่ยว
 zh-Hans:1旅游|景点
 ar:سياحة|مناظر
 da:3Seværdighed|3turisme|3sightseeing|3seværdigheder
@@ -1840,33 +1840,33 @@ fi:3Matkailuinfo|nähtävyydet
 sw:Taarifa ya utalii|taarifa
 
 tourism-picnic_site|amenity-bbq
-en:3Picnic Site|sights
-ru:3Пикник|достопримечательность
-uk:3Пікнік|зупинка|відпочинок|пам’ятні місця
-de:3Picknickplatz|Grillplatz|Sehenswürdigkeit
-fr:3Terrain de pique-nique|3aire de pique-nique|site touristique
-it:3Picnic|turistico
-es:3Picnic|turismo
-ko:1소풍 사이트|명소|피크닉|관광
-ja:1ピクニック|ピクニックサイト|観光|ハイキング
-cs:3Piknik|picnic|picnik|pamětihodnost
-sk:3Piknik|pamätihodnosť
-nl:3Picnicplaats|3picnicweide|3picnictafel|toerisme
+en:3Picnic Site
+ru:Место для пикника|3Пикник
+uk:3Пікнік|зупинка|відпочинок
+de:3Picknickplatz|Grillplatz
+fr:3Terrain de pique-nique|3aire de pique-nique
+it:3Picnic
+es:3Picnic
+ko:1소풍 사이트|명소|피크닉
+ja:1ピクニック|ピクニックサイト|ハイキング
+cs:3Piknik|picnic|picnik
+sk:3Piknik
+nl:3Picnicplaats|3picnicweide|3picnictafel
 zh-Hant:1野餐|旅遊
-pl:4Pole piknikowe|plener|piknik|osobliwości miasta
-pt:4Local de piquenique|vistas
-hu:3Piknikező hely|látványosság|látnivaló
-th:3เว็บไซต์ปิกนิก|สถานที่ท่องเที่ยว
-zh-Hans:1野餐地点|景点
-ar:أماكن للرحلات|مناظر|سياحة
-da:3Picnic|seværdigheder
-tr:3Piknik alanı|görülecek yerler
-sv:3Picknickplatser|sevärdheter
-vi:Điểm cắm trại|diểm tham quan
-id:3Lokasi piknik|pemandangan
-ro:3Locații picnic|obiective turistice
-nb:3Rasteplasser|severdigheter
-fi:3Piknikpaikat|nähtävyydet
+pl:4Pole piknikowe|plener|piknik
+pt:4Local de piquenique
+hu:3Piknikező hely|látványosság
+th:3เว็บไซต์ปิกนิก
+zh-Hans:1野餐地点
+ar:أماكن للرحلات|مناظر
+da:3Picnic
+tr:3Piknik alanı
+sv:3Picknickplatser
+vi:Điểm cắm trại
+id:3Lokasi piknik
+ro:3Locații picnic
+nb:3Rasteplasser
+fi:3Piknikpaikat
 sw:Sehemu ya madhazi
 
 amenity-place_of_worship
@@ -2171,11 +2171,11 @@ fr:Mémorial|monument|attraction|tourisme|site touristique
 it:Memoriale|monumento|turistico
 es:Memorial|turismo
 ko:1기념물|관광
-ja:1記念碑|観光
+ja:追悼|1記念碑|観光
 cs:Pomník|památka|zajímavost|pamětihodnost
 sk:Pomník|pamiatka|atrakcia|zaujímavosť|pamätihodnosť
 nl:Gedenkteken|monument|attractie|toerisme
-zh-Hant:1紀念碑|紀念館|旅遊景點
+zh-Hant:紀念館|1紀念碑|紀念館|旅遊景點
 pl:3Pomnik|osobliwości miasta
 pt:Memorial|monumento|turismo|vistas
 hu:3Emlékmű|látnivaló|túrizmus|látványosság
@@ -2208,7 +2208,7 @@ nl:Monument|attractie|toerisme
 zh-Hant:1紀念碑|紀念塔|紀念館|旅遊景點
 pl:3Pomnik historyczny|osobliwości miasta
 pt:Monumento|turismo|vistas
-hu:Szobor|emlékmű|túrizmus|látványosság|látnivaló
+hu:Emlékmű|Szobor|túrizmus|látványosság|látnivaló
 th:3อนุสาวรีย์|การท่องเที่ยว|สถานที่ท่องเที่ยว
 zh-Hans:纪念碑|景点
 ar:تمثال|أماكن الجذب|سياحة
@@ -2357,7 +2357,7 @@ sk:Lavička
 nl:Zitbank|bankje
 zh-Hant:1長板凳|板凳|長椅|長椅子|條凳
 pl:Ławka
-pt:Banco
+pt:Assento|Banco
 hu:Pad
 th:ม้านั่ง
 zh-Hans:长凳
@@ -2367,7 +2367,7 @@ tr:Bank
 sv:Bänk
 vi:Xe đạp
 id:Bangku panjang
-ro:Bancă
+ro:Banchetă|Bancă
 nb:Benk
 fi:Penkki
 sw:Benchi
@@ -2389,17 +2389,17 @@ zh-Hant:1自行車出租|腳踏車|單車|租金|租錢
 pl:4Wynajem rowerów|4rower|3Wynajem
 pt:Aluguel de bicicletas|4bicicleta|3aluguel
 hu:4Kerékpárkölcsönző|kerékpár|3bérlet
-th:4จักรยาน|บริการรถเช่า|
+th:4จักรยานให้เช่า|4จักรยาน|บริการรถเช่า|
 zh-Hans:1自行车
 ar:دراجة هوائية
 da:4Cykel
-tr:4Bisiklet
+tr:Bisiklet kiralama|4Bisiklet
 sv:4Cykeluthyrning|cykel|cykel|3uthyrning
-vi:Thuê ô tô
-id:Sepeda
-ro:Bicicletă
-nb:Bilutleie
-fi:Polkupyörä
+vi:Cho thuê xe đạp
+id:Menyewa sepeda
+ro:Închiriere de biciclete|Bicicletă
+nb:Sykkelutleie
+fi:Polkupyöränvuokraus
 sw:Kodi ya baiskeli|baiskeli|kodi
 
 amenity-car_sharing|amenity-car_rental
@@ -2644,7 +2644,7 @@ sw:Maji ya kunywa
 
 amenity-fire_station
 en:Fire Station|U+1F692
-ru:Пожарные
+ru:Пожарная часть|Пожарная станция|Пожарные
 uk:Пожежна частина
 de:Feuerwehr|Feuerwache
 fr:Caserne de pompiers
@@ -2699,7 +2699,7 @@ vi:Đài phun nước
 id:Air mancur
 ro:Fântână
 nb:Fontene
-fi:Lähde
+fi:Suihkulähde
 
 amenity-grave_yard|landuse-cemetery
 en:Graveyard|cemetery
@@ -2746,10 +2746,10 @@ sk:4Nemocnica|klinika|pohotovosť|zdravotnícke zariadenie|3lekár|doktor
 nl:4Ziekenhuis|kliniek|hospitaal|tandarts|3dokter
 zh-Hant:1醫院|醫生|診所|醫療|診療
 pl:4Szpital|klinika|lekarz|doktor|leczenie
-pt:4Clínica|clínica|3médico|hospital
+pt:3Hospital|4Clínica|3médico|hospital
 hu:4Kórház|klinika|3orvos
-th:3คลินิก|แพทย์
-zh-Hans:诊所|医生|医院
+th:3โรงพยาบาล|3คลินิก|แพทย์
+zh-Hans:医院|诊所|医生|医院
 ar:المستشفى|عيادة
 da:4Hospital|klinik
 tr:4Hastane|3klinik|doktor
@@ -2762,7 +2762,7 @@ fi:Sairaala
 sw:Hospitali|zahanati|daktari
 
 amenity-clinic
-en:Clinic|1hospital|U+1F3E5|U+1F489
+en:Clinic|1hospital|doctor|U+1F3E5|U+1F489
 ar:عيادة|مستشفى|المستشفى
 cs:Klinika|nemocnice
 da:Klinik|hospital
@@ -2777,46 +2777,47 @@ ja:クリニック|病院、診療所|病院
 ko:병원|의원
 nl:Kliniek|ziekenhuis
 nb:Klinikk|sykehus
-pl:Szpital
+pl:Klinika|Szpital
 pt:Clínica|centro de saúde|hospital
 ro:Clinică|spital
-ru:Поликлиника|клиника|больница
+ru:Поликлиника|клиника|больница|врач
 sk:Poliklinika|nemocnica|zdravotné stredisko
 sv:Klinik|sjukhus
 th:คลินิก|โรงพยาบาล
 tr:Klinik|hastane
 uk:Поліклініка|клініка|лікарня
-vi:Bệnh viện|BV
+vi:Phòng khám|bịnh viện|dưỡng đường|Bệnh viện|BV
 zh-Hans:诊所|医院
 zh-Hant:診所|醫院
 
 amenity-doctors
-en:Doctor|U+1F489|U+1F3E5|U+1F691|hospital
-ar:مكتب طبيب|المستشفى
-cs:Lékařská ordinace|nemocnice
-da:Lægekontor|hospital
-de:Arztpraxis|krankenhaus
-es:Consulta del médico|hospital
-fi:Lääkärin vastaanotto|sairaala
+en:Doctor|clinic|U+1F489|U+1F3E5|U+1F691|hospital
+ar:مكتب طبيب|عيادة|المستشفى
+cs:Lékařská ordinace|Klinika|nemocnice
+da:Lægekontor|Klinik|hospital
+de:Arztpraxis|Klinik|Krankenhaus
+es:Consulta del médico|Clínica|hospital
+fi:Lääkärin vastaanotto|Klinikka|sairaala
 fr:Cabinet médical|hôpital
-hu:Rendelő|orvosi rendelő|kórház
-id:Praktik dokter|rumah sakit
-it:Studio medico|ambulatorio|ospedale
-ja:医者のオフィス|病院
-ko:개인병원|병원
-nl:Huisartsenpost|huisarts|ziekenhuis
-nb:Legekontor|legesenter|sykehus
-pt:Gabinete do médico|hospital
-ro:Cabinet medical|spital
-ru:Врач|больница
-sk:Ambulancia|nemocnica
-sv:Läkarmottagning|sjukhus
-th:ห้องแพทย์|คลินิก
-tr:Doktor muayenehanesi|hastane
-uk:Лікар|лікарня
-vi:Phòng khám|bệnh viện
-zh-Hans:医师办公室|医院
-zh-Hant:醫師診間|醫院
+hu:Rendelő|Klinika|orvosi rendelő|kórház
+id:Praktik dokter|Klinik|rumah sakit
+it:Studio medico|Clinica|ambulatorio|ospedale
+ja:医者のオフィス|クリニック|病院
+ko:개인병원|병원|병원
+nl:Huisartsenpost|Kliniek|huisarts|ziekenhuis
+nb:Legekontor|Klinikk|legesenter|sykehus
+pl:Lekarz|doktor|klinika|szpital
+pt:Gabinete do médico|Clínica|hospital
+ro:Doctor|medic|Cabinet medical|Clinică|spital
+ru:Врач|больница|клиника|поликлиника
+sk:Ambulancia|Poliklinika|nemocnica
+sv:Läkarmottagning|klinik|sjukhus
+th:ห้องแพทย์|โรงพยาบาล|คลินิก
+tr:Doktor muayenehanesi|Klinik|hastane
+uk:Лікар|Поліклініка|клініка|лікарня
+vi:Bác sĩ|Phòng khám|bịnh viện|dưỡng đường|BVbệnh viện
+zh-Hans:医师办公室|诊所|医院
+zh-Hant:醫師診間|診所|醫院
 
 amenity-dentist
 en:Dentist
@@ -3018,9 +3019,9 @@ ar:صندوق بريد|البريد
 da:3Postboks|3postboks|p/o|post
 tr:3Posta kutusu|posta
 sv:3Postlåda|post
-vi:Bưu điện
-id:Pos
-ro:Poştă
+vi:Hòm thư|Bưu điện
+id:Kotak pos
+ro:Cutie poștală
 nb:Postboks
 fi:Postilaatikko
 sw:Sanduku la posta
@@ -3049,8 +3050,8 @@ da:3Post
 tr:3Postane|posta
 sv:3Post
 vi:Bưu điện
-id:Pos
-ro:Poştă
+id:Kantor pos
+ro:Oficiul postal
 nb:Post
 fi:Posti
 sw:Posta
@@ -3059,7 +3060,7 @@ amenity-waste_disposal
 en:Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
 ar:القمامة|ﺔﻣﺎﻤﻗ
 cs:Odpadky|koš|popelnice|uložiště odpadu
-da:Skraldespand|Genbrug|skrald
+da:Bortskaffelse af affald|Skraldespand|Genbrug|skrald
 de:Müllcontainer|Mülltonne|Abfälle|Müll
 el:Σκουπίδια
 es:Basura
@@ -3082,7 +3083,7 @@ sv:Avfallscontainer|Soptunna|skräp|avfall
 th:ขยะ|ถังขยะ
 tr:Çöplüğü|Çöp|çöplük
 uk:Сміттєвий контейнер|сміття|смітник
-vi:Rác
+vi:Xử lý chất thải|Rác
 zh-Hans:垃圾
 zh-Hant:垃圾|回收|回收場
 
@@ -3104,7 +3105,7 @@ nl:Milieustraat
 nb:Resirkuleringssenter|innsamlingsstasjon
 pt:Centro de reciclagem
 ro:Centru de reciclare
-ru:Приём вторсырья|сбор сырья
+ru:Приём вторсырья|утиль|сырье|сбор сырья|стеклотара|макулатура|прием металлов
 sk:Zberné suroviny
 sv:Återvinningscentral
 th:ศูนย์รีไซเคิล
@@ -3138,7 +3139,7 @@ ar:مدرسة
 da:2Skole
 tr:3Okul
 sv:3Skola
-vi:Rác
+vi:Trường học
 id:Sekolah
 ro:Școală
 nb:Skole
@@ -3177,7 +3178,7 @@ sw:Malazi
 
 amenity-telephone
 en:2Phone|U+260E|U+1F4DE
-ru:2Телефон
+ru:2Телефон|таксофон
 uk:2Телефон
 de:2Telefon|Fernsprecher
 fr:2Téléphone
@@ -4054,7 +4055,7 @@ sk:3Hostel|hotel|ubytovňa|motel
 nl:3Hostel|jeugdherberg|hotel|motel
 zh-Hant:1旅舍|旅館|青年旅舍|青年旅館|住宿|飯店|3汽車旅館|3motel
 pl:4Hostel|4hotel|4motel
-pt:3Pousada|4hotel|motel
+pt:3Hostel|3Pousada|4hotel|motel
 hu:3Hostel|szálloda|szállás
 th:3หอพัก|โรงแรม|โมเทล
 zh-Hans:2旅社|旅店
@@ -4062,7 +4063,7 @@ ar:نزُل|فندق|فندق رخيص|الفندق
 da:3Hostel|kro|vandrerhjem|hotel|motel
 tr:3Pansiyon|otel|motel
 sv:3Vandrarhem|hotell|motell
-vi:Nhà khách|khách sạn
+vi:Nhà trọ|khách sạn
 id:Hostel|hotel
 ro:Hostel|hotel
 nb:Vandrerhjem|hotell
@@ -4144,7 +4145,7 @@ sk:3Motel|penzión|hotel|hostel|ubytovňa
 nl:3Motel|hotel|hostel
 zh-Hant:1汽車旅館|3motel|旅館|飯店|住宿|
 pl:3Motel|hotel|hostel
-pt:3Pousada|motel
+pt:3Motel|3Pousada
 hu:3Motel|szálloda|szállás
 th:3โมเทล|โรงแรม|หอพัก
 zh-Hans:1汽车旅馆|旅店
@@ -4633,7 +4634,7 @@ sv:4Camping|campingplats|campingområde
 vi:Cắm trại
 id:Perkemahan
 ro:Camping
-nb:Camping
+nb:Overnatting i bobiler
 fi:Retkeily
 sw:Kambi
 
@@ -4664,7 +4665,7 @@ vi:Khu lễ hội hóa trang
 id:Lokasi perkemahan
 ro:Teren pentru campare
 nb:Camping
-fi:Retkeily
+fi:Asuntovaunupaikka|Retkeily
 
 office
 en:Office|company|U+1F454|U+1F4BC|U+1F3E2|
@@ -5371,7 +5372,7 @@ zh-Hant:旅行社|遊覽
 
 shop-outdoor
 en:Outdoor Equipment|trekking|climbing|camping|shop
-ru:Снаряжение|магазин
+ru:Магазин снаряжения|туристический магазин|магазин
 ar:معدات خارجية|ترحال|تسلق|تخييم|محل
 cs:Venkovní vybavení|trekking|lezení|kempování|obchod
 da:Fritidsudstyr|vandring|klatring|camping|butik
@@ -5516,7 +5517,7 @@ zh-Hant:獸醫
 
 amenity-charging_station
 en:Charging Station|charging
-ru:Зарядная станция
+ru:Зарядная станция|станция зарядки
 ar:محطة شحن|شحن
 cs:Nabíjecí stanice|nabíjení
 da:Ladestation|opladning
@@ -5549,7 +5550,7 @@ ru:Детская комната|ясли
 ar:حضانة|رعاية أطفال
 cs:Jesle|Péče o děti
 da:Vuggestue|Børnehave
-de:Kindergarten|Kinderbetreuung
+de:Kinderzimmer|Kindergarten|Kinderbetreuung
 es:Habitación infantil|guardería
 fi:Päivähoito|Lastenhoito
 fr:Garderie|Garde d'enfant
@@ -5562,15 +5563,15 @@ nb:Førskole|Barnehage
 nl:Crèche|kinderzorg
 pl:Żłobek|Przedszkole
 pt:Creche|jardim de infância
-ro:Grădiniță|Îngrijire copii
+ro:De îngrijire a copilului|Grădiniță|Îngrijire copii
 sk:Jasle|Starostlivosť o deti
-sv:Förskola|Barnomsorg
+sv:Barnomsorg|Förskola
 th:สถานรับเลี้ยงเด็ก|ดูแลเด็ก
 tr:Çocuk Yuvası|Kreş
 uk:Дитяча кімната|ясла
 vi:Nhà trẻ|Chăm sóc Trẻ em
 zh-Hans:幼儿园|儿童看护
-zh-Hant:幼兒園|兒童看護
+zh-Hant:保育|幼兒園|兒童看護
 
 amenity-bicycle_parking
 en:Bicycle Parking
@@ -5952,7 +5953,7 @@ cs:Garáž
 da:Garage
 de:Garage
 es:Taller mecánico
-fi:Autokorjaamo
+fi:Autotalli
 fr:Garage
 hu:Garázs
 id:Garage
@@ -6209,30 +6210,58 @@ fr:Hors licence
 hu:Szeszesital-üzlet
 id:Spritförsäljning
 it:Negozio di alcolici
-ja:酒屋
+ja:ワイン|酒屋
 ko:주류 판매점
-nl:Slijterij
+nl:Wijn|Slijterij
 nb:Alkoholutsalg
 pl:Sklep monopolowy
-pt:Loja de bebidas
+pt:Vinho|Loja de bebidas
 ro:Magazin de băuturi alcolice
 sk:Vinotéka
 sv:Spritförsäljning
 th:ร้านขายไวน์
 tr:Caviste
 uk:Винна крамниця
-vi:Cửa hàng rượu
+vi:Rượu|Cửa hàng rượu
 zh-Hant:酒店
 
 shop-car_parts|@shop
-en:Car Parts Shop
-ru:Автозапчасти
+en:Car Parts
+ar:ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
+cs:Autodíly
+da:Bildele
+de:Autoteile
+el:Εξαρτήματα αυτοκινήτου
+es:Piezas de automóvil
+fi:Auton osat
+fr:Pièces de voiture
+he:תינוכמ יקלח
+hu:Autó alkatrészek
+id:Bagian mobil
+it:Ricambi auto
+ja:車両部品
+ko:자동차 부품
+nb:Bildeler
+nl:Auto onderdelen
+pl:Części samochodowe
+pt:Peças do carro
+ro:Piese auto
+ru:Автомобильные запчасти|Автозапчасти
+sk:Autodiely
+sv:Bildelar
+sw:Vipuri vya magari
+th:อะไหล่รถยนต์
+tr:Araba parçaları
+uk:Автозапчастини
+vi:Những bộ phận xe hơi
+zh-Hans:汽车零件
+zh-Hant:汽車零件
 
 tourism-chalet|@hotel
 en:Chalet
 ru:Шале
 ar:شاليه
-cs:Horská chata
+cs:Chalet|Horská chata
 da:Hytte
 de:Hütte
 es:Chalé
@@ -6241,13 +6270,13 @@ fr:Chalet
 hu:Turistaház
 id:Stuga
 it:Chalet
-ja:山小屋
+ja:シャレー|山小屋
 ko:별장
 nl:Chalet
 nb:Chalet
 pl:Domek letniskowy
 pt:Chalé
-ro:Castel
+ro:Cabană
 sk:Chata
 sv:Stuga
 th:ชาเลต์
