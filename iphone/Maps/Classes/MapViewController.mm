@@ -628,21 +628,8 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
     case routing::IRouter::NeedMoreMaps:
     case routing::IRouter::FileTooOld:
     case routing::IRouter::RouteNotFound:
-    {
-      if (platform::migrate::NeedMigrate())
-      {
-        [self presentRoutingMigrationAlertWithOkBlock:^
-        {
-          [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatRouting}];
-          [self openMigration];
-        }];
-      }
-      else
-      {
-        [self presentDownloaderAlert:code countries:absentCountries];
-      }
+      [self presentDownloaderAlert:code countries:absentCountries];
       break;
-    }
     case routing::IRouter::Cancelled:
       break;
     default:
@@ -776,25 +763,32 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 
 #pragma mark - ShowDialog callback
 
-- (void)presentRoutingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock
-{
-  [self.alertController presentRoutingMigrationAlertWithOkBlock:okBlock];
-}
-
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
                      countries:(storage::TCountriesVec const &)countries
 {
-  if (countries.size())
+  if (platform::migrate::NeedMigrate())
+  {
+    [self.alertController presentRoutingMigrationAlertWithOkBlock:^
+    {
+      [Statistics logEvent:kStatDownloaderMigrationDialogue
+            withParameters:@{kStatFrom : kStatRouting}];
+      [self openMigration];
+    }];
+  }
+  else if (!countries.empty())
   {
     [self.alertController presentDownloaderAlertWithCountries:countries
         code:code
         cancelBlock:^
         {
-          [self.controlsManager routingHidden];
+          if (code != routing::IRouter::NeedMoreMaps)
+            [self.controlsManager routingHidden];
         }
         downloadBlock:^(storage::TCountriesVec const & downloadCountries, TMWMVoidBlock onSuccess)
         {
-          [MWMStorage downloadNodes:downloadCountries alertController:self.alertController onSuccess:onSuccess];
+          [MWMStorage downloadNodes:downloadCountries
+                    alertController:self.alertController
+                          onSuccess:onSuccess];
         }
         downloadCompleteBlock:^
         {
