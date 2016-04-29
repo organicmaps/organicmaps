@@ -700,6 +700,9 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
+  
+  // Interrupt kinetic scroll on touch down.
+  m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */);
 
   // Interrupt kinetic scroll on touch down.
   m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */);
