@@ -20,6 +20,12 @@ class DownloaderToolbarController extends SearchToolbarController
   }
 
   @Override
+  public void onUpClick()
+  {
+    mActivity.onBackPressed();
+  }
+
+  @Override
   protected void onTextChanged(String query)
   {
     if (!mFragment.isAdded() || !mFragment.shouldShowSearch())
