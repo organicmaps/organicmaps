@@ -9,8 +9,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_marginTop="@dimen/margin_base"
-  android:focusable="true"
-  android:focusableInTouchMode="true"
   android:orientation="vertical"
   android:paddingEnd="@dimen/margin_base"
   android:paddingLeft="@dimen/margin_base"
@@ -41,10 +39,7 @@
     tools:drawableRight="@drawable/ic_expand_more"
     tools:ignore="UnusedAttribute"/>
 
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/names"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+  <include layout="@layout/recycler_default"/>
 
   <TextView
     android:id="@+id/add_langs"

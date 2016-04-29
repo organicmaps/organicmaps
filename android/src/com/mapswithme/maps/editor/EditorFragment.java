@@ -246,7 +246,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     UiUtils.hide(view.findViewById(R.id.add_langs));
     mLocalizedShow = (TextView) view.findViewById(R.id.show_langs);
     mLocalizedShow.setOnClickListener(this);
-    mLocalizedNames = (RecyclerView) view.findViewById(R.id.names);
+    mLocalizedNames = (RecyclerView) view.findViewById(R.id.recycler);
     mLocalizedNames.setLayoutManager(new LinearLayoutManager(getActivity()));
     mLocalizedNamesAdapter = new MultilanguageAdapter(Editor.nativeGetLocalizedNames());
     mLocalizedNames.setAdapter(mLocalizedNamesAdapter);

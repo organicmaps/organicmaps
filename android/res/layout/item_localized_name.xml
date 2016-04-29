@@ -5,8 +5,6 @@
   android:layout_width="match_parent"
   android:layout_height="@dimen/editor_height_field"
   android:animateLayoutChanges="true"
-  android:focusable="true"
-  android:focusableInTouchMode="true"
   android:gravity="center_vertical"
   android:orientation="horizontal">
 

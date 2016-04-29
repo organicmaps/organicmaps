@@ -54,7 +54,7 @@ template<typename TValue, typename TToJavaFn>
 jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, vector<TValue> const & src, TToJavaFn && toJavaFn)
 {
   int const size = src.size();
-  auto jArray = env->NewObjectArray(size, clazz, 0);
+  jobjectArray jArray = env->NewObjectArray(size, clazz, 0);
   for (size_t i = 0; i < size; i++)
   {
     TScopedLocalRef jItem(env, toJavaFn(env, src[i]));

@@ -3,6 +3,7 @@ package com.mapswithme.maps.editor;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
                                 @Override
                                 public boolean areContentsTheSame(LocalizedName oldItem, LocalizedName newItem)
                                 {
-                                  return oldItem.name.equals(newItem.name);
+                                  return TextUtils.equals(oldItem.name, newItem.name);
                                 }
 
                                 @Override
