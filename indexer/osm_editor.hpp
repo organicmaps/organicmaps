@@ -22,7 +22,7 @@
 
 namespace osm
 {
-class Editor final
+class Editor final : public MwmSet::Observer
 {
 public:
   using TFeatureTypeFn = function<void(FeatureType &)>;  // Mimics Framework::TFeatureTypeFn.
@@ -64,6 +64,12 @@ public:
   void LoadMapEdits();
   /// Resets editor to initial state: no any edits or created/deleted features.
   void ClearAllLocalEdits();
+
+  void OnMapUpdated(platform::LocalCountryFile const &,
+                    platform::LocalCountryFile const &) override
+  {
+    LoadMapEdits();
+  }
 
   using TFeatureIDFunctor = function<void(FeatureID const &)>;
   void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,

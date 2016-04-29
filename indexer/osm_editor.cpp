@@ -138,6 +138,8 @@ namespace osm
 
 Editor::Editor() : m_notes(editor::Notes::MakeNotes()) {}
 
+Editor * Editor::s_instance = nullptr;
+
 Editor & Editor::Instance()
 {
   ASSERT(s_instance, ("nullptr dereference."));
@@ -974,6 +976,4 @@ string DebugPrint(Editor::FeatureStatus fs)
 }
 
 const char * const Editor::kPlaceDoesNotExistMessage = "The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground.";
-
-Editor * Editor::s_instance = nullptr;
 }  // namespace osm

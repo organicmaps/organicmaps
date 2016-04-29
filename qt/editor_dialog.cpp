@@ -85,6 +85,10 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     grid->addWidget(new QLabel(kStreetObjectName), row, 0);
     QComboBox * cmb = new QComboBox();
     cmb->setEditable(true);
+
+    if (emo.GetStreet().m_defaultName.empty())
+      cmb->addItem("");
+
     for (int i = 0; i < nearbyStreets.size(); ++i)
     {
       string street = nearbyStreets[i].m_defaultName;
@@ -199,7 +203,10 @@ void EditorDialog::OnSave()
     QString const editedStreet = findChild<QComboBox *>(kStreetObjectName)->currentText();
     QStringList const names = editedStreet.split(" / ", QString::SkipEmptyParts);
     QString const localized = names.size() > 1 ? names.at(1) : QString();
-    m_feature.SetStreet({names.at(0).toStdString(), localized.toStdString()});
+    if (!names.empty())
+      m_feature.SetStreet({names.at(0).toStdString(), localized.toStdString()});
+    else
+      m_feature.SetStreet({});
     m_feature.SetPostcode(findChild<QLineEdit *>(kPostcodeObjectName)->text().toStdString());
   }
 

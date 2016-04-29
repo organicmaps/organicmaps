@@ -390,6 +390,8 @@ Framework::Framework()
   });
   m_editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2));
   m_editor.LoadMapEdits();
+
+  m_model.GetIndex().AddObserver(m_editor);
 }
 
 Framework::~Framework()
@@ -397,6 +399,7 @@ Framework::~Framework()
   m_drapeEngine.reset();
 
   m_model.SetOnMapDeregisteredCallback(nullptr);
+  m_model.GetIndex().RemoveObserver(m_editor);
   m_editor.SetInstance(nullptr);
 }
 
@@ -2742,6 +2745,11 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     // to the feature. As a result this address won't be merged in OSM because emo.SetStreet({})
     // and emo.SetHouseNumber("") will be called in the following code. So OSM ends up
     // with incorrect data.
+
+    // There is (almost) always a street and/or house number set in emo. We must keep them from
+    // saving to editor and pushing to OSM if they ware not overidden. To be saved to editor
+    // emo is first converted to FeatureType and FeatureType is then saved to a file and editor.
+    // To keep street and house number from penetrating to FeatureType we set them to be empty.
 
     // Do not save street if it was taken from hosting building.
     if ((originalFeatureStreet.empty() || isCreatedFeature) && !isStreetOverridden)
