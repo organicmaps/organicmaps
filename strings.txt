@@ -16015,6 +16015,36 @@
     ja = ナビゲーション中は更新できません。
     vi = Không cho phép cập nhật trong khi điều hướng.
 
+  [migration_no_space_message]
+    comment = Error dialog no space
+    en = To download, you need more space. Please, delete unnecessary data.
+    ru = Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.
+    fr = Pour télécharger, vous avez besoin de plus d'espace. Veuillez supprimer les données non nécessaires.
+    da = For at opdatere app'en skal du bruge mere plads. Slet unødvendig data.
+    id = Untuk mengunduh, Anda perlu ruang lebih banyak. Harap menghapus data yang tidak diperlukan.
+    ko = 다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.
+    sv = Du behöver mer utrymme för att ladda ned. Radera onödig data.
+    tr = İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.
+    uk = Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.
+    vi = Để tải xuống, bạn cần thêm dung lượng. Xin xóa mọi dữ liệu không cần thiết.
+    hu = A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.
+    de = Zum Herunterladen benötigen Sie mehr Platz. Bitte löschen Sie unnötige Daten.
+    fi = Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.
+    cs = Ke stažení potřebujete více volného místa. Odstraňte prosím nepotřebná data.
+    it = Per scaricare, hai bisogno di più spazio. Sei pregato di eliminare i dati non necessari.
+    nb = Du må frigjøre mer lagringsplass for å laste ned. Slett unødvendig data.
+    zh-Hant = 為了下載，您需要更多的空間。請刪除不必要的數據。
+    zh-Hans = 为了下载，您需要更多的空间。请删除不必要的数据。
+    th = ในการดาวน์โหลด คุณต้องมีพื้นที่มากขึ้น กรุณาลบเนื้อหาที่ไม่จำเป็นออกไป
+    ja = ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。
+    ro = Aveți nevoie de mai mult spațiu ca să descărcați. Vă rugăm să ștergeți toate informațiile inutile.
+    ar = للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، احذف البيانات غير الضرورية.
+    sk = Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.
+    es = Necesitas más espacio para descargar. Por favor, elimina los datos innecesarios.
+    pl = Aby pobrać, potrzebujesz więcej miejsca. Usuń niepotrzebne dane.
+    nl = Om te kunnen downloaden, heb je meer ruimte nodig. Verwijder overbodige gegevens.
+    pt = Para descarregar, é necessário mais espaço. Por favor, elimine os dados desnecessários.
+
   [editor_sharing_title]
     en = I improved the MAPS.ME maps
     ru = Я улучшил карты MAPS.ME
@@ -16256,13 +16286,13 @@
     uk = Редагуйте будівлі висотою максимум 25 поверхів
     vi = Sửa tòa nhà có tối đa 25 tầng
     hu = Legfeljebb 25 emeletes épület szerkesztése
-    de = Bearbeiten Sie die Gebäude mit maximal 25% Etagen
+    de = Bearbeiten Sie die Gebäude mit maximal 25 Etagen
     fi = Muokkaa kerroksia, enintään 25 kerrosta
     cs = Opravte počet poschodí, max. 25
     it = Modificare l'edificio con un massimo di 25 piani
     nb = Rediger bygningen med maks. 25 etasjer
     zh-Hans = 编辑最多 25 层的建筑
-    th = แก้ไขอาคารที่มีจำนวนชั้นมากกว่า 25%
+    th = แก้ไขอาคารที่มีจำนวนชั้นมากกว่า 25
     ja = 最高25階までのビルを編集
     ro = Editare clădire cu maximum 25 de etaje
     ar = تحرير المبنى بحد أقصى 25 طابقًا
@@ -16982,6 +17012,36 @@
     pl = Użytkownicy MAPS.ME dokonali 50 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!
     nl = MAPS.ME-gebruikers hebben 50.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!
 
+  [whatsnew_update_editor_message_update]
+    comment = Additional text in whats new
+    en = Update all maps to use Map Editor.
+    ru = Обновите все карты, чтобы использовать редактор.
+    fr = Pour utiliser l'Éditeur de Cartes, veuillez mettre à jour toutes les cartes.
+    da = For at bruge kortredigering, bedes du opdatere alle kort.
+    id = Untuk menggunakan editor peta, silakan perbarui semua peta.
+    ko = 지도 편집기를 사용하려면, 모든 지도를 업데이트하십시오.
+    sv = Uppdatera alla kartor för att använda kartredigeraren.
+    tr = Harita Editörü'nü kullanmak için lütfen tüm haritaları güncelleyin.
+    uk = Для використання редактору карт, будь ласка, оновіть всі карти.
+    vi = Để sử dụng Ứng dụng Điều chỉnh Bản đồ, xin vui lòng cập nhật tất cả các bản đồ.
+    hu = A térképszerkesztő használatához, kérjük, frissítsd az összes térképet.
+    de = Um den Karten-Editor zu nutzen, aktualisieren Sie bitte alle Karten.
+    fi = Päivitä kaikki kartat käyttääksesi Karttamuokkainta.
+    cs = Chcete-li používat editor map, pak prosím aktualizujte všechny mapy.
+    it = Per utilizzare l'editor delle mappe, aggiorna tutte le mappe.
+    nb = For å bruke kartredigerings-funksjonen, vennligst oppdater alle kartene.
+    zh-Hant = 如要使用地圖編輯器，請更新所有地圖。
+    zh-Hans = 如要使用地图编辑器，请更新所有地图
+    th = ในการใช้เครื่องมือการแก้ไขแผนที่ โปรดอัปเดตแผนที่ทั้งหมด
+    ja = マップエディタを利用するには、全てのアップをアップデートしてください。
+    ro = Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.
+    ar = لاستخدام مُحَرّر الخريطة، يرجى تحديث جميع الخرائط.
+    sk = Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.
+    es = Para usar el editor de mapas, actualiza todos los mapas.
+    pl = Aby korzystać z edytora map, zaktualizuj wszystkie mapy.
+    nl = Om de kaartaanpasser te kunnen gebruiken, moet je alle kaarten actualiseren.
+    pt = Atualize todos os mapas para utilizar o Editor de Mapa.
+
   [location_services_disabled_header]
     en = Location services are disabled
     ru = Определение местоположения отключено
@@ -17011,6 +17071,36 @@
     nl = Locatie-identificatie is uitgeschakeld
     pt = A identificação do local está desativada
     he = זיהוי המיקום אינו מופעל
+
+  [location_services_disabled_message]
+    en = Enable access to geolocation in the device settings
+    ru = Разрешите доступ к геопозиции в настройках устройства.
+    fr = Permettre l'accès à la géolocalisation dans les paramètres de l'appareil
+    da = Slå adgang til geoposition til i enhedens indstillinger
+    id = Izinkan akses ke geolokasi pada pengaturan perangkat
+    ko = 장치 설정에서 위치 정보에 액세스할 수 있음
+    sv = Aktivera tillgång till geografisk plats i enhetens inställningar
+    tr = Cihaz ayarlarında konum belirlemeye erişimi etkinleştirin
+    uk = Увімкніть доступ до геолокації в налаштуваннях цього пристрою
+    vi = Bật truy cập định vị địa lý trong thiết lập thiết bị
+    hu = Kapcsolja be a földrajzi helymeghatározást a készülék beállításaiban
+    de = Aktivieren Sie den Zugang zur Positionsbestimmung in den Geräteeinstellungen
+    fi = Schakel de toegang tot geolocaties in in de instellingen van het apparaat
+    cs = Povolte přístup ke geolokaci v nastavení přístroje
+    it = Abilita l'accesso alla geolocalizzazione dalle impostazioni del dispositivo
+    nb = Tillat bruk av av geografisk lokalisering i enhetens innstillinger
+    zh-Hant = 啟用設備設置中的地理位置定位
+    zh-Hans = 启用设备设置中的地理位置定位
+    th = เปิดใช้งานการเข้าถึงตำแหน่งภูมิศาสตร์ในการตั้งค่าอุปกรณ์
+    ja = デバイスの設定で位置情報へのアクセスを有効にしてください
+    ro = Activaţi accesul la geolocalizare din setările dispozitivului
+    ar = قم بتفعيل الوصول إلى الموقع الجغرافي في إعدادات الجهاز
+    sk = Povoliť prístup ku geolokalizácii v nastaveniach prístroja
+    es = Activa el acceso a la geolocalización en los ajustes del dispositivo
+    pl = Włącz dostęp do geolokalizacji w ustawieniach urządzenia
+    nl = Schakel de toegang tot geolocaties in in de instellingen van het apparaat
+    pt = Permitir o acesso à geolocalização nas configurações do dispositivo
+    he = אפשרו גישה לגאולוקיישן בהגדרות המכשיר
 
   [location_services_disabled_1]
     tags = ios
