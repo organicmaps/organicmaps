@@ -76,6 +76,9 @@ NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
+
+// The first launch after process started. Used to skip "Not follow, no position" state and to run locator.
+BOOL gIsFirstMyPositionMode = YES;
 } // namespace
 
 @interface NSValueWrapper : NSObject
@@ -572,23 +575,28 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
       [[MapsAppDelegate theApp].locationManager start:self];
       break;
     case location::NotFollowNoPosition:
-    {
-      self.disableStandbyOnLocationStateMode = NO;
-      BOOL const isLocationManagerStarted = [MapsAppDelegate theApp].locationManager.isStarted;
-      BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
-      if (isLocationManagerStarted && isMapVisible && ![Alohalytics isFirstSession])
+      if (gIsFirstMyPositionMode && ![Alohalytics isFirstSession])
       {
-        [self.alertController presentLocationNotFoundAlertWithOkBlock:^
+        GetFramework().SwitchMyPositionNextMode();
+      }
+      else
+      {
+        self.disableStandbyOnLocationStateMode = NO;
+        BOOL const isLocationManagerStarted = [MapsAppDelegate theApp].locationManager.isStarted;
+        BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
+        if (isLocationManagerStarted && isMapVisible && ![Alohalytics isFirstSession])
         {
-          GetFramework().SwitchMyPositionNextMode();
+          [self.alertController presentLocationNotFoundAlertWithOkBlock:^
+          {
+            GetFramework().SwitchMyPositionNextMode();
+          }
+          cancelBlock:^
+          {
+            [[MapsAppDelegate theApp].locationManager stop:self];
+          }];
         }
-        cancelBlock:^
-        {
-          [[MapsAppDelegate theApp].locationManager stop:self];
-        }];
       }
       break;
-    }
     case location::NotFollow:
       self.disableStandbyOnLocationStateMode = NO;
       break;
@@ -597,6 +605,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
       self.disableStandbyOnLocationStateMode = YES;
       break;
   }
+  gIsFirstMyPositionMode = NO;
 }
 
 #pragma mark - MWMFrameworkRouteBuilderObserver
