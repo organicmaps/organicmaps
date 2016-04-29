@@ -103,6 +103,7 @@ private:
   void ChangeMode(location::EMyPositionMode newMode);
   void SetDirection(double bearing);
   
+  bool IsInStateWithPosition() const;
 
   bool IsVisible() const { return m_isVisible; }
   void SetIsVisible(bool isVisible) { m_isVisible = isVisible; }
@@ -146,6 +147,7 @@ private:
   my::Timer m_pendingTimer;
   my::Timer m_routingNotFollowTimer;
   my::Timer m_updateLocationTimer;
+  my::Timer m_startLocationTimer;
   double m_lastLocationTimestamp;
 
   m2::RectD m_pixelRect;

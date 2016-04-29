@@ -26,6 +26,7 @@ double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
 double const kMaxNotFollowRoutingTimeSec = 10.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
+double const kMaxWaitStartLocationSec = 5.0;
 
 int const kDoNotChangeZoom = -1;
 
@@ -113,6 +114,8 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode,
     m_mode = location::NotFollowNoPosition;
   else if (timeInBackground >= kMaxTimeInBackgroundSec)
     m_mode = location::Follow;
+
+  m_startLocationTimer.Reset();
 }
 
 MyPositionController::~MyPositionController()
@@ -379,6 +382,12 @@ void MyPositionController::SetModeListener(location::TMyPositionModeChanged cons
     m_modeChangeCallback(mode, m_isInRouting);
 }
 
+bool MyPositionController::IsInStateWithPosition() const
+{
+  return m_mode == location::NotFollow || m_mode == location::Follow ||
+         m_mode == location::FollowAndRotate;
+}
+
 void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen,
                                   ref_ptr<dp::GpuProgramManager> mng,
                                   dp::UniformValuesStorage const & commonUniforms)
@@ -387,6 +396,15 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
   {
     if (m_pendingTimer.ElapsedSeconds() >= kMaxPendingLocationTimeSec)
       ChangeMode(location::NotFollowNoPosition);
+  }
+
+  // We do not have assigned position but mode requires location.
+  // Go to Pending state if the time is up.
+  if (!m_isPositionAssigned && IsInStateWithPosition() &&
+      m_startLocationTimer.ElapsedSeconds() >= kMaxWaitStartLocationSec)
+  {
+    m_pendingTimer.Reset();
+    ChangeMode(location::PendingPosition);
   }
 
   if (IsInRouting() && m_mode == location::NotFollow &&
