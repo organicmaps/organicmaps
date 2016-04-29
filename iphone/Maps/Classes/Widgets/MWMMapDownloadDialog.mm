@@ -94,13 +94,14 @@ using namespace storage;
 
 - (void)configDialog
 {
-  auto & s = GetFramework().Storage();
-  auto & p = GetFramework().DownloadingPolicy();
+  auto & f = GetFramework();
+  auto const & s = f.Storage();
+  auto const & p = f.DownloadingPolicy();
 
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(m_countryId, nodeAttrs);
 
-  if (!nodeAttrs.m_present && !GetFramework().IsRoutingActive())
+  if (!nodeAttrs.m_present && !f.IsOnRoute())
   {
     BOOL const isMultiParent = nodeAttrs.m_parentInfo.size() > 1;
     BOOL const noParrent = (nodeAttrs.m_parentInfo[0].m_id == s.GetRootId());
