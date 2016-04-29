@@ -22,8 +22,8 @@ public enum LocationState
   /**
    * Checks if location state on the map is active (so its not turned off or pending).
    */
-  public static boolean isTurnedOn()
+  public boolean isTurnedOn()
   {
-    return INSTANCE.getLocationStateMode() > NOT_FOLLOW_NO_POSITION;
+    return getLocationStateMode() > NOT_FOLLOW_NO_POSITION;
   }
 }

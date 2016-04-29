@@ -111,7 +111,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode,
 {
   if (isFirstLaunch)
     m_mode = location::NotFollowNoPosition;
-  else if (m_mode == location::NotFollowNoPosition || timeInBackground >= kMaxTimeInBackgroundSec)
+  else if (timeInBackground >= kMaxTimeInBackgroundSec)
     m_mode = location::Follow;
 }
 
@@ -374,8 +374,6 @@ void MyPositionController::SetModeListener(location::TMyPositionModeChanged cons
   location::EMyPositionMode mode = m_mode;
   if (m_isFirstLaunch)
     mode = location::NotFollowNoPosition;
-  else if (!m_isPositionAssigned)
-    mode = location::PendingPosition;
 
   if (m_modeChangeCallback != nullptr)
     m_modeChangeCallback(mode, m_isInRouting);
