@@ -60,8 +60,10 @@ cp -r $OMIM_PATH/data/resources-mdpi_legacy/ $MAC_RESOURCES/resources-mdpi/
 cp -r $OMIM_PATH/data/resources-hdpi_legacy/ $MAC_RESOURCES/resources-hdpi/
 cp -r $OMIM_PATH/data/resources-xhdpi_legacy/ $MAC_RESOURCES/resources-xhdpi/
 cp -r $OMIM_PATH/data/resources-xxhdpi_legacy/ $MAC_RESOURCES/resources-xxhdpi/
+cp -r $OMIM_PATH/data/cuisine-strings/ $MAC_RESOURCES/cuisine-strings/
 cp $OMIM_PATH/data/WorldCoasts_obsolete.mwm $MAC_RESOURCES/WorldCoasts_obsolete.mwm
 cp $OMIM_PATH/data/countries.txt $MAC_RESOURCES/countries.txt
+cp $OMIM_PATH/data/cuisines.txt $MAC_RESOURCES/cuisines.txt
 cp $OMIM_PATH/data/countries_obsolete.txt $MAC_RESOURCES/countries_obsolete.txt
 cp $OMIM_PATH/data/packed_polygons.bin $MAC_RESOURCES/packed_polygons.bin
 cp $OMIM_PATH/data/packed_polygons_obsolete.bin $MAC_RESOURCES/packed_polygons_obsolete.bin
