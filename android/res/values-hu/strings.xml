@@ -122,7 +122,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Folytatás</string>
 	<string name="downloaded_touch_to_update">Letöltve (%s), érintse meg frissítéshez vagy törléshez</string>
-	<string name="update_mb_or_kb">%s frissítése</string>
+	<string name="update_mb_or_kb">%s Frissítés</string>
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
 	<string name="search_update_maps">Frissített térképekre lesz szüksége a kereséshez:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->

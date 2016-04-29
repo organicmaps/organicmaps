@@ -206,7 +206,7 @@
 
 "downloaded_touch_to_update" = "Letöltve (%@), érintse meg frissítéshez vagy törléshez";
 
-"update_mb_or_kb" = "%@ frissítése";
+"update_mb_or_kb" = "%@ Frissítés";
 
 /* Show popup notification when we have downloaded countries without search (from Lite version) */
 "search_update_maps" = "Frissített térképekre lesz szüksége a kereséshez:";
