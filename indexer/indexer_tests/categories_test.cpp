@@ -4,13 +4,18 @@
 #include "indexer/categories_index.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/new_feature_categories.hpp"
+
+#include "editor/editor_config.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/bind.hpp"
 #include "std/sstream.hpp"
 #include "std/vector.hpp"
+#include "std/transform_iterator.hpp"
 
 #include "base/stl_helpers.hpp"
 
@@ -254,3 +259,41 @@ UNIT_TEST(CategoriesIndex_AllCategoriesEnglishName)
   TEST_LESS(index.GetNumTrieNodes(), 6000, ());
 }
 #endif
+
+UNIT_TEST(CategoriesIndex_UniqueNames)
+{
+  classificator::Load();
+  auto const & cl = classif();
+
+  editor::EditorConfig config;
+  osm::NewFeatureCategories categories(config);
+
+  for (auto const & lang : {"en", "ru", "de", "cs", "da", "es", "fi", "fr", "hu",
+                            "id", "it", "ja", "co", "nl", "nb", "pl", "pt", "ro",
+                            "sk", "sv", "th", "tr", "uk", "vi", "zh-Hant" "ar"})
+  {
+    categories.AddLanguage(lang);
+    auto const & names = categories.GetAllCategoryNames(lang);
+
+    auto firstFn = bind(&pair<string, uint32_t>::first, _1);
+    set<string> uniqueNames(make_transform_iterator(names.begin(), firstFn),
+                            make_transform_iterator(names.end(), firstFn));
+
+    if (uniqueNames.size() != names.size())
+    {
+      LOG(LWARNING, ("Invalid category translations", lang));
+
+      for (size_t i = 1; i < names.size(); ++i)
+      {
+        if (names[i-1].first == names[i].first)
+        {
+          LOG(LWARNING, (names[i].first,
+                         cl.GetReadableObjectName(names[i].second),
+                         cl.GetReadableObjectName(names[i-1].second)));
+        }
+      }
+
+      LOG(LWARNING, ("+++++++++++++++++++++++++++++++++++++"));
+    }
+  }
+}
