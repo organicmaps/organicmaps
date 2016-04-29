@@ -36,11 +36,11 @@ public:
   // If |lang| is not supported, "en" is used.
   void AddLanguage(string lang);
 
-  // Returns names (in language |lang|) and types of categories that have a synonym containing
+  // Returns names (in language |queryLang|) and types of categories that have a synonym containing
   // the substring |query| (in any language that was added before).
-  // If |lang| is not supported, "en" is used.
+  // If |queryLang| is not supported, "en" is used.
   // The returned list is sorted.
-  TNames Search(string const & query, string lang) const;
+  TNames Search(string const & query, string const & queryLang) const;
 
   // Returns all registered names of categories in language |lang| and
   // types corresponding to these names. The language must have been added before.

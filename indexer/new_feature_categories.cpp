@@ -8,6 +8,8 @@
 
 #include "std/algorithm.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
+
 namespace osm
 {
 NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
@@ -58,8 +60,10 @@ void NewFeatureCategories::AddLanguage(string lang)
   m_categoriesByLang[lang] = names;
 }
 
-NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query, string lang) const
+NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query,
+                                                          string const & queryLang) const
 {
+  string lang = queryLang;
   auto langCode = CategoriesHolder::MapLocaleToInteger(lang);
   if (langCode == CategoriesHolder::kUnsupportedLocaleCode)
   {
@@ -77,6 +81,11 @@ NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query, 
     result[i].second = resultTypes[i];
   }
   my::SortUnique(result);
+
+  alohalytics::TStringMap const stats = {
+      {"query", query}, {"queryLang", queryLang}, {"lang", lang}};
+  alohalytics::LogEvent("searchNewFeatureCategory", stats);
+
   return result;
 }
 
