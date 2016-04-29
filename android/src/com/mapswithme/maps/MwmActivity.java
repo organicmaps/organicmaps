@@ -120,8 +120,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private final Stack<MapTask> mTasks = new Stack<>();
   private final StoragePathManager mPathManager = new StoragePathManager();
 
-  private boolean mFirstStart;
-
   private View mMapFrame;
 
   private MapFragment mMapFragment;
@@ -150,6 +148,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private FloatingSearchToolbarController mSearchController;
   private LastCompassData mLastCompassData;
 
+  // The first launch of application ever - onboarding screen will be shown.
+  private boolean mFirstStart;
+  // The first launch after process started. Used to skip "Not follow, no position" state and to run locator.
   private static boolean sColdStart = true;
   private static boolean sLocationStopped;
 
