@@ -1250,7 +1250,7 @@ ar:حلواني|متجر حلويات|المتجر
 cs:Cukrárna|obchod
 da:Konfektureforretning|slikbutik|butik
 de:Süßwarengeschäft|Geschäft
-es:Tienda de golosinas|confitería|tienda
+es:Confitería|confitería|tienda
 fi:Makeiskauppa|kauppa
 fr:Pâtisserie|confiserie|magasin
 hu:Cukrászüzlet|édességbolt|bolt
@@ -2296,7 +2296,7 @@ cs:Vykopávky|zajímavost|pamětihodnost
 sk:Vykopávky|pamätihodnosť
 nl:Archeologische site|opgravingen|attractie|toerisme
 zh-Hant:1考古遺址|考古|遺址|古蹟|歷史|旅遊景點
-pl:5Miejsce arhceologiczne|wykopaliska|osobliwości miasta
+pl:5Odkrywka archeologiczna|wykopaliska|osobliwości miasta
 pt:Sítio arqueológico|turismo|vistas
 hu:Ásatás|látnivaló|túrizmus|látványosság
 th:โบราณสถาน|แหล่งท่องเที่ยว|สถานที่ท่องเที่ยว|การท่องเที่ยว
@@ -3367,7 +3367,7 @@ ko:1타운|도시
 ja:町|村
 cs:Město
 sk:Mesto
-nl:Dorp|stad
+nl:Stad
 zh-Hant:鎮|城鎮|鄉|鄉鎮
 pl:Miasteczko|miasto
 pt:Cidade

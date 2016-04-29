@@ -2224,7 +2224,7 @@
     zh-Hant = 更新 %@
     pl = Aktualizacja %@
     pt = Atualizar %@
-    hu = %@ frissítése
+    hu = %@ Frissítés
     th = ัปเดต %@
     zh-Hans = 下载%@
     ar = تحديث %@
@@ -4321,7 +4321,7 @@
 	zh-Hant = 嗨，\n\n我在 MAPS.ME 世界離線地圖上標記了%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來察看地圖上的位置。\n\n謝謝。
     zh-Hans = 嗨,\n\n我在 MAPS.ME 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。
     ar = مرحبا،\n\nقمت بوضع دبوس : %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
-    da = Hey,\n\nI har lagt en knappenål: %1$@ på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$@ ellerdette %3$@ foratseknappenåletpåkortet.\n\nTak.
+    da = Hej\n\nJeg markerede: %1$@ på MAPS.ME, en verden af offline kort. Klik på dette link %2$@ eller dette %3$@ for at se stedet på kortet.\n\nTak.
     tr = Merhaba,\n\nDünyanın çevrimdışı haritaları MAPS.ME’d: %1$@ pinledim. Yeri haritadan görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
     sv = Hej,\n\nJag lade till en knappnål: %1$@ på MAPS.ME, offline-kartor över hela världen. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.
     he = הי, n\nI\ סומן בסיכה: %1$@ במפות העולם הלא-מקוונות של MAPS.ME. הקש על הלינק או על %3$@ כדי לראות את המקום על המפה. %2$@\n\n תודה.
@@ -16149,7 +16149,7 @@
     cs = %1$d z %2$d
     zh-Hans = %1$d个/共%2$d个
     zh-Hant = %1$d個/共%2$d個
-    ar = %1$d من%2$d 
+    ar = %1$d من%2$d
     th = %1$d จาก %2$d
     uk = %1$d з %2$d
     pt = %1$d de %2$d
