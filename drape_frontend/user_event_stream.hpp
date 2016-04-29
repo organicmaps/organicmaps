@@ -352,6 +352,7 @@ private:
   void ApplyAnimations(bool & modelViewChanged, bool & viewportChanged);
   void ResetCurrentAnimations();
   void ResetMapLinearAnimations();
+  void ResetMapScaleAnimations();
   void ResetCurrentAnimations(bool finishAll, pair<bool, uint32_t> finishAnim);
 
   list<UserEvent> m_events;
