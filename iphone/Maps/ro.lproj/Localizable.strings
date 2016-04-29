@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "În timpul navigării, actualizarea este interzisă.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Aveți nevoie de mai mult spațiu ca să descărcați. Vă rugăm să ștergeți toate informațiile inutile.";
+
 "editor_sharing_title" = "Am îmbunătățit hărțile MAPS.ME";
 
 "editor_comment_will_be_sent" = "Vom trimite comentariul dumneavoastră cartografilor.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Utilizatorii MAPS.ME au făcut 50.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.";
+
 "location_services_disabled_header" = "Geolocalizarea este dezactivată";
+
+"location_services_disabled_message" = "Activaţi accesul la geolocalizare din setările dispozitivului";
 
 "location_services_disabled_1" = "1. Deschideți setările";
 

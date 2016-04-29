@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Під час навігації оновлення заборонено.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.";
+
 "editor_sharing_title" = "Я покращив мапи MAPS.ME";
 
 "editor_comment_will_be_sent" = "Ми обов'язково відправимо ваш коментар картографам.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Користувачі MAPS.ME вже внесли 50 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Для використання редактору карт, будь ласка, оновіть всі карти.";
+
 "location_services_disabled_header" = "Ідентифікацію місцезнаходження відключено";
+
+"location_services_disabled_message" = "Увімкніть доступ до геолокації в налаштуваннях цього пристрою";
 
 "location_services_disabled_1" = "1. Відкрийте «Налаштування»";
 

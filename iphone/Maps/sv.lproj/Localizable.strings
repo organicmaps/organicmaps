@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Att uppdatera är förbjudet under navigering.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Du behöver mer utrymme för att ladda ned. Radera onödig data.";
+
 "editor_sharing_title" = "Jag förbättrade kartorna hos MAPS.ME";
 
 "editor_comment_will_be_sent" = "Vi vidarebefordrar din kommentar till kartritarna.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "MAPS.ME-användare har gjort 50 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Uppdatera alla kartor för att använda kartredigeraren.";
+
 "location_services_disabled_header" = "Platsidentifiering avaktiverad";
+
+"location_services_disabled_message" = "Aktivera tillgång till geografisk plats i enhetens inställningar";
 
 "location_services_disabled_1" = "1. Öppna inställningar";
 

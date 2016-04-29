@@ -788,6 +788,8 @@
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
 	<string name="login_to_make_edits_visible">Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.</string>
 	<string name="no_migration_during_navigation">Podczas nawigacji aktualizacja jest niemożliwa.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Aby pobrać, potrzebujesz więcej miejsca. Usuń niepotrzebne dane.</string>
 	<string name="editor_sharing_title">Dokonałem poprawek map na MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Prześlemy Twoje komentarze kartografom.</string>
 	<string name="editor_unsupported_category_message">Dodałeś miejsce w kategorii, której jeszcze nie obsługujemy. Pojawi się ono na mapie za jakiś czas.</string>
@@ -827,7 +829,10 @@
 	<string name="current_location_unknown_error_message">Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.</string>
 	<string name="whatsnew_update_editor_title">Zaktualizowaliśmy edytor map</string>
 	<string name="whatsnew_update_editor_message">Użytkownicy MAPS.ME dokonali 50 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Aby korzystać z edytora map, zaktualizuj wszystkie mapy.</string>
 	<string name="location_services_disabled_header">Identyfikacja lokalizacji jest wyłączona</string>
+	<string name="location_services_disabled_message">Włącz dostęp do geolokalizacji w ustawieniach urządzenia</string>
 	<string name="location_services_disabled_1">1. Uruchom ustawienia</string>
 	<string name="location_services_disabled_2">2. Dotknij \&#39;Lokalizacja\&#39;</string>
 	<string name="location_services_disabled_3">3. Wybierz \&#39;Zawsze\&#39;</string>

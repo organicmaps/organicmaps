@@ -784,6 +784,8 @@
 	<string name="message_invalid_feature_position">Um objeto não pode ser localizado aqui</string>
 	<string name="login_to_make_edits_visible">Fazer Login para que outros usuários vejam as mudanças que você fez.</string>
 	<string name="no_migration_during_navigation">Atualização não é permitida durante a navegação.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Para descarregar, é necessário mais espaço. Por favor, elimine os dados desnecessários.</string>
 	<string name="editor_sharing_title">Melhorei os mapas do MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Encaminharemos o seu comentário aos cartógrafos.</string>
 	<string name="editor_unsupported_category_message">Você adicionou um local de uma categoria para a qual ainda não temos suporte. Ele aparecerá no mapa no futuro.</string>
@@ -792,7 +794,10 @@
 	<string name="download_over_mobile_header">Baixar usando uma conexão de rede celular?</string>
 	<string name="download_over_mobile_message">Isto pode ser significativamente caro, com alguns planos ou se roaming.</string>
 	<string name="error_enter_correct_house_number">Introduzir um número de casa correto</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Atualize todos os mapas para utilizar o Editor de Mapa.</string>
 	<string name="location_services_disabled_header">A identificação do local está desativada</string>
+	<string name="location_services_disabled_message">Permitir o acesso à geolocalização nas configurações do dispositivo</string>
 	<string name="location_services_disabled_1">1. Abrir configurações</string>
 	<string name="location_services_disabled_2">2. Tocar em localização</string>
 	<string name="location_services_disabled_3">3. Selecionar sempre</string>

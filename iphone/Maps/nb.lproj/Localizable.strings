@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Det er ikke mulig å oppdatere under navigering.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Du må frigjøre mer lagringsplass for å laste ned. Slett unødvendig data.";
+
 "editor_sharing_title" = "Jeg har forbedret MAPS.ME kartene";
 
 "editor_comment_will_be_sent" = "Vi vil sende kommentaren din til kartografene.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "MAPS.ME-brukere har foretatt 50 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "For å bruke kartredigerings-funksjonen, vennligst oppdater alle kartene.";
+
 "location_services_disabled_header" = "Lokalisering er deaktivert";
+
+"location_services_disabled_message" = "Tillat bruk av av geografisk lokalisering i enhetens innstillinger";
 
 "location_services_disabled_1" = "1. Åpne Innstillinger";
 

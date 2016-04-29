@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "التحديث ممنوع أثناء الملاحة.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، احذف البيانات غير الضرورية.";
+
 "editor_sharing_title" = "لقد قمت بتحديث خرائط تطبيق MAPS.ME";
 
 "editor_comment_will_be_sent" = "سوف نرسل تعليقك إلى فريق رسم الخرائط.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "قام مستخدمو MAPS.ME بإجراء 50000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "لاستخدام مُحَرّر الخريطة، يرجى تحديث جميع الخرائط.";
+
 "location_services_disabled_header" = "تم تعطيل تحديد الموقع";
+
+"location_services_disabled_message" = "قم بتفعيل الوصول إلى الموقع الجغرافي في إعدادات الجهاز";
 
 "location_services_disabled_1" = "1. افتح الإعدادات";
 

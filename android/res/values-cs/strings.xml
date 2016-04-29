@@ -794,6 +794,8 @@
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
 	<string name="no_migration_during_navigation">Aktualizace jsou během navigování zakázány.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Ke stažení potřebujete více volného místa. Odstraňte prosím nepotřebná data.</string>
 	<string name="editor_sharing_title">Vylepšil jsem mapy MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Váš komentář pošleme kartografům.</string>
 	<string name="editor_unsupported_category_message">Přidali jste místo kategorie, kterou zatím nepodporujeme. Na mapě se objeví za nějaký čas.</string>
@@ -833,7 +835,10 @@
 	<string name="current_location_unknown_error_message">Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.</string>
 	<string name="whatsnew_update_editor_title">Aktualizovali jsme editor map</string>
 	<string name="whatsnew_update_editor_message">Uživatelé aplikace MAPS.ME už provedli na 50 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Chcete-li používat editor map, pak prosím aktualizujte všechny mapy.</string>
 	<string name="location_services_disabled_header">Určení polohy je zakázáno</string>
+	<string name="location_services_disabled_message">Povolte přístup ke geolokaci v nastavení přístroje</string>
 	<string name="location_services_disabled_1">1. Otevřete Nastavení</string>
 	<string name="location_services_disabled_2">2. Klepněte na položku Poloha</string>
 	<string name="location_services_disabled_3">3. Vyberte Vždy zapnuto</string>

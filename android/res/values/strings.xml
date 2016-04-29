@@ -825,6 +825,8 @@
 	<string name="message_invalid_feature_position">An object can\&#39;t be located here</string>
 	<string name="login_to_make_edits_visible">Log in so other users can see the changes you have made</string>
 	<string name="no_migration_during_navigation">Updating is not allowed during navigation.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">To download, you need more space. Please, delete unnecessary data.</string>
 	<string name="editor_sharing_title">I improved the MAPS.ME maps</string>
 	<string name="editor_comment_will_be_sent">We will make sure to send your comments to the map editors.</string>
 	<string name="editor_unsupported_category_message">You have added an object whose category we do not support yet. It will appear on the map in the future.</string>
@@ -864,7 +866,10 @@
 	<string name="current_location_unknown_error_message">An error occured while searching for your location. Check that your device is working properly and try again later.</string>
 	<string name="whatsnew_update_editor_title">We\&#39;ve updated the map editor</string>
 	<string name="whatsnew_update_editor_message">MAPS.ME users have made 50 000 map changes. Together we are making the most detailed maps in the World. Join us!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Update all maps to use Map Editor.</string>
 	<string name="location_services_disabled_header">Location services are disabled</string>
+	<string name="location_services_disabled_message">Enable access to geolocation in the device settings</string>
 	<string name="location_services_disabled_1">1. Open Settings</string>
 	<string name="location_services_disabled_2">2. Tap Location</string>
 	<string name="location_services_disabled_3">3. Select Always</string>

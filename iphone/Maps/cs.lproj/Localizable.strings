@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Aktualizace jsou během navigování zakázány.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Ke stažení potřebujete více volného místa. Odstraňte prosím nepotřebná data.";
+
 "editor_sharing_title" = "Vylepšil jsem mapy MAPS.ME";
 
 "editor_comment_will_be_sent" = "Váš komentář pošleme kartografům.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Uživatelé aplikace MAPS.ME už provedli na 50 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Chcete-li používat editor map, pak prosím aktualizujte všechny mapy.";
+
 "location_services_disabled_header" = "Určení polohy je zakázáno";
+
+"location_services_disabled_message" = "Povolte přístup ke geolokaci v nastavení přístroje";
 
 "location_services_disabled_1" = "1. Otevřete Nastavení";
 

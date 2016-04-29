@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Opdatering er ikke tilladt under navigering.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "For at opdatere app'en skal du bruge mere plads. Slet unødvendig data.";
+
 "editor_sharing_title" = "Jeg forbedrede MAPS.ME kortene";
 
 "editor_comment_will_be_sent" = "Vi vil sende dine kommentarer til kartograferne.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "MAPS.ME brugere har foretaget 50.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "For at bruge kortredigering, bedes du opdatere alle kort.";
+
 "location_services_disabled_header" = "Placeringsservices er slået fra";
+
+"location_services_disabled_message" = "Slå adgang til geoposition til i enhedens indstillinger";
 
 "location_services_disabled_1" = "1. Åbn Indstillinger";
 

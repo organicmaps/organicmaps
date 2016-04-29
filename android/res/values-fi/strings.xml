@@ -787,6 +787,8 @@
 	<string name="message_invalid_feature_position">Objektia ei voida asettaa tänne</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
 	<string name="no_migration_during_navigation">Päivittäminen ei ole mahdollista navigoinnin aikana.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.</string>
 	<string name="editor_sharing_title">Minä paransin MAPS.ME-karttoja</string>
 	<string name="editor_comment_will_be_sent">Lähetämme kommenttisi kartanpiirtäjille.</string>
 	<string name="editor_unsupported_category_message">Olet lisännyt sijainnin katergoriaan jota emme vielä tue. Se tulee näkyviin kartalle hieman myöhemmin.</string>
@@ -826,7 +828,10 @@
 	<string name="current_location_unknown_error_message">Tapahtui virhe etsittäessä paikkaasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.</string>
 	<string name="whatsnew_update_editor_title">Olemme päivittäneet karttamuokkaimen</string>
 	<string name="whatsnew_update_editor_message">MAPS.ME -käyttäjät ovat tehneet 50 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Päivitä kaikki kartat käyttääksesi Karttamuokkainta.</string>
 	<string name="location_services_disabled_header">Locatie-identificatie is uitgeschakeld</string>
+	<string name="location_services_disabled_message">Schakel de toegang tot geolocaties in in de instellingen van het apparaat</string>
 	<string name="location_services_disabled_1">1. Instellingen openen</string>
 	<string name="location_services_disabled_2">2. Tik op locatie</string>
 	<string name="location_services_disabled_3">3. Selecteer \&#39;Altijd\&#39;</string>

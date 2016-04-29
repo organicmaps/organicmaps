@@ -793,6 +793,8 @@
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 	<string name="login_to_make_edits_visible">Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.</string>
 	<string name="no_migration_during_navigation">Navigasyon sırasında güncelleme yasaktır.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.</string>
 	<string name="editor_sharing_title">MAPS.ME haritalarını iyileştirdim</string>
 	<string name="editor_comment_will_be_sent">Yorumunuzu haritacılara göndereceğiz.</string>
 	<string name="editor_unsupported_category_message">Henüz desteklemediğimiz bir kategori yeri eklediniz. Bir süre sonra haritada yer alacaktır.</string>
@@ -832,7 +834,10 @@
 	<string name="current_location_unknown_error_message">Konumunuz aranırken bir hata oluştu. Cihazının düzgün çalışıp çalışmadığını kontrol edip daha sonra tekrar deneyin.</string>
 	<string name="whatsnew_update_editor_title">Harita düzenleyicisini güncelledik</string>
 	<string name="whatsnew_update_editor_message">MAPS.ME kullanıcıları, haritalar üzerinde 50.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Harita Editörü\&#39;nü kullanmak için lütfen tüm haritaları güncelleyin.</string>
 	<string name="location_services_disabled_header">Konum tanımlama devre dışı bırakıldı</string>
+	<string name="location_services_disabled_message">Cihaz ayarlarında konum belirlemeye erişimi etkinleştirin</string>
 	<string name="location_services_disabled_1">1. Ayarları Açın</string>
 	<string name="location_services_disabled_2">2. Konuma Dokunun</string>
 	<string name="location_services_disabled_3">3. Her Zamanı Seçin</string>

@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Navigáció közbeni módosítás nem engedélyezett.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.";
+
 "editor_sharing_title" = "Én fejlesztettem a MAPS.ME térképeket";
 
 "editor_comment_will_be_sent" = "Megjegyzését elküldjük a térképészeknek.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "A MAPS.ME felhasználói 50 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "A térképszerkesztő használatához, kérjük, frissítsd az összes térképet.";
+
 "location_services_disabled_header" = "Helyzetmeghatározás kikapcsolva";
+
+"location_services_disabled_message" = "Kapcsolja be a földrajzi helymeghatározást a készülék beállításaiban";
 
 "location_services_disabled_1" = "1. Nyissa meg a Beállításokat";
 

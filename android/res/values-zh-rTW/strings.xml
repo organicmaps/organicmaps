@@ -805,6 +805,8 @@
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
 	<string name="no_migration_during_navigation">導航中禁止更新。</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">為了下載，您需要更多的空間。請刪除不必要的數據。</string>
 	<string name="editor_sharing_title">我改進了 MAPS.ME 地圖</string>
 	<string name="editor_comment_will_be_sent">我們將把您的評論發送給地圖編輯者。</string>
 	<string name="editor_unsupported_category_message">您已新增了一個我們尚未支援的類別的地點。它未來會顯示在地圖上。</string>
@@ -813,7 +815,10 @@
 	<string name="download_over_mobile_header">用手機網絡連接下載嗎？</string>
 	<string name="download_over_mobile_message">用某些方案或漫遊的話這可能相當昂貴。</string>
 	<string name="error_enter_correct_house_number">輸入正確的門牌號碼</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">如要使用地圖編輯器，請更新所有地圖。</string>
 	<string name="location_services_disabled_header">地點定位被禁用</string>
+	<string name="location_services_disabled_message">啟用設備設置中的地理位置定位</string>
 	<string name="location_services_disabled_1">1. 打開設置</string>
 	<string name="location_services_disabled_2">2. 點擊位置</string>
 	<string name="location_services_disabled_3">3. 選擇總是</string>

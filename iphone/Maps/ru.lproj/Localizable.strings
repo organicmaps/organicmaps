@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Во время навигации обновление запрещено.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.";
+
 "editor_sharing_title" = "Я улучшил карты MAPS.ME";
 
 "editor_comment_will_be_sent" = "Мы обязательно отправим ваш комментарий картографам.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Пользователи MAPS.ME внесли уже 50 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Обновите все карты, чтобы использовать редактор.";
+
 "location_services_disabled_header" = "Определение местоположения отключено";
+
+"location_services_disabled_message" = "Разрешите доступ к геопозиции в настройках устройства.";
 
 "location_services_disabled_1" = "1. Откройте Настройки";
 

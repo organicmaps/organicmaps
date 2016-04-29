@@ -817,6 +817,8 @@
 	<string name="message_invalid_feature_position">Ein Objekt kann hier nicht positioniert werden</string>
 	<string name="login_to_make_edits_visible">Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.</string>
 	<string name="no_migration_during_navigation">Aktualisieren ist während der Navigation verboten.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Zum Herunterladen benötigen Sie mehr Platz. Bitte löschen Sie unnötige Daten.</string>
 	<string name="editor_sharing_title">Ich habe die MAPS.ME-Karten verbessert</string>
 	<string name="editor_comment_will_be_sent">Wir werden Ihren Kommentar an die Kartografierer weiterleiten.</string>
 	<string name="editor_unsupported_category_message">Sie haben einen Ort in einer Kategorie hinzugefügt, die wir noch nicht unterstützten. Er wird zu einem späteren Zeitpunkt auf der Karte erscheinen.</string>
@@ -826,7 +828,7 @@
 	<string name="download_over_mobile_message">Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.</string>
 	<string name="error_enter_correct_house_number">Richtige Hausnummer eingeben</string>
 	<string name="editor_storey_number">Anzahl der Etagen (%2d maximal)</string>
-	<string name="error_enter_correct_storey_number">Bearbeiten Sie die Gebäude mit maximal 25% Etagen</string>
+	<string name="error_enter_correct_storey_number">Bearbeiten Sie die Gebäude mit maximal 25 Etagen</string>
 	<string name="editor_zip_code">Postleitzahl</string>
 	<string name="error_enter_correct_zip_code">Geben Sie die korrekte Postleitzahl ein</string>
 	<!-- Place Page title for long tap -->
@@ -856,7 +858,10 @@
 	<string name="current_location_unknown_error_message">Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.</string>
 	<string name="whatsnew_update_editor_title">Der Editor wurde aktualisiert.</string>
 	<string name="whatsnew_update_editor_message">Die Benutzer haben schon mehr als 50.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Um den Karten-Editor zu nutzen, aktualisieren Sie bitte alle Karten.</string>
 	<string name="location_services_disabled_header">Standort-Identifizierung ist deaktiviert</string>
+	<string name="location_services_disabled_message">Aktivieren Sie den Zugang zur Positionsbestimmung in den Geräteeinstellungen</string>
 	<string name="location_services_disabled_1">1. Einstellungen öffnen</string>
 	<string name="location_services_disabled_2">2. Auf Standort tippen</string>
 	<string name="location_services_disabled_3">3. \&#39;Immer\&#39; auswählen</string>

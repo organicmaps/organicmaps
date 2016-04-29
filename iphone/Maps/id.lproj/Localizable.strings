@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Memperbarui tidak diperbolehkan selama navigasi.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Untuk mengunduh, Anda perlu ruang lebih banyak. Harap menghapus data yang tidak diperlukan.";
+
 "editor_sharing_title" = "Saya meningkatkan peta MAPS.ME";
 
 "editor_comment_will_be_sent" = "Kami akan mengirim komen Anda ke pembuat peta.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Pengguna MAPS.ME telah membuat 50 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Untuk menggunakan editor peta, silakan perbarui semua peta.";
+
 "location_services_disabled_header" = "Identifikasi lokasi dinonaktifkan";
+
+"location_services_disabled_message" = "Izinkan akses ke geolokasi pada pengaturan perangkat";
 
 "location_services_disabled_1" = "1. Buka Pengaturan";
 

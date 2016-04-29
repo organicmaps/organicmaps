@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "ナビゲーション中は更新できません。";
 
+/* Error dialog no space */
+"migration_no_space_message" = "ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。";
+
 "editor_sharing_title" = "MAPS.MEの地図を改善しました";
 
 "editor_comment_will_be_sent" = "いただいたコメントを地図製作者に送ります。";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "MAPS.MEユーザーは50000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "マップエディタを利用するには、全てのアップをアップデートしてください。";
+
 "location_services_disabled_header" = "位置情報認識機能が無効になっています";
+
+"location_services_disabled_message" = "デバイスの設定で位置情報へのアクセスを有効にしてください";
 
 "location_services_disabled_1" = "1. 設定を開きます";
 

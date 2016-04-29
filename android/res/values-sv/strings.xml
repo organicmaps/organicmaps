@@ -791,6 +791,8 @@
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
 	<string name="no_migration_during_navigation">Att uppdatera är förbjudet under navigering.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Du behöver mer utrymme för att ladda ned. Radera onödig data.</string>
 	<string name="editor_sharing_title">Jag förbättrade kartorna hos MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Vi vidarebefordrar din kommentar till kartritarna.</string>
 	<string name="editor_unsupported_category_message">Du har lagt till en plats i en kategori vi ännu inte stödjer. Den kommer att finnas på kartan vid ett senare tillfälle.</string>
@@ -830,7 +832,10 @@
 	<string name="current_location_unknown_error_message">Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.</string>
 	<string name="whatsnew_update_editor_title">Vi har uppdaterat kartredigeraren</string>
 	<string name="whatsnew_update_editor_message">MAPS.ME-användare har gjort 50 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Uppdatera alla kartor för att använda kartredigeraren.</string>
 	<string name="location_services_disabled_header">Platsidentifiering avaktiverad</string>
+	<string name="location_services_disabled_message">Aktivera tillgång till geografisk plats i enhetens inställningar</string>
 	<string name="location_services_disabled_1">1. Öppna inställningar</string>
 	<string name="location_services_disabled_2">2. Tryck på Plats</string>
 	<string name="location_services_disabled_3">3. Välj Alltid</string>

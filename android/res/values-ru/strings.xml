@@ -821,6 +821,8 @@
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
 	<string name="login_to_make_edits_visible">Войдите, чтобы ваши изменения увидели другие пользователи.</string>
 	<string name="no_migration_during_navigation">Во время навигации обновление запрещено.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.</string>
 	<string name="editor_sharing_title">Я улучшил карты MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Мы обязательно отправим ваш комментарий картографам.</string>
 	<string name="editor_unsupported_category_message">Вы добавили объект, категорию которого мы пока не поддерживаем. В будущем он появится на карте.</string>
@@ -860,7 +862,10 @@
 	<string name="current_location_unknown_error_message">При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.</string>
 	<string name="whatsnew_update_editor_title">Мы обновили редактор</string>
 	<string name="whatsnew_update_editor_message">Пользователи MAPS.ME внесли уже 50 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Обновите все карты, чтобы использовать редактор.</string>
 	<string name="location_services_disabled_header">Определение местоположения отключено</string>
+	<string name="location_services_disabled_message">Разрешите доступ к геопозиции в настройках устройства.</string>
 	<string name="location_services_disabled_1">1. Откройте Настройки</string>
 	<string name="location_services_disabled_2">2. Нажмите Геопозиция</string>
 	<string name="location_services_disabled_3">3. Выберите «Всегда»</string>

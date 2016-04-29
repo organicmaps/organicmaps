@@ -788,6 +788,8 @@
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
 	<string name="no_migration_during_navigation">Navigáció közbeni módosítás nem engedélyezett.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.</string>
 	<string name="editor_sharing_title">Én fejlesztettem a MAPS.ME térképeket</string>
 	<string name="editor_comment_will_be_sent">Megjegyzését elküldjük a térképészeknek.</string>
 	<string name="editor_unsupported_category_message">Olyan kategóriához adott helyet, amelyet még nem támogatunk. Ez a kategória később fog megjelenni a térképen.</string>
@@ -826,7 +828,10 @@
 	<string name="current_location_unknown_error_message">Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.</string>
 	<string name="whatsnew_update_editor_title">Frissítettük a szerkesztőt</string>
 	<string name="whatsnew_update_editor_message">A MAPS.ME felhasználói 50 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">A térképszerkesztő használatához, kérjük, frissítsd az összes térképet.</string>
 	<string name="location_services_disabled_header">Helyzetmeghatározás kikapcsolva</string>
+	<string name="location_services_disabled_message">Kapcsolja be a földrajzi helymeghatározást a készülék beállításaiban</string>
 	<string name="location_services_disabled_1">1. Nyissa meg a Beállításokat</string>
 	<string name="location_services_disabled_2">2. Érintse meg a Helyzet gombot</string>
 	<string name="location_services_disabled_3">3. Válassza ki a Mindig gombot</string>

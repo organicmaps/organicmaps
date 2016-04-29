@@ -798,6 +798,8 @@
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
 	<string name="login_to_make_edits_visible">Se connecter pour que d\&#39;autres utilisateurs puissent voir les changements que vous avez effectués.</string>
 	<string name="no_migration_during_navigation">La mise à jour est interdite pendant la navigation.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Pour télécharger, vous avez besoin de plus d\&#39;espace. Veuillez supprimer les données non nécessaires.</string>
 	<string name="editor_sharing_title">J\&#39;ai amélioré les cartes de MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Nous transmettrons votre commentaire aux cartographes.</string>
 	<string name="editor_unsupported_category_message">Vous avez ajouté un lieu appartenant à une catégorie que nous ne prenons pas encore en charge. Il apparaîtra sur la carte prochainement.</string>
@@ -837,7 +839,10 @@
 	<string name="current_location_unknown_error_message">Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que le périphérique fonctionne correctement et réessayez ultérieurement</string>
 	<string name="whatsnew_update_editor_title">Nous avons mis à jour l\&#39;éditeur de cartes</string>
 	<string name="whatsnew_update_editor_message">Les utilisateurs de MAPS.ME ont procédé à 50 000 modifications de cartes. Nous créons ensemble les cartes les plus détaillées du monde. Rejoignez-nous !</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Pour utiliser l\&#39;Éditeur de Cartes, veuillez mettre à jour toutes les cartes.</string>
 	<string name="location_services_disabled_header">L\&#39;identification de la localisation est désactivée</string>
+	<string name="location_services_disabled_message">Permettre l\&#39;accès à la géolocalisation dans les paramètres de l\&#39;appareil</string>
 	<string name="location_services_disabled_1">1. Ouvrir Paramètres</string>
 	<string name="location_services_disabled_2">2. Appuyer sur Localisation</string>
 	<string name="location_services_disabled_3">3. Sélectionner Toujours</string>
