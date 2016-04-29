@@ -509,4 +509,18 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetCategory(JNIEnv * env, jclass cl
 {
   return jni::ToJavaString(env, g_editableMapObject.GetLocalizedType());
 }
+
+// @FeatureStatus
+// static native int nativeGetMapObjectStatus();
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetMapObjectStatus(JNIEnv * env, jclass clazz)
+{
+  return osm::Editor::Instance().GetFeatureStatus(g_editableMapObject.GetID().m_mwmId, g_editableMapObject.GetID().m_index);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsMapObjectUploaded(JNIEnv * env, jclass clazz)
+{
+  return osm::Editor::Instance().IsFeatureUploaded(g_editableMapObject.GetID().m_mwmId, g_editableMapObject.GetID().m_index);
+}
 } // extern "C"
