@@ -201,7 +201,8 @@ UNIT_TEST(CategoriesIndex_Groups)
       "en:buns\n"
       "\n"
       "shop-butcher|@shop|@meat\n"
-      "en:butcher";
+      "en:butcher\n"
+      "";
 
   classificator::Load();
   CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));

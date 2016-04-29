@@ -98,6 +98,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
     // Allow for comments starting with '#' character.
     if (!line.empty() && line[0] == '#')
       continue;
+
     strings::SimpleTokenizer iter(line, state == EParseTypes ? "|" : ":|");
 
     switch (state)
@@ -142,6 +143,20 @@ void CategoriesHolder::LoadFromStream(istream & s)
     {
       if (!iter)
       {
+        // If the category groups are specified, add translations from them.
+
+        ///@todo According to the current logic, categories.txt should have
+        /// the blank string at the end of file.
+        if (!types.empty())
+        {
+          for (string const & group : currentGroups)
+          {
+            auto trans = groupTranslations.equal_range(group);
+            for (auto it = trans.first; it != trans.second; ++it)
+              cat.m_synonyms.push_back(it->second);
+          }
+        }
+
         state = EParseTypes;
         continue;
       }
@@ -198,17 +213,6 @@ void CategoriesHolder::LoadFromStream(istream & s)
         }
         else
           cat.m_synonyms.push_back(name);
-      }
-
-      if (!types.empty())
-      {
-        // If a category group is specified, add translations from it.
-        for (string const & group : currentGroups)
-        {
-          auto trans = groupTranslations.equal_range(group);
-          for (auto it = trans.first; it != trans.second; ++it)
-            cat.m_synonyms.push_back(it->second);
-        }
       }
     }
     break;
