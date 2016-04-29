@@ -268,9 +268,7 @@ UNIT_TEST(CategoriesIndex_UniqueNames)
   editor::EditorConfig config;
   osm::NewFeatureCategories categories(config);
 
-  for (auto const & lang : {"en", "ru", "de", "cs", "da", "es", "fi", "fr", "hu",
-                            "id", "it", "ja", "co", "nl", "nb", "pl", "pt", "ro",
-                            "sk", "sv", "th", "tr", "uk", "vi", "zh-Hant" "ar"})
+  categories.ForEachLanguage([&](string const & lang)
   {
     categories.AddLanguage(lang);
     auto const & names = categories.GetAllCategoryNames(lang);
@@ -285,15 +283,15 @@ UNIT_TEST(CategoriesIndex_UniqueNames)
 
       for (size_t i = 1; i < names.size(); ++i)
       {
-        if (names[i-1].first == names[i].first)
+        if (names[i - 1].first == names[i].first)
         {
           LOG(LWARNING, (names[i].first,
                          cl.GetReadableObjectName(names[i].second),
-                         cl.GetReadableObjectName(names[i-1].second)));
+                         cl.GetReadableObjectName(names[i - 1].second)));
         }
       }
 
       LOG(LWARNING, ("+++++++++++++++++++++++++++++++++++++"));
     }
-  }
+  });
 }

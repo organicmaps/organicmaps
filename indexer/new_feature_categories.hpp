@@ -48,6 +48,12 @@ public:
   // The returned list is sorted.
   TNames const & GetAllCategoryNames(string const & lang) const;
 
+  template <class TFn> void ForEachLanguage(TFn && fn) const
+  {
+    for (auto const & e : m_categoriesByLang)
+      fn(e.first);
+  }
+
 private:
   indexer::CategoriesIndex m_index;
   vector<uint32_t> m_types;
