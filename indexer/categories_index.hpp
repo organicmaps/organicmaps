@@ -1,3 +1,5 @@
+#pragma once
+
 #include "categories_holder.hpp"
 
 #include "base/mem_trie.hpp"
