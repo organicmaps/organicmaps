@@ -45,7 +45,7 @@
       android:layout_marginTop="@dimen/margin_base_plus"
       android:layout_marginLeft="@dimen/margin_base"
       android:layout_marginRight="@dimen/margin_base"
-      android:text="Update maps!"
+      android:text="@string/whatsnew_update_editor_message_update"
       android:textAppearance="@style/MwmTextAppearance.Body1"
       android:layout_gravity="center_horizontal"
       android:gravity="center_horizontal"/>

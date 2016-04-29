@@ -181,7 +181,7 @@ public class MigrationFragment extends BaseMwmFragment
     switch (code)
     {
     case CountryItem.ERROR_OOM:
-      text = R.string.downloader_no_space_title;
+      text = R.string.migration_no_space_message;
       break;
 
     case CountryItem.ERROR_NO_INTERNET:
