@@ -372,7 +372,7 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     return false;
   }
 
-  ResetCurrentAnimations();
+  ResetMapPlaneAnimations();
   m_navigator.Scale(scaleCenter, factor);
   return true;
 }
@@ -506,7 +506,7 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
     }
   }
 
-  ResetCurrentAnimations();
+  ResetMapPlaneAnimations();
   m_navigator.SetFromRect(rect);
   return true;
 }
@@ -576,7 +576,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     return false;
   }
 
-  ResetCurrentAnimations();
+  ResetMapPlaneAnimations();
   m2::PointD const center = MapFollowAnimation::CalculateCenter(m_navigator.Screen(), userPos, pixelPos, -azimuth);
   m_navigator.SetFromRect(m2::AnyRectD(center, -azimuth, targetLocalRect));
   return true;
@@ -590,8 +590,8 @@ bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) co
 void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
                                       bool isAnim, bool immediatelyStart)
 {
-  ResetMapLinearAnimations();
-  ResetMapScaleAnimations();
+  ResetCurrentAnimations(Animation::MapLinear);
+  ResetCurrentAnimations(Animation::MapScale);
 
   double const startAngle = isAnim ? 0.0 : maxRotationAngle;
   double const endAngle = maxRotationAngle;
@@ -613,8 +613,8 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 
 void UserEventStream::SetDisable3dModeAnimation()
 {
-  ResetMapLinearAnimations();
-  ResetMapScaleAnimations();
+  ResetCurrentAnimations(Animation::MapLinear);
+  ResetCurrentAnimations(Animation::MapScale);
 
   double const startAngle = m_navigator.Screen().GetRotationAngle();
   double const endAngle = 0.0;
@@ -631,33 +631,22 @@ void UserEventStream::SetDisable3dModeAnimation()
   m_animationSystem.CombineAnimation(move(anim));
 }
 
-void UserEventStream::ResetCurrentAnimations()
-{
-  uint32_t const kMapPlaneIndex = 0;
-  ResetCurrentAnimations(false /* finishAll */, make_pair(false, kMapPlaneIndex) /* finishAnim */);
-}
-
-void UserEventStream::ResetMapLinearAnimations()
-{
-  uint32_t const kMapLinearIndex = static_cast<uint32_t>(Animation::MapLinear);
-  ResetCurrentAnimations(false /* finishAll */, make_pair(true, kMapLinearIndex)/* finishAnim */);
-}
-
-void UserEventStream::ResetMapScaleAnimations()
-{
-  uint32_t const kMapScaleIndex = static_cast<uint32_t>(Animation::MapScale);
-  ResetCurrentAnimations(false /* finishAll */, make_pair(true, kMapScaleIndex)/* finishAnim */);
-}
-
-void UserEventStream::ResetCurrentAnimations(bool finishAll, pair<bool, uint32_t> finishAnim)
+void UserEventStream::ResetCurrentAnimations(Animation::Type animType)
 {
   bool const hasAnimations = m_animationSystem.HasAnimations();
+  m_animationSystem.FinishAnimations(animType, true /* rewind */);
+  if (hasAnimations)
+  {
+    m2::AnyRectD rect;
+    if (m_animationSystem.GetRect(GetCurrentScreen(), rect))
+      m_navigator.SetFromRect(rect);
+  }
+}
 
-  if (finishAnim.first)
-    m_animationSystem.FinishAnimations((Animation::Type)finishAnim.second, true /* rewind */);
-  else
-    m_animationSystem.FinishObjectAnimations(Animation::MapPlane, finishAll);
-
+void UserEventStream::ResetMapPlaneAnimations()
+{
+  bool const hasAnimations = m_animationSystem.HasAnimations();
+  m_animationSystem.FinishObjectAnimations(Animation::MapPlane, false /* finishAll */);
   if (hasAnimations)
   {
     m2::AnyRectD rect;
@@ -971,7 +960,7 @@ void UserEventStream::BeginDrag(Touch const & t, double timestamp)
 
   if (m_kineticScrollEnabled && !m_scroller.IsActive())
   {
-    ResetCurrentAnimations();
+    ResetMapPlaneAnimations();
     m_scroller.InitGrab(m_navigator.Screen(), timestamp);
   }
 }
