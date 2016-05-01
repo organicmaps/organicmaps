@@ -20,6 +20,13 @@
     android:textColor="?colorAccent"
     tools:text="@string/downloader_update_all_button"/>
 
+  <include
+    layout="@layout/recycler_default"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar"
+    android:layout_above="@id/action"/>
+
   <android.support.design.widget.FloatingActionButton
     android:id="@+id/fab"
     android:layout_width="wrap_content"
@@ -30,13 +37,6 @@
     android:layout_marginRight="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_base"
     android:src="?fabAdd"/>
-
-  <include
-    layout="@layout/recycler_default"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/toolbar"
-    android:layout_above="@id/action"/>
 
   <include
     layout="@layout/placeholder"

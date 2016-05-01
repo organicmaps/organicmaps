@@ -15,6 +15,20 @@ class MemTrie
 public:
   MemTrie() = default;
 
+  MemTrie(MemTrie && other) : m_root(move(other.m_root))
+  {
+    m_numNodes = other.m_numNodes;
+    other.m_numNodes = 0;
+  }
+
+  MemTrie & operator=(MemTrie && other)
+  {
+    m_root = move(other.m_root);
+    m_numNodes = other.m_numNodes;
+    other.m_numNodes = 0;
+    return *this;
+  }
+
   // Adds a key-value pair to the trie.
   void Add(TString const & key, TValue const & value)
   {
@@ -53,11 +67,15 @@ private:
 
     Node() = default;
 
+    Node(Node && other) = default;
+
     ~Node()
     {
       for (auto const & move : m_moves)
         delete move.second;
     }
+
+    Node & operator=(Node && other) = default;
 
     Node * GetMove(TChar const & c, size_t & numNewNodes)
     {
@@ -76,7 +94,7 @@ private:
     map<TChar, Node *> m_moves;
     vector<TValue> m_values;
 
-    DISALLOW_COPY_AND_MOVE(Node);
+    DISALLOW_COPY(Node);
   };
 
   Node const * MoveTo(TString const & key) const
@@ -112,6 +130,6 @@ private:
   Node m_root;
   size_t m_numNodes = 0;
 
-  DISALLOW_COPY_AND_MOVE(MemTrie);
+  DISALLOW_COPY(MemTrie);
 };  // class MemTrie
 }  // namespace my

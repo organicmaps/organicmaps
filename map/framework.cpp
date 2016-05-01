@@ -2135,7 +2135,6 @@ void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
     CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
     return;
   }
-
   BuildRoute(start, finish, timeoutSec);
 }
 

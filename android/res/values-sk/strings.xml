@@ -790,6 +790,8 @@
 	<string name="message_invalid_feature_position">Objekt sa tu nedá umiestniť</string>
 	<string name="login_to_make_edits_visible">Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.</string>
 	<string name="no_migration_during_navigation">Počas hľadania trasy nie je možné vykonať aktualizáciu.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.</string>
 	<string name="editor_sharing_title">Vďaka mne sú mapy na MAPS.ME lepšie</string>
 	<string name="editor_comment_will_be_sent">Pošleme Váš príspevok kartografom.</string>
 	<string name="editor_unsupported_category_message">Pridali ste miesto z kategórie, ktorú zatiaľ nepodporujeme. Na mape sa zobrazí až za istú dobu.</string>
@@ -829,7 +831,10 @@
 	<string name="current_location_unknown_error_message">Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.</string>
 	<string name="whatsnew_update_editor_title">Aktualizovali sme program na úpravu máp</string>
 	<string name="whatsnew_update_editor_message">Používatelia MAPS.ME urobili 50 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.</string>
 	<string name="location_services_disabled_header">Identifikácia lokality je zablokovaná</string>
+	<string name="location_services_disabled_message">Povoliť prístup ku geolokalizácii v nastaveniach prístroja</string>
 	<string name="location_services_disabled_1">1. Otvorte Nastavenia</string>
 	<string name="location_services_disabled_2">2. Kliknite na položku Lokalita</string>
 	<string name="location_services_disabled_3">3. Vyberte Vždy</string>

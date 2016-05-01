@@ -47,7 +47,7 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_notes_write_additional_info"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_detailed_description"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npf-dH-f50">
@@ -65,7 +65,7 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_notes_comment"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_comment_hint"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                                     </userDefinedRuntimeAttributes>

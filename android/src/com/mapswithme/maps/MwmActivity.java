@@ -54,7 +54,7 @@ import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.news.FirstStartFragment;
-import com.mapswithme.maps.news.NewsFragment;
+import com.mapswithme.maps.news.SinglePageNewsFragment;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.RoutingInfo;
@@ -147,6 +147,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private LocationPredictor mLocationPredictor;
   private FloatingSearchToolbarController mSearchController;
   private LastCompassData mLastCompassData;
+
+  // The first launch of application ever - onboarding screen will be shown.
+  private boolean mFirstStart;
+  // The first launch after process started. Used to skip "Not follow, no position" state and to run locator.
+  private static boolean sColdStart = true;
+  private static boolean sLocationStopped;
 
   public interface LeftAnimationTrackListener
   {
@@ -823,19 +829,59 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("unused")
   public void onMyPositionModeChangedCallback(final int newMode, final boolean routingActive)
   {
-    //TODO(Android team): Use routingActive flag to change location polling frequency
     mLocationPredictor.myPositionModeChanged(newMode);
     mMainMenu.getMyPositionButton().update(newMode);
+
+    if (newMode != LocationState.NOT_FOLLOW_NO_POSITION)
+      sLocationStopped = false;
+
     switch (newMode)
     {
     case LocationState.PENDING_POSITION:
       resumeLocation();
       break;
 
+    case LocationState.NOT_FOLLOW_NO_POSITION:
+      if (sColdStart)
+      {
+        LocationState.INSTANCE.switchToNextMode();
+        break;
+      }
+
+      pauseLocation();
+
+      if (sLocationStopped)
+        break;
+
+      sLocationStopped = true;
+
+      if (mMapFragment != null && mMapFragment.isFirstStart())
+      {
+        mMapFragment.clearFirstStart();
+        break;
+      }
+
+      String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
+                                                 getString(R.string.current_location_unknown_title));
+      new AlertDialog.Builder(this)
+                     .setMessage(message)
+                     .setNegativeButton(R.string.current_location_unknown_stop_button, null)
+                     .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
+                     {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which)
+                       {
+                         LocationState.INSTANCE.switchToNextMode();
+                       }
+                     }).show();
+      break;
+
     default:
       LocationHelper.INSTANCE.restart();
       break;
     }
+
+    sColdStart = false;
   }
 
   @Override
@@ -900,20 +946,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!RoutingController.get().isNavigating())
     {
-      boolean isFirstStart = FirstStartFragment.showOn(this);
-      if (isFirstStart)
+      mFirstStart = FirstStartFragment.showOn(this);
+      if (mFirstStart)
       {
-        addTask(new MwmActivity.MapTask()
-        {
-          @Override
-          public boolean run(MwmActivity target)
+        if (LocationState.INSTANCE.isTurnedOn())
+          addTask(new MwmActivity.MapTask()
           {
-            LocationState.INSTANCE.switchToNextMode();
-            return false;
-          }
-        });
+            @Override
+            public boolean run(MwmActivity target)
+            {
+              if (LocationState.INSTANCE.isTurnedOn())
+                LocationState.INSTANCE.switchToNextMode();
+              return false;
+            }
+          });
       }
-      if (!isFirstStart && !NewsFragment.showOn(this))
+      if (!mFirstStart && !SinglePageNewsFragment.showOn(this))
       {
         if (ViralFragment.shouldDisplay())
           new ViralFragment().show(getSupportFragmentManager(), "");
@@ -952,7 +1000,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     });
   }
 
-  private boolean showZoomButtons()
+  private static boolean showZoomButtons()
   {
     return RoutingController.get().isNavigating() || Config.showZoomButtons();
   }
@@ -989,7 +1037,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     int newMode = LocationState.INSTANCE.getLocationStateMode();
     mMainMenu.getMyPositionButton().update(newMode);
 
-    if (newMode != LocationState.NOT_FOLLOW_NO_POSITION)
+    if (LocationState.INSTANCE.isTurnedOn())
       resumeLocation();
   }
 
@@ -1446,5 +1494,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mRoutingPlanInplaceController.updateBuildProgress(progress, router);
     }
+  }
+
+  boolean isFirstStart()
+  {
+    boolean res = mFirstStart;
+    mFirstStart = false;
+    return res;
   }
 }

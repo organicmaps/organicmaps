@@ -62,6 +62,8 @@
 		678CB3801CA5884800E9118D /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 678CB37F1CA5881B00E9118D /* editor.config */; };
 		67AF4A001BC579DD0048B1ED /* country_info_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */; };
 		67AF4A011BC579DD0048B1ED /* country_info_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */; };
+		67BE1DC51CD2180D00572709 /* downloading_policy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE1DC31CD2180D00572709 /* downloading_policy.cpp */; };
+		67BE1DC61CD2180D00572709 /* downloading_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BE1DC41CD2180D00572709 /* downloading_policy.hpp */; };
 		67CCFA911CBD1628007FC750 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67CCFA901CBD1628007FC750 /* Images.xcassets */; };
 		67F90B6F1C6A277900CD458E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FD71C60BA9900EDE56A /* testingmain.cpp */; };
 		67F90B701C6A277900CD458E /* country_info_getter_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FC31C60BA8A00EDE56A /* country_info_getter_test.cpp */; };
@@ -254,6 +256,8 @@
 		678CB37F1CA5881B00E9118D /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = editor.config; sourceTree = "<group>"; };
 		67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_info_getter.cpp; sourceTree = "<group>"; };
 		67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_info_getter.hpp; sourceTree = "<group>"; };
+		67BE1DC31CD2180D00572709 /* downloading_policy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloading_policy.cpp; sourceTree = "<group>"; };
+		67BE1DC41CD2180D00572709 /* downloading_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloading_policy.hpp; sourceTree = "<group>"; };
 		67CCFA901CBD1628007FC750 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../iphone/Maps/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		67F90B581C6A275B00CD458E /* storage_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = storage_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F90BB61C6A29F700CD458E /* storage_integration_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = storage_integration_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -452,6 +456,8 @@
 		675342E21A3F59EF00A0A8C3 /* storage */ = {
 			isa = PBXGroup;
 			children = (
+				67BE1DC31CD2180D00572709 /* downloading_policy.cpp */,
+				67BE1DC41CD2180D00572709 /* downloading_policy.hpp */,
 				34C9BCFA1C6CCF85000DC38D /* country_name_getter.cpp */,
 				34C9BCFB1C6CCF85000DC38D /* country_name_getter.hpp */,
 				34B0931D1C61F9BA0066F4C3 /* storage_helpers.cpp */,
@@ -518,6 +524,7 @@
 				6753430D1A3F5A2600A0A8C3 /* country_polygon.hpp in Headers */,
 				34C9BCFD1C6CCF85000DC38D /* country_name_getter.hpp in Headers */,
 				6741251F1B4C05FA00A3E828 /* http_map_files_downloader.hpp in Headers */,
+				67BE1DC61CD2180D00572709 /* downloading_policy.hpp in Headers */,
 				675343191A3F5A2600A0A8C3 /* storage_defines.hpp in Headers */,
 				67247FD41C60BA8A00EDE56A /* task_runner.hpp in Headers */,
 				6753430F1A3F5A2600A0A8C3 /* country.hpp in Headers */,
@@ -696,6 +703,7 @@
 				675343161A3F5A2600A0A8C3 /* index.cpp in Sources */,
 				678338D51C723B1A00FD6263 /* helpers.cpp in Sources */,
 				674125231B4C05FA00A3E828 /* storage_defines.cpp in Sources */,
+				67BE1DC51CD2180D00572709 /* downloading_policy.cpp in Sources */,
 				678338D41C723B1A00FD6263 /* country_name_getter_test.cpp in Sources */,
 				34C9BCFC1C6CCF85000DC38D /* country_name_getter.cpp in Sources */,
 				6741251E1B4C05FA00A3E828 /* http_map_files_downloader.cpp in Sources */,

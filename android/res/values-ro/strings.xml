@@ -784,6 +784,8 @@
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
 	<string name="no_migration_during_navigation">În timpul navigării, actualizarea este interzisă.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Aveți nevoie de mai mult spațiu ca să descărcați. Vă rugăm să ștergeți toate informațiile inutile.</string>
 	<string name="editor_sharing_title">Am îmbunătățit hărțile MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Vom trimite comentariul dumneavoastră cartografilor.</string>
 	<string name="editor_unsupported_category_message">Ați adăugat o locație pentru care nu avem încă o categorie creată. Aceasta va apărea pe hartă în viitorul apropiat.</string>
@@ -823,7 +825,10 @@
 	<string name="current_location_unknown_error_message">S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.</string>
 	<string name="whatsnew_update_editor_title">Am actualizat editorul de hărți</string>
 	<string name="whatsnew_update_editor_message">Utilizatorii MAPS.ME au făcut 50.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.</string>
 	<string name="location_services_disabled_header">Geolocalizarea este dezactivată</string>
+	<string name="location_services_disabled_message">Activaţi accesul la geolocalizare din setările dispozitivului</string>
 	<string name="location_services_disabled_1">1. Deschideți setările</string>
 	<string name="location_services_disabled_2">2. Apăsați pe Localizare</string>
 	<string name="location_services_disabled_3">3. Selectați Întotdeauna</string>

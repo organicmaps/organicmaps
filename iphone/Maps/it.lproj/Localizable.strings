@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Non è possibile effettuare aggiornamenti durante la navigazione.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Per scaricare, hai bisogno di più spazio. Sei pregato di eliminare i dati non necessari.";
+
 "editor_sharing_title" = "Ho migliorato le mappe MAPS.ME";
 
 "editor_comment_will_be_sent" = "Invieremo i tuoi commenti ai cartografi.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Gli utenti di MAPS.ME hanno apportato 50.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Per utilizzare l'editor delle mappe, aggiorna tutte le mappe.";
+
 "location_services_disabled_header" = "La geolocalizzazione è disabilitata";
+
+"location_services_disabled_message" = "Abilita l'accesso alla geolocalizzazione dalle impostazioni del dispositivo";
 
 "location_services_disabled_1" = "1. Apri le impostazioni";
 

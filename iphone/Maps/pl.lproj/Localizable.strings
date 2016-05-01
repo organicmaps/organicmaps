@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Podczas nawigacji aktualizacja jest niemożliwa.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Aby pobrać, potrzebujesz więcej miejsca. Usuń niepotrzebne dane.";
+
 "editor_sharing_title" = "Dokonałem poprawek map na MAPS.ME";
 
 "editor_comment_will_be_sent" = "Prześlemy Twoje komentarze kartografom.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Użytkownicy MAPS.ME dokonali 50 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Aby korzystać z edytora map, zaktualizuj wszystkie mapy.";
+
 "location_services_disabled_header" = "Identyfikacja lokalizacji jest wyłączona";
+
+"location_services_disabled_message" = "Włącz dostęp do geolokalizacji w ustawieniach urządzenia";
 
 "location_services_disabled_1" = "1. Uruchom ustawienia";
 

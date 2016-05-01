@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Updaten tijdens navigatie is niet toegestaan.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Om te kunnen downloaden, heb je meer ruimte nodig. Verwijder overbodige gegevens.";
+
 "editor_sharing_title" = "Ik heb de MAPS.ME-kaarten verbeterd";
 
 "editor_comment_will_be_sent" = "We zullen uw opmerking doorsturen naar de kaartmakers.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "MAPS.ME-gebruikers hebben 50.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Om de kaartaanpasser te kunnen gebruiken, moet je alle kaarten actualiseren.";
+
 "location_services_disabled_header" = "Locatie-identificatie is uitgeschakeld";
+
+"location_services_disabled_message" = "Schakel de toegang tot geolocaties in in de instellingen van het apparaat";
 
 "location_services_disabled_1" = "1. Instellingen openen";
 

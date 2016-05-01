@@ -192,7 +192,7 @@
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/search_map"
         android:parentActivityName="com.mapswithme.maps.MwmActivity"
-        android:windowSoftInputMode="stateVisible">
+        android:windowSoftInputMode="stateVisible|adjustNothing">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"

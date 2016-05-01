@@ -104,11 +104,18 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToDownloadAmount(JN
   return IsEnoughSpaceForDownload(bytes);
 }
 
-// static boolean nativeHasSpaceForDownloadCountry(String root);
+// static boolean nativeHasSpaceToDownloadCountry(String root);
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToDownloadCountry(JNIEnv * env, jclass clazz, jstring root)
 {
   return IsEnoughSpaceForDownload(jni::ToNativeString(env, root), GetStorage());
+}
+
+// static boolean nativeHasSpaceToUpdate(String root);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToUpdate(JNIEnv * env, jclass clazz, jstring root)
+{
+  return IsEnoughSpaceForUpdate(jni::ToNativeString(env, root), GetStorage());
 }
 
 // static native boolean nativeIsLegacyMode();
@@ -636,7 +643,21 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetOverallProgress(JNIEnv *
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeIsAutoretryFailed(JNIEnv * env, jclass clazz)
 {
-  return GetStorage().IsAutoRetryDownloadFailed();
+  return g_framework->IsAutoRetryDownloadFailed();
+}
+
+// static boolean nativeIsDownloadOn3gEnabled();
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeIsDownloadOn3gEnabled(JNIEnv * env, jclass clazz)
+{
+  return g_framework->IsDownloadOn3gEnabled();
+}
+
+// static void nativeEnableDownloadOn3g();
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeEnableDownloadOn3g(JNIEnv * env, jclass clazz)
+{
+  g_framework->EnableDownloadOn3g();
 }
 
 } // extern "C"

@@ -30,10 +30,6 @@ extern "C"
         filtered.push_back(str);
     }
 
-    jobjectArray result = env->NewObjectArray(filtered.size(), jni::GetStringClass(env), nullptr);
-    for (int i = 0; i < filtered.size(); i++)
-      env->SetObjectArrayElement(result, i, jni::TScopedLocalRef(env, jni::ToJavaString(env, filtered[i])));
-
-    return result;
+    return jni::ToJavaStringArray(env, filtered);
   }
 } // extern "C"

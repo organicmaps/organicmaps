@@ -27,11 +27,12 @@ void AddAllNonemptySubstrings(my::MemTrie<string, uint32_t> & trie, string const
   }
 }
 
-template<typename TF>
+template <typename TF>
 void ForEachToken(string const & s, TF && fn)
 {
   vector<strings::UniString> tokens;
-  SplitUniString(search::NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens), search::Delimiters());
+  SplitUniString(search::NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens),
+                 search::Delimiters());
   for (auto const & token : tokens)
     fn(strings::ToUtf8(token));
 }
@@ -51,11 +52,12 @@ namespace indexer
 {
 void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
 {
-  m_catHolder.ForEachNameByType(type, [&](TCategory::Name const & name)
-                                {
-                                  if (name.m_locale == lang)
-                                    TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
-                                });
+  ASSERT(lang >= 1 && lang <= CategoriesHolder::kNumLanguages, ("Invalid lang code:", lang));
+  m_catHolder->ForEachNameByType(type, [&](TCategory::Name const & name)
+                                 {
+                                   if (name.m_locale == lang)
+                                     TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
+                                 });
 }
 
 void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
@@ -66,23 +68,24 @@ void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
 
 void CategoriesIndex::AddAllCategoriesInLang(int8_t lang)
 {
-  m_catHolder.ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
-                                     {
-                                       for (auto const & name : cat.m_synonyms)
-                                       {
-                                         if (name.m_locale == lang)
-                                           TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
-                                       }
-                                     });
+  ASSERT(lang >= 1 && lang <= CategoriesHolder::kNumLanguages, ("Invalid lang code:", lang));
+  m_catHolder->ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
+                                      {
+                                        for (auto const & name : cat.m_synonyms)
+                                        {
+                                          if (name.m_locale == lang)
+                                            TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
+                                        }
+                                      });
 }
 
 void CategoriesIndex::AddAllCategoriesInAllLangs()
 {
-  m_catHolder.ForEachTypeAndCategory([this](uint32_t type, TCategory const & cat)
-                                     {
-                                       for (auto const & name : cat.m_synonyms)
-                                         TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
-                                     });
+  m_catHolder->ForEachTypeAndCategory([this](uint32_t type, TCategory const & cat)
+                                      {
+                                        for (auto const & name : cat.m_synonyms)
+                                          TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
+                                      });
 }
 
 void CategoriesIndex::GetCategories(string const & query, vector<TCategory> & result) const
@@ -90,18 +93,18 @@ void CategoriesIndex::GetCategories(string const & query, vector<TCategory> & re
   vector<uint32_t> types;
   GetAssociatedTypes(query, types);
   my::SortUnique(types);
-  m_catHolder.ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
-                                     {
-                                       if (binary_search(types.begin(), types.end(), type))
-                                         result.push_back(cat);
-                                     });
+  m_catHolder->ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
+                                      {
+                                        if (binary_search(types.begin(), types.end(), type))
+                                          result.push_back(cat);
+                                      });
 }
 
 void CategoriesIndex::GetAssociatedTypes(string const & query, vector<uint32_t> & result) const
 {
   bool first = true;
   set<uint32_t> intersection;
-  ForEachToken(query, [&](string const & token)
+  auto processToken = [&](string const & token)
   {
     set<uint32_t> types;
     auto fn = [&](string const &, uint32_t type)
@@ -109,6 +112,7 @@ void CategoriesIndex::GetAssociatedTypes(string const & query, vector<uint32_t> 
       types.insert(type);
     };
     m_trie.ForEachInSubtree(token, fn);
+
     if (first)
     {
       intersection.swap(types);
@@ -116,12 +120,14 @@ void CategoriesIndex::GetAssociatedTypes(string const & query, vector<uint32_t> 
     else
     {
       set<uint32_t> tmp;
-      set_intersection(intersection.begin(),intersection.end(),types.begin(),types.end(),inserter(tmp,tmp.begin()));
+      set_intersection(intersection.begin(), intersection.end(), types.begin(), types.end(),
+                       inserter(tmp, tmp.begin()));
       intersection.swap(tmp);
     }
     first = false;
-  });
-  
+  };
+  ForEachToken(query, processToken);
+
   result.insert(result.end(), intersection.begin(), intersection.end());
 }
 }  // namespace indexer

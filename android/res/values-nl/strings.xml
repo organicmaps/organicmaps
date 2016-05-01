@@ -777,6 +777,8 @@
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
 	<string name="no_migration_during_navigation">Updaten tijdens navigatie is niet toegestaan.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Om te kunnen downloaden, heb je meer ruimte nodig. Verwijder overbodige gegevens.</string>
 	<string name="editor_sharing_title">Ik heb de MAPS.ME-kaarten verbeterd</string>
 	<string name="editor_comment_will_be_sent">We zullen uw opmerking doorsturen naar de kaartmakers.</string>
 	<string name="editor_unsupported_category_message">U hebt een plaats of categorie toegevoegd die we nog niet ondersteunen. Het zal enige tijd duren voordat deze op de kaart verschijnt.</string>
@@ -816,7 +818,10 @@
 	<string name="current_location_unknown_error_message">Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.</string>
 	<string name="whatsnew_update_editor_title">We hebben de kaarteditor bijgewerkt</string>
 	<string name="whatsnew_update_editor_message">MAPS.ME-gebruikers hebben 50.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Om de kaartaanpasser te kunnen gebruiken, moet je alle kaarten actualiseren.</string>
 	<string name="location_services_disabled_header">Locatie-identificatie is uitgeschakeld</string>
+	<string name="location_services_disabled_message">Schakel de toegang tot geolocaties in in de instellingen van het apparaat</string>
 	<string name="location_services_disabled_1">1. Instellingen openen</string>
 	<string name="location_services_disabled_2">2. Tik op locatie</string>
 	<string name="location_services_disabled_3">3. Selecteer \&#39;Altijd\&#39;</string>

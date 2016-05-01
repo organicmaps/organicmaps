@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = platform_tests_support platform coding base minizip tomcrypt jansson
+DEPENDENCIES = platform_tests_support platform coding base minizip tomcrypt jansson stats_client
 
 include($$ROOT_DIR/common.pri)
 

@@ -7,6 +7,7 @@
 
 @property (nonatomic) SolidTouchView * iPadBackgroundView;
 @property (weak, nonatomic) UIViewController<MWMPageControllerProtocol> * parent;
+@property (nonatomic) Class<MWMWelcomeControllerProtocol> welcomeClass;
 
 @property (nonatomic) MWMPageControllerDataSource * pageControllerDataSource;
 @property (nonatomic) MWMWelcomeController * currentController;
@@ -16,12 +17,18 @@
 
 @implementation MWMPageController
 
-+ (instancetype)pageControllerWithParent:(UIViewController<MWMPageControllerProtocol> *)parentViewController
++ (instancetype)pageControllerWithParent:(UIViewController<MWMPageControllerProtocol> *)parentViewController welcomeClass:(Class<MWMWelcomeControllerProtocol>)welcomeClass
 {
   NSAssert(parentViewController != nil, @"Parent view controller can't be nil!");
-  MWMPageController * pageController = [[MWMWelcomeController welcomeStoryboard]
-      instantiateViewControllerWithIdentifier:[self className]];
+  MWMPageControllerDataSource * dataSource = [[MWMPageControllerDataSource alloc] initWithWelcomeClass:welcomeClass];
+  MWMPageController * pageController = nil;
+  if ([dataSource presentationCountForPageViewController:pageController] == 1)
+    pageController = [[MWMWelcomeController welcomeStoryboard] instantiateViewControllerWithIdentifier:@"MWMPageCurlController"];
+  else
+    pageController = [[MWMWelcomeController welcomeStoryboard] instantiateViewControllerWithIdentifier:@"MWMPageScrollController"];
+  pageController.pageControllerDataSource = dataSource;
   pageController.parent = parentViewController;
+  pageController.welcomeClass = welcomeClass;
   return pageController;
 }
 
@@ -46,11 +53,11 @@
                       viewControllerAfterViewController:current]);
 }
 
-- (void)show:(Class<MWMWelcomeControllerProtocol>)welcomeClass
+- (void)show
 {
-  [Statistics logEvent:kStatEventName(kStatWhatsNew, [welcomeClass udWelcomeWasShownKey])
+  [Statistics logEvent:kStatEventName(kStatWhatsNew, [self.welcomeClass udWelcomeWasShownKey])
       withParameters:@{kStatAction : kStatOpen}];
-  [self configure:welcomeClass];
+  [self configure];
   if (IPAD)
     [self.parent.view addSubview:self.iPadBackgroundView];
   [self.parent addChildViewController:self];
@@ -60,7 +67,7 @@
 
 #pragma mark - Private methods
 
-- (void)configure:(Class<MWMWelcomeControllerProtocol>)welcomeClass
+- (void)configure
 {
   UIView * mainView = self.view;
   UIView * parentView = self.parent.view;
@@ -78,10 +85,6 @@
         UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     mainView.layer.cornerRadius = 5.;
   }
-  self.pageControllerDataSource =
-      [[MWMPageControllerDataSource alloc] initWithPageController:self welcomeClass:welcomeClass];
-  self.dataSource = self.pageControllerDataSource;
-  self.currentController = [self.pageControllerDataSource firstWelcomeController];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -125,6 +128,15 @@
       });
     }
   }];
+}
+
+- (void)setPageControllerDataSource:(MWMPageControllerDataSource *)pageControllerDataSource
+{
+  [pageControllerDataSource setPageController:self];
+  self.dataSource = pageControllerDataSource;
+  self.currentController = [pageControllerDataSource firstWelcomeController];
+  self.isAnimatingTransition = NO;
+  _pageControllerDataSource = pageControllerDataSource;
 }
 
 @end

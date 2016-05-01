@@ -21,7 +21,7 @@
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
-#import "MWMWhatsNewDownloaderEditorController.h"
+#import "MWMWhatsNewEditorController.h"
 #import "RouteState.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -76,6 +76,9 @@ NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
+
+// The first launch after process started. Used to skip "Not follow, no position" state and to run locator.
+BOOL gIsFirstMyPositionMode = YES;
 } // namespace
 
 @interface NSValueWrapper : NSObject
@@ -156,20 +159,16 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  // TODO: Remove this hack for location changing bug
-  if (self.navigationController.visibleViewController == self)
-  {
-    if (info.m_source != location::EPredictor)
-      [m_predictor reset:info];
-    Framework & frm = GetFramework();
-    frm.OnLocationUpdate(info);
-    LOG_MEMORY_INFO();
+  if (info.m_source != location::EPredictor)
+    [m_predictor reset:info];
+  Framework & frm = GetFramework();
+  frm.OnLocationUpdate(info);
+  LOG_MEMORY_INFO();
 
-    [self updateRoutingInfo];
+  [self updateRoutingInfo];
 
-    if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
-      [self restoreRoute];
-  }
+  if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
+    [self restoreRoute];
 }
 
 - (void)updateRoutingInfo
@@ -190,9 +189,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
-  // TODO: Remove this hack for orientation changing bug
-  if (self.navigationController.visibleViewController == self)
-    GetFramework().OnCompassUpdate(info);
+  GetFramework().OnCompassUpdate(info);
 }
 
 #pragma mark - Restore route
@@ -414,7 +411,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
   if (isIOS7)
     return;
 
-  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewDownloaderEditorController class];
+  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewEditorController class];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   Class<MWMWelcomeControllerProtocol> welcomeClass = isFirstSession ? [MWMFirstLaunchController class] : whatsNewClass;
 
@@ -422,8 +419,8 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
   if ([ud boolForKey:[welcomeClass udWelcomeWasShownKey]])
     return;
 
-  self.pageViewController = [MWMPageController pageControllerWithParent:self];
-  [self.pageViewController show:welcomeClass];
+  self.pageViewController = [MWMPageController pageControllerWithParent:self welcomeClass:welcomeClass];
+  [self.pageViewController show];
 
   [ud setBool:YES forKey:[whatsNewClass udWelcomeWasShownKey]];
   [ud setBool:YES forKey:[welcomeClass udWelcomeWasShownKey]];
@@ -578,17 +575,26 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
       [[MapsAppDelegate theApp].locationManager start:self];
       break;
     case location::NotFollowNoPosition:
-      self.disableStandbyOnLocationStateMode = NO;
-      if (![Alohalytics isFirstSession] && [MapsAppDelegate theApp].locationManager.isStarted)
+      if (gIsFirstMyPositionMode && ![Alohalytics isFirstSession])
       {
-        [self.alertController presentLocationNotFoundAlertWithOkBlock:^
+        GetFramework().SwitchMyPositionNextMode();
+      }
+      else
+      {
+        self.disableStandbyOnLocationStateMode = NO;
+        BOOL const isLocationManagerStarted = [MapsAppDelegate theApp].locationManager.isStarted;
+        BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
+        if (isLocationManagerStarted && isMapVisible && ![Alohalytics isFirstSession])
         {
-          GetFramework().SwitchMyPositionNextMode();
+          [self.alertController presentLocationNotFoundAlertWithOkBlock:^
+          {
+            GetFramework().SwitchMyPositionNextMode();
+          }
+          cancelBlock:^
+          {
+            [[MapsAppDelegate theApp].locationManager stop:self];
+          }];
         }
-        cancelBlock:^
-        {
-          [[MapsAppDelegate theApp].locationManager stop:self];
-        }];
       }
       break;
     case location::NotFollow:
@@ -599,6 +605,7 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
       self.disableStandbyOnLocationStateMode = YES;
       break;
   }
+  gIsFirstMyPositionMode = NO;
 }
 
 #pragma mark - MWMFrameworkRouteBuilderObserver
@@ -630,21 +637,8 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
     case routing::IRouter::NeedMoreMaps:
     case routing::IRouter::FileTooOld:
     case routing::IRouter::RouteNotFound:
-    {
-      if (platform::migrate::NeedMigrate())
-      {
-        [self presentRoutingMigrationAlertWithOkBlock:^
-        {
-          [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatRouting}];
-          [self openMigration];
-        }];
-      }
-      else
-      {
-        [self presentDownloaderAlert:code countries:absentCountries];
-      }
+      [self presentDownloaderAlert:code countries:absentCountries];
       break;
-    }
     case routing::IRouter::Cancelled:
       break;
     default:
@@ -778,25 +772,32 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 
 #pragma mark - ShowDialog callback
 
-- (void)presentRoutingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock
-{
-  [self.alertController presentRoutingMigrationAlertWithOkBlock:okBlock];
-}
-
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
                      countries:(storage::TCountriesVec const &)countries
 {
-  if (countries.size())
+  if (platform::migrate::NeedMigrate())
+  {
+    [self.alertController presentRoutingMigrationAlertWithOkBlock:^
+    {
+      [Statistics logEvent:kStatDownloaderMigrationDialogue
+            withParameters:@{kStatFrom : kStatRouting}];
+      [self openMigration];
+    }];
+  }
+  else if (!countries.empty())
   {
     [self.alertController presentDownloaderAlertWithCountries:countries
         code:code
         cancelBlock:^
         {
-          [self.controlsManager routingHidden];
+          if (code != routing::IRouter::NeedMoreMaps)
+            [self.controlsManager routingHidden];
         }
         downloadBlock:^(storage::TCountriesVec const & downloadCountries, TMWMVoidBlock onSuccess)
         {
-          [MWMStorage downloadNodes:downloadCountries alertController:self.alertController onSuccess:onSuccess];
+          [MWMStorage downloadNodes:downloadCountries
+                    alertController:self.alertController
+                          onSuccess:onSuccess];
         }
         downloadCompleteBlock:^
         {

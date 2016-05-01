@@ -135,9 +135,10 @@ CGFloat const kAnimationDuration = .05;
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
   auto const & s = GetFramework().Storage();
+  auto const & p = GetFramework().DownloadingPolicy();
   if (s.CheckFailedCountries(m_countries))
   {
-    if (s.IsAutoRetryDownloadFailed())
+    if (p.IsAutoRetryDownloadFailed())
       [self close];
     return;
   }

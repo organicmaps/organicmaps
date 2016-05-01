@@ -91,8 +91,8 @@ using namespace storage;
   auto const & s = GetFramework().Storage();
   if (![self.parentCountryId isEqualToString:@(s.GetRootId().c_str())])
     return;
-  if (self.mode == mwm::DownloaderMode::Available || s.HaveDownloadedCountries() ||
-      self.dataSource == self.searchDataSource)
+  if (self.mode == mwm::DownloaderMode::Available || self.dataSource == self.searchDataSource ||
+      s.HaveDownloadedCountries() || s.IsDownloadInProgress())
   {
     [self configAllMapsView];
     self.tableView.hidden = NO;

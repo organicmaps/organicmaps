@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/name"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/height_item_oneline"
+  android:layout_weight="1"
+  android:background="?clickableBackground"
+  android:padding="@dimen/margin_base"
+  android:singleLine="true"
+  android:textAppearance="@style/MwmTextAppearance.Body1"/>

@@ -22,8 +22,8 @@
         style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/editor_height_field"
         android:layout_marginBottom="0dp"
+        android:minHeight="@dimen/editor_height_field"
         android:padding="@dimen/margin_half_plus">
 
         <ImageView
@@ -54,7 +54,8 @@
           android:layout_toEndOf="@id/icon"
           android:layout_toRightOf="@id/icon"
           android:text="@string/editor_edit_place_category_title"
-          android:textAppearance="@style/MwmTextAppearance.Body4"/>
+          android:textAppearance="@style/MwmTextAppearance.Body4"
+          tools:text="Trololo"/>
 
         <TextView
           android:id="@+id/name"
@@ -62,7 +63,7 @@
           android:layout_height="wrap_content"
           android:layout_alignLeft="@id/title"
           android:layout_alignStart="@id/title"
-          android:layout_below="@id/title"
+          android:layout_below="@id/anchor_center"
           android:textAppearance="@style/MwmTextAppearance.Body1"
           tools:text="Ololo"/>
 
@@ -74,43 +75,7 @@
       android:id="@+id/cv__name"
       style="@style/MwmWidget.Editor.CardView">
 
-      <LinearLayout
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_base"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:paddingEnd="@dimen/margin_base"
-        android:paddingLeft="@dimen/margin_base"
-        android:paddingRight="@dimen/margin_base"
-        android:paddingStart="@dimen/margin_base">
-
-        <android.support.design.widget.TextInputLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-
-          <EditText
-            android:id="@+id/input"
-            style="@style/MwmWidget.Editor.FieldLayout.EditText"
-            android:hint="@string/editor_edit_place_name_hint"
-            android:singleLine="true"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <TextView
-          android:id="@+id/name_multilang"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/height_block_base"
-          android:background="?clickableBackground"
-          android:drawableEnd="@drawable/ic_arrow_down"
-          android:drawableRight="@drawable/ic_arrow_down"
-          android:gravity="center_vertical"
-          android:text="@string/add_language"
-          android:textAppearance="@style/MwmTextAppearance.Body3"/>
-
-      </LinearLayout>
+      <include layout="@layout/localized_name"/>
 
     </android.support.v7.widget.CardView>
 

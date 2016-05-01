@@ -9,8 +9,10 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.WorkerService;
-import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.editor.data.FeatureCategory;
+import com.mapswithme.maps.editor.data.Language;
+import com.mapswithme.maps.editor.data.LocalizedName;
+import com.mapswithme.maps.editor.data.LocalizedStreet;
 
 
 /**
@@ -82,17 +84,16 @@ public final class Editor
   public static native boolean nativeIsNameEditable();
   public static native boolean nativeIsBuilding();
 
-  @NonNull
-  public static native String[] nativeGetNearbyStreets();
-
-  // TODO(yunikkk): add get/set name in specific language.
-  // To do that correctly, UI should query available languages, their translations and codes from
-  // osm::EditableFeature. And pass these codes back in setter together with edited name.
   public static native String nativeGetDefaultName();
   public static native void nativeSetDefaultName(String name);
+  public static native @NonNull LocalizedName[] nativeGetLocalizedNames();
+  public static native void nativeSetLocalizedNames(@NonNull LocalizedName[] names);
+  public static native Language[] nativeGetSupportedLanguages();
 
-  public static native String nativeGetStreet();
-  public static native void nativeSetStreet(String street);
+  public static native LocalizedStreet nativeGetStreet();
+  public static native void nativeSetStreet(LocalizedStreet street);
+  @NonNull
+  public static native LocalizedStreet[] nativeGetNearbyStreets();
 
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);
@@ -118,7 +119,10 @@ public final class Editor
    */
   public static native boolean nativeSaveEditedFeature();
 
-  public static native FeatureCategory[] nativeGetNewFeatureCategories();
+  @NonNull
+  public static native FeatureCategory[] nativeGetAllFeatureCategories(String lang);
+  @NonNull
+  public static native FeatureCategory[] nativeSearchFeatureCategories(String query, String lang);
 
   /**
    * Creates new object on the map. Places it in the center of current viewport.

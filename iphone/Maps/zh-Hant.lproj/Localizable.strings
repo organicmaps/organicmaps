@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "導航中禁止更新。";
 
+/* Error dialog no space */
+"migration_no_space_message" = "為了下載，您需要更多的空間。請刪除不必要的數據。";
+
 "editor_sharing_title" = "我改進了 MAPS.ME 地圖";
 
 "editor_comment_will_be_sent" = "我們將把您的評論發送給地圖編輯者。";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "MAPS.ME users have made 50 000 map changes. Together we are making the most detailed maps in the World. Join us!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "如要使用地圖編輯器，請更新所有地圖。";
+
 "location_services_disabled_header" = "地點定位被禁用";
+
+"location_services_disabled_message" = "啟用設備設置中的地理位置定位";
 
 "location_services_disabled_1" = "1. 打開設置";
 

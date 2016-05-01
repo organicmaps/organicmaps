@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = map indexer platform editor geometry coding base gflags protobuf tomcrypt succinct pugixml
+DEPENDENCIES = map indexer platform editor geometry coding base gflags protobuf tomcrypt succinct pugixml stats_client
 
 include($$ROOT_DIR/common.pri)
 

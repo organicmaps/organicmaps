@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Navigasyon sırasında güncelleme yasaktır.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.";
+
 "editor_sharing_title" = "MAPS.ME haritalarını iyileştirdim";
 
 "editor_comment_will_be_sent" = "Yorumunuzu haritacılara göndereceğiz.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "MAPS.ME kullanıcıları, haritalar üzerinde 50.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Harita Editörü'nü kullanmak için lütfen tüm haritaları güncelleyin.";
+
 "location_services_disabled_header" = "Konum tanımlama devre dışı bırakıldı";
+
+"location_services_disabled_message" = "Cihaz ayarlarında konum belirlemeye erişimi etkinleştirin";
 
 "location_services_disabled_1" = "1. Ayarları Açın";
 

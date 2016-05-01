@@ -787,6 +787,8 @@
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
 	<string name="no_migration_during_navigation">Không cho phép cập nhật trong khi điều hướng.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Để tải xuống, bạn cần thêm dung lượng. Xin xóa mọi dữ liệu không cần thiết.</string>
 	<string name="editor_sharing_title">Tôi đã cải thiện các bản đồ MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Chúng tôi sẽ gửi bình luận của bạn đến những người lập bản đồ.</string>
 	<string name="editor_unsupported_category_message">Bạn đã thêm một địa điểm của một hạng mục mà chúng tôi chưa hỗ trợ. Nó sẽ xuất hiện trên bản đồ một thời gian sau đó.</string>
@@ -826,7 +828,10 @@
 	<string name="current_location_unknown_error_message">Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.</string>
 	<string name="whatsnew_update_editor_title">Chúng tôi đã cập nhật trình biên tập bản đồ</string>
 	<string name="whatsnew_update_editor_message">Người dùng MAPS.ME đã thực hiện 50 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Để sử dụng Ứng dụng Điều chỉnh Bản đồ, xin vui lòng cập nhật tất cả các bản đồ.</string>
 	<string name="location_services_disabled_header">Chức năng nhận biết địa điểm bị tắt</string>
+	<string name="location_services_disabled_message">Bật truy cập định vị địa lý trong thiết lập thiết bị</string>
 	<string name="location_services_disabled_1">1. Mở Thiết lập</string>
 	<string name="location_services_disabled_2">2. Chạm mục Địa điểm</string>
 	<string name="location_services_disabled_3">3. Chọn Luôn luôn</string>

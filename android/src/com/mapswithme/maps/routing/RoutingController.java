@@ -231,6 +231,7 @@ public class RoutingController
 
     mContainer.showNavigation(isNavigating());
     mContainer.updateMenu();
+    mContainer.updatePoints();
     processRoutingEvent();
   }
 

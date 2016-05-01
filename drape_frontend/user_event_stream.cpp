@@ -203,6 +203,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       viewportChanged = true;
       breakAnim = true;
       TouchCancel(m_touches);
+      if (m_state == STATE_DOUBLE_TAP_HOLD)
+        EndDoubleTapAndHold(m_touches[0]);
       break;
     case UserEvent::EVENT_SET_ANY_RECT:
       breakAnim = SetRect(e.m_anyRect.m_rect, e.m_anyRect.m_isAnim);
@@ -370,7 +372,7 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     return false;
   }
 
-  ResetCurrentAnimations();
+  ResetMapPlaneAnimations();
   m_navigator.Scale(scaleCenter, factor);
   return true;
 }
@@ -504,7 +506,7 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
     }
   }
 
-  ResetCurrentAnimations();
+  ResetMapPlaneAnimations();
   m_navigator.SetFromRect(rect);
   return true;
 }
@@ -574,7 +576,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     return false;
   }
 
-  ResetCurrentAnimations();
+  ResetMapPlaneAnimations();
   m2::PointD const center = MapFollowAnimation::CalculateCenter(m_navigator.Screen(), userPos, pixelPos, -azimuth);
   m_navigator.SetFromRect(m2::AnyRectD(center, -azimuth, targetLocalRect));
   return true;
@@ -588,7 +590,8 @@ bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) co
 void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
                                       bool isAnim, bool immediatelyStart)
 {
-  ResetMapLinearAnimations();
+  ResetCurrentAnimations(Animation::MapLinear);
+  ResetCurrentAnimations(Animation::MapScale);
 
   double const startAngle = isAnim ? 0.0 : maxRotationAngle;
   double const endAngle = maxRotationAngle;
@@ -610,7 +613,8 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 
 void UserEventStream::SetDisable3dModeAnimation()
 {
-  ResetMapLinearAnimations();
+  ResetCurrentAnimations(Animation::MapLinear);
+  ResetCurrentAnimations(Animation::MapScale);
 
   double const startAngle = m_navigator.Screen().GetRotationAngle();
   double const endAngle = 0.0;
@@ -627,27 +631,22 @@ void UserEventStream::SetDisable3dModeAnimation()
   m_animationSystem.CombineAnimation(move(anim));
 }
 
-void UserEventStream::ResetCurrentAnimations()
-{
-  uint32_t const kMapPlaneIndex = 0;
-  ResetCurrentAnimations(false /* finishAll */, make_pair(false, kMapPlaneIndex) /* finishAnim */);
-}
-
-void UserEventStream::ResetMapLinearAnimations()
-{
-  uint32_t const kMapLinearIndex = static_cast<uint32_t>(Animation::MapLinear);
-  ResetCurrentAnimations(false /* finishAll */, make_pair(true, kMapLinearIndex)/* finishAnim */);
-}
-
-void UserEventStream::ResetCurrentAnimations(bool finishAll, pair<bool, uint32_t> finishAnim)
+void UserEventStream::ResetCurrentAnimations(Animation::Type animType)
 {
   bool const hasAnimations = m_animationSystem.HasAnimations();
+  m_animationSystem.FinishAnimations(animType, true /* rewind */);
+  if (hasAnimations)
+  {
+    m2::AnyRectD rect;
+    if (m_animationSystem.GetRect(GetCurrentScreen(), rect))
+      m_navigator.SetFromRect(rect);
+  }
+}
 
-  if (finishAnim.first)
-    m_animationSystem.FinishAnimations((Animation::Type)finishAnim.second, true /* rewind */);
-  else
-    m_animationSystem.FinishObjectAnimations(Animation::MapPlane, finishAll);
-
+void UserEventStream::ResetMapPlaneAnimations()
+{
+  bool const hasAnimations = m_animationSystem.HasAnimations();
+  m_animationSystem.FinishObjectAnimations(Animation::MapPlane, false /* finishAll */);
   if (hasAnimations)
   {
     m2::AnyRectD rect;
@@ -701,6 +700,9 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
+
+  // Interrupt kinetic scroll on touch down.
+  m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */);
 
   if (touchCount == 1)
   {
@@ -849,8 +851,7 @@ bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
     break;
   case STATE_WAIT_DOUBLE_TAP_HOLD:
   case STATE_DOUBLE_TAP_HOLD:
-    ASSERT_EQUAL(touchCount, 1, ());
-    EndDoubleTapAndHold(touches[0]);
+    // Do nothing here.
     break;
   case STATE_FILTER:
     ASSERT_EQUAL(touchCount, 1, ());
@@ -905,7 +906,6 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
     PerformDoubleTap(touches[0]);
     break;
   case STATE_DOUBLE_TAP_HOLD:
-    ASSERT_EQUAL(touchCount, 1, ());
     EndDoubleTapAndHold(touches[0]);
     break;
   case STATE_DRAG:
@@ -960,7 +960,7 @@ void UserEventStream::BeginDrag(Touch const & t, double timestamp)
 
   if (m_kineticScrollEnabled && !m_scroller.IsActive())
   {
-    ResetCurrentAnimations();
+    ResetMapPlaneAnimations();
     m_scroller.InitGrab(m_navigator.Screen(), timestamp);
   }
 }
@@ -1196,6 +1196,8 @@ void UserEventStream::StartDoubleTapAndHold(Touch const & touch)
   ASSERT_EQUAL(m_state, STATE_WAIT_DOUBLE_TAP_HOLD, ());
   m_state = STATE_DOUBLE_TAP_HOLD;
   m_startDoubleTapAndHold = m_startDragOrg;
+  if (m_listener)
+    m_listener->OnScaleStarted();
 }
 
 void UserEventStream::UpdateDoubleTapAndHold(Touch const & touch)
@@ -1205,10 +1207,19 @@ void UserEventStream::UpdateDoubleTapAndHold(Touch const & touch)
   float const kPowerModifier = 10.0f;
   float const scaleFactor = exp(kPowerModifier * (touch.m_location.y - m_startDoubleTapAndHold.y) / GetCurrentScreen().PixelRect().SizeY());
   m_startDoubleTapAndHold = touch.m_location;
+
   m2::PointD scaleCenter = m_startDragOrg;
   if (m_listener)
     m_listener->CorrectScalePoint(scaleCenter);
   m_navigator.Scale(scaleCenter, scaleFactor);
+
+  m2::PointD glbScaleCenter = m_navigator.PtoG(m_navigator.P3dtoP(scaleCenter));
+  if (m_listener)
+    m_listener->CorrectGlobalScalePoint(glbScaleCenter);
+
+  m2::PointD const offset = GetCurrentScreen().PixelRect().Center() - m_navigator.P3dtoP(scaleCenter);
+  m2::PointD const center = m_navigator.PtoG(m_navigator.GtoP(glbScaleCenter) + offset);
+  m_navigator.SetFromRect(m2::AnyRectD(center, m_navigator.Screen().GetAngle(), m_navigator.Screen().GlobalRect().GetLocalRect()));
 }
 
 void UserEventStream::EndDoubleTapAndHold(Touch const & touch)
@@ -1216,6 +1227,8 @@ void UserEventStream::EndDoubleTapAndHold(Touch const & touch)
   TEST_CALL(END_DOUBLE_TAP_AND_HOLD);
   ASSERT_EQUAL(m_state, STATE_DOUBLE_TAP_HOLD, ());
   m_state = STATE_EMPTY;
+  if (m_listener)
+    m_listener->OnScaleEnded();
 }
 
 bool UserEventStream::IsInUserAction() const

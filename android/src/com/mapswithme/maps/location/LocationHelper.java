@@ -171,7 +171,7 @@ public enum LocationHelper implements SensorEventListener
   @Nullable
   public MapObject getMyPosition()
   {
-    if (!LocationState.isTurnedOn())
+    if (!LocationState.INSTANCE.isTurnedOn())
     {
       mMyPosition = null;
       return null;

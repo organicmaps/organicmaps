@@ -2527,10 +2527,11 @@ cont {
 cont {
   name: "amenity-bicycle_parking"
   element {
-    scale: 19
+    scale: 17
     symbol {
-      name: "none"
-      priority: 16000
+      name: "bike-parking-l"
+      priority: 16849
+      min_distance: 20
     }
     caption {
       primary {
@@ -2538,7 +2539,39 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15000
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "bike-parking-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "bike-parking-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15849
     }
   }
 }
@@ -3123,10 +3156,88 @@ cont {
 cont {
   name: "amenity-charging_station"
   element {
-    scale: 19
+    scale: 13
     symbol {
-      name: "none"
+      name: "charging-station-s"
       priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 6
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "charging-station-s"
+      priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 6
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "charging-station-m"
+      priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "charging-station-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "charging-station-l"
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "charging-station-l"
+      priority: 16876
     }
     caption {
       primary {
@@ -3134,17 +3245,47 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15000
+      priority: 15876
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "charging-station-l"
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
     }
   }
 }
 cont {
   name: "amenity-childcare"
   element {
-    scale: 19
+    scale: 17
     symbol {
-      name: "none"
-      priority: 16000
+      name: "childcare-l"
+      priority: 16835
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15835
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "childcare-l"
+      priority: 16849
     }
     caption {
       primary {
@@ -3152,7 +3293,22 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15000
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "childcare-l"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15849
     }
   }
 }
@@ -3333,28 +3489,140 @@ cont {
 cont {
   name: "amenity-community_centre"
   element {
-    scale: 19
+    scale: 13
     symbol {
-      name: "none"
-      priority: 16000
+      name: "tourism-s"
+      priority: 16876
+      min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 10
+        color: 5592405
+        offset_y: 6
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16876
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 6
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16876
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 15000
+      priority: 15876
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16876
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16876
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16876
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16876
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
     }
   }
 }
 cont {
   name: "amenity-courthouse"
   element {
-    scale: 19
+    scale: 17
     symbol {
-      name: "none"
-      priority: 16000
+      name: "courthouse-l"
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "courthouse-l"
+      priority: 16876
     }
     caption {
       primary {
@@ -3362,7 +3630,22 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15000
+      priority: 15876
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "courthouse-l"
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
     }
   }
 }
@@ -7472,9 +7755,24 @@ cont {
 cont {
   name: "amenity-vending_machine-parking_tickets"
   element {
+    scale: 16
+    symbol {
+      name: "parking-meter-m"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
     scale: 17
     symbol {
-      name: "vending-l"
+      name: "parking-meter-l"
       priority: 16849
       min_distance: 20
     }
@@ -7490,7 +7788,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "vending-l"
+      name: "parking-meter-l"
       priority: 16849
       min_distance: 20
     }
@@ -7506,7 +7804,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-l"
+      name: "parking-meter-l"
       priority: 16849
       min_distance: 20
     }
@@ -7574,10 +7872,40 @@ cont {
 cont {
   name: "amenity-veterinary"
   element {
-    scale: 19
+    scale: 16
     symbol {
-      name: "none"
-      priority: 16000
+      name: "veterinary-m"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "veterinary-l"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "veterinary-l"
+      priority: 16849
     }
     caption {
       primary {
@@ -7585,17 +7913,40 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15000
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "veterinary-l"
+      priority: 16849
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15849
     }
   }
 }
 cont {
   name: "amenity-waste_basket"
   element {
+    scale: 18
+    symbol {
+      name: "waste-basket-s"
+      apply_for_type: 1
+      priority: 16849
+    }
+  }
+  element {
     scale: 19
     symbol {
-      name: "none"
-      priority: 16000
+      name: "waste-basket-s"
+      priority: 16849
     }
     caption {
       primary {
@@ -7603,7 +7954,7 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15000
+      priority: 15849
     }
   }
 }
@@ -10142,6 +10493,24 @@ cont {
 }
 cont {
   name: "emergency-phone"
+  element {
+    scale: 15
+    symbol {
+      name: "phone-m"
+      apply_for_type: 1
+      priority: 16863
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "phone-m"
+      apply_for_type: 1
+      priority: 16863
+      min_distance: 30
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -34111,6 +34480,124 @@ cont {
   }
 }
 cont {
+  name: "leisure-fitness_centre"
+  element {
+    scale: 13
+    symbol {
+      name: "gym-s"
+      priority: 16876
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "gym-s"
+      priority: 16876
+      min_distance: 50
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "gym-m"
+      priority: 16876
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "gym-m"
+      priority: 16876
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "gym-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "gym-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "gym-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+}
+cont {
   name: "leisure-garden"
   element {
     scale: 12
@@ -38914,41 +39401,93 @@ cont {
   }
 }
 cont {
+  name: "leisure-sauna"
+  element {
+    scale: 15
+    symbol {
+      name: "sauna-m"
+      priority: 16876
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "sauna-m"
+      priority: 16876
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "sauna-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "sauna-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "sauna-l"
+      apply_for_type: 1
+      priority: 16068
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15500
+    }
+  }
+}
+cont {
   name: "leisure-sports_centre"
-  element {
-    scale: 13
-    symbol {
-      name: "pitch-s"
-      apply_for_type: 1
-      priority: 16068
-      min_distance: 50
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15500
-    }
-  }
-  element {
-    scale: 14
-    symbol {
-      name: "pitch-s"
-      apply_for_type: 1
-      priority: 16068
-      min_distance: 50
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15500
-    }
-  }
   element {
     scale: 15
     symbol {
@@ -39040,7 +39579,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "pitch-s"
+      name: "climbing-s"
       apply_for_type: 1
       priority: 16068
       min_distance: 50
@@ -39057,7 +39596,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "pitch-s"
+      name: "climbing-s"
       apply_for_type: 1
       priority: 16068
       min_distance: 50
@@ -39074,7 +39613,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "pitch-m"
+      name: "climbing-m"
       apply_for_type: 1
       priority: 16068
       min_distance: 40
@@ -39091,7 +39630,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "pitch-m"
+      name: "climbing-m"
       apply_for_type: 1
       priority: 16068
       min_distance: 40
@@ -39108,7 +39647,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pitch-l"
+      name: "climbing-l"
       apply_for_type: 1
       priority: 16068
       min_distance: 10
@@ -39125,7 +39664,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-l"
+      name: "climbing-l"
       apply_for_type: 1
       priority: 16068
       min_distance: 10
@@ -39142,7 +39681,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-l"
+      name: "climbing-l"
       apply_for_type: 1
       priority: 16068
       min_distance: 10
@@ -39172,7 +39711,7 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15500
+      priority: 15849
     }
   }
   element {
@@ -39188,7 +39727,7 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15500
+      priority: 15849
     }
   }
   element {
@@ -39277,7 +39816,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "pitch-s"
+      name: "swimming-s"
       apply_for_type: 1
       priority: 16068
       min_distance: 50
@@ -39294,7 +39833,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "pitch-s"
+      name: "swimming-s"
       apply_for_type: 1
       priority: 16068
       min_distance: 50
@@ -39311,7 +39850,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "pitch-m"
+      name: "swimming-m"
       apply_for_type: 1
       priority: 16068
       min_distance: 40
@@ -39328,7 +39867,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "pitch-m"
+      name: "swimming-m"
       apply_for_type: 1
       priority: 16068
       min_distance: 40
@@ -39345,7 +39884,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pitch-l"
+      name: "swimming-l"
       apply_for_type: 1
       priority: 16068
       min_distance: 10
@@ -39396,40 +39935,6 @@ cont {
 }
 cont {
   name: "leisure-sports_centre-yoga"
-  element {
-    scale: 13
-    symbol {
-      name: "pitch-s"
-      apply_for_type: 1
-      priority: 16068
-      min_distance: 50
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15500
-    }
-  }
-  element {
-    scale: 14
-    symbol {
-      name: "pitch-s"
-      apply_for_type: 1
-      priority: 16068
-      min_distance: 50
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 10
-      }
-      priority: 15500
-    }
-  }
   element {
     scale: 15
     symbol {
@@ -40102,6 +40607,89 @@ cont {
   }
 }
 cont {
+  name: "man_made-chimney"
+  element {
+    scale: 15
+    symbol {
+      name: "chimney-m"
+      priority: 16863
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15863
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "chimney-m"
+      priority: 16863
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15863
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "chimney-m"
+      priority: 16863
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15863
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "chimney-l"
+      priority: 16863
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15863
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "chimney-l"
+      priority: 16863
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15863
+    }
+  }
+}
+cont {
   name: "man_made-cutline"
   element {
     scale: 14
@@ -40437,6 +41025,121 @@ cont {
         color: 5592405
       }
       priority: 15671
+    }
+  }
+}
+cont {
+  name: "man_made-water_well"
+  element {
+    scale: 13
+    symbol {
+      name: "drinking-water-s"
+      priority: 16890
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 6
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "drinking-water-s"
+      priority: 16890
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 6
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "drinking-water-m"
+      priority: 16890
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "drinking-water-m"
+      priority: 16890
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking-water-m"
+      priority: 16890
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-m"
+      priority: 16890
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-m"
+      priority: 16890
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15890
     }
   }
 }
@@ -43834,10 +44537,27 @@ cont {
 cont {
   name: "office-lawyer"
   element {
+    scale: 17
+    symbol {
+      name: "lawyer-l"
+      priority: 16876
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
     scale: 18
     symbol {
       name: "office-l"
       priority: 16863
+      min_distance: 10
     }
     caption {
       primary {
@@ -43853,6 +44573,7 @@ cont {
     symbol {
       name: "office-l"
       priority: 16863
+      min_distance: 10
     }
     caption {
       primary {
@@ -62093,7 +62814,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "bookmaker-l"
       priority: 16849
     }
     caption {
@@ -62108,7 +62829,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "bookmaker-l"
       priority: 16849
     }
     caption {
@@ -62123,7 +62844,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "bookmaker-l"
       priority: 16849
     }
     caption {
@@ -62375,7 +63096,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "car-part-m"
       priority: 16849
     }
     caption {
@@ -62390,7 +63111,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "car-part-m"
       priority: 16849
     }
     caption {
@@ -62405,7 +63126,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "car-part-l"
       priority: 16849
     }
     caption {
@@ -62420,7 +63141,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "car-part-l"
       priority: 16849
     }
     caption {
@@ -62435,7 +63156,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "car-part-l"
       priority: 16849
     }
     caption {
@@ -62529,18 +63250,51 @@ cont {
 cont {
   name: "shop-car_repair-tyres"
   element {
+    scale: 13
+    symbol {
+      name: "car-repair-s"
+      priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 6
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "car-repair-s"
+      priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 6
+      }
+      priority: 15500
+    }
+  }
+  element {
     scale: 15
     symbol {
       name: "car-repair-m"
       priority: 16849
+      min_distance: 20
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 15849
+      priority: 15500
     }
   }
   element {
@@ -62551,33 +63305,33 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 15849
+      priority: 15500
     }
   }
   element {
     scale: 17
     symbol {
       name: "car-repair-l"
-      priority: 16849
+      priority: 16876
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 15849
+      priority: 15876
     }
   }
   element {
     scale: 18
     symbol {
       name: "car-repair-l"
-      priority: 16849
+      priority: 16876
     }
     caption {
       primary {
@@ -62585,14 +63339,14 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15849
+      priority: 15876
     }
   }
   element {
     scale: 19
     symbol {
       name: "car-repair-l"
-      priority: 16849
+      priority: 16876
     }
     caption {
       primary {
@@ -62600,7 +63354,7 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15849
+      priority: 15876
     }
   }
 }
@@ -62999,7 +63753,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "copyshop-m"
       priority: 16849
     }
     caption {
@@ -63014,7 +63768,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "copyshop-m"
       priority: 16849
     }
     caption {
@@ -63029,7 +63783,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "copyshop-l"
       priority: 16849
     }
     caption {
@@ -63044,7 +63798,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "copyshop-l"
       priority: 16849
     }
     caption {
@@ -63059,7 +63813,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "copyshop-l"
       priority: 16849
     }
     caption {
@@ -63077,7 +63831,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "beauty-m"
       priority: 16849
     }
     caption {
@@ -63092,7 +63846,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "beauty-m"
       priority: 16849
     }
     caption {
@@ -63107,7 +63861,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "beauty-l"
       priority: 16849
     }
     caption {
@@ -63122,7 +63876,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "beauty-l"
       priority: 16849
     }
     caption {
@@ -63137,7 +63891,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "beauty-l"
       priority: 16849
     }
     caption {
@@ -63311,8 +64065,9 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "laundry-m"
       priority: 16849
+      min_distance: 20
     }
     caption {
       primary {
@@ -63326,8 +64081,9 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "laundry-m"
       priority: 16849
+      min_distance: 20
     }
     caption {
       primary {
@@ -63341,7 +64097,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "laundry-l"
       priority: 16849
     }
     caption {
@@ -63356,7 +64112,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "laundry-l"
       priority: 16849
     }
     caption {
@@ -63371,7 +64127,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "laundry-l"
       priority: 16849
     }
     caption {
@@ -64513,7 +65269,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "climbing-m"
       priority: 16849
     }
     caption {
@@ -64528,7 +65284,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "climbing-m"
       priority: 16849
     }
     caption {
@@ -64543,7 +65299,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "climbing-l"
       priority: 16849
     }
     caption {
@@ -64558,7 +65314,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "climbing-l"
       priority: 16849
     }
     caption {
@@ -64573,7 +65329,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "climbing-l"
       priority: 16849
     }
     caption {
@@ -64591,7 +65347,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "petshop-m"
       priority: 16849
     }
     caption {
@@ -64606,7 +65362,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "petshop-m"
       priority: 16849
     }
     caption {
@@ -64621,7 +65377,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "petshop-l"
       priority: 16849
     }
     caption {
@@ -64636,7 +65392,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "petshop-l"
       priority: 16849
     }
     caption {
@@ -64651,7 +65407,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "petshop-l"
       priority: 16849
     }
     caption {
@@ -64669,7 +65425,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "photo-shop-m"
       priority: 16849
     }
     caption {
@@ -64684,7 +65440,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "photo-shop-m"
       priority: 16849
     }
     caption {
@@ -64699,7 +65455,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "photo-shop-l"
       priority: 16849
     }
     caption {
@@ -64714,7 +65470,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "photo-shop-l"
       priority: 16849
     }
     caption {
@@ -64729,7 +65485,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "photo-shop-l"
       priority: 16849
     }
     caption {
@@ -64747,7 +65503,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "seafood-shop-m"
       priority: 16849
     }
     caption {
@@ -64762,7 +65518,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "seafood-shop-m"
       priority: 16849
     }
     caption {
@@ -64777,7 +65533,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "seafood-shop-l"
       priority: 16849
     }
     caption {
@@ -64792,7 +65548,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "seafood-shop-l"
       priority: 16849
     }
     caption {
@@ -64807,7 +65563,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "seafood-shop-l"
       priority: 16849
     }
     caption {
@@ -65089,7 +65845,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "ticket-shop-m"
       priority: 16849
     }
     caption {
@@ -65104,7 +65860,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "ticket-shop-m"
       priority: 16849
     }
     caption {
@@ -65119,7 +65875,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "ticket-shop-l"
       priority: 16849
     }
     caption {
@@ -65134,7 +65890,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "ticket-shop-l"
       priority: 16849
     }
     caption {
@@ -65149,7 +65905,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "ticket-shop-l"
       priority: 16849
     }
     caption {
@@ -65323,7 +66079,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "car-repair-m"
       priority: 16849
     }
     caption {
@@ -65338,7 +66094,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "car-repair-m"
       priority: 16849
     }
     caption {
@@ -65353,7 +66109,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "car-repair-l"
       priority: 16849
     }
     caption {
@@ -65368,7 +66124,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "car-repair-l"
       priority: 16849
     }
     caption {
@@ -65383,7 +66139,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "car-repair-l"
       priority: 16849
     }
     caption {
@@ -65401,7 +66157,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shop-m"
+      name: "alcohol-m"
       priority: 16849
     }
     caption {
@@ -65416,7 +66172,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "alcohol-m"
       priority: 16849
     }
     caption {
@@ -65431,7 +66187,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "alcohol-l"
       priority: 16849
     }
     caption {
@@ -65446,7 +66202,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "alcohol-l"
       priority: 16849
     }
     caption {
@@ -65461,7 +66217,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "alcohol-l"
       priority: 16849
     }
     caption {

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -18,11 +19,14 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.Metadata.MetadataType;
+import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import org.solovyev.android.views.llm.LinearLayoutManager;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -31,7 +35,44 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private View mCardAddress;
   private View mCardMetadata;
   private EditText mName;
-  private TextView mLocalizedNames;
+
+  private RecyclerView mLocalizedNames;
+  private RecyclerView.AdapterDataObserver mLocalizedNamesObserver = new RecyclerView.AdapterDataObserver()
+  {
+    @Override
+    public void onChanged()
+    {
+      refreshLocalizedNames();
+    }
+
+    @Override
+    public void onItemRangeChanged(int positionStart, int itemCount)
+    {
+      refreshLocalizedNames();
+    }
+
+    @Override
+    public void onItemRangeInserted(int positionStart, int itemCount)
+    {
+      refreshLocalizedNames();
+    }
+
+    @Override
+    public void onItemRangeRemoved(int positionStart, int itemCount)
+    {
+      refreshLocalizedNames();
+    }
+
+    @Override
+    public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount)
+    {
+      refreshLocalizedNames();
+    }
+  };
+  private MultilanguageAdapter mLocalizedNamesAdapter;
+  private TextView mLocalizedShow;
+  private boolean mIsLocalizedShown;
+
   private TextView mStreet;
   private EditText mHouseNumber;
   private EditText mZipcode;
@@ -69,10 +110,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     initViews(view);
 
     mCategory.setText(Editor.nativeGetCategory());
-    // TODO(yunikkk): Add multilanguages support.
-    UiUtils.hide(mLocalizedNames);
     mName.setText(Editor.nativeGetDefaultName());
-    mStreet.setText(Editor.nativeGetStreet());
+    final LocalizedStreet street = Editor.nativeGetStreet();
+    mStreet.setText(street.defaultName);
     mHouseNumber.setText(Editor.nativeGetHouseNumber());
     mHouseNumber.addTextChangedListener(new StringUtils.SimpleTextWatcher()
     {
@@ -122,6 +162,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetWebsite(mWebsite.getText().toString());
     Editor.nativeSetEmail(mEmail.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
+    // TODO set localizated names
 
     return true;
   }
@@ -200,7 +241,18 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mCardAddress = view.findViewById(R.id.cv__address);
     mCardMetadata = view.findViewById(R.id.cv__metadata);
     mName = findInput(mCardName);
-    mLocalizedNames = (TextView) view.findViewById(R.id.name_multilang);
+    // TODO uncomment and finish localized name
+//    view.findViewById(R.id.add_langs).setOnClickListener(this);
+    UiUtils.hide(view.findViewById(R.id.add_langs));
+    mLocalizedShow = (TextView) view.findViewById(R.id.show_langs);
+    mLocalizedShow.setOnClickListener(this);
+    mLocalizedNames = (RecyclerView) view.findViewById(R.id.recycler);
+    mLocalizedNames.setLayoutManager(new LinearLayoutManager(getActivity()));
+    mLocalizedNamesAdapter = new MultilanguageAdapter(Editor.nativeGetLocalizedNames());
+    mLocalizedNames.setAdapter(mLocalizedNamesAdapter);
+    mLocalizedNamesAdapter.registerAdapterDataObserver(mLocalizedNamesObserver);
+    refreshLocalizedNames();
+    showLocalizedNames(false);
     // Address
     view.findViewById(R.id.block_street).setOnClickListener(this);
     mStreet = (TextView) view.findViewById(R.id.street);
@@ -279,6 +331,40 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       break;
     case R.id.category:
       mParent.editCategory();
+      break;
+    case R.id.show_langs:
+      showLocalizedNames(!mIsLocalizedShown);
+      break;
+    case R.id.add_langs:
+      mParent.addLocalizedLanguage();
+      break;
     }
+  }
+
+  private void refreshLocalizedNames()
+  {
+    // TODO uncomment and finish localized names
+//    UiUtils.showIf(mLocalizedNamesAdapter.getItemCount() > 0, mLocalizedShow);
+    UiUtils.hide(mLocalizedNames, mLocalizedShow);
+  }
+
+  private void showLocalizedNames(boolean show)
+  {
+    mIsLocalizedShown = show;
+    if (show)
+    {
+      UiUtils.show(mLocalizedNames);
+      setLocalizedShowDrawable(R.drawable.ic_expand_less);
+    }
+    else
+    {
+      UiUtils.hide(mLocalizedNames);
+      setLocalizedShowDrawable(R.drawable.ic_expand_more);
+    }
+  }
+
+  private void setLocalizedShowDrawable(@DrawableRes int right)
+  {
+    mLocalizedShow.setCompoundDrawablesWithIntrinsicBounds(null, null, Graphics.tint(getActivity(), right, R.attr.iconTint), null);
   }
 }

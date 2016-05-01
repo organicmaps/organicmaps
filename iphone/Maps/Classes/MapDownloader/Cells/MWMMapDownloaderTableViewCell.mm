@@ -78,8 +78,10 @@ namespace
   self.title.attributedText = [self matchedString:@(nodeAttrs.m_nodeLocalName.c_str())
                                     selectedAttrs:kSelectedTitleAttrs
                                   unselectedAttrs:kUnselectedTitleAttrs];
-  BOOL const haveDownloadingCountries = nodeAttrs.m_downloadingMwmCounter != 0;
-  self.downloadSize.text = formattedSize(haveDownloadingCountries ? nodeAttrs.m_downloadingMwmSize : nodeAttrs.m_mwmSize);
+  TMwmSize const size = self.mode == mwm::DownloaderMode::Downloaded
+                            ? nodeAttrs.m_downloadingMwmSize
+                            : nodeAttrs.m_mwmSize - nodeAttrs.m_downloadingMwmSize;
+  self.downloadSize.text = formattedSize(size);
 }
 
 - (void)configProgress:(storage::NodeAttrs const &)nodeAttrs

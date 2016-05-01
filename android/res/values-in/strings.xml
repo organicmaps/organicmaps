@@ -786,6 +786,8 @@
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
 	<string name="no_migration_during_navigation">Memperbarui tidak diperbolehkan selama navigasi.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Untuk mengunduh, Anda perlu ruang lebih banyak. Harap menghapus data yang tidak diperlukan.</string>
 	<string name="editor_sharing_title">Saya meningkatkan peta MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Kami akan mengirim komen Anda ke pembuat peta.</string>
 	<string name="editor_unsupported_category_message">Anda telah menambahkan sebuah tempat kategori yang belum kami dukung. Tempat itu akan muncul di peta beberapa saat kemudian.</string>
@@ -825,7 +827,10 @@
 	<string name="current_location_unknown_error_message">Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.</string>
 	<string name="whatsnew_update_editor_title">Kami telah memperbarui editor peta</string>
 	<string name="whatsnew_update_editor_message">Pengguna MAPS.ME telah membuat 50 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Untuk menggunakan editor peta, silakan perbarui semua peta.</string>
 	<string name="location_services_disabled_header">Identifikasi lokasi dinonaktifkan</string>
+	<string name="location_services_disabled_message">Izinkan akses ke geolokasi pada pengaturan perangkat</string>
 	<string name="location_services_disabled_1">1. Buka Pengaturan</string>
 	<string name="location_services_disabled_2">2. Ketuk Lokasi</string>
 	<string name="location_services_disabled_3">3. Pilih Selalu</string>

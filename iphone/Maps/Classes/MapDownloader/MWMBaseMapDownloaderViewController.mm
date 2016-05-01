@@ -3,6 +3,7 @@
 #import "MWMAlertViewController.h"
 #import "MWMButton.h"
 #import "MWMFrameworkListener.h"
+#import "MWMMapDownloaderCellHeader.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
@@ -461,9 +462,14 @@ using namespace mwm;
   return 28.0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-  return 0.0;
+  CGFloat const width = CGRectGetWidth(tableView.bounds);
+  CGFloat const height = [self tableView:tableView heightForHeaderInSection:section];
+  MWMMapDownloaderCellHeader * headerView =
+      [[MWMMapDownloaderCellHeader alloc] initWithFrame:{{}, {width, height}}];
+  headerView.text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+  return headerView;
 }
 
 #pragma mark - UILongPressGestureRecognizer
@@ -662,19 +668,19 @@ using namespace mwm;
     return;
   }
   NSString * btnTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-  if ([btnTitle containsString:kShowOnMapActionTitle])
+  if ([btnTitle rangeOfString:kShowOnMapActionTitle].location != NSNotFound)
     [self showNode:m_actionSheetId];
-  else if ([btnTitle containsString:kDownloadAllActionTitle])
+  else if ([btnTitle rangeOfString:kDownloadAllActionTitle].location != NSNotFound)
     [self downloadNode:m_actionSheetId];
-  else if ([btnTitle containsString:kDownloadActionTitle])
+  else if ([btnTitle rangeOfString:kDownloadActionTitle].location != NSNotFound)
     [self downloadNode:m_actionSheetId];
-  else if ([btnTitle containsString:kUpdateActionTitle])
+  else if ([btnTitle rangeOfString:kUpdateActionTitle].location != NSNotFound)
     [self updateNode:m_actionSheetId];
-  else if ([btnTitle containsString:kCancelDownloadActionTitle])
+  else if ([btnTitle rangeOfString:kCancelDownloadActionTitle].location != NSNotFound)
     [self cancelNode:m_actionSheetId];
-  else if ([btnTitle containsString:kRetryActionTitle])
+  else if ([btnTitle rangeOfString:kRetryActionTitle].location != NSNotFound)
     [self retryDownloadNode:m_actionSheetId];
-  else if ([btnTitle containsString:kDeleteActionTitle])
+  else if ([btnTitle rangeOfString:kDeleteActionTitle].location != NSNotFound)
     [self deleteNode:m_actionSheetId];
 }
 

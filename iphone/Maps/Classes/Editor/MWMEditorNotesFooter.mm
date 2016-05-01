@@ -15,7 +15,7 @@
 
 - (IBAction)osmTap
 {
-  NSURL * url = [NSURL URLWithString:@"https://www.openstreetmap.org/about"];
+  NSURL * url = [NSURL URLWithString:@"https://wiki.openstreetmap.org/wiki/Main_Page"];
   UIApplication * app = [UIApplication sharedApplication];
   if ([app canOpenURL:url])
     [app openURL:url];

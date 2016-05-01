@@ -46,6 +46,7 @@ private:
 
 public:
   static size_t const kNumLanguages;
+  static size_t const kEnglishCode;
 
   explicit CategoriesHolder(unique_ptr<Reader> && reader);
   void LoadFromStream(istream & s);

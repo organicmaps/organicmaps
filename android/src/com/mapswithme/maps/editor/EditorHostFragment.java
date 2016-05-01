@@ -16,6 +16,7 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
@@ -33,7 +34,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     MAP_OBJECT,
     OPENING_HOURS,
     STREET,
-    CUISINE
+    CUISINE,
+    LANGUAGE
   }
 
   private Mode mMode;
@@ -114,43 +116,37 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editTimetable()
   {
-    if (!setEdits())
-      return;
-
-    mMode = Mode.OPENING_HOURS;
-    mToolbarController.setTitle(R.string.editor_time_title);
     final Bundle args = new Bundle();
     args.putString(TimetableFragment.EXTRA_TIME, Editor.nativeGetOpeningHours());
-    final Fragment editorFragment = Fragment.instantiate(getActivity(), TimetableFragment.class.getName(), args);
-    getChildFragmentManager().beginTransaction()
-                             .replace(R.id.fragment_container, editorFragment, TimetableFragment.class.getName())
-                             .commit();
+    editWithFragment(Mode.OPENING_HOURS, R.string.editor_time_title, args, TimetableFragment.class, false);
   }
 
   protected void editStreet()
   {
-    if (!setEdits())
-      return;
-
-    mMode = Mode.STREET;
-    mToolbarController.setTitle(R.string.choose_street);
-    final Fragment streetFragment = Fragment.instantiate(getActivity(), StreetFragment.class.getName());
-    getChildFragmentManager().beginTransaction()
-                             .replace(R.id.fragment_container, streetFragment, StreetFragment.class.getName())
-                             .commit();
+    editWithFragment(Mode.STREET, R.string.choose_street, null, StreetFragment.class, false);
   }
 
   protected void editCuisine()
   {
+    editWithFragment(Mode.CUISINE, 0, null, CuisineFragment.class, true);
+  }
+
+  protected void addLocalizedLanguage()
+  {
+    editWithFragment(Mode.LANGUAGE, 0, null, LanguagesFragment.class, false);
+  }
+
+  private void editWithFragment(Mode newMode, @StringRes int toolbarTitle, @Nullable Bundle args, Class<? extends Fragment> fragmentClass, boolean showSearch)
+  {
     if (!setEdits())
       return;
 
-    mMode = Mode.CUISINE;
-    mToolbarController.setTitle("");
-    ((SearchToolbarController) mToolbarController).showControls(true);
-    final Fragment cuisineFragment = Fragment.instantiate(getActivity(), CuisineFragment.class.getName());
+    mMode = newMode;
+    mToolbarController.setTitle(toolbarTitle);
+    ((SearchToolbarController) mToolbarController).showControls(showSearch);
+    final Fragment fragment = Fragment.instantiate(getActivity(), fragmentClass.getName(), args);
     getChildFragmentManager().beginTransaction()
-                             .replace(R.id.fragment_container, cuisineFragment, CuisineFragment.class.getName())
+                             .replace(R.id.fragment_container, fragment, fragmentClass.getName())
                              .commit();
   }
 
@@ -243,7 +239,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         .show();
   }
 
-  public void setStreet(String street)
+  public void setStreet(LocalizedStreet street)
   {
     Editor.nativeSetStreet(street);
     editMapObject();

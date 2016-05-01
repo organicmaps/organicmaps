@@ -26,6 +26,7 @@ double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
 double const kMaxNotFollowRoutingTimeSec = 10.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
+double const kMaxWaitStartLocationSec = 5.0;
 
 int const kDoNotChangeZoom = -1;
 
@@ -111,8 +112,10 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode,
 {
   if (isFirstLaunch)
     m_mode = location::NotFollowNoPosition;
-  else if (m_mode == location::NotFollowNoPosition || timeInBackground >= kMaxTimeInBackgroundSec)
+  else if (timeInBackground >= kMaxTimeInBackgroundSec)
     m_mode = location::Follow;
+
+  m_startLocationTimer.Reset();
 }
 
 MyPositionController::~MyPositionController()
@@ -284,7 +287,9 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
   m2::RectD const rect = MercatorBounds::MetresToXY(info.m_longitude, info.m_latitude,
                                                     info.m_horizontalAccuracy);
-  m_position = rect.Center();
+  // Use FromLatLon instead of rect.Center() since in case of large info.m_horizontalAccuracy
+  // there is significant difference between the real location and the estimated one.
+  m_position = MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude);
   m_errorRadius = rect.SizeX() * 0.5;
 
   bool const hasBearing = info.HasBearing();
@@ -314,7 +319,8 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     }
     else
     {
-      ChangeModelView(m_position, kDoNotChangeZoom);
+      if (!AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
+        ChangeModelView(m_position, kDoNotChangeZoom);
     }
   }
   else if (!m_isPositionAssigned)
@@ -371,11 +377,15 @@ void MyPositionController::SetModeListener(location::TMyPositionModeChanged cons
   location::EMyPositionMode mode = m_mode;
   if (m_isFirstLaunch)
     mode = location::NotFollowNoPosition;
-  else if (!m_isPositionAssigned)
-    mode = location::PendingPosition;
 
   if (m_modeChangeCallback != nullptr)
     m_modeChangeCallback(mode, m_isInRouting);
+}
+
+bool MyPositionController::IsInStateWithPosition() const
+{
+  return m_mode == location::NotFollow || m_mode == location::Follow ||
+         m_mode == location::FollowAndRotate;
 }
 
 void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen,
@@ -386,6 +396,15 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
   {
     if (m_pendingTimer.ElapsedSeconds() >= kMaxPendingLocationTimeSec)
       ChangeMode(location::NotFollowNoPosition);
+  }
+
+  // We do not have assigned position but mode requires location.
+  // Go to Pending state if the time is up.
+  if (!m_isPositionAssigned && IsInStateWithPosition() &&
+      m_startLocationTimer.ElapsedSeconds() >= kMaxWaitStartLocationSec)
+  {
+    m_pendingTimer.Reset();
+    ChangeMode(location::PendingPosition);
   }
 
   if (IsInRouting() && m_mode == location::NotFollow &&
@@ -643,10 +662,7 @@ void MyPositionController::DeactivateRouting()
     m_isInRouting = false;
 
     ChangeMode(location::Follow);
-    if (m_mode == location::FollowAndRotate)
-      ChangeModelView(m_position, 0.0, m_centerPixelPosition, kDoNotChangeZoom);
-    else
-      ChangeModelView(0.0);
+    ChangeModelView(m_position, 0.0, m_centerPixelPosition, kDoNotChangeZoom);
   }
 }
 

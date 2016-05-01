@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="23px" height="23px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <title>charging-station-l</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="charging-station-l">
+            <circle id="Oval-1-Copy-39" fill="#FFFFFF" cx="13.5" cy="13.5" r="13.5"></circle>
+            <circle id="Oval-1-Copy-38" fill="#717065" cx="13.5" cy="13.5" r="12.5"></circle>
+            <path d="M8,4.5 C7.4459904,4.5 7,4.946 7,5.5 L7,21.5 C7,22 7.5,22.5 8,22.5 L17,22.5 C17.5,22.5 18,22 18,21.5 L18,16.5 L18.5,16.5 C19,16.5 19,17 19,17 L19,19 C19,20 19.5,20.5 20.5,20.5 C21.5,20.5 22,20 22,19 L22,13.5 C22,12.5 20,11.5 20,10.5 L20,7.5 L19,7.5 L18,6.5 L18,5.5 C18,4.946 17.55401,4.5 17,4.5 L8,4.5 Z M9,6.5 L16,6.5 L16,10.5 L9,10.5 L9,6.5 Z M18,9.5 L19,9.5 L19,11 C19,12 21,13 21,14 L21,19 C21,19.5 20.5,19.5 20.5,19.5 C20.5,19.5 20,19.5 20,19 L20,16.5 C20,16 19.5,15.5 19,15.5 L18,15.5 L18,9.5 Z" id="rect7223-2-4-9-copy" fill="#FFFFFF"></path>
+            <polygon id="Path-1152" fill="#717065" points="12.5 12 15.0334891 12.008 12.5 15.5 15 15.5 9.5 21 11.5 16.4983967 9 16.4983967"></polygon>
+        </g>
+    </g>
+</svg>

@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Päivittäminen ei ole mahdollista navigoinnin aikana.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.";
+
 "editor_sharing_title" = "Minä paransin MAPS.ME-karttoja";
 
 "editor_comment_will_be_sent" = "Lähetämme kommenttisi kartanpiirtäjille.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "MAPS.ME -käyttäjät ovat tehneet 50 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Päivitä kaikki kartat käyttääksesi Karttamuokkainta.";
+
 "location_services_disabled_header" = "Locatie-identificatie is uitgeschakeld";
+
+"location_services_disabled_message" = "Schakel de toegang tot geolocaties in in de instellingen van het apparaat";
 
 "location_services_disabled_1" = "1. Instellingen openen";
 

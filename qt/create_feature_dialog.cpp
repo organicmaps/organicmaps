@@ -1,6 +1,6 @@
 #include "qt/create_feature_dialog.hpp"
 
-#include "editor/new_feature_categories.hpp"
+#include "indexer/new_feature_categories.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QListWidget>
@@ -9,33 +9,40 @@
 CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories const & cats)
   : QDialog(parent)
 {
-  QListWidget * lastUsedList = new QListWidget();
-  for (auto const & cat : cats.m_lastUsed)
-  {
-    QListWidgetItem * lwi = new QListWidgetItem(cat.m_name.c_str(), lastUsedList);
-    lwi->setData(Qt::UserRole, cat.m_type);
-  }
-  connect(lastUsedList, SIGNAL(clicked(QModelIndex const &)), this, SLOT(OnListItemSelected(QModelIndex const &)));
+  // todo(@m) Fix this.
+  /*
+    QListWidget * lastUsedList = new QListWidget();
 
-  QListWidget * allSortedList = new QListWidget();
-  for (auto const & cat : cats.m_allSorted)
-  {
-    QListWidgetItem * lwi = new QListWidgetItem(cat.m_name.c_str(), allSortedList);
-    lwi->setData(Qt::UserRole, cat.m_type);
-  }
-  connect(allSortedList, SIGNAL(clicked(QModelIndex const &)), this, SLOT(OnListItemSelected(QModelIndex const &)));
+    for (auto const & cat : cats.m_lastUsed)
+    {
+      QListWidgetItem * lwi = new QListWidgetItem(cat.m_name.c_str(), lastUsedList);
+      lwi->setData(Qt::UserRole, cat.m_type);
+    }
+    connect(lastUsedList, SIGNAL(clicked(QModelIndex const &)), this,
+    SLOT(OnListItemSelected(QModelIndex const &)));
 
-  QVBoxLayout * vBox = new QVBoxLayout();
-  vBox->addWidget(lastUsedList);
-  vBox->addWidget(allSortedList);
+    QListWidget * allSortedList = new QListWidget();
+    for (auto const & cat : cats.m_allSorted)
+    {
+      QListWidgetItem * lwi = new QListWidgetItem(cat.m_name.c_str(), allSortedList);
+      lwi->setData(Qt::UserRole, cat.m_type);
+    }
+    connect(allSortedList, SIGNAL(clicked(QModelIndex const &)), this,
+    SLOT(OnListItemSelected(QModelIndex const &)));
 
-  QDialogButtonBox * dbb = new QDialogButtonBox();
-  dbb->addButton(QDialogButtonBox::Close);
-  connect(dbb, SIGNAL(clicked(QAbstractButton*)), this, SLOT(reject()));
-  vBox->addWidget(dbb);
+    QVBoxLayout * vBox = new QVBoxLayout();
+    vBox->addWidget(lastUsedList);
+    vBox->addWidget(allSortedList);
 
-  setLayout(vBox);
-  setWindowTitle("OSM Editor");
+
+    QDialogButtonBox * dbb = new QDialogButtonBox();
+    dbb->addButton(QDialogButtonBox::Close);
+    connect(dbb, SIGNAL(clicked(QAbstractButton*)), this, SLOT(reject()));
+    vBox->addWidget(dbb);
+
+    setLayout(vBox);
+    setWindowTitle("OSM Editor");
+  */
 }
 
 void CreateFeatureDialog::OnListItemSelected(QModelIndex const & i)

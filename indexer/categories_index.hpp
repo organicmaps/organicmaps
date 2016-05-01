@@ -1,3 +1,5 @@
+#pragma once
+
 #include "categories_holder.hpp"
 
 #include "base/mem_trie.hpp"
@@ -18,10 +20,18 @@ class CategoriesIndex
 public:
   using TCategory = CategoriesHolder::Category;
 
-  CategoriesIndex() : m_catHolder(GetDefaultCategories()) {}
+  CategoriesIndex() : m_catHolder(&GetDefaultCategories()) {}
 
-  CategoriesIndex(CategoriesHolder const & catHolder) : m_catHolder(catHolder) {}
+  CategoriesIndex(CategoriesHolder const & catHolder) : m_catHolder(&catHolder) {}
 
+  CategoriesIndex(CategoriesIndex && other)
+    : m_catHolder(other.m_catHolder), m_trie(move(other.m_trie))
+  {
+  }
+
+  CategoriesIndex & operator=(CategoriesIndex && other) = default;
+
+  CategoriesHolder const * GetCategoriesHolder() const { return m_catHolder; }
   // Adds all categories that match |type|. Only synonyms
   // in language |lang| are added. See indexer/categories_holder.cpp
   // for language enumeration.
@@ -51,11 +61,14 @@ public:
   void GetAssociatedTypes(string const & query, vector<uint32_t> & result) const;
 
 #ifdef DEBUG
-  inline int GetNumTrieNodes() const { return m_trie.GetNumNodes(); }
+  inline size_t GetNumTrieNodes() const { return m_trie.GetNumNodes(); }
 #endif
 
 private:
-  CategoriesHolder const & m_catHolder;
+  // There is a raw pointer instead of const reference
+  // here because this class may be used from Objectvie-C
+  // so a default constructor is needed.
+  CategoriesHolder const * m_catHolder = nullptr;
   my::MemTrie<string, uint32_t> m_trie;
 };
 }  // namespace indexer

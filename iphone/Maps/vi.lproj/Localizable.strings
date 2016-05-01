@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Không cho phép cập nhật trong khi điều hướng.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Để tải xuống, bạn cần thêm dung lượng. Xin xóa mọi dữ liệu không cần thiết.";
+
 "editor_sharing_title" = "Tôi đã cải thiện các bản đồ MAPS.ME";
 
 "editor_comment_will_be_sent" = "Chúng tôi sẽ gửi bình luận của bạn đến những người lập bản đồ.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Người dùng MAPS.ME đã thực hiện 50 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Để sử dụng Ứng dụng Điều chỉnh Bản đồ, xin vui lòng cập nhật tất cả các bản đồ.";
+
 "location_services_disabled_header" = "Chức năng nhận biết địa điểm bị tắt";
+
+"location_services_disabled_message" = "Bật truy cập định vị địa lý trong thiết lập thiết bị";
 
 "location_services_disabled_1" = "1. Mở Thiết lập";
 

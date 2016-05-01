@@ -155,6 +155,10 @@ namespace android
                                                                 storage::Storage::TProgressFunction const & progressListener);
     void Migrate(bool keepOldMaps);
 
+    bool IsAutoRetryDownloadFailed();
+    bool IsDownloadOn3gEnabled();
+    void EnableDownloadOn3g();
+
   private:
     vector<TDrapeTask> m_drapeTasksQueue;
     mutex m_drapeQueueMutex;

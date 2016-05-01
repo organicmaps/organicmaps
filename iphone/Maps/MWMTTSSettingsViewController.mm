@@ -7,9 +7,11 @@
 #import "WebViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
+#include "LocaleTranslator.h"
+
 static NSString * kSelectTTSLanguageSegueName = @"TTSLanguage";
 
-using namespace std;
+using namespace locale_translator;
 
 @interface MWMTTSSettingsViewController ()
 {

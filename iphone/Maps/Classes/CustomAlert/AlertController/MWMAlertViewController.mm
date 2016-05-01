@@ -23,8 +23,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-  MWMAlert * alert = self.view.subviews.firstObject;
-  [alert rotate:toInterfaceOrientation duration:duration];
+  for (MWMAlert * alert in self.view.subviews)
+    [alert rotate:toInterfaceOrientation duration:duration];
 }
 
 #pragma mark - Actions
@@ -137,28 +137,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert alert:type]];
 }
 
-- (void)displayAlert:(MWMAlert *)alert
-{
-  [self removeFromParentViewController];
-  alert.alertController = self;
-  [self.ownerViewController addChildViewController:self];
-  self.view.alpha = 0.;
-  alert.alpha = 0.;
-  if (!isIOS7)
-  {
-    CGFloat const scale = 1.1;
-    alert.transform = CGAffineTransformMakeScale(scale, scale);
-  }
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.view.alpha = 1.;
-    alert.alpha = 1.;
-    if (!isIOS7)
-      alert.transform = CGAffineTransformIdentity;
-  }];
-  [MapsAppDelegate.theApp.window endEditing:YES];
-}
-
 - (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert disableAutoDownloadAlertWithOkBlock:okBlock]];
@@ -209,21 +187,61 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert osmAuthAlert]];
 }
 
+- (void)displayAlert:(MWMAlert *)alert
+{
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+  {
+    for (MWMAlert * view in self.view.subviews)
+      view.alpha = 0.0;
+  }
+  completion:^(BOOL finished)
+  {
+    for (MWMAlert * view in self.view.subviews)
+    {
+      if (view != alert)
+        view.hidden = YES;
+    }
+  }];
+
+  [self removeFromParentViewController];
+  alert.alertController = self;
+  [self.ownerViewController addChildViewController:self];
+  self.view.alpha = 0.;
+  alert.alpha = 0.;
+  if (!isIOS7)
+  {
+    CGFloat const scale = 1.1;
+    alert.transform = CGAffineTransformMakeScale(scale, scale);
+  }
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+   {
+     self.view.alpha = 1.;
+     alert.alpha = 1.;
+     if (!isIOS7)
+       alert.transform = CGAffineTransformIdentity;
+   }];
+  [MapsAppDelegate.theApp.window endEditing:YES];
+}
+
 - (void)closeAlert
 {
   NSArray * subviews = self.view.subviews;
-  MWMAlert * alert = subviews.firstObject;
-  BOOL const isLastAlert = (subviews.count == 1);
+  MWMAlert * closeAlert = subviews.lastObject;
+  MWMAlert * showAlert = (subviews.count >= 2 ? subviews[subviews.count - 2] : nil);
+  if (showAlert)
+    showAlert.hidden = NO;
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
-    alert.alpha = 0.;
-    if (isLastAlert)
+    closeAlert.alpha = 0.;
+    if (showAlert)
+      showAlert.alpha = 1.;
+    else
       self.view.alpha = 0.;
   }
   completion:^(BOOL finished)
   {
-    [alert removeFromSuperview];
-    if (isLastAlert)
+    [closeAlert removeFromSuperview];
+    if (!showAlert)
     {
       [self.view removeFromSuperview];
       [self removeFromParentViewController];

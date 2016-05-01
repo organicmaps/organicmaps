@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
+import com.mapswithme.maps.editor.data.LocalizedStreet;
 
 public class StreetFragment extends BaseMwmRecyclerFragment implements EditTextDialogFragment.OnTextSaveListener
 {
-  private String mSelectedString;
+  private LocalizedStreet mSelectedString;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -35,7 +36,7 @@ public class StreetFragment extends BaseMwmRecyclerFragment implements EditTextD
   }
 
   @NonNull
-  public String getStreet()
+  public LocalizedStreet getStreet()
   {
     return ((StreetAdapter) getAdapter()).getSelectedStreet();
   }
@@ -43,10 +44,10 @@ public class StreetFragment extends BaseMwmRecyclerFragment implements EditTextD
   @Override
   public void onSaveText(String text)
   {
-    saveStreet(text);
+    saveStreet(new LocalizedStreet(text, ""));
   }
 
-  protected void saveStreet(String street)
+  protected void saveStreet(LocalizedStreet street)
   {
     if (getParentFragment() instanceof EditorHostFragment)
       ((EditorHostFragment) getParentFragment()).setStreet(street);

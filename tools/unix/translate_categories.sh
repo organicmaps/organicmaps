@@ -16,9 +16,15 @@ case $# in
      ;;
 esac
 
-LANGUAGES=( en ar cs da de el es fi fr he hu id it ja ko nb nl pl pt ro ru sk sv sw th tr uk vi zh-Hans zh-Hant )
+LANGUAGES=( en ar cs da de el es fi fr he hu id it ja ko nb nl pl pt ro ru sk sv sw th tr uk vi zh-CN zh-TW )
 
 for lang in "${LANGUAGES[@]}"; do
   TRANSLATION=$(trans -b "$SRC:$lang" "$WORD" | sed 's/   *//')
+  # Use our categories.txt names for Chinese.
+  if [[ $lang == "zh-CN" ]]; then
+    lang="zh-Hans";
+  elif [[ $lang == "zh-TW" ]]; then
+    lang="zh-Hant";
+  fi
   echo "$lang:$(tr '[:lower:]' '[:upper:]' <<< ${TRANSLATION:0:1})${TRANSLATION:1}"
 done

@@ -791,6 +791,8 @@
 	<string name="message_invalid_feature_position">Об\&#39;єкт не може перебувати в цьому місцезнаходженні</string>
 	<string name="login_to_make_edits_visible">Увійдіть, щоб ваші зміни побачили інші користувачі.</string>
 	<string name="no_migration_during_navigation">Під час навігації оновлення заборонено.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.</string>
 	<string name="editor_sharing_title">Я покращив мапи MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Ми обов\&#39;язково відправимо ваш коментар картографам.</string>
 	<string name="editor_unsupported_category_message">Ви додали об\&#39;єкт, категорію якого ми поки що не підтримуємо. У майбутньому він з\&#39;явиться на мапі.</string>
@@ -830,7 +832,10 @@
 	<string name="current_location_unknown_error_message">Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.</string>
 	<string name="whatsnew_update_editor_title">Ми обновили редактор</string>
 	<string name="whatsnew_update_editor_message">Користувачі MAPS.ME вже внесли 50 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Для використання редактору карт, будь ласка, оновіть всі карти.</string>
 	<string name="location_services_disabled_header">Ідентифікацію місцезнаходження відключено</string>
+	<string name="location_services_disabled_message">Увімкніть доступ до геолокації в налаштуваннях цього пристрою</string>
 	<string name="location_services_disabled_1">1. Відкрийте «Налаштування»</string>
 	<string name="location_services_disabled_2">2. Клацніть «Місцезнаходження»</string>
 	<string name="location_services_disabled_3">3. Виберіть «Завжди»</string>

@@ -786,6 +786,8 @@
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
 	<string name="login_to_make_edits_visible">他のユーザーにも変更が表示されるようログインしてください。</string>
 	<string name="no_migration_during_navigation">ナビゲーション中は更新できません。</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。</string>
 	<string name="editor_sharing_title">MAPS.MEの地図を改善しました</string>
 	<string name="editor_comment_will_be_sent">いただいたコメントを地図製作者に送ります。</string>
 	<string name="editor_unsupported_category_message">現在未対応のカテゴリーの場所を追加しました。地図には後程表示されるようになります。</string>
@@ -825,7 +827,10 @@
 	<string name="current_location_unknown_error_message">お住まいの地域の検索中にエラーが発生しました。お使いのデバイスが正常に動作していることを確認してから再度試してください。</string>
 	<string name="whatsnew_update_editor_title">マップエディタを更新しました</string>
 	<string name="whatsnew_update_editor_message">MAPS.MEユーザーは50000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">マップエディタを利用するには、全てのアップをアップデートしてください。</string>
 	<string name="location_services_disabled_header">位置情報認識機能が無効になっています</string>
+	<string name="location_services_disabled_message">デバイスの設定で位置情報へのアクセスを有効にしてください</string>
 	<string name="location_services_disabled_1">1. 設定を開きます</string>
 	<string name="location_services_disabled_2">2. 位置情報をタップします</string>
 	<string name="location_services_disabled_3">3. 「常時」を選択します</string>

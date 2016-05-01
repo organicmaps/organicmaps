@@ -107,6 +107,7 @@ public:
   Animation(bool couldBeInterrupted, bool couldBeBlended)
     : m_couldBeInterrupted(couldBeInterrupted)
     , m_couldBeBlended(couldBeBlended)
+    , m_interruptedOnCombine(false)
   {}
 
   virtual void OnStart() { if (m_onStartAction != nullptr) m_onStartAction(this); }
@@ -136,12 +137,20 @@ public:
   bool CouldBeInterrupted() const { return m_couldBeInterrupted; }
   bool CouldBeBlendedWith(Animation const & animation) const;
 
+  void SetInterruptedOnCombine(bool enable) { m_interruptedOnCombine = enable; }
+  bool GetInterruptedOnCombine() const { return m_interruptedOnCombine; }
+
 protected:
   TAction m_onStartAction;
   TAction m_onFinishAction;
   TAction m_onInterruptAction;
+
+  // Animation could be interrupted in case of blending impossibility.
   bool m_couldBeInterrupted;
+  // Animation could be blended with other animations.
   bool m_couldBeBlended;
+  // Animation must be interrupted in case of combining another animation.
+  bool m_interruptedOnCombine;
 };
 
 class Interpolator

@@ -71,7 +71,10 @@ public:
   int64_t LoadOrInitChunks(string const & fName, int64_t fileSize, int64_t chunkSize);
 
   /// Should be called for every completed chunk (no matter successful or not).
-  void ChunkFinished(bool success, RangeT const & range);
+  /// @returns url of the chunk
+  string ChunkFinished(bool success, RangeT const & range);
+
+  size_t ActiveServersCount() const { return m_servers.size(); }
 
   enum ResultT
   {

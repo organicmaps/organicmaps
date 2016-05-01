@@ -786,6 +786,8 @@
 	<string name="message_invalid_feature_position">Un oggetto non può essere posizionato qui</string>
 	<string name="login_to_make_edits_visible">Accedi per consentire ad altri utenti di vedere le modifiche apportate.</string>
 	<string name="no_migration_during_navigation">Non è possibile effettuare aggiornamenti durante la navigazione.</string>
+	<!-- Error dialog no space -->
+	<string name="migration_no_space_message">Per scaricare, hai bisogno di più spazio. Sei pregato di eliminare i dati non necessari.</string>
 	<string name="editor_sharing_title">Ho migliorato le mappe MAPS.ME</string>
 	<string name="editor_comment_will_be_sent">Invieremo i tuoi commenti ai cartografi.</string>
 	<string name="editor_unsupported_category_message">Hai aggiunto un luogo di una categoria che non è ancora disponibile. Apparirà sulla mappa in futuro.</string>
@@ -825,7 +827,10 @@
 	<string name="current_location_unknown_error_message">Si è verificato un errore durante la ricerca della posizione. Controllare che il dispositivo utilizzato funzioni correttamente e riprovare.</string>
 	<string name="whatsnew_update_editor_title">Abbiamo aggiornato l\&#39;editor mappe</string>
 	<string name="whatsnew_update_editor_message">Gli utenti di MAPS.ME hanno apportato 50.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Per utilizzare l\&#39;editor delle mappe, aggiorna tutte le mappe.</string>
 	<string name="location_services_disabled_header">La geolocalizzazione è disabilitata</string>
+	<string name="location_services_disabled_message">Abilita l\&#39;accesso alla geolocalizzazione dalle impostazioni del dispositivo</string>
 	<string name="location_services_disabled_1">1. Apri le impostazioni</string>
 	<string name="location_services_disabled_2">2. Tocca su Localizzazione</string>
 	<string name="location_services_disabled_3">3. Seleziona Sempre</string>

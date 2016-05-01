@@ -1,0 +1,3 @@
+@interface MWMMapDownloaderCellHeader : UILabel
+
+@end

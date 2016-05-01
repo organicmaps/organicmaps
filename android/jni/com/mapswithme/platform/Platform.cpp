@@ -121,7 +121,7 @@ namespace android
     m_settingsDir = jni::ToNativeString(env, storagePath);
     m_tmpDir = jni::ToNativeString(env, tmpPath);
 
-    if (!settings::Get("StoragePath", m_writableDir) || !HasAvailableSpaceForWriting(1024))
+    if (!settings::Get("StoragePath", m_writableDir))
     {
       LOG(LINFO, ("Could not read writable dir. Use primary storage."));
       m_writableDir = m_settingsDir;

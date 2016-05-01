@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Počas hľadania trasy nie je možné vykonať aktualizáciu.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.";
+
 "editor_sharing_title" = "Vďaka mne sú mapy na MAPS.ME lepšie";
 
 "editor_comment_will_be_sent" = "Pošleme Váš príspevok kartografom.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Používatelia MAPS.ME urobili 50 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.";
+
 "location_services_disabled_header" = "Identifikácia lokality je zablokovaná";
+
+"location_services_disabled_message" = "Povoliť prístup ku geolokalizácii v nastaveniach prístroja";
 
 "location_services_disabled_1" = "1. Otvorte Nastavenia";
 

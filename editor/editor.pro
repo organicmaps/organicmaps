@@ -23,7 +23,6 @@ HEADERS += \
   changeset_wrapper.hpp \
   editor_config.hpp \
   editor_notes.hpp \
-  new_feature_categories.hpp \
   opening_hours_ui.hpp \
   osm_auth.hpp \
   osm_feature_matcher.hpp \

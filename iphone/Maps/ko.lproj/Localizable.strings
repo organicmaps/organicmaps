@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "업데이트는 탐색 중 금지되어 있습니다.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.";
+
 "editor_sharing_title" = "나는 MAPS.ME 지도를 향상함";
 
 "editor_comment_will_be_sent" = "지도 제작자에게 의견을 보낼 것입니다.";
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "지도 편집기를 사용하려면, 모든 지도를 업데이트하십시오.";
+
 "location_services_disabled_header" = "위치 식별 사용할 수 없음";
+
+"location_services_disabled_message" = "장치 설정에서 위치 정보에 액세스할 수 있음";
 
 "location_services_disabled_1" = "1. 설정 열기";
 

@@ -62,19 +62,6 @@ jobject JavaTimespan(JNIEnv * env, osmoh::Timespan const & timespan)
                       JavaHoursMinutes(env, end.GetHoursCount(), end.GetMinutesCount()));
 }
 
-jobjectArray JavaTimespans(JNIEnv * env, vector<Timespan> const & spans)
-{
-  int const size = spans.size();
-  jobjectArray const result = env->NewObjectArray(size, g_clazzTimespan, 0);
-  for (int i = 0; i < size; i++)
-  {
-    jni::TScopedLocalRef jSpan(env, JavaTimespan(env, spans[i]));
-    env->SetObjectArrayElement(result, i, jSpan.get());
-  }
-
-  return result;
-}
-
 jobject JavaTimetable(JNIEnv * env, jobject workingHours, jobject closedHours, bool isFullday, jintArray weekdays)
 {
   jobject const tt = env->NewObject(g_clazzTimetable, g_ctorTimetable, workingHours, closedHours, isFullday, weekdays);
@@ -97,7 +84,10 @@ jobject JavaTimetable(JNIEnv * env, TimeTable const & tt)
 
   return JavaTimetable(env,
                        JavaTimespan(env, tt.GetOpeningTime()),
-                       JavaTimespans(env, tt.GetExcludeTime()),
+                       jni::ToJavaArray(env, g_clazzTimespan, tt.GetExcludeTime(), [](JNIEnv * env, osmoh::Timespan const & timespan)
+                       {
+                         return JavaTimespan(env, timespan);
+                       }),
                        tt.IsTwentyFourHours(),
                        jWeekdays);
 }

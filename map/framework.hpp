@@ -17,11 +17,13 @@
 
 #include "indexer/data_header.hpp"
 #include "indexer/map_style.hpp"
+#include "indexer/new_feature_categories.hpp"
 
 #include "search/query_saver.hpp"
 #include "search/search_engine.hpp"
 
 #include "storage/downloader_search_params.hpp"
+#include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
 
 #include "platform/country_defines.hpp"
@@ -29,8 +31,6 @@
 
 #include "routing/router.hpp"
 #include "routing/routing_session.hpp"
-
-#include "editor/new_feature_categories.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
@@ -128,6 +128,7 @@ protected:
   double m_startForegroundTime;
   double m_startBackgroundTime;
 
+  StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;
 
   location::TMyPositionModeChanged m_myPositionListener;
@@ -219,6 +220,7 @@ public:
   storage::Storage & Storage() { return m_storage; }
   storage::Storage const & Storage() const { return m_storage; }
   storage::CountryInfoGetter & CountryInfoGetter() { return *m_infoGetter; }
+  StorageDownloadingPolicy & DownloadingPolicy() { return m_storageDownloadingPolicy; }
 
   /// @name Bookmarks, Tracks and other UserMarks
   //@{

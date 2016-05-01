@@ -7,21 +7,9 @@
 
 #include "storage/storage_helpers.hpp"
 
-namespace
-{
-NSString * const kStorageCanShowNoWifiAlert = @"StorageCanShowNoWifiAlert";
-} // namespace
-
 using namespace storage;
 
 @implementation MWMStorage
-
-+ (void)startSession
-{
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setBool:YES forKey:kStorageCanShowNoWifiAlert];
-  [ud synchronize];
-}
 
 + (void)downloadNode:(TCountryId const &)countryId
      alertController:(MWMAlertViewController *)alertController
@@ -92,13 +80,13 @@ using namespace storage;
       alertController:(MWMAlertViewController *)alertController
             onSuccess:(TMWMVoidBlock)onSuccess
 {
-  size_t requiredSize = accumulate(countryIds.begin(), countryIds.end(), kMaxMwmSizeBytes,
-                                   [](size_t const & size, TCountryId const & countryId)
-                                   {
-                                     NodeAttrs nodeAttrs;
-                                     GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
-                                     return size + nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
-                                   });
+  TMwmSize requiredSize = accumulate(countryIds.begin(), countryIds.end(), kMaxMwmSizeBytes,
+                                     [](size_t const & size, TCountryId const & countryId)
+                                     {
+                                       NodeAttrs nodeAttrs;
+                                       GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
+                                       return size + nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
+                                     });
   if (GetPlatform().GetWritableStorageStatus(requiredSize) == Platform::TStorageStatus::STORAGE_OK)
   {
     [self checkConnectionAndPerformAction:[countryIds, onSuccess]
@@ -129,13 +117,11 @@ using namespace storage;
       break;
     case Platform::EConnectionType::CONNECTION_WWAN:
     {
-      if ([[NSUserDefaults standardUserDefaults] boolForKey:kStorageCanShowNoWifiAlert])
+      if (!GetFramework().DownloadingPolicy().IsCellularDownloadEnabled())
       {
         [alertController presentNoWiFiAlertWithOkBlock:[action]
         {
-          NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-          [ud setBool:NO forKey:kStorageCanShowNoWifiAlert];
-          [ud synchronize];
+          GetFramework().DownloadingPolicy().EnableCellularDownload(true);
           action();
         }];
       }

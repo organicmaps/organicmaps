@@ -6,10 +6,10 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
+#include "indexer/new_feature_categories.hpp"
 
 #include "editor/editor_config.hpp"
 #include "editor/editor_notes.hpp"
-#include "editor/new_feature_categories.hpp"
 #include "editor/xml_feature.hpp"
 
 #include "base/timer.hpp"
@@ -35,6 +35,7 @@ public:
   using TFeatureOriginalStreetFn = function<string(FeatureType & /*ft*/)>;
   using TForEachFeaturesNearByFn =
       function<void(TFeatureTypeFn && /*fn*/, m2::PointD const & /*mercator*/)>;
+
   enum class UploadResult
   {
     Success,

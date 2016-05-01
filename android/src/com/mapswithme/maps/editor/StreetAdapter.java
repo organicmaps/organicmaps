@@ -6,23 +6,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Checkable;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
+import com.mapswithme.maps.editor.data.LocalizedStreet;
+import com.mapswithme.util.UiUtils;
 
 public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHolder>
 {
   private static final int TYPE_ADD_STREET = 0;
   private static final int TYPE_STREET = 1;
 
-  private final String[] mStreets;
+  private final LocalizedStreet[] mStreets;
   private final StreetFragment mFragment;
-  private String mSelectedStreet;
+  private LocalizedStreet mSelectedStreet;
 
-  public StreetAdapter(@NonNull StreetFragment host, @NonNull String[] streets, @NonNull String selected)
+  public StreetAdapter(@NonNull StreetFragment host, @NonNull LocalizedStreet[] streets, @NonNull LocalizedStreet selected)
   {
     mFragment = host;
     mStreets = streets;
@@ -54,7 +56,7 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     return position == getItemCount() - 1 ? TYPE_ADD_STREET : TYPE_STREET;
   }
 
-  public String getSelectedStreet()
+  public LocalizedStreet getSelectedStreet()
   {
     return mSelectedStreet;
   }
@@ -77,24 +79,26 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     public void bind(int position) {}
   }
 
-  protected class StreetViewHolder extends BaseViewHolder
+  protected class StreetViewHolder extends BaseViewHolder implements View.OnClickListener
   {
-    final TextView street;
-    final Checkable selected;
+    final TextView streetDef;
+    final TextView streetLoc;
+    final CompoundButton selected;
 
     public StreetViewHolder(View itemView)
     {
       super(itemView);
-      street = (TextView) itemView.findViewById(R.id.street);
-      selected = (Checkable) itemView.findViewById(R.id.selected);
-      itemView.setOnClickListener(new View.OnClickListener()
+      streetDef = (TextView) itemView.findViewById(R.id.street_default);
+      streetLoc = (TextView) itemView.findViewById(R.id.street_localized);
+      selected = (CompoundButton) itemView.findViewById(R.id.selected);
+      itemView.setOnClickListener(this);
+      selected.setOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
         {
-          mSelectedStreet = mStreets[getAdapterPosition()];
-          notifyDataSetChanged();
-          mFragment.saveStreet(mSelectedStreet);
+          selected.toggle();
+          StreetViewHolder.this.onClick(selected);
         }
       });
     }
@@ -102,9 +106,17 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     @Override
     public void bind(int position)
     {
-      final String text = mStreets[position];
-      selected.setChecked(mSelectedStreet.equals(text));
-      street.setText(text);
+      selected.setChecked(mSelectedStreet.defaultName.equals(mStreets[position].defaultName));
+      streetDef.setText(mStreets[position].defaultName);
+      UiUtils.setTextAndHideIfEmpty(streetLoc, mStreets[position].localizedName);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      mSelectedStreet = mStreets[getAdapterPosition()];
+      notifyDataSetChanged();
+      mFragment.saveStreet(mSelectedStreet);
     }
   }
 

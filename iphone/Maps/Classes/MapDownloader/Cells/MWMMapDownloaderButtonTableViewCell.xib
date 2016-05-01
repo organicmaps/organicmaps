@@ -15,11 +15,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22f-XO-fEh">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="44" id="ppe-HK-X6q"/>
+                            <constraint firstAttribute="height" priority="750" constant="44" id="ppe-HK-X6q"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
+                        <state key="normal" title="Add Maps Button"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>

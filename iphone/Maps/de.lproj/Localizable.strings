@@ -1358,6 +1358,9 @@
 
 "no_migration_during_navigation" = "Aktualisieren ist während der Navigation verboten.";
 
+/* Error dialog no space */
+"migration_no_space_message" = "Zum Herunterladen benötigen Sie mehr Platz. Bitte löschen Sie unnötige Daten.";
+
 "editor_sharing_title" = "Ich habe die MAPS.ME-Karten verbessert";
 
 "editor_comment_will_be_sent" = "Wir werden Ihren Kommentar an die Kartografierer weiterleiten.";
@@ -1375,7 +1378,7 @@
 
 "editor_storey_number" = "Anzahl der Etagen (%2d maximal)";
 
-"error_enter_correct_storey_number" = "Bearbeiten Sie die Gebäude mit maximal 25% Etagen";
+"error_enter_correct_storey_number" = "Bearbeiten Sie die Gebäude mit maximal 25 Etagen";
 
 "editor_zip_code" = "Postleitzahl";
 
@@ -1432,7 +1435,12 @@
 
 "whatsnew_update_editor_message" = "Die Benutzer haben schon mehr als 50.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!";
 
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Um den Karten-Editor zu nutzen, aktualisieren Sie bitte alle Karten.";
+
 "location_services_disabled_header" = "Standort-Identifizierung ist deaktiviert";
+
+"location_services_disabled_message" = "Aktivieren Sie den Zugang zur Positionsbestimmung in den Geräteeinstellungen";
 
 "location_services_disabled_1" = "1. Einstellungen öffnen";
 

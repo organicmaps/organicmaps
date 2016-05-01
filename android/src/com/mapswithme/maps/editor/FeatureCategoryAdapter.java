@@ -14,7 +14,7 @@ import com.mapswithme.util.UiUtils;
 
 public class FeatureCategoryAdapter extends RecyclerView.Adapter<FeatureCategoryAdapter.FeatureViewHolder>
 {
-  private final FeatureCategory[] mCategories;
+  private FeatureCategory[] mCategories;
   private final FeatureCategoryFragment mFragment;
   private FeatureCategory mSelectedCategory;
 
@@ -23,6 +23,12 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<FeatureCategory
     mFragment = host;
     mCategories = categories;
     mSelectedCategory = category;
+  }
+
+  public void setCategories(FeatureCategory[] categories)
+  {
+    mCategories = categories;
+    notifyDataSetChanged();
   }
 
   @Override
