@@ -16258,8 +16258,8 @@
     uk = Кількість поверхів (максимум %d)
     vi = Số tầng (tối đa %d)
     hu = Az emeletek száma (legfeljebb %d)
-    de = Anzahl der Etagen (%2d maximal)
-    fi = Kerrosten määrä (maks. %2d)
+    de = Anzahl der Etagen (%d maximal)
+    fi = Kerrosten määrä (maks. %d)
     cs = Počet poschodí (max. %d)
     it = Numero di piani (massimo %d)
     nb = Antall etasjer (maks. %d)
@@ -16932,7 +16932,7 @@
     nl = Huidige locatie is onbekend.
 
   [current_location_unknown_error_message]
-    en = An error occured while searching for your location. Check that your device is working properly and try again later.
+    en = An error occurred while searching for your location. Check that your device is working properly and try again later.
     ru = При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.
     fr = Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que le périphérique fonctionne correctement et réessayez ultérieurement
     da = Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.
