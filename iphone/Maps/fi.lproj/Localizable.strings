@@ -1376,7 +1376,7 @@
 
 "error_enter_correct_house_number" = "Syötä oikea talon numero";
 
-"editor_storey_number" = "Kerrosten määrä (maks. %2d)";
+"editor_storey_number" = "Kerrosten määrä (maks. %d)";
 
 "error_enter_correct_storey_number" = "Muokkaa kerroksia, enintään 25 kerrosta";
 

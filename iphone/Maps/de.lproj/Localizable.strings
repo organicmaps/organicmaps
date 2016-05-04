@@ -1376,7 +1376,7 @@
 
 "error_enter_correct_house_number" = "Richtige Hausnummer eingeben";
 
-"editor_storey_number" = "Anzahl der Etagen (%2d maximal)";
+"editor_storey_number" = "Anzahl der Etagen (%d maximal)";
 
 "error_enter_correct_storey_number" = "Bearbeiten Sie die Gebäude mit maximal 25 Etagen";
 
