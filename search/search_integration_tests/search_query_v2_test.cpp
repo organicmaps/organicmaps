@@ -334,7 +334,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
     for (auto const & result : request.Results())
     {
       auto const & info = result.GetRankingInfo();
-      TEST_EQUAL(NAME_SCORE_FULL_MATCH, info.m_nameScore, ());
+      TEST_EQUAL(NAME_SCORE_FULL_MATCH, info.m_nameScore, (result));
       TEST(my::AlmostEqualAbs(1.0, info.m_nameCoverage, 1e-6), (info.m_nameCoverage));
     }
   }
