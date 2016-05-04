@@ -338,6 +338,7 @@ Framework::Framework()
   m_storage.Init(
                  bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  bind(&Framework::OnCountryFileDelete, this, _1, _2));
+  m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   LOG(LDEBUG, ("Storage initialized"));
 
   auto const routingStatisticsFn = [](map<string, string> const & statistics)
