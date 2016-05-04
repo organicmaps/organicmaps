@@ -647,6 +647,7 @@ public:
   osm::Editor::SaveResult SaveEditedMapObject(osm::EditableMapObject emo);
   void DeleteFeature(FeatureID const & fid) const;
   osm::NewFeatureCategories GetEditorCategories() const;
+  bool RollBackChanges(FeatureID const & fid);
   //@}
 
 private:
