@@ -366,13 +366,13 @@ Framework::Framework()
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 
-  osm::Editor::SetInstance(&m_editor);
-  m_editor.SetMwmIdByNameAndVersionFn([this](string const & name) -> MwmSet::MwmId
+  osm::Editor & editor = osm::Editor::Instance();
+  editor.SetMwmIdByNameAndVersionFn([this](string const & name) -> MwmSet::MwmId
   {
     return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
   });
-  m_editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
-  m_editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> unique_ptr<FeatureType>
+  editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
+  editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> unique_ptr<FeatureType>
   {
     unique_ptr<FeatureType> feature(new FeatureType());
     Index::FeaturesLoaderGuard const guard(m_model.GetIndex(), fid.m_mwmId);
@@ -380,7 +380,7 @@ Framework::Framework()
     feature->ParseEverything();
     return feature;
   });
-  m_editor.SetFeatureOriginalStreetFn([this](FeatureType & ft) -> string
+  editor.SetFeatureOriginalStreetFn([this](FeatureType & ft) -> string
   {
     search::ReverseGeocoder const coder(m_model.GetIndex());
     auto const streets = coder.GetNearbyFeatureStreets(ft);
@@ -388,10 +388,8 @@ Framework::Framework()
       return streets.first[streets.second].m_name;
     return {};
   });
-  m_editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2));
-  m_editor.LoadMapEdits();
-
-  m_model.GetIndex().AddObserver(m_editor);
+  editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2));
+  editor.LoadMapEdits();
 }
 
 Framework::~Framework()
@@ -399,8 +397,6 @@ Framework::~Framework()
   m_drapeEngine.reset();
 
   m_model.SetOnMapDeregisteredCallback(nullptr);
-  m_model.GetIndex().RemoveObserver(m_editor);
-  m_editor.SetInstance(nullptr);
 }
 
 void Framework::DrawWatchFrame(m2::PointD const & center, int zoomModifier,

@@ -138,17 +138,10 @@ namespace osm
 
 Editor::Editor() : m_notes(editor::Notes::MakeNotes()) {}
 
-Editor * Editor::s_instance = nullptr;
-
 Editor & Editor::Instance()
 {
-  ASSERT(s_instance, ("nullptr dereference."));
-  return *s_instance;
-}
-
-void Editor::SetInstance(Editor * editor)
-{
-  s_instance = editor;
+  static Editor instance;
+  return instance;
 }
 
 void Editor::LoadMapEdits()
