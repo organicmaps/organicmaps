@@ -18,6 +18,21 @@ using namespace routing::turns;
 class AStarRoutingResultGraph : public IRoutingResultGraph
 {
 public:
+  AStarRoutingResultGraph(IRoadGraph::TEdgeVector const & routeEdges,
+                          AdjacentEdgesMap const & adjacentEdges,
+                          TUnpackedPathSegments const & pathSegments)
+    : m_routeEdges(routeEdges), m_adjacentEdges(adjacentEdges), m_pathSegments(pathSegments),
+      m_routeLength(0)
+  {
+    for (auto const & edge : routeEdges)
+    {
+      m_routeLength += MercatorBounds::DistanceOnEarth(edge.GetStartJunction().GetPoint(),
+                                                       edge.GetEndJunction().GetPoint());
+    }
+  }
+
+  ~AStarRoutingResultGraph() {}
+
   virtual TUnpackedPathSegments const & GetSegments() const override
   {
     return m_pathSegments;
@@ -58,17 +73,6 @@ public:
     CHECK(!m_routeEdges.empty(), ());
     return m_routeEdges.back().GetEndJunction().GetPoint();
   }
-
-  AStarRoutingResultGraph(IRoadGraph::TEdgeVector const & routeEdges,
-                          AdjacentEdgesMap const & adjacentEdges,
-                          TUnpackedPathSegments const & pathSegments)
-    : m_routeEdges(routeEdges), m_adjacentEdges(adjacentEdges), m_pathSegments(pathSegments),
-      m_routeLength(0)
-  {
-    // @TODO(bykoianko) Calculate length of routeEdges |m_routeLength|.
-  }
-
-  ~AStarRoutingResultGraph() {}
 
 private:
    IRoadGraph::TEdgeVector const & m_routeEdges;
@@ -117,26 +121,40 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   }
 
   // Filling |m_adjacentEdges|.
-  int i = 0;
-  for (auto const & junction : path)
+  size_t const pathSize = path.size();
+  for (int i = 1; i <= pathSize; ++i)
   {
+    Junction const & formerJunction = path[i - 1];
+    Junction const & currentJunction = path[i];
     IRoadGraph::TEdgeVector outgoingEdges, ingoingEdges;
-    graph.GetOutgoingEdges(junction, outgoingEdges);
-    graph.GetIngoingEdges(junction, ingoingEdges);
+    graph.GetOutgoingEdges(currentJunction, outgoingEdges);
+    graph.GetIngoingEdges(currentJunction, ingoingEdges);
 
     AdjacentEdges adjacentEdges = {{}, ingoingEdges.size()};
     adjacentEdges.outgoingTurns.reserve(outgoingEdges.size());
     for (auto const & outgoingEdge : outgoingEdges)
     {
-      // @TODO(bykoianko) Calculate angle based on Junction path[i-1], path[i] and outgoingEdge edges.
+      double const angle =
+          turns::PiMinusTwoVectorsAngle(formerJunction.GetPoint(), currentJunction.GetPoint(),
+                                        outgoingEdge.GetEndJunction().GetPoint());
+
       // @TODO(bykoianko) Calculate correct HighwayClass.
-      adjacentEdges.outgoingTurns.emplace_back(0., outgoingEdge.GetFeatureId().m_index,
+//      ftypes::HighwayClass highWayClass = ftypes::HighwayClass::Undefined;
+//      {
+//        FeatureType ft;
+//        Index::FeaturesLoaderGuard loader(index, mapping.GetMwmId());
+//        loader.GetFeatureByIndex(outgoingEdge.GetFeatureId().m_index, ft);
+//        ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+//        highWayClass = ftypes::GetHighwayClass(ft);
+//      }
+
+      adjacentEdges.outgoingTurns.emplace_back(angle, outgoingEdge.GetFeatureId().m_index,
                                                ftypes::HighwayClass::Tertiary);
     }
     m_adjacentEdges.insert(make_pair(i, move(adjacentEdges)));
 
     // @TODO(bykoianko) Fill m_pathSegments based on |path|.
-    i += 1;
+    //i += 1;
   }
 
   AStarRoutingResultGraph resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);

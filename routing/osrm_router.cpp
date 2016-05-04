@@ -52,11 +52,6 @@ double constexpr kMwmLoadedProgress = 10.0f;
 double constexpr kPointsFoundProgress = 15.0f;
 double constexpr kCrossPathFoundProgress = 50.0f;
 double constexpr kPathFoundProgress = 70.0f;
-
-double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
-{
-  return math::pi - ang::TwoVectorsAngle(p, p1, p2);
-}
 } //  namespace
 
 using RawRouteData = InternalRouteResult;
@@ -145,7 +140,7 @@ public:
                   turns::kFeaturesNearTurnMeters, ());
 
       double const a =
-          my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+          my::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
       outgoingTurns.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
     }
 
