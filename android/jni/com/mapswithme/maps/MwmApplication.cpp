@@ -29,12 +29,6 @@ extern "C"
     android::Platform::Instance().ProcessFunctor(functorPointer);
   }
 
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeHasFreeSpace(JNIEnv * env, jclass clazz, jlong size)
-  {
-    return android::Platform::Instance().HasAvailableSpaceForWriting(size);
-  }
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MwmApplication_nativeAddLocalization(JNIEnv * env, jclass clazz, jstring name, jstring value)
   {
