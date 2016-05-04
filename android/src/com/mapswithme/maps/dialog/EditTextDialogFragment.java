@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -23,9 +24,11 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   public static final String EXTRA_INITIAL = "InitialText";
   public static final String EXTRA_POSITIVE_BUTTON = "PositiveText";
   public static final String EXTRA_NEGATIVE_BUTTON = "NegativeText";
+  public static final String EXTRA_HINT = "Hint";
 
   private String mTitle;
   private String mInitialText;
+  private String mHint;
   private EditText mEtInput;
 
   public interface OnTextSaveListener
@@ -35,11 +38,17 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
 
   public static void show(String title, String initialText, String positiveBtn, String negativeBtn, Fragment parent)
   {
+    show(title, initialText, "", positiveBtn, negativeBtn, parent);
+  }
+
+  public static void show(String title, String initialText, String hint, String positiveBtn, String negativeBtn, Fragment parent)
+  {
     final Bundle args = new Bundle();
     args.putString(EXTRA_TITLE, title);
     args.putString(EXTRA_INITIAL, initialText);
-    args.putString(EXTRA_POSITIVE_BUTTON, positiveBtn);
-    args.putString(EXTRA_NEGATIVE_BUTTON, negativeBtn);
+    args.putString(EXTRA_POSITIVE_BUTTON, positiveBtn.toUpperCase());
+    args.putString(EXTRA_NEGATIVE_BUTTON, negativeBtn.toUpperCase());
+    args.putString(EXTRA_HINT, hint);
     final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(parent.getActivity(), EditTextDialogFragment.class.getName());
     fragment.setArguments(args);
     fragment.show(parent.getChildFragmentManager(), EditTextDialogFragment.class.getName());
@@ -56,30 +65,34 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     {
       mTitle = args.getString(EXTRA_TITLE);
       mInitialText = args.getString(EXTRA_INITIAL);
+      mHint = args.getString(EXTRA_HINT);
 
       positiveButtonText = args.getString(EXTRA_POSITIVE_BUTTON);
       negativeButtonText = args.getString(EXTRA_NEGATIVE_BUTTON);
     }
 
-    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setView(buildView()).
-        setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener()
-            {
-              @Override
-              public void onClick(DialogInterface dialog, int which)
-              {
-                final Fragment parentFragment = getParentFragment();
-                final String result = mEtInput.getText().toString();
-                if (parentFragment instanceof OnTextSaveListener)
-                {
-                  ((OnTextSaveListener) parentFragment).onSaveText(result);
-                  return;
-                }
+    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                                            .setView(buildView())
+                                            .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener()
+                                            {
+                                              @Override
+                                              public void onClick(DialogInterface dialog, int which)
+                                              {
+                                                final Fragment parentFragment = getParentFragment();
+                                                final String result = mEtInput.getText().toString();
+                                                if (parentFragment instanceof OnTextSaveListener)
+                                                {
+                                                  dismiss();
+                                                  ((OnTextSaveListener) parentFragment).onSaveText(result);
+                                                  return;
+                                                }
 
-                final Activity activity = getActivity();
-                if (activity instanceof OnTextSaveListener)
-                  ((OnTextSaveListener) activity).onSaveText(result);
-              }
-            }).setNegativeButton(negativeButtonText, null);
+                                                final Activity activity = getActivity();
+                                                if (activity instanceof OnTextSaveListener)
+                                                  ((OnTextSaveListener) activity).onSaveText(result);
+                                              }
+                                            })
+                                            .setNegativeButton(negativeButtonText, null);
 
     return builder.create();
   }
@@ -87,7 +100,9 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   private View buildView()
   {
     @SuppressLint("InflateParams") final View root = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
-    mEtInput = (EditText) root.findViewById(R.id.et__input);
+    TextInputLayout inputLayout = (TextInputLayout) root.findViewById(R.id.input);
+    inputLayout.setHint(TextUtils.isEmpty(mHint) ? getString(R.string.name) : mHint);
+    mEtInput = (EditText) inputLayout.findViewById(R.id.et__input);
     if (!TextUtils.isEmpty(mInitialText))
     {
       mEtInput.setText(mInitialText);

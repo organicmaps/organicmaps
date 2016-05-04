@@ -111,6 +111,7 @@ public final class Editor
 
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);
+  public static native boolean nativeIsHouseValid(String houseNumber);
 
   public static native boolean nativeHasSomethingToUpload();
   @WorkerThread
@@ -148,6 +149,9 @@ public final class Editor
     nativeCreateMapObject(category.category);
   }
   public static native void nativeCreateMapObject(int categoryId);
+  public static native void nativeCreateNote(String text);
+  public static native void nativePlaceDoesNotExist(String comment);
+  public static native void nativeRollbackMapObject();
 
   /**
    * @return all cuisines keys.
@@ -167,11 +171,6 @@ public final class Editor
 
   public static native String nativeGetMwmName();
   public static native long nativeGetMwmVersion();
-
-  public static native void nativeCreateNote(String text);
-  public static native void nativePlaceDoesNotExist();
-
-  public static native boolean nativeIsHouseValid(String houseNumber);
 
   @FeatureStatus
   public static native int nativeGetMapObjectStatus();

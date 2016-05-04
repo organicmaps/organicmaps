@@ -1,11 +1,15 @@
 package com.mapswithme.maps.editor;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.SparseArray;
@@ -16,19 +20,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.Metadata.MetadataType;
+import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
-public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
+public class EditorFragment extends BaseMwmFragment implements View.OnClickListener, EditTextDialogFragment.OnTextSaveListener
 {
   private TextView mCategory;
   private View mCardName;
@@ -90,6 +97,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private View mEditOpeningHours;
   private EditText mDescription;
   private final SparseArray<View> mMetaBlocks = new SparseArray<>(7);
+  private TextView mReset;
 
   protected EditorHostFragment mParent;
 
@@ -140,6 +148,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mWifi.setChecked(Editor.nativeHasWifi());
     refreshOpeningTime();
     refreshEditableFields();
+    refreshResetButton();
   }
 
   @Override
@@ -243,7 +252,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mCardMetadata = view.findViewById(R.id.cv__metadata);
     mName = findInput(mCardName);
     // TODO uncomment and finish localized name
-//    view.findViewById(R.id.add_langs).setOnClickListener(this);
+    //    view.findViewById(R.id.add_langs).setOnClickListener(this);
     UiUtils.hide(view.findViewById(R.id.add_langs));
     mLocalizedShow = (TextView) view.findViewById(R.id.show_langs);
     mLocalizedShow.setOnClickListener(this);
@@ -263,8 +272,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     View blockZipcode = view.findViewById(R.id.block_zipcode);
     mZipcode = findInputAndInitBlock(blockZipcode, 0, R.string.editor_zip_code);
     mBlockLevels = view.findViewById(R.id.block_levels);
-    // TODO set levels limit (25 or more, get it from the core)
-    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, R.string.editor_storey_number);
+    // TODO set level limits from core
+    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, getString(R.string.editor_storey_number, 25));
     // Details
     View blockPhone = view.findViewById(R.id.block_phone);
     mPhone = findInputAndInitBlock(blockPhone, R.drawable.ic_phone, R.string.phone);
@@ -287,7 +296,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEmptyOpeningHours.setOnClickListener(this);
     mOpeningHours = (TextView) blockOpeningHours.findViewById(R.id.opening_hours);
     mOpeningHours.setOnClickListener(this);
-    mDescription = findInput(view.findViewById(R.id.cv__more));
+    final View cardMore = view.findViewById(R.id.cv__more);
+    mDescription = findInput(cardMore);
+    cardMore.findViewById(R.id.about_osm).setOnClickListener(this);
+    mReset = (TextView) view.findViewById(R.id.reset);
+    mReset.setOnClickListener(this);
 
     mMetaBlocks.append(MetadataType.FMD_OPEN_HOURS.toInt(), blockOpeningHours);
     mMetaBlocks.append(MetadataType.FMD_PHONE_NUMBER.toInt(), blockPhone);
@@ -305,9 +318,14 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private EditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, @StringRes int hint)
   {
+    return findInputAndInitBlock(blockWithInput, icon, getString(hint));
+  }
+
+  private EditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, String hint)
+  {
     ((ImageView) blockWithInput.findViewById(R.id.icon)).setImageResource(icon);
     final TextInputLayout input = (TextInputLayout) blockWithInput.findViewById(R.id.custom_input);
-    input.setHint(getString(hint));
+    input.setHint(hint);
     return (EditText) input.findViewById(R.id.input);
   }
 
@@ -339,13 +357,19 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     case R.id.add_langs:
       mParent.addLocalizedLanguage();
       break;
+    case R.id.about_osm:
+      startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(Constants.Url.OSM_ABOUT)));
+      break;
+    case R.id.reset:
+      reset();
+      break;
     }
   }
 
   private void refreshLocalizedNames()
   {
     // TODO uncomment and finish localized names
-//    UiUtils.showIf(mLocalizedNamesAdapter.getItemCount() > 0, mLocalizedShow);
+    //    UiUtils.showIf(mLocalizedNamesAdapter.getItemCount() > 0, mLocalizedShow);
     UiUtils.hide(mLocalizedNames, mLocalizedShow);
   }
 
@@ -367,5 +391,101 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private void setLocalizedShowDrawable(@DrawableRes int right)
   {
     mLocalizedShow.setCompoundDrawablesWithIntrinsicBounds(null, null, Graphics.tint(getActivity(), right, R.attr.iconTint), null);
+  }
+
+  private void refreshResetButton()
+  {
+    if (mParent.addingNewObject())
+    {
+      UiUtils.hide(mReset);
+      return;
+    }
+
+    if (Editor.nativeIsMapObjectUploaded())
+    {
+      mReset.setText(R.string.editor_place_doesnt_exist);
+      return;
+    }
+
+    switch (Editor.nativeGetMapObjectStatus())
+    {
+    case Editor.CREATED:
+      mReset.setText(R.string.editor_remove_place_button);
+      break;
+    case Editor.MODIFIED:
+      mReset.setText(R.string.editor_reset_edits_button);
+      break;
+    case Editor.UNTOUCHED:
+      mReset.setText(R.string.editor_place_doesnt_exist);
+      break;
+    case Editor.DELETED:
+      throw new IllegalStateException("Can't delete already deleted feature.");
+    }
+  }
+
+  private void reset()
+  {
+    if (Editor.nativeIsMapObjectUploaded())
+    {
+      placeDoesntExist();
+      return;
+    }
+
+    switch (Editor.nativeGetMapObjectStatus())
+    {
+    case Editor.CREATED:
+      resetCreated(Editor.CREATED);
+      break;
+    case Editor.MODIFIED:
+      resetCreated(Editor.MODIFIED);
+      break;
+    case Editor.UNTOUCHED:
+      placeDoesntExist();
+      break;
+    case Editor.DELETED:
+      throw new IllegalStateException("Can't delete already deleted feature.");
+    }
+  }
+
+  private void resetCreated(@Editor.FeatureStatus int status)
+  {
+    int title;
+    int message;
+    if (status == Editor.CREATED)
+    {
+      title = R.string.editor_remove_place_button;
+      message = R.string.editor_remove_place_message;
+    }
+    else
+    {
+      title = R.string.editor_reset_edits_button;
+      message = R.string.editor_reset_edits_message;
+    }
+
+    new AlertDialog.Builder(getActivity()).setTitle(message)
+                                          .setPositiveButton(getString(title).toUpperCase(), new DialogInterface.OnClickListener()
+                                          {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which)
+                                            {
+                                              Editor.nativeRollbackMapObject();
+                                              mParent.onBackPressed();
+                                            }
+                                          })
+                                          .setNegativeButton(getString(R.string.cancel).toUpperCase(), null)
+                                          .show();
+  }
+
+  private void placeDoesntExist()
+  {
+    EditTextDialogFragment.show(getString(R.string.editor_place_doesnt_exist), "", getString(R.string.editor_comment_hint),
+                                getString(R.string.editor_report_problem_send_button), getString(R.string.cancel), this);
+  }
+
+  @Override
+  public void onSaveText(String text)
+  {
+    Editor.nativePlaceDoesNotExist(text);
+    mParent.onBackPressed();
   }
 }

@@ -244,4 +244,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     Editor.nativeSetStreet(street);
     editMapObject();
   }
+
+  public boolean addingNewObject()
+  {
+    return mIsNewObject;
+  }
 }
