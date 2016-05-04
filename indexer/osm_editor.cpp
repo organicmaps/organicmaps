@@ -475,7 +475,7 @@ bool Editor::RollBackChanges(FeatureID const & fid)
 
   RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
   Invalidate();
-  return true;
+  return Save(GetEditorFilePath());
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
