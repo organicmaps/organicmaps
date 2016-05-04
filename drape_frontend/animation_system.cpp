@@ -235,8 +235,8 @@ ScaleInterpolator::ScaleInterpolator(double delay, double startScale, double end
 // static
 double ScaleInterpolator::GetScaleDuration(double startScale, double endScale)
 {
-  // Resize 2.0 times should be done for 0.3 seconds.
-  double constexpr kPixelSpeed = 2.0 / 0.3;
+  // Resize 2.0 times should be done for 0.2 seconds.
+  double constexpr kPixelSpeed = 2.0 / 0.2;
 
   if (startScale > endScale)
     swap(startScale, endScale);

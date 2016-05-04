@@ -75,7 +75,7 @@ public:
   void DeactivateRouting();
 
   void StopLocationFollow();
-  void NextMode();
+  void NextMode(ScreenBase const & screen);
   void LoseLocation();
 
   void SetTimeInBackground(double time);
@@ -113,7 +113,7 @@ private:
   void ChangeModelView(m2::RectD const & rect);
   void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel);
 
-  void UpdateViewport();
+  void UpdateViewport(int zoomLevel);
   m2::PointD GetRotationPixelCenter() const;
   m2::PointD GetRoutingRotationPixelCenter() const;
 

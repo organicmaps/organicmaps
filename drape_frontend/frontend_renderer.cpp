@@ -383,7 +383,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       switch (msg->GetChangeType())
       {
       case ChangeMyPositionModeMessage::SwitchNextMode:
-        m_myPositionController->NextMode();
+        m_myPositionController->NextMode(m_userEventStream.GetCurrentScreen());
         break;
       case ChangeMyPositionModeMessage::StopFollowing:
         m_myPositionController->StopLocationFollow();

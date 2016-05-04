@@ -5,6 +5,8 @@
 #include "drape_frontend/animation/base_interpolator.hpp"
 #include "drape_frontend/animation/interpolations.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/math.hpp"
@@ -28,6 +30,9 @@ double const kMaxNotFollowRoutingTimeSec = 10.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
 double const kMaxWaitStartLocationSec = 5.0;
 
+int const kZoomThreshold = 10;
+int const kMaxScaleZoomLevel = 16;
+
 int const kDoNotChangeZoom = -1;
 
 string LocationModeStatisticsName(location::EMyPositionMode mode)
@@ -46,6 +51,19 @@ string LocationModeStatisticsName(location::EMyPositionMode mode)
     return "@FollowAndRotate";
   }
   return "@UnknownMode";
+}
+
+int GetZoomLevel(ScreenBase const & screen)
+{
+  return my::clamp(fabs(log(screen.GetScale()) / log(2.0)), 1, scales::GetUpperStyleScale());
+}
+
+int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double errorRadius)
+{
+  ScreenBase s = screen;
+  m2::PointD const size(errorRadius, errorRadius);
+  s.SetFromRect(m2::AnyRectD(position, screen.GetAngle(), m2::RectD(position - size, position + size)));
+  return GetZoomLevel(s);
 }
 
 } // namespace
@@ -125,7 +143,7 @@ MyPositionController::~MyPositionController()
 
 void MyPositionController::OnNewPixelRect()
 {
-  UpdateViewport();
+  UpdateViewport(kDoNotChangeZoom);
 }
 
 void MyPositionController::UpdatePixelPosition(ScreenBase const & screen)
@@ -173,7 +191,7 @@ void MyPositionController::DragEnded(m2::PointD const & distance)
   if (distance.Length() > kBindingDistance * min(m_pixelRect.SizeX(), m_pixelRect.SizeY()))
     StopLocationFollow();
 
-  UpdateViewport();
+  UpdateViewport(kDoNotChangeZoom);
 }
 
 void MyPositionController::ScaleStarted()
@@ -190,7 +208,7 @@ void MyPositionController::ScaleEnded()
     StopLocationFollow();
   }
 
-  UpdateViewport();
+  UpdateViewport(kDoNotChangeZoom);
 }
 
 void MyPositionController::Rotated()
@@ -226,7 +244,7 @@ void MyPositionController::SetRenderShape(drape_ptr<MyPosition> && shape)
   m_shape = move(shape);
 }
 
-void MyPositionController::NextMode()
+void MyPositionController::NextMode(ScreenBase const & screen)
 {
   string const kAlohalyticsClickEvent = "$onClick";
 
@@ -248,11 +266,17 @@ void MyPositionController::NextMode()
     return;
   }
 
+  // Calculate preferred zoom level.
+  int const currentZoom = GetZoomLevel(screen);
+  int preferredZoomLevel = kDoNotChangeZoom;
+  if (currentZoom < kZoomThreshold)
+    preferredZoomLevel = min(GetZoomLevel(screen, m_position, m_errorRadius), kMaxScaleZoomLevel);
+
   // In routing not-follow -> follow-and-rotate, otherwise not-follow -> follow.
   if (m_mode == location::NotFollow)
   {
     ChangeMode(m_isInRouting ? location::FollowAndRotate : location::Follow);
-    UpdateViewport();
+    UpdateViewport(preferredZoomLevel);
     return;
   }
 
@@ -263,7 +287,7 @@ void MyPositionController::NextMode()
     if (IsRotationAvailable() || m_isInRouting)
     {
       ChangeMode(location::FollowAndRotate);
-      UpdateViewport();
+      UpdateViewport(preferredZoomLevel);
     }
     return;
   }
@@ -274,7 +298,7 @@ void MyPositionController::NextMode()
     if (!m_isInRouting)
     {
       ChangeMode(location::Follow);
-      UpdateViewport();
+      ChangeModelView(m_position, 0.0, m_centerPixelPosition, preferredZoomLevel);
     }
   }
 }
@@ -314,8 +338,15 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     ChangeMode(location::Follow);
     if (!m_isFirstLaunch)
     {
-      m2::PointD const size(m_errorRadius, m_errorRadius);
-      ChangeModelView(m2::RectD(m_position - size, m_position + size));
+      if (GetZoomLevel(screen, m_position, m_errorRadius) <= kMaxScaleZoomLevel)
+      {
+        m2::PointD const size(m_errorRadius, m_errorRadius);
+        ChangeModelView(m2::RectD(m_position - size, m_position + size));
+      }
+      else
+      {
+        ChangeModelView(m_position, kMaxScaleZoomLevel);
+      }
     }
     else
     {
@@ -411,14 +442,14 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
       m_routingNotFollowTimer.ElapsedSeconds() >= kMaxNotFollowRoutingTimeSec)
   {
     ChangeMode(location::FollowAndRotate);
-    UpdateViewport();
+    UpdateViewport(kDoNotChangeZoom);
   }
 
   if (m_shape != nullptr && IsVisible() && IsModeHasPosition())
   {
     if (m_isDirtyViewport && !m_needBlockAnimation)
     {
-      UpdateViewport();
+      UpdateViewport(kDoNotChangeZoom);
       m_isDirtyViewport = false;
     }
 
@@ -504,7 +535,7 @@ void MyPositionController::SetTimeInBackground(double time)
   if (time >= kMaxTimeInBackgroundSec && m_mode == location::NotFollow)
   {
     ChangeMode(location::Follow);
-    UpdateViewport();
+    UpdateViewport(kDoNotChangeZoom);
   }
 }
 
@@ -516,7 +547,7 @@ void MyPositionController::OnCompassTapped()
   if (m_mode == location::FollowAndRotate)
   {
     ChangeMode(location::Follow);
-    UpdateViewport();
+    UpdateViewport(kDoNotChangeZoom);
   }
 }
 
@@ -545,16 +576,16 @@ void MyPositionController::ChangeModelView(m2::PointD const & userPos, double az
     m_listener->ChangeModelView(userPos, azimuth, pxZero, zoomLevel);
 }
 
-void MyPositionController::UpdateViewport()
+void MyPositionController::UpdateViewport(int zoomLevel)
 {
   if (IsWaitingForLocation())
     return;
   
   if (m_mode == location::Follow)
-    ChangeModelView(m_position, kDoNotChangeZoom);
+    ChangeModelView(m_position, zoomLevel);
   else if (m_mode == location::FollowAndRotate)
     ChangeModelView(m_position, m_drawDirection,
-                    m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition, kDoNotChangeZoom);
+                    m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition, zoomLevel);
 }
 
 m2::PointD MyPositionController::GetRotationPixelCenter() const

@@ -140,6 +140,9 @@ public:
   void SetInterruptedOnCombine(bool enable) { m_interruptedOnCombine = enable; }
   bool GetInterruptedOnCombine() const { return m_interruptedOnCombine; }
 
+  void SetCouldBeInterrupted(bool enable) { m_couldBeInterrupted = enable; }
+  void SetCouldBeBlended(bool enable) { m_couldBeBlended = enable; }
+
 protected:
   TAction m_onStartAction;
   TAction m_onFinishAction;

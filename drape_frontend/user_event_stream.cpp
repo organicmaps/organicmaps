@@ -570,6 +570,11 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     auto anim = make_unique_dp<MapFollowAnimation>(userPos, startScale, targetScale,
                                                    screen.GlobalRect().Angle().val(), -azimuth,
                                                    screen.GtoP(userPos), pixelPos, screen.PixelRect());
+    if (preferredZoomLevel != kDoNotChangeZoom)
+    {
+      anim->SetCouldBeInterrupted(false);
+      anim->SetCouldBeBlended(false);
+    }
     anim->SetMaxDuration(kMaxAnimationTimeSec);
     anim->SetOnStartAction(onStartHandler);
     m_animationSystem.CombineAnimation(move(anim));
