@@ -980,10 +980,15 @@ Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env,
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeTurnChoosePositionMode(JNIEnv *, jclass, jboolean turnOn, jboolean isBusiness)
+Java_com_mapswithme_maps_Framework_nativeTurnOnChoosePositionMode(JNIEnv *, jclass, jboolean isBusiness, jboolean applyPosition)
 {
-  //TODO(Android team): implement positioning
-  g_framework->SetChoosePositionMode(turnOn, isBusiness, false /* hasPosition */, m2::PointD());
+  g_framework->SetChoosePositionMode(true, isBusiness, applyPosition, applyPosition ? g_framework->GetPlacePageInfo().GetMercator() : m2::PointD());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeTurnOffChoosePositionMode(JNIEnv *, jclass)
+{
+  g_framework->SetChoosePositionMode(false, false, false, m2::PointD());
 }
 
 JNIEXPORT jboolean JNICALL
@@ -1003,5 +1008,11 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsActiveObjectABuilding(JNIEnv * env, jclass)
 {
   return g_framework->GetPlacePageInfo().IsBuilding();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeCanAddPlaceFromPlacePage(JNIEnv * env, jclass clazz)
+{
+  return g_framework->GetPlacePageInfo().ShouldShowAddPlace();
 }
 } // extern "C"

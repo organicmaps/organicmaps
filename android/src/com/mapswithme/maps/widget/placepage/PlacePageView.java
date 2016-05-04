@@ -112,8 +112,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private View mWiki;
   private View mEntrance;
   private TextView mTvEntrance;
-  private View mEditor;
+  private View mEditPlace;
   private View mAddOrganisation;
+  private View mAddPlace;
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
@@ -204,10 +205,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mWiki.setOnClickListener(this);
     mEntrance = mDetails.findViewById(R.id.ll__place_entrance);
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
-    mEditor = mDetails.findViewById(R.id.ll__place_editor);
-    mEditor.setOnClickListener(this);
+    mEditPlace = mDetails.findViewById(R.id.ll__place_editor);
+    mEditPlace.setOnClickListener(this);
     mAddOrganisation = mDetails.findViewById(R.id.ll__add_organisation);
     mAddOrganisation.setOnClickListener(this);
+    mAddPlace = mDetails.findViewById(R.id.ll__place_add);
+    mAddPlace.setOnClickListener(this);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -439,13 +442,17 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours();
-    UiUtils.showIf(mMapObject != null && Editor.nativeIsFeatureEditable() &&
-                   !RoutingController.get().isNavigating() && !MapManager.nativeIsLegacyMode(),
-                   mEditor);
-    UiUtils.showIf(!RoutingController.get().isNavigating() && !MapManager.nativeIsLegacyMode() &&
-                   !MapObject.isOfType(MapObject.MY_POSITION, mMapObject) &&
-                   Framework.nativeIsActiveObjectABuilding(),
-                   mAddOrganisation);
+
+    if (RoutingController.get().isNavigating() || MapManager.nativeIsLegacyMode())
+    {
+      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace);
+    }
+    else
+    {
+      UiUtils.showIf(Editor.nativeIsFeatureEditable(), mEditPlace);
+      UiUtils.showIf(Framework.nativeIsActiveObjectABuilding(), mAddOrganisation);
+      UiUtils.showIf(Framework.nativeCanAddPlaceFromPlacePage(), mAddPlace);
+    }
   }
 
   private void refreshOpeningHours()
@@ -526,7 +533,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (RoutingController.get().isPlanning())
     {
       UiUtils.show(mRouteButtonsFrame);
-      UiUtils.hide(mGeneralButtonsFrame, mEditor);
+      UiUtils.hide(mGeneralButtonsFrame, mEditPlace);
     }
     else
     {
@@ -679,7 +686,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
                                    Statistics.params().add(Statistics.EventParam.FROM, "placepage"));
-    ((MwmActivity) getContext()).showPositionChooser(true);
+    ((MwmActivity) getContext()).showPositionChooser(true, false);
+  }
+
+  private void addPlace()
+  {
+    // TODO add statistics
+    ((MwmActivity) getContext()).showPositionChooser(false, true);
   }
 
   @Override
@@ -692,6 +705,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       break;
     case R.id.ll__add_organisation:
       addOrganisation();
+      break;
+    case R.id.ll__place_add:
+      addPlace();
       break;
     case R.id.iv__bookmark_color:
       saveBookmarkTitle();

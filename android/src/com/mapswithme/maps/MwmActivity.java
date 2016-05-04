@@ -383,7 +383,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void onClick(View v)
       {
-        showPositionChooser(false);
+        hidePositionChooser();
       }
     });
     mPositionChooser.findViewById(R.id.done).setOnClickListener(new OnClickListener()
@@ -392,7 +392,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       public void onClick(View v)
       {
         Statistics.INSTANCE.trackEditorLaunch(true);
-        showPositionChooser(false);
+        hidePositionChooser();
         if (Framework.nativeIsDownloadedMapAtScreenCenter())
           startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
         else
@@ -402,13 +402,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.hide(mPositionChooser);
   }
 
-  public void showPositionChooser(boolean show)
+  public void showPositionChooser(boolean isBusiness, boolean applyPosition)
   {
-    UiUtils.showIf(show, mPositionChooser);
-    setFullscreen(show);
-    Framework.nativeTurnChoosePositionMode(show, false /* isBusiness */); //TODO(Android team): set isBusiness correctly
+    UiUtils.show(mPositionChooser);
+    setFullscreen(true);
+    Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
     closePlacePage();
     mSearchController.hide();
+  }
+
+  public void hidePositionChooser()
+  {
+    UiUtils.hide(mPositionChooser);
+    Framework.nativeTurnOffChoosePositionMode();
   }
 
   private void initMap()
@@ -501,7 +507,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (UiUtils.isVisible(mPositionChooser))
     {
-      showPositionChooser(false);
+      hidePositionChooser();
       return true;
     }
 
@@ -577,7 +583,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             {
               Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
                                              Statistics.params().add(Statistics.EventParam.FROM, "main_menu"));
-              showPositionChooser(true);
+              showPositionChooser(false, false);
             }
           });
           break;

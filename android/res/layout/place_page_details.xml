@@ -55,6 +55,8 @@
 
       <include layout="@layout/place_page_add_business"/>
 
+      <include layout="@layout/place_page_add"/>
+
       <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_half"/>

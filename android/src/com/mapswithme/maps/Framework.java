@@ -197,11 +197,18 @@ public class Framework
 
   public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 
-  public static native void nativeTurnChoosePositionMode(boolean turnedOn, boolean isBusiness);
+  /**
+   * @param isBusiness selection area will be bounded by building borders, if its true(eg. true for businesses in buildings).
+   * @param applyPosition if true, map'll be animated to currently selected object.
+   */
+  public static native void nativeTurnOnChoosePositionMode(boolean isBusiness, boolean applyPosition);
+  public static native void nativeTurnOffChoosePositionMode();
 
   public static native boolean nativeIsDownloadedMapAtScreenCenter();
 
   public static native String nativeGetActiveObjectFormattedCuisine();
 
   public static native boolean nativeIsActiveObjectABuilding();
+
+  public static native boolean nativeCanAddPlaceFromPlacePage();
 }
