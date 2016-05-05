@@ -352,8 +352,9 @@ private:
   void CancelFilter(Touch const & t);
 
   void ApplyAnimations(bool & modelViewChanged, bool & viewportChanged);
-  void ResetCurrentAnimations(Animation::Type animType);
+  void ResetAnimations(Animation::Type animType, bool finishAll = false);
   void ResetMapPlaneAnimations();
+  void ResetAnimationsBeforeSwitch3D();
 
   list<UserEvent> m_events;
   mutable mutex m_lock;

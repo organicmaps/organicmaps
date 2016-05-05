@@ -252,8 +252,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       m_discardedFOV = m_discardedAngle = 0.0;
       break;
     case UserEvent::EVENT_DISABLE_PERSPECTIVE:
-      if (m_navigator.Screen().isPerspective())
-        SetDisable3dModeAnimation();
+      SetDisable3dModeAnimation();
       m_discardedFOV = m_discardedAngle = 0.0;
       break;
     case UserEvent::EVENT_SWITCH_VIEW_MODE:
@@ -587,14 +586,16 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
 
 bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) const
 {
-  return type != UserEvent::EVENT_RESIZE && type != UserEvent::EVENT_SET_RECT;
+  return type != UserEvent::EVENT_RESIZE && type != UserEvent::EVENT_SET_RECT &&
+         type != UserEvent::EVENT_ENABLE_PERSPECTIVE &&
+         type != UserEvent::EVENT_DISABLE_PERSPECTIVE &&
+         type != UserEvent::EVENT_SWITCH_VIEW_MODE;
 }
 
 void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
                                       bool isAnim, bool immediatelyStart)
 {
-  ResetCurrentAnimations(Animation::MapLinear);
-  ResetCurrentAnimations(Animation::MapScale);
+  ResetAnimationsBeforeSwitch3D();
 
   double const startAngle = isAnim ? 0.0 : maxRotationAngle;
   double const endAngle = maxRotationAngle;
@@ -616,8 +617,7 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 
 void UserEventStream::SetDisable3dModeAnimation()
 {
-  ResetCurrentAnimations(Animation::MapLinear);
-  ResetCurrentAnimations(Animation::MapScale);
+  ResetAnimationsBeforeSwitch3D();
 
   double const startAngle = m_navigator.Screen().GetRotationAngle();
   double const endAngle = 0.0;
@@ -634,10 +634,10 @@ void UserEventStream::SetDisable3dModeAnimation()
   m_animationSystem.CombineAnimation(move(anim));
 }
 
-void UserEventStream::ResetCurrentAnimations(Animation::Type animType)
+void UserEventStream::ResetAnimations(Animation::Type animType, bool finishAll)
 {
   bool const hasAnimations = m_animationSystem.HasAnimations();
-  m_animationSystem.FinishAnimations(animType, true /* rewind */);
+  m_animationSystem.FinishAnimations(animType, true /* rewind */, finishAll);
   if (hasAnimations)
   {
     m2::AnyRectD rect;
@@ -649,13 +649,20 @@ void UserEventStream::ResetCurrentAnimations(Animation::Type animType)
 void UserEventStream::ResetMapPlaneAnimations()
 {
   bool const hasAnimations = m_animationSystem.HasAnimations();
-  m_animationSystem.FinishObjectAnimations(Animation::MapPlane, false /* finishAll */);
+  m_animationSystem.FinishObjectAnimations(Animation::MapPlane, false /* rewind */, false /* finishAll */);
   if (hasAnimations)
   {
     m2::AnyRectD rect;
     if (m_animationSystem.GetRect(GetCurrentScreen(), rect))
       m_navigator.SetFromRect(rect);
   }
+}
+
+void UserEventStream::ResetAnimationsBeforeSwitch3D()
+{
+  ResetAnimations(Animation::MapLinear);
+  ResetAnimations(Animation::MapScale);
+  ResetAnimations(Animation::MapPerspective, true /* finishAll */);
 }
 
 m2::AnyRectD UserEventStream::GetCurrentRect() const
@@ -705,7 +712,7 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
   bool isMapTouch = true;
   
   // Interrupt kinetic scroll on touch down.
-  m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */);
+  m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */, true /* finishAll */);
 
   // Interrupt kinetic scroll on touch down.
   m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */);

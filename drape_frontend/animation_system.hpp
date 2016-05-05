@@ -568,21 +568,23 @@ public:
   void CombineAnimation(drape_ptr<Animation> animation);
   void PushAnimation(drape_ptr<Animation> animation);
 
-  void FinishAnimations(Animation::Type type, bool rewind);
-  void FinishObjectAnimations(Animation::TObject object, bool rewind);
+  void FinishAnimations(Animation::Type type, bool rewind, bool finishAll);
+  void FinishObjectAnimations(Animation::TObject object, bool rewind, bool finishAll);
 
   void Advance(double elapsedSeconds);
 
   ScreenBase const & GetLastScreen() { return m_lastScreen; }
   void SaveAnimationResult(Animation const & animation);
 
-private:
-  bool GetProperty(Animation::TObject object, Animation::TProperty property, Animation::PropertyValue & value) const;
-  void StartNextAnimations();
-
+private:  
   AnimationSystem();
 
-private:
+  bool GetProperty(Animation::TObject object, Animation::TProperty property,
+                   Animation::PropertyValue & value) const;
+  void StartNextAnimations();
+  void FinishAnimations(function<bool(drape_ptr<Animation> const &)> const & predicate,
+                        bool rewind, bool finishAll);
+
   using TAnimationList = list<drape_ptr<Animation>>;
   using TAnimationChain = deque<TAnimationList>;
   using TPropertyCache = map<pair<Animation::TObject, Animation::TProperty>, Animation::PropertyValue>;

@@ -1034,7 +1034,8 @@ void AnimationSystem::PushAnimation(drape_ptr<Animation> animation)
   m_animationChain.emplace_back(move(list));
 }
 
-void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind)
+void AnimationSystem::FinishAnimations(function<bool(drape_ptr<Animation> const &)> const & predicate,
+                                       bool rewind, bool finishAll)
 {
   if (m_animationChain.empty())
     return;
@@ -1043,7 +1044,7 @@ void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind)
   for (auto it = frontList.begin(); it != frontList.end();)
   {
     auto & anim = *it;
-    if (anim->GetType() == type)
+    if (predicate(anim))
     {
       if (rewind)
         anim->Finish();
@@ -1055,33 +1056,35 @@ void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind)
       ++it;
     }
   }
+
+  if (finishAll)
+  {
+    for (auto & lst : m_animationChain)
+    {
+      for (auto it = lst.begin(); it != lst.end();)
+      {
+        if (predicate(*it))
+          it = lst.erase(it);
+        else
+          ++it;
+      }
+    }
+  }
+
   if (frontList.empty())
     StartNextAnimations();
 }
 
-void AnimationSystem::FinishObjectAnimations(Animation::TObject object, bool rewind)
+void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind, bool finishAll)
 {
-  if (m_animationChain.empty())
-    return;
+  FinishAnimations([&type](drape_ptr<Animation> const & anim) { return anim->GetType() == type; },
+                   rewind, finishAll);
+}
 
-  TAnimationList & frontList = m_animationChain.front();
-  for (auto it = frontList.begin(); it != frontList.end();)
-  {
-    auto & anim = *it;
-    if (anim->HasObject(object))
-    {
-      if (rewind)
-        anim->Finish();
-      SaveAnimationResult(*anim);
-      it = frontList.erase(it);
-    }
-    else
-    {
-      ++it;
-    }
-  }
-  if (frontList.empty())
-    StartNextAnimations();
+void AnimationSystem::FinishObjectAnimations(Animation::TObject object, bool rewind, bool finishAll)
+{
+  FinishAnimations([&object](drape_ptr<Animation> const & anim) { return anim->HasObject(object); },
+                   rewind, finishAll);
 }
 
 void AnimationSystem::Advance(double elapsedSeconds)
