@@ -374,6 +374,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<MapShapesMessage> msg = message;
       m_myPositionController->SetRenderShape(msg->AcceptShape());
       m_selectionShape = msg->AcceptSelection();
+      if (m_selectObjectMessage != nullptr)
+      {
+        ProcessSelection(make_ref(m_selectObjectMessage));
+        m_selectObjectMessage.reset();
+      }
     }
     break;
 
@@ -430,28 +435,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SelectObject:
     {
       ref_ptr<SelectObjectMessage> msg = message;
-
       if (m_selectionShape == nullptr)
+      {
+        m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(msg->GetSelectedObject(), msg->GetPosition(),
+                                                                    msg->IsAnim());
         break;
-
-      if (msg->IsDismiss())
-      {
-        m_selectionShape->Hide();
       }
-      else
-      {
-        double offsetZ = 0.0;
-        if (m_userEventStream.GetCurrentScreen().isPerspective())
-        {
-          dp::TOverlayContainer selectResult;
-          if (m_overlayTree->IsNeedUpdate())
-            BuildOverlayTree(m_userEventStream.GetCurrentScreen());
-          m_overlayTree->Select(msg->GetPosition(), selectResult);
-          for (ref_ptr<dp::OverlayHandle> handle : selectResult)
-            offsetZ = max(offsetZ, handle->GetPivotZ());
-        }
-        m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
-      }
+      ProcessSelection(msg);
       break;
     }
 
@@ -931,6 +921,28 @@ void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
     if (applyZoom && m_currentZoomLevel < scales::GetAddNewPlaceScale())
       zoom = scales::GetAddNewPlaceScale();
     AddUserEvent(SetCenterEvent(dest, zoom, true));
+  }
+}
+
+void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
+{
+  if (msg->IsDismiss())
+  {
+    m_selectionShape->Hide();
+  }
+  else
+  {
+    double offsetZ = 0.0;
+    if (m_userEventStream.GetCurrentScreen().isPerspective())
+    {
+      dp::TOverlayContainer selectResult;
+      if (m_overlayTree->IsNeedUpdate())
+        BuildOverlayTree(m_userEventStream.GetCurrentScreen());
+      m_overlayTree->Select(msg->GetPosition(), selectResult);
+      for (ref_ptr<dp::OverlayHandle> handle : selectResult)
+        offsetZ = max(offsetZ, handle->GetPivotZ());
+    }
+    m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
   }
 }
 

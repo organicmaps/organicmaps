@@ -50,6 +50,7 @@ namespace df
 class SelectionShape;
 class Framebuffer;
 class TransparentLayer;
+class SelectObjectMessage;
 
 struct TapInfo
 {
@@ -233,7 +234,8 @@ private:
 
   void PullToBoundArea(bool randomPlace, bool applyZoom);
 
-private:
+  void ProcessSelection(ref_ptr<SelectObjectMessage> msg);
+
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
   struct RenderLayer
@@ -316,6 +318,8 @@ private:
   unique_ptr<FollowRouteData> m_pendingFollowRoute;
 
   vector<m2::TriangleD> m_dragBoundArea;
+
+  drape_ptr<SelectObjectMessage> m_selectObjectMessage;
 
 #ifdef DEBUG
   bool m_isTeardowned;
