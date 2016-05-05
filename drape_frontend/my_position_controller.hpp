@@ -126,6 +126,7 @@ private:
 
 private:
   location::EMyPositionMode m_mode;
+  location::EMyPositionMode m_desiredInitMode;
   bool m_isFirstLaunch;
 
   bool m_isInRouting;
@@ -147,7 +148,6 @@ private:
   my::Timer m_pendingTimer;
   my::Timer m_routingNotFollowTimer;
   my::Timer m_updateLocationTimer;
-  my::Timer m_startLocationTimer;
   double m_lastLocationTimestamp;
 
   m2::RectD m_pixelRect;

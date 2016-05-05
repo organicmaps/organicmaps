@@ -28,7 +28,6 @@ double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
 double const kMaxNotFollowRoutingTimeSec = 10.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
-double const kMaxWaitStartLocationSec = 5.0;
 
 int const kZoomThreshold = 10;
 int const kMaxScaleZoomLevel = 16;
@@ -109,7 +108,8 @@ private:
 
 MyPositionController::MyPositionController(location::EMyPositionMode initMode,
                                            double timeInBackground, bool isFirstLaunch)
-  : m_mode(initMode)
+  : m_mode(location::PendingPosition)
+  , m_desiredInitMode(initMode)
   , m_isFirstLaunch(isFirstLaunch)
   , m_isInRouting(false)
   , m_needBlockAnimation(false)
@@ -129,11 +129,14 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode,
   , m_isDirectionAssigned(false)
 {
   if (isFirstLaunch)
+  {
     m_mode = location::NotFollowNoPosition;
+    m_desiredInitMode = location::NotFollowNoPosition;
+  }
   else if (timeInBackground >= kMaxTimeInBackgroundSec)
-    m_mode = location::Follow;
-
-  m_startLocationTimer.Reset();
+  {
+    m_desiredInitMode = location::Follow;
+  }
 }
 
 MyPositionController::~MyPositionController()
@@ -333,35 +336,43 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_isDirtyViewport = true;
   }
 
-  if (m_mode == location::PendingPosition || m_mode == location::NotFollowNoPosition)
+  if (!m_isPositionAssigned)
   {
-    ChangeMode(location::Follow);
-    if (!m_isFirstLaunch)
-    {
-      if (GetZoomLevel(screen, m_position, m_errorRadius) <= kMaxScaleZoomLevel)
-      {
-        m2::PointD const size(m_errorRadius, m_errorRadius);
-        ChangeModelView(m2::RectD(m_position - size, m_position + size));
-      }
-      else
-      {
-        ChangeModelView(m_position, kMaxScaleZoomLevel);
-      }
-    }
-    else
-    {
-      if (!AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
-        ChangeModelView(m_position, kDoNotChangeZoom);
-    }
-  }
-  else if (!m_isPositionAssigned)
-  {
-    ChangeMode(m_mode);
+    ChangeMode(m_desiredInitMode);
     if (m_mode == location::Follow)
       ChangeModelView(m_position, kDoNotChangeZoom);
     else if (m_mode == location::FollowAndRotate)
       ChangeModelView(m_position, m_drawDirection,
                       m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition, kDoNotChangeZoom);
+  }
+  else if (m_mode == location::PendingPosition || m_mode == location::NotFollowNoPosition)
+  {
+    if (m_isInRouting)
+    {
+      ChangeMode(location::FollowAndRotate);
+      UpdateViewport(kMaxScaleZoomLevel);
+    }
+    else
+    {
+      ChangeMode(location::Follow);
+      if (!m_isFirstLaunch)
+      {
+        if (GetZoomLevel(screen, m_position, m_errorRadius) <= kMaxScaleZoomLevel)
+        {
+          m2::PointD const size(m_errorRadius, m_errorRadius);
+          ChangeModelView(m2::RectD(m_position - size, m_position + size));
+        }
+        else
+        {
+          ChangeModelView(m_position, kMaxScaleZoomLevel);
+        }
+      }
+      else
+      {
+        if (!AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
+          ChangeModelView(m_position, kDoNotChangeZoom);
+      }
+    }
   }
 
   m_isPositionAssigned = true;
@@ -427,15 +438,6 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
   {
     if (m_pendingTimer.ElapsedSeconds() >= kMaxPendingLocationTimeSec)
       ChangeMode(location::NotFollowNoPosition);
-  }
-
-  // We do not have assigned position but mode requires location.
-  // Go to Pending state if the time is up.
-  if (!m_isPositionAssigned && IsInStateWithPosition() &&
-      m_startLocationTimer.ElapsedSeconds() >= kMaxWaitStartLocationSec)
-  {
-    m_pendingTimer.Reset();
-    ChangeMode(location::PendingPosition);
   }
 
   if (IsInRouting() && m_mode == location::NotFollow &&
@@ -534,7 +536,7 @@ void MyPositionController::SetTimeInBackground(double time)
 {
   if (time >= kMaxTimeInBackgroundSec && m_mode == location::NotFollow)
   {
-    ChangeMode(location::Follow);
+    ChangeMode(m_isInRouting ? location::FollowAndRotate : location::Follow);
     UpdateViewport(kDoNotChangeZoom);
   }
 }
