@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.Constants;
@@ -64,7 +65,14 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mDelegate = new OsmAuthFragmentDelegate(this);
+    mDelegate = new OsmAuthFragmentDelegate(this)
+    {
+      @Override
+      protected void loginOsm()
+      {
+        ((BaseMwmFragmentActivity) getActivity()).replaceFragment(OsmAuthFragment.class, null, null);
+      }
+    };
     mDelegate.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(R.string.login);
     mEtLogin = (EditText) view.findViewById(R.id.osm_username);

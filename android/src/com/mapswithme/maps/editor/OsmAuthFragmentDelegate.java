@@ -15,7 +15,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.widget.InputWebView;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
@@ -23,9 +22,11 @@ import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.Statistics;
 
-public class OsmAuthFragmentDelegate implements View.OnClickListener
+public abstract class OsmAuthFragmentDelegate implements View.OnClickListener
 {
   private final Fragment mFragment;
+
+  protected abstract void loginOsm();
 
   public OsmAuthFragmentDelegate(Fragment fragment)
   {
@@ -90,11 +91,6 @@ public class OsmAuthFragmentDelegate implements View.OnClickListener
     Utils.navigateToParent(mFragment.getActivity());
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,
                                    Statistics.params().add(Statistics.EventParam.IS_SUCCESS, true).add(Statistics.EventParam.TYPE, type.name));
-  }
-
-  protected void loginOsm()
-  {
-    ((BaseMwmFragmentActivity) mFragment.getActivity()).replaceFragment(OsmAuthFragment.class, null, null);
   }
 
   @SuppressLint("SetJavaScriptEnabled")
