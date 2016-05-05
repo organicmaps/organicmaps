@@ -10,19 +10,6 @@
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
 
-namespace
-{
-m2::PointD CalculateCenter(vector<m2::PointD> const & geometry)
-{
-  ASSERT(!geometry.empty() && geometry.size() % 3 == 0,
-         ("Invalid geometry should be handled in caller. geometry.size() =", geometry.size()));
-
-  auto const boundingBox = ApplyCalculator(begin(geometry), end(geometry),
-                                           m2::CalculateBoundingBox());
-  return ApplyCalculator(begin(geometry), end(geometry), m2::CalculatePointOnSurface(boundingBox));
-}
-}  // namespace
-
 namespace editor
 {
 FeatureID MigrateNodeFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach,
@@ -57,10 +44,11 @@ FeatureID MigrateWayFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach
   auto bestScore = 0.6;  // initial score is used as a threshold.
   auto geometry = xml.GetGeometry();
 
-  if (geometry.empty() || geometry.size() % 3 != 0)
+  if (geometry.empty())
     MYTHROW(MigrationError, ("Feature has invalid geometry", xml));
 
-  auto const someFeaturePoint = CalculateCenter(geometry);
+  // This can be any point on a feature.
+  auto const someFeaturePoint = geometry[0];
 
   sort(begin(geometry), end(geometry));  // Sort to use in set_intersection.
   auto count = 0;

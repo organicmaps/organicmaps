@@ -389,8 +389,14 @@ Framework::Framework()
       return streets.first[streets.second].m_name;
     return {};
   });
-  editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2));
+  // Due to floating points accuracy issues (geometry is saved in editor up to 7 digits
+  // after dicimal poin) some feature vertexes are threated as external to a given feature.
+  auto const pointToFeatureDistanceToleranceInMeters = 1e-3;
+  editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2,
+                                         pointToFeatureDistanceToleranceInMeters));
   editor.LoadMapEdits();
+
+  m_model.GetIndex().AddObserver(editor);
 }
 
 Framework::~Framework()
@@ -1741,7 +1747,8 @@ bool Framework::ShowMapForURL(string const & url)
   return false;
 }
 
-void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const
+void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator,
+                                      double featureDistanceToleranceInMeters) const
 {
   constexpr double kSelectRectWidthInMeters = 1.1;
   constexpr double kMetersToLinearFeature = 3;
@@ -1760,10 +1767,17 @@ void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & m
         fn(ft);
       break;
     case feature::GEOM_AREA:
-      if (ft.GetLimitRect(kScale).IsPointInside(mercator) &&
-          feature::GetMinDistanceMeters(ft, mercator) == 0.0)
       {
-        fn(ft);
+        auto limitRect = ft.GetLimitRect(kScale);
+        // Be a little more tolerant. When used by editor mercator is given
+        // with some error, so we must extend limit rect a bit.
+        limitRect.Inflate(MercatorBounds::GetCellID2PointAbsEpsilon(),
+                          MercatorBounds::GetCellID2PointAbsEpsilon());
+        if (limitRect.IsPointInside(mercator) &&
+            feature::GetMinDistanceMeters(ft, mercator) <= featureDistanceToleranceInMeters)
+        {
+          fn(ft);
+        }
       }
       break;
     case feature::GEOM_UNDEFINED:
