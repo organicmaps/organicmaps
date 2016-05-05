@@ -29,8 +29,6 @@ uint64_t const kKineticDelayMs = 500;
 
 float const kForceTapThreshold = 0.75;
 
-int const kDoNotChangeZoom = -1;
-
 size_t GetValidTouchesCount(array<Touch, 2> const & touches)
 {
   size_t result = 0;

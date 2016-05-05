@@ -2,6 +2,7 @@
 #include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/animation_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/animation/base_interpolator.hpp"
 #include "drape_frontend/animation/interpolations.hpp"
 
@@ -31,8 +32,6 @@ double const kMaxUpdateLocationInvervalSec = 30.0;
 
 int const kZoomThreshold = 10;
 int const kMaxScaleZoomLevel = 16;
-
-int const kDoNotChangeZoom = -1;
 
 string LocationModeStatisticsName(location::EMyPositionMode mode)
 {

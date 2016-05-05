@@ -927,7 +927,9 @@ void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
   {
     m2::PointD const dest = randomPlace ? m2::GetRandomPointInsideTriangles(m_dragBoundArea) :
                                           m2::ProjectPointToTriangles(center, m_dragBoundArea);
-    int const zoom = applyZoom ? scales::GetAddNewPlaceScale() : m_currentZoomLevel;
+    int zoom = kDoNotChangeZoom;
+    if (applyZoom && m_currentZoomLevel < scales::GetAddNewPlaceScale())
+      zoom = scales::GetAddNewPlaceScale();
     AddUserEvent(SetCenterEvent(dest, zoom, true));
   }
 }
@@ -1609,7 +1611,7 @@ void FrontendRenderer::ChangeModelView(double azimuth)
 
 void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
 {
-  AddUserEvent(SetRectEvent(rect, true, -1, true));
+  AddUserEvent(SetRectEvent(rect, true, kDoNotChangeZoom, true));
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,

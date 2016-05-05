@@ -20,6 +20,8 @@
 namespace df
 {
 
+int const kDoNotChangeZoom = -1;
+
 struct Touch
 {
   m2::PointF m_location = m2::PointF::Zero();
