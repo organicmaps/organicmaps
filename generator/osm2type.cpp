@@ -512,11 +512,6 @@ namespace ftype
     // Stage3: Process base feature tags.
     TagProcessor(p).ApplyRules<void(string &, string &)>
     ({
-      { "atm", "yes", [](string & k, string & v) { k.swap(v); k = "amenity"; }},
-      { "restaurant", "yes", [](string & k, string & v) { k.swap(v); k = "amenity"; }},
-      { "hotel", "yes", [](string & k, string & v) { k.swap(v); k = "tourism"; }},
-      { "building", "entrance", [](string & k, string & v) { k.swap(v); v = "yes"; }},
-
       { "addr:city", "*", [&params](string & k, string & v) { params.AddPlace(v); k.clear(); v.clear(); }},
       { "addr:place", "*", [&params](string & k, string & v) { params.AddPlace(v); k.clear(); v.clear(); }},
       { "addr:housenumber", "*", [&params](string & k, string & v) { params.AddHouseName(v); k.clear(); v.clear(); }},
