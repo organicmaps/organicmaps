@@ -174,6 +174,8 @@ void Editor::LoadMapEdits()
 
   bool needRewriteEdits = false;
 
+  // TODO(mgsergio): synchronize access to m_features.
+  m_features.clear();
   for (xml_node mwm : doc.child(kXmlRootNode).children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
