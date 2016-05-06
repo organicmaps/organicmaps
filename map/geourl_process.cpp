@@ -112,7 +112,7 @@ namespace url_scheme
 
   public:
     LatLonParser(Info & info)
-      : m_regexp("-?\\d+\\.?\\d*, *-?\\d+\\.?\\d*")
+      : m_regexp("-?\\d+\\.{1}\\d*, *-?\\d+\\.{1}\\d*")
       , m_info(info)
       , m_latPriority(-1)
       , m_lonPriority(-1)

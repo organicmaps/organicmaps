@@ -33,6 +33,10 @@ UNIT_TEST(ProcessURL_Smoke)
   TEST(info.IsValid(), ());
   TEST_ALMOST_EQUAL_ULPS(info.m_lat, 32.22, ());
   TEST_ALMOST_EQUAL_ULPS(info.m_lon, 123.33, ());
+
+  info.Reset();
+  ParseGeoURL("model: iphone 7,1", info);
+  TEST(!info.IsValid(), ());
 }
 
 UNIT_TEST(ProcessURL_Instagram)
