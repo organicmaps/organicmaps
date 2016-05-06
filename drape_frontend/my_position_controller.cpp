@@ -547,11 +547,14 @@ void MyPositionController::OnCompassTapped()
 {
   alohalytics::LogEvent("$compassClicked", {{"mode", LocationModeStatisticsName(m_mode)},
                                             {"routing", strings::to_string(IsInRouting())}});
-  ChangeModelView(0.0);
   if (m_mode == location::FollowAndRotate)
   {
     ChangeMode(location::Follow);
-    UpdateViewport(kDoNotChangeZoom);
+    ChangeModelView(m_position, 0.0, m_centerPixelPosition, kDoNotChangeZoom);
+  }
+  else
+  {
+    ChangeModelView(0.0);
   }
 }
 
