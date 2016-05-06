@@ -31,8 +31,7 @@
       tools:ignore="ScrollViewSize">
 
       <com.mapswithme.maps.widget.CustomTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_base"
         android:minHeight="@dimen/height_block_base">
 
@@ -45,8 +44,7 @@
       </com.mapswithme.maps.widget.CustomTextInputLayout>
 
       <com.mapswithme.maps.widget.CustomTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_base"
         android:minHeight="@dimen/height_block_base">
 
@@ -69,7 +67,7 @@
           style="@style/MwmWidget.Button.Accent"
           android:layout_width="match_parent"
           android:layout_height="@dimen/editor_auth_btn_height"
-          android:text="Log in"
+          android:text="@string/login"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
         <ProgressBar

@@ -21,9 +21,8 @@
         android:id="@+id/category"
         style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/editor_height_field"
         android:layout_marginBottom="0dp"
-        android:minHeight="@dimen/editor_height_field"
         android:padding="@dimen/margin_half_plus">
 
         <ImageView
@@ -291,8 +290,7 @@
 
         <com.mapswithme.maps.widget.CustomTextInputLayout
           android:id="@+id/custom_input"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          style="@style/MwmWidget.Editor.CustomTextInput"
           android:gravity="center_vertical"
           android:minHeight="74dp">
 

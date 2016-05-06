@@ -57,19 +57,24 @@
     <item name="android:orientation">vertical</item>
   </style>
 
+  <style name="MwmWidget.Editor.CustomTextInput">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+  </style>
+
   <style name="MwmWidget.Editor.FieldLayout">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:ellipsize">end</item>
     <item name="android:layout_marginLeft">@dimen/editor_margin_left</item>
     <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">@dimen/editor_margin_left</item>
   </style>
 
-  <style name="MwmWidget.Editor.FieldLayout.EditText">
+  <style name="MwmWidget.Editor.FieldLayout.EditText" parent="MwmWidget.Editor">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:ellipsize">end</item>
     <item name="android:singleLine">true</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
-    <!-- TODO check night colors -->
-    <item name="android:theme">@style/MwmTheme.Editor.EditText</item>
   </style>
 
   <style name="MwmWidget.Editor.Problem" tools:ignore="NewApi">

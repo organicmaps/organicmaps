@@ -59,11 +59,11 @@
   <style name="MwmTheme.DialogFragment.Fullscreen" parent="Theme.AppCompat.Light">
     <item name="colorPrimary">@color/bg_primary</item>
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
-    <item name="clickableBackground">?selectableItemBackground</item>
-    <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent</item>
+    <item name="clickableBackground">?selectableItemBackground</item>
+    <item name="colorControlNormal">@color/text_light_hint</item>
     <item name="android:windowIsFloating">false</item>
-    <item name="android:textColorHint">?secondary</item>
+    <item name="android:textColorHint">@color/text_dark_hint</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
@@ -72,8 +72,14 @@
   <style name="MwmTheme.DialogFragment.Fullscreen.Night" parent="Theme.AppCompat">
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
-    <item name="colorAccent">@color/base_accent</item>
-    <item name="android:textColorHint">?secondary</item>
+    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="clickableBackground">?selectableItemBackground</item>
+    <item name="colorControlNormal">@color/text_dark_hint</item>
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:textColorHint">@color/text_light_hint</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
   </style>
 
   <style name="MwmTheme.DialogFragment.Fullscreen.Translucent">
@@ -83,8 +89,19 @@
   </style>
 
   <style name="MwmMain.DialogFragment.TimePicker" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/MwmWidget.Editor.TimePicker</item>
+    <item name="colorAccent">@color/base_accent</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
-    <item name="android:background">@android:color/white</item>
+    <item name="android:windowBackground">@color/bg_cards</item>
+    <item name="android:background">@color/bg_cards</item>
+  </style>
+
+  <style name="MwmMain.DialogFragment.TimePicker.Night" parent="Theme.AppCompat.Dialog.Alert">
+    <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/MwmWidget.Editor.TimePicker</item>
+    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+    <item name="android:windowBackground">@color/bg_cards_night</item>
+    <item name="android:background">@color/bg_cards_night</item>
   </style>
 
   <style name="BottomSheet.Dialog.Dark">
@@ -99,11 +116,6 @@
   </style>
 
   <style name="MwmTheme.Editor"/>
-
-  <style name="MwmTheme.Editor.EditText">
-    <item name="android:colorControlNormal" tools:ignore="NewApi">?dividerHorizontal</item>
-    <item name="colorControlNormal">?dividerHorizontal</item>
-  </style>
 
   <style name="MwmTheme.Downloader">
     <item name="status_done">@drawable/ic_downloader_done</item>

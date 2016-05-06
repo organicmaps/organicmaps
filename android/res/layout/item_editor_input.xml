@@ -11,8 +11,7 @@
 
   <android.support.design.widget.TextInputLayout
     android:id="@+id/custom_input"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/MwmWidget.Editor.CustomTextInput"
     android:layout_centerVertical="true"
     android:layout_marginLeft="54dp"
     android:layout_marginStart="54dp">
