@@ -2823,7 +2823,7 @@ bool Framework::RollBackChanges(FeatureID const & fid)
 {
   if (m_selectedFeature == fid) // reset selected feature since it becomes invalid after rollback
     m_selectedFeature = FeatureID();
-  auto const & editor = osm::Editor::Instance();
+  auto & editor = osm::Editor::Instance();
   if (editor.GetFeatureStatus(fid) == osm::Editor::FeatureStatus::Created)
     DeactivateMapSelection(false);
   else
