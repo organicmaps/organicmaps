@@ -162,6 +162,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetWebsite(mWebsite.getText().toString());
     Editor.nativeSetEmail(mEmail.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
+    Editor.nativeSetOperator(mOperator.getText().toString());
     // TODO set localizated names
 
     return true;
