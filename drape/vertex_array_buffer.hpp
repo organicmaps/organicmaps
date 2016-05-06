@@ -76,8 +76,7 @@ private:
 
   ref_ptr<DataBuffer> GetOrCreateBuffer(BindingInfo const & bindingInfo, bool isDynamic);
   ref_ptr<DataBuffer> GetBuffer(BindingInfo const & bindingInfo, bool isDynamic) const;
-  bool Bind() const;
-  void Unbind() const;
+  void Bind() const;
   void BindStaticBuffers() const;
   void BindDynamicBuffers() const;
   void BindBuffers(TBuffersMap const & buffers) const;

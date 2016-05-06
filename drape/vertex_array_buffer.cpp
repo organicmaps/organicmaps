@@ -79,14 +79,14 @@ void VertexArrayBuffer::RenderRange(IndicesRange const & range)
     ASSERT(m_program != nullptr, ("Somebody not call Build. It's very bad. Very very bad"));
     /// if OES_vertex_array_object is supported than all bindings already saved in VAO
     /// and we need only bind VAO.
-    if (!Bind())
+    if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
+      Bind();
+    else
       BindStaticBuffers();
 
     BindDynamicBuffers();
     GetIndexBuffer()->Bind();
     GLFunctions::glDrawElements(dp::IndexStorage::SizeOfIndex(), range.m_idxCount, range.m_idxStart);
-
-    Unbind();
   }
 }
 
@@ -111,7 +111,6 @@ void VertexArrayBuffer::Build(ref_ptr<GpuProgram> program)
   m_VAO = GLFunctions::glGenVertexArray();
   Bind();
   BindStaticBuffers();
-  Unbind();
 }
 
 void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const * data, uint32_t count)
@@ -233,7 +232,8 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
 {
   /// We need to bind current VAO before calling glBindBuffer if OES_vertex_array_object is supported.
   /// Otherwise we risk affecting a previously binded VAO.
-  Bind();
+  if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
+    Bind();
 
   if (indexMutator != nullptr)
   {
@@ -247,10 +247,7 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
   }
 
   if (attrMutator == nullptr)
-  {
-    Unbind();
     return;
-  }
 
   typedef AttributeBufferMutator::TMutateData TMutateData;
   typedef AttributeBufferMutator::TMutateNodes TMutateNodes;
@@ -269,25 +266,12 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
       mapper.UpdateData(node.m_data.get(), node.m_region.m_offset, node.m_region.m_count);
     }
   }
-
-  Unbind();
 }
 
-bool VertexArrayBuffer::Bind() const
+void VertexArrayBuffer::Bind() const
 {
   ASSERT(m_VAO != 0, ("You need to call Build method before bind it and render"));
-  if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
-  {
-    GLFunctions::glBindVertexArray(m_VAO);
-    return true;
-  }
-  return false;
-}
-
-void VertexArrayBuffer::Unbind() const
-{
-  if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(0);
+  GLFunctions::glBindVertexArray(m_VAO);
 }
 
 void VertexArrayBuffer::BindStaticBuffers() const
