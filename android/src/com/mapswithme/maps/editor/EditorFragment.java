@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.Metadata.MetadataType;
@@ -434,10 +433,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     switch (Editor.nativeGetMapObjectStatus())
     {
     case Editor.CREATED:
-      resetCreated(Editor.CREATED);
+      rollback(Editor.CREATED);
       break;
     case Editor.MODIFIED:
-      resetCreated(Editor.MODIFIED);
+      rollback(Editor.MODIFIED);
       break;
     case Editor.UNTOUCHED:
       placeDoesntExist();
@@ -447,7 +446,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
   }
 
-  private void resetCreated(@Editor.FeatureStatus int status)
+  private void rollback(@Editor.FeatureStatus int status)
   {
     int title;
     int message;

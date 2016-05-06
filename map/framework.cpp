@@ -2807,11 +2807,12 @@ osm::NewFeatureCategories Framework::GetEditorCategories() const
 
 bool Framework::RollBackChanges(FeatureID const & fid)
 {
-  if (m_selectedFeature == fid)
+  if (m_selectedFeature == fid) // reset selected feature since it becomes invalid after rollback
     m_selectedFeature = FeatureID();
-  if (osm::Editor::Instance().GetFeatureStatus(fid) == osm::Editor::FeatureStatus::Created)
+  auto const & editor = osm::Editor::Instance();
+  if (editor.GetFeatureStatus(fid) == osm::Editor::FeatureStatus::Created)
     DeactivateMapSelection(false);
   else
     UpdatePlacePageInfoForCurrentSelection();
-  return osm::Editor::Instance().RollBackChanges(fid);
+  return editor.RollBackChanges(fid);
 }
