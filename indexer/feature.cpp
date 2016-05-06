@@ -372,9 +372,6 @@ void FeatureType::ParseMetadata() const
 
   m_pLoader->ParseMetadata();
 
-  if (HasInternet())
-    m_metadata.Set(Metadata::FMD_INTERNET, "wlan");
-
   m_bMetadataParsed = true;
 }
 
@@ -615,26 +612,6 @@ string FeatureType::GetRoadNumber() const
 {
   ParseCommon();
   return m_params.ref;
-}
-
-bool FeatureType::HasInternet() const
-{
-  ParseTypes();
-
-  bool res = false;
-
-  ForEachType([&res](uint32_t type)
-  {
-    if (!res)
-    {
-      static const uint32_t t1 = classif().GetTypeByPath({"internet_access"});
-
-      ftype::TruncValue(type, 1);
-      res = (type == t1);
-    }
-  });
-
-  return res;
 }
 
 void FeatureType::SwapGeometry(FeatureType & r)
