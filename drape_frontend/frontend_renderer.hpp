@@ -84,7 +84,8 @@ public:
            double timeInBackground,
            bool allow3dBuildings,
            bool blockTapEvents,
-           bool firstLaunch)
+           bool firstLaunch,
+           bool isRoutingActive)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
@@ -97,6 +98,7 @@ public:
       , m_allow3dBuildings(allow3dBuildings)
       , m_blockTapEvents(blockTapEvents)
       , m_firstLaunch(firstLaunch)
+      , m_isRoutingActive(isRoutingActive)
     {}
 
     Viewport m_viewport;
@@ -110,6 +112,7 @@ public:
     bool m_allow3dBuildings;
     bool m_blockTapEvents;
     bool m_firstLaunch;
+    bool m_isRoutingActive;
   };
 
   FrontendRenderer(Params const & params);

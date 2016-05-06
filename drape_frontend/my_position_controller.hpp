@@ -43,7 +43,8 @@ public:
     RenderMyPosition = 0x2
   };
 
-  MyPositionController(location::EMyPositionMode initMode, double timeInBackground, bool isFirstLaunch);
+  MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
+                       bool isFirstLaunch, bool isRoutingActive);
   ~MyPositionController();
 
   void OnNewPixelRect();

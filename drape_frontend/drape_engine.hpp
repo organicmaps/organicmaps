@@ -45,7 +45,8 @@ public:
            bool blockTapEvents,
            bool showChoosePositionMark,
            vector<m2::TriangleD> && boundAreaTriangles,
-           bool firstLaunch)
+           bool firstLaunch,
+           bool isRoutingActive)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
@@ -58,6 +59,7 @@ public:
       , m_showChoosePositionMark(showChoosePositionMark)
       , m_boundAreaTriangles(move(boundAreaTriangles))
       , m_isFirstLaunch(firstLaunch)
+      , m_isRoutingActive(isRoutingActive)
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -72,6 +74,7 @@ public:
     bool m_showChoosePositionMark;
     vector<m2::TriangleD> m_boundAreaTriangles;
     bool m_isFirstLaunch;
+    bool m_isRoutingActive;
   };
 
   DrapeEngine(Params && params);

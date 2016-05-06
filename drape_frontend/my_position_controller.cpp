@@ -105,12 +105,12 @@ private:
   double m_rotateDuration;
 };
 
-MyPositionController::MyPositionController(location::EMyPositionMode initMode,
-                                           double timeInBackground, bool isFirstLaunch)
+MyPositionController::MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
+                                           bool isFirstLaunch, bool isRoutingActive)
   : m_mode(location::PendingPosition)
   , m_desiredInitMode(initMode)
   , m_isFirstLaunch(isFirstLaunch)
-  , m_isInRouting(false)
+  , m_isInRouting(isRoutingActive)
   , m_needBlockAnimation(false)
   , m_wasRotationInScaling(false)
   , m_errorRadius(0.0)
