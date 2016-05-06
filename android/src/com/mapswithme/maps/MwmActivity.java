@@ -116,6 +116,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
 
+  public static final int REQUEST_CHECK_SETTINGS = 101;
+
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
   private final StoragePathManager mPathManager = new StoragePathManager();
@@ -845,6 +847,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
     case LocationState.PENDING_POSITION:
       resumeLocation();
+      LocationHelper.INSTANCE.restart(); // restart to check settings again
       break;
 
     case LocationState.NOT_FOLLOW_NO_POSITION:
@@ -867,19 +870,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
         break;
       }
 
-      String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
-                                                 getString(R.string.current_location_unknown_title));
-      new AlertDialog.Builder(this)
-                     .setMessage(message)
-                     .setNegativeButton(R.string.current_location_unknown_stop_button, null)
-                     .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
-                     {
-                       @Override
-                       public void onClick(DialogInterface dialog, int which)
-                       {
-                         LocationState.INSTANCE.switchToNextMode();
-                       }
-                     }).show();
+      if (LocationHelper.INSTANCE.shouldResolveErrors())
+      {
+        String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
+                                       getString(R.string.current_location_unknown_title));
+        new AlertDialog.Builder(this)
+            .setMessage(message)
+            .setNegativeButton(R.string.current_location_unknown_stop_button, null)
+            .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dialog, int which)
+              {
+                LocationState.INSTANCE.switchToNextMode();
+              }
+            }).show();
+      }
       break;
 
     default:
@@ -888,6 +894,24 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     sColdStart = false;
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    if (requestCode == REQUEST_CHECK_SETTINGS)
+    {
+      if (resultCode == RESULT_OK)
+      {
+        LocationHelper.INSTANCE.setShouldResolveErrors(true);
+        LocationHelper.INSTANCE.restart();
+        return;
+      }
+
+      LocationHelper.INSTANCE.setShouldResolveErrors(false);
+    }
+
+    super.onActivityResult(requestCode, resultCode, data);
   }
 
   @Override

@@ -2,12 +2,19 @@ package com.mapswithme.maps.location;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.mapswithme.maps.MwmApplication;
 
 class GoogleFusedLocationProvider extends BaseLocationProvider
@@ -59,21 +66,63 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   protected boolean isLocationBetterThanLast(Location newLocation, Location lastLocation)
   {
-    // We believe that google service always returns good locations.
-    return GS_LOCATION_PROVIDER.equalsIgnoreCase(newLocation.getProvider()) ||
-           !GS_LOCATION_PROVIDER.equalsIgnoreCase(lastLocation.getProvider()) && super.isLocationBetterThanLast(newLocation, lastLocation);
+    // We believe that google services always returns good locations.
+    return isFromFusedProvider(newLocation) ||
+           !isFromFusedProvider(lastLocation) && super.isLocationBetterThanLast(newLocation, lastLocation);
 
+  }
+
+  private boolean isFromFusedProvider(Location location)
+  {
+    return GS_LOCATION_PROVIDER.equalsIgnoreCase(location.getProvider());
   }
 
   @Override
   public void onConnected(Bundle bundle)
   {
     sLogger.d("Fused onConnected. Bundle " + bundle);
+    checkSettingsAndRequestUpdates();
+  }
+
+  private void checkSettingsAndRequestUpdates()
+  {
+    LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
+    builder.setAlwaysShow(true); // hides 'never' button in resolve dialog afterwards.
+    PendingResult<LocationSettingsResult> result =
+        LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+
+    result.setResultCallback(new ResultCallback<LocationSettingsResult>()
+    {
+      @Override
+      public void onResult(@NonNull LocationSettingsResult locationSettingsResult)
+      {
+        final Status status = locationSettingsResult.getStatus();
+        switch (status.getStatusCode())
+        {
+        case LocationSettingsStatusCodes.SUCCESS:
+          LocationHelper.INSTANCE.setShouldResolveErrors(true);
+          requestLocationUpdates();
+          break;
+        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+          // Location settings are not satisfied, but this can be fixed by showing the user a dialog.
+          LocationHelper.INSTANCE.resolveLocationError(status);
+          break;
+        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+          // Location settings are not satisfied. However, we have no way to fix the settings so we won't show the dialog.
+          break;
+        }
+      }
+    });
+  }
+
+  private void requestLocationUpdates()
+  {
     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     LocationHelper.INSTANCE.registerSensorListeners();
-    final Location l = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-    if (l != null)
-      LocationHelper.INSTANCE.saveLocation(l);
+    final Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+    if (last != null)
+      LocationHelper.INSTANCE.saveLocation(last);
+
   }
 
   @Override
@@ -83,7 +132,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   }
 
   @Override
-  public void onConnectionFailed(ConnectionResult connectionResult)
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
   {
     sLogger.d("Fused onConnectionFailed. Fall back to native provider. ConnResult " + connectionResult);
     // TODO handle error in a smarter way
