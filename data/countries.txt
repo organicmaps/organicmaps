@@ -798,24 +798,6 @@
    ]
   }, 
   {
-   "id": "Nagorno-Karabakh", 
-   "s": 2004950, 
-   "affiliations": [
-    "Az\u0259rbaycan", 
-    "\u0544\u0561\u0580\u057f\u0561\u056f\u0565\u0580\u057f\u056b \u0577\u0580\u057b\u0561\u0576 (Martakert Province)", 
-    "\u0547\u0578\u0582\u0577\u056b\u056b \u0577\u0580\u057b\u0561\u0576 (Shushi District)", 
-    "\u0531\u057d\u056f\u0565\u0580\u0561\u0576\u056b \u0574\u0561\u0580\u0566 (Askeran Province)", 
-    "\u0540\u0561\u0564\u0580\u0578\u0582\u0569\u056b \u0577\u0580\u057b\u0561\u0576 (Hadrut Province)", 
-    "\u0554\u0561\u0577\u0561\u0569\u0561\u0572\u056b \u0577\u0580\u057b\u0561\u0576 (Kashatagh District)", 
-    "\u0547\u0561\u0570\u0578\u0582\u0574\u0575\u0561\u0576 \u0577\u0580\u057b\u0561\u0576", 
-    "\u0544\u0561\u0580\u057f\u0578\u0582\u0576\u0578\u0582 \u0577\u0580\u057b\u0561\u0576 (Martuni Province)", 
-    "\u054d\u057f\u0565\u0583\u0561\u0576\u0561\u056f\u0565\u0580\u057f (Stepanakert - Khankendi)"
-   ], 
-   "old": [
-    "Azerbaijan"
-   ]
-  }, 
-  {
    "id": "Azerbaijan Region", 
    "g": [
     {
