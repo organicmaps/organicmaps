@@ -134,6 +134,7 @@ public:
   void SetOnFinishAction(TAction const & action) { m_onFinishAction = action; }
   void SetOnInterruptAction(TAction const & action) { m_onInterruptAction = action; }
 
+  bool CouldBeBlended() const { return m_couldBeBlended; }
   bool CouldBeInterrupted() const { return m_couldBeInterrupted; }
   bool CouldBeBlendedWith(Animation const & animation) const;
   

@@ -987,7 +987,7 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
 {
   for (auto & lst : m_animationChain)
   {
-    bool couldBeBlended = true;
+    bool couldBeBlended = animation->CouldBeBlended();
     for (auto it = lst.begin(); it != lst.end();)
     {
       auto & anim = *it;
@@ -1013,10 +1013,15 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
         ++it;
       }
     }
+
     if (couldBeBlended)
     {
       animation->OnStart();
       lst.emplace_back(move(animation));
+      return;
+    }
+    else if (m_animationChain.size() > 1 && animation->CouldBeInterrupted())
+    {
       return;
     }
   }
