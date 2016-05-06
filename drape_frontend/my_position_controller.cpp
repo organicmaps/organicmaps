@@ -127,7 +127,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
   , m_isPositionAssigned(false)
   , m_isDirectionAssigned(false)
 {
-  if (isFirstLaunch)
+  if (m_isFirstLaunch)
   {
     m_mode = location::NotFollowNoPosition;
     m_desiredInitMode = location::NotFollowNoPosition;
@@ -337,12 +337,15 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
   if (!m_isPositionAssigned)
   {
-    ChangeMode(m_desiredInitMode);
-    if (m_mode == location::Follow)
-      ChangeModelView(m_position, kDoNotChangeZoom);
-    else if (m_mode == location::FollowAndRotate)
-      ChangeModelView(m_position, m_drawDirection,
-                      m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition, kDoNotChangeZoom);
+    ChangeMode(m_isFirstLaunch ? location::Follow : m_desiredInitMode);
+    if (!m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
+    {
+      if (m_mode == location::Follow)
+        ChangeModelView(m_position, kDoNotChangeZoom);
+      else if (m_mode == location::FollowAndRotate)
+        ChangeModelView(m_position, m_drawDirection,
+                        m_isInRouting ? m_centerPixelPositionRouting : m_centerPixelPosition, kDoNotChangeZoom);
+    }
   }
   else if (m_mode == location::PendingPosition || m_mode == location::NotFollowNoPosition)
   {
