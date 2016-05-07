@@ -194,11 +194,14 @@ void Editor::LoadMapEdits()
         {
           XMLFeature const xml(nodeOrWay.node());
 
+          // TODO(mgsergio): Deleted features are not properly handled yet.
           auto const fid = needMigrateEdits
-                               ? editor::MigrateFeatureIndex(m_forEachFeatureAtPointFn, xml)
+                               ? editor::MigrateFeatureIndex(
+                                     m_forEachFeatureAtPointFn, xml, section.first,
+                                     [this, &mwmId] { return GenerateNewFeatureId(mwmId); })
                                : FeatureID(mwmId, xml.GetMWMFeatureIndex());
 
-          // Remove obsolete edit during migration.
+          // Remove obsolete changes during migration.
           if (needMigrateEdits && IsObsolete(xml, fid))
             continue;
 

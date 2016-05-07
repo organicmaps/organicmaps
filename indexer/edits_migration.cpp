@@ -13,7 +13,9 @@
 namespace editor
 {
 FeatureID MigrateNodeFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach,
-                                  XMLFeature const & xml)
+                                  XMLFeature const & xml,
+                                  osm::Editor::FeatureStatus const featureStatus,
+                                  TGenerateIDFn const & generateID)
 {
   unique_ptr<FeatureType> feature;
   auto count = 0;
@@ -27,8 +29,12 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEac
         ++count;
       },
       MercatorBounds::FromLatLon(xml.GetCenter()));
-  if (!feature)
+
+  if (!feature && featureStatus != osm::Editor::FeatureStatus::Created)
     MYTHROW(MigrationError, ("No pointed features returned."));
+  if (featureStatus == osm::Editor::FeatureStatus::Created)
+    return generateID();
+
   if (count > 1)
   {
     LOG(LWARNING,
@@ -37,8 +43,10 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEac
   return feature->GetID();
 }
 
-FeatureID MigrateWayFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach,
-                                 XMLFeature const & xml)
+FeatureID MigrateWayFeatureIndex(
+    osm::Editor::TForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
+    osm::Editor::FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
+    TGenerateIDFn const & /*Unused for the same reason*/)
 {
   unique_ptr<FeatureType> feature;
   auto bestScore = 0.6;  // initial score is used as a threshold.
@@ -101,12 +109,16 @@ FeatureID MigrateWayFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach
 }
 
 FeatureID MigrateFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach,
-                              XMLFeature const & xml)
+                              XMLFeature const & xml,
+                              osm::Editor::FeatureStatus const featureStatus,
+                              TGenerateIDFn const & generateID)
 {
   switch (xml.GetType())
   {
-  case XMLFeature::Type::Node: return MigrateNodeFeatureIndex(forEach, xml);
-  case XMLFeature::Type::Way: return MigrateWayFeatureIndex(forEach, xml);
+  case XMLFeature::Type::Node:
+    return MigrateNodeFeatureIndex(forEach, xml, featureStatus, generateID);
+  case XMLFeature::Type::Way:
+    return MigrateWayFeatureIndex(forEach, xml, featureStatus, generateID);
   }
 }
 }  // namespace editor
