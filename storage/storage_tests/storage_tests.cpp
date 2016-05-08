@@ -1107,12 +1107,12 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
 
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
   TEST_EQUAL(downloaded.size(), 1, (downloaded));
-  TEST_EQUAL(available.size(), 224, ());
+  TEST_EQUAL(available.size(), 223, ());
 
   storage.GetChildrenInGroups(rootCountryId, downloadedWithKeep,
                               availableWithKeep, true /* keepAvailableChildren*/);
   TEST_EQUAL(downloadedWithKeep.size(), 1, (downloadedWithKeep));
-  TEST_EQUAL(availableWithKeep.size(), 225, ());
+  TEST_EQUAL(availableWithKeep.size(), 224, ());
 
   storage.GetChildrenInGroups("Algeria", downloaded, available);
   TEST_EQUAL(downloaded.size(), 2, (downloaded));
