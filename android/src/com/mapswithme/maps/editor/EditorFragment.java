@@ -98,7 +98,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private final SparseArray<View> mMetaBlocks = new SparseArray<>(7);
   private TextView mReset;
 
-  protected EditorHostFragment mParent;
+  private EditorHostFragment mParent;
 
   @Nullable
   @Override
@@ -130,11 +130,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
         if (!Editor.nativeIsHouseValid(text))
         {
-          mInputHouseNumber.setError(getString(R.string.error_enter_correct_house_number));
+          UiUtils.setInputError(mInputHouseNumber, R.string.error_enter_correct_house_number);
           return;
         }
 
-        mInputHouseNumber.setError(null);
+        UiUtils.setInputError(mInputHouseNumber, 0);
       }
     });
     mZipcode.setText(Editor.nativeGetZipCode());
