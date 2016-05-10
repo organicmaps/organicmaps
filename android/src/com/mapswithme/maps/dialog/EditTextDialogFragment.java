@@ -46,8 +46,8 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     final Bundle args = new Bundle();
     args.putString(EXTRA_TITLE, title);
     args.putString(EXTRA_INITIAL, initialText);
-    args.putString(EXTRA_POSITIVE_BUTTON, positiveBtn.toUpperCase());
-    args.putString(EXTRA_NEGATIVE_BUTTON, negativeBtn.toUpperCase());
+    args.putString(EXTRA_POSITIVE_BUTTON, positiveBtn == null ? null : positiveBtn.toUpperCase());
+    args.putString(EXTRA_NEGATIVE_BUTTON, negativeBtn == null ? null : negativeBtn.toUpperCase());
     args.putString(EXTRA_HINT, hint);
     final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(parent.getActivity(), EditTextDialogFragment.class.getName());
     fragment.setArguments(args);
@@ -71,30 +71,28 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
       negativeButtonText = args.getString(EXTRA_NEGATIVE_BUTTON);
     }
 
-    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                                            .setView(buildView())
-                                            .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener()
-                                            {
-                                              @Override
-                                              public void onClick(DialogInterface dialog, int which)
-                                              {
-                                                final Fragment parentFragment = getParentFragment();
-                                                final String result = mEtInput.getText().toString();
-                                                if (parentFragment instanceof OnTextSaveListener)
-                                                {
-                                                  dismiss();
-                                                  ((OnTextSaveListener) parentFragment).onSaveText(result);
-                                                  return;
-                                                }
+    return new AlertDialog.Builder(getActivity())
+                          .setView(buildView())
+                          .setNegativeButton(negativeButtonText, null)
+                          .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener()
+                          {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                              final Fragment parentFragment = getParentFragment();
+                              final String result = mEtInput.getText().toString();
+                              if (parentFragment instanceof OnTextSaveListener)
+                              {
+                                dismiss();
+                                ((OnTextSaveListener) parentFragment).onSaveText(result);
+                                return;
+                              }
 
-                                                final Activity activity = getActivity();
-                                                if (activity instanceof OnTextSaveListener)
-                                                  ((OnTextSaveListener) activity).onSaveText(result);
-                                              }
-                                            })
-                                            .setNegativeButton(negativeButtonText, null);
-
-    return builder.create();
+                              final Activity activity = getActivity();
+                              if (activity instanceof OnTextSaveListener)
+                                ((OnTextSaveListener) activity).onSaveText(result);
+                            }
+                          }).create();
   }
 
   private View buildView()
