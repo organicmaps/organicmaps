@@ -37,6 +37,7 @@ public:
   void CorrectGlobalScalePoint(m2::PointD & pt) const override {}
   void OnScaleEnded() override {}
   void OnAnimationStarted(ref_ptr<df::Animation> /* anim */) override {}
+  void OnPerspectiveSwitchRejected() override {}
 
   void AddUserEvent(df::TouchEvent const & event)
   {

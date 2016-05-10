@@ -529,7 +529,8 @@ void MyPositionController::StopLocationFollow()
 {
   if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
     ChangeMode(location::NotFollow);
-  
+  m_desiredInitMode = location::NotFollow;
+
   if (m_isInRouting)
     m_routingNotFollowTimer.Reset();
 }
