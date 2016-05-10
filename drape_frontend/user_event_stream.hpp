@@ -259,6 +259,8 @@ public:
 
     virtual void OnAnimationStarted(ref_ptr<Animation> anim) = 0;
     virtual void OnPerspectiveSwitchRejected() = 0;
+
+    virtual void OnTouchMapAction() = 0;
   };
 
   UserEventStream();

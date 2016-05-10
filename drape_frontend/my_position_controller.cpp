@@ -219,6 +219,12 @@ void MyPositionController::Rotated()
     m_wasRotationInScaling = true;
 }
 
+void MyPositionController::ResetRoutingNotFollowTimer()
+{
+  if (m_isInRouting)
+    m_routingNotFollowTimer.Reset();
+}
+
 void MyPositionController::CorrectScalePoint(m2::PointD & pt) const
 {
   if (IsModeChangeViewport())
@@ -680,6 +686,7 @@ void MyPositionController::ActivateRouting(int zoomLevel)
   if (!m_isInRouting)
   {
     m_isInRouting = true;
+    m_routingNotFollowTimer.Reset();
 
     if (IsRotationAvailable())
     {

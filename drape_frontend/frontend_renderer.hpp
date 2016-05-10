@@ -195,6 +195,7 @@ private:
   void OnScaleEnded() override;
   void OnAnimationStarted(ref_ptr<Animation> anim) override;
   void OnPerspectiveSwitchRejected() override;
+  void OnTouchMapAction() override;
 
   class Routine : public threads::IRoutine
   {
