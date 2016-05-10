@@ -166,7 +166,7 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
       }
     }
     else
-      [self observer:observer onLocationError:location::EDenied];
+      [self observer:observer onLocationError:location::EGPSIsOff];
   }
   else
   {
