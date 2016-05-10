@@ -2,8 +2,11 @@
 
 #include "types_helper.hpp"
 
+#include "platform/platform.hpp"
+
 #include "generator/osm_element.hpp"
 #include "generator/osm2type.hpp"
+#include "generator/tag_admixer.hpp"
 
 #include "routing/car_model.hpp"
 
@@ -236,6 +239,9 @@ UNIT_TEST(OsmType_Synonyms)
     OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
+    TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
+    tagReplacer(&e);
+    
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
@@ -762,6 +768,9 @@ UNIT_TEST(OsmType_Entrance)
 
     OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
+    tagReplacer(&e);
 
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
