@@ -126,6 +126,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
   , m_isPendingAnimation(false)
   , m_isPositionAssigned(false)
   , m_isDirectionAssigned(false)
+  , m_notFollowAfterPending(false)
 {
   if (m_isFirstLaunch)
   {
@@ -341,7 +342,14 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_isDirtyViewport = true;
   }
 
-  if (!m_isPositionAssigned)
+  if (m_notFollowAfterPending && m_mode == location::PendingPosition)
+  {
+    ChangeMode(location::NotFollow);
+    if (m_isInRouting)
+      m_routingNotFollowTimer.Reset();
+    m_notFollowAfterPending = false;
+  }
+  else if (!m_isPositionAssigned)
   {
     ChangeMode(m_isFirstLaunch ? location::Follow : m_desiredInitMode);
     if (!m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
@@ -537,6 +545,9 @@ void MyPositionController::StopLocationFollow()
     ChangeMode(location::NotFollow);
   m_desiredInitMode = location::NotFollow;
 
+  if (m_mode == location::PendingPosition)
+    m_notFollowAfterPending = true;
+  
   if (m_isInRouting)
     m_routingNotFollowTimer.Reset();
 }

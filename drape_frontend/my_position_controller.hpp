@@ -170,6 +170,8 @@ private:
 
   bool m_isPositionAssigned;
   bool m_isDirectionAssigned;
+
+  bool m_notFollowAfterPending;
 };
 
 }
