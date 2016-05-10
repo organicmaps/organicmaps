@@ -275,9 +275,9 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
 
 bool VertexArrayBuffer::Bind() const
 {
-  ASSERT(m_VAO != 0, ("You need to call Build method before bind it and render"));
   if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
   {
+    ASSERT(m_VAO != 0, ("You need to call Build method before bind it and render"));
     GLFunctions::glBindVertexArray(m_VAO);
     return true;
   }
