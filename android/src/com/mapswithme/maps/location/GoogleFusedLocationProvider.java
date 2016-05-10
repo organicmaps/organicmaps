@@ -43,8 +43,14 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       return;
 
     mLocationRequest = LocationRequest.create();
-    mLocationRequest.setPriority(LocationHelper.INSTANCE.isHighAccuracy() ? LocationRequest.PRIORITY_HIGH_ACCURACY
-                                                                          : LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+//    mLocationRequest.setPriority(LocationHelper.INSTANCE.isHighAccuracy() ? LocationRequest.PRIORITY_HIGH_ACCURACY
+//                                                                          : LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+    // TODO @yunikkk
+    // Currently there are some problems concerning location strategies switching.
+    // With LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY priority GPS is not used and location icon isn't shown in system navbar,
+    // hence it confuses user.
+    // We should reconsider if balanced mode is needed at all after results of tests for battery usage will arrive.
+    mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     long interval = LocationHelper.INSTANCE.getInterval();
     mLocationRequest.setInterval(interval);
     mLocationRequest.setFastestInterval(interval / 2);

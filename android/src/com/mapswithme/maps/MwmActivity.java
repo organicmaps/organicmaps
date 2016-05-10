@@ -918,14 +918,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-
     LocationState.INSTANCE.nativeSetListener(this);
-    refreshLocationState();
-
+    mMainMenu.getMyPositionButton().update(LocationState.INSTANCE.nativeGetMode());
+    resumeLocation();
     mSearchController.refreshToolbar();
-
     mMainMenu.onResume();
     mOnmapDownloader.onResume();
+  }
+
+  private void resumeLocation()
+  {
+    LocationHelper.INSTANCE.addLocationListener(this, true);
+    // Do not turn off the screen while displaying position
+    Utils.keepScreenOn(true, getWindow());
+    mLocationPredictor.resume();
   }
 
   @Override
@@ -934,39 +940,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // Explicitly destroy engine before activity recreation.
     mMapFragment.destroyEngine();
     super.recreate();
-  }
-
-  private void initShowcase()
-  {
-    NativeAppwallAd.AppwallAdListener listener = new NativeAppwallAd.AppwallAdListener()
-    {
-      @Override
-      public void onLoad(NativeAppwallAd nativeAppwallAd)
-      {
-        if (nativeAppwallAd.getBanners().isEmpty())
-        {
-          mMainMenu.setVisible(MainMenu.Item.SHOWCASE, false);
-          return;
-        }
-
-        final NativeAppwallBanner menuBanner = nativeAppwallAd.getBanners().get(0);
-        mMainMenu.setShowcaseText(menuBanner.getTitle());
-        mMainMenu.setVisible(MainMenu.Item.SHOWCASE, true);
-      }
-
-      @Override
-      public void onNoAd(String reason, NativeAppwallAd nativeAppwallAd)
-      {
-        mMainMenu.setVisible(MainMenu.Item.SHOWCASE, false);
-      }
-
-      @Override
-      public void onClick(NativeAppwallBanner nativeAppwallBanner, NativeAppwallAd nativeAppwallAd) {}
-
-      @Override
-      public void onDismissDialog(NativeAppwallAd nativeAppwallAd) {}
-    };
-    mMytargetHelper = new MytargetHelper(listener, this);
   }
 
   @Override
@@ -1046,29 +1019,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onPause();
   }
 
-  private void resumeLocation()
-  {
-    LocationHelper.INSTANCE.addLocationListener(this, true);
-    // Do not turn off the screen while displaying position
-    Utils.keepScreenOn(true, getWindow());
-    mLocationPredictor.resume();
-  }
-
   private void pauseLocation()
   {
     LocationHelper.INSTANCE.removeLocationListener(this);
     // Enable automatic turning screen off while app is idle
     Utils.keepScreenOn(false, getWindow());
     mLocationPredictor.pause();
-  }
-
-  private void refreshLocationState()
-  {
-    int newMode = LocationState.INSTANCE.nativeGetMode();
-    mMainMenu.getMyPositionButton().update(newMode);
-
-    if (LocationState.INSTANCE.isTurnedOn())
-      resumeLocation();
   }
 
   @Override
@@ -1079,6 +1035,39 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().attach(this);
     if (!mIsFragmentContainer)
       mRoutingPlanInplaceController.setStartButton();
+  }
+
+  private void initShowcase()
+  {
+    NativeAppwallAd.AppwallAdListener listener = new NativeAppwallAd.AppwallAdListener()
+    {
+      @Override
+      public void onLoad(NativeAppwallAd nativeAppwallAd)
+      {
+        if (nativeAppwallAd.getBanners().isEmpty())
+        {
+          mMainMenu.setVisible(MainMenu.Item.SHOWCASE, false);
+          return;
+        }
+
+        final NativeAppwallBanner menuBanner = nativeAppwallAd.getBanners().get(0);
+        mMainMenu.setShowcaseText(menuBanner.getTitle());
+        mMainMenu.setVisible(MainMenu.Item.SHOWCASE, true);
+      }
+
+      @Override
+      public void onNoAd(String reason, NativeAppwallAd nativeAppwallAd)
+      {
+        mMainMenu.setVisible(MainMenu.Item.SHOWCASE, false);
+      }
+
+      @Override
+      public void onClick(NativeAppwallBanner nativeAppwallBanner, NativeAppwallAd nativeAppwallAd) {}
+
+      @Override
+      public void onDismissDialog(NativeAppwallAd nativeAppwallAd) {}
+    };
+    mMytargetHelper = new MytargetHelper(listener, this);
   }
 
   @Override
