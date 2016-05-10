@@ -59,6 +59,11 @@
   return [MWMDefaultAlert migrationProhibitedAlert];
 }
 
++ (MWMAlert *)deleteMapProhibitedAlert
+{
+  return [MWMDefaultAlert deleteMapProhibitedAlert];
+}
+
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert unsavedEditsAlertWithOkBlock:okBlock];

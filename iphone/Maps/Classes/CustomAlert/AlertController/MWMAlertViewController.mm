@@ -69,6 +69,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert migrationProhibitedAlert]];
 }
 
+- (void)presentDeleteMapProhibitedAlert
+{
+  [self displayAlert:[MWMAlert deleteMapProhibitedAlert]];
+}
+
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert unsavedEditsAlertWithOkBlock:okBlock]];

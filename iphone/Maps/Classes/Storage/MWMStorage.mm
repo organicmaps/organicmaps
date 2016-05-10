@@ -53,7 +53,14 @@ using namespace storage;
 
 + (void)deleteNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
 {
-  if (GetFramework().HasUnsavedEdits(countryId))
+  auto & f = GetFramework();
+  if (f.IsRoutingActive())
+  {
+    [alertController presentDeleteMapProhibitedAlert];
+    return;
+  }
+
+  if (f.HasUnsavedEdits(countryId))
   {
     [alertController presentUnsavedEditsAlertWithOkBlock:[countryId]
     {
@@ -62,7 +69,7 @@ using namespace storage;
   }
   else
   {
-    GetFramework().Storage().DeleteNode(countryId);
+    f.Storage().DeleteNode(countryId);
   }
 }
 

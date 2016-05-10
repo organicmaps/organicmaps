@@ -17,6 +17,7 @@
 + (instancetype)noWiFiAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)noConnectionAlert;
 + (instancetype)migrationProhibitedAlert;
++ (instancetype)deleteMapProhibitedAlert;
 + (instancetype)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)locationServiceNotSupportedAlert;
 + (instancetype)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock;

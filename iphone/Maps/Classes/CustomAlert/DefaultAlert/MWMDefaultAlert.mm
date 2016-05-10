@@ -99,6 +99,18 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)deleteMapProhibitedAlert
+{
+  kStatisticsEvent = @"Delete Map Prohibited Alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"downloader_delete_map"
+                                                message:@"downloader_delete_map_while_routing_dialog"
+                                       rightButtonTitle:@"ok"
+                                        leftButtonTitle:nil
+                                      rightButtonAction:nil];
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
 + (instancetype)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"Editor unsaved changes on delete";
