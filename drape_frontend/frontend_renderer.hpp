@@ -194,6 +194,7 @@ private:
   void CorrectGlobalScalePoint(m2::PointD & pt) const override;
   void OnScaleEnded() override;
   void OnAnimationStarted(ref_ptr<Animation> anim) override;
+  void OnPerspectiveSwitchRejected() override;
 
   class Routine : public threads::IRoutine
   {

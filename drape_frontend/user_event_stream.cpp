@@ -169,11 +169,8 @@ void UserEventStream::AddEvent(UserEvent const & event)
   m_events.push_back(event);
 }
 
-ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool & viewportChanged)
+ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)
 {
-  modelViewChange = false;
-  viewportChanged = false;
-
   list<UserEvent> events;
 
   {
@@ -182,7 +179,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     swap(m_events, events);
   }
 
-  modelViewChange = !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG;
+  m_modelViewChanged = !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG;
   for (UserEvent const & e : events)
   {
     if (m_perspectiveAnimation && FilterEventWhile3dAnimation(e.m_type))
@@ -198,7 +195,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       break;
     case UserEvent::EVENT_RESIZE:
       m_navigator.OnSize(e.m_resize.m_width, e.m_resize.m_height);
-      viewportChanged = true;
+      m_viewportChanged = true;
       breakAnim = true;
       TouchCancel(m_touches);
       if (m_state == STATE_DOUBLE_TAP_HOLD)
@@ -274,10 +271,10 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     }
 
     if (breakAnim)
-      modelViewChange = true;
+      m_modelViewChanged = true;
   }
 
-  ApplyAnimations(modelViewChange, viewportChanged);
+  ApplyAnimations();
 
   if (m_perspectiveAnimation)
   {
@@ -290,7 +287,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       SetRect(m_pendingEvent->m_rectEvent.m_rect, m_pendingEvent->m_rectEvent.m_zoom,
               m_pendingEvent->m_rectEvent.m_applyRotation, m_pendingEvent->m_rectEvent.m_isAnim);
       m_pendingEvent.reset();
-      modelViewChange = true;
+      m_modelViewChanged = true;
     }
   }
 
@@ -302,10 +299,15 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       DetectLongTap(m_touches[0]);
   }
 
+  modelViewChanged = m_modelViewChanged;
+  viewportChanged = m_viewportChanged;
+  m_modelViewChanged = false;
+  m_viewportChanged = false;
+
   return m_navigator.Screen();
 }
 
-void UserEventStream::ApplyAnimations(bool & modelViewChanged, bool & viewportChanged)
+void UserEventStream::ApplyAnimations()
 {
   if (m_animationSystem.AnimationExists(Animation::MapPlane))
   {
@@ -325,7 +327,7 @@ void UserEventStream::ApplyAnimations(bool & modelViewChanged, bool & viewportCh
       {
         m_navigator.Disable3dMode();
       }
-      viewportChanged = true;
+      m_viewportChanged = true;
     }
 
     double perspectiveAngle;
@@ -335,7 +337,7 @@ void UserEventStream::ApplyAnimations(bool & modelViewChanged, bool & viewportCh
       m_navigator.SetRotationIn3dMode(perspectiveAngle);
     }
 
-    modelViewChanged = true;
+    m_modelViewChanged = true;
   }
 }
 
@@ -634,6 +636,12 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 void UserEventStream::SetDisable3dModeAnimation()
 {
   ResetAnimationsBeforeSwitch3D();
+  if (m_discardedFOV > 0.0 && IsScaleAllowableIn3d(GetDrawTileScale(GetCurrentScreen())))
+  {
+    m_discardedFOV = m_discardedAngle = 0.0;
+    m_listener->OnPerspectiveSwitchRejected();
+    return;
+  }
 
   double const startAngle = m_navigator.Screen().GetRotationAngle();
   double const endAngle = 0.0;
@@ -655,11 +663,7 @@ void UserEventStream::ResetAnimations(Animation::Type animType, bool finishAll)
   bool const hasAnimations = m_animationSystem.HasAnimations();
   m_animationSystem.FinishAnimations(animType, true /* rewind */, finishAll);
   if (hasAnimations)
-  {
-    m2::AnyRectD rect;
-    if (m_animationSystem.GetRect(GetCurrentScreen(), rect))
-      m_navigator.SetFromRect(rect);
-  }
+    ApplyAnimations();
 }
 
 void UserEventStream::ResetMapPlaneAnimations()
@@ -667,17 +671,14 @@ void UserEventStream::ResetMapPlaneAnimations()
   bool const hasAnimations = m_animationSystem.HasAnimations();
   m_animationSystem.FinishObjectAnimations(Animation::MapPlane, false /* rewind */, false /* finishAll */);
   if (hasAnimations)
-  {
-    m2::AnyRectD rect;
-    if (m_animationSystem.GetRect(GetCurrentScreen(), rect))
-      m_navigator.SetFromRect(rect);
-  }
+    ApplyAnimations();
 }
 
 void UserEventStream::ResetAnimationsBeforeSwitch3D()
 {
   ResetAnimations(Animation::MapLinear);
   ResetAnimations(Animation::MapScale);
+  ResetAnimations(Animation::Sequence);
   ResetAnimations(Animation::MapPerspective, true /* finishAll */);
 }
 

@@ -258,11 +258,12 @@ public:
     virtual void OnScaleEnded() = 0;
 
     virtual void OnAnimationStarted(ref_ptr<Animation> anim) = 0;
+    virtual void OnPerspectiveSwitchRejected() = 0;
   };
 
   UserEventStream();
   void AddEvent(UserEvent const & event);
-  ScreenBase const & ProcessEvents(bool & modelViewChange, bool & viewportChanged);
+  ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   ScreenBase const & GetCurrentScreen() const;
 
   m2::AnyRectD GetTargetRect() const;
@@ -351,7 +352,7 @@ private:
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
 
-  void ApplyAnimations(bool & modelViewChanged, bool & viewportChanged);
+  void ApplyAnimations();
   void ResetAnimations(Animation::Type animType, bool finishAll = false);
   void ResetMapPlaneAnimations();
   void ResetAnimationsBeforeSwitch3D();
@@ -377,6 +378,9 @@ private:
   array<Touch, 2> m_touches;
 
   AnimationSystem & m_animationSystem;
+
+  bool m_modelViewChanged = false;
+  bool m_viewportChanged = false;
 
   bool m_perspectiveAnimation = false;
   unique_ptr<UserEvent> m_pendingEvent;

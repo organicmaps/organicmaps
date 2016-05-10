@@ -1410,6 +1410,12 @@ void FrontendRenderer::OnAnimationStarted(ref_ptr<Animation> anim)
   m_myPositionController->AnimationStarted(anim);
 }
 
+void FrontendRenderer::OnPerspectiveSwitchRejected()
+{
+   if (m_perspectiveDiscarded)
+     m_perspectiveDiscarded = false;
+}
+
 TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 {
   m2::RectD const & rect = screen.ClipRect();

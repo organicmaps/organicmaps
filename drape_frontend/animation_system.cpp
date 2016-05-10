@@ -673,7 +673,7 @@ bool MapFollowAnimation::HasScale() const
 }
 
 PerspectiveSwitchAnimation::PerspectiveSwitchAnimation(double startAngle, double endAngle, double angleFOV)
-  : Animation(false /* couldBeInterrupted */, true /* couldBeBlended */)
+  : Animation(false /* couldBeInterrupted */, false /* couldBeBlended */)
   , m_angleInterpolator(GetRotateDuration(startAngle, endAngle), startAngle, endAngle)
   , m_startAngle(startAngle)
   , m_endAngle(endAngle)
@@ -924,8 +924,10 @@ void SequenceAnimation::Advance(double elapsedSeconds)
 void SequenceAnimation::Finish()
 {
   for (auto & anim : m_animations)
+  {
     anim->Finish();
-  AnimationSystem::Instance().SaveAnimationResult(*m_animations.back());
+    AnimationSystem::Instance().SaveAnimationResult(*anim);
+  }
   m_animations.clear();
   ObtainObjectProperties();
   Animation::Finish();
