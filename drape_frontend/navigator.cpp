@@ -537,8 +537,8 @@ void Navigator::SetRotationIn3dMode(double rotationAngle)
 
 void Navigator::Disable3dMode()
 {
-  ASSERT(m_Screen.isPerspective(), ());
-  m_Screen.ResetPerspective();
+  if (m_Screen.isPerspective())
+    m_Screen.ResetPerspective();
 }
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
