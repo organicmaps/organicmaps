@@ -214,16 +214,14 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private static class PathEntry
   {
-    final String countryId;
-    final String name;
+    final CountryItem item;
     final boolean myMapsMode;
     final int topPosition;
     final int topOffset;
 
-    private PathEntry(String countryId, String name, boolean myMapsMode, int topPosition, int topOffset)
+    private PathEntry(CountryItem item, boolean myMapsMode, int topPosition, int topOffset)
     {
-      this.countryId = countryId;
-      this.name = name;
+      this.item = item;
       this.myMapsMode = myMapsMode;
       this.topPosition = topPosition;
       this.topOffset = topOffset;
@@ -232,7 +230,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     @Override
     public String toString()
     {
-      return countryId + " (" + name + "), " +
+      return item.id + " (" + item.name + "), " +
              "myMapsMode: " + myMapsMode +
              ", topPosition: " + topPosition +
              ", topOffset: " + topOffset;
@@ -432,7 +430,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         public void onClick(View v)
         {
           if (mItem.isExpandable())
-            goDeeper(mItem.id, mItem.name, true);
+            goDeeper(mItem, true);
           else
             processClick(false);
         }
@@ -637,7 +635,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     mItems.clear();
 
-    String parent = getCurrentRoot();
+    String parent = getCurrentRootId();
     boolean hasLocation = false;
     double lat = 0.0;
     double lon = 0.0;
@@ -738,7 +736,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     return mItems.size();
   }
 
-  private void goDeeper(String childId, String childName, boolean refresh)
+  private void goDeeper(CountryItem child, boolean refresh)
   {
     LinearLayoutManager lm = (LinearLayoutManager)mRecycler.getLayoutManager();
 
@@ -755,7 +753,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
 
     boolean wasEmpty = mPath.isEmpty();
-    mPath.push(new PathEntry(childId, childName, mMyMapsMode, position, offset));
+    mPath.push(new PathEntry(child, mMyMapsMode, position, offset));
+    mMyMapsMode &= (!mSearchResultsMode || child.childCount > 0);
 
     if (wasEmpty)
       mFragment.clearSearchQuery();
@@ -792,19 +791,24 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   void setAvailableMapsMode()
   {
-    goDeeper(getCurrentRoot(), getCurrentRootName(), false);
+    goDeeper(getCurrentRootItem(), false);
     mMyMapsMode = false;
     refreshData();
   }
 
-  @NonNull String getCurrentRoot()
+  private CountryItem getCurrentRootItem()
   {
-    return (canGoUpwards() ? mPath.peek().countryId : CountryItem.getRootId());
+    return (canGoUpwards() ? mPath.peek().item : CountryItem.fill(CountryItem.getRootId()));
+  }
+
+  @NonNull String getCurrentRootId()
+  {
+    return (canGoUpwards() ? getCurrentRootItem().id : CountryItem.getRootId());
   }
 
   @Nullable String getCurrentRootName()
   {
-    return (canGoUpwards() ? mPath.peek().name : null);
+    return (canGoUpwards() ? getCurrentRootItem().name : null);
   }
 
   boolean isMyMapsMode()
