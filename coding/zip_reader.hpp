@@ -1,6 +1,7 @@
 #pragma once
 
 #include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
 
 #include "base/exception.hpp"
 
@@ -13,6 +14,17 @@ private:
   uint64_t m_uncompressedFileSize;
 
 public:
+  struct Delegate
+  {
+    virtual ~Delegate() = default;
+
+    // When |size| is zero, end of file is reached.
+    virtual void OnBlockUnzipped(size_t size, char const * data) = 0;
+
+    virtual void OnStarted() {}
+    virtual void OnCompleted() {}
+  };
+
   typedef function<void(uint64_t, uint64_t)> ProgressFn;
   /// Contains file name inside zip and it's uncompressed size
   typedef vector<pair<string, uint32_t> > FileListT;
@@ -29,13 +41,9 @@ public:
   uint64_t UncompressedSize() const { return m_uncompressedFileSize; }
 
   /// @warning Can also throw Writer::OpenException and Writer::WriteException
+  static void UnzipFile(string const & zipContainer, string const & fileInZip, Delegate & delegate);
   static void UnzipFile(string const & zipContainer, string const & fileInZip,
-                        string const & outFilePath, ProgressFn progressFn = ProgressFn());
-
-  /// Unzips |file| in |cont| to |buffer|.
-  ///
-  /// @warning Can throw OpenZipException and LocateZipException.
-  static void UnzipFileToMemory(string const & cont, string const & file, vector<char> & data);
+                        string const & outPath);
 
   static void FilesList(string const & zipContainer, FileListT & filesList);
 

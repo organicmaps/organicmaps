@@ -7,19 +7,18 @@
 #include "std/cstdint.hpp"
 #include "std/string.hpp"
 #include "std/unordered_map.hpp"
-#include "std/vector.hpp"
 
 namespace generator
 {
-class SrtmFile
+class SrtmTile
 {
 public:
   using THeight = int16_t;
 
   static THeight constexpr kInvalidHeight = -32768;
 
-  SrtmFile();
-  SrtmFile(SrtmFile && rhs);
+  SrtmTile();
+  SrtmTile(SrtmTile && rhs);
 
   void Init(string const & dir, ms::LatLon const & coord);
 
@@ -37,23 +36,23 @@ private:
 
   void Invalidate();
 
-  vector<char> m_data;
+  string m_data;
   bool m_valid;
 
-  DISALLOW_COPY(SrtmFile);
+  DISALLOW_COPY(SrtmTile);
 };
 
-class SrtmFileManager
+class SrtmTileManager
 {
 public:
-  SrtmFileManager(string const & dir);
+  SrtmTileManager(string const & dir);
 
-  SrtmFile::THeight GetHeight(ms::LatLon const & coord);
+  SrtmTile::THeight GetHeight(ms::LatLon const & coord);
 
 private:
   string m_dir;
-  unordered_map<string, SrtmFile> m_storage;
+  unordered_map<string, SrtmTile> m_tiles;
 
-  DISALLOW_COPY(SrtmFileManager);
+  DISALLOW_COPY(SrtmTileManager);
 };
 }  // namespace generator

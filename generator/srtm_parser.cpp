@@ -10,18 +10,43 @@
 
 namespace generator
 {
-// SrtmFile ----------------------------------------------------------------------------------------
-SrtmFile::SrtmFile()
+namespace
+{
+size_t constexpr kArcSecondsInDegree = 60 * 60;
+size_t constexpr kSrtmTileSize = (kArcSecondsInDegree + 1) * (kArcSecondsInDegree + 1) * 2;
+
+struct UnzipMemDelegate : public ZipFileReader::Delegate
+{
+  UnzipMemDelegate(string & buffer) : m_buffer(buffer), m_completed(false) {}
+
+  // ZipFileReader::Delegate overrides:
+  void OnBlockUnzipped(size_t size, char const * data) override { m_buffer.append(data, size); }
+
+  void OnStarted() override
+  {
+    m_buffer.clear();
+    m_completed = false;
+  }
+
+  void OnCompleted() override { m_completed = true; }
+
+  string & m_buffer;
+  bool m_completed;
+};
+}  // namespace
+
+// SrtmTile ----------------------------------------------------------------------------------------
+SrtmTile::SrtmTile()
 {
   Invalidate();
 }
 
-SrtmFile::SrtmFile(SrtmFile && rhs) : m_data(move(rhs.m_data)), m_valid(rhs.m_valid)
+SrtmTile::SrtmTile(SrtmTile && rhs) : m_data(move(rhs.m_data)), m_valid(rhs.m_valid)
 {
   rhs.Invalidate();
 }
 
-void SrtmFile::Init(string const & dir, ms::LatLon const & coord)
+void SrtmTile::Init(string const & dir, ms::LatLon const & coord)
 {
   Invalidate();
 
@@ -29,21 +54,37 @@ void SrtmFile::Init(string const & dir, ms::LatLon const & coord)
   string const cont = dir + base + ".SRTMGL1.hgt.zip";
   string file = base + ".hgt";
 
+  UnzipMemDelegate delegate(m_data);
   try
   {
-    ZipFileReader::UnzipFileToMemory(cont, file, m_data);
+    ZipFileReader::UnzipFile(cont, file, delegate);
   }
-  catch (ZipFileReader::LocateZipException e)
+  catch (ZipFileReader::LocateZipException const & e)
   {
     // Sometimes packed file has different name. See N39E051 measure.
     file = base + ".SRTMGL1.hgt";
-    ZipFileReader::UnzipFileToMemory(cont, file, m_data);
+
+    ZipFileReader::UnzipFile(cont, file, delegate);
+  }
+
+  if (!delegate.m_completed)
+  {
+    LOG(LWARNING, ("Can't decompress SRTM file:", cont));
+    Invalidate();
+    return;
+  }
+
+  if (m_data.size() != kSrtmTileSize)
+  {
+    LOG(LWARNING, ("Bad decompressed SRTM file size:", cont, m_data.size()));
+    Invalidate();
+    return;
   }
 
   m_valid = true;
 }
 
-SrtmFile::THeight SrtmFile::GetHeight(ms::LatLon const & coord)
+SrtmTile::THeight SrtmTile::GetHeight(ms::LatLon const & coord)
 {
   if (!IsValid())
     return kInvalidHeight;
@@ -56,17 +97,17 @@ SrtmFile::THeight SrtmFile::GetHeight(ms::LatLon const & coord)
     lt += 1;
   lt = 1 - lt;  // from North to South
 
-  size_t const row = 3600 * lt;
-  size_t const col = 3600 * ln;
+  size_t const row = kArcSecondsInDegree * lt;
+  size_t const col = kArcSecondsInDegree * ln;
 
-  size_t const ix = row * 3601 + col;
+  size_t const ix = row * (kArcSecondsInDegree + 1) + col;
 
   if (ix >= Size())
     return kInvalidHeight;
   return ReverseByteOrder(Data()[ix]);
 }
 
-string SrtmFile::GetBase(ms::LatLon coord)
+string SrtmTile::GetBase(ms::LatLon coord)
 {
   ostringstream ss;
   if (coord.lat < 0)
@@ -95,37 +136,37 @@ string SrtmFile::GetBase(ms::LatLon coord)
   return ss.str();
 }
 
-void SrtmFile::Invalidate()
+void SrtmTile::Invalidate()
 {
   m_data.clear();
   m_data.shrink_to_fit();
   m_valid = false;
 }
 
-// SrtmFileManager ---------------------------------------------------------------------------------
-SrtmFileManager::SrtmFileManager(string const & dir) : m_dir(dir) {}
+// SrtmTileManager ---------------------------------------------------------------------------------
+SrtmTileManager::SrtmTileManager(string const & dir) : m_dir(dir) {}
 
-SrtmFile::THeight SrtmFileManager::GetHeight(ms::LatLon const & coord)
+SrtmTile::THeight SrtmTileManager::GetHeight(ms::LatLon const & coord)
 {
-  string const base = SrtmFile::GetBase(coord);
-  auto it = m_storage.find(base);
-  if (it == m_storage.end())
+  string const base = SrtmTile::GetBase(coord);
+  auto it = m_tiles.find(base);
+  if (it == m_tiles.end())
   {
-    SrtmFile file;
+    SrtmTile tile;
     try
     {
-      file.Init(m_dir, coord);
+      tile.Init(m_dir, coord);
     }
     catch (RootException const & e)
     {
-      LOG(LERROR, ("Can't init SRTM file:", base, "reason:", e.Msg()));
+      LOG(LWARNING, ("Can't init SRTM tile:", base, "reason:", e.Msg()));
     }
 
-    // It's OK to store even invalid files and return invalid height
+    // It's OK to store even invalid tiles and return invalid height
     // for them later.
-    m_storage.emplace(base, move(file));
+    it = m_tiles.emplace(base, move(tile)).first;
   }
 
-  return m_storage[base].GetHeight(coord);
+  return it->second.GetHeight(coord);
 }
 }  // namespace generator

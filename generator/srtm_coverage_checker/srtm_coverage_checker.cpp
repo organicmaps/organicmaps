@@ -1,5 +1,3 @@
-#include "testing/testing.hpp"
-
 #include "generator/srtm_parser.hpp"
 
 #include "map/feature_vec_model.hpp"
@@ -11,17 +9,39 @@
 #include "platform/country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 
-namespace
-{
-#define SRTM_SOURCES_PATH "srtm/e4ftl01.cr.usgs.gov/SRTM/SRTMGL1.003/2000.02.11/"
+#include "base/logging.hpp"
 
-UNIT_TEST(SrtmCoverageChecker)
+#include "std/algorithm.hpp"
+
+#include "3party/gflags/src/gflags/gflags.h"
+
+DEFINE_string(srtm_path, "", "Path to directory with SRTM files");
+DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
+
+int main(int argc, char * argv[])
 {
+  google::SetUsageMessage("SRTM coverage checker.");
+  google::ParseCommandLineFlags(&argc, &argv, true);
+
+  Platform & platform = GetPlatform();
+  if (!FLAGS_mwm_path.empty())
+    platform.SetWritableDirForTests(FLAGS_mwm_path);
+
+  if (FLAGS_srtm_path.empty())
+  {
+    LOG(LERROR, ("SRTM files directory is not specified."));
+    return -1;
+  }
+
+  LOG(LINFO, ("writable dir =", platform.WritableDir()));
+  LOG(LINFO, ("srtm dir =", FLAGS_srtm_path));
+
   vector<platform::LocalCountryFile> localFiles;
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
                                        localFiles);
 
-  shared_ptr<model::FeaturesFetcher> fetcher = integration::CreateFeaturesFetcher(localFiles);
+  auto fetcher = integration::CreateFeaturesFetcher(localFiles);
+  generator::SrtmTileManager manager(FLAGS_srtm_path);
 
   for (auto & file : localFiles)
   {
@@ -46,10 +66,6 @@ UNIT_TEST(SrtmCoverageChecker)
     segMapping.Load(container, file);
     segMapping.Map(container);
 
-    Platform & platform = GetPlatform();
-    generator::SrtmFileManager manager(
-        my::JoinFoldersToPath(platform.WritableDir(), SRTM_SOURCES_PATH));
-
     size_t all = 0;
     size_t good = 0;
 
@@ -57,8 +73,8 @@ UNIT_TEST(SrtmCoverageChecker)
     {
       buffer_vector<OsrmMappingTypes::FtSeg, 8> buffer;
       segMapping.ForEachFtSeg(i, MakeBackInsertFunctor(buffer));
-      vector<m2::PointD> path;
 
+      vector<m2::PointD> path;
       for (size_t k = 0; k < buffer.size(); ++k)
       {
         auto const & segment = buffer[k];
@@ -72,35 +88,29 @@ UNIT_TEST(SrtmCoverageChecker)
         ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
         // Get points in proper direction.
-        auto startIdx = segment.m_pointStart;
-        auto endIdx = segment.m_pointEnd;
-        if (startIdx < endIdx)
-        {
-          for (auto idx = startIdx; idx <= endIdx; ++idx)
-            path.push_back(ft.GetPoint(idx));
-        }
-        else
-        {
-          // I use big signed type because endIdx can be 0.
-          for (int64_t idx = startIdx; idx >= static_cast<int64_t>(endIdx); --idx)
-            path.push_back(ft.GetPoint(idx));
-        }
+        auto const startIdx = segment.m_pointStart;
+        auto const endIdx = segment.m_pointEnd;
+        for (auto idx = min(startIdx, endIdx); idx <= max(startIdx, endIdx); ++idx)
+          path.push_back(ft.GetPoint(idx));
+
+        all += path.size();
         for (auto const & point : path)
         {
           auto const height = manager.GetHeight(MercatorBounds::ToLatLon(point));
-          all++;
-          if (height != generator::SrtmFile::kInvalidHeight)
+          if (height != generator::SrtmTile::kInvalidHeight)
             good++;
         }
       }
     }
-    auto const delta = all - good;
-    auto const percent = delta * 100.0 / all;
+
+    auto const bad = all - good;
+    auto const percent = all == 0 ? 0.0 : bad * 100.0 / all;
     if (percent > 10.0)
     {
-      LOG(LINFO, ("Huge error rate in:", file.GetCountryName(), "Good:", good, "All:", all,
-                  "Delta:", delta, "%:", percent));
+      LOG(LINFO, ("Huge error rate in:", file.GetCountryName(), "good:", good, "bad:", bad, "all:",
+                  all, "%:", percent));
     }
   }
+
+  return 0;
 }
-}  // namespace
