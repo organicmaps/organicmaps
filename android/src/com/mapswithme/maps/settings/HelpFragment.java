@@ -17,7 +17,6 @@ import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableWebView;
 import com.mapswithme.maps.widget.WebViewShadowController;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.Graphics;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -56,8 +55,6 @@ public class HelpFragment extends BaseSettingsFragment
     };
 
     TextView feedback = (TextView)mFrame.findViewById(R.id.feedback);
-    Graphics.tint(feedback);
-
     feedback.setOnClickListener(new View.OnClickListener()
     {
       @Override
