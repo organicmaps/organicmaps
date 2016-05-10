@@ -32,8 +32,10 @@ public:
   static void UnzipFile(string const & zipContainer, string const & fileInZip,
                         string const & outFilePath, ProgressFn progressFn = ProgressFn());
 
-  /// @warning Counsumer must manually free result
-  static char* UnzipFileToMemory(string const & zipContainer, string const & fileInZip);
+  /// Unzips |file| in |cont| to |buffer|.
+  ///
+  /// @warning Can throw OpenZipException and LocateZipException.
+  static void UnzipFileToMemory(string const & cont, string const & file, vector<char> & data);
 
   static void FilesList(string const & zipContainer, FileListT & filesList);
 

@@ -2,64 +2,58 @@
 
 #include "geometry/latlon.hpp"
 
-#include "coding/endianness.hpp"
+#include "base/macros.hpp"
 
-#include "std/map.hpp"
+#include "std/cstdint.hpp"
 #include "std/string.hpp"
+#include "std/unordered_map.hpp"
+#include "std/vector.hpp"
 
-using TSRTMHeighType = int16_t;
-
-int16_t constexpr kInvalidSRTMHeight = -32768;
-
-string GetSRTMBase(ms::LatLon coord);
-
+namespace generator
+{
 class SrtmFile
 {
 public:
-  void Init(string dir, ms::LatLon coord);
+  using THeight = int16_t;
 
-  TSRTMHeighType getHeight(ms::LatLon coord)
-  {
-    if (m_data == nullptr)
-      return kInvalidSRTMHeight;
-    double ln = coord.lon - int(coord.lon);
-    if (ln < 0)
-      ln += 1;
-    double lt = coord.lat - int(coord.lat);
-    if (lt < 0)
-      lt += 1;
-    lt = 1 - lt;  // From North to South
+  static THeight constexpr kInvalidHeight = -32768;
 
-    size_t const row = 3600 * lt;
-    size_t const column = 3600 * ln;
-    return ReverseByteOrder(m_data[row * 3601 + column]);
-    // 3600 and 3601 because 3601 is owerlap column.
-  }
+  SrtmFile();
+  SrtmFile(SrtmFile && rhs);
 
-  ~SrtmFile()
-  {
-    if (m_data)
-      delete[] m_data;
-  }
+  void Init(string const & dir, ms::LatLon const & coord);
+
+  inline bool IsValid() const { return m_valid; }
+
+  // Returns height in meters at |coord|, or kInvalidHeight if is not initialized.
+  THeight GetHeight(ms::LatLon const & coord);
+
+  static string GetBase(ms::LatLon coord);
 
 private:
-  TSRTMHeighType * m_data;
+  inline THeight const * Data() const { return reinterpret_cast<THeight const *>(m_data.data()); };
+
+  inline size_t Size() const { return m_data.size() / sizeof(THeight); }
+
+  void Invalidate();
+
+  vector<char> m_data;
+  bool m_valid;
+
+  DISALLOW_COPY(SrtmFile);
 };
 
 class SrtmFileManager
 {
 public:
-  SrtmFileManager(string dir) : m_dir(dir) {}
-  TSRTMHeighType GetCoordHeight(ms::LatLon coord)
-  {
-    string base = GetSRTMBase(coord);
-    auto it = m_storage.find(base);
-    if (it == m_storage.end())
-      m_storage[base].Init(m_dir, coord);
-    return m_storage[base].getHeight(coord);
-  }
+  SrtmFileManager(string const & dir);
+
+  SrtmFile::THeight GetHeight(ms::LatLon const & coord);
 
 private:
   string m_dir;
-  map<string, SrtmFile> m_storage;
+  unordered_map<string, SrtmFile> m_storage;
+
+  DISALLOW_COPY(SrtmFileManager);
 };
+}  // namespace generator

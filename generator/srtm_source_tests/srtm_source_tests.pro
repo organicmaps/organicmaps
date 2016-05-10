@@ -7,8 +7,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map routing search storage indexer platform editor geometry coding base \
-               osrm jansson protobuf tomcrypt succinct stats_client pugixml generator minizip
+DEPENDENCIES = generator map routing search storage indexer platform editor geometry coding base \
+               osrm jansson protobuf tomcrypt succinct stats_client pugixml minizip
 
 macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 
