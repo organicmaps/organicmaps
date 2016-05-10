@@ -586,13 +586,10 @@ BOOL gIsFirstMyPositionMode = YES;
         BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
         if (isLocationManagerStarted && isMapVisible && ![Alohalytics isFirstSession])
         {
+          [[MapsAppDelegate theApp].locationManager stop:self];
           [self.alertController presentLocationNotFoundAlertWithOkBlock:^
           {
             GetFramework().SwitchMyPositionNextMode();
-          }
-          cancelBlock:^
-          {
-            [[MapsAppDelegate theApp].locationManager stop:self];
           }];
         }
       }

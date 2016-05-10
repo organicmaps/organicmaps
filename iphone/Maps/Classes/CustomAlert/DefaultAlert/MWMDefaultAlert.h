@@ -19,7 +19,7 @@
 + (instancetype)migrationProhibitedAlert;
 + (instancetype)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)locationServiceNotSupportedAlert;
-+ (instancetype)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock;
++ (instancetype)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)point2PointAlertWithOkBlock:(TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 + (instancetype)disableAutoDownloadAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock;

@@ -63,7 +63,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                    rightButtonAction:nil];
 }
 
-+ (instancetype)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock
++ (instancetype)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"Location Not Found Alert";
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"current_location_unknown_title"
@@ -71,7 +71,6 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                                        rightButtonTitle:@"current_location_unknown_continue_button"
                                         leftButtonTitle:@"current_location_unknown_stop_button"
                                       rightButtonAction:okBlock];
-  alert.leftButtonAction = cancelBlock;
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
 }
