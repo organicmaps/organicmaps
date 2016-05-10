@@ -22,10 +22,11 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
                                           GoogleApiClient.OnConnectionFailedListener,
                                           LocationListener
 {
-  private static final String GS_LOCATION_PROVIDER = "fused";
+  private static final String GMS_LOCATION_PROVIDER = "fused";
 
   private final GoogleApiClient mGoogleApiClient;
   private LocationRequest mLocationRequest;
+  private PendingResult<LocationSettingsResult> mLocationSettingsResult;
 
   public GoogleFusedLocationProvider()
   {
@@ -66,6 +67,8 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
 
     if (mGoogleApiClient.isConnected())
       LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+    if (mLocationSettingsResult != null && !mLocationSettingsResult.isCanceled())
+      mLocationSettingsResult.cancel();
     mGoogleApiClient.disconnect();
   }
 
@@ -80,7 +83,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
 
   private boolean isFromFusedProvider(Location location)
   {
-    return GS_LOCATION_PROVIDER.equalsIgnoreCase(location.getProvider());
+    return GMS_LOCATION_PROVIDER.equalsIgnoreCase(location.getProvider());
   }
 
   @Override
@@ -94,10 +97,8 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   {
     LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
     builder.setAlwaysShow(true); // hides 'never' button in resolve dialog afterwards.
-    PendingResult<LocationSettingsResult> result =
-        LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
-
-    result.setResultCallback(new ResultCallback<LocationSettingsResult>()
+    mLocationSettingsResult = LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+    mLocationSettingsResult.setResultCallback(new ResultCallback<LocationSettingsResult>()
     {
       @Override
       public void onResult(@NonNull LocationSettingsResult locationSettingsResult)
@@ -123,12 +124,14 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
 
   private void requestLocationUpdates()
   {
+    if (!mGoogleApiClient.isConnected())
+      return;
+
     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     LocationHelper.INSTANCE.registerSensorListeners();
     final Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     if (last != null)
       LocationHelper.INSTANCE.saveLocation(last);
-
   }
 
   @Override
