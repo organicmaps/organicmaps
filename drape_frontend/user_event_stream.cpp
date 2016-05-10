@@ -365,6 +365,12 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     auto anim = make_unique_dp<MapScaleAnimation>(startScreen.GetScale(), endScreen.GetScale(),
                                                   glbScaleCenter, offset);
     anim->SetMaxDuration(kMaxAnimationTimeSec);
+
+    // Reset follow animation with scaling if we apply scale explicitly.
+    auto const & followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+    if (followAnim != nullptr && followAnim->HasScale())
+      ResetAnimations(Animation::MapFollow);
+
     m_animationSystem.CombineAnimation(move(anim));
     return false;
   }
@@ -539,6 +545,16 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     };
     
     double const startScale = CalculateScale(screen, GetCurrentRect());
+    
+    // Reset current follow-and-rotate animation if possible.
+    auto const & followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+    if (followAnim != nullptr)
+    {
+      if (followAnim->CouldBeInterrupted())
+        ResetAnimations(Animation::MapFollow);
+      else
+        return false;
+    }
 
     // Run pretty move animation if we are far from userPos.
     m2::PointD const startPt = GetCurrentRect().GlobalCenter();
