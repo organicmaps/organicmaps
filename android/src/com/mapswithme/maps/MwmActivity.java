@@ -100,7 +100,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  MapFragment.MapRenderingListener,
                                  CustomNavigateUpListener,
                                  ChooseBookmarkCategoryFragment.Listener,
-                                 RoutingController.Container
+                                 RoutingController.Container,
+                                 LocationState.ModeChangeListener
 {
   public static final String EXTRA_TASK = "map_task";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
@@ -833,8 +834,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.updateNorth(mLastCompassData.north);
   }
 
-  // Callback from native location state mode element processing.
-  @SuppressWarnings("unused")
+  @Override
   public void onMyPositionModeChangedCallback(final int newMode, final boolean routingActive)
   {
     mLocationPredictor.myPositionModeChanged(newMode);
@@ -853,7 +853,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     case LocationState.NOT_FOLLOW_NO_POSITION:
       if (sColdStart)
       {
-        LocationState.INSTANCE.switchToNextMode();
+        LocationState.INSTANCE.nativeSwitchToNextMode();
         break;
       }
 
@@ -882,7 +882,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
               @Override
               public void onClick(DialogInterface dialog, int which)
               {
-                LocationState.INSTANCE.switchToNextMode();
+                LocationState.INSTANCE.nativeSwitchToNextMode();
               }
             }).show();
       }
@@ -919,7 +919,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
 
-    LocationState.INSTANCE.setMyPositionModeListener(this);
+    LocationState.INSTANCE.nativeSetListener(this);
     refreshLocationState();
 
     mSearchController.refreshToolbar();
@@ -986,7 +986,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             public boolean run(MwmActivity target)
             {
               if (LocationState.INSTANCE.isTurnedOn())
-                LocationState.INSTANCE.switchToNextMode();
+                LocationState.INSTANCE.nativeSwitchToNextMode();
               return false;
             }
           });
@@ -1038,7 +1038,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onPause()
   {
-    LocationState.INSTANCE.removeMyPositionModeListener();
+    LocationState.INSTANCE.nativeRemoveListener();
     pauseLocation();
     TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();
@@ -1064,7 +1064,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void refreshLocationState()
   {
-    int newMode = LocationState.INSTANCE.getLocationStateMode();
+    int newMode = LocationState.INSTANCE.nativeGetMode();
     mMainMenu.getMyPositionButton().update(newMode);
 
     if (LocationState.INSTANCE.isTurnedOn())

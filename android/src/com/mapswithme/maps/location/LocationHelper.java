@@ -1,7 +1,6 @@
 package com.mapswithme.maps.location;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -11,13 +10,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.List;
 
@@ -29,10 +24,8 @@ import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.concurrency.UiThread;
@@ -349,7 +342,7 @@ public enum LocationHelper implements SensorEventListener
       return;
     }
 
-    int mode = LocationState.INSTANCE.getLocationStateMode();
+    int mode = LocationState.INSTANCE.nativeGetMode();
     switch (mode)
     {
     default:

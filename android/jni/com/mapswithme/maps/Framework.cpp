@@ -99,7 +99,7 @@ void Framework::UpdateCompassSensor(int ind, float * arr)
 
 void Framework::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
-  if (m_myPositionModeSignal != nullptr)
+  if (m_myPositionModeSignal)
     m_myPositionModeSignal(mode, routingActive);
 }
 
