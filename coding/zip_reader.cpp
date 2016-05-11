@@ -3,13 +3,42 @@
 #include "base/scope_guard.hpp"
 #include "base/logging.hpp"
 
-#include "coding/file_writer.hpp"
 #include "coding/constants.hpp"
 
 #include "std/bind.hpp"
 
 #include "3party/minizip/unzip.h"
 
+namespace
+{
+class UnzipFileDelegate : public ZipFileReader::Delegate
+{
+public:
+  UnzipFileDelegate(string const & path)
+    : m_file(make_unique<FileWriter>(path)), m_path(path), m_completed(false)
+  {
+  }
+
+  ~UnzipFileDelegate() override
+  {
+    if (!m_completed)
+    {
+      m_file.reset();
+      FileWriter::DeleteFileX(m_path);
+    }
+  }
+
+  // ZipFileReader::Delegate overrides:
+  void OnBlockUnzipped(size_t size, char const * data) override { m_file->Write(data, size); }
+
+  void OnCompleted() override { m_completed = true; }
+
+private:
+  unique_ptr<FileWriter> m_file;
+  string const m_path;
+  bool m_completed;
+};
+}  // namespace
 
 ZipFileReader::ZipFileReader(string const & container, string const & file,
                              uint32_t logPageSize, uint32_t logPageCount)
@@ -73,8 +102,9 @@ bool ZipFileReader::IsZip(string const & zipContainer)
   return true;
 }
 
+// static
 void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
-                              string const & outFilePath, ProgressFn progressFn)
+                              Delegate & delegate)
 {
   unzFile zip = unzOpen64(zipContainer.c_str());
   if (!zip)
@@ -92,28 +122,28 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
     MYTHROW(LocateZipException, ("Can't get uncompressed file size inside zip", fileInZip));
 
-  // First outFile should be closed, then FileWriter::DeleteFileX is called,
-  // so make correct order of guards.
-  MY_SCOPE_GUARD(outFileGuard, bind(&FileWriter::DeleteFileX, cref(outFilePath)));
-  FileWriter outFile(outFilePath);
-
-  uint64_t pos = 0;
   char buf[ZIP_FILE_BUFFER_SIZE];
-  while (true)
+  int readBytes = 0;
+
+  delegate.OnStarted();
+  do
   {
-    int const readBytes = unzReadCurrentFile(zip, buf, ZIP_FILE_BUFFER_SIZE);
-    if (readBytes > 0)
-      outFile.Write(buf, static_cast<size_t>(readBytes));
-    else if (readBytes < 0)
-      MYTHROW(InvalidZipException, ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
-    else
-      break;
+    readBytes = unzReadCurrentFile(zip, buf, ZIP_FILE_BUFFER_SIZE);
+    if (readBytes < 0)
+    {
+      MYTHROW(InvalidZipException,
+              ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
+    }
 
-    pos += readBytes;
+    delegate.OnBlockUnzipped(static_cast<size_t>(readBytes), buf);
+  } while (readBytes != 0);
+  delegate.OnCompleted();
+}
 
-    if (progressFn)
-      progressFn(fileInfo.uncompressed_size, pos);
-  }
-
-  outFileGuard.release();
+// static
+void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
+                              string const & outPath)
+{
+  UnzipFileDelegate delegate(outPath);
+  UnzipFile(zipContainer, fileInZip, delegate);
 }
