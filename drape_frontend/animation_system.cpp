@@ -840,6 +840,16 @@ SequenceAnimation::SequenceAnimation()
 {
 }
 
+string const & SequenceAnimation::GetCustomType() const
+{
+  return m_customType;
+}
+
+void SequenceAnimation::SetCustomType(string const & type)
+{
+  m_customType = type;
+}
+
 Animation::TAnimObjects const & SequenceAnimation::GetObjects() const
 {
   return m_objects;

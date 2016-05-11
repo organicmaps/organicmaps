@@ -6,6 +6,7 @@
 
 #include "std/deque.hpp"
 #include "std/noncopyable.hpp"
+#include "std/string.hpp"
 #include "std/unordered_set.hpp"
 
 namespace df
@@ -506,6 +507,9 @@ public:
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
 
+  string const & GetCustomType() const;
+  void SetCustomType(string const & type);
+
   void SetMaxDuration(double maxDuration) override;
   double GetDuration() const override;
   bool IsFinished() const override;
@@ -526,6 +530,8 @@ private:
   deque<drape_ptr<Animation>> m_animations;
   TAnimObjects m_objects;
   map<TObject, TObjectProperties> m_properties;
+
+  string m_customType;
 };
 
 class ParallelAnimation : public Animation
@@ -591,6 +597,24 @@ public:
         {
           ASSERT(dynamic_cast<T const *>(anim.get()) != nullptr, ());
           return static_cast<T const *>(anim.get());
+        }
+      }
+    }
+    return nullptr;
+  }
+
+  template<typename T> T const * FindAnimation(Animation::Type type, string const & customType) const
+  {
+    for (auto & animations : m_animationChain)
+    {
+      for (auto const & anim : animations)
+      {
+        if (anim->GetType() == type)
+        {
+          ASSERT(dynamic_cast<T const *>(anim.get()) != nullptr, ());
+          T const * customAnim = static_cast<T const *>(anim.get());
+          if (customAnim->GetCustomType() == customType)
+            return customAnim;
         }
       }
     }

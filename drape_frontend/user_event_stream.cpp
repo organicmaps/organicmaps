@@ -29,6 +29,8 @@ uint64_t const kKineticDelayMs = 500;
 
 float const kForceTapThreshold = 0.75;
 
+string const kPrettyMoveAnim = "PrettyMove";
+
 size_t GetValidTouchesCount(array<Touch, 2> const & touches)
 {
   size_t result = 0;
@@ -48,6 +50,8 @@ drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const screen, dou
   double const scaleFactor = moveDuration / kMaxAnimationTimeSec * 2.0;
 
   drape_ptr<SequenceAnimation> sequenceAnim = make_unique_dp<SequenceAnimation>();
+  sequenceAnim->SetCustomType(kPrettyMoveAnim);
+
   drape_ptr<MapLinearAnimation> zoomOutAnim = make_unique_dp<MapLinearAnimation>();
   zoomOutAnim->SetScale(startScale, startScale * scaleFactor);
   zoomOutAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
@@ -516,6 +520,23 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
   return true;
 }
 
+bool UserEventStream::InterruptFollowAnimations()
+{
+  Animation const * followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+
+  if (followAnim == nullptr)
+    followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Sequence, kPrettyMoveAnim);
+
+  if (followAnim != nullptr)
+  {
+    if (followAnim->CouldBeInterrupted())
+      ResetAnimations(followAnim->GetType());
+    else
+      return false;
+  }
+  return true;
+}
+
 bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                                          double azimuth, int preferredZoomLevel, bool isAnim)
 {
@@ -549,14 +570,8 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     double const startScale = CalculateScale(screen, GetCurrentRect());
     
     // Reset current follow-and-rotate animation if possible.
-    auto const & followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
-    if (followAnim != nullptr)
-    {
-      if (followAnim->CouldBeInterrupted())
-        ResetAnimations(Animation::MapFollow);
-      else
-        return false;
-    }
+    if (!InterruptFollowAnimations())
+      return false;
 
     // Run pretty move animation if we are far from userPos.
     m2::PointD const startPt = GetCurrentRect().GlobalCenter();
@@ -615,6 +630,9 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 {
   ResetAnimationsBeforeSwitch3D();
 
+  if (immediatelyStart)
+    ResetAnimations(Animation::MapFollow);
+
   double const startAngle = isAnim ? 0.0 : maxRotationAngle;
   double const endAngle = maxRotationAngle;
 
@@ -636,6 +654,8 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 void UserEventStream::SetDisable3dModeAnimation()
 {
   ResetAnimationsBeforeSwitch3D();
+  ResetAnimations(Animation::MapFollow);
+
   if (m_discardedFOV > 0.0 && IsScaleAllowableIn3d(GetDrawTileScale(GetCurrentScreen())))
   {
     m_discardedFOV = m_discardedAngle = 0.0;
