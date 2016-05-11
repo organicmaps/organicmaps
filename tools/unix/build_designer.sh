@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e -u
 
 # Prepare environment variables which specify app version and codebase sha
@@ -10,10 +9,12 @@ DESIGNER_CODEBASE_SHA=$(git log -1 --format="%H")
 echo "App version: $APP_VERSION"
 echo "Commit SHA: $DESIGNER_CODEBASE_SHA"
 
-OMIM_PATH="$(dirname "$0")/../.."
+OMIM_PATH="$(cd "${OMIM_PATH:-$(dirname "$0")/../..}"; pwd)"
 DATA_PATH="$OMIM_PATH/data"
 BUILD_PATH="$OMIM_PATH/out"
 RELEASE_PATH="$BUILD_PATH/release"
+
+source "$OMIM_PATH/tools/autobuild/detect_qmake.sh"
 
 # Print designer_version.h file
 cat > "$OMIM_PATH/designer_version.h" <<DVER
@@ -35,10 +36,10 @@ rm -rf "$RELEASE_PATH"
 )
 
 # Prepare app package by copying Qt, Kothic, Skin Generator, Style tests
-macdeployqt "$RELEASE_PATH/skin_generator.app"
-macdeployqt "$RELEASE_PATH/style_tests.app"
-macdeployqt "$RELEASE_PATH/generator_tool.app"
-macdeployqt "$RELEASE_PATH/MAPS.ME.Designer.app"
+for i in skin_generator style_tests generator_tool MAPS.ME.Designer; do
+  "$(dirname "$QMAKE")/macdeployqt" "$RELEASE_PATH/$i.app"
+done
+
 MAC_RESOURCES="$RELEASE_PATH/MAPS.ME.Designer.app/Contents/Resources"
 cp -r "$RELEASE_PATH/style_tests.app" "$MAC_RESOURCES/style_tests.app"
 cp -r "$RELEASE_PATH/skin_generator.app" "$MAC_RESOURCES/skin_generator.app"
@@ -51,22 +52,13 @@ cp "$OMIM_PATH/tools/python/recalculate_geom_index.py" "$MAC_RESOURCES/recalcula
 # Copy all drules and  resources (required for test environment)
 rm -rf $MAC_RESOURCES/drules_proto*
 rm -rf $MAC_RESOURCES/resources-*
+for i in 6plus ldpi mdpi hdpi xhdpi xxhdpi; do
+  cp -r $OMIM_PATH/data/resources-${i}_legacy/ $MAC_RESOURCES/resources-$i/
+done
 cp $OMIM_PATH/data/drules_proto_legacy.bin $MAC_RESOURCES/drules_proto.bin
-cp -r $OMIM_PATH/data/resources-default/ $MAC_RESOURCES/resources-default/
-cp -r $OMIM_PATH/data/resources-6plus_legacy/ $MAC_RESOURCES/resources-6plus/
-cp -r $OMIM_PATH/data/resources-6plus_legacy/ $MAC_RESOURCES/resources-6plus/
-cp -r $OMIM_PATH/data/resources-ldpi_legacy/ $MAC_RESOURCES/resources-ldpi/
-cp -r $OMIM_PATH/data/resources-mdpi_legacy/ $MAC_RESOURCES/resources-mdpi/
-cp -r $OMIM_PATH/data/resources-hdpi_legacy/ $MAC_RESOURCES/resources-hdpi/
-cp -r $OMIM_PATH/data/resources-xhdpi_legacy/ $MAC_RESOURCES/resources-xhdpi/
-cp -r $OMIM_PATH/data/resources-xxhdpi_legacy/ $MAC_RESOURCES/resources-xxhdpi/
-cp -r $OMIM_PATH/data/cuisine-strings/ $MAC_RESOURCES/cuisine-strings/
-cp $OMIM_PATH/data/WorldCoasts_obsolete.mwm $MAC_RESOURCES/WorldCoasts_obsolete.mwm
-cp $OMIM_PATH/data/countries.txt $MAC_RESOURCES/countries.txt
-cp $OMIM_PATH/data/cuisines.txt $MAC_RESOURCES/cuisines.txt
-cp $OMIM_PATH/data/countries_obsolete.txt $MAC_RESOURCES/countries_obsolete.txt
-cp $OMIM_PATH/data/packed_polygons.bin $MAC_RESOURCES/packed_polygons.bin
-cp $OMIM_PATH/data/packed_polygons_obsolete.bin $MAC_RESOURCES/packed_polygons_obsolete.bin
+for i in resources-default cuisine-strings WorldCoasts_obsolete.mwm countries.txt cuisines.txt countries_obsolete.txt packed_polygons.bin packed_polygons_obsolete.bin; do
+  cp -r $OMIM_PATH/data/$i $MAC_RESOURCES/
+done
 
 # Build DMG image
 rm -rf "$BUILD_PATH/deploy"
