@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "search/search_integration_tests/helpers.hpp"
+
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "generator/feature_builder.hpp"
@@ -13,12 +15,12 @@
 
 #include "platform/local_country_file.hpp"
 
+using namespace search;
+using namespace generator::tests_support;
 
 namespace
 {
-using TBuilder = generator::tests_support::TestMwmBuilder;
-
-void MakeFeature(TBuilder & builder, pair<string, string> const & tag, m2::PointD const & pt)
+void MakeFeature(TestMwmBuilder & builder, pair<string, string> const & tag, m2::PointD const & pt)
 {
   OsmElement e;
   e.AddTag(tag.first, tag.second);
@@ -33,19 +35,19 @@ void MakeFeature(TBuilder & builder, pair<string, string> const & tag, m2::Point
 
   TEST(builder.Add(fb), (fb));
 }
-}
 
-UNIT_TEST(Generate_DeprecatedTypes)
+UNIT_CLASS_TEST(TestWithClassificator, GenerateDeprecatedTypes)
 {
   auto file = platform::LocalCountryFile::MakeForTesting("testCountry");
-  TBuilder builder(file, feature::DataHeader::country);
 
-  // Deprecated types.
-  MakeFeature(builder, {"office", "travel_agent"}, {0, 0});
-  MakeFeature(builder, {"shop", "tailor"}, {1, 1});
-  MakeFeature(builder, {"shop", "estate_agent"}, {2, 2});
+  {
+    TestMwmBuilder builder(file, feature::DataHeader::country);
 
-  builder.Finish();
+    // Deprecated types.
+    MakeFeature(builder, {"office", "travel_agent"}, {0, 0});
+    MakeFeature(builder, {"shop", "tailor"}, {1, 1});
+    MakeFeature(builder, {"shop", "estate_agent"}, {2, 2});
+  }
 
   Index index;
   TEST_EQUAL(index.Register(file).second, MwmSet::RegResult::Success, ());
@@ -73,3 +75,4 @@ UNIT_TEST(Generate_DeprecatedTypes)
 
   file.DeleteFromDisk(MapOptions::Map);
 }
+}  // namespace
