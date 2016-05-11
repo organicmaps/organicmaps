@@ -31,6 +31,8 @@
 
 using namespace routing;
 
+using TRouterFactory = function<unique_ptr<IRouter>(Index & index, TCountryFileFn const & countryFileFn)>;
+
 namespace
 {
   void ChangeMaxNumberOfOpenFiles(size_t n)
@@ -81,14 +83,15 @@ namespace integration
     return osrmRouter;
   }
 
-  shared_ptr<IRouter> CreatePedestrianRouter(Index & index,
-                                             storage::CountryInfoGetter const & infoGetter)
+  shared_ptr<IRouter> CreateAStarRouter(Index & index,
+                                        storage::CountryInfoGetter const & infoGetter,
+                                        TRouterFactory const & routerFactory)
   {
     auto countryFileGetter = [&infoGetter](m2::PointD const & pt)
     {
       return infoGetter.GetRegionCountryId(pt);
     };
-    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, countryFileGetter);
+    unique_ptr<IRouter> router = routerFactory(index, countryFileGetter);
     return shared_ptr<IRouter>(move(router));
   }
 
@@ -112,7 +115,24 @@ namespace integration
   public:
     PedestrianRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_router(CreatePedestrianRouter(m_featuresFetcher->GetIndex(), *m_infoGetter))
+      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter,
+                                   CreatePedestrianAStarBidirectionalRouter))
+    {
+    }
+
+    IRouter * GetRouter() const override { return m_router.get(); }
+
+  private:
+    shared_ptr<IRouter> m_router;
+  };
+
+  class BicycleRouterComponents : public IRouterComponents
+  {
+  public:
+    BicycleRouterComponents(vector<LocalCountryFile> const & localFiles)
+      : IRouterComponents(localFiles)
+      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter,
+                                   CreateBicycleAStarBidirectionalRouter))
     {
     }
 
@@ -158,12 +178,24 @@ namespace integration
 
   shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles)
   {
-    return shared_ptr<IRouterComponents>(new PedestrianRouterComponents(localFiles));
+    return make_shared<PedestrianRouterComponents>(localFiles);
   }
 
   IRouterComponents & GetPedestrianComponents()
   {
     static shared_ptr<IRouterComponents> const inst = CreateAllMapsComponents<PedestrianRouterComponents>();
+    ASSERT(inst, ());
+    return *inst;
+  }
+
+  shared_ptr<IRouterComponents> GetBicycleComponents(vector<platform::LocalCountryFile> const & localFiles)
+  {
+    return make_shared<BicycleRouterComponents>(localFiles);
+  }
+
+  IRouterComponents & GetBicycleComponents()
+  {
+    static shared_ptr<IRouterComponents> const inst = CreateAllMapsComponents<BicycleRouterComponents>();
     ASSERT(inst, ());
     return *inst;
   }
