@@ -826,12 +826,14 @@ Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jclass, jstri
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jclass, jobject listener)
 {
+  CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRouteProgressListener(JNIEnv * env, jclass, jobject listener)
 {
+  CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->SetRouteProgressListener(bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
 }
 

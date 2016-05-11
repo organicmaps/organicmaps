@@ -141,6 +141,11 @@ public class RoutingController
     }
   };
 
+  public static RoutingController get()
+  {
+    return sInstance;
+  }
+
   private void processRoutingEvent()
   {
     if (!mContainsCachedResult ||
@@ -162,17 +167,6 @@ public class RoutingController
 
     RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
     fragment.show(mContainer.getActivity().getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
-  }
-
-  private RoutingController()
-  {
-    Framework.nativeSetRoutingListener(mRoutingListener);
-    Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
-  }
-
-  public static RoutingController get()
-  {
-    return sInstance;
   }
 
   private void setState(State newState)
@@ -215,6 +209,12 @@ public class RoutingController
   public void attach(@NonNull Container container)
   {
     mContainer = container;
+  }
+
+  public void initialize()
+  {
+    Framework.nativeSetRoutingListener(mRoutingListener);
+    Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
   }
 
   public void detach()
