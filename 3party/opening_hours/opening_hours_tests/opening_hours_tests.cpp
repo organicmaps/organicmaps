@@ -925,6 +925,11 @@ BOOST_AUTO_TEST_CASE(OpeningHoursWeekRanges_TestParseUnparse)
 BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
 {
   {
+    auto const rule = "";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
     auto const rule = "24/7";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);

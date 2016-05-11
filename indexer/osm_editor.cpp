@@ -40,6 +40,7 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/pugixml/src/pugixml.hpp"
+#include "3party/opening_hours/opening_hours.hpp"
 
 using namespace pugi;
 using feature::EGeomType;
@@ -569,8 +570,27 @@ EditableProperties Editor::GetEditableProperties(FeatureType const & feature) co
   // Disable editor for old data.
   if (!version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()))
     return {};
+
   // TODO(mgsergio): Check if feature is in the area where editing is disabled in the config.
-  return GetEditablePropertiesForTypes(feature::TypesHolder(feature));
+  auto editableProperties = GetEditablePropertiesForTypes(feature::TypesHolder(feature));
+
+  // Disable opening hours editing if opening hours cannot be parsed.
+  if (GetFeatureStatus(feature.GetID()) != FeatureStatus::Created)
+  {
+    auto const & originalFeature = m_getOriginalFeatureFn(feature.GetID());
+    auto const & metadata = originalFeature->GetMetadata();
+    auto const & featureOpeningHours = metadata.Get(feature::Metadata::FMD_OPEN_HOURS);
+    // Note: empty string is parsed as a valid opening hours rule.
+    if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
+    {
+      auto & meta = editableProperties.m_metadata;
+      auto const toBeRemoved = remove(begin(meta), end(meta), feature::Metadata::FMD_OPEN_HOURS);
+      if (toBeRemoved != end(meta))
+        meta.erase(toBeRemoved);
+    }
+  }
+
+  return editableProperties;
 }
 // private
 EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder const & types) const
