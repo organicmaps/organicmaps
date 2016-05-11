@@ -2825,7 +2825,7 @@ bool Framework::RollBackChanges(FeatureID const & fid)
     m_selectedFeature = FeatureID();
   auto & editor = osm::Editor::Instance();
   if (editor.GetFeatureStatus(fid) == osm::Editor::FeatureStatus::Created)
-    DeactivateMapSelection(false);
+    DeactivateMapSelection(true);
   else
     UpdatePlacePageInfoForCurrentSelection();
   return editor.RollBackChanges(fid);
