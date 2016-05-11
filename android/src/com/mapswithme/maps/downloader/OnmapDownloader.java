@@ -100,7 +100,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
       if (showFrame)
       {
-        boolean hasParent = !TextUtils.isEmpty(mCurrentCountry.directParentName);
+        boolean hasParent = !CountryItem.isRoot(mCurrentCountry.directParentName);
 
         UiUtils.showIf(progress || enqueued, mProgress);
         UiUtils.showIf(!progress && !enqueued, mButton);
