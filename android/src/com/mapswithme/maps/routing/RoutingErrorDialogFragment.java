@@ -32,7 +32,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     builder.setTitle(titleMessage.first);
     mMessage = titleMessage.second;
 
-    if (ResultCodesHelper.isDownloadable(mResultCode))
+    if (ResultCodesHelper.isDownloadable(mResultCode, mMissingMaps.size()))
       builder.setPositiveButton(R.string.download, null);
   }
 
