@@ -20,8 +20,40 @@ enum State
 }  // unnamed namespace
 
 // static
-size_t const CategoriesHolder::kNumLanguages = 30;
-size_t const CategoriesHolder::kEnglishCode = 1;
+int8_t const CategoriesHolder::kEnglishCode = 1;
+int8_t const CategoriesHolder::kUnsupportedLocaleCode = -1;
+// *NOTE* These constants should be updated when
+// adding new translation to categories.txt.
+vector<CategoriesHolder::Mapping> const CategoriesHolder::kLocaleMapping = {{"en", 1},
+                                                                            {"ru", 2},
+                                                                            {"uk", 3},
+                                                                            {"de", 4},
+                                                                            {"fr", 5},
+                                                                            {"it", 6},
+                                                                            {"es", 7},
+                                                                            {"ko", 8},
+                                                                            {"ja", 9},
+                                                                            {"cs", 10},
+                                                                            {"nl", 11},
+                                                                            {"zh-Hant", 12},
+                                                                            {"pl", 13},
+                                                                            {"pt", 14},
+                                                                            {"hu", 15},
+                                                                            {"th", 16},
+                                                                            {"zh-Hans", 17},
+                                                                            {"ar", 18},
+                                                                            {"da", 19},
+                                                                            {"tr", 20},
+                                                                            {"sk", 21},
+                                                                            {"sv", 22},
+                                                                            {"vi", 23},
+                                                                            {"id", 24},
+                                                                            {"ro", 25},
+                                                                            {"nb", 26},
+                                                                            {"fi", 27},
+                                                                            {"el", 28},
+                                                                            {"he", 29},
+                                                                            {"sw", 30}};
 
 CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
 {
@@ -277,27 +309,14 @@ bool CategoriesHolder::IsTypeExist(uint32_t type) const
 
 int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
 {
-  struct Mapping
+  ASSERT(!kLocaleMapping.empty(), ());
+  ASSERT_EQUAL(string(kLocaleMapping[0].m_name), "en", ());
+  ASSERT_EQUAL(kLocaleMapping[0].m_code, kEnglishCode, ());
+
+  for (auto const & entry : kLocaleMapping)
   {
-    char const * m_name;
-    int8_t m_code;
-  };
-  // TODO(AlexZ): These constants should be updated when adding new
-  // translation into categories.txt
-  static const Mapping mapping[] = {
-      {"en", 1},  {"ru", 2},  {"uk", 3},  {"de", 4},  {"fr", 5},       {"it", 6},
-      {"es", 7},  {"ko", 8},  {"ja", 9},  {"cs", 10}, {"nl", 11},      {"zh-Hant", 12},
-      {"pl", 13}, {"pt", 14}, {"hu", 15}, {"th", 16}, {"zh-Hans", 17}, {"ar", 18},
-      {"da", 19}, {"tr", 20}, {"sk", 21}, {"sv", 22}, {"vi", 23},      {"id", 24},
-      {"ro", 25}, {"nb", 26}, {"fi", 27}, {"el", 28}, {"he", 29},      {"sw", 30}};
-  static_assert(ARRAY_SIZE(mapping) == kNumLanguages, "");
-  static_assert(CategoriesHolder::kEnglishCode == 1, "");
-  ASSERT_EQUAL(string(mapping[0].m_name), "en", ());
-  ASSERT_EQUAL(mapping[0].m_code, CategoriesHolder::kEnglishCode, ());
-  for (size_t i = 0; i < kNumLanguages; ++i)
-  {
-    if (locale.find(mapping[i].m_name) == 0)
-      return mapping[i].m_code;
+    if (locale.find(entry.m_name) == 0)
+      return entry.m_code;
   }
 
   // Special cases for different Chinese variations

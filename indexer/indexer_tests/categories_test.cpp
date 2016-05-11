@@ -269,8 +269,10 @@ UNIT_TEST(CategoriesIndex_UniqueNames)
   editor::EditorConfig config;
   osm::NewFeatureCategories categories(config);
 
-  categories.ForEachLanguage([&](string const & lang)
+  bool noDuplicates = true;
+  for (auto const & locale : CategoriesHolder::kLocaleMapping)
   {
+    string const lang(locale.m_name);
     categories.AddLanguage(lang);
     auto const & names = categories.GetAllCategoryNames(lang);
 
@@ -286,6 +288,7 @@ UNIT_TEST(CategoriesIndex_UniqueNames)
       {
         if (names[i - 1].first == names[i].first)
         {
+          noDuplicates = false;
           LOG(LWARNING, (names[i].first,
                          cl.GetReadableObjectName(names[i].second),
                          cl.GetReadableObjectName(names[i - 1].second)));
@@ -294,5 +297,7 @@ UNIT_TEST(CategoriesIndex_UniqueNames)
 
       LOG(LWARNING, ("+++++++++++++++++++++++++++++++++++++"));
     }
-  });
+  };
+
+  TEST(noDuplicates, ());
 }
