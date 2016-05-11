@@ -203,6 +203,7 @@ public class Framework
    */
   public static native void nativeTurnOnChoosePositionMode(boolean isBusiness, boolean applyPosition);
   public static native void nativeTurnOffChoosePositionMode();
+  public static native boolean nativeIsInChoosePositionMode();
 
   public static native boolean nativeIsDownloadedMapAtScreenCenter();
 

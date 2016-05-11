@@ -211,6 +211,11 @@ void Framework::SetChoosePositionMode(bool isChoosePositionMode, bool isBusiness
   m_work.EnableChoosePositionMode(isChoosePositionMode, isBusiness, hasPosition, position);
 }
 
+bool Framework::GetChoosePositionMode()
+{
+  return m_isChoosePositionMode;
+}
+
 Storage & Framework::Storage()
 {
   return m_work.Storage();
@@ -991,6 +996,12 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeTurnOffChoosePositionMode(JNIEnv *, jclass)
 {
   g_framework->SetChoosePositionMode(false, false, false, m2::PointD());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsInChoosePositionMode(JNIEnv *, jclass)
+{
+  return g_framework->GetChoosePositionMode();
 }
 
 JNIEXPORT jboolean JNICALL

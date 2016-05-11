@@ -418,6 +418,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     UiUtils.hide(mPositionChooser);
     Framework.nativeTurnOffChoosePositionMode();
+    setFullscreen(false);
   }
 
   private void initMap()
@@ -922,7 +923,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu.getMyPositionButton().update(LocationState.INSTANCE.nativeGetMode());
     resumeLocation();
     mSearchController.refreshToolbar();
-    mMainMenu.onResume();
+    mMainMenu.onResume(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        if (Framework.nativeIsInChoosePositionMode())
+        {
+          UiUtils.show(mPositionChooser);
+          setFullscreen(true);
+        }
+      }
+    });
     mOnmapDownloader.onResume();
   }
 
