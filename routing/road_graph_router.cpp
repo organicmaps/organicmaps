@@ -230,7 +230,6 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
 void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
                                        my::Cancellable const & cancellable) const
 {
-  LOG(LINFO, ("RoadGraphRouter::ReconstructRoute path.size()", path.size()));
   CHECK(!path.empty(), ("Can't reconstruct route from an empty list of positions."));
 
   // By some reason there're two adjacent positions on a road with

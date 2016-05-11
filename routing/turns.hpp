@@ -19,8 +19,6 @@ namespace turns
 /// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
 /// For the time being several separate entities reflect the turn information. Like Route::TTurns
 
-using TGeomTurnCandidate = vector<double>;
-
 double constexpr kFeaturesNearTurnMeters = 3.0;
 
 /*!
@@ -206,6 +204,13 @@ bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t);
 bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes);
 void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes);
 bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & lane);
-double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2);
+
+/*!
+ * \returns pi minus an angle from vector [junctionPoint, ingoingPoint]
+ * to vector [junctionPoint, outgoingPoint]. A counterclockwise rotation.
+ * Angle is in range [-pi, pi].
+*/
+double PiMinusTwoVectorsAngle(m2::PointD const & junctionPoint, m2::PointD const & ingoingPoint,
+                              m2::PointD const & outgoingPoint);
 }  // namespace turns
 }  // namespace routing

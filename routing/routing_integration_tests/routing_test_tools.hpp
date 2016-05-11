@@ -88,7 +88,8 @@ unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
 
   /// Gets bicycle router components.
   IRouterComponents & GetBicycleComponents();
-  shared_ptr<IRouterComponents> GetBicycleComponents(vector<platform::LocalCountryFile> const & localFiles);
+  shared_ptr<IRouterComponents> GetBicycleComponents(
+      vector<platform::LocalCountryFile> const & localFiles);
 
   TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
                               m2::PointD const & startPoint, m2::PointD const & startDirection,

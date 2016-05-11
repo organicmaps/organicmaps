@@ -23,10 +23,10 @@ bool HasType(uint32_t type, feature::TypesHolder const & types)
 
 void Convert(vector<routing::Junction> const & path, vector<m2::PointD> & geometry)
 {
-  geometry.clear();
-  geometry.reserve(path.size());
-  for (auto const & pos : path)
-    geometry.emplace_back(pos.GetPoint());
+  size_t const pathSz = path.size();
+  geometry.resize(pathSz);
+  for (size_t i = 0; i < pathSz; ++i)
+    geometry[i] = path[i].GetPoint();
 }
 }  // namespace
 
@@ -41,8 +41,7 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine()
 }
 
 void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
-                                          Route::TTimes & times,
-                                          Route::TTurns & turnsDir,
+                                          Route::TTimes & times, Route::TTurns & turns,
                                           vector<m2::PointD> & routeGeometry,
                                           my::Cancellable const & cancellable)
 {
@@ -55,16 +54,17 @@ void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junct
   {
     LOG(LDEBUG, ("Couldn't reconstruct path"));
     // use only "arrival" direction
-    turnsDir.emplace_back(path.size() - 1, turns::PedestrianDirection::ReachedYourDestination);
+    turns.emplace_back(path.size() - 1, turns::PedestrianDirection::ReachedYourDestination);
     return;
   }
 
-  CalculateTurns(graph, routeEdges, turnsDir, cancellable);
+  CalculateTurns(graph, routeEdges, turns, cancellable);
   Convert(path, routeGeometry);
 }
 
-void PedestrianDirectionsEngine::CalculateTurns(IRoadGraph const & graph, vector<Edge> const & routeEdges,
-                                                Route::TTurns & turnsDir,
+void PedestrianDirectionsEngine::CalculateTurns(IRoadGraph const & graph,
+                                                vector<Edge> const & routeEdges,
+                                                Route::TTurns & turns,
                                                 my::Cancellable const & cancellable) const
 {
   for (size_t i = 0; i < routeEdges.size(); ++i)
@@ -80,23 +80,23 @@ void PedestrianDirectionsEngine::CalculateTurns(IRoadGraph const & graph, vector
     if (HasType(m_typeSteps, types))
     {
       if (edge.IsForward())
-        turnsDir.emplace_back(i, turns::PedestrianDirection::Upstairs);
+        turns.emplace_back(i, turns::PedestrianDirection::Upstairs);
       else
-        turnsDir.emplace_back(i, turns::PedestrianDirection::Downstairs);
+        turns.emplace_back(i, turns::PedestrianDirection::Downstairs);
     }
     else
     {
       graph.GetJunctionTypes(edge.GetStartJunction(), types);
 
       if (HasType(m_typeLiftGate, types))
-        turnsDir.emplace_back(i, turns::PedestrianDirection::LiftGate);
+        turns.emplace_back(i, turns::PedestrianDirection::LiftGate);
       else if (HasType(m_typeGate, types))
-        turnsDir.emplace_back(i, turns::PedestrianDirection::Gate);
+        turns.emplace_back(i, turns::PedestrianDirection::Gate);
     }
   }
 
   // direction "arrival"
   // (index of last junction is the same as number of edges)
-  turnsDir.emplace_back(routeEdges.size(), turns::PedestrianDirection::ReachedYourDestination);
+  turns.emplace_back(routeEdges.size(), turns::PedestrianDirection::ReachedYourDestination);
 }
 }  // namespace routing

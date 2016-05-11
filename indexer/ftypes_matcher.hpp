@@ -206,7 +206,7 @@ enum class HighwayClass
   LivingStreet,
   Service,
   Pedestrian,
-  Count           // This value is used for internals only.
+  Count  // This value is used for internals only.
 };
 
 string DebugPrint(HighwayClass const cls);

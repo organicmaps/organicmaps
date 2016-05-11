@@ -37,6 +37,13 @@ bool IDirectionsEngine::ReconstructPath(IRoadGraph const & graph, vector<Junctio
                                         vector<Edge> & routeEdges,
                                         my::Cancellable const & cancellable) const
 {
+  routeEdges.clear();
+  if (path.size() <= 1)
+  {
+    ASSERT(false, (path.size()));
+    return false;
+  }
+
   routeEdges.reserve(path.size() - 1);
 
   Junction curr = path[0];
@@ -52,7 +59,7 @@ bool IDirectionsEngine::ReconstructPath(IRoadGraph const & graph, vector<Junctio
     graph.GetOutgoingEdges(curr, currEdges);
 
     bool found = false;
-    for (Edge const & e : currEdges)
+    for (auto const & e : currEdges)
     {
       if (e.GetEndJunction() == next)
       {
@@ -68,7 +75,7 @@ bool IDirectionsEngine::ReconstructPath(IRoadGraph const & graph, vector<Junctio
     curr = next;
   }
 
-  ASSERT_EQUAL(routeEdges.size()+1, path.size(), ());
+  ASSERT_EQUAL(routeEdges.size() + 1, path.size(), ());
 
   return true;
 }

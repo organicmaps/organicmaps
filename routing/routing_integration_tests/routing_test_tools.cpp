@@ -31,7 +31,8 @@
 
 using namespace routing;
 
-using TRouterFactory = function<unique_ptr<IRouter>(Index & index, TCountryFileFn const & countryFileFn)>;
+using TRouterFactory =
+    function<unique_ptr<IRouter>(Index & index, TCountryFileFn const & countryFileFn)>;
 
 namespace
 {
@@ -71,19 +72,17 @@ namespace integration
     return storage::CountryInfoReader::CreateCountryInfoReader(platform);
   }
 
-  shared_ptr<OsrmRouter> CreateOsrmRouter(Index & index,
+  unique_ptr<OsrmRouter> CreateOsrmRouter(Index & index,
                                           storage::CountryInfoGetter const & infoGetter)
   {
-    shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(
-        &index, [&infoGetter](m2::PointD const & pt)
-        {
-          return infoGetter.GetRegionCountryId(pt);
-        }
-        ));
+    unique_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&index, [&infoGetter](m2::PointD const & pt)
+    {
+      return infoGetter.GetRegionCountryId(pt);
+    }));
     return osrmRouter;
   }
 
-  shared_ptr<IRouter> CreateAStarRouter(Index & index,
+  unique_ptr<IRouter> CreateAStarRouter(Index & index,
                                         storage::CountryInfoGetter const & infoGetter,
                                         TRouterFactory const & routerFactory)
   {
@@ -92,7 +91,7 @@ namespace integration
       return infoGetter.GetRegionCountryId(pt);
     };
     unique_ptr<IRouter> router = routerFactory(index, countryFileGetter);
-    return shared_ptr<IRouter>(move(router));
+    return unique_ptr<IRouter>(move(router));
   }
 
   class OsrmRouterComponents : public IRouterComponents
@@ -107,7 +106,7 @@ namespace integration
     IRouter * GetRouter() const override { return m_osrmRouter.get(); }
 
   private:
-    shared_ptr<OsrmRouter> m_osrmRouter;
+    unique_ptr<OsrmRouter> m_osrmRouter;
   };
 
   class PedestrianRouterComponents : public IRouterComponents
@@ -123,7 +122,7 @@ namespace integration
     IRouter * GetRouter() const override { return m_router.get(); }
 
   private:
-    shared_ptr<IRouter> m_router;
+    unique_ptr<IRouter> m_router;
   };
 
   class BicycleRouterComponents : public IRouterComponents
@@ -139,7 +138,7 @@ namespace integration
     IRouter * GetRouter() const override { return m_router.get(); }
 
   private:
-    shared_ptr<IRouter> m_router;
+    unique_ptr<IRouter> m_router;
   };
 
   template <typename TRouterComponents>
@@ -171,9 +170,9 @@ namespace integration
 
   IRouterComponents & GetOsrmComponents()
   {
-    static shared_ptr<IRouterComponents> const inst = CreateAllMapsComponents<OsrmRouterComponents>();
-    ASSERT(inst, ());
-    return *inst;
+    static auto const instance = CreateAllMapsComponents<OsrmRouterComponents>();
+    ASSERT(instance, ());
+    return *instance;
   }
 
   shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles)
@@ -183,21 +182,22 @@ namespace integration
 
   IRouterComponents & GetPedestrianComponents()
   {
-    static shared_ptr<IRouterComponents> const inst = CreateAllMapsComponents<PedestrianRouterComponents>();
-    ASSERT(inst, ());
-    return *inst;
+    static auto const instance = CreateAllMapsComponents<PedestrianRouterComponents>();
+    ASSERT(instance, ());
+    return *instance;
   }
 
-  shared_ptr<IRouterComponents> GetBicycleComponents(vector<platform::LocalCountryFile> const & localFiles)
+  shared_ptr<IRouterComponents> GetBicycleComponents(
+      vector<platform::LocalCountryFile> const & localFiles)
   {
     return make_shared<BicycleRouterComponents>(localFiles);
   }
 
   IRouterComponents & GetBicycleComponents()
   {
-    static shared_ptr<IRouterComponents> const inst = CreateAllMapsComponents<BicycleRouterComponents>();
-    ASSERT(inst, ());
-    return *inst;
+    static auto const instance = CreateAllMapsComponents<BicycleRouterComponents>();
+    ASSERT(instance, ());
+    return *instance;
   }
 
   TRouteResult CalculateRoute(IRouterComponents const & routerComponents,

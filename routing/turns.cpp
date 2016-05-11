@@ -280,9 +280,10 @@ string DebugPrint(SingleLaneInfo const & singleLaneInfo)
   return out.str();
 }
 
-double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
+double PiMinusTwoVectorsAngle(m2::PointD const & junctionPoint, m2::PointD const & ingoingPoint,
+                              m2::PointD const & outgoingPoint)
 {
-  return math::pi - ang::TwoVectorsAngle(p, p1, p2);
+  return math::pi - ang::TwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint);
 }
 }  // namespace turns
 }  // namespace routing

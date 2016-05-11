@@ -4,25 +4,27 @@
 #include "routing/routing_result_graph.hpp"
 #include "routing/turns_generator.hpp"
 
-#include "geometry/point2d.hpp"
-
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
+
+#include "geometry/point2d.hpp"
 
 namespace
 {
 using namespace routing;
 using namespace routing::turns;
 
-class AStarRoutingResultGraph : public IRoutingResultGraph
+class AStarRoutingResult : public IRoutingResult
 {
 public:
-  AStarRoutingResultGraph(IRoadGraph::TEdgeVector const & routeEdges,
-                          AdjacentEdgesMap const & adjacentEdges,
-                          TUnpackedPathSegments const & pathSegments)
-    : m_routeEdges(routeEdges), m_adjacentEdges(adjacentEdges), m_pathSegments(pathSegments),
-      m_routeLength(0)
+  AStarRoutingResult(IRoadGraph::TEdgeVector const & routeEdges,
+                     AdjacentEdgesMap const & adjacentEdges,
+                     TUnpackedPathSegments const & pathSegments)
+    : m_routeEdges(routeEdges)
+    , m_adjacentEdges(adjacentEdges)
+    , m_pathSegments(pathSegments)
+    , m_routeLength(0)
   {
     for (auto const & edge : routeEdges)
     {
@@ -31,33 +33,31 @@ public:
     }
   }
 
-  ~AStarRoutingResultGraph() {}
-
-  virtual TUnpackedPathSegments const & GetSegments() const override
-  {
-    return m_pathSegments;
-  }
+  // turns::IRoutingResult overrides:
+  virtual TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
 
   virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
-                                m2::PointD const & junctionPoint,
-                                size_t & ingoingCount,
+                                m2::PointD const & junctionPoint, size_t & ingoingCount,
                                 TTurnCandidates & outgoingTurns) const override
   {
-    if (node >= m_routeEdges.size() || node >= m_adjacentEdges.size())
+    ingoingCount = 0;
+    outgoingTurns.clear();
+
+    if (node >= m_routeEdges.size())
     {
-      ASSERT(false, ());
+      ASSERT(false, (m_routeEdges.size()));
       return;
     }
 
-    AdjacentEdgesMap::const_iterator adjacentEdges = m_adjacentEdges.find(node);
+    auto adjacentEdges = m_adjacentEdges.find(node);
     if (adjacentEdges == m_adjacentEdges.cend())
     {
       ASSERT(false, ());
       return;
     }
 
-    ingoingCount = adjacentEdges->second.ingoingTurnCount;
-    outgoingTurns = adjacentEdges->second.outgoingTurns;
+    ingoingCount = adjacentEdges->second.m_ingoingTurnsCount;
+    outgoingTurns = adjacentEdges->second.m_outgoingTurns;
   }
 
   virtual double GetPathLength() const override { return m_routeLength; }
@@ -75,10 +75,10 @@ public:
   }
 
 private:
-   IRoadGraph::TEdgeVector const & m_routeEdges;
-   AdjacentEdgesMap const & m_adjacentEdges;
-   TUnpackedPathSegments const & m_pathSegments;
-   double m_routeLength;
+  IRoadGraph::TEdgeVector const & m_routeEdges;
+  AdjacentEdgesMap const & m_adjacentEdges;
+  TUnpackedPathSegments const & m_pathSegments;
+  double m_routeLength;
 };
 
 ftypes::HighwayClass GetHighwayClass(FeatureID const & featureId, Index const & index)
@@ -90,7 +90,6 @@ ftypes::HighwayClass GetHighwayClass(FeatureID const & featureId, Index const & 
   FeatureType ft;
   Index::FeaturesLoaderGuard loader(index, mwmId);
   loader.GetFeatureByIndex(featureIndex, ft);
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
   highWayClass = ftypes::GetHighwayClass(ft);
   ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Error, ());
   ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Undefined, ());
@@ -100,31 +99,36 @@ ftypes::HighwayClass GetHighwayClass(FeatureID const & featureId, Index const & 
 
 namespace routing
 {
-BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index) : m_index(index)
-{
-}
+BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index) : m_index(index) {}
 
 void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
-                                       Route::TTimes & times,
-                                       Route::TTurns & turnsDir,
+                                       Route::TTimes & times, Route::TTurns & turns,
                                        vector<m2::PointD> & routeGeometry,
                                        my::Cancellable const & cancellable)
 {
-  LOG(LINFO, ("BicycleDirectionsEngine::Generate"));
-  CHECK_GREATER(path.size(), 1, ());
+  size_t const pathSize = path.size();
+  CHECK_NOT_EQUAL(pathSize, 0, ());
+
   times.clear();
-  turnsDir.clear();
+  turns.clear();
   routeGeometry.clear();
   m_adjacentEdges.clear();
   m_pathSegments.clear();
 
-  CalculateTimes(graph, path, times);
-
   auto emptyPathWorkaround = [&]()
   {
-    turnsDir.emplace_back(path.size() - 1, turns::TurnDirection::ReachedYourDestination);
-    this->m_adjacentEdges[0] = {{}, 1}; // There's one ingoing edge to the finish.
+    turns.emplace_back(pathSize - 1, turns::TurnDirection::ReachedYourDestination);
+    this->m_adjacentEdges[0] = AdjacentEdges(1);  // There's one ingoing edge to the finish.
   };
+
+  if (pathSize <= 1)
+  {
+    ASSERT(false, (pathSize));
+    emptyPathWorkaround();
+    return;
+  }
+
+  CalculateTimes(graph, path, times);
 
   IRoadGraph::TEdgeVector routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
@@ -141,34 +145,32 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   }
 
   // Filling |m_adjacentEdges|.
-  size_t const pathSize = path.size();
-  m_adjacentEdges.insert(make_pair(0, AdjacentEdges({{} /* outgoingEdges */, 0 /* ingoingEdges.size() */})));
+  m_adjacentEdges.insert(make_pair(0, AdjacentEdges(0)));
   for (size_t i = 1; i < pathSize; ++i)
   {
-    Junction const & formerJunction = path[i - 1];
-    Junction const & currentJunction = path[i];
+    Junction const & prevJunction = path[i - 1];
+    Junction const & currJunction = path[i];
     IRoadGraph::TEdgeVector outgoingEdges, ingoingEdges;
-    graph.GetOutgoingEdges(currentJunction, outgoingEdges);
-    graph.GetIngoingEdges(currentJunction, ingoingEdges);
+    graph.GetOutgoingEdges(currJunction, outgoingEdges);
+    graph.GetIngoingEdges(currJunction, ingoingEdges);
 
-    AdjacentEdges adjacentEdges = {{}, ingoingEdges.size()};
-    adjacentEdges.outgoingTurns.reserve(outgoingEdges.size());
-    for (auto const & outgoingEdge : outgoingEdges)
+    AdjacentEdges adjacentEdges = AdjacentEdges(ingoingEdges.size());
+    adjacentEdges.m_outgoingTurns.reserve(outgoingEdges.size());
+    for (auto const & edge : outgoingEdges)
     {
-      auto const & outgoingFeatureId = outgoingEdge.GetFeatureId();
-      // Checking for if |outgoingEdge| is a fake edge.
-      if (!outgoingFeatureId.m_mwmId.IsAlive())
+      auto const & featureId = edge.GetFeatureId();
+      // Checking for if |edge| is a fake edge.
+      if (!featureId.m_mwmId.IsAlive())
         continue;
-      double const angle = turns::PiMinusTwoVectorsAngle(formerJunction.GetPoint(),
-                                                         currentJunction.GetPoint(),
-                                                         outgoingEdge.GetEndJunction().GetPoint());
-      adjacentEdges.outgoingTurns.emplace_back(angle, outgoingFeatureId.m_index,
-                                               GetHighwayClass(outgoingFeatureId, m_index));
+      double const angle = turns::PiMinusTwoVectorsAngle(
+          currJunction.GetPoint(), prevJunction.GetPoint(), edge.GetEndJunction().GetPoint());
+      adjacentEdges.m_outgoingTurns.emplace_back(angle, featureId.m_index,
+                                                 GetHighwayClass(featureId, m_index));
     }
 
     // Filling |m_pathSegments| based on |path|.
     LoadedPathSegment pathSegment;
-    pathSegment.m_path = { formerJunction.GetPoint(), currentJunction.GetPoint() };
+    pathSegment.m_path = {prevJunction.GetPoint(), currJunction.GetPoint()};
     pathSegment.m_nodeId = i;
 
     // @TODO(bykoianko) It's necessary to fill more fields of m_pathSegments.
@@ -176,10 +178,10 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
     m_pathSegments.push_back(move(pathSegment));
   }
 
-  AStarRoutingResultGraph resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
+  AStarRoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
   Route::TTimes turnAnnotationTimes;
   Route::TStreets streetNames;
-  MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turnsDir, turnAnnotationTimes, streetNames);
+  MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, turnAnnotationTimes, streetNames);
 }
 }  // namespace routing

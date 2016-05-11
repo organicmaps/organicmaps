@@ -56,10 +56,10 @@ double constexpr kPathFoundProgress = 70.0f;
 
 using RawRouteData = InternalRouteResult;
 
-class OSRMRoutingResultGraph : public turns::IRoutingResultGraph
+class OSRMRoutingResult : public turns::IRoutingResult
 {
 public:
-  // turns::IRoutingResultGraph overrides:
+  // turns::IRoutingResult overrides:
   virtual TUnpackedPathSegments const & GetSegments() const override
   {
     return m_loadedSegments;
@@ -161,7 +161,7 @@ public:
     return m_rawResult.targetEdge.segmentPoint;
   }
 
-  OSRMRoutingResultGraph(Index const & index, RoutingMapping & mapping, RawRoutingResult & result)
+  OSRMRoutingResult(Index const & index, RoutingMapping & mapping, RawRoutingResult & result)
     : m_rawResult(result), m_index(index), m_routingMapping(mapping)
   {
     for (auto const & pathSegments : m_rawResult.unpackedPathSegments)
@@ -187,7 +187,6 @@ public:
     }
   }
 
-  ~OSRMRoutingResultGraph() {}
 private:
   TUnpackedPathSegments m_loadedSegments;
   RawRoutingResult m_rawResult;
@@ -330,7 +329,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     Route::TTimes mwmTimes;
     Route::TStreets mwmStreets;
     vector<m2::PointD> mwmPoints;
-    OSRMRoutingResultGraph resultGraph(*m_pIndex, *mwmMapping, routingResult);
+    OSRMRoutingResult resultGraph(*m_pIndex, *mwmMapping, routingResult);
     if (MakeTurnAnnotation(resultGraph, delegate, mwmPoints, mwmTurnsDir, mwmTimes, mwmStreets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk for", mwmMapping->GetCountryName()));
@@ -500,7 +499,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     Route::TStreets streets;
     vector<m2::PointD> points;
 
-    OSRMRoutingResultGraph resultGraph(*m_pIndex, *startMapping, routingResult);
+    OSRMRoutingResult resultGraph(*m_pIndex, *startMapping, routingResult);
     if (MakeTurnAnnotation(resultGraph, delegate, points, turnsDir, times, streets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk!"));

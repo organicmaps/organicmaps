@@ -4,6 +4,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/classificator.hpp"
 
+#include "std/map.hpp"
 #include "std/sstream.hpp"
 #include "std/utility.hpp"
 
@@ -395,26 +396,32 @@ string DebugPrint(HighwayClass const cls)
   {
     case HighwayClass::Undefined:
       out << "Undefined";
+      break;
     case HighwayClass::Error:
       out << "Error";
+      break;
     case HighwayClass::Trunk:
       out << "Trunk";
+      break;
     case HighwayClass::Primary:
       out << "Primary";
+      break;
     case HighwayClass::Secondary:
       out << "Secondary";
+      break;
     case HighwayClass::Tertiary:
       out << "Tertiary";
+      break;
     case HighwayClass::LivingStreet:
       out << "LivingStreet";
+      break;
     case HighwayClass::Service:
       out << "Service";
-    case HighwayClass::Pedestrian:
-      out << "Pedestrian";
+      break;
+    case HighwayClass::Pedestrian: out << "Pedestrian"; break;
     case HighwayClass::Count:
       out << "Count";
-    default:
-      out << "Unknown value of HighwayClass: " << static_cast<int>(cls);
+      break;
   }
   out << " ]";
   return out.str();
@@ -423,41 +430,41 @@ string DebugPrint(HighwayClass const cls)
 HighwayClass GetHighwayClass(feature::TypesHolder const & types)
 {
   Classificator const & c = classif();
-  static pair<HighwayClass, uint32_t> const kHighwayClasses[] = {
-      {HighwayClass::Trunk, c.GetTypeByPath({"highway", "motorway"})},
-      {HighwayClass::Trunk, c.GetTypeByPath({"highway", "motorway_link"})},
-      {HighwayClass::Trunk, c.GetTypeByPath({"highway", "trunk"})},
-      {HighwayClass::Trunk, c.GetTypeByPath({"highway", "trunk_link"})},
-      {HighwayClass::Trunk, c.GetTypeByPath({"route", "ferry"})},
-      {HighwayClass::Primary, c.GetTypeByPath({"highway", "primary"})},
-      {HighwayClass::Primary, c.GetTypeByPath({"highway", "primary_link"})},
-      {HighwayClass::Secondary, c.GetTypeByPath({"highway", "secondary"})},
-      {HighwayClass::Secondary, c.GetTypeByPath({"highway", "secondary_link"})},
-      {HighwayClass::Tertiary, c.GetTypeByPath({"highway", "tertiary"})},
-      {HighwayClass::Tertiary, c.GetTypeByPath({"highway", "tertiary_link"})},
-      {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "unclassified"})},
-      {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "residential"})},
-      {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "living_street"})},
-      {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "road"})},
-      {HighwayClass::Service, c.GetTypeByPath({"highway", "service"})},
-      {HighwayClass::Service, c.GetTypeByPath({"highway", "track"})},
-      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "pedestrian"})},
-      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "footway"})},
-      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "bridleway"})},
-      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "steps"})},
-      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "cycleway"})},
-      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "path"})},
+
+  static map<uint32_t, HighwayClass> const kHighwayClasses = {
+      {c.GetTypeByPath({"highway", "motorway"}), HighwayClass::Trunk},
+      {c.GetTypeByPath({"highway", "motorway_link"}), HighwayClass::Trunk},
+      {c.GetTypeByPath({"highway", "trunk"}), HighwayClass::Trunk},
+      {c.GetTypeByPath({"highway", "trunk_link"}), HighwayClass::Trunk},
+      {c.GetTypeByPath({"route", "ferry"}), HighwayClass::Trunk},
+      {c.GetTypeByPath({"highway", "primary"}), HighwayClass::Primary},
+      {c.GetTypeByPath({"highway", "primary_link"}), HighwayClass::Primary},
+      {c.GetTypeByPath({"highway", "secondary"}), HighwayClass::Secondary},
+      {c.GetTypeByPath({"highway", "secondary_link"}), HighwayClass::Secondary},
+      {c.GetTypeByPath({"highway", "tertiary"}), HighwayClass::Tertiary},
+      {c.GetTypeByPath({"highway", "tertiary_link"}), HighwayClass::Tertiary},
+      {c.GetTypeByPath({"highway", "unclassified"}), HighwayClass::LivingStreet},
+      {c.GetTypeByPath({"highway", "residential"}), HighwayClass::LivingStreet},
+      {c.GetTypeByPath({"highway", "living_street"}), HighwayClass::LivingStreet},
+      {c.GetTypeByPath({"highway", "road"}), HighwayClass::LivingStreet},
+      {c.GetTypeByPath({"highway", "service"}), HighwayClass::Service},
+      {c.GetTypeByPath({"highway", "track"}), HighwayClass::Service},
+      {c.GetTypeByPath({"highway", "pedestrian"}), HighwayClass::Pedestrian},
+      {c.GetTypeByPath({"highway", "footway"}), HighwayClass::Pedestrian},
+      {c.GetTypeByPath({"highway", "bridleway"}), HighwayClass::Pedestrian},
+      {c.GetTypeByPath({"highway", "steps"}), HighwayClass::Pedestrian},
+      {c.GetTypeByPath({"highway", "cycleway"}), HighwayClass::Pedestrian},
+      {c.GetTypeByPath({"highway", "path"}), HighwayClass::Pedestrian},
   };
-  uint8_t const kTruncLevel = 2;
+  uint8_t constexpr kTruncLevel = 2;
+  auto const highwayClassesEndIt = kHighwayClasses.cend();
 
   for (auto t : types)
   {
     ftype::TruncValue(t, kTruncLevel);
-    for (auto const & cls : kHighwayClasses)
-    {
-      if (cls.second == t)
-        return cls.first;
-    }
+    auto const it = kHighwayClasses.find(t);
+    if (it != highwayClassesEndIt)
+      return it->second;
   }
 
   return HighwayClass::Error;

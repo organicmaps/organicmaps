@@ -253,7 +253,7 @@ bool TurnInfo::IsSegmentsValid() const
   return true;
 }
 
-IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result,
+IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                        RouterDelegate const & delegate, vector<m2::PointD> & points,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
                                        Route::TStreets & streets)
@@ -561,7 +561,7 @@ TurnDirection IntermediateDirection(const double angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
-void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, TurnItem & turn)
+void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnItem & turn)
 {
   if (!turnInfo.IsSegmentsValid())
     return;
