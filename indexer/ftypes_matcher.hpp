@@ -205,6 +205,7 @@ enum class HighwayClass
   Tertiary,
   LivingStreet,
   Service,
+  Pedestrian,
   Count           // This value is used for internals only.
 };
 

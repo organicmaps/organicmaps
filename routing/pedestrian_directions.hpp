@@ -14,6 +14,7 @@ public:
   void Generate(IRoadGraph const & graph, vector<Junction> const & path,
                 Route::TTimes & times,
                 Route::TTurns & turnsDir,
+                vector<m2::PointD> & routeGeometry,
                 my::Cancellable const & cancellable) override;
 
 private:

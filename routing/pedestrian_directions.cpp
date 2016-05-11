@@ -1,4 +1,5 @@
 #include "routing/pedestrian_directions.hpp"
+#include "routing/road_graph.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
@@ -19,6 +20,14 @@ bool HasType(uint32_t type, feature::TypesHolder const & types)
   }
   return false;
 }
+
+void Convert(vector<routing::Junction> const & path, vector<m2::PointD> & geometry)
+{
+  geometry.clear();
+  geometry.reserve(path.size());
+  for (auto const & pos : path)
+    geometry.emplace_back(pos.GetPoint());
+}
 }  // namespace
 
 namespace routing
@@ -34,6 +43,7 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine()
 void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
                                           Route::TTimes & times,
                                           Route::TTurns & turnsDir,
+                                          vector<m2::PointD> & routeGeometry,
                                           my::Cancellable const & cancellable)
 {
   CHECK_GREATER(path.size(), 1, ());
@@ -50,6 +60,7 @@ void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junct
   }
 
   CalculateTurns(graph, routeEdges, turnsDir, cancellable);
+  Convert(path, routeGeometry);
 }
 
 void PedestrianDirectionsEngine::CalculateTurns(IRoadGraph const & graph, vector<Edge> const & routeEdges,

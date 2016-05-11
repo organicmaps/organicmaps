@@ -5,6 +5,8 @@
 
 #include "base/cancellable.hpp"
 
+#include "std/vector.hpp"
+
 namespace routing
 {
 
@@ -16,6 +18,7 @@ public:
   virtual void Generate(IRoadGraph const & graph, vector<Junction> const & path,
                         Route::TTimes & times,
                         Route::TTurns & turnsDir,
+                        vector<m2::PointD> & routeGeometry,
                         my::Cancellable const & cancellable) = 0;
 protected:
   bool ReconstructPath(IRoadGraph const & graph, vector<Junction> const & path,

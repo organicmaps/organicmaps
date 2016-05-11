@@ -409,6 +409,8 @@ string DebugPrint(HighwayClass const cls)
       out << "LivingStreet";
     case HighwayClass::Service:
       out << "Service";
+    case HighwayClass::Pedestrian:
+      out << "Pedestrian";
     case HighwayClass::Count:
       out << "Count";
     default:
@@ -436,8 +438,16 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types)
       {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "unclassified"})},
       {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "residential"})},
       {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "living_street"})},
+      {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "road"})},
       {HighwayClass::Service, c.GetTypeByPath({"highway", "service"})},
-      {HighwayClass::Service, c.GetTypeByPath({"highway", "track"})}};
+      {HighwayClass::Service, c.GetTypeByPath({"highway", "track"})},
+      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "pedestrian"})},
+      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "footway"})},
+      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "bridleway"})},
+      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "steps"})},
+      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "cycleway"})},
+      {HighwayClass::Pedestrian, c.GetTypeByPath({"highway", "path"})},
+  };
   uint8_t const kTruncLevel = 2;
 
   for (auto t : types)

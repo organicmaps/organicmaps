@@ -6,6 +6,8 @@
 
 #include "std/map.hpp"
 
+class Index;
+
 namespace routing
 {
 struct AdjacentEdges
@@ -19,15 +21,17 @@ using AdjacentEdgesMap = map<TNodeId, AdjacentEdges>;
 class BicycleDirectionsEngine : public IDirectionsEngine
 {
 public:
-  BicycleDirectionsEngine();
+  BicycleDirectionsEngine(Index const & index);
 
   // IDirectionsEngine override:
   void Generate(IRoadGraph const & graph, vector<Junction> const & path,
                 Route::TTimes & times,
                 Route::TTurns & turnsDir,
+                vector<m2::PointD> & routeGeometry,
                 my::Cancellable const & cancellable) override;
 private:
   AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;
+  Index const & m_index;
 };
 }  // namespace routing
