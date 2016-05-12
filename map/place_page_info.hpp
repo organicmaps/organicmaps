@@ -2,6 +2,8 @@
 
 #include "map/bookmark.hpp"
 
+#include "storage/index.hpp"
+
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/map_object.hpp"

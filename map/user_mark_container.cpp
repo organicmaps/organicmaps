@@ -286,3 +286,14 @@ UserMark * DebugUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
 {
   return new DebugMarkPoint(ptOrg, this);
 }
+
+ApiUserMarkContainer::ApiUserMarkContainer(double layerDepth, Framework & framework)
+  : UserMarkContainer(layerDepth, UserMarkType::API_MARK, framework)
+{
+}
+
+UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
+{
+  return new ApiMarkPoint(ptOrg, this);
+}
+

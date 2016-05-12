@@ -2,7 +2,6 @@
 
 #include "map/user_mark.hpp"
 #include "map/user_mark_container.hpp"
-#include "map/styled_point.hpp"
 
 #include "coding/reader.hpp"
 
