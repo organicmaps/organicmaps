@@ -570,9 +570,13 @@ MapFollowAnimation::MapFollowAnimation(m2::PointD const & globalPosition,
   m_pixelPosInterpolator.SetMinDuration(duration);
 
   m_objects.insert(Animation::MapPlane);
-  m_properties.insert(Animation::Scale);
-  m_properties.insert(Animation::Angle);
-  m_properties.insert(Animation::Position);
+
+  if (m_scaleInterpolator.IsActive())
+    m_properties.insert(Animation::Scale);
+  if (m_angleInterpolator.IsActive())
+    m_properties.insert(Animation::Angle);
+  if (m_pixelPosInterpolator.IsActive())
+    m_properties.insert(Animation::Position);
 }
 
 Animation::TObjectProperties const & MapFollowAnimation::GetProperties(TObject object) const
@@ -588,24 +592,33 @@ bool MapFollowAnimation::HasProperty(TObject object, TProperty property) const
 
 void MapFollowAnimation::Advance(double elapsedSeconds)
 {
-  m_angleInterpolator.Advance(elapsedSeconds);
-  m_scaleInterpolator.Advance(elapsedSeconds);
-  m_pixelPosInterpolator.Advance(elapsedSeconds);
+  if (m_angleInterpolator.IsActive())
+    m_angleInterpolator.Advance(elapsedSeconds);
+  if (m_scaleInterpolator.IsActive())
+    m_scaleInterpolator.Advance(elapsedSeconds);
+  if (m_pixelPosInterpolator.IsActive())
+    m_pixelPosInterpolator.Advance(elapsedSeconds);
 }
 
 void MapFollowAnimation::Finish()
 {
-  m_angleInterpolator.Finish();
-  m_scaleInterpolator.Finish();
-  m_pixelPosInterpolator.Finish();
+  if (m_angleInterpolator.IsActive())
+    m_angleInterpolator.Finish();
+  if (m_scaleInterpolator.IsActive())
+    m_scaleInterpolator.Finish();
+  if (m_pixelPosInterpolator.IsActive())
+    m_pixelPosInterpolator.Finish();
   Animation::Finish();
 }
 
 void MapFollowAnimation::SetMaxDuration(double maxDuration)
 {
-  m_angleInterpolator.SetMaxDuration(maxDuration);
-  m_scaleInterpolator.SetMaxDuration(maxDuration);
-  m_pixelPosInterpolator.SetMaxDuration(maxDuration);
+  if (m_angleInterpolator.IsActive())
+    m_angleInterpolator.SetMaxDuration(maxDuration);
+  if (m_scaleInterpolator.IsActive())
+    m_scaleInterpolator.SetMaxDuration(maxDuration);
+  if (m_pixelPosInterpolator.IsActive())
+    m_pixelPosInterpolator.SetMaxDuration(maxDuration);
 }
 
 double MapFollowAnimation::GetDuration() const
