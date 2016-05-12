@@ -59,7 +59,6 @@ Australia;Q408;au;en
  Australia_Western Australia;Q3206
  Australia_Brisbane;Q34932
  Australia_Sydney;Q3130
-Nagorno-Karabakh;Q44302
 Azerbaijan Region;Q227;az;az
  Nagorno-Karabakh;Q44302
  Azerbaijan;Q227;;az

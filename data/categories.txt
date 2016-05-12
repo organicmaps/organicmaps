@@ -389,7 +389,7 @@ tr:Pub|bar|Bira|içki|yemek
 uk:Паб|Бар|пиво|напої|їжа
 vi:Quán rượu|Quán bar|quán rượu|đồ uống|ẩm thực
 zh-Hans:酒吧์|酒馆์|啤酒|饮料|食物
-zh-Hant:啤酒吧|酒吧|酒館|飲酒|PUB|吧台|飲食
+zh-Hant:酒館|啤酒吧|酒吧|飲酒|PUB|吧台|飲食
 
 amenity-cafe
 en:3Cafe|3restaurant|3food|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
@@ -521,7 +521,7 @@ es:3Panadería|tienda
 fi:3Leipomo|kauppa
 fr:3Boulangerie|magasin
 hu:3Pékség|bolt
-id:Toko roti|toko
+id:Toko roti|toko|Roti
 it:3Panetteria|negozio
 ja:1パン屋|ベーカリー|パン|軽食|持ち帰り|買い物
 ko:1베이커리|쇼핑
@@ -575,7 +575,7 @@ en:4Beauty Care|home care|shop|U+1F3EC|U+1F3EA
 ar:ﻞﻴﻤﺠﺘﻟﺍ ﺕﺍﺮﻀﺤﺘﺴﻣ|تجميل|المتجر
 cs:4Kosmetika|domácí péče|obchod
 da:4Kosmetik|hjemmepleje|butik
-de:4Kosmetik|Geschäft
+de:4Kosmetik|Geschäft|Schönheitspflege
 el:Καλλυντικά|Μαγαζί
 es:4Productos cosméticos|tienda
 fi:Kosmetiikka|kotihoito|kauppa
@@ -1012,7 +1012,7 @@ en:Beauty Shop|beautician|U+1F484
 ar:ﻞﻴﻤﺠﺗ ﻥﻮﻟﺎﺻ
 cs:Kosmetický salon
 da:Skønhedssalon
-de:Schönheitssalon
+de:Schönheitssalon|Schönheitsshop
 el:Ινστιτούτο αισθητικής
 es:Salón de belleza
 fi:Kauneushoitola
@@ -1254,7 +1254,7 @@ es:Confitería|confitería|tienda
 fi:Makeiskauppa|kauppa
 fr:Pâtisserie|confiserie|magasin
 hu:Cukrászüzlet|édességbolt|bolt
-id:Penganan|toko
+id:Penganan|toko|manisan
 it:Pasticceria|drogheria|negozio
 ja:菓子類|菓子屋|買い物
 ko:제과점|베이커리|쇼핑
@@ -1445,7 +1445,7 @@ tr:Bisiklet|mağaza
 sv:4Cykelaffär|cykel|cykel|butik
 vi:3Cửa hàng xe đạp|cửa hàng
 id:3Toko sepeda|toko
-ro:3Bicicletă|magazin
+ro:3Bicicletă|magazin|Magazin biciclete
 nb:3Sykkel|butikk
 fi:3Polkupyörä|kauppa
 sw:Duka la baiskeli|baiskeli
@@ -1765,7 +1765,7 @@ nl:3Kunstwerk|3toerisme
 zh-Hant:1藝術品|3旅遊景點
 pl:3Rzeźba|turystyka|osobliwości miasta
 pt:3Artwork|turismo|vistas
-hu:3Szobor|3látnivaló
+hu:3Szobor|3látnivaló|Műalkotás
 th:งานศิลปะ|3การท่องเที่ยว|สถานที่ท่องเที่ยว
 zh-Hans:1旅游|景点
 ar:سياحة|مناظر
@@ -2171,7 +2171,7 @@ fr:Mémorial|monument|attraction|tourisme|site touristique
 it:Memoriale|monumento|turistico
 es:Memorial|turismo
 ko:1기념물|관광
-ja:追悼|1記念碑|観光
+ja:追悼|1記念碑|観光|追悼碑
 cs:Pomník|památka|zajímavost|pamětihodnost
 sk:Pomník|pamiatka|atrakcia|zaujímavosť|pamätihodnosť
 nl:Gedenkteken|monument|attractie|toerisme
@@ -2367,7 +2367,7 @@ tr:Bank
 sv:Bänk
 vi:Xe đạp
 id:Bangku panjang
-ro:Banchetă|Bancă
+ro:Banchetă|Bancă|Bancă parc
 nb:Benk
 fi:Penkki
 sw:Benchi
@@ -2396,7 +2396,7 @@ da:4Cykel
 tr:Bisiklet kiralama|4Bisiklet
 sv:4Cykeluthyrning|cykel|cykel|3uthyrning
 vi:Cho thuê xe đạp
-id:Menyewa sepeda
+id:Penyewaan Sepeda
 ro:Închiriere de biciclete|Bicicletă
 nb:Sykkelutleie
 fi:Polkupyöränvuokraus
@@ -2766,7 +2766,7 @@ en:Clinic|1hospital|doctor|U+1F3E5|U+1F489
 ar:عيادة|مستشفى|المستشفى
 cs:Klinika|nemocnice
 da:Klinik|hospital
-de:Krankenhaus|Klinik
+de:Klinik|Krankenhaus
 es:Clínica|hospital
 fi:Klinikka|sairaala
 fr:Clinique|hôpital
@@ -4055,7 +4055,7 @@ sk:3Hostel|hotel|ubytovňa|motel
 nl:3Hostel|jeugdherberg|hotel|motel
 zh-Hant:1旅舍|旅館|青年旅舍|青年旅館|住宿|飯店|3汽車旅館|3motel
 pl:4Hostel|4hotel|4motel
-pt:3Hostel|3Pousada|4hotel|motel
+pt:3Hostel|3Pousada|4hotel|motel|Albergue
 hu:3Hostel|szálloda|szállás
 th:3หอพัก|โรงแรม|โมเทล
 zh-Hans:2旅社|旅店
@@ -4168,8 +4168,8 @@ fr:Hôtel de montagne|hôtel|auberge de jeunesse|cabane alpine
 it:Hotel di montagna|baita|capanna|capanna di montagna|capanna alpina|hotel
 es:4Cabaña|cabaña de los Alpes|hotel de montaña|hotel
 ko:1고산 오두막|산 호텔|호텔
-ja:1山小屋|高山小屋|ヒュッテ
-cs:4Horská chata|horský hotel|hotel
+ja:1山小屋|高山小屋|ヒュッテ|山の宿泊施設
+cs:4Ubytování v horách|Horská chata|horský hotel|hotel
 sk:4Horská chata|horský hotel|hotel
 nl:3Berghut|alpenhut|hotel
 zh-Hant:1山上住宿|飯店|旅館|住宿|旅舍|2高山住宿
@@ -5074,7 +5074,7 @@ fi:Suutari
 fr:Cordonnier
 hu:Cipész
 id:Tukang sepatu
-it:Calzolaio
+it:Calzolaio|Riparazione di calzature
 ja:靴修理
 ko:구두수선
 nl:Schoenmaker|schoenmakerij
@@ -5269,20 +5269,61 @@ sw:Pwani
 
 highway-speed_camera
 en:3Speed Camera
-ru:3Камера скорости
-vi:Camera tốc độ
-id:Kamera kecepatan
-ro:Radar
-nb:Fartskamera
-nl:Flitscamera|snelheidscamera
-de:Blitzer|Radarkontrolle|Radarfalle
-fi:Nopeuskamera
+ru:Камера скорости
+fr:Radar de vitesse
+da:Automatisk Trafikkontrol
+id:Kamera Kecepatan
+ko:스피드 카메라
+sv:Hastighetskamera
+tr:Hız Kamerası
+uk:Камера безпеки дорожнього руху
+vi:Camera bắn tốc độ
+hu:Traffipax
+de:Blitzer
+fi:Nopeusvalvontakamera
+cs:Rychlostní kamera
+it:Autovelox
+nb:Fotoboks
+zh-Hant:測速照相機
+zh-Hans:测速照相机
+th:กล้องตรวจจับความเร็ว
+ja:オービス
+ro:Detector de viteză
+ar:كاميرا لرصد السرعة
+sk:Rýchlostná kamera
+es:Radar de velocidad
+pl:Fotoradar
+nl:Flitspaal
+pt:Radar de velocidade
 
 man_made-lighthouse
 en:Lighthouse
-nl:Vuurtoren
 ru:Маяк
+fr:Phare
+da:Fyrtårn
+id:Mercusuar
+ko:등대
+sv:Fyr
+tr:Deniz Feneri
+uk:Маяк
+vi:Hải đăng
+hu:Világítótorony
 de:Leuchtturm
+fi:Majakka
+cs:Maják
+it:Faro
+nb:Fyr
+zh-Hant:燈塔
+zh-Hans:灯塔
+th:ประภาคาร
+ja:灯台
+ro:Far
+ar:منارة
+sk:Maják
+es:Faro
+pl:Latarnia morska
+nl:Vuurtoren
+pt:Farol
 
 shop-copyshop
 en:Copy Shop|Printer
@@ -5550,7 +5591,7 @@ ru:Детская комната|ясли
 ar:حضانة|رعاية أطفال
 cs:Jesle|Péče o děti
 da:Vuggestue|Børnehave
-de:Kinderzimmer|Kindergarten|Kinderbetreuung
+de:Kindertagesstätte|Kinderzimmer|Kindergarten|Kinderbetreuung
 es:Habitación infantil|guardería
 fi:Päivähoito|Lastenhoito
 fr:Garderie|Garde d'enfant
@@ -5584,7 +5625,7 @@ es:Estacionamiento de bicis
 fi:Polkupyöräpysäköinti
 fr:Parking à vélo
 hu:Kerékpárparkoló
-id:Cykelparkering
+id:Parkir Sepeda
 it:Parcheggio biciclette
 ja:駐輪場
 ko:자전거보관소
@@ -5599,7 +5640,8 @@ th:ที่จอดจักรยาน
 tr:Parking à vélo
 uk:Велозупинка
 vi:Chỗ Đậu Xe Đạp
-zh-Hant:自行车存放处
+zh-Hans:自行车存放处
+zh-Hant:腳踏車停放區
 
 amenity-waste_basket
 en:Trash Bin|Litter Bin|Waste Basket
@@ -5612,7 +5654,7 @@ es:Papelera
 fi:Roska-astia
 fr:Poubelle
 hu:Szemétkosár
-id:Pepperskorg
+id:Kotak sampah
 it:Contenitore per rifiuti
 ja:くずかご
 ko:쓰레기통
@@ -5627,37 +5669,38 @@ th:ถังขยะ
 tr:Poubelle
 uk:Бак для сміття
 vi:Thùng rác
-zh-Hant:垃圾篓
+zh-Hans:垃圾篓
+zh-Hant:垃圾箱
 
 emergency-phone
 en:Emergency Phone
 ru:Телефон для экстренных вызовов
 ar:هاتف الطوارئ
-cs:tísňového volání
+cs:Tísňového volání
 da:Emergency telefon
 de:Nottelefon
 el:τηλεφώνου έκτακτης ανάγκης
 es:Teléfono de emergencia
-fi:hätänumero
-fr:téléphone d'urgence
+fi:Hätänumero
+fr:Téléphone d'urgence
 he:טלפון חירום
-hu:sürgősségi telefon
-id:telepon darurat
-it:telefono di emergenza
+hu:Sürgősségi telefon
+id:Telepon
+it:Telefono di emergenza
 ja:緊急電話
 ko:긴급 전화
-nb:nødtelefon
-nl:praatpaal
-pl:telefon alarmowy
-pt:telefone de emergência
-ro:telefon de urgență
-sk:tiesňového volania
-sv:nödtelefon
-sw:simu ya dharura
+nb:Nødtelefon
+nl:Praatpaal
+pl:Telefon alarmowy
+pt:Telefone de emergência
+ro:Telefon de urgență
+sk:Tiesňového volania
+sv:Nödtelefon
+sw:Simu ya dharura
 th:โทรศัพท์ฉุกเฉิน
-tr:acil telefon
-uk:аварійний телефон
-vi:điện thoại khẩn cấp
+tr:Acil telefon
+uk:Аварійний телефон
+vi:Điện thoại khẩn cấp
 zh-Hans:紧急电话
 zh-Hant:緊急電話
 
@@ -5672,7 +5715,7 @@ es:Centro de fitness|gimnasio
 fi:Kuntosali
 fr:Centre fitness|salle de gym
 hu:Fitnesz-terem
-id:Gym
+id:Pusat kebugaran|senam
 it:Centro benessere|palestra
 ja:フィットネスセンター、ジム
 ko:피트니스센터|체육관
@@ -5687,6 +5730,7 @@ th:ฟิตเนสเซ็นเตอร์|ยิม
 tr:Centre fitness|salle de gym
 uk:Фітнес-зал
 vi:Phòng Tập
+zh-Hans:健身中心|健身房
 zh-Hant:健身中心|健身房
 
 leisure-sauna
@@ -5700,7 +5744,7 @@ es:Sauna
 fi:Sauna
 fr:Sauna
 hu:Szauna
-id:Bastu
+id:Sauna
 it:Sauna
 ja:サウナ
 ko:사우나
@@ -5715,6 +5759,7 @@ th:ซาวน่า
 tr:Sauna
 uk:Лазня
 vi:Phòng xông hơi
+zh-Hans:桑拿
 zh-Hant:桑拿
 
 man_made-water_well
@@ -5728,7 +5773,7 @@ es:Pozo
 fi:Vesikaivo
 fr:Puits à eau
 hu:Ivókút
-id:Brunn
+id:Sumur air
 it:Pozzo d'acqua
 ja:井戸
 ko:우물
@@ -5743,6 +5788,7 @@ th:บ่อน้ำ
 tr:Puits à eau
 uk:Криниця
 vi:Giếng Nước
+zh-Hans:水井
 zh-Hant:水井
 
 shop-car_repair-tyres
@@ -5756,7 +5802,7 @@ es:Reparación de neumáticos
 fi:Rengashuolto
 fr:Réparation de pneus
 hu:Gumiszerviz
-id:Däckverkstad
+id:Tambal ban
 it:Gommista
 ja:タイヤ修理
 ko:타이어수리점
@@ -5771,11 +5817,37 @@ th:ร้านปะยาง
 tr:Réparation de pneus
 uk:Шиномонтаж
 vi:Vá Lốp
-zh-Hant:轮胎修理
+zh-Hans:轮胎修理
+zh-Hant:輪胎修補
 
 shop-chemist|@shop
 en:Chemist Shop
 ru:Бытовая химия
+ar:صيدلية
+cs:Drogerie
+da:Medicinbutik|Drugstore
+de:Drogerie
+es:Droguería
+fi:Apteekki
+fr:Pharmacie
+hu:Drogéria
+id:Toko bahan kimia
+it:Farmacia
+ja:化学薬品店
+ko:화학자 상점
+nl:Drogisterij
+nb:Dagligvareforretning
+pl:Drogeria
+pt:Farmácia
+ro:Mercerie
+sk:Drogéria
+sv:Apotek
+th:ร้านขายผลิตภัณฑ์ทางเคมี
+tr:Zincir eczane
+uk:Магазин побутової хімії
+vi:Cửa hàng Dược phẩm
+zh-Hant:藥妝店
+zh-Hans:药妆店
 
 shop-pet|@shop
 en:Petshop
@@ -5788,7 +5860,7 @@ es:Tienda de mascotas
 fi:Eläinkauppa
 fr:Animalerie
 hu:Házikedvenc-üzlet
-id:Djuraffär
+id:Toko hewan
 it:Negozio di animali
 ja:ペットショップ
 ko:애완동물점
@@ -5803,7 +5875,8 @@ th:เพ็ทชอป
 tr:Animalerie
 uk:Зоотовари
 vi:Cửa Hàng Vật Nuôi
-zh-Hant:宠物店
+zh-Hans:宠物店
+zh-Hant:寵物店
 
 tourism-information-office|@tourism
 en:Tourist Office
@@ -5816,7 +5889,7 @@ es:Oficina de turismo
 fi:Turistitoimisto
 fr:Office de tourisme
 hu:Idegenforgalmi iroda
-id:Turistcenter
+id:Kantor wisata
 it:Ufficio turistico
 ja:観光案内所
 ko:관광정보센터
@@ -5831,7 +5904,8 @@ th:ศูนย์บริการนักท่องเที่ยว
 tr:Office de tourisme
 uk:Туристичний офіс
 vi:Văn Phòng Du Lịch
-zh-Hant:旅游服务处
+zh-Hans:旅游服务处
+zh-Hant:旅遊辦事處
 
 amenity-community_centre
 en:Community Centre
@@ -5844,7 +5918,7 @@ es:Centro comunitario
 fi:Monitoimitalo
 fr:Centre communautaire
 hu:Közösségi központ
-id:Stadshus
+id:Pusat komunitas
 it:Centro ricreativo
 ja:コミュニティセンター
 ko:커뮤니티센터
@@ -5859,7 +5933,8 @@ th:ศูนย์ชุมชน
 tr:Centre communautaire
 uk:Центр культури та дозвілля, Дім культури
 vi:Trung Tâm Cộng Đồng
-zh-Hant:社区中心
+zh-Hans:社区中心
+zh-Hant:社區活動中心
 
 amenity-courthouse
 en:Courthouse
@@ -5872,7 +5947,7 @@ es:Juzgado
 fi:Oikeustalo
 fr:Palais de justice
 hu:Bíróság
-id:Domstol
+id:Gedung pengadilan
 it:Tribunale
 ja:裁判所
 ko:법원
@@ -5887,6 +5962,7 @@ th:ศาล
 tr:Palais de justice
 uk:Суд
 vi:Tòa án
+zh-Hans:法院
 zh-Hant:法院
 
 amenity-vending_machine-cigarettes
@@ -5900,7 +5976,7 @@ es:Máquina de tabaco
 fi:Savukeautomaatti
 fr:Distributeur de cigarettes
 hu:Cigarettaautomata
-id:Cigarettmaskin
+id:Mesin rokok
 it:Distributore automatico di sigarette
 ja:たばこ自動販売機
 ko:담배자판기
@@ -5915,7 +5991,8 @@ th:เครื่องขายบุหรี่
 tr:Distributeur de cigarettes
 uk:Автомат з продажу сигарет
 vi:Máy bán thuốc lá
-zh-Hant:自动售烟机
+zh-Hans:自动售烟机
+zh-Hant:香菸自動販賣機
 
 amenity-vending_machine-drinks
 en:Drink Dispenser
@@ -5928,7 +6005,7 @@ es:Máquina de bebidas
 fi:Juoma-automaatti
 fr:Distributeur de boissons
 hu:Italautomata
-id:Läskautomat
+id:Mesin penjual minuman
 it:Distributore automatico di bibite
 ja:飲料自動販売機
 ko:음료자동판매기
@@ -5943,7 +6020,8 @@ th:เครื่องขายเครื่องดื่มอัตโ�
 tr:Distributeur de boissons
 uk:Автомат з напоями
 vi:Máy bán thức uống
-zh-Hant:饮料售卖机
+zh-Hans:饮料售卖机
+zh-Hant:飲料自動販賣機
 
 building-garage
 en:Garage
@@ -5956,7 +6034,7 @@ es:Taller mecánico
 fi:Autotalli
 fr:Garage
 hu:Garázs
-id:Garage
+id:Garasi
 it:Garage
 ja:車庫
 ko:정비소
@@ -5971,7 +6049,8 @@ th:อาคารจอดรถ
 tr:Garage
 uk:Гараж
 vi:Gara
-zh-Hant:车库
+zh-Hans:车库
+zh-Hant:車庫
 
 highway-rest_area
 en:Highway Rest Area
@@ -5984,7 +6063,7 @@ es:Zona de descanso
 fi:Levähdyspaikka
 fr:Aire de repos
 hu:Pihenőzóna
-id:Viloplats
+id:Tempat istirahat
 it:Area di sosta
 ja:休憩所
 ko:휴게소
@@ -5999,7 +6078,8 @@ th:บริเวณพักผ่อน
 tr:Aire de repos
 uk:Зона відпочинку
 vi:Khu Vực Thụt Vào Để Đỗ Xe
-zh-Hant:休息区
+zh-Hans:休息区
+zh-Hant:休息區
 
 highway-traffic_signals
 en:Traffic Lights
@@ -6012,7 +6092,7 @@ es:Semáforos
 fi:Liikennevalot
 fr:Feux de circulation
 hu:Közlekedési lámpák
-id:Trafikljus
+id:Lampu lalu lintas
 it:Semaforo
 ja:交通信号
 ko:신호등
@@ -6027,7 +6107,8 @@ th:สัญญาณไฟจราจร
 tr:Feux de circulation
 uk:Світлофор
 vi:Đèn Giao Thông
-zh-Hant:交通信号灯
+zh-Hans:交通信号灯
+zh-Hant:紅綠燈
 
 man_made-chimney
 en:Factory Chimney
@@ -6040,7 +6121,7 @@ es:Chimenea de fábrica
 fi:Tehtaan piippu
 fr:Cheminée d'usine
 hu:Gyárkémény
-id:Fabriksskorsten
+id:Cerobong asap pabrik
 it:Ciminiera industriale
 ja:工場煙突
 ko:공장 굴뚝
@@ -6055,7 +6136,8 @@ th:ปล่องควันโรงงาน
 tr:Cheminée d'usine
 uk:Заводська труба
 vi:Ống Khói Nhà Máy
-zh-Hant:工厂烟囱
+zh-Hans:工厂烟囱
+zh-Hant:工廠煙囪
 
 man_made-tower
 en:Tower
@@ -6068,7 +6150,7 @@ es:Torre
 fi:Torni
 fr:Tour
 hu:Torony
-id:Torn
+id:Menara
 it:Torre
 ja:タワー
 ko:타워
@@ -6083,7 +6165,8 @@ th:หอคอย
 tr:Tour
 uk:Вежа
 vi:Tháp
-zh-Hant:高塔
+zh-Hans:高塔
+zh-Hant:塔
 
 power-substation
 en:Substation
@@ -6096,7 +6179,7 @@ es:Subestación
 fi:Muuntoasema
 fr:Sous-station
 hu:Kapcsolószekrény
-id:Understation
+id:Stasiun bawah tanah
 it:Sottostazione elettrica
 ja:変電所
 ko:변전소
@@ -6111,7 +6194,8 @@ th:สถานีไฟฟ้า
 tr:Sous-station
 uk:Підстанція
 vi:Trạm biến áp
-zh-Hant:变电站
+zh-Hans:变电站
+zh-Hant:變電所
 
 shop-bookmaker
 en:Bookmaker
@@ -6124,7 +6208,7 @@ es:Casa de apuestas
 fi:Kustantaja
 fr:Bookmaker
 hu:Fogadóiroda
-id:Bokbindare
+id:Bandar judi
 it:Centro scommesse
 ja:ブックメーカー
 ko:마권판매소
@@ -6139,7 +6223,8 @@ th:ร้านรับแทงพนัน
 tr:Bookmaker
 uk:Букмекерська контора
 vi:Người nhận cá cược
-zh-Hant:书店
+zh-Hans:书店
+zh-Hant:賭博業者
 
 shop-seafood|@shop
 en:Seafood Shop
@@ -6152,7 +6237,7 @@ es:Pescadería
 fi:Kalakauppias
 fr:Poissonnier
 hu:Halüzlet
-id:Fiskhandlare
+id:Penjual Ikan
 it:Pescivendolo
 ja:魚屋
 ko:생선가게
@@ -6167,7 +6252,8 @@ th:ร้านขายปลา
 tr:Poissonnier
 uk:Рибна крамниця
 vi:Người bán cá
-zh-Hant:鱼商
+zh-Hans:鱼商
+zh-Hant:魚販
 
 shop-ticket|@shop
 en:Ticket Shop
@@ -6180,7 +6266,7 @@ es:Oficina de venta de entradas
 fi:Lippumyymälä
 fr:Billetterie
 hu:Jegyiroda
-id:Biljettkontor
+id:Tempat penjualan karcis
 it:Biglietteria
 ja:チケット売り場
 ko:매표소
@@ -6195,7 +6281,8 @@ th:จุดจำหน่ายตั๋ว
 tr:Billetterie
 uk:Білетна каса
 vi:Phòng vé
-zh-Hant:售票处
+zh-Hans:售票处
+zh-Hant:售票處
 
 shop-wine|@shop
 en:Wine Shop
@@ -6208,14 +6295,14 @@ es:Establecimiento de bebidas alcohólicas
 fi:Alkoholimyymälä
 fr:Hors licence
 hu:Szeszesital-üzlet
-id:Spritförsäljning
+id:Toko minuman keras
 it:Negozio di alcolici
-ja:ワイン|酒屋
+ja:ワイン|酒屋|ワインショップ
 ko:주류 판매점
 nl:Wijn|Slijterij
 nb:Alkoholutsalg
 pl:Sklep monopolowy
-pt:Vinho|Loja de bebidas
+pt:Vinho|Loja de Vinhos
 ro:Magazin de băuturi alcolice
 sk:Vinotéka
 sv:Spritförsäljning
@@ -6223,7 +6310,8 @@ th:ร้านขายไวน์
 tr:Caviste
 uk:Винна крамниця
 vi:Rượu|Cửa hàng rượu
-zh-Hant:酒店
+zh-Hans:酒店
+zh-Hant:販酒處
 
 shop-car_parts|@shop
 en:Car Parts
@@ -6268,7 +6356,7 @@ es:Chalé
 fi:Alppimaja
 fr:Chalet
 hu:Turistaház
-id:Stuga
+id:Chalet
 it:Chalet
 ja:シャレー|山小屋
 ko:별장
@@ -6283,6 +6371,7 @@ th:ชาเลต์
 tr:Chalet
 uk:Шале
 vi:Nhà vệ sinh công cộng
+zh-Hans:木屋
 zh-Hant:木屋
 
 tourism-information-board|@tourism
@@ -6296,7 +6385,7 @@ es:Tablón de información
 fi:Informaatio
 fr:Panneau d'informations
 hu:Információs tábla
-id:Anslagstavla
+id:Papan informasi
 it:Tabellone informativo
 ja:案内板
 ko:안내소
@@ -6311,7 +6400,8 @@ th:บอร์ดประชาสัมพันธ์
 tr:Panneau d'informations
 uk:Інформаційний щит
 vi:Bảng Thông Tin
-zh-Hant:公告板
+zh-Hans:公告板
+zh-Hant:資訊中心
 
 tourism-information-map|@tourism
 en:Tourist Map
@@ -6324,7 +6414,7 @@ es:Mapa turístico
 fi:Turistikartta
 fr:Carte touristique
 hu:Turistatérkép
-id:Turistkarta
+id:Peta wisata
 it:Mappa turistica
 ja:観光マップ
 ko:관광안내도
@@ -6339,7 +6429,8 @@ th:แผนที่ท่องเที่ยว
 tr:Carte touristique
 uk:Мапа
 vi:Bản Đồ Du Lịch
-zh-Hant:旅游地图
+zh-Hans:旅游地图
+zh-Hant:旅遊地圖
 
 aerialway-station
 en:Aerialway Station|Cable Car Station
@@ -6352,7 +6443,7 @@ es:Estación de teleférico
 fi:Köysirata-asema
 fr:Remontées mécaniques
 hu:Felvonóállomás
-id:Linbanestation
+id:Stasiun kereta gantung
 it:Stazione di rifornimento per auto elettriche
 ja:ケーブルカー駅
 ko:케이블카 역
@@ -6367,7 +6458,8 @@ th:สถานีกระเช้าลอยฟ้า
 tr:Remontées mécaniques
 uk:Канатна дорога
 vi:Trạm Cáp Treo
-zh-Hant:缆车车站
+zh-Hans:缆车车站
+zh-Hant:纜車站
 
 aeroway-helipad
 en:Helipad
@@ -6380,7 +6472,7 @@ es:Helipuerto
 fi:Helikopterialusta
 fr:Hélisurface
 hu:Helikopterleszálló
-id:Helikopterplatta
+id:Landasan helikopter
 it:Piattaforma per elicotteri
 ja:ヘリポート
 ko:헬기착륙장
@@ -6395,7 +6487,8 @@ th:ที่จอดเฮลิคอปเตอร์
 tr:Hélisurface
 uk:Майданчик для гелікоптерів
 vi:Bãi đỗ trực thăng
-zh-Hant:直升机停机坪
+zh-Hans:直升机停机坪
+zh-Hant:直升機停機坪
 
 amenity-vending_machine-parking_tickets
 en:Parking Tickets
@@ -6408,7 +6501,7 @@ es:Máquina de pago de tique de aparcamiento
 fi:Pysäköintimaksuautomaatti
 fr:Horodateur
 hu:Parkolóautomata
-id:Parkeringsautomat
+id:Mesin pembayaran tiket parkir
 it:Parcometro
 ja:駐車券支払機
 ko:주차티켓판매기
@@ -6423,7 +6516,8 @@ th:เครื่องชำระค่าที่จอดรถอัต�
 tr:Horodateur
 uk:Паркомат
 vi:Máy trả tiền vé đậu xe
-zh-Hant:停车场付费机
+zh-Hans:停车场付费机
+zh-Hant:違規停車罰單繳費機
 
 barrier-block
 en:Block
@@ -6436,7 +6530,7 @@ es:Bloqueo
 fi:Este
 fr:Bloc
 hu:Blokk
-id:Byggnad
+id:Blok
 it:Blocco
 ja:ブロック
 ko:블록
@@ -6451,7 +6545,8 @@ th:บล็อก
 tr:Bloc
 uk:Блок
 vi:Khối
-zh-Hant:障碍
+zh-Hans:障碍
+zh-Hant:街區
 
 barrier-bollard
 en:Pillar
@@ -6464,7 +6559,7 @@ es:Pilar
 fi:Tolppa
 fr:Pilier
 hu:Oszlop
-id:Stolpe
+id:Pilar
 it:Pilastro
 ja:柱
 ko:기둥
@@ -6479,7 +6574,8 @@ th:เสา
 tr:Pilier
 uk:Стовпчик
 vi:Trụ
-zh-Hant:柱子
+zh-Hans:柱子
+zh-Hant:柱
 
 barrier-border_control
 en:Border Control
@@ -6492,7 +6588,7 @@ es:Control de fronteras
 fi:Rajavalvonta
 fr:Contrôle aux frontières
 hu:Határállomás
-id:Gränskontroll
+id:Gerbang perbatasan
 it:Controllo di frontiera
 ja:国境管理
 ko:국경통제소
@@ -6507,7 +6603,8 @@ th:ด่านตรวจคนเข้าเมือง
 tr:Contrôle aux frontières
 uk:Прикордонний контроль
 vi:Biên Phòng
-zh-Hant:边检
+zh-Hans:边检
+zh-Hant:邊境管制
 
 barrier-entrance
 en:Entrance
@@ -6520,7 +6617,7 @@ es:Entrada
 fi:Sisäänkäynti
 fr:Entrée
 hu:Bejárat
-id:Ingång
+id:Pintu masuk
 it:Ingresso
 ja:エントランス
 ko:입구
@@ -6535,6 +6632,7 @@ th:ทางเข้า
 tr:Entrée
 uk:Прохід
 vi:Lối vào
+zh-Hans:入口
 zh-Hant:入口
 
 barrier-gate
@@ -6548,7 +6646,7 @@ es:Puerta
 fi:Portti
 fr:Porte
 hu:Kapu
-id:Grind
+id:Gerbang
 it:Cancello
 ja:ゲート
 ko:게이트
@@ -6563,7 +6661,8 @@ th:ประตู
 tr:Porte
 uk:Ворота
 vi:Cổng
-zh-Hant:门
+zh-Hans:门
+zh-Hant:大門
 
 barrier-lift_gate
 en:Lift Gate
@@ -6576,7 +6675,7 @@ es:Barrera
 fi:Puomieste
 fr:Barrière levante
 hu:Sorompó
-id:Перелаз
+id:Polisi tidur
 it:Barriera ferroviaria
 ja:ブームバリア
 ko:차량차단기
@@ -6586,12 +6685,13 @@ pl:Szlaban
 pt:Barreira
 ro:Barieră cu braț
 sk:Závora
-sv:Перелаз
+sv:Bom
 th:ไม้กั้น
 tr:Barrière levante
 uk:Шлагбаум
 vi:Thanh Chắn
-zh-Hant:水栅门
+zh-Hans:水栅门
+zh-Hant:遮斷機
 
 barrier-stile
 en:Stile
@@ -6604,7 +6704,7 @@ es:Escalón
 fi:Portaat
 fr:Échalier
 hu:Átjáró
-id:Stätta
+id:Undakan
 it:Scaletta per recinzioni
 ja:回転扉
 ko:디딤대
@@ -6619,7 +6719,8 @@ th:บันไดข้าม
 tr:Échalier
 uk:Перелаз
 vi:Trụ chắn
-zh-Hant:台阶
+zh-Hans:台阶
+zh-Hant:梯磴
 
 barrier-toll_booth
 en:Toll Booth
@@ -6632,7 +6733,7 @@ es:Cabina de peaje
 fi:Tietulliasema
 fr:Poste de péage
 hu:Díjfizető kapu
-id:Tullhus
+id:Gerbang tol
 it:Casello di pedaggio
 ja:料金所
 ko:톨게이트
@@ -6647,7 +6748,8 @@ th:ด่านเก็บเงิน
 tr:Poste de péage
 uk:Пункт оплати
 vi:Quầy Soát Vé
-zh-Hant:收费亭
+zh-Hans:收费亭
+zh-Hant:收費站
 
 entrance
 en:Entrance
@@ -6660,7 +6762,7 @@ es:Entrada
 fi:Sisäänkäynti
 fr:Entrée
 hu:Bejárat
-id:Entré
+id:Pintu masuk
 it:Ingresso
 ja:エントランス
 ko:입구
@@ -6675,6 +6777,7 @@ th:ทางเข้า
 tr:Entrée
 uk:Вхід
 vi:Lối vào
+zh-Hans:入口
 zh-Hant:入口
 
 leisure-water_park
@@ -6688,7 +6791,7 @@ es:Parque acuático
 fi:Vesipuisto
 fr:Centre aquatique
 hu:Aquapark
-id:Äventyrspark
+id:Taman air
 it:Parco acquatico
 ja:ウォーターパーク
 ko:워터파크
@@ -6703,7 +6806,8 @@ th:สวนน้ำ
 tr:Centre aquatique
 uk:Аквапарк
 vi:Công Viên Nước
-zh-Hant:水上乐园
+zh-Hans:水上乐园
+zh-Hant:水上樂園
 
 man_made-water_tower
 en:Water Tower
@@ -6716,7 +6820,7 @@ es:Depósito de agua
 fi:Vesitorni
 fr:Château d'eau
 hu:Víztorony
-id:Vattentorn
+id:Menara air
 it:Cisterna per acqua
 ja:給水塔
 ko:급수탑
@@ -6731,6 +6835,7 @@ th:อ่างเก็บน้ำ
 tr:Château d'eau
 uk:Водонапірна вежа
 vi:Tháp Nước
+zh-Hans:水塔
 zh-Hant:水塔
 
 man_made-windmill
@@ -6744,7 +6849,7 @@ es:Molino
 fi:Tuulimylly
 fr:Moulin
 hu:Szélmalom
-id:Väderkvarn
+id:Kincir angin
 it:Mulino a vento
 ja:風車
 ko:풍차
@@ -6759,7 +6864,8 @@ th:กังหันลม
 tr:Moulin
 uk:Вітряк
 vi:Cối xay gió
-zh-Hant:风车
+zh-Hans:风车
+zh-Hant:風車
 
 military-bunker
 en:Bunker
@@ -6787,6 +6893,7 @@ th:บังเกอร์
 tr:Bunker
 uk:Бункер
 vi:Boongke
+zh-Hans:地堡
 zh-Hant:地堡
 
 natural-cave_entrance
@@ -6800,7 +6907,7 @@ es:Entrada a cueva
 fi:Luolan sisäänkäynti
 fr:Entrée de la cave
 hu:Barlangbejárat
-id:Grottöppning
+id:Mulut gua
 it:Ingresso grotta
 ja:洞穴入口
 ko:동굴입구
@@ -6815,7 +6922,8 @@ th:ทางเข้าถ้ำ
 tr:Entrée de la cave
 uk:Печера
 vi:Cửa Hang
-zh-Hant:山洞入口
+zh-Hans:山洞入口
+zh-Hant:洞穴入口
 
 natural-tree
 en:Tree
@@ -6828,7 +6936,7 @@ es:Árbol
 fi:Puu
 fr:Arbre
 hu:Fa
-id:Träd
+id:Pohon
 it:Albero
 ja:木
 ko:나무
@@ -6843,7 +6951,8 @@ th:ต้นไม้
 tr:Arbre
 uk:Дерево
 vi:Cây
-zh-Hant:树
+zh-Hans:树
+zh-Hant:樹
 
 natural-volcano
 en:Volcano
@@ -6856,7 +6965,7 @@ es:Volcán
 fi:Tulivuori
 fr:Volcan
 hu:Tűzhányó
-id:Vulkan
+id:Gunung berapi
 it:Vulcano
 ja:火山
 ko:화산
@@ -6871,6 +6980,7 @@ th:ภูเขาไฟ
 tr:Volcan
 uk:Вулкан
 vi:Núi lửa
+zh-Hans:火山
 zh-Hant:火山
 
 office-estate_agent
@@ -6884,7 +6994,7 @@ es:Agente inmobiliario
 fi:Kiinteistönvälittäjä
 fr:Agent immobilier
 hu:Ingatlanügynök
-id:Fastighetsmäklare
+id:Agen ril estat
 it:Agenzia immobiliare
 ja:不動産業者
 ko:부동산중개소
@@ -6899,7 +7009,8 @@ th:นายหน้าอสังหาริมทรัพย์
 tr:Agent immobilier
 uk:Агенція нерухомості/ріелтор
 vi:Đại Lý Bất Động Sản
-zh-Hant:房屋中介
+zh-Hans:房屋中介
+zh-Hant:地產代理
 
 power-pole|power-tower
 en:Power Tower
@@ -6912,7 +7023,7 @@ es:Poste eléctrico
 fi:Sähköpylväs
 fr:Poteau électrique
 hu:Villanyoszlop
-id:Elstolpe
+id:Menara listrik
 it:Palo elettrico
 ja:電柱
 ko:전봇대
@@ -6927,7 +7038,8 @@ th:เสาไฟฟ้า
 tr:Poteau électrique
 uk:Стовп ЛЕП
 vi:Trụ Điện
-zh-Hant:电线杆
+zh-Hans:电线杆
+zh-Hant:電塔
 
 waterway-lock_gate
 en:Lock Gate
@@ -6940,7 +7052,7 @@ es:Compuerta
 fi:Kanavasulku
 fr:Écluse
 hu:Zsilip
-id:Slussport
+id:Gerbang pengunci
 it:Sbarramento
 ja:水門
 ko:수문
@@ -6955,24 +7067,150 @@ th:ประตูระบายน้ำ
 tr:Écluse
 uk:Шлюз
 vi:Cổng Khóa
-zh-Hant:锁门
+zh-Hans:锁门
+zh-Hant:閘門
 
 amenity-public_bookcase
-en:Book Exchange|Bookcase
+en:Book Exchange|Bookcase|Book swapping
 ru:Книжный шкаф|Обмен книг
+fr:Bibliothèque
+id:Rak Buku|Bursa Buku
+ko:책장, 도서 교환
+sv:Bokskåp|bokutbyte
+tr:Kütüphane|Kitap Değişimi
+uk:Книги|обмін книгами
+vi:Kệ sách|Trao đổi sách
+hu:Nyilvános könyvespolc|könyvcsere
+de:Bücherregal|Büchertausch
+fi:Kirjahylly|Kirjakauppa
+cs:Knihovna|Směnárna knih
+it:Libreria|Scambio libri
+nb:Bokhylle|bokbytte
+zh-Hant:書架|書本交換
+zh-Hans:书架|书本交换
+th:ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ
+ja:書棚|図書交換
+ro:Bibliotecă|Schimb de cărți
+ar:مكتبة، تبادل كتب
+sk:Knižnica|možnosť výmeny kníh
+es:Intercambio de libros|librería
+pl:Biblioteka|wymiana książek
+nl:Boekenkast|Boekuitwisseling
+da:Bog udveksling
+pt:Biblioteca livre|troca de livros
 
 leisure-sports_centre-climbing
 en:Climbing Centre
 ru:Скалодром
+fr:Centre d'escalade
+da:Klatring center
+id:Pusat Peralatan Mendaki
+ko:등반 센터
+sv:Klättercentrum
+tr:Tırmanma Merkezi
+uk:Спортивний скеледром
+vi:Trung tâm leo núi
+hu:Hegymászó központ
+de:Kletterzentrum
+fi:Kiipeilykeskus
+cs:Horolezecké centrum
+it:Centro di arrampicata
+nb:Klatresenter
+zh-Hant:攀登中心
+zh-Hans:攀登中心
+th:ศูนย์ปีนเขา
+ja:クライミングセンター
+ro:Centru cățărare
+ar:مركز تسلق
+sk:Lezecké centrum
+es:Centro de escalada
+pl:Centrum wspinaczkowe
+nl:Klimhal
+pt:Ginásio de escalada
 
 leisure-sports_centre-shooting
 en:Shooting Range
 ru:Тир|стрельбище
+fr:Centre de tir
+da:Skydebane
+id:Lapangan tembak
+ko:발사 범위
+sv:Skjutbana
+tr:Poligon
+uk:Тир
+vi:Nơi bắn súng
+hu:Lőtér
+de:Schießanlage
+fi:Ampumarata
+cs:Střelnice
+it:Poligono di tiro
+nb:Skytebane
+zh-Hant:射擊域
+zh-Hans:射击域
+th:สนามยิงปืน
+ja:射撃場
+ro:Tir
+ar:ملعب رماية
+sk:Strelnica
+es:Campo de tiro
+pl:Strzelnica
+nl:Schietbaan
+pt:Clube de tiro
 
 leisure-sports_centre-swimming
 en:Swimming Centre
 ru:Плавательный бассейн
+fr:Piscine
+da:Svømmecenter
+id:Kolam Renang
+ko:수영 센터
+sv:Simhall
+tr:Yüzme Merkezi
+uk:Басейн
+vi:Trung tâm Bơi lội
+hu:Uszoda
+de:Schwimmhalle
+fi:Uimahalli
+cs:Plavecký bazén
+it:Centro natatorio
+nb:Svømmehall
+zh-Hant:遊泳中心
+zh-Hans:游泳中心
+th:ศูนย์ว่ายน้ำ
+ja:スイミングセンター
+ro:Piscină
+ar:مركز سباحة
+sk:Plavecký areál
+es:Centro de natación
+pl:Basen
+nl:Zwembad
+pt:Centro de natação
 
 leisure-sports_centre-yoga
 en:Yoga Studio
 ru:Йога-центр|Студия йоги
+fr:Yoga
+da: Yoga center
+id:Studio Yoga
+ko:요가 스튜디오
+sv:Yogastudio
+tr:Yoga Stüdyosu
+uk:Студія йоги
+vi:Phòng tập yoga
+hu:Jógastúdió
+de:Yoga Studio
+fi:Joogastudio
+cs:Studio jógy
+it:Centro Yoga
+nb:Yogastudio
+zh-Hant:瑜伽工作室
+zh-Hans:瑜伽工作室
+th:โยคะสตูดิโอ
+ja:ヨガスタジオ
+ro:Studio yoga
+ar:نادي يوغا
+sk:Štúdio jogy
+es:Estudio de yoga
+pl:Studio jogi
+nl:Yogastudio
+pt:Estúdio de ioga

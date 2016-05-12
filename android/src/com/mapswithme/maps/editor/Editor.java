@@ -1,8 +1,12 @@
 package com.mapswithme.maps.editor;
 
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Size;
 import android.support.annotation.WorkerThread;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
@@ -20,6 +24,16 @@ import com.mapswithme.maps.editor.data.LocalizedStreet;
  */
 public final class Editor
 {
+  // Should correspond to core osm::FeatureStatus.
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({UNTOUCHED, DELETED, MODIFIED, CREATED})
+  public @interface FeatureStatus {}
+
+  public static final int UNTOUCHED = 0;
+  public static final int DELETED = 1;
+  public static final int MODIFIED = 2;
+  public static final int CREATED = 3;
+
   private static final AppBackgroundTracker.OnTransitionListener sOsmUploader = new AppBackgroundTracker.OnTransitionListener()
   {
     @Override
@@ -97,6 +111,7 @@ public final class Editor
 
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);
+  public static native boolean nativeIsHouseValid(String houseNumber);
 
   public static native boolean nativeHasSomethingToUpload();
   @WorkerThread
@@ -134,6 +149,9 @@ public final class Editor
     nativeCreateMapObject(category.category);
   }
   public static native void nativeCreateMapObject(int categoryId);
+  public static native void nativeCreateNote(String text);
+  public static native void nativePlaceDoesNotExist(String comment);
+  public static native void nativeRollbackMapObject();
 
   /**
    * @return all cuisines keys.
@@ -154,8 +172,7 @@ public final class Editor
   public static native String nativeGetMwmName();
   public static native long nativeGetMwmVersion();
 
-  public static native void nativeCreateNote(String text);
-  public static native void nativePlaceDoesNotExist();
-
-  public static native boolean nativeIsHouseValid(String houseNumber);
+  @FeatureStatus
+  public static native int nativeGetMapObjectStatus();
+  public static native boolean nativeIsMapObjectUploaded();
 }

@@ -797,7 +797,7 @@
 	<string name="download_over_mobile_header">Lataa käyttämällä puhelinverkkoyhteyttä?</string>
 	<string name="download_over_mobile_message">Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.</string>
 	<string name="error_enter_correct_house_number">Syötä oikea talon numero</string>
-	<string name="editor_storey_number">Kerrosten määrä (maks. %2d)</string>
+	<string name="editor_storey_number">Kerrosten määrä (maks. %d)</string>
 	<string name="error_enter_correct_storey_number">Muokkaa kerroksia, enintään 25 kerrosta</string>
 	<string name="editor_zip_code">Postinumero</string>
 	<string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>

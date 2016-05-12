@@ -6,6 +6,7 @@
 
 #include "std/deque.hpp"
 #include "std/noncopyable.hpp"
+#include "std/string.hpp"
 #include "std/unordered_set.hpp"
 
 namespace df
@@ -134,11 +135,15 @@ public:
   void SetOnFinishAction(TAction const & action) { m_onFinishAction = action; }
   void SetOnInterruptAction(TAction const & action) { m_onInterruptAction = action; }
 
+  bool CouldBeBlended() const { return m_couldBeBlended; }
   bool CouldBeInterrupted() const { return m_couldBeInterrupted; }
   bool CouldBeBlendedWith(Animation const & animation) const;
-
+  
   void SetInterruptedOnCombine(bool enable) { m_interruptedOnCombine = enable; }
   bool GetInterruptedOnCombine() const { return m_interruptedOnCombine; }
+
+  void SetCouldBeInterrupted(bool enable) { m_couldBeInterrupted = enable; }
+  void SetCouldBeBlended(bool enable) { m_couldBeBlended = enable; }
 
 protected:
   TAction m_onStartAction;
@@ -162,6 +167,8 @@ public:
   virtual void Advance(double elapsedSeconds);
   virtual void Finish();
 
+  bool IsActive() const;
+
   bool IsFinished() const;
   void SetMaxDuration(double maxDuration);
   void SetMinDuration(double minDuration);
@@ -170,11 +177,13 @@ public:
 protected:
   double GetT() const;
   double GetElapsedTime() const;
+  void SetActive(bool active);
 
 private:
   double m_elapsedTime;
   double m_duration;
   double m_delay;
+  bool m_isActive;
 };
 
 class PositionInterpolator: public Interpolator
@@ -182,6 +191,7 @@ class PositionInterpolator: public Interpolator
   using TBase = Interpolator;
 
 public:
+  PositionInterpolator();
   PositionInterpolator(double duration, double delay,
                        m2::PointD const & startPosition,
                        m2::PointD const & endPosition);
@@ -207,7 +217,7 @@ public:
   void Advance(double elapsedSeconds) override;
   void Finish() override;
 
-  virtual m2::PointD GetPosition() const { return m_position; }
+  m2::PointD GetPosition() const { return m_position; }
 
 private:
   m2::PointD m_startPosition;
@@ -220,6 +230,7 @@ class ScaleInterpolator: public Interpolator
   using TBase = Interpolator;
 
 public:
+  ScaleInterpolator();
   ScaleInterpolator(double startScale, double endScale);
   ScaleInterpolator(double delay, double startScale, double endScale);
 
@@ -229,11 +240,11 @@ public:
   void Advance(double elapsedSeconds) override;
   void Finish() override;
 
-  virtual double GetScale() const { return m_scale; }
+  double GetScale() const { return m_scale; }
 
 private:
-  double const m_startScale;
-  double const m_endScale;
+  double m_startScale;
+  double m_endScale;
   double m_scale;
 };
 
@@ -242,6 +253,7 @@ class AngleInterpolator: public Interpolator
   using TBase = Interpolator;
 
 public:
+  AngleInterpolator();
   AngleInterpolator(double startAngle, double endAngle);
   AngleInterpolator(double delay, double startAngle, double endAngle);
   AngleInterpolator(double delay, double duration, double startAngle, double endAngle);
@@ -252,11 +264,11 @@ public:
   void Advance(double elapsedSeconds) override;
   void Finish() override;
 
-  virtual double GetAngle() const { return m_angle; }
+  double GetAngle() const { return m_angle; }
 
 private:
-  double const m_startAngle;
-  double const m_endAngle;
+  double m_startAngle;
+  double m_endAngle;
   double m_angle;
 };
 
@@ -385,9 +397,9 @@ public:
   void SetMaxScaleDuration(double maxDuration);
 
 private:
-  drape_ptr<AngleInterpolator> m_angleInterpolator;
-  drape_ptr<PositionInterpolator> m_positionInterpolator;
-  drape_ptr<ScaleInterpolator> m_scaleInterpolator;
+  AngleInterpolator m_angleInterpolator;
+  PositionInterpolator m_positionInterpolator;
+  ScaleInterpolator m_scaleInterpolator;
   TObjectProperties m_properties;
   TAnimObjects m_objects;
 };
@@ -470,6 +482,8 @@ public:
 
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
+  bool HasScale() const;
+
 private:
   double CalculateDuration() const;
 
@@ -493,6 +507,9 @@ public:
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
 
+  string const & GetCustomType() const;
+  void SetCustomType(string const & type);
+
   void SetMaxDuration(double maxDuration) override;
   double GetDuration() const override;
   bool IsFinished() const override;
@@ -513,6 +530,8 @@ private:
   deque<drape_ptr<Animation>> m_animations;
   TAnimObjects m_objects;
   map<TObject, TObjectProperties> m_properties;
+
+  string m_customType;
 };
 
 class ParallelAnimation : public Animation
@@ -565,21 +584,57 @@ public:
   void CombineAnimation(drape_ptr<Animation> animation);
   void PushAnimation(drape_ptr<Animation> animation);
 
-  void FinishAnimations(Animation::Type type, bool rewind);
-  void FinishObjectAnimations(Animation::TObject object, bool rewind);
+  void FinishAnimations(Animation::Type type, bool rewind, bool finishAll);
+  void FinishObjectAnimations(Animation::TObject object, bool rewind, bool finishAll);
+
+  template<typename T> T const * FindAnimation(Animation::Type type) const
+  {
+    for (auto & animations : m_animationChain)
+    {
+      for (auto const & anim : animations)
+      {
+        if (anim->GetType() == type)
+        {
+          ASSERT(dynamic_cast<T const *>(anim.get()) != nullptr, ());
+          return static_cast<T const *>(anim.get());
+        }
+      }
+    }
+    return nullptr;
+  }
+
+  template<typename T> T const * FindAnimation(Animation::Type type, string const & customType) const
+  {
+    for (auto & animations : m_animationChain)
+    {
+      for (auto const & anim : animations)
+      {
+        if (anim->GetType() == type)
+        {
+          ASSERT(dynamic_cast<T const *>(anim.get()) != nullptr, ());
+          T const * customAnim = static_cast<T const *>(anim.get());
+          if (customAnim->GetCustomType() == customType)
+            return customAnim;
+        }
+      }
+    }
+    return nullptr;
+  }
 
   void Advance(double elapsedSeconds);
 
   ScreenBase const & GetLastScreen() { return m_lastScreen; }
   void SaveAnimationResult(Animation const & animation);
 
-private:
-  bool GetProperty(Animation::TObject object, Animation::TProperty property, Animation::PropertyValue & value) const;
+private:  
+  AnimationSystem() = default;
+
+  bool GetProperty(Animation::TObject object, Animation::TProperty property,
+                   Animation::PropertyValue & value) const;
   void StartNextAnimations();
+  void FinishAnimations(function<bool(drape_ptr<Animation> const &)> const & predicate,
+                        bool rewind, bool finishAll);
 
-  AnimationSystem();
-
-private:
   using TAnimationList = list<drape_ptr<Animation>>;
   using TAnimationChain = deque<TAnimationList>;
   using TPropertyCache = map<pair<Animation::TObject, Animation::TProperty>, Animation::PropertyValue>;

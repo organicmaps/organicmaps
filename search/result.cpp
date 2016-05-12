@@ -320,13 +320,8 @@ string DebugPrint(AddressInfo const & info)
 
 string DebugPrint(Result const & r)
 {
-  string s;
-  s.append(r.GetString());
-  s.append("|");
-  s.append(r.GetFeatureType());
-  s.append("|");
-  s.append(r.IsSuggest() ? "1" : "0");
-  return s;
+  return "Result { Name: " + r.GetString() + "; Type: " + r.GetFeatureType() +
+         "; Info: " + DebugPrint(r.GetRankingInfo()) + " }";
 }
 
 }  // namespace search

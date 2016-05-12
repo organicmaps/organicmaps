@@ -60,10 +60,8 @@ void NewFeatureCategories::AddLanguage(string lang)
   m_categoriesByLang[lang] = names;
 }
 
-NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query,
-                                                          string const & queryLang) const
+NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query, string lang) const
 {
-  string lang = queryLang;
   auto langCode = CategoriesHolder::MapLocaleToInteger(lang);
   if (langCode == CategoriesHolder::kUnsupportedLocaleCode)
   {
@@ -83,7 +81,7 @@ NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query,
   my::SortUnique(result);
 
   alohalytics::TStringMap const stats = {
-      {"query", query}, {"queryLang", queryLang}, {"lang", lang}};
+      {"query", query}, {"lang", lang}};
   alohalytics::LogEvent("searchNewFeatureCategory", stats);
 
   return result;

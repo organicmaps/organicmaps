@@ -38,7 +38,6 @@ public:
     , m_elapsedTime(0.0)
   {
     SetInterruptedOnCombine(true);
-
     m_objects.insert(Animation::MapPlane);
     m_properties.insert(Animation::Position);
   }

@@ -57,6 +57,8 @@
           <include layout="@layout/place_page_editor"/>
 
           <include layout="@layout/place_page_add_business"/>
+
+          <include layout="@layout/place_page_add"/>
         </LinearLayout>
 
         <LinearLayout

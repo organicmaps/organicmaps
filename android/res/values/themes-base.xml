@@ -86,7 +86,7 @@
     <item name="windowBackgroundForced">@color/bg_window_night</item>
     <item name="cardFrame">@drawable/card_frame_night</item>
     <item name="cardBackground">@color/bg_cards_night</item>
-    <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
+    <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen.Night</item>
 
     <item name="statusBar">@color/bg_statusbar_night</item>
     <item name="colorPrimary">@color/bg_primary_night</item>

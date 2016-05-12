@@ -93,12 +93,16 @@ Interpolator::Interpolator(double duration, double delay)
   : m_elapsedTime(0.0)
   , m_duration(duration)
   , m_delay(delay)
+  , m_isActive(false)
 {
   ASSERT_GREATER_OR_EQUAL(m_duration, 0.0, ());
 }
 
 bool Interpolator::IsFinished() const
 {
+  if (!IsActive())
+    return true;
+
   return m_elapsedTime > (m_duration + m_delay);
 }
 
@@ -110,6 +114,16 @@ void Interpolator::Advance(double elapsedSeconds)
 void Interpolator::Finish()
 {
   m_elapsedTime = m_duration + m_delay + 1.0;
+}
+
+bool Interpolator::IsActive() const
+{
+  return m_isActive;
+}
+
+void Interpolator::SetActive(bool active)
+{
+  m_isActive = active;
 }
 
 void Interpolator::SetMaxDuration(double maxDuration)
@@ -140,6 +154,10 @@ double Interpolator::GetDuration() const
   return m_duration;
 }
 
+PositionInterpolator::PositionInterpolator()
+  : PositionInterpolator(0.0 /* duration */, 0.0 /* delay */, m2::PointD(), m2::PointD())
+{}
+
 PositionInterpolator::PositionInterpolator(double duration, double delay,
                                            m2::PointD const & startPosition,
                                            m2::PointD const & endPosition)
@@ -162,7 +180,9 @@ PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & star
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
   , m_position(startPosition)
-{}
+{
+  SetActive(m_startPosition != m_endPosition);
+}
 
 PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition,
                                            m2::PointD const & endPosition,
@@ -176,7 +196,9 @@ PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & star
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
   , m_position(startPosition)
-{}
+{
+  SetActive(m_startPosition != m_endPosition);
+}
 
 //static
 double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition,
@@ -221,6 +243,10 @@ void PositionInterpolator::Finish()
   m_position = m_endPosition;
 }
 
+ScaleInterpolator::ScaleInterpolator()
+  : ScaleInterpolator(1.0 /* startScale */, 1.0 /* endScale */)
+{}
+
 ScaleInterpolator::ScaleInterpolator(double startScale, double endScale)
   : ScaleInterpolator(0.0 /* delay */, startScale, endScale)
 {}
@@ -230,13 +256,15 @@ ScaleInterpolator::ScaleInterpolator(double delay, double startScale, double end
   , m_startScale(startScale)
   , m_endScale(endScale)
   , m_scale(startScale)
-{}
+{
+  SetActive(m_startScale != m_endScale);
+}
 
 // static
 double ScaleInterpolator::GetScaleDuration(double startScale, double endScale)
 {
-  // Resize 2.0 times should be done for 0.3 seconds.
-  double constexpr kPixelSpeed = 2.0 / 0.3;
+  // Resize 2.0 times should be done for 0.2 seconds.
+  double constexpr kPixelSpeed = 2.0 / 0.2;
 
   if (startScale > endScale)
     swap(startScale, endScale);
@@ -256,6 +284,10 @@ void ScaleInterpolator::Finish()
   m_scale = m_endScale;
 }
 
+AngleInterpolator::AngleInterpolator()
+  : AngleInterpolator(0.0 /* startAngle */, 0.0 /* endAngle */)
+{}
+
 AngleInterpolator::AngleInterpolator(double startAngle, double endAngle)
   : AngleInterpolator(0.0 /* delay */, startAngle, endAngle)
 {}
@@ -265,14 +297,18 @@ AngleInterpolator::AngleInterpolator(double delay, double startAngle, double end
   , m_startAngle(ang::AngleIn2PI(startAngle))
   , m_endAngle(ang::AngleIn2PI(endAngle))
   , m_angle(m_startAngle)
-{}
+{
+  SetActive(m_startAngle != m_endAngle);
+}
 
 AngleInterpolator::AngleInterpolator(double delay, double duration, double startAngle, double endAngle)
   : Interpolator(duration, delay)
   , m_startAngle(ang::AngleIn2PI(startAngle))
   , m_endAngle(ang::AngleIn2PI(endAngle))
   , m_angle(m_startAngle)
-{}
+{
+  SetActive(m_startAngle != m_endAngle);
+}
 
 // static
 double AngleInterpolator::GetRotateDuration(double startAngle, double endAngle)
@@ -299,11 +335,20 @@ MapLinearAnimation::MapLinearAnimation(m2::PointD const & startPos, m2::PointD c
                                        double startAngle, double endAngle,
                                        double startScale, double endScale, ScreenBase const & convertor)
   : Animation(true /* couldBeInterrupted */, false /* couldBeBlended */)
+  , m_angleInterpolator(startAngle, endAngle)
+  , m_positionInterpolator(startPos, endPos, convertor)
+  , m_scaleInterpolator(startScale, endScale)
 {
   m_objects.insert(Animation::MapPlane);
-  SetMove(startPos, endPos, convertor);
-  SetRotate(startAngle, endAngle);
-  SetScale(startScale, endScale);
+
+  if (m_positionInterpolator.IsActive())
+    m_properties.insert(Animation::Position);
+
+  if (m_angleInterpolator.IsActive())
+    m_properties.insert(Animation::Angle);
+
+  if (m_scaleInterpolator.IsActive())
+    m_properties.insert(Animation::Scale);
 }
 
 MapLinearAnimation::MapLinearAnimation()
@@ -315,29 +360,23 @@ MapLinearAnimation::MapLinearAnimation()
 void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos,
                                  ScreenBase const & convertor)
 {
-  if (startPos != endPos)
-  {
-    m_positionInterpolator = make_unique_dp<PositionInterpolator>(startPos, endPos, convertor);
+  m_positionInterpolator = PositionInterpolator(startPos, endPos, convertor);
+  if (m_positionInterpolator.IsActive())
     m_properties.insert(Animation::Position);
-  }
 }
 
 void MapLinearAnimation::SetRotate(double startAngle, double endAngle)
 {
-  if (startAngle != endAngle)
-  {
-    m_angleInterpolator = make_unique_dp<AngleInterpolator>(startAngle, endAngle);
+  m_angleInterpolator = AngleInterpolator(startAngle, endAngle);
+  if (m_angleInterpolator.IsActive())
     m_properties.insert(Animation::Angle);
-  }
 }
 
 void MapLinearAnimation::SetScale(double startScale, double endScale)
 {
-  if (startScale != endScale)
-  {
-    m_scaleInterpolator = make_unique_dp<ScaleInterpolator>(startScale, endScale);
+  m_scaleInterpolator = ScaleInterpolator(startScale, endScale);
+  if (m_scaleInterpolator.IsActive())
     m_properties.insert(Animation::Scale);
-  }
 }
 
 Animation::TObjectProperties const & MapLinearAnimation::GetProperties(TObject object) const
@@ -353,58 +392,63 @@ bool MapLinearAnimation::HasProperty(TObject object, TProperty property) const
 
 void MapLinearAnimation::Advance(double elapsedSeconds)
 {
-  if (m_angleInterpolator != nullptr)
-    m_angleInterpolator->Advance(elapsedSeconds);
-  if (m_scaleInterpolator != nullptr)
-    m_scaleInterpolator->Advance(elapsedSeconds);
-  if (m_positionInterpolator != nullptr)
-    m_positionInterpolator->Advance(elapsedSeconds);
+  if (m_angleInterpolator.IsActive())
+    m_angleInterpolator.Advance(elapsedSeconds);
+
+  if (m_scaleInterpolator.IsActive())
+    m_scaleInterpolator.Advance(elapsedSeconds);
+
+  if (m_positionInterpolator.IsActive())
+    m_positionInterpolator.Advance(elapsedSeconds);
 }
 
 void MapLinearAnimation::Finish()
 {
-  if (m_angleInterpolator != nullptr)
-    m_angleInterpolator->Finish();
-  if (m_scaleInterpolator != nullptr)
-    m_scaleInterpolator->Finish();
-  if (m_positionInterpolator != nullptr)
-    m_positionInterpolator->Finish();
+  if (m_angleInterpolator.IsActive())
+    m_angleInterpolator.Finish();
+
+  if (m_scaleInterpolator.IsActive())
+    m_scaleInterpolator.Finish();
+
+  if (m_positionInterpolator.IsActive())
+    m_positionInterpolator.Finish();
+
   Animation::Finish();
 }
 
 void MapLinearAnimation::SetMaxDuration(double maxDuration)
 {
-  if (m_angleInterpolator != nullptr)
-    m_angleInterpolator->SetMaxDuration(maxDuration);
-  if (m_scaleInterpolator != nullptr)
-    m_scaleInterpolator->SetMaxDuration(maxDuration);
-  if (m_positionInterpolator != nullptr)
-    m_positionInterpolator->SetMaxDuration(maxDuration);
+  if (m_angleInterpolator.IsActive())
+    m_angleInterpolator.SetMaxDuration(maxDuration);
+
+  if (m_positionInterpolator.IsActive())
+    m_positionInterpolator.SetMaxDuration(maxDuration);
+
+  SetMaxScaleDuration(maxDuration);
 }
 
 void MapLinearAnimation::SetMaxScaleDuration(double maxDuration)
 {
-  if (m_scaleInterpolator != nullptr)
-    m_scaleInterpolator->SetMaxDuration(maxDuration);
+  if (m_scaleInterpolator.IsActive())
+    m_scaleInterpolator.SetMaxDuration(maxDuration);
 }
 
 double MapLinearAnimation::GetDuration() const
 {
   double duration = 0.0;
-  if (m_angleInterpolator != nullptr)
-    duration = m_angleInterpolator->GetDuration();
-  if (m_scaleInterpolator != nullptr)
-    duration = max(duration, m_scaleInterpolator->GetDuration());
-  if (m_positionInterpolator != nullptr)
-    duration = max(duration, m_positionInterpolator->GetDuration());
+  if (m_angleInterpolator.IsActive())
+    duration = m_angleInterpolator.GetDuration();
+  if (m_scaleInterpolator.IsActive())
+    duration = max(duration, m_scaleInterpolator.GetDuration());
+  if (m_positionInterpolator.IsActive())
+    duration = max(duration, m_positionInterpolator.GetDuration());
   return duration;
 }
 
 bool MapLinearAnimation::IsFinished() const
 {
-  return ((m_angleInterpolator == nullptr || m_angleInterpolator->IsFinished()) &&
-          (m_scaleInterpolator == nullptr || m_scaleInterpolator->IsFinished()) &&
-          (m_positionInterpolator == nullptr || m_positionInterpolator->IsFinished()));
+  return m_angleInterpolator.IsFinished() && m_scaleInterpolator.IsFinished() &&
+         m_positionInterpolator.IsFinished();
 }
 
 bool MapLinearAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
@@ -414,26 +458,23 @@ bool MapLinearAnimation::GetProperty(TObject object, TProperty property, Propert
   switch (property)
   {
   case Animation::Position:
-    ASSERT(m_positionInterpolator != nullptr, ());
-    if (m_positionInterpolator != nullptr)
+    if (m_positionInterpolator.IsActive())
     {
-      value = PropertyValue(m_positionInterpolator->GetPosition());
+      value = PropertyValue(m_positionInterpolator.GetPosition());
       return true;
     }
     return false;
   case Animation::Scale:
-    ASSERT(m_scaleInterpolator != nullptr, ());
-    if (m_scaleInterpolator != nullptr)
+    if (m_scaleInterpolator.IsActive())
     {
-      value = PropertyValue(m_scaleInterpolator->GetScale());
+      value = PropertyValue(m_scaleInterpolator.GetScale());
       return true;
     }
     return false;
   case Animation::Angle:
-    ASSERT(m_angleInterpolator != nullptr, ());
-    if (m_angleInterpolator != nullptr)
+    if (m_angleInterpolator.IsActive())
     {
-      value = PropertyValue(m_angleInterpolator->GetAngle());
+      value = PropertyValue(m_angleInterpolator.GetAngle());
       return true;
     }
     return false;
@@ -626,8 +667,13 @@ bool MapFollowAnimation::GetProperty(TObject object, TProperty property, Propert
   return false;
 }
 
+bool MapFollowAnimation::HasScale() const
+{
+  return m_scaleInterpolator.IsActive();
+}
+
 PerspectiveSwitchAnimation::PerspectiveSwitchAnimation(double startAngle, double endAngle, double angleFOV)
-  : Animation(false /* couldBeInterrupted */, true /* couldBeBlended */)
+  : Animation(false /* couldBeInterrupted */, false /* couldBeBlended */)
   , m_angleInterpolator(GetRotateDuration(startAngle, endAngle), startAngle, endAngle)
   , m_startAngle(startAngle)
   , m_endAngle(endAngle)
@@ -794,6 +840,16 @@ SequenceAnimation::SequenceAnimation()
 {
 }
 
+string const & SequenceAnimation::GetCustomType() const
+{
+  return m_customType;
+}
+
+void SequenceAnimation::SetCustomType(string const & type)
+{
+  m_customType = type;
+}
+
 Animation::TAnimObjects const & SequenceAnimation::GetObjects() const
 {
   return m_objects;
@@ -878,8 +934,10 @@ void SequenceAnimation::Advance(double elapsedSeconds)
 void SequenceAnimation::Finish()
 {
   for (auto & anim : m_animations)
+  {
     anim->Finish();
-  AnimationSystem::Instance().SaveAnimationResult(*m_animations.back());
+    AnimationSystem::Instance().SaveAnimationResult(*anim);
+  }
   m_animations.clear();
   ObtainObjectProperties();
   Animation::Finish();
@@ -900,10 +958,6 @@ void SequenceAnimation::ObtainObjectProperties()
     TObjectProperties const & properties = m_animations.front()->GetProperties(object);
     m_properties[object].insert(properties.begin(), properties.end());
   }
-}
-
-AnimationSystem::AnimationSystem()
-{
 }
 
 bool AnimationSystem::GetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect)
@@ -987,7 +1041,7 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
 {
   for (auto & lst : m_animationChain)
   {
-    bool couldBeBlended = true;
+    bool couldBeBlended = animation->CouldBeBlended();
     for (auto it = lst.begin(); it != lst.end();)
     {
       auto & anim = *it;
@@ -1013,14 +1067,18 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
         ++it;
       }
     }
+
     if (couldBeBlended)
     {
       animation->OnStart();
       lst.emplace_back(move(animation));
       return;
     }
+    else if (m_animationChain.size() > 1 && animation->CouldBeInterrupted())
+    {
+      return;
+    }
   }
-
   PushAnimation(move(animation));
 }
 
@@ -1035,7 +1093,8 @@ void AnimationSystem::PushAnimation(drape_ptr<Animation> animation)
   m_animationChain.emplace_back(move(list));
 }
 
-void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind)
+void AnimationSystem::FinishAnimations(function<bool(drape_ptr<Animation> const &)> const & predicate,
+                                       bool rewind, bool finishAll)
 {
   if (m_animationChain.empty())
     return;
@@ -1044,7 +1103,7 @@ void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind)
   for (auto it = frontList.begin(); it != frontList.end();)
   {
     auto & anim = *it;
-    if (anim->GetType() == type)
+    if (predicate(anim))
     {
       if (rewind)
         anim->Finish();
@@ -1056,33 +1115,35 @@ void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind)
       ++it;
     }
   }
+
+  if (finishAll)
+  {
+    for (auto & lst : m_animationChain)
+    {
+      for (auto it = lst.begin(); it != lst.end();)
+      {
+        if (predicate(*it))
+          it = lst.erase(it);
+        else
+          ++it;
+      }
+    }
+  }
+
   if (frontList.empty())
     StartNextAnimations();
 }
 
-void AnimationSystem::FinishObjectAnimations(Animation::TObject object, bool rewind)
+void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind, bool finishAll)
 {
-  if (m_animationChain.empty())
-    return;
+  FinishAnimations([&type](drape_ptr<Animation> const & anim) { return anim->GetType() == type; },
+                   rewind, finishAll);
+}
 
-  TAnimationList & frontList = m_animationChain.front();
-  for (auto it = frontList.begin(); it != frontList.end();)
-  {
-    auto & anim = *it;
-    if (anim->HasObject(object))
-    {
-      if (rewind)
-        anim->Finish();
-      SaveAnimationResult(*anim);
-      it = frontList.erase(it);
-    }
-    else
-    {
-      ++it;
-    }
-  }
-  if (frontList.empty())
-    StartNextAnimations();
+void AnimationSystem::FinishObjectAnimations(Animation::TObject object, bool rewind, bool finishAll)
+{
+  FinishAnimations([&object](drape_ptr<Animation> const & anim) { return anim->HasObject(object); },
+                   rewind, finishAll);
 }
 
 void AnimationSystem::Advance(double elapsedSeconds)

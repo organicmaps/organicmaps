@@ -4,6 +4,5 @@
   xmlns:tools="http://schemas.android.com/tools"
   style="@style/MwmWidget.Tab"
   android:textAppearance="@style/MwmTextAppearance.Body3"
-  android:textColor="@color/color_timepicker_tab"
   tools:drawableLeft="@drawable/ic_menu_open"
   tools:text="Some tab"/>

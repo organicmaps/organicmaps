@@ -15,12 +15,18 @@
 
 #include "platform/local_country_file_utils.hpp"
 
+extern char const * kAutoDownloadEnabledKey;
+
 namespace
 {
 CGSize constexpr kInitialDialogSize = {200, 200};
 
 BOOL canAutoDownload(TCountryId const & countryId)
 {
+  bool autoDownloadEnabled = true;
+  (void)settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
+  if (!autoDownloadEnabled)
+    return NO;
   LocationManager * locationManager = MapsAppDelegate.theApp.locationManager;
   if (![locationManager lastLocationIsValid])
     return NO;
@@ -167,6 +173,9 @@ using namespace storage;
   {
     [self removeFromSuperview];
   }
+
+  if (self.superview)
+    [self setNeedsLayout];
 }
 
 - (void)addToSuperview

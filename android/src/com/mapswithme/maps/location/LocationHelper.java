@@ -1,27 +1,27 @@
 package com.mapswithme.maps.location;
 
-import android.content.ContentResolver;
+import android.app.Activity;
 import android.content.Context;
+import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.List;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.Status;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.LocationState;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -53,6 +53,8 @@ public enum LocationHelper implements SensorEventListener
   public static final String LOCATION_PREDICTOR_PROVIDER = "LocationPredictorProvider";
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
   private static final long STOP_DELAY_MS = 5000;
+
+  private static final String PREF_RESOLVE_ERRORS = "ResolveLocationErrors";
 
   public interface LocationListener
   {
@@ -123,36 +125,14 @@ public enum LocationHelper implements SensorEventListener
     }
   }
 
-  @SuppressWarnings("deprecation")
   public void initLocationProvider(boolean forceNativeProvider)
   {
-    boolean isLocationTurnedOn = false;
-
     final MwmApplication application = MwmApplication.get();
-    // If location is turned off(by user in system settings), google client( = fused provider) api doesn't work at all
-    // but external gps receivers still can work. In that case we prefer native provider instead of fused - it works.
-    final ContentResolver resolver = application.getContentResolver();
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-    {
-      final String providers = Settings.Secure.getString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-      isLocationTurnedOn = !TextUtils.isEmpty(providers);
-    }
-    else
-    {
-      try
-      {
-        final int mode = Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE);
-        isLocationTurnedOn = mode != Settings.Secure.LOCATION_MODE_OFF;
-      } catch (Settings.SettingNotFoundException e)
-      {
-        e.printStackTrace();
-      }
-    }
-
-    if (isLocationTurnedOn &&
-        !forceNativeProvider &&
-        GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(application) == ConnectionResult.SUCCESS &&
-        PreferenceManager.getDefaultSharedPreferences(application).getBoolean(application.getString(R.string.pref_play_services), false))
+    final boolean containsGoogleServices = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(application) == ConnectionResult.SUCCESS;
+    final boolean googleServicesTurnedInSettings = prefs().getBoolean(application.getString(R.string.pref_play_services), false);
+    if (!forceNativeProvider &&
+        containsGoogleServices &&
+        googleServicesTurnedInSettings)
     {
       mLogger.d("Use fused provider.");
       mLocationProvider = new GoogleFusedLocationProvider();
@@ -217,6 +197,35 @@ public enum LocationHelper implements SensorEventListener
   {
     for (LocationListener listener : mListeners)
       listener.onLocationError(errCode);
+    mListeners.finishIterate();
+  }
+
+  public boolean shouldResolveErrors()
+  {
+    return prefs().getBoolean(PREF_RESOLVE_ERRORS, true);
+  }
+
+  public void setShouldResolveErrors(boolean shouldResolve)
+  {
+    prefs().edit().putBoolean(PREF_RESOLVE_ERRORS, shouldResolve).apply();
+  }
+
+  protected void resolveLocationError(Status status)
+  {
+    if (!shouldResolveErrors())
+      return;
+
+    for (LocationListener listener : mListeners)
+    {
+      if (listener instanceof Activity)
+      {
+        // Show the dialog and check the result in onActivityResult().
+        try
+        {
+          status.startResolutionForResult((Activity) listener, MwmActivity.REQUEST_CHECK_SETTINGS);
+        } catch (IntentSender.SendIntentException ignored) {}
+      }
+    }
     mListeners.finishIterate();
   }
 
@@ -333,7 +342,7 @@ public enum LocationHelper implements SensorEventListener
       return;
     }
 
-    int mode = LocationState.INSTANCE.getLocationStateMode();
+    int mode = LocationState.INSTANCE.nativeGetMode();
     switch (mode)
     {
     default:
@@ -364,8 +373,7 @@ public enum LocationHelper implements SensorEventListener
 
   public void restart()
   {
-    Log.d("LOCATION", "restart");
-
+    mLogger.d("restart");
     mLocationProvider.stopUpdates();
 
     mActive &= !mListeners.isEmpty();
@@ -378,7 +386,7 @@ public enum LocationHelper implements SensorEventListener
     mActive = true;
     calcParams();
 
-    Log.d("LOCATION", "start. Params: " + mInterval + ", high: " + mHighAccuracy);
+    mLogger.d("start. Params: " + mInterval + ", high: " + mHighAccuracy);
     mLocationProvider.startUpdates();
   }
 
@@ -414,6 +422,11 @@ public enum LocationHelper implements SensorEventListener
   public @Nullable Location getLastKnownLocation()
   {
     return getLastKnownLocation(LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG);
+  }
+
+  private SharedPreferences prefs()
+  {
+    return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get());
   }
 
   public static native void nativeOnLocationError(int errorCode);

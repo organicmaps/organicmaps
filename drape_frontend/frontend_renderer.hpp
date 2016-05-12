@@ -50,6 +50,7 @@ namespace df
 class SelectionShape;
 class Framebuffer;
 class TransparentLayer;
+class SelectObjectMessage;
 
 struct TapInfo
 {
@@ -83,7 +84,8 @@ public:
            double timeInBackground,
            bool allow3dBuildings,
            bool blockTapEvents,
-           bool firstLaunch)
+           bool firstLaunch,
+           bool isRoutingActive)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
@@ -96,6 +98,7 @@ public:
       , m_allow3dBuildings(allow3dBuildings)
       , m_blockTapEvents(blockTapEvents)
       , m_firstLaunch(firstLaunch)
+      , m_isRoutingActive(isRoutingActive)
     {}
 
     Viewport m_viewport;
@@ -109,6 +112,7 @@ public:
     bool m_allow3dBuildings;
     bool m_blockTapEvents;
     bool m_firstLaunch;
+    bool m_isRoutingActive;
   };
 
   FrontendRenderer(Params const & params);
@@ -190,6 +194,8 @@ private:
   void CorrectGlobalScalePoint(m2::PointD & pt) const override;
   void OnScaleEnded() override;
   void OnAnimationStarted(ref_ptr<Animation> anim) override;
+  void OnPerspectiveSwitchRejected() override;
+  void OnTouchMapAction() override;
 
   class Routine : public threads::IRoutine
   {
@@ -233,7 +239,8 @@ private:
 
   void PullToBoundArea(bool randomPlace, bool applyZoom);
 
-private:
+  void ProcessSelection(ref_ptr<SelectObjectMessage> msg);
+
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
   struct RenderLayer
@@ -316,6 +323,8 @@ private:
   unique_ptr<FollowRouteData> m_pendingFollowRoute;
 
   vector<m2::TriangleD> m_dragBoundArea;
+
+  drape_ptr<SelectObjectMessage> m_selectObjectMessage;
 
 #ifdef DEBUG
   bool m_isTeardowned;

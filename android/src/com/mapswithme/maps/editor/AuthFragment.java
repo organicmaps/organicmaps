@@ -8,14 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.statistics.Statistics;
 
 public class AuthFragment extends BaseMwmToolbarFragment
 {
-  private OsmAuthFragmentDelegate mOsmAuthDelegate;
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -28,8 +27,15 @@ public class AuthFragment extends BaseMwmToolbarFragment
   {
     super.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(R.string.thank_you);
-    mOsmAuthDelegate = new OsmAuthFragmentDelegate(this);
-    mOsmAuthDelegate.onViewCreated(view, savedInstanceState);
+    OsmAuthFragmentDelegate osmAuthDelegate = new OsmAuthFragmentDelegate(this)
+    {
+      @Override
+      protected void loginOsm()
+      {
+        ((BaseMwmFragmentActivity) getActivity()).replaceFragment(OsmAuthFragment.class, null, null);
+      }
+    };
+    osmAuthDelegate.onViewCreated(view, savedInstanceState);
   }
 
   @Override

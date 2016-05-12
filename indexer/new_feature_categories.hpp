@@ -38,9 +38,9 @@ public:
 
   // Returns names (in language |queryLang|) and types of categories that have a synonym containing
   // the substring |query| (in any language that was added before).
-  // If |queryLang| is not supported, "en" is used.
+  // If |lang| is not supported, "en" is used.
   // The returned list is sorted.
-  TNames Search(string const & query, string const & queryLang) const;
+  TNames Search(string const & query, string lang) const;
 
   // Returns all registered names of categories in language |lang| and
   // types corresponding to these names. The language must have been added before.

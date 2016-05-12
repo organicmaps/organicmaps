@@ -50,7 +50,6 @@ public final class ThemeUtils
     return VALUE_BUFFER.resourceId;
   }
 
-
   public static LayoutInflater themedInflater(LayoutInflater src, @StyleRes int theme)
   {
     Context wrapper = new ContextThemeWrapper(src.getContext(), theme);

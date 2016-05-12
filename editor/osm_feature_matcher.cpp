@@ -11,7 +11,7 @@ namespace osm
 {
 using editor::XMLFeature;
 
-constexpr double kPointDiffEps = MercatorBounds::GetCellID2PointAbsEpsilon();
+constexpr double kPointDiffEps = 1e-5;
 
 bool PointsEqual(m2::PointD const & a, m2::PointD const & b)
 {

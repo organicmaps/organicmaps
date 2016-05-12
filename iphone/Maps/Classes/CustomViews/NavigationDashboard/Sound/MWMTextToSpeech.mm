@@ -263,5 +263,4 @@ string translatedTwine(string const & twine)
   else
     return "";
 }
-
 } // namespace tts

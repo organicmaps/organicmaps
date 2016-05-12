@@ -55,7 +55,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2),
                                     mode, make_ref(m_requestedTiles), timeInBackground,
                                     params.m_allow3dBuildings, params.m_blockTapEvents,
-                                    params.m_isFirstLaunch);
+                                    params.m_isFirstLaunch, params.m_isRoutingActive);
 
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 

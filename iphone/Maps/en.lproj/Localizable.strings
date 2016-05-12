@@ -1429,7 +1429,7 @@
 
 "current_location_unknown_error_title" = "Current location is unknown.";
 
-"current_location_unknown_error_message" = "An error occured while searching for your location. Check that your device is working properly and try again later.";
+"current_location_unknown_error_message" = "An error occurred while searching for your location. Check that your device is working properly and try again later.";
 
 "whatsnew_update_editor_title" = "We've updated the map editor";
 

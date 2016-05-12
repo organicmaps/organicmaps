@@ -205,7 +205,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
 
   @NonNull String getCurrentRoot()
   {
-    return mAdapter.getCurrentRoot();
+    return mAdapter.getCurrentRootId();
   }
 
   @Override

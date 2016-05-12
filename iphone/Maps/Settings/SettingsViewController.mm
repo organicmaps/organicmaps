@@ -21,6 +21,7 @@
 extern char const * kStatisticsEnabledSettingsKey;
 char const * kAdForbiddenSettingsKey = "AdForbidden";
 char const * kAdServerForbiddenKey = "AdServerForbidden";
+char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
 extern NSString * const kTTSStatusWasChangedNotification = @"TTFStatusWasChangedFromSettingsNotification";
 
 typedef NS_ENUM(NSUInteger, Section)
@@ -75,7 +76,7 @@ typedef NS_ENUM(NSUInteger, Section)
   case SectionRouting:
     return 3;
   case SectionMap:
-    return 4;
+    return 5;
   }
 }
 
@@ -131,7 +132,20 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.titleLabel.text = indexPath.row == 0 ? L(@"pref_map_style_title") : L(@"pref_track_record_title");
       break;
     }
+    // Auto download
     case 2:
+    {
+      bool autoDownloadEnabled = true;
+      (void)settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
+      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+      SwitchCell * customCell = static_cast<SwitchCell *>(cell);
+      customCell.titleLabel.text = L(@"autodownload");
+      customCell.switchButton.on = autoDownloadEnabled;
+      customCell.delegate = self;
+      break;
+    }
+    // 3D buildings
+    case 3:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = static_cast<SwitchCell *>(cell);
@@ -143,7 +157,7 @@ typedef NS_ENUM(NSUInteger, Section)
       break;
     }
     // Zoom buttons
-    case 3:
+    case 4:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = static_cast<SwitchCell *>(cell);
@@ -228,7 +242,7 @@ typedef NS_ENUM(NSUInteger, Section)
   case SectionAd:
     [Statistics logEvent:kStatSettings
       withParameters:@{kStatAction : kStatMoreApps, kStatValue : (value ? kStatOn : kStatOff)}];
-    settings::Set(kAdForbiddenSettingsKey, (bool)!value);
+    settings::Set(kAdForbiddenSettingsKey, static_cast<bool>(!value));
     break;
 
   case SectionStatistics:
@@ -248,8 +262,16 @@ typedef NS_ENUM(NSUInteger, Section)
       case 0:
       case 1:
         break;
-      // 3D buildings
+      // Auto download
       case 2:
+      {
+        [Statistics logEvent:kStatEventName(kStatSettings, kStatAutoDownload)
+              withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
+        settings::Set(kAutoDownloadEnabledKey, static_cast<bool>(value));
+        break;
+      }
+      // 3D buildings
+      case 3:
       {
         [Statistics logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
                          withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
@@ -262,11 +284,11 @@ typedef NS_ENUM(NSUInteger, Section)
         break;
       }
       // Zoom buttons
-      case 3:
+      case 4:
       {
         [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
             withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
-        settings::Set("ZoomButtonsEnabled", (bool)value);
+        settings::Set("ZoomButtonsEnabled", static_cast<bool>(value));
         [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
         break;
       }
@@ -276,7 +298,7 @@ typedef NS_ENUM(NSUInteger, Section)
   case SectionCalibration:
     [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleCompassCalibration)
         withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
-    settings::Set("CompassCalibrationEnabled", (bool)value);
+    settings::Set("CompassCalibrationEnabled", static_cast<bool>(value));
     break;
 
   case SectionRouting:

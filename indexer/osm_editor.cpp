@@ -40,6 +40,7 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/pugixml/src/pugixml.hpp"
+#include "3party/opening_hours/opening_hours.hpp"
 
 using namespace pugi;
 using feature::EGeomType;
@@ -137,6 +138,7 @@ namespace osm
 // (e.g. insert/remove spaces after ';' delimeter);
 
 Editor::Editor() : m_notes(editor::Notes::MakeNotes()) {}
+
 Editor & Editor::Instance()
 {
   static Editor instance;
@@ -173,6 +175,8 @@ void Editor::LoadMapEdits()
 
   bool needRewriteEdits = false;
 
+  // TODO(mgsergio): synchronize access to m_features.
+  m_features.clear();
   for (xml_node mwm : doc.child(kXmlRootNode).children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
@@ -191,11 +195,14 @@ void Editor::LoadMapEdits()
         {
           XMLFeature const xml(nodeOrWay.node());
 
+          // TODO(mgsergio): Deleted features are not properly handled yet.
           auto const fid = needMigrateEdits
-                               ? editor::MigrateFeatureIndex(m_forEachFeatureAtPointFn, xml)
+                               ? editor::MigrateFeatureIndex(
+                                     m_forEachFeatureAtPointFn, xml, section.first,
+                                     [this, &mwmId] { return GenerateNewFeatureId(mwmId); })
                                : FeatureID(mwmId, xml.GetMWMFeatureIndex());
 
-          // Remove obsolete edit during migration.
+          // Remove obsolete changes during migration.
           if (needMigrateEdits && IsObsolete(xml, fid))
             continue;
 
@@ -474,7 +481,7 @@ bool Editor::RollBackChanges(FeatureID const & fid)
 
   RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
   Invalidate();
-  return true;
+  return Save(GetEditorFilePath());
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
@@ -563,8 +570,27 @@ EditableProperties Editor::GetEditableProperties(FeatureType const & feature) co
   // Disable editor for old data.
   if (!version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()))
     return {};
+
   // TODO(mgsergio): Check if feature is in the area where editing is disabled in the config.
-  return GetEditablePropertiesForTypes(feature::TypesHolder(feature));
+  auto editableProperties = GetEditablePropertiesForTypes(feature::TypesHolder(feature));
+
+  // Disable opening hours editing if opening hours cannot be parsed.
+  if (GetFeatureStatus(feature.GetID()) != FeatureStatus::Created)
+  {
+    auto const & originalFeature = m_getOriginalFeatureFn(feature.GetID());
+    auto const & metadata = originalFeature->GetMetadata();
+    auto const & featureOpeningHours = metadata.Get(feature::Metadata::FMD_OPEN_HOURS);
+    // Note: empty string is parsed as a valid opening hours rule.
+    if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
+    {
+      auto & meta = editableProperties.m_metadata;
+      auto const toBeRemoved = remove(begin(meta), end(meta), feature::Metadata::FMD_OPEN_HOURS);
+      if (toBeRemoved != end(meta))
+        meta.erase(toBeRemoved);
+    }
+  }
+
+  return editableProperties;
 }
 // private
 EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder const & types) const

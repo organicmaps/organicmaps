@@ -63,7 +63,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                    rightButtonAction:nil];
 }
 
-+ (instancetype)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock
++ (instancetype)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"Location Not Found Alert";
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"current_location_unknown_title"
@@ -71,7 +71,6 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                                        rightButtonTitle:@"current_location_unknown_continue_button"
                                         leftButtonTitle:@"current_location_unknown_stop_button"
                                       rightButtonAction:okBlock];
-  alert.leftButtonAction = cancelBlock;
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
 }
@@ -93,6 +92,18 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   kStatisticsEvent = @"Migration Prohibited Alert";
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"no_migration_during_navigation"
                                                 message:nil
+                                       rightButtonTitle:@"ok"
+                                        leftButtonTitle:nil
+                                      rightButtonAction:nil];
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
++ (instancetype)deleteMapProhibitedAlert
+{
+  kStatisticsEvent = @"Delete Map Prohibited Alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"downloader_delete_map"
+                                                message:@"downloader_delete_map_while_routing_dialog"
                                        rightButtonTitle:@"ok"
                                         leftButtonTitle:nil
                                       rightButtonAction:nil];

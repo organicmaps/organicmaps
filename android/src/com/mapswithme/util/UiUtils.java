@@ -15,6 +15,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -313,6 +314,13 @@ public final class UiUtils
                          + resources.getResourcePackageName(resId) + '/'
                          + resources.getResourceTypeName(resId) + '/'
                          + resources.getResourceEntryName(resId));
+  }
+
+  public static void setInputError(@NonNull TextInputLayout layout, @StringRes int error)
+  {
+    layout.setError(error == 0 ? null : layout.getContext().getString(error));
+    layout.getEditText().setTextColor(error == 0 ? ThemeUtils.getColor(layout.getContext(), android.R.attr.textColorPrimary)
+                                                 : layout.getContext().getResources().getColor(R.color.base_red));
   }
 
   // utility class

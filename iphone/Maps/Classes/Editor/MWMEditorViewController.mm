@@ -817,14 +817,9 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                                                                    kStatEditorMWMName : @(fid.GetMwmName().c_str()),
                                                                    kStatEditorMWMVersion : @(fid.GetMwmVersion()),
                                                                    kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)}];
-    if (!osm::Editor::Instance().RollBackChanges(fid))
-      NSAssert(false, @"We shouldn't call this if we can't roll back!");
-
     auto & f = GetFramework();
-    if (isCreated)
-      f.DeactivateMapSelection(true);
-    else
-      f.UpdatePlacePageInfoForCurrentSelection();
+    if (!f.RollBackChanges(fid))
+      NSAssert(false, @"We shouldn't call this if we can't roll back!");
 
     [self backTap];
   };

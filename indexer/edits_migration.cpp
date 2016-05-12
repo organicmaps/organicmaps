@@ -10,23 +10,12 @@
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
 
-namespace
-{
-m2::PointD CalculateCenter(vector<m2::PointD> const & geometry)
-{
-  ASSERT(!geometry.empty() && geometry.size() % 3 == 0,
-         ("Invalid geometry should be handled in caller. geometry.size() =", geometry.size()));
-
-  auto const boundingBox = ApplyCalculator(begin(geometry), end(geometry),
-                                           m2::CalculateBoundingBox());
-  return ApplyCalculator(begin(geometry), end(geometry), m2::CalculatePointOnSurface(boundingBox));
-}
-}  // namespace
-
 namespace editor
 {
 FeatureID MigrateNodeFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach,
-                                  XMLFeature const & xml)
+                                  XMLFeature const & xml,
+                                  osm::Editor::FeatureStatus const featureStatus,
+                                  TGenerateIDFn const & generateID)
 {
   unique_ptr<FeatureType> feature;
   auto count = 0;
@@ -40,8 +29,12 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEac
         ++count;
       },
       MercatorBounds::FromLatLon(xml.GetCenter()));
-  if (!feature)
+
+  if (!feature && featureStatus != osm::Editor::FeatureStatus::Created)
     MYTHROW(MigrationError, ("No pointed features returned."));
+  if (featureStatus == osm::Editor::FeatureStatus::Created)
+    return generateID();
+
   if (count > 1)
   {
     LOG(LWARNING,
@@ -50,17 +43,20 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEac
   return feature->GetID();
 }
 
-FeatureID MigrateWayFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach,
-                                 XMLFeature const & xml)
+FeatureID MigrateWayFeatureIndex(
+    osm::Editor::TForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
+    osm::Editor::FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
+    TGenerateIDFn const & /*Unused for the same reason*/)
 {
   unique_ptr<FeatureType> feature;
   auto bestScore = 0.6;  // initial score is used as a threshold.
   auto geometry = xml.GetGeometry();
 
-  if (geometry.empty() || geometry.size() % 3 != 0)
+  if (geometry.empty())
     MYTHROW(MigrationError, ("Feature has invalid geometry", xml));
 
-  auto const someFeaturePoint = CalculateCenter(geometry);
+  // This can be any point on a feature.
+  auto const someFeaturePoint = geometry[0];
 
   sort(begin(geometry), end(geometry));  // Sort to use in set_intersection.
   auto count = 0;
@@ -113,12 +109,16 @@ FeatureID MigrateWayFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach
 }
 
 FeatureID MigrateFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach,
-                              XMLFeature const & xml)
+                              XMLFeature const & xml,
+                              osm::Editor::FeatureStatus const featureStatus,
+                              TGenerateIDFn const & generateID)
 {
   switch (xml.GetType())
   {
-  case XMLFeature::Type::Node: return MigrateNodeFeatureIndex(forEach, xml);
-  case XMLFeature::Type::Way: return MigrateWayFeatureIndex(forEach, xml);
+  case XMLFeature::Type::Node:
+    return MigrateNodeFeatureIndex(forEach, xml, featureStatus, generateID);
+  case XMLFeature::Type::Way:
+    return MigrateWayFeatureIndex(forEach, xml, featureStatus, generateID);
   }
 }
 }  // namespace editor

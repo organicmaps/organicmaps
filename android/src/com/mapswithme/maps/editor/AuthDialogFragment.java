@@ -1,5 +1,6 @@
 package com.mapswithme.maps.editor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,8 +12,6 @@ import com.mapswithme.maps.base.BaseMwmDialogFragment;
 
 public class AuthDialogFragment extends BaseMwmDialogFragment
 {
-  private OsmAuthFragmentDelegate mOsmAuthDelegate;
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -30,7 +29,15 @@ public class AuthDialogFragment extends BaseMwmDialogFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mOsmAuthDelegate = new OsmAuthFragmentDelegate(this);
-    mOsmAuthDelegate.onViewCreated(view, savedInstanceState);
+    OsmAuthFragmentDelegate osmAuthDelegate = new OsmAuthFragmentDelegate(this)
+    {
+      @Override
+      protected void loginOsm()
+      {
+        startActivity(new Intent(getContext(), OsmAuthActivity.class));
+        dismiss();
+      }
+    };
+    osmAuthDelegate.onViewCreated(view, savedInstanceState);
   }
 }

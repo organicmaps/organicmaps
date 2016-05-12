@@ -63,7 +63,7 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
 
   private void sendNotExist()
   {
-    Editor.nativePlaceDoesNotExist();
+    Editor.nativePlaceDoesNotExist("");
     mToolbarController.onUpClick();
   }
 

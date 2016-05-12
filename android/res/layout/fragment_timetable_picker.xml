@@ -12,7 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_block_base"
     android:elevation="@dimen/appbar_elevation"
-    android:background="@android:color/white"
+    android:background="?android:windowBackground"
     app:tabGravity="fill"
     app:tabIndicatorColor="?colorAccent"
     app:tabMode="fixed"
@@ -22,5 +22,5 @@
     android:id="@+id/picker"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"/>
+    android:background="?android:windowBackground"/>
 </LinearLayout>

@@ -243,7 +243,8 @@ UNIT_TEST(CategoriesIndex_AllCategories)
   CategoriesIndex index;
 
   index.AddAllCategoriesInAllLangs();
-  TEST_LESS(index.GetNumTrieNodes(), 250000, ());
+  // Consider deprecating this method if this bound rises as high as a million.
+  TEST_LESS(index.GetNumTrieNodes(), 400000, ());
 }
 #endif
 

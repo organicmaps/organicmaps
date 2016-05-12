@@ -121,7 +121,7 @@ class BottomPanel
 
     if (show)
     {
-      String root = adapter.getCurrentRoot();
+      String root = adapter.getCurrentRootId();
       if (adapter.isMyMapsMode())
       {
         int status = MapManager.nativeGetStatus(root);

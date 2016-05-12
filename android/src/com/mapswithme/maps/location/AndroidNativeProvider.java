@@ -1,6 +1,5 @@
 package com.mapswithme.maps.location;
 
-
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
@@ -60,7 +59,8 @@ class AndroidNativeProvider extends BaseLocationProvider
     mIsActive = false;
   }
 
-  @Nullable Location findBestNotExpiredLocation(List<String> providers, long expirationMs)
+  @Nullable
+  Location findBestNotExpiredLocation(List<String> providers, long expirationMs)
   {
     Location res = null;
     for (final String pr : providers)
@@ -85,14 +85,14 @@ class AndroidNativeProvider extends BaseLocationProvider
       if (LocationManager.PASSIVE_PROVIDER.equals(prov))
         continue;
 
-      if (!mLocationManager.isProviderEnabled(prov))
+      if (mLocationManager.isProviderEnabled(prov))
       {
-        if (LocationManager.GPS_PROVIDER.equals(prov))
-          LocationHelper.INSTANCE.notifyLocationError(LocationHelper.ERROR_GPS_OFF);
+        acceptedProviders.add(prov);
         continue;
       }
 
-      acceptedProviders.add(prov);
+      if (LocationManager.GPS_PROVIDER.equals(prov)) // warn about turned off gps
+        LocationHelper.INSTANCE.notifyLocationError(LocationHelper.ERROR_GPS_OFF);
     }
 
     return acceptedProviders;

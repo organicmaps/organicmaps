@@ -14,13 +14,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
@@ -38,15 +39,8 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
     AuthToolbarController(View root, Activity activity)
     {
       super(root, activity);
-      mToolbar.setNavigationIcon(Graphics.tint(activity,
-                                               activity.getResources().getDrawable(R.drawable.ic_cancel)));
-      mToolbar.setTitleTextColor(MwmApplication.get().getResources().getColor(R.color.text_dark));
-    }
-
-    @Override
-    public void onUpClick()
-    {
-      super.onUpClick();
+      mToolbar.setNavigationIcon(Graphics.tint(activity, activity.getResources().getDrawable(R.drawable.ic_cancel)));
+      mToolbar.setTitleTextColor(ThemeUtils.getColor(activity, android.R.attr.textColorPrimary));
     }
   }
 
@@ -64,7 +58,14 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mDelegate = new OsmAuthFragmentDelegate(this);
+    mDelegate = new OsmAuthFragmentDelegate(this)
+    {
+      @Override
+      protected void loginOsm()
+      {
+        ((BaseMwmFragmentActivity) getActivity()).replaceFragment(OsmAuthFragment.class, null, null);
+      }
+    };
     mDelegate.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(R.string.login);
     mEtLogin = (EditText) view.findViewById(R.id.osm_username);

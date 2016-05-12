@@ -296,7 +296,7 @@ public class MainMenu
     return UiUtils.isVisible(mFrame);
   }
 
-  private void correctLayout()
+  private void correctLayout(@Nullable final Runnable procAfterCorrection)
   {
     if (isLayoutCorrected())
       return;
@@ -310,6 +310,9 @@ public class MainMenu
 
         UiUtils.hide(mContentFrame);
         UiUtils.show(mFrame);
+
+        if (procAfterCorrection != null)
+          procAfterCorrection.run();
       }
     });
   }
@@ -330,9 +333,9 @@ public class MainMenu
       mNewsCounter.setText(String.valueOf(count));
   }
 
-  public void onResume()
+  public void onResume(@Nullable Runnable procAfterCorrection)
   {
-    correctLayout();
+    correctLayout(procAfterCorrection);
     updateMarker();
   }
 

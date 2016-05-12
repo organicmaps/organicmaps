@@ -338,6 +338,7 @@ Framework::Framework()
   m_storage.Init(
                  bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  bind(&Framework::OnCountryFileDelete, this, _1, _2));
+  m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   LOG(LDEBUG, ("Storage initialized"));
 
   auto const routingStatisticsFn = [](map<string, string> const & statistics)
@@ -388,8 +389,14 @@ Framework::Framework()
       return streets.first[streets.second].m_name;
     return {};
   });
-  editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2));
+  // Due to floating points accuracy issues (geometry is saved in editor up to 7 digits
+  // after dicimal poin) some feature vertexes are threated as external to a given feature.
+  auto const pointToFeatureDistanceToleranceInMeters = 1e-3;
+  editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2,
+                                         pointToFeatureDistanceToleranceInMeters));
   editor.LoadMapEdits();
+
+  m_model.GetIndex().AddObserver(editor);
 }
 
 Framework::~Framework()
@@ -1490,7 +1497,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             params.m_visualScale, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
                             allow3dBuildings, params.m_isChoosePositionMode,
-                            params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch);
+                            params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch,
+                            m_routingSession.IsActive() && m_routingSession.IsFollowing());
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
@@ -1739,7 +1747,8 @@ bool Framework::ShowMapForURL(string const & url)
   return false;
 }
 
-void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const
+void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator,
+                                      double featureDistanceToleranceInMeters) const
 {
   constexpr double kSelectRectWidthInMeters = 1.1;
   constexpr double kMetersToLinearFeature = 3;
@@ -1758,10 +1767,17 @@ void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & m
         fn(ft);
       break;
     case feature::GEOM_AREA:
-      if (ft.GetLimitRect(kScale).IsPointInside(mercator) &&
-          feature::GetMinDistanceMeters(ft, mercator) == 0.0)
       {
-        fn(ft);
+        auto limitRect = ft.GetLimitRect(kScale);
+        // Be a little more tolerant. When used by editor mercator is given
+        // with some error, so we must extend limit rect a bit.
+        limitRect.Inflate(MercatorBounds::GetCellID2PointAbsEpsilon(),
+                          MercatorBounds::GetCellID2PointAbsEpsilon());
+        if (limitRect.IsPointInside(mercator) &&
+            feature::GetMinDistanceMeters(ft, mercator) <= featureDistanceToleranceInMeters)
+        {
+          fn(ft);
+        }
       }
       break;
     case feature::GEOM_UNDEFINED:
@@ -2742,6 +2758,11 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     // and emo.SetHouseNumber("") will be called in the following code. So OSM ends up
     // with incorrect data.
 
+    // There is (almost) always a street and/or house number set in emo. We must keep them from
+    // saving to editor and pushing to OSM if they ware not overidden. To be saved to editor
+    // emo is first converted to FeatureType and FeatureType is then saved to a file and editor.
+    // To keep street and house number from penetrating to FeatureType we set them to be empty.
+
     // Do not save street if it was taken from hosting building.
     if ((originalFeatureStreet.empty() || isCreatedFeature) && !isStreetOverridden)
         emo.SetStreet({});
@@ -2763,12 +2784,12 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
       // Such a notification have been already sent. I.e at least one of
       // street of house number should differ in emo and editor.
       shouldNotify = !isCreatedFeature &&
-                     (editor.GetEditedFeature(emo.GetID(), editedFeature) &&
-                      !editedFeature.GetHouseNumber().empty() &&
-                      editedFeature.GetHouseNumber() != emo.GetHouseNumber()) ||
-                     (editor.GetEditedFeatureStreet(emo.GetID(), editedFeatureStreet) &&
-                      !editedFeatureStreet.empty() &&
-                      editedFeatureStreet != emo.GetStreet().m_defaultName);
+                     ((editor.GetEditedFeature(emo.GetID(), editedFeature) &&
+                       !editedFeature.GetHouseNumber().empty() &&
+                       editedFeature.GetHouseNumber() != emo.GetHouseNumber()) ||
+                      (editor.GetEditedFeatureStreet(emo.GetID(), editedFeatureStreet) &&
+                       !editedFeatureStreet.empty() &&
+                       editedFeatureStreet != emo.GetStreet().m_defaultName));
     }
   } while (0);
 
@@ -2789,9 +2810,23 @@ void Framework::DeleteFeature(FeatureID const & fid) const
 {
   // TODO(AlexZ): Use FeatureID in the editor interface.
   osm::Editor::Instance().DeleteFeature(*GetFeatureByID(fid));
+  if (m_selectedFeature == fid)
+    m_selectedFeature = FeatureID();
 }
 
 osm::NewFeatureCategories Framework::GetEditorCategories() const
 {
   return osm::Editor::Instance().GetNewFeatureCategories();
+}
+
+bool Framework::RollBackChanges(FeatureID const & fid)
+{
+  if (m_selectedFeature == fid) // reset selected feature since it becomes invalid after rollback
+    m_selectedFeature = FeatureID();
+  auto & editor = osm::Editor::Instance();
+  if (editor.GetFeatureStatus(fid) == osm::Editor::FeatureStatus::Created)
+    DeactivateMapSelection(true);
+  else
+    UpdatePlacePageInfoForCurrentSelection();
+  return editor.RollBackChanges(fid);
 }

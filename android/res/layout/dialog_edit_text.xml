@@ -1,8 +1,8 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
-  android:minWidth="@dimen/width_dialog_base"
   android:layout_height="wrap_content"
+  android:minWidth="@dimen/width_dialog_base"
   android:orientation="vertical"
   android:padding="@dimen/margin_base_plus">
 
@@ -13,7 +13,8 @@
     android:layout_marginBottom="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.Title"/>
 
-  <com.mapswithme.maps.widget.CustomTextInputLayout
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/input"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -22,9 +23,8 @@
       style="@style/MwmWidget.PlacePage.EditText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/name"
       android:singleLine="true"/>
 
-  </com.mapswithme.maps.widget.CustomTextInputLayout>
+  </android.support.design.widget.TextInputLayout>
 
 </LinearLayout>

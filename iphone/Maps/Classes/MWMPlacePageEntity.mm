@@ -1,7 +1,8 @@
-#import "MWMFrameworkListener.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
-#import "MapViewController.h"
 
 #include "Framework.h"
 
@@ -140,7 +141,9 @@ void initFieldsMap()
 
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType
 {
-  bool const isNewMWM = version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion());
+  auto const s = MapsAppDelegate.theApp.mapViewController.controlsManager.navigationState;
+  BOOL const editOrAddAreAvailable = version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion()) &&
+                                     s == MWMNavigationDashboardStateHidden;
   switch (cellType)
   {
     case MWMPlacePageCellTypeName:
@@ -148,14 +151,14 @@ void initFieldsMap()
     case MWMPlacePageCellTypeCoordinate:
       return [self coordinate];
     case MWMPlacePageCellTypeAddPlaceButton:
-      return m_info.ShouldShowAddPlace() && isNewMWM ? @"" : nil;
+      return editOrAddAreAvailable && m_info.ShouldShowAddPlace() ? @"" : nil;
     case MWMPlacePageCellTypeBookmark:
       return m_info.IsBookmark() ? @"" : nil;
     case MWMPlacePageCellTypeEditButton:
       // TODO(Vlad): It's a really strange way to "display" cell if returned text is not nil.
-      return isNewMWM && !m_info.IsMyPosition() && m_info.IsFeature() ? @"": nil;
+      return editOrAddAreAvailable && !m_info.IsMyPosition() && m_info.IsFeature() ? @"": nil;
     case MWMPlacePageCellTypeAddBusinessButton:
-      return m_info.IsBuilding() ? @"" : nil;
+      return editOrAddAreAvailable && m_info.IsBuilding() ? @"" : nil;
     default:
     {
       auto const it = m_values.find(cellType);

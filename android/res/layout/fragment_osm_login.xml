@@ -11,7 +11,7 @@
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/bg_cards"
+    android:background="?cardBackground"
     android:gravity="end|center_vertical"
     android:theme="@style/MwmWidget.ToolbarTheme.Light"
     tools:ignore="UnusedAttribute"/>
@@ -19,7 +19,7 @@
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_cards"
+    android:background="?cardBackground"
     android:fillViewport="true"
     tools:ignore="DuplicateIds">
 
@@ -28,11 +28,12 @@
       android:layout_height="match_parent"
       android:orientation="vertical"
       android:padding="@dimen/margin_base"
+      android:clipChildren="false"
+      android:clipToPadding="false"
       tools:ignore="ScrollViewSize">
 
       <com.mapswithme.maps.widget.CustomTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_base"
         android:minHeight="@dimen/height_block_base">
 
@@ -45,8 +46,7 @@
       </com.mapswithme.maps.widget.CustomTextInputLayout>
 
       <com.mapswithme.maps.widget.CustomTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_base"
         android:minHeight="@dimen/height_block_base">
 
@@ -69,7 +69,7 @@
           style="@style/MwmWidget.Button.Accent"
           android:layout_width="match_parent"
           android:layout_height="@dimen/editor_auth_btn_height"
-          android:text="Log in"
+          android:text="@string/login"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
         <ProgressBar

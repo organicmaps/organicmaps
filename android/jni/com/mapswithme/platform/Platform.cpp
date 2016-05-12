@@ -121,11 +121,9 @@ namespace android
     m_settingsDir = jni::ToNativeString(env, storagePath);
     m_tmpDir = jni::ToNativeString(env, tmpPath);
 
+    // Custom storage isn't set. Use primary storage.
     if (!settings::Get("StoragePath", m_writableDir))
-    {
-      LOG(LINFO, ("Could not read writable dir. Use primary storage."));
       m_writableDir = m_settingsDir;
-    }
 
     string const obbPath = jni::ToNativeString(env, obbGooglePath);
     Platform::FilesList files;

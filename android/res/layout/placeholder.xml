@@ -5,6 +5,8 @@
   android:id="@+id/placeholder"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:paddingLeft="@dimen/margin_half"
+  android:paddingRight="@dimen/margin_half"
   android:visibility="gone"
   tools:visibility="visible">
   <LinearLayout

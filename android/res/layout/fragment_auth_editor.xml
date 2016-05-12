@@ -40,6 +40,8 @@
       android:layout_height="match_parent"
       android:orientation="vertical"
       android:padding="@dimen/margin_half_plus"
+      android:clipToPadding="false"
+      android:clipChildren="false"
       tools:ignore="ScrollViewSize">
 
       <LinearLayout
@@ -69,7 +71,9 @@
         android:id="@+id/block_auth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:clipToPadding="false"
+        android:clipChildren="false">
 
         <TextView
           android:id="@+id/first_osm_edit"
@@ -84,6 +88,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
+          android:clipToPadding="false"
+          android:clipChildren="false"
           tools:ignore="ButtonStyle">
 
           <Button
@@ -153,8 +159,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
           android:background="?clickableBackground"
-          android:paddingBottom="@dimen/margin_half"
-          android:paddingTop="@dimen/margin_half"
+          android:padding="@dimen/margin_half"
           android:text="@string/register_at_openstreetmap"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"

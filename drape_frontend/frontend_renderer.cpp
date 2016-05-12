@@ -140,8 +140,8 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   ASSERT(m_tapEventInfoFn, ());
   ASSERT(m_userPositionChangedFn, ());
 
-  m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode,
-                                                        params.m_timeInBackground, params.m_firstLaunch));
+  m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode, params.m_timeInBackground,
+                                                        params.m_firstLaunch, params.m_isRoutingActive));
   m_myPositionController->SetModeListener(params.m_myPositionModeCallback);
 
   StartThread();
@@ -374,6 +374,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<MapShapesMessage> msg = message;
       m_myPositionController->SetRenderShape(msg->AcceptShape());
       m_selectionShape = msg->AcceptSelection();
+      if (m_selectObjectMessage != nullptr)
+      {
+        ProcessSelection(make_ref(m_selectObjectMessage));
+        m_selectObjectMessage.reset();
+      }
     }
     break;
 
@@ -383,7 +388,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       switch (msg->GetChangeType())
       {
       case ChangeMyPositionModeMessage::SwitchNextMode:
-        m_myPositionController->NextMode();
+        m_myPositionController->NextMode(m_userEventStream.GetCurrentScreen());
         break;
       case ChangeMyPositionModeMessage::StopFollowing:
         m_myPositionController->StopLocationFollow();
@@ -430,28 +435,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SelectObject:
     {
       ref_ptr<SelectObjectMessage> msg = message;
-
       if (m_selectionShape == nullptr)
+      {
+        m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(msg->GetSelectedObject(), msg->GetPosition(),
+                                                                    msg->IsAnim());
         break;
-
-      if (msg->IsDismiss())
-      {
-        m_selectionShape->Hide();
       }
-      else
-      {
-        double offsetZ = 0.0;
-        if (m_userEventStream.GetCurrentScreen().isPerspective())
-        {
-          dp::TOverlayContainer selectResult;
-          if (m_overlayTree->IsNeedUpdate())
-            BuildOverlayTree(m_userEventStream.GetCurrentScreen());
-          m_overlayTree->Select(msg->GetPosition(), selectResult);
-          for (ref_ptr<dp::OverlayHandle> handle : selectResult)
-            offsetZ = max(offsetZ, handle->GetPivotZ());
-        }
-        m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
-      }
+      ProcessSelection(msg);
       break;
     }
 
@@ -729,7 +719,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Invalidate:
     {
-      // Do nothing here, new frame will be rendered because of this message processing.
+      m_myPositionController->ResetRoutingNotFollowTimer();
       break;
     }
 
@@ -927,8 +917,32 @@ void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
   {
     m2::PointD const dest = randomPlace ? m2::GetRandomPointInsideTriangles(m_dragBoundArea) :
                                           m2::ProjectPointToTriangles(center, m_dragBoundArea);
-    int const zoom = applyZoom ? scales::GetAddNewPlaceScale() : m_currentZoomLevel;
+    int zoom = kDoNotChangeZoom;
+    if (applyZoom && m_currentZoomLevel < scales::GetAddNewPlaceScale())
+      zoom = scales::GetAddNewPlaceScale();
     AddUserEvent(SetCenterEvent(dest, zoom, true));
+  }
+}
+
+void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
+{
+  if (msg->IsDismiss())
+  {
+    m_selectionShape->Hide();
+  }
+  else
+  {
+    double offsetZ = 0.0;
+    if (m_userEventStream.GetCurrentScreen().isPerspective())
+    {
+      dp::TOverlayContainer selectResult;
+      if (m_overlayTree->IsNeedUpdate())
+        BuildOverlayTree(m_userEventStream.GetCurrentScreen());
+      m_overlayTree->Select(msg->GetPosition(), selectResult);
+      for (ref_ptr<dp::OverlayHandle> handle : selectResult)
+        offsetZ = max(offsetZ, handle->GetPivotZ());
+    }
+    m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
   }
 }
 
@@ -1396,6 +1410,17 @@ void FrontendRenderer::OnAnimationStarted(ref_ptr<Animation> anim)
   m_myPositionController->AnimationStarted(anim);
 }
 
+void FrontendRenderer::OnPerspectiveSwitchRejected()
+{
+   if (m_perspectiveDiscarded)
+     m_perspectiveDiscarded = false;
+}
+
+void FrontendRenderer::OnTouchMapAction()
+{
+  m_myPositionController->ResetRoutingNotFollowTimer();
+}
+
 TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 {
   m2::RectD const & rect = screen.ClipRect();
@@ -1609,7 +1634,7 @@ void FrontendRenderer::ChangeModelView(double azimuth)
 
 void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
 {
-  AddUserEvent(SetRectEvent(rect, true, -1, true));
+  AddUserEvent(SetRectEvent(rect, true, kDoNotChangeZoom, true));
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,

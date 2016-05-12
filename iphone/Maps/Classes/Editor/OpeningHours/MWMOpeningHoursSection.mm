@@ -118,31 +118,42 @@ using namespace osmoh;
   return dateComponentsFromTime(isStart ? span.GetStart() : span.GetEnd());
 }
 
-- (void)setTime:(NSDateComponents *)time isStart:(BOOL)isStart isClosed:(BOOL)isClosed
+- (void)setStartTime:(NSDateComponents *)startTime endTime:(NSDateComponents *)endTime isClosed:(BOOL)isClosed
 {
-  if (!time)
+  if (!startTime && !endTime)
     return;
-
-  HourMinutes hm;
-  hm.SetHours(HourMinutes::THours(time.hour));
-  hm.SetMinutes(HourMinutes::TMinutes(time.minute));
 
   TTimeTableProxy tt = [self getTimeTableProxy];
   NSUInteger const row = self.selectedRow.unsignedIntegerValue;
   NSUInteger const index = isClosed ? [self closedTimeIndex:row] : 0;
   Timespan span = isClosed ? tt.GetExcludeTime()[index] : tt.GetOpeningTime();
 
-  if (isStart)
-    span.SetStart(hm);
-  else
-    span.SetEnd(hm);
+  if (startTime)
+  {
+    HourMinutes startHM;
+    startHM.SetHours(HourMinutes::THours(startTime.hour));
+    startHM.SetMinutes(HourMinutes::TMinutes(startTime.minute));
+    span.SetStart(startHM);
+  }
+  if (endTime)
+  {
+    HourMinutes endHM;
+    endHM.SetHours(HourMinutes::THours(endTime.hour));
+    endHM.SetMinutes(HourMinutes::TMinutes(endTime.minute));
+    span.SetEnd(endHM);
+  }
 
   NSUInteger const closedTimesCountBeforeUpdate = [self closedTimesCount];
 
   if (isClosed)
-    tt.ReplaceExcludeTime(span, index);
+  {
+    if (!tt.ReplaceExcludeTime(span, index))
+      tt.RemoveExcludeTime(index);
+  }
   else
+  {
     tt.SetOpeningTime(span);
+  }
   tt.Commit();
 
   [self refresh:closedTimesCountBeforeUpdate != [self closedTimesCount]];
@@ -378,12 +389,10 @@ using namespace osmoh;
     switch ([self cellKeyForRow:self.selectedRow.unsignedIntegerValue])
     {
       case MWMOpeningHoursEditorTimeSpanCell:
-        [self setTime:self.cachedStartTime isStart:YES isClosed:NO];
-        [self setTime:self.cachedEndTime isStart:NO isClosed:NO];
+        [self setStartTime:self.cachedStartTime endTime:self.cachedEndTime isClosed:NO];
         break;
       case MWMOpeningHoursEditorClosedSpanCell:
-        [self setTime:self.cachedStartTime isStart:YES isClosed:YES];
-        [self setTime:self.cachedEndTime isStart:NO isClosed:YES];
+        [self setStartTime:self.cachedStartTime endTime:self.cachedEndTime isClosed:YES];
         break;
       default:
         NSAssert(false, @"Invalid case");

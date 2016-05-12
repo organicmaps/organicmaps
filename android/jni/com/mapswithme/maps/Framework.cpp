@@ -99,7 +99,7 @@ void Framework::UpdateCompassSensor(int ind, float * arr)
 
 void Framework::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
-  if (m_myPositionModeSignal != nullptr)
+  if (m_myPositionModeSignal)
     m_myPositionModeSignal(mode, routingActive);
 }
 
@@ -209,6 +209,11 @@ void Framework::SetChoosePositionMode(bool isChoosePositionMode, bool isBusiness
   m_isChoosePositionMode = isChoosePositionMode;
   m_work.BlockTapEvents(isChoosePositionMode);
   m_work.EnableChoosePositionMode(isChoosePositionMode, isBusiness, hasPosition, position);
+}
+
+bool Framework::GetChoosePositionMode()
+{
+  return m_isChoosePositionMode;
 }
 
 Storage & Framework::Storage()
@@ -826,12 +831,14 @@ Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jclass, jstri
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jclass, jobject listener)
 {
+  CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRouteProgressListener(JNIEnv * env, jclass, jobject listener)
 {
+  CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->SetRouteProgressListener(bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
 }
 
@@ -980,10 +987,21 @@ Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env,
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeTurnChoosePositionMode(JNIEnv *, jclass, jboolean turnOn, jboolean isBusiness)
+Java_com_mapswithme_maps_Framework_nativeTurnOnChoosePositionMode(JNIEnv *, jclass, jboolean isBusiness, jboolean applyPosition)
 {
-  //TODO(Android team): implement positioning
-  g_framework->SetChoosePositionMode(turnOn, isBusiness, false /* hasPosition */, m2::PointD());
+  g_framework->SetChoosePositionMode(true, isBusiness, applyPosition, applyPosition ? g_framework->GetPlacePageInfo().GetMercator() : m2::PointD());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeTurnOffChoosePositionMode(JNIEnv *, jclass)
+{
+  g_framework->SetChoosePositionMode(false, false, false, m2::PointD());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsInChoosePositionMode(JNIEnv *, jclass)
+{
+  return g_framework->GetChoosePositionMode();
 }
 
 JNIEXPORT jboolean JNICALL
@@ -1003,5 +1021,11 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsActiveObjectABuilding(JNIEnv * env, jclass)
 {
   return g_framework->GetPlacePageInfo().IsBuilding();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeCanAddPlaceFromPlacePage(JNIEnv * env, jclass clazz)
+{
+  return g_framework->GetPlacePageInfo().ShouldShowAddPlace();
 }
 } // extern "C"

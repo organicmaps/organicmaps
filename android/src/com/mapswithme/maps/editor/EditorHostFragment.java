@@ -128,12 +128,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editCuisine()
   {
-    editWithFragment(Mode.CUISINE, 0, null, CuisineFragment.class, true);
+    editWithFragment(Mode.CUISINE, R.string.select_cuisine, null, CuisineFragment.class, true);
   }
 
   protected void addLocalizedLanguage()
   {
-    editWithFragment(Mode.LANGUAGE, 0, null, LanguagesFragment.class, false);
+    editWithFragment(Mode.LANGUAGE, R.string.choose_language, null, LanguagesFragment.class, false);
   }
 
   private void editWithFragment(Mode newMode, @StringRes int toolbarTitle, @Nullable Bundle args, Class<? extends Fragment> fragmentClass, boolean showSearch)
@@ -243,5 +243,10 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     Editor.nativeSetStreet(street);
     editMapObject();
+  }
+
+  public boolean addingNewObject()
+  {
+    return mIsNewObject;
   }
 }

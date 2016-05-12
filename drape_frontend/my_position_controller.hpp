@@ -43,7 +43,8 @@ public:
     RenderMyPosition = 0x2
   };
 
-  MyPositionController(location::EMyPositionMode initMode, double timeInBackground, bool isFirstLaunch);
+  MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
+                       bool isFirstLaunch, bool isRoutingActive);
   ~MyPositionController();
 
   void OnNewPixelRect();
@@ -65,6 +66,8 @@ public:
 
   void Rotated();
 
+  void ResetRoutingNotFollowTimer();
+
   void CorrectScalePoint(m2::PointD & pt) const;
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const;
   void CorrectGlobalScalePoint(m2::PointD & pt) const;
@@ -75,7 +78,7 @@ public:
   void DeactivateRouting();
 
   void StopLocationFollow();
-  void NextMode();
+  void NextMode(ScreenBase const & screen);
   void LoseLocation();
 
   void SetTimeInBackground(double time);
@@ -113,7 +116,7 @@ private:
   void ChangeModelView(m2::RectD const & rect);
   void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel);
 
-  void UpdateViewport();
+  void UpdateViewport(int zoomLevel);
   m2::PointD GetRotationPixelCenter() const;
   m2::PointD GetRoutingRotationPixelCenter() const;
 
@@ -126,6 +129,7 @@ private:
 
 private:
   location::EMyPositionMode m_mode;
+  location::EMyPositionMode m_desiredInitMode;
   bool m_isFirstLaunch;
 
   bool m_isInRouting;
@@ -147,7 +151,6 @@ private:
   my::Timer m_pendingTimer;
   my::Timer m_routingNotFollowTimer;
   my::Timer m_updateLocationTimer;
-  my::Timer m_startLocationTimer;
   double m_lastLocationTimestamp;
 
   m2::RectD m_pixelRect;
@@ -167,6 +170,8 @@ private:
 
   bool m_isPositionAssigned;
   bool m_isDirectionAssigned;
+
+  bool m_notFollowAfterPending;
 };
 
 }

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -26,7 +27,9 @@ public class MyPositionButton
       {
         Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
         AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
-        LocationState.INSTANCE.switchToNextMode();
+        LocationHelper.INSTANCE.setShouldResolveErrors(true);
+        LocationHelper.INSTANCE.restart(); // restart to check location settings again.
+        LocationState.INSTANCE.nativeSwitchToNextMode();
       }
     });
   }

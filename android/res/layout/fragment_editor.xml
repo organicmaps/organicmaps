@@ -4,13 +4,13 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:padding="@dimen/margin_half"
   tools:context=".editor.EditorActivity"
   tools:ignore="DuplicateIds">
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_half"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
@@ -21,9 +21,8 @@
         android:id="@+id/category"
         style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/editor_height_field"
         android:layout_marginBottom="0dp"
-        android:minHeight="@dimen/editor_height_field"
         android:padding="@dimen/margin_half_plus">
 
         <ImageView
@@ -291,8 +290,7 @@
 
         <com.mapswithme.maps.widget.CustomTextInputLayout
           android:id="@+id/custom_input"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          style="@style/MwmWidget.Editor.CustomTextInput"
           android:gravity="center_vertical"
           android:minHeight="74dp">
 
@@ -311,9 +309,12 @@
           android:textAppearance="@style/MwmTextAppearance.Body4"/>
 
         <TextView
+          android:id="@+id/about_osm"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_half"
+          android:background="?clickableBackground"
+          android:paddingBottom="@dimen/margin_half"
+          android:paddingTop="@dimen/margin_half"
           android:text="@string/editor_more_about_osm"
           android:textAppearance="@style/MwmTextAppearance.Body4"
           android:textColor="?colorAccent"
@@ -321,6 +322,23 @@
 
       </LinearLayout>
 
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+      android:id="@+id/cv__more"
+      style="@style/MwmWidget.Editor.CardView"
+      android:layout_marginTop="@dimen/margin_double"
+      android:layout_marginBottom="@dimen/margin_base">
+
+      <TextView
+        android:id="@+id/reset"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="?selectableItemBackground"
+        android:gravity="center"
+        android:textAppearance="@style/MwmTextAppearance.Button"
+        android:textColor="@color/base_red"
+        tools:text="Reset my changes"/>
     </android.support.v7.widget.CardView>
 
   </LinearLayout>

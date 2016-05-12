@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -14,12 +15,14 @@ import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.editor.data.HoursMinutes;
+import com.mapswithme.util.ThemeUtils;
 
 public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
 {
@@ -39,6 +42,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
   private TabLayout mTabs;
 
   private int mId;
+  private Button mOkButton;
 
   public interface OnPickListener
   {
@@ -64,25 +68,45 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
   {
     readArgs();
     final View root = createView();
-    refreshPicker();
     //noinspection ConstantConditions
     mTabs.getTabAt(mSelectedTab).select();
+    final int theme = ThemeUtils.isNightTheme() ? R.style.MwmMain_DialogFragment_TimePicker_Night
+                                                : R.style.MwmMain_DialogFragment_TimePicker;
+    final AlertDialog dialog = new AlertDialog.Builder(getActivity(), theme)
+                                   .setView(root)
+                                   .setNegativeButton(android.R.string.cancel, null)
+                                   .setPositiveButton(android.R.string.ok, null)
+                                   .setCancelable(true)
+                                   .create();
 
-    return new AlertDialog.Builder(getActivity(), R.style.MwmMain_DialogFragment_TimePicker)
-               .setView(root)
-               .setNegativeButton(android.R.string.cancel, null)
-               .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-               {
-                 @Override
-                 public void onClick(DialogInterface dialog, int which)
-                 {
-                   saveHoursMinutes(mPicker.getCurrentHour(), mPicker.getCurrentMinute());
-                   if (getParentFragment() instanceof OnPickListener)
-                     ((OnPickListener) getParentFragment()).onHoursMinutesPicked(mFrom, mTo, mId);
-                 }
-               })
-               .setCancelable(true)
-               .create();
+    dialog.setOnShowListener(new DialogInterface.OnShowListener()
+    {
+      @Override
+      public void onShow(DialogInterface dialogInterface)
+      {
+        mOkButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        mOkButton.setOnClickListener(new View.OnClickListener()
+        {
+          @Override
+          public void onClick(View v)
+          {
+            if (mSelectedTab == TAB_FROM)
+            {
+              //noinspection ConstantConditions
+              mTabs.getTabAt(TAB_TO).select();
+              return;
+            }
+
+            dismiss();
+            if (getParentFragment() instanceof OnPickListener)
+              ((OnPickListener) getParentFragment()).onHoursMinutesPicked(mFrom, mTo, mId);
+          }
+        });
+        refreshPicker();
+      }
+    });
+
+    return dialog;
   }
 
   private void readArgs()
@@ -104,24 +128,29 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     TextView tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
     // TODO @yunik add translations
     tabView.setText("From");
+    final ColorStateList textColor = getResources().getColorStateList(ThemeUtils.isNightTheme() ? R.color.tab_text_night
+                                                                                                : R.color.tab_text);
+    tabView.setTextColor(textColor);
     mTabs.addTab(mTabs.newTab().setCustomView(tabView), true);
     tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
     tabView.setText("To");
+    tabView.setTextColor(textColor);
     mTabs.addTab(mTabs.newTab().setCustomView(tabView), true);
     mTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
     {
       @Override
       public void onTabSelected(TabLayout.Tab tab)
       {
+        if (!isInit())
+          return;
+
+        saveHoursMinutes();
         mSelectedTab = tab.getPosition();
         refreshPicker();
       }
 
       @Override
-      public void onTabUnselected(TabLayout.Tab tab)
-      {
-        saveHoursMinutes(mPicker.getCurrentHour(), mPicker.getCurrentMinute());
-      }
+      public void onTabUnselected(TabLayout.Tab tab) {}
 
       @Override
       public void onTabReselected(TabLayout.Tab tab) {}
@@ -129,30 +158,42 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
 
     mPicker = (TimePicker) root.findViewById(R.id.picker);
     mPicker.setIs24HourView(DateFormat.is24HourFormat(getActivity()));
-    mPicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener()
-    {
-      @Override
-      public void onTimeChanged(TimePicker view, int hourOfDay, int minute)
-      {
-        saveHoursMinutes(hourOfDay, minute);
-      }
-    });
-
     return root;
   }
 
-  private void saveHoursMinutes(int hourOfDay, int minute)
+  private void saveHoursMinutes()
   {
+    final HoursMinutes hoursMinutes = new HoursMinutes(mPicker.getCurrentHour(), mPicker.getCurrentMinute());
     if (mSelectedTab == TAB_FROM)
-      mFrom = new HoursMinutes(hourOfDay, minute);
+      mFrom = hoursMinutes;
     else
-      mTo = new HoursMinutes(hourOfDay, minute);
+      mTo = hoursMinutes;
+  }
+
+  private boolean isInit()
+  {
+    return mOkButton != null && mPicker != null;
   }
 
   private void refreshPicker()
   {
-    final HoursMinutes hoursMinutes = mSelectedTab == TAB_FROM ? mFrom : mTo;
+    if (!isInit())
+      return;
+
+    HoursMinutes hoursMinutes;
+    int okBtnRes;
+    if (mSelectedTab == TAB_FROM)
+    {
+      hoursMinutes = mFrom;
+      okBtnRes = R.string.whats_new_next_button;
+    }
+    else
+    {
+      hoursMinutes = mTo;
+      okBtnRes = R.string.ok;
+    }
     mPicker.setCurrentMinute((int) hoursMinutes.minutes);
     mPicker.setCurrentHour((int) hoursMinutes.hours);
+    mOkButton.setText(okBtnRes);
   }
 }
