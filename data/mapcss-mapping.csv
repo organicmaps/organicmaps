@@ -1107,3 +1107,14 @@ leisure|sports_centre|shooting;[leisure=sports_centre][sport=shooting];;name;int
 leisure|sports_centre|swimming;[leisure=sports_centre][sport=swimming];;name;int_name;1107;
 leisure|sports_centre|yoga;[leisure=sports_centre][sport=yoga];;name;int_name;1108;
 amenity|public_bookcase;1109;
+tourism|apartment;1110;
+tourism|resort;1111;
+tourism|hotel|booking;[tourism=hotel][provider=booking];;name;int_name;1112;
+tourism|motel|booking;[tourism=motel][provider=booking];;name;int_name;1113;
+tourism|hostel|booking;[tourism=hostel][provider=booking];;name;int_name;1114;
+tourism|chalet|booking;[tourism=chalet][provider=booking];;name;int_name;1115;
+tourism|guest_house|booking;[tourism=guest_house][provider=booking];;name;int_name;1116;
+tourism|alpine_hut|booking;[tourism=alpine_hut][provider=booking];;name;int_name;1117;
+tourism|camp_site|booking;[tourism=camp_site][provider=booking];;name;int_name;1118;
+tourism|apartment|booking;[tourism=apartment][provider=booking];;name;int_name;1119;
+tourism|resort|booking;[tourism=resort][provider=booking];;name;int_name;1120;

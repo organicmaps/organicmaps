@@ -110,17 +110,21 @@ node|z15[amenity=charging_station], area|z15[amenity=charging_station] { icon-im
 node|z14[tourism=guest_house], area|z14[tourism=guest_house]
 { icon-image: motel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z14[tourism=alpine_hut], area|z14[tourism=alpine_hut],
-node|z14[tourism=chalet], area|z14[tourism=chalet]
+node|z14[tourism=chalet], area|z14[tourism=chalet],
+node|z14[tourism=resort], area|z14[tourism=resort]
 { icon-image: alpine_hut-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
-node|z14[tourism=motel], area|z14[tourism=motel]
+node|z14[tourism=motel], area|z14[tourism=motel],
+node|z14[tourism=apartment], area|z14[tourism=apartment]
 { icon-image: motel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 
 node|z15-16[tourism=guest_house], area|z15-16[tourism=guest_house]
 { icon-image: motel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z15-16[tourism=alpine_hut], area|z15-16[tourism=alpine_hut],
-node|z15-16[tourism=chalet], area|z15-16[tourism=chalet]
+node|z15-16[tourism=chalet], area|z15-16[tourism=chalet],
+node|z15-16[tourism=resort], area|z15-16[tourism=resort]
 { icon-image: alpine_hut-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
-node|z15-16[tourism=motel], area|z15-16[tourism=motel]
+node|z15-16[tourism=motel], area|z15-16[tourism=motel],
+node|z15-16[tourism=apartment], area|z15-16[tourism=apartment]
 { icon-image: motel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 
 /* TOURISM, HISTORIC  */
@@ -175,9 +179,11 @@ node|z17-[tourism=hostel]
 node|z17-[tourism=guest_house], area|z17-[tourism=guest_house]
 { icon-image: motel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
 node|z17-[tourism=alpine_hut], area|z17-[tourism=alpine_hut],
-node|z17-[tourism=chalet], area|z17-[tourism=chalet]
+node|z17-[tourism=chalet], area|z17-[tourism=chalet],
+node|z17-[tourism=resort], area|z17-[tourism=resort]
 { icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 10;}
-node|z17-[tourism=motel], area|z17-[tourism=motel]
+node|z17-[tourism=motel], area|z17-[tourism=motel],
+node|z17-[tourism=apartment], area|z17-[tourism=apartment]
 { icon-image: motel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 10;}
 
 node|z17-[tourism=artwork]
@@ -555,7 +561,9 @@ node|z16-[tourism=caravan_site], area|z16-[tourism=caravan_site]{ icon-image: ca
 node|z16-[tourism=guest_house], area|z16-[tourism=guest_house]{ icon-image: motel-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[tourism=alpine_hut], area|z16-[tourism=alpine_hut]{ icon-image: alpine_hut-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[tourism=chalet], area|z16-[tourism=chalet]{ icon-image: alpine_hut-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
+node|z16-[tourism=resort], area|z16-[tourism=resort]{ icon-image: alpine_hut-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[tourism=motel], area|z16-[tourism=motel]{ icon-image: motel-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
+node|z16-[tourism=apartment], area|z16-[tourism=apartment]{ icon-image: motel-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[tourism=picnic_site], area|z16-[tourism=picnic_site]{ icon-image: picnic-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 
 
@@ -629,7 +637,9 @@ node|z17-[tourism=caravan_site], area|z17-[tourism=caravan_site]{ icon-image: ca
 node|z17-[tourism=guest_house], area|z17-[tourism=guest_house]{ icon-image: motel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[tourism=alpine_hut], area|z17-[tourism=alpine_hut]{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[tourism=chalet], area|z17-[tourism=chalet]{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
+node|z17-[tourism=resort], area|z17-[tourism=resort]{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[tourism=motel], area|z17-[tourism=motel]{ icon-image: motel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
+node|z17-[tourism=apartment], area|z17-[tourism=apartment]{ icon-image: motel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[tourism=picnic_site], area|z17-[tourism=picnic_site]{ icon-image: picnic-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 
 
@@ -653,7 +663,9 @@ node|z18-[tourism=caravan_site], area|z18-[tourism=caravan_site]{ icon-image: ca
 node|z18-[tourism=guest_house], area|z18-[tourism=guest_house]{ icon-image: motel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[tourism=alpine_hut], area|z18-[tourism=alpine_hut]{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[tourism=chalet], area|z18-[tourism=chalet]{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[tourism=resort], area|z18-[tourism=resort]{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[tourism=motel], area|z18-[tourism=motel]{ icon-image: motel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[tourism=apartment], area|z18-[tourism=apartment]{ icon-image: motel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[tourism=picnic_site], area|z18-[tourism=picnic_site]{ icon-image: picnic-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 
 node|z17-[power=station], area|z17-[power=station]{ icon-image: power-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
