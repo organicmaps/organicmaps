@@ -290,6 +290,8 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
       "Golden Gate Bridge", "en");
 
   TestPOI goldenGateBridge(m2::PointD(0, 0), "Golden Gate Bridge", "en");
+  TestPOI goldenGateAtm(m2::PointD(1, 1), "", "en");
+  goldenGateAtm.SetTypes({{"amenity", "atm"}});
 
   TestPOI waterfall(m2::PointD(0.5, 0.5), "", "en");
   waterfall.SetTypes({{"waterway", "waterfall"}});
@@ -313,6 +315,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
                                    {
                                      builder.Add(cafe1);
                                      builder.Add(cafe2);
+                                     builder.Add(goldenGateAtm);
                                      builder.Add(goldenGateBridge);
                                      builder.Add(goldenGateStreet);
                                      builder.Add(lermontov);
@@ -361,6 +364,12 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
   {
     TRules rules{ExactMatch(wonderlandId, waterfall)};
     TEST(ResultsMatch("waterfall", rules), ());
+  }
+
+  SetViewport(m2::RectD(m2::PointD(0.999, 0.999), m2::PointD(1.001, 1.001)));
+  {
+    TRules rules = {ExactMatch(wonderlandId, goldenGateAtm)};
+    TEST(ResultsMatch("atm", rules), ());
   }
 }
 

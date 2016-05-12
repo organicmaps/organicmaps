@@ -113,8 +113,13 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
       continue;
 
     // Index only those types that are visible.
-    pair<int, int> const r = feature::GetDrawableScaleRange(t);
-    CHECK(r.first <= r.second && r.first != -1, (c.GetReadableObjectName(t)));
+    pair<int, int> r = feature::GetDrawableScaleRange(t);
+    CHECK_LESS_OR_EQUAL(r.first, r.second, (c.GetReadableObjectName(t)));
+
+    // Drawable scale must be normalized to indexer scales.
+    r.second = min(r.second, scales::GetUpperScale());
+    r.first = min(r.first, r.second);
+    CHECK(r.first != -1, (c.GetReadableObjectName(t)));
 
     if (r.second >= scaleRange.first && r.first <= scaleRange.second)
       result.push_back(t);
