@@ -68064,6 +68064,303 @@ cont {
   }
 }
 cont {
+  name: "tourism-alpine_hut-booking"
+  element {
+    scale: 14
+    symbol {
+      name: "alpine_hut-s"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+}
+cont {
+  name: "tourism-apartment"
+  element {
+    scale: 14
+    symbol {
+      name: "motel-s"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "motel-m"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "motel-m"
+      priority: 16849
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+}
+cont {
+  name: "tourism-apartment-booking"
+  element {
+    scale: 14
+    symbol {
+      name: "motel-s"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "motel-m"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "motel-m"
+      priority: 16849
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+}
+cont {
   name: "tourism-artwork"
   element {
     scale: 15
@@ -68361,6 +68658,103 @@ cont {
   }
 }
 cont {
+  name: "tourism-camp_site-booking"
+  element {
+    scale: 13
+    symbol {
+      name: "campsite-s"
+      apply_for_type: 1
+      priority: 16890
+      min_distance: 12
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "campsite-s"
+      apply_for_type: 1
+      priority: 16890
+      min_distance: 12
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "campsite-m"
+      priority: 16890
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 12
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "campsite-m"
+      priority: 16890
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 12
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "campsite-l"
+      priority: 16890
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15890
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "campsite-l"
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "campsite-l"
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+}
+cont {
   name: "tourism-caravan_site"
   element {
     scale: 16
@@ -68527,7 +68921,205 @@ cont {
   }
 }
 cont {
+  name: "tourism-chalet-booking"
+  element {
+    scale: 14
+    symbol {
+      name: "alpine_hut-s"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+}
+cont {
   name: "tourism-guest_house"
+  element {
+    scale: 14
+    symbol {
+      name: "motel-s"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "motel-m"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "motel-m"
+      priority: 16849
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+}
+cont {
+  name: "tourism-guest_house-booking"
   element {
     scale: 14
     symbol {
@@ -68728,7 +69320,211 @@ cont {
   }
 }
 cont {
+  name: "tourism-hostel-booking"
+  element {
+    scale: 14
+    symbol {
+      name: "hotel-s"
+      apply_for_type: 1
+      priority: 16876
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "hotel-m"
+      apply_for_type: 1
+      priority: 16876
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "hotel-m"
+      apply_for_type: 1
+      priority: 16876
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hotel-l"
+      apply_for_type: 1
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hotel-l"
+      apply_for_type: 1
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hotel-l"
+      apply_for_type: 1
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+}
+cont {
   name: "tourism-hotel"
+  element {
+    scale: 14
+    symbol {
+      name: "hotel-s"
+      apply_for_type: 1
+      priority: 16876
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "hotel-m"
+      apply_for_type: 1
+      priority: 16876
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "hotel-m"
+      apply_for_type: 1
+      priority: 16876
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hotel-l"
+      apply_for_type: 1
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hotel-l"
+      apply_for_type: 1
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hotel-l"
+      apply_for_type: 1
+      priority: 16876
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15876
+    }
+  }
+}
+cont {
+  name: "tourism-hotel-booking"
   element {
     scale: 14
     symbol {
@@ -69745,6 +70541,105 @@ cont {
   }
 }
 cont {
+  name: "tourism-motel-booking"
+  element {
+    scale: 14
+    symbol {
+      name: "motel-s"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "motel-m"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "motel-m"
+      priority: 16849
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motel-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+}
+cont {
   name: "tourism-museum"
   element {
     scale: 12
@@ -69925,6 +70820,204 @@ cont {
     scale: 19
     symbol {
       name: "picnic-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+}
+cont {
+  name: "tourism-resort"
+  element {
+    scale: 14
+    symbol {
+      name: "alpine_hut-s"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+}
+cont {
+  name: "tourism-resort-booking"
+  element {
+    scale: 14
+    symbol {
+      name: "alpine_hut-s"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "alpine_hut-m"
+      priority: 16849
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "alpine_hut-l"
+      priority: 16849
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15849
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "alpine_hut-l"
       priority: 16849
       min_distance: 20
     }

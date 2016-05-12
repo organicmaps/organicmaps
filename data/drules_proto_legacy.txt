@@ -65518,6 +65518,183 @@ cont {
   }
 }
 cont {
+  name: "tourism-alpine_hut-booking"
+  element {
+    scale: 14
+    symbol {
+      name: "alpine_hut"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "alpine_hut"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "alpine_hut"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "alpine_hut"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "alpine_hut"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "alpine_hut"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "tourism-apartment"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "tourism-apartment-booking"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
   name: "tourism-artwork"
   element {
     scale: 15
@@ -65754,7 +65931,7 @@ cont {
   }
 }
 cont {
-  name: "tourism-caravan_site"
+  name: "tourism-camp_site-booking"
   element {
     scale: 12
     area {
@@ -65775,6 +65952,10 @@ cont {
       color: 13626551
       priority: -16476
     }
+    symbol {
+      name: "campsite"
+      priority: 16000
+    }
   }
   element {
     scale: 15
@@ -65782,12 +65963,118 @@ cont {
       color: 13626551
       priority: -16477
     }
+    symbol {
+      name: "campsite"
+      priority: 16000
+    }
   }
   element {
     scale: 16
     area {
       color: 13626551
       priority: -16478
+    }
+    symbol {
+      name: "campsite"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13626551
+      priority: -15997
+    }
+    symbol {
+      name: "campsite"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13626551
+      priority: -15997
+    }
+    symbol {
+      name: "campsite"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13626551
+      priority: -15997
+    }
+    symbol {
+      name: "campsite"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "tourism-caravan_site"
+  element {
+    scale: 12
+    area {
+      color: 13626551
+      priority: -16479
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13626551
+      priority: -16480
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13626551
+      priority: -16481
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13626551
+      priority: -16482
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13626551
+      priority: -16483
     }
   }
   element {
@@ -65879,7 +66166,104 @@ cont {
   }
 }
 cont {
+  name: "tourism-chalet-booking"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
   name: "tourism-guest_house"
+  element {
+    scale: 16
+    symbol {
+      name: "hostel"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hostel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hostel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hostel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "tourism-guest_house-booking"
   element {
     scale: 16
     symbol {
@@ -65995,7 +66379,123 @@ cont {
   }
 }
 cont {
+  name: "tourism-hostel-booking"
+  element {
+    scale: 16
+    symbol {
+      name: "hostel"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hostel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hostel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hostel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
   name: "tourism-hotel"
+  element {
+    scale: 16
+    symbol {
+      name: "hotel"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hotel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hotel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hotel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "tourism-hotel-booking"
   element {
     scale: 16
     symbol {
@@ -66417,6 +66917,64 @@ cont {
   }
 }
 cont {
+  name: "tourism-motel-booking"
+  element {
+    scale: 16
+    symbol {
+      name: "hotel"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hotel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hotel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hotel"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
   name: "tourism-museum"
   element {
     scale: 16
@@ -66480,35 +67038,35 @@ cont {
     scale: 12
     area {
       color: 13626551
-      priority: -16479
+      priority: -16484
     }
   }
   element {
     scale: 13
     area {
       color: 13626551
-      priority: -16480
+      priority: -16485
     }
   }
   element {
     scale: 14
     area {
       color: 13626551
-      priority: -16481
+      priority: -16486
     }
   }
   element {
     scale: 15
     area {
       color: 13626551
-      priority: -16482
+      priority: -16487
     }
   }
   element {
     scale: 16
     area {
       color: 13626551
-      priority: -16483
+      priority: -16488
     }
   }
   element {
@@ -66561,6 +67119,84 @@ cont {
       name: "picnic"
       priority: 16003
     }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "tourism-resort"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "tourism-resort-booking"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
     caption {
       primary {
         height: 11
@@ -66643,35 +67279,35 @@ cont {
     scale: 12
     area {
       color: 13626551
-      priority: -16484
+      priority: -16489
     }
   }
   element {
     scale: 13
     area {
       color: 13626551
-      priority: -16485
+      priority: -16490
     }
   }
   element {
     scale: 14
     area {
       color: 13626551
-      priority: -16486
+      priority: -16491
     }
   }
   element {
     scale: 15
     area {
       color: 13626551
-      priority: -16487
+      priority: -16492
     }
   }
   element {
     scale: 16
     area {
       color: 13626551
-      priority: -16488
+      priority: -16493
     }
   }
   element {

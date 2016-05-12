@@ -1107,3 +1107,14 @@ leisure|sports_centre|shooting
 leisure|sports_centre|swimming
 leisure|sports_centre|yoga
 amenity|public_bookcase
+tourism|apartment
+tourism|resort
+tourism|hotel|booking
+tourism|motel|booking
+tourism|hostel|booking
+tourism|chalet|booking
+tourism|guest_house|booking
+tourism|alpine_hut|booking
+tourism|camp_site|booking
+tourism|apartment|booking
+tourism|resort|booking
