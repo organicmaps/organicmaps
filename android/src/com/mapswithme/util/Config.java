@@ -17,6 +17,8 @@ public final class Config
   private static final String KEY_TTS_ENABLED = "TtsEnabled";
   private static final String KEY_TTS_LANGUAGE = "TtsLanguage";
 
+  private static final String KEY_DOWNLOADER_AUTO = "AutoDownloadEnabled";
+
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
 
@@ -192,6 +194,16 @@ public final class Config
   public static void setTtsLanguage(String language)
   {
     setString(KEY_TTS_LANGUAGE, language);
+  }
+
+  public static boolean isAutodownloadEnabled()
+  {
+    return getBool(KEY_DOWNLOADER_AUTO, true);
+  }
+
+  public static void setAutodownloadEnabled(boolean enabled)
+  {
+    setBool(KEY_DOWNLOADER_AUTO, enabled);
   }
 
   public static boolean showZoomButtons()

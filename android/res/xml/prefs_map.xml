@@ -29,20 +29,25 @@
     android:order="4"/>
 
   <CheckBoxPreference
+    android:key="@string/pref_autodownload"
+    android:title="@string/autodownload"
+    android:order="5"/>
+
+  <CheckBoxPreference
     android:key="@string/pref_3d_buildings"
     android:title="@string/pref_map_3d_buildings_title"
-    android:order="5"/>
+    android:order="6"/>
 
   <Preference
     android:key="@string/pref_yota"
     android:title="@string/yopme_pref_title"
     android:summary="@string/yopme_pref_summary"
-    android:order="6"/>
+    android:order="7"/>
 
   <ListPreference
     android:key="@string/pref_track_record"
     android:title="@string/pref_track_record_title"
     android:entries="@array/track_length"
     android:entryValues="@array/track_length_values"
-    android:order="7"/>
+    android:order="8"/>
 </PreferenceScreen>
