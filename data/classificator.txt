@@ -804,24 +804,44 @@ world  +
         tennis  -
         {}
     tourism  +
-        alpine_hut  -
+        alpine_hut  +
+            booking  -
+            {}
+        apartment  +
+            booking  -
+            {}
         artwork  -
         attraction  -
-        camp_site  -
+        camp_site  +
+            booking  -
+            {}
         caravan_site  -
-        chalet  -
-        guest_house  -
-        hostel  -
-        hotel  -
+        chalet  +
+            booking  -
+            {}
+        guest_house  +
+            booking  -
+            {}
+        hostel  +
+            booking  -
+            {}
+        hotel  +
+            booking  -
+            {}
         information  +
             board  -
             guidepost  -
             map  -
             office  -
             {}
-        motel  -
+        motel  +
+            booking  -
+            {}
         museum  -
         picnic_site  -
+        resort  +
+            booking  -
+            {}
         viewpoint  -
         zoo  -
         {}
