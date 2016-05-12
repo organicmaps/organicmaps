@@ -99,7 +99,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         MapManager.nativeCancel(item.id);
         MapManager.nativeDelete(item.id);
-        OnmapDownloader.lockAutodownload();
+        OnmapDownloader.setAutodownloadLocked(true);
 
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
                                        Statistics.params().add(Statistics.EventParam.ACTION, "delete")
