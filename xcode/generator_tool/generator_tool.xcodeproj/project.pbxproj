@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		670F291B1BA6CE4F00F2ABF4 /* check_mwms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1E31A4C28D5005EEA39 /* check_mwms.cpp */; };
 		670F291C1BA6CEE400F2ABF4 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67AB92C61B73D03500AB5194 /* libmap.a */; };
+		670F88791CE4CA81003F68BA /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F88781CE4CA81003F68BA /* libopening_hours.a */; };
+		670F887A1CE4CA9C003F68BA /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F88781CE4CA81003F68BA /* libopening_hours.a */; };
 		6719DD5E1B95AB0F0018166F /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6719DD5D1B95AB0F0018166F /* libtess2.a */; };
 		6719DD5F1B95AB570018166F /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6719DD5D1B95AB0F0018166F /* libtess2.a */; };
 		671F58B91B8611360032311E /* intermediate_data_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671F58B71B86109B0032311E /* intermediate_data_test.cpp */; };
@@ -147,6 +149,7 @@
 		670B84FF1A9F73C700CE4492 /* weak_ptr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = weak_ptr.hpp; sourceTree = "<group>"; };
 		670B85001A9F73C700CE4492 /* windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = windows.hpp; sourceTree = "<group>"; };
 		670D05AD1B0E08260013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		670F88781CE4CA81003F68BA /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Release/libopening_hours.a"; sourceTree = "<group>"; };
 		6719DD5D1B95AB0F0018166F /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<group>"; };
 		671F58B71B86109B0032311E /* intermediate_data_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intermediate_data_test.cpp; sourceTree = "<group>"; };
 		6726C1E31A4C28D5005EEA39 /* check_mwms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = check_mwms.cpp; sourceTree = "<group>"; };
@@ -203,6 +206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				670F88791CE4CA81003F68BA /* libopening_hours.a in Frameworks */,
 				677E2A0A1CAAC771001DC42A /* libz.tbd in Frameworks */,
 				677E2A081CAAC763001DC42A /* liboauthcpp.a in Frameworks */,
 				677E2A051CAAC742001DC42A /* libalohalitics.a in Frameworks */,
@@ -237,6 +241,7 @@
 				6753408C1C523054002CF0D9 /* libpugixml.a in Frameworks */,
 				6719DD5F1B95AB570018166F /* libtess2.a in Frameworks */,
 				674A28F41B1C8125001A525C /* libosrm.a in Frameworks */,
+				670F887A1CE4CA9C003F68BA /* libopening_hours.a in Frameworks */,
 				674A28F21B1C8119001A525C /* libsuccinct.a in Frameworks */,
 				674A28F01B1C8104001A525C /* libsearch.a in Frameworks */,
 				674A28EE1B1C80FB001A525C /* libjansson.a in Frameworks */,
@@ -380,6 +385,7 @@
 		6753453F1A3F6FA600A0A8C3 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				670F88781CE4CA81003F68BA /* libopening_hours.a */,
 				677E2A091CAAC771001DC42A /* libz.tbd */,
 				6753408F1C5230ED002CF0D9 /* libalohalitics.a */,
 				6753408D1C5230DE002CF0D9 /* liboauthcpp.a */,
