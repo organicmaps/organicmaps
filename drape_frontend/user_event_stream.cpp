@@ -754,9 +754,6 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
   // Interrupt kinetic scroll on touch down.
   m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */, true /* finishAll */);
 
-  // Interrupt kinetic scroll on touch down.
-  m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */);
-
   if (touchCount == 1)
   {
     if (!DetectDoubleTap(touches[0]))
