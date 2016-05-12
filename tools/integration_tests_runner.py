@@ -4,15 +4,13 @@ import logging
 import multiprocessing
 from optparse import OptionParser
 from os import path
+from Queue import Queue
 import shutil
 import subprocess
 import tempfile
 from threading import Lock
 from threading import Thread
 import traceback
-
-
-from Queue import Queue
 
 
 from run_desktop_tests import tests_on_disk
@@ -44,13 +42,12 @@ class IntegrationRunner:
             for test in tests:
                 self.tests.put((exec_file, test))
 
-        self.file = open(self.output, "w")
-        self.run_parallel_tests()
-        self.file.close()
+        with open(self.output, "w") as self.file:
+            self.run_parallel_tests()
 
 
     def run_parallel_tests(self):
-        threads = list()
+        threads = []
 
         for i in range(0, self.proc_count):
             thread = Thread(target=self.exec_tests_in_queue)
@@ -62,11 +59,8 @@ class IntegrationRunner:
 
 
     def exec_tests_in_queue(self):
-        while True:
+        while not self.tests.empty():
             try:
-                if self.tests.empty():
-                    return
-
                 test_file, test = self.tests.get()
                 self.exec_test(test_file, test, clean_env=(test_file in TEMPFOLDER_TESTS))
 
@@ -101,12 +95,13 @@ class IntegrationRunner:
 
 
     def get_tests_from_exec_file(self, test, keys):
-        spell = "{test} {keys}".format(test=path.join(self.workspace_path, test), keys=keys)
+        spell = ["{test} {keys}".format(test=path.join(self.workspace_path, test), keys=keys)]
         logging.debug(">> {spell}".format(spell=spell))
 
-        process = subprocess.Popen(spell.split(" "),
+        process = subprocess.Popen(spell,
                                    stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE
+                                   stderr=subprocess.PIPE,
+                                   shell=True
                                    )
 
         out, err = process.communicate()
