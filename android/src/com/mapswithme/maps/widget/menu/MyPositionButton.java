@@ -27,8 +27,11 @@ public class MyPositionButton
       {
         Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
         AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
-        LocationHelper.INSTANCE.setShouldResolveErrors(true);
-        LocationHelper.INSTANCE.restart(); // restart to check location settings again.
+        if (!LocationState.INSTANCE.isTurnedOn())
+        {
+          LocationHelper.INSTANCE.setShouldResolveErrors(true);
+          LocationHelper.INSTANCE.restart(); // restart to check location settings again.
+        }
         LocationState.INSTANCE.nativeSwitchToNextMode();
       }
     });
