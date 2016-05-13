@@ -54,6 +54,7 @@ vector<CategoriesHolder::Mapping> const CategoriesHolder::kLocaleMapping = {{"en
                                                                             {"el", 28},
                                                                             {"he", 29},
                                                                             {"sw", 30}};
+vector<string> CategoriesHolder::kDisabledLanguages = {"el", "he", "sw"};
 
 CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
 {
@@ -312,6 +313,9 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
   ASSERT(!kLocaleMapping.empty(), ());
   ASSERT_EQUAL(string(kLocaleMapping[0].m_name), "en", ());
   ASSERT_EQUAL(kLocaleMapping[0].m_code, kEnglishCode, ());
+  ASSERT(
+      find(kDisabledLanguages.begin(), kDisabledLanguages.end(), "en") == kDisabledLanguages.end(),
+      ());
 
   for (auto const & entry : kLocaleMapping)
   {

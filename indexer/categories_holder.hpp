@@ -55,6 +55,10 @@ public:
   static int8_t const kUnsupportedLocaleCode;
   static vector<Mapping> const kLocaleMapping;
 
+  // List of languages that are currently disabled in the application
+  // because their translations are not yet complete.
+  static vector<string> kDisabledLanguages;
+
   explicit CategoriesHolder(unique_ptr<Reader> && reader);
   void LoadFromStream(istream & s);
 

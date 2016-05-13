@@ -270,10 +270,14 @@ UNIT_TEST(CategoriesIndex_UniqueNames)
   editor::EditorConfig config;
   osm::NewFeatureCategories categories(config);
 
+  auto const & disabled = CategoriesHolder::kDisabledLanguages;
+
   bool noDuplicates = true;
   for (auto const & locale : CategoriesHolder::kLocaleMapping)
   {
     string const lang(locale.m_name);
+    if (find(disabled.begin(), disabled.end(), lang) != disabled.end())
+      continue;
     categories.AddLanguage(lang);
     auto const & names = categories.GetAllCategoryNames(lang);
 
