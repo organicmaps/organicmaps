@@ -7,18 +7,20 @@
   android:layout_height="match_parent"
   android:background="?windowBackgroundForced"
   android:animateLayoutChanges="true"
-  android:clickable="true">
+  android:clickable="true"
+  android:clipToPadding="false"
+  android:clipChildren="false">
   <LinearLayout
     android:id="@+id/ll__select_download"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:minWidth="@dimen/placeholder_size"
-    android:layout_gravity="center"
+    android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:layout_marginTop="@dimen/margin_double"
     android:paddingLeft="@dimen/margin_double_and_half"
-    android:paddingRight="@dimen/margin_double_and_half"
-    tools:ignore="UnusedAttribute">
+    android:paddingRight="@dimen/margin_double_and_half">
     <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -36,7 +38,8 @@
     <LinearLayout
       android:id="@+id/ll__location_determined"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="0dp"
+      android:layout_weight="1"
       android:gravity="center_horizontal"
       android:orientation="vertical">
       <TextView
@@ -64,6 +67,8 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       android:gravity="center_horizontal"
+      android:clipToPadding="false"
+      android:clipChildren="false"
       android:visibility="gone"
       tools:visibility="visible">
       <TextView
