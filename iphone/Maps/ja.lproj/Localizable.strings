@@ -1376,7 +1376,7 @@
 
 "error_enter_correct_house_number" = "正しい番地を入力してください";
 
-"editor_storey_number" = "フロアの数（最大％d）";
+"editor_storey_number" = "フロアの数（最大%d）";
 
 "error_enter_correct_storey_number" = "最高25階までのビルを編集";
 
