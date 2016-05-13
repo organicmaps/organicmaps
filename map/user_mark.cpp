@@ -56,7 +56,7 @@ SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * c
 
 string SearchMarkPoint::GetSymbolName() const
 {
-  return "search-result";
+  return m_customSymbol.empty() ? "search-result" : m_customSymbol;
 }
 
 UserMark::Type SearchMarkPoint::GetMarkType() const
