@@ -16,15 +16,11 @@ m2::PointD InterpolatePoint(m2::PointD const & startPt, m2::PointD const & endPt
   return startPt + diff * t;
 }
 
-InerpolateAngle::InerpolateAngle(double startAngle, double endAngle)
+double InterpolateAngle(double startAngle, double endAngle, double t)
 {
-  m_startAngle = ang::AngleIn2PI(startAngle);
-  m_delta = ang::GetShortestDistance(m_startAngle, ang::AngleIn2PI(endAngle));
-}
-
-double InerpolateAngle::Interpolate(double t) const
-{
-  return m_startAngle + m_delta * t;
+  startAngle = ang::AngleIn2PI(startAngle);
+  endAngle = ang::AngleIn2PI(endAngle);
+  return startAngle + ang::GetShortestDistance(startAngle, endAngle) * t;
 }
 
 } // namespace df

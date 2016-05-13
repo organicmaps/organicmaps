@@ -5,6 +5,7 @@
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/animation/base_interpolator.hpp"
 #include "drape_frontend/animation/interpolations.hpp"
+#include "drape_frontend/animation/interpolators.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -75,8 +76,9 @@ public:
     : TBase(max(moveDuration, rotationDuration))
     , m_startPt(startPt)
     , m_endPt(endPt)
+    , m_startAzimut(startAzimut)
+    , m_endAzimut(endAzimut)
     , m_moveDuration(moveDuration)
-    , m_angleInterpolator(startAzimut, endAzimut)
     , m_rotateDuration(rotationDuration)
   {
   }
@@ -91,7 +93,8 @@ public:
 
   double GetCurrentAzimut() const
   {
-    return m_angleInterpolator.Interpolate(my::clamp(GetElapsedTime() / m_rotateDuration, 0.0, 1.0));
+    return InterpolateAngle(m_startAzimut, m_endAzimut,
+                            my::clamp(GetElapsedTime() / m_rotateDuration, 0.0, 1.0));
   }
 
   bool IsRotatingActive() const { return m_rotateDuration > 0.0; }
@@ -99,9 +102,9 @@ public:
 private:
   m2::PointD m_startPt;
   m2::PointD m_endPt;
+  double m_startAzimut;
+  double m_endAzimut;
   double m_moveDuration;
-
-  InerpolateAngle m_angleInterpolator;
   double m_rotateDuration;
 };
 
