@@ -465,8 +465,11 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
 
   TestCity sanFrancisco(m2::PointD(0, 0), "San Francisco", "en", 100 /* rank */);
 
-  TestPOI atm(m2::PointD(0, 0), "", "en");
-  atm.SetTypes({{"amenity", "atm"}});
+  TestPOI noname(m2::PointD(0, 0), "", "en");
+  noname.SetTypes({{"amenity", "atm"}});
+
+  TestPOI named(m2::PointD(0.0001, 0.0001), "ATM", "en");
+  named.SetTypes({{"amenity", "atm"}});
 
   BuildWorld([&](TestMwmBuilder & builder)
              {
@@ -474,14 +477,34 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
              });
   auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
                                    {
-                                     builder.Add(atm);
+                                     builder.Add(named);
+                                     builder.Add(noname);
                                    });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
+  TRules rules = {ExactMatch(wonderlandId, noname), ExactMatch(wonderlandId, named)};
+
+  TEST(ResultsMatch("atm", rules), ());
+
   {
-    TRules rules = {ExactMatch(wonderlandId, atm)};
-    TEST(ResultsMatch("atm", rules), ());
-    TEST(ResultsMatch("#atm", rules), ());
+    SearchParams params;
+    MakeDefaultTestParams("#atm", params);
+
+    TestSearchRequest request(m_engine, params, m_viewport);
+    request.Wait();
+
+    TEST(MatchResults(m_engine, rules, request.Results()), ());
+    for (auto const & result : request.Results())
+    {
+      auto const & info = result.GetRankingInfo();
+
+      // Token with a hashtag should not participate in name-score
+      // calculations.
+      TEST_EQUAL(NAME_SCORE_ZERO, info.m_nameScore, (result));
+
+      // TODO (@y): fix this. Name coverage calculations are flawed.
+      // TEST(my::AlmostEqualAbs(0.0, info.m_nameCoverage, 1e-6), (info.m_nameCoverage));
+    }
   }
 }
 }  // namespace

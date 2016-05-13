@@ -207,11 +207,11 @@ void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & s
   }
 }
 
-inline bool IsHashed(strings::UniString const & s) { return !s.empty() && s[0] == '#'; }
+inline bool IsHashtagged(strings::UniString const & s) { return !s.empty() && s[0] == '#'; }
 
-inline strings::UniString RemoveHash(strings::UniString const & s)
+inline strings::UniString RemoveHashtag(strings::UniString const & s)
 {
-  if (IsHashed(s))
+  if (IsHashtagged(s))
     return strings::UniString(s.begin() + 1, s.end());
   return s;
 }
@@ -430,7 +430,7 @@ void Query::ForEachCategoryTypes(ToDo toDo) const
 
   for (size_t i = 0; i < tokensCount; ++i)
   {
-    auto token = RemoveHash(m_tokens[i]);
+    auto token = RemoveHashtag(m_tokens[i]);
 
     for (int j = 0; j < localesCount; ++j)
       m_categories.ForEachTypeByName(arrLocales[j], token, bind<void>(ref(toDo), i, _1));
@@ -439,7 +439,7 @@ void Query::ForEachCategoryTypes(ToDo toDo) const
 
   if (!m_prefix.empty())
   {
-    auto prefix = RemoveHash(m_prefix);
+    auto prefix = RemoveHashtag(m_prefix);
 
     for (int j = 0; j < localesCount; ++j)
       m_categories.ForEachTypeByName(arrLocales[j], prefix, bind<void>(ref(toDo), tokensCount, _1));
@@ -470,9 +470,9 @@ void Query::SetQuery(string const & query)
   ASSERT(m_prefix.empty(), ());
 
   // Following code splits input query by delimiters except hash tags
-  // first, and then splits result tokens by hash tags. The reason is
-  // to retrieve all tokens that starts with a single hash tag sign
-  // and leave them as is.
+  // first, and then splits result tokens by hashtags. The goal is to
+  // retrieve all tokens that start with a single hashtag and leave
+  // them as is.
 
   vector<strings::UniString> tokens;
   {
@@ -489,8 +489,8 @@ void Query::SetQuery(string const & query)
       for (; numHashes < token.size() && token[numHashes] == '#'; ++numHashes)
         ;
 
-      // Splits |tokens[i]| by hash signs, because all other
-      // delimiters are already removed.
+      // Splits |token| by hashtags, because all other delimiters are
+      // already removed.
       subTokens.clear();
       SplitUniString(token, MakeBackInsertFunctor(subTokens), delims);
       if (subTokens.empty())
@@ -1264,10 +1264,10 @@ void Query::InitParams(bool localitySearch, SearchQueryParams & params)
 
   for (auto & tokens : params.m_tokens)
   {
-    if (IsHashed(tokens[0]))
+    if (IsHashtagged(tokens[0]))
       tokens.erase(tokens.begin());
   }
-  if (!params.m_prefixTokens.empty() && IsHashed(params.m_prefixTokens[0]))
+  if (!params.m_prefixTokens.empty() && IsHashtagged(params.m_prefixTokens[0]))
     params.m_prefixTokens.erase(params.m_prefixTokens.begin());
 
   for (int i = 0; i < LANG_COUNT; ++i)
