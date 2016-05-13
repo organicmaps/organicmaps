@@ -290,8 +290,6 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
       "Golden Gate Bridge", "en");
 
   TestPOI goldenGateBridge(m2::PointD(0, 0), "Golden Gate Bridge", "en");
-  TestPOI goldenGateAtm(m2::PointD(1, 1), "", "en");
-  goldenGateAtm.SetTypes({{"amenity", "atm"}});
 
   TestPOI waterfall(m2::PointD(0.5, 0.5), "", "en");
   waterfall.SetTypes({{"waterway", "waterfall"}});
@@ -315,7 +313,6 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
                                    {
                                      builder.Add(cafe1);
                                      builder.Add(cafe2);
-                                     builder.Add(goldenGateAtm);
                                      builder.Add(goldenGateBridge);
                                      builder.Add(goldenGateStreet);
                                      builder.Add(lermontov);
@@ -364,12 +361,6 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
   {
     TRules rules{ExactMatch(wonderlandId, waterfall)};
     TEST(ResultsMatch("waterfall", rules), ());
-  }
-
-  SetViewport(m2::RectD(m2::PointD(0.999, 0.999), m2::PointD(1.001, 1.001)));
-  {
-    TRules rules = {ExactMatch(wonderlandId, goldenGateAtm)};
-    TEST(ResultsMatch("atm", rules), ());
   }
 }
 
@@ -465,6 +456,32 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
       TRules rules{ExactMatch(countryId, building1)};
       TEST(ResultsMatch(query, rules), (query));
     }
+  }
+}
+
+UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
+{
+  string const countryName = "Wonderland";
+
+  TestCity sanFrancisco(m2::PointD(0, 0), "San Francisco", "en", 100 /* rank */);
+
+  TestPOI atm(m2::PointD(0, 0), "", "en");
+  atm.SetTypes({{"amenity", "atm"}});
+
+  BuildWorld([&](TestMwmBuilder & builder)
+             {
+               builder.Add(sanFrancisco);
+             });
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+                                   {
+                                     builder.Add(atm);
+                                   });
+
+  SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
+  {
+    TRules rules = {ExactMatch(wonderlandId, atm)};
+    TEST(ResultsMatch("atm", rules), ());
+    TEST(ResultsMatch("#atm", rules), ());
   }
 }
 }  // namespace

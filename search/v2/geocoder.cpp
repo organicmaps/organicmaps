@@ -590,8 +590,10 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       if (viewportCBV)
       {
         for (size_t i = 0; i < m_numTokens; ++i)
+        {
           m_addressFeatures[i] =
               coding::CompressedBitVector::Intersect(*m_addressFeatures[i], *viewportCBV);
+        }
       }
 
       m_streets = LoadStreets(*m_context);
@@ -1417,7 +1419,6 @@ void Geocoder::FillMissingFieldsInResults()
       {
         auto const & id = ii->first;
         auto & info = ii->second;
-
         info.m_rank = rankTable->Get(id.m_index);
       }
     }
