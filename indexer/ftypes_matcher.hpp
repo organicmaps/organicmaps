@@ -157,6 +157,13 @@ public:
   static IsTunnelChecker const & Instance();
 };
 
+class IsBookingChecker : public BaseChecker
+{
+  IsBookingChecker();
+public:
+  static IsBookingChecker const & Instance();
+};
+
 /// Type of locality (do not change values and order - they have detalization order)
 /// COUNTRY < STATE < CITY < ...
 enum Type { NONE = -1, COUNTRY = 0, STATE, CITY, TOWN, VILLAGE, LOCALITY_COUNT };

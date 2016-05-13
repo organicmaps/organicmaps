@@ -62,8 +62,8 @@ public:
   void Select(m2::PointD const & glbPoint, TOverlayContainer & result) const;
 
   void SetFollowingMode(bool mode);
-
   void SetDisplacementEnabled(bool enabled);
+  void SetDisplacementMode(int displacementMode);
 
 #ifdef COLLECT_DISPLACEMENT_INFO
   struct DisplacementData
@@ -93,6 +93,7 @@ private:
   bool m_followingMode;
 
   bool m_isDisplacementEnabled;
+  int m_displacementMode;
 
 #ifdef COLLECT_DISPLACEMENT_INFO
   TDisplacementInfo m_displacementInfo;

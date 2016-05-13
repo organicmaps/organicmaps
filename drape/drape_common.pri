@@ -60,11 +60,11 @@ HEADERS += \
     $$DRAPE_DIR/binding_info.hpp \
     $$DRAPE_DIR/buffer_base.hpp \
     $$DRAPE_DIR/color.hpp \
+    $$DRAPE_DIR/constants.hpp \
     $$DRAPE_DIR/cpu_buffer.hpp \
     $$DRAPE_DIR/data_buffer.hpp \
     $$DRAPE_DIR/data_buffer_impl.hpp \
     $$DRAPE_DIR/debug_rect_renderer.hpp \
-    $$DRAPE_DIR/depth_constants.hpp \
     $$DRAPE_DIR/drape_global.hpp \
     $$DRAPE_DIR/dynamic_texture.hpp \
     $$DRAPE_DIR/font_texture.hpp \

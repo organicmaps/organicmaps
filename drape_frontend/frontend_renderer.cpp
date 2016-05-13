@@ -717,6 +717,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::SetDisplacementMode:
+    {
+      ref_ptr<SetDisplacementModeMessage> msg = message;
+      m_overlayTree->SetDisplacementMode(msg->GetMode());
+      break;
+    }
+
   case Message::Invalidate:
     {
       m_myPositionController->ResetRoutingNotFollowTimer();

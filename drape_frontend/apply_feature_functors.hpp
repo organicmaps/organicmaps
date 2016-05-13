@@ -36,16 +36,28 @@ public:
 
   virtual ~BaseApplyFeature() {}
 
+  struct HotelData
+  {
+    bool m_isHotel = false;
+    string m_rating;
+    int m_stars = 0;
+    int m_priceCategory = 0;
+  };
+
+  void SetHotelData(HotelData && hotelData);
+
 protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
                             CaptionDefProto const * secondaryProto,
                             double depth, TextViewParams & params) const;
+  string ExtractHotelInfo() const;
 
   TInsertShapeFn m_insertShape;
   FeatureID m_id;
   CaptionDescription const & m_captions;
   int m_minVisibleScale;
   uint8_t m_rank;
+  HotelData m_hotelData;
 };
 
 class ApplyPointFeature : public BaseApplyFeature

@@ -367,6 +367,8 @@ public:
 
   void PrepareToShutdown();
 
+  void SetDisplacementMode(int mode);
+
 private:
   void InitCountryInfoGetter();
   void InitSearchEngine();

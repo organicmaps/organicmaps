@@ -1,5 +1,7 @@
 #include "drape/overlay_handle.hpp"
 
+#include "drape/constants.hpp"
+
 #include "base/macros.hpp"
 
 #include "base/internal/message.hpp"
@@ -22,10 +24,8 @@ private:
   uint8_t m_bufferID;
 };
 
-OverlayHandle::OverlayHandle(FeatureID const & id,
-                             dp::Anchor anchor,
-                             uint64_t priority,
-                             bool isBillboard)
+OverlayHandle::OverlayHandle(FeatureID const & id, dp::Anchor anchor,
+                             uint64_t priority, bool isBillboard)
   : m_id(id)
   , m_anchor(anchor)
   , m_priority(priority)
@@ -34,6 +34,7 @@ OverlayHandle::OverlayHandle(FeatureID const & id,
   , m_pivotZ(0.0)
   , m_isBillboard(isBillboard)
   , m_isVisible(false)
+  , m_displacementMode(displacement::kAllModes)
   , m_enableCaching(false)
   , m_extendedShapeDirty(true)
   , m_extendedRectDirty(true)

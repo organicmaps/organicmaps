@@ -484,4 +484,11 @@ void DrapeEngine::SetTimeInBackground(double time)
                                   MessagePriority::High);
 }
 
+void DrapeEngine::SetDisplacementMode(int mode)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetDisplacementModeMessage>(mode),
+                                  MessagePriority::Normal);
+}
+
 } // namespace df

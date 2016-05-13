@@ -10,8 +10,8 @@
 		347F32F91C45383E009758CC /* debug_rect_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F32F71C45383E009758CC /* debug_rect_renderer.cpp */; };
 		347F32FA1C45383E009758CC /* debug_rect_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F32F81C45383E009758CC /* debug_rect_renderer.hpp */; };
 		3492DA0B1CA2D91C00C1F3B3 /* visual_scale.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */; };
+		45201E951CE605B1008A4842 /* constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45201E941CE605B1008A4842 /* constants.hpp */; };
 		670947231BDF9A4F005014C0 /* data_buffer_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */; };
-		670947241BDF9A4F005014C0 /* depth_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947161BDF9A4F005014C0 /* depth_constants.hpp */; };
 		670947251BDF9A4F005014C0 /* fribidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947171BDF9A4F005014C0 /* fribidi.cpp */; };
 		670947261BDF9A4F005014C0 /* fribidi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947181BDF9A4F005014C0 /* fribidi.hpp */; };
 		670947271BDF9A4F005014C0 /* glyph_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947191BDF9A4F005014C0 /* glyph_manager.cpp */; };
@@ -124,8 +124,8 @@
 		347F32F71C45383E009758CC /* debug_rect_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug_rect_renderer.cpp; sourceTree = "<group>"; };
 		347F32F81C45383E009758CC /* debug_rect_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = debug_rect_renderer.hpp; sourceTree = "<group>"; };
 		3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = visual_scale.hpp; sourceTree = "<group>"; };
+		45201E941CE605B1008A4842 /* constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = constants.hpp; sourceTree = "<group>"; };
 		670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data_buffer_impl.hpp; sourceTree = "<group>"; };
-		670947161BDF9A4F005014C0 /* depth_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = depth_constants.hpp; sourceTree = "<group>"; };
 		670947171BDF9A4F005014C0 /* fribidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fribidi.cpp; sourceTree = "<group>"; };
 		670947181BDF9A4F005014C0 /* fribidi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fribidi.hpp; sourceTree = "<group>"; };
 		670947191BDF9A4F005014C0 /* glyph_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glyph_manager.cpp; sourceTree = "<group>"; };
@@ -271,8 +271,8 @@
 				6743D3431C3533AE0095054B /* support_manager.hpp */,
 				6729A53E1A69213A007D5872 /* shaders */,
 				6729A55C1A69213A007D5872 /* utils */,
+				45201E941CE605B1008A4842 /* constants.hpp */,
 				670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */,
-				670947161BDF9A4F005014C0 /* depth_constants.hpp */,
 				670947171BDF9A4F005014C0 /* fribidi.cpp */,
 				670947181BDF9A4F005014C0 /* fribidi.hpp */,
 				670947191BDF9A4F005014C0 /* glyph_manager.cpp */,
@@ -446,13 +446,13 @@
 				6729A5AF1A69213A007D5872 /* uniform_values_storage.hpp in Headers */,
 				6729A5951A69213A007D5872 /* overlay_handle.hpp in Headers */,
 				6729A57E1A69213A007D5872 /* glfunctions.hpp in Headers */,
+				45201E951CE605B1008A4842 /* constants.hpp in Headers */,
 				6709472E1BDF9A4F005014C0 /* index_storage.hpp in Headers */,
 				6729A5B51A69213A007D5872 /* vertex_array_buffer.hpp in Headers */,
 				6729A5A71A69213A007D5872 /* texture_manager.hpp in Headers */,
 				6729A5901A69213A007D5872 /* object_pool.hpp in Headers */,
 				670947261BDF9A4F005014C0 /* fribidi.hpp in Headers */,
 				6729A5A11A69213A007D5872 /* shader.hpp in Headers */,
-				670947241BDF9A4F005014C0 /* depth_constants.hpp in Headers */,
 				6729A5641A69213A007D5872 /* attribute_buffer_mutator.hpp in Headers */,
 				6729A5811A69213A007D5872 /* glsl_types.hpp in Headers */,
 				6729A57A1A69213A007D5872 /* glconstants.hpp in Headers */,

@@ -4,6 +4,8 @@
 #include "map/bookmark_manager.hpp"
 #include "map/user_mark_container.hpp"
 
+#include "drape/constants.hpp"
+
 #include "platform/measurement_utils.hpp"
 
 #include "std/bind.hpp"
@@ -240,6 +242,22 @@ bool SearchPanel::TryMigrate(QString const & str)
 
 }
 
+bool SearchPanel::TryDisplacementModeCmd(QString const & str)
+{
+  bool const isDefaultDisplacementMode = (str == "?dm:default");
+  bool const isHotelDisplacementMode = (str == "?dm:hotel");
+  
+  if (!isDefaultDisplacementMode && !isHotelDisplacementMode)
+    return false;
+  
+  if (isDefaultDisplacementMode)
+    m_pDrawWidget->GetFramework().SetDisplacementMode(dp::displacement::kDefaultMode);
+  else if (isHotelDisplacementMode)
+    m_pDrawWidget->GetFramework().SetDisplacementMode(dp::displacement::kHotelMode);
+  
+  return true;
+}
+
 void SearchPanel::OnSearchTextChanged(QString const & str)
 {
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
@@ -252,6 +270,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   if (Try3dModeCmd(normalized))
     return;
   if (TryMigrate(normalized))
+    return;
+  if (TryDisplacementModeCmd(normalized))
     return;
 
   // search even with empty query

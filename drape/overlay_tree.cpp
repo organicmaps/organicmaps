@@ -1,5 +1,7 @@
 #include "drape/overlay_tree.hpp"
 
+#include "drape/constants.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 
@@ -63,6 +65,7 @@ OverlayTree::OverlayTree()
   : m_frameCounter(kInvalidFrame)
   , m_followingMode(false)
   , m_isDisplacementEnabled(true)
+  , m_displacementMode(displacement::kDefaultMode)
 {
   for (size_t i = 0; i < m_handles.size(); i++)
     m_handles[i].reserve(kAverageHandlesCount[i]);
@@ -115,9 +118,15 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   handle->SetIsVisible(false);
   handle->SetCachingEnable(true);
 
+  // Skip overlays from another displacement mode.
+  if ((handle->GetDisplacementMode() & m_displacementMode) == 0)
+    return;
+
+  // Skip duplicates.
   if (m_handlesCache.find(handle) != m_handlesCache.end())
     return;
 
+  // Skip not-ready handles.
   if (!handle->Update(modelView))
     return;
 
@@ -394,6 +403,12 @@ void OverlayTree::SetFollowingMode(bool mode)
 void OverlayTree::SetDisplacementEnabled(bool enabled)
 {
   m_isDisplacementEnabled = enabled;
+  m_frameCounter = kInvalidFrame;
+}
+
+void OverlayTree::SetDisplacementMode(int displacementMode)
+{
+  m_displacementMode = displacementMode;
   m_frameCounter = kInvalidFrame;
 }
 

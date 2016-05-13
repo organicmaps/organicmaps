@@ -24,6 +24,24 @@
 #include "base/string_utils.hpp"
 #endif
 
+namespace {
+
+df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
+{
+  df::BaseApplyFeature::HotelData result;
+  if (ftypes::IsBookingChecker::Instance()(f))
+  {
+    result.m_isHotel = true;
+    // TODO: fill from metadata
+    result.m_rating = "7.8";
+    result.m_stars = 3;
+    result.m_priceCategory = 2;
+  }
+  return result;
+}
+
+} // namespace
+
 namespace df
 {
 
@@ -206,7 +224,7 @@ void RuleDrawer::operator()(FeatureType const & f)
     ApplyAreaFeature apply(insertShape, f.GetID(), m_globalRect, areaMinHeight, areaHeight,
                            minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangle(apply, zoomLevel);
-
+    apply.SetHotelData(ExtractHotelData(f));
     if (applyPointStyle)
       apply(featureCenter, true /* hasArea */);
 
@@ -236,7 +254,9 @@ void RuleDrawer::operator()(FeatureType const & f)
     ASSERT(s.PointStyleExists(), ());
 
     minVisibleScale = feature::GetMinDrawableScale(f);
-    ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription(), 0.0f /* posZ */);
+    ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(),
+                            s.GetCaptionDescription(), 0.0f /* posZ */);
+    apply.SetHotelData(ExtractHotelData(f));
     f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
 
     if (CheckCancelled())
