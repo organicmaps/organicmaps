@@ -161,7 +161,7 @@ using namespace locale_translator;
   AVSpeechSynthesisVoice * voice = nil;
   for (NSString * loc in candidateLocales)
   {
-    if ([loc isEqualToString:@"en-US"])
+    if (!(isIOS7 || isIOS8) && [loc isEqualToString:@"en-US"])
       voice = [AVSpeechSynthesisVoice voiceWithLanguage:AVSpeechSynthesisVoiceIdentifierAlex];
     if (voice)
       break;
