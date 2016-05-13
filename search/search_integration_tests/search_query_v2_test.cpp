@@ -290,8 +290,6 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
       "Golden Gate Bridge", "en");
 
   TestPOI goldenGateBridge(m2::PointD(0, 0), "Golden Gate Bridge", "en");
-  TestPOI goldenGateAtm(m2::PointD(1, 1), "", "en");
-  goldenGateAtm.SetTypes({{"amenity", "atm"}});
 
   TestPOI waterfall(m2::PointD(0.5, 0.5), "", "en");
   waterfall.SetTypes({{"waterway", "waterfall"}});
@@ -315,7 +313,6 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
                                    {
                                      builder.Add(cafe1);
                                      builder.Add(cafe2);
-                                     builder.Add(goldenGateAtm);
                                      builder.Add(goldenGateBridge);
                                      builder.Add(goldenGateStreet);
                                      builder.Add(lermontov);
@@ -364,12 +361,6 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
   {
     TRules rules{ExactMatch(wonderlandId, waterfall)};
     TEST(ResultsMatch("waterfall", rules), ());
-  }
-
-  SetViewport(m2::RectD(m2::PointD(0.999, 0.999), m2::PointD(1.001, 1.001)));
-  {
-    TRules rules = {ExactMatch(wonderlandId, goldenGateAtm)};
-    TEST(ResultsMatch("atm", rules), ());
   }
 }
 
@@ -464,6 +455,55 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
     {
       TRules rules{ExactMatch(countryId, building1)};
       TEST(ResultsMatch(query, rules), (query));
+    }
+  }
+}
+
+UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
+{
+  string const countryName = "Wonderland";
+
+  TestCity sanFrancisco(m2::PointD(0, 0), "San Francisco", "en", 100 /* rank */);
+
+  TestPOI noname(m2::PointD(0, 0), "", "en");
+  noname.SetTypes({{"amenity", "atm"}});
+
+  TestPOI named(m2::PointD(0.0001, 0.0001), "ATM", "en");
+  named.SetTypes({{"amenity", "atm"}});
+
+  BuildWorld([&](TestMwmBuilder & builder)
+             {
+               builder.Add(sanFrancisco);
+             });
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+                                   {
+                                     builder.Add(named);
+                                     builder.Add(noname);
+                                   });
+
+  SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
+  TRules rules = {ExactMatch(wonderlandId, noname), ExactMatch(wonderlandId, named)};
+
+  TEST(ResultsMatch("atm", rules), ());
+
+  {
+    SearchParams params;
+    MakeDefaultTestParams("#atm", params);
+
+    TestSearchRequest request(m_engine, params, m_viewport);
+    request.Wait();
+
+    TEST(MatchResults(m_engine, rules, request.Results()), ());
+    for (auto const & result : request.Results())
+    {
+      auto const & info = result.GetRankingInfo();
+
+      // Token with a hashtag should not participate in name-score
+      // calculations.
+      TEST_EQUAL(NAME_SCORE_ZERO, info.m_nameScore, (result));
+
+      // TODO (@y): fix this. Name coverage calculations are flawed.
+      // TEST(my::AlmostEqualAbs(0.0, info.m_nameCoverage, 1e-6), (info.m_nameCoverage));
     }
   }
 }

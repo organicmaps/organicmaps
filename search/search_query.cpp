@@ -206,6 +206,15 @@ void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & s
     bestCoverage = coverage;
   }
 }
+
+inline bool IsHashtagged(strings::UniString const & s) { return !s.empty() && s[0] == '#'; }
+
+inline strings::UniString RemoveHashtag(strings::UniString const & s)
+{
+  if (IsHashtagged(s))
+    return strings::UniString(s.begin() + 1, s.end());
+  return s;
+}
 }  // namespace
 
 // static
@@ -417,25 +426,24 @@ void Query::ForEachCategoryTypes(ToDo toDo) const
 {
   int8_t arrLocales[3];
   int const localesCount = GetCategoryLocales(arrLocales);
-
   size_t const tokensCount = m_tokens.size();
+
   for (size_t i = 0; i < tokensCount; ++i)
   {
-    for (int j = 0; j < localesCount; ++j)
-      m_categories.ForEachTypeByName(arrLocales[j], m_tokens[i], bind<void>(ref(toDo), i, _1));
+    auto token = RemoveHashtag(m_tokens[i]);
 
-    ProcessEmojiIfNeeded(m_tokens[i], i, toDo);
+    for (int j = 0; j < localesCount; ++j)
+      m_categories.ForEachTypeByName(arrLocales[j], token, bind<void>(ref(toDo), i, _1));
+    ProcessEmojiIfNeeded(token, i, toDo);
   }
 
   if (!m_prefix.empty())
   {
-    for (int j = 0; j < localesCount; ++j)
-    {
-      m_categories.ForEachTypeByName(arrLocales[j], m_prefix,
-                                     bind<void>(ref(toDo), tokensCount, _1));
-    }
+    auto prefix = RemoveHashtag(m_prefix);
 
-    ProcessEmojiIfNeeded(m_prefix, tokensCount, toDo);
+    for (int j = 0; j < localesCount; ++j)
+      m_categories.ForEachTypeByName(arrLocales[j], prefix, bind<void>(ref(toDo), tokensCount, _1));
+    ProcessEmojiIfNeeded(prefix, tokensCount, toDo);
   }
 }
 
@@ -461,9 +469,42 @@ void Query::SetQuery(string const & query)
   ASSERT(m_tokens.empty(), ());
   ASSERT(m_prefix.empty(), ());
 
-  // Split input query by tokens with possible last prefix.
+  // Following code splits input query by delimiters except hash tags
+  // first, and then splits result tokens by hashtags. The goal is to
+  // retrieve all tokens that start with a single hashtag and leave
+  // them as is.
+
+  vector<strings::UniString> tokens;
+  {
+    search::DelimitersWithExceptions delims(vector<strings::UniChar>{'#'});
+    SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(tokens), delims);
+  }
+
   search::Delimiters delims;
-  SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
+  {
+    buffer_vector<strings::UniString, 32> subTokens;
+    for (auto const & token : tokens)
+    {
+      size_t numHashes = 0;
+      for (; numHashes < token.size() && token[numHashes] == '#'; ++numHashes)
+        ;
+
+      // Splits |token| by hashtags, because all other delimiters are
+      // already removed.
+      subTokens.clear();
+      SplitUniString(token, MakeBackInsertFunctor(subTokens), delims);
+      if (subTokens.empty())
+        continue;
+
+      if (numHashes == 1)
+        m_tokens.push_back(strings::MakeUniString("#") + subTokens[0]);
+      else
+        m_tokens.emplace_back(move(subTokens[0]));
+
+      for (size_t i = 1; i < subTokens.size(); ++i)
+        m_tokens.push_back(move(subTokens[i]));
+    }
+  }
 
   // Assign prefix with last parsed token.
   if (!m_tokens.empty() && !delims(strings::LastUniChar(query)))
@@ -472,11 +513,11 @@ void Query::SetQuery(string const & query)
     m_tokens.pop_back();
   }
 
-  int const maxTokensCount = MAX_TOKENS-1;
+  int const maxTokensCount = MAX_TOKENS - 1;
   if (m_tokens.size() > maxTokensCount)
     m_tokens.resize(maxTokensCount);
 
-  // assign tokens and prefix to scorer
+  // Assign tokens and prefix to scorer.
   m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
 
   // get preffered types to show in results
@@ -662,7 +703,9 @@ class PreResult2Maker
         return rank *= 1.7;
     }
     case v2::SearchModel::SEARCH_TYPE_COUNTRY: return rank /= 1.5;
-    default: return rank;
+
+    // For all other search types, rank should be zero for now.
+    default: return 0;
     }
   }
 
@@ -838,11 +881,15 @@ void Query::GetSuggestion(string const & name, string & suggest) const
   vector<bool> tokensMatched(tokens.size());
   bool prefixMatched = false;
   bool fullPrefixMatched = false;
+
   for (size_t i = 0; i < tokens.size(); ++i)
   {
     auto const & token = tokens[i];
+
     if (find(m_tokens.begin(), m_tokens.end(), token) != m_tokens.end())
+    {
       tokensMatched[i] = true;
+    }
     else if (StartsWith(token, m_prefix))
     {
       prefixMatched = true;
@@ -1191,13 +1238,12 @@ void Query::InitParams(bool localitySearch, SearchQueryParams & params)
   // Add names of categories (and synonyms).
   if (!localitySearch)
   {
-    Classificator const & cl = classif();
+    Classificator const & c = classif();
     auto addSyms = [&](size_t i, uint32_t t)
     {
-      SearchQueryParams::TSynonymsVector & v =
-          (i < tokensCount ? params.m_tokens[i] : params.m_prefixTokens);
+      SearchQueryParams::TSynonymsVector & v = params.GetTokens(i);
 
-      uint32_t const index = cl.GetIndexForType(t);
+      uint32_t const index = c.GetIndexForType(t);
       v.push_back(FeatureTypeToString(index));
       params.m_isCategorySynonym[i] = true;
 
@@ -1215,6 +1261,14 @@ void Query::InitParams(bool localitySearch, SearchQueryParams & params)
     };
     ForEachCategoryTypes(addSyms);
   }
+
+  for (auto & tokens : params.m_tokens)
+  {
+    if (IsHashtagged(tokens[0]))
+      tokens.erase(tokens.begin());
+  }
+  if (!params.m_prefixTokens.empty() && IsHashtagged(params.m_prefixTokens[0]))
+    params.m_prefixTokens.erase(params.m_prefixTokens.begin());
 
   for (int i = 0; i < LANG_COUNT; ++i)
     params.m_langs.insert(GetLanguage(i));
