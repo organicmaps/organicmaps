@@ -13,6 +13,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
+#include "std/map.hpp"
 #include "std/sstream.hpp"
 #include "std/vector.hpp"
 #include "std/transform_iterator.hpp"
@@ -279,24 +280,29 @@ UNIT_TEST(CategoriesIndex_UniqueNames)
     auto firstFn = bind(&pair<string, uint32_t>::first, _1);
     set<string> uniqueNames(make_transform_iterator(names.begin(), firstFn),
                             make_transform_iterator(names.end(), firstFn));
+    if (uniqueNames.size() == names.size())
+      continue;
 
-    if (uniqueNames.size() != names.size())
+    LOG(LWARNING, ("Invalid category translations", lang));
+
+    map<string, vector<uint32_t>> typesByName;
+    for (auto const & entry : names)
+      typesByName[entry.first].push_back(entry.second);
+
+    for (auto const & entry : typesByName)
     {
-      LOG(LWARNING, ("Invalid category translations", lang));
-
-      for (size_t i = 1; i < names.size(); ++i)
-      {
-        if (names[i - 1].first == names[i].first)
-        {
-          noDuplicates = false;
-          LOG(LWARNING, (names[i].first,
-                         cl.GetReadableObjectName(names[i].second),
-                         cl.GetReadableObjectName(names[i - 1].second)));
-        }
-      }
-
-      LOG(LWARNING, ("+++++++++++++++++++++++++++++++++++++"));
+      if (entry.second.size() <= 1)
+        continue;
+      noDuplicates = false;
+      ostringstream str;
+      str << entry.first << ":";
+      for (auto const & type : entry.second)
+        str << " " << cl.GetReadableObjectName(type);
+      LOG(LWARNING, (str.str()));
     }
+
+    LOG(LWARNING,
+        ("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"));
   };
 
   TEST(noDuplicates, ());
