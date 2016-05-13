@@ -340,7 +340,7 @@ de:2Bar|2Pub|Kneipe|Bier|Essen
 fr:2Bar|2pub|bière|boisson|nourriture
 it:2Bar|2birra|pub|mangiare|cibo
 es:2Bar|2pub|comer
-ko:바|술집|맥주|음료|음식
+ko:주점|맥주|음료|음식
 ja:1居酒屋|バー|パブ|ビール|飲食|飲み屋|呑み屋|酒
 cs:2Bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
 sk:2Bar|pivo|pitie|jedlo|voda|pitná voda|tekutiny
@@ -350,7 +350,7 @@ pl:2Bar|2pub|piwo|napoje|jedzenie
 pt:2Bar|2pub|cerveja|beber|alimentação
 hu:2Bár|2kocsma|sör|ital|élelmiszer
 th:2บาร์|ผับ|เบียร์|เครื่องดื่ม|อาหาร
-zh-Hans:1酒吧์|酒馆์|啤酒|饮料|食物
+zh-Hans:1酒吧|酒馆์|啤酒|饮料|食物
 ar:الحانة|خمارة์|بيرة ์|شراب|الطعام
 da:2Bar|øl|pub|drink|mad
 tr:2Bar|2bira|pub|içki|yemek
@@ -375,7 +375,7 @@ hu:Kocsma|Bár|sör|ital|élelmiszer
 id:Pub|Bar|minuman|makanan
 it:Pub|Bar|birra|mangiare|cibo
 ja:バー|パブ|ビール|居酒屋|飲食|飲み屋|呑み屋|酒
-ko:바|술집|맥주|음료|음식
+ko:술집|맥주|음료|음식
 nb:Pub|Bar|mat
 nl:Kroeg|Bar|bier|drinken|eten
 pl:Pub|Bar|piwo|napoje|jedzenie
@@ -388,7 +388,7 @@ th:ผับ|บาร์|ผับ|เบียร์|เครื่องด�
 tr:Pub|bar|Bira|içki|yemek
 uk:Паб|Бар|пиво|напої|їжа
 vi:Quán rượu|Quán bar|quán rượu|đồ uống|ẩm thực
-zh-Hans:酒吧์|酒馆์|啤酒|饮料|食物
+zh-Hans:酒馆|酒馆์|啤酒|饮料|食物
 zh-Hant:酒館|啤酒吧|酒吧|飲酒|PUB|吧台|飲食
 
 amenity-cafe
@@ -780,8 +780,8 @@ en:Liquor Store|liquor|U+1F377|2shop
 ru:Магазин алкоголя|4алкоголь|3винный|3вино-водочный|2магазин
 fr:Magasin de vins et spiritueux|vins et spiritueux|2magasin
 da:Vinhandel|2butik
-id:Toko minuman keras|minuman keras|2toko
-ko:주류 판매점|1쇼핑|가게
+id:Toko alkohol|minuman keras|2toko
+ko:주류 샵|1쇼핑|가게
 sv:Spritaffär|alkohol|2butik
 tr:Içki dükkanı|2mağaza
 uk:Винний магазин|крамниця спиртних напоїв|2магазин|крамниця
@@ -1438,8 +1438,8 @@ pl:Sklep rowerowy|4rower|sklep
 pt:Loja de bicicletas|4bicicleta|compras
 hu:4Kerékpár üzlet|kerékpár|kocsi|bolt
 th:4จักรยาน|ร้าน|ร้านค้า
-zh-Hans:自行车|商店
-ar:دراجة هوائية|المتجر
+zh-Hans:自行车店|商店
+ar:متجر دراجات
 da:Cykelforretning|butik
 tr:Bisiklet|mağaza
 sv:4Cykelaffär|cykel|cykel|butik
@@ -1797,7 +1797,7 @@ pl:3Punkt widokowy|widok|krajobraz|osobliwości miasta
 pt:4Ponto de vista|turismo|vistas
 hu:4Kilátó|kirándulás|látványosság|látnivaló|túrizmus
 th:3จุดชมวิว|การท่องเที่ยว|สถานที่ท่องเที่ยว
-zh-Hans:1景点|旅游|景点
+zh-Hans:1观点|旅游|景点
 ar:أماكن مراقبة|سياحة|مناظر
 da:4Synspunkt|turisme|sightseeing|seværdigheder
 tr:3Bakış|3turizm|3görülecek yerler
@@ -2170,7 +2170,7 @@ de:Denkmal|Gedenkstätte|Sehenswürdigkeit
 fr:Mémorial|monument|attraction|tourisme|site touristique
 it:Memoriale|monumento|turistico
 es:Memorial|turismo
-ko:1기념물|관광
+ko:1기념비|관광
 ja:追悼|1記念碑|観光|追悼碑
 cs:Pomník|památka|zajímavost|pamětihodnost
 sk:Pomník|pamiatka|atrakcia|zaujímavosť|pamätihodnosť
@@ -2181,7 +2181,7 @@ pt:Memorial|monumento|turismo|vistas
 hu:3Emlékmű|látnivaló|túrizmus|látványosság
 th:ที่ระลึก|สถานที่ท่องเที่ยว
 zh-Hans:纪念馆|景点
-ar:تمثال|سياحة
+ar:مبنى او نصب تزكارى
 da:Mindested|seværdigheder
 tr:Anıt|abide|cazibe merkezleri|turizm|görülecek yerler
 sv:3Minnesmärke|monument|attraktion|turism|sevärdheter
@@ -2200,7 +2200,7 @@ de:Monument|Denkmal|Sehenswürdigkeit
 fr:Monument|attraction|tourisme|site touristique
 it:Monumento|turistico
 es:Monumento|turismo
-ko:1기념물|관광
+ko:1기념탑|관광
 ja:1記念碑|観光
 cs:Zajímavost|pomník|památka|pamětihodnost
 sk:Zaujímavosť|pamätihodnosť|pomník|pamiatka
@@ -2208,10 +2208,10 @@ nl:Monument|attractie|toerisme
 zh-Hant:1紀念碑|紀念塔|紀念館|旅遊景點
 pl:3Pomnik historyczny|osobliwości miasta
 pt:Monumento|turismo|vistas
-hu:Emlékmű|Szobor|túrizmus|látványosság|látnivaló
+hu:Műemlék|Szobor|túrizmus|látványosság|látnivaló
 th:3อนุสาวรีย์|การท่องเที่ยว|สถานที่ท่องเที่ยว
 zh-Hans:纪念碑|景点
-ar:تمثال|أماكن الجذب|سياحة
+ar:نصب تزكارى
 da:Monument|seværdigheder
 tr:Abide|cazibe merkezleri|turizm|görülecek yerler
 sv:Monument|attraktion|tursim|sevärdheter
@@ -2390,8 +2390,8 @@ pl:4Wynajem rowerów|4rower|3Wynajem
 pt:Aluguel de bicicletas|4bicicleta|3aluguel
 hu:4Kerékpárkölcsönző|kerékpár|3bérlet
 th:4จักรยานให้เช่า|4จักรยาน|บริการรถเช่า|
-zh-Hans:1自行车
-ar:دراجة هوائية
+zh-Hans:1自行车租赁
+ar:استئجار دراجات
 da:4Cykel
 tr:Bisiklet kiralama|4Bisiklet
 sv:4Cykeluthyrning|cykel|cykel|3uthyrning
@@ -2774,7 +2774,7 @@ hu:Klinika|kórház|szanatórium
 id:Klinik|rumah sakit
 it:Clinica|ospedale
 ja:クリニック|病院、診療所|病院
-ko:병원|의원
+ko:클리닉|의원
 nl:Kliniek|ziekenhuis
 nb:Klinikk|sykehus
 pl:Klinika|Szpital
@@ -2924,7 +2924,7 @@ pl:3Biblioteka|książki
 pt:Biblioteca
 hu:3Könyvtár
 th:3ห้องสมุด
-zh-Hans:幼儿园
+zh-Hans:图书馆
 ar:مكتبة
 da:3Bibliotek
 tr:3Kütüphane
@@ -2993,7 +2993,7 @@ vi:3Hiệu thuốc
 id:3Apotek
 ro:3Farmacie
 nb:3Apotek
-fi:3Apteekki
+fi:3Farmasia
 sw:Duka la dawa
 
 amenity-post_box
@@ -3169,7 +3169,7 @@ ar:مأوى
 da:Hjem|ly|tilflugtssted
 tr:Barınak
 sv:Logi
-vi:Trường học
+vi:Chổ nương thân
 id:Tempat penampungan
 ro:Adăpost
 nb:Tilfluktsrom
@@ -4058,7 +4058,7 @@ pl:4Hostel|4hotel|4motel
 pt:3Hostel|3Pousada|4hotel|motel|Albergue
 hu:3Hostel|szálloda|szállás
 th:3หอพัก|โรงแรม|โมเทล
-zh-Hans:2旅社|旅店
+zh-Hans:2旅馆|旅店
 ar:نزُل|فندق|فندق رخيص|الفندق
 da:3Hostel|kro|vandrerhjem|hotel|motel
 tr:3Pansiyon|otel|motel
@@ -4088,7 +4088,7 @@ pl:3Hotel|motel
 pt:3Hotel|motel
 hu:3Szálloda|hotel|szállás
 th:3โรงแรม|โมเทล
-zh-Hans:2旅社|汽车旅馆|旅店
+zh-Hans:2宾馆|汽车旅馆|旅店
 ar:فندق|فندق رخيص|الفندق
 da:2Hotel|motel
 tr:2Otel|motel
@@ -5611,7 +5611,7 @@ th:สถานรับเลี้ยงเด็ก|ดูแลเด็ก
 tr:Çocuk Yuvası|Kreş
 uk:Дитяча кімната|ясла
 vi:Nhà trẻ|Chăm sóc Trẻ em
-zh-Hans:幼儿园|儿童看护
+zh-Hans:托儿所|儿童看护
 zh-Hant:保育|幼兒園|兒童看護
 
 amenity-bicycle_parking
@@ -5685,7 +5685,7 @@ fi:Hätänumero
 fr:Téléphone d'urgence
 he:טלפון חירום
 hu:Sürgősségi telefon
-id:Telepon
+id:Telepon darurat
 it:Telefono di emergenza
 ja:緊急電話
 ko:긴급 전화
@@ -5829,7 +5829,7 @@ da:Medicinbutik|Drugstore
 de:Drogerie
 es:Droguería
 fi:Apteekki
-fr:Pharmacie
+fr:Droguerie
 hu:Drogéria
 id:Toko bahan kimia
 it:Farmacia
@@ -6223,7 +6223,7 @@ th:ร้านรับแทงพนัน
 tr:Bookmaker
 uk:Букмекерська контора
 vi:Người nhận cá cược
-zh-Hans:书店
+zh-Hans:做书店
 zh-Hant:賭博業者
 
 shop-seafood|@shop
@@ -6295,10 +6295,10 @@ es:Establecimiento de bebidas alcohólicas
 fi:Alkoholimyymälä
 fr:Hors licence
 hu:Szeszesital-üzlet
-id:Toko minuman keras
+id:Toko anggur
 it:Negozio di alcolici
 ja:ワイン|酒屋|ワインショップ
-ko:주류 판매점
+ko:와인 샵
 nl:Wijn|Slijterij
 nb:Alkoholutsalg
 pl:Sklep monopolowy
