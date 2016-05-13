@@ -2639,7 +2639,8 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
                                 osm::EditableMapObject & emo) const
 {
   emo = {};
-  MwmSet::MwmId const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(
+  auto const & index = m_model.GetIndex();
+  MwmSet::MwmId const mwmId = index.GetMwmIdByCountryFile(
         platform::CountryFile(m_infoGetter->GetRegionCountryId(mercator)));
   if (!mwmId.IsAlive())
     return false;
@@ -2649,6 +2650,10 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
 
   coder.GetNearbyStreets(mwmId, mercator, streets);
   emo.SetNearbyStreets(TakeSomeStreetsAndLocalize(streets, m_model.GetIndex()));
+
+  // TODO(mgsergio): Check emo is a poi. For now it is the only option.
+  SetHostingBuildingAddress(FindBuildingAtPoint(mercator), index, coder, emo);
+
   return osm::Editor::Instance().CreatePoint(featureType, mercator, mwmId, emo);
 }
 
