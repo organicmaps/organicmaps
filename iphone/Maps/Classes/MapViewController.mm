@@ -568,11 +568,12 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [m_predictor setMode:mode];
 
+  LocationManager * lm = [MapsAppDelegate theApp].locationManager;
   switch (mode)
   {
     case location::PendingPosition:
       self.disableStandbyOnLocationStateMode = NO;
-      [[MapsAppDelegate theApp].locationManager start:self];
+      [lm start:self];
       break;
     case location::NotFollowNoPosition:
       if (gIsFirstMyPositionMode && ![Alohalytics isFirstSession])
@@ -582,15 +583,20 @@ BOOL gIsFirstMyPositionMode = YES;
       else
       {
         self.disableStandbyOnLocationStateMode = NO;
-        BOOL const isLocationManagerStarted = [MapsAppDelegate theApp].locationManager.isStarted;
         BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
-        if (isLocationManagerStarted && isMapVisible && ![Alohalytics isFirstSession])
+        if (isMapVisible && lm.isStarted)
         {
-          [[MapsAppDelegate theApp].locationManager stop:self];
-          [self.alertController presentLocationNotFoundAlertWithOkBlock:^
+          [lm stop:self];
+          BOOL  const isLocationProhibited =
+              lm.lastLocationError == location::TLocationError::EDenied ||
+              lm.lastLocationError == location::TLocationError::EGPSIsOff;
+          if (!isLocationProhibited)
           {
-            GetFramework().SwitchMyPositionNextMode();
-          }];
+            [self.alertController presentLocationNotFoundAlertWithOkBlock:^
+            {
+              GetFramework().SwitchMyPositionNextMode();
+            }];
+          }
         }
       }
       break;
