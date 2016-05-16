@@ -1119,7 +1119,7 @@
     sk = Aký systém pre meranie preferujete?
     de = Welches Einheitensystem bevorzugen Sie?
     es = ¿Cual sistema de medición prefieres?
-    fr = Quel système de mesure préférez-vous ?
+    fr = Quel système de mesure préférez-vous ?
     it = Quale sistema di misura preferisci?
     ja = どちらの距離単位を使いますか？
     ko = 어느 측정 시스템을 선호하십니까?
@@ -1970,7 +1970,7 @@
     sk = Stiahnuť %@?
     de = %@ herunterladen?
     es = Descargar %@?
-    fr = Télécharger %@ ?
+    fr = Télécharger %@ ?
     it = Vuoi scaricare %@?
     ja = %@をダウンロードしますか？
     ko = %@다운로드?
@@ -2000,7 +2000,7 @@
     sk = Aktualizovať %@?
     de = %@ aktualisieren?
     es = Actualizar %@?
-    fr = Mettre %@ à jour ?
+    fr = Mettre %@ à jour ?
     it = Vuoi aggiornare %@?
     ja = %@を更新しますか？
     ko = %@업데이트?
@@ -2246,7 +2246,7 @@
     sk = Pre funkciu vyhladávania musíte aktualizovať mapy:
     de = Sie benötigen aktualisierte Karten für die Suchfunktion:
     es = Necesita los mapas actualizados para la función de búsqueda
-    fr = Il vous faut des cartes mises à jour pour la fonction de recherche :
+    fr = Il vous faut des cartes mises à jour pour la fonction de recherche :
     it = Hai bisogno di mappe aggiornate per la funzione di ricerca:
     ja = 検索機能を利用するにはマップを更新する必要があります
     ko = 당신은 검색 기능에 대한 업데이트된지도 필요
@@ -2278,7 +2278,7 @@
     sk = K dispozícii je aktualizácia pre tieto mapy:
     de = Aktualisierung für diese Karten erhältlich:
     es = Hay actualizaciones disponibles para estos mapas:
-    fr = Des mises à jour sont disponibles pour ces cartes :
+    fr = Des mises à jour sont disponibles pour ces cartes :
     it = Aggiornamento disponibile per queste mappe:
     ja = 以下のマップが更新されています:
     ko = 이지도에 사용할 수있는 업데이트:
@@ -2949,7 +2949,7 @@
     sk = Presunúť mapy?
     de = Karten verschieben?
     es = ¿Mover mapas?
-    fr = Déplacer les cartes ?
+    fr = Déplacer les cartes ?
     it = Vuoi spostare le mappe?
     ja = マップを移動させますか？
     ko = 지도를 이동합니까?
@@ -3833,7 +3833,7 @@
     sk = Ahoj!\n\nTu sú moje záložky z offline map aplikácie MAPS.ME v priloženom súbore "%@.kmz". Pokiaľ máte už podobnú aplikáciu MAPS.ME nainštalovanú, otvorte si, prosím tento súbor. V opačnom prípade si najprv nainštalujte aplikáciu pre svoje iOS alebo Android zariadenie z tohto odkazu http://maps.me/get?kmz\n\nPríjemnú zábavu s MAPS.ME!
     de = Hallo,\n\nIn der angefügten „%@.KMZ“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME bereits installiert haben, müssen Sie die App nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nViel Spaß unterwegs mit MAPS.ME!
     es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline MAPS.ME. Por favor, ábrelo con MAPS.ME si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz\n\n¡Que disfrutes de MAPS.ME!
-    fr = Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le ficher si vous avez MAPS.ME d'installé. Sinon, téléchargez l'appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !
+    fr = Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le ficher si vous avez MAPS.ME d'installé. Sinon, téléchargez l'appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !
     it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di MAPS.ME, che si trovano nel file allegato "%@.kmz". Il file può essere aperto se l'app MAPS.ME è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz\n\nBuon divertimento con MAPS.ME!
     ja = MAPS.MEで作成したブックマークを添付ファイル"%@.kmz"で送付します。MAPS.ME がインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nMAPS.MEで楽しい時間をお過ごしください！
     ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 MAPS.ME 이미 설치되어 있다면 열어 보시기 바랍니다. MAPS.ME 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMAPS.ME와 함께 즐거운 시간 되시기 바랍니다!
@@ -4149,7 +4149,7 @@
     sk = Dúfame, že sa vám používánie MAPS.ME páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!
     de = Wir hoffen, dass Ihnen die Verwendung von MAPS.ME Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!
     es = ¡Ojalá disfrute mucho con MAPS.ME! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
-    fr = Nous espérons que vous appréciez l'utilisation de MAPS.ME ! Si oui, veuillez évaluer l'appli ou laisser une critique sur l'App Store. Cela prend moins d'une minute, mais peut vraiment nous aider. Merci pour votre soutien !
+    fr = Nous espérons que vous appréciez l'utilisation de MAPS.ME ! Si oui, veuillez évaluer l'appli ou laisser une critique sur l'App Store. Cela prend moins d'une minute, mais peut vraiment nous aider. Merci pour votre soutien !
     it = Confidiamo nel fatto che sia piacevole utilizzare MAPS.ME! In caso positivo, ti preghiamo di valutare o recensire l'app all'interno dell'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!
     ja = MAPS.MEの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！
     ko = MAPS.ME로 즐거운 시간을 보내시기 바랍니다! MAPS.ME가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!
@@ -4373,7 +4373,7 @@
     it = Ciao,\n\nSono qui adesso: %1$@. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
     es = Hola:\n\nAhora estoy aquí: %1$@. Haz clic en este enlace %2$@ o esta %3$@ para verlo en el mapa.\n\nGracias.
     nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
-    fr = Bonjour,\n\nJe suis actuelement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
+    fr = Bonjour,\n\nJe suis actuelement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
     cs = Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     sk = Ahoj,\n\nPráve som tu: %1$@. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka
     de = Hi,\n\nich bin gerade hier: %1$@ . Klicke den Link %2$@ oder %3$@ , um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.
@@ -4597,7 +4597,7 @@
     pt = Copiado para a Área de Transferência: %1$@
     es = Copiado al portapapeles: %1$@
     de = In die Zwischenablage kopiert: %1$@
-    fr = Copié dans le presse-papiers : %1$@
+    fr = Copié dans le presse-papiers : %1$@
     ja = クリップボードにコピーしました: %1$@
     cs = Zkopírováno do schránky: %1$@
     sk = Skopírované do schránky: %1$@
@@ -4850,7 +4850,7 @@
     de = Version: %@
     cs = Verze: %@
     sk = Verzia: %@
-    fr = Version : %@
+    fr = Version : %@
     ja = バージョン： %@
     ko = 버전: %@
     zh-Hant = 版本： %@
@@ -4884,7 +4884,7 @@
     sk = Naozaj chcete pokračovať?
     de = Möchten Sie wirklich fortfahren?
     es = ¿Seguro que desea continuar?
-    fr = Êtes-vous certain de vouloir continuer ?
+    fr = Êtes-vous certain de vouloir continuer ?
     it = Sei sicuro di voler continuare?
     ja = 本当に続けますか?
     ko = 계속하겠습니까?
@@ -15526,7 +15526,7 @@
     cs = Upravit mapu*
     zh-Hans = 编辑此地图*
     zh-Hant = 編輯此地圖*
-    ar = تعديل الخريطة *
+    ar = تعديل الخريطة *
     th = แก้ไขแผนที่*
     uk = Редагувати карту*
     pt = Editar o mapa*
@@ -16986,31 +16986,31 @@
     nl = We hebben de kaarteditor bijgewerkt
 
   [whatsnew_update_editor_message]
-    en = MAPS.ME users have made 50 000 map changes. Together we are making the most detailed maps in the World. Join us!
-    ru = Пользователи MAPS.ME внесли уже 50 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!
-    fr = Les utilisateurs de MAPS.ME ont procédé à 50 000 modifications de cartes. Nous créons ensemble les cartes les plus détaillées du monde. Rejoignez-nous !
-    da = MAPS.ME brugere har foretaget 50.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!
-    id = Pengguna MAPS.ME telah membuat 50 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!
-    ko = 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!
-    sv = MAPS.ME-användare har gjort 50 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!
-    tr = MAPS.ME kullanıcıları, haritalar üzerinde 50.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!
-    uk = Користувачі MAPS.ME вже внесли 50 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!
-    vi = Người dùng MAPS.ME đã thực hiện 50 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!
-    hu = A MAPS.ME felhasználói 50 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!
-    de = Die Benutzer haben schon mehr als 50.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!
-    fi = MAPS.ME -käyttäjät ovat tehneet 50 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!
-    cs = Uživatelé aplikace MAPS.ME už provedli na 50 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!
-    it = Gli utenti di MAPS.ME hanno apportato 50.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!
-    nb = MAPS.ME-brukere har foretatt 50 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!
-    zh-Hans = MAPS.ME 用户已经进行了 50 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！
-    th = ผู้ใช้ MAPS.ME ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 50 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!
-    ja = MAPS.MEユーザーは50000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！
-    ro = Utilizatorii MAPS.ME au făcut 50.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!
-    ar = قام مستخدمو MAPS.ME بإجراء 50000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!
-    sk = Používatelia MAPS.ME urobili 50 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!
-    es = Los usuarios de MAPS.ME han realizado 50 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!
-    pl = Użytkownicy MAPS.ME dokonali 50 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!
-    nl = MAPS.ME-gebruikers hebben 50.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!
+    en = MAPS.ME users have made 90 000 map changes. Together we are making the most detailed maps in the World. Join us!
+    ru = Пользователи MAPS.ME внесли уже 90 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!
+    fr = Les utilisateurs de MAPS.ME ont procédé à 90 000 modifications de cartes. Nous créons ensemble les cartes les plus détaillées du monde. Rejoignez-nous !
+    da = MAPS.ME brugere har foretaget 90.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!
+    id = Pengguna MAPS.ME telah membuat 90 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!
+    ko = MAPS.ME 사용자는 90000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!
+    sv = MAPS.ME-användare har gjort 90 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!
+    tr = MAPS.ME kullanıcıları, haritalar üzerinde 90.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!
+    uk = Користувачі MAPS.ME вже внесли 90 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!
+    vi = Người dùng MAPS.ME đã thực hiện 90 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!
+    hu = A MAPS.ME felhasználói 90 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!
+    de = Die Benutzer haben schon mehr als 90.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!
+    fi = MAPS.ME -käyttäjät ovat tehneet 90 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!
+    cs = Uživatelé aplikace MAPS.ME už provedli na 90 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!
+    it = Gli utenti di MAPS.ME hanno apportato 90.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!
+    nb = MAPS.ME-brukere har foretatt 90 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!
+    zh-Hans = MAPS.ME 用户已经进行了 90 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！
+    th = ผู้ใช้ MAPS.ME ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 90 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!
+    ja = MAPS.MEユーザーは90000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！
+    ro = Utilizatorii MAPS.ME au făcut 90.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!
+    ar = قام مستخدمو MAPS.ME بإجراء 90000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!
+    sk = Používatelia MAPS.ME urobili 90 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!
+    es = Los usuarios de MAPS.ME han realizado 90 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!
+    pl = Użytkownicy MAPS.ME dokonali 90 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!
+    nl = MAPS.ME-gebruikers hebben 90.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!
 
   [whatsnew_update_editor_message_update]
     comment = Additional text in whats new
