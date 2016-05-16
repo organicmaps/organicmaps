@@ -28,12 +28,18 @@ public enum LocationState
    */
   public static boolean isTurnedOn()
   {
-    return getMode() > NOT_FOLLOW_NO_POSITION;
+    return isTurnedOn(getMode());
+  }
+
+  public static boolean isTurnedOn(int mode)
+  {
+    return (mode > NOT_FOLLOW_NO_POSITION);
   }
 
   public static int getMode()
   {
     MwmApplication.get().initNativeCore();
     return INSTANCE.nativeGetMode();
+
   }
 }

@@ -770,6 +770,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     LocationHelper.nativeOnLocationError(errorCode);
 
+    if (sLocationStopped)
+      return;
+
     if (errorCode == LocationHelper.ERROR_DENIED)
     {
       Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -841,7 +844,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationPredictor.myPositionModeChanged(newMode);
     mMainMenu.getMyPositionButton().update(newMode);
 
-    if (newMode != LocationState.NOT_FOLLOW_NO_POSITION)
+    if (LocationState.isTurnedOn(newMode))
       sLocationStopped = false;
 
     switch (newMode)
@@ -883,6 +886,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
               @Override
               public void onClick(DialogInterface dialog, int which)
               {
+                sLocationStopped = false;
                 LocationState.INSTANCE.nativeSwitchToNextMode();
               }
             }).show();
@@ -976,7 +980,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             }
           });
       }
-      if (!mFirstStart && !SinglePageNewsFragment.showOn(this))
+      else if (!SinglePageNewsFragment.showOn(this))
       {
         if (ViralFragment.shouldDisplay())
           new ViralFragment().show(getSupportFragmentManager(), "");
