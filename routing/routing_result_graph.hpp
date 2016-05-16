@@ -23,7 +23,7 @@ public:
   virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
                                 m2::PointD const & junctionPoint,
                                 size_t & ingoingCount,
-                                TTurnCandidates & outgoingTurns) const = 0;
+                                TurnCandidates & outgoingTurns) const = 0;
   virtual double GetPathLength() const = 0;
   virtual m2::PointD const & GetStartPoint() const = 0;
   virtual m2::PointD const & GetEndPoint() const = 0;

@@ -14,7 +14,7 @@ struct AdjacentEdges
 {
   AdjacentEdges(size_t ingoingTurnsCount = 0) : m_ingoingTurnsCount(ingoingTurnsCount) {}
 
-  turns::TTurnCandidates m_outgoingTurns;
+  turns::TurnCandidates m_outgoingTurns;
   size_t m_ingoingTurnsCount;
 };
 

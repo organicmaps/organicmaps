@@ -394,34 +394,16 @@ string DebugPrint(HighwayClass const cls)
   out << "[ ";
   switch (cls)
   {
-    case HighwayClass::Undefined:
-      out << "Undefined";
-      break;
-    case HighwayClass::Error:
-      out << "Error";
-      break;
-    case HighwayClass::Trunk:
-      out << "Trunk";
-      break;
-    case HighwayClass::Primary:
-      out << "Primary";
-      break;
-    case HighwayClass::Secondary:
-      out << "Secondary";
-      break;
-    case HighwayClass::Tertiary:
-      out << "Tertiary";
-      break;
-    case HighwayClass::LivingStreet:
-      out << "LivingStreet";
-      break;
-    case HighwayClass::Service:
-      out << "Service";
-      break;
+    case HighwayClass::Undefined: out << "Undefined"; break;
+    case HighwayClass::Error: out << "Error"; break;
+    case HighwayClass::Trunk: out << "Trunk"; break;
+    case HighwayClass::Primary: out << "Primary"; break;
+    case HighwayClass::Secondary: out << "Secondary"; break;
+    case HighwayClass::Tertiary: out << "Tertiary"; break;
+    case HighwayClass::LivingStreet: out << "LivingStreet"; break;
+    case HighwayClass::Service: out << "Service"; break;
     case HighwayClass::Pedestrian: out << "Pedestrian"; break;
-    case HighwayClass::Count:
-      out << "Count";
-      break;
+    case HighwayClass::Count: out << "Count"; break;
   }
   out << " ]";
   return out.str();

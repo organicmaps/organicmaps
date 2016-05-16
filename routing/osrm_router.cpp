@@ -67,7 +67,7 @@ public:
   virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
                                 m2::PointD const & junctionPoint,
                                 size_t & ingoingCount,
-                                turns::TTurnCandidates & outgoingTurns) const override
+                                turns::TurnCandidates & outgoingTurns) const override
   {
     double const kReadCrossEpsilon = 1.0E-4;
 
@@ -139,12 +139,13 @@ public:
       ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, ft.GetPoint(seg.m_pointStart)),
                   turns::kFeaturesNearTurnMeters, ());
 
+      outgoingTurns.isCandidatesAngleValid = true;
       double const a =
           my::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-      outgoingTurns.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
+      outgoingTurns.candidates.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
     }
 
-    sort(outgoingTurns.begin(), outgoingTurns.end(),
+    sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(),
          [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2)
          {
            return t1.angle < t2.angle;
