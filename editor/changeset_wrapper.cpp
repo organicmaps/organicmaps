@@ -18,8 +18,6 @@ using editor::XMLFeature;
 
 namespace
 {
-constexpr char const * kInitialChangesetComment = "Edits via MAPS.ME app, a partial upload";
-
 m2::RectD GetBoundingRect(vector<m2::PointD> const & geometry)
 {
   m2::RectD rect;
@@ -36,9 +34,9 @@ bool OsmFeatureHasTags(pugi::xml_node const & osmFt)
   return osmFt.child("tag");
 }
 
-vector<string> const static kMainTags = {
-    "amenity", "shop",    "tourism",  "historic", "craft", "emergency", "barrier",  "highway",
-    "office",  "leisure", "waterway", "natural",  "place", "entrance",  "building", "name"};
+vector<string> const static kMainTags = {"amenity", "shop",      "tourism", "historic",
+                                         "craft",   "emergency", "barrier", "highway",
+                                         "office",  "entrance",  "building"};
 
 string GetTypeForFeature(XMLFeature const & node)
 {
@@ -103,7 +101,6 @@ ChangesetWrapper::ChangesetWrapper(TKeySecret const & keySecret,
     : m_changesetComments(comments),
       m_api(OsmOAuth::ServerAuth(keySecret))
 {
-  m_changesetComments["comment"] = kInitialChangesetComment;
 }
 
 ChangesetWrapper::~ChangesetWrapper()
