@@ -397,6 +397,10 @@ Storage::TLocalFilePtr Storage::GetLatestLocalFile(TCountryId const & countryId)
 
 Status Storage::CountryStatus(TCountryId const & countryId) const
 {
+  // Check if this country has failed while downloading.
+  if (m_failedCountries.count(countryId) > 0)
+    return Status::EDownloadFailed;
+
   // Check if we already downloading this country or have it in the queue
   if (IsCountryInQueue(countryId))
   {
@@ -405,10 +409,6 @@ Status Storage::CountryStatus(TCountryId const & countryId) const
     else
       return Status::EInQueue;
   }
-
-  // Check if this country has failed while downloading.
-  if (m_failedCountries.count(countryId) > 0)
-    return Status::EDownloadFailed;
 
   return Status::EUnknown;
 }
@@ -1198,7 +1198,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
     for (auto const & disputed : disputedTerritoriesAndStatus)
       allDisputedTerritories.push_back(disputed.first);
 
-    if (childStatus.status == NodeStatus::NotDownloaded)
+    if (childStatus.status == NodeStatus::NotDownloaded || childStatus.status == NodeStatus::Error)
     {
       availChildren.push_back(childValue);
       for (auto const & disputed : disputedTerritoriesAndStatus)

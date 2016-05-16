@@ -80,8 +80,9 @@ namespace
                                   unselectedAttrs:kUnselectedTitleAttrs];
   TMwmSize const size = self.mode == mwm::DownloaderMode::Downloaded
                             ? nodeAttrs.m_downloadingMwmSize
-                            : nodeAttrs.m_mwmSize - nodeAttrs.m_downloadingMwmSize;
+                            : nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
   self.downloadSize.text = formattedSize(size);
+  self.downloadSize.hidden = (size == 0);
 }
 
 - (void)configProgress:(storage::NodeAttrs const &)nodeAttrs
