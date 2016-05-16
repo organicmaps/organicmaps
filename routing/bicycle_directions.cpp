@@ -43,7 +43,7 @@ public:
     ingoingCount = 0;
     outgoingTurns.candidates.clear();
 
-    auto adjacentEdges = m_adjacentEdges.find(node);
+    auto const adjacentEdges = m_adjacentEdges.find(node);
     if (adjacentEdges == m_adjacentEdges.cend())
     {
       ASSERT(false, ());
@@ -74,49 +74,6 @@ private:
   TUnpackedPathSegments const & m_pathSegments;
   double m_routeLength;
 };
-
-ftypes::HighwayClass GetHighwayClass(FeatureID const & featureId, Index const & index)
-{
-  ftypes::HighwayClass highWayClass = ftypes::HighwayClass::Undefined;
-  MwmSet::MwmId const & mwmId = featureId.m_mwmId;
-  uint32_t const featureIndex = featureId.m_index;
-
-  FeatureType ft;
-  Index::FeaturesLoaderGuard loader(index, mwmId);
-  loader.GetFeatureByIndex(featureIndex, ft);
-  highWayClass = ftypes::GetHighwayClass(ft);
-  ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Error, ());
-  ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Undefined, ());
-  return highWayClass;
-}
-
-void LoadPathGeometry(FeatureID const & featureId, Index const & index,
-                      vector<m2::PointD> const & path, LoadedPathSegment & pathSegment)
-{
-  pathSegment.Clear();
-
-  MwmSet::MwmId const & mwmId = featureId.m_mwmId;
-  if (!featureId.IsValid())
-  {
-    ASSERT(false, ());
-    return;
-  }
-
-  FeatureType ft;
-  Index::FeaturesLoaderGuard loader(index, mwmId);
-  loader.GetFeatureByIndex(featureId.m_index, ft);
-  pathSegment.m_highwayClass =  ftypes::GetHighwayClass(ft);
-  ASSERT_NOT_EQUAL(pathSegment.m_highwayClass, ftypes::HighwayClass::Error, ());
-  ASSERT_NOT_EQUAL(pathSegment.m_highwayClass, ftypes::HighwayClass::Undefined, ());
-  pathSegment.m_isLink = ftypes::IsLinkChecker::Instance()(ft);
-
-  ft.GetName(FeatureType::DEFAULT_LANG, pathSegment.m_name);
-
-  pathSegment.m_nodeId = featureId.m_index;
-  pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft);
-  pathSegment.m_path = path;
-  // @TODO(bykoianko) It's better to fill pathSegment.m_weight.
-}
 }  // namespace
 
 namespace routing
@@ -190,15 +147,12 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
       if (!outFeatureId.IsValid())
         continue;
       adjacentEdges.m_outgoingTurns.candidates.emplace_back(0. /* angle */, outFeatureId.m_index,
-                                                            GetHighwayClass(outFeatureId, m_index));
+                                                            GetHighwayClass(outFeatureId));
     }
 
     LoadedPathSegment pathSegment;
     if (inEdgeFeatureId.IsValid())
-    {
-      LoadPathGeometry(inEdgeFeatureId, m_index,
-                       {prevJunction.GetPoint(), currJunction.GetPoint()}, pathSegment);
-    }
+      LoadPathGeometry(inEdgeFeatureId, {prevJunction.GetPoint(), currJunction.GetPoint()}, pathSegment);
 
     m_adjacentEdges.insert(make_pair(inEdgeFeatureId.m_index, move(adjacentEdges)));
     m_pathSegments.push_back(move(pathSegment));
@@ -209,5 +163,54 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   Route::TTimes turnAnnotationTimes;
   Route::TStreets streetNames;
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, turnAnnotationTimes, streetNames);
+}
+
+void BicycleDirectionsEngine::UpdateFeatureLoaderGuardIfNeeded(Index const & index, MwmSet::MwmId const & mwmId)
+{
+  if (!m_featuresLoaderGuard || mwmId != m_mwmIdFeaturesLoaderGuard)
+    m_featuresLoaderGuard.reset(new Index::FeaturesLoaderGuard(index, mwmId));
+}
+
+ftypes::HighwayClass BicycleDirectionsEngine::GetHighwayClass(FeatureID const & featureId)
+{
+  ftypes::HighwayClass highWayClass = ftypes::HighwayClass::Undefined;
+  MwmSet::MwmId const & mwmId = featureId.m_mwmId;
+  uint32_t const featureIndex = featureId.m_index;
+
+  FeatureType ft;
+  UpdateFeatureLoaderGuardIfNeeded(m_index, mwmId);
+  m_featuresLoaderGuard->GetFeatureByIndex(featureIndex, ft);
+  highWayClass = ftypes::GetHighwayClass(ft);
+  ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Error, ());
+  ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Undefined, ());
+  return highWayClass;
+}
+
+void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId, vector<m2::PointD> const & path,
+                                               LoadedPathSegment & pathSegment)
+{
+  pathSegment.Clear();
+
+  MwmSet::MwmId const & mwmId = featureId.m_mwmId;
+  if (!featureId.IsValid())
+  {
+    ASSERT(false, ());
+    return;
+  }
+
+  FeatureType ft;
+  UpdateFeatureLoaderGuardIfNeeded(m_index, mwmId);
+  m_featuresLoaderGuard->GetFeatureByIndex(featureId.m_index, ft);
+  pathSegment.m_highwayClass =  ftypes::GetHighwayClass(ft);
+  ASSERT_NOT_EQUAL(pathSegment.m_highwayClass, ftypes::HighwayClass::Error, ());
+  ASSERT_NOT_EQUAL(pathSegment.m_highwayClass, ftypes::HighwayClass::Undefined, ());
+  pathSegment.m_isLink = ftypes::IsLinkChecker::Instance()(ft);
+
+  ft.GetName(FeatureType::DEFAULT_LANG, pathSegment.m_name);
+
+  pathSegment.m_nodeId = featureId.m_index;
+  pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft);
+  pathSegment.m_path = path;
+  // @TODO(bykoianko) It's better to fill pathSegment.m_weight.
 }
 }  // namespace routing

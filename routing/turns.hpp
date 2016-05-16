@@ -206,7 +206,7 @@ void SplitLanes(string const & lanesString, char delimiter, vector<string> & lan
 bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & lane);
 
 /*!
- * \returns pi minus an angle from vector [junctionPoint, ingoingPoint]
+ * \returns pi minus angle from vector [junctionPoint, ingoingPoint]
  * to vector [junctionPoint, outgoingPoint]. A counterclockwise rotation.
  * Angle is in range [-pi, pi].
 */

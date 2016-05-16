@@ -23,9 +23,9 @@ bool HasType(uint32_t type, feature::TypesHolder const & types)
 
 void Convert(vector<routing::Junction> const & path, vector<m2::PointD> & geometry)
 {
-  size_t const pathSz = path.size();
-  geometry.resize(pathSz);
-  for (size_t i = 0; i < pathSz; ++i)
+  size_t const pathSize = path.size();
+  geometry.resize(pathSize);
+  for (size_t i = 0; i < pathSize; ++i)
     geometry[i] = path[i].GetPoint();
 }
 }  // namespace

@@ -46,7 +46,7 @@ struct TurnCandidates
   vector<TurnCandidate> candidates;
   bool isCandidatesAngleValid;
 
-  TurnCandidates(bool angleValid = true) : isCandidatesAngleValid(angleValid) {}
+  explicit TurnCandidates(bool angleValid = true) : isCandidatesAngleValid(angleValid) {}
 };
 
 }  // namespace routing
