@@ -108,7 +108,6 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
         {
         case LocationSettingsStatusCodes.SUCCESS:
           LocationHelper.INSTANCE.setShouldResolveErrors(true);
-          requestLocationUpdates();
           break;
         case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
           // Location settings are not satisfied, but this can be fixed by showing the user a dialog.
@@ -118,6 +117,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
           // Location settings are not satisfied. However, we have no way to fix the settings so we won't show the dialog.
           break;
         }
+        requestLocationUpdates();
       }
     });
   }

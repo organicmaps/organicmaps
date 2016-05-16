@@ -15,6 +15,8 @@ extern UITableViewRowAnimation const kMWMOpeningHoursEditorRowAnimation;
 
 @property (nonatomic) BOOL skipStoreCachedData;
 
+@property (nonatomic) BOOL removeBrokenExcludeTime;
+
 @end
 
 using namespace editor::ui;
@@ -147,7 +149,7 @@ using namespace osmoh;
 
   if (isClosed)
   {
-    if (!tt.ReplaceExcludeTime(span, index))
+    if (!tt.ReplaceExcludeTime(span, index) && self.removeBrokenExcludeTime)
       tt.RemoveExcludeTime(index);
   }
   else
@@ -178,6 +180,7 @@ using namespace osmoh;
 
 - (void)addClosedTime
 {
+  self.removeBrokenExcludeTime = YES;
   self.selectedRow = nil;
 
   NSUInteger const row = [self firstRowForKey:MWMOpeningHoursEditorAddClosedCell];
@@ -402,6 +405,7 @@ using namespace osmoh;
   self.cachedStartTime = nil;
   self.cachedEndTime = nil;
   self.skipStoreCachedData = NO;
+  self.removeBrokenExcludeTime = NO;
 }
 
 #pragma mark - Scrolling

@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.location.Location;
 import android.os.Build;
@@ -112,28 +113,20 @@ public class LocationUtils
            Math.abs(first.getLon() - second.getLon()) < LocationUtils.LAT_LON_EPSILON;
   }
 
+  @SuppressLint("InlinedApi")
   @SuppressWarnings("deprecation")
-  public static boolean isLocationServicesTurnedOn()
+  public static boolean areLocationServicesTurnedOn()
   {
-    // If location is turned off(by user in system settings), google client( = fused provider) api doesn't work at all
-    // but external gps receivers still can work. In that case we prefer native provider instead of fused - it works.
     final ContentResolver resolver = MwmApplication.get().getContentResolver();
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+    try
     {
-      final String providers = Settings.Secure.getString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-      return !TextUtils.isEmpty(providers);
-    }
-    else
+      return Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT
+             ? !TextUtils.isEmpty(Settings.Secure.getString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED))
+             : Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE) != Settings.Secure.LOCATION_MODE_OFF;
+    } catch (Settings.SettingNotFoundException e)
     {
-      try
-      {
-        final int mode = Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE);
-        return mode != Settings.Secure.LOCATION_MODE_OFF;
-      } catch (Settings.SettingNotFoundException e)
-      {
-        e.printStackTrace();
-        return false;
-      }
+      e.printStackTrace();
+      return false;
     }
   }
 }

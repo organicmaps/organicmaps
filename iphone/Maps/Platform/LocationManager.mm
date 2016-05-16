@@ -58,7 +58,7 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
                    .battery = kCLLocationAccuracyBest}}},
     {GeoMode::VehicleRouting,
-     {.distanceFilter = 10,
+     {.distanceFilter = 5,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
                    .battery = kCLLocationAccuracyBest}}},
     {GeoMode::PedestrianRouting,
@@ -78,6 +78,7 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
 @property (nonatomic) CLLocationManager * locationManager;
 
 @property (nonatomic, readwrite) BOOL isStarted;
+@property (nonatomic, readwrite) location::TLocationError lastLocationError;
 @property (nonatomic) NSMutableSet * observers;
 @property (nonatomic) NSDate * lastLocationTime;
 
@@ -236,6 +237,7 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
   if (location.horizontalAccuracy < 0.)
     return;
 
+  self.lastLocationError = location::TLocationError::ENoError;
   // Save current device time for location.
   self.lastLocationTime = [NSDate date];
   [[Statistics instance] logLocation:location];
@@ -417,6 +419,7 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
 
 - (void)observer:(id<LocationObserver>)observer onLocationError:(location::TLocationError)errorCode
 {
+  self.lastLocationError = errorCode;
   if ([(NSObject *)observer respondsToSelector:@selector(onLocationError:)])
     [observer onLocationError:errorCode];
 }

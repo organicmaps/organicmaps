@@ -16265,7 +16265,7 @@
     nb = Antall etasjer (maks. %d)
     zh-Hans = 楼号 (最大 %d)
     th = จำนวนชั้น (มากสุด %d)
-    ja = フロアの数（最大％d）
+    ja = フロアの数（最大%d）
     ro = Număr de etaje (max %d)
     ar = عدد الطوابق (بحد أقصى %d)
     sk = Počet poschodí (max %d)

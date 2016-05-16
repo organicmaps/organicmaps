@@ -17,6 +17,7 @@
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, readonly) BOOL isStarted;
+@property (nonatomic, readonly) location::TLocationError lastLocationError;
 
 - (void)start:(id <LocationObserver>)observer;
 - (void)stop:(id <LocationObserver>)observer;
