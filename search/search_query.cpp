@@ -1264,10 +1264,10 @@ void Query::InitParams(bool localitySearch, SearchQueryParams & params)
 
   for (auto & tokens : params.m_tokens)
   {
-    if (IsHashtagged(tokens[0]))
+    if (tokens.size() > 1 && IsHashtagged(tokens[0]))
       tokens.erase(tokens.begin());
   }
-  if (!params.m_prefixTokens.empty() && IsHashtagged(params.m_prefixTokens[0]))
+  if (params.m_prefixTokens.size() > 1 && IsHashtagged(params.m_prefixTokens[0]))
     params.m_prefixTokens.erase(params.m_prefixTokens.begin());
 
   for (int i = 0; i < LANG_COUNT; ++i)

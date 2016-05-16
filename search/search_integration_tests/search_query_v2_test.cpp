@@ -506,6 +506,9 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
       // TEST(my::AlmostEqualAbs(0.0, info.m_nameCoverage, 1e-6), (info.m_nameCoverage));
     }
   }
+
+  // Tests that inexistent hashtagged categories do not crash.
+  TEST(ResultsMatch("#void-", TRules{}), ());
 }
 }  // namespace
 }  // namespace search
