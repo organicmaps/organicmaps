@@ -86,6 +86,8 @@ namespace integration
                                         storage::CountryInfoGetter const & infoGetter,
                                         TRouterFactory const & routerFactory)
   {
+    // |infoGetter| should be a reference to an object which exists while the
+    // result of the function is used.
     auto countryFileGetter = [&infoGetter](m2::PointD const & pt)
     {
       return infoGetter.GetRegionCountryId(pt);

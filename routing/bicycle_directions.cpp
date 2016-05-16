@@ -15,11 +15,10 @@ namespace
 using namespace routing;
 using namespace routing::turns;
 
-class AStarRoutingResult : public IRoutingResult
+class RoutingResultGraph : public IRoutingResult
 {
 public:
-  AStarRoutingResult(IRoadGraph::TEdgeVector const & routeEdges,
-                     AdjacentEdgesMap const & adjacentEdges,
+  RoutingResultGraph(IRoadGraph::TEdgeVector const & routeEdges, TAdjacentEdgesMap const & adjacentEdges,
                      TUnpackedPathSegments const & pathSegments)
     : m_routeEdges(routeEdges)
     , m_adjacentEdges(adjacentEdges)
@@ -34,11 +33,11 @@ public:
   }
 
   // turns::IRoutingResult overrides:
-  virtual TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
+  TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
 
-  virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
-                                m2::PointD const & junctionPoint, size_t & ingoingCount,
-                                TurnCandidates & outgoingTurns) const override
+  void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
+                        m2::PointD const & junctionPoint, size_t & ingoingCount,
+                        TurnCandidates & outgoingTurns) const override
   {
     ingoingCount = 0;
     outgoingTurns.candidates.clear();
@@ -54,15 +53,15 @@ public:
     outgoingTurns.candidates = adjacentEdges->second.m_outgoingTurns.candidates;
   }
 
-  virtual double GetPathLength() const override { return m_routeLength; }
+  double GetPathLength() const override { return m_routeLength; }
 
-  virtual m2::PointD const & GetStartPoint() const override
+  m2::PointD const & GetStartPoint() const override
   {
     CHECK(!m_routeEdges.empty(), ());
     return m_routeEdges.front().GetStartJunction().GetPoint();
   }
 
-  virtual m2::PointD const & GetEndPoint() const override
+  m2::PointD const & GetEndPoint() const override
   {
     CHECK(!m_routeEdges.empty(), ());
     return m_routeEdges.back().GetEndJunction().GetPoint();
@@ -70,7 +69,7 @@ public:
 
 private:
   IRoadGraph::TEdgeVector const & m_routeEdges;
-  AdjacentEdgesMap const & m_adjacentEdges;
+  TAdjacentEdgesMap const & m_adjacentEdges;
   TUnpackedPathSegments const & m_pathSegments;
   double m_routeLength;
 };
@@ -146,7 +145,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
       // Checking for if |edge| is a fake edge.
       if (!outFeatureId.IsValid())
         continue;
-      adjacentEdges.m_outgoingTurns.candidates.emplace_back(0. /* angle */, outFeatureId.m_index,
+      adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, outFeatureId.m_index,
                                                             GetHighwayClass(outFeatureId));
     }
 
@@ -158,29 +157,25 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
     m_pathSegments.push_back(move(pathSegment));
   }
 
-  AStarRoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
+  RoutingResultGraph resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
   Route::TTimes turnAnnotationTimes;
   Route::TStreets streetNames;
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, turnAnnotationTimes, streetNames);
 }
 
-void BicycleDirectionsEngine::UpdateFeatureLoaderGuardIfNeeded(Index const & index, MwmSet::MwmId const & mwmId)
+Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
 {
-  if (!m_featuresLoaderGuard || mwmId != m_mwmIdFeaturesLoaderGuard)
-    m_featuresLoaderGuard.reset(new Index::FeaturesLoaderGuard(index, mwmId));
+  if (!m_loader || id != m_loader->GetId())
+    m_loader = make_unique<Index::FeaturesLoaderGuard>(m_index, id);
+  return *m_loader;
 }
 
 ftypes::HighwayClass BicycleDirectionsEngine::GetHighwayClass(FeatureID const & featureId)
 {
-  ftypes::HighwayClass highWayClass = ftypes::HighwayClass::Undefined;
-  MwmSet::MwmId const & mwmId = featureId.m_mwmId;
-  uint32_t const featureIndex = featureId.m_index;
-
   FeatureType ft;
-  UpdateFeatureLoaderGuardIfNeeded(m_index, mwmId);
-  m_featuresLoaderGuard->GetFeatureByIndex(featureIndex, ft);
-  highWayClass = ftypes::GetHighwayClass(ft);
+  GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft);
+  auto const highWayClass = ftypes::GetHighwayClass(ft);
   ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Error, ());
   ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Undefined, ());
   return highWayClass;
@@ -191,7 +186,6 @@ void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId, vect
 {
   pathSegment.Clear();
 
-  MwmSet::MwmId const & mwmId = featureId.m_mwmId;
   if (!featureId.IsValid())
   {
     ASSERT(false, ());
@@ -199,11 +193,12 @@ void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId, vect
   }
 
   FeatureType ft;
-  UpdateFeatureLoaderGuardIfNeeded(m_index, mwmId);
-  m_featuresLoaderGuard->GetFeatureByIndex(featureId.m_index, ft);
-  pathSegment.m_highwayClass =  ftypes::GetHighwayClass(ft);
-  ASSERT_NOT_EQUAL(pathSegment.m_highwayClass, ftypes::HighwayClass::Error, ());
-  ASSERT_NOT_EQUAL(pathSegment.m_highwayClass, ftypes::HighwayClass::Undefined, ());
+  GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft);
+  auto const highwayClass = ftypes::GetHighwayClass(ft);
+  ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
+  ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
+
+  pathSegment.m_highwayClass = highwayClass;
   pathSegment.m_isLink = ftypes::IsLinkChecker::Instance()(ft);
 
   ft.GetName(FeatureType::DEFAULT_LANG, pathSegment.m_name);

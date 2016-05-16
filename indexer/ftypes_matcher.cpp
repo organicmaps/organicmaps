@@ -388,24 +388,27 @@ bool IsTypeConformed(uint32_t type, StringIL const & path)
   return true;
 }
 
+char const * HighwayClassToString(HighwayClass const & cls)
+{
+  switch (cls)
+  {
+    case HighwayClass::Undefined: return "Undefined";
+    case HighwayClass::Error: return "Error";
+    case HighwayClass::Trunk: return "Trunk";
+    case HighwayClass::Primary: return "Primary";
+    case HighwayClass::Secondary: return "Secondary";
+    case HighwayClass::Tertiary: return "Tertiary";
+    case HighwayClass::LivingStreet: return "LivingStreet";
+    case HighwayClass::Service: return "Service";
+    case HighwayClass::Pedestrian: return "Pedestrian";
+    case HighwayClass::Count: return "Count";
+  }
+}
+
 string DebugPrint(HighwayClass const cls)
 {
   stringstream out;
-  out << "[ ";
-  switch (cls)
-  {
-    case HighwayClass::Undefined: out << "Undefined"; break;
-    case HighwayClass::Error: out << "Error"; break;
-    case HighwayClass::Trunk: out << "Trunk"; break;
-    case HighwayClass::Primary: out << "Primary"; break;
-    case HighwayClass::Secondary: out << "Secondary"; break;
-    case HighwayClass::Tertiary: out << "Tertiary"; break;
-    case HighwayClass::LivingStreet: out << "LivingStreet"; break;
-    case HighwayClass::Service: out << "Service"; break;
-    case HighwayClass::Pedestrian: out << "Pedestrian"; break;
-    case HighwayClass::Count: out << "Count"; break;
-  }
-  out << " ]";
+  out << "[ " << HighwayClassToString(cls) << " ]";
   return out.str();
 }
 
@@ -439,13 +442,12 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types)
       {c.GetTypeByPath({"highway", "path"}), HighwayClass::Pedestrian},
   };
   uint8_t constexpr kTruncLevel = 2;
-  auto const highwayClassesEndIt = kHighwayClasses.cend();
 
   for (auto t : types)
   {
     ftype::TruncValue(t, kTruncLevel);
     auto const it = kHighwayClasses.find(t);
-    if (it != highwayClassesEndIt)
+    if (it != kHighwayClasses.cend())
       return it->second;
   }
 

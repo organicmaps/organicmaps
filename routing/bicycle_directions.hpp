@@ -19,7 +19,7 @@ struct AdjacentEdges
   size_t m_ingoingTurnsCount;
 };
 
-using AdjacentEdgesMap = map<TNodeId, AdjacentEdges>;
+using TAdjacentEdgesMap = map<TNodeId, AdjacentEdges>;
 
 class BicycleDirectionsEngine : public IDirectionsEngine
 {
@@ -32,15 +32,14 @@ public:
                 my::Cancellable const & cancellable) override;
 
 private:
-  void UpdateFeatureLoaderGuardIfNeeded(Index const & index, MwmSet::MwmId const & mwmId);
+  Index::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
   ftypes::HighwayClass GetHighwayClass(FeatureID const & featureId);
   void LoadPathGeometry(FeatureID const & featureId, vector<m2::PointD> const & path,
                         LoadedPathSegment & pathSegment);
 
-  AdjacentEdgesMap m_adjacentEdges;
+  TAdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;
-  unique_ptr<Index::FeaturesLoaderGuard> m_featuresLoaderGuard;
-  MwmSet::MwmId m_mwmIdFeaturesLoaderGuard;
+  unique_ptr<Index::FeaturesLoaderGuard> m_loader;
   Index const & m_index;
 };
 }  // namespace routing
