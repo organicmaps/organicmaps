@@ -58,7 +58,7 @@ map<GeoMode, GeoModeSettings> const kGeoSettings{
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
                    .battery = kCLLocationAccuracyBest}}},
     {GeoMode::VehicleRouting,
-     {.distanceFilter = 10,
+     {.distanceFilter = 5,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
                    .battery = kCLLocationAccuracyBest}}},
     {GeoMode::PedestrianRouting,
