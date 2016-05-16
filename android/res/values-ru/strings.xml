@@ -861,7 +861,7 @@
 	<string name="current_location_unknown_error_title">Местоположение не найдено.</string>
 	<string name="current_location_unknown_error_message">При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.</string>
 	<string name="whatsnew_update_editor_title">Мы обновили редактор</string>
-	<string name="whatsnew_update_editor_message">Пользователи MAPS.ME внесли уже 50 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!</string>
+	<string name="whatsnew_update_editor_message">Пользователи MAPS.ME внесли уже 90 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Обновите все карты, чтобы использовать редактор.</string>
 	<string name="location_services_disabled_header">Определение местоположения отключено</string>

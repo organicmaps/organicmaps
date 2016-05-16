@@ -826,7 +826,7 @@
 	<string name="current_location_unknown_error_title">La posizione attuale è sconosciuta.</string>
 	<string name="current_location_unknown_error_message">Si è verificato un errore durante la ricerca della posizione. Controllare che il dispositivo utilizzato funzioni correttamente e riprovare.</string>
 	<string name="whatsnew_update_editor_title">Abbiamo aggiornato l\&#39;editor mappe</string>
-	<string name="whatsnew_update_editor_message">Gli utenti di MAPS.ME hanno apportato 50.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!</string>
+	<string name="whatsnew_update_editor_message">Gli utenti di MAPS.ME hanno apportato 90.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Per utilizzare l\&#39;editor delle mappe, aggiorna tutte le mappe.</string>
 	<string name="location_services_disabled_header">La geolocalizzazione è disabilitata</string>

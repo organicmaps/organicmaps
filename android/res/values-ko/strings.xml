@@ -819,7 +819,7 @@
 	<string name="current_location_unknown_error_title">현재 위치를 알 수 없습니다.</string>
 	<string name="current_location_unknown_error_message">위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.</string>
 	<string name="whatsnew_update_editor_title">지도 편집기를 업데이트했습니다</string>
-	<string name="whatsnew_update_editor_message">전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME 사용자는 90000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">지도 편집기를 사용하려면, 모든 지도를 업데이트하십시오.</string>
 	<string name="location_services_disabled_header">위치 식별 사용할 수 없음</string>

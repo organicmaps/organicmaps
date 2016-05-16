@@ -828,7 +828,7 @@
 	<string name="current_location_unknown_error_title">Aktualna lokalizacja jest nieznana.</string>
 	<string name="current_location_unknown_error_message">Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.</string>
 	<string name="whatsnew_update_editor_title">Zaktualizowaliśmy edytor map</string>
-	<string name="whatsnew_update_editor_message">Użytkownicy MAPS.ME dokonali 50 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!</string>
+	<string name="whatsnew_update_editor_message">Użytkownicy MAPS.ME dokonali 90 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Aby korzystać z edytora map, zaktualizuj wszystkie mapy.</string>
 	<string name="location_services_disabled_header">Identyfikacja lokalizacji jest wyłączona</string>

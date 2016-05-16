@@ -857,7 +857,7 @@
 	<string name="current_location_unknown_error_title">Standort nicht gefunden.</string>
 	<string name="current_location_unknown_error_message">Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.</string>
 	<string name="whatsnew_update_editor_title">Der Editor wurde aktualisiert.</string>
-	<string name="whatsnew_update_editor_message">Die Benutzer haben schon mehr als 50.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!</string>
+	<string name="whatsnew_update_editor_message">Die Benutzer haben schon mehr als 90.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Um den Karten-Editor zu nutzen, aktualisieren Sie bitte alle Karten.</string>
 	<string name="location_services_disabled_header">Standort-Identifizierung ist deaktiviert</string>

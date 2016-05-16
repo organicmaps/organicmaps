@@ -827,7 +827,7 @@
 	<string name="current_location_unknown_error_title">Aktuel position er ukendt.</string>
 	<string name="current_location_unknown_error_message">Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.</string>
 	<string name="whatsnew_update_editor_title">Har vi opdateret korteditoren</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME brugere har foretaget 50.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME brugere har foretaget 90.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">For at bruge kortredigering, bedes du opdatere alle kort.</string>
 	<string name="location_services_disabled_header">Placeringsservices er slået fra</string>

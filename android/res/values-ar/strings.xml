@@ -776,7 +776,7 @@
 	<string name="whatsnew_smallmwm_message">لقد قسمنا الخرائط إلى أجزاء. الآن يمكنك تنزيل مناطق منفصلة، وليس البلد بأكمله.</string>
 	<string name="whatsnew_search_header">بحث جديد</string>
 	<string name="whatsnew_search_message">لقد طورنا كليا البحث بالعنوان. فلترى بنفسك.</string>
-	<string name="whatsnew_editor_title">تعديل الخريطة *</string>
+	<string name="whatsnew_editor_title">تعديل الخريطة *</string>
 	<string name="whatsnew_editor_message_1">قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.</string>
 	<string name="whatsnew_editor_message_2">*تستخدم MAPS.ME البيانات الخاصة بخريطة OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">لن تضل الطريق أبدا بعد الآن</string>
@@ -833,7 +833,7 @@
 	<string name="current_location_unknown_error_title">الموقع الحالي غير معروف.</string>
 	<string name="current_location_unknown_error_message">حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.</string>
 	<string name="whatsnew_update_editor_title">لقد قمنا بتحديث محرر الخريطة</string>
-	<string name="whatsnew_update_editor_message">قام مستخدمو MAPS.ME بإجراء 50000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!</string>
+	<string name="whatsnew_update_editor_message">قام مستخدمو MAPS.ME بإجراء 90000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">لاستخدام مُحَرّر الخريطة، يرجى تحديث جميع الخرائط.</string>
 	<string name="location_services_disabled_header">تم تعطيل تحديد الموقع</string>

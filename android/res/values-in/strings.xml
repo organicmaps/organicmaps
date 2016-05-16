@@ -826,7 +826,7 @@
 	<string name="current_location_unknown_error_title">Lokasi saat ini tidak diketahui.</string>
 	<string name="current_location_unknown_error_message">Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.</string>
 	<string name="whatsnew_update_editor_title">Kami telah memperbarui editor peta</string>
-	<string name="whatsnew_update_editor_message">Pengguna MAPS.ME telah membuat 50 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!</string>
+	<string name="whatsnew_update_editor_message">Pengguna MAPS.ME telah membuat 90 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Untuk menggunakan editor peta, silakan perbarui semua peta.</string>
 	<string name="location_services_disabled_header">Identifikasi lokasi dinonaktifkan</string>

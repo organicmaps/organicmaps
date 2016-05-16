@@ -833,7 +833,7 @@
 	<string name="current_location_unknown_error_title">Geçerli konum bilinmiyor.</string>
 	<string name="current_location_unknown_error_message">Konumunuz aranırken bir hata oluştu. Cihazının düzgün çalışıp çalışmadığını kontrol edip daha sonra tekrar deneyin.</string>
 	<string name="whatsnew_update_editor_title">Harita düzenleyicisini güncelledik</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME kullanıcıları, haritalar üzerinde 50.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME kullanıcıları, haritalar üzerinde 90.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Harita Editörü\&#39;nü kullanmak için lütfen tüm haritaları güncelleyin.</string>
 	<string name="location_services_disabled_header">Konum tanımlama devre dışı bırakıldı</string>

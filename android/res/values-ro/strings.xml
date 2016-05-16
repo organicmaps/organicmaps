@@ -824,7 +824,7 @@
 	<string name="current_location_unknown_error_title">Locația curentă este necunoscută.</string>
 	<string name="current_location_unknown_error_message">S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.</string>
 	<string name="whatsnew_update_editor_title">Am actualizat editorul de hărți</string>
-	<string name="whatsnew_update_editor_message">Utilizatorii MAPS.ME au făcut 50.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!</string>
+	<string name="whatsnew_update_editor_message">Utilizatorii MAPS.ME au făcut 90.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.</string>
 	<string name="location_services_disabled_header">Geolocalizarea este dezactivată</string>
