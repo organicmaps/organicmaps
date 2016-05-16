@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="18px" viewBox="0 0 17 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
     <title>bcontrol-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.519" r="8.5"></circle>
-        <circle id="Oval-1-Copy-42" fill="#717065" sketch:type="MSShapeGroup" cx="8.5" cy="8.519" r="7.5"></circle>
-        <g id="Rectangle-22-+-Group-Copy-2" sketch:type="MSLayerGroup" transform="translate(4.000000, 3.019000)">
-            <path d="M6,1 L6,0 L3,0 L3,3 L0,3 L0,4 L3,4 L3,11 L6,11 L6,6 L9,6 L9,5 L6,5 L6,2 L9,2 L9,1 L6,1 Z" id="Rectangle-22" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-            <g id="Group" transform="translate(3.250000, 0.733333)" stroke-linecap="square" sketch:type="MSShapeGroup">
-                <path d="M1.25,0.766666667 L1.25,8.76666667" id="Line" stroke="#807D54"></path>
-                <path d="M0.25,2.76666667 L2.25,2.76666667" id="Line-Copy-4" stroke="#FFFFFF"></path>
-                <path d="M0.25,5.76666667 L2.25,5.76666667" id="Line-Copy-5" stroke="#FFFFFF"></path>
-            </g>
+    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bcontrol-s">
+            <circle id="Oval-1-Copy-43" fill-opacity="0.6" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
+            <ellipse id="Oval-1-Copy-42" fill="#717065" cx="8.5" cy="8.5" rx="7.5" ry="7.5"></ellipse>
+            <path d="M10,13 L10,4 L8.5,3 L7,4 L7,13 L6,14 L11,14 L10,13 Z M8,4 L9,4 L9,13 L8,13 L8,4 Z M8,5 L9,5 L9,6 L8,6 L8,5 Z M8,8 L9,8 L9,9 L8,9 L8,8 Z M8,11 L9,11 L9,12 L8,12 L8,11 Z" id="Combined-Shape" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>

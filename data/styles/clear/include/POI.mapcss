@@ -31,9 +31,9 @@ node|z14[amenity=university][!name] { }
 node|z14[amenity=hospital]
 { icon-image: hospital-s.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; icon-min-distance: 15;  }
 
-node|z12[natural=spring],area|z12[natural=spring]{ icon-image: drinking-water-s.svg; z-index: 2700; icon-min-distance: 15; }
-node|z13-14[natural=spring],area|z13-14[natural=spring]{ icon-image: drinking-water-s.svg; text-offset:6; font-size: 10;  text: name; text-color: @poi_label; z-index: 2700; icon-min-distance: 12; }
-node|z13-14[man_made=water_well],area|z13-14[man_made=water_well]{ icon-image: drinking-water-s.svg; text-offset:6; font-size: 10;  text: name; text-color: @poi_label; z-index: 2700; icon-min-distance: 12; }
+node|z12[natural=spring],area|z12[natural=spring]{ icon-image: drinking-water-s.svg; z-index: 2400; icon-min-distance: 15; }
+node|z13-14[natural=spring],area|z13-14[natural=spring]{ icon-image: drinking-water-s.svg; text-offset:6; font-size: 10;  text: name; text-color: @poi_label; z-index: 2400; icon-min-distance: 12; }
+node|z13-14[man_made=water_well],area|z13-14[man_made=water_well]{ icon-image: drinking-water-s.svg; text-offset:6; font-size: 10;  text: name; text-color: @poi_label; z-index: 2500; icon-min-distance: 12; }
 node|z13-14[tourism=camp_site],area|z15[tourism=camp_site]
 { icon-image: campsite-s.svg; z-index: 2700; icon-min-distance: 12;}
 
@@ -74,8 +74,24 @@ node|z15[tourism=camp_site],area|z15[tourism=camp_site]
 { text-offset: 12; icon-image: campsite-m.svg; z-index: 2700; icon-min-distance: 5;}
 node|z15[amenity=place_of_worship], area|z15[amenity=place_of_worship] { icon-image: place-of-worship-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 15; }
 
-node|z15-[natural=spring],area|z15-[natural=spring]{ icon-image: drinking-water-m.svg; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 2700; icon-min-distance: 5;  }
-node|z15-[man_made=water_well],area|z15-[man_made=water_well]{ icon-image: drinking-water-m.svg; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 2700; icon-min-distance: 5;  }
+node|z15[amenity=place_of_worship][religion=christian], area|z15[amenity=place_of_worship][religion=christian] { icon-image: christian-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 15; }
+
+node|z15[amenity=place_of_worship][religion=muslim], area|z15[amenity=place_of_worship][religion=muslim] { icon-image: muslim-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 15; }
+
+node|z15[amenity=place_of_worship][religion=buddhist], area|z15[amenity=place_of_worship][religion=buddhist] { icon-image: buddhist-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 15; }
+
+node|z15[amenity=place_of_worship][religion=hindu], area|z15[amenity=place_of_worship][religion=hindu] { icon-image: hindu-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 15; }
+
+
+node|z15[amenity=place_of_worship][religion=shinto], area|z15[amenity=place_of_worship][religion=shinto] { icon-image: shinto-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 15; }
+
+node|z15[amenity=place_of_worship][religion=jewish], area|z15[amenity=place_of_worship][religion=jewish] { icon-image: jewish-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 15; }
+
+node|z15[amenity=place_of_worship][religion=taoist], area|z15[amenity=place_of_worship][religion=taoist] { icon-image: taoist-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 15; }
+
+
+node|z15-[natural=spring],area|z15-[natural=spring]{ icon-image: drinking-water-m.svg; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 2400; icon-min-distance: 5;  }
+node|z15-[man_made=water_well],area|z15-[man_made=water_well]{ icon-image: drinking-water-m.svg; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 2500; icon-min-distance: 5;  }
 node|z15-[amenity=hunting_stand], area|z15-[amenity=hunting_stand] { icon-image: hunting-tower-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; icon-min-distance: 5;}
 node|z15-[tourism=attraction], area|z15-[tourism=attraction ] { icon-image: tourism-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; icon-min-distance: 5;}
 node|z15-[man_made=chimney], area|z15-[man_made=chimney] { icon-image: chimney-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; icon-min-distance: 5;}
@@ -359,6 +375,15 @@ node|z15-16[amenity=fountain],area|z15-16[amenity=fountain] { icon-image: founta
 node|z15-16[amenity=drinking_water],area|z15-16[amenity=drinking_water],node|z15-16[amenity=water_point] ,area|z15-16[amenity=water_point]{ icon-image: drinking-water-m.svg;z-index: 2400; icon-min-distance: 20;}
 
 node|z16[amenity=place_of_worship], area|z16[amenity=place_of_worship] { icon-image: place-of-worship-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z16[amenity=place_of_worship][religion=christian], area|z16[amenity=place_of_worship][religion=christian] { icon-image: christian-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z16[amenity=place_of_worship][religion=muslim], area|z16[amenity=place_of_worship][religion=muslim] { icon-image: muslim-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z16[amenity=place_of_worship][religion=buddhist], area|z16[amenity=place_of_worship][religion=buddhist] { icon-image: buddhist-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z16[amenity=place_of_worship][religion=hindu], area|z16[amenity=place_of_worship][religion=hindu] { icon-image: hindu-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z16[amenity=place_of_worship][religion=shinto], area|z16[amenity=place_of_worship][religion=shinto] { icon-image: shinto-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z16[amenity=place_of_worship][religion=jewish], area|z16[amenity=place_of_worship][religion=jewish] { icon-image: jewish-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z16[amenity=place_of_worship][religion=taoist], area|z16[amenity=place_of_worship][religion=taoist] { icon-image: taoist-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+
+
 /*
 node|z16[amenity=kindergarten], area|z16[amenity=kindergarten] { icon-image: kindergarten-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
 node|z16[amenity=school], area|z16[amenity=school] { icon-image: school-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}*/
@@ -370,7 +395,7 @@ node|z16[amenity=university][name], area|z16[amenity=university][name] { icon-im
 node|z16[amenity=university][!name], area|z16[amenity=university][!name] { }
 node|z16[amenity=fuel], area|z16[amenity=fuel] { icon-image: fuel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; -x-me-text-priority:15500; }
 node|z16[amenity=charging_station], area|z16[amenity=charging_station] { icon-image: charging-station-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; -x-me-text-priority:15500; }
-node|z16-[natural=spring],area|z16-[natural=spring]{ icon-image: drinking-water-m.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 2700; }
+node|z16-[natural=spring],area|z16-[natural=spring]{ icon-image: drinking-water-m.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 2400; }
 node|z16[amenity=cafe], area|z16[amenity=cafe] { icon-image: cafe-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 10;}
 node|z16[amenity=restaurant], area|z16[amenity=restaurant] { icon-image: restaurant-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;icon-min-distance: 10;}
 node|z16[amenity=theatre], area|z16[amenity=theatre] { icon-image: theatre-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 10;}
@@ -381,9 +406,18 @@ node|z16-[leisure=water_park], area|z16-[leisure=water_park] { icon-image: swimm
 
 
 node|z17[amenity=place_of_worship], area|z17[amenity=place_of_worship] { icon-image: place-of-worship-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=place_of_worship][religion=christian], area|z17[amenity=place_of_worship][religion=christian] { icon-image: christian-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=place_of_worship][religion=muslim], area|z17[amenity=place_of_worship][religion=muslim] { icon-image: muslim-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=place_of_worship][religion=buddhist], area|z17[amenity=place_of_worship][religion=buddhist] { icon-image: buddhist-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=place_of_worship][religion=hindu], area|z17[amenity=place_of_worship][religion=hindu] { icon-image: hindu-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=place_of_worship][religion=shinto], area|z17[amenity=place_of_worship][religion=shinto] { icon-image: shinto-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=place_of_worship][religion=jewish], area|z17[amenity=place_of_worship][religion=jewish] { icon-image: jewish-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=place_of_worship][religion=taoist], area|z17[amenity=place_of_worship][religion=taoist] { icon-image: taoist-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+
+
 node|z17[amenity=theatre], area|z17[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
 node|z17[amenity=kindergarten], area|z17[amenity=kindergarten] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2100; }
-node|z17[amenity=childcare], area|z17[amenity=childcare] { icon-image: childcare-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2100; }
+node|z17[amenity=childcare], area|z17[amenity=childcare] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2100; }
 node|z17[amenity=school], area|z17[amenity=school] { icon-image: school-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
 node|z17[amenity=college], area|z17[amenity=college] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17[amenity=hospital], area|z17[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
@@ -406,7 +440,7 @@ node|z17[amenity=cafe], area|z17[amenity=cafe] { icon-image: cafe-l.svg; text-of
 node|z17[amenity=restaurant], area|z17[amenity=restaurant] { icon-image: restaurant-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17-[amenity=fountain],area|z17-[amenity=fountain] { icon-image: fountain-l.svg; z-index: 1000; text-offset: 10; font-size: 10;  text: name; text-color: @poi_label; z-index: 2500;}
 node|z17-[amenity=drinking_water],area|z17-[amenity=drinking_water],node|z17-[amenity=water_point] ,area|z17-[amenity=water_point]{ icon-image: drinking-water-l.svg;z-index: 2400; }
-node|z17-[natural=spring],area|z17-[natural=spring]{ icon-image: drinking-water-l.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 2700; }
+node|z17-[natural=spring],area|z17-[natural=spring]{ icon-image: drinking-water-l.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 2400; }
 node|z17-[historic=memorial], area|z17-[historic=memorial] { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17-[historic=monument],area|z17-[historic=monument]  { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17-[historic=archaeological_site],area|z17-[historic=archaeological_site]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
@@ -421,9 +455,18 @@ node|z17-[office=lawyer], area|z17-[office=lawyer] { icon-image: lawyer-l.svg; t
 
 
 node|z18-[amenity=place_of_worship], area|z18-[amenity=place_of_worship] { icon-image: place-of-worship-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=place_of_worship][religion=christian], area|z18-[amenity=place_of_worship][religion=christian] { icon-image: christian-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=place_of_worship][religion=muslim], area|z18-[amenity=place_of_worship][religion=muslim] { icon-image: muslim-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=place_of_worship][religion=buddhist], area|z18-[amenity=place_of_worship][religion=buddhist] { icon-image: buddhist-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=place_of_worship][religion=hindu], area|z18-[amenity=place_of_worship][religion=hindu] { icon-image: hindu-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=place_of_worship][religion=shinto], area|z18-[amenity=place_of_worship][religion=shinto] { icon-image: shinto-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=place_of_worship][religion=jewish], area|z18-[amenity=place_of_worship][religion=jewish] { icon-image: jewish-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=place_of_worship][religion=taoist], area|z18-[amenity=place_of_worship][religion=taoist] { icon-image: taoist-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
+
+
 node|z18-[amenity=theatre], area|z18-[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
 node|z18-[amenity=kindergarten], area|z18-[amenity=kindergarten] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[amenity=childcare], area|z18-[amenity=childcare] { icon-image: childcare-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[amenity=childcare], area|z18-[amenity=childcare] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
 node|z18-[amenity=school], area|z18-[amenity=school] { icon-image: school-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2500; }
 node|z18-[amenity=college], area|z18-[amenity=college] { icon-image: college-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
 node|z18-[amenity=hospital], area|z18-[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2700; }
@@ -493,10 +536,10 @@ node|z16-[amenity=marketplace], area|z16-[amenity=marketplace]{ icon-image: mark
 node|z16-[amenity=taxi], area|z16-[amenity=taxi]{ icon-image: taxi-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[barrier=lift_gate], area|z16-[barrier=lift_gate] { icon-image: lift_gate-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[barrier=toll_booth], area|z16-[barrier=toll_booth] { icon-image: toll_booth-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 30; }
-node|z16-[historic=boundary_stone], area|z16-[historic=boundary_stone]{ icon-image: boundary_stone-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
+node|z16-[historic=boundary_stone], area|z16-[historic=boundary_stone]{ icon-image: monument-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[historic=ship], area|z16-[historic=ship]{ icon-image: historic-ship-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 30; }
 node|z16-[historic=tomb], area|z16-[historic=tomb] { icon-image: tomb-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
-node|z16-[historic=wayside_cross], area|z16-[historic=wayside_cross]{ icon-image: wayside_cross-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
+node|z16-[historic=wayside_cross], area|z16-[historic=wayside_cross]{ icon-image: monument-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[historic=wayside_shrine], area|z16-[historic=wayside_shrine] { icon-image: wayside_shrine-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 30;}
 node|z16-[leisure=dog_park], area|z16-[leisure=dog_park] { icon-image: dog_park-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 30; }
 node|z16-[leisure=water_park], area|z16-[leisure=water_park]{ icon-image: swimming-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 30; }
@@ -515,7 +558,8 @@ node|z15-[shop=cosmetics], area|z15-[shop=cosmetics] { icon-image: beauty-m.svg;
 node|z15-[shop=beverages], area|z15-[shop=beverages] { icon-image: alcohol-m.svg; }
 node|z15-[shop=bicycle], area|z15-[shop=bicycle] { icon-image: shop-bicycle-m.svg; }
 node|z15-[shop=butcher], area|z15-[shop=butcher] { icon-image: butcher-m.svg; }
-node|z15-[shop=car], area|z15-[shop=car] { icon-image: car_sharing-m.svg; }
+node|z15-[shop=car], area|z15-[shop=car] { icon-image: car_shop-m.svg; }
+node|z15-[shop=motorcycle], area|z15-[shop=motorcycle] { icon-image: motorcycle_shop-m.svg; }
 node|z15-[shop=car_parts], area|z15-[shop=car_parts] { icon-image: car-part-m.svg; }
 node|z15-[shop=car_repair], area|z15-[shop=car_repair] { icon-image: car-repair-m.svg; }
 node|z15-[shop=tyres], area|z15-[shop=tyres] { icon-image: car-repair-m.svg; }
@@ -524,7 +568,7 @@ node|z15-[shop=chemist], area|z15-[shop=chemist] { icon-image: chemist-m.svg; }
 node|z15-[shop=clothes], area|z15-[shop=clothes] { icon-image: clothes-m.svg; }
 node|z15-[shop=computer], area|z15-[shop=computer] { icon-image: computer-m.svg; }
 node|z15-[shop=confectionery], area|z15-[shop=confectionery] { icon-image: sweets-m.svg; }
-node|z15-[shop=convenience], area|z15-[shop=convenience] { icon-image: convenience-m.svg; }
+node|z15-[shop=convenience], area|z15-[shop=convenience] { icon-image: grocery-m.svg; }
 node|z15-[shop=copyshop], area|z15-[shop=copyshop] { icon-image: copyshop-m.svg; }
 node|z15-[shop=photo], area|z15-[shop=photo] { icon-image: photo-shop-m.svg; }
 node|z15-[shop=pet], area|z15-[shop=pet] { icon-image: petshop-m.svg; }
@@ -537,14 +581,14 @@ node|z15-[shop=garden_centre], area|z15-[shop=garden_centre] { icon-image: garde
 node|z15-[shop=gift], area|z15-[shop=gift] { icon-image: gift-m.svg; }
 node|z15-[shop=greengrocer], area|z15-[shop=greengrocer] { icon-image: greengrocer-m.svg; }
 node|z15-[shop=hairdresser], area|z15-[shop=hairdresser] { icon-image: hairdresser-m.svg; }
-node|z15-[shop=hardware], area|z15-[shop=hardware] { icon-image: hardware-m.svg; }
+node|z15-[shop=hardware], area|z15-[shop=hardware] { icon-image: doityourself-m.svg; }
 node|z15-[shop=jewelry], area|z15-[shop=jewelry] { icon-image: jewelry-m.svg; }
 node|z15-[shop=kiosk], area|z15-[shop=kiosk] { icon-image: kiosk-m.svg; }
 node|z15-[shop=laundry], area|z15-[shop=laundry] { icon-image:laundry-m.svg; }
 node|z15-[shop=dry_cleaning], area|z15-[shop=dry_cleaning] { icon-image:laundry-m.svg; }
 node|z15-[shop=mobile_phone], area|z15-[shop=mobile_phone] { icon-image: mobile_phone-m.svg; }
 node|z15-[shop=optician], area|z15-[shop=optician] { icon-image: optician-m.svg; }
-node|z15-[shop=outdoor], area|z15-[shop=outdoor] { icon-image: climbing-m.svg; }
+node|z15-[shop=outdoor], area|z15-[shop=outdoor] { icon-image: outdoor-shop-m.svg; }
 node|z15-[shop=seafood], area|z15-[shop=seafood] { icon-image: seafood-shop-m.svg; }
 node|z15-[shop=shoes], area|z15-[shop=shoes] { icon-image: shoes-m.svg; }
 node|z15-[shop=sports], area|z15-[shop=sports] { icon-image: sports-m.svg; }
@@ -572,10 +616,10 @@ node|z17-[amenity=marketplace], area|z17-[amenity=marketplace]{ icon-image: mark
 node|z17-[amenity=taxi], area|z17-[amenity=taxi]{ icon-image: taxi-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[barrier=lift_gate], area|z17-[barrier=lift_gate] { icon-image: lift_gate-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[barrier=toll_booth], area|z17-[barrier=toll_booth] { icon-image: toll_booth-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 20; }
-node|z17-[historic=boundary_stone], area|z17-[historic=boundary_stone]{ icon-image: boundary_stone-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
+node|z17-[historic=boundary_stone], area|z17-[historic=boundary_stone]{ icon-image: monument-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[historic=ship], area|z17-[historic=ship]{ icon-image: historic-ship-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 20; }
 node|z17-[historic=tomb], area|z17-[historic=tomb] { icon-image: tomb-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
-node|z17-[historic=wayside_cross], area|z17-[historic=wayside_cross]{ icon-image: wayside_cross-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
+node|z17-[historic=wayside_cross], area|z17-[historic=wayside_cross]{ icon-image: monument-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[historic=wayside_shrine], area|z17-[historic=wayside_shrine] { icon-image: wayside_shrine-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20;}
 node|z17-[leisure=dog_park], area|z17-[leisure=dog_park] { icon-image: dog_park-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 20; }
 node|z17-[leisure=water_park], area|z17-[leisure=water_park]{ icon-image: swimming-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400;icon-min-distance: 20; }
@@ -596,7 +640,8 @@ node|z17-[shop=cosmetics], area|z17-[shop=cosmetics] { icon-image: beauty-l.svg;
 node|z17-[shop=beverages], area|z17-[shop=beverages] { icon-image: alcohol-l.svg; }
 node|z17-[shop=bicycle], area|z17-[shop=bicycle]{ icon-image: shop-bicycle-l.svg; }
 node|z17-[shop=butcher], area|z17-[shop=butcher] { icon-image: butcher-l.svg; }
-node|z17-[shop=car], area|z17-[shop=car]{ icon-image: car_sharing-l.svg; }
+node|z17-[shop=car], area|z17-[shop=car]{ icon-image: car_shop-l.svg; }
+node|z17-[shop=motorcycle], area|z17-[shop=motorcycle]{ icon-image: motorcycle_shop-l.svg; }
 node|z17-[shop=car_parts], area|z17-[shop=car_parts]{ icon-image: car-part-l.svg; }
 node|z17-[shop=car_repair], area|z17-[shop=car_repair] { icon-image: car-repair-l.svg; }
 node|z17-[shop=tyres], area|z17-[shop=tyres] { icon-image: car-repair-l.svg; }
@@ -605,7 +650,7 @@ node|z17-[shop=chemist], area|z17-[shop=chemist] { icon-image: chemist-l.svg; }
 node|z17-[shop=clothes], area|z17-[shop=clothes] { icon-image: clothes-l.svg; }
 node|z17-[shop=computer], area|z17-[shop=computer]{ icon-image: computer-l.svg; }
 node|z17-[shop=confectionery], area|z17-[shop=confectionery]{ icon-image: sweets-l.svg; }
-node|z17-[shop=convenience], area|z17-[shop=convenience] { icon-image: convenience-l.svg; }
+node|z17-[shop=convenience], area|z17-[shop=convenience] { icon-image: grocery-l.svg; }
 node|z17-[shop=copyshop], area|z17-[shop=copyshop] { icon-image: copyshop-l.svg; }
 node|z17-[shop=photo], area|z17-[shop=photo] { icon-image: photo-shop-l.svg; }
 node|z17-[shop=pet], area|z17-[shop=pet] { icon-image: petshop-l.svg; }
@@ -618,14 +663,14 @@ node|z17-[shop=garden_centre], area|z17-[shop=garden_centre]{ icon-image: garden
 node|z17-[shop=gift], area|z17-[shop=gift]{ icon-image: gift-l.svg; }
 node|z17-[shop=greengrocer], area|z17-[shop=greengrocer]{ icon-image: greengrocer-l.svg; }
 node|z17-[shop=hairdresser], area|z17-[shop=hairdresser] { icon-image: hairdresser-l.svg; }
-node|z17-[shop=hardware], area|z17-[shop=hardware]{ icon-image: hardware-l.svg; }
+node|z17-[shop=hardware], area|z17-[shop=hardware]{ icon-image: doityourself-l.svg; }
 node|z17-[shop=jewelry], area|z17-[shop=jewelry] { icon-image: jewelry-l.svg; }
 node|z17-[shop=kiosk], area|z17-[shop=kiosk]{ icon-image: kiosk-l.svg; }
 node|z17-[shop=laundry], area|z17-[shop=laundry] { icon-image:laundry-l.svg; }
 node|z17-[shop=dry_cleaning], area|z17-[shop=dry_cleaning] { icon-image:laundry-l.svg; }
 node|z17-[shop=mobile_phone], area|z17-[shop=mobile_phone]{ icon-image: mobile_phone-l.svg; }
 node|z17-[shop=optician], area|z17-[shop=optician]{ icon-image: optician-l.svg; }
-node|z17-[shop=outdoor], area|z17-[shop=outdoor]{ icon-image: climbing-l.svg; }
+node|z17-[shop=outdoor], area|z17-[shop=outdoor]{ icon-image: outdoor-shop-l.svg; }
 node|z17-[shop=seafood], area|z17-[shop=seafood] { icon-image: seafood-shop-l.svg; }
 node|z17-[shop=shoes], area|z17-[shop=shoes]{ icon-image: shoes-l.svg; }
 node|z17-[shop=sports], area|z17-[shop=sports]{ icon-image: sports-l.svg; }
@@ -648,10 +693,10 @@ node|z18-[amenity=marketplace], area|z18-[amenity=marketplace]{ icon-image: mark
 node|z18-[amenity=taxi], area|z18-[amenity=taxi]{ icon-image: taxi-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[barrier=lift_gate], area|z18-[barrier=lift_gate] { icon-image: lift_gate-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[barrier=toll_booth], area|z18-[barrier=toll_booth] { icon-image: toll_booth-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[historic=boundary_stone], area|z18-[historic=boundary_stone]{ icon-image: boundary_stone-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[historic=boundary_stone], area|z18-[historic=boundary_stone]{ icon-image: monument-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[historic=ship], area|z18-[historic=ship]{ icon-image: historic-ship-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
 node|z18-[historic=tomb], area|z18-[historic=tomb] { icon-image: tomb-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
-node|z18-[historic=wayside_cross], area|z18-[historic=wayside_cross]{ icon-image: wayside_cross-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[historic=wayside_cross], area|z18-[historic=wayside_cross]{ icon-image: monument-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[historic=wayside_shrine], area|z18-[historic=wayside_shrine] { icon-image: wayside_shrine-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[leisure=dog_park], area|z18-[leisure=dog_park] { icon-image: dog_park-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
 node|z18-[leisure=water_park], area|z18-[leisure=water_park]{ icon-image: swimming-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
