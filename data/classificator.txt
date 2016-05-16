@@ -779,6 +779,9 @@ world  +
         tyres  -
         wine  -
         {}
+    sponsored  +
+        booking  -
+        {}
     sport  +
         american_football  -
         archery  -

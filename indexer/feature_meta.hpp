@@ -123,6 +123,9 @@ public:
     FMD_DENOMINATION = 21,
     FMD_BUILDING_LEVELS = 22,
     FMD_TEST_ID = 23,
+    FMD_SPONSORED_ID = 24,
+    FMD_PRICE_RATE = 25,
+    FMD_RATING = 26,
     FMD_COUNT
   };
 

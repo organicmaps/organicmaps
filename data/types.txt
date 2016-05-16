@@ -1118,3 +1118,5 @@ tourism|alpine_hut|booking
 tourism|camp_site|booking
 tourism|apartment|booking
 tourism|resort|booking
+sponsored
+sponsored|booking
