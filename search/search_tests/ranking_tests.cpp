@@ -44,5 +44,6 @@ UNIT_TEST(NameTest_Smoke)
   TEST_EQUAL(GetScore("Moscow", "Red Square Moscow", 2, 3), NAME_SCORE_FULL_MATCH, ());
   TEST_EQUAL(GetScore("San Francisco", "Fran", 0, 1), NAME_SCORE_SUBSTRING_PREFIX, ());
   TEST_EQUAL(GetScore("San Francisco", "Fran ", 0, 1), NAME_SCORE_ZERO, ());
+  TEST_EQUAL(GetScore("Лермонтовъ", "Лермонтов", 0, 1), NAME_SCORE_FULL_MATCH_PREFIX, ());
 }
 }  // namespace

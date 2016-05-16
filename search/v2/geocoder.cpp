@@ -73,12 +73,6 @@ size_t constexpr kLocalityRectsCacheSize = 10;
 
 strings::UniString const kUniSpace(strings::MakeUniString(" "));
 
-template <typename T>
-struct Id
-{
-  T const & operator()(T const & t) const { return t; }
-};
-
 struct ScopedMarkTokens
 {
   ScopedMarkTokens(vector<bool> & usedTokens, size_t from, size_t to)
@@ -1563,12 +1557,12 @@ SearchModel::SearchType Geocoder::GetSearchTypeInGeocoding(uint32_t featureId)
 
 bool Geocoder::AllTokensUsed() const
 {
-  return all_of(m_usedTokens.begin(), m_usedTokens.end(), Id<bool>());
+  return all_of(m_usedTokens.begin(), m_usedTokens.end(), my::Id<bool>());
 }
 
 bool Geocoder::HasUsedTokensInRange(size_t from, size_t to) const
 {
-  return any_of(m_usedTokens.begin() + from, m_usedTokens.begin() + to, Id<bool>());
+  return any_of(m_usedTokens.begin() + from, m_usedTokens.begin() + to, my::Id<bool>());
 }
 
 size_t Geocoder::NumUnusedTokensGroups() const

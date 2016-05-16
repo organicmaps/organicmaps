@@ -30,16 +30,27 @@ namespace search
 {
 namespace
 {
-void MakeDefaultTestParams(string const & query, SearchParams & params)
-{
-  params.m_query = query;
-  params.m_inputLocale = "en";
-  params.SetMode(Mode::Everywhere);
-  params.SetSuggestsEnabled(false);
-}
-
 class SearchQueryV2Test : public SearchTest
 {
+public:
+  unique_ptr<TestSearchRequest> DoRequest(string const & query)
+  {
+    SearchParams params;
+    params.m_query = query;
+    params.m_inputLocale = "en";
+    params.SetMode(Mode::Everywhere);
+    params.SetSuggestsEnabled(false);
+
+    auto request = make_unique<TestSearchRequest>(m_engine, params, m_viewport);
+    request->Wait();
+    return request;
+  }
+
+  bool MatchResults(vector<shared_ptr<MatchingRule>> rules,
+                    vector<search::Result> const & actual) const
+  {
+    return ::MatchResults(m_engine, rules, actual);
+  }
 };
 
 UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
@@ -271,7 +282,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
     request.Wait();
     TRules rules = {ExactMatch(worldId, london1), ExactMatch(worldId, london2)};
 
-    TEST(MatchResults(m_engine, rules, request.Results()), ());
+    TEST(MatchResults(rules, request.Results()), ());
   }
 }
 
@@ -321,41 +332,34 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
   {
-    SearchParams params;
-    MakeDefaultTestParams("golden gate bridge ", params);
-
-    TestSearchRequest request(m_engine, params, m_viewport);
-    request.Wait();
+    auto request = DoRequest("golden gate bridge ");
 
     TRules rules = {ExactMatch(wonderlandId, goldenGateBridge),
                     ExactMatch(wonderlandId, goldenGateStreet)};
 
-    TEST(MatchResults(m_engine, rules, request.Results()), ());
-    for (auto const & result : request.Results())
+    TEST(MatchResults(rules, request->Results()), ());
+    for (auto const & result : request->Results())
     {
       auto const & info = result.GetRankingInfo();
       TEST_EQUAL(NAME_SCORE_FULL_MATCH, info.m_nameScore, (result));
+      TEST(!info.m_matchByTrueCats, (result));
+      TEST(!info.m_matchByFalseCats, (result));
       TEST(my::AlmostEqualAbs(1.0, info.m_nameCoverage, 1e-6), (info.m_nameCoverage));
     }
   }
 
   // This test is quite important and must always pass.
   {
-    SearchParams params;
-    MakeDefaultTestParams("cafe лермонтов", params);
-
-    TestSearchRequest request(m_engine, params, m_viewport);
-    request.Wait();
-
-    auto const & results = request.Results();
+    auto request = DoRequest("cafe лермонтов");
+    auto const & results = request->Results();
 
     TRules rules{ExactMatch(wonderlandId, cafe1), ExactMatch(wonderlandId, cafe2),
                  ExactMatch(wonderlandId, lermontov)};
-    TEST(MatchResults(m_engine, rules, results), ());
+    TEST(MatchResults(rules, results), ());
 
     TEST_EQUAL(3, results.size(), ("Unexpected number of retrieved cafes."));
     auto const & top = results.front();
-    TEST(MatchResults(m_engine, {ExactMatch(wonderlandId, lermontov)}, {top}), ());
+    TEST(MatchResults({ExactMatch(wonderlandId, lermontov)}, {top}), ());
   }
 
   {
@@ -482,19 +486,24 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
                                    });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
-  TRules rules = {ExactMatch(wonderlandId, noname), ExactMatch(wonderlandId, named)};
-
-  TEST(ResultsMatch("atm", rules), ());
+  TRules const rules = {ExactMatch(wonderlandId, noname), ExactMatch(wonderlandId, named)};
 
   {
-    SearchParams params;
-    MakeDefaultTestParams("#atm", params);
+    auto request = DoRequest("atm");
+    TEST(MatchResults(rules, request->Results()), ());
+    for (auto const & result : request->Results())
+    {
+      auto const & info = result.GetRankingInfo();
+      TEST(info.m_matchByTrueCats, (result));
+      TEST(!info.m_matchByFalseCats, (result));
+    }
+  }
 
-    TestSearchRequest request(m_engine, params, m_viewport);
-    request.Wait();
+  {
+    auto request = DoRequest("#atm");
 
-    TEST(MatchResults(m_engine, rules, request.Results()), ());
-    for (auto const & result : request.Results())
+    TEST(MatchResults(rules, request->Results()), ());
+    for (auto const & result : request->Results())
     {
       auto const & info = result.GetRankingInfo();
 

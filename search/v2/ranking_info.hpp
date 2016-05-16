@@ -30,6 +30,14 @@ struct RankingInfo
   // Search type for the feature.
   SearchModel::SearchType m_searchType = SearchModel::SEARCH_TYPE_COUNT;
 
+  // True if the feature was matched only by tokens corresponding to
+  // it's categories.
+  bool m_matchByTrueCats = false;
+
+  // True if the feature was matched only by tokens don't
+  // corresponding to it's categories.
+  bool m_matchByFalseCats = false;
+
   static void PrintCSVHeader(ostream & os);
 
   void ToCSV(ostream & os) const;

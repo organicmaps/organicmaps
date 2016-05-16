@@ -67,6 +67,63 @@ private:
   vector<size_t> m_indexes;
 };
 
+class QuerySlice
+{
+public:
+  using TString = SearchQueryParams::TString;
+
+  virtual ~QuerySlice() = default;
+
+  virtual TString const & Get(size_t i) const = 0;
+  virtual size_t Size() const = 0;
+  virtual bool IsPrefix(size_t i) const = 0;
+
+  bool Empty() const { return Size() == 0; }
+};
+
+class QuerySliceOnTokens : public QuerySlice
+{
+public:
+  QuerySliceOnTokens(TokenSlice const & slice) : m_slice(slice) {}
+
+  // QuerySlice overrides:
+  SearchQueryParams::TString const & Get(size_t i) const override { return m_slice.Get(i).front(); }
+  size_t Size() const override { return m_slice.Size(); }
+  bool IsPrefix(size_t i) const override { return m_slice.IsPrefix(i); }
+
+private:
+  TokenSlice const m_slice;
+};
+
+template <typename TCont>
+class QuerySliceOnRawStrings : public QuerySlice
+{
+public:
+  QuerySliceOnRawStrings(TCont const & tokens, TString const & prefix)
+    : m_tokens(tokens), m_prefix(prefix)
+  {
+  }
+
+  // QuerySlice overrides:
+  SearchQueryParams::TString const & Get(size_t i) const override
+  {
+    ASSERT_LESS(i, Size(), ());
+    return i == m_tokens.size() ? m_prefix : m_tokens[i];
+  }
+
+  size_t Size() const override { return m_tokens.size() + (m_prefix.empty() ? 0 : 1); }
+
+  bool IsPrefix(size_t i) const override
+  {
+    ASSERT_LESS(i, Size(), ());
+    return i == m_tokens.size();
+  }
+
+ private:
+  TCont const & m_tokens;
+  TString const & m_prefix;
+};
+
 string DebugPrint(TokenSlice const & slice);
 
 string DebugPrint(TokenSliceNoCategories const & slice);

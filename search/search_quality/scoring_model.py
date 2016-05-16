@@ -1,41 +1,69 @@
 #!/usr/bin/env python3
 
 from math import exp, log
+from scipy.stats import pearsonr
 from sklearn import cross_validation, grid_search, svm
 import argparse
 import collections
 import itertools
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import random
 import sys
 
-FEATURES = ['DistanceToPivot', 'Rank', 'NameScore', 'NameCoverage', 'SearchType']
 
-MAX_DISTANCE_METERS = 2e7
+MAX_DISTANCE_METERS = 2e6
 MAX_RANK = 255
 RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring Prefix', 'Substring', 'Full Match Prefix', 'Full Match']
-SEARCH_TYPES = {'POI': 0,
-                'BUILDING': 0,
-                'STREET': 1,
-                'UNCLASSIFIED': 2,
-                'VILLAGE': 3,
-                'CITY': 4,
-                'STATE': 5,
-                'COUNTRY': 6}
+SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
+
+FEATURES = ['DistanceToPivot', 'Rank'] + NAME_SCORES + SEARCH_TYPES
+
+
+def transform_name_score(value, categories_match):
+    if categories_match == 1:
+        return 'Zero'
+    elif value == 'Full Match Prefix':
+        return 'Full Match'
+    else:
+        return value
 
 
 def normalize_data(data):
-    transform_distance = lambda d: 1 - min(d, MAX_DISTANCE_METERS) / MAX_DISTANCE_METERS
-
-    max_name_score = len(NAME_SCORES) - 1
-    max_search_type = SEARCH_TYPES['COUNTRY']
+    transform_distance = lambda v: min(v, MAX_DISTANCE_METERS) / MAX_DISTANCE_METERS
 
     data['DistanceToPivot'] = data['DistanceToPivot'].apply(transform_distance)
-    data['Rank'] = data['Rank'].apply(lambda rank: rank / MAX_RANK)
-    data['NameScore'] = data['NameScore'].apply(lambda s: NAME_SCORES.index(s) / max_name_score)
-    data['SearchType'] = data['SearchType'].apply(lambda t: SEARCH_TYPES[t] / max_search_type)
-    data['Relevance'] = data['Relevance'].apply(lambda r: RELEVANCES[r])
+    data['Rank'] = data['Rank'].apply(lambda v: v / MAX_RANK)
+    data['Relevance'] = data['Relevance'].apply(lambda v: RELEVANCES[v])
+
+    cats = data['MatchByTrueCats'].combine(data['MatchByFalseCats'], max)
+
+    # Full prefix match is unified with a full match as these features
+    # are collinear. But we need both of them as they're also used in
+    # locality sorting.
+    #
+    # TODO (@y, @m): do forward/backward/subset selection of features
+    # instead of this merging.  It would be great to conduct PCA on
+    # the features too.
+    data['NameScore'] = data['NameScore'].combine(cats, transform_name_score)
+
+    data['NameCoverage'] = data['NameCoverage'].combine(cats, lambda v, c: v if c == 0 else 0.0)
+
+    # Adds dummy variables to data for NAME_SCORES.
+    for ns in NAME_SCORES:
+        data[ns] = data['NameScore'].apply(lambda v: int(ns == v))
+
+    # Adds dummy variables to data for SEARCH_TYPES.
+
+    # We unify BUILDING with POI here, as we don't have enough
+    # training data to distinguish between them.  Remove following
+    # line as soon as the model will be changed or we will have enough
+    # training data.
+    data['SearchType'] = data['SearchType'].apply(lambda v: v if v != 'Building' else 'POI')
+    for st in SEARCH_TYPES:
+        data[st] = data['SearchType'].apply(lambda v: int(st == v))
 
 
 def compute_ndcg(relevances):
@@ -44,25 +72,12 @@ def compute_ndcg(relevances):
     array of scores.
     """
 
-    relevances_summary = collections.defaultdict(int)
-
-    dcg = 0
-    for i, relevance in enumerate(relevances):
-        dcg += relevance / log(2 + i, 2)
-        relevances_summary[relevance] += 1
-
-    dcg_norm, i = 0, 0
-    for relevance in sorted(relevances_summary.keys(), reverse=True):
-        for _ in range(relevances_summary[relevance]):
-            dcg_norm += relevance / log(2 + i, 2)
-            i += 1
-
-    if dcg_norm == 0:
-        return 0
-    return dcg / dcg_norm
+    dcg = sum(r / log(2 + i, 2) for i, r in enumerate(relevances))
+    dcg_norm = sum(r / log(2 + i, 2) for i, r in enumerate(sorted(relevances, reverse=True)))
+    return dcg / dcg_norm if dcg_norm != 0 else 0
 
 
-def compute_ndcg_without_w(data):
+def compute_ndcgs_without_ws(data):
     """
     Computes NDCG (Normalized Discounted Cumulative Gain) for a given
     data. Returns an array of ndcg scores in the shape [num groups of
@@ -77,17 +92,17 @@ def compute_ndcg_without_w(data):
         relevances = np.array(data.ix[indices]['Relevance'])
         ndcgs.append(compute_ndcg(relevances))
 
-    return np.array(ndcgs)
+    return ndcgs
 
 
-def compute_ndcg_for_w(data, w):
+def compute_ndcgs_for_ws(data, ws):
     """
     Computes NDCG (Normalized Discounted Cumulative Gain) for a given
     data and an array of coeffs in a linear model. Returns an array of
     ndcg scores in the shape [num groups of features].
     """
 
-    data_scores = np.array([np.dot(data.ix[i][FEATURES], w) for i in data.index])
+    data_scores = np.array([np.dot(data.ix[i][FEATURES], ws) for i in data.index])
     grouped = data.groupby(data['SampleId'], sort=False).groups
 
     ndcgs = []
@@ -101,7 +116,7 @@ def compute_ndcg_for_w(data, w):
         relevances = relevances[scores.argsort()[::-1]]
         ndcgs.append(compute_ndcg(relevances))
 
-    return np.array(ndcgs)
+    return ndcgs
 
 
 def transform_data(data):
@@ -150,36 +165,144 @@ def transform_data(data):
     return xs, ys
 
 
+def plot_diagrams(xs, ys, features):
+    """
+    For each feature, plots histagrams of x * sign(y), where x is a
+    slice on the feature of a list of pairwise differences between
+    input feature-vectors and y is a list of pairwise differences
+    between relevances of the input feature-vectors.  Stong bias
+    toward positive or negative values in histograms indicates that
+    the current feature is important for ranking, as there is a
+    correlation between difference between features values and
+    relevancy.
+    """
+    for i, f in enumerate(features):
+        x = [x[i] * np.sign(y) for x, y in zip(xs, ys)]
+
+        l, r = min(x), max(x)
+        d = max(abs(l), abs(r))
+
+        plt.subplot(4, 4, i + 1)
+        plt.hist(x, bins=8, range=(-d, d))
+        plt.title(f)
+    plt.show()
+
+
+def show_pearson_statistics(xs, ys, features):
+    """
+    Shows info about Pearson coefficient between features and
+    relevancy.
+    """
+
+    print('***** Correlation table *****')
+    print('H0 - feature not is correlated with relevancy')
+    print('H1 - feature is correlated with relevancy')
+    print()
+
+    cs, ncs = [], []
+    for i, f in enumerate(features):
+        zs = [x[i] for x in xs]
+        (c, p) = pearsonr(zs, ys)
+
+        correlated = p < 0.05
+        print('{}: pearson={:.3f}, P(H1)={}'.format(f, c, 1 - p))
+        if correlated:
+            cs.append(f)
+        else:
+            ncs.append(f)
+
+    print()
+    print('Correlated:', cs)
+    print('Non-correlated:', ncs)
+
+
+def raw_output(features, ws):
+    """
+    Prints feature-coeff pairs to the standard output.
+    """
+
+    for f, w in zip(features, ws):
+        print('{}: {}'.format(f, w))
+
+
+def print_const(name, value):
+    print('double const k{} = {:.7f};'.format(name, value))
+
+
+def print_array(name, size, values):
+    print('double const {}[{}] = {{'.format(name, size))
+    print(',\n'.join('  {:.7f} /* {} */'.format(w, f) for (f, w) in values))
+    print('};')
+
+def cpp_output(features, ws):
+    """
+    Prints feature-coeff pairs in the C++-compatible format.
+    """
+
+    ns, st = [], []
+
+    for f, w in zip(features, ws):
+        if f in NAME_SCORES:
+            ns.append((f, w))
+        elif f in SEARCH_TYPES:
+            st.append((f, w))
+        else:
+            print_const(f, w)
+    print_array('kNameScore', 'NameScore::NAME_SCORE_COUNT', ns)
+    print_array('kSearchType', 'SearchModel::SEARCH_TYPE_COUNT', st)
+
+
 def main(args):
     data = pd.read_csv(sys.stdin)
     normalize_data(data)
 
-    ndcg = compute_ndcg_without_w(data);
-    print('Current NDCG: {}, std: {}'.format(np.mean(ndcg), np.std(ndcg)))
+    ndcgs = compute_ndcgs_without_ws(data);
+    print('Current NDCG: {}, std: {}'.format(np.mean(ndcgs), np.std(ndcgs)))
     print()
 
-    x, y = transform_data(data)
+    xs, ys = transform_data(data)
+
+    if args.plot:
+        plot_diagrams(xs, ys, FEATURES)
 
     clf = svm.LinearSVC(random_state=args.seed)
-    cv = cross_validation.KFold(len(y), n_folds=5, shuffle=True, random_state=args.seed)
+    cv = cross_validation.KFold(len(ys), n_folds=5, shuffle=True, random_state=args.seed)
 
     # "C" stands for the regularizer constant.
     grid = {'C': np.power(10.0, np.arange(-5, 6))}
     gs = grid_search.GridSearchCV(clf, grid, scoring='accuracy', cv=cv)
-    gs.fit(x, y)
+    gs.fit(xs, ys)
 
-    w = gs.best_estimator_.coef_[0]
-    ndcg = compute_ndcg_for_w(data, w)
+    ws = gs.best_estimator_.coef_[0]
+    max_w = max(abs(w) for w in ws)
+    ws = np.divide(ws, max_w)
 
-    print('NDCG mean: {}, std: {}'.format(np.mean(ndcg), np.std(ndcg)))
+    # Following code restores coeffs for merged features.
+    ws[FEATURES.index('Building')] = ws[FEATURES.index('POI')]
+    ws[FEATURES.index('Full Match Prefix')] = ws[FEATURES.index('Full Match')]
+
+    ndcgs = compute_ndcgs_for_ws(data, ws)
+
+    print('NDCG mean: {}, std: {}'.format(np.mean(ndcgs), np.std(ndcgs)))
+    print('Accuracy: {}'.format(gs.best_score_))
+
+    if args.pearson:
+        print()
+        show_pearson_statistics(xs, ys, FEATURES)
+
     print()
-    print('Linear model weights:')
-    for f, c in zip(FEATURES, w):
-        print('{}: {}'.format(f, c))
+    print('***** Linear model weights *****')
+    if args.cpp:
+        cpp_output(FEATURES, ws)
+    else:
+        raw_output(FEATURES, ws)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--seed', help='random seed', type=int)
+    parser.add_argument('--plot', help='plot diagrams', action='store_true')
+    parser.add_argument('--pearson', help='show pearson statistics', action='store_true')
+    parser.add_argument('--cpp', help='generate output in the C++ format', action='store_true')
     args = parser.parse_args()
     main(args)
