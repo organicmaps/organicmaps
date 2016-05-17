@@ -22,6 +22,9 @@ public:
   bool SwitchPerspective(Animation::SwitchPerspectiveParams & params);
   bool GetPerspectiveAngle(double & angle);
 
+  bool GetArrowPosition(m2::PointD & position);
+  bool GetArrowAngle(double & angle);
+
   bool AnimationExists(Animation::TObject object) const;
   bool HasAnimations() const;
 

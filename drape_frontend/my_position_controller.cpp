@@ -3,9 +3,7 @@
 #include "drape_frontend/animation_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_event_stream.hpp"
-#include "drape_frontend/animation/base_interpolator.hpp"
-#include "drape_frontend/animation/interpolations.hpp"
-#include "drape_frontend/animation/interpolators.hpp"
+#include "drape_frontend/animation/arrow_animation.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -67,47 +65,6 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
 
 } // namespace
 
-class MyPositionController::MyPositionAnim : public BaseInterpolator
-{
-  using TBase = BaseInterpolator;
-public:
-  MyPositionAnim(m2::PointD const & startPt, m2::PointD const & endPt, double moveDuration,
-                 double startAzimut, double endAzimut, double rotationDuration)
-    : TBase(max(moveDuration, rotationDuration))
-    , m_startPt(startPt)
-    , m_endPt(endPt)
-    , m_startAzimut(startAzimut)
-    , m_endAzimut(endAzimut)
-    , m_moveDuration(moveDuration)
-    , m_rotateDuration(rotationDuration)
-  {
-  }
-
-  m2::PointD GetCurrentPosition() const
-  {
-    return InterpolatePoint(m_startPt, m_endPt,
-                            my::clamp(GetElapsedTime() / m_moveDuration, 0.0, 1.0));
-  }
-
-  bool IsMovingActive() const { return m_moveDuration > 0.0; }
-
-  double GetCurrentAzimut() const
-  {
-    return InterpolateAngle(m_startAzimut, m_endAzimut,
-                            my::clamp(GetElapsedTime() / m_rotateDuration, 0.0, 1.0));
-  }
-
-  bool IsRotatingActive() const { return m_rotateDuration > 0.0; }
-
-private:
-  m2::PointD m_startPt;
-  m2::PointD m_endPt;
-  double m_startAzimut;
-  double m_endAzimut;
-  double m_moveDuration;
-  double m_rotateDuration;
-};
-
 MyPositionController::MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
                                            bool isFirstLaunch, bool isRoutingActive)
   : m_mode(location::PendingPosition)
@@ -144,7 +101,6 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
 
 MyPositionController::~MyPositionController()
 {
-  m_anim.reset();
 }
 
 void MyPositionController::OnNewPixelRect()
@@ -492,8 +448,6 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
     if ((renderMode & RenderMyPosition) != 0)
       m_shape->RenderMyPosition(screen, mng, commonUniforms);
   }
-
-  CheckAnimFinished();
 }
 
 bool MyPositionController::IsRouteFollowingActive() const
@@ -635,8 +589,9 @@ m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 
 m2::PointD MyPositionController::GetDrawablePosition() const
 {
-  if (m_anim != nullptr && m_anim->IsMovingActive())
-    return m_anim->GetCurrentPosition();
+  m2::PointD position;
+  if (AnimationSystem::Instance().GetArrowPosition(position))
+    return position;
 
   if (m_isPendingAnimation)
     return m_oldPosition;
@@ -646,19 +601,14 @@ m2::PointD MyPositionController::GetDrawablePosition() const
 
 double MyPositionController::GetDrawableAzimut() const
 {
-  if (m_anim != nullptr && m_anim->IsRotatingActive())
-    return m_anim->GetCurrentAzimut();
+  double angle;
+  if (AnimationSystem::Instance().GetArrowAngle(angle))
+    return angle;
 
   if (m_isPendingAnimation)
     return m_oldDrawDirection;
 
   return m_drawDirection;
-}
-
-void MyPositionController::CheckAnimFinished() const
-{
-  if (m_anim && m_anim->IsFinished())
-    m_anim.reset();
 }
 
 void MyPositionController::AnimationStarted(ref_ptr<Animation> anim)
@@ -680,9 +630,10 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
   {
     if (IsModeChangeViewport())
     {
-      m_animCreator = [this, oldPos, moveDuration, oldAzimut, rotateDuration]()
+      m_animCreator = [this, oldPos, oldAzimut, screen]()
       {
-        m_anim = make_unique_dp<MyPositionAnim>(oldPos, m_position, moveDuration, oldAzimut, m_drawDirection, rotateDuration);
+        AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position, oldAzimut,
+                                                                                    m_drawDirection, screen));
       };
       m_oldPosition = oldPos;
       m_oldDrawDirection = oldAzimut;
@@ -690,7 +641,8 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
     }
     else
     {
-      m_anim = make_unique_dp<MyPositionAnim>(oldPos, m_position, moveDuration, oldAzimut, m_drawDirection, rotateDuration);
+      AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position, oldAzimut,
+                                                                                  m_drawDirection, screen));
     }
   }
 }

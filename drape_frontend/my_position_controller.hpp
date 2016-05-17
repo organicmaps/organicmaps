@@ -121,7 +121,6 @@ private:
   m2::PointD GetRoutingRotationPixelCenter() const;
 
   double GetDrawableAzimut() const;
-  void CheckAnimFinished() const;
   void CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen);
 
   bool AlmostCurrentPosition(m2::PointD const & pos) const;
@@ -161,9 +160,6 @@ private:
   bool m_isVisible;
   bool m_isDirtyViewport;
   bool m_isPendingAnimation;
-
-  class MyPositionAnim;
-  mutable drape_ptr<MyPositionAnim> m_anim;
 
   using TAnimationCreator = function<void()>;
   TAnimationCreator m_animCreator;

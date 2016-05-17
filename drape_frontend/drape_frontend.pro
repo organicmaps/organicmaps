@@ -13,6 +13,7 @@ INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 SOURCES += \
     $$ROOT_DIR/3party/agg/agg_curves.cpp \
     animation/animation.cpp \
+    animation/arrow_animation.cpp \
     animation/base_interpolator.cpp \
     animation/follow_animation.cpp \
     animation/interpolation_holder.cpp \

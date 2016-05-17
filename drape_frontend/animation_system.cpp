@@ -122,6 +122,28 @@ bool AnimationSystem::SwitchPerspective(Animation::SwitchPerspectiveParams & par
   return false;
 }
 
+bool AnimationSystem::GetArrowPosition(m2::PointD & position)
+{
+  Animation::PropertyValue value;
+  if (GetProperty(Animation::Arrow, Animation::Position, value))
+  {
+    position = value.m_valuePointD;
+    return true;
+  }
+  return false;
+}
+
+bool AnimationSystem::GetArrowAngle(double & angle)
+{
+  Animation::PropertyValue value;
+  if (GetProperty(Animation::Arrow, Animation::Angle, value))
+  {
+    angle = value.m_valueD;
+    return true;
+  }
+  return false;
+}
+
 bool AnimationSystem::AnimationExists(Animation::TObject object) const
 {
   if (!m_animationChain.empty())
