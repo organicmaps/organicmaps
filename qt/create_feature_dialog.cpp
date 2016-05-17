@@ -1,5 +1,7 @@
 #include "qt/create_feature_dialog.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include "indexer/new_feature_categories.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
@@ -9,11 +11,12 @@
 CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories & cats)
   : QDialog(parent)
 {
-  cats.AddLanguage("en");
+  cats.AddLanguage("en");  // Default.
+  cats.AddLanguage(languages::GetCurrentNorm());
 
   QListWidget * allSortedList = new QListWidget();
 
-  auto const & categories = cats.GetAllCategoryNames("en");
+  auto const & categories = cats.GetAllCategoryNames(languages::GetCurrentNorm());
   for (auto const & entry : categories)
   {
     QListWidgetItem * lwi = new QListWidgetItem(entry.first.c_str() /* name */, allSortedList);
