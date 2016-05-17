@@ -36,7 +36,7 @@ public:
 
   // df::UserPointMark overrides.
   m2::PointD const & GetPivot() const override;
-  m2::PointD const & GetPixelOffset() const override;
+  m2::PointD GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
   float GetDepth() const override;
   bool RunCreationAnim() const override;

@@ -16,7 +16,7 @@ class UserPointMark
 public:
   virtual ~UserPointMark() {}
   virtual m2::PointD const & GetPivot() const = 0;
-  virtual m2::PointD const & GetPixelOffset() const = 0;
+  virtual m2::PointD GetPixelOffset() const = 0;
   virtual string GetSymbolName() const  = 0;
   virtual dp::Anchor GetAnchor() const = 0;
   virtual float GetDepth() const = 0;

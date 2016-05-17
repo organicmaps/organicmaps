@@ -51,10 +51,7 @@ UserMark::Type ApiMarkPoint::GetMarkType() const
   return UserMark::Type::API;
 }
 
-m2::PointD const & ApiMarkPoint::GetPixelOffset() const
+m2::PointD ApiMarkPoint::GetPixelOffset() const
 {
-  static m2::PointD const s_centre(0.0, 0.0);
-  static m2::PointD const s_offset(0.0, 3.0);
-
-  return m_style.empty() ? s_centre : s_offset;
+  return m_style.empty() ? m2::PointD(0.0, 0.0) : m2::PointD(0.0, 3.0);
 }

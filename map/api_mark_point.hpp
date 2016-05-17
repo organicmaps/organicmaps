@@ -27,7 +27,7 @@ public:
 
   string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override;
-  m2::PointD const & GetPixelOffset() const override;
+  m2::PointD GetPixelOffset() const override;
 
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }

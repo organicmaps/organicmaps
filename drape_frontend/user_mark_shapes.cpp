@@ -148,7 +148,7 @@ void CacheUserPoints(UserMarksProvider const * provider,
     AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
     AlignVertical(pxSize.y * 0.5f, anchor, up, down);
 
-    m2::PointD const & pixelOffset = pointMark->GetPixelOffset();
+    m2::PointD const pixelOffset = pointMark->GetPixelOffset();
     glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
 
     buffer.emplace_back(pos, left + down + offset, glsl::ToVec2(texRect.LeftTop()), runAnim);
