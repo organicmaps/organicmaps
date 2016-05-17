@@ -2,10 +2,13 @@
 #import "MWMSideButtonsView.h"
 #import "MWMMapViewControlsCommon.h"
 
-static CGFloat const kZoomViewOffsetToTopBound = 12.0;
-static CGFloat const kZoomViewOffsetToBottomBound = 40.0;
-static CGFloat const kZoomViewOffsetToFrameBound = 294.0;
-static CGFloat const kZoomViewHideBoundPercent = 0.4;
+namespace
+{
+  CGFloat const kZoomViewOffsetToTopBound = 12.0;
+  CGFloat const kZoomViewOffsetToBottomBound = 40.0;
+  CGFloat const kZoomViewOffsetToFrameBound = 294.0;
+  CGFloat const kZoomViewHideBoundPercent = 0.4;
+} // namespace
 
 @interface MWMSideButtonsView()
 

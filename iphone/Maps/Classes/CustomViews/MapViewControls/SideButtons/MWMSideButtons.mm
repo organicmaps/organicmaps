@@ -11,24 +11,25 @@
 #include "platform/settings.hpp"
 #include "indexer/scales.hpp"
 
-static NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
-
 extern NSString * const kAlohalyticsTapEventKey;
 
 namespace
 {
-  NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger imagesCount)
+NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
+
+NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger imagesCount)
+{
+  NSMutableArray<UIImage *> * images = [NSMutableArray arrayWithCapacity:imagesCount];
+  NSString * mode = [UIColor isNightMode] ? @"dark" : @"light";
+  for (NSUInteger i = 1; i <= imagesCount; i += 1)
   {
-    NSMutableArray<UIImage *> * images = [NSMutableArray arrayWithCapacity:imagesCount];
-    NSString * mode = [UIColor isNightMode] ? @"dark" : @"light";
-    for (NSUInteger i = 1; i <= imagesCount; i += 1)
-    {
-      NSString * name = [NSString stringWithFormat:@"%@_%@_%@", animationTemplate, mode, @(i).stringValue];
-      [images addObject:[UIImage imageNamed:name]];
-    }
-    return images.copy;
+    NSString * name =
+        [NSString stringWithFormat:@"%@_%@_%@", animationTemplate, mode, @(i).stringValue];
+    [images addObject:[UIImage imageNamed:name]];
   }
-} // namespace
+  return images.copy;
+}
+}  // namespace
 
 @interface MWMSideButtons()
 
@@ -94,35 +95,33 @@ namespace
 {
   UIButton * locBtn = self.locationButton;
   [locBtn.imageView stopAnimating];
-  NSArray<UIImage *> * images = nil;
-  switch (mode)
+
+  NSArray<UIImage *> * images =
+      ^NSArray<UIImage *> *(location::EMyPositionMode oldMode, location::EMyPositionMode newMode)
   {
+    switch (newMode)
+    {
     case location::NotFollow:
     case location::NotFollowNoPosition:
-    {
-      if (self.locationMode == location::FollowAndRotate)
-        images = animationImages(@"btn_follow_and_rotate_to_get_position", 3);
-      else if (self.locationMode == location::Follow)
-        images = animationImages(@"btn_follow_to_get_position", 3);
-      break;
-    }
+      if (oldMode == location::FollowAndRotate)
+        return animationImages(@"btn_follow_and_rotate_to_get_position", 3);
+      else if (oldMode == location::Follow)
+        return animationImages(@"btn_follow_to_get_position", 3);
+      return nil;
     case location::Follow:
-    {
-      if (self.locationMode == location::FollowAndRotate)
-        images = animationImages(@"btn_follow_and_rotate_to_follow", 3);
-      else if (self.locationMode == location::NotFollow || self.locationMode == location::NotFollowNoPosition)
-        images = animationImages(@"btn_get_position_to_follow", 3);
-      break;
-    }
-    case location::PendingPosition:
-      break;
+      if (oldMode == location::FollowAndRotate)
+        return animationImages(@"btn_follow_and_rotate_to_follow", 3);
+      else if (oldMode == location::NotFollow || oldMode == location::NotFollowNoPosition)
+        return animationImages(@"btn_get_position_to_follow", 3);
+      return nil;
+    case location::PendingPosition: return nil;
     case location::FollowAndRotate:
-    {
-      if (self.locationMode == location::Follow)
-        images = animationImages(@"btn_follow_to_follow_and_rotate", 3);
-      break;
+      if (oldMode == location::Follow)
+        return animationImages(@"btn_follow_to_follow_and_rotate", 3);
+      return nil;
     }
   }
+  (self.locationMode, mode);
   locBtn.imageView.animationDuration = 0.0;
   locBtn.imageView.animationImages = images;
   locBtn.imageView.animationRepeatCount = 1;
