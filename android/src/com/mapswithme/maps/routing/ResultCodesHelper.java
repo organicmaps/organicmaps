@@ -34,7 +34,7 @@ class ResultCodesHelper
     switch (errorCode)
     {
     case NO_POSITION:
-      if (LocationState.INSTANCE.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+      if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
       {
         titleRes = R.string.dialog_routing_location_turn_on;
         messages.add(resources.getString(R.string.dialog_routing_location_unknown_turn_on));

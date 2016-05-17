@@ -920,7 +920,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
     LocationState.INSTANCE.nativeSetListener(this);
-    mMainMenu.getMyPositionButton().update(LocationState.INSTANCE.nativeGetMode());
+    mMainMenu.getMyPositionButton().update(LocationState.getMode());
     resumeLocation();
     mSearchController.refreshToolbar();
     mMainMenu.onResume(new Runnable()
@@ -964,13 +964,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mFirstStart = FirstStartFragment.showOn(this);
       if (mFirstStart)
       {
-        if (LocationState.INSTANCE.isTurnedOn())
+        if (LocationState.isTurnedOn())
           addTask(new MwmActivity.MapTask()
           {
             @Override
             public boolean run(MwmActivity target)
             {
-              if (LocationState.INSTANCE.isTurnedOn())
+              if (LocationState.isTurnedOn())
                 LocationState.INSTANCE.nativeSwitchToNextMode();
               return false;
             }

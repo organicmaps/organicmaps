@@ -18,7 +18,7 @@ public enum LocationState
   public static final int FOLLOW_AND_ROTATE = 4;
 
   public native void nativeSwitchToNextMode();
-  public native int nativeGetMode();
+  private native int nativeGetMode();
 
   public native void nativeSetListener(ModeChangeListener listener);
   public native void nativeRemoveListener();
@@ -26,8 +26,14 @@ public enum LocationState
   /**
    * Checks if location state on the map is active (so its not turned off or pending).
    */
-  public boolean isTurnedOn()
+  public static boolean isTurnedOn()
   {
-    return nativeGetMode() > NOT_FOLLOW_NO_POSITION;
+    return getMode() > NOT_FOLLOW_NO_POSITION;
+  }
+
+  public static int getMode()
+  {
+    MwmApplication.get().initNativeCore();
+    return INSTANCE.nativeGetMode();
   }
 }
