@@ -156,8 +156,12 @@ void CheckPriority(vector<StringIL> const & arrT, vector<size_t> const & arrI, d
   Classificator const & c = classif();
   vector<vector<uint32_t> > types;
 
-  styles::RunForEveryMapStyle([&](MapStyle)
+  styles::RunForEveryMapStyle([&](MapStyle style)
   {
+    // Not testing priorities in the legacy style, since it is not maintained anymore.
+    if (style == MapStyleLight)
+      return;
+
     types.clear();
 
     size_t ind = 0;
@@ -181,7 +185,7 @@ void CheckPriority(vector<StringIL> const & arrT, vector<size_t> const & arrI, d
       for (size_t i = 0; i < types.size(); ++i)
       {
         pair<int, int> const mm = GetMinMax(level, types[i], ruleType);
-        TEST_LESS(minmax.second, mm.first, (i));
+        TEST_LESS(minmax.second, mm.first, ("Priority bug on zoom", level, "group", i, ":", minmax.first, minmax.second, "vs", mm.first, mm.second));
         minmax = mm;
       }
     }
