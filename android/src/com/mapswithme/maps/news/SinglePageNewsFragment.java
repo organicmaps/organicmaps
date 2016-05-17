@@ -48,7 +48,7 @@ public class SinglePageNewsFragment extends BaseMwmDialogFragment
         public void onClick(View v)
         {
           ((MwmActivity) getActivity()).showDownloader(false);
-          dismiss();
+          dismissAllowingStateLoss();
         }
       });
     }
@@ -63,7 +63,7 @@ public class SinglePageNewsFragment extends BaseMwmDialogFragment
       @Override
       public void onClick(View v)
       {
-        dismiss();
+        dismissAllowingStateLoss();
       }
     });
 
