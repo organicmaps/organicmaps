@@ -486,7 +486,8 @@ void DrawWidget::ShowSearchResult(search::Result const & res)
 
 void DrawWidget::CreateFeature()
 {
-  CreateFeatureDialog dlg(this, m_framework->GetEditorCategories());
+  auto cats = m_framework->GetEditorCategories();
+  CreateFeatureDialog dlg(this, cats);
   if (dlg.exec() == QDialog::Accepted)
   {
     osm::EditableMapObject emo;
