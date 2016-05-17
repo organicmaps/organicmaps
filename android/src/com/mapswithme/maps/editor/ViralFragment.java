@@ -29,7 +29,7 @@ public class ViralFragment extends BaseMwmDialogFragment
   public static boolean shouldDisplay()
   {
     return !MwmApplication.prefs().contains(EXTRA_CONGRATS_SHOWN) &&
-           Editor.nativeGetStats()[0] >= 2 &&
+           Editor.nativeGetStats()[0] == 2 &&
            ConnectionState.isConnected();
   }
 
