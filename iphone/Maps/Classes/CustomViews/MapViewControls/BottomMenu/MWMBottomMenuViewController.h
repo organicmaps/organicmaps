@@ -30,6 +30,4 @@
 - (void)mwm_refreshUI;
 - (void)refreshLayout;
 
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
-
 @end

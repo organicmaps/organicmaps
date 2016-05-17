@@ -520,7 +520,7 @@ BOOL gIsFirstMyPositionMode = YES;
     // Probably it's better to subscribe only wnen needed and usubscribe in other cases.
     // May be better solution would be multiobservers support in the C++ core.
     [self processMyPositionStateModeEvent:mode];
-    [self.controlsManager.menuController processMyPositionStateModeEvent:mode];
+    [self.controlsManager processMyPositionStateModeEvent:mode];
     [[MapsAppDelegate theApp].locationManager processMyPositionStateModeEvent:mode];
   });
 

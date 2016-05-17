@@ -48,7 +48,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 @property (weak, nonatomic) MapViewController * controller;
 @property (weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
 
-@property (weak, nonatomic) IBOutlet MWMButton * locationButton;
 @property (weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 @property (weak, nonatomic) IBOutlet UILabel * streetLabel;
 
@@ -166,86 +165,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   if (IPAD)
     return;
   self.state = MWMBottomMenuStateGo;
-}
-
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
-{
-  UIButton * locBtn = self.locationButton;
-  [locBtn.imageView stopAnimating];
-  [locBtn.imageView.layer removeAllAnimations];
-  switch (mode)
-  {
-    case location::NotFollow:
-    case location::NotFollowNoPosition:
-    case location::Follow:
-      break;
-    case location::PendingPosition:
-    {
-      [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_pending"]
-              forState:UIControlStateNormal];
-      CABasicAnimation * rotation;
-      rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-      rotation.duration = kDefaultAnimationDuration;
-      rotation.toValue = @(M_PI * 2.0 * rotation.duration);
-      rotation.cumulative = YES;
-      rotation.repeatCount = MAXFLOAT;
-      [locBtn.imageView.layer addAnimation:rotation forKey:@"locationImage"];
-      break;
-    }
-    case location::FollowAndRotate:
-    {
-      NSUInteger const morphImagesCount = 6;
-      NSUInteger const endValue = morphImagesCount + 1;
-      NSMutableArray * morphImages = [NSMutableArray arrayWithCapacity:morphImagesCount];
-      for (NSUInteger i = 1, j = 0; i != endValue; i++, j++)
-      {
-        morphImages[j] = [UIImage imageNamed:[NSString stringWithFormat:@"ic_follow_mode_%@_%@", @(i).stringValue,
-                                              [UIColor isNightMode] ? @"dark" : @"light"]];
-      }
-      locBtn.imageView.animationImages = morphImages;
-      locBtn.imageView.animationRepeatCount = 1;
-      locBtn.imageView.image = morphImages.lastObject;
-      [locBtn.imageView startAnimating];
-      break;
-    }
-  }
-  [self refreshLocationButtonState:mode];
-}
-
-#pragma mark - Location button
-
-- (void)refreshLocationButtonState:(location::EMyPositionMode)state
-{
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
-    if (self.locationButton.imageView.isAnimating)
-    {
-      [self refreshLocationButtonState:state];
-    }
-    else
-    {
-      MWMButton * locBtn = self.locationButton;
-      switch (state)
-      {
-        case location::PendingPosition:
-          locBtn.coloring = MWMButtonColoringBlue;
-          break;
-        case location::NotFollow:
-        case location::NotFollowNoPosition:
-          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_get_position"] forState:UIControlStateNormal];
-          locBtn.coloring = MWMButtonColoringBlack;
-          break;
-        case location::Follow:
-          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow"] forState:UIControlStateNormal];
-          locBtn.coloring = MWMButtonColoringBlue;
-          break;
-        case location::FollowAndRotate:
-          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow_and_rotate"] forState:UIControlStateNormal];
-          locBtn.coloring = MWMButtonColoringBlue;
-          break;
-      }
-    }
-  });
 }
 
 #pragma mark - Notifications
