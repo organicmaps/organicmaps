@@ -417,7 +417,7 @@ node|z17[amenity=place_of_worship][religion=taoist], area|z17[amenity=place_of_w
 
 node|z17[amenity=theatre], area|z17[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
 node|z17[amenity=kindergarten], area|z17[amenity=kindergarten] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2100; }
-node|z17[amenity=childcare], area|z17[amenity=childcare] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2100; }
+node|z17[amenity=childcare], area|z17[amenity=childcare] { icon-image: childcare-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2100; }
 node|z17[amenity=school], area|z17[amenity=school] { icon-image: school-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
 node|z17[amenity=college], area|z17[amenity=college] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17[amenity=hospital], area|z17[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
