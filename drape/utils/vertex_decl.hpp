@@ -52,7 +52,20 @@ struct SolidTexturingVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
-typedef buffer_vector<SolidTexturingVertex, 128> TSolidTexVertexBuffer;
+using TSolidTexVertexBuffer = buffer_vector<SolidTexturingVertex, 128>;
+
+struct MaskedTexturingVertex : BaseVertex
+{
+  MaskedTexturingVertex();
+  MaskedTexturingVertex(TPosition3d const & position, TNormal const & normal,
+                        TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord);
+  TPosition3d m_position;
+  TNormal m_normal;
+  TTexCoord m_colorTexCoord;
+  TTexCoord m_maskTexCoord;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
 
 struct TextStaticVertex : BaseVertex
 {
@@ -65,7 +78,7 @@ struct TextStaticVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
-typedef buffer_vector<TextStaticVertex, 128> TTextStaticVertexBuffer;
+using TTextStaticVertexBuffer = buffer_vector<TextStaticVertex, 128>;
 
 struct TextOutlinedStaticVertex : BaseVertex
 {
@@ -81,7 +94,7 @@ public:
   static dp::BindingInfo const & GetBindingInfo();
 };
 
-typedef buffer_vector<TextOutlinedStaticVertex, 128> TTextOutlinedStaticVertexBuffer;
+using TTextOutlinedStaticVertexBuffer = buffer_vector<TextOutlinedStaticVertex, 128>;
 
 struct TextDynamicVertex : BaseVertex
 {
@@ -95,7 +108,7 @@ struct TextDynamicVertex : BaseVertex
   static uint32_t GetDynamicStreamID();
 };
 
-typedef buffer_vector<TextDynamicVertex, 128> TTextDynamicVertexBuffer;
+using TTextDynamicVertexBuffer = buffer_vector<TextDynamicVertex, 128>;
 
 struct LineVertex : BaseVertex
 {
