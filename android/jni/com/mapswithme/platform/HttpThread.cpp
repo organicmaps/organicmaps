@@ -1,6 +1,7 @@
 #include "Platform.hpp"
 #include "../core/jni_helper.hpp"
 
+#include "base/logging.hpp"
 #include "platform/http_thread_callback.hpp"
 
 class HttpThread
@@ -89,7 +90,16 @@ Java_com_mapswithme_maps_downloader_ChunkTask_nativeOnWrite(JNIEnv * env, jclass
   jbyte * buf = env->GetByteArrayElements(data, 0);
   ASSERT(buf, ());
 
-  bool const ret = cb->OnWrite(beg, buf, size);
+  bool ret = false;
+  try
+  {
+    ret = cb->OnWrite(beg, buf, size);
+  }
+  catch (exception const & ex)
+  {
+    LOG(LERROR, ("Failed to write chunk:", ex.what()));
+  }
+
   env->ReleaseByteArrayElements(data, buf, 0);
   return ret;
 }
