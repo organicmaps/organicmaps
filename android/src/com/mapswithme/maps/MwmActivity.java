@@ -838,6 +838,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.updateNorth(mLastCompassData.north);
   }
 
+  public static void enableLocation()
+  {
+    sLocationStopped = false;
+  }
+
   @Override
   public void onMyPositionModeChangedCallback(final int newMode, final boolean routingActive)
   {
