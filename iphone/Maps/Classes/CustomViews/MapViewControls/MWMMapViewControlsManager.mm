@@ -8,17 +8,17 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
-#import "MWMObjectsCategorySelectorController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMObjectsCategorySelectorController.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
 #import "MWMRoutePreview.h"
 #import "MWMSearchManager.h"
 #import "MWMSearchView.h"
-#import "MWMZoomButtons.h"
+#import "MWMSideButtons.h"
 #import "RouteState.h"
 #import "Statistics.h"
 
@@ -42,7 +42,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     MWMSearchManagerProtocol, MWMSearchViewProtocol, MWMBottomMenuControllerProtocol,
     MWMRoutePreviewDataSource, MWMFrameworkRouteBuilderObserver>
 
-@property (nonatomic) MWMZoomButtons * zoomButtons;
+@property (nonatomic) MWMSideButtons * sideButtons;
 @property (nonatomic) MWMBottomMenuViewController * menuController;
 @property (nonatomic) MWMPlacePageViewManager * placePageManager;
 @property (nonatomic) MWMNavigationDashboardManager * navigationManager;
@@ -69,7 +69,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!self)
     return nil;
   self.ownerController = controller;
-  self.zoomButtons = [[MWMZoomButtons alloc] initWithParentView:controller.view];
+  self.sideButtons = [[MWMSideButtons alloc] initWithParentView:controller.view];
   self.menuController = [[MWMBottomMenuViewController alloc] initWithParentController:controller delegate:self];
   self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:controller delegate:self];
   self.navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentView:controller.view delegate:self];
@@ -95,6 +95,13 @@ extern NSString * const kAlohalyticsTapEventKey;
                                              : MWMRoutePoint::MWMRoutePointZero();
   }
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
+}
+
+#pragma mark - My Position
+
+- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
+{
+  [self.sideButtons processMyPositionStateModeEvent:mode];
 }
 
 #pragma mark - MWMFrameworkRouteBuilderObserver
@@ -133,7 +140,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)mwm_refreshUI
 {
-  [self.zoomButtons mwm_refreshUI];
+  [self.sideButtons mwm_refreshUI];
   [self.navigationManager mwm_refreshUI];
   [self.searchManager mwm_refreshUI];
   [self.menuController mwm_refreshUI];
@@ -340,7 +347,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (ownerViewSize.width > ownerViewSize.height)
     self.menuController.leftBound = frame.origin.x + frame.size.width;
   else
-    [self.zoomButtons setBottomBound:frame.origin.y];
+    [self.sideButtons setBottomBound:frame.origin.y];
 }
 
 - (void)placePageDidClose
@@ -444,7 +451,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!IPAD)
   {
     CGFloat const bound = newFrame.origin.y + newFrame.size.height;
-    self.placePageManager.topBound = self.zoomButtons.topBound = bound;
+    self.placePageManager.topBound = self.sideButtons.topBound = bound;
     return;
   }
 
@@ -533,7 +540,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   CGFloat const topBound = self.topBound + self.navigationManager.height;
   if (!IPAD)
-    [self.zoomButtons setTopBound:topBound];
+    [self.sideButtons setTopBound:topBound];
   [self.placePageManager setTopBound:topBound];
 }
 
@@ -701,7 +708,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)setZoomHidden:(BOOL)zoomHidden
 {
   _zoomHidden = zoomHidden;
-  self.zoomButtons.hidden = self.hidden || zoomHidden;
+  self.sideButtons.hidden = self.hidden || zoomHidden;
 }
 
 - (void)setMenuState:(MWMBottomMenuState)menuState
@@ -752,7 +759,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (IPAD)
     return;
-  _topBound = self.placePageManager.topBound = self.zoomButtons.topBound = self.navigationManager.topBound = topBound;
+  _topBound = self.placePageManager.topBound = self.sideButtons.topBound = self.navigationManager.topBound = topBound;
 }
 
 - (void)setLeftBound:(CGFloat)leftBound

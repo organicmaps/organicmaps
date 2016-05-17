@@ -4,7 +4,6 @@
 
 @interface MWMStorage : NSObject
 
-+ (void)startSession;
 + (void)downloadNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess;
 + (void)retryDownloadNode:(storage::TCountryId const &)countryId;
 + (void)updateNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController;

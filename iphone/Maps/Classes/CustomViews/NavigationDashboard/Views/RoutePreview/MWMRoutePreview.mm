@@ -204,10 +204,11 @@ static CGFloat const kAdditionalHeight = 20.;
 
 - (void)layoutSubviews
 {
-  [self setupActualHeight];
   [super layoutSubviews];
+  [self setupActualHeight];
   if (IPAD)
     [self.delegate routePreviewDidChangeFrame:self.frame];
+  [super layoutSubviews];
 }
 
 #pragma mark - Properties
