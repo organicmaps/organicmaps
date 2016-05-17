@@ -170,6 +170,30 @@ PostcodesMatcher const & GetPostcodesMatcher()
 
 bool LooksLikePostcode(TokenSlice const & slice) { return GetPostcodesMatcher().HasString(slice); }
 
+bool LooksLikePostcode(string const & s, bool checkPrefix)
+{
+  vector<UniString> tokens;
+  bool const lastTokenIsPrefix =
+      TokenizeStringAndCheckIfLastTokenIsPrefix(s, tokens, search::Delimiters());
+
+  size_t const numTokens = tokens.size();
+
+  SearchQueryParams params;
+  if (checkPrefix && lastTokenIsPrefix)
+  {
+    params.m_prefixTokens.push_back(tokens.back());
+    tokens.pop_back();
+  }
+
+  for (auto const & token : tokens)
+  {
+    params.m_tokens.emplace_back();
+    params.m_tokens.back().push_back(token);
+  }
+
+  return LooksLikePostcode(TokenSlice(params, 0, numTokens));
+}
+
 size_t GetMaxNumTokensInPostcode() { return GetPostcodesMatcher().GetMaxNumTokensInPostcode(); }
 }  // namespace v2
 }  // namespace search

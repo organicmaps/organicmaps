@@ -78,24 +78,26 @@ public:
   void SetMercator(m2::PointD const & center);
   void SetType(uint32_t featureType);
   void SetID(FeatureID const & fid);
+
   //  void SetTypes(feature::TypesHolder const & types);
   void SetStreet(LocalizedStreet const & st);
   void SetNearbyStreets(vector<LocalizedStreet> && streets);
-  /// @returns false if house number fails validation.
-  static bool ValidateHouseNumber(string const & houseNumber);
   void SetHouseNumber(string const & houseNumber);
   void SetPostcode(string const & postcode);
   void SetPhone(string const & phone);
   void SetFax(string const & fax);
+
   void SetEmail(string const & email);
-  void SetWebsite(string const & website);
+  void SetWebsite(string website);
+  void SetWikipedia(string const & wikipedia);
+
   void SetInternet(Internet internet);
   void SetStars(int stars);
   void SetOperator(string const & op);
+
   void SetElevation(double ele);
-  void SetWikipedia(string const & wikipedia);
   void SetFlats(string const & flats);
-  static bool ValidateBuildingLevels(string const & buildingLevels);
+
   void SetBuildingLevels(string const & buildingLevels);
   /// @param[in] cuisine is a vector of osm cuisine ids.
   void SetCuisines(vector<string> const & cuisine);
@@ -103,6 +105,15 @@ public:
 
   /// Special mark that it's a point feature, not area or line.
   void SetPointType();
+
+  static bool ValidateBuildingLevels(string const & buildingLevels);
+  static bool ValidateHouseNumber(string const & houseNumber);
+  static bool ValidateFlats(string const & flats);
+  static bool ValidatePostCode(string const & postCode);
+  static bool ValidatePhone(string const & phone);
+  static bool ValidateFax(string const & fax);
+  static bool ValidateWebsite(string const & site);
+  static bool ValidateEmail(string const & email);
 
 private:
   string m_houseNumber;
