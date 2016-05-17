@@ -6,6 +6,7 @@
 
 #include "std/deque.hpp"
 #include "std/noncopyable.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 
 namespace df
@@ -32,9 +33,10 @@ public:
 
   template<typename T> T const * FindAnimation(Animation::Type type) const
   {
-    for (auto & animations : m_animationChain)
+    for (auto & pList : m_animationChain)
     {
-      for (auto const & anim : animations)
+      auto & lst = *pList;
+      for (auto const & anim : lst)
       {
         if (anim->GetType() == type)
         {
@@ -48,9 +50,10 @@ public:
 
   template<typename T> T const * FindAnimation(Animation::Type type, string const & customType) const
   {
-    for (auto & animations : m_animationChain)
+    for (auto & pList : m_animationChain)
     {
-      for (auto const & anim : animations)
+      auto & lst = *pList;
+      for (auto const & anim : lst)
       {
         if (anim->GetType() == type)
         {
@@ -75,11 +78,11 @@ private:
   bool GetProperty(Animation::TObject object, Animation::TProperty property,
                    Animation::PropertyValue & value) const;
   void StartNextAnimations();
-  void FinishAnimations(function<bool(drape_ptr<Animation> const &)> const & predicate,
+  void FinishAnimations(function<bool(shared_ptr<Animation> const &)> const & predicate,
                         bool rewind, bool finishAll);
 
-  using TAnimationList = list<drape_ptr<Animation>>;
-  using TAnimationChain = deque<TAnimationList>;
+  using TAnimationList = list<shared_ptr<Animation>>;
+  using TAnimationChain = deque<shared_ptr<TAnimationList>>;
   using TPropertyCache = map<pair<Animation::TObject, Animation::TProperty>, Animation::PropertyValue>;
 
   TAnimationChain m_animationChain;

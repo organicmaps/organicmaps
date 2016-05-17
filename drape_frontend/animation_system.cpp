@@ -2,6 +2,8 @@
 
 #include "base/logging.hpp"
 
+#include "std/weak_ptr.hpp"
+
 namespace df
 {
 
@@ -124,7 +126,7 @@ bool AnimationSystem::AnimationExists(Animation::TObject object) const
 {
   if (!m_animationChain.empty())
   {
-    for (auto const & anim : m_animationChain.front())
+    for (auto const & anim : *(m_animationChain.front()))
     {
       if (anim->HasObject(object))
         return true;
@@ -151,17 +153,19 @@ AnimationSystem & AnimationSystem::Instance()
 
 void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
 {
-  for (auto & lst : m_animationChain)
+  TAnimationList interruptedAnimations;
+  bool startImmediately = true;
+  for (auto & pList : m_animationChain)
   {
+    auto & lst = *pList;
     bool couldBeBlended = animation->CouldBeBlended();
+
     for (auto it = lst.begin(); it != lst.end();)
     {
       auto & anim = *it;
       if (anim->GetInterruptedOnCombine())
       {
-        anim->Interrupt();
-        SaveAnimationResult(*anim);
-        it = lst.erase(it);
+        interruptedAnimations.splice(interruptedAnimations.end(), lst, it++);
       }
       else if (!anim->CouldBeBlendedWith(*animation))
       {
@@ -170,9 +174,7 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
           couldBeBlended = false;
           break;
         }
-        anim->Interrupt();
-        SaveAnimationResult(*anim);
-        it = lst.erase(it);
+        interruptedAnimations.splice(interruptedAnimations.end(), lst, it++);
       }
       else
       {
@@ -180,16 +182,25 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
       }
     }
 
+    for (auto & anim : interruptedAnimations)
+    {
+      anim->Interrupt();
+      SaveAnimationResult(*anim);
+    }
+
     if (couldBeBlended)
     {
-      animation->OnStart();
       lst.emplace_back(move(animation));
+      if (startImmediately)
+        lst.back()->OnStart();
       return;
     }
     else if (m_animationChain.size() > 1 && animation->CouldBeInterrupted())
     {
       return;
     }
+
+    startImmediately = false;
   }
   
   PushAnimation(move(animation));
@@ -197,42 +208,37 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
 
 void AnimationSystem::PushAnimation(drape_ptr<Animation> animation)
 {
-  if (m_animationChain.empty())
-    animation->OnStart();
+  shared_ptr<TAnimationList> pList(new TAnimationList());
+  pList->emplace_back(move(animation));
 
-  TAnimationList list;
-  list.emplace_back(move(animation));
-
-  m_animationChain.emplace_back(move(list));
+  bool startImmediately = m_animationChain.empty();
+  m_animationChain.push_back(pList);
+  if (startImmediately)
+    pList->front()->OnStart();
 }
 
-void AnimationSystem::FinishAnimations(function<bool(drape_ptr<Animation> const &)> const & predicate,
+void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const &)> const & predicate,
                                        bool rewind, bool finishAll)
 {
   if (m_animationChain.empty())
     return;
 
-  TAnimationList & frontList = m_animationChain.front();
+  TAnimationList & frontList = *(m_animationChain.front());
+  TAnimationList finishAnimations;
   for (auto it = frontList.begin(); it != frontList.end();)
   {
     auto & anim = *it;
     if (predicate(anim))
-    {
-      if (rewind)
-        anim->Finish();
-      SaveAnimationResult(*anim);
-      it = frontList.erase(it);
-    }
+      finishAnimations.splice(finishAnimations.end(), frontList, it++);
     else
-    {
       ++it;
-    }
   }
 
   if (finishAll)
   {
-    for (auto & lst : m_animationChain)
+    for (auto & pList : m_animationChain)
     {
+      auto & lst = *pList;
       for (auto it = lst.begin(); it != lst.end();)
       {
         if (predicate(*it))
@@ -243,19 +249,26 @@ void AnimationSystem::FinishAnimations(function<bool(drape_ptr<Animation> const 
     }
   }
 
+  for (auto & anim : finishAnimations)
+  {
+    if (rewind)
+      anim->Finish();
+    SaveAnimationResult(*anim);
+  }
+
   if (frontList.empty())
     StartNextAnimations();
 }
 
 void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind, bool finishAll)
 {
-  FinishAnimations([&type](drape_ptr<Animation> const & anim) { return anim->GetType() == type; },
+  FinishAnimations([&type](shared_ptr<Animation> const & anim) { return anim->GetType() == type; },
                    rewind, finishAll);
 }
 
 void AnimationSystem::FinishObjectAnimations(Animation::TObject object, bool rewind, bool finishAll)
 {
-  FinishAnimations([&object](drape_ptr<Animation> const & anim) { return anim->HasObject(object); },
+  FinishAnimations([&object](shared_ptr<Animation> const & anim) { return anim->HasObject(object); },
                    rewind, finishAll);
 }
 
@@ -264,21 +277,25 @@ void AnimationSystem::Advance(double elapsedSeconds)
   if (m_animationChain.empty())
     return;
 
-  TAnimationList & frontList = m_animationChain.front();
+  TAnimationList finishedAnimations;
+  TAnimationList & frontList = *(m_animationChain.front());
   for (auto it = frontList.begin(); it != frontList.end();)
   {
     auto & anim = *it;
     anim->Advance(elapsedSeconds);
     if (anim->IsFinished())
     {
-      anim->OnFinish();
-      SaveAnimationResult(*anim);
-      it = frontList.erase(it);
+      finishedAnimations.splice(finishedAnimations.end(), frontList, it++);
     }
     else
     {
       ++it;
     }
+  }
+  for (auto & anim : finishedAnimations)
+  {
+    SaveAnimationResult(*anim);
+    anim->OnFinish();
   }
   if (frontList.empty())
     StartNextAnimations();
@@ -290,7 +307,7 @@ bool AnimationSystem::GetProperty(Animation::TObject object, Animation::TPropert
   if (!m_animationChain.empty())
   {
     PropertyBlender blender;
-    for (auto const & anim : m_animationChain.front())
+    for (auto const & anim : *(m_animationChain.front()))
     {
       if (anim->HasProperty(object, property))
       {
@@ -337,10 +354,17 @@ void AnimationSystem::StartNextAnimations()
   m_animationChain.pop_front();
   if (!m_animationChain.empty())
   {
-    for (auto & anim : m_animationChain.front())
+    vector<weak_ptr<Animation>> startedAnimations;
+    startedAnimations.reserve(m_animationChain.front()->size());
+    for (auto & anim : *(m_animationChain.front()))
+      startedAnimations.push_back(anim);
+
+    //TODO (in future): use propertyCache to load start values to the next animations
+    for (auto & weak_anim : startedAnimations)
     {
-      //TODO (in future): use propertyCache to load start values to the next animations
-      anim->OnStart();
+      shared_ptr<Animation> anim = weak_anim.lock();
+      if (anim != nullptr)
+        anim->OnStart();
     }
   }
 }
