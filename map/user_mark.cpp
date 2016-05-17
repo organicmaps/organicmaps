@@ -17,10 +17,9 @@ m2::PointD const & UserMark::GetPivot() const
   return m_ptOrg;
 }
 
-m2::PointD const & UserMark::GetPixelOffset() const
+m2::PointD UserMark::GetPixelOffset() const
 {
-  static m2::PointD const s_centre(0.0, 0.0);
-  return s_centre;
+  return m2::PointD(0.0, 0.0);
 }
 
 dp::Anchor UserMark::GetAnchor() const
@@ -56,7 +55,7 @@ SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * c
 
 string SearchMarkPoint::GetSymbolName() const
 {
-  return "search-result";
+  return m_customSymbol.empty() ? "search-result" : m_customSymbol;
 }
 
 UserMark::Type SearchMarkPoint::GetMarkType() const

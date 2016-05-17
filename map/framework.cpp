@@ -736,10 +736,10 @@ void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & inf
 
 void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const
 {
-  if (smp.m_foundFeatureID.IsValid())
-    FillFeatureInfo(smp.m_foundFeatureID, info);
+  if (smp.GetFoundFeature().IsValid())
+    FillFeatureInfo(smp.GetFoundFeature(), info);
   else
-    FillPointInfo(smp.GetPivot(), smp.m_matchedName, info);
+    FillPointInfo(smp.GetPivot(), smp.GetMatchedName(), info);
 }
 
 void Framework::FillMyPositionInfo(place_page::Info & info) const
@@ -1416,8 +1416,11 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
       SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(r.GetFeatureCenter()));
       ASSERT_EQUAL(mark->GetMarkType(), UserMark::Type::SEARCH, ());
       if (r.GetResultType() == search::Result::RESULT_FEATURE)
-        mark->m_foundFeatureID = r.GetFeatureID();
-      mark->m_matchedName = r.GetString();
+        mark->SetFoundFeature(r.GetFeatureID());
+      mark->SetMatchedName(r.GetString());
+
+      //TODO: extract from search::Result data for choosing custom symbol.
+      //mark->SetCustomSymbol("booking-search-result");
     }
   }
 }

@@ -34,20 +34,16 @@ public:
   UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
   virtual ~UserMark() {}
 
-  ///////////////////////////////////////////////////////
-  /// df::UserPointMark
+  // df::UserPointMark overrides.
   m2::PointD const & GetPivot() const override;
-  m2::PointD const & GetPixelOffset() const override;
+  m2::PointD GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
   float GetDepth() const override;
   bool RunCreationAnim() const override;
-  ///////////////////////////////////////////////////////
 
   UserMarkContainer const * GetContainer() const;
   ms::LatLon GetLatLon() const;
   virtual Type GetMarkType() const = 0;
-  // Need it to calculate POI rank from all taps to features via statistics.
-  using TEventContainer = map<string, string>;
 
 protected:
   m2::PointD m_ptOrg;
@@ -61,11 +57,21 @@ public:
 
   string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override;
-  // TODO: Do not use usermarks to store any significant information for UI/core.
-  // Refactor them out to only display some layers on a map.
+
+  FeatureID const & GetFoundFeature() const { return m_foundFeatureID; }
+  void SetFoundFeature(FeatureID const & feature) { m_foundFeatureID = feature; }
+
+  string const & GetMatchedName() const { return m_matchedName; }
+  void SetMatchedName(string const & name) { m_matchedName = name; }
+
+  string const & GetCustomSymbol() const { return m_customSymbol; }
+  void SetCustomSymbol(string const & symbol) { m_customSymbol = symbol; }
+
+protected:
   FeatureID m_foundFeatureID;
   // Used to pass exact search result matched string into a place page.
   string m_matchedName;
+  string m_customSymbol;
 };
 
 class PoiMarkPoint : public SearchMarkPoint

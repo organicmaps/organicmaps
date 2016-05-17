@@ -9,11 +9,8 @@
 /* Begin PBXBuildFile section */
 		34583BCF1C88556800F94664 /* place_page_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BCD1C88556800F94664 /* place_page_info.cpp */; };
 		34583BD01C88556800F94664 /* place_page_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BCE1C88556800F94664 /* place_page_info.hpp */; };
-		34921F641BFA0A6900737D6E /* api_mark_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34921F5F1BFA0A6900737D6E /* api_mark_container.cpp */; };
-		34921F651BFA0A6900737D6E /* api_mark_container.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34921F601BFA0A6900737D6E /* api_mark_container.hpp */; };
 		34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34921F611BFA0A6900737D6E /* api_mark_point.hpp */; };
-		34921F671BFA0A6900737D6E /* styled_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34921F621BFA0A6900737D6E /* styled_point.cpp */; };
-		34921F681BFA0A6900737D6E /* styled_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34921F631BFA0A6900737D6E /* styled_point.hpp */; };
+		45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45201E921CE4AC90008A4842 /* api_mark_point.cpp */; };
 		670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E393E1C46C5C700E9C0A6 /* gps_tracker.cpp */; };
 		670E39411C46C5C700E9C0A6 /* gps_tracker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E393F1C46C5C700E9C0A6 /* gps_tracker.hpp */; };
 		674A29F01B26FD6F001A525C /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29EE1B26FD5F001A525C /* testingmain.cpp */; };
@@ -101,11 +98,8 @@
 /* Begin PBXFileReference section */
 		34583BCD1C88556800F94664 /* place_page_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = place_page_info.cpp; sourceTree = "<group>"; };
 		34583BCE1C88556800F94664 /* place_page_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = place_page_info.hpp; sourceTree = "<group>"; };
-		34921F5F1BFA0A6900737D6E /* api_mark_container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_mark_container.cpp; sourceTree = "<group>"; };
-		34921F601BFA0A6900737D6E /* api_mark_container.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = api_mark_container.hpp; sourceTree = "<group>"; };
 		34921F611BFA0A6900737D6E /* api_mark_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = api_mark_point.hpp; sourceTree = "<group>"; };
-		34921F621BFA0A6900737D6E /* styled_point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = styled_point.cpp; sourceTree = "<group>"; };
-		34921F631BFA0A6900737D6E /* styled_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = styled_point.hpp; sourceTree = "<group>"; };
+		45201E921CE4AC90008A4842 /* api_mark_point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_mark_point.cpp; sourceTree = "<group>"; };
 		670D05A41B0DF4250013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		670E393E1C46C5C700E9C0A6 /* gps_tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_tracker.cpp; sourceTree = "<group>"; };
 		670E393F1C46C5C700E9C0A6 /* gps_tracker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_tracker.hpp; sourceTree = "<group>"; };
@@ -327,11 +321,8 @@
 				F6B283011C1B03320081957A /* gps_track.cpp */,
 				F6B283021C1B03320081957A /* gps_track.hpp */,
 				674C385F1BFF3095000D603B /* user_mark.cpp */,
-				34921F5F1BFA0A6900737D6E /* api_mark_container.cpp */,
-				34921F601BFA0A6900737D6E /* api_mark_container.hpp */,
 				34921F611BFA0A6900737D6E /* api_mark_point.hpp */,
-				34921F621BFA0A6900737D6E /* styled_point.cpp */,
-				34921F631BFA0A6900737D6E /* styled_point.hpp */,
+				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
 				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
 				675345D91A4054E800A0A8C3 /* bookmark_manager.cpp */,
 				675345DA1A4054E800A0A8C3 /* bookmark_manager.hpp */,
@@ -374,9 +365,7 @@
 				34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */,
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
 				6753464B1A4054E800A0A8C3 /* bookmark.hpp in Headers */,
-				34921F681BFA0A6900737D6E /* styled_point.hpp in Headers */,
 				6753469E1A4054E800A0A8C3 /* user_mark_container.hpp in Headers */,
-				34921F651BFA0A6900737D6E /* api_mark_container.hpp in Headers */,
 				675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */,
 				F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */,
 				675346631A4054E800A0A8C3 /* feature_vec_model.hpp in Headers */,
@@ -488,16 +477,15 @@
 				6753469B1A4054E800A0A8C3 /* track.cpp in Sources */,
 				675346621A4054E800A0A8C3 /* feature_vec_model.cpp in Sources */,
 				6753469D1A4054E800A0A8C3 /* user_mark_container.cpp in Sources */,
-				34921F641BFA0A6900737D6E /* api_mark_container.cpp in Sources */,
 				674C38621BFF3095000D603B /* user_mark.cpp in Sources */,
 				675346641A4054E800A0A8C3 /* framework.cpp in Sources */,
 				6753466A1A4054E800A0A8C3 /* geourl_process.cpp in Sources */,
+				45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */,
 				675346661A4054E800A0A8C3 /* ge0_parser.cpp in Sources */,
 				F6B283071C1B03320081957A /* gps_track_storage.cpp in Sources */,
 				6753463A1A4054E800A0A8C3 /* address_finder.cpp in Sources */,
 				670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */,
 				6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */,
-				34921F671BFA0A6900737D6E /* styled_point.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

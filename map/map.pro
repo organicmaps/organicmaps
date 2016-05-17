@@ -11,7 +11,6 @@ INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/freetype/include
 include($$ROOT_DIR/common.pri)
 
 HEADERS += \
-    api_mark_container.hpp \
     api_mark_point.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
@@ -26,7 +25,6 @@ HEADERS += \
     gps_tracker.hpp \
     mwm_url.hpp \
     place_page_info.hpp \
-    styled_point.hpp \
     track.hpp \
     user_mark.hpp \
     user_mark_container.hpp \
@@ -34,7 +32,7 @@ HEADERS += \
 SOURCES += \
     ../api/src/c/api-client.c \
     address_finder.cpp \
-    api_mark_container.cpp \
+    api_mark_point.cpp \
     bookmark.cpp \
     bookmark_manager.cpp \
     feature_vec_model.cpp \
@@ -48,7 +46,6 @@ SOURCES += \
     gps_tracker.cpp \
     mwm_url.cpp \
     place_page_info.cpp \
-    styled_point.cpp \
     track.cpp \
     user_mark.cpp \
     user_mark_container.cpp \
