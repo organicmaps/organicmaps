@@ -3284,7 +3284,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "childcare-l"
+      name: "kindergarten-l"
       priority: 16849
     }
     caption {
@@ -3299,7 +3299,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "childcare-l"
+      name: "kindergarten-l"
       priority: 16849
     }
     caption {
@@ -5848,7 +5848,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "place-of-worship-m"
+      name: "buddhist-m"
       priority: 16876
       min_distance: 15
     }
@@ -5868,7 +5868,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-m"
+      name: "buddhist-m"
       priority: 16876
     }
     caption {
@@ -5887,7 +5887,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "buddhist-l"
       priority: 16876
     }
     caption {
@@ -5906,7 +5906,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "buddhist-l"
       priority: 16876
     }
     caption {
@@ -5925,7 +5925,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "buddhist-l"
       priority: 16876
     }
     caption {
@@ -5943,7 +5943,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "place-of-worship-m"
+      name: "christian-m"
       priority: 16876
       min_distance: 15
     }
@@ -5963,7 +5963,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-m"
+      name: "christian-m"
       priority: 16876
     }
     caption {
@@ -5982,7 +5982,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "christian-l"
       priority: 16876
     }
     caption {
@@ -6001,7 +6001,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "christian-l"
       priority: 16876
     }
     caption {
@@ -6020,7 +6020,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "christian-l"
       priority: 16876
     }
     caption {
@@ -6038,7 +6038,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "place-of-worship-m"
+      name: "hindu-m"
       priority: 16876
       min_distance: 15
     }
@@ -6058,7 +6058,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-m"
+      name: "hindu-m"
       priority: 16876
     }
     caption {
@@ -6077,7 +6077,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "hindu-l"
       priority: 16876
     }
     caption {
@@ -6096,7 +6096,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "hindu-l"
       priority: 16876
     }
     caption {
@@ -6115,7 +6115,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "hindu-l"
       priority: 16876
     }
     caption {
@@ -6133,7 +6133,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "place-of-worship-m"
+      name: "jewish-m"
       priority: 16876
       min_distance: 15
     }
@@ -6153,7 +6153,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-m"
+      name: "jewish-m"
       priority: 16876
     }
     caption {
@@ -6172,7 +6172,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "jewish-l"
       priority: 16876
     }
     caption {
@@ -6191,7 +6191,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "jewish-l"
       priority: 16876
     }
     caption {
@@ -6210,7 +6210,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "jewish-l"
       priority: 16876
     }
     caption {
@@ -6228,7 +6228,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "place-of-worship-m"
+      name: "muslim-m"
       priority: 16876
       min_distance: 15
     }
@@ -6248,7 +6248,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-m"
+      name: "muslim-m"
       priority: 16876
     }
     caption {
@@ -6267,7 +6267,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "muslim-l"
       priority: 16876
     }
     caption {
@@ -6286,7 +6286,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "muslim-l"
       priority: 16876
     }
     caption {
@@ -6305,7 +6305,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "muslim-l"
       priority: 16876
     }
     caption {
@@ -6323,7 +6323,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "place-of-worship-m"
+      name: "shinto-m"
       priority: 16876
       min_distance: 15
     }
@@ -6343,7 +6343,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-m"
+      name: "shinto-m"
       priority: 16876
     }
     caption {
@@ -6362,7 +6362,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "shinto-l"
       priority: 16876
     }
     caption {
@@ -6381,7 +6381,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "shinto-l"
       priority: 16876
     }
     caption {
@@ -6400,7 +6400,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "shinto-l"
       priority: 16876
     }
     caption {
@@ -6418,7 +6418,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "place-of-worship-m"
+      name: "taoist-m"
       priority: 16876
       min_distance: 15
     }
@@ -6438,7 +6438,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-m"
+      name: "taoist-m"
       priority: 16876
     }
     caption {
@@ -6457,7 +6457,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "taoist-l"
       priority: 16876
     }
     caption {
@@ -6476,7 +6476,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "taoist-l"
       priority: 16876
     }
     caption {
@@ -6495,7 +6495,7 @@ cont {
       priority: -15124
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "taoist-l"
       priority: 16876
     }
     caption {
@@ -28023,7 +28023,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "boundary_stone-m"
+      name: "monument-m"
       priority: 16849
       min_distance: 30
     }
@@ -28039,7 +28039,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "boundary_stone-l"
+      name: "monument-l"
       priority: 16849
       min_distance: 20
     }
@@ -28055,7 +28055,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "boundary_stone-l"
+      name: "monument-l"
       priority: 16849
       min_distance: 20
     }
@@ -28071,7 +28071,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "boundary_stone-l"
+      name: "monument-l"
       priority: 16849
       min_distance: 20
     }
@@ -28796,7 +28796,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "wayside_cross-m"
+      name: "monument-m"
       priority: 16849
       min_distance: 30
     }
@@ -28812,7 +28812,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "wayside_cross-l"
+      name: "monument-l"
       priority: 16849
       min_distance: 20
     }
@@ -28828,7 +28828,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "wayside_cross-l"
+      name: "monument-l"
       priority: 16849
       min_distance: 20
     }
@@ -28844,7 +28844,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "wayside_cross-l"
+      name: "monument-l"
       priority: 16849
       min_distance: 20
     }
@@ -41034,7 +41034,7 @@ cont {
     scale: 13
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16863
       min_distance: 12
     }
     caption {
@@ -41043,14 +41043,14 @@ cont {
         color: 5592405
         offset_y: 6
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 14
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16863
       min_distance: 12
     }
     caption {
@@ -41059,14 +41059,14 @@ cont {
         color: 5592405
         offset_y: 6
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 15
     symbol {
       name: "drinking-water-m"
-      priority: 16890
+      priority: 16863
       min_distance: 5
     }
     caption {
@@ -41075,14 +41075,14 @@ cont {
         color: 5592405
         offset_y: 8
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 16
     symbol {
       name: "drinking-water-m"
-      priority: 16890
+      priority: 16863
       min_distance: 5
     }
     caption {
@@ -41091,14 +41091,14 @@ cont {
         color: 5592405
         offset_y: 8
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 17
     symbol {
       name: "drinking-water-m"
-      priority: 16890
+      priority: 16863
       min_distance: 5
     }
     caption {
@@ -41107,14 +41107,14 @@ cont {
         color: 5592405
         offset_y: 8
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 18
     symbol {
       name: "drinking-water-m"
-      priority: 16890
+      priority: 16863
       min_distance: 5
     }
     caption {
@@ -41123,14 +41123,14 @@ cont {
         color: 5592405
         offset_y: 8
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 19
     symbol {
       name: "drinking-water-m"
-      priority: 16890
+      priority: 16863
       min_distance: 5
     }
     caption {
@@ -41139,7 +41139,7 @@ cont {
         color: 5592405
         offset_y: 8
       }
-      priority: 15890
+      priority: 15863
     }
   }
 }
@@ -43194,7 +43194,7 @@ cont {
     scale: 12
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16849
       min_distance: 15
     }
   }
@@ -43202,7 +43202,7 @@ cont {
     scale: 13
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16849
       min_distance: 12
     }
     caption {
@@ -43211,14 +43211,14 @@ cont {
         color: 5592405
         offset_y: 6
       }
-      priority: 15890
+      priority: 15849
     }
   }
   element {
     scale: 14
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16849
       min_distance: 12
     }
     caption {
@@ -43227,14 +43227,14 @@ cont {
         color: 5592405
         offset_y: 6
       }
-      priority: 15890
+      priority: 15849
     }
   }
   element {
     scale: 15
     symbol {
       name: "drinking-water-m"
-      priority: 16890
+      priority: 16849
       min_distance: 5
     }
     caption {
@@ -43243,14 +43243,14 @@ cont {
         color: 5592405
         offset_y: 8
       }
-      priority: 15890
+      priority: 15849
     }
   }
   element {
     scale: 16
     symbol {
       name: "drinking-water-m"
-      priority: 16890
+      priority: 16849
       min_distance: 5
     }
     caption {
@@ -43259,14 +43259,14 @@ cont {
         color: 5592405
         offset_y: 8
       }
-      priority: 15890
+      priority: 15849
     }
   }
   element {
     scale: 17
     symbol {
       name: "drinking-water-l"
-      priority: 16890
+      priority: 16849
       min_distance: 5
     }
     caption {
@@ -43275,7 +43275,7 @@ cont {
         color: 5592405
         offset_y: 8
       }
-      priority: 15890
+      priority: 15849
     }
   }
   element {
@@ -63018,7 +63018,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "car_sharing-m"
+      name: "car_shop-m"
       priority: 16849
     }
     caption {
@@ -63033,7 +63033,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "car_sharing-m"
+      name: "car_shop-m"
       priority: 16849
     }
     caption {
@@ -63048,7 +63048,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car_sharing-l"
+      name: "car_shop-l"
       priority: 16849
     }
     caption {
@@ -63063,7 +63063,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car_sharing-l"
+      name: "car_shop-l"
       priority: 16849
     }
     caption {
@@ -63078,7 +63078,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car_sharing-l"
+      name: "car_shop-l"
       priority: 16849
     }
     caption {
@@ -63675,7 +63675,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "convenience-m"
+      name: "grocery-m"
       priority: 16849
     }
     caption {
@@ -63690,7 +63690,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "convenience-m"
+      name: "grocery-m"
       priority: 16849
     }
     caption {
@@ -63705,7 +63705,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "convenience-l"
+      name: "grocery-l"
       priority: 16849
     }
     caption {
@@ -63720,7 +63720,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "convenience-l"
+      name: "grocery-l"
       priority: 16849
     }
     caption {
@@ -63735,7 +63735,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "convenience-l"
+      name: "grocery-l"
       priority: 16849
     }
     caption {
@@ -64691,7 +64691,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "hardware-m"
+      name: "doityourself-m"
       priority: 16849
     }
     caption {
@@ -64706,7 +64706,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hardware-m"
+      name: "doityourself-m"
       priority: 16849
     }
     caption {
@@ -64721,7 +64721,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hardware-l"
+      name: "doityourself-l"
       priority: 16849
     }
     caption {
@@ -64736,7 +64736,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hardware-l"
+      name: "doityourself-l"
       priority: 16849
     }
     caption {
@@ -64751,7 +64751,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hardware-l"
+      name: "doityourself-l"
       priority: 16849
     }
     caption {
@@ -65269,7 +65269,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "climbing-m"
+      name: "outdoor-shop-m"
       priority: 16849
     }
     caption {
@@ -65284,7 +65284,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "climbing-m"
+      name: "outdoor-shop-m"
       priority: 16849
     }
     caption {
@@ -65299,7 +65299,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "climbing-l"
+      name: "outdoor-shop-l"
       priority: 16849
     }
     caption {
@@ -65314,7 +65314,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "climbing-l"
+      name: "outdoor-shop-l"
       priority: 16849
     }
     caption {
@@ -65329,7 +65329,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "climbing-l"
+      name: "outdoor-shop-l"
       priority: 16849
     }
     caption {
