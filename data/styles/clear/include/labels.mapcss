@@ -1159,7 +1159,8 @@ line|z16-17[highway=secondary] {
 line|z15-[highway=bridleway],
 line|z15-[highway=path],
 line|z15-[highway=footway],
-line|z15-[highway=cycleway]  {
+line|z15-[highway=cycleway],
+line|z15-[highway=track]  {
   font-size: 8;
   text: name;
   text-color: @label_medium;
@@ -1170,7 +1171,8 @@ line|z15-[highway=cycleway]  {
 line|z16-17[highway=bridleway],
 line|z16-17[highway=path],
 line|z16-17[highway=footway],
-line|z16-17[highway=cycleway]  {
+line|z16-17[highway=cycleway],
+line|z16-17[highway=track]  {
   font-size: 9;
   text: name;
   text-color: @label_medium;
@@ -1181,7 +1183,8 @@ line|z16-17[highway=cycleway]  {
 line|z18-[highway=bridleway],
 line|z18-[highway=path],
 line|z18-[highway=footway],
-line|z18-[highway=cycleway]  {
+line|z18-[highway=cycleway],
+line|z18-[highway=track]  {
   font-size: 10;
   text: name;
   text-color: @label_medium;
