@@ -5,6 +5,7 @@ import android.location.Location;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.concurrency.UiThread;
@@ -87,6 +88,8 @@ public final class ThemeSwitcher
     // Activity and drape engine will be recreated so we have to mark new map style.
     // Changes will be applied in process of recreation.
     Framework.nativeMarkMapStyle(style);
+
+    DownloaderStatusIcon.clearCache();
 
     Activity a = MwmApplication.backgroundTracker().getTopActivity();
     if (a != null && !a.isFinishing())

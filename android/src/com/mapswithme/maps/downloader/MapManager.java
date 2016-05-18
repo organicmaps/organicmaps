@@ -473,4 +473,9 @@ public final class MapManager
    * Sets flag which allows to download maps on 3G.
    */
   public static native void nativeEnableDownloadOn3g();
+
+  /**
+   * Returns country ID which the current PP object points to, or {@code null}.
+   */
+  public static native @Nullable String nativeGetSelectedCountry();
 }

@@ -59,7 +59,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
         @Override
         public void onClick(View v)
         {
-          mPlacePage.setState(State.HIDDEN);
+          mPlacePage.hide();
         }
       });
     }
@@ -118,7 +118,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
           if (!mIsGestureHandled)
           {
             if (distanceY < 0f)
-              mPlacePage.setState(State.HIDDEN);
+              mPlacePage.hide();
             else
               mPlacePage.setState(State.DETAILS);
 

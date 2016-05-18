@@ -660,4 +660,12 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeEnableDownloadOn3g(JNIEnv *
   g_framework->EnableDownloadOn3g();
 }
 
+// static @Nullable String nativeGetSelectedCountry();
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetSelectedCountry(JNIEnv * env, jclass clazz)
+{
+  storage::TCountryId const & res = g_framework->GetPlacePageInfo().m_countryId;
+  return (res == storage::kInvalidCountryId ? nullptr : jni::ToJavaString(env, res));
+}
+
 } // extern "C"
