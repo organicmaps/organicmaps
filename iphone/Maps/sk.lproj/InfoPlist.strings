@@ -17,3 +17,8 @@
 
 /* Used in home screen quick actions. */
 "route" = "Trasa";
+
+/********** gps strings **********/
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "Definovanie súčasnej polohy na pozadí je potrebné pre plnú funkčnosť appky. Využíva sa to najmä v možnostiach nasledovania trasy či uloženia Vašej nedávnej cesty.";

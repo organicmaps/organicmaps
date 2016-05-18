@@ -17,3 +17,8 @@
 
 /* Used in home screen quick actions. */
 "route" = "Rutt";
+
+/********** gps strings **********/
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "Att fastställa aktuell position i bakgrunden är nödvändigt för att fullt ut använda funktionaliteten hos appen. Det används främst när en rutt ska följas och när din senaste resväg skall sparas.";

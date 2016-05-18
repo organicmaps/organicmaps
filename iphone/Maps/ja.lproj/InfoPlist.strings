@@ -17,3 +17,8 @@
 
 /* Used in home screen quick actions. */
 "route" = "経路";
+
+/********** gps strings **********/
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "バックグラウンドでの現在位置の定義は、アプリの機能を完全にご利用いただくために必要です。主にルート追跡と最近の道のりの保存に使用されます。";
