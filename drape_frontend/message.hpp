@@ -55,7 +55,8 @@ public:
     SetKineticScrollEnabled,
     BlockTapEvents,
     SetTimeInBackground,
-    SetAddNewPlaceMode
+    SetAddNewPlaceMode,
+    SetDisplacementMode
   };
 
   virtual ~Message() {}

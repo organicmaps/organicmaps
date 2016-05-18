@@ -144,6 +144,8 @@ public:
 
   void SetTimeInBackground(double time);
 
+  void SetDisplacementMode(int mode);
+
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);

@@ -67,5 +67,6 @@ private slots:
   bool TryChangeRouterCmd(QString const & str);
   bool Try3dModeCmd(QString const & str);
   bool TryMigrate(QString const & str);
+  bool TryDisplacementModeCmd(QString const & str);
 };
 }  // namespace qt

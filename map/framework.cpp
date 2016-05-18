@@ -861,6 +861,11 @@ void Framework::PrepareToShutdown()
   DestroyDrapeEngine();
 }
 
+void Framework::SetDisplacementMode(int mode)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
+}
+
 void Framework::SaveViewport()
 {
   m2::AnyRectD rect;

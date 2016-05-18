@@ -329,6 +329,31 @@ IsLocalityChecker const & IsLocalityChecker::Instance()
   return inst;
 }
 
+IsBookingChecker::IsBookingChecker()
+{
+  Classificator const & c = classif();
+  char const * arr[][3] = {
+    { "tourism", "alpine_hut", "booking" },
+    { "tourism", "apartment", "booking" },
+    { "tourism", "camp_site", "booking" },
+    { "tourism", "chalet", "booking" },
+    { "tourism", "guest_house", "booking" },
+    { "tourism", "hostel", "booking" },
+    { "tourism", "hotel", "booking" },
+    { "tourism", "motel", "booking" },
+    { "tourism", "resort", "booking" }
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 3)));
+}
+
+IsBookingChecker const & IsBookingChecker::Instance()
+{
+  static const IsBookingChecker inst;
+  return inst;
+}
+
 uint32_t GetPopulation(FeatureType const & ft)
 {
   uint32_t population = ft.GetPopulation();

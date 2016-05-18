@@ -1,7 +1,7 @@
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/color_constants.hpp"
 
-#include "drape/depth_constants.hpp"
+#include "drape/constants.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/overlay_handle.hpp"

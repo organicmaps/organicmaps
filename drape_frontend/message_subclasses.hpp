@@ -803,4 +803,18 @@ private:
   double m_time;
 };
 
+class SetDisplacementModeMessage : public Message
+{
+public:
+  explicit SetDisplacementModeMessage(int mode)
+    : m_mode(mode)
+  {}
+
+  Type GetType() const override { return Message::SetDisplacementMode; }
+  int GetMode() const { return m_mode; }
+
+private:
+  int m_mode;
+};
+
 } // namespace df
