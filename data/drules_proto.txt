@@ -41762,7 +41762,7 @@ cont {
     scale: 13
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16863
       min_distance: 12
     }
     caption {
@@ -41771,14 +41771,14 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 14
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16863
       min_distance: 12
     }
     caption {
@@ -41787,14 +41787,14 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 15
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16863
       min_distance: 12
     }
     caption {
@@ -41803,14 +41803,14 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 16
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16863
       min_distance: 12
     }
     caption {
@@ -41819,14 +41819,14 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 17
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16863
       min_distance: 12
     }
     caption {
@@ -41835,14 +41835,14 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15890
+      priority: 15863
     }
   }
   element {
     scale: 18
     symbol {
       name: "drinking-water-s"
-      priority: 16890
+      priority: 16863
       min_distance: 12
     }
     caption {
@@ -41851,7 +41851,7 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15890
+      priority: 15863
     }
   }
 }
