@@ -17,3 +17,8 @@
 
 /* Used in home screen quick actions. */
 "route" = "Útvonal";
+
+/********** gps strings **********/
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "A jelenlegi helymeghatározásra a háttérben azért van szükség, hogy teljesen ki lehessen használni az alkalmazás funkcióit. Elsősorban a navigációs opcióknál és a nemrég megtett út regisztrálásánál használatos.";

@@ -831,7 +831,7 @@
 	<string name="current_location_unknown_error_title">Den nuvarande platsen är okänd.</string>
 	<string name="current_location_unknown_error_message">Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.</string>
 	<string name="whatsnew_update_editor_title">Vi har uppdaterat kartredigeraren</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME-användare har gjort 50 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME-användare har gjort 90 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Uppdatera alla kartor för att använda kartredigeraren.</string>
 	<string name="location_services_disabled_header">Platsidentifiering avaktiverad</string>

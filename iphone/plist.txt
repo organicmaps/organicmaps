@@ -136,3 +136,34 @@
     vi = Tuyến đường
     zh-Hant = 路線
     zh-Hans = 路线
+
+[[gps strings]]
+  [NSLocationAlwaysUsageDescription]
+    comment = Needed to explain why we always require access to GPS coordinates, and not only when the app is active.
+    en = Defining current location in the background is necessary to fully enjoy the functionality of the app. It is mainly used in the options of following the route and saving your recent travelled path. 
+    ru = Определение местоположения в фоне необходимо для полноценного пользования приложением. Оно используется в движении по маршруту и сохранении недавно пройденного пути.
+    fr = La localisation actuelle en arrière-plan est nécessaire pour profiter pleinement de toutes les fonctionnalités de l'application. Elle est principalement utilisée dans les options de navigation et d'enregistrement de votre chemin récemment parcouru.
+    da = Det er nødvendigt at fastslå den gældende placering i baggrunden for at udnytte appens funktionalitet fuldt ud. Dette anvendes først og fremmest, når en rute skal følges, og når din sidste rejserute skal gemmes.
+    id = Menentukan lokasi saat ini di latar belakang diperlukan untuk menikmati fungsi aplikasi. Digunakan terutama dalam opsi mengikuti rute dan menyimpan jalur yang telah Anda tempuh baru-baru ini.
+    ko = 백그라운드에서 현재 위치를 정의하는 것은 완전히 앱의 기능을 즐길 수 있도록 해줍니다. 이는 주로 경로를 따르고 최근 여행 경로를 저장하는 옵션에 사용됩니다.
+    sv = Att fastställa aktuell position i bakgrunden är nödvändigt för att fullt ut använda funktionaliteten hos appen. Det används främst när en rutt ska följas och när din senaste resväg skall sparas.
+    tr = Uygulamanın özelliklerini tamamıyla çıkartmak için arka planda mevcut konumu tanımlamak gereklidir. Genellikle rota izleme ve en son gezilen yolları kaydetme seçeneği için kullanılır.
+    uk = Визначення місцезнаходження у фоновому режимі необхідно для повноцінного користування додатком. Воно використовується під час руху по маршруту та для збереження шляху, що було нещодавно пройдено.
+    vi = Xác định vị trí hiện tại ở trạng thái nền là cần thiết để tận hưởng đầy đủ chức năng của ứng dụng. Nó được sử dụng chủ yếu trong các tùy chọn để đi theo tuyến đường và lưu đường đi gần đây của bạn
+    hu = A jelenlegi helymeghatározásra a háttérben azért van szükség, hogy teljesen ki lehessen használni az alkalmazás funkcióit. Elsősorban a navigációs opcióknál és a nemrég megtett út regisztrálásánál használatos.
+    de = Das Bestimmen des aktuellen Standortes im Hintergrund ist erforderlich, um den vollen Funktionsumfang der App zu genießen. Dies wird hauptsächlich dafür genutzt, der Route zu folgen und, um Ihren bereits bestrittenen Weg zu speichern.
+    fi = Tämänhetkisen sijainnin selvittäminen sovellusta ajettaessa taustalla on tärkeää sovelluksen täydellisen toiminnan takaamiseksi. Sijaintitietoja käytetään pääasiassa reittiopastukseen sekä kuljetun reitin tallennukseen.
+    cs = Chcete-li si užívat plnou funkčnost aplikace, pak musíte určit aktuální polohu na pozadí. Používá se především k sledování trasy a ukládání vaší nedávno uskutečněné cesty.
+    it = Chcete-li si užívat plnou funkčnost aplikace, pak musíte určit aktuální polohu na pozadí. Používá se především k sledování trasy a ukládání vaší nedávno uskutečněné cesty.
+    nb = Det er nødvendig å fastslå den gjeldende posisjonen i bakgrunnen for å utnytte appens funksjonalitet til fulle. Dette brukes først og fremst når en rute skal følges og når den siste reiseruten din skal lagres.
+    zh-Hant = 在背景中定義當前位置對於充分享受此應用程式的功能是必要的。它被主要使用於跟隨路線與保存您最近走過的路徑的選項。
+    zh-Hans = 在背景中定义当前位置对于充分享受此应用的功能来说是必要的。它被主要使用于跟随路线与保存您最近走过的路径的选项。
+    th = จำเป็นต้องทำการระบุตำแหน่งปัจจุบันในพื้นหลังเพื่อเพลิดเพลินกับการใช้งานแอปอย่างเต็มรูปแบบ มันจะได้รับการใช้เป็นหลักสำหรับตัวเลือกในการติดตามเส้นทางและการบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้
+    ja = バックグラウンドでの現在位置の定義は、アプリの機能を完全にご利用いただくために必要です。主にルート追跡と最近の道のりの保存に使用されます。
+    ro = Definirea locației curente în fundal este necesară pentru a vă bucura pe deplin de funcționalitatea aplicației. Acest lucru este utilizat în principal în opțiunile de urmărire a traseului și salvare a căii parcurse recent.
+    ar = إن تحديد موقعك الحالي في الخلفية أمر ضروري للاستمتاع بكامل وظائف التطبيق. حيث أنه يُستخدم بشكل أساسي في خيارات متابعة المسار وحفظ الطرق التي تنقلت معها مؤخرا.
+    sk = Definovanie súčasnej polohy na pozadí je potrebné pre plnú funkčnosť appky. Využíva sa to najmä v možnostiach nasledovania trasy či uloženia Vašej nedávnej cesty.
+    es = Es necesario definir la ubicación actual en el entorno para disfrutar al máximo de la funcionalidad de la aplicación. Se emplea principalmente en las opciones de seguir la ruta y guardar el camino recorrido reciente.
+    pl = Określanie w tle bieżącej lokalizacji jest konieczne, aby w pełni korzystać z funkcjonalności aplikacji. Funkcji tej używa się głównie w ramach opcji podążania zgodnie z trasą i zapisywania niedawno przebytej trasy.
+    nl = Het op de achtergrond vaststellen van de huidige locatie is noodzakelijk om volledig gebruik te maken van de functionaliteit van de app. Dit wordt voornamelijk gebruikt bij de opties voor het volgen van de route en het opslaan van je recent afgelegde pad.
+    pt = A definição da localização atual em segundo plano é necessária para desfrutar totalmente da funcionalidade do aplicativo. Ela é utilizada principalmente nas opções de seguir a rota e salvar seu caminho recém-viajado. 

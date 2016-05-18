@@ -825,7 +825,7 @@
 	<string name="current_location_unknown_error_title">Gjeldende plassering er ukjent.</string>
 	<string name="current_location_unknown_error_message">Det oppstod en feil under søking etter plasseringen din. Kontroller at plasseringen din virker som den skal, og prøv på nytt senere.</string>
 	<string name="whatsnew_update_editor_title">Vi har oppdatert kartredigeringsprogrammet</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME-brukere har foretatt 50 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME-brukere har foretatt 90 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">For å bruke kartredigerings-funksjonen, vennligst oppdater alle kartene.</string>
 	<string name="location_services_disabled_header">Lokalisering er deaktivert</string>

@@ -833,7 +833,7 @@
 	<string name="current_location_unknown_error_title">当前位置未知</string>
 	<string name="current_location_unknown_error_message">搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。</string>
 	<string name="whatsnew_update_editor_title">我们已经更新了地图编辑器</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME 用户已经进行了 50 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME 用户已经进行了 90 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">如要使用地图编辑器，请更新所有地图</string>
 	<string name="location_services_disabled_header">地点定位被禁用</string>

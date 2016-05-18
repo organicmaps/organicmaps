@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "지도 편집기를 업데이트했습니다";
 
-"whatsnew_update_editor_message" = "전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!";
+"whatsnew_update_editor_message" = "MAPS.ME 사용자는 90000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "지도 편집기를 사용하려면, 모든 지도를 업데이트하십시오.";

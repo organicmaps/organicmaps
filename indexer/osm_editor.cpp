@@ -965,7 +965,7 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
     case NoteProblemType::PlaceDoesNotExist:
       sstr << kPlaceDoesNotExistMessage;
       if (!note.empty())
-        sstr << "\n\nUser comments: " << note << "\n\n";
+        sstr << " User comments: \"" << note << '\"';
       break;
     case NoteProblemType::General:
       sstr << note;
@@ -993,5 +993,5 @@ string DebugPrint(Editor::FeatureStatus fs)
   };
 }
 
-const char * const Editor::kPlaceDoesNotExistMessage = "The place has gone or never existed.\n\nThis is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground.";
+const char * const Editor::kPlaceDoesNotExistMessage = "The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground.";
 }  // namespace osm

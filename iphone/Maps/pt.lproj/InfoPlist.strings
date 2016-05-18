@@ -17,3 +17,8 @@
 
 /* Used in home screen quick actions. */
 "route" = "Trajeto";
+
+/********** gps strings **********/
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "A definição da localização atual em segundo plano é necessária para desfrutar totalmente da funcionalidade do aplicativo. Ela é utilizada principalmente nas opções de seguir a rota e salvar seu caminho recém-viajado.";

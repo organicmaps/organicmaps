@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mapswithme.maps.LocationState;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Graphics;
@@ -29,6 +30,7 @@ public class MyPositionButton
         AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
         if (!LocationState.isTurnedOn())
         {
+          MwmActivity.enableLocation();
           LocationHelper.INSTANCE.setShouldResolveErrors(true);
           LocationHelper.INSTANCE.restart(); // restart to check location settings again.
         }

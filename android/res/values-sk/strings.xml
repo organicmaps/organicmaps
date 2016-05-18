@@ -830,7 +830,7 @@
 	<string name="current_location_unknown_error_title">Súčasná pozícia je neznáma.</string>
 	<string name="current_location_unknown_error_message">Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.</string>
 	<string name="whatsnew_update_editor_title">Aktualizovali sme program na úpravu máp</string>
-	<string name="whatsnew_update_editor_message">Používatelia MAPS.ME urobili 50 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!</string>
+	<string name="whatsnew_update_editor_message">Používatelia MAPS.ME urobili 90 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.</string>
 	<string name="location_services_disabled_header">Identifikácia lokality je zablokovaná</string>

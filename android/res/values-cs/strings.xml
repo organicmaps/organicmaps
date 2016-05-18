@@ -834,7 +834,7 @@
 	<string name="current_location_unknown_error_title">Současná poloha nezjištěna.</string>
 	<string name="current_location_unknown_error_message">Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.</string>
 	<string name="whatsnew_update_editor_title">Aktualizovali jsme editor map</string>
-	<string name="whatsnew_update_editor_message">Uživatelé aplikace MAPS.ME už provedli na 50 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!</string>
+	<string name="whatsnew_update_editor_message">Uživatelé aplikace MAPS.ME už provedli na 90 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Chcete-li používat editor map, pak prosím aktualizujte všechny mapy.</string>
 	<string name="location_services_disabled_header">Určení polohy je zakázáno</string>

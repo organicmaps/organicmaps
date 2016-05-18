@@ -831,7 +831,7 @@
 	<string name="current_location_unknown_error_title">Місцезнаходження не знайдено.</string>
 	<string name="current_location_unknown_error_message">Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.</string>
 	<string name="whatsnew_update_editor_title">Ми обновили редактор</string>
-	<string name="whatsnew_update_editor_message">Користувачі MAPS.ME вже внесли 50 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!</string>
+	<string name="whatsnew_update_editor_message">Користувачі MAPS.ME вже внесли 90 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Для використання редактору карт, будь ласка, оновіть всі карти.</string>
 	<string name="location_services_disabled_header">Ідентифікацію місцезнаходження відключено</string>

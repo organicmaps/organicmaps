@@ -75,7 +75,7 @@
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Nous recommandons d\&#39;utiliser une connexion Wi-Fi pour télécharger de grandes cartes</string>
 	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Quel système de mesure préférez-vous ?</string>
+	<string name="which_measurement_system">Quel système de mesure préférez-vous ?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.</string>
 	<!-- Location Services are not available on the device alert - message -->
@@ -113,8 +113,8 @@
 	<string name="getting_position">Obtention de la position actuelle</string>
 	<string name="download_resources_continue">Aller sur la carte</string>
 	<string name="downloading_country_can_proceed">%s en téléchargement. Vous pouvez\nmaintenant aller sur la carte.</string>
-	<string name="download_country_ask">Télécharger %s ?</string>
-	<string name="update_country_ask">Mettre %s à jour ?</string>
+	<string name="download_country_ask">Télécharger %s ?</string>
+	<string name="update_country_ask">Mettre %s à jour ?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_location_map_proposal">Vous pouvez télécharger la carte\nde votre position actuelle.</string>
 	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
@@ -128,9 +128,9 @@
 	<string name="downloaded_touch_to_update">%s téléchargé, toucher pour mettre à jour ou supprimer</string>
 	<string name="update_mb_or_kb">Mettre à jour %s</string>
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Il vous faut des cartes mises à jour pour la fonction de recherche :</string>
+	<string name="search_update_maps">Il vous faut des cartes mises à jour pour la fonction de recherche :</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Des mises à jour sont disponibles pour ces cartes :</string>
+	<string name="advise_update_maps">Des mises à jour sont disponibles pour ces cartes :</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">Vous n\&#39;avez plus besoin de MAPS.ME Lite, pouvez donc le désinstaller.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
@@ -172,7 +172,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Sélectionner l\&#39;emplacement où les cartes devraient être téléchargées</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
-	<string name="move_maps">Déplacer les cartes ?</string>
+	<string name="move_maps">Déplacer les cartes ?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Ceci peut prendre plusieurs minutes.\nVeuillez patienter…</string>
 	<!-- Show bookmarks from this category on a map or not -->
@@ -227,7 +227,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Signets MAPS.ME partagés</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le ficher si vous avez MAPS.ME d\&#39;installé. Sinon, téléchargez l\&#39;appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !</string>
+	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le ficher si vous avez MAPS.ME d\&#39;installé. Sinon, téléchargez l\&#39;appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Chargement des signets</string>
 	<!-- Kmz file successful loading -->
@@ -247,7 +247,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Le téléchargement du pays est en cours.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Nous espérons que vous appréciez l\&#39;utilisation de MAPS.ME ! Si oui, veuillez évaluer l\&#39;appli ou laisser une critique sur l\&#39;App Store. Cela prend moins d\&#39;une minute, mais peut vraiment nous aider. Merci pour votre soutien !</string>
+	<string name="appStore_message">Nous espérons que vous appréciez l\&#39;utilisation de MAPS.ME ! Si oui, veuillez évaluer l\&#39;appli ou laisser une critique sur l\&#39;App Store. Cela prend moins d\&#39;une minute, mais peut vraiment nous aider. Merci pour votre soutien !</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Non, merci</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -261,7 +261,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hé, regarde ma position actuelle sur la carte MAPS.ME !</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Bonjour,\n\nJe suis actuelement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</string>
+	<string name="my_position_share_email">Bonjour,\n\nJe suis actuelement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Partager par message</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -275,7 +275,7 @@
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Afficher plus d\&#39;informations</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">Copié dans le presse-papiers : %1$s</string>
+	<string name="copied_to_clipboard">Copié dans le presse-papiers : %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Envoyer des statistiques</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -291,9 +291,9 @@
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Afficher sur l\&#39;arrière-plan</string>
 	<!-- Prints version number in About dialog -->
-	<string name="version">Version : %s</string>
+	<string name="version">Version : %s</string>
 	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Êtes-vous certain de vouloir continuer ?</string>
+	<string name="are_you_sure">Êtes-vous certain de vouloir continuer ?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Parcours</string>
 	<!-- Length of track in cell that describes route -->
@@ -838,7 +838,7 @@
 	<string name="current_location_unknown_error_title">L\&#39;emplacement actuel est inconnu.</string>
 	<string name="current_location_unknown_error_message">Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que le périphérique fonctionne correctement et réessayez ultérieurement</string>
 	<string name="whatsnew_update_editor_title">Nous avons mis à jour l\&#39;éditeur de cartes</string>
-	<string name="whatsnew_update_editor_message">Les utilisateurs de MAPS.ME ont procédé à 50 000 modifications de cartes. Nous créons ensemble les cartes les plus détaillées du monde. Rejoignez-nous !</string>
+	<string name="whatsnew_update_editor_message">Les utilisateurs de MAPS.ME ont procédé à 90 000 modifications de cartes. Nous créons ensemble les cartes les plus détaillées du monde. Rejoignez-nous !</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Pour utiliser l\&#39;Éditeur de Cartes, veuillez mettre à jour toutes les cartes.</string>
 	<string name="location_services_disabled_header">L\&#39;identification de la localisation est désactivée</string>

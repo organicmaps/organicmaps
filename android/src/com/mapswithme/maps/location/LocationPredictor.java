@@ -49,7 +49,7 @@ public class LocationPredictor
 
   public void myPositionModeChanged(final int mode)
   {
-    if (mode < LocationState.NOT_FOLLOW)
+    if (!LocationState.isTurnedOn(mode))
       mLastLocation = null;
 
     mGeneratePredictions = (mode == LocationState.FOLLOW_AND_ROTATE);

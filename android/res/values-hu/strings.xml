@@ -827,7 +827,7 @@
 	<string name="current_location_unknown_stop_button">Leállítás</string>
 	<string name="current_location_unknown_error_message">Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.</string>
 	<string name="whatsnew_update_editor_title">Frissítettük a szerkesztőt</string>
-	<string name="whatsnew_update_editor_message">A MAPS.ME felhasználói 50 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!</string>
+	<string name="whatsnew_update_editor_message">A MAPS.ME felhasználói 90 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">A térképszerkesztő használatához, kérjük, frissítsd az összes térképet.</string>
 	<string name="location_services_disabled_header">Helyzetmeghatározás kikapcsolva</string>

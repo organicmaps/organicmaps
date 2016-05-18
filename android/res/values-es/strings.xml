@@ -822,7 +822,7 @@
 	<string name="current_location_unknown_error_title">La ubicación actual es desconocida.</string>
 	<string name="current_location_unknown_error_message">Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.</string>
 	<string name="whatsnew_update_editor_title">Hemos actualizado el editor de mapas</string>
-	<string name="whatsnew_update_editor_message">Los usuarios de MAPS.ME han realizado 50 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!</string>
+	<string name="whatsnew_update_editor_message">Los usuarios de MAPS.ME han realizado 90 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Para usar el editor de mapas, actualiza todos los mapas.</string>
 	<string name="location_services_disabled_header">La identificación de la ubicación está desactivada</string>
