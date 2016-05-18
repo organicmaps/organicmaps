@@ -12,6 +12,10 @@ namespace routing
 void IDirectionsEngine::CalculateTimes(IRoadGraph const & graph, vector<Junction> const & path,
                                        Route::TTimes & times) const
 {
+  times.clear();
+  if (path.size() <= 1)
+    return;
+
   double const speedMPS = graph.GetMaxSpeedKMPH() * KMPH2MPS;
 
   times.reserve(path.size());
@@ -39,10 +43,7 @@ bool IDirectionsEngine::ReconstructPath(IRoadGraph const & graph, vector<Junctio
 {
   routeEdges.clear();
   if (path.size() <= 1)
-  {
-    ASSERT(false, (path.size()));
     return false;
-  }
 
   routeEdges.reserve(path.size() - 1);
 

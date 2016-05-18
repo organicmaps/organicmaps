@@ -45,7 +45,12 @@ void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junct
                                           vector<m2::PointD> & routeGeometry,
                                           my::Cancellable const & cancellable)
 {
-  CHECK_GREATER(path.size(), 1, ());
+  times.clear();
+  turns.clear();
+  routeGeometry.clear();
+
+  if (path.size() <= 1)
+    return;
 
   CalculateTimes(graph, path, times);
 

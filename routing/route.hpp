@@ -45,7 +45,10 @@ public:
 
   template <class TIter> void SetGeometry(TIter beg, TIter end)
   {
-    FollowedPolyline(beg, end).Swap(m_poly);
+    if (beg == end)
+      FollowedPolyline().Swap(m_poly);
+    else
+      FollowedPolyline(beg, end).Swap(m_poly);
     Update();
   }
 

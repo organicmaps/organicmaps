@@ -50,18 +50,25 @@ void Route::AddAbsentCountry(string const & name)
 
 double Route::GetTotalDistanceMeters() const
 {
+  if (!m_poly.IsValid())
+    return 0.0;
   return m_poly.GetTotalDistanceM();
 }
 
 double Route::GetCurrentDistanceFromBeginMeters() const
 {
+  if (!m_poly.IsValid())
+    return 0.0;
   return m_poly.GetDistanceFromBeginM();
 }
 
 void Route::GetTurnsDistances(vector<double> & distances) const
 {
-  double mercatorDistance = 0;
   distances.clear();
+  if (!m_poly.IsValid())
+    return;
+
+  double mercatorDistance = 0.0;
   auto const & polyline = m_poly.GetPolyline();
   for (auto currentTurn = m_turns.begin(); currentTurn != m_turns.end(); ++currentTurn)
   {
@@ -84,6 +91,8 @@ void Route::GetTurnsDistances(vector<double> & distances) const
 
 double Route::GetCurrentDistanceToEndMeters() const
 {
+  if (!m_poly.IsValid())
+    return 0.0;
   return m_poly.GetDistanceToEndM();
 }
 

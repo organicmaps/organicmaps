@@ -84,14 +84,15 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
                                        vector<m2::PointD> & routeGeometry,
                                        my::Cancellable const & cancellable)
 {
-  size_t const pathSize = path.size();
-  CHECK_NOT_EQUAL(pathSize, 0, ());
-
   times.clear();
   turns.clear();
   routeGeometry.clear();
   m_adjacentEdges.clear();
   m_pathSegments.clear();
+
+  size_t const pathSize = path.size();
+  if (pathSize == 0)
+    return;
 
   auto emptyPathWorkaround = [&]()
   {
@@ -99,9 +100,8 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
     this->m_adjacentEdges[0] = AdjacentEdges(1);  // There's one ingoing edge to the finish.
   };
 
-  if (pathSize <= 1)
+  if (pathSize == 1)
   {
-    ASSERT(false, (pathSize));
     emptyPathWorkaround();
     return;
   }
