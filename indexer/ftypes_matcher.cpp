@@ -9,7 +9,6 @@
 
 namespace ftypes
 {
-
 uint32_t BaseChecker::PrepareToMatch(uint32_t type, uint8_t level)
 {
   ftype::TruncValue(type, level);
@@ -21,7 +20,7 @@ bool BaseChecker::IsMatched(uint32_t type) const
   return (find(m_types.begin(), m_types.end(), PrepareToMatch(type, m_level)) != m_types.end());
 }
 
-bool BaseChecker::operator() (feature::TypesHolder const & types) const
+bool BaseChecker::operator()(feature::TypesHolder const & types) const
 {
   for (uint32_t t : types)
     if (IsMatched(t))
@@ -30,12 +29,12 @@ bool BaseChecker::operator() (feature::TypesHolder const & types) const
   return false;
 }
 
-bool BaseChecker::operator() (FeatureType const & ft) const
+bool BaseChecker::operator()(FeatureType const & ft) const
 {
-  return this->operator() (feature::TypesHolder(ft));
+  return this->operator()(feature::TypesHolder(ft));
 }
 
-bool BaseChecker::operator() (vector<uint32_t> const & types) const
+bool BaseChecker::operator()(vector<uint32_t> const & types) const
 {
   for (size_t i = 0; i < types.size(); ++i)
   {
@@ -48,7 +47,7 @@ bool BaseChecker::operator() (vector<uint32_t> const & types) const
 IsPeakChecker::IsPeakChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({ "natural", "peak" }));
+  m_types.push_back(c.GetTypeByPath({"natural", "peak"}));
 }
 
 IsPeakChecker const & IsPeakChecker::Instance()
@@ -57,11 +56,10 @@ IsPeakChecker const & IsPeakChecker::Instance()
   return inst;
 }
 
-
 IsATMChecker::IsATMChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({ "amenity", "atm" }));
+  m_types.push_back(c.GetTypeByPath({"amenity", "atm"}));
 }
 
 IsATMChecker const & IsATMChecker::Instance()
@@ -86,7 +84,7 @@ IsSpeedCamChecker const & IsSpeedCamChecker::Instance()
 IsFuelStationChecker::IsFuelStationChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({ "amenity", "fuel" }));
+  m_types.push_back(c.GetTypeByPath({"amenity", "fuel"}));
 }
 
 IsFuelStationChecker const & IsFuelStationChecker::Instance()
@@ -144,7 +142,7 @@ IsStreetChecker const & IsStreetChecker::Instance()
 
 IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
 {
-  auto const paths = { "building", "amenity", "shop", "tourism", "historic", "office", "craft" };
+  auto const paths = {"building", "amenity", "shop", "tourism", "historic", "office", "craft"};
 
   Classificator const & c = classif();
   for (auto const & p : paths)
@@ -178,7 +176,7 @@ IsVillageChecker const & IsVillageChecker::Instance()
 IsOneWayChecker::IsOneWayChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({ "hwtag", "oneway" }));
+  m_types.push_back(c.GetTypeByPath({"hwtag", "oneway"}));
 }
 
 IsOneWayChecker const & IsOneWayChecker::Instance()
@@ -190,7 +188,7 @@ IsOneWayChecker const & IsOneWayChecker::Instance()
 IsRoundAboutChecker::IsRoundAboutChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({ "junction", "roundabout" }));
+  m_types.push_back(c.GetTypeByPath({"junction", "roundabout"}));
 }
 
 IsRoundAboutChecker const & IsRoundAboutChecker::Instance()
@@ -202,13 +200,11 @@ IsRoundAboutChecker const & IsRoundAboutChecker::Instance()
 IsLinkChecker::IsLinkChecker()
 {
   Classificator const & c = classif();
-  char const * arr[][2] = {
-    { "highway", "motorway_link" },
-    { "highway", "trunk_link" },
-    { "highway", "primary_link" },
-    { "highway", "secondary_link" },
-    { "highway", "tertiary_link" }
-  };
+  char const * arr[][2] = {{"highway", "motorway_link"},
+                           {"highway", "trunk_link"},
+                           {"highway", "primary_link"},
+                           {"highway", "secondary_link"},
+                           {"highway", "tertiary_link"}};
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
@@ -222,7 +218,7 @@ IsLinkChecker const & IsLinkChecker::Instance()
 
 IsBuildingChecker::IsBuildingChecker() : BaseChecker(1 /* level */)
 {
-  m_types.push_back(classif().GetTypeByPath({ "building" }));
+  m_types.push_back(classif().GetTypeByPath({"building"}));
 }
 
 IsBuildingChecker const & IsBuildingChecker::Instance()
@@ -260,10 +256,7 @@ IsBuildingPartChecker const & IsBuildingPartChecker::Instance()
   return inst;
 }
 
-IsBridgeChecker::IsBridgeChecker() : BaseChecker(3 /* level */)
-{ 
-}
-
+IsBridgeChecker::IsBridgeChecker() : BaseChecker(3 /* level */) {}
 IsBridgeChecker const & IsBridgeChecker::Instance()
 {
   static const IsBridgeChecker inst;
@@ -275,10 +268,7 @@ bool IsBridgeChecker::IsMatched(uint32_t type) const
   return IsTypeConformed(type, {"highway", "*", "bridge"});
 }
 
-IsTunnelChecker::IsTunnelChecker() : BaseChecker(3 /* level */)
-{
-}
-
+IsTunnelChecker::IsTunnelChecker() : BaseChecker(3 /* level */) {}
 IsTunnelChecker const & IsTunnelChecker::Instance()
 {
   static const IsTunnelChecker inst;
@@ -332,7 +322,7 @@ IsLocalityChecker const & IsLocalityChecker::Instance()
 IsBookingChecker::IsBookingChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({ "sponsored", "booking" }));
+  m_types.push_back(c.GetTypeByPath({"sponsored", "booking"}));
 }
 
 IsBookingChecker const & IsBookingChecker::Instance()
