@@ -5,10 +5,6 @@ set -e -u
 APP_VERSION=UNKNOWN
 [ $# -gt 0 ] && APP_VERSION=$1
 DESIGNER_CODEBASE_SHA=$(git log -1 --format="%H")
-
-echo "App version: $APP_VERSION"
-echo "Commit SHA: $DESIGNER_CODEBASE_SHA"
-
 OMIM_PATH="$(cd "${OMIM_PATH:-$(dirname "$0")/../..}"; pwd)"
 DATA_PATH="$OMIM_PATH/data"
 BUILD_PATH="$OMIM_PATH/out"
@@ -24,14 +20,10 @@ cat > "$OMIM_PATH/designer_version.h" <<DVER
 #define DESIGNER_DATA_VERSION ""
 DVER
 
-# Substitute tools/autobuild/build.sh
-rm "$OMIM_PATH/tools/autobuild/build.sh"
-cp "$OMIM_PATH/tools/autobuild/build_designer.sh" "$OMIM_PATH/tools/autobuild/build.sh"
-
 rm -rf "$RELEASE_PATH"
 (
   cd "$OMIM_PATH"
-  ${QMAKE-qmake} omim.pro -r -spec macx-clang CONFIG+=release CONFIG+=x86_64 CONFIG+=map_designer
+  ${QMAKE-qmake} omim.pro -r -spec macx-clang CONFIG+=release CONFIG+=x86_64 CONFIG+=map_designer CONFIG+=no-tests
   make -j8
 )
 
@@ -52,11 +44,11 @@ cp "$OMIM_PATH/tools/python/recalculate_geom_index.py" "$MAC_RESOURCES/recalcula
 # Copy all drules and  resources (required for test environment)
 rm -rf $MAC_RESOURCES/drules_proto*
 rm -rf $MAC_RESOURCES/resources-*
-for i in 6plus ldpi mdpi hdpi xhdpi xxhdpi; do
+for i in ldpi mdpi hdpi xhdpi xxhdpi 6plus; do
   cp -r $OMIM_PATH/data/resources-${i}_legacy/ $MAC_RESOURCES/resources-$i/
 done
 cp $OMIM_PATH/data/drules_proto_legacy.bin $MAC_RESOURCES/drules_proto.bin
-for i in resources-default cuisine-strings WorldCoasts_obsolete.mwm countries.txt cuisines.txt countries_obsolete.txt packed_polygons.bin packed_polygons_obsolete.bin; do
+for i in resources-default countries-strings cuisine-strings WorldCoasts_obsolete.mwm countries.txt cuisines.txt countries_obsolete.txt packed_polygons.bin packed_polygons_obsolete.bin; do
   cp -r $OMIM_PATH/data/$i $MAC_RESOURCES/
 done
 

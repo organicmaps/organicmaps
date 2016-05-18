@@ -41,10 +41,10 @@ def GetClassesZoomRange(drules_path):
                     zooms[1] = elem.scale
         if zooms[0] != -1:
             if name in result:
-                if result[name][0].scale < zooms[0]:
-                    zooms[0] = result[name][0].scale
-                if result[name][1].scale > zooms[1]:
-                    zooms[1] = result[name][1].scale
+                if result[name][0]< zooms[0]:
+                    zooms[0] = result[name][0]
+                if result[name][1]> zooms[1]:
+                    zooms[1] = result[name][1]
             result[name] = zooms
     return result
 

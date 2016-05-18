@@ -69,6 +69,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
   SUBDIRS *= drape drape_frontend partners_api local_ads tracking traffic
 
   CONFIG(map_designer):CONFIG(desktop) {
+    skin_generator.depends = $$SUBDIRS
     SUBDIRS *= skin_generator
   }
 
@@ -110,6 +111,13 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
     features_collector_tool.subdir = search/search_quality/features_collector_tool
     features_collector_tool.depends = $$SUBDIRS
     SUBDIRS *= features_collector_tool search_quality_tool
+  }
+
+  CONFIG(map_designer):CONFIG(no-tests) {
+    # Designer Tool package includes style tests
+    style_tests.subdir = map/style_tests
+    style_tests.depends = map indexer platform geometry coding base
+    SUBDIRS *= style_tests
   }
 
   CONFIG(desktop):!CONFIG(no-tests) {
