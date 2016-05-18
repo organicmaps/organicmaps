@@ -514,7 +514,14 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
 
       UiUtils.showIf(mSearchResultsMode, mFoundName);
-      mSize.setText(StringUtils.getFileSizeString(mItem.totalSize));
+
+      long size;
+      if (mItem.status == CountryItem.STATUS_ENQUEUED || mItem.status == CountryItem.STATUS_PROGRESS)
+        size = mItem.enqueuedSize;
+      else
+        size = (mMyMapsMode ? mItem.size : mItem.totalSize);
+
+      mSize.setText(StringUtils.getFileSizeString(size));
       mStatusIcon.update(mItem);
     }
   }

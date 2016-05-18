@@ -359,6 +359,7 @@ public final class MapManager
    *   <li>topmostParentName;</li>
    *   <li>description;</li>
    *   <li>size;</li>
+   *   <li>enqueuedSize;</li>
    *   <li>totalSize;</li>
    *   <li>childCount;</li>
    *   <li>totalChildCount;</li>
