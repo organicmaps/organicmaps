@@ -32,10 +32,9 @@ df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
   if (ftypes::IsBookingChecker::Instance()(f))
   {
     result.m_isHotel = true;
-    // TODO: fill from metadata
-    result.m_rating = "7.8";
-    result.m_stars = 3;
-    result.m_priceCategory = 2;
+    result.m_rating = f.GetMetadata().Get(feature::Metadata::FMD_RATING);
+    strings::to_int(f.GetMetadata().Get(feature::Metadata::FMD_STARS), result.m_stars);
+    strings::to_int(f.GetMetadata().Get(feature::Metadata::FMD_PRICE_RATE), result.m_priceCategory);
   }
   return result;
 }

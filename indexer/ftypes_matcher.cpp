@@ -332,20 +332,7 @@ IsLocalityChecker const & IsLocalityChecker::Instance()
 IsBookingChecker::IsBookingChecker()
 {
   Classificator const & c = classif();
-  char const * arr[][3] = {
-    { "tourism", "alpine_hut", "booking" },
-    { "tourism", "apartment", "booking" },
-    { "tourism", "camp_site", "booking" },
-    { "tourism", "chalet", "booking" },
-    { "tourism", "guest_house", "booking" },
-    { "tourism", "hostel", "booking" },
-    { "tourism", "hotel", "booking" },
-    { "tourism", "motel", "booking" },
-    { "tourism", "resort", "booking" }
-  };
-
-  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-    m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 3)));
+  m_types.push_back(c.GetTypeByPath({ "sponsored", "booking" }));
 }
 
 IsBookingChecker const & IsBookingChecker::Instance()
