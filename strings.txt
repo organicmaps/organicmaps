@@ -16275,7 +16275,7 @@
 
   [error_enter_correct_storey_number]
     tags = ios, android
-    en = Buildigns at highest of 25 levels can be edited
+    en = Buildings at highest of 25 levels can be edited
     ru = Редактируйте здания высотой максимум 25 этажей
     fr = Modifier l'immeuble avec un maximum de 25 étages
     da = Rediger bygningen med maksimum 25 etager
