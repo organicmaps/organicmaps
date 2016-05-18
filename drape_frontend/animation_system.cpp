@@ -316,8 +316,8 @@ void AnimationSystem::Advance(double elapsedSeconds)
   }
   for (auto & anim : finishedAnimations)
   {
-    SaveAnimationResult(*anim);
     anim->OnFinish();
+    SaveAnimationResult(*anim);
   }
   if (frontList.empty())
     StartNextAnimations();
