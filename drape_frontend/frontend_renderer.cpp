@@ -711,7 +711,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         {
           m2::PointD const pt = msg->HasPosition()? msg->GetPosition() :
                                 m_userEventStream.GetCurrentScreen().GlobalRect().Center();
-          AddUserEvent(SetCenterEvent(pt, scales::GetAddNewPlaceScale(), true));
+          int zoom = kDoNotChangeZoom;
+          if (m_currentZoomLevel < scales::GetAddNewPlaceScale())
+            zoom = scales::GetAddNewPlaceScale();
+          AddUserEvent(SetCenterEvent(pt, zoom, true));
         }
       }
       break;
