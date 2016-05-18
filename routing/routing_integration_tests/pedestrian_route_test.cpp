@@ -515,3 +515,16 @@ UNIT_TEST(MoscowChistiePrudiSelectPointsInConnectedGraph)
       MercatorBounds::FromLatLon(55.76613, 37.63769), {0., 0.},
       MercatorBounds::FromLatLon(55.76593, 37.63893), 134.02);
 }
+
+UNIT_TEST(RussiaMoscowSevTushinoParkPedestrianOnePointTurnTest)
+{
+  m2::PointD const point = MercatorBounds::FromLatLon(55.8719, 37.4464);
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetPedestrianComponents(), point, {0.0, 0.0}, point);
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 0);
+  integration::TestRouteLength(route, 0.0);
+}
