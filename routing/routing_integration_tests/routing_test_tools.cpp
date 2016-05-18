@@ -244,9 +244,7 @@ namespace integration
   void TestRouteLength(Route const & route, double expectedRouteMeters,
                        double relativeError)
   {
-    double delta = expectedRouteMeters * relativeError;
-    if (delta < kErrorMeters)
-      delta = kErrorMeters;
+    double const delta = max(expectedRouteMeters * relativeError, kErrorMeters);
     double const routeMeters = route.GetTotalDistanceMeters();
     TEST(my::AlmostEqualAbs(routeMeters, expectedRouteMeters, delta),
         ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeMeters, "delta:", delta));
@@ -254,9 +252,7 @@ namespace integration
 
   void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError)
   {
-    double delta = expectedRouteSeconds * relativeError;
-    if (delta < kErrorSeconds)
-      delta = kErrorSeconds;
+    double const delta = max(expectedRouteSeconds * relativeError, kErrorSeconds);
     double const routeSeconds = route.GetTotalTimeSec();
     TEST(my::AlmostEqualAbs(routeSeconds, expectedRouteSeconds, delta),
         ("Route time test failed. Expected:", expectedRouteSeconds, "have:", routeSeconds, "delta:", delta));

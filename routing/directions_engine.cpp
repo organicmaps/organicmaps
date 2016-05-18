@@ -16,6 +16,13 @@ void IDirectionsEngine::CalculateTimes(IRoadGraph const & graph, vector<Junction
   if (path.size() <= 1)
     return;
 
+  // graph.GetMaxSpeedKMPH() below is used on purpose.
+  // The idea is while pedestian (bicycle) routing ways for pedestrians (cyclists) are prefered.
+  // At the same time routing along big roads is still possible but if there's
+  // a pedestrian (bicycle) alternative it's prefered. To implement it a small speed
+  // is set in pedestrian_model (bicycle_model) for big roads. On the other hand
+  // the most likely a pedestrian (a cyclist) will go along big roads with average
+  // speed (graph.GetMaxSpeedKMPH()).
   double const speedMPS = graph.GetMaxSpeedKMPH() * KMPH2MPS;
 
   times.reserve(path.size());

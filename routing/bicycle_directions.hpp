@@ -39,7 +39,7 @@ private:
 
   TAdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;
-  unique_ptr<Index::FeaturesLoaderGuard> m_loader;
   Index const & m_index;
+  unique_ptr<Index::FeaturesLoaderGuard> m_loader;
 };
 }  // namespace routing

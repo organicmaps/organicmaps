@@ -111,13 +111,12 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   IRoadGraph::TEdgeVector routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
-    LOG(LDEBUG, ("Couldn't reconstruct path"));
+    LOG(LDEBUG, ("Couldn't reconstruct path."));
     emptyPathWorkaround();
     return;
   }
   if (routeEdges.empty())
   {
-    ASSERT(false, ());
     emptyPathWorkaround();
     return;
   }
@@ -137,7 +136,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
     adjacentEdges.m_outgoingTurns.isCandidatesAngleValid = false;
     adjacentEdges.m_outgoingTurns.candidates.reserve(outgoingEdges.size());
     ASSERT_EQUAL(routeEdges.size(), pathSize - 1, ());
-    FeatureID const inEdgeFeatureId = routeEdges[i - 1].GetFeatureId();
+    FeatureID const inFeatureId = routeEdges[i - 1].GetFeatureId();
 
     for (auto const & edge : outgoingEdges)
     {
@@ -150,10 +149,10 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
     }
 
     LoadedPathSegment pathSegment;
-    if (inEdgeFeatureId.IsValid())
-      LoadPathGeometry(inEdgeFeatureId, {prevJunction.GetPoint(), currJunction.GetPoint()}, pathSegment);
+    if (inFeatureId.IsValid())
+      LoadPathGeometry(inFeatureId, {prevJunction.GetPoint(), currJunction.GetPoint()}, pathSegment);
 
-    m_adjacentEdges.insert(make_pair(inEdgeFeatureId.m_index, move(adjacentEdges)));
+    m_adjacentEdges.insert(make_pair(inFeatureId.m_index, move(adjacentEdges)));
     m_pathSegments.push_back(move(pathSegment));
   }
 
@@ -175,10 +174,10 @@ ftypes::HighwayClass BicycleDirectionsEngine::GetHighwayClass(FeatureID const & 
 {
   FeatureType ft;
   GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft);
-  auto const highWayClass = ftypes::GetHighwayClass(ft);
-  ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Error, ());
-  ASSERT_NOT_EQUAL(highWayClass, ftypes::HighwayClass::Undefined, ());
-  return highWayClass;
+  auto const highwayClass = ftypes::GetHighwayClass(ft);
+  ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
+  ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
+  return highwayClass;
 }
 
 void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId, vector<m2::PointD> const & path,

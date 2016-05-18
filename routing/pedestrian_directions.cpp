@@ -57,7 +57,7 @@ void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junct
   vector<Edge> routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
-    LOG(LDEBUG, ("Couldn't reconstruct path"));
+    LOG(LDEBUG, ("Couldn't reconstruct path."));
     // use only "arrival" direction
     turns.emplace_back(path.size() - 1, turns::PedestrianDirection::ReachedYourDestination);
     return;
