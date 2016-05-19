@@ -46,9 +46,17 @@ string Info::GetTitle() const
 string Info::GetSubtitle() const
 {
   if (!IsFeature())
+  {
+    if (IsBookmark())
+      return m_bookmarkCategoryName;
     return {};
+  }
 
   vector<string> values;
+
+  // Bookmark category.
+  if (IsBookmark())
+    values.push_back(m_bookmarkCategoryName);
 
   // Type.
   values.push_back(GetLocalizedType());
@@ -87,6 +95,7 @@ string Info::FormatStars() const
 
 string Info::GetCustomName() const { return m_customName; }
 BookmarkAndCategory Info::GetBookmarkAndCategory() const { return m_bac; }
+string Info::GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
 string const & Info::GetApiUrl() const { return m_apiUrl; }
 void Info::SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
 }  // namespace place_page

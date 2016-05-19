@@ -673,6 +673,7 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const
 {
   FillPointInfo(bmk.GetPivot(), string(), info);
   info.m_bac = bac;
+  info.m_bookmarkCategoryName = GetBmCategory(bac.first)->GetName();
 }
 
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const

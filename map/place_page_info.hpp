@@ -50,6 +50,7 @@ public:
 
   string GetCustomName() const;
   BookmarkAndCategory GetBookmarkAndCategory() const;
+  string GetBookmarkCategoryName() const;
   string const & GetApiUrl() const;
 
   void SetMercator(m2::PointD const & mercator);
@@ -58,6 +59,8 @@ public:
   string m_customName;
   /// If not empty, bookmark is bound to this place page.
   BookmarkAndCategory m_bac = MakeEmptyBookmarkAndCategory();
+  /// Bookmark category name. Empty, if it's not bookmark;
+  string m_bookmarkCategoryName;
   /// Api ID passed for the selected object. It's automatically included in api url below.
   string m_apiId;
   /// [Deep] link to open when "Back" button is pressed in a Place Page.
