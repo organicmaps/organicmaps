@@ -879,8 +879,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         break;
       }
 
-      if (LocationHelper.INSTANCE.shouldResolveErrors() || LocationUtils.areLocationServicesTurnedOn())
+      if (LocationHelper.INSTANCE.shouldResolveErrors() && LocationUtils.areLocationServicesTurnedOn())
       {
+        LocationHelper.INSTANCE.setShouldResolveErrors(false);
+
         String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
                                        getString(R.string.current_location_unknown_title));
         new AlertDialog.Builder(this)
