@@ -15,7 +15,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 @interface MWMPlacePageActionBar ()
 
-@property (weak, nonatomic) MWMPlacePage * placePage;
+@property (weak, nonatomic) MWMPlacePageViewManager * placePageManager;
 @property (weak, nonatomic) IBOutlet UIButton * apiBackButton;
 @property (weak, nonatomic) IBOutlet UIButton * bookmarkButton;
 @property (weak, nonatomic) IBOutlet UIButton * routeButton;
@@ -28,7 +28,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 @implementation MWMPlacePageActionBar
 
-+ (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage
++ (MWMPlacePageActionBar *)actionBarForPlacePageManager:(MWMPlacePageViewManager *)placePageManager
 {
   BOOL const isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
   NSUInteger const i = isPrepareRouteMode ? 1 : 0;
@@ -36,19 +36,19 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
                                  loadNibNamed:kPlacePageActionBarNibName owner:nil options:nil][i];
   NSAssert(i == bar.tag, @"Incorrect view!");
   bar.isPrepareRouteMode = isPrepareRouteMode;
-  bar.placePage = placePage;
+  bar.placePageManager = placePageManager;
   if (isPrepareRouteMode)
     return bar;
 
   [bar setupBookmarkButton];
-  [bar configureWithPlacePage:placePage];
+  [bar configureWithPlacePageManager:placePageManager];
   return bar;
 }
 
-- (void)configureWithPlacePage:(MWMPlacePage *)placePage
+- (void)configureWithPlacePageManager:(MWMPlacePageViewManager *)placePageManager
 {
-  self.placePage = placePage;
-  MWMPlacePageEntity * entity = placePage.manager.entity;
+  self.placePageManager = placePageManager;
+  MWMPlacePageEntity * entity = self.placePageManager.entity;
   if (entity.isApi)
     [self setupApiBar];
   // TODO(Vlad): API point can be a bookmark too. Probably "else if" shoud be replaced by "if".
@@ -130,12 +130,12 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 - (IBAction)fromTap
 {
-  [self.placePage.manager routeFrom];
+  [self.placePageManager routeFrom];
 }
 
 - (IBAction)toTap
 {
-  [self.placePage.manager routeTo];
+  [self.placePageManager routeTo];
 }
 
 - (IBAction)bookmarkTap:(UIButton *)sender
@@ -145,12 +145,12 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   if (self.isBookmark)
   {
     [sender.imageView startAnimating];
-    [self.placePage addBookmark];
+    [self.placePageManager addBookmark];
     [eventName appendString:@"Add"];
   }
   else
   {
-    [self.placePage removeBookmark];
+    [self.placePageManager removeBookmark];
     [eventName appendString:@"Delete"];
   }
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:eventName];
@@ -163,7 +163,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   CGFloat const maximumWidth = 360.;
   CGFloat const screenWidth = MIN(size.height, size.width);
   CGFloat const actualWidth = IPAD ? maximumWidth : (size.height < size.width ? MIN(screenWidth, maximumWidth) : screenWidth);
-  MWMPlacePageEntity * entity = self.placePage.manager.entity;
+  MWMPlacePageEntity * entity = self.placePageManager.entity;
   if (entity.isApi)
   {
     CGFloat const boxWidth = 4 * buttonWidth;
@@ -196,17 +196,17 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 - (IBAction)shareTap
 {
-  [self.placePage share];
+  [self.placePageManager share];
 }
 
 - (IBAction)routeTap
 {
-  [self.placePage route];
+  [self.placePageManager buildRoute];
 }
 
 - (IBAction)backTap
 {
-  [self.placePage apiBack];
+  [self.placePageManager apiBack];
 }
 
 #pragma mark - Properties

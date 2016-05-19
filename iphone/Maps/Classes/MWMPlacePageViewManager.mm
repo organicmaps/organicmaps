@@ -283,6 +283,7 @@ extern NSString * const kBookmarksChangedNotification;
                                                     object:nil
                                                   userInfo:nil];
   [self updateDistance];
+  [self.placePage addBookmark];
 }
 
 - (void)removeBookmark
