@@ -408,7 +408,7 @@ Framework::Framework()
   });
   // Due to floating points accuracy issues (geometry is saved in editor up to 7 digits
   // after dicimal poin) some feature vertexes are threated as external to a given feature.
-  auto const pointToFeatureDistanceToleranceInMeters = 1e-3;
+  auto const pointToFeatureDistanceToleranceInMeters = 1e-2;
   editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2,
                                          pointToFeatureDistanceToleranceInMeters));
   editor.LoadMapEdits();
