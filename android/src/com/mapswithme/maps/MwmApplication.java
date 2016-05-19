@@ -166,6 +166,8 @@ public class MwmApplication extends Application
     nativeAddLocalization("routing_failed_cross_mwm_building", getString(R.string.routing_failed_cross_mwm_building));
     nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
+    nativeAddLocalization("place_page_booking_rating", getString(R.string.place_page_booking_rating));
+
   }
 
   private void initHockeyApp()
