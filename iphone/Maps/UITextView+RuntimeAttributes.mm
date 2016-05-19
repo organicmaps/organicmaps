@@ -43,4 +43,9 @@
   return L(self.placeholder);
 }
 
+- (void)setPlaceholderColorName:(NSString *)placeholderColorName
+{
+  self.placeholderView.textColor = [UIColor colorWithName:placeholderColorName];
+}
+
 @end
