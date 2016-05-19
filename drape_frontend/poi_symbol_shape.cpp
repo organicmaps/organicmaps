@@ -8,6 +8,91 @@
 
 #include "drape/shader_def.hpp"
 
+namespace
+{
+
+dp::Color const kDeletedColorMask = dp::Color(255, 255, 255, 76);
+
+using SV = gpu::SolidTexturingVertex;
+using MV = gpu::MaskedTexturingVertex;
+
+template<typename TVertex>
+void Batch(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && handle,
+           glsl::vec4 const & position,
+           dp::TextureManager::SymbolRegion const & symbolRegion,
+           dp::TextureManager::ColorRegion const & colorRegion)
+{
+  ASSERT(0, ("Can not be used without specialization"));
+}
+
+template<>
+void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && handle,
+               glsl::vec4 const & position,
+               dp::TextureManager::SymbolRegion const & symbolRegion,
+               dp::TextureManager::ColorRegion const & colorRegion)
+{
+  m2::PointU const pixelSize = symbolRegion.GetPixelSize();
+  m2::PointF const halfSize(pixelSize.x * 0.5f, pixelSize.y * 0.5f);
+  m2::RectF const & texRect = symbolRegion.GetTexRect();
+
+  SV vertexes[] =
+  {
+    SV{ position, glsl::vec2(-halfSize.x, halfSize.y),
+        glsl::vec2(texRect.minX(), texRect.maxY()) },
+    SV{ position, glsl::vec2(-halfSize.x, -halfSize.y),
+        glsl::vec2(texRect.minX(), texRect.minY()) },
+    SV{ position, glsl::vec2(halfSize.x, halfSize.y),
+        glsl::vec2(texRect.maxX(), texRect.maxY()) },
+    SV{ position, glsl::vec2(halfSize.x, -halfSize.y),
+        glsl::vec2(texRect.maxX(), texRect.minY()) },
+  };
+
+  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::TEXTURING_BILLBOARD_PROGRAM);
+  state.SetColorTexture(symbolRegion.GetTexture());
+  state.SetTextureFilter(gl_const::GLNearest);
+
+  dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
+  provider.InitStream(0 /* streamIndex */, SV::GetBindingInfo(), make_ref(vertexes));
+  batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
+}
+
+template<>
+void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && handle,
+               glsl::vec4 const & position,
+               dp::TextureManager::SymbolRegion const & symbolRegion,
+               dp::TextureManager::ColorRegion const & colorRegion)
+{
+  m2::PointU const pixelSize = symbolRegion.GetPixelSize();
+  m2::PointF const halfSize(pixelSize.x * 0.5f, pixelSize.y * 0.5f);
+  m2::RectF const & texRect = symbolRegion.GetTexRect();
+  glsl::vec2 const maskColorCoords = glsl::ToVec2(colorRegion.GetTexRect().Center());
+
+  MV vertexes[] =
+  {
+    MV{ position, glsl::vec2(-halfSize.x, halfSize.y),
+        glsl::vec2(texRect.minX(), texRect.maxY()), maskColorCoords },
+    MV{ position, glsl::vec2(-halfSize.x, -halfSize.y),
+        glsl::vec2(texRect.minX(), texRect.minY()), maskColorCoords },
+    MV{ position, glsl::vec2(halfSize.x, halfSize.y),
+        glsl::vec2(texRect.maxX(), texRect.maxY()), maskColorCoords },
+    MV{ position, glsl::vec2(halfSize.x, -halfSize.y),
+        glsl::vec2(texRect.maxX(), texRect.minY()), maskColorCoords },
+  };
+
+  dp::GLState state(gpu::MASKED_TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::MASKED_TEXTURING_BILLBOARD_PROGRAM);
+  state.SetColorTexture(symbolRegion.GetTexture());
+  state.SetMaskTexture(colorRegion.GetTexture()); // Here mask is a color.
+  state.SetTextureFilter(gl_const::GLNearest);
+
+  dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
+  provider.InitStream(0 /* streamIndex */, MV::GetBindingInfo(), make_ref(vertexes));
+  batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
+}
+
+} // namespace
+
 namespace df
 {
 
@@ -21,36 +106,8 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
   dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
 
+  glsl::vec4 const position = glsl::vec4(glsl::ToVec2(m_pt), m_params.m_depth, -m_params.m_posZ);
   m2::PointU const pixelSize = region.GetPixelSize();
-  m2::PointF const halfSize(pixelSize.x / 2.0, pixelSize.y / 2.0);
-  m2::RectF const & texRect = region.GetTexRect();
-
-  glsl::vec4 position = glsl::vec4(glsl::ToVec2(m_pt), m_params.m_depth, -m_params.m_posZ);
-
-  gpu::SolidTexturingVertex vertexes[] =
-  {
-    gpu::SolidTexturingVertex{ position,
-                               glsl::vec2(-halfSize.x, halfSize.y),
-                               glsl::vec2(texRect.minX(), texRect.maxY())},
-    gpu::SolidTexturingVertex{ position,
-                               glsl::vec2(-halfSize.x, -halfSize.y),
-                               glsl::vec2(texRect.minX(), texRect.minY())},
-    gpu::SolidTexturingVertex{ position,
-                               glsl::vec2(halfSize.x, halfSize.y),
-                               glsl::vec2(texRect.maxX(), texRect.maxY())},
-    gpu::SolidTexturingVertex{ position,
-                               glsl::vec2(halfSize.x, -halfSize.y),
-                               glsl::vec2(texRect.maxX(), texRect.minY())},
-  };
-
-  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetProgram3dIndex(gpu::TEXTURING_BILLBOARD_PROGRAM);
-  state.SetColorTexture(region.GetTexture());
-  state.SetTextureFilter(gl_const::GLNearest);
-
-  dp::AttributeProvider provider(1, 4);
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(vertexes));
-
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(m_params.m_id,
                                                                          dp::Center,
                                                                          m_pt, pixelSize,
@@ -59,7 +116,17 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
                                                                          true);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
-  batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
+
+  if (m_params.m_deletedInEditor)
+  {
+    dp::TextureManager::ColorRegion maskColorRegion;
+    textures->GetColorRegion(kDeletedColorMask, maskColorRegion);
+    Batch<MV>(batcher, move(handle), position, region, maskColorRegion);
+  }
+  else
+  {
+    Batch<SV>(batcher, move(handle), position, region, dp::TextureManager::ColorRegion());
+  }
 }
 
 uint64_t PoiSymbolShape::GetOverlayPriority() const

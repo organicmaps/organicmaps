@@ -11,6 +11,7 @@ enum VertexType
   Area,
   Area3d,
   SolidTexturing,
+  MaskedTexturing,
   TextStatic,
   TextOutlinedStatic,
   TextDynamic,
@@ -64,6 +65,22 @@ dp::BindingInfo SolidTexturingBindingInit()
   filler.FillDecl<SolidTexturingVertex::TPosition3d>("a_position");
   filler.FillDecl<SolidTexturingVertex::TNormal>("a_normal");
   filler.FillDecl<SolidTexturingVertex::TTexCoord>("a_colorTexCoords");
+
+  return filler.m_info;
+}
+
+dp::BindingInfo MaskedTexturingBindingInit()
+{
+  static_assert(sizeof(MaskedTexturingVertex) == (sizeof(MaskedTexturingVertex::TPosition3d) +
+                                                  sizeof(MaskedTexturingVertex::TNormal) +
+                                                  sizeof(MaskedTexturingVertex::TTexCoord) +
+                                                  sizeof(MaskedTexturingVertex::TTexCoord)), "");
+
+  dp::BindingFiller<MaskedTexturingVertex> filler(4);
+  filler.FillDecl<SolidTexturingVertex::TPosition3d>("a_position");
+  filler.FillDecl<SolidTexturingVertex::TNormal>("a_normal");
+  filler.FillDecl<SolidTexturingVertex::TTexCoord>("a_colorTexCoords");
+  filler.FillDecl<SolidTexturingVertex::TTexCoord>("a_maskTexCoords");
 
   return filler.m_info;
 }
@@ -152,6 +169,7 @@ TInitFunction g_initFunctions[TypeCount] =
   &AreaBindingInit,
   &Area3dBindingInit,
   &SolidTexturingBindingInit,
+  &MaskedTexturingBindingInit,
   &TextStaticBindingInit,
   &TextOutlinedStaticBindingInit,
   &TextDynamicBindingInit,
@@ -218,7 +236,7 @@ SolidTexturingVertex::SolidTexturingVertex()
 {
 }
 
-SolidTexturingVertex::SolidTexturingVertex(const TPosition3d & position, TNormal const & normal,
+SolidTexturingVertex::SolidTexturingVertex(TPosition3d const & position, TNormal const & normal,
                                            TTexCoord const & colorTexCoord)
   : m_position(position)
   , m_normal(normal)
@@ -229,6 +247,28 @@ SolidTexturingVertex::SolidTexturingVertex(const TPosition3d & position, TNormal
 dp::BindingInfo const & SolidTexturingVertex::GetBindingInfo()
 {
   return GetBinding(SolidTexturing);
+}
+
+MaskedTexturingVertex::MaskedTexturingVertex()
+  : m_position(0.0, 0.0, 0.0, 0.0)
+  , m_normal(0.0, 0.0)
+  , m_colorTexCoord(0.0, 0.0)
+  , m_maskTexCoord(0.0, 0.0)
+{
+}
+
+MaskedTexturingVertex::MaskedTexturingVertex(TPosition3d const & position, TNormal const & normal,
+                                             TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord)
+  : m_position(position)
+  , m_normal(normal)
+  , m_colorTexCoord(colorTexCoord)
+  , m_maskTexCoord(maskTexCoord)
+{
+}
+
+dp::BindingInfo const & MaskedTexturingVertex::GetBindingInfo()
+{
+  return GetBinding(MaskedTexturing);
 }
 
 TextOutlinedStaticVertex::TextOutlinedStaticVertex()
