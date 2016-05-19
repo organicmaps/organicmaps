@@ -58,8 +58,8 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
 UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTurnTest)
 {
   m2::PointD const point = MercatorBounds::FromLatLon(55.8719, 37.4464);
-  TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetBicycleComponents(), point, {0.0, 0.0}, point);
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetBicycleComponents(), point, {0.0, 0.0}, point);
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;

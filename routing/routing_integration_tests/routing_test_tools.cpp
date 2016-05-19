@@ -36,16 +36,16 @@ using TRouterFactory =
 
 namespace
 {
-  double kErrorMeters = 1.0;
-  double kErrorSeconds = 1.0;
-  void ChangeMaxNumberOfOpenFiles(size_t n)
-  {
-    struct rlimit rlp;
-    getrlimit(RLIMIT_NOFILE, &rlp);
-    rlp.rlim_cur = n;
-    setrlimit(RLIMIT_NOFILE, &rlp);
-  }
+double kErrorMeters = 1.0;
+double kErrorSeconds = 1.0;
+void ChangeMaxNumberOfOpenFiles(size_t n)
+{
+  struct rlimit rlp;
+  getrlimit(RLIMIT_NOFILE, &rlp);
+  rlp.rlim_cur = n;
+  setrlimit(RLIMIT_NOFILE, &rlp);
 }
+}  // namespace
 
 namespace integration
 {

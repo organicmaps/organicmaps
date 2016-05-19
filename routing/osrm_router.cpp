@@ -60,12 +60,10 @@ class OSRMRoutingResult : public turns::IRoutingResult
 {
 public:
   // turns::IRoutingResult overrides:
-  TUnpackedPathSegments const & GetSegments() const override
-  {
-    return m_loadedSegments;
-  }
-  void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint, m2::PointD const & junctionPoint,
-                        size_t & ingoingCount, turns::TurnCandidates & outgoingTurns) const override
+  TUnpackedPathSegments const & GetSegments() const override { return m_loadedSegments; }
+  void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
+                        m2::PointD const & junctionPoint, size_t & ingoingCount,
+                        turns::TurnCandidates & outgoingTurns) const override
   {
     double const kReadCrossEpsilon = 1.0E-4;
 
@@ -145,22 +143,16 @@ public:
 
     sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(),
          [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2)
-         {
-           return t1.angle < t2.angle;
-         });
+    {
+      return t1.angle < t2.angle;
+    });
   }
 
   double GetPathLength() const override { return m_rawResult.shortestPathLength; }
 
-  m2::PointD const & GetStartPoint() const override
-  {
-    return m_rawResult.sourceEdge.segmentPoint;
-  }
+  m2::PointD const & GetStartPoint() const override { return m_rawResult.sourceEdge.segmentPoint; }
 
-  m2::PointD const & GetEndPoint() const override
-  {
-    return m_rawResult.targetEdge.segmentPoint;
-  }
+  m2::PointD const & GetEndPoint() const override { return m_rawResult.targetEdge.segmentPoint; }
 
   OSRMRoutingResult(Index const & index, RoutingMapping & mapping, RawRoutingResult & result)
     : m_rawResult(result), m_index(index), m_routingMapping(mapping)

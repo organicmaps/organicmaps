@@ -13,6 +13,7 @@ namespace
 class HighwayClasses
 {
   map<uint32_t, ftypes::HighwayClass> m_map;
+
 public:
   HighwayClasses()
   {
@@ -61,19 +62,19 @@ char const * HighwayClassToString(ftypes::HighwayClass const cls)
 {
   switch (cls)
   {
-    case ftypes::HighwayClass::Undefined: return "Undefined";
-    case ftypes::HighwayClass::Error: return "Error";
-    case ftypes::HighwayClass::Trunk: return "Trunk";
-    case ftypes::HighwayClass::Primary: return "Primary";
-    case ftypes::HighwayClass::Secondary: return "Secondary";
-    case ftypes::HighwayClass::Tertiary: return "Tertiary";
-    case ftypes::HighwayClass::LivingStreet: return "LivingStreet";
-    case ftypes::HighwayClass::Service: return "Service";
-    case ftypes::HighwayClass::Pedestrian: return "Pedestrian";
-    case ftypes::HighwayClass::Count: return "Count";
+  case ftypes::HighwayClass::Undefined: return "Undefined";
+  case ftypes::HighwayClass::Error: return "Error";
+  case ftypes::HighwayClass::Trunk: return "Trunk";
+  case ftypes::HighwayClass::Primary: return "Primary";
+  case ftypes::HighwayClass::Secondary: return "Secondary";
+  case ftypes::HighwayClass::Tertiary: return "Tertiary";
+  case ftypes::HighwayClass::LivingStreet: return "LivingStreet";
+  case ftypes::HighwayClass::Service: return "Service";
+  case ftypes::HighwayClass::Pedestrian: return "Pedestrian";
+  case ftypes::HighwayClass::Count: return "Count";
   }
 }
-} // namespace
+}  // namespace
 
 namespace ftypes
 {
@@ -482,4 +483,4 @@ bool IsTypeConformed(uint32_t type, StringIL const & path)
   }
   return true;
 }
-} // namespace ftypes
+}  // namespace ftypes

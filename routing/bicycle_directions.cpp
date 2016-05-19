@@ -18,7 +18,8 @@ using namespace routing::turns;
 class RoutingResultGraph : public IRoutingResult
 {
 public:
-  RoutingResultGraph(IRoadGraph::TEdgeVector const & routeEdges, TAdjacentEdgesMap const & adjacentEdges,
+  RoutingResultGraph(IRoadGraph::TEdgeVector const & routeEdges,
+                     TAdjacentEdgesMap const & adjacentEdges,
                      TUnpackedPathSegments const & pathSegments)
     : m_routeEdges(routeEdges)
     , m_adjacentEdges(adjacentEdges)
@@ -150,7 +151,8 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
 
     LoadedPathSegment pathSegment;
     if (inFeatureId.IsValid())
-      LoadPathGeometry(inFeatureId, {prevJunction.GetPoint(), currJunction.GetPoint()}, pathSegment);
+      LoadPathGeometry(inFeatureId, {prevJunction.GetPoint(), currJunction.GetPoint()},
+                       pathSegment);
 
     m_adjacentEdges.insert(make_pair(inFeatureId.m_index, move(adjacentEdges)));
     m_pathSegments.push_back(move(pathSegment));
@@ -180,7 +182,8 @@ ftypes::HighwayClass BicycleDirectionsEngine::GetHighwayClass(FeatureID const & 
   return highwayClass;
 }
 
-void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId, vector<m2::PointD> const & path,
+void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId,
+                                               vector<m2::PointD> const & path,
                                                LoadedPathSegment & pathSegment)
 {
   pathSegment.Clear();

@@ -259,7 +259,8 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn co
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
   unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, countryFileFn,
-                                                 move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
+                                                 move(vehicleModelFactory), move(algorithm),
+                                                 move(directionsEngine)));
   return router;
 }
 
@@ -268,8 +269,9 @@ unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCou
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
-  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index, countryFileFn,
-                                                 move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index,
+                                                 countryFileFn, move(vehicleModelFactory),
+                                                 move(algorithm), move(directionsEngine)));
   return router;
 }
 
