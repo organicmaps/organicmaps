@@ -13,6 +13,8 @@ MANY_DOTS = re.compile(r"\.{4,}")
 
 ITUNES_LANGS = ["en", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de", "hu", "id", "it", "ja", "ko", "nb", "pl", "pt", "ro", "sl", "es", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant"]
 
+SIMILARITY_THRESHOLD = 20.0 #%
+
 
 class StringsTxt:
 
@@ -28,6 +30,10 @@ class StringsTxt:
         self._read_file()
         self._populate_translations_by_langs()
         self._find_duplicates()
+        self.most_duplicated = []
+        self._find_most_duplicated()
+        self.similarity_indices = []
+        self._find_most_similar()
 
 
     def _read_file(self):
@@ -71,7 +77,7 @@ class StringsTxt:
 
 
     def print_duplicates(self):
-        print("\n\n========================================\n\nDuplicates: ")
+        print(self._header("Duplicates:"))
         for lang, trans_and_keys in self.duplicates.items():
             print("{0}\n {1}\n".format("=" * (len(lang) + 2), lang))
             last_one = ""
@@ -127,9 +133,23 @@ class StringsTxt:
 
             self.duplicates[lang] = sorted(list(possible_duplicates))
 
+    def _find_most_duplicated(self):
+        most_duplicated = defaultdict(lambda : 0)
+        for lang, trans_and_keys in self.duplicates.items():
+            for trans_and_key in trans_and_keys:
+                most_duplicated[trans_and_key.key] += 1
+
+        self.most_duplicated = sorted(most_duplicated.items(), key=lambda x: x[1], reverse=True)
+
+
+    def print_most_duplicated(self):
+        print(self._header("Most duplicated"))
+        for pair in self.most_duplicated:
+            print("{}\t{}".format(pair[0], pair[1]))
+
 
     def print_missing_itunes_langs(self):
-        print("\n\n======================================\n\nMissing translations for iTunes languages:")
+        print(self._header("Missing translations for iTunes languages:"))
 
         all_translation_keys = set(self.translations.keys())
         for lang in ITUNES_LANGS:
@@ -165,9 +185,64 @@ class StringsTxt:
                 outfile.write("    {0} = {1}\n".format(lang, tran[lang]))
 
 
+    # Look for similar blocks:
+
+    def _compare_blocks(self, key_1, key_2):
+        block_1 = self.translations[key_1]
+        block_2 = self.translations[key_2]
+
+        common_keys = set(block_1.keys()).intersection(set(block_2))
+
+        common_elements = 0
+        for key in common_keys:
+            if block_1[key] == block_2[key]:
+                common_elements += 1
+
+        return [
+            (self._similarity_string(key_1, key_2), self._similarity_index(len(block_1), common_elements)),
+            (self._similarity_string(key_2, key_1), self._similarity_index(len(block_2), common_elements))
+        ]
+
+
+    def _similarity_string(self, key_1, key_2):
+        return "{} -> {}".format(key_1, key_2)
+
+
+    def _similarity_index(self, total_number, number_from_other):
+        return 100.0 * number_from_other / total_number
+
+
+    def _find_most_similar(self):
+        end_index = len(filter(lambda x : x[1] > len(self.translations[x[0]]) / 10, self.most_duplicated))
+        for i in range(0, end_index - 1):
+            for j in range(i+1, end_index):
+                similarity_indices = self._compare_blocks(self.most_duplicated[i][0], self.most_duplicated[j][0])
+                self.similarity_indices.extend(filter(lambda x: x[1] > SIMILARITY_THRESHOLD, similarity_indices))
+
+        self.similarity_indices.sort(key=lambda x: x[1], reverse=True)
+
+
+    def print_most_similar(self):
+        print(self._header("Most similar blocks"))
+        for index in self.similarity_indices:
+            print("{} : {}".format(index[0], index[1]))
+
+
+    def _header(self, string):
+        return "\n\n{line}\n{string}\n{line}\n".format(
+            line="===================================================",
+            string=string
+        )
+
+
 if __name__ == "__main__":
+
     strings = StringsTxt()
     strings.print_statistics()
     strings.print_duplicates()
+    strings.print_most_duplicated()
+    strings.print_most_similar()
     strings.print_missing_itunes_langs()
     strings.write_formatted()
+
+    print()
