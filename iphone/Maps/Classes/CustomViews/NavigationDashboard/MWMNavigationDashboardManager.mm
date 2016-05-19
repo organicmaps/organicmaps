@@ -367,6 +367,8 @@ extern NSString * const kTTSStatusWasChangedNotification;
   case routing::RouterType::Vehicle:
     self.activeRouteTypeButton = self.routePreview.vehicleProgress;
     break;
+  case routing::RouterType::Bicycle:
+    break;
   }
   [self.routePreview selectProgress:self.activeRouteTypeButton];
 }
