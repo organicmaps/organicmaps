@@ -510,6 +510,13 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsHouseValid(JNIEnv * env, jclass c
   return osm::EditableMapObject::ValidateHouseNumber(jni::ToNativeString(env, houseNumber));
 }
 
+// static boolean nativeIsLevelValid(String level);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsLevelValid(JNIEnv * env, jclass clazz, jstring level)
+{
+  return osm::EditableMapObject::ValidateBuildingLevels(jni::ToNativeString(env, level));
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetCategory(JNIEnv * env, jclass clazz)
 {

@@ -1378,7 +1378,7 @@
 
 "editor_storey_number" = "Building levels (max %d)";
 
-"error_enter_correct_storey_number" = "Buildigns at highest of 25 levels can be edited";
+"error_enter_correct_storey_number" = "Buildings at highest of 25 levels can be edited";
 
 "editor_zip_code" = "ZIP Code";
 

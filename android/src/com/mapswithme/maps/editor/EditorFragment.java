@@ -43,7 +43,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private EditText mName;
 
   private RecyclerView mLocalizedNames;
-  private RecyclerView.AdapterDataObserver mLocalizedNamesObserver = new RecyclerView.AdapterDataObserver()
+  private final RecyclerView.AdapterDataObserver mLocalizedNamesObserver = new RecyclerView.AdapterDataObserver()
   {
     @Override
     public void onChanged()
@@ -85,6 +85,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private View mBlockLevels;
   private EditText mBuildingLevels;
   private TextInputLayout mInputHouseNumber;
+  private TextInputLayout mInputBuildingLevels;
   private EditText mPhone;
   private EditText mWebsite;
   private EditText mEmail;
@@ -120,25 +121,28 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mName.setText(Editor.nativeGetDefaultName());
     final LocalizedStreet street = Editor.nativeGetStreet();
     mStreet.setText(street.defaultName);
+
     mHouseNumber.setText(Editor.nativeGetHouseNumber());
     mHouseNumber.addTextChangedListener(new StringUtils.SimpleTextWatcher()
     {
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        final String text = s.toString();
-
-        if (!Editor.nativeIsHouseValid(text))
-        {
-          UiUtils.setInputError(mInputHouseNumber, R.string.error_enter_correct_house_number);
-          return;
-        }
-
-        UiUtils.setInputError(mInputHouseNumber, 0);
+        UiUtils.setInputError(mInputHouseNumber, Editor.nativeIsHouseValid(s.toString()) ? 0 : R.string.error_enter_correct_house_number);
       }
     });
+
     mZipcode.setText(Editor.nativeGetZipCode());
     mBuildingLevels.setText(Editor.nativeGetBuildingLevels());
+    mBuildingLevels.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        UiUtils.setInputError(mInputBuildingLevels, Editor.nativeIsLevelValid(s.toString()) ? 0 : R.string.error_enter_correct_storey_number);
+      }
+    });
+
     mPhone.setText(Editor.nativeGetPhone());
     mWebsite.setText(Editor.nativeGetWebsite());
     mEmail.setText(Editor.nativeGetEmail());
@@ -157,7 +161,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     setEdits();
   }
 
-  protected boolean setEdits()
+  boolean setEdits()
   {
     if (!validateFields())
       return false;
@@ -188,6 +192,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     {
       mHouseNumber.requestFocus();
       InputUtils.showKeyboard(mHouseNumber);
+      return false;
+    }
+
+    if (!Editor.nativeIsLevelValid(mBuildingLevels.getText().toString()))
+    {
+      mBuildingLevels.requestFocus();
+      InputUtils.showKeyboard(mBuildingLevels);
       return false;
     }
 
@@ -271,6 +282,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     View blockZipcode = view.findViewById(R.id.block_zipcode);
     mZipcode = findInputAndInitBlock(blockZipcode, 0, R.string.editor_zip_code);
     mBlockLevels = view.findViewById(R.id.block_levels);
+    mInputBuildingLevels = (TextInputLayout) mBlockLevels.findViewById(R.id.custom_input);
     // TODO set level limits from core
     mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, getString(R.string.editor_storey_number, 25));
     // Details
@@ -310,7 +322,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mMetaBlocks.append(MetadataType.FMD_INTERNET.toInt(), blockWifi);
   }
 
-  private EditText findInput(View blockWithInput)
+  private static EditText findInput(View blockWithInput)
   {
     return (EditText) blockWithInput.findViewById(R.id.input);
   }
@@ -320,7 +332,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return findInputAndInitBlock(blockWithInput, icon, getString(hint));
   }
 
-  private EditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, String hint)
+  private static EditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, String hint)
   {
     ((ImageView) blockWithInput.findViewById(R.id.icon)).setImageResource(icon);
     final TextInputLayout input = (TextInputLayout) blockWithInput.findViewById(R.id.custom_input);
