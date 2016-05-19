@@ -23,7 +23,6 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_detailed_description_hint"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
