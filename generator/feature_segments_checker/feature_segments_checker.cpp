@@ -42,7 +42,8 @@ void IncrementStats(K const & k, map<K, V> & m)
 }
 
 template <typename Cont>
-void PrintCont(Cont const & cont, string const & title, string const & msgText1, string const & msgText2)
+void PrintCont(Cont const & cont, string const & title, string const & msgText1,
+               string const & msgText2)
 {
   cout << endl << title << endl;
   for (auto const a : cont)
@@ -51,7 +52,8 @@ void PrintCont(Cont const & cont, string const & title, string const & msgText1,
 
 /// \brief Adds |point| to |uniqueRoadPoints| if there's no a point in |uniqueRoadPoints|
 /// in |kErrorMeters| environment of |point|.
-/// \note This method does get an exact result. The problem is points are sorted in |uniqueRoadPoints|
+/// \note This method does get an exact result. The problem is points are sorted in
+/// |uniqueRoadPoints|
 /// according to operator<(m2::PointD const &, m2::PointD const &). It's not the same criteria with
 /// MercatorBounds::DistanceOnEarth(lowerPnt, point). But according to tests the error is less then 1%,
 /// and function implemented below works much faster.
@@ -67,8 +69,8 @@ bool IsNewFeatureEnd(m2::PointD const & point, set<m2::PointD> & uniqueRoadPoint
   m2::PointD const lowerPnt = *lower;
   m2::PointD const upperPnt = *upper;
 
-  if (MercatorBounds::DistanceOnEarth(lowerPnt, point) <= kErrorMeters
-      || MercatorBounds::DistanceOnEarth(upperPnt, point) <= kErrorMeters)
+  if (MercatorBounds::DistanceOnEarth(lowerPnt, point) <= kErrorMeters ||
+      MercatorBounds::DistanceOnEarth(upperPnt, point) <= kErrorMeters)
   {
     return false;
   }
@@ -103,9 +105,11 @@ public:
   uint32_t m_notRoadCount;
 
   Processor(generator::SrtmTileManager & manager)
-    : m_srtmManager(manager), m_roadCount(0), m_roadPointCount(0), m_notRoadCount(0) {}
+    : m_srtmManager(manager), m_roadCount(0), m_roadPointCount(0), m_notRoadCount(0)
+  {
+  }
 
-  void operator() (FeatureType const & f, uint32_t const & id)
+  void operator()(FeatureType const & f, uint32_t const & id)
   {
     f.ParseBeforeStatistic();
     if (!GetBicycleModel().IsRoad(f))
@@ -128,15 +132,17 @@ public:
     // Feature length.
     size_t featureLengthMeters = 0;
     if (pointCount != 0)
-      featureLengthMeters = MercatorBounds::DistanceOnEarth(f.GetPoint(0), f.GetPoint(pointCount - 1));
-      IncrementStats(featureLengthMeters, m_featureLength);
+      featureLengthMeters =
+          MercatorBounds::DistanceOnEarth(f.GetPoint(0), f.GetPoint(pointCount - 1));
+    IncrementStats(featureLengthMeters, m_featureLength);
 
     // Feature segment length.
     if (pointCount != 0)
     {
       for (int i = 0; i < pointCount - 1; ++i)
       {
-        size_t const segmentLengthMeters = MercatorBounds::DistanceOnEarth(f.GetPoint(i), f.GetPoint(i + 1));
+        size_t const segmentLengthMeters =
+            MercatorBounds::DistanceOnEarth(f.GetPoint(i), f.GetPoint(i + 1));
         IncrementStats(segmentLengthMeters, m_segLength);
       }
     }
@@ -158,8 +164,9 @@ public:
     {
       for (int i = 0; i < pointCount - 1; ++i)
       {
-        auto const segAltDiff = (m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i + 1))) -
-          m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i))));
+        auto const segAltDiff =
+            (m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i + 1))) -
+             m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i))));
         if (altitudeDiff >= 0)
         {
           // If the feature goes up generaly calculates how many meters it's necessary
@@ -182,7 +189,7 @@ public:
     }
   }
 };
-} // namespace
+}  // namespace
 
 int main(int argc, char ** argv)
 {
@@ -206,7 +213,8 @@ int main(int argc, char ** argv)
   PrintCont(doProcess.m_altitudeDiffs, "Altitude difference between start and end of features.",
             " feature(s) with altitude difference ", " meter(s)");
   PrintCont(doProcess.m_featureLength, "Feature length.", " feature(s) with length ", " meter(s)");
-  PrintCont(doProcess.m_segLength, "Feature segment length.", " segment(s) with length ", " meter(s)");
+  PrintCont(doProcess.m_segLength, "Feature segment length.", " segment(s) with length ",
+            " meter(s)");
   PrintCont(doProcess.m_featureWave, "Wave factor", " features(s) with wave factor ", "");
   return 0;
 }
