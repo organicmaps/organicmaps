@@ -9,7 +9,7 @@ class Interpolator
 {
 public:
   Interpolator(double duration, double delay = 0);
-  virtual ~Interpolator(){}
+  virtual ~Interpolator() = default;
 
   virtual void Advance(double elapsedSeconds);
   virtual void Finish();

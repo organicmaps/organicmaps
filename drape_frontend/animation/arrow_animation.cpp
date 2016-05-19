@@ -3,10 +3,10 @@
 namespace  df
 {
 
-ArrowAnimation::ArrowAnimation(m2::PointD const & startPos, m2::PointD const & endPos,
-               double startAngle, double endAngle, ScreenBase const & convertor)
+ArrowAnimation::ArrowAnimation(m2::PointD const & startPos, m2::PointD const & endPos, double moveDuration,
+               double startAngle, double endAngle)
   : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
-  , m_positionInterpolator(startPos, endPos, convertor)
+  , m_positionInterpolator(moveDuration, 0.0 /* delay */, startPos, endPos)
   , m_angleInterpolator(startAngle, endAngle)
 {
   m_objects.insert(Animation::MyPositionArrow);

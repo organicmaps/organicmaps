@@ -9,8 +9,8 @@ namespace df
 class ArrowAnimation : public Animation
 {
 public:
-  ArrowAnimation(m2::PointD const & startPos, m2::PointD const & endPos,
-                 double startAngle, double endAngle, ScreenBase const & convertor);
+  ArrowAnimation(m2::PointD const & startPos, m2::PointD const & endPos, double moveDuration,
+                 double startAngle, double endAngle);
 
   Animation::Type GetType() const override { return Animation::Arrow; }
 

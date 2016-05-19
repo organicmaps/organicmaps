@@ -630,10 +630,10 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
   {
     if (IsModeChangeViewport())
     {
-      m_animCreator = [this, oldPos, oldAzimut, screen]()
+      m_animCreator = [this, oldPos, oldAzimut, moveDuration]()
       {
-        AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position, oldAzimut,
-                                                                                    m_drawDirection, screen));
+        AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position, moveDuration,
+                                                                                    oldAzimut, m_drawDirection));
       };
       m_oldPosition = oldPos;
       m_oldDrawDirection = oldAzimut;
@@ -641,8 +641,8 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
     }
     else
     {
-      AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position, oldAzimut,
-                                                                                  m_drawDirection, screen));
+      AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position, moveDuration,
+                                                                                  oldAzimut, m_drawDirection));
     }
   }
 }

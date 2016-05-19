@@ -9,7 +9,7 @@ namespace df
 
 double CalcAnimSpeedDuration(double pxDiff, double pxSpeed)
 {
-  double const kEps = 1e-5;
+  double constexpr kEps = 1e-5;
 
   if (my::AlmostEqualAbs(pxDiff, 0.0, kEps))
     return 0.0;
