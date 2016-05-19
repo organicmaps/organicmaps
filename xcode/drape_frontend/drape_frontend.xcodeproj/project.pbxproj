@@ -9,6 +9,24 @@
 /* Begin PBXBuildFile section */
 		3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */; };
 		3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */; };
+		452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC21CEDCF3200A55E57 /* animation.cpp */; };
+		452C9ED51CEDCF3200A55E57 /* animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC31CEDCF3200A55E57 /* animation.hpp */; };
+		452C9ED61CEDCF3200A55E57 /* arrow_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */; };
+		452C9ED71CEDCF3200A55E57 /* arrow_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC51CEDCF3200A55E57 /* arrow_animation.hpp */; };
+		452C9ED81CEDCF3200A55E57 /* follow_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC61CEDCF3200A55E57 /* follow_animation.cpp */; };
+		452C9ED91CEDCF3200A55E57 /* follow_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC71CEDCF3200A55E57 /* follow_animation.hpp */; };
+		452C9EDA1CEDCF3200A55E57 /* interpolators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC81CEDCF3200A55E57 /* interpolators.cpp */; };
+		452C9EDB1CEDCF3200A55E57 /* interpolators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC91CEDCF3200A55E57 /* interpolators.hpp */; };
+		452C9EDC1CEDCF3200A55E57 /* linear_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ECA1CEDCF3200A55E57 /* linear_animation.cpp */; };
+		452C9EDD1CEDCF3200A55E57 /* linear_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ECB1CEDCF3200A55E57 /* linear_animation.hpp */; };
+		452C9EDE1CEDCF3200A55E57 /* parallel_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ECC1CEDCF3200A55E57 /* parallel_animation.cpp */; };
+		452C9EDF1CEDCF3200A55E57 /* parallel_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ECD1CEDCF3200A55E57 /* parallel_animation.hpp */; };
+		452C9EE01CEDCF3200A55E57 /* perspective_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ECE1CEDCF3200A55E57 /* perspective_animation.cpp */; };
+		452C9EE11CEDCF3200A55E57 /* perspective_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ECF1CEDCF3200A55E57 /* perspective_animation.hpp */; };
+		452C9EE21CEDCF3200A55E57 /* scale_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ED01CEDCF3200A55E57 /* scale_animation.cpp */; };
+		452C9EE31CEDCF3200A55E57 /* scale_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ED11CEDCF3200A55E57 /* scale_animation.hpp */; };
+		452C9EE41CEDCF3200A55E57 /* sequence_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ED21CEDCF3200A55E57 /* sequence_animation.cpp */; };
+		452C9EE51CEDCF3200A55E57 /* sequence_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ED31CEDCF3200A55E57 /* sequence_animation.hpp */; };
 		454C19BB1CCE3EC0002A2C86 /* animation_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */; };
 		454C19BC1CCE3EC0002A2C86 /* animation_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 454C19B91CCE3EC0002A2C86 /* animation_system.cpp */; };
 		454C19BD1CCE3EC0002A2C86 /* animation_system.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */; };
@@ -186,6 +204,24 @@
 /* Begin PBXFileReference section */
 		3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_utils.cpp; sourceTree = "<group>"; };
 		3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_utils.hpp; sourceTree = "<group>"; };
+		452C9EC21CEDCF3200A55E57 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation.cpp; sourceTree = "<group>"; };
+		452C9EC31CEDCF3200A55E57 /* animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation.hpp; sourceTree = "<group>"; };
+		452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = arrow_animation.cpp; sourceTree = "<group>"; };
+		452C9EC51CEDCF3200A55E57 /* arrow_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = arrow_animation.hpp; sourceTree = "<group>"; };
+		452C9EC61CEDCF3200A55E57 /* follow_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = follow_animation.cpp; sourceTree = "<group>"; };
+		452C9EC71CEDCF3200A55E57 /* follow_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = follow_animation.hpp; sourceTree = "<group>"; };
+		452C9EC81CEDCF3200A55E57 /* interpolators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interpolators.cpp; sourceTree = "<group>"; };
+		452C9EC91CEDCF3200A55E57 /* interpolators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = interpolators.hpp; sourceTree = "<group>"; };
+		452C9ECA1CEDCF3200A55E57 /* linear_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linear_animation.cpp; sourceTree = "<group>"; };
+		452C9ECB1CEDCF3200A55E57 /* linear_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = linear_animation.hpp; sourceTree = "<group>"; };
+		452C9ECC1CEDCF3200A55E57 /* parallel_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parallel_animation.cpp; sourceTree = "<group>"; };
+		452C9ECD1CEDCF3200A55E57 /* parallel_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = parallel_animation.hpp; sourceTree = "<group>"; };
+		452C9ECE1CEDCF3200A55E57 /* perspective_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = perspective_animation.cpp; sourceTree = "<group>"; };
+		452C9ECF1CEDCF3200A55E57 /* perspective_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = perspective_animation.hpp; sourceTree = "<group>"; };
+		452C9ED01CEDCF3200A55E57 /* scale_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scale_animation.cpp; sourceTree = "<group>"; };
+		452C9ED11CEDCF3200A55E57 /* scale_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scale_animation.hpp; sourceTree = "<group>"; };
+		452C9ED21CEDCF3200A55E57 /* sequence_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sequence_animation.cpp; sourceTree = "<group>"; };
+		452C9ED31CEDCF3200A55E57 /* sequence_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sequence_animation.hpp; sourceTree = "<group>"; };
 		454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_constants.hpp; sourceTree = "<group>"; };
 		454C19B91CCE3EC0002A2C86 /* animation_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_system.cpp; sourceTree = "<group>"; };
 		454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_system.hpp; sourceTree = "<group>"; };
@@ -520,6 +556,24 @@
 		670948051BDF9C0D005014C0 /* animation */ = {
 			isa = PBXGroup;
 			children = (
+				452C9EC21CEDCF3200A55E57 /* animation.cpp */,
+				452C9EC31CEDCF3200A55E57 /* animation.hpp */,
+				452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */,
+				452C9EC51CEDCF3200A55E57 /* arrow_animation.hpp */,
+				452C9EC61CEDCF3200A55E57 /* follow_animation.cpp */,
+				452C9EC71CEDCF3200A55E57 /* follow_animation.hpp */,
+				452C9EC81CEDCF3200A55E57 /* interpolators.cpp */,
+				452C9EC91CEDCF3200A55E57 /* interpolators.hpp */,
+				452C9ECA1CEDCF3200A55E57 /* linear_animation.cpp */,
+				452C9ECB1CEDCF3200A55E57 /* linear_animation.hpp */,
+				452C9ECC1CEDCF3200A55E57 /* parallel_animation.cpp */,
+				452C9ECD1CEDCF3200A55E57 /* parallel_animation.hpp */,
+				452C9ECE1CEDCF3200A55E57 /* perspective_animation.cpp */,
+				452C9ECF1CEDCF3200A55E57 /* perspective_animation.hpp */,
+				452C9ED01CEDCF3200A55E57 /* scale_animation.cpp */,
+				452C9ED11CEDCF3200A55E57 /* scale_animation.hpp */,
+				452C9ED21CEDCF3200A55E57 /* sequence_animation.cpp */,
+				452C9ED31CEDCF3200A55E57 /* sequence_animation.hpp */,
 				670948071BDF9C39005014C0 /* base_interpolator.cpp */,
 				670948081BDF9C39005014C0 /* base_interpolator.hpp */,
 				670948091BDF9C39005014C0 /* interpolation_holder.cpp */,
@@ -613,9 +667,12 @@
 				670948191BDF9C39005014C0 /* interpolations.hpp in Headers */,
 				670947CB1BDF9BE1005014C0 /* threads_commutator.hpp in Headers */,
 				670948701BDF9C7F005014C0 /* feature_processor.hpp in Headers */,
+				452C9EDF1CEDCF3200A55E57 /* parallel_animation.hpp in Headers */,
 				670947A41BDF9BE1005014C0 /* my_position_controller.hpp in Headers */,
 				670948011BDF9BF5005014C0 /* circle_shape.hpp in Headers */,
+				452C9ED91CEDCF3200A55E57 /* follow_animation.hpp in Headers */,
 				670947A01BDF9BE1005014C0 /* message_queue.hpp in Headers */,
+				452C9ED51CEDCF3200A55E57 /* animation.hpp in Headers */,
 				670947C71BDF9BE1005014C0 /* text_layout.hpp in Headers */,
 				670948791BDF9C7F005014C0 /* glyph_cache.hpp in Headers */,
 				670947FF1BDF9BF5005014C0 /* batchers_pool.hpp in Headers */,
@@ -628,6 +685,7 @@
 				670E393D1C46C59000E9C0A6 /* color_constants.hpp in Headers */,
 				670948721BDF9C7F005014C0 /* feature_styler.hpp in Headers */,
 				6709484E1BDF9C48005014C0 /* shape.hpp in Headers */,
+				452C9EE31CEDCF3200A55E57 /* scale_animation.hpp in Headers */,
 				6743D3721C3A9F090095054B /* transparent_layer.hpp in Headers */,
 				F6B283101C1B04680081957A /* gps_track_point.hpp in Headers */,
 				670947B61BDF9BE1005014C0 /* render_node.hpp in Headers */,
@@ -655,12 +713,15 @@
 				670948731BDF9C7F005014C0 /* frame_image.hpp in Headers */,
 				3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */,
 				670947FB1BDF9BF5005014C0 /* backend_renderer.hpp in Headers */,
+				452C9ED71CEDCF3200A55E57 /* arrow_animation.hpp in Headers */,
 				454C19BD1CCE3EC0002A2C86 /* animation_system.hpp in Headers */,
 				670947DF1BDF9BE1005014C0 /* visual_params.hpp in Headers */,
+				452C9EDB1CEDCF3200A55E57 /* interpolators.hpp in Headers */,
 				670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */,
 				670947FD1BDF9BF5005014C0 /* base_renderer.hpp in Headers */,
 				670947D51BDF9BE1005014C0 /* tile_utils.hpp in Headers */,
 				670947D91BDF9BE1005014C0 /* user_mark_shapes.hpp in Headers */,
+				452C9EDD1CEDCF3200A55E57 /* linear_animation.hpp in Headers */,
 				454C19BB1CCE3EC0002A2C86 /* animation_constants.hpp in Headers */,
 				6709481F1BDF9C39005014C0 /* show_hide_animation.hpp in Headers */,
 				670E393B1C46C59000E9C0A6 /* batch_merge_helper.hpp in Headers */,
@@ -668,6 +729,7 @@
 				670947E71BDF9BEC005014C0 /* frontend_renderer.hpp in Headers */,
 				670947911BDF9BE1005014C0 /* intrusive_vector.hpp in Headers */,
 				670947F71BDF9BF5005014C0 /* apply_feature_functors.hpp in Headers */,
+				452C9EE11CEDCF3200A55E57 /* perspective_animation.hpp in Headers */,
 				670947CD1BDF9BE1005014C0 /* tile_info.hpp in Headers */,
 				6709486B1BDF9C7F005014C0 /* circle_info.hpp in Headers */,
 				670947C31BDF9BE1005014C0 /* stylist.hpp in Headers */,
@@ -681,6 +743,7 @@
 				670948441BDF9C48005014C0 /* drape_gui.hpp in Headers */,
 				670947DD1BDF9BE1005014C0 /* viewport.hpp in Headers */,
 				670947B41BDF9BE1005014C0 /* render_group.hpp in Headers */,
+				452C9EE51CEDCF3200A55E57 /* sequence_animation.hpp in Headers */,
 				670948771BDF9C7F005014C0 /* glyph_cache_impl.hpp in Headers */,
 				670947A11BDF9BE1005014C0 /* message_subclasses.hpp in Headers */,
 				670947C51BDF9BE1005014C0 /* text_handle.hpp in Headers */,
@@ -762,10 +825,13 @@
 				67E91C751BDFC85E005CEE88 /* feature_processor.cpp in Sources */,
 				6743D36D1C3A9F090095054B /* arrow3d.cpp in Sources */,
 				670E393A1C46C59000E9C0A6 /* batch_merge_helper.cpp in Sources */,
+				452C9EDA1CEDCF3200A55E57 /* interpolators.cpp in Sources */,
 				67E91C761BDFC85E005CEE88 /* glyph_cache_impl.cpp in Sources */,
 				67E91C781BDFC85E005CEE88 /* area_shape.cpp in Sources */,
 				67E91C791BDFC85E005CEE88 /* base_renderer.cpp in Sources */,
 				67E91C7A1BDFC85E005CEE88 /* circle_shape.cpp in Sources */,
+				452C9EE01CEDCF3200A55E57 /* perspective_animation.cpp in Sources */,
+				452C9ED61CEDCF3200A55E57 /* arrow_animation.cpp in Sources */,
 				67E91C7B1BDFC85E005CEE88 /* my_position_controller.cpp in Sources */,
 				454C19BC1CCE3EC0002A2C86 /* animation_system.cpp in Sources */,
 				67E91C7C1BDFC85E005CEE88 /* selection_shape.cpp in Sources */,
@@ -774,8 +840,10 @@
 				6709486E1BDF9C7F005014C0 /* default_font.cpp in Sources */,
 				675D21661BFB785900717E4F /* ruler.cpp in Sources */,
 				675D218F1BFB871D00717E4F /* software_renderer.cpp in Sources */,
+				452C9EE21CEDCF3200A55E57 /* scale_animation.cpp in Sources */,
 				670947CE1BDF9BE1005014C0 /* tile_key.cpp in Sources */,
 				670947AB1BDF9BE1005014C0 /* path_text_shape.cpp in Sources */,
+				452C9EDC1CEDCF3200A55E57 /* linear_animation.cpp in Sources */,
 				670947F61BDF9BF5005014C0 /* apply_feature_functors.cpp in Sources */,
 				3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */,
 				670947D81BDF9BE1005014C0 /* user_mark_shapes.cpp in Sources */,
@@ -790,6 +858,7 @@
 				6743D3711C3A9F090095054B /* transparent_layer.cpp in Sources */,
 				670948431BDF9C48005014C0 /* drape_gui.cpp in Sources */,
 				670947D61BDF9BE1005014C0 /* user_event_stream.cpp in Sources */,
+				452C9EDE1CEDCF3200A55E57 /* parallel_animation.cpp in Sources */,
 				670947B11BDF9BE1005014C0 /* read_mwm_task.cpp in Sources */,
 				670948711BDF9C7F005014C0 /* feature_styler.cpp in Sources */,
 				670948471BDF9C48005014C0 /* layer_render.cpp in Sources */,
@@ -816,6 +885,8 @@
 				670948741BDF9C7F005014C0 /* geometry_processors.cpp in Sources */,
 				670947AD1BDF9BE1005014C0 /* poi_symbol_shape.cpp in Sources */,
 				6709479F1BDF9BE1005014C0 /* message_queue.cpp in Sources */,
+				452C9EE41CEDCF3200A55E57 /* sequence_animation.cpp in Sources */,
+				452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */,
 				670947A71BDF9BE1005014C0 /* navigator.cpp in Sources */,
 				6709484F1BDF9C48005014C0 /* skin.cpp in Sources */,
 				670947B91BDF9BE1005014C0 /* route_renderer.cpp in Sources */,
@@ -831,6 +902,7 @@
 				670948181BDF9C39005014C0 /* interpolations.cpp in Sources */,
 				670948021BDF9BF5005014C0 /* drape_engine.cpp in Sources */,
 				56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */,
+				452C9ED81CEDCF3200A55E57 /* follow_animation.cpp in Sources */,
 				6709481C1BDF9C39005014C0 /* opacity_animation.cpp in Sources */,
 				670947E61BDF9BEC005014C0 /* frontend_renderer.cpp in Sources */,
 				670947D41BDF9BE1005014C0 /* tile_utils.cpp in Sources */,
