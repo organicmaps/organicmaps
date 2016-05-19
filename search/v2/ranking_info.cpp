@@ -47,10 +47,9 @@ void RankingInfo::PrintCSVHeader(ostream & os)
   os << "DistanceToPivot"
      << ",Rank"
      << ",NameScore"
-     << ",NameCoverage"
      << ",SearchType"
-     << ",MatchByTrueCats"
-     << ",MatchByFalseCats";
+     << ",PureCats"
+     << ",FalseCats";
 }
 
 string DebugPrint(RankingInfo const & info)
@@ -60,10 +59,9 @@ string DebugPrint(RankingInfo const & info)
   os << "m_distanceToPivot:" << info.m_distanceToPivot << ",";
   os << "m_rank:" << static_cast<int>(info.m_rank) << ",";
   os << "m_nameScore:" << DebugPrint(info.m_nameScore) << ",";
-  os << "m_nameCoverage:" << info.m_nameCoverage << ",";
   os << "m_searchType:" << DebugPrint(info.m_searchType) << ",";
-  os << "m_matchByTrueCats:" << info.m_matchByTrueCats << ",";
-  os << "m_matchByFalseCats:" << info.m_matchByFalseCats;
+  os << "m_pureCats:" << info.m_pureCats << ",";
+  os << "m_falseCats:" << info.m_falseCats;
   os << "]";
   return os.str();
 }
@@ -72,8 +70,7 @@ void RankingInfo::ToCSV(ostream & os) const
 {
   os << fixed;
   os << m_distanceToPivot << "," << static_cast<int>(m_rank) << "," << DebugPrint(m_nameScore)
-     << "," << m_nameCoverage << "," << DebugPrint(m_searchType) << "," << m_matchByTrueCats << ","
-     << m_matchByFalseCats;
+     << "," << DebugPrint(m_searchType) << "," << m_pureCats << "," << m_falseCats;
 }
 
 double RankingInfo::GetLinearModelRank() const
@@ -86,11 +83,15 @@ double RankingInfo::GetLinearModelRank() const
   double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
 
   auto nameScore = m_nameScore;
-  auto nameCoverage = m_nameCoverage;
-  if (m_matchByTrueCats || m_matchByFalseCats)
+  if (m_pureCats || m_falseCats)
   {
+    // If the feature was matched only by categorial tokens, it's
+    // better for ranking to set name score to zero.  For example,
+    // when we're looking for a "cafe", cafes "Cafe Pushkin" and
+    // "Lermontov" both match to the request, but must be ranked in
+    // accordance to their distances to the user position or viewport,
+    // in spite of "Cafe Pushkin" has a non-zero name rank.
     nameScore = NAME_SCORE_ZERO;
-    nameCoverage = 0.0;
   }
 
   return kDistanceToPivot * distanceToPivot + kRank * rank + kNameScore[nameScore] +

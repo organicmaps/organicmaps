@@ -33,7 +33,7 @@ namespace
 class SearchQueryV2Test : public SearchTest
 {
 public:
-  unique_ptr<TestSearchRequest> DoRequest(string const & query)
+  unique_ptr<TestSearchRequest> MakeRequest(string const & query)
   {
     SearchParams params;
     params.m_query = query;
@@ -332,7 +332,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
   {
-    auto request = DoRequest("golden gate bridge ");
+    auto request = MakeRequest("golden gate bridge ");
 
     TRules rules = {ExactMatch(wonderlandId, goldenGateBridge),
                     ExactMatch(wonderlandId, goldenGateStreet)};
@@ -342,15 +342,14 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
     {
       auto const & info = result.GetRankingInfo();
       TEST_EQUAL(NAME_SCORE_FULL_MATCH, info.m_nameScore, (result));
-      TEST(!info.m_matchByTrueCats, (result));
-      TEST(!info.m_matchByFalseCats, (result));
-      TEST(my::AlmostEqualAbs(1.0, info.m_nameCoverage, 1e-6), (info.m_nameCoverage));
+      TEST(!info.m_pureCats, (result));
+      TEST(!info.m_falseCats, (result));
     }
   }
 
   // This test is quite important and must always pass.
   {
-    auto request = DoRequest("cafe лермонтов");
+    auto request = MakeRequest("cafe лермонтов");
     auto const & results = request->Results();
 
     TRules rules{ExactMatch(wonderlandId, cafe1), ExactMatch(wonderlandId, cafe2),
@@ -475,6 +474,9 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
   TestPOI named(m2::PointD(0.0001, 0.0001), "ATM", "en");
   named.SetTypes({{"amenity", "atm"}});
 
+  TestPOI busStop(m2::PointD(0.00005, 0.0005), "ATM Bus Stop", "en");
+  busStop.SetTypes({{"highway", "bus_stop"}});
+
   BuildWorld([&](TestMwmBuilder & builder)
              {
                builder.Add(sanFrancisco);
@@ -483,24 +485,42 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
                                    {
                                      builder.Add(named);
                                      builder.Add(noname);
+                                     builder.Add(busStop);
                                    });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
-  TRules const rules = {ExactMatch(wonderlandId, noname), ExactMatch(wonderlandId, named)};
 
   {
-    auto request = DoRequest("atm");
+    TRules const rules = {ExactMatch(wonderlandId, noname), ExactMatch(wonderlandId, named),
+                          ExactMatch(wonderlandId, busStop)};
+
+    auto request = MakeRequest("atm");
     TEST(MatchResults(rules, request->Results()), ());
     for (auto const & result : request->Results())
     {
+      Index::FeaturesLoaderGuard loader(m_engine, wonderlandId);
+      FeatureType ft;
+      loader.GetFeatureByIndex(result.GetFeatureID().m_index, ft);
+
       auto const & info = result.GetRankingInfo();
-      TEST(info.m_matchByTrueCats, (result));
-      TEST(!info.m_matchByFalseCats, (result));
+
+      if (busStop.Matches(ft))
+      {
+        TEST(!info.m_pureCats, (result));
+        TEST(info.m_falseCats, (result));
+      }
+      else
+      {
+        TEST(info.m_pureCats, (result));
+        TEST(!info.m_falseCats, (result));
+      }
     }
   }
 
   {
-    auto request = DoRequest("#atm");
+    TRules const rules = {ExactMatch(wonderlandId, noname), ExactMatch(wonderlandId, named)};
+
+    auto request = MakeRequest("#atm");
 
     TEST(MatchResults(rules, request->Results()), ());
     for (auto const & result : request->Results())
@@ -510,9 +530,6 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
       // Token with a hashtag should not participate in name-score
       // calculations.
       TEST_EQUAL(NAME_SCORE_ZERO, info.m_nameScore, (result));
-
-      // TODO (@y): fix this. Name coverage calculations are flawed.
-      // TEST(my::AlmostEqualAbs(0.0, info.m_nameCoverage, 1e-6), (info.m_nameCoverage));
     }
   }
 

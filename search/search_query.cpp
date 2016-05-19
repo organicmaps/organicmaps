@@ -190,20 +190,11 @@ void UpdateNameScore(string const & name, TSlice const & slice, v2::NameScore & 
 
 template <typename TSlice>
 void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & slice,
-                     v2::NameScore & bestScore, double & bestCoverage)
+                     v2::NameScore & bestScore)
 {
   auto const score = v2::GetNameScore(tokens, slice);
-  auto const coverage =
-      tokens.empty() ? 0 : static_cast<double>(slice.Size()) / static_cast<double>(tokens.size());
   if (score > bestScore)
-  {
     bestScore = score;
-    bestCoverage = coverage;
-  }
-  else if (score == bestScore && coverage > bestCoverage)
-  {
-    bestCoverage = coverage;
-  }
 }
 
 inline bool IsHashtagged(strings::UniString const & s) { return !s.empty() && s[0] == '#'; }
@@ -663,8 +654,8 @@ class PreResult2Maker
       vector<strings::UniString> tokens;
       SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
 
-      UpdateNameScore(tokens, slice, info.m_nameScore, info.m_nameCoverage);
-      UpdateNameScore(tokens, sliceNoCategories, info.m_nameScore, info.m_nameCoverage);
+      UpdateNameScore(tokens, slice, info.m_nameScore);
+      UpdateNameScore(tokens, sliceNoCategories, info.m_nameScore);
     }
 
     if (info.m_searchType == v2::SearchModel::SEARCH_TYPE_BUILDING)
@@ -679,16 +670,14 @@ class PreResult2Maker
         ++matched[i].first;
     });
 
-    info.m_matchByTrueCats =
-        all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
-               {
-                 return m.first != 0;
-               });
-    info.m_matchByFalseCats =
-        all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
-               {
-                 return m.first == 0 && m.second != 0;
-               });
+    info.m_pureCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
+                             {
+                               return m.first != 0;
+                             });
+    info.m_falseCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
+                              {
+                                return m.first == 0 && m.second != 0;
+                              });
   }
 
   uint8_t NormalizeRank(uint8_t rank, v2::SearchModel::SearchType type, m2::PointD const & center,

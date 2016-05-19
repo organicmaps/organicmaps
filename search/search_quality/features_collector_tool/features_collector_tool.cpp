@@ -143,14 +143,15 @@ void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> co
   ASSERT_EQUAL(stats.size(), n, ());
 
   size_t numWarnings = 0;
-  for (auto const & stat : stats) {
+  for (auto const & stat : stats)
+  {
     if (!stat.m_notFound.empty())
       ++numWarnings;
   }
 
   if (numWarnings == 0)
   {
-    os << "All " << stats.size() << " queries OK." << endl;
+    os << "All " << stats.size() << " queries are OK." << endl;
     return;
   }
 

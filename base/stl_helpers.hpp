@@ -73,10 +73,4 @@ impl::Comparer<false, T, C> CompareBy(T (C::*p)() const)
 {
   return impl::Comparer<false, T, C>(p);
 }
-
-template <typename T>
-struct Id
-{
-  T const & operator()(T const & t) const { return t; }
-};
 }  // namespace my

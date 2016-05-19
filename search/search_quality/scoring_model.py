@@ -38,7 +38,7 @@ def normalize_data(data):
     data['Rank'] = data['Rank'].apply(lambda v: v / MAX_RANK)
     data['Relevance'] = data['Relevance'].apply(lambda v: RELEVANCES[v])
 
-    cats = data['MatchByTrueCats'].combine(data['MatchByFalseCats'], max)
+    cats = data['PureCats'].combine(data['FalseCats'], max)
 
     # Full prefix match is unified with a full match as these features
     # are collinear. But we need both of them as they're also used in
@@ -48,8 +48,6 @@ def normalize_data(data):
     # instead of this merging.  It would be great to conduct PCA on
     # the features too.
     data['NameScore'] = data['NameScore'].combine(cats, transform_name_score)
-
-    data['NameCoverage'] = data['NameCoverage'].combine(cats, lambda v, c: v if c == 0 else 0.0)
 
     # Adds dummy variables to data for NAME_SCORES.
     for ns in NAME_SCORES:

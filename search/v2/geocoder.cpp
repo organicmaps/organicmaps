@@ -1557,12 +1557,12 @@ SearchModel::SearchType Geocoder::GetSearchTypeInGeocoding(uint32_t featureId)
 
 bool Geocoder::AllTokensUsed() const
 {
-  return all_of(m_usedTokens.begin(), m_usedTokens.end(), my::Id<bool>());
+  return all_of(m_usedTokens.begin(), m_usedTokens.end(), IdFunctor());
 }
 
 bool Geocoder::HasUsedTokensInRange(size_t from, size_t to) const
 {
-  return any_of(m_usedTokens.begin() + from, m_usedTokens.begin() + to, my::Id<bool>());
+  return any_of(m_usedTokens.begin() + from, m_usedTokens.begin() + to, IdFunctor());
 }
 
 size_t Geocoder::NumUnusedTokensGroups() const

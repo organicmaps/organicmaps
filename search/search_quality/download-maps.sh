@@ -3,25 +3,77 @@
 # Downloads all maps necessary for learning to rank to the current
 # directory.
 
-case $# in
-    1) VERSION="$1"
-       ;;
-    *) echo "Usage: $0 version" 2>&1
-       exit -1
-       ;;
-esac
+ALL=
+VERSION=
+BASE="http://direct.mapswithme.com/direct"
 
-BASE="http://direct.mapswithme.com/direct/$VERSION/"
+display_usage() {
+    echo "Usage: $0 -v [version] -a -h"
+    echo "    -v  version of maps to download"
+    echo "    -a  download all maps of the specified version"
+    echo "    -h  display this message"
+}
+
+while getopts ":av:h" opt
+do
+    case "$opt" in
+        a) ALL=1
+           ;;
+        v) VERSION="$OPTARG"
+           ;;
+        h) display_usage
+           exit -1
+           ;;
+        \?) echo "Invalid option: -$OPTARG" 1>&2
+            ;;
+        :) echo "Option -$OPTARG requires an argument" 1>&2
+           ;;
+    esac
+done
+
+if [ -z "$VERSION" ]
+then
+    echo "Version of maps is not specified." 1>&2
+    exit -1
+fi
+
+if ! curl "$BASE/" 2>/dev/null |
+        sed -n 's/^.*href="\(.*\)\/".*$/\1/p' |
+        grep -v "^../$" | grep -q "$VERSION"
+then
+    echo "Invalid version: $VERSION" 1>&2
+    exit -1
+fi
+
 NAMES=("Australia_Brisbane.mwm"
        "Belarus_Minsk*.mwm"
        "Germany_*.mwm"
        "Russia_*.mwm"
        "UK_England_*.mwm"
-       "US_California_*.mwm" "US_Maryland_*.mwm")
+       "US_California_*.mwm"
+       "US_Maryland_*.mwm")
 
-set -e
-set -x
-for name in ${NAMES[@]}
-do
-    wget -r -np -nd -A "$name" "$BASE"
-done
+DIR="$BASE/$VERSION"
+
+if [ "$ALL" ]
+then
+    echo "Downloading all maps..."
+
+    files=$(curl "$DIR/" 2>/dev/null | sed -n 's/^.*href="\(.*\.mwm\)".*$/\1/p')
+
+    set -e
+    set -x
+    for file in $files
+    do
+        wget -np -nd "$DIR/$file"
+    done
+else
+    echo "Downloading maps..."
+
+    set -e
+    set -x
+    for name in ${NAMES[@]}
+    do
+        wget -r -np -nd -A "$name" "$DIR/"
+    done
+fi
