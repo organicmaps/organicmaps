@@ -66,7 +66,6 @@ void MapObject::SetFromFeatureType(FeatureType const & ft)
   m_featureID = ft.GetID();
   ASSERT(m_featureID.IsValid(), ());
   m_geomType = ft.GetFeatureType();
-  m_isBookingObject = ftypes::IsBookingChecker::Instance()(ft);
 }
 
 FeatureID const & MapObject::GetID() const { return m_featureID; }
@@ -192,6 +191,5 @@ string MapObject::GetBuildingLevels() const
 feature::Metadata const & MapObject::GetMetadata() const { return m_metadata; }
 bool MapObject::IsPointType() const { return m_geomType == feature::EGeomType::GEOM_POINT; }
 bool MapObject::IsBuilding() const { return ftypes::IsBuildingChecker::Instance()(m_types); }
-bool MapObject::IsBookingObject() const { return m_isBookingObject; }
 
 }  // namespace osm

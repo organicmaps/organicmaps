@@ -19,16 +19,17 @@ namespace place_page
 class Info : public osm::MapObject
 {
 public:
-  static char const * kSubtitleSeparator;
-  static char const * kStarSymbol;
-  static char const * kMountainSymbol;
-  static char const * kEmptyRatingSymbol;
-  static char const * kPricingSymbol;
+  static char const * const kSubtitleSeparator;
+  static char const * const kStarSymbol;
+  static char const * const kMountainSymbol;
+  static char const * const kEmptyRatingSymbol;
+  static char const * const kPricingSymbol;
 
   bool IsFeature() const;
   bool IsBookmark() const;
   bool IsMyPosition() const;
   bool ShouldShowAddPlace() const;
+  bool IsSponsoredHotel() const;
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const;
   /// @returns true if Edit Place button should be displayed.
@@ -55,10 +56,10 @@ public:
   string GetBookmarkCategoryName() const;
   string const & GetApiUrl() const;
 
-  /// @returns formatted rating string for booking object, or empty if it's doesn't booking object
+  /// @returns formatted rating string for booking object, or empty if it isn't booking object
   string GetRatingFormatted() const;
-  /// @returns string with "$" signs or empty string if it's doesn't booking object
-  string GetApproximatelyPricing() const;
+  /// @returns string with |kPricingSymbol| signs or empty string if it isn't booking object
+  string GetApproximatePricing() const;
 
   void SetMercator(m2::PointD const & mercator);
 
