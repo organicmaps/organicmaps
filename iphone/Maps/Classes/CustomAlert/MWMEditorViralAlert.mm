@@ -7,7 +7,7 @@
 
 #include "indexer/osm_editor.hpp"
 
-#include <array>
+#include "std/array.hpp"
 
 namespace
 {
