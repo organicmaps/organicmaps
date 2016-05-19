@@ -22,6 +22,8 @@ public:
   static char const * kSubtitleSeparator;
   static char const * kStarSymbol;
   static char const * kMountainSymbol;
+  static char const * kEmptyRatingSymbol;
+  static char const * kPricingSymbol;
 
   bool IsFeature() const;
   bool IsBookmark() const;
@@ -53,6 +55,11 @@ public:
   string GetBookmarkCategoryName() const;
   string const & GetApiUrl() const;
 
+  /// @returns formatted rating string for booking object, or empty if it's doesn't booking object
+  string GetRatingFormatted() const;
+  /// @returns string with "$" signs or empty string if it's doesn't booking object
+  string GetApproximatelyPricing() const;
+
   void SetMercator(m2::PointD const & mercator);
 
   /// Comes from API, shared links etc.
@@ -73,11 +80,13 @@ public:
   /// Which country this MapObject is in.
   /// For a country point it will be set to topmost node for country.
   storage::TCountryId m_countryId = storage::kInvalidCountryId;
-  
+
   bool m_isMyPosition = false;
   bool m_isEditable = false;
 
   // TODO(AlexZ): Temporary solution. It's better to use a wifi icon in UI instead of text.
   string m_localizedWifiString;
+  /// Booking rating string
+  string m_localizedRatingString;
 };
 }  // namespace place_page

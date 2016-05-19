@@ -9,6 +9,8 @@ namespace place_page
 char const * Info::kSubtitleSeparator = " • ";
 char const * Info::kStarSymbol = "★";
 char const * Info::kMountainSymbol = "▲";
+char const * Info::kEmptyRatingSymbol = "-";
+char const * Info::kPricingSymbol = "$";
 
 bool Info::IsFeature() const { return m_featureID.IsValid(); }
 bool Info::IsBookmark() const { return m_bac != MakeEmptyBookmarkAndCategory(); }
@@ -97,5 +99,33 @@ string Info::GetCustomName() const { return m_customName; }
 BookmarkAndCategory Info::GetBookmarkAndCategory() const { return m_bac; }
 string Info::GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
 string const & Info::GetApiUrl() const { return m_apiUrl; }
+
+string Info::GetRatingFormatted() const
+{
+  if (!IsBookingObject())
+    return "";
+
+  auto const r = GetMetadata().Get(feature::Metadata::FMD_RATING);
+  char const * rating = r.empty() ? kEmptyRatingSymbol : r.c_str();
+  int const sz = snprintf(nullptr, 0, m_localizedRatingString.c_str(), rating);
+
+  vector<char> buf(sz + 1);
+  snprintf(&buf[0], buf.size(), m_localizedRatingString.c_str(), rating);
+  return string(buf.begin(), buf.end());
+}
+
+string Info::GetApproximatelyPricing() const
+{
+  if (!IsBookingObject())
+    return "";
+  uint64_t pricing;
+  strings::to_uint64(GetMetadata().Get(feature::Metadata::FMD_PRICE_RATE), pricing);
+  string result;
+  for (auto i = 0; i < pricing; i++)
+    result.append("$");
+
+  return result;
+}
+
 void Info::SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
 }  // namespace place_page

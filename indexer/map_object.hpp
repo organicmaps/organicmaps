@@ -88,7 +88,6 @@ public:
   string GetWikipediaLink() const;
   string GetFlats() const;
   string GetBuildingLevels() const;
-  //@}
 
   // TODO(Vlad, yunikkk): Use Props enum + getters instead of direct metadata access.
   // TODO: Remove this method.
@@ -97,6 +96,7 @@ public:
   bool IsPointType() const;
   /// @returns true if object is of building type.
   bool IsBuilding() const;
+  bool IsBookingObject() const;
 
 protected:
   FeatureID m_featureID;
@@ -106,6 +106,8 @@ protected:
   feature::Metadata m_metadata;
 
   feature::EGeomType m_geomType = feature::EGeomType::GEOM_UNDEFINED;
+private:
+  bool m_isBookingObject;
 };
 
 /// Helper to convert internal feature::Metadata::FMD_* enum into a users-visible one.

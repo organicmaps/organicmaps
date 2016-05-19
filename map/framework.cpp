@@ -721,6 +721,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 
   info.m_isEditable = osm::Editor::Instance().GetEditableProperties(ft).IsEditable();
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
+  info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
     info.m_address = GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet();
