@@ -903,4 +903,5 @@
 	<string name="editor_remove_place_button">Удалить</string>
 	<string name="editor_status_sending">Отправка…</string>
 	<string name="editor_place_doesnt_exist">Места не существует</string>
+	<string name="place_page_booking_rating">Рейтинг: %s</string>
 </resources>

@@ -1515,3 +1515,5 @@
 "editor_status_sending" = "Skickar…";
 
 "editor_place_doesnt_exist" = "Platsen finns inte";
+
+"place_page_booking_rating" = "Rating: %s";

@@ -907,4 +907,5 @@
 	<string name="editor_remove_place_button">Remove</string>
 	<string name="editor_status_sending">Sending…</string>
 	<string name="editor_place_doesnt_exist">Place does not exist</string>
+	<string name="place_page_booking_rating">Rating: %s</string>
 </resources>
