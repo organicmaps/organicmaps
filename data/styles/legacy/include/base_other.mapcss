@@ -728,6 +728,8 @@ node|z16-[tourism=hostel]
 area|z16-[tourism=hotel],
 area|z16-[tourism=motel],
 node|z16-[tourism=hotel],
+area|z18-[sponsored],
+node|z18-[sponsored],
 node|z16-[tourism=motel]
 {
   icon-image: hotel.svg;

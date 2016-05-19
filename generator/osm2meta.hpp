@@ -32,6 +32,9 @@ struct MetadataTagProcessorImpl
   string ValidateAndFormat_building_levels(string v) const;
   string ValidateAndFormat_denomination(string const & v) const;
   string ValidateAndFormat_wikipedia(string v) const;
+  string ValidateAndFormat_price_rate(string const & v) const;
+  string ValidateAndFormat_sponsored_id(string const & v) const;
+  string ValidateAndFormat_rating(string const & v) const;
 
 protected:
   FeatureParams & m_params;
@@ -91,6 +94,9 @@ public:
     case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;
     case Metadata::FMD_DENOMINATION: valid = ValidateAndFormat_denomination(v); break;
     case Metadata::FMD_BUILDING_LEVELS: valid = ValidateAndFormat_building_levels(v); break;
+    case Metadata::FMD_SPONSORED_ID: valid = ValidateAndFormat_sponsored_id(v); break;
+    case Metadata::FMD_PRICE_RATE: valid = ValidateAndFormat_price_rate(v); break;
+    case Metadata::FMD_RATING: valid = ValidateAndFormat_rating(v); break;
 
     case Metadata::FMD_TEST_ID:
     case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
