@@ -87,15 +87,16 @@ void initFieldsMap()
 {
   self.title = @(m_info.GetTitle().c_str());
   self.address = @(m_info.GetAddress().c_str());
+  self.subtitle = @(m_info.GetSubtitle().c_str());
 }
 
 - (void)configureFeature
 {
   // Category can also be custom-formatted, please check m_info getters.
-  self.category = @(m_info.GetSubtitle().c_str());
   // TODO(Vlad): Refactor using osm::Props instead of direct Metadata access.
   feature::Metadata const & md = m_info.GetMetadata();
-  for (auto const type : md.GetPresentTypes())
+  auto const types = md.GetPresentTypes();
+  for (auto const type : types)
   {
     switch (type)
     {
@@ -123,7 +124,7 @@ void initFieldsMap()
   BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.second))->GetData();
 
   self.bookmarkTitle = @(data.GetName().c_str());
-  self.bookmarkCategory = @(cat->GetName().c_str());
+  self.bookmarkCategory = @(m_info.GetBookmarkCategoryName().c_str());
   string const & description = data.GetDescription();
   self.bookmarkDescription = @(description.c_str());
   _isHTMLDescription = strings::IsHTML(description);
@@ -177,6 +178,12 @@ void initFieldsMap()
 {
   return m_info.GetID();
 }
+
+//- (storage::TCountryId const &)countryId
+//{
+  // TODO(SeregaE): We probably should store countryId in instance of place_page::Info and here will be something like
+  // return m_info.CountryId();
+//}
 
 - (BOOL)isMyPosition
 {

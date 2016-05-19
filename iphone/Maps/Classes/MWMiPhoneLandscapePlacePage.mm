@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   CGFloat const actionBarHeight = self.actionBar.height;
   UITableView * featureTable = self.basePlacePageView.featureTable;
   CGFloat const tableContentHeight = featureTable.contentSize.height;
-  CGFloat const headerViewHeight = self.basePlacePageView.separatorView.maxY;
+  CGFloat const headerViewHeight = self.basePlacePageView.ppPreview.height;
   CGFloat const availableTableHeight = height - headerViewHeight - actionBarHeight;
   CGFloat const externalHeight = tableContentHeight - availableTableHeight;
   if (externalHeight > 0)
@@ -135,32 +135,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
     self.state = self.panVelocity > 0 ? MWMiPhoneLandscapePlacePageStateOpen : MWMiPhoneLandscapePlacePageStateClosed;
     [self updateTargetPoint];
   }
-}
-
-- (void)willStartEditingBookmarkTitle
-{
-  [super willStartEditingBookmarkTitle];
-  CGFloat const statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-  MWMBasePlacePageView * basePPV = self.basePlacePageView;
-  UITableView const * tableView = basePPV.featureTable;
-  CGFloat const baseViewHeight = basePPV.height;
-  CGFloat const tableHeight = tableView.contentSize.height;
-  CGFloat const headerViewHeight = baseViewHeight - tableHeight;
-  CGFloat const titleOriginY = tableHeight - kBookmarkCellHeight - tableView.contentOffset.y;
-
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.basePlacePageView.transform = CGAffineTransformMakeTranslation(0., statusBarHeight - headerViewHeight - titleOriginY);
-  }];
-}
-
-- (void)willFinishEditingBookmarkTitle:(NSString *)title
-{
-  [super willFinishEditingBookmarkTitle:title];
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.basePlacePageView.transform = CGAffineTransformMakeTranslation(0., 0.);
-  }];
 }
 
 #pragma mark - Properties

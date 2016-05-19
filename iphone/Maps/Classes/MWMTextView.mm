@@ -3,7 +3,7 @@
 
 @interface MWMTextView ()
 
-@property (nonatomic) UILabel * placeholderView;
+@property (nonatomic, readwrite) UILabel * placeholderView;
 
 @end
 

@@ -113,7 +113,7 @@ extern NSString * const kBookmarksChangedNotification;
   if (self.entity.isMyPosition)
   {
     BOOL hasSpeed;
-    self.entity.category = [[MapsAppDelegate theApp].locationManager formattedSpeedAndAltitude:hasSpeed];
+    self.entity.subtitle = [[MapsAppDelegate theApp].locationManager formattedSpeedAndAltitude:hasSpeed];
   }
   self.placePage.parentViewHeight = self.ownerViewController.view.height;
   [self.placePage configure];
@@ -219,8 +219,8 @@ extern NSString * const kBookmarksChangedNotification;
     name = self.entity.title;
   else if (self.entity.address.length > 0)
     name = self.entity.address;
-  else if (self.entity.category.length > 0)
-    name = self.entity.category;
+  else if (self.entity.subtitle.length > 0)
+    name = self.entity.subtitle;
   else if (self.entity.isBookmark)
     name = self.entity.bookmarkTitle;
   else
@@ -306,6 +306,7 @@ extern NSString * const kBookmarksChangedNotification;
                                                     object:nil
                                                   userInfo:nil];
   [self updateDistance];
+  [self.placePage removeBookmark];
 }
 
 - (void)reloadBookmark

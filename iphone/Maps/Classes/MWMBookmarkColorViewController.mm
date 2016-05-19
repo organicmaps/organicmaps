@@ -1,16 +1,14 @@
-#import "Common.h"
-#import "MWMBookmarkColorCell.h"
 #import "MWMBookmarkColorViewController.h"
-#import "MWMPlacePageEntity.h"
-#import "MWMPlacePageViewManager.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
-#import "UIViewController+navigation.h"
+#import "UIViewController+Navigation.h"
+
+#include "std/array.hpp"
 
 namespace
 {
-
-NSArray<NSString *> * const kBookmarkColorsVariant = @[
+array<NSString *, 8> const kBookmarkColorsVariant
+{{
   @"placemark-red",
   @"placemark-yellow",
   @"placemark-blue",
@@ -19,58 +17,36 @@ NSArray<NSString *> * const kBookmarkColorsVariant = @[
   @"placemark-orange",
   @"placemark-brown",
   @"placemark-pink"
-];
-
-NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
+}};
 
 } // namespace
 
-
 @interface MWMBookmarkColorViewController ()
 
-@property (nonatomic) BOOL colorWasChanged;
+@property (copy, nonatomic) NSString * bookmarkColor;
+@property (weak, nonatomic) id<MWMBookmarkColorDelegate> delegate;
 
 @end
 
 @implementation MWMBookmarkColorViewController
 
+- (instancetype)initWithColor:(NSString *)color delegate:(id<MWMBookmarkColorDelegate>)delegate
+{
+  self = [super init];
+  if (self)
+  {
+    _bookmarkColor = color;
+    _delegate = delegate;
+  }
+  return self;
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  NSAssert(self.bookmarkColor, @"Color can't be nil!");
+  NSAssert(self.delegate, @"Delegate can't be nil!");
   self.title = L(@"bookmark_color");
-  [self.tableView registerNib:[UINib nibWithNibName:kBookmarkColorCellIdentifier bundle:nil] forCellReuseIdentifier:kBookmarkColorCellIdentifier];
-  self.colorWasChanged = NO;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
-  if (!self.iPadOwnerNavigationController)
-    return;
-
-  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
-  [self showBackButton];
-  CGFloat const navBarHeight = self.navigationController.navigationBar.height;
-  [self.tableView reloadData];
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    [self.placePageManager changeHeight:self.tableView.contentSize.height + navBarHeight];
-  }];
-}
-
-- (void)backTap
-{
-  if (self.iPadOwnerNavigationController)
-   [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
-  [self.placePageManager reloadBookmark];
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-  [super viewWillDisappear:animated];
-  if (self.colorWasChanged && !self.iPadOwnerNavigationController)
-    [self.placePageManager reloadBookmark];
 }
 
 @end
@@ -79,22 +55,18 @@ NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  MWMBookmarkColorCell * cell = (MWMBookmarkColorCell *)[tableView dequeueReusableCellWithIdentifier:kBookmarkColorCellIdentifier];
-  if (!cell)
-    cell = [[MWMBookmarkColorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kBookmarkColorCellIdentifier];
-
-  NSString * const currentColor = kBookmarkColorsVariant[indexPath.row];
-  [cell configureWithColorString:kBookmarkColorsVariant[indexPath.row]];
-
-  if ([currentColor isEqualToString:self.placePageManager.entity.bookmarkColor] && !cell.selected)
-    [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+  NSString * currentColor = kBookmarkColorsVariant[indexPath.row];
+  cell.textLabel.text = ios_bookmark_ui_helper::LocalizedTitleForBookmarkColor(currentColor);
+  BOOL const isSelected = [currentColor isEqualToString:self.bookmarkColor];
+  cell.imageView.image = ios_bookmark_ui_helper::ImageForBookmarkColor(currentColor, isSelected);
+  cell.accessoryType = isSelected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
   return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return kBookmarkColorsVariant.count;
+  return kBookmarkColorsVariant.size();
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -102,12 +74,8 @@ NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   NSString * bookmarkColor = kBookmarkColorsVariant[indexPath.row];
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatChangeBookmarkColor)
                    withParameters:@{kStatValue : bookmarkColor}];
-  self.colorWasChanged = YES;
-  self.placePageManager.entity.bookmarkColor = bookmarkColor;
-  if (!self.iPadOwnerNavigationController)
-    return;
-
-  [self.placePageManager.entity synchronize];
+  [self.delegate didSelectColor:bookmarkColor];
+  [self backTap];
 }
 
 @end

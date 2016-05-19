@@ -1,11 +1,16 @@
 #import "MWMTableViewController.h"
+#include "Framework.h"
 
-@class MWMPlacePageViewManager;
+@protocol MWMSelectSetDelegate <NSObject>
+
+- (void)didSelectCategory:(NSString *)category withBac:(BookmarkAndCategory const &)bac;
+
+@end
 
 @interface SelectSetVC : MWMTableViewController
 
-- (instancetype)initWithPlacePageManager:(MWMPlacePageViewManager *)manager;
-
-@property (weak, nonatomic) UINavigationController * iPadOwnerNavigationController;
+- (instancetype)initWithCategory:(NSString *)category
+                             bac:(BookmarkAndCategory const &)bac
+                        delegate:(id<MWMSelectSetDelegate>)delegate;
 
 @end

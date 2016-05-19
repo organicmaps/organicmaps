@@ -1,61 +1,42 @@
 #import "AddSetVC.h"
-#import "Common.h"
-#import "MWMPlacePageEntity.h"
-#import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"
 
 @interface SelectSetVC () <AddSetVCDelegate>
+{
+  BookmarkAndCategory m_bac;
+}
 
-@property (weak, nonatomic) MWMPlacePageViewManager * manager;
+@property (copy, nonatomic) NSString * category;
+@property (weak, nonatomic) id<MWMSelectSetDelegate> delegate;
 
 @end
 
 @implementation SelectSetVC
 
-- (instancetype)initWithPlacePageManager:(MWMPlacePageViewManager *)manager
+- (instancetype)initWithCategory:(NSString *)category
+                             bac:(BookmarkAndCategory const &)bac
+                        delegate:(id<MWMSelectSetDelegate>)delegate
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    self.manager = manager;
-    self.title = L(@"bookmark_sets");
+    _category = category;
+    m_bac = bac;
+    _delegate = delegate;
   }
   return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-  [super viewWillAppear:animated];
-  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
-  if (self.iPadOwnerNavigationController)
-  {
-    [(UIViewController *)self showBackButton];
-    [self.tableView reloadData];
-    CGFloat const navBarHeight = self.navigationController.navigationBar.height;
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-    {
-      [self.manager changeHeight:self.tableView.contentSize.height + navBarHeight];
-    }];
-  }
-}
-
-- (void)popViewController
-{
-  [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)backTap
-{
-  [self popViewController];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  return YES;
+  [super viewDidLoad];
+  NSAssert(self.category, @"Category can't be nil!");
+  NSAssert(self.delegate, @"Delegate can't be nil!");
+  NSAssert(IsValid(m_bac), @"Invalid BookmarkAndCategory's instance!");
+  self.title = L(@"bookmark_sets");
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -86,9 +67,7 @@
     if (cat)
       cell.textLabel.text = @(cat->GetName().c_str());
 
-    BookmarkAndCategory const bac = self.manager.entity.bac;
-
-    if (bac.first == indexPath.row)
+    if (m_bac.first == indexPath.row)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
@@ -99,21 +78,19 @@
 - (void)addSetVC:(AddSetVC *)vc didAddSetWithIndex:(int)setIndex
 {
   [self moveBookmarkToSetWithIndex:setIndex];
-
   [self.tableView reloadData];
-  [self.manager reloadBookmark];
+  [self.delegate didSelectCategory:self.category withBac:m_bac];
 }
 
 - (void)moveBookmarkToSetWithIndex:(int)setIndex
 {
-  MWMPlacePageEntity * entity = self.manager.entity;
   BookmarkAndCategory bac;
-  bac.second = static_cast<int>(GetFramework().MoveBookmark(entity.bac.second, entity.bac.first, setIndex));
+  bac.second = static_cast<int>(GetFramework().MoveBookmark(m_bac.second, m_bac.first, setIndex));
   bac.first = setIndex;
-  entity.bac = bac;
+  m_bac = bac;
 
   BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bac.first);
-  entity.bookmarkCategory = @(category->GetName().c_str());
+  self.category = @(category->GetName().c_str());
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,15 +100,13 @@
   {
     AddSetVC * asVC = [[AddSetVC alloc] init];
     asVC.delegate = self;
-    if (IPAD)
-      asVC.preferredContentSize = self.preferredContentSize;
     [self.navigationController pushViewController:asVC animated:YES];
   }
   else
   {
     [self moveBookmarkToSetWithIndex:static_cast<int>(indexPath.row)];
-    [self.manager reloadBookmark];
-    [self popViewController];
+    [self.delegate didSelectCategory:self.category withBac:m_bac];
+    [self backTap];
   }
 }
 

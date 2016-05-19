@@ -13,9 +13,6 @@
 
 #include "Framework.h"
 
-extern CGFloat const kBottomPlacePageOffset;
-extern CGFloat const kLabelsBetweenOffset;
-
 typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 {
   MWMiPhonePortraitPlacePageStateClosed,
@@ -192,12 +189,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   MWMBasePlacePageView * basePPV = self.basePlacePageView;
   CGFloat const anchorHeight = self.anchorImageView.height;
   CGFloat const actionBarHeight = self.actionBar.height;
-  BOOL const typeIsNotEmpty = basePPV.typeLabel.text.length > 0;
-  BOOL const addressIsNotEmpty = basePPV.addressLabel.text.length > 0;
-  CGFloat const titleHeight = basePPV.titleLabel.height + (typeIsNotEmpty ? kLabelsBetweenOffset : 0);
-  CGFloat const typeHeight = typeIsNotEmpty ? basePPV.typeLabel.height + (addressIsNotEmpty ? kLabelsBetweenOffset : 0) : 0;
-  CGFloat const addressHeight = addressIsNotEmpty ? basePPV.addressLabel.height : 0;
-  return anchorHeight + titleHeight + typeHeight + addressHeight + kBottomPlacePageOffset + actionBarHeight;
+  return anchorHeight + basePPV.ppPreview.height /*+ kBottomPlacePageOffset*/ + actionBarHeight - 1;
 }
 
 #pragma mark - Actions
@@ -285,21 +277,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
       }
       break;
   }
-}
-
-- (void)willStartEditingBookmarkTitle
-{
-  [super willStartEditingBookmarkTitle];
-  if (self.isHover)
-    self.state = MWMiPhonePortraitPlacePageStateHover;
-  else
-    self.state = MWMiPhonePortraitPlacePageStateOpen;
-}
-
-- (void)willFinishEditingBookmarkTitle:(NSString *)title
-{
-  [super willFinishEditingBookmarkTitle:title];
-  [self refresh];
 }
 
 - (void)setAnchorImage

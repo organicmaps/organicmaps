@@ -11,7 +11,12 @@
 
 @interface MWMNoteCell : MWMTableViewCell
 
-- (void)configWithDelegate:(id<MWMNoteCelLDelegate>)delegate noteText:(NSString *)text;
+- (void)configWithDelegate:(id<MWMNoteCelLDelegate>)delegate noteText:(NSString *)text
+               placeholder:(NSString *)placeholder;
 - (CGFloat)cellHeight;
+- (void)updateTextViewForHeight:(CGFloat)height;
+- (UITextView *)textView;
++ (CGFloat)minimalHeight;
+- (void)registerObserver;
 
 @end

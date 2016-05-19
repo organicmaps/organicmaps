@@ -1,8 +1,6 @@
-#import <UIKit/UIKit.h>
-
 @class MWMiPhonePortraitPlacePage;
 
-@interface MWMPlacePageNavigationBar : UIView
+@interface MWMPlacePageNavigationBar : SolidTouchView
 
 + (void)dismissNavigationBar;
 + (void)showNavigationBarForPlacePage:(MWMiPhonePortraitPlacePage *)placePage;

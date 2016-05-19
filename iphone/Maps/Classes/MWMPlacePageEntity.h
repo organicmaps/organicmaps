@@ -2,6 +2,8 @@
 
 #include "indexer/feature_meta.hpp"
 
+#include "storage/index.hpp"
+
 typedef NS_ENUM(NSUInteger, MWMPlacePageCellType)
 {
   MWMPlacePageCellTypePostcode = feature::Metadata::EType::FMD_COUNT,
@@ -36,7 +38,7 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 @interface MWMPlacePageEntity : NSObject
 
 @property (copy, nonatomic) NSString * title;
-@property (copy, nonatomic) NSString * category;
+@property (copy, nonatomic) NSString * subtitle;
 @property (copy, nonatomic) NSString * address;
 @property (copy, nonatomic) NSString * bookmarkTitle;
 @property (copy, nonatomic) NSString * bookmarkCategory;
@@ -63,5 +65,8 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType;
 - (place_page::Info const &)info;
+// TODO (SeregaE, Ilia): uncoment this line and method's implementation in .mm file,
+// or please implement better solution.
+//- (storage::TCountryId const &)countryId;
 
 @end
