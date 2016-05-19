@@ -29,7 +29,7 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 
 @property (weak, nonatomic) id<MWMPlacePageOpeningHoursCellProtocol> delegate;
 
-@property (nonatomic) BOOL isClosed;
+@property (nonatomic, readwrite) BOOL isClosed;
 @property (nonatomic) BOOL haveExpandSchedule;
 
 @end
@@ -238,7 +238,7 @@ WeekDayView getWeekDayView()
 
 - (IBAction)toggleButtonTap
 {
-  [self.delegate setOpeningHoursCellExpanded:!self.delegate.openingHoursCellExpanded forCell:self];
+  [self.delegate setOpeningHoursCellExpanded:!self.delegate.openingHoursCellExpanded];
 
   // Workaround for slow devices.
   // Major QA can tap multiple times before first segue call is performed.
