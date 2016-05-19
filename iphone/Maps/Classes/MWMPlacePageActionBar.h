@@ -1,6 +1,4 @@
-#import <UIKit/UIKit.h>
-
-@class MWMPlacePage;
+@class MWMPlacePageViewManager;
 
 @interface MWMPlacePageActionBar : SolidTouchView
 
@@ -9,8 +7,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton * shareButton;
 
-+ (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage;
-- (void)configureWithPlacePage:(MWMPlacePage *)placePage;
++ (MWMPlacePageActionBar *)actionBarForPlacePageManager:(MWMPlacePageViewManager *)placePageManager;
+- (void)configureWithPlacePageManager:(MWMPlacePageViewManager *)placePageManager;
 
 - (instancetype)init __attribute__((unavailable("call actionBarForPlacePage: instead")));
 - (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("call actionBarForPlacePage: instead")));

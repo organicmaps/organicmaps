@@ -62,12 +62,12 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
   BOOL const isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
   if (self.actionBar.isPrepareRouteMode == isPrepareRouteMode)
   {
-    [self.actionBar configureWithPlacePage:self];
+    [self.actionBar configureWithPlacePageManager:self.manager];
   }
   else
   {
     [self.actionBar removeFromSuperview];
-    self.actionBar = [MWMPlacePageActionBar actionBarForPlacePage:self];
+    self.actionBar = [MWMPlacePageActionBar actionBarForPlacePageManager:self.manager];
   }
 }
 
@@ -89,14 +89,9 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
 }
 
 #pragma mark - Actions
-- (void)apiBack
-{
-  [self.manager apiBack];
-}
 
 - (void)addBookmark
 {
-  [self.manager addBookmark];
   [self.basePlacePageView addBookmark];
 }
 
@@ -119,16 +114,6 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
 - (void)addPlace
 {
   [self.manager addPlace];
-}
-
-- (void)share
-{
-  [self.manager share];
-}
-
-- (void)route
-{
-  [self.manager buildRoute];
 }
 
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset
@@ -189,7 +174,7 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
 - (MWMPlacePageActionBar *)actionBar
 {
   if (!_actionBar)
-    _actionBar = [MWMPlacePageActionBar actionBarForPlacePage:self];
+    _actionBar = [MWMPlacePageActionBar actionBarForPlacePageManager:self.manager];
   return _actionBar;
 }
 

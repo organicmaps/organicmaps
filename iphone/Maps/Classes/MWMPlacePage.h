@@ -28,10 +28,7 @@
 - (void)editPlace;
 - (void)addBusiness;
 - (void)addPlace;
-- (void)share;
-- (void)route;
 - (void)reloadBookmark;
-- (void)apiBack;
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset;
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender;
