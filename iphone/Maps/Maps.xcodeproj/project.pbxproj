@@ -372,7 +372,6 @@
 		6741A9781BF340DE002C974C /* AddSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */; };
 		6741A9791BF340DE002C974C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
 		6741A97A1BF340DE002C974C /* MWMSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CFFE8C1B7DE71C009D0C9F /* MWMSearchView.xib */; };
-		6741A97C1BF340DE002C974C /* MWMBookmarkColorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6588E361B15D87A00EE1E58 /* MWMBookmarkColorCell.xib */; };
 		6741A97D1BF340DE002C974C /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
 		6741A97E1BF340DE002C974C /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
 		6741A97F1BF340DE002C974C /* resources-mdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1581B8B4DD700D4EB6F /* resources-mdpi_clear */; };
@@ -464,7 +463,6 @@
 		6741A9E71BF340DE002C974C /* MWMCircularProgressView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35791B53D4C9009677EE /* MWMCircularProgressView.mm */; };
 		6741A9E81BF340DE002C974C /* MWMAPIBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3465E7D71B6658C000854C4D /* MWMAPIBar.mm */; };
 		6741A9E91BF340DE002C974C /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
-		6741A9EA1BF340DE002C974C /* MWMBookmarkColorCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E351B15D87A00EE1E58 /* MWMBookmarkColorCell.mm */; };
 		6741A9EB1BF340DE002C974C /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D409F91B319BD70041730F /* ContextViews.mm */; };
 		6741A9EC1BF340DE002C974C /* MWMCircularProgress.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35761B53D4C9009677EE /* MWMCircularProgress.mm */; };
 		6741A9ED1BF340DE002C974C /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
@@ -716,8 +714,6 @@
 		F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2B1B15C26700EE1E58 /* MWMTextView.mm */; };
 		F6588E2F1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2E1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm */; };
 		F6588E331B15D73100EE1E58 /* MWMBookmarkColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6588E321B15D73100EE1E58 /* MWMBookmarkColorViewController.xib */; };
-		F6588E371B15D87A00EE1E58 /* MWMBookmarkColorCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E351B15D87A00EE1E58 /* MWMBookmarkColorCell.mm */; };
-		F6588E381B15D87A00EE1E58 /* MWMBookmarkColorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6588E361B15D87A00EE1E58 /* MWMBookmarkColorCell.xib */; };
 		F6671C6B1BA2EFD500548008 /* libFlurry_7.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */; };
 		F668F6561BCD4507002D6FFC /* MWMTTSSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F668F6551BCD4507002D6FFC /* MWMTTSSettingsViewController.mm */; };
 		F66A8FA81B09F052001B9C97 /* MWMiPhoneLandscapePlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F66A8FA71B09F052001B9C97 /* MWMiPhoneLandscapePlacePage.mm */; };
@@ -762,6 +758,8 @@
 		F6BD33811B62403B00F2CE18 /* MWMRoutePreview.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD337E1B62403B00F2CE18 /* MWMRoutePreview.mm */; };
 		F6BD33841B6240F200F2CE18 /* MWMNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33831B6240F200F2CE18 /* MWMNavigationView.mm */; };
 		F6BD33871B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33861B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm */; };
+		F6BED3771CE3726A008D31E7 /* MWMBookmarkTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BED3761CE3726A008D31E7 /* MWMBookmarkTitleCell.xib */; };
+		F6BED3781CE3726A008D31E7 /* MWMBookmarkTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BED3761CE3726A008D31E7 /* MWMBookmarkTitleCell.xib */; };
 		F6C641B01C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C641AF1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm */; };
 		F6C9343C1AE4F94A00DDC624 /* MWMAnimator.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C9343B1AE4F94A00DDC624 /* MWMAnimator.mm */; };
 		F6C934401AE64E4200DDC624 /* MWMSpringAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C9343F1AE64E4200DDC624 /* MWMSpringAnimation.mm */; };
@@ -780,12 +778,16 @@
 		F6D4A73B1CC1267E00BD4E5B /* MWMNoteCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D4A7381CC1267E00BD4E5B /* MWMNoteCell.mm */; };
 		F6D4A73C1CC1267E00BD4E5B /* MWMNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D4A7391CC1267E00BD4E5B /* MWMNoteCell.xib */; };
 		F6D4A73D1CC1267E00BD4E5B /* MWMNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D4A7391CC1267E00BD4E5B /* MWMNoteCell.xib */; };
-		F6D4A7411CC1643100BD4E5B /* MWMNoteButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D4A73F1CC1643100BD4E5B /* MWMNoteButtonCell.m */; };
-		F6D4A7421CC1643100BD4E5B /* MWMNoteButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D4A73F1CC1643100BD4E5B /* MWMNoteButtonCell.m */; };
-		F6D4A7431CC1643100BD4E5B /* MWMNoteButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D4A7401CC1643100BD4E5B /* MWMNoteButtonCell.xib */; };
-		F6D4A7441CC1643100BD4E5B /* MWMNoteButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D4A7401CC1643100BD4E5B /* MWMNoteButtonCell.xib */; };
+		F6D4A7411CC1643100BD4E5B /* MWMButtonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D4A73F1CC1643100BD4E5B /* MWMButtonCell.mm */; };
+		F6D4A7421CC1643100BD4E5B /* MWMButtonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D4A73F1CC1643100BD4E5B /* MWMButtonCell.mm */; };
+		F6D4A7431CC1643100BD4E5B /* MWMButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D4A7401CC1643100BD4E5B /* MWMButtonCell.xib */; };
+		F6D4A7441CC1643100BD4E5B /* MWMButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D4A7401CC1643100BD4E5B /* MWMButtonCell.xib */; };
 		F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm */; };
 		F6E0047B1B908CF5003BF5D8 /* MWMNiPadNavigationDashboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E0047A1B908CF5003BF5D8 /* MWMNiPadNavigationDashboard.xib */; };
+		F6E9BF291CE364150050E534 /* MWMEditBookmarkController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E9BF281CE364150050E534 /* MWMEditBookmarkController.mm */; };
+		F6E9BF2A1CE364150050E534 /* MWMEditBookmarkController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E9BF281CE364150050E534 /* MWMEditBookmarkController.mm */; };
+		F6E9BF321CE3658D0050E534 /* MWMBookmarkTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E9BF311CE3658D0050E534 /* MWMBookmarkTitleCell.m */; };
+		F6E9BF331CE3658D0050E534 /* MWMBookmarkTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E9BF311CE3658D0050E534 /* MWMBookmarkTitleCell.m */; };
 		F6ED13541B1643900095C6DE /* MWMDirectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED13531B1643900095C6DE /* MWMDirectionView.mm */; };
 		F6ED13561B16439E0095C6DE /* MWMDirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6ED13551B16439E0095C6DE /* MWMDirectionView.xib */; };
 		F6ED135B1B18AA930095C6DE /* MWMExtendedPlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED135A1B18AA930095C6DE /* MWMExtendedPlacePageView.mm */; };
@@ -1404,9 +1406,6 @@
 		F6588E2D1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkColorViewController.h; sourceTree = "<group>"; };
 		F6588E2E1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkColorViewController.mm; sourceTree = "<group>"; };
 		F6588E321B15D73100EE1E58 /* MWMBookmarkColorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkColorViewController.xib; sourceTree = "<group>"; };
-		F6588E341B15D87A00EE1E58 /* MWMBookmarkColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkColorCell.h; sourceTree = "<group>"; };
-		F6588E351B15D87A00EE1E58 /* MWMBookmarkColorCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkColorCell.mm; sourceTree = "<group>"; };
-		F6588E361B15D87A00EE1E58 /* MWMBookmarkColorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkColorCell.xib; sourceTree = "<group>"; };
 		F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_7.1.0.a; path = Statistics/libFlurry_7.1.0.a; sourceTree = "<group>"; };
 		F668F6541BCD4507002D6FFC /* MWMTTSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTTSSettingsViewController.h; sourceTree = "<group>"; };
 		F668F6551BCD4507002D6FFC /* MWMTTSSettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTTSSettingsViewController.mm; sourceTree = "<group>"; };
@@ -1464,6 +1463,7 @@
 		F6BD33831B6240F200F2CE18 /* MWMNavigationView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationView.mm; sourceTree = "<group>"; };
 		F6BD33851B62412E00F2CE18 /* MWMNavigationDashboardEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardEntity.h; sourceTree = "<group>"; };
 		F6BD33861B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardEntity.mm; sourceTree = "<group>"; };
+		F6BED3761CE3726A008D31E7 /* MWMBookmarkTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkTitleCell.xib; sourceTree = "<group>"; };
 		F6C641AE1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRecentTrackSettingsController.h; sourceTree = "<group>"; };
 		F6C641AF1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRecentTrackSettingsController.mm; sourceTree = "<group>"; };
 		F6C9343A1AE4F94A00DDC624 /* MWMAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAnimator.h; sourceTree = "<group>"; };
@@ -1487,13 +1487,17 @@
 		F6D4A7371CC1267E00BD4E5B /* MWMNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoteCell.h; sourceTree = "<group>"; };
 		F6D4A7381CC1267E00BD4E5B /* MWMNoteCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoteCell.mm; sourceTree = "<group>"; };
 		F6D4A7391CC1267E00BD4E5B /* MWMNoteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNoteCell.xib; sourceTree = "<group>"; };
-		F6D4A73E1CC1643100BD4E5B /* MWMNoteButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoteButtonCell.h; sourceTree = "<group>"; };
-		F6D4A73F1CC1643100BD4E5B /* MWMNoteButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMNoteButtonCell.m; sourceTree = "<group>"; };
-		F6D4A7401CC1643100BD4E5B /* MWMNoteButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNoteButtonCell.xib; sourceTree = "<group>"; };
+		F6D4A73E1CC1643100BD4E5B /* MWMButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMButtonCell.h; sourceTree = "<group>"; };
+		F6D4A73F1CC1643100BD4E5B /* MWMButtonCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMButtonCell.mm; sourceTree = "<group>"; };
+		F6D4A7401CC1643100BD4E5B /* MWMButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMButtonCell.xib; sourceTree = "<group>"; };
 		F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CALayer+RuntimeAttributes.mm"; sourceTree = "<group>"; };
 		F6DF5F321CD1136800A87154 /* LocaleTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocaleTranslator.h; sourceTree = "<group>"; };
 		F6E0047A1B908CF5003BF5D8 /* MWMNiPadNavigationDashboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNiPadNavigationDashboard.xib; sourceTree = "<group>"; };
+		F6E9BF271CE364150050E534 /* MWMEditBookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditBookmarkController.h; sourceTree = "<group>"; };
+		F6E9BF281CE364150050E534 /* MWMEditBookmarkController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditBookmarkController.mm; sourceTree = "<group>"; };
+		F6E9BF301CE3658D0050E534 /* MWMBookmarkTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkTitleCell.h; sourceTree = "<group>"; };
+		F6E9BF311CE3658D0050E534 /* MWMBookmarkTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMBookmarkTitleCell.m; sourceTree = "<group>"; };
 		F6ED13521B1643900095C6DE /* MWMDirectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDirectionView.h; sourceTree = "<group>"; };
 		F6ED13531B1643900095C6DE /* MWMDirectionView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDirectionView.mm; sourceTree = "<group>"; };
 		F6ED13551B16439E0095C6DE /* MWMDirectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDirectionView.xib; sourceTree = "<group>"; };
@@ -2933,11 +2937,26 @@
 				F6D4A7371CC1267E00BD4E5B /* MWMNoteCell.h */,
 				F6D4A7381CC1267E00BD4E5B /* MWMNoteCell.mm */,
 				F6D4A7391CC1267E00BD4E5B /* MWMNoteCell.xib */,
-				F6D4A73E1CC1643100BD4E5B /* MWMNoteButtonCell.h */,
-				F6D4A73F1CC1643100BD4E5B /* MWMNoteButtonCell.m */,
-				F6D4A7401CC1643100BD4E5B /* MWMNoteButtonCell.xib */,
+				F6D4A73E1CC1643100BD4E5B /* MWMButtonCell.h */,
+				F6D4A73F1CC1643100BD4E5B /* MWMButtonCell.mm */,
+				F6D4A7401CC1643100BD4E5B /* MWMButtonCell.xib */,
 			);
 			name = Notes;
+			sourceTree = "<group>";
+		};
+		F6E9BF2B1CE3653B0050E534 /* EditBookmark */ = {
+			isa = PBXGroup;
+			children = (
+				F6588E2D1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.h */,
+				F6588E2E1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm */,
+				F6588E321B15D73100EE1E58 /* MWMBookmarkColorViewController.xib */,
+				F6E9BF271CE364150050E534 /* MWMEditBookmarkController.h */,
+				F6E9BF281CE364150050E534 /* MWMEditBookmarkController.mm */,
+				F6E9BF301CE3658D0050E534 /* MWMBookmarkTitleCell.h */,
+				F6E9BF311CE3658D0050E534 /* MWMBookmarkTitleCell.m */,
+				F6BED3761CE3726A008D31E7 /* MWMBookmarkTitleCell.xib */,
+			);
+			name = EditBookmark;
 			sourceTree = "<group>";
 		};
 		F6F722F51AE156A000DA3DA1 /* PlacePage */ = {
@@ -2953,12 +2972,7 @@
 				F6CB21651AEFC69500FB8963 /* ActionBar */,
 				F652432E1B0B516000BFA9D4 /* NavigationBar */,
 				F65243301B0B517F00BFA9D4 /* Data */,
-				F6588E2D1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.h */,
-				F6588E2E1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm */,
-				F6588E341B15D87A00EE1E58 /* MWMBookmarkColorCell.h */,
-				F6588E351B15D87A00EE1E58 /* MWMBookmarkColorCell.mm */,
-				F6588E361B15D87A00EE1E58 /* MWMBookmarkColorCell.xib */,
-				F6588E321B15D73100EE1E58 /* MWMBookmarkColorViewController.xib */,
+				F6E9BF2B1CE3653B0050E534 /* EditBookmark */,
 				F6ED13521B1643900095C6DE /* MWMDirectionView.h */,
 				F6ED13531B1643900095C6DE /* MWMDirectionView.mm */,
 				F6ED13551B16439E0095C6DE /* MWMDirectionView.xib */,
@@ -3255,7 +3269,7 @@
 				341F99DB1C6B1165001C67B8 /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
 				EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */,
 				EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */,
-				F6D4A7431CC1643100BD4E5B /* MWMNoteButtonCell.xib in Resources */,
+				F6D4A7431CC1643100BD4E5B /* MWMButtonCell.xib in Resources */,
 				4A23D15F1B8B4DD700D4EB6F /* resources-xxhdpi_clear in Resources */,
 				F6BD33781B62400E00F2CE18 /* MWMLandscapeNavigationDashboard.xib in Resources */,
 				F64F199E1AB81A00006EAF7E /* MWMDefaultAlert.xib in Resources */,
@@ -3298,6 +3312,7 @@
 				978D4A31199A11E600D72CA7 /* faq.html in Resources */,
 				3491E7CD1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib in Resources */,
 				F66A8FB21B0A0954001B9C97 /* PlacePageView.xib in Resources */,
+				F6BED3771CE3726A008D31E7 /* MWMBookmarkTitleCell.xib in Resources */,
 				349C26B61BB02C6F0005DF2F /* MWMBottomMenuViewController.xib in Resources */,
 				347FD8871C60B2CE002FB65E /* MWMOpeningHoursTimeSelectorTableViewCell.xib in Resources */,
 				F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */,
@@ -3324,7 +3339,6 @@
 				3490D2E21CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
 				347FD8751C60B2CE002FB65E /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				6B9978351C89A316003B8AA0 /* editor.config in Resources */,
-				F6588E381B15D87A00EE1E58 /* MWMBookmarkColorCell.xib in Resources */,
 				3401CD691C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
 				F6D4A7351CC103FB00BD4E5B /* MWMEditorNotesFooter.xib in Resources */,
@@ -3401,7 +3415,7 @@
 				6741A94B1BF340DE002C974C /* unicode_blocks.txt in Resources */,
 				6741A94C1BF340DE002C974C /* fonts_blacklist.txt in Resources */,
 				3401CD721C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib in Resources */,
-				F6D4A7441CC1643100BD4E5B /* MWMNoteButtonCell.xib in Resources */,
+				F6D4A7441CC1643100BD4E5B /* MWMButtonCell.xib in Resources */,
 				34CCFDE31C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_clear in Resources */,
 				6741A94E1BF340DE002C974C /* MWMLandscapeNavigationDashboard.xib in Resources */,
@@ -3444,6 +3458,7 @@
 				6741A9651BF340DE002C974C /* LocalNotifications.plist in Resources */,
 				6741A9661BF340DE002C974C /* MWMSearchHistoryRequestCell.xib in Resources */,
 				6741A9671BF340DE002C974C /* LaunchScreen.storyboard in Resources */,
+				F6BED3781CE3726A008D31E7 /* MWMBookmarkTitleCell.xib in Resources */,
 				3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				F6AD57BE1C870A3C00CED368 /* MWMEditorCategoryCell.xib in Resources */,
 				6741A9681BF340DE002C974C /* faq.html in Resources */,
@@ -3476,7 +3491,6 @@
 				F6D4A7361CC103FB00BD4E5B /* MWMEditorNotesFooter.xib in Resources */,
 				34CCFDD81C22915600F28959 /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				6741A97A1BF340DE002C974C /* MWMSearchView.xib in Resources */,
-				6741A97C1BF340DE002C974C /* MWMBookmarkColorCell.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				6741A97E1BF340DE002C974C /* drules_proto_dark.bin in Resources */,
 				F6B97B2A1CD0CB170009B612 /* MWMBookmarkNameCell.xib in Resources */,
@@ -3571,6 +3585,7 @@
 				9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */,
 				F6BC1E521ACBF98600EF0360 /* MWMFacebookAlert.mm in Sources */,
 				F64F199D1AB81A00006EAF7E /* MWMDefaultAlert.mm in Sources */,
+				F6E9BF321CE3658D0050E534 /* MWMBookmarkTitleCell.m in Sources */,
 				3438CDF81B8616760051AA78 /* MWMSearchShowOnMapCell.mm in Sources */,
 				34F45E8E1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm in Sources */,
 				3490D2DE1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */,
@@ -3662,7 +3677,6 @@
 				349A357C1B53D4C9009677EE /* MWMCircularProgressView.mm in Sources */,
 				3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
-				F6588E371B15D87A00EE1E58 /* MWMBookmarkColorCell.mm in Sources */,
 				F6D409FA1B319BD70041730F /* ContextViews.mm in Sources */,
 				342CC5F11C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
 				347FD8851C60B2CE002FB65E /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
@@ -3759,13 +3773,14 @@
 				F6BD33841B6240F200F2CE18 /* MWMNavigationView.mm in Sources */,
 				3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */,
 				342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.mm in Sources */,
-				F6D4A7411CC1643100BD4E5B /* MWMNoteButtonCell.m in Sources */,
+				F6D4A7411CC1643100BD4E5B /* MWMButtonCell.mm in Sources */,
 				349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */,
 				F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */,
 				F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */,
 				ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */,
 				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 				340E10631B949D1900D975D5 /* MWMSearchBookmarksManager.mm in Sources */,
+				F6E9BF291CE364150050E534 /* MWMEditBookmarkController.mm in Sources */,
 				34D15BA81BD8F93C00C8BCBE /* AddSetTableViewCell.mm in Sources */,
 				F6A218491CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */,
 				34679F3D1C92FE3700114F20 /* MWMWhatsNewDownloaderEditorController.mm in Sources */,
@@ -3790,6 +3805,7 @@
 				6741A9A71BF340DE002C974C /* UIViewController+Navigation.mm in Sources */,
 				6741A9A81BF340DE002C974C /* MWMFacebookAlert.mm in Sources */,
 				6741A9A91BF340DE002C974C /* MWMDefaultAlert.mm in Sources */,
+				F6E9BF331CE3658D0050E534 /* MWMBookmarkTitleCell.m in Sources */,
 				6741A9AA1BF340DE002C974C /* MWMSearchShowOnMapCell.mm in Sources */,
 				6741A9AC1BF340DE002C974C /* MWMSearchTabButtonsView.mm in Sources */,
 				3490D2DF1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */,
@@ -3879,7 +3895,6 @@
 				F626D5301C3E840600C17D15 /* MWMNightModeController.mm in Sources */,
 				6741A9E81BF340DE002C974C /* MWMAPIBar.mm in Sources */,
 				6741A9E91BF340DE002C974C /* Preferences.mm in Sources */,
-				6741A9EA1BF340DE002C974C /* MWMBookmarkColorCell.mm in Sources */,
 				347FD8861C60B2CE002FB65E /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				6741A9EB1BF340DE002C974C /* ContextViews.mm in Sources */,
 				6741A9EC1BF340DE002C974C /* MWMCircularProgress.mm in Sources */,
@@ -3978,13 +3993,14 @@
 				6741AA241BF340DE002C974C /* UIButton+RuntimeAttributes.mm in Sources */,
 				6741AA251BF340DE002C974C /* MWMBottomMenuView.mm in Sources */,
 				F6FEA82E1C58F108007223CC /* MWMButton.mm in Sources */,
-				F6D4A7421CC1643100BD4E5B /* MWMNoteButtonCell.m in Sources */,
+				F6D4A7421CC1643100BD4E5B /* MWMButtonCell.mm in Sources */,
 				6741AA271BF340DE002C974C /* MWMBasePlacePageView.mm in Sources */,
 				F64D9C9B1C8861BA0063FA30 /* MWMObjectsCategorySelectorController.mm in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */,
 				56D545631C74A41900E3719C /* Framework.cpp in Sources */,
+				F6E9BF2A1CE364150050E534 /* MWMEditBookmarkController.mm in Sources */,
 				6741AA2C1BF340DE002C974C /* MWMSearchBookmarksManager.mm in Sources */,
 				F6A2184A1CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */,
 				34679F3E1C92FE3700114F20 /* MWMWhatsNewDownloaderEditorController.mm in Sources */,
