@@ -18107,3 +18107,7 @@
     es = El lugar no existe
     pl = Takie miejsce nie istnieje
     nl = Locatie bestaat niet
+
+  [place_page_booking_rating]
+    en = Rating: %s
+    ru = Рейтинг: %s
