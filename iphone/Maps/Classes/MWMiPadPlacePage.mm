@@ -195,18 +195,6 @@ static CGFloat const kKeyboardOffset = 12.;
   }];
 }
 
-- (void)willStartEditingBookmarkTitle
-{
-  [super willStartEditingBookmarkTitle];
-  [self updatePlacePagePosition];
-}
-
-- (void)willFinishEditingBookmarkTitle:(NSString *)title
-{
-  [super willFinishEditingBookmarkTitle:title];
-  [self updatePlacePageLayoutAnimated:NO];
-}
-
 - (void)addBookmark
 {
   [super addBookmark];
@@ -228,29 +216,6 @@ static CGFloat const kKeyboardOffset = 12.;
 - (void)refresh
 {
   [self updatePlacePageLayoutAnimated:YES];
-}
-
-- (void)changeBookmarkColor
-{
-  MWMBookmarkColorViewController * controller = [[MWMBookmarkColorViewController alloc] initWithNibName:[MWMBookmarkColorViewController className] bundle:nil];
-  controller.iPadOwnerNavigationController = self.navigationController;
-  controller.placePageManager = self.manager;
-  [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)changeBookmarkCategory
-{
-  SelectSetVC * controller = [[SelectSetVC alloc] initWithPlacePageManager:self.manager];
-  controller.iPadOwnerNavigationController = self.navigationController;
-  [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)changeBookmarkDescription
-{
-  MWMBookmarkDescriptionViewController * controller = [[MWMBookmarkDescriptionViewController alloc] initWithPlacePageManager:self.manager];
-  controller.iPadOwnerNavigationController = self.navigationController;
-  [self.navigationController pushViewController:controller animated:YES];
-  [self updatePlacePageLayoutAnimated:NO];
 }
 
 - (IBAction)didPan:(UIPanGestureRecognizer *)sender
@@ -301,7 +266,7 @@ static CGFloat const kKeyboardOffset = 12.;
   UITableView * featureTable = self.basePlacePageView.featureTable;
   CGFloat const height = self.navigationController.view.height;
   CGFloat const tableContentHeight = featureTable.contentSize.height;
-  CGFloat const headerHeight = self.basePlacePageView.separatorView.maxY;
+  CGFloat const headerHeight = self.basePlacePageView.ppPreview.height;
   CGFloat const actionBarHeight = self.actionBar.height;
   CGFloat const anchorHeight = self.anchorImageView.height;
   CGFloat const availableTableHeight = height - headerHeight - actionBarHeight - anchorHeight;
@@ -316,18 +281,6 @@ static CGFloat const kKeyboardOffset = 12.;
     featureTable.contentInset = UIEdgeInsetsZero;
     featureTable.scrollEnabled = NO;
   }
-}
-
-- (void)keyboardWillShow:(NSNotification *)aNotification
-{
-  [super keyboardWillShow:aNotification];
-  [self refresh];
-}
-
-- (void)keyboardWillHide
-{
-  [super keyboardWillHide];
-  [self refresh];
 }
 
 - (CGFloat)getAvailableHeight

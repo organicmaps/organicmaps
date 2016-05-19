@@ -9,6 +9,7 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
+#import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
 #import "MWMFirstLaunchController.h"
 #import "MWMFrameworkListener.h"
@@ -871,6 +872,17 @@ BOOL gIsFirstMyPositionMode = YES;
   {
     MWMAuthorizationWebViewLoginViewController * dvc = segue.destinationViewController;
     dvc.authType = MWMWebViewAuthorizationTypeGoogle;
+  }
+  else if ([segue.identifier isEqualToString:@"PP2BookmarkEditingIPAD"])
+  {
+    UINavigationController * nav = segue.destinationViewController;
+    MWMEditBookmarkController * dvc = nav.viewControllers.firstObject;
+    dvc.manager = sender;
+  }
+  else if ([segue.identifier isEqualToString:@"PP2BookmarkEditing"])
+  {
+    MWMEditBookmarkController * dvc = segue.destinationViewController;
+    dvc.manager = sender;
   }
 }
 

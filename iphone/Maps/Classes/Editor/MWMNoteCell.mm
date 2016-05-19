@@ -1,15 +1,17 @@
+#import "MWMTextView.h"
 #import "MWMNoteCell.h"
 
 namespace
 {
-  CGFloat const kMinimalTextViewHeight = 104.;
-  CGFloat const kTopTextViewOffset = 12.;
-  NSString * const kTextViewContentSizeKeyPath = @"contentSize";
-} // namespace
+CGFloat const kTopTextViewOffset = 12.;
+NSString * const kTextViewContentSizeKeyPath = @"contentSize";
+CGFloat const kMinimalTextViewHeight = 104.;
+  
+}  // namespace
 
 @interface MWMNoteCell () <UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView * textView;
+@property (weak, nonatomic) IBOutlet MWMTextView * textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * textViewHeight;
 @property (weak, nonatomic) id<MWMNoteCelLDelegate> delegate;
 
@@ -20,9 +22,31 @@ static void * kContext = &kContext;
 @implementation MWMNoteCell
 
 - (void)configWithDelegate:(id<MWMNoteCelLDelegate>)delegate noteText:(NSString *)text
+               placeholder:(NSString *)placeholder
 {
   self.delegate = delegate;
   self.textView.text = text;
+  static_cast<MWMTextView *>(self.textView).placeholder = placeholder;
+}
+
+- (void)updateTextViewForHeight:(CGFloat)height
+{
+  if (height > kMinimalTextViewHeight)
+  {
+    self.textViewHeight.constant = height;
+    [self.delegate cellShouldChangeSize:self text:self.textView.text];
+  }
+  else
+  {
+    CGFloat const currentHeight = self.textViewHeight.constant;
+    if (currentHeight > kMinimalTextViewHeight)
+    {
+      self.textViewHeight.constant = kMinimalTextViewHeight;
+      [self.delegate cellShouldChangeSize:self text:self.textView.text];
+    }
+  }
+
+  [self setNeedsLayout];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -34,25 +58,7 @@ static void * kContext = &kContext;
   {
     NSValue * s = change[@"new"];
     CGFloat const height = s.CGSizeValue.height;
-
-    if (height > kMinimalTextViewHeight)
-    {
-      self.textViewHeight.constant = height;
-      [self.delegate cellShouldChangeSize:self text:self.textView.text];
-    }
-    else
-    {
-      CGFloat const currentHeight = self.textViewHeight.constant;
-      if (currentHeight > kMinimalTextViewHeight)
-      {
-        self.textViewHeight.constant = kMinimalTextViewHeight;
-        [self.delegate cellShouldChangeSize:self text:self.textView.text];
-      }
-    }
-
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
-
+    [self updateTextViewForHeight:height];
     return;
   }
 
@@ -62,6 +68,11 @@ static void * kContext = &kContext;
 - (CGFloat)cellHeight
 {
   return self.textViewHeight.constant + 2 * kTopTextViewOffset;
+}
+
++ (CGFloat)minimalHeight
+{
+  return kMinimalTextViewHeight;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView

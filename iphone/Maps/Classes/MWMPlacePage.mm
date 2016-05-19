@@ -13,6 +13,8 @@
 
 static NSString * const kPlacePageNibIdentifier = @"PlacePageView";
 static NSString * const kPlacePageViewCenterKeyPath = @"center";
+extern NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
+extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD";
 
 @interface MWMPlacePage ()
 
@@ -30,24 +32,10 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
     [[NSBundle mainBundle] loadNibNamed:kPlacePageNibIdentifier owner:self options:nil];
     self.manager = manager;
     if (!IPAD)
-    {
       [self.extendedPlacePageView addObserver:self
                                    forKeyPath:kPlacePageViewCenterKeyPath
                                       options:NSKeyValueObservingOptionNew
                                       context:nullptr];
-    }
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-      [[NSNotificationCenter defaultCenter] addObserver:self
-                                               selector:@selector(keyboardWillShow:)
-                                                   name:UIKeyboardWillShowNotification
-                                                 object:nil];
-
-      [[NSNotificationCenter defaultCenter] addObserver:self
-                                               selector:@selector(keyboardWillHide)
-                                                   name:UIKeyboardWillHideNotification
-                                                 object:nil];
-    });
   }
   return self;
 }
@@ -55,21 +43,7 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 - (void)dealloc
 {
   if (!IPAD)
-  {
     [self.extendedPlacePageView removeObserver:self forKeyPath:kPlacePageViewCenterKeyPath];
-  }
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)keyboardWillShow:(NSNotification *)aNotification
-{
-  NSDictionary * info = [aNotification userInfo];
-  self.keyboardHeight = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-}
-
-- (void)keyboardWillHide
-{
-  self.keyboardHeight = 0.0;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -77,8 +51,7 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-  if ([self.extendedPlacePageView isEqual:object] &&
-      [keyPath isEqualToString:kPlacePageViewCenterKeyPath])
+  if ([self.extendedPlacePageView isEqual:object] && [keyPath isEqualToString:kPlacePageViewCenterKeyPath])
     [self.manager dragPlacePage:self.extendedPlacePageView.frame];
 }
 
@@ -129,8 +102,8 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (void)removeBookmark
 {
-  [self.manager removeBookmark];
   [self.basePlacePageView removeBookmark];
+  self.actionBar.isBookmark = NO;
 }
 
 - (void)editPlace
@@ -185,44 +158,15 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
   [self.basePlacePageView updateAndLayoutMyPositionSpeedAndAltitude:status];
 }
 
-- (void)changeBookmarkCategory
+- (void)editBookmark
 {
-  MWMPlacePageViewManager * manager = self.manager;
-  MapViewController * ovc = static_cast<MapViewController *>(manager.ownerViewController);
-  SelectSetVC * vc = [[SelectSetVC alloc] initWithPlacePageManager:manager];
-  [ovc.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)changeBookmarkColor
-{
-  MWMBookmarkColorViewController * controller = [[MWMBookmarkColorViewController alloc] initWithNibName:[MWMBookmarkColorViewController className] bundle:nil];
-  controller.placePageManager = self.manager;
-  [self.manager.ownerViewController.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)changeBookmarkDescription
-{
-  MWMPlacePageViewManager * manager = self.manager;
-  MapViewController * ovc = static_cast<MapViewController *>(manager.ownerViewController);
-  MWMBookmarkDescriptionViewController * viewController = [[MWMBookmarkDescriptionViewController alloc] initWithPlacePageManager:manager];
-  [ovc.navigationController pushViewController:viewController animated:YES];
+  [self.manager.ownerViewController performSegueWithIdentifier:IPAD ? kPP2BookmarkEditingIPADSegue :
+                                                              kPP2BookmarkEditingSegue sender:self.manager];
 }
 
 - (void)reloadBookmark
 {
   [self.basePlacePageView reloadBookmarkCell];
-}
-
-- (void)willStartEditingBookmarkTitle
-{
-  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatRename)];
-// This method should be оverridden.
-}
-
-- (void)willFinishEditingBookmarkTitle:(NSString *)title
-{
-  self.basePlacePageView.titleLabel.text = title;
-  [self.basePlacePageView layoutIfNeeded];
 }
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender

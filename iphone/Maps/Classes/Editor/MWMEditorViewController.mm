@@ -13,7 +13,7 @@
 #import "MWMNoteCell.h"
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMOpeningHoursEditorViewController.h"
-#import "MWMNoteButtonCell.h"
+#import "MWMButtonCell.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMStreetEditorViewController.h"
@@ -66,7 +66,7 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeCuisine, "MWMEditorSelectTableViewCell"},
     {MWMPlacePageCellTypeWiFi, "MWMEditorSwitchTableViewCell"},
     {MWMPlacePageCellTypeNote, "MWMNoteCell"},
-    {MWMPlacePageCellTypeReportButton, "MWMNoteButtonCell"}};
+    {MWMPlacePageCellTypeReportButton, "MWMButtonCell"}};
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
@@ -135,7 +135,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                                       MWMPlacePageOpeningHoursCellProtocol,
                                       MWMEditorCellProtocol, MWMCuisineEditorProtocol,
                                       MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate,
-                                      MWMNoteCelLDelegate>
+                                      MWMNoteCelLDelegate, MWMButtonCellDelegate>
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
 @property (nonatomic) NSMutableArray<NSIndexPath *> * invalidCells;
@@ -501,12 +501,13 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     case MWMPlacePageCellTypeNote:
     {
       MWMNoteCell * tCell = static_cast<MWMNoteCell *>(cell);
-      [tCell configWithDelegate:self noteText:self.note];
+      [tCell configWithDelegate:self noteText:self.note
+                    placeholder:L(@"editor_detailed_description_hint")];
       break;
     }
     case MWMPlacePageCellTypeReportButton:
     {
-      MWMNoteButtonCell * tCell = static_cast<MWMNoteButtonCell *>(cell);
+      MWMButtonCell * tCell = static_cast<MWMButtonCell *>(cell);
 
       auto title = ^ NSString * (osm::Editor::FeatureStatus s, BOOL isUploaded)
       {
@@ -673,7 +674,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   return YES;
 }
 
-- (void)setOpeningHoursCellExpanded:(BOOL)openingHoursCellExpanded forCell:(UITableViewCell *)cell
+- (void)setOpeningHoursCellExpanded:(BOOL)openingHoursCellExpanded
 {
   [self performSegueWithIdentifier:kOpeningHoursEditorSegue sender:nil];
 }
@@ -762,6 +763,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
       break;
   }
 }
+
+#pragma mark - MWMEditorCellProtocol && MWMButtonCellDelegate
 
 - (void)cellSelect:(UITableViewCell *)cell
 {

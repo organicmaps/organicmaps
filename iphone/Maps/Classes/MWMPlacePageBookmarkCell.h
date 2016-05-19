@@ -1,10 +1,22 @@
 #import "MWMTableViewCell.h"
 
+@protocol MWMPlacePageBookmarkDelegate <NSObject>
+
+- (void)reloadBookmark;
+- (void)editBookmarkTap;
+- (void)moreTap;
+
+@end
+
 @class MWMPlacePage;
 
 @interface MWMPlacePageBookmarkCell : MWMTableViewCell
 
-- (void)config:(MWMPlacePage *)placePage forHeight:(BOOL)forHeight;
+- (void)configWithText:(NSString *)text
+              delegate:(id<MWMPlacePageBookmarkDelegate>)delegate
+        placePageWidth:(CGFloat)width
+                isOpen:(BOOL)isOpen
+                isHtml:(BOOL)isHtml;
 
 - (CGFloat)cellHeight;
 

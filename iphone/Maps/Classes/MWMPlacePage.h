@@ -24,9 +24,7 @@
 #pragma mark - Actions
 - (void)addBookmark;
 - (void)removeBookmark;
-- (void)changeBookmarkColor;
-- (void)changeBookmarkCategory;
-- (void)changeBookmarkDescription;
+- (void)editBookmark;
 - (void)editPlace;
 - (void)addBusiness;
 - (void)addPlace;
@@ -34,8 +32,6 @@
 - (void)route;
 - (void)reloadBookmark;
 - (void)apiBack;
-- (void)willStartEditingBookmarkTitle;
-- (void)willFinishEditingBookmarkTitle:(NSString *)title;
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset;
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender;
@@ -43,9 +39,6 @@
 - (void)setDirectionArrowTransform:(CGAffineTransform)transform;
 - (void)setDistance:(NSString *)distance;
 - (void)updateMyPositionStatus:(NSString *)status;
-
-- (void)keyboardWillShow:(NSNotification *)aNotification;
-- (void)keyboardWillHide;
 
 - (void)refresh;
 
