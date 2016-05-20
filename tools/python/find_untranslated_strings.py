@@ -10,6 +10,8 @@ TransAndKey = namedtuple("TransAndKey", "translation, key")
 
 TRANSLATION = re.compile(r"([a-z]{2}|zh-Han[st])\s*=\s*.*$", re.S | re.MULTILINE)
 MANY_DOTS = re.compile(r"\.{4,}")
+SPACE_PUNCTUATION = re.compile(r"\s[.,?!:;]")
+PLACEHOLDERS = re.compile(r"(%\d*\$@|%[@dqus]|\^)")
 
 ITUNES_LANGS = ["en", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de", "hu", "id", "it", "ja", "ko", "nb", "pl", "pt", "ro", "sl", "es", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant"]
 
@@ -19,7 +21,7 @@ SIMILARITY_THRESHOLD = 20.0 #%
 class StringsTxt:
 
     def __init__(self):
-        self.strings_path = join(dirname(argv[0]), "../..", "strings.txt")
+        self.strings_path = join(dirname(argv[0]), "..", "..", "strings.txt")
         self.translations = defaultdict(dict) # dict<key, dict<lang, translation>>
         self.translations_by_language = defaultdict(dict) # dict<lang, dict<key, translation>>
         self.comments_and_tags = defaultdict(dict)
@@ -103,7 +105,9 @@ class StringsTxt:
 
 
     def _lang_and_translation(self, line):
-        ret = tuple(map(self._process_string, line.split("=")))
+        ret = tuple(map(self._process_string, line.split("=", 1)))
+        if len(ret) < 2:
+            print("ERROR: Couldn't parse the line: {0}".format(line))
         assert len(ret) == 2
         return ret
 
@@ -185,8 +189,6 @@ class StringsTxt:
                 outfile.write("    {0} = {1}\n".format(lang, tran[lang]))
 
 
-    # Look for similar blocks:
-
     def _compare_blocks(self, key_1, key_2):
         block_1 = self.translations[key_1]
         block_2 = self.translations[key_2]
@@ -235,8 +237,60 @@ class StringsTxt:
         )
 
 
-if __name__ == "__main__":
+    def _has_space_before_punctuation(self, lang, string):
+        if lang == "fr":
+            return False
+        if SPACE_PUNCTUATION.search(string):
+            return True
+        return False
 
+
+    def print_strings_with_spaces_before_punctuation(self):
+        print(self._header("Strings with spaces before punctuation:"))
+        for key, lang_and_trans in self.translations.items():
+            wrote_key = False
+            for lang, translation in lang_and_trans.items():
+                if self._has_space_before_punctuation(lang, translation):
+                    if not wrote_key:
+                        print("\n{}".format(key))
+                        wrote_key = True
+                    print("{} : {}".format(lang, translation))
+
+
+    def _check_placeholders_in_block(self, block_key):
+        wrong_placeholders_strings = []
+        en_placeholders = sorted(PLACEHOLDERS.findall(self.translations[block_key]["en"]))
+        for lang, translation in self.translations[block_key].items():
+            if lang == "en":
+                continue
+            found = sorted(PLACEHOLDERS.findall(translation))
+            if not self._sorted_lists_identical(en_placeholders, found):
+                wrong_placeholders_strings.append("{} : {}".format(lang, translation))
+
+        return wrong_placeholders_strings
+
+
+    def _sorted_lists_identical(self, one, two):
+        if (len(one) != len(two)):
+            return False
+        for i in range(0, len(one)):
+            if one[i] != two[i]:
+                return False
+        return True
+
+
+    def print_strings_with_wrong_paceholders(self):
+        print(self._header("Strings with a wrong number of placeholders:"))
+        for key, lang_and_trans in self.translations.items():
+            wrong_placeholders = self._check_placeholders_in_block(key)
+            if wrong_placeholders:
+                print("\n{0}".format(key))
+                print("English: {0}".format(lang_and_trans["en"]))
+                for string in wrong_placeholders:
+                    print(string)
+
+
+if __name__ == "__main__":
     strings = StringsTxt()
     strings.print_statistics()
     strings.print_duplicates()
@@ -244,5 +298,5 @@ if __name__ == "__main__":
     strings.print_most_similar()
     strings.print_missing_itunes_langs()
     strings.write_formatted()
-
-    print()
+    strings.print_strings_with_spaces_before_punctuation()
+    strings.print_strings_with_wrong_paceholders()
