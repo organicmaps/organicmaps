@@ -73,6 +73,8 @@ char const * HighwayClassToString(ftypes::HighwayClass const cls)
   case ftypes::HighwayClass::Pedestrian: return "Pedestrian";
   case ftypes::HighwayClass::Count: return "Count";
   }
+  ASSERT(false, ());
+  return "";
 }
 }  // namespace
 
@@ -99,11 +101,6 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types)
   }
 
   return HighwayClass::Error;
-}
-
-HighwayClass GetHighwayClass(FeatureType const & ft)
-{
-  return GetHighwayClass(feature::TypesHolder(ft));
 }
 
 uint32_t BaseChecker::PrepareToMatch(uint32_t type, uint8_t level)

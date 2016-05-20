@@ -61,6 +61,7 @@ class OSRMRoutingResult : public turns::IRoutingResult
 public:
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_loadedSegments; }
+
   void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
                         m2::PointD const & junctionPoint, size_t & ingoingCount,
                         turns::TurnCandidates & outgoingTurns) const override

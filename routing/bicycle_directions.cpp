@@ -15,12 +15,12 @@ namespace
 using namespace routing;
 using namespace routing::turns;
 
-class RoutingResultGraph : public IRoutingResult
+class RoutingResult : public IRoutingResult
 {
 public:
-  RoutingResultGraph(IRoadGraph::TEdgeVector const & routeEdges,
-                     TAdjacentEdgesMap const & adjacentEdges,
-                     TUnpackedPathSegments const & pathSegments)
+  RoutingResult(IRoadGraph::TEdgeVector const & routeEdges,
+                BicycleDirectionsEngine::TAdjacentEdgesMap const & adjacentEdges,
+                TUnpackedPathSegments const & pathSegments)
     : m_routeEdges(routeEdges)
     , m_adjacentEdges(adjacentEdges)
     , m_pathSegments(pathSegments)
@@ -70,7 +70,7 @@ public:
 
 private:
   IRoadGraph::TEdgeVector const & m_routeEdges;
-  TAdjacentEdgesMap const & m_adjacentEdges;
+  BicycleDirectionsEngine::TAdjacentEdgesMap const & m_adjacentEdges;
   TUnpackedPathSegments const & m_pathSegments;
   double m_routeLength;
 };
@@ -151,14 +151,16 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
 
     LoadedPathSegment pathSegment;
     if (inFeatureId.IsValid())
+    {
       LoadPathGeometry(inFeatureId, {prevJunction.GetPoint(), currJunction.GetPoint()},
                        pathSegment);
+    }
 
     m_adjacentEdges.insert(make_pair(inFeatureId.m_index, move(adjacentEdges)));
     m_pathSegments.push_back(move(pathSegment));
   }
 
-  RoutingResultGraph resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
+  RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
   Route::TTimes turnAnnotationTimes;
   Route::TStreets streetNames;

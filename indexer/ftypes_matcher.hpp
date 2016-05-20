@@ -212,6 +212,4 @@ enum class HighwayClass
 string DebugPrint(HighwayClass const cls);
 
 HighwayClass GetHighwayClass(feature::TypesHolder const & types);
-HighwayClass GetHighwayClass(FeatureType const & ft);
-
 }  // namespace ftypes

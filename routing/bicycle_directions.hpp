@@ -11,19 +11,19 @@ class Index;
 
 namespace routing
 {
-struct AdjacentEdges
-{
-  explicit AdjacentEdges(size_t ingoingTurnsCount = 0) : m_ingoingTurnsCount(ingoingTurnsCount) {}
-
-  turns::TurnCandidates m_outgoingTurns;
-  size_t m_ingoingTurnsCount;
-};
-
-using TAdjacentEdgesMap = map<TNodeId, AdjacentEdges>;
-
 class BicycleDirectionsEngine : public IDirectionsEngine
 {
 public:
+  struct AdjacentEdges
+  {
+    explicit AdjacentEdges(size_t ingoingTurnsCount = 0) : m_ingoingTurnsCount(ingoingTurnsCount) {}
+
+    turns::TurnCandidates m_outgoingTurns;
+    size_t m_ingoingTurnsCount;
+  };
+
+  using TAdjacentEdgesMap = map<TNodeId, AdjacentEdges>;
+
   BicycleDirectionsEngine(Index const & index);
 
   // IDirectionsEngine override:

@@ -36,8 +36,8 @@ using TRouterFactory =
 
 namespace
 {
-double kErrorMeters = 1.0;
-double kErrorSeconds = 1.0;
+double constexpr kErrorMeters = 1.0;
+double constexpr kErrorSeconds = 1.0;
 void ChangeMaxNumberOfOpenFiles(size_t n)
 {
   struct rlimit rlp;
