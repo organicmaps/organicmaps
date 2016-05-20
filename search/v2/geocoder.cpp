@@ -842,7 +842,7 @@ void Geocoder::FillVillageLocalities()
 template <typename TFn>
 void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && fn)
 {
-  for (size_t i = 0; i < infos.size() && m_results->size() < m_params.m_maxNumResults; ++i)
+  for (size_t i = 0; i < infos.size(); ++i)
   {
     auto const & info = infos[i];
     if (info->GetType() != MwmInfo::COUNTRY && info->GetType() != MwmInfo::WORLD)
