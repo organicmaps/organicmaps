@@ -179,11 +179,10 @@ void initFieldsMap()
   return m_info.GetID();
 }
 
-//- (storage::TCountryId const &)countryId
-//{
-  // TODO(SeregaE): We probably should store countryId in instance of place_page::Info and here will be something like
-  // return m_info.CountryId();
-//}
+- (storage::TCountryId const &)countryId
+{
+   return m_info.m_countryId;
+}
 
 - (BOOL)isMyPosition
 {

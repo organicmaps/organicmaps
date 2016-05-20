@@ -1,6 +1,10 @@
+#import "Common.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMBasePlacePageView.h"
+#import "MWMCircularProgress.h"
+#import "MWMFrameworkListener.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageBookmarkCell.h"
@@ -9,6 +13,8 @@
 #import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMPlacePageViewManager.h"
+#import "MWMStorage.h"
+#import "MWMViewController.h"
 #import "NSString+Categories.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -102,8 +108,11 @@ enum class AttributePosition
 };
 } // namespace
 
-@interface MWMBasePlacePageView () <UITableViewDelegate, UITableViewDataSource,
-                                    MWMPlacePageOpeningHoursCellProtocol, MWMPlacePageBookmarkDelegate>
+using namespace storage;
+
+@interface MWMBasePlacePageView ()<
+    UITableViewDelegate, UITableViewDataSource, MWMPlacePageOpeningHoursCellProtocol,
+    MWMPlacePageBookmarkDelegate, MWMCircularProgressProtocol, MWMFrameworkStorageObserver>
 {
   vector<PlacePageSection> m_sections;
   map<PlacePageSection, vector<MWMPlacePageCellType>> m_cells;
@@ -115,6 +124,8 @@ enum class AttributePosition
 
 @property (nonatomic, readwrite) BOOL openingHoursCellExpanded;
 @property (nonatomic) BOOL isBookmarkCellExpanded;
+
+@property (nonatomic) MWMCircularProgress * mapDownloadProgress;
 
 @end
 
@@ -168,13 +179,6 @@ enum class AttributePosition
 - (void)configure
 {
   MWMPlacePageEntity * entity = self.entity;
-
-  // TODO(Iliya): We need to determine that mwm was already uploaded (not only that we can download mwm).
-  // Probably we should determine it in MWMPlacePageEntity, but I'm not sure about core interface.
-  // I typed some placeholder in MWMPlacePageEntity class. Please look and use it or implement smth better.
-  self.downloadProgressView.hidden = YES;
-  // TODO(Vlad): We need to display external name not only for bookmarks but the same in case when we have localized and default place name.
-  // Probably we need to move bookmark naming logic in core.
   if (entity.isBookmark)
   {
     if (![entity.bookmarkTitle isEqualToString:entity.title] && entity.bookmarkTitle.length > 0)
@@ -219,8 +223,68 @@ enum class AttributePosition
 
   [self.featureTable reloadData];
   [self configureCurrentShedule];
+  [self configureMapDownloader];
+  [MWMFrameworkListener addObserver:self];
   [self setNeedsLayout];
   [self layoutIfNeeded];
+}
+
+- (void)configureMapDownloader
+{
+  TCountryId const & countryId = self.entity.countryId;
+  if (countryId == kInvalidCountryId)
+  {
+    self.downloadProgressView.hidden = YES;
+  }
+  else
+  {
+    self.downloadProgressView.hidden = NO;
+    NodeAttrs nodeAttrs;
+    GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
+    MWMCircularProgress * progress = self.mapDownloadProgress;
+    switch (nodeAttrs.m_status)
+    {
+      case NodeStatus::NotDownloaded:
+      case NodeStatus::Partly:
+      {
+        MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
+          MWMCircularProgressStateSelected};
+        [progress setImage:[UIImage imageNamed:@"ic_download"] forStates:affectedStates];
+        [progress setColoring:MWMButtonColoringBlack forStates:affectedStates];
+        progress.state = MWMCircularProgressStateNormal;
+        break;
+      }
+      case NodeStatus::Downloading:
+      {
+        auto const & prg = nodeAttrs.m_downloadingProgress;
+        progress.progress = static_cast<CGFloat>(prg.first) / prg.second;
+        break;
+      }
+      case NodeStatus::InQueue:
+        progress.state = MWMCircularProgressStateSpinner;
+        break;
+      case NodeStatus::Undefined:
+      case NodeStatus::Error:
+        progress.state = MWMCircularProgressStateFailed;
+        break;
+      case NodeStatus::OnDisk:
+      {
+        self.downloadProgressView.hidden = YES;
+        [self setNeedsLayout];
+        [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ [self layoutIfNeeded]; }];
+        break;
+      }
+      case NodeStatus::OnDiskOutOfDate:
+      {
+        MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
+          MWMCircularProgressStateSelected};
+        [progress setImage:[UIImage imageNamed:@"ic_update"] forStates:affectedStates];
+        [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
+        progress.state = MWMCircularProgressStateNormal;
+        break;
+      }
+    }
+  }
 }
 
 - (void)configureCurrentShedule
@@ -621,6 +685,64 @@ enum class AttributePosition
 {
   NSAssert(m_sections.size() > section, @"Invalid section");
   return m_cells[m_sections[section]];
+}
+
+#pragma mark - MWMFrameworkStorageObserver
+
+- (void)processCountryEvent:(TCountryId const &)countryId
+{
+  if (countryId != self.entity.countryId)
+    return;
+  [self configureMapDownloader];
+}
+
+- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
+{
+  if (countryId != self.entity.countryId)
+    return;
+  self.mapDownloadProgress.progress = static_cast<CGFloat>(progress.first) / progress.second;
+}
+
+#pragma mark - MWMCircularProgressProtocol
+
+- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
+{
+  TCountryId const & countryId = self.entity.countryId;
+  NodeAttrs nodeAttrs;
+  GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
+  MWMAlertViewController * avc = self.ownerPlacePage.manager.ownerViewController.alertController;
+  switch (nodeAttrs.m_status)
+  {
+    case NodeStatus::NotDownloaded:
+    case NodeStatus::Partly:
+      [MWMStorage downloadNode:countryId alertController:avc onSuccess:nil];
+      break;
+    case NodeStatus::Undefined:
+    case NodeStatus::Error:
+      [MWMStorage retryDownloadNode:countryId];
+      break;
+    case NodeStatus::OnDiskOutOfDate:
+      [MWMStorage updateNode:countryId alertController:avc];
+      break;
+    case NodeStatus::Downloading:
+    case NodeStatus::InQueue:
+      [MWMStorage cancelDownloadNode:countryId];
+      break;
+    case NodeStatus::OnDisk:
+      break;
+  }
+}
+
+#pragma mark - Properties
+
+- (MWMCircularProgress *)mapDownloadProgress
+{
+  if (!_mapDownloadProgress)
+  {
+    _mapDownloadProgress = [MWMCircularProgress downloaderProgressForParentView:self.downloadProgressView];
+    _mapDownloadProgress.delegate = self;
+  }
+  return _mapDownloadProgress;
 }
 
 @end

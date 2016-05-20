@@ -65,8 +65,6 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType;
 - (place_page::Info const &)info;
-// TODO (SeregaE, Ilia): uncoment this line and method's implementation in .mm file,
-// or please implement better solution.
-//- (storage::TCountryId const &)countryId;
+- (storage::TCountryId const &)countryId;
 
 @end

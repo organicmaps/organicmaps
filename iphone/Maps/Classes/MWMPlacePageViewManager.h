@@ -1,18 +1,18 @@
 #include "Framework.h"
 
-@class MWMPlacePageEntity, MWMPlacePageNavigationBar;
+@class MWMPlacePageEntity, MWMPlacePageNavigationBar, MWMViewController;
 @protocol MWMPlacePageViewManagerProtocol;
 
 @interface MWMPlacePageViewManager : NSObject
 
-@property (weak, nonatomic, readonly) UIViewController * ownerViewController;
+@property (weak, nonatomic, readonly) MWMViewController * ownerViewController;
 @property (nonatomic, readonly) MWMPlacePageEntity * entity;
 @property (nonatomic) MWMPlacePageNavigationBar * iPhoneNavigationBar;
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic) CGFloat leftBound;
 @property (nonatomic, readonly) BOOL isDirectionViewShown;
 
-- (instancetype)initWithViewController:(UIViewController *)viewController
+- (instancetype)initWithViewController:(MWMViewController *)viewController
                               delegate:(id<MWMPlacePageViewManagerProtocol>)delegate;
 - (void)showPlacePage:(place_page::Info const &)info;
 - (void)refreshPlacePage;

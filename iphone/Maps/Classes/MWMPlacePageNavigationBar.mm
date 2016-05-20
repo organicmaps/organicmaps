@@ -4,6 +4,7 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"
+#import "MWMViewController.h"
 #import "Statistics.h"
 #import <objc/runtime.h>
 

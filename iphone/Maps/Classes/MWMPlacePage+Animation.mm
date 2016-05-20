@@ -1,5 +1,6 @@
 #import "MWMPlacePage+Animation.h"
 #import "MWMPlacePageViewManager.h"
+#import "MWMViewController.h"
 #import <objc/runtime.h>
 
 @implementation MWMPlacePage (Animation)
