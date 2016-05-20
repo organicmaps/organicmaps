@@ -11,19 +11,11 @@ public:
   PedestrianDirectionsEngine();
 
   // IDirectionsEngine override:
-  void Generate(IRoadGraph const & graph, vector<Junction> const & path,
-                Route::TTimes & times,
-                Route::TTurns & turnsDir,
+  void Generate(IRoadGraph const & graph, vector<Junction> const & path, Route::TTimes & times,
+                Route::TTurns & turns, vector<m2::PointD> & routeGeometry,
                 my::Cancellable const & cancellable) override;
 
 private:
-  bool ReconstructPath(IRoadGraph const & graph, vector<Junction> const & path,
-                       vector<Edge> & routeEdges,
-                       my::Cancellable const & cancellable) const;
-
-  void CalculateTimes(IRoadGraph const & graph, vector<Junction> const & path,
-                      Route::TTimes & times) const;
-
   void CalculateTurns(IRoadGraph const & graph, vector<Edge> const & routeEdges,
                       Route::TTurns & turnsDir,
                       my::Cancellable const & cancellable) const;

@@ -42,7 +42,7 @@ using TGetIndexFunction = function<size_t(pair<size_t, size_t>)>;
  * \param streets output street names along the path.
  * \return routing operation result code.
  */
-IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result,
+IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                        RouterDelegate const & delegate, vector<m2::PointD> & points,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
                                        Route::TStreets & streets);
@@ -127,8 +127,7 @@ TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoi
  * \param turnInfo is used for cashing some information while turn calculation.
  * \param turn is used for keeping the result of turn calculation.
  */
-void GetTurnDirection(IRoutingResultGraph const & result, turns::TurnInfo & turnInfo,
-                      TurnItem & turn);
+void GetTurnDirection(IRoutingResult const & result, turns::TurnInfo & turnInfo, TurnItem & turn);
 
 /*!
  * \brief Finds an UTurn that starts from current segment and returns how many segments it lasts.

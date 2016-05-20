@@ -9,24 +9,25 @@ namespace routing
 {
 namespace turns
 {
-
 /*!
- * \brief The IRoutingResultGraph interface for the routing result. Uncouple router from the
+ * \brief The IRoutingResult interface for the routing result. Uncouple router from the
  * annotation code that describes turns. See routers for detail implementations.
  */
-class IRoutingResultGraph
+class IRoutingResult
 {
 public:
+  /// \returns information about all route segments.
   virtual TUnpackedPathSegments const & GetSegments() const = 0;
+  /// \brief For a |node|, |junctionPoint| and |ingoingPoint| (point before the |node|)
+  /// this method computes number of ingoing ways to |junctionPoint| and fills |outgoingTurns|.
   virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
-                                m2::PointD const & junctionPoint,
-                                size_t & ingoingCount,
-                                TTurnCandidates & outgoingTurns) const = 0;
-  virtual double GetShortestPathLength() const = 0;
+                                m2::PointD const & junctionPoint, size_t & ingoingCount,
+                                TurnCandidates & outgoingTurns) const = 0;
+  virtual double GetPathLength() const = 0;
   virtual m2::PointD const & GetStartPoint() const = 0;
   virtual m2::PointD const & GetEndPoint() const = 0;
 
-  virtual ~IRoutingResultGraph() = default;
+  virtual ~IRoutingResult() = default;
 };
 }  // namespace routing
 }  // namespace turns

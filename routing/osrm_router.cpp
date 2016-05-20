@@ -52,30 +52,21 @@ double constexpr kMwmLoadedProgress = 10.0f;
 double constexpr kPointsFoundProgress = 15.0f;
 double constexpr kCrossPathFoundProgress = 50.0f;
 double constexpr kPathFoundProgress = 70.0f;
-
-double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
-{
-  return math::pi - ang::TwoVectorsAngle(p, p1, p2);
-}
 } //  namespace
 
 using RawRouteData = InternalRouteResult;
 
-class OSRMRoutingResultGraph : public turns::IRoutingResultGraph
+class OSRMRoutingResult : public turns::IRoutingResult
 {
 public:
-  // turns::IRoutingResultGraph overrides:
-  virtual TUnpackedPathSegments const & GetSegments() const override
-  {
-    return m_loadedSegments;
-  }
-  virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
-                                m2::PointD const & junctionPoint,
-                                size_t & ingoingCount,
-                                turns::TTurnCandidates & outgoingTurns) const override
+  // turns::IRoutingResult overrides:
+  TUnpackedPathSegments const & GetSegments() const override { return m_loadedSegments; }
+
+  void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
+                        m2::PointD const & junctionPoint, size_t & ingoingCount,
+                        turns::TurnCandidates & outgoingTurns) const override
   {
     double const kReadCrossEpsilon = 1.0E-4;
-    double const kFeaturesNearTurnMeters = 3.0;
 
     // Geting nodes by geometry.
     vector<NodeID> geomNodes;
@@ -143,31 +134,28 @@ public:
       m2::PointD const outgoingPoint = ft.GetPoint(
           seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
       ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, ft.GetPoint(seg.m_pointStart)),
-                  kFeaturesNearTurnMeters, ());
+                  turns::kFeaturesNearTurnMeters, ());
 
+      outgoingTurns.isCandidatesAngleValid = true;
       double const a =
-          my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-      outgoingTurns.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
+          my::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+      outgoingTurns.candidates.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
     }
 
-    sort(outgoingTurns.begin(), outgoingTurns.end(),
+    sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(),
          [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2)
-         {
-           return t1.angle < t2.angle;
-         });
+    {
+      return t1.angle < t2.angle;
+    });
   }
 
-  virtual double GetShortestPathLength() const override { return m_rawResult.shortestPathLength; }
-  virtual m2::PointD const & GetStartPoint() const override
-  {
-    return m_rawResult.sourceEdge.segmentPoint;
-  }
-  virtual m2::PointD const & GetEndPoint() const override
-  {
-    return m_rawResult.targetEdge.segmentPoint;
-  }
+  double GetPathLength() const override { return m_rawResult.shortestPathLength; }
 
-  OSRMRoutingResultGraph(Index const & index, RoutingMapping & mapping, RawRoutingResult & result)
+  m2::PointD const & GetStartPoint() const override { return m_rawResult.sourceEdge.segmentPoint; }
+
+  m2::PointD const & GetEndPoint() const override { return m_rawResult.targetEdge.segmentPoint; }
+
+  OSRMRoutingResult(Index const & index, RoutingMapping & mapping, RawRoutingResult & result)
     : m_rawResult(result), m_index(index), m_routingMapping(mapping)
   {
     for (auto const & pathSegments : m_rawResult.unpackedPathSegments)
@@ -193,7 +181,6 @@ public:
     }
   }
 
-  ~OSRMRoutingResultGraph() {}
 private:
   TUnpackedPathSegments m_loadedSegments;
   RawRoutingResult m_rawResult;
@@ -336,7 +323,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     Route::TTimes mwmTimes;
     Route::TStreets mwmStreets;
     vector<m2::PointD> mwmPoints;
-    OSRMRoutingResultGraph resultGraph(*m_pIndex, *mwmMapping, routingResult);
+    OSRMRoutingResult resultGraph(*m_pIndex, *mwmMapping, routingResult);
     if (MakeTurnAnnotation(resultGraph, delegate, mwmPoints, mwmTurnsDir, mwmTimes, mwmStreets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk for", mwmMapping->GetCountryName()));
@@ -506,7 +493,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     Route::TStreets streets;
     vector<m2::PointD> points;
 
-    OSRMRoutingResultGraph resultGraph(*m_pIndex, *startMapping, routingResult);
+    OSRMRoutingResult resultGraph(*m_pIndex, *startMapping, routingResult);
     if (MakeTurnAnnotation(resultGraph, delegate, points, turnsDir, times, streets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk!"));

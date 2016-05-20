@@ -1,3 +1,4 @@
+#include "routing/bicycle_directions.hpp"
 #include "routing/bicycle_model.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/nearest_edge_finder.hpp"
@@ -47,14 +48,6 @@ IRouter::ResultCode Convert(IRoutingAlgorithm::Result value)
   }
   ASSERT(false, ("Unexpected IRoutingAlgorithm::Result value:", value));
   return IRouter::ResultCode::RouteNotFound;
-}
-
-void Convert(vector<Junction> const & path, vector<m2::PointD> & geometry)
-{
-  geometry.clear();
-  geometry.reserve(path.size());
-  for (auto const & pos : path)
-    geometry.emplace_back(pos.GetPoint());
 }
 
 // Check if the found edges lays on mwm with pedestrian routing support.
@@ -172,7 +165,6 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
                                                     m2::PointD const & finalPoint,
                                                     RouterDelegate const & delegate, Route & route)
 {
-
   if (!CheckMapExistence(startPoint, route) || !CheckMapExistence(finalPoint, route))
     return RouteFileNotExist;
 
@@ -247,14 +239,13 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
   if (path.size() == 1)
     path.emplace_back(path.back());
 
-  vector<m2::PointD> geometry;
-  Convert(path, geometry);
-
   Route::TTimes times;
   Route::TTurns turnsDir;
+  vector<m2::PointD> geometry;
+  // @TODO(bykoianko) streetNames is not filled in Generate(). It should be done.
   Route::TStreets streetNames;
   if (m_directionsEngine)
-    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, cancellable);
+    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, geometry, cancellable);
 
   route.SetGeometry(geometry.begin(), geometry.end());
   route.SetSectionTimes(times);
@@ -267,7 +258,9 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn co
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
-  unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, countryFileFn, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, countryFileFn,
+                                                 move(vehicleModelFactory), move(algorithm),
+                                                 move(directionsEngine)));
   return router;
 }
 
@@ -276,7 +269,9 @@ unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCou
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
-  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index, countryFileFn, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index,
+                                                 countryFileFn, move(vehicleModelFactory),
+                                                 move(algorithm), move(directionsEngine)));
   return router;
 }
 
@@ -284,10 +279,9 @@ unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountr
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new BicycleModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
-  unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
+  unique_ptr<IDirectionsEngine> directionsEngine(new BicycleDirectionsEngine(index));
   unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-bicycle", index, countryFileFn, move(vehicleModelFactory),
                                                  move(algorithm), move(directionsEngine)));
   return router;
 }
-
 }  // namespace routing

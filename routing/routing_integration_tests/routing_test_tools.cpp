@@ -31,16 +31,21 @@
 
 using namespace routing;
 
+using TRouterFactory =
+    function<unique_ptr<IRouter>(Index & index, TCountryFileFn const & countryFileFn)>;
+
 namespace
 {
-  void ChangeMaxNumberOfOpenFiles(size_t n)
-  {
-    struct rlimit rlp;
-    getrlimit(RLIMIT_NOFILE, &rlp);
-    rlp.rlim_cur = n;
-    setrlimit(RLIMIT_NOFILE, &rlp);
-  }
+double constexpr kErrorMeters = 1.0;
+double constexpr kErrorSeconds = 1.0;
+void ChangeMaxNumberOfOpenFiles(size_t n)
+{
+  struct rlimit rlp;
+  getrlimit(RLIMIT_NOFILE, &rlp);
+  rlp.rlim_cur = n;
+  setrlimit(RLIMIT_NOFILE, &rlp);
 }
+}  // namespace
 
 namespace integration
 {
@@ -69,27 +74,28 @@ namespace integration
     return storage::CountryInfoReader::CreateCountryInfoReader(platform);
   }
 
-  shared_ptr<OsrmRouter> CreateOsrmRouter(Index & index,
+  unique_ptr<OsrmRouter> CreateOsrmRouter(Index & index,
                                           storage::CountryInfoGetter const & infoGetter)
   {
-    shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(
-        &index, [&infoGetter](m2::PointD const & pt)
-        {
-          return infoGetter.GetRegionCountryId(pt);
-        }
-        ));
+    unique_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&index, [&infoGetter](m2::PointD const & pt)
+    {
+      return infoGetter.GetRegionCountryId(pt);
+    }));
     return osrmRouter;
   }
 
-  shared_ptr<IRouter> CreatePedestrianRouter(Index & index,
-                                             storage::CountryInfoGetter const & infoGetter)
+  unique_ptr<IRouter> CreateAStarRouter(Index & index,
+                                        storage::CountryInfoGetter const & infoGetter,
+                                        TRouterFactory const & routerFactory)
   {
+    // |infoGetter| should be a reference to an object which exists while the
+    // result of the function is used.
     auto countryFileGetter = [&infoGetter](m2::PointD const & pt)
     {
       return infoGetter.GetRegionCountryId(pt);
     };
-    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, countryFileGetter);
-    return shared_ptr<IRouter>(move(router));
+    unique_ptr<IRouter> router = routerFactory(index, countryFileGetter);
+    return unique_ptr<IRouter>(move(router));
   }
 
   class OsrmRouterComponents : public IRouterComponents
@@ -104,7 +110,7 @@ namespace integration
     IRouter * GetRouter() const override { return m_osrmRouter.get(); }
 
   private:
-    shared_ptr<OsrmRouter> m_osrmRouter;
+    unique_ptr<OsrmRouter> m_osrmRouter;
   };
 
   class PedestrianRouterComponents : public IRouterComponents
@@ -112,14 +118,31 @@ namespace integration
   public:
     PedestrianRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_router(CreatePedestrianRouter(m_featuresFetcher->GetIndex(), *m_infoGetter))
+      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter,
+                                   CreatePedestrianAStarBidirectionalRouter))
     {
     }
 
     IRouter * GetRouter() const override { return m_router.get(); }
 
   private:
-    shared_ptr<IRouter> m_router;
+    unique_ptr<IRouter> m_router;
+  };
+
+  class BicycleRouterComponents : public IRouterComponents
+  {
+  public:
+    BicycleRouterComponents(vector<LocalCountryFile> const & localFiles)
+      : IRouterComponents(localFiles)
+      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter,
+                                   CreateBicycleAStarBidirectionalRouter))
+    {
+    }
+
+    IRouter * GetRouter() const override { return m_router.get(); }
+
+  private:
+    unique_ptr<IRouter> m_router;
   };
 
   template <typename TRouterComponents>
@@ -151,21 +174,34 @@ namespace integration
 
   IRouterComponents & GetOsrmComponents()
   {
-    static shared_ptr<IRouterComponents> const inst = CreateAllMapsComponents<OsrmRouterComponents>();
-    ASSERT(inst, ());
-    return *inst;
+    static auto const instance = CreateAllMapsComponents<OsrmRouterComponents>();
+    ASSERT(instance, ());
+    return *instance;
   }
 
   shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles)
   {
-    return shared_ptr<IRouterComponents>(new PedestrianRouterComponents(localFiles));
+    return make_shared<PedestrianRouterComponents>(localFiles);
   }
 
   IRouterComponents & GetPedestrianComponents()
   {
-    static shared_ptr<IRouterComponents> const inst = CreateAllMapsComponents<PedestrianRouterComponents>();
-    ASSERT(inst, ());
-    return *inst;
+    static auto const instance = CreateAllMapsComponents<PedestrianRouterComponents>();
+    ASSERT(instance, ());
+    return *instance;
+  }
+
+  shared_ptr<IRouterComponents> GetBicycleComponents(
+      vector<platform::LocalCountryFile> const & localFiles)
+  {
+    return make_shared<BicycleRouterComponents>(localFiles);
+  }
+
+  IRouterComponents & GetBicycleComponents()
+  {
+    static auto const instance = CreateAllMapsComponents<BicycleRouterComponents>();
+    ASSERT(instance, ());
+    return *instance;
   }
 
   TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
@@ -208,7 +244,7 @@ namespace integration
   void TestRouteLength(Route const & route, double expectedRouteMeters,
                        double relativeError)
   {
-    double const delta = expectedRouteMeters * relativeError;
+    double const delta = max(expectedRouteMeters * relativeError, kErrorMeters);
     double const routeMeters = route.GetTotalDistanceMeters();
     TEST(my::AlmostEqualAbs(routeMeters, expectedRouteMeters, delta),
         ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeMeters, "delta:", delta));
@@ -216,7 +252,7 @@ namespace integration
 
   void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError)
   {
-    double const delta = expectedRouteSeconds * relativeError;
+    double const delta = max(expectedRouteSeconds * relativeError, kErrorSeconds);
     double const routeSeconds = route.GetTotalTimeSec();
     TEST(my::AlmostEqualAbs(routeSeconds, expectedRouteSeconds, delta),
         ("Route time test failed. Expected:", expectedRouteSeconds, "have:", routeSeconds, "delta:", delta));

@@ -4,11 +4,105 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/classificator.hpp"
 
+#include "std/map.hpp"
 #include "std/sstream.hpp"
 #include "std/utility.hpp"
 
+namespace
+{
+class HighwayClasses
+{
+  map<uint32_t, ftypes::HighwayClass> m_map;
+
+public:
+  HighwayClasses()
+  {
+    auto const & c = classif();
+    m_map[c.GetTypeByPath({"highway", "motorway"})] = ftypes::HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"highway", "motorway_link"})] = ftypes::HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"highway", "trunk"})] = ftypes::HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"highway", "trunk_link"})] = ftypes::HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"route", "ferry"})] = ftypes::HighwayClass::Trunk;
+
+    m_map[c.GetTypeByPath({"highway", "primary"})] = ftypes::HighwayClass::Primary;
+    m_map[c.GetTypeByPath({"highway", "primary_link"})] = ftypes::HighwayClass::Primary;
+
+    m_map[c.GetTypeByPath({"highway", "secondary"})] = ftypes::HighwayClass::Secondary;
+    m_map[c.GetTypeByPath({"highway", "secondary_link"})] = ftypes::HighwayClass::Secondary;
+
+    m_map[c.GetTypeByPath({"highway", "tertiary"})] = ftypes::HighwayClass::Tertiary;
+    m_map[c.GetTypeByPath({"highway", "tertiary_link"})] = ftypes::HighwayClass::Tertiary;
+
+    m_map[c.GetTypeByPath({"highway", "unclassified"})] = ftypes::HighwayClass::LivingStreet;
+    m_map[c.GetTypeByPath({"highway", "residential"})] = ftypes::HighwayClass::LivingStreet;
+    m_map[c.GetTypeByPath({"highway", "living_street"})] = ftypes::HighwayClass::LivingStreet;
+    m_map[c.GetTypeByPath({"highway", "road"})] = ftypes::HighwayClass::LivingStreet;
+
+    m_map[c.GetTypeByPath({"highway", "service"})] = ftypes::HighwayClass::Service;
+    m_map[c.GetTypeByPath({"highway", "track"})] = ftypes::HighwayClass::Service;
+
+    m_map[c.GetTypeByPath({"highway", "pedestrian"})] = ftypes::HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "footway"})] = ftypes::HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "bridleway"})] = ftypes::HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "steps"})] = ftypes::HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "cycleway"})] = ftypes::HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "path"})] = ftypes::HighwayClass::Pedestrian;
+  }
+
+  ftypes::HighwayClass Get(uint32_t t) const
+  {
+    auto const it = m_map.find(t);
+    if (it == m_map.cend())
+      return ftypes::HighwayClass::Error;
+    return it->second;
+  }
+};
+
+char const * HighwayClassToString(ftypes::HighwayClass const cls)
+{
+  switch (cls)
+  {
+  case ftypes::HighwayClass::Undefined: return "Undefined";
+  case ftypes::HighwayClass::Error: return "Error";
+  case ftypes::HighwayClass::Trunk: return "Trunk";
+  case ftypes::HighwayClass::Primary: return "Primary";
+  case ftypes::HighwayClass::Secondary: return "Secondary";
+  case ftypes::HighwayClass::Tertiary: return "Tertiary";
+  case ftypes::HighwayClass::LivingStreet: return "LivingStreet";
+  case ftypes::HighwayClass::Service: return "Service";
+  case ftypes::HighwayClass::Pedestrian: return "Pedestrian";
+  case ftypes::HighwayClass::Count: return "Count";
+  }
+  ASSERT(false, ());
+  return "";
+}
+}  // namespace
+
 namespace ftypes
 {
+string DebugPrint(HighwayClass const cls)
+{
+  stringstream out;
+  out << "[ " << HighwayClassToString(cls) << " ]";
+  return out.str();
+}
+
+HighwayClass GetHighwayClass(feature::TypesHolder const & types)
+{
+  uint8_t constexpr kTruncLevel = 2;
+  static HighwayClasses highwayClasses;
+
+  for (auto t : types)
+  {
+    ftype::TruncValue(t, kTruncLevel);
+    HighwayClass const hc = highwayClasses.Get(t);
+    if (hc != HighwayClass::Error)
+      return hc;
+  }
+
+  return HighwayClass::Error;
+}
+
 uint32_t BaseChecker::PrepareToMatch(uint32_t type, uint8_t level)
 {
   ftype::TruncValue(type, level);
@@ -386,75 +480,4 @@ bool IsTypeConformed(uint32_t type, StringIL const & path)
   }
   return true;
 }
-
-string DebugPrint(HighwayClass const cls)
-{
-  stringstream out;
-  out << "[ ";
-  switch (cls)
-  {
-    case HighwayClass::Undefined:
-      out << "Undefined";
-    case HighwayClass::Error:
-      out << "Error";
-    case HighwayClass::Trunk:
-      out << "Trunk";
-    case HighwayClass::Primary:
-      out << "Primary";
-    case HighwayClass::Secondary:
-      out << "Secondary";
-    case HighwayClass::Tertiary:
-      out << "Tertiary";
-    case HighwayClass::LivingStreet:
-      out << "LivingStreet";
-    case HighwayClass::Service:
-      out << "Service";
-    case HighwayClass::Count:
-      out << "Count";
-    default:
-      out << "Unknown value of HighwayClass: " << static_cast<int>(cls);
-  }
-  out << " ]";
-  return out.str();
-}
-
-HighwayClass GetHighwayClass(feature::TypesHolder const & types)
-{
-  Classificator const & c = classif();
-  static pair<HighwayClass, uint32_t> const kHighwayClasses[] = {
-      {HighwayClass::Trunk, c.GetTypeByPath({"highway", "motorway"})},
-      {HighwayClass::Trunk, c.GetTypeByPath({"highway", "motorway_link"})},
-      {HighwayClass::Trunk, c.GetTypeByPath({"highway", "trunk"})},
-      {HighwayClass::Trunk, c.GetTypeByPath({"highway", "trunk_link"})},
-      {HighwayClass::Trunk, c.GetTypeByPath({"route", "ferry"})},
-      {HighwayClass::Primary, c.GetTypeByPath({"highway", "primary"})},
-      {HighwayClass::Primary, c.GetTypeByPath({"highway", "primary_link"})},
-      {HighwayClass::Secondary, c.GetTypeByPath({"highway", "secondary"})},
-      {HighwayClass::Secondary, c.GetTypeByPath({"highway", "secondary_link"})},
-      {HighwayClass::Tertiary, c.GetTypeByPath({"highway", "tertiary"})},
-      {HighwayClass::Tertiary, c.GetTypeByPath({"highway", "tertiary_link"})},
-      {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "unclassified"})},
-      {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "residential"})},
-      {HighwayClass::LivingStreet, c.GetTypeByPath({"highway", "living_street"})},
-      {HighwayClass::Service, c.GetTypeByPath({"highway", "service"})},
-      {HighwayClass::Service, c.GetTypeByPath({"highway", "track"})}};
-  uint8_t const kTruncLevel = 2;
-
-  for (auto t : types)
-  {
-    ftype::TruncValue(t, kTruncLevel);
-    for (auto const & cls : kHighwayClasses)
-    {
-      if (cls.second == t)
-        return cls.first;
-    }
-  }
-
-  return HighwayClass::Error;
-}
-
-HighwayClass GetHighwayClass(FeatureType const & ft)
-{
-  return GetHighwayClass(feature::TypesHolder(ft));
-}
-}
+}  // namespace ftypes

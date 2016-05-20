@@ -21,18 +21,10 @@ using namespace routing::turns;
 
 namespace
 {
-double const kFeaturesNearTurnMeters = 3.0;
 size_t constexpr kMaxPointsCount = 5;
 double constexpr kMinDistMeters = 200.;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
 double constexpr kNotSoCloseMinDistMeters = 30.;
-
-using TGeomTurnCandidate = vector<double>;
-
-double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
-{
-  return math::pi - ang::TwoVectorsAngle(p, p1, p2);
-}
 
 /*!
  * \brief Returns false when
@@ -40,18 +32,18 @@ double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::P
  * - and the other possible turns lead to small roads;
  * - and the turn is GoStraight or TurnSlight*.
  */
-bool KeepTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possibleTurns,
+bool KeepTurnByHighwayClass(TurnDirection turn, TurnCandidates const & possibleTurns,
                             TurnInfo const & turnInfo)
 {
   if (!IsGoStraightOrSlightTurn(turn))
     return true;  // The road significantly changes its direction here. So this turn shall be kept.
 
   // There's only one exit from this junction. NodeID of the exit is outgoingNode.
-  if (possibleTurns.size() == 1)
+  if (possibleTurns.candidates.size() == 1)
     return true;
 
   ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::Error;
-  for (auto const & t : possibleTurns)
+  for (auto const & t : possibleTurns.candidates)
   {
     if (t.node == turnInfo.m_outgoing.m_nodeId)
       continue;
@@ -87,10 +79,10 @@ bool KeepTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possible
 /*!
  * \brief Returns false when other possible turns leads to service roads;
  */
-bool KeepRoundaboutTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possibleTurns,
+bool KeepRoundaboutTurnByHighwayClass(TurnDirection turn, TurnCandidates const & possibleTurns,
                                       TurnInfo const & turnInfo)
 {
-  for (auto const & t : possibleTurns)
+  for (auto const & t : possibleTurns.candidates)
   {
     if (t.node == turnInfo.m_outgoing.m_nodeId)
       continue;
@@ -261,14 +253,14 @@ bool TurnInfo::IsSegmentsValid() const
   return true;
 }
 
-IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResultGraph const & result,
+IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                        RouterDelegate const & delegate, vector<m2::PointD> & points,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
                                        Route::TStreets & streets)
 {
   double estimatedTime = 0;
 
-  LOG(LDEBUG, ("Shortest th length:", result.GetShortestPathLength()));
+  LOG(LDEBUG, ("Shortest th length:", result.GetPathLength()));
 
 #ifdef DEBUG
   size_t lastIdx = 0;
@@ -569,7 +561,7 @@ TurnDirection IntermediateDirection(const double angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
-void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, TurnItem & turn)
+void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnItem & turn)
 {
   if (!turnInfo.IsSegmentsValid())
     return;
@@ -601,26 +593,26 @@ void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, T
 
   ASSERT_GREATER(turnInfo.m_ingoing.m_path.size(), 1, ());
   m2::PointD const ingoingPointOneSegment = turnInfo.m_ingoing.m_path[turnInfo.m_ingoing.m_path.size() - 2];
-  TTurnCandidates nodes;
+  TurnCandidates nodes;
   size_t ingoingCount;
   result.GetPossibleTurns(turnInfo.m_ingoing.m_nodeId, ingoingPointOneSegment, junctionPoint,
                           ingoingCount, nodes);
 
-  size_t const numNodes = nodes.size();
+  size_t const numNodes = nodes.candidates.size();
   bool const hasMultiTurns = numNodes > 1;
 
   if (numNodes == 0)
     return;
 
-  if (!hasMultiTurns)
+  if (!hasMultiTurns || !nodes.isCandidatesAngleValid)
   {
     turn.m_turn = intermediateDirection;
   }
   else
   {
-    if (nodes.front().node == turnInfo.m_outgoing.m_nodeId)
+    if (nodes.candidates.front().node == turnInfo.m_outgoing.m_nodeId)
       turn.m_turn = LeftmostDirection(turnAngle);
-    else if (nodes.back().node == turnInfo.m_outgoing.m_nodeId)
+    else if (nodes.candidates.back().node == turnInfo.m_outgoing.m_nodeId)
       turn.m_turn = RightmostDirection(turnAngle);
     else
       turn.m_turn = intermediateDirection;
@@ -648,7 +640,7 @@ void GetTurnDirection(IRoutingResultGraph const & result, TurnInfo & turnInfo, T
                       kNotSoCloseMinDistMeters, GetIngoingPointIndex);
 
   if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns,
-                              nodes.size() + ingoingCount))
+                              nodes.candidates.size() + ingoingCount))
   {
     turn.m_turn = TurnDirection::NoTurn;
     return;

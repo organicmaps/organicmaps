@@ -28,8 +28,8 @@ struct LoadedPathSegment
   vector<m2::PointD> m_path;
   vector<turns::SingleLaneInfo> m_lanes;
   string m_name;
-  TEdgeWeight m_weight;
-  TNodeId m_nodeId;
+  TEdgeWeight m_weight; /*!< Time in seconds to pass the segment. */
+  TNodeId m_nodeId;     /*!< May be NodeId for OSRM router or FeatureId::index for graph router. */
   ftypes::HighwayClass m_highwayClass;
   bool m_onRoundabout;
   bool m_isLink;

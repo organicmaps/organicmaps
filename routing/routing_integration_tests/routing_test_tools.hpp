@@ -78,13 +78,18 @@ unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
   void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                          vector<string> const & expected, IRouterComponents & routerComponents);
 
-  /// Get OSRM router components
+  /// Gets OSRM router components
   IRouterComponents & GetOsrmComponents();
   shared_ptr<IRouterComponents> GetOsrmComponents(vector<platform::LocalCountryFile> const & localFiles);
 
-  /// Get pedestrian router components
+  /// Gets pedestrian router components
   IRouterComponents & GetPedestrianComponents();
   shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles);
+
+  /// Gets bicycle router components.
+  IRouterComponents & GetBicycleComponents();
+  shared_ptr<IRouterComponents> GetBicycleComponents(
+      vector<platform::LocalCountryFile> const & localFiles);
 
   TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
                               m2::PointD const & startPoint, m2::PointD const & startDirection,
