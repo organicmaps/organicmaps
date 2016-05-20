@@ -12,7 +12,6 @@
 #include "search/v2/pre_ranking_info.hpp"
 #include "search/v2/ranking_info.hpp"
 #include "search/v2/ranking_utils.hpp"
-#include "search/v2/token_slice.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/index.hpp"
@@ -191,20 +190,11 @@ void UpdateNameScore(string const & name, TSlice const & slice, v2::NameScore & 
 
 template <typename TSlice>
 void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & slice,
-                     v2::NameScore & bestScore, double & bestCoverage)
+                     v2::NameScore & bestScore)
 {
   auto const score = v2::GetNameScore(tokens, slice);
-  auto const coverage =
-      tokens.empty() ? 0 : static_cast<double>(slice.Size()) / static_cast<double>(tokens.size());
   if (score > bestScore)
-  {
     bestScore = score;
-    bestCoverage = coverage;
-  }
-  else if (score == bestScore && coverage > bestCoverage)
-  {
-    bestCoverage = coverage;
-  }
 }
 
 inline bool IsHashtagged(strings::UniString const & s) { return !s.empty() && s[0] == '#'; }
@@ -422,28 +412,17 @@ int Query::GetCategoryLocales(int8_t (&arr) [3]) const
 }
 
 template <class ToDo>
-void Query::ForEachCategoryTypes(ToDo toDo) const
+void Query::ForEachCategoryTypes(v2::QuerySlice const & slice, ToDo toDo) const
 {
   int8_t arrLocales[3];
   int const localesCount = GetCategoryLocales(arrLocales);
-  size_t const tokensCount = m_tokens.size();
 
-  for (size_t i = 0; i < tokensCount; ++i)
+  for (size_t i = 0; i < slice.Size(); ++i)
   {
-    auto token = RemoveHashtag(m_tokens[i]);
-
+    auto token = RemoveHashtag(slice.Get(i));
     for (int j = 0; j < localesCount; ++j)
       m_categories.ForEachTypeByName(arrLocales[j], token, bind<void>(ref(toDo), i, _1));
     ProcessEmojiIfNeeded(token, i, toDo);
-  }
-
-  if (!m_prefix.empty())
-  {
-    auto prefix = RemoveHashtag(m_prefix);
-
-    for (int j = 0; j < localesCount; ++j)
-      m_categories.ForEachTypeByName(arrLocales[j], prefix, bind<void>(ref(toDo), tokensCount, _1));
-    ProcessEmojiIfNeeded(prefix, tokensCount, toDo);
   }
 }
 
@@ -522,10 +501,11 @@ void Query::SetQuery(string const & query)
 
   // get preffered types to show in results
   m_prefferedTypes.clear();
-  ForEachCategoryTypes([&] (size_t, uint32_t t)
-  {
-    m_prefferedTypes.insert(t);
-  });
+  ForEachCategoryTypes(v2::QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
+                       [&](size_t, uint32_t t)
+                       {
+                         m_prefferedTypes.insert(t);
+                       });
 }
 
 void Query::FlushViewportResults(v2::Geocoder::Params const & params, Results & res,
@@ -660,7 +640,6 @@ class PreResult2Maker
     info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
     info.m_searchType = preInfo.m_searchType;
-
     info.m_nameScore = v2::NAME_SCORE_ZERO;
 
     v2::TokenSlice slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
@@ -675,12 +654,30 @@ class PreResult2Maker
       vector<strings::UniString> tokens;
       SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
 
-      UpdateNameScore(tokens, slice, info.m_nameScore, info.m_nameCoverage);
-      UpdateNameScore(tokens, sliceNoCategories, info.m_nameScore, info.m_nameCoverage);
+      UpdateNameScore(tokens, slice, info.m_nameScore);
+      UpdateNameScore(tokens, sliceNoCategories, info.m_nameScore);
     }
 
     if (info.m_searchType == v2::SearchModel::SEARCH_TYPE_BUILDING)
       UpdateNameScore(ft.GetHouseNumber(), sliceNoCategories, info.m_nameScore);
+
+    feature::TypesHolder holder(ft);
+    vector<pair<size_t, size_t>> matched(slice.Size());
+    m_query.ForEachCategoryTypes(v2::QuerySliceOnTokens(slice), [&](size_t i, uint32_t t)
+    {
+      ++matched[i].second;
+      if (holder.Has(t))
+        ++matched[i].first;
+    });
+
+    info.m_pureCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
+                             {
+                               return m.first != 0;
+                             });
+    info.m_falseCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
+                              {
+                                return m.first == 0 && m.second != 0;
+                              });
   }
 
   uint8_t NormalizeRank(uint8_t rank, v2::SearchModel::SearchType type, m2::PointD const & center,
@@ -1259,7 +1256,8 @@ void Query::InitParams(bool localitySearch, SearchQueryParams & params)
         }
       }
     };
-    ForEachCategoryTypes(addSyms);
+    ForEachCategoryTypes(v2::QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
+                         addSyms);
   }
 
   for (auto & tokens : params.m_tokens)

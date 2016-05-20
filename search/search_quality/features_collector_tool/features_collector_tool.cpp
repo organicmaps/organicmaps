@@ -141,15 +141,26 @@ void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> co
 {
   auto const n = samples.size();
   ASSERT_EQUAL(stats.size(), n, ());
+
+  size_t numWarnings = 0;
+  for (auto const & stat : stats)
+  {
+    if (!stat.m_notFound.empty())
+      ++numWarnings;
+  }
+
+  if (numWarnings == 0)
+  {
+    os << "All " << stats.size() << " queries are OK." << endl;
+    return;
+  }
+
+  os << numWarnings << " warnings." << endl;
   for (size_t i = 0; i < n; ++i)
   {
-    os << "Query #" << i << " \"" << strings::ToUtf8(samples[i].m_query) << "\"";
     if (stats[i].m_notFound.empty())
-    {
-      os << ": OK" << endl;
       continue;
-    }
-    os << ": WARNING" << endl;
+    os << "Query #" << i << " \"" << strings::ToUtf8(samples[i].m_query) << "\":" << endl;
     for (auto const & j : stats[i].m_notFound)
       os << "Not found: " << DebugPrint(samples[i].m_results[j]) << endl;
   }

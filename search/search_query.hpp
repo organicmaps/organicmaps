@@ -7,6 +7,7 @@
 #include "search/suggest.hpp"
 #include "search/v2/geocoder.hpp"
 #include "search/v2/rank_table_cache.hpp"
+#include "search/v2/token_slice.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
@@ -145,7 +146,8 @@ protected:
   void ClearResults();
 
   int GetCategoryLocales(int8_t (&arr) [3]) const;
-  template <class ToDo> void ForEachCategoryTypes(ToDo toDo) const;
+  template <class ToDo>
+  void ForEachCategoryTypes(v2::QuerySlice const & slice, ToDo toDo) const;
   template <class ToDo> void ProcessEmojiIfNeeded(
       strings::UniString const & token, size_t ind, ToDo & toDo) const;
 
