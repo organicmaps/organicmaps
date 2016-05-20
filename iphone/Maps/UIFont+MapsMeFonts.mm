@@ -59,6 +59,12 @@ NSString * fontName(FontWeight weight, CGFloat size)
   return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
 }
 
++ (UIFont *)regular13
+{
+  CGFloat const size = 13;
+  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+}
+
 + (UIFont *)regular14
 {
   CGFloat const size = 14;
