@@ -259,7 +259,7 @@ public:
 private:
   void ActivateMapSelection(bool needAnimation,
                             df::SelectionShape::ESelectedObject selectionType,
-                            place_page::Info const & info) const;
+                            place_page::Info const & info);
   void InvalidateUserMarks();
 public:
   void DeactivateMapSelection(bool notifyUI);
@@ -375,7 +375,6 @@ private:
 
   // Last search query params for the interactive search.
   search::SearchParams m_lastInteractiveSearchParams;
-  uint8_t m_fixedSearchResults;
 
   bool m_connectToGpsTrack; // need to connect to tracker when Drape is being constructed
 

@@ -52,6 +52,9 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
     meta.m_stars = my::clamp(meta.m_stars, 0, 5);
   else
     meta.m_stars = 0;
+  
+  meta.m_isSponsoredHotel = ftypes::IsBookingChecker::Instance()(ft);
+  
   meta.m_isInitialized = true;
 }
 

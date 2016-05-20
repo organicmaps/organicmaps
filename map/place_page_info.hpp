@@ -67,6 +67,8 @@ public:
   string m_apiUrl;
   /// Formatted feature address.
   string m_address;
+  /// Feature is a sponsored hotel.
+  bool m_isSponsoredHotel = false;
 
   /// Which country this MapObject is in.
   /// For a country point it will be set to topmost node for country.

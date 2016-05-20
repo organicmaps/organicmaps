@@ -33,6 +33,7 @@ public:
   {
     string m_cuisine;         // Valid only if not empty. Used for restaurants.
     int m_stars = 0;          // Valid only if not 0. Used for hotels.
+    bool m_isSponsoredHotel = false; // Used for hotels.
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;  // Valid for any result.
 
     /// True if the struct is already assigned or need to be calculated otherwise.

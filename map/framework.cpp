@@ -26,6 +26,8 @@
 #include "drape_frontend/watch/cpu_drawer.hpp"
 #include "drape_frontend/watch/feature_processor.hpp"
 
+#include "drape/constants.hpp"
+
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -287,7 +289,6 @@ Framework::Framework()
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
-  , m_fixedSearchResults(0)
   , m_lastReportedCountry(kInvalidCountryId)
 {
   m_startBackgroundTime = my::Timer::LocalTime();
@@ -723,6 +724,9 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
     info.m_address = GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet();
+
+  if (ftypes::IsBookingChecker::Instance()(ft))
+    info.m_isSponsoredHotel = true;
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
@@ -1358,9 +1362,7 @@ size_t Framework::ShowSearchResults(search::Results const & results)
     return count;
   }
 
-  m_fixedSearchResults = 0;
   FillSearchResultsMarks(results);
-  m_fixedSearchResults = count;
 
   // Setup viewport according to results.
   m2::AnyRectD viewport = m_currentModelView.GlobalRect();
@@ -1411,7 +1413,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
   UserMarkControllerGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
   guard.m_controller.SetIsVisible(true);
   guard.m_controller.SetIsDrawable(true);
-  guard.m_controller.Clear(m_fixedSearchResults);
+  guard.m_controller.Clear();
 
   size_t const count = results.GetCount();
   for (size_t i = 0; i < count; ++i)
@@ -1424,9 +1426,9 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
       if (r.GetResultType() == search::Result::RESULT_FEATURE)
         mark->SetFoundFeature(r.GetFeatureID());
       mark->SetMatchedName(r.GetString());
-
-      //TODO: extract from search::Result data for choosing custom symbol.
-      //mark->SetCustomSymbol("booking-search-result");
+      
+      if (r.m_metadata.m_isSponsoredHotel)
+        mark->SetCustomSymbol("current-position"); //TODO: change icon
     }
   }
 }
@@ -1439,8 +1441,6 @@ void Framework::CancelInteractiveSearch()
     m_lastInteractiveSearchParams.Clear();
     CancelQuery(m_lastQueryHandle);
   }
-
-  m_fixedSearchResults = 0;
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -1881,12 +1881,15 @@ void Framework::SetMapSelectionListeners(TActivateMapSelectionFn const & activat
 }
 
 void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESelectedObject selectionType,
-                                     place_page::Info const & info) const
+                                     place_page::Info const & info)
 {
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   m_selectedFeature = info.GetID();
   CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(),
                          needAnimation));
+  
+  SetDisplacementMode(info.m_isSponsoredHotel ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode);
+  
   if (m_activateMapSelectionFn)
     m_activateMapSelectionFn(info);
   else
@@ -1903,6 +1906,8 @@ void Framework::DeactivateMapSelection(bool notifyUI)
 
   if (somethingWasAlreadySelected)
     CallDrapeFunction(bind(&df::DrapeEngine::DeselectObject, _1));
+
+  SetDisplacementMode(dp::displacement::kDefaultMode);
 }
 
 void Framework::UpdatePlacePageInfoForCurrentSelection()
