@@ -256,6 +256,7 @@ public:
     virtual void CorrectGlobalScalePoint(m2::PointD & pt) const = 0;
     virtual void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const = 0;
     virtual void OnScaleEnded() = 0;
+    virtual void OnAnimatedScaleEnded() = 0;
 
     virtual void OnAnimationStarted(ref_ptr<Animation> anim) = 0;
     virtual void OnPerspectiveSwitchRejected() = 0;
