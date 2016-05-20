@@ -92,8 +92,7 @@ public:
   void SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim);
 
   using TModelViewListenerFn = FrontendRenderer::TModelViewChanged;
-  int AddModelViewListener(TModelViewListenerFn const & listener);
-  void RemoveModeViewListener(int slotID);
+  void SetModelViewListener(TModelViewListenerFn && fn);
 
   void ClearUserMarksLayer(TileKey const & tileKey);
   void ChangeVisibilityUserMarksLayer(TileKey const & tileKey, bool isVisible);
@@ -108,12 +107,12 @@ public:
   void SwitchMyPositionNextMode();
   void LoseLocation();
   void StopLocationFollow();
-  void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
+  void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 
   using TTapEventInfoFn = FrontendRenderer::TTapEventInfoFn;
-  void SetTapEventInfoListener(TTapEventInfoFn const & fn);
+  void SetTapEventInfoListener(TTapEventInfoFn && fn);
   using TUserPositionChangedFn = FrontendRenderer::TUserPositionChangedFn;
-  void SetUserPositionListener(TUserPositionChangedFn const & fn);
+  void SetUserPositionListener(TUserPositionChangedFn && fn);
 
   FeatureID GetVisiblePOI(m2::PointD const & glbPoint);
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt, bool isAnim);
@@ -149,7 +148,6 @@ public:
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);
-  void ModelViewChangedGuiThread(ScreenBase const & screen);
 
   void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
   void TapEvent(TapInfo const & tapInfo);
@@ -167,12 +165,10 @@ private:
 
   Viewport m_viewport;
 
-  using TListenerMap = map<int, TModelViewListenerFn>;
-  TListenerMap m_listeners;
-
+  TModelViewListenerFn m_modelViewChanged;
   location::TMyPositionModeChanged m_myPositionModeChanged;
+  TUserPositionChangedFn m_userPositionChanged;
   TTapEventInfoFn m_tapListener;
-  TUserPositionChangedFn m_userPositionChangedFn;
 
   gui::TWidgetsInitInfo m_widgetsInfo;
   gui::TWidgetsLayoutInfo m_widgetsLayout;
