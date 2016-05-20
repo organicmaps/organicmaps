@@ -89,6 +89,8 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 - (void)mwm_refreshUI
 {
   [self.sideView mwm_refreshUI];
+  [self.locationButton.imageView stopAnimating];
+  [self refreshLocationButtonState:self.locationMode];
 }
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
