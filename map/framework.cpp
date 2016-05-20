@@ -1428,7 +1428,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
       mark->SetMatchedName(r.GetString());
       
       if (r.m_metadata.m_isSponsoredHotel)
-        mark->SetCustomSymbol("current-position"); //TODO: change icon
+        mark->SetCustomSymbol("search-booking");
     }
   }
 }
