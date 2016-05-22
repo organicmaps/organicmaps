@@ -74,6 +74,7 @@ SOURCES += \
     route_renderer.cpp \
     route_shape.cpp \
     rule_drawer.cpp \
+    screen_operations.cpp \
     selection_shape.cpp \
     stylist.cpp \
     text_handle.cpp \
@@ -171,6 +172,7 @@ HEADERS += \
     route_renderer.hpp \
     route_shape.hpp \
     rule_drawer.hpp \
+    screen_operations.hpp \
     selection_shape.hpp \
     shape_view_params.hpp \
     stylist.hpp \

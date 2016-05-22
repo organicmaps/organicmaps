@@ -7,12 +7,12 @@
 namespace df
 {
 
-MapScaleAnimation::MapScaleAnimation(double startScale, double endScale,
-                                     m2::PointD const & globalPosition, m2::PointD const & offset)
+MapScaleAnimation::MapScaleAnimation(double startScale, double endScale, m2::PointD const & globalScaleCenter,
+                                     m2::PointD const & pixelCenterOffset)
   : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
   , m_scaleInterpolator(startScale, endScale)
-  , m_pixelOffset(offset)
-  , m_globalPosition(globalPosition)
+  , m_pixelCenterOffset(pixelCenterOffset)
+  , m_globalScaleCenter(globalScaleCenter)
 {
   m_objects.insert(Animation::MapPlane);
   m_properties.insert(Animation::Scale);
@@ -62,7 +62,7 @@ bool MapScaleAnimation::GetProperty(TObject object, TProperty property, Property
   {
     ScreenBase screen = AnimationSystem::Instance().GetLastScreen();
     screen.SetScale(m_scaleInterpolator.GetScale());
-    value = PropertyValue(screen.PtoG(screen.GtoP(m_globalPosition) + m_pixelOffset));
+    value = PropertyValue(screen.PtoG(screen.GtoP(m_globalScaleCenter) + m_pixelCenterOffset));
     return true;
   }
   if (property == Animation::Scale)

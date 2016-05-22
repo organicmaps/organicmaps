@@ -5,6 +5,7 @@
 #include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/transparent_layer.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
@@ -1269,7 +1270,7 @@ void FrontendRenderer::DisablePerspective()
 
 void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
 {
-  bool const isScaleAllowableIn3d = UserEventStream::IsScaleAllowableIn3d(m_currentZoomLevel);
+  bool const isScaleAllowableIn3d = IsScaleAllowableIn3d(m_currentZoomLevel);
   bool const isIsometry = m_enable3dBuildings && !m_choosePositionMode && isScaleAllowableIn3d;
   if (m_isIsometry != isIsometry)
   {
@@ -1283,7 +1284,7 @@ void FrontendRenderer::CheckPerspectiveMinScale()
   if (!m_enablePerspectiveInNavigation || m_userEventStream.IsInPerspectiveAnimation())
     return;
 
-  bool const switchTo2d = !UserEventStream::IsScaleAllowableIn3d(m_currentZoomLevel);
+  bool const switchTo2d = !IsScaleAllowableIn3d(m_currentZoomLevel);
   if ((!switchTo2d && !m_perspectiveDiscarded) ||
       (switchTo2d && !m_userEventStream.GetCurrentScreen().isPerspective()))
     return;
