@@ -2,6 +2,7 @@
 # coding: utf-8
 from __future__ import print_function
 from collections import namedtuple, defaultdict
+from itertools import combinations
 from os.path import join, dirname
 import re
 from sys import argv
@@ -56,7 +57,7 @@ class StringsTxt:
                     self.keys_in_order.append(current_key)
 
                 if TRANSLATION.match(line):
-                    lang, tran = self._lang_and_translation(line)
+                    lang, tran = self._parse_lang_and_translation(line)
                     self.translations[current_key][lang] = tran
 
                     self.all_langs.add(lang)
@@ -65,7 +66,7 @@ class StringsTxt:
                     continue
 
                 if line.startswith("comment") or line.startswith("tags"):
-                    lang, value = self._lang_and_translation(line)
+                    lang, value = self._parse_lang_and_translation(line)
                     self.comments_and_tags[current_key][lang] = value
                     continue
 
@@ -104,7 +105,7 @@ class StringsTxt:
         return str.strip(string).replace("...", "…")
 
 
-    def _lang_and_translation(self, line):
+    def _parse_lang_and_translation(self, line):
         ret = tuple(map(self._process_string, line.split("=", 1)))
         if len(ret) < 2:
             print("ERROR: Couldn't parse the line: {0}".format(line))
@@ -138,8 +139,8 @@ class StringsTxt:
             self.duplicates[lang] = sorted(list(possible_duplicates))
 
     def _find_most_duplicated(self):
-        most_duplicated = defaultdict(lambda : 0)
-        for lang, trans_and_keys in self.duplicates.items():
+        most_duplicated = defaultdict(int)
+        for trans_and_keys in self.duplicates.values():
             for trans_and_key in trans_and_keys:
                 most_duplicated[trans_and_key.key] += 1
 
@@ -200,10 +201,10 @@ class StringsTxt:
             if block_1[key] == block_2[key]:
                 common_elements += 1
 
-        return [
+        return filter(lambda x: x[1] > SIMILARITY_THRESHOLD, [
             (self._similarity_string(key_1, key_2), self._similarity_index(len(block_1), common_elements)),
             (self._similarity_string(key_2, key_1), self._similarity_index(len(block_2), common_elements))
-        ]
+        ])
 
 
     def _similarity_string(self, key_1, key_2):
@@ -215,11 +216,9 @@ class StringsTxt:
 
 
     def _find_most_similar(self):
-        end_index = len(filter(lambda x : x[1] > len(self.translations[x[0]]) / 10, self.most_duplicated))
-        for i in range(0, end_index - 1):
-            for j in range(i+1, end_index):
-                similarity_indices = self._compare_blocks(self.most_duplicated[i][0], self.most_duplicated[j][0])
-                self.similarity_indices.extend(filter(lambda x: x[1] > SIMILARITY_THRESHOLD, similarity_indices))
+        search_scope = filter(lambda x : x[1] > len(self.translations[x[0]]) / 10, self.most_duplicated)
+        for one, two in combinations(search_scope, 2):
+            self.similarity_indices.extend(self._compare_blocks(one[0], two[0]))
 
         self.similarity_indices.sort(key=lambda x: x[1], reverse=True)
 
@@ -232,7 +231,7 @@ class StringsTxt:
 
     def _header(self, string):
         return "\n\n{line}\n{string}\n{line}\n".format(
-            line="===================================================",
+            line="=" * 80,
             string=string
         )
 
@@ -264,30 +263,23 @@ class StringsTxt:
             if lang == "en":
                 continue
             found = sorted(PLACEHOLDERS.findall(translation))
-            if not self._sorted_lists_identical(en_placeholders, found):
+            if not en_placeholders == found: #must be sorted
                 wrong_placeholders_strings.append("{} : {}".format(lang, translation))
 
         return wrong_placeholders_strings
-
-
-    def _sorted_lists_identical(self, one, two):
-        if (len(one) != len(two)):
-            return False
-        for i in range(0, len(one)):
-            if one[i] != two[i]:
-                return False
-        return True
 
 
     def print_strings_with_wrong_paceholders(self):
         print(self._header("Strings with a wrong number of placeholders:"))
         for key, lang_and_trans in self.translations.items():
             wrong_placeholders = self._check_placeholders_in_block(key)
-            if wrong_placeholders:
-                print("\n{0}".format(key))
-                print("English: {0}".format(lang_and_trans["en"]))
-                for string in wrong_placeholders:
-                    print(string)
+            if not wrong_placeholders:
+                continue
+
+            print("\n{0}".format(key))
+            print("English: {0}".format(lang_and_trans["en"]))
+            for string in wrong_placeholders:
+                print(string)
 
 
 if __name__ == "__main__":
