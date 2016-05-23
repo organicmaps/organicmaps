@@ -16,6 +16,7 @@ public:
 
   void Update(ScreenBase const & screen);
   bool IsVisible(ScreenBase const & screen) const;
+  void Invalidate();
 
   float GetRulerHalfHeight() const;
   float GetRulerPixelLength() const;

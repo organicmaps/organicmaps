@@ -1,5 +1,6 @@
 #include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
@@ -359,6 +360,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         UpdateDisplacementEnabled();
         InvalidateRect(screen.ClipRect());
       }
+
+      if (m_guiRenderer->HasWidget(gui::WIDGET_RULER))
+        gui::DrapeGui::GetRulerHelper().Invalidate();
       break;
     }
 
