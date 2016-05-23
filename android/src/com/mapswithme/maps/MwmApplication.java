@@ -294,11 +294,6 @@ public class MwmApplication extends Application
     mMainLoopHandler.sendMessage(m);
   }
 
-  void clearFunctorsOnUiThread()
-  {
-    mMainLoopHandler.removeCallbacksAndMessages(mMainQueueToken);
-  }
-
   /**
    * Initializes native Platform with paths. Should be called before usage of any other native components.
    */

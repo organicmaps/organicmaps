@@ -1548,10 +1548,7 @@ void FrontendRenderer::Routine::Do()
     m_renderer.RenderScene(modelView);
 
     if (modelViewChanged)
-    {
       m_renderer.UpdateScene(modelView);
-      m_renderer.EmitModelViewChanged(modelView);
-    }
 
     isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
     AnimationSystem::Instance().Advance(frameTime);
@@ -1692,6 +1689,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 
   if (m_lastReadedModelView != modelView)
   {
+    EmitModelViewChanged(modelView);
     m_lastReadedModelView = modelView;
     m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), ResolveTileKeys(modelView));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,

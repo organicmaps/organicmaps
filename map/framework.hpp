@@ -120,6 +120,9 @@ protected:
 
   ScreenBase m_currentModelView;
 
+  using TViewportChanged = df::DrapeEngine::TModelViewListenerFn;
+  TViewportChanged m_viewportChanged;
+
   routing::RoutingSession m_routingSession;
 
   drape_ptr<df::DrapeEngine> m_drapeEngine;
@@ -151,6 +154,8 @@ protected:
   void ClearAllCaches();
 
   void StopLocationFollow();
+
+  void OnViewportChanged(ScreenBase const & screen);
 
   void CallDrapeFunction(TDrapeFunction const & fn) const;
 
@@ -463,9 +468,7 @@ public:
 
   void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);
 
-  using TViewportChanged = df::DrapeEngine::TModelViewListenerFn;
-  int AddViewportListener(TViewportChanged const & fn);
-  void RemoveViewportListener(int slotID);
+  void SetViewportListener(TViewportChanged const & fn);
 
   /// Resize event from window.
   void OnSize(int w, int h);

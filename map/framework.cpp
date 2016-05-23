@@ -225,6 +225,18 @@ void Framework::OnUserPositionChanged(m2::PointD const & position)
     m_routingSession.SetUserCurrentPosition(position);
 }
 
+void Framework::OnViewportChanged(ScreenBase const & screen)
+{
+  double constexpr kEps = 1.0E-4;
+  if (!screen.GlobalRect().EqualDxDy(m_currentModelView.GlobalRect(), kEps))
+    UpdateUserViewportChanged();
+
+  m_currentModelView = screen;
+
+  if (m_viewportChanged != nullptr)
+    m_viewportChanged(screen);
+}
+
 void Framework::CallDrapeFunction(TDrapeFunction const & fn) const
 {
   if (m_drapeEngine)
@@ -943,16 +955,9 @@ void Framework::GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::A
   m_currentModelView.GetTouchRect(center, static_cast<double>(pxRadius), rect);
 }
 
-int Framework::AddViewportListener(TViewportChanged const & fn)
+void Framework::SetViewportListener(TViewportChanged const & fn)
 {
-  ASSERT(m_drapeEngine, ());
-  return m_drapeEngine->AddModelViewListener(fn);
-}
-
-void Framework::RemoveViewportListener(int slotID)
-{
-  ASSERT(m_drapeEngine, ());
-  m_drapeEngine->RemoveModeViewListener(slotID);
+  m_viewportChanged = fn;
 }
 
 void Framework::OnSize(int w, int h)
@@ -1511,17 +1516,33 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             m_routingSession.IsActive() && m_routingSession.IsFollowing());
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
-  AddViewportListener([this](ScreenBase const & screen)
+  m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)
   {
-    if (!screen.GlobalRect().EqualDxDy(m_currentModelView.GlobalRect(), 1.0E-4))
-      UpdateUserViewportChanged();
-    m_currentModelView = screen;
+    GetPlatform().RunOnGuiThread([this, screen](){ OnViewportChanged(screen); });
   });
-  m_drapeEngine->SetTapEventInfoListener(bind(&Framework::OnTapEvent, this, _1));
-  m_drapeEngine->SetUserPositionListener(bind(&Framework::OnUserPositionChanged, this, _1));
+  m_drapeEngine->SetTapEventInfoListener([this](df::TapInfo const & tapInfo)
+  {
+    GetPlatform().RunOnGuiThread([this, tapInfo](){ OnTapEvent(tapInfo); });
+  });
+  m_drapeEngine->SetUserPositionListener([this](m2::PointD const & position)
+  {
+    GetPlatform().RunOnGuiThread([this, position](){ OnUserPositionChanged(position); });
+  });
+
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
-  m_drapeEngine->SetMyPositionModeListener(m_myPositionListener);
+  m_drapeEngine->SetMyPositionModeListener([this](location::EMyPositionMode mode, bool routingActive)
+  {
+    GetPlatform().RunOnGuiThread([this, mode, routingActive]()
+    {
+      // Deactivate selection (and hide place page) if we return to routing in F&R mode.
+      if (routingActive && mode == location::FollowAndRotate)
+        DeactivateMapSelection(true /* notifyUI */);
+
+      if (m_myPositionListener != nullptr)
+        m_myPositionListener(mode, routingActive);
+    });
+  });
 
   InvalidateUserMarks();
 
