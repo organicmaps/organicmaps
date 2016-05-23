@@ -227,7 +227,8 @@ void Framework::OnUserPositionChanged(m2::PointD const & position)
 
 void Framework::OnViewportChanged(ScreenBase const & screen)
 {
-  if (!screen.GlobalRect().EqualDxDy(m_currentModelView.GlobalRect(), 1.0E-4))
+  double constexpr kEps = 1.0E-4;
+  if (!screen.GlobalRect().EqualDxDy(m_currentModelView.GlobalRect(), kEps))
     UpdateUserViewportChanged();
 
   m_currentModelView = screen;
@@ -1533,6 +1534,10 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   {
     GetPlatform().RunOnGuiThread([this, mode, routingActive]()
     {
+      // Deactivate selection (and hide place page) if we return to routing in F&R mode.
+      if (routingActive && mode == location::FollowAndRotate)
+        DeactivateMapSelection(true /* notifyUI */);
+
       if (m_myPositionListener != nullptr)
         m_myPositionListener(mode, routingActive);
     });
