@@ -376,6 +376,11 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     auto anim = make_unique_dp<MapScaleAnimation>(startScreen.GetScale(), endScreen.GetScale(),
                                                   glbScaleCenter, offset);
     anim->SetMaxDuration(kMaxAnimationTimeSec);
+    anim->SetOnFinishAction([this](ref_ptr<Animation> animation)
+    {
+      if (m_listener)
+        m_listener->OnAnimatedScaleEnded();
+    });
 
     // Reset follow animation with scaling if we apply scale explicitly.
     auto const & followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
@@ -388,6 +393,8 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
   ResetMapPlaneAnimations();
   m_navigator.Scale(scaleCenter, factor);
+  if (m_listener)
+    m_listener->OnAnimatedScaleEnded();
   return true;
 }
 

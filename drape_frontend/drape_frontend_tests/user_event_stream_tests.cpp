@@ -39,6 +39,7 @@ public:
   void OnAnimationStarted(ref_ptr<df::Animation> /* anim */) override {}
   void OnPerspectiveSwitchRejected() override {}
   void OnTouchMapAction() override {}
+  void OnAnimatedScaleEnded() override {}
 
   void AddUserEvent(df::TouchEvent const & event)
   {

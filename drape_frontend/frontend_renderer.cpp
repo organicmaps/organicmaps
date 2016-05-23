@@ -1415,6 +1415,11 @@ void FrontendRenderer::OnScaleEnded()
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
 }
 
+void FrontendRenderer::OnAnimatedScaleEnded()
+{
+  PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
+}
+
 void FrontendRenderer::OnAnimationStarted(ref_ptr<Animation> anim)
 {
   m_myPositionController->AnimationStarted(anim);
