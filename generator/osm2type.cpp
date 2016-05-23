@@ -214,7 +214,7 @@ namespace ftype
 
   public:
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
-                 NOBICYCLE, YESBICYCLE, SURFPGOOD, SURFPBAD, SURFUGOOD, SURFUBAD,
+                 NOBICYCLE, YESBICYCLE, BICYCLE_BIDIR, SURFPGOOD, SURFPBAD, SURFUGOOD, SURFUBAD,
                  RW_STATION, RW_STATION_SUBWAY };
 
     CachedTypes()
@@ -228,7 +228,7 @@ namespace ftype
       {
         {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
         {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
-        {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"},
+        {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "bicycle_bidir"},
         {"psurface", "paved_good"}, {"psurface", "paved_bad"},
         {"psurface", "unpaved_good"}, {"psurface", "unpaved_bad"},
       };
@@ -529,6 +529,8 @@ namespace ftype
           { "bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::NOBICYCLE)); }},
           { "bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
           { "cycleway", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
+          { "oneway:bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
+          { "cycleway", "opposite", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
         });
 
         highwayDone = true;

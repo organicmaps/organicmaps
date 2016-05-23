@@ -506,7 +506,8 @@ UNIT_TEST(OsmType_Amenity)
 UNIT_TEST(OsmType_Hwtag)
 {
   char const * tags[][2] = {
-      {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"}, {"hwtag", "yesbicycle"}
+      {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
+      {"hwtag", "yesbicycle"}, {"hwtag", "bicycle_bidir"}
   };
 
   {
@@ -534,6 +535,7 @@ UNIT_TEST(OsmType_Hwtag)
         {"lit", "no"},
         {"foot", "no"},
         {"bicycle", "yes"},
+        {"oneway:bicycle", "no"},
     };
 
     OsmElement e;
@@ -542,12 +544,13 @@ UNIT_TEST(OsmType_Hwtag)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 5, (params));
+    TEST_EQUAL(params.m_Types.size(), 6, (params));
     TEST(params.IsTypeExist(GetType(arr[1])), ());
     TEST(params.IsTypeExist(GetType(tags[0])), ());
     TEST(params.IsTypeExist(GetType(tags[1])), ());
     TEST(params.IsTypeExist(GetType(tags[3])), ());
     TEST(params.IsTypeExist(GetType(tags[5])), ());
+    TEST(params.IsTypeExist(GetType(tags[6])), ());
   }
 
   {
