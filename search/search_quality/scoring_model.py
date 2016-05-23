@@ -19,7 +19,7 @@ RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring Prefix', 'Substring', 'Full Match Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
 
-FEATURES = ['DistanceToPivot', 'Rank'] + NAME_SCORES + SEARCH_TYPES
+FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats'] + NAME_SCORES + SEARCH_TYPES
 
 
 def transform_name_score(value, categories_match):

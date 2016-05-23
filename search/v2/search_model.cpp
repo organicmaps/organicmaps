@@ -70,7 +70,11 @@ public:
     return inst;
   }
 
-  bool operator()(FeatureType const & ft) const { return !ft.GetHouseNumber().empty(); }
+  bool operator()(FeatureType const & ft) const
+  {
+    static auto const & buildingChecker = IsBuildingChecker::Instance();
+    return !ft.GetHouseNumber().empty() || buildingChecker(ft);
+  }
 
 private:
   CustomIsBuildingChecker() {}
