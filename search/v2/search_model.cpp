@@ -72,8 +72,7 @@ public:
 
   bool operator()(FeatureType const & ft) const
   {
-    static auto const & buildingChecker = IsBuildingChecker::Instance();
-    return !ft.GetHouseNumber().empty() || buildingChecker(ft);
+    return !ft.GetHouseNumber().empty() || IsBuildingChecker::Instance()(ft);
   }
 
 private:
