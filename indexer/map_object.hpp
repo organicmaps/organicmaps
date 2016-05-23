@@ -88,7 +88,6 @@ public:
   string GetWikipediaLink() const;
   string GetFlats() const;
   string GetBuildingLevels() const;
-  //@}
 
   // TODO(Vlad, yunikkk): Use Props enum + getters instead of direct metadata access.
   // TODO: Remove this method.

@@ -6,9 +6,11 @@
 
 namespace place_page
 {
-char const * Info::kSubtitleSeparator = " • ";
-char const * Info::kStarSymbol = "★";
-char const * Info::kMountainSymbol = "▲";
+char const * const Info::kSubtitleSeparator = " • ";
+char const * const Info::kStarSymbol = "★";
+char const * const Info::kMountainSymbol = "▲";
+char const * const Info::kEmptyRatingSymbol = "-";
+char const * const Info::kPricingSymbol = "$";
 
 bool Info::IsFeature() const { return m_featureID.IsValid(); }
 bool Info::IsBookmark() const { return m_bac != MakeEmptyBookmarkAndCategory(); }
@@ -16,7 +18,8 @@ bool Info::IsMyPosition() const { return m_isMyPosition; }
 bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
 bool Info::IsEditable() const { return m_isEditable; }
 bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
-bool Info::ShouldShowAddPlace() const { return !IsFeature() || (!IsPointType() && !IsBuilding()); }
+bool Info::ShouldShowAddPlace() const { return !IsSponsoredHotel() && (!IsFeature() || (!IsPointType() && !IsBuilding())); }
+bool Info::IsSponsoredHotel() const { return m_isSponsoredHotel; }
 
 string Info::FormatNewBookmarkName() const
 {
@@ -97,5 +100,39 @@ string Info::GetCustomName() const { return m_customName; }
 BookmarkAndCategory Info::GetBookmarkAndCategory() const { return m_bac; }
 string Info::GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
 string const & Info::GetApiUrl() const { return m_apiUrl; }
+
+string Info::GetRatingFormatted() const
+{
+  if (!IsSponsoredHotel())
+    return string();
+
+  auto const r = GetMetadata().Get(feature::Metadata::FMD_RATING);
+  char const * rating = r.empty() ? kEmptyRatingSymbol : r.c_str();
+  int const size = snprintf(nullptr, 0, m_localizedRatingString.c_str(), rating);
+  if (size < 0)
+  {
+    LOG(LERROR, ("Incorrect size for string:", m_localizedRatingString, ", rating:", rating));
+    return string();
+  }
+
+  vector<char> buf(size + 1);
+  snprintf(buf.data(), buf.size(), m_localizedRatingString.c_str(), rating);
+  return string(buf.begin(), buf.end());
+}
+
+string Info::GetApproximatePricing() const
+{
+  if (!IsSponsoredHotel())
+    return string();
+
+  int pricing;
+  strings::to_int(GetMetadata().Get(feature::Metadata::FMD_PRICE_RATE), pricing);
+  string result;
+  for (auto i = 0; i < pricing; i++)
+    result.append(kPricingSymbol);
+
+  return result;
+}
+
 void Info::SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
 }  // namespace place_page
