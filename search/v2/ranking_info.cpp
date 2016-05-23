@@ -12,24 +12,25 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double const kDistanceToPivot = -1.0000000;
-double const kRank = 0.5430747;
+double const kDistanceToPivot = -0.7579760;
+double const kRank = 0.9185310;
+double const kFalseCats = -0.7996119;
 double const kNameScore[NameScore::NAME_SCORE_COUNT] = {
-  -0.3686323 /* Zero */,
-  0.0977193 /* Substring Prefix */,
-  0.1340500 /* Substring */,
-  0.1368631 /* Full Match Prefix */,
-  0.1368631 /* Full Match */
+  -1.0000000 /* Zero */,
+  0.3585180 /* Substring Prefix */,
+  0.3198080 /* Substring */,
+  0.3216740 /* Full Match Prefix */,
+  0.3216740 /* Full Match */
 };
 double const kSearchType[SearchModel::SEARCH_TYPE_COUNT] = {
-  -0.9195533 /* POI */,
-  -0.9195533 /* Building */,
-  -0.1470504 /* Street */,
-  -0.6392620 /* Unclassified */,
-  -0.0900970 /* Village */,
-  0.4383605 /* City */,
-  0.6296097 /* State */,
-  0.7279924 /* Country */
+  -0.1419479 /* POI */,
+  -0.1419479 /* Building */,
+  -0.1462099 /* Street */,
+  -0.1509122 /* Unclassified */,
+  -0.2591458 /* Village */,
+  -0.0451342 /* City */,
+  0.2515398 /* State */,
+  0.4918102 /* Country */
 };
 
 double TransformDistance(double distance)
@@ -95,7 +96,7 @@ double RankingInfo::GetLinearModelRank() const
   }
 
   return kDistanceToPivot * distanceToPivot + kRank * rank + kNameScore[nameScore] +
-         kSearchType[m_searchType];
+         kSearchType[m_searchType] + m_falseCats * kFalseCats;
 }
 }  // namespace v2
 }  // namespace search
