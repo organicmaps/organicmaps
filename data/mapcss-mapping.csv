@@ -1111,3 +1111,5 @@ tourism|apartment;1110;
 tourism|resort;1111;
 sponsored;[sponsored];;name;int_name;1112;
 sponsored|booking;1113;
+hwtag|nobicycle;1114;
+hwtag|yesbicycle;1115;

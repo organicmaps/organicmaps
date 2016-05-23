@@ -168,7 +168,7 @@ namespace ftype
 
       static bool IsNegative(string const & value)
       {
-        for (char const * s : { "no", "none", "false" })
+        for (char const * s : { "no", "none", "false", "0" })
           if (value == s)
             return true;
         return false;
@@ -214,7 +214,7 @@ namespace ftype
 
   public:
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
-                 RW_STATION, RW_STATION_SUBWAY };
+                 NOBICYCLE, YESBICYCLE, RW_STATION, RW_STATION_SUBWAY };
 
     CachedTypes()
     {
@@ -226,7 +226,8 @@ namespace ftype
       StringIL arr[] =
       {
         {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
-        {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"}
+        {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
+        {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}
       };
       for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
@@ -452,9 +453,12 @@ namespace ftype
           { "lit", "~", [&params] { params.AddType(types.Get(CachedTypes::LIT)); }},
 
           { "foot", "!", [&params] { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
-
           { "foot", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
           { "sidewalk", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
+
+          { "bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::NOBICYCLE)); }},
+          { "bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
+          { "cycleway", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
         });
 
         highwayDone = true;
