@@ -66,6 +66,7 @@ UNIT_TEST(FBuilder_LineTypes)
     { "railway", "rail" },
     { "highway", "motorway" },
     { "hwtag", "oneway" },
+    { "psurface", "paved_good" },
     { "junction", "roundabout" },
   };
 
@@ -89,7 +90,7 @@ UNIT_TEST(FBuilder_LineTypes)
 
   TEST(fb2.CheckValid(), ());
   TEST_EQUAL(fb1, fb2, ());
-  TEST_EQUAL(fb2.GetTypesCount(), 4, ());
+  TEST_EQUAL(fb2.GetTypesCount(), 5, ());
 }
 
 UNIT_TEST(FBuilder_Waterfall)

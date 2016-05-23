@@ -60,6 +60,29 @@ namespace
 
     DumpTypes(params.m_Types);
   }
+
+  void TestSurfaceTypes(string const & surface, string const & smoothness, string const & grade, char const * value)
+  {
+    OsmElement e;
+    e.AddTag("highway", "unclassified");
+    e.AddTag("surface", surface);
+    e.AddTag("smoothness", smoothness);
+    e.AddTag("surface:grade", grade);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "unclassified"})), ());
+    string psurface;
+    for (auto type : params.m_Types)
+    {
+      string const rtype = classif().GetReadableObjectName(type);
+      if (rtype.substr(0, 9) == "psurface-")
+        psurface = rtype.substr(9);
+    }
+    TEST(params.IsTypeExist(GetType({"psurface", value})), ("Surface:", surface, "Smoothness:", smoothness, "Grade:", grade, "Expected:", value, "Got:", psurface));
+  }
 }
 
 UNIT_TEST(OsmType_Check)
@@ -483,7 +506,7 @@ UNIT_TEST(OsmType_Amenity)
 UNIT_TEST(OsmType_Hwtag)
 {
   char const * tags[][2] = {
-      {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
+      {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"}, {"hwtag", "yesbicycle"}
   };
 
   {
@@ -510,6 +533,7 @@ UNIT_TEST(OsmType_Hwtag)
         {"access", "private"},
         {"lit", "no"},
         {"foot", "no"},
+        {"bicycle", "yes"},
     };
 
     OsmElement e;
@@ -518,16 +542,17 @@ UNIT_TEST(OsmType_Hwtag)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 4, (params));
+    TEST_EQUAL(params.m_Types.size(), 5, (params));
     TEST(params.IsTypeExist(GetType(arr[1])), ());
     TEST(params.IsTypeExist(GetType(tags[0])), ());
     TEST(params.IsTypeExist(GetType(tags[1])), ());
     TEST(params.IsTypeExist(GetType(tags[3])), ());
+    TEST(params.IsTypeExist(GetType(tags[5])), ());
   }
 
   {
     char const * arr[][2] = {
-        {"foot", "yes"}, {"highway", "primary"},
+        {"foot", "yes"}, {"cycleway", "lane"}, {"highway", "primary"},
     };
 
     OsmElement e;
@@ -536,10 +561,31 @@ UNIT_TEST(OsmType_Hwtag)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 2, (params));
-    TEST(params.IsTypeExist(GetType(arr[1])), ());
+    TEST_EQUAL(params.m_Types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType(arr[2])), ());
     TEST(params.IsTypeExist(GetType(tags[4])), ());
+    TEST(params.IsTypeExist(GetType(tags[5])), ());
   }
+}
+
+UNIT_TEST(OsmType_Surface)
+{
+  TestSurfaceTypes("asphalt", "", "", "paved_good");
+  TestSurfaceTypes("asphalt", "bad", "", "paved_bad");
+  TestSurfaceTypes("asphalt", "", "0", "paved_bad");
+  TestSurfaceTypes("paved", "", "2", "paved_good");
+  TestSurfaceTypes("", "excellent", "", "paved_good");
+  TestSurfaceTypes("wood", "", "", "paved_bad");
+  TestSurfaceTypes("wood", "good", "", "paved_good");
+  TestSurfaceTypes("wood", "", "3", "paved_good");
+  TestSurfaceTypes("unpaved", "", "", "unpaved_good");
+  TestSurfaceTypes("mud", "", "", "unpaved_bad");
+  TestSurfaceTypes("", "bad", "", "unpaved_good");
+  TestSurfaceTypes("", "horrible", "", "unpaved_bad");
+  TestSurfaceTypes("ground", "", "1", "unpaved_bad");
+  TestSurfaceTypes("mud", "", "3", "unpaved_good");
+  TestSurfaceTypes("unknown", "", "", "unpaved_good");
+  TestSurfaceTypes("", "unknown", "", "unpaved_good");
 }
 
 UNIT_TEST(OsmType_Ferry)

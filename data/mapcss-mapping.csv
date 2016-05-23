@@ -1113,3 +1113,7 @@ sponsored;[sponsored];;name;int_name;1112;
 sponsored|booking;1113;
 hwtag|nobicycle;1114;
 hwtag|yesbicycle;1115;
+psurface|paved_good;1116;
+psurface|paved_bad;1117;
+psurface|unpaved_good;1118;
+psurface|unpaved_bad;1119;
