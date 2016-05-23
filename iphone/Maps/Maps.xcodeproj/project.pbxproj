@@ -396,7 +396,6 @@
 		6741A9941BF340DE002C974C /* MWMPortraitNavigationDashboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BD33771B62400E00F2CE18 /* MWMPortraitNavigationDashboard.xib */; };
 		6741A9951BF340DE002C974C /* MWMDownloaderDialogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F4B6E1B46A5380081A24A /* MWMDownloaderDialogCell.xib */; };
 		6741A9961BF340DE002C974C /* MWMSearchTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3485C0111B85C20E00F7712D /* MWMSearchTableViewController.xib */; };
-		6741A9971BF340DE002C974C /* MWMBookmarkDescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6ED13921B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib */; };
 		6741A9981BF340DE002C974C /* resources-xhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */; };
 		6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */; };
 		6741A99A1BF340DE002C974C /* MWMBookmarkColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6588E321B15D73100EE1E58 /* MWMBookmarkColorViewController.xib */; };
@@ -443,7 +442,6 @@
 		6741A9CE1BF340DE002C974C /* MWMSearchManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CFFE8A1B7DE6FD009D0C9F /* MWMSearchManager.mm */; };
 		6741A9CF1BF340DE002C974C /* MWMLocationAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BBF2C51B4FFB72000CF8E2 /* MWMLocationAlert.mm */; };
 		6741A9D01BF340DE002C974C /* MWMPlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F66A8FAF1B09F268001B9C97 /* MWMPlacePage.mm */; };
-		6741A9D21BF340DE002C974C /* MWMBookmarkDescriptionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED13901B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm */; };
 		6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */; };
 		6741A9D51BF340DE002C974C /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
 		6741A9D61BF340DE002C974C /* MWMPlacePageNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE2C0E1B03A006009814AA /* MWMPlacePageNavigationBar.mm */; };
@@ -596,7 +594,7 @@
 		845C892E1C8981CE00940D7F /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 845C892B1C8981CE00940D7F /* HockeySDKResources.bundle */; };
 		845C892F1C8981CE00940D7F /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 845C892B1C8981CE00940D7F /* HockeySDKResources.bundle */; };
 		845C89311C89837900940D7F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89301C89837900940D7F /* AssetsLibrary.framework */; };
-		845C89351C8983F300940D7F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89321C8983F300940D7F /* CoreText.framework */; };
+		845C89351C8983F300940D7F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89321C8983F300940D7F /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		845C89361C8983F300940D7F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89331C8983F300940D7F /* libc++.tbd */; };
 		845C89371C8983F300940D7F /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89341C8983F300940D7F /* QuickLook.framework */; };
 		974386DD19373EA400FD5659 /* ToastView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.mm */; };
@@ -718,6 +716,7 @@
 		F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2B1B15C26700EE1E58 /* MWMTextView.mm */; };
 		F6588E2F1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2E1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm */; };
 		F6588E331B15D73100EE1E58 /* MWMBookmarkColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6588E321B15D73100EE1E58 /* MWMBookmarkColorViewController.xib */; };
+		F659FC6A1CF35C24000A06B1 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F659FC691CF35C24000A06B1 /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F6671C6B1BA2EFD500548008 /* libFlurry_7.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */; };
 		F668F6561BCD4507002D6FFC /* MWMTTSSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F668F6551BCD4507002D6FFC /* MWMTTSSettingsViewController.mm */; };
 		F66A8FA81B09F052001B9C97 /* MWMiPhoneLandscapePlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F66A8FA71B09F052001B9C97 /* MWMiPhoneLandscapePlacePage.mm */; };
@@ -795,8 +794,6 @@
 		F6ED13541B1643900095C6DE /* MWMDirectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED13531B1643900095C6DE /* MWMDirectionView.mm */; };
 		F6ED13561B16439E0095C6DE /* MWMDirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6ED13551B16439E0095C6DE /* MWMDirectionView.xib */; };
 		F6ED135B1B18AA930095C6DE /* MWMExtendedPlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED135A1B18AA930095C6DE /* MWMExtendedPlacePageView.mm */; };
-		F6ED13911B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED13901B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm */; };
-		F6ED13931B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6ED13921B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib */; };
 		F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */; };
 		F6F6ACFC1C15C1010060FDD0 /* MWMRecentTrackSettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C641AF1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm */; };
 		F6F722F81AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F722F71AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm */; };
@@ -1413,6 +1410,7 @@
 		F6588E2D1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkColorViewController.h; sourceTree = "<group>"; };
 		F6588E2E1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkColorViewController.mm; sourceTree = "<group>"; };
 		F6588E321B15D73100EE1E58 /* MWMBookmarkColorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkColorViewController.xib; sourceTree = "<group>"; };
+		F659FC691CF35C24000A06B1 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_7.1.0.a; path = Statistics/libFlurry_7.1.0.a; sourceTree = "<group>"; };
 		F668F6541BCD4507002D6FFC /* MWMTTSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTTSSettingsViewController.h; sourceTree = "<group>"; };
 		F668F6551BCD4507002D6FFC /* MWMTTSSettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTTSSettingsViewController.mm; sourceTree = "<group>"; };
@@ -1510,9 +1508,6 @@
 		F6ED13551B16439E0095C6DE /* MWMDirectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDirectionView.xib; sourceTree = "<group>"; };
 		F6ED13591B18AA930095C6DE /* MWMExtendedPlacePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMExtendedPlacePageView.h; sourceTree = "<group>"; };
 		F6ED135A1B18AA930095C6DE /* MWMExtendedPlacePageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMExtendedPlacePageView.mm; sourceTree = "<group>"; };
-		F6ED138F1B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkDescriptionViewController.h; sourceTree = "<group>"; };
-		F6ED13901B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkDescriptionViewController.mm; sourceTree = "<group>"; };
-		F6ED13921B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkDescriptionViewController.xib; sourceTree = "<group>"; };
 		F6EE7BC11B78A1AB00FF6500 /* FlurryWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
 		F6F533A11B3C248900C1940B /* UIColor+MapsMeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MapsMeColor.h"; sourceTree = "<group>"; };
 		F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIColor+MapsMeColor.mm"; sourceTree = "<group>"; };
@@ -1627,6 +1622,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F659FC6A1CF35C24000A06B1 /* SafariServices.framework in Frameworks */,
 				341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */,
 				3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */,
 				34921F6B1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */,
@@ -1803,6 +1799,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F659FC691CF35C24000A06B1 /* SafariServices.framework */,
 				34A62D4C1C903533007FDCB7 /* Fabric.framework */,
 				34A62D4D1C903533007FDCB7 /* Crashlytics.framework */,
 				845C89321C8983F300940D7F /* CoreText.framework */,
@@ -2986,9 +2983,6 @@
 				F6ED13521B1643900095C6DE /* MWMDirectionView.h */,
 				F6ED13531B1643900095C6DE /* MWMDirectionView.mm */,
 				F6ED13551B16439E0095C6DE /* MWMDirectionView.xib */,
-				F6ED138F1B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.h */,
-				F6ED13901B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm */,
-				F6ED13921B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib */,
 			);
 			name = PlacePage;
 			path = ../..;
@@ -3392,7 +3386,6 @@
 				F6BD337A1B62400E00F2CE18 /* MWMPortraitNavigationDashboard.xib in Resources */,
 				F64F4B6F1B46A5380081A24A /* MWMDownloaderDialogCell.xib in Resources */,
 				3485C0131B85C20E00F7712D /* MWMSearchTableViewController.xib in Resources */,
-				F6ED13931B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib in Resources */,
 				4A23D15E1B8B4DD700D4EB6F /* resources-xhdpi_clear in Resources */,
 				F64F199A1AB81A00006EAF7E /* MWMAlertViewController.xib in Resources */,
 				F6588E331B15D73100EE1E58 /* MWMBookmarkColorViewController.xib in Resources */,
@@ -3538,7 +3531,6 @@
 				6741A9951BF340DE002C974C /* MWMDownloaderDialogCell.xib in Resources */,
 				6741A9961BF340DE002C974C /* MWMSearchTableViewController.xib in Resources */,
 				F6BD1D241CA412E40047B8E8 /* MWMOsmAuthAlert.xib in Resources */,
-				6741A9971BF340DE002C974C /* MWMBookmarkDescriptionViewController.xib in Resources */,
 				6741A9981BF340DE002C974C /* resources-xhdpi_clear in Resources */,
 				347FD87E1C60B2CE002FB65E /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
 				6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */,
@@ -3655,7 +3647,6 @@
 				3492CC121C6DF00E0057D8E8 /* (null) in Sources */,
 				F6BBF2C61B4FFB72000CF8E2 /* MWMLocationAlert.mm in Sources */,
 				F66A8FB01B09F268001B9C97 /* MWMPlacePage.mm in Sources */,
-				F6ED13911B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm in Sources */,
 				F6FE3C381CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm in Sources */,
 				F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */,
 				341223BB1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm in Sources */,
@@ -3874,7 +3865,6 @@
 				6741A9D01BF340DE002C974C /* MWMPlacePage.mm in Sources */,
 				3492CC131C6DF00F0057D8E8 /* (null) in Sources */,
 				34E0EECF1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.mm in Sources */,
-				6741A9D21BF340DE002C974C /* MWMBookmarkDescriptionViewController.mm in Sources */,
 				3476B8CC1BFDCB6700874594 /* MWMTTSSettingsViewController.mm in Sources */,
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
 				F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm in Sources */,

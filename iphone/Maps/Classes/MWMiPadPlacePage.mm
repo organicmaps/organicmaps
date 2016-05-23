@@ -1,12 +1,9 @@
 #import "Common.h"
 #import "MWMBasePlacePageView.h"
-#import "MWMBookmarkColorViewController.h"
-#import "MWMBookmarkDescriptionViewController.h"
 #import "MWMiPadPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMViewController.h"
-#import "SelectSetVC.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 

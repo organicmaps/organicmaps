@@ -220,9 +220,7 @@ using namespace osm_auth_ios;
   [self performOnlineAction:^
   {
     [Statistics logEvent:kStatEditorRegRequest withParameters:@{kStatFrom : kStatProfile}];
-    OsmOAuth const auth = OsmOAuth::ServerAuth();
-    NSURL * url = [NSURL URLWithString:@(auth.GetRegistrationURL().c_str())];
-    [[UIApplication sharedApplication] openURL:url];
+    [self openUrl:[NSURL URLWithString:@(OsmOAuth::ServerAuth().GetRegistrationURL().c_str())]];
   }];
 }
 

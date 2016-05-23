@@ -7,6 +7,8 @@
 + (UIColor *)menuBackground;
 + (UIColor *)downloadBadgeBackground;
 + (UIColor *)pressBackground;
++ (UIColor *)yellow;
++ (UIColor *)green;
 + (UIColor *)red;
 + (UIColor *)errorPink;
 + (UIColor *)orange;

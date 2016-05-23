@@ -1,4 +1,6 @@
 #import "Common.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageInfoCell.h"
 #import "Statistics.h"
@@ -102,6 +104,12 @@
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
+  NSString * scheme = URL.scheme;
+  if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])
+  {
+    [MapsAppDelegate.theApp.mapViewController openUrl:URL];
+    return NO;
+  }
   return YES;
 }
 

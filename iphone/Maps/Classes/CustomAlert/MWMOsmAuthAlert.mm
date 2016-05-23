@@ -42,7 +42,7 @@ extern NSString * const kMap2GoogleLoginSegue;
   [self close];
   [Statistics logEvent:kStatEditorRegRequest withParameters:@{kStatFrom : kStatEdit}];
   NSURL * url = [NSURL URLWithString:@(osm::OsmOAuth::ServerAuth().GetRegistrationURL().c_str())];
-  [[UIApplication sharedApplication] openURL:url];
+  [self.alertController.ownerViewController openUrl:url];
 }
 
 - (IBAction)closeTap

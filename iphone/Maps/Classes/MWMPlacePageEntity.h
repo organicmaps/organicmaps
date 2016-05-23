@@ -45,6 +45,8 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 @property (copy, nonatomic) NSString * bookmarkDescription;
 @property (nonatomic, readonly) BOOL isHTMLDescription;
 @property (copy, nonatomic) NSString * bookmarkColor;
+@property (copy, nonatomic) NSString * bookingRating;
+@property (copy, nonatomic) NSString * bookingPrice;
 
 @property (nonatomic) BookmarkAndCategory bac;
 @property (weak, nonatomic) MWMPlacePageViewManager * manager;
@@ -53,6 +55,7 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 - (BOOL)isMyPosition;
 - (BOOL)isBookmark;
 - (BOOL)isApi;
+- (BOOL)isBooking;
 - (ms::LatLon)latlon;
 - (m2::PointD const &)mercator;
 - (NSString *)apiURL;

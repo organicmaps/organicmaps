@@ -88,6 +88,8 @@ void initFieldsMap()
   self.title = @(m_info.GetTitle().c_str());
   self.address = @(m_info.GetAddress().c_str());
   self.subtitle = @(m_info.GetSubtitle().c_str());
+  self.bookingRating = @(m_info.GetRatingFormatted().c_str());
+  self.bookingPrice = @(m_info.GetApproximatePricing().c_str());
 }
 
 - (void)configureFeature
@@ -143,8 +145,7 @@ void initFieldsMap()
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType
 {
   auto const s = MapsAppDelegate.theApp.mapViewController.controlsManager.navigationState;
-  BOOL const editOrAddAreAvailable = version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion()) &&
-                                     s == MWMNavigationDashboardStateHidden;
+  BOOL const editOrAddAreAvailable = version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion()) && s == MWMNavigationDashboardStateHidden && !self.isBooking;
   switch (cellType)
   {
     case MWMPlacePageCellTypeName:
@@ -197,6 +198,11 @@ void initFieldsMap()
 - (BOOL)isApi
 {
   return m_info.HasApiUrl();
+}
+
+- (BOOL)isBooking
+{
+  return m_info.IsSponsoredHotel();
 }
 
 - (ms::LatLon)latlon

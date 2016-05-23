@@ -1,14 +1,11 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMBasePlacePageView.h"
-#import "MWMBookmarkColorViewController.h"
-#import "MWMBookmarkDescriptionViewController.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
-#import "SelectSetVC.h"
 #import "Statistics.h"
 
 static NSString * const kPlacePageNibIdentifier = @"PlacePageView";
