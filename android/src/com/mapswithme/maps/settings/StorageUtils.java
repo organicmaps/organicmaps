@@ -248,7 +248,11 @@ final class StorageUtils
    */
   static void listFilesRecursively(File dir, String prefix, FilenameFilter filter, ArrayList<String> relPaths)
   {
-    for (File file : dir.listFiles())
+    File[] list = dir.listFiles();
+    if (list == null)
+      return;
+
+    for (File file : list)
     {
       if (file.isDirectory())
       {
