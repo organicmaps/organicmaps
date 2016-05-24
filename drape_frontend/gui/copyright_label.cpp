@@ -38,6 +38,12 @@ namespace
 
       if (!TBase::Update(screen))
         return false;
+      
+      if (!DrapeGui::Instance().IsCopyrightActive())
+      {
+        SetIsVisible(false);
+        return false;
+      }
 
       if (m_animation == nullptr)
         m_animation.reset(new df::OpacityAnimation(kCopyrightHideTime, kCopyrightVisibleTime, 1.0f, 0.0f));

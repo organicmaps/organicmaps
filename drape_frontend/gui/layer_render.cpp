@@ -32,8 +32,11 @@ void LayerRenderer::Build(ref_ptr<dp::GpuProgramManager> mng)
 
 void LayerRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, ScreenBase const & screen)
 {
-  DrapeGui::GetRulerHelper().ResetTextDirtyFlag();
-  DrapeGui::GetRulerHelper().Update(screen);
+  if (HasWidget(gui::WIDGET_RULER))
+  {
+    DrapeGui::GetRulerHelper().ResetTextDirtyFlag();
+    DrapeGui::GetRulerHelper().Update(screen);
+  }
   for (TRenderers::value_type & r : m_renderers)
     r.second->Render(screen, mng);
 }

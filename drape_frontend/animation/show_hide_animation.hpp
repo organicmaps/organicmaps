@@ -18,7 +18,7 @@ public:
     STATE_HIDE_DIRECTION
   };
 
-  ShowHideAnimation(bool isInitialiVisible, double fullDuraction);
+  ShowHideAnimation(bool isInitialVisible, double fullDuraction);
   ~ShowHideAnimation();
 
   void Show();

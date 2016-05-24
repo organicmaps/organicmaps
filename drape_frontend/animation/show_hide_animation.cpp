@@ -37,8 +37,8 @@ private:
   double m_endT;
 };
 
-ShowHideAnimation::ShowHideAnimation(bool isInitialiVisible, double fullDuraction)
-  : m_state(isInitialiVisible ? STATE_VISIBLE : STATE_INVISIBLE)
+ShowHideAnimation::ShowHideAnimation(bool isInitialVisible, double fullDuraction)
+  : m_state(isInitialVisible ? STATE_VISIBLE : STATE_INVISIBLE)
   , m_fullDuration(fullDuraction)
 {
 }

@@ -153,6 +153,11 @@ bool RulerHelper::IsVisible(ScreenBase const & screen) const
   return !gui.IsCopyrightActive() && df::GetDrawTileScale(screen) >= VISIBLE_RULER_BOTTOM_SCALE;
 }
 
+void RulerHelper::Invalidate()
+{
+  SetTextDirty();
+}
+
 float RulerHelper::GetRulerHalfHeight() const
 {
   float const kRulerHalfHeight = 1.0f;
