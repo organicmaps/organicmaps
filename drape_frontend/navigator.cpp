@@ -182,9 +182,9 @@ void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2)
   m_InAction = true;
 }
 
-void Navigator::Scale(m2::PointD const & pixelCenterOffset, double factor)
+void Navigator::Scale(m2::PointD const & pixelScaleCenter, double factor)
 {
-  ApplyScale(pixelCenterOffset, factor, m_Screen);
+  ApplyScale(pixelScaleCenter, factor, m_Screen);
 }
 
 bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,

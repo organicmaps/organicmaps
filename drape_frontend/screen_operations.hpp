@@ -1,7 +1,6 @@
 #pragma once
 
 #include "geometry/screenbase.hpp"
-#include "animation/sequence_animation.hpp"
 
 namespace df
 {
@@ -29,10 +28,6 @@ m2::PointD CalculateCenter(double scale, m2::RectD const & pixelRect,
                            m2::PointD const & userPos, m2::PointD const & pixelPos,
                            double azimuth);
 
-bool ApplyScale(m2::PointD const & pixelCenterOffset, double factor, ScreenBase & screen);
-
-drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const screen, double startScale, double endScale,
-                                                    m2::PointD const & startPt, m2::PointD const & endPt,
-                                                    function<void(ref_ptr<Animation>)> onStartAnimation);
+bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase & screen);
 
 } // namespace df

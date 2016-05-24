@@ -59,7 +59,6 @@ m2::PointD CalculateCenter(ScreenBase const & screen, m2::PointD const & userPos
   return CalculateCenter(scale, screen.PixelRect(), userPos, pixelPos, azimuth);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////
 bool CheckMinScale(ScreenBase const & screen)
 {
   m2::RectD const & r = screen.ClipRect();
@@ -239,10 +238,12 @@ ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRe
 
   return res;
 }
-////////////////////////////////////////////////
-bool ApplyScale(m2::PointD const & pixelCenterOffset, double factor, ScreenBase & screen)
+
+bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase & screen)
 {
-  m2::PointD globalScaleCenter = screen.PtoG(screen.PixelRect().Center() - pixelCenterOffset);
+  m2::PointD const globalScaleCenter = screen.PtoG(screen.P3dtoP(pixelScaleCenter));
+  m2::PointD const pixelCenterOffset = screen.PixelRect().Center() - screen.P3dtoP(pixelScaleCenter);
+
   ScreenBase tmp = screen;
   tmp.Scale(factor);
 
@@ -271,36 +272,6 @@ bool ApplyScale(m2::PointD const & pixelCenterOffset, double factor, ScreenBase 
 
   screen = tmp;
   return true;
-}
-
-drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const screen, double startScale, double endScale,
-                                                    m2::PointD const & startPt, m2::PointD const & endPt,
-                                                    function<void(ref_ptr<Animation>)> onStartAnimation)
-{
-  double const moveDuration = PositionInterpolator::GetMoveDuration(startPt, endPt, screen);
-  double const scaleFactor = moveDuration / kMaxAnimationTimeSec * 2.0;
-
-  drape_ptr<SequenceAnimation> sequenceAnim = make_unique_dp<SequenceAnimation>();
-  sequenceAnim->SetCustomType(kPrettyMoveAnim);
-
-  drape_ptr<MapLinearAnimation> zoomOutAnim = make_unique_dp<MapLinearAnimation>();
-  zoomOutAnim->SetScale(startScale, startScale * scaleFactor);
-  zoomOutAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
-  zoomOutAnim->SetOnStartAction(onStartAnimation);
-
-  //TODO (in future): Pass fixed duration instead of screen.
-  drape_ptr<MapLinearAnimation> moveAnim = make_unique_dp<MapLinearAnimation>();
-  moveAnim->SetMove(startPt, endPt, screen);
-  moveAnim->SetMaxDuration(kMaxAnimationTimeSec);
-
-  drape_ptr<MapLinearAnimation> zoomInAnim = make_unique_dp<MapLinearAnimation>();
-  zoomInAnim->SetScale(startScale * scaleFactor, endScale);
-  zoomInAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
-
-  sequenceAnim->AddAnimation(move(zoomOutAnim));
-  sequenceAnim->AddAnimation(move(moveAnim));
-  sequenceAnim->AddAnimation(move(zoomInAnim));
-  return sequenceAnim;
 }
 
 } // namespace df

@@ -40,7 +40,7 @@ public:
   void StopScale(m2::PointD const & pt1, m2::PointD const & pt2);
   bool IsRotatingDuringScale() const;
 
-  void Scale(m2::PointD const & pixelCenterOffset, double factor);
+  void Scale(m2::PointD const & pixelScaleCenter, double factor);
   bool InAction() const;
 
   void Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV);
