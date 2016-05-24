@@ -366,7 +366,7 @@ amenity-pub
 en:2Pub|bar|beer|food|U+1F37A|U+1F37B
 ar:بار|الحانة|خمارة์|بيرة ์|شراب|الطعام
 cs:Hospoda|Bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
-da:Kro|Bar|øl|drink|mad
+da:Værtshus|kro|bar|øl|drink|mad
 de:Kneipe|Bar|Kneipe|Bier|Essen
 es:Pub|Bar|comer
 fi:Pubi|Baari|ruoka
@@ -574,7 +574,7 @@ shop-cosmetics
 en:4Beauty Care|home care|shop|U+1F3EC|U+1F3EA
 ar:ﻞﻴﻤﺠﺘﻟﺍ ﺕﺍﺮﻀﺤﺘﺴﻣ|تجميل|المتجر
 cs:4Kosmetika|domácí péče|obchod
-da:4Kosmetik|hjemmepleje|butik
+da:4Kosmetik|butik
 de:4Kosmetik|Geschäft|Schönheitspflege
 el:Καλλυντικά|Μαγαζί
 es:4Productos cosméticos|tienda
@@ -606,7 +606,7 @@ shop-convenience
 en:4Convenience Store|shop|U+1F3EC|U+1F3EA
 ar:متجر|متجر صغير|المتجر
 cs:Smíšené zboží|koloniál|obchod
-da:Dagligvarebutik|butik
+da:Dagligvarebutik|døgnbutik|døgnkiosk|kiosk|butik
 de:Gemischtwarenladen|Geschäft
 es:Chino|tienda
 fi:Lähikauppa|kauppa
@@ -634,7 +634,7 @@ shop-garden_centre
 en:Garden Store|U+1F3EC|U+1F3EA|U+1F3E1|shop
 ar:حضانة|روضة|المتجر
 cs:Školka|zahradní centrum|obchod
-da:Planteskole|havebutik|butik
+da:Planteskole|havecenter|plantecenter|havebutik|butik
 de:Gärtnerei|Garten-Center|Geschäft
 es:Vivero|tienda de jardinería|tienda
 fi:Taimitarha|kauppa
@@ -663,7 +663,7 @@ shop-mobile_phone
 en:Cell Phones|Mobile Phones|electronics store|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2|shop
 ar:متجر هواتف محمولة|متجر إلكترونيات|المتجر
 cs:Mobily|Obchod s mobilními telefony|obchod s elektronikou|obchod
-da:Mobiltelefon butik|elektronikforretning|butik
+da:Mobiltelefonbutik|elektronikforretning|butik
 de:Handyladen|Eletronikgeschäft|Geschäft
 es:Celulares|Tienda de telefonía móvil|tienda de electrónica|tienda
 fi:Elektroniikkakauppa|kauppa
@@ -692,7 +692,7 @@ shop-florist
 en:Florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|2shop
 ru:Цветочный магазин|цветы|2магазин
 fr:Fleuriste|2magasin
-da:Blomsterbutik|2butik
+da:Blomsterbutik|blomsterforretning|blomsterhandel|blomsterhandler|2butik
 id:Tukang bunga|toko bunga|2toko
 ko:플로리스트의꽃가게|1쇼핑|가게
 sv:Blomsteraffär|2butik
@@ -721,7 +721,7 @@ shop-butcher
 en:Butcher’s|U+1F356|U+1F357|2shop
 ru:Мясная лавка|мясо|2магазин
 fr:Boucherie|2magasin
-da:Slagter|2butik
+da:Slagter|slagterbutik|2butik
 id:Tukang daging|2toko
 ko:정육점의|1쇼핑|가게
 sv:Slaktare|2butik
@@ -750,7 +750,7 @@ shop-furniture
 en:Furniture Store|2shop
 ru:Магазин мебели|2магазин
 fr:Magasin de meubles|2magasin
-da:Møbelbutik|2butik
+da:Møbelbutik|møbelforretning|møbelhandler|2butik
 id:Toko mebel|2toko
 ko:가구 상점|1쇼핑|가게
 sv:Möbelaffär|2butik
@@ -779,7 +779,7 @@ shop-alcohol
 en:Liquor Store|liquor|U+1F377|2shop
 ru:Магазин алкоголя|4алкоголь|3винный|3вино-водочный|2магазин
 fr:Magasin de vins et spiritueux|vins et spiritueux|2magasin
-da:Vinhandel|2butik
+da:Vinhandel|alkohol|sprut|spiritus|2butik
 id:Toko alkohol|minuman keras|2toko
 ko:주류 샵|1쇼핑|가게
 sv:Spritaffär|alkohol|2butik
@@ -808,7 +808,7 @@ shop-books
 en:Bookstore|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5|2shop
 ru:Книжный магазин|книги|2магазин
 fr:Librairie|2magasin
-da:Boghandel|2butik
+da:Boghandel|boghandler|boglade|2butik
 id:Toko buku|2toko
 ko:서점|1쇼핑|가게
 sv:Bokaffär|2butik
@@ -866,7 +866,7 @@ shop-electronics
 en:Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1|2shop
 ru:Электротехника|2магазин
 fr:Magasin d'électroménager|2magasin
-da:Elektronikbutik|2butik
+da:Elektronikbutik|elektronik|2butik
 id:Elektronik|2toko
 ko:전자|1쇼핑|가게
 sv:Elektronik|2butik
@@ -924,7 +924,7 @@ shop-jewelry
 en:Jewelry|U+1F48D|2shop
 ru:Ювелирный магазин|2магазин
 fr:Bijouterie|2magasin
-da:Smykkebutik|2butik
+da:Smykkebutik|smykker|2butik
 id:Perhiasan|2toko
 ko:보석류|1쇼핑|가게
 sv:Smycken|2butik
@@ -956,7 +956,7 @@ fr:Opticien|2magasin
 da:Optiker|2butik
 id:Toko kacamata|2toko
 ko:안경점 의|1쇼핑|가게
-sv:Optiker|2butik
+sv:Optiker|brillebutik|briller|2butik
 tr:Gözlükçü|2mağaza
 uk:Оптика|2магазин|крамниця
 vi:Cửa hàng mắt kính|cửa hàng
@@ -982,7 +982,7 @@ shop-gift
 en:Gift Shop|U+1F381|2shop
 ru:Магазин сувениров|сувенирная лавка|cувениры|2магазин
 fr:Boutique de souvenirs|2magasin
-da:Gavebutik|2butik
+da:Gavebutik|souvenirbutik|2butik
 id:Toko hadiah|2toko
 ko:선물 가게|1쇼핑|가게
 sv:Presentaffär|2butik
@@ -1043,7 +1043,7 @@ shop-greengrocer
 en:4Greengrocer's|greengrocers|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353|2shop
 ru:Овощи и фрукты|овощи|фрукты|2магазин
 fr:Primeur|2magasin
-da:Grønthandler|2butik
+da:Grønthandler|grønthandel|frugt og grønt|2butik
 id:Penjual sayuran|2toko
 ko:청과물 상인의|1쇼핑|가게
 sv:Grönsakshandlare|2butik
@@ -1072,7 +1072,7 @@ shop-sports
 en:Sports Goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3|2shop
 ru:Магазин спорттоваров|Спорттовары|товары для спорта|2магазин
 fr:Articles de sport|2magasin
-da:Sportsudstyr|2butik
+da:Sportsudstyr|sport|2butik
 id:Barang olahraga|2toko
 ko:스포츠 용품|1쇼핑|가게
 sv:Sportaffär|2butik
@@ -1131,7 +1131,7 @@ shop-mall
 en:Mall|5shopping mall|shop
 ar:ﻝﻮﻣ|المتجر
 cs:Obchoďák|obchod
-da:Centeret|butik
+da:Indkøbscenter|butikscenter|storcenter|center|butik
 de:Das Einkaufszentrum|Geschäft
 el:Το εμπορικό κέντρο|μαγαζί
 es:El centro comercial|tienda
@@ -1163,7 +1163,7 @@ shop-department_store
 en:Department Store|U+1F3EC|U+1F3EA|shop
 ar:متجر شامل|مركز تجاري|المتجر
 cs:Obchodní dům|obchod
-da:Stormagasin|butik
+da:Stormagasin|varehus|butik
 de:Kaufhaus|Geschäft
 es:Grandes almacenes|tienda
 fi:Tavaratalo|kauppa
@@ -1220,7 +1220,7 @@ shop-computer
 en:Computer Store|U+1F4BB|shop
 ar:متجر كمبيوتر|المتجر
 cs:Obchod s počítači|obchod
-da:Computerforretning|butik
+da:Computerforretning|computerbutik|computer|butik
 de:Computergeschäft|Geschäft
 es:Tienda de informática|tienda de ordenadores|tienda
 fi:Tietokonekauppa|kauppa
@@ -1248,7 +1248,7 @@ shop-confectionery
 en:Sweets|3confectionery|candy store|shop|U+1F36C|U+1F36D
 ar:حلواني|متجر حلويات|المتجر
 cs:Cukrárna|obchod
-da:Konfektureforretning|slikbutik|butik
+da:Slikbutik|slikforretning|konfektureforretning|slik|konfekt|butik
 de:Süßwarengeschäft|Geschäft
 es:Confitería|confitería|tienda
 fi:Makeiskauppa|kauppa
@@ -1277,7 +1277,7 @@ shop-laundry
 en:4Laundry|laundromat
 ar:مغسلة|غسيل ملابس
 cs:4Prádelna|veřejná prádelna
-da:4Vaskeri
+da:4Vaskeri|mønstvask
 de:Wäscherei|Waschsalon
 es:Lavandería
 fi:4Pesula
@@ -1306,7 +1306,7 @@ shop-toys
 en:Toy Store|shop
 ar:محل لعب|المتجر
 cs:Hračkářství|obchod
-da:Legetøjsbutik|butik
+da:Legetøjsbutik|legetøj|butik
 de:Spielzeuggeschäft|Geschäft
 es:Tienda de juguetes|juguetería|tienda
 fi:Leikkikalukauppa|kauppa
@@ -1380,7 +1380,7 @@ hu:Ruhabolt|4ruhák|bolt
 th:ร้านขายเสื้อผ้า|ร้าน|ร้านค้า
 zh-Hans:服装店|商店
 ar:متجر ألبسة|المتجر
-da:Tøjbutik|tøj|butik
+da:Tøjbutik|tøjforretning|tøj|butik
 tr:Giyim mağazası|mağaza
 sv:Kläder butik|4kläder|butik
 vi:Cửa hàng quần áo|cửa hàng
@@ -1440,7 +1440,7 @@ hu:4Kerékpár üzlet|kerékpár|kocsi|bolt
 th:4จักรยาน|ร้าน|ร้านค้า
 zh-Hans:自行车店|商店
 ar:متجر دراجات
-da:Cykelforretning|butik
+da:3Cykelforretning|cykler|butik
 tr:Bisiklet|mağaza
 sv:4Cykelaffär|cykel|cykel|butik
 vi:3Cửa hàng xe đạp|cửa hàng
@@ -1589,7 +1589,7 @@ hu:3Vonatmegálló|4vonat|4megálló|4közlekedés
 th:3สถานีรถไฟ|รถไฟ|สถานี|ขนส่ง|การขนส่ง
 zh-Hans:1火车站ี|铁路ี|站ี|运输|交通
 ar:سكة الحديدี|محطة القطارี|محطةี|نقل|النقل
-da:3Jernbane|4togstationี|4stationี|transport
+da:4Togstation|4station|3jernbane|transport
 tr:2Gar|3demiryolları|ulaşım
 sv:3Tågstation|4järnväg|järnväg|3tåg|4station|4transport
 vi:Đường tàu hỏa|giao thông
@@ -1619,7 +1619,7 @@ hu:3Földalatti|3metro|közlekedés
 th:3รถไฟ|สถานีรถไฟใต้ดิน|ท่อ|เมโทร|ใต้ดิน|การขนส่ง
 zh-Hans:地铁|地铁|地铁|地铁|交通
 ar:محطة|القطار الكهربائي النفقي|قطار الأنفاق|المترو|تحت الأرض|النقل
-da:3Undergrundsbane|3metro|3undergrund|3transport
+da:3Metro|3undergrundsbane|3undergrund|3transport
 tr:2Metro|3yer altı metrosu|ulaşım
 sv:3Tunnelbana|3tunnelbana|3metro|3tunnelbana|transport
 vi:3Ngầm|giao thông
