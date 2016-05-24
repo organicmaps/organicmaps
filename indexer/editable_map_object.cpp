@@ -195,7 +195,7 @@ void EditableMapObject::SetPointType() { m_geomType = feature::EGeomType::GEOM_P
 // static
 bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
 {
-  if (buildingLevels.size() > log10(kMaximumLevelsEditableByUsers) + 1)
+  if (buildingLevels.size() > 18 /* max number of digits in uint_64 */)
     return false;
 
   uint64_t levels;
@@ -205,6 +205,8 @@ bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
 // static
 bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
 {
+  // TODO(mgsergio): Make a better validation, use real samples for example.
+
   if (houseNumber.empty())
     return true;
 
@@ -219,7 +221,7 @@ bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
   for (auto const c : us)
   {
     // Valid house numbers contain at least one digit.
-    if (c >= '0' && c <= '9')
+    if (strings::IsASCIIDigit(c))
       return true;
   }
   return false;
@@ -249,7 +251,7 @@ bool EditableMapObject::ValidateFlats(string const & flats)
 // static
 bool EditableMapObject::ValidatePostCode(string const & postCode)
 {
-  return search::LooksLikePostcode(postCode, false /* check whole matching */);
+  return search::LooksLikePostcode(postCode, false /* IsPrefix */);
 }
 
 // static
@@ -258,34 +260,28 @@ bool EditableMapObject::ValidatePhone(string const & phone)
   if (phone.empty())
     return true;
 
-  auto start = begin(phone);
-  auto const stop = end(phone);
+  auto curr = begin(phone);
+  auto const last = end(phone);
 
   auto const kMaxNumberLen = 15;
   auto const kMinNumberLen = 5;
 
-  if (*start == '+')
-    ++start;
+  if (*curr == '+')
+    ++curr;
 
   auto digitsCount = 0;
-  for (; start != stop; ++start)
+  for (; curr != last; ++curr)
   {
-    auto const isCharValid = isdigit(*start) || *start == '(' ||
-                             *start == ')' || *start == ' ' || *start == '-';
+    auto const isCharValid = isdigit(*curr) || *curr == '(' ||
+                             *curr == ')' || *curr == ' ' || *curr == '-';
     if (!isCharValid)
       return false;
 
-    if (isdigit(*start))
+    if (isdigit(*curr))
       ++digitsCount;
   }
 
   return kMinNumberLen <= digitsCount && digitsCount <= kMaxNumberLen;
-}
-
-// static
-bool EditableMapObject::ValidateFax(string const & fax)
-{
-  return ValidatePhone(fax);
 }
 
 // static
@@ -295,7 +291,7 @@ bool EditableMapObject::ValidateWebsite(string const & site)
     return true;
 
   auto const dotPos = find(begin(site), end(site), '.');
-  // Site should contain at least one dot but not at the begining and not at the and.
+  // Site should contain at least one dot but not at the begining/and.
   if (dotPos == end(site) || site.front() == '.' || site.back() == '.')
     return false;
 

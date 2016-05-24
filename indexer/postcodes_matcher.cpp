@@ -102,7 +102,7 @@ public:
   // patterns.
   //
   // Complexity: O(total length of tokens in |slice|).
-  bool HasString(StringSliceBase const & slice, bool handleAsPrefix) const
+  bool HasString(StringSliceBase const & slice, bool isPrefix) const
   {
     if (slice.Size() == 0)
       return m_root.m_isLeaf;
@@ -120,7 +120,7 @@ public:
     if (!cur)
       return false;
 
-    if (handleAsPrefix)
+    if (isPrefix)
       return true;
 
     return cur->m_isLeaf;
@@ -159,18 +159,18 @@ PostcodesMatcher const & GetPostcodesMatcher()
 }
 }  // namespace
 
-bool LooksLikePostcode(StringSliceBase const & slice, bool handleAsPrefix)
+bool LooksLikePostcode(StringSliceBase const & slice, bool isPrefix)
 {
-  return GetPostcodesMatcher().HasString(slice, handleAsPrefix);
+  return GetPostcodesMatcher().HasString(slice, isPrefix);
 }
 
-bool LooksLikePostcode(string const & s, bool handleAsPrefix)
+bool LooksLikePostcode(string const & s, bool isPrefix)
 {
   vector<UniString> tokens;
   bool const lastTokenIsPrefix =
       TokenizeStringAndCheckIfLastTokenIsPrefix(s, tokens, search::Delimiters());
 
-  return LooksLikePostcode(NoPrefixStringSlice(tokens), handleAsPrefix && lastTokenIsPrefix);
+  return LooksLikePostcode(NoPrefixStringSlice(tokens), isPrefix && lastTokenIsPrefix);
 }
 
 size_t GetMaxNumTokensInPostcode() { return GetPostcodesMatcher().GetMaxNumTokensInPostcode(); }

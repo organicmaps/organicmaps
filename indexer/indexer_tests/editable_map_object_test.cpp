@@ -2,6 +2,8 @@
 
 #include "indexer/editable_map_object.hpp"
 
+namespace
+{
 using osm::EditableMapObject;
 
 UNIT_TEST(EditableMapObject_SetWebsite)
@@ -10,7 +12,7 @@ UNIT_TEST(EditableMapObject_SetWebsite)
   emo.SetWebsite("https://some.thing.org");
   TEST_EQUAL(emo.GetWebsite(), "https://some.thing.org", ());
 
-  emo.SetWebsite("some.thing.org");
+  emo.SetWebsite("http://some.thing.org");
   TEST_EQUAL(emo.GetWebsite(), "http://some.thing.org", ());
 
   emo.SetWebsite("some.thing.org");
@@ -18,7 +20,6 @@ UNIT_TEST(EditableMapObject_SetWebsite)
 
   emo.SetWebsite("");
   TEST_EQUAL(emo.GetWebsite(), "", ());
-
 }
 
 UNIT_TEST(EditableMapObject_ValidateBuildingLevels)
@@ -54,6 +55,7 @@ UNIT_TEST(EditableMapObject_ValidateFlats)
   TEST(EditableMapObject::ValidateFlats("123-456;a-e"), ());
   TEST(EditableMapObject::ValidateFlats("123-456"), ());
   TEST(EditableMapObject::ValidateFlats("123-456; 43-45"), ());
+  TEST(!EditableMapObject::ValidateFlats("123-456, 43-45"), ());
   TEST(!EditableMapObject::ValidateFlats("234-234 124"), ());
   TEST(!EditableMapObject::ValidateFlats("123-345-567"), ());
   TEST(!EditableMapObject::ValidateFlats("234-234;234("), ());
@@ -84,11 +86,6 @@ UNIT_TEST(EditableMapObject_ValidatePhone)
   TEST(!EditableMapObject::ValidatePhone("000 000 00b"), ());
 }
 
-// See validate phone.
-// UNIT_TEST(EditableMapObject_ValidateFax)
-// {
-// }
-
 UNIT_TEST(EditableMapObject_ValidateWebsite)
 {
   TEST(EditableMapObject::ValidateWebsite(""), ());
@@ -111,3 +108,4 @@ UNIT_TEST(EditableMapObject_ValidateEmail)
   TEST(!EditableMapObject::ValidateEmail("e@ma@i.l"), ());
   TEST(!EditableMapObject::ValidateEmail("e@mail"), ());
 }
+}  // namespace

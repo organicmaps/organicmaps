@@ -111,7 +111,6 @@ public:
   static bool ValidateFlats(string const & flats);
   static bool ValidatePostCode(string const & postCode);
   static bool ValidatePhone(string const & phone);
-  static bool ValidateFax(string const & fax);
   static bool ValidateWebsite(string const & site);
   static bool ValidateEmail(string const & email);
 

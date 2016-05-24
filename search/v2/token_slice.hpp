@@ -69,10 +69,10 @@ private:
   vector<size_t> m_indexes;
 };
 
-class QuerySliceOnTokens : public StringSliceBase
+class QuerySlice : public StringSliceBase
 {
 public:
-  QuerySliceOnTokens(TokenSlice const & slice) : m_slice(slice) {}
+  QuerySlice(TokenSlice const & slice) : m_slice(slice) {}
 
   // QuerySlice overrides:
   QueryParams::TString const & Get(size_t i) const override { return m_slice.Get(i).front(); }

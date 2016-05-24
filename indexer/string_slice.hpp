@@ -2,6 +2,7 @@
 
 #include "base/string_utils.hpp"
 
+#include "std/cstdint.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 

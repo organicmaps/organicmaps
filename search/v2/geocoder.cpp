@@ -1011,7 +1011,8 @@ void Geocoder::WithPostcodes(TFn && fn)
         break;
 
       TokenSlice slice(m_params, startToken, startToken + n);
-      if (LooksLikePostcode(QuerySliceOnTokens(slice), true /*handleAsPrefix*/))
+      auto const isPrefix = startToken + n == m_numTokens;
+      if (LooksLikePostcode(QuerySlice(slice), isPrefix))
         endToken = startToken + n;
     }
     if (startToken == endToken)
