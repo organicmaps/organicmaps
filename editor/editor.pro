@@ -17,6 +17,7 @@ SOURCES += \
   osm_feature_matcher.cpp \
   server_api.cpp \
   ui2oh.cpp \
+  user_stats.cpp \
   xml_feature.cpp \
 
 HEADERS += \
@@ -28,5 +29,6 @@ HEADERS += \
   osm_feature_matcher.hpp \
   server_api.hpp \
   ui2oh.hpp \
+  user_stats.hpp \
   xml_feature.hpp \
   yes_no_unknown.hpp \
