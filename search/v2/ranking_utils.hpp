@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/search_query_params.hpp"
+#include "search/query_params.hpp"
 #include "search/v2/geocoder.hpp"
 #include "search/v2/search_model.hpp"
 
@@ -17,7 +17,7 @@
 
 namespace search
 {
-struct SearchQueryParams;
+struct QueryParams;
 
 namespace v2
 {

@@ -27,14 +27,16 @@ class TestSearchEngine : public Index
 {
 public:
   TestSearchEngine(unique_ptr<storage::CountryInfoGetter> infoGetter,
-                   unique_ptr<search::SearchQueryFactory> factory, Engine::Params const & params);
-  TestSearchEngine(unique_ptr<::search::SearchQueryFactory> factory, Engine::Params const & params);
+                   unique_ptr<search::SearchProcessorFactory> factory,
+                   Engine::Params const & params);
+  TestSearchEngine(unique_ptr<::search::SearchProcessorFactory> factory,
+                   Engine::Params const & params);
   ~TestSearchEngine() override;
 
   inline void SetLocale(string const & locale) { m_engine.SetLocale(locale); }
 
-  weak_ptr<search::QueryHandle> Search(search::SearchParams const & params,
-                                       m2::RectD const & viewport);
+  weak_ptr<search::ProcessorHandle> Search(search::SearchParams const & params,
+                                           m2::RectD const & viewport);
 
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
 

@@ -13,10 +13,10 @@
 
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
+#include "search/processor_factory.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_engine.hpp"
-#include "search/search_query_factory.hpp"
 
 #include "storage/storage_helpers.hpp"
 
@@ -134,7 +134,7 @@ void ParseSetGpsTrackMinAccuracyCommand(string const & query)
 }
 
 // Cancels search query by |handle|.
-void CancelQuery(weak_ptr<search::QueryHandle> & handle)
+void CancelQuery(weak_ptr<search::ProcessorHandle> & handle)
 {
   auto queryHandle = handle.lock();
   if (queryHandle)
@@ -518,7 +518,7 @@ bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, stora
   if (countryId == m_lastReportedCountry)
     m_lastReportedCountry = kInvalidCountryId;
 
-  if(auto handle = m_lastQueryHandle.lock())
+  if (auto handle = m_lastProcessorHandle.lock())
     handle->Cancel();
 
   m2::RectD rect = MercatorBounds::FullRect();
@@ -1117,8 +1117,8 @@ bool Framework::Search(search::SearchParams const & params)
   m_lastQueryViewport = viewport;
 
   // Cancels previous search request (if any) and initiates new search request.
-  CancelQuery(m_lastQueryHandle);
-  m_lastQueryHandle = m_searchEngine->Search(m_lastQueryParams, m_lastQueryViewport);
+  CancelQuery(m_lastProcessorHandle);
+  m_lastProcessorHandle = m_searchEngine->Search(m_lastQueryParams, m_lastQueryViewport);
   return true;
 }
 
@@ -1256,7 +1256,7 @@ void Framework::InitSearchEngine()
     params.m_numThreads = 1;
     m_searchEngine.reset(new search::Engine(const_cast<Index &>(m_model.GetIndex()),
                                             GetDefaultCategories(), *m_infoGetter,
-                                            make_unique<search::SearchQueryFactory>(), params));
+                                            make_unique<search::SearchProcessorFactory>(), params));
   }
   catch (RootException const & e)
   {
@@ -1445,7 +1445,7 @@ void Framework::CancelInteractiveSearch()
   if (IsInteractiveSearchActive())
   {
     m_lastInteractiveSearchParams.Clear();
-    CancelQuery(m_lastQueryHandle);
+    CancelQuery(m_lastProcessorHandle);
   }
 }
 

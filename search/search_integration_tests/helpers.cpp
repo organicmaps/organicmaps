@@ -1,6 +1,6 @@
 #include "search/search_integration_tests/helpers.hpp"
 
-#include "search/search_query_factory.hpp"
+#include "search/processor_factory.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
 #include "indexer/scales.hpp"
@@ -12,8 +12,8 @@ namespace search
 SearchTest::SearchTest()
   : m_platform(GetPlatform())
   , m_scopedLog(LDEBUG)
-  , m_engine(make_unique<storage::CountryInfoGetterForTesting>(), make_unique<SearchQueryFactory>(),
-             Engine::Params())
+  , m_engine(make_unique<storage::CountryInfoGetterForTesting>(),
+             make_unique<SearchProcessorFactory>(), Engine::Params())
 {
 }
 

@@ -9,7 +9,7 @@ namespace search
 namespace tests_support
 {
 TestSearchEngine::TestSearchEngine(unique_ptr<storage::CountryInfoGetter> infoGetter,
-                                   unique_ptr<::search::SearchQueryFactory> factory,
+                                   unique_ptr<::search::SearchProcessorFactory> factory,
                                    Engine::Params const & params)
   : m_platform(GetPlatform())
   , m_infoGetter(move(infoGetter))
@@ -17,7 +17,7 @@ TestSearchEngine::TestSearchEngine(unique_ptr<storage::CountryInfoGetter> infoGe
 {
 }
 
-TestSearchEngine::TestSearchEngine(unique_ptr<::search::SearchQueryFactory> factory,
+TestSearchEngine::TestSearchEngine(unique_ptr<::search::SearchProcessorFactory> factory,
                                    Engine::Params const & params)
   : m_platform(GetPlatform())
   , m_infoGetter(storage::CountryInfoReader::CreateCountryInfoReader(m_platform))
@@ -27,8 +27,8 @@ TestSearchEngine::TestSearchEngine(unique_ptr<::search::SearchQueryFactory> fact
 
 TestSearchEngine::~TestSearchEngine() {}
 
-weak_ptr<::search::QueryHandle> TestSearchEngine::Search(::search::SearchParams const & params,
-                                                         m2::RectD const & viewport)
+weak_ptr<::search::ProcessorHandle> TestSearchEngine::Search(::search::SearchParams const & params,
+                                                             m2::RectD const & viewport)
 {
   return m_engine.Search(params, viewport);
 }

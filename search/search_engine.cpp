@@ -1,7 +1,7 @@
 #include "search_engine.hpp"
 
 #include "geometry_utils.hpp"
-#include "search_query.hpp"
+#include "processor.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -89,10 +89,10 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
 }
 }  // namespace
 
-// QueryHandle -------------------------------------------------------------------------------------
-QueryHandle::QueryHandle() : m_processor(nullptr), m_cancelled(false) {}
+// ProcessorHandle----------------------------------------------------------------------------------
+ProcessorHandle::ProcessorHandle() : m_processor(nullptr), m_cancelled(false) {}
 
-void QueryHandle::Cancel()
+void ProcessorHandle::Cancel()
 {
   lock_guard<mutex> lock(m_mu);
   m_cancelled = true;
@@ -100,7 +100,7 @@ void QueryHandle::Cancel()
     m_processor->Cancel();
 }
 
-void QueryHandle::Attach(Query & processor)
+void ProcessorHandle::Attach(Processor & processor)
 {
   lock_guard<mutex> lock(m_mu);
   m_processor = &processor;
@@ -108,7 +108,7 @@ void QueryHandle::Attach(Query & processor)
     m_processor->Cancel();
 }
 
-void QueryHandle::Detach()
+void ProcessorHandle::Detach()
 {
   lock_guard<mutex> lock(m_mu);
   m_processor = nullptr;
@@ -125,7 +125,7 @@ Engine::Params::Params(string const & locale, size_t numThreads)
 // Engine ------------------------------------------------------------------------------------------
 Engine::Engine(Index & index, CategoriesHolder const & categories,
                storage::CountryInfoGetter const & infoGetter,
-               unique_ptr<SearchQueryFactory> factory, Params const & params)
+               unique_ptr<SearchProcessorFactory> factory, Params const & params)
   : m_categories(categories), m_shutdown(false)
 {
   InitSuggestions doInit;
@@ -135,7 +135,7 @@ Engine::Engine(Index & index, CategoriesHolder const & categories,
   m_contexts.resize(params.m_numThreads);
   for (size_t i = 0; i < params.m_numThreads; ++i)
   {
-    auto processor = factory->BuildSearchQuery(index, m_categories, m_suggests, infoGetter);
+    auto processor = factory->BuildProcessor(index, m_categories, m_suggests, infoGetter);
     processor->SetPreferredLocale(params.m_locale);
     m_contexts[i].m_processor = move(processor);
   }
@@ -157,10 +157,10 @@ Engine::~Engine()
     thread.join();
 }
 
-weak_ptr<QueryHandle> Engine::Search(SearchParams const & params, m2::RectD const & viewport)
+weak_ptr<ProcessorHandle> Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
-  shared_ptr<QueryHandle> handle(new QueryHandle());
-  PostMessage(Message::TYPE_TASK, [this, params, viewport, handle](Query & query)
+  shared_ptr<ProcessorHandle> handle(new ProcessorHandle());
+  PostMessage(Message::TYPE_TASK, [this, params, viewport, handle](Processor & query)
               {
                 DoSearch(params, viewport, handle, query);
               });
@@ -169,7 +169,7 @@ weak_ptr<QueryHandle> Engine::Search(SearchParams const & params, m2::RectD cons
 
 void Engine::SetSupportOldFormat(bool support)
 {
-  PostMessage(Message::TYPE_BROADCAST, [this, support](Query & processor)
+  PostMessage(Message::TYPE_BROADCAST, [this, support](Processor & processor)
               {
                 processor.SupportOldFormat(support);
               });
@@ -177,7 +177,7 @@ void Engine::SetSupportOldFormat(bool support)
 
 void Engine::SetLocale(string const & locale)
 {
-  PostMessage(Message::TYPE_BROADCAST, [this, locale](Query & processor)
+  PostMessage(Message::TYPE_BROADCAST, [this, locale](Processor & processor)
               {
                 processor.SetPreferredLocale(locale);
               });
@@ -185,14 +185,14 @@ void Engine::SetLocale(string const & locale)
 
 void Engine::ClearCaches()
 {
-  PostMessage(Message::TYPE_BROADCAST, [this](Query & processor)
+  PostMessage(Message::TYPE_BROADCAST, [this](Processor & processor)
               {
                 processor.ClearCaches();
               });
 }
 
 void Engine::SetRankPivot(SearchParams const & params, m2::RectD const & viewport,
-                          bool viewportSearch, Query & processor)
+                          bool viewportSearch, Processor & processor)
 {
   if (!viewportSearch && params.IsValidPosition())
   {
@@ -279,7 +279,7 @@ void Engine::PostMessage(TArgs && ... args)
 }
 
 void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
-                      shared_ptr<QueryHandle> handle, Query & processor)
+                      shared_ptr<ProcessorHandle> handle, Processor & processor)
 {
   bool const viewportSearch = params.GetMode() == Mode::Viewport;
 
@@ -332,7 +332,7 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
     if (!processor.IsCancelled())
       EmitResults(params, res);
   }
-  catch (Query::CancelException const &)
+  catch (Processor::CancelException const &)
   {
     LOG(LDEBUG, ("Search has been cancelled."));
   }

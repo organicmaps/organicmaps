@@ -1,8 +1,8 @@
 #pragma once
+#include "search/processor.hpp"
+#include "search/query_params.hpp"
 #include "search/search_common.hpp"
 #include "search/search_index_values.hpp"
-#include "search/search_query.hpp"
-#include "search/search_query_params.hpp"
 #include "search/v2/token_slice.hpp"
 
 #include "indexer/trie.hpp"
@@ -305,7 +305,7 @@ private:
 // Calls toDo for each feature corresponding to at least one synonym.
 // *NOTE* toDo may be called several times for the same feature.
 template <typename TValue, typename ToDo>
-void MatchTokenInTrie(SearchQueryParams::TSynonymsVector const & syns,
+void MatchTokenInTrie(QueryParams::TSynonymsVector const & syns,
                       TrieRootPrefix<TValue> const & trieRoot, ToDo && toDo)
 {
   for (auto const & syn : syns)
@@ -319,7 +319,7 @@ void MatchTokenInTrie(SearchQueryParams::TSynonymsVector const & syns,
 // synonym as a prefix.
 // *NOTE* toDo may be called serveral times for the same feature.
 template <typename TValue, typename ToDo>
-void MatchTokenPrefixInTrie(SearchQueryParams::TSynonymsVector const & syns,
+void MatchTokenPrefixInTrie(QueryParams::TSynonymsVector const & syns,
                             TrieRootPrefix<TValue> const & trieRoot, ToDo && toDo)
 {
   for (auto const & syn : syns)
@@ -332,7 +332,7 @@ void MatchTokenPrefixInTrie(SearchQueryParams::TSynonymsVector const & syns,
 // Fills holder with features whose names correspond to tokens list up to synonyms.
 // *NOTE* the same feature may be put in the same holder's slot several times.
 template <typename TValue, typename THolder>
-void MatchTokensInTrie(vector<SearchQueryParams::TSynonymsVector> const & tokens,
+void MatchTokensInTrie(vector<QueryParams::TSynonymsVector> const & tokens,
                        TrieRootPrefix<TValue> const & trieRoot, THolder && holder)
 {
   holder.Resize(tokens.size());
@@ -347,8 +347,8 @@ void MatchTokensInTrie(vector<SearchQueryParams::TSynonymsVector> const & tokens
 // also, last holder's slot will be filled with features corresponding to prefixTokens.
 // *NOTE* the same feature may be put in the same holder's slot several times.
 template <typename TValue, typename THolder>
-void MatchTokensAndPrefixInTrie(vector<SearchQueryParams::TSynonymsVector> const & tokens,
-                                SearchQueryParams::TSynonymsVector const & prefixTokens,
+void MatchTokensAndPrefixInTrie(vector<QueryParams::TSynonymsVector> const & tokens,
+                                QueryParams::TSynonymsVector const & prefixTokens,
                                 TrieRootPrefix<TValue> const & trieRoot, THolder && holder)
 {
   MatchTokensInTrie(tokens, trieRoot, holder);
@@ -362,7 +362,7 @@ void MatchTokensAndPrefixInTrie(vector<SearchQueryParams::TSynonymsVector> const
 // token from a search query.
 // *NOTE* query prefix will be treated as a complete token in the function.
 template <typename TValue, typename THolder>
-bool MatchCategoriesInTrie(SearchQueryParams const & params,
+bool MatchCategoriesInTrie(QueryParams const & params,
                            trie::Iterator<ValueList<TValue>> const & trieRoot, THolder && holder)
 {
   uint32_t langIx = 0;
@@ -387,7 +387,7 @@ bool MatchCategoriesInTrie(SearchQueryParams const & params,
 // Calls toDo with trie root prefix and language code on each language
 // allowed by params.
 template <typename TValue, typename ToDo>
-void ForEachLangPrefix(SearchQueryParams const & params,
+void ForEachLangPrefix(QueryParams const & params,
                        trie::Iterator<ValueList<TValue>> const & trieRoot, ToDo && toDo)
 {
   ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
@@ -409,7 +409,7 @@ void ForEachLangPrefix(SearchQueryParams const & params,
 // Calls toDo for each feature whose description contains *ALL* tokens from a search query.
 // Each feature will be passed to toDo only once.
 template <typename TValue, typename TFilter, typename ToDo>
-void MatchFeaturesInTrie(SearchQueryParams const & params,
+void MatchFeaturesInTrie(QueryParams const & params,
                          trie::Iterator<ValueList<TValue>> const & trieRoot, TFilter const & filter,
                          ToDo && toDo)
 {

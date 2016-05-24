@@ -398,8 +398,8 @@ private:
   search::SearchParams m_lastQueryParams;
   m2::RectD m_lastQueryViewport;
 
-  // A handle for the latest search query.
-  weak_ptr<search::QueryHandle> m_lastQueryHandle;
+  // A handle for the latest search processor.
+  weak_ptr<search::ProcessorHandle> m_lastProcessorHandle;
 
   // Returns true when |params| and |viewport| are almost the same as
   // the latest search query's params and viewport.

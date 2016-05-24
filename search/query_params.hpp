@@ -8,7 +8,7 @@
 
 namespace search
 {
-struct SearchQueryParams
+struct QueryParams
 {
   using TString = strings::UniString;
   using TSynonymsVector = vector<TString>;
@@ -21,7 +21,7 @@ struct SearchQueryParams
   TLangsSet m_langs;
   int m_scale;
 
-  SearchQueryParams();
+  QueryParams();
 
   void Clear();
 
@@ -45,5 +45,5 @@ private:
   void ForEachToken(ToDo && toDo);
 };
 
-string DebugPrint(search::SearchQueryParams const & params);
+string DebugPrint(search::QueryParams const & params);
 }  // namespace search

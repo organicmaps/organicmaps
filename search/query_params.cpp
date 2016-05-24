@@ -1,4 +1,4 @@
-#include "search/search_query_params.hpp"
+#include "search/query_params.hpp"
 
 #include "indexer/feature_impl.hpp"
 #include "indexer/scales.hpp"
@@ -14,9 +14,9 @@ namespace
 class DoAddStreetSynonyms
 {
 public:
-  DoAddStreetSynonyms(SearchQueryParams & params) : m_params(params) {}
+  DoAddStreetSynonyms(QueryParams & params) : m_params(params) {}
 
-  void operator()(SearchQueryParams::TString const & s, size_t i)
+  void operator()(QueryParams::TString const & s, size_t i)
   {
     if (s.size() > 2)
       return;
@@ -42,7 +42,7 @@ public:
   }
 
 private:
-  SearchQueryParams::TSynonymsVector & GetSyms(size_t i) const
+  QueryParams::TSynonymsVector & GetSyms(size_t i) const
   {
     size_t const count = m_params.m_tokens.size();
     if (i < count)
@@ -53,13 +53,13 @@ private:
 
   void AddSym(size_t i, string const & sym) { GetSyms(i).push_back(strings::MakeUniString(sym)); }
 
-  SearchQueryParams & m_params;
+  QueryParams & m_params;
 };
 }  // namespace
 
-SearchQueryParams::SearchQueryParams() : m_scale(scales::GetUpperScale()) {}
+QueryParams::QueryParams() : m_scale(scales::GetUpperScale()) {}
 
-void SearchQueryParams::Clear()
+void QueryParams::Clear()
 {
   m_tokens.clear();
   m_prefixTokens.clear();
@@ -68,7 +68,7 @@ void SearchQueryParams::Clear()
   m_scale = scales::GetUpperScale();
 }
 
-void SearchQueryParams::EraseTokens(vector<size_t> & eraseInds)
+void QueryParams::EraseTokens(vector<size_t> & eraseInds)
 {
   eraseInds.erase(unique(eraseInds.begin(), eraseInds.end()), eraseInds.end());
   ASSERT(is_sorted(eraseInds.begin(), eraseInds.end()), ());
@@ -99,12 +99,12 @@ void SearchQueryParams::EraseTokens(vector<size_t> & eraseInds)
   }
 }
 
-void SearchQueryParams::ProcessAddressTokens()
+void QueryParams::ProcessAddressTokens()
 {
   // Erases all number tokens.
   // Assumes that USA street name numbers are end with "st, nd, rd, th" suffixes.
   vector<size_t> toErase;
-  ForEachToken([&toErase](SearchQueryParams::TString const & s, size_t i)
+  ForEachToken([&toErase](QueryParams::TString const & s, size_t i)
                {
                  if (feature::IsNumber(s))
                    toErase.push_back(i);
@@ -115,19 +115,19 @@ void SearchQueryParams::ProcessAddressTokens()
   ForEachToken(DoAddStreetSynonyms(*this));
 }
 
-SearchQueryParams::TSynonymsVector const & SearchQueryParams::GetTokens(size_t i) const
+QueryParams::TSynonymsVector const & QueryParams::GetTokens(size_t i) const
 {
   ASSERT_LESS_OR_EQUAL(i, m_tokens.size(), ());
   return i < m_tokens.size() ? m_tokens[i] : m_prefixTokens;
 }
 
-SearchQueryParams::TSynonymsVector & SearchQueryParams::GetTokens(size_t i)
+QueryParams::TSynonymsVector & QueryParams::GetTokens(size_t i)
 {
   ASSERT_LESS_OR_EQUAL(i, m_tokens.size(), ());
   return i < m_tokens.size() ? m_tokens[i] : m_prefixTokens;
 }
 
-bool SearchQueryParams::IsNumberTokens(size_t start, size_t end) const
+bool QueryParams::IsNumberTokens(size_t start, size_t end) const
 {
   ASSERT_LESS(start, end, ());
   for (; start != end; ++start)
@@ -149,7 +149,7 @@ bool SearchQueryParams::IsNumberTokens(size_t start, size_t end) const
 }
 
 template <class ToDo>
-void SearchQueryParams::ForEachToken(ToDo && toDo)
+void QueryParams::ForEachToken(ToDo && toDo)
 {
   size_t const count = m_tokens.size();
   for (size_t i = 0; i < count; ++i)
@@ -166,10 +166,10 @@ void SearchQueryParams::ForEachToken(ToDo && toDo)
   }
 }
 
-string DebugPrint(search::SearchQueryParams const & params)
+string DebugPrint(search::QueryParams const & params)
 {
   ostringstream os;
-  os << "SearchQueryParams [ m_tokens=" << DebugPrint(params.m_tokens)
+  os << "QueryParams [ m_tokens=" << DebugPrint(params.m_tokens)
      << ", m_prefixTokens=" << DebugPrint(params.m_prefixTokens) << "]";
   return os.str();
 }

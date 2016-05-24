@@ -8,7 +8,7 @@
 
 namespace search
 {
-struct SearchQueryParams;
+struct QueryParams;
 
 namespace v2
 {
@@ -26,7 +26,7 @@ public:
     virtual uint8_t GetRank(uint32_t featureId) const = 0;
   };
 
-  LocalityScorer(SearchQueryParams const & params, Delegate const & delegate);
+  LocalityScorer(QueryParams const & params, Delegate const & delegate);
 
   // Leaves at most |limit| elements of |localities|, ordered by some
   // combination of ranks and number of matched tokens.
@@ -50,7 +50,7 @@ private:
   void LeaveTopByRank(size_t limit, vector<ExLocality> & ls) const;
   void SortByName(vector<ExLocality> & ls) const;
 
-  SearchQueryParams const & m_params;
+  QueryParams const & m_params;
   Delegate const & m_delegate;
 };
 }  // namespace v2

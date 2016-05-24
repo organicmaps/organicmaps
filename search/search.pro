@@ -26,7 +26,10 @@ HEADERS += \
     mode.hpp \
     params.hpp \
     pre_ranker.hpp \
+    processor.hpp \
+    processor_factory.hpp \
     projection_on_street.hpp \
+    query_params.hpp \
     query_saver.hpp \
     region.hpp \
     result.hpp \
@@ -35,9 +38,6 @@ HEADERS += \
     search_common.hpp \
     search_engine.hpp \
     search_index_values.hpp \
-    search_query.hpp \
-    search_query_factory.hpp \
-    search_query_params.hpp \
     search_string_intersection.hpp \
     search_trie.hpp \
     suggest.hpp \
@@ -57,11 +57,11 @@ HEADERS += \
     v2/nested_rects_cache.hpp \
     v2/postcodes_matcher.hpp \
     v2/pre_ranking_info.hpp \
+    v2/processor_v2.hpp \
     v2/rank_table_cache.hpp \
     v2/ranking_info.hpp \
     v2/ranking_utils.hpp \
     v2/search_model.hpp \
-    v2/search_query_v2.hpp \
     v2/stats_cache.hpp \
     v2/street_vicinity_loader.hpp \
     v2/token_slice.hpp \
@@ -80,15 +80,15 @@ SOURCES += \
     mode.cpp \
     params.cpp \
     pre_ranker.cpp \
+    processor.cpp \
     projection_on_street.cpp \
+    query_params.cpp \
     query_saver.cpp \
     region.cpp \
     result.cpp \
     retrieval.cpp \
     reverse_geocoder.cpp \
     search_engine.cpp \
-    search_query.cpp \
-    search_query_params.cpp \
     types_skipper.cpp \
     v2/cbv_ptr.cpp \
     v2/features_filter.cpp \
@@ -105,10 +105,10 @@ SOURCES += \
     v2/nested_rects_cache.cpp \
     v2/postcodes_matcher.cpp \
     v2/pre_ranking_info.cpp \
+    v2/processor_v2.cpp \
     v2/rank_table_cache.cpp \
     v2/ranking_info.cpp \
     v2/ranking_utils.cpp \
     v2/search_model.cpp \
-    v2/search_query_v2.cpp \
     v2/street_vicinity_loader.cpp \
     v2/token_slice.cpp \
