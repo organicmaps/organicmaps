@@ -9,12 +9,6 @@
               android:paddingRight="0dp"
               android:paddingTop="@dimen/margin_navigation_buttons"
               android:paddingBottom="@dimen/margin_navigation_buttons">
-  <ImageButton android:id="@+id/yop_it"
-               style="@style/MwmWidget.MapButton"
-               android:layout_marginRight="@dimen/margin_quarter"
-               android:src="@drawable/ic_btn_yota_ptb"
-               android:visibility="gone"
-               tools:visibility="visible"/>
 
   <android.support.v4.widget.Space
       android:id="@+id/space_bottom"

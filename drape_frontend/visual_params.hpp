@@ -10,17 +10,15 @@
 namespace df
 {
 
-extern uint32_t const YotaDevice;
-
 class VisualParams : private noncopyable
 {
 public:
-  static void Init(double vs, uint32_t tileSize, vector<uint32_t> const & additionalOptions = vector<uint32_t>());
+  static void Init(double vs, uint32_t tileSize);
   static VisualParams & Instance();
 
   VisualParams();
 
-  static string const & GetResourcePostfix(double visualScale, bool isYotaDevice = false);
+  static string const & GetResourcePostfix(double visualScale);
   string const & GetResourcePostfix() const;
 
   double GetVisualScale() const;
@@ -49,7 +47,6 @@ public:
 private:
   int m_tileSize;
   double m_visualScale;
-  bool m_isYotaDevice;
   GlyphVisualParams m_glyphVisualParams;
 };
 

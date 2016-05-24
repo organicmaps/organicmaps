@@ -25,7 +25,7 @@ fi
 
 # Helper function to build skin
 # Parameter $1 - style type (legacy, clear)
-# Parameter $2 - style name (dark, light, yota, clear, ...)
+# Parameter $2 - style name (dark, light, clear, ...)
 # Parameter $3 - resource name (ldpi, mdpi, hdpi, ...)
 # Parameter $4 - symbol size
 # Parameter $5 - does color correction required
@@ -56,7 +56,7 @@ function BuildSkin() {
 }
 
 # Cleanup
-cleanup=(resources-{yota_legacy,{6plus,ldpi,mdpi,hdpi,xhdpi,xxhdpi}{_legacy,_dark,_clear}})
+cleanup=(resources-{{6plus,ldpi,mdpi,hdpi,xhdpi,xxhdpi}{_legacy,_dark,_clear}})
 for item in ${cleanup[*]}
 do
   rm -rf "$DATA_PATH/$item" || true
@@ -64,8 +64,6 @@ do
 done
 
 # Build styles
-
-BuildSkin legacy yota  yota   19 true  _legacy
 
 BuildSkin legacy light ldpi   18 false  _legacy
 BuildSkin legacy light mdpi   18 false  _legacy

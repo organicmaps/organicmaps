@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" version="1.1" baseProfile="full"
-   width="20" height="20" id="symbol-parking-private">
- <rect x="0.5" y="0.5" width="19" height="19" rx="2" ry="2" style="stroke:#aaaaaa;stroke-width:1;fill:#ffffff" />
- <path d="M4,17 L4,3 10,3 C14,3 16,5 16,7.5 C16,10 14,12 10,12 L8.5,12 8.5,17 z M8.5,9 L10,9 C13,9 13,6 10,6 L8.5,6 8.5,9 z" style="stroke-width:0;fill:#aaaaaa" />
-</svg>

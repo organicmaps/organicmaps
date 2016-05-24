@@ -24,7 +24,6 @@
   <string name="pref_send_statistics" translatable="false">AllowStat</string>
   <string name="pref_munits" translatable="false">MeasurementUnits</string>
   <string name="pref_storage" translatable="false">Storage</string>
-  <string name="pref_yota" translatable="false">Yota</string>
   <string name="pref_show_zoom_buttons" translatable="false">ZoomButtonsEnabled</string>
   <string name="pref_play_services" translatable="false">PlayServicesEnabled</string>
   <string name="pref_about" translatable="false">AboutMapsWithMe</string>

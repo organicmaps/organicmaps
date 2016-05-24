@@ -12,8 +12,6 @@
 namespace df
 {
 
-uint32_t const YotaDevice = 0x1;
-
 namespace
 {
 
@@ -33,12 +31,10 @@ static bool g_isInited = false;
 #endif
 
 
-void VisualParams::Init(double vs, uint32_t tileSize, vector<uint32_t> const & additionalOptions)
+void VisualParams::Init(double vs, uint32_t tileSize)
 {
   g_VizParams.m_tileSize = tileSize;
   g_VizParams.m_visualScale = vs;
-  if (find(additionalOptions.begin(), additionalOptions.end(), YotaDevice) != additionalOptions.end())
-    g_VizParams.m_isYotaDevice = true;
 
   // Here we set up glyphs rendering parameters separately for high-res and low-res screens.
   if (vs <= 1.0)
@@ -65,7 +61,7 @@ VisualParams & VisualParams::Instance()
   return g_VizParams;
 }
 
-string const & VisualParams::GetResourcePostfix(double visualScale, bool isYotaDevice)
+string const & VisualParams::GetResourcePostfix(double visualScale)
 {
   static visual_scale_t postfixes[] =
   {
@@ -76,14 +72,6 @@ string const & VisualParams::GetResourcePostfix(double visualScale, bool isYotaD
     make_pair("xxhdpi", 3.0),
     make_pair("6plus", 2.4),
   };
-
-  static string specifixPostfixes[] =
-  {
-    "yota"
-  };
-
-  if (isYotaDevice)
-    return specifixPostfixes[0];
 
   // Looking for the nearest available scale.
   int postfixIndex = -1;
@@ -104,7 +92,7 @@ string const & VisualParams::GetResourcePostfix(double visualScale, bool isYotaD
 
 string const & VisualParams::GetResourcePostfix() const
 {
-  return VisualParams::GetResourcePostfix(m_visualScale, m_isYotaDevice);
+  return VisualParams::GetResourcePostfix(m_visualScale);
 }
 
 double VisualParams::GetVisualScale() const
