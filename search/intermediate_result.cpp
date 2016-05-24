@@ -60,11 +60,8 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 
 namespace impl
 {
-PreResult1::PreResult1(double priority) : m_priority(priority) {}
-
-PreResult1::PreResult1(FeatureID const & fID, double priority, int8_t viewportID,
-                       v2::PreRankingInfo const & info)
-  : m_id(fID), m_priority(priority), m_viewportID(viewportID), m_info(info)
+PreResult1::PreResult1(FeatureID const & fID, v2::PreRankingInfo const & info)
+  : m_id(fID), m_info(info)
 {
   ASSERT(m_id.IsValid(), ());
 }
@@ -74,14 +71,14 @@ bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
 {
   if (r1.m_info.m_rank != r2.m_info.m_rank)
     return r1.m_info.m_rank > r2.m_info.m_rank;
-  return r1.m_priority < r2.m_priority;
+  return r1.m_info.m_distanceToPivot < r2.m_info.m_distanceToPivot;
 }
 
 // static
-bool PreResult1::LessPriority(PreResult1 const & r1, PreResult1 const & r2)
+bool PreResult1::LessDistance(PreResult1 const & r1, PreResult1 const & r2)
 {
-  if (r1.m_priority != r2.m_priority)
-    return r1.m_priority < r2.m_priority;
+  if (r1.m_info.m_distanceToPivot != r2.m_info.m_distanceToPivot)
+    return r1.m_info.m_distanceToPivot < r2.m_info.m_distanceToPivot;
   return r1.m_info.m_rank > r2.m_info.m_rank;
 }
 

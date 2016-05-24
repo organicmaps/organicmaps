@@ -2,6 +2,7 @@
 
 #include "search/dummy_rank_table.hpp"
 #include "search/geometry_utils.hpp"
+#include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
 #include "search/locality.hpp"
 #include "search/region.hpp"
@@ -49,7 +50,6 @@
 #include "std/function.hpp"
 #include "std/iterator.hpp"
 #include "std/limits.hpp"
-#include "std/random.hpp"
 
 #define LONG_OP(op)    \
   {                    \
@@ -227,6 +227,7 @@ Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest>
   , m_mode(Mode::Everywhere)
   , m_worldSearch(true)
   , m_suggestsEnabled(true)
+  , m_preRanker(kPreResultsCount)
   , m_viewportSearch(false)
   , m_keepHouseNumberInQuery(false)
   , m_reverseGeocoder(index)
@@ -385,14 +386,8 @@ void Query::Init(bool viewportSearch)
 
   m_tokens.clear();
   m_prefix.clear();
+  m_preRanker.Clear();
   m_viewportSearch = viewportSearch;
-
-  ClearResults();
-}
-
-void Query::ClearResults()
-{
-  m_results.clear();
 }
 
 int Query::GetCategoryLocales(int8_t (&arr) [3]) const
@@ -544,51 +539,6 @@ void Query::SearchCoordinates(Results & res) const
 
 namespace
 {
-struct LessFeatureID
-{
-  using TValue = impl::PreResult1;
-
-  inline bool operator()(TValue const & lhs, TValue const & rhs) const
-  {
-    return lhs.GetID() < rhs.GetID();
-  }
-};
-
-struct EqualFeatureID
-{
-  using TValue = impl::PreResult1;
-
-  inline bool operator()(TValue const & lhs, TValue const & rhs) const
-  {
-    return lhs.GetID() == rhs.GetID();
-  }
-};
-
-// Orders PreResult1 by following criterion:
-// 1. Feature Id (increasing), if same...
-// 2. Number of matched tokens from the query (decreasing), if same...
-// 3. Index of the first matched token from the query (increasing).
-struct ComparePreResult1
-{
-  bool operator()(impl::PreResult1 const & lhs, impl::PreResult1 const & rhs) const
-  {
-    if (lhs.GetID() != rhs.GetID())
-      return lhs.GetID() < rhs.GetID();
-
-    auto const & linfo = lhs.GetInfo();
-    auto const & rinfo = rhs.GetInfo();
-    if (linfo.GetNumTokens() != rinfo.GetNumTokens())
-      return linfo.GetNumTokens() > rinfo.GetNumTokens();
-    return linfo.m_startToken < rinfo.m_startToken;
-  }
-};
-
-void RemoveDuplicatingPreResults1(vector<impl::PreResult1> & results)
-{
-  sort(results.begin(), results.end(), ComparePreResult1());
-  results.erase(unique(results.begin(), results.end(), EqualFeatureID()), results.end());
-}
-
 bool IsResultExists(impl::PreResult2 const & p, vector<IndexedValue> const & indV)
 {
   impl::PreResult2::StrictEqualF equalCmp(p);
@@ -719,7 +669,7 @@ public:
     string name;
     string country;
 
-    LoadFeature(res1.GetID(), ft, center, name, country);
+    LoadFeature(res1.GetId(), ft, center, name, country);
 
     auto res2 = make_unique<impl::PreResult2>(ft, &res1, center, m_query.GetPosition() /* pivot */,
                                               name, country);
@@ -738,75 +688,25 @@ template <class T>
 void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont,
                            vector<FeatureID> & streets)
 {
-  // make unique set of PreResult1
-  using TPreResultSet = set<impl::PreResult1, LessFeatureID>;
-  TPreResultSet theSet;
-
-  RemoveDuplicatingPreResults1(m_results);
-
-  sort(m_results.begin(), m_results.end(), &impl::PreResult1::LessPriority);
-  if (kPreResultsCount != 0 && m_results.size() > kPreResultsCount)
-  {
-    // Priority is some kind of distance from the viewport or
-    // position, therefore if we have a bunch of results with the same
-    // priority, we have no idea here which results are relevant.  To
-    // prevent bias from previous search routines (like sorting by
-    // feature id) this code randomly selects tail of the
-    // sorted-by-priority list of pre-results.
-
-    double const lastPriority = m_results[kPreResultsCount - 1].GetPriority();
-
-    auto b = m_results.begin() + kPreResultsCount - 1;
-    for (; b != m_results.begin() && b->GetPriority() == lastPriority; --b)
-      ;
-    if (b->GetPriority() != lastPriority)
-      ++b;
-
-    auto e = m_results.begin() + kPreResultsCount;
-    for (; e != m_results.end() && e->GetPriority() == lastPriority; ++e)
-      ;
-
-    // The main reason of shuffling here is to select a random subset
-    // from the low-priority results. We're using a linear
-    // congruential method with default seed because it is fast,
-    // simple and doesn't need an external entropy source.
-    //
-    // TODO (@y, @m, @vng): consider to take some kind of hash from
-    // features and then select a subset with smallest values of this
-    // hash.  In this case this subset of results will be persistent
-    // to small changes in the original set.
-    minstd_rand engine;
-    shuffle(b, e, engine);
-  }
-  theSet.insert(m_results.begin(), m_results.begin() + min(m_results.size(), kPreResultsCount));
-
-  if (!m_viewportSearch)
-  {
-    size_t n = min(m_results.size(), kPreResultsCount);
-    nth_element(m_results.begin(), m_results.begin() + n, m_results.end(),
-                &impl::PreResult1::LessRank);
-    theSet.insert(m_results.begin(), m_results.begin() + n);
-  }
-
-  ClearResults();
+  m_preRanker.Filter(m_viewportSearch);
 
   // Makes PreResult2 vector.
   impl::PreResult2Maker maker(*this, params);
-  for (auto const & r : theSet)
+  m_preRanker.ForEach([&](impl::PreResult1 const & r)
   {
     auto p = maker(r);
     if (!p)
-      continue;
+      return;
 
     if (params.m_mode == Mode::Viewport && !params.m_pivot.IsPointInside(p->GetCenter()))
-      continue;
+      return;
 
     if (p->IsStreet())
       streets.push_back(p->GetID());
 
     if (!IsResultExists(*p, cont))
       cont.push_back(IndexedValue(move(p)));
-  }
+  });
 }
 
 void Query::FlushResults(v2::Geocoder::Params const & params, Results & res, bool allMWMs,
@@ -939,13 +839,6 @@ void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
     }
     ++i;
   }
-}
-
-void Query::AddPreResult1(MwmSet::MwmId const & mwmId, uint32_t featureId, double priority,
-                          v2::PreRankingInfo const & info, ViewportID viewportId /* = DEFAULT_V */)
-{
-  FeatureID id(mwmId, featureId);
-  m_results.emplace_back(id, priority, viewportId, info);
 }
 
 namespace impl

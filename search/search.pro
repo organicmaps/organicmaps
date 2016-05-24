@@ -25,6 +25,7 @@ HEADERS += \
     locality_finder.hpp \
     mode.hpp \
     params.hpp \
+    pre_ranker.hpp \
     projection_on_street.hpp \
     query_saver.hpp \
     region.hpp \
@@ -78,6 +79,7 @@ SOURCES += \
     locality_finder.cpp \
     mode.cpp \
     params.cpp \
+    pre_ranker.cpp \
     projection_on_street.cpp \
     query_saver.cpp \
     region.cpp \

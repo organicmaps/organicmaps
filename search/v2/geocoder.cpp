@@ -385,18 +385,10 @@ void UniteCBVs(vector<unique_ptr<coding::CompressedBitVector>> & cbvs)
     cbvs.resize(i);
   }
 }
-
-bool SameMwm(Geocoder::TResult const & lhs, Geocoder::TResult const & rhs)
-{
-  return lhs.first.m_mwmId == rhs.first.m_mwmId;
-}
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
-Geocoder::Params::Params()
-  : m_mode(Mode::Everywhere), m_accuratePivotCenter(0, 0), m_maxNumResults(0)
-{
-}
+Geocoder::Params::Params() : m_mode(Mode::Everywhere), m_accuratePivotCenter(0, 0) {}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
@@ -414,7 +406,7 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   , m_matcher(nullptr)
   , m_finder(static_cast<my::Cancellable const &>(*this))
   , m_lastMatchedRegion(nullptr)
-  , m_results(nullptr)
+  , m_preRanker(nullptr)
 {
 }
 
@@ -463,7 +455,7 @@ void Geocoder::SetParams(Params const & params)
   LOG(LDEBUG, ("Languages =", m_params.m_langs));
 }
 
-void Geocoder::GoEverywhere(TResultList & results)
+void Geocoder::GoEverywhere(PreRanker & preRanker)
 {
   // TODO (@y): remove following code as soon as Geocoder::Go() will
   // work fast for most cases (significantly less than 1 second).
@@ -482,20 +474,16 @@ void Geocoder::GoEverywhere(TResultList & results)
   if (m_numTokens == 0)
     return;
 
-  m_results = &results;
-
   vector<shared_ptr<MwmInfo>> infos;
   m_index.GetMwmsInfo(infos);
 
-  GoImpl(infos, false /* inViewport */);
+  GoImpl(preRanker, infos, false /* inViewport */);
 }
 
-void Geocoder::GoInViewport(TResultList & results)
+void Geocoder::GoInViewport(PreRanker & preRanker)
 {
   if (m_numTokens == 0)
     return;
-
-  m_results = &results;
 
   vector<shared_ptr<MwmInfo>> infos;
   m_index.GetMwmsInfo(infos);
@@ -505,11 +493,13 @@ void Geocoder::GoInViewport(TResultList & results)
     return !m_params.m_pivot.IsIntersect(info->m_limitRect);
   });
 
-  GoImpl(infos, true /* inViewport */);
+  GoImpl(preRanker, infos, true /* inViewport */);
 }
 
-void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
+void Geocoder::GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 {
+  m_preRanker = &preRanker;
+
   try
   {
     // Tries to find world and fill localities table.
@@ -605,7 +595,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       m_lastMatchedRegion = nullptr;
       MatchRegions(REGION_TYPE_COUNTRY);
 
-      if (index < numIntersectingMaps || m_results->empty())
+      if (index < numIntersectingMaps || m_preRanker->IsEmpty())
         MatchAroundPivot();
     };
 
@@ -986,7 +976,7 @@ void Geocoder::MatchAroundPivot()
   if (!features)
     return;
 
-  ViewportFilter filter(*features, m_params.m_maxNumResults /* threshold */);
+  ViewportFilter filter(*features, m_preRanker->Limit() /* threshold */);
   LimitedSearch(filter);
 }
 
@@ -1364,13 +1354,17 @@ void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, SearchMode
 {
   FeatureID id(mwmId, ftId);
 
+  // Distance and rank will be filled at the end, for all results at once.
+  //
+  // TODO (@y, @m): need to skip zero rank features that are too
+  // distant from the pivot when there're enough results close to the
+  // pivot.
   PreRankingInfo info;
   info.m_searchType = type;
   info.m_startToken = startToken;
   info.m_endToken = endToken;
 
-  // Other fields will be filled at the end, for all results at once.
-  m_results->emplace_back(move(id), move(info));
+  m_preRanker->Emplace(id, info);
 }
 
 void Geocoder::EmitResult(Region const & region, size_t startToken, size_t endToken)
@@ -1392,42 +1386,32 @@ void Geocoder::EmitResult(City const & city, size_t startToken, size_t endToken)
 
 void Geocoder::FillMissingFieldsInResults()
 {
-  sort(m_results->begin(), m_results->end(), my::CompareBy(&TResult::first));
+  MwmSet::MwmId mwmId;
+  MwmSet::MwmHandle mwmHandle;
+  unique_ptr<RankTable> rankTable;
 
-  auto ib = m_results->begin();
-  while (ib != m_results->end())
-  {
-    auto ie = ib;
-    while (ie != m_results->end() && SameMwm(*ib, *ie))
-      ++ie;
+  m_preRanker->ForEachInfo([&](FeatureID const & id, PreRankingInfo & info)
+                           {
+                             if (id.m_mwmId != mwmId)
+                             {
+                               mwmId = id.m_mwmId;
+                               mwmHandle = m_index.GetMwmHandleById(mwmId);
+                               rankTable = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
+                               if (!rankTable)
+                                 rankTable = make_unique<DummyRankTable>();
+                             }
 
-    /// @todo Add RankTableCache here?
-    MwmSet::MwmHandle handle = m_index.GetMwmHandleById(ib->first.m_mwmId);
-    if (handle.IsAlive())
-    {
-      auto rankTable = RankTable::Load(handle.GetValue<MwmValue>()->m_cont);
-      if (!rankTable.get())
-        rankTable.reset(new DummyRankTable());
+                             info.m_rank = rankTable->Get(id.m_index);
+                           });
 
-      for (auto ii = ib; ii != ie; ++ii)
-      {
-        auto const & id = ii->first;
-        auto & info = ii->second;
-        info.m_rank = rankTable->Get(id.m_index);
-      }
-    }
-    ib = ie;
-  }
-
-  if (m_results->size() > m_params.m_maxNumResults)
+  if (m_preRanker->Size() > m_preRanker->Limit())
   {
     m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
-    for (auto & result : *m_results)
-    {
-      auto const & id = result.first;
-      auto & info = result.second;
-      info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
-    }
+    m_preRanker->ForEachInfo([&](FeatureID const & id, PreRankingInfo & info)
+                             {
+                               info.m_distanceToPivot =
+                                   m_pivotFeatures.GetDistanceToFeatureMeters(id);
+                             });
   }
 }
 
