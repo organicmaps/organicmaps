@@ -127,6 +127,8 @@
 		A1347D511B8758C3009050FF /* query_saver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1347D4F1B8758C3009050FF /* query_saver.cpp */; };
 		A1347D521B8758C3009050FF /* query_saver.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1347D501B8758C3009050FF /* query_saver.hpp */; };
 		A1347D551B8758E9009050FF /* query_saver_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1347D541B8758E9009050FF /* query_saver_tests.cpp */; };
+		F659FC6D1CF4A30B000A06B1 /* pre_ranker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F659FC6B1CF4A30B000A06B1 /* pre_ranker.cpp */; };
+		F659FC6E1CF4A30B000A06B1 /* pre_ranker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F659FC6C1CF4A30B000A06B1 /* pre_ranker.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -265,6 +267,8 @@
 		A1347D4F1B8758C3009050FF /* query_saver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = query_saver.cpp; sourceTree = "<group>"; };
 		A1347D501B8758C3009050FF /* query_saver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = query_saver.hpp; sourceTree = "<group>"; };
 		A1347D541B8758E9009050FF /* query_saver_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = query_saver_tests.cpp; sourceTree = "<group>"; };
+		F659FC6B1CF4A30B000A06B1 /* pre_ranker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pre_ranker.cpp; sourceTree = "<group>"; };
+		F659FC6C1CF4A30B000A06B1 /* pre_ranker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pre_ranker.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -406,6 +410,8 @@
 		675346B21A4055CF00A0A8C3 /* search */ = {
 			isa = PBXGroup;
 			children = (
+				F659FC6B1CF4A30B000A06B1 /* pre_ranker.cpp */,
+				F659FC6C1CF4A30B000A06B1 /* pre_ranker.hpp */,
 				670F88721CE4C032003F68BA /* types_skipper.cpp */,
 				670F88731CE4C032003F68BA /* types_skipper.hpp */,
 				56D5456C1C74A48C00E3719C /* mode.cpp */,
@@ -482,6 +488,7 @@
 				347F332F1C4540A8009758CC /* search_trie.hpp in Headers */,
 				670EE5631B600255001E8064 /* search_query_factory.hpp in Headers */,
 				675346F71A40560D00A0A8C3 /* search_query.hpp in Headers */,
+				F659FC6E1CF4A30B000A06B1 /* pre_ranker.hpp in Headers */,
 				675346E11A40560D00A0A8C3 /* geometry_utils.hpp in Headers */,
 				675346E31A40560D00A0A8C3 /* house_detector.hpp in Headers */,
 				675346E61A40560D00A0A8C3 /* intermediate_result.hpp in Headers */,
@@ -657,6 +664,7 @@
 				347F335A1C45413C009758CC /* features_layer_matcher.cpp in Sources */,
 				675346E21A40560D00A0A8C3 /* house_detector.cpp in Sources */,
 				347F33621C45413C009758CC /* house_to_street_table.cpp in Sources */,
+				F659FC6D1CF4A30B000A06B1 /* pre_ranker.cpp in Sources */,
 				347F33661C45413C009758CC /* rank_table_cache.cpp in Sources */,
 				675346F41A40560D00A0A8C3 /* search_engine.cpp in Sources */,
 				347F33241C4540A8009758CC /* retrieval.cpp in Sources */,
