@@ -19,8 +19,6 @@ using namespace strings;
 
 namespace search
 {
-namespace v2
-{
 namespace
 {
 // Top patterns for postcodes. See
@@ -107,7 +105,7 @@ public:
   // patterns.
   //
   // Complexity: O(total length of tokens in |slice|).
-  bool HasString(TokenSlice const & slice) const
+  bool HasString(StringSliceBase const & slice, bool handleAsPrefix) const
   {
     if (slice.Size() == 0)
       return m_root.m_isLeaf;
@@ -115,7 +113,7 @@ public:
     Node const * cur = &m_root;
     for (size_t i = 0; i < slice.Size() && cur; ++i)
     {
-      auto const & s = slice.Get(i).front();
+      auto const & s = slice.Get(i);
       cur = cur->Move(make_transform_iterator(s.begin(), &SimplifyChar),
                       make_transform_iterator(s.end(), &SimplifyChar));
       if (cur && i + 1 < slice.Size())
@@ -125,11 +123,7 @@ public:
     if (!cur)
       return false;
 
-    if (slice.IsPrefix(slice.Size() - 1))
-      return true;
-
-    // Last token may be not a prefix, but just a part of a multi-token postcode.
-    if (slice.IsLast(slice.Size() - 1) && cur->Move(' ') != nullptr)
+    if (handleAsPrefix)
       return true;
 
     return cur->m_isLeaf;
@@ -168,32 +162,19 @@ PostcodesMatcher const & GetPostcodesMatcher()
 }
 }  // namespace
 
-bool LooksLikePostcode(TokenSlice const & slice) { return GetPostcodesMatcher().HasString(slice); }
+bool LooksLikePostcode(StringSliceBase const & slice, bool handleAsPrefix)
+{
+  return GetPostcodesMatcher().HasString(slice, handleAsPrefix);
+}
 
-bool LooksLikePostcode(string const & s, bool checkPrefix)
+bool LooksLikePostcode(string const & s, bool handleAsPrefix)
 {
   vector<UniString> tokens;
   bool const lastTokenIsPrefix =
       TokenizeStringAndCheckIfLastTokenIsPrefix(s, tokens, search::Delimiters());
 
-  size_t const numTokens = tokens.size();
-
-  SearchQueryParams params;
-  if (checkPrefix && lastTokenIsPrefix)
-  {
-    params.m_prefixTokens.push_back(tokens.back());
-    tokens.pop_back();
-  }
-
-  for (auto const & token : tokens)
-  {
-    params.m_tokens.emplace_back();
-    params.m_tokens.back().push_back(token);
-  }
-
-  return LooksLikePostcode(TokenSlice(params, 0, numTokens));
+  return LooksLikePostcode(NoPrefixStringSlice(tokens), handleAsPrefix && lastTokenIsPrefix);
 }
 
 size_t GetMaxNumTokensInPostcode() { return GetPostcodesMatcher().GetMaxNumTokensInPostcode(); }
-}  // namespace v2
 }  // namespace search

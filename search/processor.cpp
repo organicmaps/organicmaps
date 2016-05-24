@@ -402,7 +402,7 @@ int Processor::GetCategoryLocales(int8_t(&arr)[3]) const
 }
 
 template <class ToDo>
-void Processor::ForEachCategoryTypes(v2::QuerySlice const & slice, ToDo toDo) const
+void Processor::ForEachCategoryTypes(StringSliceBase const & slice, ToDo toDo) const
 {
   int8_t arrLocales[3];
   int const localesCount = GetCategoryLocales(arrLocales);

@@ -112,6 +112,7 @@ HEADERS += \
     scales.hpp \
     search_delimiters.hpp \      # it's in indexer because of CategoriesHolder dependency.
     search_string_utils.hpp \    # it's in indexer because of CategoriesHolder dependency.
+    string_slice.hpp \
     succinct_trie_builder.hpp \
     succinct_trie_reader.hpp \
     tesselator_decl.hpp \
