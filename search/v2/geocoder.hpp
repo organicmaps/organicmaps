@@ -349,6 +349,9 @@ private:
   map<MwmSet::MwmId, unique_ptr<coding::CompressedBitVector>> m_streetsCache;
 
   // Street features in the mwm that is currently being processed.
+  //
+  // *NOTE* m_streets may be used only in LimitedSearch and in all
+  // it's callees.
   coding::CompressedBitVector const * m_streets;
 
   // Village features in the mwm that is currently being processed.
