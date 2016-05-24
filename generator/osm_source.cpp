@@ -1,3 +1,4 @@
+#include "generator/booking_dataset.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/intermediate_data.hpp"
@@ -511,12 +512,19 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
                           info.GetIntermediateFileName("towns", ".csv"));
     TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
+    
+    // If info.m_bookingDatafileName is empty then no data will be loaded.
+    BookingDataset bookingDataset(info.m_bookingDatafileName);
 
     // Here we can add new tags to element!!!
     auto const fn = [&](OsmElement * e)
     {
       tagReplacer(e);
       tagAdmixer(e);
+
+      if (bookingDataset.Filter(*e))
+        return;
+      
       parser.EmitElement(e);
     };
 
@@ -533,6 +541,12 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
 
     LOG(LINFO, ("Processing", info.m_osmFileName, "done."));
 
+    if (!info.m_bookingDatafileName.empty())
+    {
+      bookingDataset.BuildFeatures([&](OsmElement * e) { parser.EmitElement(e); });
+      LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
+    }
+    
     parser.Finish();
 
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set

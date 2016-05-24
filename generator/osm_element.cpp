@@ -1,5 +1,6 @@
 #include "generator/osm_element.hpp"
 
+#include "base/string_utils.hpp"
 #include "coding/parse_xml.hpp"
 
 #include "std/cstdio.hpp"
@@ -63,7 +64,9 @@ void OsmElement::AddTag(string const & k, string const & v)
   SKIP_KEY("official_name");
 #undef SKIP_KEY
 
-  m_tags.emplace_back(k, v);
+  string value = v;
+  strings::Trim(value);
+  m_tags.emplace_back(k, value);
 }
 
 string OsmElement::ToString(string const & shift) const
