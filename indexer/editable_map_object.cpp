@@ -1,8 +1,7 @@
-#include "search/v2/postcodes_matcher.hpp"
-
 #include "indexer/classificator.hpp"
 #include "indexer/cuisines.hpp"
 #include "indexer/editable_map_object.hpp"
+#include "indexer/postcodes_matcher.hpp"
 
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"

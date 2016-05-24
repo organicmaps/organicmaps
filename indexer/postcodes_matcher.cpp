@@ -1,7 +1,4 @@
-#include "search/v2/postcodes_matcher.hpp"
-
-#include "search/v2/token_slice.hpp"
-
+#include "indexer/postcodes_matcher.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 

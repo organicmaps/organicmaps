@@ -34,6 +34,7 @@ SOURCES += \
     interval_index_test.cpp \
     mwm_set_test.cpp \
     point_to_int64_test.cpp \
+    postcodes_matcher_tests.cpp \
     rank_table_test.cpp \
     scales_test.cpp \
     search_string_utils_test.cpp \
