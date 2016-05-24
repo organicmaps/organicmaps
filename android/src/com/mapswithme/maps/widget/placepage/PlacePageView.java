@@ -1,6 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +14,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -92,6 +90,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private Toolbar mToolbar;
   private TextView mTvTitle;
   private TextView mTvSubtitle;
+  private View mDirectionFrame;
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
@@ -125,12 +124,11 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private TextView mTvDescription;
   private Button mBtnEditHtmlDescription;
   private TextView mTvBookmarkGroup;
+  private boolean mBookmarkSet;
   // Place page buttons
-  private View mGeneralButtonsFrame;
-  private View mRouteButtonsFrame;
-  private View mApiBack;
-  private ImageView mIvBookmark;
-  private View mRoutingButton;
+  private PlacePageButtons mButtons;
+  private ImageView mBookmarkButtonIcon;
+
   // Animations
   private BaseShadowController mShadowController;
   private BasePlacePageAnimationController mAnimationController;
@@ -213,9 +211,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvTitle = (TextView) mPreview.findViewById(R.id.tv__title);
     mToolbar = (Toolbar) findViewById(R.id.toolbar);
     mTvSubtitle = (TextView) mPreview.findViewById(R.id.tv__subtitle);
+
+    mDirectionFrame = mPreview.findViewById(R.id.direction_frame_outer);
     mTvDistance = (TextView) mPreview.findViewById(R.id.tv__straight_distance);
     mAvDirection = (ArrowView) mPreview.findViewById(R.id.av__direction);
-    mAvDirection.setOnClickListener(this);
+    mDirectionFrame.findViewById(R.id.direction_frame).setOnClickListener(this);
+
     mTvAddress = (TextView) mPreview.findViewById(R.id.tv__address);
 
     mDetails = (ScrollView) findViewById(R.id.pp__details);
@@ -291,18 +292,88 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
 
-    mGeneralButtonsFrame = ppButtons.findViewById(R.id.general);
-    mApiBack = mGeneralButtonsFrame.findViewById(R.id.ll__api_back);
-    mApiBack.setOnClickListener(this);
-    final View bookmarkGroup = mGeneralButtonsFrame.findViewById(R.id.ll__bookmark);
-    bookmarkGroup.setOnClickListener(this);
-    mIvBookmark = (ImageView) bookmarkGroup.findViewById(R.id.iv__bookmark);
-    mGeneralButtonsFrame.findViewById(R.id.ll__share).setOnClickListener(this);
-    mRoutingButton = mGeneralButtonsFrame.findViewById(R.id.ll__route);
+    mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
+    {
+      @Override
+      public void onPrepareVisibleView(PlacePageButtons.Item item, ImageView icon, TextView title)
+      {
+        int color;
 
-    mRouteButtonsFrame = ppButtons.findViewById(R.id.routing);
-    mRouteButtonsFrame.findViewById(R.id.from).setOnClickListener(this);
-    mRouteButtonsFrame.findViewById(R.id.to).setOnClickListener(this);
+        switch (item)
+        {
+        case BOOKING:
+          color = ThemeUtils.getColor(getContext(), R.attr.colorAccent);
+          icon.setColorFilter(color);
+          break;
+
+        case BOOKMARK:
+          mBookmarkButtonIcon = icon;
+          updateButtons();
+          color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
+          break;
+
+        default:
+          color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
+          icon.setColorFilter(color);
+          break;
+        }
+
+        title.setTextColor(color);
+      }
+
+      @Override
+      public void onItemClick(PlacePageButtons.Item item)
+      {
+        switch (item)
+        {
+        case BOOKMARK:
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
+          AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
+          toggleIsBookmark();
+          break;
+
+        case SHARE:
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
+          AlohaHelper.logClick(AlohaHelper.PP_SHARE);
+          ShareOption.ANY.shareMapObject(getActivity(), mMapObject);
+          break;
+
+        case BACK:
+          if (ParsedMwmRequest.hasRequest())
+          {
+            ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+            if (ParsedMwmRequest.isPickPointMode())
+              request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
+
+            request.sendResponseAndFinish(getActivity(), true);
+          } else
+            getActivity().finish();
+          break;
+
+        case ROUTE_FROM:
+          if (RoutingController.get().setStartPoint(mMapObject))
+            hide();
+          break;
+
+        case ROUTE_TO:
+          if (RoutingController.get().isPlanning())
+          {
+            if (RoutingController.get().setEndPoint(mMapObject))
+              hide();
+          }
+          else
+          {
+            saveBookmarkTitle();
+            getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, getMapObject());
+          }
+          break;
+
+        case BOOKING:
+          // TODO
+          break;
+        }
+      }
+    });
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame))
                           .setOnIconClickListener(new OnClickListener()
@@ -310,7 +381,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
                             @Override
                             public void onClick(View v)
                             {
-                              MapManager.warn3gAndDownload((MwmActivity) getContext(), mCurrentCountry.id, new Runnable()
+                              MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, new Runnable()
                               {
                                 @Override
                                 public void run()
@@ -458,6 +529,26 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshViews();
   }
 
+  private void refreshDistanceFrame()
+  {
+    UiUtils.hide(mDirectionFrame);
+
+    UiUtils.measureView(mPreview, new UiUtils.OnViewMeasuredListener()
+    {
+      @Override
+      public void onViewMeasured(int width, int height)
+      {
+        int minHeight = UiUtils.dimen(R.dimen.direction_frame_min_height);
+        height = Math.max(minHeight, height - mPreview.getPaddingTop() - mPreview.getPaddingBottom());
+
+        ViewGroup.LayoutParams lp = mDirectionFrame.getLayoutParams();
+        lp.height = height;
+        mDirectionFrame.setLayoutParams(lp);
+        UiUtils.show(mDirectionFrame);
+      }
+    });
+  }
+
   public void refreshViews()
   {
     if (mMapObject == null)
@@ -472,23 +563,23 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case MapObject.BOOKMARK:
       refreshDistanceToObject(loc);
       showBookmarkDetails();
-      refreshButtons(false, true);
+      setButtons(false, true);
       break;
     case MapObject.POI:
     case MapObject.SEARCH:
       refreshDistanceToObject(loc);
       hideBookmarkDetails();
-      refreshButtons(false, true);
+      setButtons(false, true);
       break;
     case MapObject.API_POINT:
       refreshDistanceToObject(loc);
       hideBookmarkDetails();
-      refreshButtons(true, true);
+      setButtons(true, true);
       break;
     case MapObject.MY_POSITION:
       refreshMyPosition(loc);
       hideBookmarkDetails();
-      refreshButtons(false, false);
+      setButtons(false, false);
       break;
     }
 
@@ -498,7 +589,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       public void run()
       {
         mShadowController.updateShadows();
-        requestLayout();
+        refreshDistanceFrame();
+        mPreview.requestLayout();
       }
     });
   }
@@ -584,18 +676,31 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTodayOpeningHours.setTextColor(color);
   }
 
+  private void updateButtons()
+  {
+    if (mBookmarkButtonIcon == null)
+      return;
+
+    if (mBookmarkSet)
+      mBookmarkButtonIcon.setImageResource(R.drawable.ic_bookmarks_on);
+    else
+      mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
+  }
+
   private void hideBookmarkDetails()
   {
-    mIvBookmark.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
+    mBookmarkSet = false;
+    updateButtons();
   }
 
   private void showBookmarkDetails()
   {
+    mBookmarkSet = true;
     final Bookmark bookmark = (Bookmark) mMapObject;
     mEtBookmarkName.setText(bookmark.getTitle());
     mTvBookmarkGroup.setText(bookmark.getCategoryName());
     mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
-    mIvBookmark.setImageResource(R.drawable.ic_bookmarks_on);
+
     final String notes = bookmark.getBookmarkDescription();
     if (notes.isEmpty())
       UiUtils.hide(mWvDescription, mBtnEditHtmlDescription, mTvDescription);
@@ -610,23 +715,36 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       UiUtils.hide(mWvDescription, mBtnEditHtmlDescription);
       UiUtils.setTextAndShow(mTvDescription, notes);
     }
+
+    updateButtons();
   }
 
-  private void refreshButtons(boolean showBackButton, boolean showRoutingButton)
+  private void setButtons(boolean showBackButton, boolean showRoutingButton)
   {
+    List<PlacePageButtons.Item> buttons = new ArrayList<>();
+
+    if (showBackButton || ParsedMwmRequest.isPickPointMode())
+      buttons.add(PlacePageButtons.Item.BACK);
+
+    if (Framework.nativeIsSponsored())
+      buttons.add(PlacePageButtons.Item.BOOKING);
+
+    buttons.add(PlacePageButtons.Item.BOOKMARK);
+
     if (RoutingController.get().isPlanning())
     {
-      UiUtils.show(mRouteButtonsFrame);
-      UiUtils.hide(mGeneralButtonsFrame, mEditPlace);
+      buttons.add(PlacePageButtons.Item.ROUTE_FROM);
+      buttons.add(PlacePageButtons.Item.ROUTE_TO);
     }
     else
     {
-      UiUtils.show(mGeneralButtonsFrame);
-      UiUtils.hide(mRouteButtonsFrame);
-
-      UiUtils.showIf(showBackButton || ParsedMwmRequest.isPickPointMode(), mApiBack);
-      UiUtils.showIf(showRoutingButton, mRoutingButton);
+      if (showRoutingButton)
+        buttons.add(PlacePageButtons.Item.ROUTE_TO);
     }
+
+    buttons.add(PlacePageButtons.Item.SHARE);
+
+    mButtons.setItems(buttons);
   }
 
   public void refreshLocation(Location l)
@@ -740,7 +858,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     if (fragment == null)
     {
-      FragmentManager fm = ((FragmentActivity) getContext()).getSupportFragmentManager();
+      FragmentManager fm = getActivity().getSupportFragmentManager();
       fragment = (EditDescriptionFragment) fm.findFragmentByTag(EditDescriptionFragment.class.getName());
     }
 
@@ -759,22 +877,17 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     });
   }
 
-  private void showEditor()
-  {
-    ((MwmActivity) getContext()).showEditor();
-  }
-
   private void addOrganisation()
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
                                    Statistics.params().add(Statistics.EventParam.FROM, "placepage"));
-    ((MwmActivity) getContext()).showPositionChooser(true, false);
+    getActivity().showPositionChooser(true, false);
   }
 
   private void addPlace()
   {
     // TODO add statistics
-    ((MwmActivity) getContext()).showPositionChooser(false, true);
+    getActivity().showPositionChooser(false, true);
   }
 
   @Override
@@ -783,7 +896,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     switch (v.getId())
     {
     case R.id.ll__place_editor:
-      showEditor();
+      getActivity().showEditor();
       break;
     case R.id.ll__add_organisation:
       addOrganisation();
@@ -794,28 +907,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.iv__bookmark_color:
       saveBookmarkTitle();
       selectBookmarkColor();
-      break;
-    case R.id.ll__bookmark:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
-      AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
-      toggleIsBookmark();
-      break;
-    case R.id.ll__share:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
-      AlohaHelper.logClick(AlohaHelper.PP_SHARE);
-      ShareOption.ANY.shareMapObject((Activity) getContext(), mMapObject);
-      break;
-    case R.id.ll__api_back:
-      final Activity activity = (Activity) getContext();
-      if (ParsedMwmRequest.hasRequest())
-      {
-        final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-        if (ParsedMwmRequest.isPickPointMode())
-          request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
-        request.sendResponseAndFinish(activity, true);
-      }
-      else
-        activity.finish();
       break;
     case R.id.ll__place_latlon:
       mIsLatLonDms = !mIsLatLonDms;
@@ -844,7 +935,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       saveBookmarkTitle();
       selectBookmarkSet();
       break;
-    case R.id.av__direction:
+    case R.id.direction_frame:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW);
       AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW);
       showBigDirection();
@@ -863,16 +954,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       String name = EditDescriptionFragment.class.getName();
       final EditDescriptionFragment fragment = (EditDescriptionFragment) Fragment.instantiate(getContext(), name, args);
       fragment.setArguments(args);
-      fragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), name);
+      fragment.show(getActivity().getSupportFragmentManager(), name);
       subscribeBookmarkEditFragment(fragment);
-      break;
-    case R.id.from:
-      if (RoutingController.get().setStartPoint(mMapObject))
-        hide();
-      break;
-    case R.id.to:
-      if (RoutingController.get().setEndPoint(mMapObject))
-        hide();
       break;
     }
   }
@@ -914,15 +997,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void selectBookmarkSet()
   {
-    final FragmentActivity activity = (FragmentActivity) getContext();
     final Bookmark bookmark = (Bookmark) mMapObject;
 
     final Bundle args = new Bundle();
     args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, bookmark.getCategoryId());
     args.putInt(ChooseBookmarkCategoryFragment.BOOKMARK_ID, bookmark.getBookmarkId());
     final ChooseBookmarkCategoryFragment fragment =
-        (ChooseBookmarkCategoryFragment) Fragment.instantiate(activity, ChooseBookmarkCategoryFragment.class.getName(), args);
-    fragment.show(activity.getSupportFragmentManager(), null);
+        (ChooseBookmarkCategoryFragment) Fragment.instantiate(getActivity(), ChooseBookmarkCategoryFragment.class.getName(), args);
+    fragment.show(getActivity().getSupportFragmentManager(), null);
   }
 
   private void selectBookmarkColor()
@@ -951,15 +1033,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       }
     });
 
-    dialogFragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), null);
+    dialogFragment.show(getActivity().getSupportFragmentManager(), null);
   }
 
   private void showBigDirection()
   {
-    final FragmentActivity hostActivity = (FragmentActivity) getContext();
-    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(hostActivity, DirectionFragment.class.getName(), null);
+    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(getActivity(), DirectionFragment.class.getName(), null);
     fragment.setMapObject(mMapObject);
-    fragment.show(hostActivity.getSupportFragmentManager(), null);
+    fragment.show(getActivity().getSupportFragmentManager(), null);
   }
 
   @Override
@@ -1121,5 +1202,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mCurrentCountry = null;
     mDownloaderIcon.show(false);
     UiUtils.hide(mDownloaderInfo);
+  }
+
+  MwmActivity getActivity()
+  {
+    return (MwmActivity) getContext();
   }
 }

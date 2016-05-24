@@ -7,24 +7,40 @@
   android:gravity="center_vertical"
   android:orientation="horizontal"
   android:padding="@dimen/margin_base">
-  <TextView
-    android:id="@+id/tv__straight_distance"
+  <!-- Due to RelativeLayout's bug (or documented feature) it is not possible to
+       align views at the bottom and have RelativeLayout to be wrap_content.
+       This frame is resized in the code to match outer container's height. -->
+  <FrameLayout
+    android:id="@+id/direction_frame_outer"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
-    android:layout_alignParentRight="true"
-    android:layout_centerVertical="true"
-    tools:text="2000 km"/>
+    android:layout_height="50dp"
+    android:layout_alignParentRight="true">
+    <LinearLayout
+      android:id="@+id/direction_frame"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_gravity="bottom"
+      android:gravity="center_vertical"
+      android:background="?selectableItemBackground"
+      tools:ignore="UselessParent">
+      <com.mapswithme.maps.widget.ArrowView
+        android:id="@+id/av__direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginRight="@dimen/margin_half"
+        android:scaleType="center"
+        android:src="?ppArrowDrawable"/>
 
-  <com.mapswithme.maps.widget.ArrowView
-    android:id="@+id/av__direction"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:padding="@dimen/margin_half"
-    android:src="?ppArrowDrawable"
-    android:layout_toLeftOf="@id/tv__straight_distance"
-    android:layout_centerVertical="true"/>
+      <TextView
+        android:id="@+id/tv__straight_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+        tools:text="2000 km"/>
+    </LinearLayout>
+  </FrameLayout>
 
   <include
     android:id="@+id/downloader_status_frame"
@@ -42,7 +58,6 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_toRightOf="@id/downloader_status_frame"
-    android:layout_toLeftOf="@id/av__direction"
     android:layout_alignWithParentIfMissing="true"
     android:fontFamily="@string/robotoMedium"
     android:maxLines="@integer/pp_title_lines"
@@ -57,7 +72,7 @@
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_below="@id/tv__title"
     android:layout_toRightOf="@id/downloader_status_frame"
-    android:layout_toLeftOf="@id/av__direction"
+    android:layout_toLeftOf="@id/direction_frame_outer"
     android:layout_alignWithParentIfMissing="true"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
     tools:text="Subtitle"/>
@@ -69,10 +84,12 @@
     android:layout_marginTop="@dimen/margin_half"
     android:layout_below="@id/tv__subtitle"
     android:layout_toRightOf="@id/downloader_status_frame"
-    android:layout_toLeftOf="@id/av__direction"
+    android:layout_toLeftOf="@id/direction_frame_outer"
     android:layout_alignWithParentIfMissing="true"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-    tools:text="2.4 GB • Maps: 1"/>
+    android:visibility="gone"
+    tools:text="2.4 GB • Maps: 1"
+    tools:visibility="visible"/>
 
   <!-- TODO set correct color when that block will be handled (now its hidden always) -->
   <TextView
@@ -81,7 +98,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_below="@id/tv__downloader_details"
-    android:layout_toLeftOf="@id/av__direction"
+    android:layout_toLeftOf="@id/direction_frame_outer"
     android:layout_alignWithParentIfMissing="true"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
     android:visibility="gone"
@@ -94,7 +111,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_below="@id/tv__opened_till"
-    android:layout_toLeftOf="@id/av__direction"
+    android:layout_toLeftOf="@id/direction_frame_outer"
     android:layout_alignWithParentIfMissing="true"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
     tools:text="Lenina str, 10"/>

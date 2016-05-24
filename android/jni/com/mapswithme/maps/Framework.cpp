@@ -1028,4 +1028,11 @@ Java_com_mapswithme_maps_Framework_nativeCanAddPlaceFromPlacePage(JNIEnv * env, 
 {
   return g_framework->GetPlacePageInfo().ShouldShowAddPlace();
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsSponsored(JNIEnv * env, jclass clazz)
+{
+  return g_framework->GetPlacePageInfo().m_isSponsoredHotel;
+}
+
 } // extern "C"

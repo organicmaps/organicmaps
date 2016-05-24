@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  style="@style/PlacePageButton"
+  tools:ignore="UseCompoundDrawables">
+  <ImageView
+    android:id="@+id/icon"
+    style="@style/PlacePageButtonImage"
+    android:contentDescription="@string/back"
+    tools:src="@drawable/ic_share"/>
+
+  <TextView
+    android:id="@+id/title"
+    style="@style/PlacePageButtonText"
+    android:text="@string/back"/>
+</LinearLayout>
