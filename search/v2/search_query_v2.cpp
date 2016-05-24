@@ -33,10 +33,10 @@ void SearchQueryV2::Cancel()
   m_geocoder.Cancel();
 }
 
-void SearchQueryV2::Search(Results & res, size_t resCount)
+void SearchQueryV2::Search(Results & results, size_t limit)
 {
   if (m_tokens.empty())
-    SuggestStrings(res);
+    SuggestStrings(results);
 
   Geocoder::Params params;
   InitParams(false /* localitySearch */, params);
@@ -44,46 +44,30 @@ void SearchQueryV2::Search(Results & res, size_t resCount)
 
   params.m_pivot = GetPivotRect();
   params.m_accuratePivotCenter = GetPivotPoint();
-  params.m_maxNumResults = max(resCount, kPreResultsCount);
   m_geocoder.SetParams(params);
 
-  Geocoder::TResultList results;
-  m_geocoder.GoEverywhere(results);
-  AddPreResults1(results);
+  m_geocoder.GoEverywhere(m_preRanker);
 
-  FlushResults(params, res, false /* allMWMs */, resCount, false /* oldHouseSearch */);
+  FlushResults(params, results, false /* allMWMs */, limit, false /* oldHouseSearch */);
 }
 
-void SearchQueryV2::SearchViewportPoints(Results & res)
+void SearchQueryV2::SearchViewportPoints(Results & results)
 {
   Geocoder::Params params;
   InitParams(false /* localitySearch */, params);
   params.m_pivot = m_viewport[CURRENT_V];
   params.m_accuratePivotCenter = params.m_pivot.Center();
-  params.m_maxNumResults = kPreResultsCount;
   m_geocoder.SetParams(params);
 
-  Geocoder::TResultList results;
-  m_geocoder.GoInViewport(results);
-  AddPreResults1(results);
+  m_geocoder.GoInViewport(m_preRanker);
 
-  FlushViewportResults(params, res, false /* oldHouseSearch */);
+  FlushViewportResults(params, results, false /* oldHouseSearch */);
 }
 
 void SearchQueryV2::ClearCaches()
 {
   Query::ClearCaches();
   m_geocoder.ClearCaches();
-}
-
-void SearchQueryV2::AddPreResults1(Geocoder::TResultList & results)
-{
-  for (auto const & result : results)
-  {
-    auto const & id = result.first;
-    auto const & info = result.second;
-    AddPreResult1(id.m_mwmId, id.m_index, info.m_distanceToPivot /* priority */, info);
-  }
 }
 }  // namespace v2
 }  // namespace search

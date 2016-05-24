@@ -48,6 +48,8 @@ class CountryInfoGetter;
 
 namespace search
 {
+class PreRanker;
+
 namespace v2
 {
 class FeaturesFilter;
@@ -88,7 +90,6 @@ public:
     // compute a distance from a feature to the pivot.
     m2::RectD m_pivot;
     m2::PointD m_accuratePivotCenter;
-    size_t m_maxNumResults;
   };
 
   enum RegionType
@@ -141,9 +142,6 @@ public:
 #endif
   };
 
-  using TResult = pair<FeatureID, PreRankingInfo>;
-  using TResultList = vector<TResult>;
-
   Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter);
 
   ~Geocoder() override;
@@ -153,8 +151,8 @@ public:
 
   // Starts geocoding, retrieved features will be appended to
   // |results|.
-  void GoEverywhere(TResultList & results);
-  void GoInViewport(TResultList & results);
+  void GoEverywhere(PreRanker & preRanker);
+  void GoInViewport(PreRanker & preRanker);
 
   void ClearCaches();
 
@@ -182,7 +180,7 @@ private:
     unique_ptr<coding::CompressedBitVector> m_features;
   };
 
-  void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
+  void GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename TLocality>
   using TLocalitiesCache = map<pair<size_t, size_t>, vector<TLocality>>;
@@ -259,13 +257,13 @@ private:
   // the lowest layer.
   void FindPaths();
 
-  // Forms result and appends it to |m_results|.
+  // Forms result and feeds it to |m_preRanker|.
   void EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, SearchModel::SearchType type,
                   size_t startToken, size_t endToken);
   void EmitResult(Region const & region, size_t startToken, size_t endToken);
   void EmitResult(City const & city, size_t startToken, size_t endToken);
 
-  // Computes missing fields for all results in |m_results|.
+  // Computes missing fields for all results in |m_preRanker|.
   void FillMissingFieldsInResults();
 
   // Tries to match unclassified objects from lower layers, like
@@ -382,8 +380,8 @@ private:
   // Stack of layers filled during geocoding.
   vector<FeaturesLayer> m_layers;
 
-  // Non-owning pointer to a vector of results.
-  TResultList * m_results;
+  // Non-owning.
+  PreRanker * m_preRanker;
 };
 
 string DebugPrint(Geocoder::Locality const & locality);

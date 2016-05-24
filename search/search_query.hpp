@@ -1,7 +1,7 @@
 #pragma once
-#include "search/intermediate_result.hpp"
 #include "search/keyword_lang_matcher.hpp"
 #include "search/mode.hpp"
+#include "search/pre_ranker.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_trie.hpp"
 #include "search/suggest.hpp"
@@ -59,11 +59,6 @@ namespace impl
   class HouseCompFactory;
 }
 
-namespace v2
-{
-struct PreRankingInfo;
-}
-
 // TODO (@y): rename this class to QueryProcessor.
 class Query : public my::Cancellable
 {
@@ -106,8 +101,8 @@ public:
 
   /// @name Different search functions.
   //@{
-  virtual void Search(Results & res, size_t resCount) = 0;
-  virtual void SearchViewportPoints(Results & res) = 0;
+  virtual void Search(Results & results, size_t limit) = 0;
+  virtual void SearchViewportPoints(Results & results) = 0;
 
   // Tries to generate a (lat, lon) result from |m_query|.
   void SearchCoordinates(Results & res) const;
@@ -143,8 +138,6 @@ protected:
   friend class impl::DoFindLocality;
   friend class impl::HouseCompFactory;
 
-  void ClearResults();
-
   int GetCategoryLocales(int8_t (&arr) [3]) const;
   template <class ToDo>
   void ForEachCategoryTypes(v2::QuerySlice const & slice, ToDo toDo) const;
@@ -161,9 +154,6 @@ protected:
   void SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & viewport, size_t idx,
                           bool forceUpdate);
   void ClearCache(size_t ind);
-
-  void AddPreResult1(MwmSet::MwmId const & mwmId, uint32_t featureId, double priority,
-                     v2::PreRankingInfo const & info, ViewportID viewportId = DEFAULT_V);
 
   template <class T>
   void MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont,
@@ -245,29 +235,10 @@ protected:
   using TQueueCompare = TCompare<impl::PreResult1>;
   using TQueue = my::limited_priority_queue<impl::PreResult1, TQueueCompare>;
 
-  /// @name Intermediate result queues sorted by different criterias.
-  //@{
-public:
-  enum
-  {
-    kQueuesCount = 2
-  };
-
 protected:
-  // The values order should be the same as in
-  // g_arrCompare1, g_arrCompare2 function arrays.
-  enum
-  {
-    DISTANCE_TO_PIVOT,  // LessDistance
-    FEATURE_RANK       // LessRank
-  };
-
-  vector<impl::PreResult1> m_results;
+  PreRanker m_preRanker;
   bool m_viewportSearch;
   bool m_keepHouseNumberInQuery;
-  //@}
-
   search::ReverseGeocoder const m_reverseGeocoder;
 };
-
 }  // namespace search

@@ -24,30 +24,24 @@ namespace impl
 /// Works fast without feature loading and provide ranking.
 class PreResult1
 {
+public:
+  PreResult1(FeatureID const & fID, v2::PreRankingInfo const & info);
+
+  static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
+  static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
+
+  inline FeatureID GetId() const { return m_id; }
+  inline double GetDistance() const { return m_info.m_distanceToPivot; }
+  inline uint8_t GetRank() const { return m_info.m_rank; }
+  inline v2::PreRankingInfo & GetInfo() { return m_info; }
+  inline v2::PreRankingInfo const & GetInfo() const { return m_info; }
+
+private:
   friend class PreResult2;
 
   FeatureID m_id;
-  double m_priority;
-  int8_t m_viewportID;
-
   v2::PreRankingInfo m_info;
-
-public:
-  explicit PreResult1(double priority);
-
-  PreResult1(FeatureID const & fID, double priority, int8_t viewportID,
-             v2::PreRankingInfo const & info);
-
-  static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
-  static bool LessPriority(PreResult1 const & r1, PreResult1 const & r2);
-
-  inline FeatureID GetID() const { return m_id; }
-  inline double GetPriority() const { return m_priority; }
-  inline uint8_t GetRank() const { return m_info.m_rank; }
-  inline int8_t GetViewportID() const { return m_viewportID; }
-  inline v2::PreRankingInfo const & GetInfo() const { return m_info; }
 };
-
 
 /// Second result class. Objects are creating during reading of features.
 /// Read and fill needed info for ranking and getting final results.
