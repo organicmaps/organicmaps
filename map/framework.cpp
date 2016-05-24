@@ -1934,10 +1934,13 @@ void Framework::DeactivateMapSelection(bool notifyUI)
 
 void Framework::UpdatePlacePageInfoForCurrentSelection()
 {
-  ASSERT(m_lastTapEvent, ());
+  if (m_lastTapEvent == nullptr)
+    return;
 
   place_page::Info info;
-  ActivateMapSelection(false, OnTapEventImpl(*m_lastTapEvent, info), info);
+  df::SelectionShape::ESelectedObject const obj = OnTapEventImpl(*m_lastTapEvent, info);
+  if (obj != df::SelectionShape::OBJECT_EMPTY)
+    ActivateMapSelection(false, obj, info);
 }
 
 void Framework::InvalidateUserMarks()
@@ -2032,6 +2035,9 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
 df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const & tapInfo,
                                                               place_page::Info & outInfo) const
 {
+  if (m_drapeEngine == nullptr)
+    return df::SelectionShape::OBJECT_EMPTY;
+
   m2::PointD const pxPoint2d = m_currentModelView.P3dtoP(tapInfo.m_pixelPoint);
 
   if (tapInfo.m_isMyPositionTapped)
