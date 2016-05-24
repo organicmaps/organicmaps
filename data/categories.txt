@@ -1131,7 +1131,7 @@ shop-mall
 en:Mall|5shopping mall|shop
 ar:ﻝﻮﻣ|المتجر
 cs:Obchoďák|obchod
-da:Indkøbcenter|butikscenter|storcenter|center|butik
+da:Indkøbscenter|butikscenter|storcenter|center|butik
 de:Das Einkaufszentrum|Geschäft
 el:Το εμπορικό κέντρο|μαγαζί
 es:El centro comercial|tienda
