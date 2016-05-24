@@ -38,7 +38,6 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.Yota;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -255,8 +254,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
   private void suggestRemoveLiteOrSamsung()
   {
-    if (!Yota.isFirstYota() &&
-        (Utils.isPackageInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isPackageInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE)))
+    if (Utils.isPackageInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isPackageInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE))
       Toast.makeText(this, R.string.suggest_uninstall_lite, Toast.LENGTH_LONG).show();
   }
 

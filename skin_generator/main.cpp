@@ -21,7 +21,7 @@ DEFINE_string(searchCategories, "../../data/search-icons/categories-icons.txt", 
 DEFINE_string(searchIconsSrcPath, "../../data/search-icons/svg", "input path for search category icons");
 DEFINE_int32(searchIconWidth, 24, "width of the search category icon");
 DEFINE_int32(searchIconHeight, 24, "height of the search category icon");
-DEFINE_bool(colorCorrection, false, "apply color correction for yota");
+DEFINE_bool(colorCorrection, false, "apply color correction");
 
 int main(int argc, char *argv[])
 {

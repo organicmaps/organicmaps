@@ -1,2 +1,0 @@
-include ':yota_sdk'
-project(':yota_sdk').projectDir = new File(settingsDir, '../3rd_party/yota_sdk')

@@ -81,7 +81,6 @@ import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.Yota;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
@@ -360,7 +359,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void initViews()
   {
     initMap();
-    initYota();
     initPlacePage();
     initNavigationButtons();
 
@@ -465,12 +463,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePage = (PlacePageView) findViewById(R.id.info_box);
     mPlacePage.setOnVisibilityChangedListener(this);
     mPlacePage.findViewById(R.id.ll__route).setOnClickListener(this);
-  }
-
-  private void initYota()
-  {
-    if (Yota.isFirstYota())
-      findViewById(R.id.yop_it).setOnClickListener(this);
   }
 
   private boolean closePlacePage()

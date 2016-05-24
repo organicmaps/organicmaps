@@ -95,7 +95,7 @@ namespace android
                             jstring apkPath, jstring storagePath,
                             jstring tmpPath, jstring obbGooglePath,
                             jstring flavorName, jstring buildType,
-                            bool isYota, bool isTablet)
+                            bool isTablet)
   {
     m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
     jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
