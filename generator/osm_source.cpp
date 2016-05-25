@@ -408,7 +408,7 @@ void BuildIntermediateDataFromXML(SourceReader & stream, TCache & cache, TownsDu
   ParseXMLSequence(stream, parser);
 }
 
-void BuildFeaturesFromXML(SourceReader & stream, function<void(OsmElement *)> processor)
+void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *)> processor)
 {
   XMLSource parser([&](OsmElement * e) { processor(e); });
   ParseXMLSequence(stream, parser);
@@ -431,7 +431,7 @@ void BuildIntermediateDataFromO5M(SourceReader & stream, TCache & cache, TownsDu
   }
 }
 
-void BuildFeaturesFromO5M(SourceReader & stream, function<void(OsmElement *)> processor)
+void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *)> processor)
 {
   using TType = osm::O5MSource::EntityType;
 
@@ -532,10 +532,10 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     switch (info.m_osmFileType)
     {
       case feature::GenerateInfo::OsmSourceType::XML:
-        BuildFeaturesFromXML(reader, fn);
+        ProcessOsmElementsFromXML(reader, fn);
         break;
       case feature::GenerateInfo::OsmSourceType::O5M:
-        BuildFeaturesFromO5M(reader, fn);
+        ProcessOsmElementsFromO5M(reader, fn);
         break;
     }
 
