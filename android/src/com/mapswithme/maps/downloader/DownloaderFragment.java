@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
@@ -42,7 +40,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
 
   private final NativeMapSearchListener mSearchListener = new NativeMapSearchListener()
   {
-    private final Map<String, CountryItem> mResults = new LinkedHashMap<>();
+    private final List<CountryItem> mResults = new ArrayList<>();
 
     @Override
     public void onMapSearchResults(Result[] results, long timestamp, boolean isLast)
@@ -52,17 +50,14 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
 
       for (Result result : results)
       {
-        if (TextUtils.isEmpty(result.countryId) || mResults.containsKey(result.countryId))
-          continue;
-
         CountryItem item = CountryItem.fill(result.countryId);
         item.searchResultName = result.matchedString;
-        mResults.put(result.countryId, item);
+        mResults.add(item);
       }
 
       if (isLast)
       {
-        mAdapter.setSearchResultsMode(mResults.values(), mToolbarController.getQuery());
+        mAdapter.setSearchResultsMode(mResults, mToolbarController.getQuery());
         mResults.clear();
 
         onSearchEnd();
