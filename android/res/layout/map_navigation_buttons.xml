@@ -7,9 +7,7 @@
               android:gravity="right"
               android:paddingLeft="@dimen/margin_navigation_buttons"
               android:paddingRight="0dp"
-              android:paddingTop="@dimen/margin_navigation_buttons"
               android:paddingBottom="@dimen/margin_navigation_buttons">
-
   <android.support.v4.widget.Space
       android:id="@+id/space_bottom"
       android:layout_width="0dp"
