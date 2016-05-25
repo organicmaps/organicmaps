@@ -180,7 +180,7 @@ public class SearchFragment extends BaseMwmFragment
     if (fragment != null && !fragment.isDetached() && !fragment.isRemoving())
       manager.beginTransaction()
              .remove(fragment)
-             .commit();
+             .commitAllowingStateLoss();
   }
 
   private void updateFrames()
