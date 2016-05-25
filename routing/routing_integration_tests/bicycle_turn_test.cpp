@@ -17,11 +17,13 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  integration::TestTurnCount(route, 1);
+  integration::TestTurnCount(route, 3);
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(TurnDirection::TurnLeft);
 
-  integration::TestRouteLength(route, 752.);
+  integration::TestRouteLength(route, 2350.0);
 }
 
 UNIT_TEST(RussiaMoscowGerPanfilovtsev22BicycleWayTurnTest)
@@ -66,4 +68,43 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTurnTest)
   TEST_EQUAL(result, IRouter::NoError, ());
   TEST_EQUAL(route.GetTurns().size(), 0, ());
   integration::TestRouteLength(route, 0.0);
+}
+
+UNIT_TEST(RussiaMoscowPlanernaiOnewayCarRoadTurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(55.87012, 37.44028),
+      {0.0, 0.0}, MercatorBounds::FromLatLon(55.87153, 37.43928));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  integration::TestTurnCount(route, 4);
+
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(TurnDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(TurnDirection::TurnLeft);
+
+  integration::TestRouteLength(route, 420.0);
+}
+
+UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(55.87277, 37.44002),
+      {0.0, 0.0}, MercatorBounds::FromLatLon(55.87362, 37.43853));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  integration::TestTurnCount(route, 3);
+
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(TurnDirection::TurnLeft);
+
+  integration::TestRouteLength(route, 768.0);
 }
