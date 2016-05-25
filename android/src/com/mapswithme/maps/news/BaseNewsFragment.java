@@ -280,7 +280,7 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
       public void onClick(View v)
       {
         onClosed();
-        dismiss();
+        dismissAllowingStateLoss();
       }
     });
 

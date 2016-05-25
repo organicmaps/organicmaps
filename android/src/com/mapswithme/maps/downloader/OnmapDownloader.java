@@ -208,6 +208,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           @Override
           public void run()
           {
+            if (mCurrentCountry == null)
+              return;
+
             boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
             if (retry)
             {
