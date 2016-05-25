@@ -65,6 +65,7 @@ public:
   void Finish() override;
 
   m2::PointD GetPosition() const { return m_position; }
+  m2::PointD GetTargetPosition() const { return m_endPosition; }
 
 private:
   m2::PointD m_startPosition;
@@ -88,6 +89,7 @@ public:
   void Finish() override;
 
   double GetScale() const { return m_scale; }
+  double GetTargetScale() const { return m_endScale; }
 
 private:
   double m_startScale;
@@ -112,6 +114,7 @@ public:
   void Finish() override;
 
   double GetAngle() const { return m_angle; }
+  double GetTargetAngle() const { return m_endAngle; }
 
 private:
   double m_startAngle;

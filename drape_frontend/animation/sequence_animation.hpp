@@ -18,6 +18,7 @@ public:
   bool HasObject(TObject object) const override;
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
+  bool HasTargetProperty(TObject object, TProperty property) const override;
 
   string const & GetCustomType() const;
   void SetCustomType(string const & type);
@@ -27,6 +28,7 @@ public:
   bool IsFinished() const override;
 
   bool GetProperty(TObject object, TProperty property, PropertyValue &value) const override;
+  bool GetTargetProperty(TObject object, TProperty property, PropertyValue &value) const override;
 
   void AddAnimation(drape_ptr<Animation> animation);
 

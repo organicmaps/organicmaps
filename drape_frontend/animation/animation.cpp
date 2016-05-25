@@ -20,4 +20,9 @@ bool Animation::CouldBeBlendedWith(Animation const & animation) const
       m_couldBeBlended && animation.m_couldBeBlended);
 }
 
+bool Animation::HasTargetProperty(TObject object, TProperty property) const
+{
+  return HasProperty(object, property);
+}
+
 } // namespace df

@@ -118,6 +118,7 @@ public:
   virtual bool HasObject(TObject object) const = 0;
   virtual TObjectProperties const & GetProperties(TObject object) const = 0;
   virtual bool HasProperty(TObject object, TProperty property) const = 0;
+  virtual bool HasTargetProperty(TObject object, TProperty property) const;
 
   virtual void SetMaxDuration(double maxDuration) = 0;
   virtual double GetDuration() const = 0;
@@ -127,6 +128,7 @@ public:
   virtual void Finish() { OnFinish(); }
 
   virtual bool GetProperty(TObject object, TProperty property, PropertyValue & value) const = 0;
+  virtual bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const = 0;
 
   void SetOnStartAction(TAction const & action) { m_onStartAction = action; }
   void SetOnFinishAction(TAction const & action) { m_onFinishAction = action; }

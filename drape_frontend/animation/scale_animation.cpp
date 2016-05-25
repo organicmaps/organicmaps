@@ -56,22 +56,34 @@ bool MapScaleAnimation::IsFinished() const
   return m_scaleInterpolator.IsFinished();
 }
 
-bool MapScaleAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool MapScaleAnimation::GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const
 {
+  ASSERT_EQUAL(object, Animation::MapPlane, ());
+
   if (property == Animation::Position)
   {
     ScreenBase screen = AnimationSystem::Instance().GetLastScreen();
-    screen.SetScale(m_scaleInterpolator.GetScale());
+    screen.SetScale(targetValue ? m_scaleInterpolator.GetTargetScale() : m_scaleInterpolator.GetScale());
     value = PropertyValue(screen.PtoG(screen.GtoP(m_globalScaleCenter) + m_pixelCenterOffset));
     return true;
   }
   if (property == Animation::Scale)
   {
-    value = PropertyValue(m_scaleInterpolator.GetScale());
+    value = PropertyValue(targetValue ? m_scaleInterpolator.GetTargetScale() : m_scaleInterpolator.GetScale());
     return true;
   }
   ASSERT(false, ("Wrong property:", property));
   return false;
+}
+
+bool MapScaleAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+{
+  return GetProperty(object, property, true /* targetValue */, value);
+}
+
+bool MapScaleAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
+{
+  return GetProperty(object, property, false /* targetValue */, value);
 }
 
 } // namespace df
