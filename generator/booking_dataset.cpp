@@ -144,7 +144,17 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
   return matched;
 }
 
-bool BookingDataset::Filter(OsmElement const & e) const
+bool BookingDataset::BookingFilter(OsmElement const & e) const
+{
+  return Filter(e, [&](OsmElement const & e){ return MatchWithBooking(e); });
+}
+
+bool BookingDataset::TourismFilter(OsmElement const & e) const
+{
+  return Filter(e, [&](OsmElement const & e){ return true; });
+}
+
+bool BookingDataset::Filter(OsmElement const & e, function<bool(OsmElement const &)> const & fn) const
 {
   if (e.type != OsmElement::EntityType::Node)
     return false;
@@ -157,7 +167,7 @@ bool BookingDataset::Filter(OsmElement const & e) const
   {
     if (tag.key == "tourism" && CheckForValues(tag.value))
     {
-      matched = MatchWithBooking(e);
+      matched = fn(e);
       break;
     }
   }

@@ -522,7 +522,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
       tagReplacer(e);
       tagAdmixer(e);
 
-      if (bookingDataset.Filter(*e))
+      if (bookingDataset.BookingFilter(*e))
         return;
       
       parser.EmitElement(e);

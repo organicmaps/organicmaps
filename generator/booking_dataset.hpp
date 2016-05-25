@@ -53,7 +53,8 @@ public:
 
   explicit BookingDataset(string const & dataPath);
 
-  bool Filter(OsmElement const & e) const;
+  bool BookingFilter(OsmElement const & e) const;
+  bool TourismFilter(OsmElement const & e) const;
   void BuildFeatures(function<void(OsmElement *)> const & fn) const;
 
 protected:
@@ -67,6 +68,7 @@ protected:
   boost::geometry::index::rtree<TValue, boost::geometry::index::quadratic<16>> m_rtree;
 
   void LoadHotels(string const & path);
+  bool Filter(OsmElement const & e, function<bool(OsmElement const &)> const & fn) const;
   bool MatchWithBooking(OsmElement const & e) const;
 };
 
