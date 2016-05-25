@@ -12,8 +12,8 @@ namespace search
 SearchTest::SearchTest()
   : m_platform(GetPlatform())
   , m_scopedLog(LDEBUG)
-  , m_engine(make_unique<storage::CountryInfoGetterForTesting>(),
-             make_unique<SearchProcessorFactory>(), Engine::Params())
+  , m_engine(make_unique<storage::CountryInfoGetterForTesting>(), make_unique<ProcessorFactory>(),
+             Engine::Params())
 {
 }
 

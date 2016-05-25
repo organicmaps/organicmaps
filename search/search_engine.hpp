@@ -93,7 +93,7 @@ public:
 
   // Doesn't take ownership of index. Takes ownership of categoriesR.
   Engine(Index & index, CategoriesHolder const & categories,
-         storage::CountryInfoGetter const & infoGetter, unique_ptr<SearchProcessorFactory> factory,
+         storage::CountryInfoGetter const & infoGetter, unique_ptr<ProcessorFactory> factory,
          Params const & params);
   ~Engine();
 

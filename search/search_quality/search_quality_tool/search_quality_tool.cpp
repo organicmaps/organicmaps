@@ -380,8 +380,7 @@ int main(int argc, char * argv[])
   Engine::Params params;
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
-  TestSearchEngine engine(move(infoGetter), make_unique<SearchProcessorFactory>(),
-                          Engine::Params{});
+  TestSearchEngine engine(move(infoGetter), make_unique<ProcessorFactory>(), Engine::Params{});
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())

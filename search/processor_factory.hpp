@@ -12,14 +12,14 @@ class CountryInfoGetter;
 
 namespace search
 {
-class SearchProcessorFactory
+class ProcessorFactory
 {
 public:
-  virtual ~SearchProcessorFactory() = default;
+  virtual ~ProcessorFactory() = default;
 
-  virtual unique_ptr<Processor> BuildProcessor(Index & index, CategoriesHolder const & categories,
-                                               vector<Suggest> const & suggests,
-                                               storage::CountryInfoGetter const & infoGetter)
+  virtual unique_ptr<Processor> Build(Index & index, CategoriesHolder const & categories,
+                                      vector<Suggest> const & suggests,
+                                      storage::CountryInfoGetter const & infoGetter)
   {
     return make_unique<v2::ProcessorV2>(index, categories, suggests, infoGetter);
   }

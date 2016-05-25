@@ -1256,7 +1256,7 @@ void Framework::InitSearchEngine()
     params.m_numThreads = 1;
     m_searchEngine.reset(new search::Engine(const_cast<Index &>(m_model.GetIndex()),
                                             GetDefaultCategories(), *m_infoGetter,
-                                            make_unique<search::SearchProcessorFactory>(), params));
+                                            make_unique<search::ProcessorFactory>(), params));
   }
   catch (RootException const & e)
   {
