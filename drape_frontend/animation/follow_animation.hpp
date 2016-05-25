@@ -47,6 +47,7 @@ public:
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
   bool HasScale() const;
+  bool HasPixelOffset() const;
 
 private:
   double CalculateDuration() const;

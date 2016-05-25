@@ -140,4 +140,9 @@ bool MapFollowAnimation::HasScale() const
   return m_scaleInterpolator.IsActive();
 }
 
+bool MapFollowAnimation::HasPixelOffset() const
+{
+  return m_pixelPosInterpolator.IsActive();
+}
+
 } // namespace df
