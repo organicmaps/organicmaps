@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +42,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
 
   private final NativeMapSearchListener mSearchListener = new NativeMapSearchListener()
   {
-    private final Map<String, CountryItem> mResults = new HashMap<>();
+    private final Map<String, CountryItem> mResults = new LinkedHashMap<>();
 
     @Override
     public void onMapSearchResults(Result[] results, long timestamp, boolean isLast)
