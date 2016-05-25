@@ -40,8 +40,7 @@ public:
   void StopScale(m2::PointD const & pt1, m2::PointD const & pt2);
   bool IsRotatingDuringScale() const;
 
-  void Scale(m2::PointD const & pt, double factor);
-  void CalculateScale(m2::PointD const & pt, double factor, ScreenBase & screen);
+  void Scale(m2::PointD const & pixelScaleCenter, double factor);
   bool InAction() const;
 
   void Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV);
@@ -49,17 +48,6 @@ public:
   void Disable3dMode();
 
 private:
-  bool CheckMinScale(ScreenBase const & screen) const;
-  bool CheckMaxScale(ScreenBase const & screen) const;
-  bool CheckMaxScale(ScreenBase const & screen, uint32_t tileSize, double visualScale) const;
-  bool CheckBorders(ScreenBase const & screen) const;
-
-  static bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
-  static ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD boundRect);
-
-  static ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD boundRect);
-  static ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRect);
-
   // Internal screen corresponding to the state when navigation began with StartDrag or StartScale.
   ScreenBase m_StartScreen;
   // Internal screen to do GtoP() and PtoG() calculations. It is always up to date with navigation.

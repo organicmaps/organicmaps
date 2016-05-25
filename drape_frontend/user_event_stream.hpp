@@ -274,8 +274,6 @@ public:
   bool IsInPerspectiveAnimation() const;
   bool IsWaitingForActionCompletion() const;
 
-  static bool IsScaleAllowableIn3d(int scale);
-
   void SetListener(ref_ptr<Listener> listener) { m_listener = listener; }
 
   void SetKineticScrollEnabled(bool enabled);

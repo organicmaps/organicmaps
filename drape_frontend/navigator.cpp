@@ -1,4 +1,5 @@
 #include "drape_frontend/navigator.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/scales.hpp"
@@ -14,18 +15,6 @@
 
 #include "std/function.hpp"
 #include "std/bind.hpp"
-
-namespace
-{
-
-/// @todo Review this logic in future.
-/// Fix bug with floating point calculations (before Android release).
-void ReduceRectHack(m2::RectD & r)
-{
-  r.Inflate(-1.0E-9, -1.0E-9);
-}
-
-} // namespace
 
 namespace df
 {
@@ -132,159 +121,6 @@ m2::PointD Navigator::P3dtoP(m2::PointD const & pt) const
   return m_Screen.P3dtoP(pt);
 }
 
-bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
-{
-  m2::RectD clipRect = screen.ClipRect();
-  return (boundRect.SizeX() >= clipRect.SizeX())
-      && (boundRect.SizeY() >= clipRect.SizeY());
-}
-
-ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD boundRect)
-{
-  ReduceRectHack(boundRect);
-
-  ScreenBase res = screen;
-
-  m2::RectD clipRect = res.ClipRect();
-  if (clipRect.minX() < boundRect.minX())
-    clipRect.Offset(boundRect.minX() - clipRect.minX(), 0);
-  if (clipRect.maxX() > boundRect.maxX())
-    clipRect.Offset(boundRect.maxX() - clipRect.maxX(), 0);
-  if (clipRect.minY() < boundRect.minY())
-    clipRect.Offset(0, boundRect.minY() - clipRect.minY());
-  if (clipRect.maxY() > boundRect.maxY())
-    clipRect.Offset(0, boundRect.maxY() - clipRect.maxY());
-
-  res.SetOrg(clipRect.Center());
-
-  // This assert fails near x = 180 (Philipines).
-  //ASSERT ( boundRect.IsRectInside(res.ClipRect()), (clipRect, res.ClipRect()) );
-  return res;
-}
-
-ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD boundRect)
-{
-  ReduceRectHack(boundRect);
-
-  ScreenBase res = screen;
-
-  double scale = 1;
-
-  m2::RectD clipRect = res.ClipRect();
-
-  ASSERT(boundRect.IsPointInside(clipRect.Center()), ("center point should be inside boundRect"));
-
-  if (clipRect.minX() < boundRect.minX())
-  {
-    double k = (boundRect.minX() - clipRect.Center().x) / (clipRect.minX() - clipRect.Center().x);
-    scale /= k;
-    clipRect.Scale(k);
-  }
-  if (clipRect.maxX() > boundRect.maxX())
-  {
-    double k = (boundRect.maxX() - clipRect.Center().x) / (clipRect.maxX() - clipRect.Center().x);
-    scale /= k;
-    clipRect.Scale(k);
-  }
-  if (clipRect.minY() < boundRect.minY())
-  {
-    double k = (boundRect.minY() - clipRect.Center().y) / (clipRect.minY() - clipRect.Center().y);
-    scale /= k;
-    clipRect.Scale(k);
-  }
-  if (clipRect.maxY() > boundRect.maxY())
-  {
-    double k = (boundRect.maxY() - clipRect.Center().y) / (clipRect.maxY() - clipRect.Center().y);
-    scale /= k;
-    clipRect.Scale(k);
-  }
-
-  res.Scale(scale);
-  res.SetOrg(clipRect.Center());
-
-  return res;
-}
-
-ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRect)
-{
-  ReduceRectHack(boundRect);
-
-  ScreenBase res = screen;
-
-  m2::RectD globalRect = res.ClipRect();
-
-  m2::PointD newOrg = res.GetOrg();
-  double scale = 1;
-  double offs = 0;
-
-  if (globalRect.minX() < boundRect.minX())
-  {
-    offs = boundRect.minX() - globalRect.minX();
-    globalRect.Offset(offs, 0);
-    newOrg.x += offs;
-
-    if (globalRect.maxX() > boundRect.maxX())
-    {
-      double k = boundRect.SizeX() / globalRect.SizeX();
-      scale /= k;
-      /// scaling always occur pinpointed to the rect center...
-      globalRect.Scale(k);
-      /// ...so we should shift a rect after scale
-      globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
-    }
-  }
-
-  if (globalRect.maxX() > boundRect.maxX())
-  {
-    offs = boundRect.maxX() - globalRect.maxX();
-    globalRect.Offset(offs, 0);
-    newOrg.x += offs;
-
-    if (globalRect.minX() < boundRect.minX())
-    {
-      double k = boundRect.SizeX() / globalRect.SizeX();
-      scale /= k;
-      globalRect.Scale(k);
-      globalRect.Offset(boundRect.maxX() - globalRect.maxX(), 0);
-    }
-  }
-
-  if (globalRect.minY() < boundRect.minY())
-  {
-    offs = boundRect.minY() - globalRect.minY();
-    globalRect.Offset(0, offs);
-    newOrg.y += offs;
-
-    if (globalRect.maxY() > boundRect.maxY())
-    {
-      double k = boundRect.SizeY() / globalRect.SizeY();
-      scale /= k;
-      globalRect.Scale(k);
-      globalRect.Offset(0, boundRect.minY() - globalRect.minY());
-    }
-  }
-
-  if (globalRect.maxY() > boundRect.maxY())
-  {
-    offs = boundRect.maxY() - globalRect.maxY();
-    globalRect.Offset(0, offs);
-    newOrg.y += offs;
-
-    if (globalRect.minY() < boundRect.minY())
-    {
-      double k = boundRect.SizeY() / globalRect.SizeY();
-      scale /= k;
-      globalRect.Scale(k);
-      globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
-    }
-  }
-
-  res.SetOrg(globalRect.Center());
-  res.Scale(scale);
-
-  return res;
-}
-
 void Navigator::StartDrag(m2::PointD const & pt)
 {
   m_StartPt1 = m_LastPt1 = pt;
@@ -346,78 +182,9 @@ void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2)
   m_InAction = true;
 }
 
-namespace
+void Navigator::Scale(m2::PointD const & pixelScaleCenter, double factor)
 {
-  void CalcScalePoints(m2::PointD const & pt, double factor, m2::RectD const & pxRect,
-                       m2::PointD & startPt, m2::PointD & endPt)
-  {
-    // pt is in x0, x0 + width
-
-    if (pt.x != pxRect.maxX())
-    {
-      // start scaling point is 1 / factor way between pt and right border
-      startPt.x = pt.x + (pxRect.maxX() - pt.x) / factor;
-      endPt.x = pxRect.maxX();
-    }
-    else
-    {
-      // start scaling point is 1 - 1/factor way between left border and pt
-      startPt.x = pt.x + (pxRect.minX() - pt.x) / factor;
-      endPt.x = pxRect.minX();
-    }
-
-    if (pt.y != pxRect.maxY())
-    {
-      startPt.y = pt.y + (pxRect.maxY() - pt.y) / factor;
-      endPt.y = pxRect.maxY();
-    }
-    else
-    {
-      startPt.y = pt.y + (pxRect.minY() - pt.y) / factor;
-      endPt.y = pxRect.minY();
-    }
-  }
-}
-
-void Navigator::Scale(m2::PointD const & pt, double factor)
-{
-  CalculateScale(pt, factor, m_Screen);
-}
-
-void Navigator::CalculateScale(m2::PointD const & pt, double factor, ScreenBase & screen)
-{
-  m2::PointD startPt, endPt;
-  CalcScalePoints(pt, factor, screen.isPerspective() ? screen.PixelRectIn3d() : screen.PixelRect(), startPt, endPt);
-  m2::PointD const newOffset = (endPt - pt) / 2.0;
-  m2::PointD const oldOffset = (startPt - pt) / 2.0;
-  ScaleImpl(pt - newOffset, pt + newOffset, pt - oldOffset, pt + oldOffset, factor > 1, false, screen);
-}
-
-bool Navigator::CheckMinScale(ScreenBase const & screen) const
-{
-  m2::RectD const & r = screen.ClipRect();
-  m2::RectD const & worldR = df::GetWorldRect();
-
-  return (r.SizeX() <= worldR.SizeX() || r.SizeY() <= worldR.SizeY());
-}
-
-bool Navigator::CheckMaxScale(ScreenBase const & screen) const
-{
-  VisualParams const & p = VisualParams::Instance();
-  return CheckMaxScale(screen, p.GetTileSize(), p.GetVisualScale());
-}
-
-bool Navigator::CheckMaxScale(ScreenBase const & screen, uint32_t tileSize, double visualScale) const
-{
-  return (df::GetDrawTileScale(screen, tileSize, visualScale) <= scales::GetUpperStyleScale());
-}
-
-bool Navigator::CheckBorders(ScreenBase const & screen) const
-{
-  m2::RectD const & r = screen.ClipRect();
-  m2::RectD const & worldR = df::GetWorldRect();
-
-  return (r.IsRectInside(worldR) || worldR.IsRectInside(r));
+  ApplyScale(pixelScaleCenter, factor, m_Screen);
 }
 
 bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
