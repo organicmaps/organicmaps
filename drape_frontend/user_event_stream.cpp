@@ -322,6 +322,18 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
   if (isAnim)
   {
+    auto const & followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+    if (followAnim != nullptr)
+    {
+      // Scaling is not possible if current follow animation does pixel offset.
+      if (followAnim->HasPixelOffset())
+        return false;
+      
+      // Reset follow animation with scaling if we apply scale explicitly.
+      if (followAnim->HasScale())
+        ResetAnimations(Animation::MapFollow);
+    }
+    
     m2::PointD glbScaleCenter = m_navigator.PtoG(m_navigator.P3dtoP(scaleCenter));
     if (m_listener)
       m_listener->CorrectGlobalScalePoint(glbScaleCenter);
@@ -334,11 +346,6 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
       if (m_listener)
         m_listener->OnAnimatedScaleEnded();
     });
-
-    // Reset follow animation with scaling if we apply scale explicitly.
-    auto const & followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
-    if (followAnim != nullptr && followAnim->HasScale())
-      ResetAnimations(Animation::MapFollow);
 
     m_animationSystem.CombineAnimation(move(anim));
     return false;
