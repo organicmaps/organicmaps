@@ -1,5 +1,7 @@
 package com.mapswithme.maps.editor;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
@@ -10,15 +12,22 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.editor.data.UserStats;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 
-public class ProfileFragment extends AuthFragment implements View.OnClickListener
+public class ProfileFragment extends AuthFragment implements View.OnClickListener, OsmOAuth.OnUserStatsChanged
 {
+  private View mLocalBlock;
   private TextView mEditsLocal;
+  private View mSentBlock;
   private TextView mEditsSent;
   private TextView mEditsSentDate;
   private View mLogout;
   private View mAuthBlock;
+  private View mRatingBlock;
+  private TextView mEditorRank;
+  private TextView mEditorLevelUp;
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
@@ -27,6 +36,8 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     mToolbarController.setTitle(R.string.profile);
     initViews(view);
     refreshViews();
+    OsmOAuth.setUserStatsListener(this);
+    OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername());
   }
 
   private void initViews(View view)
@@ -35,37 +46,66 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     mLogout.setOnClickListener(this);
     View editsBlock = view.findViewById(R.id.block_edits);
     UiUtils.show(editsBlock);
-    final View localEdits = editsBlock.findViewById(R.id.local_edits);
-    ((ImageView) localEdits.findViewById(R.id.image)).setImageResource(R.drawable.ic_device);
-    mEditsLocal = (TextView) localEdits.findViewById(R.id.title);
-    UiUtils.hide(localEdits.findViewById(R.id.subtitle));
-    final View sentEdits = editsBlock.findViewById(R.id.sent_edits);
-    ((ImageView) sentEdits.findViewById(R.id.image)).setImageResource(R.drawable.ic_upload);
-    mEditsSent = (TextView) sentEdits.findViewById(R.id.title);
-    mEditsSentDate = (TextView) sentEdits.findViewById(R.id.subtitle);
+    mLocalBlock = editsBlock.findViewById(R.id.local_edits);
+    ((ImageView) mLocalBlock.findViewById(R.id.image)).setImageResource(R.drawable.ic_device);
+    mEditsLocal = (TextView) mLocalBlock.findViewById(R.id.title);
+    mSentBlock = editsBlock.findViewById(R.id.sent_edits);
+    mEditsSent = (TextView) mSentBlock.findViewById(R.id.edits_count);
+    mEditsSentDate = (TextView) mSentBlock.findViewById(R.id.date_sent);
     mAuthBlock = view.findViewById(R.id.block_auth);
-    ((TextView) mAuthBlock.findViewById(R.id.first_osm_edit)).setText(R.string.login_and_edit_map_motivation_message);
+    mRatingBlock = view.findViewById(R.id.block_rating);
+    mEditorRank = (TextView) mRatingBlock.findViewById(R.id.rating);
+    // FIXME show when it will be implemented on server
+//    mEditorLevelUp = mRatingBlock.findViewById(R.id.level_up_feat);
+    view.findViewById(R.id.about_osm).setOnClickListener(this);
   }
 
   private void refreshViews()
   {
     if (OsmOAuth.isAuthorized())
     {
-      UiUtils.show(mLogout);
+      UiUtils.show(mLogout, mRatingBlock, mSentBlock);
       UiUtils.hide(mAuthBlock);
     }
     else
     {
       UiUtils.show(mAuthBlock);
-      UiUtils.hide(mLogout);
+      UiUtils.hide(mLogout, mRatingBlock, mSentBlock);
     }
+
     final long[] stats = Editor.nativeGetStats();
-    mEditsLocal.setText(String.format(Locale.US, "%s %d", getString(R.string.editor_profile_unsent_changes), stats[0] - stats[1]));
-    mEditsSent.setText(String.format(Locale.US, "%s %d", getString(R.string.editor_profile_changes), + stats[1]));
-    if (stats[1] == 0)
-      UiUtils.hide(mEditsSentDate);
+    final long localCount = stats[0] - stats[1];
+    if (localCount == 0)
+    {
+      UiUtils.hide(mLocalBlock);
+    }
     else
-      UiUtils.setTextAndShow(mEditsSentDate, "Upload date : " + DateUtils.formatDateTime(getActivity(), stats[2] * 1000, 0));
+    {
+      UiUtils.show(mLocalBlock);
+      mEditsLocal.setText(String.format(Locale.US, "%s %d", getString(R.string.editor_profile_unsent_changes), localCount));
+    }
+
+    refreshRatings(0, 0, 0, "");
+  }
+
+  private void refreshRatings(long uploadedCount, long uploadMillis, long rank, String levelFeat)
+  {
+    String edits, editsDate;
+
+    if (uploadedCount == 0)
+    {
+      edits = editsDate = "---";
+    }
+    else
+    {
+      edits = String.valueOf(uploadedCount);
+      editsDate = DateUtils.formatDateTime(getActivity(), uploadMillis, 0);
+    }
+    mEditsSent.setText(edits);
+    mEditsSentDate.setText(String.format(Locale.US, "%s %s", getString(R.string.last_upload), editsDate));
+    mEditorRank.setText(String.valueOf(rank));
+    // FIXME show when it will be implemented on server
+//    mEditorLevelUp.setText(levelFeat);
   }
 
   @Override
@@ -77,6 +117,21 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
       OsmOAuth.clearAuthorization();
       refreshViews();
       break;
+    case R.id.about_osm:
+      startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(Constants.Url.OSM_ABOUT)));
+      break;
     }
+  }
+
+  @Override
+  public void onStatsChange(final UserStats stats)
+  {
+    if (!isAdded())
+      return;
+
+    if (stats == null)
+      refreshRatings(0, 0, 0, "");
+    else
+      refreshRatings(stats.editsCount, stats.uploadTimestampSeconds, stats.editorRank, stats.levelUp);
   }
 }

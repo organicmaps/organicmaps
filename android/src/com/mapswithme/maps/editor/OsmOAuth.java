@@ -7,7 +7,10 @@ import android.support.annotation.Size;
 import android.support.annotation.WorkerThread;
 import android.text.TextUtils;
 
+import java.lang.ref.WeakReference;
+
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.editor.data.UserStats;
 
 public final class OsmOAuth
 {
@@ -43,6 +46,28 @@ public final class OsmOAuth
   private static final String PREF_OSM_TOKEN = "OsmToken";
   private static final String PREF_OSM_SECRET = "OsmSecret";
   private static final String PREF_OSM_USERNAME = "OsmUsername";
+
+  public interface OnUserStatsChanged
+  {
+    void onStatsChange(UserStats stats);
+  }
+
+  private static WeakReference<OnUserStatsChanged> sListener;
+
+  public static void setUserStatsListener(OnUserStatsChanged listener)
+  {
+    sListener = new WeakReference<>(listener);
+  }
+
+  // Called from native OsmOAuth.cpp.
+  @SuppressWarnings("unused")
+  public static void onUserStatsUpdated(UserStats stats)
+  {
+    if (sListener == null || sListener.get() == null)
+      return;
+
+    sListener.get().onStatsChange(stats);
+  }
 
   public static final String URL_PARAM_VERIFIER = "oauth_verifier";
 
@@ -127,4 +152,6 @@ public final class OsmOAuth
   @WorkerThread
   @Nullable
   public static native String nativeGetOsmUsername(String token, String secret);
+
+  public static native void nativeUpdateOsmUserStats(String username);
 }

@@ -61,10 +61,6 @@ public abstract class OsmAuthFragmentDelegate implements View.OnClickListener
       Statistics.INSTANCE.trackAuthRequest(OsmOAuth.AuthType.GOOGLE);
       loginWebview(OsmOAuth.AuthType.GOOGLE);
       break;
-    case R.id.lost_password:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_LOST_PASSWORD);
-      recoverPassword();
-      break;
     case R.id.register:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_REG_REQUEST);
       register();
@@ -181,11 +177,6 @@ public abstract class OsmAuthFragmentDelegate implements View.OnClickListener
         });
       }
     });
-  }
-
-  protected void recoverPassword()
-  {
-    mFragment.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.OSM_RECOVER_PASSWORD)));
   }
 
   protected void register()

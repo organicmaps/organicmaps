@@ -230,18 +230,21 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private boolean validateFields()
   {
-    if (!Editor.nativeIsHouseValid(mHouseNumber.getText().toString()))
+    if (Editor.nativeIsAddressEditable())
     {
-      mHouseNumber.requestFocus();
-      InputUtils.showKeyboard(mHouseNumber);
-      return false;
-    }
+      if (!Editor.nativeIsHouseValid(mHouseNumber.getText().toString()))
+      {
+        mHouseNumber.requestFocus();
+        InputUtils.showKeyboard(mHouseNumber);
+        return false;
+      }
 
-    if (!Editor.nativeIsLevelValid(mBuildingLevels.getText().toString()))
-    {
-      mBuildingLevels.requestFocus();
-      InputUtils.showKeyboard(mBuildingLevels);
-      return false;
+      if (!Editor.nativeIsLevelValid(mBuildingLevels.getText().toString()))
+      {
+        mBuildingLevels.requestFocus();
+        InputUtils.showKeyboard(mBuildingLevels);
+        return false;
+      }
     }
 
     if (!Editor.nativeIsZipcodeValid(mZipcode.getText().toString()))

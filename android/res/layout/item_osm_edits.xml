@@ -46,16 +46,7 @@
         android:gravity="center_vertical"
         android:textAppearance="@style/MwmTextAppearance.Body1"
         tools:ignore="UnusedAttribute"
-        tools:text="Edits : 4"/>
-
-      <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        tools:text="Last sent 12.01.2015"/>
+        tools:text="Not sent : 4"/>
 
     </LinearLayout>
 
