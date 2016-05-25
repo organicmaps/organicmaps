@@ -17,6 +17,23 @@
 		6726C2231A4C2BBD005EEA39 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E01A3F600D00A0A8C3 /* IOKit.framework */; };
 		6726C2261A4C2BBD005EEA39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E21A3F607600A0A8C3 /* Cocoa.framework */; };
 		6726C2411A4C2D9F005EEA39 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C2401A4C2D9F005EEA39 /* testingmain.cpp */; };
+		673746671CF4641B005E6D1F /* booking_quality_check.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673746661CF4641B005E6D1F /* booking_quality_check.cpp */; };
+		673746681CF47A7B005E6D1F /* libgflags.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28CC1B1C7FED001A525C /* libgflags.a */; };
+		673746691CF47BD9005E6D1F /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28CA1B1C7FED001A525C /* libgenerator.a */; };
+		6737466A1CF47D82005E6D1F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D71B1C800D001A525C /* libbase.a */; };
+		6737466B1CF47D82005E6D1F /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D31B1C8001001A525C /* libplatform.a */; };
+		6737466C1CF47D82005E6D1F /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28C91B1C7FED001A525C /* libcoding.a */; };
+		6737466D1CF47D82005E6D1F /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28CB1B1C7FED001A525C /* libgeometry.a */; };
+		6737466E1CF47D82005E6D1F /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28CD1B1C7FED001A525C /* libindexer.a */; };
+		6737466F1CF47D82005E6D1F /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28C71B1C7FC9001A525C /* libexpat.a */; };
+		673746701CF47E14005E6D1F /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340891C523054002CF0D9 /* libeditor.a */; };
+		673746711CF47E14005E6D1F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D41B1C8001001A525C /* librouting.a */; };
+		673746721CF47E3D005E6D1F /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6753408A1C523054002CF0D9 /* libpugixml.a */; };
+		673746731CF47E54005E6D1F /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28ED1B1C80FB001A525C /* libjansson.a */; };
+		673746741CF47E54005E6D1F /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DD1B1C8027001A525C /* libtomcrypt.a */; };
+		673746751CF47E7A005E6D1F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343DE1A3F5FE500A0A8C3 /* CoreFoundation.framework */; };
+		673746761CF47E7F005E6D1F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E01A3F600D00A0A8C3 /* IOKit.framework */; };
+		673746771CF47E83005E6D1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E21A3F607600A0A8C3 /* Cocoa.framework */; };
 		674A28C81B1C7FC9001A525C /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28C71B1C7FC9001A525C /* libexpat.a */; };
 		674A28CE1B1C7FED001A525C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28C91B1C7FED001A525C /* libcoding.a */; };
 		674A28CF1B1C7FED001A525C /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28CA1B1C7FED001A525C /* libgenerator.a */; };
@@ -74,6 +91,15 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		6726C2311A4C2BBD005EEA39 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		6737465D1CF4639F005E6D1F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -162,6 +188,8 @@
 		6726C1EC1A4C28D5005EEA39 /* triangles_tree_coding_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangles_tree_coding_test.cpp; sourceTree = "<group>"; };
 		6726C2351A4C2BBD005EEA39 /* generator_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = generator_tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		6726C2401A4C2D9F005EEA39 /* testingmain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		6737465F1CF4639F005E6D1F /* booking_quality_check */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = booking_quality_check; sourceTree = BUILT_PRODUCTS_DIR; };
+		673746661CF4641B005E6D1F /* booking_quality_check.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_quality_check.cpp; sourceTree = "<group>"; };
 		674A28C71B1C7FC9001A525C /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
 		674A28C91B1C7FED001A525C /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		674A28CA1B1C7FED001A525C /* libgenerator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator.a; path = "../../../omim-xcode-build/Debug/libgenerator.a"; sourceTree = "<group>"; };
@@ -198,7 +226,6 @@
 		67AB92C61B73D03500AB5194 /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "../../../omim-xcode-build/Debug/libmap.a"; sourceTree = "<group>"; };
 		67AB92C81B73D10200AB5194 /* libosrm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosrm.a; path = "../../../omim-xcode-build/Debug/libosrm.a"; sourceTree = "<group>"; };
 		67AB92CA1B73D10B00AB5194 /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
-		67AB92CC1B73D15700AB5194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +254,29 @@
 				674A28C81B1C7FC9001A525C /* libexpat.a in Frameworks */,
 				6726C2231A4C2BBD005EEA39 /* IOKit.framework in Frameworks */,
 				6726C2261A4C2BBD005EEA39 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6737465C1CF4639F005E6D1F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				673746771CF47E83005E6D1F /* Cocoa.framework in Frameworks */,
+				673746701CF47E14005E6D1F /* libeditor.a in Frameworks */,
+				6737466B1CF47D82005E6D1F /* libplatform.a in Frameworks */,
+				673746741CF47E54005E6D1F /* libtomcrypt.a in Frameworks */,
+				673746711CF47E14005E6D1F /* librouting.a in Frameworks */,
+				6737466D1CF47D82005E6D1F /* libgeometry.a in Frameworks */,
+				6737466F1CF47D82005E6D1F /* libexpat.a in Frameworks */,
+				673746681CF47A7B005E6D1F /* libgflags.a in Frameworks */,
+				673746731CF47E54005E6D1F /* libjansson.a in Frameworks */,
+				673746761CF47E7F005E6D1F /* IOKit.framework in Frameworks */,
+				673746691CF47BD9005E6D1F /* libgenerator.a in Frameworks */,
+				6737466E1CF47D82005E6D1F /* libindexer.a in Frameworks */,
+				673746751CF47E7A005E6D1F /* CoreFoundation.framework in Frameworks */,
+				673746721CF47E3D005E6D1F /* libpugixml.a in Frameworks */,
+				6737466C1CF47D82005E6D1F /* libcoding.a in Frameworks */,
+				6737466A1CF47D82005E6D1F /* libbase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,10 +402,20 @@
 			path = ../../generator/generator_tests;
 			sourceTree = "<group>";
 		};
+		6737465A1CF46324005E6D1F /* booking_quality_check */ = {
+			isa = PBXGroup;
+			children = (
+				673746661CF4641B005E6D1F /* booking_quality_check.cpp */,
+			);
+			name = booking_quality_check;
+			path = ../../generator/booking_quality_check;
+			sourceTree = "<group>";
+		};
 		6753414F1A3F54D800A0A8C3 = {
 			isa = PBXGroup;
 			children = (
 				670D05AD1B0E08260013A7AC /* defaults.xcconfig */,
+				6737465A1CF46324005E6D1F /* booking_quality_check */,
 				670B84C41A9F73AB00CE4492 /* std */,
 				6753453F1A3F6FA600A0A8C3 /* libs */,
 				6726C1D71A4C27A5005EEA39 /* generator_tests */,
@@ -369,6 +429,7 @@
 			children = (
 				675341581A3F54D800A0A8C3 /* generator_tool */,
 				6726C2351A4C2BBD005EEA39 /* generator_tests */,
+				6737465F1CF4639F005E6D1F /* booking_quality_check */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -411,7 +472,6 @@
 				674A28CC1B1C7FED001A525C /* libgflags.a */,
 				674A28CD1B1C7FED001A525C /* libindexer.a */,
 				674A28C71B1C7FC9001A525C /* libexpat.a */,
-				67AB92CC1B73D15700AB5194 /* Foundation.framework */,
 				675343E21A3F607600A0A8C3 /* Cocoa.framework */,
 				675343E01A3F600D00A0A8C3 /* IOKit.framework */,
 				675343DE1A3F5FE500A0A8C3 /* CoreFoundation.framework */,
@@ -437,6 +497,23 @@
 			name = generator_tests;
 			productName = generator_tool;
 			productReference = 6726C2351A4C2BBD005EEA39 /* generator_tests */;
+			productType = "com.apple.product-type.tool";
+		};
+		6737465E1CF4639F005E6D1F /* booking_quality_check */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 673746631CF4639F005E6D1F /* Build configuration list for PBXNativeTarget "booking_quality_check" */;
+			buildPhases = (
+				6737465B1CF4639F005E6D1F /* Sources */,
+				6737465C1CF4639F005E6D1F /* Frameworks */,
+				6737465D1CF4639F005E6D1F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = booking_quality_check;
+			productName = booking_quality_check;
+			productReference = 6737465F1CF4639F005E6D1F /* booking_quality_check */;
 			productType = "com.apple.product-type.tool";
 		};
 		675341571A3F54D800A0A8C3 /* generator_tool */ = {
@@ -465,6 +542,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
+					6737465E1CF4639F005E6D1F = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					675341571A3F54D800A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -484,6 +564,7 @@
 			targets = (
 				675341571A3F54D800A0A8C3 /* generator_tool */,
 				6726C21C1A4C2BBD005EEA39 /* generator_tests */,
+				6737465E1CF4639F005E6D1F /* booking_quality_check */,
 			);
 		};
 /* End PBXProject section */
@@ -507,6 +588,14 @@
 				677792521C1B2E9700EC9499 /* metadata_parser_test.cpp in Sources */,
 				67AB92D11B75156700AB5194 /* feature_builder_test.cpp in Sources */,
 				67AB92C21B73C27300AB5194 /* source_data.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6737465B1CF4639F005E6D1F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				673746671CF4641B005E6D1F /* booking_quality_check.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +640,30 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = generator_tests;
 				WARNING_CFLAGS = "-Wnull-conversion";
+			};
+			name = Release;
+		};
+		673746641CF4639F005E6D1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		673746651CF4639F005E6D1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -685,6 +798,15 @@
 			buildConfigurations = (
 				6726C2331A4C2BBD005EEA39 /* Debug */,
 				6726C2341A4C2BBD005EEA39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		673746631CF4639F005E6D1F /* Build configuration list for PBXNativeTarget "booking_quality_check" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				673746641CF4639F005E6D1F /* Debug */,
+				673746651CF4639F005E6D1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
