@@ -2885,9 +2885,9 @@ bool Framework::RollBackChanges(FeatureID const & fid)
 
 bool Framework::UpdateUserStats(string const & userName)
 {
-  auto newUserStats = make_unique<editor::UserStats>(userName);
-  if (!newUserStats->GetUpdateStatus())
+  auto userStats = make_unique<editor::UserStats>(userName);
+  if (!userStats->GetUpdateStatus())
     return false;
-  m_userStats.reset(newUserStats.release());
+  m_userStats = move(userStats);
   return true;
 }

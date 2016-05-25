@@ -677,9 +677,10 @@ public:
   //@{
   //User statistics.
   editor::UserStats const * GetUserStats() const { return m_userStats.get(); }
-  /// Synchronously request the server and updates users stats.
+  /// Sends a synchronous request to the server and updates user's stats.
   /// @returns true on success.
   bool UpdateUserStats(string const & userName);
+  void DropUserStats() { m_userStats = nullptr; }
 
 private:
   unique_ptr<editor::UserStats> m_userStats;

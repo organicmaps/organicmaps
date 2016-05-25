@@ -14,7 +14,7 @@ UNIT_TEST(UserStats_Smoke)
   TEST(userStats.IsChangesCountInitialized(), ());
   TEST(userStats.IsRankInitialized(), ());
   TEST_EQUAL(userStats.GetChangesCount(), 2, ());
-  TEST_GREATER_OR_EQUAL(userStats.GetRank(), 5762, ());
+  TEST_GREATER_OR_EQUAL(userStats.GetRank(), 5800, ());
 }
 }  // namespace
 }  // namespace editor

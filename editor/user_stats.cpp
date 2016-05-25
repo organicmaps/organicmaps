@@ -47,7 +47,7 @@ bool UserStats::Update()
 
   if (request.error_code() != 200)
   {
-    LOG(LWARNING, ("Server return", request.error_code(), "for url", url));
+    LOG(LWARNING, ("Server returned", request.error_code(), "for url", url));
     return false;
   }
 
