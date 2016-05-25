@@ -1421,8 +1421,9 @@ void Geocoder::FillMissingFieldsInResults()
                              {
                                mwmId = id.m_mwmId;
                                mwmHandle = m_index.GetMwmHandleById(mwmId);
-                               rankTable = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
-                               if (!rankTable)
+                               if (mwmHandle.IsAlive())
+                                 rankTable = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
+                               else
                                  rankTable = make_unique<DummyRankTable>();
                              }
 
