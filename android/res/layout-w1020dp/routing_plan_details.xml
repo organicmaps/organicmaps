@@ -6,41 +6,46 @@
   android:id="@+id/planning_frame"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:orientation="vertical"
-  android:clickable="true">
+  android:clickable="true"
+  android:orientation="vertical">
+
   <FrameLayout
+    style="@style/MwmWidget.Floating.Panel"
     android:layout_width="match_parent"
     android:layout_height="@dimen/routing_selector_size"
     android:elevation="3dp"
-    style="@style/MwmWidget.Floating.Panel">
+    tools:targetApi="lollipop">
+
     <LinearLayout
       android:id="@+id/progress_frame"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal"
       android:layout_gravity="center"
+      android:orientation="horizontal"
       tools:background="#8000FF00">
+
       <com.mapswithme.maps.widget.WheelProgressView
         android:id="@+id/progress_vehicle"
         style="@style/MwmWidget.ProgressWheel.RoutingPlan"
-        tools:visibility="visible"
-        wheel:centerDrawable="@android:color/transparent"
-        wheel:wheelProgressColor="?colorAccent"
-        wheel:wheelSecondaryColor="?dividerHorizontal"
-        wheel:wheelThickness="@dimen/margin_eighth"/>
+        tools:visibility="visible"/>
 
       <Space
-        android:layout_width="32dp"
+        android:layout_width="@dimen/margin_double"
         android:layout_height="0dp"/>
 
       <com.mapswithme.maps.widget.WheelProgressView
         android:id="@+id/progress_pedestrian"
         style="@style/MwmWidget.ProgressWheel.RoutingPlan"
-        tools:visibility="visible"
-        wheel:centerDrawable="@android:color/transparent"
-        wheel:wheelProgressColor="?colorAccent"
-        wheel:wheelSecondaryColor="?dividerHorizontal"
-        wheel:wheelThickness="@dimen/margin_eighth"/>
+        tools:visibility="visible"/>
+
+      <Space
+        android:layout_width="@dimen/margin_double"
+        android:layout_height="0dp"/>
+
+      <com.mapswithme.maps.widget.WheelProgressView
+        android:id="@+id/progress_bicycle"
+        style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+        tools:visibility="visible"/>
     </LinearLayout>
 
     <RadioGroup
@@ -49,11 +54,13 @@
       android:layout_height="match_parent"
       android:layout_gravity="center"
       android:orientation="horizontal">
+
       <RadioButton
         android:id="@+id/vehicle"
         android:layout_width="@dimen/routing_selector_size"
         android:layout_height="@dimen/routing_selector_size"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="@dimen/margin_double"
+        android:layout_marginRight="@dimen/margin_double"
         tools:button="@drawable/ic_drive"
         tools:buttonTint="?colorAccent"/>
 
@@ -61,7 +68,16 @@
         android:id="@+id/pedestrian"
         android:layout_width="@dimen/routing_selector_size"
         android:layout_height="@dimen/routing_selector_size"
+        android:layout_marginEnd="@dimen/margin_double"
+        android:layout_marginRight="@dimen/margin_double"
         tools:button="@drawable/ic_walk"
+        tools:buttonTint="?colorAccent"/>
+
+      <RadioButton
+        android:id="@+id/bicycle"
+        android:layout_width="@dimen/routing_selector_size"
+        android:layout_height="@dimen/routing_selector_size"
+        tools:button="@drawable/ic_bicycle"
         tools:buttonTint="?colorAccent"/>
     </RadioGroup>
   </FrameLayout>
@@ -70,8 +86,8 @@
     android:id="@+id/details_divider"
     android:layout_width="match_parent"
     android:layout_height="24dp"
-    android:src="@drawable/shadow_top"
-    android:scaleType="fitXY"/>
+    android:scaleType="fitXY"
+    android:src="@drawable/shadow_top"/>
 
   <FrameLayout
     android:id="@+id/details_frame"
@@ -81,6 +97,7 @@
     android:background="?windowBackgroundForced"
     android:visibility="gone"
     tools:visibility="visible">
+
     <View
       android:layout_width="match_parent"
       android:layout_height="1dp"
@@ -90,9 +107,10 @@
       android:id="@+id/numbers"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="@dimen/margin_base"
       android:layout_gravity="center_vertical"
+      android:layout_margin="@dimen/margin_base"
       tools:background="#4020202F">
+
       <TextView
         android:id="@+id/time"
         style="@style/MwmWidget.TextView.PlanDetail.Number"
@@ -101,11 +119,11 @@
       <TextView
         android:id="@+id/dot"
         style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
-        android:layout_toRightOf="@id/time"
-        android:text="•"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
         android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/time"
+        android:text="•"
         tools:ignore="HardcodedText"/>
 
       <TextView
@@ -117,8 +135,8 @@
       <TextView
         android:id="@+id/arrival"
         style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
-        android:textSize="@dimen/text_size_routing_plan_detail_arrival"
         android:layout_below="@id/time"
+        android:textSize="@dimen/text_size_routing_plan_detail_arrival"
         tools:text="Arrive at 12:34"/>
     </RelativeLayout>
 
@@ -130,8 +148,8 @@
       android:text="@string/p2p_planning"
       android:textColor="?secondary"
       android:visibility="gone"
-      tools:visibility="visible"
-      tools:layout_gravity="right"/>
+      tools:layout_gravity="right"
+      tools:visibility="visible"/>
 
     <TextView
       android:id="@+id/error"
@@ -140,9 +158,9 @@
       android:text="@string/routing_planning_error"
       android:textColor="@color/base_red"
       android:visibility="gone"
-      tools:visibility="visible"
+      tools:layout_gravity="right|bottom"
       tools:layout_marginTop="14dp"
-      tools:layout_gravity="right|bottom"/>
+      tools:visibility="visible"/>
 
     <View
       android:layout_width="match_parent"

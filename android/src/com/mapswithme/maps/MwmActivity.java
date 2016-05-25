@@ -1516,7 +1516,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void updateBuildProgress(int progress, int router)
+  public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     if (mIsFragmentContainer)
     {

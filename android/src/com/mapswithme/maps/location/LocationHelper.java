@@ -337,8 +337,15 @@ public enum LocationHelper implements SensorEventListener
     mHighAccuracy = true;
     if (RoutingController.get().isNavigating())
     {
-      mInterval = (Framework.nativeGetRouter() == Framework.ROUTER_TYPE_VEHICLE ? INTERVAL_NAVIGATION_VEHICLE_MS
-                                                                                : INTERVAL_NAVIGATION_PEDESTRIAN_MS);
+      final @Framework.RouterType int router = Framework.nativeGetRouter();
+      if (router == Framework.ROUTER_TYPE_PEDESTRIAN)
+        mInterval = INTERVAL_NAVIGATION_PEDESTRIAN_MS;
+      else if (router == Framework.ROUTER_TYPE_VEHICLE)
+        mInterval = INTERVAL_NAVIGATION_VEHICLE_MS;
+      else
+        // TODO yunikkk determine correct interval for bicycle
+        mInterval = INTERVAL_NAVIGATION_VEHICLE_MS;
+
       return;
     }
 
