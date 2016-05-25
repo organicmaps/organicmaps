@@ -84,7 +84,7 @@ double RoadGraphMockSource::GetMaxSpeedKMPH() const
 }
 
 void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cross */,
-                                                       CrossEdgesLoader & edgesLoader) const
+                                                       ICrossEdgesLoader & edgesLoader) const
 {
   for (size_t roadId = 0; roadId < m_roads.size(); ++roadId)
     edgesLoader(MakeTestFeatureID(roadId), m_roads[roadId]);
@@ -109,6 +109,8 @@ void RoadGraphMockSource::GetJunctionTypes(Junction const & junction, feature::T
   UNUSED_VALUE(junction);
   UNUSED_VALUE(types);
 }
+
+bool RoadGraphMockSource::ConsiderOnewayFeaturesAsBidirectional() const { return true; }
 
 FeatureID MakeTestFeatureID(uint32_t offset)
 {

@@ -99,17 +99,44 @@ public:
   };
 
   /// This class is responsible for loading edges in a cross.
-  /// It loades only outgoing edges.
-  class CrossEdgesLoader
+  class ICrossEdgesLoader
   {
   public:
-    CrossEdgesLoader(m2::PointD const & cross, TEdgeVector & outgoingEdges);
+    ICrossEdgesLoader(m2::PointD const & cross, bool onewayAsBidirectional, TEdgeVector & edges)
+        : m_cross(cross), m_onewayAsBidirectional(onewayAsBidirectional), m_edges(edges) {}
+    virtual ~ICrossEdgesLoader() = default;
 
-    void operator()(FeatureID const & featureId, RoadInfo const & roadInfo);
+    void operator()(FeatureID const & featureId, RoadInfo const & roadInfo)
+    {
+      LoadEdge(featureId, roadInfo);
+    }
 
   private:
+    virtual void LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo) = 0;
+
+  protected:
     m2::PointD const m_cross;
-    TEdgeVector & m_outgoingEdges;
+    bool const m_onewayAsBidirectional;
+    TEdgeVector & m_edges;
+  };
+
+  class CrossOutgoingLoader : public ICrossEdgesLoader
+  {
+  public:
+    CrossOutgoingLoader(m2::PointD const & cross, bool onewayAsBidirectional, TEdgeVector & edges)
+      : ICrossEdgesLoader(cross, onewayAsBidirectional, edges) {}
+
+    // ICrossEdgesLoader overrides:
+    virtual void LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo) override;
+  };
+
+  class CrossIngoingLoader : public ICrossEdgesLoader
+  {
+  public:
+    CrossIngoingLoader(m2::PointD const & cross, bool onewayAsBidirectional, TEdgeVector & edges)
+      : ICrossEdgesLoader(cross, onewayAsBidirectional, edges) {}
+    // ICrossEdgesLoader overrides:
+    virtual void LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo) override;
   };
 
   virtual ~IRoadGraph() = default;
@@ -141,7 +168,7 @@ public:
 
   /// Calls edgesLoader on each feature which is close to cross.
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,
-                                            CrossEdgesLoader & edgesLoader) const = 0;
+                                            ICrossEdgesLoader & edgesLoader) const = 0;
 
   /// Finds the closest edges to the point.
   /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
@@ -158,12 +185,22 @@ public:
   /// @return Types for specified junction
   virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
 
+  virtual bool ConsiderOnewayFeaturesAsBidirectional() const = 0;
+
   /// Clear all temporary buffers.
   virtual void ClearState() {}
 
 private:
-  /// Finds all outgoing regular (non-fake) edges for junction.
+  /// \brief Finds all outgoing regular (non-fake) edges for junction.
   void GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
+  /// \brief Finds all ingoing regular (non-fake) edges for junction.
+  void GetRegularIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
+  void LoadOutgoingEdges(m2::PointD const & cross, TEdgeVector & edges) const;
+  void LoadIngoingEdges(m2::PointD const & cross, TEdgeVector & edges) const;
+  /// \brief Finds all outgoing fake edges for junction.
+  void GetFakeOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
+  /// \brief Finds all ingoing fake edges for junction.
+  void GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
 
   /// Determines if the edge has been split by fake edges and if yes returns these fake edges.
   bool HasBeenSplitToFakes(Edge const & edge, vector<Edge> & fakeEdges) const;
@@ -171,5 +208,4 @@ private:
   // Map of outgoing edges for junction
   map<Junction, TEdgeVector> m_outgoingEdges;
 };
-
 }  // namespace routing

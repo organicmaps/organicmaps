@@ -61,6 +61,18 @@ vector<Edge>::const_iterator FindEdgeContainingPoint(vector<Edge> const & edges,
   return find_if(edges.begin(), edges.end(), liesOnEdgeFn);
 }
 
+/// \brief Reverses |edges| starting from index |beginIdx| and upto the end of |v|.
+void ReverseEdges(size_t beginIdx, IRoadGraph::TEdgeVector & edges)
+{
+  if (beginIdx > edges.size())
+  {
+    ASSERT(false, ());
+    return;
+  }
+
+  for (size_t i = beginIdx; i < edges.size(); ++i)
+    edges[i] = edges[i].GetReverseEdge();
+}
 }  // namespace
 
 // Junction --------------------------------------------------------------------
@@ -154,14 +166,38 @@ IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH, initializer
     : m_points(points), m_speedKMPH(speedKMPH), m_bidirectional(bidirectional)
 {}
 
-// IRoadGraph::CrossEdgesLoader ------------------------------------------------
-
-IRoadGraph::CrossEdgesLoader::CrossEdgesLoader(m2::PointD const & cross, TEdgeVector & outgoingEdges)
-    : m_cross(cross), m_outgoingEdges(outgoingEdges)
+// IRoadGraph::CrossOutgoingLoader ---------------------------------------------
+void IRoadGraph::CrossOutgoingLoader::LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
+  size_t const numPoints = roadInfo.m_points.size();
+
+  for (size_t i = 0; i < numPoints; ++i)
+  {
+    m2::PointD const & p = roadInfo.m_points[i];
+
+    if (!PointsAlmostEqualAbs(m_cross, p))
+      continue;
+
+    if (i > 0 && (roadInfo.m_bidirectional || m_onewayAsBidirectional))
+    {
+      //               p
+      // o------------>o
+
+      m_edges.emplace_back(featureId, false /* forward */, i - 1, p, roadInfo.m_points[i - 1]);
+    }
+
+    if (i < numPoints - 1)
+    {
+      // p
+      // o------------>o
+
+      m_edges.emplace_back(featureId, true /* forward */, i, p, roadInfo.m_points[i + 1]);
+    }
+  }
 }
 
-void IRoadGraph::CrossEdgesLoader::operator()(FeatureID const & featureId, RoadInfo const & roadInfo)
+// IRoadGraph::CrossIngoingLoader ----------------------------------------------
+void IRoadGraph::CrossIngoingLoader::LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
   size_t const numPoints = roadInfo.m_points.size();
 
@@ -177,51 +213,71 @@ void IRoadGraph::CrossEdgesLoader::operator()(FeatureID const & featureId, RoadI
       //               p
       // o------------>o
 
-      m_outgoingEdges.emplace_back(featureId, false /* forward */, i - 1, p, roadInfo.m_points[i - 1]);
+      m_edges.emplace_back(featureId, true /* forward */, i - 1, roadInfo.m_points[i - 1], p);
     }
 
-    if (i < numPoints - 1)
+    if (i < numPoints - 1 && (roadInfo.m_bidirectional || m_onewayAsBidirectional))
     {
       // p
       // o------------>o
 
-      m_outgoingEdges.emplace_back(featureId, true /* forward */, i, p, roadInfo.m_points[i + 1]);
+      m_edges.emplace_back(featureId, false /* forward */, i, roadInfo.m_points[i + 1], p);
     }
   }
 }
 
 // IRoadGraph ------------------------------------------------------------------
-
 void IRoadGraph::GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
-  auto const itr = m_outgoingEdges.find(junction);
-  if (itr != m_outgoingEdges.end())
-  {
-    edges.reserve(edges.size() + itr->second.size());
-    edges.insert(edges.end(), itr->second.begin(), itr->second.end());
-  }
-  else
-  {
-    GetRegularOutgoingEdges(junction, edges);
-  }
+  GetFakeOutgoingEdges(junction, edges);
+  GetRegularOutgoingEdges(junction, edges);
 }
 
 void IRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
-  size_t const wasSize = edges.size();
+  GetFakeIngoingEdges(junction, edges);
+  GetRegularIngoingEdges(junction, edges);
+}
 
-  GetOutgoingEdges(junction, edges);
+void IRoadGraph::LoadOutgoingEdges(m2::PointD const & cross, TEdgeVector & edges) const
+{
+  CrossOutgoingLoader loader(cross, ConsiderOnewayFeaturesAsBidirectional(), edges);
+  ForEachFeatureClosestToCross(cross, loader);
+}
 
-  size_t const size = edges.size();
-  for (size_t i = wasSize; i < size; ++i)
-    edges[i] = edges[i].GetReverseEdge();
+void IRoadGraph::LoadIngoingEdges(m2::PointD const & cross, TEdgeVector & edges) const
+{
+  CrossIngoingLoader loader(cross, ConsiderOnewayFeaturesAsBidirectional(), edges);
+  ForEachFeatureClosestToCross(cross, loader);
 }
 
 void IRoadGraph::GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
   m2::PointD const cross = junction.GetPoint();
-  CrossEdgesLoader loader(cross, edges);
-  ForEachFeatureClosestToCross(cross, loader);
+  LoadOutgoingEdges(cross, edges);
+}
+
+void IRoadGraph::GetRegularIngoingEdges(Junction const & junction, TEdgeVector & edges) const
+{
+  m2::PointD const cross = junction.GetPoint();
+  LoadIngoingEdges(cross, edges);
+}
+
+void IRoadGraph::GetFakeOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
+{
+  auto const itr = m_outgoingEdges.find(junction);
+  if (itr == m_outgoingEdges.cend())
+    return;
+
+  edges.reserve(edges.size() + itr->second.size());
+  edges.insert(edges.end(), itr->second.begin(), itr->second.end());
+}
+
+void IRoadGraph::GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const
+{
+  size_t const wasSize = edges.size();
+  GetFakeOutgoingEdges(junction, edges);
+  ReverseEdges(wasSize, edges);
 }
 
 void IRoadGraph::ResetFakes()

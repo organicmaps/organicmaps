@@ -94,7 +94,9 @@ unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index, stor
   auto UKGetter = [&](m2::PointD const & pt) { return cig.GetRegionCountryId(pt); };
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm());
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, UKGetter, move(vehicleModelFactory), move(algorithm), nullptr));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, UKGetter,
+                                                                   true /* onewayAsBidirectional */,
+                                                                   move(vehicleModelFactory), move(algorithm), nullptr));
   return router;
 }
 
@@ -103,7 +105,9 @@ unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index 
   auto UKGetter = [&](m2::PointD const & pt) { return cig.GetRegionCountryId(pt); };
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm());
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, UKGetter, move(vehicleModelFactory), move(algorithm), nullptr));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, UKGetter,
+                                                                   true /* onewayAsBidirectional */,
+                                                                   move(vehicleModelFactory), move(algorithm), nullptr));
   return router;
 }
 
@@ -120,7 +124,7 @@ m2::PointD GetPointOnEdge(routing::Edge & e, double posAlong)
 void GetNearestPedestrianEdges(Index & index, m2::PointD const & pt, vector<pair<routing::Edge, m2::PointD>> & edges)
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
-  routing::FeaturesRoadGraph roadGraph(index, move(vehicleModelFactory));
+  routing::FeaturesRoadGraph roadGraph(index, true /* onewayAsBidirectional */, move(vehicleModelFactory));
 
   roadGraph.FindClosestEdges(pt, 1 /*count*/, edges);
 }

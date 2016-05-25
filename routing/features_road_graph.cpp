@@ -101,9 +101,9 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
   m_cache.clear();
 }
 
-
-FeaturesRoadGraph::FeaturesRoadGraph(Index & index, unique_ptr<IVehicleModelFactory> && vehicleModelFactory)
-    : m_index(index),
+FeaturesRoadGraph::FeaturesRoadGraph(Index const & index, bool onewayAsBidirectional,
+                                     unique_ptr<IVehicleModelFactory> && vehicleModelFactory)
+    : m_index(index), m_onewayAsBidirectional(onewayAsBidirectional),
       m_vehicleModel(move(vehicleModelFactory))
 {
 }
@@ -114,7 +114,7 @@ class CrossFeaturesLoader
 {
 public:
   CrossFeaturesLoader(FeaturesRoadGraph const & graph,
-                      IRoadGraph::CrossEdgesLoader & edgesLoader)
+                      IRoadGraph::ICrossEdgesLoader & edgesLoader)
       : m_graph(graph), m_edgesLoader(edgesLoader)
   {}
 
@@ -136,7 +136,7 @@ public:
 
 private:
   FeaturesRoadGraph const & m_graph;
-  IRoadGraph::CrossEdgesLoader & m_edgesLoader;
+  IRoadGraph::ICrossEdgesLoader & m_edgesLoader;
 };
 
 IRoadGraph::RoadInfo FeaturesRoadGraph::GetRoadInfo(FeatureID const & featureId) const
@@ -159,7 +159,7 @@ double FeaturesRoadGraph::GetMaxSpeedKMPH() const
 }
 
 void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
-                                                     CrossEdgesLoader & edgesLoader) const
+                                                     ICrossEdgesLoader & edgesLoader) const
 {
   CrossFeaturesLoader featuresLoader(*this, edgesLoader);
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
@@ -229,6 +229,11 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
   m_index.ForEachInRect(f, rect, GetStreetReadScale());
 }
+
+bool FeaturesRoadGraph::ConsiderOnewayFeaturesAsBidirectional() const
+{
+  return m_onewayAsBidirectional;
+};
 
 void FeaturesRoadGraph::ClearState()
 {

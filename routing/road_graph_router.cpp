@@ -130,8 +130,9 @@ void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
 
 RoadGraphRouter::~RoadGraphRouter() {}
 
-RoadGraphRouter::RoadGraphRouter(string const & name, Index & index,
+RoadGraphRouter::RoadGraphRouter(string const & name, Index const & index,
                                  TCountryFileFn const & countryFileFn,
+                                 bool onewayAsBidirectional,
                                  unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
                                  unique_ptr<IRoutingAlgorithm> && algorithm,
                                  unique_ptr<IDirectionsEngine> && directionsEngine)
@@ -139,7 +140,7 @@ RoadGraphRouter::RoadGraphRouter(string const & name, Index & index,
     , m_countryFileFn(countryFileFn)
     , m_index(index)
     , m_algorithm(move(algorithm))
-    , m_roadGraph(make_unique<FeaturesRoadGraph>(index, move(vehicleModelFactory)))
+    , m_roadGraph(make_unique<FeaturesRoadGraph>(index, onewayAsBidirectional, move(vehicleModelFactory)))
     , m_directionsEngine(move(directionsEngine))
 {
 }
@@ -259,6 +260,7 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn co
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
   unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, countryFileFn,
+                                                 true /* onewayAsBidirectional */,
                                                  move(vehicleModelFactory), move(algorithm),
                                                  move(directionsEngine)));
   return router;
@@ -270,7 +272,8 @@ unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCou
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
   unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index,
-                                                 countryFileFn, move(vehicleModelFactory),
+                                                 countryFileFn, true /* onewayAsBidirectional */,
+                                                 move(vehicleModelFactory),
                                                  move(algorithm), move(directionsEngine)));
   return router;
 }
@@ -280,7 +283,8 @@ unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountr
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new BicycleModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new BicycleDirectionsEngine(index));
-  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-bicycle", index, countryFileFn, move(vehicleModelFactory),
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-bicycle", index, countryFileFn,
+                                                 false /* onewayAsBidirectional */, move(vehicleModelFactory),
                                                  move(algorithm), move(directionsEngine)));
   return router;
 }
