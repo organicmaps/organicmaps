@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-  <style name="PlacePagePreview">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:gravity">center_vertical</item>
-    <item name="android:orientation">horizontal</item>
-    <item name="android:padding">@dimen/margin_base</item>
-  </style>
-
   <style name="PlacePageButtonText">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
@@ -63,20 +55,6 @@
     <item name="android:background">?clickableBackground</item>
     <item name="android:clickable">true</item>
     <item name="android:visibility">gone</item>
-  </style>
-
-  <style name="PlacePageMetadata">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:minHeight">@dimen/height_block_base</item>
-    <item name="android:background">?clickableBackground</item>
-    <item name="android:orientation">horizontal</item>
-    <item name="android:gravity">center_vertical</item>
-    <item name="android:clickable">true</item>
-    <item name="android:paddingLeft">@dimen/margin_base</item>
-    <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
-    <item name="android:paddingRight">@dimen/margin_base</item>
-    <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
   </style>
 
   <style name="PlacePageMetadataText">

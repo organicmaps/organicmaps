@@ -359,6 +359,7 @@ public final class MapManager
    *   <li>topmostParentName;</li>
    *   <li>description;</li>
    *   <li>size;</li>
+   *   <li>enqueuedSize;</li>
    *   <li>totalSize;</li>
    *   <li>childCount;</li>
    *   <li>totalChildCount;</li>
@@ -473,4 +474,9 @@ public final class MapManager
    * Sets flag which allows to download maps on 3G.
    */
   public static native void nativeEnableDownloadOn3g();
+
+  /**
+   * Returns country ID which the current PP object points to, or {@code null}.
+   */
+  public static native @Nullable String nativeGetSelectedCountry();
 }

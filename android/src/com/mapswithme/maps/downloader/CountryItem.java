@@ -42,6 +42,7 @@ public final class CountryItem implements Comparable<CountryItem>
   public String description;
 
   public long size;
+  public long enqueuedSize;
   public long totalSize;
 
   public int childCount;
@@ -148,6 +149,7 @@ public final class CountryItem implements Comparable<CountryItem>
            ", errorCode: " + errorCode +
            ", headerId: " + headerId +
            ", size: " + size +
+           ", enqueuedSize: " + enqueuedSize +
            ", totalSize: " + totalSize +
            ", childCount: " + childCount +
            ", totalChildCount: " + totalChildCount +

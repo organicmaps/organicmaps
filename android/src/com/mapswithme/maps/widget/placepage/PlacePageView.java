@@ -41,6 +41,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -54,6 +55,8 @@ import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.downloader.CountryItem;
+import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OpeningHours;
@@ -135,6 +138,45 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   // Data
   private MapObject mMapObject;
   private boolean mIsLatLonDms;
+
+  // Downloader`s stuff
+  private DownloaderStatusIcon mDownloaderIcon;
+  private TextView mDownloaderInfo;
+  private int mStorageCallbackSlot;
+  private CountryItem mCurrentCountry;
+
+  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
+  {
+    @Override
+    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+    {
+      if (mCurrentCountry == null)
+        return;
+
+      for (MapManager.StorageCallbackData item : data)
+        if (mCurrentCountry.id.equals(item.countryId))
+        {
+          updateDownloader();
+          return;
+        }
+    }
+
+    @Override
+    public void onProgress(String countryId, long localSize, long remoteSize)
+    {
+      if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
+        updateDownloader();
+    }
+  };
+
+  private final Runnable mDownloaderDeferredDetachProc = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      detachCountry();
+    }
+  };
 
   public enum State
   {
@@ -262,6 +304,39 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mRouteButtonsFrame.findViewById(R.id.from).setOnClickListener(this);
     mRouteButtonsFrame.findViewById(R.id.to).setOnClickListener(this);
 
+    mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame))
+                          .setOnIconClickListener(new OnClickListener()
+                          {
+                            @Override
+                            public void onClick(View v)
+                            {
+                              MapManager.warn3gAndDownload((MwmActivity) getContext(), mCurrentCountry.id, new Runnable()
+                              {
+                                @Override
+                                public void run()
+                                {
+                                  Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                                                 Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                                                    .add(Statistics.EventParam.FROM, "placepage")
+                                                                                    .add("is_auto", "false")
+                                                                                    .add("scenario", (mCurrentCountry.isExpandable() ? "download_group"
+                                                                                                                                     : "download")));
+                                }
+                              });
+                            }
+                          }).setOnCancelClickListener(new OnClickListener()
+                          {
+                            @Override
+                            public void onClick(View v)
+                            {
+                              MapManager.nativeCancel(mCurrentCountry.id);
+                              Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                                             Statistics.params().add(Statistics.EventParam.FROM, "placepage"));
+                            }
+                          });
+
+    mDownloaderInfo = (TextView) mPreview.findViewById(R.id.tv__downloader_details);
+
     mShadowController = new ScrollViewShadowController((ObservableScrollView) mDetails)
                             .addBottomShadow()
                             .attach();
@@ -371,6 +446,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       return;
 
     mMapObject = mapObject;
+
+    detachCountry();
+    if (mMapObject != null)
+    {
+      String country = MapManager.nativeGetSelectedCountry();
+      if (country != null)
+        attachCountry(country);
+    }
+
     refreshViews();
   }
 
@@ -578,16 +662,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void refreshDistanceToObject(Location l)
   {
-    if (l != null)
-    {
-      mTvDistance.setVisibility(View.VISIBLE);
-      final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(
-          mMapObject.getLat(), mMapObject.getLon(),
-          l.getLatitude(), l.getLongitude(), 0.0);
-      mTvDistance.setText(distanceAndAzimuth.getDistance());
-    }
-    else
-      mTvDistance.setVisibility(View.GONE);
+    UiUtils.showIf(l != null, mTvDistance);
+    if (l == null)
+      return;
+
+    mTvDistance.setVisibility(View.VISIBLE);
+    DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
+                                                                                           l.getLatitude(), l.getLongitude(), 0.0);
+    mTvDistance.setText(distanceAndAzimuth.getDistance());
   }
 
   private void refreshLatLon()
@@ -596,7 +678,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     final double lon = mMapObject.getLon();
     final String[] latLon = Framework.nativeFormatLatLonToArr(lat, lon, mIsLatLonDms);
     if (latLon.length == 2)
-      mTvLatlon.setText(latLon[0] + ", " + latLon[1]);
+      mTvLatlon.setText(String.format(Locale.US, "%1$s, %2$s", latLon[0], latLon[1]));
   }
 
   private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
@@ -941,13 +1023,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     return true;
   }
 
-  public int getDockedWidth()
+  int getDockedWidth()
   {
     int res = getWidth();
     return (res == 0 ? getLayoutParams().width : res);
   }
 
-  public MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
+  MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
   {
     return mLeftAnimationTrackListener;
   }
@@ -959,6 +1041,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public void hide()
   {
+    detachCountry();
     setState(State.HIDDEN);
   }
 
@@ -975,5 +1058,68 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
 
     return false;
+  }
+
+  private static boolean isInvalidDownloaderStatus(int status)
+  {
+    return (status != CountryItem.STATUS_DOWNLOADABLE &&
+            status != CountryItem.STATUS_ENQUEUED &&
+            status != CountryItem.STATUS_FAILED &&
+            status != CountryItem.STATUS_PARTLY &&
+            status != CountryItem.STATUS_PROGRESS);
+  }
+
+  private void updateDownloader(CountryItem country)
+  {
+    if (isInvalidDownloaderStatus(country.status))
+    {
+      if (mStorageCallbackSlot != 0)
+        UiThread.runLater(mDownloaderDeferredDetachProc);
+      return;
+    }
+
+    mDownloaderIcon.update(country);
+
+    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(country.totalSize));
+    if (country.isExpandable())
+      sb.append(String.format(Locale.US, " • %s: %d", getContext().getString(R.string.downloader_status_maps), country.totalChildCount));
+
+    mDownloaderInfo.setText(sb.toString());
+  }
+
+  private void updateDownloader()
+  {
+    if (mCurrentCountry == null)
+      return;
+
+    mCurrentCountry.update();
+    updateDownloader(mCurrentCountry);
+  }
+
+  private void attachCountry(String country)
+  {
+    CountryItem map = CountryItem.fill(country);
+    if (isInvalidDownloaderStatus(map.status))
+      return;
+
+    mCurrentCountry = map;
+    if (mStorageCallbackSlot == 0)
+      mStorageCallbackSlot = MapManager.nativeSubscribe(mStorageCallback);
+
+    mDownloaderIcon.show(true);
+    UiUtils.show(mDownloaderInfo);
+    updateDownloader(mCurrentCountry);
+  }
+
+  private void detachCountry()
+  {
+    if (mStorageCallbackSlot == 0)
+      return;
+
+    MapManager.nativeUnsubscribe(mStorageCallbackSlot);
+    mStorageCallbackSlot = 0;
+    mCurrentCountry = null;
+    mDownloaderIcon.show(false);
+    UiUtils.hide(mDownloaderInfo);
   }
 }
