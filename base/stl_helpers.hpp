@@ -1,6 +1,7 @@
 #pragma once
 
 #include "std/algorithm.hpp"
+#include "std/functional.hpp"
 #include "std/vector.hpp"
 
 namespace my
@@ -83,6 +84,21 @@ void SortUnique(vector<T> & v)
 {
   sort(v.begin(), v.end());
   v.erase(unique(v.begin(), v.end()), v.end());
+}
+
+// Sorts and removes duplicate entries from |v| according to |comp|.
+// Note. If several entries are equivalent according to |comp| an arbitrary entry of them
+// is left in |v| after a call of this method.
+// Note. |comp| should implement operator<. It means the expression
+// !comp(t1, t2) && !comp(t2, t1) should return true iff t1 is equivalent to t2.
+// It's necessary for std::unique.
+template <typename T>
+void SortUnique(function<bool(T const &, T const &)> const & comp, vector<T> & v)
+{
+  sort(v.begin(), v.end(), comp);
+  function<bool(T const &, T const &)> const pred =
+      [&comp](T const &t1, T const &t2) { return !comp(t1, t2) && !comp(t2, t1); };
+  v.erase(unique(v.begin(), v.end(), pred), v.end());
 }
 
 template <typename T, class TFn>
