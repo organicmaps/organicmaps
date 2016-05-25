@@ -55,6 +55,20 @@ bool to_int(char const * s, int & i, int base /*= 10*/)
   return false;
 }
 
+bool to_uint(char const * s, unsigned int & i, int base /*= 10*/)
+{
+  char * stop;
+  long const x = strtoul(s, &stop, base);
+  if (*stop == 0)
+  {
+    i = static_cast<unsigned int>(x);
+    ASSERT_EQUAL(static_cast<unsigned long>(i), x, ());
+    return true;
+  }
+  return false;
+}
+
+  
 bool to_uint64(char const * s, uint64_t & i)
 {
   char * stop;

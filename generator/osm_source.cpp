@@ -514,7 +514,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
     
     // If info.m_bookingDatafileName is empty then no data will be loaded.
-    BookingDataset bookingDataset(info.m_bookingDatafileName);
+    generator::BookingDataset bookingDataset(info.m_bookingDatafileName);
 
     // Here we can add new tags to element!!!
     auto const fn = [&](OsmElement * e)

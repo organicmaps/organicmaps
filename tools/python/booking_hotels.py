@@ -2,16 +2,16 @@
 # coding: utf8
 from __future__ import print_function
 
-import json
-import urllib2
-import base64
-from datetime import datetime
-import time
-import logging
-import pickle
-import os
-import argparse
 from collections import namedtuple, defaultdict
+from datetime import datetime
+import argparse
+import base64
+import json
+import logging
+import os
+import pickle
+import time
+import urllib2
 
 # init logging
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
@@ -60,6 +60,7 @@ class BookingApi:
             request = urllib2.Request(url, None, self.baseConfig["headers"])
             stream = urllib2.urlopen(request)
             payload = stream.read()
+            print(payload)
             return json.loads(payload)
 
         except Exception as e:
@@ -69,41 +70,40 @@ class BookingApi:
 
 def make_record(src, rate):
     return Hotel(
-        int(src['hotel_id']),
-        float(src['location']['latitude']),
-        float(src['location']['longitude']),
-        src['name'],
-        src['address'],
-        int(src['class']),
-        rate,
-        src['ranking'],
-        src['review_score'],
-        src['url']
+        unicode(src['hotel_id']),
+        unicode(src['location']['latitude']),
+        unicode(src['location']['longitude']),
+        unicode(src['name']),
+        unicode(src['address']),
+        unicode(src['class']),
+        unicode(rate),
+        unicode(src['ranking']),
+        unicode(src['review_score']),
+        unicode(src['url'])
     )
 
 
 def download(user, password, path):
+    '''
+    Download all hotels from booking.com and store then in them set of .pkl files.
+    '''
     api = BookingApi(user, password)
 
     maxrows = 1000
     countries = api.call("getCountries", dict(languagecodes='en'))
     for country in countries:
         countrycode = country['countrycode']
-        logging.info(u'{0} {1}'.format(countrycode, country['name']))
+        logging.info(u'Download[{0}]: {1}'.format(countrycode, country['name']))
 
-        counter = 0
         allhotels = []
         while True:
             hotels = api.call('getHotels',
-                              dict(new_hotel_type=1, offset=counter, rows=maxrows, countrycodes=countrycode))
+                              dict(new_hotel_type=1, offset=len(allhotels), rows=maxrows, countrycodes=countrycode))
             if isinstance(hotels, dict) and 'ruid' in hotels:
-                logging.error('{0} Code: {1}'.format(hotels['message'], hotels['code']))
+                logging.error('Api call failed with error: {0} Code: {1}'.format(hotels['message'], hotels['code']))
                 exit(1)
 
-            for hotel in hotels:
-                allhotels.append(hotel)
-
-            counter += len(hotels)
+            allhotels.append(hotels)
 
             if len(hotels) < maxrows:
                 break
@@ -116,13 +116,12 @@ def download(user, password, path):
 
 
 def translate(source, output):
-    files = []
+    '''
+    Read *.pkl files and produce a single list of hotels as tab separated values.
+    '''
+    files = [filename for filename in os.listdir(source) if filename.endswith('.pkl')]
+
     data = []
-
-    for filename in os.listdir(source):
-        if filename.endswith(".pkl"):
-            files.append(filename)
-
     for filename in files:
         logging.info('Processing {0}'.format(filename))
         with open(filename, 'rb') as fd:
@@ -131,12 +130,15 @@ def translate(source, output):
     # Dict of dicts city_id -> { currency -> [prices] }
     cities = defaultdict(lambda: defaultdict(list))
 
+    def valid(hotel):
+        return 'city_id' in hotel and 'currencycode' in hotel and 'minrate' in hotel and hotel['minrate'] is not None
+
     # Collect prices
     for hotel in data:
-        if 'city_id' in hotel and 'currencycode' in hotel and 'minrate' in hotel and hotel['minrate'] is not None:
+        if valid(hotel):
             cities[hotel['city_id']][hotel['currencycode']].append(float(hotel['minrate']))
 
-    # Find median prices
+    # Replaces list of prices by a median price.
     for city in cities:
         for cur in cities[city]:
             cities[city][cur] = sorted(cities[city][cur])[len(cities[city][cur]) / 2]
@@ -147,14 +149,15 @@ def translate(source, output):
     with open(output, 'w') as fd:
         for hotel in data:
             rate = 0
-            if 'city_id' in hotel and 'currencycode' in hotel and 'minrate' in hotel and hotel['minrate'] is not None:
+            if valid(hotel):
                 avg = cities[hotel['city_id']][hotel['currencycode']]
                 price = float(hotel['minrate'])
                 rate = 1
+                # Find a range that contains the price
                 while rate <= len(rates) and price > avg * rates[rate - 1]:
                     rate += 1
             cur = make_record(hotel, rate)
-            l = [(str(e) if e else '') if not isinstance(e, unicode) else e.encode('utf8') for e in cur]
+            l = [e.encode('utf8') for e in cur]
             print('\t'.join(l), file=fd)
 
 
@@ -166,7 +169,7 @@ def process_options():
     parser.add_argument("--password", dest="password", help="Booking.com account password")
     parser.add_argument("--user", dest="user", help="Booking.com account user name")
 
-    parser.add_argument("--path", dest="path", help="path to data files")
+    parser.add_argument("--path", dest="path", help="Path to data files")
     parser.add_argument("--output", dest="output", help="Name and destination for output file")
 
     parser.add_argument("--download", action="store_true", dest="download", default=False)
@@ -179,6 +182,7 @@ def process_options():
 
     if options.translate and not options.output:
         print("--output isn't set")
+        parser.print_help()
         exit()
 
     return options

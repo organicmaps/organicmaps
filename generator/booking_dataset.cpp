@@ -1,81 +1,69 @@
 #include "generator/booking_dataset.hpp"
 
-#include "base/string_utils.hpp"
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include "indexer/search_delimiters.hpp"
-#include "indexer/search_string_utils.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/fstream.hpp"
 #include "std/iostream.hpp"
 #include "std/sstream.hpp"
 
-BookingDataset::BookingHotel::BookingHotel(string const & src)
+namespace generator
 {
-  stringstream ss(src);
-  string elem;
+BookingDataset::Hotel::Hotel(string const & src)
+{
   vector<string> rec(FieldsCount());
-  for (size_t i = 0; getline(ss, elem, '\t') && i < rec.size(); ++i)
-    rec[i] = elem;
+  strings::SimpleTokenizer token(src, "\t");
+  for (size_t i = 0; token && i < rec.size(); ++i, ++token)
+    rec[i] = *token;
 
-  id = static_cast<uint32_t>(strtoul(rec[Index(Fields::Id)].c_str(), nullptr, 10));
-
-  lat = strtod(rec[Index(Fields::Latitude)].c_str(), nullptr);
-  lon = strtod(rec[Index(Fields::Longtitude)].c_str(), nullptr);
+  strings::to_uint(rec[Index(Fields::Id)], id);
+  strings::to_double(rec[Index(Fields::Latitude)], lat);
+  strings::to_double(rec[Index(Fields::Longtitude)], lon);
+  
   name = rec[Index(Fields::Name)];
   address = rec[Index(Fields::Address)];
 
-  stars = rec[Index(Fields::Stars)].empty()
-              ? 0
-              : static_cast<uint32_t>(strtoul(rec[Index(Fields::Stars)].c_str(), nullptr, 10));
-
-  priceCategory =
-      rec[Index(Fields::PriceCategory)].empty()
-          ? 0
-          : static_cast<uint32_t>(strtoul(rec[Index(Fields::PriceCategory)].c_str(), nullptr, 10));
-
-  ratingBooking = rec[Index(Fields::RatingBooking)].empty()
-                      ? 0
-                      : strtod(rec[Index(Fields::RatingBooking)].c_str(), nullptr);
-
-  ratingUser = rec[Index(Fields::RatingUsers)].empty()
-                   ? 0
-                   : strtod(rec[Index(Fields::RatingUsers)].c_str(), nullptr);
+  strings::to_uint(rec[Index(Fields::Stars)], stars);
+  strings::to_uint(rec[Index(Fields::PriceCategory)], priceCategory);
+  strings::to_double(rec[Index(Fields::RatingBooking)], ratingBooking);
+  strings::to_double(rec[Index(Fields::RatingUsers)], ratingUser);
 
   descUrl = rec[Index(Fields::DescUrl)];
 
-  type = rec[Index(Fields::Type)].empty()
-             ? 0
-             : static_cast<uint32_t>(strtoul(rec[Index(Fields::Type)].c_str(), nullptr, 10));
+  strings::to_uint(rec[Index(Fields::Type)], type);
 }
 
-ostream & operator<<(ostream & s, BookingDataset::BookingHotel const & h)
+ostream & operator<<(ostream & s, BookingDataset::Hotel const & h)
 {
-  return s << "Name: " << h.name << " lon: " << h.lon << " lat: " << h.lat;
+  return s << "Name: " << h.name << " lat: " << h.lat << " lon: " << h.lon;
 }
 
-void BookingDataset::LoadBookingHotels(string const & path)
+void BookingDataset::LoadHotels(string const & path)
 {
   m_hotels.clear();
-  
-  if(path.empty())
+
+  if (path.empty())
     return;
-  
+
   ifstream src(path);
-  for (string elem; getline(src, elem);)
-    m_hotels.emplace_back(elem);
+  for (string line; getline(src, line);)
+    m_hotels.emplace_back(line);
 }
 
 BookingDataset::BookingDataset(string const & dataPath)
 {
-  LoadBookingHotels(dataPath);
+  LoadHotels(dataPath);
 
   size_t counter = 0;
   for (auto const & hotel : m_hotels)
   {
-    TBox b(TPoint(hotel.lon, hotel.lat), TPoint(hotel.lon, hotel.lat));
-    m_rtree.insert(std::make_pair(b, counter++));
+    TBox b(TPoint(hotel.lat, hotel.lon), TPoint(hotel.lat, hotel.lon));
+    m_rtree.insert(std::make_pair(b, counter));
+    ++counter;
   }
 }
 
@@ -108,11 +96,11 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
   // Find 3 nearest values to a point.
   vector<TValue> result;
   for_each(boost::geometry::index::qbegin(m_rtree,
-                                          boost::geometry::index::nearest(TPoint(e.lon, e.lat), 3)),
+                                          boost::geometry::index::nearest(TPoint(e.lat, e.lon), 3)),
            boost::geometry::index::qend(m_rtree), [&](TValue const & v)
            {
              auto const & hotel = m_hotels[v.second];
-             double dist = ms::DistanceOnEarth(e.lon, e.lat, hotel.lon, hotel.lat);
+             double dist = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
              if (dist > 150 /* max distance in meters */)
                return;
 
@@ -243,10 +231,12 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
     case 201: e.AddTag("tourism", "apartment"); break;
 
     case 214: e.AddTag("tourism", "camp_site"); break;
-        
+
     default: e.AddTag("tourism", "hotel"); break;
     }
 
     fn(&e);
   }
 }
+
+}  // namespace generator
