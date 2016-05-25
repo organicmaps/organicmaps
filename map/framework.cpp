@@ -1432,7 +1432,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
       if (r.GetResultType() == search::Result::RESULT_FEATURE)
         mark->SetFoundFeature(r.GetFeatureID());
       mark->SetMatchedName(r.GetString());
-      
+
       if (r.m_metadata.m_isSponsoredHotel)
         mark->SetCustomSymbol("search-booking");
     }
@@ -1909,9 +1909,9 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
   m_selectedFeature = info.GetID();
   CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(),
                          needAnimation));
-  
+
   SetDisplacementMode(info.m_isSponsoredHotel ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode);
-  
+
   if (m_activateMapSelectionFn)
     m_activateMapSelectionFn(info);
   else
@@ -2881,4 +2881,13 @@ bool Framework::RollBackChanges(FeatureID const & fid)
       UpdatePlacePageInfoForCurrentSelection();
   }
   return rolledBack;
+}
+
+bool Framework::UpdateUserStats(string const & userName)
+{
+  auto newUserStats = make_unique<editor::UserStats>(userName);
+  if (!newUserStats->GetUpdateStatus())
+    return false;
+  m_userStats.reset(newUserStats.release());
+  return true;
 }

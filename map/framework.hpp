@@ -19,6 +19,8 @@
 #include "indexer/map_style.hpp"
 #include "indexer/new_feature_categories.hpp"
 
+#include "editor/user_stats.hpp"
+
 #include "search/query_saver.hpp"
 #include "search/search_engine.hpp"
 
@@ -669,6 +671,18 @@ private:
   TRouteBuildingCallback m_routingCallback;
   TRouteProgressCallback m_progressCallback;
   routing::RouterType m_currentRouterType;
+  //@}
+
+public:
+  //@{
+  //User statistics.
+  editor::UserStats const * GetUserStats() const { return m_userStats.get(); }
+  /// Synchronously request the server and updates users stats.
+  /// @returns true on success.
+  bool UpdateUserStats(string const & userName);
+
+private:
+  unique_ptr<editor::UserStats> m_userStats;
   //@}
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
