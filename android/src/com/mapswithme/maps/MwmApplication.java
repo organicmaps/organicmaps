@@ -64,10 +64,13 @@ public class MwmApplication extends Application
       for (MapManager.StorageCallbackData item : data)
         if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
         {
-          Notifier.cancelDownloadSuggest();
+          if (MapManager.nativeIsAutoretryFailed())
+          {
+            Notifier.cancelDownloadSuggest();
 
-          Notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
-          MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, MapManager.nativeGetError(item.countryId));
+            Notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
+            MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, MapManager.nativeGetError(item.countryId));
+          }
 
           return;
         }
