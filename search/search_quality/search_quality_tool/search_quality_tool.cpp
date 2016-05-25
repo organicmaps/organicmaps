@@ -11,9 +11,9 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include "search/processor_factory.hpp"
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
-#include "search/search_query_factory.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 #include "search/v2/ranking_info.hpp"
@@ -380,7 +380,7 @@ int main(int argc, char * argv[])
   Engine::Params params;
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
-  TestSearchEngine engine(move(infoGetter), make_unique<SearchQueryFactory>(), Engine::Params{});
+  TestSearchEngine engine(move(infoGetter), make_unique<ProcessorFactory>(), Engine::Params{});
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())

@@ -2,7 +2,7 @@
 
 #include "search/cancel_exception.hpp"
 #include "search/mode.hpp"
-#include "search/search_query_params.hpp"
+#include "search/query_params.hpp"
 #include "search/v2/features_layer.hpp"
 #include "search/v2/features_layer_path_finder.hpp"
 #include "search/v2/geometry_cache.hpp"
@@ -75,7 +75,7 @@ class TokenSlice;
 class Geocoder : public my::Cancellable
 {
 public:
-  struct Params : public SearchQueryParams
+  struct Params : public QueryParams
   {
     Params();
 
@@ -185,7 +185,7 @@ private:
   template <typename TLocality>
   using TLocalitiesCache = map<pair<size_t, size_t>, vector<TLocality>>;
 
-  SearchQueryParams::TSynonymsVector const & GetTokens(size_t i) const;
+  QueryParams::TSynonymsVector const & GetTokens(size_t i) const;
 
   // Fills |m_retrievalParams| with [curToken, endToken) subsequence
   // of search query tokens.
@@ -372,7 +372,7 @@ private:
   FeaturesLayerPathFinder m_finder;
 
   // Search query params prepared for retrieval.
-  SearchQueryParams m_retrievalParams;
+  QueryParams m_retrievalParams;
 
   // Pointer to the most nested region filled during geocoding.
   Region const * m_lastMatchedRegion;

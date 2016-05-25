@@ -33,7 +33,7 @@ LocalityScorer::ExLocality::ExLocality(Geocoder::Locality const & locality)
 }
 
 // LocalityScorer ----------------------------------------------------------------------------------
-LocalityScorer::LocalityScorer(SearchQueryParams const & params, Delegate const & delegate)
+LocalityScorer::LocalityScorer(QueryParams const & params, Delegate const & delegate)
   : m_params(params), m_delegate(delegate)
 {
 }

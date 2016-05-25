@@ -1,8 +1,8 @@
 #include "search/v2/geocoder.hpp"
 
 #include "search/dummy_rank_table.hpp"
+#include "search/processor.hpp"
 #include "search/retrieval.hpp"
-#include "search/search_query.hpp"
 #include "search/v2/cbv_ptr.hpp"
 #include "search/v2/features_filter.hpp"
 #include "search/v2/features_layer_matcher.hpp"
@@ -210,7 +210,7 @@ private:
   DISALLOW_COPY_AND_MOVE(StreetCategories);
 };
 
-void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t endToken,
+void JoinQueryTokens(QueryParams const & params, size_t curToken, size_t endToken,
                      strings::UniString const & sep, strings::UniString & res)
 {
   ASSERT_LESS_OR_EQUAL(curToken, endToken, ());
@@ -397,7 +397,7 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   , m_numTokens(0)
   , m_model(SearchModel::Instance())
   , m_pivotRectsCache(kPivotRectsCacheSize, static_cast<my::Cancellable const &>(*this),
-                      Query::kMaxViewportRadiusM)
+                      Processor::kMaxViewportRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, static_cast<my::Cancellable const &>(*this))
   , m_pivotFeatures(index)
   , m_streets(nullptr)
@@ -633,7 +633,7 @@ void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
 
   // TODO (@y): possibly it's not cheap to copy vectors of strings.
   // Profile it, and in case of serious performance loss, refactor
-  // SearchQueryParams to support subsets of tokens.
+  // QueryParams to support subsets of tokens.
   for (size_t i = curToken; i < endToken; ++i)
   {
     if (i < m_params.m_tokens.size())

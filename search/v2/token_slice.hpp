@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/search_query_params.hpp"
+#include "search/query_params.hpp"
 
 #include "base/assert.hpp"
 
@@ -15,9 +15,9 @@ namespace v2
 class TokenSlice
 {
 public:
-  TokenSlice(SearchQueryParams const & params, size_t startToken, size_t endToken);
+  TokenSlice(QueryParams const & params, size_t startToken, size_t endToken);
 
-  inline SearchQueryParams::TSynonymsVector const & Get(size_t i) const
+  inline QueryParams::TSynonymsVector const & Get(size_t i) const
   {
     ASSERT_LESS(i, Size(), ());
     return m_params.GetTokens(m_offset + i);
@@ -36,7 +36,7 @@ public:
   bool IsLast(size_t i) const;
 
 private:
-  SearchQueryParams const & m_params;
+  QueryParams const & m_params;
   size_t const m_offset;
   size_t const m_size;
 };
@@ -44,9 +44,9 @@ private:
 class TokenSliceNoCategories
 {
 public:
-  TokenSliceNoCategories(SearchQueryParams const & params, size_t startToken, size_t endToken);
+  TokenSliceNoCategories(QueryParams const & params, size_t startToken, size_t endToken);
 
-  inline SearchQueryParams::TSynonymsVector const & Get(size_t i) const
+  inline QueryParams::TSynonymsVector const & Get(size_t i) const
   {
     ASSERT_LESS(i, Size(), ());
     return m_params.GetTokens(m_indexes[i]);
@@ -63,14 +63,14 @@ public:
   }
 
 private:
-  SearchQueryParams const & m_params;
+  QueryParams const & m_params;
   vector<size_t> m_indexes;
 };
 
 class QuerySlice
 {
 public:
-  using TString = SearchQueryParams::TString;
+  using TString = QueryParams::TString;
 
   virtual ~QuerySlice() = default;
 
@@ -87,7 +87,7 @@ public:
   QuerySliceOnTokens(TokenSlice const & slice) : m_slice(slice) {}
 
   // QuerySlice overrides:
-  SearchQueryParams::TString const & Get(size_t i) const override { return m_slice.Get(i).front(); }
+  QueryParams::TString const & Get(size_t i) const override { return m_slice.Get(i).front(); }
   size_t Size() const override { return m_slice.Size(); }
   bool IsPrefix(size_t i) const override { return m_slice.IsPrefix(i); }
 
@@ -105,7 +105,7 @@ public:
   }
 
   // QuerySlice overrides:
-  SearchQueryParams::TString const & Get(size_t i) const override
+  QueryParams::TString const & Get(size_t i) const override
   {
     ASSERT_LESS(i, Size(), ());
     return i == m_tokens.size() ? m_prefix : m_tokens[i];

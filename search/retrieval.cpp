@@ -127,7 +127,7 @@ bool IsFirstMatchesSecond(vector<T> const & first, vector<T> const & second, TCo
   return false;
 }
 
-bool MatchFeatureByName(FeatureType const & ft, SearchQueryParams const & params)
+bool MatchFeatureByName(FeatureType const & ft, QueryParams const & params)
 {
   using namespace strings;
 
@@ -202,7 +202,7 @@ void WithSearchTrieRoot(MwmValue & value, TFn && fn)
 template <typename TValue>
 unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
     MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
-    SearchQueryParams const & params)
+    QueryParams const & params)
 {
   EditedFeaturesHolder holder(id);
   vector<uint64_t> features;
@@ -309,9 +309,10 @@ struct Selector
 };
 }  // namespace
 
-unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
-    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
-    SearchQueryParams const & params)
+unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmId const & id,
+                                                                MwmValue & value,
+                                                                my::Cancellable const & cancellable,
+                                                                QueryParams const & params)
 {
   Selector<RetrieveAddressFeaturesAdaptor> selector;
   return selector(id, value, cancellable, params);

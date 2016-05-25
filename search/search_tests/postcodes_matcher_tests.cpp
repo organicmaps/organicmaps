@@ -1,6 +1,6 @@
 #include "../../testing/testing.hpp"
 
-#include "search/search_query_params.hpp"
+#include "search/query_params.hpp"
 #include "search/v2/postcodes_matcher.hpp"
 #include "search/v2/token_slice.hpp"
 
@@ -29,7 +29,7 @@ bool LooksLikePostcode(string const & s, bool checkPrefix)
 
   size_t const numTokens = tokens.size();
 
-  SearchQueryParams params;
+  QueryParams params;
   if (checkPrefix && lastTokenIsPrefix)
   {
     params.m_prefixTokens.push_back(tokens.back());

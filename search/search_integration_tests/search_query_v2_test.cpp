@@ -30,7 +30,7 @@ namespace search
 {
 namespace
 {
-class SearchQueryV2Test : public SearchTest
+class ProcessorV2Test : public SearchTest
 {
 public:
   unique_ptr<TestSearchRequest> MakeRequest(string const & query)
@@ -53,7 +53,7 @@ public:
   }
 };
 
-UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
+UNIT_CLASS_TEST(ProcessorV2Test, Smoke)
 {
   string const countryName = "Wonderland";
   TestCountry wonderlandCountry(m2::PointD(10, 10), countryName, "en");
@@ -193,7 +193,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
   }
 }
 
-UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
+UNIT_CLASS_TEST(ProcessorV2Test, SearchInWorld)
 {
   string const countryName = "Wonderland";
   TestCountry wonderland(m2::PointD(0, 0), countryName, "en");
@@ -221,7 +221,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
   }
 }
 
-UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
+UNIT_CLASS_TEST(ProcessorV2Test, SearchByName)
 {
   string const countryName = "Wonderland";
   TestCity london(m2::PointD(1, 1), "London", "en", 100 /* rank */);
@@ -259,7 +259,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
   }
 }
 
-UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
+UNIT_CLASS_TEST(ProcessorV2Test, DisableSuggests)
 {
   TestCity london1(m2::PointD(1, 1), "London", "en", 100 /* rank */);
   TestCity london2(m2::PointD(-1, -1), "London", "en", 100 /* rank */);
@@ -286,7 +286,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
   }
 }
 
-UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
+UNIT_CLASS_TEST(ProcessorV2Test, TestRankingInfo)
 {
   string const countryName = "Wonderland";
 
@@ -367,7 +367,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestRankingInfo)
   }
 }
 
-UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
+UNIT_CLASS_TEST(ProcessorV2Test, TestPostcodes)
 {
   string const countryName = "Russia";
 
@@ -410,7 +410,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
     TEST(handle.IsAlive(), ());
     my::Cancellable cancellable;
 
-    SearchQueryParams params;
+    QueryParams params;
     params.m_tokens.emplace_back();
     params.m_tokens.back().push_back(strings::MakeUniString("141702"));
     auto * value = handle.GetValue<MwmValue>();
@@ -462,7 +462,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, TestPostcodes)
   }
 }
 
-UNIT_CLASS_TEST(SearchQueryV2Test, TestCategories)
+UNIT_CLASS_TEST(ProcessorV2Test, TestCategories)
 {
   string const countryName = "Wonderland";
 

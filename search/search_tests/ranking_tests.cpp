@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/search_query_params.hpp"
+#include "search/query_params.hpp"
 #include "search/v2/ranking_utils.hpp"
 #include "search/v2/token_slice.hpp"
 
@@ -21,7 +21,7 @@ namespace
 NameScore GetScore(string const & name, string const & query, size_t startToken, size_t endToken)
 {
   search::Delimiters delims;
-  SearchQueryParams params;
+  QueryParams params;
   auto addToken = [&params](UniString const & token)
   {
     params.m_tokens.push_back({token});

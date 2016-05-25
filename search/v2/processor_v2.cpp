@@ -1,4 +1,4 @@
-#include "search/v2/search_query_v2.hpp"
+#include "search/v2/processor_v2.hpp"
 
 #include "search/dummy_rank_table.hpp"
 
@@ -13,27 +13,27 @@ namespace search
 {
 namespace v2
 {
-SearchQueryV2::SearchQueryV2(Index & index, CategoriesHolder const & categories,
-                             vector<Suggest> const & suggests,
-                             storage::CountryInfoGetter const & infoGetter)
-  : Query(index, categories, suggests, infoGetter), m_geocoder(index, infoGetter)
+ProcessorV2::ProcessorV2(Index & index, CategoriesHolder const & categories,
+                         vector<Suggest> const & suggests,
+                         storage::CountryInfoGetter const & infoGetter)
+  : Processor(index, categories, suggests, infoGetter), m_geocoder(index, infoGetter)
 {
   m_keepHouseNumberInQuery = true;
 }
 
-void SearchQueryV2::Reset()
+void ProcessorV2::Reset()
 {
-  Query::Reset();
+  Processor::Reset();
   m_geocoder.Reset();
 }
 
-void SearchQueryV2::Cancel()
+void ProcessorV2::Cancel()
 {
-  Query::Cancel();
+  Processor::Cancel();
   m_geocoder.Cancel();
 }
 
-void SearchQueryV2::Search(Results & results, size_t limit)
+void ProcessorV2::Search(Results & results, size_t limit)
 {
   if (m_tokens.empty())
     SuggestStrings(results);
@@ -51,7 +51,7 @@ void SearchQueryV2::Search(Results & results, size_t limit)
   FlushResults(params, results, false /* allMWMs */, limit, false /* oldHouseSearch */);
 }
 
-void SearchQueryV2::SearchViewportPoints(Results & results)
+void ProcessorV2::SearchViewportPoints(Results & results)
 {
   Geocoder::Params params;
   InitParams(false /* localitySearch */, params);
@@ -64,9 +64,9 @@ void SearchQueryV2::SearchViewportPoints(Results & results)
   FlushViewportResults(params, results, false /* oldHouseSearch */);
 }
 
-void SearchQueryV2::ClearCaches()
+void ProcessorV2::ClearCaches()
 {
-  Query::ClearCaches();
+  Processor::ClearCaches();
   m_geocoder.ClearCaches();
 }
 }  // namespace v2

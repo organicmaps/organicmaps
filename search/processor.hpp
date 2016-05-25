@@ -48,19 +48,18 @@ namespace search
 {
 struct Locality;
 struct Region;
-struct SearchQueryParams;
+struct QueryParams;
 
 namespace impl
 {
-  class FeatureLoader;
-  class BestNameFinder;
-  class PreResult2Maker;
-  class DoFindLocality;
-  class HouseCompFactory;
+class FeatureLoader;
+class BestNameFinder;
+class PreResult2Maker;
+class DoFindLocality;
+class HouseCompFactory;
 }
 
-// TODO (@y): rename this class to QueryProcessor.
-class Query : public my::Cancellable
+class Processor : public my::Cancellable
 {
 public:
   // Maximum result candidates count for each viewport/criteria.
@@ -69,8 +68,8 @@ public:
   static double const kMinViewportRadiusM;
   static double const kMaxViewportRadiusM;
 
-  Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
-        storage::CountryInfoGetter const & infoGetter);
+  Processor(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
+            storage::CountryInfoGetter const & infoGetter);
 
   inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
 
@@ -113,13 +112,15 @@ public:
 
   virtual void ClearCaches();
 
-  struct CancelException {};
+  struct CancelException
+  {
+  };
 
-  /// @name This stuff is public for implementation classes in search_query.cpp
+  /// @name This stuff is public for implementation classes in processor.cpp
   /// Do not use it in client code.
   //@{
 
-  void InitParams(bool localitySearch, SearchQueryParams & params);
+  void InitParams(bool localitySearch, QueryParams & params);
 
 protected:
   enum ViewportID
@@ -127,7 +128,7 @@ protected:
     DEFAULT_V = -1,
     CURRENT_V = 0,
     LOCALITY_V = 1,
-    COUNT_V = 2     // Should always be the last
+    COUNT_V = 2  // Should always be the last
   };
 
   friend string DebugPrint(ViewportID viewportId);
@@ -138,11 +139,11 @@ protected:
   friend class impl::DoFindLocality;
   friend class impl::HouseCompFactory;
 
-  int GetCategoryLocales(int8_t (&arr) [3]) const;
+  int GetCategoryLocales(int8_t(&arr)[3]) const;
   template <class ToDo>
   void ForEachCategoryTypes(v2::QuerySlice const & slice, ToDo toDo) const;
-  template <class ToDo> void ProcessEmojiIfNeeded(
-      strings::UniString const & token, size_t ind, ToDo & toDo) const;
+  template <class ToDo>
+  void ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind, ToDo & toDo) const;
 
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
   using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
@@ -164,17 +165,20 @@ protected:
   //@{
   void FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets);
 
-  void FlushResults(v2::Geocoder::Params const & params, Results & res, bool allMWMs, size_t resCount,
-                    bool oldHouseSearch);
-  void FlushViewportResults(v2::Geocoder::Params const & params, Results & res, bool oldHouseSearch);
+  void FlushResults(v2::Geocoder::Params const & params, Results & res, bool allMWMs,
+                    size_t resCount, bool oldHouseSearch);
+  void FlushViewportResults(v2::Geocoder::Params const & params, Results & res,
+                            bool oldHouseSearch);
   //@}
 
   void RemoveStringPrefix(string const & str, string & res) const;
   void GetSuggestion(string const & name, string & suggest) const;
-  template <class T> void ProcessSuggestions(vector<T> & vec, Results & res) const;
+  template <class T>
+  void ProcessSuggestions(vector<T> & vec, Results & res) const;
 
   void SuggestStrings(Results & res);
-  void MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res);
+  void MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale,
+                               string const & prolog, Results & res);
 
   void GetBestMatchName(FeatureType const & f, string & name) const;
 
@@ -226,7 +230,8 @@ protected:
     TCompare() : m_fn(0) {}
     explicit TCompare(TFunction const & fn) : m_fn(fn) {}
 
-    template <class T> bool operator() (T const & v1, T const & v2) const
+    template <class T>
+    bool operator()(T const & v1, T const & v2) const
     {
       return m_fn(v1, v2);
     }

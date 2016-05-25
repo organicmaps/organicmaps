@@ -1,8 +1,8 @@
 #pragma once
 
 #include "params.hpp"
+#include "processor_factory.hpp"
 #include "result.hpp"
-#include "search_query_factory.hpp"
 #include "suggest.hpp"
 
 #include "indexer/categories_holder.hpp"
@@ -35,19 +35,19 @@ class CountryInfoGetter;
 namespace search
 {
 class EngineData;
-class Query;
+class Processor;
 
-// This class is used as a reference to a search query in the
+// This class is used as a reference to a search processor in the
 // SearchEngine's queue.  It's only possible to cancel a search
 // request via this reference.
 //
 // NOTE: this class is thread-safe.
-class QueryHandle
+class ProcessorHandle
 {
 public:
-  QueryHandle();
+  ProcessorHandle();
 
-  // Cancels query this handle points to.
+  // Cancels processor this handle points to.
   void Cancel();
 
 private:
@@ -55,20 +55,20 @@ private:
 
   // Attaches the handle to a |processor|. If there was or will be a
   // cancel signal, this signal will be propagated to |processor|.
-  // This method is called only once, when search engine starts to
-  // process query this handle corresponds to.
-  void Attach(Query & processor);
+  // This method is called only once, when search engine starts
+  // the processor this handle corresponds to.
+  void Attach(Processor & processor);
 
   // Detaches handle from a processor. This method is called only
-  // once, when search engine completes process of a query this handle
-  // corresponds to.
+  // once, when search engine completes processing of the query
+  // that this handle corresponds to.
   void Detach();
 
-  Query * m_processor;
+  Processor * m_processor;
   bool m_cancelled;
   mutex m_mu;
 
-  DISALLOW_COPY_AND_MOVE(QueryHandle);
+  DISALLOW_COPY_AND_MOVE(ProcessorHandle);
 };
 
 // This class is a wrapper around thread which processes search
@@ -93,12 +93,12 @@ public:
 
   // Doesn't take ownership of index. Takes ownership of categoriesR.
   Engine(Index & index, CategoriesHolder const & categories,
-         storage::CountryInfoGetter const & infoGetter, unique_ptr<SearchQueryFactory> factory,
+         storage::CountryInfoGetter const & infoGetter, unique_ptr<ProcessorFactory> factory,
          Params const & params);
   ~Engine();
 
   // Posts search request to the queue and returns its handle.
-  weak_ptr<QueryHandle> Search(SearchParams const & params, m2::RectD const & viewport);
+  weak_ptr<ProcessorHandle> Search(SearchParams const & params, m2::RectD const & viewport);
 
   // Posts request to support old format to the queue.
   void SetSupportOldFormat(bool support);
@@ -112,7 +112,7 @@ public:
 private:
   struct Message
   {
-    using TFn = function<void(Query & processor)>;
+    using TFn = function<void(Processor & processor)>;
 
     enum Type
     {
@@ -122,7 +122,7 @@ private:
 
     Message(Type type, TFn && fn) : m_type(type), m_fn(move(fn)) {}
 
-    void operator()(Query & processor) { m_fn(processor); }
+    void operator()(Processor & processor) { m_fn(processor); }
 
     Type m_type;
     TFn m_fn;
@@ -140,12 +140,12 @@ private:
 
     // This field is thread-specific and *CAN NOT* be accessed by
     // other threads.
-    unique_ptr<Query> m_processor;
+    unique_ptr<Processor> m_processor;
   };
 
   // *ALL* following methods are executed on the m_threads threads.
   void SetRankPivot(SearchParams const & params, m2::RectD const & viewport, bool viewportSearch,
-                    Query & processor);
+                    Processor & processor);
 
   void EmitResults(SearchParams const & params, Results const & res);
 
@@ -159,7 +159,7 @@ private:
   void PostMessage(TArgs &&... args);
 
   void DoSearch(SearchParams const & params, m2::RectD const & viewport,
-                shared_ptr<QueryHandle> handle, Query & processor);
+                shared_ptr<ProcessorHandle> handle, Processor & processor);
 
   CategoriesHolder const & m_categories;
   vector<Suggest> m_suggests;

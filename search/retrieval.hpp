@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/search_query_params.hpp"
+#include "search/query_params.hpp"
 
 #include "indexer/mwm_set.hpp"
 
@@ -28,7 +28,7 @@ class TokenSlice;
 unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmId const & id,
                                                                 MwmValue & value,
                                                                 my::Cancellable const & cancellable,
-                                                                SearchQueryParams const & params);
+                                                                QueryParams const & params);
 
 // Retrieves from the search index corresponding to |value| all
 // postcodes matching to |slice|.

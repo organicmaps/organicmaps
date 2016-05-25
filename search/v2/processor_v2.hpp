@@ -1,17 +1,17 @@
 #pragma once
 
-#include "search/search_query.hpp"
+#include "search/processor.hpp"
 #include "search/v2/geocoder.hpp"
 
 namespace search
 {
 namespace v2
 {
-class SearchQueryV2 : public Query
+class ProcessorV2 : public Processor
 {
 public:
-  SearchQueryV2(Index & index, CategoriesHolder const & categories,
-                vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
+  ProcessorV2(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
+              storage::CountryInfoGetter const & infoGetter);
 
   // my::Cancellable overrides:
   void Reset() override;
