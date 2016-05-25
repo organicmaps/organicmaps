@@ -599,8 +599,8 @@ void Geocoder::GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos
         }
       }
 
-      // |m_streets| will be initialized in LimitedSearch() and it's
-      // |callees, if needed.
+      // |m_streets| will be initialized in LimitedSearch() and its
+      // callees, if needed.
       m_streets = nullptr;
 
       m_villages = LoadVillages(*m_context);
