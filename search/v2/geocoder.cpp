@@ -7,7 +7,6 @@
 #include "search/v2/features_filter.hpp"
 #include "search/v2/features_layer_matcher.hpp"
 #include "search/v2/locality_scorer.hpp"
-#include "search/v2/postcodes_matcher.hpp"
 #include "search/v2/token_slice.hpp"
 
 #include "indexer/classificator.hpp"
@@ -15,6 +14,7 @@
 #include "indexer/feature_impl.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
+#include "indexer/postcodes_matcher.hpp"
 #include "indexer/rank_table.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -1036,7 +1036,8 @@ void Geocoder::WithPostcodes(TFn && fn)
         break;
 
       TokenSlice slice(m_params, startToken, startToken + n);
-      if (LooksLikePostcode(slice))
+      auto const isPrefix = startToken + n == m_numTokens;
+      if (LooksLikePostcode(QuerySlice(slice), isPrefix))
         endToken = startToken + n;
     }
     if (startToken == endToken)

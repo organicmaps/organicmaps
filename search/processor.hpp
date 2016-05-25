@@ -12,6 +12,7 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/rank_table.hpp"
+#include "indexer/string_slice.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -141,7 +142,7 @@ protected:
 
   int GetCategoryLocales(int8_t(&arr)[3]) const;
   template <class ToDo>
-  void ForEachCategoryTypes(v2::QuerySlice const & slice, ToDo toDo) const;
+  void ForEachCategoryTypes(StringSliceBase const & slice, ToDo toDo) const;
   template <class ToDo>
   void ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind, ToDo & toDo) const;
 

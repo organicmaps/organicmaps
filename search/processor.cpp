@@ -402,7 +402,7 @@ int Processor::GetCategoryLocales(int8_t(&arr)[3]) const
 }
 
 template <class ToDo>
-void Processor::ForEachCategoryTypes(v2::QuerySlice const & slice, ToDo toDo) const
+void Processor::ForEachCategoryTypes(StringSliceBase const & slice, ToDo toDo) const
 {
   int8_t arrLocales[3];
   int const localesCount = GetCategoryLocales(arrLocales);
@@ -611,7 +611,7 @@ class PreResult2Maker
 
     feature::TypesHolder holder(ft);
     vector<pair<size_t, size_t>> matched(slice.Size());
-    m_processor.ForEachCategoryTypes(v2::QuerySliceOnTokens(slice), [&](size_t i, uint32_t t)
+    m_processor.ForEachCategoryTypes(v2::QuerySlice(slice), [&](size_t i, uint32_t t)
                                      {
                                        ++matched[i].second;
                                        if (holder.Has(t))

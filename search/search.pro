@@ -55,7 +55,6 @@ HEADERS += \
     v2/locality_scorer.hpp \
     v2/mwm_context.hpp \
     v2/nested_rects_cache.hpp \
-    v2/postcodes_matcher.hpp \
     v2/pre_ranking_info.hpp \
     v2/processor_v2.hpp \
     v2/rank_table_cache.hpp \
@@ -103,7 +102,6 @@ SOURCES += \
     v2/locality_scorer.cpp \
     v2/mwm_context.cpp \
     v2/nested_rects_cache.cpp \
-    v2/postcodes_matcher.cpp \
     v2/pre_ranking_info.cpp \
     v2/processor_v2.cpp \
     v2/rank_table_cache.cpp \

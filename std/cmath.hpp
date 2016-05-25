@@ -13,6 +13,7 @@
 
 using std::abs;
 using std::isfinite;
+using std::log10;
 
 namespace math
 {

@@ -1,7 +1,4 @@
-#include "search/v2/postcodes_matcher.hpp"
-
-#include "search/v2/token_slice.hpp"
-
+#include "indexer/postcodes_matcher.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -18,8 +15,6 @@
 using namespace strings;
 
 namespace search
-{
-namespace v2
 {
 namespace
 {
@@ -107,7 +102,7 @@ public:
   // patterns.
   //
   // Complexity: O(total length of tokens in |slice|).
-  bool HasString(TokenSlice const & slice) const
+  bool HasString(StringSliceBase const & slice, bool isPrefix) const
   {
     if (slice.Size() == 0)
       return m_root.m_isLeaf;
@@ -115,7 +110,7 @@ public:
     Node const * cur = &m_root;
     for (size_t i = 0; i < slice.Size() && cur; ++i)
     {
-      auto const & s = slice.Get(i).front();
+      auto const & s = slice.Get(i);
       cur = cur->Move(make_transform_iterator(s.begin(), &SimplifyChar),
                       make_transform_iterator(s.end(), &SimplifyChar));
       if (cur && i + 1 < slice.Size())
@@ -125,11 +120,7 @@ public:
     if (!cur)
       return false;
 
-    if (slice.IsPrefix(slice.Size() - 1))
-      return true;
-
-    // Last token may be not a prefix, but just a part of a multi-token postcode.
-    if (slice.IsLast(slice.Size() - 1) && cur->Move(' ') != nullptr)
+    if (isPrefix)
       return true;
 
     return cur->m_isLeaf;
@@ -168,8 +159,19 @@ PostcodesMatcher const & GetPostcodesMatcher()
 }
 }  // namespace
 
-bool LooksLikePostcode(TokenSlice const & slice) { return GetPostcodesMatcher().HasString(slice); }
+bool LooksLikePostcode(StringSliceBase const & slice, bool isPrefix)
+{
+  return GetPostcodesMatcher().HasString(slice, isPrefix);
+}
+
+bool LooksLikePostcode(string const & s, bool isPrefix)
+{
+  vector<UniString> tokens;
+  bool const lastTokenIsPrefix =
+      TokenizeStringAndCheckIfLastTokenIsPrefix(s, tokens, search::Delimiters());
+
+  return LooksLikePostcode(NoPrefixStringSlice(tokens), isPrefix && lastTokenIsPrefix);
+}
 
 size_t GetMaxNumTokensInPostcode() { return GetPostcodesMatcher().GetMaxNumTokensInPostcode(); }
-}  // namespace v2
 }  // namespace search

@@ -1,11 +1,13 @@
 #include "indexer/classificator.hpp"
 #include "indexer/cuisines.hpp"
 #include "indexer/editable_map_object.hpp"
+#include "indexer/postcodes_matcher.hpp"
 
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/cctype.hpp"
+#include "std/cmath.hpp"
 
 namespace osm
 {
@@ -95,29 +97,6 @@ void EditableMapObject::SetNearbyStreets(vector<LocalizedStreet> && streets)
   m_nearbyStreets = move(streets);
 }
 
-// static
-bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
-{
-  if (houseNumber.empty())
-    return true;
-
-  strings::UniString us = strings::MakeUniString(houseNumber);
-  // TODO: Improve this basic limit - it was choosen by @Zverik.
-  auto constexpr kMaxHouseNumberLength = 15;
-  if (us.size() > kMaxHouseNumberLength)
-    return false;
-
-  // TODO: Should we allow arabic numbers like U+0661 ١	Arabic-Indic Digit One?
-  strings::NormalizeDigits(us);
-  for (strings::UniChar const c : us)
-  {
-    // Valid house numbers contain at least one number.
-    if (c >= '0' && c <= '9')
-      return true;
-  }
-  return false;
-}
-
 void EditableMapObject::SetHouseNumber(string const & houseNumber)
 {
   m_houseNumber = houseNumber;
@@ -143,8 +122,14 @@ void EditableMapObject::SetEmail(string const & email)
   m_metadata.Set(feature::Metadata::FMD_EMAIL, email);
 }
 
-void EditableMapObject::SetWebsite(string const & website)
+void EditableMapObject::SetWebsite(string website)
 {
+  if (!website.empty() &&
+      !strings::StartsWith(website, "http://") &&
+      !strings::StartsWith(website, "https://"))
+  {
+    website = "http://" + website;
+  }
   m_metadata.Set(feature::Metadata::FMD_WEBSITE, website);
   m_metadata.Drop(feature::Metadata::FMD_URL);
 }
@@ -188,13 +173,6 @@ void EditableMapObject::SetFlats(string const & flats)
   m_metadata.Set(feature::Metadata::FMD_FLATS, flats);
 }
 
-// static
-bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
-{
-  uint64_t levels;
-  return strings::to_uint64(buildingLevels, levels) && levels <= kMaximumLevelsEditableByUsers;
-}
-
 void EditableMapObject::SetBuildingLevels(string const & buildingLevels)
 {
   m_metadata.Set(feature::Metadata::FMD_BUILDING_LEVELS, buildingLevels);
@@ -213,4 +191,135 @@ void EditableMapObject::SetOpeningHours(string const & openingHours)
 }
 
 void EditableMapObject::SetPointType() { m_geomType = feature::EGeomType::GEOM_POINT; }
+
+// static
+bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
+{
+  if (buildingLevels.size() > 18 /* max number of digits in uint_64 */)
+    return false;
+
+  uint64_t levels;
+  return strings::to_uint64(buildingLevels, levels) && levels <= kMaximumLevelsEditableByUsers;
+}
+
+// static
+bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
+{
+  // TODO(mgsergio): Make a better validation, use real samples for example.
+
+  if (houseNumber.empty())
+    return true;
+
+  strings::UniString us = strings::MakeUniString(houseNumber);
+  // TODO: Improve this basic limit - it was choosen by @Zverik.
+  auto constexpr kMaxHouseNumberLength = 15;
+  if (us.size() > kMaxHouseNumberLength)
+    return false;
+
+  // TODO: Should we allow arabic numbers like U+0661 ١	Arabic-Indic Digit One?
+  strings::NormalizeDigits(us);
+  for (auto const c : us)
+  {
+    // Valid house numbers contain at least one digit.
+    if (strings::IsASCIIDigit(c))
+      return true;
+  }
+  return false;
+}
+
+// static
+bool EditableMapObject::ValidateFlats(string const & flats)
+{
+  auto it = strings::SimpleTokenizer(flats, ";");
+  for (; it != strings::SimpleTokenizer(); ++it)
+  {
+    auto token = *it;
+    strings::Trim(token);
+    vector<string> range(strings::SimpleTokenizer(token, "-"), strings::SimpleTokenizer());
+    if (range.empty() || range.size() > 2)
+      return false;
+
+    for (auto const & rangeBorder : range)
+    {
+      if (!all_of(begin(rangeBorder), end(rangeBorder), isalnum))
+        return false;
+    }
+  }
+  return true;
+}
+
+// static
+bool EditableMapObject::ValidatePostCode(string const & postCode)
+{
+  return search::LooksLikePostcode(postCode, false /* IsPrefix */);
+}
+
+// static
+bool EditableMapObject::ValidatePhone(string const & phone)
+{
+  if (phone.empty())
+    return true;
+
+  auto curr = begin(phone);
+  auto const last = end(phone);
+
+  auto const kMaxNumberLen = 15;
+  auto const kMinNumberLen = 5;
+
+  if (*curr == '+')
+    ++curr;
+
+  auto digitsCount = 0;
+  for (; curr != last; ++curr)
+  {
+    auto const isCharValid = isdigit(*curr) || *curr == '(' ||
+                             *curr == ')' || *curr == ' ' || *curr == '-';
+    if (!isCharValid)
+      return false;
+
+    if (isdigit(*curr))
+      ++digitsCount;
+  }
+
+  return kMinNumberLen <= digitsCount && digitsCount <= kMaxNumberLen;
+}
+
+// static
+bool EditableMapObject::ValidateWebsite(string const & site)
+{
+  if (site.empty())
+    return true;
+
+  auto const dotPos = find(begin(site), end(site), '.');
+  // Site should contain at least one dot but not at the begining/and.
+  if (dotPos == end(site) || site.front() == '.' || site.back() == '.')
+    return false;
+
+  return true;
+}
+
+// static
+bool EditableMapObject::ValidateEmail(string const & email)
+{
+  if (email.empty())
+    return true;
+
+  auto const atPos = find(begin(email), end(email), '@');
+  if (atPos == end(email))
+    return false;
+
+  // There should be only one '@' sign.
+  if (find(next(atPos), end(email), '@') != end(email))
+    return false;
+
+  // There should be at least one '.' sign after '@' ...
+  if (find(next(atPos), end(email), '.') == end(email))
+    return false;
+
+  // ... not in the end.
+  if (email.back() == '.')
+    return false;
+
+  return true;
+}
 }  // namespace osm

@@ -2,6 +2,8 @@
 
 #include "search/query_params.hpp"
 
+#include "indexer/string_slice.hpp"
+
 #include "base/assert.hpp"
 
 #include "std/cstdint.hpp"
@@ -67,36 +69,21 @@ private:
   vector<size_t> m_indexes;
 };
 
-class QuerySlice
+class QuerySlice : public StringSliceBase
 {
 public:
-  using TString = QueryParams::TString;
-
-  virtual ~QuerySlice() = default;
-
-  virtual TString const & Get(size_t i) const = 0;
-  virtual size_t Size() const = 0;
-  virtual bool IsPrefix(size_t i) const = 0;
-
-  bool Empty() const { return Size() == 0; }
-};
-
-class QuerySliceOnTokens : public QuerySlice
-{
-public:
-  QuerySliceOnTokens(TokenSlice const & slice) : m_slice(slice) {}
+  QuerySlice(TokenSlice const & slice) : m_slice(slice) {}
 
   // QuerySlice overrides:
   QueryParams::TString const & Get(size_t i) const override { return m_slice.Get(i).front(); }
   size_t Size() const override { return m_slice.Size(); }
-  bool IsPrefix(size_t i) const override { return m_slice.IsPrefix(i); }
 
 private:
   TokenSlice const m_slice;
 };
 
 template <typename TCont>
-class QuerySliceOnRawStrings : public QuerySlice
+class QuerySliceOnRawStrings : public StringSliceBase
 {
 public:
   QuerySliceOnRawStrings(TCont const & tokens, TString const & prefix)
@@ -112,12 +99,6 @@ public:
   }
 
   size_t Size() const override { return m_tokens.size() + (m_prefix.empty() ? 0 : 1); }
-
-  bool IsPrefix(size_t i) const override
-  {
-    ASSERT_LESS(i, Size(), ());
-    return i == m_tokens.size();
-  }
 
  private:
   TCont const & m_tokens;
