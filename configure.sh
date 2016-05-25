@@ -53,10 +53,6 @@ else
   spropStorePassword = "12345678"
   spropKeyAlias = "debug"
   spropKeyPassword = "12345678"
-  spropYotaStoreFile = "../tools/android/debug.keystore"
-  spropYotaStorePassword = "12345678"
-  spropYotaKeyAlias = "debug"
-  spropYotaKeyPassword = "12345678"
 }
 ' > "$PRIVATE_PROPERTIES"
 
