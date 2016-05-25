@@ -74,4 +74,31 @@ UNIT_TEST(EqualsBy)
       TEST_EQUAL(expected[i], actual[i].Get(), ());
   }
 }
+
+UNIT_TEST(SortUnique)
+{
+  vector<int> v = {1, 2, 1, 4, 3, 5, 2, 7, 1};
+  my::SortUnique(v);
+  vector<int> const expected = {1, 2, 3, 4, 5, 7};
+  TEST_EQUAL(v, expected, ());
+}
+
+UNIT_TEST(SortUniquePred)
+{
+  struct Foo
+  {
+    int i, j;
+  };
+
+  vector<Foo> v = {{1, 22}, {2, 33}, {1, 23}, {4, 54}, {3, 34}, {5, 23}, {2, 23}, {7, 32}, {1, 12}};
+  my::SortUnique<Foo>([](Foo const & f1, Foo const & f2) { return f1.i < f2.i; }, v);
+
+  TEST_EQUAL(v.size(), 6, ());
+  TEST_EQUAL(v[0].i, 1, ());
+  TEST_EQUAL(v[1].i, 2, ());
+  TEST_EQUAL(v[2].i, 3, ());
+  TEST_EQUAL(v[3].i, 4, ());
+  TEST_EQUAL(v[4].i, 5, ());
+  TEST_EQUAL(v[5].i, 7, ());
+}
 }  // namespace
