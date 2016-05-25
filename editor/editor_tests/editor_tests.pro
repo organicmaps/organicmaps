@@ -21,4 +21,5 @@ SOURCES += \
     osm_feature_matcher_test.cpp \
     server_api_test.cpp \
     ui2oh_test.cpp \
+    user_stats_test.cpp \
     xml_feature_test.cpp \
