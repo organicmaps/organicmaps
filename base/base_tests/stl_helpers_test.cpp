@@ -91,7 +91,11 @@ UNIT_TEST(SortUniquePred)
   };
 
   vector<Foo> v = {{1, 22}, {2, 33}, {1, 23}, {4, 54}, {3, 34}, {5, 23}, {2, 23}, {7, 32}, {1, 12}};
-  my::SortUnique<Foo>([](Foo const & f1, Foo const & f2) { return f1.i < f2.i; }, v);
+  my::SortUnique<Foo>([](Foo const & f1, Foo const & f2)
+                      {
+                        return f1.i < f2.i;
+                      },
+                      v);
 
   TEST_EQUAL(v.size(), 6, ());
   TEST_EQUAL(v[0].i, 1, ());

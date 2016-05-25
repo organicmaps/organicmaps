@@ -103,7 +103,9 @@ public:
   {
   public:
     ICrossEdgesLoader(m2::PointD const & cross, bool onewayAsBidirectional, TEdgeVector & edges)
-        : m_cross(cross), m_onewayAsBidirectional(onewayAsBidirectional), m_edges(edges) {}
+      : m_cross(cross), m_onewayAsBidirectional(onewayAsBidirectional), m_edges(edges)
+    {
+    }
     virtual ~ICrossEdgesLoader() = default;
 
     void operator()(FeatureID const & featureId, RoadInfo const & roadInfo)
@@ -124,7 +126,9 @@ public:
   {
   public:
     CrossOutgoingLoader(m2::PointD const & cross, bool onewayAsBidirectional, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, onewayAsBidirectional, edges) {}
+      : ICrossEdgesLoader(cross, onewayAsBidirectional, edges)
+    {
+    }
 
     // ICrossEdgesLoader overrides:
     virtual void LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo) override;
@@ -134,7 +138,9 @@ public:
   {
   public:
     CrossIngoingLoader(m2::PointD const & cross, bool onewayAsBidirectional, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, onewayAsBidirectional, edges) {}
+      : ICrossEdgesLoader(cross, onewayAsBidirectional, edges)
+    {
+    }
     // ICrossEdgesLoader overrides:
     virtual void LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo) override;
   };

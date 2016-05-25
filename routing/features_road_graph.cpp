@@ -103,8 +103,9 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
 
 FeaturesRoadGraph::FeaturesRoadGraph(Index const & index, bool onewayAsBidirectional,
                                      unique_ptr<IVehicleModelFactory> && vehicleModelFactory)
-    : m_index(index), m_onewayAsBidirectional(onewayAsBidirectional),
-      m_vehicleModel(move(vehicleModelFactory))
+  : m_index(index)
+  , m_onewayAsBidirectional(onewayAsBidirectional)
+  , m_vehicleModel(move(vehicleModelFactory))
 {
 }
 
@@ -113,9 +114,8 @@ uint32_t FeaturesRoadGraph::GetStreetReadScale() { return scales::GetUpperScale(
 class CrossFeaturesLoader
 {
 public:
-  CrossFeaturesLoader(FeaturesRoadGraph const & graph,
-                      IRoadGraph::ICrossEdgesLoader & edgesLoader)
-      : m_graph(graph), m_edgesLoader(edgesLoader)
+  CrossFeaturesLoader(FeaturesRoadGraph const & graph, IRoadGraph::ICrossEdgesLoader & edgesLoader)
+    : m_graph(graph), m_edgesLoader(edgesLoader)
   {}
 
   void operator()(FeatureType & ft)

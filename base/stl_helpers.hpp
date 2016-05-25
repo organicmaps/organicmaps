@@ -96,8 +96,10 @@ template <typename T>
 void SortUnique(function<bool(T const &, T const &)> const & comp, vector<T> & v)
 {
   sort(v.begin(), v.end(), comp);
-  function<bool(T const &, T const &)> const pred =
-      [&comp](T const &t1, T const &t2) { return !comp(t1, t2) && !comp(t2, t1); };
+  function<bool(T const &, T const &)> const pred = [&comp](T const & t1, T const & t2)
+  {
+    return !comp(t1, t2) && !comp(t2, t1);
+  };
   v.erase(unique(v.begin(), v.end(), pred), v.end());
 }
 

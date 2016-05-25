@@ -167,7 +167,8 @@ IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH, initializer
 {}
 
 // IRoadGraph::CrossOutgoingLoader ---------------------------------------------
-void IRoadGraph::CrossOutgoingLoader::LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo)
+void IRoadGraph::CrossOutgoingLoader::LoadEdge(FeatureID const & featureId,
+                                               RoadInfo const & roadInfo)
 {
   size_t const numPoints = roadInfo.m_points.size();
 
@@ -197,7 +198,8 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdge(FeatureID const & featureId, Road
 }
 
 // IRoadGraph::CrossIngoingLoader ----------------------------------------------
-void IRoadGraph::CrossIngoingLoader::LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo)
+void IRoadGraph::CrossIngoingLoader::LoadEdge(FeatureID const & featureId,
+                                              RoadInfo const & roadInfo)
 {
   size_t const numPoints = roadInfo.m_points.size();
 
