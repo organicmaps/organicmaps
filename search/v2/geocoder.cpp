@@ -308,12 +308,32 @@ double GetSimilarity(m2::RectD const & pivot, m2::RectD const & rect)
   return Area(p) / area;
 }
 
-// Returns shortest squared distance from the center of |pivot| to the
-// center of |rect|.
-double GetSquaredDistance(m2::RectD const & pivot, m2::RectD const & rect)
+// Returns shortest distance from the |pivot| to the |rect|.
+//
+// *NOTE* calculations below are incorrect, because shortest distance
+// on the Mercator's plane is not the same as shortest distance on the
+// Earth. But we assume that it is not an issue here.
+double GetDistanceMeters(m2::PointD const & pivot, m2::RectD const & rect)
 {
-  auto const center = rect.Center();
-  return center.SquareLength(pivot.Center());
+  if (rect.IsPointInside(pivot))
+    return 0.0;
+
+  double distance = numeric_limits<double>::max();
+  m2::ProjectionToSection<m2::PointD> proj;
+
+  proj.SetBounds(rect.LeftTop(), rect.RightTop());
+  distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, proj(pivot)));
+
+  proj.SetBounds(rect.LeftBottom(), rect.RightBottom());
+  distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, proj(pivot)));
+
+  proj.SetBounds(rect.LeftTop(), rect.LeftBottom());
+  distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, proj(pivot)));
+
+  proj.SetBounds(rect.RightTop(), rect.RightBottom());
+  distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, proj(pivot)));
+
+  return distance;
 }
 
 struct KeyedMwmInfo
@@ -322,12 +342,12 @@ struct KeyedMwmInfo
   {
     auto const & rect = m_info->m_limitRect;
     m_similarity = GetSimilarity(pivot, rect);
-    m_distance = GetSquaredDistance(pivot, rect);
+    m_distance = GetDistanceMeters(pivot.Center(), rect);
   }
 
   bool operator<(KeyedMwmInfo const & rhs) const
   {
-    if (m_similarity != rhs.m_similarity)
+    if (m_distance == 0.0 && rhs.m_distance == 0.0)
       return m_similarity > rhs.m_similarity;
     return m_distance < rhs.m_distance;
   }
@@ -400,7 +420,6 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
                       Processor::kMaxViewportRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, static_cast<my::Cancellable const &>(*this))
   , m_pivotFeatures(index)
-  , m_streets(nullptr)
   , m_villages(nullptr)
   , m_filter(nullptr)
   , m_matcher(nullptr)
@@ -580,7 +599,10 @@ void Geocoder::GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos
         }
       }
 
-      m_streets = LoadStreets(*m_context);
+      // |m_streets| will be initialized in LimitedSearch() and its
+      // callees, if needed.
+      m_streets = nullptr;
+
       m_villages = LoadVillages(*m_context);
 
       auto citiesFromWorld = m_cities;
@@ -984,6 +1006,9 @@ void Geocoder::LimitedSearch(FeaturesFilter const & filter)
 {
   m_filter = &filter;
   MY_SCOPE_GUARD(resetFilter, [&]() { m_filter = nullptr; });
+
+  if (!m_streets)
+    m_streets = LoadStreets(*m_context);
 
   MatchUnclassified(0 /* curToken */);
 

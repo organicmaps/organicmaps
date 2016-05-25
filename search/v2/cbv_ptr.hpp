@@ -57,6 +57,5 @@ public:
       coding::CompressedBitVectorEnumerator::ForEach(*m_ptr, forward<TFn>(fn));
   }
 };
-
 }  // namespace v2
 }  // namespace search
