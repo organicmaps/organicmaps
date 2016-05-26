@@ -116,11 +116,11 @@ public:
 
     void operator()(FeatureID const & featureId, RoadInfo const & roadInfo)
     {
-      LoadEdge(featureId, roadInfo);
+      LoadEdges(featureId, roadInfo);
     }
 
   private:
-    virtual void LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo) = 0;
+    virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) = 0;
 
   protected:
     m2::PointD const m_cross;
@@ -137,7 +137,7 @@ public:
     }
 
     // ICrossEdgesLoader overrides:
-    virtual void LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo) override;
+    virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) override;
   };
 
   class CrossIngoingLoader : public ICrossEdgesLoader
@@ -148,7 +148,7 @@ public:
     {
     }
     // ICrossEdgesLoader overrides:
-    virtual void LoadEdge(FeatureID const & featureId, RoadInfo const & roadInfo) override;
+    virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) override;
   };
 
   virtual ~IRoadGraph() = default;

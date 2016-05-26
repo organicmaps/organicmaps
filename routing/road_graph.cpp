@@ -64,11 +64,7 @@ vector<Edge>::const_iterator FindEdgeContainingPoint(vector<Edge> const & edges,
 /// \brief Reverses |edges| starting from index |beginIdx| and upto the end of |v|.
 void ReverseEdges(size_t beginIdx, IRoadGraph::TEdgeVector & edges)
 {
-  if (beginIdx > edges.size())
-  {
-    ASSERT(false, ());
-    return;
-  }
+  ASSERT_LESS_OR_EQUAL(beginIdx, edges.size(), ("Index too large."));
 
   for (size_t i = beginIdx; i < edges.size(); ++i)
     edges[i] = edges[i].GetReverseEdge();
@@ -167,8 +163,8 @@ IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH, initializer
 {}
 
 // IRoadGraph::CrossOutgoingLoader ---------------------------------------------
-void IRoadGraph::CrossOutgoingLoader::LoadEdge(FeatureID const & featureId,
-                                               RoadInfo const & roadInfo)
+void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId,
+                                                RoadInfo const & roadInfo)
 {
   size_t const numPoints = roadInfo.m_points.size();
 
@@ -198,8 +194,8 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdge(FeatureID const & featureId,
 }
 
 // IRoadGraph::CrossIngoingLoader ----------------------------------------------
-void IRoadGraph::CrossIngoingLoader::LoadEdge(FeatureID const & featureId,
-                                              RoadInfo const & roadInfo)
+void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId,
+                                               RoadInfo const & roadInfo)
 {
   size_t const numPoints = roadInfo.m_points.size();
 
