@@ -3,6 +3,8 @@
 #include "generator/booking_dataset.hpp"
 #include "generator/osm_source.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
+
 #include "3party/gflags/src/gflags/gflags.h"
 
 DEFINE_bool(generate_classif, false, "Generate classificator.");
@@ -11,6 +13,18 @@ DEFINE_bool(preprocess, false, "1st pass - count features");
 DEFINE_string(osm_file_name, "", "Input .o5m file");
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format");
 DEFINE_uint64(selection_size, 1000, "Selection size");
+
+using namespace generator;
+
+
+ostream & operator << (ostream & s, OsmElement const & e)
+{
+  for (auto const & tag : e.Tags())
+  {
+    s << tag.key << "=" << tag.value << "\t";
+  }
+  return s;
+}
 
 int main(int argc, char * argv[])
 {
@@ -52,10 +66,22 @@ int main(int argc, char * argv[])
   random_shuffle(elementIndexes.begin(), elementIndexes.end());
   elementIndexes.resize(FLAGS_selection_size);
 
-  vector<OsmElement> selectedElements;
   for (size_t i : elementIndexes)
-    selectedElements.emplace_back(elements[i]);
-
+  {
+    OsmElement const & e = elements[i];
+    auto const bookingIndexes = bookingDataset.GetNearestHotels(e.lat, e.lon, 3, 150);
+    for (size_t const j : bookingIndexes)
+    {
+      auto const & hotel = bookingDataset.GetHotel(j);
+      double const dist = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
+      cout << "# ------------------------------------------" << fixed << setprecision(6) << endl;
+      cout << "y \t" << i << "\t " << j << " dist: " << dist << endl;
+      cout << "# " << e << endl;
+      cout << "# " << hotel << endl;
+      cout << "# URL: https://www.openstreetmap.org/?mlat=" << hotel.lat << "&mlon=" << hotel.lon << "#map=18/"<< hotel.lat << "/" << hotel.lon << endl;
+    }
+    cout << endl << endl;
+  }
 
 
   return 0;
