@@ -269,7 +269,7 @@ ApplyPointFeature::ApplyPointFeature(TInsertShapeFn const & insertShape, Feature
   , m_hasPoint(false)
   , m_hasArea(false)
   , m_createdByEditor(false)
-  , m_deletedInEditor(false)
+  , m_obsoleteInEditor(false)
   , m_symbolDepth(dp::minDepth)
   , m_circleDepth(dp::minDepth)
   , m_symbolRule(nullptr)
@@ -279,10 +279,11 @@ ApplyPointFeature::ApplyPointFeature(TInsertShapeFn const & insertShape, Feature
 
 void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
 {
+  auto const & editor = osm::Editor::Instance();
   m_hasPoint = true;
   m_hasArea = hasArea;
-  m_createdByEditor = osm::Editor::IsCreatedFeature(m_id);
-  m_deletedInEditor = false; //TODO: implement
+  m_createdByEditor = editor.GetFeatureStatus(m_id) == osm::Editor::FeatureStatus::Created;
+  m_obsoleteInEditor = editor.GetFeatureStatus(m_id) == osm::Editor::FeatureStatus::Obsolete;
   m_centerPoint = point;
 }
 
@@ -378,7 +379,7 @@ void ApplyPointFeature::Finish()
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
     params.m_createdByEditor = m_createdByEditor;
-    params.m_deletedInEditor = m_deletedInEditor;
+    params.m_obsoleteInEditor = m_obsoleteInEditor;
     m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
   }
 }

@@ -21,7 +21,9 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
 {
   switch (GetEditedStatus(index))
   {
-  case osm::Editor::FeatureStatus::Deleted: return false;
+  case osm::Editor::FeatureStatus::Deleted:
+  case osm::Editor::FeatureStatus::Obsolete:
+    return false;
   case osm::Editor::FeatureStatus::Modified:
   case osm::Editor::FeatureStatus::Created:
     VERIFY(osm::Editor::Instance().GetEditedFeature(GetId(), index, ft), ());

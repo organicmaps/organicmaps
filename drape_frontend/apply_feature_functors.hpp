@@ -80,7 +80,7 @@ private:
   bool m_hasPoint;
   bool m_hasArea;
   bool m_createdByEditor;
-  bool m_deletedInEditor;
+  bool m_obsoleteInEditor;
   double m_symbolDepth;
   double m_circleDepth;
   SymbolRuleProto const * m_symbolRule;

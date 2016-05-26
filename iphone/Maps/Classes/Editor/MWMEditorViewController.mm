@@ -670,6 +670,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
         case osm::Editor::FeatureStatus::Untouched:
           return L(@"editor_place_doesnt_exist");
         case osm::Editor::FeatureStatus::Deleted:
+        case osm::Editor::FeatureStatus::Obsolete:  // TODO(Vlad): Either make a valid button or disable it.
           NSAssert(false, @"Incorrect feature status!");
           return L(@"editor_place_doesnt_exist");
         case osm::Editor::FeatureStatus::Modified:
@@ -893,7 +894,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 - (void)tryToChangeInvalidStateForCell:(MWMEditorTextTableViewCell *)cell
 {
   [self.tableView beginUpdates];
-  
+
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   [self.invalidCells removeObject:indexPath];
 

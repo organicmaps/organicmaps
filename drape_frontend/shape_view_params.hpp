@@ -29,7 +29,7 @@ struct PoiSymbolViewParams : CommonViewParams
   float m_posZ = 0.0f;
   bool m_hasArea = false;
   bool m_createdByEditor = false;
-  bool m_deletedInEditor = false;
+  bool m_obsoleteInEditor = false;
 };
 
 struct CircleViewParams : CommonViewParams
