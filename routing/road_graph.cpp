@@ -179,7 +179,7 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdge(FeatureID const & featureId,
     if (!PointsAlmostEqualAbs(m_cross, p))
       continue;
 
-    if (i > 0 && (roadInfo.m_bidirectional || m_onewayAsBidirectional))
+    if (i > 0 && (roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag))
     {
       //               p
       // o------------>o
@@ -218,7 +218,7 @@ void IRoadGraph::CrossIngoingLoader::LoadEdge(FeatureID const & featureId,
       m_edges.emplace_back(featureId, true /* forward */, i - 1, roadInfo.m_points[i - 1], p);
     }
 
-    if (i < numPoints - 1 && (roadInfo.m_bidirectional || m_onewayAsBidirectional))
+    if (i < numPoints - 1 && (roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag))
     {
       // p
       // o------------>o

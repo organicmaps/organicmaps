@@ -24,7 +24,7 @@ class RoadGraphRouter : public IRouter
 {
 public:
   RoadGraphRouter(string const & name, Index const & index, TCountryFileFn const & countryFileFn,
-                  bool onewayAsBidirectional,
+                  IRoadGraph::Mode mode,
                   unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
                   unique_ptr<IRoutingAlgorithm> && algorithm,
                   unique_ptr<IDirectionsEngine> && directionsEngine);

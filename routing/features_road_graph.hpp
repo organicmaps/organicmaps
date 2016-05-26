@@ -56,7 +56,7 @@ private:
   };
 
 public:
-  FeaturesRoadGraph(Index const & index, bool onewayAsBidirectional,
+  FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
                     unique_ptr<IVehicleModelFactory> && vehicleModelFactory);
 
   static uint32_t GetStreetReadScale();
@@ -71,7 +71,7 @@ public:
                         vector<pair<Edge, m2::PointD>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
   void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const override;
-  bool ConsiderOnewayFeaturesAsBidirectional() const override;
+  IRoadGraph::Mode ConsiderOnewayFeaturesAsBidirectional() const override;
   void ClearState() override;
 
 private:
@@ -92,7 +92,7 @@ private:
   void LockFeatureMwm(FeatureID const & featureId) const;
 
   Index const & m_index;
-  bool const m_onewayAsBidirectional;
+  IRoadGraph::Mode const m_mode;
   mutable RoadInfoCache m_cache;
   mutable CrossCountryVehicleModel m_vehicleModel;
   mutable map<MwmSet::MwmId, MwmSet::MwmHandle> m_mwmLocks;

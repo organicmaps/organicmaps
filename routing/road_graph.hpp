@@ -83,6 +83,12 @@ public:
   typedef vector<Junction> TJunctionVector;
   typedef vector<Edge> TEdgeVector;
 
+  enum class Mode
+  {
+    ObeyOnewayTag,
+    IgnoreOnewayTag,
+  };
+
   /// This struct contains the part of a feature's metadata that is
   /// relevant for routing.
   struct RoadInfo
@@ -102,8 +108,8 @@ public:
   class ICrossEdgesLoader
   {
   public:
-    ICrossEdgesLoader(m2::PointD const & cross, bool onewayAsBidirectional, TEdgeVector & edges)
-      : m_cross(cross), m_onewayAsBidirectional(onewayAsBidirectional), m_edges(edges)
+    ICrossEdgesLoader(m2::PointD const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
+      : m_cross(cross), m_mode(mode), m_edges(edges)
     {
     }
     virtual ~ICrossEdgesLoader() = default;
@@ -118,15 +124,15 @@ public:
 
   protected:
     m2::PointD const m_cross;
-    bool const m_onewayAsBidirectional;
+    IRoadGraph::Mode const m_mode;
     TEdgeVector & m_edges;
   };
 
   class CrossOutgoingLoader : public ICrossEdgesLoader
   {
   public:
-    CrossOutgoingLoader(m2::PointD const & cross, bool onewayAsBidirectional, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, onewayAsBidirectional, edges)
+    CrossOutgoingLoader(m2::PointD const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
+      : ICrossEdgesLoader(cross, mode, edges)
     {
     }
 
@@ -137,8 +143,8 @@ public:
   class CrossIngoingLoader : public ICrossEdgesLoader
   {
   public:
-    CrossIngoingLoader(m2::PointD const & cross, bool onewayAsBidirectional, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, onewayAsBidirectional, edges)
+    CrossIngoingLoader(m2::PointD const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
+      : ICrossEdgesLoader(cross, mode, edges)
     {
     }
     // ICrossEdgesLoader overrides:
@@ -191,7 +197,7 @@ public:
   /// @return Types for specified junction
   virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
 
-  virtual bool ConsiderOnewayFeaturesAsBidirectional() const = 0;
+  virtual IRoadGraph::Mode ConsiderOnewayFeaturesAsBidirectional() const = 0;
 
   /// Clear all temporary buffers.
   virtual void ClearState() {}

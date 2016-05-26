@@ -101,10 +101,10 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
   m_cache.clear();
 }
 
-FeaturesRoadGraph::FeaturesRoadGraph(Index const & index, bool onewayAsBidirectional,
+FeaturesRoadGraph::FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
                                      unique_ptr<IVehicleModelFactory> && vehicleModelFactory)
   : m_index(index)
-  , m_onewayAsBidirectional(onewayAsBidirectional)
+  , m_mode(mode)
   , m_vehicleModel(move(vehicleModelFactory))
 {
 }
@@ -230,9 +230,9 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
   m_index.ForEachInRect(f, rect, GetStreetReadScale());
 }
 
-bool FeaturesRoadGraph::ConsiderOnewayFeaturesAsBidirectional() const
+IRoadGraph::Mode FeaturesRoadGraph::ConsiderOnewayFeaturesAsBidirectional() const
 {
-  return m_onewayAsBidirectional;
+  return m_mode;
 };
 
 void FeaturesRoadGraph::ClearState()
