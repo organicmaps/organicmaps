@@ -1,7 +1,9 @@
 package com.mapswithme.maps;
 
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.os.Handler;
@@ -31,9 +33,13 @@ import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
+import com.parse.GcmBroadcastReceiver;
 import com.parse.Parse;
+import com.parse.ParseBroadcastReceiver;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
+import com.parse.ParsePushBroadcastReceiver;
+import com.parse.PushService;
 import com.parse.SaveCallback;
 import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
@@ -113,8 +119,9 @@ public class MwmApplication extends Application
     initPaths();
     nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
-    initParse();
+
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+    initParse();
     mBackgroundTracker = new AppBackgroundTracker();
     TrackRecorder.init();
     Editor.init();
@@ -239,7 +246,23 @@ public class MwmApplication extends Application
     // Do not initialize Parse in default open-source version.
     final String appId = PrivateVariables.parseApplicationId();
     if (appId.isEmpty())
+    {
+      PackageManager pm = getPackageManager();
+
+      ComponentName c = new ComponentName(this, PushService.class);
+      if (pm.getComponentEnabledSetting(c) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
+      {
+        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+        c = new ComponentName(this, ParseBroadcastReceiver.class);
+        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        c = new ComponentName(this, ParsePushBroadcastReceiver.class);
+        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        c = new ComponentName(this, GcmBroadcastReceiver.class);
+        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+      }
       return;
+    }
 
     Parse.initialize(this, appId, PrivateVariables.parseClientKey());
     ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback()
