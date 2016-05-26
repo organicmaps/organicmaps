@@ -23,7 +23,7 @@ public class DownloaderStatusIcon
   {
     mFrame = frame;
     mIcon = (ImageView) mFrame.findViewById(R.id.status);
-    mProgress = (WheelProgressView) mFrame.findViewById(R.id.progress);
+    mProgress = (WheelProgressView) mFrame.findViewById(R.id.wheel_downloader_progress);
   }
 
   public DownloaderStatusIcon setOnIconClickListener(View.OnClickListener listener)

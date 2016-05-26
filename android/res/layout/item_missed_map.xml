@@ -11,7 +11,7 @@
   android:paddingLeft="@dimen/margin_base_plus"
   android:paddingRight="@dimen/margin_base_plus">
   <com.mapswithme.maps.widget.WheelProgressView
-    android:id="@+id/progress"
+    android:id="@+id/wheel_progress"
     android:layout_width="@dimen/downloader_status_size"
     android:layout_height="@dimen/downloader_status_size"
     android:layout_centerVertical="true"
@@ -39,7 +39,7 @@
     android:id="@+id/tv__title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_toRightOf="@id/progress"
+    android:layout_toRightOf="@id/wheel_progress"
     android:layout_toLeftOf="@id/tv__size"
     android:layout_centerVertical="true"
     android:layout_alignWithParentIfMissing="true"

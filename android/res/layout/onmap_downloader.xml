@@ -58,7 +58,7 @@
         android:visibility="gone"/>
 
       <com.mapswithme.maps.widget.WheelProgressView
-        android:id="@+id/downloader_progress"
+        android:id="@+id/wheel_downloader_progress"
         android:layout_width="@dimen/downloader_status_size"
         android:layout_height="@dimen/downloader_status_size"
         android:layout_gravity="center"

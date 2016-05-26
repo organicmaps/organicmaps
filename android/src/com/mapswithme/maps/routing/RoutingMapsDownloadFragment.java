@@ -74,7 +74,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     if (frame == null)
       return null;
 
-    WheelProgressView res = (WheelProgressView) frame.findViewById(R.id.progress);
+    WheelProgressView res = (WheelProgressView) frame.findViewById(R.id.wheel_progress);
     return ((res != null && UiUtils.isVisible(res)) ? res : null);
   }
 
@@ -93,7 +93,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
   @Override
   void bindGroup(View view)
   {
-    WheelProgressView wheel = (WheelProgressView) view.findViewById(R.id.progress);
+    WheelProgressView wheel = (WheelProgressView) view.findViewById(R.id.wheel_progress);
     UiUtils.show(wheel);
     updateWheel(wheel);
   }
