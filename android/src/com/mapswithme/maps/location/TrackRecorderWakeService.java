@@ -11,7 +11,8 @@ import com.mapswithme.maps.MwmApplication;
 
 public class TrackRecorderWakeService extends IntentService
 {
-  private static volatile TrackRecorderWakeService sService;
+  private static final Object sLock = new Object();
+  private static TrackRecorderWakeService sService;
   private final CountDownLatch mWaitMonitor = new CountDownLatch(1);
 
   public TrackRecorderWakeService()
@@ -24,7 +25,10 @@ public class TrackRecorderWakeService extends IntentService
   {
     TrackRecorder.log("SVC.onHandleIntent()");
 
-    sService = this;
+    synchronized (sLock)
+    {
+      sService = this;
+    }
     TrackRecorder.onServiceStarted();
 
     try
@@ -39,7 +43,10 @@ public class TrackRecorderWakeService extends IntentService
       }
     } catch (InterruptedException ignored) {}
 
-    sService = null;
+    synchronized (sLock)
+    {
+      sService = null;
+    }
 
     TrackRecorder.onServiceStopped();
     WakefulBroadcastReceiver.completeWakefulIntent(intent);
@@ -49,19 +56,25 @@ public class TrackRecorderWakeService extends IntentService
   {
     TrackRecorder.log("SVC.start()");
 
-    if (sService == null)
-      WakefulBroadcastReceiver.startWakefulService(MwmApplication.get(), new Intent(MwmApplication.get(), TrackRecorderWakeService.class));
-    else
-      TrackRecorder.log("SVC.start() SKIPPED because (sService != null)");
+    synchronized (sLock)
+    {
+      if (sService == null)
+        WakefulBroadcastReceiver.startWakefulService(MwmApplication.get(), new Intent(MwmApplication.get(), TrackRecorderWakeService.class));
+      else
+        TrackRecorder.log("SVC.start() SKIPPED because (sService != null)");
+    }
   }
 
   public static void stop()
   {
     TrackRecorder.log("SVC.stop()");
 
-    if (sService != null)
-      sService.mWaitMonitor.countDown();
-    else
-      TrackRecorder.log("SVC.stop() SKIPPED because (sService == null)");
+    synchronized (sLock)
+    {
+      if (sService != null)
+        sService.mWaitMonitor.countDown();
+      else
+        TrackRecorder.log("SVC.stop() SKIPPED because (sService == null)");
+    }
   }
 }
