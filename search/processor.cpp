@@ -510,7 +510,7 @@ void Processor::FlushViewportResults(v2::Geocoder::Params const & params, Result
   if (indV.empty())
     return;
 
-  sort(indV.begin(), indV.end(), my::CompareBy(&IndexedValue::GetDistanceToPivot));
+  sort(indV.begin(), indV.end(), my::LessBy(&IndexedValue::GetDistanceToPivot));
 
   for (size_t i = 0; i < indV.size(); ++i)
   {
@@ -720,7 +720,7 @@ void Processor::FlushResults(v2::Geocoder::Params const & params, Results & res,
   if (indV.empty())
     return;
 
-  sort(indV.rbegin(), indV.rend(), my::CompareBy(&IndexedValue::GetRank));
+  sort(indV.rbegin(), indV.rend(), my::LessBy(&IndexedValue::GetRank));
 
   // Do not process suggestions in additional search.
   if (!allMWMs || res.GetCount() == 0)

@@ -98,7 +98,7 @@ public:
   void GetTopLocalities(size_t limit)
   {
     m_scorer.GetTopLocalities(limit, m_localities);
-    sort(m_localities.begin(), m_localities.end(), my::CompareBy(&Geocoder::Locality::m_featureId));
+    sort(m_localities.begin(), m_localities.end(), my::LessBy(&Geocoder::Locality::m_featureId));
   }
 
   // LocalityScorer::Delegate overrides:

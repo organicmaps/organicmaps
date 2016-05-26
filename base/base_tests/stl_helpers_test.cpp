@@ -19,30 +19,45 @@ private:
   int m_v;
 };
 
-UNIT_TEST(CompareBy_Field)
+UNIT_TEST(LessBy)
 {
-  vector<pair<int, int>> v = {{2, 2}, {0, 4}, {3, 1}, {4, 0}, {1, 3}};
-  sort(v.begin(), v.end(), my::CompareBy(&pair<int, int>::first));
-  for (size_t i = 0; i < v.size(); ++i)
-    TEST_EQUAL(i, v[i].first, ());
+  using TValue = pair<int, int>;
 
-  vector<pair<int, int> const *> pv;
-  for (auto const & p : v)
-    pv.push_back(&p);
+  {
+    vector<TValue> v = {{2, 2}, {0, 4}, {3, 1}, {4, 0}, {1, 3}};
+    sort(v.begin(), v.end(), my::LessBy(&TValue::first));
+    for (size_t i = 0; i < v.size(); ++i)
+      TEST_EQUAL(i, v[i].first, ());
 
-  sort(pv.begin(), pv.end(), my::CompareBy(&pair<int, int>::second));
-  for (size_t i = 0; i < pv.size(); ++i)
-    TEST_EQUAL(i, pv[i]->second, ());
+    vector<TValue const *> pv;
+    for (auto const & p : v)
+      pv.push_back(&p);
+
+    sort(pv.begin(), pv.end(), my::LessBy(&TValue::second));
+    for (size_t i = 0; i < pv.size(); ++i)
+      TEST_EQUAL(i, pv[i]->second, ());
+  }
+
+  {
+    vector<Int> v;
+    for (int i = 9; i >= 0; --i)
+      v.emplace_back(i);
+
+    sort(v.begin(), v.end(), my::LessBy(&Int::Get));
+    for (size_t i = 0; i < v.size(); ++i)
+      TEST_EQUAL(v[i].Get(), static_cast<int>(i), ());
+  }
 }
 
-UNIT_TEST(CompareBy_Method)
+UNIT_TEST(EqualsBy)
 {
-  vector<Int> v;
-  for (int i = 9; i >= 0; --i)
-    v.emplace_back(i);
+  using TValue = pair<int, int>;
+  vector<TValue> actual = {{1, 2}, {1, 3}, {2, 100}, {3, 7}, {3, 8}, {2, 500}};
+  actual.erase(unique(actual.begin(), actual.end(), my::EqualsBy(&TValue::first)), actual.end());
 
-  sort(v.begin(), v.end(), my::CompareBy(&Int::Get));
-  for (size_t i = 0; i < v.size(); ++i)
-    TEST_EQUAL(v[i].Get(), static_cast<int>(i), ());
+  vector<int> expected = {{1, 2, 3, 2}};
+  TEST_EQUAL(expected.size(), actual.size(), ());
+  for (size_t i = 0; i < actual.size(); ++i)
+    TEST_EQUAL(expected[i], actual[i].first, ());
 }
 }  // namespace

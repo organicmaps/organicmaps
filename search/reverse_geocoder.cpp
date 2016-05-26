@@ -51,7 +51,7 @@ void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD cons
   if (mwmHandle.IsAlive())
   {
     search::v2::MwmContext(move(mwmHandle)).ForEachFeature(rect, addStreet);
-    sort(streets.begin(), streets.end(), my::CompareBy(&Street::m_distanceMeters));
+    sort(streets.begin(), streets.end(), my::LessBy(&Street::m_distanceMeters));
   }
 }
 
@@ -174,7 +174,7 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Build
   };
 
   m_index.ForEachInRect(addBuilding, rect, kQueryScale);
-  sort(buildings.begin(), buildings.end(), my::CompareBy(&Building::m_distanceMeters));
+  sort(buildings.begin(), buildings.end(), my::LessBy(&Building::m_distanceMeters));
 }
 
 // static
