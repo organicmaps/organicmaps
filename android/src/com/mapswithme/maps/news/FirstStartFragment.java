@@ -94,12 +94,7 @@ public class FirstStartFragment extends BaseNewsFragment
   public void onDismiss(DialogInterface dialog)
   {
     super.onDismiss(dialog);
-    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
-  }
 
-  @Override
-  void onClosed()
-  {
     if (sLocation == null)
     {
       String reason;
@@ -125,6 +120,7 @@ public class FirstStartFragment extends BaseNewsFragment
     Framework.nativeZoomToPoint(sLocation.getLatitude(), sLocation.getLongitude(), 14, true);
 
     sLocation = null;
+    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
   }
 
   public static boolean showOn(FragmentActivity activity)
