@@ -9,6 +9,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -26,9 +27,9 @@ import com.mapswithme.maps.editor.data.Timespan;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.UiUtils;
 
-public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter.BaseTimetableViewHolder>
-                                 implements HoursMinutesPickerFragment.OnPickListener,
-                                            TimetableFragment.TimetableProvider
+class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter.BaseTimetableViewHolder>
+                          implements HoursMinutesPickerFragment.OnPickListener,
+                                     TimetableFragment.TimetableProvider
 {
   private static final int TYPE_TIMETABLE = 0;
   private static final int TYPE_ADD_TIMETABLE = 1;
@@ -51,7 +52,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     refreshComplement();
   }
 
-  public void setTimetables(Timetable[] tts)
+  void setTimetables(Timetable[] tts)
   {
     mItems = new ArrayList<>(Arrays.asList(tts));
     refreshComplement();
@@ -91,28 +92,28 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
                                           : TYPE_TIMETABLE;
   }
 
-  protected void addTimetable()
+  private void addTimetable()
   {
     mItems.add(OpeningHours.nativeGetComplementTimetable(mItems.toArray(new Timetable[mItems.size()])));
     notifyItemInserted(mItems.size() - 1);
     refreshComplement();
   }
 
-  protected void removeTimetable(int position)
+  private void removeTimetable(int position)
   {
     mItems.remove(position);
     notifyItemRemoved(position);
     refreshComplement();
   }
 
-  protected void refreshComplement()
+  private void refreshComplement()
   {
     mComplementItem = OpeningHours.nativeGetComplementTimetable(mItems.toArray(new Timetable[mItems.size()]));
     notifyItemChanged(getItemCount() - 1);
   }
 
-  protected void pickTime(int position, @IntRange(from = HoursMinutesPickerFragment.TAB_FROM, to = HoursMinutesPickerFragment.TAB_TO) int tab,
-                          @IntRange(from = ID_OPENING, to = ID_CLOSING) int id)
+  private void pickTime(int position, @IntRange(from = HoursMinutesPickerFragment.TAB_FROM, to = HoursMinutesPickerFragment.TAB_TO) int tab,
+                        @IntRange(from = ID_OPENING, to = ID_CLOSING) int id)
   {
     final Timetable data = mItems.get(position);
     mPickingPosition = position;
@@ -138,7 +139,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     notifyItemChanged(position);
   }
 
-  protected void addWorkingDay(int day, int position)
+  private void addWorkingDay(int day, int position)
   {
     final Timetable tts[] = mItems.toArray(new Timetable[mItems.size()]);
     mItems = new ArrayList<>(Arrays.asList(OpeningHours.nativeAddWorkingDay(tts, position, day)));
@@ -146,7 +147,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     notifyDataSetChanged();
   }
 
-  protected void removeWorkingDay(int day, int position)
+  private void removeWorkingDay(int day, int position)
   {
     final Timetable tts[] = mItems.toArray(new Timetable[mItems.size()]);
     mItems = new ArrayList<>(Arrays.asList(OpeningHours.nativeRemoveWorkingDay(tts, position, day)));
@@ -160,9 +161,9 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     notifyItemChanged(position);
   }
 
-  public abstract class BaseTimetableViewHolder extends RecyclerView.ViewHolder
+  abstract static class BaseTimetableViewHolder extends RecyclerView.ViewHolder
   {
-    public BaseTimetableViewHolder(View itemView)
+    BaseTimetableViewHolder(View itemView)
     {
       super(itemView);
     }
@@ -170,7 +171,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     abstract void onBind();
   }
 
-  public class TimetableViewHolder extends BaseTimetableViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener
+  private class TimetableViewHolder extends BaseTimetableViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener
   {
     // Limit closed spans to avoid dynamic inflation of views in recycler's children. Yeah, its a hack.
     static final int MAX_CLOSED_SPANS = 10;
@@ -188,7 +189,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     View addClosed;
     View deleteTimetable;
 
-    public TimetableViewHolder(View itemView)
+    TimetableViewHolder(View itemView)
     {
       super(itemView);
       initDays();
@@ -369,13 +370,13 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
 
   private class AddTimetableViewHolder extends BaseTimetableViewHolder
   {
-    private TextView add;
+    private final Button mAdd;
 
-    public AddTimetableViewHolder(View itemView)
+    AddTimetableViewHolder(View itemView)
     {
       super(itemView);
-      add = (TextView) itemView.findViewById(R.id.btn__add_time);
-      add.setOnClickListener(new View.OnClickListener()
+      mAdd = (Button) itemView.findViewById(R.id.btn__add_time);
+      mAdd.setOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
@@ -390,9 +391,10 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     {
       final boolean enable = mComplementItem != null && mComplementItem.weekdays.length != 0;
       final String text = mFragment.getString(R.string.editor_time_add);
-      add.setEnabled(enable);
-      add.setText(enable ? text + " (" + TimeFormatUtils.formatWeekdays(mComplementItem) + ")"
-                         : text);
+      mAdd.setEnabled(enable);
+      mAdd.setText(enable ? text + " (" + TimeFormatUtils.formatWeekdays(mComplementItem) + ")"
+                          : text);
+      UiUtils.updateAccentButton(mAdd);
     }
   }
 }
