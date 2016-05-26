@@ -42,7 +42,7 @@ class BookingApi:
 
         if self.requestPerMinute >= self.requestLimit:
             waittime = 60 - now.second
-            logging.warning("Limit for request per minute exceeded. Wait for: {0} sec.".format(waittime))
+            logging.warning("Limit for request per minute exceeded. Waiting for: {0} sec.".format(waittime))
             time.sleep(waittime)
             now = datetime.utcnow()
 
@@ -84,7 +84,7 @@ def make_record(src, rate):
 
 def download(user, password, path):
     '''
-    Download all hotels from booking.com and store then in them set of .pkl files.
+    Downloads all hotels from booking.com and stores them in a bunch of .pkl files.
     '''
     api = BookingApi(user, password)
 
@@ -107,7 +107,7 @@ def download(user, password, path):
             if len(hotels) < maxrows:
                 break
 
-        logging.info('Total hotels: {0}'.format(len(allhotels)))
+        logging.info('Num of hotels: {0}'.format(len(allhotels)))
         filename = os.path.join(path,
                                 '{0} - {1}.pkl'.format(country['area'].encode('utf8'), country['name'].encode('utf8')))
         with open(filename, 'wb') as fd:
@@ -116,7 +116,7 @@ def download(user, password, path):
 
 def translate(source, output):
     '''
-    Read *.pkl files and produce a single list of hotels as tab separated values.
+    Reads *.pkl files and produces a single list of hotels as tab separated values.
     '''
     files = [filename for filename in os.listdir(source) if filename.endswith('.pkl')]
 
