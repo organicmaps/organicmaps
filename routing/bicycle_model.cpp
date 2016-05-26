@@ -436,6 +436,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsRussia =
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedPedestrianKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
