@@ -2420,10 +2420,15 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
 {
   if (MercatorBounds::DistanceOnEarth(startPoint, finalPoint) < kKeepPedestrianDistanceMeters)
   {
-    if (GetLastUsedRouter() == RouterType::Pedestrian)
-      return RouterType::Pedestrian;
-    if (GetLastUsedRouter() == RouterType::Bicycle)
-      return RouterType::Bicycle;
+    auto const lastUsedRouter = GetLastUsedRouter();
+    switch (lastUsedRouter)
+    {
+      case RouterType::Pedestrian:
+      case RouterType::Bicycle:
+        return lastUsedRouter;
+      case RouterType::Vehicle:
+        ; // fall through
+    }
 
     // Return on a short distance the vehicle router flag only if we are already have routing files.
     auto countryFileGetter = [this](m2::PointD const & pt)
