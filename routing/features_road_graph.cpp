@@ -212,7 +212,7 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
     if (ft.GetFeatureType() != feature::GEOM_POINT)
       return;
 
-    if (!PointsAlmostEqualAbs(ft.GetCenter(), cross))
+    if (!my::AlmostEqualAbs(ft.GetCenter(), cross, routing::kPointsEqualEpsilon))
       return;
 
     feature::TypesHolder typesHolder(ft);
@@ -224,7 +224,7 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
   m_index.ForEachInRect(f, rect, GetStreetReadScale());
 }
 
-IRoadGraph::Mode FeaturesRoadGraph::ConsiderOnewayFeaturesAsBidirectional() const
+IRoadGraph::Mode FeaturesRoadGraph::GetMode() const
 {
   return m_mode;
 };

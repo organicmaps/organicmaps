@@ -64,6 +64,7 @@ public:
   //@}
 
   double GetSpeed(feature::TypesHolder const & types) const;
+
   /// \returns true if |types| is a oneway feature.
   /// \note According to OSM tag "oneway" could have value "-1". That means it's a oneway feature
   /// with reversed geometry. In that case while map generation the geometry of such features

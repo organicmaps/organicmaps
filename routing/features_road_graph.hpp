@@ -71,7 +71,7 @@ public:
                         vector<pair<Edge, m2::PointD>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
   void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const override;
-  IRoadGraph::Mode ConsiderOnewayFeaturesAsBidirectional() const override;
+  IRoadGraph::Mode GetMode() const override;
   void ClearState() override;
 
 private:

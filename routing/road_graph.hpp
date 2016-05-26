@@ -12,6 +12,7 @@
 
 namespace routing
 {
+double constexpr kPointsEqualEpsilon = 1e-6;
 
 /// The Junction class represents a node description on a road network graph
 class Junction
@@ -77,12 +78,6 @@ private:
   Junction m_endJunction;
 };
 
-inline bool PointsAlmostEqualAbs(const m2::PointD & pt1, const m2::PointD & pt2)
-{
-  double constexpr kEpsilon = 1e-6;
-  return my::AlmostEqualAbs(pt1.x, pt2.x, kEpsilon) && my::AlmostEqualAbs(pt1.y, pt2.y, kEpsilon);
-}
-
 class IRoadGraph
 {
 public:
@@ -118,6 +113,7 @@ public:
       : m_cross(cross), m_mode(mode), m_edges(edges)
     {
     }
+
     virtual ~ICrossEdgesLoader() = default;
 
     void operator()(FeatureID const & featureId, RoadInfo const & roadInfo)
@@ -136,11 +132,21 @@ public:
       {
         m2::PointD const & p = roadInfo.m_points[i];
 
-        if (!PointsAlmostEqualAbs(m_cross, p))
+        if (!my::AlmostEqualAbs(m_cross, p, kPointsEqualEpsilon))
           continue;
 
-        tailFn(i, p);
-        headFn(i, p);
+        if (i > 0)
+        {
+          //               p
+          // o------------>o
+          tailFn(i, p);
+        }
+        if (i < roadInfo.m_points.size() - 1)
+        {
+          // p
+          // o------------>o
+          headFn(i, p);
+        }
       }
     }
 
@@ -153,9 +159,7 @@ public:
   {
   public:
     CrossOutgoingLoader(m2::PointD const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, mode, edges)
-    {
-    }
+      : ICrossEdgesLoader(cross, mode, edges) {}
 
   private:
     // ICrossEdgesLoader overrides:
@@ -166,9 +170,7 @@ public:
   {
   public:
     CrossIngoingLoader(m2::PointD const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, mode, edges)
-    {
-    }
+      : ICrossEdgesLoader(cross, mode, edges) {}
 
   private:
     // ICrossEdgesLoader overrides:
@@ -221,7 +223,7 @@ public:
   /// @return Types for specified junction
   virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
 
-  virtual IRoadGraph::Mode ConsiderOnewayFeaturesAsBidirectional() const = 0;
+  virtual IRoadGraph::Mode GetMode() const = 0;
 
   /// Clear all temporary buffers.
   virtual void ClearState() {}
@@ -231,8 +233,6 @@ private:
   void GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
   /// \brief Finds all ingoing regular (non-fake) edges for junction.
   void GetRegularIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
-  void LoadOutgoingEdges(m2::PointD const & cross, TEdgeVector & edges) const;
-  void LoadIngoingEdges(m2::PointD const & cross, TEdgeVector & edges) const;
   /// \brief Finds all outgoing fake edges for junction.
   void GetFakeOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
   /// \brief Finds all ingoing fake edges for junction.

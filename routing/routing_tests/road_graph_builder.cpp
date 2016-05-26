@@ -110,7 +110,7 @@ void RoadGraphMockSource::GetJunctionTypes(Junction const & junction, feature::T
   UNUSED_VALUE(types);
 }
 
-IRoadGraph::Mode RoadGraphMockSource::ConsiderOnewayFeaturesAsBidirectional() const
+IRoadGraph::Mode RoadGraphMockSource::GetMode() const
 {
   return IRoadGraph::Mode::IgnoreOnewayTag;
 }
