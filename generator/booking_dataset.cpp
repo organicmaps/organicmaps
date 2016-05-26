@@ -39,7 +39,7 @@ BookingDataset::Hotel::Hotel(string const & src)
 
 ostream & operator<<(ostream & s, BookingDataset::Hotel const & h)
 {
-  return s << "Name: " << h.name << " lat: " << h.lat << " lon: " << h.lon;
+  return s << "Name: " << h.name << "\t Address: " << h.address << "\t lat: " << h.lat << " lon: " << h.lon;
 }
 
 void BookingDataset::LoadHotels(string const & path)
@@ -94,20 +94,8 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
     return false;
 
   // Find 3 nearest values to a point.
-  vector<TValue> result;
-  for_each(boost::geometry::index::qbegin(m_rtree,
-                                          boost::geometry::index::nearest(TPoint(e.lat, e.lon), 3)),
-           boost::geometry::index::qend(m_rtree), [&](TValue const & v)
-           {
-             auto const & hotel = m_hotels[v.second];
-             double dist = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
-             if (dist > 150 /* max distance in meters */)
-               return;
-
-             result.emplace_back(v);
-           });
-
-  if (result.empty())
+  auto const indexes = GetNearestHotels(e.lat, e.lon, 3, 150 /* max distance in meters */);
+  if (indexes.empty())
     return false;
 
   // Match name.
@@ -117,10 +105,10 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
   //  cout << "\n------------- " << name << endl;
 
   bool matched = false;
-  for (auto const & e : result)
+  for (auto const & index : indexes)
   {
     vector<strings::UniString> bookingTokens;
-    NormalizeAndTokenizeString(m_hotels[e.second].name, bookingTokens, search::Delimiters());
+    NormalizeAndTokenizeString(m_hotels[index].name, bookingTokens, search::Delimiters());
 
     map<size_t, vector<pair<size_t, size_t>>> weightPair;
 
@@ -142,6 +130,31 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
     }
   }
   return matched;
+}
+
+BookingDataset::Hotel const & BookingDataset::GetHotel(size_t index) const
+{
+  ASSERT_GREATER(m_hotels.size(), index, ());
+  return m_hotels[index];
+}
+
+vector<size_t> BookingDataset::GetNearestHotels(double lat, double lon, size_t limit,
+                                                double maxDistance /* = 0.0 */) const
+{
+  namespace bgi = boost::geometry::index;
+
+  vector<size_t> indexes;
+  for_each(bgi::qbegin(m_rtree, bgi::nearest(TPoint(lat, lon), limit)), bgi::qend(m_rtree),
+           [&](TValue const & v)
+           {
+             auto const & hotel = m_hotels[v.second];
+             double const dist = ms::DistanceOnEarth(lat, lon, hotel.lat, hotel.lon);
+             if (maxDistance != 0.0 && dist > maxDistance /* max distance in meters */)
+               return;
+
+             indexes.emplace_back(v.second);
+           });
+  return indexes;
 }
 
 bool BookingDataset::BookingFilter(OsmElement const & e) const

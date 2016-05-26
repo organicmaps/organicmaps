@@ -57,6 +57,9 @@ public:
   bool TourismFilter(OsmElement const & e) const;
   void BuildFeatures(function<void(OsmElement *)> const & fn) const;
 
+  Hotel const & GetHotel(size_t index) const;
+  vector<size_t> GetNearestHotels(double lat, double lon, size_t limit, double maxDistance = 0.0) const;
+  
 protected:
   vector<Hotel> m_hotels;
 
@@ -72,4 +75,6 @@ protected:
   bool MatchWithBooking(OsmElement const & e) const;
 };
 
+ostream & operator<<(ostream & s, BookingDataset::Hotel const & h);
+  
 }  // namespace generator

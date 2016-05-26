@@ -21,7 +21,6 @@ Hotel = namedtuple('Hotel',
                     'stars', 'priceCategory', 'ratingBooking',
                     'ratingUser', 'descUrl'])
 
-
 class BookingApi:
     def __init__(self, login, password):
         self.login = login
