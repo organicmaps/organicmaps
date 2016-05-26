@@ -55,11 +55,12 @@ public:
 
   bool BookingFilter(OsmElement const & e) const;
   bool TourismFilter(OsmElement const & e) const;
-  void BuildFeatures(function<void(OsmElement *)> const & fn) const;
 
   Hotel const & GetHotel(size_t index) const;
   vector<size_t> GetNearestHotels(double lat, double lon, size_t limit, double maxDistance = 0.0) const;
-  
+  bool MatchByName(string const & osmName, vector<size_t> const & bookingIndexes) const;
+
+  void BuildFeatures(function<void(OsmElement *)> const & fn) const;
 protected:
   vector<Hotel> m_hotels;
 
@@ -71,8 +72,8 @@ protected:
   boost::geometry::index::rtree<TValue, boost::geometry::index::quadratic<16>> m_rtree;
 
   void LoadHotels(string const & path);
-  bool Filter(OsmElement const & e, function<bool(OsmElement const &)> const & fn) const;
   bool MatchWithBooking(OsmElement const & e) const;
+  bool Filter(OsmElement const & e, function<bool(OsmElement const &)> const & fn) const;
 };
 
 ostream & operator<<(ostream & s, BookingDataset::Hotel const & h);

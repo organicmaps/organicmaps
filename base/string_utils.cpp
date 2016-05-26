@@ -42,30 +42,31 @@ UniChar LastUniChar(string const & s)
   return *iter;
 }
 
-bool to_int(char const * s, int & i, int base /*= 10*/)
+namespace
 {
-  char * stop;
-  long const x = strtol(s, &stop, base);
+template<typename T, typename ET>
+bool IntegerCheck(T x, char const *stop, ET & out)
+{
   if (*stop == 0)
   {
-    i = static_cast<int>(x);
-    ASSERT_EQUAL(static_cast<long>(i), x, ());
+    out = static_cast<ET>(x);
+    ASSERT_EQUAL(static_cast<T>(out), x, ());
     return true;
   }
   return false;
+}
+}  // namespace
+  
+bool to_int(char const * s, int & i, int base /*= 10*/)
+{
+  char * stop;
+  return IntegerCheck(strtol(s, &stop, base), stop, i);
 }
 
 bool to_uint(char const * s, unsigned int & i, int base /*= 10*/)
 {
   char * stop;
-  long const x = strtoul(s, &stop, base);
-  if (*stop == 0)
-  {
-    i = static_cast<unsigned int>(x);
-    ASSERT_EQUAL(static_cast<unsigned long>(i), x, ());
-    return true;
-  }
-  return false;
+  return IntegerCheck(strtoul(s, &stop, base), stop, i);
 }
 
   
