@@ -13,7 +13,6 @@
 
   <TextView
     android:id="@+id/tv__editor"
-    style="@style/PlacePageMetadataText"
-    android:text="@string/edit_place"
-    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"/>
+    style="@style/PlacePageMetadataText.Button"
+    android:text="@string/edit_place"/>
 </LinearLayout>

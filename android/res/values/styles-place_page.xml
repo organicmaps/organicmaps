@@ -52,6 +52,11 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage</item>
   </style>
 
+  <style name="PlacePageMetadataText.Button">
+    <item name="android:textAllCaps">true</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage.Accent</item>
+  </style>
+
   <style name="PlacePageMetadataIcon">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>

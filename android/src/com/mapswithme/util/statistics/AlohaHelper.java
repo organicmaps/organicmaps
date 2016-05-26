@@ -61,6 +61,8 @@ public class AlohaHelper
   public static final String PP_CLOSE = "ppClose";
   public static final String PP_SHARE = "ppShare";
   public static final String PP_BOOKMARK = "ppBookmark";
+  public static final String PP_BOOKING_DETAILS = "ppBooking_Details";
+  public static final String PP_BOOKING_BOOK = "ppBooking_Book";
   public static final String PP_ROUTE = "ppRoute";
   // place page details
   public static final String PP_DIRECTION_ARROW = "ppDirectionArrow";

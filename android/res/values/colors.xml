@@ -15,6 +15,7 @@
 
   <color name="base_red">#FFF54137</color>
   <color name="base_yellow">#FFFFC30A</color>
+  <color name="base_green">#FF558B2F</color>
 
   <color name="icon_tint">#FF757575</color>
   <color name="icon_tint_night">#FFC4C6C7</color>

@@ -78,6 +78,8 @@
           <include layout="@layout/place_page_operator"/>
 
           <include layout="@layout/place_page_cuisine"/>
+
+          <include layout="@layout/place_page_more"/>
         </LinearLayout>
       </RelativeLayout>
 

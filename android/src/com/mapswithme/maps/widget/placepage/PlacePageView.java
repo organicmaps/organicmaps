@@ -16,7 +16,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -90,10 +93,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private Toolbar mToolbar;
   private TextView mTvTitle;
   private TextView mTvSubtitle;
-  private View mDirectionFrame;
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
+  private View mHotelInfo;
+  private TextView mTvHotelRating;
+  private TextView mTvHotelPrice;
   // Details.
   private ScrollView mDetails;
   private View mPhone;
@@ -117,6 +122,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
+  private View mMoreInfo;
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
@@ -135,6 +141,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private MwmActivity.LeftAnimationTrackListener mLeftAnimationTrackListener;
   // Data
   private MapObject mMapObject;
+  private SponsoredHotelInfo mSponsoredHotelInfo;
   private boolean mIsLatLonDms;
 
   // Downloader`s stuff
@@ -212,12 +219,16 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mToolbar = (Toolbar) findViewById(R.id.toolbar);
     mTvSubtitle = (TextView) mPreview.findViewById(R.id.tv__subtitle);
 
-    mDirectionFrame = mPreview.findViewById(R.id.direction_frame_outer);
+    View directionFrame = mPreview.findViewById(R.id.direction_frame);
     mTvDistance = (TextView) mPreview.findViewById(R.id.tv__straight_distance);
     mAvDirection = (ArrowView) mPreview.findViewById(R.id.av__direction);
-    mDirectionFrame.findViewById(R.id.direction_frame).setOnClickListener(this);
+    directionFrame.setOnClickListener(this);
 
     mTvAddress = (TextView) mPreview.findViewById(R.id.tv__address);
+
+    mHotelInfo = mPreview.findViewById(R.id.hotel_info_frame);
+    mTvHotelRating = (TextView) mHotelInfo.findViewById(R.id.tv__hotel_rating);
+    mTvHotelPrice = (TextView) mHotelInfo.findViewById(R.id.tv__hotel_price);
 
     mDetails = (ScrollView) findViewById(R.id.pp__details);
     RelativeLayout address = (RelativeLayout) mDetails.findViewById(R.id.ll__place_name);
@@ -254,6 +265,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mAddOrganisation.setOnClickListener(this);
     mAddPlace = mDetails.findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
+    mMoreInfo = mDetails.findViewById(R.id.ll__more);
+    mMoreInfo.setOnClickListener(this);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -369,7 +382,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
           break;
 
         case BOOKING:
-          // TODO
+          onBookingClick(Statistics.EventName.PP_BOOKING_BOOK, AlohaHelper.PP_BOOKING_BOOK);
           break;
         }
       }
@@ -417,6 +430,20 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
       mDetails.setBackgroundResource(0);
+  }
+
+  private void onBookingClick(String statisticsEvent, String alohaEvent)
+  {
+    Statistics.INSTANCE.trackEvent(statisticsEvent);
+    AlohaHelper.logClick(alohaEvent);
+
+    try
+    {
+      followUrl(mSponsoredHotelInfo.urlBook);
+    } catch (ActivityNotFoundException e)
+    {
+      AlohaHelper.logException(e);
+    }
   }
 
   private void init(AttributeSet attrs, int defStyleAttr)
@@ -517,6 +544,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       return;
 
     mMapObject = mapObject;
+    mSponsoredHotelInfo = (mMapObject == null ? null : Framework.nativeGetSponsoredHotelInfo());
 
     detachCountry();
     if (mMapObject != null)
@@ -527,26 +555,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
 
     refreshViews();
-  }
-
-  private void refreshDistanceFrame()
-  {
-    UiUtils.hide(mDirectionFrame);
-
-    UiUtils.measureView(mPreview, new UiUtils.OnViewMeasuredListener()
-    {
-      @Override
-      public void onViewMeasured(int width, int height)
-      {
-        int minHeight = UiUtils.dimen(R.dimen.direction_frame_min_height);
-        height = Math.max(minHeight, height - mPreview.getPaddingTop() - mPreview.getPaddingBottom());
-
-        ViewGroup.LayoutParams lp = mDirectionFrame.getLayoutParams();
-        lp.height = height;
-        mDirectionFrame.setLayoutParams(lp);
-        UiUtils.show(mDirectionFrame);
-      }
-    });
   }
 
   public void refreshViews()
@@ -589,10 +597,26 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       public void run()
       {
         mShadowController.updateShadows();
-        refreshDistanceFrame();
         mPreview.requestLayout();
       }
     });
+  }
+
+  private void colorizeSubtitle()
+  {
+    String text = mTvSubtitle.getText().toString();
+    if (TextUtils.isEmpty(text))
+      return;
+
+    int start = text.indexOf("★");
+    if (start > -1)
+    {
+      SpannableStringBuilder sb = new SpannableStringBuilder(text);
+      sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_yellow)),
+                 start, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+      mTvSubtitle.setText(sb);
+    }
   }
 
   private void refreshPreview()
@@ -601,8 +625,17 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (mToolbar != null)
       mToolbar.setTitle(mMapObject.getTitle());
     UiUtils.setTextAndHideIfEmpty(mTvSubtitle, mMapObject.getSubtitle());
+    colorizeSubtitle();
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
+
+    boolean sponsored = (mSponsoredHotelInfo != null);
+    UiUtils.showIf(sponsored, mHotelInfo);
+    if (sponsored)
+    {
+      mTvHotelRating.setText(mSponsoredHotelInfo.rating);
+      UiUtils.setTextAndHideIfEmpty(mTvHotelPrice, mSponsoredHotelInfo.price);
+    }
   }
 
   private void refreshDetails()
@@ -629,6 +662,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       UiUtils.showIf(Framework.nativeIsActiveObjectABuilding(), mAddOrganisation);
       UiUtils.showIf(Framework.nativeCanAddPlaceFromPlacePage(), mAddPlace);
     }
+
+    UiUtils.showIf(mSponsoredHotelInfo != null, mMoreInfo);
   }
 
   private void refreshOpeningHours()
@@ -726,7 +761,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (showBackButton || ParsedMwmRequest.isPickPointMode())
       buttons.add(PlacePageButtons.Item.BACK);
 
-    if (Framework.nativeIsSponsored())
+    if (mSponsoredHotelInfo != null)
       buttons.add(PlacePageButtons.Item.BOOKING);
 
     buttons.add(PlacePageButtons.Item.BOOKMARK);
@@ -903,6 +938,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       break;
     case R.id.ll__place_add:
       addPlace();
+      break;
+    case R.id.ll__more:
+      onBookingClick(Statistics.EventName.PP_BOOKING_DETAILS, AlohaHelper.PP_BOOKING_DETAILS);
       break;
     case R.id.iv__bookmark_color:
       saveBookmarkTitle();
@@ -1163,7 +1201,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(country.totalSize));
     if (country.isExpandable())
-      sb.append(String.format(Locale.US, " • %s: %d", getContext().getString(R.string.downloader_status_maps), country.totalChildCount));
+      sb.append(String.format(Locale.US, "  •  %s: %d", getContext().getString(R.string.downloader_status_maps), country.totalChildCount));
 
     mDownloaderInfo.setText(sb.toString());
   }
