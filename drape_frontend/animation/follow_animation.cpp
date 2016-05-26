@@ -114,21 +114,39 @@ m2::PointD MapFollowAnimation::CalculateCenter(double scale, m2::RectD const & p
 
 bool MapFollowAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
 {
+  return GetProperty(object, property, false /* targetValue */, value);
+}
+
+bool MapFollowAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+{
+  return GetProperty(object, property, true /* targetValue */, value);
+}
+
+bool MapFollowAnimation::GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const
+{
   if (property == Animation::Position)
   {
     m2::RectD const pixelRect = AnimationSystem::Instance().GetLastScreen().PixelRect();
-    value = PropertyValue(CalculateCenter(m_scaleInterpolator.GetScale(), pixelRect, m_globalPosition,
-                          m_pixelPosInterpolator.GetPosition(), m_angleInterpolator.GetAngle()));
+    if (targetValue)
+    {
+      value = PropertyValue(CalculateCenter(m_scaleInterpolator.GetTargetScale(), pixelRect, m_globalPosition,
+                                            m_pixelPosInterpolator.GetTargetPosition(), m_angleInterpolator.GetTargetAngle()));
+    }
+    else
+    {
+      value = PropertyValue(CalculateCenter(m_scaleInterpolator.GetScale(), pixelRect, m_globalPosition,
+                                            m_pixelPosInterpolator.GetPosition(), m_angleInterpolator.GetAngle()));
+    }
     return true;
   }
   if (property == Animation::Angle)
   {
-    value = PropertyValue(m_angleInterpolator.GetAngle());
+    value = PropertyValue(targetValue ? m_angleInterpolator.GetTargetAngle() : m_angleInterpolator.GetAngle());
     return true;
   }
   if (property == Animation::Scale)
   {
-    value = PropertyValue(m_scaleInterpolator.GetScale());
+    value = PropertyValue(targetValue ? m_scaleInterpolator.GetTargetScale() : m_scaleInterpolator.GetScale());
     return true;
   }
   ASSERT(false, ("Wrong property:", property));

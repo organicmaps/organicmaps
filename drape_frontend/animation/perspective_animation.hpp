@@ -27,6 +27,7 @@ public:
 
   TObjectProperties const & GetProperties(TObject object) const override;
   bool HasProperty(TObject object, TProperty property) const override;
+  bool HasTargetProperty(TObject object, TProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
   void Finish() override;
@@ -39,6 +40,7 @@ public:
   bool IsFinished() const override;
 
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
+  bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
   AngleInterpolator m_angleInterpolator;

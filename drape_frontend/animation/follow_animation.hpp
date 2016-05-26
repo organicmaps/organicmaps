@@ -45,11 +45,13 @@ public:
   bool IsFinished() const override;
 
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
+  bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
   bool HasScale() const;
   bool HasPixelOffset() const;
 
 private:
+  bool GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const;
   double CalculateDuration() const;
 
   ScaleInterpolator m_scaleInterpolator;

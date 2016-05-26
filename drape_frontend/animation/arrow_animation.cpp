@@ -80,6 +80,16 @@ bool ArrowAnimation::IsFinished() const
 
 bool ArrowAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
 {
+  return GetProperty(object, property, false /* targetValue */, value);
+}
+
+bool ArrowAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+{
+  return GetProperty(object, property, true /* targetValue */, value);
+}
+
+bool ArrowAnimation::GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const
+{
   ASSERT_EQUAL(object, Animation::MyPositionArrow, ());
 
   switch (property)
@@ -87,14 +97,14 @@ bool ArrowAnimation::GetProperty(TObject object, TProperty property, PropertyVal
   case Animation::Position:
     if (m_positionInterpolator.IsActive())
     {
-      value = PropertyValue(m_positionInterpolator.GetPosition());
+      value = PropertyValue(targetValue ? m_positionInterpolator.GetTargetPosition() : m_positionInterpolator.GetPosition());
       return true;
     }
     return false;
   case Animation::Angle:
     if (m_angleInterpolator.IsActive())
     {
-      value = PropertyValue(m_angleInterpolator.GetAngle());
+      value = PropertyValue(targetValue ? m_angleInterpolator.GetTargetAngle() : m_angleInterpolator.GetAngle());
       return true;
     }
     return false;

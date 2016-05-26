@@ -41,10 +41,13 @@ public:
   bool IsFinished() const override;
 
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
+  bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
   void SetMaxScaleDuration(double maxDuration);
 
 private:
+  bool GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const;
+
   AngleInterpolator m_angleInterpolator;
   PositionInterpolator m_positionInterpolator;
   ScaleInterpolator m_scaleInterpolator;

@@ -35,8 +35,11 @@ public:
   bool IsFinished() const override;
 
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
+  bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
+  bool GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const;
+
   ScaleInterpolator m_scaleInterpolator;
   m2::PointD const m_pixelCenterOffset;
   m2::PointD const m_globalScaleCenter;

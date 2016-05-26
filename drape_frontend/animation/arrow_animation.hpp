@@ -27,8 +27,11 @@ public:
   void Finish() override;
 
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
+  bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
 private:
+  bool GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const;
+
   TAnimObjects m_objects;
   TObjectProperties m_properties;
   PositionInterpolator m_positionInterpolator;

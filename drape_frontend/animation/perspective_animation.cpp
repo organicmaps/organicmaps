@@ -35,6 +35,11 @@ bool PerspectiveSwitchAnimation::HasProperty(TObject object, TProperty property)
   return HasObject(object) && m_properties.find(property) != m_properties.end();
 }
 
+bool PerspectiveSwitchAnimation::HasTargetProperty(TObject object, TProperty property) const
+{
+  return HasObject(object) && property == Animation::SwitchPerspective;
+}
+
 void PerspectiveSwitchAnimation::Advance(double elapsedSeconds)
 {
   m_angleInterpolator.Advance(elapsedSeconds);
@@ -73,6 +78,20 @@ double PerspectiveSwitchAnimation::GetDuration() const
 bool PerspectiveSwitchAnimation::IsFinished() const
 {
   return m_angleInterpolator.IsFinished();
+}
+
+bool PerspectiveSwitchAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+{
+  ASSERT_EQUAL(object, Animation::MapPlane, ());
+
+  if (property == Animation::SwitchPerspective)
+  {
+    value = PropertyValue(SwitchPerspectiveParams(m_isEnablePerspectiveAnim, m_endAngle, m_endAngle, m_angleFOV));
+    return true;
+  }
+
+  ASSERT(false, ("Wrong property:", property));
+  return false;
 }
 
 bool PerspectiveSwitchAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const

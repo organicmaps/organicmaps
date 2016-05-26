@@ -94,6 +94,13 @@ public:
     return true;
   }
 
+  bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override
+  {
+    ASSERT(HasProperty(object, property), ());
+    value = PropertyValue(m_endPos);
+    return true;
+  }
+
 private:
   double GetT() const
   {

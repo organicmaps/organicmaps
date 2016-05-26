@@ -45,6 +45,17 @@ bool SequenceAnimation::HasProperty(TObject object, TProperty property) const
   return m_animations.front()->HasProperty(object, property);
 }
 
+bool SequenceAnimation::HasTargetProperty(TObject object, TProperty property) const
+{
+  ASSERT(!m_animations.empty(), ());
+  for (auto const & anim : m_animations)
+  {
+    if (anim->HasTargetProperty(object, property))
+      return true;
+  }
+  return false;
+}
+
 void SequenceAnimation::SetMaxDuration(double maxDuration)
 {
   ASSERT(false, ("Not implemented"));
@@ -67,6 +78,20 @@ bool SequenceAnimation::GetProperty(TObject object, TProperty property, Property
 {
   ASSERT(!m_animations.empty(), ());
   return m_animations.front()->GetProperty(object, property, value);
+}
+
+bool SequenceAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+{
+  ASSERT(!m_animations.empty(), ());
+
+  for (auto it = m_animations.rbegin(); it != m_animations.rend(); ++it)
+  {
+    auto const & anim = *it;
+    if (anim->HasTargetProperty(object, property))
+      return anim->GetTargetProperty(object, property, value);
+  }
+
+  return false;
 }
 
 void SequenceAnimation::AddAnimation(drape_ptr<Animation> animation)

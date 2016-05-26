@@ -127,6 +127,16 @@ bool MapLinearAnimation::IsFinished() const
 
 bool MapLinearAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
 {
+  return GetProperty(object, property, false /* targetValue */, value);
+}
+
+bool MapLinearAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+{
+  return GetProperty(object, property, true /* targetValue */, value);
+}
+
+bool MapLinearAnimation::GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const
+{
   ASSERT_EQUAL(object, Animation::MapPlane, ());
 
   switch (property)
@@ -134,21 +144,21 @@ bool MapLinearAnimation::GetProperty(TObject object, TProperty property, Propert
   case Animation::Position:
     if (m_positionInterpolator.IsActive())
     {
-      value = PropertyValue(m_positionInterpolator.GetPosition());
+      value = PropertyValue(targetValue ? m_positionInterpolator.GetTargetPosition() : m_positionInterpolator.GetPosition());
       return true;
     }
     return false;
   case Animation::Scale:
     if (m_scaleInterpolator.IsActive())
     {
-      value = PropertyValue(m_scaleInterpolator.GetScale());
+      value = PropertyValue(targetValue ? m_scaleInterpolator.GetTargetScale() : m_scaleInterpolator.GetScale());
       return true;
     }
     return false;
   case Animation::Angle:
     if (m_angleInterpolator.IsActive())
     {
-      value = PropertyValue(m_angleInterpolator.GetAngle());
+      value = PropertyValue(targetValue ? m_angleInterpolator.GetTargetAngle() : m_angleInterpolator.GetAngle());
       return true;
     }
     return false;

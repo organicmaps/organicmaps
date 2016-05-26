@@ -2,6 +2,7 @@
 
 #include "base/logging.hpp"
 
+#include "std/bind.hpp"
 #include "std/weak_ptr.hpp"
 
 namespace df
@@ -76,6 +77,18 @@ private:
 
 bool AnimationSystem::GetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect)
 {
+  return GetRect(currentScreen, bind(&AnimationSystem::GetProperty, this, _1, _2, _3), rect);
+}
+
+void AnimationSystem::GetTargetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect)
+{
+  GetRect(currentScreen, bind(&AnimationSystem::GetTargetProperty, this, _1, _2, _3), rect);
+}
+
+bool AnimationSystem::GetRect(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  m2::AnyRectD & rect)
+{
+  ASSERT(getPropertyFn != nullptr, ());
+
   m_lastScreen = currentScreen;
 
   double scale = currentScreen.GetScale();
@@ -83,13 +96,13 @@ bool AnimationSystem::GetRect(ScreenBase const & currentScreen, m2::AnyRectD & r
   m2::PointD pos = currentScreen.GlobalRect().GlobalZero();
 
   Animation::PropertyValue value;
-  if (GetProperty(Animation::MapPlane, Animation::Scale, value))
+  if (getPropertyFn(Animation::MapPlane, Animation::Scale, value))
     scale = value.m_valueD;
 
-  if (GetProperty(Animation::MapPlane, Animation::Angle, value))
+  if (getPropertyFn(Animation::MapPlane, Animation::Angle, value))
     angle = value.m_valueD;
 
-  if (GetProperty(Animation::MapPlane, Animation::Position, value))
+  if (getPropertyFn(Animation::MapPlane, Animation::Position, value))
     pos = value.m_valuePointD;
 
   m2::RectD localRect = currentScreen.PixelRect();
@@ -350,6 +363,37 @@ bool AnimationSystem::GetProperty(Animation::TObject object, Animation::TPropert
   {
     value = it->second;
     m_propertyCache.erase(it);
+    return true;
+  }
+  return false;
+}
+
+bool AnimationSystem::GetTargetProperty(Animation::TObject object, Animation::TProperty property,
+                                        Animation::PropertyValue & value) const
+{
+  if (!m_animationChain.empty())
+  {
+    PropertyBlender blender;
+    for (auto const & anim : *(m_animationChain.front()))
+    {
+      if (anim->HasTargetProperty(object, property))
+      {
+        Animation::PropertyValue val;
+        if (anim->GetTargetProperty(object, property, val))
+          blender.Blend(val);
+      }
+    }
+    if (!blender.IsEmpty())
+    {
+      value = blender.Finish();
+      return true;
+    }
+  }
+
+  auto it = m_propertyCache.find(make_pair(object, property));
+  if (it != m_propertyCache.end())
+  {
+    value = it->second;
     return true;
   }
   return false;

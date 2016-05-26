@@ -18,6 +18,7 @@ public:
   static AnimationSystem & Instance();
 
   bool GetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect);
+  void GetTargetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect);
 
   bool SwitchPerspective(Animation::SwitchPerspectiveParams & params);
   bool GetPerspectiveAngle(double & angle);
@@ -78,7 +79,13 @@ public:
 private:  
   AnimationSystem() = default;
 
+  using TGetPropertyFn = function<bool (Animation::TObject object, Animation::TProperty property,
+                                        Animation::PropertyValue & value)>;
+  bool GetRect(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  m2::AnyRectD & rect);
+
   bool GetProperty(Animation::TObject object, Animation::TProperty property,
+                   Animation::PropertyValue & value) const;
+  bool GetTargetProperty(Animation::TObject object, Animation::TProperty property,
                    Animation::PropertyValue & value) const;
   void StartNextAnimations();
   void FinishAnimations(function<bool(shared_ptr<Animation> const &)> const & predicate,

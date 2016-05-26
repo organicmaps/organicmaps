@@ -668,8 +668,9 @@ m2::AnyRectD UserEventStream::GetCurrentRect() const
 
 m2::AnyRectD UserEventStream::GetTargetRect() const
 {
-  // TODO: Calculate target rect inside the animation system.
-  return GetCurrentRect();
+  m2::AnyRectD targetRect;
+  m_animationSystem.GetTargetRect(m_navigator.Screen(), targetRect);
+  return targetRect;
 }
 
 bool UserEventStream::ProcessTouch(TouchEvent const & touch)
