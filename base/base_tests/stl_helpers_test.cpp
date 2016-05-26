@@ -83,26 +83,35 @@ UNIT_TEST(SortUnique)
   TEST_EQUAL(v, expected, ());
 }
 
-UNIT_TEST(SortUniquePred)
+UNIT_TEST(SortUniqueCompPredTest1)
 {
-  struct Foo
-  {
-    int i, j;
-  };
+  using TValue = int;
+  using TPair = pair<TValue, int>;
+  vector<TPair> v =
+      {{1, 22}, {2, 33}, {1, 23}, {4, 54}, {3, 34}, {5, 23}, {2, 23}, {7, 32}, {1, 12}};
 
-  vector<Foo> v = {{1, 22}, {2, 33}, {1, 23}, {4, 54}, {3, 34}, {5, 23}, {2, 23}, {7, 32}, {1, 12}};
-  my::SortUnique<Foo>([](Foo const & f1, Foo const & f2)
-                      {
-                        return f1.i < f2.i;
-                      },
-                      v);
+  my::SortUnique<TPair>(v, my::CompareBy(&TPair::first),
+                        [](TPair const & p1, TPair const & p2) { return p1.first == p2.first; });
 
-  TEST_EQUAL(v.size(), 6, ());
-  TEST_EQUAL(v[0].i, 1, ());
-  TEST_EQUAL(v[1].i, 2, ());
-  TEST_EQUAL(v[2].i, 3, ());
-  TEST_EQUAL(v[3].i, 4, ());
-  TEST_EQUAL(v[4].i, 5, ());
-  TEST_EQUAL(v[5].i, 7, ());
+  vector<TValue> const expected = {1, 2, 3, 4, 5, 7};
+  TEST_EQUAL(v.size(), expected.size(), ());
+  for (int i = 0; i < v.size(); ++i)
+    TEST_EQUAL(v[i].first, expected[i], (i));
+}
+
+UNIT_TEST(SortUniqueCompPredTest2)
+{
+  using TValue = double;
+  using TPair = pair<TValue, int>;
+  vector<TPair> v =
+      {{0.5, 11}, {1000.99, 234}, {0.5, 23}, {1234.56789, 54}, {1000.99, 34}};
+
+  my::SortUnique<TPair>(v, my::CompareBy(&TPair::first),
+                        [](TPair const & p1, TPair const & p2) { return p1.first == p2.first; });
+
+  vector<TValue> const expected = {0.5, 1000.99, 1234.56789};
+  TEST_EQUAL(v.size(), expected.size(), ());
+  for (int i = 0; i < v.size(); ++i)
+    TEST_EQUAL(v[i].first, expected[i], (i));
 }
 }  // namespace
