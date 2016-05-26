@@ -11,6 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingInfo;
+import com.mapswithme.maps.widget.placepage.SponsoredHotelInfo;
 import com.mapswithme.util.Constants;
 
 /**
@@ -213,5 +214,5 @@ public class Framework
   public static native String nativeGetActiveObjectFormattedCuisine();
   public static native boolean nativeIsActiveObjectABuilding();
   public static native boolean nativeCanAddPlaceFromPlacePage();
-  public static native boolean nativeIsSponsored();
+  public static native SponsoredHotelInfo nativeGetSponsoredHotelInfo();
 }
