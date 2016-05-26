@@ -2422,6 +2422,8 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
   {
     if (GetLastUsedRouter() == RouterType::Pedestrian)
       return RouterType::Pedestrian;
+    if (GetLastUsedRouter() == RouterType::Bicycle)
+      return RouterType::Bicycle;
 
     // Return on a short distance the vehicle router flag only if we are already have routing files.
     auto countryFileGetter = [this](m2::PointD const & pt)
@@ -2441,7 +2443,12 @@ RouterType Framework::GetLastUsedRouter() const
 {
   string routerType;
   settings::Get(kRouterTypeKey, routerType);
-  return (routerType == routing::ToString(RouterType::Pedestrian) ? RouterType::Pedestrian : RouterType::Vehicle);
+
+  if (routerType == routing::ToString(RouterType::Pedestrian))
+    return  RouterType::Pedestrian;
+  if (routerType == routing::ToString(RouterType::Bicycle))
+    return RouterType::Bicycle;
+  return RouterType::Vehicle;
 }
 
 void Framework::SetLastUsedRouter(RouterType type)
