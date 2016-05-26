@@ -77,6 +77,12 @@ private:
   Junction m_endJunction;
 };
 
+inline bool PointsAlmostEqualAbs(const m2::PointD & pt1, const m2::PointD & pt2)
+{
+  double constexpr kEpsilon = 1e-6;
+  return my::AlmostEqualAbs(pt1.x, pt2.x, kEpsilon) && my::AlmostEqualAbs(pt1.y, pt2.y, kEpsilon);
+}
+
 class IRoadGraph
 {
 public:
@@ -123,6 +129,21 @@ public:
     virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) = 0;
 
   protected:
+    template <typename THeadFn, typename TTailFn>
+    void ForEachEdge(RoadInfo const & roadInfo, THeadFn && headFn, TTailFn && tailFn)
+    {
+      for (size_t i = 0; i < roadInfo.m_points.size(); ++i)
+      {
+        m2::PointD const & p = roadInfo.m_points[i];
+
+        if (!PointsAlmostEqualAbs(m_cross, p))
+          continue;
+
+        tailFn(i, p);
+        headFn(i, p);
+      }
+    }
+
     m2::PointD const m_cross;
     IRoadGraph::Mode const m_mode;
     TEdgeVector & m_edges;
@@ -136,6 +157,7 @@ public:
     {
     }
 
+  private:
     // ICrossEdgesLoader overrides:
     virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) override;
   };
@@ -147,6 +169,8 @@ public:
       : ICrossEdgesLoader(cross, mode, edges)
     {
     }
+
+  private:
     // ICrossEdgesLoader overrides:
     virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) override;
   };

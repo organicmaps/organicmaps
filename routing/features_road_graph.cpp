@@ -36,12 +36,6 @@ string GetFeatureCountryName(FeatureID const featureId)
     return countryName;
   return countryName.substr(0, pos);
 }
-
-inline bool PointsAlmostEqualAbs(const m2::PointD & pt1, const m2::PointD & pt2)
-{
-  double constexpr kEpsilon = 1e-6;
-  return my::AlmostEqualAbs(pt1.x, pt2.x, kEpsilon) && my::AlmostEqualAbs(pt1.y, pt2.y, kEpsilon);
-}
 }  // namespace
 
 

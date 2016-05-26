@@ -15,16 +15,8 @@
 
 namespace routing
 {
-
 namespace
 {
-
-inline bool PointsAlmostEqualAbs(const m2::PointD & pt1, const m2::PointD & pt2)
-{
-  double constexpr kEpsilon = 1e-6;
-  return my::AlmostEqualAbs(pt1.x, pt2.x, kEpsilon) && my::AlmostEqualAbs(pt1.y, pt2.y, kEpsilon);
-}
-
 vector<Edge>::const_iterator FindEdgeContainingPoint(vector<Edge> const & edges, m2::PointD const & pt)
 {
   // A           P               B
@@ -166,62 +158,52 @@ IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH, initializer
 void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId,
                                                 RoadInfo const & roadInfo)
 {
-  size_t const numPoints = roadInfo.m_points.size();
-
-  for (size_t i = 0; i < numPoints; ++i)
+  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t i, m2::PointD const & p)
   {
-    m2::PointD const & p = roadInfo.m_points[i];
-
-    if (!PointsAlmostEqualAbs(m_cross, p))
-      continue;
-
+    ASSERT_LESS(i, roadInfo.m_points.size(), ());
     if (i > 0 && (roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag))
     {
       //               p
       // o------------>o
-
       m_edges.emplace_back(featureId, false /* forward */, i - 1, p, roadInfo.m_points[i - 1]);
     }
-
-    if (i < numPoints - 1)
+  },
+  [&featureId, &roadInfo, this](size_t i, m2::PointD const & p)
+  {
+    ASSERT_LESS(i, roadInfo.m_points.size(), ());
+    if (i < roadInfo.m_points.size() - 1)
     {
       // p
       // o------------>o
-
       m_edges.emplace_back(featureId, true /* forward */, i, p, roadInfo.m_points[i + 1]);
     }
-  }
+  });
 }
 
 // IRoadGraph::CrossIngoingLoader ----------------------------------------------
 void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId,
                                                RoadInfo const & roadInfo)
 {
-  size_t const numPoints = roadInfo.m_points.size();
-
-  for (size_t i = 0; i < numPoints; ++i)
+  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t i, m2::PointD const & p)
   {
-    m2::PointD const & p = roadInfo.m_points[i];
-
-    if (!PointsAlmostEqualAbs(m_cross, p))
-      continue;
-
+    ASSERT_LESS(i, roadInfo.m_points.size(), ());
     if (i > 0)
     {
       //               p
       // o------------>o
-
       m_edges.emplace_back(featureId, true /* forward */, i - 1, roadInfo.m_points[i - 1], p);
     }
-
-    if (i < numPoints - 1 && (roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag))
+  },
+  [&featureId, &roadInfo, this](size_t i, m2::PointD const & p)
+  {
+    ASSERT_LESS(i, roadInfo.m_points.size(), ());
+    if (i < roadInfo.m_points.size() - 1 && (roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag))
     {
       // p
       // o------------>o
-
       m_edges.emplace_back(featureId, false /* forward */, i, roadInfo.m_points[i + 1], p);
     }
-  }
+  });
 }
 
 // IRoadGraph ------------------------------------------------------------------
