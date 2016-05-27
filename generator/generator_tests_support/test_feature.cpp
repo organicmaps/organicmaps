@@ -167,7 +167,7 @@ void TestPOI::Serialize(FeatureBuilder1 & fb) const
   auto const & classificator = classif();
 
   for (auto const & path : m_types)
-    fb.SetType(classificator.GetTypeByPath(path));
+    fb.AddType(classificator.GetTypeByPath(path));
 
   if (!m_houseNumber.empty())
     fb.AddHouseNumber(m_houseNumber);

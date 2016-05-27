@@ -477,15 +477,23 @@ UNIT_CLASS_TEST(ProcessorV2Test, TestCategories)
   TestPOI busStop(m2::PointD(0.00005, 0.0005), "ATM Bus Stop", "en");
   busStop.SetTypes({{"highway", "bus_stop"}});
 
+  TestPOI cafe(m2::PointD(0.0001, 0.0001), "Cafe", "en");
+  cafe.SetTypes({{"amenity", "cafe"}, {"internet_access", "wlan"}});
+
+  TestPOI toi(m2::PointD(0.0001, 0.0001), "", "en");
+  toi.SetTypes({{"amenity", "toilets"}});
+
   BuildWorld([&](TestMwmBuilder & builder)
              {
                builder.Add(sanFrancisco);
              });
   auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
                                    {
+                                     builder.Add(busStop);
+                                     builder.Add(cafe);
                                      builder.Add(named);
                                      builder.Add(noname);
-                                     builder.Add(busStop);
+                                     builder.Add(toi);
                                    });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
@@ -535,6 +543,9 @@ UNIT_CLASS_TEST(ProcessorV2Test, TestCategories)
 
   // Tests that inexistent hashtagged categories do not crash.
   TEST(ResultsMatch("#void-", TRules{}), ());
+
+  TEST(ResultsMatch("wifi", {ExactMatch(wonderlandId, cafe)}), ());
+  TEST(ResultsMatch("toilet", {ExactMatch(wonderlandId, toi)}), ());
 }
 }  // namespace
 }  // namespace search

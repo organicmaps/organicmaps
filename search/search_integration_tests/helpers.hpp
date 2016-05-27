@@ -8,7 +8,6 @@
 #include "storage/country_decl.hpp"
 #include "storage/country_info_getter.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -29,7 +28,7 @@ namespace search
 class TestWithClassificator
 {
 public:
-  TestWithClassificator() { classificator::Load(); }
+  TestWithClassificator();
 };
 
 class SearchTest : public TestWithClassificator
