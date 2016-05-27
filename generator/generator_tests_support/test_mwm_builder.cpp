@@ -48,12 +48,20 @@ bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
 {
   CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
 
-  if (fb.PreSerialize() && fb.RemoveInvalidTypes())
+  if (!fb.PreSerialize())
   {
-    (*m_collector)(fb);
-    return true;
+    LOG(LWARNING, ("Can't pre-serialize feature."));
+    return false;
   }
-  return false;
+
+  if (!fb.RemoveInvalidTypes())
+  {
+    LOG(LWARNING, ("No types."));
+    return false;
+  }
+
+  (*m_collector)(fb);
+  return true;
 }
 
 void TestMwmBuilder::Finish()
