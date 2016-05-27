@@ -36,8 +36,8 @@ public:
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
 
-  void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
-                        m2::PointD const & junctionPoint, size_t & ingoingCount,
+  void GetPossibleTurns(TNodeId node, m2::PointD const & /* ingoingPoint */,
+                        m2::PointD const & /* junctionPoint */, size_t & ingoingCount,
                         TurnCandidates & outgoingTurns) const override
   {
     ingoingCount = 0;
@@ -51,7 +51,7 @@ public:
     }
 
     ingoingCount = adjacentEdges->second.m_ingoingTurnsCount;
-    outgoingTurns.candidates = adjacentEdges->second.m_outgoingTurns.candidates;
+    outgoingTurns = adjacentEdges->second.m_outgoingTurns;
   }
 
   double GetPathLength() const override { return m_routeLength; }
