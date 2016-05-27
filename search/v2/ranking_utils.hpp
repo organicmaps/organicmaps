@@ -1,7 +1,6 @@
 #pragma once
 
 #include "search/query_params.hpp"
-#include "search/v2/geocoder.hpp"
 #include "search/v2/search_model.hpp"
 
 #include "indexer/search_delimiters.hpp"

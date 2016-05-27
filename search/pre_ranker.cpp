@@ -2,6 +2,8 @@
 
 #include "search/v2/pre_ranking_info.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include "std/iterator.hpp"
 #include "std/random.hpp"
 #include "std/set.hpp"
@@ -17,16 +19,6 @@ struct LessFeatureID
   inline bool operator()(TValue const & lhs, TValue const & rhs) const
   {
     return lhs.GetId() < rhs.GetId();
-  }
-};
-
-struct EqualFeatureID
-{
-  using TValue = impl::PreResult1;
-
-  inline bool operator()(TValue const & lhs, TValue const & rhs) const
-  {
-    return lhs.GetId() == rhs.GetId();
   }
 };
 
@@ -60,7 +52,9 @@ void PreRanker::Filter(bool viewportSearch)
   TSet theSet;
 
   sort(m_results.begin(), m_results.end(), ComparePreResult1());
-  m_results.erase(unique(m_results.begin(), m_results.end(), EqualFeatureID()), m_results.end());
+  m_results.erase(
+      unique(m_results.begin(), m_results.end(), my::EqualsBy(&impl::PreResult1::GetId)),
+      m_results.end());
 
   sort(m_results.begin(), m_results.end(), &impl::PreResult1::LessDistance);
 
