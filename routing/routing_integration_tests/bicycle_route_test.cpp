@@ -11,5 +11,12 @@ UNIT_TEST(RussiaMoscowSevTushinoParkPreferingBicycleWay)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetBicycleComponents(), MercatorBounds::FromLatLon(55.87445, 37.43711), {0., 0.},
-      MercatorBounds::FromLatLon(55.87203, 37.44274), 460.);
+      MercatorBounds::FromLatLon(55.87203, 37.44274), 460.0);
+}
+
+UNIT_TEST(RussiaMoscowNahimovskyLongRoute)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(55.66151, 37.63320), {0., 0.},
+      MercatorBounds::FromLatLon(55.67695, 37.56220), 6938.0);
 }
