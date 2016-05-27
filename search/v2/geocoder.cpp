@@ -222,7 +222,8 @@ void JoinQueryTokens(QueryParams const & params, size_t curToken, size_t endToke
     }
     else
     {
-      ASSERT_EQUAL(i, params.m_tokens.size(), ());
+      CHECK_EQUAL(i, params.m_tokens.size(), ());
+      CHECK(!params.m_prefixTokens.empty(), ());
       res.append(params.m_prefixTokens.front());
     }
 
@@ -1045,17 +1046,18 @@ void Geocoder::WithPostcodes(TFn && fn)
 
     auto postcodes =
         RetrievePostcodeFeatures(*m_context, TokenSlice(m_params, startToken, endToken));
+    MY_SCOPE_GUARD(cleanup, [&]() { m_postcodes.Clear(); });
+
     if (!coding::CompressedBitVector::IsEmpty(postcodes))
     {
       ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
 
+      m_postcodes.Clear();
       m_postcodes.m_startToken = startToken;
       m_postcodes.m_endToken = endToken;
       m_postcodes.m_features = move(postcodes);
 
       fn();
-
-      m_postcodes.Clear();
     }
   }
 }
