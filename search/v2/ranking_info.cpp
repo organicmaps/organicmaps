@@ -1,6 +1,7 @@
 #include "search/v2/ranking_info.hpp"
 
 #include "std/cmath.hpp"
+#include "std/iomanip.hpp"
 #include "std/limits.hpp"
 #include "std/sstream.hpp"
 

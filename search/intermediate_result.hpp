@@ -1,4 +1,5 @@
 #pragma once
+
 #include "search/result.hpp"
 #include "search/v2/pre_ranking_info.hpp"
 #include "search/v2/ranking_info.hpp"
@@ -18,6 +19,7 @@ struct CountryInfo;
 namespace search
 {
 class ReverseGeocoder;
+
 namespace impl
 {
 /// First pass results class. Objects are creating during search in trie.
@@ -151,9 +153,7 @@ inline string DebugPrint(PreResult2 const & t)
 {
   return t.DebugPrint();
 }
-
-}  // namespace search::impl
+}  // namespace impl
 
 void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta);
-
 }  // namespace search

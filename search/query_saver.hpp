@@ -1,3 +1,5 @@
+#pragma once
+
 #include "std/list.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"

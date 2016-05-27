@@ -1,9 +1,10 @@
 #pragma once
 
-#include "search/v2/geocoder.hpp"
 #include "search/v2/pre_ranking_info.hpp"
 #include "search/v2/ranking_utils.hpp"
 #include "search/v2/search_model.hpp"
+
+#include "std/iostream.hpp"
 
 class FeatureType;
 
