@@ -44,29 +44,31 @@ UniChar LastUniChar(string const & s)
 
 namespace
 {
-template<typename T, typename ET>
-bool IntegerCheck(T x, char const *stop, ET & out)
+template <typename T, typename TResult>
+bool IntegerCheck(char const * start, char const * stop, T x, TResult & out)
 {
-  if (*stop == 0)
+  if (errno != EINVAL && *stop == 0)
   {
-    out = static_cast<ET>(x);
-    ASSERT_EQUAL(static_cast<T>(out), x, ());
-    return true;
+    out = static_cast<TResult>(x);
+    return static_cast<T>(out) == x;
   }
+  errno = 0;
   return false;
 }
 }  // namespace
-  
-bool to_int(char const * s, int & i, int base /*= 10*/)
+
+bool to_int(char const * start, int & i, int base /*= 10*/)
 {
   char * stop;
-  return IntegerCheck(strtol(s, &stop, base), stop, i);
+  long const v = strtol(start, &stop, base);
+  return IntegerCheck(start, stop, v, i);
 }
 
-bool to_uint(char const * s, unsigned int & i, int base /*= 10*/)
+bool to_uint(char const * start, unsigned int & i, int base /*= 10*/)
 {
   char * stop;
-  return IntegerCheck(strtoul(s, &stop, base), stop, i);
+  unsigned long const v = strtoul(start, &stop, base);
+  return IntegerCheck(start, stop, v, i);
 }
 
   
