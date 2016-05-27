@@ -30,7 +30,7 @@ namespace search
 {
 namespace
 {
-class ProcessorV2Test : public SearchTest
+class ProcessorTest : public SearchTest
 {
 public:
   unique_ptr<TestSearchRequest> MakeRequest(string const & query)
@@ -53,7 +53,7 @@ public:
   }
 };
 
-UNIT_CLASS_TEST(ProcessorV2Test, Smoke)
+UNIT_CLASS_TEST(ProcessorTest, Smoke)
 {
   string const countryName = "Wonderland";
   TestCountry wonderlandCountry(m2::PointD(10, 10), countryName, "en");
@@ -193,7 +193,7 @@ UNIT_CLASS_TEST(ProcessorV2Test, Smoke)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorV2Test, SearchInWorld)
+UNIT_CLASS_TEST(ProcessorTest, SearchInWorld)
 {
   string const countryName = "Wonderland";
   TestCountry wonderland(m2::PointD(0, 0), countryName, "en");
@@ -221,7 +221,7 @@ UNIT_CLASS_TEST(ProcessorV2Test, SearchInWorld)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorV2Test, SearchByName)
+UNIT_CLASS_TEST(ProcessorTest, SearchByName)
 {
   string const countryName = "Wonderland";
   TestCity london(m2::PointD(1, 1), "London", "en", 100 /* rank */);
@@ -259,7 +259,7 @@ UNIT_CLASS_TEST(ProcessorV2Test, SearchByName)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorV2Test, DisableSuggests)
+UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
 {
   TestCity london1(m2::PointD(1, 1), "London", "en", 100 /* rank */);
   TestCity london2(m2::PointD(-1, -1), "London", "en", 100 /* rank */);
@@ -286,7 +286,7 @@ UNIT_CLASS_TEST(ProcessorV2Test, DisableSuggests)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorV2Test, TestRankingInfo)
+UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
 {
   string const countryName = "Wonderland";
 
@@ -367,7 +367,7 @@ UNIT_CLASS_TEST(ProcessorV2Test, TestRankingInfo)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorV2Test, TestPostcodes)
+UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 {
   string const countryName = "Russia";
 
@@ -441,7 +441,6 @@ UNIT_CLASS_TEST(ProcessorV2Test, TestPostcodes)
   {
     TRules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29)};
     TEST(ResultsMatch("Долгопрудный первомайская 141701", "ru", rules), ());
-
   }
   {
     TRules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29)};
@@ -462,7 +461,7 @@ UNIT_CLASS_TEST(ProcessorV2Test, TestPostcodes)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorV2Test, TestCategories)
+UNIT_CLASS_TEST(ProcessorTest, TestCategories)
 {
   string const countryName = "Wonderland";
 

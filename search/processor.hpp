@@ -50,6 +50,12 @@ namespace search
 struct Locality;
 struct Region;
 struct QueryParams;
+class ReverseGeocoder;
+
+namespace v2
+{
+class Geocoder;
+}  // namespace search::v2
 
 namespace impl
 {
@@ -79,49 +85,47 @@ public:
   /// @param[in]  forceUpdate Pass true (default) to recache feature's ids even
   /// if viewport is a part of the old cached rect.
   void SetViewport(m2::RectD const & viewport, bool forceUpdate);
-
+  void SetPreferredLocale(string const & locale);
+  void SetInputLocale(string const & locale);
+  void SetQuery(string const & query);
   // TODO (@y): this function must be removed.
   void SetRankPivot(m2::PointD const & pivot);
-  inline string const & GetPivotRegion() const { return m_region; }
-  inline void SetPosition(m2::PointD const & position) { m_position = position; }
-  inline m2::PointD const & GetPosition() const { return m_position; }
-
   inline void SetMode(Mode mode) { m_mode = mode; }
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
   inline void SetSuggestsEnabled(bool enabled) { m_suggestsEnabled = enabled; }
+  inline void SetPosition(m2::PointD const & position) { m_position = position; }
+
+  inline string const & GetPivotRegion() const { return m_region; }
+  inline m2::PointD const & GetPosition() const { return m_position; }
+
+  // Get scale level to make geometry index query for current viewport.
+  int GetQueryIndexScale(m2::RectD const & viewport) const;
 
   /// Suggestions language code, not the same as we use in mwm data
   int8_t m_inputLocaleCode, m_currentLocaleCode;
 
-  void SetPreferredLocale(string const & locale);
-  void SetInputLocale(string const & locale);
-
-  void SetQuery(string const & query);
   inline bool IsEmptyQuery() const { return (m_prefix.empty() && m_tokens.empty()); }
 
-  /// @name Different search functions.
+  /// @name Various search functions.
   //@{
-  virtual void Search(Results & results, size_t limit) = 0;
-  virtual void SearchViewportPoints(Results & results) = 0;
+  void Search(Results & results, size_t limit);
+  void SearchViewportPoints(Results & results);
 
   // Tries to generate a (lat, lon) result from |m_query|.
   void SearchCoordinates(Results & res) const;
   //@}
 
-  // Get scale level to make geometry index query for current viewport.
-  virtual int GetQueryIndexScale(m2::RectD const & viewport) const;
-
-  virtual void ClearCaches();
-
   struct CancelException
   {
   };
 
-  /// @name This stuff is public for implementation classes in processor.cpp
-  /// Do not use it in client code.
-  //@{
-
   void InitParams(bool localitySearch, QueryParams & params);
+
+  void ClearCaches();
+
+  // my::Cancellable overrides:
+  void Reset() override;
+  void Cancel() override;
 
 protected:
   enum ViewportID
@@ -164,8 +168,6 @@ protected:
   /// @param allMWMs Deprecated, need to support old search algorithm.
   /// @param oldHouseSearch Deprecated, need to support old search algorithm.
   //@{
-  void FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets);
-
   void FlushResults(v2::Geocoder::Params const & params, Results & res, bool allMWMs,
                     size_t resCount, bool oldHouseSearch);
   void FlushViewportResults(v2::Geocoder::Params const & params, Results & res,
@@ -221,30 +223,12 @@ protected:
 
   bool m_supportOldFormat;
 
-  template <class TParam>
-  class TCompare
-  {
-    using TFunction = function<bool(TParam const &, TParam const &)>;
-    TFunction m_fn;
-
-  public:
-    TCompare() : m_fn(0) {}
-    explicit TCompare(TFunction const & fn) : m_fn(fn) {}
-
-    template <class T>
-    bool operator()(T const & v1, T const & v2) const
-    {
-      return m_fn(v1, v2);
-    }
-  };
-
-  using TQueueCompare = TCompare<impl::PreResult1>;
-  using TQueue = my::limited_priority_queue<impl::PreResult1, TQueueCompare>;
-
 protected:
-  PreRanker m_preRanker;
   bool m_viewportSearch;
   bool m_keepHouseNumberInQuery;
-  search::ReverseGeocoder const m_reverseGeocoder;
+
+  PreRanker m_preRanker;
+  v2::Geocoder m_geocoder;
+  ReverseGeocoder const m_reverseGeocoder;
 };
 }  // namespace search

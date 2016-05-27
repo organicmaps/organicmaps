@@ -1,4 +1,5 @@
 #pragma once
+
 #include "search/result.hpp"
 #include "search/v2/pre_ranking_info.hpp"
 #include "search/v2/ranking_info.hpp"

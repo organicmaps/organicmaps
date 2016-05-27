@@ -31,6 +31,8 @@
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_reader.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/mwm_traits.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/preferred_languages.hpp"
@@ -226,9 +228,10 @@ Processor::Processor(Index & index, CategoriesHolder const & categories,
   , m_mode(Mode::Everywhere)
   , m_worldSearch(true)
   , m_suggestsEnabled(true)
-  , m_preRanker(kPreResultsCount)
   , m_viewportSearch(false)
-  , m_keepHouseNumberInQuery(false)
+  , m_keepHouseNumberInQuery(true)
+  , m_preRanker(kPreResultsCount)
+  , m_geocoder(index, infoGetter)
   , m_reverseGeocoder(index)
 {
   // Initialize keywords scorer.
@@ -244,30 +247,14 @@ Processor::Processor(Index & index, CategoriesHolder const & categories,
   SetPreferredLocale("en");
 }
 
-void Processor::SetLanguage(int id, int8_t lang)
+void Processor::Init(bool viewportSearch)
 {
-  m_keywordsScorer.SetLanguage(GetLangIndex(id), lang);
-}
+  Reset();
 
-int8_t Processor::GetLanguage(int id) const
-{
-  return m_keywordsScorer.GetLanguage(GetLangIndex(id));
-}
-
-m2::PointD Processor::GetPivotPoint() const
-{
-  m2::RectD const & viewport = m_viewport[CURRENT_V];
-  if (viewport.IsPointInside(GetPosition()))
-    return GetPosition();
-  return viewport.Center();
-}
-
-m2::RectD Processor::GetPivotRect() const
-{
-  m2::RectD const & viewport = m_viewport[CURRENT_V];
-  if (viewport.IsPointInside(GetPosition()))
-    return GetRectAroundPosition(GetPosition());
-  return NormalizeViewport(viewport);
+  m_tokens.clear();
+  m_prefix.clear();
+  m_preRanker.Clear();
+  m_viewportSearch = viewportSearch;
 }
 
 void Processor::SetViewport(m2::RectD const & viewport, bool forceUpdate)
@@ -278,59 +265,6 @@ void Processor::SetViewport(m2::RectD const & viewport, bool forceUpdate)
   m_index.GetMwmsInfo(mwmsInfo);
 
   SetViewportByIndex(mwmsInfo, viewport, CURRENT_V, forceUpdate);
-}
-
-void Processor::SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & viewport,
-                                   size_t idx, bool forceUpdate)
-{
-  ASSERT(idx < COUNT_V, (idx));
-
-  if (viewport.IsValid())
-  {
-    // Check if we can skip this cache query.
-    if (m_viewport[idx].IsValid())
-    {
-      // Threshold to compare for equal or inner rects.
-      // It doesn't influence on result cached features because it's smaller
-      // than minimal cell size in geometry index (i'm almost sure :)).
-      double constexpr epsMeters = 10.0;
-
-      if (forceUpdate)
-      {
-        // skip if rects are equal
-        if (IsEqualMercator(m_viewport[idx], viewport, epsMeters))
-          return;
-      }
-      else
-      {
-        // skip if the new viewport is inside the old one (no need to recache)
-        m2::RectD r(m_viewport[idx]);
-        double constexpr eps = epsMeters * MercatorBounds::degreeInMetres;
-        r.Inflate(eps, eps);
-
-        if (r.IsRectInside(viewport))
-          return;
-      }
-    }
-
-    m_viewport[idx] = viewport;
-  }
-  else
-  {
-    ClearCache(idx);
-  }
-}
-
-void Processor::SetRankPivot(m2::PointD const & pivot)
-{
-  if (!m2::AlmostEqualULPs(pivot, m_pivot))
-  {
-    storage::CountryInfo ci;
-    m_infoGetter.GetRegionInfo(pivot, ci);
-    m_region.swap(ci.m_name);
-  }
-
-  m_pivot = pivot;
 }
 
 void Processor::SetPreferredLocale(string const & locale)
@@ -362,72 +296,6 @@ void Processor::SetInputLocale(string const & locale)
     SetLanguage(LANG_INPUT, StringUtf8Multilang::GetLangIndex(languages::Normalize(locale)));
 
     m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
-  }
-}
-
-void Processor::ClearCaches()
-{
-  for (size_t i = 0; i < COUNT_V; ++i)
-    ClearCache(i);
-
-  m_locality.ClearCache();
-}
-
-void Processor::ClearCache(size_t ind) { m_viewport[ind].MakeEmpty(); }
-
-void Processor::Init(bool viewportSearch)
-{
-  Reset();
-
-  m_tokens.clear();
-  m_prefix.clear();
-  m_preRanker.Clear();
-  m_viewportSearch = viewportSearch;
-}
-
-int Processor::GetCategoryLocales(int8_t(&arr)[3]) const
-{
-  static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
-
-  // Prepare array of processing locales. English locale is always present for category matching.
-  int count = 0;
-  if (m_currentLocaleCode != -1)
-    arr[count++] = m_currentLocaleCode;
-  if (m_inputLocaleCode != -1 && m_inputLocaleCode != m_currentLocaleCode)
-    arr[count++] = m_inputLocaleCode;
-  if (enLocaleCode != m_currentLocaleCode && enLocaleCode != m_inputLocaleCode)
-    arr[count++] = enLocaleCode;
-
-  return count;
-}
-
-template <class ToDo>
-void Processor::ForEachCategoryTypes(StringSliceBase const & slice, ToDo toDo) const
-{
-  int8_t arrLocales[3];
-  int const localesCount = GetCategoryLocales(arrLocales);
-
-  for (size_t i = 0; i < slice.Size(); ++i)
-  {
-    auto token = RemoveHashtag(slice.Get(i));
-    for (int j = 0; j < localesCount; ++j)
-      m_categories.ForEachTypeByName(arrLocales[j], token, bind<void>(ref(toDo), i, _1));
-    ProcessEmojiIfNeeded(token, i, toDo);
-  }
-}
-
-template <class ToDo>
-void Processor::ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind,
-                                     ToDo & toDo) const
-{
-  // Special process of 2 codepoints emoji (e.g. black guy on a bike).
-  // Only emoji synonyms can have one codepoint.
-  if (token.size() > 1)
-  {
-    static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
-
-    m_categories.ForEachTypeByName(enLocaleCode, strings::UniString(1, token[0]),
-                                   bind<void>(ref(toDo), ind, _1));
   }
 }
 
@@ -499,30 +367,167 @@ void Processor::SetQuery(string const & query)
                        });
 }
 
-void Processor::FlushViewportResults(v2::Geocoder::Params const & params, Results & res,
-                                     bool oldHouseSearch)
+void Processor::SetRankPivot(m2::PointD const & pivot)
 {
-  vector<IndexedValue> indV;
-  vector<FeatureID> streets;
-
-  MakePreResult2(params, indV, streets);
-  RemoveDuplicatingLinear(indV);
-  if (indV.empty())
-    return;
-
-  sort(indV.begin(), indV.end(), my::LessBy(&IndexedValue::GetDistanceToPivot));
-
-  for (size_t i = 0; i < indV.size(); ++i)
+  if (!m2::AlmostEqualULPs(pivot, m_pivot))
   {
-    if (IsCancelled())
-      break;
-
-    res.AddResultNoChecks(
-        (*(indV[i]))
-            .GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes,
-                                 m_currentLocaleCode,
-                                 nullptr /* Viewport results don't need calculated address */));
+    storage::CountryInfo ci;
+    m_infoGetter.GetRegionInfo(pivot, ci);
+    m_region.swap(ci.m_name);
   }
+
+  m_pivot = pivot;
+}
+
+void Processor::SetLanguage(int id, int8_t lang)
+{
+  m_keywordsScorer.SetLanguage(GetLangIndex(id), lang);
+}
+
+int8_t Processor::GetLanguage(int id) const
+{
+  return m_keywordsScorer.GetLanguage(GetLangIndex(id));
+}
+
+m2::PointD Processor::GetPivotPoint() const
+{
+  m2::RectD const & viewport = m_viewport[CURRENT_V];
+  if (viewport.IsPointInside(GetPosition()))
+    return GetPosition();
+  return viewport.Center();
+}
+
+m2::RectD Processor::GetPivotRect() const
+{
+  m2::RectD const & viewport = m_viewport[CURRENT_V];
+  if (viewport.IsPointInside(GetPosition()))
+    return GetRectAroundPosition(GetPosition());
+  return NormalizeViewport(viewport);
+}
+
+void Processor::SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & viewport,
+                                   size_t idx, bool forceUpdate)
+{
+  ASSERT(idx < COUNT_V, (idx));
+
+  if (viewport.IsValid())
+  {
+    // Check if we can skip this cache query.
+    if (m_viewport[idx].IsValid())
+    {
+      // Threshold to compare for equal or inner rects.
+      // It doesn't influence on result cached features because it's smaller
+      // than minimal cell size in geometry index (i'm almost sure :)).
+      double constexpr epsMeters = 10.0;
+
+      if (forceUpdate)
+      {
+        // skip if rects are equal
+        if (IsEqualMercator(m_viewport[idx], viewport, epsMeters))
+          return;
+      }
+      else
+      {
+        // skip if the new viewport is inside the old one (no need to recache)
+        m2::RectD r(m_viewport[idx]);
+        double constexpr eps = epsMeters * MercatorBounds::degreeInMetres;
+        r.Inflate(eps, eps);
+
+        if (r.IsRectInside(viewport))
+          return;
+      }
+    }
+
+    m_viewport[idx] = viewport;
+  }
+  else
+  {
+    ClearCache(idx);
+  }
+}
+
+void Processor::ClearCache(size_t ind) { m_viewport[ind].MakeEmpty(); }
+
+int Processor::GetCategoryLocales(int8_t(&arr)[3]) const
+{
+  static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
+
+  // Prepare array of processing locales. English locale is always present for category matching.
+  int count = 0;
+  if (m_currentLocaleCode != -1)
+    arr[count++] = m_currentLocaleCode;
+  if (m_inputLocaleCode != -1 && m_inputLocaleCode != m_currentLocaleCode)
+    arr[count++] = m_inputLocaleCode;
+  if (enLocaleCode != m_currentLocaleCode && enLocaleCode != m_inputLocaleCode)
+    arr[count++] = enLocaleCode;
+
+  return count;
+}
+
+template <class ToDo>
+void Processor::ForEachCategoryTypes(StringSliceBase const & slice, ToDo toDo) const
+{
+  int8_t arrLocales[3];
+  int const localesCount = GetCategoryLocales(arrLocales);
+
+  for (size_t i = 0; i < slice.Size(); ++i)
+  {
+    auto token = RemoveHashtag(slice.Get(i));
+    for (int j = 0; j < localesCount; ++j)
+      m_categories.ForEachTypeByName(arrLocales[j], token, bind<void>(ref(toDo), i, _1));
+    ProcessEmojiIfNeeded(token, i, toDo);
+  }
+}
+
+template <class ToDo>
+void Processor::ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind,
+                                     ToDo & toDo) const
+{
+  // Special process of 2 codepoints emoji (e.g. black guy on a bike).
+  // Only emoji synonyms can have one codepoint.
+  if (token.size() > 1)
+  {
+    static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
+
+    m_categories.ForEachTypeByName(enLocaleCode, strings::UniString(1, token[0]),
+                                   bind<void>(ref(toDo), ind, _1));
+  }
+}
+
+int Processor::GetQueryIndexScale(m2::RectD const & viewport) const
+{
+  return search::GetQueryIndexScale(viewport);
+}
+
+void Processor::Search(Results & results, size_t limit)
+{
+  if (m_tokens.empty())
+    SuggestStrings(results);
+
+  v2::Geocoder::Params params;
+  InitParams(false /* localitySearch */, params);
+  params.m_mode = m_mode;
+
+  params.m_pivot = GetPivotRect();
+  params.m_accuratePivotCenter = GetPivotPoint();
+  m_geocoder.SetParams(params);
+
+  m_geocoder.GoEverywhere(m_preRanker);
+
+  FlushResults(params, results, false /* allMWMs */, limit, false /* oldHouseSearch */);
+}
+
+void Processor::SearchViewportPoints(Results & results)
+{
+  v2::Geocoder::Params params;
+  InitParams(false /* localitySearch */, params);
+  params.m_pivot = m_viewport[CURRENT_V];
+  params.m_accuratePivotCenter = params.m_pivot.Center();
+  m_geocoder.SetParams(params);
+
+  m_geocoder.GoInViewport(m_preRanker);
+
+  FlushViewportResults(params, results, false /* oldHouseSearch */);
 }
 
 void Processor::SearchCoordinates(Results & res) const
@@ -741,9 +746,30 @@ void Processor::FlushResults(v2::Geocoder::Params const & params, Results & res,
   }
 }
 
-int Processor::GetQueryIndexScale(m2::RectD const & viewport) const
+void Processor::FlushViewportResults(v2::Geocoder::Params const & params, Results & res,
+                                     bool oldHouseSearch)
 {
-  return search::GetQueryIndexScale(viewport);
+  vector<IndexedValue> indV;
+  vector<FeatureID> streets;
+
+  MakePreResult2(params, indV, streets);
+  RemoveDuplicatingLinear(indV);
+  if (indV.empty())
+    return;
+
+  sort(indV.begin(), indV.end(), my::LessBy(&IndexedValue::GetDistanceToPivot));
+
+  for (size_t i = 0; i < indV.size(); ++i)
+  {
+    if (IsCancelled())
+      break;
+
+    res.AddResultNoChecks(
+        (*(indV[i]))
+            .GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes,
+                                 m_currentLocaleCode,
+                                 nullptr /* Viewport results don't need calculated address */));
+  }
 }
 
 void Processor::RemoveStringPrefix(string const & str, string & res) const
@@ -1158,6 +1184,19 @@ void Processor::InitParams(bool localitySearch, QueryParams & params)
   for (int i = 0; i < LANG_COUNT; ++i)
     params.m_langs.insert(GetLanguage(i));
 }
+
+void Processor::ClearCaches()
+{
+  for (size_t i = 0; i < COUNT_V; ++i)
+    ClearCache(i);
+
+  m_locality.ClearCache();
+  m_geocoder.ClearCaches();
+}
+
+void Processor::Reset() { m_geocoder.Reset(); }
+
+void Processor::Cancel() { m_geocoder.Cancel(); }
 
 void Processor::SuggestStrings(Results & res)
 {
