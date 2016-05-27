@@ -125,27 +125,27 @@ public:
     virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) = 0;
 
   protected:
-    template <typename THeadFn, typename TTailFn>
-    void ForEachEdge(RoadInfo const & roadInfo, THeadFn && headFn, TTailFn && tailFn)
+    template <typename TFn>
+    void ForEachEdge(RoadInfo const & roadInfo, TFn && fn)
     {
       for (size_t i = 0; i < roadInfo.m_points.size(); ++i)
       {
-        m2::PointD const & p = roadInfo.m_points[i];
-
-        if (!my::AlmostEqualAbs(m_cross, p, kPointsEqualEpsilon))
+        if (!my::AlmostEqualAbs(m_cross, roadInfo.m_points[i], kPointsEqualEpsilon))
           continue;
 
-        if (i > 0)
-        {
-          //               p
-          // o------------>o
-          tailFn(i, p);
-        }
         if (i < roadInfo.m_points.size() - 1)
         {
-          // p
-          // o------------>o
-          headFn(i, p);
+          // Head of the edge.
+          // m_cross
+          //     o------------>o
+          fn(i, roadInfo.m_points[i + 1], true /* forward */);
+        }
+        if (i > 0)
+        {
+          // Tail of the edge.
+          //                m_cross
+          //     o------------>o
+          fn(i - 1, roadInfo.m_points[i - 1],  false /* backward */);
         }
       }
     }

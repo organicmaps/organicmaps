@@ -158,33 +158,20 @@ IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH, initializer
 // IRoadGraph::CrossOutgoingLoader ---------------------------------------------
 void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
-  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t i, m2::PointD const & p)
+  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, m2::PointD const & endPoint,  bool forward)
   {
-    ASSERT_LESS(i, roadInfo.m_points.size() - 1, ());
-    m_edges.emplace_back(featureId, true /* forward */, i, p, roadInfo.m_points[i + 1]);
-  },
-  [&featureId, &roadInfo, this](size_t i, m2::PointD const & p)
-  {
-    ASSERT_LESS(i, roadInfo.m_points.size(), ());
-    if (roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.emplace_back(featureId, false /* forward */, i - 1, p, roadInfo.m_points[i - 1]);
+    if (forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
+      m_edges.emplace_back(featureId, forward, segId, m_cross, endPoint);
   });
 }
 
 // IRoadGraph::CrossIngoingLoader ----------------------------------------------
 void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
-  ForEachEdge(roadInfo,
-  [&featureId, &roadInfo, this](size_t i, m2::PointD const & p)
+  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, m2::PointD const & endPoint, bool forward)
   {
-    ASSERT_LESS(i, roadInfo.m_points.size() - 1, ());
-    if (roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.emplace_back(featureId, false /* forward */, i, roadInfo.m_points[i + 1], p);
-  },
-  [&featureId, &roadInfo, this](size_t i, m2::PointD const & p)
-  {
-    ASSERT_LESS(i, roadInfo.m_points.size() , ());
-    m_edges.emplace_back(featureId, true /* forward */, i - 1, roadInfo.m_points[i - 1], p);
+    if (!forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
+      m_edges.emplace_back(featureId, !forward, segId, endPoint, m_cross);
   });
 }
 

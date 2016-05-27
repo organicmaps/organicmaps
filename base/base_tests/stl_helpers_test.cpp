@@ -78,10 +78,10 @@ UNIT_TEST(EqualsBy)
 UNIT_TEST(SortUnique)
 {
   {
-    vector<int> v = {1, 2, 1, 4, 3, 5, 2, 7, 1};
-    my::SortUnique(v);
+    vector<int> actual = {1, 2, 1, 4, 3, 5, 2, 7, 1};
+    my::SortUnique(actual);
     vector<int> const expected = {1, 2, 3, 4, 5, 7};
-    TEST_EQUAL(v, expected, ());
+    TEST_EQUAL(actual, expected, ());
   }
   {
     using TValue = int;
