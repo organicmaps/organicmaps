@@ -1361,7 +1361,7 @@ void Geocoder::FindPaths()
   sortedLayers.reserve(m_layers.size());
   for (auto & layer : m_layers)
     sortedLayers.push_back(&layer);
-  sort(sortedLayers.begin(), sortedLayers.end(), my::CompareBy(&FeaturesLayer::m_type));
+  sort(sortedLayers.begin(), sortedLayers.end(), my::LessBy(&FeaturesLayer::m_type));
 
   auto const & innermostLayer = *sortedLayers.front();
 
