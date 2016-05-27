@@ -1,6 +1,6 @@
 #include "reverse_geocoder.hpp"
 
-#include "search/v2/mwm_context.hpp"
+#include "search/mwm_context.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -50,7 +50,7 @@ void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD cons
   MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(id);
   if (mwmHandle.IsAlive())
   {
-    search::v2::MwmContext(move(mwmHandle)).ForEachFeature(rect, addStreet);
+    search::MwmContext(move(mwmHandle)).ForEachFeature(rect, addStreet);
     sort(streets.begin(), streets.end(), my::LessBy(&Street::m_distanceMeters));
   }
 }
@@ -199,7 +199,7 @@ bool ReverseGeocoder::HouseTable::Get(FeatureID const & fid, uint32_t & streetIn
       LOG(LWARNING, ("MWM", fid, "is dead"));
       return false;
     }
-    m_table = search::v2::HouseToStreetTable::Load(*m_handle.GetValue<MwmValue>());
+    m_table = search::HouseToStreetTable::Load(*m_handle.GetValue<MwmValue>());
   }
 
   return m_table->Get(fid.m_index, streetIndex);

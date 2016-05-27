@@ -1,9 +1,9 @@
 #pragma once
 
+#include "search/pre_ranking_info.hpp"
+#include "search/ranking_info.hpp"
+#include "search/ranking_utils.hpp"
 #include "search/result.hpp"
-#include "search/v2/pre_ranking_info.hpp"
-#include "search/v2/ranking_info.hpp"
-#include "search/v2/ranking_utils.hpp"
 
 #include "indexer/feature_data.hpp"
 
@@ -27,7 +27,7 @@ namespace impl
 class PreResult1
 {
 public:
-  PreResult1(FeatureID const & fID, v2::PreRankingInfo const & info);
+  PreResult1(FeatureID const & fID, PreRankingInfo const & info);
 
   static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
   static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
@@ -35,14 +35,14 @@ public:
   inline FeatureID GetId() const { return m_id; }
   inline double GetDistance() const { return m_info.m_distanceToPivot; }
   inline uint8_t GetRank() const { return m_info.m_rank; }
-  inline v2::PreRankingInfo & GetInfo() { return m_info; }
-  inline v2::PreRankingInfo const & GetInfo() const { return m_info; }
+  inline PreRankingInfo & GetInfo() { return m_info; }
+  inline PreRankingInfo const & GetInfo() const { return m_info; }
 
 private:
   friend class PreResult2;
 
   FeatureID m_id;
-  v2::PreRankingInfo m_info;
+  PreRankingInfo m_info;
 };
 
 /// Second result class. Objects are creating during reading of features.
@@ -66,7 +66,7 @@ public:
   /// For RESULT_LATLON.
   PreResult2(double lat, double lon);
 
-  inline search::v2::RankingInfo const & GetRankingInfo() const { return m_info; }
+  inline search::RankingInfo const & GetRankingInfo() const { return m_info; }
 
   template <typename TInfo>
   inline void SetRankingInfo(TInfo && info)
@@ -143,7 +143,7 @@ private:
 
   double m_distance;
   ResultType m_resultType;
-  v2::RankingInfo m_info;
+  RankingInfo m_info;
   feature::EGeomType m_geomType;
 
   Result::Metadata m_metadata;

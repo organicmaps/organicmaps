@@ -1,6 +1,6 @@
 #include "search/pre_ranker.hpp"
 
-#include "search/v2/pre_ranking_info.hpp"
+#include "search/pre_ranking_info.hpp"
 
 #include "base/stl_helpers.hpp"
 

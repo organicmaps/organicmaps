@@ -18,8 +18,6 @@ class CompressedBitVector;
 
 namespace search
 {
-namespace v2
-{
 class MwmContext;
 class TokenSlice;
 
@@ -40,5 +38,5 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
     MwmContext const & context, my::Cancellable const & cancellable, m2::RectD const & rect,
     int scale);
-} // namespace v2
+
 } // namespace search

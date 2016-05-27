@@ -1,5 +1,6 @@
 #include "search/locality_finder.hpp"
-#include "search/v2/mwm_context.hpp"
+
+#include "search/mwm_context.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
@@ -126,7 +127,7 @@ void LocalityFinder::UpdateCache(Cache & cache, m2::PointD const & pt) const
     if (handle.IsAlive() && value->GetHeader().GetType() == feature::DataHeader::world)
     {
       cache.m_rect = rect;
-      v2::MwmContext(move(handle)).ForEachFeature(rect, DoLoader(*this, cache));
+      MwmContext(move(handle)).ForEachFeature(rect, DoLoader(*this, cache));
       break;
     }
   }

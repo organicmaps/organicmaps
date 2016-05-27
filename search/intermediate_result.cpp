@@ -60,8 +60,7 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 
 namespace impl
 {
-PreResult1::PreResult1(FeatureID const & fID, v2::PreRankingInfo const & info)
-  : m_id(fID), m_info(info)
+PreResult1::PreResult1(FeatureID const & fID, PreRankingInfo const & info) : m_id(fID), m_info(info)
 {
   ASSERT(m_id.IsValid(), ());
 }

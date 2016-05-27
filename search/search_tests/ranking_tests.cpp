@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "search/query_params.hpp"
-#include "search/v2/ranking_utils.hpp"
-#include "search/v2/token_slice.hpp"
+#include "search/ranking_utils.hpp"
+#include "search/token_slice.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -13,7 +13,6 @@
 #include "std/string.hpp"
 
 using namespace search;
-using namespace search::v2;
 using namespace strings;
 
 namespace

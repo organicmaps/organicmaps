@@ -1,5 +1,5 @@
 #pragma once
-#include "search/v2/ranking_info.hpp"
+#include "search/ranking_info.hpp"
 
 #include "indexer/feature_decl.hpp"
 
@@ -94,7 +94,7 @@ public:
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
 
-  inline v2::RankingInfo const & GetRankingInfo() const { return m_info; }
+  inline RankingInfo const & GetRankingInfo() const { return m_info; }
 
   template <typename TInfo>
   inline void SetRankingInfo(TInfo && info)
@@ -115,7 +115,7 @@ private:
   string m_suggestionStr;
   buffer_vector<pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
 
-  v2::RankingInfo m_info;
+  RankingInfo m_info;
 
   // The position that this result occupied in the vector returned
   // by a search query. -1 if undefined.

@@ -5,14 +5,14 @@
 #include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
 #include "search/locality.hpp"
+#include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
+#include "search/ranking_info.hpp"
+#include "search/ranking_utils.hpp"
 #include "search/region.hpp"
 #include "search/search_common.hpp"
 #include "search/search_index_values.hpp"
 #include "search/search_string_intersection.hpp"
-#include "search/v2/pre_ranking_info.hpp"
-#include "search/v2/ranking_info.hpp"
-#include "search/v2/ranking_utils.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/index.hpp"
@@ -181,18 +181,18 @@ m2::RectD GetRectAroundPosition(m2::PointD const & position)
 }
 
 template <typename TSlice>
-void UpdateNameScore(string const & name, TSlice const & slice, v2::NameScore & bestScore)
+void UpdateNameScore(string const & name, TSlice const & slice, NameScore & bestScore)
 {
-  auto const score = v2::GetNameScore(name, slice);
+  auto const score = GetNameScore(name, slice);
   if (score > bestScore)
     bestScore = score;
 }
 
 template <typename TSlice>
 void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & slice,
-                     v2::NameScore & bestScore)
+                     NameScore & bestScore)
 {
-  auto const score = v2::GetNameScore(tokens, slice);
+  auto const score = GetNameScore(tokens, slice);
   if (score > bestScore)
     bestScore = score;
 }
@@ -358,7 +358,7 @@ void Processor::SetQuery(string const & query)
 
   // get preffered types to show in results
   m_prefferedTypes.clear();
-  ForEachCategoryTypes(v2::QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
+  ForEachCategoryTypes(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
                        [&](size_t, uint32_t t)
                        {
                          m_prefferedTypes.insert(t);
@@ -497,10 +497,10 @@ void Processor::Search(Results & results, size_t limit)
   if (m_tokens.empty())
     SuggestStrings(results);
 
-  v2::Geocoder::Params params;
+  Geocoder::Params params;
+
   InitParams(params);
   params.m_mode = m_mode;
-
   params.m_pivot = GetPivotRect();
   params.m_accuratePivotCenter = GetPivotPoint();
   m_geocoder.SetParams(params);
@@ -512,7 +512,8 @@ void Processor::Search(Results & results, size_t limit)
 
 void Processor::SearchViewportPoints(Results & results)
 {
-  v2::Geocoder::Params params;
+  Geocoder::Params params;
+
   InitParams(params);
   params.m_pivot = m_viewport[CURRENT_V];
   params.m_accuratePivotCenter = params.m_pivot.Center();
@@ -551,7 +552,7 @@ namespace impl
 class PreResult2Maker
 {
   Processor & m_processor;
-  v2::Geocoder::Params const & m_params;
+  Geocoder::Params const & m_params;
 
   unique_ptr<Index::FeaturesLoaderGuard> m_pFV;
 
@@ -577,7 +578,7 @@ class PreResult2Maker
   }
 
   void InitRankingInfo(FeatureType const & ft, m2::PointD const & center,
-                       impl::PreResult1 const & res, search::v2::RankingInfo & info)
+                       impl::PreResult1 const & res, search::RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
 
@@ -586,11 +587,10 @@ class PreResult2Maker
     info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
     info.m_searchType = preInfo.m_searchType;
-    info.m_nameScore = v2::NAME_SCORE_ZERO;
+    info.m_nameScore = NAME_SCORE_ZERO;
 
-    v2::TokenSlice slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
-    v2::TokenSliceNoCategories sliceNoCategories(m_params, preInfo.m_startToken,
-                                                 preInfo.m_endToken);
+    TokenSlice slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
+    TokenSliceNoCategories sliceNoCategories(m_params, preInfo.m_startToken, preInfo.m_endToken);
 
     for (auto const & lang : m_params.m_langs)
     {
@@ -604,12 +604,12 @@ class PreResult2Maker
       UpdateNameScore(tokens, sliceNoCategories, info.m_nameScore);
     }
 
-    if (info.m_searchType == v2::SearchModel::SEARCH_TYPE_BUILDING)
+    if (info.m_searchType == SearchModel::SEARCH_TYPE_BUILDING)
       UpdateNameScore(ft.GetHouseNumber(), sliceNoCategories, info.m_nameScore);
 
     feature::TypesHolder holder(ft);
     vector<pair<size_t, size_t>> matched(slice.Size());
-    m_processor.ForEachCategoryTypes(v2::QuerySlice(slice), [&](size_t i, uint32_t t)
+    m_processor.ForEachCategoryTypes(QuerySlice(slice), [&](size_t i, uint32_t t)
                                      {
                                        ++matched[i].second;
                                        if (holder.Has(t))
@@ -626,13 +626,13 @@ class PreResult2Maker
                               });
   }
 
-  uint8_t NormalizeRank(uint8_t rank, v2::SearchModel::SearchType type, m2::PointD const & center,
+  uint8_t NormalizeRank(uint8_t rank, SearchModel::SearchType type, m2::PointD const & center,
                         string const & country)
   {
     switch (type)
     {
-    case v2::SearchModel::SEARCH_TYPE_VILLAGE: return rank /= 1.5;
-    case v2::SearchModel::SEARCH_TYPE_CITY:
+    case SearchModel::SEARCH_TYPE_VILLAGE: return rank /= 1.5;
+    case SearchModel::SEARCH_TYPE_CITY:
     {
       if (m_processor.GetViewport(Processor::CURRENT_V).IsPointInside(center))
         return rank * 2;
@@ -645,7 +645,7 @@ class PreResult2Maker
       if (info.IsNotEmpty() && info.m_name == m_processor.GetPivotRegion())
         return rank *= 1.7;
     }
-    case v2::SearchModel::SEARCH_TYPE_COUNTRY:
+    case SearchModel::SEARCH_TYPE_COUNTRY:
       return rank /= 1.5;
 
     // For all other search types, rank should be zero for now.
@@ -654,7 +654,7 @@ class PreResult2Maker
   }
 
 public:
-  explicit PreResult2Maker(Processor & q, v2::Geocoder::Params const & params)
+  explicit PreResult2Maker(Processor & q, Geocoder::Params const & params)
     : m_processor(q), m_params(params)
   {
   }
@@ -671,7 +671,7 @@ public:
     auto res2 = make_unique<impl::PreResult2>(ft, &res1, center,
                                               m_processor.GetPosition() /* pivot */, name, country);
 
-    search::v2::RankingInfo info;
+    search::RankingInfo info;
     InitRankingInfo(ft, center, res1, info);
     info.m_rank = NormalizeRank(info.m_rank, info.m_searchType, center, country);
     res2->SetRankingInfo(move(info));
@@ -682,7 +682,7 @@ public:
 }  // namespace impl
 
 template <class T>
-void Processor::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont,
+void Processor::MakePreResult2(Geocoder::Params const & params, vector<T> & cont,
                                vector<FeatureID> & streets)
 {
   m_preRanker.Filter(m_viewportSearch);
@@ -707,7 +707,7 @@ void Processor::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & 
       });
 }
 
-void Processor::FlushResults(v2::Geocoder::Params const & params, Results & res, size_t resCount)
+void Processor::FlushResults(Geocoder::Params const & params, Results & res, size_t resCount)
 {
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
@@ -736,7 +736,7 @@ void Processor::FlushResults(v2::Geocoder::Params const & params, Results & res,
   }
 }
 
-void Processor::FlushViewportResults(v2::Geocoder::Params const & params, Results & res)
+void Processor::FlushViewportResults(Geocoder::Params const & params, Results & res)
 {
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
@@ -1155,7 +1155,7 @@ void Processor::InitParams(QueryParams & params)
       }
     }
   };
-  ForEachCategoryTypes(v2::QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix), addSyms);
+  ForEachCategoryTypes(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix), addSyms);
 
   for (auto & tokens : params.m_tokens)
   {

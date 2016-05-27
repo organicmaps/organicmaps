@@ -1,9 +1,9 @@
+#include "search/ranking_info.hpp"
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
 #include "search/search_quality/sample.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
-#include "search/v2/ranking_info.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_algo.hpp"
@@ -232,7 +232,7 @@ int main(int argc, char * argv[])
   Context context(engine);
 
   cout << "SampleId,";
-  v2::RankingInfo::PrintCSVHeader(cout);
+  RankingInfo::PrintCSVHeader(cout);
   cout << ",Relevance" << endl;
 
   for (size_t i = 0; i < samples.size(); ++i)

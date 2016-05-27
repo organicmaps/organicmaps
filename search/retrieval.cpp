@@ -1,13 +1,12 @@
 #include "retrieval.hpp"
 
-#include "cancel_exception.hpp"
-#include "feature_offset_match.hpp"
-#include "interval_set.hpp"
-#include "search_index_values.hpp"
-#include "search_trie.hpp"
-
-#include "v2/mwm_context.hpp"
-#include "v2/token_slice.hpp"
+#include "search/cancel_exception.hpp"
+#include "search/feature_offset_match.hpp"
+#include "search/interval_set.hpp"
+#include "search/mwm_context.hpp"
+#include "search/search_index_values.hpp"
+#include "search/search_trie.hpp"
+#include "search/token_slice.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -29,8 +28,6 @@
 using osm::Editor;
 
 namespace search
-{
-namespace v2
 {
 namespace
 {
@@ -160,7 +157,7 @@ bool MatchFeatureByName(FeatureType const & ft, QueryParams const & params)
   return matched;
 }
 
-bool MatchFeatureByPostcode(FeatureType const & ft, v2::TokenSlice const & slice)
+bool MatchFeatureByPostcode(FeatureType const & ft, TokenSlice const & slice)
 {
   string const postcode = ft.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
   vector<strings::UniString> tokens;
@@ -252,7 +249,7 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
 // Retrieves from the geometry index corresponding to handle all
 // features from |coverage|.
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
-    v2::MwmContext const & context, my::Cancellable const & cancellable,
+    MwmContext const & context, my::Cancellable const & cancellable,
     covering::IntervalsT const & coverage, int scale)
 {
   vector<uint64_t> features;
@@ -331,9 +328,8 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
     m2::RectD const & rect, int scale)
 {
   covering::IntervalsT coverage;
-  v2::CoverRect(rect, scale, coverage);
+  CoverRect(rect, scale, coverage);
   return RetrieveGeometryFeaturesImpl(context, cancellable, coverage, scale);
 }
 
-} // namespace v2
 } // namespace search

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "v2/search_model.hpp"
+#include "search_model.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -31,7 +31,7 @@ private:
 
   // m_skipIfEmptyName and m_dontSkipIfEmptyName are used in the case 2 described above.
   TCont m_skipIfEmptyName[2];
-  v2::TwoLevelPOIChecker m_dontSkipIfEmptyName;
+  TwoLevelPOIChecker m_dontSkipIfEmptyName;
 
   uint32_t m_country, m_state;
 };
