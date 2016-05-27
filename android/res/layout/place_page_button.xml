@@ -3,7 +3,10 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   style="@style/PlacePageButton"
-  tools:ignore="UseCompoundDrawables">
+  tools:layout_width="100dp"
+  tools:layout_height="@dimen/place_page_buttons_height"
+  tools:ignore="UseCompoundDrawables"
+  tools:background="#40202020">
   <ImageView
     android:id="@+id/icon"
     style="@style/PlacePageButtonImage"
@@ -13,5 +16,5 @@
   <TextView
     android:id="@+id/title"
     style="@style/PlacePageButtonText"
-    android:text="@string/back"/>
+    tools:text="@string/back"/>
 </LinearLayout>

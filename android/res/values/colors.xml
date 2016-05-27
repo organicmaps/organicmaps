@@ -111,4 +111,7 @@
 
   <color name="text_editor_add_disabled">#1A000000</color>
 
+  <!-- Brand colors -->
+  <color name="bg_brand_booking">#FF19457D</color>
+  <color name="bg_brand_booking_pressed">#FF1B549E</color>
 </resources>

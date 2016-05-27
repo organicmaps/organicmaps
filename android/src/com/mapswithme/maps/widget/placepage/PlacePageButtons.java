@@ -143,7 +143,7 @@ final class PlacePageButtons
 
   interface ItemListener
   {
-    void onPrepareVisibleView(Item item, ImageView icon, TextView title);
+    void onPrepareVisibleView(Item item, View frame, ImageView icon, TextView title);
     void onItemClick(Item item);
   }
 
@@ -206,7 +206,7 @@ final class PlacePageButtons
 
     icon.setImageResource(item.getIcon());
     title.setText(item.getTitle());
-    mItemListener.onPrepareVisibleView(item, icon, title);
+    mItemListener.onPrepareVisibleView(item, res, icon, title);
 
     res.setOnClickListener(new View.OnClickListener()
     {

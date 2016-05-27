@@ -5,7 +5,4 @@
   android:layout_height="@dimen/place_page_buttons_height"
   android:layout_marginTop="@dimen/margin_base"
   android:orientation="horizontal"
-  android:background="?ppButtonsBackground"
-  android:clickable="true"
-  android:paddingLeft="@dimen/margin_half_plus"
-  android:paddingRight="@dimen/margin_half_plus"/>
+  android:background="?ppButtonsBackground"/>

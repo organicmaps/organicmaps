@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -308,15 +309,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
       @Override
-      public void onPrepareVisibleView(PlacePageButtons.Item item, ImageView icon, TextView title)
+      public void onPrepareVisibleView(PlacePageButtons.Item item, View frame, ImageView icon, TextView title)
       {
         int color;
 
         switch (item)
         {
         case BOOKING:
-          color = ThemeUtils.getColor(getContext(), R.attr.colorAccent);
-          icon.setColorFilter(color);
+          frame.setBackgroundResource(R.drawable.button_booking);
+          color = Color.WHITE;
           break;
 
         case BOOKMARK:
