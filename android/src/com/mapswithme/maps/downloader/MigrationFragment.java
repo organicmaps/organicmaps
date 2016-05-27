@@ -111,7 +111,7 @@ public class MigrationFragment extends BaseMwmFragment
 
     mError = (TextView) view.findViewById(R.id.error);
     mPrepare = (TextView) view.findViewById(R.id.preparation);
-    mProgress = (WheelProgressView) view.findViewById(R.id.progress);
+    mProgress = (WheelProgressView) view.findViewById(R.id.wheel_progress);
     mButtonPrimary = (Button) view.findViewById(R.id.button_primary);
     mButtonSecondary = (Button) view.findViewById(R.id.button_secondary);
 
