@@ -433,18 +433,29 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mDetails.setBackgroundResource(0);
   }
 
-  private void onBookingClick(String statisticsEvent, String alohaEvent)
+  private void onBookingClick(final String statisticsEvent, final String alohaEvent)
   {
-    Statistics.INSTANCE.trackEvent(statisticsEvent);
-    AlohaHelper.logClick(alohaEvent);
+    // TODO (trashkalmar): Set correct text
+    Utils.checkConnection(getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>()
+    {
+      @Override
+      public void invoke(Boolean result)
+      {
+        if (!result)
+          return;
 
-    try
-    {
-      followUrl(mSponsoredHotelInfo.urlBook);
-    } catch (ActivityNotFoundException e)
-    {
-      AlohaHelper.logException(e);
-    }
+        Statistics.INSTANCE.trackEvent(statisticsEvent);
+        AlohaHelper.logClick(alohaEvent);
+
+        try
+        {
+          followUrl(mSponsoredHotelInfo.urlBook);
+        } catch (ActivityNotFoundException e)
+        {
+          AlohaHelper.logException(e);
+        }
+      }
+    });
   }
 
   private void init(AttributeSet attrs, int defStyleAttr)

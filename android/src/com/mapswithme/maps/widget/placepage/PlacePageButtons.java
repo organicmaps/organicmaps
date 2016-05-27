@@ -107,7 +107,7 @@ final class PlacePageButtons
     },
 
     SHARE
-      {
+    {
       @Override
       int getTitle()
       {
