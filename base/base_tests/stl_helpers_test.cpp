@@ -21,9 +21,9 @@ private:
 
 UNIT_TEST(LessBy)
 {
-  using TValue = pair<int, int>;
-
   {
+    using TValue = pair<int, int>;
+
     vector<TValue> v = {{2, 2}, {0, 4}, {3, 1}, {4, 0}, {1, 3}};
     sort(v.begin(), v.end(), my::LessBy(&TValue::first));
     for (size_t i = 0; i < v.size(); ++i)
@@ -51,13 +51,27 @@ UNIT_TEST(LessBy)
 
 UNIT_TEST(EqualsBy)
 {
-  using TValue = pair<int, int>;
-  vector<TValue> actual = {{1, 2}, {1, 3}, {2, 100}, {3, 7}, {3, 8}, {2, 500}};
-  actual.erase(unique(actual.begin(), actual.end(), my::EqualsBy(&TValue::first)), actual.end());
+  {
+    using TValue = pair<int, int>;
+    vector<TValue> actual = {{1, 2}, {1, 3}, {2, 100}, {3, 7}, {3, 8}, {2, 500}};
+    actual.erase(unique(actual.begin(), actual.end(), my::EqualsBy(&TValue::first)), actual.end());
 
-  vector<int> expected = {{1, 2, 3, 2}};
-  TEST_EQUAL(expected.size(), actual.size(), ());
-  for (size_t i = 0; i < actual.size(); ++i)
-    TEST_EQUAL(expected[i], actual[i].first, ());
+    vector<int> const expected = {{1, 2, 3, 2}};
+    TEST_EQUAL(expected.size(), actual.size(), ());
+    for (size_t i = 0; i < actual.size(); ++i)
+      TEST_EQUAL(expected[i], actual[i].first, ());
+  }
+
+  {
+    vector<Int> actual;
+    for (auto const v : {0, 0, 1, 2, 2, 0})
+      actual.emplace_back(v);
+    actual.erase(unique(actual.begin(), actual.end(), my::EqualsBy(&Int::Get)), actual.end());
+
+    vector<int> const expected = {{0, 1, 2, 0}};
+    TEST_EQUAL(expected.size(), actual.size(), ());
+    for (size_t i = 0; i < actual.size(); ++i)
+      TEST_EQUAL(expected[i], actual[i].Get(), ());
+  }
 }
 }  // namespace

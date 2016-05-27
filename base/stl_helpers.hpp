@@ -16,31 +16,31 @@ struct Less;
 template <typename T, typename C>
 struct Less<true, T, C>
 {
-  Less(T(C::*p)) : p_(p) {}
+  Less(T(C::*p)) : m_p(p) {}
 
-  inline bool operator()(C const & lhs, C const & rhs) const { return lhs.*p_ < rhs.*p_; }
+  inline bool operator()(C const & lhs, C const & rhs) const { return lhs.*m_p < rhs.*m_p; }
 
   inline bool operator()(C const * const lhs, C const * const rhs) const
   {
-    return lhs->*p_ < rhs->*p_;
+    return lhs->*m_p < rhs->*m_p;
   }
 
-  T(C::*p_);
+  T(C::*m_p);
 };
 
 template <typename T, typename C>
 struct Less<false, T, C>
 {
-  Less(T (C::*p)() const) : p_(p) {}
+  Less(T (C::*p)() const) : m_p(p) {}
 
-  inline bool operator()(C const & lhs, C const & rhs) const { return (lhs.*p_)() < (rhs.*p_)(); }
+  inline bool operator()(C const & lhs, C const & rhs) const { return (lhs.*m_p)() < (rhs.*m_p)(); }
 
   inline bool operator()(C const * const lhs, C const * const rhs) const
   {
-    return (lhs->*p_)() < (rhs->*p_)();
+    return (lhs->*m_p)() < (rhs->*m_p)();
   }
 
-  T (C::*p_)() const;
+  T (C::*m_p)() const;
 };
 
 template <bool isField, typename T, typename C>
@@ -49,31 +49,31 @@ struct Equals;
 template <typename T, typename C>
 struct Equals<true, T, C>
 {
-  Equals(T(C::*p)) : p_(p) {}
+  Equals(T(C::*p)) : m_p(p) {}
 
-  inline bool operator()(C const & lhs, C const & rhs) const { return lhs.*p_ == rhs.*p_; }
+  inline bool operator()(C const & lhs, C const & rhs) const { return lhs.*m_p == rhs.*m_p; }
 
   inline bool operator()(C const * const lhs, C const * const rhs) const
   {
-    return lhs->*p_ == rhs->*p_;
+    return lhs->*m_p == rhs->*m_p;
   }
 
-  T(C::*p_);
+  T(C::*m_p);
 };
 
 template <typename T, typename C>
 struct Equals<false, T, C>
 {
-  Equals(T (C::*p)() const) : p_(p) {}
+  Equals(T (C::*p)() const) : m_p(p) {}
 
-  inline bool operator()(C const & lhs, C const & rhs) const { return (lhs.*p_)() == (rhs.*p_)(); }
+  inline bool operator()(C const & lhs, C const & rhs) const { return (lhs.*m_p)() == (rhs.*m_p)(); }
 
   inline bool operator()(C const * const lhs, C const * const rhs) const
   {
-    return (lhs->*p_)() == (rhs->*p_)();
+    return (lhs->*m_p)() == (rhs->*m_p)();
   }
 
-  T (C::*p_)() const;
+  T (C::*m_p)() const;
 };
 }  // namespace impl
 
