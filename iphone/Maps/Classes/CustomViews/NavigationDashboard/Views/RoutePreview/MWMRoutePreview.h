@@ -1,5 +1,7 @@
 #import "MWMNavigationView.h"
 
+#include "routing/router.hpp"
+
 @protocol MWMRoutePreviewDataSource <NSObject>
 
 @required
@@ -19,15 +21,14 @@
 @property (weak, nonatomic) id<MWMRoutePreviewDataSource> dataSource;
 @property (weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;
 
-- (MWMCircularProgress *)pedestrianProgress;
-- (MWMCircularProgress *)vehicleProgress;
-
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
 - (void)statePrepare;
 - (void)statePlanning;
 - (void)stateError;
 - (void)stateReady;
 - (void)reloadData;
-- (void)selectProgress:(MWMCircularProgress *)progress;
+- (void)selectRouter:(routing::RouterType)routerType;
+- (void)router:(routing::RouterType)routerType setState:(MWMCircularProgressState)state;
+- (void)router:(routing::RouterType)routerType setProgress:(CGFloat)progress;
 
 @end

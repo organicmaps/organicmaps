@@ -17,6 +17,7 @@ static NSString * const kStatAutoDownload = @"Auto download";
 static NSString * const kStatBack = @"Back";
 static NSString * const kStatBannerDescription = @"Banner description";
 static NSString * const kStatBannerTitle = @"Banner title";
+static NSString * const kStatBicycle = @"Bicycle";
 static NSString * const kStatBookmarks = @"Bookmarks";
 static NSString * const kStatBuildRoute = @"Build route";
 static NSString * const kStatButton = @"Button";

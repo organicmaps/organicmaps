@@ -12,10 +12,11 @@
 
 static CGFloat const kAdditionalHeight = 20.;
 
-@interface MWMRoutePreview () <MWMRoutePointCellDelegate>
+@interface MWMRoutePreview () <MWMRoutePointCellDelegate, MWMCircularProgressProtocol>
 
 @property (weak, nonatomic) IBOutlet UIView * pedestrian;
 @property (weak, nonatomic) IBOutlet UIView * vehicle;
+@property (weak, nonatomic) IBOutlet UIView * bicycle;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * planningContainerHeight;
 @property (weak, nonatomic, readwrite) IBOutlet UIButton * extendButton;
@@ -36,12 +37,12 @@ static CGFloat const kAdditionalHeight = 20.;
 @property (nonatomic) BOOL isNeedToMove;
 @property (nonatomic) NSIndexPath * indexPathOfMovingCell;
 
-@property (nonatomic, readwrite) MWMCircularProgress * pedestrianProgress;
-@property (nonatomic, readwrite) MWMCircularProgress * vehicleProgress;
-
 @end
 
 @implementation MWMRoutePreview
+{
+  map<routing::RouterType, MWMCircularProgress *> m_progresses;
+}
 
 - (void)awakeFromNib
 {
@@ -51,7 +52,26 @@ static CGFloat const kAdditionalHeight = 20.;
   self.layer.rasterizationScale = UIScreen.mainScreen.scale;
   [self.collectionView registerNib:[UINib nibWithNibName:[MWMRoutePointCell className] bundle:nil]
         forCellWithReuseIdentifier:[MWMRoutePointCell className]];
+  [self setupProgresses];
+}
 
+- (void)setupProgresses
+{
+  [self addProgress:self.vehicle imageName:@"ic_drive" routerType:routing::RouterType::Vehicle];
+  [self addProgress:self.pedestrian imageName:@"ic_walk" routerType:routing::RouterType::Pedestrian];
+  [self addProgress:self.bicycle imageName:@"ic_bike_route" routerType:routing::RouterType::Bicycle];
+}
+
+- (void)addProgress:(UIView *)parentView imageName:(NSString *)imageName routerType:(routing::RouterType)routerType
+{
+  MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
+  [progress
+   setImage:[UIImage imageNamed:imageName]
+   forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
+     MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
+     MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
+  progress.delegate = self;
+  m_progresses[routerType] = progress;
 }
 
 - (void)didMoveToSuperview
@@ -87,8 +107,8 @@ static CGFloat const kAdditionalHeight = 20.;
 
 - (void)statePrepare
 {
-  self.pedestrianProgress.state = MWMCircularProgressStateNormal;
-  self.vehicleProgress.state = MWMCircularProgressStateNormal;
+  for (auto const & progress : m_progresses)
+    progress.second.state = MWMCircularProgressStateNormal;
   self.arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
   self.goButton.hidden = NO;
   self.goButton.enabled = NO;
@@ -178,28 +198,11 @@ static CGFloat const kAdditionalHeight = 20.;
   [self.collectionView reloadData];
 }
 
-- (void)deselectPedestrian
+- (void)selectRouter:(routing::RouterType)routerType
 {
-  self.pedestrianProgress.state = MWMCircularProgressStateNormal;
-}
-
-- (void)selectProgress:(MWMCircularProgress *)progress;
-{
-  if ([progress isEqual:self.pedestrianProgress])
-  {
-    self.vehicleProgress.state = MWMCircularProgressStateNormal;
-    self.pedestrianProgress.state = MWMCircularProgressStateSelected;
-  }
-  else
-  {
-    self.pedestrianProgress.state = MWMCircularProgressStateNormal;
-    self.vehicleProgress.state = MWMCircularProgressStateSelected;
-  }
-}
-
-- (void)deselectVehicle
-{
-  self.vehicleProgress.state = MWMCircularProgressStateNormal;
+  for (auto const & progress : m_progresses)
+    progress.second.state = MWMCircularProgressStateNormal;
+  m_progresses[routerType].state = MWMCircularProgressStateSelected;
 }
 
 - (void)layoutSubviews
@@ -209,6 +212,54 @@ static CGFloat const kAdditionalHeight = 20.;
   if (IPAD)
     [self.delegate routePreviewDidChangeFrame:self.frame];
   [super layoutSubviews];
+}
+
+- (void)router:(routing::RouterType)routerType setState:(MWMCircularProgressState)state
+{
+  m_progresses[routerType].state = state;
+}
+
+- (void)router:(routing::RouterType)routerType setProgress:(CGFloat)progress
+{
+  m_progresses[routerType].progress = progress;
+}
+
+#pragma mark - MWMCircularProgressProtocol
+
+- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
+{
+  [Statistics logEvent:kStatEventName(kStatNavigationDashboard, kStatButton)
+        withParameters:@{kStatValue : kStatProgress}];
+  MWMCircularProgressState const s = progress.state;
+  if (s == MWMCircularProgressStateSelected || s == MWMCircularProgressStateCompleted)
+    return;
+
+  for (auto const & prg : m_progresses)
+  {
+    if (prg.second != progress)
+      continue;
+    routing::RouterType const router = prg.first;
+    [self.dashboardManager setActiveRouter:router];
+    [self selectRouter:router];
+    switch (router)
+    {
+      case routing::RouterType::Vehicle:
+        [Statistics
+         logEvent:kStatPointToPoint
+         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
+        break;
+      case routing::RouterType::Pedestrian:
+        [Statistics
+         logEvent:kStatPointToPoint
+         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
+        break;
+      case routing::RouterType::Bicycle:
+        [Statistics
+         logEvent:kStatPointToPoint
+         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatBicycle}];
+        break;
+    }
+  }
 }
 
 #pragma mark - Properties
@@ -373,38 +424,6 @@ static CGFloat const kAdditionalHeight = 20.;
       [self reloadData];
     }
   }
-}
-
-#pragma mark - Properties
-
-- (MWMCircularProgress *)pedestrianProgress
-{
-  if (!_pedestrianProgress)
-  {
-    _pedestrianProgress = [[MWMCircularProgress alloc] initWithParentView:self.pedestrian];
-    [_pedestrianProgress
-         setImage:[UIImage imageNamed:@"ic_walk"]
-        forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
-                   MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
-                   MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
-    _pedestrianProgress.delegate = self.dashboardManager;
-  }
-  return _pedestrianProgress;
-}
-
-- (MWMCircularProgress *)vehicleProgress
-{
-  if (!_vehicleProgress)
-  {
-    _vehicleProgress = [[MWMCircularProgress alloc] initWithParentView:self.vehicle];
-    [_vehicleProgress
-         setImage:[UIImage imageNamed:@"ic_drive"]
-        forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
-                   MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
-                   MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
-    _vehicleProgress.delegate = self.dashboardManager;
-  }
-  return _vehicleProgress;
 }
 
 @end
