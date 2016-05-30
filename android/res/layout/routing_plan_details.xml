@@ -7,8 +7,10 @@
   style="@style/MwmWidget.Floating.Panel"
   android:layout_width="match_parent"
   android:layout_height="@dimen/routing_selector_size"
-  android:paddingLeft="8dp"
-  android:paddingRight="12dp"
+  android:paddingLeft="@dimen/margin_half"
+  android:paddingStart="@dimen/margin_half"
+  android:paddingRight="@dimen/margin_half_plus"
+  android:paddingEnd="@dimen/margin_half_plus"
   android:clickable="true">
   <LinearLayout
     android:id="@+id/progress_frame"
@@ -20,20 +22,17 @@
     <com.mapswithme.maps.widget.WheelProgressView
       android:id="@+id/progress_vehicle"
       style="@style/MwmWidget.ProgressWheel.RoutingPlan"
-      tools:visibility="visible"
-      wheel:centerDrawable="@android:color/transparent"
-      wheel:wheelProgressColor="?colorAccent"
-      wheel:wheelSecondaryColor="?dividerHorizontal"
-      wheel:wheelThickness="@dimen/margin_eighth"/>
+      tools:visibility="visible"/>
 
     <com.mapswithme.maps.widget.WheelProgressView
       android:id="@+id/progress_pedestrian"
       style="@style/MwmWidget.ProgressWheel.RoutingPlan"
-      tools:visibility="visible"
-      wheel:centerDrawable="@android:color/transparent"
-      wheel:wheelProgressColor="?colorAccent"
-      wheel:wheelSecondaryColor="?dividerHorizontal"
-      wheel:wheelThickness="@dimen/margin_eighth"/>
+      tools:visibility="visible"/>
+
+    <com.mapswithme.maps.widget.WheelProgressView
+      android:id="@+id/progress_bicycle"
+      style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+      tools:visibility="visible"/>
   </LinearLayout>
 
   <RadioGroup
@@ -41,6 +40,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_alignLeft="@id/progress_frame"
+    android:layout_alignStart="@id/progress_frame"
     android:orientation="horizontal">
     <RadioButton
       android:id="@+id/vehicle"
@@ -55,6 +55,13 @@
       android:layout_height="@dimen/routing_selector_size"
       tools:button="@drawable/ic_walk"
       tools:buttonTint="?iconTintLight"/>
+
+    <RadioButton
+      android:id="@+id/bicycle"
+      android:layout_width="@dimen/routing_selector_size"
+      android:layout_height="@dimen/routing_selector_size"
+      tools:button="@drawable/ic_bicycle"
+      tools:buttonTint="?iconTintLight"/>
   </RadioGroup>
 
   <LinearLayout
@@ -62,11 +69,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:gravity="right|center_vertical"
+    android:gravity="center_vertical|end"
     android:layout_toRightOf="@id/progress_frame"
+    android:layout_toEndOf="@id/progress_frame"
     android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
     android:layout_centerVertical="true"
-    android:layout_gravity="center_vertical|right"
+    android:layout_gravity="center_vertical|end"
     tools:layout_gravity="bottom|right">
     <TextView
       android:id="@+id/time"
@@ -91,10 +100,12 @@
     android:id="@+id/planning"
     style="@style/MwmWidget.TextView.PlanDetail.Status"
     android:layout_toRightOf="@id/progress_frame"
+    android:layout_toEndOf="@id/progress_frame"
     android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
     android:text="@string/p2p_planning"
     android:textColor="?secondary"
-    android:gravity="right"
+    android:gravity="end"
     android:visibility="gone"
     tools:visibility="visible"
     tools:layout_centerVertical="false"/>
@@ -103,10 +114,12 @@
     android:id="@+id/error"
     style="@style/MwmWidget.TextView.PlanDetail.Status"
     android:layout_toRightOf="@id/route_type"
+    android:layout_toEndOf="@id/route_type"
     android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
     android:text="@string/routing_planning_error"
     android:textColor="@color/base_red"
-    android:gravity="right"
+    android:gravity="end"
     android:visibility="gone"
     tools:visibility="visible"
     tools:layout_centerVertical="false"

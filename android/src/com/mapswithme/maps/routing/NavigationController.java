@@ -111,10 +111,10 @@ public class NavigationController
     if (info == null)
       return;
 
-    if (Framework.nativeGetRouter() == Framework.ROUTER_TYPE_VEHICLE)
-      updateVehicle(info);
-    else
+    if (Framework.nativeGetRouter() == Framework.ROUTER_TYPE_PEDESTRIAN)
       updatePedestrian(info);
+    else
+      updateVehicle(info);
 
     mTimeTotal.setText(RoutingController.formatRoutingTime(info.totalTimeInSeconds, R.dimen.text_size_routing_dimension));
     mDistanceTotal.setText(Utils.formatUnitsText(R.dimen.text_size_routing_number, R.dimen.text_size_routing_dimension,

@@ -37,6 +37,10 @@
     <item name="android:layout_margin">@dimen/routing_selector_wheel_margin</item>
     <item name="android:visibility">invisible</item>
     <item name="android:background">?selectableItemBackgroundBorderless</item>
+    <item name="centerDrawable">@android:color/transparent</item>
+    <item name="wheelProgressColor">?colorAccent</item>
+    <item name="wheelSecondaryColor">?dividerHorizontal</item>
+    <item name="wheelThickness">@dimen/margin_eighth</item>
   </style>
 
   <style name="MwmWidget.Floating">

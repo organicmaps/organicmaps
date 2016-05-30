@@ -66,10 +66,8 @@ public class RoutingController
 
     /**
      * @param progress progress to be displayed.
-     * @param router selected router type. One of {@link Framework#ROUTER_TYPE_VEHICLE} and {@link Framework#ROUTER_TYPE_PEDESTRIAN}.
      * */
-    void updateBuildProgress(@IntRange(from = 0, to = 100) int progress,
-                             @IntRange(from = Framework.ROUTER_TYPE_VEHICLE, to = Framework.ROUTER_TYPE_PEDESTRIAN) int router);
+    void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, @Framework.RouterType int router);
   }
 
   private static final RoutingController sInstance = new RoutingController();
@@ -85,6 +83,7 @@ public class RoutingController
   private MapObject mEndPoint;
 
   private int mLastBuildProgress;
+  @Framework.RouterType
   private int mLastRouterType = Framework.nativeGetLastUsedRouter();
 
   private boolean mHasContainerSavedState;
@@ -656,7 +655,7 @@ public class RoutingController
     checkAndBuildRoute();
   }
 
-  public void setRouterType(int router)
+  public void setRouterType(@Framework.RouterType int router)
   {
     Log.d(TAG, "setRouterType: " + mLastRouterType + " -> " + router);
 

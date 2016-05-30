@@ -105,8 +105,9 @@ public enum Statistics
     public static final String ROUTING_START = "Routing. Start";
     public static final String ROUTING_CLOSE = "Routing. Close";
     public static final String ROUTING_CANCEL = "Routing. Cancel";
-    public static final String ROUTING_PEDESTRIAN_SET = "Routing. Set pedestrian";
     public static final String ROUTING_VEHICLE_SET = "Routing. Set vehicle";
+    public static final String ROUTING_PEDESTRIAN_SET = "Routing. Set pedestrian";
+    public static final String ROUTING_BICYCLE_SET = "Routing. Set bicycle";
     public static final String ROUTING_SWAP_POINTS = "Routing. Swap points";
     public static final String ROUTING_TOGGLE = "Routing. Toggle";
     public static final String ROUTING_SEARCH_POINT = "Routing. Search point";

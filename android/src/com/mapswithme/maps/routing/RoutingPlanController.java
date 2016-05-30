@@ -34,6 +34,7 @@ public class RoutingPlanController extends ToolbarController
   private final RadioGroup mRouterTypes;
   private final WheelProgressView mProgressVehicle;
   private final WheelProgressView mProgressPedestrian;
+  private final WheelProgressView mProgressBicycle;
   private final View mPlanningLabel;
   private final View mErrorLabel;
   private final View mDetailsFrame;
@@ -59,7 +60,7 @@ public class RoutingPlanController extends ToolbarController
       }
     };
 
-    RadioButton rb = (RadioButton)mRouterTypes.findViewById(buttonId);
+    RadioButton rb = (RadioButton) mRouterTypes.findViewById(buttonId);
     listener.onCheckedChanged(rb, false);
     rb.setOnCheckedChangeListener(listener);
     rb.setOnClickListener(clickListener);
@@ -101,9 +102,21 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
+    setupRouterButton(R.id.bicycle, R.drawable.ic_bicycle, new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        AlohaHelper.logClick(AlohaHelper.ROUTING_BICYCLE_SET);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_BICYCLE_SET);
+        RoutingController.get().setRouterType(Framework.ROUTER_TYPE_BICYCLE);
+      }
+    });
+
     View progressFrame = planFrame.findViewById(R.id.progress_frame);
     mProgressVehicle = (WheelProgressView) progressFrame.findViewById(R.id.progress_vehicle);
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
+    mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
 
     mPlanningLabel = planFrame.findViewById(R.id.planning);
     mErrorLabel = planFrame.findViewById(R.id.error);
@@ -188,26 +201,34 @@ public class RoutingPlanController extends ToolbarController
                               RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds)));
   }
 
-  public void updateBuildProgress(int progress, int router)
+  public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     updateProgressLabels();
-
-    boolean vehicle = (router == Framework.ROUTER_TYPE_VEHICLE);
-    mRouterTypes.check(vehicle ? R.id.vehicle : R.id.pedestrian);
-
-    if (!RoutingController.get().isBuilding())
+    UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressBicycle);
+    WheelProgressView progressView;
+    if (router == Framework.ROUTER_TYPE_VEHICLE)
     {
-      UiUtils.hide(mProgressVehicle, mProgressPedestrian);
-      return;
+      mRouterTypes.check(R.id.vehicle);
+      progressView = mProgressVehicle;
+    }
+    else if (router == Framework.ROUTER_TYPE_PEDESTRIAN)
+    {
+      mRouterTypes.check(R.id.pedestrian);
+      progressView = mProgressPedestrian;
+    }
+    else
+    {
+      mRouterTypes.check(R.id.bicycle);
+      progressView = mProgressBicycle;
     }
 
-    UiUtils.visibleIf(vehicle, mProgressVehicle);
-    UiUtils.visibleIf(!vehicle, mProgressPedestrian);
+    if (!RoutingController.get().isBuilding())
+      return;
 
-    WheelProgressView view = (vehicle ? mProgressVehicle : mProgressPedestrian);
-    view.setPending(progress == 0);
+    UiUtils.show(progressView);
+    progressView.setPending(progress == 0);
     if (progress != 0)
-      view.setProgress(progress);
+      progressView.setProgress(progress);
   }
 
   private void toggleSlots()

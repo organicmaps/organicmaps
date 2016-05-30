@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -55,7 +57,7 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController.updatePoints();
   }
 
-  public void updateBuildProgress(int progress, int router)
+  public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     mPlanController.updateBuildProgress(progress, router);
   }
