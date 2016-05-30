@@ -410,6 +410,13 @@ Framework::Framework()
   editor.LoadMapEdits();
 
   m_model.GetIndex().AddObserver(editor);
+
+  LOG(LINFO, ("Editor initialized"));
+
+  if(!LoadUserStatsFromSettings())
+    LOG(LINFO, ("There is no cached stats in settings"));
+  else
+    LOG(LINFO, ("User stats was loaded successfully"));
 }
 
 Framework::~Framework()
@@ -2895,11 +2902,81 @@ bool Framework::RollBackChanges(FeatureID const & fid)
   return rolledBack;
 }
 
+namespace
+{
+char const kSettingsUserName[] = "LoginedUser";
+char const kSettingsRating[] = "UserEditorRating";
+char const kSettingsChangesCount[] = "UserEditorChangsCount";
+}  // namespace
+
+shared_ptr<editor::UserStats const> Framework::GetUserStats(string const & userName) const
+{
+  lock_guard<mutex> g(m_userStatsMutex);
+  if (m_userName == userName)
+    return m_userStats;
+  return nullptr;
+}
+
+void Framework::UpdateUserStats(string const & userName, TOnStatsUpdated const & fn)
+{
+  {
+    lock_guard<mutex> g(m_userStatsMutex);
+
+    auto nothingToUpdate = m_userStats && m_userName == userName;
+    nothingToUpdate = nothingToUpdate && difftime(time(nullptr), m_latsUpdate) <= 60 * 60 * 60;
+
+    if (nothingToUpdate)
+      return GetPlatform().RunOnGuiThread(fn);
+
+    m_userName = userName;
+  }
+
+  thread([this, &fn, userName]()
+  {
+    if (UpdateUserStats(userName))
+    {
+      lock_guard<mutex> g(m_userStatsMutex);
+      if (m_userName == userName)
+        GetPlatform().RunOnGuiThread(fn);
+    }
+  }).detach();
+}
+
 bool Framework::UpdateUserStats(string const & userName)
 {
-  auto userStats = make_unique<editor::UserStats>(userName);
+  auto userStats = make_shared<editor::UserStats>(userName);
   if (!userStats->GetUpdateStatus())
     return false;
+
+  lock_guard<mutex> g(m_userStatsMutex);
+  if (m_userName != userName)
+    return false;
+  m_latsUpdate = time(nullptr);
   m_userStats = move(userStats);
+  SaveUserStatsToSettings();
   return true;
+}
+
+bool Framework::LoadUserStatsFromSettings()
+{
+  uint32_t rating, changesCount;
+  if (!settings::Get(kSettingsUserName, m_userName) ||
+      !settings::Get(kSettingsChangesCount, changesCount) ||
+      !settings::Get(kSettingsRating, rating))
+  {
+    return false;
+  }
+
+  m_userStats = make_shared<editor::UserStats>(m_userName, rating, changesCount);
+  return true;
+}
+
+void Framework::SaveUserStatsToSettings()
+{
+  if (!m_userStats)
+    return;
+
+  settings::Set(kSettingsUserName, m_userName);
+  settings::Set(kSettingsRating, m_userStats->GetRank());
+  settings::Set(kSettingsChangesCount, m_userStats->GetChangesCount());
 }

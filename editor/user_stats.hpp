@@ -9,6 +9,7 @@ class UserStats
 {
 public:
   explicit UserStats(string const & userName);
+  explicit UserStats(string const & userName, uint32_t rating, uint32_t changesCount);
 
   bool IsChangesCountInitialized() const;
   bool IsRankInitialized() const;

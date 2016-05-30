@@ -24,6 +24,11 @@ UserStats::UserStats(string const & userName)
   m_updateStatus = Update();
 }
 
+UserStats::UserStats(string const & userName, uint32_t rating, uint32_t changesCount)
+  : m_userName(userName), m_changesCount(changesCount), m_rank(rating), m_updateStatus(true)
+{
+}
+
 bool UserStats::IsChangesCountInitialized() const
 {
   return m_changesCount != kUninitialized;
