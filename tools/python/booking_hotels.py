@@ -59,8 +59,11 @@ class BookingApi:
             request = urllib2.Request(url, None, self.baseConfig["headers"])
             stream = urllib2.urlopen(request)
             payload = stream.read()
-            print(payload)
-            return json.loads(payload)
+            data = json.loads(payload)
+            if isinstance(data, dict) and 'ruid' in data:
+                logging.error('Api call failed with error: {0} Code: {1}'.format(data['message'], data['code']))
+                return None
+            return data
 
         except Exception as e:
             logging.error('Error: {0} Context: {1}'.format(e, payload))
@@ -98,12 +101,14 @@ def download(user, password, path):
         while True:
             hotels = api.call('getHotels',
                               dict(new_hotel_type=1, offset=len(allhotels), rows=maxrows, countrycodes=countrycode))
-            if isinstance(hotels, dict) and 'ruid' in hotels:
-                logging.error('Api call failed with error: {0} Code: {1}'.format(hotels['message'], hotels['code']))
+
+            # Check for error.
+            if not hotels:
                 exit(1)
 
             allhotels.append(hotels)
 
+            # If hotels in answer less then maxrows, we reach end of data.
             if len(hotels) < maxrows:
                 break
 
