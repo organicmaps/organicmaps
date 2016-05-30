@@ -84,7 +84,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_bookmark"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_edit_bookmark_button"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="editTap" destination="zRR-Mr-Dr9" eventType="touchUpInside" id="d1F-RO-oIi"/>

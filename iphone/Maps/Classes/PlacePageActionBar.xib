@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,193 +12,69 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" id="WPU-f0-gXc">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-f0-gXc">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="5Io-jf-rQx"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pZD-rg-W4y" userLabel="BackButton" customClass="MWMButton">
-                    <rect key="frame" x="0.0" y="-5" width="80" height="46"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="ic_back_api">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="backTap" destination="iN0-l3-epB" eventType="touchUpInside" id="C4S-yq-52j"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZeH-u1-ky5" userLabel="BackLabel">
-                    <rect key="frame" x="0.0" y="32" width="80" height="13"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="back"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jtm-w6-q1e" userLabel="ShareButton" customClass="MWMButton">
-                    <rect key="frame" x="80" y="-5" width="80" height="46"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="ic_menu_share">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="shareTap" destination="iN0-l3-epB" eventType="touchUpInside" id="PGT-Ie-Gmr"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Hy-ie-rSK">
-                    <rect key="frame" x="80" y="32" width="80" height="13"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="share"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="66j-hn-azO" userLabel="SaveButton" customClass="MWMButton">
-                    <rect key="frame" x="160" y="-5" width="80" height="46"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="" image="ic_bookmarks_off"/>
-                    <state key="selected" image="ic_bookmarks_on"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="bookmarkTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="sTn-J9-JAv"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="niS-Il-TNU">
-                    <rect key="frame" x="160" y="32" width="80" height="13"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="save"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6cp-1o-ehc" userLabel="RouteButton" customClass="MWMButton">
-                    <rect key="frame" x="240" y="-5" width="80" height="46"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="ic_route">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="routeTap" destination="iN0-l3-epB" eventType="touchUpInside" id="mAp-BH-2qW"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OOE-NW-gUw">
-                    <rect key="frame" x="240" y="32" width="80" height="13"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="route"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
+                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctK-eb-hsj" userLabel="First">
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="48"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j7d-3d-R7Z" userLabel="Second">
+                    <rect key="frame" x="80" y="0.0" width="80" height="48"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-qr-MYt" userLabel="Third">
+                    <rect key="frame" x="160" y="0.0" width="80" height="48"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A9L-Jr-3Qt" userLabel="Fourth">
+                    <rect key="frame" x="240" y="0.0" width="80" height="48"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="A9L-Jr-3Qt" secondAttribute="trailing" id="0Xn-cr-NHe"/>
+                <constraint firstItem="j7d-3d-R7Z" firstAttribute="leading" secondItem="ctK-eb-hsj" secondAttribute="trailing" id="4Rk-gd-qCE"/>
+                <constraint firstItem="ctK-eb-hsj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BdD-Dv-WWq"/>
+                <constraint firstItem="Xtb-qr-MYt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CWV-y5-Uk8"/>
+                <constraint firstItem="WPU-f0-gXc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ien-2g-AfU"/>
+                <constraint firstItem="A9L-Jr-3Qt" firstAttribute="height" secondItem="ctK-eb-hsj" secondAttribute="height" id="OU3-BY-4sO"/>
+                <constraint firstItem="A9L-Jr-3Qt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ogf-tp-9eb"/>
+                <constraint firstItem="j7d-3d-R7Z" firstAttribute="height" secondItem="ctK-eb-hsj" secondAttribute="height" id="Qjr-dO-ihG"/>
+                <constraint firstItem="Xtb-qr-MYt" firstAttribute="width" secondItem="ctK-eb-hsj" secondAttribute="width" id="Rlq-FF-9eK"/>
+                <constraint firstItem="ctK-eb-hsj" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="1:4" id="S0G-a2-90q"/>
+                <constraint firstItem="ctK-eb-hsj" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="TSs-t2-Zoy"/>
+                <constraint firstItem="Xtb-qr-MYt" firstAttribute="leading" secondItem="j7d-3d-R7Z" secondAttribute="trailing" id="a5s-LM-EYz"/>
+                <constraint firstItem="j7d-3d-R7Z" firstAttribute="width" secondItem="ctK-eb-hsj" secondAttribute="width" id="g4o-dJ-EtU"/>
+                <constraint firstAttribute="trailing" secondItem="WPU-f0-gXc" secondAttribute="trailing" id="gB2-l5-uva"/>
+                <constraint firstItem="j7d-3d-R7Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="jT0-ye-TZz"/>
+                <constraint firstItem="WPU-f0-gXc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="krG-Gh-0yX"/>
+                <constraint firstItem="ctK-eb-hsj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ks0-jC-L5G"/>
+                <constraint firstItem="A9L-Jr-3Qt" firstAttribute="width" secondItem="ctK-eb-hsj" secondAttribute="width" id="vHz-22-u43"/>
+                <constraint firstItem="Xtb-qr-MYt" firstAttribute="height" secondItem="ctK-eb-hsj" secondAttribute="height" id="xWW-Hy-qTR"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="apiBackButton" destination="pZD-rg-W4y" id="Bnq-xK-0a9"/>
-                <outlet property="apiBackLabel" destination="ZeH-u1-ky5" id="bNt-BX-H3q"/>
-                <outlet property="bookmarkButton" destination="66j-hn-azO" id="uBJ-zf-YgW"/>
-                <outlet property="bookmarkLabel" destination="niS-Il-TNU" id="q0I-39-OWe"/>
-                <outlet property="routeButton" destination="6cp-1o-ehc" id="qSO-u1-8px"/>
-                <outlet property="routeLabel" destination="OOE-NW-gUw" id="hLC-Td-pdV"/>
-                <outlet property="shareButton" destination="Jtm-w6-q1e" id="Bu8-eV-KhG"/>
-                <outlet property="shareLabel" destination="4Hy-ie-rSK" id="b5p-nj-j5J"/>
+                <outletCollection property="buttons" destination="j7d-3d-R7Z" id="zQ7-1E-mim"/>
+                <outletCollection property="buttons" destination="Xtb-qr-MYt" id="ODg-IK-Yj1"/>
+                <outletCollection property="buttons" destination="A9L-Jr-3Qt" id="Sdq-bh-P1v"/>
+                <outletCollection property="buttons" destination="ctK-eb-hsj" id="aCR-kW-TxE"/>
             </connections>
             <point key="canvasLocation" x="335" y="266"/>
         </view>
-        <view tag="1" contentMode="scaleToFill" id="2HF-YO-IQi" customClass="MWMPlacePageActionBar">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" id="Lgi-vx-FHb">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
-                    </userDefinedRuntimeAttributes>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yN5-Eq-jO7">
-                    <rect key="frame" x="0.0" y="0.0" width="159" height="48"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                    <state key="normal" title="From">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_from_here"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="fromTap" destination="2HF-YO-IQi" eventType="touchUpInside" id="TlT-QT-gt8"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="l4h-4q-eGV">
-                    <rect key="frame" x="160" y="0.0" width="160" height="48"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                    <state key="normal" title="To">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_to_here"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="toTap" destination="2HF-YO-IQi" eventType="touchUpInside" id="cv9-Vs-6EE"/>
-                    </connections>
-                </button>
-                <view contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" id="ACK-rU-Jun" userLabel="vSeparator">
-                    <rect key="frame" x="159" y="6" width="1" height="36"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
-            </subviews>
-            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
-            </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="335" y="365"/>
-        </view>
     </objects>
     <resources>
-        <image name="ic_back_api" width="28" height="28"/>
-        <image name="ic_bookmarks_off" width="28" height="28"/>
-        <image name="ic_bookmarks_on" width="28" height="28"/>
-        <image name="ic_menu_share" width="28" height="28"/>
-        <image name="ic_route" width="28" height="28"/>
         <image name="separator_image" width="1" height="1"/>
     </resources>
 </document>
