@@ -113,9 +113,8 @@ drape_ptr<MapScaleAnimation> GetScaleAnimation(ScreenBase const & startScreen, m
   ScreenBase endScreen = startScreen;
   ApplyScale(pxScaleCenter, factor, endScreen);
 
-  m2::PointD const offset = startScreen.PixelRect().Center() - startScreen.P3dtoP(pxScaleCenter);
   auto anim = make_unique_dp<MapScaleAnimation>(startScreen.GetScale(), endScreen.GetScale(),
-                                                glbScaleCenter, offset);
+                                                glbScaleCenter, pxScaleCenter);
   anim->SetMaxDuration(kMaxAnimationTimeSec);
 
   return anim;
