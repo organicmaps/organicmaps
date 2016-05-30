@@ -43,9 +43,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)routeNotFoundAlert
 {
   kStatisticsEvent = @"Route File Not Exist Alert";
-  NSString * message =
-      [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_cant_build_route"),
-                                 L(@"dialog_routing_change_start_or_end")];
+  NSString * message = L(@"dialog_routing_change_start_or_end");
   return [self defaultAlertWithTitle:@"dialog_routing_unable_locate_route"
                              message:message
                     rightButtonTitle:@"ok"
