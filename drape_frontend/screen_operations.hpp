@@ -28,4 +28,6 @@ m2::PointD CalculateCenter(double scale, m2::RectD const & pixelRect,
 
 bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase & screen);
 
+double CalculatePerspectiveAngle(ScreenBase const & screen);
+
 } // namespace df

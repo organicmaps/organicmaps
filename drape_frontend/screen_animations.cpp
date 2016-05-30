@@ -101,7 +101,7 @@ drape_ptr<MapFollowAnimation> GetFollowAnimation(ScreenBase const & startScreen,
 {
   auto anim = make_unique_dp<MapFollowAnimation>(userPos, startScreen.GetScale(), targetScale,
                                                  startScreen.GetAngle(), targetAngle,
-                                                 startScreen.GtoP(userPos), endPixelPos, startScreen.PixelRect());
+                                                 startScreen.PtoP3d(startScreen.GtoP(userPos)), endPixelPos, startScreen.PixelRect());
   anim->SetMaxDuration(kMaxAnimationTimeSec);
 
   return anim;

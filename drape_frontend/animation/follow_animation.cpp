@@ -98,7 +98,7 @@ m2::PointD MapFollowAnimation::CalculateCenter(ScreenBase const & screen, m2::Po
                                                m2::PointD const & pixelPos, double azimuth)
 {
   double const scale = screen.GlobalRect().GetLocalRect().SizeX() / screen.PixelRect().SizeX();
-  return CalculateCenter(scale, screen.PixelRect(), userPos, pixelPos, azimuth);
+  return CalculateCenter(scale, screen.PixelRect(), userPos, screen.P3dtoP(pixelPos), azimuth);
 }
 
 // static
@@ -126,16 +126,18 @@ bool MapFollowAnimation::GetProperty(TObject object, TProperty property, bool ta
 {
   if (property == Animation::Position)
   {
-    m2::RectD const pixelRect = AnimationSystem::Instance().GetLastScreen().PixelRect();
+    ScreenBase const & screen = AnimationSystem::Instance().GetLastScreen();
+    m2::RectD const pixelRect = screen.PixelRect();
     if (targetValue)
     {
+      // TODO: calculate target pixel position with corresponding scale
       value = PropertyValue(CalculateCenter(m_scaleInterpolator.GetTargetScale(), pixelRect, m_globalPosition,
-                                            m_pixelPosInterpolator.GetTargetPosition(), m_angleInterpolator.GetTargetAngle()));
+                                            screen.P3dtoP(m_pixelPosInterpolator.GetTargetPosition()), m_angleInterpolator.GetTargetAngle()));
     }
     else
     {
       value = PropertyValue(CalculateCenter(m_scaleInterpolator.GetScale(), pixelRect, m_globalPosition,
-                                            m_pixelPosInterpolator.GetPosition(), m_angleInterpolator.GetAngle()));
+                                            screen.P3dtoP(m_pixelPosInterpolator.GetPosition()), m_angleInterpolator.GetAngle()));
     }
     return true;
   }

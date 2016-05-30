@@ -272,4 +272,16 @@ bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase &
   return true;
 }
 
+double CalculatePerspectiveAngle(ScreenBase const & screen)
+{
+  double const kStartPerspectiveScale = 0.5;
+  double const kMaxScale = 0.2;
+  double const kMaxPerspectiveAngle = math::pi4;
+
+  double const currentScale = screen.GetScale();
+  if (currentScale > kStartPerspectiveScale)
+    return 0.0;
+  return kMaxPerspectiveAngle * (kStartPerspectiveScale - currentScale) / (kStartPerspectiveScale - kMaxScale);
+}
+
 } // namespace df

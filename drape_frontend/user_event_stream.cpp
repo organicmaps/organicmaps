@@ -576,6 +576,9 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 {
   ResetAnimationsBeforeSwitch3D();
 
+  //m_navigator.Enable3dMode(0.0, maxRotationAngle, angleFOV);
+  //return;
+
   if (immediatelyStart)
     InterruptFollowAnimations(true /* force */);
 
@@ -601,6 +604,9 @@ void UserEventStream::SetDisable3dModeAnimation()
 {
   ResetAnimationsBeforeSwitch3D();
   InterruptFollowAnimations(true /* force */);
+
+  //m_navigator.Disable3dMode();
+  //return;
 
   if (m_discardedFOV > 0.0 && IsScaleAllowableIn3d(GetDrawTileScale(GetCurrentScreen())))
   {

@@ -153,8 +153,6 @@ private:
   double m_lastLocationTimestamp;
 
   m2::RectD m_pixelRect;
-  m2::PointD m_centerPixelPositionRouting;
-  m2::PointD m_centerPixelPosition;
   double m_positionYOffset;
 
   bool m_isVisible;
