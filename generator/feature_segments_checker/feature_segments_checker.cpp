@@ -4,28 +4,28 @@
 
 #include "coding/file_name_utils.hpp"
 
-#include "geometry/mercator.hpp"
-#include "geometry/point2d.hpp"
-
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/map_style_reader.hpp"
 
+#include "geometry/mercator.hpp"
+#include "geometry/point2d.hpp"
+
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 
-#include "3party/gflags/src/gflags/gflags.h"
-#include "3party/kdtree++/kdtree.hpp"
-
 #include "std/iostream.hpp"
 #include "std/fstream.hpp"
 #include "std/map.hpp"
+#include "std/set.hpp"
 #include "std/string.hpp"
 
-DEFINE_string(srtm_path, "", "Path to directory with SRTM files");
-DEFINE_string(mwm_path, "", "Path to an mwm file.");
+#include "3party/gflags/src/gflags/gflags.h"
+
+DEFINE_string(srtm_dir_path, "", "Path to directory with SRTM files");
+DEFINE_string(mwm_file_path, "", "Path to an mwm file.");
 
 namespace
 {
@@ -38,7 +38,7 @@ routing::BicycleModel const & GetBicycleModel()
 int32_t Coord2RoughCoord(double d)
 {
   int32_t constexpr kFactor = 100000;
-  return static_cast<int32_t>(round(d * kFactor));
+  return static_cast<int32_t>(d * kFactor);
 }
 
 struct RoughPoint
@@ -71,7 +71,7 @@ void WriteCSV(Cont const & cont, string const & fileName)
 {
   ofstream fout(fileName);
   for (auto const & a : cont)
-    fout << a.first << ";" << a.second << endl;
+    fout << a.first << "," << a.second << endl;
 }
 
 /// \returns expected point altitude in meters according to linear model.
@@ -89,12 +89,12 @@ class Processor
 public:
   generator::SrtmTileManager & m_srtmManager;
   set<RoughPoint> m_uniqueRoadPoints;
-  /// Key is altitude difference for feature in meters. If a feature goes up the key is more then 0.
-  /// Value is a feature counter.
+  /// Key is an altitude difference for a feature in meters. If a feature goes up the key is greater then 0.
+  /// Value is a number of features.
   map<generator::SrtmTile::THeight, uint32_t> m_altitudeDiffs;
-  /// Key is length of feature in meters. Value is a feature counter.
+  /// Key is a length of a feature in meters. Value is a number of features.
   map<uint32_t, uint32_t> m_featureLength;
-  /// Key is length of feature segment in meters. Value is a segment counter.
+  /// Key is a length of a feature segment in meters. Value is a segment counter.
   map<uint32_t, uint32_t> m_segLength;
   /// Key is difference between two values:
   /// 1. how many meters it's necessary to go up following the feature. If feature wavy
@@ -103,22 +103,22 @@ public:
   /// Value is a segment counter.
   map<int32_t, uint32_t> m_featureWave;
   /// Key is number of meters which is necessary to go up following the feature.
-  /// Value is a feature counter.
+  /// Value is a number of features.
   map<int32_t, uint32_t> m_featureUp;
   /// Key is number of meters which is necessary to go down following the feature.
-  /// Value is a feature counter.
+  /// Value is a number of features.
   map<int32_t, uint32_t> m_featureDown;
   /// Key is number of meters. It shows altitude deviation of intermediate feature points
   /// from linear model.
-  /// Value is a feature counter.
+  /// Value is a number of features.
   map<int32_t, uint32_t> m_diffFromLinear;
-  /// Feature counter for GetBicycleModel().IsRoad(feature) == true.
+  /// Number of features for GetBicycleModel().IsRoad(feature) == true.
   uint32_t m_roadCount;
-  /// Feature counter for empty features with GetBicycleModel().IsRoad(feature).
+  /// Number of features for empty features with GetBicycleModel().IsRoad(feature).
   uint32_t m_emptyRoadCount;
   /// Point counter for feature where GetBicycleModel().IsRoad(feature) == true.
   uint32_t m_roadPointCount;
-  /// Feature counter for GetBicycleModel().IsRoad(feature) != true.
+  /// Number of features for GetBicycleModel().IsRoad(feature) != true.
   uint32_t m_notRoadCount;
 
   Processor(generator::SrtmTileManager & manager)
@@ -136,8 +136,8 @@ public:
     }
 
     f.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    uint32_t const pointCount = f.GetPointsCount();
-    if (pointCount == 0)
+    uint32_t const numPoints = f.GetPointsCount();
+    if (numPoints == 0)
     {
       ++m_emptyRoadCount;
       return;
@@ -145,14 +145,14 @@ public:
 
     ++m_roadCount;
 
-    m_roadPointCount += pointCount;
+    m_roadPointCount += numPoints;
 
-    for (int i = 0; i < pointCount; ++i)
+    for (uint32_t i = 0; i < numPoints; ++i)
       m_uniqueRoadPoints.insert(RoughPoint(f.GetPoint(i)));
 
     // Feature length and feature segment length.
     double realFeatureLengthMeters = 0.0;
-    for (int i = 0; i < pointCount - 1; ++i)
+    for (uint32_t i = 0; i + 1 < numPoints; ++i)
     {
       // Feature segment length.
       double const realSegmentLengthMeters = MercatorBounds::DistanceOnEarth(f.GetPoint(i), f.GetPoint(i + 1));
@@ -161,13 +161,13 @@ public:
       // Feature length.
       realFeatureLengthMeters += realSegmentLengthMeters;
     }
-    m_featureLength[static_cast<uint32_t>(floor(realFeatureLengthMeters))]++;
+    m_featureLength[static_cast<uint32_t>(realFeatureLengthMeters)]++;
 
     // Feature altitude difference.
     generator::SrtmTile::THeight const startAltitude =
         m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(0)));
     generator::SrtmTile::THeight const endAltitude =
-        m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(pointCount - 1)));
+        m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(numPoints - 1)));
     int16_t const altitudeDiff = endAltitude - startAltitude;
     m_altitudeDiffs[altitudeDiff]++;
 
@@ -175,7 +175,7 @@ public:
     int32_t climb = 0;
     int32_t up = 0;
     int32_t down = 0;
-    for (int i = 0; i < pointCount - 1; ++i)
+    for (uint32_t i = 0; i + 1 < numPoints; ++i)
     {
       auto const segAltDiff =
           (m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i + 1))) -
@@ -212,7 +212,7 @@ public:
       return;
 
     double distFromStartMeters = 0;
-    for (int i = 1; i < pointCount - 1; ++i)
+    for (uint32_t i = 1; i + 1 < numPoints; ++i)
     {
       // Feature segment length.
       double const segmentLengthMeters =
@@ -234,14 +234,14 @@ int main(int argc, char ** argv)
   google::SetUsageMessage("This tool extracts some staticstics about features and its altitudes.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
-  LOG(LINFO, ("srtm_path =", FLAGS_srtm_path));
-  LOG(LINFO, ("mwm_path =", FLAGS_mwm_path));
+  LOG(LINFO, ("srtm_dir_path =", FLAGS_srtm_dir_path));
+  LOG(LINFO, ("mwm_file_path =", FLAGS_mwm_file_path));
 
   classificator::Load();
-  generator::SrtmTileManager manager(FLAGS_srtm_path);
+  generator::SrtmTileManager manager(FLAGS_srtm_dir_path);
 
   Processor processor(manager);
-  feature::ForEachFromDat(FLAGS_mwm_path, processor);
+  feature::ForEachFromDat(FLAGS_mwm_file_path, processor);
 
   cout << endl << "Road feature count = " << processor.m_roadCount << endl;
   cout << "Empty road feature count = " << processor.m_emptyRoadCount << endl;
