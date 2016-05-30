@@ -28,6 +28,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageCellType)
   MWMPlacePageCellTypeBuildingLevels,
   MWMPlacePageCellTypeCuisine,
   MWMPlacePageCellTypeNote,
+  MWMPlacePageCellTypeBookingMore,
   MWMPlacePageCellTypeCount
 };
 

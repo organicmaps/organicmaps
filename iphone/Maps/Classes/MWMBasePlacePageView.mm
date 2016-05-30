@@ -44,7 +44,8 @@ enum class PlacePageSection
 {
   Bookmark,
   Metadata,
-  Editing
+  Editing,
+  Booking
 };
 
 vector<MWMPlacePageCellType> const kSectionBookmarkCellTypes {
@@ -62,12 +63,17 @@ vector<MWMPlacePageCellType> const kSectionEditingCellTypes {
   MWMPlacePageCellTypeAddPlaceButton
 };
 
+vector<MWMPlacePageCellType> const kSectionBookingCellTypes {
+  MWMPlacePageCellTypeBookingMore
+};
+
 using TCellTypesSectionMap = pair<vector<MWMPlacePageCellType>, PlacePageSection>;
 
 vector<TCellTypesSectionMap> const kCellTypesSectionMap {
   {kSectionBookmarkCellTypes, PlacePageSection::Bookmark},
   {kSectionMetadataCellTypes, PlacePageSection::Metadata},
-  {kSectionEditingCellTypes, PlacePageSection::Editing}
+  {kSectionEditingCellTypes, PlacePageSection::Editing},
+  {kSectionBookingCellTypes, PlacePageSection::Booking}
 };
 
 MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
@@ -82,7 +88,8 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeBookmark, "PlacePageBookmarkCell"},
     {MWMPlacePageCellTypeEditButton, "MWMPlacePageButtonCell"},
     {MWMPlacePageCellTypeAddBusinessButton, "MWMPlacePageButtonCell"},
-    {MWMPlacePageCellTypeAddPlaceButton, "MWMPlacePageButtonCell"}};
+    {MWMPlacePageCellTypeAddPlaceButton, "MWMPlacePageButtonCell"},
+    {MWMPlacePageCellTypeBookingMore, "MWMPlacePageButtonCell"}};
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
@@ -198,23 +205,27 @@ using namespace storage;
     self.externalTitleLabel.text = @"";
   }
 
-  NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:entity.subtitle];
-  auto const separatorRanges = [entity.subtitle rangesOfString:@(place_page::Info::kSubtitleSeparator)];
-  if (!separatorRanges.empty())
+  self.subtitleLabel.text = entity.subtitle;
+  if (entity.subtitle)
   {
-    for (auto const & r : separatorRanges)
-      [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:r];
+    NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:entity.subtitle];
+    auto const separatorRanges = [entity.subtitle rangesOfString:@(place_page::Info::kSubtitleSeparator)];
+    if (!separatorRanges.empty())
+    {
+      for (auto const & r : separatorRanges)
+        [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:r];
 
+    }
+
+    auto const starsRanges = [entity.subtitle rangesOfString:@(place_page::Info::kStarSymbol)];
+    if (!starsRanges.empty())
+    {
+      for (auto const & r : starsRanges)
+        [str addAttributes:@{NSForegroundColorAttributeName : [UIColor yellow]} range:r];
+    }
+
+    self.subtitleLabel.attributedText = str;
   }
-
-  auto const starsRanges = [entity.subtitle rangesOfString:@(place_page::Info::kStarSymbol)];
-  if (!starsRanges.empty())
-  {
-    for (auto const & r : starsRanges)
-      [str addAttributes:@{NSForegroundColorAttributeName : [UIColor yellow]} range:r];
-  }
-
-  self.subtitleLabel.attributedText = str;
 
   BOOL const isMyPosition = entity.isMyPosition;
   self.addressLabel.text = entity.address;
@@ -487,13 +498,13 @@ using namespace storage;
     {
       switch (position)
       {
-        case AttributePosition::Title:
-        case AttributePosition::ExternalTitle:
-        case AttributePosition::Subtitle:
-        case AttributePosition::Schedule:
-          return self.bookingView.maxY + kBottomPlacePageOffset;
-        case AttributePosition::Address:
-          return self.addressLabel.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Title:
+      case AttributePosition::ExternalTitle:
+      case AttributePosition::Subtitle:
+      case AttributePosition::Schedule:
+        return self.bookingView.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Address:
+        return self.addressLabel.maxY + kBottomPlacePageOffset;
       }
     }
   };
@@ -657,6 +668,7 @@ using namespace storage;
     case MWMPlacePageCellTypeEditButton:
     case MWMPlacePageCellTypeAddBusinessButton:
     case MWMPlacePageCellTypeAddPlaceButton:
+    case MWMPlacePageCellTypeBookingMore:
       [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage forType:cellType];
       break;
     default:

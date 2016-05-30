@@ -414,6 +414,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)buildRouteFrom:(MWMRoutePoint const &)from
 {
+  if (self.navigationManager.state != MWMNavigationDashboardStatePrepare)
+  {
+    MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+    self.navigationManager.state = MWMNavigationDashboardStatePrepare;
+  }
+
   self.routeSource = from;
   if ((from.IsMyPosition() && self.routeDestination.IsMyPosition()) || from == self.routeDestination)
   {

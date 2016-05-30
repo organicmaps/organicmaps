@@ -90,6 +90,7 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
 - (void)addBookmark
 {
   [self.basePlacePageView addBookmark];
+  self.actionBar.isBookmark = YES;
 }
 
 - (void)removeBookmark
@@ -111,6 +112,12 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
 - (void)addPlace
 {
   [self.manager addPlace];
+}
+
+- (void)bookingMore
+{
+  MapViewController * vc = MapsAppDelegate.theApp.mapViewController;
+  [vc openUrl:[NSURL URLWithString:[self.manager.entity getCellValue:MWMPlacePageCellTypeBookingMore]]];
 }
 
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset

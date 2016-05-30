@@ -29,6 +29,7 @@
 + (UIColor *)buttonHighlightedBlueText;
 + (UIColor *)alertBackground;
 + (UIColor *)blackOpaque;
++ (UIColor *)bookingBackground;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 
