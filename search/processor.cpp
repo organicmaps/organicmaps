@@ -289,14 +289,12 @@ void Processor::SetPreferredLocale(string const & locale)
 
 void Processor::SetInputLocale(string const & locale)
 {
-  if (!locale.empty())
-  {
-    LOG(LDEBUG, ("New input locale:", locale));
+  if (locale.empty())
+    return;
 
-    SetLanguage(LANG_INPUT, StringUtf8Multilang::GetLangIndex(languages::Normalize(locale)));
-
-    m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
-  }
+  LOG(LDEBUG, ("New input locale:", locale));
+  SetLanguage(LANG_INPUT, StringUtf8Multilang::GetLangIndex(languages::Normalize(locale)));
+  m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
 
 void Processor::SetQuery(string const & query)
@@ -494,18 +492,13 @@ void Processor::ProcessEmojiIfNeeded(strings::UniString const & token, size_t in
   }
 }
 
-int Processor::GetQueryIndexScale(m2::RectD const & viewport) const
-{
-  return search::GetQueryIndexScale(viewport);
-}
-
 void Processor::Search(Results & results, size_t limit)
 {
   if (m_tokens.empty())
     SuggestStrings(results);
 
   v2::Geocoder::Params params;
-  InitParams(false /* localitySearch */, params);
+  InitParams(params);
   params.m_mode = m_mode;
 
   params.m_pivot = GetPivotRect();
@@ -514,20 +507,20 @@ void Processor::Search(Results & results, size_t limit)
 
   m_geocoder.GoEverywhere(m_preRanker);
 
-  FlushResults(params, results, false /* allMWMs */, limit, false /* oldHouseSearch */);
+  FlushResults(params, results, limit);
 }
 
 void Processor::SearchViewportPoints(Results & results)
 {
   v2::Geocoder::Params params;
-  InitParams(false /* localitySearch */, params);
+  InitParams(params);
   params.m_pivot = m_viewport[CURRENT_V];
   params.m_accuratePivotCenter = params.m_pivot.Center();
   m_geocoder.SetParams(params);
 
   m_geocoder.GoInViewport(m_preRanker);
 
-  FlushViewportResults(params, results, false /* oldHouseSearch */);
+  FlushViewportResults(params, results);
 }
 
 void Processor::SearchCoordinates(Results & res) const
@@ -714,8 +707,7 @@ void Processor::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & 
       });
 }
 
-void Processor::FlushResults(v2::Geocoder::Params const & params, Results & res, bool allMWMs,
-                             size_t resCount, bool oldHouseSearch)
+void Processor::FlushResults(v2::Geocoder::Params const & params, Results & res, size_t resCount)
 {
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
@@ -727,9 +719,7 @@ void Processor::FlushResults(v2::Geocoder::Params const & params, Results & res,
 
   sort(indV.rbegin(), indV.rend(), my::LessBy(&IndexedValue::GetRank));
 
-  // Do not process suggestions in additional search.
-  if (!allMWMs || res.GetCount() == 0)
-    ProcessSuggestions(indV, res);
+  ProcessSuggestions(indV, res);
 
   // Emit feature results.
   size_t count = res.GetCount();
@@ -746,8 +736,7 @@ void Processor::FlushResults(v2::Geocoder::Params const & params, Results & res,
   }
 }
 
-void Processor::FlushViewportResults(v2::Geocoder::Params const & params, Results & res,
-                                     bool oldHouseSearch)
+void Processor::FlushViewportResults(v2::Geocoder::Params const & params, Results & res)
 {
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
@@ -1129,7 +1118,7 @@ int GetOldTypeFromIndex(size_t index)
 }
 }  // namespace
 
-void Processor::InitParams(bool localitySearch, QueryParams & params)
+void Processor::InitParams(QueryParams & params)
 {
   params.Clear();
 
@@ -1146,32 +1135,27 @@ void Processor::InitParams(bool localitySearch, QueryParams & params)
   params.m_isCategorySynonym.assign(tokensCount + (m_prefix.empty() ? 0 : 1), false);
 
   // Add names of categories (and synonyms).
-  if (!localitySearch)
-  {
-    Classificator const & c = classif();
-    auto addSyms = [&](size_t i, uint32_t t)
+  Classificator const & c = classif();
+  auto addSyms = [&](size_t i, uint32_t t) {
+    QueryParams::TSynonymsVector & v = params.GetTokens(i);
+
+    uint32_t const index = c.GetIndexForType(t);
+    v.push_back(FeatureTypeToString(index));
+    params.m_isCategorySynonym[i] = true;
+
+    // v2-version MWM has raw classificator types in search index prefix, so
+    // do the hack: add synonyms for old convention if needed.
+    if (m_supportOldFormat)
     {
-      QueryParams::TSynonymsVector & v = params.GetTokens(i);
-
-      uint32_t const index = c.GetIndexForType(t);
-      v.push_back(FeatureTypeToString(index));
-      params.m_isCategorySynonym[i] = true;
-
-      // v2-version MWM has raw classificator types in search index prefix, so
-      // do the hack: add synonyms for old convention if needed.
-      if (m_supportOldFormat)
+      int const type = GetOldTypeFromIndex(index);
+      if (type >= 0)
       {
-        int const type = GetOldTypeFromIndex(index);
-        if (type >= 0)
-        {
-          ASSERT(type == 70 || type > 4000, (type));
-          v.push_back(FeatureTypeToString(static_cast<uint32_t>(type)));
-        }
+        ASSERT(type == 70 || type > 4000, (type));
+        v.push_back(FeatureTypeToString(static_cast<uint32_t>(type)));
       }
-    };
-    ForEachCategoryTypes(v2::QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
-                         addSyms);
-  }
+    }
+  };
+  ForEachCategoryTypes(v2::QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix), addSyms);
 
   for (auto & tokens : params.m_tokens)
   {

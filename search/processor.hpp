@@ -98,9 +98,6 @@ public:
   inline string const & GetPivotRegion() const { return m_region; }
   inline m2::PointD const & GetPosition() const { return m_position; }
 
-  // Get scale level to make geometry index query for current viewport.
-  int GetQueryIndexScale(m2::RectD const & viewport) const;
-
   /// Suggestions language code, not the same as we use in mwm data
   int8_t m_inputLocaleCode, m_currentLocaleCode;
 
@@ -119,7 +116,7 @@ public:
   {
   };
 
-  void InitParams(bool localitySearch, QueryParams & params);
+  void InitParams(QueryParams & params);
 
   void ClearCaches();
 
@@ -165,14 +162,8 @@ protected:
   void MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont,
                       vector<FeatureID> & streets);
 
-  /// @param allMWMs Deprecated, need to support old search algorithm.
-  /// @param oldHouseSearch Deprecated, need to support old search algorithm.
-  //@{
-  void FlushResults(v2::Geocoder::Params const & params, Results & res, bool allMWMs,
-                    size_t resCount, bool oldHouseSearch);
-  void FlushViewportResults(v2::Geocoder::Params const & params, Results & res,
-                            bool oldHouseSearch);
-  //@}
+  void FlushResults(v2::Geocoder::Params const & params, Results & res, size_t resCount);
+  void FlushViewportResults(v2::Geocoder::Params const & params, Results & res);
 
   void RemoveStringPrefix(string const & str, string & res) const;
   void GetSuggestion(string const & name, string & suggest) const;
