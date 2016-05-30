@@ -151,6 +151,12 @@ NSString * fontName(FontWeight weight, CGFloat size)
   return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
 }
 
++ (UIFont *)medium28
+{
+  CGFloat const size = 28;
+  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+}
+
 + (UIFont *)medium36
 {
   CGFloat const size = 36;
