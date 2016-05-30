@@ -33,7 +33,8 @@ else
     # Patch can be found at "../tools/android/cxxabi.cc_patch".
     # Gradle task patchNdkR10E will patch it for you.
     # More details here: https://code.google.com/p/android/issues/detail?id=179410.
-    # TODO: Check if this workaround is needed in newer NDK versions.
+    # TODO: Check if this workaround is needed in newer NDK versions. IMPORTANT - r11c version of NDK contains similar, but still unresolved bug, so we cant use it yet.
+    # Generated asm code int r11c contains 'movaps' instructions with unaligned(16 bytes) args, thus generating exceptions.
     LIBCXX_FORCE_REBUILD := true
   endif
 endif
