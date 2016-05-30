@@ -1,7 +1,10 @@
 #pragma once
 
 #include "std/algorithm.hpp"
+#include "std/functional.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
+
 
 namespace my
 {
@@ -83,6 +86,16 @@ void SortUnique(vector<T> & v)
 {
   sort(v.begin(), v.end());
   v.erase(unique(v.begin(), v.end()), v.end());
+}
+
+// Sorts according to |comp| and removes duplicate entries according to |pred| from |v|.
+// Note. If several entries are equal according to |pred| an arbitrary entry of them
+// is left in |v| after a call of this function.
+template <typename T, typename TLess, typename TEquals>
+void SortUnique(vector<T> & v, TLess && less, TEquals && equals)
+{
+  sort(v.begin(), v.end(), forward<TLess>(less));
+  v.erase(unique(v.begin(), v.end(), forward<TEquals>(equals)), v.end());
 }
 
 template <typename T, class TFn>

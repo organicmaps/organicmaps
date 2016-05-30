@@ -1035,7 +1035,7 @@ void Framework::StartInteractiveSearch(search::SearchParams const & params)
 
   m_lastInteractiveSearchParams = params;
   m_lastInteractiveSearchParams.SetForceSearch(false);
-  m_lastInteractiveSearchParams.SetMode(Mode::Viewport);
+  m_lastInteractiveSearchParams.SetMode(search::Mode::Viewport);
   m_lastInteractiveSearchParams.SetSuggestsEnabled(false);
   m_lastInteractiveSearchParams.m_onResults = [this](Results const & results)
   {

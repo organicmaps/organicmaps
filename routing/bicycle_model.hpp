@@ -17,7 +17,6 @@ public:
   /// @name Overrides from VehicleModel.
   //@{
   double GetSpeed(FeatureType const & f) const override;
-  bool IsOneWay(FeatureType const &) const override { return false; }
   //@}
 
 private:

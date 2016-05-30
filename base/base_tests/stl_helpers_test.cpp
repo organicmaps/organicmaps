@@ -74,4 +74,40 @@ UNIT_TEST(EqualsBy)
       TEST_EQUAL(expected[i], actual[i].Get(), ());
   }
 }
+
+UNIT_TEST(SortUnique)
+{
+  {
+    vector<int> actual = {1, 2, 1, 4, 3, 5, 2, 7, 1};
+    my::SortUnique(actual);
+    vector<int> const expected = {1, 2, 3, 4, 5, 7};
+    TEST_EQUAL(actual, expected, ());
+  }
+  {
+    using TValue = int;
+    using TPair = pair<TValue, int>;
+    vector<TPair> v =
+        {{1, 22}, {2, 33}, {1, 23}, {4, 54}, {3, 34}, {5, 23}, {2, 23}, {7, 32}, {1, 12}};
+
+    my::SortUnique<TPair>(v, my::LessBy(&TPair::first), my::EqualsBy(&TPair::first));
+
+    vector<TValue> const expected = {1, 2, 3, 4, 5, 7};
+    TEST_EQUAL(v.size(), expected.size(), ());
+    for (int i = 0; i < v.size(); ++i)
+      TEST_EQUAL(v[i].first, expected[i], (i));
+  }
+  {
+    using TValue = double;
+    using TPair = pair<TValue, int>;
+    vector<TPair> v =
+        {{0.5, 11}, {1000.99, 234}, {0.5, 23}, {1234.56789, 54}, {1000.99, 34}};
+
+    my::SortUnique<TPair>(v, my::LessBy(&TPair::first), my::EqualsBy(&TPair::first));
+
+    vector<TValue> const expected = {0.5, 1000.99, 1234.56789};
+    TEST_EQUAL(v.size(), expected.size(), ());
+    for (int i = 0; i < v.size(); ++i)
+      TEST_EQUAL(v[i].first, expected[i], (i));
+  }
+}
 }  // namespace
