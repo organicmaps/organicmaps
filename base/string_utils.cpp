@@ -11,7 +11,6 @@
 
 namespace strings
 {
-
 bool UniString::IsEqualAscii(char const * s) const
 {
   return (size() == strlen(s) && equal(begin(), end(), s));
@@ -71,7 +70,6 @@ bool to_uint(char const * start, unsigned int & i, int base /*= 10*/)
   return IntegerCheck(start, stop, v, i);
 }
 
-  
 bool to_uint64(char const * s, uint64_t & i)
 {
   char * stop;
@@ -183,33 +181,21 @@ void NormalizeDigits(UniString & us)
 
 namespace
 {
-  char ascii_to_lower(char in)
-  {
-    char const diff = 'z' - 'Z';
-    static_assert(diff == 'a' - 'A', "");
-    static_assert(diff > 0, "");
-
-    if (in >= 'A' && in <= 'Z')
-      return (in + diff);
-    return in;
-  }
-}
-
-void AsciiToLower(string & s)
+char ascii_to_lower(char in)
 {
-  transform(s.begin(), s.end(), s.begin(), &ascii_to_lower);
+  char const diff = 'z' - 'Z';
+  static_assert(diff == 'a' - 'A', "");
+  static_assert(diff > 0, "");
+
+  if (in >= 'A' && in <= 'Z')
+    return (in + diff);
+  return in;
+}
 }
 
-void Trim(string & s)
-{
-  boost::trim(s);
-}
-
-void Trim(string & s, char const * anyOf)
-{
-  boost::trim_if(s, boost::is_any_of(anyOf));
-}
-
+void AsciiToLower(string & s) { transform(s.begin(), s.end(), s.begin(), &ascii_to_lower); }
+void Trim(string & s) { boost::trim(s); }
+void Trim(string & s, char const * anyOf) { boost::trim_if(s, boost::is_any_of(anyOf)); }
 bool EqualNoCase(string const & s1, string const & s2)
 {
   return MakeLowerCase(s1) == MakeLowerCase(s2);
@@ -238,9 +224,7 @@ bool IsASCIIString(string const & str)
 }
 
 bool IsASCIIDigit(UniChar c) { return c >= '0' && c <= '9'; }
-
 bool IsASCIILatin(UniChar c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); }
-
 bool StartsWith(UniString const & s, UniString const & p)
 {
   if (p.size() > s.size())
@@ -253,11 +237,7 @@ bool StartsWith(UniString const & s, UniString const & p)
   return true;
 }
 
-bool StartsWith(string const & s1, char const * s2)
-{
-  return (s1.compare(0, strlen(s2), s2) == 0);
-}
-
+bool StartsWith(string const & s1, char const * s2) { return (s1.compare(0, strlen(s2), s2) == 0); }
 bool EndsWith(string const & s1, char const * s2)
 {
   size_t const n = s1.size();
@@ -344,4 +324,4 @@ bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCoun
   return false;
 }
 
-} // namespace strings
+}  // namespace strings
