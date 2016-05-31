@@ -1,4 +1,4 @@
-#include "search_engine.hpp"
+#include "search/engine.hpp"
 
 #include "geometry_utils.hpp"
 #include "processor.hpp"
@@ -271,7 +271,7 @@ void Engine::MainLoop(Context & context)
 }
 
 template <typename... TArgs>
-void Engine::PostMessage(TArgs && ... args)
+void Engine::PostMessage(TArgs &&... args)
 {
   lock_guard<mutex> lock(m_mu);
   m_messages.emplace(forward<TArgs>(args)...);
@@ -286,7 +286,10 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
   // Initialize query processor.
   processor.Init(viewportSearch);
   handle->Attach(processor);
-  MY_SCOPE_GUARD(detach, [&handle] { handle->Detach(); });
+  MY_SCOPE_GUARD(detach, [&handle]
+                 {
+                   handle->Detach();
+                 });
 
   // Early exit when query processing is cancelled.
   if (processor.IsCancelled())

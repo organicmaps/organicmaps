@@ -1,6 +1,7 @@
-#include "result.hpp"
-#include "geometry_utils.hpp"
-#include "search_common.hpp"
+#include "search/result.hpp"
+
+#include "search/common.hpp"
+#include "search/geometry_utils.hpp"
 
 namespace search
 {

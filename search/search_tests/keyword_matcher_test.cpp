@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "search/common.hpp"
 #include "search/keyword_matcher.hpp"
-#include "search/search_common.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"

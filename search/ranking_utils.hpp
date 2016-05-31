@@ -1,7 +1,7 @@
 #pragma once
 
+#include "search/model.hpp"
 #include "search/query_params.hpp"
-#include "search/search_model.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"

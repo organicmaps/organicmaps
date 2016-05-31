@@ -13,7 +13,9 @@ HEADERS += \
     approximate_string_match.hpp \
     cancel_exception.hpp \
     cbv_ptr.hpp \
+    common.hpp \
     dummy_rank_table.hpp \
+    engine.hpp \
     feature_offset_match.hpp \
     features_filter.hpp \
     features_layer.hpp \
@@ -35,6 +37,7 @@ HEADERS += \
     locality_finder.hpp \
     locality_scorer.hpp \
     mode.hpp \
+    model.hpp \
     mwm_context.hpp \
     nested_rects_cache.hpp \
     params.hpp \
@@ -52,14 +55,11 @@ HEADERS += \
     result.hpp \
     retrieval.hpp \
     reverse_geocoder.hpp \
-    search_common.hpp \
-    search_engine.hpp \
     search_index_values.hpp \
-    search_model.hpp \
-    search_string_intersection.hpp \
     search_trie.hpp \
     stats_cache.hpp \
     street_vicinity_loader.hpp \
+    string_intersection.hpp \
     suggest.hpp \
     token_slice.hpp \
     types_skipper.hpp \
@@ -68,6 +68,7 @@ SOURCES += \
     approximate_string_match.cpp \
     cbv_ptr.cpp \
     dummy_rank_table.cpp \
+    engine.cpp \
     features_filter.cpp \
     features_layer.cpp \
     features_layer_matcher.cpp \
@@ -87,6 +88,7 @@ SOURCES += \
     locality_finder.cpp \
     locality_scorer.cpp \
     mode.cpp \
+    model.cpp \
     mwm_context.cpp \
     nested_rects_cache.cpp \
     params.cpp \
@@ -103,8 +105,6 @@ SOURCES += \
     result.cpp \
     retrieval.cpp \
     reverse_geocoder.cpp \
-    search_engine.cpp \
-    search_model.cpp \
     street_vicinity_loader.cpp \
     token_slice.cpp \
     types_skipper.cpp \

@@ -11,12 +11,12 @@
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 
+#include "search/engine.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/processor_factory.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
-#include "search/search_engine.hpp"
 
 #include "storage/storage_helpers.hpp"
 

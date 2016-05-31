@@ -1,5 +1,5 @@
 #pragma once
-#include "search/search_common.hpp"
+#include "search/common.hpp"
 
 #include "base/string_utils.hpp"
 

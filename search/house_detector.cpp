@@ -1,7 +1,7 @@
 #include "house_detector.hpp"
 
 #include "search/algos.hpp"
-#include "search/search_common.hpp"
+#include "search/common.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_impl.hpp"

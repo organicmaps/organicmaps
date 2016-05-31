@@ -1,7 +1,7 @@
 #pragma once
+#include "search/common.hpp"
 #include "search/processor.hpp"
 #include "search/query_params.hpp"
-#include "search/search_common.hpp"
 #include "search/search_index_values.hpp"
 #include "search/token_slice.hpp"
 

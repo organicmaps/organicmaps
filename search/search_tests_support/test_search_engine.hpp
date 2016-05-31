@@ -4,7 +4,7 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "search/search_engine.hpp"
+#include "search/engine.hpp"
 
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
