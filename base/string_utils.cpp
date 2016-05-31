@@ -42,19 +42,36 @@ UniChar LastUniChar(string const & s)
   return *iter;
 }
 
-bool to_int(char const * s, int & i, int base /*= 10*/)
+namespace
 {
-  char * stop;
-  long const x = strtol(s, &stop, base);
-  if (*stop == 0)
+template <typename T, typename TResult>
+bool IntegerCheck(char const * start, char const * stop, T x, TResult & out)
+{
+  if (errno != EINVAL && *stop == 0)
   {
-    i = static_cast<int>(x);
-    ASSERT_EQUAL(static_cast<long>(i), x, ());
-    return true;
+    out = static_cast<TResult>(x);
+    return static_cast<T>(out) == x;
   }
+  errno = 0;
   return false;
 }
+}  // namespace
 
+bool to_int(char const * start, int & i, int base /*= 10*/)
+{
+  char * stop;
+  long const v = strtol(start, &stop, base);
+  return IntegerCheck(start, stop, v, i);
+}
+
+bool to_uint(char const * start, unsigned int & i, int base /*= 10*/)
+{
+  char * stop;
+  unsigned long const v = strtoul(start, &stop, base);
+  return IntegerCheck(start, stop, v, i);
+}
+
+  
 bool to_uint64(char const * s, uint64_t & i)
 {
   char * stop;

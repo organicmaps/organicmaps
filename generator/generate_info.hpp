@@ -41,6 +41,8 @@ struct GenerateInfo
   NodeStorageType m_nodeStorageType;
   OsmSourceType m_osmFileType;
   string m_osmFileName;
+  
+  string m_bookingDatafileName;
 
   uint32_t m_versionDate = 0;
 

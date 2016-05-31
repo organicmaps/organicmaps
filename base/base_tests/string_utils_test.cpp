@@ -176,6 +176,10 @@ UNIT_TEST(to_int)
   int i;
   string s;
 
+  s = "AF";
+  TEST(strings::to_int(s, i, 16), ());
+  TEST_EQUAL(175, i, ());
+
   s = "-2";
   TEST(strings::to_int(s, i), ());
   TEST_EQUAL(-2, i, ());
@@ -190,10 +194,43 @@ UNIT_TEST(to_int)
 
   s = "labuda";
   TEST(!strings::to_int(s, i), ());
+}
 
+UNIT_TEST(to_uint)
+{
+  unsigned int i;
+  string s;
+
+  s = "";
+  TEST(!strings::to_uint(s, i), ());
+
+  s = "-2";
+  TEST(!strings::to_uint(s, i), ());
+  
+  s = "0";
+  TEST(strings::to_uint(s, i), ());
+  TEST_EQUAL(0, i, ());
+  
+  s = "123456789123456789123456789";
+  TEST(!strings::to_uint(s, i), ());
+  
+  s = "labuda";
+  TEST(!strings::to_uint(s, i), ());
+  
   s = "AF";
-  TEST(strings::to_int(s, i, 16), ());
+  TEST(strings::to_uint(s, i, 16), ());
   TEST_EQUAL(175, i, ());
+
+  s = "100";
+  TEST(strings::to_uint(s, i), ());
+  TEST_EQUAL(100, i, ());
+
+  s = "4294967295";
+  TEST(strings::to_uint(s, i), ());
+  TEST_EQUAL(0xFFFFFFFF, i, ());
+
+  s = "4294967296";
+  TEST(!strings::to_uint(s, i), ());
 }
 
 UNIT_TEST(to_uint64)
