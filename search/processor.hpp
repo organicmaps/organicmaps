@@ -1,13 +1,13 @@
 #pragma once
+#include "search/geocoder.hpp"
 #include "search/keyword_lang_matcher.hpp"
 #include "search/mode.hpp"
 #include "search/pre_ranker.hpp"
+#include "search/rank_table_cache.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_trie.hpp"
 #include "search/suggest.hpp"
-#include "search/v2/geocoder.hpp"
-#include "search/v2/rank_table_cache.hpp"
-#include "search/v2/token_slice.hpp"
+#include "search/token_slice.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
@@ -52,10 +52,7 @@ struct Region;
 struct QueryParams;
 class ReverseGeocoder;
 
-namespace v2
-{
 class Geocoder;
-}  // namespace search::v2
 
 namespace impl
 {
@@ -159,11 +156,11 @@ protected:
   void ClearCache(size_t ind);
 
   template <class T>
-  void MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont,
+  void MakePreResult2(Geocoder::Params const & params, vector<T> & cont,
                       vector<FeatureID> & streets);
 
-  void FlushResults(v2::Geocoder::Params const & params, Results & res, size_t resCount);
-  void FlushViewportResults(v2::Geocoder::Params const & params, Results & res);
+  void FlushResults(Geocoder::Params const & params, Results & res, size_t resCount);
+  void FlushViewportResults(Geocoder::Params const & params, Results & res);
 
   void RemoveStringPrefix(string const & str, string & res) const;
   void GetSuggestion(string const & name, string & suggest) const;
@@ -219,7 +216,7 @@ protected:
   bool m_keepHouseNumberInQuery;
 
   PreRanker m_preRanker;
-  v2::Geocoder m_geocoder;
+  Geocoder m_geocoder;
   ReverseGeocoder const m_reverseGeocoder;
 };
 }  // namespace search

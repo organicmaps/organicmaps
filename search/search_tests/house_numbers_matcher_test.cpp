@@ -1,13 +1,13 @@
 #include "testing/testing.hpp"
 
-#include "search/v2/house_numbers_matcher.hpp"
+#include "search/house_numbers_matcher.hpp"
 
 #include "std/vector.hpp"
 
 #include "base/string_utils.hpp"
 
 using namespace strings;
-using namespace search::v2;
+using namespace search;
 
 namespace
 {
@@ -28,7 +28,7 @@ bool HouseNumbersMatch(string const & houseNumber, string const & query, bool qu
 {
   vector<Parse> queryParses;
   ParseQuery(MakeUniString(query), queryIsPrefix, queryParses);
-  return search::v2::HouseNumbersMatch(MakeUniString(houseNumber), queryParses);
+  return search::HouseNumbersMatch(MakeUniString(houseNumber), queryParses);
 }
 
 bool CheckTokenizer(string const & utf8s, vector<string> const & expected)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/v2/house_to_street_table.hpp"
+#include "search/house_to_street_table.hpp"
 
 #include "indexer/feature_decl.hpp"
 
@@ -99,7 +99,7 @@ private:
   class HouseTable
   {
     Index const & m_index;
-    unique_ptr<search::v2::HouseToStreetTable> m_table;
+    unique_ptr<search::HouseToStreetTable> m_table;
     MwmSet::MwmHandle m_handle;
   public:
     explicit HouseTable(Index const & index) : m_index(index) {}

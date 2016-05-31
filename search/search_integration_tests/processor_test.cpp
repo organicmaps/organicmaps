@@ -4,7 +4,7 @@
 #include "search/search_integration_tests/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
-#include "search/v2/token_slice.hpp"
+#include "search/token_slice.hpp"
 
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
@@ -22,7 +22,6 @@
 
 using namespace generator::tests_support;
 using namespace search::tests_support;
-using namespace search::v2;
 
 using TRules = vector<shared_ptr<MatchingRule>>;
 
@@ -414,8 +413,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     params.m_tokens.emplace_back();
     params.m_tokens.back().push_back(strings::MakeUniString("141702"));
     auto * value = handle.GetValue<MwmValue>();
-    auto features = v2::RetrievePostcodeFeatures(countryId, *value, cancellable,
-                                                 TokenSlice(params, 0, params.m_tokens.size()));
+    auto features = RetrievePostcodeFeatures(countryId, *value, cancellable,
+                                             TokenSlice(params, 0, params.m_tokens.size()));
     TEST_EQUAL(1, features->PopCount(), ());
 
     uint64_t index = 0;

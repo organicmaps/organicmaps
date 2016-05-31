@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/v2/locality_scorer.hpp"
+#include "search/locality_scorer.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -15,7 +15,6 @@
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
-using namespace search::v2;
 using namespace search;
 using namespace strings;
 

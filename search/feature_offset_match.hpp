@@ -3,7 +3,7 @@
 #include "search/query_params.hpp"
 #include "search/search_common.hpp"
 #include "search/search_index_values.hpp"
-#include "search/v2/token_slice.hpp"
+#include "search/token_slice.hpp"
 
 #include "indexer/trie.hpp"
 
@@ -445,7 +445,7 @@ void MatchFeaturesInTrie(QueryParams const & params,
 }
 
 template <typename TValue, typename TFilter, typename ToDo>
-void MatchPostcodesInTrie(v2::TokenSlice const & slice,
+void MatchPostcodesInTrie(TokenSlice const & slice,
                           trie::Iterator<ValueList<TValue>> const & trieRoot,
                           TFilter const & filter, ToDo && toDo)
 {
