@@ -24,6 +24,7 @@ namespace
 {
 enum class GeoMode
 {
+  Pending,
   InPosition,
   NotInPosition,
   FollowAndRotate,
@@ -45,6 +46,10 @@ struct GeoModeSettings
 };
 
 map<GeoMode, GeoModeSettings> const kGeoSettings{
+    {GeoMode::Pending,
+     {.distanceFilter = kCLDistanceFilterNone,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
+                   .battery = kCLLocationAccuracyBestForNavigation}}},
     {GeoMode::InPosition,
      {.distanceFilter = 5,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,
@@ -493,6 +498,7 @@ location::CompassInfo compasInfoFromHeading(CLHeading const * h)
     switch (mode)
     {
       case location::EMyPositionMode::PendingPosition:
+        self.geoMode = GeoMode::Pending;
         break;
       case location::EMyPositionMode::NotFollowNoPosition:
       case location::EMyPositionMode::NotFollow:
