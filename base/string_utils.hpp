@@ -15,18 +15,22 @@
 /// All methods work with strings in utf-8 format
 namespace strings
 {
-
 typedef uint32_t UniChar;
-//typedef buffer_vector<UniChar, 32> UniString;
+// typedef buffer_vector<UniChar, 32> UniString;
 
 /// Make new type, not typedef. Need to specialize DebugPrint.
 class UniString : public buffer_vector<UniChar, 32>
 {
   typedef buffer_vector<UniChar, 32> BaseT;
+
 public:
   UniString() {}
   explicit UniString(size_t n, UniChar c = UniChar()) : BaseT(n, c) {}
-  template <class IterT> UniString(IterT b, IterT e) : BaseT(b, e) {}
+  template <class IterT>
+  UniString(IterT b, IterT e)
+    : BaseT(b, e)
+  {
+  }
 
   bool IsEqualAscii(char const * s) const;
 
@@ -83,10 +87,7 @@ bool IsASCIIString(string const & str);
 bool IsASCIIDigit(UniChar c);
 bool IsASCIILatin(UniChar c);
 
-inline string DebugPrint(UniString const & s)
-{
-  return ToUtf8(s);
-}
+inline string DebugPrint(UniString const & s) { return ToUtf8(s); }
 
 template <typename DelimFuncT, typename UniCharIterT = UniString::const_iterator>
 class TokenizeIterator
@@ -117,14 +118,14 @@ class TokenizeIterator
 public:
   /// @warning string S must be not temporary!
   TokenizeIterator(string const & s, DelimFuncT const & delimFunc)
-  : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
+    : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
   {
     move();
   }
 
   /// @warning unistring S must be not temporary!
   TokenizeIterator(UniString const & s, DelimFuncT const & delimFunc)
-  : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
+    : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
   {
     move();
   }
@@ -137,12 +138,12 @@ public:
 
   string operator*() const
   {
-    ASSERT( m_beg != m_finish, ("dereferencing of empty iterator") );
+    ASSERT(m_beg != m_finish, ("dereferencing of empty iterator"));
     return string(m_beg.base(), m_end.base());
   }
 
   operator bool() const { return m_beg != m_finish; }
-
+  
   TokenizeIterator & operator++()
   {
     move();
@@ -159,11 +160,7 @@ public:
     return !copy;
   }
 
-  UniString GetUniString() const
-  {
-    return UniString(m_beg, m_end);
-  }
-
+  UniString GetUniString() const { return UniString(m_beg, m_end); }
   /// Same as operator bool() in expression it == end(...)
   bool operator==(TokenizeIterator const &) { return !(*this); }
   /// Same as operator bool() in expression it != end(...)
@@ -173,6 +170,7 @@ public:
 class SimpleDelimiter
 {
   UniString m_delims;
+
 public:
   SimpleDelimiter(char const * delimChars);
   // Used in TokenizeIterator to allow past the end iterator construction.
@@ -181,8 +179,8 @@ public:
   bool operator()(UniChar c) const;
 };
 
-typedef TokenizeIterator<SimpleDelimiter,
-                         ::utf8::unchecked::iterator<string::const_iterator> > SimpleTokenizer;
+typedef TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<string::const_iterator>>
+    SimpleTokenizer;
 
 template <typename TFunctor>
 void Tokenize(string const & str, char const * delims, TFunctor && f)
@@ -198,7 +196,8 @@ void Tokenize(string const & str, char const * delims, TFunctor && f)
 /// @return code of last symbol in string or 0 if s is empty
 UniChar LastUniChar(string const & s);
 
-template <class T, size_t N, class TT> bool IsInArray(T (&arr) [N], TT const & t)
+template <class T, size_t N, class TT>
+bool IsInArray(T(&arr)[N], TT const & t)
 {
   for (size_t i = 0; i < N; ++i)
     if (arr[i] == t)
@@ -214,10 +213,17 @@ bool to_uint64(char const * s, uint64_t & i);
 bool to_int64(char const * s, int64_t & i);
 bool to_double(char const * s, double & d);
 
-inline bool is_number(string const & s) { int64_t dummy; return to_int64(s.c_str(), dummy); }
+inline bool is_number(string const & s)
+{
+  int64_t dummy;
+  return to_int64(s.c_str(), dummy);
+}
 
 inline bool to_int(string const & s, int & i, int base = 10) { return to_int(s.c_str(), i, base); }
-inline bool to_uint(string const & s, unsigned int & i, int base = 10) { return to_uint(s.c_str(), i, base); }
+inline bool to_uint(string const & s, unsigned int & i, int base = 10)
+{
+  return to_uint(s.c_str(), i, base);
+}
 inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }
 inline bool to_int64(string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
 inline bool to_double(string const & s, double & d) { return to_double(s.c_str(), d); }
@@ -225,17 +231,10 @@ inline bool to_double(string const & s, double & d) { return to_double(s.c_str()
 
 /// @name From numeric to string.
 //@{
-inline string to_string(string const & s)
-{
-  return s;
-}
-
-inline string to_string(char const * s)
-{
-  return s;
-}
-
-template <typename T> string to_string(T t)
+inline string to_string(string const & s) { return s; }
+inline string to_string(char const * s) { return s; }
+template <typename T>
+string to_string(T t)
 {
   ostringstream ss;
   ss << t;
@@ -261,7 +260,8 @@ int UpperBoundOnChars()
   return numeric_limits<T>::digits10 + is_signed<T>::value + 1;
 }
 
-template <typename T> char * to_string_digits(char * buf, T i)
+template <typename T>
+char * to_string_digits(char * buf, T i)
 {
   do
   {
@@ -272,7 +272,8 @@ template <typename T> char * to_string_digits(char * buf, T i)
   return buf;
 }
 
-template <typename T> string to_string_signed(T i)
+template <typename T>
+string to_string_signed(T i)
 {
   bool const negative = i < 0;
   int const sz = UpperBoundOnChars<T>();
@@ -287,7 +288,8 @@ template <typename T> string to_string_signed(T i)
   return string(beg, end - beg);
 }
 
-template <typename T> string to_string_unsigned(T i)
+template <typename T>
+string to_string_unsigned(T i)
 {
   int const sz = UpperBoundOnChars<T>();
   char buf[sz];
@@ -295,19 +297,10 @@ template <typename T> string to_string_unsigned(T i)
   char * beg = to_string_digits(end, i);
   return string(beg, end - beg);
 }
-
 }
 
-inline string to_string(int64_t i)
-{
-  return impl::to_string_signed(i);
-}
-
-inline string to_string(uint64_t i)
-{
-  return impl::to_string_unsigned(i);
-}
-
+inline string to_string(int64_t i) { return impl::to_string_signed(i); }
+inline string to_string(uint64_t i) { return impl::to_string_unsigned(i); }
 /// Use this function to get string with fixed count of
 /// "Digits after comma".
 string to_string_dac(double d, int dac);
@@ -399,7 +392,7 @@ size_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIter 
 
 namespace std
 {
-template <typename ... Args>
+template <typename... Args>
 struct iterator_traits<strings::TokenizeIterator<Args...>>
 {
   using difference_type = std::ptrdiff_t;
@@ -408,4 +401,4 @@ struct iterator_traits<strings::TokenizeIterator<Args...>>
   using reference = string;
   using iterator_category = std::input_iterator_tag;
 };
-} // namespace std
+}  // namespace std
