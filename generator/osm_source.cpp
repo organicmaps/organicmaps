@@ -516,6 +516,8 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     // If info.m_bookingDatafileName is empty then no data will be loaded.
     generator::BookingDataset bookingDataset(info.m_bookingDatafileName);
 
+    stringstream skippedElements;
+    
     // Here we can add new tags to element!!!
     auto const fn = [&](OsmElement * e)
     {
@@ -523,7 +525,10 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
       tagAdmixer(e);
 
       if (bookingDataset.BookingFilter(*e))
+      {
+        skippedElements << e->id << endl;
         return;
+      }
       
       parser.EmitElement(e);
     };
@@ -545,6 +550,15 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     {
       bookingDataset.BuildFeatures([&](OsmElement * e) { parser.EmitElement(e); });
       LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
+      string skippedElementsPath = info.GetIntermediateFileName("skipped_elements", ".lst");
+      ofstream file(skippedElementsPath);
+      if (file.is_open())
+      {
+        file << skippedElements.str();
+        LOG(LINFO, ("Saving skipped elements if into", skippedElementsPath, "done."));
+      }
+      else
+        LOG(LERROR, ("Can't output into", skippedElementsPath));
     }
     
     parser.Finish();
