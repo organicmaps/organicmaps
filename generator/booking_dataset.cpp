@@ -271,7 +271,7 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
     auto const & hotel = GetHotel(j);
     double const distanceMeters = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
     double score = ScoreByLinearNormDistance(distanceMeters);
-    matched = score > kOptimalThreshold;
+    matched = matched || score > kOptimalThreshold;
   }
 
   return matched;

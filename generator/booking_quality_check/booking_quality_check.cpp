@@ -57,6 +57,8 @@ int main(int argc, char * argv[])
   vector<size_t> elementIndexes(elements.size());
   iota(elementIndexes.begin(), elementIndexes.end(), 0);
 
+  // In first implementation, we used random_shufle for reference dataset.
+  // Next time we are going to replace random_shuffle by shuffle with defined seed.
   random_shuffle(elementIndexes.begin(), elementIndexes.end());
   if (FLAGS_selection_size < elementIndexes.size())
     elementIndexes.resize(FLAGS_selection_size);
