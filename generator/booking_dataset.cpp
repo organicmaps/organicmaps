@@ -257,11 +257,20 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
     return false;
 
   // Find 3 nearest values to a point.
-  auto const indexes = GetNearestHotels(e.lat, e.lon, 3, 150 /* max distance in meters */);
-  if (indexes.empty())
+  auto const bookingIndexes = GetNearestHotels(e.lat, e.lon, 3, kDistanceLimitInMeters);
+  if (bookingIndexes.empty())
     return false;
 
-  bool matched = MatchByName(name, indexes);
+  bool matched = false;
+
+  for (size_t const j : bookingIndexes)
+  {
+    auto const & hotel = GetHotel(j);
+    double const dist = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
+    double score = (kDistanceLimitInMeters - dist) / kDistanceLimitInMeters;
+    matched = score > kOptimalThreshold;
+  }
+
   return matched;
 }
 

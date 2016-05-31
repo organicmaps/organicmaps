@@ -15,6 +15,9 @@ namespace generator
 class BookingDataset
 {
 public:
+  double static constexpr kDistanceLimitInMeters = 150;
+  double static constexpr kOptimalThreshold = 0.709283;
+
   struct Hotel
   {
     enum class Fields
