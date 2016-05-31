@@ -232,7 +232,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   {
     BOOL const isSelected = buttonType == EButton::Bookmark ? self.isBookmark : NO;
     if (NSString * title = titleForButton(buttonType, isSelected))
-      [titles addObject:titleForButton(buttonType, isSelected)];
+      [titles addObject:title];
     else
       NSAssert(false, @"Title can't be nil!");
   }
