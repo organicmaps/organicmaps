@@ -99,10 +99,10 @@ public:
 
   struct Locality
   {
-    Locality() : m_featureId(0), m_startToken(0), m_endToken(0) {}
+    Locality() : m_featureId(0), m_startToken(0), m_endToken(0), m_prob(0.0) {}
 
     Locality(uint32_t featureId, size_t startToken, size_t endToken)
-      : m_featureId(featureId), m_startToken(startToken), m_endToken(endToken)
+      : m_featureId(featureId), m_startToken(startToken), m_endToken(endToken), m_prob(0.0)
     {
     }
 
@@ -110,6 +110,12 @@ public:
     uint32_t m_featureId;
     size_t m_startToken;
     size_t m_endToken;
+
+    // Measures our belief in the fact that tokens in the range [m_startToken, m_endToken)
+    // indeed specify a locality. Currently it is set only for villages.
+    double m_prob;
+
+    string m_name;
   };
 
   // This struct represents a country or US- or Canadian- state.  It

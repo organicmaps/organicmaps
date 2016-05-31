@@ -44,8 +44,8 @@ void LocalityScorer::GetTopLocalities(size_t limit, vector<Geocoder::Locality> &
     ls.emplace_back(locality);
 
   RemoveDuplicates(ls);
-  LeaveTopByRank(std::max(limit, kDefaultReadLimit), ls);
-  SortByName(ls);
+  LeaveTopByRankAndProb(std::max(limit, kDefaultReadLimit), ls);
+  SortByNameAndProb(ls);
   if (ls.size() > limit)
     ls.resize(limit);
 
@@ -71,7 +71,7 @@ void LocalityScorer::RemoveDuplicates(vector<ExLocality> & ls) const
            ls.end());
 }
 
-void LocalityScorer::LeaveTopByRank(size_t limit, vector<ExLocality> & ls) const
+void LocalityScorer::LeaveTopByRankAndProb(size_t limit, vector<ExLocality> & ls) const
 {
   if (ls.size() <= limit)
     return;
@@ -81,6 +81,8 @@ void LocalityScorer::LeaveTopByRank(size_t limit, vector<ExLocality> & ls) const
 
   sort(ls.begin(), ls.end(), [](ExLocality const & lhs, ExLocality const & rhs)
        {
+         if (lhs.m_locality.m_prob != rhs.m_locality.m_prob)
+           return lhs.m_locality.m_prob > rhs.m_locality.m_prob;
          if (lhs.m_rank != rhs.m_rank)
            return lhs.m_rank > rhs.m_rank;
          return lhs.m_numTokens > rhs.m_numTokens;
@@ -88,7 +90,7 @@ void LocalityScorer::LeaveTopByRank(size_t limit, vector<ExLocality> & ls) const
   ls.resize(limit);
 }
 
-void LocalityScorer::SortByName(vector<ExLocality> & ls) const
+void LocalityScorer::SortByNameAndProb(vector<ExLocality> & ls) const
 {
   vector<string> names;
   for (auto & l : ls)
@@ -107,6 +109,9 @@ void LocalityScorer::SortByName(vector<ExLocality> & ls) const
 
   sort(ls.begin(), ls.end(), [](ExLocality const & lhs, ExLocality const & rhs)
        {
+         // Probabilities form a stronger signal than name scores do.
+         if (lhs.m_locality.m_prob != rhs.m_locality.m_prob)
+           return lhs.m_locality.m_prob > rhs.m_locality.m_prob;
          if (IsAlmostFullMatch(lhs.m_nameScore) && IsAlmostFullMatch(rhs.m_nameScore))
          {
            // When both localities match well, e.g. full or full prefix
