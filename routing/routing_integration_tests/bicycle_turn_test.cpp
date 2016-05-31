@@ -17,13 +17,9 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  integration::TestTurnCount(route, 3);
-
+  integration::TestTurnCount(route, 1);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(TurnDirection::TurnLeft);
-
-  integration::TestRouteLength(route, 2350.0);
+  integration::TestRouteLength(route, 1054.0);
 }
 
 UNIT_TEST(RussiaMoscowGerPanfilovtsev22BicycleWayTurnTest)
@@ -54,7 +50,7 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
 
   integration::TestTurnCount(route, 1);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::GoStraight);
 }
 
 UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTurnTest)
