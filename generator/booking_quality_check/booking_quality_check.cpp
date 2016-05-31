@@ -7,42 +7,39 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 
+#include "std/fstream.hpp"
+
 DEFINE_bool(generate_classif, false, "Generate classificator.");
 
-DEFINE_bool(preprocess, false, "1st pass - count features");
 DEFINE_string(osm_file_name, "", "Input .o5m file");
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format");
+DEFINE_string(sample_data, "", "Sample output path");
 DEFINE_uint64(selection_size, 1000, "Selection size");
 
 using namespace generator;
 
-
-ostream & operator << (ostream & s, OsmElement const & e)
+ostream & operator<<(ostream & s, OsmElement const & e)
 {
   for (auto const & tag : e.Tags())
   {
-    s << tag.key << "=" << tag.value << "\t";
+    auto t = tag;
+    replace(t.key.begin(), t.key.end(), '\n', ' ');
+    replace(t.value.begin(), t.value.end(), '\n', ' ');
+    s << t.key << "=" << t.value << "\t";
   }
   return s;
 }
 
 int main(int argc, char * argv[])
 {
-  google::SetUsageMessage("Takes OSM XML data from stdin and creates"
-                          " data and index files in several passes.");
+  google::SetUsageMessage(
+      "Takes OSM XML data from stdin and creates"
+      " data and index files in several passes.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
-  LOG_SHORT(LINFO, ("Booking data:",FLAGS_booking_data));
+  LOG_SHORT(LINFO, ("Booking data:", FLAGS_booking_data));
 
   BookingDataset bookingDataset(FLAGS_booking_data);
-
-  // Here we can add new tags to element!!!
-  auto const filterAction = [&](OsmElement * e)
-  {
-    if (bookingDataset.BookingFilter(*e))
-      return;
-
-  };
 
   vector<OsmElement> elements;
   auto const counterAction = [&](OsmElement * e)
@@ -53,7 +50,8 @@ int main(int argc, char * argv[])
 
   LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm_file_name));
   {
-    SourceReader reader = FLAGS_osm_file_name.empty() ? SourceReader() : SourceReader(FLAGS_osm_file_name);
+    SourceReader reader =
+        FLAGS_osm_file_name.empty() ? SourceReader() : SourceReader(FLAGS_osm_file_name);
     ProcessOsmElementsFromO5M(reader, counterAction);
   }
   LOG_SHORT(LINFO, ("Tourism elements:", elements.size()));
@@ -66,23 +64,46 @@ int main(int argc, char * argv[])
   random_shuffle(elementIndexes.begin(), elementIndexes.end());
   elementIndexes.resize(FLAGS_selection_size);
 
+  stringstream outStream;
+
   for (size_t i : elementIndexes)
   {
     OsmElement const & e = elements[i];
-    auto const bookingIndexes = bookingDataset.GetNearestHotels(e.lat, e.lon, 3, 150);
+    auto const bookingIndexes =
+        bookingDataset.GetNearestHotels(e.lat, e.lon, 3, BookingDataset::kDistanceLimitInMeters);
     for (size_t const j : bookingIndexes)
     {
       auto const & hotel = bookingDataset.GetHotel(j);
       double const dist = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
-      cout << "# ------------------------------------------" << fixed << setprecision(6) << endl;
-      cout << "y \t" << i << "\t " << j << " dist: " << dist << endl;
-      cout << "# " << e << endl;
-      cout << "# " << hotel << endl;
-      cout << "# URL: https://www.openstreetmap.org/?mlat=" << hotel.lat << "&mlon=" << hotel.lon << "#map=18/"<< hotel.lat << "/" << hotel.lon << endl;
+      double score =
+          (BookingDataset::kDistanceLimitInMeters - dist) / BookingDataset::kDistanceLimitInMeters;
+      bool matched = score > BookingDataset::kOptimalThreshold;
+
+      outStream << "# ------------------------------------------" << fixed << setprecision(6)
+                << endl;
+      outStream << (matched ? 'y' : 'n') << " \t" << i << "\t " << j << " distance: " << dist
+                << " score: " << score << endl;
+      outStream << "# " << e << endl;
+      outStream << "# " << hotel << endl;
+      outStream << "# URL: https://www.openstreetmap.org/?mlat=" << hotel.lat
+                << "&mlon=" << hotel.lon << "#map=18/" << hotel.lat << "/" << hotel.lon << endl;
     }
-    cout << endl << endl;
+    if (!bookingIndexes.empty())
+      outStream << endl << endl;
   }
 
+  if (FLAGS_sample_data.empty())
+  {
+    cout << outStream.str();
+  }
+  else
+  {
+    ofstream file(FLAGS_sample_data);
+    if (file.is_open())
+      file << outStream.str();
+    else
+      LOG(LERROR, ("Can't output into", FLAGS_sample_data));
+  }
 
   return 0;
 }
