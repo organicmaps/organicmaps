@@ -43,8 +43,6 @@
 #include "base/thread_checker.hpp"
 
 #include "std/list.hpp"
-#include "std/mutex.hpp"  // TODO(mgsergio): remove when m_UserStatsMutex is gone.
-#include "std/shared_ptr.hpp"
 #include "std/target_os.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
@@ -676,30 +674,24 @@ private:
 
 public:
   //@{
-  // TODO(mgsergio): move mutexed logic out from framework.
   // User statistics.
 
-  // A callback type to be passed in UpdateUserStats.
-  using TOnStatsUpdated = function<void()>;
+  editor::UserStats GetUserStats(string const & userName) const
+  {
+    return m_userStatsLoader.GetStats(userName);
+  }
 
-  // TODO(mgsergio): Comment to this function.
-  shared_ptr<editor::UserStats const> GetUserStats(string const & userName) const;
+  // Reads user stats from server or gets it from cache calls |fn| on success.
+  void UpdateUserStats(string const & userName,
+                       editor::UserStatsLoader::TOnUpdateCallback fn)
+  {
+    m_userStatsLoader.Update(userName, fn);
+  }
 
-  // Reads user stats from server or gets it from cache calls reader on success.
-  void UpdateUserStats(string const & userName, TOnStatsUpdated const & fn);
+  void DropUserStats(string const & userName) { m_userStatsLoader.DropStats(userName); }
 
 private:
-  /// Sends a synchronous request to the server and updates user's stats.
-  bool UpdateUserStats(string const & userName);
-
-  bool LoadUserStatsFromSettings();
-  /// Not thread-safe, use synchonization.
-  void SaveUserStatsToSettings();
-
-  shared_ptr<editor::UserStats> m_userStats;
-  string m_userName;
-  time_t m_latsUpdate{};
-  mutable mutex m_userStatsMutex;
+  editor::UserStatsLoader m_userStatsLoader;
   //@}
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
