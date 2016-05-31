@@ -1,13 +1,12 @@
-#include "std/iostream.hpp"
-
 #include "generator/booking_dataset.hpp"
 #include "generator/osm_source.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include "3party/gflags/src/gflags/gflags.h"
-
 #include "std/fstream.hpp"
+#include "std/iostream.hpp"
+
+#include "3party/gflags/src/gflags/gflags.h"
 
 DEFINE_bool(generate_classif, false, "Generate classificator.");
 
@@ -42,47 +41,45 @@ int main(int argc, char * argv[])
   BookingDataset bookingDataset(FLAGS_booking_data);
 
   vector<OsmElement> elements;
-  auto const counterAction = [&](OsmElement * e)
-  {
-    if (bookingDataset.TourismFilter(*e))
-      elements.emplace_back(*e);
-  };
-
   LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm_file_name));
   {
     SourceReader reader =
         FLAGS_osm_file_name.empty() ? SourceReader() : SourceReader(FLAGS_osm_file_name);
-    ProcessOsmElementsFromO5M(reader, counterAction);
+    ProcessOsmElementsFromO5M(reader, [&](OsmElement * e)
+                              {
+                                if (bookingDataset.TourismFilter(*e))
+                                  elements.emplace_back(*e);
+                              });
   }
-  LOG_SHORT(LINFO, ("Tourism elements:", elements.size()));
+  LOG_SHORT(LINFO, ("Num of tourism elements:", elements.size()));
 
   vector<size_t> elementIndexes(elements.size());
-  size_t counter = 0;
-  for (auto & e : elementIndexes)
-    e = counter++;
+  for (size_t i = 0; i < elementIndexes.size(); ++i)
+    elementIndexes[i] = i;
 
   random_shuffle(elementIndexes.begin(), elementIndexes.end());
-  elementIndexes.resize(FLAGS_selection_size);
+  if (FLAGS_selection_size < elementIndexes.size())
+    elementIndexes.resize(FLAGS_selection_size);
 
   stringstream outStream;
 
   for (size_t i : elementIndexes)
   {
     OsmElement const & e = elements[i];
-    auto const bookingIndexes =
-        bookingDataset.GetNearestHotels(e.lat, e.lon, 3, BookingDataset::kDistanceLimitInMeters);
+    auto const bookingIndexes = bookingDataset.GetNearestHotels(
+        e.lat, e.lon, BookingDataset::kMaxSelectedElements, BookingDataset::kDistanceLimitInMeters);
     for (size_t const j : bookingIndexes)
     {
       auto const & hotel = bookingDataset.GetHotel(j);
-      double const dist = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
-      double score =
-          (BookingDataset::kDistanceLimitInMeters - dist) / BookingDataset::kDistanceLimitInMeters;
+      double const distanceMeters = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
+      double score = bookingDataset.ScoreByLinearNormDistance(distanceMeters);
+
       bool matched = score > BookingDataset::kOptimalThreshold;
 
       outStream << "# ------------------------------------------" << fixed << setprecision(6)
                 << endl;
-      outStream << (matched ? 'y' : 'n') << " \t" << i << "\t " << j << " distance: " << dist
-                << " score: " << score << endl;
+      outStream << (matched ? 'y' : 'n') << " \t" << i << "\t " << j
+                << " distance: " << distanceMeters << " score: " << score << endl;
       outStream << "# " << e << endl;
       outStream << "# " << hotel << endl;
       outStream << "# URL: https://www.openstreetmap.org/?mlat=" << hotel.lat
