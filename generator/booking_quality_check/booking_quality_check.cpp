@@ -5,6 +5,7 @@
 
 #include "std/fstream.hpp"
 #include "std/iostream.hpp"
+#include "std/numeric.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -54,8 +55,7 @@ int main(int argc, char * argv[])
   LOG_SHORT(LINFO, ("Num of tourism elements:", elements.size()));
 
   vector<size_t> elementIndexes(elements.size());
-  for (size_t i = 0; i < elementIndexes.size(); ++i)
-    elementIndexes[i] = i;
+  iota(elementIndexes.begin(), elementIndexes.end(), 0);
 
   random_shuffle(elementIndexes.begin(), elementIndexes.end());
   if (FLAGS_selection_size < elementIndexes.size())
