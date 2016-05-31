@@ -59,6 +59,7 @@ bool IntegerCheck(char const * start, char const * stop, T x, TResult & out)
 bool to_int(char const * start, int & i, int base /*= 10*/)
 {
   char * stop;
+  errno = 0; // Library functions do not reset it.
   long const v = strtol(start, &stop, base);
   return IntegerCheck(start, stop, v, i);
 }
@@ -66,6 +67,7 @@ bool to_int(char const * start, int & i, int base /*= 10*/)
 bool to_uint(char const * start, unsigned int & i, int base /*= 10*/)
 {
   char * stop;
+  errno = 0; // Library functions do not reset it.
   unsigned long const v = strtoul(start, &stop, base);
   return IntegerCheck(start, stop, v, i);
 }
