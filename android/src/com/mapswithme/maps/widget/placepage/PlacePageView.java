@@ -42,8 +42,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -383,7 +385,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
           break;
 
         case BOOKING:
-          onBookingClick(Statistics.EventName.PP_BOOKING_BOOK, AlohaHelper.PP_BOOKING_BOOK);
+          onBookingClick(Statistics.EventName.PP_SPONSORED_BOOK);
           break;
         }
       }
@@ -433,7 +435,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mDetails.setBackgroundResource(0);
   }
 
-  private void onBookingClick(final String statisticsEvent, final String alohaEvent)
+  private void onBookingClick(final String event)
   {
     // TODO (trashkalmar): Set correct text
     Utils.checkConnection(getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>()
@@ -444,8 +446,21 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         if (!result)
           return;
 
-        Statistics.INSTANCE.trackEvent(statisticsEvent);
-        AlohaHelper.logClick(alohaEvent);
+        SponsoredHotelInfo info = mSponsoredHotelInfo;
+        if (info == null)
+          return;
+
+        Map<String, String> params = new HashMap<>();
+        params.put("provider", "Booking.com");
+
+        MapObject myPos = LocationHelper.INSTANCE.getMyPosition();
+        params.put("lat", (myPos == null ? "N/A" : String.valueOf(myPos.getLat())));
+        params.put("lon", (myPos == null ? "N/A" : String.valueOf(myPos.getLon())));
+        // TODO (trashkalmar): Replace with hotel's ID
+        params.put("hotel", mSponsoredHotelInfo.price);
+
+        Statistics.INSTANCE.trackEvent(event, params);
+        org.alohalytics.Statistics.logEvent(event, params);
 
         try
         {
@@ -952,7 +967,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       addPlace();
       break;
     case R.id.ll__more:
-      onBookingClick(Statistics.EventName.PP_BOOKING_DETAILS, AlohaHelper.PP_BOOKING_DETAILS);
+      onBookingClick(Statistics.EventName.PP_SPONSORED_DETAILS);
       break;
     case R.id.iv__bookmark_color:
       saveBookmarkTitle();
