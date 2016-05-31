@@ -1,7 +1,7 @@
 #include "search_index_builder.hpp"
 
+#include "search/common.hpp"
 #include "search/reverse_geocoder.hpp"
-#include "search/search_common.hpp"
 #include "search/search_index_values.hpp"
 #include "search/search_trie.hpp"
 #include "search/types_skipper.hpp"

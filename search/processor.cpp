@@ -1,5 +1,6 @@
 #include "processor.hpp"
 
+#include "search/common.hpp"
 #include "search/dummy_rank_table.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
@@ -10,9 +11,8 @@
 #include "search/ranking_info.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/region.hpp"
-#include "search/search_common.hpp"
 #include "search/search_index_values.hpp"
-#include "search/search_string_intersection.hpp"
+#include "search/string_intersection.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/index.hpp"

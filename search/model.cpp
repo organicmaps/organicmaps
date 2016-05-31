@@ -1,4 +1,4 @@
-#include "search/search_model.hpp"
+#include "search/model.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"

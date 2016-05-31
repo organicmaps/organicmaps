@@ -1,8 +1,8 @@
 #pragma once
 
+#include "search/model.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_utils.hpp"
-#include "search/search_model.hpp"
 
 #include "std/iostream.hpp"
 

@@ -3,9 +3,9 @@
 #include "search/cancel_exception.hpp"
 #include "search/features_layer.hpp"
 #include "search/house_numbers_matcher.hpp"
+#include "search/model.hpp"
 #include "search/mwm_context.hpp"
 #include "search/reverse_geocoder.hpp"
-#include "search/search_model.hpp"
 #include "search/street_vicinity_loader.hpp"
 
 #include "indexer/feature.hpp"

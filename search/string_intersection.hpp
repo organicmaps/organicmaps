@@ -2,12 +2,11 @@
 
 #include "indexer/search_delimiters.hpp"
 
-
 namespace search
 {
-
 template <typename LowTokensIterType, typename F>
-void SearchStringTokensIntersectionRanges(string const & s, LowTokensIterType itLowBeg, LowTokensIterType itLowEnd, F f)
+void SearchStringTokensIntersectionRanges(string const & s, LowTokensIterType itLowBeg,
+                                          LowTokensIterType itLowEnd, F f)
 {
   // split input query by tokens and prefix
   search::Delimiters delimsTest;
@@ -48,5 +47,4 @@ void SearchStringTokensIntersectionRanges(string const & s, LowTokensIterType it
       f(result);
   }
 }
-
 }

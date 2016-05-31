@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/search_string_intersection.hpp"
+#include "search/string_intersection.hpp"
 
 #include "indexer/feature_covering.hpp"
 

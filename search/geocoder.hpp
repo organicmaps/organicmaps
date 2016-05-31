@@ -5,12 +5,12 @@
 #include "search/features_layer_path_finder.hpp"
 #include "search/geometry_cache.hpp"
 #include "search/mode.hpp"
+#include "search/model.hpp"
 #include "search/mwm_context.hpp"
 #include "search/nested_rects_cache.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
-#include "search/search_model.hpp"
 
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"

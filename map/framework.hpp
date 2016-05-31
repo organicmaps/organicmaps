@@ -21,8 +21,8 @@
 
 #include "editor/user_stats.hpp"
 
+#include "search/engine.hpp"
 #include "search/query_saver.hpp"
-#include "search/search_engine.hpp"
 
 #include "storage/downloader_search_params.hpp"
 #include "storage/downloading_policy.hpp"

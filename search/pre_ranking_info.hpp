@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/search_model.hpp"
+#include "search/model.hpp"
 
 #include "std/cstdint.hpp"
 
