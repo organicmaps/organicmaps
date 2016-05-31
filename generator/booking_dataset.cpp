@@ -5,6 +5,7 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/fstream.hpp"
