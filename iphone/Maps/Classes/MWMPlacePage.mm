@@ -1,14 +1,11 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMBasePlacePageView.h"
-#import "MWMBookmarkColorViewController.h"
-#import "MWMBookmarkDescriptionViewController.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
-#import "SelectSetVC.h"
 #import "Statistics.h"
 
 static NSString * const kPlacePageNibIdentifier = @"PlacePageView";
@@ -93,6 +90,7 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
 - (void)addBookmark
 {
   [self.basePlacePageView addBookmark];
+  self.actionBar.isBookmark = YES;
 }
 
 - (void)removeBookmark
@@ -114,6 +112,12 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
 - (void)addPlace
 {
   [self.manager addPlace];
+}
+
+- (void)bookingMore
+{
+  MapViewController * vc = MapsAppDelegate.theApp.mapViewController;
+  [vc openUrl:[NSURL URLWithString:[self.manager.entity getCellValue:MWMPlacePageCellTypeBookingMore]]];
 }
 
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset

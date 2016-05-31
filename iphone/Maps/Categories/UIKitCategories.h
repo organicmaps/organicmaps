@@ -105,6 +105,12 @@ typedef void (^MWMAlertViewCompletionBlock) (UIAlertView * alertView, NSInteger 
 
 @end
 
+@interface UIViewController (Safari)
+
+- (void)openUrl:(NSURL *)url;
+
+@end
+
 @interface UIImage (ImageWithColor)
 
 + (UIImage *)imageWithColor:(UIColor *)color;

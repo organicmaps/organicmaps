@@ -1,28 +1,32 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
+#import "MWMActionBarButton.h"
 #import "MWMBasePlacePageView.h"
-#import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 
 #include "Framework.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
+#include "std/vector.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
-static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
-@interface MWMPlacePageActionBar ()
+namespace
+{
+NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
+
+}  // namespace
+
+@interface MWMPlacePageActionBar () <MWMActionBarButtonDelegate, UIActionSheetDelegate>
+{
+  vector<EButton> m_visibleButtons;
+  vector<EButton> m_additionalButtons;
+}
 
 @property (weak, nonatomic) MWMPlacePageViewManager * placePageManager;
-@property (weak, nonatomic) IBOutlet UIButton * apiBackButton;
-@property (weak, nonatomic) IBOutlet UIButton * bookmarkButton;
-@property (weak, nonatomic) IBOutlet UIButton * routeButton;
-@property (weak, nonatomic) IBOutlet UILabel * apiBackLabel;
-@property (weak, nonatomic) IBOutlet UILabel * routeLabel;
-@property (weak, nonatomic) IBOutlet UILabel * bookmarkLabel;
-@property (weak, nonatomic) IBOutlet UILabel * shareLabel;
+@property (copy, nonatomic) IBOutletCollection(UIView) NSArray<UIView *> * buttons;
+@property (nonatomic) BOOL isPrepareRouteMode;
 
 @end
 
@@ -30,17 +34,8 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 + (MWMPlacePageActionBar *)actionBarForPlacePageManager:(MWMPlacePageViewManager *)placePageManager
 {
-  BOOL const isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
-  NSUInteger const i = isPrepareRouteMode ? 1 : 0;
-  MWMPlacePageActionBar * bar = [NSBundle.mainBundle
-                                 loadNibNamed:kPlacePageActionBarNibName owner:nil options:nil][i];
-  NSAssert(i == bar.tag, @"Incorrect view!");
-  bar.isPrepareRouteMode = isPrepareRouteMode;
-  bar.placePageManager = placePageManager;
-  if (isPrepareRouteMode)
-    return bar;
-
-  [bar setupBookmarkButton];
+  MWMPlacePageActionBar * bar = [[NSBundle.mainBundle
+                                 loadNibNamed:kPlacePageActionBarNibName owner:nil options:nil] firstObject];
   [bar configureWithPlacePageManager:placePageManager];
   return bar;
 }
@@ -48,174 +43,243 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 - (void)configureWithPlacePageManager:(MWMPlacePageViewManager *)placePageManager
 {
   self.placePageManager = placePageManager;
-  MWMPlacePageEntity * entity = self.placePageManager.entity;
-  if (entity.isApi)
-    [self setupApiBar];
-  // TODO(Vlad): API point can be a bookmark too. Probably "else if" shoud be replaced by "if".
-  else if (entity.isBookmark)
-    [self setupBookmarkBar];
-  else if (entity.isMyPosition)
-    [self setupMyPositionBar];
-  else
-    [self setupDefaultBar];
-
+  self.isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
+  self.isBookmark = placePageManager.entity.isBookmark;
+  [self configureButtons];
   self.autoresizingMask = UIViewAutoresizingNone;
-  [self setNeedsLayout];
 }
 
-- (void)setupApiBar
+- (void)configureButtons
 {
-  // Four buttons: Back, Share, Bookmark and Route
-  self.isBookmark = NO;
-  [self allButtons];
-}
-
-- (void)setupMyPositionBar
-{
-  // Two buttons: Share and Bookmark
-  self.isBookmark = NO;
-  [self twoButtons];
-}
-
-- (void)setupBookmarkBar
-{
-  // Three buttons: Share, Bookmark and Route
-  self.isBookmark = YES;
-  [self threeButtons];
-}
-
-- (void)setupDefaultBar
-{
-  // Three buttons: Share, Bookmark and Route
-  self.isBookmark = NO;
-  [self threeButtons];
-}
-
-- (void)threeButtons
-{
-  self.routeButton.hidden = NO;
-  self.routeLabel.hidden = NO;
-  self.apiBackButton.hidden = YES;
-  self.apiBackLabel.hidden = YES;
-}
-
-- (void)twoButtons
-{
-  self.routeButton.hidden = YES;
-  self.routeLabel.hidden = YES;
-  self.apiBackButton.hidden = YES;
-  self.apiBackLabel.hidden = YES;
-}
-
-- (void)allButtons
-{
-  for (UIView * v in self.subviews)
-    v.hidden = NO;
-}
-
-- (void)setupBookmarkButton
-{
-  UIButton * btn = self.bookmarkButton;
-  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted|UIControlStateSelected];
-
-  NSUInteger const animationImagesCount = 11;
-  NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
-  for (NSUInteger i = 0; i < animationImagesCount; ++i)
-    animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"ic_bookmarks_%@", @(i+1)]];
-
-  UIImageView * animationIV = btn.imageView;
-  animationIV.animationImages = animationImages;
-  animationIV.animationRepeatCount = 1;
-}
-
-- (IBAction)fromTap
-{
-  [self.placePageManager routeFrom];
-}
-
-- (IBAction)toTap
-{
-  [self.placePageManager routeTo];
-}
-
-- (IBAction)bookmarkTap:(UIButton *)sender
-{
-  self.isBookmark = !self.isBookmark;
-  NSMutableString * eventName = @"ppBookmarkButtonTap".mutableCopy;
-  if (self.isBookmark)
-  {
-    [sender.imageView startAnimating];
-    [self.placePageManager addBookmark];
-    [eventName appendString:@"Add"];
-  }
-  else
-  {
-    [self.placePageManager removeBookmark];
-    [eventName appendString:@"Delete"];
-  }
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:eventName];
-}
-
-- (void)layoutSubviews
-{
-  CGFloat const buttonWidth = 80.;
-  CGSize const size = UIScreen.mainScreen.bounds.size;
-  CGFloat const maximumWidth = 360.;
-  CGFloat const screenWidth = MIN(size.height, size.width);
-  CGFloat const actualWidth = IPAD ? maximumWidth : (size.height < size.width ? MIN(screenWidth, maximumWidth) : screenWidth);
+  m_visibleButtons.clear();
+  m_additionalButtons.clear();
   MWMPlacePageEntity * entity = self.placePageManager.entity;
-  if (entity.isApi)
+  NSString * phone = [entity getCellValue:MWMPlacePageCellTypePhoneNumber];
+
+  BOOL const isIphone = [[UIDevice currentDevice].model isEqualToString:@"iPhone"];
+  BOOL const isPhoneNotEmpty = phone.length > 0;
+  BOOL const isBooking = entity.isBooking;
+  BOOL const itHasPhoneNumber = isIphone && isPhoneNotEmpty;
+  BOOL const isApi = entity.isApi;
+  BOOL const isP2P = self.isPrepareRouteMode;
+  BOOL const isMyPosition = entity.isMyPosition;
+
+  if (isMyPosition)
   {
-    CGFloat const boxWidth = 4 * buttonWidth;
-    CGFloat const leftOffset = (actualWidth - boxWidth) / 5.;
-    self.apiBackButton.minX = leftOffset;
-    self.shareButton.minX = self.apiBackButton.maxX + leftOffset;
-    self.bookmarkButton.minX = self.shareButton.maxX + leftOffset;
-    self.routeButton.minX = self.bookmarkButton.maxX;
+    m_visibleButtons.push_back(EButton::Spacer);
+    m_visibleButtons.push_back(EButton::Bookmark);
+    m_visibleButtons.push_back(EButton::Share);
+    m_visibleButtons.push_back(EButton::Spacer);
   }
-  else if (entity.isMyPosition)
+  else if (isApi && isBooking)
   {
-    CGFloat const boxWidth = 2 * buttonWidth;
-    CGFloat const leftOffset = (actualWidth - boxWidth) / 3.;
-    self.shareButton.minX = leftOffset;
-    self.bookmarkButton.minX = actualWidth - leftOffset - buttonWidth;
+    m_visibleButtons.push_back(EButton::Api);
+    m_visibleButtons.push_back(EButton::Booking);
+    m_additionalButtons.push_back(EButton::Bookmark);
+    m_additionalButtons.push_back(EButton::RouteFrom);
+    m_additionalButtons.push_back(EButton::Share);
+  }
+  else if (isApi && itHasPhoneNumber)
+  {
+    m_visibleButtons.push_back(EButton::Api);
+    m_visibleButtons.push_back(EButton::Call);
+    m_additionalButtons.push_back(EButton::Bookmark);
+    m_additionalButtons.push_back(EButton::RouteFrom);
+    m_additionalButtons.push_back(EButton::Share);
+  }
+  else if (isApi && isP2P)
+  {
+    m_visibleButtons.push_back(EButton::Api);
+    m_visibleButtons.push_back(EButton::RouteFrom);
+    m_additionalButtons.push_back(EButton::Bookmark);
+    m_additionalButtons.push_back(EButton::Share);
+  }
+  else if (isApi)
+  {
+    m_visibleButtons.push_back(EButton::Api);
+    m_visibleButtons.push_back(EButton::Bookmark);
+    m_additionalButtons.push_back(EButton::RouteFrom);
+    m_additionalButtons.push_back(EButton::Share);
+  }
+  else if (isBooking && isP2P)
+  {
+    m_visibleButtons.push_back(EButton::Bookmark);
+    m_visibleButtons.push_back(EButton::RouteFrom);
+    m_additionalButtons.push_back(EButton::Booking);
+    m_additionalButtons.push_back(EButton::Share);
+  }
+  else if (itHasPhoneNumber && isP2P)
+  {
+    m_visibleButtons.push_back(EButton::Bookmark);
+    m_visibleButtons.push_back(EButton::RouteFrom);
+    m_additionalButtons.push_back(EButton::Call);
+    m_additionalButtons.push_back(EButton::Share);
+  }
+  else if (isBooking)
+  {
+    m_visibleButtons.push_back(EButton::Booking);
+    m_visibleButtons.push_back(EButton::Bookmark);
+    m_additionalButtons.push_back(EButton::RouteFrom);
+    m_additionalButtons.push_back(EButton::Share);
+  }
+  else if (itHasPhoneNumber)
+  {
+    m_visibleButtons.push_back(EButton::Call);
+    m_visibleButtons.push_back(EButton::Bookmark);
+    m_additionalButtons.push_back(EButton::RouteFrom);
+    m_additionalButtons.push_back(EButton::Share);
   }
   else
   {
-    CGFloat const boxWidth = 3 * buttonWidth;
-    CGFloat const leftOffset = (actualWidth - boxWidth) / 4.;
-    self.shareButton.minX = leftOffset;
-    self.bookmarkButton.minX = self.shareButton.maxX + leftOffset;
-    self.routeButton.minX = self.bookmarkButton.maxX + leftOffset;
+    m_visibleButtons.push_back(EButton::Bookmark);
+    m_visibleButtons.push_back(EButton::RouteFrom);
   }
-  self.apiBackLabel.minX = self.apiBackButton.minX;
-  self.shareLabel.minX = self.shareButton.minX;
-  self.bookmarkLabel.minX = self.bookmarkButton.minX;
-  self.routeLabel.minX = self.routeButton.minX;
+
+  if (!isMyPosition)
+  {
+    m_visibleButtons.push_back(EButton::RouteTo);
+    m_visibleButtons.push_back(m_additionalButtons.empty() ? EButton::Share : EButton::More);
+  }
+
+  for (UIView * v in self.buttons)
+  {
+    [v.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    auto const type = m_visibleButtons[v.tag - 1];
+    [MWMActionBarButton addButtonToSuperview:v
+                                    delegate:self
+                                  buttonType:type
+                                  isSelected:type == EButton::Bookmark ? self.isBookmark : NO];
+  }
 }
 
-- (IBAction)shareTap
+- (UIView *)shareAnchor
 {
-  [self.placePageManager share];
+  UIView * last = nil;
+  auto const size = self.buttons.count;
+  for (UIView * v in self.buttons)
+  {
+    if (v.tag == size + 1)
+      last = v;
+  }
+  return last;
 }
 
-- (IBAction)routeTap
+#pragma mark - MWMActionBarButtonDelegate
+
+- (void)tapOnButtonWithType:(EButton)type
 {
-  [self.placePageManager buildRoute];
+  switch (type)
+  {
+  case EButton::Api:
+    [self.placePageManager apiBack];
+    break;
+  case EButton::Booking:
+  {
+    UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
+    NSString * urlString = [self.placePageManager.entity getCellValue:MWMPlacePageCellTypeBookingMore];
+    NSAssert(urlString, @"Booking url can't be nil!");
+    NSURL * url = [NSURL URLWithString:urlString];
+    [vc openUrl:url];
+    break;
+  }
+  case EButton::Call:
+  {
+    NSString * tel = [self.placePageManager.entity getCellValue:MWMPlacePageCellTypePhoneNumber];
+    NSAssert(tel, @"Phone number can't be nil!");
+    NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:tel] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    break;
+  }
+  case EButton::Bookmark:
+    if (self.isBookmark)
+      [self.placePageManager removeBookmark];
+    else
+      [self.placePageManager addBookmark];
+    break;
+  case EButton::RouteFrom:
+    [self.placePageManager routeFrom];
+    break;
+  case EButton::RouteTo:
+    if (self.isPrepareRouteMode)
+      [self.placePageManager routeTo];
+    else
+      [self.placePageManager buildRoute];
+    break;
+  case EButton::Share:
+    [self.placePageManager share];
+    break;
+  case EButton::More:
+    [self showActionSheet];
+    break;
+  case EButton::Spacer:
+    break;
+  }
 }
 
-- (IBAction)backTap
+#pragma mark - ActionSheet
+
+- (void)showActionSheet
 {
-  [self.placePageManager apiBack];
+  NSString * cancel = L(@"cancel");
+  MWMPlacePageEntity * entity = self.placePageManager.entity;
+  BOOL const isTitleNotEmpty = entity.title.length > 0;
+  NSString * title = isTitleNotEmpty ? entity.title : entity.subtitle;
+  NSString * subtitle = isTitleNotEmpty ? entity.subtitle : nil;
+  
+  UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
+  NSMutableArray<NSString *> * titles = [@[] mutableCopy];
+  for (auto const buttonType : m_additionalButtons)
+  {
+    BOOL const isSelected = buttonType == EButton::Bookmark ? self.isBookmark : NO;
+    if (NSString * title = titleForButton(buttonType, isSelected))
+      [titles addObject:titleForButton(buttonType, isSelected)];
+    else
+      NSAssert(false, @"Title can't be nil!");
+  }
+
+  if (isIOS7)
+  {
+    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:cancel destructiveButtonTitle:nil otherButtonTitles:nil];
+
+    for (NSString * title in titles)
+      [actionSheet addButtonWithTitle:title];
+
+    [actionSheet showInView:vc.view];
+  }
+  else
+  {
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:subtitle preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
+
+    for (auto i = 0; i < titles.count; i++)
+    {
+      UIAlertAction * commonAction = [UIAlertAction actionWithTitle:titles[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
+                                      {
+                                        [self tapOnButtonWithType:self->m_additionalButtons[i]];
+                                      }];
+      [alertController addAction:commonAction];
+    }
+    [alertController addAction:cancelAction];
+
+    if (IPAD)
+    {
+      UIPopoverPresentationController * popPresenter = [alertController popoverPresentationController];
+      popPresenter.sourceView = self.shareAnchor;
+    }
+    [vc presentViewController:alertController animated:YES completion:nil];
+  }
 }
 
-#pragma mark - Properties
+#pragma mark - UIActionSheetDelegate
 
-- (void)setIsBookmark:(BOOL)isBookmark
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-  _isBookmark = isBookmark;
-  self.bookmarkButton.selected = isBookmark;
-  self.bookmarkLabel.text = L(isBookmark ? @"delete" : @"save");
+  [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+
+  // Using buttonIndex - 1 because there is cancel button at index 0
+  // Only iOS7
+  if (buttonIndex > 0)
+    [self tapOnButtonWithType:m_additionalButtons[buttonIndex - 1]];
 }
 
 @end

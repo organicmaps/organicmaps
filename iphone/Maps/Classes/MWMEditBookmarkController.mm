@@ -65,7 +65,7 @@ enum RowInMetaInfo
 - (void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];
-  [self.cachedNote updateTextViewForHeight:self.cachedNote.textView.contentSize.height];
+  [self.cachedNote updateTextViewForHeight:self.cachedNote.textViewContentHeight];
 }
 
 - (void)configNavBar
@@ -182,7 +182,7 @@ enum RowInMetaInfo
     {
       self.cachedNote = [tableView dequeueReusableCellWithIdentifier:[MWMNoteCell className]];
       [self.cachedNote configWithDelegate:self noteText:self.cachedDescription
-                              placeholder:L(@"personal_description")];
+                              placeholder:L(@"placepage_personal_notes_hint")];
       return self.cachedNote;
     }
   }
@@ -190,7 +190,7 @@ enum RowInMetaInfo
   {
     NSAssert(indexPath.row == 0, @"Incorrect row!");
     MWMButtonCell * cell = [tableView dequeueReusableCellWithIdentifier:[MWMButtonCell className]];
-    [cell configureWithDelegate:self title:L(@"remove_bookmark")];
+    [cell configureWithDelegate:self title:L(@"placepage_delete_bookmark_button")];
     return cell;
   }
   default:

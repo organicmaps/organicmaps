@@ -702,7 +702,6 @@ using namespace osm_auth_ios;
   [barBtn setTitleTextAttributes:@{
     NSForegroundColorAttributeName : [UIColor lightGrayColor],
   } forState:UIControlStateDisabled];
-  barBtn.tintColor = [UIColor whitePrimaryText];
 
   UIPageControl * pageControl = [UIPageControl appearance];
   pageControl.pageIndicatorTintColor = [UIColor blackHintText];

@@ -21,7 +21,7 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="bookmark_name"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="placepage_bookmark_name_hint"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
                         </userDefinedRuntimeAttributes>
                         <connections>

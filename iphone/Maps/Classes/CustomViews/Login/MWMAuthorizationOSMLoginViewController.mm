@@ -193,9 +193,7 @@ using namespace osm;
 
 - (IBAction)forgotPassword
 {
-  OsmOAuth const auth = OsmOAuth::ServerAuth();
-  NSURL * url = [NSURL URLWithString:@(auth.GetResetPasswordURL().c_str())];
-  [[UIApplication sharedApplication] openURL:url];
+  [self openUrl:[NSURL URLWithString:@(OsmOAuth::ServerAuth().GetResetPasswordURL().c_str())]];
 }
 
 #pragma mark - Properties

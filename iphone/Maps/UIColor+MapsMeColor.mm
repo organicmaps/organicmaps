@@ -152,6 +152,16 @@ UIColor * color(SEL cmd)
 {
   return color(_cmd);
 }
+// Yellow color (use for hotel's stars)
++ (UIColor *)yellow
+{
+  return [UIColor colorWithRed:scaled(255.) green:scaled(200.) blue:scaled(40.) alpha:alpha100];
+}
+// Green color (use for booking rating)
++ (UIColor *)green
+{
+  return [UIColor colorWithRed:scaled(85.) green:scaled(139.) blue:scaled(47.) alpha:alpha100];
+}
 // Pink background for invalid fields
 + (UIColor *)errorPink
 {
@@ -253,6 +263,11 @@ UIColor * color(SEL cmd)
 + (UIColor *)blackOpaque
 {
   return color(_cmd);
+}
+
++ (UIColor *)bookingBackground
+{
+  return [UIColor colorWithRed:scaled(25.) green:scaled(69.) blue:scaled(125.) alpha:alpha100];
 }
 
 + (UIColor *)colorWithName:(NSString *)colorName

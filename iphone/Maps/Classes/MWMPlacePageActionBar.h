@@ -3,9 +3,9 @@
 @interface MWMPlacePageActionBar : SolidTouchView
 
 @property (nonatomic) BOOL isBookmark;
-@property (nonatomic) BOOL isPrepareRouteMode;
 
-@property (weak, nonatomic) IBOutlet UIButton * shareButton;
+- (UIView *)shareAnchor;
+- (BOOL)isPrepareRouteMode;
 
 + (MWMPlacePageActionBar *)actionBarForPlacePageManager:(MWMPlacePageViewManager *)placePageManager;
 - (void)configureWithPlacePageManager:(MWMPlacePageViewManager *)placePageManager;

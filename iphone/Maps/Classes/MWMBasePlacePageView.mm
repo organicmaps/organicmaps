@@ -44,7 +44,8 @@ enum class PlacePageSection
 {
   Bookmark,
   Metadata,
-  Editing
+  Editing,
+  Booking
 };
 
 vector<MWMPlacePageCellType> const kSectionBookmarkCellTypes {
@@ -62,12 +63,17 @@ vector<MWMPlacePageCellType> const kSectionEditingCellTypes {
   MWMPlacePageCellTypeAddPlaceButton
 };
 
+vector<MWMPlacePageCellType> const kSectionBookingCellTypes {
+  MWMPlacePageCellTypeBookingMore
+};
+
 using TCellTypesSectionMap = pair<vector<MWMPlacePageCellType>, PlacePageSection>;
 
 vector<TCellTypesSectionMap> const kCellTypesSectionMap {
   {kSectionBookmarkCellTypes, PlacePageSection::Bookmark},
   {kSectionMetadataCellTypes, PlacePageSection::Metadata},
-  {kSectionEditingCellTypes, PlacePageSection::Editing}
+  {kSectionEditingCellTypes, PlacePageSection::Editing},
+  {kSectionBookingCellTypes, PlacePageSection::Booking}
 };
 
 MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
@@ -82,7 +88,8 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeBookmark, "PlacePageBookmarkCell"},
     {MWMPlacePageCellTypeEditButton, "MWMPlacePageButtonCell"},
     {MWMPlacePageCellTypeAddBusinessButton, "MWMPlacePageButtonCell"},
-    {MWMPlacePageCellTypeAddPlaceButton, "MWMPlacePageButtonCell"}};
+    {MWMPlacePageCellTypeAddPlaceButton, "MWMPlacePageButtonCell"},
+    {MWMPlacePageCellTypeBookingMore, "MWMPlacePageButtonCell"}};
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
@@ -198,22 +205,33 @@ using namespace storage;
     self.externalTitleLabel.text = @"";
   }
 
-  auto const ranges = [entity.subtitle rangesOfString:@(place_page::Info::kSubtitleSeparator)];
-  if (!ranges.empty())
+  self.subtitleLabel.text = entity.subtitle;
+  if (entity.subtitle)
   {
     NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:entity.subtitle];
-    for (auto const & r : ranges)
-      [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:r];
+    auto const separatorRanges = [entity.subtitle rangesOfString:@(place_page::Info::kSubtitleSeparator)];
+    if (!separatorRanges.empty())
+    {
+      for (auto const & r : separatorRanges)
+        [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:r];
+
+    }
+
+    auto const starsRanges = [entity.subtitle rangesOfString:@(place_page::Info::kStarSymbol)];
+    if (!starsRanges.empty())
+    {
+      for (auto const & r : starsRanges)
+        [str addAttributes:@{NSForegroundColorAttributeName : [UIColor yellow]} range:r];
+    }
 
     self.subtitleLabel.attributedText = str;
-  }
-  else
-  {
-    self.subtitleLabel.text = entity.subtitle;
   }
 
   BOOL const isMyPosition = entity.isMyPosition;
   self.addressLabel.text = entity.address;
+  self.bookingPriceLabel.text = entity.bookingPrice;
+  self.bookingRatingLabel.text = entity.bookingRating;
+  self.bookingView.hidden = !entity.bookingPrice.length && !entity.bookingRating.length;
   BOOL const isHeadingAvaible = [CLLocationManager headingAvailable];
   BOOL const noLocation = MapsAppDelegate.theApp.locationManager.isLocationPendingOrNoPosition;
   self.distanceLabel.hidden = noLocation || isMyPosition;
@@ -358,11 +376,18 @@ using namespace storage;
 
   self.externalTitleLabel.width = self.entity.isBookmark ? labelsMaxWidth : 0;
 
+  CGFloat const bookingWidth = labelsMaxWidth / 2;
+  self.bookingRatingLabel.width = bookingWidth;
+  self.bookingPriceLabel.width = bookingWidth - kLabelsBetweenSmallOffset;
+  self.bookingView.width = labelsMaxWidth;
+
   [self.titleLabel sizeToFit];
   [self.subtitleLabel sizeToFit];
   [self.addressLabel sizeToFit];
   [self.externalTitleLabel sizeToFit];
   [self.placeScheduleLabel sizeToFit];
+  [self.bookingRatingLabel sizeToFit];
+  [self.bookingPriceLabel sizeToFit];
 }
 
 - (void)setDistance:(NSString *)distance
@@ -379,13 +404,22 @@ using namespace storage;
   CGFloat const bound = self.distanceLabel.width + kDirectionArrowSide + kOffsetFromDistanceToArrow + kOffsetFromLabelsToDistance;
   AttributePosition const position = [self distanceAttributePosition];
   [self setupLabelsWidthWithBoundedWidth:bound distancePosition:position];
-  [self layoutLabels];
+  [self setupBookingView];
+  [self layoutLabelsAndBooking];
   [self layoutTableViewWithPosition:position];
   [self setDistance:self.distanceLabel.text];
   self.height = self.featureTable.height + self.ppPreview.height;
 }
 
-- (void)layoutLabels
+- (void)setupBookingView
+{
+  self.bookingRatingLabel.origin = {};
+  self.bookingPriceLabel.origin = {self.bookingView.width - self.bookingPriceLabel.width, 0};
+  self.bookingSeparator.origin = {0, self.bookingRatingLabel.maxY + kLabelsBetweenMainOffset};
+  self.bookingView.height = self.bookingSeparator.maxY + kLabelsBetweenMainOffset;
+}
+
+- (void)layoutLabelsAndBooking
 {
   BOOL const isDownloadProgressViewHidden = self.downloadProgressView.hidden;
   if (!isDownloadProgressViewHidden)
@@ -393,16 +427,21 @@ using namespace storage;
 
   CGFloat const leftOffset = isDownloadProgressViewHidden ? kLeftOffset : self.downloadProgressView.maxX + kDownloadProgressViewLeftOffset;
 
-  auto originFrom = ^ CGPoint (UILabel * l)
+  auto originFrom = ^ CGPoint (UIView * v, BOOL isBigOffset)
   {
-    return {leftOffset, l.text.length == 0 ? l.minY : l.maxY + kLabelsBetweenMainOffset};
+    CGFloat const offset = isBigOffset ? kLabelsBetweenMainOffset : kLabelsBetweenSmallOffset;
+    if ([v isKindOfClass:[UILabel class]])
+      return {leftOffset, (static_cast<UILabel *>(v).text.length == 0 ? v.minY : v.maxY) +
+                          offset};
+    return {leftOffset, v.hidden ? v.minY : v.maxY + offset};
   };
 
   self.titleLabel.origin = {leftOffset, kLabelsBetweenSmallOffset};
-  self.externalTitleLabel.origin = originFrom(self.titleLabel);
-  self.subtitleLabel.origin = originFrom(self.externalTitleLabel);
-  self.placeScheduleLabel.origin = originFrom(self.subtitleLabel);
-  self.addressLabel.origin = originFrom(self.placeScheduleLabel);
+  self.externalTitleLabel.origin = originFrom(self.titleLabel, NO);
+  self.subtitleLabel.origin = originFrom(self.externalTitleLabel, NO);
+  self.placeScheduleLabel.origin = originFrom(self.subtitleLabel, NO);
+  self.bookingView.origin = originFrom(self.placeScheduleLabel, NO);
+  self.addressLabel.origin = originFrom(self.bookingView, YES);
 }
 
 - (void)layoutDistanceBoxWithPosition:(AttributePosition)position
@@ -439,18 +478,34 @@ using namespace storage;
 {
   auto getY = ^ CGFloat (AttributePosition p)
   {
-    switch (position)
+    if (self.bookingView.hidden)
     {
-    case AttributePosition::Title:
-      return self.titleLabel.maxY + kBottomPlacePageOffset;
-    case AttributePosition::ExternalTitle:
-      return self.externalTitleLabel.maxY + kBottomPlacePageOffset;
-    case AttributePosition::Subtitle:
-      return self.subtitleLabel.maxY + kBottomPlacePageOffset;
-    case AttributePosition::Schedule:
-      return self.placeScheduleLabel.maxY + kBottomPlacePageOffset;
-    case AttributePosition::Address:
-      return self.addressLabel.maxY + kBottomPlacePageOffset;
+      switch (position)
+      {
+      case AttributePosition::Title:
+        return self.titleLabel.maxY + kBottomPlacePageOffset;
+      case AttributePosition::ExternalTitle:
+        return self.externalTitleLabel.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Subtitle:
+        return self.subtitleLabel.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Schedule:
+        return self.placeScheduleLabel.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Address:
+        return self.addressLabel.maxY + kBottomPlacePageOffset;
+      }
+    }
+    else
+    {
+      switch (position)
+      {
+      case AttributePosition::Title:
+      case AttributePosition::ExternalTitle:
+      case AttributePosition::Subtitle:
+      case AttributePosition::Schedule:
+        return self.bookingView.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Address:
+        return self.addressLabel.maxY + kBottomPlacePageOffset;
+      }
     }
   };
 
@@ -613,6 +668,7 @@ using namespace storage;
     case MWMPlacePageCellTypeEditButton:
     case MWMPlacePageCellTypeAddBusinessButton:
     case MWMPlacePageCellTypeAddPlaceButton:
+    case MWMPlacePageCellTypeBookingMore:
       [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage forType:cellType];
       break;
     default:

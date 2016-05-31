@@ -28,6 +28,9 @@
   case MWMPlacePageCellTypeAddPlaceButton:
     [self.titleButton setTitle:L(@"placepage_add_place_button") forState:UIControlStateNormal];
     break;
+  case MWMPlacePageCellTypeBookingMore:
+    [self.titleButton setTitle:L(@"placepage_booking_more") forState:UIControlStateNormal];
+    break;
   default:
     NSAssert(false, @"Invalid place page cell type!");
     break;
@@ -50,6 +53,9 @@
   case MWMPlacePageCellTypeAddPlaceButton:
     [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePageNonBuilding}];
     [self.placePage addPlace];
+    break;
+  case MWMPlacePageCellTypeBookingMore:
+    [self.placePage bookingMore];
     break;
   default:
     NSAssert(false, @"Incorrect cell type!");

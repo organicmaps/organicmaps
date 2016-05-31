@@ -14,6 +14,10 @@
 @property (weak, nonatomic) IBOutlet UIView * separatorView;
 @property (weak, nonatomic) IBOutlet UIButton * directionButton;
 @property (weak, nonatomic) IBOutlet UIView * ppPreview;
+@property (weak, nonatomic) IBOutlet UIView * bookingView;
+@property (weak, nonatomic) IBOutlet UILabel * bookingRatingLabel;
+@property (weak, nonatomic) IBOutlet UILabel * bookingPriceLabel;
+@property (weak, nonatomic) IBOutlet UIImageView * bookingSeparator;
 
 - (void)configureWithEntity:(MWMPlacePageEntity *)entity;
 - (void)addBookmark;

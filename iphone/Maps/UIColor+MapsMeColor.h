@@ -7,6 +7,8 @@
 + (UIColor *)menuBackground;
 + (UIColor *)downloadBadgeBackground;
 + (UIColor *)pressBackground;
++ (UIColor *)yellow;
++ (UIColor *)green;
 + (UIColor *)red;
 + (UIColor *)errorPink;
 + (UIColor *)orange;
@@ -27,6 +29,7 @@
 + (UIColor *)buttonHighlightedBlueText;
 + (UIColor *)alertBackground;
 + (UIColor *)blackOpaque;
++ (UIColor *)bookingBackground;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 

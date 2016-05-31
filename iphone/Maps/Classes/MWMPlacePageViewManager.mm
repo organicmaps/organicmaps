@@ -243,7 +243,7 @@ extern NSString * const kBookmarksChangedNotification;
                                                         location:coord
                                                       myPosition:NO];
   [shareVC presentInParentViewController:self.ownerViewController
-                              anchorView:self.placePage.actionBar.shareButton];
+                              anchorView:self.placePage.actionBar.shareAnchor];
 }
 
 - (void)apiBack

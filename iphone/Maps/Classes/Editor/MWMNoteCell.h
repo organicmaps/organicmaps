@@ -15,7 +15,7 @@
                placeholder:(NSString *)placeholder;
 - (CGFloat)cellHeight;
 - (void)updateTextViewForHeight:(CGFloat)height;
-- (UITextView *)textView;
+- (CGFloat)textViewContentHeight;
 + (CGFloat)minimalHeight;
 - (void)registerObserver;
 

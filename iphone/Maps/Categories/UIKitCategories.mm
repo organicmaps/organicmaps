@@ -3,6 +3,8 @@
 #import "UIImageView+Coloring.h"
 #import "UIKitCategories.h"
 
+#import <SafariServices/SafariServices.h>
+
 @implementation NSObject (Optimized)
 
 + (NSString *)className
@@ -321,6 +323,38 @@
 - (NSUInteger)supportedInterfaceOrientations
 {
   return UIInterfaceOrientationMaskAll;
+}
+
+@end
+
+@interface UIViewController (SafariDelegateImpl) <SFSafariViewControllerDelegate>
+
+@end
+
+@implementation UIViewController (SafariDelegateImpl)
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
+{
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
+@end
+
+@implementation UIViewController (Safari)
+
+- (void)openUrl:(NSURL *)url
+{
+  NSString * scheme = url.scheme;
+  if ((isIOS7 || isIOS8) && (![scheme isEqualToString:@"http"] || ![scheme isEqualToString:@"https"]))
+  {
+    UIApplication * app = [UIApplication sharedApplication];
+    if ([app canOpenURL:url])
+      [app openURL:url];
+    return;
+  }
+  SFSafariViewController * svc = [[SFSafariViewController alloc] initWithURL:url];
+  svc.delegate = self;
+  [self.navigationController pushViewController:svc animated:YES];
 }
 
 @end

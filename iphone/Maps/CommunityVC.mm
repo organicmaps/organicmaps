@@ -71,12 +71,13 @@ extern NSString * const kAlohalyticsTapEventKey;
   if ([itemId isEqualToString:@"Facebook"])
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"likeOnFb"];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://facebook.com/MapsWithMe"]];
+    [self openUrl:[NSURL URLWithString:@"https://facebook.com/MapsWithMe"]];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://facebook.com/MapsWithMe"]];
   }
   else if ([itemId isEqualToString:@"Twitter"])
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"followOnTwitter"];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/MAPS_ME"]];
+    [self openUrl:[NSURL URLWithString:@"https://twitter.com/MAPS_ME"]];
   }
   else if ([itemId isEqualToString:@"Contact"])
   {

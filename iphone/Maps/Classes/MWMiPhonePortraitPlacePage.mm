@@ -189,7 +189,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   MWMBasePlacePageView * basePPV = self.basePlacePageView;
   CGFloat const anchorHeight = self.anchorImageView.height;
   CGFloat const actionBarHeight = self.actionBar.height;
-  return anchorHeight + basePPV.ppPreview.height /*+ kBottomPlacePageOffset*/ + actionBarHeight - 1;
+  return anchorHeight + basePPV.ppPreview.height + actionBarHeight - 1;
 }
 
 #pragma mark - Actions

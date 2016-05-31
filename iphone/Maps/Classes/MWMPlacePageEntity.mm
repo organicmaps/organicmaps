@@ -24,10 +24,11 @@ void putFields(NSUInteger eTypeValue, NSUInteger ppValue)
   gMetaFieldsMap[ppValue] = eTypeValue;
 }
 
-void initFieldsMap()
+void initFieldsMap(BOOL isBooking)
 {
+  auto const websiteType = isBooking ? MWMPlacePageCellTypeBookingMore : MWMPlacePageCellTypeWebsite;
   putFields(Metadata::FMD_URL, MWMPlacePageCellTypeURL);
-  putFields(Metadata::FMD_WEBSITE, MWMPlacePageCellTypeWebsite);
+  putFields(Metadata::FMD_WEBSITE, websiteType);
   putFields(Metadata::FMD_PHONE_NUMBER, MWMPlacePageCellTypePhoneNumber);
   putFields(Metadata::FMD_OPEN_HOURS, MWMPlacePageCellTypeOpenHours);
   putFields(Metadata::FMD_EMAIL, MWMPlacePageCellTypeEmail);
@@ -37,7 +38,7 @@ void initFieldsMap()
 
   ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_URL], MWMPlacePageCellTypeURL, ());
   ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypeURL], Metadata::FMD_URL, ());
-  ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_WEBSITE], MWMPlacePageCellTypeWebsite, ());
+  ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_WEBSITE], websiteType, ());
   ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypeWebsite], Metadata::FMD_WEBSITE, ());
   ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_POSTCODE], MWMPlacePageCellTypePostcode, ());
   ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypePostcode], Metadata::FMD_POSTCODE, ());
@@ -57,7 +58,7 @@ void initFieldsMap()
   if (self)
   {
     m_info = info;
-    initFieldsMap();
+    initFieldsMap(info.IsSponsoredHotel());
     [self config];
   }
   return self;
@@ -88,6 +89,8 @@ void initFieldsMap()
   self.title = @(m_info.GetTitle().c_str());
   self.address = @(m_info.GetAddress().c_str());
   self.subtitle = @(m_info.GetSubtitle().c_str());
+  self.bookingRating = @(m_info.GetRatingFormatted().c_str());
+  self.bookingPrice = @(m_info.GetApproximatePricing().c_str());
 }
 
 - (void)configureFeature
@@ -143,8 +146,7 @@ void initFieldsMap()
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType
 {
   auto const s = MapsAppDelegate.theApp.mapViewController.controlsManager.navigationState;
-  BOOL const editOrAddAreAvailable = version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion()) &&
-                                     s == MWMNavigationDashboardStateHidden;
+  BOOL const editOrAddAreAvailable = version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion()) && s == MWMNavigationDashboardStateHidden && !self.isBooking;
   switch (cellType)
   {
     case MWMPlacePageCellTypeName:
@@ -160,13 +162,20 @@ void initFieldsMap()
       return editOrAddAreAvailable && !m_info.IsMyPosition() && m_info.IsFeature() ? @"": nil;
     case MWMPlacePageCellTypeAddBusinessButton:
       return editOrAddAreAvailable && m_info.IsBuilding() ? @"" : nil;
+    case MWMPlacePageCellTypeWebsite:
+      return m_info.IsSponsoredHotel() ? nil : [self getDefaultField:cellType];
+    case MWMPlacePageCellTypeBookingMore:
+      return m_info.IsSponsoredHotel() ? [self getDefaultField:cellType] : nil;
     default:
-    {
-      auto const it = m_values.find(cellType);
-      BOOL const haveField = (it != m_values.end());
-      return haveField ? @(it->second.c_str()) : nil;
-    }
+      return [self getDefaultField:cellType];
   }
+}
+
+- (NSString *)getDefaultField:(MWMPlacePageCellType)cellType
+{
+  auto const it = m_values.find(cellType);
+  BOOL const haveField = (it != m_values.end());
+  return haveField ? @(it->second.c_str()) : nil;
 }
 
 - (place_page::Info const &)info
@@ -197,6 +206,11 @@ void initFieldsMap()
 - (BOOL)isApi
 {
   return m_info.HasApiUrl();
+}
+
+- (BOOL)isBooking
+{
+  return m_info.IsSponsoredHotel();
 }
 
 - (ms::LatLon)latlon

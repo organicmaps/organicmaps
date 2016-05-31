@@ -26,7 +26,7 @@ static void * kContext = &kContext;
 {
   self.delegate = delegate;
   self.textView.text = text;
-  static_cast<MWMTextView *>(self.textView).placeholder = placeholder;
+  self.textView.placeholder = placeholder;
 }
 
 - (void)updateTextViewForHeight:(CGFloat)height
@@ -68,6 +68,11 @@ static void * kContext = &kContext;
 - (CGFloat)cellHeight
 {
   return self.textViewHeight.constant + 2 * kTopTextViewOffset;
+}
+
+- (CGFloat)textViewContentHeight
+{
+  return self.textView.contentSize.height;
 }
 
 + (CGFloat)minimalHeight
