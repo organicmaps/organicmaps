@@ -362,7 +362,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
               request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
 
             request.sendResponseAndFinish(getActivity(), true);
-          } else
+          }
+          else
             getActivity().finish();
           break;
 

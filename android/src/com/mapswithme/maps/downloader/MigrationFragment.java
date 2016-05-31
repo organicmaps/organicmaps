@@ -68,7 +68,7 @@ public class MigrationFragment extends BaseMwmFragment
           return;
 
         if (getActivity() instanceof MwmActivity)
-          ((MwmActivity)getActivity()).closeSidePanel();
+          ((MwmActivity) getActivity()).closeSidePanel();
         else
           getActivity().finish();
       }

@@ -1,3 +1,4 @@
+
 package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.DrawableRes;
@@ -196,27 +197,26 @@ final class PlacePageButtons
     bs.tint().show();
   }
 
-  private View createButton(final List<Item> items, int id)
+  private View createButton(final List<Item> items, final Item current)
   {
-    final Item item = items.get(id);
     View res = LayoutInflater.from(mPlacePage.getContext()).inflate(R.layout.place_page_button, mFrame, false);
 
     ImageView icon = (ImageView) res.findViewById(R.id.icon);
     TextView title = (TextView) res.findViewById(R.id.title);
 
-    icon.setImageResource(item.getIcon());
-    title.setText(item.getTitle());
-    mItemListener.onPrepareVisibleView(item, res, icon, title);
+    icon.setImageResource(current.getIcon());
+    title.setText(current.getTitle());
+    mItemListener.onPrepareVisibleView(current, res, icon, title);
 
     res.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
       {
-        if (item == Item.MORE)
+        if (current == Item.MORE)
           showPopup(items);
         else
-          mItemListener.onItemClick(item);
+          mItemListener.onItemClick(current);
       }
     });
 
@@ -233,7 +233,7 @@ final class PlacePageButtons
     mFrame.removeAllViews();
     int count = Math.min(buttons.size(), MAX_BUTTONS);
     for (int i = 0; i < count; i++)
-      mFrame.addView(createButton(buttons, i));
+      mFrame.addView(createButton(buttons, buttons.get(i)));
 
     mPrevItems = buttons;
   }
