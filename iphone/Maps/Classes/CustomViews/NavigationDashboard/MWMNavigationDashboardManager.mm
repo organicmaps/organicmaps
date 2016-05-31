@@ -27,7 +27,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardLandscape;
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardPortrait;
 @property (weak, nonatomic) MWMNavigationDashboard * navigationDashboard;
-@property (weak, nonatomic) MWMCircularProgress * activeRouteTypeButton;
+@property (nonatomic) routing::RouterType activeRouterType;
 
 @property (weak, nonatomic) UIView * ownerView;
 
@@ -160,7 +160,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 - (void)handleError
 {
   [self.routePreview stateError];
-  self.activeRouteTypeButton.state = MWMCircularProgressStateFailed;
+  [self.routePreview router:self.activeRouterType setState:MWMCircularProgressStateFailed];
 }
 
 - (void)updateDashboard
@@ -228,41 +228,18 @@ extern NSString * const kTTSStatusWasChangedNotification;
   panel.hidden = YES;
 }
 
-#pragma mark - MWMCircularProgressDelegate
+#pragma mark - MWMRoutePreviewProtocol
 
-- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
+- (void)setActiveRouter:(routing::RouterType)routerType
 {
-  [Statistics logEvent:kStatEventName(kStatNavigationDashboard, kStatButton)
-                   withParameters:@{kStatValue : kStatProgress}];
-  MWMCircularProgressState const s = progress.state;
-  if (s == MWMCircularProgressStateSelected || s == MWMCircularProgressStateCompleted)
-    return;
-  self.activeRouteTypeButton = progress;
+  self.activeRouterType = routerType;
   auto & f = GetFramework();
-  routing::RouterType type;
-  if ([progress isEqual:self.routePreview.pedestrianProgress])
-  {
-    [Statistics
-              logEvent:kStatPointToPoint
-        withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
-    self.routePreview.vehicleProgress.state = MWMCircularProgressStateNormal;
-    type = routing::RouterType::Pedestrian;
-  }
-  else
-  {
-    [Statistics
-              logEvent:kStatPointToPoint
-        withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
-    self.routePreview.pedestrianProgress.state = MWMCircularProgressStateNormal;
-    type = routing::RouterType::Vehicle;
-  }
   f.CloseRouting();
-  f.SetRouter(type);
-  f.SetLastUsedRouter(type);
-  [self.routePreview selectProgress:progress];
+  f.SetRouter(routerType);
+  f.SetLastUsedRouter(routerType);
   if (!self.delegate.isPossibleToBuildRoute)
     return;
-  progress.state = MWMCircularProgressStateSpinner;
+  [self.routePreview router:routerType setState:MWMCircularProgressStateSpinner];
   [self.delegate buildRoute];
 }
 
@@ -270,7 +247,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 - (void)setRouteBuilderProgress:(CGFloat)progress
 {
-  [self.activeRouteTypeButton setProgress:progress / 100.];
+  [self.routePreview router:self.activeRouterType setProgress:progress / 100.];
 }
 
 #pragma mark - MWMNavigationDashboard
@@ -333,7 +310,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
   [self removePanel:self.nextTurnPanel];
 //  [self removePanel:self.lanesPanel];
   [self setupActualRoute];
-  self.activeRouteTypeButton.state = MWMCircularProgressStateSpinner;
+  [self.routePreview router:self.activeRouterType setState:MWMCircularProgressStateSpinner];
 }
 
 - (void)showStateReady
@@ -359,18 +336,8 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 - (void)setupActualRoute
 {
-  switch (GetFramework().GetRouter())
-  {
-  case routing::RouterType::Pedestrian:
-    self.activeRouteTypeButton = self.routePreview.pedestrianProgress;
-    break;
-  case routing::RouterType::Vehicle:
-    self.activeRouteTypeButton = self.routePreview.vehicleProgress;
-    break;
-  case routing::RouterType::Bicycle:
-    break;
-  }
-  [self.routePreview selectProgress:self.activeRouteTypeButton];
+  self.activeRouterType = GetFramework().GetRouter();
+  [self.routePreview selectRouter:self.activeRouterType];
 }
 
 - (void)mwm_refreshUI

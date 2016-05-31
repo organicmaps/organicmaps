@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -87,21 +87,44 @@
                     <rect key="frame" x="0.0" y="140" width="320" height="48"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXu-tl-a0m" userLabel="Buttons Box">
-                            <rect key="frame" x="100" y="0.0" width="120" height="48"/>
+                            <rect key="frame" x="70" y="0.0" width="180" height="48"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jDl-pu-eov">
-                                    <rect key="frame" x="6" y="6" width="36" height="36"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDl-pu-eov">
+                                    <rect key="frame" x="6" y="5" width="38" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="38" id="20g-vX-5Jf"/>
+                                        <constraint firstAttribute="width" constant="38" id="glR-Pu-Wba"/>
+                                    </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VhE-hA-Leo">
-                                    <rect key="frame" x="72" y="6" width="36" height="36"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VhE-hA-Leo">
+                                    <rect key="frame" x="71" y="5" width="38" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="Mjq-9J-kR6"/>
+                                        <constraint firstAttribute="height" constant="38" id="mo7-IQ-2Iq"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yiM-fM-sSS" userLabel="Bicycle">
+                                    <rect key="frame" x="136" y="5" width="38" height="38"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="38" id="fmv-op-qsf"/>
+                                        <constraint firstAttribute="width" constant="38" id="lNf-AN-ghl"/>
+                                    </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="120" id="L2G-Qu-tAj"/>
+                                <constraint firstItem="jDl-pu-eov" firstAttribute="leading" secondItem="sXu-tl-a0m" secondAttribute="leading" constant="6" id="4B3-wd-Hli"/>
+                                <constraint firstItem="jDl-pu-eov" firstAttribute="centerY" secondItem="sXu-tl-a0m" secondAttribute="centerY" id="4dN-qr-d8x"/>
+                                <constraint firstItem="yiM-fM-sSS" firstAttribute="leading" secondItem="VhE-hA-Leo" secondAttribute="trailing" constant="27" id="4dV-co-loq"/>
+                                <constraint firstItem="VhE-hA-Leo" firstAttribute="leading" secondItem="jDl-pu-eov" secondAttribute="trailing" constant="27" id="Dhr-7d-Tja"/>
                                 <constraint firstAttribute="height" constant="48" id="VKo-hu-3qN"/>
+                                <constraint firstAttribute="trailing" secondItem="yiM-fM-sSS" secondAttribute="trailing" constant="6" id="Z9O-Lt-RWP"/>
+                                <constraint firstItem="VhE-hA-Leo" firstAttribute="centerY" secondItem="sXu-tl-a0m" secondAttribute="centerY" id="fIv-2J-AaU"/>
+                                <constraint firstItem="VhE-hA-Leo" firstAttribute="centerX" secondItem="sXu-tl-a0m" secondAttribute="centerX" id="n21-Af-MJF"/>
+                                <constraint firstItem="yiM-fM-sSS" firstAttribute="centerY" secondItem="sXu-tl-a0m" secondAttribute="centerY" id="pyj-0F-ss9"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -199,7 +222,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Arrive at 12:24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oec-Ee-6ha">
-                                    <rect key="frame" x="40" y="28" width="240" height="16"/>
+                                    <rect key="frame" x="-16" y="-226" width="93" height="17"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -209,7 +232,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-pb-L88">
-                                    <rect key="frame" x="0.0" y="10" width="24" height="24"/>
+                                    <rect key="frame" x="-16" y="-226" width="28" height="28"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
                                     </userDefinedRuntimeAttributes>
@@ -251,7 +274,7 @@
                     <rect key="frame" x="0.0" y="607" width="320" height="48"/>
                     <subviews>
                         <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IJ-pR-Ztp" userLabel="Go" customClass="MWMStartButton">
-                            <rect key="frame" x="100" y="8" width="120" height="32"/>
+                            <rect key="frame" x="0.0" y="-607" width="56" height="22"/>
                             <accessibility key="accessibilityConfiguration" identifier="goButton"/>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                             <state key="normal" title="Start"/>
@@ -322,6 +345,7 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="arriveLabel" destination="oec-Ee-6ha" id="7Ep-ck-NSQ"/>
+                <outlet property="bicycle" destination="yiM-fM-sSS" id="pMf-6J-9Gd"/>
                 <outlet property="collectionView" destination="TC0-58-PO9" id="Onv-Ld-JPp"/>
                 <outlet property="completeImageView" destination="pQb-pb-L88" id="FAi-yN-HNc"/>
                 <outlet property="contentView" destination="3s2-BV-X5i" id="mp7-Qq-drU"/>
@@ -336,7 +360,7 @@
                 <outlet property="statusBoxHeight" destination="4qT-ha-p75" id="Ias-po-Adc"/>
                 <outlet property="vehicle" destination="jDl-pu-eov" id="awM-KI-2xO"/>
             </connections>
-            <point key="canvasLocation" x="448" y="574.5"/>
+            <point key="canvasLocation" x="448" y="574"/>
         </view>
     </objects>
     <resources>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -117,10 +117,10 @@
                     <rect key="frame" x="0.0" y="140" width="320" height="48"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOA-K7-ybj" userLabel="Planning box">
-                            <rect key="frame" x="104" y="14" width="204" height="20"/>
+                            <rect key="frame" x="142" y="14" width="166" height="20"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planning..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Yzu-Z9-ZiH">
-                                    <rect key="frame" x="0.0" y="0.0" width="204" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="166" height="20"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -141,10 +141,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Fm-p4-iHv" userLabel="Error box">
-                            <rect key="frame" x="104" y="14" width="204" height="20"/>
+                            <rect key="frame" x="142" y="14" width="166" height="20"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planning..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="bZb-KY-Y9r" userLabel="Error">
-                                    <rect key="frame" x="0.0" y="0.0" width="204" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="166" height="20"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.95686274509803915" green="0.2627450980392157" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -165,10 +165,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tjE-md-mqu" userLabel="Result box">
-                            <rect key="frame" x="104" y="14" width="204" height="20"/>
+                            <rect key="frame" x="142" y="14" width="166" height="20"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="results" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="v46-iC-Qyb">
-                                    <rect key="frame" x="0.0" y="0.0" width="204" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="166" height="20"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -188,21 +188,44 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQc-l8-sZH" userLabel="Buttons Box">
-                            <rect key="frame" x="8" y="0.0" width="96" height="48"/>
+                            <rect key="frame" x="8" y="0.0" width="134" height="48"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cZF-Ha-2tB">
-                                    <rect key="frame" x="6" y="6" width="38" height="38"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZF-Ha-2tB">
+                                    <rect key="frame" x="6" y="5" width="38" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="m6k-uU-yOl"/>
+                                        <constraint firstAttribute="height" constant="38" id="mp7-b4-xot"/>
+                                    </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6D3-QF-6wm">
-                                    <rect key="frame" x="48" y="6" width="38" height="38"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6D3-QF-6wm">
+                                    <rect key="frame" x="48" y="5" width="38" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="815-LJ-2tk"/>
+                                        <constraint firstAttribute="height" constant="38" id="hXi-E7-GUb"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FuO-c6-y9C" userLabel="Bicycle">
+                                    <rect key="frame" x="90" y="5" width="38" height="38"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="9fe-fw-05J"/>
+                                        <constraint firstAttribute="height" constant="38" id="gbm-NL-zgv"/>
+                                    </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="96" id="3TM-BU-wVs"/>
+                                <constraint firstItem="FuO-c6-y9C" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="1De-4s-V8t"/>
+                                <constraint firstItem="cZF-Ha-2tB" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="MQh-op-cpN"/>
+                                <constraint firstItem="cZF-Ha-2tB" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="leading" constant="6" id="MjU-UA-Kax"/>
                                 <constraint firstAttribute="height" constant="48" id="Mws-KZ-ghs"/>
+                                <constraint firstItem="FuO-c6-y9C" firstAttribute="leading" secondItem="6D3-QF-6wm" secondAttribute="trailing" constant="4" id="kiZ-0X-ufX"/>
+                                <constraint firstItem="6D3-QF-6wm" firstAttribute="leading" secondItem="cZF-Ha-2tB" secondAttribute="trailing" constant="4" id="s0r-iE-aBu"/>
+                                <constraint firstItem="6D3-QF-6wm" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="vXO-6g-q4L"/>
+                                <constraint firstAttribute="trailing" secondItem="FuO-c6-y9C" secondAttribute="trailing" constant="6" id="xOE-cB-5a5"/>
+                                <constraint firstItem="6D3-QF-6wm" firstAttribute="centerX" secondItem="oQc-l8-sZH" secondAttribute="centerX" id="zcU-mY-JYz"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -252,6 +275,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="arrowImageView" destination="y8P-JL-riK" id="rzP-ce-6f0"/>
+                <outlet property="bicycle" destination="FuO-c6-y9C" id="UR2-pF-Amb"/>
                 <outlet property="collectionView" destination="DrK-vI-WkO" id="IRr-R5-WIS"/>
                 <outlet property="contentView" destination="WqK-Yb-PmP" id="4ph-Dm-EFr"/>
                 <outlet property="errorBox" destination="8Fm-p4-iHv" id="wTj-tn-NrE"/>
@@ -270,6 +294,6 @@
     </objects>
     <resources>
         <image name="ic_arrow_up_and_down" width="9" height="9"/>
-        <image name="ic_nav_bar_back" width="44" height="44"/>
+        <image name="ic_nav_bar_back" width="14" height="22"/>
     </resources>
 </document>
