@@ -2,7 +2,6 @@ package com.mapswithme.maps;
 
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.annotation.UiThread;
 
@@ -12,6 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingInfo;
+import com.mapswithme.maps.widget.placepage.SponsoredHotelInfo;
 import com.mapswithme.util.Constants;
 
 /**
@@ -210,12 +210,9 @@ public class Framework
   public static native void nativeTurnOnChoosePositionMode(boolean isBusiness, boolean applyPosition);
   public static native void nativeTurnOffChoosePositionMode();
   public static native boolean nativeIsInChoosePositionMode();
-
   public static native boolean nativeIsDownloadedMapAtScreenCenter();
-
   public static native String nativeGetActiveObjectFormattedCuisine();
-
   public static native boolean nativeIsActiveObjectABuilding();
-
   public static native boolean nativeCanAddPlaceFromPlacePage();
+  public static native SponsoredHotelInfo nativeGetSponsoredHotelInfo();
 }

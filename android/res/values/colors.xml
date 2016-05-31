@@ -15,6 +15,7 @@
 
   <color name="base_red">#FFF54137</color>
   <color name="base_yellow">#FFFFC30A</color>
+  <color name="base_green">#FF558B2F</color>
 
   <color name="icon_tint">#FF757575</color>
   <color name="icon_tint_night">#FFC4C6C7</color>
@@ -110,4 +111,7 @@
 
   <color name="text_editor_add_disabled">#1A000000</color>
 
+  <!-- Brand colors -->
+  <color name="bg_brand_booking">#FF19457D</color>
+  <color name="bg_brand_booking_pressed">#FF1B549E</color>
 </resources>

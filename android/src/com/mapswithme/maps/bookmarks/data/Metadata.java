@@ -36,9 +36,12 @@ public class Metadata implements Parcelable
     FMD_HEIGHT(19),
     FMD_MIN_HEIGHT(20),
     FMD_DENOMINATION(21),
-    FMD_BUILDING_LEVELS(22);
+    FMD_BUILDING_LEVELS(22),
+    FMD_SPONSORED_ID(24),
+    FMD_PRICE_RATE(25),
+    FMD_RATING(26);
 
-    private int mMetaType;
+    private final int mMetaType;
 
     MetadataType(int metadataType)
     {
@@ -46,7 +49,7 @@ public class Metadata implements Parcelable
     }
 
     @NonNull
-    public static MetadataType fromInt(@IntRange(from = 1, to = 22) int metaType)
+    public static MetadataType fromInt(@IntRange(from = 1, to = 26) int metaType)
     {
       for (MetadataType type : values())
         if (type.mMetaType == metaType)
@@ -61,14 +64,14 @@ public class Metadata implements Parcelable
     }
   }
 
-  private Map<MetadataType, String> mMetadataMap = new HashMap<>();
+  private final Map<MetadataType, String> mMetadataMap = new HashMap<>();
 
   /**
    * Adds metadata with type code and value. Returns false if metaType is wrong or unknown
    *
    * @return true, if metadata was added, false otherwise
    */
-  public boolean addMetadata(int metaType, String metaValue)
+  boolean addMetadata(int metaType, String metaValue)
   {
     final MetadataType type = MetadataType.fromInt(metaType);
     mMetadataMap.put(type, metaValue);
@@ -87,7 +90,7 @@ public class Metadata implements Parcelable
   }
 
   @Nullable
-  public String getMetadata(MetadataType type)
+  String getMetadata(MetadataType type)
   {
     return mMetadataMap.get(type);
   }

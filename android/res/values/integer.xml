@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
   <integer name="pp_title_lines">5</integer>
+  <integer name="pp_buttons_max">4</integer>
 
   <integer name="sharing_initial_rows">2</integer>
 </resources>

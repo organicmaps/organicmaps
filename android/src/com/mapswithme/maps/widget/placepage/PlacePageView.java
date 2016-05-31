@@ -1,12 +1,12 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -15,10 +15,12 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -40,8 +42,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -95,6 +99,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
+  private View mHotelInfo;
+  private TextView mTvHotelRating;
+  private TextView mTvHotelPrice;
   // Details.
   private ScrollView mDetails;
   private View mPhone;
@@ -118,6 +125,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
+  private View mMoreInfo;
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
@@ -125,18 +133,18 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private TextView mTvDescription;
   private Button mBtnEditHtmlDescription;
   private TextView mTvBookmarkGroup;
+  private boolean mBookmarkSet;
   // Place page buttons
-  private View mGeneralButtonsFrame;
-  private View mRouteButtonsFrame;
-  private View mApiBack;
-  private ImageView mIvBookmark;
-  private View mRoutingButton;
+  private PlacePageButtons mButtons;
+  private ImageView mBookmarkButtonIcon;
+
   // Animations
   private BaseShadowController mShadowController;
   private BasePlacePageAnimationController mAnimationController;
   private MwmActivity.LeftAnimationTrackListener mLeftAnimationTrackListener;
   // Data
   private MapObject mMapObject;
+  private SponsoredHotelInfo mSponsoredHotelInfo;
   private boolean mIsLatLonDms;
 
   // Downloader`s stuff
@@ -213,10 +221,17 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvTitle = (TextView) mPreview.findViewById(R.id.tv__title);
     mToolbar = (Toolbar) findViewById(R.id.toolbar);
     mTvSubtitle = (TextView) mPreview.findViewById(R.id.tv__subtitle);
+
+    View directionFrame = mPreview.findViewById(R.id.direction_frame);
     mTvDistance = (TextView) mPreview.findViewById(R.id.tv__straight_distance);
     mAvDirection = (ArrowView) mPreview.findViewById(R.id.av__direction);
-    mAvDirection.setOnClickListener(this);
+    directionFrame.setOnClickListener(this);
+
     mTvAddress = (TextView) mPreview.findViewById(R.id.tv__address);
+
+    mHotelInfo = mPreview.findViewById(R.id.hotel_info_frame);
+    mTvHotelRating = (TextView) mHotelInfo.findViewById(R.id.tv__hotel_rating);
+    mTvHotelPrice = (TextView) mHotelInfo.findViewById(R.id.tv__hotel_price);
 
     mDetails = (ScrollView) findViewById(R.id.pp__details);
     RelativeLayout address = (RelativeLayout) mDetails.findViewById(R.id.ll__place_name);
@@ -253,6 +268,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mAddOrganisation.setOnClickListener(this);
     mAddPlace = mDetails.findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
+    mMoreInfo = mDetails.findViewById(R.id.ll__more);
+    mMoreInfo.setOnClickListener(this);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -291,18 +308,89 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
 
-    mGeneralButtonsFrame = ppButtons.findViewById(R.id.general);
-    mApiBack = mGeneralButtonsFrame.findViewById(R.id.ll__api_back);
-    mApiBack.setOnClickListener(this);
-    final View bookmarkGroup = mGeneralButtonsFrame.findViewById(R.id.ll__bookmark);
-    bookmarkGroup.setOnClickListener(this);
-    mIvBookmark = (ImageView) bookmarkGroup.findViewById(R.id.iv__bookmark);
-    mGeneralButtonsFrame.findViewById(R.id.ll__share).setOnClickListener(this);
-    mRoutingButton = mGeneralButtonsFrame.findViewById(R.id.ll__route);
+    mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
+    {
+      @Override
+      public void onPrepareVisibleView(PlacePageButtons.Item item, View frame, ImageView icon, TextView title)
+      {
+        int color;
 
-    mRouteButtonsFrame = ppButtons.findViewById(R.id.routing);
-    mRouteButtonsFrame.findViewById(R.id.from).setOnClickListener(this);
-    mRouteButtonsFrame.findViewById(R.id.to).setOnClickListener(this);
+        switch (item)
+        {
+        case BOOKING:
+          frame.setBackgroundResource(R.drawable.button_booking);
+          color = Color.WHITE;
+          break;
+
+        case BOOKMARK:
+          mBookmarkButtonIcon = icon;
+          updateButtons();
+          color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
+          break;
+
+        default:
+          color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
+          icon.setColorFilter(color);
+          break;
+        }
+
+        title.setTextColor(color);
+      }
+
+      @Override
+      public void onItemClick(PlacePageButtons.Item item)
+      {
+        switch (item)
+        {
+        case BOOKMARK:
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
+          AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
+          toggleIsBookmark();
+          break;
+
+        case SHARE:
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
+          AlohaHelper.logClick(AlohaHelper.PP_SHARE);
+          ShareOption.ANY.shareMapObject(getActivity(), mMapObject);
+          break;
+
+        case BACK:
+          if (ParsedMwmRequest.hasRequest())
+          {
+            ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+            if (ParsedMwmRequest.isPickPointMode())
+              request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
+
+            request.sendResponseAndFinish(getActivity(), true);
+          }
+          else
+            getActivity().finish();
+          break;
+
+        case ROUTE_FROM:
+          if (RoutingController.get().setStartPoint(mMapObject))
+            hide();
+          break;
+
+        case ROUTE_TO:
+          if (RoutingController.get().isPlanning())
+          {
+            if (RoutingController.get().setEndPoint(mMapObject))
+              hide();
+          }
+          else
+          {
+            saveBookmarkTitle();
+            getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, getMapObject());
+          }
+          break;
+
+        case BOOKING:
+          onBookingClick(Statistics.EventName.PP_SPONSORED_BOOK);
+          break;
+        }
+      }
+    });
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame))
                           .setOnIconClickListener(new OnClickListener()
@@ -310,7 +398,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
                             @Override
                             public void onClick(View v)
                             {
-                              MapManager.warn3gAndDownload((MwmActivity) getContext(), mCurrentCountry.id, new Runnable()
+                              MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, new Runnable()
                               {
                                 @Override
                                 public void run()
@@ -346,6 +434,44 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
       mDetails.setBackgroundResource(0);
+  }
+
+  private void onBookingClick(final String event)
+  {
+    // TODO (trashkalmar): Set correct text
+    Utils.checkConnection(getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>()
+    {
+      @Override
+      public void invoke(Boolean result)
+      {
+        if (!result)
+          return;
+
+        SponsoredHotelInfo info = mSponsoredHotelInfo;
+        if (info == null)
+          return;
+
+        Map<String, String> params = new HashMap<>();
+        params.put("provider", "Booking.com");
+
+        MapObject myPos = LocationHelper.INSTANCE.getMyPosition();
+        params.put("lat", (myPos == null ? "N/A" : String.valueOf(myPos.getLat())));
+        params.put("lon", (myPos == null ? "N/A" : String.valueOf(myPos.getLon())));
+        // TODO (trashkalmar): Replace with hotel's ID
+        params.put("hotel", mSponsoredHotelInfo.price);
+
+        Statistics.INSTANCE.trackEvent(event, params);
+        org.alohalytics.Statistics.logEvent(event, params);
+
+        try
+        {
+          followUrl(mSponsoredHotelInfo.urlBook);
+        } catch (ActivityNotFoundException e)
+        {
+          AlohaHelper.logException(e);
+        }
+      }
+    });
   }
 
   private void init(AttributeSet attrs, int defStyleAttr)
@@ -446,6 +572,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       return;
 
     mMapObject = mapObject;
+    mSponsoredHotelInfo = (mMapObject == null ? null : Framework.nativeGetSponsoredHotelInfo());
 
     detachCountry();
     if (mMapObject != null)
@@ -472,23 +599,23 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case MapObject.BOOKMARK:
       refreshDistanceToObject(loc);
       showBookmarkDetails();
-      refreshButtons(false, true);
+      setButtons(false, true);
       break;
     case MapObject.POI:
     case MapObject.SEARCH:
       refreshDistanceToObject(loc);
       hideBookmarkDetails();
-      refreshButtons(false, true);
+      setButtons(false, true);
       break;
     case MapObject.API_POINT:
       refreshDistanceToObject(loc);
       hideBookmarkDetails();
-      refreshButtons(true, true);
+      setButtons(true, true);
       break;
     case MapObject.MY_POSITION:
       refreshMyPosition(loc);
       hideBookmarkDetails();
-      refreshButtons(false, false);
+      setButtons(false, false);
       break;
     }
 
@@ -498,9 +625,26 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       public void run()
       {
         mShadowController.updateShadows();
-        requestLayout();
+        mPreview.requestLayout();
       }
     });
+  }
+
+  private void colorizeSubtitle()
+  {
+    String text = mTvSubtitle.getText().toString();
+    if (TextUtils.isEmpty(text))
+      return;
+
+    int start = text.indexOf("★");
+    if (start > -1)
+    {
+      SpannableStringBuilder sb = new SpannableStringBuilder(text);
+      sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_yellow)),
+                 start, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+      mTvSubtitle.setText(sb);
+    }
   }
 
   private void refreshPreview()
@@ -509,8 +653,17 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (mToolbar != null)
       mToolbar.setTitle(mMapObject.getTitle());
     UiUtils.setTextAndHideIfEmpty(mTvSubtitle, mMapObject.getSubtitle());
+    colorizeSubtitle();
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
+
+    boolean sponsored = (mSponsoredHotelInfo != null);
+    UiUtils.showIf(sponsored, mHotelInfo);
+    if (sponsored)
+    {
+      mTvHotelRating.setText(mSponsoredHotelInfo.rating);
+      UiUtils.setTextAndHideIfEmpty(mTvHotelPrice, mSponsoredHotelInfo.price);
+    }
   }
 
   private void refreshDetails()
@@ -537,6 +690,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       UiUtils.showIf(Framework.nativeIsActiveObjectABuilding(), mAddOrganisation);
       UiUtils.showIf(Framework.nativeCanAddPlaceFromPlacePage(), mAddPlace);
     }
+
+    UiUtils.showIf(mSponsoredHotelInfo != null, mMoreInfo);
   }
 
   private void refreshOpeningHours()
@@ -584,18 +739,31 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTodayOpeningHours.setTextColor(color);
   }
 
+  private void updateButtons()
+  {
+    if (mBookmarkButtonIcon == null)
+      return;
+
+    if (mBookmarkSet)
+      mBookmarkButtonIcon.setImageResource(R.drawable.ic_bookmarks_on);
+    else
+      mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
+  }
+
   private void hideBookmarkDetails()
   {
-    mIvBookmark.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
+    mBookmarkSet = false;
+    updateButtons();
   }
 
   private void showBookmarkDetails()
   {
+    mBookmarkSet = true;
     final Bookmark bookmark = (Bookmark) mMapObject;
     mEtBookmarkName.setText(bookmark.getTitle());
     mTvBookmarkGroup.setText(bookmark.getCategoryName());
     mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
-    mIvBookmark.setImageResource(R.drawable.ic_bookmarks_on);
+
     final String notes = bookmark.getBookmarkDescription();
     if (notes.isEmpty())
       UiUtils.hide(mWvDescription, mBtnEditHtmlDescription, mTvDescription);
@@ -610,23 +778,36 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       UiUtils.hide(mWvDescription, mBtnEditHtmlDescription);
       UiUtils.setTextAndShow(mTvDescription, notes);
     }
+
+    updateButtons();
   }
 
-  private void refreshButtons(boolean showBackButton, boolean showRoutingButton)
+  private void setButtons(boolean showBackButton, boolean showRoutingButton)
   {
+    List<PlacePageButtons.Item> buttons = new ArrayList<>();
+
+    if (showBackButton || ParsedMwmRequest.isPickPointMode())
+      buttons.add(PlacePageButtons.Item.BACK);
+
+    if (mSponsoredHotelInfo != null)
+      buttons.add(PlacePageButtons.Item.BOOKING);
+
+    buttons.add(PlacePageButtons.Item.BOOKMARK);
+
     if (RoutingController.get().isPlanning())
     {
-      UiUtils.show(mRouteButtonsFrame);
-      UiUtils.hide(mGeneralButtonsFrame, mEditPlace);
+      buttons.add(PlacePageButtons.Item.ROUTE_FROM);
+      buttons.add(PlacePageButtons.Item.ROUTE_TO);
     }
     else
     {
-      UiUtils.show(mGeneralButtonsFrame);
-      UiUtils.hide(mRouteButtonsFrame);
-
-      UiUtils.showIf(showBackButton || ParsedMwmRequest.isPickPointMode(), mApiBack);
-      UiUtils.showIf(showRoutingButton, mRoutingButton);
+      if (showRoutingButton)
+        buttons.add(PlacePageButtons.Item.ROUTE_TO);
     }
+
+    buttons.add(PlacePageButtons.Item.SHARE);
+
+    mButtons.setItems(buttons);
   }
 
   public void refreshLocation(Location l)
@@ -740,7 +921,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     if (fragment == null)
     {
-      FragmentManager fm = ((FragmentActivity) getContext()).getSupportFragmentManager();
+      FragmentManager fm = getActivity().getSupportFragmentManager();
       fragment = (EditDescriptionFragment) fm.findFragmentByTag(EditDescriptionFragment.class.getName());
     }
 
@@ -759,22 +940,17 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     });
   }
 
-  private void showEditor()
-  {
-    ((MwmActivity) getContext()).showEditor();
-  }
-
   private void addOrganisation()
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
                                    Statistics.params().add(Statistics.EventParam.FROM, "placepage"));
-    ((MwmActivity) getContext()).showPositionChooser(true, false);
+    getActivity().showPositionChooser(true, false);
   }
 
   private void addPlace()
   {
     // TODO add statistics
-    ((MwmActivity) getContext()).showPositionChooser(false, true);
+    getActivity().showPositionChooser(false, true);
   }
 
   @Override
@@ -783,7 +959,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     switch (v.getId())
     {
     case R.id.ll__place_editor:
-      showEditor();
+      getActivity().showEditor();
       break;
     case R.id.ll__add_organisation:
       addOrganisation();
@@ -791,31 +967,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.ll__place_add:
       addPlace();
       break;
+    case R.id.ll__more:
+      onBookingClick(Statistics.EventName.PP_SPONSORED_DETAILS);
+      break;
     case R.id.iv__bookmark_color:
       saveBookmarkTitle();
       selectBookmarkColor();
-      break;
-    case R.id.ll__bookmark:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
-      AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
-      toggleIsBookmark();
-      break;
-    case R.id.ll__share:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
-      AlohaHelper.logClick(AlohaHelper.PP_SHARE);
-      ShareOption.ANY.shareMapObject((Activity) getContext(), mMapObject);
-      break;
-    case R.id.ll__api_back:
-      final Activity activity = (Activity) getContext();
-      if (ParsedMwmRequest.hasRequest())
-      {
-        final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-        if (ParsedMwmRequest.isPickPointMode())
-          request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
-        request.sendResponseAndFinish(activity, true);
-      }
-      else
-        activity.finish();
       break;
     case R.id.ll__place_latlon:
       mIsLatLonDms = !mIsLatLonDms;
@@ -844,7 +1001,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       saveBookmarkTitle();
       selectBookmarkSet();
       break;
-    case R.id.av__direction:
+    case R.id.direction_frame:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW);
       AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW);
       showBigDirection();
@@ -863,16 +1020,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       String name = EditDescriptionFragment.class.getName();
       final EditDescriptionFragment fragment = (EditDescriptionFragment) Fragment.instantiate(getContext(), name, args);
       fragment.setArguments(args);
-      fragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), name);
+      fragment.show(getActivity().getSupportFragmentManager(), name);
       subscribeBookmarkEditFragment(fragment);
-      break;
-    case R.id.from:
-      if (RoutingController.get().setStartPoint(mMapObject))
-        hide();
-      break;
-    case R.id.to:
-      if (RoutingController.get().setEndPoint(mMapObject))
-        hide();
       break;
     }
   }
@@ -914,15 +1063,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void selectBookmarkSet()
   {
-    final FragmentActivity activity = (FragmentActivity) getContext();
     final Bookmark bookmark = (Bookmark) mMapObject;
 
     final Bundle args = new Bundle();
     args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, bookmark.getCategoryId());
     args.putInt(ChooseBookmarkCategoryFragment.BOOKMARK_ID, bookmark.getBookmarkId());
     final ChooseBookmarkCategoryFragment fragment =
-        (ChooseBookmarkCategoryFragment) Fragment.instantiate(activity, ChooseBookmarkCategoryFragment.class.getName(), args);
-    fragment.show(activity.getSupportFragmentManager(), null);
+        (ChooseBookmarkCategoryFragment) Fragment.instantiate(getActivity(), ChooseBookmarkCategoryFragment.class.getName(), args);
+    fragment.show(getActivity().getSupportFragmentManager(), null);
   }
 
   private void selectBookmarkColor()
@@ -951,15 +1099,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       }
     });
 
-    dialogFragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), null);
+    dialogFragment.show(getActivity().getSupportFragmentManager(), null);
   }
 
   private void showBigDirection()
   {
-    final FragmentActivity hostActivity = (FragmentActivity) getContext();
-    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(hostActivity, DirectionFragment.class.getName(), null);
+    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(getActivity(), DirectionFragment.class.getName(), null);
     fragment.setMapObject(mMapObject);
-    fragment.show(hostActivity.getSupportFragmentManager(), null);
+    fragment.show(getActivity().getSupportFragmentManager(), null);
   }
 
   @Override
@@ -1082,7 +1229,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(country.totalSize));
     if (country.isExpandable())
-      sb.append(String.format(Locale.US, " • %s: %d", getContext().getString(R.string.downloader_status_maps), country.totalChildCount));
+      sb.append(String.format(Locale.US, "  •  %s: %d", getContext().getString(R.string.downloader_status_maps), country.totalChildCount));
 
     mDownloaderInfo.setText(sb.toString());
   }
@@ -1121,5 +1268,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mCurrentCountry = null;
     mDownloaderIcon.show(false);
     UiUtils.hide(mDownloaderInfo);
+  }
+
+  MwmActivity getActivity()
+  {
+    return (MwmActivity) getContext();
   }
 }

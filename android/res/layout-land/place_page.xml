@@ -16,7 +16,7 @@
 
   <include
     android:id="@+id/pp__buttons"
-    layout="@layout/place_page_buttons"
+    layout="@layout/place_page_button_frame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignBottom="@id/pp__details_frame"/>

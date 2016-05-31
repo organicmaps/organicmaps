@@ -67,6 +67,8 @@ public enum Statistics
     public static final String PP_SHARE = "PP. Share";
     public static final String PP_BOOKMARK = "PP. Bookmark";
     public static final String PP_ROUTE = "PP. Route";
+    public static final String PP_SPONSORED_DETAILS = "Placepage_Hotel_details";
+    public static final String PP_SPONSORED_BOOK = "Placepage_Hotel_book";
     public static final String PP_DIRECTION_ARROW = "PP. DirectionArrow";
     public static final String PP_DIRECTION_ARROW_CLOSE = "PP. DirectionArrowClose";
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";

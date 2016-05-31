@@ -359,8 +359,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void initViews()
   {
     initMap();
-    initPlacePage();
     initNavigationButtons();
+
+    mPlacePage = (PlacePageView) findViewById(R.id.info_box);
+    mPlacePage.setOnVisibilityChangedListener(this);
 
     if (!mIsFragmentContainer)
     {
@@ -412,7 +414,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.hide();
   }
 
-  public void hidePositionChooser()
+  private void hidePositionChooser()
   {
     UiUtils.hide(mPositionChooser);
     Framework.nativeTurnOffChoosePositionMode();
@@ -456,13 +458,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mBtnZoomOut.setOnClickListener(this);
     mBtnZoomOut.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.zoom_out_night
                                                            : R.drawable.zoom_out);
-  }
-
-  private void initPlacePage()
-  {
-    mPlacePage = (PlacePageView) findViewById(R.id.info_box);
-    mPlacePage.setOnVisibilityChangedListener(this);
-    mPlacePage.findViewById(R.id.ll__route).setOnClickListener(this);
   }
 
   private boolean closePlacePage()
@@ -510,7 +505,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private void startLocationToPoint(String statisticsEvent, String alohaEvent, final @Nullable MapObject endPoint)
+  public void startLocationToPoint(String statisticsEvent, String alohaEvent, final @Nullable MapObject endPoint)
   {
     closeMenu(statisticsEvent, alohaEvent, new Runnable()
     {
@@ -1184,7 +1179,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       object.setSubtitle(request.getCallerName(MwmApplication.get()).toString());
     }
     else if (MapObject.isOfType(MapObject.MY_POSITION, object) &&
-             Framework.nativeIsRoutingActive())
+             RoutingController.get().isNavigating())
     {
       return;
     }
@@ -1301,10 +1296,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     switch (v.getId())
     {
-    case R.id.ll__route:
-      mPlacePage.saveBookmarkTitle();
-      startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, mPlacePage.getMapObject());
-      break;
     case R.id.map_button_plus:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_IN);
       AlohaHelper.logClick(AlohaHelper.ZOOM_IN);
