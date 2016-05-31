@@ -1,7 +1,7 @@
 #pragma once
 
+#include "search/processor.hpp"
 #include "search/suggest.hpp"
-#include "search/v2/processor_v2.hpp"
 
 #include "std/unique_ptr.hpp"
 
@@ -21,7 +21,7 @@ public:
                                       vector<Suggest> const & suggests,
                                       storage::CountryInfoGetter const & infoGetter)
   {
-    return make_unique<v2::ProcessorV2>(index, categories, suggests, infoGetter);
+    return make_unique<Processor>(index, categories, suggests, infoGetter);
   }
 };
 }  // namespace search

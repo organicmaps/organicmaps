@@ -61,7 +61,9 @@
 #include "coding/png_memory_encoder.hpp"
 
 #include "geometry/angles.hpp"
+#include "geometry/any_rect2d.hpp"
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/rect2d.hpp"
 #include "geometry/triangle2d.hpp"
 
 #include "base/math.hpp"

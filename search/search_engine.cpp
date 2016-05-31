@@ -160,9 +160,9 @@ Engine::~Engine()
 weak_ptr<ProcessorHandle> Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
   shared_ptr<ProcessorHandle> handle(new ProcessorHandle());
-  PostMessage(Message::TYPE_TASK, [this, params, viewport, handle](Processor & query)
+  PostMessage(Message::TYPE_TASK, [this, params, viewport, handle](Processor & processor)
               {
-                DoSearch(params, viewport, handle, query);
+                DoSearch(params, viewport, handle, processor);
               });
   return handle;
 }
