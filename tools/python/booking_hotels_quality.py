@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(
 
 def load_binary_list(path):
     """
-    Loads binary classifier output
+    Loads binary classifier output.
     """
     bits = []
     with open(path, 'r') as fd:
@@ -34,7 +34,7 @@ def load_binary_list(path):
 
 def load_score_list(path):
     """
-    Loads list of scores
+    Loads list of matching scores.
     """
     scores = []
     with open(path, 'r') as fd:
@@ -72,7 +72,8 @@ def main():
 
     precision, recall, threshold = metrics.precision_recall_curve(reference, sample)
     aa = zip(precision, recall, threshold)
-    print("Optimal threshold: {2} for precision: {0} and recall: {1}".format(*max(aa, key=lambda (p, r, t): p*r/(p+r))))
+    max_by_hmean = max(aa, key=lambda (p, r, t): p*r/(p+r))
+    print("Optimal threshold: {2} for precision: {0} and recall: {1}".format(*max_by_hmean))
     print("AUC: {0}".format(metrics.roc_auc_score(reference, sample)))
 
     if options.show:
