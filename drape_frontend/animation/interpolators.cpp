@@ -114,18 +114,18 @@ PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & star
   SetActive(m_startPosition != m_endPosition);
 }
 
-PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition,
-                                           m2::PointD const & endPosition,
+PositionInterpolator::PositionInterpolator(m2::PointD const & startPxPosition,
+                                           m2::PointD const & endPxPosition,
                                            m2::RectD const & pixelRect)
-  : PositionInterpolator(0.0 /* delay */, startPosition, endPosition, pixelRect)
+  : PositionInterpolator(0.0 /* delay */, startPxPosition, endPxPosition, pixelRect)
 {}
 
-PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & startPosition,
-                                           m2::PointD const & endPosition, m2::RectD const & pixelRect)
-  : Interpolator(PositionInterpolator::GetPixelMoveDuration(startPosition, endPosition, pixelRect), delay)
-  , m_startPosition(startPosition)
-  , m_endPosition(endPosition)
-  , m_position(startPosition)
+PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & startPxPosition,
+                                           m2::PointD const & endPxPosition, m2::RectD const & pixelRect)
+  : Interpolator(PositionInterpolator::GetPixelMoveDuration(startPxPosition, endPxPosition, pixelRect), delay)
+  , m_startPosition(startPxPosition)
+  , m_endPosition(endPxPosition)
+  , m_position(startPxPosition)
 {
   SetActive(m_startPosition != m_endPosition);
 }
@@ -137,7 +137,7 @@ double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition,
 {
   return GetPixelMoveDuration(convertor.GtoP(startPosition),
                               convertor.GtoP(endPosition),
-                              convertor.PixelRectIn3d());
+                              convertor.PixelRect());
 }
 
 double PositionInterpolator::GetPixelMoveDuration(m2::PointD const & startPosition,
