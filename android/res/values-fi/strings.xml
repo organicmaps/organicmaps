@@ -639,8 +639,8 @@
 	<string name="p2p_to">Päämäärä</string>
 	<string name="p2p_start">Aloita</string>
 	<string name="p2p_planning">Lasketaan…</string>
-	<string name="p2p_from_here">Lähtöpaikka</string>
-	<string name="p2p_to_here">Määränpää</string>
+	<string name="p2p_from_here">Reitin alkupiste</string>
+	<string name="p2p_to_here">Reitin loppupiste</string>
 	<string name="p2p_only_from_current">Navigointi onnistuu vain nykyisestä sijainnistasi.</string>
 	<string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
 	<string name="whats_new_next_button">Seuraava</string>

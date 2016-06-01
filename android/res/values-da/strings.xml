@@ -641,8 +641,8 @@
 	<string name="p2p_to">Bestemmelsesstedet</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Planlægger…</string>
-	<string name="p2p_from_here">Fra</string>
-	<string name="p2p_to_here">Til</string>
+	<string name="p2p_from_here">Rute fra</string>
+	<string name="p2p_to_here">Rute til</string>
 	<string name="p2p_only_from_current">Navigation er kun tilgængelig fra din nuværende lokalitet.</string>
 	<string name="p2p_reroute_from_current">Ønsker du, at vi planlægger en rute fra din nuværende placering?</string>
 	<string name="whats_new_next_button">Næste</string>

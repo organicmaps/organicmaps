@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Se planifică…";
 
-"p2p_from_here" = "Din";
+"p2p_from_here" = "Ruta de la";
 
-"p2p_to_here" = "În";
+"p2p_to_here" = "Ruta la";
 
 "p2p_only_from_current" = "Navigația este disponibilă doar având ca punct de pornire locațiacctuală.";
 

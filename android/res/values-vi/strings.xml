@@ -639,8 +639,8 @@
 	<string name="p2p_to">Điểm đích</string>
 	<string name="p2p_start">Bắt đầu</string>
 	<string name="p2p_planning">Đang hoạch định…</string>
-	<string name="p2p_from_here">Từ</string>
-	<string name="p2p_to_here">Đến</string>
+	<string name="p2p_from_here">Tuyến từ</string>
+	<string name="p2p_to_here">Tuyến đến</string>
 	<string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
 	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
 	<string name="whats_new_next_button">Tiếp theo</string>

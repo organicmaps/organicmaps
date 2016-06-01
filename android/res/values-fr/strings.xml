@@ -650,8 +650,8 @@
 	<string name="p2p_to">Le lieu de destination</string>
 	<string name="p2p_start">Démarrer</string>
 	<string name="p2p_planning">En cours de planification…</string>
-	<string name="p2p_from_here">Depuis</string>
-	<string name="p2p_to_here">Jusqu\&#39;à</string>
+	<string name="p2p_from_here">Itinéraire de</string>
+	<string name="p2p_to_here">Itinéraire vers</string>
 	<string name="p2p_only_from_current">La navigation est uniquement disponible à partir de votre emplacement actuel.</string>
 	<string name="p2p_reroute_from_current">Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?</string>
 	<string name="whats_new_next_button">Neste</string>

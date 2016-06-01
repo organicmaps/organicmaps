@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Planlanıyor…";
 
-"p2p_from_here" = "Başlangıç";
+"p2p_from_here" = "Çıkış yeri:";
 
-"p2p_to_here" = "Hedef";
+"p2p_to_here" = "Varış yeri:";
 
 "p2p_only_from_current" = "Navigasyon sadece şu anki konumunuzdan mevcut.";
 

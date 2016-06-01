@@ -638,8 +638,8 @@
 	<string name="p2p_to">Titik tujuan</string>
 	<string name="p2p_start">Mulai</string>
 	<string name="p2p_planning">Merencanakan…</string>
-	<string name="p2p_from_here">Dari</string>
-	<string name="p2p_to_here">Ke</string>
+	<string name="p2p_from_here">Rute dari</string>
+	<string name="p2p_to_here">Rute ke</string>
 	<string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
 	<string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
 	<string name="whats_new_next_button">Berikut</string>

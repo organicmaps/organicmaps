@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Planlægger…";
 
-"p2p_from_here" = "Fra";
+"p2p_from_here" = "Rute fra";
 
-"p2p_to_here" = "Til";
+"p2p_to_here" = "Rute til";
 
 "p2p_only_from_current" = "Navigation er kun tilgængelig fra din nuværende lokalitet.";
 

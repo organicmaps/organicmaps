@@ -638,8 +638,8 @@
 	<string name="p2p_to">目的地</string>
 	<string name="p2p_start">開始</string>
 	<string name="p2p_planning">作成中…</string>
-	<string name="p2p_from_here">出発地</string>
-	<string name="p2p_to_here">目的地</string>
+	<string name="p2p_from_here">からのルート</string>
+	<string name="p2p_to_here">へのルート</string>
 	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
 	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
 	<string name="whats_new_next_button">次へ</string>

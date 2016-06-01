@@ -645,8 +645,8 @@
 	<string name="p2p_to">نقطة الوصول</string>
 	<string name="p2p_start">البداية</string>
 	<string name="p2p_planning">جار التخطيط…</string>
-	<string name="p2p_from_here">من</string>
-	<string name="p2p_to_here">إلى</string>
+	<string name="p2p_from_here">الطريق من</string>
+	<string name="p2p_to_here">الطريق إلى</string>
 	<string name="p2p_only_from_current">تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟</string>
 	<string name="p2p_reroute_from_current">هل ترغب في أن نرسم مسار لك من موقعك الحالي؟</string>
 	<string name="whats_new_next_button">التالي</string>

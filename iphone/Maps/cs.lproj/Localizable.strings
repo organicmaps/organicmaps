@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Plánování…";
 
-"p2p_from_here" = "Z";
+"p2p_from_here" = "Cesta k";
 
-"p2p_to_here" = "Do";
+"p2p_to_here" = "Cesta od";
 
 "p2p_only_from_current" = "Navigace je dostupná pouze z vašeho současného umístění.";
 

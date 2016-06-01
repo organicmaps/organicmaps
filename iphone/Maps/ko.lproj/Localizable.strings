@@ -1069,7 +1069,7 @@
 
 "p2p_from_here" = "출발지";
 
-"p2p_to_here" = "도착지";
+"p2p_to_here" = "목적지";
 
 "p2p_only_from_current" = "현재 위치에서만 네비게이션을 사용할 수 있습니다.";
 

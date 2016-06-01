@@ -643,8 +643,8 @@
 	<string name="p2p_to">Målplats</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Planerar…</string>
-	<string name="p2p_from_here">Från</string>
-	<string name="p2p_to_here">Till</string>
+	<string name="p2p_from_here">Rutt från</string>
+	<string name="p2p_to_here">Rutt till</string>
 	<string name="p2p_only_from_current">Navigering är endast tillgänglig från din aktuella plats.</string>
 	<string name="p2p_reroute_from_current">Vill du att vi planerar en färdväg från din nuvarande plats?</string>
 	<string name="whats_new_next_button">Nästa</string>

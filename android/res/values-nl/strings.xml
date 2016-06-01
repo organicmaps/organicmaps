@@ -629,8 +629,8 @@
 	<string name="p2p_to">Bestemmingspunt</string>
 	<string name="p2p_start">Beginnen</string>
 	<string name="p2p_planning">Aan het plannen…</string>
-	<string name="p2p_from_here">Van</string>
-	<string name="p2p_to_here">Naar</string>
+	<string name="p2p_from_here">Route van</string>
+	<string name="p2p_to_here">Route naar</string>
 	<string name="p2p_only_from_current">Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.</string>
 	<string name="p2p_reroute_from_current">Wilt u dat wij een route plannen vanaf uw huidige locatie?</string>
 	<string name="whats_new_next_button">Volgende</string>

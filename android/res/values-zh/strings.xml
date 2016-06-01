@@ -645,8 +645,8 @@
 	<string name="p2p_to">目的地点</string>
 	<string name="p2p_start">开始</string>
 	<string name="p2p_planning">计划中…</string>
-	<string name="p2p_from_here">从</string>
-	<string name="p2p_to_here">到</string>
+	<string name="p2p_from_here">发送自</string>
+	<string name="p2p_to_here">发送至</string>
 	<string name="p2p_only_from_current">导航只能从您目前的位置开始。</string>
 	<string name="p2p_reroute_from_current">你是否想要规划当前位置的路线？</string>
 	<string name="whats_new_next_button">下一页</string>

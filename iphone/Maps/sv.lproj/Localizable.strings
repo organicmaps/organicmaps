@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Planerar…";
 
-"p2p_from_here" = "Från";
+"p2p_from_here" = "Rutt från";
 
-"p2p_to_here" = "Till";
+"p2p_to_here" = "Rutt till";
 
 "p2p_only_from_current" = "Navigering är endast tillgänglig från din aktuella plats.";
 

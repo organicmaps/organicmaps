@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Lasketaan…";
 
-"p2p_from_here" = "Lähtöpaikka";
+"p2p_from_here" = "Reitin alkupiste";
 
-"p2p_to_here" = "Määränpää";
+"p2p_to_here" = "Reitin loppupiste";
 
 "p2p_only_from_current" = "Navigointi onnistuu vain nykyisestä sijainnistasi.";
 
