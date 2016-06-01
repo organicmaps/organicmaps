@@ -482,7 +482,12 @@ bool UserEventStream::InterruptFollowAnimations()
   if (followAnim != nullptr)
   {
     if (followAnim->CouldBeInterrupted())
+    {
+      bool const isFollowAnim = followAnim->GetType() == Animation::MapFollow;
       ResetAnimations(followAnim->GetType());
+      if (isFollowAnim)
+        ResetAnimations(Animation::Arrow);
+    }
     else
       return false;
   }
@@ -589,7 +594,7 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
   ResetAnimationsBeforeSwitch3D();
 
   if (immediatelyStart)
-    ResetAnimations(Animation::MapFollow);
+    InterruptFollowAnimations();
 
   double const startAngle = isAnim ? 0.0 : maxRotationAngle;
   double const endAngle = maxRotationAngle;
@@ -612,7 +617,7 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 void UserEventStream::SetDisable3dModeAnimation()
 {
   ResetAnimationsBeforeSwitch3D();
-  ResetAnimations(Animation::MapFollow);
+  InterruptFollowAnimations();
 
   if (m_discardedFOV > 0.0 && IsScaleAllowableIn3d(GetDrawTileScale(GetCurrentScreen())))
   {
@@ -656,7 +661,6 @@ void UserEventStream::ResetAnimationsBeforeSwitch3D()
 {
   ResetAnimations(Animation::MapLinear);
   ResetAnimations(Animation::MapScale);
-  ResetAnimations(Animation::Sequence);
   ResetAnimations(Animation::MapPerspective, true /* finishAll */);
 }
 
