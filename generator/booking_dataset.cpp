@@ -223,9 +223,10 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
   }
 }
 
-double BookingDataset::ScoreByLinearNormDistance(double distance) const
+static double BookingDataset::ScoreByLinearNormDistance(double distance) const
 {
-  return (kDistanceLimitInMeters - distance) / kDistanceLimitInMeters;
+  distance = my::clamp(distance, 0, kDistanceLimitInMeters);
+  return 1.0 - distance / kDistanceLimitInMeters;
 }
 
 void BookingDataset::LoadHotels(string const & path)
@@ -261,7 +262,7 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
   if (name.empty())
     return false;
 
-  // Find 3 nearest values to a point.
+  // Find |kMaxSelectedElements| nearest values to a point.
   auto const bookingIndexes = GetNearestHotels(e.lat, e.lon, kMaxSelectedElements, kDistanceLimitInMeters);
 
   bool matched = false;
@@ -271,7 +272,9 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
     auto const & hotel = GetHotel(j);
     double const distanceMeters = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
     double score = ScoreByLinearNormDistance(distanceMeters);
-    matched = matched || score > kOptimalThreshold;
+    matched = score > kOptimalThreshold;
+    if (matched)
+      break;
   }
 
   return matched;

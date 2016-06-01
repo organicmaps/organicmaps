@@ -555,10 +555,12 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
       if (file.is_open())
       {
         file << skippedElements.str();
-        LOG(LINFO, ("Saving skipped elements if into", skippedElementsPath, "done."));
+        LOG(LINFO, ("Saving skipped elements to", skippedElementsPath, "done."));
       }
       else
+      {
         LOG(LERROR, ("Can't output into", skippedElementsPath));
+      }
     }
     
     parser.Finish();
