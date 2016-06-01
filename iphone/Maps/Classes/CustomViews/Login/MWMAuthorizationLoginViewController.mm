@@ -205,7 +205,7 @@ using namespace osm_auth_ios;
   NSString * lastUploadDate = [NSDateFormatter
       localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:stats.GetLastUpdate()]
                     dateStyle:NSDateFormatterShortStyle
-                    timeStyle:NSDateFormatterNoStyle];
+                    timeStyle:NSDateFormatterShortStyle];
   self.lastUpdateLabel.text =
       [NSString stringWithFormat:@"%@ %@", L(@"last_update"), lastUploadDate];
 }
