@@ -360,7 +360,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 - (MWMEditorNotesFooter *)notesFooter
 {
   if (!_notesFooter)
-    _notesFooter = [MWMEditorNotesFooter footer];
+    _notesFooter = [MWMEditorNotesFooter footerForController:self];
   return _notesFooter;
 }
 

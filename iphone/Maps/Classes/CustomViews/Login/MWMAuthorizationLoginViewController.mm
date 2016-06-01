@@ -152,10 +152,7 @@ using namespace osm_auth_ios;
 
 - (IBAction)osmTap
 {
-  NSURL * url = [NSURL URLWithString:@"https://wiki.openstreetmap.org/wiki/Main_Page"];
-  UIApplication * app = [UIApplication sharedApplication];
-  if ([app canOpenURL:url])
-    [app openURL:url];
+  [self openUrl:[NSURL URLWithString:@"https://wiki.openstreetmap.org/wiki/Main_Page"]];
 }
 
 - (void)logout
@@ -205,7 +202,7 @@ using namespace osm_auth_ios;
   NSString * lastUploadDate = [NSDateFormatter
       localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:stats.GetLastUpdate()]
                     dateStyle:NSDateFormatterShortStyle
-                    timeStyle:NSDateFormatterNoStyle];
+                    timeStyle:NSDateFormatterShortStyle];
   self.lastUpdateLabel.text =
       [NSString stringWithFormat:@"%@ %@", L(@"last_update"), lastUploadDate];
 }

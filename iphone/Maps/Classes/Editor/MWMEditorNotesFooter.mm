@@ -1,11 +1,18 @@
 #import "MWMEditorNotesFooter.h"
 
+@interface MWMEditorNotesFooter ()
+
+@property (weak, nonatomic) UIViewController * controller;
+
+@end
+
 @implementation MWMEditorNotesFooter
 
-+ (instancetype)footer
++ (instancetype)footerForController:(UIViewController *)controller
 {
   MWMEditorNotesFooter * f = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorNotesFooter className] owner:nil options:nil]
                                 firstObject];
+  f.controller = controller;
   [f setNeedsLayout];
   [f layoutIfNeeded];
   NSAssert(f.subviews.firstObject, @"Subviews can't be empty!");
@@ -15,10 +22,7 @@
 
 - (IBAction)osmTap
 {
-  NSURL * url = [NSURL URLWithString:@"https://wiki.openstreetmap.org/wiki/Main_Page"];
-  UIApplication * app = [UIApplication sharedApplication];
-  if ([app canOpenURL:url])
-    [app openURL:url];
+  [self.controller openUrl:[NSURL URLWithString:@"https://wiki.openstreetmap.org/wiki/Main_Page"]];
 }
 
 @end
