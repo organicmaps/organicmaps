@@ -1453,12 +1453,12 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
-                                                <variation key="heightClass=compact-widthClass=compact">
+                                                <variation key="heightClass=compact">
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="56"/>
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERIFIED CHANGES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61G-Rv-3df">
-                                                <rect key="frame" x="20" y="146" width="560" height="17"/>
+                                                <rect key="frame" x="232" y="146" width="137" height="17"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1469,7 +1469,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last send 12.01.2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2UV-ZB-sPO">
-                                                <rect key="frame" x="0.0" y="171" width="600" height="15"/>
+                                                <rect key="frame" x="241" y="171" width="119" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1485,13 +1485,11 @@
                                             <constraint firstItem="5mN-XO-0Df" firstAttribute="top" secondItem="WGF-rs-oH8" secondAttribute="top" constant="32" id="0K3-rp-7d2">
                                                 <variation key="heightClass=compact" constant="0.0"/>
                                             </constraint>
-                                            <constraint firstItem="2UV-ZB-sPO" firstAttribute="leading" secondItem="WGF-rs-oH8" secondAttribute="leading" id="AGA-f3-rF6"/>
+                                            <constraint firstItem="2UV-ZB-sPO" firstAttribute="centerX" secondItem="WGF-rs-oH8" secondAttribute="centerX" id="7sP-dk-TOM"/>
                                             <constraint firstItem="61G-Rv-3df" firstAttribute="top" secondItem="5mN-XO-0Df" secondAttribute="bottom" id="f9h-1H-6HT"/>
                                             <constraint firstItem="5mN-XO-0Df" firstAttribute="leading" secondItem="WGF-rs-oH8" secondAttribute="leading" constant="16" id="gxd-OE-22s"/>
-                                            <constraint firstItem="61G-Rv-3df" firstAttribute="leading" secondItem="WGF-rs-oH8" secondAttribute="leading" constant="20" id="mv3-Lh-cOw"/>
+                                            <constraint firstItem="61G-Rv-3df" firstAttribute="centerX" secondItem="WGF-rs-oH8" secondAttribute="centerX" id="rq3-BZ-qvx"/>
                                             <constraint firstItem="2UV-ZB-sPO" firstAttribute="top" secondItem="61G-Rv-3df" secondAttribute="bottom" constant="8" id="u1s-ZY-7CV"/>
-                                            <constraint firstAttribute="trailing" secondItem="61G-Rv-3df" secondAttribute="trailing" constant="20" id="yO9-AG-xmw"/>
-                                            <constraint firstAttribute="trailing" secondItem="2UV-ZB-sPO" secondAttribute="trailing" id="ybr-ki-kQ3"/>
                                             <constraint firstAttribute="trailing" secondItem="5mN-XO-0Df" secondAttribute="trailing" constant="16" id="yt1-Bf-pdB"/>
                                             <constraint firstAttribute="height" constant="212" id="zGh-R9-Qqk">
                                                 <variation key="heightClass=compact" constant="128"/>
