@@ -69,7 +69,7 @@ public:
 
   void BuildFeatures(function<void(OsmElement *)> const & fn) const;
 
-  static double ScoreByLinearNormDistance(double distance) const;
+  static double ScoreByLinearNormDistance(double distance);
 
 protected:
   vector<Hotel> m_hotels;

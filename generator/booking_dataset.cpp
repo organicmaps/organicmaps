@@ -223,7 +223,8 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
   }
 }
 
-static double BookingDataset::ScoreByLinearNormDistance(double distance) const
+// static
+double BookingDataset::ScoreByLinearNormDistance(double distance)
 {
   distance = my::clamp(distance, 0, kDistanceLimitInMeters);
   return 1.0 - distance / kDistanceLimitInMeters;
