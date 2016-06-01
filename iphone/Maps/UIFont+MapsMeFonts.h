@@ -18,6 +18,7 @@
 + (UIFont *)medium18;
 + (UIFont *)medium20;
 + (UIFont *)medium24;
++ (UIFont *)medium28;
 + (UIFont *)medium36;
 + (UIFont *)medium40;
 + (UIFont *)medium44;
