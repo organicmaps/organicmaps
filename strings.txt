@@ -18185,9 +18185,12 @@
     en = Rating: %s
     ru = Рейтинг: %s
 
+  [editor_rating_verified_changes]
+    en = Verified changes
+
   [text_more_button]
     en = … more
-    ru = … еще
+    ru = … ещё
 
   [error_enter_correct_phone]
     en = Enter a valid phone number
@@ -18204,3 +18207,9 @@
   [error_enter_correct]
     en = Enter a valid value
     ru = Введите корректное значение
+
+  [editor_rating_your_place]
+    en = Your place
+
+  [editor_rating_changes_to_next_place]
+    en = Changes to the next place: %d
