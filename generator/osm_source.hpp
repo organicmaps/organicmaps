@@ -35,6 +35,6 @@ public:
 bool GenerateFeatures(feature::GenerateInfo & info);
 bool GenerateIntermediateData(feature::GenerateInfo & info);
 
-void BuildFeaturesFromO5M(SourceReader & stream, function<void(OsmElement *)> processor);
-void BuildFeaturesFromXML(SourceReader & stream, function<void(OsmElement *)> processor);
+void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *)> processor);
+void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *)> processor);
 

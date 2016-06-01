@@ -12,7 +12,7 @@ UNIT_TEST(Source_To_Element_create_from_xml_test)
   SourceReader reader(ss);
 
   vector<OsmElement> elements;
-  BuildFeaturesFromXML(reader, [&elements](OsmElement * e)
+  ProcessOsmElementsFromXML(reader, [&elements](OsmElement * e)
   {
     elements.push_back(*e);
   });
@@ -27,7 +27,7 @@ UNIT_TEST(Source_To_Element_create_from_o5m_test)
   SourceReader reader(ss);
 
   vector<OsmElement> elements;
-  BuildFeaturesFromO5M(reader, [&elements](OsmElement * e)
+  ProcessOsmElementsFromO5M(reader, [&elements](OsmElement * e)
   {
     elements.push_back(*e);
   });
@@ -42,7 +42,7 @@ UNIT_TEST(Source_To_Element_check_equivalence)
   SourceReader readerXML(ss1);
 
   vector<OsmElement> elementsXML;
-  BuildFeaturesFromXML(readerXML, [&elementsXML](OsmElement * e)
+  ProcessOsmElementsFromXML(readerXML, [&elementsXML](OsmElement * e)
   {
     elementsXML.push_back(*e);
   });
@@ -52,7 +52,7 @@ UNIT_TEST(Source_To_Element_check_equivalence)
   SourceReader readerO5M(ss2);
 
   vector<OsmElement> elementsO5M;
-  BuildFeaturesFromO5M(readerO5M, [&elementsO5M](OsmElement * e)
+  ProcessOsmElementsFromO5M(readerO5M, [&elementsO5M](OsmElement * e)
   {
     elementsO5M.push_back(*e);
   });

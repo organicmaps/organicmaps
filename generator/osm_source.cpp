@@ -408,7 +408,7 @@ void BuildIntermediateDataFromXML(SourceReader & stream, TCache & cache, TownsDu
   ParseXMLSequence(stream, parser);
 }
 
-void BuildFeaturesFromXML(SourceReader & stream, function<void(OsmElement *)> processor)
+void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *)> processor)
 {
   XMLSource parser([&](OsmElement * e) { processor(e); });
   ParseXMLSequence(stream, parser);
@@ -431,7 +431,7 @@ void BuildIntermediateDataFromO5M(SourceReader & stream, TCache & cache, TownsDu
   }
 }
 
-void BuildFeaturesFromO5M(SourceReader & stream, function<void(OsmElement *)> processor)
+void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *)> processor)
 {
   using TType = osm::O5MSource::EntityType;
 
@@ -516,6 +516,8 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     // If info.m_bookingDatafileName is empty then no data will be loaded.
     generator::BookingDataset bookingDataset(info.m_bookingDatafileName);
 
+    stringstream skippedElements;
+    
     // Here we can add new tags to element!!!
     auto const fn = [&](OsmElement * e)
     {
@@ -523,7 +525,10 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
       tagAdmixer(e);
 
       if (bookingDataset.BookingFilter(*e))
+      {
+        skippedElements << e->id << endl;
         return;
+      }
       
       parser.EmitElement(e);
     };
@@ -532,10 +537,10 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     switch (info.m_osmFileType)
     {
       case feature::GenerateInfo::OsmSourceType::XML:
-        BuildFeaturesFromXML(reader, fn);
+        ProcessOsmElementsFromXML(reader, fn);
         break;
       case feature::GenerateInfo::OsmSourceType::O5M:
-        BuildFeaturesFromO5M(reader, fn);
+        ProcessOsmElementsFromO5M(reader, fn);
         break;
     }
 
@@ -545,6 +550,17 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     {
       bookingDataset.BuildFeatures([&](OsmElement * e) { parser.EmitElement(e); });
       LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
+      string skippedElementsPath = info.GetIntermediateFileName("skipped_elements", ".lst");
+      ofstream file(skippedElementsPath);
+      if (file.is_open())
+      {
+        file << skippedElements.str();
+        LOG(LINFO, ("Saving skipped elements to", skippedElementsPath, "done."));
+      }
+      else
+      {
+        LOG(LERROR, ("Can't output into", skippedElementsPath));
+      }
     }
     
     parser.Finish();
