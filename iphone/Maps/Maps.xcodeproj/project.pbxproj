@@ -705,6 +705,7 @@
 		F64F4B741B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F4B731B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm */; };
 		F65243351B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm in Sources */ = {isa = PBXBuildFile; fileRef = F65243341B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm */; };
 		F652B2EA1C6DE8E500D20C8C /* MWMDropDown.xib in Resources */ = {isa = PBXBuildFile; fileRef = F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */; };
+		F652D9141CFEE47000FC29A0 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F659FC691CF35C24000A06B1 /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */ = {isa = PBXBuildFile; fileRef = F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */; };
 		F653CE111C6DEB5A00A453F1 /* MWMDropDown.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE101C6DEB5A00A453F1 /* MWMDropDown.mm */; };
 		F653CE121C6DEC8E00A453F1 /* MWMDropDown.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE101C6DEB5A00A453F1 /* MWMDropDown.mm */; };
@@ -1573,6 +1574,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F652D9141CFEE47000FC29A0 /* SafariServices.framework in Frameworks */,
 				845C89351C8983F300940D7F /* CoreText.framework in Frameworks */,
 				845C89361C8983F300940D7F /* libc++.tbd in Frameworks */,
 				845C89371C8983F300940D7F /* QuickLook.framework in Frameworks */,
