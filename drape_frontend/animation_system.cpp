@@ -138,7 +138,7 @@ bool AnimationSystem::SwitchPerspective(Animation::SwitchPerspectiveParams & par
 bool AnimationSystem::GetArrowPosition(m2::PointD & position)
 {
   Animation::PropertyValue value;
-  if (GetProperty(Animation::Arrow, Animation::Position, value))
+  if (GetProperty(Animation::MyPositionArrow, Animation::Position, value))
   {
     position = value.m_valuePointD;
     return true;
@@ -149,7 +149,7 @@ bool AnimationSystem::GetArrowPosition(m2::PointD & position)
 bool AnimationSystem::GetArrowAngle(double & angle)
 {
   Animation::PropertyValue value;
-  if (GetProperty(Animation::Arrow, Animation::Angle, value))
+  if (GetProperty(Animation::MyPositionArrow, Animation::Angle, value))
   {
     angle = value.m_valueD;
     return true;

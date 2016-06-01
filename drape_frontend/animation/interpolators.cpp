@@ -93,7 +93,9 @@ PositionInterpolator::PositionInterpolator(double duration, double delay,
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
   , m_position(startPosition)
-{}
+{
+  SetActive(m_startPosition != m_endPosition);
+}
 
 PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition,
                                            m2::PointD const & endPosition,
