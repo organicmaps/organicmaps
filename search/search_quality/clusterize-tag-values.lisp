@@ -15,7 +15,14 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
   (or (and (char>= char #\a) (char<= char #\z))
       (and (char>= char #\A) (char<= char #\Z))))
 
-(defun get-postcode-pattern (postcode)
+(defun starts-with (text prefix)
+  "Returns non-nil if text starts with prefix."
+  (and (>= (length text) (length prefix))
+       (loop for u being the element of text
+          for v being the element of prefix
+          always (char= u v))))
+
+(defun get-postcode-pattern (postcode fn)
   "Simplifies postcode in the following way:
    * all latin letters are replaced by 'A'
    * all digits are replaced by 'N'
@@ -24,23 +31,206 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
 
    This format follows https://en.wikipedia.org/wiki/List_of_postal_codes.
   "
-  (map 'string #'(lambda (c) (cond ((latin-char-p c) #\A)
-                                   ((digit-char-p c) #\N)
-                                   ((or (char= #\- c) (char= #\. c)) #\Space)
-                                   (T c)))
-       (string-upcase postcode)))
+  (let ((pattern (map 'string #'(lambda (c) (cond ((latin-char-p c) #\A)
+                                                  ((digit-char-p c) #\N)
+                                                  ((or (char= #\- c) (char= #\. c)) #\Space)
+                                                  (T c)))
+                      (string-upcase postcode))))
+    (funcall fn postcode pattern)))
 
 
-(defun get-phone-or-flat-pattern (phone)
+(defun get-phone-or-flat-pattern (phone fn)
   "Simplifies phone or flat numbers in the following way:
    * all letters are replaced by 'A'
    * all digits are replaced by 'N'
    * other characters are capitalized
   "
-  (map 'string #'(lambda (c) (cond ((alpha-char-p c) #\A)
-                                   ((digit-char-p c) #\N)
-                                   (T c)))
-       (string-upcase phone)))
+  (let ((pattern (map 'string #'(lambda (c) (cond ((alpha-char-p c) #\A)
+                                                  ((digit-char-p c) #\N)
+                                                  (T c)))
+                      (string-upcase phone))))
+    (funcall fn phone pattern)))
+
+(defun group-by (cmp list)
+  "cmp -> [a] -> [[a]]
+
+   Groups equal adjacent elements of the list. Equality is checked with cmp.
+  "
+  (let ((buckets
+           (reduce #'(lambda (buckets cur)
+                       (cond ((null buckets) (cons (list cur) nil))
+                             ((funcall cmp (caar buckets) cur)
+                              (cons (cons cur (car buckets)) (cdr buckets)))
+                             (T (cons (list cur) buckets))))
+                   list :initial-value nil)))
+    (reverse (mapcar #'reverse buckets))))
+
+(defun split-by (fn list)
+  "fn -> [a] -> [[a]]
+
+   Splits list by separators, where separators are defined by fn
+   predicate.
+  "
+  (loop for e in list
+     with buckets = nil
+     for prev-sep = T then cur-sep
+     for cur-sep = (funcall fn e)
+     do (cond (cur-sep T)
+              (prev-sep (push (list e) buckets))
+              (T (push e (car buckets))))
+     finally (return (reverse (mapcar #'reverse buckets)))))
+
+(defun split-string-by (fn string)
+  "fn -> string -> [string]
+
+   Splits string by separators, where separators are defined by fn
+   predicate.
+  "
+  (mapcar #'(lambda (list) (concatenate 'string list))
+          (split-by fn (concatenate 'list string))))
+
+(defun drop-while (fn list)
+  (cond ((null list) nil)
+        ((funcall fn (car list)) (drop-while fn (cdr list)))
+        (T list)))
+
+(defparameter *building-synonyms*
+  '("building" "bldg" "bld" "bl" "unit" "block" "blk"
+    "корпус" "корп" "литер" "лит" "строение" "блок" "бл"))
+
+(defparameter *house-number-seps* '(#\Space #\. #\( #\) #\# #\~))
+(defparameter *house-number-groups-seps* '(#\, #\| #\; #\+))
+
+(defun building-synonym-p (s)
+  (find s *building-synonyms* :test #'string=))
+
+(defun short-building-synonym-p (s)
+  (or (string= "к" s) (string= "с" s)))
+
+(defstruct token value type)
+
+(defun get-char-type (c)
+  (cond ((digit-char-p c) :number)
+        ((find c *house-number-seps* :test #'char=) :separator)
+        ((find c *house-number-groups-seps* :test #'char=) :group-separator)
+        ((char= c #\-) :hyphen)
+        ((char= c #\/) :slash)
+        (T :string)))
+
+(defun tokenize-house-number (house-number)
+  "house-number => [token]"
+  (let ((parts (group-by #'(lambda (lhs rhs)
+                             (eq (get-char-type lhs) (get-char-type rhs)))
+                         (string-downcase house-number))))
+    (remove-if #'(lambda (token) (eq :separator (token-type token)))
+               (mapcar #'(lambda (part) (make-token :value (concatenate 'string part)
+                                                    :type (get-char-type (car part))))
+                       parts))))
+
+(defun house-number-with-optional-suffix-p (tokens)
+  (case (length tokens)
+    (1 (eq (token-type (first tokens)) :number))
+    (2 (and (eq (token-type (first tokens)) :number)
+            (eq (token-type (second tokens)) :string)))
+    (otherwise nil)))
+
+(defun get-house-number-sub-numbers (house-number)
+  "house-number => [[token]]
+
+   As house-number can be actually a collection of separated house
+   numbers, this function returns a list of possible house numbers.
+   Current implementation splits house number if and only if
+   house-number matches the following rule:
+
+   NUMBERS ::= (NUMBER STRING-SUFFIX?) | (NUMBER STRING-SUFFIX?) SEP NUMBERS
+  "
+  (let* ((tokens (tokenize-house-number house-number))
+         (groups (split-by #'(lambda (token) (eq :group-separator (token-type token))) tokens)))
+    (if (every #'house-number-with-optional-suffix-p groups)
+        groups
+        (list tokens))))
+
+(defun parse-house-number (tokens)
+  "[token] => [token]
+
+   Parses house number, but as the grammar is undefined and ambiguous,
+   the parsing is just a split of some tokens, i.e. 'литА' will be split
+   to building synonym (литер) and to letter (A).
+  "
+  (loop with result = nil
+     for token in tokens
+     for token-value = (token-value token)
+     for token-type = (token-type token)
+     do (case token-type
+          (:string (cond ((building-synonym-p token-value)
+                          (push (make-token :value token-value
+                                            :type :building-part)
+                                result))
+                         ((and (= 4 (length token-value))
+                               (starts-with token-value "лит"))
+                          (push (make-token :value (subseq token-value 0 3)
+                                            :type :building-part)
+                                result)
+                          (push (make-token :value (subseq token-value 3)
+                                            :type :letter)
+                                result))
+                        ((and (= 2 (length token-value))
+                              (short-building-synonym-p (subseq token-value 0 1)))
+                         (push (make-token :value (subseq token-value 0 1)
+                                           :type :building-part)
+                               result)
+                         (push (make-token :value (subseq token-value 1)
+                                           :type :letter)
+                               result))
+                        ((= 1 (length token-value))
+                         (push (make-token :value token-value
+                                           :type (if (short-building-synonym-p token-value)
+                                                     :letter-or-building-part
+                                                     :letter))
+                               result))
+                        (T (push token result))))
+                   (otherwise (push token result)))
+     finally (return (reverse result))))
+
+(defun join-house-number-tokens (tokens)
+  "Joins token values with spaces."
+  (format nil "~{~a~^ ~}" (mapcar #'token-value tokens)))
+
+(defun join-house-number-parse (tokens)
+  "Joins parsed house number tokens with spaces."
+  (format nil "~{~a~^ ~}"
+          (mapcar #'(lambda (token)
+                      (let ((token-type (token-type token))
+                            (token-value (token-value token)))
+                        (case token-type
+                          (:number "N")
+                          (:building-part "B")
+                          (:letter "L")
+                          ((:string :letter-or-building-part :hyphen :slash :group-separator)
+                           token-value)
+                          (otherwise (assert NIL NIL (format nil "Unknown token type: ~a"
+                                                             token-type))))))
+                  tokens)))
+
+(defun get-house-number-pattern (house-number fn)
+  (dolist (number (get-house-number-sub-numbers house-number))
+    (let ((house-number (join-house-number-tokens number))
+          (pattern (join-house-number-parse
+                    (drop-while #'(lambda (token)
+                                    (not (eq :number (token-type token))))
+                                (parse-house-number number)))))
+      (funcall fn house-number pattern))))
+
+(defun get-house-number-strings (house-number fn)
+  (dolist (number (get-house-number-sub-numbers house-number))
+    (dolist (string (mapcar #'token-value
+                            (remove-if-not #'(lambda (token)
+                                               (let ((token-type (token-type token)))
+                                                 (or (eq :string token-type)
+                                                     (eq :letter token-type)
+                                                     (eq :letter-or-building-part token-type))))
+                                           (parse-house-number number))))
+      (funcall fn string string))))
 
 (defstruct type-settings
   pattern-simplifier
@@ -52,7 +242,12 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
               :phone ,(make-type-settings :pattern-simplifier #'get-phone-or-flat-pattern
                                           :field-name "contact:phone")
               :flat ,(make-type-settings :pattern-simplifier #'get-phone-or-flat-pattern
-                                         :field-name "addr:flats")))
+                                         :field-name "addr:flats")
+              :house-number ,(make-type-settings :pattern-simplifier #'get-house-number-pattern
+                                                 :field-name "addr:housenumber")
+              :house-number-strings ,(make-type-settings
+                                      :pattern-simplifier #'get-house-number-strings
+                                      :field-name "addr:housenumber")))
 
 (defstruct cluster
   "A cluster of values with the same pattern, i.e.  all six-digits
@@ -75,11 +270,11 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
   (let ((table (make-hash-table :test #'equal))
         (clusters nil))
     (loop for (value count) in values
-       do (let* ((trimmed-value (trim value))
-                 (pattern (funcall simplifier trimmed-value))
-                 (cluster (gethash pattern table (make-cluster :key pattern))))
-            (add-sample cluster trimmed-value count)
-            (setf (gethash pattern table) cluster)))
+       do (funcall simplifier (trim value)
+                   #'(lambda (value pattern)
+                       (let ((cluster (gethash pattern table (make-cluster :key pattern))))
+                         (add-sample cluster value count)
+                         (setf (gethash pattern table) cluster)))))
     (maphash #'(lambda (pattern cluster)
                  (declare (ignore pattern))
                  (push cluster clusters))
