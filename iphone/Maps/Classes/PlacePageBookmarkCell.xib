@@ -27,6 +27,9 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="zRR-Mr-Dr9" id="1JH-0F-Csv"/>
+                        </connections>
                     </textView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_light" translatesAutoresizingMaskIntoConstraints="NO" id="Dhv-uU-KIw">
                         <rect key="frame" x="16" y="149" width="288" height="24"/>

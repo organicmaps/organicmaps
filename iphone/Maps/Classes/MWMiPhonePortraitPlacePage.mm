@@ -115,11 +115,9 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     case MWMiPhonePortraitPlacePageStateClosed:
       [self.actionBar removeFromSuperview];
       [MWMPlacePageNavigationBar remove];
-      [self.manager.ownerViewController.view endEditing:YES];
       break;
     case MWMiPhonePortraitPlacePageStatePreview:
       [MWMPlacePageNavigationBar remove];
-      [self.manager.ownerViewController.view endEditing:YES];
       break;
     case MWMiPhonePortraitPlacePageStateOpen:
     case MWMiPhonePortraitPlacePageStateHover:

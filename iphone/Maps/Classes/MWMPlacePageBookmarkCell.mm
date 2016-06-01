@@ -1,7 +1,8 @@
+#import "MapsAppDelegate.h"
 #import "MWMPlacePageBookmarkCell.h"
 #import "Statistics.h"
-
 #import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 
 namespace
 {
@@ -12,7 +13,7 @@ CGFloat const kTextViewLeft = 16.;
 
 }  // namespace
 
-@interface MWMPlacePageBookmarkCell () <UITextFieldDelegate, UIWebViewDelegate>
+@interface MWMPlacePageBookmarkCell () <UITextFieldDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView * textView;
 @property (weak, nonatomic) IBOutlet UIButton * moreButton;
@@ -139,11 +140,15 @@ CGFloat const kTextViewLeft = 16.;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
       self.cachedHtml = text;
-      self.attributedHtml = [[NSAttributedString alloc]
+      NSDictionary<NSString *, id> * attr = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText],
+                                              NSFontAttributeName : [UIFont regular12]};
+      NSMutableAttributedString * str = [[NSMutableAttributedString alloc]
                                               initWithData:[text dataUsingEncoding:NSUnicodeStringEncoding]
-                                              options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
+                                              options:@{NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType}
                                    documentAttributes:nil
-                                               error:nil];
+                                                error:nil];
+      [str addAttributes:attr range:{0, str.length}];
+      self.attributedHtml = str;
       dispatch_async(dispatch_get_main_queue(), ^
       {
         [self stopSpinner];
@@ -168,6 +173,15 @@ CGFloat const kTextViewLeft = 16.;
   return self.textViewTopOffset.constant + self.textViewHeight.constant +
          self.textViewBottomOffset.constant + self.moreButtonHeight.constant +
          self.separator.height + self.editButton.height;
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+  UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
+  [vc openUrl:URL];
+  return NO;
 }
 
 @end
