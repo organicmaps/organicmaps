@@ -46,7 +46,7 @@ namespace
 template <typename T, typename TResult>
 bool IntegerCheck(char const * start, char const * stop, T x, TResult & out)
 {
-  if (errno != EINVAL && *stop == 0)
+  if (errno != EINVAL && *stop == 0 && start != stop)
   {
     out = static_cast<TResult>(x);
     return static_cast<T>(out) == x;
@@ -80,7 +80,7 @@ bool to_uint64(char const * s, uint64_t & i)
 #else
   i = strtoull(s, &stop, 10);
 #endif
-  return *stop == 0;
+  return *stop == 0 && s != stop;
 }
 
 bool to_int64(char const * s, int64_t & i)
@@ -91,7 +91,7 @@ bool to_int64(char const * s, int64_t & i)
 #else
   i = strtoll(s, &stop, 10);
 #endif
-  return *stop == 0;
+  return *stop == 0 && s != stop;
 }
 
 bool to_double(char const * s, double & d)

@@ -238,6 +238,9 @@ UNIT_TEST(to_uint64)
   uint64_t i;
   string s;
 
+  s = "";
+  TEST(!strings::to_uint64(s, i), ());
+
   s = "0";
   TEST(strings::to_uint64(s, i), ());
   TEST_EQUAL(0, i, ());
