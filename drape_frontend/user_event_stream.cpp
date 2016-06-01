@@ -31,7 +31,7 @@ namespace
 {
 
 uint64_t const kDoubleTapPauseMs = 250;
-uint64_t const kLongTouchMs = 1000;
+uint64_t const kLongTouchMs = 500;
 uint64_t const kKineticDelayMs = 500;
 
 float const kForceTapThreshold = 0.75;
