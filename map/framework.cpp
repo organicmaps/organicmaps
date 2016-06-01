@@ -412,6 +412,8 @@ Framework::Framework()
   editor.LoadMapEdits();
 
   m_model.GetIndex().AddObserver(editor);
+
+  LOG(LINFO, ("Editor initialized"));
 }
 
 Framework::~Framework()
@@ -2899,13 +2901,4 @@ bool Framework::RollBackChanges(FeatureID const & fid)
       UpdatePlacePageInfoForCurrentSelection();
   }
   return rolledBack;
-}
-
-bool Framework::UpdateUserStats(string const & userName)
-{
-  auto userStats = make_unique<editor::UserStats>(userName);
-  if (!userStats->GetUpdateStatus())
-    return false;
-  m_userStats = move(userStats);
-  return true;
 }

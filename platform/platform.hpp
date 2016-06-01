@@ -126,6 +126,8 @@ public:
   /// @return path for directory in the persistent memory, can be the same
   /// as WritableDir, but on some platforms it's different
   string SettingsDir() const { return m_settingsDir; }
+  /// Set settings dir — use for testing.
+  void SetSettingsDirForTests(string const & path);
   /// @return full path to file in the settings directory
   string SettingsPathForFile(string const & file) const { return SettingsDir() + file; }
 

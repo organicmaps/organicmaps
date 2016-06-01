@@ -87,6 +87,11 @@ bool Platform::RmDirRecursively(string const & dirName)
   return res;
 }
 
+void Platform::SetSettingsDirForTests(string const & path)
+{
+  m_settingsDir = my::AddSlashIfNeeded(path);
+}
+
 string Platform::ReadPathForFile(string const & file, string searchScope) const
 {
   if (searchScope.empty())

@@ -43,7 +43,6 @@
 #include "base/thread_checker.hpp"
 
 #include "std/list.hpp"
-#include "std/shared_ptr.hpp"
 #include "std/target_os.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
@@ -675,15 +674,24 @@ private:
 
 public:
   //@{
-  //User statistics.
-  editor::UserStats const * GetUserStats() const { return m_userStats.get(); }
-  /// Sends a synchronous request to the server and updates user's stats.
-  /// @returns true on success.
-  bool UpdateUserStats(string const & userName);
-  void DropUserStats() { m_userStats = nullptr; }
+  // User statistics.
+
+  editor::UserStats GetUserStats(string const & userName) const
+  {
+    return m_userStatsLoader.GetStats(userName);
+  }
+
+  // Reads user stats from server or gets it from cache calls |fn| on success.
+  void UpdateUserStats(string const & userName,
+                       editor::UserStatsLoader::TOnUpdateCallback fn)
+  {
+    m_userStatsLoader.Update(userName, fn);
+  }
+
+  void DropUserStats(string const & userName) { m_userStatsLoader.DropStats(userName); }
 
 private:
-  unique_ptr<editor::UserStats> m_userStats;
+  editor::UserStatsLoader m_userStatsLoader;
   //@}
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
