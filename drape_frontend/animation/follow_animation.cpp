@@ -83,7 +83,7 @@ double MapFollowAnimation::GetDuration() const
 
 double MapFollowAnimation::CalculateDuration() const
 {
-  return max(max(m_angleInterpolator.GetDuration(),
+  return max(max(m_pixelPosInterpolator.GetDuration(),
                  m_angleInterpolator.GetDuration()), m_scaleInterpolator.GetDuration());
 }
 

@@ -9,6 +9,8 @@
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 
+//#define DEBUG_ANIMATIONS
+
 namespace df
 {
 
@@ -90,6 +92,10 @@ private:
   void StartNextAnimations();
   void FinishAnimations(function<bool(shared_ptr<Animation> const &)> const & predicate,
                         bool rewind, bool finishAll);
+
+#ifdef DEBUG_ANIMATIONS
+  void Print();
+#endif
 
   using TAnimationList = list<shared_ptr<Animation>>;
   using TAnimationChain = deque<shared_ptr<TAnimationList>>;

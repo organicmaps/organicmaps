@@ -48,11 +48,11 @@ public:
   PositionInterpolator(double delay, m2::PointD const & startPosition,
                        m2::PointD const & endPosition,
                        ScreenBase const & convertor);
-  PositionInterpolator(m2::PointD const & startPosition,
-                       m2::PointD const & endPosition,
+  PositionInterpolator(m2::PointD const & startPxPosition,
+                       m2::PointD const & endPxPosition,
                        m2::RectD const & pixelRect);
-  PositionInterpolator(double delay, m2::PointD const & startPosition,
-                       m2::PointD const & endPosition,
+  PositionInterpolator(double delay, m2::PointD const & startPxPosition,
+                       m2::PointD const & endPxPosition,
                        m2::RectD const & pixelRect);
 
   static double GetMoveDuration(m2::PointD const & startPosition,

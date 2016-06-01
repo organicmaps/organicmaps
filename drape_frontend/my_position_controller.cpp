@@ -618,7 +618,8 @@ void MyPositionController::AnimationStarted(ref_ptr<Animation> anim)
        anim->GetType() == Animation::MapLinear))
   {
     m_isPendingAnimation = false;
-    m_animCreator();
+    double const kDoNotChangeDuration = -1.0;
+    m_animCreator(anim->GetType() == Animation::MapFollow ? anim->GetDuration() : kDoNotChangeDuration);
   }
 }
 
@@ -630,10 +631,10 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
   {
     if (IsModeChangeViewport())
     {
-      m_animCreator = [this, oldPos, oldAzimut, moveDuration]()
+      m_animCreator = [this, oldPos, oldAzimut, moveDuration](double correctedDuration)
       {
-        AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position, moveDuration,
-                                                                                    oldAzimut, m_drawDirection));
+        AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position,
+            correctedDuration > 0.0 ? correctedDuration : moveDuration, oldAzimut, m_drawDirection));
       };
       m_oldPosition = oldPos;
       m_oldDrawDirection = oldAzimut;

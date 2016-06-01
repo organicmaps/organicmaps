@@ -161,7 +161,7 @@ private:
   bool m_isDirtyViewport;
   bool m_isPendingAnimation;
 
-  using TAnimationCreator = function<void()>;
+  using TAnimationCreator = function<void(double)>;
   TAnimationCreator m_animCreator;
 
   bool m_isPositionAssigned;
