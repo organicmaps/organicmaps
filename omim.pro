@@ -28,6 +28,14 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
 !CONFIG(osrm) {
   SUBDIRS *= platform stats storage
 
+  CONFIG(desktop) {
+    SUBDIRS *= generator
+
+    generator_tool.subdir = generator/generator_tool
+    generator_tool.depends = $$SUBDIRS
+    SUBDIRS *= generator_tool
+  }
+
   # Integration tests dependencies for gtool.
   # TODO(AlexZ): Avoid duplication for routing_integration_tests.
   CONFIG(gtool):!CONFIG(no-tests) {
@@ -42,14 +50,6 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     feature_segments_checker.subdir = generator/feature_segments_checker
     feature_segments_checker.depends = $$SUBDIRS routing
     SUBDIRS *= routing_integration_tests routing_consistency_tests srtm_coverage_checker feature_segments_checker
-  }
-
-  CONFIG(desktop) {
-    SUBDIRS *= generator
-
-    generator_tool.subdir = generator/generator_tool
-    generator_tool.depends = $$SUBDIRS
-    SUBDIRS *= generator_tool
   }
 }
 
