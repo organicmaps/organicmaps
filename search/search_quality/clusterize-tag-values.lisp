@@ -17,8 +17,10 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
 
 (defun starts-with (text prefix)
   "Returns non-nil if text starts with prefix."
-  (let ((pos (search prefix text)))
-    (and pos (= 0 pos))))
+  (and (>= (length text) (length prefix))
+       (loop for u being the element of text
+          for v being the element of prefix
+          always (char= u v))))
 
 (defun get-postcode-pattern (postcode fn)
   "Simplifies postcode in the following way:
@@ -29,11 +31,12 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
 
    This format follows https://en.wikipedia.org/wiki/List_of_postal_codes.
   "
-  (funcall fn postcode (map 'string #'(lambda (c) (cond ((latin-char-p c) #\A)
-                                                        ((digit-char-p c) #\N)
-                                                        ((or (char= #\- c) (char= #\. c)) #\Space)
-                                                        (T c)))
-                            (string-upcase postcode))))
+  (let ((pattern (map 'string #'(lambda (c) (cond ((latin-char-p c) #\A)
+                                                  ((digit-char-p c) #\N)
+                                                  ((or (char= #\- c) (char= #\. c)) #\Space)
+                                                  (T c)))
+                      (string-upcase postcode))))
+    (funcall fn postcode pattern)))
 
 
 (defun get-phone-or-flat-pattern (phone fn)
@@ -42,20 +45,21 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
    * all digits are replaced by 'N'
    * other characters are capitalized
   "
-  (funcall fn phone (map 'string #'(lambda (c) (cond ((alpha-char-p c) #\A)
-                                                     ((digit-char-p c) #\N)
-                                                     (T c)))
-                         (string-upcase phone))))
+  (let ((pattern (map 'string #'(lambda (c) (cond ((alpha-char-p c) #\A)
+                                                  ((digit-char-p c) #\N)
+                                                  (T c)))
+                      (string-upcase phone))))
+    (funcall fn phone pattern)))
 
-(defun group-by (fn list)
-  "fn -> [a] -> [[a]]
+(defun group-by (cmp list)
+  "cmp -> [a] -> [[a]]
 
-   Groups equal adjacent elements of the list. Equality is checked with fn.
+   Groups equal adjacent elements of the list. Equality is checked with cmp.
   "
   (let ((buckets
            (reduce #'(lambda (buckets cur)
-                       (cond ((null buckets) (cons (list cur) buckets))
-                             ((funcall fn (caar buckets) cur)
+                       (cond ((null buckets) (cons (list cur) nil))
+                             ((funcall cmp (caar buckets) cur)
                               (cons (cons cur (car buckets)) (cdr buckets)))
                              (T (cons (list cur) buckets))))
                    list :initial-value nil)))
@@ -153,7 +157,7 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
    the parsing is just a split of some tokens, i.e. 'литА' will be split
    to building synonym (литер) and to letter (A).
   "
-  (loop with result = (list)
+  (loop with result = nil
      for token in tokens
      for token-value = (token-value token)
      for token-type = (token-type token)
@@ -210,10 +214,12 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
 
 (defun get-house-number-pattern (house-number fn)
   (dolist (number (get-house-number-sub-numbers house-number))
-    (funcall fn (join-house-number-tokens number)
-             (join-house-number-parse (drop-while #'(lambda (token)
-                                                      (not (eq :number (token-type token))))
-                                                  (parse-house-number number))))))
+    (let ((house-number (join-house-number-tokens number))
+          (pattern (join-house-number-parse
+                    (drop-while #'(lambda (token)
+                                    (not (eq :number (token-type token))))
+                                (parse-house-number number)))))
+      (funcall fn house-number pattern))))
 
 (defun get-house-number-strings (house-number fn)
   (dolist (number (get-house-number-sub-numbers house-number))
