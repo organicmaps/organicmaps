@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Planning…";
 
-"p2p_from_here" = "From";
+"p2p_from_here" = "Route from";
 
-"p2p_to_here" = "To";
+"p2p_to_here" = "Route to";
 
 "p2p_only_from_current" = "Navigation is available only from your current location.";
 

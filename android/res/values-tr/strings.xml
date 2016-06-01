@@ -645,8 +645,8 @@
 	<string name="p2p_to">Varış noktası</string>
 	<string name="p2p_start">Başla</string>
 	<string name="p2p_planning">Planlanıyor…</string>
-	<string name="p2p_from_here">Başlangıç</string>
-	<string name="p2p_to_here">Hedef</string>
+	<string name="p2p_from_here">Çıkış yeri:</string>
+	<string name="p2p_to_here">Varış yeri:</string>
 	<string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
 	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
 	<string name="whats_new_next_button">Sonraki</string>

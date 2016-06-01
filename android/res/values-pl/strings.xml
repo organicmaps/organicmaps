@@ -640,8 +640,8 @@
 	<string name="p2p_to">Miejsce docelowe</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Planowanie…</string>
-	<string name="p2p_from_here">Z</string>
-	<string name="p2p_to_here">Do</string>
+	<string name="p2p_from_here">Droga z</string>
+	<string name="p2p_to_here">Droga do</string>
 	<string name="p2p_only_from_current">Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.</string>
 	<string name="p2p_reroute_from_current">Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?</string>
 	<string name="whats_new_next_button">Dalej</string>

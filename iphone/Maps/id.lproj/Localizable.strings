@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Merencanakan…";
 
-"p2p_from_here" = "Dari";
+"p2p_from_here" = "Rute dari";
 
-"p2p_to_here" = "Ke";
+"p2p_to_here" = "Rute ke";
 
 "p2p_only_from_current" = "Navigasi tersedia hanya dari lokasi Anda saat ini.";
 

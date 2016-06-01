@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Planowanie…";
 
-"p2p_from_here" = "Z";
+"p2p_from_here" = "Droga z";
 
-"p2p_to_here" = "Do";
+"p2p_to_here" = "Droga do";
 
 "p2p_only_from_current" = "Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.";
 

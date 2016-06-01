@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Đang hoạch định…";
 
-"p2p_from_here" = "Từ";
+"p2p_from_here" = "Tuyến từ";
 
-"p2p_to_here" = "Đến";
+"p2p_to_here" = "Tuyến đến";
 
 "p2p_only_from_current" = "Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.";
 

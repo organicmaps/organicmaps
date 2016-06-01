@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "En cours de planification…";
 
-"p2p_from_here" = "Depuis";
+"p2p_from_here" = "Itinéraire de";
 
-"p2p_to_here" = "Jusqu'à";
+"p2p_to_here" = "Itinéraire vers";
 
 "p2p_only_from_current" = "La navigation est uniquement disponible à partir de votre emplacement actuel.";
 

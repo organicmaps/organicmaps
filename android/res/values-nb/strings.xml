@@ -639,8 +639,8 @@
 	<string name="p2p_to">Destinasjonssted</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Planlegger…</string>
-	<string name="p2p_from_here">Fra</string>
-	<string name="p2p_to_here">Til</string>
+	<string name="p2p_from_here">Rute fra</string>
+	<string name="p2p_to_here">Rute til</string>
 	<string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
 	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
 	<string name="whats_new_next_button">Neste</string>

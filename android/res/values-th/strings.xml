@@ -643,8 +643,8 @@
 	<string name="p2p_to">จุดที่เป็นปลายทาง</string>
 	<string name="p2p_start">เริ่มต้น</string>
 	<string name="p2p_planning">กำลังวางแผน…</string>
-	<string name="p2p_from_here">จาก</string>
-	<string name="p2p_to_here">ถึง</string>
+	<string name="p2p_from_here">เส้นทางจาก</string>
+	<string name="p2p_to_here">เส้นทางถึง</string>
 	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
 	<string name="whats_new_next_button">ถัดไป</string>

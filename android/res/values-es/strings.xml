@@ -634,8 +634,8 @@
 	<string name="p2p_to">El punto de destino</string>
 	<string name="p2p_start">Empezar</string>
 	<string name="p2p_planning">Planeando…</string>
-	<string name="p2p_from_here">Desde</string>
-	<string name="p2p_to_here">A</string>
+	<string name="p2p_from_here">Ruta desde</string>
+	<string name="p2p_to_here">Ruta hasta</string>
 	<string name="p2p_only_from_current">La navegación solo está disponible desde tu ubicación actual.</string>
 	<string name="p2p_reroute_from_current">¿Quieres que planeemos un ruta desde tu ubicación actual?</string>
 	<string name="whats_new_next_button">Siguiente</string>

@@ -1067,9 +1067,9 @@
 
 "p2p_planning" = "Aan het plannen…";
 
-"p2p_from_here" = "Van";
+"p2p_from_here" = "Route van";
 
-"p2p_to_here" = "Naar";
+"p2p_to_here" = "Route naar";
 
 "p2p_only_from_current" = "Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.";
 

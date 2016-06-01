@@ -673,8 +673,8 @@
 	<string name="p2p_to">To</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Planning…</string>
-	<string name="p2p_from_here">From</string>
-	<string name="p2p_to_here">To</string>
+	<string name="p2p_from_here">Route from</string>
+	<string name="p2p_to_here">Route to</string>
 	<string name="p2p_only_from_current">Navigation is available only from your current location.</string>
 	<string name="p2p_reroute_from_current">Do you want us to plan a route from your current location?</string>
 	<string name="whats_new_next_button">Next</string>

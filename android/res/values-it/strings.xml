@@ -638,8 +638,8 @@
 	<string name="p2p_to">Il punto di destinazione</string>
 	<string name="p2p_start">Inizia</string>
 	<string name="p2p_planning">Pianificazione…</string>
-	<string name="p2p_from_here">Da</string>
-	<string name="p2p_to_here">A</string>
+	<string name="p2p_from_here">Percorso da</string>
+	<string name="p2p_to_here">Percorso per</string>
 	<string name="p2p_only_from_current">La navigazione è disponibile solo dalla tua posizione attuale.</string>
 	<string name="p2p_reroute_from_current">Vuoi che impostiamo il percorso dalla tua posizione corrente?</string>
 	<string name="whats_new_next_button">Avanti</string>
