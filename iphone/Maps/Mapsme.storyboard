@@ -1475,7 +1475,7 @@
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whiteSecondaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="last_upload"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
@@ -1546,6 +1546,9 @@
                                             <constraint firstItem="JuL-pe-mJl" firstAttribute="leading" secondItem="7f3-Rm-QqW" secondAttribute="leading" constant="16" id="uQL-79-8Oz"/>
                                             <constraint firstItem="ksi-Oz-YxU" firstAttribute="top" secondItem="7f3-Rm-QqW" secondAttribute="top" priority="500" constant="12" id="w48-Zm-FvN"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="menuBackground"/>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7m7-zW-Tcq">
                                         <rect key="frame" x="20" y="540" width="560" height="20"/>
