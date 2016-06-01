@@ -1,5 +1,5 @@
 @interface MWMEditorNotesFooter : UIView
 
-+ (instancetype)footer;
++ (instancetype)footerForController:(UIViewController *)controller;
 
 @end
