@@ -188,6 +188,9 @@ AnimationSystem & AnimationSystem::Instance()
 
 void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
 {
+#ifdef DEBUG_ANIMATIONS
+  LOG(LINFO, ("Combine animation", animation->GetType()));
+#endif
   TAnimationList interruptedAnimations;
   bool startImmediately = true;
   for (auto & pList : m_animationChain)
@@ -200,6 +203,9 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
       auto & anim = *it;
       if (anim->GetInterruptedOnCombine())
       {
+#ifdef DEBUG_ANIMATIONS
+        LOG(LINFO, ("Interrupted on combine", anim->GetType()));
+#endif
         interruptedAnimations.splice(interruptedAnimations.end(), lst, it++);
       }
       else if (!anim->CouldBeBlendedWith(*animation))
@@ -209,6 +215,9 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
           couldBeBlended = false;
           break;
         }
+#ifdef DEBUG_ANIMATIONS
+        LOG(LINFO, ("Couldn't be blended, interrupted", anim->GetType()));
+#endif
         interruptedAnimations.splice(interruptedAnimations.end(), lst, it++);
       }
       else
@@ -225,13 +234,23 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
 
     if (couldBeBlended)
     {
+#ifdef DEBUG_ANIMATIONS
+      LOG(LINFO, ("Animation blended"));
+#endif
       lst.emplace_back(move(animation));
       if (startImmediately)
         lst.back()->OnStart();
+#ifdef DEBUG_ANIMATIONS
+      Print();
+#endif
       return;
     }
     else if (m_animationChain.size() > 1 && animation->CouldBeInterrupted())
     {
+#ifdef DEBUG_ANIMATIONS
+      LOG(LINFO, ("Animation rejected"));
+      Print();
+#endif
       return;
     }
 
@@ -243,6 +262,10 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
 
 void AnimationSystem::PushAnimation(drape_ptr<Animation> animation)
 {
+#ifdef DEBUG_ANIMATIONS
+  LOG(LINFO, ("Push animation", animation->GetType()));
+#endif
+
   shared_ptr<TAnimationList> pList(new TAnimationList());
   pList->emplace_back(move(animation));
 
@@ -250,6 +273,10 @@ void AnimationSystem::PushAnimation(drape_ptr<Animation> animation)
   m_animationChain.push_back(pList);
   if (startImmediately)
     pList->front()->OnStart();
+
+#ifdef DEBUG_ANIMATIONS
+  Print();
+#endif
 }
 
 void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const &)> const & predicate,
@@ -258,15 +285,27 @@ void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const
   if (m_animationChain.empty())
     return;
 
+#ifdef DEBUG_ANIMATIONS
+  bool changed = false;
+#endif
+
   TAnimationList & frontList = *(m_animationChain.front());
   TAnimationList finishAnimations;
   for (auto it = frontList.begin(); it != frontList.end();)
   {
     auto & anim = *it;
     if (predicate(anim))
+    {
+#ifdef DEBUG_ANIMATIONS
+      LOG(LINFO, ("Finish animation", anim->GetType(), ", rewind:", rewind));
+      changed = true;
+#endif
       finishAnimations.splice(finishAnimations.end(), frontList, it++);
+    }
     else
+    {
       ++it;
+    }
   }
 
   if (finishAll)
@@ -277,9 +316,17 @@ void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const
       for (auto it = lst.begin(); it != lst.end();)
       {
         if (predicate(*it))
+        {
+#ifdef DEBUG_ANIMATIONS
+          LOG(LINFO, ("Finish animation", (*it)->GetType(), ", rewind:", rewind));
+          changed = true;
+#endif
           it = lst.erase(it);
+        }
         else
+        {
           ++it;
+        }
       }
     }
   }
@@ -290,6 +337,11 @@ void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const
       anim->Finish();
     SaveAnimationResult(*anim);
   }
+
+#ifdef DEBUG_ANIMATIONS
+  if (changed)
+    Print();
+#endif
 
   if (frontList.empty())
     StartNextAnimations();
@@ -335,6 +387,26 @@ void AnimationSystem::Advance(double elapsedSeconds)
   if (frontList.empty())
     StartNextAnimations();
 }
+
+#ifdef DEBUG_ANIMATIONS
+void AnimationSystem::Print()
+{
+  LOG(LINFO, ("-----------------------Animation chain begin-----------------------"));
+  for (size_t i = 0, sz = m_animationChain.size(); i < sz; ++i)
+  {
+    auto & lst = *m_animationChain[i];
+    if (i > 0 && i < sz - 1)
+      LOG(LINFO, ("- - - - - - - - - - - - Next parallel block - - - - - - - - - - - -"));
+    for (auto it = lst.begin(); it != lst.end(); ++it)
+    {
+      auto & anim = *it;
+      LOG(LINFO, ("Type:", anim->GetType()));
+    }
+
+  }
+  LOG(LINFO, ("========================Animation chain end========================"));
+}
+#endif
 
 bool AnimationSystem::GetProperty(Animation::TObject object, Animation::TProperty property,
                                   Animation::PropertyValue & value) const
