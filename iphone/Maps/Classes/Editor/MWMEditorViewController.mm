@@ -1,10 +1,16 @@
 #import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
+#import "MWMButtonCell.h"
 #import "MWMCuisineEditorViewController.h"
 #import "MWMDropDown.h"
+#import "MWMEditorAddAdditionalNameTableViewCell.h"
+#import "MWMEditorAdditionalNamesHeader.h"
+#import "MWMEditorAdditionalNamesTableViewController.h"
+#import "MWMEditorAdditionalNameTableViewCell.h"
 #import "MWMEditorCategoryCell.h"
 #import "MWMEditorCommon.h"
+#import "MWMEditorNameFooter.h"
 #import "MWMEditorNotesFooter.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMEditorSwitchTableViewCell.h"
@@ -13,29 +19,29 @@
 #import "MWMNoteCell.h"
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMOpeningHoursEditorViewController.h"
-#import "MWMButtonCell.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMStreetEditorViewController.h"
 #import "Statistics.h"
-
 #import "UIViewController+Navigation.h"
 
-#include "indexer/editable_map_object.hpp"
 #include "std/algorithm.hpp"
 
 namespace
 {
+NSString * const kAdditionalNamesEditorSegue = @"Editor2AdditionalNamesEditorSegue";
 NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
 NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 NSString * const kStreetEditorSegue = @"Editor2StreetEditorSegue";
 NSString * const kCategoryEditorSegue = @"Editor2CategoryEditorSegue";
+CGFloat const kDefaultHeaderHeight = 28.;
 CGFloat const kDefaultFooterHeight = 32.;
 
 typedef NS_ENUM(NSUInteger, MWMEditorSection)
 {
   MWMEditorSectionCategory,
   MWMEditorSectionName,
+  MWMEditorSectionAdditionalNames,
   MWMEditorSectionAddress,
   MWMEditorSectionDetails,
   MWMEditorSectionNote,
@@ -44,7 +50,6 @@ typedef NS_ENUM(NSUInteger, MWMEditorSection)
 
 vector<MWMPlacePageCellType> const kSectionCategoryCellTypes{MWMPlacePageCellTypeCategory};
 vector<MWMPlacePageCellType> const kSectionNameCellTypes{MWMPlacePageCellTypeName};
-
 vector<MWMPlacePageCellType> const kSectionAddressCellTypes{
     MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding, MWMPlacePageCellTypeZipCode};
 
@@ -54,6 +59,9 @@ vector<MWMPlacePageCellType> const kSectionButtonCellTypes{MWMPlacePageCellTypeR
 MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeCategory, "MWMEditorCategoryCell"},
     {MWMPlacePageCellTypeName, "MWMEditorNameTableViewCell"},
+    {MWMPlacePageCellTypeAdditionalName, "MWMEditorAdditionalNameTableViewCell"},
+    {MWMPlacePageCellTypeAddAdditionalName, "MWMEditorAddAdditionalNameTableViewCell"},
+    {MWMPlacePageCellTypeAddAdditionalNamePlaceholder, "MWMEditorAdditionalNamePlaceholderTableViewCell"},
     {MWMPlacePageCellTypeStreet, "MWMEditorSelectTableViewCell"},
     {MWMPlacePageCellTypeBuilding, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeZipCode, "MWMEditorTextTableViewCell"},
@@ -74,6 +82,55 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   BOOL const haveCell = (it != kCellType2ReuseIdentifier.end());
   ASSERT(haveCell, ());
   return haveCell ? @(it->second.c_str()) : @"";
+}
+
+vector<osm::LocalizedName> getAdditionalLocalizedNames(osm::EditableMapObject const & emo)
+{
+  vector<osm::LocalizedName> result;
+  emo.GetName().ForEach([&result](int8_t code, string const & name) -> bool
+  {
+    if (code != StringUtf8Multilang::kDefaultCode)
+      result.push_back({code, StringUtf8Multilang::GetLangByCode(code),
+        StringUtf8Multilang::GetLangNameByCode(code), name});
+    return true;
+  });
+  return result;
+}
+
+void cleanupAdditionalLanguages(vector<osm::LocalizedName> const & names, vector<NSInteger> & newAdditionalLanguages)
+{
+  newAdditionalLanguages.erase(remove_if(newAdditionalLanguages.begin(),
+                                         newAdditionalLanguages.end(),
+                                         [&names](NSInteger x)
+  {
+    auto it = find_if(names.begin(), names.end(), [x](osm::LocalizedName const & name)
+    {
+      return name.m_code == x;
+    });
+    return it != names.end();
+  }),
+                               newAdditionalLanguages.end());
+}
+
+vector<MWMPlacePageCellType> cellsForAdditionalNames(
+    vector<osm::LocalizedName> const & names, vector<NSInteger> const & newAdditionalLanguages,
+    BOOL showAdditionalNames)
+{
+  if (names.empty() && newAdditionalLanguages.empty())
+    return vector<MWMPlacePageCellType>();
+  vector<MWMPlacePageCellType> res;
+  if (showAdditionalNames)
+  {
+    res.insert(res.begin(), names.size() + newAdditionalLanguages.size(),
+               MWMPlacePageCellTypeAdditionalName);
+  }
+  else
+  {
+    res.push_back(MWMPlacePageCellTypeAdditionalName);
+    res.push_back(MWMPlacePageCellTypeAddAdditionalNamePlaceholder);
+  }
+  res.push_back(MWMPlacePageCellTypeAddAdditionalName);
+  return res;
 }
 
 vector<MWMPlacePageCellType> cellsForProperties(vector<osm::Props> const & props)
@@ -130,19 +187,22 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 }
 } // namespace
 
-@interface MWMEditorViewController() <UITableViewDelegate, UITableViewDataSource,
-                                      UITextFieldDelegate, MWMOpeningHoursEditorProtocol,
-                                      MWMPlacePageOpeningHoursCellProtocol,
-                                      MWMEditorCellProtocol, MWMCuisineEditorProtocol,
-                                      MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate,
-                                      MWMNoteCelLDelegate, MWMButtonCellDelegate>
+@interface MWMEditorViewController ()<
+    UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MWMOpeningHoursEditorProtocol,
+    MWMPlacePageOpeningHoursCellProtocol, MWMEditorCellProtocol, MWMCuisineEditorProtocol,
+    MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate, MWMNoteCelLDelegate,
+    MWMEditorAdditionalName, MWMButtonCellDelegate, MWMEditorAdditionalNamesProtocol>
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
 @property (nonatomic) NSMutableArray<NSIndexPath *> * invalidCells;
-@property (nonatomic) MWMEditorNotesFooter * footer;
+@property (nonatomic) MWMEditorAdditionalNamesHeader * additionalNamesHeader;
+@property (nonatomic) MWMEditorNotesFooter * notesFooter;
+@property (nonatomic) MWMEditorNameFooter * nameFooter;
 @property (copy, nonatomic) NSString * note;
 @property (nonatomic) osm::Editor::FeatureStatus featureStatus;
 @property (nonatomic) BOOL isFeatureUploaded;
+
+@property (nonatomic) BOOL showAdditionalNames;
 
 @end
 
@@ -151,6 +211,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   vector<MWMEditorSection> m_sections;
   map<MWMEditorSection, vector<MWMPlacePageCellType>> m_cells;
   osm::EditableMapObject m_mapObject;
+  vector<NSInteger> m_newAdditionalLanguages;
 }
 
 - (void)viewDidLoad
@@ -162,6 +223,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   auto const & fid = m_mapObject.GetID();
   self.featureStatus = osm::Editor::Instance().GetFeatureStatus(fid.m_mwmId, fid.m_index);
   self.isFeatureUploaded = osm::Editor::Instance().IsFeatureUploaded(fid.m_mwmId, fid.m_index);
+  m_newAdditionalLanguages.clear();
 }
 
 - (void)setFeatureToEdit:(FeatureID const &)fid
@@ -277,11 +339,54 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   [dd showWithMessage:L(@"editor_edits_sent_message")];
 }
 
-- (MWMEditorNotesFooter *)footer
+#pragma mark - Headers
+
+- (MWMEditorAdditionalNamesHeader *)additionalNamesHeader
 {
-  if (!_footer)
-    _footer = [MWMEditorNotesFooter footer];
-  return _footer;
+  if (!_additionalNamesHeader)
+  {
+    __weak auto weakSelf = self;
+    _additionalNamesHeader = [MWMEditorAdditionalNamesHeader header:^
+    {
+      __strong auto self = weakSelf;
+      self.showAdditionalNames = !self.showAdditionalNames;
+    }];
+  }
+  return _additionalNamesHeader;
+}
+
+#pragma mark - Footers
+
+- (MWMEditorNotesFooter *)notesFooter
+{
+  if (!_notesFooter)
+    _notesFooter = [MWMEditorNotesFooter footer];
+  return _notesFooter;
+}
+
+- (MWMEditorNameFooter *)nameFooter
+{
+  if (!_nameFooter)
+    _nameFooter = [MWMEditorNameFooter footer];
+  return _nameFooter;
+}
+
+#pragma mark - Properties
+
+- (void)setShowAdditionalNames:(BOOL)showAdditionalNames
+{
+  _showAdditionalNames = showAdditionalNames;
+  [self configTable];
+  auto const additionalNamesSectionIt = find(m_sections.begin(), m_sections.end(), MWMEditorSectionAdditionalNames);
+  if (additionalNamesSectionIt == m_sections.end())
+  {
+    [self.tableView reloadData];
+  }
+  else
+  {
+    auto const sectionIndex = distance(m_sections.begin(), additionalNamesSectionIt);
+    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+  }
 }
 
 #pragma mark - Offscreen cells
@@ -301,6 +406,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 {
   self.offscreenCells = [NSMutableDictionary dictionary];
   self.invalidCells = [NSMutableArray array];
+  m_sections.clear();
+  m_cells.clear();
 
   m_sections.push_back(MWMEditorSectionCategory);
   m_cells[MWMEditorSectionCategory] = kSectionCategoryCellTypes;
@@ -311,6 +418,16 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     m_sections.push_back(MWMEditorSectionName);
     m_cells[MWMEditorSectionName] = kSectionNameCellTypes;
     registerCellsForTableView(kSectionNameCellTypes, self.tableView);
+
+    vector<osm::LocalizedName> localizedNames = getAdditionalLocalizedNames(m_mapObject);
+    cleanupAdditionalLanguages(localizedNames, m_newAdditionalLanguages);
+    auto const cells = cellsForAdditionalNames(localizedNames, m_newAdditionalLanguages, self.showAdditionalNames);
+    if (!cells.empty())
+    {
+      m_sections.push_back(MWMEditorSectionAdditionalNames);
+      m_cells[MWMEditorSectionAdditionalNames] = cells;
+      registerCellsForTableView(cells, self.tableView);
+    }
   }
   if (m_mapObject.IsAddressEditable())
   {
@@ -367,7 +484,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     }
     case MWMPlacePageCellTypePhoneNumber:
     {
-      MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_phone_number"]
                            text:@(m_mapObject.GetPhone().c_str())
@@ -378,7 +495,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     }
     case MWMPlacePageCellTypeWebsite:
     {
-      MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_website"]
                            text:@(m_mapObject.GetWebsite().c_str())
@@ -389,7 +506,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     }
     case MWMPlacePageCellTypeEmail:
     {
-      MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_email"]
                            text:@(m_mapObject.GetEmail().c_str())
@@ -411,14 +528,14 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     }
     case MWMPlacePageCellTypeOpenHours:
     {
-      MWMPlacePageOpeningHoursCell * tCell = (MWMPlacePageOpeningHoursCell *)cell;
+      MWMPlacePageOpeningHoursCell * tCell = static_cast<MWMPlacePageOpeningHoursCell *>(cell);
       NSString * text = @(m_mapObject.GetOpeningHours().c_str());
       [tCell configWithDelegate:self info:(text.length ? text : L(@"add_opening_hours"))];
       break;
     }
     case MWMPlacePageCellTypeWiFi:
     {
-      MWMEditorSwitchTableViewCell * tCell = (MWMEditorSwitchTableViewCell *)cell;
+      MWMEditorSwitchTableViewCell * tCell = static_cast<MWMEditorSwitchTableViewCell *>(cell);
       // TODO(Vlad, IgorTomko): Support all other possible Internet statuses.
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_wifi"]
@@ -428,7 +545,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     }
     case MWMPlacePageCellTypeName:
     {
-      MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
       [tCell configWithDelegate:self
                            icon:nil
                            text:@(m_mapObject.GetDefaultName().c_str())
@@ -437,9 +554,44 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                  capitalization:UITextAutocapitalizationTypeSentences];
       break;
     }
+    case MWMPlacePageCellTypeAdditionalName:
+    {
+      MWMEditorAdditionalNameTableViewCell * tCell = static_cast<MWMEditorAdditionalNameTableViewCell *>(cell);
+
+      vector<osm::LocalizedName> const localizedNames = getAdditionalLocalizedNames(m_mapObject);
+
+      if (indexPath.row < localizedNames.size())
+      {
+        osm::LocalizedName const & name = localizedNames[indexPath.row];
+        [tCell configWithDelegate:self
+                         langCode:name.m_code
+                         langName:@(name.m_langName)
+                             name:@(name.m_name.c_str())
+                     keyboardType:UIKeyboardTypeDefault];
+      }
+      else
+      {
+        NSInteger const newAdditionalNameIndex = indexPath.row - localizedNames.size();
+        NSInteger const langCode = m_newAdditionalLanguages[newAdditionalNameIndex];
+        [tCell configWithDelegate:self
+                         langCode:langCode
+                         langName:@(StringUtf8Multilang::GetLangNameByCode(langCode))
+                             name:@""
+                     keyboardType:UIKeyboardTypeDefault];
+      }
+      break;
+    }
+    case MWMPlacePageCellTypeAddAdditionalName:
+    {
+      MWMEditorAddAdditionalNameTableViewCell * tCell = static_cast<MWMEditorAddAdditionalNameTableViewCell *>(cell);
+      [tCell configWithDelegate:self];
+      break;
+    }
+    case MWMPlacePageCellTypeAddAdditionalNamePlaceholder:
+      break;
     case MWMPlacePageCellTypeStreet:
     {
-      MWMEditorSelectTableViewCell * tCell = (MWMEditorSelectTableViewCell *)cell;
+      MWMEditorSelectTableViewCell * tCell = static_cast<MWMEditorSelectTableViewCell *>(cell);
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_adress"]
                            text:@(m_mapObject.GetStreet().m_defaultName.c_str())
@@ -448,7 +600,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     }
     case MWMPlacePageCellTypeBuilding:
     {
-      MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
+      MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
       [tCell configWithDelegate:self
                            icon:nil
                            text:@(m_mapObject.GetHouseNumber().c_str())
@@ -491,7 +643,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     }
     case MWMPlacePageCellTypeCuisine:
     {
-      MWMEditorSelectTableViewCell * tCell = (MWMEditorSelectTableViewCell *)cell;
+      MWMEditorSelectTableViewCell * tCell = static_cast<MWMEditorSelectTableViewCell *>(cell);
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_cuisine"]
                            text:@(m_mapObject.FormatCuisines().c_str())
@@ -563,8 +715,6 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
 
   UITableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
-  // TODO(Vlad, IGrechuhin): It's bad idea to fill cells here.
-  // heightForRowAtIndexPath is called way too often for the table.
   [self fillCell:cell atIndexPath:indexPath];
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   switch (cellType)
@@ -594,6 +744,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   switch (m_sections[section])
   {
   case MWMEditorSectionName:
+  case MWMEditorSectionAdditionalNames:
   case MWMEditorSectionCategory:
   case MWMEditorSectionButton:
     return nil;
@@ -606,18 +757,19 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
   switch (m_sections[section])
   {
-  case MWMEditorSectionName:
-    return L(@"place_name_caption");
-  case MWMEditorSectionAddress:
-  case MWMEditorSectionDetails:
-  case MWMEditorSectionCategory:
-  case MWMEditorSectionNote:
-  case MWMEditorSectionButton:
-    return nil;
+    case MWMEditorSectionAdditionalNames:
+      return self.additionalNamesHeader;
+    case MWMEditorSectionName:
+    case MWMEditorSectionCategory:
+    case MWMEditorSectionButton:
+    case MWMEditorSectionNote:
+    case MWMEditorSectionAddress:
+    case MWMEditorSectionDetails:
+      return nil;
   }
 }
 
@@ -628,12 +780,19 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   case MWMEditorSectionAddress:
   case MWMEditorSectionDetails:
   case MWMEditorSectionCategory:
-  case MWMEditorSectionName:
+  case MWMEditorSectionAdditionalNames:
   case MWMEditorSectionButton:
     return nil;
+  case MWMEditorSectionName:
+    return self.nameFooter;
   case MWMEditorSectionNote:
-    return self.footer;
+    return self.notesFooter;
   }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  return kDefaultHeaderHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -643,10 +802,12 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   case MWMEditorSectionAddress:
   case MWMEditorSectionDetails:
   case MWMEditorSectionCategory:
-    return 0.;
+  case MWMEditorSectionAdditionalNames:
+    return 1.0;
   case MWMEditorSectionNote:
-    return self.footer.height;
+    return self.notesFooter.height;
   case MWMEditorSectionName:
+    return self.nameFooter.height;
   case MWMEditorSectionButton:
     return kDefaultFooterHeight;
   }
@@ -705,6 +866,28 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   self.note = text;
 }
 
+#pragma mark - MWMEditorAdditionalName
+
+- (void)editAdditionalNameLanguage:(NSInteger)selectedLangCode
+{
+  [self performSegueWithIdentifier:kAdditionalNamesEditorSegue sender:@(selectedLangCode)];
+}
+
+#pragma mark - MWMEditorAdditionalNamesProtocol
+
+- (void)addAdditionalName:(NSInteger)languageIndex
+{
+  m_newAdditionalLanguages.push_back(languageIndex);
+  self.showAdditionalNames = YES;
+  auto additionalNamesSectionIt = find(m_sections.begin(), m_sections.end(), MWMEditorSectionAdditionalNames);
+  assert(additionalNamesSectionIt != m_sections.end());
+  auto const section = distance(m_sections.begin(), additionalNamesSectionIt);
+  NSInteger const row = [self tableView:self.tableView numberOfRowsInSection:section];
+  assert(row > 0);
+  NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row - 1 inSection:section];
+  [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+}
+
 #pragma mark - MWMEditorCellProtocol
 
 - (void)tryToChangeInvalidStateForCell:(MWMEditorTextTableViewCell *)cell
@@ -717,7 +900,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   [self.tableView endUpdates];
 }
 
-- (void)cell:(MWMEditorTextTableViewCell *)cell changedText:(NSString *)changeText
+- (void)cell:(MWMTableViewCell *)cell changedText:(NSString *)changeText
 {
   NSAssert(changeText != nil, @"String can't be nil!");
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -725,7 +908,6 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   string const val = changeText.UTF8String;
   switch (cellType)
   {
-    // TODO(Vlad): Support multilanguage names.
     case MWMPlacePageCellTypeName: m_mapObject.SetName(val, StringUtf8Multilang::kDefaultCode); break;
     case MWMPlacePageCellTypePhoneNumber: m_mapObject.SetPhone(val); break;
     case MWMPlacePageCellTypeWebsite: m_mapObject.SetWebsite(val); break;
@@ -745,6 +927,12 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
       if (!osm::EditableMapObject::ValidateBuildingLevels(val))
         [self markCellAsInvalid:indexPath];
       break;
+    case MWMPlacePageCellTypeAdditionalName:
+      {
+        MWMEditorAdditionalNameTableViewCell * tCell = static_cast<MWMEditorAdditionalNameTableViewCell *>(cell);
+        m_mapObject.SetName(val, tCell.code);
+        break;
+      }
     default: NSAssert(false, @"Invalid field for changeText");
   }
 }
@@ -927,9 +1115,17 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   else if ([segue.identifier isEqualToString:kCategoryEditorSegue])
   {
     NSAssert(self.isCreating, @"Invalid state! We'll be able to change feature category only if we are creating feature!");
-    MWMObjectsCategorySelectorController * dest = segue.destinationViewController;
-    dest.delegate = self;
-    [dest setSelectedCategory:m_mapObject.GetLocalizedType()];
+    MWMObjectsCategorySelectorController * dvc = segue.destinationViewController;
+    dvc.delegate = self;
+    [dvc setSelectedCategory:m_mapObject.GetLocalizedType()];
+  }
+  else if ([segue.identifier isEqualToString:kAdditionalNamesEditorSegue])
+  {
+    MWMEditorAdditionalNamesTableViewController * dvc = segue.destinationViewController;
+    [dvc configWithDelegate:self
+                       name:m_mapObject.GetName()
+additionalSkipLanguageCodes:m_newAdditionalLanguages
+       selectedLanguageCode:((NSNumber *)sender).integerValue];
   }
 }
 
