@@ -2342,8 +2342,12 @@ void Framework::InsertRoute(Route const & route)
   if (m_currentRouterType == RouterType::Vehicle)
     route.GetTurnsDistances(turns);
 
-  df::ColorConstant const routeColor = (m_currentRouterType == RouterType::Pedestrian) ?
-                                        df::RoutePedestrian : df::Route;
+  df::ColorConstant routeColor = df::Route;
+  if (m_currentRouterType == RouterType::Pedestrian)
+    routeColor = df::RoutePedestrian;
+  else if (m_currentRouterType == RouterType::Bicycle)
+    routeColor = df::RouteBicycle;
+
   m_drapeEngine->AddRoute(route.GetPoly(), turns, routeColor);
 }
 
