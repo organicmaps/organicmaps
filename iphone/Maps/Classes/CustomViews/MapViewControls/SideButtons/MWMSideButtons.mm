@@ -58,7 +58,6 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
     self.sideView.topBound = 0.0;
     self.sideView.bottomBound = view.height;
     self.zoomSwipeEnabled = NO;
-    [self processMyPositionStateModeEvent:location::PendingPosition];
   }
   return self;
 }
@@ -125,11 +124,14 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
     }
   }
   (self.locationMode, mode);
-  locBtn.imageView.animationDuration = 0.0;
   locBtn.imageView.animationImages = images;
-  locBtn.imageView.animationRepeatCount = 1;
-  locBtn.imageView.image = images.lastObject;
-  [locBtn.imageView startAnimating];
+  if (images)
+  {
+    locBtn.imageView.animationDuration = 0.0;
+    locBtn.imageView.animationRepeatCount = 1;
+    locBtn.imageView.image = images.lastObject;
+    [locBtn.imageView startAnimating];
+  }
   [self refreshLocationButtonState:mode];
   self.locationMode = mode;
 }

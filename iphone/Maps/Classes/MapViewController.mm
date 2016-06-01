@@ -397,6 +397,7 @@ BOOL gIsFirstMyPositionMode = YES;
     return;
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
+  [self processMyPositionStateModeEvent:location::PendingPosition];
 }
 
 - (void)mwm_refreshUI
@@ -529,7 +530,6 @@ BOOL gIsFirstMyPositionMode = YES;
   self.menuRestoreState = MWMBottomMenuStateInactive;
   GetFramework().LoadBookmarks();
   [MWMFrameworkListener addObserver:self];
-  [self processMyPositionStateModeEvent:location::PendingPosition];
 }
 
 #pragma mark - Open controllers
