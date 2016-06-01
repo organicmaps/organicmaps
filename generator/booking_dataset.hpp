@@ -52,8 +52,8 @@ public:
     string descUrl;
     uint32_t type = 0;
 
-    constexpr size_t Index(Fields field) const { return static_cast<size_t>(field); }
-    constexpr size_t FieldsCount() const { return static_cast<size_t>(Fields::Counter); }
+    static constexpr size_t Index(Fields field) { return static_cast<size_t>(field); }
+    static constexpr size_t FieldsCount() { return static_cast<size_t>(Fields::Counter); }
     explicit Hotel(string const & src);
   };
 
