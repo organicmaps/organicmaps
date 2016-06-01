@@ -106,7 +106,7 @@ def download(user, password, path):
             if not hotels:
                 exit(1)
 
-            allhotels.append(hotels)
+            allhotels.extend(hotels)
 
             # If hotels in answer less then maxrows, we reach end of data.
             if len(hotels) < maxrows:
