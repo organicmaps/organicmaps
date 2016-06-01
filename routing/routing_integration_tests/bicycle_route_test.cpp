@@ -20,3 +20,10 @@ UNIT_TEST(RussiaMoscowNahimovskyLongRoute)
       integration::GetBicycleComponents(), MercatorBounds::FromLatLon(55.66151, 37.63320), {0., 0.},
       MercatorBounds::FromLatLon(55.67695, 37.56220), 7570.0);
 }
+
+UNIT_TEST(RussiaDomodedovoSteps)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(55.44020, 37.77409), {0., 0.},
+      MercatorBounds::FromLatLon(55.43972, 37.77254), 123.0);
+}
