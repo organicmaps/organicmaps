@@ -21,7 +21,7 @@ public:
 
   bool GetChangesCount(int32_t & changesCount) const;
   bool GetRank(int32_t & rank) const;
-  bool GetLevelUpRequiredFeat(string & levelUpFeat);
+  bool GetLevelUpRequiredFeat(string & levelUpFeat) const;
 
   time_t GetLastUpdate() const { return m_updateTime; }
 
