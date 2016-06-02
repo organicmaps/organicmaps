@@ -31,6 +31,7 @@ UNIT_TEST(UserStatsLoader_Smoke)
     int32_t rank, changesCount;
     TEST(userStats.GetRank(rank), ());
     TEST(userStats.GetChangesCount(changesCount), ());
+
     TEST_GREATER_OR_EQUAL(rank, 2100, ());
     TEST_EQUAL(changesCount, 9, ());
   }
@@ -47,6 +48,7 @@ UNIT_TEST(UserStatsLoader_Smoke)
     int32_t rank, changesCount;
     TEST(userStats.GetRank(rank), ());
     TEST(userStats.GetChangesCount(changesCount), ());
+
     TEST_GREATER_OR_EQUAL(rank, 2100, ());
     TEST_EQUAL(changesCount, 9, ());
   }
