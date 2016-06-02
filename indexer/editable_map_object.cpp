@@ -197,9 +197,11 @@ bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
 {
   if (buildingLevels.size() > 18 /* max number of digits in uint_64 */)
     return false;
+  if (buildingLevels.empty())
+    return true;
 
   uint64_t levels;
-  return strings::to_uint64(buildingLevels, levels) && levels <= kMaximumLevelsEditableByUsers;
+  return strings::to_uint64(buildingLevels, levels) && levels > 0 && levels <= kMaximumLevelsEditableByUsers;
 }
 
 // static

@@ -9,7 +9,8 @@ namespace editor
 namespace
 {
 auto constexpr kEditorTestDir = "editor-tests";
-auto constexpr kUserName = "Vladimir BI";  // TODO(mgsergio, Zverik): Make a test user account.
+// This user has made only 9 changes and then renamed himself, so there will be no further edits from him.
+auto constexpr kUserName = "Nikita Bokiy";
 
 UNIT_TEST(UserStatsLoader_Smoke)
 {
@@ -21,7 +22,6 @@ UNIT_TEST(UserStatsLoader_Smoke)
   }
 
   {
-    // This user made only two changes and the possibility of further changes is very low.
     UserStatsLoader statsLoader;
 
     statsLoader.Update(kUserName);
@@ -31,6 +31,8 @@ UNIT_TEST(UserStatsLoader_Smoke)
     int32_t rank, changesCount;
     TEST(userStats.GetRank(rank), ());
     TEST(userStats.GetChangesCount(changesCount), ());
+    TEST_GREATER_OR_EQUAL(rank, 2100, ());
+    TEST_EQUAL(changesCount, 9, ());
   }
 
   // This test checks if user stats info was stored in setting.
@@ -45,6 +47,8 @@ UNIT_TEST(UserStatsLoader_Smoke)
     int32_t rank, changesCount;
     TEST(userStats.GetRank(rank), ());
     TEST(userStats.GetChangesCount(changesCount), ());
+    TEST_GREATER_OR_EQUAL(rank, 2100, ());
+    TEST_EQUAL(changesCount, 9, ());
   }
 }
 }  // namespace
