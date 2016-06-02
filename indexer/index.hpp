@@ -19,6 +19,24 @@
 #include "std/limits.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
+#include "std/weak_ptr.hpp"
+
+class MwmInfoEx : public MwmInfo
+{
+private:
+  friend class Index;
+  friend class MwmValue;
+
+  // weak_ptr is needed here to access offsets table in already
+  // instantiated MwmValue-s for the MWM, including MwmValues in the
+  // MwmSet's cache. We can't use shared_ptr because of offsets table
+  // must be removed as soon as the last corresponding MwmValue is
+  // destroyed. Also, note that this value must be used and modified
+  // only in MwmValue::SetTable() method, which, in turn, is called
+  // only in the MwmSet critical section, protected by a lock.  So,
+  // there's an implicit synchronization on this field.
+  weak_ptr<feature::FeaturesOffsetsTable> m_table;
+};
 
 class MwmValue : public MwmSet::MwmValueBase
 {
@@ -26,9 +44,11 @@ public:
   FilesContainerR const m_cont;
   IndexFactory m_factory;
   platform::LocalCountryFile const m_file;
-  unique_ptr<feature::FeaturesOffsetsTable> m_table;
+
+  shared_ptr<feature::FeaturesOffsetsTable> m_table;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
+  void SetTable(MwmInfoEx & info);
 
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
   inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
@@ -246,6 +266,7 @@ public:
   }
 
   /// Guard for loading features from particular MWM by demand.
+  /// @note This guard is suitable when mwm is loaded.
   class FeaturesLoaderGuard
   {
   public:

@@ -6,7 +6,6 @@
 #include "std/cstring.hpp"
 
 #ifndef OMIM_OS_WINDOWS
-  #include <errno.h>
   #include <stdio.h>
   #include <unistd.h>
   #include <sys/mman.h>
@@ -20,6 +19,7 @@
   #include <windows.h>
 #endif
 
+#include <errno.h>
 
 template <class TSource, class InfoT> void Read(TSource & src, InfoT & i)
 {
@@ -124,7 +124,17 @@ void MappedFile::Open(string const & fName)
 #else
   m_fd = open(fName.c_str(), O_RDONLY | O_NONBLOCK);
   if (m_fd == -1)
-    MYTHROW(Reader::OpenException, ("Can't open file:", fName, ", reason:", strerror(errno)));
+  {
+    if (errno == EMFILE || errno == ENFILE)
+    {
+      MYTHROW(Reader::TooManyFilesException,
+              ("Can't open file:", fName, ", reason:", strerror(errno)));
+    }
+    else
+    {
+      MYTHROW(Reader::OpenException, ("Can't open file:", fName, ", reason:", strerror(errno)));
+    }
+  }
 #endif
 }
 

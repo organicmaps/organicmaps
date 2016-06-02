@@ -24,8 +24,8 @@
 class MwmInfo
 {
 public:
-  friend class MwmSet;
   friend class Index;
+  friend class MwmSet;
 
   enum MwmTypeT
   {
@@ -69,7 +69,7 @@ public:
   /// Returns the lock counter value for test needs.
   uint8_t GetNumRefs() const { return m_numRefs; }
 
-private:
+protected:
   inline Status SetStatus(Status status)
   {
     Status result = m_status;
@@ -79,7 +79,7 @@ private:
 
   platform::LocalCountryFile m_file;  ///< Path to the mwm file.
   atomic<Status> m_status;            ///< Current country status.
-  uint8_t m_numRefs;                  ///< Number of active handles.
+  uint32_t m_numRefs;                 ///< Number of active handles.
 };
 
 class MwmSet
