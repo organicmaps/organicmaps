@@ -94,6 +94,13 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
         ((funcall fn (car list)) (drop-while fn (cdr list)))
         (T list)))
 
+(defun take-while (fn list)
+  (if (null list)
+      nil
+      (loop for value in list
+         while (funcall fn value)
+         collecting value)))
+
 (defparameter *building-synonyms*
   '("building" "bldg" "bld" "bl" "unit" "block" "blk"
     "корпус" "корп" "литер" "лит" "строение" "блок" "бл"))
@@ -206,30 +213,36 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
                           (:number "N")
                           (:building-part "B")
                           (:letter "L")
-                          ((:string :letter-or-building-part :hyphen :slash :group-separator)
-                           token-value)
+                          (:letter-or-building-part "LB")
+                          (:string "S")
+                          ((:hyphen :slash :group-separator) token-value)
                           (otherwise (assert NIL NIL (format nil "Unknown token type: ~a"
                                                              token-type))))))
                   tokens)))
 
+(defun character-token-p (token)
+  (case (token-type token)
+    ((:string :letter :letter-or-building-part) T)
+    (otherwise nil)))
+
 (defun get-house-number-pattern (house-number fn)
   (dolist (number (get-house-number-sub-numbers house-number))
     (let ((house-number (join-house-number-tokens number))
-          (pattern (join-house-number-parse
-                    (drop-while #'(lambda (token)
-                                    (not (eq :number (token-type token))))
-                                (parse-house-number number)))))
+          (pattern (join-house-number-parse (parse-house-number number))))
       (funcall fn house-number pattern))))
 
-(defun get-house-number-strings (house-number fn)
+(defun get-house-number-prefix-strings (house-number fn)
   (dolist (number (get-house-number-sub-numbers house-number))
     (dolist (string (mapcar #'token-value
-                            (remove-if-not #'(lambda (token)
-                                               (let ((token-type (token-type token)))
-                                                 (or (eq :string token-type)
-                                                     (eq :letter token-type)
-                                                     (eq :letter-or-building-part token-type))))
-                                           (parse-house-number number))))
+                            (take-while #'character-token-p (parse-house-number number))))
+      (funcall fn string string))))
+
+(defun get-house-number-inner-strings (house-number fn)
+  (dolist (number (get-house-number-sub-numbers house-number))
+    (dolist (string (mapcar #'token-value
+                            (remove-if-not #'character-token-p
+                                           (drop-while #'character-token-p
+                                                       (parse-house-number number)))))
       (funcall fn string string))))
 
 (defstruct type-settings
@@ -245,9 +258,12 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
                                          :field-name "addr:flats")
               :house-number ,(make-type-settings :pattern-simplifier #'get-house-number-pattern
                                                  :field-name "addr:housenumber")
-              :house-number-strings ,(make-type-settings
-                                      :pattern-simplifier #'get-house-number-strings
-                                      :field-name "addr:housenumber")))
+              :house-number-prefix-strings ,(make-type-settings
+                                             :pattern-simplifier #'get-house-number-prefix-strings
+                                             :field-name "addr:housenumber")
+              :house-number-inner-strings ,(make-type-settings
+                                            :pattern-simplifier #'get-house-number-inner-strings
+                                            :field-name "addr:housenumber")))
 
 (defstruct cluster
   "A cluster of values with the same pattern, i.e.  all six-digits
@@ -284,9 +300,10 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
 (defun make-keyword (name) (values (intern (string-upcase name) "KEYWORD")))
 
 (when (/= 3 (length *posix-argv*))
-  (format t "Usage: ~a ~{~a~^|~} path-to-taginfo-db.db~%"
-          *script-name*
-          (loop for field in *value-type-settings* by #'cddr collecting field))
+  (format t "Usage: ~a value path-to-taginfo-db.db~%" *script-name*)
+  (format t "~%value can be one of the following:~%")
+  (format t "~{    ~a~%~}"
+          (loop for field in *value-type-settings* by #'cddr collecting (string-downcase field)))
   (exit :code -1))
 
 (defparameter *value-type* (second *posix-argv*))
