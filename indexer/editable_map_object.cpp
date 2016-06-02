@@ -195,6 +195,9 @@ void EditableMapObject::SetPointType() { m_geomType = feature::EGeomType::GEOM_P
 // static
 bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
 {
+  if (buildingLevels.empty())
+    return true;
+
   if (buildingLevels.size() > 18 /* max number of digits in uint_64 */)
     return false;
   if (buildingLevels.empty())
