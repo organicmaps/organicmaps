@@ -86,6 +86,7 @@ public:
       { "building" },
       { "building:part" },
       { "hwtag" },
+      { "psurface" },
       { "internet_access" },
     };
 

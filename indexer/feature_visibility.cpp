@@ -208,21 +208,22 @@ namespace
 
   /// Add here all exception classificator types: needed for algorithms,
   /// but don't have drawing rules.
-  bool TypeAlwaysExists(uint32_t t, EGeomType g = GEOM_UNDEFINED)
+  bool TypeAlwaysExists(uint32_t type, EGeomType g = GEOM_UNDEFINED)
   {
-    static const uint32_t s1 = classif().GetTypeByPath({ "junction", "roundabout" });
-    static const uint32_t s2 = classif().GetTypeByPath({ "hwtag" });
+    static const uint32_t roundabout = classif().GetTypeByPath({ "junction", "roundabout" });
+    static const uint32_t hwtag = classif().GetTypeByPath({ "hwtag" });
+    static const uint32_t psurface = classif().GetTypeByPath({ "psurface" });
 
     if (g == GEOM_LINE || g == GEOM_UNDEFINED)
     {
-      if (s1 == t)
+      if (roundabout == type)
         return true;
 
-      if (HasRoutingExceptionType(t))
+      if (HasRoutingExceptionType(type))
         return true;
 
-      ftype::TruncValue(t, 1);
-      if (s2 == t)
+      ftype::TruncValue(type, 1);
+      if (hwtag == type || psurface == type)
         return true;
     }
 

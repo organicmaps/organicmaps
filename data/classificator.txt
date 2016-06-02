@@ -363,10 +363,13 @@ world  +
         wayside_shrine  -
         {}
     hwtag  +
+        bicycle_bidir  -
         lit  -
+        nobicycle  -
         nofoot  -
         oneway  -
         private  -
+        yesbicycle  -
         yesfoot  -
         {}
     internet_access  +
@@ -597,6 +600,12 @@ world  +
         station  -
         substation  -
         tower  -
+        {}
+    psurface  +
+        paved_bad  -
+        paved_good  -
+        unpaved_bad  -
+        unpaved_good  -
         {}
     public_transport  +
         platform  -

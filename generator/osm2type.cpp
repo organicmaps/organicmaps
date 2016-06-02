@@ -214,6 +214,7 @@ namespace ftype
 
   public:
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
+                 NOBICYCLE, YESBICYCLE, BICYCLE_BIDIR, SURFPGOOD, SURFPBAD, SURFUGOOD, SURFUBAD,
                  RW_STATION, RW_STATION_SUBWAY };
 
     CachedTypes()
@@ -226,7 +227,10 @@ namespace ftype
       StringIL arr[] =
       {
         {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
-        {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"}
+        {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
+        {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "bicycle_bidir"},
+        {"psurface", "paved_good"}, {"psurface", "paved_bad"},
+        {"psurface", "unpaved_good"}, {"psurface", "unpaved_bad"},
       };
       for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
@@ -382,6 +386,71 @@ namespace ftype
     return string();
   }
 
+  string DetermineSurface(OsmElement * p)
+  {
+    string surface;
+    string smoothness;
+    string surface_grade;
+    bool isHighway = false;
+
+    for (auto & tag : p->m_tags)
+    {
+      if (tag.key == "surface")
+        surface = tag.value;
+      else if (tag.key == "smoothness")
+        smoothness = tag.value;
+      else if (tag.key == "surface:grade")
+        surface_grade = tag.value;
+      else if (tag.key == "highway")
+        isHighway = true;
+    }
+
+    if (!isHighway || (surface.empty() && smoothness.empty()))
+      return string();
+
+    static StringIL pavedSurfaces = {"paved", "asphalt", "cobblestone", "cobblestone:flattened",
+                                     "sett", "concrete", "concrete:lanes", "concrete:plates",
+                                     "paving_stones", "metal", "wood"};
+    static StringIL badSurfaces = {"cobblestone", "sett", "metal", "wood", "grass", "gravel",
+                                   "mud", "sand", "snow", "woodchips"};
+    static StringIL badSmoothness = {"bad", "very_bad", "horrible", "very_horrible", "impassable",
+                                     "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
+
+    bool isPaved = false;
+    bool isGood = true;
+
+    if (!surface.empty())
+    {
+      for (auto const & value : pavedSurfaces)
+        if (surface == value)
+          isPaved = true;
+    }
+    else
+      isPaved = smoothness == "excellent" || smoothness == "good";
+
+    if (!smoothness.empty())
+    {
+      for (auto const & value : badSmoothness)
+        if (smoothness == value)
+          isGood = false;
+      if (smoothness == "bad" && !isPaved)
+        isGood = true;
+    }
+    else if (surface_grade == "0" || surface_grade == "1")
+      isGood = false;
+    else
+    {
+      if (surface_grade != "3" )
+        for (auto const & value : badSurfaces)
+          if (surface == value)
+            isGood = false;
+    }
+
+    string psurface = isPaved ? "paved_" : "unpaved_";
+    psurface += isGood ? "good" : "bad";
+    return psurface;
+  }
+
   void PreprocessElement(OsmElement * p)
   {
     bool hasLayer = false;
@@ -412,6 +481,8 @@ namespace ftype
       if (!city.empty())
         p->AddTag("city", city);
     }
+
+    p->AddTag("psurface", DetermineSurface(p));
   }
 
   void PostprocessElement(OsmElement * p, FeatureParams & params)
@@ -452,9 +523,14 @@ namespace ftype
           { "lit", "~", [&params] { params.AddType(types.Get(CachedTypes::LIT)); }},
 
           { "foot", "!", [&params] { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
-
           { "foot", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
           { "sidewalk", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
+
+          { "bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::NOBICYCLE)); }},
+          { "bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
+          { "cycleway", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
+          { "oneway:bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
+          { "cycleway", "opposite", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
         });
 
         highwayDone = true;

@@ -1111,3 +1111,10 @@ tourism|apartment
 tourism|resort
 sponsored
 sponsored|booking
+hwtag|nobicycle
+hwtag|yesbicycle
+hwtag|bicycle_bidir
+psurface|paved_good
+psurface|paved_bad
+psurface|unpaved_good
+psurface|unpaved_bad
