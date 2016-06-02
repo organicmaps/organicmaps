@@ -395,7 +395,7 @@ void AnimationSystem::Print()
   for (size_t i = 0, sz = m_animationChain.size(); i < sz; ++i)
   {
     auto & lst = *m_animationChain[i];
-    if (i > 0 && i < sz - 1)
+    if (i > 0)
       LOG(LINFO, ("- - - - - - - - - - - - Next parallel block - - - - - - - - - - - -"));
     for (auto it = lst.begin(); it != lst.end(); ++it)
     {
