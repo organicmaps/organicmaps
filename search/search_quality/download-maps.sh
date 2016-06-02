@@ -25,8 +25,12 @@ do
            exit -1
            ;;
         \?) echo "Invalid option: -$OPTARG" 1>&2
+            display_usage
+            exit -1
             ;;
         :) echo "Option -$OPTARG requires an argument" 1>&2
+           display_usage
+           exit -1
            ;;
     esac
 done
