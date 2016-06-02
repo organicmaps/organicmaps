@@ -590,7 +590,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline,
                                                                routeData->m_sourceTurns,
-                                                               routeData->m_color);
+                                                               routeData->m_color,
+                                                               routeData->m_pattern);
         m_routeRenderer->Clear(true /* keepDistanceFromBegin */);
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
                                   MessagePriority::Normal);

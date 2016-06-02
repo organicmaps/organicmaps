@@ -12,7 +12,8 @@ RouteBuilder::RouteBuilder(TFlushRouteFn const & flushRouteFn,
 {}
 
 void RouteBuilder::Build(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                         df::ColorConstant color, ref_ptr<dp::TextureManager> textures)
+                         df::ColorConstant color, df::RoutePattern const & pattern,
+                         ref_ptr<dp::TextureManager> textures)
 {
   CommonViewParams params;
   params.m_minVisibleScale = 1;
@@ -23,6 +24,7 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline, vector<double> con
   routeData->m_color = color;
   routeData->m_sourcePolyline = routePolyline;
   routeData->m_sourceTurns = turns;
+  routeData->m_pattern = pattern;
   RouteShape(params).Draw(textures, *routeData.get());
 
   // Flush route geometry.
