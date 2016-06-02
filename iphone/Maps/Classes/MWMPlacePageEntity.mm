@@ -6,6 +6,8 @@
 
 #include "Framework.h"
 
+#include "indexer/osm_editor.hpp"
+
 #include "platform/measurement_utils.hpp"
 #include "platform/mwm_version.hpp"
 
@@ -146,7 +148,7 @@ void initFieldsMap(BOOL isBooking)
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType
 {
   auto const s = MapsAppDelegate.theApp.mapViewController.controlsManager.navigationState;
-  BOOL const editOrAddAreAvailable = version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion()) && s == MWMNavigationDashboardStateHidden && !self.isBooking;
+  BOOL const editOrAddAreAvailable = version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion()) && s == MWMNavigationDashboardStateHidden && m_info.IsEditable();
   switch (cellType)
   {
     case MWMPlacePageCellTypeName:

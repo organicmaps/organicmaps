@@ -26,13 +26,14 @@ public final class Editor
 {
   // Should correspond to core osm::FeatureStatus.
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({UNTOUCHED, DELETED, MODIFIED, CREATED})
+  @IntDef({UNTOUCHED, DELETED, OBSOLETE, MODIFIED, CREATED})
   public @interface FeatureStatus {}
 
   public static final int UNTOUCHED = 0;
   public static final int DELETED = 1;
-  public static final int MODIFIED = 2;
-  public static final int CREATED = 3;
+  public static final int OBSOLETE = 2;
+  public static final int MODIFIED = 3;
+  public static final int CREATED = 4;
 
   private static final AppBackgroundTracker.OnTransitionListener sOsmUploader = new AppBackgroundTracker.OnTransitionListener()
   {

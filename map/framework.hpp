@@ -654,6 +654,9 @@ public:
   void DeleteFeature(FeatureID const & fid) const;
   osm::NewFeatureCategories GetEditorCategories() const;
   bool RollBackChanges(FeatureID const & fid);
+  void CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
+                  osm::Editor::NoteProblemType const type, string const & note);
+
   //@}
 
 private:

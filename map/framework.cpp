@@ -733,17 +733,21 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
 
 void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info & info) const
 {
+  auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
+  ASSERT_NOT_EQUAL(featureStatus, osm::Editor::FeatureStatus::Deleted,
+                   ("Deleted features cannot be selected from UI"));
   info.SetFromFeatureType(ft);
-
-  info.m_isEditable = osm::Editor::Instance().GetEditableProperties(ft).IsEditable();
-  info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
-  info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
     info.m_address = GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet();
 
   if (ftypes::IsBookingChecker::Instance()(ft))
     info.m_isSponsoredHotel = true;
+
+  info.m_isEditable = featureStatus != osm::Editor::FeatureStatus::Obsolete &&
+                      !info.IsSponsoredHotel();
+  info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
+  info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
@@ -2901,4 +2905,12 @@ bool Framework::RollBackChanges(FeatureID const & fid)
       UpdatePlacePageInfoForCurrentSelection();
   }
   return rolledBack;
+}
+
+void Framework::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
+                osm::Editor::NoteProblemType const type, string const & note)
+{
+  osm::Editor::Instance().CreateNote(latLon, fid, type, note);
+  if (type == osm::Editor::NoteProblemType::PlaceDoesNotExist)
+    DeactivateMapSelection(true);
 }
