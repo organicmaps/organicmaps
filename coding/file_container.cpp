@@ -3,6 +3,8 @@
 #include "coding/write_to_sink.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "std/cstring.hpp"
+
 #ifndef OMIM_OS_WINDOWS
   #include <errno.h>
   #include <stdio.h>
@@ -122,7 +124,7 @@ void MappedFile::Open(string const & fName)
 #else
   m_fd = open(fName.c_str(), O_RDONLY | O_NONBLOCK);
   if (m_fd == -1)
-    MYTHROW(Reader::OpenException, ("Can't open file:", fName));
+    MYTHROW(Reader::OpenException, ("Can't open file:", fName, ", reason:", strerror(errno)));
 #endif
 }
 

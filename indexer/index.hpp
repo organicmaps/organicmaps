@@ -20,23 +20,15 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-
-class MwmInfoEx : public MwmInfo
-{
-public:
-  unique_ptr<feature::FeaturesOffsetsTable> m_table;
-};
-
 class MwmValue : public MwmSet::MwmValueBase
 {
 public:
   FilesContainerR const m_cont;
   IndexFactory m_factory;
   platform::LocalCountryFile const m_file;
-  feature::FeaturesOffsetsTable const * m_table;
+  unique_ptr<feature::FeaturesOffsetsTable> m_table;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
-  void SetTable(MwmInfoEx & info);
 
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
   inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
@@ -97,7 +89,7 @@ private:
         covering::IntervalsT const & interval = cov.Get(lastScale);
 
         // Prepare features reading.
-        FeaturesVector const fv(pValue->m_cont, header, pValue->m_table);
+        FeaturesVector const fv(pValue->m_cont, header, pValue->m_table.get());
         ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
                                          pValue->m_factory);
 
@@ -224,7 +216,8 @@ public:
       if (handle.IsAlive())
       {
         MwmValue const * pValue = handle.GetValue<MwmValue>();
-        FeaturesVector const featureReader(pValue->m_cont, pValue->GetHeader(), pValue->m_table);
+        FeaturesVector const featureReader(pValue->m_cont, pValue->GetHeader(),
+                                           pValue->m_table.get());
         do
         {
           osm::Editor::FeatureStatus const fts = editor.GetFeatureStatus(id, fidIter->m_index);

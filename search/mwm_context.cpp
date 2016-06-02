@@ -12,7 +12,7 @@ void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
 MwmContext::MwmContext(MwmSet::MwmHandle handle)
   : m_handle(move(handle))
   , m_value(*m_handle.GetValue<MwmValue>())
-  , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_table)
+  , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_table.get())
   , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG), m_value.m_factory)
 {
 }
