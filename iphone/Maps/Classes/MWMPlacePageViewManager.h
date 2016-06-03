@@ -29,6 +29,8 @@
 - (void)addPlace;
 - (void)addBookmark;
 - (void)removeBookmark;
+- (void)book;
+- (void)call;
 - (void)apiBack;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)viewWillTransitionToSize:(CGSize)size

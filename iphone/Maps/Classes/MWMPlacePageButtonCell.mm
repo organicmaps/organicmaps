@@ -1,7 +1,10 @@
+#import "LocationManager.h"
+#import "MapsAppDelegate.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageButtonCell.h"
+#import "MWMPlacePageEntity.h"
+#import "MWMPlacePageViewManager.h"
 #import "Statistics.h"
-
 #import "UIColor+MapsMeColor.h"
 
 @interface MWMPlacePageButtonCell ()
@@ -55,8 +58,27 @@
     [self.placePage addPlace];
     break;
   case MWMPlacePageCellTypeBookingMore:
+  {
+    NSMutableDictionary * stat = [@{kStatProvider : kStatBooking} mutableCopy];
+    LocationManager * lm = MapsAppDelegate.theApp.locationManager;
+    if (lm.lastLocationIsValid)
+    {
+      CLLocation * loc = lm.lastLocation;
+      stat[kStatLat] = @(loc.coordinate.latitude);
+      stat[kStatLon] = @(loc.coordinate.longitude);
+    }
+    else
+    {
+      stat[kStatLat] = @0;
+      stat[kStatLon] = @0;
+    }
+    MWMPlacePageEntity * en = self.placePage.manager.entity;
+    auto const latLon = en.latlon;
+    stat[kStatHotel] = @{kStatName : en.title, kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)};
+    [Statistics logEvent:kPlacePageHotelDetails withParameters:stat];
     [self.placePage bookingMore];
     break;
+  }
   default:
     NSAssert(false, @"Incorrect cell type!");
     break;

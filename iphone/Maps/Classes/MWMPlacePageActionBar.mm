@@ -174,22 +174,11 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
     [self.placePageManager apiBack];
     break;
   case EButton::Booking:
-  {
-    UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
-    NSString * urlString = [self.placePageManager.entity getCellValue:MWMPlacePageCellTypeBookingMore];
-    NSAssert(urlString, @"Booking url can't be nil!");
-    NSURL * url = [NSURL URLWithString:urlString];
-    [vc openUrl:url];
+    [self.placePageManager book];
     break;
-  }
   case EButton::Call:
-  {
-    NSString * tel = [self.placePageManager.entity getCellValue:MWMPlacePageCellTypePhoneNumber];
-    NSAssert(tel, @"Phone number can't be nil!");
-    NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:tel] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    [self.placePageManager call];
     break;
-  }
   case EButton::Bookmark:
     if (self.isBookmark)
       [self.placePageManager removeBookmark];

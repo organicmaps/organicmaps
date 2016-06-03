@@ -246,6 +246,40 @@ extern NSString * const kBookmarksChangedNotification;
                               anchorView:self.placePage.actionBar.shareAnchor];
 }
 
+- (void)book
+{
+  NSMutableDictionary * stat = [@{kStatProvider : kStatBooking} mutableCopy];
+  LocationManager * lm = MapsAppDelegate.theApp.locationManager;
+  if (lm.lastLocationIsValid)
+  {
+    CLLocation * loc = lm.lastLocation;
+    stat[kStatLat] = @(loc.coordinate.latitude);
+    stat[kStatLon] = @(loc.coordinate.longitude);
+  }
+  else
+  {
+    stat[kStatLat] = @0;
+    stat[kStatLon] = @0;
+  }
+  MWMPlacePageEntity * en = self.entity;
+  auto const latLon = en.latlon;
+  stat[kStatHotel] = @{kStatName : en.title, kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)};
+  [Statistics logEvent:kPlacePageHotelBook withParameters:stat];
+  UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
+  NSString * urlString = [self.entity getCellValue:MWMPlacePageCellTypeBookingMore];
+  NSAssert(urlString, @"Booking url can't be nil!");
+  NSURL * url = [NSURL URLWithString:urlString];
+  [vc openUrl:url];
+}
+
+- (void)call
+{
+  NSString * tel = [self.entity getCellValue:MWMPlacePageCellTypePhoneNumber];
+  NSAssert(tel, @"Phone number can't be nil!");
+  NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:tel] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+}
+
 - (void)apiBack
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
