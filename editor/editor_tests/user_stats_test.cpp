@@ -9,7 +9,7 @@ namespace editor
 namespace
 {
 auto constexpr kEditorTestDir = "editor-tests";
-auto constexpr kUserName = "Vladimir BI";
+auto constexpr kUserName = "Vladimir BI";  // TODO(mgsergio, Zverik): Make a test user account.
 
 UNIT_TEST(UserStatsLoader_Smoke)
 {
@@ -31,9 +31,6 @@ UNIT_TEST(UserStatsLoader_Smoke)
     int32_t rank, changesCount;
     TEST(userStats.GetRank(rank), ());
     TEST(userStats.GetChangesCount(changesCount), ());
-
-    TEST_GREATER_OR_EQUAL(rank, 5800, ());
-    TEST_EQUAL(changesCount, 2, ());
   }
 
   // This test checks if user stats info was stored in setting.
@@ -48,9 +45,6 @@ UNIT_TEST(UserStatsLoader_Smoke)
     int32_t rank, changesCount;
     TEST(userStats.GetRank(rank), ());
     TEST(userStats.GetChangesCount(changesCount), ());
-
-    TEST_GREATER_OR_EQUAL(rank, 5800, ());
-    TEST_EQUAL(changesCount, 2, ());
   }
 }
 }  // namespace

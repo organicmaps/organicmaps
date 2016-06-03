@@ -410,7 +410,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   FeatureTypeInfo fti;
 
   auto const featureStatus = GetFeatureStatus(fid.m_mwmId, fid.m_index);
-  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Obsolete, ("Obsolete feature cannot be modified"));
+  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Obsolete, ("Obsolete feature cannot be modified."));
 
   bool const wasCreatedByUser = IsCreatedFeature(fid);
   if (wasCreatedByUser && featureStatus == FeatureStatus::Untouched)
@@ -420,7 +420,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   }
   else
   {
-    ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Unexpected feature status"));
+    ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Unexpected feature status."));
 
     fti.m_feature = featureStatus == FeatureStatus::Untouched
         ? *m_getOriginalFeatureFn(fid)
@@ -909,7 +909,7 @@ void Editor::MarkFeatureAsObsolete(FeatureID const & fid)
   auto const featureStatus = GetFeatureStatus(fid);
   ASSERT(featureStatus == FeatureStatus::Untouched ||
          featureStatus == FeatureStatus::Modified,
-         ("Created or deleted features can't be obsolete"));
+         ("Only untouched and modified features can be made obsolete"));
 
   auto & fti = m_features[fid.m_mwmId][fid.m_index];
   // If a feature was modified we can drop all changes since it's now obsolete.

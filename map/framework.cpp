@@ -735,7 +735,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 {
   auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
   ASSERT_NOT_EQUAL(featureStatus, osm::Editor::FeatureStatus::Deleted,
-                   ("Deleted features cannot be selected from UI"));
+                   ("Deleted features cannot be selected from UI."));
   info.SetFromFeatureType(ft);
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
@@ -1757,7 +1757,7 @@ bool Framework::ShowMapForURL(string const & url)
   if (result != FAILED)
   {
     // Always hide current map selection.
-    DeactivateMapSelection(true);
+    DeactivateMapSelection(true /* notifyUI */);
 
     // set viewport and stop follow mode if any
     StopLocationFollow();
@@ -2000,7 +2000,7 @@ void Framework::OnTapEvent(df::TapInfo const & tapInfo)
     alohalytics::Stats::Instance().LogEvent(somethingWasAlreadySelected ? "$DelectMapObject" : "$EmptyTapOnMap");
     // UI is always notified even if empty map is tapped,
     // because empty tap event switches on/off full screen map view mode.
-    DeactivateMapSelection(true);
+    DeactivateMapSelection(true /* notifyUI */);
   }
 }
 
@@ -2900,7 +2900,7 @@ bool Framework::RollBackChanges(FeatureID const & fid)
   if (rolledBack)
   {
     if (status == osm::Editor::FeatureStatus::Created)
-      DeactivateMapSelection(true);
+      DeactivateMapSelection(true /* notifyUI */);
     else
       UpdatePlacePageInfoForCurrentSelection();
   }
@@ -2908,9 +2908,9 @@ bool Framework::RollBackChanges(FeatureID const & fid)
 }
 
 void Framework::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
-                osm::Editor::NoteProblemType const type, string const & note)
+                           osm::Editor::NoteProblemType const type, string const & note)
 {
   osm::Editor::Instance().CreateNote(latLon, fid, type, note);
   if (type == osm::Editor::NoteProblemType::PlaceDoesNotExist)
-    DeactivateMapSelection(true);
+    DeactivateMapSelection(true /* notifyUI */);
 }

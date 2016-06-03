@@ -282,8 +282,9 @@ void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
   auto const & editor = osm::Editor::Instance();
   m_hasPoint = true;
   m_hasArea = hasArea;
-  m_createdByEditor = editor.GetFeatureStatus(m_id) == osm::Editor::FeatureStatus::Created;
-  m_obsoleteInEditor = editor.GetFeatureStatus(m_id) == osm::Editor::FeatureStatus::Obsolete;
+  auto const featureStatus = editor.GetFeatureStatus(m_id);
+  m_createdByEditor = featureStatus == osm::Editor::FeatureStatus::Created;
+  m_obsoleteInEditor = featureStatus == osm::Editor::FeatureStatus::Obsolete;
   m_centerPoint = point;
 }
 
