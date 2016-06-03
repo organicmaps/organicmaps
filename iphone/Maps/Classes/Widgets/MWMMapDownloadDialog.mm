@@ -115,7 +115,7 @@ using namespace storage;
     self.parentNode.hidden = hideParent;
     self.nodeTopOffset.priority = hideParent ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
     if (!hideParent)
-      self.parentNode.text = @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
+      self.parentNode.text = @(nodeAttrs.m_topmostParentInfo[0].m_localName.c_str());
     self.node.text = @(nodeAttrs.m_nodeLocalName.c_str());
     self.nodeSize.hidden = platform::migrate::NeedMigrate();
     self.nodeSize.textColor = [UIColor blackSecondaryText];
