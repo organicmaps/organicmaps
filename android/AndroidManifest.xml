@@ -66,10 +66,6 @@
         android:value="@string/fb_app_id"/>
 
     <meta-data
-        android:name="com.parse.push.notification_icon"
-        android:resource="@drawable/ic_notification"/>
-
-    <meta-data
         android:name="io.fabric.ApiKey"
         android:value="${FABRIC_API_KEY}"/>
 
@@ -334,35 +330,6 @@
         android:exported="true">
       <intent-filter>
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-      </intent-filter>
-    </receiver>
-
-    <!-- Parse -->
-    <service android:name="com.parse.PushService"/>
-
-    <receiver android:name="com.parse.ParseBroadcastReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED"/>
-        <action android:name="android.intent.action.USER_PRESENT"/>
-      </intent-filter>
-    </receiver>
-    <receiver
-        android:name="com.parse.ParsePushBroadcastReceiver"
-        android:exported="false">
-      <intent-filter>
-        <action android:name="com.parse.push.intent.RECEIVE"/>
-        <action android:name="com.parse.push.intent.DELETE"/>
-        <action android:name="com.parse.push.intent.OPEN"/>
-      </intent-filter>
-    </receiver>
-    <receiver
-        android:name="com.parse.GcmBroadcastReceiver"
-        android:permission="com.google.android.c2dm.permission.SEND">
-      <intent-filter>
-        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-        <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
-
-        <category android:name="${applicationId}"/>
       </intent-filter>
     </receiver>
 

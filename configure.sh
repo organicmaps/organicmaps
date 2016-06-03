@@ -34,8 +34,6 @@ else
 #define MY_TRACKER_KEY ""
 #define MY_TARGET_KEY ""
 #define PUSHWOOSH_APPLICATION_ID ""
-#define PARSE_APPLICATION_ID ""
-#define PARSE_CLIENT_KEY ""
 #define OSM_CONSUMER_KEY ""
 #define OSM_CONSUMER_SECRET ""
 #define MWM_GEOLOCATION_SERVER ""

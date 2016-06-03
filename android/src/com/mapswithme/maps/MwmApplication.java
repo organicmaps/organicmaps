@@ -31,26 +31,13 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
-import com.parse.GcmBroadcastReceiver;
-import com.parse.Parse;
-import com.parse.ParseBroadcastReceiver;
-import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.ParsePushBroadcastReceiver;
-import com.parse.PushService;
-import com.parse.SaveCallback;
 import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
 
 public class MwmApplication extends Application
 {
   private final static String TAG = "MwmApplication";
-
-  // Parse
-  private static final String PREF_PARSE_DEVICE_TOKEN = "ParseDeviceToken";
-  private static final String PREF_PARSE_INSTALLATION_ID = "ParseInstallationId";
 
   private static MwmApplication sSelf;
   private SharedPreferences mPrefs;
@@ -121,7 +108,6 @@ public class MwmApplication extends Application
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
-    initParse();
     mBackgroundTracker = new AppBackgroundTracker();
     TrackRecorder.init();
     Editor.init();
@@ -236,56 +222,6 @@ public class MwmApplication extends Application
   static
   {
     System.loadLibrary("mapswithme");
-  }
-
-  /*
-   * init Parse SDK
-   */
-  private void initParse()
-  {
-    // Do not initialize Parse in default open-source version.
-    final String appId = PrivateVariables.parseApplicationId();
-    if (appId.isEmpty())
-    {
-      PackageManager pm = getPackageManager();
-
-      ComponentName c = new ComponentName(this, PushService.class);
-      if (pm.getComponentEnabledSetting(c) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
-      {
-        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-
-        c = new ComponentName(this, ParseBroadcastReceiver.class);
-        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-        c = new ComponentName(this, ParsePushBroadcastReceiver.class);
-        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-        c = new ComponentName(this, GcmBroadcastReceiver.class);
-        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-      }
-      return;
-    }
-
-    Parse.initialize(this, appId, PrivateVariables.parseClientKey());
-    ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback()
-    {
-      @Override
-      public void done(ParseException e)
-      {
-        SharedPreferences prefs = prefs();
-        String previousId = prefs.getString(PREF_PARSE_INSTALLATION_ID, "");
-        String previousToken = prefs.getString(PREF_PARSE_DEVICE_TOKEN, "");
-
-        String newId = ParseInstallation.getCurrentInstallation().getInstallationId();
-        String newToken = ParseInstallation.getCurrentInstallation().getString("deviceToken");
-        if (!previousId.equals(newId) || !previousToken.equals(newToken))
-        {
-          org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_INSTALLATION_ID, newId);
-          org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_DEVICE_TOKEN, newToken);
-          prefs.edit()
-                  .putString(PREF_PARSE_INSTALLATION_ID, newId)
-                  .putString(PREF_PARSE_DEVICE_TOKEN, newToken).apply();
-        }
-      }
-    });
   }
 
   public void initCounters()

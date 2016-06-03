@@ -23,18 +23,6 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_PrivateVariables_parseApplicationId(JNIEnv * env, jclass clazz)
-  {
-    return env->NewStringUTF(PARSE_APPLICATION_ID);
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_PrivateVariables_parseClientKey(JNIEnv * env, jclass clazz)
-  {
-    return env->NewStringUTF(PARSE_CLIENT_KEY);
-  }
-
-  JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_PrivateVariables_myTargetSlot(JNIEnv * env, jclass clazz)
   {
     return env->NewStringUTF(MY_TARGET_KEY);
