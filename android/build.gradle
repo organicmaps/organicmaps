@@ -47,6 +47,7 @@ dependencies {
   // 3-party
   compile 'com.facebook.android:facebook-android-sdk:4.8.0'
   compile 'com.google.code.gson:gson:2.6.1'
+  compile 'com.pushwoosh:pushwoosh:4.1.3'
   compile fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   compile project(":3rd_party:BottomSheet")
@@ -92,6 +93,13 @@ android {
     props.load(new FileInputStream("${projectDir}/fabric.properties"));
     manifestPlaceholders = [ 'FABRIC_API_KEY': props['apiKey'] ]
     buildConfigField 'String', 'FABRIC_API_KEY', /"${props['apiKey']}"/
+
+    // PushWoosh keys
+    Properties pwProps = new Properties()
+    pwProps.load(new FileInputStream("${projectDir}/pushwoosh.properties"));
+    manifestPlaceholders += [ 'PW_APPID': pwProps['pwAppId'] ]
+    buildConfigField 'String', 'PW_APPID', /"${pwProps['pwAppId']}"/
+    manifestPlaceholders += [ 'PW_PROJECT_ID': pwProps['pwProjectId'] ]
   }
 
   sourceSets.main {

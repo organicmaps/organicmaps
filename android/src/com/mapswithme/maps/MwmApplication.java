@@ -1,9 +1,7 @@
 package com.mapswithme.maps;
 
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.os.Handler;
@@ -32,12 +30,16 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
+import com.pushwoosh.PushManager;
+
 import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
 
 public class MwmApplication extends Application
 {
   private final static String TAG = "MwmApplication";
+
+  private static final String PW_EMPTY_APP_ID = "XXXXX";
 
   private static MwmApplication sSelf;
   private SharedPreferences mPrefs;
@@ -102,6 +104,7 @@ public class MwmApplication extends Application
 
     initHockeyApp();
     initCrashlytics();
+    initPushWoosh();
 
     initPaths();
     nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
@@ -222,6 +225,25 @@ public class MwmApplication extends Application
   static
   {
     System.loadLibrary("mapswithme");
+  }
+
+  private void initPushWoosh()
+  {
+    try
+    {
+      if (BuildConfig.PW_APPID.equals(PW_EMPTY_APP_ID))
+        return;
+
+      PushManager pushManager = PushManager.getInstance(this);
+
+      pushManager.onStartup(this);
+      pushManager.registerForPushNotifications();
+      pushManager.startTrackingGeoPushes();
+    }
+    catch(Exception e)
+    {
+      Log.e("Pushwoosh", e.getLocalizedMessage());
+    }
   }
 
   public void initCounters()

@@ -69,6 +69,18 @@
         android:name="io.fabric.ApiKey"
         android:value="${FABRIC_API_KEY}"/>
 
+    <meta-data
+        android:name="PW_APPID"
+        android:value="${PW_APPID}" />
+
+    <meta-data
+        android:name="PW_PROJECT_ID"
+        android:value="${PW_PROJECT_ID}" />
+
+    <!--meta-data
+        android:name="PW_LOG_LEVEL"
+        android:value="ERROR" /-->
+
     <activity
         android:name="com.mapswithme.maps.DownloadResourcesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
@@ -332,6 +344,44 @@
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
       </intent-filter>
     </receiver>
+
+    <!-- PushWoosh -->
+    <activity android:name="com.pushwoosh.richpages.RichPageActivity" />
+    <activity android:name="com.pushwoosh.MessageActivity" />
+    <activity android:name="com.pushwoosh.PushHandlerActivity" />
+
+    <receiver
+        android:name="com.google.android.gms.gcm.GcmReceiver"
+        android:exported="true"
+        android:permission="com.google.android.c2dm.permission.SEND" >
+      <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        <category android:name="${applicationId}" />
+      </intent-filter>
+    </receiver>
+
+    <service
+        android:name="com.pushwoosh.GCMListenerService"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+      </intent-filter>
+    </service>
+
+    <service
+        android:name="com.pushwoosh.GCMInstanceIDListenerService"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.google.android.gms.iid.InstanceID"/>
+      </intent-filter>
+    </service>
+
+    <service
+        android:name="com.pushwoosh.GCMRegistrationService"
+        android:exported="false" />
+
+    <service
+        android:name="com.pushwoosh.location.GeoLocationService" />
 
     <!-- Catches app upgraded intent -->
     <receiver android:name=".background.UpgradeReceiver">
