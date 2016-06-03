@@ -601,13 +601,15 @@ BicycleModel::BicycleModel(VehicleModel::InitListT const & speedLimits)
 
 void BicycleModel::Init()
 {
-  // @TODO(bykoianko) Uncomment line below what tags hwtag=nobicycle and hwtag=yesbicycle
-  // will be added to classificator.txt. (https://jira.mail.ru/browse/MAPSME-858)
-//  m_noBicycleType = classif().GetTypeByPath({ "hwtag", "nobicycle" });
-//  m_yesBicycleType = classif().GetTypeByPath({ "hwtag", "yesbicycle" });
+  initializer_list<char const *> hwtagYesbicycle = { "hwtag", "yesbicycle" };
+
+  m_yesBicycleType = classif().GetTypeByPath(hwtagYesbicycle);
+  m_noBicycleType = classif().GetTypeByPath({ "hwtag", "nobicycle" });
+  m_bicycleBidirType = classif().GetTypeByPath({ "hwtag", "bicycle_bidir" });
 
   initializer_list<char const *> arr[] =
   {
+    hwtagYesbicycle,
     { "route", "ferry" },
     { "man_made", "pier" },
   };
@@ -625,16 +627,43 @@ bool BicycleModel::IsYesBicycle(feature::TypesHolder const & types) const
   return find(types.begin(), types.end(), m_yesBicycleType) != types.end();
 }
 
+bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
+{
+  return find(types.begin(), types.end(), m_bicycleBidirType) != types.end();
+}
+
 double BicycleModel::GetSpeed(FeatureType const & f) const
 {
   feature::TypesHolder types(f);
 
   if (IsYesBicycle(types))
     return VehicleModel::GetMaxSpeed();
-  if (!IsNoBicycle(types) && IsRoad(types))
-    return VehicleModel::GetSpeed(types);
+  if (!IsNoBicycle(types) && HasRoadType(types))
+    return VehicleModel::GetMinTypeSpeed(types);
 
   return 0.0;
+}
+
+bool BicycleModel::IsOneWay(FeatureType const & f) const
+{
+  feature::TypesHolder const types(f);
+
+  if (IsBicycleBidir(types))
+    return false;
+
+  return VehicleModel::IsOneWay(f);
+}
+
+bool BicycleModel::IsRoad(FeatureType const & f) const
+{
+  if (f.GetFeatureType() != feature::GEOM_LINE)
+    return false;
+
+  feature::TypesHolder types(f);
+
+  if (IsNoBicycle(types))
+    return false;
+  return VehicleModel::HasRoadType(types);
 }
 
 BicycleModelFactory::BicycleModelFactory()

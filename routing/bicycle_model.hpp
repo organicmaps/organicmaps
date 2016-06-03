@@ -14,10 +14,10 @@ public:
   BicycleModel();
   BicycleModel(VehicleModel::InitListT const & speedLimits);
 
-  /// @name Overrides from VehicleModel.
-  //@{
+  /// VehicleModel overrides.
   double GetSpeed(FeatureType const & f) const override;
-  //@}
+  bool IsOneWay(FeatureType const & f) const override;
+  bool IsRoad(FeatureType const & f) const override;
 
 private:
   void Init();
@@ -30,8 +30,13 @@ private:
   /// but if function returns false, real allowance is unknown.
   bool IsYesBicycle(feature::TypesHolder const & types) const;
 
+  /// @return true if it is allowed to ride bicycle in two directions,
+  /// but if function returns false, real allowance is unknown.
+  bool IsBicycleBidir(feature::TypesHolder const & types) const;
+
   uint32_t m_noBicycleType = 0;
   uint32_t m_yesBicycleType = 0;
+  uint32_t m_bicycleBidirType = 0;
 };
 
 class BicycleModelFactory : public IVehicleModelFactory

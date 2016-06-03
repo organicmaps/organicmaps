@@ -21,6 +21,8 @@ routing::VehicleModel::InitListT const s_testLimits = {
 
 class TestVehicleModel : public routing::VehicleModel
 {
+  friend void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue);
+  friend void CheckSpeed(initializer_list<uint32_t> const & types, double expectedSpeed);
 public:
   TestVehicleModel() : VehicleModel(classif(), s_testLimits) {}
 };
@@ -44,7 +46,7 @@ void CheckSpeed(initializer_list<uint32_t> const & types, double expectedSpeed)
   for (uint32_t t : types)
     h(t);
 
-  TEST_EQUAL(vehicleModel.GetSpeed(h), expectedSpeed, ());
+  TEST_EQUAL(vehicleModel.GetMinTypeSpeed(h), expectedSpeed, ());
 }
 
 void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
@@ -54,9 +56,8 @@ void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
   for (uint32_t t : types)
     h(t);
 
-  TEST_EQUAL(vehicleModel.IsOneWay(h), expectedValue, ());
+  TEST_EQUAL(vehicleModel.HasOneWayType(h), expectedValue, ());
 }
-
 }  // namespace
 
 UNIT_TEST(VehicleModel_MaxSpeed)

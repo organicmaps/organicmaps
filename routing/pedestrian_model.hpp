@@ -14,11 +14,10 @@ public:
   PedestrianModel();
   PedestrianModel(VehicleModel::InitListT const & speedLimits);
 
-  /// @name Overrides from VehicleModel.
-  //@{
+  /// VehicleModel overrides.
   double GetSpeed(FeatureType const & f) const override;
   bool IsOneWay(FeatureType const &) const override { return false; }
-  //@}
+  bool IsRoad(FeatureType const & f) const override;
 
 private:
   void Init();
@@ -49,5 +48,4 @@ public:
 private:
   unordered_map<string, shared_ptr<IVehicleModel>> m_models;
 };
-
 }  // namespace routing

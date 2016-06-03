@@ -32,10 +32,10 @@ void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
 
 double VehicleModel::GetSpeed(FeatureType const & f) const
 {
-  return GetSpeed(feature::TypesHolder(f));
+  return GetMinTypeSpeed(feature::TypesHolder(f));
 }
 
-double VehicleModel::GetSpeed(feature::TypesHolder const & types) const
+double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
 {
   double speed = m_maxSpeedKMpH * 2;
   for (uint32_t t : types)
@@ -53,20 +53,20 @@ double VehicleModel::GetSpeed(feature::TypesHolder const & types) const
 
 bool VehicleModel::IsOneWay(FeatureType const & f) const
 {
-  return IsOneWay(feature::TypesHolder(f));
+  return HasOneWayType(feature::TypesHolder(f));
 }
 
-bool VehicleModel::IsOneWay(feature::TypesHolder const & types) const
+bool VehicleModel::HasOneWayType(feature::TypesHolder const & types) const
 {
   return types.Has(m_onewayType);
 }
 
 bool VehicleModel::IsRoad(FeatureType const & f) const
 {
-  return (f.GetFeatureType() == feature::GEOM_LINE) && IsRoad(feature::TypesHolder(f));
+  return (f.GetFeatureType() == feature::GEOM_LINE) && HasRoadType(feature::TypesHolder(f));
 }
 
-bool VehicleModel::IsRoad(uint32_t type) const
+bool VehicleModel::IsRoadType(uint32_t type) const
 {
   return find(m_addRoadTypes.begin(), m_addRoadTypes.end(), type) != m_addRoadTypes.end() ||
          m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end();
