@@ -19,12 +19,23 @@
 #include "std/limits.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-
+#include "std/weak_ptr.hpp"
 
 class MwmInfoEx : public MwmInfo
 {
-public:
-  unique_ptr<feature::FeaturesOffsetsTable> m_table;
+private:
+  friend class Index;
+  friend class MwmValue;
+
+  // weak_ptr is needed here to access offsets table in already
+  // instantiated MwmValue-s for the MWM, including MwmValues in the
+  // MwmSet's cache. We can't use shared_ptr because of offsets table
+  // must be removed as soon as the last corresponding MwmValue is
+  // destroyed. Also, note that this value must be used and modified
+  // only in MwmValue::SetTable() method, which, in turn, is called
+  // only in the MwmSet critical section, protected by a lock.  So,
+  // there's an implicit synchronization on this field.
+  weak_ptr<feature::FeaturesOffsetsTable> m_table;
 };
 
 class MwmValue : public MwmSet::MwmValueBase
@@ -33,7 +44,8 @@ public:
   FilesContainerR const m_cont;
   IndexFactory m_factory;
   platform::LocalCountryFile const m_file;
-  feature::FeaturesOffsetsTable const * m_table;
+
+  shared_ptr<feature::FeaturesOffsetsTable> m_table;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   void SetTable(MwmInfoEx & info);
@@ -97,7 +109,7 @@ private:
         covering::IntervalsT const & interval = cov.Get(lastScale);
 
         // Prepare features reading.
-        FeaturesVector const fv(pValue->m_cont, header, pValue->m_table);
+        FeaturesVector const fv(pValue->m_cont, header, pValue->m_table.get());
         ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
                                          pValue->m_factory);
 
@@ -226,7 +238,8 @@ public:
       if (handle.IsAlive())
       {
         MwmValue const * pValue = handle.GetValue<MwmValue>();
-        FeaturesVector const featureReader(pValue->m_cont, pValue->GetHeader(), pValue->m_table);
+        FeaturesVector const featureReader(pValue->m_cont, pValue->GetHeader(),
+                                           pValue->m_table.get());
         do
         {
           osm::Editor::FeatureStatus const fts = editor.GetFeatureStatus(id, fidIter->m_index);
@@ -255,6 +268,7 @@ public:
   }
 
   /// Guard for loading features from particular MWM by demand.
+  /// @note This guard is suitable when mwm is loaded.
   class FeaturesLoaderGuard
   {
   public:

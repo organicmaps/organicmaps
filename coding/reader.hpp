@@ -19,6 +19,7 @@ public:
   DECLARE_EXCEPTION(OpenException, Exception);
   DECLARE_EXCEPTION(SizeException, Exception);
   DECLARE_EXCEPTION(ReadException, Exception);
+  DECLARE_EXCEPTION(TooManyFilesException, Exception);
 
   virtual ~Reader() {}
   virtual uint64_t Size() const = 0;

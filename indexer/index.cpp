@@ -17,9 +17,7 @@ using platform::LocalCountryFile;
 //////////////////////////////////////////////////////////////////////////////////
 
 MwmValue::MwmValue(LocalCountryFile const & localFile)
-    : m_cont(platform::GetCountryReader(localFile, MapOptions::Map)),
-      m_file(localFile),
-      m_table(0)
+  : m_cont(platform::GetCountryReader(localFile, MapOptions::Map)), m_file(localFile)
 {
   m_factory.Load(m_cont);
 }
@@ -30,14 +28,15 @@ void MwmValue::SetTable(MwmInfoEx & info)
   if (version < version::Format::v5)
     return;
 
-  if (!info.m_table)
+  m_table = info.m_table.lock();
+  if (!m_table)
   {
     if (version == version::Format::v5)
-      info.m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_file, m_cont);
+      m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_file, m_cont);
     else
-      info.m_table = feature::FeaturesOffsetsTable::Load(m_cont);
+      m_table = feature::FeaturesOffsetsTable::Load(m_cont);
+    info.m_table = m_table;
   }
-  m_table = info.m_table.get();
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +51,7 @@ unique_ptr<MwmInfo> Index::CreateInfo(platform::LocalCountryFile const & localFi
   if (!h.IsMWMSuitable())
     return nullptr;
 
-  unique_ptr<MwmInfoEx> info(new MwmInfoEx());
+  auto info = make_unique<MwmInfoEx>();
   info->m_limitRect = h.GetBounds();
 
   pair<int, int> const scaleR = h.GetScaleRange();
@@ -85,11 +84,9 @@ bool Index::DeregisterMap(CountryFile const & countryFile) { return Deregister(c
 //////////////////////////////////////////////////////////////////////////////////
 
 Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId const & id)
-    : m_handle(parent.GetMwmHandleById(id)),
-      /// @note This guard is suitable when mwm is loaded
-      m_vector(m_handle.GetValue<MwmValue>()->m_cont,
-               m_handle.GetValue<MwmValue>()->GetHeader(),
-               m_handle.GetValue<MwmValue>()->m_table)
+  : m_handle(parent.GetMwmHandleById(id))
+  , m_vector(m_handle.GetValue<MwmValue>()->m_cont, m_handle.GetValue<MwmValue>()->GetHeader(),
+             m_handle.GetValue<MwmValue>()->m_table.get())
 {
 }
 

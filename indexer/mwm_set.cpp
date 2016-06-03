@@ -1,7 +1,7 @@
 #include "indexer/mwm_set.hpp"
 #include "indexer/scales.hpp"
 
-#include "defines.hpp"
+#include "coding/reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
@@ -11,6 +11,7 @@
 #include "std/algorithm.hpp"
 #include "std/sstream.hpp"
 
+#include "defines.hpp"
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
@@ -162,6 +163,14 @@ bool MwmSet::DeregisterImpl(MwmId const & id, EventList & events)
     SetStatus(*info, MwmInfo::STATUS_DEREGISTERED, events);
     vector<shared_ptr<MwmInfo>> & infos = m_info[info->GetCountryName()];
     infos.erase(remove(infos.begin(), infos.end(), info), infos.end());
+    for (auto it = m_cache.begin(); it != m_cache.end(); ++it)
+    {
+      if (it->first == id)
+      {
+        m_cache.erase(it);
+        break;
+      }
+    }
     return true;
   }
 
@@ -283,6 +292,12 @@ unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id, EventLi
   try
   {
     return CreateValue(*info);
+  }
+  catch (Reader::TooManyFilesException const & ex)
+  {
+    LOG(LERROR, ("Too many open files, can't open:", info->GetCountryName()));
+    --info->m_numRefs;
+    return nullptr;
   }
   catch (exception const & ex)
   {
