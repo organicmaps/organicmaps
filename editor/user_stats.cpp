@@ -6,9 +6,8 @@
 #include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"
+#include "base/thread.hpp"
 #include "base/timer.hpp"
-
-#include "std/thread.hpp"
 
 #include "3party/Alohalytics/src/http_client.h"
 #include "3party/pugixml/src/pugixml.hpp"
@@ -144,7 +143,7 @@ void UserStatsLoader::Update(string const & userName, UpdatePolicy const policy,
     return;
   }
 
-  thread([this, userName, fn] {
+  threads::SimpleThread([this, userName, fn] {
     if (Update(userName))
       GetPlatform().RunOnGuiThread(fn);
   }).detach();
