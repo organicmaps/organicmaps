@@ -1,6 +1,6 @@
 <!DOCTYPE skin>
 <root>
- <file height="2048" width="2048">
+ <file width="2048" height="2048">
   <symbol minX="0" maxX="208" minY="0" maxY="304" name="route_to"/>
   <symbol minX="208" maxX="302" minY="0" maxY="256" name="route_from"/>
   <symbol minX="302" maxX="705" minY="0" maxY="196" name="route-arrow"/>
