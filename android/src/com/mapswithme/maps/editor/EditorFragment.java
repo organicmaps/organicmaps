@@ -431,6 +431,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       break;
     case Editor.DELETED:
       throw new IllegalStateException("Can't delete already deleted feature.");
+    case Editor.OBSOLETE:
+      throw new IllegalStateException("Obsolete objects cannot be reverted.");
     }
   }
 
@@ -455,6 +457,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       break;
     case Editor.DELETED:
       throw new IllegalStateException("Can't delete already deleted feature.");
+    case Editor.OBSOLETE:
+      throw new IllegalStateException("Obsolete objects cannot be reverted.");
     }
   }
 

@@ -687,7 +687,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     else
     {
       UiUtils.showIf(Editor.nativeIsFeatureEditable(), mEditPlace);
-      UiUtils.showIf(Framework.nativeIsActiveObjectABuilding(), mAddOrganisation);
+      UiUtils.showIf(Framework.nativeIsActiveObjectABuilding() &&
+                     Editor.nativeGetMapObjectStatus() != Editor.OBSOLETE, mAddOrganisation);
       UiUtils.showIf(Framework.nativeCanAddPlaceFromPlacePage(), mAddPlace);
     }
 

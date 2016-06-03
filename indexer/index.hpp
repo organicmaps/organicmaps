@@ -116,7 +116,9 @@ private:
                 FeatureType feature;
                 switch (m_editor.GetFeatureStatus(mwmID, index))
                 {
-                case osm::Editor::FeatureStatus::Deleted: return;
+                case osm::Editor::FeatureStatus::Deleted:
+                case osm::Editor::FeatureStatus::Obsolete:
+                  return;
                 case osm::Editor::FeatureStatus::Modified:
                   VERIFY(m_editor.GetEditedFeature(mwmID, index, feature), ());
                   m_f(feature);

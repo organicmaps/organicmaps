@@ -117,7 +117,7 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
 
-  if (m_params.m_deletedInEditor)
+  if (m_params.m_obsoleteInEditor)
   {
     dp::TextureManager::ColorRegion maskColorRegion;
     textures->GetColorRegion(kDeletedColorMask, maskColorRegion);
@@ -134,7 +134,7 @@ uint64_t PoiSymbolShape::GetOverlayPriority() const
   // Set up maximum priority for shapes which created by user in the editor.
   if (m_params.m_createdByEditor)
     return dp::kPriorityMaskAll;
-  
+
   // Set up minimal priority for shapes which belong to areas.
   if (m_params.m_hasArea)
     return 0;

@@ -405,16 +405,16 @@ Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv *, jclass, j
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jstring text)
 {
-  Editor::Instance().CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
-                                osm::Editor::NoteProblemType::General, jni::ToNativeString(env, text));
+  g_framework->NativeFramework()->CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
+                                             osm::Editor::NoteProblemType::General, jni::ToNativeString(env, text));
 }
 
 // static void nativePlaceDoesNotExist(String comment);
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz, jstring comment)
 {
-  Editor::Instance().CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
-                                osm::Editor::NoteProblemType::PlaceDoesNotExist, jni::ToNativeString(env, comment));
+  g_framework->NativeFramework()->CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
+                                             osm::Editor::NoteProblemType::PlaceDoesNotExist, jni::ToNativeString(env, comment));
 }
 
 JNIEXPORT void JNICALL
@@ -528,7 +528,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetCategory(JNIEnv * env, jclass cl
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetMapObjectStatus(JNIEnv * env, jclass clazz)
 {
-  return static_cast<jint>(osm::Editor::Instance().GetFeatureStatus(g_editableMapObject.GetID().m_mwmId, g_editableMapObject.GetID().m_index));
+  return static_cast<jint>(osm::Editor::Instance().GetFeatureStatus(g_editableMapObject.GetID()));
 }
 
 JNIEXPORT jboolean JNICALL
