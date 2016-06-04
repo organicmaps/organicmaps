@@ -11,7 +11,6 @@ from datetime import datetime
 # - Fix bounds reading in the header
 # - Fix delta point encoding (coords are plausible, but incorrect)
 # - Find why polygon geometry is incorrect in iter_features()
-# - Multilang string reading
 # - Find feature ids in the 'dat' section, or find a way to read the 'offs' section
 
 class MWM:
@@ -388,6 +387,36 @@ class MWM:
         return self.f.read(sz)
 
     def read_multilang(self):
+        def find_multilang_next(s, i):
+            i += 1
+            while i < len(s):
+                c = struct.unpack('B', s[i])[0]
+                if c & 0xC0 == 0x80:
+                    break
+                if c & 0x80 == 0:
+                    pass
+                elif c & 0xFE == 0xFE:
+                    i += 6
+                elif c & 0xFC == 0xFC:
+                    i += 5
+                elif c & 0xF8 == 0xF8:
+                    i += 4
+                elif c & 0xF0 == 0xF0:
+                    i += 3
+                elif c & 0xE0 == 0xE0:
+                    i += 2
+                elif c & 0xC0 == 0xC0:
+                    i += 1
+                i += 1
+            return i
+
         s = self.read_string()
-        # TODO!
-        return s
+        langs = {}
+        i = 0
+        while i < len(s):
+            n = find_multilang_next(s, i)
+            lng = struct.unpack('B', s[i])[0] & 0x3F
+            if lng < len(self.languages):
+                langs[self.languages[lng]] = s[i+1:n]
+            i = n
+        return langs
