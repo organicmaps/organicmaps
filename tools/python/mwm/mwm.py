@@ -8,8 +8,7 @@ from datetime import datetime
 # (these mostly are succinct structures, except chrysler and node2ftseg, so no use trying to load them here)
 
 # TODO:
-# - Fix bounds reading in the header
-# - Fix delta point encoding (coords are plausible, but incorrect)
+# - Predictive reading of LineStrings
 # - Find why polygon geometry is incorrect in iter_features()
 # - Find feature ids in the 'dat' section, or find a way to read the 'offs' section
 
@@ -87,7 +86,7 @@ class MWM:
         result = {}
         coord_bits = self.read_varuint()
         self.coord_size = (1 << coord_bits) - 1
-        self.base_point = self.read_coord(convert=False)
+        self.base_point = self.mwm_bitwise_split(self.read_varuint())
         result['basePoint'] = self.to_4326(self.base_point)
         result['bounds'] = self.read_bounds()
         result['scales'] = self.read_uint_array()
@@ -320,10 +319,12 @@ class MWM:
             more = ord(b[0]) >= 0x80
         return res
 
-    def read_varint(self):
-        uint = self.read_varuint()
+    def zigzag_decode(self, uint):
         res = uint >> 1
         return res if uint & 1 == 0 else -res
+
+    def read_varint(self):
+        return self.zigzag_decode(self.read_varuint())
 
     def mwm_unshuffle(self, x):
         x = ((x & 0x22222222) << 1) | ((x >> 1) & 0x22222222) | (x & 0x99999999)
@@ -339,34 +340,39 @@ class MWM:
         y =     (hi & 0xFFFF0000) | (lo >> 16)
         return (x, y)
 
-    def read_point(self, packed=True):
+    def mwm_decode_delta(self, v, ref):
+        x, y = self.mwm_bitwise_split(v)
+        return ref[0] + self.zigzag_decode(x), ref[1] + self.zigzag_decode(y)
+
+    def read_point(self, ref, packed=True):
         """Reads an unsigned point, returns (x, y)."""
         if packed:
             u = self.read_varuint()
         else:
             u = self.read_uint(8)
-        return self.mwm_bitwise_split(u)
+        return self.mwm_decode_delta(u, ref)
 
     def to_4326(self, point):
         if self.coord_size is None:
             raise Exception('Call read_header() first.')
-        merc_bounds = (-180, -180, 180, 180)  # Xmin, Ymin, Xmax, Ymax
+        merc_bounds = (-180.0, -180.0, 180.0, 180.0)  # Xmin, Ymin, Xmax, Ymax
         x = point[0] * (merc_bounds[2] - merc_bounds[0]) / self.coord_size + merc_bounds[0]
         y = point[1] * (merc_bounds[3] - merc_bounds[1]) / self.coord_size + merc_bounds[1]
         y = 360.0 * math.atan(math.tanh(y * math.pi / 360.0)) / math.pi
         return (x, y)
 
-    def read_coord(self, packed=True, convert=True):
+    def read_coord(self, packed=True):
         """Reads a pair of coords in degrees mercator, returns (lon, lat)."""
-        upoint = self.read_point(packed)
-        point = (upoint[0] + self.base_point[0], upoint[1] + self.base_point[1])
-        return self.to_4326(point) if convert else point
+        point = self.read_point(self.base_point, packed)
+        return self.to_4326(point)
 
     def read_bounds(self):
         """Reads mercator bounds, returns (min_lon, min_lat, max_lon, max_lat)."""
-        rmin = self.read_coord()
-        rmax = self.read_coord()
-        return (rmin[0], rmin[1], rmax[0], rmax[1])
+        rmin = self.mwm_bitwise_split(self.read_varint())
+        rmax = self.mwm_bitwise_split(self.read_varint())
+        pmin = self.to_4326(rmin)
+        pmax = self.to_4326(rmax)
+        return (pmin[0], pmin[1], pmax[0], pmax[1])
 
     def read_string(self, plain=False):
         length = self.read_varuint() + (0 if plain else 1)
