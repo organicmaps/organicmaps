@@ -27,3 +27,10 @@ UNIT_TEST(RussiaDomodedovoSteps)
       integration::GetBicycleComponents(), MercatorBounds::FromLatLon(55.44020, 37.77409), {0., 0.},
       MercatorBounds::FromLatLon(55.43972, 37.77254), 123.0);
 }
+
+UNIT_TEST(SwedenStockholmCyclewayPriority)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(59.33151, 18.09347), {0., 0.},
+      MercatorBounds::FromLatLon(59.33052, 18.09391), 113.0);
+}
