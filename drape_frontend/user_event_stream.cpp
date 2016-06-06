@@ -267,6 +267,9 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       DetectLongTap(m_touches[0]);
   }
 
+  if (m_modelViewChanged)
+    m_viewportChanged |= m_navigator.UpdatePerspective();
+
   modelViewChanged = m_modelViewChanged;
   viewportChanged = m_viewportChanged;
   m_modelViewChanged = false;

@@ -126,6 +126,7 @@ public:
   m2::AnyRectD const & GlobalRect() const { return m_GlobalRect; }
   m2::RectD const & ClipRect() const { return m_ClipRect; }
 
+  void UpdatePerspectiveParameters();
   void ApplyPerspective(double currentRotationAngle, double maxRotationAngle, double angleFOV);
   void ResetPerspective();
 
@@ -155,6 +156,8 @@ public:
   static MatrixT const CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
                                      m2::PointD const & newPt1, m2::PointD const & newPt2,
                                      bool allowRotate);
+
+  static double CalculatePerspectiveAngle(double scale);
 
   /// Setting GtoP matrix extracts the Angle and m_Org parameters, leaving PixelRect intact
   void SetGtoPMatrix(MatrixT const & m);

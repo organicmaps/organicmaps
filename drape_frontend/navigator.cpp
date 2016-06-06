@@ -307,6 +307,13 @@ void Navigator::Disable3dMode()
     m_Screen.ResetPerspective();
 }
 
+bool Navigator::UpdatePerspective()
+{
+  bool const isPerspective = m_Screen.isPerspective();
+  m_Screen.UpdatePerspectiveParameters();
+  return isPerspective != m_Screen.isPerspective();
+}
+
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
 {
   double const dx = rect.SizeX();

@@ -46,6 +46,7 @@ public:
   void Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV);
   void SetRotationIn3dMode(double rotationAngle);
   void Disable3dMode();
+  bool UpdatePerspective();
 
 private:
   // Internal screen corresponding to the state when navigation began with StartDrag or StartScale.

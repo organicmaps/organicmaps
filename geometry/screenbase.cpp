@@ -75,6 +75,31 @@ void ScreenBase::UpdateDependentParameters()
   m_ClipRect = m_GlobalRect.GetGlobalRect();
 }
 
+double ScreenBase::CalculatePerspectiveAngle(double scale)
+{
+  double const kStartPerspectiveScale = 0.13e-4;
+  double const kMaxScale = 0.13e-5;
+  double const kMaxPerspectiveAngle = math::pi4;
+
+  if (scale > kStartPerspectiveScale)
+    return 0.0;
+  return kMaxPerspectiveAngle * (kStartPerspectiveScale - scale) / (kStartPerspectiveScale - kMaxScale);
+}
+
+void ScreenBase::UpdatePerspectiveParameters()
+{
+  double const angle = CalculatePerspectiveAngle(m_Scale);
+  if (angle > 0.0)
+  {
+    if (m_isPerspective)
+      SetRotationAngle(angle);
+    else
+      ApplyPerspective(angle, math::pi4, math::pi / 3);
+  }
+  else if (m_isPerspective)
+    ResetPerspective();
+}
+
 void ScreenBase::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect)
 {
   double hScale = glbRect.GetLocalRect().SizeX() / pxRect.SizeX();
