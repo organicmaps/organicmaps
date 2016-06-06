@@ -141,8 +141,7 @@ namespace
 - (void)setShow:(BOOL)show
 {
   _show = show;
-  [NSObject cancelPreviousPerformRequestsWithTarget:self];
-  [self performSelector:@selector(fadeAnimated) withObject:self afterDelay:show ? 0.0 : framesDuration(kMenuViewMoveFramesCount)];
+  [self fadeAnimated];
 }
 
 @end
