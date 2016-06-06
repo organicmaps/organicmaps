@@ -662,7 +662,7 @@ using namespace mwm;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-  if (buttonIndex >= actionSheet.numberOfButtons)
+  if (actionSheet.numberOfButtons == 0 || buttonIndex >= actionSheet.numberOfButtons)
   {
     [actionSheet dismissWithClickedButtonIndex:0 animated:NO];
     return;
