@@ -62,6 +62,8 @@
 		6753469D1A4054E800A0A8C3 /* user_mark_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753462E1A4054E800A0A8C3 /* user_mark_container.cpp */; };
 		6753469E1A4054E800A0A8C3 /* user_mark_container.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753462F1A4054E800A0A8C3 /* user_mark_container.hpp */; };
 		675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346331A4054E800A0A8C3 /* user_mark.hpp */; };
+		6788507E1D059068004201E1 /* booking_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6788507C1D059068004201E1 /* booking_api.cpp */; };
+		6788507F1D059068004201E1 /* booking_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6788507D1D059068004201E1 /* booking_api.hpp */; };
 		67F183751BD5041700AB1840 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F183741BD5041700AB1840 /* libz.tbd */; };
 		67F183761BD5045700AB1840 /* bookmarks_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CB1B26FCFE001A525C /* bookmarks_test.cpp */; };
 		67F183771BD5045700AB1840 /* ge0_parser_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CC1B26FCFE001A525C /* ge0_parser_tests.cpp */; };
@@ -162,6 +164,8 @@
 		6753462E1A4054E800A0A8C3 /* user_mark_container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark_container.cpp; sourceTree = "<group>"; };
 		6753462F1A4054E800A0A8C3 /* user_mark_container.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark_container.hpp; sourceTree = "<group>"; };
 		675346331A4054E800A0A8C3 /* user_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark.hpp; sourceTree = "<group>"; };
+		6788507C1D059068004201E1 /* booking_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_api.cpp; sourceTree = "<group>"; };
+		6788507D1D059068004201E1 /* booking_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_api.hpp; sourceTree = "<group>"; };
 		67F183741BD5041700AB1840 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		67F1837D1BD5049500AB1840 /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
 		67F1837E1BD5049500AB1840 /* liblodepng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblodepng.a; path = "../../../omim-xcode-build/Debug/liblodepng.a"; sourceTree = "<group>"; };
@@ -344,6 +348,8 @@
 				6753462F1A4054E800A0A8C3 /* user_mark_container.hpp */,
 				675346331A4054E800A0A8C3 /* user_mark.hpp */,
 				674A2A371B2715FB001A525C /* osm_opening_hours.hpp */,
+				6788507C1D059068004201E1 /* booking_api.cpp */,
+				6788507D1D059068004201E1 /* booking_api.hpp */,
 			);
 			name = map;
 			path = ../../map;
@@ -361,6 +367,7 @@
 				675346671A4054E800A0A8C3 /* ge0_parser.hpp in Headers */,
 				675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */,
 				F6B283061C1B03320081957A /* gps_track_filter.hpp in Headers */,
+				6788507F1D059068004201E1 /* booking_api.hpp in Headers */,
 				34583BD01C88556800F94664 /* place_page_info.hpp in Headers */,
 				34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */,
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
@@ -471,6 +478,7 @@
 				F6B283051C1B03320081957A /* gps_track_filter.cpp in Sources */,
 				675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */,
 				675346741A4054E800A0A8C3 /* mwm_url.cpp in Sources */,
+				6788507E1D059068004201E1 /* booking_api.cpp in Sources */,
 				F6B283091C1B03320081957A /* gps_track.cpp in Sources */,
 				34583BCF1C88556800F94664 /* place_page_info.cpp in Sources */,
 				F6B283031C1B03320081957A /* gps_track_collection.cpp in Sources */,

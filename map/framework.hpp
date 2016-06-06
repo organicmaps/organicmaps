@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/api_mark_point.hpp"
+#include "map/booking_api.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/place_page_info.hpp"
@@ -139,6 +140,8 @@ protected:
 
   BookmarkManager m_bmManager;
 
+  BookingApi m_bookingApi;
+
   bool m_isRenderingEnabled;
 
   /// This function will be called by m_storage when latest local files
@@ -163,6 +166,10 @@ protected:
 public:
   Framework();
   virtual ~Framework();
+
+  /// Get access to booking api helpers
+  BookingApi & GetBookingApi() { return m_bookingApi; }
+  BookingApi const & GetBookingApi() const { return m_bookingApi; }
 
   /// Migrate to new version of very different data.
   bool IsEnoughSpaceForMigrate() const;
