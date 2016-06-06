@@ -26,11 +26,10 @@ void putFields(NSUInteger eTypeValue, NSUInteger ppValue)
   gMetaFieldsMap[ppValue] = eTypeValue;
 }
 
-void initFieldsMap(BOOL isBooking)
+void initFieldsMap()
 {
-  auto const websiteType = isBooking ? MWMPlacePageCellTypeBookingMore : MWMPlacePageCellTypeWebsite;
   putFields(Metadata::FMD_URL, MWMPlacePageCellTypeURL);
-  putFields(Metadata::FMD_WEBSITE, websiteType);
+  putFields(Metadata::FMD_WEBSITE, MWMPlacePageCellTypeWebsite);
   putFields(Metadata::FMD_PHONE_NUMBER, MWMPlacePageCellTypePhoneNumber);
   putFields(Metadata::FMD_OPEN_HOURS, MWMPlacePageCellTypeOpenHours);
   putFields(Metadata::FMD_EMAIL, MWMPlacePageCellTypeEmail);
@@ -40,7 +39,7 @@ void initFieldsMap(BOOL isBooking)
 
   ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_URL], MWMPlacePageCellTypeURL, ());
   ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypeURL], Metadata::FMD_URL, ());
-  ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_WEBSITE], websiteType, ());
+  ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_WEBSITE], MWMPlacePageCellTypeWebsite, ());
   ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypeWebsite], Metadata::FMD_WEBSITE, ());
   ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_POSTCODE], MWMPlacePageCellTypePostcode, ());
   ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypePostcode], Metadata::FMD_POSTCODE, ());
@@ -60,7 +59,7 @@ void initFieldsMap(BOOL isBooking)
   if (self)
   {
     m_info = info;
-    initFieldsMap(info.IsSponsoredHotel());
+    initFieldsMap();
     [self config];
   }
   return self;
@@ -167,7 +166,7 @@ void initFieldsMap(BOOL isBooking)
     case MWMPlacePageCellTypeWebsite:
       return m_info.IsSponsoredHotel() ? nil : [self getDefaultField:cellType];
     case MWMPlacePageCellTypeBookingMore:
-      return m_info.IsSponsoredHotel() ? [self getDefaultField:cellType] : nil;
+      return m_info.IsSponsoredHotel() ? @(m_info.GetSponsoredDescriptionUrl().c_str()) : nil;
     default:
       return [self getDefaultField:cellType];
   }
@@ -178,6 +177,12 @@ void initFieldsMap(BOOL isBooking)
   auto const it = m_values.find(cellType);
   BOOL const haveField = (it != m_values.end());
   return haveField ? @(it->second.c_str()) : nil;
+}
+
+- (NSURL *)bookingUrl
+{
+  auto const & url = m_info.GetSponsoredBookingUrl();
+  return url.empty() ? nil : [NSURL URLWithString:@(url.c_str())];
 }
 
 - (place_page::Info const &)info

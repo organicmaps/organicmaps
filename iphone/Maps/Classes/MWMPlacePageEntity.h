@@ -63,6 +63,7 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 - (ms::LatLon)latlon;
 - (m2::PointD const &)mercator;
 - (NSString *)apiURL;
+- (NSURL *)bookingUrl;
 - (string)titleForNewBookmark;
 
 - (instancetype)initWithInfo:(place_page::Info const &)info;

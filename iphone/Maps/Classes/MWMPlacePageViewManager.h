@@ -29,7 +29,7 @@
 - (void)addPlace;
 - (void)addBookmark;
 - (void)removeBookmark;
-- (void)book;
+- (void)book:(BOOL)isDecription;
 - (void)call;
 - (void)apiBack;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;

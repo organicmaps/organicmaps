@@ -1,10 +1,10 @@
 #import "MWMTableViewCell.h"
 #import "MWMPlacePageEntity.h"
 
-@class MWMPlacePage;
+@class MWMPlacePageViewManager;
 
 @interface MWMPlacePageButtonCell : MWMTableViewCell
 
-- (void)config:(MWMPlacePage *)placePage forType:(MWMPlacePageCellType)type;
+- (void)config:(MWMPlacePageViewManager *)manager forType:(MWMPlacePageCellType)type;
 
 @end

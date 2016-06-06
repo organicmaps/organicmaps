@@ -246,7 +246,7 @@ extern NSString * const kBookmarksChangedNotification;
                               anchorView:self.placePage.actionBar.shareAnchor];
 }
 
-- (void)book
+- (void)book:(BOOL)isDescription
 {
   NSMutableDictionary * stat = [@{kStatProvider : kStatBooking} mutableCopy];
   LocationManager * lm = MapsAppDelegate.theApp.locationManager;
@@ -264,11 +264,10 @@ extern NSString * const kBookmarksChangedNotification;
   MWMPlacePageEntity * en = self.entity;
   auto const latLon = en.latlon;
   stat[kStatHotel] = @{kStatName : en.title, kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)};
-  [Statistics logEvent:kPlacePageHotelBook withParameters:stat];
+  [Statistics logEvent:isDescription ? kPlacePageHotelDetails : kPlacePageHotelBook withParameters:stat];
   UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
-  NSString * urlString = [self.entity getCellValue:MWMPlacePageCellTypeBookingMore];
-  NSAssert(urlString, @"Booking url can't be nil!");
-  NSURL * url = [NSURL URLWithString:urlString];
+  NSURL * url = isDescription ? self.entity.bookingUrl : [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]];
+  NSAssert(url, @"Booking url can't be nil!");
   [vc openUrl:url];
 }
 
@@ -289,16 +288,19 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)editPlace
 {
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
   [(MapViewController *)self.ownerViewController openEditor];
 }
 
 - (void)addBusiness
 {
+  [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePage}];
   [self.delegate addPlace:YES hasPoint:NO point:m2::PointD()];
 }
 
 - (void)addPlace
 {
+  [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePageNonBuilding}];
   [self.delegate addPlace:NO hasPoint:YES point:self.entity.mercator];
 }
 

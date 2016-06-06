@@ -174,7 +174,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
     [self.placePageManager apiBack];
     break;
   case EButton::Booking:
-    [self.placePageManager book];
+    [self.placePageManager book:NO];
     break;
   case EButton::Call:
     [self.placePageManager call];

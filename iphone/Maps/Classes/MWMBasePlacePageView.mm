@@ -669,7 +669,7 @@ using namespace storage;
     case MWMPlacePageCellTypeAddBusinessButton:
     case MWMPlacePageCellTypeAddPlaceButton:
     case MWMPlacePageCellTypeBookingMore:
-      [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage forType:cellType];
+      [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage.manager forType:cellType];
       break;
     default:
     {

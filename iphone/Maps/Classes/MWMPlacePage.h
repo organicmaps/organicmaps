@@ -25,10 +25,6 @@
 - (void)addBookmark;
 - (void)removeBookmark;
 - (void)editBookmark;
-- (void)editPlace;
-- (void)addBusiness;
-- (void)addPlace;
-- (void)bookingMore;
 - (void)reloadBookmark;
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset;
 
