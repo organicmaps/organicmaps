@@ -3,13 +3,17 @@ import sys, os.path, json
 from mwm import MWM
 
 if len(sys.argv) < 4:
-    print 'Finds features in an mwm file'
-    print 'Usage: {0} <country.mwm> <type> <string>'.format(sys.argv[0])
-    print 'Type: t for inside types, et for exact type, n for names'
+    print('Finds features in an mwm file based on a query')
+    print('Usage: {0} <country.mwm> <type> <string>'.format(sys.argv[0]))
+    print('')
+    print('Type:')
+    print('  t for inside types ("t hwtag" will find all hwtags-*)')
+    print('  et for exact type ("et shop" won\'t find shop-chemist)')
+    print('  n for names, case-sensitive ("n Starbucks" for all starbucks)')
     sys.exit(1)
 
 typ = sys.argv[2].lower()
-find = sys.argv[3]
+find = sys.argv[3].decode('utf-8')
 
 mwm = MWM(open(sys.argv[1], 'rb'))
 mwm.read_header()
@@ -27,4 +31,4 @@ for feature in mwm.iter_features():
             elif typ == 't' and find in t:
                 found = True
     if found:
-        print json.dumps(feature, ensure_ascii=False)
+        print(json.dumps(feature, ensure_ascii=False))

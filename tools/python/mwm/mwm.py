@@ -46,7 +46,7 @@ class MWM:
         cnt = self.read_varuint()
         self.tags = {}
         for i in range(cnt):
-            name = self.read_string(True)
+            name = self.read_string(plain=True)
             offset = self.read_varuint()
             length = self.read_varuint()
             self.tags[name] = (offset, length)
@@ -57,12 +57,12 @@ class MWM:
     def seek_tag(self, tag):
         self.f.seek(self.tags[tag][0])
 
-    def inside_tag(self, tag):
-        pos = self.tag_position(tag)
-        return pos >= 0 and pos < self.tags[tag][1]
-
-    def tag_position(self, tag):
+    def tag_offset(self, tag):
         return self.f.tell() - self.tags[tag][0]
+
+    def inside_tag(self, tag):
+        pos = self.tag_offset(tag)
+        return pos >= 0 and pos < self.tags[tag][1]
 
     def read_version(self):
         """Reads 'version' section."""
@@ -128,7 +128,7 @@ class MWM:
         self.seek_tag('meta')
         metadatar = {}
         while self.inside_tag('meta'):
-            tag_pos = self.tag_position('meta')
+            tag_pos = self.tag_offset('meta')
             fields = {}
             if fmt >= 8:
                 sz = self.read_varuint()
@@ -144,7 +144,7 @@ class MWM:
                     t = t & 0x7f
                     t = self.metadata[t] if t < len(self.metadata) else str(t)
                     l = self.read_uint(1)
-                    fields[t] = self.f.read(l)
+                    fields[t] = self.f.read(l).decode('utf-8')
                     if is_last:
                         break
 
@@ -189,7 +189,7 @@ class MWM:
         neighbours = []
         for i in range(neighboursCount):
             size = self.read_uint(4)
-            neighbours.append(self.f.read(size))
+            neighbours.append(self.f.read(size).decode('utf-8'))
         return { 'in': incoming, 'out': outgoing, 'matrix': matrix, 'neighbours': neighbours }
 
     class GeomType:
@@ -314,9 +314,13 @@ class MWM:
             b = self.f.read(1)
             if not b:
                 return res
-            res |= (ord(b[0]) & 0x7F) << shift
+            try:
+                bc = ord(b)
+            except TypeError:
+                bc = b
+            res |= (bc & 0x7F) << shift
             shift += 7
-            more = ord(b[0]) >= 0x80
+            more = bc >= 0x80
         return res
 
     def zigzag_decode(self, uint):
@@ -353,6 +357,7 @@ class MWM:
         return self.mwm_decode_delta(u, ref)
 
     def to_4326(self, point):
+        """Convert a point in maps.me-mercator CS to WGS-84 (EPSG:4326)."""
         if self.coord_size is None:
             raise Exception('Call read_header() first.')
         merc_bounds = (-180.0, -180.0, 180.0, 180.0)  # Xmin, Ymin, Xmax, Ymax
@@ -374,9 +379,10 @@ class MWM:
         pmax = self.to_4326(rmax)
         return (pmin[0], pmin[1], pmax[0], pmax[1])
 
-    def read_string(self, plain=False):
+    def read_string(self, plain=False, decode=True):
         length = self.read_varuint() + (0 if plain else 1)
-        return self.f.read(length)
+        s = self.f.read(length)
+        return s.decode('utf-8') if decode else s
 
     def read_uint_array(self):
         length = self.read_varuint()
@@ -390,13 +396,16 @@ class MWM:
         if sz & 1 != 0:
             return str(sz >> 1)
         sz = (sz >> 1) + 1
-        return self.f.read(sz)
+        return self.f.read(sz).decode('utf-8')
 
     def read_multilang(self):
         def find_multilang_next(s, i):
             i += 1
             while i < len(s):
-                c = struct.unpack('B', s[i])[0]
+                try:
+                    c = ord(s[i])
+                except:
+                    c = s[i]
                 if c & 0xC0 == 0x80:
                     break
                 if c & 0x80 == 0:
@@ -416,13 +425,16 @@ class MWM:
                 i += 1
             return i
 
-        s = self.read_string()
+        s = self.read_string(decode=False)
         langs = {}
         i = 0
         while i < len(s):
             n = find_multilang_next(s, i)
-            lng = struct.unpack('B', s[i])[0] & 0x3F
+            try:
+                lng = ord(s[i]) & 0x3F
+            except TypeError:
+                lng = s[i] & 0x3F
             if lng < len(self.languages):
-                langs[self.languages[lng]] = s[i+1:n]
+                langs[self.languages[lng]] = s[i+1:n].decode('utf-8')
             i = n
         return langs
