@@ -472,16 +472,16 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
   return true;
 }
 
-bool UserEventStream::InterruptFollowAnimations()
+bool UserEventStream::InterruptFollowAnimations(bool force)
 {
   Animation const * followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
 
   if (followAnim == nullptr)
-    followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Sequence, kPrettyMoveAnim);
+    followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Sequence, kPrettyFollowAnim);
 
   if (followAnim != nullptr)
   {
-    if (followAnim->CouldBeInterrupted())
+    if (force || followAnim->CouldBeInterrupted())
     {
       bool const isFollowAnim = followAnim->GetType() == Animation::MapFollow;
       ResetAnimations(followAnim->GetType());
@@ -517,7 +517,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   if (isAnim)
   {
     // Reset current follow-and-rotate animation if possible.
-    if (!InterruptFollowAnimations())
+    if (!InterruptFollowAnimations(false /* force */))
       return false;
 
     auto onStartHandler = [this](ref_ptr<Animation> animation)
@@ -538,24 +538,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     {
       // Run pretty move animation if we are far from userPos.
       double const startScale = CalculateScale(screen.PixelRect(), GetCurrentRect().GetLocalRect());
-
-      anim = GetPrettyMoveAnimation(screen, startScale, targetScale, startPt, userPos);
-      anim->SetOnFinishAction([this, userPos, pixelPos, onStartHandler, targetScale, azimuth, changeZoom]
-                              (ref_ptr<Animation> animation)
-      {
-        ScreenBase const & screen = m_navigator.Screen();
-        auto anim = GetFollowAnimation(screen, userPos, targetScale, -azimuth, pixelPos);
-
-        anim->SetOnStartAction(onStartHandler);
-
-        if (changeZoom)
-        {
-          anim->SetCouldBeInterrupted(false);
-          anim->SetCouldBeBlended(false);
-        }
-
-        m_animationSystem.CombineAnimation(move(anim));
-      });
+      anim = GetPrettyFollowAnimation(screen, startScale, targetScale, startPt, userPos, -azimuth, pixelPos);
     }
     else
     {
@@ -594,7 +577,7 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
   ResetAnimationsBeforeSwitch3D();
 
   if (immediatelyStart)
-    InterruptFollowAnimations();
+    InterruptFollowAnimations(true /* force */);
 
   double const startAngle = isAnim ? 0.0 : maxRotationAngle;
   double const endAngle = maxRotationAngle;
@@ -617,7 +600,7 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 void UserEventStream::SetDisable3dModeAnimation()
 {
   ResetAnimationsBeforeSwitch3D();
-  InterruptFollowAnimations();
+  InterruptFollowAnimations(true /* force */);
 
   if (m_discardedFOV > 0.0 && IsScaleAllowableIn3d(GetDrawTileScale(GetCurrentScreen())))
   {
@@ -649,6 +632,14 @@ void UserEventStream::ResetAnimations(Animation::Type animType, bool finishAll)
     ApplyAnimations();
 }
 
+void UserEventStream::ResetAnimations(Animation::Type animType, string const & customType, bool finishAll)
+{
+  bool const hasAnimations = m_animationSystem.HasAnimations();
+  m_animationSystem.FinishAnimations(animType, customType, true /* rewind */, finishAll);
+  if (hasAnimations)
+    ApplyAnimations();
+}
+
 void UserEventStream::ResetMapPlaneAnimations()
 {
   bool const hasAnimations = m_animationSystem.HasAnimations();
@@ -660,6 +651,7 @@ void UserEventStream::ResetMapPlaneAnimations()
 void UserEventStream::ResetAnimationsBeforeSwitch3D()
 {
   ResetAnimations(Animation::MapLinear);
+  ResetAnimations(Animation::Sequence, kPrettyMoveAnim);
   ResetAnimations(Animation::MapScale);
   ResetAnimations(Animation::MapPerspective, true /* finishAll */);
 }

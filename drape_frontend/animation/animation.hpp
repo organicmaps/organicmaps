@@ -113,6 +113,7 @@ public:
   virtual void Interrupt() { if (m_onInterruptAction != nullptr) m_onInterruptAction(this); }
 
   virtual Type GetType() const = 0;
+  virtual string const & GetCustomType() const { return ""; }
 
   virtual TAnimObjects const & GetObjects() const = 0;
   virtual bool HasObject(TObject object) const = 0;

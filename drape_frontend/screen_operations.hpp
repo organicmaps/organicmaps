@@ -5,8 +5,6 @@
 namespace df
 {
 
-extern string const kPrettyMoveAnim;
-
 bool CheckMinScale(ScreenBase const & screen);
 bool CheckMaxScale(ScreenBase const & screen);
 bool CheckMaxScale(ScreenBase const & screen, uint32_t tileSize, double visualScale);

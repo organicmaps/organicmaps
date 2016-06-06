@@ -35,6 +35,7 @@ public:
   void PushAnimation(drape_ptr<Animation> animation);
 
   void FinishAnimations(Animation::Type type, bool rewind, bool finishAll);
+  void FinishAnimations(Animation::Type type, string const & customType, bool rewind, bool finishAll);
   void FinishObjectAnimations(Animation::TObject object, bool rewind, bool finishAll);
 
   template<typename T> T const * FindAnimation(Animation::Type type) const
@@ -61,12 +62,10 @@ public:
       auto & lst = *pList;
       for (auto const & anim : lst)
       {
-        if (anim->GetType() == type)
+        if (anim->GetType() == type && anim->GetCustomType() == customType)
         {
           ASSERT(dynamic_cast<T const *>(anim.get()) != nullptr, ());
-          T const * customAnim = static_cast<T const *>(anim.get());
-          if (customAnim->GetCustomType() == customType)
-            return customAnim;
+          return static_cast<T const *>(anim.get());
         }
       }
     }

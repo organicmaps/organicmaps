@@ -353,6 +353,14 @@ void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind, bool f
                    rewind, finishAll);
 }
 
+void AnimationSystem::FinishAnimations(Animation::Type type, string const & customType, bool rewind, bool finishAll)
+{
+  FinishAnimations([&type, &customType](shared_ptr<Animation> const & anim)
+  {
+    return anim->GetType() == type && anim->GetCustomType() == customType;
+  }, rewind, finishAll);
+}
+
 void AnimationSystem::FinishObjectAnimations(Animation::TObject object, bool rewind, bool finishAll)
 {
   FinishAnimations([&object](shared_ptr<Animation> const & anim) { return anim->HasObject(object); },
