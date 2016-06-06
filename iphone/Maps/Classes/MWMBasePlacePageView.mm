@@ -268,7 +268,7 @@ using namespace storage;
         MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
           MWMCircularProgressStateSelected};
         [progress setImage:[UIImage imageNamed:@"ic_download"] forStates:affectedStates];
-        [progress setColoring:MWMButtonColoringBlack forStates:affectedStates];
+        [progress setColoring:MWMButtonColoringBlue forStates:affectedStates];
         progress.state = MWMCircularProgressStateNormal;
         break;
       }
