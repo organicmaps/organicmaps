@@ -665,11 +665,6 @@ BOOST_AUTO_TEST_CASE(OpeningHours_RuleSequence)
 BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestParseUnparse)
 {
   {
-    auto const rule = "06:00";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
-    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
-  }
-  {
     auto const rule = "06:00+";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
@@ -700,9 +695,9 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "dusk";
+    auto const rule = "dusk+";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
-    BOOST_CHECK_EQUAL(parsedUnparsed, "sunset");
+    BOOST_CHECK_EQUAL(parsedUnparsed, "sunset+");
   }
   {
     auto const rule = "dawn+";
@@ -715,7 +710,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "(sunset-12:12)";
+    auto const rule = "(sunset-12:12)+";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
@@ -1005,7 +1000,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "06:00-02:00/21:03, 18:15";
+    auto const rule = "06:00-02:00/21:03, 18:15-sunset";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
@@ -1048,7 +1043,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "Su-Th (sunset-24:00); Fr-Sa (sunrise+12:12)";
+    auto const rule = "Su-Th sunrise-(sunset-24:00); Fr-Sa (sunrise+12:12)-sunset";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
