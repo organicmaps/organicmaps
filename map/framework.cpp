@@ -284,6 +284,7 @@ void Framework::Migrate(bool keepDownloaded)
   // while migration is performed.
   if (m_drapeEngine && m_isRenderingEnabled)
     m_drapeEngine->SetRenderingEnabled(false);
+  m_selectedFeature = FeatureID();
   m_searchEngine.reset();
   m_infoGetter.reset();
   TCountriesVec existedCountries;
