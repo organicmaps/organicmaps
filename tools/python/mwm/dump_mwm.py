@@ -25,12 +25,13 @@ if cross:
     print('Outgoing regions: {0}'.format(set(cross['neighbours'])))
 
 print('Sample features:')
-# Print 5 random features ~10000 features apart
+# Print some random features using reservoir sampling
 count = 5
-probability = 1.0 / 10000
-for feature in mwm.iter_features():
-    if random.random() < probability:
-        print(json.dumps(feature, ensure_ascii=False))
-        count -= 1
-        if count <= 0:
-            break
+sample = []
+for i, feature in enumerate(mwm.iter_features()):
+    if i < count:
+        sample.append(feature)
+    elif random.randint(0, i) < count:
+        sample[random.randint(0, count-1)] = feature
+for feature in sample:
+    print(json.dumps(feature, ensure_ascii=False))
