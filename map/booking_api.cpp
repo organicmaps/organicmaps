@@ -5,7 +5,7 @@
 BookingApi::BookingApi() : m_affiliateId(BOOKING_AFFILIATE_ID) {}
 string BookingApi::GetBookingUrl(string const & baseUrl, string const & /* lang */) const
 {
-  return baseUrl + "#availability?affiliate_id=" + m_affiliateId;
+  return GetDescriptionUrl(baseUrl) + "#availability";
 }
 
 string BookingApi::GetDescriptionUrl(string const & baseUrl, string const & /* lang */) const
