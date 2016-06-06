@@ -18,6 +18,21 @@ namespace df
 
 double const kArrowSize = 0.001;
 
+struct RoutePattern
+{
+  bool m_isDashed = false;
+  double m_dashLength = 0.0;
+  double m_gapLength = 0.0;
+
+  RoutePattern() = default;
+
+  RoutePattern(double dashLength, double gapLength)
+    : m_isDashed(true)
+    , m_dashLength(dashLength)
+    , m_gapLength(gapLength)
+  {}
+};
+
 struct RouteJoinBounds
 {
   double m_start = 0;
@@ -50,6 +65,7 @@ struct RouteData
   double m_length;
   RouteRenderProperty m_route;
   vector<drape_ptr<ArrowRenderProperty>> m_arrows;
+  RoutePattern m_pattern;
 };
 
 struct RouteSignData

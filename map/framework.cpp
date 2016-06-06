@@ -2349,12 +2349,19 @@ void Framework::InsertRoute(Route const & route)
     route.GetTurnsDistances(turns);
 
   df::ColorConstant routeColor = df::Route;
+  df::RoutePattern pattern;
   if (m_currentRouterType == RouterType::Pedestrian)
+  {
     routeColor = df::RoutePedestrian;
+    pattern = df::RoutePattern(4.0, 2.0);
+  }
   else if (m_currentRouterType == RouterType::Bicycle)
+  {
     routeColor = df::RouteBicycle;
+    pattern = df::RoutePattern(8.0, 2.0);
+  }
 
-  m_drapeEngine->AddRoute(route.GetPoly(), turns, routeColor);
+  m_drapeEngine->AddRoute(route.GetPoly(), turns, routeColor, pattern);
 }
 
 void Framework::CheckLocationForRouting(GpsInfo const & info)

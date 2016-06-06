@@ -183,10 +183,18 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
     glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
                                                                m_routeData->m_color));
     uniforms.SetFloatValue("u_color", color.r, color.g, color.b, alpha);
-    uniforms.SetFloatValue("u_routeParams", halfWidth, halfWidth * screen.GetScale(), m_distanceFromBegin);
+    double const screenScale = screen.GetScale();
+    uniforms.SetFloatValue("u_routeParams", halfWidth, halfWidth * screenScale, m_distanceFromBegin);
+
+    if (m_routeData->m_pattern.m_isDashed)
+    {
+      uniforms.SetFloatValue("u_pattern", halfWidth * m_routeData->m_pattern.m_dashLength * screenScale,
+                             halfWidth * m_routeData->m_pattern.m_gapLength * screenScale);
+    }
 
     // set up shaders and apply uniforms
-    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ROUTE_PROGRAM);
+    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(m_routeData->m_pattern.m_isDashed ?
+                                                  gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM);
     prg->Bind();
     dp::ApplyState(state, prg);
     dp::ApplyUniforms(uniforms, prg);
