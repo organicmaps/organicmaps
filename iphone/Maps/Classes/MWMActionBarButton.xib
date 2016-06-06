@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W07-Hz-J60" customClass="MWMButton">
-                    <rect key="frame" x="0.0" y="0.0" width="80" height="33"/>
+                    <rect key="frame" x="0.0" y="2" width="80" height="33"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="33" id="pcB-ET-28J"/>
                     </constraints>
@@ -23,8 +23,8 @@
                         <action selector="tap" destination="iN0-l3-epB" eventType="touchUpInside" id="yKY-7K-Wyl"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrI-0A-w3s">
-                    <rect key="frame" x="0.0" y="34" width="80" height="14"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="80" translatesAutoresizingMaskIntoConstraints="NO" id="rrI-0A-w3s">
+                    <rect key="frame" x="0.0" y="32" width="80" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="BBl-pC-RJq"/>
                     </constraints>
@@ -40,9 +40,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="rrI-0A-w3s" secondAttribute="trailing" id="LPs-Yx-xz6"/>
-                <constraint firstItem="W07-Hz-J60" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="UJy-Ef-B7E"/>
+                <constraint firstItem="W07-Hz-J60" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="UJy-Ef-B7E"/>
                 <constraint firstItem="rrI-0A-w3s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="X6f-tU-o9a"/>
-                <constraint firstAttribute="bottom" secondItem="rrI-0A-w3s" secondAttribute="bottom" id="Zsi-G2-yc8"/>
+                <constraint firstAttribute="bottom" secondItem="rrI-0A-w3s" secondAttribute="bottom" constant="2" id="Zsi-G2-yc8"/>
                 <constraint firstItem="W07-Hz-J60" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rBR-of-5Ha"/>
                 <constraint firstAttribute="trailing" secondItem="W07-Hz-J60" secondAttribute="trailing" id="teM-gm-CX7"/>
             </constraints>
