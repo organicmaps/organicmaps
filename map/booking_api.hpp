@@ -8,7 +8,6 @@ class BookingApi
 
 public:
   BookingApi();
-  string GetBookingUrl(string const &baseUrl, string const & lang = string()) const;
-  string GetDescriptionUrl(string const &baseUrl, string const & lang = string()) const;
+  string GetBookingUrl(string const & baseUrl, string const & lang = string()) const;
+  string GetDescriptionUrl(string const & baseUrl, string const & lang = string()) const;
 };
-
