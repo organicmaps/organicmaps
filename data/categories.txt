@@ -1814,7 +1814,7 @@ en:4Tourist Information|4information|sights|U+1F481
 ru:4Туринформация|информация|достопримечательность
 uk:4Турінформація|інформація|пам’ятка|пам’ятні місця
 de:4Tourist-Information|Information|Sehenswürdigkeit
-fr:4Informations touritiques|4informations|site touristique
+fr:4Informations touristiques|4informations|site touristique
 it:4Informazione|turistico
 es:4Información|turismo
 ko:1관광 정보|정보|명소|관광
