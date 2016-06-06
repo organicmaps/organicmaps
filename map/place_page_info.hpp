@@ -56,6 +56,9 @@ public:
   string GetBookmarkCategoryName() const;
   string const & GetApiUrl() const;
 
+  string const & GetSponsoredBookingUrl() const;
+  string const & GetSponsoredDescriptionUrl() const;
+
   /// @returns formatted rating string for booking object, or empty if it isn't booking object
   string GetRatingFormatted() const;
   /// @returns string with |kPricingSymbol| signs or empty string if it isn't booking object
@@ -77,6 +80,9 @@ public:
   string m_address;
   /// Feature is a sponsored hotel.
   bool m_isSponsoredHotel = false;
+  /// Sponsored feature urls.
+  string m_sponsoredBookingUrl;
+  string m_sponsoredDescriptionUrl;
 
   /// Which country this MapObject is in.
   /// For a country point it will be set to topmost node for country.

@@ -101,6 +101,9 @@ BookmarkAndCategory Info::GetBookmarkAndCategory() const { return m_bac; }
 string Info::GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
 string const & Info::GetApiUrl() const { return m_apiUrl; }
 
+string const & Info::GetSponsoredBookingUrl() const { return m_sponsoredBookingUrl; }
+string const & Info::GetSponsoredDescriptionUrl() const {return m_sponsoredDescriptionUrl; }
+
 string Info::GetRatingFormatted() const
 {
   if (!IsSponsoredHotel())

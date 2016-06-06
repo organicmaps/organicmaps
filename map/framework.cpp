@@ -744,7 +744,12 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.m_address = GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet();
 
   if (ftypes::IsBookingChecker::Instance()(ft))
+  {
     info.m_isSponsoredHotel = true;
+    string const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    info.m_sponsoredBookingUrl = GetBookingApi().GetBookingUrl(baseUrl);
+    info.m_sponsoredDescriptionUrl = GetBookingApi().GetDescriptionUrl(baseUrl);
+  }
 
   info.m_isEditable = featureStatus != osm::Editor::FeatureStatus::Obsolete &&
                       !info.IsSponsoredHotel();
