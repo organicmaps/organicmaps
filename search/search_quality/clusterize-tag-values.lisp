@@ -105,7 +105,7 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
   '("building" "bldg" "bld" "bl" "unit" "block" "blk"
     "корпус" "корп" "литер" "лит" "строение" "блок" "бл"))
 
-(defparameter *house-number-seps* '(#\Space #\. #\( #\) #\# #\~))
+(defparameter *house-number-seps* '(#\Space #\Tab #\" #\\ #\( #\) #\. #\# #\~))
 (defparameter *house-number-groups-seps* '(#\, #\| #\; #\+))
 
 (defun building-synonym-p (s)
@@ -124,21 +124,57 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
         ((char= c #\/) :slash)
         (T :string)))
 
+(defun transform-string-token (fn value)
+  "Transforms building token value into one or more tokens in
+   accordance to its value.  For example, 'литA' is transformed to
+   tokens 'лит' (building part) and 'А' (letter).
+  "
+  (flet ((emit (value type) (funcall fn value type)))
+    (cond ((building-synonym-p value)
+           (emit value :building-part))
+          ((and (= 4 (length value))
+                (starts-with value "лит"))
+           (emit (subseq value 0 3) :building-part)
+           (emit (subseq value 3) :letter))
+          ((and (= 2 (length value))
+                (short-building-synonym-p (subseq value 0 1)))
+           (emit (subseq value 0 1) :building-part)
+           (emit (subseq value 1) :letter))
+          ((= 1 (length value))
+           (emit value (if (short-building-synonym-p value)
+                           :letter-or-building-part
+                           :letter)))
+          (T (emit value :string)))))
+
 (defun tokenize-house-number (house-number)
   "house-number => [token]"
   (let ((parts (group-by #'(lambda (lhs rhs)
                              (eq (get-char-type lhs) (get-char-type rhs)))
-                         (string-downcase house-number))))
-    (remove-if #'(lambda (token) (eq :separator (token-type token)))
-               (mapcar #'(lambda (part) (make-token :value (concatenate 'string part)
-                                                    :type (get-char-type (car part))))
-                       parts))))
+                         (string-downcase house-number)))
+        (tokens nil))
+    (flet ((add-token (value type) (push (make-token :value value :type type) tokens)))
+      (dolist (part parts)
+        (let ((value (concatenate 'string part))
+              (type (get-char-type (car part))))
+          (case type
+            (:string (transform-string-token #'add-token value))
+            (:separator T)
+            (otherwise (add-token value type)))))
+      (loop for prev = nil then curr
+         for curr in tokens
+         do (when (eq :letter-or-building-part (token-type curr))
+              (cond ((null prev)
+                     (setf (token-type curr) :letter))
+                    ((eq :number (token-type prev))
+                     (setf (token-type curr) :building-part)))))
+      (reverse tokens))))
 
 (defun house-number-with-optional-suffix-p (tokens)
   (case (length tokens)
     (1 (eq (token-type (first tokens)) :number))
     (2 (and (eq (token-type (first tokens)) :number)
-            (eq (token-type (second tokens)) :string)))
+            (or (eq (token-type (second tokens)) :string)
+                (eq (token-type (second tokens)) :letter))))
     (otherwise nil)))
 
 (defun get-house-number-sub-numbers (house-number)
@@ -156,48 +192,6 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
     (if (every #'house-number-with-optional-suffix-p groups)
         groups
         (list tokens))))
-
-(defun parse-house-number (tokens)
-  "[token] => [token]
-
-   Parses house number, but as the grammar is undefined and ambiguous,
-   the parsing is just a split of some tokens, i.e. 'литА' will be split
-   to building synonym (литер) and to letter (A).
-  "
-  (loop with result = nil
-     for token in tokens
-     for token-value = (token-value token)
-     for token-type = (token-type token)
-     do (case token-type
-          (:string (cond ((building-synonym-p token-value)
-                          (push (make-token :value token-value
-                                            :type :building-part)
-                                result))
-                         ((and (= 4 (length token-value))
-                               (starts-with token-value "лит"))
-                          (push (make-token :value (subseq token-value 0 3)
-                                            :type :building-part)
-                                result)
-                          (push (make-token :value (subseq token-value 3)
-                                            :type :letter)
-                                result))
-                        ((and (= 2 (length token-value))
-                              (short-building-synonym-p (subseq token-value 0 1)))
-                         (push (make-token :value (subseq token-value 0 1)
-                                           :type :building-part)
-                               result)
-                         (push (make-token :value (subseq token-value 1)
-                                           :type :letter)
-                               result))
-                        ((= 1 (length token-value))
-                         (push (make-token :value token-value
-                                           :type (if (short-building-synonym-p token-value)
-                                                     :letter-or-building-part
-                                                     :letter))
-                               result))
-                        (T (push token result))))
-                   (otherwise (push token result)))
-     finally (return (reverse result))))
 
 (defun join-house-number-tokens (tokens)
   "Joins token values with spaces."
@@ -220,29 +214,21 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
                                                              token-type))))))
                   tokens)))
 
-(defun character-token-p (token)
-  (case (token-type token)
-    ((:string :letter :letter-or-building-part) T)
-    (otherwise nil)))
-
 (defun get-house-number-pattern (house-number fn)
   (dolist (number (get-house-number-sub-numbers house-number))
     (let ((house-number (join-house-number-tokens number))
-          (pattern (join-house-number-parse (parse-house-number number))))
+          (pattern (join-house-number-parse number)))
       (funcall fn house-number pattern))))
 
-(defun get-house-number-prefix-strings (house-number fn)
+(defun get-house-number-strings (house-number fn)
+  "Returns all strings from the house number."
   (dolist (number (get-house-number-sub-numbers house-number))
     (dolist (string (mapcar #'token-value
-                            (take-while #'character-token-p (parse-house-number number))))
-      (funcall fn string string))))
-
-(defun get-house-number-inner-strings (house-number fn)
-  (dolist (number (get-house-number-sub-numbers house-number))
-    (dolist (string (mapcar #'token-value
-                            (remove-if-not #'character-token-p
-                                           (drop-while #'character-token-p
-                                                       (parse-house-number number)))))
+                            (remove-if-not #'(lambda (token)
+                                               (case (token-type token)
+                                                 ((:string :letter :letter-or-building-part) T)
+                                                 (otherwise nil)))
+                                           number)))
       (funcall fn string string))))
 
 (defstruct type-settings
@@ -258,12 +244,9 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
                                          :field-name "addr:flats")
               :house-number ,(make-type-settings :pattern-simplifier #'get-house-number-pattern
                                                  :field-name "addr:housenumber")
-              :house-number-prefix-strings ,(make-type-settings
-                                             :pattern-simplifier #'get-house-number-prefix-strings
-                                             :field-name "addr:housenumber")
-              :house-number-inner-strings ,(make-type-settings
-                                            :pattern-simplifier #'get-house-number-inner-strings
-                                            :field-name "addr:housenumber")))
+              :house-number-strings ,(make-type-settings
+                                      :pattern-simplifier #'get-house-number-strings
+                                      :field-name "addr:housenumber")))
 
 (defstruct cluster
   "A cluster of values with the same pattern, i.e.  all six-digits
