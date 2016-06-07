@@ -12,7 +12,7 @@ SequenceAnimation::SequenceAnimation()
 {
 }
 
-string const & SequenceAnimation::GetCustomType() const
+string SequenceAnimation::GetCustomType() const
 {
   return m_customType;
 }

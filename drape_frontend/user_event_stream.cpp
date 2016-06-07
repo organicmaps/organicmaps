@@ -477,7 +477,7 @@ bool UserEventStream::InterruptFollowAnimations(bool force)
   Animation const * followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
 
   if (followAnim == nullptr)
-    followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Sequence, kPrettyFollowAnim);
+    followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Sequence, kPrettyFollowAnim.c_str());
 
   if (followAnim != nullptr)
   {

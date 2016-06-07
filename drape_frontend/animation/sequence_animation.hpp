@@ -20,7 +20,7 @@ public:
   bool HasProperty(TObject object, TProperty property) const override;
   bool HasTargetProperty(TObject object, TProperty property) const override;
 
-  string const & GetCustomType() const override;
+  string GetCustomType() const override;
   void SetCustomType(string const & type);
 
   void SetMaxDuration(double maxDuration) override;
