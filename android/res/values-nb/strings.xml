@@ -53,8 +53,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Min posisjon</string>
 	<string name="ok">OK</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Aktiver posisjonstjenester</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Frigjør plass på enheten først for å laste ned %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -517,7 +515,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Kartet for posisjonen din er ikke lastet ned</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Aktiver posisjonstjenester</string>
+	<string name="enable_location_services">Aktiver posisjonstjenester</string>
 	<!-- download map -->
 	<string name="download_map">Last ned kartet for posisjonen din</string>
 	<!-- download map on iPhone -->

@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Пожалуйста, включите геолокацию в настройках телефона";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "Карта вашего местоположения не загружена";
 
 /* location service disabled */
-"enable_location_service" = "Пожалуйста, включите геолокацию";
+"enable_location_services" = "Пожалуйста, включите геолокацию";
 
 /* download map */
 "download_map" = "Скачайте карту места, где вы находитесь";

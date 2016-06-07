@@ -53,8 +53,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Poziția mea</string>
 	<string name="ok">OK</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Vă rugăm să activați serviciile de localizare</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %s.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -515,7 +513,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Harta pentru poziția dvs. nu este descărcată</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Vă rugăm să activați serviciile de localizare</string>
+	<string name="enable_location_services">Vă rugăm să activați serviciile de localizare</string>
 	<!-- download map -->
 	<string name="download_map">Descărcați harta pentru poziția dvs.</string>
 	<!-- download map on iPhone -->

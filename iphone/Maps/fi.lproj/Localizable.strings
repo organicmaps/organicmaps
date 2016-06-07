@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Ota sijaintipalvelut käyttöön";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Vapauta tilaa laitteellasi ladataksesi tiedoston %@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "Olinpaikkasi karttaa ei ole ladattu";
 
 /* location service disabled */
-"enable_location_service" = "Ota sijaintipalvelut käyttöön";
+"enable_location_services" = "Ota sijaintipalvelut käyttöön";
 
 /* download map */
 "download_map" = "Lataa olinpaikkasi kartta";

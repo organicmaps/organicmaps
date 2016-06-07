@@ -53,8 +53,6 @@
 	<string name="miles">Милі</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Моє місце розташування</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Будь ласка, увімкніть геолокацію в налаштуваннях телефону</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -521,7 +519,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Карту місця, де ви знаходитеся, не завантажено</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Будь ласка, увімкніть геолокацію</string>
+	<string name="enable_location_services">Будь ласка, увімкніть геолокацію</string>
 	<!-- download map -->
 	<string name="download_map">Завантажуйте карту тієї місцевості, де ви знаходитесь</string>
 	<!-- download map on iPhone -->

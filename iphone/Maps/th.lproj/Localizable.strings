@@ -83,9 +83,6 @@
 
 "ok" = "ตกลง";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "ไม่พบแผนที่ของตำแหน่งของคุณ";
 
 /* location service disabled */
-"enable_location_service" = "โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง";
+"enable_location_services" = "โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง";
 
 /* download map */
 "download_map" = "ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่";

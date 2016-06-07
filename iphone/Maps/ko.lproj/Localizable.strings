@@ -83,9 +83,6 @@
 
 "ok" = "승인";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "위치 서비스를 작동시켜 주십시요.";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "위치에 대한 지도가 다운로드되지 않음";
 
 /* location service disabled */
-"enable_location_service" = "위치 서비스를 작동시켜 주십시요.";
+"enable_location_services" = "위치 서비스를 작동시켜 주십시요.";
 
 /* download map */
 "download_map" = "위치에 대한 지도 다운로드";

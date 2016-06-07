@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Prosím, povoľte Služby určovania polohy";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Prosím, uvoľnite nejaké miesto vo svojom zariadení, kým začnete sťahovať %@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "Mapa vašej polohy nebola nájdená";
 
 /* location service disabled */
-"enable_location_service" = "Prosím, povoľte Služby určovania polohy";
+"enable_location_services" = "Prosím, povoľte Služby určovania polohy";
 
 /* download map */
 "download_map" = "Stiahnite si mapu miesta, kde sa práve nachádzate";

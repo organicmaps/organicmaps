@@ -53,8 +53,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Sijaintini</string>
 	<string name="ok">OK</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Ota sijaintipalvelut käyttöön</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Vapauta tilaa laitteellasi ladataksesi tiedoston %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -517,7 +515,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Olinpaikkasi karttaa ei ole ladattu</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Ota sijaintipalvelut käyttöön</string>
+	<string name="enable_location_services">Ota sijaintipalvelut käyttöön</string>
 	<!-- download map -->
 	<string name="download_map">Lataa olinpaikkasi kartta</string>
 	<!-- download map on iPhone -->

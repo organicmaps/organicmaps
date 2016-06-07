@@ -49,8 +49,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Min position</string>
 	<string name="ok">OK</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Vänligen aktivera platstjänster</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Frigör mer utrymme på din enhet först för att kunna ladda ner %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -521,7 +519,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Kartan för din plats hittas inte</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Vänligen aktivera platstjänster</string>
+	<string name="enable_location_services">Vänligen aktivera platstjänster</string>
 	<!-- download map -->
 	<string name="download_map">Ladda ner kartan över din nuvarande plats</string>
 	<!-- download map on iPhone -->

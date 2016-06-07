@@ -83,9 +83,6 @@
 
 "ok" = "Tamam";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Lütfen Yer Hizmetlerini etkinleştirin";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "%@ indirmek için lütfen ilk önce cihazınızda biraz alan boşaltın";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "Konum haritası bulunamadı";
 
 /* location service disabled */
-"enable_location_service" = "Lütfen Yer Hizmetlerini etkinleştirin";
+"enable_location_services" = "Lütfen Yer Hizmetlerini etkinleştirin";
 
 /* download map */
 "download_map" = "Konumunuz için haritayı indirin";

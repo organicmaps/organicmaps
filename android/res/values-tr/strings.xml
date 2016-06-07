@@ -53,8 +53,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Konumum</string>
 	<string name="ok">Tamam</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Lütfen Yer Hizmetlerini etkinleştirin</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">%s indirmek için lütfen ilk önce cihazınızda biraz alan boşaltın</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -523,7 +521,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Konum haritası bulunamadı</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Lütfen Yer Hizmetlerini etkinleştirin</string>
+	<string name="enable_location_services">Lütfen Yer Hizmetlerini etkinleştirin</string>
 	<!-- download map -->
 	<string name="download_map">Konumunuz için haritayı indirin</string>
 	<!-- download map on iPhone -->

@@ -54,8 +54,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">My Position</string>
 	<string name="ok">OK</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Please enable Location Services</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Please free some space on your device first in order to download %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -547,7 +545,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">The map for your location is not downloaded</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Please enable Location Services</string>
+	<string name="enable_location_services">Please enable Location Services</string>
 	<!-- download map -->
 	<string name="download_map">Download the map for your location</string>
 	<!-- download map on iPhone -->

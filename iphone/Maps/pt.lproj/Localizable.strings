@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Por favor active os Serviços de Localização";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Por favor liberte primeiro algum espaço no seu dispositivo para descarregar %@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "O mapa para a sua localização não foi baixado";
 
 /* location service disabled */
-"enable_location_service" = "Por favor active os Serviços de Localização";
+"enable_location_services" = "Por favor active os Serviços de Localização";
 
 /* download map */
 "download_map" = "Baixe o mapa para a sua localização";

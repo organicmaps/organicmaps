@@ -83,9 +83,6 @@
 
 "ok" = "موافق";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "الرجاء تفعيل خدمة تحديد المواقع";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "الرجاء إخلاء بعض المساحة في ذاكرة جهازك أولا لكي تتمكن من تنزيل %@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "الخريطة الخاصة بالمكان الذي تتواجد فيه لا يتم تنزيلها";
 
 /* location service disabled */
-"enable_location_service" = "الرجاء تفعيل خدمة تحديد المواقع";
+"enable_location_services" = "الرجاء تفعيل خدمة تحديد المواقع";
 
 /* download map */
 "download_map" = "قم بتنزيل الخريطة الخاصة بموقعك";

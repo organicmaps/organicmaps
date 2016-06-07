@@ -83,9 +83,6 @@
 
 "ok" = "Ok";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Aktiver venligst lokationstjenester";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Frigør venligst noget plads på din telefon først for at downloade %@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "Kortet for dit område er ikke downloadet";
 
 /* location service disabled */
-"enable_location_service" = "Aktiver venligst lokationstjenester";
+"enable_location_services" = "Aktiver venligst lokationstjenester";
 
 /* download map */
 "download_map" = "Download kortet for dit område";

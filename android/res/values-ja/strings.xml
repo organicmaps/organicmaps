@@ -48,8 +48,6 @@
 	<string name="miles">マイル</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">現在地</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">位置情報サービスを有効化してください</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">%sをダウンロードするため、デバイスの空き容量を確認してください</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -516,7 +514,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">現在地の地図が見つかりません</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">位置情報サービスを有効化してください</string>
+	<string name="enable_location_services">位置情報サービスを有効化してください</string>
 	<!-- download map -->
 	<string name="download_map">あなたがいる場所のマップをダウンロードしよう</string>
 	<!-- download map on iPhone -->

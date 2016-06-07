@@ -49,8 +49,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">我的位置</string>
 	<string name="ok">确定</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">请启用位置服务</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">请在设备上先释放一些空间以便下载%s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -523,7 +521,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">您地点的地图没有被下载</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">请启用位置服务</string>
+	<string name="enable_location_services">请启用位置服务</string>
 	<!-- download map -->
 	<string name="download_map">为您的地点下载地图</string>
 	<!-- download map on iPhone -->
