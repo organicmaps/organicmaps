@@ -4,6 +4,7 @@
 #include "search/dummy_rank_table.hpp"
 #include "search/features_filter.hpp"
 #include "search/features_layer_matcher.hpp"
+#include "search/house_numbers_matcher.hpp"
 #include "search/locality_scorer.hpp"
 #include "search/processor.hpp"
 #include "search/retrieval.hpp"
@@ -1244,7 +1245,8 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
       filtered.Set(features.Get(), false /* isOwner */);
     ASSERT(filtered.Get(), ());
 
-    bool const looksLikeHouseNumber = feature::IsHouseNumber(m_layers.back().m_subQuery);
+    bool const looksLikeHouseNumber = house_numbers::LooksLikeHouseNumber(
+        m_layers.back().m_subQuery, m_layers.back().m_lastTokenIsPrefix);
 
     if (filtered.IsEmpty() && !looksLikeHouseNumber)
       break;

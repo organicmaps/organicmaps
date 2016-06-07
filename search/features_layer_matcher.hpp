@@ -154,9 +154,9 @@ private:
     // |buildings| doesn't contain buildings matching by house number,
     // so following code reads buildings in POIs vicinities and checks
     // house numbers.
-    vector<Parse> queryParses;
-    ParseQuery(parent.m_subQuery, parent.m_lastTokenIsPrefix, queryParses);
-    if (queryParses.empty())
+    vector<house_numbers::Token> queryParse;
+    ParseQuery(parent.m_subQuery, parent.m_lastTokenIsPrefix, queryParse);
+    if (queryParse.empty())
       return;
 
     for (size_t i = 0; i < pois.size(); ++i)
@@ -167,7 +167,8 @@ private:
           {
             if (m_postcodes && !m_postcodes->GetBit(ft.GetID().m_index))
               return;
-            if (HouseNumbersMatch(strings::MakeUniString(ft.GetHouseNumber()), queryParses))
+            if (house_numbers::HouseNumbersMatch(strings::MakeUniString(ft.GetHouseNumber()),
+                                                 queryParse))
             {
               double const distanceM =
                   MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i]);
@@ -238,8 +239,8 @@ private:
       return;
     }
 
-    vector<Parse> queryParses;
-    ParseQuery(child.m_subQuery, child.m_lastTokenIsPrefix, queryParses);
+    vector<house_numbers::Token> queryParse;
+    ParseQuery(child.m_subQuery, child.m_lastTokenIsPrefix, queryParse);
 
     uint32_t numFilterInvocations = 0;
     auto houseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool
@@ -272,7 +273,7 @@ private:
       strings::UniString const houseNumber(strings::MakeUniString(feature.GetHouseNumber()));
       if (!feature::IsHouseNumber(houseNumber))
         return false;
-      return HouseNumbersMatch(houseNumber, queryParses);
+      return house_numbers::HouseNumbersMatch(houseNumber, queryParse);
     };
 
     unordered_map<uint32_t, bool> cache;

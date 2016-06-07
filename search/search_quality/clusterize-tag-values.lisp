@@ -103,7 +103,7 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
 
 (defparameter *building-synonyms*
   '("building" "bldg" "bld" "bl" "unit" "block" "blk"
-    "корпус" "корп" "литер" "лит" "строение" "блок" "бл"))
+    "корпус" "корп" "кор" "литер" "лит" "строение" "стр" "блок" "бл"))
 
 (defparameter *house-number-seps* '(#\Space #\Tab #\" #\\ #\( #\) #\. #\# #\~))
 (defparameter *house-number-groups-seps* '(#\, #\| #\; #\+))
@@ -172,9 +172,12 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
 (defun house-number-with-optional-suffix-p (tokens)
   (case (length tokens)
     (1 (eq (token-type (first tokens)) :number))
-    (2 (and (eq (token-type (first tokens)) :number)
-            (or (eq (token-type (second tokens)) :string)
-                (eq (token-type (second tokens)) :letter))))
+    (2 (let ((first-type (token-type (first tokens)))
+             (second-type (token-type (second tokens))))
+         (and (eq first-type :number)
+              (or (eq second-type :string)
+                  (eq second-type :letter)
+                  (eq second-type :letter-or-building-part)))))
     (otherwise nil)))
 
 (defun get-house-number-sub-numbers (house-number)
@@ -207,7 +210,7 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
                           (:number "N")
                           (:building-part "B")
                           (:letter "L")
-                          (:letter-or-building-part "LB")
+                          (:letter-or-building-part "U")
                           (:string "S")
                           ((:hyphen :slash :group-separator) token-value)
                           (otherwise (assert NIL NIL (format nil "Unknown token type: ~a"
@@ -226,7 +229,10 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
     (dolist (string (mapcar #'token-value
                             (remove-if-not #'(lambda (token)
                                                (case (token-type token)
-                                                 ((:string :letter :letter-or-building-part) T)
+                                                 ((:string
+                                                   :letter
+                                                   :letter-or-building-part
+                                                   :building-part) T)
                                                  (otherwise nil)))
                                            number)))
       (funcall fn string string))))
