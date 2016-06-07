@@ -39,21 +39,26 @@ double NestedRectsCache::GetDistanceToFeatureMeters(FeatureID const & id) const
   if (!m_valid)
     return RankingInfo::kMaxDistMeters;
 
-  size_t bucket = 0;
-  for (; bucket != RECT_SCALE_COUNT; ++bucket)
+  int scale = 0;
+  for (; scale != RECT_SCALE_COUNT; ++scale)
   {
-    if (binary_search(m_features[bucket].begin(), m_features[bucket].end(), id))
+    auto const & bucket = m_buckets[scale];
+    auto const it = bucket.find(id.m_mwmId);
+    if (it == bucket.end())
+      continue;
+    auto const & features = it->second;
+    if (binary_search(features.begin(), features.end(), id.m_index))
       break;
   }
-  auto const scale = static_cast<RectScale>(bucket);
 
   if (scale != RECT_SCALE_COUNT)
-    return GetRadiusMeters(scale);
+    return GetRadiusMeters(static_cast<RectScale>(scale));
 
   if (auto const & info = id.m_mwmId.GetInfo())
   {
     auto const & rect = info->m_limitRect;
-    return max(MercatorBounds::DistanceOnEarth(rect.Center(), m_position), GetRadiusMeters(scale));
+    return max(MercatorBounds::DistanceOnEarth(rect.Center(), m_position),
+               GetRadiusMeters(static_cast<RectScale>(scale)));
   }
 
   return RankingInfo::kMaxDistMeters;
@@ -62,10 +67,7 @@ double NestedRectsCache::GetDistanceToFeatureMeters(FeatureID const & id) const
 void NestedRectsCache::Clear()
 {
   for (int scale = 0; scale != RECT_SCALE_COUNT; ++scale)
-  {
-    m_features[scale].clear();
-    m_features[scale].shrink_to_fit();
-  }
+    m_buckets[scale].clear();
   m_valid = false;
 }
 
@@ -86,17 +88,30 @@ void NestedRectsCache::Update()
 {
   for (int scale = 0; scale != RECT_SCALE_COUNT; ++scale)
   {
-    auto & features = m_features[scale];
+    auto & bucket = m_buckets[scale];
+    bucket.clear();
 
-    features.clear();
     m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
         m_position, GetRadiusMeters(static_cast<RectScale>(scale)));
-    auto addId = MakeBackInsertFunctor(features);
+
+    MwmSet::MwmId lastId;
+    TFeatures * lastFeatures = nullptr;
+    auto addId = [&lastId, &lastFeatures, &bucket](FeatureID const & id)
+    {
+      if (!id.IsValid())
+        return;
+      if (id.m_mwmId != lastId)
+      {
+        lastId = id.m_mwmId;
+        lastFeatures = &bucket[lastId];
+      }
+      lastFeatures->push_back(id.m_index);
+    };
     m_index.ForEachFeatureIDInRect(addId, rect, m_scale);
-    sort(features.begin(), features.end());
+    for (auto & kv : bucket)
+      sort(kv.second.begin(), kv.second.end());
   }
 
   m_valid = true;
 }
-
 }  // namespace search
