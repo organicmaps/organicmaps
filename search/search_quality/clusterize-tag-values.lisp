@@ -126,10 +126,10 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
 
 (defun transform-string-token (fn value)
   "Transforms building token value into one or more tokens in
-   accordance to it's value.  For example, 'литA' is transformed to
+   accordance to its value.  For example, 'литA' is transformed to
    tokens 'лит' (building part) and 'А' (letter).
   "
-  (macrolet ((emit (value type) `(funcall fn ,value ,type)))
+  (flet ((emit (value type) (funcall fn value type)))
     (cond ((building-synonym-p value)
            (emit value :building-part))
           ((and (= 4 (length value))
@@ -214,28 +214,21 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
                                                              token-type))))))
                   tokens)))
 
-(defun character-token-p (token)
-  (case (token-type token)
-    ((:string :letter :letter-or-building-part) T)
-    (otherwise nil)))
-
 (defun get-house-number-pattern (house-number fn)
   (dolist (number (get-house-number-sub-numbers house-number))
     (let ((house-number (join-house-number-tokens number))
           (pattern (join-house-number-parse number)))
       (funcall fn house-number pattern))))
 
-(defun get-house-number-prefix-strings (house-number fn)
+(defun get-house-number-strings (house-number fn)
+  "Returns all strings from the house number."
   (dolist (number (get-house-number-sub-numbers house-number))
     (dolist (string (mapcar #'token-value
-                            (take-while #'character-token-p number)))
-      (funcall fn string string))))
-
-(defun get-house-number-inner-strings (house-number fn)
-  (dolist (number (get-house-number-sub-numbers house-number))
-    (dolist (string (mapcar #'token-value
-                            (remove-if-not #'character-token-p
-                                           (drop-while #'character-token-p number))))
+                            (remove-if-not #'(lambda (token)
+                                               (case (token-type token)
+                                                 ((:string :letter :letter-or-building-part) T)
+                                                 (otherwise nil)))
+                                           number)))
       (funcall fn string string))))
 
 (defstruct type-settings
@@ -251,12 +244,9 @@ exec /usr/bin/env sbcl --noinform --quit --eval "(defparameter *script-name* \"$
                                          :field-name "addr:flats")
               :house-number ,(make-type-settings :pattern-simplifier #'get-house-number-pattern
                                                  :field-name "addr:housenumber")
-              :house-number-prefix-strings ,(make-type-settings
-                                             :pattern-simplifier #'get-house-number-prefix-strings
-                                             :field-name "addr:housenumber")
-              :house-number-inner-strings ,(make-type-settings
-                                            :pattern-simplifier #'get-house-number-inner-strings
-                                            :field-name "addr:housenumber")))
+              :house-number-strings ,(make-type-settings
+                                      :pattern-simplifier #'get-house-number-strings
+                                      :field-name "addr:housenumber")))
 
 (defstruct cluster
   "A cluster of values with the same pattern, i.e.  all six-digits
