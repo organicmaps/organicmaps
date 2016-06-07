@@ -58,7 +58,7 @@ public:
 class Index : public MwmSet
 {
 protected:
-  /// @name MwmSet overrides.
+  /// MwmSet overrides:
   //@{
   unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const override;
 

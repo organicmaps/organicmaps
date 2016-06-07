@@ -60,29 +60,31 @@ public:
 
   VehicleModel(Classificator const & c, InitListT const & speedLimits);
 
-  /// IVehicleModel overrides.
+  /// IVehicleModel overrides:
   double GetSpeed(FeatureType const & f) const override;
   double GetMaxSpeed() const override { return m_maxSpeedKMpH; }
   bool IsOneWay(FeatureType const & f) const override;
-  /// @note If VehicleModel::IsRoad() returns true for a feature its implementation in
-  /// inherited class may return true or false.
-  /// If VehicleModel::IsRoad() returns false for a feature its implementation in
-  /// inherited class must return false as well.
   bool IsRoad(FeatureType const & f) const override;
 
   /// @returns true if |m_types| or |m_addRoadTypes| contains |type| and false otherwise.
-  /// @note The set of |types| IsRoadType method returns true for should contain any set of feature types
-  /// IsRoad method (and its implementation in inherited classes) returns true for.
   bool IsRoadType(uint32_t type) const;
   template <class TList> bool HasRoadType(TList const & types) const
   {
     for (uint32_t t : types)
+    {
       if (IsRoadType(t))
         return true;
+    }
     return false;
   }
 
 protected:
+  enum class Restriction
+  {
+    Unknown,
+    Yes,
+  };
+
   /// Used in derived class constructors only. Not for public use.
   void SetAdditionalRoadTypes(Classificator const & c,
                               initializer_list<char const *> const * arr, size_t sz);

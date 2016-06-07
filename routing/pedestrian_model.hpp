@@ -14,21 +14,24 @@ public:
   PedestrianModel();
   PedestrianModel(VehicleModel::InitListT const & speedLimits);
 
-  /// VehicleModel overrides.
+  /// VehicleModel overrides:
   double GetSpeed(FeatureType const & f) const override;
   bool IsOneWay(FeatureType const &) const override { return false; }
+  /// @returns true if |f| could be considered as a road for pedestrian routing.
+  /// @note If PedestrianModel::IsRoad(f) returns false for a feature f and for an instance
+  /// of |PedestrianModel| created by default constructor
+  /// PedestrianModel::IsRoad(f) for the same feature f and for any instance
+  /// of |PedestrianModel| created by |PedestrianModel(VehicleModel::InitListT const &)| must return false.
   bool IsRoad(FeatureType const & f) const override;
 
 private:
   void Init();
 
-  /// @return True if road is prohibited for pedestrian,
-  /// but if function returns False, real prohibition is unknown.
-  bool IsNoFoot(feature::TypesHolder const & types) const;
+  /// @return Restriction::Yes if road is prohibited for pedestrian.
+  Restriction IsNoFoot(feature::TypesHolder const & types) const;
 
-  /// @return True if road is allowed for pedestrian,
-  /// but if function returns False, real allowance is unknown.
-  bool IsYesFoot(feature::TypesHolder const & types) const;
+  /// @return Restriction::Yes if road is allowed for pedestrian.
+  Restriction IsYesFoot(feature::TypesHolder const & types) const;
 
   uint32_t m_noFootType = 0;
   uint32_t m_yesFootType = 0;

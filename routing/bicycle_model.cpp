@@ -617,28 +617,28 @@ void BicycleModel::Init()
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
-bool BicycleModel::IsNoBicycle(feature::TypesHolder const & types) const
+VehicleModel::Restriction BicycleModel::IsNoBicycle(feature::TypesHolder const & types) const
 {
-  return find(types.begin(), types.end(), m_noBicycleType) != types.end();
+  return types.Has(m_noBicycleType) ? Restriction::Yes : Restriction::Unknown;
 }
 
-bool BicycleModel::IsYesBicycle(feature::TypesHolder const & types) const
+VehicleModel::Restriction BicycleModel::IsYesBicycle(feature::TypesHolder const & types) const
 {
-  return find(types.begin(), types.end(), m_yesBicycleType) != types.end();
+  return types.Has(m_yesBicycleType) ? Restriction::Yes : Restriction::Unknown;
 }
 
-bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
+VehicleModel::Restriction BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
 {
-  return find(types.begin(), types.end(), m_bicycleBidirType) != types.end();
+  return types.Has(m_bicycleBidirType) ? Restriction::Yes : Restriction::Unknown;
 }
 
 double BicycleModel::GetSpeed(FeatureType const & f) const
 {
-  feature::TypesHolder types(f);
+  feature::TypesHolder const types(f);
 
-  if (IsYesBicycle(types))
+  if (IsYesBicycle(types) == Restriction::Yes)
     return VehicleModel::GetMaxSpeed();
-  if (!IsNoBicycle(types) && HasRoadType(types))
+  if (IsNoBicycle(types) == Restriction::Unknown && HasRoadType(types))
     return VehicleModel::GetMinTypeSpeed(types);
 
   return 0.0;
@@ -648,7 +648,7 @@ bool BicycleModel::IsOneWay(FeatureType const & f) const
 {
   feature::TypesHolder const types(f);
 
-  if (IsBicycleBidir(types))
+  if (IsBicycleBidir(types) == Restriction::Yes)
     return false;
 
   return VehicleModel::IsOneWay(f);
@@ -659,9 +659,9 @@ bool BicycleModel::IsRoad(FeatureType const & f) const
   if (f.GetFeatureType() != feature::GEOM_LINE)
     return false;
 
-  feature::TypesHolder types(f);
+  feature::TypesHolder const types(f);
 
-  if (IsNoBicycle(types))
+  if (IsNoBicycle(types) == Restriction::Yes)
     return false;
   return VehicleModel::HasRoadType(types);
 }
