@@ -1502,6 +1502,20 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7f3-Rm-QqW" userLabel="Detailed info">
                                         <rect key="frame" x="0.0" y="248" width="600" height="64"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wNF-fp-3SQ" userLabel="Separator1">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="xWE-J3-mMV"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Syo-FZ-kms" userLabel="Separator2">
+                                                <rect key="frame" x="0.0" y="63" width="600" height="1"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="EB6-Py-4TW"/>
+                                                </constraints>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="−−−" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JuL-pe-mJl">
                                                 <rect key="frame" x="16" y="16" width="52" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="27"/>
@@ -1537,8 +1551,14 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="Syo-FZ-kms" firstAttribute="leading" secondItem="7f3-Rm-QqW" secondAttribute="leading" id="4Ih-n3-JAB"/>
+                                            <constraint firstAttribute="trailing" secondItem="Syo-FZ-kms" secondAttribute="trailing" id="7fI-5Y-Zyg"/>
                                             <constraint firstItem="ksi-Oz-YxU" firstAttribute="leading" secondItem="JuL-pe-mJl" secondAttribute="trailing" constant="16" id="AhN-ts-4gy"/>
+                                            <constraint firstItem="wNF-fp-3SQ" firstAttribute="top" secondItem="7f3-Rm-QqW" secondAttribute="top" id="Jih-15-Eug"/>
                                             <constraint firstItem="JuL-pe-mJl" firstAttribute="centerY" secondItem="7f3-Rm-QqW" secondAttribute="centerY" id="Ope-fZ-TUA"/>
+                                            <constraint firstAttribute="trailing" secondItem="wNF-fp-3SQ" secondAttribute="trailing" id="Vsd-bz-QE7"/>
+                                            <constraint firstItem="wNF-fp-3SQ" firstAttribute="leading" secondItem="7f3-Rm-QqW" secondAttribute="leading" id="Zzo-ef-vpg"/>
+                                            <constraint firstAttribute="bottom" secondItem="Syo-FZ-kms" secondAttribute="bottom" id="b1U-Pm-fMR"/>
                                             <constraint firstAttribute="height" constant="64" id="d1D-4g-rUC"/>
                                             <constraint firstItem="wuZ-au-bo9" firstAttribute="leading" secondItem="JuL-pe-mJl" secondAttribute="trailing" constant="16" id="g46-1s-aFv"/>
                                             <constraint firstItem="ksi-Oz-YxU" firstAttribute="centerY" secondItem="7f3-Rm-QqW" secondAttribute="centerY" priority="250" id="qaH-U1-XpF"/>
