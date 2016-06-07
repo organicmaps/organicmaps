@@ -777,37 +777,6 @@
     zh-Hant = 確定
     he = אשר
 
-  [enable_location_services]
-    comment = not used? Search View - Location is disabled by user warning text
-    en = Please enable Location Services
-    ru = Пожалуйста, включите геолокацию в настройках телефона
-    ar = الرجاء تفعيل خدمة تحديد المواقع
-    cs = Prosím, povolte Služby určování polohy
-    da = Aktiver venligst lokationstjenester
-    nl = Schakel Locatie Services in
-    fi = Ota sijaintipalvelut käyttöön
-    fr = Veuillez activer les services de localisation
-    de = Aktivieren Sie bitte Ortungsdienste in den Geräte-Einstellungen
-    hu = Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást
-    id = Mohon aktifkan Layanan Lokasi
-    it = Cortesemente abilita i servizi di localizzazione
-    ja = 位置情報サービスを有効化してください
-    ko = 위치 서비스를 작동시켜 주십시요.
-    nb = Aktiver posisjonstjenester
-    pl = Proszę włączyć usługi lokalizacji
-    pt = Por favor active os Serviços de Localização
-    ro = Vă rugăm să activați serviciile de localizare
-    es = Por favor, permite los servicios de localización
-    sv = Vänligen aktivera platstjänster
-    th = โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง
-    tr = Lütfen Yer Hizmetlerini etkinleştirin
-    uk = Будь ласка, увімкніть геолокацію в налаштуваннях телефону
-    vi = Bạn vui lòng bật Dịch vụ Định vị
-    zh-Hans = 请启用位置服务
-    zh-Hant = 請啟用定位服務
-    he = אנא אפשר "שרותי מיקום"
-    sk = Prosím, povoľte Služby určovania polohy
-
   [free_disk_space_for_country_x]
     comment = Settings/Downloader - No free space dialog message
     en = Please free some space on your device first in order to download %@
@@ -8994,7 +8963,8 @@
     zh-Hant = 您地點的地圖尚未下載
     sk = Mapa vašej polohy nebola nájdená
 
-  [enable_location_service]
+  [enable_location_services]
+    tags = android, ios
     comment = location service disabled
     tags = android, ios
     en = Please enable Location Services
