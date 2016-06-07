@@ -1,3 +1,4 @@
+#import "MWMButton.h"
 #import "MWMEditorAdditionalNamesHeader.h"
 #import "UILabel+RuntimeAttributes.h"
 
@@ -5,6 +6,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel * label;
 @property (copy, nonatomic) TMWMVoidBlock toggleBlock;
+@property (weak, nonatomic) IBOutlet MWMButton * toggleButton;
 
 @end
 
@@ -19,11 +21,14 @@
   return h;
 }
 
-- (IBAction)toggleAction:(UIButton *)sender
+- (IBAction)toggleAction
 {
-  NSString * newTitle = (sender.currentTitle == L(@"hide") ? L(@"show") : L(@"hide"));
-  [sender setTitle:newTitle forState:UIControlStateNormal];
   self.toggleBlock();
+}
+
+- (void)setShowAdditionalNames:(BOOL)showAdditionalNames
+{
+  [self.toggleButton setTitle:showAdditionalNames ? L(@"hide") : L(@"show") forState:UIControlStateNormal];
 }
 
 @end

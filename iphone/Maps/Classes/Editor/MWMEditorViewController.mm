@@ -376,6 +376,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 - (void)setShowAdditionalNames:(BOOL)showAdditionalNames
 {
   _showAdditionalNames = showAdditionalNames;
+  [self.additionalNamesHeader setShowAdditionalNames:showAdditionalNames];
   [self configTable];
   auto const additionalNamesSectionIt = find(m_sections.begin(), m_sections.end(), MWMEditorSectionAdditionalNames);
   if (additionalNamesSectionIt == m_sections.end())

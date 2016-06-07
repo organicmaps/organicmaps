@@ -4,4 +4,6 @@
 
 + (instancetype)header:(TMWMVoidBlock)toggleBlock;
 
+- (void)setShowAdditionalNames:(BOOL)showAdditionalNames;
+
 @end
