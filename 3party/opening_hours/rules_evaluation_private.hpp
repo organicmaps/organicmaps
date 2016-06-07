@@ -6,7 +6,7 @@
 
 namespace osmoh
 {
-bool IsActive(Timespan const & spsn, std::tm const & date);
+bool IsActive(Timespan span, std::tm const & date);
 bool IsActive(WeekdayRange const & range, std::tm const & date);
 bool IsActive(Holiday const & holiday, std::tm const & date);
 bool IsActive(Weekdays const & weekdays, std::tm const & date);

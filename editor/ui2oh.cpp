@@ -42,6 +42,10 @@ void SetUpTimeTable(osmoh::TTimespans spans, editor::ui::TimeTable & tt)
 {
   using namespace osmoh;
 
+  // Expand plus: 13:15+ -> 13:15-24:00.
+  for (auto & span : spans)
+    span.ExpandPlus();
+
   sort(begin(spans), end(spans), [](Timespan const & a, Timespan const & b)
        {
          auto const start1 = a.GetStart().GetHourMinutes().GetDuration();

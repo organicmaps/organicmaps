@@ -190,12 +190,13 @@ namespace osmoh
 // ADL shadows ::operator==.
 using ::operator==;
 
-bool IsActive(Timespan const & span, std::tm const & time)
+bool IsActive(Timespan span, std::tm const & time)
 {
   // Timespan with e.h. should be split into parts with no e.h.
   // before calling IsActive().
   // TODO(mgsergio): set assert(!span.HasExtendedHours())
 
+  span.ExpandPlus();
   if (span.HasStart() && span.HasEnd())
   {
     THourMinutes start;
@@ -331,7 +332,6 @@ bool IsActive(RuleSequence const & rule, time_t const timestamp)
 
   if (checkIsActive(rule, dateTimeTMShifted) &&
       IsActive(additionalSpan, dateTimeTMShifted))
-
   {
     return true;
   }

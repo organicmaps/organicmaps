@@ -231,6 +231,8 @@ public:
   void SetPeriod(TimespanPeriod const & period) { m_period = period; }
   void SetPlus(bool const plus) { m_plus = plus; }
 
+  void ExpandPlus();
+
 private:
   Time m_start;
   Time m_end;
