@@ -234,6 +234,9 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
   NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails] displayNameForKey:NSLocaleCountryCode value:locale];
   NSString * bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
   NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@", device, [UIDevice currentDevice].systemVersion, bundleVersion, language, country];
+  NSString * alohalyticsId = [Alohalytics installationId];
+  if (alohalyticsId)
+    text = [NSString stringWithFormat:@"%@\n- %@", text, alohalyticsId];
   if ([MFMailComposeViewController canSendMail])
   {
     MFMailComposeViewController * vc = [[MFMailComposeViewController alloc] init];
