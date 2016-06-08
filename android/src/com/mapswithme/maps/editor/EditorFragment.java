@@ -84,14 +84,20 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private EditText mZipcode;
   private View mBlockLevels;
   private EditText mBuildingLevels;
-  private TextInputLayout mInputHouseNumber;
-  private TextInputLayout mInputBuildingLevels;
   private EditText mPhone;
   private EditText mWebsite;
   private EditText mEmail;
   private TextView mCuisine;
   private EditText mOperator;
   private SwitchCompat mWifi;
+
+  private TextInputLayout mInputHouseNumber;
+  private TextInputLayout mInputBuildingLevels;
+  private TextInputLayout mInputZipcode;
+  private TextInputLayout mInputPhone;
+  private TextInputLayout mInputWebsite;
+  private TextInputLayout mInputEmail;
+
   private View mEmptyOpeningHours;
   private TextView mOpeningHours;
   private View mEditOpeningHours;
@@ -133,6 +139,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     });
 
     mZipcode.setText(Editor.nativeGetZipCode());
+    mZipcode.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        UiUtils.setInputError(mInputZipcode, Editor.nativeIsZipcodeValid(s.toString()) ? 0 : R.string.error_enter_correct_zip_code);
+      }
+    });
+
     mBuildingLevels.setText(Editor.nativeGetBuildingLevels());
     mBuildingLevels.addTextChangedListener(new StringUtils.SimpleTextWatcher()
     {
@@ -144,8 +159,35 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     });
 
     mPhone.setText(Editor.nativeGetPhone());
+    mPhone.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        UiUtils.setInputError(mInputPhone, Editor.nativeIsPhoneValid(s.toString()) ? 0 : R.string.error_enter_correct_phone);
+      }
+    });
+
     mWebsite.setText(Editor.nativeGetWebsite());
+    mWebsite.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        UiUtils.setInputError(mInputWebsite, Editor.nativeIsWebsiteValid(s.toString()) ? 0 : R.string.error_enter_correct_web);
+      }
+    });
+
     mEmail.setText(Editor.nativeGetEmail());
+    mEmail.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        UiUtils.setInputError(mInputEmail, Editor.nativeIsEmailValid(s.toString()) ? 0 : R.string.error_enter_correct_email);
+      }
+    });
+
     mCuisine.setText(Editor.nativeGetFormattedCuisine());
     mOperator.setText(Editor.nativeGetOperator());
     mWifi.setChecked(Editor.nativeHasWifi());
@@ -199,6 +241,34 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     {
       mBuildingLevels.requestFocus();
       InputUtils.showKeyboard(mBuildingLevels);
+      return false;
+    }
+
+    if (!Editor.nativeIsZipcodeValid(mZipcode.getText().toString()))
+    {
+      mZipcode.requestFocus();
+      InputUtils.showKeyboard(mZipcode);
+      return false;
+    }
+
+    if (!Editor.nativeIsPhoneValid(mPhone.getText().toString()))
+    {
+      mPhone.requestFocus();
+      InputUtils.showKeyboard(mPhone);
+      return false;
+    }
+
+    if (!Editor.nativeIsWebsiteValid(mWebsite.getText().toString()))
+    {
+      mWebsite.requestFocus();
+      InputUtils.showKeyboard(mWebsite);
+      return false;
+    }
+
+    if (!Editor.nativeIsEmailValid(mEmail.getText().toString()))
+    {
+      mEmail.requestFocus();
+      InputUtils.showKeyboard(mEmail);
       return false;
     }
 
@@ -273,6 +343,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mLocalizedNamesAdapter.registerAdapterDataObserver(mLocalizedNamesObserver);
     refreshLocalizedNames();
     showLocalizedNames(false);
+
     // Address
     view.findViewById(R.id.block_street).setOnClickListener(this);
     mStreet = (TextView) view.findViewById(R.id.street);
@@ -281,17 +352,21 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mInputHouseNumber = (TextInputLayout) blockHouseNumber.findViewById(R.id.custom_input);
     View blockZipcode = view.findViewById(R.id.block_zipcode);
     mZipcode = findInputAndInitBlock(blockZipcode, 0, R.string.editor_zip_code);
-    mBlockLevels = view.findViewById(R.id.block_levels);
-    mInputBuildingLevels = (TextInputLayout) mBlockLevels.findViewById(R.id.custom_input);
-    // TODO set level limits from core
-    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, getString(R.string.editor_storey_number, 25));
+    mInputZipcode = (TextInputLayout) blockZipcode.findViewById(R.id.custom_input);
+
     // Details
+    mBlockLevels = view.findViewById(R.id.block_levels);
+    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, getString(R.string.editor_storey_number, 25));
+    mInputBuildingLevels = (TextInputLayout) mBlockLevels.findViewById(R.id.custom_input);
     View blockPhone = view.findViewById(R.id.block_phone);
     mPhone = findInputAndInitBlock(blockPhone, R.drawable.ic_phone, R.string.phone);
+    mInputPhone = (TextInputLayout) blockPhone.findViewById(R.id.custom_input);
     View blockWeb = view.findViewById(R.id.block_website);
     mWebsite = findInputAndInitBlock(blockWeb, R.drawable.ic_website, R.string.website);
+    mInputWebsite = (TextInputLayout) blockWeb.findViewById(R.id.custom_input);
     View blockEmail = view.findViewById(R.id.block_email);
     mEmail = findInputAndInitBlock(blockEmail, R.drawable.ic_email, R.string.email);
+    mInputEmail = (TextInputLayout) blockEmail.findViewById(R.id.custom_input);
     View blockCuisine = view.findViewById(R.id.block_cuisine);
     blockCuisine.setOnClickListener(this);
     mCuisine = (TextView) view.findViewById(R.id.cuisine);

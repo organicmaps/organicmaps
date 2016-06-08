@@ -517,6 +517,41 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsLevelValid(JNIEnv * env, jclass c
   return osm::EditableMapObject::ValidateBuildingLevels(jni::ToNativeString(env, level));
 }
 
+// static boolean nativeIsFlatValid(String flats)
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsFlatValid(JNIEnv * env, jclass clazz, jstring flats)
+{
+  return osm::EditableMapObject::ValidateFlats(jni::ToNativeString(env, flats));
+}
+
+// static boolean nativeIsPostCodeValid(String zipCode)
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsZipcodeValid(JNIEnv * env, jclass clazz, jstring zipCode)
+{
+  return osm::EditableMapObject::ValidatePostCode(jni::ToNativeString(env, zipCode));
+}
+
+// static boolean nativeIsPhoneValid(String phone)
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsPhoneValid(JNIEnv * env, jclass clazz, jstring phone)
+{
+  return osm::EditableMapObject::ValidatePhone(jni::ToNativeString(env, phone));
+}
+
+// static boolean nativeIsWebsiteValid(String website)
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsWebsiteValid(JNIEnv * env, jclass clazz, jstring website)
+{
+  return osm::EditableMapObject::ValidateWebsite(jni::ToNativeString(env, website));
+}
+
+// static boolean nativeIsEmailValid(String email)
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsEmailValid(JNIEnv * env, jclass clazz, jstring email)
+{
+  return osm::EditableMapObject::ValidateEmail(jni::ToNativeString(env, email));
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetCategory(JNIEnv * env, jclass clazz)
 {

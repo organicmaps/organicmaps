@@ -255,6 +255,8 @@ bool EditableMapObject::ValidateFlats(string const & flats)
 // static
 bool EditableMapObject::ValidatePostCode(string const & postCode)
 {
+  if (postCode.empty())
+    return true;
   return search::LooksLikePostcode(postCode, false /* IsPrefix */);
 }
 
