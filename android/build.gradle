@@ -40,6 +40,7 @@ dependencies {
   compile 'com.google.android.gms:play-services-location:8.4.0'
   compile 'com.google.android.gms:play-services-analytics:8.4.0'
   compile 'com.google.android.gms:play-services-plus:8.4.0'
+  compile 'com.google.android.gms:play-services-gcm:8.4.0'
   // crash reporting
   compile 'net.hockeyapp.android:HockeySDK:3.7.1'
   compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
