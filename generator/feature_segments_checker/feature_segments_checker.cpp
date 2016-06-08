@@ -16,6 +16,7 @@
 
 #include "base/logging.hpp"
 
+#include "std/cmath.hpp"
 #include "std/iostream.hpp"
 #include "std/fstream.hpp"
 #include "std/map.hpp"
@@ -227,6 +228,24 @@ public:
     }
   }
 };
+
+double CalculateBinaryEntropy(map<int32_t, uint32_t> const & diffFromLinear)
+{
+  uint32_t innerPointCount = 0;
+  for (auto const & f : diffFromLinear)
+    innerPointCount += f.second;
+
+  if (innerPointCount == 0)
+    return 0.0;
+
+  double entropy = 0;
+  for (auto const & f : diffFromLinear)
+  {
+    double const p = static_cast<double>(f.second) / innerPointCount;
+    entropy += -p * log2(p);
+  }
+  return entropy;
+}
 }  // namespace
 
 int main(int argc, char ** argv)
@@ -242,12 +261,6 @@ int main(int argc, char ** argv)
 
   Processor processor(manager);
   feature::ForEachFromDat(FLAGS_mwm_file_path, processor);
-
-  cout << endl << "Road feature count = " << processor.m_roadCount << endl;
-  cout << "Empty road feature count = " << processor.m_emptyRoadCount << endl;
-  cout << "Unique road points count = " << processor.m_uniqueRoadPoints.size() << endl;
-  cout << "All road point count = " << processor.m_roadPointCount << endl;
-  cout << "Not road feature count = " << processor.m_notRoadCount << endl;
 
   PrintCont(processor.m_altitudeDiffs, "Altitude difference between start and end of features.",
             " feature(s) with altitude difference ", " meter(s)");
@@ -270,5 +283,13 @@ int main(int argc, char ** argv)
 
   PrintCont(processor.m_diffFromLinear, "Altitude deviation of internal feature points from linear model.",
             " internal feature point(s) deviate from linear model with ", " meter(s)");
+
+  cout << endl << "Road feature count = " << processor.m_roadCount << endl;
+  cout << "Empty road feature count = " << processor.m_emptyRoadCount << endl;
+  cout << "Unique road points count = " << processor.m_uniqueRoadPoints.size() << endl;
+  cout << "All road point count = " << processor.m_roadPointCount << endl;
+  cout << "Not road feature count = " << processor.m_notRoadCount << endl;
+  cout << "Binary entropy for altitude deviation of internal feature points from linear model  = "
+       << CalculateBinaryEntropy(processor.m_diffFromLinear) << endl;
   return 0;
 }
