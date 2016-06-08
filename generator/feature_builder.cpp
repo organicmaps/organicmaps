@@ -232,8 +232,8 @@ bool FeatureBuilder1::IsRoad() const
 {
   static routing::PedestrianModel const pedModel;
   static routing::BicycleModel const bicModel;
-  return routing::CarModel::Instance().HasRoadType(m_params.m_Types) || pedModel.HasRoadType(m_params.m_Types)
-      || bicModel.HasRoadType(m_params.m_Types);
+  return routing::CarModel::Instance().HasRoadType(m_params.m_Types) ||
+         pedModel.HasRoadType(m_params.m_Types) || bicModel.HasRoadType(m_params.m_Types);
 }
 
 bool FeatureBuilder1::PreSerialize()

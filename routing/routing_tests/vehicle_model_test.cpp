@@ -23,6 +23,7 @@ class TestVehicleModel : public routing::VehicleModel
 {
   friend void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue);
   friend void CheckSpeed(initializer_list<uint32_t> const & types, double expectedSpeed);
+
 public:
   TestVehicleModel() : VehicleModel(classif(), s_testLimits) {}
 };

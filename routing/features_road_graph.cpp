@@ -241,10 +241,7 @@ void FeaturesRoadGraph::ClearState()
   m_mwmLocks.clear();
 }
 
-bool FeaturesRoadGraph::IsRoad(FeatureType const & ft) const
-{
-  return m_vehicleModel.IsRoad(ft);
-}
+bool FeaturesRoadGraph::IsRoad(FeatureType const & ft) const { return m_vehicleModel.IsRoad(ft); }
 
 bool FeaturesRoadGraph::IsOneWay(FeatureType const & ft) const
 {

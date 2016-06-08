@@ -17,11 +17,6 @@ public:
   /// VehicleModel overrides:
   double GetSpeed(FeatureType const & f) const override;
   bool IsOneWay(FeatureType const & f) const override;
-  /// @returns true if |f| could be considered as a road.
-  /// @note If BicycleModel::IsRoad(f) returns false for a feature f and for an instance
-  /// of |BicycleModel| created by default constructor
-  /// BicycleModel::IsRoad(f) for the same feature f and for any instance
-  /// of |BicycleModel| created by |BicycleModel(VehicleModel::InitListT const &)| must return false.
   bool IsRoad(FeatureType const & f) const override;
 
 private:

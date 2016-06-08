@@ -68,7 +68,8 @@ public:
 
   /// @returns true if |m_types| or |m_addRoadTypes| contains |type| and false otherwise.
   bool IsRoadType(uint32_t type) const;
-  template <class TList> bool HasRoadType(TList const & types) const
+  template <class TList>
+  bool HasRoadType(TList const & types) const
   {
     for (uint32_t t : types)
     {

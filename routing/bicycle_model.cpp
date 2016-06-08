@@ -601,17 +601,14 @@ BicycleModel::BicycleModel(VehicleModel::InitListT const & speedLimits)
 
 void BicycleModel::Init()
 {
-  initializer_list<char const *> hwtagYesbicycle = { "hwtag", "yesbicycle" };
+  initializer_list<char const *> hwtagYesbicycle = {"hwtag", "yesbicycle"};
 
   m_yesBicycleType = classif().GetTypeByPath(hwtagYesbicycle);
-  m_noBicycleType = classif().GetTypeByPath({ "hwtag", "nobicycle" });
-  m_bicycleBidirType = classif().GetTypeByPath({ "hwtag", "bicycle_bidir" });
+  m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
+  m_bicycleBidirType = classif().GetTypeByPath({"hwtag", "bicycle_bidir"});
 
-  initializer_list<char const *> arr[] =
-  {
-    hwtagYesbicycle,
-    { "route", "ferry" },
-    { "man_made", "pier" },
+  initializer_list<char const *> arr[] = {
+      hwtagYesbicycle, {"route", "ferry"}, {"man_made", "pier"},
   };
 
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));

@@ -17,11 +17,6 @@ public:
   /// VehicleModel overrides:
   double GetSpeed(FeatureType const & f) const override;
   bool IsOneWay(FeatureType const &) const override { return false; }
-  /// @returns true if |f| could be considered as a road for pedestrian routing.
-  /// @note If PedestrianModel::IsRoad(f) returns false for a feature f and for an instance
-  /// of |PedestrianModel| created by default constructor
-  /// PedestrianModel::IsRoad(f) for the same feature f and for any instance
-  /// of |PedestrianModel| created by |PedestrianModel(VehicleModel::InitListT const &)| must return false.
   bool IsRoad(FeatureType const & f) const override;
 
 private:

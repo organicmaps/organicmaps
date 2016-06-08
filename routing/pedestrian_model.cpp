@@ -621,16 +621,13 @@ PedestrianModel::PedestrianModel(VehicleModel::InitListT const & speedLimits)
 
 void PedestrianModel::Init()
 {
-  initializer_list<char const *> hwtagYesfoot = { "hwtag", "yesfoot" };
+  initializer_list<char const *> hwtagYesfoot = {"hwtag", "yesfoot"};
 
   m_noFootType = classif().GetTypeByPath({ "hwtag", "nofoot" });
   m_yesFootType = classif().GetTypeByPath(hwtagYesfoot);
 
-  initializer_list<char const *> arr[] =
-  {
-    hwtagYesfoot,
-    { "route", "ferry" },
-    { "man_made", "pier" },
+  initializer_list<char const *> arr[] = {
+      hwtagYesfoot, {"route", "ferry"}, {"man_made", "pier"},
   };
 
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
