@@ -51,6 +51,7 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 @property (copy, nonatomic) NSString * bookmarkColor;
 @property (copy, nonatomic) NSString * bookingRating;
 @property (copy, nonatomic) NSString * bookingPrice;
+@property (copy, nonatomic) NSString * bookingOnlinePrice;
 
 @property (nonatomic) BookmarkAndCategory bac;
 @property (weak, nonatomic) MWMPlacePageViewManager * manager;
@@ -68,6 +69,7 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 
 - (instancetype)initWithInfo:(place_page::Info const &)info;
 - (void)synchronize;
+- (void)onlinePricingWithCompletionBlock:(TMWMVoidBlock)completion failure:(TMWMVoidBlock)failure;
 
 - (void)toggleCoordinateSystem;
 

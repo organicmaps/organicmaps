@@ -229,7 +229,29 @@ using namespace storage;
 
   BOOL const isMyPosition = entity.isMyPosition;
   self.addressLabel.text = entity.address;
-  self.bookingPriceLabel.text = entity.bookingPrice;
+
+  if (!entity.bookingOnlinePrice.length)
+  {
+    self.bookingPriceLabel.text = entity.bookingPrice;
+    [entity onlinePricingWithCompletionBlock:^
+    {
+      self.bookingPriceLabel.text = entity.bookingOnlinePrice;
+      [self setNeedsLayout];
+      [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+      {
+        [self layoutIfNeeded];
+      }];
+    }
+    failure:^
+    {
+      //TODO(Vlad): Process error.
+    }];
+  }
+  else
+  {
+    self.bookingPriceLabel.text = entity.bookingOnlinePrice;
+  }
+
   self.bookingRatingLabel.text = entity.bookingRating;
   self.bookingView.hidden = !entity.bookingPrice.length && !entity.bookingRating.length;
   BOOL const isHeadingAvaible = [CLLocationManager headingAvailable];
