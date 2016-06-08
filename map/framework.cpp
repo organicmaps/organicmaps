@@ -2352,7 +2352,7 @@ void Framework::InsertRoute(Route const & route)
   }
 
   vector<double> turns;
-  if (m_currentRouterType == RouterType::Vehicle)
+  if (m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle)
     route.GetTurnsDistances(turns);
 
   df::ColorConstant routeColor = df::Route;
