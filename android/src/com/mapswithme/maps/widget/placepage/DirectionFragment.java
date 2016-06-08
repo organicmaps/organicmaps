@@ -16,13 +16,15 @@ import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-public class DirectionFragment extends BaseMwmDialogFragment implements LocationHelper.LocationListener
+public class DirectionFragment extends BaseMwmDialogFragment
+                            implements LocationListener
 {
   private static final String EXTRA_MAP_OBJECT = "MapObject";
 
@@ -106,7 +108,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addLocationListener(this, true);
+    LocationHelper.INSTANCE.addListener(this, true);
     refreshViews();
   }
 
@@ -114,7 +116,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   public void onPause()
   {
     super.onPause();
-    LocationHelper.INSTANCE.removeLocationListener(this);
+    LocationHelper.INSTANCE.removeListener(this);
   }
 
   @Override

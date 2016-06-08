@@ -366,7 +366,7 @@ public class MainMenu
     setState(State.MENU, false);
   }
 
-  public MainMenu(ViewGroup frame, Container container)
+  public MainMenu(MwmActivity activity, ViewGroup frame, Container container)
   {
     mContainer = container;
     mFrame = frame;

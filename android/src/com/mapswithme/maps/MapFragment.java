@@ -270,12 +270,9 @@ public class MapFragment extends BaseMwmFragment
 
   boolean isFirstStart()
   {
-    return mFirstStart;
-  }
-
-  void clearFirstStart()
-  {
+    boolean res = mFirstStart;
     mFirstStart = false;
+    return res;
   }
 
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);

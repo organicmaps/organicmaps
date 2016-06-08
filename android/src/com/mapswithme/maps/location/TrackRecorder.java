@@ -38,14 +38,14 @@ public final class TrackRecorder
   private static Boolean sEnableLogging;
   private static Logger sLogger;
 
-  private static final LocationHelper.LocationListener sLocationListener = new LocationHelper.SimpleLocationListener()
+  private static final LocationListener sLocationListener = new LocationListener.Simple()
   {
     @Override
     public void onLocationUpdated(Location location)
     {
       log("onLocationUpdated()");
       setAwaitTimeout(LOCATION_TIMEOUT_MIN_MS);
-      LocationHelper.onLocationUpdated(location);
+      LocationHelper.INSTANCE.onLocationUpdated(location);
       TrackRecorderWakeService.stop();
     }
 
@@ -180,7 +180,7 @@ public final class TrackRecorder
       public void run()
       {
         TrackRecorder.log("onServiceStarted(): actually runs here");
-        LocationHelper.INSTANCE.addLocationListener(sLocationListener, false);
+        LocationHelper.INSTANCE.addListener(sLocationListener, false);
       }
     });
   }
@@ -195,7 +195,7 @@ public final class TrackRecorder
       public void run()
       {
         TrackRecorder.log("onServiceStopped(): actually runs here");
-        LocationHelper.INSTANCE.removeLocationListener(sLocationListener);
+        LocationHelper.INSTANCE.removeListener(sLocationListener);
 
         if (!MwmApplication.backgroundTracker().isForeground())
           restartAlarmIfEnabled();

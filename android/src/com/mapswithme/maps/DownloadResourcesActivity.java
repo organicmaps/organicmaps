@@ -32,6 +32,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
@@ -99,16 +100,16 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       new KmzKmlProcessor()
   };
 
-  private final LocationHelper.LocationListener mLocationListener = new LocationHelper.SimpleLocationListener()
+  private final LocationListener mLocationListener = new LocationListener.Simple()
   {
     @Override
-    public void onLocationUpdated(Location l)
+    public void onLocationUpdated(Location location)
     {
       if (mCurrentCountry != null)
         return;
 
-      final double lat = l.getLatitude();
-      final double lon = l.getLongitude();
+      final double lat = location.getLatitude();
+      final double lon = location.getLongitude();
       mCurrentCountry = MapManager.nativeFindCountry(lat, lon);
       if (TextUtils.isEmpty(mCurrentCountry))
       {
@@ -146,7 +147,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
         checkBox.setText(checkBoxText);
       }
 
-      LocationHelper.INSTANCE.removeLocationListener(this);
+      LocationHelper.INSTANCE.removeListener(this);
     }
   };
 
@@ -242,14 +243,14 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
+    LocationHelper.INSTANCE.addListener(mLocationListener, true);
   }
 
   @Override
   protected void onPause()
   {
     super.onPause();
-    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+    LocationHelper.INSTANCE.removeListener(mLocationListener);
   }
 
   private void suggestRemoveLiteOrSamsung()

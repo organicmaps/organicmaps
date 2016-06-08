@@ -1,5 +1,8 @@
 package com.mapswithme.maps.base;
 
+import android.content.Intent;
+
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.ViewServer;
@@ -66,5 +69,10 @@ public class BaseActivityDelegate
         mActivity.get().recreate();
       }
     });
+  }
+
+  static boolean onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    return LocationHelper.INSTANCE.onActivityResult(requestCode, resultCode);
   }
 }

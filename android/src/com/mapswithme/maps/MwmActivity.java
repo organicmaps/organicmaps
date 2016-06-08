@@ -3,12 +3,10 @@ package com.mapswithme.maps;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -24,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.Stack;
@@ -51,8 +48,8 @@ import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.editor.FeatureCategoryActivity;
 import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.editor.ViralFragment;
+import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.SinglePageNewsFragment;
 import com.mapswithme.maps.routing.NavigationController;
@@ -77,7 +74,6 @@ import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.InputUtils;
-import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -91,8 +87,7 @@ import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
 public class MwmActivity extends BaseMwmFragmentActivity
-                      implements LocationHelper.LocationListener,
-                                 MapObjectListener,
+                      implements MapObjectListener,
                                  View.OnTouchListener,
                                  BasePlacePageAnimationController.OnVisibilityChangedListener,
                                  OnClickListener,
@@ -100,7 +95,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  CustomNavigateUpListener,
                                  ChooseBookmarkCategoryFragment.Listener,
                                  RoutingController.Container,
-                                 LocationState.ModeChangeListener
+                                 LocationHelper.UiCallback
 {
   public static final String EXTRA_TASK = "map_task";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
@@ -115,8 +110,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   // Instance state
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
-
-  public static final int REQUEST_CHECK_SETTINGS = 101;
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -146,15 +139,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mIsFullscreen;
   private boolean mIsFullscreenAnimating;
 
-  private LocationPredictor mLocationPredictor;
   private FloatingSearchToolbarController mSearchController;
-  private LastCompassData mLastCompassData;
 
   // The first launch of application ever - onboarding screen will be shown.
   private boolean mFirstStart;
-  // The first launch after process started. Used to skip "Not follow, no position" state and to run locator.
-  private static boolean sColdStart = true;
-  private static boolean sLocationStopped;
 
   public interface LeftAnimationTrackListener
   {
@@ -163,20 +151,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     void onTrackFinished(boolean collapsed);
 
     void onTrackLeftAnimation(float offset);
-  }
-
-  private static class LastCompassData
-  {
-    double magneticNorth;
-    double trueNorth;
-    double north;
-
-    void update(int rotation, double magneticNorth, double trueNorth)
-    {
-      this.magneticNorth = LocationUtils.correctCompassAngle(rotation, magneticNorth);
-      this.trueNorth = LocationUtils.correctCompassAngle(rotation, trueNorth);
-      north = (this.trueNorth >= 0.0) ? this.trueNorth : this.magneticNorth;
-    }
   }
 
   public static Intent createShowMapIntent(Context context, String countryId, boolean doAutoDownload)
@@ -198,6 +172,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     checkMeasurementSystem();
     checkKitkatMigrationMove();
 
+    LocationHelper.INSTANCE.attach(this);
     runTasks();
   }
 
@@ -351,7 +326,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeSetMapObjectListener(this);
 
     mSearchController = new FloatingSearchToolbarController(this);
-    mLocationPredictor = new LocationPredictor(new Handler(), this);
     processIntent(getIntent());
     SharingHelper.prepare();
   }
@@ -462,7 +436,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean closePlacePage()
   {
-    if (mPlacePage.getState() == State.HIDDEN)
+    if (mPlacePage.isHidden())
       return false;
 
     mPlacePage.hide();
@@ -532,7 +506,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMenu()
   {
-    mMainMenu = new MainMenu((ViewGroup) findViewById(R.id.menu_frame), new MainMenu.Container()
+    mMainMenu = new MainMenu(this, (ViewGroup) findViewById(R.id.menu_frame), new MainMenu.Container()
     {
       @Override
       public Activity getActivity()
@@ -684,14 +658,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSaveInstanceState(Bundle outState)
   {
-    if (mPlacePage.getState() != State.HIDDEN)
+    if (!mPlacePage.isHidden())
     {
       outState.putBoolean(STATE_PP_OPENED, true);
       mPlacePage.saveBookmarkTitle();
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
+
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.onSaveState(outState);
+
     RoutingController.get().onSaveState();
     super.onSaveInstanceState(outState);
   }
@@ -753,173 +729,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onLocationError(int errorCode)
-  {
-    LocationHelper.nativeOnLocationError(errorCode);
-
-    if (sLocationStopped)
-      return;
-
-    if (errorCode == LocationHelper.ERROR_DENIED)
-    {
-      Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-      if (intent.resolveActivity(getPackageManager()) == null)
-      {
-        intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
-        if (intent.resolveActivity(getPackageManager()) == null)
-          return;
-      }
-
-      final Intent finIntent = intent;
-      new AlertDialog.Builder(this)
-          .setTitle(R.string.enable_location_service)
-          .setMessage(R.string.location_is_disabled_long_text)
-          .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-              startActivity(finIntent);
-            }
-          })
-          .setNegativeButton(R.string.close, null)
-          .show();
-    }
-    else if (errorCode == LocationHelper.ERROR_GPS_OFF)
-    {
-      Toast.makeText(this, R.string.gps_is_disabled_long_text, Toast.LENGTH_LONG).show();
-    }
-  }
-
-  @Override
-  public void onLocationUpdated(final Location location)
-  {
-    if (!location.getProvider().equals(LocationHelper.LOCATION_PREDICTOR_PROVIDER))
-      mLocationPredictor.reset(location);
-
-    LocationHelper.onLocationUpdated(location);
-
-    if (mPlacePage.getState() != State.HIDDEN)
-      mPlacePage.refreshLocation(location);
-
-    if (!RoutingController.get().isNavigating())
-      return;
-
-    RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-    mNavigationController.update(info);
-    mMainMenu.updateRoutingInfo(info);
-
-    TtsPlayer.INSTANCE.playTurnNotifications();
-  }
-
-  @Override
-  public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
-  {
-    if (mLastCompassData == null)
-      mLastCompassData = new LastCompassData();
-
-    mLastCompassData.update(getWindowManager().getDefaultDisplay().getRotation(), magneticNorth, trueNorth);
-    MapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, false);
-
-    mPlacePage.refreshAzimuth(mLastCompassData.north);
-    mNavigationController.updateNorth(mLastCompassData.north);
-  }
-
-  public static void enableLocation()
-  {
-    sLocationStopped = false;
-  }
-
-  @Override
-  public void onMyPositionModeChangedCallback(final int newMode, final boolean routingActive)
-  {
-    mLocationPredictor.myPositionModeChanged(newMode);
-    mMainMenu.getMyPositionButton().update(newMode);
-
-    if (LocationState.isTurnedOn(newMode))
-      sLocationStopped = false;
-
-    switch (newMode)
-    {
-    case LocationState.PENDING_POSITION:
-      resumeLocation();
-      LocationHelper.INSTANCE.restart(); // restart to check settings again
-      break;
-
-    case LocationState.NOT_FOLLOW_NO_POSITION:
-      if (sColdStart)
-      {
-        LocationState.INSTANCE.nativeSwitchToNextMode();
-        break;
-      }
-
-      pauseLocation();
-
-      if (sLocationStopped)
-        break;
-
-      sLocationStopped = true;
-
-      if (mMapFragment != null && mMapFragment.isFirstStart())
-      {
-        mMapFragment.clearFirstStart();
-        break;
-      }
-
-      if (LocationHelper.INSTANCE.shouldResolveErrors() && LocationUtils.areLocationServicesTurnedOn())
-      {
-        LocationHelper.INSTANCE.setShouldResolveErrors(false);
-
-        String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
-                                       getString(R.string.current_location_unknown_title));
-        new AlertDialog.Builder(this)
-            .setMessage(message)
-            .setNegativeButton(R.string.current_location_unknown_stop_button, null)
-            .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
-            {
-              @Override
-              public void onClick(DialogInterface dialog, int which)
-              {
-                sLocationStopped = false;
-                LocationState.INSTANCE.nativeSwitchToNextMode();
-              }
-            }).show();
-      }
-      break;
-
-    default:
-      LocationHelper.INSTANCE.restart();
-      break;
-    }
-
-    sColdStart = false;
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data)
-  {
-    if (requestCode == REQUEST_CHECK_SETTINGS)
-    {
-      if (resultCode == RESULT_OK)
-      {
-        LocationHelper.INSTANCE.setShouldResolveErrors(true);
-        LocationHelper.INSTANCE.restart();
-        return;
-      }
-
-      LocationHelper.INSTANCE.setShouldResolveErrors(false);
-    }
-
-    super.onActivityResult(requestCode, resultCode, data);
-  }
-
-  @Override
   protected void onResume()
   {
     super.onResume();
-    LocationState.INSTANCE.nativeSetListener(this);
-    mMainMenu.getMyPositionButton().update(LocationState.getMode());
-    resumeLocation();
+
     mSearchController.refreshToolbar();
     mMainMenu.onResume(new Runnable()
     {
@@ -934,14 +747,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
     });
     mOnmapDownloader.onResume();
-  }
-
-  private void resumeLocation()
-  {
-    LocationHelper.INSTANCE.addLocationListener(this, true);
-    // Do not turn off the screen while displaying position
-    Utils.keepScreenOn(true, getWindow());
-    mLocationPredictor.resume();
   }
 
   @Override
@@ -969,7 +774,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             public boolean run(MwmActivity target)
             {
               if (LocationState.isTurnedOn())
-                LocationState.INSTANCE.nativeSwitchToNextMode();
+                LocationState.nativeSwitchToNextMode();
               return false;
             }
           });
@@ -1021,20 +826,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onPause()
   {
-    LocationState.INSTANCE.nativeRemoveListener();
-    pauseLocation();
     TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();
     mOnmapDownloader.onPause();
     super.onPause();
-  }
-
-  private void pauseLocation()
-  {
-    LocationHelper.INSTANCE.removeLocationListener(this);
-    // Enable automatic turning screen off while app is idle
-    Utils.keepScreenOn(false, getWindow());
-    mLocationPredictor.pause();
   }
 
   @Override
@@ -1045,6 +840,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().attach(this);
     if (!mIsFragmentContainer)
       mRoutingPlanInplaceController.setStartButton();
+
+    if (MapFragment.nativeIsEngineCreated())
+      LocationHelper.INSTANCE.attach(this);
   }
 
   private void initShowcase()
@@ -1084,6 +882,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
+    LocationHelper.INSTANCE.detach();
     mMytargetHelper.cancel();
     RoutingController.get().detach();
   }
@@ -1383,18 +1182,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public void adjustCompass(int offsetX, int offsetY)
+  void adjustCompass(int offsetX, int offsetY)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
     mMapFragment.setupCompass((mPanelAnimator != null && mPanelAnimator.isVisible()) ? offsetX : 0, offsetY, true);
 
-    if (mLastCompassData != null)
-      MapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, true);
+    CompassData compass = LocationHelper.INSTANCE.getCompassData();
+    if (compass != null)
+      MapFragment.nativeCompassUpdated(compass.getMagneticNorth(), compass.getTrueNorth(), true);
   }
 
-  public void adjustRuler(int offsetX, int offsetY)
+  private void adjustRuler(int offsetX, int offsetY)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
@@ -1526,5 +1326,41 @@ public class MwmActivity extends BaseMwmFragmentActivity
     boolean res = mFirstStart;
     mFirstStart = false;
     return res;
+  }
+
+  @Override
+  public void onMyPositionModeChanged(int newMode)
+  {
+    mMainMenu.getMyPositionButton().update(newMode);
+  }
+
+  @Override
+  public void onLocationUpdated(Location location)
+  {
+    if (!mPlacePage.isHidden())
+      mPlacePage.refreshLocation(location);
+
+    if (!RoutingController.get().isNavigating())
+      return;
+
+    RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    mNavigationController.update(info);
+    mMainMenu.updateRoutingInfo(info);
+
+    TtsPlayer.INSTANCE.playTurnNotifications();
+  }
+
+  @Override
+  public void onCompassUpdated(CompassData compass)
+  {
+    MapFragment.nativeCompassUpdated(compass.getMagneticNorth(), compass.getTrueNorth(), false);
+    mPlacePage.refreshAzimuth(compass.getNorth());
+    mNavigationController.updateNorth(compass.getNorth());
+  }
+
+  @Override
+  public boolean shouldNotifyLocationNotFound()
+  {
+    return (mMapFragment != null && !mMapFragment.isFirstStart());
   }
 }

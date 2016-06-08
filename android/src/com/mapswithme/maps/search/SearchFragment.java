@@ -27,6 +27,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.CountrySuggestFragment;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.UiUtils;
@@ -141,12 +142,12 @@ public class SearchFragment extends BaseMwmFragment
   private String mInitialQuery;
   private boolean mFromRoutePlan;
 
-  private final LocationHelper.LocationListener mLocationListener = new LocationHelper.SimpleLocationListener()
+  private final LocationListener mLocationListener = new LocationListener.Simple()
   {
     @Override
-    public void onLocationUpdated(Location l)
+    public void onLocationUpdated(Location location)
     {
-      mLastPosition.set(l.getLatitude(), l.getLongitude());
+      mLastPosition.set(location.getLatitude(), location.getLongitude());
 
       if (!TextUtils.isEmpty(getQuery()))
         mSearchAdapter.notifyDataSetChanged();
@@ -276,13 +277,13 @@ public class SearchFragment extends BaseMwmFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
+    LocationHelper.INSTANCE.addListener(mLocationListener, true);
   }
 
   @Override
   public void onPause()
   {
-    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+    LocationHelper.INSTANCE.removeListener(mLocationListener);
     super.onPause();
   }
 

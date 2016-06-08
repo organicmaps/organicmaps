@@ -1,5 +1,7 @@
 package com.mapswithme.maps.location;
 
+import android.app.Activity;
+import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,7 +30,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   private LocationRequest mLocationRequest;
   private PendingResult<LocationSettingsResult> mLocationSettingsResult;
 
-  public GoogleFusedLocationProvider()
+  GoogleFusedLocationProvider()
   {
     mGoogleApiClient = new GoogleApiClient.Builder(MwmApplication.get())
                                           .addApi(LocationServices.API)
@@ -38,10 +40,10 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   }
 
   @Override
-  protected void startUpdates()
+  protected boolean start()
   {
     if (mGoogleApiClient == null || mGoogleApiClient.isConnected() || mGoogleApiClient.isConnecting())
-      return;
+      return true;
 
     mLocationRequest = LocationRequest.create();
 //    mLocationRequest.setPriority(LocationHelper.INSTANCE.isHighAccuracy() ? LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -57,18 +59,21 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     mLocationRequest.setFastestInterval(interval / 2);
 
     mGoogleApiClient.connect();
+    return true;
   }
 
   @Override
-  protected void stopUpdates()
+  protected void stop()
   {
     if (mGoogleApiClient == null)
       return;
 
     if (mGoogleApiClient.isConnected())
       LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+
     if (mLocationSettingsResult != null && !mLocationSettingsResult.isCanceled())
       mLocationSettingsResult.cancel();
+
     mGoogleApiClient.disconnect();
   }
 
@@ -76,12 +81,12 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   protected boolean isLocationBetterThanLast(Location newLocation, Location lastLocation)
   {
     // We believe that google services always returns good locations.
-    return isFromFusedProvider(newLocation) ||
-           !isFromFusedProvider(lastLocation) && super.isLocationBetterThanLast(newLocation, lastLocation);
+    return (isFromFusedProvider(newLocation) ||
+            (!isFromFusedProvider(lastLocation) && super.isLocationBetterThanLast(newLocation, lastLocation)));
 
   }
 
-  private boolean isFromFusedProvider(Location location)
+  private static boolean isFromFusedProvider(Location location)
   {
     return GMS_LOCATION_PROVIDER.equalsIgnoreCase(location.getProvider());
   }
@@ -107,19 +112,37 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
         switch (status.getStatusCode())
         {
         case LocationSettingsStatusCodes.SUCCESS:
-          LocationHelper.INSTANCE.setShouldResolveErrors(true);
           break;
+
         case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
           // Location settings are not satisfied, but this can be fixed by showing the user a dialog.
-          LocationHelper.INSTANCE.resolveLocationError(status);
-          break;
+          resolveError(status);
+          return;
+
         case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
           // Location settings are not satisfied. However, we have no way to fix the settings so we won't show the dialog.
           break;
         }
+
         requestLocationUpdates();
       }
     });
+  }
+
+  private static void resolveError(Status status)
+  {
+    if (LocationHelper.INSTANCE.isLocationStopped())
+      return;
+
+    LocationHelper.INSTANCE.stop(false);
+    Activity activity = MwmApplication.backgroundTracker().getTopActivity();
+    if (activity != null)
+    {
+      try
+      {
+        status.startResolutionForResult(activity, LocationHelper.REQUEST_RESOLVE_ERROR);
+      } catch (IntentSender.SendIntentException ignored) {}
+    }
   }
 
   private void requestLocationUpdates()
@@ -128,10 +151,10 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       return;
 
     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-    LocationHelper.INSTANCE.registerSensorListeners();
-    final Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+    LocationHelper.INSTANCE.startSensors();
+    Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     if (last != null)
-      LocationHelper.INSTANCE.saveLocation(last);
+      onLocationChanged(last);
   }
 
   @Override
@@ -145,6 +168,6 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   {
     sLogger.d("Fused onConnectionFailed. Fall back to native provider. ConnResult " + connectionResult);
     // TODO handle error in a smarter way
-    LocationHelper.INSTANCE.initLocationProvider(true);
+    LocationHelper.INSTANCE.initProvider(true);
   }
 }

@@ -12,6 +12,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -20,12 +21,12 @@ public class FirstStartFragment extends BaseNewsFragment
   private static Location sLocation;
   private static int sError = LocationHelper.ERROR_UNKNOWN;
 
-  private final LocationHelper.LocationListener mLocationListener = new LocationHelper.SimpleLocationListener()
+  private final LocationListener mLocationListener = new LocationListener.Simple()
   {
     @Override
-    public void onLocationUpdated(Location loc)
+    public void onLocationUpdated(Location location)
     {
-      sLocation = loc;
+      sLocation = location;
       sError = LocationHelper.ERROR_UNKNOWN;
     }
 
@@ -86,7 +87,7 @@ public class FirstStartFragment extends BaseNewsFragment
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
-    LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
+    LocationHelper.INSTANCE.addListener(mLocationListener, true);
     return super.onCreateDialog(savedInstanceState);
   }
 
@@ -100,12 +101,8 @@ public class FirstStartFragment extends BaseNewsFragment
       String reason;
       switch (sError)
       {
-      case LocationHelper.ERROR_GPS_OFF:
-        reason = "unavailable";
-        break;
-
       case LocationHelper.ERROR_DENIED:
-        reason = "not_permitted";
+        reason = "unavailable";
         break;
 
       default:
@@ -120,7 +117,7 @@ public class FirstStartFragment extends BaseNewsFragment
     Framework.nativeZoomToPoint(sLocation.getLatitude(), sLocation.getLongitude(), 14, true);
 
     sLocation = null;
-    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+    LocationHelper.INSTANCE.removeListener(mLocationListener);
   }
 
   public static boolean showOn(FragmentActivity activity)

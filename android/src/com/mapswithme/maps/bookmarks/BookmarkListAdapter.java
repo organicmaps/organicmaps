@@ -19,6 +19,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.Graphics;
 
 
@@ -35,10 +36,10 @@ public class BookmarkListAdapter extends BaseAdapter
   private static final int SECTION_TRACKS = 0;
   private static final int SECTION_BMKS = 1;
 
-  private final LocationHelper.LocationListener mLocationListener = new LocationHelper.SimpleLocationListener()
+  private final LocationListener mLocationListener = new LocationListener.Simple()
   {
     @Override
-    public void onLocationUpdated(Location l)
+    public void onLocationUpdated(Location location)
     {
       notifyDataSetChanged();
     }
@@ -52,12 +53,12 @@ public class BookmarkListAdapter extends BaseAdapter
 
   public void startLocationUpdate()
   {
-    LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
+    LocationHelper.INSTANCE.addListener(mLocationListener, true);
   }
 
   public void stopLocationUpdate()
   {
-    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+    LocationHelper.INSTANCE.removeListener(mLocationListener);
   }
 
   @Override

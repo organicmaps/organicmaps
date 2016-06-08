@@ -16,9 +16,9 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
 
-import static com.mapswithme.maps.dialog.EditTextDialogFragment.OnTextSaveListener;
-
-public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment implements OnTextSaveListener, ChooseBookmarkCategoryAdapter.CategoryListener
+public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
+                                         implements EditTextDialogFragment.OnTextSaveListener,
+                                                    ChooseBookmarkCategoryAdapter.CategoryListener
 {
   public static final String CATEGORY_ID = "ExtraCategoryId";
   public static final String BOOKMARK_ID = "ExtraBookmarkId";
