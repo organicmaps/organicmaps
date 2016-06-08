@@ -386,7 +386,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
           break;
 
         case BOOKING:
-          onBookingClick(Statistics.EventName.PP_SPONSORED_BOOK);
+          onBookingClick(true);
           break;
         }
       }
@@ -436,7 +436,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mDetails.setBackgroundResource(0);
   }
 
-  private void onBookingClick(final String event)
+  private void onBookingClick(final boolean book)
   {
     // TODO (trashkalmar): Set correct text
     Utils.checkConnection(getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>()
@@ -458,14 +458,17 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         params.put("lat", (myPos == null ? "N/A" : String.valueOf(myPos.getLat())));
         params.put("lon", (myPos == null ? "N/A" : String.valueOf(myPos.getLon())));
         // TODO (trashkalmar): Replace with hotel's ID
-        params.put("hotel", mSponsoredHotelInfo.price);
+        params.put("hotel", info.price);
+
+        String event = (book ? Statistics.EventName.PP_SPONSORED_BOOK
+                             : Statistics.EventName.PP_SPONSORED_DETAILS);
 
         Statistics.INSTANCE.trackEvent(event, params);
         org.alohalytics.Statistics.logEvent(event, params);
 
         try
         {
-          followUrl(mSponsoredHotelInfo.urlBook);
+          followUrl(book ? info.urlBook : info.urlDescription);
         } catch (ActivityNotFoundException e)
         {
           AlohaHelper.logException(e);
@@ -669,8 +672,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private void refreshDetails()
   {
     refreshLatLon();
-    final String website = mMapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
-    refreshMetadataOrHide(TextUtils.isEmpty(website) ? mMapObject.getMetadata(Metadata.MetadataType.FMD_URL) : website, mWebsite, mTvWebsite);
+
+    if (mSponsoredHotelInfo == null)
+    {
+      final String website = mMapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
+      refreshMetadataOrHide(TextUtils.isEmpty(website) ? mMapObject.getMetadata(Metadata.MetadataType.FMD_URL) : website, mWebsite, mTvWebsite);
+    }
+    else
+      UiUtils.hide(mWebsite);
+
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
@@ -969,7 +979,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       addPlace();
       break;
     case R.id.ll__more:
-      onBookingClick(Statistics.EventName.PP_SPONSORED_DETAILS);
+      onBookingClick(false);
       break;
     case R.id.iv__bookmark_color:
       saveBookmarkTitle();

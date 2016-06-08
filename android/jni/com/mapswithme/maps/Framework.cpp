@@ -1068,11 +1068,12 @@ Java_com_mapswithme_maps_Framework_nativeGetSponsoredHotelInfo(JNIEnv * env, jcl
     return nullptr;
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/widget/placepage/SponsoredHotelInfo");
-  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
   return env->NewObject(infoClass, infoCtor, jni::ToJavaString(env, ppInfo.GetRatingFormatted()),
                                              jni::ToJavaString(env, ppInfo.GetApproximatePricing()),
-                                             jni::ToJavaString(env, ppInfo.GetWebsite()));
+                                             jni::ToJavaString(env, ppInfo.GetSponsoredBookingUrl()),
+                                             jni::ToJavaString(env, ppInfo.GetSponsoredDescriptionUrl()));
 }
 
 } // extern "C"
