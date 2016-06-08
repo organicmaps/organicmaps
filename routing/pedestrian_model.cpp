@@ -633,23 +633,23 @@ void PedestrianModel::Init()
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
-VehicleModel::Restriction PedestrianModel::IsNoFoot(feature::TypesHolder const & types) const
+VehicleModel::Restriction PedestrianModel::IsPedestrianAllowed(feature::TypesHolder const & types) const
 {
-  return types.Has(m_noFootType) ? Restriction::Yes : Restriction::Unknown;
-}
-
-VehicleModel::Restriction PedestrianModel::IsYesFoot(feature::TypesHolder const & types) const
-{
-  return types.Has(m_yesFootType) ? Restriction::Yes : Restriction::Unknown;
+  if (types.Has(m_yesFootType))
+    return Restriction::Yes;
+  if (types.Has(m_noFootType))
+    return Restriction::No;
+  return Restriction::Unknown;
 }
 
 double PedestrianModel::GetSpeed(FeatureType const & f) const
 {
   feature::TypesHolder const types(f);
 
-  if (IsYesFoot(types) == Restriction::Yes)
+  Restriction const restriction = IsPedestrianAllowed(types);
+  if (restriction == Restriction::Yes)
     return VehicleModel::GetMaxSpeed();
-  if (IsNoFoot(types) == Restriction::Unknown && HasRoadType(types))
+  if (restriction != Restriction::No && HasRoadType(types))
     return VehicleModel::GetMinTypeSpeed(types);
 
   return 0.0;
@@ -662,8 +662,9 @@ bool PedestrianModel::IsRoad(FeatureType const & f) const
 
   feature::TypesHolder const types(f);
 
-  if (IsNoFoot(types) == Restriction::Yes)
+  if (IsPedestrianAllowed(types) == Restriction::No)
     return false;
+
   return VehicleModel::HasRoadType(types);
 }
 

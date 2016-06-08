@@ -82,8 +82,9 @@ public:
 protected:
   enum class Restriction
   {
-    Unknown,
+    No,
     Yes,
+    Unknown,
   };
 
   /// Used in derived class constructors only. Not for public use.

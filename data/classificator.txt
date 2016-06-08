@@ -363,7 +363,7 @@ world  +
         wayside_shrine  -
         {}
     hwtag  +
-        bicycle_bidir  -
+        bidir_bicycle  -
         lit  -
         nobicycle  -
         nofoot  -

@@ -21,12 +21,7 @@ public:
 
 private:
   void Init();
-
-  /// @return Restriction::Yes if road is prohibited for pedestrian.
-  Restriction IsNoFoot(feature::TypesHolder const & types) const;
-
-  /// @return Restriction::Yes if road is allowed for pedestrian.
-  Restriction IsYesFoot(feature::TypesHolder const & types) const;
+  Restriction IsPedestrianAllowed(feature::TypesHolder const & types) const;
 
   uint32_t m_noFootType = 0;
   uint32_t m_yesFootType = 0;

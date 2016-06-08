@@ -21,19 +21,14 @@ public:
 
 private:
   void Init();
-
-  /// @return Restriction::Yes if road is prohibited for bicycle.
-  Restriction IsNoBicycle(feature::TypesHolder const & types) const;
-
-  /// @return Restriction::Yes if road is allowed for bicycle.
-  Restriction IsYesBicycle(feature::TypesHolder const & types) const;
+  Restriction IsBicycleAllowed(feature::TypesHolder const & types) const;
 
   /// @return Restriction::Yes if it is allowed to ride bicycle in two directions.
   Restriction IsBicycleBidir(feature::TypesHolder const & types) const;
 
   uint32_t m_noBicycleType = 0;
   uint32_t m_yesBicycleType = 0;
-  uint32_t m_bicycleBidirType = 0;
+  uint32_t m_bidirBicycleType = 0;
 };
 
 class BicycleModelFactory : public IVehicleModelFactory

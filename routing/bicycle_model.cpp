@@ -605,7 +605,7 @@ void BicycleModel::Init()
 
   m_yesBicycleType = classif().GetTypeByPath(hwtagYesbicycle);
   m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
-  m_bicycleBidirType = classif().GetTypeByPath({"hwtag", "bicycle_bidir"});
+  m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
 
   initializer_list<char const *> arr[] = {
       hwtagYesbicycle, {"route", "ferry"}, {"man_made", "pier"},
@@ -614,28 +614,28 @@ void BicycleModel::Init()
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
-VehicleModel::Restriction BicycleModel::IsNoBicycle(feature::TypesHolder const & types) const
+VehicleModel::Restriction BicycleModel::IsBicycleAllowed(feature::TypesHolder const & types) const
 {
-  return types.Has(m_noBicycleType) ? Restriction::Yes : Restriction::Unknown;
-}
-
-VehicleModel::Restriction BicycleModel::IsYesBicycle(feature::TypesHolder const & types) const
-{
-  return types.Has(m_yesBicycleType) ? Restriction::Yes : Restriction::Unknown;
+  if (types.Has(m_yesBicycleType))
+    return Restriction::Yes;
+  if (types.Has(m_noBicycleType))
+    return Restriction::No;
+  return Restriction::Unknown;
 }
 
 VehicleModel::Restriction BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
 {
-  return types.Has(m_bicycleBidirType) ? Restriction::Yes : Restriction::Unknown;
+  return types.Has(m_bidirBicycleType) ? Restriction::Yes : Restriction::Unknown;
 }
 
 double BicycleModel::GetSpeed(FeatureType const & f) const
 {
   feature::TypesHolder const types(f);
 
-  if (IsYesBicycle(types) == Restriction::Yes)
+  Restriction const restriction = IsBicycleAllowed(types);
+  if (restriction == Restriction::Yes)
     return VehicleModel::GetMaxSpeed();
-  if (IsNoBicycle(types) == Restriction::Unknown && HasRoadType(types))
+  if (restriction != Restriction::No && HasRoadType(types))
     return VehicleModel::GetMinTypeSpeed(types);
 
   return 0.0;
@@ -658,7 +658,7 @@ bool BicycleModel::IsRoad(FeatureType const & f) const
 
   feature::TypesHolder const types(f);
 
-  if (IsNoBicycle(types) == Restriction::Yes)
+  if (IsBicycleAllowed(types) == Restriction::No)
     return false;
   return VehicleModel::HasRoadType(types);
 }

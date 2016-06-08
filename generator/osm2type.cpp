@@ -228,7 +228,7 @@ namespace ftype
       {
         {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
         {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
-        {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "bicycle_bidir"},
+        {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "bidir_bicycle"},
         {"psurface", "paved_good"}, {"psurface", "paved_bad"},
         {"psurface", "unpaved_good"}, {"psurface", "unpaved_bad"},
       };

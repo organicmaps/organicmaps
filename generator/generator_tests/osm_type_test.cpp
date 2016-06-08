@@ -507,7 +507,7 @@ UNIT_TEST(OsmType_Hwtag)
 {
   char const * tags[][2] = {
       {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
-      {"hwtag", "yesbicycle"}, {"hwtag", "bicycle_bidir"}
+      {"hwtag", "yesbicycle"}, {"hwtag", "bidir_bicycle"}
   };
 
   {
