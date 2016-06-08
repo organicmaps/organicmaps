@@ -110,8 +110,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		34CB447C1C0C34C50061F6A0 /* timegm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timegm.cpp; sourceTree = "<group>"; };
-		34CB447D1C0C34C50061F6A0 /* timegm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = timegm.hpp; sourceTree = "<group>"; };
 		39FD26C81CC65A0E00AFF551 /* assert_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = assert_test.cpp; sourceTree = "<group>"; };
 		39FD26CA1CC65A0E00AFF551 /* bits_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bits_test.cpp; sourceTree = "<group>"; };
 		39FD26CB1CC65A0E00AFF551 /* buffer_vector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer_vector_test.cpp; sourceTree = "<group>"; };
@@ -280,12 +278,8 @@
 		6753416E1A3F57BF00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				39FD27441CC65B5C00AFF551 /* libtomcrypt.a */,
-				39FD27421CC65B4800AFF551 /* libcoding.a */,
-				39FD27401CC65B2800AFF551 /* libindexer.a */,
-				39FD273C1CC65B1000AFF551 /* libplatform_tests_support.a */,
-				39FD273D1CC65B1000AFF551 /* libplatform.a */,
 				670D05AA1B0E057B0013A7AC /* defaults.xcconfig */,
+				678850931D084AF6004201E1 /* libs */,
 				675341791A3F57BF00A0A8C3 /* base */,
 				39FD26C71CC659D200AFF551 /* base_tests */,
 				675341781A3F57BF00A0A8C3 /* Products */,
@@ -367,8 +361,6 @@
 				675341C81A3F57E400A0A8C3 /* threaded_priority_queue.hpp */,
 				675341C91A3F57E400A0A8C3 /* timer.cpp */,
 				675341CA1A3F57E400A0A8C3 /* timer.hpp */,
-				34CB447C1C0C34C50061F6A0 /* timegm.cpp */,
-				34CB447D1C0C34C50061F6A0 /* timegm.hpp */,
 				67A609AC1C88642E001E641A /* deferred_task.cpp */,
 				67A609AD1C88642E001E641A /* deferred_task.hpp */,
 			);
@@ -383,6 +375,18 @@
 				6753453B1A3F6F6A00A0A8C3 /* message.hpp */,
 			);
 			path = internal;
+			sourceTree = "<group>";
+		};
+		678850931D084AF6004201E1 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				39FD27441CC65B5C00AFF551 /* libtomcrypt.a */,
+				39FD27421CC65B4800AFF551 /* libcoding.a */,
+				39FD27401CC65B2800AFF551 /* libindexer.a */,
+				39FD273C1CC65B1000AFF551 /* libplatform_tests_support.a */,
+				39FD273D1CC65B1000AFF551 /* libplatform.a */,
+			);
+			name = libs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -745,6 +749,7 @@
 				39FD271D1CC65A7100AFF551 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		675341721A3F57BF00A0A8C3 /* Build configuration list for PBXProject "base" */ = {
 			isa = XCConfigurationList;

@@ -48,6 +48,8 @@ else
 #define HOCKEY_APP_BETA_KEY ""
 #define CRASHLYTICS_IOS_KEY ""
 #define BOOKING_AFFILIATE_ID ""
+#define BOOKING_KEY ""
+#define BOOKING_SECRET ""
 ' > "$PRIVATE_HEADER"
     echo 'ext {
   spropStoreFile = "../tools/android/debug.keystore"

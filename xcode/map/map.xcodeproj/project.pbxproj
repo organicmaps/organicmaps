@@ -64,6 +64,15 @@
 		675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346331A4054E800A0A8C3 /* user_mark.hpp */; };
 		6788507E1D059068004201E1 /* booking_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6788507C1D059068004201E1 /* booking_api.cpp */; };
 		6788507F1D059068004201E1 /* booking_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6788507D1D059068004201E1 /* booking_api.hpp */; };
+		678850811D06F588004201E1 /* booking_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678850801D06F588004201E1 /* booking_tests.cpp */; };
+		678850821D071E33004201E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F61B26FE62001A525C /* libdrape.a */; };
+		6788508A1D071E34004201E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 678850831D071E34004201E1 /* libdrape_frontend.a */; };
+		6788508B1D071E34004201E1 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 678850841D071E34004201E1 /* libeditor.a */; };
+		6788508C1D071E34004201E1 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 678850851D071E34004201E1 /* liboauthcpp.a */; };
+		6788508D1D071E34004201E1 /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 678850861D071E34004201E1 /* libplatform_tests_support.a */; };
+		6788508E1D071E34004201E1 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 678850871D071E34004201E1 /* libpugixml.a */; };
+		6788508F1D071E34004201E1 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 678850881D071E34004201E1 /* libsdf_image.a */; };
+		678850901D071E34004201E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 678850891D071E34004201E1 /* libstb_image.a */; };
 		67F183751BD5041700AB1840 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F183741BD5041700AB1840 /* libz.tbd */; };
 		67F183761BD5045700AB1840 /* bookmarks_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CB1B26FCFE001A525C /* bookmarks_test.cpp */; };
 		67F183771BD5045700AB1840 /* ge0_parser_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CC1B26FCFE001A525C /* ge0_parser_tests.cpp */; };
@@ -166,6 +175,14 @@
 		675346331A4054E800A0A8C3 /* user_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark.hpp; sourceTree = "<group>"; };
 		6788507C1D059068004201E1 /* booking_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_api.cpp; sourceTree = "<group>"; };
 		6788507D1D059068004201E1 /* booking_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_api.hpp; sourceTree = "<group>"; };
+		678850801D06F588004201E1 /* booking_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_tests.cpp; sourceTree = "<group>"; };
+		678850831D071E34004201E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
+		678850841D071E34004201E1 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
+		678850851D071E34004201E1 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
+		678850861D071E34004201E1 /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "../../../omim-xcode-build/Debug/libplatform_tests_support.a"; sourceTree = "<group>"; };
+		678850871D071E34004201E1 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
+		678850881D071E34004201E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
+		678850891D071E34004201E1 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
 		67F183741BD5041700AB1840 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		67F1837D1BD5049500AB1840 /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
 		67F1837E1BD5049500AB1840 /* liblodepng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblodepng.a; path = "../../../omim-xcode-build/Debug/liblodepng.a"; sourceTree = "<group>"; };
@@ -188,6 +205,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6788508A1D071E34004201E1 /* libdrape_frontend.a in Frameworks */,
+				6788508B1D071E34004201E1 /* libeditor.a in Frameworks */,
+				6788508C1D071E34004201E1 /* liboauthcpp.a in Frameworks */,
+				6788508D1D071E34004201E1 /* libplatform_tests_support.a in Frameworks */,
+				6788508E1D071E34004201E1 /* libpugixml.a in Frameworks */,
+				6788508F1D071E34004201E1 /* libsdf_image.a in Frameworks */,
+				678850901D071E34004201E1 /* libstb_image.a in Frameworks */,
+				678850821D071E33004201E1 /* libdrape.a in Frameworks */,
 				67F183881BD5050900AB1840 /* SystemConfiguration.framework in Frameworks */,
 				67F183811BD5049500AB1840 /* libagg.a in Frameworks */,
 				67F183821BD5049500AB1840 /* liblodepng.a in Frameworks */,
@@ -242,6 +267,7 @@
 				674A29CE1B26FCFE001A525C /* kmz_unarchive_test.cpp */,
 				674A29CF1B26FCFE001A525C /* mwm_url_tests.cpp */,
 				674A2A351B27011A001A525C /* working_time_tests.cpp */,
+				678850801D06F588004201E1 /* booking_tests.cpp */,
 			);
 			name = map_tests;
 			path = ../../map/map_tests;
@@ -250,6 +276,13 @@
 		674A2A341B2700B2001A525C /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				678850831D071E34004201E1 /* libdrape_frontend.a */,
+				678850841D071E34004201E1 /* libeditor.a */,
+				678850851D071E34004201E1 /* liboauthcpp.a */,
+				678850861D071E34004201E1 /* libplatform_tests_support.a */,
+				678850871D071E34004201E1 /* libpugixml.a */,
+				678850881D071E34004201E1 /* libsdf_image.a */,
+				678850891D071E34004201E1 /* libstb_image.a */,
 				67F183871BD5050900AB1840 /* SystemConfiguration.framework */,
 				67F183851BD504ED00AB1840 /* libsystem_configuration.tbd */,
 				67F1837D1BD5049500AB1840 /* libagg.a */,
@@ -466,6 +499,7 @@
 				67F183781BD5045700AB1840 /* geourl_test.cpp in Sources */,
 				67F183791BD5045700AB1840 /* kmz_unarchive_test.cpp in Sources */,
 				67F1837A1BD5045700AB1840 /* mwm_url_tests.cpp in Sources */,
+				678850811D06F588004201E1 /* booking_tests.cpp in Sources */,
 				674A29F01B26FD6F001A525C /* testingmain.cpp in Sources */,
 				674A2A361B27011A001A525C /* working_time_tests.cpp in Sources */,
 			);
@@ -507,7 +541,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
+					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = (
@@ -536,6 +570,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
@@ -600,6 +635,7 @@
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -647,6 +683,7 @@
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
