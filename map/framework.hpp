@@ -350,6 +350,7 @@ public:
 
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);
   ref_ptr<df::DrapeEngine> GetDrapeEngine();
+  bool IsDrapeEngineCreated() const { return m_drapeEngine && m_drapeEngine.get(); }
   void DestroyDrapeEngine();
   /// Called when graphics engine should be temporarily paused and then resumed.
   void SetRenderingEnabled(bool enable);

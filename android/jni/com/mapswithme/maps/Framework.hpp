@@ -130,8 +130,9 @@ namespace android
     void ShowTrack(int category, int track);
 
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
-    location::EMyPositionMode GetMyPositionMode() const;
+    location::EMyPositionMode GetMyPositionMode();
     void SetMyPositionMode(location::EMyPositionMode mode);
+    void SwitchMyPositionNextMode();
 
     void Save3dMode(bool allow3d, bool allow3dBuildings);
     void Set3dMode(bool allow3d, bool allow3dBuildings);
