@@ -29,6 +29,7 @@ macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 SOURCES += \
   ../../testing/testingmain.cpp \
   address_tests.cpp \
+  booking_tests.cpp \
   bookmarks_test.cpp \
   feature_getters_tests.cpp \
   ge0_parser_tests.cpp  \
