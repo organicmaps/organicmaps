@@ -904,4 +904,9 @@
 	<string name="editor_status_sending">Отправка…</string>
 	<string name="editor_place_doesnt_exist">Места не существует</string>
 	<string name="place_page_booking_rating">Рейтинг: %s</string>
+	<string name="text_more_button">… еще</string>
+	<string name="error_enter_correct_phone">Введите корректный номер телефона</string>
+	<string name="error_enter_correct_web">Введите корректный веб-сайт</string>
+	<string name="error_enter_correct_email">Введите корректный email</string>
+	<string name="error_enter_correct">Введите корректное значение</string>
 </resources>
