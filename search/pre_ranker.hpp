@@ -17,7 +17,7 @@ class PreRanker
 public:
   explicit PreRanker(size_t limit);
 
-  void Add(impl::PreResult1 const & result);
+  void Add(PreResult1 const & result);
 
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
@@ -46,7 +46,7 @@ public:
   }
 
 private:
-  vector<impl::PreResult1> m_results;
+  vector<PreResult1> m_results;
   size_t const m_limit;
 
   DISALLOW_COPY_AND_MOVE(PreRanker);

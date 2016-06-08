@@ -102,62 +102,6 @@ ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
   }
 }
 
-class IndexedValue
-{
-  /// @todo Do not use shared_ptr for optimization issues.
-  /// Need to rewrite std::unique algorithm.
-  unique_ptr<impl::PreResult2> m_value;
-
-  double m_rank;
-  double m_distanceToPivot;
-
-  friend string DebugPrint(IndexedValue const & value)
-  {
-    ostringstream os;
-    os << "IndexedValue [";
-    if (value.m_value)
-      os << impl::DebugPrint(*value.m_value);
-    os << "]";
-    return os.str();
-  }
-
-public:
-  explicit IndexedValue(unique_ptr<impl::PreResult2> value)
-    : m_value(move(value)), m_rank(0.0), m_distanceToPivot(numeric_limits<double>::max())
-  {
-    if (!m_value)
-      return;
-
-    auto const & info = m_value->GetRankingInfo();
-    m_rank = info.GetLinearModelRank();
-    m_distanceToPivot = info.m_distanceToPivot;
-  }
-
-  impl::PreResult2 const & operator*() const { return *m_value; }
-
-  inline double GetRank() const { return m_rank; }
-
-  inline double GetDistanceToPivot() const { return m_distanceToPivot; }
-};
-
-void RemoveDuplicatingLinear(vector<IndexedValue> & indV)
-{
-  impl::PreResult2::LessLinearTypesF lessCmp;
-  impl::PreResult2::EqualLinearTypesF equalCmp;
-
-  sort(indV.begin(), indV.end(), [&lessCmp](IndexedValue const & lhs, IndexedValue const & rhs)
-       {
-         return lessCmp(*lhs, *rhs);
-       });
-
-  indV.erase(unique(indV.begin(), indV.end(),
-                    [&equalCmp](IndexedValue const & lhs, IndexedValue const & rhs)
-                    {
-                      return equalCmp(*lhs, *rhs);
-                    }),
-             indV.end());
-}
-
 m2::RectD NormalizeViewport(m2::RectD viewport)
 {
   m2::RectD minViewport = MercatorBounds::RectByCenterXYAndSizeInMeters(
@@ -174,23 +118,6 @@ m2::RectD GetRectAroundPosition(m2::PointD const & position)
 {
   double constexpr kMaxPositionRadiusM = 50.0 * 1000;
   return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
-}
-
-template <typename TSlice>
-void UpdateNameScore(string const & name, TSlice const & slice, NameScore & bestScore)
-{
-  auto const score = GetNameScore(name, slice);
-  if (score > bestScore)
-    bestScore = score;
-}
-
-template <typename TSlice>
-void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & slice,
-                     NameScore & bestScore)
-{
-  auto const score = GetNameScore(tokens, slice);
-  if (score > bestScore)
-    bestScore = score;
 }
 
 inline bool IsHashtagged(strings::UniString const & s) { return !s.empty() && s[0] == '#'; }
@@ -224,8 +151,6 @@ Processor::Processor(Index & index, CategoriesHolder const & categories,
   , m_mode(Mode::Everywhere)
   , m_worldSearch(true)
   , m_suggestsEnabled(true)
-  , m_viewportSearch(false)
-  , m_keepHouseNumberInQuery(true)
   , m_preRanker(kPreResultsCount)
   , m_geocoder(index, infoGetter, static_cast<my::Cancellable const &>(*this))
   , m_reverseGeocoder(index)
@@ -241,6 +166,8 @@ Processor::Processor(Index & index, CategoriesHolder const & categories,
   m_keywordsScorer.SetLanguages(langPriorities);
 
   SetPreferredLocale("en");
+
+  m_ranker = make_unique<Ranker>(m_preRanker, *this);
 }
 
 void Processor::Init(bool viewportSearch)
@@ -248,7 +175,7 @@ void Processor::Init(bool viewportSearch)
   m_tokens.clear();
   m_prefix.clear();
   m_preRanker.Clear();
-  m_viewportSearch = viewportSearch;
+  m_ranker->Init(viewportSearch);
 }
 
 void Processor::SetViewport(m2::RectD const & viewport, bool forceUpdate)
@@ -347,7 +274,7 @@ void Processor::SetQuery(string const & query)
 
   // get preffered types to show in results
   m_prefferedTypes.clear();
-  ForEachCategoryTypes(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
+  ForEachCategoryType(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
                        [&](size_t, uint32_t t)
                        {
                          m_prefferedTypes.insert(t);
@@ -450,8 +377,8 @@ int Processor::GetCategoryLocales(int8_t(&arr)[3]) const
   return count;
 }
 
-template <class ToDo>
-void Processor::ForEachCategoryTypes(StringSliceBase const & slice, ToDo toDo) const
+void Processor::ForEachCategoryType(StringSliceBase const & slice,
+                                     function<void(size_t, uint32_t)> const & fn) const
 {
   int8_t arrLocales[3];
   int const localesCount = GetCategoryLocales(arrLocales);
@@ -460,14 +387,14 @@ void Processor::ForEachCategoryTypes(StringSliceBase const & slice, ToDo toDo) c
   {
     auto token = RemoveHashtag(slice.Get(i));
     for (int j = 0; j < localesCount; ++j)
-      m_categories.ForEachTypeByName(arrLocales[j], token, bind<void>(ref(toDo), i, _1));
-    ProcessEmojiIfNeeded(token, i, toDo);
+      m_categories.ForEachTypeByName(arrLocales[j], token, bind<void>(fn, i, _1));
+    ProcessEmojiIfNeeded(token, i, fn);
   }
 }
 
-template <class ToDo>
+// template <class ToDo>
 void Processor::ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind,
-                                     ToDo & toDo) const
+                                     function<void(size_t, uint32_t)> const & fn) const
 {
   // Special process of 2 codepoints emoji (e.g. black guy on a bike).
   // Only emoji synonyms can have one codepoint.
@@ -476,7 +403,7 @@ void Processor::ProcessEmojiIfNeeded(strings::UniString const & token, size_t in
     static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
 
     m_categories.ForEachTypeByName(enLocaleCode, strings::UniString(1, token[0]),
-                                   bind<void>(ref(toDo), ind, _1));
+                                   bind<void>(fn, ind, _1));
   }
 }
 
@@ -495,7 +422,7 @@ void Processor::Search(Results & results, size_t limit)
 
   m_geocoder.GoEverywhere(m_preRanker);
 
-  FlushResults(params, results, limit);
+  m_ranker->FlushResults(params, results, limit);
 }
 
 void Processor::SearchViewportPoints(Results & results)
@@ -509,7 +436,7 @@ void Processor::SearchViewportPoints(Results & results)
 
   m_geocoder.GoInViewport(m_preRanker);
 
-  FlushViewportResults(params, results);
+  m_ranker->FlushViewportResults(params, results);
 }
 
 void Processor::SearchCoordinates(Results & res) const
@@ -518,234 +445,7 @@ void Processor::SearchCoordinates(Results & res) const
   if (MatchLatLonDegree(m_query, lat, lon))
   {
     ASSERT_EQUAL(res.GetCount(), 0, ());
-    res.AddResultNoChecks(MakeResult(impl::PreResult2(lat, lon)));
-  }
-}
-
-namespace
-{
-bool IsResultExists(impl::PreResult2 const & p, vector<IndexedValue> const & indV)
-{
-  impl::PreResult2::StrictEqualF equalCmp(p);
-  // Do not insert duplicating results.
-  return indV.end() != find_if(indV.begin(), indV.end(), [&equalCmp](IndexedValue const & iv)
-                               {
-                                 return equalCmp(*iv);
-                               });
-}
-}  // namespace
-
-namespace impl
-{
-class PreResult2Maker
-{
-  Processor & m_processor;
-  Geocoder::Params const & m_params;
-
-  unique_ptr<Index::FeaturesLoaderGuard> m_pFV;
-
-  // For the best performance, incoming id's should be sorted by id.first (mwm file id).
-  void LoadFeature(FeatureID const & id, FeatureType & f, m2::PointD & center, string & name,
-                   string & country)
-  {
-    if (m_pFV.get() == 0 || m_pFV->GetId() != id.m_mwmId)
-      m_pFV.reset(new Index::FeaturesLoaderGuard(m_processor.m_index, id.m_mwmId));
-
-    m_pFV->GetFeatureByIndex(id.m_index, f);
-    f.SetID(id);
-
-    center = feature::GetCenter(f);
-
-    m_processor.GetBestMatchName(f, name);
-
-    // country (region) name is a file name if feature isn't from World.mwm
-    if (m_pFV->IsWorld())
-      country.clear();
-    else
-      country = m_pFV->GetCountryFileName();
-  }
-
-  void InitRankingInfo(FeatureType const & ft, m2::PointD const & center,
-                       impl::PreResult1 const & res, search::RankingInfo & info)
-  {
-    auto const & preInfo = res.GetInfo();
-
-    auto const & pivot = m_params.m_accuratePivotCenter;
-
-    info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
-    info.m_rank = preInfo.m_rank;
-    info.m_searchType = preInfo.m_searchType;
-    info.m_nameScore = NAME_SCORE_ZERO;
-
-    TokenSlice slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
-    TokenSliceNoCategories sliceNoCategories(m_params, preInfo.m_startToken, preInfo.m_endToken);
-
-    for (auto const & lang : m_params.m_langs)
-    {
-      string name;
-      if (!ft.GetName(lang, name))
-        continue;
-      vector<strings::UniString> tokens;
-      SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
-
-      UpdateNameScore(tokens, slice, info.m_nameScore);
-      UpdateNameScore(tokens, sliceNoCategories, info.m_nameScore);
-    }
-
-    if (info.m_searchType == SearchModel::SEARCH_TYPE_BUILDING)
-      UpdateNameScore(ft.GetHouseNumber(), sliceNoCategories, info.m_nameScore);
-
-    feature::TypesHolder holder(ft);
-    vector<pair<size_t, size_t>> matched(slice.Size());
-    m_processor.ForEachCategoryTypes(QuerySlice(slice), [&](size_t i, uint32_t t)
-                                     {
-                                       ++matched[i].second;
-                                       if (holder.Has(t))
-                                         ++matched[i].first;
-                                     });
-
-    info.m_pureCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
-                             {
-                               return m.first != 0;
-                             });
-    info.m_falseCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
-                              {
-                                return m.first == 0 && m.second != 0;
-                              });
-  }
-
-  uint8_t NormalizeRank(uint8_t rank, SearchModel::SearchType type, m2::PointD const & center,
-                        string const & country)
-  {
-    switch (type)
-    {
-    case SearchModel::SEARCH_TYPE_VILLAGE: return rank /= 1.5;
-    case SearchModel::SEARCH_TYPE_CITY:
-    {
-      if (m_processor.GetViewport(Processor::CURRENT_V).IsPointInside(center))
-        return rank * 2;
-
-      storage::CountryInfo info;
-      if (country.empty())
-        m_processor.m_infoGetter.GetRegionInfo(center, info);
-      else
-        m_processor.m_infoGetter.GetRegionInfo(country, info);
-      if (info.IsNotEmpty() && info.m_name == m_processor.GetPivotRegion())
-        return rank *= 1.7;
-    }
-    case SearchModel::SEARCH_TYPE_COUNTRY:
-      return rank /= 1.5;
-
-    // For all other search types, rank should be zero for now.
-    default: return 0;
-    }
-  }
-
-public:
-  explicit PreResult2Maker(Processor & q, Geocoder::Params const & params)
-    : m_processor(q), m_params(params)
-  {
-  }
-
-  unique_ptr<impl::PreResult2> operator()(impl::PreResult1 const & res1)
-  {
-    FeatureType ft;
-    m2::PointD center;
-    string name;
-    string country;
-
-    LoadFeature(res1.GetId(), ft, center, name, country);
-
-    auto res2 = make_unique<impl::PreResult2>(ft, &res1, center,
-                                              m_processor.GetPosition() /* pivot */, name, country);
-
-    search::RankingInfo info;
-    InitRankingInfo(ft, center, res1, info);
-    info.m_rank = NormalizeRank(info.m_rank, info.m_searchType, center, country);
-    res2->SetRankingInfo(move(info));
-
-    return res2;
-  }
-};
-}  // namespace impl
-
-template <class T>
-void Processor::MakePreResult2(Geocoder::Params const & params, vector<T> & cont,
-                               vector<FeatureID> & streets)
-{
-  m_preRanker.Filter(m_viewportSearch);
-
-  // Makes PreResult2 vector.
-  impl::PreResult2Maker maker(*this, params);
-  m_preRanker.ForEach(
-      [&](impl::PreResult1 const & r)
-      {
-        auto p = maker(r);
-        if (!p)
-          return;
-
-        if (params.m_mode == Mode::Viewport && !params.m_pivot.IsPointInside(p->GetCenter()))
-          return;
-
-        if (p->IsStreet())
-          streets.push_back(p->GetID());
-
-        if (!IsResultExists(*p, cont))
-          cont.push_back(IndexedValue(move(p)));
-      });
-}
-
-void Processor::FlushResults(Geocoder::Params const & params, Results & res, size_t resCount)
-{
-  vector<IndexedValue> indV;
-  vector<FeatureID> streets;
-
-  MakePreResult2(params, indV, streets);
-  RemoveDuplicatingLinear(indV);
-  if (indV.empty())
-    return;
-
-  sort(indV.rbegin(), indV.rend(), my::LessBy(&IndexedValue::GetRank));
-
-  ProcessSuggestions(indV, res);
-
-  // Emit feature results.
-  size_t count = res.GetCount();
-  for (size_t i = 0; i < indV.size() && count < resCount; ++i)
-  {
-    if (IsCancelled())
-      break;
-
-    LOG(LDEBUG, (indV[i]));
-
-    auto const & preResult2 = *indV[i];
-    if (res.AddResult(MakeResult(preResult2)))
-      ++count;
-  }
-}
-
-void Processor::FlushViewportResults(Geocoder::Params const & params, Results & res)
-{
-  vector<IndexedValue> indV;
-  vector<FeatureID> streets;
-
-  MakePreResult2(params, indV, streets);
-  RemoveDuplicatingLinear(indV);
-  if (indV.empty())
-    return;
-
-  sort(indV.begin(), indV.end(), my::LessBy(&IndexedValue::GetDistanceToPivot));
-
-  for (size_t i = 0; i < indV.size(); ++i)
-  {
-    if (IsCancelled())
-      break;
-
-    res.AddResultNoChecks(
-        (*(indV[i]))
-            .GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes,
-                                 m_currentLocaleCode,
-                                 nullptr /* Viewport results don't need calculated address */));
+    res.AddResultNoChecks(MakeResult(PreResult2(lat, lon)));
   }
 }
 
@@ -815,8 +515,7 @@ void Processor::GetSuggestion(string const & name, string & suggest) const
   }
 }
 
-template <class T>
-void Processor::ProcessSuggestions(vector<T> & vec, Results & res) const
+void Processor::ProcessSuggestions(vector<IndexedValue> & vec, Results & res) const
 {
   if (m_prefix.empty() || !m_suggestsEnabled)
     return;
@@ -824,7 +523,7 @@ void Processor::ProcessSuggestions(vector<T> & vec, Results & res) const
   int added = 0;
   for (auto i = vec.begin(); i != vec.end();)
   {
-    impl::PreResult2 const & r = **i;
+    PreResult2 const & r = **i;
 
     ftypes::Type const type = GetLocalityIndex(r.GetTypes());
     if ((type == ftypes::COUNTRY || type == ftypes::CITY) || r.IsStreet())
@@ -844,8 +543,6 @@ void Processor::ProcessSuggestions(vector<T> & vec, Results & res) const
   }
 }
 
-namespace impl
-{
 class BestNameFinder
 {
   KeywordLangMatcher::ScoreT m_score;
@@ -869,11 +566,10 @@ public:
     return true;
   }
 };
-}  // namespace impl
 
 void Processor::GetBestMatchName(FeatureType const & f, string & name) const
 {
-  impl::BestNameFinder finder(name, m_keywordsScorer);
+  BestNameFinder finder(name, m_keywordsScorer);
   UNUSED_VALUE(f.ForEachName(finder));
 }
 
@@ -926,12 +622,11 @@ public:
   void operator()(pair<uint16_t, uint16_t> const & range) { m_res.AddHighlightRange(range); }
 };
 
-Result Processor::MakeResult(impl::PreResult2 const & r) const
+Result Processor::MakeResult(PreResult2 const & r) const
 {
   Result res = r.GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes,
                                      m_currentLocaleCode, &m_reverseGeocoder);
   MakeResultHighlight(res);
-
 #ifdef FIND_LOCALITY_TEST
   if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
   {
@@ -1144,7 +839,7 @@ void Processor::InitParams(QueryParams & params)
       }
     }
   };
-  ForEachCategoryTypes(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix), addSyms);
+  ForEachCategoryType(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix), addSyms);
 
   for (auto & tokens : params.m_tokens)
   {

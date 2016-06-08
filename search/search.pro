@@ -49,6 +49,7 @@ HEADERS += \
     query_params.hpp \
     query_saver.hpp \
     rank_table_cache.hpp \
+    ranker.hpp \
     ranking_info.hpp \
     ranking_utils.hpp \
     region.hpp \
@@ -99,6 +100,7 @@ SOURCES += \
     query_params.cpp \
     query_saver.cpp \
     rank_table_cache.cpp \
+    ranker.cpp \
     ranking_info.cpp \
     ranking_utils.cpp \
     region.cpp \

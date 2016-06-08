@@ -20,8 +20,6 @@ namespace search
 {
 class ReverseGeocoder;
 
-namespace impl
-{
 /// First pass results class. Objects are creating during search in trie.
 /// Works fast without feature loading and provide ranking.
 class PreResult1
@@ -153,7 +151,45 @@ inline string DebugPrint(PreResult2 const & t)
 {
   return t.DebugPrint();
 }
-}  // namespace impl
 
 void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta);
+
+class IndexedValue
+{
+  /// @todo Do not use shared_ptr for optimization issues.
+  /// Need to rewrite std::unique algorithm.
+  unique_ptr<PreResult2> m_value;
+
+  double m_rank;
+  double m_distanceToPivot;
+
+  friend string DebugPrint(IndexedValue const & value)
+  {
+    ostringstream os;
+    os << "IndexedValue [";
+    if (value.m_value)
+      os << DebugPrint(*value.m_value);
+    os << "]";
+    return os.str();
+  }
+
+public:
+  explicit IndexedValue(unique_ptr<PreResult2> value)
+    : m_value(move(value)), m_rank(0.0), m_distanceToPivot(numeric_limits<double>::max())
+  {
+    if (!m_value)
+      return;
+
+    auto const & info = m_value->GetRankingInfo();
+    m_rank = info.GetLinearModelRank();
+    m_distanceToPivot = info.m_distanceToPivot;
+  }
+
+  PreResult2 const & operator*() const { return *m_value; }
+
+  inline double GetRank() const { return m_rank; }
+
+  inline double GetDistanceToPivot() const { return m_distanceToPivot; }
+};
+
 }  // namespace search

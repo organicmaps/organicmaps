@@ -58,8 +58,6 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
   meta.m_isInitialized = true;
 }
 
-namespace impl
-{
 PreResult1::PreResult1(FeatureID const & fID, PreRankingInfo const & info) : m_id(fID), m_info(info)
 {
   ASSERT(m_id.IsValid(), ());
@@ -302,5 +300,4 @@ void PreResult2::RegionInfo::GetRegion(storage::CountryInfoGetter const & infoGe
   else
     infoGetter.GetRegionInfo(m_point, info);
 }
-}  // namespace search::impl
 }  // namespace search
