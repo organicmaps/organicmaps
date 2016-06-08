@@ -17,8 +17,8 @@
 #include "base/logging.hpp"
 
 #include "std/cmath.hpp"
-#include "std/iostream.hpp"
 #include "std/fstream.hpp"
+#include "std/iostream.hpp"
 #include "std/map.hpp"
 #include "std/set.hpp"
 #include "std/string.hpp"
@@ -229,7 +229,7 @@ public:
   }
 };
 
-double CalculateBinaryEntropy(map<int32_t, uint32_t> const & diffFromLinear)
+double CalculateEntropy(map<int32_t, uint32_t> const & diffFromLinear)
 {
   uint32_t innerPointCount = 0;
   for (auto const & f : diffFromLinear)
@@ -289,7 +289,7 @@ int main(int argc, char ** argv)
   cout << "Unique road points count = " << processor.m_uniqueRoadPoints.size() << endl;
   cout << "All road point count = " << processor.m_roadPointCount << endl;
   cout << "Not road feature count = " << processor.m_notRoadCount << endl;
-  cout << "Binary entropy for altitude deviation of internal feature points from linear model  = "
-       << CalculateBinaryEntropy(processor.m_diffFromLinear) << endl;
+  cout << "Binary entropy for altitude deviation of internal feature points from linear model = "
+       << CalculateEntropy(processor.m_diffFromLinear) << endl;
   return 0;
 }
