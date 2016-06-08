@@ -21,6 +21,7 @@ public final class Config
 
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
+  private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
   private static final String KEY_LIKES_RATED_DIALOG = "RatedDialog";
   private static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
@@ -224,6 +225,16 @@ public final class Config
   public static void setStatisticsEnabled(boolean enabled)
   {
     setBool(KEY_PREF_STATISTICS, enabled);
+  }
+
+  public static boolean useGoogleServices()
+  {
+    return getBool(KEY_PREF_USE_GS, true);
+  }
+
+  public static void setUseGoogleService(boolean use)
+  {
+    setBool(KEY_PREF_USE_GS, use);
   }
 
   public static boolean isRatingApplied(Class<? extends DialogFragment> dialogFragmentClass)
