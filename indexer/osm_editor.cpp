@@ -907,9 +907,11 @@ void Editor::Invalidate()
 void Editor::MarkFeatureAsObsolete(FeatureID const & fid)
 {
   auto const featureStatus = GetFeatureStatus(fid);
-  ASSERT(featureStatus == FeatureStatus::Untouched ||
-         featureStatus == FeatureStatus::Modified,
-         ("Only untouched and modified features can be made obsolete"));
+  if (featureStatus != FeatureStatus::Untouched && featureStatus != FeatureStatus::Modified)
+  {
+    ASSERT(false, ("Only untouched and modified features can be made obsolete"));
+    return;
+  }
 
   auto & fti = m_features[fid.m_mwmId][fid.m_index];
   // If a feature was modified we can drop all changes since it's now obsolete.
