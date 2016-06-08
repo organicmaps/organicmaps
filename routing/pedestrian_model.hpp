@@ -15,13 +15,13 @@ public:
   PedestrianModel(VehicleModel::InitListT const & speedLimits);
 
   /// VehicleModel overrides:
-  double GetSpeed(FeatureType const & f) const override;
   bool IsOneWay(FeatureType const &) const override { return false; }
-  bool IsRoad(FeatureType const & f) const override;
+
+protected:
+  RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
 
 private:
   void Init();
-  Restriction IsPedestrianAllowed(feature::TypesHolder const & types) const;
 
   uint32_t m_noFootType = 0;
   uint32_t m_yesFootType = 0;

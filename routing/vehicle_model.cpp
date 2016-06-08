@@ -32,7 +32,15 @@ void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
 
 double VehicleModel::GetSpeed(FeatureType const & f) const
 {
-  return GetMinTypeSpeed(feature::TypesHolder(f));
+  feature::TypesHolder const types(f);
+
+  RoadAvailability const restriction = GetRoadAvailability(types);
+  if (restriction == RoadAvailability::Available)
+    return VehicleModel::GetMaxSpeed();
+  if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
+    return VehicleModel::GetMinTypeSpeed(types);
+
+  return 0.0;
 }
 
 double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
@@ -63,7 +71,14 @@ bool VehicleModel::HasOneWayType(feature::TypesHolder const & types) const
 
 bool VehicleModel::IsRoad(FeatureType const & f) const
 {
-  return (f.GetFeatureType() == feature::GEOM_LINE) && HasRoadType(feature::TypesHolder(f));
+  if (f.GetFeatureType() != feature::GEOM_LINE)
+    return false;
+
+  feature::TypesHolder const types(f);
+
+  if (GetRoadAvailability(types) == RoadAvailability::NotAvailable)
+    return false;
+  return VehicleModel::HasRoadType(types);
 }
 
 bool VehicleModel::IsRoadType(uint32_t type) const
@@ -72,4 +87,8 @@ bool VehicleModel::IsRoadType(uint32_t type) const
          m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end();
 }
 
+IVehicleModel::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const & /* types */) const
+{
+  return RoadAvailability::Unknown;
+}
 }  // namespace routing

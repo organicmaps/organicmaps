@@ -15,16 +15,16 @@ public:
   BicycleModel(VehicleModel::InitListT const & speedLimits);
 
   /// VehicleModel overrides:
-  double GetSpeed(FeatureType const & f) const override;
   bool IsOneWay(FeatureType const & f) const override;
-  bool IsRoad(FeatureType const & f) const override;
+
+protected:
+  RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
 
 private:
   void Init();
-  Restriction IsBicycleAllowed(feature::TypesHolder const & types) const;
 
-  /// @return Restriction::Yes if it is allowed to ride bicycle in two directions.
-  Restriction IsBicycleBidir(feature::TypesHolder const & types) const;
+  /// @return true if it is allowed to ride bicycle in two directions.
+  bool IsBicycleBidir(feature::TypesHolder const & types) const;
 
   uint32_t m_noBicycleType = 0;
   uint32_t m_yesBicycleType = 0;

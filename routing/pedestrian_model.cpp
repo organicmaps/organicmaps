@@ -633,39 +633,13 @@ void PedestrianModel::Init()
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
-VehicleModel::Restriction PedestrianModel::IsPedestrianAllowed(feature::TypesHolder const & types) const
+IVehicleModel::RoadAvailability PedestrianModel::GetRoadAvailability(feature::TypesHolder const & types) const
 {
   if (types.Has(m_yesFootType))
-    return Restriction::Yes;
+    return RoadAvailability::Available;
   if (types.Has(m_noFootType))
-    return Restriction::No;
-  return Restriction::Unknown;
-}
-
-double PedestrianModel::GetSpeed(FeatureType const & f) const
-{
-  feature::TypesHolder const types(f);
-
-  Restriction const restriction = IsPedestrianAllowed(types);
-  if (restriction == Restriction::Yes)
-    return VehicleModel::GetMaxSpeed();
-  if (restriction != Restriction::No && HasRoadType(types))
-    return VehicleModel::GetMinTypeSpeed(types);
-
-  return 0.0;
-}
-
-bool PedestrianModel::IsRoad(FeatureType const & f) const
-{
-  if (f.GetFeatureType() != feature::GEOM_LINE)
-    return false;
-
-  feature::TypesHolder const types(f);
-
-  if (IsPedestrianAllowed(types) == Restriction::No)
-    return false;
-
-  return VehicleModel::HasRoadType(types);
+    return RoadAvailability::NotAvailable;
+  return RoadAvailability::Unknown;
 }
 
 PedestrianModelFactory::PedestrianModelFactory()
@@ -712,5 +686,4 @@ shared_ptr<IVehicleModel> PedestrianModelFactory::GetVehicleModelForCountry(stri
   LOG(LDEBUG, ("Pedestrian model wasn't found, default model is used instead:", country));
   return PedestrianModelFactory::GetVehicleModel();
 }
-
 }  // routing

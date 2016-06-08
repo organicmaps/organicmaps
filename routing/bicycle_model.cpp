@@ -601,66 +601,41 @@ BicycleModel::BicycleModel(VehicleModel::InitListT const & speedLimits)
 
 void BicycleModel::Init()
 {
-  initializer_list<char const *> hwtagYesbicycle = {"hwtag", "yesbicycle"};
+  initializer_list<char const *> hwtagYesBicycle = {"hwtag", "yesbicycle"};
 
-  m_yesBicycleType = classif().GetTypeByPath(hwtagYesbicycle);
+  m_yesBicycleType = classif().GetTypeByPath(hwtagYesBicycle);
   m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
   m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
 
   initializer_list<char const *> arr[] = {
-      hwtagYesbicycle, {"route", "ferry"}, {"man_made", "pier"},
+      hwtagYesBicycle, {"route", "ferry"}, {"man_made", "pier"},
   };
 
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
-VehicleModel::Restriction BicycleModel::IsBicycleAllowed(feature::TypesHolder const & types) const
+IVehicleModel::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const
 {
   if (types.Has(m_yesBicycleType))
-    return Restriction::Yes;
+    return RoadAvailability::Available;
   if (types.Has(m_noBicycleType))
-    return Restriction::No;
-  return Restriction::Unknown;
+    return RoadAvailability::NotAvailable;
+  return RoadAvailability::Unknown;
 }
 
-VehicleModel::Restriction BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
+bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
 {
-  return types.Has(m_bidirBicycleType) ? Restriction::Yes : Restriction::Unknown;
-}
-
-double BicycleModel::GetSpeed(FeatureType const & f) const
-{
-  feature::TypesHolder const types(f);
-
-  Restriction const restriction = IsBicycleAllowed(types);
-  if (restriction == Restriction::Yes)
-    return VehicleModel::GetMaxSpeed();
-  if (restriction != Restriction::No && HasRoadType(types))
-    return VehicleModel::GetMinTypeSpeed(types);
-
-  return 0.0;
+  return types.Has(m_bidirBicycleType);
 }
 
 bool BicycleModel::IsOneWay(FeatureType const & f) const
 {
   feature::TypesHolder const types(f);
 
-  if (IsBicycleBidir(types) == Restriction::Yes)
+  if (IsBicycleBidir(types))
     return false;
 
   return VehicleModel::IsOneWay(f);
-}
-
-bool BicycleModel::IsRoad(FeatureType const & f) const
-{
-  if (f.GetFeatureType() != feature::GEOM_LINE)
-    return false;
-
-  feature::TypesHolder const types(f);
-
-  if (IsBicycleAllowed(types) == Restriction::No)
-    return false;
-  return VehicleModel::HasRoadType(types);
 }
 
 BicycleModelFactory::BicycleModelFactory()

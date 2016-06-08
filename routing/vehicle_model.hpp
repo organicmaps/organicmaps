@@ -19,6 +19,13 @@ namespace routing
 class IVehicleModel
 {
 public:
+  enum class RoadAvailability
+  {
+    NotAvailable,
+    Available,
+    Unknown,
+  };
+
   virtual ~IVehicleModel() {}
 
   /// @return Allowed speed in KMpH.
@@ -56,6 +63,7 @@ public:
     char const * m_types[2];  /// 2-arity road type
     double m_speedKMpH;       /// max allowed speed on this road type
   };
+
   typedef initializer_list<SpeedForType> InitListT;
 
   VehicleModel(Classificator const & c, InitListT const & speedLimits);
@@ -65,6 +73,12 @@ public:
   double GetMaxSpeed() const override { return m_maxSpeedKMpH; }
   bool IsOneWay(FeatureType const & f) const override;
   bool IsRoad(FeatureType const & f) const override;
+
+protected:
+   /// @returns a special restriction which is set to the feature.
+  virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
+
+public:
 
   /// @returns true if |m_types| or |m_addRoadTypes| contains |type| and false otherwise.
   bool IsRoadType(uint32_t type) const;
@@ -80,13 +94,6 @@ public:
   }
 
 protected:
-  enum class Restriction
-  {
-    No,
-    Yes,
-    Unknown,
-  };
-
   /// Used in derived class constructors only. Not for public use.
   void SetAdditionalRoadTypes(Classificator const & c,
                               initializer_list<char const *> const * arr, size_t sz);
