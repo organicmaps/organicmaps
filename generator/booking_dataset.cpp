@@ -162,6 +162,7 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
     e.lat = hotel.lat;
     e.lon = hotel.lon;
 
+    e.AddTag("sponsored", "booking");
     e.AddTag("name", hotel.name);
     e.AddTag("ref:sponsored", strings::to_string(hotel.id));
     e.AddTag("website", hotel.descUrl);
