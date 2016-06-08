@@ -387,7 +387,6 @@ using namespace osm_auth_ios;
   [self.mapViewController onEnterForeground];
   self.isDaemonMode = NO;
 
-  [self initPushNotificationsWithLaunchOptions:launchOptions];
   [self commonInit];
 
   LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
