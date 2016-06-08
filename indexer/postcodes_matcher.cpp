@@ -1,6 +1,7 @@
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
+#include "indexer/string_set.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -37,93 +38,30 @@ UniChar SimplifyChar(UniChar const & c)
   return c;
 }
 
-struct Node
-{
-  Node() : m_isLeaf(false) {}
-
-  Node const * Move(UniChar c) const
-  {
-    for (auto const & p : m_moves)
-    {
-      if (p.first == c)
-        return p.second.get();
-    }
-    return nullptr;
-  }
-
-  template <typename TIt>
-  Node const * Move(TIt begin, TIt end) const
-  {
-    Node const * cur = this;
-    for (; begin != end && cur; ++begin)
-      cur = cur->Move(*begin);
-    return cur;
-  }
-
-  Node & MakeMove(UniChar c)
-  {
-    for (auto const & p : m_moves)
-    {
-      if (p.first == c)
-        return *p.second;
-    }
-    m_moves.emplace_back(c, make_unique<Node>());
-    return *m_moves.back().second;
-  }
-
-  template <typename TIt>
-  Node & MakeMove(TIt begin, TIt end)
-  {
-    Node * cur = this;
-    for (; begin != end; ++begin)
-      cur = &cur->MakeMove(*begin);
-    return *cur;
-  }
-
-  buffer_vector<pair<UniChar, unique_ptr<Node>>, 2> m_moves;
-  bool m_isLeaf;
-
-  DISALLOW_COPY(Node);
-};
-
 // This class puts all strings from g_patterns to a trie with a low
 // branching factor and matches queries against these patterns.
 class PostcodesMatcher
 {
 public:
-  PostcodesMatcher() : m_root(), m_maxNumTokensInPostcode(0)
+  using TStringSet = StringSet<UniChar, 2>;
+
+  PostcodesMatcher() : m_maxNumTokensInPostcode(0)
   {
     search::Delimiters delimiters;
     for (auto const * pattern : g_patterns)
       AddString(MakeUniString(pattern), delimiters);
   }
 
-  // Checks that given tokens match to at least one of postcodes
-  // patterns.
-  //
-  // Complexity: O(total length of tokens in |slice|).
   bool HasString(StringSliceBase const & slice, bool isPrefix) const
   {
-    if (slice.Size() == 0)
-      return m_root.m_isLeaf;
-
-    Node const * cur = &m_root;
-    for (size_t i = 0; i < slice.Size() && cur; ++i)
+    auto status = m_strings.Has(make_transform_iterator(JoinIterator::Begin(slice), &SimplifyChar),
+                                make_transform_iterator(JoinIterator::End(slice), &SimplifyChar));
+    switch (status)
     {
-      auto const & s = slice.Get(i);
-      cur = cur->Move(make_transform_iterator(s.begin(), &SimplifyChar),
-                      make_transform_iterator(s.end(), &SimplifyChar));
-      if (cur && i + 1 < slice.Size())
-        cur = cur->Move(' ');
+    case TStringSet::Status::Absent: return false;
+    case TStringSet::Status::Prefix: return isPrefix;
+    case TStringSet::Status::Full: return true;
     }
-
-    if (!cur)
-      return false;
-
-    if (isPrefix)
-      return true;
-
-    return cur->m_isLeaf;
   }
 
   inline size_t GetMaxNumTokensInPostcode() const { return m_maxNumTokensInPostcode; }
@@ -133,20 +71,13 @@ private:
   {
     vector<UniString> tokens;
     SplitUniString(s, MakeBackInsertFunctor(tokens), delimiters);
-    m_maxNumTokensInPostcode = max(m_maxNumTokensInPostcode, tokens.size());
+    NoPrefixStringSlice slice(tokens);
 
-    Node * cur = &m_root;
-    for (size_t i = 0; i < tokens.size(); ++i)
-    {
-      cur = &cur->MakeMove(tokens[i].begin(), tokens[i].end());
-      if (i + 1 != tokens.size())
-          cur = &cur->MakeMove(' ');
-    }
-    cur->m_isLeaf = true;
+    m_maxNumTokensInPostcode = max(m_maxNumTokensInPostcode, tokens.size());
+    m_strings.Add(JoinIterator::Begin(slice), JoinIterator::End(slice));
   }
 
-  Node m_root;
-
+  TStringSet m_strings;
   size_t m_maxNumTokensInPostcode;
 
   DISALLOW_COPY(PostcodesMatcher);
