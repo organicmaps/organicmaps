@@ -51,6 +51,7 @@ fi
 
 NAMES=("Australia_Brisbane.mwm"
        "Belarus_Minsk*.mwm"
+       "Canada_Quebek_Montreal.mwm"
        "Germany_*.mwm"
        "Russia_*.mwm"
        "UK_England_*.mwm"

@@ -45,8 +45,8 @@ private:
   };
 
   void RemoveDuplicates(vector<ExLocality> & ls) const;
-  void LeaveTopByRank(size_t limit, vector<ExLocality> & ls) const;
-  void SortByName(vector<ExLocality> & ls) const;
+  void LeaveTopByRankAndProb(size_t limit, vector<ExLocality> & ls) const;
+  void SortByNameAndProb(vector<ExLocality> & ls) const;
 
   QueryParams const & m_params;
   Delegate const & m_delegate;

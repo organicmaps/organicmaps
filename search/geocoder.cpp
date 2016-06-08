@@ -694,9 +694,14 @@ void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter
   for (size_t startToken = 0; startToken < m_numTokens; ++startToken)
   {
     CBVPtr intersection;
+    CBVPtr unfilteredIntersection;
     intersection.SetFull();
+    unfilteredIntersection.SetFull();
     if (filter)
+    {
       intersection.Intersect(filter);
+      unfilteredIntersection.Intersect(m_addressFeatures[startToken].get());
+    }
     intersection.Intersect(m_addressFeatures[startToken].get());
     if (intersection.IsEmpty())
       continue;
@@ -713,6 +718,11 @@ void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter
                                l.m_featureId = featureId;
                                l.m_startToken = startToken;
                                l.m_endToken = endToken;
+                               if (filter)
+                               {
+                                 l.m_prob = static_cast<double>(intersection->PopCount()) /
+                                            static_cast<double>(unfilteredIntersection->PopCount());
+                               }
                                preLocalities.push_back(l);
                              });
       }
@@ -720,6 +730,8 @@ void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter
       if (endToken < m_numTokens)
       {
         intersection.Intersect(m_addressFeatures[endToken].get());
+        if (filter)
+          unfilteredIntersection.Intersect(m_addressFeatures[endToken].get());
         if (intersection.IsEmpty())
           break;
       }
@@ -829,7 +841,7 @@ void Geocoder::FillVillageLocalities()
 
 #if defined(DEBUG)
     ft.GetName(StringUtf8Multilang::kDefaultCode, village.m_defaultName);
-    LOG(LDEBUG, ("Village =", village.m_defaultName));
+    LOG(LDEBUG, ("Village =", village.m_defaultName, "prob =", village.m_prob));
 #endif
 
     m_cities[{l.m_startToken, l.m_endToken}].push_back(village);
