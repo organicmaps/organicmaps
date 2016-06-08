@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MapsAppDelegate.h"
 #import "MWMPlacePageBookmarkCell.h"
 #import "Statistics.h"
@@ -10,6 +11,15 @@ CGFloat const kBoundedTextViewHeight = 240.;
 CGFloat const kTextViewTopOffset = 12.;
 CGFloat const kMoreButtonHeight = 33.;
 CGFloat const kTextViewLeft = 16.;
+
+void performRenderingInConcurrentQueue(TMWMVoidBlock block)
+{
+  if (!block) return;
+
+  // We can't render html in the background queue in iOS7.
+  if (isIOS7) block();
+  else dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
+}
 
 }  // namespace
 
@@ -85,7 +95,7 @@ CGFloat const kTextViewLeft = 16.;
 - (void)configPlaintTextDescription:(NSString *)text isOpen:(BOOL)isOpen
 {
   self.spinner.hidden = YES;
-  self.textView.scrollEnabled = YES;
+  [self textViewScrollEnabled:YES];
   self.textViewTopOffset.constant = kTextViewTopOffset;
   self.textView.hidden = self.separator.hidden = NO;
   self.textView.text = text;
@@ -104,7 +114,7 @@ CGFloat const kTextViewLeft = 16.;
     self.moreButtonHeight.constant = 0;
     self.textViewBottomOffset.constant = kTextViewTopOffset;
   }
-  self.textView.scrollEnabled = NO;
+  [self textViewScrollEnabled:NO];
 }
 
 - (void)configHtmlDescription:(NSString *)text isOpen:(BOOL)isOpen
@@ -112,7 +122,7 @@ CGFloat const kTextViewLeft = 16.;
   // html already was rendered and text is same as text which was cached into html
   if (self.attributedHtml && [self.cachedHtml isEqualToString:text])
   {
-    self.textView.scrollEnabled = YES;
+    [self textViewScrollEnabled:YES];
     self.textViewTopOffset.constant = kTextViewTopOffset;
     self.textView.hidden = self.separator.hidden = NO;
     self.textView.attributedText = self.attributedHtml;
@@ -131,24 +141,34 @@ CGFloat const kTextViewLeft = 16.;
       self.moreButtonHeight.constant = 0;
       self.textViewBottomOffset.constant = kTextViewTopOffset;
     }
-    self.textView.scrollEnabled = NO;
+    [self textViewScrollEnabled:NO];
   }
   else
   {
     [self configEmptyDescription];
     [self startSpinner];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    performRenderingInConcurrentQueue(^
     {
       self.cachedHtml = text;
       NSDictionary<NSString *, id> * attr = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText],
                                               NSFontAttributeName : [UIFont regular12]};
+      NSError * error = nil;
       NSMutableAttributedString * str = [[NSMutableAttributedString alloc]
                                               initWithData:[text dataUsingEncoding:NSUnicodeStringEncoding]
                                               options:@{NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType}
                                    documentAttributes:nil
-                                                error:nil];
-      [str addAttributes:attr range:{0, str.length}];
-      self.attributedHtml = str;
+                                                error:&error];
+      if (error)
+      {
+        // If we failed while attempting to render html than just show plain text in bookmark.
+        // Ussualy there is a problem only in iOS7.
+        self.attributedHtml = [[NSAttributedString alloc] initWithString:text attributes:attr];
+      }
+      else
+      {
+        [str addAttributes:attr range:{0, str.length}];
+        self.attributedHtml = str;
+      }
       dispatch_async(dispatch_get_main_queue(), ^
       {
         [self stopSpinner];
@@ -156,6 +176,13 @@ CGFloat const kTextViewLeft = 16.;
       });
     });
   }
+}
+
+- (void)textViewScrollEnabled:(BOOL)isEnabled
+{
+  // Here is hook for iOS7 because if we disable scrol in iOS7 content size will be incorrect.
+  if (!isIOS7)
+    self.textView.scrollEnabled = isEnabled;
 }
 
 - (IBAction)moreTap
