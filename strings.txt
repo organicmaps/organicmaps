@@ -18072,3 +18072,22 @@
     en = Rating: %s
     ru = Рейтинг: %s
 
+  [text_more_button]
+    en = … more
+    ru = … еще
+
+  [error_enter_correct_phone]
+    en = Enter a valid phone number
+    ru = Введите корректный номер телефона
+
+  [error_enter_correct_web]
+    en = Enter a valid web address
+    ru = Введите корректный веб-сайт
+
+  [error_enter_correct_email]
+    en = Enter a valid email
+    ru = Введите корректный email
+
+  [error_enter_correct]
+    en = Enter a valid value
+    ru = Введите корректное значение

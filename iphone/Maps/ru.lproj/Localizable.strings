@@ -1517,3 +1517,13 @@
 "editor_place_doesnt_exist" = "Места не существует";
 
 "place_page_booking_rating" = "Рейтинг: %s";
+
+"text_more_button" = "… еще";
+
+"error_enter_correct_phone" = "Введите корректный номер телефона";
+
+"error_enter_correct_web" = "Введите корректный веб-сайт";
+
+"error_enter_correct_email" = "Введите корректный email";
+
+"error_enter_correct" = "Введите корректное значение";

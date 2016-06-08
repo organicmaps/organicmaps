@@ -1517,3 +1517,13 @@
 "editor_place_doesnt_exist" = "Tempat tidak ada";
 
 "place_page_booking_rating" = "Rating: %s";
+
+"text_more_button" = "… more";
+
+"error_enter_correct_phone" = "Enter a valid phone number";
+
+"error_enter_correct_web" = "Enter a valid web address";
+
+"error_enter_correct_email" = "Enter a valid email";
+
+"error_enter_correct" = "Enter a valid value";
