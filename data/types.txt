@@ -1118,3 +1118,6 @@ psurface|paved_good
 psurface|paved_bad
 psurface|unpaved_good
 psurface|unpaved_bad
+wheelchair|yes
+wheelchair|no
+wheelchair|limited
