@@ -458,6 +458,11 @@ place_page::Info & Framework::GetPlacePageInfo()
   return m_info;
 }
 
+void Framework::RequestBookingMinPrice(string const & hotelId, string const & currencyCode, function<void(string const &, string const &)> const & callback)
+{
+  return m_work.GetBookingApi().GetMinPrice(hotelId, currencyCode, callback);
+}
+
 bool Framework::HasSpaceForMigration()
 {
   return m_work.IsEnoughSpaceForMigrate();
@@ -1046,22 +1051,6 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatCuisines());
-}
-
-JNIEXPORT jobject JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetSponsoredHotelInfo(JNIEnv * env, jclass clazz)
-{
-  place_page::Info const & ppInfo = g_framework->GetPlacePageInfo();
-  if (!ppInfo.m_isSponsoredHotel)
-    return nullptr;
-
-  static jclass const infoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/widget/placepage/SponsoredHotelInfo");
-  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-
-  return env->NewObject(infoClass, infoCtor, jni::ToJavaString(env, ppInfo.GetRatingFormatted()),
-                                             jni::ToJavaString(env, ppInfo.GetApproximatePricing()),
-                                             jni::ToJavaString(env, ppInfo.GetSponsoredBookingUrl()),
-                                             jni::ToJavaString(env, ppInfo.GetSponsoredDescriptionUrl()));
 }
 
 } // extern "C"

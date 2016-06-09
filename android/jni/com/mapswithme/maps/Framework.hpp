@@ -152,6 +152,7 @@ namespace android
 
     void SetPlacePageInfo(place_page::Info const & info);
     place_page::Info & GetPlacePageInfo();
+    void RequestBookingMinPrice(string const & hotelId, string const & currency, function<void(string const &, string const &)> const & callback);
 
     bool HasSpaceForMigration();
     storage::TCountryId PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & statusChangeListener,
