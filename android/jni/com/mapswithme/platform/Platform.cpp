@@ -22,9 +22,7 @@ string Platform::UniqueClientId() const
     jclass uuidClass = env->FindClass("java/util/UUID");
     ASSERT(uuidClass, ("Can't find java class java/util/UUID"));
 
-    jmethodID randomUUIDId = env->GetStaticMethodID(uuidClass, "randomUUID", "()Ljava/util/UUID;");
-    ASSERT(randomUUIDId, ("Can't find static java/util/UUID.randomUUIDId() method"));
-
+    jmethodID randomUUIDId = jni::GetStaticMethodID(env, uuidClass, "randomUUID", "()Ljava/util/UUID;");
     jobject uuidInstance = env->CallStaticObjectMethod(uuidClass, randomUUIDId);
     ASSERT(uuidInstance, ("UUID.randomUUID() returned NULL"));
 
@@ -59,9 +57,7 @@ string Platform::GetMemoryInfo() const
   static shared_ptr<jobject> classMemLogging = jni::make_global_ref(env->FindClass("com/mapswithme/util/log/MemLogging"));
   ASSERT(classMemLogging, ());
 
-  static jmethodID const getMemoryInfoId = env->GetStaticMethodID(static_cast<jclass>(*classMemLogging), "getMemoryInfo", "()Ljava/lang/String;");
-  ASSERT(getMemoryInfoId, ());
-
+  static jmethodID const getMemoryInfoId = jni::GetStaticMethodID(env, static_cast<jclass>(*classMemLogging), "getMemoryInfo", "()Ljava/lang/String;");
   jstring const memInfoString = (jstring)env->CallStaticObjectMethod(static_cast<jclass>(*classMemLogging), getMemoryInfoId);
   ASSERT(memInfoString, ());
 
@@ -82,9 +78,7 @@ Platform::EConnectionType Platform::ConnectionStatus()
   static shared_ptr<jobject> clazzConnectionState = jni::make_global_ref(env->FindClass("com/mapswithme/util/ConnectionState"));
   ASSERT(clazzConnectionState, ());
 
-  static jmethodID const getConnectionMethodId = env->GetStaticMethodID(static_cast<jclass>(*clazzConnectionState), "getConnectionState", "()B");
-  ASSERT(getConnectionMethodId, ());
-
+  static jmethodID const getConnectionMethodId = jni::GetStaticMethodID(env, static_cast<jclass>(*clazzConnectionState), "getConnectionState", "()B");
   return static_cast<Platform::EConnectionType>(env->CallStaticByteMethod(static_cast<jclass>(*clazzConnectionState), getConnectionMethodId));
 }
 

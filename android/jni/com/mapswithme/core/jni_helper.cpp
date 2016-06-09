@@ -60,19 +60,26 @@ JavaVM * GetJVM()
   return g_jvm;
 }
 
-jmethodID GetMethodID(JNIEnv * env, jobject obj, char const * fn, char const * sig)
+jmethodID GetMethodID(JNIEnv * env, jobject obj, char const * name, char const * signature)
 {
   TScopedLocalClassRef clazz(env, env->GetObjectClass(obj));
   ASSERT(clazz.get(), ("Can't get class: ", DescribeException()));
 
-  jmethodID mid = env->GetMethodID(clazz.get(), fn, sig);
-  ASSERT(mid, ("Can't get methodID", fn, sig, DescribeException()));
+  jmethodID mid = env->GetMethodID(clazz.get(), name, signature);
+  ASSERT(mid, ("Can't get method ID", name, signature, DescribeException()));
   return mid;
 }
 
-jmethodID GetConstructorID(JNIEnv * env, jclass clazz, char const * sig)
+jmethodID GetStaticMethodID(JNIEnv * env, jclass clazz, char const * name, char const * signature)
 {
-  jmethodID const ctorID = env->GetMethodID(clazz, "<init>", sig);
+  jmethodID mid = env->GetStaticMethodID(clazz, name, signature);
+  ASSERT(mid, ("Can't get static method ID", name, signature, DescribeException()));
+  return mid;
+}
+
+jmethodID GetConstructorID(JNIEnv * env, jclass clazz, char const * signature)
+{
+  jmethodID const ctorID = env->GetMethodID(clazz, "<init>", signature);
   ASSERT(ctorID, (DescribeException()));
   return ctorID;
 }
