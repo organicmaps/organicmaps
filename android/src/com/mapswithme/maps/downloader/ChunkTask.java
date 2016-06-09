@@ -1,6 +1,7 @@
 package com.mapswithme.maps.downloader;
 
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -125,9 +126,9 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
     //Log.i(TAG, "Start downloading chunk " + getChunkID());
 
     HttpURLConnection urlConnection = null;
-    /**
+    /*
      * TODO improve reliability of connections & handle EOF errors.
-     <a href="http://stackoverflow.com/questions/19258518/android-httpurlconnection-eofexception">asd</a>
+     * <a href="http://stackoverflow.com/questions/19258518/android-httpurlconnection-eofexception">asd</a>
      */
 
     try
@@ -144,6 +145,14 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
 
       // Set user agent with unique client id
       urlConnection.setRequestProperty("User-Agent", mUserAgent);
+
+      // Provide authorization credentials
+      String creds = url.getUserInfo();
+      if (creds != null)
+      {
+        String value = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+        urlConnection.setRequestProperty("Authorization", value);
+      }
 
       // use Range header only if we don't download whole file from start
       if (!(mBeg == 0 && mEnd < 0))
