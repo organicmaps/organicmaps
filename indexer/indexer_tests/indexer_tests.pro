@@ -39,6 +39,7 @@ SOURCES += \
     scales_test.cpp \
     search_string_utils_test.cpp \
     sort_and_merge_intervals_test.cpp \
+    string_slice_tests.cpp \
     succinct_trie_test.cpp \
     test_polylines.cpp \
     test_type.cpp \

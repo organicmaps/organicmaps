@@ -56,6 +56,7 @@ SOURCES += \
     scales.cpp \
     search_delimiters.cpp \    # it's in indexer because of CategoriesHolder dependency.
     search_string_utils.cpp \  # it's in indexer because of CategoriesHolder dependency.
+    string_slice.cpp \
     types_mapping.cpp \
 
 HEADERS += \
@@ -114,6 +115,7 @@ HEADERS += \
     scales.hpp \
     search_delimiters.hpp \      # it's in indexer because of CategoriesHolder dependency.
     search_string_utils.hpp \    # it's in indexer because of CategoriesHolder dependency.
+    string_set.hpp \
     string_slice.hpp \
     succinct_trie_builder.hpp \
     succinct_trie_reader.hpp \
