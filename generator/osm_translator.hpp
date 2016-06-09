@@ -157,8 +157,12 @@ class RelationTagsNode : public RelationTagsBase
 protected:
   void Process(RelationElement const & e) override
   {
-    if (TBase::IsSkipRelation(e.GetType()))
+    string const & type = e.GetType();
+    if (TBase::IsSkipRelation(type))
       return;
+
+    bool const processAssociatedStreet = type == "associatedStreet" &&
+        TBase::IsKeyTagExists("addr:housenumber") && !TBase::IsKeyTagExists("addr:street");
 
     for (auto const & p : e.tags)
     {
@@ -172,6 +176,9 @@ protected:
         if (!TBase::IsKeyTagExists(p.first))
           TBase::AddCustomTag(p);
       }
+      // Convert associatedStreet relation name to addr:street tag if we don't have one.
+      else if (p.first == "name" && processAssociatedStreet)
+        TBase::AddCustomTag({"addr:street", p.second});
     }
   }
 };
@@ -196,17 +203,23 @@ protected:
   {
     /// @todo Review route relations in future.
     /// Actually, now they give a lot of dummy tags.
-    string const type = e.GetType();
+    string const & type = e.GetType();
     if (TBase::IsSkipRelation(type) || type == "route")
       return;
 
     bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
+    bool const processAssociatedStreet = type == "associatedStreet" &&
+        TBase::IsKeyTagExists("addr:housenumber") && !TBase::IsKeyTagExists("addr:street");
 
     for (auto const & p : e.tags)
     {
       /// @todo Skip common key tags.
       if (p.first == "type" || p.first == "route" || p.first == "area")
         continue;
+
+      // Convert associatedStreet relation name to addr:street tag if we don't have one.
+      if (p.first == "name" && processAssociatedStreet)
+        TBase::AddCustomTag({"addr:street", p.second});
 
       // Important! Skip all "name" tags.
       if (strings::StartsWith(p.first, "name"))
