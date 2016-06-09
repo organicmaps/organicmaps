@@ -117,10 +117,6 @@ public:
 
   void ClearCaches();
 
-  // my::Cancellable overrides:
-  void Reset() override;
-  void Cancel() override;
-
 protected:
   enum ViewportID
   {
@@ -151,8 +147,7 @@ protected:
   m2::PointD GetPivotPoint() const;
   m2::RectD GetPivotRect() const;
 
-  void SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & viewport, size_t idx,
-                          bool forceUpdate);
+  void SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate);
   void ClearCache(size_t ind);
 
   template <class T>

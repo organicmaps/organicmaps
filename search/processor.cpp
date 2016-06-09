@@ -95,14 +95,10 @@ ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
   case NONE:
   case COUNTRY:
   case STATE:
-  case CITY:
-    return type;
-  case TOWN:
-    return CITY;
-  case VILLAGE:
-    return NONE;
-  case LOCALITY_COUNT:
-    return type;
+  case CITY: return type;
+  case TOWN: return CITY;
+  case VILLAGE: return NONE;
+  case LOCALITY_COUNT: return type;
   }
 }
 
@@ -231,7 +227,7 @@ Processor::Processor(Index & index, CategoriesHolder const & categories,
   , m_viewportSearch(false)
   , m_keepHouseNumberInQuery(true)
   , m_preRanker(kPreResultsCount)
-  , m_geocoder(index, infoGetter)
+  , m_geocoder(index, infoGetter, static_cast<my::Cancellable const &>(*this))
   , m_reverseGeocoder(index)
 {
   // Initialize keywords scorer.
@@ -249,8 +245,6 @@ Processor::Processor(Index & index, CategoriesHolder const & categories,
 
 void Processor::Init(bool viewportSearch)
 {
-  Reset();
-
   m_tokens.clear();
   m_prefix.clear();
   m_preRanker.Clear();
@@ -259,12 +253,7 @@ void Processor::Init(bool viewportSearch)
 
 void Processor::SetViewport(m2::RectD const & viewport, bool forceUpdate)
 {
-  Reset();
-
-  TMWMVector mwmsInfo;
-  m_index.GetMwmsInfo(mwmsInfo);
-
-  SetViewportByIndex(mwmsInfo, viewport, CURRENT_V, forceUpdate);
+  SetViewportByIndex(viewport, CURRENT_V, forceUpdate);
 }
 
 void Processor::SetPreferredLocale(string const & locale)
@@ -403,8 +392,7 @@ m2::RectD Processor::GetPivotRect() const
   return NormalizeViewport(viewport);
 }
 
-void Processor::SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & viewport,
-                                   size_t idx, bool forceUpdate)
+void Processor::SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate)
 {
   ASSERT(idx < COUNT_V, (idx));
 
@@ -1136,7 +1124,8 @@ void Processor::InitParams(QueryParams & params)
 
   // Add names of categories (and synonyms).
   Classificator const & c = classif();
-  auto addSyms = [&](size_t i, uint32_t t) {
+  auto addSyms = [&](size_t i, uint32_t t)
+  {
     QueryParams::TSynonymsVector & v = params.GetTokens(i);
 
     uint32_t const index = c.GetIndexForType(t);
@@ -1177,10 +1166,6 @@ void Processor::ClearCaches()
   m_locality.ClearCache();
   m_geocoder.ClearCaches();
 }
-
-void Processor::Reset() { m_geocoder.Reset(); }
-
-void Processor::Cancel() { m_geocoder.Cancel(); }
 
 void Processor::SuggestStrings(Results & res)
 {
