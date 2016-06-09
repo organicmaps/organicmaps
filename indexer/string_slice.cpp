@@ -49,20 +49,24 @@ size_t JoinIterator::GetSize(size_t string) const
 {
   if (string >= GetMaxSize())
     return 0;
+
   if (string & 1)
     return 1;
+
   return m_slice.Get(string >> 1).size();
 }
 
-strings::UniChar JoinIterator::GetChar(size_t string, size_t offset) const
+JoinIterator::value_type JoinIterator::GetChar(size_t string, size_t offset) const
 {
   if (string >= GetMaxSize())
     return 0;
+
   if (string & 1)
   {
     ASSERT_EQUAL(offset, 0, ());
     return ' ';
   }
+
   auto const & s = m_slice.Get(string >> 1);
   ASSERT_LESS(offset, s.size(), ());
   return s[offset];

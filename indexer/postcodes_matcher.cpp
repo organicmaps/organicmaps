@@ -71,7 +71,7 @@ private:
   {
     vector<UniString> tokens;
     SplitUniString(s, MakeBackInsertFunctor(tokens), delimiters);
-    NoPrefixStringSlice slice(tokens);
+    StringSlice slice(tokens);
 
     m_maxNumTokensInPostcode = max(m_maxNumTokensInPostcode, tokens.size());
     m_strings.Add(JoinIterator::Begin(slice), JoinIterator::End(slice));
@@ -101,7 +101,7 @@ bool LooksLikePostcode(string const & s, bool isPrefix)
   bool const lastTokenIsPrefix =
       TokenizeStringAndCheckIfLastTokenIsPrefix(s, tokens, search::Delimiters());
 
-  return LooksLikePostcode(NoPrefixStringSlice(tokens), isPrefix && lastTokenIsPrefix);
+  return LooksLikePostcode(StringSlice(tokens), isPrefix && lastTokenIsPrefix);
 }
 
 size_t GetMaxNumTokensInPostcode() { return GetPostcodesMatcher().GetMaxNumTokensInPostcode(); }

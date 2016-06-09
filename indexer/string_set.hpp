@@ -8,6 +8,14 @@
 
 namespace search
 {
+// A trie.  TChar is a type of string characters, OutDegree is an
+// expected branching factor. Therefore, both Add(s) and Has(s) have
+// expected complexity O(OutDegree * Length(s)).  For small values of
+// OutDegree this is quite fast, but if OutDegree can be large and you
+// need guaranteed O(Log(AlphabetSize) * Length(s)), refactor this
+// class.
+//
+// TODO (@y): unify this with my::MemTrie.
 template <typename TChar, size_t OutDegree>
 class StringSet
 {
@@ -43,6 +51,8 @@ private:
   {
     Node() : m_isLeaf(false) {}
 
+    // Tries to move from the current node by |c|. If the move can't
+    // be made, returns nullptr.
     Node const * Move(TChar c) const
     {
       for (auto const & p : m_moves)
@@ -53,6 +63,8 @@ private:
       return nullptr;
     }
 
+    // Tries to move from the current node by [|begin|, |end|). If the
+    // move can't be made, returns nullptr.
     template <typename TIt>
     Node const * Move(TIt begin, TIt end) const
     {
@@ -62,6 +74,8 @@ private:
       return cur;
     }
 
+    // Moves from the current node by |c|. If the move can't be made,
+    // creates a new sub-tree and moves to it.
     Node & MakeMove(TChar c)
     {
       for (auto const & p : m_moves)
@@ -73,6 +87,9 @@ private:
       return *m_moves.back().second;
     }
 
+    // Moves from the current node by [|begin|, |end|). If there were
+    // no path from the current node labeled by [|begin|, |end|), this
+    // method will create it.
     template <typename TIt>
     Node & MakeMove(TIt begin, TIt end)
     {

@@ -11,7 +11,7 @@ namespace
 {
 UniString ToString(vector<UniString> const & v)
 {
-  NoPrefixStringSlice slice(v);
+  StringSlice slice(v);
   UniString r;
   copy(JoinIterator::Begin(slice), JoinIterator::End(slice), back_inserter(r));
   return r;
@@ -22,11 +22,11 @@ UNIT_TEST(JoinIterator_Smoke)
   {
     vector<UniString> v;
 
-    NoPrefixStringSlice slice1(v);
+    StringSlice slice1(v);
     auto begin1 = JoinIterator::Begin(slice1);
     auto end1 = JoinIterator::End(slice1);
 
-    NoPrefixStringSlice slice2(v);
+    StringSlice slice2(v);
     auto begin2 = JoinIterator::Begin(slice2);
     auto end2 = JoinIterator::End(slice2);
 
