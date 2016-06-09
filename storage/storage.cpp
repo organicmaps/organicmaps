@@ -1198,7 +1198,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
     for (auto const & disputed : disputedTerritoriesAndStatus)
       allDisputedTerritories.push_back(disputed.first);
 
-    if (childStatus.status == NodeStatus::NotDownloaded || childStatus.status == NodeStatus::Error)
+    if (childStatus.status == NodeStatus::NotDownloaded)
     {
       availChildren.push_back(childValue);
       for (auto const & disputed : disputedTerritoriesAndStatus)
