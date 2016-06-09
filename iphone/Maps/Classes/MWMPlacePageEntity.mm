@@ -130,22 +130,22 @@ void initFieldsMap()
     return;
   }
 
-  NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-  [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-  [formatter setLocale:[NSLocale currentLocale]];
-  string const currency = formatter.currencyCode.UTF8String;
+  NSNumberFormatter * currencyFormatter = [[NSNumberFormatter alloc] init];
+  [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+  [currencyFormatter setLocale:[NSLocale currentLocale]];
+  string const currency = currencyFormatter.currencyCode.UTF8String;
   GetFramework().GetBookingApi().GetMinPrice(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID),
                                              currency,
-                                             [self, completion, failure, currency, formatter](string const & minPrice, string const & priceCurrency)
+                                             [self, completion, failure, currency, currencyFormatter](string const & minPrice, string const & priceCurrency)
   {
     if (currency != priceCurrency)
     {
       failure();
       return;
     }
-    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-    f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.bookingOnlinePrice = [formatter stringFromNumber:[f numberFromString:@(minPrice.c_str())]];
+    NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
+    decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    self.bookingOnlinePrice = [currencyFormatter stringFromNumber:[decimalFormatter numberFromString:@(minPrice.c_str())]];
     completion();
   });
 }

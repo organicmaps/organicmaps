@@ -266,7 +266,7 @@ extern NSString * const kBookmarksChangedNotification;
   stat[kStatHotel] = @{kStatName : en.title, kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)};
   [Statistics logEvent:isDescription ? kPlacePageHotelDetails : kPlacePageHotelBook withParameters:stat];
   UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
-  NSURL * url = isDescription ? self.entity.bookingUrl : [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]];
+  NSURL * url = isDescription ? [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]] : self.entity.bookingUrl;
   NSAssert(url, @"Booking url can't be nil!");
   [vc openUrl:url];
 }
