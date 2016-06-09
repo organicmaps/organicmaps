@@ -122,6 +122,8 @@ public:
   uint32_t m_roadPointCount;
   /// Number of features for GetBicycleModel().IsRoad(feature) != true.
   uint32_t m_notRoadCount;
+  generator::SrtmTile::THeight m_minAltitude = generator::SrtmTile::kInvalidHeight;
+  generator::SrtmTile::THeight m_maxAltitude = generator::SrtmTile::kInvalidHeight;
 
   Processor(generator::SrtmTileManager & manager)
     : m_srtmManager(manager), m_roadCount(0), m_emptyRoadCount(0), m_roadPointCount(0), m_notRoadCount(0)
@@ -169,6 +171,15 @@ public:
       double const segmentLengthMeters = MercatorBounds::DistanceOnEarth(f.GetPoint(i - 1), f.GetPoint(i));
       distFromStartMeters += segmentLengthMeters;
       pointDists[i] = distFromStartMeters;
+    }
+
+    // Min and max altitudes.
+    for (auto const a : pointAltitudes)
+    {
+      if (m_minAltitude == generator::SrtmTile::kInvalidHeight || a < m_minAltitude)
+        m_minAltitude = a;
+      if (m_maxAltitude == generator::SrtmTile::kInvalidHeight || a > m_maxAltitude)
+        m_maxAltitude = a;
     }
 
     // Feature length and feature segment length.
@@ -320,7 +331,8 @@ int main(int argc, char ** argv)
   PrintCont(processor.m_leastSquaresDiff, "Altitude deviation of feature points from least squares line.",
             " internal feature point(s) deviate from linear model with ", " meter(s)");
 
-  cout << endl << "Road feature count = " << processor.m_roadCount << endl;
+  cout << endl << FLAGS_mwm_file_path << endl;
+  cout << "Road feature count = " << processor.m_roadCount << endl;
   cout << "Empty road feature count = " << processor.m_emptyRoadCount << endl;
   cout << "Unique road points count = " << processor.m_uniqueRoadPoints.size() << endl;
   cout << "All road point count = " << processor.m_roadPointCount << endl;
@@ -329,5 +341,7 @@ int main(int argc, char ** argv)
        << CalculateEntropy(processor.m_diffFromLinear) << endl;
   cout << "Entropy for altitude deviation of feature points from least squares line = "
        << CalculateEntropy(processor.m_leastSquaresDiff) << endl;
+  cout << "Min altitude of the mwm = " << processor.m_minAltitude << endl;
+  cout << "Max altitude of the mwm = " << processor.m_maxAltitude << endl;
   return 0;
 }
