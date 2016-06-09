@@ -13,6 +13,7 @@ void StorageDownloadingPolicy::ScheduleRetry(storage::TCountriesSet const & fail
 {
   if (IsDownloadingAllowed() && !failedCountries.empty() && m_autoRetryCounter > 0)
   {
+    m_downloadRetryFailed = false;
     auto action = [this, func, failedCountries]
     {
       --m_autoRetryCounter;
@@ -22,6 +23,8 @@ void StorageDownloadingPolicy::ScheduleRetry(storage::TCountriesSet const & fail
   }
   else
   {
+    if(!failedCountries.empty())
+      m_downloadRetryFailed = true;
     m_autoRetryCounter = kAutoRetryCounterMax;
   }
 }

@@ -18,6 +18,7 @@ public:
 class StorageDownloadingPolicy : public DownloadingPolicy
 {
   bool m_cellularDownloadEnabled = false;
+  bool m_downloadRetryFailed = false;
   static size_t constexpr kAutoRetryCounterMax = 3;
   size_t m_autoRetryCounter = kAutoRetryCounterMax;
   my::DeferredTask m_autoRetryWorker;
@@ -27,7 +28,7 @@ public:
   
   inline void EnableCellularDownload(bool value) { m_cellularDownloadEnabled = value; }
   inline bool IsCellularDownloadEnabled() const { return m_cellularDownloadEnabled; }
-  inline bool IsAutoRetryDownloadFailed() const { return m_autoRetryCounter == 0; }
+  inline bool IsAutoRetryDownloadFailed() const { return m_downloadRetryFailed || m_autoRetryCounter == 0; }
 
   bool IsDownloadingAllowed() const override;
   void ScheduleRetry(storage::TCountriesSet const & failedCountries, TProcessFunc const & func) override;
