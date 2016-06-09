@@ -146,17 +146,14 @@ using namespace storage;
           m_autoDownloadCountryId = kInvalidCountryId;
           [self showDownloadRequest];
         }
-        [self addToSuperview];
         break;
       }
       case NodeStatus::Downloading:
         if (nodeAttrs.m_downloadingProgress.second != 0)
           [self showDownloading:static_cast<CGFloat>(nodeAttrs.m_downloadingProgress.first) / nodeAttrs.m_downloadingProgress.second];
-        [self addToSuperview];
         break;
       case NodeStatus::InQueue:
         [self showInQueue];
-        [self addToSuperview];
         break;
       case NodeStatus::Undefined:
       case NodeStatus::Error:
@@ -199,8 +196,11 @@ using namespace storage;
     return;
   self.nodeSize.textColor = [UIColor red];
   self.nodeSize.text = L(@"country_status_download_failed");
+  self.downloadButton.hidden = YES;
+  self.progressWrapper.hidden = NO;
   self.progress.state = MWMCircularProgressStateFailed;
   MWMAlertViewController * avc = self.controller.alertController;
+  [self addToSuperview];
   auto const retryBlock = ^
   {
     [Statistics logEvent:kStatDownloaderMapAction
@@ -210,6 +210,7 @@ using namespace storage;
             kStatFrom : kStatMap,
             kStatScenario : kStatDownload
           }];
+    [self showInQueue];
     [MWMStorage retryDownloadNode:self->m_countryId];
   };
   auto const cancelBlock = ^
@@ -237,6 +238,7 @@ using namespace storage;
 {
   self.downloadButton.hidden = NO;
   self.progressWrapper.hidden = YES;
+  [self addToSuperview];
 }
 
 - (void)showDownloading:(CGFloat)progress
@@ -246,6 +248,7 @@ using namespace storage;
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
   self.progress.progress = progress;
+  [self addToSuperview];
 }
 
 - (void)showInQueue
@@ -255,6 +258,7 @@ using namespace storage;
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
   self.progress.state = MWMCircularProgressStateSpinner;
+  [self addToSuperview];
 }
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
