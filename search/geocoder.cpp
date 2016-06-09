@@ -404,19 +404,20 @@ void UniteCBVs(vector<unique_ptr<coding::CompressedBitVector>> & cbvs)
 Geocoder::Params::Params() : m_mode(Mode::Everywhere), m_accuratePivotCenter(0, 0) {}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
-Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
+Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter,
+                   my::Cancellable const & cancellable)
   : m_index(index)
   , m_infoGetter(infoGetter)
+  , m_cancellable(cancellable)
   , m_numTokens(0)
   , m_model(SearchModel::Instance())
-  , m_pivotRectsCache(kPivotRectsCacheSize, static_cast<my::Cancellable const &>(*this),
-                      Processor::kMaxViewportRadiusM)
-  , m_localityRectsCache(kLocalityRectsCacheSize, static_cast<my::Cancellable const &>(*this))
+  , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, Processor::kMaxViewportRadiusM)
+  , m_localityRectsCache(kLocalityRectsCacheSize, m_cancellable)
   , m_pivotFeatures(index)
   , m_villages(nullptr)
   , m_filter(nullptr)
   , m_matcher(nullptr)
-  , m_finder(static_cast<my::Cancellable const &>(*this))
+  , m_finder(m_cancellable)
   , m_lastMatchedRegion(nullptr)
   , m_preRanker(nullptr)
 {
@@ -552,7 +553,6 @@ void Geocoder::GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos
 
     // MatchAroundPivot() should always be matched in mwms
     // intersecting with position and viewport.
-    auto const & cancellable = static_cast<my::Cancellable const &>(*this);
     auto processCountry = [&](size_t index, unique_ptr<MwmContext> context)
     {
       ASSERT(context, ());
@@ -572,7 +572,7 @@ void Geocoder::GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos
       if (it == m_matchersCache.end())
       {
         it = m_matchersCache.insert(make_pair(m_context->GetId(), make_unique<FeaturesLayerMatcher>(
-                                                                      m_index, cancellable)))
+                                                                      m_index, m_cancellable)))
                  .first;
       }
       m_matcher = it->second.get();
@@ -665,9 +665,8 @@ void Geocoder::PrepareAddressFeatures()
   for (size_t i = 0; i < m_numTokens; ++i)
   {
     PrepareRetrievalParams(i, i + 1);
-    m_addressFeatures[i] =
-        RetrieveAddressFeatures(m_context->GetId(), m_context->m_value,
-                                static_cast<my::Cancellable const &>(*this), m_retrievalParams);
+    m_addressFeatures[i] = RetrieveAddressFeatures(m_context->GetId(), m_context->m_value,
+                                                   m_cancellable, m_retrievalParams);
     ASSERT(m_addressFeatures[i], ());
   }
 }
@@ -1504,8 +1503,7 @@ unique_ptr<coding::CompressedBitVector> Geocoder::LoadCategories(
   for_each(categories.begin(), categories.end(), [&](strings::UniString const & category)
            {
              m_retrievalParams.m_tokens[0][0] = category;
-             auto cbv = RetrieveAddressFeatures(context.GetId(), context.m_value,
-                                                static_cast<my::Cancellable const &>(*this),
+             auto cbv = RetrieveAddressFeatures(context.GetId(), context.m_value, m_cancellable,
                                                 m_retrievalParams);
              if (!coding::CompressedBitVector::IsEmpty(cbv))
                cbvs.push_back(move(cbv));
@@ -1546,8 +1544,7 @@ unique_ptr<coding::CompressedBitVector> Geocoder::LoadVillages(MwmContext & cont
 unique_ptr<coding::CompressedBitVector> Geocoder::RetrievePostcodeFeatures(
     MwmContext const & context, TokenSlice const & slice)
 {
-  return ::search::RetrievePostcodeFeatures(context.GetId(), context.m_value,
-                                            static_cast<my::Cancellable const &>(*this), slice);
+  return ::search::RetrievePostcodeFeatures(context.GetId(), context.m_value, m_cancellable, slice);
 }
 
 coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(MwmContext const & context,
