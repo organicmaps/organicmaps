@@ -130,4 +130,5 @@ tools/android/mapswithme.keystore
 tools/android/yota.keystore
 android/secure.properties
 android/fabric.properties
+android/pushwoosh.properties
 server
