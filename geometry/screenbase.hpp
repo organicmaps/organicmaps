@@ -132,7 +132,7 @@ public:
 
   void SetRotationAngle(double rotationAngle);
   double GetRotationAngle() const { return m_3dAngleX; }
-
+  double GetMaxRotationAngle() const { return m_3dMaxAngleX; }
   double GetAngleFOV() const { return m_3dFOV; }
 
   m2::PointD P3dtoP(m2::PointD const & pt) const;

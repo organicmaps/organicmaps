@@ -1232,7 +1232,11 @@ void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
 
   m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-  float const zScale = 2.0f / (screen.GetHeight() * screen.GetScale());
+  // TODO: Calculate exact value of zScale
+  double const averageScale3d = 3.0;
+  float const zScale = 2.0f / (screen.PixelRectIn3d().SizeY() * averageScale3d * screen.GetScale());
+  //float const zScale = 2.0f / (screen.GetHeight() * screen.GetScale());
+
   m_generalUniforms.SetFloatValue("zScale", zScale);
 }
 

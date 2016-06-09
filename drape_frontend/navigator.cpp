@@ -309,9 +309,9 @@ void Navigator::Disable3dMode()
 
 bool Navigator::UpdatePerspective()
 {
-  bool const isPerspective = m_Screen.isPerspective();
+  double const maxPerspAngle = m_Screen.GetMaxRotationAngle();
   m_Screen.UpdatePerspectiveParameters();
-  return isPerspective != m_Screen.isPerspective();
+  return maxPerspAngle != m_Screen.GetMaxRotationAngle();
 }
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)

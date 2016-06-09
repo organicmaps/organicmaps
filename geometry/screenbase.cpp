@@ -7,6 +7,13 @@
 
 #include "std/cmath.hpp"
 
+double constexpr kPerspectiveAngleFOV = math::pi / 3.0;
+double constexpr kMaxPerspectiveAngle1 = math::pi4;
+double constexpr kMaxPerspectiveAngle2 = math::pi * 55.0 / 180.0;
+
+double constexpr kStartPerspectiveScale1 = 1.7e-5;
+double constexpr kEndPerspectiveScale1 = 0.3e-5;
+double constexpr kEndPerspectiveScale2 = 0.13e-5;
 
 ScreenBase::ScreenBase() :
     m_PixelRect(0, 0, 640, 480),
@@ -26,7 +33,6 @@ ScreenBase::ScreenBase() :
 {
   m_GtoP = math::Identity<double, 3>();
   m_PtoG = math::Identity<double, 3>();
-//  UpdateDependentParameters();
 }
 
 ScreenBase::ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect)
@@ -77,13 +83,20 @@ void ScreenBase::UpdateDependentParameters()
 
 double ScreenBase::CalculatePerspectiveAngle(double scale)
 {
-  double const kStartPerspectiveScale = 0.13e-4;
-  double const kMaxScale = 0.13e-5;
-  double const kMaxPerspectiveAngle = math::pi4;
-
-  if (scale > kStartPerspectiveScale)
+  if (scale > kStartPerspectiveScale1)
     return 0.0;
-  return kMaxPerspectiveAngle * (kStartPerspectiveScale - scale) / (kStartPerspectiveScale - kMaxScale);
+  else if (scale > kEndPerspectiveScale1)
+  {
+    double const k = (kStartPerspectiveScale1 - scale) / (kStartPerspectiveScale1 - kEndPerspectiveScale1);
+    return kMaxPerspectiveAngle1 * k;
+  }
+  else if (scale > kEndPerspectiveScale2)
+  {
+    double const k = (kEndPerspectiveScale1 - scale) / (kEndPerspectiveScale1 - kEndPerspectiveScale2);
+    return kMaxPerspectiveAngle1 + (kMaxPerspectiveAngle2 - kMaxPerspectiveAngle1) * k;
+  }
+  else
+    return kMaxPerspectiveAngle2 * 0.99;
 }
 
 void ScreenBase::UpdatePerspectiveParameters()
@@ -91,10 +104,12 @@ void ScreenBase::UpdatePerspectiveParameters()
   double const angle = CalculatePerspectiveAngle(m_Scale);
   if (angle > 0.0)
   {
-    if (m_isPerspective)
-      SetRotationAngle(angle);
+    if (!m_isPerspective || (angle < kMaxPerspectiveAngle1 && m_3dMaxAngleX > kMaxPerspectiveAngle1))
+      ApplyPerspective(angle, kMaxPerspectiveAngle1, kPerspectiveAngleFOV);
+    else if (angle > m_3dMaxAngleX)
+      ApplyPerspective(angle, kMaxPerspectiveAngle2, kPerspectiveAngleFOV);
     else
-      ApplyPerspective(angle, math::pi4, math::pi / 3);
+      SetRotationAngle(angle);
   }
   else if (m_isPerspective)
     ResetPerspective();
