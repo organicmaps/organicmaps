@@ -178,7 +178,7 @@ void initFieldsMap()
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType
 {
   auto const s = MapsAppDelegate.theApp.mapViewController.controlsManager.navigationState;
-  BOOL const editOrAddAreAvailable = version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion()) && s == MWMNavigationDashboardStateHidden && m_info.IsEditable();
+  BOOL const editOrAddAreAvailable = s == MWMNavigationDashboardStateHidden && m_info.IsEditable();
   switch (cellType)
   {
     case MWMPlacePageCellTypeName:
@@ -340,7 +340,7 @@ void initFieldsMap()
     Bookmark * bookmark = static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(self.bac.second));
     if (!bookmark)
       return;
-  
+
     if (self.bookmarkColor)
       bookmark->SetType(self.bookmarkColor.UTF8String);
 
@@ -354,7 +354,7 @@ void initFieldsMap()
     if (self.bookmarkTitle)
       bookmark->SetName(self.bookmarkTitle.UTF8String);
   }
-  
+
   category->SaveToKMLFile();
 }
 

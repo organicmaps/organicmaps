@@ -753,6 +753,8 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 
   info.m_isEditable = featureStatus != osm::Editor::FeatureStatus::Obsolete &&
                       !info.IsSponsoredHotel();
+  info.m_isDataEditable = version::IsSingleMwm(ft.GetID().m_mwmId.GetInfo()->m_version.GetVersion());
+
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
   info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");
 }

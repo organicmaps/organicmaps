@@ -592,12 +592,11 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, Featur
 
 EditableProperties Editor::GetEditableProperties(FeatureType const & feature) const
 {
-  // Disable editor for old data.
-  if (!version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()))
-    return {};
+  ASSERT(version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()),
+         ("Edit mode should be available only on new datas"));
 
-  if (GetFeatureStatus(feature.GetID()) == FeatureStatus::Obsolete)
-    return {};
+  ASSERT(GetFeatureStatus(feature.GetID()) != FeatureStatus::Obsolete,
+         ("Edit mode should not be available on obsolete features"));
 
   // TODO(mgsergio): Check if feature is in the area where editing is disabled in the config.
   auto editableProperties = GetEditablePropertiesForTypes(feature::TypesHolder(feature));

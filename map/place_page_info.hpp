@@ -34,6 +34,8 @@ public:
   bool HasApiUrl() const;
   /// @returns true if Edit Place button should be displayed.
   bool IsEditable() const;
+  /// @returns true if PlacePage was opened on a single mwm (see version::IsSingleMwm).
+  bool IsDataEditable() const;
 
   /// TODO: Support all possible Internet types in UI. @See MapObject::GetInternet().
   bool HasWifi() const;
@@ -90,6 +92,7 @@ public:
 
   bool m_isMyPosition = false;
   bool m_isEditable = false;
+  bool m_isDataEditable = false;
 
   // TODO(AlexZ): Temporary solution. It's better to use a wifi icon in UI instead of text.
   string m_localizedWifiString;

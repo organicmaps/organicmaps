@@ -16,9 +16,17 @@ bool Info::IsFeature() const { return m_featureID.IsValid(); }
 bool Info::IsBookmark() const { return m_bac != MakeEmptyBookmarkAndCategory(); }
 bool Info::IsMyPosition() const { return m_isMyPosition; }
 bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
-bool Info::IsEditable() const { return m_isEditable; }
+bool Info::IsEditable() const { return m_isEditable && m_isDataEditable; }
+bool Info::IsDataEditable() const { return m_isDataEditable; }
 bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
-bool Info::ShouldShowAddPlace() const { return !IsSponsoredHotel() && (!IsFeature() || (!IsPointType() && !IsBuilding())); }
+
+bool Info::ShouldShowAddPlace() const
+{
+  return !IsSponsoredHotel() &&
+      (!IsFeature() || (!IsPointType() && !IsBuilding())) &&
+      m_isDataEditable;
+}
+
 bool Info::IsSponsoredHotel() const { return m_isSponsoredHotel; }
 
 string Info::FormatNewBookmarkName() const
