@@ -457,8 +457,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         MapObject myPos = LocationHelper.INSTANCE.getMyPosition();
         params.put("lat", (myPos == null ? "N/A" : String.valueOf(myPos.getLat())));
         params.put("lon", (myPos == null ? "N/A" : String.valueOf(myPos.getLon())));
-        // TODO (trashkalmar): Replace with hotel's ID
-        params.put("hotel", info.price);
+        params.put("hotel", info.getId());
 
         String event = (book ? Statistics.EventName.PP_SPONSORED_BOOK
                              : Statistics.EventName.PP_SPONSORED_DETAILS);
@@ -580,6 +579,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     detachCountry();
     if (mMapObject != null)
     {
+      if (mSponsoredHotelInfo != null)
+        mSponsoredHotelInfo.updateId(mMapObject);
+
       String country = MapManager.nativeGetSelectedCountry();
       if (country != null)
         attachCountry(country);
