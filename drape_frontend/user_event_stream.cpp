@@ -1178,7 +1178,7 @@ void UserEventStream::EndTapDetector(Touch const & touch)
 void UserEventStream::CancelTapDetector()
 {
   TEST_CALL(CANCEL_TAP_DETECTOR);
-  ASSERT(m_state == STATE_TAP_DETECTION || m_state == STATE_WAIT_DOUBLE_TAP, ());
+  ASSERT(m_state == STATE_TAP_DETECTION || m_state == STATE_WAIT_DOUBLE_TAP || m_state == STATE_WAIT_DOUBLE_TAP_HOLD, ());
   m_state = STATE_EMPTY;
 }
 
