@@ -245,8 +245,6 @@ Processor::Processor(Index & index, CategoriesHolder const & categories,
 
 void Processor::Init(bool viewportSearch)
 {
-  Reset();
-
   m_tokens.clear();
   m_prefix.clear();
   m_preRanker.Clear();

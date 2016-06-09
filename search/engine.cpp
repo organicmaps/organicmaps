@@ -284,6 +284,7 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
   bool const viewportSearch = params.GetMode() == Mode::Viewport;
 
   // Initialize query processor.
+  processor.Reset();
   processor.Init(viewportSearch);
   handle->Attach(processor);
   MY_SCOPE_GUARD(detach, [&handle]
