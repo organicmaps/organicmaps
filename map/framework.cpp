@@ -2231,9 +2231,15 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
 
       InsertRoute(route);
       StopLocationFollow();
-      m2::RectD routeRect = route.GetPoly().GetLimitRect();
-      routeRect.Scale(kRouteScaleMultiplier);
-      ShowRect(routeRect, -1);
+
+      // Validate route (in case of bicycle routing it can be invalid).
+      ASSERT(route.IsValid(), ());
+      if (route.IsValid())
+      {
+        m2::RectD routeRect = route.GetPoly().GetLimitRect();
+        routeRect.Scale(kRouteScaleMultiplier);
+        ShowRect(routeRect, -1);
+      }
     }
     else
     {
