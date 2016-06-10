@@ -50,6 +50,13 @@ BookingDataset::Hotel::Hotel(string const & src)
   descUrl = rec[Index(Fields::DescUrl)];
 
   strings::to_uint(rec[Index(Fields::Type)], type);
+
+  langCode = rec[Index(Fields::Language)];
+  if (!langCode.empty())
+  {
+     nameLoc = rec[Index(Fields::NameLoc)];
+     addressLoc = rec[Index(Fields::AddressLoc)];
+  }
 }
 
 ostream & operator<<(ostream & s, BookingDataset::Hotel const & h)
@@ -170,6 +177,12 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
     e.AddTag("stars", strings::to_string(hotel.stars));
     e.AddTag("price_rate", strings::to_string(hotel.priceCategory));
     e.AddTag("addr:full", hotel.address);
+
+    if (!hotel.langCode.empty())
+    {
+      e.AddTag("name:" + hotel.langCode, hotel.nameLoc);
+      e.AddTag("addr:full:" + hotel.langCode, hotel.addressLoc);
+    }
 
     switch (hotel.type)
     {
