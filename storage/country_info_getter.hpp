@@ -32,7 +32,7 @@ public:
   virtual ~CountryInfoGetter() = default;
 
   // Returns country file name without an extension for a country |pt|
-  // belongs to. If there are no such country, returns an empty
+  // belongs to. If there is no such country, returns an empty
   // string.
   TCountryId GetRegionCountryId(m2::PointD const & pt) const;
 
@@ -72,7 +72,7 @@ public:
   // Returns true if there're at least one region with id equals to
   // |countryId|.
   bool IsBelongToRegions(TCountryId const & countryId, TRegionIdSet const & regions) const;
-  
+
   void RegionIdsToCountryIds(TRegionIdSet const & regions, TCountriesVec & countries) const;
 
   // Clears regions cache.

@@ -131,6 +131,13 @@ bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
   return uploadTime != my::INVALID_TIME_STAMP &&
          my::TimeTToSecondsSinceEpoch(uploadTime) < GetMwmCreationTimeByMwmId(fid.m_mwmId);
 }
+
+m2::PointD GetSomeFeaturePoint(editor::XMLFeature const & xml)
+{
+  if (xml.GetType() == XMLFeature::Type::Node)
+    return xml.GetMercatorCenter();
+  return xml.GetGeometry().front();
+}
 } // namespace
 
 namespace osm
@@ -197,6 +204,14 @@ void Editor::LoadMapEdits()
         {
           XMLFeature const xml(nodeOrWay.node());
 
+          // TODO(mgsergio): A map could be renamed, we'll treat it as deleted.
+          // The right thing to do is to try to migrate all changes anyway.
+          if (!mwmId.IsAlive())
+          {
+            LOG(LINFO, ("Mwm", mapName, "was deleted"));
+            goto SECTION_END;
+          }
+
           // TODO(mgsergio): Deleted features are not properly handled yet.
           auto const fid = needMigrateEdits
                                ? editor::MigrateFeatureIndex(
@@ -251,6 +266,8 @@ void Editor::LoadMapEdits()
         }
       } // for nodes
     } // for sections
+ SECTION_END:
+    ;
   } // for mwms
 
   // Save edits with new indexes and mwm version to avoid another migration on next startup.
