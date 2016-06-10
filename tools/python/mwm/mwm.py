@@ -12,7 +12,9 @@ from datetime import datetime
 # - Find why polygon geometry is incorrect in iter_features()
 # - Find feature ids in the 'dat' section, or find a way to read the 'offs' section
 
+
 class MWM:
+    # coding/multilang_utf8_string.cpp
     languages = ["default",
                  "en", "ja", "fr", "ko_rm", "ar", "de", "int_name", "ru", "sv", "zh", "fi", "be", "ka", "ko",
                  "he", "nl", "ga", "ja_rm", "el", "it", "es", "zh_pinyin", "th", "cy", "sr", "uk", "ca", "hu",
@@ -20,12 +22,14 @@ class MWM:
                  "af", "ja_kana", "lb", "pt", "hr", "fur", "vi", "tr", "bg", "eo", "lt", "la", "kk", "gsw",
                  "et", "ku", "mn", "mk", "lv", "hi"]
 
+    # indexer/feature_meta.hpp
     metadata = ["0",
                 "cuisine", "open_hours", "phone_number", "fax_number", "stars",
                 "operator", "url", "website", "internet", "ele",
                 "turn_lanes", "turn_lanes_forward", "turn_lanes_backward", "email", "postcode",
                 "wikipedia", "maxspeed", "flats", "height", "min_height",
-                "denomination", "building_levels"]
+                "denomination", "building_levels", "test_id", "ref:sponsored", "price_rate",
+                "rating", "fuel", "routes"]
 
     def __init__(self, f):
         self.f = f
@@ -137,6 +141,8 @@ class MWM:
                         t = self.read_varuint()
                         t = self.metadata[t] if t < len(self.metadata) else str(t)
                         fields[t] = self.read_string()
+                        if t == 'fuel':
+                            fields[t] = fields[t].split('\x01')
             else:
                 while True:
                     t = self.read_uint(1)
@@ -204,13 +210,18 @@ class MWM:
         RELATION = 0xC000000000000000
         RESET = ~(NODE | WAY | RELATION)
 
-    def iter_features(self):
+    def iter_features(self, metadata=False):
         """Reads 'dat' section."""
         if not self.has_tag('dat'):
             return
         # TODO: read 'offs'?
+        md = {}
+        if metadata:
+            md = self.read_metadata()
         self.seek_tag('dat')
+        ftid = -1
         while self.inside_tag('dat'):
+            ftid += 1
             feature = {}
             feature_size = self.read_varuint()
             next_feature = self.f.tell() + feature_size
@@ -244,6 +255,10 @@ class MWM:
                 elif geom_type == MWM.GeomType.AREA or geom_type == MWM.GeomType.POINT_EX:
                     header['house'] = self.read_numeric_string()
             feature['header'] = header
+
+            # Metadata
+            if ftid in md:
+                feature['metadata'] = md[ftid]
 
             # Geometry
             geometry = {}
