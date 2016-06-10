@@ -10,13 +10,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.List;
+import java.util.Locale;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
-
-import java.util.List;
 
 public class StoragePathFragment extends BaseSettingsFragment
                               implements StoragePathManager.MoveFilesListener,
@@ -26,7 +28,7 @@ public class StoragePathFragment extends BaseSettingsFragment
   private ListView mList;
 
   private StoragePathAdapter mAdapter;
-  private StoragePathManager mPathManager = new StoragePathManager();
+  private final StoragePathManager mPathManager = new StoragePathManager();
 
   @Override
   protected int getLayoutRes()
@@ -140,7 +142,7 @@ public class StoragePathFragment extends BaseSettingsFragment
     }
 
     // left 1 digit after the comma and add postfix string
-    return String.format("%.1f %s", (double) size / current, units[i]);
+    return String.format(Locale.US, "%.1f %s", (double) size / current, units[i]);
   }
 
   @Override

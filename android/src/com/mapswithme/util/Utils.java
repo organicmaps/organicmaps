@@ -197,7 +197,7 @@ public class Utils
    */
   public static String saveLogToFile()
   {
-    String fullName = MwmApplication.getDataStoragePath() + "log.txt";
+    String fullName = MwmApplication.getSettingsPath() + "log.txt";
     File file = new File(fullName);
     InputStreamReader reader = null;
     FileWriter writer = null;

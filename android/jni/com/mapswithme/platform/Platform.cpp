@@ -111,13 +111,8 @@ namespace android
 
     m_isTablet = isTablet;
     m_resourcesDir = jni::ToNativeString(env, apkPath);
-    // Settings file should be in a one place always (default external storage).
-    m_settingsDir = jni::ToNativeString(env, storagePath);
     m_tmpDir = jni::ToNativeString(env, tmpPath);
-
-    // Custom storage isn't set. Use primary storage.
-    if (!settings::Get("StoragePath", m_writableDir))
-      m_writableDir = m_settingsDir;
+    m_writableDir = jni::ToNativeString(env, storagePath);
 
     string const obbPath = jni::ToNativeString(env, obbGooglePath);
     Platform::FilesList files;
@@ -129,7 +124,6 @@ namespace android
     LOG(LINFO, ("Apk path = ", m_resourcesDir));
     LOG(LINFO, ("Writable path = ", m_writableDir));
     LOG(LINFO, ("Temporary path = ", m_tmpDir));
-    LOG(LINFO, ("Settings path = ", m_settingsDir));
     LOG(LINFO, ("OBB Google path = ", obbPath));
     LOG(LINFO, ("OBB Google files = ", files));
 
@@ -159,10 +153,17 @@ namespace android
     return m_writableDir.substr(0, i);
   }
 
-  void Platform::SetStoragePath(string const & path)
+  void Platform::SetWritableDir(string const & dir)
   {
-    m_writableDir = path;
+    m_writableDir = dir;
     settings::Set("StoragePath", m_writableDir);
+    LOG(LINFO, ("Writable path = ", m_writableDir));
+  }
+
+  void Platform::SetSettingsDir(string const & dir)
+  {
+    m_settingsDir = dir;
+    LOG(LINFO, ("Settings path = ", m_settingsDir));
   }
 
   bool Platform::HasAvailableSpaceForWriting(uint64_t size) const

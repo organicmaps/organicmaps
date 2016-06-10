@@ -24,6 +24,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
@@ -31,7 +32,6 @@ import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 import com.pushwoosh.PushManager;
-
 import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
 
@@ -96,6 +96,7 @@ public class MwmApplication extends Application
     return sSelf.mPrefs;
   }
 
+  @SuppressWarnings("ResultOfMethodCallIgnored")
   @Override
   public void onCreate()
   {
@@ -106,8 +107,12 @@ public class MwmApplication extends Application
     initCrashlytics();
     initPushWoosh();
 
-    initPaths();
-    nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
+    String settingsPath = getSettingsPath();
+    new File(settingsPath).mkdirs();
+    new File(getTempPath()).mkdirs();
+
+    nativePreparePlatform(settingsPath);
+    nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
@@ -131,13 +136,6 @@ public class MwmApplication extends Application
     ThemeSwitcher.restart();
     RoutingController.get().initialize();
     mIsFrameworkInitialized = true;
-  }
-
-  @SuppressWarnings("ResultOfMethodCallIgnored")
-  private void initPaths()
-  {
-    new File(getDataStoragePath()).mkdirs();
-    new File(getTempPath()).mkdirs();
   }
 
   private void initNativeStrings()
@@ -164,7 +162,6 @@ public class MwmApplication extends Application
     nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
     nativeAddLocalization("place_page_booking_rating", getString(R.string.place_page_booking_rating));
-
   }
 
   private void initHockeyApp()
@@ -201,9 +198,26 @@ public class MwmApplication extends Application
     }
   }
 
-  public static String getDataStoragePath()
+  public static String getSettingsPath()
   {
     return Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.MWM_DIR_POSTFIX;
+  }
+
+  private static String getStoragePath(String settingsPath)
+  {
+    String path = Config.getStoragePath();
+    if (!TextUtils.isEmpty(path))
+    {
+      File f = new File(path);
+      if (f.exists() && f.isDirectory())
+        return path;
+
+      path = new StoragePathManager().findMapsMeStorage(settingsPath);
+      Config.setStoragePath(path);
+      return path;
+    }
+
+    return settingsPath;
   }
 
   public String getTempPath()
@@ -213,7 +227,7 @@ public class MwmApplication extends Application
       return cacheDir.getAbsolutePath();
 
     return Environment.getExternalStorageDirectory().getAbsolutePath() +
-            String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
+           String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
   }
 
   private static String getObbGooglePath()
@@ -276,17 +290,13 @@ public class MwmApplication extends Application
     mMainLoopHandler.sendMessage(m);
   }
 
-  /**
-   * Initializes native Platform with paths. Should be called before usage of any other native components.
-   */
+  private static native void nativePreparePlatform(String settingsPath);
   private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
                                          String flavorName, String buildType, boolean isTablet);
 
   private static native void nativeInitFramework();
-
-  private static native void nativeAddLocalization(String name, String value);
-
   private static native void nativeProcessFunctor(long functorPointer);
+  private static native void nativeAddLocalization(String name, String value);
 
   @UiThread
   private static native void nativeInitCrashlytics();

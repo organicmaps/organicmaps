@@ -23,7 +23,8 @@ namespace android
     /// get storage path without ending "/MapsWithMe/"
     string GetStoragePathPrefix() const;
     /// assign storage path (should contain ending "/MapsWithMe/")
-    void SetStoragePath(string const & path);
+    void SetWritableDir(string const & dir);
+    void SetSettingsDir(string const & dir);
 
     bool HasAvailableSpaceForWriting(uint64_t size) const;
     void RunOnGuiThread(TFunctor const & fn);

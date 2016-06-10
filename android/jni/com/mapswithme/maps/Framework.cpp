@@ -727,7 +727,7 @@ Java_com_mapswithme_maps_Framework_nativeSetWritableDir(JNIEnv * env, jclass, js
 {
   string newPath = jni::ToNativeString(env, jNewPath);
   g_framework->RemoveLocalMaps();
-  android::Platform::Instance().SetStoragePath(newPath);
+  android::Platform::Instance().SetWritableDir(newPath);
   g_framework->AddLocalMaps();
 }
 

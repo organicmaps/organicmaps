@@ -2,6 +2,7 @@ package com.mapswithme.maps.settings;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -13,7 +14,8 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
@@ -37,17 +39,15 @@ final class StorageUtils
    * @return result
    */
   @SuppressWarnings("ResultOfMethodCallIgnored")
-  static boolean isDirWritable(String path)
+  public static boolean isDirWritable(String path)
   {
-    final File f = new File(path, "testDir");
+    File f = new File(path, "mapsme_test_dir");
     f.mkdir();
-    if (f.exists())
-    {
-      f.delete();
-      return true;
-    }
+    if (!f.exists())
+      return false;
 
-    return false;
+    f.delete();
+    return true;
   }
 
   /**
@@ -81,7 +81,7 @@ final class StorageUtils
   // http://stackoverflow.com/questions/8151779/find-sd-card-volume-label-on-android
   // http://stackoverflow.com/questions/5694933/find-an-external-sd-card-location
   // http://stackoverflow.com/questions/14212969/file-canwrite-returns-false-on-some-devices-although-write-external-storage-pe
-  private static void parseMountFile(String file, int mode, List<String> paths)
+  private static void parseMountFile(String file, int mode, Set<String> paths)
   {
     Log.i(StoragePathManager.TAG, "Parsing " + file);
 
@@ -92,34 +92,35 @@ final class StorageUtils
 
       while (true)
       {
-        final String line = reader.readLine();
+        String line = reader.readLine();
         if (line == null)
-          break;
+          return;
 
-        // standard regexp for all possible whitespaces (space, tab, etc)
-        final String[] arr = line.split("\\s+");
-
-        // split may return empty first strings
-        int start = 0;
-        while (start < arr.length && arr[start].length() == 0)
-          ++start;
-
-        if (arr.length - start <= 3)
+        line = line.trim();
+        if (TextUtils.isEmpty(line) || line.startsWith("#"))
           continue;
 
-        if (arr[start].charAt(0) == '#')
+        // standard regexp for all possible whitespaces (space, tab, etc)
+        String[] parts = line.split("\\s+");
+
+        if (parts.length <= 3)
           continue;
 
         if (mode == VOLD_MODE)
         {
-          if (arr[start].startsWith("dev_mount"))
-            paths.add(arr[start + 2]);
+          if (parts[0].startsWith("dev_mount"))
+            paths.add(parts[2]);
+
+          continue;
         }
-        else
+
+        for (String s : new String[] { "/dev/block/vold", "/dev/fuse", "/mnt/media_rw" })
         {
-          for (final String s : new String[]{"tmpfs", "/dev/block/vold", "/dev/fuse", "/mnt/media_rw"})
-            if (arr[start].startsWith(s))
-              paths.add(arr[start + 1]);
+          if (parts[0].startsWith(s))
+          {
+            paths.add(parts[1]);
+            break;
+          }
         }
       }
     } catch (final IOException e)
@@ -131,7 +132,7 @@ final class StorageUtils
     }
   }
 
-  static void parseStorages(List<String> paths)
+  static void parseStorages(Set<String> paths)
   {
     parseMountFile("/etc/vold.conf", VOLD_MODE, paths);
     parseMountFile("/etc/vold.fstab", VOLD_MODE, paths);
@@ -141,7 +142,7 @@ final class StorageUtils
 
   @TargetApi(Build.VERSION_CODES.KITKAT)
   @SuppressWarnings("ResultOfMethodCallIgnored")
-  static void parseKitkatStorages(List<String> paths)
+  static void parseKitkatStorages(Set<String> paths)
   {
     final File primaryStorage = MwmApplication.get().getExternalFilesDir(null);
     final File[] storages = MwmApplication.get().getExternalFilesDirs(null);
@@ -158,9 +159,9 @@ final class StorageUtils
       }
     }
 
-    final ArrayList<String> testStorages = new ArrayList<>();
+    Set<String> testStorages = new HashSet<>();
     parseStorages(testStorages);
-    final String suffix = String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.FILES_DIR);
+    String suffix = String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.FILES_DIR);
     for (String testStorage : testStorages)
     {
       Log.i(StoragePathManager.TAG, "Test storage from config files : " + testStorage);
@@ -176,11 +177,10 @@ final class StorageUtils
         if (!file.exists()) // create directory for our package if it isn't created by any reason
         {
           Log.i(StoragePathManager.TAG, "Try to create MWM path");
-          file.mkdirs();
-          file = new File(testStorage);
-          if (file.exists())
+          if (file.mkdirs())
             Log.i(StoragePathManager.TAG, "Created!");
         }
+
         if (isDirWritable(testStorage))
         {
           Log.i(StoragePathManager.TAG, "Found writable storage : " + testStorage);
