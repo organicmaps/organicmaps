@@ -157,6 +157,7 @@ class TestRunner:
                                    format(tests_path=self.workspace_path, test_file=test_file_with_keys, logfile=self.logfile),
                                    shell=True,
                                    stdout=subprocess.PIPE)
+            logging.info("Pid: {0}".format(process.pid))
 
             process.wait()
 
