@@ -186,7 +186,9 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
   // intersect with handle pixel rect ("Intersected elements").
   ForEachInRect(pixelRect, [&] (ref_ptr<OverlayHandle> const & h)
   {
-    bool const isParent = (h == parentOverlay);
+    bool const isParent = (h == parentOverlay) ||
+                          (h->GetFeatureID() == handle->GetFeatureID() &&
+                           h->GetOverlayRank() < handle->GetOverlayRank());
     if (!isParent && handle->IsIntersect(modelView, h))
       rivals.push_back(h);
   });
@@ -313,9 +315,10 @@ void OverlayTree::EndOverlayPlacing()
 
       InsertHandle(handle, parentOverlay);
     }
-
-    m_handles[rank].clear();
   }
+  
+  for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
+    m_handles[rank].clear();
 
   for (auto const & handle : m_handlesCache)
   {
@@ -337,10 +340,10 @@ bool OverlayTree::CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
     return true;
 
   int const seachingRank = currentRank - 1;
-  for (auto const & h : m_handlesCache)
+  for (auto const & h : m_handles[seachingRank])
   {
     if (h->GetFeatureID() == handle->GetFeatureID() &&
-        h->GetOverlayRank() == seachingRank)
+        m_handlesCache.find(h) != m_handlesCache.end())
     {
       parentOverlay = h;
       return true;
