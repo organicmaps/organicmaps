@@ -235,6 +235,8 @@ using namespace storage;
     self.bookingPriceLabel.text = entity.bookingPrice;
     [entity onlinePricingWithCompletionBlock:^
     {
+      if (!entity.bookingOnlinePrice.length)
+        return;
       self.bookingPriceLabel.text = entity.bookingOnlinePrice;
       [self setNeedsLayout];
       [UIView animateWithDuration:kDefaultAnimationDuration animations:^
