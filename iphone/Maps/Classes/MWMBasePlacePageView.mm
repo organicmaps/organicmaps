@@ -28,7 +28,7 @@
 namespace
 {
 CGFloat const kDownloadProgressViewLeftOffset = 12.;
-CGFloat const kDownloadProgressViewTopOffset = 10.;
+CGFloat const kDownloadProgressViewTopOffset = 4.;
 CGFloat const kLabelsBetweenMainOffset = 8.;
 CGFloat const kLabelsBetweenSmallOffset = 4.;
 CGFloat const kBottomPlacePageOffset = 16.;
