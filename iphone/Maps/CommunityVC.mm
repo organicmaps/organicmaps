@@ -72,7 +72,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"likeOnFb"];
     [self openUrl:[NSURL URLWithString:@"https://facebook.com/MapsWithMe"]];
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://facebook.com/MapsWithMe"]];
   }
   else if ([itemId isEqualToString:@"Twitter"])
   {
