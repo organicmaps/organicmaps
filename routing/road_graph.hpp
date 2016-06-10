@@ -26,7 +26,7 @@ public:
   inline bool operator==(Junction const & r) const { return m_point == r.m_point; }
   inline bool operator<(Junction const & r) const { return m_point < r.m_point; }
 
-  m2::PointD const & GetPoint() const { return m_point; }
+  inline m2::PointD const & GetPoint() const { return m_point; }
 
 private:
   friend string DebugPrint(Junction const & r);
@@ -34,6 +34,11 @@ private:
   // Point of the junction
   m2::PointD m_point;
 };
+
+inline bool AlmostEqualAbs(Junction const & lhs, Junction const & rhs)
+{
+  return my::AlmostEqualAbs(lhs.GetPoint(), rhs.GetPoint(), kPointsEqualEpsilon);
+}
 
 /// The Edge class represents an edge description on a road network graph
 class Edge

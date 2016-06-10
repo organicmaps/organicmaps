@@ -38,18 +38,6 @@ size_t constexpr kTestConnectivityVisitJunctionsLimit = 25;
 
 uint64_t constexpr kMinPedestrianMwmVersion = 150713;
 
-IRouter::ResultCode Convert(IRoutingAlgorithm::Result value)
-{
-  switch (value)
-  {
-  case IRoutingAlgorithm::Result::OK: return IRouter::ResultCode::NoError;
-  case IRoutingAlgorithm::Result::NoPath: return IRouter::ResultCode::RouteNotFound;
-  case IRoutingAlgorithm::Result::Cancelled: return IRouter::ResultCode::Cancelled;
-  }
-  ASSERT(false, ("Unexpected IRoutingAlgorithm::Result value:", value));
-  return IRouter::ResultCode::RouteNotFound;
-}
-
 // Check if the found edges lays on mwm with pedestrian routing support.
 bool CheckMwmVersion(vector<pair<Edge, m2::PointD>> const & vicinities, vector<string> & mwmNames)
 {
@@ -166,13 +154,13 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
                                                     RouterDelegate const & delegate, Route & route)
 {
   if (!CheckMapExistence(startPoint, route) || !CheckMapExistence(finalPoint, route))
-    return RouteFileNotExist;
+    return IRouter::RouteFileNotExist;
 
   vector<pair<Edge, m2::PointD>> finalVicinity;
   FindClosestEdges(*m_roadGraph, finalPoint, finalVicinity);
 
   if (finalVicinity.empty())
-    return EndPointNotFound;
+    return IRouter::EndPointNotFound;
 
   // TODO (ldragunov) Remove this check after several releases. (Estimated in november)
   vector<string> mwmNames;
@@ -186,7 +174,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   FindClosestEdges(*m_roadGraph, startPoint, startVicinity);
 
   if (startVicinity.empty())
-    return StartPointNotFound;
+    return IRouter::StartPointNotFound;
 
   // TODO (ldragunov) Remove this check after several releases. (Estimated in november)
   if (CheckMwmVersion(startVicinity, mwmNames))
@@ -196,7 +184,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   }
 
   if (!route.GetAbsentCountries().empty())
-    return FileTooOld;
+    return IRouter::FileTooOld;
 
   Junction const startPos(startPoint);
   Junction const finalPos(finalPoint);
@@ -223,7 +211,17 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   if (delegate.IsCancelled())
     return IRouter::Cancelled;
 
-  return Convert(resultCode);
+  if (!route.IsValid())
+    return IRouter::RouteNotFound;
+
+  switch (resultCode)
+  {
+    case IRoutingAlgorithm::Result::OK: return IRouter::NoError;
+    case IRoutingAlgorithm::Result::NoPath: return IRouter::RouteNotFound;
+    case IRoutingAlgorithm::Result::Cancelled: return IRouter::Cancelled;
+  }
+  ASSERT(false, ("Unexpected IRoutingAlgorithm::Result code:", resultCode));
+  return IRouter::RouteNotFound;
 }
 
 void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,

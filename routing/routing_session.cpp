@@ -88,7 +88,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   ASSERT(m_router != nullptr, ());
   ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
   RemoveRoute();
-  m_state = RouteBuilding;
+  SetState(RouteBuilding);
   m_routingRebuildCount++;
   m_lastCompletionPercent = 0;
 
@@ -119,7 +119,7 @@ void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultC
 
 void RoutingSession::RemoveRouteImpl()
 {
-  m_state = RoutingNotActive;
+  SetState(RoutingNotActive);
   m_lastDistance = 0.0;
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
@@ -177,7 +177,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     if (m_route.IsCurrentOnEnd())
     {
       m_passedDistanceOnRouteMeters += m_route.GetTotalDistanceMeters();
-      m_state = RouteFinished;
+      SetState(RouteFinished);
 
       alohalytics::TStringMap params = {{"router", m_route.GetRouterId()},
                                         {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
@@ -186,7 +186,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     }
     else
     {
-      m_state = OnRoute;
+      SetState(OnRoute);
 
       // Warning signals checks
       if (m_routingSettings.m_speedCameraWarning && !m_speedWarningSignal)
@@ -225,7 +225,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
       m_passedDistanceOnRouteMeters += m_route.GetCurrentDistanceFromBeginMeters();
-      m_state = RouteNeedRebuild;
+      SetState(RouteNeedRebuild);
       alohalytics::TStringMap params = {
           {"router", m_route.GetRouterId()},
           {"percent", strings::to_string(GetCompletionPercent())},
@@ -364,15 +364,17 @@ void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
   if (e != IRouter::Cancelled)
   {
     if (route.IsValid())
-      m_state = RouteNotStarted;
+      SetState(RouteNotStarted);
     else
-      m_state = RoutingNotActive;
+      SetState(RoutingNotActive);
 
     if (e != IRouter::NoError)
-      m_state = RouteNotReady;
+      SetState(RouteNotReady);
   }
   else
-    m_state = RoutingNotActive;
+  {
+    SetState(RoutingNotActive);
+  }
 
   route.SetRoutingSettings(m_routingSettings);
   m_route.Swap(route);
@@ -405,7 +407,7 @@ bool RoutingSession::DisableFollowMode()
   LOG(LINFO, ("Routing disables a following mode. State: ", m_state));
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
-    m_state = RouteNoFollowing;
+    SetState(RouteNoFollowing);
     m_isFollowing = false;
     return true;
   }
@@ -417,7 +419,7 @@ bool RoutingSession::EnableFollowMode()
   LOG(LINFO, ("Routing enables a following mode. State: ", m_state));
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
-    m_state = OnRoute;
+    SetState(OnRoute);
     m_isFollowing = true;
   }
   return m_isFollowing;
@@ -518,5 +520,20 @@ void RoutingSession::EmitCloseRoutingEvent() const
        {"router", m_route.GetRouterId()},
        {"rebuildCount", strings::to_string(m_routingRebuildCount)}},
       alohalytics::Location::FromLatLon(lastGoodPoint.lat, lastGoodPoint.lon));
+}
+
+string DebugPrint(RoutingSession::State state)
+{
+  switch (state)
+  {
+  case RoutingSession::RoutingNotActive: return "RoutingNotActive";
+  case RoutingSession::RouteBuilding: return "RouteBuilding";
+  case RoutingSession::RouteNotReady: return "RouteNotReady";
+  case RoutingSession::RouteNotStarted: return "RouteNotStarted";
+  case RoutingSession::OnRoute: return "OnRoute";
+  case RoutingSession::RouteNeedRebuild: return "RouteNeedRebuild";
+  case RoutingSession::RouteFinished: return "RouteFinished";
+  case RoutingSession::RouteNoFollowing: return "RouteNoFollowing";
+  }
 }
 }  // namespace routing
