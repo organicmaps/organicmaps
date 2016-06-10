@@ -15,19 +15,25 @@ char const * const Info::kPricingSymbol = "$";
 bool Info::IsFeature() const { return m_featureID.IsValid(); }
 bool Info::IsBookmark() const { return m_bac != MakeEmptyBookmarkAndCategory(); }
 bool Info::IsMyPosition() const { return m_isMyPosition; }
-bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
-bool Info::IsEditable() const { return m_isEditable && m_isDataEditable; }
-bool Info::IsDataEditable() const { return m_isDataEditable; }
-bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
+bool Info::IsSponsoredHotel() const { return m_isSponsoredHotel; }
 
 bool Info::ShouldShowAddPlace() const
 {
-  return !IsSponsoredHotel() &&
-      (!IsFeature() || (!IsPointType() && !IsBuilding())) &&
-      m_isDataEditable;
+  auto const isPointOrBuilding = IsPointType() || IsBuilding();
+  return m_canEditOrAdd && !(IsFeature() && isPointOrBuilding);
 }
 
-bool Info::IsSponsoredHotel() const { return m_isSponsoredHotel; }
+bool Info::ShouldShowAddBusiness() const { return m_canEditOrAdd && IsBuilding(); }
+
+bool Info::ShouldShowEditPlace() const
+{
+  return m_canEditOrAdd &&
+         // TODO(mgsergio): Does IsFeature() imply !IsMyPosition()?
+         !IsMyPosition() && IsFeature();
+}
+
+bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
+bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
 
 string Info::FormatNewBookmarkName() const
 {

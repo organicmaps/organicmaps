@@ -67,7 +67,9 @@ public final class Editor
                           BuildConfig.APPLICATION_ID);
   }
 
-  public static native boolean nativeIsFeatureEditable();
+  public static native boolean nativeShouldShowEditPlace();
+  public static native boolean nativeShouldShowAddPlace();
+  public static native boolean nativeShouldShowAddBusiness();
   @NonNull
   public static native int[] nativeGetEditableFields();
 

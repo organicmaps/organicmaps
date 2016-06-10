@@ -593,7 +593,7 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, Featur
 EditableProperties Editor::GetEditableProperties(FeatureType const & feature) const
 {
   ASSERT(version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()),
-         ("Edit mode should be available only on new datas"));
+         ("Edit mode should be available only on new data"));
 
   ASSERT(GetFeatureStatus(feature.GetID()) != FeatureStatus::Obsolete,
          ("Edit mode should not be available on obsolete features"));

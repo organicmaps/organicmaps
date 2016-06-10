@@ -197,7 +197,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   case MWMBottomMenuViewCellAddPlace:
   {
     BOOL const isEnabled = self.controller.controlsManager.navigationState == MWMNavigationDashboardStateHidden &&
-                            version::IsSingleMwm(GetFramework().Storage().GetCurrentDataVersion());
+                           GetFramework().CanEditMap();
     [cell configureWithImageName:@"ic_add_place"
                            label:L(@"placepage_add_place_button")
                       badgeCount:0

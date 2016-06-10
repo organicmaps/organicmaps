@@ -165,7 +165,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   connect(closeButton, SIGNAL(clicked()), this, SLOT(OnClose()));
   dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
 
-  if (info.IsEditable())
+  if (info.ShouldShowEditPlace())
   {
     QPushButton * editButton = new QPushButton("Edit Place");
     connect(editButton, SIGNAL(clicked()), this, SLOT(OnEdit()));

@@ -212,7 +212,5 @@ public class Framework
   public static native boolean nativeIsInChoosePositionMode();
   public static native boolean nativeIsDownloadedMapAtScreenCenter();
   public static native String nativeGetActiveObjectFormattedCuisine();
-  public static native boolean nativeIsActiveObjectABuilding();
-  public static native boolean nativeCanAddPlaceFromPlacePage();
   public static native SponsoredHotelInfo nativeGetSponsoredHotelInfo();
 }

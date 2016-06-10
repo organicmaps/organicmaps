@@ -244,9 +244,21 @@ Java_com_mapswithme_maps_editor_Editor_nativeSaveEditedFeature(JNIEnv *, jclass)
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsFeatureEditable(JNIEnv *, jclass)
+Java_com_mapswithme_maps_editor_Editor_nativeShouldShowEditPlace(JNIEnv *, jclass)
 {
-  return g_framework->GetPlacePageInfo().IsEditable();
+  return g_framework->GetPlacePageInfo().ShouldShowEditPlace();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeShouldShowAddPlace(JNIEnv *, jclass)
+{
+  return g_framework->GetPlacePageInfo().ShouldShowAddPlace();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeShouldShowAddBusiness(JNIEnv *, jclass)
+{
+  return g_framework->GetPlacePageInfo().ShouldShowAddBusiness();
 }
 
 JNIEXPORT jintArray JNICALL

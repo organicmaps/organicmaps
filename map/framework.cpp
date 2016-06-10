@@ -725,9 +725,14 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
 {
   auto feature = GetFeatureAtPoint(mercator);
   if (feature)
+  {
     FillInfoFromFeatureType(*feature, info);
+  }
   else
+  {
     info.m_customName = customTitle.empty() ? m_stringsBundle.GetString("placepage_unknown_place") : customTitle;
+    info.m_canEditOrAdd = CanEditMap();
+  }
 
   // This line overwrites mercator center from area feature which can be far away.
   info.SetMercator(mercator);
@@ -751,9 +756,8 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.m_sponsoredDescriptionUrl = GetBookingApi().GetDescriptionUrl(baseUrl);
   }
 
-  info.m_isEditable = featureStatus != osm::Editor::FeatureStatus::Obsolete &&
-                      !info.IsSponsoredHotel();
-  info.m_isDataEditable = version::IsSingleMwm(ft.GetID().m_mwmId.GetInfo()->m_version.GetVersion());
+  info.m_canEditOrAdd = featureStatus != osm::Editor::FeatureStatus::Obsolete && CanEditMap() &&
+                        !info.IsSponsoredHotel();
 
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
   info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");
@@ -2194,11 +2198,7 @@ void Framework::UpdateSavedDataVersion()
   settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
-int64_t Framework::GetCurrentDataVersion()
-{
-  return m_storage.GetCurrentDataVersion();
-}
-
+int64_t Framework::GetCurrentDataVersion() const { return m_storage.GetCurrentDataVersion(); }
 void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
@@ -2722,6 +2722,8 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, Index const
   }
 }
 }  // namespace
+
+bool Framework::CanEditMap() const { return version::IsSingleMwm(GetCurrentDataVersion()); }
 
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
                                 osm::EditableMapObject & emo) const
