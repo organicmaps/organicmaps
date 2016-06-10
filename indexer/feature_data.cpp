@@ -99,6 +99,7 @@ public:
       { "amenity", "bench" },
       { "amenity", "shelter" },
       { "building", "address" },
+      { "sponsored", "booking" },
     };
 
     AddTypes(arr2);
