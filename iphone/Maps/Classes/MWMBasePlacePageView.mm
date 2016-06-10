@@ -244,7 +244,7 @@ using namespace storage;
     }
     failure:^
     {
-      //TODO(Vlad): Process error.
+      // TODO(Vlad): Process an error.
     }];
   }
   else

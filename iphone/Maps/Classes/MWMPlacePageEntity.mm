@@ -145,6 +145,8 @@ void initFieldsMap()
     }
     NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
     decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    // TODO(Vlad): We will replace this string with [NSString stringWithFormat:L(@"place_page_starting_from"), currency]
+    // as soon as string is ready.
     self.bookingOnlinePrice = [currencyFormatter stringFromNumber:[decimalFormatter numberFromString:@(minPrice.c_str())]];
     completion();
   });
