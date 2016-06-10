@@ -27,7 +27,7 @@
     [self.titleButton setTitle:L(@"placepage_add_place_button") forState:UIControlStateNormal];
     break;
   case MWMPlacePageCellTypeBookingMore:
-    [self.titleButton setTitle:L(@"placepage_booking_more") forState:UIControlStateNormal];
+    [self.titleButton setTitle:L(@"details") forState:UIControlStateNormal];
     break;
   default:
     NSAssert(false, @"Invalid place page cell type!");
