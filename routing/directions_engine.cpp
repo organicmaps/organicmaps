@@ -69,7 +69,7 @@ bool IDirectionsEngine::ReconstructPath(IRoadGraph const & graph, vector<Junctio
     bool found = false;
     for (auto const & e : currEdges)
     {
-      if (e.GetEndJunction() == next)
+      if (AlmostEqualAbs(e.GetEndJunction(), next))
       {
         routeEdges.emplace_back(e);
         found = true;

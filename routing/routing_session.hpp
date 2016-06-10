@@ -90,6 +90,8 @@ public:
   bool IsFollowing() const { return m_isFollowing; }
   void Reset();
 
+  inline void SetState(State state) { m_state = state; }
+
   Route const & GetRoute() const { return m_route; }
 
   State OnLocationPositionChanged(location::GpsInfo const & info, Index const & index);
@@ -187,4 +189,6 @@ private:
   int m_routingRebuildCount;
   mutable double m_lastCompletionPercent;
 };
+
+string DebugPrint(RoutingSession::State state);
 }  // namespace routing
