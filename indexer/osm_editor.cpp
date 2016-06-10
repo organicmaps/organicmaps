@@ -131,13 +131,6 @@ bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
   return uploadTime != my::INVALID_TIME_STAMP &&
          my::TimeTToSecondsSinceEpoch(uploadTime) < GetMwmCreationTimeByMwmId(fid.m_mwmId);
 }
-
-m2::PointD GetSomeFeaturePoint(editor::XMLFeature const & xml)
-{
-  if (xml.GetType() == XMLFeature::Type::Node)
-    return xml.GetMercatorCenter();
-  return xml.GetGeometry().front();
-}
 } // namespace
 
 namespace osm
