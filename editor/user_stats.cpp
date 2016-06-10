@@ -179,8 +179,10 @@ string UserStatsLoader::GetUserName() const
 
 bool UserStatsLoader::LoadFromSettings()
 {
-  uint32_t rating, changesCount;
-  uint64_t lastUpdate;
+  uint32_t rating = 0;
+  uint32_t changesCount = 0;
+  uint64_t lastUpdate = 0;
+
   if (!settings::Get(kSettingsUserName, m_userName) ||
       !settings::Get(kSettingsChangesCount, changesCount) ||
       !settings::Get(kSettingsRating, rating) ||
