@@ -20,7 +20,7 @@ from run_desktop_tests import tests_on_disk
 __author__ = 't.danshin'
 
 
-TEMPFOLDER_TESTS = ["search_integration_tests"]
+TEMPFOLDER_TESTS = ["search_integration_tests", "storage_integration_tests"]
 
 
 class IntegrationRunner:
