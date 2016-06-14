@@ -385,7 +385,7 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
       screen.ResetPerspective();
   }
 
-  double const scale3d = screen.PixelRect().SizeX() / screen.PixelRectIn3d().SizeX();
+  double const scale3d = screen.GetScale3d();
 
   if (zoom == kDoNotChangeZoom)
   {
@@ -398,11 +398,12 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
     angle = screen.GlobalRect().Angle();
 
     localRect = df::GetRectForDrawScale(zoom, center);
-    CheckMinGlobalRect(localRect);
-    CheckMinMaxVisibleScale(localRect, zoom);
+    localRect.Scale(scale3d);
+
+    CheckMinGlobalRect(localRect, scale3d);
+    CheckMinMaxVisibleScale(localRect, zoom, scale3d);
 
     localRect.Offset(-center);
-    localRect.Scale(scale3d);
 
     double const aspectRatio = screen.PixelRect().SizeY() / screen.PixelRect().SizeX();
     if (aspectRatio > 1.0)
@@ -433,8 +434,9 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
 
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim)
 {
-  CheckMinGlobalRect(rect);
-  CheckMinMaxVisibleScale(rect, zoom);
+  ScreenBase const & screen = GetCurrentScreen();
+  CheckMinGlobalRect(rect, screen.GetScale3d());
+  CheckMinMaxVisibleScale(rect, zoom, screen.GetScale3d());
   m2::AnyRectD targetRect = applyRotation ? ToRotated(m_navigator, rect) : m2::AnyRectD(rect);
   return SetRect(targetRect, isAnim);
 }
@@ -506,9 +508,11 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   if (preferredZoomLevel != kDoNotChangeZoom)
   {
     ScreenBase newScreen = GetCurrentScreen();
+    double const scale3d = newScreen.GetScale3d();
     m2::RectD r = df::GetRectForDrawScale(preferredZoomLevel, m2::PointD::Zero());
-    CheckMinGlobalRect(r);
-    CheckMinMaxVisibleScale(r, preferredZoomLevel);
+    r.Scale(scale3d);
+    CheckMinGlobalRect(r, scale3d);
+    CheckMinMaxVisibleScale(r, preferredZoomLevel, scale3d);
     newScreen.SetFromRect(m2::AnyRectD(r));
     targetLocalRect = newScreen.GlobalRect().GetLocalRect();
   }

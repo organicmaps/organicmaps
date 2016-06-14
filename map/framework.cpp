@@ -1370,10 +1370,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   }
 
   m2::PointD const center = info.GetMercator();
-  if (m_currentModelView.isPerspective())
-    CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, scale, true));
-  else
-    ShowRect(df::GetRectForDrawScale(scale, center));
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, scale, true));
 
   UserMarkContainer::UserMarkForPoi()->SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);

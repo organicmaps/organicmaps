@@ -10,6 +10,8 @@
 namespace df
 {
 
+extern double const kDefault3dScale;
+
 /// Calculates screen parameters in navigation (dragging, scaling, etc.).
 class Navigator
 {
@@ -76,10 +78,10 @@ private:
 };
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect);
-void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale);
-void CheckMinGlobalRect(m2::RectD & rect);
+void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale, double scale3d = kDefault3dScale);
+void CheckMinGlobalRect(m2::RectD & rect, double scale3d = kDefault3dScale);
 
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, uint32_t tileSize, double visualScale);
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, uint32_t tileSize, double visualScale, double scale3d = kDefault3dScale);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, double scale3d = kDefault3dScale);
 
 }

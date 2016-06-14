@@ -19,6 +19,8 @@
 namespace df
 {
 
+double const kDefault3dScale = 1.0;
+
 Navigator::Navigator()
   : m_InAction(false)
 {
@@ -56,8 +58,9 @@ void Navigator::SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double vi
   {
     int const scale = scales::GetUpperStyleScale() - 1;
     m2::RectD newRect = df::GetRectForDrawScale(scale, r.Center());
-    CheckMinMaxVisibleScale(newRect, scale);
-    tmp = m_Screen;
+    newRect.Scale(m_Screen.GetScale3d());
+    CheckMinMaxVisibleScale(newRect, scale, m_Screen.GetScale3d());
+    tmp = m_Screen;   
     tmp.SetFromRect(m2::AnyRectD(newRect));
     ASSERT(CheckMaxScale(tmp, tileSize, visualScale), ());
   }
@@ -324,36 +327,38 @@ m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
                       m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
 }
 
-void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale)
+void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale, double scale3d)
 {
-  m2::RectD const minRect = df::GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center(), tileSize, visualScale);
+  m2::RectD minRect = df::GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center(), tileSize, visualScale);
+  minRect.Scale(scale3d);
   if (minRect.IsRectInside(rect))
     rect = minRect;
 }
 
-void CheckMinGlobalRect(m2::RectD & rect)
+void CheckMinGlobalRect(m2::RectD & rect, double scale3d)
 {
   VisualParams const & p = VisualParams::Instance();
-  CheckMinGlobalRect(rect, p.GetTileSize(), p.GetVisualScale());
+  CheckMinGlobalRect(rect, p.GetTileSize(), p.GetVisualScale(), scale3d);
 }
 
 void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale,
-                             uint32_t tileSize, double visualScale)
+                             uint32_t tileSize, double visualScale, double scale3d)
 {
-  CheckMinGlobalRect(rect, tileSize, visualScale);
+  CheckMinGlobalRect(rect, tileSize, visualScale, scale3d);
   int scale = df::GetDrawTileScale(rect, tileSize, visualScale);
   if (maxScale != -1 && scale > maxScale)
   {
     // limit on passed maximal scale
     m2::PointD const c = rect.Center();
     rect = df::GetRectForDrawScale(maxScale, c, tileSize, visualScale);
+    rect.Scale(scale3d);
   }
 }
 
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale)
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale, double scale3d)
 {
   VisualParams const & p = VisualParams::Instance();
-  CheckMinMaxVisibleScale(rect, maxScale, p.GetTileSize(), p.GetVisualScale());
+  CheckMinMaxVisibleScale(rect, maxScale, p.GetTileSize(), p.GetVisualScale(), scale3d);
 }
 
 } // namespace df
