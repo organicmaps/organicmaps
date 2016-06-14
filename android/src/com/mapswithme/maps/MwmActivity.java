@@ -882,7 +882,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
-    LocationHelper.INSTANCE.detach();
+    LocationHelper.INSTANCE.detach(!isFinishing());
     mMytargetHelper.cancel();
     RoutingController.get().detach();
   }

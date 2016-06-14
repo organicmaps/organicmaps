@@ -134,7 +134,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     if (LocationHelper.INSTANCE.isLocationStopped())
       return;
 
-    LocationHelper.INSTANCE.stop(false);
+    LocationHelper.INSTANCE.stop();
     Activity activity = MwmApplication.backgroundTracker().getTopActivity();
     if (activity != null)
     {

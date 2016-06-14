@@ -232,6 +232,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   protected void onDestroy()
   {
     super.onDestroy();
+    Utils.keepScreenOn(false, getWindow());
     if (mCountryDownloadListenerSlot != 0)
     {
       MapManager.nativeUnsubscribe(mCountryDownloadListenerSlot);

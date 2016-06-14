@@ -376,11 +376,11 @@ public enum LocationHelper
     return mLocationStopped;
   }
 
-  void stop(boolean delayed)
+  void stop()
   {
-    mLogger.d("stop(), delayed: " + delayed);
+    mLogger.d("stop()");
     mLocationStopped = true;
-    removeListener(mLocationListener, delayed);
+    removeListener(mLocationListener, false);
   }
 
   public boolean onActivityResult(int requestCode, int resultCode)
@@ -619,7 +619,7 @@ public enum LocationHelper
       }
     }
 
-    Utils.keepScreenOn(mActive, mUiCallback.getActivity().getWindow());
+    Utils.keepScreenOn(true, mUiCallback.getActivity().getWindow());
 
     int mode = LocationState.getMode();
     mUiCallback.onMyPositionModeChanged(mode);
@@ -638,9 +638,9 @@ public enum LocationHelper
   /**
    * Detach UI from helper.
    */
-  public void detach()
+  public void detach(boolean delayed)
   {
-    mLogger.d("detach()");
+    mLogger.d("detach(), delayed: " + delayed);
 
     if (mUiCallback == null)
     {
@@ -648,8 +648,9 @@ public enum LocationHelper
       return;
     }
 
+    Utils.keepScreenOn(false, mUiCallback.getActivity().getWindow());
     mUiCallback = null;
-    stop(true);
+    removeListener(mLocationListener, delayed);
   }
 
   public void onMyPositionButtonClicked()
