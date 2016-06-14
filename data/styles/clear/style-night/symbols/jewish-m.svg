@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>jewish-m</title>
     <desc>Created with Sketch.</desc>
-    <defs>
-        <polygon id="path-1" points="5 8 18 8 11.5 18"></polygon>
-        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="13" height="10" fill="white">
-            <use xlink:href="#path-1"></use>
-        </mask>
-        <polygon id="path-3" points="5 5 18 5 11.5 15"></polygon>
-        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="13" height="10" fill="white">
-            <use xlink:href="#path-3"></use>
-        </mask>
-    </defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <defs></defs>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="jewish-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#8C4D16" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <use id="Rectangle-396" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
-            <use id="Rectangle-396" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="2" transform="translate(11.500000, 10.000000) scale(1, -1) translate(-11.500000, -10.000000) " xlink:href="#path-3"></use>
+            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#26160D" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <path d="M9.56383683,15.0063551 L5.00933838,15.00354 L7.28999458,11.4918197 L5.03973389,8.01373291 L6.8895874,9.00537109 L7.89521432,10.5599114 L8.88977392,9.02850342 L6.8895874,9.02850342 L5.03973389,8.01373291 L9.54880779,8.01373291 L11.5117188,4.99127197 L11.5117188,6.84411621 L10.7525104,8.01373291 L12.2727433,8.01373291 L11.5117188,6.84411621 L11.5036621,4.99127197 L13.476538,8.01373291 L18.017395,8.01373291 L15.7496108,11.4960977 L18.0443115,15.0115967 L13.4620934,15.0087645 L11.5073853,18.010376 L9.56383683,15.0063551 Z M10.7720869,15.0071019 L12.2357816,15.0080066 L11.5009766,16.1338501 L10.7720869,15.0071019 Z M15.1387245,10.5602152 L14.1389176,9.02850342 L16.1384277,9.02850342 L15.1387245,10.5602152 Z M12.9330155,9.02850342 L14.533251,11.4879012 L12.9096366,13.9755486 L10.1070462,13.9790541 L8.49646104,11.4893438 L10.093814,9.02850342 L12.9330155,9.02850342 Z M15.1438379,12.4263107 L16.149231,13.9714966 L14.1359427,13.9740148 L15.1438379,12.4263107 Z M8.9001679,13.9805636 L6.87774658,13.9830933 L7.8914359,12.4214299 L8.9001679,13.9805636 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>

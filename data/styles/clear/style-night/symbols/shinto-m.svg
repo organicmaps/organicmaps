@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>shinto-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="shinto-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#8C4D16" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M6.23279572,6.5 L6,6.5 L6,7.5 L7.97727273,7.5 L7.90909091,9 L5,9 L5,10 L7.86363636,10 L7.5,18 L9,18 L9,10 L14,10 L14,18 L15.5,18 L15.1363636,10 L18,10 L18,9 L15.0909091,9 L15.0227273,7.5 L17,7.5 L17,6.5 L16.803093,6.5 C17.7407379,6.25 18,6 18,6 L18,5 C18,5 16.0443115,5.5 11.5283813,5.5 C7.01245117,5.5 5,5 5,5 L5,6 C5,6 5.27720642,6.25 6.23279572,6.5 Z M14,7.5 L14,9 L9,9 L9,7.5 L11,7.5 L11,9 L12,9 L12,7.5 L14,7.5 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#26160D" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <path d="M6.23279572,6.5 L6,6.5 L6,7.5 L7.97727273,7.5 L7.90909091,9 L5,9 L5,10 L7.86363636,10 L7.5,18 L9,18 L9,10 L14,10 L14,18 L15.5,18 L15.1363636,10 L18,10 L18,9 L15.0909091,9 L15.0227273,7.5 L17,7.5 L17,6.5 L16.803093,6.5 C17.7407379,6.25 18,6 18,6 L18,5 C18,5 16.0443115,5.5 11.5283813,5.5 C7.01245117,5.5 5,5 5,5 L5,6 C5,6 5.27720642,6.25 6.23279572,6.5 Z M14,7.5 L14,9 L9,9 L9,7.5 L11,7.5 L11,9 L12,9 L12,7.5 L14,7.5 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>

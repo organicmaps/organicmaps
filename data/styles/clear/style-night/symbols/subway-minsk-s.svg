@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="9px" viewBox="0 0 17 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+<svg width="17px" height="9px" viewBox="0 0 17 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>subway-minsk-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Subways" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="subway-minsk-s" sketch:type="MSLayerGroup">
-            <path d="M1,0 L6,0 L6.41421356,0 L6.70710678,0.292893219 L8.49509557,2.09069086 L10.2928932,0.292893219 L10.5857864,0 L11,0 L16,0 L17,0 L17,1 L17,7 L17,8 L16,8 L11,8 L10,8 L8.5,9 L7,8 L6,8 L1,8 L0,8 L0,7 L0,1 L0,0 L1,0 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-            <path d="M1,1 L6,1 L8.5,3.5 L11,1 L16,1 L16,7 L11,7 L11,5 L8.5,8 L6,5 L6,7 L1,7 L1,1 Z" id="Rectangle-400-Copy-2" fill="#81110D" sketch:type="MSShapeGroup"></path>
+    <defs>
+        <polygon id="path-1" points="1 1 6 1 8.5 3.5 11 1 16 1 16 7 11 7 11 5 8.5 8 6 5 6 7 1 7"></polygon>
+    </defs>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="subway-minsk-s">
+            <polygon id="Shape" fill-opacity="0.1" fill="#FFFFFF" points="1 0 6 0 6.41421356 0 6.70710678 0.292893219 8.49509557 2.09069086 10.2928932 0.292893219 10.5857864 0 11 0 16 0 17 0 17 1 17 7 17 8 16 8 11 8 10 8 8.5 9 7 8 6 8 1 8 0 8 0 7 0 1 0 0"></polygon>
+            <g id="Rectangle-400-Copy-2">
+                <use fill="#C81D17" xlink:href="#path-1"></use>
+                <use fill-opacity="0.4" fill="#000000" xlink:href="#path-1"></use>
+            </g>
         </g>
     </g>
 </svg>

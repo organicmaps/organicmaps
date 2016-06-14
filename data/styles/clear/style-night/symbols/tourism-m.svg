@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>tourism-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="tourism-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#2E1B10" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <polygon id="Star-1-Copy-2" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" points="11.5 14.75 7.67939586 16.7586105 8.40906632 12.5043052 5.31813264 9.49138954 9.58969793 8.87069477 11.5 5 13.4103021 8.87069477 17.6818674 9.49138954 14.5909337 12.5043052 15.3206041 16.7586105 "></polygon>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="tourism-m">
+            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#26160D" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <polygon id="Star-1-Copy-2" fill-opacity="0.7" fill="#FFFFFF" points="11.5 14.75 7.67939586 16.7586105 8.40906632 12.5043052 5.31813264 9.49138954 9.58969793 8.87069477 11.5 5 13.4103021 8.87069477 17.6818674 9.49138954 14.5909337 12.5043052 15.3206041 16.7586105"></polygon>
         </g>
     </g>
 </svg>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="7px" height="6px" viewBox="0 0 7 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="9px" height="8px" viewBox="0 0 9 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>peakt-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <path d="M3.5,1.17390585e-08 C3.31578947,-3.74882606e-05 3.23249168,0.0897750109 3.17763158,0.18750001 L0.0460526316,5.43749996 C0.0135947368,5.49536246 0,5.56027496 0,5.62499996 C0,5.90624996 0.184210526,6.00007496 0.368421053,5.99999996 L6.63157895,5.99999996 C6.81578947,6.00007496 7,5.90624996 7,5.62499996 C7,5.56027496 6.98642368,5.49536246 6.95394737,5.43749996 L3.82236842,0.18750001 C3.76750832,0.0897750109 3.68421053,-3.74882606e-05 3.5,1.17390585e-08 L3.5,1.17390585e-08 Z" id="peakt-s" fill="#3C3E38" sketch:type="MSShapeGroup"></path>
+    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M4.5,1.00000001 C4.31578947,0.999962512 4.23249168,1.08977501 4.17763158,1.18750001 L1.04605263,6.43749996 C1.01359474,6.49536246 1,6.56027496 1,6.62499996 C1,6.90624996 1.18421053,7.00007496 1.36842105,6.99999996 L7.63157895,6.99999996 C7.81578947,7.00007496 8,6.90624996 8,6.62499996 C8,6.56027496 7.98642368,6.49536246 7.95394737,6.43749996 L4.82236842,1.18750001 C4.76750832,1.08977501 4.68421053,0.999962512 4.5,1.00000001 L4.5,1.00000001 Z" id="peakt-s" fill="#252522"></path>
     </g>
 </svg>

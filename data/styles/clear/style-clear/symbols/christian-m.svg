@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>christian-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
@@ -8,8 +8,8 @@
         <g id="christian-m">
             <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
             <ellipse id="Oval-1-Copy-40" fill="#8C4D16" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <rect id="Rectangle-333" fill="#FFFFFF" x="10.5" y="5" width="2" height="13"></rect>
+            <rect id="Rectangle-334" fill="#FFFFFF" x="7" y="8" width="9" height="2"></rect>
         </g>
-        <rect id="Rectangle-333" fill="#FFFFFF" x="10.5" y="5" width="2" height="13"></rect>
-        <rect id="Rectangle-334" fill="#FFFFFF" x="7" y="8" width="9" height="2"></rect>
     </g>
 </svg>

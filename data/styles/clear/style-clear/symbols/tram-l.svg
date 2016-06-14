@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>tram-l</title>
     <desc>Created with Sketch.</desc>
     <defs>
@@ -14,7 +14,7 @@
         <g id="tram-l" transform="translate(1.000000, 1.000000)">
             <g id="Rectangle-211">
                 <use fill="#3C3E38" fill-rule="evenodd" xlink:href="#path-1"></use>
-                <use fill="#21659A" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use fill="#0D4D7F" fill-rule="evenodd" xlink:href="#path-1"></use>
                 <use stroke-opacity="0.8" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
             </g>
             <g id="g24855" transform="translate(6.000000, 3.000000)" fill="#FFFFFF">

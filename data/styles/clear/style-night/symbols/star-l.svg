@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>star-l</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="star-l" sketch:type="MSLayerGroup" transform="translate(0.502392, 0.898800)">
-            <g id="Page-1" sketch:type="MSShapeGroup">
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="star-l">
+            <g id="Page-1">
                 <g id="tstar-l">
                     <g id="Page-1">
                         <g id="star-l">
                             <g id="Page-1">
                                 <g id="cities">
-                                    <path d="M6,9.48581467 L2.29179604,12 L3.42000002,7.51487 L0,4.58359208 L4.4054723,4.32581474 L6,0 L7.5945277,4.32581474 L12,4.58359208 L8.57999998,7.51487 L9.70820396,12 L6,9.48581467 L6,9.48581467 Z" id="Star-1-Copy" fill-opacity="0.65" fill="#EEEEDD"></path>
-                                    <path d="M6,8.90484556 L2.90983003,11 L3.85000002,7.26239167 L1,4.81966007 L4.67122692,4.60484562 L6,1 L7.32877308,4.60484562 L11,4.81966007 L8.14999998,7.26239167 L9.09016997,11 L6,8.90484556 L6,8.90484556 Z" id="Star-1" fill-opacity="0.8" fill="#000003"></path>
+                                    <polygon id="Star-1-Copy" fill-opacity="0.65" fill="#EEEEDD" points="6 9.48581467 2.29179604 12 3.42000002 7.51487 0 4.58359208 4.4054723 4.32581474 6 0 7.5945277 4.32581474 12 4.58359208 8.57999998 7.51487 9.70820396 12"></polygon>
+                                    <polygon id="Star-1" fill-opacity="0.8" fill="#000003" points="6 8.90484556 2.90983003 11 3.85000002 7.26239167 1 4.81966007 4.67122692 4.60484562 6 1 7.32877308 4.60484562 11 4.81966007 8.14999998 7.26239167 9.09016997 11"></polygon>
                                 </g>
                             </g>
                         </g>

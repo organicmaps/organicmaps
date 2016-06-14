@@ -417,7 +417,7 @@ node|z17[amenity=place_of_worship][religion=taoist], area|z17[amenity=place_of_w
 
 node|z17[amenity=theatre], area|z17[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
 node|z17[amenity=kindergarten], area|z17[amenity=kindergarten] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2100; }
-node|z17[amenity=childcare], area|z17[amenity=childcare] { icon-image: childcare-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2100; }
+node|z17[amenity=childcare], area|z17[amenity=childcare] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2100; }
 node|z17[amenity=school], area|z17[amenity=school] { icon-image: school-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
 node|z17[amenity=college], area|z17[amenity=college] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17[amenity=hospital], area|z17[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
@@ -429,7 +429,7 @@ node|z17[amenity=university][name], area|z17[amenity=university][name] { icon-im
 node|z17[amenity=university][!name], area|z17[amenity=university][!name] { }
 node|z17[amenity=cinema], area|z17[amenity=cinema] { icon-image: cinema-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17[amenity=bank], area|z17[amenity=bank] { z-index: 4500; icon-image: bank-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
-node|z17[amenity=courthouse], area|z17[amenity=courthouse] { z-index: 4500; icon-image: courthouse-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=courthouse], area|z17[amenity=courthouse] { z-index: 4500; icon-image: public-building-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17[amenity=fuel], area|z17[amenity=fuel] { icon-image: fuel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
 node|z17[amenity=charging_station], area|z17[amenity=charging_station] { icon-image: charging-station-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
 node|z17[amenity=police], area|z17[amenity=police] { icon-image: police-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
@@ -478,7 +478,7 @@ node|z18-[amenity=university][name], area|z18-[amenity=university][name] { icon-
 node|z18-[amenity=university][!name], area|z18-[amenity=university][!name] { }
 node|z18-[amenity=cinema], area|z18-[amenity=cinema] { icon-image: cinema-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
 node|z18-[amenity=bank], area|z18-[amenity=bank] { z-index: 4500; icon-image: bank-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
-node|z18-[amenity=courthouse], area|z18-[amenity=courthouse] { z-index: 4500; icon-image: courthouse-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=courthouse], area|z18-[amenity=courthouse] { z-index: 4500; icon-image: public-building-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
 node|z18-[amenity=fuel], area|z18-[amenity=fuel] { icon-image: fuel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2600; }
 node|z18-[amenity=charging_station], area|z18-[amenity=charging_station] { icon-image: charging-station-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2600; }
 node|z18-[amenity=police], area|z18-[amenity=police] { icon-image: police-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}

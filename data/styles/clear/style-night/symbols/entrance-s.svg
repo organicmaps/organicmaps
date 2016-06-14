@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="7px" height="7px" viewBox="0 0 7 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="7px" height="7px" viewBox="0 0 7 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>entrance-s</title>
     <desc>Created with Sketch.</desc>
-    <defs>
-        <circle id="path-1" cx="3.5" cy="3.5" r="2.5"></circle>
-    </defs>
-    <g id="Other" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="entrance-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-369" sketch:type="MSShapeGroup" cx="3.5" cy="3.5" r="3.5"></circle>
-            <g id="Oval-369-Copy">
-                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
-                <use fill="none" xlink:href="#path-1"></use>
-            </g>
+    <defs></defs>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="entrance-s">
+            <ellipse id="Oval-369" cx="3.5" cy="3.5" rx="3.5" ry="3.5"></ellipse>
+            <ellipse id="Oval-369-Copy" fill="#252522" cx="3.5" cy="3.5" rx="2.5" ry="2.5"></ellipse>
         </g>
     </g>
 </svg>

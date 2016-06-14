@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="9px" height="9px" viewBox="0 0 9 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>star-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="star-s" sketch:type="MSLayerGroup" transform="translate(0.502392, 0.898800)">
-            <g id="Page-1" sketch:type="MSShapeGroup">
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="star-s">
+            <g id="Page-1">
                 <g id="tstar-s">
                     <g id="Page-1">
-                        <path d="M4.5,7.11333879 L1.71884693,9 L2.56592468,5.63583658 L0,3.43769407 L3.30467574,3.24518807 L4.5,0 L5.69532426,3.24518807 L9,3.43769407 L6.43407532,5.63583658 L7.28115307,9 L4.5,7.11333879 L4.5,7.11333879 Z" id="Star-1-Copy-3" fill="#EEEEDD"></path>
-                        <path d="M4.5,6.53259683 L2.33688095,8 L2.9957192,5.38342846 L1,3.67376205 L3.57030336,3.52403517 L4.5,1 L5.42969664,3.52403517 L8,3.67376205 L6.0042808,5.38342846 L6.66311905,8 L4.5,6.53259683 L4.5,6.53259683 Z" id="Star-1-Copy-3-Copy" fill="#000003"></path>
+                        <polygon id="Star-1-Copy-3" fill="#EEEEDD" points="4.5 7.11333879 1.71884693 9 2.56592468 5.63583658 0 3.43769407 3.30467574 3.24518807 4.5 0 5.69532426 3.24518807 9 3.43769407 6.43407532 5.63583658 7.28115307 9"></polygon>
+                        <polygon id="Star-1-Copy-3-Copy" fill="#000003" points="4.5 6.53259683 2.33688095 8 2.9957192 5.38342846 1 3.67376205 3.57030336 3.52403517 4.5 1 5.42969664 3.52403517 8 3.67376205 6.0042808 5.38342846 6.66311905 8"></polygon>
                     </g>
                 </g>
             </g>

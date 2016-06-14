@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>airport-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Transport" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="airport-m" sketch:type="MSLayerGroup" transform="translate(0.526621, 0.617126)">
-            <ellipse id="Oval-1-Copy-47" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.3998064" cy="11.3981299" rx="11.3998064" ry="11.3981299"></ellipse>
-            <ellipse id="Oval-1-Copy-46" fill="#0F2940" sketch:type="MSShapeGroup" cx="11.3998064" cy="11.3981299" rx="10.4085189" ry="10.4069882"></ellipse>
-            <path d="M18.338819,12.2526923 L18.338819,13.2438341 L12.8867377,12.2526923 L12.8867377,15.2261175 L14.8693127,16.4374909 L14.8693127,17.208401 L8.92158761,17.208401 L8.92158761,16.4374909 L10.9041626,15.2261175 L10.9041626,12.2526923 L5.45208132,13.2438341 L5.45208132,12.2526923 L10.9041626,9.27926713 L10.9041626,6.30584193 C10.9041626,5.535031 11.1244465,4.32355846 11.8954501,4.32355846 C12.6664438,4.32355846 12.8867377,5.535031 12.8867377,6.30584193 L12.8867377,9.27926713 L18.338819,12.2526923 Z" id="path7712-0" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="21" height="21" rx="2"></rect>
+    </defs>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="airport-m" transform="translate(1.000000, 1.000000)">
+            <g id="Rectangle-211">
+                <use fill="#3C3E38" xlink:href="#path-1"></use>
+                <use fill="#032C4D" xlink:href="#path-1"></use>
+            </g>
+            <path d="M17.338819,11.2526923 L17.338819,12.2438341 L11.8867377,11.2526923 L11.8867377,14.2261175 L13.8693127,15.4374909 L13.8693127,16.208401 L7.92158761,16.208401 L7.92158761,15.4374909 L9.90416263,14.2261175 L9.90416263,11.2526923 L4.45208132,12.2438341 L4.45208132,11.2526923 L9.90416263,8.27926713 L9.90416263,5.30584193 C9.90416263,4.535031 10.1244465,3.32355846 10.8954501,3.32355846 C11.6664438,3.32355846 11.8867377,4.535031 11.8867377,5.30584193 L11.8867377,8.27926713 L17.338819,11.2526923 Z" id="path7712-0" fill-opacity="0.7" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>

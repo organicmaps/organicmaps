@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>toilets-l</title>
     <desc>Created with Sketch.</desc>
-    <defs>
-        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
-    </defs>
-    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="toilets-l" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <g id="Oval-1-Copy-38">
-                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
-                <use fill="none" xlink:href="#path-1"></use>
-            </g>
-            <path d="M9.5,4 C8.11929,4 7,5.11929 7,6.5 C7,7.88071 8.11929,9 9.5,9 C10.88071,9 12,7.88071 12,6.5 C12,5.11929 10.88071,4 9.5,4 L9.5,4 Z M17.5,4 C16.11929,4 15,5.11929 15,6.5 C15,7.88071 16.11929,9 17.5,9 C18.88071,9 20,7.88071 20,6.5 C20,5.11929 18.88071,4 17.5,4 L17.5,4 Z M9,10 C8,10 7,11 7,12 L7,14 L5.5,18.5 C5.5,19 6,19 6.5,19 L8,19 L8,23 L11,23 L11,19 L12.5,19 C13,19 13.5,19 13.5,18.5 L12,14 L12,12 C12,11 11,10 10,10 L9,10 Z M15,10 C14.5,10 14,10.5 14,11 L16,17 L16,19 L16,23 L19,23 L19,19 L19,17 L21,11 C21,10.5 20.5,10 20,10 L15,10 Z" id="path16479-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <defs></defs>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="toilets-l">
+            <circle id="Oval-1-Copy-39" fill-opacity="0.1" fill="#FFFFFF" cx="13.5" cy="13.5" r="13.5"></circle>
+            <circle id="Oval-1-Copy-38" fill="#26160D" cx="13.5" cy="13.5" r="12.5"></circle>
+            <path d="M17.1678223,12.3976319 C17.3507394,11.8768716 17.6500487,11.8853788 17.829685,12.3976318 L20.6831403,20.5345836 C20.8657598,21.0553438 20.5839919,21.394364 20.0256211,21.295747 C20.0256211,21.295747 18.8173826,21.0242187 17.4990232,21.0242187 C16.1806638,21.0242187 14.9534533,21.2983536 14.9534533,21.2983536 C14.4150101,21.3972956 14.1297874,21.046837 14.3097164,20.534584 L17.1678223,12.3976319 Z M9.5,6 C8.11929,6 7,7.11929 7,8.5 C7,9.88071 8.11929,11 9.5,11 C10.88071,11 12,9.88071 12,8.5 C12,7.11929 10.88071,6 9.5,6 Z M17.5,6 C16.11929,6 15,7.11929 15,8.5 C15,9.88071 16.11929,11 17.5,11 C18.88071,11 20,9.88071 20,8.5 C20,7.11929 18.88071,6 17.5,6 Z M9.20827273,21.0670686 C9.39227764,21.5870945 9.69005297,21.5785993 9.86681574,21.0670686 L12.6746274,12.9415906 C12.8543257,12.4215647 12.5642115,12.0987841 12.0216772,12.209148 C12.0216772,12.209148 10.9608156,12.4999997 9.54144287,12.5 C8.12207019,12.5000003 6.98198578,12.2033694 6.98198578,12.2033694 C6.43965001,12.0910518 6.15217138,12.4300599 6.33317037,12.9415906 L9.20827273,21.0670686 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>

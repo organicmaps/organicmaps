@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>jewish-s</title>
     <desc>Created with Sketch.</desc>
-    <defs>
-        <polygon id="path-1" points="4 6 13 6 8.5 14"></polygon>
-        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="9" height="8" fill="white">
-            <use xlink:href="#path-1"></use>
-        </mask>
-        <polygon id="path-3" points="4 3 13 3 8.5 11"></polygon>
-        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="9" height="8" fill="white">
-            <use xlink:href="#path-3"></use>
-        </mask>
-    </defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <defs></defs>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="jewish-s">
-            <circle id="Oval-1-Copy-43" fill-opacity="0.6" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#8C4D16" cx="8.5" cy="8.5" r="7.5"></circle>
-            <use id="Rectangle-398" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
-            <use id="Rectangle-398" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="2" transform="translate(8.500000, 7.000000) scale(1, -1) translate(-8.500000, -7.000000) " xlink:href="#path-3"></use>
+            <circle id="Oval-1-Copy-43" fill-opacity="0.1" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-42" fill="#26160D" cx="8.5" cy="8.5" r="7.5"></circle>
+            <path d="M5.41450347,8.52764845 L4.02642822,11.006958 L5.73028564,9.95605469 L5.97400889,9.52321204 L6.21854854,9.95833699 L5.73028564,9.95605469 L4.02642822,11.0000029 L6.80396339,11.0000029 L8.49633789,14.0113525 L10.1976419,11.0000029 L11.2840523,11.000003 L13.0268555,10.9988403 L11.6151761,8.49093298 L13.0341187,5.97937012 L10.2014391,5.97937012 L8.51678467,2.98651123 L6.84119183,5.97937012 L4.00189209,5.97937012 L5.73083496,7.01245117 L6.26289237,7.01229927 L5.99886948,7.48388354 L5.73083496,7.01245117 L4.00189209,6.01409912 L5.41450347,8.52764845 Z M10.7821397,7.01100899 L11.0351567,7.46050434 L11.2890625,7.01086426 L10.7821397,7.01100899 Z M9.03644892,11.0000029 L7.99797148,11.0000029 L8.51898193,11.9163818 L9.03644892,11.0000029 Z M7.40889215,9.96390106 L9.61569693,9.97421642 L10.4433204,8.50858343 L9.60662865,7.0113446 L7.38802412,7.01197803 L6.5633065,8.47664325 L7.40889215,9.96390106 Z M10.7741152,9.97963126 L11.2666626,9.98193359 L11.0210878,9.5424837 L10.7741152,9.97963126 Z M9.0299374,5.97937012 L8.50170898,5.03411865 L7.96946071,5.97937012 L9.0299374,5.97937012 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>

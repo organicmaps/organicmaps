@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>hand-m</title>
     <desc>Created with Sketch.</desc>
     <defs>
-        <path d="M7.84615385,14.8519018 L7,13 L7,7 C7,7 7.375,6.5 7.75,6.5 C8.125,6.5 8.5,7 8.5,7 L8.5,10 L9,10 L9,5 C9,5 9.375,4.5 9.75,4.5 C10.125,4.5 10.5,5 10.5,5 L10.5,10 L11,10 L11,4 C11,4 11.375,3.50264525 11.75,3.50264525 C12.125,3.50264525 12.5,4 12.5,4 L12.5,10 L13,10 L13,5 C13,5 13.375,4.5 13.75,4.5 C14.125,4.5 14.5,5 14.5,5 L14.5,12.2974828 L15.5,9.99999976 C15.5,9.99999976 15.875,9.49999976 16.25,9.49999976 C16.625,9.49999976 17,9.99999976 17,9.99999976 L14,18 L14.0143576,18.9999998 L9,19 L9,18 L7.84615385,14.8519018 Z" id="path-1"></path>
+        <circle id="path-1" cx="11.5" cy="11.5" r="10.5"></circle>
+        <path d="M7.84615385,14.8519018 L7,13 L7,7 C7,7 7.375,6.5 7.75,6.5 C8.125,6.5 8.5,7 8.5,7 L8.5,10 L9,10 L9,5 C9,5 9.375,4.5 9.75,4.5 C10.125,4.5 10.5,5 10.5,5 L10.5,10 L11,10 L11,4 C11,4 11.375,3.50264525 11.75,3.50264525 C12.125,3.50264525 12.5,4 12.5,4 L12.5,10 L13,10 L13,5 C13,5 13.375,4.5 13.75,4.5 C14.125,4.5 14.5,5 14.5,5 L14.5,12.2974828 L15.5,9.99999976 C15.5,9.99999976 15.875,9.49999976 16.25,9.49999976 C16.625,9.49999976 17,9.99999976 17,9.99999976 L14,18 L14.0143576,18.9999998 L9,19 L9,18 L7.84615385,14.8519018 Z" id="path-2"></path>
     </defs>
     <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="hand-m">
             <circle id="Oval-1-Copy-38" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" r="11.5"></circle>
-            <circle id="Oval-1-Copy-47" fill="#825089" cx="11.5" cy="11.5" r="10.5"></circle>
+            <g id="Oval-1-Copy-47">
+                <use fill="#2D7970" xlink:href="#path-1"></use>
+                <use fill="#825089" xlink:href="#path-1"></use>
+            </g>
             <g id="Path-1150" fill="#FFFFFF">
-                <use xlink:href="#path-1"></use>
-                <use xlink:href="#path-1"></use>
+                <use xlink:href="#path-2"></use>
+                <use xlink:href="#path-2"></use>
             </g>
         </g>
     </g>
