@@ -1,11 +1,9 @@
 package com.mapswithme.maps.editor;
 
 import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.annotation.WorkerThread;
-import android.text.TextUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -63,10 +61,12 @@ public final class OsmOAuth
   @SuppressWarnings("unused")
   public static void onUserStatsUpdated(UserStats stats)
   {
-    if (sListener == null || sListener.get() == null)
+    if (sListener == null)
       return;
 
-    sListener.get().onStatsChange(stats);
+    OnUserStatsChanged listener = sListener.get();
+    if (listener != null)
+      listener.onStatsChange(stats);
   }
 
   public static final String URL_PARAM_VERIFIER = "oauth_verifier";

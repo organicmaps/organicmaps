@@ -126,11 +126,11 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeUpdateOsmUserStats(JNIEnv * env, 
   static jclass const statsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/UserStats");
   static jmethodID const statsCtor = jni::GetConstructorID(env, statsClazz, "(IILjava/lang/String;J)V");
   static jclass const osmAuthClazz = static_cast<jclass>(env->NewGlobalRef(clazz));
-  // void onUserStatsUpdated(UserStats stats)
-  static jmethodID const listenerId = env->GetStaticMethodID(osmAuthClazz, "onUserStatsUpdated", "(Lcom/mapswithme/maps/editor/data/UserStats;)V");
-  ASSERT(listenerId, ("Can't get methodID for onUserStatsUpdated", DescribeException()));
-  auto const username = jni::ToNativeString(env, jUsername);
-  g_framework->NativeFramework()->UpdateUserStats(username, [username]()
+  // static void onUserStatsUpdated(UserStats stats)
+  static jmethodID const listenerId = jni::GetStaticMethodID(env, osmAuthClazz, "onUserStatsUpdated", "(Lcom/mapswithme/maps/editor/data/UserStats;)V");
+
+  string const username = jni::ToNativeString(env, jUsername);
+  g_framework->NativeFramework()->UpdateUserStats(username, editor::UserStatsLoader::UpdatePolicy::Force, [username]()
   {
     editor::UserStats const & userStats = g_framework->NativeFramework()->GetUserStats(username);
     if (!userStats.IsValid())

@@ -5,7 +5,6 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
-
   <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
@@ -15,7 +14,6 @@
     android:gravity="end|center_vertical"
     android:theme="@style/MwmWidget.ToolbarTheme"
     tools:ignore="UnusedAttribute">
-
     <ImageView
       android:id="@+id/logout"
       android:layout_width="?actionBarSize"
@@ -25,15 +23,12 @@
       android:scaleType="center"
       android:src="@drawable/ic_logout"
       android:visibility="gone"/>
-
   </android.support.v7.widget.Toolbar>
 
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:ignore="DuplicateIds">
-
+    android:fillViewport="true">
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -41,7 +36,6 @@
       android:clipToPadding="false"
       android:orientation="vertical"
       tools:ignore="ScrollViewSize">
-
       <LinearLayout
         android:id="@+id/block_edits"
         android:layout_width="match_parent"
@@ -51,14 +45,12 @@
         android:orientation="vertical"
         android:padding="@dimen/margin_base"
         android:visibility="visible">
-
         <LinearLayout
           android:id="@+id/sent_edits"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingBottom="@dimen/margin_base"
           android:orientation="vertical">
-
           <TextView
             android:id="@+id/edits_count"
             android:layout_width="match_parent"
@@ -85,7 +77,6 @@
             android:gravity="center"
             android:textAppearance="@style/MwmTextAppearance.Body3.Light"
             tools:text="Last sent: 12.01.2015"/>
-
         </LinearLayout>
 
         <include
@@ -93,7 +84,6 @@
           layout="@layout/item_osm_edits"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"/>
-
       </LinearLayout>
 
       <LinearLayout
@@ -105,10 +95,10 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:paddingEnd="@dimen/margin_base"
         android:paddingLeft="@dimen/margin_base"
-        android:paddingRight="@dimen/margin_base"
         android:paddingStart="@dimen/margin_base"
+        android:paddingRight="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_base"
         tools:visibility="gone">
 
         <TextView
@@ -140,10 +130,10 @@
             android:drawableLeft="@drawable/ic_login_google"
             android:drawableStart="@drawable/ic_login_google"
             android:fontFamily="@string/robotoMedium"
-            android:paddingEnd="@dimen/margin_half"
             android:paddingLeft="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_half"
             android:paddingStart="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half"
+            android:paddingEnd="@dimen/margin_half"
             android:text="@string/google"
             android:textAppearance="@style/MwmTextAppearance.Body1"
             android:textColor="@color/text_dark"
@@ -159,10 +149,10 @@
             android:drawableLeft="@drawable/ic_login_fb"
             android:drawableStart="@drawable/ic_login_fb"
             android:fontFamily="@string/robotoMedium"
-            android:paddingEnd="@dimen/margin_half"
             android:paddingLeft="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_half"
             android:paddingStart="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half"
+            android:paddingEnd="@dimen/margin_half"
             android:text="@string/facebook"
             android:textAppearance="@style/MwmTextAppearance.Body1.Light"
             android:textColor="@color/text_light"
@@ -195,8 +185,8 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
           android:background="?clickableBackground"
-          android:paddingBottom="@dimen/margin_half"
           android:paddingTop="@dimen/margin_half"
+          android:paddingBottom="@dimen/margin_half"
           android:text="@string/register_at_openstreetmap"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"
@@ -221,12 +211,12 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/margin_base"
-            android:paddingEnd="@dimen/margin_half"
             android:paddingLeft="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_half"
             android:paddingStart="@dimen/margin_half"
-            android:paddingTop="@dimen/margin_base">
+            android:paddingRight="@dimen/margin_half"
+            android:paddingEnd="@dimen/margin_half"
+            android:paddingTop="@dimen/margin_base"
+            android:paddingBottom="@dimen/margin_base">
 
             <ImageView
               android:id="@+id/image"
@@ -265,11 +255,8 @@
                 android:textAppearance="@style/MwmTextAppearance.Headline"
                 tools:ignore="UnusedAttribute"
                 tools:text="-42"/>
-
             </LinearLayout>
-
           </LinearLayout>
-
         </android.support.v7.widget.CardView>
 
         <TextView
@@ -285,11 +272,7 @@
           android:textAppearance="@style/MwmTextAppearance.Body4"
           android:textColor="?colorAccent"
           android:textSize="@dimen/text_size_body_4"/>
-
       </RelativeLayout>
-
     </LinearLayout>
-
   </ScrollView>
-
 </LinearLayout>
