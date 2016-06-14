@@ -22,7 +22,7 @@
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
-#import "MWMWhatsNewEditorController.h"
+#import "MWMWhatsNewBookingBicycleRoutingController.h"
 #import "RouteState.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -413,7 +413,7 @@ BOOL gIsFirstMyPositionMode = YES;
   if (isIOS7)
     return;
 
-  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewEditorController class];
+  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewBookingBicycleRoutingController class];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   Class<MWMWelcomeControllerProtocol> welcomeClass = isFirstSession ? [MWMFirstLaunchController class] : whatsNewClass;
 
@@ -433,6 +433,11 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   if ([pageController isEqual:self.pageViewController])
     self.pageViewController = nil;
+}
+
+- (void)mapSearchText:(NSString *)text forInputLocale:(NSString *)locale
+{
+  [self.controlsManager mapSearchText:text forInputLocale:locale];
 }
 
 - (void)showViralAlertIfNeeded

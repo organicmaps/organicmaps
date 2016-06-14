@@ -195,6 +195,15 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.ownerController.apiBar back];
 }
 
+#pragma mark - Search
+
+- (void)mapSearchText:(NSString *)text forInputLocale:(NSString *)locale
+{
+  self.searchManager.state = MWMSearchManagerStateDefault;
+  [self.searchManager searchText:text forInputLocale:locale];
+  self.searchManager.state = MWMSearchManagerStateMapSearch;
+}
+
 #pragma mark - MWMSearchManagerProtocol
 
 - (MWMAlertViewController *)alertController

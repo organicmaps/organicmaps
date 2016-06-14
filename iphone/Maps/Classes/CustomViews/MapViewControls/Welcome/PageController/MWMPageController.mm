@@ -65,6 +65,11 @@
   [self didMoveToParentViewController:self.parent];
 }
 
+- (void)mapSearchText:(NSString *)text forInputLocale:(NSString *)locale
+{
+  [self.parent mapSearchText:text forInputLocale:locale];
+}
+
 #pragma mark - Private methods
 
 - (void)configure

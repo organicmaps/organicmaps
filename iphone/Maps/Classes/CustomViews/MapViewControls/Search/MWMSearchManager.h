@@ -37,6 +37,8 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 
 - (void)mwm_refreshUI;
 
+- (void)searchText:(nonnull NSString *)text forInputLocale:(nullable NSString *)locale;
+
 #pragma mark - Layout
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
