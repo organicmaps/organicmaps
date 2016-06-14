@@ -15,6 +15,7 @@
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
+#include "base/math.hpp"
 
 #include "std/cmath.hpp"
 #include "std/fstream.hpp"
@@ -31,6 +32,9 @@ DEFINE_string(mwm_file_path, "", "Path to an mwm file.");
 
 namespace
 {
+using TAltitude = generator::SrtmTile::THeight;
+using TAltitudeVec = vector<TAltitude>;
+
 routing::BicycleModel const & GetBicycleModel()
 {
   static routing::BicycleModel const instance;
@@ -76,10 +80,32 @@ void WriteCSV(Cont const & cont, string const & fileName)
     fout << a.first << "," << a.second << endl;
 }
 
-/// \returns y = k * x + b. It's an expected altitude in meters.
-double ExpectedPointAltitude(double k, double b, double distFromStartMeters)
+/// \returns y = k * x + b. It's the expected altitude in meters.
+double GetY(double k, double b, double x) { return k * x + b; }
+
+/// \brief Calculates factors |k| and |b| of a line using linear least squares method.
+/// \returns false in case of error (e.g. if the line is parallel to the vertical axis)
+/// and true otherwise.
+bool LinearLeastSquaresFactors(vector<double> const & xs, vector<double> const & ys, double & k,
+                               double & b)
 {
-  return k * distFromStartMeters + b;
+  double constexpr kEpsilon = 1e-6;
+  size_t const n = xs.size();
+  double mx = 0, my = 0, mxy = 0, mx2 = 0;
+  for (int i = 0; i < n; ++i)
+  {
+    mx += xs[i] / n;
+    my += ys[i] / n;
+    mxy += xs[i] * ys[i] / n;
+    mx2 += xs[i] * xs[i] / n;
+  }
+
+  if (my::AlmostEqualAbs(mx * mx, mx2, kEpsilon))
+    return false;
+
+  k = (my * mx - mxy) / (mx * mx - mx2);
+  b = my - k * mx;
+  return true;
 }
 
 class Processor
@@ -89,7 +115,7 @@ public:
   set<RoughPoint> m_uniqueRoadPoints;
   /// Key is an altitude difference for a feature in meters. If a feature goes up the key is greater then 0.
   /// Value is a number of features.
-  map<generator::SrtmTile::THeight, uint32_t> m_altitudeDiffs;
+  map<TAltitude, uint32_t> m_altitudeDiffs;
   /// Key is a length of a feature in meters. Value is a number of features.
   map<uint32_t, uint32_t> m_featureLength;
   /// Key is a length of a feature segment in meters. Value is a segment counter.
@@ -109,11 +135,11 @@ public:
   /// Key is number of meters. It shows altitude deviation of intermediate feature points
   /// from linear model.
   /// Value is a number of features.
-  map<int32_t, uint32_t> m_diffFromLinear;
+  map<TAltitude, uint32_t> m_diffFromLinear;
   /// Key is number of meters. It shows altitude deviation of intermediate feature points
   /// from line calculated base on least squares method for all feature points.
   /// Value is a number of features.
-  map<int32_t, uint32_t> m_leastSquaresDiff;
+  map<TAltitude, uint32_t> m_leastSquaresDiff;
   /// Number of features for GetBicycleModel().IsRoad(feature) == true.
   uint32_t m_roadCount;
   /// Number of features for empty features with GetBicycleModel().IsRoad(feature).
@@ -122,8 +148,8 @@ public:
   uint32_t m_roadPointCount;
   /// Number of features for GetBicycleModel().IsRoad(feature) != true.
   uint32_t m_notRoadCount;
-  generator::SrtmTile::THeight m_minAltitude = generator::SrtmTile::kInvalidHeight;
-  generator::SrtmTile::THeight m_maxAltitude = generator::SrtmTile::kInvalidHeight;
+  TAltitude m_minAltitude = generator::SrtmTile::kInvalidHeight;
+  TAltitude m_maxAltitude = generator::SrtmTile::kInvalidHeight;
 
   Processor(generator::SrtmTileManager & manager)
     : m_srtmManager(manager), m_roadCount(0), m_emptyRoadCount(0), m_roadPointCount(0), m_notRoadCount(0)
@@ -155,20 +181,22 @@ public:
       m_uniqueRoadPoints.insert(RoughPoint(f.GetPoint(i)));
 
     // Preparing feature altitude and length.
-    vector<generator::SrtmTile::THeight> pointAltitudes(numPoints);
+    TAltitudeVec pointAltitudes(numPoints);
     vector<double> pointDists(numPoints);
     double distFromStartMeters = 0;
     for (uint32_t i = 0; i < numPoints; ++i)
     {
       // Feature segment altitude.
-      pointAltitudes[i] = m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i)));
+      TAltitude altitude = m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i)));
+      pointAltitudes[i] = altitude == generator::SrtmTile::kInvalidHeight ? 0 : altitude;
       if (i == 0)
       {
         pointDists[i] = 0;
         continue;
       }
       // Feature segment length.
-      double const segmentLengthMeters = MercatorBounds::DistanceOnEarth(f.GetPoint(i - 1), f.GetPoint(i));
+      double const segmentLengthMeters =
+          MercatorBounds::DistanceOnEarth(f.GetPoint(i - 1), f.GetPoint(i));
       distFromStartMeters += segmentLengthMeters;
       pointDists[i] = distFromStartMeters;
     }
@@ -196,8 +224,8 @@ public:
     m_featureLength[static_cast<uint32_t>(realFeatureLengthMeters)]++;
 
     // Feature altitude difference.
-    generator::SrtmTile::THeight const startAltitude = pointAltitudes[0];
-    generator::SrtmTile::THeight const endAltitude = pointAltitudes[numPoints - 1];
+    TAltitude const startAltitude = pointAltitudes[0];
+    TAltitude const endAltitude = pointAltitudes[numPoints - 1];
     int16_t const altitudeDiff = endAltitude - startAltitude;
     m_altitudeDiffs[altitudeDiff]++;
 
@@ -240,40 +268,32 @@ public:
       return;
 
     double const k = (endAltitude - startAltitude) / realFeatureLengthMeters;
-    for (uint32_t i = 1; i + 1 < numPoints; ++i)
+    for (TAltitude i = 1; i + 1 < numPoints; ++i)
     {
       int32_t const deviation =
-          static_cast<int32_t>(ExpectedPointAltitude(k, startAltitude, pointDists[i])) - pointAltitudes[i];
+          static_cast<TAltitude>(GetY(k, startAltitude, pointDists[i])) - pointAltitudes[i];
       m_diffFromLinear[deviation]++;
     }
 
     // Linear least squares for feature points.
     {
-      long double const distSum = accumulate(pointDists.begin(), pointDists.end(), 0.0);
-      uint64_t const altSum = accumulate(pointAltitudes.begin(), pointAltitudes.end(), 0);
-      long double const distSquareSum = accumulate(pointDists.begin(), pointDists.end(), 0.0,
-                                                   [](double x, double y) { return x + y * y; });
-      long double distMultiplyAltSum = 0;
-      for (size_t i = 0; i < pointDists.size(); ++i)
-        distMultiplyAltSum += pointDists[i] * pointAltitudes[i];
-
-      if (distSum == 0.0 || distSquareSum == 0.0)
+      double k;
+      double b;
+      vector<double> const pointAltitudesMeters(pointAltitudes.begin(), pointAltitudes.end());
+      if (!LinearLeastSquaresFactors(pointDists, pointAltitudesMeters, k, b))
         return;
-
-      double const b = (altSum/distSum - distMultiplyAltSum/distSquareSum) / (numPoints/distSum - distSum/distSquareSum);
-      double const k = (altSum - b * numPoints) / distSum;
 
       for (uint32_t i = 0; i < numPoints; ++i)
       {
-        int32_t const deviation =
-            static_cast<int32_t>(ExpectedPointAltitude(k, b, pointDists[i])) - pointAltitudes[i];
+        TAltitude const deviation =
+            static_cast<TAltitude>(GetY(k, b, pointDists[i])) - pointAltitudes[i];
         m_leastSquaresDiff[deviation]++;
       }
     }
   }
 };
 
-double CalculateEntropy(map<int32_t, uint32_t> const & diffFromLinear)
+double CalculateEntropy(map<TAltitude, uint32_t> const & diffFromLinear)
 {
   uint32_t innerPointCount = 0;
   for (auto const & f : diffFromLinear)
@@ -328,7 +348,8 @@ int main(int argc, char ** argv)
   PrintCont(processor.m_diffFromLinear, "Altitude deviation of internal feature points from linear model.",
             " internal feature point(s) deviate from linear model with ", " meter(s)");
 
-  PrintCont(processor.m_leastSquaresDiff, "Altitude deviation of feature points from least squares line.",
+  PrintCont(processor.m_leastSquaresDiff,
+            "Altitude deviation of feature points from least squares line.",
             " internal feature point(s) deviate from linear model with ", " meter(s)");
 
   cout << endl << FLAGS_mwm_file_path << endl;
