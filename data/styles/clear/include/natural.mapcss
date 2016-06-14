@@ -233,68 +233,114 @@ line[waterway][tunnel]
 /* VEGETATION */
 
 area|z10[natural=wood],
-area|z10[landuse=forest],
-area|z10[leisure=nature_reserve]
+area|z10[landuse=forest]]
 {
   fill-color: @green1;
 	fill-position: background;
   fill-opacity: 1;
   z-index: 30;
 }
+area|z10[leisure=nature_reserve]
+{
+  fill-color: @green1;
+	fill-position: background;
+  fill-opacity: 0.2;
+  z-index: 30;
+}
+
 area|z11[natural=wood],
-area|z11[landuse=forest],
-area|z11[leisure=nature_reserve]
+area|z11[landuse=forest]
 {
   fill-color: @green2;
 	fill-position: background;
   fill-opacity: 1;
   z-index: 30;
 }
+area|z11[leisure=nature_reserve]
+{
+  fill-color: @green2;
+	fill-position: background;
+  fill-opacity: 0.2;
+  z-index: 30;
+}
+
 area|z12[natural=wood],
-area|z12[landuse=forest],
-area|z12[leisure=nature_reserve]
+area|z12[landuse=forest]
 {
   fill-color: @green2;
 	fill-position: background;
   fill-opacity: 1;
+  z-index: 30;
+}
+area|z12[leisure=nature_reserve]
+{
+  fill-color: @green2;
+	fill-position: background;
+  fill-opacity: 0.2;
   z-index: 30;
 }
 
 area|z13-[natural=wood],
 area|z13-[landuse=forest],
-area|z13-[leisure=nature_reserve]
 {
   fill-color: @green3;
 	fill-position: background;
   fill-opacity: 1;
   z-index: 30;
 }
+area|z13-[leisure=nature_reserve]
+{
+  fill-color: @green3;
+	fill-position: background;
+  fill-opacity: 0.2;
+  z-index: 30;
+}
+
 area|z14-[natural=wood],
-area|z14-[landuse=forest],
-area|z14-[leisure=nature_reserve]
+area|z14-[landuse=forest]
 {
   fill-color: @green4;
 	fill-position: background;
   fill-opacity: 1;
   z-index: 30;
 }
+area|z14-[leisure=nature_reserve]
+{
+  fill-color: @green4;
+	fill-position: background;
+  fill-opacity: 0.2;
+  z-index: 30;
+}
 
 area|z15-[natural=wood],
-area|z15-[landuse=forest],
-area|z15-[leisure=nature_reserve]
+area|z15-[landuse=forest]
 {
   fill-color: @green5;
 	fill-position: background;
   fill-opacity: 1;
   z-index: 30;
 }
+area|z15-[leisure=nature_reserve]
+{
+  fill-color: @green5;
+	fill-position: background;
+  fill-opacity: 0.2;
+  z-index: 30;
+}
+
 area|z16-[natural=wood],
-area|z16-[landuse=forest],
-area|z16-[leisure=nature_reserve]
+area|z16-[landuse=forest]
 {
   fill-color: @forest;
 	fill-position: background;
   fill-opacity: 1;
+  z-index: 30;
+}
+area|z16-[leisure=nature_reserve]
+{
+  fill-color: @forest;
+	fill-position: background;
+  fill-opacity: 0.2;
   z-index: 30;
 }
 
