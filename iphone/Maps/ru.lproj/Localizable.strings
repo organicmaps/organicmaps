@@ -1515,7 +1515,9 @@
 
 "place_page_booking_rating" = "Рейтинг: %s";
 
-"text_more_button" = "… еще";
+"editor_rating_verified_changes" = "Verified changes";
+
+"text_more_button" = "… ещё";
 
 "error_enter_correct_phone" = "Введите корректный номер телефона";
 
@@ -1524,3 +1526,7 @@
 "error_enter_correct_email" = "Введите корректный email";
 
 "error_enter_correct" = "Введите корректное значение";
+
+"editor_rating_your_place" = "Your place";
+
+"editor_rating_changes_to_next_place" = "Changes to the next place: %d";

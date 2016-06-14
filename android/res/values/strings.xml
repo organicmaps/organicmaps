@@ -911,4 +911,7 @@
 	<string name="error_enter_correct_web">Enter a valid web address</string>
 	<string name="error_enter_correct_email">Enter a valid email</string>
 	<string name="error_enter_correct">Enter a valid value</string>
+	<string name="editor_rating_your_place">Your place</string>
+  <string name="editor_rating_verified_changes">Verified changes</string>
+	<string name="editor_rating_changes_to_next_place">Changes to the next place: %d</string>
 </resources>
