@@ -158,7 +158,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   auto const size = self.buttons.count;
   for (UIView * v in self.buttons)
   {
-    if (v.tag == size + 1)
+    if (v.tag == size)
       last = v;
   }
   return last;
@@ -254,6 +254,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
     {
       UIPopoverPresentationController * popPresenter = [alertController popoverPresentationController];
       popPresenter.sourceView = self.shareAnchor;
+      popPresenter.sourceRect = self.shareAnchor.bounds;
     }
     [vc presentViewController:alertController animated:YES completion:nil];
   }
