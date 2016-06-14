@@ -244,7 +244,7 @@ fi:Viihde
 # Categories translations
 
 amenity-atm
-en:3ATM|money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+en:3Atm|money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:3Банкомат|деньги
 uk:3Банкомат|гроші
 de:3Geldautomat|Bankomat|Geld
