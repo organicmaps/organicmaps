@@ -132,6 +132,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert routingDisclaimerAlertWithInitialOrientation:self.ownerViewController.interfaceOrientation]];
 }
 
+- (void)presentBicycleRoutingDisclaimerAlert
+{
+  [self displayAlert:[MWMAlert routingBicycleDisclaimerAlert]];
+}
+
 - (void)presentDisabledLocationAlert
 {
   [self displayAlert:MWMAlert.disabledLocationAlert];

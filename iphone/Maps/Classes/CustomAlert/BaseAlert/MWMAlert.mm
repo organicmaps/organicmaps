@@ -39,6 +39,11 @@
   return [MWMRoutingDisclaimerAlert alertWithInitialOrientation:orientation];
 }
 
++ (MWMAlert *)routingBicycleDisclaimerAlert
+{
+  return [MWMDefaultAlert routingBicycleDisclaimerAlert];
+}
+
 + (MWMAlert *)disabledLocationAlert
 {
   return [MWMDefaultAlert disabledLocationAlert];

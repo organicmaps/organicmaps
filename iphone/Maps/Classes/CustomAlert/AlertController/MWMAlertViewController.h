@@ -19,6 +19,7 @@
 - (void)presentFacebookAlert;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 - (void)presentRoutingDisclaimerAlert;
+- (void)presentBicycleRoutingDisclaimerAlert;
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlert;
 - (void)presentLocationServiceNotSupportedAlert;
