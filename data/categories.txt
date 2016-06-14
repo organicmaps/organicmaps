@@ -310,7 +310,7 @@ uk:3Обмін валют|валюта|гроші
 de:3Geldwechselstelle|Wechselstube|Geld
 fr:3Bureau de change|3change|3devises|argent
 it:3Cambio valute|valuta|soldi
-es:3Cambio de devisas|dinero
+es:3Cambio de divisas|dinero
 ko:1환전|돈|교환을
 ja:1為替|マネー|お金|通貨|金|両替
 cs:3Směnárna|peníze
