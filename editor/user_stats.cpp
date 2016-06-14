@@ -127,12 +127,14 @@ bool UserStatsLoader::Update(string const & userName)
   return true;
 }
 
-void UserStatsLoader::Update(string const & userName, TOnUpdateCallback fn)
+void UserStatsLoader::Update(string const & userName, UpdatePolicy const policy,
+                             TOnUpdateCallback fn)
 {
   auto nothingToUpdate = false;
+  if (policy == UpdatePolicy::Lazy)
   {
     lock_guard<mutex> g(m_mutex);
-    nothingToUpdate = m_userStats && m_userName == userName && m_userStats &&
+    nothingToUpdate = m_userStats && m_userName == userName &&
                       difftime(m_lastUpdate, time(nullptr)) < kSecondsInHour;
   }
 
@@ -146,6 +148,11 @@ void UserStatsLoader::Update(string const & userName, TOnUpdateCallback fn)
     if (Update(userName))
       GetPlatform().RunOnGuiThread(fn);
   }).detach();
+}
+
+void UserStatsLoader::Update(string const & userName, TOnUpdateCallback fn)
+{
+  Update(userName, UpdatePolicy::Lazy, fn);
 }
 
 void UserStatsLoader::DropStats(string const & userName)

@@ -94,7 +94,7 @@ using namespace osm_auth_ios;
   self.accountView.hidden = NO;
 
   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"•••" style:UIBarButtonItemStylePlain target:self action:@selector(showActionSheet)];
-  [self refresh];
+  [self refresh:NO];
 }
 
 - (void)configNoAuth
@@ -163,11 +163,13 @@ using namespace osm_auth_ios;
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)refresh
+- (void)refresh:(BOOL)force
 {
   [self updateUI];
   __weak auto weakSelf = self;
-  GetFramework().UpdateUserStats(OSMUserName().UTF8String, ^
+  auto const policy = force ? editor::UserStatsLoader::UpdatePolicy::Force
+                            : editor::UserStatsLoader::UpdatePolicy::Lazy;
+  GetFramework().UpdateUserStats(OSMUserName().UTF8String, policy, ^
   {
     [weakSelf updateUI];
   });
@@ -221,7 +223,7 @@ using namespace osm_auth_ios;
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:kRefresh style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
     {
-      [self refresh];
+      [self refresh:YES];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:kLogout style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action)
     {
@@ -245,7 +247,7 @@ using namespace osm_auth_ios;
   if (actionSheet.destructiveButtonIndex == buttonIndex)
     [self logout];
   else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:kRefresh])
-    [self refresh];
+    [self refresh:YES];
 }
 
 #pragma mark - Segue

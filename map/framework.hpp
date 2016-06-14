@@ -695,10 +695,10 @@ public:
   }
 
   // Reads user stats from server or gets it from cache calls |fn| on success.
-  void UpdateUserStats(string const & userName,
+  void UpdateUserStats(string const & userName, editor::UserStatsLoader::UpdatePolicy policy,
                        editor::UserStatsLoader::TOnUpdateCallback fn)
   {
-    m_userStatsLoader.Update(userName, fn);
+    m_userStatsLoader.Update(userName, policy, fn);
   }
 
   void DropUserStats(string const & userName) { m_userStatsLoader.DropStats(userName); }
