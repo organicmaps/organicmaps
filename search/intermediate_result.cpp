@@ -207,12 +207,8 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
   {
   case RESULT_FEATURE:
   case RESULT_BUILDING:
-    return Result(m_id, GetCenter(), name, address, pCat->GetReadableFeatureType(type, locale)
-              #ifdef DEBUG
-                  + ' ' + strings::to_string(static_cast<int>(m_info.m_rank))
-              #endif
-                  , type, m_metadata);
-
+    return Result(m_id, GetCenter(), name, address, pCat->GetReadableFeatureType(type, locale),
+                  type, m_metadata);
   default:
     ASSERT_EQUAL(m_resultType, RESULT_LATLON, ());
     return Result(GetCenter(), name, address);
