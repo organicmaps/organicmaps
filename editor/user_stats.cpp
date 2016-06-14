@@ -135,7 +135,7 @@ void UserStatsLoader::Update(string const & userName, UpdatePolicy const policy,
   {
     lock_guard<mutex> g(m_mutex);
     nothingToUpdate = m_userStats && m_userName == userName &&
-                      difftime(m_lastUpdate, time(nullptr)) < kSecondsInHour;
+                      difftime(time(nullptr), m_lastUpdate) < kSecondsInHour;
   }
 
   if (nothingToUpdate)
