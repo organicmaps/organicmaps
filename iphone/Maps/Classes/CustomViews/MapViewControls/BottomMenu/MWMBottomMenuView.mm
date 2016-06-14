@@ -11,30 +11,32 @@
 
 #include "Framework.h"
 
+#include "platform/local_country_file_utils.hpp"
+
 @interface MWMBottomMenuView ()
 
-@property(weak, nonatomic) IBOutlet UIView * mainButtons;
-@property(weak, nonatomic) IBOutlet UIView * separator;
-@property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
+@property (weak, nonatomic) IBOutlet UIView * mainButtons;
+@property (weak, nonatomic) IBOutlet UIView * separator;
+@property (weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * separatorWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsHeight;
 
-@property(weak, nonatomic) IBOutlet UIView * downloadBadge;
+@property (weak, nonatomic) IBOutlet UIView * downloadBadge;
 
-@property(weak, nonatomic) IBOutlet MWMButton * locationButton;
-@property(weak, nonatomic) IBOutlet MWMButton * p2pButton;
-@property(weak, nonatomic) IBOutlet MWMButton * searchButton;
-@property(weak, nonatomic) IBOutlet MWMButton * bookmarksButton;
-@property(weak, nonatomic) IBOutlet MWMButton * menuButton;
+@property (weak, nonatomic) IBOutlet MWMButton * locationButton;
+@property (weak, nonatomic) IBOutlet MWMButton * p2pButton;
+@property (weak, nonatomic) IBOutlet MWMButton * searchButton;
+@property (weak, nonatomic) IBOutlet MWMButton * bookmarksButton;
+@property (weak, nonatomic) IBOutlet MWMButton * menuButton;
 
-@property(weak, nonatomic) IBOutlet UIButton * goButton;
+@property (weak, nonatomic) IBOutlet UIButton * goButton;
 
-@property(weak, nonatomic) IBOutlet UILabel * streetLabel;
+@property (weak, nonatomic) IBOutlet UILabel * streetLabel;
 
-@property(nonatomic) CGFloat layoutDuration;
+@property (nonatomic) CGFloat layoutDuration;
 
 @property (weak, nonatomic) IBOutlet MWMBottomMenuViewController * owner;
 
@@ -312,7 +314,7 @@
   auto & s = GetFramework().Storage();
   storage::Storage::UpdateInfo updateInfo{};
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  self.downloadBadge.hidden = (updateInfo.m_numberOfMwmFilesToUpdate == 0);
+  self.downloadBadge.hidden = (updateInfo.m_numberOfMwmFilesToUpdate == 0) && !platform::migrate::NeedMigrate();
 }
 
 #pragma mark - Properties
