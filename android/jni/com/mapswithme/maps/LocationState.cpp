@@ -9,7 +9,7 @@ extern "C"
 
 static void LocationStateModeChanged(location::EMyPositionMode mode, shared_ptr<jobject> const & listener)
 {
-  g_framework->SetMyPositionMode(mode);
+  g_framework->OnMyPositionModeChanged(mode);
 
   JNIEnv * env = jni::GetEnv();
   env->CallVoidMethod(*listener, jni::GetMethodID(env, *listener.get(), "onMyPositionModeChanged", "(I)V"), static_cast<jint>(mode));

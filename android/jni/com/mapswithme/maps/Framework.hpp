@@ -43,6 +43,7 @@ namespace android
     map<gui::EWidget, gui::Position> m_guiPositions;
 
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
+    void SetMyPositionMode(location::EMyPositionMode mode);
 
     location::TMyPositionModeChanged m_myPositionModeSignal;
     location::EMyPositionMode m_currentMode;
@@ -131,7 +132,7 @@ namespace android
 
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
     location::EMyPositionMode GetMyPositionMode();
-    void SetMyPositionMode(location::EMyPositionMode mode);
+    void OnMyPositionModeChanged(location::EMyPositionMode mode);
     void SwitchMyPositionNextMode();
 
     void Save3dMode(bool allow3d, bool allow3dBuildings);
