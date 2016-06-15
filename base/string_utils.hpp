@@ -89,82 +89,150 @@ bool IsASCIILatin(UniChar c);
 
 inline string DebugPrint(UniString const & s) { return ToUtf8(s); }
 
-template <typename DelimFuncT, typename UniCharIterT = UniString::const_iterator>
+template <typename TDelimFn, typename TIt = UniString::const_iterator, bool KeepEmptyTokens = false>
 class TokenizeIterator
 {
-  UniCharIterT m_beg, m_end, m_finish;
-  DelimFuncT m_delimFunc;
-
-  void move()
-  {
-    m_beg = m_end;
-    while (m_beg != m_finish)
-    {
-      if (m_delimFunc(*m_beg))
-        ++m_beg;
-      else
-        break;
-    }
-    m_end = m_beg;
-    while (m_end != m_finish)
-    {
-      if (m_delimFunc(*m_end))
-        break;
-      else
-        ++m_end;
-    }
-  }
-
 public:
-  /// @warning string S must be not temporary!
-  TokenizeIterator(string const & s, DelimFuncT const & delimFunc)
-    : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
+  using difference_type = std::ptrdiff_t;
+  using value_type = string;
+  using pointer = void;
+  using reference = string;
+  using iterator_category = std::input_iterator_tag;
+
+  // *NOTE* |s| must be not temporary!
+  TokenizeIterator(string const & s, TDelimFn const & delimFn)
+    : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn)
   {
-    move();
+    Move();
   }
 
-  /// @warning unistring S must be not temporary!
-  TokenizeIterator(UniString const & s, DelimFuncT const & delimFunc)
-    : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
+  // *NOTE* |s| must be not temporary!
+  TokenizeIterator(UniString const & s, TDelimFn const & delimFn)
+    : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn)
   {
-    move();
+    Move();
   }
 
-  /// Use default-constructed iterator for operator == to determine an end of a token stream.
+  // Use default-constructed iterator for operator == to determine an
+  // end of a token stream.
   TokenizeIterator() = default;
-
-  /// Explicitly disabled, because we're storing iterators for string
-  TokenizeIterator(char const *, DelimFuncT const &) = delete;
 
   string operator*() const
   {
-    ASSERT(m_beg != m_finish, ("dereferencing of empty iterator"));
-    return string(m_beg.base(), m_end.base());
+    ASSERT(m_start != m_finish, ("Dereferencing of empty iterator."));
+    return string(m_start.base(), m_end.base());
   }
 
-  operator bool() const { return m_beg != m_finish; }
-  
+  UniString GetUniString() const
+  {
+    ASSERT(m_start != m_finish, ("Dereferencing of empty iterator."));
+    return UniString(m_start, m_end);
+  }
+
+  operator bool() const { return m_start != m_finish; }
+
   TokenizeIterator & operator++()
   {
-    move();
-    return (*this);
+    Move();
+    return *this;
   }
 
-  bool IsLast() const
-  {
-    if (!*this)
-      return false;
-
-    TokenizeIterator<DelimFuncT, UniCharIterT> copy(*this);
-    ++copy;
-    return !copy;
-  }
-
-  UniString GetUniString() const { return UniString(m_beg, m_end); }
-  /// Same as operator bool() in expression it == end(...)
+  // Same as operator bool() in expression it == end(...).
   bool operator==(TokenizeIterator const &) { return !(*this); }
-  /// Same as operator bool() in expression it != end(...)
+
+  // Same as operator bool() in expression it != end(...).
   bool operator!=(TokenizeIterator const &) { return (*this); }
+
+private:
+  void Move()
+  {
+    m_start = m_end;
+    while (m_start != m_finish && m_delimFn(*m_start))
+      ++m_start;
+
+    m_end = m_start;
+    while (m_end != m_finish && !m_delimFn(*m_end))
+      ++m_end;
+  }
+
+  TIt m_start;
+  TIt m_end;
+  TIt m_finish;
+  TDelimFn m_delimFn;
+};
+
+template <typename TDelimFn, typename TIt>
+class TokenizeIterator<TDelimFn, TIt, true /* KeepEmptyTokens */>
+{
+public:
+  using difference_type = std::ptrdiff_t;
+  using value_type = string;
+  using pointer = void;
+  using reference = string;
+  using iterator_category = std::input_iterator_tag;
+
+  // *NOTE* |s| must be not temporary!
+  TokenizeIterator(string const & s, TDelimFn const & delimFn)
+    : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn), m_finished(false)
+  {
+    while (m_end != m_finish && !m_delimFn(*m_end))
+      ++m_end;
+  }
+
+  // Use default-constructed iterator for operator == to determine an
+  // end of a token stream.
+  TokenizeIterator() = default;
+
+  string operator*() const
+  {
+    ASSERT(!m_finished, ("Dereferencing of empty iterator."));
+    return string(m_start.base(), m_end.base());
+  }
+
+  UniString GetUniString() const
+  {
+    ASSERT(!m_finished, ("Dereferencing of empty iterator."));
+    return UniString(m_start, m_end);
+  }
+
+  operator bool() const { return !m_finished; }
+
+  TokenizeIterator & operator++()
+  {
+    Move();
+    return *this;
+  }
+
+  // Same as operator bool() in expression it == end(...).
+  bool operator==(TokenizeIterator const &) { return !(*this); }
+
+  // Same as operator bool() in expression it != end(...).
+  bool operator!=(TokenizeIterator const &) { return (*this); }
+
+private:
+  void Move()
+  {
+    if (m_end == m_finish)
+    {
+      ASSERT(!m_finished, ());
+      m_start = m_end = m_finish;
+      m_finished = true;
+      return;
+    }
+
+    m_start = m_end;
+    ++m_start;
+
+    m_end = m_start;
+    while (m_end != m_finish && !m_delimFn(*m_end))
+      ++m_end;
+  }
+
+  TIt m_start;
+  TIt m_end;
+  TIt m_finish;
+  TDelimFn m_delimFn;
+  bool m_finished;
 };
 
 class SimpleDelimiter
@@ -172,15 +240,20 @@ class SimpleDelimiter
   UniString m_delims;
 
 public:
-  SimpleDelimiter(char const * delimChars);
+  SimpleDelimiter(char const * delims);
+
   // Used in TokenizeIterator to allow past the end iterator construction.
   SimpleDelimiter() = default;
   /// @return true if c is delimiter
   bool operator()(UniChar c) const;
 };
 
-typedef TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<string::const_iterator>>
-    SimpleTokenizer;
+using SimpleTokenizer =
+    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<string::const_iterator>,
+                     false /* KeepEmptyTokens */>;
+using SimpleTokenizerWithEmptyTokens =
+    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<string::const_iterator>,
+                     true /* KeepEmptyTokens */>;
 
 template <typename TFunctor>
 void Tokenize(string const & str, char const * delims, TFunctor && f)
@@ -389,16 +462,3 @@ size_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIter 
   return prev[m];
 }
 }  // namespace strings
-
-namespace std
-{
-template <typename... Args>
-struct iterator_traits<strings::TokenizeIterator<Args...>>
-{
-  using difference_type = std::ptrdiff_t;
-  using value_type = string;
-  using pointer = void;
-  using reference = string;
-  using iterator_category = std::input_iterator_tag;
-};
-}  // namespace std

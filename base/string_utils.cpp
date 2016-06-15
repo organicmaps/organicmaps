@@ -16,9 +16,9 @@ bool UniString::IsEqualAscii(char const * s) const
   return (size() == strlen(s) && equal(begin(), end(), s));
 }
 
-SimpleDelimiter::SimpleDelimiter(char const * delimChars)
+SimpleDelimiter::SimpleDelimiter(char const * delims)
 {
-  string const s(delimChars);
+  string const s(delims);
   string::const_iterator it = s.begin();
   while (it != s.end())
     m_delims.push_back(utf8::unchecked::next(it));

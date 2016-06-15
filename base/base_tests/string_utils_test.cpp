@@ -332,30 +332,45 @@ struct FunctorTester
   size_t & m_index;
   vector<string> const & m_tokens;
 
-  explicit FunctorTester(size_t & counter, vector<string> const & tokens)
-    : m_index(counter), m_tokens(tokens) {}
+  FunctorTester(size_t & counter, vector<string> const & tokens)
+    : m_index(counter), m_tokens(tokens)
+  {
+  }
+
   void operator()(string const & s)
   {
     TEST_EQUAL(s, m_tokens[m_index++], ());
   }
 };
 
-void TestIter(string const & str, char const * delims, vector<string> const & tokens)
+void TestIter(string const & s, char const * delims, vector<string> const & tokens)
 {
-  strings::SimpleTokenizer it(str, delims);
+  strings::SimpleTokenizer it(s, delims);
   for (size_t i = 0; i < tokens.size(); ++i)
   {
-    TEST_EQUAL(true, it, (str, delims, i));
-    TEST_EQUAL(i == tokens.size() - 1, it.IsLast(), ());
-    TEST_EQUAL(*it, tokens[i], (str, delims, i));
+    TEST_EQUAL(true, it, (s, delims, i));
+    TEST_EQUAL(*it, tokens[i], (s, delims, i));
     ++it;
   }
-  TEST_EQUAL(false, it, (str, delims));
+  TEST_EQUAL(false, it, (s, delims));
 
   size_t counter = 0;
   FunctorTester f = FunctorTester(counter, tokens);
-  strings::Tokenize(str, delims, f);
+  strings::Tokenize(s, delims, f);
   TEST_EQUAL(counter, tokens.size(), ());
+}
+
+void TestIterWithEmptyTokens(string const & s, char const * delims, vector<string> const & tokens)
+{
+  strings::SimpleTokenizerWithEmptyTokens it(s, delims);
+
+  for (size_t i = 0; i < tokens.size(); ++i)
+  {
+    TEST_EQUAL(true, it, (s, delims, i));
+    TEST_EQUAL(*it, tokens[i], (s, delims, i));
+    ++it;
+  }
+  TEST_EQUAL(false, it, (s, delims));
 }
 
 UNIT_TEST(SimpleTokenizer)
@@ -401,6 +416,42 @@ UNIT_TEST(SimpleTokenizer)
     string const str("a,b,c");
     TEST_EQUAL(vector<string>(SimpleTokenizer(str, ","), SimpleTokenizer()),
                (vector<string>{"a", "b", "c"}), ());
+  }
+
+  {
+    string const s = "";
+    vector<string> tokens = {""};
+    TestIterWithEmptyTokens(s, ",", tokens);
+  }
+
+  {
+    string const s = ",";
+    vector<string> tokens = {"", ""};
+    TestIterWithEmptyTokens(s, ",", tokens);
+  }
+
+  {
+    string const s = ",,";
+    vector<string> tokens = {"", "", ""};
+    TestIterWithEmptyTokens(s, ",", tokens);
+  }
+
+  {
+    string const s = "Hello, World!";
+    vector<string> tokens = {s};
+    TestIterWithEmptyTokens(s, "", tokens);
+  }
+
+  {
+    string const s = "Hello, World!";
+    vector<string> tokens = {"Hello", " World", ""};
+    TestIterWithEmptyTokens(s, ",!", tokens);
+  }
+
+  {
+    string const s = ",a,b,,c,d,";
+    vector<string> tokens = {"", "a", "b", "", "c", "d", ""};
+    TestIterWithEmptyTokens(s, ",", tokens);
   }
 }
 
