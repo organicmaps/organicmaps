@@ -366,6 +366,54 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
+{
+  string const countryName = "HouseNumberLand";
+
+  TestCity greenCity(m2::PointD(0, 0), "Зеленоград", "ru", 100 /* rank */);
+
+  TestStreet street(
+      vector<m2::PointD>{m2::PointD(0.0, -10.0), m2::PointD(0, 0), m2::PointD(5.0, 5.0)},
+      "Генерала Генералова", "ru");
+
+  TestBuilding building0(m2::PointD(2.0, 2.0), "", "100", "en");
+  TestBuilding building1(m2::PointD(3.0, 3.0), "", "к200", "ru");
+  TestBuilding building2(m2::PointD(4.0, 4.0), "", "300 строение 400", "ru");
+
+  BuildWorld([&](TestMwmBuilder & builder) { builder.Add(greenCity); });
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street);
+    builder.Add(building0);
+    builder.Add(building1);
+    builder.Add(building2);
+  });
+
+  {
+    TRules rules{ExactMatch(countryId, building0)};
+    TEST(ResultsMatch("Зеленоград генералова к100", "ru", rules), ());
+  }
+  {
+    TRules rules{ExactMatch(countryId, building1)};
+    TEST(ResultsMatch("Зеленоград генералова к200", "ru", rules), ());
+  }
+  {
+    TRules rules{ExactMatch(countryId, building1)};
+    TEST(ResultsMatch("Зеленоград к200 генералова", "ru", rules), ());
+  }
+  {
+    TRules rules{ExactMatch(countryId, building2)};
+    TEST(ResultsMatch("Зеленоград 300 строение 400 генералова", "ru", rules), ());
+  }
+  {
+    TRules rules{};
+    TEST(ResultsMatch("Зеленоград генералова строе 300", "ru", rules), ());
+  }
+  {
+    TRules rules{ExactMatch(countryId, building2)};
+    TEST(ResultsMatch("Зеленоград генералова 300 строе", "ru", rules), ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 {
   string const countryName = "Russia";
