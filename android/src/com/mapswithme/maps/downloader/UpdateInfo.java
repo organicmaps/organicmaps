@@ -6,9 +6,9 @@ package com.mapswithme.maps.downloader;
 public final class UpdateInfo
 {
   public final int filesCount;
-  public final int totalSize;
+  public final long totalSize;
 
-  public UpdateInfo(int filesCount, int totalSize)
+  public UpdateInfo(int filesCount, long totalSize)
   {
     this.filesCount = filesCount;
     this.totalSize = totalSize;
