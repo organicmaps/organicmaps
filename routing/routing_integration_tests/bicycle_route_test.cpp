@@ -63,3 +63,10 @@ UNIT_TEST(NetherlandsAmsterdamSingelStOnewayBicycleNo)
       integration::GetBicycleComponents(), MercatorBounds::FromLatLon(52.3785, 4.89407), {0., 0.},
       MercatorBounds::FromLatLon(52.37462, 4.88983), 519.0);
 }
+
+UNIT_TEST(RussiaMoscowKashirskoe16ToCapLongRoute)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(55.66230, 37.63214), {0., 0.},
+      MercatorBounds::FromLatLon(55.68895, 37.70286), 7057.0);
+}

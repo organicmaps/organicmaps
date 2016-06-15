@@ -528,3 +528,11 @@ UNIT_TEST(RussiaMoscowSevTushinoParkPedestrianOnePointTurnTest)
   integration::TestTurnCount(route, 0);
   integration::TestRouteLength(route, 0.0);
 }
+
+UNIT_TEST(MoscowKashirskoe16ToVorobeviGori)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.66230, 37.63214), {0., 0.},
+      MercatorBounds::FromLatLon(55.70934, 37.54232), 9553.0);
+}
