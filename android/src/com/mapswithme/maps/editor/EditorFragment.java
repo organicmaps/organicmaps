@@ -12,6 +12,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.text.InputType;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -360,15 +361,19 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     // Details
     mBlockLevels = view.findViewById(R.id.block_levels);
     mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, getString(R.string.editor_storey_number, 25));
+    mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
     mInputBuildingLevels = (TextInputLayout) mBlockLevels.findViewById(R.id.custom_input);
     View blockPhone = view.findViewById(R.id.block_phone);
     mPhone = findInputAndInitBlock(blockPhone, R.drawable.ic_phone, R.string.phone);
+    mPhone.setInputType(InputType.TYPE_CLASS_PHONE);
     mInputPhone = (TextInputLayout) blockPhone.findViewById(R.id.custom_input);
     View blockWeb = view.findViewById(R.id.block_website);
     mWebsite = findInputAndInitBlock(blockWeb, R.drawable.ic_website, R.string.website);
+    mWebsite.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
     mInputWebsite = (TextInputLayout) blockWeb.findViewById(R.id.custom_input);
     View blockEmail = view.findViewById(R.id.block_email);
     mEmail = findInputAndInitBlock(blockEmail, R.drawable.ic_email, R.string.email);
+    mEmail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
     mInputEmail = (TextInputLayout) blockEmail.findViewById(R.id.custom_input);
     View blockCuisine = view.findViewById(R.id.block_cuisine);
     blockCuisine.setOnClickListener(this);
