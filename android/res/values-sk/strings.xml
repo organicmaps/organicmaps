@@ -642,7 +642,7 @@
 	<string name="p2p_to">Cieľový bod</string>
 	<string name="p2p_start">Štart</string>
 	<string name="p2p_planning">Plánovanie…</string>
-	<string name="p2p_from_here">Cesta z</string>
+	<string name="p2p_from_here">Z</string>
 	<string name="p2p_to_here">Cesta do</string>
 	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
@@ -830,7 +830,7 @@
 	<string name="current_location_unknown_error_title">Súčasná pozícia je neznáma.</string>
 	<string name="current_location_unknown_error_message">Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.</string>
 	<string name="whatsnew_update_editor_title">Aktualizovali sme program na úpravu máp</string>
-	<string name="whatsnew_update_editor_message">Používatelia MAPS.ME urobili 90 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!</string>
+	<string name="whatsnew_update_editor_message">Používatelia MAPS.ME urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.</string>
 	<string name="location_services_disabled_header">Identifikácia lokality je zablokovaná</string>
@@ -853,7 +853,7 @@
 	<string name="placepage_flat">Byt</string>
 	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="placepage_place_rating">Hodnotenie:</string>
-	<string name="place_page_starting_from">od %d</string>
+	<string name="place_page_starting_from">od %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Popis</string>

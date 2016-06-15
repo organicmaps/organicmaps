@@ -709,7 +709,7 @@
 "downloader_search_results" = "Fundet";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!";
+"routing_disclaimer" = "Ved oprettelse af ruter i MAPS.ME appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Uddateret";
@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "Planlægger…";
 
-"p2p_from_here" = "Rute fra";
+"p2p_from_here" = "Fra";
 
 "p2p_to_here" = "Rute til";
 
@@ -1370,9 +1370,9 @@
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d af %2$d";
 
-"download_over_mobile_header" = "Download by using a cellular network connection?";
+"download_over_mobile_header" = "Download ved brug af mobilnetværksforbindelse?";
 
-"download_over_mobile_message" = "This could be considerably expensive with some plans or if roaming.";
+"download_over_mobile_message" = "Dette kan blive dyrt med nogle abonnementer eller hvis du er i roamingtilstand.";
 
 "error_enter_correct_house_number" = "Skriv det rigtige husnummer";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "Har vi opdateret korteditoren";
 
-"whatsnew_update_editor_message" = "MAPS.ME brugere har foretaget 90.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!";
+"whatsnew_update_editor_message" = "MAPS.ME brugere har foretaget 200.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "For at bruge kortredigering, bedes du opdatere alle kort.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "Bedømmelse:";
 
-"place_page_starting_from" = "fra %d";
+"place_page_starting_from" = "fra %s";
 
 "meter" = "m";
 

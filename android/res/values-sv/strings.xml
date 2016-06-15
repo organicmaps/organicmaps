@@ -643,7 +643,7 @@
 	<string name="p2p_to">Målplats</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Planerar…</string>
-	<string name="p2p_from_here">Rutt från</string>
+	<string name="p2p_from_here">Från</string>
 	<string name="p2p_to_here">Rutt till</string>
 	<string name="p2p_only_from_current">Navigering är endast tillgänglig från din aktuella plats.</string>
 	<string name="p2p_reroute_from_current">Vill du att vi planerar en färdväg från din nuvarande plats?</string>
@@ -831,7 +831,7 @@
 	<string name="current_location_unknown_error_title">Den nuvarande platsen är okänd.</string>
 	<string name="current_location_unknown_error_message">Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.</string>
 	<string name="whatsnew_update_editor_title">Vi har uppdaterat kartredigeraren</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME-användare har gjort 90 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME-användare har gjort 200 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Uppdatera alla kartor för att använda kartredigeraren.</string>
 	<string name="location_services_disabled_header">Platsidentifiering avaktiverad</string>
@@ -854,7 +854,7 @@
 	<string name="placepage_flat">lgh</string>
 	<string name="placepage_open_24_7">Døgnet rundt</string>
 	<string name="placepage_place_rating">Betyg:</string>
-	<string name="place_page_starting_from">från %d</string>
+	<string name="place_page_starting_from">från %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Beskrivning</string>

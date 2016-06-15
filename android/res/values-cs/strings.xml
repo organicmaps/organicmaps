@@ -646,7 +646,7 @@
 	<string name="p2p_to">Místo určení</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Plánování…</string>
-	<string name="p2p_from_here">Cesta k</string>
+	<string name="p2p_from_here">Z</string>
 	<string name="p2p_to_here">Cesta od</string>
 	<string name="p2p_only_from_current">Navigace je dostupná pouze z vašeho současného umístění.</string>
 	<string name="p2p_reroute_from_current">Chcete, abychom naplánovali trasu z vašeho současného umístění?</string>
@@ -834,7 +834,7 @@
 	<string name="current_location_unknown_error_title">Současná poloha nezjištěna.</string>
 	<string name="current_location_unknown_error_message">Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.</string>
 	<string name="whatsnew_update_editor_title">Aktualizovali jsme editor map</string>
-	<string name="whatsnew_update_editor_message">Uživatelé aplikace MAPS.ME už provedli na 90 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!</string>
+	<string name="whatsnew_update_editor_message">Uživatelé aplikace MAPS.ME už provedli na 200 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Chcete-li používat editor map, pak prosím aktualizujte všechny mapy.</string>
 	<string name="location_services_disabled_header">Určení polohy je zakázáno</string>
@@ -857,7 +857,7 @@
 	<string name="placepage_flat">byt</string>
 	<string name="placepage_open_24_7">Nonstop</string>
 	<string name="placepage_place_rating">Hodnocení:</string>
-	<string name="place_page_starting_from">od %d</string>
+	<string name="place_page_starting_from">od %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Popis</string>

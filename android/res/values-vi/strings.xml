@@ -639,7 +639,7 @@
 	<string name="p2p_to">Điểm đích</string>
 	<string name="p2p_start">Bắt đầu</string>
 	<string name="p2p_planning">Đang hoạch định…</string>
-	<string name="p2p_from_here">Tuyến từ</string>
+	<string name="p2p_from_here">Từ</string>
 	<string name="p2p_to_here">Tuyến đến</string>
 	<string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
 	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
@@ -827,7 +827,7 @@
 	<string name="current_location_unknown_error_title">Chưa biết địa điểm hiện tại.</string>
 	<string name="current_location_unknown_error_message">Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.</string>
 	<string name="whatsnew_update_editor_title">Chúng tôi đã cập nhật trình biên tập bản đồ</string>
-	<string name="whatsnew_update_editor_message">Người dùng MAPS.ME đã thực hiện 90 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!</string>
+	<string name="whatsnew_update_editor_message">Người dùng MAPS.ME đã thực hiện 200 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Để sử dụng Ứng dụng Điều chỉnh Bản đồ, xin vui lòng cập nhật tất cả các bản đồ.</string>
 	<string name="location_services_disabled_header">Chức năng nhận biết địa điểm bị tắt</string>
@@ -850,7 +850,7 @@
 	<string name="placepage_flat">áp dụng</string>
 	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="placepage_place_rating">Xếp hạng:</string>
-	<string name="place_page_starting_from">từ %d</string>
+	<string name="place_page_starting_from">từ %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Mô tả</string>

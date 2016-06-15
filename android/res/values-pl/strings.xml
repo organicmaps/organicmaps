@@ -52,6 +52,8 @@
 	<string name="my_position">Moja pozycja</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Proszę włączyć usługi lokalizacji</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">Aby pobrać %s, musisz najpierw zwolnić nieco miejsca na swoim urządzeniu.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Przypomnij mi później</string>
 	<!-- Update maps later/Buy pro version later button text -->
@@ -640,7 +642,7 @@
 	<string name="p2p_to">Miejsce docelowe</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Planowanie…</string>
-	<string name="p2p_from_here">Droga z</string>
+	<string name="p2p_from_here">Z</string>
 	<string name="p2p_to_here">Droga do</string>
 	<string name="p2p_only_from_current">Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.</string>
 	<string name="p2p_reroute_from_current">Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?</string>
@@ -828,7 +830,7 @@
 	<string name="current_location_unknown_error_title">Aktualna lokalizacja jest nieznana.</string>
 	<string name="current_location_unknown_error_message">Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.</string>
 	<string name="whatsnew_update_editor_title">Zaktualizowaliśmy edytor map</string>
-	<string name="whatsnew_update_editor_message">Użytkownicy MAPS.ME dokonali 90 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!</string>
+	<string name="whatsnew_update_editor_message">Użytkownicy MAPS.ME dokonali 200 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Aby korzystać z edytora map, zaktualizuj wszystkie mapy.</string>
 	<string name="location_services_disabled_header">Identyfikacja lokalizacji jest wyłączona</string>
@@ -851,7 +853,7 @@
 	<string name="placepage_flat">Mieszkanie</string>
 	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="placepage_place_rating">Ocena:</string>
-	<string name="place_page_starting_from">od %d</string>
+	<string name="place_page_starting_from">od %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Opis</string>

@@ -520,7 +520,7 @@
 "pref_tts_how_to_set_up_voice" = "Como configurar a voz";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Recent track";
+"pref_track_record_title" = "Histórico recente";
 
 "duration_disabled" = "Desligado";
 
@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "Planejando…";
 
-"p2p_from_here" = "Itinerário de";
+"p2p_from_here" = "De";
 
 "p2p_to_here" = "Itinerário para";
 
@@ -1376,64 +1376,64 @@
 
 "error_enter_correct_house_number" = "Introduzir um número de casa correto";
 
-"editor_storey_number" = "Building levels (max %d)";
+"editor_storey_number" = "Número de pisos (máx. %d)";
 
-"error_enter_correct_storey_number" = "Buildings at highest of 25 levels can be edited";
+"error_enter_correct_storey_number" = "Editar o edifício com um máximo de 25 pisos";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Código Postal";
 
-"error_enter_correct_zip_code" = "Enter the correct ZIP Code";
+"error_enter_correct_zip_code" = "Introduza o código postal correto";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Unknown Place";
+"placepage_unknown_place" = "Local desconhecido";
 
-"editor_other_info" = "Additional info";
+"editor_other_info" = "Informações adicionais";
 
-"editor_detailed_description_hint" = "Detailed comment";
+"editor_detailed_description_hint" = "Comentário detalhado";
 
-"editor_detailed_description" = "Your suggested changes will be sent to the OpenStreetMap community. Describe the details which cannot be edited in MAPS.ME.";
+"editor_detailed_description" = "As suas alterações sugeridas irão ser enviadas para a comunidade OpenStreetMap. Descreva os dados que não podem ser editados no MAPS.ME";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_more_about_osm" = "Mais sobre o OpenStreetMap";
 
-"editor_operator" = "Operator";
+"editor_operator" = "Operador";
 
-"editor_tag_description" = "Enter company, organization or individual responsible for the facilities.";
+"editor_tag_description" = "Introduza a empresa, organização ou indivíduo responsável pelas instalações.";
 
-"editor_no_local_edits_title" = "You don't have local edits";
+"editor_no_local_edits_title" = "Não tem edições locais";
 
-"editor_no_local_edits_description" = "This shows the number of your suggested changes on the map that are currently accessible only on your device.";
+"editor_no_local_edits_description" = "Isto demonstra o número das suas alterações sugeridas no mapa que atualmente só são acessíveis no seu dispositivo.";
 
-"editor_international_names_subtitle" = "Name in other languages";
+"editor_international_names_subtitle" = "Nome noutras línguas";
 
-"editor_send_to_osm" = "Send to OSM";
+"editor_send_to_osm" = "Enviar para OSM";
 
-"editor_remove" = "Remove";
+"editor_remove" = "Remover";
 
-"downloader_my_maps_title" = "My maps";
+"downloader_my_maps_title" = "Os meus mapas";
 
-"downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
+"downloader_no_downloaded_maps_title" = "Não descarregou quaisquer mapas";
 
-"downloader_no_downloaded_maps_message" = "Download maps to search location and use navigation offline.";
+"downloader_no_downloaded_maps_message" = "Descarregar mapas para encontrar a localização e navegar offline.";
 
-"downloader_find_place_hint" = "Search city or country";
+"downloader_find_place_hint" = "Pesquisar cidade ou país";
 
 /* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Continue detecting your current location?";
+"current_location_unknown_title" = "Continuar a detetar a sua localização atual?";
 
 /* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Current location is unknown. Maybe you are in a building or in a tunnel.";
+"current_location_unknown_message" = "A localização atual é desconhecida. Talvez esteja num edifício ou num túnel.";
 
-"current_location_unknown_continue_button" = "Continue";
+"current_location_unknown_continue_button" = "Continuar";
 
-"current_location_unknown_stop_button" = "Stop";
+"current_location_unknown_stop_button" = "Parar";
 
-"current_location_unknown_error_title" = "Current location is unknown.";
+"current_location_unknown_error_title" = "A localização atual é desconhecida.";
 
-"current_location_unknown_error_message" = "An error occurred while searching for your location. Check that your device is working properly and try again later.";
+"current_location_unknown_error_message" = "Ocorreu um erro ao pesquisar a sua localização. Verifique se o seu dispositivo está a funcionar devidamente e volte a tentar mais tarde.";
 
-"whatsnew_update_editor_title" = "We've updated the map editor";
+"whatsnew_update_editor_title" = "Atualizámos o editor do mapa";
 
-"whatsnew_update_editor_message" = "MAPS.ME users have made 90 000 map changes. Together we are making the most detailed maps in the World. Join us!";
+"whatsnew_update_editor_message" = "Os utilizadores do MAPS.ME fizeram 200 000 alterações no mapa. Juntos, estamos a fazer os mapas mais detalhados do mundo. Junte-se a nós!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Atualize todos os mapas para utilizar o Editor de Mapa.";
@@ -1448,73 +1448,73 @@
 
 "location_services_disabled_3" = "3. Selecionar sempre";
 
-"placepage_parking_surface" = "Surface";
+"placepage_parking_surface" = "Superfície";
 
-"placepage_parking_multistorey" = "Multi-storey";
+"placepage_parking_multistorey" = "Vários andares";
 
-"placepage_parking_underground" = "Underground";
+"placepage_parking_underground" = "Local desconhecido";
 
-"placepage_parking_rooftop" = "Rooftop";
+"placepage_parking_rooftop" = "Terraço";
 
-"placepage_parking_sheds" = "Sheds";
+"placepage_parking_sheds" = "Abrigos";
 
-"placepage_parking_carports" = "Carports";
+"placepage_parking_carports" = "Garagens";
 
-"placepage_parking_boxes" = "Garage boxes";
+"placepage_parking_boxes" = "Garagens";
 
-"placepage_parking_pay" = "Pay";
+"placepage_parking_pay" = "Pagamento";
 
-"placepage_parking_free" = "Free";
+"placepage_parking_free" = "Gratuito";
 
-"placepage_parking_interval" = "Interval Pay";
+"placepage_parking_interval" = "Pagamento intervalado";
 
-"placepage_entrance_number" = "No.";
+"placepage_entrance_number" = "N.º";
 
-"placepage_entrance_type" = "Entrance";
+"placepage_entrance_type" = "Entrada";
 
-"placepage_flat" = "app.";
+"placepage_flat" = "apto.";
 
 "placepage_open_24_7" = "24 / 7";
 
-"placepage_place_rating" = "Rating:";
+"placepage_place_rating" = "Classificação";
 
-"place_page_starting_from" = "from %d";
+"place_page_starting_from" = "a partir de %s";
 
 "meter" = "m";
 
 "kilometer" = "km";
 
-"placepage_place_description" = "Description";
+"placepage_place_description" = "Descrição";
 
-"placepage_more_button" = "More";
+"placepage_more_button" = "Mais";
 
-"bookingcom_book_button" = "Book";
+"bookingcom_book_button" = "Livro";
 
-"placepage_call_button" = "Call";
+"placepage_call_button" = "Chamada";
 
-"placepage_edit_bookmark_button" = "Edit Bookmark";
+"placepage_edit_bookmark_button" = "Editar marcador";
 
-"placepage_bookmark_name_hint" = "Bookmark Name";
+"placepage_bookmark_name_hint" = "Nome do marcador";
 
-"placepage_personal_notes_hint" = "Personal notes";
+"placepage_personal_notes_hint" = "Notas pessoais";
 
-"placepage_delete_bookmark_button" = "Delete Bookmark";
+"placepage_delete_bookmark_button" = "Eliminar marcador";
 
-"editor_edits_sent_message" = "Your suggested changes have been sent";
+"editor_edits_sent_message" = "As suas alterações sugeridas foram enviadas";
 
-"editor_comment_hint" = "Comment…";
+"editor_comment_hint" = "Comentário…";
 
-"editor_reset_edits_message" = "Reset all local changes?";
+"editor_reset_edits_message" = "Repor todas as alterações locais?";
 
-"editor_reset_edits_button" = "Reset";
+"editor_reset_edits_button" = "Repor";
 
-"editor_remove_place_message" = "Remove an added place?";
+"editor_remove_place_message" = "Remover um local adicionado?";
 
-"editor_remove_place_button" = "Remove";
+"editor_remove_place_button" = "Remover";
 
-"editor_status_sending" = "Sending…";
+"editor_status_sending" = "A enviar…";
 
-"editor_place_doesnt_exist" = "Place does not exist";
+"editor_place_doesnt_exist" = "O local não existe";
 
 "place_page_booking_rating" = "Rating: %s";
 

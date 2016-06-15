@@ -30,7 +30,7 @@
 "download_maps" = "Gedownloade Kaarten";
 
 /* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Download %qu kB";
+"download_x_kb" = "Download %qu KB";
 
 /* Settings/Downloader - Download confirmation button */
 "download_x_mb" = "Download %qu MB";
@@ -206,7 +206,7 @@
 
 "downloaded_touch_to_update" = "(%@) gedownload, klik om te updaten of te verwijderen";
 
-"update_mb_or_kb" = "Update %@";
+"update_mb_or_kb" = "%@ Bijwerken";
 
 /* Show popup notification when we have downloaded countries without search (from Lite version) */
 "search_update_maps" = "Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten";
@@ -370,7 +370,7 @@
 "load_kmz_failed" = "Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.";
 
 /* resource for context menu */
-"edit" = "Edit";
+"edit" = "Wijzigen";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Je plaats werd nog niet vastgesteld";
@@ -718,7 +718,7 @@
 "downloader_uptodate_maps" = "Up-to-date";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "Bijwerken";
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Mislukt";
@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "Aan het plannen…";
 
-"p2p_from_here" = "Route van";
+"p2p_from_here" = "Van";
 
 "p2p_to_here" = "Route naar";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "We hebben de kaarteditor bijgewerkt";
 
-"whatsnew_update_editor_message" = "MAPS.ME-gebruikers hebben 90.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!";
+"whatsnew_update_editor_message" = "MAPS.ME-gebruikers hebben 200.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Om de kaartaanpasser te kunnen gebruiken, moet je alle kaarten actualiseren.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "Cijfer:";
 
-"place_page_starting_from" = "from %d";
+"place_page_starting_from" = "van %s";
 
 "meter" = "m";
 

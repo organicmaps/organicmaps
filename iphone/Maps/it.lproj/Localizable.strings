@@ -837,7 +837,7 @@
 "routing_download_more_than_avail" = "Devi scaricare %@ MB, ma lo spazio disponibile è di soli %@ MB.";
 
 /* Text for routing error dialog */
-"routing_download_roaming" = "Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.";
+"routing_download_roaming" = "Stai per scaricare %@ MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.";
 
 /* bookmark button text */
 "bookmark" = "segnalibro";
@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "Pianificazione…";
 
-"p2p_from_here" = "Percorso da";
+"p2p_from_here" = "Da";
 
 "p2p_to_here" = "Percorso per";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "Abbiamo aggiornato l'editor mappe";
 
-"whatsnew_update_editor_message" = "Gli utenti di MAPS.ME hanno apportato 90.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!";
+"whatsnew_update_editor_message" = "Gli utenti di MAPS.ME hanno apportato 200.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Per utilizzare l'editor delle mappe, aggiorna tutte le mappe.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "Valutazione:";
 
-"place_page_starting_from" = "da %d";
+"place_page_starting_from" = "da %s";
 
 "meter" = "m";
 

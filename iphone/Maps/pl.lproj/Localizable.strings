@@ -87,7 +87,7 @@
 "enable_location_services" = "Proszę włączyć usługi lokalizacji";
 
 /* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Please free some space on your device first in order to download %@";
+"free_disk_space_for_country_x" = "Aby pobrać %@, musisz najpierw zwolnić nieco miejsca na swoim urządzeniu.";
 
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Przypomnij mi później";
@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "Planowanie…";
 
-"p2p_from_here" = "Droga z";
+"p2p_from_here" = "Z";
 
 "p2p_to_here" = "Droga do";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "Zaktualizowaliśmy edytor map";
 
-"whatsnew_update_editor_message" = "Użytkownicy MAPS.ME dokonali 90 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!";
+"whatsnew_update_editor_message" = "Użytkownicy MAPS.ME dokonali 200 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Aby korzystać z edytora map, zaktualizuj wszystkie mapy.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "Ocena:";
 
-"place_page_starting_from" = "od %d";
+"place_page_starting_from" = "od %s";
 
 "meter" = "m";
 

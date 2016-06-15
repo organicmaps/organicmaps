@@ -254,11 +254,13 @@
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">เฮ้ ตรวจสอบหมุดของฉันที่ MAPS.ME! %1$s หรือ %2$s</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$s หรือ %2$s or %2$s ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get</string>
+	<string name="my_position_share_sms">เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$s หรือ %2$s ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ MAPS.ME!</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
 	<string name="bookmark_share_email">หวัดดี\n\nฉันปักหมุด: %1$s ที่ MAPS.ME, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$s หรือลิงก์นี้ %3$s เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ</string>
+	<!-- Subject for emailed position -->
+	<string name="my_position_share_email_subject">นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ MAPS.ME สิ!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$s. คลิกลิงก์นี้ %2$s หรือลิงก์นี้ %3$s เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -643,7 +645,7 @@
 	<string name="p2p_to">จุดที่เป็นปลายทาง</string>
 	<string name="p2p_start">เริ่มต้น</string>
 	<string name="p2p_planning">กำลังวางแผน…</string>
-	<string name="p2p_from_here">เส้นทางจาก</string>
+	<string name="p2p_from_here">จาก</string>
 	<string name="p2p_to_here">เส้นทางถึง</string>
 	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
@@ -831,7 +833,7 @@
 	<string name="current_location_unknown_error_title">ไม่ทราบชื่อของที่ตั้งปัจจุบัน</string>
 	<string name="current_location_unknown_error_message">มีข้อผิดพลาดเกิดขึ้นในขณะที่กำลังหาที่ตั้งที่คุณอยู่ โปรดตรวจสอบอุปกรณ์ของคุณว่าทำงานถูกต้อง และลองใหม่อีกครั้ง</string>
 	<string name="whatsnew_update_editor_title">เราได้ทำการอัพเดตตัวแก้ไขแผนที่แล้ว</string>
-	<string name="whatsnew_update_editor_message">ผู้ใช้ MAPS.ME ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 90 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!</string>
+	<string name="whatsnew_update_editor_message">ผู้ใช้ MAPS.ME ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 200 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">ในการใช้เครื่องมือการแก้ไขแผนที่ โปรดอัปเดตแผนที่ทั้งหมด</string>
 	<string name="location_services_disabled_header">ปิดการใช้งานการระบุตำแหน่งที่ตั้งแล้ว</string>
@@ -854,7 +856,7 @@
 	<string name="placepage_flat">ห้อง</string>
 	<string name="placepage_open_24_7">24 ชั่วโมง</string>
 	<string name="placepage_place_rating">เรทติ้ง</string>
-	<string name="place_page_starting_from">จาก %d</string>
+	<string name="place_page_starting_from">จาก %s</string>
 	<string name="meter">ม.</string>
 	<string name="kilometer">กม.</string>
 	<string name="placepage_place_description">คำอธิบาย</string>

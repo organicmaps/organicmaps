@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "Planlegger…";
 
-"p2p_from_here" = "Rute fra";
+"p2p_from_here" = "Fra";
 
 "p2p_to_here" = "Rute til";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "Vi har oppdatert kartredigeringsprogrammet";
 
-"whatsnew_update_editor_message" = "MAPS.ME-brukere har foretatt 90 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!";
+"whatsnew_update_editor_message" = "MAPS.ME-brukere har foretatt 200 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "For å bruke kartredigerings-funksjonen, vennligst oppdater alle kartene.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "Rangering:";
 
-"place_page_starting_from" = "fra %d";
+"place_page_starting_from" = "fra %s";
 
 "meter" = "m";
 

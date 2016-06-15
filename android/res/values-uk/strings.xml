@@ -430,7 +430,7 @@
 	<string name="downloader_downloading">Завантажується:</string>
 	<string name="downloader_search_results">Знайдено</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!</string>
+	<string name="routing_disclaimer">Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною, а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Неактуальні</string>
 	<!-- Up to date maps category -->
@@ -831,7 +831,7 @@
 	<string name="current_location_unknown_error_title">Місцезнаходження не знайдено.</string>
 	<string name="current_location_unknown_error_message">Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.</string>
 	<string name="whatsnew_update_editor_title">Ми обновили редактор</string>
-	<string name="whatsnew_update_editor_message">Користувачі MAPS.ME вже внесли 90 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!</string>
+	<string name="whatsnew_update_editor_message">Користувачі MAPS.ME вже внесли 200 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Для використання редактору карт, будь ласка, оновіть всі карти.</string>
 	<string name="location_services_disabled_header">Ідентифікацію місцезнаходження відключено</string>
@@ -854,7 +854,7 @@
 	<string name="placepage_flat">кв.</string>
 	<string name="placepage_open_24_7">Цілодобово</string>
 	<string name="placepage_place_rating">Рейтинг:</string>
-	<string name="place_page_starting_from">від %d</string>
+	<string name="place_page_starting_from">від %s</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
 	<string name="placepage_place_description">Опис</string>

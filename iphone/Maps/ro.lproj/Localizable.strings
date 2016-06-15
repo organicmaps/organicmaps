@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "Se planifică…";
 
-"p2p_from_here" = "Ruta de la";
+"p2p_from_here" = "Din";
 
 "p2p_to_here" = "Ruta la";
 
@@ -1114,7 +1114,7 @@
 
 "share_with_friends" = "Partajează cu prietenii";
 
-"editor_report_problem_desription_1" = "Vă rugăm să descrieți problema în detaliu , astfel încât comunitatea OpenStreeMap să poată remedia eroarea.";
+"editor_report_problem_desription_1" = "Vă rugăm să descrieți problema în detaliu, astfel încât comunitatea OpenStreeMap să poată remedia eroarea.";
 
 "editor_report_problem_desription_2" = "Sau faceți-o pe http://www.openstreetmap.org/";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "Am actualizat editorul de hărți";
 
-"whatsnew_update_editor_message" = "Utilizatorii MAPS.ME au făcut 90.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!";
+"whatsnew_update_editor_message" = "Utilizatorii MAPS.ME au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "Evaluare:";
 
-"place_page_starting_from" = "din %d";
+"place_page_starting_from" = "din %s";
 
 "meter" = "m";
 

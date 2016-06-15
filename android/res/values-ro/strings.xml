@@ -636,7 +636,7 @@
 	<string name="p2p_to">Punctul de sosire</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Se planifică…</string>
-	<string name="p2p_from_here">Ruta de la</string>
+	<string name="p2p_from_here">Din</string>
 	<string name="p2p_to_here">Ruta la</string>
 	<string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de pornire locațiacctuală.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
@@ -660,7 +660,7 @@
 	<string name="editor_done_dialog_2">Aceasta este a doua modificare a hărții. Acum sunteți pe locul %d în lista editorilor de hărți. Spuneți prietenilor dvs. despre aceasta.</string>
 	<string name="editor_done_dialog_3">Ați modificat harta, spuneți prietenilor dvs. despre aceasta și modificați-o împreună.</string>
 	<string name="share_with_friends">Partajează cu prietenii</string>
-	<string name="editor_report_problem_desription_1">Vă rugăm să descrieți problema în detaliu , astfel încât comunitatea OpenStreeMap să poată remedia eroarea.</string>
+	<string name="editor_report_problem_desription_1">Vă rugăm să descrieți problema în detaliu, astfel încât comunitatea OpenStreeMap să poată remedia eroarea.</string>
 	<string name="editor_report_problem_desription_2">Sau faceți-o pe http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Trimiteți</string>
 	<string name="editor_report_problem_title">Problemă</string>
@@ -824,7 +824,7 @@
 	<string name="current_location_unknown_error_title">Locația curentă este necunoscută.</string>
 	<string name="current_location_unknown_error_message">S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.</string>
 	<string name="whatsnew_update_editor_title">Am actualizat editorul de hărți</string>
-	<string name="whatsnew_update_editor_message">Utilizatorii MAPS.ME au făcut 90.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!</string>
+	<string name="whatsnew_update_editor_message">Utilizatorii MAPS.ME au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.</string>
 	<string name="location_services_disabled_header">Geolocalizarea este dezactivată</string>
@@ -846,7 +846,7 @@
 	<string name="placepage_flat">ap.</string>
 	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="placepage_place_rating">Evaluare:</string>
-	<string name="place_page_starting_from">din %d</string>
+	<string name="place_page_starting_from">din %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Descriere</string>

@@ -262,7 +262,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Sieh dir meinen aktuellen Standort auf der MAPS.ME-Karte an</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Hi,\n\nich bin gerade hier: %1$s . Klicke den Link %2$s oder %3$s , um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.</string>
+	<string name="my_position_share_email">Hi,\n\nich bin gerade hier: %1$s. Klicke den Link %2$s oder %3$s, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Als Nachricht teilen</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -857,7 +857,7 @@
 	<string name="current_location_unknown_error_title">Standort nicht gefunden.</string>
 	<string name="current_location_unknown_error_message">Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.</string>
 	<string name="whatsnew_update_editor_title">Der Editor wurde aktualisiert.</string>
-	<string name="whatsnew_update_editor_message">Die Benutzer haben schon mehr als 90.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!</string>
+	<string name="whatsnew_update_editor_message">Die Benutzer haben schon mehr als 200.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Um den Karten-Editor zu nutzen, aktualisieren Sie bitte alle Karten.</string>
 	<string name="location_services_disabled_header">Standort-Identifizierung ist deaktiviert</string>
@@ -880,7 +880,7 @@
 	<string name="placepage_flat">Wohnung</string>
 	<string name="placepage_open_24_7">Durchgehend geöffnet</string>
 	<string name="placepage_place_rating">Rating:</string>
-	<string name="place_page_starting_from">ab %d</string>
+	<string name="place_page_starting_from">ab %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Beschreibung</string>

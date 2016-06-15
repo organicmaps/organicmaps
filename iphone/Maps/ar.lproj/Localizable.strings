@@ -218,7 +218,7 @@
 "suggest_uninstall_lite" = "أنت لست بحاجة الى  MAPS.ME Lite بعد الآن، لذلك يمكنك إلغاء تثبيته.";
 
 /* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "تم تنزيل  %@  بنجاح.";
+"download_country_success" = "تم تنزيل %@ بنجاح.";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "فشلت عملية تنزيل %@";
@@ -367,7 +367,7 @@
 "load_kmz_successful" = "تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف .";
+"load_kmz_failed" = "فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف.";
 
 /* resource for context menu */
 "edit" = "تعديل";
@@ -403,7 +403,7 @@
 "bookmark_share_email_subject" = "هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "مرحبا،\n\nقمت بوضع دبوس : %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.";
+"bookmark_share_email" = "مرحبا،\n\nقمت بوضع دبوس: %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!";
@@ -837,7 +837,7 @@
 "routing_download_more_than_avail" = "Devi scaricare %@ MB, ma lo spazio disponibile è di soli %@ MB.";
 
 /* Text for routing error dialog */
-"routing_download_roaming" = "Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.";
+"routing_download_roaming" = "أنت على وشك تنزيل %@ م.ب باستخدام البيانات المتنقلة (في وضع التجوال). وهذا قد يؤدي إلى مصاريف إضافية اعتمادا على خطة البيانات المتنقلة الخاصة بالمشغل الخاص بك.";
 
 /* bookmark button text */
 "bookmark" = "إشارة مرجعية";
@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "جار التخطيط…";
 
-"p2p_from_here" = "الطريق من";
+"p2p_from_here" = "من";
 
 "p2p_to_here" = "الطريق إلى";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "لقد قمنا بتحديث محرر الخريطة";
 
-"whatsnew_update_editor_message" = "قام مستخدمو MAPS.ME بإجراء 90000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!";
+"whatsnew_update_editor_message" = "قام مستخدمو MAPS.ME بإجراء 200000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "لاستخدام مُحَرّر الخريطة، يرجى تحديث جميع الخرائط.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "التصنيف:";
 
-"place_page_starting_from" = "من%d";
+"place_page_starting_from" = "من%s";
 
 "meter" = "متر";
 

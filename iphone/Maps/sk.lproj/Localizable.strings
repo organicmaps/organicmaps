@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "Plánovanie…";
 
-"p2p_from_here" = "Cesta z";
+"p2p_from_here" = "Z";
 
 "p2p_to_here" = "Cesta do";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "Aktualizovali sme program na úpravu máp";
 
-"whatsnew_update_editor_message" = "Používatelia MAPS.ME urobili 90 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!";
+"whatsnew_update_editor_message" = "Používatelia MAPS.ME urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "Hodnotenie:";
 
-"place_page_starting_from" = "od %d";
+"place_page_starting_from" = "od %s";
 
 "meter" = "m";
 

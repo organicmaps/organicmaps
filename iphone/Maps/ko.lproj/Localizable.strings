@@ -96,7 +96,7 @@
 "later" = "후";
 
 /* Don't show some dialog any more */
-"never" = "Never";
+"never" = "거절";
 
 /* Leave Review dialog - Complain button (goes to support site) */
 "report_an_issue" = "문제 보고하기";
@@ -370,7 +370,7 @@
 "load_kmz_failed" = "즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.";
 
 /* resource for context menu */
-"edit" = "Edit";
+"edit" = "편집";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "귀하의 위치를 아직 알아내지 못 했습니다";
@@ -403,13 +403,13 @@
 "bookmark_share_email_subject" = "MAPS.ME 지도에서 내 핀 보기";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MAPS.ME에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
+"bookmark_share_email" = "안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MAPS.ME에서 %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "MAPS.ME 지도에서 제 현재 위치를 살펴 보시기 바랍니다";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
+"my_position_share_email" = "안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "메시지로 공유";
@@ -837,7 +837,7 @@
 "routing_download_more_than_avail" = "%@ MB를 다운로드해야 하지만 %@ MB만 사용할 수 있습니다.";
 
 /* Text for routing error dialog */
-"routing_download_roaming" = "모바일 데이터(로밍시)를 사용하여 2840MB를 다운로드할 것입니다. 이는 운영자 모바일 데이터 계획에 따라 추가 요금이 발생할 수 있습니다.";
+"routing_download_roaming" = "모바일 데이터(로밍시)를 사용하여 %@ MB를 다운로드할 것입니다. 이는 운영자 모바일 데이터 계획에 따라 추가 요금이 발생할 수 있습니다.";
 
 /* bookmark button text */
 "bookmark" = "북마크";
@@ -1108,7 +1108,7 @@
 
 "editor_done_dialog_1" = "세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.";
 
-"editor_done_dialog_2" = "이는 두 번째 지도의 개선 사항입니다. 지금 지도 편집기의 목록에서 1058번째 장소에 있습니다. 친구들에게 이에 대해 말하십시오.";
+"editor_done_dialog_2" = "이는 두 번째 지도의 개선 사항입니다. 지금 지도 편집기의 목록에서 %d번째 장소에 있습니다. 친구들에게 이에 대해 말하십시오.";
 
 "editor_done_dialog_3" = "지도를 개선했으며, 친구들에게 이에 대해 말하고, 함께 지도를 편집할 수 있습니다.";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "지도 편집기를 업데이트했습니다";
 
-"whatsnew_update_editor_message" = "MAPS.ME 사용자는 90000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!";
+"whatsnew_update_editor_message" = "MAPS.ME 사용자는 200000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "지도 편집기를 사용하려면, 모든 지도를 업데이트하십시오.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "평가:";
 
-"place_page_starting_from" = "%d에서";
+"place_page_starting_from" = "%s에서";
 
 "meter" = "m";
 
@@ -1502,7 +1502,7 @@
 
 "editor_edits_sent_message" = "귀하의 제안 변경사항이 전송되었습니다";
 
-"editor_comment_hint" = "Comment…";
+"editor_comment_hint" = "설명…";
 
 "editor_reset_edits_message" = "지역 변경 사항을 재설정하시겠습니까?";
 

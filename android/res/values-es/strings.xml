@@ -634,7 +634,7 @@
 	<string name="p2p_to">El punto de destino</string>
 	<string name="p2p_start">Empezar</string>
 	<string name="p2p_planning">Planeando…</string>
-	<string name="p2p_from_here">Ruta desde</string>
+	<string name="p2p_from_here">Desde</string>
 	<string name="p2p_to_here">Ruta hasta</string>
 	<string name="p2p_only_from_current">La navegación solo está disponible desde tu ubicación actual.</string>
 	<string name="p2p_reroute_from_current">¿Quieres que planeemos un ruta desde tu ubicación actual?</string>
@@ -822,7 +822,7 @@
 	<string name="current_location_unknown_error_title">La ubicación actual es desconocida.</string>
 	<string name="current_location_unknown_error_message">Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.</string>
 	<string name="whatsnew_update_editor_title">Hemos actualizado el editor de mapas</string>
-	<string name="whatsnew_update_editor_message">Los usuarios de MAPS.ME han realizado 90 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!</string>
+	<string name="whatsnew_update_editor_message">Los usuarios de MAPS.ME han realizado 200 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Para usar el editor de mapas, actualiza todos los mapas.</string>
 	<string name="location_services_disabled_header">La identificación de la ubicación está desactivada</string>
@@ -845,7 +845,7 @@
 	<string name="placepage_flat">aplicación</string>
 	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="placepage_place_rating">Valoración:</string>
-	<string name="place_page_starting_from">desde %d</string>
+	<string name="place_page_starting_from">desde %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Descripción</string>
