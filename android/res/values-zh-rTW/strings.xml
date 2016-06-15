@@ -49,6 +49,8 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">我的位置</string>
 	<string name="ok">確定</string>
+	<!-- not used? Search View - Location is disabled by user warning text -->
+	<string name="enable_location_services">請啟用定位服務</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">如要下載%s ，請先釋放一些空間！</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -529,7 +531,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">您地點的地圖尚未下載</string>
 	<!-- location service disabled -->
-	<string name="enable_location_services">請啟用定位服務</string>
+	<string name="enable_location_service">請啟用定位服務</string>
 	<!-- download map -->
 	<string name="download_map">為您的地點下載地圖</string>
 	<!-- download map on iPhone -->
@@ -868,7 +870,6 @@
 	<string name="placepage_flat">公寓</string>
 	<string name="placepage_open_24_7">全天候</string>
 	<string name="placepage_place_rating">評價：</string>
-	<string name="place_page_starting_from">從 %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">說明</string>
