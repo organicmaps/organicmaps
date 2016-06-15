@@ -259,6 +259,7 @@
     ar = التنزيل %qu كيلو بايت
     cs = Stáhnout %qu kB
     da = Download %qu kB
+    nl = Download %qu KB
     fi = Lataa %qu Kt
     fr = Télécharger %qu ko
     de = Herunterladen %qu kB
@@ -289,6 +290,7 @@
     ar = التنزيل %qu ميجا بايت
     cs = Stáhnout %qu MB
     da = Download %qu MB
+    nl = Download %qu MB
     fi = Lataa %qu Mt
     fr = Télécharger %qu Mo
     de = Herunterladen %qu MB
@@ -823,6 +825,7 @@
     ja = %@をダウンロードするため、デバイスの空き容量を確認してください
     ko = 먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.
     nb = Frigjør plass på enheten først for å laste ned %@
+    pl = Aby pobrać %@, musisz najpierw zwolnić nieco miejsca na swoim urządzeniu.
     pt = Por favor liberte primeiro algum espaço no seu dispositivo para descarregar %@
     ro = Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %@.
     es = No hay espacio suficiente para realizar la descarga %@
@@ -913,6 +916,7 @@
     id = Tidak akan pernah
     it = Mai
     ja = 今後表示しない
+    ko = 거절
     nb = Aldri
     pl = Nigdy
     pt = Nunca
@@ -1582,6 +1586,7 @@
     ar = تنزيل %@
     cs = Stáhnout %@
     da = Download %@
+    nl = Download %@
     fi = Lataa %@
     fr = Télécharger %@
     de = Herunterladen %@
@@ -2114,7 +2119,7 @@
     uk = Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.
     vi = Bản đồ của địa điểm\nhiện tại của bạn (%@) là bản mới nhất
     zh-Hans = 您目前\n位置(%@) 的地图是最新的。
-    zh-Hant = 您目前所在位置 (%@)\n的地圖已是最新圖資 !
+    zh-Hant = 您目前所在位置 (%@)\n的地圖已是最新圖資!
     he = אתה יכול לעדכן את מיקומך הנוכחי במפה.
     sk = Mapa vašej aktuálnej\npolohy (%@) je aktuálna.
 
@@ -2216,6 +2221,7 @@
     ar = تحديث %@
     cs = Aktualizace %@
     da = Opdater %@
+    nl = %@ Bijwerken
     fi = Päivitä %@
     fr = Mettre à jour %@
     de = %@ aktualisieren
@@ -2340,7 +2346,7 @@
     tags = android
     en = %@ downloaded successfully
     ru = %@ успешно загружена
-    ar = تم تنزيل  %@  بنجاح.
+    ar = تم تنزيل %@ بنجاح.
     cs = Úspěšně staženo: %@
     da = %@ download succesfuldt
     nl = %@ is succesvol gedownload
@@ -3924,7 +3930,7 @@
     tags = ios,android
     en = Bookmarks upload failed. The file may be corrupted or defective.
     ru = Файл с метками не был загружен. Возможно, файл поврежден или неисправен.
-    ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف .
+    ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف.
     cs = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
     da = Bogmærkerne kunne ikke indlæses. Fil kan være skadet eller defekte.
     nl = Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.
@@ -3959,12 +3965,14 @@
     ar = تعديل
     cs = Upravit
     da = Rediger
+    nl = Wijzigen
     fi = Muokkaa
     fr = Modifier
     de = Bearbeiten
     hu = Szerkeszt
     id = Edit
     it = Copia link
+    ko = 편집
     nb = Rediger
     pl = Edytuj
     pt = Editar
@@ -4217,7 +4225,7 @@
     hu = Nézd meg a MAPS.ME jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
     id = Hei, lihat pinku di MAPS.ME! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: http://maps.me/get
     it = Vedi pin sulla mappa. Apri %1$@ o %2$@
-    ja = 私のピン情報はこの位置です。リンク: %1$@ , %2$@
+    ja = 私のピン情報はこの位置です。リンク: %1$@, %2$@
     ko = 지도에서 내 PIN을 참조하십시오. %1$@ 또는 %2$@ 열기
     nb = Hei, se merket mitt på MAPS.ME! %1$@ eller %2$@ Har du ikke installert offline-kart? Last dem ned her: http://maps.me/get
     pl = Mój znacznik w MAPS.ME %1$@ i %2$@
@@ -4248,7 +4256,7 @@
     hu = Nézd meg a MAPS.ME helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
     id = Hei, lihat lokasiku saat ini di MAPS.ME! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: http://maps.me/get
     it = Vedi dove sono ora. Apri %1$@ o %2$@
-    ja = 私は今ここにいます。リンク: %1$@ , %2$@
+    ja = 私は今ここにいます。リンク: %1$@, %2$@
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
     nb = Hei, se posisjonen min på MAPS.ME! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: http://maps.me/get
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
@@ -4256,7 +4264,7 @@
     ro = Hei, îmi poți vedea poziția actuală pe MAPS.ME! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: http://maps.me/get
     es = Mira dónde estoy. Abre %1$@ o %2$@
     sv = Hej, kolla på min nuvarande position på MAPS.ME! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: http://maps.me/get
-    th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$@ หรือ %2$@ or %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get
+    th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$@ หรือ %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get
     tr = Hey, MAPS.ME’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: http://maps.me/get
     uk = Глянь де я зараз. Іди %1$@ або %2$@
     vi = Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get
@@ -4302,7 +4310,7 @@
     tags = tizen
     en = Hi,\n\nI pinned: %1$@ at MAPS.ME, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     ru = Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте MAPS.ME.\n\nСпасибо.
-    ar = مرحبا،\n\nقمت بوضع دبوس : %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
+    ar = مرحبا،\n\nقمت بوضع دبوس: %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
     cs = Ahoj,\n\noznačil/a jsem %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     da = Hej\n\nJeg markerede: %1$@ på MAPS.ME, en verden af offline kort. Klik på dette link %2$@ eller dette %3$@ for at se stedet på kortet.\n\nTak.
     nl = Hoi,\n\nIk heb: %1$@ geprikt bij MAPS.ME, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
@@ -4313,7 +4321,7 @@
     id = Hai,\n\nI disematkan: %1$@ di MAPS.ME, peta offline dunia. Klik tautan ini %2$@ atau ini %3$@ untuk melihat tempat di peta.\n\n Terima kasih.
     it = Ciao,\n\nHo segnato %1$@ su MAPS.ME, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
     ja = オフラインマップ MAPS.ME でこの位置にピンを作成しました: %1$@\n\nリンク %2$@ または %3$@ をクリックするとマップ上で確認できます。
-    ko = 안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MAPS.ME에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
+    ko = 안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MAPS.ME에서 %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     nb = Hei,\n\nI merket av: %1$@ på MAPS.ME, offline verdenskart. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
     pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MAPS.ME, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\nFixei:%1$@ na MAPS.ME, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
@@ -4352,6 +4360,7 @@
     ro = Hei, îmi poți vedea poziția actuală pe harta MAPS.ME!
     es = Mira mi ubicación actual en el mapa en MAPS.ME
     sv = Hej, kolla på min nuvarande position på MAPS.ME kartan!
+    th = นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ MAPS.ME สิ!
     tr = Hey, MAPS.ME’de geçerli konumumu incele!
     uk = Поглянь на моє поточне місцезнаходження на карті MAPS.ME
     vi = Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME map!
@@ -4371,12 +4380,12 @@
     nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
     fi = Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.
     fr = Bonjour,\n\nJe suis actuelement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
-    de = Hi,\n\nich bin gerade hier: %1$@ . Klicke den Link %2$@ oder %3$@ , um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.
+    de = Hi,\n\nich bin gerade hier: %1$@. Klicke den Link %2$@ oder %3$@, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.
     hu = Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.
     id = Hai,\n\nSekarang saya ada di sini: %1$@. Klik tautan ini %2$@ atau yang ini %3$@ untuk melihat tempatnya di peta.\n\nTerima kasih.
     it = Ciao,\n\nSono qui adesso: %1$@. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
     ja = 私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@
-    ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
+    ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     nb = Hei,Jeg er her nå: %1$@. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
     pl = Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\nEstou aqui agora: %1$@. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
@@ -5573,6 +5582,7 @@
     ko = 최근 추적
     nb = Siste rute
     pl = Ostatnia trasa
+    pt = Histórico recente
     ro = Rute recente
     es = Trayecto reciente
     sv = Senaste resväg
@@ -7525,6 +7535,7 @@
     ru = Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!
     ar = عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!
     cs = Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!
+    da = Ved oprettelse af ruter i MAPS.ME appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!
     nl = Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!
     fi = Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!
     fr = Quand vous créez des itinéraires sur l'application MAPS.ME, veuillez garder à l'esprit les points suivants :\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu'une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.
@@ -7542,7 +7553,7 @@
     sv = När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!
     th = การสร้างเส้นทางในแอป MAPS.ME มีสิ่งที่ควรทราบดังต่อไปนี้:\n\n  - พึงพิจารณาเส้นทางที่แนะนำไว้ในฐานะที่เป็นการแนะนำเท่านั้น\n - สภาพถนน กฎจราจรและป้ายมีความสำคัญมากกว่าคำแนะนำในการนำทาง\n - แผนที่อาจไม่ถูกต้องหรือล้าสมัย และอาจไม่ได้มีการสร้างเส้นทางในรูปแบบพอจะเป็นไปได้ที่ดีที่สุด\n\n  ขอให้ปลอดภัยบนท้องถนนและดูแลตัวคุณเองด้วย!
     tr = MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!
-    uk = Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!
+    uk = Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною, а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!
     vi = Tạo các tuyến đường trong ứng dụng MAPS.ME, xin lưu ý điều sau:\n\n – Các tuyến đường được gợi ý chỉ có thể được xem là đề xuất.\n – Điều kiện con đường, luật giao thông và biển báo có mức ưu tiên cao hơn lời khuyên dẫn hướng.\n – Bản đồ có thể không chính xác hoặc lỗi thời, tuyến đường có thể không được tạo theo cách tốt nhất có thể.\n\n Hãy lái xe an toàn trên đường và bảo trọng!
     zh-Hans = 在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！
     zh-Hant = 在 MAPS.ME 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！
@@ -7621,6 +7632,7 @@
     ar = تحديث
     cs = Aktualizace
     da = Opdater
+    nl = Bijwerken
     fi = Päivitä
     fr = Mettre à jour
     de = Aktualisieren
@@ -8371,6 +8383,7 @@
     uk = Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play
     vi = Sử dụng Dịch vụ Google Play để có được vị trí hiện tại của bạn
     zh-Hans = 使用Google Play服务以获取您的当前位置。
+    zh-Hant = 使用 Google Play 服務來獲得您的目前位置
     sk = Pomocou Google Play služieb získajte svoju aktuálnu polohu
 
   [rating_just_rated]
@@ -8889,18 +8902,18 @@
     tags = android, ios
     en = You are going to download %@ MB using Mobile Data (in Roaming). This may result in additional charges, depending on your operator mobile data plan.
     ru = Будет загружено %@ MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета
-    ar = Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.
+    ar = أنت على وشك تنزيل %@ م.ب باستخدام البيانات المتنقلة (في وضع التجوال). وهذا قد يؤدي إلى مصاريف إضافية اعتمادا على خطة البيانات المتنقلة الخاصة بالمشغل الخاص بك.
     cs = Chystáte se stáhnout %@ MB pomocí mobilních dat (v roamingu). To může mít za následek další poplatky v závislosti na vašem mobilním datovém tarifu.
     da = Du kommer til at downloade %@ MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.
     nl = U gaat %@ MB downloaden met behulp van mobiele data (roaming). Dit kan leiden tot extra kosten, afhankelijk van het mobiele data-abonnement van uw aanbieder.
     fi = Olet lataamassa %@ MB Mobiilidatan (roaming-lataus) avulla. Tämä voi johtaa lisämaksuihin, riippuen matkapuhelinliittymäsi palveluntarjoajasta.
-    fr = Vous allez télécharger 2 840 Mo à l'aide de données mobiles (frais d' itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.
+    fr = Vous allez télécharger %@ Mo à l'aide de données mobiles (frais d' itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.
     de = Sie sind im Begriff, %@ MB unter Nutzung einer mobilen Datenverbindung (mit Roaming) herunterzuladen. Dies kann je nach Anbieter Ihres mobilen Datentarifs zusätzliche Kosten verursachen.
     hu = %@ MB-nyi adatot készül letölteni mobilján (roamingon) keresztül. Ez további költségekkel járhat, a mobilcsomagjától függően.
     id = Anda akan mengunduh %@ MB menggunakan Data Seluler (dalam Roaming). Hal ini dapat mengakibatkan biaya tambahan, tergantung pada paket data seluler operator.
-    it = Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.
+    it = Stai per scaricare %@ MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.
     ja = 携帯のデータ通信（ローミング）を使用して%@ MBダウンロードしようとしています。これにより、ご利用の通信会社の携帯データプランによっては追加料金が発生する可能性があります。
-    ko = 모바일 데이터(로밍시)를 사용하여 2840MB를 다운로드할 것입니다. 이는 운영자 모바일 데이터 계획에 따라 추가 요금이 발생할 수 있습니다.
+    ko = 모바일 데이터(로밍시)를 사용하여 %@ MB를 다운로드할 것입니다. 이는 운영자 모바일 데이터 계획에 따라 추가 요금이 발생할 수 있습니다.
     nb = Du er på vei til å laste ned %@ MB via mobildata (under 'roaming'). Dette kan resultere i påløpende ekstragebyrer, avhengig av din mobiloperatørløsning.
     pl = %@ MB do pobrania przy wykorzystaniu danych mobilnych (w roamingu). Może to oznaczać dodatkowe opłaty w zależności od planu danych mobilnych Twojego dostawcy usług.
     pt = Você fará o download de %@ MB através de Dados Móveis (em Roaming). Isto poderá resultar em cobranças adicionais, dependendo do seu plano de dados móveis.
@@ -11860,31 +11873,31 @@
     tags = ios, android
     en = Route from
     ru = Отсюда
-    ar = الطريق من
-    cs = Cesta k
-    da = Rute fra
-    nl = Route van
-    fi = Reitin alkupiste
-    fr = Itinéraire de
+    ar = من
+    cs = Z
+    da = Fra
+    nl = Van
+    fi = Lähtöpaikka
+    fr = Depuis
     de = Von
     hu = Innen
-    id = Rute dari
-    it = Percorso da
-    ja = からのルート
+    id = Dari
+    it = Da
+    ja = 出発地
     ko = 출발지
-    nb = Rute fra
-    pl = Droga z
-    pt = Itinerário de
-    ro = Ruta de la
-    es = Ruta desde
-    sv = Rutt från
-    th = เส้นทางจาก
-    tr = Çıkış yeri:
+    nb = Fra
+    pl = Z
+    pt = De
+    ro = Din
+    es = Desde
+    sv = Från
+    th = จาก
+    tr = Başlangıç
     uk = Звідси
-    vi = Tuyến từ
-    zh-Hans = 发送自
-    zh-Hant = 路線起點
-    sk = Cesta z
+    vi = Từ
+    zh-Hans = 从
+    zh-Hant = 從
+    sk = Z
 
   [p2p_to_here]
     tags = ios, android
@@ -12469,7 +12482,7 @@
     id = ini peningkatan peta kedua Anda. Sekarang Anda di tempat yang ke-%d di daftar editor peta. Katakan kepada teman-teman Anda tentang hal ini.
     it = Questa è la tua seconda modifica alla mappa. Adesso sei al %d° posto nella lista di chi ha modificato la mappa. Dillo ai tuoi amici.
     ja = これは2回目の地図改善。現在地図編集者リストで%d位です。
-    ko = 이는 두 번째 지도의 개선 사항입니다. 지금 지도 편집기의 목록에서 1058번째 장소에 있습니다. 친구들에게 이에 대해 말하십시오.
+    ko = 이는 두 번째 지도의 개선 사항입니다. 지금 지도 편집기의 목록에서 %d번째 장소에 있습니다. 친구들에게 이에 대해 말하십시오.
     nb = Dette er din andre forbedring av kartet. Nå er du på %d. plass i listen av kart-forbedrere. Fortell vennene dine om dette.
     pl = Po raz drugi dokonałeś poprawek na mapie. Aktualnie znajdujesz się na %d miejscu na liście osób edytujących mapy. Opowiedz o tym znajomym.
     pt = Esta é a sua segunda melhoria ao mapa. Agora, está no %dº lugar na lista de editores de mapas. Fale disto aos seus amigos.
@@ -12560,7 +12573,7 @@
     nb = Beskriv problemet detaljert slik at OpenStreetMap-samfunnet kan fikse feilen.
     pl = Prosimy o szczegółowe opisanie problemu, aby użytkownicy OpenStreetMap mogli naprawić błąd.
     pt = Por favor, descreva o problema ao pormenor para que a comunidade OpenStreeMap possa corrigir o erro.
-    ro = Vă rugăm să descrieți problema în detaliu , astfel încât comunitatea OpenStreeMap să poată remedia eroarea.
+    ro = Vă rugăm să descrieți problema în detaliu, astfel încât comunitatea OpenStreeMap să poată remedia eroarea.
     es = Por favor, describe el problema en detalle para que la comunidad de OpenStreeMap pueda corregir el error.
     sv = Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.
     th = กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้
@@ -16127,6 +16140,7 @@
     ru = Загрузить через сотовую связь?
     ar = تنزيل باستخدام اتصال الشبكة الخلوية؟
     cs = Stáhnout pomocí připojení přes mobilní síť?
+    da = Download ved brug af mobilnetværksforbindelse?
     nl = Downloaden via een mobiele gegevensverbinding?
     fi = Lataa käyttämällä puhelinverkkoyhteyttä?
     fr = Téléchargement avec une connexion réseau cellulaire ?
@@ -16154,6 +16168,7 @@
     ru = На некоторых тарифных планах или в роуминге это может привести к значительным расходам.
     ar = قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.
     cs = Toto by mohli být s některými tarify nebo roamingem výrazně dražší.
+    da = Dette kan blive dyrt med nogle abonnementer eller hvis du er i roamingtilstand.
     nl = Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.
     fi = Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.
     fr = Cela pourrait être très cher avec certains abonnements ou si vous êtes en déplacement.
@@ -16223,6 +16238,7 @@
     ko = 층 수(최대 %d)
     nb = Antall etasjer (maks. %d)
     pl = Liczba pięter (maks. %d)
+    pt = Número de pisos (máx. %d)
     ro = Număr de etaje (max %d)
     es = Número de plantas (máx. %d)
     sv = Antal våningar (max %d)
@@ -16231,6 +16247,7 @@
     uk = Кількість поверхів (максимум %d)
     vi = Số tầng (tối đa %d)
     zh-Hans = 楼号 (最大 %d)
+    zh-Hant = 樓號（最大 %d）
     sk = Počet poschodí (max %d)
 
   [error_enter_correct_storey_number]
@@ -16251,6 +16268,7 @@
     ko = 최대 25층까지 입력하세요
     nb = Rediger bygningen med maks. 25 etasjer
     pl = Edytuj budynek z maksymalną liczbą 25 pięter
+    pt = Editar o edifício com um máximo de 25 pisos
     ro = Editare clădire cu maximum 25 de etaje
     es = Edite el edificio con un máximo de 25 plantas
     sv = Redigera byggnaden med max 25 våningar
@@ -16259,6 +16277,7 @@
     uk = Редагуйте будівлі висотою максимум 25 поверхів
     vi = Sửa tòa nhà có tối đa 25 tầng
     zh-Hans = 编辑最多 25 层的建筑
+    zh-Hant = 編輯最多 25 層的建築
     sk = Upraviť s maximálne 25 poschodiami
 
   [editor_zip_code]
@@ -16279,6 +16298,7 @@
     ko = 우편번호
     nb = Postnummer
     pl = Kod pocztowy
+    pt = Código Postal
     ro = Cod poștal
     es = Código postal
     sv = Postnr
@@ -16287,6 +16307,7 @@
     uk = Поштовий індекс
     vi = Mã ZIP
     zh-Hans = 邮编
+    zh-Hant = 郵遞區號
     sk = PSČ
 
   [error_enter_correct_zip_code]
@@ -16307,6 +16328,7 @@
     ko = 올바른 우편번호를 입력하세요
     nb = Angi riktig postnummer
     pl = Podaj prawidłowy kod pocztowy
+    pt = Introduza o código postal correto
     ro = Introduceți codul poștal corect
     es = Introduzca el código postal correcto
     sv = Ange korrekt postnr
@@ -16315,6 +16337,7 @@
     uk = Введіть коректний поштовий індекс
     vi = Nhập Mã ZIP chính xác
     zh-Hans = 输入正确的邮编
+    zh-Hant = 輸入正確的郵遞區號
     sk = Zadajte správne PSČ
 
   [placepage_unknown_place]
@@ -16336,6 +16359,7 @@
     ko = 장소 알 수 없음
     nb = Ukjent sted
     pl = Nieznane miejsce
+    pt = Local desconhecido
     ro = Loc necunoscut
     es = Lugar desconocido
     sv = Okänd plats
@@ -16344,6 +16368,7 @@
     uk = Невідоме місце
     vi = Địa Điểm Chưa Biết
     zh-Hans = 未知位置
+    zh-Hant = 未知的位置
     sk = Neznáme miesto
 
   [editor_other_info]
@@ -16364,6 +16389,7 @@
     ko = 추가 정보
     nb = Tilleggsinfo
     pl = Dodatkowe informacje
+    pt = Informações adicionais
     ro = Informații suplimentare
     es = Información adicional
     sv = Mer info
@@ -16372,6 +16398,7 @@
     uk = Додаткові дані
     vi = Thông Tin Bổ Sung
     zh-Hans = 附加信息
+    zh-Hant = 額外資訊
     sk = Dodatočné informácie
 
   [editor_detailed_description_hint]
@@ -16392,6 +16419,7 @@
     ko = 상세 설명
     nb = Detaljert kommentar
     pl = Szczegółowy komentarz
+    pt = Comentário detalhado
     ro = Comentariu detaliat
     es = Comentario detallado
     sv = Detaljerad kommentar
@@ -16400,6 +16428,7 @@
     uk = Докладний коментар
     vi = Nhận xét chi tiết
     zh-Hans = 详细备注
+    zh-Hant = 詳細註釋
     sk = Zmazaná poznámka
 
   [editor_detailed_description]
@@ -16420,6 +16449,7 @@
     ko = 귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. MAPS.ME에서 편집할 수 없는 세부정보를 작성해 주세요.
     nb = De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i MAPS.ME.
     pl = Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w MAPS.ME.
+    pt = As suas alterações sugeridas irão ser enviadas para a comunidade OpenStreetMap. Descreva os dados que não podem ser editados no MAPS.ME
     ro = Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME.
     es = Los cambios que ha sugerido se enviarán a la comunidad de OpenStreetMap. Describa los detalles que no pueden editarse en MAPS.ME.
     sv = Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i MAPS.ME.
@@ -16428,6 +16458,7 @@
     uk = Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об'єкт, які не можна редагувати у MAPS.ME.
     vi = Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong MAPS.ME.
     zh-Hans = 您建议的更改将发送至 OpenStreetMap 社区。说明无法在 MAPS.ME 编辑的详情。
+    zh-Hant = 您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 MAPS.ME 中編輯的詳細資料。
     sk = Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.
 
   [editor_more_about_osm]
@@ -16448,6 +16479,7 @@
     ko = OpenStreetMap 정보
     nb = Mer om OpenStreetMap
     pl = Więcej o OpenStreetMap
+    pt = Mais sobre o OpenStreetMap
     ro = Mai multe despre OpenStreetMap
     es = Más acerca de OpenStreetMap
     sv = Mer om OpenStreetMap
@@ -16456,6 +16488,7 @@
     uk = Більше про OpenStreetMap
     vi = Thông tin bổ sung về OpenStreetMap
     zh-Hans = 关于 OpenStreetMap 的更多信息
+    zh-Hant = 關於 OpenStreetMap 的更多資訊
     sk = Viac o OpenStreetMap
 
   [editor_operator]
@@ -16475,6 +16508,7 @@
     ko = 소유자
     nb = Eier
     pl = Operator
+    pt = Operador
     ro = Operator
     es = Operador
     sv = Användare
@@ -16483,6 +16517,7 @@
     uk = Володар
     vi = Đơn vị điều hành
     zh-Hans = 运营者
+    zh-Hant = 營運者
     sk = Prevádzkovateľ
 
   [editor_tag_description]
@@ -16502,6 +16537,7 @@
     ko = 회사, 조직 또는 시설 책임자를 입력하세요.
     nb = Angi firma, organisasjon eller enkeltperson som er ansvarlig for anlegget.
     pl = Wprowadź nazwę firmy, organizacji lub osoby odpowiedzialnej za obiekty.
+    pt = Introduza a empresa, organização ou indivíduo responsável pelas instalações.
     ro = Introduceți compania, organizația sau persoana responsabilă de facilități.
     es = Introduzca la empresa, organización o individuo responsable de las instalaciones.
     sv = Ange företag, organisation eller person som är ansvarig för lokalerna.
@@ -16510,6 +16546,7 @@
     uk = Вкажіть компанію, організацію або особу, що відповідає за працездатність об'єкта
     vi = Nhập công ty, tổ chức hoặc cá nhân phụ trách cơ sở.
     zh-Hans = 输入公司、组织或设施负责人。
+    zh-Hant = 輸入公司、組織或設施負責人。
     sk = Zadajte spoločnosť, organizáciu alebo osobu zodpovednú za prevádzku.
 
   [editor_no_local_edits_title]
@@ -16529,6 +16566,7 @@
     ko = 편집한 지역정보가 없습니다
     nb = Du har ikke lokale redigeringer
     pl = Nie masz lokalnych edycji
+    pt = Não tem edições locais
     ro = Nu aveți modificări locale
     es = No tiene ediciones locales
     sv = Du har inga lokala redigeraingar
@@ -16537,6 +16575,7 @@
     uk = Поки що ви не маєте локальних виправлень
     vi = Bạn không có những chỗ sửa cục bộ
     zh-Hans = 您没有本地编辑
+    zh-Hant = 您沒有本機編輯
     sk = Nemáte miestne poznámky
 
   [editor_no_local_edits_description]
@@ -16556,6 +16595,7 @@
     ko = 이는 현재 귀하의 장치에서만 액세스할 수 있으며, 지도에서 만든 변경사항를 보여줍니다.
     nb = Dette viser antallet foreslåtte endringer på kartet som i øyeblikket bare er tilgjengelige på enheten din.
     pl = Jest to liczba sugerowanych przez ciebie zmian na mapie, które aktualnie dostępne są tylko na twoim urządzeniu.
+    pt = Isto demonstra o número das suas alterações sugeridas no mapa que atualmente só são acessíveis no seu dispositivo.
     ro = Acesta arată numărul de modificări sugerate pe hartă care sunt momentan accesibile doar pe dispozitivul dvs.
     es = Esto muestra el número de sus cambios sugeridos en el mapa que actualmente solo son accesibles desde su dispositivo.
     sv = Detta visar antalet föreslagna förändringar på kartan som som endast är tillgängliga på din enhet.
@@ -16564,6 +16604,7 @@
     uk = Тут відображається кількість запропонованих вами змін на карті, які доступні тільки на вашому пристрою
     vi = Thông tin này cho biết số thay đổi đề nghị của bạn trên bản đồ hiện chỉ có thể truy cập trên thiết bị của bạn.
     zh-Hans = 这显示了当前仅在您设备上能够访问的对地图建议修改的数量。
+    zh-Hant = 這顯示了對目前僅可在您的裝置上存取的地圖的建議修改數量。
     sk = Tu sa zobrazuje počet navrhovaných zmien na mape momentálne dostupných len vo vašom zariadení.
 
   [editor_international_names_subtitle]
@@ -16583,6 +16624,7 @@
     ko = 다른 언어로된 이름
     nb = Navn på andre språk
     pl = Nazwa w innych językach
+    pt = Nome noutras línguas
     ro = Nume în alte limbi
     es = Nombre en otros idiomas
     sv = Namn på andra språk
@@ -16591,6 +16633,7 @@
     uk = Назва на інших мовах
     vi = Tên bằng các ngôn ngữ khác
     zh-Hans = 其他语言的名称
+    zh-Hant = 其他語言的名稱
     sk = Názov v iných jazykoch
 
   [editor_send_to_osm]
@@ -16610,6 +16653,7 @@
     ko = OSM에 전송
     nb = Send til OSM
     pl = Wyślij do OSM
+    pt = Enviar para OSM
     ro = Trimitere la OSM
     es = Enviar a OSM
     sv = Skicka till OSM
@@ -16618,6 +16662,7 @@
     uk = Відправити до OSM
     vi = Gửi đến OSM
     zh-Hans = 发送至 OSM
+    zh-Hant = 傳送至 OSM
     sk = Odoslať do OSM
 
   [editor_remove]
@@ -16637,6 +16682,7 @@
     ko = 삭제
     nb = Fjern
     pl = Usuń
+    pt = Remover
     ro = Eliminare
     es = Eliminar
     sv = Ta bord
@@ -16645,6 +16691,7 @@
     uk = Видалити
     vi = Xóa
     zh-Hans = 删除
+    zh-Hant = 移除
     sk = Odstrániť
 
   [downloader_my_maps_title]
@@ -16664,6 +16711,7 @@
     ko = 내 지도
     nb = Mine kart
     pl = Moje mapy
+    pt = Os meus mapas
     ro = Hărțile mele
     es = Mis mapas
     sv = Mina kartor
@@ -16672,6 +16720,7 @@
     uk = Мої мапи
     vi = Bản đồ của tôi
     zh-Hans = 我的地图
+    zh-Hant = 我的地圖
     sk = Moje mapy
 
   [downloader_no_downloaded_maps_title]
@@ -16691,6 +16740,7 @@
     ko = 지도를 다운로드하지 않았습니다
     nb = Du har ikke lastet ned noen kart
     pl = Nie pobrano żadnych map
+    pt = Não descarregou quaisquer mapas
     ro = Nu ați descărcat nicio hartă
     es = No ha descargado ningún mapa
     sv = Du har inte laddat ner några kartor
@@ -16699,6 +16749,7 @@
     uk = Ви не маєте завантажених мап
     vi = Bạn chưa tải về bất kỳ bản đồ nào
     zh-Hans = 您尚未下载任何地图
+    zh-Hant = 您尚未下載任何地圖
     sk = Neprevzali ste žiadne mapy
 
   [downloader_no_downloaded_maps_message]
@@ -16718,6 +16769,7 @@
     ko = 오프라인으로 위치를 검색하려면 지도를 다운로드하세요.
     nb = Last ned kart for å finne plasseringen og navigere frakoblet.
     pl = Aby znajdować miejsca i nawigować bez połączenia z internetem, musisz pobrać mapy.
+    pt = Descarregar mapas para encontrar a localização e navegar offline.
     ro = Descărcați hărți pt. a găsi locația și navigați offline.
     es = Descargue mapas para encontrar la ubicación y navegar sin conexión.
     sv = Ladda ner kartor för att hitta platsen och navigera offline.
@@ -16726,6 +16778,7 @@
     uk = Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.
     vi = Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.
     zh-Hans = 下载地图来查找位置和离线浏览
+    zh-Hant = 下載地圖來尋找位置和離線瀏覽。
     sk = Prevziať mapy na nájdenie pozície a navigovanie off-line.
 
   [downloader_find_place_hint]
@@ -16745,6 +16798,7 @@
     ko = 도시/국가 검색
     nb = Søk etter by eller land
     pl = Szukaj miasta lub kraju
+    pt = Pesquisar cidade ou país
     ro = Căutare oraș sau țară
     es = Buscar ciudad o país
     sv = Sök stad eller land
@@ -16753,6 +16807,7 @@
     uk = Знайти місто або країну
     vi = Tìm kiếm thành phố hoặc quốc gia
     zh-Hans = 搜索城市或国家
+    zh-Hant = 搜尋城市或國家
     sk = Hľadať mesto alebo krajinu
 
   [current_location_unknown_title]
@@ -16773,6 +16828,7 @@
     ko = 현재 위치검색을 계속하시겠습니까?
     nb = Fortsette å oppdage din gjeldende plassering?
     pl = Kontynuować wykrywanie bieżącej lokalizacji?
+    pt = Continuar a detetar a sua localização atual?
     ro = Continuați cu detectarea locației dvs. curente?
     es = ¿Continuar detectando su ubicación actual?
     sv = Fortsätt detektera din nuvarande plats?
@@ -16781,6 +16837,7 @@
     uk = Продовжити пошук місцезнаходження?
     vi = Tiếp tục phát hiện địa điểm hiện tại của bạn?
     zh-Hans = 继续检测您的当前位置？
+    zh-Hant = 繼續偵測您的目前位置？
     sk = Pokračovať v mazaní vašej súčasnej pozície?
 
   [current_location_unknown_message]
@@ -16801,6 +16858,7 @@
     ko = 현재 위치를 알 수 없습니다. 건물 안이나 터널 안에서는 검색할 수 없습니다
     nb = Gjeldende plassering er ukjent. Du kan være i en bygning eller en tunnel.
     pl = Aktualna lokalizacja jest nieznana. Może znajdujesz się w budynku lub tunelu.
+    pt = A localização atual é desconhecida. Talvez esteja num edifício ou num túnel.
     ro = Locația curentă este necunoscută. Poate vă aflați într-o clădire sau un tunel.
     es = La ubicación actual es desconocida. Quizá esté en un edificio o en un túnel.
     sv = Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.
@@ -16809,6 +16867,7 @@
     uk = Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.
     vi = Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.
     zh-Hans = 当前位置未知，可能您在建筑内或隧道内。
+    zh-Hant = 目前位置未知，可能您在建築物內或隧道內。
     sk = Súčasná pozícia je neznáma. Možno sa nachádzate v budove alebo v tuneli.
 
   [current_location_unknown_continue_button]
@@ -16828,6 +16887,7 @@
     ko = 계속
     nb = Fortsett
     pl = Kontynuuj
+    pt = Continuar
     ro = Continuare
     es = Continuar
     sv = Fortsätt
@@ -16836,6 +16896,7 @@
     uk = Продовжити
     vi = Tiếp tục
     zh-Hans = 继续
+    zh-Hant = 繼續
     sk = Pokračovať
 
   [current_location_unknown_stop_button]
@@ -16855,6 +16916,7 @@
     ko = 중지
     nb = Stopp
     pl = Stop
+    pt = Parar
     ro = Oprire
     es = Detener
     sv = Stopp
@@ -16863,6 +16925,7 @@
     uk = Зупинити
     vi = Dừng
     zh-Hans = 停止
+    zh-Hant = 停止
     sk = Zastaviť
 
   [current_location_unknown_error_title]
@@ -16881,6 +16944,7 @@
     ko = 현재 위치를 알 수 없습니다.
     nb = Gjeldende plassering er ukjent.
     pl = Aktualna lokalizacja jest nieznana.
+    pt = A localização atual é desconhecida.
     ro = Locația curentă este necunoscută.
     es = La ubicación actual es desconocida.
     sv = Den nuvarande platsen är okänd.
@@ -16889,6 +16953,7 @@
     uk = Місцезнаходження не знайдено.
     vi = Chưa biết địa điểm hiện tại.
     zh-Hans = 当前位置未知
+    zh-Hant = 目前位置未知。
     sk = Súčasná pozícia je neznáma.
 
   [current_location_unknown_error_message]
@@ -16908,6 +16973,7 @@
     ko = 위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.
     nb = Det oppstod en feil under søking etter plasseringen din. Kontroller at plasseringen din virker som den skal, og prøv på nytt senere.
     pl = Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.
+    pt = Ocorreu um erro ao pesquisar a sua localização. Verifique se o seu dispositivo está a funcionar devidamente e volte a tentar mais tarde.
     ro = S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.
     es = Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.
     sv = Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.
@@ -16916,6 +16982,7 @@
     uk = Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.
     vi = Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.
     zh-Hans = 搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。
+    zh-Hant = 搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。
     sk = Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.
 
   [whatsnew_update_editor_title]
@@ -16935,6 +17002,7 @@
     ko = 지도 편집기를 업데이트했습니다
     nb = Vi har oppdatert kartredigeringsprogrammet
     pl = Zaktualizowaliśmy edytor map
+    pt = Atualizámos o editor do mapa
     ro = Am actualizat editorul de hărți
     es = Hemos actualizado el editor de mapas
     sv = Vi har uppdaterat kartredigeraren
@@ -16943,34 +17011,37 @@
     uk = Ми обновили редактор
     vi = Chúng tôi đã cập nhật trình biên tập bản đồ
     zh-Hans = 我们已经更新了地图编辑器
+    zh-Hant = 我們已更新地圖編輯器
     sk = Aktualizovali sme program na úpravu máp
 
   [whatsnew_update_editor_message]
-    en = MAPS.ME users have made 90 000 map changes. Together we are making the most detailed maps in the World. Join us!
-    ru = Пользователи MAPS.ME внесли уже 90 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!
-    ar = قام مستخدمو MAPS.ME بإجراء 90000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!
-    cs = Uživatelé aplikace MAPS.ME už provedli na 90 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!
-    da = MAPS.ME brugere har foretaget 90.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!
-    nl = MAPS.ME-gebruikers hebben 90.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!
-    fi = MAPS.ME -käyttäjät ovat tehneet 90 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!
-    fr = Les utilisateurs de MAPS.ME ont procédé à 90 000 modifications de cartes. Nous créons ensemble les cartes les plus détaillées du monde. Rejoignez-nous !
-    de = Die Benutzer haben schon mehr als 90.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!
-    hu = A MAPS.ME felhasználói 90 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!
-    id = Pengguna MAPS.ME telah membuat 90 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!
-    it = Gli utenti di MAPS.ME hanno apportato 90.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!
-    ja = MAPS.MEユーザーは90000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！
-    ko = MAPS.ME 사용자는 90000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!
-    nb = MAPS.ME-brukere har foretatt 90 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!
-    pl = Użytkownicy MAPS.ME dokonali 90 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!
-    ro = Utilizatorii MAPS.ME au făcut 90.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!
-    es = Los usuarios de MAPS.ME han realizado 90 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!
-    sv = MAPS.ME-användare har gjort 90 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!
-    th = ผู้ใช้ MAPS.ME ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 90 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!
-    tr = MAPS.ME kullanıcıları, haritalar üzerinde 90.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!
-    uk = Користувачі MAPS.ME вже внесли 90 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!
-    vi = Người dùng MAPS.ME đã thực hiện 90 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!
-    zh-Hans = MAPS.ME 用户已经进行了 90 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！
-    sk = Používatelia MAPS.ME urobili 90 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!
+    en = MAPS.ME users have made 200 000 map changes. Together we are making the most detailed maps in the World. Join us!
+    ru = Пользователи MAPS.ME внесли уже 200 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!
+    ar = قام مستخدمو MAPS.ME بإجراء 200000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!
+    cs = Uživatelé aplikace MAPS.ME už provedli na 200 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!
+    da = MAPS.ME brugere har foretaget 200.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!
+    nl = MAPS.ME-gebruikers hebben 200.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!
+    fi = MAPS.ME -käyttäjät ovat tehneet 200 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!
+    fr = Les utilisateurs de MAPS.ME ont procédé à 200 000 modifications de cartes. Nous créons ensemble les cartes les plus détaillées du monde. Rejoignez-nous !
+    de = Die Benutzer haben schon mehr als 200.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!
+    hu = A MAPS.ME felhasználói 200 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!
+    id = Pengguna MAPS.ME telah membuat 200 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!
+    it = Gli utenti di MAPS.ME hanno apportato 200.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!
+    ja = MAPS.MEユーザーは200000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！
+    ko = MAPS.ME 사용자는 200000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!
+    nb = MAPS.ME-brukere har foretatt 200 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!
+    pl = Użytkownicy MAPS.ME dokonali 200 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!
+    pt = Os utilizadores do MAPS.ME fizeram 200 000 alterações no mapa. Juntos, estamos a fazer os mapas mais detalhados do mundo. Junte-se a nós!
+    ro = Utilizatorii MAPS.ME au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!
+    es = Los usuarios de MAPS.ME han realizado 200 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!
+    sv = MAPS.ME-användare har gjort 200 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!
+    th = ผู้ใช้ MAPS.ME ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 200 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!
+    tr = MAPS.ME kullanıcıları, haritalar üzerinde 200.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!
+    uk = Користувачі MAPS.ME вже внесли 200 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!
+    vi = Người dùng MAPS.ME đã thực hiện 200 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!
+    zh-Hans = MAPS.ME 用户已经进行了 200 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！
+    zh-Hant = MAPS.ME 使用者已經進行了 200,000 處地圖變更。我們正在齊心協力打造世界上最詳細的地圖，加入我們吧！
+    sk = Používatelia MAPS.ME urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!
 
   [whatsnew_update_editor_message_update]
     comment = Additional text in whats new
@@ -17172,6 +17243,7 @@
     ko = 주차공간
     nb = Åpen plass
     pl = Powierzchnia
+    pt = Superfície
     ro = Suprafață
     es = Superficie
     sv = Yta
@@ -17180,6 +17252,7 @@
     uk = Відкрите паркування
     vi = Trên mặt đất
     zh-Hans = 表面
+    zh-Hant = 表面
     sk = Typ parkoviska
 
   [placepage_parking_multistorey]
@@ -17199,6 +17272,7 @@
     ko = 주차장 건물
     nb = Fleretasjers
     pl = Wielopoziomowy
+    pt = Vários andares
     ro = Multi-etajat
     es = Varias plantas
     sv = Flera våningar
@@ -17207,6 +17281,7 @@
     uk = Багатоповерхове наземне паркування
     vi = Nhiều tầng
     zh-Hans = 多层
+    zh-Hant = 多樓層
     sk = Viacpodlažné
 
   [placepage_parking_underground]
@@ -17226,6 +17301,7 @@
     ko = 지하
     nb = Undergrunns
     pl = Podziemny
+    pt = Local desconhecido
     ro = Subteran
     es = Subterráneo
     sv = Under mark
@@ -17234,6 +17310,7 @@
     uk = Підземне паркування
     vi = Dưới mặt đất
     zh-Hans = 地下
+    zh-Hant = 未知的位置
     sk = Podzemné
 
   [placepage_parking_rooftop]
@@ -17253,6 +17330,7 @@
     ko = 옥상
     nb = På taket
     pl = Na dachu
+    pt = Terraço
     ro = Pe acoperiș
     es = Azotea
     sv = Hustak
@@ -17261,6 +17339,7 @@
     uk = Паркування на даху будівлі
     vi = Trên mái
     zh-Hans = 楼顶
+    zh-Hant = 樓頂
     sk = Na streche
 
   [placepage_parking_sheds]
@@ -17280,6 +17359,7 @@
     ko = 창고
     nb = Skur
     pl = Wiaty
+    pt = Abrigos
     ro = Garaj
     es = Cobertizos
     sv = Skjul
@@ -17288,6 +17368,7 @@
     uk = Приватне легке укриття для автомобілів
     vi = Chỗ để xe
     zh-Hans = 小屋
+    zh-Hant = 小屋
     sk = Garáž
 
   [placepage_parking_carports]
@@ -17307,6 +17388,7 @@
     ko = 간이 차고
     nb = Carport
     pl = Zadaszenia dla samochodów
+    pt = Garagens
     ro = Garaje
     es = Cochera
     sv = Garage
@@ -17315,6 +17397,7 @@
     uk = Капітальний навіс
     vi = Nhà để xe
     zh-Hans = 屋侧车库
+    zh-Hant = 屋側車庫
     sk = Otvorené garáže
 
   [placepage_parking_boxes]
@@ -17334,6 +17417,7 @@
     ko = 차고
     nb = Garasjebokser
     pl = Miejsca parkingowe w garażu
+    pt = Garagens
     es = Garaje
     sv = Garageboxar
     th = โรงรถแบบกล่อง
@@ -17341,6 +17425,7 @@
     uk = Гаражний бокс
     vi = Thùng gara
     zh-Hans = 停车房
+    zh-Hant = 停車房
     sk = Hromadné garáže
 
   [placepage_parking_pay]
@@ -17360,6 +17445,7 @@
     ko = 유료
     nb = Betaling
     pl = Płatny
+    pt = Pagamento
     ro = Cu plată
     es = De pago
     sv = Kostnadsbelagd
@@ -17368,6 +17454,7 @@
     uk = Платне
     vi = Trả phí
     zh-Hans = 付款
+    zh-Hant = 付款
     sk = Platené
 
   [placepage_parking_free]
@@ -17387,6 +17474,7 @@
     ko = 무료
     nb = Gratis
     pl = Darmowy
+    pt = Gratuito
     ro = Gratuit
     es = Gratuito
     sv = Gratis
@@ -17395,6 +17483,7 @@
     uk = Безкоштовне
     vi = Miễn phí
     zh-Hans = 免费
+    zh-Hant = 免費
     sk = Zdarma
 
   [placepage_parking_interval]
@@ -17414,6 +17503,7 @@
     ko = 주차요금 간격
     nb = Intervallbetaling
     pl = Płatny na godziny
+    pt = Pagamento intervalado
     ro = Interval de plată
     es = Pago por intervalos
     sv = Delvis kostnadsbelagd
@@ -17422,6 +17512,7 @@
     uk = Змінно платне
     vi = Trả Phí Cách Quãng
     zh-Hans = 间隔付款
+    zh-Hant = 間隔付款
     sk = Platba v intervaloch
 
   [placepage_entrance_number]
@@ -17441,6 +17532,7 @@
     ko = 번호
     nb = Nr.
     pl = Nr
+    pt = N.º
     ro = Nr.
     es = N.º
     sv = Nr
@@ -17449,6 +17541,7 @@
     uk = №
     vi = Số
     zh-Hans = 编号
+    zh-Hant = 編號
     sk = Číslo
 
   [placepage_entrance_type]
@@ -17468,6 +17561,7 @@
     ko = 입구
     nb = Vindfang
     pl = Wejście
+    pt = Entrada
     ro = Intrare
     es = Entrada
     sv = Entré
@@ -17476,6 +17570,7 @@
     uk = Під'їзд
     vi = Lối vào
     zh-Hans = 入口
+    zh-Hant = 入口
     sk = Vstup
 
   [placepage_flat]
@@ -17495,6 +17590,7 @@
     ko = 앱
     nb = leil.
     pl = Mieszkanie
+    pt = apto.
     ro = ap.
     es = aplicación
     sv = lgh
@@ -17503,6 +17599,7 @@
     uk = кв.
     vi = áp dụng
     zh-Hans = 公寓
+    zh-Hant = 公寓
     sk = Byt
 
   [placepage_open_24_7]
@@ -17517,10 +17614,12 @@
     de = Durchgehend geöffnet
     hu = 24 órás
     id = 24 jam sehari, 7 hari seminggu
+    it = 24 / 7
     ja = 24時間体制
     ko = 연중무휴
     nb = Døgnåpen
     pl = 24 / 7
+    pt = 24 / 7
     ro = 24 / 7
     es = 24 / 7
     sv = Døgnet rundt
@@ -17528,6 +17627,8 @@
     tr = 24 / 7
     uk = Цілодобово
     vi = 24 / 7
+    zh-Hans = 24 / 7
+    zh-Hant = 全天候
     sk = 24 / 7
 
   [placepage_place_rating]
@@ -17547,6 +17648,7 @@
     ko = 평가:
     nb = Rangering:
     pl = Ocena:
+    pt = Classificação
     ro = Evaluare:
     es = Valoración:
     sv = Betyg:
@@ -17555,33 +17657,37 @@
     uk = Рейтинг:
     vi = Xếp hạng:
     zh-Hans = 评价
+    zh-Hant = 評價：
     sk = Hodnotenie:
 
   [place_page_starting_from]
-    en = from %d
-    ru = от %d
-    ar = من%d
-    cs = od %d
-    da = fra %d
-    fi = %d:stä
-    fr = à partir de %d
-    de = ab %d
-    hu = kezdőár %d
-    id = dari %d
-    it = da %d
-    ja = %dから
-    ko = %d에서
-    nb = fra %d
-    pl = od %d
-    ro = din %d
-    es = desde %d
-    sv = från %d
-    th = จาก %d
-    tr = %d’dan
-    uk = від %d
-    vi = từ %d
-    zh-Hans = 从 %d
-    sk = od %d
+    en = from %s
+    ru = от %s
+    ar = من%s
+    cs = od %s
+    da = fra %s
+    nl = van %s
+    fi = %s:stä
+    fr = à partir de %s
+    de = ab %s
+    hu = kezdőár %s
+    id = dari %s
+    it = da %s
+    ja = %sから
+    ko = %s에서
+    nb = fra %s
+    pl = od %s
+    pt = a partir de %s
+    ro = din %s
+    es = desde %s
+    sv = från %s
+    th = จาก %s
+    tr = %s’dan
+    uk = від %s
+    vi = từ %s
+    zh-Hans = 从 %s
+    zh-Hant = 從 %s
+    sk = od %s
 
   [meter]
     en = m
@@ -17600,6 +17706,7 @@
     ko = m
     nb = m
     pl = m
+    pt = m
     ro = m
     es = m
     sv = m
@@ -17608,6 +17715,7 @@
     uk = м
     vi = m
     zh-Hans = m
+    zh-Hant = m
     sk = m
 
   [kilometer]
@@ -17627,6 +17735,7 @@
     ko = km
     nb = km
     pl = km
+    pt = km
     ro = km
     es = km
     sv = km
@@ -17635,6 +17744,7 @@
     uk = км
     vi = km
     zh-Hans = km
+    zh-Hant = km
     sk = km
 
   [placepage_place_description]
@@ -17654,6 +17764,7 @@
     ko = 설명
     nb = Beskrivelse
     pl = Opis
+    pt = Descrição
     ro = Descriere
     es = Descripción
     sv = Beskrivning
@@ -17662,6 +17773,7 @@
     uk = Опис
     vi = Mô tả
     zh-Hans = 说明
+    zh-Hant = 說明
     sk = Popis
 
   [placepage_more_button]
@@ -17681,6 +17793,7 @@
     ko = 자세히
     nb = Mer
     pl = Więcej
+    pt = Mais
     ro = Mai multe
     es = Más
     sv = Mer
@@ -17689,6 +17802,7 @@
     uk = Ще
     vi = Bổ sung
     zh-Hans = 更多
+    zh-Hant = 更多
     sk = Viac
 
   [bookingcom_book_button]
@@ -17708,6 +17822,7 @@
     ko = 예약
     nb = Bestill
     pl = Książka
+    pt = Livro
     ro = Rezervare
     es = Reservar
     sv = Boka
@@ -17716,6 +17831,7 @@
     uk = Забронювати
     vi = Đặt trước
     zh-Hans = 图书
+    zh-Hant = 圖書
     sk = Rezervovať
 
   [placepage_call_button]
@@ -17735,6 +17851,7 @@
     ko = 전화
     nb = Ring
     pl = Zadzwoń
+    pt = Chamada
     ro = Apel
     es = Llamar
     sv = Ring
@@ -17743,6 +17860,7 @@
     uk = Подзвонити
     vi = Gọi
     zh-Hans = 呼叫
+    zh-Hant = 呼叫
     sk = Zavolať
 
   [placepage_edit_bookmark_button]
@@ -17762,6 +17880,7 @@
     ko = 즐겨찾기 편집
     nb = Rediger bokmerke
     pl = Edytuj zakładkę
+    pt = Editar marcador
     ro = Editare marcaj
     es = Editar marcador
     sv = Redigera bokmärke
@@ -17770,6 +17889,7 @@
     uk = Редагувати мiтку
     vi = Sửa Dấu Trang
     zh-Hans = 编辑书签
+    zh-Hant = 編輯書籤
     sk = Upraviť záložku
 
   [placepage_bookmark_name_hint]
@@ -17789,6 +17909,7 @@
     ko = 즐겨찾기 이름
     nb = Bokmerkenavn
     pl = Nazwa zakładki
+    pt = Nome do marcador
     ro = Nume marcaj
     es = Nombre del marcador
     sv = Namn bokmärke
@@ -17797,6 +17918,7 @@
     uk = Назва мiтки
     vi = Tên Dấu Trang
     zh-Hans = 书签名称
+    zh-Hant = 書籤名稱
     sk = Názov záložky
 
   [placepage_personal_notes_hint]
@@ -17816,6 +17938,7 @@
     ko = 개인 메모
     nb = Personlige notater
     pl = Notatki osobiste
+    pt = Notas pessoais
     ro = Note personale
     es = Notas personales
     sv = Personlig anteckning
@@ -17824,6 +17947,7 @@
     uk = Примітка
     vi = Ghi chú cá nhân
     zh-Hans = 个人备注
+    zh-Hant = 個人備註
     sk = Osobné poznámky
 
   [placepage_delete_bookmark_button]
@@ -17843,6 +17967,7 @@
     ko = 즐겨찾기 삭제
     nb = Slett bokmerke
     pl = Usuń zakładkę
+    pt = Eliminar marcador
     ro = Ștergere marcaj
     es = Eliminar marcador
     sv = Radera bokmärke
@@ -17851,6 +17976,7 @@
     uk = Видалити мiтку
     vi = Xóa Dấu Trang
     zh-Hans = 删除书签
+    zh-Hant = 刪除書籤
     sk = Zmazať záložku
 
   [editor_edits_sent_message]
@@ -17870,6 +17996,7 @@
     ko = 귀하의 제안 변경사항이 전송되었습니다
     nb = De foreslåtte endringene er sendt
     pl = Twoje sugestie zostały wysłane
+    pt = As suas alterações sugeridas foram enviadas
     ro = Modificările sugerate au fost trimise
     es = Se han enviado sus cambios sugeridos
     sv = Dina föreslagna ändringar har skickats
@@ -17878,6 +18005,7 @@
     uk = Зміни, що ви запропонували, відправлено
     vi = Những thay đổi đề nghị của bạn đã được gửi
     zh-Hans = 您的建议已发送
+    zh-Hant = 您的建議已傳送
     sk = Vykonali sa vami odporúčané zmeny
 
   [editor_comment_hint]
@@ -17894,8 +18022,10 @@
     id = Komentar…
     it = Commenta…
     ja = コメント…
+    ko = 설명…
     nb = Kommentar…
     pl = Komentarz…
+    pt = Comentário…
     ro = Comentariu…
     es = Comentario…
     sv = kommentar…
@@ -17904,6 +18034,7 @@
     uk = Коментар…
     vi = Nhận xét…
     zh-Hans = 备注…
+    zh-Hant = 註解…
     sk = Poznámka…
 
   [editor_reset_edits_message]
@@ -17923,6 +18054,7 @@
     ko = 지역 변경 사항을 재설정하시겠습니까?
     nb = Nullstille alle lokale endringer?
     pl = Skasować wszystkie lokalne zmiany?
+    pt = Repor todas as alterações locais?
     ro = Resetați toate modificările locale?
     es = ¿Restablecer todos los cambios locales?
     sv = Återställ alla lokala ändringar?
@@ -17931,6 +18063,7 @@
     uk = Скинути усі локальні виправлення?
     vi = Cài đặt lại tất cả thay đổi cục bộ?
     zh-Hans = 重置所有本地更改？
+    zh-Hant = 重設所有本機變更？
     sk = Resetovať všetky miestne časy?
 
   [editor_reset_edits_button]
@@ -17950,6 +18083,7 @@
     ko = 재설정
     nb = Nullstill
     pl = Skasuj
+    pt = Repor
     ro = Resetare
     es = Restablecer
     sv = Återställ
@@ -17958,6 +18092,7 @@
     uk = Скинути
     vi = Cài đặt lại
     zh-Hans = 重置
+    zh-Hant = 重設
     sk = Resetovať
 
   [editor_remove_place_message]
@@ -17977,6 +18112,7 @@
     ko = 추가한 장소를 삭제하시겠습니까?
     nb = Fjerne et tilføyd sted?
     pl = Usunąć dodane miejsce?
+    pt = Remover um local adicionado?
     ro = Eliminați locul adăugat?
     es = ¿Eliminar el lugar añadido?
     sv = Ta bort en tillagd plats?
@@ -17985,6 +18121,7 @@
     uk = Видалити об'єкт, що ви додали?
     vi = Xóa một địa điểm đã thêm?
     zh-Hans = 删除已添加的位置？
+    zh-Hant = 移除已新增的位置？
     sk = Odstrániť pridané miesto?
 
   [editor_remove_place_button]
@@ -18004,6 +18141,7 @@
     ko = 삭제
     nb = Fjern
     pl = Usuń
+    pt = Remover
     ro = Eliminare
     es = Eliminar
     sv = Ta bort
@@ -18012,6 +18150,7 @@
     uk = Видалити
     vi = Xóa
     zh-Hans = 删除
+    zh-Hant = 移除
     sk = Odstrániť
 
   [editor_status_sending]
@@ -18031,6 +18170,7 @@
     ko = 보내는 중…
     nb = Sender…
     pl = Wysyłanie…
+    pt = A enviar…
     ro = Se trimite…
     es = Enviando…
     sv = Skickar…
@@ -18039,6 +18179,7 @@
     uk = Відправка…
     vi = Đang gửi …
     zh-Hans = 正在发送…
+    zh-Hant = 正在傳送…
     sk = Odosiela sa…
 
   [editor_place_doesnt_exist]
@@ -18058,6 +18199,7 @@
     ko = 존재하지 않는 장소입니다.
     nb = Sted finnes ikke
     pl = Takie miejsce nie istnieje
+    pt = O local não existe
     ro = Locul nu există
     es = El lugar no existe
     sv = Platsen finns inte
@@ -18066,6 +18208,7 @@
     uk = Місце не існує
     vi = Địa điểm không tồn tại
     zh-Hans = 位置不存在
+    zh-Hant = 位置不存在
     sk = Miesto neexistuje
 
   [place_page_booking_rating]
