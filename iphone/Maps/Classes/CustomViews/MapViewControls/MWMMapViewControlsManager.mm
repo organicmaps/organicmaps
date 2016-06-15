@@ -75,7 +75,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentView:controller.view delegate:self];
   self.searchManager = [[MWMSearchManager alloc] initWithParentView:controller.view delegate:self];
   self.hidden = NO;
-  self.zoomHidden = NO;
+  self.sideButtonsHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
   [self configRoutePoints];
   [MWMFrameworkListener addObserver:self];
@@ -587,7 +587,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     return NO;
   }
   self.hidden = NO;
-  self.zoomHidden = NO;
+  self.sideButtonsHidden = NO;
   GetFramework().FollowRoute();
   self.disableStandbyOnRouteFollowing = YES;
   [self.menuController setStreetName:@""];
@@ -714,7 +714,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (_hidden == hidden)
     return;
   _hidden = hidden;
-  self.zoomHidden = _zoomHidden;
+  self.sideButtonsHidden = _sideButtonsHidden;
   self.menuState = _menuState;
   EAGLView * glView = (EAGLView *)self.ownerController.view;
   glView.widgetsManager.fullScreen = hidden;
@@ -723,7 +723,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)setZoomHidden:(BOOL)zoomHidden
 {
   _zoomHidden = zoomHidden;
-  self.sideButtons.hidden = self.hidden || zoomHidden;
+  self.sideButtons.zoomHidden = zoomHidden;
+}
+
+- (void)setSideButtonsHidden:(BOOL)sideButtonsHidden
+{
+  _sideButtonsHidden = sideButtonsHidden;
+  self.sideButtons.hidden = self.hidden || sideButtonsHidden;
 }
 
 - (void)setMenuState:(MWMBottomMenuState)menuState

@@ -1,19 +1,33 @@
 #import "Common.h"
-#import "MWMSideButtonsView.h"
+#import "MWMButton.h"
 #import "MWMMapViewControlsCommon.h"
+#import "MWMSideButtonsView.h"
 
 namespace
 {
-  CGFloat const kZoomViewOffsetToTopBound = 12.0;
-  CGFloat const kZoomViewOffsetToBottomBound = 40.0;
-  CGFloat const kZoomViewOffsetToFrameBound = 294.0;
-  CGFloat const kZoomViewHideBoundPercent = 0.4;
+  CGFloat bottomBoundLimit(BOOL isPortrait)
+  {
+    if (IPAD)
+      return isPortrait ? 320.0 : 240.0;
+    else
+      return isPortrait ? 180.0 : 60.0;
+  }
+
+  CGFloat zoom2LayoutOffset(BOOL isPortrait)
+  {
+    return IPAD || isPortrait ? 52.0 : 30;
+  }
 } // namespace
 
 @interface MWMSideButtonsView()
 
 @property (nonatomic) CGRect defaultBounds;
-@property (nonatomic) BOOL show;
+
+@property (weak, nonatomic) IBOutlet MWMButton * zoomIn;
+@property (weak, nonatomic) IBOutlet MWMButton * zoomOut;
+@property (weak, nonatomic) IBOutlet MWMButton * location;
+
+@property (nonatomic) BOOL isPortrait;
 
 @end
 
@@ -27,7 +41,18 @@ namespace
 
 - (void)layoutSubviews
 {
+  BOOL const isPortrait = self.superview.width < self.superview.height;
+  if (self.isPortrait != isPortrait && self.superview)
+  {
+    self.isPortrait = isPortrait;
+    self.bottomBound = self.superview.height;
+    self.location.minY = self.zoomOut.maxY + zoom2LayoutOffset(isPortrait);
+    CGSize size = self.defaultBounds.size;
+    size.height = self.location.maxY;
+    self.defaultBounds.size = size;
+  }
   self.bounds = self.defaultBounds;
+
   [self layoutXPosition:self.hidden];
   [self layoutYPosition];
   [super layoutSubviews];
@@ -43,41 +68,45 @@ namespace
 
 - (void)layoutYPosition
 {
-  CGFloat const maxY = MIN(self.superview.height - kZoomViewOffsetToFrameBound, self.bottomBound - kZoomViewOffsetToBottomBound);
-  self.minY = MAX(maxY - self.height, self.topBound + kZoomViewOffsetToTopBound);
+  self.maxY = self.bottomBound;
 }
 
-- (void)moveAnimated
+- (void)fadeZoomButtonsShow:(BOOL)show
 {
-  if (self.hidden)
-    return;
-  [UIView animateWithDuration:framesDuration(kMenuViewMoveFramesCount) animations:^{ [self layoutYPosition]; }];
-}
-
-- (void)fadeAnimated
-{
-  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^{ self.alpha = self.show ? 1.0 : 0.0; }];
+  CGFloat const alpha = show ? 1.0 : 0.0;
+  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^
+  {
+    self.zoomIn.alpha = alpha;
+    self.zoomOut.alpha = alpha;
+  }];
 }
 
 - (void)animate
 {
-  CGFloat const hideBound = kZoomViewHideBoundPercent * self.superview.height;
-  BOOL const isHidden = self.alpha == 0.0;
-  BOOL const willHide = (self.bottomBound < hideBound) || (self.defaultBounds.size.height > self.bottomBound - self.topBound);
-  if (willHide)
+  [self layoutYPosition];
+  BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
+  BOOL const willZoomHide = (self.defaultBounds.size.height > self.bottomBound - self.topBound);
+  if (willZoomHide)
   {
-    if (!isHidden)
-      self.show = NO;
+    if (!isZoomHidden)
+      [self fadeZoomButtonsShow:NO];
   }
   else
   {
-    [self moveAnimated];
-    if (isHidden)
-      self.show = YES;
+    if (isZoomHidden)
+      [self fadeZoomButtonsShow:YES];
   }
 }
 
 #pragma mark - Properties
+
+- (void)setZoomHidden:(BOOL)zoomHidden
+{
+  _zoomHidden = zoomHidden;
+  CGFloat const minX = zoomHidden ? self.width + kViewControlsOffsetToBounds : 0.0;
+  self.zoomIn.minX = minX;
+  self.zoomOut.minX = minX;
+}
 
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated
 {
@@ -134,14 +163,7 @@ namespace
   if (!self.superview)
     return _bottomBound;
   BOOL const isPortrait = self.superview.width < self.superview.height;
-  CGFloat limit = IPAD ? 320.0 : isPortrait ? 150.0 : 80.0;
-  return MIN(self.superview.height - limit, _bottomBound);
-}
-
-- (void)setShow:(BOOL)show
-{
-  _show = show;
-  [self fadeAnimated];
+  return MIN(self.superview.height - bottomBoundLimit(isPortrait), _bottomBound);
 }
 
 @end

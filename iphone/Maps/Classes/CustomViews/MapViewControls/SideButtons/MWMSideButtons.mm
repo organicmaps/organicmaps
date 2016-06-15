@@ -223,17 +223,24 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
   return zoomButtonsEnabled;
 }
 
+- (BOOL)zoomHidden
+{
+  return self.sideView.zoomHidden;
+}
+
+- (void)setZoomHidden:(BOOL)zoomHidden
+{
+  self.sideView.zoomHidden = [self isZoomEnabled] ? zoomHidden : YES;
+}
+
 - (BOOL)hidden
 {
-  return self.isZoomEnabled ? self.sideView.hidden : YES;
+  return self.sideView.hidden;
 }
 
 - (void)setHidden:(BOOL)hidden
 {
-  if (self.isZoomEnabled)
-    [self.sideView setHidden:hidden animated:YES];
-  else
-    self.sideView.hidden = YES;
+  [self.sideView setHidden:hidden animated:YES];
 }
 
 @end
