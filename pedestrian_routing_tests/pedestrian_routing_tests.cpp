@@ -6,6 +6,7 @@
 #include "routing/features_road_graph.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
+#include "routing/pedestrian_directions.hpp"
 #include "routing/pedestrian_model.hpp"
 #include "routing/router_delegate.hpp"
 
@@ -94,9 +95,10 @@ unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index, stor
   auto UKGetter = [&](m2::PointD const & pt) { return cig.GetRegionCountryId(pt); };
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm());
+  unique_ptr<routing::IDirectionsEngine> directionsEngine(new routing::PedestrianDirectionsEngine());
   unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter(
       "test-astar-pedestrian", index, UKGetter, routing::IRoadGraph::Mode::IgnoreOnewayTag,
-      move(vehicleModelFactory), move(algorithm), nullptr));
+      move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
   return router;
 }
 
@@ -105,9 +107,10 @@ unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index 
   auto UKGetter = [&](m2::PointD const & pt) { return cig.GetRegionCountryId(pt); };
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm());
+  unique_ptr<routing::IDirectionsEngine> directionsEngine(new routing::PedestrianDirectionsEngine());
   unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter(
       "test-astar-bidirectional-pedestrian", index, UKGetter, routing::IRoadGraph::Mode::IgnoreOnewayTag,
-      move(vehicleModelFactory), move(algorithm), nullptr));
+      move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
   return router;
 }
 
