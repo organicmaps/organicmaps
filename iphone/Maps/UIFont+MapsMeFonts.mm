@@ -1,232 +1,206 @@
 #import "Common.h"
 #import "UIFont+MapsMeFonts.h"
 
-#include "std/map.hpp"
-
-typedef NS_ENUM(NSUInteger, FontWeight)
-{
-  FontWeightRegular,
-  FontWeightMedium,
-  FontWeightLight,
-  FontWeightBold
-};
-
-NSString * fontName(FontWeight weight, CGFloat size)
-{
-  if (!isIOSVersionLessThan(9))
-  {
-    if (size < 20)
-    {
-      switch (weight)
-      {
-        case FontWeightRegular: return @".SFUIText-Regular";
-        case FontWeightMedium: return @".SFUIText-Medium";
-        case FontWeightLight: return @".SFUIText-Light";
-        case FontWeightBold: return @".SFUIText-Bold";
-      }
-    }
-    else
-    {
-      switch (weight)
-      {
-        case FontWeightRegular: return @".SFUIDisplay-Regular";
-        case FontWeightMedium: return @".SFUIDisplay-Medium";
-        case FontWeightLight: return @".SFUIDisplay-Light";
-        case FontWeightBold: return @".SFUIDisplay-Bold";
-      }
-    }
-  }
-  switch (weight)
-  {
-    case FontWeightRegular: return @"HelveticaNeue";
-    case FontWeightMedium: return @"HelveticaNeue-Medium";
-    case FontWeightLight: return @"HelveticaNeue-Light";
-    case FontWeightBold: return @"HelveticaNeue-Bold";
-  }
-}
+NSString * const kMediumFontName = @"HelveticaNeue-Medium";
+NSString * const kLightFontName = @"HelveticaNeue-Light";
 
 @implementation UIFont (MapsMeFonts)
 
 + (UIFont *)regular10
 {
-  CGFloat const size = 10;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:10];
 }
 
 + (UIFont *)regular12
 {
-  CGFloat const size = 12;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:12];
 }
 
 + (UIFont *)regular13
 {
-  CGFloat const size = 13;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:13];
 }
 
 + (UIFont *)regular14
 {
-  CGFloat const size = 14;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:14];
 }
 
 + (UIFont *)regular15
 {
-  CGFloat const size = 15;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:15];
 }
 
 + (UIFont *)regular16
 {
-  CGFloat const size = 16;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:16];
 }
 
 + (UIFont *)regular17
 {
-  CGFloat const size = 17;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:17];
 }
 
 + (UIFont *)regular18
 {
-  CGFloat const size = 18;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:18];
 }
 
 + (UIFont *)regular24
 {
-  CGFloat const size = 24;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:24];
 }
 
 + (UIFont *)regular32
 {
-  CGFloat const size = 32;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:32];
 }
 
 + (UIFont *)regular52
 {
-  CGFloat const size = 52;
-  return [UIFont fontWithName:fontName(FontWeightRegular, size) size:size];
+  return [UIFont systemFontOfSize:52];
 }
 
 + (UIFont *)medium10
 {
   CGFloat const size = 10;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 + (UIFont *)medium14
 {
   CGFloat const size = 14;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 + (UIFont *)medium16
 {
   CGFloat const size = 16;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
+
 + (UIFont *)medium17
 {
   CGFloat const size = 17;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 + (UIFont *)medium18
 {
   CGFloat const size = 18;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 
 + (UIFont *)medium20
 {
   CGFloat const size = 20;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 
 + (UIFont *)medium24
 {
   CGFloat const size = 24;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 
 + (UIFont *)medium28
 {
   CGFloat const size = 28;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 
 + (UIFont *)medium36
 {
   CGFloat const size = 36;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 
 + (UIFont *)medium40
 {
   CGFloat const size = 40;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 
 + (UIFont *)medium44
 {
   CGFloat const size = 44;
-  return [UIFont fontWithName:fontName(FontWeightMedium, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kMediumFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 }
 
 + (UIFont *)light10
 {
   CGFloat const size = 10;
-  return [UIFont fontWithName:fontName(FontWeightLight, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kLightFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightLight];
 }
 
 + (UIFont *)light12
 {
   CGFloat const size = 12;
-  return [UIFont fontWithName:fontName(FontWeightLight, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kLightFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightLight];
 }
 
 + (UIFont *)light16
 {
   CGFloat const size = 16;
-  return [UIFont fontWithName:fontName(FontWeightLight, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kLightFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightLight];
 }
 
 + (UIFont *)light17
 {
   CGFloat const size = 17;
-  return [UIFont fontWithName:fontName(FontWeightLight, size) size:size];
+  if (isIOS7)
+    return [UIFont fontWithName:kLightFontName size:size];
+  return [UIFont systemFontOfSize:size weight:UIFontWeightLight];
 }
 
 + (UIFont *)bold12
 {
-  CGFloat const size = 12;
-  return [UIFont fontWithName:fontName(FontWeightBold, size) size:size];
+  return [UIFont boldSystemFontOfSize:12];
 }
 
 + (UIFont *)bold14
 {
-  CGFloat const size = 14;
-  return [UIFont fontWithName:fontName(FontWeightBold, size) size:size];
+  return [UIFont boldSystemFontOfSize:14];
 }
 
 + (UIFont *)bold16
 {
-  CGFloat const size = 16;
-  return [UIFont fontWithName:fontName(FontWeightBold, size) size:size];
+  return [UIFont boldSystemFontOfSize:16];
 }
 
 + (UIFont *)bold17
 {
-  CGFloat const size = 17;
-  return [UIFont fontWithName:fontName(FontWeightBold, size) size:size];
+  return [UIFont boldSystemFontOfSize:17];
 }
 
 + (UIFont *)bold48
 {
-  CGFloat const size = 48;
-  return [UIFont fontWithName:fontName(FontWeightBold, size) size:size];
+  return [UIFont boldSystemFontOfSize:48];
 }
 
 + (UIFont *)fontWithName:(NSString *)fontName
