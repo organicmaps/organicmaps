@@ -66,9 +66,10 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/triangle2d.hpp"
 
+#include "base/logging.hpp"
 #include "base/math.hpp"
-#include "base/timer.hpp"
 #include "base/scope_guard.hpp"
+#include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"

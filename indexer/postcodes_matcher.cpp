@@ -54,8 +54,9 @@ public:
 
   bool HasString(StringSliceBase const & slice, bool isPrefix) const
   {
-    auto status = m_strings.Has(make_transform_iterator(JoinIterator::Begin(slice), &SimplifyChar),
-                                make_transform_iterator(JoinIterator::End(slice), &SimplifyChar));
+    auto const status =
+        m_strings.Has(make_transform_iterator(JoinIterator::Begin(slice), &SimplifyChar),
+                      make_transform_iterator(JoinIterator::End(slice), &SimplifyChar));
     switch (status)
     {
     case TStringSet::Status::Absent: return false;
