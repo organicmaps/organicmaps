@@ -911,7 +911,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 - (void)cell:(MWMTableViewCell *)cell changedText:(NSString *)changeText
 {
   NSAssert(changeText != nil, @"String can't be nil!");
-  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:cell.center];
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   string const val = changeText.UTF8String;
   switch (cellType)
