@@ -113,8 +113,8 @@ public:
     Move();
   }
 
-  // Use default-constructed iterator for operator == to determine an
-  // end of a token stream.
+  // Use default-constructed iterator for operator == to determine the
+  // end of the token stream.
   TokenizeIterator() = default;
 
   string operator*() const
@@ -137,11 +137,16 @@ public:
     return *this;
   }
 
-  // Same as operator bool() in expression it == end(...).
-  bool operator==(TokenizeIterator const &) { return !(*this); }
+  bool operator==(TokenizeIterator const & rhs) const
+  {
+    if (!*this && !rhs)
+      return true;
+    if (*this && rhs)
+      return m_start == rhs.m_start && m_end == rhs.m_end && m_finish == rhs.m_finish;
+    return false;
+  }
 
-  // Same as operator bool() in expression it != end(...).
-  bool operator!=(TokenizeIterator const &) { return (*this); }
+  bool operator!=(TokenizeIterator const & rhs) const { return !(*this == rhs); }
 
 private:
   void Move()
@@ -155,9 +160,21 @@ private:
       ++m_end;
   }
 
+  // Token is defined as a pair (|m_start|, |m_end|), where:
+  //
+  // * m_start < m_end
+  // * m_start == begin or m_delimFn(m_start - 1)
+  // * m_end == m_finish or m_delimFn(m_end)
+  // * for all i from [m_start, m_end): !m_delimFn(i)
+  //
+  // This version of TokenizeIterator iterates over all tokens and
+  // keeps the invariant above.
   TIt m_start;
   TIt m_end;
+
+  // The end of the string the iterator iterates over.
   TIt m_finish;
+
   TDelimFn m_delimFn;
 };
 
@@ -179,8 +196,16 @@ public:
       ++m_end;
   }
 
-  // Use default-constructed iterator for operator == to determine an
-  // end of a token stream.
+  // *NOTE* |s| must be not temporary!
+  TokenizeIterator(UniString const & s, TDelimFn const & delimFn)
+    : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn), m_finished(false)
+  {
+    while (m_end != m_finish && !m_delimFn(*m_end))
+      ++m_end;
+  }
+
+  // Use default-constructed iterator for operator == to determine the
+  // end of the token stream.
   TokenizeIterator() = default;
 
   string operator*() const
@@ -203,11 +228,19 @@ public:
     return *this;
   }
 
-  // Same as operator bool() in expression it == end(...).
-  bool operator==(TokenizeIterator const &) { return !(*this); }
+  bool operator==(TokenizeIterator const & rhs) const
+  {
+    if (!*this && !rhs)
+      return true;
+    if (*this && rhs)
+    {
+      return m_start == rhs.m_start && m_end == rhs.m_end && m_finish == rhs.m_finish &&
+             m_finished == rhs.m_finished;
+    }
+    return false;
+  }
 
-  // Same as operator bool() in expression it != end(...).
-  bool operator!=(TokenizeIterator const &) { return (*this); }
+  bool operator!=(TokenizeIterator const & rhs) const { return !(*this == rhs); }
 
 private:
   void Move()
@@ -228,10 +261,25 @@ private:
       ++m_end;
   }
 
+  // Token is defined as a pair (|m_start|, |m_end|), where:
+  //
+  // * m_start <= m_end
+  // * m_start == begin or m_delimFn(m_start - 1)
+  // * m_end == m_finish or m_delimFn(m_end)
+  // * for all i from [m_start, m_end): !m_delimFn(i)
+  //
+  // This version of TokenizeIterator iterates over all tokens and
+  // keeps the invariant above.
   TIt m_start;
   TIt m_end;
+
+  // The end of the string the iterator iterates over.
   TIt m_finish;
+
   TDelimFn m_delimFn;
+
+  // When true, iterator is at the end position and is not valid
+  // anymore.
   bool m_finished;
 };
 
