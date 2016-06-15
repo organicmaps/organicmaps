@@ -468,7 +468,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (void)setState:(MWMBottomMenuState)state
 {
   MWMBottomMenuView * view = (MWMBottomMenuView *)self.view;
-  [self.controller.view bringSubviewToFront:view];
+  if (state != view.state)
+    [self.controller.view bringSubviewToFront:view];
   [self toggleDimBackgroundVisible:state == MWMBottomMenuStateActive];
   if (view.state == MWMBottomMenuStateCompact &&
       (state == MWMBottomMenuStatePlanning || state == MWMBottomMenuStateGo ||
