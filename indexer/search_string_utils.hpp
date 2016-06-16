@@ -54,4 +54,37 @@ bool IsStreetSynonymPrefix(strings::UniString const & s);
 /// Normalizes both str and substr, and then returns true if substr is found in str.
 /// Used in native platform code for search in localized strings (cuisines, categories, strings etc.).
 bool ContainsNormalized(string const & str, string const & substr);
+
+// This class can be used as a filter for street tokens.  As there can
+// be street synonyms in the street name, single street synonym is
+// skipped, but multiple synonyms are left as is.
+class StreetTokensFilter
+{
+public:
+  using TCallback = function<void(strings::UniString const & token, size_t tag)>;
+
+  template <typename TC>
+  StreetTokensFilter(TC && callback)
+    : m_callback(forward<TC>(callback))
+  {
+  }
+
+  // Puts token to the filter. Filter checks following cases:
+  // * if |token| is the first street synonym met so far, it's delayed
+  // * if |token| is a street synonym, but not the first, callback is called
+  //   for the |token| and for the previously delayed token
+  // * if |token| is not a street synonym, callback is called for the |token|
+  void Put(strings::UniString const & token, bool isPrefix, size_t tag);
+
+private:
+  using TCell = pair<strings::UniString, size_t>;
+
+  inline void EmitToken(strings::UniString const & token, size_t tag) { m_callback(token, tag); }
+
+  strings::UniString m_delayedToken;
+  size_t m_delayedTag = 0;
+  size_t m_numSynonyms = 0;
+
+  TCallback m_callback;
+};
 }  // namespace search
