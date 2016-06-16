@@ -7,6 +7,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.concurrency.UiThread;
 
@@ -16,19 +17,19 @@ public final class ThemeSwitcher
 
   private static final Runnable sCheckProc = new Runnable()
   {
-    private final LocationHelper.LocationListener mLocationListener = new LocationHelper.SimpleLocationListener()
+    private final LocationListener mLocationListener = new LocationListener.Simple()
     {
       @Override
-      public void onLocationUpdated(Location l)
+      public void onLocationUpdated(Location location)
       {
-        LocationHelper.INSTANCE.removeLocationListener(this);
+        LocationHelper.INSTANCE.removeListener(this);
         run();
       }
 
       @Override
       public void onLocationError(int errorCode)
       {
-        LocationHelper.INSTANCE.removeLocationListener(this);
+        LocationHelper.INSTANCE.removeListener(this);
       }
     };
 
@@ -42,12 +43,12 @@ public final class ThemeSwitcher
         Location last = LocationHelper.INSTANCE.getSavedLocation();
         if (last == null)
         {
-          LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
+          LocationHelper.INSTANCE.addListener(mLocationListener, true);
           theme = Config.getCurrentUiTheme();
         }
         else
         {
-          LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+          LocationHelper.INSTANCE.removeListener(mLocationListener);
 
           boolean day = Framework.nativeIsDayTime(System.currentTimeMillis() / 1000, last.getLatitude(), last.getLongitude());
           theme = (day ? ThemeUtils.THEME_DEFAULT : ThemeUtils.THEME_NIGHT);

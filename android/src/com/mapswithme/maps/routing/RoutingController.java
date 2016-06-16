@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,6 +28,8 @@ import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.DebugLogger;
+import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -36,8 +37,6 @@ import com.mapswithme.util.statistics.Statistics;
 public class RoutingController
 {
   private static final int NO_SLOT = 0;
-
-  private static final String TAG = "RCSTATE";
 
   private enum State
   {
@@ -71,6 +70,7 @@ public class RoutingController
   }
 
   private static final RoutingController sInstance = new RoutingController();
+  private final Logger mLogger = new DebugLogger("RCSTATE");
 
   private Container mContainer;
   private Button mStartButton;
@@ -98,7 +98,7 @@ public class RoutingController
     @Override
     public void onRoutingEvent(final int resultCode, @Nullable final String[] missingMaps)
     {
-      Log.d(TAG, "onRoutingEvent(resultCode: " + resultCode + ")");
+      mLogger.d("onRoutingEvent(resultCode: " + resultCode + ")");
 
       UiThread.run(new Runnable()
       {
@@ -170,7 +170,7 @@ public class RoutingController
 
   private void setState(State newState)
   {
-    Log.d(TAG, "[S] State: " + mState + " -> " + newState + ", BuildState: " + mBuildState);
+    mLogger.d("[S] State: " + mState + " -> " + newState + ", BuildState: " + mBuildState);
     mState = newState;
 
     if (mContainer != null)
@@ -179,7 +179,7 @@ public class RoutingController
 
   private void setBuildState(BuildState newState)
   {
-    Log.d(TAG, "[B] State: " + mState + ", BuildState: " + mBuildState + " -> " + newState);
+    mLogger.d("[B] State: " + mState + ", BuildState: " + mBuildState + " -> " + newState);
     mBuildState = newState;
 
     if (mBuildState == BuildState.BUILT && !MapObject.isOfType(MapObject.MY_POSITION, mStartPoint))
@@ -241,7 +241,7 @@ public class RoutingController
 
   private void build()
   {
-    Log.d(TAG, "build");
+    mLogger.d("build");
 
     mLastBuildProgress = 0;
     setBuildState(BuildState.BUILDING);
@@ -280,7 +280,7 @@ public class RoutingController
 
   public void prepare(@Nullable MapObject endPoint)
   {
-    Log.d(TAG, "prepare (" + (endPoint == null ? "route)" : "p2p)"));
+    mLogger.d("prepare (" + (endPoint == null ? "route)" : "p2p)"));
 
     if (!Config.isRoutingDisclaimerAccepted())
     {
@@ -314,7 +314,7 @@ public class RoutingController
 
   public void start()
   {
-    Log.d(TAG, "start");
+    mLogger.d("start");
 
     if (!MapObject.isOfType(MapObject.MY_POSITION, mStartPoint))
     {
@@ -393,7 +393,7 @@ public class RoutingController
 
   private void updateStartButton()
   {
-    Log.d(TAG, "updateStartButton" + (mStartButton == null ? ": SKIP" : ""));
+    mLogger.d("updateStartButton" + (mStartButton == null ? ": SKIP" : ""));
 
     if (mStartButton == null)
       return;
@@ -404,14 +404,14 @@ public class RoutingController
 
   public void setStartButton(@Nullable Button button)
   {
-    Log.d(TAG, "setStartButton");
+    mLogger.d("setStartButton");
     mStartButton = button;
     updateStartButton();
   }
 
   private void cancelInternal()
   {
-    Log.d(TAG, "cancelInternal");
+    mLogger.d("cancelInternal");
 
     mStartPoint = null;
     mEndPoint = null;
@@ -430,7 +430,7 @@ public class RoutingController
   {
     if (isPlanning())
     {
-      Log.d(TAG, "cancel: planning");
+      mLogger.d("cancel: planning");
 
       cancelInternal();
       if (mContainer != null)
@@ -440,7 +440,7 @@ public class RoutingController
 
     if (isNavigating())
     {
-      Log.d(TAG, "cancel: navigating");
+      mLogger.d("cancel: navigating");
 
       cancelInternal();
       if (mContainer != null)
@@ -451,13 +451,13 @@ public class RoutingController
       return true;
     }
 
-    Log.d(TAG, "cancel: none");
+    mLogger.d("cancel: none");
     return false;
   }
 
   public boolean cancelPlanning()
   {
-    Log.d(TAG, "cancelPlanning");
+    mLogger.d("cancelPlanning");
 
     if (isPlanning())
     {
@@ -538,12 +538,12 @@ public class RoutingController
 
   private boolean setStartFromMyPosition()
   {
-    Log.d(TAG, "setStartFromMyPosition");
+    mLogger.d("setStartFromMyPosition");
 
     MapObject my = LocationHelper.INSTANCE.getMyPosition();
     if (my == null)
     {
-      Log.d(TAG, "setStartFromMyPosition: no my position - skip");
+      mLogger.d("setStartFromMyPosition: no my position - skip");
 
       if (mContainer != null)
         mContainer.updatePoints();
@@ -568,11 +568,11 @@ public class RoutingController
   @SuppressWarnings("Duplicates")
   public boolean setStartPoint(MapObject point)
   {
-    Log.d(TAG, "setStartPoint");
+    mLogger.d("setStartPoint");
 
     if (MapObject.same(mStartPoint, point))
     {
-      Log.d(TAG, "setStartPoint: skip the same starting point");
+      mLogger.d("setStartPoint: skip the same starting point");
       return false;
     }
 
@@ -580,11 +580,11 @@ public class RoutingController
     {
       if (mStartPoint == null)
       {
-        Log.d(TAG, "setStartPoint: skip because starting point is empty");
+        mLogger.d("setStartPoint: skip because starting point is empty");
         return false;
       }
 
-      Log.d(TAG, "setStartPoint: swap with end point");
+      mLogger.d("setStartPoint: swap with end point");
       mEndPoint = mStartPoint;
     }
 
@@ -607,14 +607,14 @@ public class RoutingController
   @SuppressWarnings("Duplicates")
   public boolean setEndPoint(MapObject point)
   {
-    Log.d(TAG, "setEndPoint");
+    mLogger.d("setEndPoint");
 
     if (MapObject.same(mEndPoint, point))
     {
       if (mStartPoint == null)
         return setStartFromMyPosition();
 
-      Log.d(TAG, "setEndPoint: skip the same end point");
+      mLogger.d("setEndPoint: skip the same end point");
       return false;
     }
 
@@ -622,11 +622,11 @@ public class RoutingController
     {
       if (mEndPoint == null)
       {
-        Log.d(TAG, "setEndPoint: skip because end point is empty");
+        mLogger.d("setEndPoint: skip because end point is empty");
         return false;
       }
 
-      Log.d(TAG, "setEndPoint: swap with starting point");
+      mLogger.d("setEndPoint: swap with starting point");
       mStartPoint = mEndPoint;
     }
 
@@ -642,7 +642,7 @@ public class RoutingController
 
   public void swapPoints()
   {
-    Log.d(TAG, "swapPoints");
+    mLogger.d("swapPoints");
 
     MapObject point = mStartPoint;
     mStartPoint = mEndPoint;
@@ -657,7 +657,7 @@ public class RoutingController
 
   public void setRouterType(@Framework.RouterType int router)
   {
-    Log.d(TAG, "setRouterType: " + mLastRouterType + " -> " + router);
+    mLogger.d("setRouterType: " + mLastRouterType + " -> " + router);
 
     if (router == mLastRouterType)
       return;
@@ -671,7 +671,7 @@ public class RoutingController
 
   public void searchPoi(int slotId)
   {
-    Log.d(TAG, "searchPoi: " + slotId);
+    mLogger.d("searchPoi: " + slotId);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SEARCH_POINT);
     AlohaHelper.logClick(AlohaHelper.ROUTING_SEARCH_POINT);
     mWaitingPoiPickSlot = slotId;

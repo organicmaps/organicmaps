@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Vă rugăm să activați serviciile de localizare";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %@.";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "Harta pentru poziția dvs. nu este descărcată";
 
 /* location service disabled */
-"enable_location_service" = "Vă rugăm să activați serviciile de localizare";
+"enable_location_services" = "Vă rugăm să activați serviciile de localizare";
 
 /* download map */
 "download_map" = "Descărcați harta pentru poziția dvs.";

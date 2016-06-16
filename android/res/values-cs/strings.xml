@@ -48,8 +48,6 @@
 	<string name="miles">Míle</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Moje poloha</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Prosím, povolte Služby určování polohy</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Prosím, uvolněte nějaké místo ve svém zařízení, než začnete stahovat %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -524,7 +522,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Mapa vaší polohy není stažena</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Prosím, povolte Služby určování polohy</string>
+	<string name="enable_location_services">Prosím, povolte Služby určování polohy</string>
 	<!-- download map -->
 	<string name="download_map">Stáhněte si mapu své polohy</string>
 	<!-- download map on iPhone -->

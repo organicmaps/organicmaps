@@ -49,8 +49,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">나의 위치</string>
 	<string name="ok">승인</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">위치 서비스를 작동시켜 주십시요.</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %s를 다운로드하여 주십시요.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -513,7 +511,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">위치에 대한 지도가 다운로드되지 않음</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">위치 서비스를 작동시켜 주십시요.</string>
+	<string name="enable_location_services">위치 서비스를 작동시켜 주십시요.</string>
 	<!-- download map -->
 	<string name="download_map">위치에 대한 지도 다운로드</string>
 	<!-- download map on iPhone -->

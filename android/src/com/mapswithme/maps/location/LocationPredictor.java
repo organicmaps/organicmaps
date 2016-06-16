@@ -1,114 +1,122 @@
 package com.mapswithme.maps.location;
 
 import android.location.Location;
-import android.os.Handler;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.LocationState;
+import com.mapswithme.util.concurrency.UiThread;
 
-public class LocationPredictor
+class LocationPredictor
 {
+  private static final String PREDICTOR_PROVIDER = "LocationPredictorProvider";
   private static final long PREDICTION_INTERVAL = 200;
   private static final long MAX_PREDICTION_COUNT = 20;
 
-  private final Runnable mRunnable;
-  private final Handler mHandler;
-
-  private final LocationHelper.LocationListener mListener;
+  private final LocationListener mListener;
   private Location mLastLocation;
   private boolean mGeneratePredictions;
   private int mPredictionCount;
 
-  public LocationPredictor(Handler handler, LocationHelper.LocationListener listener)
+  private final Runnable mRunnable = new Runnable()
   {
-    mHandler = handler;
-    mListener = listener;
-
-    mRunnable = new Runnable()
+    @Override
+    public void run()
     {
-      @Override
-      public void run()
-      {
-        if (generatePrediction())
-          mHandler.postDelayed(mRunnable, PREDICTION_INTERVAL);
-      }
-    };
-  }
+      if (generatePrediction())
+        schedule();
+    }
+  };
 
-  public void resume()
+  private void schedule()
   {
-    myPositionModeChanged(LocationState.getMode());
+    UiThread.runLater(mRunnable, PREDICTION_INTERVAL);
   }
 
-  public void pause()
+  LocationPredictor(LocationListener listener)
+  {
+    mListener = listener;
+  }
+
+  void resume()
+  {
+    onMyPositionModeChanged(LocationState.getMode());
+  }
+
+  void pause()
   {
     mGeneratePredictions = false;
     mLastLocation = null;
-    resetHandler();
+    stop();
   }
 
-  public void myPositionModeChanged(final int mode)
+  void onMyPositionModeChanged(int mode)
   {
-    if (!LocationState.isTurnedOn(mode))
+    if (!LocationState.hasLocation(mode))
       mLastLocation = null;
 
     mGeneratePredictions = (mode == LocationState.FOLLOW_AND_ROTATE);
-    resetHandler();
+
+    stop();
+    start();
   }
 
-  public void reset(Location location)
+  void onLocationUpdated(Location location)
   {
+    if (location.getProvider().equals(PREDICTOR_PROVIDER))
+      return;
+
     if (location.hasBearing() && location.hasSpeed())
     {
       mLastLocation = new Location(location);
       mLastLocation.setTime(System.currentTimeMillis());
-      mLastLocation.setProvider(LocationHelper.LOCATION_PREDICTOR_PROVIDER);
+      mLastLocation.setProvider(PREDICTOR_PROVIDER);
+      start();
     }
     else
+    {
       mLastLocation = null;
-
-    resetHandler();
+      stop();
+    }
   }
 
-  private boolean isPredict()
+  private boolean shouldStart()
   {
-    return mLastLocation != null && mGeneratePredictions;
+    return (mLastLocation != null && mGeneratePredictions);
   }
 
-  private void resetHandler()
+  private void start()
+  {
+    if (shouldStart())
+      schedule();
+  }
+
+  private void stop()
   {
     mPredictionCount = 0;
-
-    mHandler.removeCallbacks(mRunnable);
-
-    if (isPredict())
-      mHandler.postDelayed(mRunnable, PREDICTION_INTERVAL);
+    UiThread.cancelDelayedTasks(mRunnable);
   }
 
   private boolean generatePrediction()
   {
-    if (!isPredict())
+    if (!shouldStart() || mPredictionCount >= MAX_PREDICTION_COUNT)
       return false;
 
-    if (mPredictionCount < MAX_PREDICTION_COUNT)
-    {
-      ++mPredictionCount;
+    mPredictionCount++;
 
-      Location info = new Location(mLastLocation);
-      info.setTime(System.currentTimeMillis());
+    Location info = new Location(mLastLocation);
+    info.setTime(System.currentTimeMillis());
 
-      final long elapsedMillis = info.getTime() - mLastLocation.getTime();
+    double elapsed = (info.getTime() - mLastLocation.getTime()) / 1000.0;
+    double[] newLatLon = Framework.nativePredictLocation(info.getLatitude(),
+                                                         info.getLongitude(),
+                                                         info.getAccuracy(),
+                                                         info.getBearing(),
+                                                         info.getSpeed(),
+                                                         elapsed);
+    info.setLatitude(newLatLon[0]);
+    info.setLongitude(newLatLon[1]);
 
-      double[] newLatLon = Framework.nativePredictLocation(info.getLatitude(), info.getLongitude(),
-              info.getAccuracy(), info.getBearing(),
-              info.getSpeed(), elapsedMillis / 1000.0);
-      info.setLatitude(newLatLon[0]);
-      info.setLongitude(newLatLon[1]);
-
-      mListener.onLocationUpdated(info);
-      return true;
-    }
-
-    return false;
+    mListener.onLocationUpdated(info);
+    return true;
   }
 }

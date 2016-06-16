@@ -53,8 +53,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Vị trí của Tôi</string>
 	<string name="ok">OK</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Bạn vui lòng bật Dịch vụ Định vị</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Bạn vui lòng giải phóng dung lượng trên thiết bị của mình để có thể tải xuống %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -517,7 +515,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Bản đồ cho vị trí của bạn chưa được tải xuống</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Bạn vui lòng bật Dịch vụ Định vị</string>
+	<string name="enable_location_services">Bạn vui lòng bật Dịch vụ Định vị</string>
 	<!-- download map -->
 	<string name="download_map">Tải xuống bản đồ cho vị trí của bạn</string>
 	<!-- download map on iPhone -->

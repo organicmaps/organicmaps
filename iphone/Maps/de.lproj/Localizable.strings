@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Aktivieren Sie bitte Ortungsdienste in den Geräte-Einstellungen";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um %@ herunterzuladen.";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "Es gibt keine Karte für Ihren Standort";
 
 /* location service disabled */
-"enable_location_service" = "Aktivieren Sie bitte Ortungsdienste";
+"enable_location_services" = "Aktivieren Sie bitte Ortungsdienste";
 
 /* download map */
 "download_map" = "Laden Sie die Karte für Ihren Standort herunter";

@@ -37,8 +37,24 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
       }
     });
 
+    pref = findPreference(getString(R.string.pref_play_services));
+
     if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MwmApplication.get()) != ConnectionResult.SUCCESS)
-      getPreferenceScreen().removePreference(findPreference(getString(R.string.pref_play_services)));
+      getPreferenceScreen().removePreference(pref);
+    else
+    {
+      ((TwoStatePreference) pref).setChecked(Config.useGoogleServices());
+      pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+      {
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue)
+        {
+          Config.setUseGoogleService((Boolean) newValue);
+          // TODO (trashkalmar): Reinitialize location provider
+          return true;
+        }
+      });
+    }
 
     if (!MytargetHelper.isShowcaseSwitchedOnServer())
       getPreferenceScreen().removePreference(findPreference(getString(R.string.pref_showcase_switched_on)));

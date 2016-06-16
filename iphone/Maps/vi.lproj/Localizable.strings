@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Bạn vui lòng bật Dịch vụ Định vị";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Bạn vui lòng giải phóng dung lượng trên thiết bị của mình để có thể tải xuống %@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "Bản đồ cho vị trí của bạn chưa được tải xuống";
 
 /* location service disabled */
-"enable_location_service" = "Bạn vui lòng bật Dịch vụ Định vị";
+"enable_location_services" = "Bạn vui lòng bật Dịch vụ Định vị";
 
 /* download map */
 "download_map" = "Tải xuống bản đồ cho vị trí của bạn";

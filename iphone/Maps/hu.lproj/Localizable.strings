@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Kérjük szabadítson fel helyet az eszközön, hogy le tudja tölteni %@-t";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "A helyszínéhez tartozó térképet letöltöttük";
 
 /* location service disabled */
-"enable_location_service" = "Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást";
+"enable_location_services" = "Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást";
 
 /* download map */
 "download_map" = "Töltse le a térképet a helyszínéhez";

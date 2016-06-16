@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Vänligen aktivera platstjänster";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Frigör mer utrymme på din enhet först för att kunna ladda ner %@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "Kartan för din plats hittas inte";
 
 /* location service disabled */
-"enable_location_service" = "Vänligen aktivera platstjänster";
+"enable_location_services" = "Vänligen aktivera platstjänster";
 
 /* download map */
 "download_map" = "Ladda ner kartan över din nuvarande plats";

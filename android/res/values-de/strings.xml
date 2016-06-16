@@ -53,8 +53,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Mein Standort</string>
 	<string name="ok">OK</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Aktivieren Sie bitte Ortungsdienste in den Geräte-Einstellungen</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um %s herunterzuladen.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -543,7 +541,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Es gibt keine Karte für Ihren Standort</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Aktivieren Sie bitte Ortungsdienste</string>
+	<string name="enable_location_services">Aktivieren Sie bitte Ortungsdienste</string>
 	<!-- download map -->
 	<string name="download_map">Laden Sie die Karte für Ihren Standort herunter</string>
 	<!-- download map on iPhone -->

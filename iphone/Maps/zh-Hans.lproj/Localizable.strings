@@ -83,9 +83,6 @@
 
 "ok" = "确定";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "请启用位置服务";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "请在设备上先释放一些空间以便下载%@";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "您地点的地图没有被下载";
 
 /* location service disabled */
-"enable_location_service" = "请启用位置服务";
+"enable_location_services" = "请启用位置服务";
 
 /* download map */
 "download_map" = "为您的地点下载地图";

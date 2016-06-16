@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Schakel Locatie Services in";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "De kaart voor uw locatie is niet gedownload";
 
 /* location service disabled */
-"enable_location_service" = "Schakel Locatie Services in";
+"enable_location_services" = "Schakel Locatie Services in";
 
 /* download map */
 "download_map" = "Download de kaart voor uw locatie";

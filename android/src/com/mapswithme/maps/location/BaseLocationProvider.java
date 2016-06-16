@@ -14,13 +14,10 @@ abstract class BaseLocationProvider implements LocationListener
   static final Logger sLogger = SimpleLogger.get(BaseLocationProvider.class.getName());
   private static final double DEFAULT_SPEED_MPS = 5;
 
-  protected abstract void startUpdates();
-  protected abstract void stopUpdates();
-
   protected boolean isLocationBetterThanLast(Location newLocation, Location lastLocation)
   {
     double speed = Math.max(DEFAULT_SPEED_MPS, (newLocation.getSpeed() + lastLocation.getSpeed()) / 2.0);
-    double lastAccuracy = (lastLocation.getAccuracy() + speed * LocationUtils.getDiffWithLastLocation(lastLocation, newLocation));
+    double lastAccuracy = (lastLocation.getAccuracy() + speed * LocationUtils.getDiff(lastLocation, newLocation));
     return (newLocation.getAccuracy() < lastAccuracy);
   }
 
@@ -42,8 +39,8 @@ abstract class BaseLocationProvider implements LocationListener
 
     if (isLocationBetterThanLast(location))
     {
-      LocationHelper.INSTANCE.initMagneticField(location);
-      LocationHelper.INSTANCE.saveLocation(location);
+      LocationHelper.INSTANCE.resetMagneticField(location);
+      LocationHelper.INSTANCE.onLocationUpdated(location);
     }
   }
 
@@ -64,4 +61,7 @@ abstract class BaseLocationProvider implements LocationListener
   {
     sLogger.d("Status changed for location provider: ", provider, status);
   }
+
+  protected abstract boolean start();
+  protected abstract void stop();
 }

@@ -48,8 +48,6 @@
 	<string name="miles">Miglia</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">La mia posizione</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Cortesemente abilita i servizi di localizzazione</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Cortesemente libera spazio sul tuo dispositivo prima per poter scaricare %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -516,7 +514,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">La mappa del tuo posto non è stata trovata</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Cortesemente abilita i servizi di localizzazione</string>
+	<string name="enable_location_services">Cortesemente abilita i servizi di localizzazione</string>
 	<!-- download map -->
 	<string name="download_map">Scarica la mappa per il tuo paese</string>
 	<!-- download map on iPhone -->

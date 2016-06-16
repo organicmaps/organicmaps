@@ -83,9 +83,6 @@
 
 "ok" = "OK";
 
-/* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "位置情報サービスを有効化してください";
-
 /* Settings/Downloader - No free space dialog message */
 "free_disk_space_for_country_x" = "%@をダウンロードするため、デバイスの空き容量を確認してください";
 
@@ -846,7 +843,7 @@
 "not_found_map" = "現在地の地図が見つかりません";
 
 /* location service disabled */
-"enable_location_service" = "位置情報サービスを有効化してください";
+"enable_location_services" = "位置情報サービスを有効化してください";
 
 /* download map */
 "download_map" = "あなたがいる場所のマップをダウンロードしよう";

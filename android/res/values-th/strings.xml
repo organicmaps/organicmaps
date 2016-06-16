@@ -53,8 +53,6 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">ตำแหน่งของฉัน</string>
 	<string name="ok">ตกลง</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -523,7 +521,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">ไม่พบแผนที่ของตำแหน่งของคุณ</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง</string>
+	<string name="enable_location_services">โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง</string>
 	<!-- download map -->
 	<string name="download_map">ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่</string>
 	<!-- download map on iPhone -->
