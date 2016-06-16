@@ -28,7 +28,7 @@ string BookingApi::GetBookingUrl(string const & baseUrl, string const & /* lang 
 
 string BookingApi::GetDescriptionUrl(string const & baseUrl, string const & /* lang */) const
 {
-  return baseUrl + "?affiliate_id=" + m_affiliateId;
+  return baseUrl + "?aid=" + m_affiliateId;
 }
 
 void BookingApi::GetMinPrice(string const & hotelId, string const & currency,
