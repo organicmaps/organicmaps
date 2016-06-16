@@ -861,7 +861,7 @@
 	<string name="current_location_unknown_error_title">Местоположение не найдено.</string>
 	<string name="current_location_unknown_error_message">При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.</string>
 	<string name="whatsnew_update_editor_title">Мы обновили редактор</string>
-	<string name="whatsnew_update_editor_message">Пользователи MAPS.ME внесли уже 90 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!</string>
+	<string name="whatsnew_update_editor_message">Пользователи MAPS.ME внесли уже 200 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Обновите все карты, чтобы использовать редактор.</string>
 	<string name="location_services_disabled_header">Определение местоположения отключено</string>
@@ -884,7 +884,7 @@
 	<string name="placepage_flat">кв.</string>
 	<string name="placepage_open_24_7">Круглосуточно</string>
 	<string name="placepage_place_rating">Рейтинг:</string>
-	<string name="place_page_starting_from">от %d</string>
+	<string name="place_page_starting_from">от %s</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
 	<string name="placepage_place_description">Описание</string>

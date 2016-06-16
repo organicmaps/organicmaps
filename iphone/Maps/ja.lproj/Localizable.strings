@@ -394,10 +394,10 @@
 "no_thanks" = "いいえ";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "私のピン情報はこの位置です。リンク: %1$@ , %2$@";
+"bookmark_share_sms" = "私のピン情報はこの位置です。リンク: %1$@, %2$@";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "私は今ここにいます。リンク: %1$@ , %2$@";
+"my_position_share_sms" = "私は今ここにいます。リンク: %1$@, %2$@";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "MAPS.MEでピン情報を確認";
@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "作成中…";
 
-"p2p_from_here" = "からのルート";
+"p2p_from_here" = "出発地";
 
 "p2p_to_here" = "へのルート";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "マップエディタを更新しました";
 
-"whatsnew_update_editor_message" = "MAPS.MEユーザーは90000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！";
+"whatsnew_update_editor_message" = "MAPS.MEユーザーは200000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "マップエディタを利用するには、全てのアップをアップデートしてください。";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "評価：";
 
-"place_page_starting_from" = "%dから";
+"place_page_starting_from" = "%sから";
 
 "meter" = "m";
 

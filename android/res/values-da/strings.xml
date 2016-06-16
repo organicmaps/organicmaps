@@ -429,6 +429,8 @@
 	<string name="downloader_download_all_button">Download alle</string>
 	<string name="downloader_downloading">Downloader:</string>
 	<string name="downloader_search_results">Fundet</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">Ved oprettelse af ruter i MAPS.ME appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Uddateret</string>
 	<!-- Up to date maps category -->
@@ -641,7 +643,7 @@
 	<string name="p2p_to">Bestemmelsesstedet</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Planlægger…</string>
-	<string name="p2p_from_here">Rute fra</string>
+	<string name="p2p_from_here">Fra</string>
 	<string name="p2p_to_here">Rute til</string>
 	<string name="p2p_only_from_current">Navigation er kun tilgængelig fra din nuværende lokalitet.</string>
 	<string name="p2p_reroute_from_current">Ønsker du, at vi planlægger en rute fra din nuværende placering?</string>
@@ -796,6 +798,8 @@
 	<string name="editor_unsupported_category_message">Du har tilføjet en placering i en kategori som vi ikke understøtter på nuværende tidspunkt. Den vil vises på kortet på et senere tidspunkt.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d af %2$d</string>
+	<string name="download_over_mobile_header">Download ved brug af mobilnetværksforbindelse?</string>
+	<string name="download_over_mobile_message">Dette kan blive dyrt med nogle abonnementer eller hvis du er i roamingtilstand.</string>
 	<string name="error_enter_correct_house_number">Skriv det rigtige husnummer</string>
 	<string name="editor_storey_number">Antal etager (maks %d)</string>
 	<string name="error_enter_correct_storey_number">Rediger bygningen med maksimum 25 etager</string>
@@ -827,7 +831,7 @@
 	<string name="current_location_unknown_error_title">Aktuel position er ukendt.</string>
 	<string name="current_location_unknown_error_message">Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.</string>
 	<string name="whatsnew_update_editor_title">Har vi opdateret korteditoren</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME brugere har foretaget 90.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME brugere har foretaget 200.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">For at bruge kortredigering, bedes du opdatere alle kort.</string>
 	<string name="location_services_disabled_header">Placeringsservices er slået fra</string>
@@ -850,7 +854,7 @@
 	<string name="placepage_flat">app.</string>
 	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="placepage_place_rating">Bedømmelse:</string>
-	<string name="place_page_starting_from">fra %d</string>
+	<string name="place_page_starting_from">fra %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Beskrivelse</string>

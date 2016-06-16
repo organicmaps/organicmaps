@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "计划中…";
 
-"p2p_from_here" = "发送自";
+"p2p_from_here" = "从";
 
 "p2p_to_here" = "发送至";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "我们已经更新了地图编辑器";
 
-"whatsnew_update_editor_message" = "MAPS.ME 用户已经进行了 90 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！";
+"whatsnew_update_editor_message" = "MAPS.ME 用户已经进行了 200 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "如要使用地图编辑器，请更新所有地图";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "评价";
 
-"place_page_starting_from" = "从 %d";
+"place_page_starting_from" = "从 %s";
 
 "meter" = "m";
 

@@ -638,7 +638,7 @@
 	<string name="p2p_to">Titik tujuan</string>
 	<string name="p2p_start">Mulai</string>
 	<string name="p2p_planning">Merencanakan…</string>
-	<string name="p2p_from_here">Rute dari</string>
+	<string name="p2p_from_here">Dari</string>
 	<string name="p2p_to_here">Rute ke</string>
 	<string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
 	<string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
@@ -826,7 +826,7 @@
 	<string name="current_location_unknown_error_title">Lokasi saat ini tidak diketahui.</string>
 	<string name="current_location_unknown_error_message">Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.</string>
 	<string name="whatsnew_update_editor_title">Kami telah memperbarui editor peta</string>
-	<string name="whatsnew_update_editor_message">Pengguna MAPS.ME telah membuat 90 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!</string>
+	<string name="whatsnew_update_editor_message">Pengguna MAPS.ME telah membuat 200 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Untuk menggunakan editor peta, silakan perbarui semua peta.</string>
 	<string name="location_services_disabled_header">Identifikasi lokasi dinonaktifkan</string>
@@ -849,7 +849,7 @@
 	<string name="placepage_flat">persegi</string>
 	<string name="placepage_open_24_7">24 jam sehari, 7 hari seminggu</string>
 	<string name="placepage_place_rating">Nilai:</string>
-	<string name="place_page_starting_from">dari %d</string>
+	<string name="place_page_starting_from">dari %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Deskripsi</string>

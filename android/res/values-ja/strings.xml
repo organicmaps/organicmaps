@@ -245,9 +245,9 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">いいえ</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">私のピン情報はこの位置です。リンク: %1$s , %2$s</string>
+	<string name="bookmark_share_sms">私のピン情報はこの位置です。リンク: %1$s, %2$s</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">私は今ここにいます。リンク: %1$s , %2$s</string>
+	<string name="my_position_share_sms">私は今ここにいます。リンク: %1$s, %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">MAPS.MEでピン情報を確認</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
@@ -638,7 +638,7 @@
 	<string name="p2p_to">目的地</string>
 	<string name="p2p_start">開始</string>
 	<string name="p2p_planning">作成中…</string>
-	<string name="p2p_from_here">からのルート</string>
+	<string name="p2p_from_here">出発地</string>
 	<string name="p2p_to_here">へのルート</string>
 	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
 	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
@@ -826,7 +826,7 @@
 	<string name="current_location_unknown_error_title">現在地は不明です。</string>
 	<string name="current_location_unknown_error_message">お住まいの地域の検索中にエラーが発生しました。お使いのデバイスが正常に動作していることを確認してから再度試してください。</string>
 	<string name="whatsnew_update_editor_title">マップエディタを更新しました</string>
-	<string name="whatsnew_update_editor_message">MAPS.MEユーザーは90000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！</string>
+	<string name="whatsnew_update_editor_message">MAPS.MEユーザーは200000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">マップエディタを利用するには、全てのアップをアップデートしてください。</string>
 	<string name="location_services_disabled_header">位置情報認識機能が無効になっています</string>
@@ -849,7 +849,7 @@
 	<string name="placepage_flat">アプリ</string>
 	<string name="placepage_open_24_7">24時間体制</string>
 	<string name="placepage_place_rating">評価：</string>
-	<string name="place_page_starting_from">%dから</string>
+	<string name="place_page_starting_from">%sから</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">説明</string>

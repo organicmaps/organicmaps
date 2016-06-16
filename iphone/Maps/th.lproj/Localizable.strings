@@ -397,7 +397,7 @@
 "bookmark_share_sms" = "เฮ้ ตรวจสอบหมุดของฉันที่ MAPS.ME! %1$@ หรือ %2$@";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$@ หรือ %2$@ or %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get";
+"my_position_share_sms" = "เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$@ หรือ %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ MAPS.ME!";
@@ -406,7 +406,7 @@
 "bookmark_share_email" = "หวัดดี\n\nฉันปักหมุด: %1$@ ที่ MAPS.ME, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, check out my current location at MAPS.ME map!";
+"my_position_share_email_subject" = "นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ MAPS.ME สิ!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ";
@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "กำลังวางแผน…";
 
-"p2p_from_here" = "เส้นทางจาก";
+"p2p_from_here" = "จาก";
 
 "p2p_to_here" = "เส้นทางถึง";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "เราได้ทำการอัพเดตตัวแก้ไขแผนที่แล้ว";
 
-"whatsnew_update_editor_message" = "ผู้ใช้ MAPS.ME ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 90 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!";
+"whatsnew_update_editor_message" = "ผู้ใช้ MAPS.ME ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 200 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "ในการใช้เครื่องมือการแก้ไขแผนที่ โปรดอัปเดตแผนที่ทั้งหมด";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "เรทติ้ง";
 
-"place_page_starting_from" = "จาก %d";
+"place_page_starting_from" = "จาก %s";
 
 "meter" = "ม.";
 

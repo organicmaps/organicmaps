@@ -639,7 +639,7 @@
 	<string name="p2p_to">Päämäärä</string>
 	<string name="p2p_start">Aloita</string>
 	<string name="p2p_planning">Lasketaan…</string>
-	<string name="p2p_from_here">Reitin alkupiste</string>
+	<string name="p2p_from_here">Lähtöpaikka</string>
 	<string name="p2p_to_here">Reitin loppupiste</string>
 	<string name="p2p_only_from_current">Navigointi onnistuu vain nykyisestä sijainnistasi.</string>
 	<string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
@@ -827,7 +827,7 @@
 	<string name="current_location_unknown_error_title">Nykyinen paikka on tuntematon.</string>
 	<string name="current_location_unknown_error_message">Tapahtui virhe etsittäessä paikkaasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.</string>
 	<string name="whatsnew_update_editor_title">Olemme päivittäneet karttamuokkaimen</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME -käyttäjät ovat tehneet 90 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME -käyttäjät ovat tehneet 200 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Päivitä kaikki kartat käyttääksesi Karttamuokkainta.</string>
 	<string name="location_services_disabled_header">Locatie-identificatie is uitgeschakeld</string>
@@ -850,7 +850,7 @@
 	<string name="placepage_flat">sov.</string>
 	<string name="placepage_open_24_7">24_7</string>
 	<string name="placepage_place_rating">Luokitus</string>
-	<string name="place_page_starting_from">%d:stä</string>
+	<string name="place_page_starting_from">%s:stä</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Kuvaus</string>

@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "Planerar…";
 
-"p2p_from_here" = "Rutt från";
+"p2p_from_here" = "Från";
 
 "p2p_to_here" = "Rutt till";
 
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "Vi har uppdaterat kartredigeraren";
 
-"whatsnew_update_editor_message" = "MAPS.ME-användare har gjort 90 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!";
+"whatsnew_update_editor_message" = "MAPS.ME-användare har gjort 200 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Uppdatera alla kartor för att använda kartredigeraren.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "Betyg:";
 
-"place_page_starting_from" = "från %d";
+"place_page_starting_from" = "från %s";
 
 "meter" = "m";
 

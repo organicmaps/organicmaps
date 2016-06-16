@@ -645,7 +645,7 @@
 	<string name="p2p_to">目的地点</string>
 	<string name="p2p_start">开始</string>
 	<string name="p2p_planning">计划中…</string>
-	<string name="p2p_from_here">发送自</string>
+	<string name="p2p_from_here">从</string>
 	<string name="p2p_to_here">发送至</string>
 	<string name="p2p_only_from_current">导航只能从您目前的位置开始。</string>
 	<string name="p2p_reroute_from_current">你是否想要规划当前位置的路线？</string>
@@ -833,7 +833,7 @@
 	<string name="current_location_unknown_error_title">当前位置未知</string>
 	<string name="current_location_unknown_error_message">搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。</string>
 	<string name="whatsnew_update_editor_title">我们已经更新了地图编辑器</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME 用户已经进行了 90 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME 用户已经进行了 200 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">如要使用地图编辑器，请更新所有地图</string>
 	<string name="location_services_disabled_header">地点定位被禁用</string>
@@ -854,8 +854,9 @@
 	<string name="placepage_entrance_number">编号</string>
 	<string name="placepage_entrance_type">入口</string>
 	<string name="placepage_flat">公寓</string>
+	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="placepage_place_rating">评价</string>
-	<string name="place_page_starting_from">从 %d</string>
+	<string name="place_page_starting_from">从 %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">说明</string>

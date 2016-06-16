@@ -639,7 +639,7 @@
 	<string name="p2p_to">Destinasjonssted</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Planlegger…</string>
-	<string name="p2p_from_here">Rute fra</string>
+	<string name="p2p_from_here">Fra</string>
 	<string name="p2p_to_here">Rute til</string>
 	<string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
 	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
@@ -825,7 +825,7 @@
 	<string name="current_location_unknown_error_title">Gjeldende plassering er ukjent.</string>
 	<string name="current_location_unknown_error_message">Det oppstod en feil under søking etter plasseringen din. Kontroller at plasseringen din virker som den skal, og prøv på nytt senere.</string>
 	<string name="whatsnew_update_editor_title">Vi har oppdatert kartredigeringsprogrammet</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME-brukere har foretatt 90 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME-brukere har foretatt 200 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">For å bruke kartredigerings-funksjonen, vennligst oppdater alle kartene.</string>
 	<string name="location_services_disabled_header">Lokalisering er deaktivert</string>
@@ -848,7 +848,7 @@
 	<string name="placepage_flat">leil.</string>
 	<string name="placepage_open_24_7">Døgnåpen</string>
 	<string name="placepage_place_rating">Rangering:</string>
-	<string name="place_page_starting_from">fra %d</string>
+	<string name="place_page_starting_from">fra %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Beskrivelse</string>

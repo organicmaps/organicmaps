@@ -409,7 +409,7 @@
 "my_position_share_email_subject" = "Sieh dir meinen aktuellen Standort auf der MAPS.ME-Karte an";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Hi,\n\nich bin gerade hier: %1$@ . Klicke den Link %2$@ oder %3$@ , um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.";
+"my_position_share_email" = "Hi,\n\nich bin gerade hier: %1$@. Klicke den Link %2$@ oder %3$@, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "Als Nachricht teilen";
@@ -1433,7 +1433,7 @@
 
 "whatsnew_update_editor_title" = "Der Editor wurde aktualisiert.";
 
-"whatsnew_update_editor_message" = "Die Benutzer haben schon mehr als 90.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!";
+"whatsnew_update_editor_message" = "Die Benutzer haben schon mehr als 200.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Um den Karten-Editor zu nutzen, aktualisieren Sie bitte alle Karten.";
@@ -1478,7 +1478,7 @@
 
 "placepage_place_rating" = "Rating:";
 
-"place_page_starting_from" = "ab %d";
+"place_page_starting_from" = "ab %s";
 
 "meter" = "m";
 

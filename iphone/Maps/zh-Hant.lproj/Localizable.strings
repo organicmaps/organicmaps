@@ -196,7 +196,7 @@
 "download_location_update_map_proposal" = "您可以更新目前所在位置的地圖。";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "您目前所在位置 (%@)\n的地圖已是最新圖資 !";
+"download_location_map_up_to_date" = "您目前所在位置 (%@)\n的地圖已是最新圖資!";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "暫停";
@@ -786,7 +786,7 @@
 "toolbar_application_menu" = "Application menu";
 
 /* Preference text */
-"pref_use_google_play" = "Use Google Play Services to get your current location";
+"pref_use_google_play" = "使用 Google Play 服務來獲得您的目前位置";
 
 /* Text for rating dialog */
 "rating_just_rated" = "我剛剛評價了您的應用";
@@ -1067,7 +1067,7 @@
 
 "p2p_planning" = "計劃中…";
 
-"p2p_from_here" = "路線起點";
+"p2p_from_here" = "從";
 
 "p2p_to_here" = "路線終點";
 
@@ -1376,64 +1376,64 @@
 
 "error_enter_correct_house_number" = "輸入正確的門牌號碼";
 
-"editor_storey_number" = "Building levels (max %d)";
+"editor_storey_number" = "樓號（最大 %d）";
 
-"error_enter_correct_storey_number" = "Buildings at highest of 25 levels can be edited";
+"error_enter_correct_storey_number" = "編輯最多 25 層的建築";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "郵遞區號";
 
-"error_enter_correct_zip_code" = "Enter the correct ZIP Code";
+"error_enter_correct_zip_code" = "輸入正確的郵遞區號";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Unknown Place";
+"placepage_unknown_place" = "未知的位置";
 
-"editor_other_info" = "Additional info";
+"editor_other_info" = "額外資訊";
 
-"editor_detailed_description_hint" = "Detailed comment";
+"editor_detailed_description_hint" = "詳細註釋";
 
-"editor_detailed_description" = "Your suggested changes will be sent to the OpenStreetMap community. Describe the details which cannot be edited in MAPS.ME.";
+"editor_detailed_description" = "您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 MAPS.ME 中編輯的詳細資料。";
 
-"editor_more_about_osm" = "More about OpenStreetMap";
+"editor_more_about_osm" = "關於 OpenStreetMap 的更多資訊";
 
-"editor_operator" = "Operator";
+"editor_operator" = "營運者";
 
-"editor_tag_description" = "Enter company, organization or individual responsible for the facilities.";
+"editor_tag_description" = "輸入公司、組織或設施負責人。";
 
-"editor_no_local_edits_title" = "You don't have local edits";
+"editor_no_local_edits_title" = "您沒有本機編輯";
 
-"editor_no_local_edits_description" = "This shows the number of your suggested changes on the map that are currently accessible only on your device.";
+"editor_no_local_edits_description" = "這顯示了對目前僅可在您的裝置上存取的地圖的建議修改數量。";
 
-"editor_international_names_subtitle" = "Name in other languages";
+"editor_international_names_subtitle" = "其他語言的名稱";
 
-"editor_send_to_osm" = "Send to OSM";
+"editor_send_to_osm" = "傳送至 OSM";
 
-"editor_remove" = "Remove";
+"editor_remove" = "移除";
 
-"downloader_my_maps_title" = "My maps";
+"downloader_my_maps_title" = "我的地圖";
 
-"downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
+"downloader_no_downloaded_maps_title" = "您尚未下載任何地圖";
 
-"downloader_no_downloaded_maps_message" = "Download maps to search location and use navigation offline.";
+"downloader_no_downloaded_maps_message" = "下載地圖來尋找位置和離線瀏覽。";
 
-"downloader_find_place_hint" = "Search city or country";
+"downloader_find_place_hint" = "搜尋城市或國家";
 
 /* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Continue detecting your current location?";
+"current_location_unknown_title" = "繼續偵測您的目前位置？";
 
 /* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Current location is unknown. Maybe you are in a building or in a tunnel.";
+"current_location_unknown_message" = "目前位置未知，可能您在建築物內或隧道內。";
 
-"current_location_unknown_continue_button" = "Continue";
+"current_location_unknown_continue_button" = "繼續";
 
-"current_location_unknown_stop_button" = "Stop";
+"current_location_unknown_stop_button" = "停止";
 
-"current_location_unknown_error_title" = "Current location is unknown.";
+"current_location_unknown_error_title" = "目前位置未知。";
 
-"current_location_unknown_error_message" = "An error occurred while searching for your location. Check that your device is working properly and try again later.";
+"current_location_unknown_error_message" = "搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。";
 
-"whatsnew_update_editor_title" = "We've updated the map editor";
+"whatsnew_update_editor_title" = "我們已更新地圖編輯器";
 
-"whatsnew_update_editor_message" = "MAPS.ME users have made 90 000 map changes. Together we are making the most detailed maps in the World. Join us!";
+"whatsnew_update_editor_message" = "MAPS.ME 使用者已經進行了 200,000 處地圖變更。我們正在齊心協力打造世界上最詳細的地圖，加入我們吧！";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "如要使用地圖編輯器，請更新所有地圖。";
@@ -1448,73 +1448,73 @@
 
 "location_services_disabled_3" = "3. 選擇總是";
 
-"placepage_parking_surface" = "Surface";
+"placepage_parking_surface" = "表面";
 
-"placepage_parking_multistorey" = "Multi-storey";
+"placepage_parking_multistorey" = "多樓層";
 
-"placepage_parking_underground" = "Underground";
+"placepage_parking_underground" = "未知的位置";
 
-"placepage_parking_rooftop" = "Rooftop";
+"placepage_parking_rooftop" = "樓頂";
 
-"placepage_parking_sheds" = "Sheds";
+"placepage_parking_sheds" = "小屋";
 
-"placepage_parking_carports" = "Carports";
+"placepage_parking_carports" = "屋側車庫";
 
-"placepage_parking_boxes" = "Garage boxes";
+"placepage_parking_boxes" = "停車房";
 
-"placepage_parking_pay" = "Pay";
+"placepage_parking_pay" = "付款";
 
-"placepage_parking_free" = "Free";
+"placepage_parking_free" = "免費";
 
-"placepage_parking_interval" = "Interval Pay";
+"placepage_parking_interval" = "間隔付款";
 
-"placepage_entrance_number" = "No.";
+"placepage_entrance_number" = "編號";
 
-"placepage_entrance_type" = "Entrance";
+"placepage_entrance_type" = "入口";
 
-"placepage_flat" = "app.";
+"placepage_flat" = "公寓";
 
-"placepage_open_24_7" = "24 / 7";
+"placepage_open_24_7" = "全天候";
 
-"placepage_place_rating" = "Rating:";
+"placepage_place_rating" = "評價：";
 
-"place_page_starting_from" = "from %d";
+"place_page_starting_from" = "從 %s";
 
 "meter" = "m";
 
 "kilometer" = "km";
 
-"placepage_place_description" = "Description";
+"placepage_place_description" = "說明";
 
-"placepage_more_button" = "More";
+"placepage_more_button" = "更多";
 
-"bookingcom_book_button" = "Book";
+"bookingcom_book_button" = "圖書";
 
-"placepage_call_button" = "Call";
+"placepage_call_button" = "呼叫";
 
-"placepage_edit_bookmark_button" = "Edit Bookmark";
+"placepage_edit_bookmark_button" = "編輯書籤";
 
-"placepage_bookmark_name_hint" = "Bookmark Name";
+"placepage_bookmark_name_hint" = "書籤名稱";
 
-"placepage_personal_notes_hint" = "Personal notes";
+"placepage_personal_notes_hint" = "個人備註";
 
-"placepage_delete_bookmark_button" = "Delete Bookmark";
+"placepage_delete_bookmark_button" = "刪除書籤";
 
-"editor_edits_sent_message" = "Your suggested changes have been sent";
+"editor_edits_sent_message" = "您的建議已傳送";
 
-"editor_comment_hint" = "Comment…";
+"editor_comment_hint" = "註解…";
 
-"editor_reset_edits_message" = "Reset all local changes?";
+"editor_reset_edits_message" = "重設所有本機變更？";
 
-"editor_reset_edits_button" = "Reset";
+"editor_reset_edits_button" = "重設";
 
-"editor_remove_place_message" = "Remove an added place?";
+"editor_remove_place_message" = "移除已新增的位置？";
 
-"editor_remove_place_button" = "Remove";
+"editor_remove_place_button" = "移除";
 
-"editor_status_sending" = "Sending…";
+"editor_status_sending" = "正在傳送…";
 
-"editor_place_doesnt_exist" = "Place does not exist";
+"editor_place_doesnt_exist" = "位置不存在";
 
 "place_page_booking_rating" = "Rating: %s";
 
