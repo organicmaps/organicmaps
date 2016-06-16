@@ -40,6 +40,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="rrI-0A-w3s" secondAttribute="trailing" id="LPs-Yx-xz6"/>
+                <constraint firstItem="rrI-0A-w3s" firstAttribute="top" secondItem="W07-Hz-J60" secondAttribute="bottom" constant="-3" id="SMD-s3-Tz5"/>
                 <constraint firstItem="W07-Hz-J60" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="UJy-Ef-B7E"/>
                 <constraint firstItem="rrI-0A-w3s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="X6f-tU-o9a"/>
                 <constraint firstAttribute="bottom" secondItem="rrI-0A-w3s" secondAttribute="bottom" constant="2" id="Zsi-G2-yc8"/>

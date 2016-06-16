@@ -26,6 +26,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 @property (weak, nonatomic) MWMPlacePageViewManager * placePageManager;
 @property (copy, nonatomic) IBOutletCollection(UIView) NSArray<UIView *> * buttons;
+@property (weak, nonatomic) IBOutlet UIImageView * separator;
 @property (nonatomic) BOOL isPrepareRouteMode;
 
 @end
@@ -270,6 +271,21 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   // Only iOS7
   if (buttonIndex > 0)
     [self tapOnButtonWithType:m_additionalButtons[buttonIndex - 1]];
+}
+
+
+#pragma mark - Layout
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  self.separator.width = self.width;
+  CGFloat const buttonWidth = self.width / self.buttons.count;
+  for (UIView * button in self.buttons)
+  {
+    button.minX = buttonWidth * (button.tag - 1);
+    button.width = buttonWidth;
+  }
 }
 
 @end

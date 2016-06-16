@@ -85,8 +85,8 @@ NSString * titleForButton(EButton type, BOOL isSelected)
 }
 
 + (void)addButtonToSuperview:(UIView *)view
-                           delegate:(id<MWMActionBarButtonDelegate>)delegate
-                       buttonType:(EButton)type
+                    delegate:(id<MWMActionBarButtonDelegate>)delegate
+                  buttonType:(EButton)type
                   isSelected:(BOOL)isSelected
 {
   if (view.subviews.count)
@@ -95,9 +95,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   button.delegate = delegate;
   button.type = type;
   [view addSubview:button];
-  button.frame = {{}, view.size};
   [button configButton:isSelected];
-  [button setNeedsLayout];
 }
 
 - (IBAction)tap
@@ -134,6 +132,12 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   UIImageView * animationIV = btn.imageView;
   animationIV.animationImages = animationImages;
   animationIV.animationRepeatCount = 1;
+}
+
+- (void)layoutSubviews
+{
+  self.frame = self.superview.bounds;
+  [super layoutSubviews];
 }
 
 @end
