@@ -514,11 +514,17 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
 
   TestCity sanFrancisco(m2::PointD(0, 0), "San Francisco", "en", 100 /* rank */);
 
-  TestPOI noname(m2::PointD(0, 0), "", "en");
-  noname.SetTypes({{"amenity", "atm"}});
+  TestPOI nonameBeach(m2::PointD(0, 0), "", "ru");
+  nonameBeach.SetTypes({{"natural", "beach"}});
 
-  TestPOI named(m2::PointD(0.0001, 0.0001), "ATM", "en");
-  named.SetTypes({{"amenity", "atm"}});
+  TestPOI namedBeach(m2::PointD(0.2, 0.2), "San Francisco beach", "en");
+  namedBeach.SetTypes({{"natural", "beach"}});
+
+  TestPOI nonameAtm(m2::PointD(0, 0), "", "en");
+  nonameAtm.SetTypes({{"amenity", "atm"}});
+
+  TestPOI namedAtm(m2::PointD(0.0001, 0.0001), "ATM", "en");
+  namedAtm.SetTypes({{"amenity", "atm"}});
 
   TestPOI busStop(m2::PointD(0.00005, 0.0005), "ATM Bus Stop", "en");
   busStop.SetTypes({{"highway", "bus_stop"}});
@@ -537,15 +543,17 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
                                    {
                                      builder.Add(busStop);
                                      builder.Add(cafe);
-                                     builder.Add(named);
-                                     builder.Add(noname);
+                                     builder.Add(namedAtm);
+                                     builder.Add(namedBeach);
+                                     builder.Add(nonameAtm);
+                                     builder.Add(nonameBeach);
                                      builder.Add(toi);
                                    });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
 
   {
-    TRules const rules = {ExactMatch(wonderlandId, noname), ExactMatch(wonderlandId, named),
+    TRules const rules = {ExactMatch(wonderlandId, nonameAtm), ExactMatch(wonderlandId, namedAtm),
                           ExactMatch(wonderlandId, busStop)};
 
     auto request = MakeRequest("atm");
@@ -572,7 +580,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   }
 
   {
-    TRules const rules = {ExactMatch(wonderlandId, noname), ExactMatch(wonderlandId, named)};
+    TRules const rules = {ExactMatch(wonderlandId, nonameAtm), ExactMatch(wonderlandId, namedAtm)};
 
     auto request = MakeRequest("#atm");
 
@@ -592,6 +600,9 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
 
   TEST(ResultsMatch("wifi", {ExactMatch(wonderlandId, cafe)}), ());
   TEST(ResultsMatch("toilet", {ExactMatch(wonderlandId, toi)}), ());
+  TEST(ResultsMatch("beach ",
+                    {ExactMatch(wonderlandId, nonameBeach), ExactMatch(wonderlandId, namedBeach)}),
+       ());
 }
 }  // namespace
 }  // namespace search
