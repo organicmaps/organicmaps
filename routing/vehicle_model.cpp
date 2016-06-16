@@ -12,7 +12,7 @@
 namespace routing
 {
 
-VehicleModel::VehicleModel(Classificator const & c, VehicleModel::InitListT const & speedLimits)
+VehicleModel::VehicleModel(Classificator const & c, InitListT const & speedLimits)
   : m_maxSpeedKMpH(0),
     m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" }))
 {
@@ -36,9 +36,9 @@ double VehicleModel::GetSpeed(FeatureType const & f) const
 
   RoadAvailability const restriction = GetRoadAvailability(types);
   if (restriction == RoadAvailability::Available)
-    return VehicleModel::GetMaxSpeed();
+    return GetMaxSpeed();
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
-    return VehicleModel::GetMinTypeSpeed(types);
+    return GetMinTypeSpeed(types);
 
   return 0.0;
 }
@@ -78,7 +78,7 @@ bool VehicleModel::IsRoad(FeatureType const & f) const
 
   if (GetRoadAvailability(types) == RoadAvailability::NotAvailable)
     return false;
-  return VehicleModel::HasRoadType(types);
+  return HasRoadType(types);
 }
 
 bool VehicleModel::IsRoadType(uint32_t type) const
@@ -90,5 +90,19 @@ bool VehicleModel::IsRoadType(uint32_t type) const
 IVehicleModel::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const & /* types */) const
 {
   return RoadAvailability::Unknown;
+}
+
+string DebugPrint(IVehicleModel::RoadAvailability const l)
+{
+  switch (l)
+  {
+  case IVehicleModel::RoadAvailability::Available: return "Available";
+  case IVehicleModel::RoadAvailability::NotAvailable: return "NotAvailable";
+  case IVehicleModel::RoadAvailability::Unknown: return "Unknown";
+  }
+
+  stringstream out;
+  out << "Unknown IVehicleModel::RoadAvailability (" << static_cast<int>(l) << ")";
+  return out.str();
 }
 }  // namespace routing

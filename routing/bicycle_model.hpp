@@ -23,7 +23,7 @@ protected:
 private:
   void Init();
 
-  /// @return true if it is allowed to ride bicycle in two directions.
+  /// @return true if it is allowed to ride a bicycle in both directions.
   bool IsBicycleBidir(feature::TypesHolder const & types) const;
 
   uint32_t m_noBicycleType = 0;

@@ -37,8 +37,7 @@ public:
 
   virtual bool IsOneWay(FeatureType const & f) const = 0;
 
-  /// @returns true if feature |f| can be used for routing with corresponding vehicle model
-  /// and returns false otherwise.
+  /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.
   virtual bool IsRoad(FeatureType const & f) const = 0;
 };
 
@@ -74,14 +73,11 @@ public:
   bool IsOneWay(FeatureType const & f) const override;
   bool IsRoad(FeatureType const & f) const override;
 
-protected:
-   /// @returns a special restriction which is set to the feature.
-  virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
-
 public:
 
   /// @returns true if |m_types| or |m_addRoadTypes| contains |type| and false otherwise.
   bool IsRoadType(uint32_t type) const;
+
   template <class TList>
   bool HasRoadType(TList const & types) const
   {
@@ -94,15 +90,18 @@ public:
   }
 
 protected:
+  /// @returns a special restriction which is set to the feature.
+  virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
+
   /// Used in derived class constructors only. Not for public use.
   void SetAdditionalRoadTypes(Classificator const & c,
                               initializer_list<char const *> const * arr, size_t sz);
 
   /// \returns true if |types| is a oneway feature.
-  /// \note According to OSM tag "oneway" could have value "-1". That means it's a oneway feature
-  /// with reversed geometry. In that case while map generation the geometry of such features
+  /// \note According to OSM, tag "oneway" could have value "-1". That means it's a oneway feature
+  /// with reversed geometry. In that case at map generation the geometry of such features
   /// is reversed (the order of points is changed) so in vehicle model all oneway feature
-  /// could be considered as features with forward geometry.
+  /// may be considered as features with forward geometry.
   bool HasOneWayType(feature::TypesHolder const & types) const;
 
   double GetMinTypeSpeed(feature::TypesHolder const & types) const;
@@ -116,4 +115,5 @@ private:
   uint32_t m_onewayType;
 };
 
+string DebugPrint(IVehicleModel::RoadAvailability const l);
 }  // namespace routing
