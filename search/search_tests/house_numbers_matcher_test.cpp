@@ -157,6 +157,10 @@ UNIT_TEST(LooksLikeHouseNumber_Smoke)
 
   TEST(LooksLikeHouseNumber("39 строе", true /* isPrefix */), ());
   TEST(!LooksLikeHouseNumber("39 строе", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("39", true /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("39", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("строе", true /* isPrefix */), ());
+  TEST(!LooksLikeHouseNumber("строе", false /* isPrefix */), ());
 
   TEST(LooksLikeHouseNumber("дом ", true /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("дом ", false /* isPrefix */), ());

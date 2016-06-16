@@ -1095,7 +1095,8 @@ void Geocoder::GreedilyMatchStreets()
       if (IsStreetSynonymPrefix(token))
         continue;
 
-      if (feature::IsHouseNumber(token))
+      bool const isPrefix = curToken >= m_params.m_tokens.size();
+      if (house_numbers::LooksLikeHouseNumber(token, isPrefix))
       {
         CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
         lastStopToken = curToken;

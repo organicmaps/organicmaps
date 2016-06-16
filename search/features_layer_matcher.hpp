@@ -255,12 +255,6 @@ private:
       if (m_postcodes && !m_postcodes->GetBit(id))
         return false;
 
-      // HouseNumbersMatch() calls are expensive, so following code
-      // tries to reduce the number of calls. The most important
-      // optimization: as first tokens from the house-number part of
-      // the query and feature's house numbers must be numbers, their
-      // first symbols must be the same.
-
       if (!loaded)
       {
         GetByIndex(id, feature);
@@ -271,8 +265,6 @@ private:
         return false;
 
       strings::UniString const houseNumber(strings::MakeUniString(feature.GetHouseNumber()));
-      if (!feature::IsHouseNumber(houseNumber))
-        return false;
       return house_numbers::HouseNumbersMatch(houseNumber, queryParse);
     };
 
