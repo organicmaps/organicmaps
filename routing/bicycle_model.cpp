@@ -601,40 +601,41 @@ BicycleModel::BicycleModel(VehicleModel::InitListT const & speedLimits)
 
 void BicycleModel::Init()
 {
-  // @TODO(bykoianko) Uncomment line below what tags hwtag=nobicycle and hwtag=yesbicycle
-  // will be added to classificator.txt. (https://jira.mail.ru/browse/MAPSME-858)
-//  m_noBicycleType = classif().GetTypeByPath({ "hwtag", "nobicycle" });
-//  m_yesBicycleType = classif().GetTypeByPath({ "hwtag", "yesbicycle" });
+  initializer_list<char const *> hwtagYesBicycle = {"hwtag", "yesbicycle"};
 
-  initializer_list<char const *> arr[] =
-  {
-    { "route", "ferry" },
-    { "man_made", "pier" },
+  m_yesBicycleType = classif().GetTypeByPath(hwtagYesBicycle);
+  m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
+  m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
+
+  initializer_list<char const *> arr[] = {
+      hwtagYesBicycle, {"route", "ferry"}, {"man_made", "pier"},
   };
 
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
-bool BicycleModel::IsNoBicycle(feature::TypesHolder const & types) const
+IVehicleModel::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const
 {
-  return find(types.begin(), types.end(), m_noBicycleType) != types.end();
+  if (types.Has(m_yesBicycleType))
+    return RoadAvailability::Available;
+  if (types.Has(m_noBicycleType))
+    return RoadAvailability::NotAvailable;
+  return RoadAvailability::Unknown;
 }
 
-bool BicycleModel::IsYesBicycle(feature::TypesHolder const & types) const
+bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
 {
-  return find(types.begin(), types.end(), m_yesBicycleType) != types.end();
+  return types.Has(m_bidirBicycleType);
 }
 
-double BicycleModel::GetSpeed(FeatureType const & f) const
+bool BicycleModel::IsOneWay(FeatureType const & f) const
 {
-  feature::TypesHolder types(f);
+  feature::TypesHolder const types(f);
 
-  if (IsYesBicycle(types))
-    return VehicleModel::GetMaxSpeed();
-  if (!IsNoBicycle(types) && IsRoad(types))
-    return VehicleModel::GetSpeed(types);
+  if (IsBicycleBidir(types))
+    return false;
 
-  return 0.0;
+  return VehicleModel::IsOneWay(f);
 }
 
 BicycleModelFactory::BicycleModelFactory()

@@ -31,6 +31,7 @@ private:
     double GetSpeed(FeatureType const & f) const override;
     double GetMaxSpeed() const override;
     bool IsOneWay(FeatureType const & f) const override;
+    bool IsRoad(FeatureType const & f) const override;
 
     void Clear();
 
@@ -77,6 +78,7 @@ public:
 private:
   friend class CrossFeaturesLoader;
 
+  bool IsRoad(FeatureType const & ft) const;
   bool IsOneWay(FeatureType const & ft) const;
   double GetSpeedKMPHFromFt(FeatureType const & ft) const;
 

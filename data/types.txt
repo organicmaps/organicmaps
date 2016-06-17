@@ -1113,7 +1113,7 @@ sponsored
 sponsored|booking
 hwtag|nobicycle
 hwtag|yesbicycle
-hwtag|bicycle_bidir
+hwtag|bidir_bicycle
 psurface|paved_good
 psurface|paved_bad
 psurface|unpaved_good

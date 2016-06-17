@@ -34,3 +34,32 @@ UNIT_TEST(SwedenStockholmCyclewayPriority)
       integration::GetBicycleComponents(), MercatorBounds::FromLatLon(59.33151, 18.09347), {0., 0.},
       MercatorBounds::FromLatLon(59.33052, 18.09391), 113.0);
 }
+
+UNIT_TEST(NetherlandsAmsterdamBicycleNo)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(52.32716, 5.05932),
+      {0.0, 0.0}, MercatorBounds::FromLatLon(52.32587, 5.06121));
+
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::RouteNotFound, ());
+}
+
+UNIT_TEST(NetherlandsAmsterdamBicycleYes)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(52.32872, 5.07527),
+      {0.0, 0.0}, MercatorBounds::FromLatLon(52.33853, 5.08941));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+  TEST_EQUAL(route.GetTotalTimeSec(), 356, ());
+}
+
+UNIT_TEST(NetherlandsAmsterdamSingelStOnewayBicycleNo)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(52.3785, 4.89407), {0., 0.},
+      MercatorBounds::FromLatLon(52.37462, 4.88983), 519.0);
+}

@@ -621,40 +621,26 @@ PedestrianModel::PedestrianModel(VehicleModel::InitListT const & speedLimits)
 
 void PedestrianModel::Init()
 {
-  m_noFootType = classif().GetTypeByPath({ "hwtag", "nofoot" });
-  m_yesFootType = classif().GetTypeByPath({ "hwtag", "yesfoot" });
+  initializer_list<char const *> hwtagYesFoot = {"hwtag", "yesfoot"};
 
-  initializer_list<char const *> arr[] =
-  {
-    { "route", "ferry" },
-    { "man_made", "pier" },
+  m_noFootType = classif().GetTypeByPath({ "hwtag", "nofoot" });
+  m_yesFootType = classif().GetTypeByPath(hwtagYesFoot);
+
+  initializer_list<char const *> arr[] = {
+      hwtagYesFoot, {"route", "ferry"}, {"man_made", "pier"},
   };
 
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
-bool PedestrianModel::IsNoFoot(feature::TypesHolder const & types) const
+IVehicleModel::RoadAvailability PedestrianModel::GetRoadAvailability(feature::TypesHolder const & types) const
 {
-  return find(types.begin(), types.end(), m_noFootType) != types.end();
+  if (types.Has(m_yesFootType))
+    return RoadAvailability::Available;
+  if (types.Has(m_noFootType))
+    return RoadAvailability::NotAvailable;
+  return RoadAvailability::Unknown;
 }
-
-bool PedestrianModel::IsYesFoot(feature::TypesHolder const & types) const
-{
-  return find(types.begin(), types.end(), m_yesFootType) != types.end();
-}
-
-double PedestrianModel::GetSpeed(FeatureType const & f) const
-{
-  feature::TypesHolder types(f);
-
-  if (IsYesFoot(types))
-    return VehicleModel::GetMaxSpeed();
-  if (!IsNoFoot(types) && IsRoad(types))
-    return VehicleModel::GetSpeed(types);
-
-  return 0.0;
-}
-
 
 PedestrianModelFactory::PedestrianModelFactory()
 {
@@ -700,5 +686,4 @@ shared_ptr<IVehicleModel> PedestrianModelFactory::GetVehicleModelForCountry(stri
   LOG(LDEBUG, ("Pedestrian model wasn't found, default model is used instead:", country));
   return PedestrianModelFactory::GetVehicleModel();
 }
-
 }  // routing

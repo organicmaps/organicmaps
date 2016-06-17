@@ -14,24 +14,21 @@ public:
   BicycleModel();
   BicycleModel(VehicleModel::InitListT const & speedLimits);
 
-  /// @name Overrides from VehicleModel.
-  //@{
-  double GetSpeed(FeatureType const & f) const override;
-  //@}
+  /// VehicleModel overrides:
+  bool IsOneWay(FeatureType const & f) const override;
+
+protected:
+  RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
 
 private:
   void Init();
 
-  /// @return true if road is prohibited for bicycle,
-  /// but if function returns false, real prohibition is unknown.
-  bool IsNoBicycle(feature::TypesHolder const & types) const;
-
-  /// @return true if road is allowed for bicycle,
-  /// but if function returns false, real allowance is unknown.
-  bool IsYesBicycle(feature::TypesHolder const & types) const;
+  /// @return true if it is allowed to ride a bicycle in both directions.
+  bool IsBicycleBidir(feature::TypesHolder const & types) const;
 
   uint32_t m_noBicycleType = 0;
   uint32_t m_yesBicycleType = 0;
+  uint32_t m_bidirBicycleType = 0;
 };
 
 class BicycleModelFactory : public IVehicleModelFactory

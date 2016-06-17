@@ -19,6 +19,13 @@ namespace routing
 class IVehicleModel
 {
 public:
+  enum class RoadAvailability
+  {
+    NotAvailable,
+    Available,
+    Unknown,
+  };
+
   virtual ~IVehicleModel() {}
 
   /// @return Allowed speed in KMpH.
@@ -29,6 +36,9 @@ public:
   virtual double GetMaxSpeed() const = 0;
 
   virtual bool IsOneWay(FeatureType const & f) const = 0;
+
+  /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.
+  virtual bool IsRoad(FeatureType const & f) const = 0;
 };
 
 class IVehicleModelFactory
@@ -52,40 +62,49 @@ public:
     char const * m_types[2];  /// 2-arity road type
     double m_speedKMpH;       /// max allowed speed on this road type
   };
+
   typedef initializer_list<SpeedForType> InitListT;
 
   VehicleModel(Classificator const & c, InitListT const & speedLimits);
 
-  /// @name Overrides from IVehicleModel.
-  //@{
+  /// IVehicleModel overrides:
   double GetSpeed(FeatureType const & f) const override;
   double GetMaxSpeed() const override { return m_maxSpeedKMpH; }
   bool IsOneWay(FeatureType const & f) const override;
-  //@}
+  bool IsRoad(FeatureType const & f) const override;
 
-  double GetSpeed(feature::TypesHolder const & types) const;
+public:
 
-  /// \returns true if |types| is a oneway feature.
-  /// \note According to OSM tag "oneway" could have value "-1". That means it's a oneway feature
-  /// with reversed geometry. In that case while map generation the geometry of such features
-  /// is reversed (the order of points is changed) so in vehicle model all oneway feature
-  /// could be considered as features with forward geometry.
-  bool IsOneWay(feature::TypesHolder const & types) const;
+  /// @returns true if |m_types| or |m_addRoadTypes| contains |type| and false otherwise.
+  bool IsRoadType(uint32_t type) const;
 
-  bool IsRoad(FeatureType const & f) const;
-  template <class TList> bool IsRoad(TList const & types) const
+  template <class TList>
+  bool HasRoadType(TList const & types) const
   {
     for (uint32_t t : types)
-      if (IsRoad(t))
+    {
+      if (IsRoadType(t))
         return true;
+    }
     return false;
   }
-  bool IsRoad(uint32_t type) const;
 
 protected:
+  /// @returns a special restriction which is set to the feature.
+  virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
+
   /// Used in derived class constructors only. Not for public use.
   void SetAdditionalRoadTypes(Classificator const & c,
                               initializer_list<char const *> const * arr, size_t sz);
+
+  /// \returns true if |types| is a oneway feature.
+  /// \note According to OSM, tag "oneway" could have value "-1". That means it's a oneway feature
+  /// with reversed geometry. In that case at map generation the geometry of such features
+  /// is reversed (the order of points is changed) so in vehicle model all oneway feature
+  /// may be considered as features with forward geometry.
+  bool HasOneWayType(feature::TypesHolder const & types) const;
+
+  double GetMinTypeSpeed(feature::TypesHolder const & types) const;
 
   double m_maxSpeedKMpH;
 
@@ -96,4 +115,5 @@ private:
   uint32_t m_onewayType;
 };
 
+string DebugPrint(IVehicleModel::RoadAvailability const l);
 }  // namespace routing

@@ -60,6 +60,11 @@ bool FeaturesRoadGraph::CrossCountryVehicleModel::IsOneWay(FeatureType const & f
   return GetVehicleModel(f.GetID())->IsOneWay(f);
 }
 
+bool FeaturesRoadGraph::CrossCountryVehicleModel::IsRoad(FeatureType const & f) const
+{
+  return GetVehicleModel(f.GetID())->IsRoad(f);
+}
+
 IVehicleModel * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleModel(FeatureID const & featureId) const
 {
   auto itr = m_cache.find(featureId.m_mwmId);
@@ -114,7 +119,7 @@ public:
 
   void operator()(FeatureType & ft)
   {
-    if (ft.GetFeatureType() != feature::GEOM_LINE)
+    if (!m_graph.IsRoad(ft))
       return;
 
     double const speedKMPH = m_graph.GetSpeedKMPHFromFt(ft);
@@ -167,7 +172,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
 
   auto const f = [&finder, this](FeatureType & ft)
   {
-    if (ft.GetFeatureType() != feature::GEOM_LINE)
+    if (!m_vehicleModel.IsRoad(ft))
       return;
 
     double const speedKMPH = m_vehicleModel.GetSpeed(ft);
@@ -235,6 +240,8 @@ void FeaturesRoadGraph::ClearState()
   m_vehicleModel.Clear();
   m_mwmLocks.clear();
 }
+
+bool FeaturesRoadGraph::IsRoad(FeatureType const & ft) const { return m_vehicleModel.IsRoad(ft); }
 
 bool FeaturesRoadGraph::IsOneWay(FeatureType const & ft) const
 {

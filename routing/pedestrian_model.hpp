@@ -14,22 +14,14 @@ public:
   PedestrianModel();
   PedestrianModel(VehicleModel::InitListT const & speedLimits);
 
-  /// @name Overrides from VehicleModel.
-  //@{
-  double GetSpeed(FeatureType const & f) const override;
+  /// VehicleModel overrides:
   bool IsOneWay(FeatureType const &) const override { return false; }
-  //@}
+
+protected:
+  RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
 
 private:
   void Init();
-
-  /// @return True if road is prohibited for pedestrian,
-  /// but if function returns False, real prohibition is unknown.
-  bool IsNoFoot(feature::TypesHolder const & types) const;
-
-  /// @return True if road is allowed for pedestrian,
-  /// but if function returns False, real allowance is unknown.
-  bool IsYesFoot(feature::TypesHolder const & types) const;
 
   uint32_t m_noFootType = 0;
   uint32_t m_yesFootType = 0;
@@ -49,5 +41,4 @@ public:
 private:
   unordered_map<string, shared_ptr<IVehicleModel>> m_models;
 };
-
 }  // namespace routing

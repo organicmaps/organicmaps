@@ -507,7 +507,7 @@ UNIT_TEST(OsmType_Hwtag)
 {
   char const * tags[][2] = {
       {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
-      {"hwtag", "yesbicycle"}, {"hwtag", "bicycle_bidir"}
+      {"hwtag", "yesbicycle"}, {"hwtag", "bidir_bicycle"}
   };
 
   {
@@ -612,15 +612,15 @@ UNIT_TEST(OsmType_Ferry)
 
   uint32_t type = GetType({"highway", "primary", "bridge"});
   TEST(params.IsTypeExist(type), ());
-  TEST(carModel.IsRoad(type), ());
+  TEST(carModel.IsRoadType(type), ());
 
   type = GetType({"route", "ferry", "motorcar"});
   TEST(params.IsTypeExist(type), ());
-  TEST(carModel.IsRoad(type), ());
+  TEST(carModel.IsRoadType(type), ());
 
   type = GetType({"route", "ferry"});
   TEST(!params.IsTypeExist(type), ());
-  TEST(!carModel.IsRoad(type), ());
+  TEST(!carModel.IsRoadType(type), ());
 }
 
 UNIT_TEST(OsmType_Boundary)
