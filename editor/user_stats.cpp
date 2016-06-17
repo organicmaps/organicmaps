@@ -61,7 +61,7 @@ bool UserStats::GetRank(int32_t & rank) const
   return true;
 }
 
-bool UserStats::GetLevelUpRequiredFeat(string & levelUpFeat)  const
+bool UserStats::GetLevelUpRequiredFeat(string & levelUpFeat) const
 {
   if (m_levelUpRequiredFeat.empty())
     return false;
