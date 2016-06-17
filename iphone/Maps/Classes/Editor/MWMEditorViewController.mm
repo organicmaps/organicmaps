@@ -116,18 +116,20 @@ vector<MWMPlacePageCellType> cellsForAdditionalNames(
     vector<osm::LocalizedName> const & names, vector<NSInteger> const & newAdditionalLanguages,
     BOOL showAdditionalNames)
 {
-  if (names.empty() && newAdditionalLanguages.empty())
-    return vector<MWMPlacePageCellType>();
   vector<MWMPlacePageCellType> res;
-  if (showAdditionalNames)
+  auto const allNamesSize = names.size() + newAdditionalLanguages.size();
+  if (allNamesSize != 0)
   {
-    res.insert(res.begin(), names.size() + newAdditionalLanguages.size(),
-               MWMPlacePageCellTypeAdditionalName);
-  }
-  else
-  {
-    res.push_back(MWMPlacePageCellTypeAdditionalName);
-    res.push_back(MWMPlacePageCellTypeAddAdditionalNamePlaceholder);
+    if (showAdditionalNames)
+    {
+      res.insert(res.begin(), allNamesSize, MWMPlacePageCellTypeAdditionalName);
+    }
+    else
+    {
+      res.push_back(MWMPlacePageCellTypeAdditionalName);
+      if (allNamesSize > 1)
+        res.push_back(MWMPlacePageCellTypeAddAdditionalNamePlaceholder);
+    }
   }
   res.push_back(MWMPlacePageCellTypeAddAdditionalName);
   return res;
@@ -423,12 +425,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     vector<osm::LocalizedName> localizedNames = getAdditionalLocalizedNames(m_mapObject);
     cleanupAdditionalLanguages(localizedNames, m_newAdditionalLanguages);
     auto const cells = cellsForAdditionalNames(localizedNames, m_newAdditionalLanguages, self.showAdditionalNames);
-    if (!cells.empty())
-    {
-      m_sections.push_back(MWMEditorSectionAdditionalNames);
-      m_cells[MWMEditorSectionAdditionalNames] = cells;
-      registerCellsForTableView(cells, self.tableView);
-    }
+    m_sections.push_back(MWMEditorSectionAdditionalNames);
+    m_cells[MWMEditorSectionAdditionalNames] = cells;
+    registerCellsForTableView(cells, self.tableView);
+    [self.additionalNamesHeader setAdditionalNamesVisible:cells.size() > 2];
   }
   if (m_mapObject.IsAddressEditable())
   {

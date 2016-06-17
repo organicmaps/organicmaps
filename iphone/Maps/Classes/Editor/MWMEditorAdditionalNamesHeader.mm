@@ -31,4 +31,9 @@
   [self.toggleButton setTitle:showAdditionalNames ? L(@"hide") : L(@"show") forState:UIControlStateNormal];
 }
 
+- (void)setAdditionalNamesVisible:(BOOL)visible
+{
+  self.toggleButton.hidden = !visible;
+}
+
 @end
