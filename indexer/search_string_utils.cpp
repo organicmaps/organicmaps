@@ -1,10 +1,9 @@
-#include "search_string_utils.hpp"
+#include "indexer/search_string_utils.hpp"
+#include "indexer/string_set.hpp"
 
 #include "base/macros.hpp"
-#include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
-#include "std/transform_iterator.hpp"
 
 using namespace strings;
 
@@ -99,8 +98,9 @@ char const * kStreetTokensSeparator = "\t -,.";
 
 class StreetsSynonymsHolder
 {
-  vector<UniString> m_synonyms;
 public:
+  using TStrings = search::StringSet<UniChar, 8>;
+
   StreetsSynonymsHolder()
   {
     char const * affics[] =
@@ -169,21 +169,27 @@ public:
       "дорога", "провулок", "площа", "шосе", "вулиция", "дор", "пров", "вул"
     };
 
-    m_synonyms.assign(make_transform_iterator(affics, &NormalizeAndSimplifyString),
-                      make_transform_iterator(affics + ARRAY_SIZE(affics), &NormalizeAndSimplifyString));
-    my::SortUnique(m_synonyms);
+    for (auto const * s : affics)
+    {
+      UniString const us = MakeUniString(s);
+      m_strings.Add(us.begin(), us.end());
+    }
   }
 
-  bool MatchPrefix(UniString const & prefix) const
+  bool MatchPrefix(UniString const & s) const
   {
-    auto const it = lower_bound(m_synonyms.begin(), m_synonyms.end(), prefix);
-    return (it != m_synonyms.end() && StartsWith(*it, prefix));
+    auto const status = m_strings.Has(s.begin(), s.end());
+    return status != TStrings::Status::Absent;
   }
 
-  bool FullMatch(UniString const & name) const
+  bool FullMatch(UniString const & s) const
   {
-    return binary_search(m_synonyms.begin(), m_synonyms.end(), name);
+    auto const status = m_strings.Has(s.begin(), s.end());
+    return status == TStrings::Status::Full;
   }
+
+private:
+  TStrings m_strings;
 };
 
 StreetsSynonymsHolder g_streets;
