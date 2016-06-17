@@ -12,7 +12,7 @@ namespace
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetOsrmComponents(), MercatorBounds::FromLatLon(19.20789, 30.50663), {0., 0.},
-        MercatorBounds::FromLatLon(19.17289, 30.47315), 9186.);
+        MercatorBounds::FromLatLon(19.17289, 30.47315), 10283.7);
   }
 
   UNIT_TEST(MoscowShortRoadUnpacking)
