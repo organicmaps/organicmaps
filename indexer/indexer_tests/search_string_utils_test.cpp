@@ -143,4 +143,16 @@ UNIT_TEST(StreetTokensFilter)
 
     TEST_EQUAL(expected, actual, ());
   }
+
+  {
+    TList expected = {{"улица", 0}, {"набережная", 1}, {"проспект", 2}};
+    TList actual;
+
+    Utf8StreetTokensFilter filter(actual);
+    filter.Put("улица", false /* isPrefix */, 0 /* tag */);
+    filter.Put("набережная", true /* isPrefix */, 1 /* tag */);
+    filter.Put("проспект", false /* isPrefix */, 2 /* tag */);
+
+    TEST_EQUAL(expected, actual, ());
+  }
 }

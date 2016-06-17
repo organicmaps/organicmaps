@@ -466,8 +466,8 @@ void Geocoder::SetParams(Params const & params)
     }
   }
 
-  LOG(LDEBUG, ("Tokens = ", m_params.m_tokens));
-  LOG(LDEBUG, ("Prefix tokens = ", m_params.m_prefixTokens));
+  LOG(LDEBUG, ("Tokens =", m_params.m_tokens));
+  LOG(LDEBUG, ("Prefix tokens =", m_params.m_prefixTokens));
   LOG(LDEBUG, ("Languages =", m_params.m_langs));
 }
 
@@ -1091,7 +1091,12 @@ void Geocoder::GreedilyMatchStreets()
     // arguments.
     size_t lastToken = startToken;
 
+    // When true, no bit vectors were intersected with allFeatures at
+    // all.
     bool emptyIntersection = true;
+
+    // When true, allFeatures is in the incomplete state and can't be
+    // used for creation of street layers.
     bool incomplete = false;
 
     auto createStreetsLayerAndMatchLowerLayers = [&]()
@@ -1109,8 +1114,13 @@ void Geocoder::GreedilyMatchStreets()
                                     *allFeatures, *m_addressFeatures[tag]);
                                 if (tag < curToken)
                                 {
+                                  // This is the case for delayed
+                                  // street synonym.  Therefore,
+                                  // allFeatures is temporarily in the
+                                  // incomplete state.
                                   allFeatures.Set(move(buffer));
                                   emptyIntersection = false;
+
                                   incomplete = true;
                                   return;
                                 }

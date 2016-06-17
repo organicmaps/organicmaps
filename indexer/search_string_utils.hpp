@@ -57,7 +57,10 @@ bool ContainsNormalized(string const & str, string const & substr);
 
 // This class can be used as a filter for street tokens.  As there can
 // be street synonyms in the street name, single street synonym is
-// skipped, but multiple synonyms are left as is.
+// skipped, but multiple synonyms are left as is. For example, when
+// applied to ["улица", "ленина"] the filter must emit only
+// ["ленина"], but when applied to ["улица", "набережная"] the filter
+// must emit both tokens as is, i.e. ["улица", "набережная"].
 class StreetTokensFilter
 {
 public:
@@ -70,10 +73,10 @@ public:
   }
 
   // Puts token to the filter. Filter checks following cases:
-  // * if |token| is the first street synonym met so far, it's delayed
-  // * if |token| is a street synonym, but not the first, callback is called
-  //   for the |token| and for the previously delayed token
-  // * if |token| is not a street synonym, callback is called for the |token|
+  // * when |token| is the first street synonym met so far, it's delayed
+  // * when |token| is the second street synonym met so far,
+  //   callback is called for the |token| and for the previously delayed token
+  // * otherwise, callback is called for the |token|
   void Put(strings::UniString const & token, bool isPrefix, size_t tag);
 
 private:

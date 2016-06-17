@@ -234,16 +234,11 @@ void StreetTokensFilter::Put(strings::UniString const & token, bool isPrefix, si
     {
       m_delayedToken = token;
       m_delayedTag = tag;
+      return;
     }
-    else
-    {
+    if (m_numSynonyms == 2)
       EmitToken(m_delayedToken, m_delayedTag);
-      EmitToken(token, tag);
-    }
   }
-  else
-  {
-    EmitToken(token, tag);
-  }
+  EmitToken(token, tag);
 }
 } // namespace search
