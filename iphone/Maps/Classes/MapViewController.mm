@@ -360,8 +360,6 @@ BOOL gIsFirstMyPositionMode = YES;
     return;
   // Notify about entering foreground (should be called on the first launch too).
   GetFramework().EnterForeground();
-  if (![Alohalytics isFirstSession])
-    [[MapsAppDelegate theApp].locationManager start:self];
 }
 
 - (void)onGetFocus:(BOOL)isOnFocus
