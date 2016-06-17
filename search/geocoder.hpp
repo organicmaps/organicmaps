@@ -245,8 +245,8 @@ private:
   // then performs geocoding in street vicinities.
   void GreedilyMatchStreets();
 
-  void CreateStreetsLayerAndMatchLowerLayers(
-      size_t startToken, size_t endToken, unique_ptr<coding::CompressedBitVector> const & features);
+  void CreateStreetsLayerAndMatchLowerLayers(size_t startToken, size_t endToken,
+                                             coding::CompressedBitVector const & features);
 
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are

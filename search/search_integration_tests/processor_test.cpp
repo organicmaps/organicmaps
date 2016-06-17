@@ -59,6 +59,8 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
 
   TestCity losAlamosCity(m2::PointD(10, 10), "Los Alamos", "en", 100 /* rank */);
   TestCity mskCity(m2::PointD(0, 0), "Moscow", "en", 100 /* rank */);
+  TestCity torontoCity(m2::PointD(-10, -10), "Toronto", "en", 100 /* rank */);
+
   TestVillage longPondVillage(m2::PointD(15, 15), "Long Pond Village", "en", 10 /* rank */);
   TestStreet feynmanStreet(
       vector<m2::PointD>{m2::PointD(9.999, 9.999), m2::PointD(10, 10), m2::PointD(10.001, 10.001)},
@@ -94,16 +96,23 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   TestPOI lantern1(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
   TestPOI lantern2(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
 
+  TestStreet stradaDrive(vector<m2::PointD>{m2::PointD(-10.001, -10.001), m2::PointD(-10, -10),
+                                            m2::PointD(-9.999, -9.999)},
+                         "Strada drive", "en");
+  TestBuilding terranceHouse(m2::PointD(-10, -10), "", "155", stradaDrive, "en");
+
   BuildWorld([&](TestMwmBuilder & builder)
              {
                builder.Add(wonderlandCountry);
                builder.Add(losAlamosCity);
                builder.Add(mskCity);
+               builder.Add(torontoCity);
              });
   auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
                                    {
                                      builder.Add(losAlamosCity);
                                      builder.Add(mskCity);
+                                     builder.Add(torontoCity);
                                      builder.Add(longPondVillage);
 
                                      builder.Add(feynmanStreet);
@@ -125,6 +134,9 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
                                      builder.Add(quantumCafe);
                                      builder.Add(lantern1);
                                      builder.Add(lantern2);
+
+                                     builder.Add(stradaDrive);
+                                     builder.Add(terranceHouse);
                                    });
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
@@ -189,6 +201,11 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   {
     TRules rules = {ExactMatch(wonderlandId, bornHouse)};
     TEST(ResultsMatch("long pond 1st april street 8", rules), ());
+  }
+
+  {
+    TRules rules = {ExactMatch(wonderlandId, terranceHouse)};
+    TEST(ResultsMatch("Toronto strada drive 155", rules), ());
   }
 }
 

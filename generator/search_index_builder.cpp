@@ -176,33 +176,19 @@ public:
       tokens.resize(maxTokensCount);
     }
 
-    // Streets are a special case: we do not add the token "street" and its
-    // synonyms when the feature's name contains it because in
-    // the search phase this part of the query will be matched against the
-    // "street" in the categories branch of the search index.
-    // However, we still add it when there are two or more street tokens
-    // ("avenue st", "улица набережная").
-
-    size_t const tokensCount = tokens.size();
-    size_t numStreetTokens = 0;
-    vector<bool> isStreet(tokensCount);
-    for (size_t i = 0; i < tokensCount; ++i)
+    if (m_hasStreetType)
     {
-      if (search::IsStreetSynonym(tokens[i]))
-      {
-        isStreet[i] = true;
-        ++numStreetTokens;
-      }
+      search::StreetTokensFilter filter([&](strings::UniString const & token, size_t /* tag */)
+                                        {
+                                          AddToken(lang, token);
+                                        });
+      for (auto const & token : tokens)
+        filter.Put(token, false /* isPrefix */, 0 /* tag */);
     }
-
-    for (size_t i = 0; i < tokensCount; ++i)
+    else
     {
-      if (numStreetTokens == 1 && isStreet[i] && m_hasStreetType)
-      {
-        //LOG(LDEBUG, ("Skipping token:", tokens[i], "in", name));
-        continue;
-      }
-      AddToken(lang, tokens[i]);
+      for (auto const & token : tokens)
+        AddToken(lang, token);
     }
 
     return true;

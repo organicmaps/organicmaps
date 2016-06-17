@@ -223,4 +223,22 @@ bool ContainsNormalized(string const & str, string const & substr)
   UniString const usubstr = NormalizeAndSimplifyString(substr);
   return std::search(ustr.begin(), ustr.end(), usubstr.begin(), usubstr.end()) != ustr.end();
 }
+
+// StreetTokensFilter ------------------------------------------------------------------------------
+void StreetTokensFilter::Put(strings::UniString const & token, bool isPrefix, size_t tag)
+{
+  if ((isPrefix && IsStreetSynonymPrefix(token)) || (!isPrefix && IsStreetSynonym(token)))
+  {
+    ++m_numSynonyms;
+    if (m_numSynonyms == 1)
+    {
+      m_delayedToken = token;
+      m_delayedTag = tag;
+      return;
+    }
+    if (m_numSynonyms == 2)
+      EmitToken(m_delayedToken, m_delayedTag);
+  }
+  EmitToken(token, tag);
+}
 } // namespace search

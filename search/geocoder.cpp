@@ -466,6 +466,8 @@ void Geocoder::SetParams(Params const & params)
     }
   }
 
+  LOG(LDEBUG, ("Tokens =", m_params.m_tokens));
+  LOG(LDEBUG, ("Prefix tokens =", m_params.m_prefixTokens));
   LOG(LDEBUG, ("Languages =", m_params.m_langs));
 }
 
@@ -1075,61 +1077,92 @@ void Geocoder::GreedilyMatchStreets()
       continue;
 
     // Here we try to match as many tokens as possible while
-    // intersection is a non-empty bit vector of streets.  All tokens
-    // that are synonyms to streets are ignored.  Moreover, each time
-    // a token that looks like a beginning of a house number is met,
-    // we try to use current intersection of tokens as a street layer
-    // and try to match buildings or pois.
-    unique_ptr<coding::CompressedBitVector> allFeatures;
+    // intersection is a non-empty bit vector of streets. Single
+    // tokens that are synonyms to streets are ignored.  Moreover,
+    // each time a token that looks like a beginning of a house number
+    // is met, we try to use current intersection of tokens as a
+    // street layer and try to match BUILDINGs or POIs.
+    CBVPtr allFeatures(m_streets, false /* isOwner */);
 
     size_t curToken = startToken;
 
     // This variable is used for prevention of duplicate calls to
     // CreateStreetsLayerAndMatchLowerLayers() with the same
     // arguments.
-    size_t lastStopToken = curToken;
+    size_t lastToken = startToken;
 
-    for (; curToken < m_numTokens && !m_usedTokens[curToken]; ++curToken)
+    // When true, no bit vectors were intersected with allFeatures at
+    // all.
+    bool emptyIntersection = true;
+
+    // When true, allFeatures is in the incomplete state and can't be
+    // used for creation of street layers.
+    bool incomplete = false;
+
+    auto createStreetsLayerAndMatchLowerLayers = [&]()
+    {
+      if (!allFeatures.IsEmpty() && !emptyIntersection && !incomplete && lastToken != curToken)
+      {
+        CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, *allFeatures);
+        lastToken = curToken;
+      }
+    };
+
+    StreetTokensFilter filter([&](strings::UniString const & /* token */, size_t tag)
+                              {
+                                auto buffer = coding::CompressedBitVector::Intersect(
+                                    *allFeatures, *m_addressFeatures[tag]);
+                                if (tag < curToken)
+                                {
+                                  // This is the case for delayed
+                                  // street synonym.  Therefore,
+                                  // allFeatures is temporarily in the
+                                  // incomplete state.
+                                  allFeatures.Set(move(buffer));
+                                  emptyIntersection = false;
+
+                                  incomplete = true;
+                                  return;
+                                }
+                                ASSERT_EQUAL(tag, curToken, ());
+
+                                // |allFeatures| will become empty
+                                // after the intersection. Therefore
+                                // we need to create streets layer
+                                // right now.
+                                if (coding::CompressedBitVector::IsEmpty(buffer))
+                                  createStreetsLayerAndMatchLowerLayers();
+
+                                allFeatures.Set(move(buffer));
+                                emptyIntersection = false;
+                                incomplete = false;
+                              });
+
+    for (; curToken < m_numTokens && !m_usedTokens[curToken] && !allFeatures.IsEmpty(); ++curToken)
     {
       auto const & token = m_params.GetTokens(curToken).front();
-      if (IsStreetSynonymPrefix(token))
-        continue;
-
       bool const isPrefix = curToken >= m_params.m_tokens.size();
+
       if (house_numbers::LooksLikeHouseNumber(token, isPrefix))
-      {
-        CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
-        lastStopToken = curToken;
-      }
+        createStreetsLayerAndMatchLowerLayers();
 
-      unique_ptr<coding::CompressedBitVector> buffer;
-      if (startToken == curToken || coding::CompressedBitVector::IsEmpty(allFeatures))
-        buffer = coding::CompressedBitVector::Intersect(*m_streets, *m_addressFeatures[curToken]);
-      else
-        buffer = coding::CompressedBitVector::Intersect(*allFeatures, *m_addressFeatures[curToken]);
-
-      if (coding::CompressedBitVector::IsEmpty(buffer))
-        break;
-
-      allFeatures.swap(buffer);
+      filter.Put(token, isPrefix, curToken);
     }
-
-    if (curToken != lastStopToken)
-      CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
+    createStreetsLayerAndMatchLowerLayers();
   }
 }
 
 void Geocoder::CreateStreetsLayerAndMatchLowerLayers(
-    size_t startToken, size_t endToken, unique_ptr<coding::CompressedBitVector> const & features)
+    size_t startToken, size_t endToken, coding::CompressedBitVector const & features)
 {
   ASSERT(m_layers.empty(), ());
 
-  if (coding::CompressedBitVector::IsEmpty(features))
+  if (coding::CompressedBitVector::IsEmpty(&features))
     return;
 
-  CBVPtr filtered(features.get(), false /* isOwner */);
-  if (m_filter->NeedToFilter(*features))
-    filtered.Set(m_filter->Filter(*features).release(), true /* isOwner */);
+  CBVPtr filtered(&features, false /* isOwner */);
+  if (m_filter->NeedToFilter(features))
+    filtered.Set(m_filter->Filter(features).release(), true /* isOwner */);
 
   m_layers.emplace_back();
   MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
@@ -1138,7 +1171,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(
   InitLayer(SearchModel::SEARCH_TYPE_STREET, startToken, endToken, layer);
 
   vector<uint32_t> sortedFeatures;
-  sortedFeatures.reserve(features->PopCount());
+  sortedFeatures.reserve(features.PopCount());
   filtered.ForEach(MakeBackInsertFunctor(sortedFeatures));
   layer.m_sortedFeatures = &sortedFeatures;
 

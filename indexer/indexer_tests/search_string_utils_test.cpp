@@ -9,6 +9,28 @@ using namespace strings;
 
 namespace
 {
+class Utf8StreetTokensFilter
+{
+public:
+  Utf8StreetTokensFilter(vector<pair<string, size_t>> & cont)
+    : m_cont(cont)
+    , m_filter([&](UniString const & token, size_t tag)
+               {
+                 m_cont.emplace_back(ToUtf8(token), tag);
+               })
+  {
+  }
+
+  inline void Put(string const & token, bool isPrefix, size_t tag)
+  {
+    m_filter.Put(MakeUniString(token), isPrefix, tag);
+  }
+
+private:
+  vector<pair<string, size_t>> & m_cont;
+  StreetTokensFilter m_filter;
+};
+
 bool TestStreetPrefixMatch(char const * s)
 {
   return IsStreetSynonymPrefix(MakeUniString(s));
@@ -73,4 +95,64 @@ UNIT_TEST(StreetPrefixMatch)
   TEST(TestStreetPrefixMatch("проез"), ());
   TEST(TestStreetPrefixMatch("проезд"), ());
   TEST(!TestStreetPrefixMatch("проездд"), ());
+}
+
+UNIT_TEST(StreetTokensFilter)
+{
+  using TList = vector<pair<string, size_t>>;
+
+  {
+    TList expected = {};
+    TList actual;
+
+    Utf8StreetTokensFilter filter(actual);
+    filter.Put("ули", true /* isPrefix */, 0 /* tag */);
+
+    TEST_EQUAL(expected, actual, ());
+  }
+
+  {
+    TList expected = {};
+    TList actual;
+
+    Utf8StreetTokensFilter filter(actual);
+    filter.Put("улица", false /* isPrefix */, 0 /* tag */);
+
+    TEST_EQUAL(expected, actual, ());
+  }
+
+  {
+    TList expected = {{"генерала", 1}, {"антонова", 2}};
+    TList actual;
+
+    Utf8StreetTokensFilter filter(actual);
+    filter.Put("ул", false /* isPrefix */, 0 /* tag */);
+    filter.Put("генерала", false /* isPrefix */, 1 /* tag */);
+    filter.Put("антонова", false /* isPrefix */, 2 /* tag */);
+
+    TEST_EQUAL(expected, actual, ());
+  }
+
+  {
+    TList expected = {{"улица", 100}, {"набережная", 50}};
+    TList actual;
+
+    Utf8StreetTokensFilter filter(actual);
+    filter.Put("улица", false /* isPrefix */, 100 /* tag */);
+    filter.Put("набережная", true /* isPrefix */, 50 /* tag */);
+
+    TEST_EQUAL(expected, actual, ());
+  }
+
+  {
+    TList expected = {{"улица", 0}, {"набережная", 1}, {"проспект", 2}};
+    TList actual;
+
+    Utf8StreetTokensFilter filter(actual);
+    filter.Put("улица", false /* isPrefix */, 0 /* tag */);
+    filter.Put("набережная", true /* isPrefix */, 1 /* tag */);
+    filter.Put("проспект", false /* isPrefix */, 2 /* tag */);
+
+    TEST_EQUAL(expected, actual, ());
+  }
 }
