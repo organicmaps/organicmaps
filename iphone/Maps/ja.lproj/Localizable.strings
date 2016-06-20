@@ -1515,8 +1515,6 @@
 
 "editor_place_doesnt_exist" = "存在しない場所";
 
-"editor_rating_verified_changes" = "Verified changes";
-
 "text_more_button" = "…続き";
 
 "error_enter_correct_phone" = "文字なしで電話番号を入力してください";
@@ -1524,10 +1522,6 @@
 "error_enter_correct_web" = "有効なウェブアドレスを入力してください";
 
 "error_enter_correct_email" = "有効なメールアドレスを入力してください";
-
-"editor_rating_your_place" = "Your place";
-
-"editor_rating_changes_to_next_place" = "Changes to the next place: %d";
 
 "error_enter_correct" = "有効な値を入力してください";
 

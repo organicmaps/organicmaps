@@ -1515,8 +1515,6 @@
 
 "editor_place_doesnt_exist" = "Place does not exist";
 
-"editor_rating_verified_changes" = "Verified changes";
-
 "text_more_button" = "…more";
 
 "error_enter_correct_phone" = "Enter a phone number without letters";
@@ -1524,10 +1522,6 @@
 "error_enter_correct_web" = "Enter a valid web address";
 
 "error_enter_correct_email" = "Enter a valid email";
-
-"editor_rating_your_place" = "Your place";
-
-"editor_rating_changes_to_next_place" = "Changes to the next place: %d";
 
 "error_enter_correct" = "Enter a valid value";
 

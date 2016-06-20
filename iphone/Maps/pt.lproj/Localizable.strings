@@ -1515,8 +1515,6 @@
 
 "editor_place_doesnt_exist" = "O local não existe";
 
-"editor_rating_verified_changes" = "Verified changes";
-
 "text_more_button" = "…mais";
 
 "error_enter_correct_phone" = "Preencha com o número de telefone sem letras";
@@ -1524,10 +1522,6 @@
 "error_enter_correct_web" = "Preencha com um endereço válido na internet";
 
 "error_enter_correct_email" = "Preencha com um endereço válido de e-mail";
-
-"editor_rating_your_place" = "Your place";
-
-"editor_rating_changes_to_next_place" = "Changes to the next place: %d";
 
 "error_enter_correct" = "Preencha com um valor válido";
 

@@ -1515,8 +1515,6 @@
 
 "editor_place_doesnt_exist" = "Miesto neexistuje";
 
-"editor_rating_verified_changes" = "Verified changes";
-
 "text_more_button" = "…viac";
 
 "error_enter_correct_phone" = "Zadajte telefónne číslo bez písmen";
@@ -1524,10 +1522,6 @@
 "error_enter_correct_web" = "Zadajte platnú webovú adresu";
 
 "error_enter_correct_email" = "Zadajte platný e-mail";
-
-"editor_rating_your_place" = "Your place";
-
-"editor_rating_changes_to_next_place" = "Changes to the next place: %d";
 
 "error_enter_correct" = "Zadajte platnú hodnotu";
 

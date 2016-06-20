@@ -1515,8 +1515,6 @@
 
 "editor_place_doesnt_exist" = "A hely nem létezik";
 
-"editor_rating_verified_changes" = "Verified changes";
-
 "text_more_button" = "…tovább";
 
 "error_enter_correct_phone" = "Adj meg egy telefonszámot betűk nélkül";
@@ -1524,10 +1522,6 @@
 "error_enter_correct_web" = "Adj meg egy érvényes weboldalcímet";
 
 "error_enter_correct_email" = "Adj meg egy érvényes e-mail-címet";
-
-"editor_rating_your_place" = "Your place";
-
-"editor_rating_changes_to_next_place" = "Changes to the next place: %d";
 
 "error_enter_correct" = "Adj meg egy érvényes értéket";
 

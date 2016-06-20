@@ -1518,8 +1518,6 @@
 
 "editor_place_doesnt_exist" = "位置不存在";
 
-"editor_rating_verified_changes" = "Verified changes";
-
 "text_more_button" = "…更多";
 
 "error_enter_correct_phone" = "輸入無字母的電話號碼";
@@ -1527,10 +1525,6 @@
 "error_enter_correct_web" = "輸入有效網址";
 
 "error_enter_correct_email" = "輸入有效電子郵箱";
-
-"editor_rating_your_place" = "Your place";
-
-"editor_rating_changes_to_next_place" = "Changes to the next place: %d";
 
 "error_enter_correct" = "輸入有效值";
 

@@ -906,13 +906,10 @@
 	<string name="editor_remove_place_button">Remove</string>
 	<string name="editor_status_sending">Sending…</string>
 	<string name="editor_place_doesnt_exist">Place does not exist</string>
-	<string name="editor_rating_verified_changes">Verified changes</string>
 	<string name="text_more_button">…more</string>
 	<string name="error_enter_correct_phone">Enter a phone number without letters</string>
 	<string name="error_enter_correct_web">Enter a valid web address</string>
 	<string name="error_enter_correct_email">Enter a valid email</string>
-	<string name="editor_rating_your_place">Your place</string>
-	<string name="editor_rating_changes_to_next_place">Changes to the next place: %d</string>
 	<string name="error_enter_correct">Enter a valid value</string>
 	<string name="tourism_apartment">Apartments</string>
 	<string name="tourism_resort">Resort</string>
