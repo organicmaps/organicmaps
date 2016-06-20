@@ -26,18 +26,45 @@ Navigator::Navigator()
 {
 }
 
-void Navigator::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect)
+void Navigator::SetFromRect2(m2::AnyRectD const & r)
 {
+  ScreenBase tmp = m_Screen;
+
   m2::RectD const & worldR = df::GetWorldRect();
 
-  m_Screen.SetFromRects(glbRect, pxRect);
-  m_Screen = ScaleInto(m_Screen, worldR);
+  tmp.SetFromRect2d(r);
+  tmp = ScaleInto(tmp, worldR);
+
+  m_Screen = tmp;
 
   if (!m_InAction)
+    m_StartScreen = tmp;
+}
+
+void Navigator::SetScreen(ScreenBase const & screen)
+{
+  m2::RectD const & worldR = df::GetWorldRect();
+  ScreenBase tmp = screen;
+  tmp = ScaleInto(tmp, worldR);
+
+  VisualParams const & p = VisualParams::Instance();
+
+  if (!CheckMaxScale(tmp, p.GetTileSize(), p.GetVisualScale()))
   {
-    m_StartScreen.SetFromRects(glbRect, pxRect);
-    m_StartScreen = ScaleInto(m_StartScreen, worldR);
+    int const scale = scales::GetUpperStyleScale() - 1;
+    m2::RectD newRect = df::GetRectForDrawScale(scale, screen.GetOrg());
+    newRect.Scale(m_Screen.GetScale3d());
+    CheckMinMaxVisibleScale(newRect, scale, m_Screen.GetScale3d());
+    tmp = m_Screen;
+    tmp.SetFromRect(m2::AnyRectD(newRect));
+
+    ASSERT(CheckMaxScale(tmp, p.GetTileSize(), p.GetVisualScale()), ());
   }
+
+  m_Screen = tmp;
+
+  if (!m_InAction)
+    m_StartScreen = tmp;
 }
 
 void Navigator::SetFromRect(m2::AnyRectD const & r)
@@ -88,25 +115,11 @@ void Navigator::OnSize(int w, int h)
 {
   m2::RectD const & worldR = df::GetWorldRect();
 
-  double const fov = m_Screen.GetAngleFOV();
-  double const rotation = m_Screen.GetRotationAngle();
-  if (m_Screen.isPerspective())
-  {
-    m_Screen.ResetPerspective();
-    m_StartScreen.ResetPerspective();
-  }
-
   m_Screen.OnSize(0, 0, w, h);
   m_Screen = ShrinkAndScaleInto(m_Screen, worldR);
 
   m_StartScreen.OnSize(0, 0, w, h);
   m_StartScreen = ShrinkAndScaleInto(m_StartScreen, worldR);
-
-  if (fov != 0.0)
-  {
-    m_Screen.ApplyPerspective(rotation, rotation, fov);
-    m_StartScreen.ApplyPerspective(rotation, rotation, fov);
-  }
 }
 
 m2::PointD Navigator::GtoP(m2::PointD const & pt) const
@@ -197,6 +210,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
 {
   m2::PointD const center3d = oldPt1;
   m2::PointD const center2d = screen.P3dtoP(center3d);
+  m2::PointD const centerG = screen.PtoG(center2d);
   m2::PointD const offset =  center2d - center3d;
   math::Matrix<double, 3, 3> const newM =
       screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,
@@ -204,6 +218,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                                                       doRotateScreen);
   ScreenBase tmp = screen;
   tmp.SetGtoPMatrix(newM);
+  tmp.MatchGandP3d(centerG, center3d);
 
   if (!skipMinScaleAndBordersCheck && !CheckMinScale(tmp))
     return false;
@@ -308,13 +323,6 @@ void Navigator::Disable3dMode()
 {
   if (m_Screen.isPerspective())
     m_Screen.ResetPerspective();
-}
-
-bool Navigator::UpdatePerspective()
-{
-  double const maxPerspAngle = m_Screen.GetMaxRotationAngle();
-  m_Screen.UpdatePerspectiveParameters();
-  return maxPerspAngle != m_Screen.GetMaxRotationAngle();
 }
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)

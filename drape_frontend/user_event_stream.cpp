@@ -147,6 +147,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     swap(m_events, events);
   }
 
+  m2::RectD const prevPixelRect = GetCurrentScreen().PixelRect();
+
   m_modelViewChanged = !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG;
   for (UserEvent const & e : events)
   {
@@ -163,7 +165,6 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       break;
     case UserEvent::EVENT_RESIZE:
       m_navigator.OnSize(e.m_resize.m_width, e.m_resize.m_height);
-      m_viewportChanged = true;
       breakAnim = true;
       TouchCancel(m_touches);
       if (m_state == STATE_DOUBLE_TAP_HOLD)
@@ -268,12 +269,13 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
   }
 
   if (m_modelViewChanged)
-    m_viewportChanged |= m_navigator.UpdatePerspective();
+    m_animationSystem.UpdateLastScreen(GetCurrentScreen());
 
   modelViewChanged = m_modelViewChanged;
-  viewportChanged = m_viewportChanged;
+
+  double const kEps = 1e-5;
+  viewportChanged = !m2::IsEqualSize(prevPixelRect, GetCurrentScreen().PixelRect(), kEps, kEps);
   m_modelViewChanged = false;
-  m_viewportChanged = false;
 
   return m_navigator.Screen();
 }
@@ -282,9 +284,9 @@ void UserEventStream::ApplyAnimations()
 {
   if (m_animationSystem.AnimationExists(Animation::MapPlane))
   {
-    m2::AnyRectD rect;
-    if (m_animationSystem.GetRect(GetCurrentScreen(), rect))
-      m_navigator.SetFromRect(rect);
+    ScreenBase screen;
+    if (m_animationSystem.GetScreen(GetCurrentScreen(), screen))
+      m_navigator.SetScreen(screen);
 
     Animation::SwitchPerspectiveParams switchPerspective;
     if (m_animationSystem.SwitchPerspective(switchPerspective))
@@ -298,7 +300,6 @@ void UserEventStream::ApplyAnimations()
       {
         m_navigator.Disable3dMode();
       }
-      m_viewportChanged = true;
     }
 
     double perspectiveAngle;
@@ -434,15 +435,15 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
 
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim)
 {
-  ScreenBase const & screen = GetCurrentScreen();
-  CheckMinGlobalRect(rect, screen.GetScale3d());
-  CheckMinMaxVisibleScale(rect, zoom, screen.GetScale3d());
+  CheckMinGlobalRect(rect, kDefault3dScale);
+  CheckMinMaxVisibleScale(rect, zoom, kDefault3dScale);
   m2::AnyRectD targetRect = applyRotation ? ToRotated(m_navigator, rect) : m2::AnyRectD(rect);
   return SetRect(targetRect, isAnim);
 }
 
 bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
 {
+  isAnim = false;
   if (isAnim)
   {
     auto onStartHandler = [this](ref_ptr<Animation> animation)
@@ -473,7 +474,7 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
   }
 
   ResetMapPlaneAnimations();
-  m_navigator.SetFromRect(rect);
+  m_navigator.SetFromRect2(rect);
   return true;
 }
 
@@ -581,10 +582,9 @@ bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) co
 void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
                                       bool isAnim, bool immediatelyStart)
 {
-  ResetAnimationsBeforeSwitch3D();
+  return;
 
-  //m_navigator.Enable3dMode(0.0, maxRotationAngle, angleFOV);
-  //return;
+  ResetAnimationsBeforeSwitch3D();
 
   if (immediatelyStart)
     InterruptFollowAnimations(true /* force */);
@@ -609,11 +609,10 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
 
 void UserEventStream::SetDisable3dModeAnimation()
 {
+  return;
+
   ResetAnimationsBeforeSwitch3D();
   InterruptFollowAnimations(true /* force */);
-
-  //m_navigator.Disable3dMode();
-  //return;
 
   if (m_discardedFOV > 0.0 && IsScaleAllowableIn3d(GetDrawTileScale(GetCurrentScreen())))
   {
@@ -676,9 +675,9 @@ m2::AnyRectD UserEventStream::GetCurrentRect() const
 
 m2::AnyRectD UserEventStream::GetTargetRect() const
 {
-  m2::AnyRectD targetRect;
-  m_animationSystem.GetTargetRect(m_navigator.Screen(), targetRect);
-  return targetRect;
+  ScreenBase targetScreen;
+  m_animationSystem.GetTargetScreen(m_navigator.Screen(), targetScreen);
+  return targetScreen.GlobalRect();
 }
 
 bool UserEventStream::ProcessTouch(TouchEvent const & touch)
@@ -1232,7 +1231,7 @@ void UserEventStream::UpdateDoubleTapAndHold(Touch const & touch)
   TEST_CALL(DOUBLE_TAP_AND_HOLD);
   ASSERT_EQUAL(m_state, STATE_DOUBLE_TAP_HOLD, ());
   float const kPowerModifier = 10.0f;
-  float const scaleFactor = exp(kPowerModifier * (touch.m_location.y - m_startDoubleTapAndHold.y) / GetCurrentScreen().PixelRect().SizeY());
+  float const scaleFactor = exp(kPowerModifier * (touch.m_location.y - m_startDoubleTapAndHold.y) / GetCurrentScreen().PixelRectIn3d().SizeY());
   m_startDoubleTapAndHold = touch.m_location;
 
   m2::PointD scaleCenter = m_startDragOrg;

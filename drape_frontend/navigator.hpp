@@ -18,9 +18,10 @@ class Navigator
 public:
   Navigator();
 
+  void SetScreen(ScreenBase const & screen);
   void SetFromRect(m2::AnyRectD const & r);
+  void SetFromRect2(m2::AnyRectD const & r);
   void CenterViewport(m2::PointD const & p);
-  void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
   void SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale);
 
   void OnSize(int w, int h);
@@ -48,7 +49,6 @@ public:
   void Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV);
   void SetRotationIn3dMode(double rotationAngle);
   void Disable3dMode();
-  bool UpdatePerspective();
 
 private:
   // Internal screen corresponding to the state when navigation began with StartDrag or StartScale.

@@ -383,7 +383,6 @@ private:
   AnimationSystem & m_animationSystem;
 
   bool m_modelViewChanged = false;
-  bool m_viewportChanged = false;
 
   bool m_perspectiveAnimation = false;
   unique_ptr<UserEvent> m_pendingEvent;

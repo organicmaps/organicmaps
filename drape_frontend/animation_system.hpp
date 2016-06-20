@@ -19,8 +19,9 @@ class AnimationSystem : private noncopyable
 public:
   static AnimationSystem & Instance();
 
-  bool GetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect);
-  void GetTargetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect);
+  void UpdateLastScreen(ScreenBase const & currentScreen);
+  bool GetScreen(ScreenBase const & currentScreen, ScreenBase & screen);
+  void GetTargetScreen(ScreenBase const & currentScreen, ScreenBase & screen);
 
   bool SwitchPerspective(Animation::SwitchPerspectiveParams & params);
   bool GetPerspectiveAngle(double & angle);
@@ -66,7 +67,7 @@ private:
 
   using TGetPropertyFn = function<bool (Animation::TObject object, Animation::TProperty property,
                                         Animation::PropertyValue & value)>;
-  bool GetRect(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  m2::AnyRectD & rect);
+  bool GetScreen(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  ScreenBase & screen);
 
   bool GetProperty(Animation::TObject object, Animation::TProperty property,
                    Animation::PropertyValue & value) const;

@@ -811,17 +811,24 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 
 void FrontendRenderer::OnResize(ScreenBase const & screen)
 {
-  m2::RectD const viewportRect = screen.isPerspective() ? screen.PixelRectIn3d() : screen.PixelRect();
+  m2::RectD const viewportRect = screen.PixelRectIn3d();
+  double const kEps = 1e-5;
+  bool const viewportChanged = !m2::IsEqualSize(m_lastReadedModelView.PixelRectIn3d(), viewportRect, kEps, kEps);
 
   m_myPositionController->UpdatePixelPosition(screen);
   m_myPositionController->OnNewPixelRect();
 
-  m_viewport.SetViewport(0, 0, viewportRect.SizeX(), viewportRect.SizeY());
-  m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
+  if (viewportChanged)
+  {
+    m_viewport.SetViewport(0, 0, viewportRect.SizeX(), viewportRect.SizeY());
+    m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
+    m_framebuffer->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
+  }
+
   RefreshProjection(screen);
   RefreshPivotTransform(screen);
 
-  m_framebuffer->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
+
 }
 
 void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
@@ -1647,7 +1654,8 @@ void FrontendRenderer::PositionChanged(m2::PointD const & position)
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel)
 {
-  AddUserEvent(SetCenterEvent(center, zoomLevel, true));
+  AddUserEvent(FollowAndRotateEvent(center, m_userEventStream.GetCurrentScreen().PixelRectIn3d().Center(), -m_userEventStream.GetCurrentScreen().GetAngle(), zoomLevel, true));
+  //AddUserEvent(SetCenterEvent(center, zoomLevel, true));
 }
 
 void FrontendRenderer::ChangeModelView(double azimuth)

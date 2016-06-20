@@ -15,6 +15,7 @@ public:
   using Vector3dT = math::Matrix<double, 1, 4>;
 
 private:
+  m2::RectD m_ViewportRect;
   m2::RectD m_PixelRect;
 
   double m_Scale;
@@ -26,9 +27,9 @@ private:
   double m_3dFarZ;
   double m_3dAngleX;
   double m_3dMaxAngleX;
-  double m_3dScaleX;
-  double m_3dScaleY;
+  double m_3dScale;
   bool m_isPerspective;
+  bool m_isAutoPerspective;
 
 protected:
   /// @group Dependent parameters
@@ -64,6 +65,9 @@ public:
              m2::PointD const & org, double scale, double angle);
 
   void SetFromRect(m2::AnyRectD const & rect);
+  void SetFromRect2d(m2::AnyRectD const & glbRect);
+
+  void SetFromParams(m2::PointD const & org, double angle, double scale);
   void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
   void SetOrg(m2::PointD const & p);
 
@@ -115,6 +119,9 @@ public:
   void GtoP(m2::RectD const & gr, m2::RectD & sr) const;
   void PtoG(m2::RectD const & pr, m2::RectD & gr) const;
 
+  void MatchGandP(m2::PointD const & g, m2::PointD const & p);
+  void MatchGandP3d(m2::PointD const & g, m2::PointD const & p3d);
+
   void GetTouchRect(m2::PointD const & pixPoint, double pixRadius, m2::AnyRectD & glbRect) const;
   void GetTouchRect(m2::PointD const & pixPoint, double const pxWidth,
                     double const pxHeight, m2::AnyRectD & glbRect) const;
@@ -134,7 +141,7 @@ public:
   double GetRotationAngle() const { return m_3dAngleX; }
   double GetMaxRotationAngle() const { return m_3dMaxAngleX; }
   double GetAngleFOV() const { return m_3dFOV; }
-  double GetScale3d() const { return m_3dScaleX; }
+  double GetScale3d() const { return m_3dScale; }
 
   m2::PointD P3dtoP(m2::PointD const & pt) const;
 
@@ -148,17 +155,18 @@ public:
 
   m2::RectD PixelRectIn3d() const
   {
-    return m2::RectD(0.0, 0.0, m_PixelRect.maxX() / m_3dScaleX, m_PixelRect.maxY() / m_3dScaleY);
+    return m_ViewportRect;
   }
 
-  double GetMinPixelRectSize() const;
+  double CalculateScale3d(double rotationAngle) const;
+  m2::RectD CalculatePixelRect(double scale) const;
+  double CalculatePerspectiveAngle(double scale) const;
 
   /// Compute arbitrary pixel transformation, that translates the (oldPt1, oldPt2) -> (newPt1, newPt2)
   static MatrixT const CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
                                      m2::PointD const & newPt1, m2::PointD const & newPt2,
                                      bool allowRotate);
 
-  static double CalculatePerspectiveAngle(double scale);
 
   /// Setting GtoP matrix extracts the Angle and m_Org parameters, leaving PixelRect intact
   void SetGtoPMatrix(MatrixT const & m);

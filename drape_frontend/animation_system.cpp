@@ -75,17 +75,22 @@ private:
 
 } // namespace
 
-bool AnimationSystem::GetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect)
+void AnimationSystem::UpdateLastScreen(ScreenBase const & currentScreen)
 {
-  return GetRect(currentScreen, bind(&AnimationSystem::GetProperty, this, _1, _2, _3), rect);
+  m_lastScreen = currentScreen;
 }
 
-void AnimationSystem::GetTargetRect(ScreenBase const & currentScreen, m2::AnyRectD & rect)
+bool AnimationSystem::GetScreen(ScreenBase const & currentScreen, ScreenBase & screen)
 {
-  GetRect(currentScreen, bind(&AnimationSystem::GetTargetProperty, this, _1, _2, _3), rect);
+  return GetScreen(currentScreen, bind(&AnimationSystem::GetProperty, this, _1, _2, _3), screen);
 }
 
-bool AnimationSystem::GetRect(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  m2::AnyRectD & rect)
+void AnimationSystem::GetTargetScreen(ScreenBase const & currentScreen, ScreenBase & screen)
+{
+  GetScreen(currentScreen, bind(&AnimationSystem::GetTargetProperty, this, _1, _2, _3), screen);
+}
+
+bool AnimationSystem::GetScreen(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  ScreenBase & screen)
 {
   ASSERT(getPropertyFn != nullptr, ());
 
@@ -105,10 +110,8 @@ bool AnimationSystem::GetRect(ScreenBase const & currentScreen, TGetPropertyFn c
   if (getPropertyFn(Animation::MapPlane, Animation::Position, value))
     pos = value.m_valuePointD;
 
-  m2::RectD localRect = currentScreen.PixelRect();
-  localRect.Offset(-localRect.Center());
-  localRect.Scale(scale);
-  rect = m2::AnyRectD(pos, angle, localRect);
+  screen = currentScreen;
+  screen.SetFromParams(pos, angle, scale);
 
   return true;
 }
