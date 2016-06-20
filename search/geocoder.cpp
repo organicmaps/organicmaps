@@ -787,7 +787,7 @@ void Geocoder::FillLocalitiesTable()
         ++numCities;
 
         auto const center = feature::GetCenter(ft);
-        auto const population = ft.GetPopulation();
+        auto const population = ftypes::GetPopulation(ft);
         auto const radius = ftypes::GetRadiusByPopulation(population);
 
         City city(l, SearchModel::SEARCH_TYPE_CITY);
@@ -837,13 +837,13 @@ void Geocoder::FillVillageLocalities()
     ++numVillages;
     City village(l, SearchModel::SEARCH_TYPE_VILLAGE);
 
-    auto const population = ft.GetPopulation();
-    double const radius = ftypes::GetRadiusByPopulation(population);
+    auto const population = ftypes::GetPopulation(ft);
+    auto const radius = ftypes::GetRadiusByPopulation(population);
     village.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
 
 #if defined(DEBUG)
     ft.GetName(StringUtf8Multilang::kDefaultCode, village.m_defaultName);
-    LOG(LDEBUG, ("Village =", village.m_defaultName, "prob =", village.m_prob));
+    LOG(LDEBUG, ("Village =", village.m_defaultName, radius, "prob =", village.m_prob));
 #endif
 
     m_cities[{l.m_startToken, l.m_endToken}].push_back(village);
@@ -1465,10 +1465,14 @@ void Geocoder::FillMissingFieldsInResults()
                                mwmId = id.m_mwmId;
                                mwmHandle = m_index.GetMwmHandleById(mwmId);
                                if (mwmHandle.IsAlive())
+                               {
                                  rankTable =
                                      RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
+                               }
                                else
+                               {
                                  rankTable = make_unique<DummyRankTable>();
+                               }
                              }
 
                              info.m_rank = rankTable->Get(id.m_index);
@@ -1573,7 +1577,6 @@ unique_ptr<coding::CompressedBitVector> Geocoder::LoadVillages(MwmContext & cont
 {
   if (!context.m_handle.IsAlive() || !HasSearchIndex(context.m_value))
     return make_unique<coding::DenseCBV>();
-
   return LoadCategories(context, GetVillageCategories());
 }
 

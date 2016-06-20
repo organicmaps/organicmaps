@@ -68,7 +68,7 @@ void TestCountry::Serialize(FeatureBuilder1 & fb) const
 {
   TestFeature::Serialize(fb);
   auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"place", "country"}));
+  fb.AddType(classificator.GetTypeByPath({"place", "country"}));
 
   // Localities should have default name too.
   fb.AddName("default", m_name);
@@ -92,7 +92,7 @@ void TestCity::Serialize(FeatureBuilder1 & fb) const
 {
   TestFeature::Serialize(fb);
   auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"place", "city"}));
+  fb.AddType(classificator.GetTypeByPath({"place", "city"}));
   fb.SetRank(m_rank);
 }
 
@@ -115,7 +115,7 @@ void TestVillage::Serialize(FeatureBuilder1 & fb) const
 {
   TestFeature::Serialize(fb);
   auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"place", "village"}));
+  fb.AddType(classificator.GetTypeByPath({"place", "village"}));
   fb.SetRank(m_rank);
 }
 
@@ -228,7 +228,7 @@ void TestBuilding::Serialize(FeatureBuilder1 & fb) const
     fb.AddStreet(m_streetName);
 
   auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"building"}));
+  fb.AddType(classificator.GetTypeByPath({"building"}));
 }
 
 string TestBuilding::ToString() const
@@ -253,7 +253,7 @@ void TestPark::Serialize(FeatureBuilder1 & fb) const
   fb.SetArea();
 
   auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"leisure", "park"}));
+  fb.AddType(classificator.GetTypeByPath({"leisure", "park"}));
 }
 
 string TestPark::ToString() const
