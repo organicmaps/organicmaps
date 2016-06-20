@@ -3595,7 +3595,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "childcare-l"
+      name: "kindergarten-l"
       priority: 16824
     }
     caption {
@@ -3996,7 +3996,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "courthouse-l"
+      name: "public-building-l"
       priority: 16864
     }
     caption {
@@ -4011,7 +4011,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "courthouse-l"
+      name: "public-building-l"
       priority: 16864
     }
     caption {
@@ -4026,7 +4026,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "courthouse-l"
+      name: "public-building-l"
       priority: 16864
     }
     caption {
@@ -40547,14 +40547,14 @@ cont {
   element {
     scale: 10
     area {
-      color: 13029267
+      color: 3435581331
       priority: -15892
     }
   }
   element {
     scale: 11
     area {
-      color: 12372094
+      color: 3434924158
       priority: -15892
     }
     symbol {
@@ -40566,7 +40566,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 12372094
+      color: 3434924158
       priority: -15892
     }
     symbol {
@@ -40587,7 +40587,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 11781233
+      color: 3434333297
       priority: -15892
     }
     symbol {
@@ -40608,7 +40608,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 11453035
+      color: 3434005099
       priority: -15892
     }
     symbol {
@@ -40628,7 +40628,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 11584112
+      color: 3434136176
       priority: -15892
     }
     symbol {
@@ -40648,7 +40648,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 11190117
+      color: 3433742181
       priority: -15892
     }
     symbol {
@@ -40668,7 +40668,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 11190117
+      color: 3433742181
       priority: -15892
     }
     symbol {
@@ -40688,7 +40688,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 11190117
+      color: 3433742181
       priority: -15892
     }
     symbol {
@@ -40708,7 +40708,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 11190117
+      color: 3433742181
       priority: -15892
     }
     symbol {

@@ -233,7 +233,7 @@ line[waterway][tunnel]
 /* VEGETATION */
 
 area|z10[natural=wood],
-area|z10[landuse=forest]]
+area|z10[landuse=forest]
 {
   fill-color: @green1;
 	fill-position: background;
