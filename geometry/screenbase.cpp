@@ -378,17 +378,17 @@ void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotatio
   ASSERT_GREATER_OR_EQUAL(maxRotationAngle, 0.0, ());
   ASSERT_LESS(maxRotationAngle, math::pi2, ());
 
-//  if (m_isPerspective)
-//    ResetPerspective();
-
   m_isPerspective = true;
+  m_isAutoPerspective = false;
 
   m_3dMaxAngleX = maxRotationAngle;
+  m_3dAngleX = currentRotationAngle;
   m_3dFOV = angleFOV;
 
   double const old_dy = m_ViewportRect.SizeY() * (m_3dScale - 1.0);
+
   m_3dScale = CalculateScale3d(m_3dMaxAngleX);
-  double const new_dy = m_ViewportRect.SizeY() * (CalculateScale3d(m_3dMaxAngleX) - 1.0);
+  double const new_dy = m_ViewportRect.SizeY() * (m_3dScale - 1.0);
 
   SetRotationAngle(currentRotationAngle);
 
@@ -444,18 +444,13 @@ void ScreenBase::SetRotationAngle(double rotationAngle)
 void ScreenBase::ResetPerspective()
 {
   m_isPerspective = false;
+  m_isAutoPerspective = false;
 
-  double const dy = m_PixelRect.SizeY() * (1.0 - 1.0 / m_3dScale);
-
-  m_PixelRect.setMaxX(m_PixelRect.maxX() / m_3dScale);
-  m_PixelRect.setMaxY(m_PixelRect.maxY() / m_3dScale);
-
-  Move(0, -dy / 2.0);
-
-  m_3dScale = 1.0;
   m_3dAngleX = 0.0;
   m_3dMaxAngleX = 0.0;
-  m_3dFOV = 0.0;
+
+  double const old_dy = m_ViewportRect.SizeY() * (m_3dScale - 1.0);
+  Move(0.0, -old_dy / 2.0);
 }
 
 m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const

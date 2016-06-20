@@ -827,8 +827,6 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
 
   RefreshProjection(screen);
   RefreshPivotTransform(screen);
-
-
 }
 
 void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
