@@ -675,6 +675,7 @@
 	<string name="download_all">Tải về tất cả</string>
 	<string name="delete_all">Xóa tất cả</string>
 	<string name="autodownload">Tự động tải về</string>
+	<string name="disable_autodownload">Tắt chế độ tự động tải xuống</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Hiện đã đóng</string>
 	<!-- Place Page opening hours text -->
@@ -749,7 +750,7 @@
 	<string name="editor_username_error_dialog">Tên đăng nhập không hợp lệ</string>
 	<string name="editor_place_edited_dialog">Bạn đã chỉnh sửa một đối tượng!</string>
 	<string name="editor_login_with_osm">Đăng nhập với OpenStreetMap</string>
-	<string name="editor_profile_changes">Những thay đổi:</string>
+	<string name="editor_profile_changes">Các thay đổi đã được xác thực</string>
 	<string name="editor_profile_unsent_changes">Không gửi được:</string>
 	<string name="editor_focus_map_on_location">Kéo bản đồ để chọn vị trí chính xác của đối tượng</string>
 	<string name="editor_add_select_category">Chọn thể loại</string>
@@ -847,7 +848,7 @@
 	<string name="placepage_entrance_type">Lối vào</string>
 	<string name="placepage_flat">áp dụng</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="placepage_place_rating">Xếp hạng:</string>
+	<string name="place_page_booking_rating">Xếp hạng: %d</string>
 	<string name="place_page_starting_from">từ %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -867,4 +868,19 @@
 	<string name="editor_remove_place_button">Xóa</string>
 	<string name="editor_status_sending">Đang gửi …</string>
 	<string name="editor_place_doesnt_exist">Địa điểm không tồn tại</string>
+	<string name="text_more_button">…thêm</string>
+	<string name="error_enter_correct_phone">Nhập số điện thoại không có chữ cái</string>
+	<string name="error_enter_correct_web">Nhập địa chỉ trang web hợp lệ</string>
+	<string name="error_enter_correct_email">Nhập email hợp lệ</string>
+	<string name="error_enter_correct">Nhập giá trị hợp lệ</string>
+	<string name="tourism_apartment">Căn hộ</string>
+	<string name="tourism_resort">Khu nghỉ dưỡng</string>
+	<string name="editor_profile_changes_for_next_place">Các thay đổi tới địa điểm tiếp theo: %d</string>
+	<string name="editor_profile_rating_place">Vị trí thứ hạng</string>
+	<string name="booking_dialog_not_connect_header">Để đặt khách sạn, vui lòng bật kết nối Internet</string>
+	<string name="whatsnew_booking_header">Đặt khách sạn từ ứng dụng</string>
+	<string name="whatsnew_booking_message">Khi tìm khách sạn, bản đồ sẽ hiển thị đánh giá và giá của các khách sạn.</string>
+	<string name="button_try">Hãy thử xem</string>
+	<string name="whatsnew_cycle_navigation_header">Định vị xe đạp (phiên bản beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.</string>
 </resources>

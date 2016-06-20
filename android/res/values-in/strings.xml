@@ -674,6 +674,7 @@
 	<string name="download_all">Unduh semua</string>
 	<string name="delete_all">Hapus semua</string>
 	<string name="autodownload">Unduhan otomatis</string>
+	<string name="disable_autodownload">Nonaktifkan unduh otomatis</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Sekarang Tutup</string>
 	<!-- Place Page opening hours text -->
@@ -748,7 +749,7 @@
 	<string name="editor_username_error_dialog">Nama pengguna tidak benar</string>
 	<string name="editor_place_edited_dialog">Anda telah mengedit sebuah obyek!</string>
 	<string name="editor_login_with_osm">Masuk dengan OpenStreetMap</string>
-	<string name="editor_profile_changes">Perubahan:</string>
+	<string name="editor_profile_changes">Perubahan Terverifikasi</string>
 	<string name="editor_profile_unsent_changes">Tidak terkirim:</string>
 	<string name="editor_focus_map_on_location">Tarik peta untuk memilih lokasi yang benar dari obyek.</string>
 	<string name="editor_add_select_category">Pilih kategori</string>
@@ -846,7 +847,7 @@
 	<string name="placepage_entrance_type">Gerbang Masuk</string>
 	<string name="placepage_flat">persegi</string>
 	<string name="placepage_open_24_7">24 jam sehari, 7 hari seminggu</string>
-	<string name="placepage_place_rating">Nilai:</string>
+	<string name="place_page_booking_rating">Nilai: %d</string>
 	<string name="place_page_starting_from">dari %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -866,4 +867,19 @@
 	<string name="editor_remove_place_button">Hapus</string>
 	<string name="editor_status_sending">Mengirim…</string>
 	<string name="editor_place_doesnt_exist">Tempat tidak ada</string>
+	<string name="text_more_button">…selebihnya</string>
+	<string name="error_enter_correct_phone">Masukkan nomor telepon tanpa huruf</string>
+	<string name="error_enter_correct_web">Masukkan alamat web valid</string>
+	<string name="error_enter_correct_email">Masukkan surel valid</string>
+	<string name="error_enter_correct">Masukkan nilai valid</string>
+	<string name="tourism_apartment">Apartemen</string>
+	<string name="tourism_resort">Sanggraloka</string>
+	<string name="editor_profile_changes_for_next_place">Perubahan terhadap tempat selanjutnya: %d</string>
+	<string name="editor_profile_rating_place">Posisi peringkat</string>
+	<string name="booking_dialog_not_connect_header">Untuk memesan hotel, aktifkan koneksi internet Anda</string>
+	<string name="whatsnew_booking_header">Pesan hotel dari aplikasi</string>
+	<string name="whatsnew_booking_message">Saat Anda mencari hotel, peta akan menampilkan kategori harga dan nilai hotel.</string>
+	<string name="button_try">Cobalah</string>
+	<string name="whatsnew_cycle_navigation_header">Navigasi bersepeda (versi beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.</string>
 </resources>

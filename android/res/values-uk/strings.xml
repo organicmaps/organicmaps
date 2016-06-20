@@ -679,6 +679,7 @@
 	<string name="download_all">Завантажити всі</string>
 	<string name="delete_all">Видалити всі</string>
 	<string name="autodownload">Автоматичне завантаження</string>
+	<string name="disable_autodownload">Заборонити автозавантаження</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Зараз закрито</string>
 	<!-- Place Page opening hours text -->
@@ -753,7 +754,7 @@
 	<string name="editor_username_error_dialog">Ім\&#39;я користувача є недійсним</string>
 	<string name="editor_place_edited_dialog">Ви відредагували об’єкт!</string>
 	<string name="editor_login_with_osm">Увійти через OpenStreetMap</string>
-	<string name="editor_profile_changes">Правки:</string>
+	<string name="editor_profile_changes">Виправлення, що ураховані</string>
 	<string name="editor_profile_unsent_changes">Не відправлено:</string>
 	<string name="editor_focus_map_on_location">Потягніть мапу, щоб вибрати правильне місцезнаходження об’єкту.</string>
 	<string name="editor_add_select_category">Вибрати категорію</string>
@@ -851,7 +852,7 @@
 	<string name="placepage_entrance_type">Під\&#39;їзд</string>
 	<string name="placepage_flat">кв.</string>
 	<string name="placepage_open_24_7">Цілодобово</string>
-	<string name="placepage_place_rating">Рейтинг:</string>
+	<string name="place_page_booking_rating">Рейтинг: %d</string>
 	<string name="place_page_starting_from">від %s</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
@@ -871,4 +872,19 @@
 	<string name="editor_remove_place_button">Видалити</string>
 	<string name="editor_status_sending">Відправка…</string>
 	<string name="editor_place_doesnt_exist">Місце не існує</string>
+	<string name="text_more_button">…більше</string>
+	<string name="error_enter_correct_phone">Введіть номер телефону без літер</string>
+	<string name="error_enter_correct_web">Введіть вірну адресу веб-сайту</string>
+	<string name="error_enter_correct_email">Введіть вірниу адресу електронної пошти</string>
+	<string name="error_enter_correct">Введіть вірне значення</string>
+	<string name="tourism_apartment">Апартаменти</string>
+	<string name="tourism_resort">Будинок відпочинку</string>
+	<string name="editor_profile_changes_for_next_place">Виправлень до наступного місця: %d</string>
+	<string name="editor_profile_rating_place">Місце у рейтингу</string>
+	<string name="booking_dialog_not_connect_header">Для бронювання готелів потрібен доступ до інтернету</string>
+	<string name="whatsnew_booking_header">Бронюй готель з додатку</string>
+	<string name="whatsnew_booking_message">Під час вибору готелів на карті буде відображено цінову категорію та рейтинг закладу.</string>
+	<string name="button_try">Спробувати</string>
+	<string name="whatsnew_cycle_navigation_header">Велонавігація (бета-версія)</string>
+	<string name="whatsnew_cycle_navigation_message">До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.</string>
 </resources>

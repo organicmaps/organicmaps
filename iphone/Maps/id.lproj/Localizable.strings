@@ -1138,6 +1138,8 @@
 
 "autodownload" = "Unduhan otomatis";
 
+"disable_autodownload" = "Nonaktifkan unduh otomatis";
+
 /* Place Page opening hours text */
 "closed_now" = "Sekarang Tutup";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "Masuk dengan OpenStreetMap";
 
-"editor_profile_changes" = "Perubahan:";
+"editor_profile_changes" = "Perubahan Terverifikasi";
 
 "editor_profile_unsent_changes" = "Tidak terkirim:";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "24 jam sehari, 7 hari seminggu";
 
-"placepage_place_rating" = "Nilai:";
+"place_page_booking_rating" = "Nilai: %d";
 
 "place_page_starting_from" = "dari %s";
 
@@ -1513,20 +1515,38 @@
 
 "editor_place_doesnt_exist" = "Tempat tidak ada";
 
-"place_page_booking_rating" = "Rating: %s";
-
 "editor_rating_verified_changes" = "Verified changes";
 
-"text_more_button" = "… more";
+"text_more_button" = "…selebihnya";
 
-"error_enter_correct_phone" = "Enter a valid phone number";
+"error_enter_correct_phone" = "Masukkan nomor telepon tanpa huruf";
 
-"error_enter_correct_web" = "Enter a valid web address";
+"error_enter_correct_web" = "Masukkan alamat web valid";
 
-"error_enter_correct_email" = "Enter a valid email";
-
-"error_enter_correct" = "Enter a valid value";
+"error_enter_correct_email" = "Masukkan surel valid";
 
 "editor_rating_your_place" = "Your place";
 
 "editor_rating_changes_to_next_place" = "Changes to the next place: %d";
+
+"error_enter_correct" = "Masukkan nilai valid";
+
+"tourism_apartment" = "Apartemen";
+
+"tourism_resort" = "Sanggraloka";
+
+"editor_profile_changes_for_next_place" = "Perubahan terhadap tempat selanjutnya: %d";
+
+"editor_profile_rating_place" = "Posisi peringkat";
+
+"booking_dialog_not_connect_header" = "Untuk memesan hotel, aktifkan koneksi internet Anda";
+
+"whatsnew_booking_header" = "Pesan hotel dari aplikasi";
+
+"whatsnew_booking_message" = "Saat Anda mencari hotel, peta akan menampilkan kategori harga dan nilai hotel.";
+
+"button_try" = "Cobalah";
+
+"whatsnew_cycle_navigation_header" = "Navigasi bersepeda (versi beta)";
+
+"whatsnew_cycle_navigation_message" = "Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.";

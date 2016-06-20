@@ -678,6 +678,7 @@
 	<string name="download_all">Stiahnuť všetko</string>
 	<string name="delete_all">Vymazať všetky</string>
 	<string name="autodownload">Automaticky stiahnuť</string>
+	<string name="disable_autodownload">Zrušiť automatické preberanie</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Teraz zatvorené</string>
 	<!-- Place Page opening hours text -->
@@ -752,7 +753,7 @@
 	<string name="editor_username_error_dialog">Používateľské meno je neplatné</string>
 	<string name="editor_place_edited_dialog">Práve ste upravili objekt!</string>
 	<string name="editor_login_with_osm">Prihlásiť sa prostredníctvom OpenStreetMap</string>
-	<string name="editor_profile_changes">Zmeny:</string>
+	<string name="editor_profile_changes">Overené zmeny</string>
 	<string name="editor_profile_unsent_changes">Neodoslané:</string>
 	<string name="editor_focus_map_on_location">Ak chcete nastaviť správnu polohu objektu, posuňte mapu.</string>
 	<string name="editor_add_select_category">Vybrať kategóriu</string>
@@ -850,7 +851,7 @@
 	<string name="placepage_entrance_type">Vstup</string>
 	<string name="placepage_flat">Byt</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="placepage_place_rating">Hodnotenie:</string>
+	<string name="place_page_booking_rating">Hodnotenie: %d</string>
 	<string name="place_page_starting_from">od %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -870,4 +871,19 @@
 	<string name="editor_remove_place_button">Odstrániť</string>
 	<string name="editor_status_sending">Odosiela sa…</string>
 	<string name="editor_place_doesnt_exist">Miesto neexistuje</string>
+	<string name="text_more_button">…viac</string>
+	<string name="error_enter_correct_phone">Zadajte telefónne číslo bez písmen</string>
+	<string name="error_enter_correct_web">Zadajte platnú webovú adresu</string>
+	<string name="error_enter_correct_email">Zadajte platný e-mail</string>
+	<string name="error_enter_correct">Zadajte platnú hodnotu</string>
+	<string name="tourism_apartment">Apartmány</string>
+	<string name="tourism_resort">Rezort</string>
+	<string name="editor_profile_changes_for_next_place">Zmeny pre ďalšie miesto: %d</string>
+	<string name="editor_profile_rating_place">Hodnotiaca pozícia</string>
+	<string name="booking_dialog_not_connect_header">Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu</string>
+	<string name="whatsnew_booking_header">Rezervujte si hotel z aplikácie</string>
+	<string name="whatsnew_booking_message">Keď hľadáte hotel, na mape sa zobrazia cenové kategórie a hodnotenia hotelov.</string>
+	<string name="button_try">Vyskúšajte to</string>
+	<string name="whatsnew_cycle_navigation_header">Navigácia pre cyklistov (beta verzia)</string>
+	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.</string>
 </resources>

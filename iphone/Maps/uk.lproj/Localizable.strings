@@ -1138,6 +1138,8 @@
 
 "autodownload" = "Автоматичне завантаження";
 
+"disable_autodownload" = "Заборонити автозавантаження";
+
 /* Place Page opening hours text */
 "closed_now" = "Зараз закрито";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "Увійти через OpenStreetMap";
 
-"editor_profile_changes" = "Правки:";
+"editor_profile_changes" = "Виправлення, що ураховані";
 
 "editor_profile_unsent_changes" = "Не відправлено:";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "Цілодобово";
 
-"placepage_place_rating" = "Рейтинг:";
+"place_page_booking_rating" = "Рейтинг: %d";
 
 "place_page_starting_from" = "від %s";
 
@@ -1513,20 +1515,38 @@
 
 "editor_place_doesnt_exist" = "Місце не існує";
 
-"place_page_booking_rating" = "Rating: %s";
-
 "editor_rating_verified_changes" = "Verified changes";
 
-"text_more_button" = "… more";
+"text_more_button" = "…більше";
 
-"error_enter_correct_phone" = "Enter a valid phone number";
+"error_enter_correct_phone" = "Введіть номер телефону без літер";
 
-"error_enter_correct_web" = "Enter a valid web address";
+"error_enter_correct_web" = "Введіть вірну адресу веб-сайту";
 
-"error_enter_correct_email" = "Enter a valid email";
-
-"error_enter_correct" = "Enter a valid value";
+"error_enter_correct_email" = "Введіть вірниу адресу електронної пошти";
 
 "editor_rating_your_place" = "Your place";
 
 "editor_rating_changes_to_next_place" = "Changes to the next place: %d";
+
+"error_enter_correct" = "Введіть вірне значення";
+
+"tourism_apartment" = "Апартаменти";
+
+"tourism_resort" = "Будинок відпочинку";
+
+"editor_profile_changes_for_next_place" = "Виправлень до наступного місця: %d";
+
+"editor_profile_rating_place" = "Місце у рейтингу";
+
+"booking_dialog_not_connect_header" = "Для бронювання готелів потрібен доступ до інтернету";
+
+"whatsnew_booking_header" = "Бронюй готель з додатку";
+
+"whatsnew_booking_message" = "Під час вибору готелів на карті буде відображено цінову категорію та рейтинг закладу.";
+
+"button_try" = "Спробувати";
+
+"whatsnew_cycle_navigation_header" = "Велонавігація (бета-версія)";
+
+"whatsnew_cycle_navigation_message" = "До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.";

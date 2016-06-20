@@ -674,6 +674,7 @@
 	<string name="download_all">全てをダウンロード</string>
 	<string name="delete_all">すべて削除</string>
 	<string name="autodownload">自動ダウンロード</string>
+	<string name="disable_autodownload">自動ダウンロードを無効にする</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">現在閉店</string>
 	<!-- Place Page opening hours text -->
@@ -748,7 +749,7 @@
 	<string name="editor_username_error_dialog">ユーザー名が無効です</string>
 	<string name="editor_place_edited_dialog">オブジェクトを編集しました!</string>
 	<string name="editor_login_with_osm">OpenStreetMapを使ってログイン</string>
-	<string name="editor_profile_changes">変更回数：</string>
+	<string name="editor_profile_changes">確認された変更</string>
 	<string name="editor_profile_unsent_changes">未送信：</string>
 	<string name="editor_focus_map_on_location">地図をプルしてオブジェクトの正しい場所を選択します。</string>
 	<string name="editor_add_select_category">カテゴリを選択</string>
@@ -846,7 +847,7 @@
 	<string name="placepage_entrance_type">エントランス</string>
 	<string name="placepage_flat">アプリ</string>
 	<string name="placepage_open_24_7">24時間体制</string>
-	<string name="placepage_place_rating">評価：</string>
+	<string name="place_page_booking_rating">評価：%d</string>
 	<string name="place_page_starting_from">%sから</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -866,4 +867,19 @@
 	<string name="editor_remove_place_button">削除</string>
 	<string name="editor_status_sending">送信中…</string>
 	<string name="editor_place_doesnt_exist">存在しない場所</string>
+	<string name="text_more_button">…続き</string>
+	<string name="error_enter_correct_phone">文字なしで電話番号を入力してください</string>
+	<string name="error_enter_correct_web">有効なウェブアドレスを入力してください</string>
+	<string name="error_enter_correct_email">有効なメールアドレスを入力してください</string>
+	<string name="error_enter_correct">有効な値を入力してください</string>
+	<string name="tourism_apartment">アパート</string>
+	<string name="tourism_resort">リゾート</string>
+	<string name="editor_profile_changes_for_next_place">次の場所への変更：%d</string>
+	<string name="editor_profile_rating_place">ランキングポジション</string>
+	<string name="booking_dialog_not_connect_header">ホテルを予約するには、インターネット接続を有効にしてください</string>
+	<string name="whatsnew_booking_header">アプリからホテルを予約する</string>
+	<string name="whatsnew_booking_message">ホテルを探すと、地図にホテルの価格帯と評価が表示されます。</string>
+	<string name="button_try">試してみる</string>
+	<string name="whatsnew_cycle_navigation_header">バイクナビゲーション（ベータ版）</string>
+	<string name="whatsnew_cycle_navigation_message">新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。</string>
 </resources>

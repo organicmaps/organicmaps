@@ -1138,6 +1138,8 @@
 
 "autodownload" = "自動ダウンロード";
 
+"disable_autodownload" = "自動ダウンロードを無効にする";
+
 /* Place Page opening hours text */
 "closed_now" = "現在閉店";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "OpenStreetMapを使ってログイン";
 
-"editor_profile_changes" = "変更回数：";
+"editor_profile_changes" = "確認された変更";
 
 "editor_profile_unsent_changes" = "未送信：";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "24時間体制";
 
-"placepage_place_rating" = "評価：";
+"place_page_booking_rating" = "評価：%d";
 
 "place_page_starting_from" = "%sから";
 
@@ -1513,20 +1515,38 @@
 
 "editor_place_doesnt_exist" = "存在しない場所";
 
-"place_page_booking_rating" = "Rating: %s";
-
 "editor_rating_verified_changes" = "Verified changes";
 
-"text_more_button" = "… more";
+"text_more_button" = "…続き";
 
-"error_enter_correct_phone" = "Enter a valid phone number";
+"error_enter_correct_phone" = "文字なしで電話番号を入力してください";
 
-"error_enter_correct_web" = "Enter a valid web address";
+"error_enter_correct_web" = "有効なウェブアドレスを入力してください";
 
-"error_enter_correct_email" = "Enter a valid email";
-
-"error_enter_correct" = "Enter a valid value";
+"error_enter_correct_email" = "有効なメールアドレスを入力してください";
 
 "editor_rating_your_place" = "Your place";
 
 "editor_rating_changes_to_next_place" = "Changes to the next place: %d";
+
+"error_enter_correct" = "有効な値を入力してください";
+
+"tourism_apartment" = "アパート";
+
+"tourism_resort" = "リゾート";
+
+"editor_profile_changes_for_next_place" = "次の場所への変更：%d";
+
+"editor_profile_rating_place" = "ランキングポジション";
+
+"booking_dialog_not_connect_header" = "ホテルを予約するには、インターネット接続を有効にしてください";
+
+"whatsnew_booking_header" = "アプリからホテルを予約する";
+
+"whatsnew_booking_message" = "ホテルを探すと、地図にホテルの価格帯と評価が表示されます。";
+
+"button_try" = "試してみる";
+
+"whatsnew_cycle_navigation_header" = "バイクナビゲーション（ベータ版）";
+
+"whatsnew_cycle_navigation_message" = "新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。";

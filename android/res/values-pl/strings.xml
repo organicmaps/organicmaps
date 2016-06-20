@@ -680,6 +680,7 @@
 	<string name="download_all">Pobierz wszystko</string>
 	<string name="delete_all">Usuń wszystkie</string>
 	<string name="autodownload">Automatyczne pobieranie</string>
+	<string name="disable_autodownload">Wyłącz automatyczne pobieranie</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Nieczynne</string>
 	<!-- Place Page opening hours text -->
@@ -754,7 +755,7 @@
 	<string name="editor_username_error_dialog">Nieprawidłowa nazwa użytkownika</string>
 	<string name="editor_place_edited_dialog">Obiekt był edytowany!</string>
 	<string name="editor_login_with_osm">Zaloguj się z OpenStreetMap</string>
-	<string name="editor_profile_changes">Zmiany:</string>
+	<string name="editor_profile_changes">Zmiany zweryfikowane</string>
 	<string name="editor_profile_unsent_changes">Nie wysłano:</string>
 	<string name="editor_focus_map_on_location">Przeciągnij mapę, aby wybrać poprawną lokalizację obiektu.</string>
 	<string name="editor_add_select_category">Wybierz kategorię</string>
@@ -852,7 +853,7 @@
 	<string name="placepage_entrance_type">Wejście</string>
 	<string name="placepage_flat">Mieszkanie</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="placepage_place_rating">Ocena:</string>
+	<string name="place_page_booking_rating">Ocena: %d</string>
 	<string name="place_page_starting_from">od %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -872,4 +873,19 @@
 	<string name="editor_remove_place_button">Usuń</string>
 	<string name="editor_status_sending">Wysyłanie…</string>
 	<string name="editor_place_doesnt_exist">Takie miejsce nie istnieje</string>
+	<string name="text_more_button">…więcej</string>
+	<string name="error_enter_correct_phone">Wpisz numer telefonu bez liter</string>
+	<string name="error_enter_correct_web">Wpisz prawidłowy adres strony internetowej</string>
+	<string name="error_enter_correct_email">Wpisz prawidłowy e-mail</string>
+	<string name="error_enter_correct">Wpisz prawidłową wartość</string>
+	<string name="tourism_apartment">Apartamenty</string>
+	<string name="tourism_resort">Dom wczasowy</string>
+	<string name="editor_profile_changes_for_next_place">Zmiany w następnym miejscu: %d</string>
+	<string name="editor_profile_rating_place">Pozycja w rankingu</string>
+	<string name="booking_dialog_not_connect_header">Aby zarezerwować pokój w hotelu, włącz połączenia internetowe</string>
+	<string name="whatsnew_booking_header">Zarezerwuj pokój w hotelu za pomocą aplikacji</string>
+	<string name="whatsnew_booking_message">Podczas wyszukiwania hoteli mapa pokazuje cenę, kategorię i ocenę hotelu.</string>
+	<string name="button_try">Wypróbuj</string>
+	<string name="whatsnew_cycle_navigation_header">Nawigacja rowerowa (wersja beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z MAPS.ME i napisz nam, co myślisz o naszej nawigacji.</string>
 </resources>

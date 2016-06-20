@@ -693,6 +693,7 @@
 	<string name="download_all">全部下載</string>
 	<string name="delete_all">刪除全部</string>
 	<string name="autodownload">自動下載</string>
+	<string name="disable_autodownload">停用自動下載</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">現在關門</string>
 	<!-- Place Page opening hours text -->
@@ -771,7 +772,7 @@
 	<string name="editor_username_error_dialog">使用者名稱不存在</string>
 	<string name="editor_place_edited_dialog">您已編輯了一個物件！</string>
 	<string name="editor_login_with_osm">使用 OpenStreetMap 進行登入</string>
-	<string name="editor_profile_changes">更改：</string>
+	<string name="editor_profile_changes">已驗證的變更</string>
 	<string name="editor_profile_unsent_changes">未發送：</string>
 	<string name="editor_focus_map_on_location">拖動地圖以選擇此物件的正確位置。</string>
 	<string name="editor_add_select_category">選擇類別</string>
@@ -869,7 +870,8 @@
 	<string name="placepage_entrance_type">入口</string>
 	<string name="placepage_flat">公寓</string>
 	<string name="placepage_open_24_7">全天候</string>
-	<string name="placepage_place_rating">評價：</string>
+	<string name="place_page_booking_rating">評分： %d</string>
+	<string name="place_page_starting_from">從%s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">說明</string>
@@ -888,4 +890,19 @@
 	<string name="editor_remove_place_button">移除</string>
 	<string name="editor_status_sending">正在傳送…</string>
 	<string name="editor_place_doesnt_exist">位置不存在</string>
+	<string name="text_more_button">…更多</string>
+	<string name="error_enter_correct_phone">輸入無字母的電話號碼</string>
+	<string name="error_enter_correct_web">輸入有效網址</string>
+	<string name="error_enter_correct_email">輸入有效電子郵箱</string>
+	<string name="error_enter_correct">輸入有效值</string>
+	<string name="tourism_apartment">公寓</string>
+	<string name="tourism_resort">度假酒店</string>
+	<string name="editor_profile_changes_for_next_place">對下一個地點的變更：%d</string>
+	<string name="editor_profile_rating_place">排名位置</string>
+	<string name="booking_dialog_not_connect_header">要預訂酒店，請啟用您的網際網路連線</string>
+	<string name="whatsnew_booking_header">從應用程式預訂酒店</string>
+	<string name="whatsnew_booking_message">當您尋找酒店時，此地圖可以顯示該酒店的價格類型與評比。</string>
+	<string name="button_try">試用</string>
+	<string name="whatsnew_cycle_navigation_header">自行車導航（beta 版）</string>
+	<string name="whatsnew_cycle_navigation_message">我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。</string>
 </resources>

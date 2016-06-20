@@ -681,6 +681,7 @@
 	<string name="download_all">ดาวน์โหลดทั้งหมด</string>
 	<string name="delete_all">ลบทั้งหมด</string>
 	<string name="autodownload">ดาวน์โหลดอัตโนมัติ</string>
+	<string name="disable_autodownload">หยุดการดาวน์โหลดแบบอัตโนมัติ</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">ปิดตอนนี้</string>
 	<!-- Place Page opening hours text -->
@@ -755,7 +756,7 @@
 	<string name="editor_username_error_dialog">ชื่อผู้ใช้ไม่ถูกต้อง</string>
 	<string name="editor_place_edited_dialog">คุณได้แก้ไขวัตถุ!</string>
 	<string name="editor_login_with_osm">ล็อกอินด้วย OpenStreetMap</string>
-	<string name="editor_profile_changes">การเปลี่ยนแปลง:</string>
+	<string name="editor_profile_changes">การเปลี่ยนแปลงที่อนุมัติแล้ว</string>
 	<string name="editor_profile_unsent_changes">ไม่ได้ส่ง:</string>
 	<string name="editor_focus_map_on_location">ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง</string>
 	<string name="editor_add_select_category">เลือกหมวดหมู่</string>
@@ -853,7 +854,7 @@
 	<string name="placepage_entrance_type">ทางเข้า</string>
 	<string name="placepage_flat">ห้อง</string>
 	<string name="placepage_open_24_7">24 ชั่วโมง</string>
-	<string name="placepage_place_rating">เรทติ้ง</string>
+	<string name="place_page_booking_rating">เรทติ้ง: %d</string>
 	<string name="place_page_starting_from">จาก %s</string>
 	<string name="meter">ม.</string>
 	<string name="kilometer">กม.</string>
@@ -873,4 +874,19 @@
 	<string name="editor_remove_place_button">ลบออก</string>
 	<string name="editor_status_sending">กำลังส่ง…</string>
 	<string name="editor_place_doesnt_exist">ไม่พบสถานที่นี้</string>
+	<string name="text_more_button">…เพิ่มเติม</string>
+	<string name="error_enter_correct_phone">กรอกหมายเลขโทรศัพท์โดยไม่ใช้ตัวอักษร</string>
+	<string name="error_enter_correct_web">กรอกที่อยู่เว็บที่ถูกต้อง</string>
+	<string name="error_enter_correct_email">กรอกอีเมลที่ถูกต้อง</string>
+	<string name="error_enter_correct">กรอกค่าที่ถูกต้อง</string>
+	<string name="tourism_apartment">อพาร์ตเมนต์</string>
+	<string name="tourism_resort">รีสอร์ต</string>
+	<string name="editor_profile_changes_for_next_place">เปลี่ยนไปยังสถานที่ถัดไป: %d</string>
+	<string name="editor_profile_rating_place">ลำดับของตำแหน่ง</string>
+	<string name="booking_dialog_not_connect_header">โปรดเชื่อมต่อกับอินเตอร์เน็ตเพื่อจองโรงแรมนี้</string>
+	<string name="whatsnew_booking_header">จองโรงแรมจากแอพ</string>
+	<string name="whatsnew_booking_message">หากคุณกำลังมองหาโรงแรมอยู่ แผนที่จะแสดงหมวดหมู่ราคา และเรตติ้งของโรงแรม</string>
+	<string name="button_try">ลองดู</string>
+	<string name="whatsnew_cycle_navigation_header">การนำทางจักรยาน (beta-version)</string>
+	<string name="whatsnew_cycle_navigation_message">เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา</string>
 </resources>

@@ -670,6 +670,7 @@
 	<string name="download_all">Descargar todos</string>
 	<string name="delete_all">Eliminar todos</string>
 	<string name="autodownload">Descarga automática</string>
+	<string name="disable_autodownload">Inhabilitar descarga automática</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Cerrado ahora</string>
 	<!-- Place Page opening hours text -->
@@ -744,7 +745,7 @@
 	<string name="editor_username_error_dialog">Usuario no válido</string>
 	<string name="editor_place_edited_dialog">¡Has editado un objeto!</string>
 	<string name="editor_login_with_osm">Iniciar sesión con OpenStreetMap</string>
-	<string name="editor_profile_changes">Cambios:</string>
+	<string name="editor_profile_changes">Cambios verificados</string>
 	<string name="editor_profile_unsent_changes">No enviado:</string>
 	<string name="editor_focus_map_on_location">Arrastra el mapa para seleccionar la ubicación correcta del objeto.</string>
 	<string name="editor_add_select_category">Seleccionar categoría</string>
@@ -842,7 +843,7 @@
 	<string name="placepage_entrance_type">Entrada</string>
 	<string name="placepage_flat">aplicación</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="placepage_place_rating">Valoración:</string>
+	<string name="place_page_booking_rating">Valoración: %d</string>
 	<string name="place_page_starting_from">desde %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -862,4 +863,19 @@
 	<string name="editor_remove_place_button">Eliminar</string>
 	<string name="editor_status_sending">Enviando…</string>
 	<string name="editor_place_doesnt_exist">El lugar no existe</string>
+	<string name="text_more_button">…más</string>
+	<string name="error_enter_correct_phone">Introduce el número de teléfono sin letras</string>
+	<string name="error_enter_correct_web">Introduce una dirección web válida</string>
+	<string name="error_enter_correct_email">Introduce un email válido</string>
+	<string name="error_enter_correct">Introduce un valor válido</string>
+	<string name="tourism_apartment">Apartamentos</string>
+	<string name="tourism_resort">Resort</string>
+	<string name="editor_profile_changes_for_next_place">Cambios para la próxima posición: %d</string>
+	<string name="editor_profile_rating_place">Posición en la clasificación</string>
+	<string name="booking_dialog_not_connect_header">Para reservar el hotel, habilita tu conexión a Internet</string>
+	<string name="whatsnew_booking_header">Reserva un hotel desde la aplicación</string>
+	<string name="whatsnew_booking_message">Cuando busques un hotel, el mapa mostrará la categoría de precio y clasificación de los hoteles.</string>
+	<string name="button_try">Pruébalo</string>
+	<string name="whatsnew_cycle_navigation_header">Navegación en bici (versión beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Estamos probando la navegación en bici para la nueva temporada. Prueba tu ruta favorita en bicicleta con MAPS.ME y comparte tu opinión con nosotros.</string>
 </resources>

@@ -671,6 +671,7 @@
 	<string name="download_all">모두 다운로드</string>
 	<string name="delete_all">모두 삭제</string>
 	<string name="autodownload">자동 다운로드</string>
+	<string name="disable_autodownload">자동 다운로드 해제</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">지금 닫힘</string>
 	<!-- Place Page opening hours text -->
@@ -745,7 +746,7 @@
 	<string name="editor_username_error_dialog">잘못된 사용자 이름</string>
 	<string name="editor_place_edited_dialog">개체를 편집했습니다!</string>
 	<string name="editor_login_with_osm">OpenStreetMap으로 로그인</string>
-	<string name="editor_profile_changes">변경 사항:</string>
+	<string name="editor_profile_changes">변경사항 승인</string>
 	<string name="editor_profile_unsent_changes">전송되지 않음:</string>
 	<string name="editor_focus_map_on_location">개체의 정확한 위치를 선택하려면 지도를 당깁니다.</string>
 	<string name="editor_add_select_category">범주 선택</string>
@@ -843,7 +844,7 @@
 	<string name="placepage_entrance_type">입구</string>
 	<string name="placepage_flat">앱</string>
 	<string name="placepage_open_24_7">연중무휴</string>
-	<string name="placepage_place_rating">평가:</string>
+	<string name="place_page_booking_rating">평가: %d</string>
 	<string name="place_page_starting_from">%s에서</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -863,4 +864,19 @@
 	<string name="editor_remove_place_button">삭제</string>
 	<string name="editor_status_sending">보내는 중…</string>
 	<string name="editor_place_doesnt_exist">존재하지 않는 장소입니다.</string>
+	<string name="text_more_button">…기타</string>
+	<string name="error_enter_correct_phone">문자없이 전화 번호 입력</string>
+	<string name="error_enter_correct_web">유효한 웹 주소 입력</string>
+	<string name="error_enter_correct_email">유효한 이메일 주소 입력</string>
+	<string name="error_enter_correct">유효한 값 입력</string>
+	<string name="tourism_apartment">아파트</string>
+	<string name="tourism_resort">리조트</string>
+	<string name="editor_profile_changes_for_next_place">다음 장소 변경: %d</string>
+	<string name="editor_profile_rating_place">평가 순위</string>
+	<string name="booking_dialog_not_connect_header">호텔을 예약하려면 인터넷에 연결하세요</string>
+	<string name="whatsnew_booking_header">앱에서 호텔 예약하기</string>
+	<string name="whatsnew_booking_message">호텔을 검색하면 가격대와 등급이 함께 표시됩니다.</string>
+	<string name="button_try">시도해보세요</string>
+	<string name="whatsnew_cycle_navigation_header">자전거 네비게이션 (베타 버전)</string>
+	<string name="whatsnew_cycle_navigation_message">저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. MAPS.ME에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.</string>
 </resources>

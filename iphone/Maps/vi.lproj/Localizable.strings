@@ -1138,6 +1138,8 @@
 
 "autodownload" = "Tự động tải về";
 
+"disable_autodownload" = "Tắt chế độ tự động tải xuống";
+
 /* Place Page opening hours text */
 "closed_now" = "Hiện đã đóng";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "Đăng nhập với OpenStreetMap";
 
-"editor_profile_changes" = "Những thay đổi:";
+"editor_profile_changes" = "Các thay đổi đã được xác thực";
 
 "editor_profile_unsent_changes" = "Không gửi được:";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"placepage_place_rating" = "Xếp hạng:";
+"place_page_booking_rating" = "Xếp hạng: %d";
 
 "place_page_starting_from" = "từ %s";
 
@@ -1513,20 +1515,38 @@
 
 "editor_place_doesnt_exist" = "Địa điểm không tồn tại";
 
-"place_page_booking_rating" = "Rating: %s";
-
 "editor_rating_verified_changes" = "Verified changes";
 
-"text_more_button" = "… more";
+"text_more_button" = "…thêm";
 
-"error_enter_correct_phone" = "Enter a valid phone number";
+"error_enter_correct_phone" = "Nhập số điện thoại không có chữ cái";
 
-"error_enter_correct_web" = "Enter a valid web address";
+"error_enter_correct_web" = "Nhập địa chỉ trang web hợp lệ";
 
-"error_enter_correct_email" = "Enter a valid email";
-
-"error_enter_correct" = "Enter a valid value";
+"error_enter_correct_email" = "Nhập email hợp lệ";
 
 "editor_rating_your_place" = "Your place";
 
 "editor_rating_changes_to_next_place" = "Changes to the next place: %d";
+
+"error_enter_correct" = "Nhập giá trị hợp lệ";
+
+"tourism_apartment" = "Căn hộ";
+
+"tourism_resort" = "Khu nghỉ dưỡng";
+
+"editor_profile_changes_for_next_place" = "Các thay đổi tới địa điểm tiếp theo: %d";
+
+"editor_profile_rating_place" = "Vị trí thứ hạng";
+
+"booking_dialog_not_connect_header" = "Để đặt khách sạn, vui lòng bật kết nối Internet";
+
+"whatsnew_booking_header" = "Đặt khách sạn từ ứng dụng";
+
+"whatsnew_booking_message" = "Khi tìm khách sạn, bản đồ sẽ hiển thị đánh giá và giá của các khách sạn.";
+
+"button_try" = "Hãy thử xem";
+
+"whatsnew_cycle_navigation_header" = "Định vị xe đạp (phiên bản beta)";
+
+"whatsnew_cycle_navigation_message" = "Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.";

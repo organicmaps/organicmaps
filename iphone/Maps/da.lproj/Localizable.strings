@@ -1138,6 +1138,8 @@
 
 "autodownload" = "Automatisk download";
 
+"disable_autodownload" = "Deaktiver automatisk download";
+
 /* Place Page opening hours text */
 "closed_now" = "Lukket nu";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "Login med OpenStreetMap";
 
-"editor_profile_changes" = "Ændringer:";
+"editor_profile_changes" = "Bekræftede ændringer";
 
 "editor_profile_unsent_changes" = "Ikke sendt:";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"placepage_place_rating" = "Bedømmelse:";
+"place_page_booking_rating" = "Bedømmelse: %d";
 
 "place_page_starting_from" = "fra %s";
 
@@ -1513,20 +1515,38 @@
 
 "editor_place_doesnt_exist" = "Stedet eksisterer ikke";
 
-"place_page_booking_rating" = "Rating: %s";
-
 "editor_rating_verified_changes" = "Verified changes";
 
-"text_more_button" = "… more";
+"text_more_button" = "…mere";
 
-"error_enter_correct_phone" = "Enter a valid phone number";
+"error_enter_correct_phone" = "Indtast telefonnummer uden bogstaver";
 
-"error_enter_correct_web" = "Enter a valid web address";
+"error_enter_correct_web" = "Indtast en gyldig webadresse";
 
-"error_enter_correct_email" = "Enter a valid email";
-
-"error_enter_correct" = "Enter a valid value";
+"error_enter_correct_email" = "Indtast en gyldig e-mailadresse";
 
 "editor_rating_your_place" = "Your place";
 
 "editor_rating_changes_to_next_place" = "Changes to the next place: %d";
+
+"error_enter_correct" = "Indtast en gyldig værdi";
+
+"tourism_apartment" = "Lejligheder";
+
+"tourism_resort" = "Resort";
+
+"editor_profile_changes_for_next_place" = "Ændringer for næste sted: %d";
+
+"editor_profile_rating_place" = "Rangorden";
+
+"booking_dialog_not_connect_header" = "For at booke hotellet, bedes du aktivere din internetforbindelse";
+
+"whatsnew_booking_header" = "Book et hotel fra appen";
+
+"whatsnew_booking_message" = "Når du leder efter et hotel, vil kortet vise hotellernes priskategori og vurdering.";
+
+"button_try" = "Prøv det";
+
+"whatsnew_cycle_navigation_header" = "Cykelnavigation (beta-version)";
+
+"whatsnew_cycle_navigation_message" = "Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.";

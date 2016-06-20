@@ -675,6 +675,7 @@
 	<string name="download_all">Lataa kaikki</string>
 	<string name="delete_all">Poista kaikki</string>
 	<string name="autodownload">Lataa automaattisesti</string>
+	<string name="disable_autodownload">Poista käytöstä automaattinen lataus</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Suljettu nyt</string>
 	<!-- Place Page opening hours text -->
@@ -749,7 +750,7 @@
 	<string name="editor_username_error_dialog">Käyttäjätunnus on virheellinen</string>
 	<string name="editor_place_edited_dialog">Olet muokannut kohdetta!</string>
 	<string name="editor_login_with_osm">Kirjaudu sisään OpenStreetMapissa</string>
-	<string name="editor_profile_changes">Muutokset:</string>
+	<string name="editor_profile_changes">Vahvistetut karttamuutokset</string>
 	<string name="editor_profile_unsent_changes">Ei lähetetty:</string>
 	<string name="editor_focus_map_on_location">Vedä karttaa valitaksesi kohteelle oikean sijainnin.</string>
 	<string name="editor_add_select_category">Valitse kategoria</string>
@@ -847,7 +848,7 @@
 	<string name="placepage_entrance_type">Sisäänkäynti</string>
 	<string name="placepage_flat">sov.</string>
 	<string name="placepage_open_24_7">24_7</string>
-	<string name="placepage_place_rating">Luokitus</string>
+	<string name="place_page_booking_rating">Luokitus: %d</string>
 	<string name="place_page_starting_from">%s:stä</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -867,4 +868,19 @@
 	<string name="editor_remove_place_button">Poista</string>
 	<string name="editor_status_sending">Lähetetään…</string>
 	<string name="editor_place_doesnt_exist">Paikkaa ei ole</string>
+	<string name="text_more_button">…Näytä</string>
+	<string name="error_enter_correct_phone">Syötä puhelinnumero ilman kirjaimia</string>
+	<string name="error_enter_correct_web">Syötä kelvollinen verkko-osoite</string>
+	<string name="error_enter_correct_email">Syötä kelvollinen sähköpostiosoite</string>
+	<string name="error_enter_correct">Syötä kelvollinen arvo</string>
+	<string name="tourism_apartment">Loma-asunnot</string>
+	<string name="tourism_resort">Lomakohteet</string>
+	<string name="editor_profile_changes_for_next_place">Muutokset paikkaan: %d</string>
+	<string name="editor_profile_rating_place">Luokitussija</string>
+	<string name="booking_dialog_not_connect_header">Ota käyttöön internet-yhteytesi varataksesi hotellin</string>
+	<string name="whatsnew_booking_header">Varaa hotelli sovelluksesta</string>
+	<string name="whatsnew_booking_message">Etsiessäsi hotellia kartta näyttää hotellien hintaluokan ja luokituksen.</string>
+	<string name="button_try">Kokeile sitä</string>
+	<string name="whatsnew_cycle_navigation_header">Polkupyöränavigointi (betaversio)</string>
+	<string name="whatsnew_cycle_navigation_message">Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.</string>
 </resources>

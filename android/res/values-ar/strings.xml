@@ -101,7 +101,7 @@
 	<string name="connection_settings">اعدادات الاتصال</string>
 	<string name="download_mb_or_kb">تنزيل %s</string>
 	<string name="close">اغلاق</string>
-	<string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع . لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
+	<string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
 	<string name="download">تنزيل</string>
 	<string name="external_storage_is_not_available">خاصية التخزين بواسطة البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل غير متاحة مع الخرائط التي تم تنزيلها.</string>
 	<string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام MAPS.ME.</string>
@@ -681,6 +681,7 @@
 	<string name="download_all">تنزيل الكل</string>
 	<string name="delete_all">حذف الكل</string>
 	<string name="autodownload">التنزيل التلقائي</string>
+	<string name="disable_autodownload">تعطيل التنزيل التلقائي</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">مغلق الآن</string>
 	<!-- Place Page opening hours text -->
@@ -755,7 +756,7 @@
 	<string name="editor_username_error_dialog">اسم المستخدم غير صحيح</string>
 	<string name="editor_place_edited_dialog">لقد قمت بتعديل هدف!</string>
 	<string name="editor_login_with_osm">تسجيل الدخول عبر OpenStreetMap</string>
-	<string name="editor_profile_changes">التغيرات:</string>
+	<string name="editor_profile_changes">التغييرات التي تم التحقق منها</string>
 	<string name="editor_profile_unsent_changes">لم ترسل:</string>
 	<string name="editor_focus_map_on_location">اسحب الخريطة لتحدد الموقع الصحيح للهدف.</string>
 	<string name="editor_add_select_category">اختر الفئة</string>
@@ -853,7 +854,7 @@
 	<string name="placepage_entrance_type">المدخل</string>
 	<string name="placepage_flat">تطبيق</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="placepage_place_rating">التصنيف:</string>
+	<string name="place_page_booking_rating">التصنيف: %d</string>
 	<string name="place_page_starting_from">من%s</string>
 	<string name="meter">متر</string>
 	<string name="kilometer">كم</string>
@@ -873,4 +874,19 @@
 	<string name="editor_remove_place_button">إزالة</string>
 	<string name="editor_status_sending">جارِ الإرسال…</string>
 	<string name="editor_place_doesnt_exist">المكان غير موجود</string>
+	<string name="text_more_button">…المزيد</string>
+	<string name="error_enter_correct_phone">أدحل رقم الهاتف دون أحرف</string>
+	<string name="error_enter_correct_web">أدخل عنوان ويب صالح</string>
+	<string name="error_enter_correct_email">أدخل بريدا إلكترونيا صالحا</string>
+	<string name="error_enter_correct">أدخل قيمة صالحة</string>
+	<string name="tourism_apartment">شُقَق</string>
+	<string name="tourism_resort">منتج</string>
+	<string name="editor_profile_changes_for_next_place">التغييرات في المكان التالي: %d</string>
+	<string name="editor_profile_rating_place">المركز في التصنيف</string>
+	<string name="booking_dialog_not_connect_header">لحجز الفندق، يُرجى تمكين الاتصال بالإنترنت</string>
+	<string name="whatsnew_booking_header">حجز فندق من التطبيق</string>
+	<string name="whatsnew_booking_message">عندما تبحث عن فندق، ستعرض لك الخريطة فئة أسعار وتصنيف الفندق.</string>
+	<string name="button_try">جربه</string>
+	<string name="whatsnew_cycle_navigation_header">التوجيه الملاحي مع الدراجات (إصدار تجريبي)</string>
+	<string name="whatsnew_cycle_navigation_message">نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.</string>
 </resources>

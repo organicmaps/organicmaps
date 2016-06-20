@@ -1138,6 +1138,8 @@
 
 "autodownload" = "Scaricamento automatico";
 
+"disable_autodownload" = "Disattiva download automatico";
+
 /* Place Page opening hours text */
 "closed_now" = "Ora chiuso";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "Accedi con OpenStreetMap";
 
-"editor_profile_changes" = "Modifiche:";
+"editor_profile_changes" = "Modifiche approvate";
 
 "editor_profile_unsent_changes" = "Non inviato:";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"placepage_place_rating" = "Valutazione:";
+"place_page_booking_rating" = "Valutazione: %d";
 
 "place_page_starting_from" = "da %s";
 
@@ -1513,20 +1515,38 @@
 
 "editor_place_doesnt_exist" = "Luogo inesistente";
 
-"place_page_booking_rating" = "Rating: %s";
-
 "editor_rating_verified_changes" = "Verified changes";
 
-"text_more_button" = "… more";
+"text_more_button" = "…continua";
 
-"error_enter_correct_phone" = "Enter a valid phone number";
+"error_enter_correct_phone" = "Inserisci un numero di telefono senza lettere";
 
-"error_enter_correct_web" = "Enter a valid web address";
+"error_enter_correct_web" = "Inserisci un indirizzo web valido";
 
-"error_enter_correct_email" = "Enter a valid email";
-
-"error_enter_correct" = "Enter a valid value";
+"error_enter_correct_email" = "Inserisci un'email valida";
 
 "editor_rating_your_place" = "Your place";
 
 "editor_rating_changes_to_next_place" = "Changes to the next place: %d";
+
+"error_enter_correct" = "Inserisci un valore valido";
+
+"tourism_apartment" = "Residence";
+
+"tourism_resort" = "Resort";
+
+"editor_profile_changes_for_next_place" = "Modifiche per posizione successiva: %d";
+
+"editor_profile_rating_place" = "Posizione in classifica";
+
+"booking_dialog_not_connect_header" = "Per prenotare l'hotel, attivare la connessione Internet";
+
+"whatsnew_booking_header" = "Prenota un hotel tramite l'app";
+
+"whatsnew_booking_message" = "Quando cerchi un hotel, la mappa li visualizza mostrando le categorie di prezzo e le recensioni.";
+
+"button_try" = "Provalo";
+
+"whatsnew_cycle_navigation_header" = "Navigazione in bici (versione beta)";
+
+"whatsnew_cycle_navigation_message" = "Stiamo collaudando la navigazione in bici per la nuova stagione. Prova il tuo itinerario ciclistico preferito con MAPS.ME e condividi con noi le tue opinioni.";

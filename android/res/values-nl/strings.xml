@@ -50,6 +50,8 @@
 	<string name="miles">Mijlen</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Mijn Locatie</string>
+	<!-- not used? Search View - Location is disabled by user warning text -->
+	<string name="enable_location_services">Schakel Locatie Services in</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Maak ruimte vrij op uw apparaat om %s te kunnen downloaden</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -515,7 +517,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">De kaart voor uw locatie is niet gedownload</string>
 	<!-- location service disabled -->
-	<string name="enable_location_services">Schakel Locatie Services in</string>
+	<string name="enable_location_service">Schakel Locatie Services in</string>
 	<!-- download map -->
 	<string name="download_map">Download de kaart voor uw locatie</string>
 	<!-- download map on iPhone -->
@@ -675,6 +677,7 @@
 	<string name="download_all">Alles downloaden</string>
 	<string name="delete_all">Alles verwijderen</string>
 	<string name="autodownload">Automatische download</string>
+	<string name="disable_autodownload">Automatisch downloaden uitschakelen</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Nu gesloten</string>
 	<!-- Place Page opening hours text -->
@@ -749,7 +752,7 @@
 	<string name="editor_username_error_dialog">Gebruikersnaam is ongeldig</string>
 	<string name="editor_place_edited_dialog">Je hebt een object bewerkt!</string>
 	<string name="editor_login_with_osm">Log in met OpenStreetMap</string>
-	<string name="editor_profile_changes">Wijzigingen:</string>
+	<string name="editor_profile_changes">Gecontroleerde wijzigingen</string>
 	<string name="editor_profile_unsent_changes">Niet verzonden:</string>
 	<string name="editor_focus_map_on_location">Trek aan de kaart om de juiste locatie van het object te selecteren.</string>
 	<string name="editor_add_select_category">Selecteer categorie</string>
@@ -847,7 +850,7 @@
 	<string name="placepage_entrance_type">Ingang</string>
 	<string name="placepage_flat">app.</string>
 	<string name="placepage_open_24_7">Dag en nacht</string>
-	<string name="placepage_place_rating">Cijfer:</string>
+	<string name="place_page_booking_rating">Cijfer: %d</string>
 	<string name="place_page_starting_from">van %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -867,4 +870,19 @@
 	<string name="editor_remove_place_button">Verwijderen</string>
 	<string name="editor_status_sending">Verzenden…</string>
 	<string name="editor_place_doesnt_exist">Locatie bestaat niet</string>
+	<string name="text_more_button">…meer</string>
+	<string name="error_enter_correct_phone">Voer een telefoonnummer in zonder letters</string>
+	<string name="error_enter_correct_web">Voer een geldig webadres in</string>
+	<string name="error_enter_correct_email">Voer een geldig e-mailadres in</string>
+	<string name="error_enter_correct">Voer een geldige waarde in</string>
+	<string name="tourism_apartment">Appartementen</string>
+	<string name="tourism_resort">Complex</string>
+	<string name="editor_profile_changes_for_next_place">Wijzigingen tot de volgende positie: %d</string>
+	<string name="editor_profile_rating_place">Positie in klassement</string>
+	<string name="booking_dialog_not_connect_header">Maak verbinding met internet om het hotel te boeken</string>
+	<string name="whatsnew_booking_header">Boek een hotel via de app</string>
+	<string name="whatsnew_booking_message">Als u een hotel zoekt, toont de kaart de prijscategorie en de beoordeling.</string>
+	<string name="button_try">Proberen</string>
+	<string name="whatsnew_cycle_navigation_header">Fietsnavigatie (bèta-versie)</string>
+	<string name="whatsnew_cycle_navigation_message">We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.</string>
 </resources>
