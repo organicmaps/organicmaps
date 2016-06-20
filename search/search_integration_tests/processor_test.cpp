@@ -324,12 +324,17 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
   TestPOI lermontov(m2::PointD(1, 1), "Лермонтовъ", "en");
   lermontov.SetTypes({{"amenity", "cafe"}});
 
-  // A city with two noname cafes.
-  TestCity lermontovo(m2::PointD(-1, -1), "Лермонтово", "en", 100 /* rank */);
+  // A low-rank city with two noname cafes.
+  TestCity lermontovo(m2::PointD(-1, -1), "Лермонтово", "en", 0 /* rank */);
   TestPOI cafe1(m2::PointD(-1.01, -1.01), "", "en");
   cafe1.SetTypes({{"amenity", "cafe"}});
   TestPOI cafe2(m2::PointD(-0.99, -0.99), "", "en");
   cafe2.SetTypes({{"amenity", "cafe"}});
+
+  // A low-rank village with a single noname cafe.
+  TestVillage pushkino(m2::PointD(-10, -10), "Pushkino", "en", 0 /* rank */);
+  TestPOI cafe3(m2::PointD(-10.01, -10.01), "", "en");
+  cafe3.SetTypes({{"amenity", "cafe"}});
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder)
                             {
@@ -340,9 +345,11 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
                                    {
                                      builder.Add(cafe1);
                                      builder.Add(cafe2);
+                                     builder.Add(cafe3);
                                      builder.Add(goldenGateBridge);
                                      builder.Add(goldenGateStreet);
                                      builder.Add(lermontov);
+                                     builder.Add(pushkino);
                                      builder.Add(waterfall);
                                    });
 
@@ -380,6 +387,12 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
   {
     TRules rules{ExactMatch(wonderlandId, waterfall)};
     TEST(ResultsMatch("waterfall", rules), ());
+  }
+
+  SetViewport(m2::RectD(m2::PointD(-10.5, -10.5), m2::PointD(-9.5, -9.5)));
+  {
+    TRules rules{ExactMatch(wonderlandId, cafe3)};
+    TEST(ResultsMatch("cafe pushkino ", rules), ());
   }
 }
 
