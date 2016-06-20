@@ -1465,7 +1465,7 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="#VERIFIED CHANGES#"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_profile_changes"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last send 12.01.2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2UV-ZB-sPO">
@@ -1534,7 +1534,7 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="#Your Place#"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_profile_rating_place"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changes to the next place: −−−" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuZ-au-bo9">
@@ -1545,7 +1545,7 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="#Changes to the next place:#"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_profile_rating_place"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
