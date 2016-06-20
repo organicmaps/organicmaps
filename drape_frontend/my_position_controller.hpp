@@ -47,7 +47,7 @@ public:
                        bool isFirstLaunch, bool isRoutingActive);
   ~MyPositionController();
 
-  void OnNewPixelRect();
+  void OnNewViewportRect();
   void UpdatePixelPosition(ScreenBase const & screen);
   void SetListener(ref_ptr<Listener> listener);
 

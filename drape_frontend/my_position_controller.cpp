@@ -103,7 +103,7 @@ MyPositionController::~MyPositionController()
 {
 }
 
-void MyPositionController::OnNewPixelRect()
+void MyPositionController::OnNewViewportRect()
 {
   UpdateViewport(kDoNotChangeZoom);
 }

@@ -816,10 +816,10 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   bool const viewportChanged = !m2::IsEqualSize(m_lastReadedModelView.PixelRectIn3d(), viewportRect, kEps, kEps);
 
   m_myPositionController->UpdatePixelPosition(screen);
-  m_myPositionController->OnNewPixelRect();
 
   if (viewportChanged)
   {
+    m_myPositionController->OnNewViewportRect();
     m_viewport.SetViewport(0, 0, viewportRect.SizeX(), viewportRect.SizeY());
     m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
     m_framebuffer->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
