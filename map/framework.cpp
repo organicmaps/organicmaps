@@ -1929,7 +1929,7 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
 {
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   m_selectedFeature = info.GetID();
-  CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(),
+  CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(), info.GetID(),
                          needAnimation));
 
   SetDisplacementMode(info.m_isSponsoredHotel ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode);

@@ -116,7 +116,7 @@ public:
   void SetUserPositionListener(TUserPositionChangedFn && fn);
 
   FeatureID GetVisiblePOI(m2::PointD const & glbPoint);
-  void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt, bool isAnim);
+  void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt, FeatureID const & featureID, bool isAnim);
   void DeselectObject();
   bool GetMyPosition(m2::PointD & myPosition);
   SelectionShape::ESelectedObject GetSelectedObject();

@@ -65,6 +65,8 @@ public:
   void SetDisplacementEnabled(bool enabled);
   void SetDisplacementMode(int displacementMode);
 
+  void SetSelectedFeature(FeatureID const & featureID);
+
 #ifdef COLLECT_DISPLACEMENT_INFO
   struct DisplacementData
   {
@@ -94,6 +96,8 @@ private:
 
   bool m_isDisplacementEnabled;
   int m_displacementMode;
+
+  FeatureID m_selectedFeatureID;
 
 #ifdef COLLECT_DISPLACEMENT_INFO
   TDisplacementInfo m_displacementInfo;

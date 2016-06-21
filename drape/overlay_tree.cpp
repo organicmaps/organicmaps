@@ -199,48 +199,53 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
   if (boundToParent)
     handleToCompare = parentOverlay;
 
-  // In this loop we decide which element must be visible.
-  // If input element "handle" more priority than all "Intersected elements"
-  // than we remove all "Intersected elements" and insert input element "handle".
-  // But if some of already inserted elements more priority than we don't insert "handle".
-  for (auto const & rivalHandle : rivals)
+  bool const selected = m_selectedFeatureID.IsValid() && (handleToCompare->GetFeatureID() == m_selectedFeatureID);
+
+  if (!selected)
   {
-    bool rejectByDepth = false;
-    if (modelView.isPerspective())
+    // In this loop we decide which element must be visible.
+    // If input element "handle" has more priority than all "Intersected elements",
+    // then we remove all "Intersected elements" and insert input element "handle".
+    // But if some of already inserted elements have more priority, then we don't insert "handle".
+    for (auto const & rivalHandle : rivals)
     {
-      bool const pathTextComparation = handle->HasDynamicAttributes() || rivalHandle->HasDynamicAttributes();
-      rejectByDepth = !pathTextComparation &&
-                      handleToCompare->GetPivot(modelView, true).y > rivalHandle->GetPivot(modelView, true).y;
-    }
-
-    if (rejectByDepth || comparator.IsGreater(rivalHandle, handleToCompare))
-    {
-      // Handle is displaced and bound to its parent, parent will be displaced too.
-      if (boundToParent)
+      bool rejectByDepth = false;
+      if (modelView.isPerspective())
       {
-        DeleteHandle(parentOverlay);
-
-      #ifdef DEBUG_OVERLAYS_OUTPUT
-        LOG(LINFO, ("Displace (0):", handle->GetOverlayDebugInfo(), "->", parentOverlay->GetOverlayDebugInfo()));
-      #endif
-
-      #ifdef COLLECT_DISPLACEMENT_INFO
-        m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                         parentOverlay->GetExtendedPixelRect(modelView).Center(),
-                                                         dp::Color(0, 255, 0, 255)));
-      #endif
+        bool const pathTextComparation = handle->HasDynamicAttributes() || rivalHandle->HasDynamicAttributes();
+        rejectByDepth = !pathTextComparation &&
+                        handleToCompare->GetPivot(modelView, true).y > rivalHandle->GetPivot(modelView, true).y;
       }
 
-    #ifdef DEBUG_OVERLAYS_OUTPUT
-      LOG(LINFO, ("Displace (1):", rivalHandle->GetOverlayDebugInfo(), "->", handle->GetOverlayDebugInfo()));
-    #endif
+      if (rejectByDepth || comparator.IsGreater(rivalHandle, handleToCompare))
+      {
+        // Handle is displaced and bound to its parent, parent will be displaced too.
+        if (boundToParent)
+        {
+          DeleteHandle(parentOverlay);
 
-    #ifdef COLLECT_DISPLACEMENT_INFO
-      m_displacementInfo.emplace_back(DisplacementData(rivalHandle->GetExtendedPixelRect(modelView).Center(),
-                                                       handle->GetExtendedPixelRect(modelView).Center(),
-                                                       dp::Color(0, 0, 255, 255)));
-    #endif
-      return;
+#ifdef DEBUG_OVERLAYS_OUTPUT
+          LOG(LINFO, ("Displace (0):", handle->GetOverlayDebugInfo(), "->", parentOverlay->GetOverlayDebugInfo()));
+#endif
+
+#ifdef COLLECT_DISPLACEMENT_INFO
+          m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
+                                                           parentOverlay->GetExtendedPixelRect(modelView).Center(),
+                                                           dp::Color(0, 255, 0, 255)));
+#endif
+        }
+
+#ifdef DEBUG_OVERLAYS_OUTPUT
+        LOG(LINFO, ("Displace (1):", rivalHandle->GetOverlayDebugInfo(), "->", handle->GetOverlayDebugInfo()));
+#endif
+
+#ifdef COLLECT_DISPLACEMENT_INFO
+        m_displacementInfo.emplace_back(DisplacementData(rivalHandle->GetExtendedPixelRect(modelView).Center(),
+                                                         handle->GetExtendedPixelRect(modelView).Center(),
+                                                         dp::Color(0, 0, 255, 255)));
+#endif
+        return;
+      }
     }
   }
 
@@ -256,15 +261,15 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
         {
           Erase(*it);
 
-        #ifdef DEBUG_OVERLAYS_OUTPUT
+#ifdef DEBUG_OVERLAYS_OUTPUT
           LOG(LINFO, ("Displace (2):", handle->GetOverlayDebugInfo(), "->", (*it)->GetOverlayDebugInfo()));
-        #endif
+#endif
 
-        #ifdef COLLECT_DISPLACEMENT_INFO
+#ifdef COLLECT_DISPLACEMENT_INFO
           m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
                                                            (*it)->GetExtendedPixelRect(modelView).Center(),
                                                            dp::Color(0, 0, 255, 255)));
-        #endif
+#endif
 
           it = m_handlesCache.erase(it);
         }
@@ -278,15 +283,15 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
     {
       DeleteHandle(rivalHandle);
 
-    #ifdef DEBUG_OVERLAYS_OUTPUT
+#ifdef DEBUG_OVERLAYS_OUTPUT
       LOG(LINFO, ("Displace (3):", handle->GetOverlayDebugInfo(), "->", rivalHandle->GetOverlayDebugInfo()));
-    #endif
+#endif
 
-    #ifdef COLLECT_DISPLACEMENT_INFO
+#ifdef COLLECT_DISPLACEMENT_INFO
       m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
                                                        rivalHandle->GetExtendedPixelRect(modelView).Center(),
                                                        dp::Color(0, 0, 255, 255)));
-    #endif
+#endif
     }
   }
 
@@ -413,6 +418,11 @@ void OverlayTree::SetDisplacementMode(int displacementMode)
 {
   m_displacementMode = displacementMode;
   m_frameCounter = kInvalidFrame;
+}
+
+void OverlayTree::SetSelectedFeature(FeatureID const & featureID)
+{
+  m_selectedFeatureID = featureID;
 }
 
 #ifdef COLLECT_DISPLACEMENT_INFO
