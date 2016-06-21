@@ -113,10 +113,6 @@ public:
     Move();
   }
 
-  // Use default-constructed iterator for operator == to determine the
-  // end of the token stream.
-  TokenizeIterator() = default;
-
   string operator*() const
   {
     ASSERT(m_start != m_finish, ("Dereferencing of empty iterator."));
@@ -204,10 +200,6 @@ public:
       ++m_end;
   }
 
-  // Use default-constructed iterator for operator == to determine the
-  // end of the token stream.
-  TokenizeIterator() = default;
-
   string operator*() const
   {
     ASSERT(!m_finished, ("Dereferencing of empty iterator."));
@@ -290,9 +282,9 @@ class SimpleDelimiter
 public:
   SimpleDelimiter(char const * delims);
 
-  // Used in TokenizeIterator to allow past the end iterator construction.
-  SimpleDelimiter() = default;
-  /// @return true if c is delimiter
+  SimpleDelimiter(char delim);
+
+  // Returns true iff |c| is a delimiter.
   bool operator()(UniChar c) const;
 };
 

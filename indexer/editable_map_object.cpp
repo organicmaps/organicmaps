@@ -232,12 +232,14 @@ bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
 // static
 bool EditableMapObject::ValidateFlats(string const & flats)
 {
-  auto it = strings::SimpleTokenizer(flats, ";");
-  for (; it != strings::SimpleTokenizer(); ++it)
+  for (auto it = strings::SimpleTokenizer(flats, ";"); it; ++it)
   {
     auto token = *it;
     strings::Trim(token);
-    vector<string> range(strings::SimpleTokenizer(token, "-"), strings::SimpleTokenizer());
+
+    vector<string> range;
+    for (auto i = strings::SimpleTokenizer(token, "-"); i; ++i)
+      range.push_back(*i);
     if (range.empty() || range.size() > 2)
       return false;
 

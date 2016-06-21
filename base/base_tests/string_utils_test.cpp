@@ -411,12 +411,6 @@ UNIT_TEST(SimpleTokenizer)
     tokens.assign(&s[0], &s[0] + ARRAY_SIZE(s));
     TestIter("/1/2/", "/", tokens);
   }
-  {
-    using strings::SimpleTokenizer;
-    string const str("a,b,c");
-    TEST_EQUAL(vector<string>(SimpleTokenizer(str, ","), SimpleTokenizer()),
-               (vector<string>{"a", "b", "c"}), ());
-  }
 
   {
     string const s = "";
