@@ -1,7 +1,9 @@
 #pragma once
 
 #include "search/intermediate_result.hpp"
+#include "search/ranker.hpp"
 
+#include "base/logging.hpp"
 #include "base/macros.hpp"
 
 #include "std/algorithm.hpp"
@@ -11,13 +13,12 @@
 
 namespace search
 {
+class Ranker;
 // Fast and simple pre-ranker for search results.
 class PreRanker
 {
 public:
   explicit PreRanker(size_t limit);
-
-  void Add(PreResult1 const & result);
 
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
@@ -44,6 +45,8 @@ public:
     for (auto & result : m_results)
       fn(result.GetId(), result.GetInfo());
   }
+
+  Ranker * m_ranker;
 
 private:
   vector<PreResult1> m_results;

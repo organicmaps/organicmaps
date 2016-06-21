@@ -1,7 +1,8 @@
 #include "search/engine.hpp"
 
-#include "geometry_utils.hpp"
-#include "processor.hpp"
+#include "search/geometry_utils.hpp"
+#include "search/params.hpp"
+#include "search/processor.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -126,16 +127,16 @@ Engine::Params::Params(string const & locale, size_t numThreads)
 Engine::Engine(Index & index, CategoriesHolder const & categories,
                storage::CountryInfoGetter const & infoGetter, unique_ptr<ProcessorFactory> factory,
                Params const & params)
-  : m_categories(categories), m_shutdown(false)
+  : m_shutdown(false)
 {
   InitSuggestions doInit;
-  m_categories.ForEachName(bind<void>(ref(doInit), _1));
+  categories.ForEachName(bind<void>(ref(doInit), _1));
   doInit.GetSuggests(m_suggests);
 
   m_contexts.resize(params.m_numThreads);
   for (size_t i = 0; i < params.m_numThreads; ++i)
   {
-    auto processor = factory->Build(index, m_categories, m_suggests, infoGetter);
+    auto processor = factory->Build(index, categories, m_suggests, infoGetter);
     processor->SetPreferredLocale(params.m_locale);
     m_contexts[i].m_processor = move(processor);
   }
@@ -308,6 +309,7 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
 
   processor.SetMode(params.GetMode());
   processor.SetSuggestsEnabled(params.GetSuggestsEnabled());
+  processor.SetOnResults(params.m_onResults);
 
   // This flag is needed for consistency with old search algorithm
   // only. It will be gone when we remove old search code.

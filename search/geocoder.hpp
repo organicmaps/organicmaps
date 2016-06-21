@@ -141,7 +141,7 @@ public:
 #endif
   };
 
-  Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter,
+  Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
            my::Cancellable const & cancellable);
 
   ~Geocoder();
@@ -306,7 +306,7 @@ private:
   // |m_usedTokens| if there are no unused tokens.
   size_t SkipUsedTokens(size_t curToken) const;
 
-  Index & m_index;
+  Index const & m_index;
 
   storage::CountryInfoGetter const & m_infoGetter;
 

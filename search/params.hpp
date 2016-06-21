@@ -50,7 +50,6 @@ namespace search
 
     inline void Clear() { m_query.clear(); }
 
-  public:
     TOnStarted m_onStarted;
     TOnResults m_onResults;
 

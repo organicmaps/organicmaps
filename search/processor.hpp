@@ -1,11 +1,10 @@
 #pragma once
 #include "search/geocoder.hpp"
-#include "search/keyword_lang_matcher.hpp"
 #include "search/mode.hpp"
+#include "search/params.hpp"
 #include "search/pre_ranker.hpp"
 #include "search/ranker.hpp"
 #include "search/rank_table_cache.hpp"
-#include "search/reverse_geocoder.hpp"
 #include "search/search_trie.hpp"
 #include "search/suggest.hpp"
 #include "search/token_slice.hpp"
@@ -28,12 +27,6 @@
 #include "std/unordered_set.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
-
-#define FIND_LOCALITY_TEST
-
-#ifdef FIND_LOCALITY_TEST
-#include "search/locality_finder.hpp"
-#endif
 
 class FeatureType;
 class CategoriesHolder;
@@ -61,7 +54,6 @@ class Ranker;
 class PreResult2Maker;
 
 class FeatureLoader;
-class BestNameFinder;
 class DoFindLocality;
 class HouseCompFactory;
 
@@ -74,8 +66,8 @@ public:
   static double const kMinViewportRadiusM;
   static double const kMaxViewportRadiusM;
 
-  Processor(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
-            storage::CountryInfoGetter const & infoGetter);
+  Processor(Index const & index, CategoriesHolder const & categories,
+            vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
 
   inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
 
@@ -87,6 +79,7 @@ public:
   void SetPreferredLocale(string const & locale);
   void SetInputLocale(string const & locale);
   void SetQuery(string const & query);
+  void SetOnResults(TOnResults const & onResults) { m_onResults = onResults; }
   // TODO (@y): this function must be removed.
   void SetRankPivot(m2::PointD const & pivot);
   inline void SetMode(Mode mode) { m_mode = mode; }
@@ -137,15 +130,10 @@ protected:
   friend class PreResult2Maker;
   friend class Ranker;
 
-  int GetCategoryLocales(int8_t(&arr)[3]) const;
+  size_t GetCategoryLocales(int8_t(&arr)[3]) const;
 
-  void ForEachCategoryType(
-      StringSliceBase const & slice,
-      function<void(size_t /* tokenId */, uint32_t /* typeId */)> const & fn) const;
-
-  void ProcessEmojiIfNeeded(
-      strings::UniString const & token, size_t index,
-      function<void(size_t /* tokenId */, uint32_t /* typeId */)> const & fn) const;
+  template <typename ToDo>
+  void ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const;
 
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
   using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
@@ -157,34 +145,15 @@ protected:
   void SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate);
   void ClearCache(size_t ind);
 
-  void RemoveStringPrefix(string const & str, string & res) const;
-  void GetSuggestion(string const & name, string & suggest) const;
-
-  void ProcessSuggestions(vector<IndexedValue> & vec, Results & res) const;
-
-  void SuggestStrings(Results & res);
-  void MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale,
-                               string const & prolog, Results & res);
-
-  void GetBestMatchName(FeatureType const & f, string & name) const;
-
-  Result MakeResult(PreResult2 const & r) const;
-  void MakeResultHighlight(Result & res) const;
-
-  Index & m_index;
   CategoriesHolder const & m_categories;
-  vector<Suggest> const & m_suggests;
   storage::CountryInfoGetter const & m_infoGetter;
+  TOnResults m_onResults;
 
   string m_region;
   string m_query;
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
-  set<uint32_t> m_prefferedTypes;
-
-#ifdef FIND_LOCALITY_TEST
-  mutable LocalityFinder m_locality;
-#endif
+  set<uint32_t> m_preferredTypes;
 
   m2::RectD m_viewport[COUNT_V];
   m2::PointD m_pivot;
@@ -202,8 +171,6 @@ protected:
   void SetLanguage(int id, int8_t lang);
   int8_t GetLanguage(int id) const;
 
-  KeywordLangMatcher m_keywordsScorer;
-
   bool m_supportOldFormat;
 
 protected:
@@ -212,6 +179,5 @@ protected:
   PreRanker m_preRanker;
   Ranker m_ranker;
   Geocoder m_geocoder;
-  ReverseGeocoder const m_reverseGeocoder;
 };
 }  // namespace search

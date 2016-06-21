@@ -44,8 +44,6 @@ struct ComparePreResult1
 
 PreRanker::PreRanker(size_t limit) : m_limit(limit) {}
 
-void PreRanker::Add(PreResult1 const & result) { m_results.push_back(result); }
-
 void PreRanker::Filter(bool viewportSearch)
 {
   using TSet = set<PreResult1, LessFeatureID>;
