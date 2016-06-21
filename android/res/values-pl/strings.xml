@@ -24,14 +24,14 @@
 	<!-- Settings/Downloader - Download confirmation button -->
 	<string name="download_x_mb">Pobierz %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">Pobieranie nie powiodło się. Naciśnij, aby spróbować ponownie.</string>
+	<string name="download_has_failed">Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.</string>
 	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Pobrano (%1$qu %2$s). Naciśnij, aby usunąć.</string>
+	<string name="downloaded_x_y_touch_to_delete">Pobrano (%1$qu %2$s). Proszę nacisnąć, aby usunąć.</string>
 	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Pobieranie %qu%%. Naciśnij, aby anulować.</string>
+	<string name="downloading_x_touch_to_cancel">Pobieranie %qu%%. Proszę nacisnąć, aby anulować.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Pobieranie…</string>
-	<string name="get_it_now">Pobierz teraz</string>
+	<string name="get_it_now">Pobierz</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Dziękujemy za korzystanie z MAPS.ME! Czy podoba Ci się nasza aplikacja? Opowiedz o niej swoim znajomym! W taki sposób najlepiej nam podziękujesz.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -45,17 +45,17 @@
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">Mapy:</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Oznaczono jako do pobrania. Naciśnij, aby anulować</string>
+	<string name="marked_for_downloading">Oznaczono do pobrania. Proszę nacisnąć, aby anulować</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mile</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Moja pozycja</string>
+	<string name="my_position">Moje położenie</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Proszę włączyć usługi lokalizacji</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Aby pobrać %s, musisz najpierw zwolnić nieco miejsca na swoim urządzeniu.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Przypomnij mi później</string>
+	<string name="remind_me_later">Przypomnij później</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Później</string>
 	<!-- Don't show some dialog any more -->
@@ -63,21 +63,21 @@
 	<!-- Leave Review dialog - Complain button (goes to support site) -->
 	<string name="report_an_issue">Zgłoś błąd</string>
 	<!-- View and button titles for accessibility -->
-	<string name="search">Szukaj</string>
+	<string name="search">Wyszukaj</string>
 	<!-- Search box placeholder text -->
-	<string name="search_map">Szukaj mapy</string>
+	<string name="search_map">Wyszukaj mapy</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
-	<string name="touch_to_download">Naciśnij, aby pobrać.</string>
+	<string name="touch_to_download">Proszę nacisnąć, aby pobrać.</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Tak</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Zalecamy korzystanie z WiFi przy pobieraniu dużych map</string>
+	<string name="use_wifi_recommendation_text">Zaleca się korzystanie z WiFi przy pobieraniu dużych map</string>
 	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Który system miar bardziej ci odpowiada?</string>
+	<string name="which_measurement_system">Który system miar jest najbardziej dogodny?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.</string>
 	<!-- Location Services are not available on the device alert - message -->
-	<string name="device_doesnot_support_location_services">Twoje urządzenie nie wspiera usług lokalizacji</string>
+	<string name="device_doesnot_support_location_services">Urządzenie nie obsługuje usług lokalizacji</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Wyświetl na mapie</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -91,54 +91,54 @@
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Pobierz mapę bez\noznaczania tras (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Pobieranie nie powiodło się</string>
+	<string name="country_status_download_failed">Nie udało się pobrać</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Spróbuj ponownie</string>
 	<string name="about_menu_title">O aplikacji MAPS.ME</string>
-	<string name="downloading_touch_to_cancel">Pobieranie %d%%. Naciśnij, aby anulować.</string>
-	<string name="downloaded_touch_to_delete">Pobrano (%s). Naciśnij, aby usunąć.</string>
+	<string name="downloading_touch_to_cancel">Pobieranie %d%%. Proszę nacisnąć, aby anulować.</string>
+	<string name="downloaded_touch_to_delete">Pobrano (%s). Proszę nacisnąć, aby usunąć.</string>
 	<string name="connection_settings">Ustawienia połączenia</string>
 	<string name="download_mb_or_kb">Pobierz %s</string>
 	<string name="close">Zamknij</string>
-	<string name="unsupported_phone">OpenGL wymaga odpowiedniego urządzenia. Niestety twoje urządzenie nie wspiera tej technologii.</string>
+	<string name="unsupported_phone">Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.</string>
 	<string name="download">Pobierz</string>
 	<string name="external_storage_is_not_available">Karta SD/Pamięć USB z pobranymi mapami nie jest dostępna</string>
-	<string name="disconnect_usb_cable">Proszę odłączyć kabel USB albo włożyć kartę pamięci by korzystać z MAPS.ME</string>
+	<string name="disconnect_usb_cable">Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z MAPS.ME</string>
 	<string name="not_enough_free_space_on_sdcard">Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji</string>
-	<string name="not_enough_memory">Za mało pamięci by uruchomić aplikację</string>
-	<string name="free_space_for_country">Proszę zwolnić %1$s na swoim urządzeniu zanim rozpoczniesz pobieranie %2$s</string>
-	<string name="download_resources">Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\nWymaga to %s danych.</string>
-	<string name="getting_position">Otrzymywanie informacji o aktualnej pozycji</string>
-	<string name="download_resources_continue">Idź do mapy</string>
-	<string name="downloading_country_can_proceed">Pobieranie %s. Możesz teraz\notworzyć mapę.</string>
+	<string name="not_enough_memory">Za mało pamięci, aby uruchomić aplikację</string>
+	<string name="free_space_for_country">Proszę zwolnić %1$s na urządzeniu, aby pobrać %2$s</string>
+	<string name="download_resources">Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %s danych.</string>
+	<string name="getting_position">Określanie aktualnego położenia</string>
+	<string name="download_resources_continue">Przejdź do mapy</string>
+	<string name="downloading_country_can_proceed">Pobieranie %s. Można teraz\nprzejść do mapy.</string>
 	<string name="download_country_ask">Pobrać %s?</string>
-	<string name="update_country_ask">Zaktualizować %s?</string>
+	<string name="update_country_ask">Uaktualnić %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Możesz pobrać mapę terenu\nwokół twojej aktualnej pozycji.</string>
+	<string name="download_location_map_proposal">Można pobrać mapę terenu\nwokół bieżącego położenia.</string>
 	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Możesz zaktualizować mapę terenu\nwokół twojej aktualnej pozycji.</string>
+	<string name="download_location_update_map_proposal">Można uaktualnić mapę terenu\nwokół bieżącego położenia.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Mapa wokół twojej aktualnej\npozycji (%s) jest aktualna</string>
+	<string name="download_location_map_up_to_date">Mapa wokół bieżącego\npołożenia (%s) jest aktualna</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="pause">Pauza</string>
+	<string name="pause">Wstrzymaj</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Kontynuuj</string>
-	<string name="downloaded_touch_to_update">Pobrano (%s). Naciśnij, aby zaktualizować lub usunąć.</string>
+	<string name="downloaded_touch_to_update">Pobrano (%s). Proszę nacisnąć, aby uaktualnić lub usunąć.</string>
 	<string name="update_mb_or_kb">Aktualizacja %s</string>
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Musisz posiadać zaktualizowane mapy, aby korzystać z funkcji szukania</string>
+	<string name="search_update_maps">Aby korzystać z funkcji wyszukiwania, należy posiadać aktualne mapy:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Aktualizacja dostępna dla tych map:</string>
+	<string name="advise_update_maps">Dostępne uaktualnienia dla tych map:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Nie potrzebujesz już więcej MAPS.ME Lite, więc możesz je usunąć.</string>
+	<string name="suggest_uninstall_lite">Nie potrzeba już więcej MAPS.ME Lite, więc można je usunąć.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s pobrano pomyślnie</string>
+	<string name="download_country_success">Pobrano %s</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
-	<string name="download_country_failed">%s pobieranie nie powiodło się</string>
+	<string name="download_country_failed">Nie udało się pobrać %s</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Dodaj nowy zestaw</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Dodaj do zakładek</string>
+	<string name="add_to_bookmarks">Dodaj zakładkę</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Kolor zakładki</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -160,19 +160,19 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Zestaw</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Nie masz jeszcze żadnych zakładek.\nDotknij dowolnego miejsca na mapie, aby dodać zakładkę.\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.</string>
+	<string name="bookmarks_usage_hint">Nie oznaczono jeszcze żadnych zakładek.\nProszę dotknąć dowolnego miejsca na mapie, aby dodać zakładkę.\nMożna importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości e-mail, Dropboxa lub odnośników internetowych.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.</string>
+	<string name="bookmarks_usage_hint_import_only">Można importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości e-mail, Dropboxa lub odnośników internetowych.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ustawienia</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Pamięć map</string>
 	<!-- Detailed description of Maps Storage settings button -->
-	<string name="maps_storage_summary">Wybierz lokalizację, w której mają być zapisywane pobierane mapy</string>
+	<string name="maps_storage_summary">Określa położenie przechowywania pobranych map</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Przenieść mapy?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">TO może zająć kilka minut.\nProszę czekać…</string>
+	<string name="wait_several_minutes">To może zająć kilka minut.\nProszę czekać…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Widoczne</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
@@ -180,7 +180,7 @@
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Jednostki miary</string>
 	<!-- Detailed description of Measurement Units settings button -->
-	<string name="measurement_units_summary">Wybierz pomiędzy milami, a kilometrami</string>
+	<string name="measurement_units_summary">Wybiera pomiędzy milami, a kilometrami</string>
 	<!-- Do search in all sources -->
 	<string name="search_mode_all">Wszędzie</string>
 	<!-- Do search near my position only -->
@@ -199,7 +199,7 @@
 	<string name="shop">Sklep</string>
 	<string name="hotel">Hotel</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">Osobliwości miasta</string>
+	<string name="tourism">Atrakcje turystyczne</string>
 	<!-- Search Suggestion -->
 	<string name="entertainment">Rozrywka</string>
 	<!-- Search Suggestion -->
@@ -217,25 +217,25 @@
 	<!-- Search Suggestion -->
 	<string name="police">Policja</string>
 	<!-- String in search result list, when nothing found -->
-	<string name="no_search_results_found">Nie znaleziono</string>
+	<string name="no_search_results_found">Nie odnaleziono</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notatki</string>
 	<!-- Button text -->
 	<string name="share_by_email">Udostępnij przez email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Udostępniono ci zakładkę z MAPS.ME</string>
+	<string name="share_bookmarks_email_subject">Udostępnione zakładki z MAPS.ME</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku \&quot;%s.kmz\&quot;. Proszę otwórz to jeśli posiadasz zainstalowaną aplikację MAPS.ME. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!</string>
+	<string name="share_bookmarks_email_body">Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku „%s.kmz”. Proszę otwórz je jeśli posiadasz zainstalowaną aplikację MAPS.ME. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym odnośnikiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Wczytywanie zakładek</string>
 	<!-- Kmz file successful loading -->
-	<string name="load_kmz_successful">Zakładki wczytane pomyślnie! Możesz znaleźć je na mapie lub w menedżerze zakładek.</string>
+	<string name="load_kmz_successful">Wczytano zakładki! Można odnaleźć je na mapie lub na ekranie menedżera zakładek.</string>
 	<!-- Kml file loading failed -->
-	<string name="load_kmz_failed">Przesyłanie zakładek nie powiodło się. Plik może być uszkodzony lub posiadać defekty.</string>
+	<string name="load_kmz_failed">Nieudane wczytywanie zakładek. Plik może być uszkodzony lub posiadać defekty.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Edytuj</string>
 	<!-- Warning message when doing search around current position -->
-	<string name="unknown_current_position">Twoja lokalizacja nie została jeszcze określona</string>
+	<string name="unknown_current_position">Nie określono jeszcze aktualnego położenia</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">Pobierz mapę kraju, w którym aktualnie przebywasz (%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
@@ -243,9 +243,9 @@
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.</string>
 	<!-- Alert message that downloading is in progress. -->
-	<string name="downloading_is_active">Pobieranie mapy kraju jest w toku.</string>
+	<string name="downloading_is_active">Trwa pobieranie mapy kraju.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Mamy nadzieję, że podoba ci się aplikacja MAPS.ME! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie ci mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!</string>
+	<string name="appStore_message">Mamy nadzieję, że podoba ci się aplikacja MAPS.ME! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nie, dziękuję</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -269,19 +269,19 @@
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
-	<string name="copy_link">Kopiuj link</string>
+	<string name="copy_link">Skopiuj odnośnik</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Pokaż więcej informacji</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Skopiowano do schowka: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Prześlij statystyki</string>
+	<string name="allow_statistics">Przesyłanie statystyk</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Pozwól nam na zbieranie statystyk dotyczących używania aplikacji, abyśmy mogli ją udoskonalić</string>
+	<string name="allow_statistics_hint">Zezwala na zbieranie statystyk używania aplikacji, w celu jej dalszego doskonalenia</string>
 	<!-- place preview title -->
 	<string name="info">Informacje</string>
 	<!-- Used for bookmark editing -->
-	<string name="done">Zrobione</string>
+	<string name="done">Gotowe</string>
 	<!-- Summary for preferences in MWM -->
 	<string name="yopme_pref_summary">Wybierz ustawienia tylnego ekranu</string>
 	<!-- Title for yopme preferences in MWM -->
@@ -291,20 +291,20 @@
 	<!-- Prints version number in About dialog -->
 	<string name="version">Wersja: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Czy na pewno kontynuować?</string>
+	<string name="are_you_sure">Kontynuować?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Trasy</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Długość</string>
-	<string name="share_my_location">Udostępnij moją lokalizację</string>
-	<string name="menu_search">Szukaj</string>
+	<string name="share_my_location">Udostępnij aktualne położenie</string>
+	<string name="menu_search">Wyszukaj</string>
 	<!-- Settings screen: "Map" category title -->
 	<string name="prefs_group_map">Mapa</string>
 	<!-- Settings screen: "Miscellaneous" category title -->
 	<string name="prefs_group_misc">Różne</string>
 	<string name="prefs_group_route">Nawigacja</string>
-	<string name="pref_zoom_title">Przyciski powiększania</string>
-	<string name="pref_zoom_summary">Wyświetl na ekranie</string>
+	<string name="pref_zoom_title">Przyciski przybliżania</string>
+	<string name="pref_zoom_summary">Wyświetla na ekranie</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Tryb nocny</string>
 	<!-- «Map style» entry value -->
@@ -312,7 +312,7 @@
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_night">Włączony</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automatyczny</string>
+	<string name="pref_map_style_auto">Automatycznie</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Widok z perspektywy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -320,9 +320,9 @@
 	<!-- Settings «Map» category: «3D buildings» summary -->
 	<string name="pref_map_3d_buildings_subtitle">Wpływa na czas pracy baterii</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
-	<string name="pref_tts_enable_title">Instrukcje głosowe</string>
+	<string name="pref_tts_enable_title">Komunikaty głosowe</string>
 	<!-- Settings «Route» category: «Tts language» title -->
-	<string name="pref_tts_language_title">Język instrukcji</string>
+	<string name="pref_tts_language_title">Język komunikatów</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Niedostępne</string>
 	<!-- Title for "Other" section in TTS settings. -->
@@ -330,7 +330,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Jak skonfigurować usługę głosową</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Ostatnia trasa</string>
-	<string name="duration_disabled">Wyłącz</string>
+	<string name="duration_disabled">Wyłączona</string>
 	<string name="duration_1_hour">1 godzina</string>
 	<string name="duration_2_hours">2 godziny</string>
 	<string name="duration_6_hours">6 godzin</string>
@@ -342,7 +342,7 @@
 	<string name="placepage_distance">Dystans</string>
 	<string name="placepage_coordinates">Współrzędne</string>
 	<string name="placepage_unsorted">Niesklasyfikowane</string>
-	<string name="search_show_on_map">Zobacz na mapie</string>
+	<string name="search_show_on_map">Wyświetl na mapie</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
@@ -385,20 +385,32 @@
 	<string name="follow_on_twitter">Sledź nas na Twitterze</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Skontaktuj się z nami</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Zgłoś opinię</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Ogólne opinie</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Subskrybuj nasze wiadomości</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">Oceń aplikację</string>
+	<!-- Rate in Google Play (Android only) -->
+	<string name="rate_gp">Oceń w Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Powiadom znajomego</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Cześć! Zainstaluj Maps.me!</string>
 	<!-- Text in menu -->
 	<string name="help">Pomoc</string>
 	<!-- Text in menu -->
-	<string name="copyright">Prawo autorskie</string>
+	<string name="copyright">Prawa autorskie</string>
 	<!-- Text in menu -->
 	<string name="report_a_bug">Zgłoś błąd</string>
 	<!-- Email subject -->
 	<string name="subscribe_me_subject">Chcę subskrybować biuletyn MAPS.ME</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Chcę w pierwszej kolejności otrzymywać powiadomienia o nowościach aktualizacjach i promocjach. Mogę w każdej chwili anulować swoją subskrypcję.</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">Najbardziej użyteczna aplikacja dla podróżników, powstała przy udziale zespołów Mail.Ru i OpenStreetMap.</string>
 	<!-- About text -->
 	<string name="about_text">MAPS.ME oferuje najszybsze mapy offline wszystkich miast we wszystkich krajach świata. Podróżuj bez obaw: gdziekolwiek jesteś, MAPS.ME pomoże Ci odszukać się na mapie, znaleźć najbliższą restaurację, hotel, bank, stację benzynową itp. Aplikacja nie wymaga połączenia z Internetem.\n\nNieustannie pracujemy nad nowymi funkcjami i chcielibyśmy dowiedzieć się, jak Twoim zdaniem moglibyśmy poprawić MAPS.ME. Jeśli masz jakieś problemy z aplikacją, skontaktuj się z nami, pisząc na adres support@maps.me. Odpowiemy na każde zapytanie!\n\nLubisz aplikację MAPS.ME i chcesz udzielić nam wsparcia? Istnieje kilka prostych i absolutnie darmowych sposobów, jak to zrobić:\n\n- napisz recenzję w swoim sklepie z aplikacjami\n- polub naszą stronę na Facebooku: http://www.facebook.com/mapswithme\n- albo po prostu opowiedz o MAPS.ME swojej mamie, znajomym i kolegom :)\n\nDziękujemy, że jesteś z nami. Jesteśmy bardzo wdzięczni za Twoje wsparcie!\n\nP.S. Dane mapy pochodzą z OpenStreetMap, projektu kartograficznego podobnego do Wikipedii, który umożliwia użytkownikom tworzenie i edytowanie map. Jeśli zauważysz, że na mapie czegoś brakuje albo jest błąd, możesz nanieść poprawki bezpośrednio na stronie http://openstreetmap.org, a Twoje zmiany pojawią się w aplikacji MAPS.ME po wydaniu kolejnej wersji.</string>
 	<!-- Alert text -->
@@ -480,7 +492,7 @@
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Menu aplikacji</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Użyj Usług Google Play do ustalenia swojej bieżącej lokalizacji</string>
+	<string name="pref_use_google_play">Używa usług Google Play do ustalenia aktualnego położenia</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Właśnie oceniłem Waszą aplikację</string>
 	<!-- Text for rating dialog -->
@@ -634,7 +646,9 @@
 	<string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
 	<string name="clear_search">Wyczyść historię wyszukiwania</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Pokaż oferty</string>
+	<string name="showcase_settings_title">Oferty</string>
+	<!-- Showcase menu item. -->
+	<string name="showcase_plan_your_trip">Zaplanuj podróż</string>
 	<string name="showcase_more_apps">Więcej aplikacji My.com</string>
 	<string name="p2p_route_planning">Planowanie trasy</string>
 	<string name="p2p_your_location">Twoja lokalizacja</string>
@@ -837,8 +851,8 @@
 	<string name="location_services_disabled_header">Identyfikacja lokalizacji jest wyłączona</string>
 	<string name="location_services_disabled_message">Włącz dostęp do geolokalizacji w ustawieniach urządzenia</string>
 	<string name="location_services_disabled_1">1. Uruchom ustawienia</string>
-	<string name="location_services_disabled_2">2. Dotknij \&#39;Lokalizacja\&#39;</string>
-	<string name="location_services_disabled_3">3. Wybierz \&#39;Zawsze\&#39;</string>
+	<string name="location_services_disabled_2">2. Dotknij „Lokalizacja”</string>
+	<string name="location_services_disabled_3">3. Wybierz „Zawsze”</string>
 	<string name="placepage_parking_surface">Powierzchnia</string>
 	<string name="placepage_parking_multistorey">Wielopoziomowy</string>
 	<string name="placepage_parking_underground">Podziemny</string>
@@ -859,7 +873,7 @@
 	<string name="kilometer">km</string>
 	<string name="placepage_place_description">Opis</string>
 	<string name="placepage_more_button">Więcej</string>
-	<string name="bookingcom_book_button">Książka</string>
+	<string name="bookingcom_book_button">Zarezerwuj</string>
 	<string name="placepage_call_button">Zadzwoń</string>
 	<string name="placepage_edit_bookmark_button">Edytuj zakładkę</string>
 	<string name="placepage_bookmark_name_hint">Nazwa zakładki</string>
@@ -867,8 +881,8 @@
 	<string name="placepage_delete_bookmark_button">Usuń zakładkę</string>
 	<string name="editor_edits_sent_message">Twoje sugestie zostały wysłane</string>
 	<string name="editor_comment_hint">Komentarz…</string>
-	<string name="editor_reset_edits_message">Skasować wszystkie lokalne zmiany?</string>
-	<string name="editor_reset_edits_button">Skasuj</string>
+	<string name="editor_reset_edits_message">Usunąć wszystkie lokalne zmiany?</string>
+	<string name="editor_reset_edits_button">Usuń</string>
 	<string name="editor_remove_place_message">Usunąć dodane miejsce?</string>
 	<string name="editor_remove_place_button">Usuń</string>
 	<string name="editor_status_sending">Wysyłanie…</string>
