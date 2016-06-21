@@ -372,22 +372,6 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
   ScreenBase const & currentScreen = GetCurrentScreen();
 
   ScreenBase screen = currentScreen;
-  bool finishIn2d = false;
-  bool finishIn3d = false;
-  if (zoom != kDoNotChangeZoom)
-  {
-    bool const isScaleAllowableIn3d = IsScaleAllowableIn3d(zoom);
-    finishIn3d = m_discardedFOV > 0.0 && isScaleAllowableIn3d;
-    finishIn2d = currentScreen.isPerspective() && !isScaleAllowableIn3d;
-
-    if (finishIn3d)
-      screen.ApplyPerspective(m_discardedAngle, m_discardedAngle, m_discardedFOV);
-    else if (finishIn2d)
-      screen.ResetPerspective();
-  }
-
-  double const scale3d = screen.GetScale3d();
-
   if (zoom == kDoNotChangeZoom)
   {
     m2::AnyRectD const r = GetTargetRect();
@@ -398,6 +382,7 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
   {
     angle = screen.GlobalRect().Angle();
 
+    double scale3d = kDefault3dScale;//screen.CalculateScale3d(screen.CalculatePerspectiveAngle());
     localRect = df::GetRectForDrawScale(zoom, center);
     localRect.Scale(scale3d);
 
@@ -411,23 +396,6 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
       localRect.Inflate(0.0, localRect.SizeY() * 0.5 * aspectRatio);
     else
       localRect.Inflate(localRect.SizeX() * 0.5 / aspectRatio, 0.0);
-  }
-
-  if (screen.isPerspective())
-  {
-    double const centerOffset3d = localRect.SizeY() * (1.0 - 1.0 / (scale3d * cos(screen.GetRotationAngle()))) * 0.5;
-    targetCenter = targetCenter.Move(centerOffset3d, angle.cos(), -angle.sin());
-  }
-
-  if (finishIn2d || finishIn3d)
-  {
-    double const scale = currentScreen.PixelRect().SizeX() / currentScreen.PixelRectIn3d().SizeX();
-    double const scaleToCurrent = finishIn2d ? scale : 1.0 / scale3d;
-
-    double const currentGSizeY = localRect.SizeY() * scaleToCurrent;
-    targetCenter = targetCenter.Move((currentGSizeY - localRect.SizeY()) * 0.5,
-                                     angle.cos(), -angle.sin());
-    localRect.Scale(scaleToCurrent);
   }
 
   return SetRect(m2::AnyRectD(targetCenter, angle, localRect), isAnim);

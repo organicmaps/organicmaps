@@ -154,7 +154,6 @@ void ScreenBase::SetFromRect2d(m2::AnyRectD const & glbRect)
   m_Org = glbRect.GlobalCenter();
 
   UpdateDependentParameters();
-  UpdatePerspectiveParameters();
 
 /*  m2::PointD g_target(0.0, -glbRect.GetLocalRect().SizeY() * scale / vScale / 2.0);
   g_target.Rotate(glbRect.Angle().val());
