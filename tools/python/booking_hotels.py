@@ -17,7 +17,7 @@ import urllib2
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
 
 # Names starting with '.' are calculated in get_hotel_field() below.
-HOTEL_FIELDS = ('hotel_id', '.lat', '.lon', 'name', 'address', 'class', '.rate', 'ranking', 'review_score', 'url', 'hoteltype_id')
+HOTEL_FIELDS = ('hotel_id', '.lat', '.lon', 'name', 'address', 'class', '.rate', 'ranking', 'review_score', 'url', 'hoteltype_id', '.trans')
 
 
 class BookingApi:
@@ -160,6 +160,16 @@ def translate(source, output):
             return hotel['location']['longitude']
         elif field == '.rate':
             return rate
+        elif field == '.trans':
+            # Translations are packed into a single column: lang1|name1|address1|lang2|name2|address2|...
+            if 'translations' in hotel:
+                tr_list = []
+                for tr_lang, tr_values in hotel['translations'].items():
+                    tr_list.append(tr_lang)
+                    tr_list.extend([tr_values[e] for e in ('name', 'address')])
+                return '|'.join([s.replace('|', ';') for s in tr_list])
+            else:
+                return ''
         elif field in hotel:
             return hotel[field]
         raise ValueError('Unknown hotel field: {0}'.format(field))
@@ -175,16 +185,7 @@ def translate(source, output):
                 while rate <= len(rates) and price > avg * rates[rate - 1]:
                     rate += 1
             l = [get_hotel_field(hotel, e, rate) for e in HOTEL_FIELDS]
-            # Add translations for hotel name and address if present.
-            if 'translations' in hotel:
-                tr_lang = hotel['languagecode']
-                if tr_lang not in hotel['translations']:
-                    tr_lang = hotel['translations'].keys()[0]
-                l.append(tr_lang)
-                l.extend([hotel['translations'][tr_lang][e] for e in ('name', 'address')])
-            else:
-                l.extend([''] * 3)
-            print('\t'.join([unicode(f).encode('utf8').replace('\t', ' ') for f in l]), file=fd)
+            print('\t'.join([unicode(f).encode('utf8').replace('\t', ' ').replace('\n', ' ').replace('\r', '') for f in l]), file=fd)
 
 
 def process_options():

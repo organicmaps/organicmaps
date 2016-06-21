@@ -328,4 +328,17 @@ bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCoun
   return false;
 }
 
+void Split(string const & s, char delimiter, vector<string> & target)
+{
+  target.clear();
+
+  // Special case: if the string is empty, return an empty array instead of {""}.
+  if (s.empty())
+    return;
+
+  using It = TokenizeIterator<SimpleDelimiter, string::const_iterator, true>;
+  for (It it(s, SimpleDelimiter(delimiter)); it; ++it)
+    target.push_back(*it);
+}
+
 }  // namespace strings

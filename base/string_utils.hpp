@@ -306,6 +306,9 @@ void Tokenize(string const & str, char const * delims, TFunctor && f)
   }
 }
 
+/// Splits a string by the delimiter, keeps empty parts, on an empty string returns an empty vector.
+void Split(string const & s, char delimiter, vector<string> & target);
+
 /// @return code of last symbol in string or 0 if s is empty
 UniChar LastUniChar(string const & s);
 
