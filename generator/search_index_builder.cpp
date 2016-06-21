@@ -151,7 +151,6 @@ struct FeatureNameInserter
     m_keyValuePairs.emplace_back(key, m_val);
   }
 
-public:
   bool operator()(signed char lang, string const & name) const
   {
     strings::UniString const uniName = search::NormalizeAndSimplifyString(name);
@@ -254,16 +253,12 @@ public:
   {
     using namespace search;
 
-    feature::TypesHolder types(f);
-
     static TypesSkipper skipIndex;
 
-    skipIndex.SkipTypes(types);
-    if (types.Empty())
-      return;
+    feature::TypesHolder types(f);
 
     auto const & streetChecker = ftypes::IsStreetChecker::Instance();
-    bool hasStreetType = streetChecker(types);
+    bool const hasStreetType = streetChecker(types);
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
@@ -274,14 +269,18 @@ public:
     string const postcode = f.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
     if (!postcode.empty())
     {
-      // See OSM TagInfo or Wiki about modern postcodes format. The average number of tokens is less
-      // than two.
+      // See OSM TagInfo or Wiki about modern postcodes format. The
+      // mean number of tokens is less than two.
       buffer_vector<strings::UniString, 2> tokens;
       SplitUniString(NormalizeAndSimplifyString(postcode), MakeBackInsertFunctor(tokens),
                      Delimiters());
       for (auto const & token : tokens)
         inserter.AddToken(kPostcodesLang, token);
     }
+
+    skipIndex.SkipTypes(types);
+    if (types.Empty())
+      return;
 
     // Skip types for features without names.
     if (!f.ForEachName(inserter))
