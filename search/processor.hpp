@@ -3,6 +3,7 @@
 #include "search/keyword_lang_matcher.hpp"
 #include "search/mode.hpp"
 #include "search/pre_ranker.hpp"
+#include "search/ranker.hpp"
 #include "search/rank_table_cache.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_trie.hpp"
@@ -21,9 +22,11 @@
 #include "base/limited_priority_queue.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/function.hpp"
 #include "std/map.hpp"
 #include "std/string.hpp"
 #include "std/unordered_set.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
 #define FIND_LOCALITY_TEST
@@ -53,15 +56,14 @@ struct QueryParams;
 class ReverseGeocoder;
 
 class Geocoder;
+class Ranker;
+// todo(@m) Merge with Ranker.
+class PreResult2Maker;
 
-namespace impl
-{
 class FeatureLoader;
 class BestNameFinder;
-class PreResult2Maker;
 class DoFindLocality;
 class HouseCompFactory;
-}
 
 class Processor : public my::Cancellable
 {
@@ -128,17 +130,22 @@ protected:
 
   friend string DebugPrint(ViewportID viewportId);
 
-  friend class impl::FeatureLoader;
-  friend class impl::BestNameFinder;
-  friend class impl::PreResult2Maker;
-  friend class impl::DoFindLocality;
-  friend class impl::HouseCompFactory;
+  friend class BestNameFinder;
+  friend class DoFindLocality;
+  friend class FeatureLoader;
+  friend class HouseCompFactory;
+  friend class PreResult2Maker;
+  friend class Ranker;
 
   int GetCategoryLocales(int8_t(&arr)[3]) const;
-  template <class ToDo>
-  void ForEachCategoryTypes(StringSliceBase const & slice, ToDo toDo) const;
-  template <class ToDo>
-  void ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind, ToDo & toDo) const;
+
+  void ForEachCategoryType(
+      StringSliceBase const & slice,
+      function<void(size_t /* tokenId */, uint32_t /* typeId */)> const & fn) const;
+
+  void ProcessEmojiIfNeeded(
+      strings::UniString const & token, size_t index,
+      function<void(size_t /* tokenId */, uint32_t /* typeId */)> const & fn) const;
 
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
   using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
@@ -150,17 +157,10 @@ protected:
   void SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate);
   void ClearCache(size_t ind);
 
-  template <class T>
-  void MakePreResult2(Geocoder::Params const & params, vector<T> & cont,
-                      vector<FeatureID> & streets);
-
-  void FlushResults(Geocoder::Params const & params, Results & res, size_t resCount);
-  void FlushViewportResults(Geocoder::Params const & params, Results & res);
-
   void RemoveStringPrefix(string const & str, string & res) const;
   void GetSuggestion(string const & name, string & suggest) const;
-  template <class T>
-  void ProcessSuggestions(vector<T> & vec, Results & res) const;
+
+  void ProcessSuggestions(vector<IndexedValue> & vec, Results & res) const;
 
   void SuggestStrings(Results & res);
   void MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale,
@@ -168,7 +168,7 @@ protected:
 
   void GetBestMatchName(FeatureType const & f, string & name) const;
 
-  Result MakeResult(impl::PreResult2 const & r) const;
+  Result MakeResult(PreResult2 const & r) const;
   void MakeResultHighlight(Result & res) const;
 
   Index & m_index;
@@ -208,9 +208,9 @@ protected:
 
 protected:
   bool m_viewportSearch;
-  bool m_keepHouseNumberInQuery;
 
   PreRanker m_preRanker;
+  Ranker m_ranker;
   Geocoder m_geocoder;
   ReverseGeocoder const m_reverseGeocoder;
 };

@@ -36,11 +36,6 @@
 class MwmInfo;
 class MwmValue;
 
-namespace coding
-{
-class CompressedBitVector;
-}
-
 namespace storage
 {
 class CountryInfoGetter;

@@ -14,7 +14,7 @@ namespace
 {
 struct LessFeatureID
 {
-  using TValue = impl::PreResult1;
+  using TValue = PreResult1;
 
   inline bool operator()(TValue const & lhs, TValue const & rhs) const
   {
@@ -28,7 +28,7 @@ struct LessFeatureID
 // 3. Index of the first matched token from the query (increasing).
 struct ComparePreResult1
 {
-  bool operator()(impl::PreResult1 const & lhs, impl::PreResult1 const & rhs) const
+  bool operator()(PreResult1 const & lhs, PreResult1 const & rhs) const
   {
     if (lhs.GetId() != rhs.GetId())
       return lhs.GetId() < rhs.GetId();
@@ -44,19 +44,18 @@ struct ComparePreResult1
 
 PreRanker::PreRanker(size_t limit) : m_limit(limit) {}
 
-void PreRanker::Add(impl::PreResult1 const & result) { m_results.push_back(result); }
+void PreRanker::Add(PreResult1 const & result) { m_results.push_back(result); }
 
 void PreRanker::Filter(bool viewportSearch)
 {
-  using TSet = set<impl::PreResult1, LessFeatureID>;
+  using TSet = set<PreResult1, LessFeatureID>;
   TSet theSet;
 
   sort(m_results.begin(), m_results.end(), ComparePreResult1());
-  m_results.erase(
-      unique(m_results.begin(), m_results.end(), my::EqualsBy(&impl::PreResult1::GetId)),
-      m_results.end());
+  m_results.erase(unique(m_results.begin(), m_results.end(), my::EqualsBy(&PreResult1::GetId)),
+                  m_results.end());
 
-  sort(m_results.begin(), m_results.end(), &impl::PreResult1::LessDistance);
+  sort(m_results.begin(), m_results.end(), &PreResult1::LessDistance);
 
   if (m_limit != 0 && m_results.size() > m_limit)
   {
@@ -96,8 +95,7 @@ void PreRanker::Filter(bool viewportSearch)
   if (!viewportSearch)
   {
     size_t n = min(m_results.size(), m_limit);
-    nth_element(m_results.begin(), m_results.begin() + n, m_results.end(),
-                &impl::PreResult1::LessRank);
+    nth_element(m_results.begin(), m_results.begin() + n, m_results.end(), &PreResult1::LessRank);
     theSet.insert(m_results.begin(), m_results.begin() + n);
   }
 

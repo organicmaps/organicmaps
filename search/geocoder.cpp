@@ -6,6 +6,7 @@
 #include "search/features_layer_matcher.hpp"
 #include "search/house_numbers_matcher.hpp"
 #include "search/locality_scorer.hpp"
+#include "search/pre_ranker.hpp"
 #include "search/processor.hpp"
 #include "search/retrieval.hpp"
 #include "search/token_slice.hpp"
