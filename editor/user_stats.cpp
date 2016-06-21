@@ -16,7 +16,7 @@ using TRequest = alohalytics::HTTPClientPlatformWrapper;
 
 namespace
 {
-string const kUserStatsUrl = "http://py.osmz.ru/mmwatch/user?format=xml";
+string const kUserStatsUrl = "http://editor-api.maps.me/user?format=xml";
 int32_t constexpr kUninitialized = -1;
 
 auto constexpr kSettingsUserName = "LastLoggedUser";
