@@ -130,12 +130,12 @@ protected:
 
   friend string DebugPrint(ViewportID viewportId);
 
-  friend class FeatureLoader;
   friend class BestNameFinder;
   friend class DoFindLocality;
+  friend class FeatureLoader;
   friend class HouseCompFactory;
-  friend class Ranker;
   friend class PreResult2Maker;
+  friend class Ranker;
 
   int GetCategoryLocales(int8_t(&arr)[3]) const;
 
@@ -144,7 +144,7 @@ protected:
       function<void(size_t /* tokenId */, uint32_t /* typeId */)> const & fn) const;
 
   void ProcessEmojiIfNeeded(
-      strings::UniString const & token, size_t ind,
+      strings::UniString const & token, size_t index,
       function<void(size_t /* tokenId */, uint32_t /* typeId */)> const & fn) const;
 
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
@@ -210,7 +210,7 @@ protected:
   bool m_viewportSearch;
 
   PreRanker m_preRanker;
-  unique_ptr<Ranker> m_ranker;
+  Ranker m_ranker;
   Geocoder m_geocoder;
   ReverseGeocoder const m_reverseGeocoder;
 };

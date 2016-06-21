@@ -191,5 +191,4 @@ public:
 
   inline double GetDistanceToPivot() const { return m_distanceToPivot; }
 };
-
 }  // namespace search

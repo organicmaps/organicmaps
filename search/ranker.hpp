@@ -3,7 +3,6 @@
 #include "search/geocoder.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/mode.hpp"
-#include "search/processor.hpp"
 
 #include "indexer/feature_decl.hpp"
 
@@ -22,9 +21,9 @@ public:
   {
   }
 
-  void Init(bool viewportSearch) { m_viewportSearch = viewportSearch; }
+  inline void Init(bool viewportSearch) { m_viewportSearch = viewportSearch; }
 
-  bool IsResultExists(PreResult2 const & p, vector<IndexedValue> const & indV);
+  bool IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values);
 
   void MakePreResult2(Geocoder::Params const & params, vector<IndexedValue> & cont,
                       vector<FeatureID> & streets);
@@ -41,5 +40,4 @@ private:
   // todo(@m) Remove.
   Processor & m_processor;
 };
-
 }  // namespace search

@@ -152,6 +152,7 @@ Processor::Processor(Index & index, CategoriesHolder const & categories,
   , m_worldSearch(true)
   , m_suggestsEnabled(true)
   , m_preRanker(kPreResultsCount)
+  , m_ranker(m_preRanker, *this)
   , m_geocoder(index, infoGetter, static_cast<my::Cancellable const &>(*this))
   , m_reverseGeocoder(index)
 {
@@ -166,8 +167,6 @@ Processor::Processor(Index & index, CategoriesHolder const & categories,
   m_keywordsScorer.SetLanguages(langPriorities);
 
   SetPreferredLocale("en");
-
-  m_ranker = make_unique<Ranker>(m_preRanker, *this);
 }
 
 void Processor::Init(bool viewportSearch)
@@ -175,7 +174,7 @@ void Processor::Init(bool viewportSearch)
   m_tokens.clear();
   m_prefix.clear();
   m_preRanker.Clear();
-  m_ranker->Init(viewportSearch);
+  m_ranker.Init(viewportSearch);
 }
 
 void Processor::SetViewport(m2::RectD const & viewport, bool forceUpdate)
@@ -393,7 +392,7 @@ void Processor::ForEachCategoryType(StringSliceBase const & slice,
 }
 
 // template <class ToDo>
-void Processor::ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind,
+void Processor::ProcessEmojiIfNeeded(strings::UniString const & token, size_t index,
                                      function<void(size_t, uint32_t)> const & fn) const
 {
   // Special process of 2 codepoints emoji (e.g. black guy on a bike).
@@ -403,7 +402,7 @@ void Processor::ProcessEmojiIfNeeded(strings::UniString const & token, size_t in
     static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
 
     m_categories.ForEachTypeByName(enLocaleCode, strings::UniString(1, token[0]),
-                                   bind<void>(fn, ind, _1));
+                                   bind<void>(fn, index, _1));
   }
 }
 
@@ -422,7 +421,7 @@ void Processor::Search(Results & results, size_t limit)
 
   m_geocoder.GoEverywhere(m_preRanker);
 
-  m_ranker->FlushResults(params, results, limit);
+  m_ranker.FlushResults(params, results, limit);
 }
 
 void Processor::SearchViewportPoints(Results & results)
@@ -436,7 +435,7 @@ void Processor::SearchViewportPoints(Results & results)
 
   m_geocoder.GoInViewport(m_preRanker);
 
-  m_ranker->FlushViewportResults(params, results);
+  m_ranker.FlushViewportResults(params, results);
 }
 
 void Processor::SearchCoordinates(Results & res) const

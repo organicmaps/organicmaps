@@ -29,22 +29,22 @@ void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & s
     bestScore = score;
 }
 
-void RemoveDuplicatingLinear(vector<IndexedValue> & indV)
+void RemoveDuplicatingLinear(vector<IndexedValue> & values)
 {
   PreResult2::LessLinearTypesF lessCmp;
   PreResult2::EqualLinearTypesF equalCmp;
 
-  sort(indV.begin(), indV.end(), [&lessCmp](IndexedValue const & lhs, IndexedValue const & rhs)
+  sort(values.begin(), values.end(), [&lessCmp](IndexedValue const & lhs, IndexedValue const & rhs)
        {
          return lessCmp(*lhs, *rhs);
        });
 
-  indV.erase(unique(indV.begin(), indV.end(),
-                    [&equalCmp](IndexedValue const & lhs, IndexedValue const & rhs)
-                    {
-                      return equalCmp(*lhs, *rhs);
-                    }),
-             indV.end());
+  values.erase(unique(values.begin(), values.end(),
+                      [&equalCmp](IndexedValue const & lhs, IndexedValue const & rhs)
+                      {
+                        return equalCmp(*lhs, *rhs);
+                      }),
+               values.end());
 }
 }  // namespace
 
@@ -179,14 +179,14 @@ public:
   }
 };
 
-bool Ranker::IsResultExists(PreResult2 const & p, vector<IndexedValue> const & indV)
+bool Ranker::IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values)
 {
   PreResult2::StrictEqualF equalCmp(p);
   // Do not insert duplicating results.
-  return indV.end() != find_if(indV.begin(), indV.end(), [&equalCmp](IndexedValue const & iv)
-                               {
-                                 return equalCmp(*iv);
-                               });
+  return values.end() != find_if(values.begin(), values.end(), [&equalCmp](IndexedValue const & iv)
+                                 {
+                                   return equalCmp(*iv);
+                                 });
 }
 
 void Ranker::MakePreResult2(Geocoder::Params const & params, vector<IndexedValue> & cont,
@@ -216,28 +216,28 @@ void Ranker::MakePreResult2(Geocoder::Params const & params, vector<IndexedValue
 
 void Ranker::FlushResults(Geocoder::Params const & params, Results & res, size_t resCount)
 {
-  vector<IndexedValue> indV;
+  vector<IndexedValue> values;
   vector<FeatureID> streets;
 
-  MakePreResult2(params, indV, streets);
-  RemoveDuplicatingLinear(indV);
-  if (indV.empty())
+  MakePreResult2(params, values, streets);
+  RemoveDuplicatingLinear(values);
+  if (values.empty())
     return;
 
-  sort(indV.rbegin(), indV.rend(), my::LessBy(&IndexedValue::GetRank));
+  sort(values.rbegin(), values.rend(), my::LessBy(&IndexedValue::GetRank));
 
-  m_processor.ProcessSuggestions(indV, res);
+  m_processor.ProcessSuggestions(values, res);
 
   // Emit feature results.
   size_t count = res.GetCount();
-  for (size_t i = 0; i < indV.size() && count < resCount; ++i)
+  for (size_t i = 0; i < values.size() && count < resCount; ++i)
   {
     if (m_processor.IsCancelled())
       break;
 
-    LOG(LDEBUG, (indV[i]));
+    LOG(LDEBUG, (values[i]));
 
-    auto const & preResult2 = *indV[i];
+    auto const & preResult2 = *values[i];
     if (res.AddResult(m_processor.MakeResult(preResult2)))
       ++count;
   }
@@ -245,23 +245,23 @@ void Ranker::FlushResults(Geocoder::Params const & params, Results & res, size_t
 
 void Ranker::FlushViewportResults(Geocoder::Params const & params, Results & res)
 {
-  vector<IndexedValue> indV;
+  vector<IndexedValue> values;
   vector<FeatureID> streets;
 
-  MakePreResult2(params, indV, streets);
-  RemoveDuplicatingLinear(indV);
-  if (indV.empty())
+  MakePreResult2(params, values, streets);
+  RemoveDuplicatingLinear(values);
+  if (values.empty())
     return;
 
-  sort(indV.begin(), indV.end(), my::LessBy(&IndexedValue::GetDistanceToPivot));
+  sort(values.begin(), values.end(), my::LessBy(&IndexedValue::GetDistanceToPivot));
 
-  for (size_t i = 0; i < indV.size(); ++i)
+  for (size_t i = 0; i < values.size(); ++i)
   {
     if (m_processor.IsCancelled())
       break;
 
     res.AddResultNoChecks(
-        (*(indV[i]))
+        (*(values[i]))
             .GenerateFinalResult(m_processor.m_infoGetter, &m_processor.m_categories,
                                  &m_processor.m_prefferedTypes, m_processor.m_currentLocaleCode,
                                  nullptr /* Viewport results don't need calculated address */));
