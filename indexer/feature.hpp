@@ -1,5 +1,6 @@
 #pragma once
 #include "indexer/cell_id.hpp"
+#include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 
 #include "geometry/point2d.hpp"
@@ -201,6 +202,7 @@ public:
   uint32_t ParseTriangles(int scale) const;
 
   void ParseMetadata() const;
+  void ParseAltitude() const;
   //@}
 
   /// @name Geometry.
@@ -241,6 +243,12 @@ public:
     ASSERT_LESS(i, m_points.size(), ());
     ASSERT(m_pointsParsed, ());
     return m_points[i];
+  }
+
+  inline feature::Altitudes const & GetAltitudes() const
+  {
+    ASSERT(m_altitudeParsed, ());
+    return m_altitudes;
   }
 
   template <typename TFunctor>
@@ -361,10 +369,15 @@ private:
   mutable points_t m_points, m_triangles;
   mutable feature::Metadata m_metadata;
 
+  // @TODO |m_altitudes| should be exchanged with vector<TAltitude>.
+  // If the vector is empty no altitude information is available for this feature.
+  mutable feature::Altitudes m_altitudes;
+
   mutable bool m_header2Parsed = false;
   mutable bool m_pointsParsed = false;
   mutable bool m_trianglesParsed = false;
   mutable bool m_metadataParsed = false;
+  mutable bool m_altitudeParsed = false;
 
   mutable inner_geom_stat_t m_innerStats;
 

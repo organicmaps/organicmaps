@@ -2,6 +2,7 @@
 
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/pedestrian_model.hpp"
 
 #include "indexer/feature_impl.hpp"
@@ -230,10 +231,7 @@ namespace
 
 bool FeatureBuilder1::IsRoad() const
 {
-  static routing::PedestrianModel const pedModel;
-  static routing::BicycleModel const bicModel;
-  return routing::CarModel::Instance().HasRoadType(m_params.m_Types) ||
-         pedModel.HasRoadType(m_params.m_Types) || bicModel.HasRoadType(m_params.m_Types);
+  return routing::IsRoad(m_params.m_Types);
 }
 
 bool FeatureBuilder1::PreSerialize()

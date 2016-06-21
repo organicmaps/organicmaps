@@ -17,6 +17,8 @@ public:
   /// VehicleModel overrides:
   bool IsOneWay(FeatureType const &) const override { return false; }
 
+  static PedestrianModel const & DefaultInstance();
+
 protected:
   RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
 

@@ -277,6 +277,11 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
   ri.m_speedKMPH = GetSpeedKMPHFromFt(ft);
   ft.SwapPoints(ri.m_points);
 
+  ft.ParseAltitude();
+  // @TODO It's better to use swap here when altitudes is kept in a vector.
+  ri.m_altitudes = ft.GetAltitudes();
+  LOG(LINFO, ("ri.m_altitudes.begin =", ri.m_altitudes.begin, "ri.m_altitudes.end =", ri.m_altitudes.end));
+
   LockFeatureMwm(featureId);
 
   return ri;

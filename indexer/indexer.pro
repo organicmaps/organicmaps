@@ -81,6 +81,7 @@ HEADERS += \
     edits_migration.hpp \
     feature.hpp \
     feature_algo.hpp \
+    feature_altitude.hpp \
     feature_covering.hpp \
     feature_data.hpp \
     feature_decl.hpp \

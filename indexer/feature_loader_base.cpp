@@ -44,6 +44,11 @@ SharedLoadInfo::TReader SharedLoadInfo::GetMetadataIndexReader() const
   return m_cont.GetReader(METADATA_INDEX_FILE_TAG);
 }
 
+SharedLoadInfo::TReader SharedLoadInfo::GetAltitudeReader() const
+{
+  return m_cont.GetReader(ALTITUDE_TAG);
+}
+
 SharedLoadInfo::TReader SharedLoadInfo::GetGeometryReader(int ind) const
 {
   return m_cont.GetReader(GetTagForIndex(GEOMETRY_FILE_TAG, ind));

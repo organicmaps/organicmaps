@@ -642,6 +642,13 @@ IVehicleModel::RoadAvailability PedestrianModel::GetRoadAvailability(feature::Ty
   return RoadAvailability::Unknown;
 }
 
+// static
+PedestrianModel const & PedestrianModel::DefaultInstance()
+{
+  static PedestrianModel const instance;
+  return instance;
+}
+
 PedestrianModelFactory::PedestrianModelFactory()
 {
   m_models[string()] = make_shared<PedestrianModel>(g_pedestrianLimitsDefault);

@@ -1,3 +1,4 @@
+#include "generator/altitude_generator.hpp"
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
 #include "generator/check_model.hpp"
@@ -63,13 +64,14 @@ DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastl
 DEFINE_bool(generate_addresses_file, false, "Generate .addr file (for '--output' option) with full addresses list.");
 DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info");
 DEFINE_bool(make_routing, false, "Make routing info based on osrm file");
-DEFINE_bool(make_cross_section, false, "Make corss section in routing file for cross mwm routing");
+DEFINE_bool(make_cross_section, false, "Make cross section in routing file for cross mwm routing");
 DEFINE_string(osm_file_name, "", "Input osm area file");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m]");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format");
 DEFINE_string(booking_reference_path, "", "Path to mwm dataset for match booking addresses");
 DEFINE_uint64(planet_version, my::SecondsSinceEpoch(), "Version as seconds since epoch, by default - now");
+DEFINE_string(srtm_path, "", "Path to srtm directory. If it's set generates section with altitude information about road features.");
 
 int main(int argc, char ** argv)
 {
@@ -244,6 +246,9 @@ int main(int argc, char ** argv)
 
   if (FLAGS_dump_feature_names != "")
     feature::DumpFeatureNames(datFile, FLAGS_dump_feature_names);
+
+  if (!FLAGS_srtm_path.empty())
+    routing::BuildRoadFeatureAltitude(FLAGS_srtm_path, path, FLAGS_output);
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(datFile);

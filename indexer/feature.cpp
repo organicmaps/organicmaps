@@ -302,7 +302,7 @@ void FeatureType::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
 
   m_pLoader->InitFeature(this);
 
-  m_header2Parsed = m_pointsParsed = m_trianglesParsed = m_metadataParsed = false;
+  m_header2Parsed = m_pointsParsed = m_trianglesParsed = m_metadataParsed = m_altitudeParsed = false;
 
   m_innerStats.MakeZero();
 }
@@ -373,6 +373,15 @@ void FeatureType::ParseMetadata() const
   m_pLoader->ParseMetadata();
 
   m_metadataParsed = true;
+}
+
+void FeatureType::ParseAltitude() const
+{
+  if (m_altitudeParsed)
+    return;
+
+  m_pLoader->ParseAltitude();
+  m_altitudeParsed = true;
 }
 
 StringUtf8Multilang const & FeatureType::GetNames() const

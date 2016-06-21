@@ -4,6 +4,7 @@
 
 #include "base/string_utils.hpp"
 
+#include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 
 #include "std/initializer_list.hpp"
@@ -106,6 +107,7 @@ public:
     RoadInfo & operator=(RoadInfo const &) = default;
 
     buffer_vector<m2::PointD, 32> m_points;
+    feature::Altitudes m_altitudes;
     double m_speedKMPH;
     bool m_bidirectional;
   };

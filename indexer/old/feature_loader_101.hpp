@@ -29,15 +29,15 @@ namespace old_101 { namespace feature
   public:
     LoaderImpl(::feature::SharedLoadInfo const & info) : BaseT(info) {}
 
-    virtual uint8_t GetHeader();
-
-    virtual void ParseTypes();
-    virtual void ParseCommon();
-    virtual void ParseHeader2();
-    virtual uint32_t ParseGeometry(int scale);
-    virtual uint32_t ParseTriangles(int scale);
-    virtual void ParseMetadata() {} /// not supported in this version
-
+    /// LoaderBase overrides:
+    uint8_t GetHeader() override;
+    void ParseTypes() override;
+    void ParseCommon() override;
+    void ParseHeader2() override;
+    uint32_t ParseGeometry(int scale) override;
+    uint32_t ParseTriangles(int scale) override;
+    void ParseMetadata() override {} /// not supported in this version
+    void ParseAltitude() override {} /// not supported in this version
   };
 }
 }

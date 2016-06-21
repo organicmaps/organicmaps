@@ -17,6 +17,8 @@ public:
   /// VehicleModel overrides:
   bool IsOneWay(FeatureType const & f) const override;
 
+  static BicycleModel const & DefaultInstance();
+
 protected:
   RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
 
@@ -45,5 +47,4 @@ public:
 private:
   unordered_map<string, shared_ptr<IVehicleModel>> m_models;
 };
-
 }  // namespace routing

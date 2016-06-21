@@ -15,12 +15,13 @@
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
-#include "geometry/mercator.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/read_write_utils.hpp"
+
 #include "coding/internal/file_data.hpp"
 
 #include "base/logging.hpp"

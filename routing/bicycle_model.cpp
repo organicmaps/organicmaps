@@ -638,6 +638,13 @@ bool BicycleModel::IsOneWay(FeatureType const & f) const
   return VehicleModel::IsOneWay(f);
 }
 
+// static
+BicycleModel const & BicycleModel::DefaultInstance()
+{
+  static BicycleModel const instance;
+  return instance;
+}
+
 BicycleModelFactory::BicycleModelFactory()
 {
   m_models[string()] = make_shared<BicycleModel>(g_bicycleLimitsDefault);
