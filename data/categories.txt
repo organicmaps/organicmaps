@@ -7018,7 +7018,7 @@ ru:Опора ЛЭП
 ar:عمود كهرباء
 cs:Sloup elektrického vedení
 da:El-pol
-de:Lichtmast
+de:Freileitungsmast|Strommast
 es:Poste eléctrico
 fi:Sähköpylväs
 fr:Poteau électrique
