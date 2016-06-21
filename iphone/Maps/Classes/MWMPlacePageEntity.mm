@@ -131,8 +131,7 @@ void initFieldsMap()
   }
 
   NSNumberFormatter * currencyFormatter = [[NSNumberFormatter alloc] init];
-  [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-  [currencyFormatter setLocale:[NSLocale currentLocale]];
+  currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
   string const currency = currencyFormatter.currencyCode.UTF8String;
   GetFramework().GetBookingApi().GetMinPrice(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID),
                                              currency,
@@ -145,9 +144,13 @@ void initFieldsMap()
     }
     NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
     decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-    // TODO(Vlad): We will replace this string with [NSString stringWithFormat:L(@"place_page_starting_from"), currency]
-    // as soon as string is ready.
-    self.bookingOnlinePrice = [currencyFormatter stringFromNumber:[decimalFormatter numberFromString:@(minPrice.c_str())]];
+    NSString * currencyString = [currencyFormatter stringFromNumber:
+                                 [decimalFormatter numberFromString:
+                                  [@(minPrice.c_str()) stringByReplacingOccurrencesOfString:@"."
+                                                                                 withString:decimalFormatter.decimalSeparator]]];
+    NSString * currencyPattern = [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"
+                                                                                           withString:@"%@"];
+    self.bookingOnlinePrice = [NSString stringWithFormat:currencyPattern, currencyString];
     completion();
   });
 }
