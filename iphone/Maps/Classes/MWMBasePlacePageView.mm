@@ -310,19 +310,11 @@ using namespace storage;
         progress.state = MWMCircularProgressStateFailed;
         break;
       case NodeStatus::OnDisk:
+      case NodeStatus::OnDiskOutOfDate:
       {
         self.downloadProgressView.hidden = YES;
         [self setNeedsLayout];
         [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ [self layoutIfNeeded]; }];
-        break;
-      }
-      case NodeStatus::OnDiskOutOfDate:
-      {
-        MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
-          MWMCircularProgressStateSelected};
-        [progress setImage:[UIImage imageNamed:@"ic_update"] forStates:affectedStates];
-        [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
-        progress.state = MWMCircularProgressStateNormal;
         break;
       }
     }
