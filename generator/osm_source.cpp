@@ -515,7 +515,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
     
     // If info.m_bookingDatafileName is empty then no data will be loaded.
-    generator::BookingDataset bookingDataset(info.m_bookingDatafileName);
+    generator::BookingDataset bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir);
 
     stringstream skippedElements;
     

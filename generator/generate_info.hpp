@@ -43,6 +43,7 @@ struct GenerateInfo
   string m_osmFileName;
   
   string m_bookingDatafileName;
+  string m_bookingReferenceDir;
 
   uint32_t m_versionDate = 0;
 

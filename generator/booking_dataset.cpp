@@ -1,5 +1,9 @@
 #include "generator/booking_dataset.hpp"
 
+#include "map/framework.hpp"
+
+#include "platform/platform.hpp"
+
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -25,6 +29,34 @@ bool CheckForValues(string const & value)
       return true;
   }
   return false;
+}
+
+// Unlike strings::Tokenize, this function allows for empty tokens.
+void Split(string const & s, char delim, vector<string> & parts)
+{
+  stringstream ss;
+
+  // Workaround for empty last field.
+  ss << s;
+  if (!s.empty() && s.back() == delim)
+    ss << delim;
+
+  string part;
+  while (getline(ss, part, delim))
+    parts.emplace_back(part);
+}
+
+string TabbedString(string const & str)
+{
+  stringstream ss;
+  for (char c : str)
+  {
+    if (c == '\t')
+      ss << "\\t";
+    else
+      ss << c;
+  }
+  return ss.str();
 }
 }  // namespace
 
@@ -55,21 +87,29 @@ BookingDataset::Hotel::Hotel(string const & src)
 
 ostream & operator<<(ostream & s, BookingDataset::Hotel const & h)
 {
+  s << fixed << setprecision(7);
   return s << "Name: " << h.name << "\t Address: " << h.address << "\t lat: " << h.lat
            << " lon: " << h.lon;
 }
 
-BookingDataset::BookingDataset(string const & dataPath)
+BookingDataset::BookingDataset(string const & dataPath, string const & addressReferencePath)
 {
-  LoadHotels(dataPath);
+  if (dataPath.empty())
+    return;
 
-  size_t counter = 0;
-  for (auto const & hotel : m_hotels)
+  ifstream dataSource(dataPath);
+  if (!dataSource.is_open())
   {
-    TBox b(TPoint(hotel.lat, hotel.lon), TPoint(hotel.lat, hotel.lon));
-    m_rtree.insert(std::make_pair(b, counter));
-    ++counter;
+    LOG(LERROR, ("Error while opening", dataPath, ":", strerror(errno)));
+    return;
   }
+
+  LoadHotels(dataSource, addressReferencePath);
+}
+
+BookingDataset::BookingDataset(istream & dataSource, string const & addressReferencePath)
+{
+  LoadHotels(dataSource, addressReferencePath);
 }
 
 bool BookingDataset::BookingFilter(OsmElement const & e) const
@@ -184,6 +224,12 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
       }
     }
 
+    if (!hotel.street.empty())
+      e.AddTag("addr:street", hotel.street);
+
+    if(!hotel.houseNumber.empty())
+      e.AddTag("addr:housenumber", hotel.houseNumber);
+
     switch (hotel.type)
     {
     case 19:
@@ -244,22 +290,46 @@ double BookingDataset::ScoreByLinearNormDistance(double distance)
   return 1.0 - distance / kDistanceLimitInMeters;
 }
 
-void BookingDataset::LoadHotels(string const & path)
+void BookingDataset::LoadHotels(istream & src, string const & addressReferencePath)
 {
   m_hotels.clear();
 
-  if (path.empty())
-    return;
-
-  ifstream src(path);
-  if (!src.is_open())
-  {
-    LOG(LERROR, ("Error while opening", path, ":", strerror(errno)));
-    return;
-  }
-
   for (string line; getline(src, line);)
     m_hotels.emplace_back(line);
+
+  if(!addressReferencePath.empty())
+  {
+    LOG(LINFO, ("Match addresses for booking objects",addressReferencePath));
+    Platform & platform = GetPlatform();
+    string backupPath = platform.WritableDir();
+    platform.SetWritableDirForTests(addressReferencePath);
+
+    Framework f;
+
+    size_t matchedNum = 0;
+    size_t emptyAddr = 0;
+    for (Hotel & hotel : m_hotels)
+  {
+      search::AddressInfo info = f.GetAddressInfoAtPoint(MercatorBounds::FromLatLon(hotel.lat, hotel.lon));
+      hotel.street = info.m_street;
+      hotel.houseNumber = info.m_house;
+
+      if (hotel.address.empty())
+        ++emptyAddr;
+      if(!info.FormatAddress().empty())
+        ++matchedNum;
+    }
+    LOG(LINFO, ("Num of hotels:", m_hotels.size(), "matched:", matchedNum, "Empty addresses:", emptyAddr));
+    platform.SetWritableDirForTests(backupPath);
+  }
+
+  size_t counter = 0;
+  for (auto const & hotel : m_hotels)
+  {
+    TBox b(TPoint(hotel.lat, hotel.lon), TPoint(hotel.lat, hotel.lon));
+    m_rtree.insert(std::make_pair(b, counter));
+    ++counter;
+  }
 }
 
 bool BookingDataset::MatchWithBooking(OsmElement const & e) const
