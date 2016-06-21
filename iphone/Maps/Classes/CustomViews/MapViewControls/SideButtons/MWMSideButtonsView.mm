@@ -81,11 +81,23 @@ namespace
   }];
 }
 
+- (void)fadeLocationButtonShow:(BOOL)show
+{
+  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^
+  {
+    self.location.alpha = show ? 1.0 : 0.0;
+  }];
+}
+
 - (void)animate
 {
   [self layoutYPosition];
+  CGFloat const statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+  CGFloat const spaceLeft =
+      self.bottomBound - self.topBound - equalScreenDimensions(self.topBound, 0.0) ? statusBarHeight
+                                                                                   : 0.0;
   BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
-  BOOL const willZoomHide = (self.defaultBounds.size.height > self.bottomBound - self.topBound);
+  BOOL const willZoomHide = (self.defaultBounds.size.height > spaceLeft);
   if (willZoomHide)
   {
     if (!isZoomHidden)
@@ -95,6 +107,18 @@ namespace
   {
     if (isZoomHidden)
       [self fadeZoomButtonsShow:YES];
+  }
+  BOOL const isLocationHidden = self.location.alpha == 0.0;
+  BOOL const willLocationHide = (self.location.height > spaceLeft);
+  if (willLocationHide)
+  {
+    if (!isLocationHidden)
+      [self fadeLocationButtonShow:NO];
+  }
+  else
+  {
+    if (isLocationHidden)
+      [self fadeLocationButtonShow:YES];
   }
 }
 
