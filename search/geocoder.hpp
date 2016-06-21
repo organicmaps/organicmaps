@@ -178,6 +178,8 @@ private:
       m_features.reset();
     }
 
+    inline bool Has(uint64_t id) const { return m_features->GetBit(id); }
+
     inline bool IsEmpty() const { return coding::CompressedBitVector::IsEmpty(m_features); }
 
     size_t m_startToken = 0;

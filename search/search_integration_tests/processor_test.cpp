@@ -454,14 +454,21 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
   TestStreet street(
       vector<m2::PointD>{m2::PointD(-0.5, 0.0), m2::PointD(0, 0), m2::PointD(0.5, 0.0)},
       "Первомайская", "ru");
+  street.SetPostcode("141701");
+
   TestBuilding building28(m2::PointD(0.0, 0.00001), "", "28а", street, "ru");
   building28.SetPostcode("141701");
 
   TestBuilding building29(m2::PointD(0.0, -0.00001), "", "29", street, "ru");
   building29.SetPostcode("141701");
 
-  TestBuilding building30(m2::PointD(0.00001, 0.00001), "", "30", street, "ru");
-  building30.SetPostcode("141702");
+  TestPOI building30(m2::PointD(0.00002, 0.00002), "", "en");
+  building30.SetHouseNumber("30");
+  building30.SetPostcode("141701");
+  building30.SetTypes({{"building", "address"}});
+
+  TestBuilding building31(m2::PointD(0.00001, 0.00001), "", "31", street, "ru");
+  building31.SetPostcode("141702");
 
   TestBuilding building1(m2::PointD(10, 10), "", "1", "en");
   building1.SetPostcode("WC2H 7BX");
@@ -477,6 +484,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
                                   builder.Add(building28);
                                   builder.Add(building29);
                                   builder.Add(building30);
+                                  builder.Add(building31);
 
                                   builder.Add(building1);
                                 });
@@ -503,7 +511,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     FeatureType ft;
     loader.GetFeatureByIndex(index, ft);
 
-    auto rule = ExactMatch(countryId, building30);
+    auto rule = ExactMatch(countryId, building31);
     TEST(rule->Matches(ft), ());
   }
 
@@ -516,15 +524,21 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     TEST(ResultsMatch("Долгопрудный первомайская 28а, 141701", "ru", rules), ());
   }
   {
-    TRules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29)};
+    TRules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29),
+                 ExactMatch(countryId, building30), ExactMatch(countryId, street)};
     TEST(ResultsMatch("Долгопрудный первомайская 141701", "ru", rules), ());
   }
   {
-    TRules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29)};
+    TRules rules{ExactMatch(countryId, building31)};
+    TEST(ResultsMatch("Долгопрудный первомайская 141702", "ru", rules), ());
+  }
+  {
+    TRules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29),
+                 ExactMatch(countryId, building30), ExactMatch(countryId, street)};
     TEST(ResultsMatch("Долгопрудный 141701", "ru", rules), ());
   }
   {
-    TRules rules{ExactMatch(countryId, building30)};
+    TRules rules{ExactMatch(countryId, building31)};
     TEST(ResultsMatch("Долгопрудный 141702", "ru", rules), ());
   }
 

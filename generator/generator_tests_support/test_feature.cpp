@@ -53,7 +53,11 @@ void TestFeature::Serialize(FeatureBuilder1 & fb) const
   if (m_hasCenter)
     fb.SetCenter(m_center);
   if (!m_name.empty())
+  {
     CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
+    if (m_lang != "default")
+      CHECK(fb.AddName("default", m_name), ("Can't set feature name:", m_name, "( default )"));
+  }
   if (!m_postcode.empty())
     fb.AddPostcode(m_postcode);
 }
@@ -134,10 +138,7 @@ TestStreet::TestStreet(vector<m2::PointD> const & points, string const & name, s
 
 void TestStreet::Serialize(FeatureBuilder1 & fb) const
 {
-  fb.SetTestId(m_id);
-  CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
-  if (m_lang != "default")
-    CHECK(fb.AddName("default", m_name), ("Can't set feature name:", m_name, "( default )"));
+  TestFeature::Serialize(fb);
 
   auto const & classificator = classif();
   fb.SetType(classificator.GetTypeByPath({"highway", "living_street"}));

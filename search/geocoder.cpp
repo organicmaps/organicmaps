@@ -1213,7 +1213,23 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
 
     // If there're only one street layer but user also entered a
     // postcode, we need to emit all features matching to postcode on
-    // the given street.
+    // the given street, including the street itself.
+
+    // Following code emits streets matched by postcodes, because
+    // GreedilyMatchStreets() doesn't (and shouldn't) perform
+    // postcodes matching.
+    {
+      for (auto const & id : *m_layers.back().m_sortedFeatures)
+      {
+        if (!m_postcodes.Has(id))
+          continue;
+        EmitResult(m_context->GetId(), id, SearchModel::SEARCH_TYPE_STREET,
+                   m_layers.back().m_startToken, m_layers.back().m_endToken);
+      }
+    }
+
+    // Following code creates a fake layer with buildings and
+    // intersects it with the streets layer.
     m_layers.emplace_back();
     MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
 
