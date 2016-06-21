@@ -14,7 +14,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W07-Hz-J60" customClass="MWMButton">
                     <rect key="frame" x="0.0" y="2" width="80" height="33"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="33" id="pcB-ET-28J"/>
+                        <constraint firstAttribute="height" constant="33" id="75j-xj-DA8"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
@@ -26,7 +26,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="80" translatesAutoresizingMaskIntoConstraints="NO" id="rrI-0A-w3s">
                     <rect key="frame" x="0.0" y="32" width="80" height="14"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="14" id="BBl-pC-RJq"/>
+                        <constraint firstAttribute="height" constant="14" id="aBc-T3-IKf"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -39,13 +39,12 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="rrI-0A-w3s" secondAttribute="trailing" id="LPs-Yx-xz6"/>
-                <constraint firstItem="rrI-0A-w3s" firstAttribute="top" secondItem="W07-Hz-J60" secondAttribute="bottom" constant="-3" id="SMD-s3-Tz5"/>
-                <constraint firstItem="W07-Hz-J60" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="UJy-Ef-B7E"/>
-                <constraint firstItem="rrI-0A-w3s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="X6f-tU-o9a"/>
-                <constraint firstAttribute="bottom" secondItem="rrI-0A-w3s" secondAttribute="bottom" constant="2" id="Zsi-G2-yc8"/>
-                <constraint firstItem="W07-Hz-J60" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rBR-of-5Ha"/>
-                <constraint firstAttribute="trailing" secondItem="W07-Hz-J60" secondAttribute="trailing" id="teM-gm-CX7"/>
+                <constraint firstItem="W07-Hz-J60" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="0ny-dj-oIy"/>
+                <constraint firstItem="W07-Hz-J60" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Hs4-aJ-du5"/>
+                <constraint firstItem="W07-Hz-J60" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ZnD-Rd-u6r"/>
+                <constraint firstItem="rrI-0A-w3s" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="de0-Vs-89Q"/>
+                <constraint firstAttribute="bottom" secondItem="rrI-0A-w3s" secondAttribute="bottom" constant="2" id="elP-Ze-g3l"/>
+                <constraint firstItem="rrI-0A-w3s" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="wQ8-qm-ZSy"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

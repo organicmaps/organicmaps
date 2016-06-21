@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,30 +12,54 @@
             <rect key="frame" x="0.0" y="0.0" width="360" height="48"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-f0-gXc">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-f0-gXc">
                     <rect key="frame" x="0.0" y="0.0" width="360" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="fwa-pQ-MzY"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <view tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctK-eb-hsj" userLabel="First">
+                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctK-eb-hsj" userLabel="First">
                     <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j7d-3d-R7Z" userLabel="Second">
+                <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j7d-3d-R7Z" userLabel="Second">
                     <rect key="frame" x="90" y="0.0" width="90" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view tag="3" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-qr-MYt" userLabel="Third">
+                <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-qr-MYt" userLabel="Third">
                     <rect key="frame" x="180" y="0.0" width="90" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view tag="4" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9L-Jr-3Qt" userLabel="Fourth">
+                <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A9L-Jr-3Qt" userLabel="Fourth">
                     <rect key="frame" x="270" y="0.0" width="90" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="WPU-f0-gXc" secondAttribute="trailing" id="3ci-Pa-nsq"/>
+                <constraint firstItem="j7d-3d-R7Z" firstAttribute="height" secondItem="ctK-eb-hsj" secondAttribute="height" id="58Q-JN-PJF"/>
+                <constraint firstItem="A9L-Jr-3Qt" firstAttribute="height" secondItem="Xtb-qr-MYt" secondAttribute="height" id="80p-m5-neu"/>
+                <constraint firstItem="ctK-eb-hsj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8ec-aS-2nF"/>
+                <constraint firstItem="j7d-3d-R7Z" firstAttribute="width" secondItem="ctK-eb-hsj" secondAttribute="width" id="Cly-VY-PVg"/>
+                <constraint firstItem="ctK-eb-hsj" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="D4e-0R-7gX"/>
+                <constraint firstItem="Xtb-qr-MYt" firstAttribute="height" secondItem="j7d-3d-R7Z" secondAttribute="height" id="EXS-qb-N3p"/>
+                <constraint firstItem="A9L-Jr-3Qt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Hil-o4-mts"/>
+                <constraint firstItem="Xtb-qr-MYt" firstAttribute="leading" secondItem="j7d-3d-R7Z" secondAttribute="trailing" id="KJq-hT-5Se"/>
+                <constraint firstItem="Xtb-qr-MYt" firstAttribute="width" secondItem="j7d-3d-R7Z" secondAttribute="width" id="LRG-Cn-pIf"/>
+                <constraint firstItem="ctK-eb-hsj" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="1:4" id="NiM-6S-wjX"/>
+                <constraint firstItem="j7d-3d-R7Z" firstAttribute="leading" secondItem="ctK-eb-hsj" secondAttribute="trailing" id="V0e-Wq-sid"/>
+                <constraint firstItem="WPU-f0-gXc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Zh3-QU-aoc"/>
+                <constraint firstItem="Xtb-qr-MYt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dI1-hy-weQ"/>
+                <constraint firstItem="WPU-f0-gXc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gdP-IW-kdh"/>
+                <constraint firstItem="ctK-eb-hsj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kme-nG-ucC"/>
+                <constraint firstAttribute="trailing" secondItem="A9L-Jr-3Qt" secondAttribute="trailing" id="ysu-Sa-yej"/>
+                <constraint firstItem="A9L-Jr-3Qt" firstAttribute="width" secondItem="Xtb-qr-MYt" secondAttribute="width" id="zWt-T8-Sth"/>
+                <constraint firstItem="j7d-3d-R7Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zbW-L3-3vp"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>

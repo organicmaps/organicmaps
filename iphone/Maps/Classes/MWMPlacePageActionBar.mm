@@ -279,13 +279,10 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.separator.width = self.width;
-  CGFloat const buttonWidth = self.width / self.buttons.count;
+  uint8_t const buttonsCount = 4;
+  CGFloat const buttonWidth = self.width / buttonsCount;
   for (UIView * button in self.buttons)
-  {
     button.minX = buttonWidth * (button.tag - 1);
-    button.width = buttonWidth;
-  }
 }
 
 @end
