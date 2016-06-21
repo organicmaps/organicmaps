@@ -1625,10 +1625,11 @@ void Storage::GetGroupNodePathToRoot(TCountryId const & groupNode, TCountriesVec
   path.push_back(m_countries.GetRoot().Value().Name());
 }
 
-void Storage::GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & nodes) const
+void Storage::GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & nodes,
+                                 size_t level) const
 {
   nodes.clear();
-  
+
   vector<TCountryTreeNode const *> treeNodes;
   m_countries.Find(countryId, treeNodes);
   if (treeNodes.empty())
@@ -1641,11 +1642,14 @@ void Storage::GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & n
   for (size_t i = 0; i < treeNodes.size(); ++i)
   {
     nodes[i] = countryId;
+    TCountriesVec path;
     ForEachAncestorExceptForTheRoot({treeNodes[i]},
-                                    [&nodes, i](TCountryId const & id, TCountryTreeNode const &)
+                                    [&path](TCountryId const & id, TCountryTreeNode const &)
                                     {
-                                      nodes[i] = id;
+                                      path.emplace_back(id);
                                     });
+    if (!path.empty() && level < path.size())
+      nodes[i] = path[path.size() - 1 - level];
   }
 }
 

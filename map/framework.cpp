@@ -709,13 +709,22 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   FillInfoFromFeatureType(ft, info);
 
   // Fill countryId for place page info
+  uint32_t const placeContinentType = classif().GetTypeByPath({"place", "continent"});
+  if (info.GetTypes().Has(placeContinentType))
+    return;
+
   info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
 
-  uint32_t placeCountryType = classif().GetTypeByPath({"place", "country"});
-  if (info.GetTypes().Has(placeCountryType))
+  uint32_t const placeCountryType = classif().GetTypeByPath({"place", "country"});
+  uint32_t const placeStateType = classif().GetTypeByPath({"place", "state"});
+
+  bool const isState = info.GetTypes().Has(placeStateType);
+  bool const isCountry = info.GetTypes().Has(placeCountryType);
+  if (isCountry || isState)
   {
+    size_t const level = isState ? 1 : 0;
     TCountriesVec countries;
-    Storage().GetTopmostNodesFor(info.m_countryId, countries);
+    Storage().GetTopmostNodesFor(info.m_countryId, countries, level);
     if (countries.size() == 1)
       info.m_countryId = countries.front();
   }

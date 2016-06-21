@@ -358,8 +358,10 @@ public:
   void GetGroupNodePathToRoot(TCountryId const & groupNode, TCountriesVec & path) const;
 
   /// \brief Fills |nodes| with CountryIds of topmost nodes for this |countryId|.
+  /// \param level is distance from top level except root.
   /// For disputed territories all possible owners will be added.
-  void GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & nodes) const;
+  /// Puts |countryId| to |nodes| when |level| is greater than the level of |countyId|. 
+  void GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & nodes, size_t level = 0) const;
 
   /// \brief Returns current version for mwms which are used by storage.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
@@ -648,7 +650,7 @@ void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
 
 /// Calls functor |toDo| with signature
 /// void(const TCountryId const & parentId, TCountriesVec const & descendantCountryId)
-/// for each ancestor except for the main root of the tree.
+/// for each ancestor except for the main root of the tree in order from the leaf to the root.
 /// Note. In case of disputable territories several nodes with the same name may be
 /// present in the country tree. In that case ForEachAncestorExceptForTheRoot calls
 /// |toDo| for parents of each way to the root in the country tree. In case of diamond
