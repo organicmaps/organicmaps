@@ -1,16 +1,14 @@
 from __future__ import print_function
 
 import logging
-from contextlib import contextmanager
 from multiprocessing import cpu_count
 import multiprocessing
-from optparse import OptionParser
+from argparse import ArgumentParser
 from os import path
-import shutil
 import subprocess
-import tempfile
 
 from run_desktop_tests import tests_on_disk
+from Util import TemporaryDirectory
 
 __author__ = 't.danshin'
 
@@ -20,15 +18,6 @@ TEMPFOLDER_TESTS = ["search_integration_tests", "storage_integration_tests"]
 FILTER_KEY = "--filter"
 DATA_PATH_KEY = "--data_path"
 RESOURCE_PATH_KEY = "--user_resource_path"
-
-
-@contextmanager
-def TemporaryDirectory():
-    name = tempfile.mkdtemp()
-    try:
-        yield name
-    finally:
-        shutil.rmtree(name)
 
 
 def setup_test_result_log(log_file, level=logging.INFO):
@@ -94,20 +83,19 @@ def exec_test(a_tuple):
     test_file, test_name, params = a_tuple
     params[FILTER_KEY] = test_name
 
-    out, err, result = None, None, None
-
     if test_file in TEMPFOLDER_TESTS:
         out, err, result = exec_test_with_temp(test_file, params)
     else:
         out, err, result = exec_test_without_temp(test_file, params)
 
-    return (test_file, test_name), (err, result)
+    return test_file, err, result
 
 
 def exec_test_with_temp(test_file, params):
     with TemporaryDirectory() as tmpdir:
         params[DATA_PATH_KEY] = tmpdir
         return exec_test_without_temp(test_file, params)
+
 
 def exec_test_without_temp(test_file, params):
     flags = params_from_dict(params)
@@ -146,7 +134,7 @@ class IntegrationRunner:
                 exec_test,
                 self.prepare_list_of_tests()
             )
-            for (test_file, _), (err, result) in test_results:
+            for test_file, err, result in test_results:
                 logger.info(
                     err,
                     extra={"file" : path.basename(test_file), "result" : result}
@@ -173,63 +161,60 @@ class IntegrationRunner:
                 yield test_tuple
 
 
-    def set_instance_vars_from_options(self, options):
-        self.workspace_path = options.folder
-        for opt in options.runlist:
+    def set_instance_vars_from_options(self, args):
+        self.workspace_path = args.folder
+        for opt in args.runlist:
             self.runlist.extend(map(str.strip, opt.split(",")))
 
         tests_on_disk_list = tests_on_disk(self.workspace_path)
         self.runlist = filter(lambda x: x in tests_on_disk_list, self.runlist)
 
-        self.params[RESOURCE_PATH_KEY] = options.user_resource_path
-        self.params[DATA_PATH_KEY] = options.data_path
+        self.params[RESOURCE_PATH_KEY] = args.user_resource_path
+        self.params[DATA_PATH_KEY] = args.data_path
 
 
     def process_cli(self):
         parser = self.prepare_cli_parser()
-        (options, args) = parser.parse_args()
+        args = parser.parse_args()
 
-        if not options.runlist:
-            parser.print_help()
-            raise Exception("You must provide a list of tests to run")
+        self.set_instance_vars_from_options(args)
 
-        self.set_instance_vars_from_options(options)
-
-        setup_test_result_log(options.output)
+        setup_test_result_log(args.output)
         setup_jenkins_console_logger()
 
-        if options.log_start_finish:
+        if args.log_start_finish:
             multiprocessing.get_logger().warning("The -l option is now deprecated. Please, remove it from your build scripts. It may be removed at any time.")
 
 
     def prepare_cli_parser(self):
-        parser = OptionParser()
-        parser.add_option(
+        parser = ArgumentParser()
+        parser.add_argument(
             "-o", "--output",
             dest="output", default="testlog.log",
             help="resulting log file. Default testlog.log"
         )
-        parser.add_option(
+        parser.add_argument(
             "-f", "--folder",
             dest="folder", default="omim-build-release/out/release",
             help="specify the folder where the tests reside (absolute path or relative to the location of this script)"
         )
-        parser.add_option(
+        parser.add_argument(
             "-i", "--include",
+            required=True,
             dest="runlist", action="append", default=[],
             help="Include test into execution, comma separated list with no spaces or individual tests, or both. E.g.: -i one -i two -i three,four,five"
         )
-        parser.add_option(
+        parser.add_argument(
             "-r", "--user_resource_path",
             dest="user_resource_path", default="",
             help="Path to user resources, such as MWMs"
         )
-        parser.add_option(
+        parser.add_argument(
             "-d", "--data_path",
             dest="data_path", default="",
             help="Path to the writable dir"
         )
-        parser.add_option(
+        parser.add_argument(
             "-l", "--log_start_finish",
             dest="log_start_finish", action="store_true", default=False,
             help="Write to log each time a test starts or finishes. May be useful if you need to find out which of the tests runs for how long, and which test hang. May slow down the execution of tests."
