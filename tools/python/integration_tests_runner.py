@@ -63,9 +63,9 @@ def spawn_test_process(test, flags):
                                )
 
     multiprocessing.get_logger().info(spell[0])
-    out, err = process.communicate()
+    _, err = process.communicate()
 
-    return filter(None, out.splitlines()), err, process.returncode
+    return test, err, process.returncode
 
 
 def exec_test(a_tuple):
