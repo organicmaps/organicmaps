@@ -102,7 +102,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
       editsDate = DateUtils.formatDateTime(getActivity(), uploadSeconds * 1000, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
     }
     mEditsSent.setText(edits);
-    mEditsSentDate.setText(String.format(Locale.US, "%s %s", getString(R.string.last_upload), editsDate));
+    mEditsSentDate.setText(String.format(Locale.US, getString(R.string.last_update), editsDate));
     mEditorRank.setText(String.valueOf(rank));
     // FIXME show when it will be implemented on server
 //    mEditorLevelUp.setText(levelFeat);
