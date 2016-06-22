@@ -159,6 +159,9 @@ class FeatureType : public FeatureBase
   FeatureID m_id;
 
 public:
+  FeatureType() : m_header2Parsed(false), m_pointsParsed(false),
+    m_trianglesParsed(false), m_metadataParsed(false) {}
+
   void Deserialize(feature::LoaderBase * pLoader, TBuffer buffer);
 
   /// @name Editor methods.
@@ -231,14 +234,14 @@ public:
 
   inline size_t GetPointsCount() const
   {
-    ASSERT(m_bPointsParsed, ());
+    ASSERT(m_pointsParsed, ());
     return m_points.size();
   }
 
   inline m2::PointD const & GetPoint(size_t i) const
   {
     ASSERT_LESS(i, m_points.size(), ());
-    ASSERT(m_bPointsParsed, ());
+    ASSERT(m_pointsParsed, ());
     return m_points[i];
   }
 
@@ -345,7 +348,7 @@ public:
 
   inline void SwapPoints(buffer_vector<m2::PointD, 32> & points) const
   {
-    ASSERT(m_bPointsParsed, ());
+    ASSERT(m_pointsParsed, ());
     return m_points.swap(points);
   }
 
@@ -360,7 +363,10 @@ private:
   mutable points_t m_points, m_triangles;
   mutable feature::Metadata m_metadata;
 
-  mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed, m_bMetadataParsed;
+  mutable bool m_header2Parsed;
+  mutable bool m_pointsParsed;
+  mutable bool m_trianglesParsed;
+  mutable bool m_metadataParsed;
 
   mutable inner_geom_stat_t m_innerStats;
 

@@ -59,12 +59,12 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
     else
       LOG(LWARNING, ("Patching feature has unknown tags"));
   });
-  m_bMetadataParsed = true;
+  m_metadataParsed = true;
 
   // If types count are changed here, in ApplyPatch, new number of types should be passed
   // instead of GetTypesCount().
   m_header = CalculateHeader(GetTypesCount(), Header() & HEADER_GEOTYPE_MASK, m_params);
-  m_bHeader2Parsed = true;
+  m_header2Parsed = true;
 }
 
 void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
@@ -76,7 +76,7 @@ void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
     m_center = emo.GetMercator();
     m_limitRect.MakeEmpty();
     m_limitRect.Add(m_center);
-    m_bPointsParsed = m_bTrianglesParsed = true;
+    m_pointsParsed = m_trianglesParsed = true;
     geoType = feature::GEOM_POINT;
   }
   else
@@ -93,14 +93,14 @@ void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
   m_bCommonParsed = true;
 
   m_metadata = emo.GetMetadata();
-  m_bMetadataParsed = true;
+  m_metadataParsed = true;
 
   uint32_t typesCount = 0;
   for (uint32_t const type : emo.GetTypes())
     m_types[typesCount++] = type;
   m_bTypesParsed = true;
   m_header = CalculateHeader(typesCount, geoType, m_params);
-  m_bHeader2Parsed = true;
+  m_header2Parsed = true;
 
   m_id = emo.GetID();
 }
@@ -195,7 +195,7 @@ bool FeatureType::FromXML(editor::XMLFeature const & xml)
                ("At the moment only new nodes (points) can can be created."));
   m_center = xml.GetMercatorCenter();
   m_limitRect.Add(m_center);
-  m_bPointsParsed = m_bTrianglesParsed = true;
+  m_pointsParsed = m_trianglesParsed = true;
 
   xml.ForEachName([this](string const & lang, string const & name)
   {
@@ -237,12 +237,12 @@ bool FeatureType::FromXML(editor::XMLFeature const & xml)
         LOG(LWARNING, ("Can't load/parse type:", k, v));
     }
   });
-  m_bMetadataParsed = true;
+  m_metadataParsed = true;
   m_bTypesParsed = true;
 
   EHeaderTypeMask const geomType = house.empty() && !m_params.ref.empty() ? HEADER_GEOM_POINT : HEADER_GEOM_POINT_EX;
   m_header = CalculateHeader(typesCount, geomType, m_params);
-  m_bHeader2Parsed = true;
+  m_header2Parsed = true;
 
   return typesCount > 0;
 }
@@ -302,7 +302,7 @@ void FeatureType::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
 
   m_pLoader->InitFeature(this);
 
-  m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = m_bMetadataParsed = false;
+  m_header2Parsed = m_pointsParsed = m_trianglesParsed = m_metadataParsed = false;
 
   m_innerStats.MakeZero();
 }
@@ -318,12 +318,12 @@ void FeatureType::ParseEverything() const
 
 void FeatureType::ParseHeader2() const
 {
-  if (!m_bHeader2Parsed)
+  if (!m_header2Parsed)
   {
     ParseCommon();
 
     m_pLoader->ParseHeader2();
-    m_bHeader2Parsed = true;
+    m_header2Parsed = true;
   }
 }
 
@@ -335,7 +335,7 @@ void FeatureType::ResetGeometry() const
   if (GetFeatureType() != GEOM_POINT)
     m_limitRect = m2::RectD();
 
-  m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
+  m_header2Parsed = m_pointsParsed = m_trianglesParsed = false;
 
   m_pLoader->ResetGeometry();
 }
@@ -343,12 +343,12 @@ void FeatureType::ResetGeometry() const
 uint32_t FeatureType::ParseGeometry(int scale) const
 {
   uint32_t sz = 0;
-  if (!m_bPointsParsed)
+  if (!m_pointsParsed)
   {
     ParseHeader2();
 
     sz = m_pLoader->ParseGeometry(scale);
-    m_bPointsParsed = true;
+    m_pointsParsed = true;
   }
   return sz;
 }
@@ -356,23 +356,23 @@ uint32_t FeatureType::ParseGeometry(int scale) const
 uint32_t FeatureType::ParseTriangles(int scale) const
 {
   uint32_t sz = 0;
-  if (!m_bTrianglesParsed)
+  if (!m_trianglesParsed)
   {
     ParseHeader2();
 
     sz = m_pLoader->ParseTriangles(scale);
-    m_bTrianglesParsed = true;
+    m_trianglesParsed = true;
   }
   return sz;
 }
 
 void FeatureType::ParseMetadata() const
 {
-  if (m_bMetadataParsed) return;
+  if (m_metadataParsed) return;
 
   m_pLoader->ParseMetadata();
 
-  m_bMetadataParsed = true;
+  m_metadataParsed = true;
 }
 
 StringUtf8Multilang const & FeatureType::GetNames() const
@@ -399,7 +399,7 @@ void FeatureType::SetNames(StringUtf8Multilang const & newNames)
 
 void FeatureType::SetMetadata(feature::Metadata const & newMetadata)
 {
-  m_bMetadataParsed = true;
+  m_metadataParsed = true;
   m_metadata = newMetadata;
 }
 
@@ -616,12 +616,12 @@ string FeatureType::GetRoadNumber() const
 
 void FeatureType::SwapGeometry(FeatureType & r)
 {
-  ASSERT_EQUAL(m_bPointsParsed, r.m_bPointsParsed, ());
-  ASSERT_EQUAL(m_bTrianglesParsed, r.m_bTrianglesParsed, ());
+  ASSERT_EQUAL(m_pointsParsed, r.m_pointsParsed, ());
+  ASSERT_EQUAL(m_trianglesParsed, r.m_trianglesParsed, ());
 
-  if (m_bPointsParsed)
+  if (m_pointsParsed)
     m_points.swap(r.m_points);
 
-  if (m_bTrianglesParsed)
+  if (m_trianglesParsed)
     m_triangles.swap(r.m_triangles);
 }
