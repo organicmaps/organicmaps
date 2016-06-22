@@ -270,7 +270,7 @@ public enum Statistics
       List<String> eventDictionary = new ArrayList<String>();
       for (Map.Entry<String, String> entry : params.entrySet())
       {
-        eventDictionary.add(entry.getKey().toString());
+        eventDictionary.add(entry.getKey());
         eventDictionary.add(entry.getValue());
       }
 

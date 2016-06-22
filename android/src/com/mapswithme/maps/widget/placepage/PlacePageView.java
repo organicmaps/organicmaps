@@ -392,7 +392,7 @@ public class PlacePageView extends RelativeLayout
           break;
 
         case BOOKING:
-          onBookingClick(true /* book */, mMapObject);
+          onBookingClick(true /* book */);
           break;
         }
       }
@@ -464,7 +464,7 @@ public class PlacePageView extends RelativeLayout
     refreshPreview();
   }
 
-  private void onBookingClick(final boolean book, final MapObject hotelPos)
+  private void onBookingClick(final boolean book)
   {
     // TODO (trashkalmar): Set correct text
     Utils.checkConnection(getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>()
@@ -481,8 +481,8 @@ public class PlacePageView extends RelativeLayout
 
         Map<String, String> params = new HashMap<>();
         params.put("provider", "Booking.Com");
-        params.put("hotel_lat", (hotelPos == null ? "N/A" : String.valueOf(hotelPos.getLat())));
-        params.put("hotel_lon", (hotelPos == null ? "N/A" : String.valueOf(hotelPos.getLon())));
+        params.put("hotel_lat", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLat())));
+        params.put("hotel_lon", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLon())));
         params.put("hotel", info.getId());
 
         String event = (book ? Statistics.EventName.PP_SPONSORED_BOOK
@@ -1012,7 +1012,7 @@ public class PlacePageView extends RelativeLayout
       addPlace();
       break;
     case R.id.ll__more:
-      onBookingClick(false /* book */, mMapObject);
+      onBookingClick(false /* book */);
       break;
     case R.id.iv__bookmark_color:
       saveBookmarkTitle();
