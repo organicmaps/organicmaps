@@ -159,9 +159,6 @@ class FeatureType : public FeatureBase
   FeatureID m_id;
 
 public:
-  FeatureType() : m_header2Parsed(false), m_pointsParsed(false),
-    m_trianglesParsed(false), m_metadataParsed(false) {}
-
   void Deserialize(feature::LoaderBase * pLoader, TBuffer buffer);
 
   /// @name Editor methods.
@@ -363,10 +360,10 @@ private:
   mutable points_t m_points, m_triangles;
   mutable feature::Metadata m_metadata;
 
-  mutable bool m_header2Parsed;
-  mutable bool m_pointsParsed;
-  mutable bool m_trianglesParsed;
-  mutable bool m_metadataParsed;
+  mutable bool m_header2Parsed = false;
+  mutable bool m_pointsParsed = false;
+  mutable bool m_trianglesParsed = false;
+  mutable bool m_metadataParsed = false;
 
   mutable inner_geom_stat_t m_innerStats;
 
