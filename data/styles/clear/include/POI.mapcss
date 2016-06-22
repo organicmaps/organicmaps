@@ -113,35 +113,35 @@ node|z15-[tourism=attraction], area|z15-[tourism=attraction] { icon-image: touri
 node|z15-[leisure=water_park], area|z15-[leisure=water_park] { icon-image: swimming-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 20;}
 
 node|z14[tourism=hotel]
-{ icon-image: hotel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: hotel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z14[tourism=hostel]
-{ icon-image: hotel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: hotel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z15-16[tourism=hotel]
-{ icon-image: hotel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: hotel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z15-16[tourism=hostel]
-{ icon-image: hotel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: hotel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z15[amenity=fuel], area|z15[amenity=fuel] { icon-image: fuel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; -x-me-text-priority:15500;icon-min-distance: 20; }
 node|z15[amenity=charging_station], area|z15[amenity=charging_station] { icon-image: charging-station-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; -x-me-text-priority:15500;icon-min-distance: 20; }
 
 node|z14[tourism=guest_house], area|z14[tourism=guest_house]
-{ icon-image: motel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: motel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z14[tourism=alpine_hut], area|z14[tourism=alpine_hut],
 node|z14[tourism=chalet], area|z14[tourism=chalet],
 node|z14[tourism=resort], area|z14[tourism=resort]
-{ icon-image: alpine_hut-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: alpine_hut-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z14[tourism=motel], area|z14[tourism=motel],
 node|z14[tourism=apartment], area|z14[tourism=apartment]
-{ icon-image: motel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: motel-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 
 node|z15-16[tourism=guest_house], area|z15-16[tourism=guest_house]
-{ icon-image: motel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: motel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z15-16[tourism=alpine_hut], area|z15-16[tourism=alpine_hut],
 node|z15-16[tourism=chalet], area|z15-16[tourism=chalet],
 node|z15-16[tourism=resort], area|z15-16[tourism=resort]
-{ icon-image: alpine_hut-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: alpine_hut-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z15-16[tourism=motel], area|z15-16[tourism=motel],
 node|z15-16[tourism=apartment], area|z15-16[tourism=apartment]
-{ icon-image: motel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: motel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 20; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 
 /* TOURISM, HISTORIC  */
 
@@ -189,18 +189,18 @@ node|z17-[tourism=gallery],area|z17-[tourism=gallery]
 node|z17-[tourism=zoo], area|z17-[tourism=zoo]
 { icon-image: zoo-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 node|z17-[tourism=hotel]
-{ icon-image: hotel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: hotel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z17-[tourism=hostel]
-{ icon-image: hotel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: hotel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z17-[tourism=guest_house], area|z17-[tourism=guest_house]
-{ icon-image: motel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: motel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z17-[tourism=alpine_hut], area|z17-[tourism=alpine_hut],
 node|z17-[tourism=chalet], area|z17-[tourism=chalet],
 node|z17-[tourism=resort], area|z17-[tourism=resort]
-{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 10; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 10; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 node|z17-[tourism=motel], area|z17-[tourism=motel],
 node|z17-[tourism=apartment], area|z17-[tourism=apartment]
-{ icon-image: motel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 10; text-halo-color: @halo_park_lable; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
+{ icon-image: motel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;icon-min-distance: 10; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
 
 node|z17-[tourism=artwork]
 { icon-image: tourism-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600;  }
