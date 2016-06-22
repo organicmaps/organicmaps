@@ -88,7 +88,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     refreshRatings(0, 0, 0, "");
   }
 
-  private void refreshRatings(long uploadedCount, long uploadMillis, long rank, String levelFeat)
+  private void refreshRatings(long uploadedCount, long uploadSeconds, long rank, String levelFeat)
   {
     String edits, editsDate;
 
@@ -99,7 +99,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     else
     {
       edits = String.valueOf(uploadedCount);
-      editsDate = DateUtils.formatDateTime(getActivity(), uploadMillis, 0);
+      editsDate = DateUtils.formatDateTime(getActivity(), uploadSeconds * 1000, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
     }
     mEditsSent.setText(edits);
     mEditsSentDate.setText(String.format(Locale.US, "%s %s", getString(R.string.last_upload), editsDate));
