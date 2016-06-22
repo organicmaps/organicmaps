@@ -881,4 +881,6 @@
 	<string name="button_try">Prøv det</string>
 	<string name="whatsnew_cycle_navigation_header">Sykkelnavigering (betaversjon)</string>
 	<string name="whatsnew_cycle_navigation_message">Vi tester sykkelnavigering for den nye sesongen. Prøv din favorittrute med MAPS.ME, og del din vurdering med oss.</string>
+	<string name="refresh">Oppdatere</string>
+	<string name="last_update">Sist oppdatert: %s</string>
 </resources>

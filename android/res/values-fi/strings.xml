@@ -883,4 +883,6 @@
 	<string name="button_try">Kokeile sitä</string>
 	<string name="whatsnew_cycle_navigation_header">Polkupyöränavigointi (betaversio)</string>
 	<string name="whatsnew_cycle_navigation_message">Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.</string>
+	<string name="refresh">Päivitetäänkö</string>
+	<string name="last_update">Viimeisin päivitys: %s</string>
 </resources>

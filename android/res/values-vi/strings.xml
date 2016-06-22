@@ -883,4 +883,6 @@
 	<string name="button_try">Hãy thử xem</string>
 	<string name="whatsnew_cycle_navigation_header">Định vị xe đạp (phiên bản beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.</string>
+	<string name="refresh">Cập nhật</string>
+	<string name="last_update">Cập nhật cuối cùng: %s</string>
 </resources>

@@ -884,4 +884,6 @@
 	<string name="button_try">Experimente</string>
 	<string name="whatsnew_cycle_navigation_header">Navegação para bicicleta (versão beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.</string>
+	<string name="refresh">Atualizar</string>
+	<string name="last_update">Última atualização: %s</string>
 </resources>

@@ -882,4 +882,6 @@
 	<string name="button_try">Cobalah</string>
 	<string name="whatsnew_cycle_navigation_header">Navigasi bersepeda (versi beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.</string>
+	<string name="refresh">Memperbarui</string>
+	<string name="last_update">Pembaruan terakhir: %s</string>
 </resources>

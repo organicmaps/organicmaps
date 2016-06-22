@@ -1544,3 +1544,7 @@
 "whatsnew_cycle_navigation_header" = "Navigazione in bici (versione beta)";
 
 "whatsnew_cycle_navigation_message" = "Stiamo collaudando la navigazione in bici per la nuova stagione. Prova il tuo itinerario ciclistico preferito con MAPS.ME e condividi con noi le tue opinioni.";
+
+"refresh" = "Aggiornare";
+
+"last_update" = "Ultimo aggiornamento: %s";

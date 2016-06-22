@@ -1544,3 +1544,7 @@
 "whatsnew_cycle_navigation_header" = "Navigaţie pentru biciclete (versiune beta)";
 
 "whatsnew_cycle_navigation_message" = "În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.";
+
+"refresh" = "Actualizați";
+
+"last_update" = "Ultima actualizare: %s";

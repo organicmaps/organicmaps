@@ -1544,3 +1544,7 @@
 "whatsnew_cycle_navigation_header" = "Bisiklet navigasyonu (beta sürüm)";
 
 "whatsnew_cycle_navigation_message" = "Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.";
+
+"refresh" = "Güncelleştirme";
+
+"last_update" = "Son güncelleme: %s";

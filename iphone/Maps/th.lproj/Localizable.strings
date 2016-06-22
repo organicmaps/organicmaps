@@ -1544,3 +1544,7 @@
 "whatsnew_cycle_navigation_header" = "การนำทางจักรยาน (beta-version)";
 
 "whatsnew_cycle_navigation_message" = "เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา";
+
+"refresh" = "อัปเดต";
+
+"last_update" = "การอัปเดตล่าสุด: %s";

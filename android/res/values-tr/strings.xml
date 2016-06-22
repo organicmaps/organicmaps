@@ -889,4 +889,6 @@
 	<string name="button_try">Deneyin</string>
 	<string name="whatsnew_cycle_navigation_header">Bisiklet navigasyonu (beta sürüm)</string>
 	<string name="whatsnew_cycle_navigation_message">Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.</string>
+	<string name="refresh">Güncelleştirme</string>
+	<string name="last_update">Son güncelleme: %s</string>
 </resources>

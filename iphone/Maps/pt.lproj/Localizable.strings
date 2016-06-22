@@ -1544,3 +1544,7 @@
 "whatsnew_cycle_navigation_header" = "Navegação para bicicleta (versão beta)";
 
 "whatsnew_cycle_navigation_message" = "Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.";
+
+"refresh" = "Atualizar";
+
+"last_update" = "Última atualização: %s";

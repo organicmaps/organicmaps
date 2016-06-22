@@ -879,4 +879,6 @@
 	<string name="button_try">Încercaţi-o</string>
 	<string name="whatsnew_cycle_navigation_header">Navigaţie pentru biciclete (versiune beta)</string>
 	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.</string>
+	<string name="refresh">Actualizați</string>
+	<string name="last_update">Ultima actualizare: %s</string>
 </resources>

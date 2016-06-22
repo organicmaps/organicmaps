@@ -887,4 +887,6 @@
 	<string name="button_try">Спробувати</string>
 	<string name="whatsnew_cycle_navigation_header">Велонавігація (бета-версія)</string>
 	<string name="whatsnew_cycle_navigation_message">До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.</string>
+	<string name="refresh">Обновити</string>
+	<string name="last_update">Останнє оновлення: %s</string>
 </resources>

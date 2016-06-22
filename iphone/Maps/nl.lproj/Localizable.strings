@@ -1544,3 +1544,7 @@
 "whatsnew_cycle_navigation_header" = "Fietsnavigatie (bèta-versie)";
 
 "whatsnew_cycle_navigation_message" = "We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.";
+
+"refresh" = "Updaten";
+
+"last_update" = "Laatste update: %s";

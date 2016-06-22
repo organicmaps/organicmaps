@@ -1544,3 +1544,7 @@
 "whatsnew_cycle_navigation_header" = "自行车导航 (beta 版)";
 
 "whatsnew_cycle_navigation_message" = "正在测试自行车导航。试一下使用 MAPS.ME 寻找您最喜爱的自行车路线并与我们分享您的意见。";
+
+"refresh" = "更新";
+
+"last_update" = "上次更新于：%s";

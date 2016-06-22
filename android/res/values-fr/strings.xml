@@ -894,4 +894,6 @@
 	<string name="button_try">Essayer</string>
 	<string name="whatsnew_cycle_navigation_header">Navigation à vélo (version bêta)</string>
 	<string name="whatsnew_cycle_navigation_message">Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n\&#39;hésitez pas à nous partager vos impressions.</string>
+	<string name="refresh">Mettre à jour</string>
+	<string name="last_update">Dernière mise à jour à %s</string>
 </resources>

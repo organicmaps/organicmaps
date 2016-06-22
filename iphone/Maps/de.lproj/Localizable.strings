@@ -1544,3 +1544,7 @@
 "whatsnew_cycle_navigation_header" = "Fahrradnavigation (Betaversion)";
 
 "whatsnew_cycle_navigation_message" = "Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.";
+
+"refresh" = "Aktualisieren";
+
+"last_update" = "Letzte Aktualisierung: %s";

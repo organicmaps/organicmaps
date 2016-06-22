@@ -883,4 +883,6 @@
 	<string name="button_try">Próbáld ki</string>
 	<string name="whatsnew_cycle_navigation_header">Kerékpáros navigáció (béta verzió)</string>
 	<string name="whatsnew_cycle_navigation_message">Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.</string>
+	<string name="refresh">Frissítés</string>
+	<string name="last_update">Utolsó frissítés: %s</string>
 </resources>

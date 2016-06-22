@@ -889,4 +889,6 @@
 	<string name="button_try">جربه</string>
 	<string name="whatsnew_cycle_navigation_header">التوجيه الملاحي مع الدراجات (إصدار تجريبي)</string>
 	<string name="whatsnew_cycle_navigation_message">نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.</string>
+	<string name="refresh">تحديث</string>
+	<string name="last_update">أخر تحديث: %s</string>
 </resources>

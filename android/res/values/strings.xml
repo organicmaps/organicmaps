@@ -921,4 +921,6 @@
 	<string name="button_try">Try it</string>
 	<string name="whatsnew_cycle_navigation_header">Bike navigation (beta version)</string>
 	<string name="whatsnew_cycle_navigation_message">We are testing bike navigation for the new season. Try your favorite bike route with MAPS.ME, and share your opinion with us.</string>
+	<string name="refresh">Update</string>
+	<string name="last_update">Last update: %s</string>
 </resources>

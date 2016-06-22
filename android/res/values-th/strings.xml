@@ -889,4 +889,6 @@
 	<string name="button_try">ลองดู</string>
 	<string name="whatsnew_cycle_navigation_header">การนำทางจักรยาน (beta-version)</string>
 	<string name="whatsnew_cycle_navigation_message">เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา</string>
+	<string name="refresh">อัปเดต</string>
+	<string name="last_update">การอัปเดตล่าสุด: %s</string>
 </resources>

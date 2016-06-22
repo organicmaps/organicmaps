@@ -885,4 +885,6 @@
 	<string name="button_try">Proberen</string>
 	<string name="whatsnew_cycle_navigation_header">Fietsnavigatie (bèta-versie)</string>
 	<string name="whatsnew_cycle_navigation_message">We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.</string>
+	<string name="refresh">Updaten</string>
+	<string name="last_update">Laatste update: %s</string>
 </resources>

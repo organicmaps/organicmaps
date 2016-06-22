@@ -882,4 +882,6 @@
 	<string name="button_try">試してみる</string>
 	<string name="whatsnew_cycle_navigation_header">バイクナビゲーション（ベータ版）</string>
 	<string name="whatsnew_cycle_navigation_message">新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。</string>
+	<string name="refresh">更新</string>
+	<string name="last_update">最終更新日: %s</string>
 </resources>

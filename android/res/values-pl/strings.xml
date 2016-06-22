@@ -902,4 +902,6 @@
 	<string name="button_try">Wypróbuj</string>
 	<string name="whatsnew_cycle_navigation_header">Nawigacja rowerowa (wersja beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z MAPS.ME i napisz nam, co myślisz o naszej nawigacji.</string>
+	<string name="refresh">Uaktualnić</string>
+	<string name="last_update">Ostatnia aktualizacja: %s</string>
 </resources>

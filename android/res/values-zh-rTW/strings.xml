@@ -905,4 +905,6 @@
 	<string name="button_try">試用</string>
 	<string name="whatsnew_cycle_navigation_header">自行車導航（beta 版）</string>
 	<string name="whatsnew_cycle_navigation_message">我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。</string>
+	<string name="refresh">更新</string>
+	<string name="last_update">上次更新於：%s</string>
 </resources>

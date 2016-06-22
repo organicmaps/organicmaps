@@ -886,4 +886,6 @@
 	<string name="button_try">Vyskúšajte to</string>
 	<string name="whatsnew_cycle_navigation_header">Navigácia pre cyklistov (beta verzia)</string>
 	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.</string>
+	<string name="refresh">Aktualizovať</string>
+	<string name="last_update">Naposledy aktualizované: %s</string>
 </resources>

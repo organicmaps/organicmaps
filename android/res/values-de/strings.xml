@@ -913,4 +913,6 @@
 	<string name="button_try">Probieren Sie es aus</string>
 	<string name="whatsnew_cycle_navigation_header">Fahrradnavigation (Betaversion)</string>
 	<string name="whatsnew_cycle_navigation_message">Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.</string>
+	<string name="refresh">Aktualisieren</string>
+	<string name="last_update">Letzte Aktualisierung: %s</string>
 </resources>

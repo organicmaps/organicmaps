@@ -1544,3 +1544,7 @@
 "whatsnew_cycle_navigation_header" = "Cykelnavigering (betaversion)";
 
 "whatsnew_cycle_navigation_message" = "Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.";
+
+"refresh" = "Uppdatera";
+
+"last_update" = "Senast uppdaterad: %s";
