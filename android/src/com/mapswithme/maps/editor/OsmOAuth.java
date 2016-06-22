@@ -153,5 +153,5 @@ public final class OsmOAuth
   @Nullable
   public static native String nativeGetOsmUsername(String token, String secret);
 
-  public static native void nativeUpdateOsmUserStats(String username);
+  public static native void nativeUpdateOsmUserStats(String username, boolean forceUpdate);
 }

@@ -121,7 +121,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetOsmUsername(JNIEnv * env, jcla
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_OsmOAuth_nativeUpdateOsmUserStats(JNIEnv * env, jclass clazz, jstring jUsername)
+Java_com_mapswithme_maps_editor_OsmOAuth_nativeUpdateOsmUserStats(JNIEnv * env, jclass clazz, jstring jUsername, jboolean forceUpdate)
 {
   static jclass const statsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/UserStats");
   static jmethodID const statsCtor = jni::GetConstructorID(env, statsClazz, "(IILjava/lang/String;J)V");
@@ -130,7 +130,9 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeUpdateOsmUserStats(JNIEnv * env, 
   static jmethodID const listenerId = jni::GetStaticMethodID(env, osmAuthClazz, "onUserStatsUpdated", "(Lcom/mapswithme/maps/editor/data/UserStats;)V");
 
   string const username = jni::ToNativeString(env, jUsername);
-  g_framework->NativeFramework()->UpdateUserStats(username, editor::UserStatsLoader::UpdatePolicy::Force, [username]()
+  auto const policy = forceUpdate ? editor::UserStatsLoader::UpdatePolicy::Force
+                                  : editor::UserStatsLoader::UpdatePolicy::Lazy;
+  g_framework->NativeFramework()->UpdateUserStats(username, policy, [username]()
   {
     editor::UserStats const & userStats = g_framework->NativeFramework()->GetUserStats(username);
     if (!userStats.IsValid())

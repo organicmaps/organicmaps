@@ -37,7 +37,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     initViews(view);
     refreshViews();
     OsmOAuth.setUserStatsListener(this);
-    OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername());
+    OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername(), false /*forceUpdate*/);
   }
 
   private void initViews(View view)
