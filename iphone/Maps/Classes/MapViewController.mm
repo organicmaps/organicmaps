@@ -435,11 +435,6 @@ BOOL gIsFirstMyPositionMode = YES;
     self.pageViewController = nil;
 }
 
-- (void)mapSearchText:(NSString *)text forInputLocale:(NSString *)locale
-{
-  [self.controlsManager mapSearchText:text forInputLocale:locale];
-}
-
 - (void)showViralAlertIfNeeded
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];

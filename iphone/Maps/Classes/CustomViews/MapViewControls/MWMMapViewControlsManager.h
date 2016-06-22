@@ -21,10 +21,6 @@
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
 
-#pragma mark - Search
-
-- (void)mapSearchText:(NSString *)text forInputLocale:(NSString *)locale;
-
 #pragma mark - Layout
 
 - (void)refreshLayout;

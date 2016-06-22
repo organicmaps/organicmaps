@@ -17,8 +17,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleTopOffset;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleImageOffset;
 
-- (void)tryBooking;
-
 @end
 
 namespace
@@ -28,11 +26,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
     controller.image.image = [UIImage imageNamed:@"img_booking"];
     controller.alertTitle.text = L(@"whatsnew_booking_header");
     controller.alertText.text = L(@"whatsnew_booking_message");
-    controller.nextPageButton.hidden = NO;
-    [controller.nextPageButton setTitle:L(@"button_try") forState:UIControlStateNormal];
-    [controller.nextPageButton addTarget:controller
-                                  action:@selector(tryBooking)
-                        forControlEvents:UIControlEventTouchUpInside];
+    controller.nextPageButton.hidden = YES;
   } copy],
   [^(MWMWhatsNewBookingBicycleRoutingController * controller) {
     controller.image.image = [UIImage imageNamed:@"img_bikecycle_navigation"];
@@ -41,6 +35,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
     controller.nextPageButton.hidden = YES;
   } copy]
 ];
+
 }  // namespace
 
 @implementation MWMWhatsNewBookingBicycleRoutingController
@@ -53,12 +48,6 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
 + (NSArray<TMWMWelcomeConfigBlock> *)pagesConfig
 {
   return pagesConfigBlocks;
-}
-
-- (void)tryBooking
-{
-  [self.pageController mapSearchText:[L(@"hotel") stringByAppendingString:@" "] forInputLocale:nil];
-  [self close];
 }
 
 - (IBAction)close
