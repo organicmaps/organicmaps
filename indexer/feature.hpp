@@ -135,7 +135,7 @@ protected:
 protected:
   feature::LoaderBase * m_pLoader;
 
-  uint8_t m_header;
+  uint8_t m_header = 0;
 
   mutable uint32_t m_types[feature::kMaxTypesCount];
 
@@ -145,7 +145,8 @@ protected:
 
   mutable m2::RectD m_limitRect;
 
-  mutable bool m_bTypesParsed, m_bCommonParsed;
+  mutable bool m_typesParsed = false;
+  mutable bool m_commonParsed = false;
 
   friend class feature::LoaderCurrent;
   friend class old_101::feature::LoaderImpl;
@@ -231,14 +232,14 @@ public:
 
   inline size_t GetPointsCount() const
   {
-    ASSERT(m_bPointsParsed, ());
+    ASSERT(m_pointsParsed, ());
     return m_points.size();
   }
 
   inline m2::PointD const & GetPoint(size_t i) const
   {
     ASSERT_LESS(i, m_points.size(), ());
-    ASSERT(m_bPointsParsed, ());
+    ASSERT(m_pointsParsed, ());
     return m_points[i];
   }
 
@@ -345,7 +346,7 @@ public:
 
   inline void SwapPoints(buffer_vector<m2::PointD, 32> & points) const
   {
-    ASSERT(m_bPointsParsed, ());
+    ASSERT(m_pointsParsed, ());
     return m_points.swap(points);
   }
 
@@ -360,7 +361,10 @@ private:
   mutable points_t m_points, m_triangles;
   mutable feature::Metadata m_metadata;
 
-  mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed, m_bMetadataParsed;
+  mutable bool m_header2Parsed = false;
+  mutable bool m_pointsParsed = false;
+  mutable bool m_trianglesParsed = false;
+  mutable bool m_metadataParsed = false;
 
   mutable inner_geom_stat_t m_innerStats;
 
