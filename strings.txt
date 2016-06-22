@@ -18653,3 +18653,61 @@
     zh-Hant = 我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。
     sk = Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.
 
+  [refresh]
+    en = Update
+    ru = Обновить
+    ar = تحديث
+    cs = Aktualizovat
+    da = Opdater
+    nl = Updaten
+    fi = Päivitetäänkö
+    fr = Mettre à jour
+    de = Aktualisieren
+    hu = Frissítés
+    id = Memperbarui
+    it = Aggiornare
+    ja = 更新
+    ko = 최신 정보
+    nb = Oppdatere
+    pl = Uaktualnić
+    pt = Atualizar
+    ro = Actualizați
+    es = Actualizar
+    sv = Uppdatera
+    th = อัปเดต
+    tr = Güncelleştirme
+    uk = Обновити
+    vi = Cập nhật
+    zh-Hans = 更新
+    zh-Hant = 更新
+    sk = Aktualizovať
+
+  [last_update]
+    en = Last update: %s
+    ru = Последнее обновление: %s
+    ar = أخر تحديث: %s
+    cs = Poslední aktualizace: %s
+    da = Sidste opdatering: %s
+    nl = Laatste update: %s
+    fi = Viimeisin päivitys: %s
+    fr = Dernière mise à jour à %s
+    de = Letzte Aktualisierung: %s
+    hu = Utolsó frissítés: %s
+    id = Pembaruan terakhir: %s
+    it = Ultimo aggiornamento: %s
+    ja = 最終更新日: %s
+    ko = 마지막 업데이트: %s
+    nb = Sist oppdatert: %s
+    pl = Ostatnia aktualizacja: %s
+    pt = Última atualização: %s
+    ro = Ultima actualizare: %s
+    es = Última actualización: %s
+    sv = Senast uppdaterad: %s
+    th = การอัปเดตล่าสุด: %s
+    tr = Son güncelleme: %s
+    uk = Останнє оновлення: %s
+    vi = Cập nhật cuối cùng: %s
+    zh-Hans = 上次更新于：%s
+    zh-Hant = 上次更新於：%s
+    sk = Naposledy aktualizované: %s
+
