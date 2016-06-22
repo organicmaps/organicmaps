@@ -132,6 +132,7 @@ void initFieldsMap()
 
   NSNumberFormatter * currencyFormatter = [[NSNumberFormatter alloc] init];
   currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+  currencyFormatter.maximumFractionDigits = 0;
   string const currency = currencyFormatter.currencyCode.UTF8String;
   GetFramework().GetBookingApi().GetMinPrice(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID),
                                              currency,
