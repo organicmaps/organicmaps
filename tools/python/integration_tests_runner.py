@@ -6,6 +6,7 @@ import multiprocessing
 from argparse import ArgumentParser
 from os import path
 import subprocess
+from warnings import warn
 
 from run_desktop_tests import tests_on_disk
 from Util import TemporaryDirectory
@@ -183,7 +184,7 @@ class IntegrationRunner:
         setup_jenkins_console_logger()
 
         if args.log_start_finish:
-            multiprocessing.get_logger().warning("The -l option is now deprecated. Please, remove it from your build scripts. It may be removed at any time.")
+            warn("The -l option is now deprecated. Please, remove it from your build scripts. It may be removed at any time.")
 
 
     def prepare_cli_parser(self):
@@ -217,7 +218,7 @@ class IntegrationRunner:
         parser.add_argument(
             "-l", "--log_start_finish",
             dest="log_start_finish", action="store_true", default=False,
-            help="Write to log each time a test starts or finishes. May be useful if you need to find out which of the tests runs for how long, and which test hang. May slow down the execution of tests."
+            help="DEPRECATED. Write to log each time a test starts or finishes. May be useful if you need to find out which of the tests runs for how long, and which test hang. May slow down the execution of tests."
         )
         return parser
 
