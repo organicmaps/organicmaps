@@ -854,7 +854,7 @@
 	<string name="placepage_entrance_type">Giriş</string>
 	<string name="placepage_flat">uygulama</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">Derecelendirme: %d</string>
+	<string name="place_page_booking_rating">Derecelendirme: %s</string>
 	<string name="place_page_starting_from">%s’dan</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

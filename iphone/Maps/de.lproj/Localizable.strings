@@ -1475,7 +1475,7 @@
 
 "placepage_open_24_7" = "Durchgehend geöffnet";
 
-"place_page_booking_rating" = "Rating: %d";
+"place_page_booking_rating" = "Rating: %s";
 
 "place_page_starting_from" = "ab %s";
 

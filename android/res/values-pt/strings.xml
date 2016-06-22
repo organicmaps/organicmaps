@@ -849,7 +849,7 @@
 	<string name="placepage_entrance_type">Entrada</string>
 	<string name="placepage_flat">apto.</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">Classificação: %d</string>
+	<string name="place_page_booking_rating">Classificação: %s</string>
 	<string name="place_page_starting_from">a partir de %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

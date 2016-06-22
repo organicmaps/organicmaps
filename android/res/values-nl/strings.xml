@@ -850,7 +850,7 @@
 	<string name="placepage_entrance_type">Ingang</string>
 	<string name="placepage_flat">app.</string>
 	<string name="placepage_open_24_7">Dag en nacht</string>
-	<string name="place_page_booking_rating">Cijfer: %d</string>
+	<string name="place_page_booking_rating">Cijfer: %s</string>
 	<string name="place_page_starting_from">van %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

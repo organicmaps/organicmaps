@@ -1475,7 +1475,7 @@
 
 "placepage_open_24_7" = "24h/24 et 7j/7";
 
-"place_page_booking_rating" = "Notation: %d";
+"place_page_booking_rating" = "Notation: %s";
 
 "place_page_starting_from" = "à partir de %s";
 

@@ -870,7 +870,7 @@
 	<string name="placepage_entrance_type">入口</string>
 	<string name="placepage_flat">公寓</string>
 	<string name="placepage_open_24_7">全天候</string>
-	<string name="place_page_booking_rating">評分： %d</string>
+	<string name="place_page_booking_rating">評分： %s</string>
 	<string name="place_page_starting_from">從%s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

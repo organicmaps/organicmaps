@@ -1475,7 +1475,7 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"place_page_booking_rating" = "Hodnotenie: %d";
+"place_page_booking_rating" = "Hodnotenie: %s";
 
 "place_page_starting_from" = "od %s";
 

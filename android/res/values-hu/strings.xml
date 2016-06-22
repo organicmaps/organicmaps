@@ -848,7 +848,7 @@
 	<string name="placepage_entrance_type">Bejárat</string>
 	<string name="placepage_flat">lakás</string>
 	<string name="placepage_open_24_7">24 órás</string>
-	<string name="place_page_booking_rating">Kategória: %d</string>
+	<string name="place_page_booking_rating">Kategória: %s</string>
 	<string name="place_page_starting_from">kezdőár %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

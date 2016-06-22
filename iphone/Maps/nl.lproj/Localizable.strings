@@ -1475,7 +1475,7 @@
 
 "placepage_open_24_7" = "Dag en nacht";
 
-"place_page_booking_rating" = "Cijfer: %d";
+"place_page_booking_rating" = "Cijfer: %s";
 
 "place_page_starting_from" = "van %s";
 

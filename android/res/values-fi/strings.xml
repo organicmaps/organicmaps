@@ -848,7 +848,7 @@
 	<string name="placepage_entrance_type">Sisäänkäynti</string>
 	<string name="placepage_flat">sov.</string>
 	<string name="placepage_open_24_7">24_7</string>
-	<string name="place_page_booking_rating">Luokitus: %d</string>
+	<string name="place_page_booking_rating">Luokitus: %s</string>
 	<string name="place_page_starting_from">%s:stä</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

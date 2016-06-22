@@ -847,7 +847,7 @@
 	<string name="placepage_entrance_type">Gerbang Masuk</string>
 	<string name="placepage_flat">persegi</string>
 	<string name="placepage_open_24_7">24 jam sehari, 7 hari seminggu</string>
-	<string name="place_page_booking_rating">Nilai: %d</string>
+	<string name="place_page_booking_rating">Nilai: %s</string>
 	<string name="place_page_starting_from">dari %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

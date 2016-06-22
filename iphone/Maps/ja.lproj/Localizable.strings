@@ -1475,7 +1475,7 @@
 
 "placepage_open_24_7" = "24時間体制";
 
-"place_page_booking_rating" = "評価：%d";
+"place_page_booking_rating" = "評価：%s";
 
 "place_page_starting_from" = "%sから";
 

@@ -1475,7 +1475,7 @@
 
 "placepage_open_24_7" = "연중무휴";
 
-"place_page_booking_rating" = "평가: %d";
+"place_page_booking_rating" = "평가: %s";
 
 "place_page_starting_from" = "%s에서";
 

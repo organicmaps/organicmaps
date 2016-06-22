@@ -878,7 +878,7 @@
 	<string name="placepage_entrance_type">Typ der Einfahrt</string>
 	<string name="placepage_flat">Wohnung</string>
 	<string name="placepage_open_24_7">Durchgehend geöffnet</string>
-	<string name="place_page_booking_rating">Rating: %d</string>
+	<string name="place_page_booking_rating">Rating: %s</string>
 	<string name="place_page_starting_from">ab %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

@@ -867,7 +867,7 @@
 	<string name="placepage_entrance_type">Wejście</string>
 	<string name="placepage_flat">Mieszkanie</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">Ocena: %d</string>
+	<string name="place_page_booking_rating">Ocena: %s</string>
 	<string name="place_page_starting_from">od %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

@@ -852,7 +852,7 @@
 	<string name="placepage_entrance_type">Під\&#39;їзд</string>
 	<string name="placepage_flat">кв.</string>
 	<string name="placepage_open_24_7">Цілодобово</string>
-	<string name="place_page_booking_rating">Рейтинг: %d</string>
+	<string name="place_page_booking_rating">Рейтинг: %s</string>
 	<string name="place_page_starting_from">від %s</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>

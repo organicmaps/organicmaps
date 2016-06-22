@@ -1475,7 +1475,7 @@
 
 "placepage_open_24_7" = "24 jam sehari, 7 hari seminggu";
 
-"place_page_booking_rating" = "Nilai: %d";
+"place_page_booking_rating" = "Nilai: %s";
 
 "place_page_starting_from" = "dari %s";
 

@@ -1475,7 +1475,7 @@
 
 "placepage_open_24_7" = "24 ชั่วโมง";
 
-"place_page_booking_rating" = "เรทติ้ง: %d";
+"place_page_booking_rating" = "เรทติ้ง: %s";
 
 "place_page_starting_from" = "จาก %s";
 

@@ -846,7 +846,7 @@
 	<string name="placepage_entrance_type">Vindfang</string>
 	<string name="placepage_flat">leil.</string>
 	<string name="placepage_open_24_7">Døgnåpen</string>
-	<string name="place_page_booking_rating">Rangering: %d</string>
+	<string name="place_page_booking_rating">Rangering: %s</string>
 	<string name="place_page_starting_from">fra %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

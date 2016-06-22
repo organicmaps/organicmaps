@@ -844,7 +844,7 @@
 	<string name="placepage_entrance_type">입구</string>
 	<string name="placepage_flat">앱</string>
 	<string name="placepage_open_24_7">연중무휴</string>
-	<string name="place_page_booking_rating">평가: %d</string>
+	<string name="place_page_booking_rating">평가: %s</string>
 	<string name="place_page_starting_from">%s에서</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>

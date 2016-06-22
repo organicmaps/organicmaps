@@ -854,7 +854,7 @@
 	<string name="placepage_entrance_type">المدخل</string>
 	<string name="placepage_flat">تطبيق</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">التصنيف: %d</string>
+	<string name="place_page_booking_rating">التصنيف: %s</string>
 	<string name="place_page_starting_from">من%s</string>
 	<string name="meter">متر</string>
 	<string name="kilometer">كم</string>

@@ -882,7 +882,7 @@
 	<string name="placepage_entrance_type">Подъезд</string>
 	<string name="placepage_flat">кв.</string>
 	<string name="placepage_open_24_7">Круглосуточно</string>
-	<string name="place_page_booking_rating">Рейтинг: %d</string>
+	<string name="place_page_booking_rating">Рейтинг: %s</string>
 	<string name="place_page_starting_from">от %s</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>

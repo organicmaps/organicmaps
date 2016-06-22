@@ -1475,7 +1475,7 @@
 
 "placepage_open_24_7" = "Døgnet rundt";
 
-"place_page_booking_rating" = "Betyg: %d";
+"place_page_booking_rating" = "Betyg: %s";
 
 "place_page_starting_from" = "från %s";
 

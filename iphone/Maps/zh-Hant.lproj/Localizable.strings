@@ -1478,7 +1478,7 @@
 
 "placepage_open_24_7" = "全天候";
 
-"place_page_booking_rating" = "評分： %d";
+"place_page_booking_rating" = "評分： %s";
 
 "place_page_starting_from" = "從%s";
 
