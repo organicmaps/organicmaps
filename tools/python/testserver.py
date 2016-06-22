@@ -36,7 +36,6 @@ from ResponseProvider import ResponseProvider
 from ResponseProvider import ResponseProviderMixin
 from SiblingKiller import SiblingKiller
 from threading import Timer
-import BaseHTTPServer
 import os
 import socket
 import threading
