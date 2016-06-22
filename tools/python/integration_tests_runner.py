@@ -84,12 +84,10 @@ def exec_test(a_tuple):
     test_file, test_name, params = a_tuple
     params[FILTER_KEY] = test_name
 
-    if test_file in TEMPFOLDER_TESTS:
-        out, err, result = exec_test_with_temp(test_file, params)
-    else:
-        out, err, result = exec_test_without_temp(test_file, params)
+    if path.basename(test_file) in TEMPFOLDER_TESTS:
+        return exec_test_with_temp(test_file, params)
 
-    return test_file, err, result
+    return exec_test_without_temp(test_file, params)
 
 
 def exec_test_with_temp(test_file, params):
@@ -184,7 +182,10 @@ class IntegrationRunner:
         setup_jenkins_console_logger()
 
         if args.log_start_finish:
-            warn("The -l option is now deprecated. Please, remove it from your build scripts. It may be removed at any time.")
+            warn(
+                "The -l option is now deprecated. Please, remove it from your build scripts. It may be removed at any time.",
+                 DeprecationWarning
+            )
 
 
     def prepare_cli_parser(self):
