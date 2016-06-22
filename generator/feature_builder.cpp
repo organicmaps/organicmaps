@@ -189,7 +189,7 @@ FeatureBase FeatureBuilder1::GetFeatureBase() const
   memcpy(f.m_types, &m_params.m_Types[0], sizeof(uint32_t) * m_params.m_Types.size());
   f.m_limitRect = m_limitRect;
 
-  f.m_bTypesParsed = f.m_bCommonParsed = true;
+  f.m_typesParsed = f.m_commonParsed = true;
 
   return f;
 }

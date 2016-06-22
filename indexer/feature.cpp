@@ -30,7 +30,7 @@ void FeatureBase::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
   m_pLoader->Init(buffer);
 
   m_limitRect = m2::RectD::GetEmptyRect();
-  m_bTypesParsed = m_bCommonParsed = false;
+  m_typesParsed = m_commonParsed = false;
   m_header = m_pLoader->GetHeader();
 }
 
@@ -49,7 +49,7 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
   // m_params.ref =
   // m_params.layer =
   // m_params.rank =
-  m_bCommonParsed = true;
+  m_commonParsed = true;
 
   xml.ForEachTag([this](string const & k, string const & v)
   {
@@ -90,7 +90,7 @@ void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
     m_params.house.Clear();
   else
     m_params.house.Set(house);
-  m_bCommonParsed = true;
+  m_commonParsed = true;
 
   m_metadata = emo.GetMetadata();
   m_metadataParsed = true;
@@ -98,7 +98,7 @@ void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
   uint32_t typesCount = 0;
   for (uint32_t const type : emo.GetTypes())
     m_types[typesCount++] = type;
-  m_bTypesParsed = true;
+  m_typesParsed = true;
   m_header = CalculateHeader(typesCount, geoType, m_params);
   m_header2Parsed = true;
 
@@ -210,7 +210,7 @@ bool FeatureType::FromXML(editor::XMLFeature const & xml)
   // m_params.ref =
   // m_params.layer =
   // m_params.rank =
-  m_bCommonParsed = true;
+  m_commonParsed = true;
 
   uint32_t typesCount = 0;
   xml.ForEachTag([this, &typesCount](string const & k, string const & v)
@@ -238,7 +238,7 @@ bool FeatureType::FromXML(editor::XMLFeature const & xml)
     }
   });
   m_metadataParsed = true;
-  m_bTypesParsed = true;
+  m_typesParsed = true;
 
   EHeaderTypeMask const geomType = house.empty() && !m_params.ref.empty() ? HEADER_GEOM_POINT : HEADER_GEOM_POINT_EX;
   m_header = CalculateHeader(typesCount, geomType, m_params);
@@ -249,21 +249,21 @@ bool FeatureType::FromXML(editor::XMLFeature const & xml)
 
 void FeatureBase::ParseTypes() const
 {
-  if (!m_bTypesParsed)
+  if (!m_typesParsed)
   {
     m_pLoader->ParseTypes();
-    m_bTypesParsed = true;
+    m_typesParsed = true;
   }
 }
 
 void FeatureBase::ParseCommon() const
 {
-  if (!m_bCommonParsed)
+  if (!m_commonParsed)
   {
     ParseTypes();
 
     m_pLoader->ParseCommon();
-    m_bCommonParsed = true;
+    m_commonParsed = true;
   }
 }
 

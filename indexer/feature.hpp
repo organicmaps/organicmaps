@@ -135,7 +135,7 @@ protected:
 protected:
   feature::LoaderBase * m_pLoader;
 
-  uint8_t m_header;
+  uint8_t m_header = 0;
 
   mutable uint32_t m_types[feature::kMaxTypesCount];
 
@@ -145,7 +145,8 @@ protected:
 
   mutable m2::RectD m_limitRect;
 
-  mutable bool m_bTypesParsed, m_bCommonParsed;
+  mutable bool m_typesParsed = false;
+  mutable bool m_commonParsed = false;
 
   friend class feature::LoaderCurrent;
   friend class old_101::feature::LoaderImpl;
