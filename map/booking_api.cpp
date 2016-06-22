@@ -1,7 +1,5 @@
 #include "map/booking_api.hpp"
 
-#include "platform/http_request.hpp"
-
 #include "base/gmtime.hpp"
 #include "base/logging.hpp"
 
@@ -47,7 +45,7 @@ void BookingApi::GetMinPrice(string const & hotelId, string const & currency,
                                                    {"currency_code", currency},
                                                    {"arrival_date", dateArrival},
                                                    {"departure_date", dateDeparture}});
-  auto const callback = [fn, currency](downloader::HttpRequest & answer)
+  auto const callback = [this, fn, currency](downloader::HttpRequest & answer)
   {
 
     string minPrice;
@@ -96,9 +94,10 @@ void BookingApi::GetMinPrice(string const & hotelId, string const & currency,
       priceCurrency.clear();
     }
     fn(minPrice, priceCurrency);
+    m_request.reset();
   };
 
-  downloader::HttpRequest::Get(url, callback);
+  m_request.reset(downloader::HttpRequest::Get(url, callback));
 }
 
 string BookingApi::MakeApiUrl(string const & func,
