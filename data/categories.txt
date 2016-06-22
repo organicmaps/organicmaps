@@ -7214,3 +7214,61 @@ es:Estudio de yoga
 pl:Studio jogi
 nl:Yogastudio
 pt:Estúdio de ioga
+
+tourism-apartment|@hotel
+en:Apartments
+ru:Апартаменты
+ar:شُقَق
+cs:Byty
+da:Lejligheder
+nl:Appartementen
+fi:Loma-asunnot
+fr:Appart'hôtel
+de:Appartements
+hu:Apartmanok
+id:Apartemen
+it:Residence
+ja:アパート
+ko:아파트
+nb:Leiligheter
+pl:Apartamenty
+pt:Apartamentos
+ro:Apartamente
+es:Apartamentos
+sv:Lägenheter
+th:อพาร์ตเมนต์
+tr:Apart otel
+uk:Апартаменти
+vi:Căn hộ
+zh-Hans:公寓
+zh-Hant:公寓
+sk:Apartmány
+
+tourism-resort|@hotel
+en:Resort
+ru:Дом отдыха
+ar:منتج
+cs:Letovisko
+da:Resort
+nl:Complex
+fi:Lomakohteet
+fr:Complexe touristique
+de:Resort
+hu:Resort hotel
+id:Sanggraloka
+it:Resort
+ja:リゾート
+ko:리조트
+nb:Ferieresort
+pl:Dom wczasowy
+pt:Resort
+ro:Stațiuni
+es:Resort
+sv:Resorter
+th:รีสอร์ต
+tr:Tatil köyü
+uk:Будинок відпочинку
+vi:Khu nghỉ dưỡng
+zh-Hans:度假村
+zh-Hant:度假酒店
+sk:Rezort
