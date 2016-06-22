@@ -814,7 +814,12 @@ using namespace osm_auth_ios;
 
 - (void)processCountryEvent:(storage::TCountryId const &)countryId
 {
-  [self updateApplicationIconBadgeNumber];
+  //Dispatch this method after delay since there are too many events for group mwms download.
+  //We do not need to update badge frequently.
+  //Update after 1 second delay (after last country event) is sure enough for app badge.
+  SEL const updateBadge = @selector(updateApplicationIconBadgeNumber);
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:updateBadge object:nil];
+  [self performSelector:updateBadge withObject:nil afterDelay:1.0];
 }
 
 #pragma mark - Properties
