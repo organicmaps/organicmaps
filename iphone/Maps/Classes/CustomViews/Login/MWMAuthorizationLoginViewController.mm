@@ -206,7 +206,7 @@ using namespace osm_auth_ios;
                     dateStyle:NSDateFormatterShortStyle
                     timeStyle:NSDateFormatterShortStyle];
   self.lastUpdateLabel.text =
-      [NSString stringWithFormat:@"%@ %@", L(@"last_update"), lastUploadDate];
+      [NSString stringWithFormat:L(@"last_update"), lastUploadDate.UTF8String];
 }
 
 #pragma mark - ActionSheet
