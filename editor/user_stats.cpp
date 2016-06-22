@@ -16,7 +16,7 @@ using TRequest = alohalytics::HTTPClientPlatformWrapper;
 
 namespace
 {
-string const kUserStatsUrl = "http://editor-api.maps.me/user?format=xml";
+string const kUserStatsUrl = "https://editor-api.maps.me/user?format=xml";
 int32_t constexpr kUninitialized = -1;
 
 auto constexpr kSettingsUserName = "LastLoggedUser";
