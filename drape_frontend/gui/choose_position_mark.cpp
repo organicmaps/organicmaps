@@ -37,7 +37,7 @@ public:
 
   bool Update(ScreenBase const & screen) override
   {
-    SetPivot(glsl::ToVec2(m2::PointF(screen.PixelRect().Center())));
+    SetPivot(glsl::ToVec2(m2::PointF(screen.PixelRectIn3d().Center())));
     return TBase::Update(screen);
   }
 };

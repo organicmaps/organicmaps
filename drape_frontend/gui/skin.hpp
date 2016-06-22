@@ -6,6 +6,8 @@
 
 #include "std/map.hpp"
 
+//#define RENRER_DEBUG_INFO_LABELS
+
 namespace gui
 {
 
@@ -16,7 +18,10 @@ enum EWidget
   WIDGET_COPYRIGHT = 0x4,
   WIDGET_SCALE_LABEL = 0x8,
   /// Following widgets controlled by rendering kernel. Don't use them in platform code
-  WIDGET_CHOOSE_POSITION_MARK = 0x8000
+  WIDGET_CHOOSE_POSITION_MARK = 0x8000,
+#ifdef RENRER_DEBUG_INFO_LABELS
+  WIDGET_DEBUG_INFO
+#endif
 };
 
 enum EGuiHandle
@@ -34,7 +39,10 @@ enum EGuiHandle
   GuiHandleRetryButtonLabel,
   GuiHandleCancelButton,
   GuiHandleCancelButtonLabel,
-  GuiHandleChoosePositionMark
+  GuiHandleChoosePositionMark,
+#ifdef RENRER_DEBUG_INFO_LABELS
+  GuiHandleDebugLabel = 100
+#endif
 };
 
 struct Position

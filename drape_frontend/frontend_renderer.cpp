@@ -1074,18 +1074,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   if (m_guiRenderer != nullptr)
-  {
-    if (isPerspective)
-    {
-      ScreenBase modelView2d = modelView;
-      modelView2d.ResetPerspective();
-      m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView2d);
-    }
-    else
-    {
-      m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
-    }
-  }
+    m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
 

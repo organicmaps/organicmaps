@@ -91,7 +91,7 @@ void ShapeRenderer::Build(ref_ptr<dp::GpuProgramManager> mng)
 void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng)
 {
   array<float, 16> m;
-  m2::RectD const & pxRect = screen.PixelRect();
+  m2::RectD const & pxRect = screen.PixelRectIn3d();
   dp::MakeProjection(m, 0.0f, pxRect.SizeX(), pxRect.SizeY(), 0.0f);
 
   dp::UniformValuesStorage uniformStorage;

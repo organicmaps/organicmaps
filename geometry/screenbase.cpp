@@ -398,7 +398,7 @@ void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotatio
 // orthogonal projection does and rotate the map plane around its near horizontal side.
 void ScreenBase::SetRotationAngle(double rotationAngle)
 {
-  ASSERT(m_isPerspective, ());
+  ASSERT(rotationAngle == 0.0 || (rotationAngle > 0.0 && m_isPerspective), ());
   ASSERT_GREATER_OR_EQUAL(rotationAngle, 0.0, ());
   ASSERT_LESS_OR_EQUAL(rotationAngle, m_3dMaxAngleX, ());
 

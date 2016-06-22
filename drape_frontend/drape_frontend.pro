@@ -29,6 +29,7 @@ SOURCES += \
     gui/choose_position_mark.cpp \
     gui/compass.cpp \
     gui/copyright_label.cpp \
+    gui/debug_label.cpp \
     gui/drape_gui.cpp \
     gui/gui_text.cpp \
     gui/layer_render.cpp \
@@ -122,6 +123,7 @@ HEADERS += \
     gui/choose_position_mark.hpp \
     gui/compass.hpp \
     gui/copyright_label.hpp \
+    gui/debug_label.hpp \
     gui/drape_gui.hpp \
     gui/gui_text.hpp \
     gui/layer_render.hpp \

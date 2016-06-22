@@ -76,6 +76,15 @@ void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool ne
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
 }
 
+#ifdef RENRER_DEBUG_INFO_LABELS
+void BackendRenderer::RecacheDebugLabels()
+{
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheDebugLabels(m_texMng);
+  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), false);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
+}
+#endif
+
 void BackendRenderer::RecacheChoosePositionMark()
 {
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheChoosePositionMark(m_texMng);
@@ -117,6 +126,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<GuiRecacheMessage> msg = message;
       RecacheGui(msg->GetInitInfo(), msg->NeedResetOldGui());
+
+#ifdef RENRER_DEBUG_INFO_LABELS
+      RecacheDebugLabels();
+#endif
       break;
     }
   case Message::GuiLayerLayout:

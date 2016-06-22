@@ -1,6 +1,7 @@
 #include "choose_position_mark.hpp"
 #include "compass.hpp"
 #include "copyright_label.hpp"
+#include "debug_label.hpp"
 #include "drape_gui.hpp"
 #include "gui_text.hpp"
 #include "layer_render.hpp"
@@ -11,6 +12,8 @@
 
 #include "drape/batcher.hpp"
 #include "drape/render_bucket.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "base/stl_add.hpp"
 
@@ -211,6 +214,100 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::Text
 
   return renderer;
 }
+
+#ifdef RENRER_DEBUG_INFO_LABELS
+drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::TextureManager> textures)
+{
+  drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
+
+  float const vs = df::VisualParams::Instance().GetVisualScale();
+  DebugInfoLabels debugLabels = DebugInfoLabels(Position(m2::PointF(10.0f * vs, 50.0f * vs), dp::Center));
+
+  debugLabels.AddLabel(textures, "visible: km2, readed: km2, ratio:",
+                       [](ScreenBase const & screen, string & content) -> bool
+  {
+    double const sizeX = screen.PixelRectIn3d().SizeX();
+    double const sizeY = screen.PixelRectIn3d().SizeY();
+
+    m2::PointD const p0 = screen.PtoG(screen.P3dtoP(m2::PointD(0.0, 0.0)));
+    m2::PointD const p1 = screen.PtoG(screen.P3dtoP(m2::PointD(0.0, sizeY)));
+    m2::PointD const p2 = screen.PtoG(screen.P3dtoP(m2::PointD(sizeX, sizeY)));
+    m2::PointD const p3 = screen.PtoG(screen.P3dtoP(m2::PointD(sizeX, 0.0)));
+
+    double const areaG = MercatorBounds::AreaOnEarth(p0, p1, p2) +
+        MercatorBounds::AreaOnEarth(p2, p3, p0);
+
+    double const sizeX_2d = screen.PixelRect().SizeX();
+    double const sizeY_2d = screen.PixelRect().SizeY();
+
+    m2::PointD const p0_2d = screen.PtoG(m2::PointD(0.0, 0.0));
+    m2::PointD const p1_2d = screen.PtoG(m2::PointD(0.0, sizeY_2d));
+    m2::PointD const p2_2d = screen.PtoG(m2::PointD(sizeX_2d, sizeY_2d));
+    m2::PointD const p3_2d = screen.PtoG(m2::PointD(sizeX_2d, 0.0));
+
+    double const areaGTotal = MercatorBounds::AreaOnEarth(p0_2d, p1_2d, p2_2d) +
+        MercatorBounds::AreaOnEarth(p2_2d, p3_2d, p0_2d);
+
+    ostringstream out;
+    out << fixed << setprecision(2)
+        << "visible: " << areaG / 1000000.0 << " km2"
+        << ", readed: " << areaGTotal / 1000000.0 << " km2"
+        << ", ratio: " << areaGTotal / areaG;
+    content.assign(out.str());
+    return true;
+  });
+
+  debugLabels.AddLabel(textures, "scale2d: m/px, scale2d * vs: m/px",
+                       [](ScreenBase const & screen, string & content) -> bool
+  {
+    double const distanceG = MercatorBounds::DistanceOnEarth(screen.PtoG(screen.PixelRect().LeftBottom()),
+                                                            screen.PtoG(screen.PixelRect().RightBottom()));
+
+    double const vs = df::VisualParams::Instance().GetVisualScale();
+    double const scale = distanceG / screen.PixelRect().SizeX();
+
+    ostringstream out;
+    out << fixed << setprecision(2)
+        << "scale2d: " << scale << " m/px"
+        << ", scale2d * vs: " << scale * vs << " m/px";
+    content.assign(out.str());
+    return true;
+  });
+
+  debugLabels.AddLabel(textures, "distance: m",
+                       [](ScreenBase const & screen, string & content) -> bool
+  {
+    double const sizeX = screen.PixelRectIn3d().SizeX();
+    double const sizeY = screen.PixelRectIn3d().SizeY();
+
+    double const distance = MercatorBounds::DistanceOnEarth(screen.PtoG(screen.P3dtoP(m2::PointD(sizeX / 2.0, 0.0))),
+                                                            screen.PtoG(screen.P3dtoP(m2::PointD(sizeX / 2.0, sizeY))));
+
+    ostringstream out;
+    out << fixed << setprecision(2)
+        << "distance: " << distance << " m";
+    content.assign(out.str());
+    return true;
+  });
+
+  debugLabels.AddLabel(textures, "angle: ",
+                       [](ScreenBase const & screen, string & content) -> bool
+  {
+    ostringstream out;
+    out << fixed << setprecision(2)
+        << "angle: " << screen.GetRotationAngle() * 180.0 / math::pi;
+    content.assign(out.str());
+    return true;
+  });
+
+  renderer->AddShapeRenderer(WIDGET_DEBUG_INFO, debugLabels.Draw(textures));
+
+  // Flush gui geometry.
+  GLFunctions::glFlush();
+
+  return renderer;
+}
+#endif
 
 m2::PointF LayerCacher::CacheCompass(Position const & position, ref_ptr<LayerRenderer> renderer,
                                      ref_ptr<dp::TextureManager> textures)
