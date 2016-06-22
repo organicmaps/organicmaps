@@ -209,15 +209,17 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
     // But if some of already inserted elements have more priority, then we don't insert "handle".
     for (auto const & rivalHandle : rivals)
     {
+      bool const rejectBySelected = m_selectedFeatureID.IsValid() && (rivalHandle->GetFeatureID() == m_selectedFeatureID);
+
       bool rejectByDepth = false;
-      if (modelView.isPerspective())
+      if (!rejectBySelected && modelView.isPerspective())
       {
         bool const pathTextComparation = handle->HasDynamicAttributes() || rivalHandle->HasDynamicAttributes();
         rejectByDepth = !pathTextComparation &&
                         handleToCompare->GetPivot(modelView, true).y > rivalHandle->GetPivot(modelView, true).y;
       }
 
-      if (rejectByDepth || comparator.IsGreater(rivalHandle, handleToCompare))
+      if (rejectBySelected || rejectByDepth || comparator.IsGreater(rivalHandle, handleToCompare))
       {
         // Handle is displaced and bound to its parent, parent will be displaced too.
         if (boundToParent)
