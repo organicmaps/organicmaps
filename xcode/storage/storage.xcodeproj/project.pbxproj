@@ -62,6 +62,9 @@
 		678CB3801CA5884800E9118D /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 678CB37F1CA5881B00E9118D /* editor.config */; };
 		67AF4A001BC579DD0048B1ED /* country_info_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */; };
 		67AF4A011BC579DD0048B1ED /* country_info_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */; };
+		67BC92E11D1A9EB200A4A378 /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BC92E01D1A9EB200A4A378 /* libgenerator_tests_support.a */; };
+		67BC92E71D1A9F1300A4A378 /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BC92E61D1A9F1300A4A378 /* libgenerator.a */; };
+		67BC92E91D1AA03900A4A378 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BC92E81D1AA03900A4A378 /* libtess2.a */; };
 		67BE1DC51CD2180D00572709 /* downloading_policy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE1DC31CD2180D00572709 /* downloading_policy.cpp */; };
 		67BE1DC61CD2180D00572709 /* downloading_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BE1DC41CD2180D00572709 /* downloading_policy.hpp */; };
 		67CCFA911CBD1628007FC750 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67CCFA901CBD1628007FC750 /* Images.xcassets */; };
@@ -256,6 +259,9 @@
 		678CB37F1CA5881B00E9118D /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = editor.config; sourceTree = "<group>"; };
 		67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_info_getter.cpp; sourceTree = "<group>"; };
 		67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_info_getter.hpp; sourceTree = "<group>"; };
+		67BC92E01D1A9EB200A4A378 /* libgenerator_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator_tests_support.a; path = "/Users/darkserj/mapsme/omim/xcode/generator/../../../omim-xcode-build/Debug/libgenerator_tests_support.a"; sourceTree = "<absolute>"; };
+		67BC92E61D1A9F1300A4A378 /* libgenerator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator.a; path = "../../../omim-xcode-build/Debug/libgenerator.a"; sourceTree = "<group>"; };
+		67BC92E81D1AA03900A4A378 /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<group>"; };
 		67BE1DC31CD2180D00572709 /* downloading_policy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloading_policy.cpp; sourceTree = "<group>"; };
 		67BE1DC41CD2180D00572709 /* downloading_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloading_policy.hpp; sourceTree = "<group>"; };
 		67CCFA901CBD1628007FC750 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../iphone/Maps/Images.xcassets; sourceTree = SOURCE_ROOT; };
@@ -275,6 +281,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67BC92E91D1AA03900A4A378 /* libtess2.a in Frameworks */,
+				67BC92E71D1A9F1300A4A378 /* libgenerator.a in Frameworks */,
+				67BC92E11D1A9EB200A4A378 /* libgenerator_tests_support.a in Frameworks */,
 				67F90B951C6A28C000CD458E /* libstorage.a in Frameworks */,
 				67F90B961C6A28CA00CD458E /* libz.tbd in Frameworks */,
 				67F90B7B1C6A278800CD458E /* libfribidi.a in Frameworks */,
@@ -378,6 +387,7 @@
 		672480011C60BF2F00EDE56A /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				67BC92E01D1A9EB200A4A378 /* libgenerator_tests_support.a */,
 				674709AF1C6215690093DD1B /* libagg.a */,
 				674709B01C6215690093DD1B /* libapi.a */,
 				674709B11C6215690093DD1B /* libeditor.a */,
@@ -433,6 +443,8 @@
 		675342D71A3F59EF00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				67BC92E81D1AA03900A4A378 /* libtess2.a */,
+				67BC92E61D1A9F1300A4A378 /* libgenerator.a */,
 				670D05A81B0E04450013A7AC /* defaults.xcconfig */,
 				672480011C60BF2F00EDE56A /* libs */,
 				675342E21A3F59EF00A0A8C3 /* storage */,
