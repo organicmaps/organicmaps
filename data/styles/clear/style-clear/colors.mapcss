@@ -171,8 +171,8 @@
 /* NATURAL LABELS */
 @water_label: #4499Bb;
 @park_label: #3A7921;
-@halo_park_lable: #FFFFFF;
-@halo_water_lable: #fff;
+@halo_park_label: #FFFFFF;
+@halo_water_label: #fff;
 
 /* UNIVERSAL HALO */
 @label_halo: #FFFFFF;
