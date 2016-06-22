@@ -15,13 +15,13 @@
     android:theme="@style/MwmWidget.ToolbarTheme"
     tools:ignore="UnusedAttribute">
     <ImageView
-      android:id="@+id/logout"
+      android:id="@+id/more"
       android:layout_width="?actionBarSize"
       android:layout_height="?actionBarSize"
       android:layout_gravity="end|center_vertical"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
-      android:src="@drawable/ic_logout"
+      android:src="@drawable/ic_more"
       android:visibility="gone"/>
   </android.support.v7.widget.Toolbar>
 
@@ -225,7 +225,7 @@
               android:layout_marginLeft="@dimen/margin_half"
               android:layout_marginStart="@dimen/margin_half"
               android:scaleType="center"
-              android:src="@drawable/ic_device"
+              android:src="@drawable/ic_leaderboard"
               android:tint="?iconTint"/>
 
             <LinearLayout
