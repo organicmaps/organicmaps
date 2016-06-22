@@ -93,9 +93,8 @@ namespace
 {
   [self layoutYPosition];
   CGFloat const statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-  CGFloat const spaceLeft =
-      self.bottomBound - self.topBound - equalScreenDimensions(self.topBound, 0.0) ? statusBarHeight
-                                                                                   : 0.0;
+  CGFloat const spaceLeft = self.bottomBound - self.topBound -
+                            (equalScreenDimensions(self.topBound, 0.0) ? statusBarHeight : 0.0);
   BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
   BOOL const willZoomHide = (self.defaultBounds.size.height > spaceLeft);
   if (willZoomHide)
