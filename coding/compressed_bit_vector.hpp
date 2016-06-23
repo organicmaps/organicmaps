@@ -198,18 +198,18 @@ public:
         static_cast<CompressedBitVector::StorageStrategy>(header);
     switch (strat)
     {
-      case CompressedBitVector::StorageStrategy::Dense:
-      {
-        vector<uint64_t> bitGroups;
-        rw::ReadVectorOfPOD(src, bitGroups);
-        return DenseCBV::BuildFromBitGroups(move(bitGroups));
-      }
-      case CompressedBitVector::StorageStrategy::Sparse:
-      {
-        vector<uint64_t> setBits;
-        rw::ReadVectorOfPOD(src, setBits);
-        return make_unique<SparseCBV>(move(setBits));
-      }
+    case CompressedBitVector::StorageStrategy::Dense:
+    {
+      vector<uint64_t> bitGroups;
+      rw::ReadVectorOfPOD(src, bitGroups);
+      return DenseCBV::BuildFromBitGroups(move(bitGroups));
+    }
+    case CompressedBitVector::StorageStrategy::Sparse:
+    {
+      vector<uint64_t> setBits;
+      rw::ReadVectorOfPOD(src, setBits);
+      return make_unique<SparseCBV>(move(setBits));
+    }
     }
     return unique_ptr<CompressedBitVector>();
   }
@@ -227,19 +227,34 @@ public:
     CompressedBitVector::StorageStrategy strat = cbv.GetStorageStrategy();
     switch (strat)
     {
-      case CompressedBitVector::StorageStrategy::Dense:
-      {
-        DenseCBV const & denseCBV = static_cast<DenseCBV const &>(cbv);
-        denseCBV.ForEach(f);
-        return;
-      }
-      case CompressedBitVector::StorageStrategy::Sparse:
-      {
-        SparseCBV const & sparseCBV = static_cast<SparseCBV const &>(cbv);
-        sparseCBV.ForEach(f);
-        return;
-      }
+    case CompressedBitVector::StorageStrategy::Dense:
+    {
+      DenseCBV const & denseCBV = static_cast<DenseCBV const &>(cbv);
+      denseCBV.ForEach(f);
+      return;
     }
+    case CompressedBitVector::StorageStrategy::Sparse:
+    {
+      SparseCBV const & sparseCBV = static_cast<SparseCBV const &>(cbv);
+      sparseCBV.ForEach(f);
+      return;
+    }
+    }
+  }
+};
+
+class CompressedBitVectorHasher
+{
+public:
+  static uint64_t Hash(CompressedBitVector const & cbv)
+  {
+    uint64_t const kBase = 127;
+    uint64_t hash = 0;
+    CompressedBitVectorEnumerator::ForEach(cbv, [&](uint64_t i)
+                                           {
+      hash = hash * kBase + i;
+    });
+    return hash;
   }
 };
 }  // namespace coding

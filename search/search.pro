@@ -22,6 +22,7 @@ HEADERS += \
     features_layer_matcher.hpp \
     features_layer_path_finder.hpp \
     geocoder.hpp \
+    geocoder_context.hpp \
     geometry_cache.hpp \
     geometry_utils.hpp \
     house_detector.hpp \
@@ -60,6 +61,7 @@ HEADERS += \
     search_trie.hpp \
     stats_cache.hpp \
     street_vicinity_loader.hpp \
+    streets_matcher.hpp \
     string_intersection.hpp \
     suggest.hpp \
     token_slice.hpp \
@@ -75,6 +77,7 @@ SOURCES += \
     features_layer_matcher.cpp \
     features_layer_path_finder.cpp \
     geocoder.cpp \
+    geocoder_context.cpp \
     geometry_cache.cpp \
     geometry_utils.cpp \
     house_detector.cpp \
@@ -108,5 +111,6 @@ SOURCES += \
     retrieval.cpp \
     reverse_geocoder.cpp \
     street_vicinity_loader.cpp \
+    streets_matcher.cpp \
     token_slice.cpp \
     types_skipper.cpp \

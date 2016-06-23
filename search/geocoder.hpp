@@ -3,6 +3,7 @@
 #include "search/cancel_exception.hpp"
 #include "search/features_layer.hpp"
 #include "search/features_layer_path_finder.hpp"
+#include "search/geocoder_context.hpp"
 #include "search/geometry_cache.hpp"
 #include "search/mode.hpp"
 #include "search/model.hpp"
@@ -11,6 +12,7 @@
 #include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
+#include "search/streets_matcher.hpp"
 
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
@@ -195,60 +197,57 @@ private:
 
   // Creates a cache of posting lists corresponding to features in m_context
   // for each token and saves it to m_addressFeatures.
-  void PrepareAddressFeatures();
+  void InitBaseContext(BaseContext & ctx);
 
   void InitLayer(SearchModel::SearchType type, size_t startToken, size_t endToken,
                  FeaturesLayer & layer);
 
-  void FillLocalityCandidates(coding::CompressedBitVector const * filter,
+  void FillLocalityCandidates(BaseContext const & ctx, coding::CompressedBitVector const * filter,
                               size_t const maxNumLocalities, vector<Locality> & preLocalities);
 
-  void FillLocalitiesTable();
+  void FillLocalitiesTable(BaseContext const & ctx);
 
-  void FillVillageLocalities();
+  void FillVillageLocalities(BaseContext const & ctx);
 
   template <typename TFn>
   void ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && fn);
 
   // Throws CancelException if cancelled.
-  inline void BailIfCancelled()
-  {
-    ::search::BailIfCancelled(m_cancellable);
-  }
+  inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
   // Tries to find all countries and states in a search query and then
   // performs matching of cities in found maps.
-  void MatchRegions(RegionType type);
+  void MatchRegions(BaseContext & ctx, RegionType type);
 
   // Tries to find all cities in a search query and then performs
   // matching of streets in found cities.
-  void MatchCities();
+  void MatchCities(BaseContext & ctx);
 
   // Tries to do geocoding without localities, ie. find POIs,
   // BUILDINGs and STREETs without knowledge about country, state,
   // city or village. If during the geocoding too many features are
   // retrieved, viewport is used to throw away excess features.
-  void MatchAroundPivot();
+  void MatchAroundPivot(BaseContext & ctx);
 
   // Tries to do geocoding in a limited scope, assuming that knowledge
   // about high-level features, like cities or countries, is
   // incorporated into |filter|.
-  void LimitedSearch(FeaturesFilter const & filter);
+  void LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter);
 
   template <typename TFn>
-  void WithPostcodes(TFn && fn);
+  void WithPostcodes(BaseContext & ctx, TFn && fn);
 
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in street vicinities.
-  void GreedilyMatchStreets();
+  void GreedilyMatchStreets(BaseContext & ctx);
 
-  void CreateStreetsLayerAndMatchLowerLayers(size_t startToken, size_t endToken,
-                                             coding::CompressedBitVector const & features);
+  void CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
+                                             StreetsMatcher::Prediction const & prediction);
 
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are
   // called "layer sequence" and current path is stored in |m_layers|.
-  void MatchPOIsAndBuildings(size_t curToken);
+  void MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken);
 
   // Returns true if current path in the search tree (see comment for
   // MatchPOIsAndBuildings()) looks sane. This method is used as a fast
@@ -271,7 +270,7 @@ private:
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all
   // UNCLASSIFIED objects that match to all currently unused tokens.
-  void MatchUnclassified(size_t curToken);
+  void MatchUnclassified(BaseContext & ctx, size_t curToken);
 
   unique_ptr<coding::CompressedBitVector> LoadCategories(
       MwmContext & context, vector<strings::UniString> const & categories);
@@ -290,21 +289,7 @@ private:
 
   // This is a faster wrapper around SearchModel::GetSearchType(), as
   // it uses pre-loaded lists of streets and villages.
-  SearchModel::SearchType GetSearchTypeInGeocoding(uint32_t featureId);
-
-  // Returns true iff all tokens are used.
-  bool AllTokensUsed() const;
-
-  // Returns true if there exists at least one used token in [from,
-  // to).
-  bool HasUsedTokensInRange(size_t from, size_t to) const;
-
-  // Counts number of groups of consecutive unused tokens.
-  size_t NumUnusedTokensGroups() const;
-
-  // Advances |curToken| to the nearest unused token, or to the end of
-  // |m_usedTokens| if there are no unused tokens.
-  size_t SkipUsedTokens(size_t curToken) const;
+  SearchModel::SearchType GetSearchTypeInGeocoding(BaseContext const & ctx, uint32_t featureId);
 
   Index & m_index;
 
@@ -314,9 +299,6 @@ private:
 
   // Geocoder params.
   Params m_params;
-
-  // Total number of search query tokens.
-  size_t m_numTokens;
 
   // This field is used to map features to a limited number of search
   // classes.
@@ -344,29 +326,11 @@ private:
   // Cache of nested rects used to estimate distance from a feature to the pivot.
   NestedRectsCache m_pivotFeatures;
 
-  // Cache of posting lists for each token in the query.  TODO (@y,
-  // @m, @vng): consider to update this cache lazily, as user inputs
-  // tokens one-by-one.
-  vector<unique_ptr<coding::CompressedBitVector>> m_addressFeatures;
-
   // Cache of street ids in mwms.
   map<MwmSet::MwmId, unique_ptr<coding::CompressedBitVector>> m_streetsCache;
 
-  // Street features in the mwm that is currently being processed.
-  // The initialization of m_streets is postponed in order to gain
-  // some speed. Therefore m_streets may be used only in
-  // LimitedSearch() and in all its callees.
-  coding::CompressedBitVector const * m_streets;
-
-  // Village features in the mwm that is currently being processed.
-  unique_ptr<coding::CompressedBitVector> m_villages;
-
   // Postcodes features in the mwm that is currently being processed.
   Postcodes m_postcodes;
-
-  // This vector is used to indicate what tokens were matched by
-  // locality and can't be re-used during the geocoding process.
-  vector<bool> m_usedTokens;
 
   // This filter is used to throw away excess features.
   FeaturesFilter const * m_filter;

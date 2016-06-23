@@ -36,6 +36,10 @@ struct QueryParams
 
   TSynonymsVector const & GetTokens(size_t i) const;
   TSynonymsVector & GetTokens(size_t i);
+  inline size_t GetNumTokens() const
+  {
+    return m_prefixTokens.empty() ? m_tokens.size() : m_tokens.size() + 1;
+  }
 
   /// @return true if all tokens in [start, end) range has number synonym.
   bool IsNumberTokens(size_t start, size_t end) const;

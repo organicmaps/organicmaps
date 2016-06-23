@@ -14,7 +14,7 @@ namespace search
 /// binary operators logic and takes ownership if needed.
 class CBVPtr
 {
-  DISALLOW_COPY_AND_MOVE(CBVPtr);
+  DISALLOW_COPY(CBVPtr);
 
   coding::CompressedBitVector const * m_ptr = nullptr;
   bool m_isOwner = false;
@@ -25,26 +25,27 @@ class CBVPtr
 public:
   CBVPtr() = default;
   CBVPtr(coding::CompressedBitVector const * p, bool isOwner);
-  ~CBVPtr() { Release(); }
+  CBVPtr(CBVPtr && rhs);
+  ~CBVPtr();
 
-  inline void SetFull()
-  {
-    Release();
-    m_isFull = true;
-  }
-
+  void SetFull();
   void Set(coding::CompressedBitVector const * p, bool isOwner = false);
   void Set(unique_ptr<coding::CompressedBitVector> p);
 
   inline coding::CompressedBitVector const * Get() const { return m_ptr; }
 
-  coding::CompressedBitVector const & operator*() const { return *m_ptr; }
-  coding::CompressedBitVector const * operator->() const { return m_ptr; }
+  inline coding::CompressedBitVector const & operator*() const { return *m_ptr; }
+  inline coding::CompressedBitVector const * operator->() const { return m_ptr; }
+  CBVPtr & operator=(CBVPtr && rhs) noexcept;
 
-  bool IsEmpty() const;
+  inline bool IsEmpty() const { return !m_isFull && coding::CompressedBitVector::IsEmpty(m_ptr); }
+  inline bool IsFull() const { return m_isFull; }
+  inline bool IsOwner() const noexcept { return m_isOwner; }
 
   void Union(coding::CompressedBitVector const * p);
   void Intersect(coding::CompressedBitVector const * p);
+
+  void CopyTo(CBVPtr & rhs);
 
   template <class TFn>
   void ForEach(TFn && fn) const
@@ -54,5 +55,4 @@ public:
       coding::CompressedBitVectorEnumerator::ForEach(*m_ptr, forward<TFn>(fn));
   }
 };
-
 }  // namespace search
