@@ -255,6 +255,11 @@ void initFieldsMap()
   return m_info.IsSponsoredHotel();
 }
 
+- (NSString * )hotelId
+{
+  return self.isBooking ? @(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID).c_str()) : nil;
+}
+
 - (ms::LatLon)latlon
 {
   return m_info.GetLatLon();

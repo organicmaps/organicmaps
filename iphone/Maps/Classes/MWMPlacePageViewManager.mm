@@ -250,21 +250,16 @@ extern NSString * const kBookmarksChangedNotification;
 {
   NSMutableDictionary * stat = [@{kStatProvider : kStatBooking} mutableCopy];
   LocationManager * lm = MapsAppDelegate.theApp.locationManager;
-  if (lm.lastLocationIsValid)
-  {
-    CLLocation * loc = lm.lastLocation;
-    stat[kStatLat] = @(loc.coordinate.latitude);
-    stat[kStatLon] = @(loc.coordinate.longitude);
-  }
-  else
-  {
-    stat[kStatLat] = @0;
-    stat[kStatLon] = @0;
-  }
+  CLLocation * loc = lm.lastLocationIsValid ? lm.lastLocation : nil;
   MWMPlacePageEntity * en = self.entity;
   auto const latLon = en.latlon;
-  stat[kStatHotel] = @{kStatName : en.title, kStatLat : @(latLon.lat), kStatLon : @(latLon.lon)};
-  [Statistics logEvent:isDescription ? kPlacePageHotelDetails : kPlacePageHotelBook withParameters:stat];
+  stat[kStatHotel] = en.hotelId;
+  stat[kStatHotelLat] = @(latLon.lat);
+  stat[kStatHotelLon] = @(latLon.lon);
+  [Statistics logEvent:isDescription ? kPlacePageHotelDetails : kPlacePageHotelBook
+        withParameters:stat
+           atLocation:loc];
+
   UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
   NSURL * url = isDescription ? [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]] : self.entity.bookingUrl;
   NSAssert(url, @"Booking url can't be nil!");
