@@ -95,8 +95,6 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   button.delegate = delegate;
   button.type = type;
   [view addSubview:button];
-  button.width = view.width;
-  button.autoresizingMask = UIViewAutoresizingNone;
   [button configButton:isSelected];
 }
 
@@ -134,6 +132,12 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   UIImageView * animationIV = btn.imageView;
   animationIV.animationImages = animationImages;
   animationIV.animationRepeatCount = 1;
+}
+
+- (void)layoutSubviews
+{
+  self.frame = self.superview.bounds;
+  [super layoutSubviews];
 }
 
 @end
