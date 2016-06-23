@@ -63,9 +63,10 @@ def spawn_test_process(test, flags):
                                )
 
     multiprocessing.get_logger().info(spell[0])
-    _, err = process.communicate()
-
-    return test, err, process.returncode
+    out, err = process.communicate()
+    #We need the out for getting the list of tests from an exec file
+    # by sending it the --list_tests flag
+    return test, filter(None, out.splitlines()), err, process.returncode
 
 
 def exec_test(a_tuple):
@@ -133,7 +134,7 @@ class IntegrationRunner:
                 exec_test,
                 self.prepare_list_of_tests()
             )
-            for test_file, err, result in test_results:
+            for test_file, _, err, result in test_results:
                 logger.info(
                     err,
                     extra={"file" : path.basename(test_file), "result" : result}
@@ -146,7 +147,7 @@ class IntegrationRunner:
 
     def map_args(self, test):
         test_full_path = path.join(self.workspace_path, test)
-        tests = spawn_test_process(test_full_path, "--list_tests")[0]  # a list
+        tests = spawn_test_process(test_full_path, "--list_tests")[1]  # a list
 
         return map(
             lambda tests_in_file: (test_full_path, tests_in_file, self.params),
