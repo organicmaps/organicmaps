@@ -1473,7 +1473,7 @@ void Geocoder::FillMissingFieldsInResults()
 {
   MwmSet::MwmId mwmId;
   MwmSet::MwmHandle mwmHandle;
-  unique_ptr<RankTable> rankTable;
+  unique_ptr<RankTable> rankTable = make_unique<DummyRankTable>();
 
   m_preRanker->ForEachInfo([&](FeatureID const & id, PreRankingInfo & info)
                            {
@@ -1486,10 +1486,8 @@ void Geocoder::FillMissingFieldsInResults()
                                  rankTable =
                                      RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
                                }
-                               else
-                               {
+                               if (!rankTable)
                                  rankTable = make_unique<DummyRankTable>();
-                               }
                              }
 
                              info.m_rank = rankTable->Get(id.m_index);
