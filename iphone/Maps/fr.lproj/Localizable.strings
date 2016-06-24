@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "Saisir une valeur correcte";
 
-"tourism_apartment" = "Appart'hôtel";
-
-"tourism_resort" = "Complexe touristique";
-
 "editor_profile_changes_for_next_place" = "Modifications vers le prochain lieu: %d";
 
 "editor_profile_rating_place" = "Notation position";

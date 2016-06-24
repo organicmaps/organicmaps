@@ -872,8 +872,6 @@
 	<string name="error_enter_correct_web">Inserisci un indirizzo web valido</string>
 	<string name="error_enter_correct_email">Inserisci un\&#39;email valida</string>
 	<string name="error_enter_correct">Inserisci un valore valido</string>
-	<string name="tourism_apartment">Residence</string>
-	<string name="tourism_resort">Resort</string>
 	<string name="editor_profile_changes_for_next_place">Modifiche per posizione successiva: %d</string>
 	<string name="editor_profile_rating_place">Posizione in classifica</string>
 	<string name="booking_dialog_not_connect_header">Per prenotare l\&#39;hotel, attivare la connessione Internet</string>

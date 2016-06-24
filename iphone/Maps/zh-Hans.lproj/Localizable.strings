@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "输入有效值";
 
-"tourism_apartment" = "公寓";
-
-"tourism_resort" = "度假村";
-
 "editor_profile_changes_for_next_place" = "升到下一级所需更改: %d";
 
 "editor_profile_rating_place" = "排名位置";

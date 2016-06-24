@@ -907,8 +907,6 @@
 	<string name="error_enter_correct_web">Введите корректный веб-адрес</string>
 	<string name="error_enter_correct_email">Введите корректный email</string>
 	<string name="error_enter_correct">Введите корректное значение</string>
-	<string name="tourism_apartment">Апартаменты</string>
-	<string name="tourism_resort">Дом отдыха﻿</string>
 	<string name="editor_profile_changes_for_next_place">Правок до следующего места: %d</string>
 	<string name="editor_profile_rating_place">Место в рейтинге</string>
 	<string name="booking_dialog_not_connect_header">Для бронирования отелей необходим доступ в интернет</string>

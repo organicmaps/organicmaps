@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "Geben Sie einen gültigen Wert ein";
 
-"tourism_apartment" = "Appartements";
-
-"tourism_resort" = "Resort";
-
 "editor_profile_changes_for_next_place" = "Erforderliche Änderungen für den nächsten Platz: %d";
 
 "editor_profile_rating_place" = "Platz im Rating";

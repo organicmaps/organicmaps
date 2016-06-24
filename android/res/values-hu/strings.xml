@@ -873,8 +873,6 @@
 	<string name="error_enter_correct_web">Adj meg egy érvényes weboldalcímet</string>
 	<string name="error_enter_correct_email">Adj meg egy érvényes e-mail-címet</string>
 	<string name="error_enter_correct">Adj meg egy érvényes értéket</string>
-	<string name="tourism_apartment">Apartmanok</string>
-	<string name="tourism_resort">Resort hotel</string>
 	<string name="editor_profile_changes_for_next_place">Változtatások a jobb helyért: %d</string>
 	<string name="editor_profile_rating_place">Ranglista helyezés</string>
 	<string name="booking_dialog_not_connect_header">A szálloda lefoglalásához csatlakozzon az internethez</string>

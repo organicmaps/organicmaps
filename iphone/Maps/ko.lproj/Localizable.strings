@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "유효한 값 입력";
 
-"tourism_apartment" = "아파트";
-
-"tourism_resort" = "리조트";
-
 "editor_profile_changes_for_next_place" = "다음 장소 변경: %d";
 
 "editor_profile_rating_place" = "평가 순위";

@@ -879,8 +879,6 @@
 	<string name="error_enter_correct_web">กรอกที่อยู่เว็บที่ถูกต้อง</string>
 	<string name="error_enter_correct_email">กรอกอีเมลที่ถูกต้อง</string>
 	<string name="error_enter_correct">กรอกค่าที่ถูกต้อง</string>
-	<string name="tourism_apartment">อพาร์ตเมนต์</string>
-	<string name="tourism_resort">รีสอร์ต</string>
 	<string name="editor_profile_changes_for_next_place">เปลี่ยนไปยังสถานที่ถัดไป: %d</string>
 	<string name="editor_profile_rating_place">ลำดับของตำแหน่ง</string>
 	<string name="booking_dialog_not_connect_header">โปรดเชื่อมต่อกับอินเตอร์เน็ตเพื่อจองโรงแรมนี้</string>

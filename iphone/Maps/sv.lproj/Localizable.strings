@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "Ange ett giltigt värde";
 
-"tourism_apartment" = "Lägenheter";
-
-"tourism_resort" = "Resorter";
-
 "editor_profile_changes_for_next_place" = "Ändringar av nästa plats: %d";
 
 "editor_profile_rating_place" = "Rankning";

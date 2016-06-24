@@ -911,8 +911,6 @@
 	<string name="error_enter_correct_web">Enter a valid web address</string>
 	<string name="error_enter_correct_email">Enter a valid email</string>
 	<string name="error_enter_correct">Enter a valid value</string>
-	<string name="tourism_apartment">Apartments</string>
-	<string name="tourism_resort">Resort</string>
 	<string name="editor_profile_changes_for_next_place">Changes to the next place: %d</string>
 	<string name="editor_profile_rating_place">Ranking position</string>
 	<string name="booking_dialog_not_connect_header">To book the hotel, please enable your Internet connection</string>

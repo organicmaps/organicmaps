@@ -869,8 +869,6 @@
 	<string name="error_enter_correct_web">유효한 웹 주소 입력</string>
 	<string name="error_enter_correct_email">유효한 이메일 주소 입력</string>
 	<string name="error_enter_correct">유효한 값 입력</string>
-	<string name="tourism_apartment">아파트</string>
-	<string name="tourism_resort">리조트</string>
 	<string name="editor_profile_changes_for_next_place">다음 장소 변경: %d</string>
 	<string name="editor_profile_rating_place">평가 순위</string>
 	<string name="booking_dialog_not_connect_header">호텔을 예약하려면 인터넷에 연결하세요</string>

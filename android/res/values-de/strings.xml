@@ -903,8 +903,6 @@
 	<string name="error_enter_correct_web">Geben Sie eine gültige Internetadresse ein</string>
 	<string name="error_enter_correct_email">Geben Sie eine gültige E-Mail-Adresse ein</string>
 	<string name="error_enter_correct">Geben Sie einen gültigen Wert ein</string>
-	<string name="tourism_apartment">Appartements</string>
-	<string name="tourism_resort">Resort</string>
 	<string name="editor_profile_changes_for_next_place">Erforderliche Änderungen für den nächsten Platz: %d</string>
 	<string name="editor_profile_rating_place">Platz im Rating</string>
 	<string name="booking_dialog_not_connect_header">Für die Hotelbuchung benötigen Sie eine Internetverbindung</string>

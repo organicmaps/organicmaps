@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "Введите корректное значение";
 
-"tourism_apartment" = "Апартаменты";
-
-"tourism_resort" = "Дом отдыха﻿";
-
 "editor_profile_changes_for_next_place" = "Правок до следующего места: %d";
 
 "editor_profile_rating_place" = "Место в рейтинге";

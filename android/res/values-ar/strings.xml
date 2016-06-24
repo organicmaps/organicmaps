@@ -879,8 +879,6 @@
 	<string name="error_enter_correct_web">أدخل عنوان ويب صالح</string>
 	<string name="error_enter_correct_email">أدخل بريدا إلكترونيا صالحا</string>
 	<string name="error_enter_correct">أدخل قيمة صالحة</string>
-	<string name="tourism_apartment">شُقَق</string>
-	<string name="tourism_resort">منتج</string>
 	<string name="editor_profile_changes_for_next_place">التغييرات في المكان التالي: %d</string>
 	<string name="editor_profile_rating_place">المركز في التصنيف</string>
 	<string name="booking_dialog_not_connect_header">لحجز الفندق، يُرجى تمكين الاتصال بالإنترنت</string>

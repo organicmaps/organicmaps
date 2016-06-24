@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "Inserisci un valore valido";
 
-"tourism_apartment" = "Residence";
-
-"tourism_resort" = "Resort";
-
 "editor_profile_changes_for_next_place" = "Modifiche per posizione successiva: %d";
 
 "editor_profile_rating_place" = "Posizione in classifica";

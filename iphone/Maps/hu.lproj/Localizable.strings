@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "Adj meg egy érvényes értéket";
 
-"tourism_apartment" = "Apartmanok";
-
-"tourism_resort" = "Resort hotel";
-
 "editor_profile_changes_for_next_place" = "Változtatások a jobb helyért: %d";
 
 "editor_profile_rating_place" = "Ranglista helyezés";

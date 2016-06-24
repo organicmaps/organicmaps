@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "有効な値を入力してください";
 
-"tourism_apartment" = "アパート";
-
-"tourism_resort" = "リゾート";
-
 "editor_profile_changes_for_next_place" = "次の場所への変更：%d";
 
 "editor_profile_rating_place" = "ランキングポジション";

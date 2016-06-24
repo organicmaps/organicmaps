@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "Oppgi en gyldig verdi";
 
-"tourism_apartment" = "Leiligheter";
-
-"tourism_resort" = "Ferieresort";
-
 "editor_profile_changes_for_next_place" = "Endringer på neste sted: %d";
 
 "editor_profile_rating_place" = "Rangeringsplassering";

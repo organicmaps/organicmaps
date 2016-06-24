@@ -877,8 +877,6 @@
 	<string name="error_enter_correct_web">Ange en giltig webadress</string>
 	<string name="error_enter_correct_email">Ange en giltig e-postadress</string>
 	<string name="error_enter_correct">Ange ett giltigt värde</string>
-	<string name="tourism_apartment">Lägenheter</string>
-	<string name="tourism_resort">Resorter</string>
 	<string name="editor_profile_changes_for_next_place">Ändringar av nästa plats: %d</string>
 	<string name="editor_profile_rating_place">Rankning</string>
 	<string name="booking_dialog_not_connect_header">Var vänlig aktivera din internetanslutning för att göra hotellbokningen</string>

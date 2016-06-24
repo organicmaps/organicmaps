@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "Zadat platnou hodnotu";
 
-"tourism_apartment" = "Byty";
-
-"tourism_resort" = "Letovisko";
-
 "editor_profile_changes_for_next_place" = "Změny v dalším místě: %d";
 
 "editor_profile_rating_place" = "Pořadí v hodnocení";

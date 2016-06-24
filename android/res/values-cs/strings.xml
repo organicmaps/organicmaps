@@ -880,8 +880,6 @@
 	<string name="error_enter_correct_web">Zadat platnou webovou adresu</string>
 	<string name="error_enter_correct_email">Zadat platný email</string>
 	<string name="error_enter_correct">Zadat platnou hodnotu</string>
-	<string name="tourism_apartment">Byty</string>
-	<string name="tourism_resort">Letovisko</string>
 	<string name="editor_profile_changes_for_next_place">Změny v dalším místě: %d</string>
 	<string name="editor_profile_rating_place">Pořadí v hodnocení</string>
 	<string name="booking_dialog_not_connect_header">Chcete-li si rezervovat hotel, aktivujte připojení k internetu</string>

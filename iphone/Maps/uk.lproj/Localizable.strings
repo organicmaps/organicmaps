@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "Введіть вірне значення";
 
-"tourism_apartment" = "Апартаменти";
-
-"tourism_resort" = "Будинок відпочинку";
-
 "editor_profile_changes_for_next_place" = "Виправлень до наступного місця: %d";
 
 "editor_profile_rating_place" = "Місце у рейтингу";

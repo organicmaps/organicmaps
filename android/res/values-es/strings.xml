@@ -868,8 +868,6 @@
 	<string name="error_enter_correct_web">Introduce una dirección web válida</string>
 	<string name="error_enter_correct_email">Introduce un email válido</string>
 	<string name="error_enter_correct">Introduce un valor válido</string>
-	<string name="tourism_apartment">Apartamentos</string>
-	<string name="tourism_resort">Resort</string>
 	<string name="editor_profile_changes_for_next_place">Cambios para la próxima posición: %d</string>
 	<string name="editor_profile_rating_place">Posición en la clasificación</string>
 	<string name="booking_dialog_not_connect_header">Para reservar el hotel, habilita tu conexión a Internet</string>

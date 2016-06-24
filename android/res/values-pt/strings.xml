@@ -48,8 +48,6 @@
 	<string name="miles">Milhas</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">A minha posição</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Por favor active os Serviços de Localização</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Por favor liberte primeiro algum espaço no seu dispositivo para descarregar %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -516,7 +514,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">O mapa para a sua localização não foi baixado</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Por favor active os Serviços de Localização</string>
+	<string name="enable_location_services">Por favor active os Serviços de Localização</string>
 	<!-- download map -->
 	<string name="download_map">Baixe o mapa para a sua localização</string>
 	<!-- download map on iPhone -->
@@ -874,8 +872,6 @@
 	<string name="error_enter_correct_web">Preencha com um endereço válido na internet</string>
 	<string name="error_enter_correct_email">Preencha com um endereço válido de e-mail</string>
 	<string name="error_enter_correct">Preencha com um valor válido</string>
-	<string name="tourism_apartment">Apartamentos</string>
-	<string name="tourism_resort">Resort</string>
 	<string name="editor_profile_changes_for_next_place">Alterações para o próximo lugar: %d</string>
 	<string name="editor_profile_rating_place">Posição na classificação</string>
 	<string name="booking_dialog_not_connect_header">Para reservar o hotel, ative a sua ligação à Internet</string>

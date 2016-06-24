@@ -877,8 +877,6 @@
 	<string name="error_enter_correct_web">Введіть вірну адресу веб-сайту</string>
 	<string name="error_enter_correct_email">Введіть вірниу адресу електронної пошти</string>
 	<string name="error_enter_correct">Введіть вірне значення</string>
-	<string name="tourism_apartment">Апартаменти</string>
-	<string name="tourism_resort">Будинок відпочинку</string>
 	<string name="editor_profile_changes_for_next_place">Виправлень до наступного місця: %d</string>
 	<string name="editor_profile_rating_place">Місце у рейтингу</string>
 	<string name="booking_dialog_not_connect_header">Для бронювання готелів потрібен доступ до інтернету</string>

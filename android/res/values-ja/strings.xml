@@ -872,8 +872,6 @@
 	<string name="error_enter_correct_web">有効なウェブアドレスを入力してください</string>
 	<string name="error_enter_correct_email">有効なメールアドレスを入力してください</string>
 	<string name="error_enter_correct">有効な値を入力してください</string>
-	<string name="tourism_apartment">アパート</string>
-	<string name="tourism_resort">リゾート</string>
 	<string name="editor_profile_changes_for_next_place">次の場所への変更：%d</string>
 	<string name="editor_profile_rating_place">ランキングポジション</string>
 	<string name="booking_dialog_not_connect_header">ホテルを予約するには、インターネット接続を有効にしてください</string>

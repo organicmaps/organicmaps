@@ -50,8 +50,6 @@
 	<string name="miles">Mijlen</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Mijn Locatie</string>
-	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Schakel Locatie Services in</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Maak ruimte vrij op uw apparaat om %s te kunnen downloaden</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -517,7 +515,7 @@
 	<!-- map is not downloaded -->
 	<string name="not_found_map">De kaart voor uw locatie is niet gedownload</string>
 	<!-- location service disabled -->
-	<string name="enable_location_service">Schakel Locatie Services in</string>
+	<string name="enable_location_services">Schakel Locatie Services in</string>
 	<!-- download map -->
 	<string name="download_map">Download de kaart voor uw locatie</string>
 	<!-- download map on iPhone -->
@@ -875,8 +873,6 @@
 	<string name="error_enter_correct_web">Voer een geldig webadres in</string>
 	<string name="error_enter_correct_email">Voer een geldig e-mailadres in</string>
 	<string name="error_enter_correct">Voer een geldige waarde in</string>
-	<string name="tourism_apartment">Appartementen</string>
-	<string name="tourism_resort">Complex</string>
 	<string name="editor_profile_changes_for_next_place">Wijzigingen tot de volgende positie: %d</string>
 	<string name="editor_profile_rating_place">Positie in klassement</string>
 	<string name="booking_dialog_not_connect_header">Maak verbinding met internet om het hotel te boeken</string>

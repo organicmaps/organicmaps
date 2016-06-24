@@ -1525,10 +1525,6 @@
 
 "error_enter_correct" = "กรอกค่าที่ถูกต้อง";
 
-"tourism_apartment" = "อพาร์ตเมนต์";
-
-"tourism_resort" = "รีสอร์ต";
-
 "editor_profile_changes_for_next_place" = "เปลี่ยนไปยังสถานที่ถัดไป: %d";
 
 "editor_profile_rating_place" = "ลำดับของตำแหน่ง";

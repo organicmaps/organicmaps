@@ -876,8 +876,6 @@
 	<string name="error_enter_correct_web">Zadajte platnú webovú adresu</string>
 	<string name="error_enter_correct_email">Zadajte platný e-mail</string>
 	<string name="error_enter_correct">Zadajte platnú hodnotu</string>
-	<string name="tourism_apartment">Apartmány</string>
-	<string name="tourism_resort">Rezort</string>
 	<string name="editor_profile_changes_for_next_place">Zmeny pre ďalšie miesto: %d</string>
 	<string name="editor_profile_rating_place">Hodnotiaca pozícia</string>
 	<string name="booking_dialog_not_connect_header">Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu</string>

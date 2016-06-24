@@ -873,8 +873,6 @@
 	<string name="error_enter_correct_web">Nhập địa chỉ trang web hợp lệ</string>
 	<string name="error_enter_correct_email">Nhập email hợp lệ</string>
 	<string name="error_enter_correct">Nhập giá trị hợp lệ</string>
-	<string name="tourism_apartment">Căn hộ</string>
-	<string name="tourism_resort">Khu nghỉ dưỡng</string>
 	<string name="editor_profile_changes_for_next_place">Các thay đổi tới địa điểm tiếp theo: %d</string>
 	<string name="editor_profile_rating_place">Vị trí thứ hạng</string>
 	<string name="booking_dialog_not_connect_header">Để đặt khách sạn, vui lòng bật kết nối Internet</string>

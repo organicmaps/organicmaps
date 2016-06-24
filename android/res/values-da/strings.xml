@@ -877,8 +877,6 @@
 	<string name="error_enter_correct_web">Indtast en gyldig webadresse</string>
 	<string name="error_enter_correct_email">Indtast en gyldig e-mailadresse</string>
 	<string name="error_enter_correct">Indtast en gyldig værdi</string>
-	<string name="tourism_apartment">Lejligheder</string>
-	<string name="tourism_resort">Resort</string>
 	<string name="editor_profile_changes_for_next_place">Ændringer for næste sted: %d</string>
 	<string name="editor_profile_rating_place">Rangorden</string>
 	<string name="booking_dialog_not_connect_header">For at booke hotellet, bedes du aktivere din internetforbindelse</string>

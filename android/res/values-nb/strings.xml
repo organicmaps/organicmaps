@@ -871,8 +871,6 @@
 	<string name="error_enter_correct_web">Oppgi en gyldig nettadresse</string>
 	<string name="error_enter_correct_email">Oppgi en gyldig epostadresse</string>
 	<string name="error_enter_correct">Oppgi en gyldig verdi</string>
-	<string name="tourism_apartment">Leiligheter</string>
-	<string name="tourism_resort">Ferieresort</string>
 	<string name="editor_profile_changes_for_next_place">Endringer på neste sted: %d</string>
 	<string name="editor_profile_rating_place">Rangeringsplassering</string>
 	<string name="booking_dialog_not_connect_header">Aktiver Internett-tilkoblingen din for å bestille hotellet</string>

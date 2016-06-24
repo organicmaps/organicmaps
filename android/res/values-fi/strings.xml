@@ -873,8 +873,6 @@
 	<string name="error_enter_correct_web">Syötä kelvollinen verkko-osoite</string>
 	<string name="error_enter_correct_email">Syötä kelvollinen sähköpostiosoite</string>
 	<string name="error_enter_correct">Syötä kelvollinen arvo</string>
-	<string name="tourism_apartment">Loma-asunnot</string>
-	<string name="tourism_resort">Lomakohteet</string>
 	<string name="editor_profile_changes_for_next_place">Muutokset paikkaan: %d</string>
 	<string name="editor_profile_rating_place">Luokitussija</string>
 	<string name="booking_dialog_not_connect_header">Ota käyttöön internet-yhteytesi varataksesi hotellin</string>
