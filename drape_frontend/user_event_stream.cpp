@@ -195,8 +195,9 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
         ScreenBase const & screen = m_navigator.Screen();
         if (screen.isPerspective())
         {
-          m2::PointD pt = screen.P3dtoP(screen.PixelRectIn3d().Center());
-          breakAnim = SetFollowAndRotate(screen.PtoG(pt), pt, e.m_rotate.m_targetAzimut, kDoNotChangeZoom, true);
+          m2::PointD pt = screen.PixelRectIn3d().Center();
+          breakAnim = SetFollowAndRotate(screen.PtoG(screen.P3dtoP(pt)), pt,
+                                         e.m_rotate.m_targetAzimut, kDoNotChangeZoom, true);
         }
         else
         {
