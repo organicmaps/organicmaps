@@ -105,6 +105,7 @@ public final class Editor
   public static native void nativeSetDefaultName(String name);
   public static native @NonNull LocalizedName[] nativeGetLocalizedNames();
   public static native void nativeSetLocalizedNames(@NonNull LocalizedName[] names);
+  public static native LocalizedName nativeMakeLocalizedName(String langCode, String name);
   public static native Language[] nativeGetSupportedLanguages();
 
   public static native LocalizedStreet nativeGetStreet();

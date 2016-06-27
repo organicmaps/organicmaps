@@ -90,8 +90,7 @@ vector<osm::LocalizedName> getAdditionalLocalizedNames(osm::EditableMapObject co
   emo.GetName().ForEach([&result](int8_t code, string const & name) -> bool
   {
     if (code != StringUtf8Multilang::kDefaultCode)
-      result.push_back({code, StringUtf8Multilang::GetLangByCode(code),
-        StringUtf8Multilang::GetLangNameByCode(code), name});
+      result.push_back({code, name});
     return true;
   });
   return result;

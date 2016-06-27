@@ -11,6 +11,26 @@
 
 namespace osm
 {
+// LocalizedName -----------------------------------------------------------------------------------
+
+LocalizedName::LocalizedName(int8_t const code, string const & name)
+  : m_code(code)
+  , m_lang(StringUtf8Multilang::GetLangByCode(code))
+  , m_langName(StringUtf8Multilang::GetLangNameByCode(code))
+  , m_name(name)
+{
+}
+
+LocalizedName::LocalizedName(string const & langCode, string const & name)
+  : m_code(StringUtf8Multilang::GetLangIndex(langCode))
+  , m_lang(StringUtf8Multilang::GetLangByCode(m_code))
+  , m_langName(StringUtf8Multilang::GetLangNameByCode(m_code))
+  , m_name(name)
+{
+}
+
+// EditableMapObject -------------------------------------------------------------------------------
+
 // static
 int8_t const EditableMapObject::kMaximumLevelsEditableByUsers = 25;
 
@@ -34,8 +54,7 @@ vector<LocalizedName> EditableMapObject::GetLocalizedNames() const
   vector<LocalizedName> result;
   m_name.ForEach([&result](int8_t code, string const & name) -> bool
                  {
-                   result.push_back({code, StringUtf8Multilang::GetLangByCode(code),
-                                     StringUtf8Multilang::GetLangNameByCode(code), name});
+                   result.push_back({code, name});
                    return true;
                  });
   return result;
@@ -212,7 +231,7 @@ bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
 // static
 bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
 {
-  // TODO(mgsergio): Make a better validation, use real samples for example.
+  // TODO(mgsergio): Use LooksLikeHouseNumber!
 
   if (houseNumber.empty())
     return true;

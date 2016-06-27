@@ -590,4 +590,12 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsMapObjectUploaded(JNIEnv * env, j
 {
   return osm::Editor::Instance().IsFeatureUploaded(g_editableMapObject.GetID().m_mwmId, g_editableMapObject.GetID().m_index);
 }
+
+// static nativeMakeLocalizedName(String langCode, String name);
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeMakeLocalizedName(JNIEnv * env, jclass clazz, jstring code, jstring name)
+{
+  osm::LocalizedName localizedName(jni::ToNativeString(env, code), jni::ToNativeString(env, name));
+  return ToJavaName(env, localizedName);
+}
 } // extern "C"
