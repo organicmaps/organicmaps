@@ -38,9 +38,9 @@ UNIT_TEST(ReverseGeocoder_Smoke)
 
   ReverseGeocoder coder(index);
 
-  TestAddress(coder, {53.89815, 27.54265}, "мясникова", "32");
-  TestAddress(coder, {53.89953, 27.54189}, "немига", "42");
-  TestAddress(coder, {53.89666, 27.54904}, "советская", "19");
-  TestAddress(coder, {53.89724, 27.54983}, "независимости", "11");
-  TestAddress(coder, {53.89745, 27.55835}, "карламаркса", "18А");
+  TestAddress(coder, {53.89815, 27.54265}, "улицамясникова", "32");
+  TestAddress(coder, {53.89953, 27.54189}, "улицанемига", "42");
+  TestAddress(coder, {53.89666, 27.54904}, "советскаяулица", "19");
+  TestAddress(coder, {53.89724, 27.54983}, "проспектнезависимости", "11");
+  TestAddress(coder, {53.89745, 27.55835}, "улицакарламаркса", "18А");
 }

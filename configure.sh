@@ -8,6 +8,7 @@ BASE_PATH=`dirname "$0"`
 PRIVATE_HEADER="$BASE_PATH/private.h"
 PRIVATE_PROPERTIES="$BASE_PATH/android/secure.properties"
 PRIVATE_FABRIC_PROPERTIES="$BASE_PATH/android/fabric.properties"
+PRIVATE_PUSHWOOSH_PROPERTIES="$BASE_PATH/android/pushwoosh.properties"
 SAVED_PRIVATE_REPO_FILE="$BASE_PATH/.private_repository_url"
 TMP_REPO_DIR="$BASE_PATH/.tmp.private.repo"
 
@@ -33,8 +34,7 @@ else
 #define FLURRY_KEY "12345678901234567890"
 #define MY_TRACKER_KEY ""
 #define MY_TARGET_KEY ""
-#define PARSE_APPLICATION_ID ""
-#define PARSE_CLIENT_KEY ""
+#define PUSHWOOSH_APPLICATION_ID ""
 #define OSM_CONSUMER_KEY ""
 #define OSM_CONSUMER_SECRET ""
 #define MWM_GEOLOCATION_SERVER ""
@@ -47,6 +47,9 @@ else
 #define HOCKEY_APP_KEY ""
 #define HOCKEY_APP_BETA_KEY ""
 #define CRASHLYTICS_IOS_KEY ""
+#define BOOKING_AFFILIATE_ID ""
+#define BOOKING_KEY ""
+#define BOOKING_SECRET ""
 ' > "$PRIVATE_HEADER"
     echo 'ext {
   spropStoreFile = "../tools/android/debug.keystore"
@@ -59,6 +62,9 @@ else
     echo 'apiSecret=0000000000000000000000000000000000000000000000000000000000000000
 apiKey=0000000000000000000000000000000000000000
 ' > "$PRIVATE_FABRIC_PROPERTIES"
+    echo 'pwAppId=XXXXX
+pwProjectId=A123456789012
+' > "$PRIVATE_PUSHWOOSH_PROPERTIES"
     exit
   fi
 fi

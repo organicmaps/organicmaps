@@ -681,6 +681,7 @@
 	<string name="download_all">下载所有</string>
 	<string name="delete_all">删除全部</string>
 	<string name="autodownload">自动下载</string>
+	<string name="disable_autodownload">禁用自动下载</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">现在关门</string>
 	<!-- Place Page opening hours text -->
@@ -755,7 +756,7 @@
 	<string name="editor_username_error_dialog">用户名不存在</string>
 	<string name="editor_place_edited_dialog">您已编辑了一个对象！</string>
 	<string name="editor_login_with_osm">使用OpenStreetMap进行登录</string>
-	<string name="editor_profile_changes">更改数目：</string>
+	<string name="editor_profile_changes">已验证的更改</string>
 	<string name="editor_profile_unsent_changes">未发送：</string>
 	<string name="editor_focus_map_on_location">拖动地图以选择此对象的正确位置。</string>
 	<string name="editor_add_select_category">选择类别</string>
@@ -853,7 +854,7 @@
 	<string name="placepage_entrance_type">入口</string>
 	<string name="placepage_flat">公寓</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="placepage_place_rating">评价</string>
+	<string name="place_page_booking_rating">评价: %s</string>
 	<string name="place_page_starting_from">从 %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -873,4 +874,19 @@
 	<string name="editor_remove_place_button">删除</string>
 	<string name="editor_status_sending">正在发送…</string>
 	<string name="editor_place_doesnt_exist">位置不存在</string>
+	<string name="text_more_button">…更多</string>
+	<string name="error_enter_correct_phone">输入无字母的电话号码</string>
+	<string name="error_enter_correct_web">输入有效网址</string>
+	<string name="error_enter_correct_email">输入有效电子邮箱</string>
+	<string name="error_enter_correct">输入有效值</string>
+	<string name="editor_profile_changes_for_next_place">升到下一级所需更改: %d</string>
+	<string name="editor_profile_rating_place">排名位置</string>
+	<string name="booking_dialog_not_connect_header">要预订酒店，请启用互联网连接</string>
+	<string name="whatsnew_booking_header">使用应用程序订房间</string>
+	<string name="whatsnew_booking_message">当您查找酒店时，地图能够显示酒店价格类别和评价。</string>
+	<string name="button_try">试一试</string>
+	<string name="whatsnew_cycle_navigation_header">自行车导航 (beta 版)</string>
+	<string name="whatsnew_cycle_navigation_message">正在测试自行车导航。试一下使用 MAPS.ME 寻找您最喜爱的自行车路线并与我们分享您的意见。</string>
+	<string name="refresh">更新</string>
+	<string name="last_update">上次更新于：%s</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>cable-car-s</title>
     <desc>Created with Sketch.</desc>
     <defs>
@@ -14,7 +14,7 @@
         <g id="cable-car-s" transform="translate(1.000000, 1.000000)">
             <g id="Rectangle-211">
                 <use fill="#3C3E38" fill-rule="evenodd" xlink:href="#path-1"></use>
-                <use fill="#21659A" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use fill="#0D4D7F" fill-rule="evenodd" xlink:href="#path-1"></use>
                 <use stroke-opacity="0.8" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
             </g>
             <path d="M4.69730425,5.61157772 L4.80269575,5.53127943 C4.35937913,5.86904447 4,6.59491021 4,7.15276589 L4,11.4285714 C4,11.7142857 4.25,12 4.5,12 L5.75,12 L8,12 L9.25,12 L10.5,12 C10.75,12 11,11.7142857 11,11.4285714 L11,7.15276589 C11,6.59500869 10.6368918,5.86620331 10.1973042,5.53127943 L10.3026958,5.61157772 C9.8593791,5.27381267 9.0566468,5 8.4906311,5 L6.5093689,5 C5.95190985,5 5.13689184,5.27665383 4.69730425,5.61157772 Z M6,6.14285714 L9,6.14285714 L10,6.71428571 L10,8.42857143 L5,8.42857143 L5,6.71428571 L6,6.14285714 L6,6.14285714 Z" id="path24879" fill="#FFFFFF"></path>

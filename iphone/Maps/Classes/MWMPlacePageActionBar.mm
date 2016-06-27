@@ -26,6 +26,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 @property (weak, nonatomic) MWMPlacePageViewManager * placePageManager;
 @property (copy, nonatomic) IBOutletCollection(UIView) NSArray<UIView *> * buttons;
+@property (weak, nonatomic) IBOutlet UIImageView * separator;
 @property (nonatomic) BOOL isPrepareRouteMode;
 
 @end
@@ -158,7 +159,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   auto const size = self.buttons.count;
   for (UIView * v in self.buttons)
   {
-    if (v.tag == size + 1)
+    if (v.tag == size)
       last = v;
   }
   return last;
@@ -174,22 +175,11 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
     [self.placePageManager apiBack];
     break;
   case EButton::Booking:
-  {
-    UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
-    NSString * urlString = [self.placePageManager.entity getCellValue:MWMPlacePageCellTypeBookingMore];
-    NSAssert(urlString, @"Booking url can't be nil!");
-    NSURL * url = [NSURL URLWithString:urlString];
-    [vc openUrl:url];
+    [self.placePageManager book:NO];
     break;
-  }
   case EButton::Call:
-  {
-    NSString * tel = [self.placePageManager.entity getCellValue:MWMPlacePageCellTypePhoneNumber];
-    NSAssert(tel, @"Phone number can't be nil!");
-    NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:tel] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    [self.placePageManager call];
     break;
-  }
   case EButton::Bookmark:
     if (self.isBookmark)
       [self.placePageManager removeBookmark];
@@ -265,6 +255,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
     {
       UIPopoverPresentationController * popPresenter = [alertController popoverPresentationController];
       popPresenter.sourceView = self.shareAnchor;
+      popPresenter.sourceRect = self.shareAnchor.bounds;
     }
     [vc presentViewController:alertController animated:YES completion:nil];
   }
@@ -280,6 +271,21 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   // Only iOS7
   if (buttonIndex > 0)
     [self tapOnButtonWithType:m_additionalButtons[buttonIndex - 1]];
+}
+
+
+#pragma mark - Layout
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  self.separator.width = self.width;
+  CGFloat const buttonWidth = self.width / self.buttons.count;
+  for (UIView * button in self.buttons)
+  {
+    button.minX = buttonWidth * (button.tag - 1);
+    button.width = buttonWidth;
+  }
 }
 
 @end

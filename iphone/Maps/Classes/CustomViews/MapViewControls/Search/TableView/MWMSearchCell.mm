@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMSearchCell.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -64,6 +65,16 @@
   }
   self.titleLabel.attributedText = attributedTitle;
   [self.titleLabel sizeToFit];
+}
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  if (isIOS7)
+  {
+    self.titleLabel.preferredMaxLayoutWidth = floor(self.titleLabel.width);
+    [super layoutSubviews];
+  }
 }
 
 - (NSDictionary *)selectedTitleAttributes

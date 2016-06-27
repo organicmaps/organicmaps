@@ -440,10 +440,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SelectObject:
     {
       ref_ptr<SelectObjectMessage> msg = message;
+      m_overlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
       if (m_selectionShape == nullptr)
       {
         m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(msg->GetSelectedObject(), msg->GetPosition(),
-                                                                    msg->IsAnim());
+                                                                    msg->GetFeatureID(), msg->IsAnim());
         break;
       }
       ProcessSelection(msg);

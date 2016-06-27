@@ -321,6 +321,14 @@ bool Timespan::HasExtendedHours() const
   return endHM.GetDuration() <= startHM.GetDuration();
 }
 
+void Timespan::ExpandPlus()
+{
+  if (HasPlus())
+  {
+    SetEnd(HourMinutes(24_h));
+  }
+}
+
 std::ostream & operator<<(std::ostream & ost, Timespan const & span)
 {
   ost << span.GetStart();
@@ -768,6 +776,7 @@ bool OpeningHours::IsValid() const
 {
   return m_valid;
 }
+
 bool OpeningHours::IsTwentyFourHours() const
 {
   return m_rule.size() == 1 && m_rule[0].IsTwentyFourHours();

@@ -67,7 +67,9 @@ public final class Editor
                           BuildConfig.APPLICATION_ID);
   }
 
-  public static native boolean nativeIsFeatureEditable();
+  public static native boolean nativeShouldShowEditPlace();
+  public static native boolean nativeShouldShowAddPlace();
+  public static native boolean nativeShouldShowAddBusiness();
   @NonNull
   public static native int[] nativeGetEditableFields();
 
@@ -114,6 +116,12 @@ public final class Editor
   public static native void nativeSetHouseNumber(String houseNumber);
   public static native boolean nativeIsHouseValid(String houseNumber);
   public static native boolean nativeIsLevelValid(String level);
+  public static native boolean nativeIsFlatValid(String flat);
+  public static native boolean nativeIsZipcodeValid(String zipCode);
+  public static native boolean nativeIsPhoneValid(String phone);
+  public static native boolean nativeIsWebsiteValid(String site);
+  public static native boolean nativeIsEmailValid(String email);
+
 
   public static native boolean nativeHasSomethingToUpload();
   @WorkerThread

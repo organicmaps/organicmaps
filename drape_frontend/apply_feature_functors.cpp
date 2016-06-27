@@ -247,9 +247,12 @@ string BaseApplyFeature::ExtractHotelInfo() const
     return "";
 
   ostringstream out;
-  out << m_hotelData.m_rating << kStarSymbol;
-  if (m_hotelData.m_priceCategory != 0)
-    out << "  ";
+  if (!m_hotelData.m_rating.empty())
+  {
+    out << m_hotelData.m_rating << kStarSymbol;
+    if (m_hotelData.m_priceCategory != 0)
+      out << "  ";
+  }
   for (int i = 0; i < m_hotelData.m_priceCategory; i++)
     out << kPriceSymbol;
 

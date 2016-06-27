@@ -22,7 +22,7 @@
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
-#import "MWMWhatsNewEditorController.h"
+#import "MWMWhatsNewBookingBicycleRoutingController.h"
 #import "RouteState.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -413,7 +413,7 @@ BOOL gIsFirstMyPositionMode = YES;
   if (isIOS7)
     return;
 
-  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewEditorController class];
+  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewBookingBicycleRoutingController class];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   Class<MWMWelcomeControllerProtocol> welcomeClass = isFirstSession ? [MWMFirstLaunchController class] : whatsNewClass;
 
@@ -622,18 +622,32 @@ BOOL gIsFirstMyPositionMode = YES;
   {
     case routing::IRouter::ResultCode::NoError:
     {
-      GetFramework().DeactivateMapSelection(true);
+      auto & f = GetFramework();
+      f.DeactivateMapSelection(true);
       if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
         [self.controlsManager routingNavigation];
       else
         [self.controlsManager routingReady];
       [self updateRoutingInfo];
-      bool isDisclaimerApproved = false;
-      (void)settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
-      if (!isDisclaimerApproved)
+      if (f.GetRouter() == routing::RouterType::Bicycle)
       {
-        [self presentRoutingDisclaimerAlert];
-        settings::Set("IsDisclaimerApproved", true);
+        NSString * bicycleDisclaimer = @"IsBicycleDisclaimerApproved";
+        NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+        if ([ud boolForKey:bicycleDisclaimer])
+          return;
+        [self presentBicycleRoutingDisclaimerAlert];
+        [ud setBool:YES forKey:bicycleDisclaimer];
+        [ud synchronize];
+      }
+      else
+      {
+        bool isDisclaimerApproved = false;
+        (void)settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
+        if (!isDisclaimerApproved)
+        {
+          [self presentRoutingDisclaimerAlert];
+          settings::Set("IsDisclaimerApproved", true);
+        }
       }
       break;
     }
@@ -828,6 +842,11 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)presentRoutingDisclaimerAlert
 {
   [self.alertController presentRoutingDisclaimerAlert];
+}
+
+- (void)presentBicycleRoutingDisclaimerAlert
+{
+  [self.alertController presentBicycleRoutingDisclaimerAlert];
 }
 
 #pragma mark - Private methods

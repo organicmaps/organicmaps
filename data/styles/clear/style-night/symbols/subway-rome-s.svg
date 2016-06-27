@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>subway-rome-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Subways" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="subway-rome-s" sketch:type="MSLayerGroup">
-            <rect id="rect2438-copy-4" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="0" width="13" height="13"></rect>
-            <rect id="rect2438-copy-3" fill="#81110D" sketch:type="MSShapeGroup" x="1" y="1" width="11" height="11"></rect>
-            <path d="M4.05440806,4 L5.5884131,4 L6.49588581,7.66502659 L7.40335852,4 L8.94324097,4 L10,9.40909091 L8.94794291,9.40909091 L8.14861461,5.31053976 L7.03190596,9.40909091 L5.96809404,9.40909091 L4.85138539,5.31053976 L4.05205709,9.40909091 L3,9.40909091" id="Shape-Copy-3" opacity="0.41" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <defs>
+        <rect id="path-1" x="1" y="1" width="11" height="11"></rect>
+    </defs>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="subway-rome-s">
+            <rect id="rect2438-copy-4" fill-opacity="0.1" fill="#FFFFFF" x="0" y="0" width="13" height="13"></rect>
+            <g id="rect2438-copy-3">
+                <use fill="#ED1B2D" xlink:href="#path-1"></use>
+                <use fill-opacity="0.4" fill="#000000" xlink:href="#path-1"></use>
+            </g>
+            <polyline id="Shape-Copy-3" fill-opacity="0.7" fill="#FFFFFF" points="4.05440806 4 5.5884131 4 6.49588581 7.66502659 7.40335852 4 8.94324097 4 10 9.40909091 8.94794291 9.40909091 8.14861461 5.31053976 7.03190596 9.40909091 5.96809404 9.40909091 4.85138539 5.31053976 4.05205709 9.40909091 3 9.40909091"></polyline>
         </g>
     </g>
 </svg>

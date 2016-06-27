@@ -116,18 +116,20 @@ vector<MWMPlacePageCellType> cellsForAdditionalNames(
     vector<osm::LocalizedName> const & names, vector<NSInteger> const & newAdditionalLanguages,
     BOOL showAdditionalNames)
 {
-  if (names.empty() && newAdditionalLanguages.empty())
-    return vector<MWMPlacePageCellType>();
   vector<MWMPlacePageCellType> res;
-  if (showAdditionalNames)
+  auto const allNamesSize = names.size() + newAdditionalLanguages.size();
+  if (allNamesSize != 0)
   {
-    res.insert(res.begin(), names.size() + newAdditionalLanguages.size(),
-               MWMPlacePageCellTypeAdditionalName);
-  }
-  else
-  {
-    res.push_back(MWMPlacePageCellTypeAdditionalName);
-    res.push_back(MWMPlacePageCellTypeAddAdditionalNamePlaceholder);
+    if (showAdditionalNames)
+    {
+      res.insert(res.begin(), allNamesSize, MWMPlacePageCellTypeAdditionalName);
+    }
+    else
+    {
+      res.push_back(MWMPlacePageCellTypeAdditionalName);
+      if (allNamesSize > 1)
+        res.push_back(MWMPlacePageCellTypeAddAdditionalNamePlaceholder);
+    }
   }
   res.push_back(MWMPlacePageCellTypeAddAdditionalName);
   return res;
@@ -376,6 +378,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 - (void)setShowAdditionalNames:(BOOL)showAdditionalNames
 {
   _showAdditionalNames = showAdditionalNames;
+  [self.additionalNamesHeader setShowAdditionalNames:showAdditionalNames];
   [self configTable];
   auto const additionalNamesSectionIt = find(m_sections.begin(), m_sections.end(), MWMEditorSectionAdditionalNames);
   if (additionalNamesSectionIt == m_sections.end())
@@ -422,12 +425,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     vector<osm::LocalizedName> localizedNames = getAdditionalLocalizedNames(m_mapObject);
     cleanupAdditionalLanguages(localizedNames, m_newAdditionalLanguages);
     auto const cells = cellsForAdditionalNames(localizedNames, m_newAdditionalLanguages, self.showAdditionalNames);
-    if (!cells.empty())
-    {
-      m_sections.push_back(MWMEditorSectionAdditionalNames);
-      m_cells[MWMEditorSectionAdditionalNames] = cells;
-      registerCellsForTableView(cells, self.tableView);
-    }
+    m_sections.push_back(MWMEditorSectionAdditionalNames);
+    m_cells[MWMEditorSectionAdditionalNames] = cells;
+    registerCellsForTableView(cells, self.tableView);
+    [self.additionalNamesHeader setAdditionalNamesVisible:cells.size() > 2];
   }
   if (m_mapObject.IsAddressEditable())
   {
@@ -489,6 +490,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:[UIImage imageNamed:@"ic_placepage_phone_number"]
                            text:@(m_mapObject.GetPhone().c_str())
                     placeholder:L(@"phone")
+                   errorMessage:L(@"error_enter_correct_phone")
+                        isValid:isValid
                    keyboardType:UIKeyboardTypeNamePhonePad
                  capitalization:UITextAutocapitalizationTypeNone];
       break;
@@ -500,6 +503,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:[UIImage imageNamed:@"ic_placepage_website"]
                            text:@(m_mapObject.GetWebsite().c_str())
                     placeholder:L(@"website")
+                   errorMessage:L(@"error_enter_correct_web")
+                        isValid:isValid
                    keyboardType:UIKeyboardTypeURL
                  capitalization:UITextAutocapitalizationTypeNone];
       break;
@@ -511,6 +516,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            icon:[UIImage imageNamed:@"ic_placepage_email"]
                            text:@(m_mapObject.GetEmail().c_str())
                     placeholder:L(@"email")
+                   errorMessage:L(@"error_enter_correct_email")
+                        isValid:isValid
                    keyboardType:UIKeyboardTypeEmailAddress
                  capitalization:UITextAutocapitalizationTypeNone];
       break;
@@ -904,15 +911,27 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 - (void)cell:(MWMTableViewCell *)cell changedText:(NSString *)changeText
 {
   NSAssert(changeText != nil, @"String can't be nil!");
-  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:cell.center];
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   string const val = changeText.UTF8String;
   switch (cellType)
   {
     case MWMPlacePageCellTypeName: m_mapObject.SetName(val, StringUtf8Multilang::kDefaultCode); break;
-    case MWMPlacePageCellTypePhoneNumber: m_mapObject.SetPhone(val); break;
-    case MWMPlacePageCellTypeWebsite: m_mapObject.SetWebsite(val); break;
-    case MWMPlacePageCellTypeEmail: m_mapObject.SetEmail(val); break;
+    case MWMPlacePageCellTypePhoneNumber:
+      m_mapObject.SetPhone(val);
+      if (!osm::EditableMapObject::ValidatePhone(val))
+        [self markCellAsInvalid:indexPath];
+      break;
+    case MWMPlacePageCellTypeWebsite:
+      m_mapObject.SetWebsite(val);
+      if (!osm::EditableMapObject::ValidateWebsite(val))
+        [self markCellAsInvalid:indexPath];
+      break;
+    case MWMPlacePageCellTypeEmail:
+      m_mapObject.SetEmail(val);
+      if (!osm::EditableMapObject::ValidateEmail(val))
+        [self markCellAsInvalid:indexPath];
+      break;
     case MWMPlacePageCellTypeOperator: m_mapObject.SetOperator(val); break;
     case MWMPlacePageCellTypeBuilding:
       m_mapObject.SetHouseNumber(val);
@@ -921,7 +940,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
       break;
     case MWMPlacePageCellTypeZipCode:
       m_mapObject.SetPostcode(val);
-      // TODO: Validate postcode.
+      if (!osm::EditableMapObject::ValidatePostCode(val))
+        [self markCellAsInvalid:indexPath];
       break;
     case MWMPlacePageCellTypeBuildingLevels:
       m_mapObject.SetBuildingLevels(val);

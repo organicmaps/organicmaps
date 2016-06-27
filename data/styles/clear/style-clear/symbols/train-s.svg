@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>train-s</title>
     <desc>Created with Sketch.</desc>
     <defs>
@@ -14,7 +14,7 @@
         <g id="train-s" transform="translate(1.000000, 1.000000)">
             <g id="Rectangle-211">
                 <use fill="#3C3E38" fill-rule="evenodd" xlink:href="#path-1"></use>
-                <use fill="#21659A" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use fill="#0D4D7F" fill-rule="evenodd" xlink:href="#path-1"></use>
                 <use stroke-opacity="0.8" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
             </g>
             <path d="M5.86363637,12 L7.00000001,10 L5.50000001,10 L3,14.4 L4.5,14.4 L5.29545455,13 L9.70454545,13 L10.5,14.4 L12,14.4 L9.49999999,10 L7.99999999,10 L9.13636363,12 L5.86363637,12 Z" id="Rectangle-22" fill="#FFFFFF"></path>

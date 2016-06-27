@@ -88,6 +88,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/SearchEngine.cpp \
 	com/mapswithme/maps/SearchRecents.cpp \
 	com/mapswithme/maps/UserMarkHelper.cpp \
+	com/mapswithme/maps/SponsoredHotel.cpp \
 	com/mapswithme/maps/settings/UnitLocale.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \

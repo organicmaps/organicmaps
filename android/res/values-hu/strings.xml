@@ -676,6 +676,7 @@
 	<string name="download_all">Összes letöltése</string>
 	<string name="delete_all">Összes térkép törlése</string>
 	<string name="autodownload">Automatikus letöltés</string>
+	<string name="disable_autodownload">Automatikus letöltés tiltása</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Most zárva</string>
 	<!-- Place Page opening hours text -->
@@ -750,7 +751,7 @@
 	<string name="editor_username_error_dialog">Érvénytelen felhasználónév</string>
 	<string name="editor_place_edited_dialog">Szerkesztettél egy objektumot!</string>
 	<string name="editor_login_with_osm">Bejelentkezés OpenStreetMappel</string>
-	<string name="editor_profile_changes">Változások:</string>
+	<string name="editor_profile_changes">Jóváhagyott változtatások</string>
 	<string name="editor_profile_unsent_changes">Nincs elküldve:</string>
 	<string name="editor_focus_map_on_location">Húzd a térképet a megfelelő helyre az objektum helyes helyszínének kiválasztásához.</string>
 	<string name="editor_add_select_category">Válassz kategóriát</string>
@@ -847,7 +848,7 @@
 	<string name="placepage_entrance_type">Bejárat</string>
 	<string name="placepage_flat">lakás</string>
 	<string name="placepage_open_24_7">24 órás</string>
-	<string name="placepage_place_rating">Kategória</string>
+	<string name="place_page_booking_rating">Kategória: %s</string>
 	<string name="place_page_starting_from">kezdőár %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -867,4 +868,19 @@
 	<string name="editor_remove_place_button">Eltávolítás</string>
 	<string name="editor_status_sending">Küldés…</string>
 	<string name="editor_place_doesnt_exist">A hely nem létezik</string>
+	<string name="text_more_button">…tovább</string>
+	<string name="error_enter_correct_phone">Adj meg egy telefonszámot betűk nélkül</string>
+	<string name="error_enter_correct_web">Adj meg egy érvényes weboldalcímet</string>
+	<string name="error_enter_correct_email">Adj meg egy érvényes e-mail-címet</string>
+	<string name="error_enter_correct">Adj meg egy érvényes értéket</string>
+	<string name="editor_profile_changes_for_next_place">Változtatások a jobb helyért: %d</string>
+	<string name="editor_profile_rating_place">Ranglista helyezés</string>
+	<string name="booking_dialog_not_connect_header">A szálloda lefoglalásához csatlakozzon az internethez</string>
+	<string name="whatsnew_booking_header">Szálloda foglalása az alkalmazásból</string>
+	<string name="whatsnew_booking_message">Amikor szállodát keresel, az alkalmazás megjeleníti a hotel árkategóriáját és értékelését.</string>
+	<string name="button_try">Próbáld ki</string>
+	<string name="whatsnew_cycle_navigation_header">Kerékpáros navigáció (béta verzió)</string>
+	<string name="whatsnew_cycle_navigation_message">Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.</string>
+	<string name="refresh">Frissítés</string>
+	<string name="last_update">Utolsó frissítés: %s</string>
 </resources>

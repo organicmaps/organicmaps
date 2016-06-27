@@ -28,12 +28,14 @@ public:
   bool IsFeature() const;
   bool IsBookmark() const;
   bool IsMyPosition() const;
-  bool ShouldShowAddPlace() const;
   bool IsSponsoredHotel() const;
+
+  bool ShouldShowAddPlace() const;
+  bool ShouldShowAddBusiness() const;
+  bool ShouldShowEditPlace() const;
+
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const;
-  /// @returns true if Edit Place button should be displayed.
-  bool IsEditable() const;
 
   /// TODO: Support all possible Internet types in UI. @See MapObject::GetInternet().
   bool HasWifi() const;
@@ -56,6 +58,9 @@ public:
   string GetBookmarkCategoryName() const;
   string const & GetApiUrl() const;
 
+  string const & GetSponsoredBookingUrl() const;
+  string const & GetSponsoredDescriptionUrl() const;
+
   /// @returns formatted rating string for booking object, or empty if it isn't booking object
   string GetRatingFormatted() const;
   /// @returns string with |kPricingSymbol| signs or empty string if it isn't booking object
@@ -77,13 +82,18 @@ public:
   string m_address;
   /// Feature is a sponsored hotel.
   bool m_isSponsoredHotel = false;
+  /// Sponsored feature urls.
+  string m_sponsoredBookingUrl;
+  string m_sponsoredDescriptionUrl;
 
   /// Which country this MapObject is in.
   /// For a country point it will be set to topmost node for country.
   storage::TCountryId m_countryId = storage::kInvalidCountryId;
 
   bool m_isMyPosition = false;
-  bool m_isEditable = false;
+  /// True if editing of a selected point is allowed by basic logic.
+  /// See initialization in framework.
+  bool m_canEditOrAdd = false;
 
   // TODO(AlexZ): Temporary solution. It's better to use a wifi icon in UI instead of text.
   string m_localizedWifiString;

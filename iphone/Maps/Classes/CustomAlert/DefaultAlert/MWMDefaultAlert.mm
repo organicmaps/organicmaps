@@ -341,6 +341,17 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)routingBicycleDisclaimerAlert
+{
+  kStatisticsEvent = @"Routing Bicycle Disclaimer Alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"whatsnew_cycle_navigation_header"
+                                                message:@"whatsnew_cycle_navigation_message"
+                                       rightButtonTitle:@"ok"
+                                        leftButtonTitle:nil
+                                      rightButtonAction:nil];
+  return alert;
+}
+
 + (instancetype)resetChangesAlertWithBlock:(TMWMVoidBlock)block
 {
   kStatisticsEvent = @"Reset changes alert";

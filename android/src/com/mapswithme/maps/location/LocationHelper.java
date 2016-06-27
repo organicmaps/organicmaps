@@ -38,12 +38,14 @@ public enum LocationHelper
   public static final int ERROR_UNKNOWN = 0;
 
   private static final long INTERVAL_FOLLOW_AND_ROTATE_MS = 3000;
-  private static final long INTERVAL_FOLLOW_MS = 3000;
-  private static final long INTERVAL_NOT_FOLLOW_MS = 10000;
+  private static final long INTERVAL_FOLLOW_MS = 1000;
+  private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
   private static final long INTERVAL_NAVIGATION_VEHICLE_MS = 500;
-  private static final long INTERVAL_NAVIGATION_PEDESTRIAN_MS = 3000;
+
   // TODO (trashkalmar): Correct value
   private static final long INTERVAL_NAVIGATION_BICYCLE_MS = 1000;
+  private static final long INTERVAL_NAVIGATION_PEDESTRIAN_MS = 1000;
+
 
   private static final long STOP_DELAY_MS = 5000;
   static final int REQUEST_RESOLVE_ERROR = 101;

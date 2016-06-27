@@ -56,7 +56,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="bookmark_more"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="text_more_button"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="moreTap" destination="zRR-Mr-Dr9" eventType="touchUpInside" id="i0t-el-vaa"/>

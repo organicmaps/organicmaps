@@ -34,10 +34,8 @@ string GetAndroidSystemLanguage()
   }
 
   static jclass const localeClass = jni::GetGlobalClassRef(env, "java/util/Locale");
-  static jmethodID const localeGetDefaultId = env->GetStaticMethodID(localeClass, "getDefault", "()Ljava/util/Locale;");
-  ASSERT(localeGetDefaultId, ());
+  static jmethodID const localeGetDefaultId = jni::GetStaticMethodID(env, localeClass, "getDefault", "()Ljava/util/Locale;");
   static jmethodID const localeToStringId = env->GetMethodID(localeClass, "toString", "()Ljava/lang/String;");
-  ASSERT(localeToStringId, ());
 
   jni::TScopedLocalRef localeInstance(env, env->CallStaticObjectMethod(localeClass, localeGetDefaultId));
   jni::TScopedLocalRef langString(env, env->CallObjectMethod(localeInstance.get(), localeToStringId));

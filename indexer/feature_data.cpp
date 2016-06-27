@@ -99,6 +99,7 @@ public:
       { "amenity", "bench" },
       { "amenity", "shelter" },
       { "building", "address" },
+      { "sponsored", "booking" },
     };
 
     AddTypes(arr2);
@@ -256,6 +257,21 @@ bool FeatureParams::AddHouseName(string const & s)
   // Most names are house numbers by statistics.
   if (house.IsEmpty() && AddHouseNumber(s))
     return true;
+
+  // If we got a clear number, replace the house number with it.
+  // Example: housename=16th Street, housenumber=34
+  if (strings::is_number(s))
+  {
+    string housename(house.Get());
+    if (AddHouseNumber(s))
+    {
+      // Duplicating code to avoid changing the method header.
+      string dummy;
+      if (!name.GetString(StringUtf8Multilang::kDefaultCode, dummy))
+        name.AddString(StringUtf8Multilang::kDefaultCode, housename);
+      return true;
+    }
+  }
 
   // Add as a default name if we don't have it yet.
   string dummy;

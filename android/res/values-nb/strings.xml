@@ -675,6 +675,7 @@
 	<string name="download_all">Last ned alle</string>
 	<string name="delete_all">Slett alle</string>
 	<string name="autodownload">Automatisk nedlasting</string>
+	<string name="disable_autodownload">Deaktiver automatisk nedlasting</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Lukket nå</string>
 	<!-- Place Page opening hours text -->
@@ -749,7 +750,7 @@
 	<string name="editor_username_error_dialog">Brukernavnet er ugyldig</string>
 	<string name="editor_place_edited_dialog">Du har redigert et objekt!</string>
 	<string name="editor_login_with_osm">Logg inn med OpenStreetMat</string>
-	<string name="editor_profile_changes">Endringer:</string>
+	<string name="editor_profile_changes">Bekreftede endringer</string>
 	<string name="editor_profile_unsent_changes">Ikke sendt:</string>
 	<string name="editor_focus_map_on_location">Dra kartet for å velge riktig beliggenhet for objektet.</string>
 	<string name="editor_add_select_category">Velg kategori</string>
@@ -845,7 +846,7 @@
 	<string name="placepage_entrance_type">Vindfang</string>
 	<string name="placepage_flat">leil.</string>
 	<string name="placepage_open_24_7">Døgnåpen</string>
-	<string name="placepage_place_rating">Rangering:</string>
+	<string name="place_page_booking_rating">Rangering: %s</string>
 	<string name="place_page_starting_from">fra %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -865,4 +866,19 @@
 	<string name="editor_remove_place_button">Fjern</string>
 	<string name="editor_status_sending">Sender…</string>
 	<string name="editor_place_doesnt_exist">Sted finnes ikke</string>
+	<string name="text_more_button">…mer</string>
+	<string name="error_enter_correct_phone">Oppgi telefonnummer uten bokstaver</string>
+	<string name="error_enter_correct_web">Oppgi en gyldig nettadresse</string>
+	<string name="error_enter_correct_email">Oppgi en gyldig epostadresse</string>
+	<string name="error_enter_correct">Oppgi en gyldig verdi</string>
+	<string name="editor_profile_changes_for_next_place">Endringer på neste sted: %d</string>
+	<string name="editor_profile_rating_place">Rangeringsplassering</string>
+	<string name="booking_dialog_not_connect_header">Aktiver Internett-tilkoblingen din for å bestille hotellet</string>
+	<string name="whatsnew_booking_header">Reserver hotellrom fra appen</string>
+	<string name="whatsnew_booking_message">Når du leter etter hotell, vil kartet fortelle deg hotellenes priskategori og rangering.</string>
+	<string name="button_try">Prøv det</string>
+	<string name="whatsnew_cycle_navigation_header">Sykkelnavigering (betaversjon)</string>
+	<string name="whatsnew_cycle_navigation_message">Vi tester sykkelnavigering for den nye sesongen. Prøv din favorittrute med MAPS.ME, og del din vurdering med oss.</string>
+	<string name="refresh">Oppdatere</string>
+	<string name="last_update">Sist oppdatert: %s</string>
 </resources>

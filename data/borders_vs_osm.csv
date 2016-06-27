@@ -11,7 +11,9 @@ Cameroon_Central	4	Adamaoua
 Nigeria_South	4	Adamawa
 Turkey_Mediterranean Region	4	Adana
 US_Tennessee_East	4	Tennessee
+US_Tennessee_East	4	TN
 US_Tennessee_West	4	Tennessee
+US_Tennessee_West	4	TN
 Malaysia	4	Terengganu / ترڠڬانو
 Vietnam	4	Tỉnh Hà Nam
 Azerbaijan	4	Abşeron rayonu
@@ -50,10 +52,15 @@ Azerbaijan	4	Ağdam rayonu
 Spain_Balearic Islands	4	Illes Balears
 Portugal_Islands	4	Illhéu da Vila
 US_Illinois_Chickago	4	Illinois
+US_Illinois_Chickago	4	IL
 US_Illinois_Elgin	4	Illinois
+US_Illinois_Elgin	4	IL
 US_Illinois_South	4	Illinois
+US_Illinois_South	4	IL
 US_Illinois_Springfield	4	Illinois
+US_Illinois_Springfield	4	IL
 US_Illinois_Rockford	4	Illinois
+US_Illinois_Rockford	4	IL
 Algeria_Central	4	Illizi ⵉⵍⵍⵉⵣⵉ إلـيـزي
 Vietnam	4	Tỉnh Hậu Giang
 Vietnam	4	Tỉnh Khánh Hòa
@@ -94,6 +101,7 @@ Venezuela_South	4	Amazonas
 Peru_North	4	Amazonas
 Brazil_North Region_West	4	Amazonas
 Samoa	4	American Samoa
+Samoa	4	AS
 Ethiopia	4	Amhara
 Philippines_Luzon_Manila	4	Catanduanes
 Colombia_West	4	Cauca
@@ -105,10 +113,13 @@ Vietnam	4	Tỉnh Lâm Đồng
 Yemen	4	Al Ḩudaydah
 Syria	4	Al-Hasakah
 US_Alabama_Birmingham	4	Alabama
+US_Alabama_Birmingham	4	AL
 US_Alabama_Montgomery	4	Alabama
+US_Alabama_Montgomery	4	AL
 Brazil_Northeast Region_East	4	Alagoas
 Costa Rica	4	Alajuela
 US_Alaska	4	Alaska
+US_Alaska	4	AK
 Romania_Centre	4	Alba
 France_Centre-Val de Loire_Indre-et-Loire	4	Centre-Val de Loire
 France_Centre-Val de Loire_Indre	4	Centre-Val de Loire
@@ -176,6 +187,7 @@ Uruguay	4	Cerro Largo
 Philippines_Visayas	4	Antique
 Philippines_Luzon_South	4	Antique
 Marshall Islands	2	Aolepān Aorōkin M̧ajeļ
+Marshall Islands	2	MH
 Uganda	4	Apac
 Philippines_Luzon_North	4	Apayao
 Switzerland_Eastern	4	Appenzell Ausserrhoden
@@ -231,10 +243,15 @@ Argentina_Buenos Aires_North	2	Argentina
 Argentina_Buenos Aires_Buenos Aires	2	Argentina
 Romania_South	4	Argeș
 US_Arizona_Tucson	4	Arizona
+US_Arizona_Tucson	4	AZ
 US_Arizona_Phoenix	4	Arizona
+US_Arizona_Phoenix	4	AZ
 US_Arizona_Flagstaff	4	Arizona
+US_Arizona_Flagstaff	4	AZ
 US_Arkansas_North	4	Arkansas
+US_Arkansas_North	4	AR
 US_Arkansas_South	4	Arkansas
+US_Arkansas_South	4	AR
 Portugal_Islands	4	Arquipélago da Madeira
 Djibouti	4	Arta
 Cuba	4	Artemisa
@@ -486,6 +503,7 @@ Germany_Free State of Bavaria_Upper Bavaria_Munchen	4	Bayern
 Germany_Free State of Bavaria_Upper Bavaria_South	4	Bayern
 Germany_Free State of Bavaria_Upper Bavaria_Ingolstadt	4	Bayern
 Palau	2	Belau
+Palau	2	PW
 Belgium_West Flanders	2	België - Belgique - Belgien
 Belgium_East Flanders	2	België - Belgique - Belgien
 Belgium_Antwerp	2	België - Belgique - Belgien
@@ -574,17 +592,29 @@ France_Burgundy_Yonne	4	Bourgogne-Franche-Comté
 France_Burgundy_Cote-dOr	4	Bourgogne-Franche-Comté
 Colombia_West	4	Caldas
 US_California_LA North	4	California
+US_California_LA North	4	CA
 US_California_LA	4	California
+US_California_LA	4	CA
 US_California_Santa_Clara_Palo Alto	4	California
+US_California_Santa_Clara_Palo Alto	4	CA
 US_California_Redding	4	California
+US_California_Redding	4	CA
 US_California_Sacramento_Sacramento	4	California
+US_California_Sacramento_Sacramento	4	CA
 US_California_Chico	4	California
+US_California_Chico	4	CA
 US_California_Sacramento_Fresno	4	California
+US_California_Sacramento_Fresno	4	CA
 US_California_Sacramento_Stockton	4	California
+US_California_Sacramento_Stockton	4	CA
 US_California_Bakersfield_Lancaster	4	California
+US_California_Bakersfield_Lancaster	4	CA
 US_California_Santa_Clara_Santa Cruz	4	California
+US_California_Santa_Clara_Santa Cruz	4	CA
 US_California_Bakersfield_Bakersfield	4	California
+US_California_Bakersfield_Bakersfield	4	CA
 US_California_San Diego	4	California
+US_California_San Diego	4	CA
 Peru_Lima	4	Callao
 Cuba	4	Camagüey
 Philippines_Luzon_Manila	4	Camarines Norte
@@ -728,10 +758,15 @@ Zimbabwe	4	Mashonaland Central
 Zimbabwe	4	Mashonaland East
 Zimbabwe	4	Mashonaland West
 US_Massachusetts_Southeastern	4	Massachusetts
+US_Massachusetts_Southeastern	4	MA
 US_Massachusetts_Central	4	Massachusetts
+US_Massachusetts_Central	4	MA
 US_Massachusetts_Plymouth	4	Massachusetts
+US_Massachusetts_Plymouth	4	MA
 US_Massachusetts_West	4	Massachusetts
+US_Massachusetts_West	4	MA
 US_Massachusetts_Boston	4	Massachusetts
+US_Massachusetts_Boston	4	MA
 Zimbabwe	4	Masvingo Province
 Solomon Islands	4	Capital Territory
 Philippines_Visayas	4	Capiz
@@ -827,8 +862,11 @@ Colombia_North	2	Colombia
 Colombia_West	2	Colombia
 Uruguay	4	Colonia
 US_Colorado_Aspen	4	Colorado
+US_Colorado_Aspen	4	CO
 US_Colorado_South	4	Colorado
+US_Colorado_South	4	CO
 US_Colorado_Denver	4	Colorado
+US_Colorado_Denver	4	CO
 El Salvador	4	Departamento de Cuscatlán
 El Salvador	4	Departamento de La Libertad
 Honduras	4	Colón
@@ -837,6 +875,7 @@ Honduras	4	Comayagua
 Malta	4	Comino
 Mali	4	District de Bamako
 US_Maryland_and_DC	4	District of Columbia
+US_Maryland_and_DC	4	DC
 Venezuela_North	4	Distrito Capital
 Paraguay	4	Distrito Capital de Paraguay
 Brazil_Goias_Brasilia	4	Distrito Federal
@@ -856,6 +895,7 @@ Spain_Valencian Community	4	Comunitat Valenciana
 Guinea	4	Conakry
 Paraguay	4	Concepción
 US_Connecticut	4	Connecticut
+US_Connecticut	4	CT
 Algeria_Coast	4	Constantine - قسنطينة
 Romania_South_East	4	Constanța
 Cook Islands	2	Cook Islands
@@ -960,6 +1000,7 @@ Italy_Sicily	4	Isola Lachea
 Italy_Campania	4	Isola Licosa
 Syria	4	Deir ez-Zor
 US_Delaware	4	Delaware
+US_Delaware	4	DE
 India_Delhi	4	Delhi
 Nigeria_South	4	Delta
 Cote dIvoire	4	Denguélé
@@ -1210,16 +1251,23 @@ Guernsey	4	Fauconniere
 Bosnia and Herzegovina_Entity Federation of Bosnia and Herzegovina	4	Federacija Bosne i Hercegovine
 Nigeria_South	4	Federal Capital Territory
 Federated States of Micronesia	2	Federated States of Micronesia
+Federated States of Micronesia	2	FM
 Norway_Northern	4	Finnmark
 Mauritius	4	Flacq
 Netherlands_Flevoland	4	Flevoland
 Uruguay	4	Flores
 US_Florida_Miami	4	Florida
+US_Florida_Miami	4	FL
 Uruguay	4	Florida
+Uruguay	4	FL
 US_Florida_Tampa	4	Florida
+US_Florida_Tampa	4	FL
 US_Florida_Jacksonville	4	Florida
+US_Florida_Jacksonville	4	FL
 US_Florida_Orlando	4	Florida
+US_Florida_Orlando	4	FL
 US_Florida_Gainesville	4	Florida
+US_Florida_Gainesville	4	FL
 Guernsey	4	Fondu
 Italy_Tuscany_Grosseto	4	Formica Grande
 Italy_Tuscany_Grosseto	4	Formica III
@@ -1427,6 +1475,7 @@ Congo-Kinshasa_West	4	Haut-Uele
 Central African Republic	4	Haute-Kotto
 Burkina Faso	4	Hauts-Bassins
 US_Hawaii	4	Hawaii
+US_Hawaii	4	HI
 New Zealand North_Wellington	4	Hawke's Bay
 US_New York_East	4	Gardiners Island
 Kenya	4	Garissa
@@ -1445,9 +1494,13 @@ Netherlands_Gelderland_North	4	Gelderland
 Netherlands_Gelderland_Zutphen	4	Gelderland
 Switzerland_Lake Geneva region	4	Genève
 US_Georgia_North	4	Georgia
+US_Georgia_North	4	GA
 US_Georgia_Atlanta	4	Georgia
+US_Georgia_Atlanta	4	GA
 US_Georgia_South	4	Georgia
+US_Georgia_South	4	GA
 US_Georgia_Macon	4	Georgia
+US_Georgia_Macon	4	GA
 Ghana	2	Ghana
 Botswana	4	Ghanzi District
 Algeria_Central	4	Ghardaïa ⵜⴰⵖⵔⴷⴰⵢⵜ غرداية
@@ -1489,6 +1542,7 @@ Guadeloupe	4	Guadeloupe
 Colombia_East	4	Guainía
 Paraguay	4	Guairá
 US_Guam	4	Guam
+US_Guam	4	GU
 Italy_Lazio	4	Zannone
 Cote dIvoire	4	Zanzan
 Azerbaijan	4	Zaqatala rayonu
@@ -1577,7 +1631,9 @@ Rwanda	4	Iburasirasuba
 Rwanda	4	Iburengerazuba
 Peru_Lima	4	Ica
 US_Idaho_South	4	Idaho
+US_Idaho_South	4	ID
 US_Idaho_North	4	Idaho
+US_Idaho_North	4	ID
 Syria	4	Idlib
 Philippines_Luzon_North	4	Ifugao
 Portugal_Islands	4	Ilha do Bugio
@@ -1646,8 +1702,11 @@ India_Himachal Pradesh	2	India
 India_Jammu and Kashmir	2	India
 India_Madhya Pradesh	2	India
 US_Indiana_Indianapolis	4	Indiana
+US_Indiana_Indianapolis	4	IN
 US_Indiana_Evansville	4	Indiana
+US_Indiana_Evansville	4	IN
 US_Indiana_North	4	Indiana
+US_Indiana_North	4	IN
 Indonesia_Jawa Tengah	2	Indonesia
 Indonesia_Central	2	Indonesia
 Indonesia_East	2	Indonesia
@@ -1661,8 +1720,11 @@ Sudan_West	4	al-Khartum
 Sudan_East	4	al-Khartum
 Honduras	4	Intibucá
 US_Iowa_West	4	Iowa
+US_Iowa_West	4	IA
 US_Iowa_Des Moines	4	Iowa
+US_Iowa_Des Moines	4	IA
 US_Iowa_Waterloo	4	Iowa
+US_Iowa_Waterloo	4	IA
 Jordan	4	Irbid
 Ireland_Northern Counties	2	Ireland
 Ireland_Leinster	2	Ireland
@@ -2053,8 +2115,11 @@ The Gambia	4	Kanifing
 Guinea	4	Kankan
 Nigeria_North	4	Kano
 US_Kansas_East	4	Kansas
+US_Kansas_East	4	KS
 US_Kansas_West	4	Kansas
+US_Kansas_West	4	KS
 US_Kansas_Wichita	4	Kansas
+US_Kansas_Wichita	4	KS
 Uganda	4	Kanungu District
 Uganda	4	Kapchorwa
 Afghanistan	4	Logar
@@ -2118,8 +2183,11 @@ Malaysia	4	Kedah / قدح
 Malaysia	4	Kelantan / کلنتن دار النعيم
 Malta	4	Kemmuna
 US_Kentucky_Louisville	4	Kentucky
+US_Kentucky_Louisville	4	KY
 US_Kentucky_West	4	Kentucky
+US_Kentucky_West	4	KY
 US_Kentucky_East	4	Kentucky
+US_Kentucky_East	4	KY
 Kenya	2	Kenya
 Chad	4	Logone Occidental
 Chad	4	Logone Oriental
@@ -2158,7 +2226,9 @@ Tanzania	4	Kigoma
 Kenya	4	Kilifi
 Panama	4	Los Santos
 US_Louisiana_New Orleans	4	Louisiana
+US_Louisiana_New Orleans	4	LA
 US_Louisiana_Central	4	Louisiana
+US_Louisiana_Central	4	LA
 Congo-Kinshasa_West	4	Lualaba
 Mauritius	4	Île Paille en Queue
 Kenya	4	Kirinyaga
@@ -2318,6 +2388,7 @@ Hungary_Kozep-Magyarorszag	2	Magyarország
 India_Maharashtra	4	Maharashtra
 Congo-Kinshasa_West	4	Mai-Ndombe
 US_Maine	4	Maine
+US_Maine	4	ME
 Rwanda	4	Majyaruguru
 Burundi	4	Makamba
 Solomon Islands	4	Makira-Ulawa Province
@@ -2381,7 +2452,9 @@ Kenya	4	Marsabit
 Martinique	4	Martinique
 Turkmenistan	4	Mary
 US_Maryland_Baltimore	4	Maryland
+US_Maryland_Baltimore	4	MD
 US_Maryland_and_DC	4	Maryland
+US_Maryland_and_DC	4	MD
 Liberia	4	Maryland County
 Azerbaijan	4	Neftçala rayonu
 Malaysia	4	Negeri Sembilan
@@ -2394,15 +2467,23 @@ Philippines_Luzon_South	4	Masbate
 Cuba	4	Mayabeque
 Papua New Guinea	4	New Ireland
 US_New Jersey_North	4	New Jersey
+US_New Jersey_North	4	NJ
 US_New Jersey_South	4	New Jersey
+US_New Jersey_South	4	NJ
 US_New Mexico_Albuquerque	4	New Mexico
+US_New Mexico_Albuquerque	4	NM
 US_New Mexico_Roswell	4	New Mexico
+US_New Mexico_Roswell	4	NM
 Australia_New South Wales	4	New South Wales
 Australia_Sydney	4	New South Wales
 US_New York_New York	4	New York
+US_New York_New York	4	NY
 US_New York_East	4	New York
+US_New York_East	4	NY
 US_New York_West	4	New York
+US_New York_West	4	NY
 US_New York_North	4	New York
+US_New York_North	4	NY
 New Zealand South_Southland	2	New Zealand/Aotearoa
 New Zealand South_Canterbury	2	New Zealand/Aotearoa
 New Zealand North_Auckland	2	New Zealand/Aotearoa
@@ -2446,9 +2527,13 @@ Turkey_Mediterranean Region	4	Mersin İli
 Kenya	4	Meru
 Colombia_East	4	Meta
 US_Michigan_North	4	Michigan
+US_Michigan_North	4	MI
 US_Michigan_Grand Rapids	4	Michigan
+US_Michigan_Grand Rapids	4	MI
 US_Michigan_Lansing	4	Michigan
+US_Michigan_Lansing	4	MI
 US_Michigan_Detroit	4	Michigan
+US_Michigan_Detroit	4	MI
 Mexico_South	4	Michoacán de Ocampo
 Zimbabwe	4	Midlands Province
 Niue	2	Niuē
@@ -2465,19 +2550,29 @@ Brazil_Southeast Region_Minas Gerais_Contagem	4	Minas Gerais
 Brazil_Southeast Region_Minas Gerais_North	4	Minas Gerais
 Azerbaijan	4	Mingəçevir İnzibati Ərazisi
 US_Minnesota_Rochester	4	Minnesota
+US_Minnesota_Rochester	4	MN
 US_Minnesota_Saint Cloud	4	Minnesota
+US_Minnesota_Saint Cloud	4	MN
 US_Minnesota_Minneapolis	4	Minnesota
+US_Minnesota_Minneapolis	4	MN
 US_Minnesota_North	4	Minnesota
+US_Minnesota_North	4	MN
 Philippines_Mindanao	4	Misamis Occidental
 Philippines_Mindanao	4	Misamis Oriental
 Paraguay	4	Misiones
 Argentina_Mesopotamia	4	Misiones
 US_Mississippi_North	4	Mississippi
+US_Mississippi_North	4	MS
 US_Mississippi_Gulfport	4	Mississippi
+US_Mississippi_Gulfport	4	MS
 US_Missouri_Kansas	4	Missouri
+US_Missouri_Kansas	4	MO
 US_Missouri_Springfield	4	Missouri
+US_Missouri_Springfield	4	MO
 US_Missouri_St Louis	4	Missouri
+US_Missouri_St Louis	4	MO
 US_Missouri_East	4	Missouri
+US_Missouri_East	4	MO
 Uganda	4	Mitooma
 India_Mizoram	4	Mizoram
 Mauritius	4	Moka
@@ -2505,7 +2600,9 @@ Benin	4	Mono
 Dominican Republic	4	Monseñor Nouel
 Cote dIvoire	4	Montagnes
 US_Montana_West	4	Montana
+US_Montana_West	4	MT
 US_Montana_East	4	Montana
+US_Montana_East	4	MT
 Yemen	4	Raymah
 Dominican Republic	4	Monte Cristi
 Dominican Republic	4	Monte Plata
@@ -2614,7 +2711,9 @@ Myanmar	4	Naypyitaw
 Algeria_Central	4	Naâma - النعامة
 Romania_North_East	4	Neamț
 US_Nebraska_West	4	Nebraska
+US_Nebraska_West	4	NE
 US_Nebraska_East	4	Nebraska
+US_Nebraska_East	4	NE
 Netherlands_Flevoland	2	Nederland
 Netherlands_Drenthe	2	Nederland
 Netherlands_Groningen	2	Nederland
@@ -2663,9 +2762,11 @@ India_Tamil Nadu	4	Nettapakkam (Puducherry)
 Switzerland_Espace Mittelland_Bern	4	Neuchâtel
 Argentina_Patagonia	4	Neuquén
 US_Nevada	4	Nevada
+US_Nevada	4	NV
 Turkey_Central Anatolia Region_Kayseri	4	Nevşehir
 Canada_New Brunswick	4	New Brunswick
 US_New Hampshire	4	New Hampshire
+US_New Hampshire	4	NH
 Suriname	4	Nickerie
 Switzerland_Central	4	Nidwalden
 Germany_Lower Saxony_Hannover	4	Niedersachsen
@@ -2738,15 +2839,24 @@ Portugal_Porto	4	Norte
 Portugal_Viseu	4	Norte
 Colombia_North	4	Norte de Santander
 US_North Carolina_Wilmington	4	North Carolina
+US_North Carolina_Wilmington	4	NC
 US_North Carolina_Greensboro	4	North Carolina
+US_North Carolina_Greensboro	4	NC
 US_North Carolina_Charlotte	4	North Carolina
+US_North Carolina_Charlotte	4	NC
 US_North Carolina_Asheville	4	North Carolina
+US_North Carolina_Asheville	4	NC
 US_North Carolina_Wilson	4	North Carolina
+US_North Carolina_Wilson	4	NC
 US_North Carolina_Raleigh	4	North Carolina
+US_North Carolina_Raleigh	4	NC
 Sri Lanka	4	North Central
 US_North Dakota_East	4	North Dakota
+US_North Dakota_East	4	ND
 US_North Dakota_Bismarck	4	North Dakota
+US_North Dakota_Bismarck	4	ND
 US_North Dakota_Minot	4	North Dakota
+US_North Dakota_Minot	4	ND
 South Africa_North West	4	North West
 Sri Lanka	4	North Western Province
 Botswana	4	North-East District
@@ -2758,6 +2868,7 @@ South Sudan	4	Northern Bahr el Ghazal State
 South Africa_Northern Cape	4	Northern Cape
 UK_Northern Ireland	4	Northern Ireland
 US_Guam	4	Northern Mariana Islands
+US_Guam	4	MP
 Sierra Leone	4	Northern Province
 Sri Lanka	4	Northern Province
 Zambia	4	Northern Province
@@ -2784,14 +2895,22 @@ Mexico_Central_East	4	Nuevo León
 Kenya	4	Nyamira
 Namibia	4	Ohangwena Region
 US_Ohio_Cleveland	4	Ohio
+US_Ohio_Cleveland	4	OH
 US_Ohio_Toledo	4	Ohio
+US_Ohio_Toledo	4	OH
 US_Ohio_Columbus	4	Ohio
+US_Ohio_Columbus	4	OH
 US_Ohio_Cincinnati	4	Ohio
+US_Ohio_Cincinnati	4	OH
 Namibia	4	Okahao
 US_Oklahoma_Tulsa	4	Oklahoma
+US_Oklahoma_Tulsa	4	OK
 US_Oklahoma_East	4	Oklahoma
+US_Oklahoma_East	4	OK
 US_Oklahoma_Oklahoma	4	Oklahoma
+US_Oklahoma_Oklahoma	4	OK
 US_Oklahoma_West	4	Oklahoma
+US_Oklahoma_West	4	OK
 Honduras	4	Olancho
 Romania_South_West	4	Olt
 Namibia	4	Omaheke Region
@@ -2841,8 +2960,11 @@ Morocco_Southern	4	Oriental ⵜⴰⵏⴳⵎⵓⴹⵜ الشرقية
 Somalia	4	Shabeellaha Hoose
 Azerbaijan	4	Ordubad rayonu
 US_Oregon_Portland	4	Oregon
+US_Oregon_Portland	4	OR
 US_Oregon_Eugene	4	Oregon
+US_Oregon_Eugene	4	OR
 US_Oregon_West	4	Oregon
+US_Oregon_West	4	OR
 Ecuador_East	4	Orellana
 Panama	4	Panamá Oeste
 Bolivia_North	4	Pando
@@ -2876,9 +2998,13 @@ Central African Republic	4	Ouham-Pendé
 Algeria_Coast	4	Oum El Bouaghi - أم الـبـواقي
 Namibia	4	Outapi
 US_Pennsylvania_Reading	4	Pennsylvania
+US_Pennsylvania_Reading	4	PA
 US_Pennsylvania_Central	4	Pennsylvania
+US_Pennsylvania_Central	4	PA
 US_Pennsylvania_Pittsburgh	4	Pennsylvania
+US_Pennsylvania_Pittsburgh	4	PA
 US_Pennsylvania_Scranton	4	Pennsylvania
+US_Pennsylvania_Scranton	4	PA
 Malaysia	4	Perak / ڨيرق
 Dominican Republic	4	Peravia
 Malaysia	4	Perlis
@@ -3031,7 +3157,9 @@ Mexico_Mexico	4	Puebla
 Guernsey	4	Putrainez Islet
 Dominican Republic	4	Puerto Plata
 US_Puerto Rico	4	Puerto Rico
+US_Puerto Rico	4	PR
 United States Virgin Islands	4	Puerto Rico
+United States Virgin Islands	4	PR
 Italy_Apulia	4	Puglia
 Malaysia	4	Pulau Aman
 Malaysia	4	Pulau Betong
@@ -3056,16 +3184,27 @@ Azerbaijan	4	Qobustan rayonu
 Italy_Sicily	4	Testa di Monaco
 Mozambique	4	Tete
 US_Texas_Amarillo	4	Texas
+US_Texas_Amarillo	4	TX
 US_Texas_Lubbock	4	Texas
+US_Texas_Lubbock	4	TX
 US_Texas_Dallas	4	Texas
+US_Texas_Dallas	4	TX
 US_Texas_Houston	4	Texas
+US_Texas_Houston	4	TX
 US_Texas_Wako	4	Texas
+US_Texas_Wako	4	TX
 US_Texas_San Antonio	4	Texas
+US_Texas_San Antonio	4	TX
 US_Texas_Southwest	4	Texas
+US_Texas_Southwest	4	TX
 US_Texas_Tyler	4	Texas
+US_Texas_Tyler	4	TX
 US_Texas_Austin	4	Texas
+US_Texas_Austin	4	TX
 US_Texas_Victoria	4	Texas
+US_Texas_Victoria	4	TX
 US_Texas_West	4	Texas
+US_Texas_West	4	TX
 Kenya	4	Tharaka-Nithi
 Azerbaijan	4	Quba rayonu
 Jersey	4	Queen's Rock
@@ -3124,6 +3263,7 @@ Guatemala	4	Retalhuleu
 Germany_Rhineland-Palatinate_South	4	Rheinland-Pfalz
 Germany_Rhineland-Palatinate_Koblenz	4	Rheinland-Pfalz
 US_Rhode Island	4	Rhode Island
+US_Rhode Island	4	RI
 Indonesia_West	4	Riau
 Brazil_Rio Grande do Norte	4	Rio Grande do Norte
 Brazil_South Region_East	4	Rio Grande do Sul
@@ -3398,10 +3538,14 @@ South Africa_North West	2	South Africa
 South Africa_Free State	2	South Africa
 Australia_South Australia	4	South Australia
 US_South Carolina_Columbia	4	South Carolina
+US_South Carolina_Columbia	4	SC
 US_South Carolina_Charleston	4	South Carolina
+US_South Carolina_Charleston	4	SC
 US_South Carolina_Florence	4	South Carolina
+US_South Carolina_Florence	4	SC
 Philippines_Mindanao	4	South Cotabato
 US_South Dakota	4	South Dakota
+US_South Dakota	4	SD
 South Georgia and the South Sandwich Islands	2	South Georgia and South Sandwich Islands
 Antarctica	2	South Georgia and South Sandwich Islands
 Sudan_West	2	South Sudan
@@ -3635,10 +3779,15 @@ Tanzania	4	Unguja Mjini Magharibi
 India_Chandigarh	4	Union Territory of Chandīgarh
 East Timor	4	Viqueque
 US_Virginia_Alexandria	4	Virginia
+US_Virginia_Alexandria	4	VA
 US_Virginia_Richmond	4	Virginia
+US_Virginia_Richmond	4	VA
 US_Virginia_Roanoke	4	Virginia
+US_Virginia_Roanoke	4	VA
 US_Virginia_Lynchburg	4	Virginia
+US_Virginia_Lynchburg	4	VA
 US_Virginia_Norfolk	4	Virginia
+US_Virginia_Norfolk	4	VA
 India_Gujarat	4	Union Territory of Dadra & Nagar Haveli
 India_Gujarat	4	Union Territory of Damman & Diu
 UK_England_East Midlands	2	United Kingdom
@@ -3665,6 +3814,7 @@ Honduras	4	Valle
 Italy_Aosta Valley	4	Valle d'Aosta/Vallée d'Aoste
 Colombia_West	4	Valle del Cauca
 United States Virgin Islands	4	United States Virgin Islands
+United States Virgin Islands	4	VI
 US_Missouri_Kansas	2	United States of America
 US_Missouri_Springfield	2	United States of America
 US_Wisconsin_Madison	2	United States of America
@@ -3828,7 +3978,9 @@ Sweden_Malardalen	4	Uppsala län
 Switzerland_Central	4	Uri
 Uruguay	2	Uruguay
 US_Utah_North	4	Utah
+US_Utah_North	4	UT
 US_Utah_South	4	Utah
+US_Utah_South	4	UT
 Lithuania_East	4	Utenos apskritis
 Cote dIvoire	4	Vallée du Bandama
 Turkey_Aegean Region	4	Uşak
@@ -3864,6 +4016,7 @@ Mexico_East	4	Veracruz de Ignacio de la Llave
 Mexico_Mexico	4	Veracruz de Ignacio de la Llave
 Panama	4	Veraguas
 US_Vermont	4	Vermont
+US_Vermont	4	VT
 Norway_Southern	4	Vest-Agder
 Azerbaijan	4	Xızı rayonu
 Norway_Southern	4	Vestfold
@@ -3904,8 +4057,11 @@ Suriname	4	Wanica
 Afghanistan	4	Wardak
 Sudan_West	4	Wasat Darfur
 US_Washington_Yakima	4	Washington
+US_Washington_Yakima	4	WA
 US_Washington_Seattle	4	Washington
+US_Washington_Seattle	4	WA
 US_Washington_Coast	4	Washington
+US_Washington_Coast	4	WA
 Equatorial Guinea	4	Wele-Nzas
 New Zealand North_Wellington	4	Wellington
 India_West Bengal	4	West Bengal
@@ -3914,6 +4070,7 @@ New Zealand South_Canterbury	4	West Coast
 Papua New Guinea	4	West New Britain
 Kenya	4	West Pokot
 US_West Virginia	4	West Virginia
+US_West Virginia	4	WV
 Papua New Guinea	4	Western
 Sierra Leone	4	Western Area
 Australia_Western Australia	4	Western Australia
@@ -3929,14 +4086,19 @@ Uganda	4	Western Region
 Austria_Lower Austria_Wien	4	Wien
 Willis Island	2	Willis Island
 US_Wisconsin_Madison	4	Wisconsin
+US_Wisconsin_Madison	4	WI
 US_Wisconsin_Eau Claire	4	Wisconsin
+US_Wisconsin_Eau Claire	4	WI
 US_Wisconsin_North	4	Wisconsin
+US_Wisconsin_North	4	WI
 US_Wisconsin_Milwaukee	4	Wisconsin
+US_Wisconsin_Milwaukee	4	WI
 Gabon	4	Woleu-Ntem
 Azerbaijan	4	Yevlax rayonu
 Somalia	4	Woqooyi Galbeed
 Cote dIvoire	4	Woroba
 US_Wyoming	4	Wyoming
+US_Wyoming	4	WY
 Chile_South	4	X Región de Los Lagos
 Chile_South	4	XI Región Aysén del General Carlos Ibáñez del Campo
 Chile_South	4	XII Región de Magallanes y de la Antártica Chilena

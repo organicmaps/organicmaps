@@ -89,6 +89,10 @@
 		3438CDF81B8616760051AA78 /* MWMSearchShowOnMapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDF61B8616760051AA78 /* MWMSearchShowOnMapCell.mm */; };
 		3438CDF91B8616760051AA78 /* MWMSearchShowOnMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3438CDF71B8616760051AA78 /* MWMSearchShowOnMapCell.xib */; };
 		3438CDFC1B862F5C0051AA78 /* MWMSearchContentView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDFB1B862F5C0051AA78 /* MWMSearchContentView.mm */; };
+		343E8B341D07F84C0046AEEE /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 343E8B331D07F84C0046AEEE /* Pushwoosh.framework */; };
+		343E8B351D07F84C0046AEEE /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 343E8B331D07F84C0046AEEE /* Pushwoosh.framework */; };
+		343E8B371D08004C0046AEEE /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 343E8B361D08004C0046AEEE /* libstdc++.tbd */; };
+		343E8B381D0800520046AEEE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89331C8983F300940D7F /* libc++.tbd */; };
 		343FAC4A1CBFBDFC00A45D3B /* MWMNoMapsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343FAC491CBFBDFC00A45D3B /* MWMNoMapsView.mm */; };
 		343FAC4B1CBFBDFC00A45D3B /* MWMNoMapsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343FAC491CBFBDFC00A45D3B /* MWMNoMapsView.mm */; };
 		34479C7C1C60C6130065D261 /* MWMFrameworkListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34479C781C60C6130065D261 /* MWMFrameworkListener.mm */; };
@@ -98,6 +102,8 @@
 		34570A3D1B13223000E6D4FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3C1B13223000E6D4FD /* libsqlite3.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		34570A3F1B13225500E6D4FD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3E1B13225500E6D4FD /* Accounts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		34570A411B13229300E6D4FD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		345A2DCB1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345A2DCA1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm */; };
+		345A2DCC1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345A2DCA1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm */; };
 		345FD7E01CEC7AD400F58045 /* MWMEditorAddAdditionalNameTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345FD7DF1CEC7AD400F58045 /* MWMEditorAddAdditionalNameTableViewCell.mm */; };
 		345FD7E11CEC7AD400F58045 /* MWMEditorAddAdditionalNameTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345FD7DF1CEC7AD400F58045 /* MWMEditorAddAdditionalNameTableViewCell.mm */; };
 		345FD7E31CEC7B0C00F58045 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 345FD7E21CEC7B0C00F58045 /* MWMEditorAddAdditionalNameTableViewCell.xib */; };
@@ -975,6 +981,8 @@
 		3438CDF71B8616760051AA78 /* MWMSearchShowOnMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchShowOnMapCell.xib; sourceTree = "<group>"; };
 		3438CDFA1B862F5C0051AA78 /* MWMSearchContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchContentView.h; sourceTree = "<group>"; };
 		3438CDFB1B862F5C0051AA78 /* MWMSearchContentView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchContentView.mm; sourceTree = "<group>"; };
+		343E8B331D07F84C0046AEEE /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = PushNotifications/Pushwoosh.framework; sourceTree = "<group>"; };
+		343E8B361D08004C0046AEEE /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		343FAC481CBFBDFC00A45D3B /* MWMNoMapsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoMapsView.h; sourceTree = "<group>"; };
 		343FAC491CBFBDFC00A45D3B /* MWMNoMapsView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoMapsView.mm; sourceTree = "<group>"; };
 		34479C751C60C6130065D261 /* Framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Framework.cpp; sourceTree = "<group>"; };
@@ -987,6 +995,8 @@
 		34570A3C1B13223000E6D4FD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		34570A3E1B13225500E6D4FD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = Statistics/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		345A2DC91D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWMWhatsNewBookingBicycleRoutingController.h; path = Welcome/MWMWhatsNewBookingBicycleRoutingController.h; sourceTree = "<group>"; };
+		345A2DCA1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MWMWhatsNewBookingBicycleRoutingController.mm; path = Welcome/MWMWhatsNewBookingBicycleRoutingController.mm; sourceTree = "<group>"; };
 		345FD7DE1CEC7AD400F58045 /* MWMEditorAddAdditionalNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorAddAdditionalNameTableViewCell.h; sourceTree = "<group>"; };
 		345FD7DF1CEC7AD400F58045 /* MWMEditorAddAdditionalNameTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorAddAdditionalNameTableViewCell.mm; sourceTree = "<group>"; };
 		345FD7E21CEC7B0C00F58045 /* MWMEditorAddAdditionalNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAddAdditionalNameTableViewCell.xib; sourceTree = "<group>"; };
@@ -1600,6 +1610,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				343E8B371D08004C0046AEEE /* libstdc++.tbd in Frameworks */,
 				F652D9141CFEE47000FC29A0 /* SafariServices.framework in Frameworks */,
 				845C89351C8983F300940D7F /* CoreText.framework in Frameworks */,
 				845C89361C8983F300940D7F /* libc++.tbd in Frameworks */,
@@ -1626,6 +1637,7 @@
 				F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */,
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
 				F6671C6B1BA2EFD500548008 /* libFlurry_7.1.0.a in Frameworks */,
+				343E8B341D07F84C0046AEEE /* Pushwoosh.framework in Frameworks */,
 				34921F6A1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
 				B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */,
@@ -1683,10 +1695,12 @@
 				6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */,
 				6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */,
 				6741AAD71BF356BA002C974C /* libtomcrypt.a in Frameworks */,
+				343E8B381D0800520046AEEE /* libc++.tbd in Frameworks */,
 				6741AA321BF340DE002C974C /* FBSDKLoginKit.framework in Frameworks */,
 				6741AA331BF340DE002C974C /* Social.framework in Frameworks */,
 				6741AA341BF340DE002C974C /* Accounts.framework in Frameworks */,
 				6741AA351BF340DE002C974C /* libsqlite3.dylib in Frameworks */,
+				343E8B351D07F84C0046AEEE /* Pushwoosh.framework in Frameworks */,
 				6741AA361BF340DE002C974C /* libz.dylib in Frameworks */,
 				6741AA371BF340DE002C974C /* AudioToolbox.framework in Frameworks */,
 				34EB5E7E1C900159002C4D37 /* AssetsLibrary.framework in Frameworks */,
@@ -1821,6 +1835,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				343E8B361D08004C0046AEEE /* libstdc++.tbd */,
+				343E8B331D07F84C0046AEEE /* Pushwoosh.framework */,
 				F659FC691CF35C24000A06B1 /* SafariServices.framework */,
 				34A62D4C1C903533007FDCB7 /* Fabric.framework */,
 				34A62D4D1C903533007FDCB7 /* Crashlytics.framework */,
@@ -2857,6 +2873,8 @@
 				34679F3C1C92FE3700114F20 /* MWMWhatsNewDownloaderEditorController.mm */,
 				34D349F91CD0A3EE00895216 /* MWMWhatsNewEditorController.h */,
 				34D349FA1CD0A3EE00895216 /* MWMWhatsNewEditorController.mm */,
+				345A2DC91D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.h */,
+				345A2DCA1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm */,
 			);
 			name = Welcome;
 			sourceTree = "<group>";
@@ -3692,6 +3710,7 @@
 				3438CDFC1B862F5C0051AA78 /* MWMSearchContentView.mm in Sources */,
 				34479C7C1C60C6130065D261 /* MWMFrameworkListener.mm in Sources */,
 				3485C0121B85C20E00F7712D /* MWMSearchTableViewController.mm in Sources */,
+				345A2DCB1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm in Sources */,
 				34D37E171CD2373C001DEFC3 /* MWMMapDownloaderCellHeader.mm in Sources */,
 				F64D9C9F1C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
 				34CFFE8B1B7DE6FD009D0C9F /* MWMSearchManager.mm in Sources */,
@@ -3917,6 +3936,7 @@
 				34DDD5351BFDB0C600407F2F /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				6741A9CE1BF340DE002C974C /* MWMSearchManager.mm in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
+				345A2DCC1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm in Sources */,
 				34D37E181CD2373C001DEFC3 /* MWMMapDownloaderCellHeader.mm in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.mm in Sources */,
 				34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */,
@@ -4358,7 +4378,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6.1.4;
+				CURRENT_PROJECT_VERSION = 6.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
@@ -4477,7 +4497,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6.1.4;
+				CURRENT_PROJECT_VERSION = 6.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -4597,7 +4617,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 6.1.4;
+				CURRENT_PROJECT_VERSION = 6.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4721,7 +4741,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 6.1.4;
+				CURRENT_PROJECT_VERSION = 6.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4845,7 +4865,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6.1.4;
+				CURRENT_PROJECT_VERSION = 6.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
@@ -4967,7 +4987,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6.1.4;
+				CURRENT_PROJECT_VERSION = 6.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";

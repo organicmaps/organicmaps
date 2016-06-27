@@ -331,7 +331,7 @@
     ja = ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。
     ko = 다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.
     nb = Nedlastingen mislyktes – trykk på nytt for å prøve en gang til
-    pl = Pobieranie nie powiodło się. Naciśnij, aby spróbować ponownie.
+    pl = Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.
     pt = A descarga falhou, toque novamente para tentar uma vez mais.
     ro = Descărcarea a eșuat. Atingeți pentru a încerca din nou.
     es = Error durante la descarga, iniciar otra vez
@@ -362,7 +362,7 @@
     ja = (%1$qu %2$@)をダウンロードしました。削除するには画面をタッチしてください。
     ko = (%1$qu %2$@)가 다운로드 되었습니다, 두드려 삭제하십시요.
     nb = Lastet ned (%1$qu %2$@) – trykk for å slette
-    pl = Pobrano (%1$qu %2$@). Naciśnij, aby usunąć.
+    pl = Pobrano (%1$qu %2$@). Proszę nacisnąć, aby usunąć.
     pt = Descarregado (%1$qu %2$@), toque para eliminar.
     ro = Descărcat (%1$qu %2$@). Atingeți pentru a șterge.
     es = Descargado (%1$qu %2$@), apreté para eliminar
@@ -393,7 +393,7 @@
     ja = %qu%%をダウンロード中です。キャンセルするには画面をタッチしてください。
     ko = %qu%%를 다운로드 중, 두드려 취소하십시요
     nb = Laster ned %qu%% – trykk for å avbryte
-    pl = Pobieranie %qu%%. Naciśnij, aby anulować.
+    pl = Pobieranie %qu%%. Proszę nacisnąć, aby anulować.
     pt = A descarregar %qu%%, toque para cancelar.
     ro = Se descarcă %qu%%. Atingeți pentru a anula.
     es = Descarga %qu%%, presionar para cancelar
@@ -454,7 +454,7 @@
     ja = 今すぐ入手
     ko = 지금 가져오기
     nb = Hent nå
-    pl = Pobierz teraz
+    pl = Pobierz
     pt = Obtenha agora
     ro = Obțineți acum
     es = Instalar
@@ -658,7 +658,7 @@
     ja = ダウンロードを開始します。キャンセルするには画面をタッチしてください。
     ko = 다운로드로 표시하였습니다. 두드려 취소하십시요.
     nb = Merket for nedlasting – trykk for å avbryte
-    pl = Oznaczono jako do pobrania. Naciśnij, aby anulować
+    pl = Oznaczono do pobrania. Proszę nacisnąć, aby anulować
     pt = Marcado para descarga, toque para cancelar
     ro = Marcat pentru descărcare. Atingeți pentru a anula.
     es = Marcado para descarga, presionar para cancelar
@@ -745,7 +745,7 @@
     ja = 現在地
     ko = 나의 위치
     nb = Min posisjon
-    pl = Moja pozycja
+    pl = Moje położenie
     pt = A minha posição
     ro = Poziția mea
     es = Mi posición
@@ -826,7 +826,7 @@
     ja = 後で通知
     ko = 이후에 기억시키기
     nb = Minn meg på det senere
-    pl = Przypomnij mi później
+    pl = Przypomnij później
     pt = Lembrar-me mais tarde
     ro = Amintește-mi mai târziu
     es = Recordarme mas tarde
@@ -948,7 +948,7 @@
     ja = 検索
     ko = 검색하기
     nb = Søk
-    pl = Szukaj
+    pl = Wyszukaj
     pt = Procura
     ro = Căutare
     es = Buscar
@@ -978,7 +978,7 @@
     ja = マップを検索
     ko = 지도 검색하기
     nb = Søk kart
-    pl = Szukaj mapy
+    pl = Wyszukaj mapy
     pt = Procurar mapa
     ro = Căutare hartă
     es = Buscar en el mapa
@@ -1009,7 +1009,7 @@
     ja = タッチしてダウンロード
     ko = 두드려 다운로드하세요
     nb = Trykk for å laste ned
-    pl = Naciśnij, aby pobrać.
+    pl = Proszę nacisnąć, aby pobrać.
     pt = Toque para descarregar
     ro = Atingeți pentru a descărca.
     es = Presionar para descargar
@@ -1072,7 +1072,7 @@
     ja = 大きなマップをダウンロードする際はWiFiの使用をおすすめします。
     ko = WiFi를 이용하여 큰 지도를 다운로드하는 것을 권하여 드립니다.
     nb = Vi anbefaler å bruke WiFi når du skal laste ned store kart
-    pl = Zalecamy korzystanie z WiFi przy pobieraniu dużych map
+    pl = Zaleca się korzystanie z WiFi przy pobieraniu dużych map
     pt = Recomendamos a utilização de WiFi para descarregar grandes mapas
     ro = Vă recomandăm să utilizați WiFi pentru a descărca hărți mari.
     es = Recomendamos usar WiFi para descarga de los países grandes
@@ -1103,7 +1103,7 @@
     ja = どちらの距離単位を使いますか？
     ko = 어느 측정 시스템을 선호하십니까?
     nb = Hvilket målesystem foretrekker du?
-    pl = Który system miar bardziej ci odpowiada?
+    pl = Który system miar jest najbardziej dogodny?
     pt = Que sistema de medidas prefere?
     ro = Ce sistem de măsură preferați?
     es = ¿Cual sistema de medición prefieres?
@@ -1165,7 +1165,7 @@
     ja = ご使用中の端末は位置情報サービスをサポートしていません。
     ko = 귀하의장치가 위치 서비스를 지원하지 않습니다.
     nb = Enheten din støtter ikke posisjonstjenester
-    pl = Twoje urządzenie nie wspiera usług lokalizacji
+    pl = Urządzenie nie obsługuje usług lokalizacji
     pt = O seu dispositivo não suporta os Serviços de Localização
     ro = Dispozitivul dvs. nu acceptă servicii de localizare.
     es = Su dispositivo no es compatible con los servicios de localización
@@ -1381,7 +1381,7 @@
     ja = のダウンロードに失敗しました
     ko = 다운로드에 실패하였습니다
     nb = Laster ned mislyktes
-    pl = Pobieranie nie powiodło się
+    pl = Nie udało się pobrać
     pt = A descarga falhou
     ro = Se descarcă a eșuat
     es = Error durante la descarga
@@ -1475,9 +1475,9 @@
     ja = %d%%をダウンロード中です。キャンセルするには画面をタッチしてください。
     ko = %d%%를 다운로드 중, 두드려 취소하십시요
     nb = Laster ned %d%% – trykk for å avbryte
-    pl = Pobieranie %d%%. Naciśnij, aby anulować.
+    pl = Pobieranie %d%%. Proszę nacisnąć, aby anulować.
     pt = A descarregar %d%%, toque para cancelar
-    ro = Se descarcă %d%% . Atingeți pentru a anula.
+    ro = Se descarcă %d%%. Atingeți pentru a anula.
     es = Descargando %d%%, presionar para cancelar
     sv = Laddar ner %d%%, tryck för att avbryta
     th = กำลังดาวน์โหลด %d%%, แตะเพื่อยกเลิก
@@ -1505,7 +1505,7 @@
     ja = (%@)をダウンロードしました。削除するには画面をタッチしてください。
     ko = (%@)가 다운로드 되었습니다, 두드려 삭제하십시요.
     nb = Lastet ned (%@) – trykk for å slette
-    pl = Pobrano (%@). Naciśnij, aby usunąć.
+    pl = Pobrano (%@). Proszę nacisnąć, aby usunąć.
     pt = Descarregado (%@), toque para eliminar
     ro = Descărcat (%@). Atingeți pentru a șterge.
     es = Descargado (%@), presionar para eliminar
@@ -1612,7 +1612,7 @@
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
     ru = Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.
-    ar = أنت بحاجة الى OpenGL بأجهزة تسريع . لسوء الحظ جهازك لا يدعم هذه الخاصية.
+    ar = أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, vaše zařízení není podporováno.
     da = En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.
     nl = Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.
@@ -1625,7 +1625,7 @@
     ja = ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。
     ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
     nb = En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.
-    pl = OpenGL wymaga odpowiedniego urządzenia. Niestety twoje urządzenie nie wspiera tej technologii.
+    pl = Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.
     pt = É necessário um OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é suportado.
     ro = Este necesar un OpenGL accelerat din hardware. Din păcate, dispozitivul nu este acceptat.
     es = Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.
@@ -1715,7 +1715,7 @@
     ja = MAPS.MEを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください
     ko = MAPS.ME를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
     nb = Koble fra USB-kabelen eller sett inn minnekortet for å bruke MAPS.ME
-    pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci by korzystać z MAPS.ME
+    pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z MAPS.ME
     pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar MAPS.ME
     ro = Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza MAPS.ME.
     es = Por favor desconectar el cable USB o insertar la memoria SD para usar MAPS.ME
@@ -1775,7 +1775,7 @@
     ja = メモリ不足のためアプリを起動できません
     ko = 응용 프로그램을 실행하기위한 메모리가 충분하지 않다
     nb = Ikke nok minne til å starte appen
-    pl = Za mało pamięci by uruchomić aplikację
+    pl = Za mało pamięci, aby uruchomić aplikację
     pt = Não há memória suficiente para executar a app
     ro = Nu este suficientă memorie pentru a lansa aplicația.
     es = No hay suficiente memoria para iniciar la aplicación
@@ -1805,7 +1805,7 @@
     ja = %2$@をダウンロードするにはデバイスに%1$@の空き容量が必要です
     ko = %2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요
     nb = Frigjør %1$@ på enheten først for å laste ned %2$@
-    pl = Proszę zwolnić %1$@ na swoim urządzeniu zanim rozpoczniesz pobieranie %2$@
+    pl = Proszę zwolnić %1$@ na urządzeniu, aby pobrać %2$@
     pt = Por favor liberte primeiro %1$@ no seu dispositivo para descarregar %2$@
     ro = Vă rugăm să eliberați %1$@ spațiu pe dispozitivul dvs., pentru a putea descărca %2$@.
     es = Por favor liberar %1$@ primero para descargar %2$@
@@ -1835,7 +1835,7 @@
     ja = 利用を開始する前におおまかな世界地図をダウンロードします。これには%@の空き容量が必要です。
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%@ 데이터가 필요합니다.
     nb = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %@ med data.
-    pl = Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\nWymaga to %@ danych.
+    pl = Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %@ danych.
     pt = Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %@ de dados.
     ro = Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %@ de date.
     es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %@ de datos.
@@ -1865,7 +1865,7 @@
     ja = 現在地を取得中
     ko = 현재 위치 얻기
     nb = Henter nåværende posisjon
-    pl = Otrzymywanie informacji o aktualnej pozycji
+    pl = Określanie aktualnego położenia
     pt = A obter a posição atual
     ro = Se obține poziția actuală
     es = Buscando su ubicación actual
@@ -1895,7 +1895,7 @@
     ja = マップを表示
     ko = 지도로 이동
     nb = Gå til kart
-    pl = Idź do mapy
+    pl = Przejdź do mapy
     pt = Ir para o mapa
     ro = Mergeți la hartă.
     es = Ir al mapa
@@ -1925,7 +1925,7 @@
     ja = %@をダウンロードしました\nマップを表示可能です
     ko = %@다운로드. 이제지도를 진행할 수 있습니다.
     nb = Laster ned %@. Du kan nå\nfortsette til kartet.
-    pl = Pobieranie %@. Możesz teraz\notworzyć mapę.
+    pl = Pobieranie %@. Można teraz\nprzejść do mapy.
     pt = A descarregar %@. Pode agora\ncontinuar para o mapa.
     ro = Se descarcă %@. Puteți\ntrece la hartă.
     es = Descargando %@. Puede ahora\nproceder al mapa
@@ -1985,7 +1985,7 @@
     ja = %@を更新しますか？
     ko = %@업데이트?
     nb = Vil du oppdatere %@?
-    pl = Zaktualizować %@?
+    pl = Uaktualnić %@?
     pt = Atualizar %@?
     ro = Actualizați %@?
     es = Actualizar %@?
@@ -2016,7 +2016,7 @@
     ja = 現在地のマップを\nダウンロードできます
     ko = 당신의 현재 위치의지도를 다운로드할 수 있습니다.
     nb = Du kan laste ned kartet\nfor din nåværende posisjon.
-    pl = Możesz pobrać mapę terenu\nwokół twojej aktualnej pozycji.
+    pl = Można pobrać mapę terenu\nwokół bieżącego położenia.
     pt = Pode descarregar o mapa\nda sua posição atual.
     ro = Puteți descărca harta\npentru poziția dvs. actuală.
     es = Puede descargar el mapa de su ubicación actual
@@ -2047,7 +2047,7 @@
     ja = 現在地のマップを\n更新できます
     ko = 귀하의 현재 위치의지도를 업데이트할 수 있습니다.
     nb = Du kan oppdatere kartet\nfor din nåværende posisjon.
-    pl = Możesz zaktualizować mapę terenu\nwokół twojej aktualnej pozycji.
+    pl = Można uaktualnić mapę terenu\nwokół bieżącego położenia.
     pt = Pode atualizar o mapa\nda sua posição atual.
     ro = Puteți actualiza harta\npentru poziția dvs. actuală.
     es = Puede actualizar el mapa de su ubicación actual
@@ -2078,7 +2078,7 @@
     ja = 現在地のマップは\n最新です (%@)
     ko = 현재 위치 (%@)\n에서지도는 최신이다
     nb = Kartet for din nåværende\nposisjon (%@) er oppdatert
-    pl = Mapa wokół twojej aktualnej\npozycji (%@) jest aktualna
+    pl = Mapa wokół bieżącego\npołożenia (%@) jest aktualna
     pt = O mapa da sua localização\natual (%@) está atualizado
     ro = Harta poziției dvs.\nactuale (%@) este la zi.
     es = El mapa de su ubicación\nactual (%@) está actualizado
@@ -2109,7 +2109,7 @@
     ja = 一時停止
     ko = 중지
     nb = Pause
-    pl = Pauza
+    pl = Wstrzymaj
     pt = Pausa
     ro = Pauză
     es = Pausar
@@ -2170,7 +2170,7 @@
     ja = (%@)をダウンロードしました。タップして更新、削除できます
     ko = 다운로드 (%@), 터치를 업데이 트하거나 삭제하는 방법
     nb = Lastet ned (%@) – trykk for å oppdatere eller slette
-    pl = Pobrano (%@). Naciśnij, aby zaktualizować lub usunąć.
+    pl = Pobrano (%@). Proszę nacisnąć, aby uaktualnić lub usunąć.
     pt = Descarregado (%@), toque para atualizar ou eliminar
     ro = Descărcat (%@). Atingeți pentru a actualiza sau a șterge.
     es = Descargado (%@), presionar para actualizar o borrar
@@ -2232,7 +2232,7 @@
     ja = 検索機能を利用するにはマップを更新する必要があります
     ko = 당신은 검색 기능에 대한 업데이트된지도 필요
     nb = Du trenger oppdaterte kart for søkefunksjonen:
-    pl = Musisz posiadać zaktualizowane mapy, aby korzystać z funkcji szukania
+    pl = Aby korzystać z funkcji wyszukiwania, należy posiadać aktualne mapy:
     pt = Precisa de mapas atualizados para a função de procura:
     ro = Aveți nevoie de hărți actualizate pentru funcția de căutare:
     es = Necesita los mapas actualizados para la función de búsqueda
@@ -2264,7 +2264,7 @@
     ja = 以下のマップが更新されています:
     ko = 이지도에 사용할 수있는 업데이트:
     nb = Oppdatering tilgjengelig for disse kartene:
-    pl = Aktualizacja dostępna dla tych map:
+    pl = Dostępne uaktualnienia dla tych map:
     pt = Atualização disponível para estes mapas:
     ro = Actualizări disponibile pentru aceste hărți:
     es = Hay actualizaciones disponibles para estos mapas:
@@ -2296,7 +2296,7 @@
     ja = MAPS.ME Liteは削除してもかまいません
     ko = 당신은 더 이상 MAPS.ME 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.
     nb = Du trenger ikke MAPS.ME Lite lenger, så du kan gjerne avinstallere det.
-    pl = Nie potrzebujesz już więcej MAPS.ME Lite, więc możesz je usunąć.
+    pl = Nie potrzeba już więcej MAPS.ME Lite, więc można je usunąć.
     pt = Não precisa mais do MAPS.ME Lite, podendo portanto desinstalá-la.
     ro = Nu mai aveți nevoie de MAPS.ME Lite, îl puteți dezinstala.
     es = Ahora no necesita MAPS.ME Lite, la puede desinstalar.
@@ -2328,7 +2328,7 @@
     ja = %@のダウンロードが成功しました
     ko = %@이 성공적으로 다운로드
     nb = %@ ble lastet ned
-    pl = %@ pobrano pomyślnie
+    pl = Pobrano %@
     pt = %@ descarregado com sucesso
     ro = %@, descărcată cu succes
     es = %@ se descargó exitosamente
@@ -2360,7 +2360,7 @@
     ja = %@のダウンロードが失敗しました
     ko = %@다운로드가 실패했습니다
     nb = Nedlasting av %@ mislyktes
-    pl = %@ pobieranie nie powiodło się
+    pl = Nie udało się pobrać %@
     pt = %@ descarga falhou
     ro = %@ - descărcarea a eșuat
     es = %@ la descarga ha fallado
@@ -2424,7 +2424,7 @@
     ja = ブックマークに追加
     ko = 즐겨찾기에 추가
     nb = Legg til i bokmerker
-    pl = Dodaj do zakładek
+    pl = Dodaj zakładkę
     ro = Adăugare la „Marcaje”
     es = Añadir a Favoritos
     sv = Lägg till till bokmärken
@@ -2774,7 +2774,7 @@
     ja = 未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nMAPS.ME以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
     ko = 즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 MAPS.ME 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
     nb = Du har ingen bokmerker enda.\nTrykk på et hvilket som helst sted på kartet for å legge til et bokmerke.\nBokmerker fra andre kilder kan også importeres og vises i MAPS.ME. Åpne KML-/KMZ-filer med lagrede bokmerker fra e-post, Dropbox eller internettkobling.
-    pl = Nie masz jeszcze żadnych zakładek.\nDotknij dowolnego miejsca na mapie, aby dodać zakładkę.\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
+    pl = Nie oznaczono jeszcze żadnych zakładek.\nProszę dotknąć dowolnego miejsca na mapie, aby dodać zakładkę.\nMożna importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości e-mail, Dropboxa lub odnośników internetowych.
     pt = Ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
     ro = Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din e-mail, Dropbox sau de la un link web.
     es = Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
@@ -2806,7 +2806,7 @@
     ja = MAPS.ME以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
     ko = 다른 소스에서 북마크는 MAPS.ME 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
     nb = Bokmerker fra andre kilder kan også importeres og vises i MAPS.ME. Åpne KML-/KMZ-filer med lagrede bokmerker fra e-post, Dropbox eller internettkobling.
-    pl = Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
+    pl = Można importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości e-mail, Dropboxa lub odnośników internetowych.
     pt = Os marcadores de outras fontes podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
     ro = Pot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din e-mail, Dropbox sau de la un link web.
     es = Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
@@ -2902,7 +2902,7 @@
     ja = マップのダウンロード先を選択してください
     ko = 지도가 다운로드될 곳을 선택합니다
     nb = Velg hvor du vil at kartene skal lastes ned til
-    pl = Wybierz lokalizację, w której mają być zapisywane pobierane mapy
+    pl = Określa położenie przechowywania pobranych map
     pt = Selecione o local para onde os mapas devem ser descarregados
     ro = Selectați locul în care doriți să fie descărcate hărțile.
     es = Seleccione el lugar donde deben descargarse los mapas
@@ -2966,7 +2966,7 @@
     ja = 数分かかる場合があります。\nしばらくお待ち下さい…
     ko = 이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…
     nb = Dette kan ta flere minutter. Vent et øyeblikk …
-    pl = TO może zająć kilka minut.\nProszę czekać…
+    pl = To może zająć kilka minut.\nProszę czekać…
     pt = Isto pode demorar alguns minutos.\nPor favor aguarde…
     ro = Aceasta poate dura câteva minute.\nVă rugăm să așteptați…
     es = Esto podría tardar varios minutos.\nPor favor, espera…
@@ -3093,7 +3093,7 @@
     ja = マイルまたはキロメートルを選択
     ko = 마일과 킬로미터 중에서 선택하십시오
     nb = Velg mellom miles og kilometer
-    pl = Wybierz pomiędzy milami, a kilometrami
+    pl = Wybiera pomiędzy milami, a kilometrami
     pt = Escolha entre milhas e quilómetros
     ro = Alegeți între mile și kilometri
     es = Elija entre millas y kilómetros
@@ -3399,7 +3399,7 @@
     ja = 観光
     ko = 관광
     nb = Severdigheter
-    pl = Osobliwości miasta
+    pl = Atrakcje turystyczne
     pt = Vistas
     ro = Obiective turistice
     es = Turismo
@@ -3689,7 +3689,7 @@
     ja = 検索結果が見つかりませんでした
     ko = 결과 없음
     nb = Ingen resultater funnet
-    pl = Nie znaleziono
+    pl = Nie odnaleziono
     pt = Não foram encontrados resultados
     ro = Nu s-a găsit niciun rezultat.
     es = No se han encontrado resultados
@@ -3784,7 +3784,7 @@
     ja = MAPS.MEの位置情報シェア
     ko = 귀하와 공유된 MAPS.ME 즐겨찾기
     nb = Delte MAPS.ME-bokmerker
-    pl = Udostępniono ci zakładkę z MAPS.ME
+    pl = Udostępnione zakładki z MAPS.ME
     pt = Os favoritos do MAPS.ME foram partilhados consigo
     ro = Marcaje MAPS.ME partajate
     es = Marcapáginas de MAPS.ME compartidos contigo
@@ -3816,7 +3816,7 @@
     ja = MAPS.MEで作成したブックマークを添付ファイル"%@.kmz"で送付します。MAPS.ME がインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nMAPS.MEで楽しい時間をお過ごしください！
     ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 MAPS.ME 이미 설치되어 있다면 열어 보시기 바랍니다. MAPS.ME 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMAPS.ME와 함께 즐거운 시간 되시기 바랍니다!
     nb = Hallo,\n\nVedlagt er bokmerkene mine fra MAPS.ME offline-kart. De kan åpnes hvis du har installert MAPS.ME. Hvis ikke kan du laste ned appen til en iOS- eller Android-enhet ved å følge denne koblingen: http://maps.me/get?kmz\n\nKos deg på reisen med MAPS.ME!
-    pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację MAPS.ME. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!
+    pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku „%@.kmz”. Proszę otwórz je jeśli posiadasz zainstalowaną aplikację MAPS.ME. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym odnośnikiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!
     pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do MAPS.ME, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o MAPS.ME. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://maps.me/get?kmz\n\nDisfrute do MAPS.ME!
     ro = Salutări,\n\nAm atașat marcajele mele din hărțile offline MAPS.ME. Te rog să le deschizi, dacă ai MAPS.ME instalată. Dacă nu, poți descărca aplicația pentru dispozitivul tău iOS sau Android, urmând acest link: http://maps.me/get?kmz\n\nCălătorie plăcută cu MAPS.ME!
     es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline MAPS.ME. Por favor, ábrelo con MAPS.ME si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz\n\n¡Que disfrutes de MAPS.ME!
@@ -3880,7 +3880,7 @@
     ja = ブックマークが読み込まれました! ブックマークはマップ上、またはブックマーク管理画面に表示されます。
     ko = 즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
     nb = Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».
-    pl = Zakładki wczytane pomyślnie! Możesz znaleźć je na mapie lub w menedżerze zakładek.
+    pl = Wczytano zakładki! Można odnaleźć je na mapie lub na ekranie menedżera zakładek.
     pt = Favoritos carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
     ro = Marcaje încărcate cu succes! Le puteți găsi pe hartă sau pe ecranul „Gestionare marcaje”.
     es = ¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.
@@ -3912,7 +3912,7 @@
     ja = ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
     ko = 즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
     nb = Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.
-    pl = Przesyłanie zakładek nie powiodło się. Plik może być uszkodzony lub posiadać defekty.
+    pl = Nieudane wczytywanie zakładek. Plik może być uszkodzony lub posiadać defekty.
     pt = Falha no envio dos favoritos. O ficheiro pode estar corrompido ou com defeito.
     ro = Încărcarea marcajelor a eșuat. Fișierul poate fi corupt sau defect.
     es = La carga de favoritos ha fallado. El archivo puede estar corrupto o ser defectuoso.
@@ -3974,7 +3974,7 @@
     ja = 現在の座標が未確定です
     ko = 귀하의 위치를 아직 알아내지 못 했습니다
     nb = Posisjonen din har ikke blitt fastslått enda
-    pl = Twoja lokalizacja nie została jeszcze określona
+    pl = Nie określono jeszcze aktualnego położenia
     pt = A sua localização ainda não foi determinada
     ro = Poziția dvs. nu a fost stabilită încă.
     es = Tu ubicación aún no ha sido determinada
@@ -4102,7 +4102,7 @@
     ja = ダウンロードを実行中です
     ko = 국가 다운로드가 지금 진행 중입니다.
     nb = Nedlasting av land pågår nå.
-    pl = Pobieranie mapy kraju jest w toku.
+    pl = Trwa pobieranie mapy kraju.
     pt = A descarga do país está atualmente em progresso.
     ro = Descărcarea hărților pentru țara dorită este în curs.
     es = Se está descargando un país.
@@ -4134,7 +4134,7 @@
     ja = MAPS.MEの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！
     ko = MAPS.ME로 즐거운 시간을 보내시기 바랍니다! MAPS.ME가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!
     nb = Håper du liker å bruke MAPS.ME! Hvis du gjør det er det flott om du rangerer eller vurderer appen på App Store. Det tar deg mindre enn ett minutt, men kan virkelig hjelpe oss. Takk for støtten!
-    pl = Mamy nadzieję, że podoba ci się aplikacja MAPS.ME! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie ci mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!
+    pl = Mamy nadzieję, że podoba ci się aplikacja MAPS.ME! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!
     pt = Esperamos que esteja a disfrutar da utilização do MAPS.ME! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!
     ro = Sperăm că vă place MAPS.ME! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!
     es = ¡Ojalá disfrute mucho con MAPS.ME! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
@@ -4515,7 +4515,7 @@
     ja = リンクをコピー
     ko = 링크 복사하기
     nb = Kopier kobling
-    pl = Kopiuj link
+    pl = Skopiuj odnośnik
     pt = Copiar hiperligação
     ro = Copiați link-ul
     es = Copiar enlace
@@ -4611,7 +4611,7 @@
     ja = 統計を送信
     ko = 통계 보내기
     nb = Send statistikk
-    pl = Prześlij statystyki
+    pl = Przesyłanie statystyk
     pt = Enviar Estatísticas
     ro = Trimitere statistici
     es = Enviar estadísticas
@@ -4643,7 +4643,7 @@
     ja = アプリを向上できるよう、使用状況の統計を収集させてください
     ko = 앱을 개선하기 위해 사용 통계를 수집하도록 허용
     nb = Tillat oss å innhente bruksstatistikk for å forbedre appen
-    pl = Pozwól nam na zbieranie statystyk dotyczących używania aplikacji, abyśmy mogli ją udoskonalić
+    pl = Zezwala na zbieranie statystyk używania aplikacji, w celu jej dalszego doskonalenia
     pt = Permitir que recolhamos estatísticas de utilização para melhorar a aplicação
     ro = Permiteți-ne să colectăm statistici de utilizare, pentru a ne îmbunătăți aplicația.
     es = Permítenos recopilar estadísticas de uso para mejorar la aplicación
@@ -4707,7 +4707,7 @@
     ja = 完了
     ko = 완료
     nb = Ferdig
-    pl = Zrobione
+    pl = Gotowe
     pt = Feito
     ro = Gata
     es = Hecho
@@ -4869,7 +4869,7 @@
     ja = 本当に続けますか?
     ko = 계속하겠습니까?
     nb = Er du sikker på at du ønsker å fortsette?
-    pl = Czy na pewno kontynuować?
+    pl = Kontynuować?
     pt = Tem a certeza de que pretende continuar?
     ro = Sunteți sigur că doriți să continuați?
     es = ¿Seguro que desea continuar?
@@ -4964,7 +4964,7 @@
     ja = 位置情報を共有する
     ko = 내 위치 공유
     nb = Del posisjonen min
-    pl = Udostępnij moją lokalizację
+    pl = Udostępnij aktualne położenie
     pt = Partilhar a minha localização
     ro = Partajează-mi poziția
     es = Compartir mi ubicación
@@ -4994,7 +4994,7 @@
     ja = 検索
     ko = 검색
     nb = Søk
-    pl = Szukaj
+    pl = Wyszukaj
     pt = Pesquisar
     ro = Căutare
     es = Buscar
@@ -5116,7 +5116,7 @@
     ja = ズームボタン
     ko = 확대/축소 버튼
     nb = Zoom-knapper
-    pl = Przyciski powiększania
+    pl = Przyciski przybliżania
     pt = Botões de zoom
     ro = Butoane zoom
     es = Botones de zoom
@@ -5147,7 +5147,7 @@
     ja = 画面上に表示
     ko = 화면에 표시
     nb = Vis på skjermen
-    pl = Wyświetl na ekranie
+    pl = Wyświetla na ekranie
     pt = Mostrar no ecrã
     ro = Afișare pe ecran
     es = Visualización en la pantalla
@@ -5272,7 +5272,7 @@
     ja = 自動
     ko = 자동
     nb = Auto
-    pl = Automatyczny
+    pl = Automatycznie
     pt = Automático
     ro = Automat
     es = Auto
@@ -5396,7 +5396,7 @@
     ja = 音声指示
     ko = 음성 지침
     nb = Taleinstrukser
-    pl = Instrukcje głosowe
+    pl = Komunikaty głosowe
     pt = Instruções de voz
     ro = Instrucțiuni vocale
     es = Instrucciones de voz
@@ -5427,7 +5427,7 @@
     ja = 音声言語
     ko = 음성 언어
     nb = Talespråk
-    pl = Język instrukcji
+    pl = Język komunikatów
     pt = Idioma da voz
     ro = Limba ghidului vocal
     es = Idioma de voz
@@ -5580,7 +5580,7 @@
     ja = オフ
     ko = 선택 안 함
     nb = Av
-    pl = Wyłącz
+    pl = Wyłączona
     pt = Desligado
     ro = Oprit
     es = Desactivada
@@ -5938,7 +5938,7 @@
     ja = 地図に表示
     ko = 지도 보기
     nb = Vis på kartet
-    pl = Zobacz na mapie
+    pl = Wyświetl na mapie
     pt = Ver no mapa
     ro = Vizualizare pe hartă
     es = Ver en el mapa
@@ -6707,6 +6707,7 @@
     en = Feedback
     ru = Связаться с нами
     de = Rückmeldung
+    pl = Zgłoś opinię
 
   [feedback_general]
     comment = Settings: "Send general feedback" button
@@ -6714,6 +6715,7 @@
     en = General feedback
     ru = Отправить отзыв
     de = Allgemeine Rückmeldung
+    pl = Ogólne opinie
     zh-Hant = 一般意見反應
 
   [subscribe_to_news]
@@ -6786,6 +6788,7 @@
     en = Rate on Google Play
     ru = Оценить в Google Play
     de = Bei Google Play bewerten
+    pl = Oceń w Google Play
     zh-Hant = 在 Google Play 評分
 
   [tell_friends]
@@ -6794,6 +6797,7 @@
     en = Tell a Friend
     ru = Рассказать друзьям
     de = Einem Freund empfehlen
+    pl = Powiadom znajomego
 
   [tell_friends_text]
     comment = Share with friends: sharing text
@@ -6801,6 +6805,7 @@
     en = Hi! Install Maps.me!
     ru = Привет! Установи Maps.me!
     de = Hallo! Installiere dir MAPS.ME!
+    pl = Cześć! Zainstaluj Maps.me!
     zh-Hant = 嗨！安裝 Maps.me！
 
   [help]
@@ -6853,7 +6858,7 @@
     ja = 著作権
     ko = 저작권
     nb = Opphavsrett
-    pl = Prawo autorskie
+    pl = Prawa autorskie
     pt = Direitos de Autor
     ro = Copyright
     es = Copyright
@@ -6969,6 +6974,7 @@
     en = Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!
     ru = Объединив усилия Mail.Ru Group и данные OpenStreetMap, мы создаем незаменимое приложение для путешествий.
     de = Gemeinsame Bemühungen der Mail.Ru-Gruppe und OpenStreetMap machen die nützlichste Anwendung für Reisende!
+    pl = Najbardziej użyteczna aplikacja dla podróżników, powstała przy udziale zespołów Mail.Ru i OpenStreetMap.
 
   [about_text]
     comment = About text
@@ -8342,7 +8348,7 @@
     ja = 現在のロケーションを取得するためにGoogle Playのサービスを使う
     ko = Google Play 서비스를 사용하여 현재 위치 정보 얻기
     nb = Bruk Google Play Services for å hente din nåværende posisjon
-    pl = Użyj Usług Google Play do ustalenia swojej bieżącej lokalizacji
+    pl = Używa usług Google Play do ustalenia aktualnego położenia
     pt = Use o Google Play Serviços para determinar a sua localização actual
     ro = Utilizați serviciile Google Play, pentru a vă obține poziția actuală.
     es = Usar los servicios de Google Play para obtener tu ubicación actual
@@ -11603,7 +11609,7 @@
     ja = オファーを表示
     ko = 추천 보기
     nb = Vis tilbud
-    pl = Pokaż oferty
+    pl = Oferty
     pt = Mostrar ofertas
     ro = Afișare oferte
     es = Mostrar ofertas
@@ -11621,6 +11627,7 @@
     tags = ios
     en = Plan your trip
     ru = Подготовься к путешествию
+    pl = Zaplanuj podróż
     es = Planifica tu viaje
 
   [showcase_more_apps]
@@ -12906,6 +12913,36 @@
     zh-Hans = 自动下载
     zh-Hant = 自動下載
     sk = Automaticky stiahnuť
+
+  [disable_autodownload]
+    tags = ios, android
+    en = Disable autodownload
+    ru = Запретить автозагрузку
+    ar = تعطيل التنزيل التلقائي
+    cs = Zakázat automatické stahování
+    da = Deaktiver automatisk download
+    nl = Automatisch downloaden uitschakelen
+    fi = Poista käytöstä automaattinen lataus
+    fr = Désactiver téléchargement automatique
+    de = Automatischen Download deaktivieren
+    hu = Automatikus letöltés tiltása
+    id = Nonaktifkan unduh otomatis
+    it = Disattiva download automatico
+    ja = 自動ダウンロードを無効にする
+    ko = 자동 다운로드 해제
+    nb = Deaktiver automatisk nedlasting
+    pl = Wyłącz automatyczne pobieranie
+    pt = Desativar o download automático
+    ro = Dezactivare descărcare automată
+    es = Inhabilitar descarga automática
+    sv = Avaktivera automatisk nedladdning
+    th = หยุดการดาวน์โหลดแบบอัตโนมัติ
+    tr = Otomatik indirmeyi devre dışı bırak
+    uk = Заборонити автозавантаження
+    vi = Tắt chế độ tự động tải xuống
+    zh-Hans = 禁用自动下载
+    zh-Hant = 停用自動下載
+    sk = Zrušiť automatické preberanie
 
   [closed_now]
     comment = Place Page opening hours text
@@ -14886,33 +14923,33 @@
 
   [editor_profile_changes]
     tags = ios, android
-    en = Changes:
-    ru = Правки:
-    ar = التغيرات:
-    cs = Změny:
-    da = Ændringer:
-    nl = Wijzigingen:
-    fi = Muutokset:
-    fr = Modifications :
-    de = Änderungen:
-    hu = Változások:
-    id = Perubahan:
-    it = Modifiche:
-    ja = 変更回数：
-    ko = 변경 사항:
-    nb = Endringer:
-    pl = Zmiany:
-    pt = Alterações:
-    ro = Modificări:
-    es = Cambios:
-    sv = Ändringar:
-    th = การเปลี่ยนแปลง:
-    tr = Değişiklikler:
-    uk = Правки:
-    vi = Những thay đổi:
-    zh-Hans = 更改数目：
-    zh-Hant = 更改：
-    sk = Zmeny:
+    en = Verified Changes
+    ru = Учтённые правки
+    ar = التغييرات التي تم التحقق منها
+    cs = Oveřené změny
+    da = Bekræftede ændringer
+    nl = Gecontroleerde wijzigingen
+    fi = Vahvistetut karttamuutokset
+    fr = Modifications vérifiées
+    de = Bestätigte Änderungen der Karte
+    hu = Jóváhagyott változtatások
+    id = Perubahan Terverifikasi
+    it = Modifiche approvate
+    ja = 確認された変更
+    ko = 변경사항 승인
+    nb = Bekreftede endringer
+    pl = Zmiany zweryfikowane
+    pt = Alterações verificadas
+    ro = Modificări confirmate
+    es = Cambios verificados
+    sv = Verifierade ändringar
+    th = การเปลี่ยนแปลงที่อนุมัติแล้ว
+    tr = Doğrulanan Değişiklikler
+    uk = Виправлення, що ураховані
+    vi = Các thay đổi đã được xác thực
+    zh-Hans = 已验证的更改
+    zh-Hant = 已驗證的變更
+    sk = Overené zmeny
 
   [editor_profile_unsent_changes]
     tags = ios, android
@@ -17151,7 +17188,7 @@
     ja = 2. 位置情報をタップします
     ko = 2. 위치 누르기
     nb = 2. Trykk Lokalisering
-    pl = 2. Dotknij 'Lokalizacja'
+    pl = 2. Dotknij „Lokalizacja”
     pt = 2. Tocar em localização
     ro = 2. Apăsați pe Localizare
     es = 2. Pulsa "Ubicación"
@@ -17182,7 +17219,7 @@
     ja = 3. 「常時」を選択します
     ko = 3. 항상 선택
     nb = 3. Velg Alltid
-    pl = 3. Wybierz 'Zawsze'
+    pl = 3. Wybierz „Zawsze”
     pt = 3. Selecionar sempre
     ro = 3. Selectați Întotdeauna
     es = 3. Selecciona "Siempre"
@@ -17601,34 +17638,34 @@
     zh-Hant = 全天候
     sk = 24 / 7
 
-  [placepage_place_rating]
-    en = Rating:
-    ru = Рейтинг:
-    ar = التصنيف:
-    cs = Hodnocení:
-    da = Bedømmelse:
-    nl = Cijfer:
-    fi = Luokitus
-    fr = Notation
-    de = Rating:
-    hu = Kategória
-    id = Nilai:
-    it = Valutazione:
-    ja = 評価：
-    ko = 평가:
-    nb = Rangering:
-    pl = Ocena:
-    pt = Classificação
-    ro = Evaluare:
-    es = Valoración:
-    sv = Betyg:
-    th = เรทติ้ง
-    tr = Derecelendirme:
-    uk = Рейтинг:
-    vi = Xếp hạng:
-    zh-Hans = 评价
-    zh-Hant = 評價：
-    sk = Hodnotenie:
+  [place_page_booking_rating]
+    en = Rating: %s
+    ru = Рейтинг: %s
+    ar = التصنيف: %s
+    cs = Hodnocení: %s
+    da = Bedømmelse: %s
+    nl = Cijfer: %s
+    fi = Luokitus: %s
+    fr = Notation: %s
+    de = Rating: %s
+    hu = Kategória: %s
+    id = Nilai: %s
+    it = Valutazione: %s
+    ja = 評価：%s
+    ko = 평가: %s
+    nb = Rangering: %s
+    pl = Ocena: %s
+    pt = Classificação: %s
+    ro = Evaluare: %s
+    es = Valoración: %s
+    sv = Betyg: %s
+    th = เรทติ้ง: %s
+    tr = Derecelendirme: %s
+    uk = Рейтинг: %s
+    vi = Xếp hạng: %s
+    zh-Hans = 评价: %s
+    zh-Hant = 評分： %s
+    sk = Hodnotenie: %s
 
   [place_page_starting_from]
     en = from %s
@@ -17656,7 +17693,7 @@
     uk = від %s
     vi = từ %s
     zh-Hans = 从 %s
-    zh-Hant = 從 %s
+    zh-Hant = 從%s
     sk = od %s
 
   [meter]
@@ -17791,7 +17828,7 @@
     ja = 書籍
     ko = 예약
     nb = Bestill
-    pl = Książka
+    pl = Zarezerwuj
     pt = Livro
     ro = Rezervare
     es = Reservar
@@ -18023,7 +18060,7 @@
     ja = すべてのローカルの変更をリセットしますか？
     ko = 지역 변경 사항을 재설정하시겠습니까?
     nb = Nullstille alle lokale endringer?
-    pl = Skasować wszystkie lokalne zmiany?
+    pl = Usunąć wszystkie lokalne zmiany?
     pt = Repor todas as alterações locais?
     ro = Resetați toate modificările locale?
     es = ¿Restablecer todos los cambios locales?
@@ -18052,7 +18089,7 @@
     ja = リセット
     ko = 재설정
     nb = Nullstill
-    pl = Skasuj
+    pl = Usuń
     pt = Repor
     ro = Resetare
     es = Restablecer
@@ -18181,26 +18218,438 @@
     zh-Hant = 位置不存在
     sk = Miesto neexistuje
 
-  [place_page_booking_rating]
-    en = Rating: %s
-    ru = Рейтинг: %s
-
   [text_more_button]
-    en = … more
-    ru = … еще
+    en = …more
+    ru = …ещё
+    ar = …المزيد
+    cs = …dále
+    da = …mere
+    nl = …meer
+    fi = …Näytä
+    fr = …Afficher la suite
+    de = …Mehr
+    hu = …tovább
+    id = …selebihnya
+    it = …continua
+    ja = …続き
+    ko = …기타
+    nb = …mer
+    pl = …więcej
+    pt = …mais
+    ro = …mai multe
+    es = …más
+    sv = …mer
+    th = …เพิ่มเติม
+    tr = …daha fazla
+    uk = …більше
+    vi = …thêm
+    zh-Hans = …更多
+    zh-Hant = …更多
+    sk = …viac
 
   [error_enter_correct_phone]
-    en = Enter a valid phone number
-    ru = Введите корректный номер телефона
+    en = Enter a phone number without letters
+    ru = Введите номер телефона без букв
+    ar = أدحل رقم الهاتف دون أحرف
+    cs = Zadat telefonní číslo bez písmen
+    da = Indtast telefonnummer uden bogstaver
+    nl = Voer een telefoonnummer in zonder letters
+    fi = Syötä puhelinnumero ilman kirjaimia
+    fr = Saisir un numéro de téléphone sans lettres
+    de = Geben Sie die Telefonnummer ohne Buchstaben ein
+    hu = Adj meg egy telefonszámot betűk nélkül
+    id = Masukkan nomor telepon tanpa huruf
+    it = Inserisci un numero di telefono senza lettere
+    ja = 文字なしで電話番号を入力してください
+    ko = 문자없이 전화 번호 입력
+    nb = Oppgi telefonnummer uten bokstaver
+    pl = Wpisz numer telefonu bez liter
+    pt = Preencha com o número de telefone sem letras
+    ro = Introduceți numărul de telefon fără litere
+    es = Introduce el número de teléfono sin letras
+    sv = Ange telefonnummer utan bokstäver
+    th = กรอกหมายเลขโทรศัพท์โดยไม่ใช้ตัวอักษร
+    tr = Telefon numarasını harf olmadan girin
+    uk = Введіть номер телефону без літер
+    vi = Nhập số điện thoại không có chữ cái
+    zh-Hans = 输入无字母的电话号码
+    zh-Hant = 輸入無字母的電話號碼
+    sk = Zadajte telefónne číslo bez písmen
 
   [error_enter_correct_web]
     en = Enter a valid web address
-    ru = Введите корректный веб-сайт
+    ru = Введите корректный веб-адрес
+    ar = أدخل عنوان ويب صالح
+    cs = Zadat platnou webovou adresu
+    da = Indtast en gyldig webadresse
+    nl = Voer een geldig webadres in
+    fi = Syötä kelvollinen verkko-osoite
+    fr = Saisir une adresse Internet valide
+    de = Geben Sie eine gültige Internetadresse ein
+    hu = Adj meg egy érvényes weboldalcímet
+    id = Masukkan alamat web valid
+    it = Inserisci un indirizzo web valido
+    ja = 有効なウェブアドレスを入力してください
+    ko = 유효한 웹 주소 입력
+    nb = Oppgi en gyldig nettadresse
+    pl = Wpisz prawidłowy adres strony internetowej
+    pt = Preencha com um endereço válido na internet
+    ro = Introduceți o adresă web validă
+    es = Introduce una dirección web válida
+    sv = Ange en giltig webadress
+    th = กรอกที่อยู่เว็บที่ถูกต้อง
+    tr = Geçerli bir web adresi girin
+    uk = Введіть вірну адресу веб-сайту
+    vi = Nhập địa chỉ trang web hợp lệ
+    zh-Hans = 输入有效网址
+    zh-Hant = 輸入有效網址
+    sk = Zadajte platnú webovú adresu
 
   [error_enter_correct_email]
     en = Enter a valid email
     ru = Введите корректный email
+    ar = أدخل بريدا إلكترونيا صالحا
+    cs = Zadat platný email
+    da = Indtast en gyldig e-mailadresse
+    nl = Voer een geldig e-mailadres in
+    fi = Syötä kelvollinen sähköpostiosoite
+    fr = Saisir un e-mail valide
+    de = Geben Sie eine gültige E-Mail-Adresse ein
+    hu = Adj meg egy érvényes e-mail-címet
+    id = Masukkan surel valid
+    it = Inserisci un'email valida
+    ja = 有効なメールアドレスを入力してください
+    ko = 유효한 이메일 주소 입력
+    nb = Oppgi en gyldig epostadresse
+    pl = Wpisz prawidłowy e-mail
+    pt = Preencha com um endereço válido de e-mail
+    ro = Introduceți o adresă de e-mail validă
+    es = Introduce un email válido
+    sv = Ange en giltig e-postadress
+    th = กรอกอีเมลที่ถูกต้อง
+    tr = Geçerli bir e-posta girin
+    uk = Введіть вірниу адресу електронної пошти
+    vi = Nhập email hợp lệ
+    zh-Hans = 输入有效电子邮箱
+    zh-Hant = 輸入有效電子郵箱
+    sk = Zadajte platný e-mail
 
   [error_enter_correct]
     en = Enter a valid value
     ru = Введите корректное значение
+    ar = أدخل قيمة صالحة
+    cs = Zadat platnou hodnotu
+    da = Indtast en gyldig værdi
+    nl = Voer een geldige waarde in
+    fi = Syötä kelvollinen arvo
+    fr = Saisir une valeur correcte
+    de = Geben Sie einen gültigen Wert ein
+    hu = Adj meg egy érvényes értéket
+    id = Masukkan nilai valid
+    it = Inserisci un valore valido
+    ja = 有効な値を入力してください
+    ko = 유효한 값 입력
+    nb = Oppgi en gyldig verdi
+    pl = Wpisz prawidłową wartość
+    pt = Preencha com um valor válido
+    ro = Introduceți o valoare validă
+    es = Introduce un valor válido
+    sv = Ange ett giltigt värde
+    th = กรอกค่าที่ถูกต้อง
+    tr = Geçerli bir değer girin
+    uk = Введіть вірне значення
+    vi = Nhập giá trị hợp lệ
+    zh-Hans = 输入有效值
+    zh-Hant = 輸入有效值
+    sk = Zadajte platnú hodnotu
+
+  [editor_profile_changes_for_next_place]
+    en = Changes to the next place: %d
+    ru = Правок до следующего места: %d
+    ar = التغييرات في المكان التالي: %d
+    cs = Změny v dalším místě: %d
+    da = Ændringer for næste sted: %d
+    nl = Wijzigingen tot de volgende positie: %d
+    fi = Muutokset paikkaan: %d
+    fr = Modifications vers le prochain lieu: %d
+    de = Erforderliche Änderungen für den nächsten Platz: %d
+    hu = Változtatások a jobb helyért: %d
+    id = Perubahan terhadap tempat selanjutnya: %d
+    it = Modifiche per posizione successiva: %d
+    ja = 次の場所への変更：%d
+    ko = 다음 장소 변경: %d
+    nb = Endringer på neste sted: %d
+    pl = Zmiany w następnym miejscu: %d
+    pt = Alterações para o próximo lugar: %d
+    ro = Modificări necesare pentru următoarea poziţie: %d
+    es = Cambios para la próxima posición: %d
+    sv = Ändringar av nästa plats: %d
+    th = เปลี่ยนไปยังสถานที่ถัดไป: %d
+    tr = Sonraki yerdeki değişiklikler: %d
+    uk = Виправлень до наступного місця: %d
+    vi = Các thay đổi tới địa điểm tiếp theo: %d
+    zh-Hans = 升到下一级所需更改: %d
+    zh-Hant = 對下一個地點的變更：%d
+    sk = Zmeny pre ďalšie miesto: %d
+
+  [editor_profile_rating_place]
+    en = Ranking position
+    ru = Место в рейтинге
+    ar = المركز في التصنيف
+    cs = Pořadí v hodnocení
+    da = Rangorden
+    nl = Positie in klassement
+    fi = Luokitussija
+    fr = Notation position
+    de = Platz im Rating
+    hu = Ranglista helyezés
+    id = Posisi peringkat
+    it = Posizione in classifica
+    ja = ランキングポジション
+    ko = 평가 순위
+    nb = Rangeringsplassering
+    pl = Pozycja w rankingu
+    pt = Posição na classificação
+    ro = Poziţie în clasament
+    es = Posición en la clasificación
+    sv = Rankning
+    th = ลำดับของตำแหน่ง
+    tr = Sıralamadaki yeri
+    uk = Місце у рейтингу
+    vi = Vị trí thứ hạng
+    zh-Hans = 排名位置
+    zh-Hant = 排名位置
+    sk = Hodnotiaca pozícia
+
+  [booking_dialog_not_connect_header]
+    en = To book the hotel, please enable your Internet connection
+    ru = Для бронирования отелей необходим доступ в интернет
+    ar = لحجز الفندق، يُرجى تمكين الاتصال بالإنترنت
+    cs = Chcete-li si rezervovat hotel, aktivujte připojení k internetu
+    da = For at booke hotellet, bedes du aktivere din internetforbindelse
+    nl = Maak verbinding met internet om het hotel te boeken
+    fi = Ota käyttöön internet-yhteytesi varataksesi hotellin
+    fr = Pour réserver l'hôtel, veuillez activer votre connexion Internet
+    de = Für die Hotelbuchung benötigen Sie eine Internetverbindung
+    hu = A szálloda lefoglalásához csatlakozzon az internethez
+    id = Untuk memesan hotel, aktifkan koneksi internet Anda
+    it = Per prenotare l'hotel, attivare la connessione Internet
+    ja = ホテルを予約するには、インターネット接続を有効にしてください
+    ko = 호텔을 예약하려면 인터넷에 연결하세요
+    nb = Aktiver Internett-tilkoblingen din for å bestille hotellet
+    pl = Aby zarezerwować pokój w hotelu, włącz połączenia internetowe
+    pt = Para reservar o hotel, ative a sua ligação à Internet
+    ro = Pentru a face o rezervare la un hotel, activaţi conexiunea la Internet
+    es = Para reservar el hotel, habilita tu conexión a Internet
+    sv = Var vänlig aktivera din internetanslutning för att göra hotellbokningen
+    th = โปรดเชื่อมต่อกับอินเตอร์เน็ตเพื่อจองโรงแรมนี้
+    tr = Bunlar, onaylanmış harita değişiklikleridir
+    uk = Для бронювання готелів потрібен доступ до інтернету
+    vi = Để đặt khách sạn, vui lòng bật kết nối Internet
+    zh-Hans = 要预订酒店，请启用互联网连接
+    zh-Hant = 要預訂酒店，請啟用您的網際網路連線
+    sk = Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu
+
+  [whatsnew_booking_header]
+    en = Book a hotel from the app
+    ru = Бронируй отель из приложения
+    ar = حجز فندق من التطبيق
+    cs = Rezervujte si hotel přímo v aplikaci
+    da = Book et hotel fra appen
+    nl = Boek een hotel via de app
+    fi = Varaa hotelli sovelluksesta
+    fr = Réservez un hôtel depuis l'application
+    de = Buchung von Hotels über die App
+    hu = Szálloda foglalása az alkalmazásból
+    id = Pesan hotel dari aplikasi
+    it = Prenota un hotel tramite l'app
+    ja = アプリからホテルを予約する
+    ko = 앱에서 호텔 예약하기
+    nb = Reserver hotellrom fra appen
+    pl = Zarezerwuj pokój w hotelu za pomocą aplikacji
+    pt = Reservar um hotel a partir da aplicação
+    ro = Rezervare hotel din aplicaţie
+    es = Reserva un hotel desde la aplicación
+    sv = Boka ett hotell från appen
+    th = จองโรงแรมจากแอพ
+    tr = Uygulama üzerinden otel rezervasyonu yapın
+    uk = Бронюй готель з додатку
+    vi = Đặt khách sạn từ ứng dụng
+    zh-Hans = 使用应用程序订房间
+    zh-Hant = 從應用程式預訂酒店
+    sk = Rezervujte si hotel z aplikácie
+
+  [whatsnew_booking_message]
+    en = When you look for a hotel, the map will show the hotels’ price category and rating.
+    ru = При выборе отелей на карте будут отображаться ценовая категория и рейтинг заведения.
+    ar = عندما تبحث عن فندق، ستعرض لك الخريطة فئة أسعار وتصنيف الفندق.
+    cs = Aplikace vám k výsledkům vyhledávání hotelů ukáže jejich cenovou skupinu a hodnocení.
+    da = Når du leder efter et hotel, vil kortet vise hotellernes priskategori og vurdering.
+    nl = Als u een hotel zoekt, toont de kaart de prijscategorie en de beoordeling.
+    fi = Etsiessäsi hotellia kartta näyttää hotellien hintaluokan ja luokituksen.
+    fr = Lorsque vous recherchez un hôtel, la carte indiquera le prix, la catégorie et l'évaluation des hôtels disponibles.
+    de = Wenn Sie nach einem Hotel suchen, werden in der Karte die Preiskategorie und die Bewertung des Hotels angezeigt.
+    hu = Amikor szállodát keresel, az alkalmazás megjeleníti a hotel árkategóriáját és értékelését.
+    id = Saat Anda mencari hotel, peta akan menampilkan kategori harga dan nilai hotel.
+    it = Quando cerchi un hotel, la mappa li visualizza mostrando le categorie di prezzo e le recensioni.
+    ja = ホテルを探すと、地図にホテルの価格帯と評価が表示されます。
+    ko = 호텔을 검색하면 가격대와 등급이 함께 표시됩니다.
+    nb = Når du leter etter hotell, vil kartet fortelle deg hotellenes priskategori og rangering.
+    pl = Podczas wyszukiwania hoteli mapa pokazuje cenę, kategorię i ocenę hotelu.
+    pt = Quando procurar um hotel, o mapa irá exibir a categoria de preço e a classificação do hotel.
+    ro = Dacă sunteţi în căutarea unui hotel, harta vă va arăta categoriile de preţuri practicate de hoteluri şi evaluarea lor.
+    es = Cuando busques un hotel, el mapa mostrará la categoría de precio y clasificación de los hoteles.
+    sv = När du letar efter ett hotell kommer kartan visa hotellets priskategori och bedömning.
+    th = หากคุณกำลังมองหาโรงแรมอยู่ แผนที่จะแสดงหมวดหมู่ราคา และเรตติ้งของโรงแรม
+    tr = Bir otel aradığınızda, harita otellerin fiyat kategorisini ve puanlarını gösterir.
+    uk = Під час вибору готелів на карті буде відображено цінову категорію та рейтинг закладу.
+    vi = Khi tìm khách sạn, bản đồ sẽ hiển thị đánh giá và giá của các khách sạn.
+    zh-Hans = 当您查找酒店时，地图能够显示酒店价格类别和评价。
+    zh-Hant = 當您尋找酒店時，此地圖可以顯示該酒店的價格類型與評比。
+    sk = Keď hľadáte hotel, na mape sa zobrazia cenové kategórie a hodnotenia hotelov.
+
+  [button_try]
+    en = Try it
+    ru = Попробовать
+    ar = جربه
+    cs = Vyzkoušet
+    da = Prøv det
+    nl = Proberen
+    fi = Kokeile sitä
+    fr = Essayer
+    de = Probieren Sie es aus
+    hu = Próbáld ki
+    id = Cobalah
+    it = Provalo
+    ja = 試してみる
+    ko = 시도해보세요
+    nb = Prøv det
+    pl = Wypróbuj
+    pt = Experimente
+    ro = Încercaţi-o
+    es = Pruébalo
+    sv = Prova det
+    th = ลองดู
+    tr = Deneyin
+    uk = Спробувати
+    vi = Hãy thử xem
+    zh-Hans = 试一试
+    zh-Hant = 試用
+    sk = Vyskúšajte to
+
+  [whatsnew_cycle_navigation_header]
+    en = Bike navigation (beta version)
+    ru = Велонавигация (бета-версия)
+    ar = التوجيه الملاحي مع الدراجات (إصدار تجريبي)
+    cs = Navigace pro kola (beta verze)
+    da = Cykelnavigation (beta-version)
+    nl = Fietsnavigatie (bèta-versie)
+    fi = Polkupyöränavigointi (betaversio)
+    fr = Navigation à vélo (version bêta)
+    de = Fahrradnavigation (Betaversion)
+    hu = Kerékpáros navigáció (béta verzió)
+    id = Navigasi bersepeda (versi beta)
+    it = Navigazione in bici (versione beta)
+    ja = バイクナビゲーション（ベータ版）
+    ko = 자전거 네비게이션 (베타 버전)
+    nb = Sykkelnavigering (betaversjon)
+    pl = Nawigacja rowerowa (wersja beta)
+    pt = Navegação para bicicleta (versão beta)
+    ro = Navigaţie pentru biciclete (versiune beta)
+    es = Navegación en bici (versión beta)
+    sv = Cykelnavigering (betaversion)
+    th = การนำทางจักรยาน (beta-version)
+    tr = Bisiklet navigasyonu (beta sürüm)
+    uk = Велонавігація (бета-версія)
+    vi = Định vị xe đạp (phiên bản beta)
+    zh-Hans = 自行车导航 (beta 版)
+    zh-Hant = 自行車導航（beta 版）
+    sk = Navigácia pre cyklistov (beta verzia)
+
+  [whatsnew_cycle_navigation_message]
+    en = We are testing bike navigation for the new season. Try your favorite bike route with MAPS.ME, and share your opinion with us.
+    ru = К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому вело маршруту с MAPS.ME и поделитесь с нами впечатлениями.
+    ar = نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.
+    cs = Tuto sezónu testujeme novou navigaci pro kola. Projeďte si svou oblíbenou trasu s MAPS.ME a podělte se s námi o svůj názor.
+    da = Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.
+    nl = We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.
+    fi = Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.
+    fr = Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n'hésitez pas à nous partager vos impressions.
+    de = Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.
+    hu = Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.
+    id = Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.
+    it = Stiamo collaudando la navigazione in bici per la nuova stagione. Prova il tuo itinerario ciclistico preferito con MAPS.ME e condividi con noi le tue opinioni.
+    ja = 新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。
+    ko = 저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. MAPS.ME에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.
+    nb = Vi tester sykkelnavigering for den nye sesongen. Prøv din favorittrute med MAPS.ME, og del din vurdering med oss.
+    pl = Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z MAPS.ME i napisz nam, co myślisz o naszej nawigacji.
+    pt = Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.
+    ro = În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.
+    es = Estamos probando la navegación en bici para la nueva temporada. Prueba tu ruta favorita en bicicleta con MAPS.ME y comparte tu opinión con nosotros.
+    sv = Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.
+    th = เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา
+    tr = Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.
+    uk = До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.
+    vi = Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.
+    zh-Hans = 正在测试自行车导航。试一下使用 MAPS.ME 寻找您最喜爱的自行车路线并与我们分享您的意见。
+    zh-Hant = 我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。
+    sk = Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.
+
+  [refresh]
+    en = Update
+    ru = Обновить
+    ar = تحديث
+    cs = Aktualizovat
+    da = Opdater
+    nl = Updaten
+    fi = Päivitetäänkö
+    fr = Mettre à jour
+    de = Aktualisieren
+    hu = Frissítés
+    id = Memperbarui
+    it = Aggiornare
+    ja = 更新
+    ko = 최신 정보
+    nb = Oppdatere
+    pl = Uaktualnić
+    pt = Atualizar
+    ro = Actualizați
+    es = Actualizar
+    sv = Uppdatera
+    th = อัปเดต
+    tr = Güncelleştirme
+    uk = Обновити
+    vi = Cập nhật
+    zh-Hans = 更新
+    zh-Hant = 更新
+    sk = Aktualizovať
+
+  [last_update]
+    en = Last update: %s
+    ru = Последнее обновление: %s
+    ar = أخر تحديث: %s
+    cs = Poslední aktualizace: %s
+    da = Sidste opdatering: %s
+    nl = Laatste update: %s
+    fi = Viimeisin päivitys: %s
+    fr = Dernière mise à jour à %s
+    de = Letzte Aktualisierung: %s
+    hu = Utolsó frissítés: %s
+    id = Pembaruan terakhir: %s
+    it = Ultimo aggiornamento: %s
+    ja = 最終更新日: %s
+    ko = 마지막 업데이트: %s
+    nb = Sist oppdatert: %s
+    pl = Ostatnia aktualizacja: %s
+    pt = Última atualização: %s
+    ro = Ultima actualizare: %s
+    es = Última actualización: %s
+    sv = Senast uppdaterad: %s
+    th = การอัปเดตล่าสุด: %s
+    tr = Son güncelleme: %s
+    uk = Останнє оновлення: %s
+    vi = Cập nhật cuối cùng: %s
+    zh-Hans = 上次更新于：%s
+    zh-Hant = 上次更新於：%s
+    sk = Naposledy aktualizované: %s
+

@@ -4,17 +4,19 @@
   android:id="@+id/ll__more"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:orientation="vertical"
-  android:background="?clickableBackground">
+  android:orientation="vertical">
   <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
+    android:layout_marginTop="@dimen/margin_half"
+    android:layout_marginBottom="@dimen/margin_half"
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
     android:background="?dividerHorizontal"/>
 
   <TextView
     style="@style/PlacePageMetadataText.Button"
+    android:background="?clickableBackground"
     android:padding="@dimen/margin_half"
     android:text="@string/details"
     android:gravity="center"/>

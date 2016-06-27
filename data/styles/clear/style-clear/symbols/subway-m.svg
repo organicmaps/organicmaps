@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>subway-m</title>
     <desc>Created with Sketch.</desc>
     <defs>
@@ -14,7 +14,7 @@
         <g id="subway-m" transform="translate(1.000000, 1.000000)">
             <g id="Rectangle-211">
                 <use fill="#3C3E38" fill-rule="evenodd" xlink:href="#path-1"></use>
-                <use fill="#21659A" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use fill="#0D4D7F" fill-rule="evenodd" xlink:href="#path-1"></use>
                 <use stroke-opacity="0.8" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
             </g>
             <path d="M6.95762217,4.03583644 L4.95762217,5.53583644 L5,15.0049207 C5.01536083,15.5049207 5.51536083,16.0049207 6.01536083,16.0049207 L15.0153608,16.0049207 C15.5153608,16.0049207 16.0078669,15.6758134 16,15.0049207 L15.9576222,5.53583644 L13.9576222,4.03583644 L6.95762217,4.03583644 Z M8.57605219,6.04136763 L12.5760522,6.04136763 L14,7.14000509 L14,10.9843851 L7,10.9843851 L7,7.14000509 L8.57605219,6.04136763 Z M8,13.6122 C8,14.026414 7.66421,14.3622 7.25,14.3622 C6.83579,14.3622 6.5,14.026414 6.5,13.6122 C6.5,13.197986 6.83579,12.8622 7.25,12.8622 C7.66421,12.8622 8,13.197986 8,13.6122 Z M13.75,12.8622 C14.16421,12.8622 14.5,13.197986 14.5,13.6122 C14.5,14.026414 14.16421,14.3622 13.75,14.3622 C13.33579,14.3622 13,14.026414 13,13.6122 C13,13.197986 13.33579,12.8622 13.75,12.8622 L13.75,12.8622 Z" id="path24869" fill="#FFFFFF"></path>

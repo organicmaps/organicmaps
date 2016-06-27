@@ -6,20 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
-import com.mapswithme.maps.R;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.mapswithme.maps.R;
 
 class StoragePathAdapter extends BaseAdapter
 {
-  private StoragePathManager mStoragePathManager;
+  private final StoragePathManager mStoragePathManager;
   private final LayoutInflater mInflater;
 
-  private List<StorageItem> mItems;
+  private final List<StorageItem> mItems = new ArrayList<>();
   private int mCurrentStorageIndex = -1;
   private long mSizeNeeded;
 
-  public StoragePathAdapter(StoragePathManager storagePathManager, Activity context)
+  StoragePathAdapter(StoragePathManager storagePathManager, Activity context)
   {
     mStoragePathManager = storagePathManager;
     mInflater = context.getLayoutInflater();
@@ -67,7 +69,8 @@ class StoragePathAdapter extends BaseAdapter
   public void update(List<StorageItem> items, int currentItemIndex, long dirSize)
   {
     mSizeNeeded = dirSize;
-    mItems = items;
+    mItems.clear();
+    mItems.addAll(items);
     mCurrentStorageIndex = currentItemIndex;
 
     notifyDataSetChanged();

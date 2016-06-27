@@ -21,7 +21,7 @@ public:
 
   bool GetChangesCount(int32_t & changesCount) const;
   bool GetRank(int32_t & rank) const;
-  bool GetLevelUpRequiredFeat(string & levelUpFeat);
+  bool GetLevelUpRequiredFeat(string & levelUpFeat) const;
 
   time_t GetLastUpdate() const { return m_updateTime; }
 
@@ -39,13 +39,17 @@ class UserStatsLoader
 public:
   using TOnUpdateCallback = function<void()>;
 
+  enum class UpdatePolicy { Lazy, Force };
+
   UserStatsLoader();
 
   /// Synchronously sends request to the server. Updates stats and returns true on success.
   bool Update(string const & userName);
 
-  /// Launch the update process if stats are too old.
+  /// Launches the update process if stats are too old or if policy is UpdatePolicy::Force.
   /// The process posts fn to a gui thread on success.
+  void Update(string const & userName, UpdatePolicy policy, TOnUpdateCallback fn);
+  /// Calls Update with UpdatePolicy::Lazy.
   void Update(string const & userName, TOnUpdateCallback fn);
 
   /// Resets internal state and removes records from settings.

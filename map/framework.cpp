@@ -284,6 +284,7 @@ void Framework::Migrate(bool keepDownloaded)
   // while migration is performed.
   if (m_drapeEngine && m_isRenderingEnabled)
     m_drapeEngine->SetRenderingEnabled(false);
+  m_selectedFeature = FeatureID();
   m_searchEngine.reset();
   m_infoGetter.reset();
   TCountriesVec existedCountries;
@@ -407,7 +408,7 @@ Framework::Framework()
   });
   // Due to floating points accuracy issues (geometry is saved in editor up to 7 digits
   // after dicimal poin) some feature vertexes are threated as external to a given feature.
-  auto const pointToFeatureDistanceToleranceInMeters = 1e-3;
+  auto const pointToFeatureDistanceToleranceInMeters = 1e-2;
   editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2,
                                          pointToFeatureDistanceToleranceInMeters));
   editor.LoadMapEdits();
@@ -708,13 +709,22 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   FillInfoFromFeatureType(ft, info);
 
   // Fill countryId for place page info
+  uint32_t const placeContinentType = classif().GetTypeByPath({"place", "continent"});
+  if (info.GetTypes().Has(placeContinentType))
+    return;
+
   info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
 
-  uint32_t placeCountryType = classif().GetTypeByPath({"place", "country"});
-  if (info.GetTypes().Has(placeCountryType))
+  uint32_t const placeCountryType = classif().GetTypeByPath({"place", "country"});
+  uint32_t const placeStateType = classif().GetTypeByPath({"place", "state"});
+
+  bool const isState = info.GetTypes().Has(placeStateType);
+  bool const isCountry = info.GetTypes().Has(placeCountryType);
+  if (isCountry || isState)
   {
+    size_t const level = isState ? 1 : 0;
     TCountriesVec countries;
-    Storage().GetTopmostNodesFor(info.m_countryId, countries);
+    Storage().GetTopmostNodesFor(info.m_countryId, countries, level);
     if (countries.size() == 1)
       info.m_countryId = countries.front();
   }
@@ -724,9 +734,14 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
 {
   auto feature = GetFeatureAtPoint(mercator);
   if (feature)
+  {
     FillInfoFromFeatureType(*feature, info);
+  }
   else
+  {
     info.m_customName = customTitle.empty() ? m_stringsBundle.GetString("placepage_unknown_place") : customTitle;
+    info.m_canEditOrAdd = CanEditMap();
+  }
 
   // This line overwrites mercator center from area feature which can be far away.
   info.SetMercator(mercator);
@@ -743,10 +758,16 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.m_address = GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet();
 
   if (ftypes::IsBookingChecker::Instance()(ft))
+  {
     info.m_isSponsoredHotel = true;
+    string const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    info.m_sponsoredBookingUrl = GetBookingApi().GetBookingUrl(baseUrl);
+    info.m_sponsoredDescriptionUrl = GetBookingApi().GetDescriptionUrl(baseUrl);
+  }
 
-  info.m_isEditable = featureStatus != osm::Editor::FeatureStatus::Obsolete &&
-                      !info.IsSponsoredHotel();
+  info.m_canEditOrAdd = featureStatus != osm::Editor::FeatureStatus::Obsolete && CanEditMap() &&
+                        !info.IsSponsoredHotel();
+
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
   info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");
 }
@@ -1057,6 +1078,7 @@ void Framework::StartInteractiveSearch(search::SearchParams const & params)
       });
     }
   };
+  UpdateUserViewportChanged();
 }
 
 void Framework::ClearAllCaches()
@@ -1916,7 +1938,7 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
 {
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   m_selectedFeature = info.GetID();
-  CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(),
+  CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(), info.GetID(),
                          needAnimation));
 
   SetDisplacementMode(info.m_isSponsoredHotel ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode);
@@ -2186,11 +2208,7 @@ void Framework::UpdateSavedDataVersion()
   settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
-int64_t Framework::GetCurrentDataVersion()
-{
-  return m_storage.GetCurrentDataVersion();
-}
-
+int64_t Framework::GetCurrentDataVersion() const { return m_storage.GetCurrentDataVersion(); }
 void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
@@ -2225,9 +2243,15 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
 
       InsertRoute(route);
       StopLocationFollow();
-      m2::RectD routeRect = route.GetPoly().GetLimitRect();
-      routeRect.Scale(kRouteScaleMultiplier);
-      ShowRect(routeRect, -1);
+
+      // Validate route (in case of bicycle routing it can be invalid).
+      ASSERT(route.IsValid(), ());
+      if (route.IsValid())
+      {
+        m2::RectD routeRect = route.GetPoly().GetLimitRect();
+        routeRect.Scale(kRouteScaleMultiplier);
+        ShowRect(routeRect, -1);
+      }
     }
     else
     {
@@ -2346,7 +2370,7 @@ void Framework::InsertRoute(Route const & route)
   }
 
   vector<double> turns;
-  if (m_currentRouterType == RouterType::Vehicle)
+  if (m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle)
     route.GetTurnsDistances(turns);
 
   df::ColorConstant routeColor = df::Route;
@@ -2708,6 +2732,8 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, Index const
   }
 }
 }  // namespace
+
+bool Framework::CanEditMap() const { return version::IsSingleMwm(GetCurrentDataVersion()); }
 
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
                                 osm::EditableMapObject & emo) const

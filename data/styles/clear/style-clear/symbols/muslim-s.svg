@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>muslim-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
@@ -8,8 +8,8 @@
         <g id="muslim-s">
             <circle id="Oval-1-Copy-43" fill-opacity="0.6" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
             <circle id="Oval-1-Copy-42" fill="#8C4D16" cx="8.5" cy="8.5" r="7.5"></circle>
+            <rect id="Rectangle-341" fill="#FFFFFF" transform="translate(12.000000, 8.000000) rotate(-315.000000) translate(-12.000000, -8.000000) " x="11" y="7" width="2" height="2"></rect>
             <path d="M11.9159774,11.4294749 C11.0906808,12.3909375 9.86646746,13 8.5,13 C6.01471863,13 4,10.9852814 4,8.5 C4,6.01471863 6.01471863,4 8.5,4 C9.86646746,4 11.0906808,4.6090625 11.9159774,5.57052506 C11.3655367,5.20978526 10.7072674,5 10,5 C8.06700338,5 6.5,6.56700338 6.5,8.5 C6.5,10.4329966 8.06700338,12 10,12 C10.7072674,12 11.3655367,11.7902147 11.9159774,11.4294749 Z" id="Combined-Shape" fill="#FFFFFF"></path>
         </g>
-        <rect id="Rectangle-341" fill="#FFFFFF" transform="translate(12.000000, 8.000000) rotate(-315.000000) translate(-12.000000, -8.000000) " x="11" y="7" width="2" height="2"></rect>
     </g>
 </svg>

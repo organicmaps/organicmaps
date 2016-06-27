@@ -705,6 +705,7 @@
 	<string name="download_all">Загрузить все</string>
 	<string name="delete_all">Удалить все</string>
 	<string name="autodownload">Автоматическая загрузка</string>
+	<string name="disable_autodownload">Запретить автозагрузку</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Сейчас закрыто</string>
 	<!-- Place Page opening hours text -->
@@ -783,7 +784,7 @@
 	<string name="editor_username_error_dialog">Неверное имя пользователя</string>
 	<string name="editor_place_edited_dialog">Вы отредактировали объект!</string>
 	<string name="editor_login_with_osm">Войти через OpenStreetMap</string>
-	<string name="editor_profile_changes">Правки:</string>
+	<string name="editor_profile_changes">Учтённые правки</string>
 	<string name="editor_profile_unsent_changes">Не отправлено:</string>
 	<string name="editor_focus_map_on_location">Потяните карту, чтобы выбрать правильное местоположение объекта.</string>
 	<string name="editor_add_select_category">Выбрать категорию</string>
@@ -881,7 +882,7 @@
 	<string name="placepage_entrance_type">Подъезд</string>
 	<string name="placepage_flat">кв.</string>
 	<string name="placepage_open_24_7">Круглосуточно</string>
-	<string name="placepage_place_rating">Рейтинг:</string>
+	<string name="place_page_booking_rating">Рейтинг: %s</string>
 	<string name="place_page_starting_from">от %s</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
@@ -901,10 +902,19 @@
 	<string name="editor_remove_place_button">Удалить</string>
 	<string name="editor_status_sending">Отправка…</string>
 	<string name="editor_place_doesnt_exist">Места не существует</string>
-	<string name="place_page_booking_rating">Рейтинг: %s</string>
-	<string name="text_more_button">… еще</string>
-	<string name="error_enter_correct_phone">Введите корректный номер телефона</string>
-	<string name="error_enter_correct_web">Введите корректный веб-сайт</string>
+	<string name="text_more_button">…ещё</string>
+	<string name="error_enter_correct_phone">Введите номер телефона без букв</string>
+	<string name="error_enter_correct_web">Введите корректный веб-адрес</string>
 	<string name="error_enter_correct_email">Введите корректный email</string>
 	<string name="error_enter_correct">Введите корректное значение</string>
+	<string name="editor_profile_changes_for_next_place">Правок до следующего места: %d</string>
+	<string name="editor_profile_rating_place">Место в рейтинге</string>
+	<string name="booking_dialog_not_connect_header">Для бронирования отелей необходим доступ в интернет</string>
+	<string name="whatsnew_booking_header">Бронируй отель из приложения</string>
+	<string name="whatsnew_booking_message">При выборе отелей на карте будут отображаться ценовая категория и рейтинг заведения.</string>
+	<string name="button_try">Попробовать</string>
+	<string name="whatsnew_cycle_navigation_header">Велонавигация (бета-версия)</string>
+	<string name="whatsnew_cycle_navigation_message">К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому вело маршруту с MAPS.ME и поделитесь с нами впечатлениями.</string>
+	<string name="refresh">Обновить</string>
+	<string name="last_update">Последнее обновление: %s</string>
 </resources>

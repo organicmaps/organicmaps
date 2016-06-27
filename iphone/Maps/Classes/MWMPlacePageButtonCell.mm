@@ -1,12 +1,10 @@
-#import "MWMPlacePage.h"
 #import "MWMPlacePageButtonCell.h"
-#import "Statistics.h"
-
+#import "MWMPlacePageViewManager.h"
 #import "UIColor+MapsMeColor.h"
 
 @interface MWMPlacePageButtonCell ()
 
-@property (weak, nonatomic) MWMPlacePage * placePage;
+@property (weak, nonatomic) MWMPlacePageViewManager * manager;
 @property (weak, nonatomic) IBOutlet UIButton * titleButton;
 @property (nonatomic) MWMPlacePageCellType type;
 
@@ -14,9 +12,9 @@
 
 @implementation MWMPlacePageButtonCell
 
-- (void)config:(MWMPlacePage *)placePage forType:(MWMPlacePageCellType)type
+- (void)config:(MWMPlacePageViewManager *)manager forType:(MWMPlacePageCellType)type
 {
-  self.placePage = placePage;
+  self.manager = manager;
   switch (type)
   {
   case MWMPlacePageCellTypeAddBusinessButton:
@@ -29,7 +27,7 @@
     [self.titleButton setTitle:L(@"placepage_add_place_button") forState:UIControlStateNormal];
     break;
   case MWMPlacePageCellTypeBookingMore:
-    [self.titleButton setTitle:L(@"placepage_booking_more") forState:UIControlStateNormal];
+    [self.titleButton setTitle:L(@"details") forState:UIControlStateNormal];
     break;
   default:
     NSAssert(false, @"Invalid place page cell type!");
@@ -43,19 +41,16 @@
   switch (self.type)
   {
   case MWMPlacePageCellTypeEditButton:
-    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
-    [self.placePage editPlace];
+    [self.manager editPlace];
     break;
   case MWMPlacePageCellTypeAddBusinessButton:
-    [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePage}];
-    [self.placePage addBusiness];
+    [self.manager addBusiness];
     break;
   case MWMPlacePageCellTypeAddPlaceButton:
-    [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePageNonBuilding}];
-    [self.placePage addPlace];
+    [self.manager addPlace];
     break;
   case MWMPlacePageCellTypeBookingMore:
-    [self.placePage bookingMore];
+    [self.manager book:YES];
     break;
   default:
     NSAssert(false, @"Incorrect cell type!");

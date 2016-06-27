@@ -1,71 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMPlacePageActionBar">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+            <rect key="frame" x="0.0" y="0.0" width="360" height="48"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-f0-gXc">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="1" id="5Io-jf-rQx"/>
-                    </constraints>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-f0-gXc">
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="1"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctK-eb-hsj" userLabel="First">
-                    <rect key="frame" x="0.0" y="0.0" width="80" height="48"/>
+                <view tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctK-eb-hsj" userLabel="First">
+                    <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j7d-3d-R7Z" userLabel="Second">
-                    <rect key="frame" x="80" y="0.0" width="80" height="48"/>
+                <view tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j7d-3d-R7Z" userLabel="Second">
+                    <rect key="frame" x="90" y="0.0" width="90" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-qr-MYt" userLabel="Third">
-                    <rect key="frame" x="160" y="0.0" width="80" height="48"/>
+                <view tag="3" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-qr-MYt" userLabel="Third">
+                    <rect key="frame" x="180" y="0.0" width="90" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A9L-Jr-3Qt" userLabel="Fourth">
-                    <rect key="frame" x="240" y="0.0" width="80" height="48"/>
+                <view tag="4" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9L-Jr-3Qt" userLabel="Fourth">
+                    <rect key="frame" x="270" y="0.0" width="90" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="A9L-Jr-3Qt" secondAttribute="trailing" id="0Xn-cr-NHe"/>
-                <constraint firstItem="j7d-3d-R7Z" firstAttribute="leading" secondItem="ctK-eb-hsj" secondAttribute="trailing" id="4Rk-gd-qCE"/>
-                <constraint firstItem="ctK-eb-hsj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BdD-Dv-WWq"/>
-                <constraint firstItem="Xtb-qr-MYt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CWV-y5-Uk8"/>
-                <constraint firstItem="WPU-f0-gXc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ien-2g-AfU"/>
-                <constraint firstItem="A9L-Jr-3Qt" firstAttribute="height" secondItem="ctK-eb-hsj" secondAttribute="height" id="OU3-BY-4sO"/>
-                <constraint firstItem="A9L-Jr-3Qt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ogf-tp-9eb"/>
-                <constraint firstItem="j7d-3d-R7Z" firstAttribute="height" secondItem="ctK-eb-hsj" secondAttribute="height" id="Qjr-dO-ihG"/>
-                <constraint firstItem="Xtb-qr-MYt" firstAttribute="width" secondItem="ctK-eb-hsj" secondAttribute="width" id="Rlq-FF-9eK"/>
-                <constraint firstItem="ctK-eb-hsj" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="1:4" id="S0G-a2-90q"/>
-                <constraint firstItem="ctK-eb-hsj" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="TSs-t2-Zoy"/>
-                <constraint firstItem="Xtb-qr-MYt" firstAttribute="leading" secondItem="j7d-3d-R7Z" secondAttribute="trailing" id="a5s-LM-EYz"/>
-                <constraint firstItem="j7d-3d-R7Z" firstAttribute="width" secondItem="ctK-eb-hsj" secondAttribute="width" id="g4o-dJ-EtU"/>
-                <constraint firstAttribute="trailing" secondItem="WPU-f0-gXc" secondAttribute="trailing" id="gB2-l5-uva"/>
-                <constraint firstItem="j7d-3d-R7Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="jT0-ye-TZz"/>
-                <constraint firstItem="WPU-f0-gXc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="krG-Gh-0yX"/>
-                <constraint firstItem="ctK-eb-hsj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ks0-jC-L5G"/>
-                <constraint firstItem="A9L-Jr-3Qt" firstAttribute="width" secondItem="ctK-eb-hsj" secondAttribute="width" id="vHz-22-u43"/>
-                <constraint firstItem="Xtb-qr-MYt" firstAttribute="height" secondItem="ctK-eb-hsj" secondAttribute="height" id="xWW-Hy-qTR"/>
-            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="separator" destination="WPU-f0-gXc" id="jB7-uz-676"/>
                 <outletCollection property="buttons" destination="j7d-3d-R7Z" id="zQ7-1E-mim"/>
                 <outletCollection property="buttons" destination="Xtb-qr-MYt" id="ODg-IK-Yj1"/>
                 <outletCollection property="buttons" destination="A9L-Jr-3Qt" id="Sdq-bh-P1v"/>

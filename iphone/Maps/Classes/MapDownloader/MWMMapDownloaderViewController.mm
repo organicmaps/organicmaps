@@ -68,16 +68,6 @@ using namespace storage;
   self.searchBar.backgroundImage = [UIImage imageWithColor:searchBarColor];
 }
 
-- (void)backTap
-{
-  NSArray<UIViewController *> * viewControllers = self.navigationController.viewControllers;
-  UIViewController * previousViewController = viewControllers[viewControllers.count - 2];
-  if ([previousViewController isKindOfClass:[MWMBaseMapDownloaderViewController class]])
-    [self.navigationController popViewControllerAnimated:YES];
-  else
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
 - (void)configViews
 {
   [super configViews];

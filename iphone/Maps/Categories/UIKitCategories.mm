@@ -344,8 +344,14 @@
 
 - (void)openUrl:(NSURL *)url
 {
+  UIApplication * app = [UIApplication sharedApplication];
+  if ([app canOpenURL:url])
+    [app openURL:url];
+  // TODO(Vlad): Correct implementation of navigation controller's buttons.
+  /*
   NSString * scheme = url.scheme;
-  if ((isIOS7 || isIOS8) && (![scheme isEqualToString:@"http"] || ![scheme isEqualToString:@"https"]))
+  NSAssert(([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]), @"Incorrect url's scheme!");
+  if ((isIOS7 || isIOS8))
   {
     UIApplication * app = [UIApplication sharedApplication];
     if ([app canOpenURL:url])
@@ -355,6 +361,7 @@
   SFSafariViewController * svc = [[SFSafariViewController alloc] initWithURL:url];
   svc.delegate = self;
   [self.navigationController pushViewController:svc animated:YES];
+   */
 }
 
 @end

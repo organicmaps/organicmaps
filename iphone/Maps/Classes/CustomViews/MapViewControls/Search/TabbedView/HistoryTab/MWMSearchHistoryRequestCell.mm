@@ -29,6 +29,16 @@
     [self layoutIfNeeded];
 }
 
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  if (isIOS7)
+  {
+    self.title.preferredMaxLayoutWidth = floor(self.title.width);
+    [super layoutSubviews];
+  }
+}
+
 + (CGFloat)defaultCellHeight
 {
   return 44.0;

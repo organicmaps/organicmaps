@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>car-wash-s</title>
     <desc>Created with Sketch.</desc>
     <defs>
@@ -14,9 +14,9 @@
                 <use xlink:href="#path-1"></use>
                 <use xlink:href="#path-1"></use>
             </g>
+            <path d="M8.5,3 C8.5,3 8,3.76 8,4.2 C8,4.64 8.225,5 8.5,5 C8.775,5 9,4.64 9,4.2 C9,3.76 8.5,3 8.5,3 L8.5,3 Z" id="Shape" fill="#FFFFFF"></path>
+            <path d="M6.5,3 C6.5,3 6,3.76 6,4.2 C6,4.64 6.225,5 6.5,5 C6.775,5 7,4.64 7,4.2 C7,3.76 6.5,3 6.5,3 L6.5,3 Z" id="Shape" fill="#FFFFFF"></path>
+            <path d="M10.5,3 C10.5,3 10,3.76 10,4.2 C10,4.64 10.225,5 10.5,5 C10.775,5 11,4.64 11,4.2 C11,3.76 10.5,3 10.5,3 L10.5,3 Z" id="Shape" fill="#FFFFFF"></path>
         </g>
-        <path d="M8.5,3 C8.5,3 8,3.76 8,4.2 C8,4.64 8.225,5 8.5,5 C8.775,5 9,4.64 9,4.2 C9,3.76 8.5,3 8.5,3 L8.5,3 Z" id="Shape" fill="#FFFFFF"></path>
-        <path d="M6.5,3 C6.5,3 6,3.76 6,4.2 C6,4.64 6.225,5 6.5,5 C6.775,5 7,4.64 7,4.2 C7,3.76 6.5,3 6.5,3 L6.5,3 Z" id="Shape" fill="#FFFFFF"></path>
-        <path d="M10.5,3 C10.5,3 10,3.76 10,4.2 C10,4.64 10.225,5 10.5,5 C10.775,5 11,4.64 11,4.2 C11,3.76 10.5,3 10.5,3 L10.5,3 Z" id="Shape" fill="#FFFFFF"></path>
     </g>
 </svg>

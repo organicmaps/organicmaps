@@ -243,7 +243,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env,
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/UpdateInfo");
   ASSERT(infoClass, (jni::DescribeException()));
-  static jmethodID const ctor = jni::GetConstructorID(env, infoClass, "(II)V");
+  static jmethodID const ctor = jni::GetConstructorID(env, infoClass, "(IJ)V");
   ASSERT(ctor, (jni::DescribeException()));
 
   return env->NewObject(infoClass, ctor, info.m_numberOfMwmFilesToUpdate, info.m_totalUpdateSizeInBytes);

@@ -6,9 +6,8 @@
 #include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"
+#include "base/thread.hpp"
 #include "base/timer.hpp"
-
-#include "std/thread.hpp"
 
 #include "3party/Alohalytics/src/http_client.h"
 #include "3party/pugixml/src/pugixml.hpp"
@@ -17,7 +16,7 @@ using TRequest = alohalytics::HTTPClientPlatformWrapper;
 
 namespace
 {
-string const kUserStatsUrl = "http://py.osmz.ru/mmwatch/user?format=xml";
+string const kUserStatsUrl = "https://editor-api.maps.me/user?format=xml";
 int32_t constexpr kUninitialized = -1;
 
 auto constexpr kSettingsUserName = "LastLoggedUser";
@@ -62,7 +61,7 @@ bool UserStats::GetRank(int32_t & rank) const
   return true;
 }
 
-bool UserStats::GetLevelUpRequiredFeat(string & levelUpFeat)
+bool UserStats::GetLevelUpRequiredFeat(string & levelUpFeat) const
 {
   if (m_levelUpRequiredFeat.empty())
     return false;
@@ -127,13 +126,15 @@ bool UserStatsLoader::Update(string const & userName)
   return true;
 }
 
-void UserStatsLoader::Update(string const & userName, TOnUpdateCallback fn)
+void UserStatsLoader::Update(string const & userName, UpdatePolicy const policy,
+                             TOnUpdateCallback fn)
 {
   auto nothingToUpdate = false;
+  if (policy == UpdatePolicy::Lazy)
   {
     lock_guard<mutex> g(m_mutex);
-    nothingToUpdate = m_userStats && m_userName == userName && m_userStats &&
-                      difftime(m_lastUpdate, time(nullptr)) < kSecondsInHour;
+    nothingToUpdate = m_userStats && m_userName == userName &&
+                      difftime(time(nullptr), m_lastUpdate) < kSecondsInHour;
   }
 
   if (nothingToUpdate)
@@ -142,10 +143,15 @@ void UserStatsLoader::Update(string const & userName, TOnUpdateCallback fn)
     return;
   }
 
-  thread([this, userName, fn] {
+  threads::SimpleThread([this, userName, fn] {
     if (Update(userName))
       GetPlatform().RunOnGuiThread(fn);
   }).detach();
+}
+
+void UserStatsLoader::Update(string const & userName, TOnUpdateCallback fn)
+{
+  Update(userName, UpdatePolicy::Lazy, fn);
 }
 
 void UserStatsLoader::DropStats(string const & userName)

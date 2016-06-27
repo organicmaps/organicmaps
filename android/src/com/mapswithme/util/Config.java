@@ -13,6 +13,7 @@ public final class Config
   private static final String KEY_APP_SESSION_NUMBER = "SessionNumber";
   private static final String KEY_APP_LAST_SESSION_TIMESTAMP = "LastSessionTimestamp";
   private static final String KEY_APP_FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
+  private static final String KEY_APP_STORAGE = "StoragePath";
 
   private static final String KEY_TTS_ENABLED = "TtsEnabled";
   private static final String KEY_TTS_LANGUAGE = "TtsLanguage";
@@ -175,6 +176,16 @@ public final class Config
     }
 
     incrementSessionNumber();
+  }
+
+  public static String getStoragePath()
+  {
+    return getString(KEY_APP_STORAGE);
+  }
+
+  public static void setStoragePath(String path)
+  {
+    setString(KEY_APP_STORAGE, path);
   }
 
   public static boolean isTtsEnabled()

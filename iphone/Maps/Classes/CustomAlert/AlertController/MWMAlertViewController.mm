@@ -1,7 +1,8 @@
 #import "Common.h"
+#import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
 #import "MWMDownloadTransitMapAlert.h"
-#import "MapsAppDelegate.h"
+#import "MWMLocationAlert.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
@@ -132,6 +133,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert routingDisclaimerAlertWithInitialOrientation:self.ownerViewController.interfaceOrientation]];
 }
 
+- (void)presentBicycleRoutingDisclaimerAlert
+{
+  [self displayAlert:[MWMAlert routingBicycleDisclaimerAlert]];
+}
+
 - (void)presentDisabledLocationAlert
 {
   [self displayAlert:MWMAlert.disabledLocationAlert];
@@ -194,6 +200,16 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)displayAlert:(MWMAlert *)alert
 {
+  //TODO(igrechuhin): Remove this check on location manager refactoring.
+  //Workaround for current location manager duplicate error alerts.
+  if ([alert isKindOfClass:[MWMLocationAlert class]])
+  {
+    for (MWMAlert * view in self.view.subviews)
+    {
+      if ([view isKindOfClass:[MWMLocationAlert class]])
+        return;
+    }
+  }
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     for (MWMAlert * view in self.view.subviews)

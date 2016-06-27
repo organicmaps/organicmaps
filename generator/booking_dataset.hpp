@@ -36,6 +36,9 @@ public:
       RatingUsers = 8,
       DescUrl = 9,
       Type = 10,
+      Language = 11,
+      NameLoc = 12,
+      AddressLoc = 13,
 
       Counter
     };
@@ -51,6 +54,9 @@ public:
     double ratingUser = 0.0;
     string descUrl;
     uint32_t type = 0;
+    string langCode;
+    string nameLoc;
+    string addressLoc;
 
     static constexpr size_t Index(Fields field) { return static_cast<size_t>(field); }
     static constexpr size_t FieldsCount() { return static_cast<size_t>(Fields::Counter); }

@@ -186,7 +186,9 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
   // intersect with handle pixel rect ("Intersected elements").
   ForEachInRect(pixelRect, [&] (ref_ptr<OverlayHandle> const & h)
   {
-    bool const isParent = (h == parentOverlay);
+    bool const isParent = (h == parentOverlay) ||
+                          (h->GetFeatureID() == handle->GetFeatureID() &&
+                           h->GetOverlayRank() < handle->GetOverlayRank());
     if (!isParent && handle->IsIntersect(modelView, h))
       rivals.push_back(h);
   });
@@ -197,48 +199,55 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
   if (boundToParent)
     handleToCompare = parentOverlay;
 
-  // In this loop we decide which element must be visible.
-  // If input element "handle" more priority than all "Intersected elements"
-  // than we remove all "Intersected elements" and insert input element "handle".
-  // But if some of already inserted elements more priority than we don't insert "handle".
-  for (auto const & rivalHandle : rivals)
+  bool const selected = m_selectedFeatureID.IsValid() && (handleToCompare->GetFeatureID() == m_selectedFeatureID);
+
+  if (!selected)
   {
-    bool rejectByDepth = false;
-    if (modelView.isPerspective())
+    // In this loop we decide which element must be visible.
+    // If input element "handle" has more priority than all "Intersected elements",
+    // then we remove all "Intersected elements" and insert input element "handle".
+    // But if some of already inserted elements have more priority, then we don't insert "handle".
+    for (auto const & rivalHandle : rivals)
     {
-      bool const pathTextComparation = handle->HasDynamicAttributes() || rivalHandle->HasDynamicAttributes();
-      rejectByDepth = !pathTextComparation &&
-                      handleToCompare->GetPivot(modelView, true).y > rivalHandle->GetPivot(modelView, true).y;
-    }
+      bool const rejectBySelected = m_selectedFeatureID.IsValid() && (rivalHandle->GetFeatureID() == m_selectedFeatureID);
 
-    if (rejectByDepth || comparator.IsGreater(rivalHandle, handleToCompare))
-    {
-      // Handle is displaced and bound to its parent, parent will be displaced too.
-      if (boundToParent)
+      bool rejectByDepth = false;
+      if (!rejectBySelected && modelView.isPerspective())
       {
-        DeleteHandle(parentOverlay);
-
-      #ifdef DEBUG_OVERLAYS_OUTPUT
-        LOG(LINFO, ("Displace (0):", handle->GetOverlayDebugInfo(), "->", parentOverlay->GetOverlayDebugInfo()));
-      #endif
-
-      #ifdef COLLECT_DISPLACEMENT_INFO
-        m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                         parentOverlay->GetExtendedPixelRect(modelView).Center(),
-                                                         dp::Color(0, 255, 0, 255)));
-      #endif
+        bool const pathTextComparation = handle->HasDynamicAttributes() || rivalHandle->HasDynamicAttributes();
+        rejectByDepth = !pathTextComparation &&
+                        handleToCompare->GetPivot(modelView, true).y > rivalHandle->GetPivot(modelView, true).y;
       }
 
-    #ifdef DEBUG_OVERLAYS_OUTPUT
-      LOG(LINFO, ("Displace (1):", rivalHandle->GetOverlayDebugInfo(), "->", handle->GetOverlayDebugInfo()));
-    #endif
+      if (rejectBySelected || rejectByDepth || comparator.IsGreater(rivalHandle, handleToCompare))
+      {
+        // Handle is displaced and bound to its parent, parent will be displaced too.
+        if (boundToParent)
+        {
+          DeleteHandle(parentOverlay);
 
-    #ifdef COLLECT_DISPLACEMENT_INFO
-      m_displacementInfo.emplace_back(DisplacementData(rivalHandle->GetExtendedPixelRect(modelView).Center(),
-                                                       handle->GetExtendedPixelRect(modelView).Center(),
-                                                       dp::Color(0, 0, 255, 255)));
-    #endif
-      return;
+#ifdef DEBUG_OVERLAYS_OUTPUT
+          LOG(LINFO, ("Displace (0):", handle->GetOverlayDebugInfo(), "->", parentOverlay->GetOverlayDebugInfo()));
+#endif
+
+#ifdef COLLECT_DISPLACEMENT_INFO
+          m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
+                                                           parentOverlay->GetExtendedPixelRect(modelView).Center(),
+                                                           dp::Color(0, 255, 0, 255)));
+#endif
+        }
+
+#ifdef DEBUG_OVERLAYS_OUTPUT
+        LOG(LINFO, ("Displace (1):", rivalHandle->GetOverlayDebugInfo(), "->", handle->GetOverlayDebugInfo()));
+#endif
+
+#ifdef COLLECT_DISPLACEMENT_INFO
+        m_displacementInfo.emplace_back(DisplacementData(rivalHandle->GetExtendedPixelRect(modelView).Center(),
+                                                         handle->GetExtendedPixelRect(modelView).Center(),
+                                                         dp::Color(0, 0, 255, 255)));
+#endif
+        return;
+      }
     }
   }
 
@@ -254,15 +263,15 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
         {
           Erase(*it);
 
-        #ifdef DEBUG_OVERLAYS_OUTPUT
+#ifdef DEBUG_OVERLAYS_OUTPUT
           LOG(LINFO, ("Displace (2):", handle->GetOverlayDebugInfo(), "->", (*it)->GetOverlayDebugInfo()));
-        #endif
+#endif
 
-        #ifdef COLLECT_DISPLACEMENT_INFO
+#ifdef COLLECT_DISPLACEMENT_INFO
           m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
                                                            (*it)->GetExtendedPixelRect(modelView).Center(),
                                                            dp::Color(0, 0, 255, 255)));
-        #endif
+#endif
 
           it = m_handlesCache.erase(it);
         }
@@ -276,15 +285,15 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
     {
       DeleteHandle(rivalHandle);
 
-    #ifdef DEBUG_OVERLAYS_OUTPUT
+#ifdef DEBUG_OVERLAYS_OUTPUT
       LOG(LINFO, ("Displace (3):", handle->GetOverlayDebugInfo(), "->", rivalHandle->GetOverlayDebugInfo()));
-    #endif
+#endif
 
-    #ifdef COLLECT_DISPLACEMENT_INFO
+#ifdef COLLECT_DISPLACEMENT_INFO
       m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
                                                        rivalHandle->GetExtendedPixelRect(modelView).Center(),
                                                        dp::Color(0, 0, 255, 255)));
-    #endif
+#endif
     }
   }
 
@@ -313,9 +322,10 @@ void OverlayTree::EndOverlayPlacing()
 
       InsertHandle(handle, parentOverlay);
     }
-
-    m_handles[rank].clear();
   }
+  
+  for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
+    m_handles[rank].clear();
 
   for (auto const & handle : m_handlesCache)
   {
@@ -337,10 +347,10 @@ bool OverlayTree::CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
     return true;
 
   int const seachingRank = currentRank - 1;
-  for (auto const & h : m_handlesCache)
+  for (auto const & h : m_handles[seachingRank])
   {
     if (h->GetFeatureID() == handle->GetFeatureID() &&
-        h->GetOverlayRank() == seachingRank)
+        m_handlesCache.find(h) != m_handlesCache.end())
     {
       parentOverlay = h;
       return true;
@@ -410,6 +420,11 @@ void OverlayTree::SetDisplacementMode(int displacementMode)
 {
   m_displacementMode = displacementMode;
   m_frameCounter = kInvalidFrame;
+}
+
+void OverlayTree::SetSelectedFeature(FeatureID const & featureID)
+{
+  m_selectedFeatureID = featureID;
 }
 
 #ifdef COLLECT_DISPLACEMENT_INFO

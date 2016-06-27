@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "Macros.h"
 #import "MWMSearchCategoryCell.h"
 #import "UIColor+MapsMeColor.h"
@@ -20,6 +21,16 @@
   CALayer * sl = self.layer;
   sl.shouldRasterize = YES;
   sl.rasterizationScale = UIScreen.mainScreen.scale;
+}
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  if (isIOS7)
+  {
+    self.label.preferredMaxLayoutWidth = floor(self.label.width);
+    [super layoutSubviews];
+  }
 }
 
 - (void)setCategory:(NSString *)category

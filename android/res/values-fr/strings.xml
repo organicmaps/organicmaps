@@ -686,6 +686,7 @@
 	<string name="download_all">Tout télécharger</string>
 	<string name="delete_all">Supprimer tout</string>
 	<string name="autodownload">Téléchargement automatique</string>
+	<string name="disable_autodownload">Désactiver téléchargement automatique</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Fermé actuellement</string>
 	<!-- Place Page opening hours text -->
@@ -760,7 +761,7 @@
 	<string name="editor_username_error_dialog">Le nom d\&#39;utilisateur est invalide</string>
 	<string name="editor_place_edited_dialog">Vous avez modifié un objet !</string>
 	<string name="editor_login_with_osm">Connexion avec OpenStreetMap</string>
-	<string name="editor_profile_changes">Modifications :</string>
+	<string name="editor_profile_changes">Modifications vérifiées</string>
 	<string name="editor_profile_unsent_changes">Non envoyé :</string>
 	<string name="editor_focus_map_on_location">Tirez la carte pour sélectionner la bonne position de l\&#39;objet.</string>
 	<string name="editor_add_select_category">Sélectionner une catégorie</string>
@@ -858,7 +859,7 @@
 	<string name="placepage_entrance_type">Entrée</string>
 	<string name="placepage_flat">app.</string>
 	<string name="placepage_open_24_7">24h/24 et 7j/7</string>
-	<string name="placepage_place_rating">Notation</string>
+	<string name="place_page_booking_rating">Notation: %s</string>
 	<string name="place_page_starting_from">à partir de %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -878,4 +879,19 @@
 	<string name="editor_remove_place_button">Supprimer</string>
 	<string name="editor_status_sending">Envoyer…</string>
 	<string name="editor_place_doesnt_exist">La place n\&#39;existe pas</string>
+	<string name="text_more_button">…Afficher la suite</string>
+	<string name="error_enter_correct_phone">Saisir un numéro de téléphone sans lettres</string>
+	<string name="error_enter_correct_web">Saisir une adresse Internet valide</string>
+	<string name="error_enter_correct_email">Saisir un e-mail valide</string>
+	<string name="error_enter_correct">Saisir une valeur correcte</string>
+	<string name="editor_profile_changes_for_next_place">Modifications vers le prochain lieu: %d</string>
+	<string name="editor_profile_rating_place">Notation position</string>
+	<string name="booking_dialog_not_connect_header">Pour réserver l\&#39;hôtel, veuillez activer votre connexion Internet</string>
+	<string name="whatsnew_booking_header">Réservez un hôtel depuis l\&#39;application</string>
+	<string name="whatsnew_booking_message">Lorsque vous recherchez un hôtel, la carte indiquera le prix, la catégorie et l\&#39;évaluation des hôtels disponibles.</string>
+	<string name="button_try">Essayer</string>
+	<string name="whatsnew_cycle_navigation_header">Navigation à vélo (version bêta)</string>
+	<string name="whatsnew_cycle_navigation_message">Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n\&#39;hésitez pas à nous partager vos impressions.</string>
+	<string name="refresh">Mettre à jour</string>
+	<string name="last_update">Dernière mise à jour à %s</string>
 </resources>

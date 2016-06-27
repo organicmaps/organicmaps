@@ -1762,4 +1762,37 @@ UNIT_TEST(StorageTest_GetTopmostNodesFor)
   TEST_EQUAL(path[1], "Palestine Region", (path));
 }
 
+UNIT_TEST(StorageTest_GetTopmostNodesForWithLevel)
+{
+  Storage storage;
+
+  TCountriesVec path;
+
+  storage.GetTopmostNodesFor("France_Burgundy_Saone-et-Loire", path, 0);
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "France", ());
+
+  storage.GetTopmostNodesFor("France_Burgundy_Saone-et-Loire", path, 1);
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "France_Burgundy", ());
+
+  storage.GetTopmostNodesFor("France_Burgundy_Saone-et-Loire", path, 2);
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "France_Burgundy_Saone-et-Loire", ());
+
+  // Below tests must return path with single element same as input.
+  storage.GetTopmostNodesFor("France_Burgundy_Saone-et-Loire", path, 3);
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "France_Burgundy_Saone-et-Loire", ());
+
+  storage.GetTopmostNodesFor("France_Burgundy_Saone-et-Loire", path, -1);
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "France_Burgundy_Saone-et-Loire", ());
+
+  storage.GetTopmostNodesFor("France_Burgundy_Saone-et-Loire", path, 10000);
+  TEST_EQUAL(path.size(), 1, (path));
+  TEST_EQUAL(path[0], "France_Burgundy_Saone-et-Loire", ());
+}
+
+
 }  // namespace storage

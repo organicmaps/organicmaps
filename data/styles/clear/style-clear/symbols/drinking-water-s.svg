@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>drinking-water-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="drinking-water-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#2E89B0" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
-            <path d="M8.5,12 C7.34687857,12 6,11.3 6,9.55 C6,8.325 7.96428571,5.7 8.5,5 C9.03571429,5.7 11,8.325 11,9.55 C11,11.3 9.65312143,12 8.5,12 L8.5,12 Z" id="path4133-5-copy" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="drinking-water-s">
+            <circle id="Oval-1-Copy-43" fill-opacity="0.6" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-42" fill="#2E89B0" cx="8.5" cy="8.5" r="7.5"></circle>
+            <path d="M8.5,12 C7.34687857,12 6,11.3 6,9.55 C6,8.325 7.96428571,5.7 8.5,5 C9.03571429,5.7 11,8.325 11,9.55 C11,11.3 9.65312143,12 8.5,12 L8.5,12 Z" id="path4133-5-copy" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>

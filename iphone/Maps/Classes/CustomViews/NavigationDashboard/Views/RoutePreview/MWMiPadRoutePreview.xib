@@ -222,7 +222,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Arrive at 12:24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oec-Ee-6ha">
-                                    <rect key="frame" x="-16" y="-226" width="93" height="17"/>
+                                    <rect key="frame" x="40" y="28" width="240" height="16"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -232,7 +232,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-pb-L88">
-                                    <rect key="frame" x="-16" y="-226" width="28" height="28"/>
+                                    <rect key="frame" x="0.0" y="10" width="24" height="24"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
                                     </userDefinedRuntimeAttributes>
@@ -274,7 +274,7 @@
                     <rect key="frame" x="0.0" y="607" width="320" height="48"/>
                     <subviews>
                         <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IJ-pR-Ztp" userLabel="Go" customClass="MWMStartButton">
-                            <rect key="frame" x="0.0" y="-607" width="56" height="22"/>
+                            <rect key="frame" x="100" y="8" width="120" height="32"/>
                             <accessibility key="accessibilityConfiguration" identifier="goButton"/>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                             <state key="normal" title="Start"/>

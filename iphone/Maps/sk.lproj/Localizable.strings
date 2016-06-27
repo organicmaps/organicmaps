@@ -1138,6 +1138,8 @@
 
 "autodownload" = "Automaticky stiahnuť";
 
+"disable_autodownload" = "Zrušiť automatické preberanie";
+
 /* Place Page opening hours text */
 "closed_now" = "Teraz zatvorené";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "Prihlásiť sa prostredníctvom OpenStreetMap";
 
-"editor_profile_changes" = "Zmeny:";
+"editor_profile_changes" = "Overené zmeny";
 
 "editor_profile_unsent_changes" = "Neodoslané:";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"placepage_place_rating" = "Hodnotenie:";
+"place_page_booking_rating" = "Hodnotenie: %s";
 
 "place_page_starting_from" = "od %s";
 
@@ -1513,14 +1515,32 @@
 
 "editor_place_doesnt_exist" = "Miesto neexistuje";
 
-"place_page_booking_rating" = "Rating: %s";
+"text_more_button" = "…viac";
 
-"text_more_button" = "… more";
+"error_enter_correct_phone" = "Zadajte telefónne číslo bez písmen";
 
-"error_enter_correct_phone" = "Enter a valid phone number";
+"error_enter_correct_web" = "Zadajte platnú webovú adresu";
 
-"error_enter_correct_web" = "Enter a valid web address";
+"error_enter_correct_email" = "Zadajte platný e-mail";
 
-"error_enter_correct_email" = "Enter a valid email";
+"error_enter_correct" = "Zadajte platnú hodnotu";
 
-"error_enter_correct" = "Enter a valid value";
+"editor_profile_changes_for_next_place" = "Zmeny pre ďalšie miesto: %d";
+
+"editor_profile_rating_place" = "Hodnotiaca pozícia";
+
+"booking_dialog_not_connect_header" = "Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu";
+
+"whatsnew_booking_header" = "Rezervujte si hotel z aplikácie";
+
+"whatsnew_booking_message" = "Keď hľadáte hotel, na mape sa zobrazia cenové kategórie a hodnotenia hotelov.";
+
+"button_try" = "Vyskúšajte to";
+
+"whatsnew_cycle_navigation_header" = "Navigácia pre cyklistov (beta verzia)";
+
+"whatsnew_cycle_navigation_message" = "Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.";
+
+"refresh" = "Aktualizovať";
+
+"last_update" = "Naposledy aktualizované: %s";

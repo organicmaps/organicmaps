@@ -339,11 +339,11 @@ string GetStreetKey(string const & name)
 
 UNIT_TEST(HS_StreetKey)
 {
-  TEST_EQUAL("крупскои", GetStreetKey("улица Крупской"), ());
-  TEST_EQUAL("уручская", GetStreetKey("Уручская ул."), ());
-  TEST_EQUAL("газетыправда", GetStreetKey("Пр. Газеты Правда"), ());
-  TEST_EQUAL("якупалы", GetStreetKey("улица Я. Купалы"), ());
-  TEST_EQUAL("францискаскорины", GetStreetKey("Франциска Скорины Тракт"), ());
+  TEST_EQUAL("улицакрупскои", GetStreetKey("улица Крупской"), ());
+  TEST_EQUAL("уручскаяул", GetStreetKey("Уручская ул."), ());
+  TEST_EQUAL("пргазетыправда", GetStreetKey("Пр. Газеты Правда"), ());
+  TEST_EQUAL("улицаякупалы", GetStreetKey("улица Я. Купалы"), ());
+  TEST_EQUAL("францискаскоринытракт", GetStreetKey("Франциска Скорины Тракт"), ());
 }
 
 namespace

@@ -246,6 +246,34 @@ extern NSString * const kBookmarksChangedNotification;
                               anchorView:self.placePage.actionBar.shareAnchor];
 }
 
+- (void)book:(BOOL)isDescription
+{
+  NSMutableDictionary * stat = [@{kStatProvider : kStatBooking} mutableCopy];
+  LocationManager * lm = MapsAppDelegate.theApp.locationManager;
+  CLLocation * loc = lm.lastLocationIsValid ? lm.lastLocation : nil;
+  MWMPlacePageEntity * en = self.entity;
+  auto const latLon = en.latlon;
+  stat[kStatHotel] = en.hotelId;
+  stat[kStatHotelLat] = @(latLon.lat);
+  stat[kStatHotelLon] = @(latLon.lon);
+  [Statistics logEvent:isDescription ? kPlacePageHotelDetails : kPlacePageHotelBook
+        withParameters:stat
+           atLocation:loc];
+
+  UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
+  NSURL * url = isDescription ? [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]] : self.entity.bookingUrl;
+  NSAssert(url, @"Booking url can't be nil!");
+  [vc openUrl:url];
+}
+
+- (void)call
+{
+  NSString * tel = [self.entity getCellValue:MWMPlacePageCellTypePhoneNumber];
+  NSAssert(tel, @"Phone number can't be nil!");
+  NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:tel] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+}
+
 - (void)apiBack
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
@@ -255,16 +283,19 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)editPlace
 {
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
   [(MapViewController *)self.ownerViewController openEditor];
 }
 
 - (void)addBusiness
 {
+  [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePage}];
   [self.delegate addPlace:YES hasPoint:NO point:m2::PointD()];
 }
 
 - (void)addPlace
 {
+  [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePageNonBuilding}];
   [self.delegate addPlace:NO hasPoint:YES point:self.entity.mercator];
 }
 

@@ -17,7 +17,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/margin_base"
-      android:src="@drawable/img_news_migration"
+      android:src="@drawable/img_migration"
       android:tag="@string/tag_height_limited"/>
 
     <TextView

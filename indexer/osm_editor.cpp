@@ -197,6 +197,14 @@ void Editor::LoadMapEdits()
         {
           XMLFeature const xml(nodeOrWay.node());
 
+          // TODO(mgsergio): A map could be renamed, we'll treat it as deleted.
+          // The right thing to do is to try to migrate all changes anyway.
+          if (!mwmId.IsAlive())
+          {
+            LOG(LINFO, ("Mwm", mapName, "was deleted"));
+            goto SECTION_END;
+          }
+
           // TODO(mgsergio): Deleted features are not properly handled yet.
           auto const fid = needMigrateEdits
                                ? editor::MigrateFeatureIndex(
@@ -251,6 +259,8 @@ void Editor::LoadMapEdits()
         }
       } // for nodes
     } // for sections
+ SECTION_END:
+    ;
   } // for mwms
 
   // Save edits with new indexes and mwm version to avoid another migration on next startup.
@@ -575,12 +585,11 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, Featur
 
 EditableProperties Editor::GetEditableProperties(FeatureType const & feature) const
 {
-  // Disable editor for old data.
-  if (!version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()))
-    return {};
+  ASSERT(version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()),
+         ("Edit mode should be available only on new data"));
 
-  if (GetFeatureStatus(feature.GetID()) == FeatureStatus::Obsolete)
-    return {};
+  ASSERT(GetFeatureStatus(feature.GetID()) != FeatureStatus::Obsolete,
+         ("Edit mode should not be available on obsolete features"));
 
   // TODO(mgsergio): Check if feature is in the area where editing is disabled in the config.
   auto editableProperties = GetEditablePropertiesForTypes(feature::TypesHolder(feature));
@@ -907,9 +916,11 @@ void Editor::Invalidate()
 void Editor::MarkFeatureAsObsolete(FeatureID const & fid)
 {
   auto const featureStatus = GetFeatureStatus(fid);
-  ASSERT(featureStatus == FeatureStatus::Untouched ||
-         featureStatus == FeatureStatus::Modified,
-         ("Only untouched and modified features can be made obsolete"));
+  if (featureStatus != FeatureStatus::Untouched && featureStatus != FeatureStatus::Modified)
+  {
+    ASSERT(false, ("Only untouched and modified features can be made obsolete"));
+    return;
+  }
 
   auto & fti = m_features[fid.m_mwmId][fid.m_index];
   // If a feature was modified we can drop all changes since it's now obsolete.

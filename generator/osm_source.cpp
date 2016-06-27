@@ -133,7 +133,8 @@ public:
   void AddRelation(TKey id, RelationElement const & e)
   {
     string const & relationType = e.GetType();
-    if (!(relationType == "multipolygon" || relationType == "route" || relationType == "boundary"))
+    if (!(relationType == "multipolygon" || relationType == "route" ||
+          relationType == "boundary" || relationType == "associatedStreet"))
       return;
 
     m_relations.Write(id, e);

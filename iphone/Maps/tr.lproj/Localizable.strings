@@ -1138,6 +1138,8 @@
 
 "autodownload" = "Otomatik indir";
 
+"disable_autodownload" = "Otomatik indirmeyi devre dışı bırak";
+
 /* Place Page opening hours text */
 "closed_now" = "Şu anda kapalı";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "OpenStreetMap ile giriş yapın";
 
-"editor_profile_changes" = "Değişiklikler:";
+"editor_profile_changes" = "Doğrulanan Değişiklikler";
 
 "editor_profile_unsent_changes" = "Gönderilmedi:";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"placepage_place_rating" = "Derecelendirme:";
+"place_page_booking_rating" = "Derecelendirme: %s";
 
 "place_page_starting_from" = "%s’dan";
 
@@ -1513,14 +1515,32 @@
 
 "editor_place_doesnt_exist" = "Bu yer mevcut değil";
 
-"place_page_booking_rating" = "Rating: %s";
+"text_more_button" = "…daha fazla";
 
-"text_more_button" = "… more";
+"error_enter_correct_phone" = "Telefon numarasını harf olmadan girin";
 
-"error_enter_correct_phone" = "Enter a valid phone number";
+"error_enter_correct_web" = "Geçerli bir web adresi girin";
 
-"error_enter_correct_web" = "Enter a valid web address";
+"error_enter_correct_email" = "Geçerli bir e-posta girin";
 
-"error_enter_correct_email" = "Enter a valid email";
+"error_enter_correct" = "Geçerli bir değer girin";
 
-"error_enter_correct" = "Enter a valid value";
+"editor_profile_changes_for_next_place" = "Sonraki yerdeki değişiklikler: %d";
+
+"editor_profile_rating_place" = "Sıralamadaki yeri";
+
+"booking_dialog_not_connect_header" = "Bunlar, onaylanmış harita değişiklikleridir";
+
+"whatsnew_booking_header" = "Uygulama üzerinden otel rezervasyonu yapın";
+
+"whatsnew_booking_message" = "Bir otel aradığınızda, harita otellerin fiyat kategorisini ve puanlarını gösterir.";
+
+"button_try" = "Deneyin";
+
+"whatsnew_cycle_navigation_header" = "Bisiklet navigasyonu (beta sürüm)";
+
+"whatsnew_cycle_navigation_message" = "Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.";
+
+"refresh" = "Güncelleştirme";
+
+"last_update" = "Son güncelleme: %s";

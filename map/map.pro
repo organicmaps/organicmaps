@@ -6,12 +6,13 @@ CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 
-INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/freetype/include
+INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/jansson/src
 
 include($$ROOT_DIR/common.pri)
 
 HEADERS += \
     api_mark_point.hpp \
+    booking_api.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
     feature_vec_model.hpp \
@@ -33,6 +34,7 @@ SOURCES += \
     ../api/src/c/api-client.c \
     address_finder.cpp \
     api_mark_point.cpp \
+    booking_api.cpp \
     bookmark.cpp \
     bookmark_manager.cpp \
     feature_vec_model.cpp \

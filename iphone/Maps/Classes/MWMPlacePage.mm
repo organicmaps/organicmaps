@@ -99,27 +99,6 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
   self.actionBar.isBookmark = NO;
 }
 
-- (void)editPlace
-{
-  [self.manager editPlace];
-}
-
-- (void)addBusiness
-{
-  [self.manager addBusiness];
-}
-
-- (void)addPlace
-{
-  [self.manager addPlace];
-}
-
-- (void)bookingMore
-{
-  MapViewController * vc = MapsAppDelegate.theApp.mapViewController;
-  [vc openUrl:[NSURL URLWithString:[self.manager.entity getCellValue:MWMPlacePageCellTypeBookingMore]]];
-}
-
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset
 {
   CALayer * layer = view.layer;

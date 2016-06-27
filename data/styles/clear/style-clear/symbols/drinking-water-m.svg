@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>drinking-water-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="drinking-water-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#2E89B0" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M11.5,18 C9.16814,18 7,16 7,13.5 C7,10.9722 10.41667,6.4444 11.5,5 C12.58334,6.4444 16,10.9722 16,13.5 C16,16 13.83187,18 11.5,18 L11.5,18 Z" id="path12622-2-4-copy" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="drinking-water-m">
+            <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#2E89B0" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <path d="M11.5,18 C9.16814,18 7,16 7,13.5 C7,10.9722 10.41667,6.4444 11.5,5 C12.58334,6.4444 16,10.9722 16,13.5 C16,16 13.83187,18 11.5,18 L11.5,18 Z" id="path12622-2-4-copy" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>

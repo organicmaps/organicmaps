@@ -17,6 +17,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center">
+        <ImageView
+          android:id="@+id/image"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/margin_base"
+          android:layout_gravity="center_horizontal"
+          android:tag="@string/tag_height_limited"
+          tools:src="@drawable/img_news_booking"/>
+
         <TextView
           android:id="@+id/title"
           android:layout_width="wrap_content"
@@ -30,22 +39,13 @@
           android:fontFamily="@string/robotoMedium"
           tools:text="Whats new feature!"/>
 
-        <ImageView
-          android:id="@+id/image"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/margin_base"
-          android:layout_gravity="center_horizontal"
-          android:tag="@string/tag_height_limited"
-          tools:src="@drawable/img_news_night"/>
-
         <TextView
           android:id="@+id/subtitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/margin_base"
           android:layout_marginRight="@dimen/margin_base"
-          android:textAppearance="@style/MwmTextAppearance.Body1"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
           android:layout_gravity="center_horizontal"
           android:gravity="center_horizontal"
           tools:text="We\'ve made some cool stuff!\nSit down and be happy now, man."/>

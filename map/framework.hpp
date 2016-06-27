@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/api_mark_point.hpp"
+#include "map/booking_api.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/place_page_info.hpp"
@@ -139,6 +140,8 @@ protected:
 
   BookmarkManager m_bmManager;
 
+  BookingApi m_bookingApi;
+
   bool m_isRenderingEnabled;
 
   /// This function will be called by m_storage when latest local files
@@ -163,6 +166,10 @@ protected:
 public:
   Framework();
   virtual ~Framework();
+
+  /// Get access to booking api helpers
+  BookingApi & GetBookingApi() { return m_bookingApi; }
+  BookingApi const & GetBookingApi() const { return m_bookingApi; }
 
   /// Migrate to new version of very different data.
   bool IsEnoughSpaceForMigrate() const;
@@ -572,7 +579,7 @@ public:
   //@{
   bool IsDataVersionUpdated();
   void UpdateSavedDataVersion();
-  int64_t GetCurrentDataVersion();
+  int64_t GetCurrentDataVersion() const;
   //@}
 
 public:
@@ -648,6 +655,8 @@ public:
   //@{
   /// Initializes feature for Create Object UI.
   /// @returns false in case when coordinate is in the ocean or mwm is not downloaded.
+  bool CanEditMap() const;
+
   bool CreateMapObject(m2::PointD const & mercator, uint32_t const featureType, osm::EditableMapObject & emo) const;
   /// @returns false if feature is invalid or can't be edited.
   bool GetEditableMapObject(FeatureID const & fid, osm:: EditableMapObject & emo) const;
@@ -686,10 +695,10 @@ public:
   }
 
   // Reads user stats from server or gets it from cache calls |fn| on success.
-  void UpdateUserStats(string const & userName,
+  void UpdateUserStats(string const & userName, editor::UserStatsLoader::UpdatePolicy policy,
                        editor::UserStatsLoader::TOnUpdateCallback fn)
   {
-    m_userStatsLoader.Update(userName, fn);
+    m_userStatsLoader.Update(userName, policy, fn);
   }
 
   void DropUserStats(string const & userName) { m_userStatsLoader.DropStats(userName); }

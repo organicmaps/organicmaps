@@ -373,7 +373,8 @@ public:
           [bind(&Timespan::SetStart, _val, _1),
            bind(&Timespan::SetPlus, _val, true)]
 
-        | time[bind(&Timespan::SetStart, _val, _1)]
+        // This rule is only used for collection_times tag wish is not in our interest.
+        // | time[bind(&Timespan::SetStart, _val, _1)]
         ;
 
     main %= timespan % ',';

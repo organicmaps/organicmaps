@@ -4,6 +4,7 @@
 
 @interface MWMSideButtons : NSObject
 
+@property (nonatomic) BOOL zoomHidden;
 @property (nonatomic) BOOL hidden;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));

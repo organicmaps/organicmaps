@@ -17,9 +17,16 @@ drape {
 
 include($$ROOT_DIR/common.pri)
 
+DEFINES *= OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
+
 QT *= core opengl
 
-linux*|win* {
+macx-* {
+  QT *= gui widgets network # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework SystemConfiguration"
+}
+
+win*|linux* {
   QT *= network
 }
 
@@ -29,6 +36,7 @@ macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 SOURCES += \
   ../../testing/testingmain.cpp \
   address_tests.cpp \
+  booking_tests.cpp \
   bookmarks_test.cpp \
   feature_getters_tests.cpp \
   ge0_parser_tests.cpp  \

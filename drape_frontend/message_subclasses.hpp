@@ -471,31 +471,33 @@ class SelectObjectMessage : public Message
 {
 public:
   struct DismissTag {};
+
   SelectObjectMessage(DismissTag)
-    : SelectObjectMessage(SelectionShape::OBJECT_EMPTY, m2::PointD::Zero(), false, true)
+    : m_selected(SelectionShape::OBJECT_EMPTY)
+    , m_glbPoint(m2::PointD::Zero())
+    , m_isAnim(false)
+    , m_isDismiss(true)
   {}
 
-  SelectObjectMessage(SelectionShape::ESelectedObject selectedObject, m2::PointD const & glbPoint, bool isAnim)
-    : SelectObjectMessage(selectedObject, glbPoint, isAnim, false)
+  SelectObjectMessage(SelectionShape::ESelectedObject selectedObject, m2::PointD const & glbPoint, FeatureID const & featureID,  bool isAnim)
+    : m_selected(selectedObject)
+    , m_glbPoint(glbPoint)
+    , m_featureID(featureID)
+    , m_isAnim(isAnim)
+    , m_isDismiss(false)
   {}
 
   Type GetType() const override { return SelectObject; }
   m2::PointD const & GetPosition() const { return m_glbPoint; }
   SelectionShape::ESelectedObject GetSelectedObject() const { return m_selected; }
+  FeatureID const & GetFeatureID() const { return m_featureID; }
   bool IsAnim() const { return m_isAnim; }
   bool IsDismiss() const { return m_isDismiss; }
 
 private:
-  SelectObjectMessage(SelectionShape::ESelectedObject obj, m2::PointD const & pt, bool isAnim, bool isDismiss)
-    : m_selected(obj)
-    , m_glbPoint(pt)
-    , m_isAnim(isAnim)
-    , m_isDismiss(isDismiss)
-  {}
-
-private:
   SelectionShape::ESelectedObject m_selected;
   m2::PointD m_glbPoint;
+  FeatureID m_featureID;
   bool m_isAnim;
   bool m_isDismiss;
 };

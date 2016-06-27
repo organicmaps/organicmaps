@@ -1138,6 +1138,8 @@
 
 "autodownload" = "Автоматическая загрузка";
 
+"disable_autodownload" = "Запретить автозагрузку";
+
 /* Place Page opening hours text */
 "closed_now" = "Сейчас закрыто";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "Войти через OpenStreetMap";
 
-"editor_profile_changes" = "Правки:";
+"editor_profile_changes" = "Учтённые правки";
 
 "editor_profile_unsent_changes" = "Не отправлено:";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "Круглосуточно";
 
-"placepage_place_rating" = "Рейтинг:";
+"place_page_booking_rating" = "Рейтинг: %s";
 
 "place_page_starting_from" = "от %s";
 
@@ -1513,14 +1515,32 @@
 
 "editor_place_doesnt_exist" = "Места не существует";
 
-"place_page_booking_rating" = "Рейтинг: %s";
+"text_more_button" = "…ещё";
 
-"text_more_button" = "… еще";
+"error_enter_correct_phone" = "Введите номер телефона без букв";
 
-"error_enter_correct_phone" = "Введите корректный номер телефона";
-
-"error_enter_correct_web" = "Введите корректный веб-сайт";
+"error_enter_correct_web" = "Введите корректный веб-адрес";
 
 "error_enter_correct_email" = "Введите корректный email";
 
 "error_enter_correct" = "Введите корректное значение";
+
+"editor_profile_changes_for_next_place" = "Правок до следующего места: %d";
+
+"editor_profile_rating_place" = "Место в рейтинге";
+
+"booking_dialog_not_connect_header" = "Для бронирования отелей необходим доступ в интернет";
+
+"whatsnew_booking_header" = "Бронируй отель из приложения";
+
+"whatsnew_booking_message" = "При выборе отелей на карте будут отображаться ценовая категория и рейтинг заведения.";
+
+"button_try" = "Попробовать";
+
+"whatsnew_cycle_navigation_header" = "Велонавигация (бета-версия)";
+
+"whatsnew_cycle_navigation_message" = "К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому вело маршруту с MAPS.ME и поделитесь с нами впечатлениями.";
+
+"refresh" = "Обновить";
+
+"last_update" = "Последнее обновление: %s";

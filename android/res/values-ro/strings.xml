@@ -96,7 +96,7 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Încercați din nou</string>
 	<string name="about_menu_title">Despre MAPS.ME</string>
-	<string name="downloading_touch_to_cancel">Se descarcă %d%% . Atingeți pentru a anula.</string>
+	<string name="downloading_touch_to_cancel">Se descarcă %d%%. Atingeți pentru a anula.</string>
 	<string name="downloaded_touch_to_delete">Descărcat (%s). Atingeți pentru a șterge.</string>
 	<string name="connection_settings">Setări conexiune</string>
 	<string name="download_mb_or_kb">Descărcare %s</string>
@@ -672,6 +672,7 @@
 	<string name="download_all">Descarcă toate</string>
 	<string name="delete_all">Ștergere toate</string>
 	<string name="autodownload">Descărcare automată</string>
+	<string name="disable_autodownload">Dezactivare descărcare automată</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Închis acum</string>
 	<!-- Place Page opening hours text -->
@@ -746,7 +747,7 @@
 	<string name="editor_username_error_dialog">Nume de utilizator nevalid</string>
 	<string name="editor_place_edited_dialog">Ați editat un obiect!</string>
 	<string name="editor_login_with_osm">Conectați-vă cu OpenStreetMap</string>
-	<string name="editor_profile_changes">Modificări:</string>
+	<string name="editor_profile_changes">Modificări confirmate</string>
 	<string name="editor_profile_unsent_changes">Netrimis:</string>
 	<string name="editor_focus_map_on_location">Trageți de hartă pentru a selecta locația corectă a obiectului.</string>
 	<string name="editor_add_select_category">Selectați categoria</string>
@@ -843,7 +844,7 @@
 	<string name="placepage_entrance_type">Intrare</string>
 	<string name="placepage_flat">ap.</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="placepage_place_rating">Evaluare:</string>
+	<string name="place_page_booking_rating">Evaluare: %s</string>
 	<string name="place_page_starting_from">din %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
@@ -863,4 +864,19 @@
 	<string name="editor_remove_place_button">Eliminare</string>
 	<string name="editor_status_sending">Se trimite…</string>
 	<string name="editor_place_doesnt_exist">Locul nu există</string>
+	<string name="text_more_button">…mai multe</string>
+	<string name="error_enter_correct_phone">Introduceți numărul de telefon fără litere</string>
+	<string name="error_enter_correct_web">Introduceți o adresă web validă</string>
+	<string name="error_enter_correct_email">Introduceți o adresă de e-mail validă</string>
+	<string name="error_enter_correct">Introduceți o valoare validă</string>
+	<string name="editor_profile_changes_for_next_place">Modificări necesare pentru următoarea poziţie: %d</string>
+	<string name="editor_profile_rating_place">Poziţie în clasament</string>
+	<string name="booking_dialog_not_connect_header">Pentru a face o rezervare la un hotel, activaţi conexiunea la Internet</string>
+	<string name="whatsnew_booking_header">Rezervare hotel din aplicaţie</string>
+	<string name="whatsnew_booking_message">Dacă sunteţi în căutarea unui hotel, harta vă va arăta categoriile de preţuri practicate de hoteluri şi evaluarea lor.</string>
+	<string name="button_try">Încercaţi-o</string>
+	<string name="whatsnew_cycle_navigation_header">Navigaţie pentru biciclete (versiune beta)</string>
+	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.</string>
+	<string name="refresh">Actualizați</string>
+	<string name="last_update">Ultima actualizare: %s</string>
 </resources>

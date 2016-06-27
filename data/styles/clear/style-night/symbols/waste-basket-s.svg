@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>waste-basket-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Booking.com" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="waste-basket-s" transform="translate(4.000000, 2.000000)" fill="#C2C2C0">
-            <g id="waste-basket-l">
-                <g id="POI">
-                    <g id="waste-basket-L">
-                        <path d="M3.80769231,0 C3.57330769,0 3.38461538,0.188692308 3.38461538,0.423076923 L3.38461538,1.69230769 L0.846153846,1.69230769 C0.377384615,1.69230769 0,2.06969231 0,2.53846154 C0,3.00723077 0.377384615,3.38461538 0.846153846,3.38461538 L10.1538462,3.38461538 C10.6226154,3.38461538 11,3.00723077 11,2.53846154 C11,2.06969231 10.6226154,1.69230769 10.1538462,1.69230769 L7.61538462,1.69230769 L7.61538462,0.423076923 C7.61538462,0.188692308 7.42670077,0 7.19230769,0 L3.80769231,0 L3.80769231,0 Z M4.23076923,0.846153846 L6.76923077,0.846153846 L6.76923077,1.69230769 L4.23076923,1.69230769 L4.23076923,0.846153846 L4.23076923,0.846153846 Z M0.846153846,4.23076923 C0.377384615,4.23076923 -0.0638592308,4.58716923 0.0132253846,5.01648352 L1.69230769,14.445055 C1.7688,14.8744478 2.06969231,15.2307692 2.53846154,15.2307692 L8.46153846,15.2307692 C8.93030769,15.2307692 9.23060769,14.8743692 9.30769231,14.445055 L10.9867746,5.01648352 C11.0632669,4.58709066 10.6226154,4.23076923 10.1538462,4.23076923 L0.846153846,4.23076923 L0.846153846,4.23076923 Z" id="rect5636-copy"></path>
-                    </g>
-                </g>
-            </g>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="waste-basket-s" fill="#252522">
+            <polygon id="path5654-copy" points="5 7.5 6 14 6.32584 14 10.58899 14 11 14 12 7.5"></polygon>
+            <path d="M6.5,3 L6.5,5 L5,5 L5,6 L12,6 L12,5 L10.5,5 L10.5,3 L6.5,3 Z M7,4 L10,4 L10,5 L7.01005,5 L7,4 Z" id="Combined-Shape" transform="translate(8.500000, 4.500000) rotate(-15.000000) translate(-8.500000, -4.500000) "></path>
         </g>
     </g>
 </svg>

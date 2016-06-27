@@ -64,6 +64,7 @@ def spawn_test_process(test, flags):
 
     multiprocessing.get_logger().info(spell[0])
     out, err = process.communicate()
+
     #We need the out for getting the list of tests from an exec file
     # by sending it the --list_tests flag
     return test, filter(None, out.splitlines()), err, process.returncode

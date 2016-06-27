@@ -1,9 +1,7 @@
 package com.mapswithme.maps;
 
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.os.Handler;
@@ -26,21 +24,14 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
-import com.parse.GcmBroadcastReceiver;
-import com.parse.Parse;
-import com.parse.ParseBroadcastReceiver;
-import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.ParsePushBroadcastReceiver;
-import com.parse.PushService;
-import com.parse.SaveCallback;
+import com.pushwoosh.PushManager;
 import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
 
@@ -48,9 +39,7 @@ public class MwmApplication extends Application
 {
   private final static String TAG = "MwmApplication";
 
-  // Parse
-  private static final String PREF_PARSE_DEVICE_TOKEN = "ParseDeviceToken";
-  private static final String PREF_PARSE_INSTALLATION_ID = "ParseInstallationId";
+  private static final String PW_EMPTY_APP_ID = "XXXXX";
 
   private static MwmApplication sSelf;
   private SharedPreferences mPrefs;
@@ -107,6 +96,7 @@ public class MwmApplication extends Application
     return sSelf.mPrefs;
   }
 
+  @SuppressWarnings("ResultOfMethodCallIgnored")
   @Override
   public void onCreate()
   {
@@ -115,13 +105,17 @@ public class MwmApplication extends Application
 
     initHockeyApp();
     initCrashlytics();
+    initPushWoosh();
 
-    initPaths();
-    nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
+    String settingsPath = getSettingsPath();
+    new File(settingsPath).mkdirs();
+    new File(getTempPath()).mkdirs();
+
+    nativePreparePlatform(settingsPath);
+    nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
-    initParse();
     mBackgroundTracker = new AppBackgroundTracker();
     TrackRecorder.init();
     Editor.init();
@@ -142,13 +136,6 @@ public class MwmApplication extends Application
     ThemeSwitcher.restart();
     RoutingController.get().initialize();
     mIsFrameworkInitialized = true;
-  }
-
-  @SuppressWarnings("ResultOfMethodCallIgnored")
-  private void initPaths()
-  {
-    new File(getDataStoragePath()).mkdirs();
-    new File(getTempPath()).mkdirs();
   }
 
   private void initNativeStrings()
@@ -175,7 +162,6 @@ public class MwmApplication extends Application
     nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
     nativeAddLocalization("place_page_booking_rating", getString(R.string.place_page_booking_rating));
-
   }
 
   private void initHockeyApp()
@@ -212,9 +198,26 @@ public class MwmApplication extends Application
     }
   }
 
-  public static String getDataStoragePath()
+  public static String getSettingsPath()
   {
     return Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.MWM_DIR_POSTFIX;
+  }
+
+  private static String getStoragePath(String settingsPath)
+  {
+    String path = Config.getStoragePath();
+    if (!TextUtils.isEmpty(path))
+    {
+      File f = new File(path);
+      if (f.exists() && f.isDirectory())
+        return path;
+
+      path = new StoragePathManager().findMapsMeStorage(settingsPath);
+      Config.setStoragePath(path);
+      return path;
+    }
+
+    return settingsPath;
   }
 
   public String getTempPath()
@@ -224,7 +227,7 @@ public class MwmApplication extends Application
       return cacheDir.getAbsolutePath();
 
     return Environment.getExternalStorageDirectory().getAbsolutePath() +
-            String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
+           String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
   }
 
   private static String getObbGooglePath()
@@ -238,54 +241,23 @@ public class MwmApplication extends Application
     System.loadLibrary("mapswithme");
   }
 
-  /*
-   * init Parse SDK
-   */
-  private void initParse()
+  private void initPushWoosh()
   {
-    // Do not initialize Parse in default open-source version.
-    final String appId = PrivateVariables.parseApplicationId();
-    if (appId.isEmpty())
+    try
     {
-      PackageManager pm = getPackageManager();
+      if (BuildConfig.PW_APPID.equals(PW_EMPTY_APP_ID))
+        return;
 
-      ComponentName c = new ComponentName(this, PushService.class);
-      if (pm.getComponentEnabledSetting(c) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
-      {
-        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+      PushManager pushManager = PushManager.getInstance(this);
 
-        c = new ComponentName(this, ParseBroadcastReceiver.class);
-        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-        c = new ComponentName(this, ParsePushBroadcastReceiver.class);
-        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-        c = new ComponentName(this, GcmBroadcastReceiver.class);
-        pm.setComponentEnabledSetting(c, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-      }
-      return;
+      pushManager.onStartup(this);
+      pushManager.registerForPushNotifications();
+      pushManager.startTrackingGeoPushes();
     }
-
-    Parse.initialize(this, appId, PrivateVariables.parseClientKey());
-    ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback()
+    catch(Exception e)
     {
-      @Override
-      public void done(ParseException e)
-      {
-        SharedPreferences prefs = prefs();
-        String previousId = prefs.getString(PREF_PARSE_INSTALLATION_ID, "");
-        String previousToken = prefs.getString(PREF_PARSE_DEVICE_TOKEN, "");
-
-        String newId = ParseInstallation.getCurrentInstallation().getInstallationId();
-        String newToken = ParseInstallation.getCurrentInstallation().getString("deviceToken");
-        if (!previousId.equals(newId) || !previousToken.equals(newToken))
-        {
-          org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_INSTALLATION_ID, newId);
-          org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_DEVICE_TOKEN, newToken);
-          prefs.edit()
-                  .putString(PREF_PARSE_INSTALLATION_ID, newId)
-                  .putString(PREF_PARSE_DEVICE_TOKEN, newToken).apply();
-        }
-      }
-    });
+      Log.e("Pushwoosh", e.getLocalizedMessage());
+    }
   }
 
   public void initCounters()
@@ -318,17 +290,13 @@ public class MwmApplication extends Application
     mMainLoopHandler.sendMessage(m);
   }
 
-  /**
-   * Initializes native Platform with paths. Should be called before usage of any other native components.
-   */
+  private static native void nativePreparePlatform(String settingsPath);
   private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
                                          String flavorName, String buildType, boolean isTablet);
 
   private static native void nativeInitFramework();
-
-  private static native void nativeAddLocalization(String name, String value);
-
   private static native void nativeProcessFunctor(long functorPointer);
+  private static native void nativeAddLocalization(String name, String value);
 
   @UiThread
   private static native void nativeInitCrashlytics();

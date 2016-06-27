@@ -195,10 +195,11 @@ void EditableMapObject::SetPointType() { m_geomType = feature::EGeomType::GEOM_P
 // static
 bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
 {
-  if (buildingLevels.size() > 18 /* max number of digits in uint_64 */)
-    return false;
   if (buildingLevels.empty())
     return true;
+
+  if (buildingLevels.size() > 18 /* max number of digits in uint_64 */)
+    return false;
 
   uint64_t levels;
   return strings::to_uint64(buildingLevels, levels) && levels > 0 && levels <= kMaximumLevelsEditableByUsers;
@@ -255,6 +256,8 @@ bool EditableMapObject::ValidateFlats(string const & flats)
 // static
 bool EditableMapObject::ValidatePostCode(string const & postCode)
 {
+  if (postCode.empty())
+    return true;
   return search::LooksLikePostcode(postCode, false /* IsPrefix */);
 }
 

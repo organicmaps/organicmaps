@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>muslim-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="muslim-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#8C4D16" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M14.4931146,6.37302001 C13.3912557,5.51303837 12.0053911,5 10.5,5 C6.91745375,5 4,7.91014913 4,11.5 C4,15.0825462 6.91014913,18 10.5,18 C12.0037889,18 13.3903927,17.4872504 14.4932313,16.6267105 C13.8748641,16.8677391 13.2025457,17 12.5,17 C9.46243388,17 7,14.5313853 7,11.5 C7,8.46243388 9.46861471,6 12.5,6 C13.202972,6 13.8751411,6.13221414 14.4931146,6.37302001 Z" id="Combined-Shape" fill="#FFFFFF"></path>
-            <polygon id="Path-3244" fill="#FFFFFF" points="14 13 15.5 9.5 17 13 15.5041504 12"></polygon>
-            <polygon id="Path-3244" fill="#FFFFFF" transform="translate(15.500000, 11.350006) scale(1, -1) translate(-15.500000, -11.350006) " points="13.5 12 15.5 10.7000122 17.5 12"></polygon>
+            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#26160D" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <path d="M14.6620095,11.4553113 L14,13 L15.5041504,12 L17,13 L16.3379905,11.4553113 L17.5,10.7000122 L16.0142909,10.7000122 L15.5,9.5 L14.9857091,10.7000122 L13.5,10.7000122 L14.6620095,11.4553113 Z M14.4931146,6.37302001 C13.3912557,5.51303837 12.0053911,5 10.5,5 C6.91745375,5 4,7.91014913 4,11.5 C4,15.0825462 6.91014913,18 10.5,18 C12.0037889,18 13.3903927,17.4872504 14.4932313,16.6267105 C13.8748641,16.8677391 13.2025457,17 12.5,17 C9.46243388,17 7,14.5313853 7,11.5 C7,8.46243388 9.46861471,6 12.5,6 C13.202972,6 13.8751411,6.13221414 14.4931146,6.37302001 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>

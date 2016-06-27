@@ -1138,6 +1138,8 @@
 
 "autodownload" = "Automatisk nedlasting";
 
+"disable_autodownload" = "Deaktiver automatisk nedlasting";
+
 /* Place Page opening hours text */
 "closed_now" = "Lukket nå";
 
@@ -1283,7 +1285,7 @@
 
 "editor_login_with_osm" = "Logg inn med OpenStreetMat";
 
-"editor_profile_changes" = "Endringer:";
+"editor_profile_changes" = "Bekreftede endringer";
 
 "editor_profile_unsent_changes" = "Ikke sendt:";
 
@@ -1473,7 +1475,7 @@
 
 "placepage_open_24_7" = "Døgnåpen";
 
-"placepage_place_rating" = "Rangering:";
+"place_page_booking_rating" = "Rangering: %s";
 
 "place_page_starting_from" = "fra %s";
 
@@ -1513,14 +1515,32 @@
 
 "editor_place_doesnt_exist" = "Sted finnes ikke";
 
-"place_page_booking_rating" = "Rating: %s";
+"text_more_button" = "…mer";
 
-"text_more_button" = "… more";
+"error_enter_correct_phone" = "Oppgi telefonnummer uten bokstaver";
 
-"error_enter_correct_phone" = "Enter a valid phone number";
+"error_enter_correct_web" = "Oppgi en gyldig nettadresse";
 
-"error_enter_correct_web" = "Enter a valid web address";
+"error_enter_correct_email" = "Oppgi en gyldig epostadresse";
 
-"error_enter_correct_email" = "Enter a valid email";
+"error_enter_correct" = "Oppgi en gyldig verdi";
 
-"error_enter_correct" = "Enter a valid value";
+"editor_profile_changes_for_next_place" = "Endringer på neste sted: %d";
+
+"editor_profile_rating_place" = "Rangeringsplassering";
+
+"booking_dialog_not_connect_header" = "Aktiver Internett-tilkoblingen din for å bestille hotellet";
+
+"whatsnew_booking_header" = "Reserver hotellrom fra appen";
+
+"whatsnew_booking_message" = "Når du leter etter hotell, vil kartet fortelle deg hotellenes priskategori og rangering.";
+
+"button_try" = "Prøv det";
+
+"whatsnew_cycle_navigation_header" = "Sykkelnavigering (betaversjon)";
+
+"whatsnew_cycle_navigation_message" = "Vi tester sykkelnavigering for den nye sesongen. Prøv din favorittrute med MAPS.ME, og del din vurdering med oss.";
+
+"refresh" = "Oppdatere";
+
+"last_update" = "Sist oppdatert: %s";

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		670D04A31B0B7E460013A7AC /* alohalytics.cc in Sources */ = {isa = PBXBuildFile; fileRef = 670D04A21B0B7E460013A7AC /* alohalytics.cc */; };
 		674125171B4C056600A3E828 /* file_manager_posix_impl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 674125161B4C056600A3E828 /* file_manager_posix_impl.cc */; };
+		678850921D083DA0004201E1 /* http_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 678850911D083DA0004201E1 /* http_client.h */; };
 		67D1C7F71AE50DDF00A239E3 /* alohalytics_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D1C7F51AE50DDF00A239E3 /* alohalytics_objc.mm */; };
 		67D1C7F81AE50DDF00A239E3 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D1C7F61AE50DDF00A239E3 /* http_client_apple.mm */; };
 		67D1C7FB1AE50DFB00A239E3 /* alohalytics_objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 67D1C7F91AE50DFB00A239E3 /* alohalytics_objc.h */; };
@@ -19,6 +20,7 @@
 		670D04A21B0B7E460013A7AC /* alohalytics.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = alohalytics.cc; path = src/cpp/alohalytics.cc; sourceTree = "<group>"; };
 		670D05B91B0E0CAD0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		674125161B4C056600A3E828 /* file_manager_posix_impl.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_manager_posix_impl.cc; path = src/posix/file_manager_posix_impl.cc; sourceTree = "<group>"; };
+		678850911D083DA0004201E1 /* http_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = http_client.h; path = src/http_client.h; sourceTree = "<group>"; };
 		67D1C7DF1AE507D700A239E3 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D1C7F51AE50DDF00A239E3 /* alohalytics_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = alohalytics_objc.mm; path = src/apple/alohalytics_objc.mm; sourceTree = "<group>"; };
 		67D1C7F61AE50DDF00A239E3 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = http_client_apple.mm; path = src/apple/http_client_apple.mm; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 		67D1C7E11AE507D700A239E3 /* alohalitics */ = {
 			isa = PBXGroup;
 			children = (
+				678850911D083DA0004201E1 /* http_client.h */,
 				674125161B4C056600A3E828 /* file_manager_posix_impl.cc */,
 				670D04A21B0B7E460013A7AC /* alohalytics.cc */,
 				67D1C7F91AE50DFB00A239E3 /* alohalytics_objc.h */,
@@ -76,6 +79,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67D1C7FC1AE50DFB00A239E3 /* alohalytics.h in Headers */,
+				678850921D083DA0004201E1 /* http_client.h in Headers */,
 				67D1C7FB1AE50DFB00A239E3 /* alohalytics_objc.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

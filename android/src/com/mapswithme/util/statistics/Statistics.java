@@ -2,13 +2,16 @@ package com.mapswithme.util.statistics;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.facebook.appevents.AppEventsLogger;
@@ -257,6 +260,25 @@ public enum Statistics
     {
       FlurryAgent.logEvent(name, params);
       org.alohalytics.Statistics.logEvent(name, params);
+    }
+  }
+
+  public void trackEvent(@NonNull String name, Location location, @NonNull Map<String, String> params)
+  {
+    if (mEnabled)
+    {
+      List<String> eventDictionary = new ArrayList<String>();
+      for (Map.Entry<String, String> entry : params.entrySet())
+      {
+        eventDictionary.add(entry.getKey());
+        eventDictionary.add(entry.getValue());
+      }
+
+      org.alohalytics.Statistics.logEvent(name, eventDictionary.toArray(new String[0]), location);
+
+      params.put("lat", (location == null ? "N/A" : String.valueOf(location.getLatitude())));
+      params.put("lon", (location == null ? "N/A" : String.valueOf(location.getLongitude())));
+      FlurryAgent.logEvent(name, params);
     }
   }
 

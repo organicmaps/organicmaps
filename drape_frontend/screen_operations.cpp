@@ -25,8 +25,6 @@ void ReduceRectHack(m2::RectD & r)
 namespace df
 {
 
-string const kPrettyMoveAnim = "PrettyMove";
-
 bool IsScaleAllowableIn3d(int scale)
 {
   int minScale = scales::GetMinAllowableIn3dScale();

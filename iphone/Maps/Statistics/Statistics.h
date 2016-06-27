@@ -16,5 +16,6 @@
 + (instancetype)instance;
 + (void)logEvent:(NSString *)eventName;
 + (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters;
++ (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters atLocation:(CLLocation *)location;
 
 @end

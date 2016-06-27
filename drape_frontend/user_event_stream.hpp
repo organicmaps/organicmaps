@@ -355,9 +355,10 @@ private:
 
   void ApplyAnimations();
   void ResetAnimations(Animation::Type animType, bool finishAll = false);
+  void ResetAnimations(Animation::Type animType, string const & customType, bool finishAll = false);
   void ResetMapPlaneAnimations();
   void ResetAnimationsBeforeSwitch3D();
-  bool InterruptFollowAnimations();
+  bool InterruptFollowAnimations(bool force);
 
   list<UserEvent> m_events;
   mutable mutex m_lock;

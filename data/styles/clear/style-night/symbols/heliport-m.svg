@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <title>heliport-m</title>
     <desc>Created with Sketch.</desc>
-    <defs>
-        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-        <circle id="path-2" cx="5.75" cy="9.75" r="0.75"></circle>
-    </defs>
-    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-        <g id="Oval-1-Copy-40">
-            <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
-            <use fill="none" xlink:href="#path-1"></use>
-        </g>
-        <path d="M17.1618468,16 C17.5809234,16 18,15.5678889 18,15.1357778 L18,12.5432222 C18,11.679 17.5970554,11.2635556 17.1618468,10.8147778 C17.1618468,10.8147778 16.603078,10.2386667 16.3236936,9.95066667 C16.04432,9.66255556 15.4946433,9.00191157 14.6564901,9.00191157 L12.0087546,9.00191164 L11.9996624,7.0083074 L15.011649,7.00830734 C15.4759749,7.00830734 15.9978548,6.97255556 15.9978548,6.49377778 C15.9978548,6.01511112 15.6084122,6 15.011649,6 L8.10908776,6 C7.77718829,6 7.11687224,6.01555556 7.11687224,6.49377778 C7.11687224,6.97255556 7.64744507,6.95675178 8.10908776,7.00830734 L10.9228786,7.00830726 L10.9319707,9.00191149 L7.11687214,9.00191157 C6.82684082,8.48602269 6.29619797,8.13768935 5.67630641,8.13768935 C4.75051017,8.13768935 4,8.91146713 4,9.8661338 C4,10.8206894 4.75051017,11.5944671 5.67630641,11.5944671 C6.15994338,11.5944671 6.57518365,11.3652449 6.88114222,11.027356 L9.85795875,14.2715556 C10.7304235,15.1226667 11.3247322,16 11.7437981,16 L17.1618468,16 Z" id="rect9361-7" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-        <g id="Oval-410">
-            <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-2"></use>
-            <use fill="none" xlink:href="#path-2"></use>
+    <defs></defs>
+    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="heliport-m">
+            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#252522" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <g id="heliport-15" transform="translate(4.000000, 6.000000)" fill="#FFFFFF" fill-opacity="0.7">
+                <g id="svg4619">
+                    <path d="M4,0 C3,0 3,1 4,1 L8,1 L8,2 C7.723,2 7.5,2.223 7.5,2.5 L7.5,3 L5,3 L3.9707,3 L3.9316,3 C3.7041,2.1201 2.9122,1.5011 2,1.5 C0.8954,1.5 0,2.3954 0,3.5 C0,4.6046 0.8954,5.5 2,5.5 C2.3722,5.499 2.7368,5.3942 3.0527,5.1973 L5.5,8.5 C6.5074,9.9505 8.3182,10 9,10 L14,10 C14,10 15,10 15,9 L15,8.0059 C15,7.2734 14.874,6.874 14.5,6.5 L11.5,3.5 C11.5,3.5 10.9084,3 10.2266,3 L9.5,3 L9.5,2.5 C9.5,2.223 9.277,2 9,2 L9,1 L13,1 C14,1 14,0 13,0 L4,0 L4,0 Z M2,2.5 C2.5523,2.5 3,2.9477 3,3.5 C3,4.0523 2.5523,4.5 2,4.5 C1.4477,4.5 1,4.0523 1,3.5 C1,2.9477 1.4477,2.5 2,2.5 L2,2.5 Z M10,4 C10.5,4 10.7896,4.3231 11,4.5 L13.5,7 L10,7 C10,7 9,7 9,6 L9,5 C9,5 9,4 10,4 L10,4 Z" id="path10415"></path>
+                </g>
+            </g>
+            <circle id="Oval-410" fill="#717065" cx="5.75" cy="9.75" r="0.75"></circle>
         </g>
     </g>
 </svg>
