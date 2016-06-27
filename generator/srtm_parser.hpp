@@ -2,6 +2,8 @@
 
 #include "geometry/latlon.hpp"
 
+#include "indexer/feature_altitude.hpp"
+
 #include "base/macros.hpp"
 
 #include "std/cstdint.hpp"
@@ -13,10 +15,6 @@ namespace generator
 class SrtmTile
 {
 public:
-  using THeight = int16_t;
-
-  static THeight constexpr kInvalidHeight = -32768;
-
   SrtmTile();
   SrtmTile(SrtmTile && rhs);
 
@@ -24,15 +22,15 @@ public:
 
   inline bool IsValid() const { return m_valid; }
 
-  // Returns height in meters at |coord|, or kInvalidHeight if is not initialized.
-  THeight GetHeight(ms::LatLon const & coord);
+  // Returns height in meters at |coord|, or kInvalidAltitude if is not initialized.
+  feature::TAltitude GetHeight(ms::LatLon const & coord);
 
   static string GetBase(ms::LatLon coord);
 
 private:
-  inline THeight const * Data() const { return reinterpret_cast<THeight const *>(m_data.data()); };
+  inline feature::TAltitude const * Data() const { return reinterpret_cast<feature::TAltitude const *>(m_data.data()); };
 
-  inline size_t Size() const { return m_data.size() / sizeof(THeight); }
+  inline size_t Size() const { return m_data.size() / sizeof(feature::TAltitude); }
 
   void Invalidate();
 
@@ -47,7 +45,7 @@ class SrtmTileManager
 public:
   SrtmTileManager(string const & dir);
 
-  SrtmTile::THeight GetHeight(ms::LatLon const & coord);
+  feature::TAltitude GetHeight(ms::LatLon const & coord);
 
 private:
   string m_dir;

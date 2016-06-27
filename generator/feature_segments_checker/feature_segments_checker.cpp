@@ -6,6 +6,7 @@
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_altitude.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/map_style_reader.hpp"
 
@@ -32,8 +33,7 @@ DEFINE_string(mwm_file_path, "", "Path to an mwm file.");
 
 namespace
 {
-using TAltitude = generator::SrtmTile::THeight;
-using TAltitudeVec = vector<TAltitude>;
+using namespace feature;
 
 routing::BicycleModel const & GetBicycleModel()
 {
@@ -148,8 +148,8 @@ public:
   uint32_t m_roadPointCount;
   /// Number of features for GetBicycleModel().IsRoad(feature) != true.
   uint32_t m_notRoadCount;
-  TAltitude m_minAltitude = generator::SrtmTile::kInvalidHeight;
-  TAltitude m_maxAltitude = generator::SrtmTile::kInvalidHeight;
+  TAltitude m_minAltitude = kInvalidAltitude;
+  TAltitude m_maxAltitude = kInvalidAltitude;
 
   Processor(generator::SrtmTileManager & manager)
     : m_srtmManager(manager), m_roadCount(0), m_emptyRoadCount(0), m_roadPointCount(0), m_notRoadCount(0)
@@ -188,7 +188,7 @@ public:
     {
       // Feature segment altitude.
       TAltitude altitude = m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i)));
-      pointAltitudes[i] = altitude == generator::SrtmTile::kInvalidHeight ? 0 : altitude;
+      pointAltitudes[i] = altitude == kInvalidAltitude ? 0 : altitude;
       if (i == 0)
       {
         pointDists[i] = 0;
@@ -204,9 +204,9 @@ public:
     // Min and max altitudes.
     for (auto const a : pointAltitudes)
     {
-      if (m_minAltitude == generator::SrtmTile::kInvalidHeight || a < m_minAltitude)
+      if (m_minAltitude == kInvalidAltitude || a < m_minAltitude)
         m_minAltitude = a;
-      if (m_maxAltitude == generator::SrtmTile::kInvalidHeight || a > m_maxAltitude)
+      if (m_maxAltitude == kInvalidAltitude || a > m_maxAltitude)
         m_maxAltitude = a;
     }
 
@@ -324,7 +324,7 @@ int main(int argc, char ** argv)
   generator::SrtmTileManager manager(FLAGS_srtm_dir_path);
 
   Processor processor(manager);
-  feature::ForEachFromDat(FLAGS_mwm_file_path, processor);
+  ForEachFromDat(FLAGS_mwm_file_path, processor);
 
   PrintCont(processor.m_altitudeDiffs, "Altitude difference between start and end of features.",
             " feature(s) with altitude difference ", " meter(s)");

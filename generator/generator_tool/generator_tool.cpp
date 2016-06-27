@@ -71,7 +71,7 @@ DEFINE_string(user_resource_path, "", "User defined resource path for classifica
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format");
 DEFINE_string(booking_reference_path, "", "Path to mwm dataset for match booking addresses");
 DEFINE_uint64(planet_version, my::SecondsSinceEpoch(), "Version as seconds since epoch, by default - now");
-DEFINE_string(srtm_path, "", "Path to srtm directory. If it's set generates section with altitude information about road features.");
+DEFINE_string(srtm_path, "", "Path to srtm directory. If When set generates section with altitude information about roads.");
 
 int main(int argc, char ** argv)
 {
@@ -248,7 +248,7 @@ int main(int argc, char ** argv)
     feature::DumpFeatureNames(datFile, FLAGS_dump_feature_names);
 
   if (!FLAGS_srtm_path.empty())
-    routing::BuildRoadFeatureAltitude(FLAGS_srtm_path, path, FLAGS_output);
+    routing::BuildRoadAltitudes(FLAGS_srtm_path, path, FLAGS_output);
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(datFile);

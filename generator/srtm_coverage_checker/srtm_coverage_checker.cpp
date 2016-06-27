@@ -4,6 +4,8 @@
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
+#include "indexer/feature_altitude.hpp"
+
 #include "coding/file_name_utils.hpp"
 
 #include "platform/country_file.hpp"
@@ -98,7 +100,7 @@ int main(int argc, char * argv[])
         for (auto const & point : path)
         {
           auto const height = manager.GetHeight(MercatorBounds::ToLatLon(point));
-          if (height != generator::SrtmTile::kInvalidHeight)
+          if (height != feature::kInvalidAltitude)
             good++;
         }
       }

@@ -2,13 +2,14 @@
 
 #include "coding/varint.hpp"
 
+#include "std/limits.hpp"
 #include "std/vector.hpp"
 
 namespace feature
 {
 using TAltitude = int16_t;
 using TAltitudeVec = vector<feature::TAltitude>;
-static TAltitude constexpr kInvalidAltitude = -32768;
+static TAltitude constexpr kInvalidAltitude = numeric_limits<TAltitude>::lowest();
 
 struct Altitudes
 {
