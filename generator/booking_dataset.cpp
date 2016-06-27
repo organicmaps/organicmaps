@@ -30,10 +30,8 @@ bool CheckForValues(string const & value)
 
 BookingDataset::Hotel::Hotel(string const & src)
 {
-  vector<string> rec(FieldsCount());
-  strings::SimpleTokenizer token(src, "\t");
-  for (size_t i = 0; token && i < rec.size(); ++i, ++token)
-    rec[i] = *token;
+  vector<string> rec;
+  CHECK(strings::ParseCSVRow(src, rec, '\t', FieldsCount()), ("Error parsing hotels.tsv line:", src));
 
   strings::to_uint(rec[Index(Fields::Id)], id);
   strings::to_double(rec[Index(Fields::Latitude)], lat);
@@ -176,7 +174,7 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
     if (!hotel.translations.empty())
     {
       vector<string> parts;
-      strings::Split(hotel.translations, '|', parts);
+      strings::ParseCSVRow(hotel.translations, parts, '|');
       for (auto i = 0; i < parts.size(); i += 3)
       {
         e.AddTag("name:" + parts[i], parts[i + 1]);
