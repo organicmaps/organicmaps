@@ -155,7 +155,7 @@ public:
   }
 
   string GetTagValue(string const & key) const;
-  void SetTagValue(string const & key, string const & value);
+  void SetTagValue(string const & key, string value);
 
   string GetAttribute(string const & key) const;
   void SetAttribute(string const & key, string const & value);

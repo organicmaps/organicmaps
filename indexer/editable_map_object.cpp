@@ -61,8 +61,9 @@ void EditableMapObject::SetEditableProperties(osm::EditableProperties const & pr
 
 void EditableMapObject::SetName(StringUtf8Multilang const & name) { m_name = name; }
 
-void EditableMapObject::SetName(string const & name, int8_t langCode)
+void EditableMapObject::SetName(string name, int8_t langCode)
 {
+  strings::Trim(name);
   if (!name.empty())
     m_name.AddString(langCode, name);
 }
