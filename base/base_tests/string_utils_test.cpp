@@ -730,19 +730,16 @@ UNIT_TEST(NormalizeDigits_UniString)
   TEST_EQUAL(nd("３４５６７８９"), "3456789", ());
 }
 
-UNIT_TEST(Split)
+UNIT_TEST(CSV)
 {
   vector<string> target;
   TEST(strings::ParseCSVRow(",Test\\,проверка,0,", target), ());
   vector<string> expected({"", "Test\\", "проверка", "0", ""});
   TEST_EQUAL(target, expected, ());
-  TEST(strings::ParseCSVRow("and there  \"was  none\"", target, ' '), ());
-  vector<string> expected2({"and", "there", "", "was  none"});
+  TEST(strings::ParseCSVRow("and there  was none", target, ' ', 5), ());
+  vector<string> expected2({"and", "there", "", "was", "none"});
   TEST_EQUAL(target, expected2, ());
   TEST(!strings::ParseCSVRow("", target), ());
   vector<string> expected3;
   TEST_EQUAL(target, expected3, ());
-  TEST(!strings::ParseCSVRow("\"this, a line.\"", target, ',', 2), (target));
-  vector<string> expected4({"this, a line."});
-  TEST_EQUAL(target, expected4, ());
 }

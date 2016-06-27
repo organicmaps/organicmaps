@@ -332,47 +332,11 @@ bool ParseCSVRow(string const & s, vector<string> & target, char const delimiter
 {
   target.clear();
   using It = TokenizeIterator<SimpleDelimiter, string::const_iterator, true>;
-  bool insideQuotes = false;
-  ostringstream quoted;
   for (It it(s, SimpleDelimiter(delimiter)); it; ++it)
   {
     string column = *it;
-    if (insideQuotes)
-    {
-      if (!column.empty() && column.back() == '"')
-      {
-        // Found the tail quote: remove it and add |quoted| to the vector.
-        insideQuotes = false;
-        column.pop_back();
-        quoted << delimiter << column;
-        target.push_back(quoted.str());
-        quoted.clear();
-      }
-      else
-        quoted << delimiter << column;
-    }
-    else if (!column.empty() && column.front() == '"')
-    {
-      // Found the front quote: if there is the last one also, remove both and append column,
-      // otherwise push the column into a |quoted| buffer.
-      column.erase(0, 1);
-      if (column.back() == '"')
-      {
-        column.pop_back();
-        strings::Trim(column);
-        target.push_back(column);
-      }
-      else
-      {
-        quoted << column;
-        insideQuotes = true;
-      }
-    }
-    else
-    {
-      strings::Trim(column);
-      target.push_back(column);
-    }
+    strings::Trim(column);
+    target.push_back(move(column));
   }
 
   // Special case: if the string is empty, return an empty array instead of {""}.
