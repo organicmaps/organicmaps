@@ -10,12 +10,7 @@
 
 namespace routing
 {
-
-NearestEdgeFinder::Candidate::Candidate()
-    : m_dist(numeric_limits<double>::max()),
-      m_segId(0)
-{
-}
+NearestEdgeFinder::Candidate::Candidate() : m_dist(numeric_limits<double>::max()), m_segId(0) {}
 
 NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point)
     : m_point(point)
@@ -45,11 +40,14 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
       res.m_segEnd = roadInfo.m_junctions[i];
       // @TODO res.m_projPoint.GetAltitude() is an altitude of |pt|. |pt| is a projection of m_point
       // to segment [res.m_segStart.GetPoint(), res.m_segEnd.GetPoint()].
-      // It's necessary to calculate exact value of res.m_projPoint.GetAltitude() by this information.
-      bool const isAltidudeValid = res.m_segStart.GetAltitude() != feature::kInvalidAltitude
-          && res.m_segEnd.GetAltitude() != feature::kInvalidAltitude;
-      feature::TAltitude const projPointAlt = isAltidudeValid ? static_cast<feature::TAltitude>((res.m_segStart.GetAltitude() + res.m_segEnd.GetAltitude()) / 2)
-                                                              : feature::kInvalidAltitude;
+      // It's necessary to calculate exact value of res.m_projPoint.GetAltitude() by this
+      // information.
+      bool const isAltidudeValid = res.m_segStart.GetAltitude() != feature::kInvalidAltitude &&
+                                   res.m_segEnd.GetAltitude() != feature::kInvalidAltitude;
+      feature::TAltitude const projPointAlt =
+          isAltidudeValid ? static_cast<feature::TAltitude>(
+                                (res.m_segStart.GetAltitude() + res.m_segEnd.GetAltitude()) / 2)
+                          : feature::kInvalidAltitude;
       res.m_projPoint = Junction(pt, projPointAlt);
     }
   }
@@ -58,7 +56,8 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
     m_candidates.push_back(res);
 }
 
-void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t const maxCountFeatures)
+void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res,
+                                   size_t const maxCountFeatures)
 {
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {
@@ -72,7 +71,8 @@ void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t co
   for (Candidate const & candidate : m_candidates)
   {
     res.emplace_back(Edge(candidate.m_fid, true /* forward */, candidate.m_segId,
-                          candidate.m_segStart, candidate.m_segEnd), candidate.m_projPoint);
+                          candidate.m_segStart, candidate.m_segEnd),
+                     candidate.m_projPoint);
     ++i;
     if (i == maxCountFeatures)
       break;

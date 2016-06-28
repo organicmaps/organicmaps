@@ -302,7 +302,8 @@ void FeatureType::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
 
   m_pLoader->InitFeature(this);
 
-  m_header2Parsed = m_pointsParsed = m_trianglesParsed = m_metadataParsed = m_altitudeParsed = false;
+  m_header2Parsed = m_pointsParsed = m_trianglesParsed = m_metadataParsed = m_altitudeParsed =
+      false;
 
   m_innerStats.MakeZero();
 }

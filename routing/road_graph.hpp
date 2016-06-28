@@ -143,7 +143,8 @@ public:
     {
       for (size_t i = 0; i < roadInfo.m_junctions.size(); ++i)
       {
-        if (!my::AlmostEqualAbs(m_cross.GetPoint(), roadInfo.m_junctions[i].GetPoint(), kPointsEqualEpsilon))
+        if (!my::AlmostEqualAbs(m_cross.GetPoint(), roadInfo.m_junctions[i].GetPoint(),
+                                kPointsEqualEpsilon))
           continue;
 
         if (i < roadInfo.m_junctions.size() - 1)
@@ -172,7 +173,9 @@ public:
   {
   public:
     CrossOutgoingLoader(Junction const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, mode, edges) {}
+      : ICrossEdgesLoader(cross, mode, edges)
+    {
+    }
 
   private:
     // ICrossEdgesLoader overrides:
@@ -183,7 +186,9 @@ public:
   {
   public:
     CrossIngoingLoader(Junction const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, mode, edges) {}
+      : ICrossEdgesLoader(cross, mode, edges)
+    {
+    }
 
   private:
     // ICrossEdgesLoader overrides:

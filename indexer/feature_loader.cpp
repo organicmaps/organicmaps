@@ -309,13 +309,12 @@ void LoaderCurrent::ParseAltitude()
   try
   {
     DDVector<TAltitudeIndexEntry, FilesContainerR::TReader> idx(m_Info.GetAltitudeReader());
-    auto it = lower_bound(
-        idx.begin(), idx.end(),
-        TAltitudeIndexEntry{static_cast<uint32_t>(m_pF->m_id.m_index), 0, 0},
-        [](TAltitudeIndexEntry const & v1, TAltitudeIndexEntry const & v2)
-        {
-          return v1.featureId < v2.featureId;
-        });
+    auto it = lower_bound(idx.begin(), idx.end(),
+                          TAltitudeIndexEntry{static_cast<uint32_t>(m_pF->m_id.m_index), 0, 0},
+                          [](TAltitudeIndexEntry const & v1, TAltitudeIndexEntry const & v2)
+    {
+      return v1.featureId < v2.featureId;
+    });
     if (it == idx.end())
       return;
 

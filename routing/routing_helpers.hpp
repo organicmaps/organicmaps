@@ -10,8 +10,8 @@ namespace routing
 template <class TList>
 bool IsRoad(TList const & types)
 {
-  return CarModel::Instance().HasRoadType(types)
-         || PedestrianModel::DefaultInstance().HasRoadType(types)
-         || BicycleModel::DefaultInstance().HasRoadType(types);
+  return CarModel::Instance().HasRoadType(types) ||
+         PedestrianModel::DefaultInstance().HasRoadType(types) ||
+         BicycleModel::DefaultInstance().HasRoadType(types);
 }
-} // namespace rouing
+}  // namespace rouing

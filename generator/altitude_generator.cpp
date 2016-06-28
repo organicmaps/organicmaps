@@ -67,14 +67,14 @@ private:
   generator::SrtmTileManager m_srtmManager;
   TFeatureAltitudeVec m_featureAltitudes;
 };
-} // namespace
+}  // namespace
 
 namespace routing
 {
 void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string const & countryName)
 {
   LOG(LINFO, ("srtmPath =", srtmPath, "baseDir =", baseDir, "countryName =", countryName));
-//  string const altPath = baseDir + countryName + "." + ALTITUDE_FILE_TAG;
+  //  string const altPath = baseDir + countryName + "." + ALTITUDE_FILE_TAG;
   string const mwmPath = baseDir + countryName + DATA_FILE_EXTENSION;
 
   // Writing section with altitude information.
@@ -95,4 +95,4 @@ void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string 
     LOG(LINFO, ("Altitude was written for", featureAltitudes.size(), "features."));
   }
 }
-} // namespace routing
+}  // namespace routing

@@ -28,7 +28,10 @@ public:
   static string GetBase(ms::LatLon coord);
 
 private:
-  inline feature::TAltitude const * Data() const { return reinterpret_cast<feature::TAltitude const *>(m_data.data()); };
+  inline feature::TAltitude const * Data() const
+  {
+    return reinterpret_cast<feature::TAltitude const *>(m_data.data());
+  };
 
   inline size_t Size() const { return m_data.size() / sizeof(feature::TAltitude); }
 

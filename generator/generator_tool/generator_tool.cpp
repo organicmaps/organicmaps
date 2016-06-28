@@ -71,7 +71,9 @@ DEFINE_string(user_resource_path, "", "User defined resource path for classifica
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format");
 DEFINE_string(booking_reference_path, "", "Path to mwm dataset for match booking addresses");
 DEFINE_uint64(planet_version, my::SecondsSinceEpoch(), "Version as seconds since epoch, by default - now");
-DEFINE_string(srtm_path, "", "Path to srtm directory. If When set generates section with altitude information about roads.");
+DEFINE_string(
+    srtm_path, "",
+    "Path to srtm directory. If When set generates section with altitude information about roads.");
 
 int main(int argc, char ** argv)
 {

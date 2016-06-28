@@ -66,9 +66,7 @@ void ReverseEdges(size_t beginIdx, IRoadGraph::TEdgeVector & edges)
 
 // Junction --------------------------------------------------------------------
 
-Junction::Junction()
-  : m_point(m2::PointD::Zero()), m_altitude(feature::kInvalidAltitude)
-{}
+Junction::Junction() : m_point(m2::PointD::Zero()), m_altitude(feature::kInvalidAltitude) {}
 
 Junction::Junction(m2::PointD const & point, feature::TAltitude altitude)
   : m_point(point), m_altitude(altitude)
@@ -146,19 +144,21 @@ IRoadGraph::RoadInfo::RoadInfo()
 {}
 
 IRoadGraph::RoadInfo::RoadInfo(RoadInfo && ri)
-    : m_junctions(move(ri.m_junctions)),
-      m_speedKMPH(ri.m_speedKMPH),
-      m_bidirectional(ri.m_bidirectional)
+  : m_junctions(move(ri.m_junctions))
+  , m_speedKMPH(ri.m_speedKMPH)
+  , m_bidirectional(ri.m_bidirectional)
 {}
 
-IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH, initializer_list<Junction> const & points)
-    : m_junctions(points), m_speedKMPH(speedKMPH), m_bidirectional(bidirectional)
+IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH,
+                               initializer_list<Junction> const & points)
+  : m_junctions(points), m_speedKMPH(speedKMPH), m_bidirectional(bidirectional)
 {}
 
 // IRoadGraph::CrossOutgoingLoader ---------------------------------------------
 void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
-  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction, bool forward)
+  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
+                                                      bool forward)
   {
     if (forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
       m_edges.emplace_back(featureId, forward, segId, m_cross, endJunction);
@@ -168,7 +168,8 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, Roa
 // IRoadGraph::CrossIngoingLoader ----------------------------------------------
 void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
-  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction, bool forward)
+  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
+                                                      bool forward)
   {
     if (!forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
       m_edges.emplace_back(featureId, !forward, segId, endJunction, m_cross);
@@ -222,7 +223,8 @@ void IRoadGraph::ResetFakes()
   m_outgoingEdges.clear();
 }
 
-void IRoadGraph::AddFakeEdges(Junction const & junction, vector<pair<Edge, Junction>> const & vicinity)
+void IRoadGraph::AddFakeEdges(Junction const & junction,
+                              vector<pair<Edge, Junction>> const & vicinity)
 {
   for (auto const & v : vicinity)
   {

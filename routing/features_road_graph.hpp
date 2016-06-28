@@ -87,11 +87,10 @@ private:
   RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId) const;
   // Searches a feature RoadInfo in the cache, and if does not find then takes passed feature and speed.
   // This version is used to prevent redundant feature loading when feature speed is known.
-  RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId,
-                                     FeatureType const & ft,
+  RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId, FeatureType const & ft,
                                      double speedKMPH) const;
-  void ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft,
-                       double speedKMPH, RoadInfo & ri) const;
+  void ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft, double speedKMPH,
+                       RoadInfo & ri) const;
 
   void LockFeatureMwm(FeatureID const & featureId) const;
 

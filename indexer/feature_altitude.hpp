@@ -24,7 +24,10 @@ class Altitude
 {
 public:
   Altitude() = default;
-  Altitude(uint32_t featureId, Altitudes const & altitudes) : m_featureId(featureId), m_altitudes(altitudes) {}
+  Altitude(uint32_t featureId, Altitudes const & altitudes)
+    : m_featureId(featureId), m_altitudes(altitudes)
+  {
+  }
 
   template <class TSink>
   void Serialize(TSink & sink) const
@@ -42,9 +45,10 @@ public:
 
 private:
   /// @TODO Note. Feature id is located here because there's no index for altitudes.
-  /// There's only pairs sorted by feature id. Before merging to master some index has to be implemented.
+  /// There's only pairs sorted by feature id. Before merging to master some index has to be
+  /// implemented.
   /// Don't forget to remove |m_featureId|.
   uint32_t m_featureId = 0;
   Altitudes m_altitudes;
 };
-} // namespace feature
+}  // namespace feature

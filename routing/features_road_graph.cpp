@@ -263,11 +263,12 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
   ft.ParseAltitude();
   // @TODO It's a temprarery solution until a vector of feature altitudes is saved in mwm.
-  bool const isAltidudeValid =
-      ft.GetAltitudes().begin != feature::kInvalidAltitude && ft.GetAltitudes().end != feature::kInvalidAltitude;
+  bool const isAltidudeValid = ft.GetAltitudes().begin != feature::kInvalidAltitude &&
+                               ft.GetAltitudes().end != feature::kInvalidAltitude;
   feature::TAltitude pointAlt = ft.GetAltitudes().begin;
   size_t const pointsCount = ft.GetPointsCount();
-  feature::TAltitude const diffAlt = isAltidudeValid ? (ft.GetAltitudes().end - ft.GetAltitudes().begin) / pointsCount : 0;
+  feature::TAltitude const diffAlt =
+      isAltidudeValid ? (ft.GetAltitudes().end - ft.GetAltitudes().begin) / pointsCount : 0;
 
   ri.m_junctions.clear();
   ri.m_junctions.resize(pointsCount);

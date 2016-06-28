@@ -56,12 +56,10 @@ UNIT_TEST(AStarRouter_Graph2_Simple1)
   Junction const startPos = MakeJunctionForTesting(m2::PointD(0, 0));
   Junction const finalPos = MakeJunctionForTesting(m2::PointD(80, 55));
 
-  vector<Junction> const expected = {MakeJunctionForTesting(m2::PointD(0, 0)),
-                                     MakeJunctionForTesting(m2::PointD(5, 10)),
-                                     MakeJunctionForTesting(m2::PointD(5, 40)),
-                                     MakeJunctionForTesting(m2::PointD(18, 55)),
-                                     MakeJunctionForTesting(m2::PointD(39, 55)),
-                                     MakeJunctionForTesting(m2::PointD(80, 55))};
+  vector<Junction> const expected = {
+      MakeJunctionForTesting(m2::PointD(0, 0)),   MakeJunctionForTesting(m2::PointD(5, 10)),
+      MakeJunctionForTesting(m2::PointD(5, 40)),  MakeJunctionForTesting(m2::PointD(18, 55)),
+      MakeJunctionForTesting(m2::PointD(39, 55)), MakeJunctionForTesting(m2::PointD(80, 55))};
 
   TestAStarRouterMock(startPos, finalPos, expected);
 }
@@ -71,13 +69,11 @@ UNIT_TEST(AStarRouter_Graph2_Simple2)
   Junction const startPos = MakeJunctionForTesting(m2::PointD(80, 55));
   Junction const finalPos = MakeJunctionForTesting(m2::PointD(80, 0));
 
-  vector<Junction> const expected = {MakeJunctionForTesting(m2::PointD(80, 55)),
-                                     MakeJunctionForTesting(m2::PointD(39, 55)),
-                                     MakeJunctionForTesting(m2::PointD(37, 30)),
-                                     MakeJunctionForTesting(m2::PointD(70, 30)),
-                                     MakeJunctionForTesting(m2::PointD(70, 10)),
-                                     MakeJunctionForTesting(m2::PointD(70, 0)),
-                                     MakeJunctionForTesting(m2::PointD(80, 0))};
+  vector<Junction> const expected = {
+      MakeJunctionForTesting(m2::PointD(80, 55)), MakeJunctionForTesting(m2::PointD(39, 55)),
+      MakeJunctionForTesting(m2::PointD(37, 30)), MakeJunctionForTesting(m2::PointD(70, 30)),
+      MakeJunctionForTesting(m2::PointD(70, 10)), MakeJunctionForTesting(m2::PointD(70, 0)),
+      MakeJunctionForTesting(m2::PointD(80, 0))};
 
   TestAStarRouterMock(startPos, finalPos, expected);
 }
@@ -97,10 +93,9 @@ UNIT_TEST(AStarRouter_SimpleGraph_RouteIsFound)
   Junction const startPos = MakeJunctionForTesting(m2::PointD(0, 0));
   Junction const finalPos = MakeJunctionForTesting(m2::PointD(40, 100));
 
-  vector<Junction> const expected = {MakeJunctionForTesting(m2::PointD(0, 0)),
-                                     MakeJunctionForTesting(m2::PointD(0, 30)),
-                                     MakeJunctionForTesting(m2::PointD(0, 60)),
-                                     MakeJunctionForTesting(m2::PointD(40, 100))};
+  vector<Junction> const expected = {
+      MakeJunctionForTesting(m2::PointD(0, 0)), MakeJunctionForTesting(m2::PointD(0, 30)),
+      MakeJunctionForTesting(m2::PointD(0, 60)), MakeJunctionForTesting(m2::PointD(40, 100))};
 
   RouterDelegate delegate;
   RoutingResult<Junction> result;
@@ -120,30 +115,36 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
   double const speedKMPH = graph.GetMaxSpeedKMPH();
 
   // Roads in the first connected component.
-  vector<IRoadGraph::RoadInfo> const roadInfo_1 =
-  {
-    IRoadGraph::RoadInfo(true /* bidir */, speedKMPH, {
-        MakeJunctionForTesting(m2::PointD(10, 10)), MakeJunctionForTesting(m2::PointD(90, 10))}), // feature 0
-    IRoadGraph::RoadInfo(true /* bidir */, speedKMPH, {
-        MakeJunctionForTesting(m2::PointD(90, 10)), MakeJunctionForTesting(m2::PointD(90, 90))}), // feature 1
-    IRoadGraph::RoadInfo(true /* bidir */, speedKMPH, {
-        MakeJunctionForTesting(m2::PointD(90, 90)), MakeJunctionForTesting(m2::PointD(10, 90))}), // feature 2
-    IRoadGraph::RoadInfo(true /* bidir */, speedKMPH, {
-        MakeJunctionForTesting(m2::PointD(10, 90)), MakeJunctionForTesting(m2::PointD(10, 10))}), // feature 3
+  vector<IRoadGraph::RoadInfo> const roadInfo_1 = {
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+                           {MakeJunctionForTesting(m2::PointD(10, 10)),
+                            MakeJunctionForTesting(m2::PointD(90, 10))}),  // feature 0
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+                           {MakeJunctionForTesting(m2::PointD(90, 10)),
+                            MakeJunctionForTesting(m2::PointD(90, 90))}),  // feature 1
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+                           {MakeJunctionForTesting(m2::PointD(90, 90)),
+                            MakeJunctionForTesting(m2::PointD(10, 90))}),  // feature 2
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+                           {MakeJunctionForTesting(m2::PointD(10, 90)),
+                            MakeJunctionForTesting(m2::PointD(10, 10))}),  // feature 3
   };
   vector<uint32_t> const featureId_1 = { 0, 1, 2, 3 }; // featureIDs in the first connected component
 
   // Roads in the second connected component.
-  vector<IRoadGraph::RoadInfo> const roadInfo_2 =
-  {
-    IRoadGraph::RoadInfo(true /* bidir */, speedKMPH, {
-        MakeJunctionForTesting(m2::PointD(30, 30)), MakeJunctionForTesting(m2::PointD(70, 30))}), // feature 4
-    IRoadGraph::RoadInfo(true /* bidir */, speedKMPH, {
-        MakeJunctionForTesting(m2::PointD(70, 30)), MakeJunctionForTesting(m2::PointD(70, 70))}), // feature 5
-    IRoadGraph::RoadInfo(true /* bidir */, speedKMPH, {
-        MakeJunctionForTesting(m2::PointD(70, 70)), MakeJunctionForTesting(m2::PointD(30, 70))}), // feature 6
-    IRoadGraph::RoadInfo(true /* bidir */, speedKMPH, {
-        MakeJunctionForTesting(m2::PointD(30, 70)), MakeJunctionForTesting(m2::PointD(30, 30))}), // feature 7
+  vector<IRoadGraph::RoadInfo> const roadInfo_2 = {
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+                           {MakeJunctionForTesting(m2::PointD(30, 30)),
+                            MakeJunctionForTesting(m2::PointD(70, 30))}),  // feature 4
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+                           {MakeJunctionForTesting(m2::PointD(70, 30)),
+                            MakeJunctionForTesting(m2::PointD(70, 70))}),  // feature 5
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+                           {MakeJunctionForTesting(m2::PointD(70, 70)),
+                            MakeJunctionForTesting(m2::PointD(30, 70))}),  // feature 6
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+                           {MakeJunctionForTesting(m2::PointD(30, 70)),
+                            MakeJunctionForTesting(m2::PointD(30, 30))}),  // feature 7
   };
   vector<uint32_t> const featureId_2 = { 4, 5, 6, 7 }; // featureIDs in the second connected component
 
@@ -232,13 +233,14 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad1)
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
                                       MakeJunctionForTesting(m2::PointD(10, 2)), delegate, result),
              ());
-  TEST_EQUAL(result.path, vector<Junction>({MakeJunctionForTesting(m2::PointD(2,2)),
-                                            MakeJunctionForTesting(m2::PointD(2,3)),
-                                            MakeJunctionForTesting(m2::PointD(4,3)),
-                                            MakeJunctionForTesting(m2::PointD(6,3)),
-                                            MakeJunctionForTesting(m2::PointD(8,3)),
-                                            MakeJunctionForTesting(m2::PointD(10,3)),
-                                            MakeJunctionForTesting(m2::PointD(10,2))}), ());
+  TEST_EQUAL(
+      result.path,
+      vector<Junction>(
+          {MakeJunctionForTesting(m2::PointD(2, 2)), MakeJunctionForTesting(m2::PointD(2, 3)),
+           MakeJunctionForTesting(m2::PointD(4, 3)), MakeJunctionForTesting(m2::PointD(6, 3)),
+           MakeJunctionForTesting(m2::PointD(8, 3)), MakeJunctionForTesting(m2::PointD(10, 3)),
+           MakeJunctionForTesting(m2::PointD(10, 2))}),
+      ());
   TEST(my::AlmostEqualAbs(result.distance, 800451., 1.), ("Distance error:", result.distance));
 }
 
@@ -266,9 +268,10 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
                                       MakeJunctionForTesting(m2::PointD(10, 2)), delegate, result),
              ());
-  TEST_EQUAL(result.path, vector<Junction>({MakeJunctionForTesting(m2::PointD(2,2)),
-                                            MakeJunctionForTesting(m2::PointD(6,2)),
-                                            MakeJunctionForTesting(m2::PointD(10,2))}), ());
+  TEST_EQUAL(result.path, vector<Junction>({MakeJunctionForTesting(m2::PointD(2, 2)),
+                                            MakeJunctionForTesting(m2::PointD(6, 2)),
+                                            MakeJunctionForTesting(m2::PointD(10, 2))}),
+             ());
   TEST(my::AlmostEqualAbs(result.distance, 781458., 1.), ("Distance error:", result.distance));
 }
 
@@ -296,9 +299,10 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
                                       MakeJunctionForTesting(m2::PointD(10, 2)), delegate, result),
              ());
-  TEST_EQUAL(result.path, vector<Junction>({MakeJunctionForTesting(m2::PointD(2,2)),
-                                            MakeJunctionForTesting(m2::PointD(2,1)),
-                                            MakeJunctionForTesting(m2::PointD(10,1)),
-                                            MakeJunctionForTesting(m2::PointD(10,2))}), ());
+  TEST_EQUAL(result.path, vector<Junction>({MakeJunctionForTesting(m2::PointD(2, 2)),
+                                            MakeJunctionForTesting(m2::PointD(2, 1)),
+                                            MakeJunctionForTesting(m2::PointD(10, 1)),
+                                            MakeJunctionForTesting(m2::PointD(10, 2))}),
+             ());
   TEST(my::AlmostEqualAbs(result.distance, 814412., 1.), ("Distance error:", result.distance));
 }
