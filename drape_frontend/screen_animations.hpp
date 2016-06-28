@@ -15,6 +15,7 @@ class MapLinearAnimation;
 class MapFollowAnimation;
 class MapScaleAnimation;
 
+drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen);
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen,
                                                     m2::AnyRectD const & startRect, m2::AnyRectD const & endRect);
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, double startScale, double endScale,
@@ -24,6 +25,7 @@ drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & screen,
                                                       m2::PointD const & startPt, m2::PointD const & userPos,
                                                       double targetAngle, m2::PointD const & endPixelPos);
 
+drape_ptr<MapLinearAnimation> GetRectAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen);
 drape_ptr<MapLinearAnimation> GetSetRectAnimation(ScreenBase const & screen,
                                                   m2::AnyRectD const & startRect, m2::AnyRectD const & endRect);
 

@@ -145,22 +145,7 @@ void ScreenBase::SetFromRect(m2::AnyRectD const & glbRect)
 
 void ScreenBase::SetFromRect2d(m2::AnyRectD const & glbRect)
 {
-  double hScale = glbRect.GetLocalRect().SizeX() / PixelRectIn3d().SizeX();
-  double vScale = glbRect.GetLocalRect().SizeY() / PixelRectIn3d().SizeY();
-  double scale = max(hScale, vScale);
-
-  m_Scale = scale;
-  m_Angle = glbRect.Angle();
-  m_Org = glbRect.GlobalCenter();
-
-  UpdateDependentParameters();
-
-/*  m2::PointD g_target(0.0, -glbRect.GetLocalRect().SizeY() * scale / vScale / 2.0);
-  g_target.Rotate(glbRect.Angle().val());
-  g_target = glbRect.GlobalCenter() + g_target;
-  m2::PointD p_target(m_PixelRect.SizeX() / 2.0, m_PixelRect.SizeY());
-  MatchGandP(g_target, p_target);*/
-
+  SetFromRects(glbRect, PixelRectIn3d());
   MatchGandP3d(glbRect.GlobalCenter(), PixelRectIn3d().Center());
 }
 

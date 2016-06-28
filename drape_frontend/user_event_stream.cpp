@@ -366,40 +366,26 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
 bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim)
 {
-  m2::PointD targetCenter = center;
-  ang::AngleD angle;
-  m2::RectD localRect;
-
   ScreenBase const & currentScreen = GetCurrentScreen();
 
   ScreenBase screen = currentScreen;
   if (zoom == kDoNotChangeZoom)
   {
-    m2::AnyRectD const r = GetTargetRect();
-    angle = r.Angle();
-    localRect = r.GetLocalRect();
+    GetTargetScreen(screen);
+    screen.MatchGandP3d(center, screen.PixelRectIn3d().Center());
   }
   else
   {
-    angle = screen.GlobalRect().Angle();
-
-    double scale3d = kDefault3dScale;//screen.CalculateScale3d(screen.CalculatePerspectiveAngle());
-    localRect = df::GetRectForDrawScale(zoom, center);
-    localRect.Scale(scale3d);
-
-    CheckMinGlobalRect(localRect, scale3d);
-    CheckMinMaxVisibleScale(localRect, zoom, scale3d);
-
-    localRect.Offset(-center);
-
-    double const aspectRatio = screen.PixelRect().SizeY() / screen.PixelRect().SizeX();
-    if (aspectRatio > 1.0)
-      localRect.Inflate(0.0, localRect.SizeY() * 0.5 * aspectRatio);
-    else
-      localRect.Inflate(localRect.SizeX() * 0.5 / aspectRatio, 0.0);
+    screen.SetFromParams(center, screen.GetAngle(), GetScale(zoom));
+    screen.MatchGandP3d(center, screen.PixelRectIn3d().Center());
   }
 
-  return SetRect(m2::AnyRectD(targetCenter, angle, localRect), isAnim);
+  ASSERT_GREATER_OR_EQUAL(zoom, scales::GetUpperWorldScale(), ());
+  ASSERT_LESS_OR_EQUAL(zoom, scales::GetUpperStyleScale(), ());
+
+  ShrinkAndScaleInto(screen, df::GetWorldRect());
+
+  return SetScreen(screen, isAnim);
 }
 
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim)
@@ -410,9 +396,44 @@ bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool
   return SetRect(targetRect, isAnim);
 }
 
+bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim)
+{
+  if (isAnim)
+  {
+    auto onStartHandler = [this](ref_ptr<Animation> animation)
+    {
+      if (m_listener)
+        m_listener->OnAnimationStarted(animation);
+    };
+
+    ScreenBase const & screen = GetCurrentScreen();
+
+    drape_ptr<Animation> anim = GetRectAnimation(screen, endScreen);
+    if (!df::IsAnimationAllowed(anim->GetDuration(), screen))
+    {
+      anim.reset();
+      double const moveDuration = PositionInterpolator::GetMoveDuration(screen.GetOrg(),
+                                                                        endScreen.GetOrg(), screen);
+      if (moveDuration > kMaxAnimationTimeSec)
+        anim = GetPrettyMoveAnimation(screen, endScreen);
+    }
+
+    if (anim != nullptr)
+    {
+      anim->SetOnStartAction(onStartHandler);
+      m_animationSystem.CombineAnimation(move(anim));
+      return false;
+    }
+  }
+
+  ResetMapPlaneAnimations();
+  m_navigator.SetScreen(endScreen);
+  return true;
+}
+
 bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
 {
-  isAnim = false;
+  //isAnim = false;
   if (isAnim)
   {
     auto onStartHandler = [this](ref_ptr<Animation> animation)
@@ -640,6 +661,11 @@ void UserEventStream::ResetAnimationsBeforeSwitch3D()
 m2::AnyRectD UserEventStream::GetCurrentRect() const
 {
   return m_navigator.Screen().GlobalRect();
+}
+
+void UserEventStream::GetTargetScreen(ScreenBase & screen) const
+{
+   m_animationSystem.GetTargetScreen(m_navigator.Screen(), screen);
 }
 
 m2::AnyRectD UserEventStream::GetTargetRect() const

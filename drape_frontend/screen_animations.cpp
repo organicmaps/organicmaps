@@ -13,6 +13,12 @@ namespace df
 string const kPrettyMoveAnim = "PrettyMove";
 string const kPrettyFollowAnim = "PrettyFollow";
 
+drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen)
+{
+  return GetPrettyMoveAnimation(startScreen, startScreen.GetScale(), endScreen.GetScale(),
+                                startScreen.GetOrg(), endScreen.GetOrg());
+}
+
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen,
                                                     m2::AnyRectD const & startRect, m2::AnyRectD const & endRect)
 {
@@ -78,6 +84,18 @@ drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & screen,
   sequenceAnim->AddAnimation(move(moveAnim));
   sequenceAnim->AddAnimation(move(followAnim));
   return sequenceAnim;
+}
+
+drape_ptr<MapLinearAnimation> GetRectAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen)
+{
+  auto anim = make_unique_dp<MapLinearAnimation>();
+
+  anim->SetRotate(startScreen.GetAngle(), endScreen.GetAngle());
+  anim->SetMove(startScreen.GetOrg(), endScreen.GetOrg(), startScreen);
+  anim->SetScale(startScreen.GetScale(), endScreen.GetScale());
+  anim->SetMaxScaleDuration(kMaxAnimationTimeSec);
+
+  return anim;
 }
 
 drape_ptr<MapLinearAnimation> GetSetRectAnimation(ScreenBase const & screen,

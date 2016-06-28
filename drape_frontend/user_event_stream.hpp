@@ -269,6 +269,7 @@ public:
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   ScreenBase const & GetCurrentScreen() const;
 
+  void GetTargetScreen(ScreenBase & screen) const;
   m2::AnyRectD GetTargetRect() const;
   bool IsInUserAction() const;
   bool IsInPerspectiveAnimation() const;
@@ -306,6 +307,7 @@ private:
   bool SetCenter(m2::PointD const & center, int zoom, bool isAnim);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
+  bool SetScreen(ScreenBase const & screen, bool isAnim);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, bool isAnim);
 

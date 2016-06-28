@@ -52,7 +52,7 @@ string LocationModeStatisticsName(location::EMyPositionMode mode)
 
 int GetZoomLevel(ScreenBase const & screen)
 {
-  return my::clamp(fabs(log(screen.GetScale()) / log(2.0)), 1, scales::GetUpperStyleScale());
+  return df::GetZoomLevel(screen.GetScale());
 }
 
 int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double errorRadius)
@@ -62,6 +62,8 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
   s.SetFromRect(m2::AnyRectD(position, screen.GetAngle(), m2::RectD(position - size, position + size)));
   return GetZoomLevel(s);
 }
+
+
 
 } // namespace
 
