@@ -328,4 +328,20 @@ bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCoun
   return false;
 }
 
+void ParseCSVRow(string const & s, char const delimiter, vector<string> & target)
+{
+  target.clear();
+  using It = TokenizeIterator<SimpleDelimiter, string::const_iterator, true>;
+  for (It it(s, SimpleDelimiter(delimiter)); it; ++it)
+  {
+    string column = *it;
+    strings::Trim(column);
+    target.push_back(move(column));
+  }
+
+  // Special case: if the string is empty, return an empty array instead of {""}.
+  if (target.size() == 1 && target[0].empty())
+    target.clear();
+}
+
 }  // namespace strings

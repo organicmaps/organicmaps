@@ -729,3 +729,17 @@ UNIT_TEST(NormalizeDigits_UniString)
   TEST_EQUAL(nd("a０１9２ "), "a0192 ", ());
   TEST_EQUAL(nd("３４５６７８９"), "3456789", ());
 }
+
+UNIT_TEST(CSV)
+{
+  vector<string> target;
+  strings::ParseCSVRow(",Test\\,проверка,0,", ',', target);
+  vector<string> expected({"", "Test\\", "проверка", "0", ""});
+  TEST_EQUAL(target, expected, ());
+  strings::ParseCSVRow("and there  was none", ' ', target);
+  vector<string> expected2({"and", "there", "", "was", "none"});
+  TEST_EQUAL(target, expected2, ());
+  strings::ParseCSVRow("", 'q', target);
+  vector<string> expected3;
+  TEST_EQUAL(target, expected3, ());
+}
