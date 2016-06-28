@@ -248,6 +248,7 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
     if (!hotel.houseNumber.empty())
       e.AddTag("addr:housenumber", hotel.houseNumber);
 
+    // TODO(mgsergio): Add a comment or use enum.
     switch (hotel.type)
     {
     case 19:

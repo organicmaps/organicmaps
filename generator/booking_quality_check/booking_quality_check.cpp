@@ -6,6 +6,7 @@
 #include "std/fstream.hpp"
 #include "std/iostream.hpp"
 #include "std/numeric.hpp"
+#include "std/random.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -15,6 +16,7 @@ DEFINE_string(osm_file_name, "", "Input .o5m file");
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format");
 DEFINE_string(sample_data, "", "Sample output path");
 DEFINE_uint64(selection_size, 1000, "Selection size");
+DEFINE_uint64(random_seed, minstd_rand::default_seed, "Seed for random shuffle");
 
 using namespace generator;
 
@@ -57,9 +59,7 @@ int main(int argc, char * argv[])
   vector<size_t> elementIndexes(elements.size());
   iota(elementIndexes.begin(), elementIndexes.end(), 0);
 
-  // In first implementation, we used random_shufle for reference dataset.
-  // Next time we are going to replace random_shuffle by shuffle with defined seed.
-  random_shuffle(elementIndexes.begin(), elementIndexes.end());
+  shuffle(elementIndexes.begin(), elementIndexes.end(), minstd_rand(FLAGS_random_seed));
   if (FLAGS_selection_size < elementIndexes.size())
     elementIndexes.resize(FLAGS_selection_size);
 
