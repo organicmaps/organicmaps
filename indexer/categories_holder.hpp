@@ -35,6 +35,12 @@ public:
     }
   };
 
+  struct Mapping
+  {
+    char const * m_name;
+    int8_t m_code;
+  };
+
 private:
   typedef strings::UniString StringT;
   typedef multimap<uint32_t, shared_ptr<Category> > Type2CategoryContT;
@@ -45,8 +51,13 @@ private:
   Name2CatContT m_name2type;
 
 public:
-  static size_t const kNumLanguages;
-  static size_t const kEnglishCode;
+  static int8_t const kEnglishCode;
+  static int8_t const kUnsupportedLocaleCode;
+  static vector<Mapping> const kLocaleMapping;
+
+  // List of languages that are currently disabled in the application
+  // because their translations are not yet complete.
+  static vector<string> kDisabledLanguages;
 
   explicit CategoriesHolder(unique_ptr<Reader> && reader);
   void LoadFromStream(istream & s);
@@ -114,7 +125,6 @@ public:
 
   /// Converts any language locale from UI to internal integer code
   static int8_t MapLocaleToInteger(string const & locale);
-  static constexpr int8_t kUnsupportedLocaleCode = -1;
 
 private:
   void AddCategory(Category & cat, vector<uint32_t> & types);
