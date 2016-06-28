@@ -74,7 +74,6 @@ namespace routing
 void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string const & countryName)
 {
   LOG(LINFO, ("srtmPath =", srtmPath, "baseDir =", baseDir, "countryName =", countryName));
-  //  string const altPath = baseDir + countryName + "." + ALTITUDE_FILE_TAG;
   string const mwmPath = baseDir + countryName + DATA_FILE_EXTENSION;
 
   // Writing section with altitude information.
