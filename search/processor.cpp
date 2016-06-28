@@ -125,8 +125,7 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
       {StringUtf8Multilang::kInternationalCode, StringUtf8Multilang::kEnglishCode},
       {StringUtf8Multilang::kDefaultCode}};
 
-  m_ranker.m_keywordsScorer.SetLanguages(langPriorities);
-  m_preRanker.m_ranker = &m_ranker;
+  m_ranker.SetLanguages(langPriorities);
 
   SetPreferredLocale("en");
 }
@@ -158,7 +157,9 @@ void Processor::SetPreferredLocale(string const & locale)
   // Default initialization.
   // If you want to reset input language, call SetInputLocale before search.
   SetInputLocale(locale);
+#ifdef FIND_LOCALITY_TEST
   m_ranker.SetLocalityFinderLanguage(code);
+#endif  // FIND_LOCALITY_TEST
 }
 
 void Processor::SetInputLocale(string const & locale)
@@ -228,7 +229,7 @@ void Processor::SetQuery(string const & query)
     m_tokens.resize(maxTokensCount);
 
   // Assign tokens and prefix to scorer.
-  m_ranker.m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
+  m_ranker.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
 
   // get preferred types to show in results
   m_preferredTypes.clear();
@@ -253,12 +254,12 @@ void Processor::SetRankPivot(m2::PointD const & pivot)
 
 void Processor::SetLanguage(int id, int8_t lang)
 {
-  m_ranker.m_keywordsScorer.SetLanguage(GetLangIndex(id), lang);
+  m_ranker.SetLanguage(GetLangIndex(id), lang);
 }
 
 int8_t Processor::GetLanguage(int id) const
 {
-  return m_ranker.m_keywordsScorer.GetLanguage(GetLangIndex(id));
+  return m_ranker.GetLanguage(GetLangIndex(id));
 }
 
 m2::PointD Processor::GetPivotPoint() const
@@ -319,53 +320,35 @@ void Processor::SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool 
 
 void Processor::ClearCache(size_t ind) { m_viewport[ind].MakeEmpty(); }
 
-size_t Processor::GetCategoryLocales(int8_t(&arr)[3]) const
+TLocales Processor::GetCategoryLocales() const
 {
   static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
+  TLocales result;
 
   // Prepare array of processing locales. English locale is always present for category matching.
-  size_t count = 0;
   if (m_currentLocaleCode != -1)
-    arr[count++] = m_currentLocaleCode;
+    result.push_back(m_currentLocaleCode);
   if (m_inputLocaleCode != -1 && m_inputLocaleCode != m_currentLocaleCode)
-    arr[count++] = m_inputLocaleCode;
+    result.push_back(m_inputLocaleCode);
   if (enLocaleCode != m_currentLocaleCode && enLocaleCode != m_inputLocaleCode)
-    arr[count++] = enLocaleCode;
+    result.push_back(enLocaleCode);
 
-  return count;
+  return result;
 }
 
 template <typename ToDo>
 void Processor::ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const
 {
-  int8_t arrLocales[3];
-  int const localesCount = GetCategoryLocales(arrLocales);
-
-  ::search::ForEachCategoryType(slice, arrLocales, localesCount, m_categories, forward<ToDo>(todo));
+  ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, forward<ToDo>(todo));
 }
 
 void Processor::Search(Results & results, size_t limit)
 {
   Geocoder::Params geocoderParams;
-  InitParams(geocoderParams);
-  geocoderParams.m_mode = m_mode;
-  geocoderParams.m_pivot = GetPivotRect();
-  geocoderParams.m_accuratePivotCenter = GetPivotPoint();
-  m_geocoder.SetParams(geocoderParams);
+  InitGeocoderParams(geocoderParams);
 
   Ranker::Params rankerParams;
-  rankerParams.m_currentLocaleCode = m_currentLocaleCode;
-  if (m_mode == Mode::Viewport)
-    rankerParams.m_viewport = GetViewport();
-  rankerParams.m_position = GetPosition();
-  rankerParams.m_pivotRegion = GetPivotRegion();
-  rankerParams.m_preferredTypes = m_preferredTypes;
-  rankerParams.m_suggestsEnabled = m_suggestsEnabled;
-  rankerParams.m_query = m_query;
-  rankerParams.m_tokens = m_tokens;
-  rankerParams.m_prefix = m_prefix;
-  rankerParams.m_numCategoryLocales = GetCategoryLocales(rankerParams.m_categoryLocales);
-  m_ranker.SetParams(rankerParams);
+  InitRankerParams(rankerParams);
 
   if (m_tokens.empty())
     m_ranker.SuggestStrings(results);
@@ -601,6 +584,31 @@ void Processor::InitParams(QueryParams & params)
 
   for (int i = 0; i < LANG_COUNT; ++i)
     params.m_langs.insert(GetLanguage(i));
+}
+
+void Processor::InitGeocoderParams(Geocoder::Params & params)
+{
+  InitParams(params);
+  params.m_mode = m_mode;
+  params.m_pivot = GetPivotRect();
+  params.m_accuratePivotCenter = GetPivotPoint();
+  m_geocoder.SetParams(params);
+}
+
+void Processor::InitRankerParams(Ranker::Params & params)
+{
+  params.m_currentLocaleCode = m_currentLocaleCode;
+  if (m_mode == Mode::Viewport)
+    params.m_viewport = GetViewport();
+  params.m_position = GetPosition();
+  params.m_pivotRegion = GetPivotRegion();
+  params.m_preferredTypes = m_preferredTypes;
+  params.m_suggestsEnabled = m_suggestsEnabled;
+  params.m_query = m_query;
+  params.m_tokens = m_tokens;
+  params.m_prefix = m_prefix;
+  params.m_categoryLocales = GetCategoryLocales();
+  m_ranker.SetParams(params);
 }
 
 void Processor::ClearCaches()

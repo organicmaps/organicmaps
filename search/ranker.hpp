@@ -18,6 +18,7 @@
 
 #include "std/set.hpp"
 #include "std/string.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 #define FIND_LOCALITY_TEST
@@ -28,6 +29,7 @@
 
 class CategoriesHolder;
 class Index;
+
 namespace storage
 {
 class CountryInfoGetter;
@@ -42,6 +44,8 @@ class Ranker
 public:
   struct Params
   {
+    using TLocales = buffer_vector<int8_t, 3>;
+
     bool m_viewportSearch = false;
 
     int8_t m_currentLocaleCode = CategoriesHolder::kEnglishCode;
@@ -57,8 +61,7 @@ public:
     // We need it here to make suggestions.
     strings::UniString m_prefix;
 
-    int8_t m_categoryLocales[3];
-    size_t m_numCategoryLocales = 0;
+    TLocales m_categoryLocales;
   };
 
   Ranker(PreRanker & preRanker, Index const & index, storage::CountryInfoGetter const & infoGetter,
@@ -101,19 +104,41 @@ public:
 
   void ClearCaches();
 
-  void SetLocalityFinderLanguage(int8_t code);
+#ifdef FIND_LOCALITY_TEST
+  inline void SetLocalityFinderLanguage(int8_t code) { m_locality.SetLanguage(code); }
+#endif  // FIND_LOCALITY_TEST
+
+  inline void SetLanguage(pair<int, int> const & ind, int8_t lang)
+  {
+    m_keywordsScorer.SetLanguage(ind, lang);
+  }
+
+  inline int8_t GetLanguage(pair<int, int> const & ind) const
+  {
+    return m_keywordsScorer.GetLanguage(ind);
+  }
+
+  inline void SetLanguages(vector<vector<int8_t>> const & languagePriorities)
+  {
+    m_keywordsScorer.SetLanguages(languagePriorities);
+  }
+
+  inline void SetKeywords(KeywordMatcher::StringT const * keywords, size_t count,
+                          KeywordMatcher::StringT const & prefix)
+  {
+    m_keywordsScorer.SetKeywords(keywords, count, prefix);
+  }
 
   inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
-  KeywordLangMatcher m_keywordsScorer;
-
+private:
   friend class PreResult2Maker;
 
-private:
   Params m_params;
   ReverseGeocoder const m_reverseGeocoder;
   PreRanker & m_preRanker;
   my::Cancellable const & m_cancellable;
+  KeywordLangMatcher m_keywordsScorer;
 
 #ifdef FIND_LOCALITY_TEST
   mutable LocalityFinder m_locality;

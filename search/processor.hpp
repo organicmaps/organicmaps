@@ -79,7 +79,6 @@ public:
   void SetPreferredLocale(string const & locale);
   void SetInputLocale(string const & locale);
   void SetQuery(string const & query);
-  void SetOnResults(TOnResults const & onResults) { m_onResults = onResults; }
   // TODO (@y): this function must be removed.
   void SetRankPivot(m2::PointD const & pivot);
   inline void SetMode(Mode mode) { m_mode = mode; }
@@ -104,11 +103,9 @@ public:
   void SearchCoordinates(Results & res) const;
   //@}
 
-  struct CancelException
-  {
-  };
-
   void InitParams(QueryParams & params);
+  void InitGeocoderParams(Geocoder::Params & params);
+  void InitRankerParams(Ranker::Params & params);
 
   void ClearCaches();
 
@@ -130,14 +127,15 @@ protected:
   friend class PreResult2Maker;
   friend class Ranker;
 
-  size_t GetCategoryLocales(int8_t(&arr)[3]) const;
-
-  template <typename ToDo>
-  void ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const;
-
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
   using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
   using TFHeader = feature::DataHeader;
+  using TLocales = buffer_vector<int8_t, 3>;
+
+  TLocales GetCategoryLocales() const;
+
+  template <typename ToDo>
+  void ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const;
 
   m2::PointD GetPivotPoint() const;
   m2::RectD GetPivotRect() const;
@@ -147,7 +145,6 @@ protected:
 
   CategoriesHolder const & m_categories;
   storage::CountryInfoGetter const & m_infoGetter;
-  TOnResults m_onResults;
 
   string m_region;
   string m_query;

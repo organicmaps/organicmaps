@@ -309,7 +309,6 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
 
   processor.SetMode(params.GetMode());
   processor.SetSuggestsEnabled(params.GetSuggestsEnabled());
-  processor.SetOnResults(params.m_onResults);
 
   // This flag is needed for consistency with old search algorithm
   // only. It will be gone when we remove old search code.
@@ -322,7 +321,14 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
 
   Results res;
 
-  processor.SearchCoordinates(res);
+  try
+  {
+    processor.SearchCoordinates(res);
+  }
+  catch (CancelException const &)
+  {
+    LOG(LDEBUG, ("Search has been cancelled."));
+  }
 
   try
   {
@@ -338,7 +344,7 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
     if (!processor.IsCancelled())
       EmitResults(params, res);
   }
-  catch (Processor::CancelException const &)
+  catch (CancelException const &)
   {
     LOG(LDEBUG, ("Search has been cancelled."));
   }

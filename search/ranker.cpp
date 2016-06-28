@@ -49,7 +49,8 @@ void RemoveDuplicatingLinear(vector<IndexedValue> & values)
                values.end());
 }
 
-void RemoveStringPrefix(string const & str, string & res)
+// Chops off the last query token (the "prefix" one) from |str| and stores the result in |res|.
+void GetStringPrefix(string const & str, string & res)
 {
   search::Delimiters delims;
   // Find start iterator of prefix in input query.
@@ -62,8 +63,8 @@ void RemoveStringPrefix(string const & str, string & res)
 
     if (delims(*prev))
       break;
-    else
-      iter = prev;
+
+    iter = prev;
   }
 
   // Assign result with input string without prefix.
@@ -89,28 +90,29 @@ ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
 }
 
 /// Makes continuous range for tokens and prefix.
-template <class TIter, class ValueT>
+template <class TIter, class TValue>
 class CombinedIter
 {
-  TIter m_i, m_end;
-  ValueT const * m_val;
+  TIter m_cur;
+  TIter m_end;
+  TValue const * m_val;
 
 public:
-  CombinedIter(TIter i, TIter end, ValueT const * val) : m_i(i), m_end(end), m_val(val) {}
+  CombinedIter(TIter cur, TIter end, TValue const * val) : m_cur(cur), m_end(end), m_val(val) {}
 
-  ValueT const & operator*() const
+  TValue const & operator*() const
   {
-    ASSERT(m_val != 0 || m_i != m_end, ("dereferencing of empty iterator"));
-    if (m_i != m_end)
-      return *m_i;
+    ASSERT(m_val != 0 || m_cur != m_end, ("dereferencing of empty iterator"));
+    if (m_cur != m_end)
+      return *m_cur;
 
     return *m_val;
   }
 
   CombinedIter & operator++()
   {
-    if (m_i != m_end)
-      ++m_i;
+    if (m_cur != m_end)
+      ++m_cur;
     else
       m_val = 0;
     return *this;
@@ -118,12 +120,12 @@ public:
 
   bool operator==(CombinedIter const & other) const
   {
-    return m_val == other.m_val && m_i == other.m_i;
+    return m_val == other.m_val && m_cur == other.m_cur;
   }
 
   bool operator!=(CombinedIter const & other) const
   {
-    return m_val != other.m_val || m_i != other.m_i;
+    return m_val != other.m_val || m_cur != other.m_cur;
   }
 };
 }  // namespace
@@ -133,7 +135,6 @@ class PreResult2Maker
   Ranker & m_ranker;
   Index const & m_index;
   Geocoder::Params const & m_params;
-  Ranker::Params const & m_rankerParams;
   storage::CountryInfoGetter const & m_infoGetter;
 
   unique_ptr<Index::FeaturesLoaderGuard> m_pFV;
@@ -192,8 +193,7 @@ class PreResult2Maker
     feature::TypesHolder holder(ft);
     vector<pair<size_t, size_t>> matched(slice.Size());
     ForEachCategoryType(QuerySlice(slice), m_ranker.m_params.m_categoryLocales,
-                        m_ranker.m_params.m_numCategoryLocales, m_ranker.m_categories,
-                        [&](size_t i, uint32_t t)
+                        m_ranker.m_categories, [&](size_t i, uint32_t t)
                         {
                           ++matched[i].second;
                           if (holder.Has(t))
@@ -218,7 +218,7 @@ class PreResult2Maker
     case SearchModel::SEARCH_TYPE_VILLAGE: return rank /= 1.5;
     case SearchModel::SEARCH_TYPE_CITY:
     {
-      if (m_rankerParams.m_viewport.IsPointInside(center))
+      if (m_ranker.m_params.m_viewport.IsPointInside(center))
         return rank * 2;
 
       storage::CountryInfo info;
@@ -226,7 +226,7 @@ class PreResult2Maker
         m_infoGetter.GetRegionInfo(center, info);
       else
         m_infoGetter.GetRegionInfo(country, info);
-      if (info.IsNotEmpty() && info.m_name == m_rankerParams.m_pivotRegion)
+      if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
         return rank *= 1.7;
     }
     case SearchModel::SEARCH_TYPE_COUNTRY:
@@ -240,12 +240,8 @@ class PreResult2Maker
 public:
   explicit PreResult2Maker(Ranker & ranker, Index const & index,
                            storage::CountryInfoGetter const & infoGetter,
-                           Geocoder::Params const & params, Ranker::Params const & rankerParams)
-    : m_ranker(ranker)
-    , m_index(index)
-    , m_params(params)
-    , m_rankerParams(rankerParams)
-    , m_infoGetter(infoGetter)
+                           Geocoder::Params const & params)
+    : m_ranker(ranker), m_index(index), m_params(params), m_infoGetter(infoGetter)
   {
   }
 
@@ -258,7 +254,7 @@ public:
 
     LoadFeature(res1.GetId(), ft, center, name, country);
 
-    auto res2 = make_unique<PreResult2>(ft, &res1, center, m_rankerParams.m_position /* pivot */,
+    auto res2 = make_unique<PreResult2>(ft, &res1, center, m_ranker.m_params.m_position /* pivot */,
                                         name, country);
 
     search::RankingInfo info;
@@ -286,7 +282,7 @@ void Ranker::MakePreResult2(Geocoder::Params const & geocoderParams, vector<Inde
   m_preRanker.Filter(m_params.m_viewportSearch);
 
   // Makes PreResult2 vector.
-  PreResult2Maker maker(*this, m_index, m_infoGetter, geocoderParams, m_params);
+  PreResult2Maker maker(*this, m_index, m_infoGetter, geocoderParams);
   m_preRanker.ForEach(
       [&](PreResult1 const & r)
       {
@@ -373,7 +369,7 @@ void Ranker::GetSuggestion(string const & name, string & suggest) const
   if (!prefixMatched || fullPrefixMatched)
     return;
 
-  RemoveStringPrefix(m_params.m_query, suggest);
+  GetStringPrefix(m_params.m_query, suggest);
 
   // Appends unmatched result's tokens to the suggestion.
   for (size_t i = 0; i < tokens.size(); ++i)
@@ -390,15 +386,15 @@ void Ranker::SuggestStrings(Results & res)
   if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
-  string prolog;
-  RemoveStringPrefix(m_params.m_query, prolog);
+  string prologue;
+  GetStringPrefix(m_params.m_query, prologue);
 
-  for (int i = 0; i < m_params.m_numCategoryLocales; ++i)
-    MatchForSuggestions(m_params.m_prefix, m_params.m_categoryLocales[i], prolog, res);
+  for (int i = 0; i < m_params.m_categoryLocales.size(); ++i)
+    MatchForSuggestions(m_params.m_prefix, m_params.m_categoryLocales[i], prologue, res);
 }
 
 void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale,
-                                 string const & prolog, Results & res)
+                                 string const & prologue, Results & res)
 {
   for (auto const & suggest : m_suggests)
   {
@@ -409,7 +405,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
         StartsWith(s.begin(), s.end(), token.begin(), token.end()))
     {
       string const utf8Str = strings::ToUtf8(s);
-      Result r(utf8Str, prolog + utf8Str + " ");
+      Result r(utf8Str, prologue + utf8Str + " ");
       MakeResultHighlight(r);
       res.AddResult(move(r));
     }
@@ -516,13 +512,6 @@ void Ranker::ClearCaches()
 {
 #ifdef FIND_LOCALITY_TEST
   m_locality.ClearCache();
-#endif  // FIND_LOCALITY_TEST
-}
-
-void Ranker::SetLocalityFinderLanguage(int8_t code)
-{
-#ifdef FIND_LOCALITY_TEST
-  m_locality.SetLanguage(code);
 #endif  // FIND_LOCALITY_TEST
 }
 }  // namespace search
