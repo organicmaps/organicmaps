@@ -733,13 +733,13 @@ UNIT_TEST(NormalizeDigits_UniString)
 UNIT_TEST(CSV)
 {
   vector<string> target;
-  TEST(strings::ParseCSVRow(",Test\\,проверка,0,", target), ());
+  strings::ParseCSVRow(",Test\\,проверка,0,", ',', target);
   vector<string> expected({"", "Test\\", "проверка", "0", ""});
   TEST_EQUAL(target, expected, ());
-  TEST(strings::ParseCSVRow("and there  was none", target, ' ', 5), ());
+  strings::ParseCSVRow("and there  was none", ' ', target);
   vector<string> expected2({"and", "there", "", "was", "none"});
   TEST_EQUAL(target, expected2, ());
-  TEST(!strings::ParseCSVRow("", target), ());
+  strings::ParseCSVRow("", 'q', target);
   vector<string> expected3;
   TEST_EQUAL(target, expected3, ());
 }

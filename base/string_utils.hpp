@@ -308,8 +308,7 @@ void Tokenize(string const & str, char const * delims, TFunctor && f)
 
 /// Splits a string by the delimiter, keeps empty parts, on an empty string returns an empty vector.
 /// Does not support quoted columns, newlines in columns and escaped quotes.
-/// @return false if the line is empty or number of columns differs from |columns|.
-bool ParseCSVRow(string const & s, vector<string> & target, char const delimiter = ',', size_t const columns = 0);
+void ParseCSVRow(string const & s, char const delimiter, vector<string> & target);
 
 /// @return code of last symbol in string or 0 if s is empty
 UniChar LastUniChar(string const & s);

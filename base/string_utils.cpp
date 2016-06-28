@@ -328,7 +328,7 @@ bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCoun
   return false;
 }
 
-bool ParseCSVRow(string const & s, vector<string> & target, char const delimiter, size_t const columns)
+void ParseCSVRow(string const & s, char const delimiter, vector<string> & target)
 {
   target.clear();
   using It = TokenizeIterator<SimpleDelimiter, string::const_iterator, true>;
@@ -341,12 +341,7 @@ bool ParseCSVRow(string const & s, vector<string> & target, char const delimiter
 
   // Special case: if the string is empty, return an empty array instead of {""}.
   if (target.size() == 1 && target[0].empty())
-  {
     target.clear();
-    return false;
-  }
-
-  return columns <= 0 || target.size() == columns;
 }
 
 }  // namespace strings
