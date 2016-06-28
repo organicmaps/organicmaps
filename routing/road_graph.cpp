@@ -67,17 +67,17 @@ void ReverseEdges(size_t beginIdx, IRoadGraph::TEdgeVector & edges)
 // Junction --------------------------------------------------------------------
 
 Junction::Junction()
-  : m_point(m2::PointD::Zero())
+  : m_point(m2::PointD::Zero()), m_altitude(feature::kInvalidAltitude)
 {}
 
-Junction::Junction(m2::PointD const & point)
-  : m_point(point)
+Junction::Junction(m2::PointD const & point, feature::TAltitude altitude)
+  : m_point(point), m_altitude(altitude)
 {}
 
 string DebugPrint(Junction const & r)
 {
   ostringstream ss;
-  ss << "Junction{point:" << DebugPrint(r.m_point) << "}";
+  ss << "Junction{point:" << DebugPrint(r.m_point) << ", altitude:}" << r.GetAltitude();
   return ss.str();
 }
 
@@ -146,32 +146,32 @@ IRoadGraph::RoadInfo::RoadInfo()
 {}
 
 IRoadGraph::RoadInfo::RoadInfo(RoadInfo && ri)
-    : m_points(move(ri.m_points)),
+    : m_junctions(move(ri.m_junctions)),
       m_speedKMPH(ri.m_speedKMPH),
       m_bidirectional(ri.m_bidirectional)
 {}
 
-IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH, initializer_list<m2::PointD> const & points)
-    : m_points(points), m_speedKMPH(speedKMPH), m_bidirectional(bidirectional)
+IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH, initializer_list<Junction> const & points)
+    : m_junctions(points), m_speedKMPH(speedKMPH), m_bidirectional(bidirectional)
 {}
 
 // IRoadGraph::CrossOutgoingLoader ---------------------------------------------
 void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
-  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, m2::PointD const & endPoint,  bool forward)
+  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction, bool forward)
   {
     if (forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.emplace_back(featureId, forward, segId, m_cross, endPoint);
+      m_edges.emplace_back(featureId, forward, segId, m_cross, endJunction);
   });
 }
 
 // IRoadGraph::CrossIngoingLoader ----------------------------------------------
 void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
-  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, m2::PointD const & endPoint, bool forward)
+  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction, bool forward)
   {
     if (!forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.emplace_back(featureId, !forward, segId, endPoint, m_cross);
+      m_edges.emplace_back(featureId, !forward, segId, endJunction, m_cross);
   });
 }
 
@@ -190,16 +190,14 @@ void IRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & edges)
 
 void IRoadGraph::GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
-  m2::PointD const cross = junction.GetPoint();
-  CrossOutgoingLoader loader(cross, GetMode(), edges);
-  ForEachFeatureClosestToCross(cross, loader);
+  CrossOutgoingLoader loader(junction, GetMode(), edges);
+  ForEachFeatureClosestToCross(junction.GetPoint(), loader);
 }
 
 void IRoadGraph::GetRegularIngoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
-  m2::PointD const cross = junction.GetPoint();
-  CrossIngoingLoader loader(cross, GetMode(), edges);
-  ForEachFeatureClosestToCross(cross, loader);
+  CrossIngoingLoader loader(junction, GetMode(), edges);
+  ForEachFeatureClosestToCross(junction.GetPoint(), loader);
 }
 
 void IRoadGraph::GetFakeOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
@@ -224,7 +222,7 @@ void IRoadGraph::ResetFakes()
   m_outgoingEdges.clear();
 }
 
-void IRoadGraph::AddFakeEdges(Junction const & junction, vector<pair<Edge, m2::PointD>> const & vicinity)
+void IRoadGraph::AddFakeEdges(Junction const & junction, vector<pair<Edge, Junction>> const & vicinity)
 {
   for (auto const & v : vicinity)
   {
@@ -387,4 +385,15 @@ void IRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) c
     GetFeatureTypes(edge.GetFeatureId(), types);
 }
 
+IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
+                                            initializer_list<m2::PointD> const & points)
+{
+  buffer_vector<Junction, 32> junctions;
+  for (auto const & p : points)
+    junctions.emplace_back(MakeJunctionForTesting(p));
+
+  IRoadGraph::RoadInfo ri(bidirectional, speedKMPH, {});
+  ri.m_junctions.swap(junctions);
+  return ri;
+}
 }  // namespace routing

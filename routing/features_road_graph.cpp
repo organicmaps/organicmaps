@@ -166,7 +166,7 @@ void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
 }
 
 void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t count,
-                                         vector<pair<Edge, m2::PointD>> & vicinities) const
+                                         vector<pair<Edge, Junction>> & vicinities) const
 {
   NearestEdgeFinder finder(point);
 
@@ -254,6 +254,38 @@ double FeaturesRoadGraph::GetSpeedKMPHFromFt(FeatureType const & ft) const
   return m_vehicleModel.GetSpeed(ft);
 }
 
+void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft,
+                                        double speedKMPH, RoadInfo & ri) const
+{
+  ri.m_bidirectional = !IsOneWay(ft);
+  ri.m_speedKMPH = speedKMPH;
+
+  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  ft.ParseAltitude();
+  // @TODO It's a temprarery solution until a vector of feature altitudes is saved in mwm.
+  bool const isAltidudeValid =
+      ft.GetAltitudes().begin != feature::kInvalidAltitude && ft.GetAltitudes().end != feature::kInvalidAltitude;
+  feature::TAltitude pointAlt = ft.GetAltitudes().begin;
+  size_t const pointsCount = ft.GetPointsCount();
+  feature::TAltitude const diffAlt = isAltidudeValid ? (ft.GetAltitudes().end - ft.GetAltitudes().begin) / pointsCount : 0;
+
+  ri.m_junctions.clear();
+  ri.m_junctions.resize(pointsCount);
+  for (size_t i = 0; i < pointsCount; ++i)
+  {
+    if (!isAltidudeValid)
+    {
+      ri.m_junctions[i] = Junction(ft.GetPoint(i), feature::kInvalidAltitude);
+      continue;
+    }
+
+    ri.m_junctions[i] = Junction(ft.GetPoint(i), pointAlt);
+    pointAlt += diffAlt;
+  }
+
+  LockFeatureMwm(featureId);
+}
+
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId) const
 {
   bool found = false;
@@ -271,24 +303,12 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
 
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-  ri.m_bidirectional = !IsOneWay(ft);
-  ri.m_speedKMPH = GetSpeedKMPHFromFt(ft);
-  ft.SwapPoints(ri.m_points);
-
-  ft.ParseAltitude();
-  // @TODO It's better to use swap here when altitudes is kept in a vector.
-  ri.m_altitudes = ft.GetAltitudes();
-  LOG(LINFO, ("ri.m_altitudes.begin =", ri.m_altitudes.begin, "ri.m_altitudes.end =", ri.m_altitudes.end));
-
-  LockFeatureMwm(featureId);
-
+  ExtractRoadInfo(featureId, ft, GetSpeedKMPHFromFt(ft), ri);
   return ri;
 }
 
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId,
-                                                                  FeatureType & ft,
+                                                                  FeatureType const & ft,
                                                                   double speedKMPH) const
 {
   bool found = false;
@@ -299,15 +319,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   // ft must be set
   ASSERT_EQUAL(featureId, ft.GetID(), ());
-
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-  ri.m_bidirectional = !IsOneWay(ft);
-  ri.m_speedKMPH = speedKMPH;
-  ft.SwapPoints(ri.m_points);
-
-  LockFeatureMwm(featureId);
-
+  ExtractRoadInfo(featureId, ft, speedKMPH, ri);
   return ri;
 }
 

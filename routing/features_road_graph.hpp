@@ -69,7 +69,7 @@ public:
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgesLoader) const override;
   void FindClosestEdges(m2::PointD const & point, uint32_t count,
-                        vector<pair<Edge, m2::PointD>> & vicinities) const override;
+                        vector<pair<Edge, Junction>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
   void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const override;
   IRoadGraph::Mode GetMode() const override;
@@ -88,8 +88,10 @@ private:
   // Searches a feature RoadInfo in the cache, and if does not find then takes passed feature and speed.
   // This version is used to prevent redundant feature loading when feature speed is known.
   RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId,
-                                     FeatureType & ft,
+                                     FeatureType const & ft,
                                      double speedKMPH) const;
+  void ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft,
+                       double speedKMPH, RoadInfo & ri) const;
 
   void LockFeatureMwm(FeatureID const & featureId) const;
 

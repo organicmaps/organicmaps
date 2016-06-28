@@ -5,6 +5,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include "indexer/feature_altitude.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
@@ -24,9 +25,9 @@ class NearestEdgeFinder
   {
     double m_dist;
     uint32_t m_segId;
-    m2::PointD m_segStart;
-    m2::PointD m_segEnd;
-    m2::PointD m_point;
+    Junction m_segStart;
+    Junction m_segEnd;
+    Junction m_projPoint;
     FeatureID m_fid;
 
     Candidate();
@@ -42,7 +43,7 @@ public:
 
   void AddInformationSource(FeatureID const & featureId, IRoadGraph::RoadInfo const & roadInfo);
 
-  void MakeResult(vector<pair<Edge, m2::PointD>> & res, size_t const maxCountFeatures);
+  void MakeResult(vector<pair<Edge, Junction>> & res, size_t const maxCountFeatures);
 };
 
 }  // namespace routing
