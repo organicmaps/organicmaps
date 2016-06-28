@@ -105,7 +105,7 @@ bool XMLFeature::operator==(XMLFeature const & other) const
 vector<XMLFeature> XMLFeature::FromOSM(string const & osmXml)
 {
   pugi::xml_document doc;
-  if (doc.load_string(osmXml.c_str()).status != pugi::status_ok)
+  if (doc.load_string(osmXml.data()).status != pugi::status_ok)
     MYTHROW(editor::InvalidXML, ("Not valid XML:", osmXml));
 
   vector<XMLFeature> features;
@@ -349,14 +349,15 @@ string XMLFeature::GetTagValue(string const & key) const
   return tag.attribute("v").value();
 }
 
-void XMLFeature::SetTagValue(string const & key, string const & value)
+void XMLFeature::SetTagValue(string const & key, string value)
 {
+  strings::Trim(value);
   auto tag = FindTag(m_document, key);
   if (!tag)
   {
     tag = GetRootNode().append_child("tag");
-    tag.append_attribute("k").set_value(key.c_str());
-    tag.append_attribute("v").set_value(value.c_str());
+    tag.append_attribute("k").set_value(key.data());
+    tag.append_attribute("v").set_value(value.data());
   }
   else
   {

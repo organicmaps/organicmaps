@@ -74,7 +74,7 @@ public:
   void SetEditableProperties(osm::EditableProperties const & props);
   //  void SetFeatureID(FeatureID const & fid);
   void SetName(StringUtf8Multilang const & name);
-  void SetName(string const & name, int8_t langCode = StringUtf8Multilang::kDefaultCode);
+  void SetName(string name, int8_t langCode = StringUtf8Multilang::kDefaultCode);
   void SetMercator(m2::PointD const & center);
   void SetType(uint32_t featureType);
   void SetID(FeatureID const & fid);
