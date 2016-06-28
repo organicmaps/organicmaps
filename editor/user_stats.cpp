@@ -82,6 +82,9 @@ UserStatsLoader::UserStatsLoader()
 
 bool UserStatsLoader::Update(string const & userName)
 {
+  if (userName.empty())
+    return false;
+
   {
     lock_guard<mutex> g(m_mutex);
     m_userName = userName;
