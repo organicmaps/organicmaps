@@ -4,12 +4,9 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-#DEPENDENCIES = generator map routing indexer platform geometry coding base \
-#               expat tess2 protobuf tomcrypt osrm succinct
-
-DEPENDENCIES = drape_frontend routing search storage indexer drape map platform editor geometry \
+DEPENDENCIES = generator drape_frontend routing search storage indexer drape map platform editor geometry \
                coding base freetype expat fribidi tomcrypt jansson protobuf osrm stats_client \
-               minizip succinct pugixml tess2 gflags oauthcpp generator
+               minizip succinct pugixml tess2 gflags oauthcpp
 
 
 include($$ROOT_DIR/common.pri)

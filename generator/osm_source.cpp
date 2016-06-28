@@ -513,9 +513,10 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
                           info.GetIntermediateFileName("towns", ".csv"));
     TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
-    
+
     // If info.m_bookingDatafileName is empty then no data will be loaded.
-    generator::BookingDataset bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir);
+    generator::BookingDataset bookingDataset(info.m_bookingDatafileName,
+                                             info.m_bookingReferenceDir);
 
     stringstream skippedElements;
     

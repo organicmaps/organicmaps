@@ -1,7 +1,6 @@
 #include "generator/booking_dataset.hpp"
 
-#include "map/framework.hpp"
-
+#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "indexer/search_delimiters.hpp"
@@ -31,22 +30,7 @@ bool CheckForValues(string const & value)
   return false;
 }
 
-// Unlike strings::Tokenize, this function allows for empty tokens.
-void Split(string const & s, char delim, vector<string> & parts)
-{
-  stringstream ss;
-
-  // Workaround for empty last field.
-  ss << s;
-  if (!s.empty() && s.back() == delim)
-    ss << delim;
-
-  string part;
-  while (getline(ss, part, delim))
-    parts.emplace_back(part);
-}
-
-string TabbedString(string const & str)
+string EscapeTabs(string const & str)
 {
   stringstream ss;
   for (char c : str)
@@ -64,7 +48,7 @@ BookingDataset::Hotel::Hotel(string const & src)
 {
   vector<string> rec;
   strings::ParseCSVRow(src, '\t', rec);
-  CHECK(rec.size() == FieldsCount(), ("Error parsing hotels.tsv line:", src));
+  CHECK(rec.size() == FieldsCount(), ("Error parsing hotels.tsv line:", EscapeTabs(src)));
 
   strings::to_uint(rec[Index(Fields::Id)], id);
   strings::to_double(rec[Index(Fields::Latitude)], lat);
@@ -90,6 +74,38 @@ ostream & operator<<(ostream & s, BookingDataset::Hotel const & h)
   s << fixed << setprecision(7);
   return s << "Name: " << h.name << "\t Address: " << h.address << "\t lat: " << h.lat
            << " lon: " << h.lon;
+}
+
+BookingDataset::AddressMatcher::AddressMatcher()
+{
+  vector<platform::LocalCountryFile> localFiles;
+
+  Platform & platform = GetPlatform();
+  platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
+                                                  -1 /* latestVersion */, localFiles);
+
+  for (platform::LocalCountryFile const & localFile : localFiles)
+  {
+    LOG(LINFO, ("Found mwm:", localFile));
+    try
+    {
+      m_index.RegisterMap(localFile);
+    }
+    catch (RootException const & ex)
+    {
+      CHECK(false, ("Bad mwm file:", localFile));
+    }
+  }
+
+  m_coder = make_unique<search::ReverseGeocoder>(m_index);
+}
+
+void BookingDataset::AddressMatcher::operator()(Hotel & hotel)
+{
+  search::ReverseGeocoder::Address addr;
+  m_coder->GetNearbyAddress(MercatorBounds::FromLatLon(hotel.lat, hotel.lon), addr);
+  hotel.street = addr.GetStreetName();
+  hotel.houseNumber = addr.GetHouseNumber();
 }
 
 BookingDataset::BookingDataset(string const & dataPath, string const & addressReferencePath)
@@ -130,7 +146,13 @@ bool BookingDataset::TourismFilter(OsmElement const & e) const
 
 BookingDataset::Hotel const & BookingDataset::GetHotel(size_t index) const
 {
-  ASSERT_GREATER(m_hotels.size(), index, ());
+  ASSERT_LESS(index, m_hotels.size(), ());
+  return m_hotels[index];
+}
+
+BookingDataset::Hotel & BookingDataset::GetHotel(size_t index)
+{
+  ASSERT_LESS(index, m_hotels.size(), ());
   return m_hotels[index];
 }
 
@@ -227,7 +249,7 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
     if (!hotel.street.empty())
       e.AddTag("addr:street", hotel.street);
 
-    if(!hotel.houseNumber.empty())
+    if (!hotel.houseNumber.empty())
       e.AddTag("addr:housenumber", hotel.houseNumber);
 
     switch (hotel.type)
@@ -293,33 +315,33 @@ double BookingDataset::ScoreByLinearNormDistance(double distance)
 void BookingDataset::LoadHotels(istream & src, string const & addressReferencePath)
 {
   m_hotels.clear();
+  m_rtree.clear();
 
   for (string line; getline(src, line);)
     m_hotels.emplace_back(line);
 
-  if(!addressReferencePath.empty())
+  if (!addressReferencePath.empty())
   {
-    LOG(LINFO, ("Match addresses for booking objects",addressReferencePath));
+    LOG(LINFO, ("Reference addresses for booking objects", addressReferencePath));
     Platform & platform = GetPlatform();
-    string backupPath = platform.WritableDir();
+    string const backupPath = platform.WritableDir();
     platform.SetWritableDirForTests(addressReferencePath);
 
-    Framework f;
+    AddressMatcher addressMatcher;
 
     size_t matchedNum = 0;
     size_t emptyAddr = 0;
     for (Hotel & hotel : m_hotels)
-  {
-      search::AddressInfo info = f.GetAddressInfoAtPoint(MercatorBounds::FromLatLon(hotel.lat, hotel.lon));
-      hotel.street = info.m_street;
-      hotel.houseNumber = info.m_house;
+    {
+      addressMatcher(hotel);
 
       if (hotel.address.empty())
         ++emptyAddr;
-      if(!info.FormatAddress().empty())
+      if (hotel.IsAddressPartsFilled())
         ++matchedNum;
     }
-    LOG(LINFO, ("Num of hotels:", m_hotels.size(), "matched:", matchedNum, "Empty addresses:", emptyAddr));
+    LOG(LINFO,
+        ("Num of hotels:", m_hotels.size(), "matched:", matchedNum, "empty addresses:", emptyAddr));
     platform.SetWritableDirForTests(backupPath);
   }
 
@@ -327,7 +349,7 @@ void BookingDataset::LoadHotels(istream & src, string const & addressReferencePa
   for (auto const & hotel : m_hotels)
   {
     TBox b(TPoint(hotel.lat, hotel.lon), TPoint(hotel.lat, hotel.lon));
-    m_rtree.insert(std::make_pair(b, counter));
+    m_rtree.insert(make_pair(b, counter));
     ++counter;
   }
 }
