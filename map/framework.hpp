@@ -594,8 +594,14 @@ public:
   bool IsRoutingActive() const { return m_routingSession.IsActive(); }
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
+  bool IsRouteBuildingOnly() const { return m_routingSession.IsBuildingOnly(); }
+  bool IsRouteRebuildingOnly() const { return m_routingSession.IsRebuildingOnly(); }
+  bool IsRouteNotReady() const { return m_routingSession.IsNotReady(); }
+  bool IsRouteFinished() const { return m_routingSession.IsFinished(); }
+  bool IsRouteNoFollowing() const { return m_routingSession.IsNoFollowing(); }
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRouteNavigable() const { return m_routingSession.IsNavigable(); }
+
   void BuildRoute(m2::PointD const & finish, uint32_t timeoutSec);
   void BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec);
   // FollowRoute has a bug where the router follows the route even if the method hads't been called.

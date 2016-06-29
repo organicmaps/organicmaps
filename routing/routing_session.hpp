@@ -88,12 +88,15 @@ public:
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }
   bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished); }
-  bool IsBuilt() const { return (IsNavigable() || m_state == RouteNeedRebuild || m_state == RouteFinished); }
+  bool IsBuilt() const { return (IsNavigable() || m_state == RouteNeedRebuild); }
   /// \returns true if a new route is in process of building rebuilding or
   /// if a route is being rebuilt in case the user left the route, and false otherwise.
   bool IsBuilding() const { return (m_state == RouteBuilding || m_state == RouteRebuilding); }
-  bool IsBuildingOnly() const { return m_state == RouteBuilding ; }
-  bool IsRebuildingOnly() const { return m_state == RouteRebuilding ; }
+  bool IsBuildingOnly() const { return m_state == RouteBuilding; }
+  bool IsRebuildingOnly() const { return m_state == RouteRebuilding; }
+  bool IsNotReady() const { return m_state == RouteNotReady; }
+  bool IsFinished() const { return m_state == RouteFinished; }
+  bool IsNoFollowing() const { return m_state == RouteNoFollowing; }
   bool IsOnRoute() const { return (m_state == OnRoute); }
   bool IsFollowing() const { return m_isFollowing; }
   void Reset();
