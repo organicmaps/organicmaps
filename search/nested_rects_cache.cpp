@@ -19,7 +19,7 @@ namespace
 double const kPositionToleranceMeters = 15.0;
 }  // namespace
 
-NestedRectsCache::NestedRectsCache(Index & index)
+NestedRectsCache::NestedRectsCache(Index const & index)
   : m_index(index), m_scale(0), m_position(0, 0), m_valid(false)
 {
 }

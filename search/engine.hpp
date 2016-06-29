@@ -91,7 +91,7 @@ public:
     size_t m_numThreads;
   };
 
-  // Doesn't take ownership of index. Takes ownership of categoriesR.
+  // Doesn't take ownership of index and categories.
   Engine(Index & index, CategoriesHolder const & categories,
          storage::CountryInfoGetter const & infoGetter, unique_ptr<ProcessorFactory> factory,
          Params const & params);
@@ -161,7 +161,6 @@ private:
   void DoSearch(SearchParams const & params, m2::RectD const & viewport,
                 shared_ptr<ProcessorHandle> handle, Processor & processor);
 
-  CategoriesHolder const & m_categories;
   vector<Suggest> m_suggests;
 
   bool m_shutdown;

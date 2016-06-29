@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/params.hpp"
 #include "search/processor.hpp"
 #include "search/suggest.hpp"
 

@@ -258,7 +258,7 @@ bool HasSearchIndex(MwmValue const & value) { return value.m_cont.IsExist(SEARCH
 
 bool HasGeometryIndex(MwmValue & value) { return value.m_cont.IsExist(INDEX_FILE_TAG); }
 
-MwmSet::MwmHandle FindWorld(Index & index, vector<shared_ptr<MwmInfo>> const & infos)
+MwmSet::MwmHandle FindWorld(Index const & index, vector<shared_ptr<MwmInfo>> const & infos)
 {
   MwmSet::MwmHandle handle;
   for (auto const & info : infos)
@@ -406,7 +406,7 @@ void UniteCBVs(vector<unique_ptr<coding::CompressedBitVector>> & cbvs)
 Geocoder::Params::Params() : m_mode(Mode::Everywhere), m_accuratePivotCenter(0, 0) {}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
-Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter,
+Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
                    my::Cancellable const & cancellable)
   : m_index(index)
   , m_infoGetter(infoGetter)

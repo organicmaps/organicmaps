@@ -17,8 +17,6 @@ class PreRanker
 public:
   explicit PreRanker(size_t limit);
 
-  void Add(PreResult1 const & result);
-
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
   {

@@ -59,7 +59,7 @@ public:
   static int constexpr kBuildingRadiusMeters = 50;
   static int constexpr kStreetRadiusMeters = 100;
 
-  FeaturesLayerMatcher(Index & index, my::Cancellable const & cancellable);
+  FeaturesLayerMatcher(Index const & index, my::Cancellable const & cancellable);
   void SetContext(MwmContext * context);
   void SetPostcodes(coding::CompressedBitVector const * postcodes);
 

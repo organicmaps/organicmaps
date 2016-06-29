@@ -64,6 +64,7 @@ HEADERS += \
     suggest.hpp \
     token_slice.hpp \
     types_skipper.hpp \
+    utils.hpp \
 
 SOURCES += \
     approximate_string_match.cpp \
