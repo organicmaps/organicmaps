@@ -10,6 +10,7 @@
 #import "MWMButton.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMSearchManager.h"
 #import "SettingsAndMoreVC.h"
@@ -293,8 +294,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatShare}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"share@"];
-  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
-  if (!location)
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation)
   {
     [[[UIAlertView alloc] initWithTitle:L(@"unknown_current_position")
                                 message:nil
@@ -303,7 +304,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
                       otherButtonTitles:nil] show];
     return;
   }
-  CLLocationCoordinate2D const coord = location.coordinate;
+  CLLocationCoordinate2D const coord = lastLocation.coordinate;
   NSIndexPath * cellIndex = [NSIndexPath indexPathForItem:MWMBottomMenuViewCellShare inSection:0];
   MWMBottomMenuCollectionViewCell * cell =
       (MWMBottomMenuCollectionViewCell *)[self.additionalButtons cellForItemAtIndexPath:cellIndex];

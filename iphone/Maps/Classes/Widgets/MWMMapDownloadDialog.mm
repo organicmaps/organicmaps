@@ -1,11 +1,11 @@
 #import "Common.h"
-#import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMLocationManager.h"
 #import "MWMMapDownloadDialog.h"
 #import "MWMStorage.h"
 #import "Statistics.h"
@@ -27,13 +27,13 @@ BOOL canAutoDownload(TCountryId const & countryId)
   (void)settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
   if (!autoDownloadEnabled)
     return NO;
-  LocationManager * locationManager = MapsAppDelegate.theApp.locationManager;
-  if (![locationManager lastLocationIsValid])
-    return NO;
   if (GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_WIFI)
     return NO;
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation)
+    return NO;
   auto const & countryInfoGetter = GetFramework().CountryInfoGetter();
-  if (countryId != countryInfoGetter.GetRegionCountryId(locationManager.lastLocation.mercator))
+  if (countryId != countryInfoGetter.GetRegionCountryId(lastLocation.mercator))
     return NO;
   return !platform::migrate::NeedMigrate();
 }

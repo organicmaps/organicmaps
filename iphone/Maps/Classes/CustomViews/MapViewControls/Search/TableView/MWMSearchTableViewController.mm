@@ -1,6 +1,6 @@
-#import "LocationManager.h"
 #import "Macros.h"
 #import "MapsAppDelegate.h"
+#import "MWMLocationManager.h"
 #import "MWMSearchCommonCell.h"
 #import "MWMSearchShowOnMapCell.h"
 #import "MWMSearchSuggestionCell.h"
@@ -35,8 +35,7 @@ NSString * identifierForType(MWMSearchTableCellType type)
   }
 }
 
-@interface MWMSearchTableViewController () <UITableViewDataSource, UITableViewDelegate,
-LocationObserver>
+@interface MWMSearchTableViewController () <UITableViewDataSource, UITableViewDelegate, MWMLocationObserver>
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
 
@@ -292,7 +291,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   [self.tableView reloadData];
 }
 
-#pragma mark - LocationObserver
+#pragma mark - MWMLocationObserver
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
@@ -360,9 +359,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     return;
   _watchLocationUpdates = watchLocationUpdates;
   if (watchLocationUpdates)
-    [[MapsAppDelegate theApp].locationManager start:self];
+    [MWMLocationManager addObserver:self];
   else
-    [[MapsAppDelegate theApp].locationManager stop:self];
+    [MWMLocationManager removeObserver:self];
 }
 
 @synthesize searchOnMap = _searchOnMap;

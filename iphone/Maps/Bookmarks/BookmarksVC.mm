@@ -5,6 +5,8 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMBookmarkNameCell.h"
+#import "MWMLocationHelpers.h"
+#import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -25,7 +27,7 @@
 
 extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotification";
 
-@interface BookmarksVC() <MFMailComposeViewControllerDelegate>
+@interface BookmarksVC() <MFMailComposeViewControllerDelegate, MWMLocationObserver>
 {
   int m_trackSection;
   int m_bookmarkSection;
@@ -46,11 +48,6 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     [self calculateSections];
   }
   return self;
-}
-
-- (LocationManager *)locationManager
-{
-  return [MapsAppDelegate theApp].locationManager;
 }
 
 - (void)viewDidLoad
@@ -162,17 +159,14 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
       bmCell.textLabel.text = @(bm->GetName().c_str());
       bmCell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[ColorPickerView colorForName:@(bm->GetType().c_str())]];
 
-      // Get current position and compass "north" direction
-      double azimut = -1.0;
-      double lat, lon;
-
-      if ([self.locationManager getLat:lat Lon:lon])
+      CLLocation * lastLocation = [MWMLocationManager lastLocation];
+      if (lastLocation)
       {
-        double north = -1.0;
-        [self.locationManager getNorthRad:north];
-
+        double north = location_helpers::headingToNorthRad([MWMLocationManager lastHeading]);
         string distance;
-        fr.GetDistanceAndAzimut(bm->GetPivot(), lat, lon, north, distance, azimut);
+        double azimut = -1.0;
+        fr.GetDistanceAndAzimut(bm->GetPivot(), lastLocation.coordinate.latitude,
+                                lastLocation.coordinate.longitude, north, distance, azimut);
 
         bmCell.detailTextLabel.text = @(distance.c_str());
       }
@@ -327,8 +321,8 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
   }
 }
 
-//******************************************************************
-//*********** Location manager callbacks ***************************
+#pragma mark - MWMLocationObserver
+
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   // Refresh distance
@@ -347,7 +341,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
           m2::PointD const center = bm->GetPivot();
           double const metres = ms::DistanceOnEarth(info.m_latitude, info.m_longitude,
                                                     MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
-          cell.detailTextLabel.text = [LocationManager formattedDistance:metres];
+          cell.detailTextLabel.text = location_helpers::formattedDistance(metres);
         }
       }
     }];
@@ -359,7 +353,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  [self.locationManager start:self];
+  [MWMLocationManager addObserver:self];
 
   // Display Edit button only if table is not empty
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
@@ -386,7 +380,8 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-  [self.locationManager stop:self];
+  [MWMLocationManager removeObserver:self];
+
   // Save possibly edited set name
   UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
   if ([cell isKindOfClass:[MWMBookmarkNameCell class]])

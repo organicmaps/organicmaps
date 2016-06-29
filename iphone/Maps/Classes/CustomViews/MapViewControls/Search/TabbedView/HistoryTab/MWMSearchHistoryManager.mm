@@ -1,7 +1,7 @@
 #import "Common.h"
-#import "LocationManager.h"
 #import "Macros.h"
 #import "MapsAppDelegate.h"
+#import "MWMLocationManager.h"
 #import "MWMSearchHistoryClearCell.h"
 #import "MWMSearchHistoryManager.h"
 #import "MWMSearchHistoryMyPositionCell.h"
@@ -27,9 +27,9 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 - (BOOL)isRouteSearchMode
 {
   MWMRoutingPlaneMode const m = MapsAppDelegate.theApp.routingPlaneMode;
-  return (m == MWMRoutingPlaneModeSearchSource ||
-         m == MWMRoutingPlaneModeSearchDestination) &&
-         MapsAppDelegate.theApp.locationManager.lastLocationIsValid;
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  return lastLocation &&
+         (m == MWMRoutingPlaneModeSearchSource || m == MWMRoutingPlaneModeSearchDestination);
 }
 
 - (void)attachCell:(MWMSearchTabbedCollectionViewCell *)cell

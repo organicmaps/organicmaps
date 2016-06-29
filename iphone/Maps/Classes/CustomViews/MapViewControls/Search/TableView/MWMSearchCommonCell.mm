@@ -1,6 +1,6 @@
 #import "Common.h"
-#import "LocationManager.h"
 #import "MapsAppDelegate.h"
+#import "MWMLocationManager.h"
 #import "MWMSearchCommonCell.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
@@ -57,12 +57,10 @@
     if (result.HasPoint())
     {
       string distanceStr;
-      double lat, lon;
-      LocationManager * locationManager = MapsAppDelegate.theApp.locationManager;
-      if ([locationManager getLat:lat Lon:lon])
+      CLLocation * lastLocation = [MWMLocationManager lastLocation];
+      if (lastLocation)
       {
-        m2::PointD const mercLoc = MercatorBounds::FromLatLon(lat, lon);
-        double const dist = MercatorBounds::DistanceOnEarth(mercLoc, result.GetFeatureCenter());
+        double const dist = MercatorBounds::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
         MeasurementUtils::FormatDistance(dist, distanceStr);
       }
       self.distanceLabel.text = @(distanceStr.c_str());

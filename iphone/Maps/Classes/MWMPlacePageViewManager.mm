@@ -1,21 +1,22 @@
 #import "Common.h"
-#import "LocationManager.h"
-#import "MWMAPIBar.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMActivityViewController.h"
+#import "MWMAPIBar.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMDirectionView.h"
 #import "MWMFrameworkListener.h"
+#import "MWMiPadPlacePage.h"
+#import "MWMiPhoneLandscapePlacePage.h"
+#import "MWMiPhonePortraitPlacePage.h"
+#import "MWMLocationHelpers.h"
+#import "MWMLocationManager.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
-#import "MWMiPadPlacePage.h"
-#import "MWMiPhoneLandscapePlacePage.h"
-#import "MWMiPhonePortraitPlacePage.h"
-#import "MapViewController.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -27,7 +28,7 @@
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kBookmarksChangedNotification;
 
-@interface MWMPlacePageViewManager () <LocationObserver>
+@interface MWMPlacePageViewManager () <MWMLocationObserver>
 
 @property (weak, nonatomic) MWMViewController * ownerViewController;
 @property (nonatomic, readwrite) MWMPlacePageEntity * entity;
@@ -61,14 +62,14 @@ extern NSString * const kBookmarksChangedNotification;
 {
   [self.delegate placePageDidClose];
   [self.placePage dismiss];
-  [[MapsAppDelegate theApp].locationManager stop:self];
+  [MWMLocationManager removeObserver:self];
   GetFramework().DeactivateMapSelection(false);
   self.placePage = nil;
 }
 
 - (void)showPlacePage:(place_page::Info const &)info
 {
-  [[MapsAppDelegate theApp].locationManager start:self];
+  [MWMLocationManager addObserver:self];
   self.entity = [[MWMPlacePageEntity alloc] initWithInfo:info];
   if (IPAD)
     [self setPlacePageForiPad];
@@ -111,10 +112,8 @@ extern NSString * const kBookmarksChangedNotification;
 - (void)configPlacePage
 {
   if (self.entity.isMyPosition)
-  {
-    BOOL hasSpeed;
-    self.entity.subtitle = [[MapsAppDelegate theApp].locationManager formattedSpeedAndAltitude:hasSpeed];
-  }
+    self.entity.subtitle =
+        location_helpers::formattedSpeedAndAltitude([MWMLocationManager lastLocation]);
   self.placePage.parentViewHeight = self.ownerViewController.view.height;
   [self.placePage configure];
   self.placePage.topBound = self.topBound;
@@ -147,11 +146,9 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)updateMyPositionSpeedAndAltitude
 {
-  if (!self.entity.isMyPosition)
-    return;
-  BOOL hasSpeed = NO;
-  [self.placePage updateMyPositionStatus:[[MapsAppDelegate theApp].locationManager
-                                          formattedSpeedAndAltitude:hasSpeed]];
+  if (self.entity.isMyPosition)
+    [self.placePage updateMyPositionStatus:location_helpers::formattedSpeedAndAltitude(
+                                               [MWMLocationManager lastLocation])];
 }
 
 - (void)setPlacePageForiPhoneWithOrientation:(UIInterfaceOrientation)orientation
@@ -188,9 +185,10 @@ extern NSString * const kBookmarksChangedNotification;
                    withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
 
-  LocationManager * lm = MapsAppDelegate.theApp.locationManager;
-  [self.delegate buildRouteFrom:lm.isLocationPendingOrNoPosition ? MWMRoutePoint::MWMRoutePointZero()
-                                                                 : MWMRoutePoint(lm.lastLocation.mercator)
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  BOOL const noLocation = location_helpers::isMyPositionPendingOrNoPosition() || !lastLocation;
+  [self.delegate buildRouteFrom:noLocation ? MWMRoutePoint::MWMRoutePointZero()
+                                           : MWMRoutePoint(lastLocation.mercator)
                              to:self.target];
 }
 
@@ -249,8 +247,6 @@ extern NSString * const kBookmarksChangedNotification;
 - (void)book:(BOOL)isDescription
 {
   NSMutableDictionary * stat = [@{kStatProvider : kStatBooking} mutableCopy];
-  LocationManager * lm = MapsAppDelegate.theApp.locationManager;
-  CLLocation * loc = lm.lastLocationIsValid ? lm.lastLocation : nil;
   MWMPlacePageEntity * en = self.entity;
   auto const latLon = en.latlon;
   stat[kStatHotel] = en.hotelId;
@@ -258,7 +254,7 @@ extern NSString * const kBookmarksChangedNotification;
   stat[kStatHotelLon] = @(latLon.lon);
   [Statistics logEvent:isDescription ? kPlacePageHotelDetails : kPlacePageHotelBook
         withParameters:stat
-           atLocation:loc];
+           atLocation:[MWMLocationManager lastLocation]];
 
   UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
   NSURL * url = isDescription ? [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]] : self.entity.bookingUrl;
@@ -353,12 +349,6 @@ extern NSString * const kBookmarksChangedNotification;
   [self.delegate dragPlacePage:frame];
 }
 
-- (void)onLocationUpdate:(location::GpsInfo const &)info
-{
-  [self updateDistance];
-  [self updateMyPositionSpeedAndAltitude];
-}
-
 - (void)updateDistance
 {
   NSString * distance = [self distance];
@@ -368,31 +358,15 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (NSString *)distance
 {
-  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
-  // TODO(AlexZ): Do we REALLY need this check? Why this method is called if user mark/m_info is empty?
-  // TODO(AlexZ): Can location be checked before calling this method?
-  if (!location/* || !m_userMark*/)
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation)
     return @"";
   string distance;
-  CLLocationCoordinate2D const coord = location.coordinate;
+  CLLocationCoordinate2D const coord = lastLocation.coordinate;
   ms::LatLon const target = self.entity.latlon;
   MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coord.latitude, coord.longitude,
                                                        target.lat, target.lon), distance);
   return @(distance.c_str());
-}
-
-- (void)onCompassUpdate:(location::CompassInfo const &)info
-{
-  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
-  // TODO(AlexZ): Do we REALLY need this check? Why compass update is here if user mark/m_info is empty?
-  // TODO(AlexZ): Can location be checked before calling this method?
-  if (!location/* || !m_userMark*/)
-    return;
-
-  CGFloat const angle = ang::AngleTo(location.mercator, self.entity.mercator) + info.m_bearing;
-  CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
-  [self.placePage setDirectionArrowTransform:transform];
-  [self.directionView setDirectionArrowTransform:transform];
 }
 
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type
@@ -421,6 +395,25 @@ extern NSString * const kBookmarksChangedNotification;
   if (!IPAD)
     return;
   ((MWMiPadPlacePage *)self.placePage).height = height;
+}
+
+#pragma mark - MWMLocationObserver
+
+- (void)onHeadingUpdate:(location::CompassInfo const &)info
+{
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation)
+    return;
+  CGFloat const angle = ang::AngleTo(lastLocation.mercator, self.entity.mercator) + info.m_bearing;
+  CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
+  [self.placePage setDirectionArrowTransform:transform];
+  [self.directionView setDirectionArrowTransform:transform];
+}
+
+- (void)onLocationUpdate:(location::GpsInfo const &)locationInfo
+{
+  [self updateDistance];
+  [self updateMyPositionSpeedAndAltitude];
 }
 
 #pragma mark - Properties

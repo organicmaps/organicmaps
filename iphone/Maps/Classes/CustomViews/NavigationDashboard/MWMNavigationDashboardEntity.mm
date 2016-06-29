@@ -1,6 +1,6 @@
 #import "Common.h"
-#import "LocationManager.h"
 #import "MapsAppDelegate.h"
+#import "MWMLocationManager.h"
 #import "MWMNavigationDashboardEntity.h"
 
 #include "Framework.h"
@@ -23,11 +23,12 @@ using namespace routing::turns;
   _targetUnits = @(info.m_targetUnitsSuffix.c_str());
   _progress = info.m_completionPercent;
   auto & f = GetFramework();
-  if (f.GetRouter() == routing::RouterType::Pedestrian)
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (lastLocation && f.GetRouter() == routing::RouterType::Pedestrian)
   {
     _isPedestrian = YES;
     string distance;
-    CLLocationCoordinate2D const & coordinate ([MapsAppDelegate theApp].locationManager.lastLocation.coordinate);
+    CLLocationCoordinate2D const & coordinate = lastLocation.coordinate;
     ms::LatLon const & directionPos = info.m_pedestrianDirectionPos;
     //TODO: Not the best solution, but this solution is temporary and will be replaced in future
     MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coordinate.latitude, coordinate.longitude,

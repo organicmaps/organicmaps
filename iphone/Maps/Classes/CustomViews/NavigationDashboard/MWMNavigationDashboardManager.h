@@ -1,5 +1,5 @@
-#import "LocationManager.h"
 #import "MWMCircularProgress.h"
+#import "MWMLocationManager.h"
 #import "MWMNavigationViewProtocol.h"
 #import "MWMRoutePreview.h"
 
@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 
 @class MWMNavigationDashboardEntity;
 
-@interface MWMNavigationDashboardManager : NSObject <LocationObserver>
+@interface MWMNavigationDashboardManager : NSObject <MWMLocationObserver>
 
 @property (nonatomic, readonly) MWMNavigationDashboardEntity * entity;
 @property (weak, nonatomic, readonly) MWMRoutePreview * routePreview;

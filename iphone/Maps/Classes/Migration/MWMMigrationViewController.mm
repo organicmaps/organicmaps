@@ -1,7 +1,7 @@
-#import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
 #import "MWMCircularProgress.h"
+#import "MWMLocationManager.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMigrationView.h"
 #import "MWMMigrationViewController.h"
@@ -64,10 +64,11 @@ using namespace storage;
   [Statistics logEvent:kStatDownloaderMigrationStarted
         withParameters:@{kStatType : limited ? kStatCurrentMap : kStatAllMaps}];
   auto & f = GetFramework();
-  LocationManager * lm = [MapsAppDelegate theApp].locationManager;
-  ms::LatLon position{};
-  if (![lm getLat:position.lat Lon:position.lon])
-    position = MercatorBounds::ToLatLon(f.GetViewportCenter());
+
+  ms::LatLon position = MercatorBounds::ToLatLon(f.GetViewportCenter());
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (lastLocation)
+    position = ms::LatLon(lastLocation.coordinate.latitude, lastLocation.coordinate.longitude);
 
   auto migrate = ^
   {
