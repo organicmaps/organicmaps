@@ -16,8 +16,8 @@ struct Altitudes
   Altitudes() = default;
   Altitudes(TAltitude b, TAltitude e) : begin(b), end(e) {}
 
-  TAltitude begin = 0;
-  TAltitude end = 0;
+  TAltitude begin = kInvalidAltitude;
+  TAltitude end = kInvalidAltitude;
 };
 
 class Altitude

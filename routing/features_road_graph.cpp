@@ -257,18 +257,23 @@ double FeaturesRoadGraph::GetSpeedKMPHFromFt(FeatureType const & ft) const
 void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft,
                                         double speedKMPH, RoadInfo & ri) const
 {
+  Value const & value = LockFeatureMwm(featureId);
+
   ri.m_bidirectional = !IsOneWay(ft);
   ri.m_speedKMPH = speedKMPH;
 
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  ft.ParseAltitude();
+  feature::Altitudes altitudes = value.altitudeLoader.GetAltitudes(featureId.m_index);
+  LOG(LINFO, ("Feature idx =", featureId.m_index, "altitudes.begin =", altitudes.begin,
+              "altitudes.end =", altitudes.end));
+
   // @TODO It's a temprarery solution until a vector of feature altitudes is saved in mwm.
-  bool const isAltidudeValid = ft.GetAltitudes().begin != feature::kInvalidAltitude &&
-                               ft.GetAltitudes().end != feature::kInvalidAltitude;
-  feature::TAltitude pointAlt = ft.GetAltitudes().begin;
+  bool const isAltidudeValid = altitudes.begin != feature::kInvalidAltitude &&
+                               altitudes.end != feature::kInvalidAltitude;
+  feature::TAltitude pointAlt = altitudes.begin;
   size_t const pointsCount = ft.GetPointsCount();
   feature::TAltitude const diffAlt =
-      isAltidudeValid ? (ft.GetAltitudes().end - ft.GetAltitudes().begin) / pointsCount : 0;
+      isAltidudeValid ? (altitudes.end - altitudes.begin) / pointsCount : 0;
 
   ri.m_junctions.clear();
   ri.m_junctions.resize(pointsCount);
@@ -283,8 +288,6 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
     ri.m_junctions[i] = Junction(ft.GetPoint(i), pointAlt);
     pointAlt += diffAlt;
   }
-
-  LockFeatureMwm(featureId);
 }
 
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId) const
@@ -324,19 +327,24 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
   return ri;
 }
 
-void FeaturesRoadGraph::LockFeatureMwm(FeatureID const & featureId) const
+FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockFeatureMwm(FeatureID const & featureId) const
 {
   MwmSet::MwmId mwmId = featureId.m_mwmId;
   ASSERT(mwmId.IsAlive(), ());
 
   auto const itr = m_mwmLocks.find(mwmId);
   if (itr != m_mwmLocks.end())
-    return;
+    return itr->second;
 
   MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(mwmId);
   ASSERT(mwmHandle.IsAlive(), ());
 
-  m_mwmLocks.insert(make_pair(move(mwmId), move(mwmHandle)));
-}
+  MwmValue * mwmValue = nullptr;
+  if (mwmHandle.IsAlive())
+    mwmValue = mwmHandle.GetValue<MwmValue>();
 
+  Value value = {move(mwmHandle), feature::AltitudeLoader(mwmValue)};
+
+  return m_mwmLocks.insert(make_pair(move(mwmId), move(value))).first->second;
+}
 }  // namespace routing

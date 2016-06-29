@@ -79,7 +79,6 @@ namespace feature
     virtual uint32_t ParseGeometry(int scale) = 0;
     virtual uint32_t ParseTriangles(int scale) = 0;
     virtual void ParseMetadata() = 0;
-    virtual void ParseAltitude() = 0;
 
     inline uint32_t GetTypesSize() const { return m_CommonOffset - m_TypesOffset; }
 

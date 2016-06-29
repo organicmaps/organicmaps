@@ -29,6 +29,5 @@ namespace feature
     uint32_t ParseGeometry(int scale) override;
     uint32_t ParseTriangles(int scale) override;
     void ParseMetadata() override;
-    void ParseAltitude() override;
   };
 }

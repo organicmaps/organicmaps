@@ -2,6 +2,7 @@
 #include "routing/road_graph.hpp"
 #include "routing/vehicle_model.hpp"
 
+#include "indexer/altitude_loader.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -78,6 +79,12 @@ public:
 private:
   friend class CrossFeaturesLoader;
 
+  struct Value
+  {
+    MwmSet::MwmHandle mwmHandle;
+    feature::AltitudeLoader altitudeLoader;
+  };
+
   bool IsRoad(FeatureType const & ft) const;
   bool IsOneWay(FeatureType const & ft) const;
   double GetSpeedKMPHFromFt(FeatureType const & ft) const;
@@ -92,13 +99,13 @@ private:
   void ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft, double speedKMPH,
                        RoadInfo & ri) const;
 
-  void LockFeatureMwm(FeatureID const & featureId) const;
+  Value const & LockFeatureMwm(FeatureID const & featureId) const;
 
   Index const & m_index;
   IRoadGraph::Mode const m_mode;
   mutable RoadInfoCache m_cache;
   mutable CrossCountryVehicleModel m_vehicleModel;
-  mutable map<MwmSet::MwmId, MwmSet::MwmHandle> m_mwmLocks;
+  mutable map<MwmSet::MwmId, Value> m_mwmLocks;
 };
 
 }  // namespace routing

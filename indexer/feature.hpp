@@ -202,7 +202,6 @@ public:
   uint32_t ParseTriangles(int scale) const;
 
   void ParseMetadata() const;
-  void ParseAltitude() const;
   //@}
 
   /// @name Geometry.
@@ -243,12 +242,6 @@ public:
     ASSERT_LESS(i, m_points.size(), ());
     ASSERT(m_pointsParsed, ());
     return m_points[i];
-  }
-
-  inline feature::Altitudes const & GetAltitudes() const
-  {
-    ASSERT(m_altitudeParsed, ());
-    return m_altitudes;
   }
 
   template <typename TFunctor>
@@ -377,7 +370,6 @@ private:
   mutable bool m_pointsParsed = false;
   mutable bool m_trianglesParsed = false;
   mutable bool m_metadataParsed = false;
-  mutable bool m_altitudeParsed = false;
 
   mutable inner_geom_stat_t m_innerStats;
 

@@ -37,7 +37,6 @@ namespace old_101 { namespace feature
     uint32_t ParseGeometry(int scale) override;
     uint32_t ParseTriangles(int scale) override;
     void ParseMetadata() override {}  /// not supported in this version
-    void ParseAltitude() override {}  /// not supported in this version
   };
 }
 }

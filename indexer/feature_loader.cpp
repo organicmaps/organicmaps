@@ -292,47 +292,6 @@ void LoaderCurrent::ParseMetadata()
   }
 }
 
-void LoaderCurrent::ParseAltitude()
-{
-  // @TODO Index and should be used here before merging to master.
-
-  if (m_Info.GetMWMFormat() < version::Format::v8)
-    return;
-
-  struct TAltitudeIndexEntry
-  {
-    uint32_t featureId;
-    feature::TAltitude beginAlt;
-    feature::TAltitude endAlt;
-  };
-
-  try
-  {
-    DDVector<TAltitudeIndexEntry, FilesContainerR::TReader> idx(m_Info.GetAltitudeReader());
-    auto it = lower_bound(idx.begin(), idx.end(),
-                          TAltitudeIndexEntry{static_cast<uint32_t>(m_pF->m_id.m_index), 0, 0},
-                          [](TAltitudeIndexEntry const & v1, TAltitudeIndexEntry const & v2)
-    {
-      return v1.featureId < v2.featureId;
-    });
-    if (it == idx.end())
-      return;
-
-    if (m_pF->m_id.m_index != it->featureId)
-      return;
-
-    if (it->beginAlt == kInvalidAltitude || it->endAlt == kInvalidAltitude)
-      return;
-
-    m_pF->m_altitudes.begin = it->beginAlt;
-    m_pF->m_altitudes.end = it->endAlt;
-  }
-  catch (Reader::OpenException const &)
-  {
-    // Now ignore exception because not all mwm have needed sections.
-  }
-}
-
 int LoaderCurrent::GetScaleIndex(int scale) const
 {
   int const count = m_Info.GetScalesCount();
