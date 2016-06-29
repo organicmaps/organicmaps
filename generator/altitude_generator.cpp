@@ -9,12 +9,14 @@
 #include "indexer/feature_processor.hpp"
 
 #include "coding/file_container.hpp"
+#include "coding/file_name_utils.hpp"
 #include "coding/varint.hpp"
 
 #include "coding/internal/file_data.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "defines.hpp"
@@ -32,16 +34,15 @@ class Processor
 {
 public:
   using TFeatureAltitude = pair<uint32_t, Altitudes>;
-  using TFeatureAltitudeVec = vector<TFeatureAltitude>;
+  using TFeatureAltitudes = vector<TFeatureAltitude>;
 
   Processor(string const & srtmPath) : m_srtmManager(srtmPath) {}
 
-  TFeatureAltitudeVec const & GetFeatureAltitudes() const { return m_featureAltitudes; }
+  TFeatureAltitudes const & GetFeatureAltitudes() const { return m_featureAltitudes; }
 
   void operator()(FeatureType const & f, uint32_t const & id)
   {
-    feature::TypesHolder const & fh = feature::TypesHolder(f);
-    if (!routing::IsRoad(fh))
+    if (!routing::IsRoad(feature::TypesHolder(f)))
       return;
 
     f.ParseGeometry(FeatureType::BEST_GEOMETRY);
@@ -56,16 +57,12 @@ public:
 
   void SortFeatureAltitudes()
   {
-    sort(m_featureAltitudes.begin(), m_featureAltitudes.end(),
-         [](Processor::TFeatureAltitude const & f1, Processor::TFeatureAltitude const & f2)
-    {
-      return f1.first < f2.first;
-    });
+    sort(m_featureAltitudes.begin(), m_featureAltitudes.end(), my::LessBy(&Processor::TFeatureAltitude::first));
   }
 
 private:
   generator::SrtmTileManager m_srtmManager;
-  TFeatureAltitudeVec m_featureAltitudes;
+  TFeatureAltitudes m_featureAltitudes;
 };
 }  // namespace
 
@@ -74,7 +71,7 @@ namespace routing
 void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string const & countryName)
 {
   LOG(LINFO, ("srtmPath =", srtmPath, "baseDir =", baseDir, "countryName =", countryName));
-  string const mwmPath = baseDir + countryName + DATA_FILE_EXTENSION;
+  string const mwmPath = my::JoinFoldersToPath(baseDir, countryName + DATA_FILE_EXTENSION);
 
   // Writing section with altitude information.
   {
@@ -84,7 +81,7 @@ void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string 
     Processor processor(srtmPath);
     feature::ForEachFromDat(mwmPath, processor);
     processor.SortFeatureAltitudes();
-    Processor::TFeatureAltitudeVec const & featureAltitudes = processor.GetFeatureAltitudes();
+    Processor::TFeatureAltitudes const & featureAltitudes = processor.GetFeatureAltitudes();
 
     for (auto const & a : featureAltitudes)
     {

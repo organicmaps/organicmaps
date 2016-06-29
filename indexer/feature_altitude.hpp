@@ -8,8 +8,8 @@
 namespace feature
 {
 using TAltitude = int16_t;
-using TAltitudeVec = vector<feature::TAltitude>;
-static TAltitude constexpr kInvalidAltitude = numeric_limits<TAltitude>::lowest();
+using TAltitudes = vector<feature::TAltitude>;
+TAltitude constexpr kInvalidAltitude = numeric_limits<TAltitude>::min();
 
 struct Altitudes
 {

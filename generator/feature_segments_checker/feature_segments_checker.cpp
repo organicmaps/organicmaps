@@ -181,7 +181,7 @@ public:
       m_uniqueRoadPoints.insert(RoughPoint(f.GetPoint(i)));
 
     // Preparing feature altitude and length.
-    TAltitudeVec pointAltitudes(numPoints);
+    TAltitudes pointAltitudes(numPoints);
     vector<double> pointDists(numPoints);
     double distFromStartMeters = 0;
     for (uint32_t i = 0; i < numPoints; ++i)
