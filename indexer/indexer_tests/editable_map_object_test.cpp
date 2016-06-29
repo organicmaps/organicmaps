@@ -29,6 +29,7 @@ UNIT_TEST(EditableMapObject_ValidateBuildingLevels)
   TEST(EditableMapObject::ValidateBuildingLevels("17"), ());
   TEST(EditableMapObject::ValidateBuildingLevels("25"), ());
   TEST(!EditableMapObject::ValidateBuildingLevels("0"), ());
+  TEST(!EditableMapObject::ValidateBuildingLevels("005"), ());
   TEST(!EditableMapObject::ValidateBuildingLevels("26"), ());
   TEST(!EditableMapObject::ValidateBuildingLevels("22a"), ());
   TEST(!EditableMapObject::ValidateBuildingLevels("a22"), ());
