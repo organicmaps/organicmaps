@@ -158,7 +158,9 @@ using namespace osm_auth_ios;
 - (void)logout
 {
   [Statistics logEvent:kStatEventName(kStatAuthorization, kStatLogout)];
-  GetFramework().DropUserStats(OSMUserName().UTF8String);
+  NSString * osmUserName = OSMUserName();
+  if (osmUserName.length > 0)
+    GetFramework().DropUserStats(osmUserName.UTF8String);
   AuthorizationStoreCredentials({});
   [self.navigationController popViewControllerAnimated:YES];
 }
@@ -169,15 +171,17 @@ using namespace osm_auth_ios;
   __weak auto weakSelf = self;
   auto const policy = force ? editor::UserStatsLoader::UpdatePolicy::Force
                             : editor::UserStatsLoader::UpdatePolicy::Lazy;
-  GetFramework().UpdateUserStats(OSMUserName().UTF8String, policy, ^
-  {
-    [weakSelf updateUI];
-  });
+  NSString * osmUserName = OSMUserName();
+  if (osmUserName.length > 0)
+    GetFramework().UpdateUserStats(osmUserName.UTF8String, policy, ^{ [weakSelf updateUI]; });
 }
 
 - (void)updateUI
 {
-  editor::UserStats stats = GetFramework().GetUserStats(OSMUserName().UTF8String);
+  NSString * osmUserName = OSMUserName();
+  if (osmUserName.length == 0)
+    return;
+  editor::UserStats stats = GetFramework().GetUserStats(osmUserName.UTF8String);
   if (!stats)
     return;
   int32_t changesCount;
