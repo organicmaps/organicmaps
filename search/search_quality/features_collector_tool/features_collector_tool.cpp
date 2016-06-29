@@ -18,6 +18,8 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/string_utils.hpp"
 
 #include "std/fstream.hpp"
@@ -76,7 +78,7 @@ void GetContents(istream & is, string & contents)
 
 bool Matches(Context & context, Sample::Result const & golden, search::Result const & actual)
 {
-  static double constexpr kEps = 1e-4;
+  static double constexpr kToleranceMeters = 50;
   if (actual.GetResultType() != Result::RESULT_FEATURE)
     return false;
 
@@ -90,7 +92,7 @@ bool Matches(Context & context, Sample::Result const & golden, search::Result co
   auto const center = feature::GetCenter(ft);
 
   return golden.m_name == strings::MakeUniString(name) && golden.m_houseNumber == houseNumber &&
-         my::AlmostEqualAbs(golden.m_pos, center, kEps);
+         MercatorBounds::DistanceOnEarth(golden.m_pos, center) < kToleranceMeters;
 }
 
 void MatchResults(Context & context, vector<Sample::Result> const & golden,
