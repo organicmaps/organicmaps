@@ -2407,7 +2407,8 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
     };
 
     m_routingSession.RebuildRoute(MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
-                                  readyCallback, m_progressCallback, 0 /* timeoutSec */);
+                                  readyCallback, m_progressCallback, 0 /* timeoutSec */,
+                                  routing::RoutingSession::State::RouteRebuilding);
   }
 }
 
