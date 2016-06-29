@@ -37,7 +37,7 @@ void Spline::AddPoint(PointD const & pt)
   /// Now we have line objects with zero length segments
   if (!IsEmpty() && (pt - m_position.back()).IsAlmostZero())
   {
-    LOG(LDEBUG, ("Found seqment with zero lenth (the ended points are same)"));
+    LOG(LDEBUG, ("Found a zero-length segment (the endpoints coincide)"));
     return;
   }
 
