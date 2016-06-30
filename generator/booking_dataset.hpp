@@ -2,6 +2,10 @@
 
 #include "generator/osm_element.hpp"
 
+#include "indexer/index.hpp"
+
+#include "search/reverse_geocoder.hpp"
+
 #include "boost/geometry.hpp"
 #include "boost/geometry/geometries/point.hpp"
 #include "boost/geometry/geometries/box.hpp"
@@ -46,6 +50,8 @@ public:
     double lon = 0.0;
     string name;
     string address;
+    string street;
+    string houseNumber;
     uint32_t stars = 0;
     uint32_t priceCategory = 0;
     double ratingBooking = 0.0;
@@ -57,14 +63,29 @@ public:
     static constexpr size_t Index(Fields field) { return static_cast<size_t>(field); }
     static constexpr size_t FieldsCount() { return static_cast<size_t>(Fields::Counter); }
     explicit Hotel(string const & src);
+
+    inline bool IsAddressPartsFilled() const { return !street.empty() || !houseNumber.empty(); }
   };
 
-  explicit BookingDataset(string const & dataPath);
+  class AddressMatcher
+  {
+    Index m_index;
+    unique_ptr<search::ReverseGeocoder> m_coder;
+
+  public:
+    AddressMatcher();
+    void operator()(Hotel & hotel);
+  };
+
+  explicit BookingDataset(string const & dataPath, string const & addressReferencePath = string());
+  explicit BookingDataset(istream & dataSource, string const & addressReferencePath = string());
 
   bool BookingFilter(OsmElement const & e) const;
   bool TourismFilter(OsmElement const & e) const;
 
+  inline size_t Size() const { return m_hotels.size(); }
   Hotel const & GetHotel(size_t index) const;
+  Hotel & GetHotel(size_t index);
   vector<size_t> GetNearestHotels(double lat, double lon, size_t limit,
                                   double maxDistance = 0.0) const;
   bool MatchByName(string const & osmName, vector<size_t> const & bookingIndexes) const;
@@ -83,7 +104,7 @@ protected:
 
   boost::geometry::index::rtree<TValue, boost::geometry::index::quadratic<16>> m_rtree;
 
-  void LoadHotels(string const & path);
+  void LoadHotels(istream & path, string const & addressReferencePath);
   bool MatchWithBooking(OsmElement const & e) const;
   bool Filter(OsmElement const & e, function<bool(OsmElement const &)> const & fn) const;
 };

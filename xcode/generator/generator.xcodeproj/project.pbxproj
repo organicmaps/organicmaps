@@ -442,6 +442,7 @@
 					"$(OMIM_ROOT)/3party/gflags/src",
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 					"$(QT_PATH)/include",
+					"$(OMIM_ROOT)/3party/glm",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -484,6 +485,7 @@
 					"$(OMIM_ROOT)/3party/gflags/src",
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 					"$(QT_PATH)/include",
+					"$(OMIM_ROOT)/3party/glm",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;

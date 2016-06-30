@@ -16,12 +16,12 @@
 		394916BF1BAC3A82002A8C4F /* arithmetic_codec_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 394916961BAC3A82002A8C4F /* arithmetic_codec_test.cpp */; };
 		394916E41BAC3ACF002A8C4F /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6753421B1A3F586300A0A8C3 /* libcoding.a */; };
 		394917201BAC3BE0002A8C4F /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3949171F1BAC3BE0002A8C4F /* testingmain.cpp */; };
-		394917261BAC3C2F002A8C4F /* huffman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 394917221BAC3C2F002A8C4F /* huffman.cpp */; };
 		3949172B1BAC3CAC002A8C4F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 394917271BAC3CAC002A8C4F /* libbase.a */; };
 		3949172C1BAC3CAC002A8C4F /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 394917281BAC3CAC002A8C4F /* libminizip.a */; };
 		3949172D1BAC3CAC002A8C4F /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 394917291BAC3CAC002A8C4F /* libsuccinct.a */; };
 		3949172E1BAC3CAC002A8C4F /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3949172A1BAC3CAC002A8C4F /* libtomcrypt.a */; };
 		394917301BAC3CC9002A8C4F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3949172F1BAC3CC9002A8C4F /* libz.tbd */; };
+		670BAACB1D0B0C1E000302DA /* huffman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 394917221BAC3C2F002A8C4F /* huffman.cpp */; };
 		670D04BD1B0BA92D0013A7AC /* expat_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 670D04B31B0BA9050013A7AC /* expat_impl.h */; };
 		670D04BE1B0BA92D0013A7AC /* file64_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670D04B41B0BA9050013A7AC /* file64_api.hpp */; };
 		670D04BF1B0BA92D0013A7AC /* file_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670D04B51B0BA9050013A7AC /* file_data.cpp */; };
@@ -616,7 +616,6 @@
 				67E8DB6A1BBC17490053C5BA /* reader_writer_ops_test.cpp in Sources */,
 				67E8DB611BBC17490053C5BA /* file_utils_test.cpp in Sources */,
 				67E8DB671BBC17490053C5BA /* png_decoder_test.cpp in Sources */,
-				394917261BAC3C2F002A8C4F /* huffman.cpp in Sources */,
 				394917201BAC3BE0002A8C4F /* testingmain.cpp in Sources */,
 				67E8DB5D1BBC17490053C5BA /* endianness_test.cpp in Sources */,
 				67E8DB6D1BBC17490053C5BA /* trie_test.cpp in Sources */,
@@ -664,6 +663,7 @@
 				6753429F1A3F588C00A0A8C3 /* file_reader.cpp in Sources */,
 				675342C51A3F588C00A0A8C3 /* uri.cpp in Sources */,
 				675342BB1A3F588C00A0A8C3 /* reader.cpp in Sources */,
+				670BAACB1D0B0C1E000302DA /* huffman.cpp in Sources */,
 				6753429C1A3F588C00A0A8C3 /* file_name_utils.cpp in Sources */,
 				675342A71A3F588C00A0A8C3 /* hex.cpp in Sources */,
 				675342A31A3F588C00A0A8C3 /* file_writer.cpp in Sources */,

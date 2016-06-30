@@ -1,5 +1,8 @@
 #include "generator/booking_dataset.hpp"
 
+#include "platform/local_country_file_utils.hpp"
+#include "platform/platform.hpp"
+
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -26,13 +29,26 @@ bool CheckForValues(string const & value)
   }
   return false;
 }
+
+string EscapeTabs(string const & str)
+{
+  stringstream ss;
+  for (char c : str)
+  {
+    if (c == '\t')
+      ss << "\\t";
+    else
+      ss << c;
+  }
+  return ss.str();
+}
 }  // namespace
 
 BookingDataset::Hotel::Hotel(string const & src)
 {
   vector<string> rec;
   strings::ParseCSVRow(src, '\t', rec);
-  CHECK(rec.size() == FieldsCount(), ("Error parsing hotels.tsv line:", src));
+  CHECK(rec.size() == FieldsCount(), ("Error parsing hotels.tsv line:", EscapeTabs(src)));
 
   strings::to_uint(rec[Index(Fields::Id)], id);
   strings::to_double(rec[Index(Fields::Latitude)], lat);
@@ -55,21 +71,61 @@ BookingDataset::Hotel::Hotel(string const & src)
 
 ostream & operator<<(ostream & s, BookingDataset::Hotel const & h)
 {
+  s << fixed << setprecision(7);
   return s << "Name: " << h.name << "\t Address: " << h.address << "\t lat: " << h.lat
            << " lon: " << h.lon;
 }
 
-BookingDataset::BookingDataset(string const & dataPath)
+BookingDataset::AddressMatcher::AddressMatcher()
 {
-  LoadHotels(dataPath);
+  vector<platform::LocalCountryFile> localFiles;
 
-  size_t counter = 0;
-  for (auto const & hotel : m_hotels)
+  Platform & platform = GetPlatform();
+  platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
+                                                  -1 /* latestVersion */, localFiles);
+
+  for (platform::LocalCountryFile const & localFile : localFiles)
   {
-    TBox b(TPoint(hotel.lat, hotel.lon), TPoint(hotel.lat, hotel.lon));
-    m_rtree.insert(std::make_pair(b, counter));
-    ++counter;
+    LOG(LINFO, ("Found mwm:", localFile));
+    try
+    {
+      m_index.RegisterMap(localFile);
+    }
+    catch (RootException const & ex)
+    {
+      CHECK(false, ("Bad mwm file:", localFile));
+    }
   }
+
+  m_coder = make_unique<search::ReverseGeocoder>(m_index);
+}
+
+void BookingDataset::AddressMatcher::operator()(Hotel & hotel)
+{
+  search::ReverseGeocoder::Address addr;
+  m_coder->GetNearbyAddress(MercatorBounds::FromLatLon(hotel.lat, hotel.lon), addr);
+  hotel.street = addr.GetStreetName();
+  hotel.houseNumber = addr.GetHouseNumber();
+}
+
+BookingDataset::BookingDataset(string const & dataPath, string const & addressReferencePath)
+{
+  if (dataPath.empty())
+    return;
+
+  ifstream dataSource(dataPath);
+  if (!dataSource.is_open())
+  {
+    LOG(LERROR, ("Error while opening", dataPath, ":", strerror(errno)));
+    return;
+  }
+
+  LoadHotels(dataSource, addressReferencePath);
+}
+
+BookingDataset::BookingDataset(istream & dataSource, string const & addressReferencePath)
+{
+  LoadHotels(dataSource, addressReferencePath);
 }
 
 bool BookingDataset::BookingFilter(OsmElement const & e) const
@@ -90,7 +146,13 @@ bool BookingDataset::TourismFilter(OsmElement const & e) const
 
 BookingDataset::Hotel const & BookingDataset::GetHotel(size_t index) const
 {
-  ASSERT_GREATER(m_hotels.size(), index, ());
+  ASSERT_LESS(index, m_hotels.size(), ());
+  return m_hotels[index];
+}
+
+BookingDataset::Hotel & BookingDataset::GetHotel(size_t index)
+{
+  ASSERT_LESS(index, m_hotels.size(), ());
   return m_hotels[index];
 }
 
@@ -184,6 +246,12 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
       }
     }
 
+    if (!hotel.street.empty())
+      e.AddTag("addr:street", hotel.street);
+
+    if (!hotel.houseNumber.empty())
+      e.AddTag("addr:housenumber", hotel.houseNumber);
+
     switch (hotel.type)
     {
     case 19:
@@ -244,22 +312,46 @@ double BookingDataset::ScoreByLinearNormDistance(double distance)
   return 1.0 - distance / kDistanceLimitInMeters;
 }
 
-void BookingDataset::LoadHotels(string const & path)
+void BookingDataset::LoadHotels(istream & src, string const & addressReferencePath)
 {
   m_hotels.clear();
-
-  if (path.empty())
-    return;
-
-  ifstream src(path);
-  if (!src.is_open())
-  {
-    LOG(LERROR, ("Error while opening", path, ":", strerror(errno)));
-    return;
-  }
+  m_rtree.clear();
 
   for (string line; getline(src, line);)
     m_hotels.emplace_back(line);
+
+  if (!addressReferencePath.empty())
+  {
+    LOG(LINFO, ("Reference addresses for booking objects", addressReferencePath));
+    Platform & platform = GetPlatform();
+    string const backupPath = platform.WritableDir();
+    platform.SetWritableDirForTests(addressReferencePath);
+
+    AddressMatcher addressMatcher;
+
+    size_t matchedNum = 0;
+    size_t emptyAddr = 0;
+    for (Hotel & hotel : m_hotels)
+    {
+      addressMatcher(hotel);
+
+      if (hotel.address.empty())
+        ++emptyAddr;
+      if (hotel.IsAddressPartsFilled())
+        ++matchedNum;
+    }
+    LOG(LINFO,
+        ("Num of hotels:", m_hotels.size(), "matched:", matchedNum, "empty addresses:", emptyAddr));
+    platform.SetWritableDirForTests(backupPath);
+  }
+
+  size_t counter = 0;
+  for (auto const & hotel : m_hotels)
+  {
+    TBox b(TPoint(hotel.lat, hotel.lon), TPoint(hotel.lat, hotel.lon));
+    m_rtree.insert(make_pair(b, counter));
+    ++counter;
+  }
 }
 
 bool BookingDataset::MatchWithBooking(OsmElement const & e) const

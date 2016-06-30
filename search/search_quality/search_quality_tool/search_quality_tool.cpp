@@ -5,9 +5,6 @@
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "storage/country_info_getter.hpp"
-#include "storage/storage.hpp"
-
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 

@@ -3,19 +3,11 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature.hpp"
 
-namespace
-{
-struct TestSetUp
-{
-  TestSetUp() { classificator::Load(); }
-};
-
-TestSetUp g_testSetUp;
-}  // namespace
-
 
 UNIT_TEST(FeatureType_FromXMLAndBackToXML)
 {
+  classificator::Load();
+
   string const xmlNoTypeStr = R"(<?xml version="1.0"?>
 <node lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
   <tag k="name" v="Gorki Park" />
