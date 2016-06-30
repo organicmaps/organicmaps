@@ -95,10 +95,9 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
 
 namespace df
 {
-
-PoiSymbolShape::PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParams const & params)
-  : m_pt(mercatorPt)
-  , m_params(params)
+PoiSymbolShape::PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParams const & params,
+                               int displacementMode)
+  : m_pt(mercatorPt), m_params(params), m_displacementMode(displacementMode)
 {}
 
 void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
@@ -108,12 +107,14 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
 
   glsl::vec4 const position = glsl::vec4(glsl::ToVec2(m_pt), m_params.m_depth, -m_params.m_posZ);
   m2::PointU const pixelSize = region.GetPixelSize();
+
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(m_params.m_id,
                                                                          dp::Center,
                                                                          m_pt, pixelSize,
                                                                          GetOverlayPriority(),
+                                                                         true /* isBound */,
                                                                          m_params.m_symbolName,
-                                                                         true);
+                                                                         true /* isBillboard */);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
 
@@ -131,8 +132,9 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
 
 uint64_t PoiSymbolShape::GetOverlayPriority() const
 {
-  // Set up maximum priority for shapes which created by user in the editor.
-  if (m_params.m_createdByEditor)
+  // Set up maximum priority for shapes which created by user in the editor
+  // and in case of a special displacement mode.
+  if (m_params.m_createdByEditor || (m_displacementMode & dp::displacement::kDefaultMode) == 0)
     return dp::kPriorityMaskAll;
 
   // Set up minimal priority for shapes which belong to areas.

@@ -3,6 +3,7 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -21,13 +22,8 @@ namespace
 {
 bool CheckForValues(string const & value)
 {
-  for (char const * val :
-       {"hotel", "apartment", "camp_site", "chalet", "guest_house", "hostel", "motel", "resort"})
-  {
-    if (value == val)
-      return true;
-  }
-  return false;
+  auto const & tags = ftypes::IsHotelChecker::GetHotelTags();
+  return find(tags.begin(), tags.end(), value) != tags.end();
 }
 
 string EscapeTabs(string const & str)

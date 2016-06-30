@@ -425,6 +425,26 @@ IsBookingChecker const & IsBookingChecker::Instance()
   return inst;
 }
 
+IsHotelChecker::IsHotelChecker()
+{
+  Classificator const & c = classif();
+  for (auto const & tag : GetHotelTags())
+    m_types.push_back(c.GetTypeByPath({"tourism", tag}));
+}
+
+IsHotelChecker const & IsHotelChecker::Instance()
+{
+  static const IsHotelChecker inst;
+  return inst;
+}
+
+vector<string> const & IsHotelChecker::GetHotelTags()
+{
+  static vector<string> hotelTags = {"hotel",       "apartment", "camp_site", "chalet",
+                                     "guest_house", "hostel",    "motel",     "resort"};
+  return hotelTags;
+}
+
 uint32_t GetPopulation(FeatureType const & ft)
 {
   uint32_t population = ft.GetPopulation();

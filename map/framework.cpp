@@ -757,6 +757,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
     info.m_address = GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet();
 
+  info.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
   if (ftypes::IsBookingChecker::Instance()(ft))
   {
     info.m_isSponsoredHotel = true;
@@ -1941,7 +1942,8 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
   CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(), info.GetID(),
                          needAnimation));
 
-  SetDisplacementMode(info.m_isSponsoredHotel ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode);
+  SetDisplacementMode(info.IsHotel() ? dp::displacement::kHotelMode
+                                     : dp::displacement::kDefaultMode);
 
   if (m_activateMapSelectionFn)
     m_activateMapSelectionFn(info);
