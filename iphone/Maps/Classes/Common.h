@@ -67,12 +67,7 @@ static uint64_t const MB = 1024 * 1024;
 
 static inline NSString * formattedSize(uint64_t size)
 {
-  NSString * sizeString;
-  if (size > MB)
-    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 512 * KB) / MB, NSLocalizedString(@"mb", nil)];
-  else
-    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 1023) / KB, NSLocalizedString(@"kb", nil)];
-  return [sizeString uppercaseString];
+  return [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
 }
 
 // Use only for screen dimensions CGFloat comparison
