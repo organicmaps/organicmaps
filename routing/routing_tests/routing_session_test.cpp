@@ -226,7 +226,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
                        {
                          rebuildTimedSignal.Signal();
                        },
-                       nullptr, 0);
+                       nullptr, 0, RoutingSession::State::RouteBuilding);
   TEST(rebuildTimedSignal.WaitUntil(time), ("Route was not built."));
   TEST(session.IsFollowing(), ());
 }
