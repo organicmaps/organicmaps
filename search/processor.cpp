@@ -110,12 +110,10 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   , m_infoGetter(infoGetter)
   , m_position(0, 0)
   , m_mode(Mode::Everywhere)
-  , m_worldSearch(true)
   , m_suggestsEnabled(true)
-  , m_preRanker(kPreResultsCount)
-  , m_ranker(m_preRanker, index, infoGetter, categories, suggests,
-             static_cast<my::Cancellable const &>(*this))
-  , m_geocoder(index, infoGetter, static_cast<my::Cancellable const &>(*this))
+  , m_preRanker(index, m_ranker, kPreResultsCount)
+  , m_ranker(index, infoGetter, categories, suggests, static_cast<my::Cancellable const &>(*this))
+  , m_geocoder(index, infoGetter, m_preRanker, static_cast<my::Cancellable const &>(*this))
 {
   // Initialize keywords scorer.
   // Note! This order should match the indexes arrays above.
@@ -135,7 +133,7 @@ void Processor::Init(bool viewportSearch)
   m_tokens.clear();
   m_prefix.clear();
   m_preRanker.Clear();
-  m_ranker.Init(viewportSearch);
+  m_preRanker.Init(viewportSearch);
 }
 
 void Processor::SetViewport(m2::RectD const & viewport, bool forceUpdate)
@@ -347,29 +345,38 @@ void Processor::Search(Results & results, size_t limit)
   Geocoder::Params geocoderParams;
   InitGeocoderParams(geocoderParams);
 
+  PreRanker::Params preRankerParams;
+  InitPreRankerParams(preRankerParams);
+
   Ranker::Params rankerParams;
   InitRankerParams(rankerParams);
 
   if (m_tokens.empty())
     m_ranker.SuggestStrings(results);
 
-  m_geocoder.GoEverywhere(m_preRanker);
+  m_geocoder.GoEverywhere();
   m_ranker.FlushResults(geocoderParams, results, limit);
 }
 
 void Processor::SearchViewportPoints(Results & results)
 {
-  Geocoder::Params params;
+  Geocoder::Params geocoderParams;
+  InitParams(geocoderParams);
+  geocoderParams.m_mode = m_mode;
+  geocoderParams.m_pivot = m_viewport[CURRENT_V];
 
-  InitParams(params);
-  params.m_mode = m_mode;
-  params.m_pivot = m_viewport[CURRENT_V];
-  params.m_accuratePivotCenter = params.m_pivot.Center();
-  m_geocoder.SetParams(params);
+  m_geocoder.SetParams(geocoderParams);
 
-  m_geocoder.GoInViewport(m_preRanker);
+  PreRanker::Params preRankerParams;
+  preRankerParams.m_accuratePivotCenter = geocoderParams.m_pivot.Center();
+  m_preRanker.SetParams(preRankerParams);
 
-  m_ranker.FlushViewportResults(params, results);
+  Ranker::Params rankerParams;
+  rankerParams.m_accuratePivotCenter = geocoderParams.m_pivot.Center();
+  m_ranker.SetParams(rankerParams);
+
+  m_geocoder.GoInViewport();
+  m_ranker.FlushViewportResults(geocoderParams, results);
 }
 
 void Processor::SearchCoordinates(Results & res) const
@@ -591,8 +598,13 @@ void Processor::InitGeocoderParams(Geocoder::Params & params)
   InitParams(params);
   params.m_mode = m_mode;
   params.m_pivot = GetPivotRect();
-  params.m_accuratePivotCenter = GetPivotPoint();
   m_geocoder.SetParams(params);
+}
+
+void Processor::InitPreRankerParams(PreRanker::Params & params)
+{
+  params.m_accuratePivotCenter = GetPivotPoint();
+  m_preRanker.SetParams(params);
 }
 
 void Processor::InitRankerParams(Ranker::Params & params)
@@ -608,6 +620,7 @@ void Processor::InitRankerParams(Ranker::Params & params)
   params.m_tokens = m_tokens;
   params.m_prefix = m_prefix;
   params.m_categoryLocales = GetCategoryLocales();
+  params.m_accuratePivotCenter = GetPivotPoint();
   m_ranker.SetParams(params);
 }
 
@@ -617,6 +630,7 @@ void Processor::ClearCaches()
     ClearCache(i);
 
   m_geocoder.ClearCaches();
+  m_preRanker.ClearCaches();
   m_ranker.ClearCaches();
 }
 

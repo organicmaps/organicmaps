@@ -1,6 +1,12 @@
 #pragma once
 
+#include "indexer/index.hpp"
+
 #include "search/intermediate_result.hpp"
+#include "search/nested_rects_cache.hpp"
+#include "search/ranker.hpp"
+
+#include "geometry/point2d.hpp"
 
 #include "base/macros.hpp"
 
@@ -15,15 +21,38 @@ namespace search
 class PreRanker
 {
 public:
-  explicit PreRanker(size_t limit);
+  struct Params
+  {
+    bool m_viewportSearch = false;
 
+    // This is different from geocoder's pivot because pivot is
+    // usually a rectangle created by radius and center and, due to
+    // precision loss, its center may differ from
+    // |m_accuratePivotCenter|. Therefore the pivot should be used for
+    // fast filtering of features outside of the rectangle, while
+    // |m_accuratePivotCenter| should be used when it's needed to
+    // compute the distance from a feature to the pivot.
+    m2::PointD m_accuratePivotCenter = m2::PointD(0, 0);
+    int m_scale = 0;
+  };
+
+  explicit PreRanker(Index const & index, Ranker & ranker, size_t limit);
+
+  void Init(bool viewportSearch) { m_params.m_viewportSearch = viewportSearch; }
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
   {
     m_results.emplace_back(forward<TArgs>(args)...);
   }
 
+  // Computes missing fields for all results.
+  void FillMissingFieldsInResults();
+
   void Filter(bool viewportSearch);
+
+  // This function is used in geocoder to indicate that
+  // no more results will be added.
+  void FinalizeResults();
 
   inline size_t Size() const { return m_results.size(); }
   inline size_t Limit() const { return m_limit; }
@@ -36,16 +65,18 @@ public:
     for_each(m_results.begin(), m_results.end(), forward<TFn>(fn));
   }
 
-  template <typename TFn>
-  void ForEachInfo(TFn && fn)
-  {
-    for (auto & result : m_results)
-      fn(result.GetId(), result.GetInfo());
-  }
+  void SetParams(Params const & params) { m_params = params; }
+  void ClearCaches();
 
 private:
+  Index const & m_index;
+  Ranker & m_ranker;
   vector<PreResult1> m_results;
   size_t const m_limit;
+  Params m_params;
+
+  // Cache of nested rects used to estimate distance from a feature to the pivot.
+  NestedRectsCache m_pivotFeatures;
 
   DISALLOW_COPY_AND_MOVE(PreRanker);
 };

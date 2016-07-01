@@ -46,8 +46,6 @@ public:
   {
     using TLocales = buffer_vector<int8_t, 3>;
 
-    bool m_viewportSearch = false;
-
     int8_t m_currentLocaleCode = CategoriesHolder::kEnglishCode;
     m2::RectD m_viewport;
     m2::PointD m_position;
@@ -61,26 +59,14 @@ public:
     // We need it here to make suggestions.
     strings::UniString m_prefix;
 
+    m2::PointD m_accuratePivotCenter = m2::PointD(0, 0);
+
     TLocales m_categoryLocales;
   };
 
-  Ranker(PreRanker & preRanker, Index const & index, storage::CountryInfoGetter const & infoGetter,
+  Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
          CategoriesHolder const & categories, vector<Suggest> const & suggests,
-         my::Cancellable const & cancellable)
-    : m_reverseGeocoder(index)
-    , m_preRanker(preRanker)
-    , m_cancellable(cancellable)
-#ifdef FIND_LOCALITY_TEST
-    , m_locality(&index)
-#endif  // FIND_LOCALITY_TEST
-    , m_index(index)
-    , m_infoGetter(infoGetter)
-    , m_categories(categories)
-    , m_suggests(suggests)
-  {
-  }
-
-  inline void Init(bool viewportSearch) { m_params.m_viewportSearch = viewportSearch; }
+         my::Cancellable const & cancellable);
 
   bool IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values);
 
@@ -101,7 +87,7 @@ public:
   void FlushViewportResults(Geocoder::Params const & geocoderParams, Results & res);
 
   void SetParams(Params const & params) { m_params = params; }
-
+  void SetPreResults1(vector<PreResult1> * preResults1) { m_preResults1 = preResults1; }
   void ClearCaches();
 
 #ifdef FIND_LOCALITY_TEST
@@ -136,7 +122,6 @@ private:
 
   Params m_params;
   ReverseGeocoder const m_reverseGeocoder;
-  PreRanker & m_preRanker;
   my::Cancellable const & m_cancellable;
   KeywordLangMatcher m_keywordsScorer;
 
@@ -148,5 +133,7 @@ private:
   storage::CountryInfoGetter const & m_infoGetter;
   CategoriesHolder const & m_categories;
   vector<Suggest> const & m_suggests;
+
+  vector<PreResult1> * m_preResults1 = nullptr;
 };
 }  // namespace search

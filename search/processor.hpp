@@ -82,7 +82,6 @@ public:
   // TODO (@y): this function must be removed.
   void SetRankPivot(m2::PointD const & pivot);
   inline void SetMode(Mode mode) { m_mode = mode; }
-  inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
   inline void SetSuggestsEnabled(bool enabled) { m_suggestsEnabled = enabled; }
   inline void SetPosition(m2::PointD const & position) { m_position = position; }
 
@@ -105,6 +104,7 @@ public:
 
   void InitParams(QueryParams & params);
   void InitGeocoderParams(Geocoder::Params & params);
+  void InitPreRankerParams(PreRanker::Params & params);
   void InitRankerParams(Ranker::Params & params);
 
   void ClearCaches();
@@ -156,7 +156,6 @@ protected:
   m2::PointD m_pivot;
   m2::PointD m_position;
   Mode m_mode;
-  bool m_worldSearch;
   bool m_suggestsEnabled;
 
   /// @name Get ranking params.

@@ -309,11 +309,6 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
 
   processor.SetMode(params.GetMode());
   processor.SetSuggestsEnabled(params.GetSuggestsEnabled());
-
-  // This flag is needed for consistency with old search algorithm
-  // only. It will be gone when we remove old search code.
-  processor.SetSearchInWorld(true);
-
   processor.SetInputLocale(params.m_inputLocale);
 
   ASSERT(!params.m_query.empty(), ());
