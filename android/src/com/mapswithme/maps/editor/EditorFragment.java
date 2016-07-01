@@ -343,6 +343,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private void initLocalizedNameView(final View view)
   {
     mLocalizedNames = (RecyclerView) view.findViewById(R.id.recycler);
+    mLocalizedNames.setNestedScrollingEnabled(false);
     mLocalizedNames.setLayoutManager(new LinearLayoutManager(getActivity()));
     mLocalizedNamesAdapter = new MultilanguageAdapter(mParent);
     mLocalizedNames.setAdapter(mLocalizedNamesAdapter);
