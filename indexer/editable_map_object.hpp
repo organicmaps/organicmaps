@@ -35,7 +35,6 @@ struct EditableProperties
 
 struct LocalizedName
 {
-  LocalizedName() = default;
   LocalizedName(int8_t code, string const & name);
   LocalizedName(string const & langCode, string const & name);
 

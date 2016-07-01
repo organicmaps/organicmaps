@@ -8,35 +8,21 @@ import android.widget.EditText;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.editor.data.LocalizedName;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdapter.Holder>
 {
-  private ArrayList<LocalizedName> mNames;
+  private final List<LocalizedName> mNames;
   private EditorHostFragment mHostFragment;
 
   // TODO(mgsergio): Refactor: don't pass the whole EditorHostFragment.
   MultilanguageAdapter(EditorHostFragment hostFragment)
   {
     mHostFragment = hostFragment;
-    mNames = new ArrayList<>();
-    ArrayList<LocalizedName> names = mHostFragment.getLocalizedNames();
-
-    // Skip default name.
-    for (int i = 1; i < names.size(); i++)
-      mNames.add(names.get(i));
-  }
-
-  public void setNames(ArrayList<LocalizedName> names)
-  {
-    mNames = names;
-  }
-
-  public ArrayList<LocalizedName> getNames()
-  {
-    return mNames;
+    mNames = hostFragment.getLocalizedNames();
   }
 
   @Override
@@ -57,7 +43,10 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
   }
 
   @Override
-  public int getItemCount() { return mNames.size(); }
+  public int getItemCount()
+  {
+    return mNames.size();
+  }
 
   public class Holder extends RecyclerView.ViewHolder
   {
@@ -67,6 +56,15 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
     {
       super(itemView);
       input = (EditText) itemView.findViewById(R.id.input);
+      input.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+      {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count)
+        {
+          mHostFragment.setName(s.toString(), getAdapterPosition());
+        }
+      });
+
       itemView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener()
                                                             {
                                                               @Override

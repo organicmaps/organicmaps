@@ -9,8 +9,6 @@
 #include "std/string.hpp"
 #include "std/shared_ptr.hpp"
 
-#include "base/logging.hpp"
-
 extern jclass g_mapObjectClazz;
 extern jclass g_bookmarkClazz;
 
@@ -71,7 +69,7 @@ jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TIt begin, TIt end, size_t 
 template<typename TContainer, typename TToJavaFn>
 jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TContainer const & src, TToJavaFn && toJavaFn)
 {
-  return ToJavaArray(env, clazz, begin(src), end(src), src.size(), move(toJavaFn));
+  return ToJavaArray(env, clazz, begin(src), end(src), src.size(), forward<TToJavaFn>(toJavaFn));
 }
 
 jobjectArray ToJavaStringArray(JNIEnv * env, vector<string> const & src);

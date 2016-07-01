@@ -38,6 +38,8 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener, EditTextDialogFragment.OnTextSaveListener
 {
+  final static String LAST_LOCALIZED_NAME_INDEX = "LastLocalizedNameIndex";
+
   private TextView mCategory;
   private View mCardName;
   private View mCardAddress;
@@ -46,7 +48,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private RecyclerView mLocalizedNames;
 
-  private final RecyclerView.AdapterDataObserver mLocalizedNamesObserver = new RecyclerView.AdapterDataObserver() {
+  private final RecyclerView.AdapterDataObserver mLocalizedNamesObserver = new RecyclerView.AdapterDataObserver()
+  {
     @Override
     public void onChanged()
     {
@@ -207,17 +210,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     setEdits();
   }
 
-  private void writeNames()
-  {
-    LinearLayoutManager lm = (LinearLayoutManager) mLocalizedNames.getLayoutManager();
-    for (int i = 0; i < mLocalizedNamesAdapter.getItemCount(); ++i)
-    {
-      View nameItem = lm.findViewByPosition(i);
-      EditText name = (EditText) nameItem.findViewById(R.id.input);
-      mParent.setLocalizedNameTo(name.getText().toString(), i + 1);  // +1 Skip default name.
-    }
-  }
-
   boolean setEdits()
   {
     if (!validateFields())
@@ -232,8 +224,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetEmail(mEmail.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetOperator(mOperator.getText().toString());
-
-    writeNames();
     Editor.nativeSetLocalizedNames(mParent.getLocalizedNamesAsArray());
 
     return true;
@@ -351,36 +341,34 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     refreshLocalizedNames();
 
     final Bundle args = getArguments();
-    if (args.containsKey(EditorHostFragment.kLastLocalizedNameIndex))
-    {
-      showLocalizedNames(true);
-      UiUtils.waitLayout(mLocalizedNames, new ViewTreeObserver.OnGlobalLayoutListener()
-      {
-        @Override
-        public void onGlobalLayout()
-        {
-          LinearLayoutManager lm = (LinearLayoutManager) mLocalizedNames.getLayoutManager();
-          int position = args.getInt(EditorHostFragment.kLastLocalizedNameIndex);
-
-          View nameItem = mLocalizedNames.getLayoutManager().findViewByPosition(position);
-
-          int cvNameTop = view.findViewById(R.id.cv__name).getTop();
-          int nameItemTop = nameItem.getTop();
-
-          view.scrollTo(0, cvNameTop + nameItemTop);
-
-          // TODO(mgsergio): Uncomment if focus and keyboard are required.
-          // TODO(mgsergio): Keyboard doesn't want to hide. Only pressing back button works.
-          // View nameItemInput = nameItem.findViewById(R.id.input);
-          // nameItemInput.requestFocus();
-          // InputUtils.showKeyboard(nameItemInput);
-        }
-      });
-    }
-    else
+    if (args == null || !args.containsKey(LAST_LOCALIZED_NAME_INDEX))
     {
       showLocalizedNames(false);
+      return;
     }
+    showLocalizedNames(true);
+    UiUtils.waitLayout(mLocalizedNames, new ViewTreeObserver.OnGlobalLayoutListener()
+    {
+      @Override
+      public void onGlobalLayout()
+      {
+        LinearLayoutManager lm = (LinearLayoutManager) mLocalizedNames.getLayoutManager();
+        int position = args.getInt(LAST_LOCALIZED_NAME_INDEX);
+
+        View nameItem = lm.findViewByPosition(position);
+
+        int cvNameTop = view.findViewById(R.id.cv__name).getTop();
+        int nameItemTop = nameItem.getTop();
+
+        view.scrollTo(0, cvNameTop + nameItemTop);
+
+        // TODO(mgsergio): Uncomment if focus and keyboard are required.
+        // TODO(mgsergio): Keyboard doesn't want to hide. Only pressing back button works.
+        // View nameItemInput = nameItem.findViewById(R.id.input);
+        // nameItemInput.requestFocus();
+        // InputUtils.showKeyboard(nameItemInput);
+      }
+    });
   }
 
   private void initViews(View view)
@@ -388,7 +376,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     final View categoryBlock = view.findViewById(R.id.category);
     categoryBlock.setOnClickListener(this);
     // TODO show icon and fill it when core will implement that
-    // UiUtils.hide(categoryBlock.findViewById(R.id.icon));
+    UiUtils.hide(categoryBlock.findViewById(R.id.icon));
     mCategory = (TextView) categoryBlock.findViewById(R.id.name);
     mCardName = view.findViewById(R.id.cv__name);
     mCardAddress = view.findViewById(R.id.cv__address);

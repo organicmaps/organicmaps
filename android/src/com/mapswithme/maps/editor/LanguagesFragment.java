@@ -8,13 +8,17 @@ import com.mapswithme.maps.editor.data.Language;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import static java.util.Collections.sort;
 
 public class LanguagesFragment extends BaseMwmRecyclerFragment
 {
+  final static String EXISTING_LOCALIZED_NAMES = "ExistingLocalizedNames";
+
   public interface Listener
   {
     void onLanguageSelected(Language language);
@@ -24,17 +28,17 @@ public class LanguagesFragment extends BaseMwmRecyclerFragment
   protected RecyclerView.Adapter createAdapter()
   {
     Bundle args = getArguments();
-    HashSet<String> existingLanguages = new HashSet<>(Arrays.asList(args.getStringArray(EditorHostFragment.kExistingLocalizedNames)));
+    Set<String> existingLanguages = new HashSet<>(args.getStringArrayList(EXISTING_LOCALIZED_NAMES));
 
-    ArrayList<Language> languages = new ArrayList<>();
+    List<Language> languages = new ArrayList<>();
     for (Language lang : Editor.nativeGetSupportedLanguages())
     {
-      if (existingLanguages.contains(lang.code))
-        continue;
-      languages.add(lang);
+      if (!existingLanguages.contains(lang.code))
+        languages.add(lang);
     }
 
-    sort(languages, new Comparator<Language>() {
+    Collections.sort(languages, new Comparator<Language>()
+    {
       @Override
       public int compare(Language lhs, Language rhs) {
         return lhs.name.compareTo(rhs.name);
