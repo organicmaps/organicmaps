@@ -167,3 +167,33 @@
     pl = Określanie w tle bieżącej lokalizacji jest konieczne, aby w pełni korzystać z funkcjonalności aplikacji. Funkcji tej używa się głównie w ramach opcji podążania zgodnie z trasą i zapisywania niedawno przebytej trasy.
     nl = Het op de achtergrond vaststellen van de huidige locatie is noodzakelijk om volledig gebruik te maken van de functionaliteit van de app. Dit wordt voornamelijk gebruikt bij de opties voor het volgen van de route en het opslaan van je recent afgelegde pad.
     pt = A definição da localização atual em segundo plano é necessária para desfrutar totalmente da funcionalidade do aplicativo. Ela é utilizada principalmente nas opções de seguir a rota e salvar seu caminho recém-viajado. 
+
+  [NSLocationWhenInUseUsageDescription]
+    comment = Needed to explain why we require access to GPS coordinates when the app is active.
+    en = Determining your location is necessary for navigation and for saving your recently travelled track. ]
+    ru = Определение местоположения используется в движении по маршруту и сохранении недавно пройденного пути.
+    fr = La définition de l'emplacement actuel est utilisée dans certaines fonctions comme le suivi d'un trajet et la sauvegarde des trajets récemment effectués.
+    da = Definition af aktuel placering bruges i indstillingerne for at følge ruten og lagring af din seneste rejserute.
+    id = Mendefinisikan lokasi saat ini digunakan dalam opsi-opsi mengikuti rute dan menghemat jalur yang Anda tempuh saat ini.
+    ko = 현재 위치를 정의하는 것은 경로를 따르고 최근 여행한 경로를 저장하는 옵션에서 사용됩니다.
+    sv = Definitionen av aktuell plats används i vissa funktioner som t.ex. att spåra rutt eller att spara nyligen tillryggalagda rutter.
+    tr = Mevcut konumunuzun tayini rota takibi ve en son seyahat edilen yolu kaydetme seçeneklerinde kullanılır.
+    uk = Визначення місцезнаходження використовується в русі за маршрутом і збереженні нещодавно пройденого шляху.
+    vi = Xác định vị trí hiện tại được sử dụng trong các tùy chọn theo tuyến đường và lưu đường đi gần đây của bạn.
+    hu = A jelenlegi helyzet meghatározása az út követésének és a nemrég érintett útvonal mentésének opciói között használatos.
+    de = Die Angabe des aktuellen Standortes wird in den Optionen bei der Verfolgung der Route und beim Speichern Ihres zuletzt zurückgelegten Weges verwendet.
+    fi = Sijaintitietojasi käytetään reittivalintoihin ja viimeaikaisten matkojesi tallentamiseen.
+    cs = Stanovení současného umístění se používá v možnostech sledování trasy a uložení vaší nedávno uskutečněné cesty.
+    it = La definizione della posizione corrente viene utilizzata nelle opzioni di tracciamento del percorso e salvataggio del percorso effettuato di recente.
+    nb = Definerer nåværende plassering brukes i alternativene hvor man følger ruten og lagrer din nylige reiseretning.
+    zh-Hant = 定義當前位置在跟隨路線和保存您的最近行進路徑的選項中被使用。
+    zh-Hans = 定义当前位置在跟随路线和保存您的最近行进路径的选项中被使用。
+    th = มีการใช้การระบุตำแหน่งปัจจุบันในตัวเลือกการเดินทางตามเส้นทางและการบันทึกเส้นทางที่คุณเดินทางล่าสุด
+    ja = 現在位置の定義はルート追跡オプションと最近使用したルートの保存に使用されます。
+    ro = Definirea locației curente este folosită în opțiunile de urmărire a traseului și salvarea rutelor recente.
+    ar = تستخدم خاصية تحديد الموقع الحالي في خيارات اتباع الطريق وحفظ أحدث مسار مشيت عليه.
+    sk = Údaj o aktuálnej polohe bude použitý v možnostiach pri sledovaní trasy a pri uložení Vašej naposledy prejdenej cesty.
+    es = La definición de la ubicación actual se utiliza en las opciones de seguir la ruta y guardar el camino recorrido reciente.
+    pl = Określanie bieżącej lokalizacji używane jest w przypadku opcji podążania trasą i zapisywania ostatnio przebytej trasy.
+    nl = Bepaling van de huidige locatie wordt gebruikt in de opties voor het volgen van de route en het opslaan van uw onlangs afgelegde weg.
+    pt = A definição da localização atual é utilizada em determinadas funções, tais como o acompanhamento de um trajeto e o backup de trajetos feitos recentemente.

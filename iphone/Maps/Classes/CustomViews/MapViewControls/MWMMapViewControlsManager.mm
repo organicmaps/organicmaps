@@ -10,6 +10,7 @@
 #import "MWMButton.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMLocationHelpers.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMPlacePageEntity.h"
@@ -90,9 +91,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
   else
   {
-    LocationManager * m = MapsAppDelegate.theApp.locationManager;
-    self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(m.lastLocation.mercator)
-                                             : MWMRoutePoint::MWMRoutePointZero();
+    CLLocation * lastLocation = [MWMLocationManager lastLocation];
+    self.routeSource =
+        lastLocation ? MWMRoutePoint(lastLocation.mercator) : MWMRoutePoint::MWMRoutePointZero();
   }
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
 }
@@ -383,8 +384,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)restoreRouteTo:(m2::PointD const &)to
 {
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation)
+    return;
   auto & f = GetFramework();
-  m2::PointD const myPosition = [MapsAppDelegate theApp].locationManager.lastLocation.mercator;
+  m2::PointD const myPosition = lastLocation.mercator;
   f.SetRouter(f.GetBestRouter(myPosition, to));
   self.routeSource = MWMRoutePoint(myPosition);
   self.routeDestination = {to, @"Destination"};
@@ -498,8 +502,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!self.isPossibleToBuildRoute)
     return;
 
-  LocationManager * locMgr = [MapsAppDelegate theApp].locationManager;
-  if (!locMgr.lastLocation && self.routeSource.IsMyPosition())
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation && self.routeSource.IsMyPosition())
   {
     MWMAlertViewController * alert =
         [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
@@ -507,14 +511,14 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
   }
 
-  m2::PointD const locationPoint = locMgr.lastLocation.mercator;
+  m2::PointD const locationPoint = lastLocation.mercator;
   if (self.routeSource.IsMyPosition())
   {
     [Statistics
               logEvent:kStatPointToPoint
         withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatFromMyPosition}];
     self.routeSource = MWMRoutePoint(locationPoint);
-    [locMgr start:self.navigationManager];
+    [MWMLocationManager addObserver:self.navigationManager];
   }
   else if (self.routeDestination.IsMyPosition())
   {
@@ -567,9 +571,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!isSourceMyPosition)
   {
     MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
-    LocationManager * manager = MapsAppDelegate.theApp.locationManager;
-    BOOL const needToRebuild = manager.lastLocationIsValid && !manager.isLocationPendingOrNoPosition && !isDestinationMyPosition;
-    m2::PointD const locationPoint = manager.lastLocation.mercator;
+    CLLocation * lastLocation = [MWMLocationManager lastLocation];
+    BOOL const needToRebuild = lastLocation && !location_helpers::isMyPositionPendingOrNoPosition() && !isDestinationMyPosition;
+    m2::PointD const locationPoint = lastLocation.mercator;
     [controller presentPoint2PointAlertWithOkBlock:^
     {
       self.routeSource = MWMRoutePoint(locationPoint);
@@ -596,7 +600,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)didCancelRouting
 {
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
-  [[MapsAppDelegate theApp].locationManager stop:self.navigationManager];
+  [MWMLocationManager removeObserver:self.navigationManager];
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
   self.disableStandbyOnRouteFollowing = NO;
   [MapsAppDelegate theApp].routingPlaneMode = MWMRoutingPlaneModeNone;
@@ -634,9 +638,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)resetRoutingPoint
 {
-  LocationManager * m = MapsAppDelegate.theApp.locationManager;
-  self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(m.lastLocation.mercator) :
-                                             MWMRoutePoint::MWMRoutePointZero();
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  self.routeSource =
+      lastLocation ? MWMRoutePoint(lastLocation.mercator) : MWMRoutePoint::MWMRoutePointZero();
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
 }
 

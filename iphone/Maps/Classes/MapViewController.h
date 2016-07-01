@@ -1,5 +1,3 @@
-#import "LocationManager.h"
-#import "LocationPredictor.h"
 #import "MWMMapDownloaderTypes.h"
 #import "MWMViewController.h"
 #import <MyTargetSDKCorp/MTRGNativeAppwallAd.h>
@@ -13,18 +11,11 @@ namespace search { struct AddressInfo; }
 @class MWMMapViewControlsManager;
 @class MWMAPIBar;
 
-@interface MapViewController : MWMViewController <LocationObserver>
-{
-  LocationPredictor * m_predictor;
-}
+@interface MapViewController : MWMViewController
 
 // called when app is terminated by system
 - (void)onTerminate;
-- (void)onEnterForeground;
-- (void)onEnterBackground;
 - (void)onGetFocus:(BOOL)isOnFocus;
-
-- (void)setMapStyle:(MapStyle)mapStyle;
 
 - (void)updateStatusBarStyle;
 

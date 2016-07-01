@@ -2,6 +2,7 @@
 #import "Macros.h"
 #import "MapsAppDelegate.h"
 #import "MWMLanesPanel.h"
+#import "MWMLocationHelpers.h"
 #import "MWMNavigationDashboard.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
@@ -432,23 +433,16 @@ extern NSString * const kTTSStatusWasChangedNotification;
   }
 }
 
-#pragma mark - LocationObserver
+#pragma mark - MWMLocationObserver
 
-- (void)onLocationUpdate:(const location::GpsInfo &)info
-{
-// We don't need information about location update in this class,
-// but in LocationObserver protocol this method is required
-// since we don't want runtime overhead for introspection.
-}
-
-- (void)onCompassUpdate:(location::CompassInfo const &)info
+- (void)onHeadingUpdate:(location::CompassInfo const &)info
 {
   auto & f = GetFramework();
   if (f.GetRouter() != routing::RouterType::Pedestrian)
     return;
 
-  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
-  if (!location)
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation)
     return;
 
   location::FollowingInfo res;
@@ -456,9 +450,10 @@ extern NSString * const kTTSStatusWasChangedNotification;
   if (!res.IsValid())
     return;
 
-  CGFloat const angle = ang::AngleTo(location.mercator,
-                                     ToMercator(res.m_pedestrianDirectionPos)) + info.m_bearing;
-  CGAffineTransform const transform (CGAffineTransformMakeRotation(M_PI_2 - angle));
+  CGFloat const angle = ang::AngleTo(lastLocation.mercator,
+                                     location_helpers::ToMercator(res.m_pedestrianDirectionPos)) +
+                        info.m_bearing;
+  CGAffineTransform const transform(CGAffineTransformMakeRotation(M_PI_2 - angle));
   self.navigationDashboardPortrait.direction.transform = transform;
   self.navigationDashboardLandscape.direction.transform = transform;
 }

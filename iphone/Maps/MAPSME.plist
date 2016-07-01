@@ -144,8 +144,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>

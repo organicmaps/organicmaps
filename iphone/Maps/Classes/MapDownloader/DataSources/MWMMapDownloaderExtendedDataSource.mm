@@ -1,5 +1,5 @@
-#import "LocationManager.h"
 #import "MapsAppDelegate.h"
+#import "MWMLocationManager.h"
 #import "MWMMapDownloaderExtendedDataSource.h"
 
 #include "Framework.h"
@@ -31,12 +31,12 @@ using namespace storage;
 
 - (void)configNearMeSection
 {
-  LocationManager * lm = MapsAppDelegate.theApp.locationManager;
-  if (!lm.lastLocationIsValid)
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation)
     return;
   auto & countryInfoGetter = GetFramework().CountryInfoGetter();
   TCountriesVec closestCoutryIds;
-  countryInfoGetter.GetRegionsCountryId(lm.lastLocation.mercator, closestCoutryIds);
+  countryInfoGetter.GetRegionsCountryId(lastLocation.mercator, closestCoutryIds);
   NSMutableArray<NSString *> * nearmeCountries = [@[] mutableCopy];
   for (auto const & countryId : closestCoutryIds)
     [nearmeCountries addObject:@(countryId.c_str())];

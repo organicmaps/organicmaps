@@ -1,7 +1,6 @@
 #import "Common.h"
 #import "EAGLView.h"
 #import "MapsAppDelegate.h"
-#import "LocationManager.h"
 #import "MWMDirectionView.h"
 
 #import "../Platform/opengl/iosOGLContextFactory.h"
@@ -64,7 +63,7 @@ double getExactDPI(double contentScaleFactor)
 {
   NSLog(@"EAGLView initWithCoder Started");
   self = [super initWithCoder:coder];
-  if (self && !MapsAppDelegate.theApp.isDaemonMode)
+  if (self)
     [self initialize];
 
   NSLog(@"EAGLView initWithCoder Ended");
@@ -74,7 +73,6 @@ double getExactDPI(double contentScaleFactor)
 - (void)initialize
 {
   lastViewSize = CGRectZero;
-  _widgetsManager = [[MWMMapWidgets alloc] init];
 
   // Setup Layer Properties
   CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
@@ -92,8 +90,6 @@ double getExactDPI(double contentScaleFactor)
 - (void)createDrapeEngineWithWidth:(int)width height:(int)height
 {
   LOG(LINFO, ("EAGLView createDrapeEngine Started"));
-  if (MapsAppDelegate.theApp.isDaemonMode)
-    return;
   
   Framework::DrapeCreationParams p;
   p.m_surfaceWidth = width;
@@ -179,6 +175,13 @@ double getExactDPI(double contentScaleFactor)
 - (void)setPresentAvailable:(BOOL)available
 {
   m_factory->CastFactory<iosOGLContextFactory>()->setPresentAvailable(available);
+}
+
+- (MWMMapWidgets *)widgetsManager
+{
+  if (!_widgetsManager)
+    _widgetsManager = [[MWMMapWidgets alloc] init];
+  return _widgetsManager;
 }
 
 @end

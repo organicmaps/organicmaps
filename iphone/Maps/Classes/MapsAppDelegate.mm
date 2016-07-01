@@ -2,7 +2,6 @@
 #import "Common.h"
 #import "EAGLView.h"
 #import "LocalNotificationManager.h"
-#import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
@@ -10,6 +9,7 @@
 #import "MWMController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMLocationManager.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "Preferences.h"
@@ -140,7 +140,6 @@ using namespace osm_auth_ios;
 @property (weak, nonatomic) NSTimer * mapStyleSwitchTimer;
 
 @property (nonatomic, readwrite) LocationManager * locationManager;
-@property (nonatomic, readwrite) BOOL isDaemonMode;
 
 @end
 
@@ -214,9 +213,14 @@ using namespace osm_auth_ios;
   return YES;
 }
 
+- (BOOL)isDrapeEngineCreated
+{
+  return ((EAGLView *)self.mapViewController.view).drapeEngineCreated;
+}
+
 - (void)handleURLs
 {
-  if (!((EAGLView *)self.mapViewController.view).drapeEngineCreated)
+  if (!self.isDrapeEngineCreated)
   {
     dispatch_async(dispatch_get_main_queue(), ^{ [self handleURLs]; });
     return;
@@ -347,35 +351,40 @@ using namespace osm_auth_ios;
 {
   NSAssert([MapsAppDelegate isAutoNightMode], @"Invalid auto switcher's state");
   auto & f = GetFramework();
-  MapsAppDelegate * app = MapsAppDelegate.theApp;
-  CLLocation * l = app.locationManager.lastLocation;
-  if (!l || !f.IsRoutingActive())
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation || !f.IsRoutingActive())
     return;
-  dispatch_async(dispatch_get_main_queue(), [&f, l, self, app]
+  CLLocationCoordinate2D const coord = lastLocation.coordinate;
+  dispatch_async(dispatch_get_main_queue(), [coord]
   {
-    auto const dayTime = GetDayTime(static_cast<time_t>(NSDate.date.timeIntervalSince1970), l.coordinate.latitude, l.coordinate.longitude);
-    id<MWMController> vc = static_cast<id<MWMController>>(app.mapViewController.navigationController.topViewController);
+    auto & f = GetFramework();
+    MapsAppDelegate * app = MapsAppDelegate.theApp;
+    auto const dayTime =
+    GetDayTime(static_cast<time_t>(NSDate.date.timeIntervalSince1970),
+               coord.latitude, coord.longitude);
+    id<MWMController> vc = static_cast<id<MWMController>>(
+                                                          app.mapViewController.navigationController.topViewController);
     auto style = f.GetMapStyle();
     switch (dayTime)
     {
-    case DayTimeType::Day:
-    case DayTimeType::PolarDay:
-      if (style != MapStyleClear && style != MapStyleLight)
-      {
-        f.SetMapStyle(MapStyleClear);
-        [UIColor setNightMode:NO];
-        [vc mwm_refreshUI];
-      }
-      break;
-    case DayTimeType::Night:
-    case DayTimeType::PolarNight:
-      if (style != MapStyleDark)
-      {
-        f.SetMapStyle(MapStyleDark);
-        [UIColor setNightMode:YES];
-        [vc mwm_refreshUI];
-      }
-      break;
+      case DayTimeType::Day:
+      case DayTimeType::PolarDay:
+        if (style != MapStyleClear && style != MapStyleLight)
+        {
+          f.SetMapStyle(MapStyleClear);
+          [UIColor setNightMode:NO];
+          [vc mwm_refreshUI];
+        }
+        break;
+      case DayTimeType::Night:
+      case DayTimeType::PolarNight:
+        if (style != MapStyleDark)
+        {
+          f.SetMapStyle(MapStyleDark);
+          [UIColor setNightMode:YES];
+          [vc mwm_refreshUI];
+        }
+        break;
     }
   });
 }
@@ -386,11 +395,6 @@ using namespace osm_auth_ios;
 
   // Initialize all 3party engines.
   BOOL returnValue = [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
-  if (launchOptions[UIApplicationLaunchOptionsLocationKey])
-  {
-    self.isDaemonMode = YES;
-    return returnValue;
-  }
 
   // We send Alohalytics installation id to Fabric.
   // To make sure id is created, ConfigCrashTrackers must be called after Statistics initialization.
@@ -407,8 +411,7 @@ using namespace osm_auth_ios;
   InitLocalizedStrings();
   [self determineMapStyle];
 
-  [self.mapViewController onEnterForeground];
-  self.isDaemonMode = NO;
+  GetFramework().EnterForeground();
 
   [self initPushNotificationsWithLaunchOptions:launchOptions];
   [self commonInit];
@@ -531,16 +534,13 @@ using namespace osm_auth_ios;
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-  [self.locationManager beforeTerminate];
   [self.mapViewController onTerminate];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
   LOG(LINFO, ("applicationDidEnterBackground"));
-  [self.locationManager stop:self.mapViewController];
-  [self.locationManager onBackground];
-  [self.mapViewController onEnterBackground];
+  GetFramework().EnterBackground();
   if (m_activeDownloadsCounter)
   {
     m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
@@ -579,42 +579,25 @@ using namespace osm_auth_ios;
   [self.mapViewController.appWallAd close];
   [RouteState save];
   GetFramework().SetRenderingEnabled(false);
+  [MWMLocationManager applicationWillResignActive];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
   LOG(LINFO, ("applicationWillEnterForeground"));
-  BOOL const needInit = self.isDaemonMode;
-  self.isDaemonMode = NO;
-  if (needInit)
-  {
-    [self.mapViewController initialize];
-    [(EAGLView *)self.mapViewController.view initialize];
-    [self.mapViewController.view setNeedsLayout];
-    [self.mapViewController.view layoutIfNeeded];
-    [self commonInit];
-    [self incrementSessionsCountAndCheckForAlert];
-  }
-  [self.mapViewController onEnterForeground];
+  GetFramework().EnterForeground();
   [MWMTextToSpeech activateAudioSession];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  if (application.applicationState == UIApplicationStateBackground)
-  {
-    LOG(LINFO, ("applicationDidBecomeActive, applicationState = UIApplicationStateBackground"));
-    return;
-  }
-  
   LOG(LINFO, ("applicationDidBecomeActive"));
   [self.mapViewController onGetFocus: YES];
   [self handleURLs];
   [self restoreRouteState];
   [[Statistics instance] applicationDidBecomeActive];
   GetFramework().SetRenderingEnabled(true);
-  if (![Alohalytics isFirstSession])
-    [self.locationManager start:self.mapViewController];
+  [MWMLocationManager applicationDidBecomeActive];
 }
 
 - (void)dealloc
@@ -674,7 +657,7 @@ using namespace osm_auth_ios;
 
 - (void)setMapStyle:(MapStyle)mapStyle
 {
-  [self.mapViewController setMapStyle: mapStyle];
+  GetFramework().SetMapStyle(mapStyle);
 }
 
 + (NSDictionary *)navigationBarTextAttributes
@@ -827,33 +810,6 @@ using namespace osm_auth_ios;
 - (MapViewController *)mapViewController
 {
   return [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
-}
-
-- (LocationManager *)locationManager
-{
-  if (!_locationManager)
-    _locationManager = [[LocationManager alloc] init];
-  return _locationManager;
-}
-
-@synthesize isDaemonMode = _isDaemonMode;
-
-- (BOOL)isDaemonMode
-{
-  if ([Alohalytics isFirstSession])
-    return NO;
-  return _isDaemonMode;
-}
-
-- (void)setIsDaemonMode:(BOOL)isDaemonMode
-{
-  if ([Alohalytics isFirstSession] && _isDaemonMode == isDaemonMode)
-    return;
-  _isDaemonMode = isDaemonMode;
-  if (isDaemonMode)
-    [self.locationManager onDaemonMode];
-  else
-    [self.locationManager onForeground];
 }
 
 #pragma mark - Route state

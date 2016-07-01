@@ -1,7 +1,7 @@
-#import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MWMConsole.h"
 #import "MWMFrameworkListener.h"
+#import "MWMLocationManager.h"
 #import "MWMNoMapsViewController.h"
 #import "MWMRoutingProtocol.h"
 #import "MWMSearchManager.h"
@@ -173,7 +173,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 - (void)tapMyPositionFromHistory
 {
   MapsAppDelegate * a = MapsAppDelegate.theApp;
-  MWMRoutePoint const p = MWMRoutePoint::MWMRoutePoint(a.locationManager.lastLocation.mercator);
+  MWMRoutePoint const p = MWMRoutePoint::MWMRoutePoint([MWMLocationManager lastLocation].mercator);
   if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
     [self.delegate buildRouteFrom:p];
   else if (a.routingPlaneMode == MWMRoutingPlaneModeSearchDestination)

@@ -14,6 +14,8 @@
 #import "MWMFirstLaunchController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMLocationHelpers.h"
+#import "MWMLocationManager.h"
 #import "MWMMapDownloadDialog.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMapViewControlsManager.h"
@@ -115,7 +117,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 @interface MapViewController ()<MTRGNativeAppwallAdDelegate, MWMFrameworkRouteBuilderObserver,
                                 MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
-                                MWMPageControllerProtocol>
+                                MWMPageControllerProtocol, MWMLocationObserver>
 
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMBottomMenuState menuRestoreState;
@@ -133,45 +135,6 @@ BOOL gIsFirstMyPositionMode = YES;
 
 @implementation MapViewController
 
-#pragma mark - LocationManager Callbacks
-
-- (void)onLocationError:(location::TLocationError)errorCode
-{
-  GetFramework().OnLocationError(errorCode);
-
-  switch (errorCode)
-  {
-    case location::EDenied:
-    {
-      [self.alertController presentLocationAlert];
-      [[MapsAppDelegate theApp].locationManager stop:self];
-      break;
-    }
-    case location::ENotSupported:
-    {
-      [self.alertController presentLocationServiceNotSupportedAlert];
-      [[MapsAppDelegate theApp].locationManager stop:self];
-      break;
-    }
-    default:
-      break;
-  }
-}
-
-- (void)onLocationUpdate:(location::GpsInfo const &)info
-{
-  if (info.m_source != location::EPredictor)
-    [m_predictor reset:info];
-  Framework & frm = GetFramework();
-  frm.OnLocationUpdate(info);
-  LOG_MEMORY_INFO();
-
-  [self updateRoutingInfo];
-
-  if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
-    [self restoreRoute];
-}
-
 - (void)updateRoutingInfo
 {
   Framework & frm = GetFramework();
@@ -188,9 +151,14 @@ BOOL gIsFirstMyPositionMode = YES;
     [[MWMTextToSpeech tts] playTurnNotifications];
 }
 
-- (void)onCompassUpdate:(location::CompassInfo const &)info
+#pragma mark - MWMLocationObserver
+
+- (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  GetFramework().OnCompassUpdate(info);
+  [self updateRoutingInfo];
+
+  if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
+    [self restoreRoute];
 }
 
 #pragma mark - Restore route
@@ -343,25 +311,6 @@ BOOL gIsFirstMyPositionMode = YES;
   [(EAGLView *)self.view deallocateNative];
 }
 
-- (void)onEnterBackground
-{
-  // Save state and notify about entering background.
-  GetFramework().EnterBackground();
-}
-
-- (void)setMapStyle:(MapStyle)mapStyle
-{
-  GetFramework().SetMapStyle(mapStyle);
-}
-
-- (void)onEnterForeground
-{
-  if (MapsAppDelegate.theApp.isDaemonMode)
-    return;
-  // Notify about entering foreground (should be called on the first launch too).
-  GetFramework().EnterForeground();
-}
-
 - (void)onGetFocus:(BOOL)isOnFocus
 {
   [(EAGLView *)self.view setPresentAvailable:isOnFocus];
@@ -370,8 +319,6 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (MapsAppDelegate.theApp.isDaemonMode)
-    return;
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 
   self.controlsManager.menuState = self.menuRestoreState;
@@ -382,6 +329,7 @@ BOOL gIsFirstMyPositionMode = YES;
   GetFramework().InvalidateRendering();
   [self showWelcomeScreenIfNeeded];
   [self showViralAlertIfNeeded];
+  [MWMLocationManager addObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -393,8 +341,6 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  if (MapsAppDelegate.theApp.isDaemonMode)
-    return;
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
   [self processMyPositionStateModeEvent:location::PendingPosition];
@@ -460,6 +406,7 @@ BOOL gIsFirstMyPositionMode = YES;
   [super viewWillDisappear:animated];
   self.menuRestoreState = self.controlsManager.menuState;
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
+  [MWMLocationManager removeObserver:self];
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent
@@ -502,7 +449,7 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   NSLog(@"MapViewController initWithCoder Started");
   self = [super initWithCoder:coder];
-  if (self && !MapsAppDelegate.theApp.isDaemonMode)
+  if (self)
     [self initialize];
 
   NSLog(@"MapViewController initWithCoder Ended");
@@ -524,7 +471,6 @@ BOOL gIsFirstMyPositionMode = YES;
     [self processMyPositionStateModeEvent:mode];
   });
 
-  m_predictor = [[LocationPredictor alloc] initWithObserver:self];
   self.forceRoutingStateChange = ForceRoutingStateChangeNone;
   self.userTouchesAction = UserTouchesActionNone;
   self.menuRestoreState = MWMBottomMenuStateInactive;
@@ -566,49 +512,35 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
 {
-  [m_predictor setMode:mode];
-
-  LocationManager * lm = [MapsAppDelegate theApp].locationManager;
-  [lm processMyPositionStateModeEvent:mode];
+  [MWMLocationManager setMyPositionMode:mode];
   [self.controlsManager processMyPositionStateModeEvent:mode];
+  self.disableStandbyOnLocationStateMode = NO;
   switch (mode)
   {
-    case location::PendingPosition:
-      self.disableStandbyOnLocationStateMode = NO;
-      [lm start:self];
-      break;
-    case location::NotFollowNoPosition:
-      if (gIsFirstMyPositionMode && ![Alohalytics isFirstSession])
+  case location::NotFollowNoPosition:
+    if (gIsFirstMyPositionMode && ![Alohalytics isFirstSession])
+    {
+      GetFramework().SwitchMyPositionNextMode();
+    }
+    else
+    {
+      BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
+      if (isMapVisible && !location_helpers::isLocationProhibited())
       {
-        GetFramework().SwitchMyPositionNextMode();
-      }
-      else
-      {
-        self.disableStandbyOnLocationStateMode = NO;
-        BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
-        if (isMapVisible && lm.isStarted)
+        [self.alertController presentLocationNotFoundAlertWithOkBlock:^
         {
-          [lm stop:self];
-          BOOL  const isLocationProhibited =
-              lm.lastLocationError == location::TLocationError::EDenied ||
-              lm.lastLocationError == location::TLocationError::EGPSIsOff;
-          if (!isLocationProhibited)
-          {
-            [self.alertController presentLocationNotFoundAlertWithOkBlock:^
-            {
-              GetFramework().SwitchMyPositionNextMode();
-            }];
-          }
-        }
+          GetFramework().SwitchMyPositionNextMode();
+        }];
       }
-      break;
-    case location::NotFollow:
-      self.disableStandbyOnLocationStateMode = NO;
-      break;
-    case location::Follow:
-    case location::FollowAndRotate:
-      self.disableStandbyOnLocationStateMode = YES;
-      break;
+    }
+    break;
+  case location::PendingPosition:
+  case location::NotFollow:
+    break;
+  case location::Follow:
+  case location::FollowAndRotate:
+    self.disableStandbyOnLocationStateMode = YES;
+    break;
   }
   gIsFirstMyPositionMode = NO;
 }

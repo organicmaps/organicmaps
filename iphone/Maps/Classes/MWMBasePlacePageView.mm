@@ -1,10 +1,10 @@
 #import "Common.h"
-#import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMCircularProgress.h"
 #import "MWMFrameworkListener.h"
+#import "MWMLocationHelpers.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageBookmarkCell.h"
@@ -257,7 +257,7 @@ using namespace storage;
   self.bookingRatingLabel.text = entity.bookingRating;
   self.bookingView.hidden = !entity.bookingPrice.length && !entity.bookingRating.length;
   BOOL const isHeadingAvaible = [CLLocationManager headingAvailable];
-  BOOL const noLocation = MapsAppDelegate.theApp.locationManager.isLocationPendingOrNoPosition;
+  BOOL const noLocation = location_helpers::isMyPositionPendingOrNoPosition();
   self.distanceLabel.hidden = noLocation || isMyPosition;
   BOOL const hideDirection = noLocation || isMyPosition || !isHeadingAvaible;
   self.directionArrow.hidden = hideDirection;
