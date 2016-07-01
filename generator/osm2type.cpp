@@ -529,6 +529,8 @@ namespace ftype
           { "bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::NOBICYCLE)); }},
           { "bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
           { "cycleway", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
+          { "cycleway:right", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
+          { "cycleway:left", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
           { "oneway:bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
           { "cycleway", "opposite", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
         });
