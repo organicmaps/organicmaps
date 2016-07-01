@@ -49,6 +49,9 @@ string GetTypeForFeature(XMLFeature const & node)
         return key;
       else if (key == "shop" || key == "office" || key == "building" || key == "entrance")
         return value + " " + key;  // "convenience shop"
+      else if (!value.empty() && value.back() == 's')
+        // Remove 's' from the tail: "toilets" -> "toilet".
+        return value.substr(0, value.size() - 1);
       else
         return value;
     }
@@ -301,10 +304,22 @@ string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount)
 
     // Format a count: "a shop" for single shop, "4 shops" for multiple.
     if (currentPair.second == 1)
-      ss << "a ";
+    {
+      switch (currentPair.first.front())
+      {
+      case 'a':
+      case 'e':
+      case 'i':
+      case 'y':
+      case 'o': ss << "an"; break;
+      default: ss << "a";
+      }
+    }
     else
-      ss << currentPair.second << ' ';
-    ss << currentPair.first;
+    {
+      ss << currentPair.second;
+    }
+    ss << ' ' << currentPair.first;
     if (currentPair.second > 1)
       ss << 's';
   }
