@@ -21,9 +21,8 @@ drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen,
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, double startScale, double endScale,
                                                     m2::PointD const & startPt, m2::PointD const & endPt);
 
-drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & screen, double startScale, double endScale,
-                                                      m2::PointD const & startPt, m2::PointD const & userPos,
-                                                      double targetAngle, m2::PointD const & endPixelPos);
+drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & startScreen, m2::PointD const & userPos,
+                                                      double targetScale, double targetAngle, m2::PointD const & endPixelPos);
 
 drape_ptr<MapLinearAnimation> GetRectAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen);
 drape_ptr<MapLinearAnimation> GetSetRectAnimation(ScreenBase const & screen,

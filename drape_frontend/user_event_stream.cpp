@@ -493,24 +493,24 @@ bool UserEventStream::InterruptFollowAnimations(bool force)
 bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                                          double azimuth, int preferredZoomLevel, bool isAnim)
 {
-  // Extract target local rect from current animation or calculate it from preferredZoomLevel
-  // to preserve final scale.
-  m2::RectD targetLocalRect;
-  if (preferredZoomLevel != kDoNotChangeZoom)
+  ScreenBase const & currentScreen = GetCurrentScreen();
+  ScreenBase screen = currentScreen;
+
+  if (preferredZoomLevel == kDoNotChangeZoom)
   {
-    ScreenBase newScreen = GetCurrentScreen();
-    double const scale3d = newScreen.GetScale3d();
-    m2::RectD r = df::GetRectForDrawScale(preferredZoomLevel, m2::PointD::Zero());
-    r.Scale(scale3d);
-    CheckMinGlobalRect(r, scale3d);
-    CheckMinMaxVisibleScale(r, preferredZoomLevel, scale3d);
-    newScreen.SetFromRect(m2::AnyRectD(r));
-    targetLocalRect = newScreen.GlobalRect().GetLocalRect();
+    GetTargetScreen(screen);
+    screen.SetAngle(-azimuth);
   }
   else
   {
-    targetLocalRect = GetTargetRect().GetLocalRect();
+    screen.SetFromParams(userPos, -azimuth, GetScale(preferredZoomLevel));
   }
+  screen.MatchGandP3d(userPos, pixelPos);
+
+  ASSERT_GREATER_OR_EQUAL(zoom, scales::GetUpperWorldScale(), ());
+  ASSERT_LESS_OR_EQUAL(zoom, scales::GetUpperStyleScale(), ());
+
+  ShrinkAndScaleInto(screen, df::GetWorldRect());
 
   if (isAnim)
   {
@@ -525,26 +525,21 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     };
 
     drape_ptr<Animation> anim;
-
-    ScreenBase const & screen = m_navigator.Screen();
-    double const targetScale = CalculateScale(screen.PixelRect(), targetLocalRect);
-    m2::PointD const startPt = GetCurrentRect().GlobalCenter();
-    bool const changeZoom = preferredZoomLevel != kDoNotChangeZoom;
-
-    double const moveDuration = PositionInterpolator::GetMoveDuration(startPt, userPos, screen);
+    double const moveDuration = PositionInterpolator::GetMoveDuration(currentScreen.GetOrg(), screen.GetOrg(),
+                                                                      currentScreen.PixelRectIn3d(),
+                                                                      (currentScreen.GetScale() + screen.GetScale()) / 2.0);
     if (moveDuration > kMaxAnimationTimeSec)
     {
       // Run pretty move animation if we are far from userPos.
-      double const startScale = CalculateScale(screen.PixelRect(), GetCurrentRect().GetLocalRect());
-      anim = GetPrettyFollowAnimation(screen, startScale, targetScale, startPt, userPos, -azimuth, pixelPos);
+      anim = GetPrettyFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos);
     }
     else
     {
       // Run follow-and-rotate animation.
-      anim = GetFollowAnimation(screen, userPos, targetScale, -azimuth, pixelPos);
+      anim = GetFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos);
     }
 
-    if (changeZoom)
+    if (preferredZoomLevel != kDoNotChangeZoom)
     {
       anim->SetCouldBeInterrupted(false);
       anim->SetCouldBeBlended(false);
@@ -556,8 +551,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   }
 
   ResetMapPlaneAnimations();
-  m2::PointD const center = MapFollowAnimation::CalculateCenter(m_navigator.Screen(), userPos, pixelPos, -azimuth);
-  m_navigator.SetFromRect(m2::AnyRectD(center, -azimuth, targetLocalRect));
+  m_navigator.SetScreen(screen);
   return true;
 }
 
