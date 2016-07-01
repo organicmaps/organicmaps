@@ -164,6 +164,15 @@ public:
   static IsBookingChecker const & Instance();
 };
 
+class IsHotelChecker : public BaseChecker
+{
+  IsHotelChecker();
+
+public:
+  static IsHotelChecker const & Instance();
+  static vector<string> const & GetHotelTags();
+};
+
 /// Type of locality (do not change values and order - they have detalization order)
 /// COUNTRY < STATE < CITY < ...
 enum Type { NONE = -1, COUNTRY = 0, STATE, CITY, TOWN, VILLAGE, LOCALITY_COUNT };

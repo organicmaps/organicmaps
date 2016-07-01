@@ -50,12 +50,11 @@ void CircleShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager>
   dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
   state.SetColorTexture(region.GetTexture());
 
-  double handleSize = 2 * m_params.m_radius;
+  double const handleSize = 2 * m_params.m_radius;
 
-  drape_ptr<dp::OverlayHandle> overlay = make_unique_dp<dp::SquareHandle>(m_params.m_id,
-                                                                          dp::Center, m_pt,
+  drape_ptr<dp::OverlayHandle> overlay = make_unique_dp<dp::SquareHandle>(m_params.m_id, dp::Center, m_pt,
                                                                           m2::PointD(handleSize, handleSize),
-                                                                          GetOverlayPriority(), "");
+                                                                          GetOverlayPriority(), false /* isBound */, "");
 
   dp::AttributeProvider provider(1, TriangleCount + 2);
   provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(vertexes.data()));

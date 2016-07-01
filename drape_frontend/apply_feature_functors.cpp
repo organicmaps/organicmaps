@@ -384,7 +384,12 @@ void ApplyPointFeature::Finish()
     params.m_hasArea = m_hasArea;
     params.m_createdByEditor = m_createdByEditor;
     params.m_obsoleteInEditor = m_obsoleteInEditor;
-    m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
+
+    m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params,
+                                                 m_hotelData.m_isHotel ? dp::displacement::kDefaultMode :
+                                                                         dp::displacement::kAllModes));
+    if (m_hotelData.m_isHotel)
+      m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, dp::displacement::kHotelMode));
   }
 }
 

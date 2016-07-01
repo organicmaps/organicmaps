@@ -141,16 +141,13 @@ class SquareHandle : public OverlayHandle
   using TBase = OverlayHandle;
 
 public:
-  SquareHandle(FeatureID const & id,
-               dp::Anchor anchor,
-               m2::PointD const & gbPivot,
-               m2::PointD const & pxSize,
-               uint64_t priority,
-               string const & debugStr,
+  SquareHandle(FeatureID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
+               m2::PointD const & pxSize, uint64_t priority, bool isBound, string const & debugStr,
                bool isBillboard = false);
 
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
   void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
+  bool IsBound() const override;
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
   virtual string GetOverlayDebugInfo() override;
@@ -159,6 +156,7 @@ public:
 private:
   m2::PointD m_gbPivot;
   m2::PointD m_pxHalfSize;
+  bool m_isBound;
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
   string m_debugStr;

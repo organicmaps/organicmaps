@@ -199,16 +199,13 @@ uint64_t OverlayHandle::GetPriorityInFollowingMode() const
 {
   return GetPriority();
 }
-
-
-SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,
-                           m2::PointD const & gbPivot, m2::PointD const & pxSize,
-                           uint64_t priority,
-                           string const & debugStr,
-                           bool isBillboard)
+SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
+                           m2::PointD const & pxSize, uint64_t priority, bool isBound,
+                           string const & debugStr, bool isBillboard)
   : TBase(id, anchor, priority, isBillboard)
   , m_gbPivot(gbPivot)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
+  , m_isBound(isBound)
 #ifdef DEBUG_OVERLAYS_OUTPUT
   , m_debugStr(debugStr)
 #endif
@@ -242,6 +239,7 @@ void SquareHandle::GetPixelShape(ScreenBase const & screen, bool perspective, Re
   rects.emplace_back(GetPixelRect(screen, perspective));
 }
 
+bool SquareHandle::IsBound() const { return m_isBound; }
 #ifdef DEBUG_OVERLAYS_OUTPUT
 string SquareHandle::GetOverlayDebugInfo()
 {

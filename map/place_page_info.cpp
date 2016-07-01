@@ -16,7 +16,7 @@ bool Info::IsFeature() const { return m_featureID.IsValid(); }
 bool Info::IsBookmark() const { return m_bac != MakeEmptyBookmarkAndCategory(); }
 bool Info::IsMyPosition() const { return m_isMyPosition; }
 bool Info::IsSponsoredHotel() const { return m_isSponsoredHotel; }
-
+bool Info::IsHotel() const { return m_isHotel; }
 bool Info::ShouldShowAddPlace() const
 {
   auto const isPointOrBuilding = IsPointType() || IsBuilding();

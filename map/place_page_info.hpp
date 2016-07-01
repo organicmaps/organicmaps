@@ -29,6 +29,7 @@ public:
   bool IsBookmark() const;
   bool IsMyPosition() const;
   bool IsSponsoredHotel() const;
+  bool IsHotel() const;
 
   bool ShouldShowAddPlace() const;
   bool ShouldShowAddBusiness() const;
@@ -80,6 +81,8 @@ public:
   string m_apiUrl;
   /// Formatted feature address.
   string m_address;
+  /// Feature is a hotel.
+  bool m_isHotel = false;
   /// Feature is a sponsored hotel.
   bool m_isSponsoredHotel = false;
   /// Sponsored feature urls.
