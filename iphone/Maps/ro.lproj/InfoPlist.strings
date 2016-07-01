@@ -22,3 +22,6 @@
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Definirea locației curente în fundal este necesară pentru a vă bucura pe deplin de funcționalitatea aplicației. Acest lucru este utilizat în principal în opțiunile de urmărire a traseului și salvare a căii parcurse recent.";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "Definirea locației curente este folosită în opțiunile de urmărire a traseului și salvarea rutelor recente.";

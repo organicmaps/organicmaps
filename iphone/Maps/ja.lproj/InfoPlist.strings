@@ -22,3 +22,6 @@
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "バックグラウンドでの現在位置の定義は、アプリの機能を完全にご利用いただくために必要です。主にルート追跡と最近の道のりの保存に使用されます。";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "現在位置の定義はルート追跡オプションと最近使用したルートの保存に使用されます。";
