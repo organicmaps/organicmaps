@@ -166,13 +166,6 @@ struct DisablePerspectiveEvent
   DisablePerspectiveEvent() {}
 };
 
-struct SwitchViewModeEvent
-{
-  SwitchViewModeEvent(bool to2d): m_to2d(to2d) {}
-
-  bool m_to2d;
-};
-
 struct RotateEvent
 {
   RotateEvent(double targetAzimut) : m_targetAzimut(targetAzimut) {}
@@ -201,8 +194,7 @@ struct UserEvent
     EVENT_ROTATE,
     EVENT_FOLLOW_AND_ROTATE,
     EVENT_ENABLE_PERSPECTIVE,
-    EVENT_DISABLE_PERSPECTIVE,
-    EVENT_SWITCH_VIEW_MODE
+    EVENT_DISABLE_PERSPECTIVE
   };
 
   UserEvent(TouchEvent const & e) : m_type(EVENT_TOUCH) { m_touchEvent = e; }
@@ -215,7 +207,6 @@ struct UserEvent
   UserEvent(FollowAndRotateEvent const & e) : m_type(EVENT_FOLLOW_AND_ROTATE) { m_followAndRotate = e; }
   UserEvent(EnablePerspectiveEvent const & e) : m_type(EVENT_ENABLE_PERSPECTIVE) { m_enable3dMode = e; }
   UserEvent(DisablePerspectiveEvent const & e) : m_type(EVENT_DISABLE_PERSPECTIVE) { m_disable3dMode = e; }
-  UserEvent(SwitchViewModeEvent const & e) : m_type(EVENT_SWITCH_VIEW_MODE) { m_switchViewMode = e; }
 
   EEventType m_type;
   union
@@ -230,7 +221,6 @@ struct UserEvent
     FollowAndRotateEvent m_followAndRotate;
     EnablePerspectiveEvent m_enable3dMode;
     DisablePerspectiveEvent m_disable3dMode;
-    SwitchViewModeEvent m_switchViewMode;
   };
 };
 
@@ -259,7 +249,6 @@ public:
     virtual void OnAnimatedScaleEnded() = 0;
 
     virtual void OnAnimationStarted(ref_ptr<Animation> anim) = 0;
-    virtual void OnPerspectiveSwitchRejected() = 0;
 
     virtual void OnTouchMapAction() = 0;
   };
@@ -388,8 +377,6 @@ private:
 
   bool m_perspectiveAnimation = false;
   unique_ptr<UserEvent> m_pendingEvent;
-  double m_discardedFOV = 0.0;
-  double m_discardedAngle = 0.0;
 
   ref_ptr<Listener> m_listener;
 

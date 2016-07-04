@@ -174,7 +174,6 @@ private:
   TTilesCollection ResolveTileKeys(ScreenBase const & screen);
   void ResolveZoomLevel(ScreenBase const & screen);
   void UpdateDisplacementEnabled();
-  void CheckPerspectiveMinScale();
   void CheckIsometryMinScale(ScreenBase const & screen);
 
   void DisablePerspective();
@@ -195,7 +194,6 @@ private:
   void OnScaleEnded() override;
   void OnAnimatedScaleEnded() override;
   void OnAnimationStarted(ref_ptr<Animation> anim) override;
-  void OnPerspectiveSwitchRejected() override;
   void OnTouchMapAction() override;
 
   class Routine : public threads::IRoutine

@@ -1279,20 +1279,6 @@ void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
   }
 }
 
-void FrontendRenderer::CheckPerspectiveMinScale()
-{
-  if (!m_enablePerspectiveInNavigation || m_userEventStream.IsInPerspectiveAnimation())
-    return;
-
-  bool const switchTo2d = !IsScaleAllowableIn3d(m_currentZoomLevel);
-  if ((!switchTo2d && !m_perspectiveDiscarded) ||
-      (switchTo2d && !m_userEventStream.GetCurrentScreen().isPerspective()))
-    return;
-
-  m_perspectiveDiscarded = switchTo2d;
-  AddUserEvent(SwitchViewModeEvent(switchTo2d));
-}
-
 void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   int const prevZoomLevel = m_currentZoomLevel;
@@ -1302,7 +1288,6 @@ void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
     UpdateCanBeDeletedStatus();
 
   CheckIsometryMinScale(screen);
-  CheckPerspectiveMinScale();
   UpdateDisplacementEnabled();
 }
 
@@ -1428,12 +1413,6 @@ void FrontendRenderer::OnAnimatedScaleEnded()
 void FrontendRenderer::OnAnimationStarted(ref_ptr<Animation> anim)
 {
   m_myPositionController->AnimationStarted(anim);
-}
-
-void FrontendRenderer::OnPerspectiveSwitchRejected()
-{
-   if (m_perspectiveDiscarded)
-     m_perspectiveDiscarded = false;
 }
 
 void FrontendRenderer::OnTouchMapAction()

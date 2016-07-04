@@ -216,24 +216,9 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     case UserEvent::EVENT_ENABLE_PERSPECTIVE:
       SetEnable3dMode(e.m_enable3dMode.m_rotationAngle, e.m_enable3dMode.m_angleFOV,
                       e.m_enable3dMode.m_isAnim, e.m_enable3dMode.m_immediatelyStart);
-      m_discardedFOV = m_discardedAngle = 0.0;
       break;
     case UserEvent::EVENT_DISABLE_PERSPECTIVE:
       SetDisable3dModeAnimation();
-      m_discardedFOV = m_discardedAngle = 0.0;
-      break;
-    case UserEvent::EVENT_SWITCH_VIEW_MODE:
-      if (e.m_switchViewMode.m_to2d)
-      {
-        m_discardedFOV = m_navigator.Screen().GetAngleFOV();
-        m_discardedAngle = m_navigator.Screen().GetRotationAngle();
-        SetDisable3dModeAnimation();
-      }
-      else if (m_discardedFOV > 0.0)
-      {
-        SetEnable3dMode(m_discardedAngle, m_discardedFOV, true /* isAnim */, true /* immediatelyStart */);
-        m_discardedFOV = m_discardedAngle = 0.0;
-      }
       break;
     default:
       ASSERT(false, ());
@@ -529,8 +514,7 @@ bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) co
 {
   return type != UserEvent::EVENT_RESIZE && type != UserEvent::EVENT_SET_RECT &&
          type != UserEvent::EVENT_ENABLE_PERSPECTIVE &&
-         type != UserEvent::EVENT_DISABLE_PERSPECTIVE &&
-         type != UserEvent::EVENT_SWITCH_VIEW_MODE;
+         type != UserEvent::EVENT_DISABLE_PERSPECTIVE;
 }
 
 void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
@@ -567,13 +551,6 @@ void UserEventStream::SetDisable3dModeAnimation()
 
   ResetAnimationsBeforeSwitch3D();
   InterruptFollowAnimations(true /* force */);
-
-  if (m_discardedFOV > 0.0 && IsScaleAllowableIn3d(GetDrawTileScale(GetCurrentScreen())))
-  {
-    m_discardedFOV = m_discardedAngle = 0.0;
-    m_listener->OnPerspectiveSwitchRejected();
-    return;
-  }
 
   double const startAngle = m_navigator.Screen().GetRotationAngle();
   double const endAngle = 0.0;
