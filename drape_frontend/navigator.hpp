@@ -18,11 +18,11 @@ class Navigator
 public:
   Navigator();
 
-  void SetScreen(ScreenBase const & screen);
   void SetFromRect(m2::AnyRectD const & r);
-  void SetFromRect2(m2::AnyRectD const & r);
-  void CenterViewport(m2::PointD const & p);
   void SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale);
+  void SetFromScreen(ScreenBase const & screen);
+  void SetFromScreen(ScreenBase const & screen, uint32_t tileSize, double visualScale);
+  void CenterViewport(m2::PointD const & p);
 
   void OnSize(int w, int h);
 

@@ -143,12 +143,6 @@ void ScreenBase::SetFromRect(m2::AnyRectD const & glbRect)
   SetFromRects(glbRect, m_PixelRect);
 }
 
-void ScreenBase::SetFromRect2d(m2::AnyRectD const & glbRect)
-{
-  SetFromRects(glbRect, PixelRectIn3d());
-  MatchGandP3d(glbRect.GlobalCenter(), PixelRectIn3d().Center());
-}
-
 void ScreenBase::SetFromParams(m2::PointD const & org, double angle, double scale)
 {
   m_Scale = scale;

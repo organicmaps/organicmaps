@@ -287,7 +287,7 @@ void UserEventStream::ApplyAnimations()
   {
     ScreenBase screen;
     if (m_animationSystem.GetScreen(GetCurrentScreen(), screen))
-      m_navigator.SetScreen(screen);
+      m_navigator.SetFromScreen(screen);
 
     Animation::SwitchPerspectiveParams switchPerspective;
     if (m_animationSystem.SwitchPerspective(switchPerspective))
@@ -366,9 +366,7 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
 bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim)
 {
-  ScreenBase const & currentScreen = GetCurrentScreen();
-
-  ScreenBase screen = currentScreen;
+  ScreenBase screen = GetCurrentScreen();
   if (zoom == kDoNotChangeZoom)
   {
     GetTargetScreen(screen);
@@ -427,45 +425,17 @@ bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim)
   }
 
   ResetMapPlaneAnimations();
-  m_navigator.SetScreen(endScreen);
+  m_navigator.SetFromScreen(endScreen);
   return true;
 }
 
 bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
 {
-  //isAnim = false;
-  if (isAnim)
-  {
-    auto onStartHandler = [this](ref_ptr<Animation> animation)
-    {
-      if (m_listener)
-        m_listener->OnAnimationStarted(animation);
-    };
+  ScreenBase tmp = GetCurrentScreen();
+  tmp.SetFromRects(rect, tmp.PixelRectIn3d());
+  tmp.MatchGandP3d(rect.GlobalCenter(), tmp.PixelRectIn3d().Center());
 
-    m2::AnyRectD const startRect = GetCurrentRect();
-    ScreenBase const & screen = GetCurrentScreen();
-
-    drape_ptr<Animation> anim = GetSetRectAnimation(screen, startRect, rect);
-    if (!df::IsAnimationAllowed(anim->GetDuration(), screen))
-    {
-      anim.reset();
-      double const moveDuration = PositionInterpolator::GetMoveDuration(startRect.GlobalCenter(),
-                                                                        rect.GlobalCenter(), screen);
-      if (moveDuration > kMaxAnimationTimeSec)
-        anim = GetPrettyMoveAnimation(screen, startRect, rect);
-    }
-
-    if (anim != nullptr)
-    {
-      anim->SetOnStartAction(onStartHandler);
-      m_animationSystem.CombineAnimation(move(anim));
-      return false;
-    }
-  }
-
-  ResetMapPlaneAnimations();
-  m_navigator.SetFromRect2(rect);
-  return true;
+  return SetScreen(tmp, isAnim);
 }
 
 bool UserEventStream::InterruptFollowAnimations(bool force)
@@ -551,7 +521,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   }
 
   ResetMapPlaneAnimations();
-  m_navigator.SetScreen(screen);
+  m_navigator.SetFromScreen(screen);
   return true;
 }
 

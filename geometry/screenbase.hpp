@@ -65,7 +65,6 @@ public:
              m2::PointD const & org, double scale, double angle);
 
   void SetFromRect(m2::AnyRectD const & rect);
-  void SetFromRect2d(m2::AnyRectD const & glbRect);
 
   void SetFromParams(m2::PointD const & org, double angle, double scale);
   void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);

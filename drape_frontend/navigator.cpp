@@ -26,30 +26,17 @@ Navigator::Navigator()
 {
 }
 
-void Navigator::SetFromRect2(m2::AnyRectD const & r)
+void Navigator::SetFromScreen(ScreenBase const & screen)
 {
-  ScreenBase tmp = m_Screen;
-
-  m2::RectD const & worldR = df::GetWorldRect();
-
-  tmp.SetFromRect2d(r);
-  tmp = ScaleInto(tmp, worldR);
-
-  m_Screen = tmp;
-
-  if (!m_InAction)
-    m_StartScreen = tmp;
+  VisualParams const & p = VisualParams::Instance();
+  SetFromScreen(screen, p.GetTileSize(), p.GetVisualScale());
 }
 
-void Navigator::SetScreen(ScreenBase const & screen)
+void Navigator::SetFromScreen(ScreenBase const & screen, uint32_t tileSize, double visualScale)
 {
-  m2::RectD const & worldR = df::GetWorldRect();
-  ScreenBase tmp = screen;
-  tmp = ScaleInto(tmp, worldR);
+  ScreenBase tmp = ScaleInto(screen, df::GetWorldRect());
 
-  VisualParams const & p = VisualParams::Instance();
-
-  if (!CheckMaxScale(tmp, p.GetTileSize(), p.GetVisualScale()))
+  if (!CheckMaxScale(tmp, tileSize, visualScale))
   {
     int const scale = scales::GetUpperStyleScale() - 1;
     m2::RectD newRect = df::GetRectForDrawScale(scale, screen.GetOrg());
@@ -75,26 +62,9 @@ void Navigator::SetFromRect(m2::AnyRectD const & r)
 
 void Navigator::SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale)
 {
-  m2::RectD const & worldR = df::GetWorldRect();
-
   ScreenBase tmp = m_Screen;
-
   tmp.SetFromRect(r);
-  tmp = ScaleInto(tmp, worldR);
-  if (!CheckMaxScale(tmp, tileSize, visualScale))
-  {
-    int const scale = scales::GetUpperStyleScale() - 1;
-    m2::RectD newRect = df::GetRectForDrawScale(scale, r.Center());
-    newRect.Scale(m_Screen.GetScale3d());
-    CheckMinMaxVisibleScale(newRect, scale, m_Screen.GetScale3d());
-    tmp = m_Screen;   
-    tmp.SetFromRect(m2::AnyRectD(newRect));
-    ASSERT(CheckMaxScale(tmp, tileSize, visualScale), ());
-  }
-  m_Screen = tmp;
-
-  if (!m_InAction)
-    m_StartScreen = tmp;
+  SetFromScreen(tmp, tileSize, visualScale);
 }
 
 void Navigator::CenterViewport(m2::PointD const & p)
