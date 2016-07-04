@@ -132,7 +132,6 @@ public:
   m2::AnyRectD const & GlobalRect() const { return m_GlobalRect; }
   m2::RectD const & ClipRect() const { return m_ClipRect; }
 
-  void UpdatePerspectiveParameters();
   void ApplyPerspective(double currentRotationAngle, double maxRotationAngle, double angleFOV);
   void ResetPerspective();
 
@@ -146,6 +145,8 @@ public:
 
   Matrix3dT const & Pto3dMatrix() const { return m_Pto3d; }
   bool isPerspective() const { return m_isPerspective; }
+  bool isAutoPerspective() const { return m_isAutoPerspective; }
+  void SetAutoPerspective(bool isAutoPerspective);
 
   bool IsReverseProjection3d(m2::PointD const & pt) const;
 

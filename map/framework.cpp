@@ -111,9 +111,6 @@ char const kAllow3dBuildingsKey[] = "Buildings3d";
 
 double const kDistEqualQuery = 100.0;
 
-double const kRotationAngle = math::pi4;
-double const kAngleFOV = math::pi / 3.0;
-
 // TODO!
 // To adjust GpsTrackFilter was added secret command "?gpstrackaccuracy:xxx;"
 // where xxx is a new value for horizontal accuracy.
@@ -1592,7 +1589,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   {
     InsertRoute(m_routingSession.GetRoute());
     if (allow3d && m_routingSession.IsFollowing())
-      m_drapeEngine->EnablePerspective(kRotationAngle, kAngleFOV);
+      m_drapeEngine->EnablePerspective();
   }
 
   if (m_connectToGpsTrack)
@@ -2276,7 +2273,7 @@ void Framework::FollowRoute()
                                                                     : scales::GetNavigationScale();
   int const scale3d = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetPedestrianNavigation3dScale()
                                                                       : scales::GetNavigation3dScale();
-  m_drapeEngine->FollowRoute(scale, scale3d, kRotationAngle, kAngleFOV);
+  m_drapeEngine->FollowRoute(scale, scale3d);
   m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
 }
 
@@ -2519,7 +2516,7 @@ void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::Allow3dMode, _1, allow3d, allow3dBuildings, kRotationAngle, kAngleFOV));
+  CallDrapeFunction(bind(&df::DrapeEngine::Allow3dMode, _1, allow3d, allow3dBuildings));
 }
 
 void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)

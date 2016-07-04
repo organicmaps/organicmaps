@@ -124,14 +124,14 @@ public:
   void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns,
                 df::ColorConstant color, df::RoutePattern pattern = df::RoutePattern());
   void RemoveRoute(bool deactivateFollowing);
-  void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, double rotationAngle, double angleFOV);
+  void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d);
   void DeactivateRouteFollowing();
   void SetRoutePoint(m2::PointD const & position, bool isStart, bool isValid);
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
 
-  void Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings, double rotationAngle, double angleFOV);
-  void EnablePerspective(double rotationAngle, double angleFOV);
+  void Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings);
+  void EnablePerspective();
 
   void UpdateGpsTrackPoints(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove);
   void ClearGpsTrackPoints();

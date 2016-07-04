@@ -19,7 +19,6 @@ public:
     MapLinear,
     MapScale,
     MapFollow,
-    MapPerspective,
     Arrow,
     KineticScroll
   };
@@ -35,28 +34,7 @@ public:
   {
     Position,
     Scale,
-    Angle,
-    AnglePerspective,
-    SwitchPerspective
-  };
-
-  struct SwitchPerspectiveParams
-  {
-    SwitchPerspectiveParams() = default;
-
-    SwitchPerspectiveParams(bool enable,
-                            double startAngle, double endAngle,
-                            double angleFOV)
-      : m_enable(enable)
-      , m_startAngle(startAngle)
-      , m_endAngle(endAngle)
-      , m_angleFOV(angleFOV)
-    {}
-
-    bool m_enable = false;
-    double m_startAngle = 0.0;
-    double m_endAngle = 0.0;
-    double m_angleFOV = 0.0;
+    Angle
   };
 
   struct PropertyValue
@@ -64,8 +42,7 @@ public:
     enum Type
     {
       ValueD,
-      ValuePointD,
-      ValuePerspectiveParams
+      ValuePointD
     };
 
     PropertyValue()
@@ -81,18 +58,11 @@ public:
       , m_valuePointD(value)
     {}
 
-    explicit PropertyValue(SwitchPerspectiveParams const & params)
-      : m_type(ValuePerspectiveParams)
-    {
-      m_valuePerspectiveParams = params;
-    }
-
     Type m_type;
     union
     {
       m2::PointD m_valuePointD;
       double m_valueD;
-      SwitchPerspectiveParams m_valuePerspectiveParams;
     };
   };
 

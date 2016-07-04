@@ -279,6 +279,11 @@ bool Navigator::IsRotatingDuringScale() const
   return m_IsRotatingDuringScale;
 }
 
+void Navigator::SetAutoPerspective(bool enable)
+{
+  m_Screen.SetAutoPerspective(enable);
+}
+
 void Navigator::Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV)
 {
   m_Screen.ApplyPerspective(currentRotationAngle, maxRotationAngle, angleFOV);

@@ -23,9 +23,6 @@ public:
   bool GetScreen(ScreenBase const & currentScreen, ScreenBase & screen);
   void GetTargetScreen(ScreenBase const & currentScreen, ScreenBase & screen);
 
-  bool SwitchPerspective(Animation::SwitchPerspectiveParams & params);
-  bool GetPerspectiveAngle(double & angle);
-
   bool GetArrowPosition(m2::PointD & position);
   bool GetArrowAngle(double & angle);
 

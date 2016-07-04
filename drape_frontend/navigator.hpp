@@ -46,6 +46,7 @@ public:
   void Scale(m2::PointD const & pixelScaleCenter, double factor);
   bool InAction() const;
 
+  void SetAutoPerspective(bool enable);
   void Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV);
   void SetRotationIn3dMode(double rotationAngle);
   void Disable3dMode();

@@ -18,14 +18,6 @@ public:
 
   void Blend(Animation::PropertyValue const & value)
   {
-    // Now perspective parameters can't be blended.
-    if (value.m_type == Animation::PropertyValue::ValuePerspectiveParams)
-    {
-      m_value = value;
-      m_counter = 1;
-      return;
-    }
-
     if (m_counter != 0)
     {
       // New value type resets current blended value.
@@ -114,28 +106,6 @@ bool AnimationSystem::GetScreen(ScreenBase const & currentScreen, TGetPropertyFn
   screen.SetFromParams(pos, angle, scale);
 
   return true;
-}
-
-bool AnimationSystem::GetPerspectiveAngle(double & angle)
-{
-  Animation::PropertyValue value;
-  if (GetProperty(Animation::MapPlane, Animation::AnglePerspective, value))
-  {
-    angle = value.m_valueD;
-    return true;
-  }
-  return false;
-}
-
-bool AnimationSystem::SwitchPerspective(Animation::SwitchPerspectiveParams & params)
-{
-  Animation::PropertyValue value;
-  if (GetProperty(Animation::MapPlane, Animation::SwitchPerspective, value))
-  {
-    params = value.m_valuePerspectiveParams;
-    return true;
-  }
-  return false;
 }
 
 bool AnimationSystem::GetArrowPosition(m2::PointD & position)

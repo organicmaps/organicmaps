@@ -28,7 +28,7 @@ ScreenBase::ScreenBase() :
     m_3dMaxAngleX(0.0),
     m_3dScale(1.0),
     m_isPerspective(false),
-    m_isAutoPerspective(true),
+    m_isAutoPerspective(false),
     m_GlobalRect(m_Org, ang::AngleD(0), m2::RectD(-320, -240, 320, 240)),
     m_ClipRect(m2::RectD(0, 0, 640, 480))
 {
@@ -117,13 +117,10 @@ double ScreenBase::CalculatePerspectiveAngle(double scale) const
   return kMaxPerspectiveAngle2 * 0.99;
 }
 
-void ScreenBase::UpdatePerspectiveParameters()
+void ScreenBase::SetAutoPerspective(bool isAutoPerspective)
 {
-  double const angle = CalculatePerspectiveAngle(m_Scale);
-  if (angle > 0.0)
-    ApplyPerspective(angle, angle, kPerspectiveAngleFOV);
-  else if (m_isPerspective)
-    ResetPerspective();
+  m_isAutoPerspective = isAutoPerspective;
+  UpdateDependentParameters();
 }
 
 void ScreenBase::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect)

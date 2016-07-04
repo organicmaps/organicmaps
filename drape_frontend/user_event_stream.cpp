@@ -2,7 +2,6 @@
 #include "drape_frontend/animation/linear_animation.hpp"
 #include "drape_frontend/animation/scale_animation.hpp"
 #include "drape_frontend/animation/follow_animation.hpp"
-#include "drape_frontend/animation/perspective_animation.hpp"
 #include "drape_frontend/animation/sequence_animation.hpp"
 #include "drape_frontend/animation_constants.hpp"
 #include "drape_frontend/animation_system.hpp"
@@ -152,9 +151,6 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
   m_modelViewChanged = !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG;
   for (UserEvent const & e : events)
   {
-    if (m_perspectiveAnimation && FilterEventWhile3dAnimation(e.m_type))
-      continue;
-
     bool breakAnim = false;
 
     switch (e.m_type)
@@ -175,11 +171,6 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       TouchCancel(m_touches);
       break;
     case UserEvent::EVENT_SET_RECT:
-      if (m_perspectiveAnimation)
-      {
-        m_pendingEvent.reset(new UserEvent(e.m_rectEvent));
-        break;
-      }
       breakAnim = SetRect(e.m_rectEvent.m_rect, e.m_rectEvent.m_zoom, e.m_rectEvent.m_applyRotation, e.m_rectEvent.m_isAnim);
       TouchCancel(m_touches);
       break;
@@ -213,12 +204,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
                                      e.m_followAndRotate.m_isAnim);
       TouchCancel(m_touches);
       break;
-    case UserEvent::EVENT_ENABLE_PERSPECTIVE:
-      SetEnable3dMode(e.m_enable3dMode.m_rotationAngle, e.m_enable3dMode.m_angleFOV,
-                      e.m_enable3dMode.m_isAnim, e.m_enable3dMode.m_immediatelyStart);
-      break;
-    case UserEvent::EVENT_DISABLE_PERSPECTIVE:
-      SetDisable3dModeAnimation();
+    case UserEvent::EVENT_AUTO_PERSPECTIVE:
+      SetAutoPerspective(e.m_autoPerspective.m_isAutoPerspective);
       break;
     default:
       ASSERT(false, ());
@@ -230,21 +217,6 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
   }
 
   ApplyAnimations();
-
-  if (m_perspectiveAnimation)
-  {
-    TouchCancel(m_touches);
-  }
-  else
-  {
-    if (m_pendingEvent != nullptr && m_pendingEvent->m_type == UserEvent::EVENT_SET_RECT)
-    {
-      SetRect(m_pendingEvent->m_rectEvent.m_rect, m_pendingEvent->m_rectEvent.m_zoom,
-              m_pendingEvent->m_rectEvent.m_applyRotation, m_pendingEvent->m_rectEvent.m_isAnim);
-      m_pendingEvent.reset();
-      m_modelViewChanged = true;
-    }
-  }
 
   if (GetValidTouchesCount(m_touches) == 1)
   {
@@ -273,27 +245,6 @@ void UserEventStream::ApplyAnimations()
     ScreenBase screen;
     if (m_animationSystem.GetScreen(GetCurrentScreen(), screen))
       m_navigator.SetFromScreen(screen);
-
-    Animation::SwitchPerspectiveParams switchPerspective;
-    if (m_animationSystem.SwitchPerspective(switchPerspective))
-    {
-      if (switchPerspective.m_enable)
-      {
-        m_navigator.Enable3dMode(switchPerspective.m_startAngle, switchPerspective.m_endAngle,
-                                 switchPerspective.m_angleFOV);
-      }
-      else
-      {
-        m_navigator.Disable3dMode();
-      }
-    }
-
-    double perspectiveAngle;
-    if (m_animationSystem.GetPerspectiveAngle(perspectiveAngle) &&
-        GetCurrentScreen().isPerspective())
-    {
-      m_navigator.SetRotationIn3dMode(perspectiveAngle);
-    }
 
     m_modelViewChanged = true;
   }
@@ -510,61 +461,12 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   return true;
 }
 
-bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) const
+void UserEventStream::SetAutoPerspective(bool isAutoPerspective)
 {
-  return type != UserEvent::EVENT_RESIZE && type != UserEvent::EVENT_SET_RECT &&
-         type != UserEvent::EVENT_ENABLE_PERSPECTIVE &&
-         type != UserEvent::EVENT_DISABLE_PERSPECTIVE;
-}
-
-void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV,
-                                      bool isAnim, bool immediatelyStart)
-{
+  if (!isAutoPerspective)
+    m_navigator.Disable3dMode();
+  m_navigator.SetAutoPerspective(isAutoPerspective);
   return;
-
-  ResetAnimationsBeforeSwitch3D();
-
-  if (immediatelyStart)
-    InterruptFollowAnimations(true /* force */);
-
-  double const startAngle = isAnim ? 0.0 : maxRotationAngle;
-  double const endAngle = maxRotationAngle;
-
-  auto anim = make_unique_dp<PerspectiveSwitchAnimation>(startAngle, endAngle, angleFOV);
-  anim->SetOnStartAction([this, startAngle, endAngle, angleFOV](ref_ptr<Animation>)
-  {
-    m_perspectiveAnimation = true;
-  });
-  anim->SetOnFinishAction([this](ref_ptr<Animation>)
-  {
-    m_perspectiveAnimation = false;
-  });
-  if (immediatelyStart)
-    m_animationSystem.CombineAnimation(move(anim));
-  else
-    m_animationSystem.PushAnimation(move(anim));
-}
-
-void UserEventStream::SetDisable3dModeAnimation()
-{
-  return;
-
-  ResetAnimationsBeforeSwitch3D();
-  InterruptFollowAnimations(true /* force */);
-
-  double const startAngle = m_navigator.Screen().GetRotationAngle();
-  double const endAngle = 0.0;
-
-  auto anim = make_unique_dp<PerspectiveSwitchAnimation>(startAngle, endAngle, m_navigator.Screen().GetAngleFOV());
-  anim->SetOnStartAction([this](ref_ptr<Animation>)
-  {
-    m_perspectiveAnimation = true;
-  });
-  anim->SetOnFinishAction([this](ref_ptr<Animation>)
-  {
-    m_perspectiveAnimation = false;
-  });
-  m_animationSystem.CombineAnimation(move(anim));
 }
 
 void UserEventStream::ResetAnimations(Animation::Type animType, bool finishAll)
@@ -589,14 +491,6 @@ void UserEventStream::ResetMapPlaneAnimations()
   m_animationSystem.FinishObjectAnimations(Animation::MapPlane, false /* rewind */, false /* finishAll */);
   if (hasAnimations)
     ApplyAnimations();
-}
-
-void UserEventStream::ResetAnimationsBeforeSwitch3D()
-{
-  ResetAnimations(Animation::MapLinear);
-  ResetAnimations(Animation::Sequence, kPrettyMoveAnim);
-  ResetAnimations(Animation::MapScale);
-  ResetAnimations(Animation::MapPerspective, true /* finishAll */);
 }
 
 m2::AnyRectD UserEventStream::GetCurrentRect() const
@@ -1193,11 +1087,6 @@ bool UserEventStream::IsInUserAction() const
 bool UserEventStream::IsWaitingForActionCompletion() const
 {
   return m_state != STATE_EMPTY;
-}
-
-bool UserEventStream::IsInPerspectiveAnimation() const
-{
-  return m_perspectiveAnimation;
 }
 
 void UserEventStream::SetKineticScrollEnabled(bool enabled)
