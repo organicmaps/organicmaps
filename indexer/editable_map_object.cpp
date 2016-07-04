@@ -301,9 +301,14 @@ bool EditableMapObject::ValidateWebsite(string const & site)
   if (site.empty())
     return true;
 
-  auto const dotPos = find(begin(site), end(site), '.');
-  // Site should contain at least one dot but not at the begining/and.
-  if (dotPos == end(site) || site.front() == '.' || site.back() == '.')
+  // Site should contain at least one dot but not at the begining/end.
+  if ('.' == site.front() || '.' == site.back())
+    return false;
+
+  if (string::npos == site.find("."))
+    return false;
+
+  if (string::npos != site.find(".."))
     return false;
 
   return true;
@@ -317,13 +322,13 @@ bool EditableMapObject::ValidateEmail(string const & email)
 
   if (strings::IsASCIIString(email))
     return regex_match(email, regex(R"([^@\s]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$)"));
-  
+
   if ('@' == email.front() || '@' == email.back())
     return false;
-  
+
   if ('.' == email.back())
     return false;
-  
+
   auto const atPos = find(begin(email), end(email), '@');
   if (atPos == end(email))
     return false;

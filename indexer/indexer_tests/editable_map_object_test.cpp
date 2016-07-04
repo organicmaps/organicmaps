@@ -100,6 +100,8 @@ UNIT_TEST(EditableMapObject_ValidateWebsite)
   TEST(!EditableMapObject::ValidateWebsite(".qwerty"), ());
   TEST(!EditableMapObject::ValidateWebsite("qwerty."), ());
   TEST(!EditableMapObject::ValidateWebsite(".qwerty."), ());
+  TEST(!EditableMapObject::ValidateWebsite(".qwerty."), ());
+  TEST(!EditableMapObject::ValidateWebsite("w..com"), ());
 }
 
 UNIT_TEST(EditableMapObject_ValidateEmail)
@@ -109,7 +111,7 @@ UNIT_TEST(EditableMapObject_ValidateEmail)
   TEST(EditableMapObject::ValidateEmail("e@ma.i.l"), ());
   TEST(EditableMapObject::ValidateEmail("e-m.ail@dot.com.gov"), ());
   TEST(EditableMapObject::ValidateEmail("#$%&'*+-/=?^`_{}|~.@dot.qw.com.gov"), ());
-  
+
   TEST(!EditableMapObject::ValidateEmail("e.ma.il"), ());
   TEST(!EditableMapObject::ValidateEmail("e@ma@il"), ());
   TEST(!EditableMapObject::ValidateEmail("e@ma@i.l"), ());
