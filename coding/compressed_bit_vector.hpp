@@ -5,6 +5,7 @@
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/ref_counted.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
@@ -13,7 +14,7 @@
 
 namespace coding
 {
-class CompressedBitVector
+class CompressedBitVector : public my::RefCounted
 {
 public:
   enum class StorageStrategy
@@ -250,10 +251,10 @@ public:
   {
     uint64_t const kBase = 127;
     uint64_t hash = 0;
-    CompressedBitVectorEnumerator::ForEach(cbv, [&](uint64_t i)
+    CompressedBitVectorEnumerator::ForEach(cbv, [&hash](uint64_t i)
                                            {
-      hash = hash * kBase + i;
-    });
+                                             hash = hash * kBase + i + 1;
+                                           });
     return hash;
   }
 };

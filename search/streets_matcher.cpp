@@ -31,7 +31,7 @@ bool LessByHash(StreetsMatcher::Prediction const & lhs, StreetsMatcher::Predicti
 void StreetsMatcher::Go(BaseContext const & ctx, FeaturesFilter const & filter,
                         QueryParams const & params, vector<Prediction> & predictions)
 {
-  size_t const kMaxNumPredictions = 3;
+  size_t const kMaxNumOfImprobablePredictions = 3;
   double const kTailProbability = 0.05;
 
   predictions.clear();
@@ -46,8 +46,11 @@ void StreetsMatcher::Go(BaseContext const & ctx, FeaturesFilter const & filter,
       predictions.end());
 
   sort(predictions.rbegin(), predictions.rend(), my::LessBy(&Prediction::m_prob));
-  while (predictions.size() > kMaxNumPredictions && predictions.back().m_prob < kTailProbability)
+  while (predictions.size() > kMaxNumOfImprobablePredictions &&
+         predictions.back().m_prob < kTailProbability)
+  {
     predictions.pop_back();
+  }
 }
 
 // static
@@ -65,9 +68,9 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
     // each time a token that looks like a beginning of a house number
     // is met, we try to use current intersection of tokens as a
     // street layer and try to match BUILDINGs or POIs.
-    CBVPtr streets(ctx.m_streets, false /* isOwner */);
+    CBV streets(ctx.m_streets);
 
-    CBVPtr all;
+    CBV all;
     all.SetFull();
 
     size_t curToken = startToken;
@@ -88,23 +91,20 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
     {
       if (!streets.IsEmpty() && !emptyIntersection && !incomplete && lastToken != curToken)
       {
-        CBVPtr fs(streets.Get(), false /* isOwner */);
-        CBVPtr fa(all.Get(), false /* isOwner */);
+        CBV fs(streets);
+        CBV fa(all);
 
         ASSERT(!fs.IsFull(), ());
         ASSERT(!fa.IsFull(), ());
 
-        if (filter.NeedToFilter(*fs))
-          fs.Set(filter.Filter(*fs));
+        if (filter.NeedToFilter(fs))
+          fs = filter.Filter(fs);
 
         if (fs.IsEmpty())
           return;
 
-        if (filter.NeedToFilter(*fa))
-        {
-          fa.Set(filter.Filter(*fa));
-          fa.Union(fs.Get());
-        }
+        if (filter.NeedToFilter(fa))
+          fa = filter.Filter(fa).Union(fs);
 
         predictions.emplace_back();
         auto & prediction = predictions.back();
@@ -112,31 +112,26 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
         prediction.m_startToken = startToken;
         prediction.m_endToken = curToken;
 
-        ASSERT_LESS_OR_EQUAL(fs->PopCount(), fa->PopCount(), ());
-        prediction.m_prob =
-            static_cast<double>(fs->PopCount()) / static_cast<double>(fa->PopCount());
+        ASSERT_NOT_EQUAL(fs.PopCount(), 0, ());
+        ASSERT_LESS_OR_EQUAL(fs.PopCount(), fa.PopCount(), ());
+        prediction.m_prob = static_cast<double>(fs.PopCount()) / static_cast<double>(fa.PopCount());
 
-        if (fs.IsOwner())
-          prediction.m_features = move(fs);
-        else
-          fs.CopyTo(prediction.m_features);
-
-        prediction.m_hash = coding::CompressedBitVectorHasher::Hash(*prediction.m_features);
+        prediction.m_features = move(fs);
+        prediction.m_hash = prediction.m_features.Hash();
       }
     };
 
     StreetTokensFilter filter([&](strings::UniString const & /* token */, size_t tag)
                               {
-                                auto buffer = coding::CompressedBitVector::Intersect(
-                                    *streets, *ctx.m_features[tag]);
+                                auto buffer = streets.Intersect(ctx.m_features[tag]);
                                 if (tag < curToken)
                                 {
                                   // This is the case for delayed
                                   // street synonym.  Therefore,
                                   // |streets| is temporarily in the
                                   // incomplete state.
-                                  streets.Set(move(buffer));
-                                  all.Intersect(ctx.m_features[tag].get());
+                                  streets = buffer;
+                                  all = all.Intersect(ctx.m_features[tag]);
                                   emptyIntersection = false;
 
                                   incomplete = true;
@@ -147,11 +142,11 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
                                 // |streets| will become empty after
                                 // the intersection. Therefore we need
                                 // to create streets layer right now.
-                                if (coding::CompressedBitVector::IsEmpty(buffer))
+                                if (buffer.IsEmpty())
                                   emit();
 
-                                streets.Set(move(buffer));
-                                all.Intersect(ctx.m_features[tag].get());
+                                streets = buffer;
+                                all = all.Intersect(ctx.m_features[tag]);
                                 emptyIntersection = false;
                                 incomplete = false;
                               });

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "coding/compressed_bit_vector.hpp"
+#include "search/cbv.hpp"
 
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
@@ -25,14 +25,15 @@ struct BaseContext
   // Counts number of groups of consecutive unused tokens.
   size_t NumUnusedTokenGroups() const;
 
-  vector<unique_ptr<coding::CompressedBitVector>> m_features;
-  unique_ptr<coding::CompressedBitVector> m_villages;
-  coding::CompressedBitVector const * m_streets = nullptr;
+  vector<CBV> m_features;
+  CBV m_villages;
+  CBV m_streets;
 
-  // This vector is used to indicate what tokens were matched by
-  // locality and can't be re-used during the geocoding process.
+  // This vector is used to indicate what tokens were already matched
+  // and can't be re-used during the geocoding process.
   vector<bool> m_usedTokens;
 
+  // Number of tokens in the query.
   size_t m_numTokens = 0;
 };
 }  // namespace search

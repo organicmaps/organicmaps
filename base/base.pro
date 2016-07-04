@@ -57,6 +57,7 @@ HEADERS += \
     object_tracker.hpp \
     observer_list.hpp \
     range_iterator.hpp \
+    ref_counted.hpp \
     regexp.hpp \
     rolling_hash.hpp \
     scope_guard.hpp \

@@ -34,7 +34,7 @@ void FeaturesLayerMatcher::SetContext(MwmContext * context)
   m_loader.SetContext(context);
 }
 
-void FeaturesLayerMatcher::SetPostcodes(coding::CompressedBitVector const * postcodes)
+void FeaturesLayerMatcher::SetPostcodes(CBV const * postcodes)
 {
   m_postcodes = postcodes;
 }

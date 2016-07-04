@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/cbv_ptr.hpp"
+#include "search/cbv.hpp"
 #include "search/geocoder_context.hpp"
 
 #include "std/vector.hpp"
@@ -17,7 +17,7 @@ public:
   {
     inline size_t GetNumTokens() const { return m_endToken - m_startToken; }
 
-    CBVPtr m_features;
+    CBV m_features;
 
     size_t m_startToken = 0;
     size_t m_endToken = 0;

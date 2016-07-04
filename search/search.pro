@@ -12,7 +12,7 @@ HEADERS += \
     algos.hpp \
     approximate_string_match.hpp \
     cancel_exception.hpp \
-    cbv_ptr.hpp \
+    cbv.hpp \
     common.hpp \
     dummy_rank_table.hpp \
     engine.hpp \
@@ -69,7 +69,7 @@ HEADERS += \
 
 SOURCES += \
     approximate_string_match.cpp \
-    cbv_ptr.cpp \
+    cbv.cpp \
     dummy_rank_table.cpp \
     engine.cpp \
     features_filter.cpp \

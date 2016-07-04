@@ -2,30 +2,26 @@
 
 #include "std/unique_ptr.hpp"
 
-namespace coding
-{
-class CompressedBitVector;
-}
-
 namespace search
 {
+class CBV;
+
 // A lightweight filter of features.
 //
 // NOTE: this class and its subclasses *ARE* thread-safe.
 class FeaturesFilter
 {
 public:
-  FeaturesFilter(coding::CompressedBitVector const & filter, uint32_t threshold);
+  FeaturesFilter(CBV const & filter, uint32_t threshold);
 
   virtual ~FeaturesFilter() = default;
 
-  bool NeedToFilter(coding::CompressedBitVector const & features) const;
+  bool NeedToFilter(CBV const & features) const;
 
-  virtual unique_ptr<coding::CompressedBitVector> Filter(
-      coding::CompressedBitVector const & cbv) const = 0;
+  virtual CBV Filter(CBV const & cbv) const = 0;
 
 protected:
-  coding::CompressedBitVector const & m_filter;
+  CBV const & m_filter;
   uint32_t const m_threshold;
 };
 
@@ -34,11 +30,10 @@ protected:
 class LocalityFilter : public FeaturesFilter
 {
 public:
-  LocalityFilter(coding::CompressedBitVector const & filter);
+  LocalityFilter(CBV const & filter);
 
   // FeaturesFilter overrides:
-  unique_ptr<coding::CompressedBitVector> Filter(
-      coding::CompressedBitVector const & cbv) const override;
+  CBV Filter(CBV const & cbv) const override;
 };
 
 // Fuzzy filter - tries to leave only features belonging to the set it
@@ -49,11 +44,10 @@ public:
 class ViewportFilter : public FeaturesFilter
 {
 public:
-  ViewportFilter(coding::CompressedBitVector const & filter, uint32_t threshold);
+  ViewportFilter(CBV const & filter, uint32_t threshold);
 
   // FeaturesFilter overrides:
-  unique_ptr<coding::CompressedBitVector> Filter(
-      coding::CompressedBitVector const & cbv) const override;
+  CBV Filter(CBV const & cbv) const override;
 };
 
 }  // namespace search

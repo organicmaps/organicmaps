@@ -35,8 +35,7 @@ PivotRectsCache::PivotRectsCache(size_t maxNumEntries, my::Cancellable const & c
 {
 }
 
-coding::CompressedBitVector const * PivotRectsCache::Get(MwmContext const & context,
-                                                         m2::RectD const & rect, int scale)
+CBV PivotRectsCache::Get(MwmContext const & context, m2::RectD const & rect, int scale)
 {
   auto p = FindOrCreateEntry(
       context.GetId(), [&rect, &scale](Entry const & entry)
@@ -53,7 +52,7 @@ coding::CompressedBitVector const * PivotRectsCache::Get(MwmContext const & cont
       normRect = rect;
     InitEntry(context, normRect, scale, entry);
   }
-  return entry.m_cbv.get();
+  return entry.m_cbv;
 }
 
 // LocalityRectsCache ------------------------------------------------------------------------------
@@ -62,8 +61,7 @@ LocalityRectsCache::LocalityRectsCache(size_t maxNumEntries, my::Cancellable con
 {
 }
 
-coding::CompressedBitVector const * LocalityRectsCache::Get(MwmContext const & context,
-                                                            m2::RectD const & rect, int scale)
+CBV LocalityRectsCache::Get(MwmContext const & context, m2::RectD const & rect, int scale)
 {
   auto p = FindOrCreateEntry(context.GetId(), [&rect, &scale](Entry const & entry)
                              {
@@ -73,7 +71,7 @@ coding::CompressedBitVector const * LocalityRectsCache::Get(MwmContext const & c
   auto & entry = p.first;
   if (p.second)
     InitEntry(context, rect, scale, entry);
-  return entry.m_cbv.get();
+  return entry.m_cbv;
 }
 
 }  // namespace search

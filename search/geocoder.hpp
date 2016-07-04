@@ -172,16 +172,12 @@ private:
     {
       m_startToken = 0;
       m_endToken = 0;
-      m_features.reset();
+      m_features.Reset();
     }
-
-    inline bool Has(uint64_t id) const { return m_features->GetBit(id); }
-
-    inline bool IsEmpty() const { return coding::CompressedBitVector::IsEmpty(m_features); }
 
     size_t m_startToken = 0;
     size_t m_endToken = 0;
-    unique_ptr<coding::CompressedBitVector> m_features;
+    CBV m_features;
   };
 
   void GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
@@ -202,7 +198,7 @@ private:
   void InitLayer(SearchModel::SearchType type, size_t startToken, size_t endToken,
                  FeaturesLayer & layer);
 
-  void FillLocalityCandidates(BaseContext const & ctx, coding::CompressedBitVector const * filter,
+  void FillLocalityCandidates(BaseContext const & ctx, CBV const & filter,
                               size_t const maxNumLocalities, vector<Locality> & preLocalities);
 
   void FillLocalitiesTable(BaseContext const & ctx);
@@ -272,20 +268,17 @@ private:
   // UNCLASSIFIED objects that match to all currently unused tokens.
   void MatchUnclassified(BaseContext & ctx, size_t curToken);
 
-  unique_ptr<coding::CompressedBitVector> LoadCategories(
-      MwmContext & context, vector<strings::UniString> const & categories);
+  CBV LoadCategories(MwmContext & context, vector<strings::UniString> const & categories);
 
-  coding::CompressedBitVector const * LoadStreets(MwmContext & context);
+  CBV LoadStreets(MwmContext & context);
 
-  unique_ptr<coding::CompressedBitVector> LoadVillages(MwmContext & context);
+  CBV LoadVillages(MwmContext & context);
 
   // A wrapper around RetrievePostcodeFeatures.
-  unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(MwmContext const & context,
-                                                                   TokenSlice const & slice);
+  CBV RetrievePostcodeFeatures(MwmContext const & context, TokenSlice const & slice);
 
   // A caching wrapper around Retrieval::RetrieveGeometryFeatures.
-  coding::CompressedBitVector const * RetrieveGeometryFeatures(MwmContext const & context,
-                                                               m2::RectD const & rect, RectId id);
+  CBV RetrieveGeometryFeatures(MwmContext const & context, m2::RectD const & rect, RectId id);
 
   // This is a faster wrapper around SearchModel::GetSearchType(), as
   // it uses pre-loaded lists of streets and villages.
@@ -327,7 +320,7 @@ private:
   NestedRectsCache m_pivotFeatures;
 
   // Cache of street ids in mwms.
-  map<MwmSet::MwmId, unique_ptr<coding::CompressedBitVector>> m_streetsCache;
+  map<MwmSet::MwmId, CBV> m_streetsCache;
 
   // Postcodes features in the mwm that is currently being processed.
   Postcodes m_postcodes;
