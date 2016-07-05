@@ -17,6 +17,7 @@
 #include "std/ctime.hpp"
 #include "std/function.hpp"
 #include "std/map.hpp"
+#include "std/mutex.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -70,6 +71,8 @@ public:
   {
     LoadMapEdits();
   }
+
+  void OnMapDeregistered(platform::LocalCountryFile const & localFile) override;
 
   using TFeatureIDFunctor = function<void(FeatureID const &)>;
   void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
@@ -215,6 +218,8 @@ private:
 
   /// Notes to be sent to osm.
   shared_ptr<editor::Notes> m_notes;
+  // Mutex which locks OnMapDeregistered method
+  mutex m_mapDeregisteredMutex;
 };  // class Editor
 
 string DebugPrint(Editor::FeatureStatus fs);
