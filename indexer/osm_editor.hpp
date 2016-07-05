@@ -219,7 +219,7 @@ private:
   /// Notes to be sent to osm.
   shared_ptr<editor::Notes> m_notes;
   // Mutex which locks OnMapDeregistered method
-  mutex m_mapDeregisteredMtx;
+  mutex m_mapDeregisteredMutex;
 };  // class Editor
 
 string DebugPrint(Editor::FeatureStatus fs);

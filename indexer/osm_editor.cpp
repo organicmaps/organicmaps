@@ -32,7 +32,6 @@
 #include "std/algorithm.hpp"
 #include "std/chrono.hpp"
 #include "std/future.hpp"
-#include "std/mutex.hpp"
 #include "std/target_os.hpp"
 #include "std/tuple.hpp"
 #include "std/unordered_map.hpp"
@@ -342,7 +341,7 @@ void Editor::ClearAllLocalEdits()
 void Editor::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 {
   // TODO: to add some synchronization mechanism for whole Editor class
-  lock_guard<mutex> g(m_mapDeregisteredMtx);
+  lock_guard<mutex> g(m_mapDeregisteredMutex);
 
   using TFeaturePair = decltype(m_features)::value_type;
   // Cannot search by MwmId because country already removed. So, search by country name.
