@@ -17,6 +17,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener, EditTextDialogFragment.OnTextSaveListener
 {
+  final static String LAST_LOCALIZED_NAME_INDEX = "LastLocalizedNameIndex";
+
   private TextView mCategory;
   private View mCardName;
   private View mCardAddress;
@@ -44,6 +47,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private EditText mName;
 
   private RecyclerView mLocalizedNames;
+
   private final RecyclerView.AdapterDataObserver mLocalizedNamesObserver = new RecyclerView.AdapterDataObserver()
   {
     @Override
@@ -76,6 +80,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       refreshLocalizedNames();
     }
   };
+
   private MultilanguageAdapter mLocalizedNamesAdapter;
   private TextView mLocalizedShow;
   private boolean mIsLocalizedShown;
@@ -195,6 +200,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
+    refreshLocalizedNames();
   }
 
   @Override
@@ -218,7 +224,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetEmail(mEmail.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetOperator(mOperator.getText().toString());
-    // TODO set localizated names
+    Editor.nativeSetLocalizedNames(mParent.getLocalizedNamesAsArray());
 
     return true;
   }
@@ -324,6 +330,47 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
   }
 
+  private void initLocalizedNameView(final View view)
+  {
+    mLocalizedNames = (RecyclerView) view.findViewById(R.id.recycler);
+    mLocalizedNames.setNestedScrollingEnabled(false);
+    mLocalizedNames.setLayoutManager(new LinearLayoutManager(getActivity()));
+    mLocalizedNamesAdapter = new MultilanguageAdapter(mParent);
+    mLocalizedNames.setAdapter(mLocalizedNamesAdapter);
+    mLocalizedNamesAdapter.registerAdapterDataObserver(mLocalizedNamesObserver);
+    refreshLocalizedNames();
+
+    final Bundle args = getArguments();
+    if (args == null || !args.containsKey(LAST_LOCALIZED_NAME_INDEX))
+    {
+      showLocalizedNames(false);
+      return;
+    }
+    showLocalizedNames(true);
+    UiUtils.waitLayout(mLocalizedNames, new ViewTreeObserver.OnGlobalLayoutListener()
+    {
+      @Override
+      public void onGlobalLayout()
+      {
+        LinearLayoutManager lm = (LinearLayoutManager) mLocalizedNames.getLayoutManager();
+        int position = args.getInt(LAST_LOCALIZED_NAME_INDEX);
+
+        View nameItem = lm.findViewByPosition(position);
+
+        int cvNameTop = view.findViewById(R.id.cv__name).getTop();
+        int nameItemTop = nameItem.getTop();
+
+        view.scrollTo(0, cvNameTop + nameItemTop);
+
+        // TODO(mgsergio): Uncomment if focus and keyboard are required.
+        // TODO(mgsergio): Keyboard doesn't want to hide. Only pressing back button works.
+        // View nameItemInput = nameItem.findViewById(R.id.input);
+        // nameItemInput.requestFocus();
+        // InputUtils.showKeyboard(nameItemInput);
+      }
+    });
+  }
+
   private void initViews(View view)
   {
     final View categoryBlock = view.findViewById(R.id.category);
@@ -335,18 +382,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mCardAddress = view.findViewById(R.id.cv__address);
     mCardMetadata = view.findViewById(R.id.cv__metadata);
     mName = findInput(mCardName);
-    // TODO uncomment and finish localized name
-    //    view.findViewById(R.id.add_langs).setOnClickListener(this);
-    UiUtils.hide(view.findViewById(R.id.add_langs));
+    view.findViewById(R.id.add_langs).setOnClickListener(this);
     mLocalizedShow = (TextView) view.findViewById(R.id.show_langs);
     mLocalizedShow.setOnClickListener(this);
-    mLocalizedNames = (RecyclerView) view.findViewById(R.id.recycler);
-    mLocalizedNames.setLayoutManager(new LinearLayoutManager(getActivity()));
-    mLocalizedNamesAdapter = new MultilanguageAdapter(Editor.nativeGetLocalizedNames());
-    mLocalizedNames.setAdapter(mLocalizedNamesAdapter);
-    mLocalizedNamesAdapter.registerAdapterDataObserver(mLocalizedNamesObserver);
-    refreshLocalizedNames();
-    showLocalizedNames(false);
+    initLocalizedNameView(view);
 
     // Address
     view.findViewById(R.id.block_street).setOnClickListener(this);
@@ -462,9 +501,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void refreshLocalizedNames()
   {
-    // TODO uncomment and finish localized names
-    //    UiUtils.showIf(mLocalizedNamesAdapter.getItemCount() > 0, mLocalizedShow);
-    UiUtils.hide(mLocalizedNames, mLocalizedShow);
+    UiUtils.showIf(mLocalizedNamesAdapter.getItemCount() > 0, mLocalizedShow);
   }
 
   private void showLocalizedNames(boolean show)

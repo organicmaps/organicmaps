@@ -3,6 +3,8 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/Framework.hpp"
 
+#include "coding/multilang_utf8_string.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -344,13 +346,18 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetNearbyStreets(JNIEnv * env, jcla
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetSupportedLanguages(JNIEnv * env, jclass clazz)
 {
-  // TODO (yunikkk) implement
+  using TLang = StringUtf8Multilang::Lang;
   //public Language(@NonNull String code, @NonNull String name)
-//  static jclass const langClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/Language");
-//  static jmethodID const langCtor = jni::GetConstructorID(env, langClass, "(Ljava/lang/String;Ljava/lang/String;)V");
+  static jclass const langClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/Language");
+  static jmethodID const langCtor = jni::GetConstructorID(env, langClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 
-//  return jni::ToJavaArray(env, langClass, g_editableMapObject.GetBuildingLevels(), );
-  return nullptr;
+  return jni::ToJavaArray(env, langClass, StringUtf8Multilang::GetSupportedLanguages(),
+                          [](JNIEnv * env, TLang const & lang)
+                          {
+                            jni::TScopedLocalRef const code(env, jni::ToJavaString(env, lang.m_code));
+                            jni::TScopedLocalRef const name(env, jni::ToJavaString(env, lang.m_name));
+                            return env->NewObject(langClass, langCtor, code.get(), name.get());
+                          });
 }
 
 JNIEXPORT jstring JNICALL
@@ -582,5 +589,13 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsMapObjectUploaded(JNIEnv * env, jclass clazz)
 {
   return osm::Editor::Instance().IsFeatureUploaded(g_editableMapObject.GetID().m_mwmId, g_editableMapObject.GetID().m_index);
+}
+
+// static nativeMakeLocalizedName(String langCode, String name);
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeMakeLocalizedName(JNIEnv * env, jclass clazz, jstring code, jstring name)
+{
+  osm::LocalizedName localizedName(jni::ToNativeString(env, code), jni::ToNativeString(env, name));
+  return ToJavaName(env, localizedName);
 }
 } // extern "C"

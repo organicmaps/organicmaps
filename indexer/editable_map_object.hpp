@@ -35,6 +35,9 @@ struct EditableProperties
 
 struct LocalizedName
 {
+  LocalizedName(int8_t code, string const & name);
+  LocalizedName(string const & langCode, string const & name);
+
   // m_code, m_lang and m_langName are defined in StringUtf8Multilang.
   int8_t const m_code;
   // Non-owning pointers to internal static char const * array.
