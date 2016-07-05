@@ -8,7 +8,8 @@ namespace
 {
 struct Resource : public RefCounted
 {
-  Resource(bool & destroyed) : m_destroyed(destroyed) {}
+  Resource(bool & destroyed) : m_destroyed(destroyed) { m_destroyed = false; }
+
   ~Resource() override { m_destroyed = true; }
 
   bool & m_destroyed;
@@ -21,7 +22,7 @@ UNIT_TEST(RefCounted_Smoke)
   }
 
   {
-    bool destroyed = false;
+    bool destroyed;
     {
       RefCountPtr<Resource> p(new Resource(destroyed));
       TEST_EQUAL(1, p->NumRefs(), ());
@@ -31,7 +32,7 @@ UNIT_TEST(RefCounted_Smoke)
   }
 
   {
-    bool destroyed = false;
+    bool destroyed;
     {
       RefCountPtr<Resource> a(new Resource(destroyed));
       TEST_EQUAL(1, a->NumRefs(), ());
@@ -64,10 +65,6 @@ UNIT_TEST(RefCounted_Smoke)
       TEST(!destroyed, ());
 
       a = a;
-      TEST_EQUAL(a.Get(), d.Get(), ());
-      TEST_EQUAL(2, a->NumRefs(), ());
-      TEST(!destroyed, ());
-
       TEST_EQUAL(a.Get(), d.Get(), ());
       TEST_EQUAL(2, a->NumRefs(), ());
       TEST(!destroyed, ());

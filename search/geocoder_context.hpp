@@ -25,6 +25,8 @@ struct BaseContext
   // Counts number of groups of consecutive unused tokens.
   size_t NumUnusedTokenGroups() const;
 
+  // List of bit-vectors of features, where i-th element of the list
+  // corresponds to the i-th token in the search query.
   vector<CBV> m_features;
   CBV m_villages;
   CBV m_streets;
