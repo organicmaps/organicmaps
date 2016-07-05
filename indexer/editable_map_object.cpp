@@ -320,9 +320,14 @@ bool EditableMapObject::ValidateWebsite(string const & site)
   if (site.empty())
     return true;
 
-  auto const dotPos = find(begin(site), end(site), '.');
-  // Site should contain at least one dot but not at the begining/and.
-  if (dotPos == end(site) || site.front() == '.' || site.back() == '.')
+  // Site should contain at least one dot but not at the begining/end.
+  if ('.' == site.front() || '.' == site.back())
+    return false;
+
+  if (string::npos == site.find("."))
+    return false;
+
+  if (string::npos != site.find(".."))
     return false;
 
   return true;

@@ -100,6 +100,8 @@ UNIT_TEST(EditableMapObject_ValidateWebsite)
   TEST(!EditableMapObject::ValidateWebsite(".qwerty"), ());
   TEST(!EditableMapObject::ValidateWebsite("qwerty."), ());
   TEST(!EditableMapObject::ValidateWebsite(".qwerty."), ());
+  TEST(!EditableMapObject::ValidateWebsite(".qwerty."), ());
+  TEST(!EditableMapObject::ValidateWebsite("w..com"), ());
 }
 
 UNIT_TEST(EditableMapObject_ValidateEmail)
