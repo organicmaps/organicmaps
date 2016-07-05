@@ -84,7 +84,8 @@ int main(int argc, char * argv[])
         FeatureType ft;
         Index::FeaturesLoaderGuard loader(
             fetcher->GetIndex(), fetcher->GetIndex().GetMwmIdByCountryFile(file.GetCountryFile()));
-        loader.GetFeatureByIndex(segment.m_fid, ft);
+        if (!loader.GetFeatureByIndex(segment.m_fid, ft))
+          continue;
         ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
         // Get points in proper direction.

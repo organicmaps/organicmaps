@@ -97,18 +97,17 @@ bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
   return true;
 }
 
-XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw,
-                                     unique_ptr<FeatureType const> featurePtr)
+XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, FeatureType const & ft)
 {
-  ASSERT_NOT_EQUAL(featurePtr->GetFeatureType(), feature::GEOM_LINE,
+  ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE,
                    ("Line features are not supported yet."));
-  if (featurePtr->GetFeatureType() == feature::GEOM_POINT)
-    return cw.GetMatchingNodeFeatureFromOSM(featurePtr->GetCenter());
+  if (ft.GetFeatureType() == feature::GEOM_POINT)
+    return cw.GetMatchingNodeFeatureFromOSM(ft.GetCenter());
 
   // Warning: geometry is cached in FeatureType. So if it wasn't BEST_GEOMETRY,
   // we can never have it. Features here came from editors loader and should
   // have BEST_GEOMETRY geometry.
-  auto geometry = featurePtr->GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
+  auto geometry = ft.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
 
   // Filters out duplicate points for closed ways or triangles' vertices.
   my::SortUnique(geometry);
@@ -770,8 +769,8 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
                 feature.SetTagValue(kAddrStreetTag, fti.m_street);
               ourDebugFeatureString = DebugPrint(feature);
 
-              XMLFeature osmFeature =
-                  GetMatchingFeatureFromOSM(changeset, m_getOriginalFeatureFn(fti.m_feature.GetID()));
+              XMLFeature osmFeature = GetMatchingFeatureFromOSM(
+                  changeset, *m_getOriginalFeatureFn(fti.m_feature.GetID()));
               XMLFeature const osmFeatureCopy = osmFeature;
               osmFeature.ApplyPatch(feature);
               // Check to avoid uploading duplicates into OSM.
@@ -791,7 +790,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
 
           case FeatureStatus::Deleted:
             changeset.Delete(GetMatchingFeatureFromOSM(
-                changeset, m_getOriginalFeatureFn(fti.m_feature.GetID())));
+                changeset, *m_getOriginalFeatureFn(fti.m_feature.GetID())));
             break;
           }
           fti.m_uploadStatus = kUploaded;

@@ -197,7 +197,7 @@ UNIT_TEST(HS_StreetsMerge)
   TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
 
   {
-    search::HouseDetector houser(&index);
+    search::HouseDetector houser(index);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("улица Володарского");
     index.ForEachInScale(toDo, scales::GetUpperScale());
@@ -206,7 +206,7 @@ UNIT_TEST(HS_StreetsMerge)
   }
 
   {
-    search::HouseDetector houser(&index);
+    search::HouseDetector houser(index);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("Московская улица");
     index.ForEachInScale(toDo, scales::GetUpperScale());
@@ -215,7 +215,7 @@ UNIT_TEST(HS_StreetsMerge)
   }
 
   {
-    search::HouseDetector houser(&index);
+    search::HouseDetector houser(index);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("проспект Независимости");
     toDo.streetNames.push_back("Московская улица");
@@ -225,7 +225,7 @@ UNIT_TEST(HS_StreetsMerge)
   }
 
   {
-    search::HouseDetector houser(&index);
+    search::HouseDetector houser(index);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("проспект Независимости");
     toDo.streetNames.push_back("Московская улица");
@@ -238,7 +238,7 @@ UNIT_TEST(HS_StreetsMerge)
   }
 
   {
-    search::HouseDetector houser(&index);
+    search::HouseDetector houser(index);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("проспект Независимости");
     toDo.streetNames.push_back("Московская улица");
@@ -256,7 +256,7 @@ namespace
 m2::PointD FindHouse(Index & index, vector<string> const & streets,
                      string const & houseName, double offset)
 {
-  search::HouseDetector houser(&index);
+  search::HouseDetector houser(index);
 
   StreetIDsByName toDo;
   toDo.streetNames = streets;
@@ -426,7 +426,7 @@ UNIT_TEST(HS_MWMSearch)
 
   sort(addresses.begin(), addresses.end());
 
-  search::HouseDetector detector(&index);
+  search::HouseDetector detector(index);
   size_t all = 0, matched = 0, notMatched = 0;
 
   size_t const percent = max(size_t(1), addresses.size() / 100);

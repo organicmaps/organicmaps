@@ -33,7 +33,6 @@ public:
 
 private:
   Index::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
-  ftypes::HighwayClass GetHighwayClass(FeatureID const & featureId);
   void LoadPathGeometry(FeatureID const & featureId, vector<m2::PointD> const & path,
                         LoadedPathSegment & pathSegment);
 

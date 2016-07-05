@@ -20,6 +20,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/fstream.hpp"
@@ -54,12 +55,12 @@ struct Context
 {
   Context(Index & index) : m_index(index) {}
 
-  void GetFeature(FeatureID const & id, FeatureType & ft)
+  WARN_UNUSED_RESULT bool GetFeature(FeatureID const & id, FeatureType & ft)
   {
     auto const & mwmId = id.m_mwmId;
     if (!m_guard || m_guard->GetId() != mwmId)
       m_guard = make_unique<Index::FeaturesLoaderGuard>(m_index, mwmId);
-    m_guard->GetFeatureByIndex(id.m_index, ft);
+    return m_guard->GetFeatureByIndex(id.m_index, ft);
   }
 
   Index & m_index;
@@ -83,7 +84,8 @@ bool Matches(Context & context, Sample::Result const & golden, search::Result co
     return false;
 
   FeatureType ft;
-  context.GetFeature(actual.GetFeatureID(), ft);
+  if (!context.GetFeature(actual.GetFeatureID(), ft))
+    return false;
 
   string name;
   if (!ft.GetName(FeatureType::DEFAULT_LANG, name))

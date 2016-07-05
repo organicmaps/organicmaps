@@ -128,7 +128,9 @@ public:
 
       FeatureType ft;
       Index::FeaturesLoaderGuard loader(m_index, m_routingMapping.GetMwmId());
-      loader.GetFeatureByIndex(seg.m_fid, ft);
+      if (!loader.GetFeatureByIndex(seg.m_fid, ft))
+        continue;
+
       ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
       m2::PointD const outgoingPoint = ft.GetPoint(
@@ -244,7 +246,8 @@ void FindGraphNodeOffsets(uint32_t const nodeId, m2::PointD const & point,
 
     FeatureType ft;
     Index::FeaturesLoaderGuard loader(*pIndex, mapping->GetMwmId());
-    loader.GetFeatureByIndex(s.m_fid, ft);
+    if (!loader.GetFeatureByIndex(s.m_fid, ft))
+      continue;
 
     helpers::Point2PhantomNode::Candidate mappedSeg;
     size_t start_idx = min(s.m_pointStart, s.m_pointEnd);

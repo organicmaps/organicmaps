@@ -145,8 +145,16 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
       // Checking for if |edge| is a fake edge.
       if (!outFeatureId.IsValid())
         continue;
+
+      FeatureType ft;
+      if (!GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index, ft))
+        continue;
+
+      auto const highwayClass = ftypes::GetHighwayClass(ft);
+      ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
+      ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
       adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, outFeatureId.m_index,
-                                                            GetHighwayClass(outFeatureId));
+                                                            highwayClass);
     }
 
     LoadedPathSegment pathSegment;
@@ -174,16 +182,6 @@ Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId co
   return *m_loader;
 }
 
-ftypes::HighwayClass BicycleDirectionsEngine::GetHighwayClass(FeatureID const & featureId)
-{
-  FeatureType ft;
-  GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft);
-  auto const highwayClass = ftypes::GetHighwayClass(ft);
-  ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
-  ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
-  return highwayClass;
-}
-
 void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId,
                                                vector<m2::PointD> const & path,
                                                LoadedPathSegment & pathSegment)
@@ -197,7 +195,13 @@ void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId,
   }
 
   FeatureType ft;
-  GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft);
+  if (!GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft))
+  {
+    // The feature can't be read, therefore path geometry can't be
+    // loaded.
+    return;
+  }
+
   auto const highwayClass = ftypes::GetHighwayClass(ft);
   ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
   ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());

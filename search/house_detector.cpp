@@ -222,41 +222,24 @@ bool House::GetNearbyMatch(ParsedNumber const & number) const
   return m_number.IsIntersect(number, HN_NEARBY_DISTANCE);
 }
 
-FeatureLoader::FeatureLoader(Index const * pIndex)
-  : m_pIndex(pIndex), m_pGuard(0)
-{
-}
-
-FeatureLoader::~FeatureLoader()
-{
-  Free();
-}
+FeatureLoader::FeatureLoader(Index const & index) : m_index(index) {}
 
 void FeatureLoader::CreateLoader(MwmSet::MwmId const & mwmId)
 {
-  if (m_pGuard == nullptr || mwmId != m_pGuard->GetId())
-  {
-    delete m_pGuard;
-    m_pGuard = new Index::FeaturesLoaderGuard(*m_pIndex, mwmId);
-  }
+  if (!m_guard || mwmId != m_guard->GetId())
+    m_guard = make_unique<Index::FeaturesLoaderGuard>(m_index, mwmId);
 }
 
-void FeatureLoader::Load(FeatureID const & id, FeatureType & f)
+bool FeatureLoader::Load(FeatureID const & id, FeatureType & f)
 {
   CreateLoader(id.m_mwmId);
-  m_pGuard->GetFeatureByIndex(id.m_index, f);
-}
-
-void FeatureLoader::Free()
-{
-  delete m_pGuard;
-  m_pGuard = 0;
+  return m_guard->GetFeatureByIndex(id.m_index, f);
 }
 
 template <class ToDo>
 void FeatureLoader::ForEachInRect(m2::RectD const & rect, ToDo toDo)
 {
-  m_pIndex->ForEachInRect(toDo, rect, scales::GetUpperScale());
+  m_index.ForEachInRect(toDo, rect, scales::GetUpperScale());
 }
 
 m2::RectD Street::GetLimitRect(double offsetMeters) const
@@ -329,8 +312,8 @@ void Street::SortHousesProjection()
   sort(m_houses.begin(), m_houses.end(), &LessStreetDistance);
 }
 
-HouseDetector::HouseDetector(Index const * pIndex)
-  : m_loader(pIndex), m_streetNum(0)
+HouseDetector::HouseDetector(Index const & index)
+  : m_loader(index), m_streetNum(0)
 {
   // default value for conversions
   SetMetres2Mercator(360.0 / 40.0E06);
@@ -463,7 +446,12 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
       continue;
 
     FeatureType f;
-    m_loader.Load(ids[i], f);
+    if (!m_loader.Load(ids[i], f))
+    {
+      LOG(LWARNING, ("Can't read feature from:", ids[i].m_mwmId));
+      continue;
+    }
+
     if (f.GetFeatureType() == feature::GEOM_LINE)
     {
       // Use default name as a primary compare key for merging.

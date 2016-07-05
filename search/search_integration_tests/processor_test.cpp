@@ -509,7 +509,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 
     Index::FeaturesLoaderGuard loader(m_engine, countryId);
     FeatureType ft;
-    loader.GetFeatureByIndex(index, ft);
+    TEST(loader.GetFeatureByIndex(index, ft), ());
 
     auto rule = ExactMatch(countryId, building31);
     TEST(rule->Matches(ft), ());
@@ -606,7 +606,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
     {
       Index::FeaturesLoaderGuard loader(m_engine, wonderlandId);
       FeatureType ft;
-      loader.GetFeatureByIndex(result.GetFeatureID().m_index, ft);
+      TEST(loader.GetFeatureByIndex(result.GetFeatureID().m_index, ft), ());
 
       auto const & info = result.GetRankingInfo();
 

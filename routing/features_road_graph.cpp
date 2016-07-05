@@ -197,9 +197,10 @@ void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::Ty
 {
   FeatureType ft;
   Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
-  loader.GetFeatureByIndex(featureId.m_index, ft);
-  ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
+  if (!loader.GetFeatureByIndex(featureId.m_index, ft))
+    return;
 
+  ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
   types = feature::TypesHolder(ft);
 }
 
@@ -262,8 +263,12 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
     return ri;
 
   FeatureType ft;
+
   Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
-  loader.GetFeatureByIndex(featureId.m_index, ft);
+
+  if (!loader.GetFeatureByIndex(featureId.m_index, ft))
+    return ri;
+
   ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
 
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);

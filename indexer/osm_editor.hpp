@@ -113,7 +113,8 @@ public:
   {
     NothingWasChanged,
     SavedSuccessfully,
-    NoFreeSpaceError
+    NoFreeSpaceError,
+    NoUnderlyingMapError
   };
   /// Editor checks internally if any feature params were actually edited.
   SaveResult SaveEditedFeature(EditableMapObject const & emo);

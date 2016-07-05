@@ -83,36 +83,52 @@ bool Index::DeregisterMap(CountryFile const & countryFile) { return Deregister(c
 // Index::FeaturesLoaderGuard implementation
 //////////////////////////////////////////////////////////////////////////////////
 
-Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId const & id)
-  : m_handle(parent.GetMwmHandleById(id))
-  , m_vector(m_handle.GetValue<MwmValue>()->m_cont, m_handle.GetValue<MwmValue>()->GetHeader(),
-             m_handle.GetValue<MwmValue>()->m_table.get())
+Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & index, MwmId const & id)
+  : m_handle(index.GetMwmHandleById(id))
 {
+  if (!m_handle.IsAlive())
+    return;
+
+  auto const & value = *m_handle.GetValue<MwmValue>();
+  m_vector = make_unique<FeaturesVector>(value.m_cont, value.GetHeader(), value.m_table.get());
 }
 
 string Index::FeaturesLoaderGuard::GetCountryFileName() const
 {
   if (!m_handle.IsAlive())
     return string();
+
   return m_handle.GetValue<MwmValue>()->GetCountryFileName();
 }
 
 bool Index::FeaturesLoaderGuard::IsWorld() const
 {
+  if (!m_handle.IsAlive())
+    return false;
+
   return m_handle.GetValue<MwmValue>()->GetHeader().GetType() == feature::DataHeader::world;
 }
 
-void Index::FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index, FeatureType & ft) const
+bool Index::FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index, FeatureType & ft) const
 {
+  if (!m_handle.IsAlive())
+    return false;
+
   MwmId const & id = m_handle.GetId();
   ASSERT_NOT_EQUAL(osm::Editor::FeatureStatus::Deleted, m_editor.GetFeatureStatus(id, index),
                    ("Deleted feature was cached. It should not be here. Please review your code."));
-  if (!m_editor.Instance().GetEditedFeature(id, index, ft))
-    GetOriginalFeatureByIndex(index, ft);
+  if (m_editor.Instance().GetEditedFeature(id, index, ft))
+    return true;
+  return GetOriginalFeatureByIndex(index, ft);
 }
 
-void Index::FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index, FeatureType & ft) const
+bool Index::FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index, FeatureType & ft) const
 {
-  m_vector.GetByIndex(index, ft);
+  if (!m_handle.IsAlive())
+    return false;
+
+  ASSERT(m_vector != nullptr, ());
+  m_vector->GetByIndex(index, ft);
   ft.SetID(FeatureID(m_handle.GetId(), index));
+  return true;
 }
