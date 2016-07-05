@@ -339,6 +339,25 @@ void Editor::ClearAllLocalEdits()
   Invalidate();
 }
 
+void Editor::OnMapDeregistered(platform::LocalCountryFile const & localFile)
+{
+  // TODO: to add some synchronization mechanism for whole Editor class
+  lock_guard<mutex> g(m_mapDeregisteredMtx);
+
+  using TFeaturePair = decltype(m_features)::value_type;
+  // Cannot search by MwmId because country already removed. So, search by country name.
+  auto const matchedMwm =
+      find_if(begin(m_features), end(m_features), [&localFile](TFeaturePair const & item) {
+        return item.first.GetInfo()->GetCountryName() == localFile.GetCountryName();
+      });
+
+  if (m_features.end() != matchedMwm)
+  {
+    m_features.erase(matchedMwm);
+    Save(GetEditorFilePath());
+  }
+}
+
 Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
 {
   // Most popular case optimization.
