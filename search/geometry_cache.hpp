@@ -1,8 +1,8 @@
 #pragma once
 
-#include "indexer/mwm_set.hpp"
+#include "search/cbv.hpp"
 
-#include "coding/compressed_bit_vector.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -35,8 +35,7 @@ public:
   // Returns (hopefully, cached) list of features in a given
   // rect. Note that return value may be invalidated on next calls to
   // this method.
-  virtual coding::CompressedBitVector const * Get(MwmContext const & context,
-                                                  m2::RectD const & rect, int scale) = 0;
+  virtual CBV Get(MwmContext const & context, m2::RectD const & rect, int scale) = 0;
 
   inline void Clear() { m_entries.clear(); }
 
@@ -44,7 +43,7 @@ protected:
   struct Entry
   {
     m2::RectD m_rect;
-    unique_ptr<coding::CompressedBitVector> m_cbv;
+    CBV m_cbv;
     int m_scale = 0;
   };
 
@@ -87,8 +86,7 @@ public:
                   double maxRadiusMeters);
 
   // GeometryCache overrides:
-  coding::CompressedBitVector const * Get(MwmContext const & context, m2::RectD const & rect,
-                                          int scale) override;
+  CBV Get(MwmContext const & context, m2::RectD const & rect, int scale) override;
 
 private:
   double const m_maxRadiusMeters;
@@ -100,8 +98,7 @@ public:
   LocalityRectsCache(size_t maxNumEntries, my::Cancellable const & cancellable);
 
   // GeometryCache overrides:
-  coding::CompressedBitVector const * Get(MwmContext const & context, m2::RectD const & rect,
-                                          int scale) override;
+  CBV Get(MwmContext const & context, m2::RectD const & rect, int scale) override;
 };
 
 }  // namespace search

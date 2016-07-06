@@ -1,47 +1,48 @@
 #include "search/features_filter.hpp"
 
-#include "coding/compressed_bit_vector.hpp"
+#include "search/cbv.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/vector.hpp"
 
 namespace search
 {
 // FeaturesFilter ----------------------------------------------------------------------------------
-FeaturesFilter::FeaturesFilter(coding::CompressedBitVector const & filter, uint32_t threshold)
+FeaturesFilter::FeaturesFilter(CBV const & filter, uint32_t threshold)
   : m_filter(filter), m_threshold(threshold)
 {
 }
 
-bool FeaturesFilter::NeedToFilter(coding::CompressedBitVector const & cbv) const
+bool FeaturesFilter::NeedToFilter(CBV const & cbv) const
 {
+  if (cbv.IsFull())
+    return true;
   return cbv.PopCount() > m_threshold;
 }
 
 // LocalityFilter ----------------------------------------------------------------------------------
-LocalityFilter::LocalityFilter(coding::CompressedBitVector const & filter)
+LocalityFilter::LocalityFilter(CBV const & filter)
   : FeaturesFilter(filter, 0 /* threshold */)
 {
 }
 
-unique_ptr<coding::CompressedBitVector> LocalityFilter::Filter(
-    coding::CompressedBitVector const & cbv) const
+CBV LocalityFilter::Filter(CBV const & cbv) const
 {
-  return coding::CompressedBitVector::Intersect(m_filter, cbv);
+  return m_filter.Intersect(cbv);
 }
 
 // ViewportFilter ----------------------------------------------------------------------------------
-ViewportFilter::ViewportFilter(coding::CompressedBitVector const & filter, uint32_t threshold)
+ViewportFilter::ViewportFilter(CBV const & filter, uint32_t threshold)
   : FeaturesFilter(filter, threshold)
 {
 }
 
-unique_ptr<coding::CompressedBitVector> ViewportFilter::Filter(
-    coding::CompressedBitVector const & cbv) const
+CBV ViewportFilter::Filter(CBV const & cbv) const
 {
-  auto result = coding::CompressedBitVector::Intersect(m_filter, cbv);
-  if (!coding::CompressedBitVector::IsEmpty(result))
+  auto result = m_filter.Intersect(cbv);
+  if (!result.IsEmpty())
     return result;
-  return cbv.LeaveFirstSetNBits(m_threshold);
-}
 
+  return cbv.Take(m_threshold);
+}
 }  // namespace search

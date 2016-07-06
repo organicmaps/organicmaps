@@ -90,5 +90,4 @@ private:
 
   DISALLOW_COPY_AND_MOVE(MwmContext);
 };
-
 }  // namespace search

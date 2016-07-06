@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/cancel_exception.hpp"
+#include "search/cbv.hpp"
 #include "search/features_layer.hpp"
 #include "search/house_numbers_matcher.hpp"
 #include "search/model.hpp"
@@ -18,8 +19,6 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
-
-#include "coding/compressed_bit_vector.hpp"
 
 #include "base/cancellable.hpp"
 #include "base/logging.hpp"
@@ -61,7 +60,7 @@ public:
 
   FeaturesLayerMatcher(Index const & index, my::Cancellable const & cancellable);
   void SetContext(MwmContext * context);
-  void SetPostcodes(coding::CompressedBitVector const * postcodes);
+  void SetPostcodes(CBV const * postcodes);
 
   template <typename TFn>
   void Match(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
@@ -165,7 +164,7 @@ private:
           MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i], kBuildingRadiusMeters),
           [&](FeatureType & ft)
           {
-            if (m_postcodes && !m_postcodes->GetBit(ft.GetID().m_index))
+            if (m_postcodes && !m_postcodes->HasBit(ft.GetID().m_index))
               return;
             if (house_numbers::HouseNumbersMatch(strings::MakeUniString(ft.GetHouseNumber()),
                                                  queryParse))
@@ -252,7 +251,7 @@ private:
       if (binary_search(buildings.begin(), buildings.end(), id))
         return true;
 
-      if (m_postcodes && !m_postcodes->GetBit(id))
+      if (m_postcodes && !m_postcodes->HasBit(id))
         return false;
 
       if (!loaded)
@@ -344,7 +343,7 @@ private:
 
   MwmContext * m_context;
 
-  coding::CompressedBitVector const * m_postcodes;
+  CBV const * m_postcodes;
 
   ReverseGeocoder m_reverseGeocoder;
 
