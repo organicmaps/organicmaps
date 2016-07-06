@@ -61,7 +61,7 @@
       if (lastLocation)
       {
         double const dist = MercatorBounds::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
-        MeasurementUtils::FormatDistance(dist, distanceStr);
+        measurement_utils::FormatDistance(dist, distanceStr);
       }
       self.distanceLabel.text = @(distanceStr.c_str());
     }

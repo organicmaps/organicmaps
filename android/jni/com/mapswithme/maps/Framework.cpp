@@ -608,8 +608,8 @@ Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimuthFromLatLon(
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat, jdouble lon, jboolean useDMSFormat)
 {
-  return jni::ToJavaString(env, (useDMSFormat ? MeasurementUtils::FormatLatLonAsDMS(lat, lon, 2)
-                                              : MeasurementUtils::FormatLatLon(lat, lon, 6)));
+  return jni::ToJavaString(env, (useDMSFormat ? measurement_utils::FormatLatLonAsDMS(lat, lon, 2)
+                                              : measurement_utils::FormatLatLon(lat, lon, 6)));
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -617,9 +617,9 @@ Java_com_mapswithme_maps_Framework_nativeFormatLatLonToArr(JNIEnv * env, jclass,
 {
   string slat, slon;
   if (useDMSFormat)
-    MeasurementUtils::FormatLatLonAsDMS(lat, lon, slat, slon, 2);
+    measurement_utils::FormatLatLonAsDMS(lat, lon, slat, slon, 2);
   else
-    MeasurementUtils::FormatLatLon(lat, lon, slat, slon, 6);
+    measurement_utils::FormatLatLon(lat, lon, slat, slon, 6);
 
   static jclass const klass = jni::GetGlobalClassRef(env, "java/lang/String");
   jobjectArray arr = env->NewObjectArray(2, klass, 0);
@@ -633,13 +633,13 @@ Java_com_mapswithme_maps_Framework_nativeFormatLatLonToArr(JNIEnv * env, jclass,
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jdouble alt)
 {
-  return jni::ToJavaString(env,  MeasurementUtils::FormatAltitude(alt));
+  return jni::ToJavaString(env, measurement_utils::FormatAltitude(alt));
 }
 
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeFormatSpeed(JNIEnv * env, jclass, jdouble speed)
 {
-  return jni::ToJavaString(env,  MeasurementUtils::FormatSpeed(speed));
+  return jni::ToJavaString(env, measurement_utils::FormatSpeedWithDeviceUnits(speed));
 }
 
 JNIEXPORT jobject JNICALL

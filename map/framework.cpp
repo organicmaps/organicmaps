@@ -1496,7 +1496,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
                                        MercatorBounds::XToLon(point.x));
 
   // Distance may be less than 1.0
-  (void) MeasurementUtils::FormatDistance(d, distance);
+  UNUSED_VALUE(measurement_utils::FormatDistance(d, distance));
 
   if (north >= 0.0)
   {
@@ -1701,8 +1701,8 @@ void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
 
-  settings::Units units = settings::Metric;
-  settings::Get(settings::kMeasurementUnits, units);
+  auto units = measurement_utils::Units::Metric;
+  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
 
   m_routingSession.SetTurnNotificationsUnits(units);
 }

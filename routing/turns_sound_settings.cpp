@@ -6,6 +6,8 @@
 
 #include "std/algorithm.hpp"
 
+using namespace measurement_utils;
+
 namespace routing
 {
 namespace turns
@@ -15,7 +17,7 @@ namespace sound
 void Settings::SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
                         uint32_t maxNotificationDistanceUnits,
                         vector<uint32_t> const & soundedDistancesUnits,
-                        ::settings::Units lengthUnits)
+                        measurement_utils::Units lengthUnits)
 {
   m_timeSeconds = notificationTimeSeconds;
   m_minDistanceUnits = minNotificationDistanceUnits;
@@ -64,10 +66,8 @@ double Settings::ConvertMetersPerSecondToUnitsPerSecond(double speedInMetersPerS
 {
   switch (m_lengthUnits)
   {
-    case ::settings::Metric:
-      return speedInMetersPerSecond;
-    case ::settings::Foot:
-      return MeasurementUtils::MetersToFeet(speedInMetersPerSecond);
+  case Units::Metric: return speedInMetersPerSecond;
+  case Units::Imperial: return MetersToFeet(speedInMetersPerSecond);
   }
 
   ASSERT(false, ("m_lengthUnits is equal to unknown value."));
@@ -78,10 +78,8 @@ double Settings::ConvertUnitsToMeters(double distanceInUnits) const
 {
   switch (m_lengthUnits)
   {
-    case ::settings::Metric:
-      return distanceInUnits;
-    case ::settings::Foot:
-      return MeasurementUtils::FeetToMeters(distanceInUnits);
+  case Units::Metric: return distanceInUnits;
+  case Units::Imperial: return FeetToMeters(distanceInUnits);
   }
 
   ASSERT(false, ());
@@ -92,10 +90,8 @@ double Settings::ConvertMetersToUnits(double distanceInMeters) const
 {
   switch (m_lengthUnits)
   {
-    case ::settings::Metric:
-      return distanceInMeters;
-    case ::settings::Foot:
-      return MeasurementUtils::MetersToFeet(distanceInMeters);
+  case Units::Metric: return distanceInMeters;
+  case Units::Imperial: return MetersToFeet(distanceInMeters);
   }
 
   ASSERT(false, ());
@@ -112,12 +108,13 @@ uint32_t Settings::ComputeDistToPronounceDistM(double speedMetersPerSecond) cons
 
 string DebugPrint(Notification const & notification)
 {
+  string units;
   stringstream out;
   out << "Notification [ m_distanceUnits == " << notification.m_distanceUnits
       << ", m_exitNum == " << notification.m_exitNum
       << ", m_useThenInsteadOfDistance == " << notification.m_useThenInsteadOfDistance
       << ", m_turnDir == " << DebugPrint(notification.m_turnDir)
-      << ", m_lengthUnits == " << notification.m_lengthUnits << " ]" << endl;
+      << ", m_lengthUnits == " << DebugPrint(notification.m_lengthUnits) << " ]" << endl;
   return out.str();
 }
 

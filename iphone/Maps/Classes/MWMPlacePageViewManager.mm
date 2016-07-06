@@ -364,8 +364,8 @@ extern NSString * const kBookmarksChangedNotification;
   string distance;
   CLLocationCoordinate2D const coord = lastLocation.coordinate;
   ms::LatLon const target = self.entity.latlon;
-  MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coord.latitude, coord.longitude,
-                                                       target.lat, target.lon), distance);
+  measurement_utils::FormatDistance(
+      ms::DistanceOnEarth(coord.latitude, coord.longitude, target.lat, target.lon), distance);
   return @(distance.c_str());
 }
 

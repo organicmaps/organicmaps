@@ -16,7 +16,7 @@
 using namespace settings;
 using namespace strings;
 
-namespace MeasurementUtils
+namespace measurement_utils
 {
 
 string ToStringPrecision(double d, int pr)
@@ -51,14 +51,14 @@ bool FormatDistanceImpl(double m, string & res,
 
 bool FormatDistance(double m, string & res)
 {
-  Units u = Metric;
-  (void)Get(settings::kMeasurementUnits, u);
+  auto units = Units::Metric;
+  UNUSED_VALUE(Get(settings::kMeasurementUnits, units));
 
   /// @todo Put string units resources.
-  switch (u)
+  switch (units)
   {
-  case Foot: return FormatDistanceImpl(m, res, " mi", " ft", 1609.344, 0.3048);
-  default: return FormatDistanceImpl(m, res, " km", " m", 1000.0, 1.0);
+  case Units::Imperial: return FormatDistanceImpl(m, res, " mi", " ft", 1609.344, 0.3048);
+  case Units::Metric: return FormatDistanceImpl(m, res, " km", " m", 1000.0, 1.0);
   }
 }
 
@@ -154,42 +154,53 @@ void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int
 
 string FormatAltitude(double altitudeInMeters)
 {
-  Units u = Metric;
-  (void)Get(settings::kMeasurementUnits, u);
+  Units units = Units::Metric;
+  UNUSED_VALUE(Get(settings::kMeasurementUnits, units));
 
   ostringstream ss;
   ss << fixed << setprecision(0);
 
   /// @todo Put string units resources.
-  switch (u)
+  switch (units)
   {
-  case Foot: ss << MetersToFeet(altitudeInMeters) << "ft"; break;
-  default: ss << altitudeInMeters << "m"; break;
+  case Units::Imperial: ss << MetersToFeet(altitudeInMeters) << "ft"; break;
+  case Units::Metric: ss << altitudeInMeters << "m"; break;
   }
   return ss.str();
 }
 
-string FormatSpeed(double metersPerSecond)
+string FormatSpeedWithDeviceUnits(double metersPerSecond)
 {
-  Units u = Metric;
-  (void)Get(settings::kMeasurementUnits, u);
+  auto units = Units::Metric;
+  UNUSED_VALUE(Get(settings::kMeasurementUnits, units));
+  return FormatSpeedWithUnits(metersPerSecond, units);
+}
 
-  double perHour;
-  string res;
+string FormatSpeedWithUnits(double metersPerSecond, Units units)
+{
+  return FormatSpeed(metersPerSecond, units) + FormatSpeedUnits(units);
+}
 
-  /// @todo Put string units resources.
-  switch (u)
+string FormatSpeed(double metersPerSecond, Units units)
+{
+  double constexpr kSecondsPerHour = 3600;
+  double constexpr metersPerKilometer = 1000;
+  double unitsPerHour;
+  switch (units)
   {
-  case Foot:
-    perHour = metersPerSecond * 3600. / 1609.344;
-    res = ToStringPrecision(perHour, perHour >= 10.0 ? 0 : 1) + "mph";
-    break;
-  default:
-    perHour = metersPerSecond * 3600. / 1000.;
-    res = ToStringPrecision(perHour, perHour >= 10.0 ? 0 : 1) + "km/h";
-    break;
+  case Units::Imperial: unitsPerHour = MetersToMiles(metersPerSecond) * kSecondsPerHour; break;
+  case Units::Metric: unitsPerHour = metersPerSecond * kSecondsPerHour / metersPerKilometer; break;
   }
-  return res;
+  return ToStringPrecision(unitsPerHour, unitsPerHour >= 10.0 ? 0 : 1);
+}
+
+string FormatSpeedUnits(Units units)
+{
+  switch (units)
+  {
+  case Units::Imperial: return "mph";
+  case Units::Metric: return "km/h";
+  }
 }
 
 bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
@@ -275,4 +286,4 @@ string OSMDistanceToMetersString(string const & osmRawValue,
   return {};
 }
 
-} // namespace MeasurementUtils
+}  // namespace measurement_utils

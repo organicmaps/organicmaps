@@ -1,6 +1,7 @@
+#include "platform/constants.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_unix_impl.hpp"
-#include "platform/constants.hpp"
 #include "platform/settings.hpp"
 
 #include "coding/zip_reader.hpp"
@@ -251,12 +252,12 @@ Platform::EError Platform::MkDir(string const & dirName) const
 
 void Platform::SetupMeasurementSystem() const
 {
-  settings::Units u;
-  if (settings::Get(settings::kMeasurementUnits, u))
+  auto units = measurement_utils::Units::Metric;
+  if (settings::Get(settings::kMeasurementUnits, units))
     return;
   // @TODO Add correct implementation
-  u = settings::Metric;
-  settings::Set(settings::kMeasurementUnits, u);
+  units = measurement_utils::Units::Metric;
+  settings::Set(settings::kMeasurementUnits, units);
 }
 
 namespace

@@ -229,14 +229,14 @@ double RulerHelper::CalcMetresDiff(double value)
   typedef double (*ConversionFn)(double);
   ConversionFn conversionFn = &identity;
 
-  settings::Units units = settings::Metric;
-  settings::Get(settings::kMeasurementUnits, units);
+  auto units = measurement_utils::Units::Metric;
+  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
 
-  if (units == settings::Foot)
+  if (units == measurement_utils::Units::Imperial)
   {
     arrU = g_arrFeets;
     count = ARRAY_SIZE(g_arrFeets);
-    conversionFn = &MeasurementUtils::MetersToFeet;
+    conversionFn = &measurement_utils::MetersToFeet;
   }
 
   int prevUnitRange = m_rangeIndex;

@@ -3,7 +3,7 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
-using namespace MeasurementUtils;
+using namespace measurement_utils;
 using namespace settings;
 
 struct ScopedSettings
@@ -30,7 +30,7 @@ struct ScopedSettings
 
 UNIT_TEST(Measurement_Smoke)
 {
-  ScopedSettings guard(settings::Metric);
+  ScopedSettings guard(Units::Metric);
 
   typedef pair<double, char const *> PairT;
 
@@ -89,17 +89,49 @@ UNIT_TEST(LatLonToDMS_NoRounding)
 UNIT_TEST(FormatAltitude)
 {
   ScopedSettings guard;
-  settings::Set(settings::kMeasurementUnits, settings::Foot);
+  settings::Set(settings::kMeasurementUnits, Units::Imperial);
   TEST_EQUAL(FormatAltitude(10000), "32808ft", ());
-  settings::Set(settings::kMeasurementUnits, settings::Metric);
+  settings::Set(settings::kMeasurementUnits, Units::Metric);
   TEST_EQUAL(FormatAltitude(5), "5m", ());
+}
+
+UNIT_TEST(FormatSpeedWithDeviceUnits)
+{
+  {
+    ScopedSettings guard(Units::Metric);
+    TEST_EQUAL(FormatSpeedWithDeviceUnits(10), "36km/h", ());
+    TEST_EQUAL(FormatSpeedWithDeviceUnits(1), "3.6km/h", ());
+  }
+
+  {
+    ScopedSettings guard(Units::Imperial);
+    TEST_EQUAL(FormatSpeedWithDeviceUnits(10), "22mph", ());
+    TEST_EQUAL(FormatSpeedWithDeviceUnits(1), "2.2mph", ());
+  }
+}
+
+UNIT_TEST(FormatSpeedWithUnits)
+{
+  TEST_EQUAL(FormatSpeedWithUnits(10, Units::Metric), "36km/h", ());
+  TEST_EQUAL(FormatSpeedWithUnits(1, Units::Metric), "3.6km/h", ());
+
+  TEST_EQUAL(FormatSpeedWithUnits(10, Units::Imperial), "22mph", ());
+  TEST_EQUAL(FormatSpeedWithUnits(1, Units::Imperial), "2.2mph", ());
 }
 
 UNIT_TEST(FormatSpeed)
 {
-  ScopedSettings guard(settings::Metric);
-  TEST_EQUAL(FormatSpeed(10), "36km/h", ());
-  TEST_EQUAL(FormatSpeed(1), "3.6km/h", ());
+  TEST_EQUAL(FormatSpeed(10, Units::Metric), "36", ());
+  TEST_EQUAL(FormatSpeed(1, Units::Metric), "3.6", ());
+
+  TEST_EQUAL(FormatSpeed(10, Units::Imperial), "22", ());
+  TEST_EQUAL(FormatSpeed(1, Units::Imperial), "2.2", ());
+}
+
+UNIT_TEST(FormatSpeedUnits)
+{
+  TEST_EQUAL(FormatSpeedUnits(Units::Metric), "km/h", ());
+  TEST_EQUAL(FormatSpeedUnits(Units::Imperial), "mph", ());
 }
 
 UNIT_TEST(OSMDistanceToMetersString)

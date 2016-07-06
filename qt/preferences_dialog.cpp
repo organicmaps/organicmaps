@@ -1,5 +1,6 @@
 #include "qt/preferences_dialog.hpp"
 
+#include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
 #include <QtGui/QIcon>
@@ -26,6 +27,8 @@
   #include <QtWidgets/QRadioButton>
 #endif
 
+using namespace measurement_utils;
+
 namespace qt
 {
   PreferencesDialog::PreferencesDialog(QWidget * parent)
@@ -40,15 +43,13 @@ namespace qt
     {
       QHBoxLayout * pLayout = new QHBoxLayout();
 
-      using namespace settings;
-
       QRadioButton * p = new QRadioButton("Metric");
       pLayout->addWidget(p);
-      m_pUnits->addButton(p, Metric);
+      m_pUnits->addButton(p, static_cast<int>(Units::Metric));
 
       p = new QRadioButton("Imperial (foot)");
       pLayout->addWidget(p);
-      m_pUnits->addButton(p, Foot);
+      m_pUnits->addButton(p, static_cast<int>(Units::Imperial));
 
       radioBox->setLayout(pLayout);
 
@@ -57,9 +58,9 @@ namespace qt
       {
         // set default measurement from system locale
         if (QLocale::system().measurementSystem() == QLocale::MetricSystem)
-          u = Metric;
+          u = Units::Metric;
         else
-          u = Foot;
+          u = Units::Imperial;
       }
       m_pUnits->button(static_cast<int>(u))->setChecked(true);
 
@@ -97,8 +98,8 @@ namespace qt
     Units u;
     switch (i)
     {
-    case 0: u = Metric; break;
-    case 1: u = Foot; break;
+    case 0: u = Units::Metric; break;
+    case 1: u = Units::Imperial; break;
     }
 
     settings::Set(kMeasurementUnits, u);

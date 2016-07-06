@@ -52,11 +52,6 @@ void Set(string const & key, ValueT const & value)
 
 inline void Delete(string const & key) { StringStorage::Instance().DeleteKeyAndValue(key); }
 inline void Clear() { StringStorage::Instance().Clear(); }
-enum Units
-{
-  Metric = 0,
-  Foot
-};
 
 /// Use this function for running some stuff once according to date.
 /// @param[in]  date  Current date in format yymmdd.

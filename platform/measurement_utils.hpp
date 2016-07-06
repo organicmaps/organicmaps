@@ -4,13 +4,27 @@
 
 #include "std/string.hpp"
 
-namespace MeasurementUtils
+namespace measurement_utils
 {
+enum class Units
+{
+  Metric = 0,
+  Imperial = 1
+};
+
+inline string DebugPrint(Units units)
+{
+  switch (units)
+  {
+  case Units::Imperial: return "Units::Imperial";
+  case Units::Metric: return "Units::Metric";
+  }
+}
 
 inline double MetersToMiles(double m) { return m * 0.000621371192; }
 inline double MilesToMeters(double mi) { return mi * 1609.344; }
 inline double MetersToFeet(double m) { return m * 3.2808399; }
-inline double FeetToMeters(double ft) {  return ft * 0.3048; }
+inline double FeetToMeters(double ft) { return ft * 0.3048; }
 inline double FeetToMiles(double ft) { return ft * 5280; }
 inline double InchesToMeters(double in) { return in / 39.370; }
 inline double NauticalMilesToMeters(double nmi) { return nmi * 1852; }
@@ -23,8 +37,11 @@ bool FormatDistance(double m, string & res);
 
 /// We always use meters and feet/yards for altitude
 string FormatAltitude(double altitudeInMeters);
-/// km/h or mph
-string FormatSpeed(double metersPerSecond);
+// Return value is measured in km/h for Metric and in mph for Imperial.
+string FormatSpeedWithDeviceUnits(double metersPerSecond);
+string FormatSpeedWithUnits(double metersPerSecond, Units units);
+string FormatSpeed(double metersPerSecond, Units units);
+string FormatSpeedUnits(Units units);
 
 /// @param[in] dac  Digits after comma in seconds.
 /// Use dac == 3 for our common conversions to DMS.
@@ -47,5 +64,4 @@ bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters);
 string OSMDistanceToMetersString(string const & osmRawValue,
                                  bool supportZeroAndNegativeValues = true,
                                  int digitsAfterComma = 2);
-
-}
+}  // namespace measurement_utils

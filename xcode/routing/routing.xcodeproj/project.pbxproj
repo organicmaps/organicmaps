@@ -232,8 +232,8 @@
 		6742ACB31C68A0B1009CB89E /* routing_mapping_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mapping_test.cpp; sourceTree = "<group>"; };
 		6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_session_test.cpp; sourceTree = "<group>"; };
 		6742ACB51C68A0B1009CB89E /* turns_generator_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_generator_test.cpp; sourceTree = "<group>"; };
-		6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_sound_test.cpp; sourceTree = "<group>"; };
-		6742ACB71C68A0B1009CB89E /* turns_tts_text_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_tts_text_tests.cpp; sourceTree = "<group>"; };
+		6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = turns_sound_test.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		6742ACB71C68A0B1009CB89E /* turns_tts_text_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = turns_tts_text_tests.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		6742ACB81C68A0B1009CB89E /* vehicle_model_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vehicle_model_test.cpp; sourceTree = "<group>"; };
 		6742ACDE1C68A13F009CB89E /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		6742ACE21C68A203009CB89E /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
@@ -323,7 +323,7 @@
 		67C7D4221B4EB48F00FE41AA /* car_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = car_model.hpp; sourceTree = "<group>"; };
 		67C7D4231B4EB48F00FE41AA /* pedestrian_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pedestrian_model.cpp; sourceTree = "<group>"; };
 		67C7D4241B4EB48F00FE41AA /* pedestrian_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pedestrian_model.hpp; sourceTree = "<group>"; };
-		67C7D4251B4EB48F00FE41AA /* turns_sound_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_sound_settings.cpp; sourceTree = "<group>"; };
+		67C7D4251B4EB48F00FE41AA /* turns_sound_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = turns_sound_settings.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		67C7D4261B4EB48F00FE41AA /* turns_sound_settings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_sound_settings.hpp; sourceTree = "<group>"; };
 		A120B3411B4A7BE5002F3808 /* cross_mwm_road_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_mwm_road_graph.cpp; sourceTree = "<group>"; };
 		A120B3421B4A7BE5002F3808 /* cross_mwm_road_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_road_graph.hpp; sourceTree = "<group>"; };

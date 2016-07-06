@@ -31,8 +31,9 @@ using namespace routing::turns;
     CLLocationCoordinate2D const & coordinate = lastLocation.coordinate;
     ms::LatLon const & directionPos = info.m_pedestrianDirectionPos;
     //TODO: Not the best solution, but this solution is temporary and will be replaced in future
-    MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coordinate.latitude, coordinate.longitude,
-                                          directionPos.lat, directionPos.lon), distance);
+    measurement_utils::FormatDistance(ms::DistanceOnEarth(coordinate.latitude, coordinate.longitude,
+                                                          directionPos.lat, directionPos.lon),
+                                      distance);
     istringstream is (distance);
     string dist;
     string units;

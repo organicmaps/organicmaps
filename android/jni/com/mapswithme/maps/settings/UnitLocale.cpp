@@ -1,14 +1,14 @@
 #include "../Framework.hpp"
 
+#include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
-
 
 extern "C"
 {
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_settings_UnitLocale_setCurrentUnits(JNIEnv * env, jobject thiz, jint units)
   {
-    settings::Units const u = static_cast<settings::Units>(units);
+    measurement_utils::Units const u = static_cast<measurement_utils::Units>(units);
     settings::Set(settings::kMeasurementUnits, u);
     g_framework->SetupMeasurementSystem();
   }
@@ -16,7 +16,8 @@ extern "C"
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_settings_UnitLocale_getCurrentUnits(JNIEnv * env, jobject thiz)
   {
-    settings::Units u;
-    return (settings::Get(settings::kMeasurementUnits, u) ? u : -1);
+    measurement_utils::Units u;
+    return static_cast<jint>(
+        settings::Get(settings::kMeasurementUnits, u) ? u : measurement_utils::Units::Metric);
   }
 }

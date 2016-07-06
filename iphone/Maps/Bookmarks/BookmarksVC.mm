@@ -138,7 +138,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     Track const * tr = cat->GetTrack(indexPath.row);
     cell.textLabel.text = @(tr->GetName().c_str());
     string dist;
-    if (MeasurementUtils::FormatDistance(tr->GetLengthMeters(), dist))
+    if (measurement_utils::FormatDistance(tr->GetLengthMeters(), dist))
       //Change Length before release!!!
       cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"length"), [NSString  stringWithUTF8String:dist.c_str()]];
     else

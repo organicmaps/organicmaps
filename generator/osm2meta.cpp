@@ -125,7 +125,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_opening_hours(string const & 
 
 string MetadataTagProcessorImpl::ValidateAndFormat_ele(string const & v) const
 {
-  return MeasurementUtils::OSMDistanceToMetersString(v);
+  return measurement_utils::OSMDistanceToMetersString(v);
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_turn_lanes(string const & v) const
@@ -169,7 +169,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_internet(string v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_height(string const & v) const
 {
-  return MeasurementUtils::OSMDistanceToMetersString(v, false /*supportZeroAndNegativeValues*/, 1);
+  return measurement_utils::OSMDistanceToMetersString(v, false /*supportZeroAndNegativeValues*/, 1);
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(string v) const
