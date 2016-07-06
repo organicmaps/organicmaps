@@ -20,4 +20,5 @@ DerivePointerAlignment: false
 IndentCaseLabels: false
 NamespaceIndentation: None
 PointerAlignment: Middle
+SortIncludes: true
 Standard: Cpp11
