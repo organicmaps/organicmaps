@@ -232,12 +232,14 @@ void JoinQueryTokens(QueryParams const & params, size_t curToken, size_t endToke
   }
 }
 
-bool GetAffiliationName(FeatureType const & ft, string & affiliation)
+WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType const & ft, string & affiliation)
 {
   affiliation.clear();
 
   if (ft.GetName(StringUtf8Multilang::kDefaultCode, affiliation) && !affiliation.empty())
     return true;
+
+  // As a best effort, we try to read an english name if default name is absent.
   if (ft.GetName(StringUtf8Multilang::kEnglishCode, affiliation) && !affiliation.empty())
     return true;
   return false;
@@ -758,7 +760,10 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 
         m_infoGetter.GetMatchedRegions(affiliation, region.m_ids);
         if (region.m_ids.empty())
-          LOG(LWARNING, ("Maps not found for region", region.m_defaultName));
+        {
+          LOG(LWARNING,
+              ("Maps not found for region:", region.m_defaultName, "affiliation:", affiliation));
+        }
 
         ++count;
         m_regions[type][make_pair(l.m_startToken, l.m_endToken)].push_back(region);
