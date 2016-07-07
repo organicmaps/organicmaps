@@ -232,10 +232,17 @@ void JoinQueryTokens(QueryParams const & params, size_t curToken, size_t endToke
   }
 }
 
-void GetAffiliationName(FeatureType const & ft, string & name)
+WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType const & ft, string & affiliation)
 {
-  VERIFY(ft.GetName(StringUtf8Multilang::kDefaultCode, name), ());
-  ASSERT(!name.empty(), ());
+  affiliation.clear();
+
+  if (ft.GetName(StringUtf8Multilang::kDefaultCode, affiliation) && !affiliation.empty())
+    return true;
+
+  // As a best effort, we try to read an english name if default name is absent.
+  if (ft.GetName(StringUtf8Multilang::kEnglishCode, affiliation) && !affiliation.empty())
+    return true;
+  return false;
 }
 
 // todo(@m) Refactor at least here, or even at indexer/ftypes_matcher.hpp.
@@ -735,16 +742,22 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     {
       if (count < maxCount && ft.GetFeatureType() == feature::GEOM_POINT)
       {
+        string affiliation;
+        if (!GetAffiliationName(ft, affiliation))
+          return;
+
         Region region(l, type);
         region.m_center = ft.GetCenter();
 
-        string name;
-        GetAffiliationName(ft, region.m_enName);
-        LOG(LDEBUG, ("Region =", region.m_enName));
+        ft.GetName(StringUtf8Multilang::kDefaultCode, region.m_defaultName);
+        LOG(LDEBUG, ("Region =", region.m_defaultName));
 
-        m_infoGetter.GetMatchedRegions(region.m_enName, region.m_ids);
+        m_infoGetter.GetMatchedRegions(affiliation, region.m_ids);
         if (region.m_ids.empty())
-          LOG(LWARNING, ("Maps not found for region", region.m_enName));
+        {
+          LOG(LWARNING,
+              ("Maps not found for region:", region.m_defaultName, "affiliation:", affiliation));
+        }
 
         ++count;
         m_regions[type][make_pair(l.m_startToken, l.m_endToken)].push_back(region);

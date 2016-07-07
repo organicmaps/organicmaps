@@ -4,8 +4,11 @@
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
+#include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
+
+#include "indexer/classificator.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -22,6 +25,28 @@ namespace search
 {
 namespace
 {
+class IncorrectCountry : public TestCountry
+{
+public:
+  IncorrectCountry(m2::PointD const & center, string const & name, string const & lang)
+    : TestCountry(center, name, lang)
+  {
+  }
+
+  // TestFeature overrides:
+  void Serialize(FeatureBuilder1 & fb) const override
+  {
+    fb.SetTestId(m_id);
+    fb.SetCenter(m_center);
+
+    if (!m_name.empty())
+      CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
+
+    auto const & classificator = classif();
+    fb.AddType(classificator.GetTypeByPath({"place", "country"}));
+  }
+};
+
 class SmokeTest : public SearchTest
 {
 };
@@ -35,8 +60,7 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
   TestPOI brandyShop(m2::PointD(0, 1), "Brandy shop", "en");
   TestPOI vodkaShop(m2::PointD(1, 1), "Russian vodka shop", "en");
 
-  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder)
-  {
+  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
     builder.Add(wineShop);
     builder.Add(tequilaShop);
     builder.Add(brandyShop);
@@ -63,8 +87,7 @@ UNIT_CLASS_TEST(SmokeTest, NotPrefixFreeNames)
 {
   char const kCountryName[] = "ATown";
 
-  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder)
-  {
+  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
     builder.Add(TestPOI(m2::PointD(0, 0), "a", "en"));
     builder.Add(TestPOI(m2::PointD(0, 1), "aa", "en"));
     builder.Add(TestPOI(m2::PointD(1, 1), "aa", "en"));
@@ -91,6 +114,17 @@ UNIT_CLASS_TEST(SmokeTest, NotPrefixFreeNames)
     request.Wait();
     TEST_EQUAL(3, request.Results().size(), ());
   }
+}
+
+UNIT_CLASS_TEST(SmokeTest, NoDefaultNameTest)
+{
+  char const kCountryName[] = "Wonderland";
+
+  IncorrectCountry wonderland(m2::PointD(0, 0), kCountryName, "en");
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(wonderland); });
+
+  SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
+  TEST(ResultsMatch("Wonderland", {ExactMatch(worldId, wonderland)}), ());
 }
 }  // namespace
 }  // namespace search
