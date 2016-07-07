@@ -221,7 +221,20 @@ void Editor::LoadMapEdits()
           }
           else
           {
-            fti.m_feature = *m_getOriginalFeatureFn(fid);
+            auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
+            if (!originalFeaturePtr)
+            {
+              LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
+              // TODO: alohalytics::LogEvent in this function leads to a linker error
+              // with complains on alohalytics::Stats::Instance() reference is missing.
+              // The problem remains even when the whole code but alohalytics::LogEvent
+              // is removed in this function. There are no problems with this call in
+              // other functions.
+              // alohalytics::LogEvent("Editor_MissingFeature_Error");
+              goto SECTION_END;
+            }
+
+            fti.m_feature = *originalFeaturePtr;
             fti.m_feature.ApplyPatch(xml);
           }
 
@@ -449,12 +462,20 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   {
     ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Unexpected feature status."));
 
+    auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
+    if (!originalFeaturePtr)
+    {
+      LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
+      alohalytics::LogEvent("Editor_MissingFeature_Error");
+      return SaveResult::SavingError;
+    }
+
     fti.m_feature = featureStatus == FeatureStatus::Untouched
-        ? *m_getOriginalFeatureFn(fid)
+        ? *originalFeaturePtr
         : m_features[fid.m_mwmId][fid.m_index].m_feature;
     fti.m_feature.ReplaceBy(emo);
     bool const sameAsInMWM = featureStatus != FeatureStatus::Created &&
-        AreFeaturesEqualButStreet(fti.m_feature, *m_getOriginalFeatureFn(fid)) &&
+        AreFeaturesEqualButStreet(fti.m_feature, *originalFeaturePtr) &&
         emo.GetStreet().m_defaultName == m_getOriginalFeatureStreetFn(fti.m_feature);
 
     if (featureStatus != FeatureStatus::Untouched)
@@ -614,8 +635,15 @@ EditableProperties Editor::GetEditableProperties(FeatureType const & feature) co
   // Disable opening hours editing if opening hours cannot be parsed.
   if (GetFeatureStatus(feature.GetID()) != FeatureStatus::Created)
   {
-    auto const & originalFeature = m_getOriginalFeatureFn(feature.GetID());
-    auto const & metadata = originalFeature->GetMetadata();
+    auto const originalFeaturePtr = m_getOriginalFeatureFn(feature.GetID());
+    if (originalFeaturePtr)
+    {
+      LOG(LERROR, ("A feature with id", feature.GetID(), "cannot be loaded."));
+      alohalytics::LogEvent("Editor_MissingFeature_Error");
+      return {};
+    }
+
+    auto const & metadata = originalFeaturePtr->GetMetadata();
     auto const & featureOpeningHours = metadata.Get(feature::Metadata::FMD_OPEN_HOURS);
     // Note: empty string is parsed as a valid opening hours rule.
     if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
@@ -769,8 +797,17 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
                 feature.SetTagValue(kAddrStreetTag, fti.m_street);
               ourDebugFeatureString = DebugPrint(feature);
 
+              auto const originalFeaturePtr = m_getOriginalFeatureFn(fti.m_feature.GetID());
+              if (!originalFeaturePtr)
+              {
+                LOG(LERROR, ("A feature with id", fti.m_feature.GetID(), "cannot be loaded."));
+                alohalytics::LogEvent("Editor_MissingFeature_Error");
+                RemoveFeatureFromStorageIfExists(fti.m_feature.GetID());
+                continue;
+              }
+
               XMLFeature osmFeature = GetMatchingFeatureFromOSM(
-                  changeset, *m_getOriginalFeatureFn(fti.m_feature.GetID()));
+                  changeset, *originalFeaturePtr);
               XMLFeature const osmFeatureCopy = osmFeature;
               osmFeature.ApplyPatch(feature);
               // Check to avoid uploading duplicates into OSM.
@@ -789,8 +826,16 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
             break;
 
           case FeatureStatus::Deleted:
+            auto const originalFeaturePtr = m_getOriginalFeatureFn(fti.m_feature.GetID());
+            if (!originalFeaturePtr)
+            {
+              LOG(LERROR, ("A feature with id", fti.m_feature.GetID(), "cannot be loaded."));
+              alohalytics::LogEvent("Editor_MissingFeature_Error");
+              RemoveFeatureFromStorageIfExists(fti.m_feature.GetID());
+              continue;
+            }
             changeset.Delete(GetMatchingFeatureFromOSM(
-                changeset, *m_getOriginalFeatureFn(fti.m_feature.GetID())));
+                changeset, *originalFeaturePtr));
             break;
           }
           fti.m_uploadStatus = kUploaded;
@@ -924,6 +969,11 @@ void Editor::RemoveFeatureFromStorageIfExists(MwmSet::MwmId const & mwmId, uint3
     m_features.erase(matchedMwm);
 }
 
+void Editor::RemoveFeatureFromStorageIfExists(FeatureID const & fid)
+{
+  return RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
+}
+
 void Editor::Invalidate()
 {
   if (m_invalidateFn)
@@ -941,7 +991,16 @@ void Editor::MarkFeatureAsObsolete(FeatureID const & fid)
 
   auto & fti = m_features[fid.m_mwmId][fid.m_index];
   // If a feature was modified we can drop all changes since it's now obsolete.
-  fti.m_feature = *m_getOriginalFeatureFn(fid);
+  auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
+
+  if (originalFeaturePtr)
+  {
+    LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
+    alohalytics::LogEvent("Editor_MissingFeature_Error");
+    return;
+  }
+
+  fti.m_feature = *originalFeaturePtr;
   fti.m_status = FeatureStatus::Obsolete;
   fti.m_modificationTimestamp = time(nullptr);
 
