@@ -541,7 +541,7 @@ public:
   /// Set parse to false if you don't need all feature fields ready.
   /// TODO(AlexZ): Refactor code which uses this method to get rid of it.
   /// FeatureType instances shoud not be used outside ForEach* core methods.
-  WARN_UNUSED_RESULT bool GetFeatureByID(FeatureID const & fid, bool parse, FeatureType & ft) const;
+  WARN_UNUSED_RESULT bool GetFeatureByID(FeatureID const & fid, FeatureType & ft) const;
 
   void MemoryWarning();
   void EnterBackground();

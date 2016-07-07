@@ -323,8 +323,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       Index::FeaturesLoaderGuard loader(index, p.first);
       if (!loader.GetFeatureByIndex(fID, ft))
       {
-        LOG(LWARNING,
-            ("Can't read feature for way:", seg.wayId, "probably map is damaged or deleted."));
+        LOG(LWARNING, ("Can't read feature with id:", fID, "for way:", seg.wayId));
         continue;
       }
 

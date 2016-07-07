@@ -479,7 +479,7 @@ search::AddressInfo Framework::GetAddressInfoAtPoint(m2::PointD const & pt) cons
 search::AddressInfo Framework::GetFeatureAddressInfo(FeatureID const & fid) const
 {
   FeatureType ft;
-  if (!GetFeatureByID(fid, true /* parse */, ft))
+  if (!GetFeatureByID(fid, ft))
     return {};
   return GetFeatureAddressInfo(ft);
 }

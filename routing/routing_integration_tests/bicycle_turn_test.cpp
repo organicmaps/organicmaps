@@ -59,7 +59,6 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTurnTest)
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetBicycleComponents(), point, {0.0, 0.0}, point);
 
-  Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::IRouter::RouteNotFound, ());
 }

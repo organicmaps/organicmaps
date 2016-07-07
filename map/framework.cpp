@@ -1350,7 +1350,7 @@ void Framework::LoadSearchResultMetadata(search::Result & res) const
   // TODO @yunikkk refactor to format search result metadata accordingly with place_page::Info
 
   FeatureType ft;
-  if (!GetFeatureByID(id, true /* parse */, ft))
+  if (!GetFeatureByID(id, ft))
     return;
 
   search::ProcessMetadata(ft, res.m_metadata);
@@ -1900,7 +1900,7 @@ unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator
   return poi ? move(poi) : (area ? move(area) : move(line));
 }
 
-bool Framework::GetFeatureByID(FeatureID const & fid, bool parse, FeatureType & ft) const
+bool Framework::GetFeatureByID(FeatureID const & fid, FeatureType & ft) const
 {
   ASSERT(fid.IsValid(), ());
 
@@ -1908,8 +1908,7 @@ bool Framework::GetFeatureByID(FeatureID const & fid, bool parse, FeatureType & 
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
     return false;
 
-  if (parse)
-    ft.ParseEverything();
+  ft.ParseEverything();
   return true;
 }
 
@@ -2616,7 +2615,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       FeatureID const & fid = edit.first;
 
       FeatureType ft;
-      if (!GetFeatureByID(fid, true /* parse */, ft))
+      if (!GetFeatureByID(fid, ft))
       {
         LOG(LERROR, ("Feature can't be loaded:", fid));
         return true;
@@ -2806,7 +2805,7 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
     return false;
 
   FeatureType ft;
-  if (!GetFeatureByID(fid, true /* parse */, ft))
+  if (!GetFeatureByID(fid, ft))
     return false;
 
   emo.SetFromFeatureType(ft);
@@ -2967,7 +2966,7 @@ void Framework::DeleteFeature(FeatureID const & fid) const
   // TODO(AlexZ): Use FeatureID in the editor interface.
 
   FeatureType ft;
-  if (!GetFeatureByID(fid, true /* parse */, ft))
+  if (!GetFeatureByID(fid, ft))
     return;
 
   osm::Editor::Instance().DeleteFeature(ft);

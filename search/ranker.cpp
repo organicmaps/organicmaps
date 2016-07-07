@@ -256,7 +256,7 @@ public:
     string name;
     string country;
 
-    if (LoadFeature(res1.GetId(), ft, center, name, country))
+    if (!LoadFeature(res1.GetId(), ft, center, name, country))
       return unique_ptr<PreResult2>();
 
     auto res2 = make_unique<PreResult2>(ft, &res1, center, m_ranker.m_params.m_position /* pivot */,
