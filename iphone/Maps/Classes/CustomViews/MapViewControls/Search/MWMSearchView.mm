@@ -1,8 +1,9 @@
 #import "Common.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMSearchTabButtonsView.h"
 #import "MWMSearchView.h"
 
-static CGFloat const kWidthForiPad = 320.0;
+static CGFloat constexpr kWidthForiPad = 320.0;
 
 @interface MWMSearchView ()
 
@@ -43,7 +44,7 @@ static CGFloat const kWidthForiPad = 320.0;
   BOOL const equal = CGRectEqualToRect(super.frame, frame);
   super.frame = frame;
   if (!equal && self.superview && self.isVisible && (IPAD || self.compact))
-    [self.delegate searchFrameUpdated:frame];
+    [[MWMMapViewControlsManager manager] searchFrameUpdated:frame];
 }
 
 - (void)layoutSubviews

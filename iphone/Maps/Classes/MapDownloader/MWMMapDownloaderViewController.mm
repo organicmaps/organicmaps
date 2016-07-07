@@ -37,7 +37,7 @@ using namespace storage;
 
 @end
 
-@interface MWMMapDownloaderViewController () <UISearchBarDelegate, UIScrollViewDelegate, MWMNoMapsViewControllerProtocol>
+@interface MWMMapDownloaderViewController () <UISearchBarDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView * statusBarBackground;
 @property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
@@ -186,10 +186,7 @@ using namespace storage;
 {
   [super prepareForSegue:segue sender:sender];
   if ([segue.identifier isEqualToString:kNoMapsSegue])
-  {
     self.noMapsController = segue.destinationViewController;
-    self.noMapsController.delegate = self;
-  }
 }
 
 #pragma mark - Configuration

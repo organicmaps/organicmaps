@@ -4,12 +4,13 @@
 #import "MWMRoutePointCell.h"
 #import "MWMRoutePointLayout.h"
 #import "MWMRoutePreview.h"
+#import "MWMRouter.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
-static CGFloat const kAdditionalHeight = 20.;
+static CGFloat constexpr kAdditionalHeight = 20.;
 
 @interface MWMRoutePreview () <MWMRoutePointCellDelegate, MWMCircularProgressProtocol>
 
@@ -113,7 +114,7 @@ static CGFloat const kAdditionalHeight = 20.;
   self.goButton.enabled = NO;
   self.extendButton.selected = YES;
   [self setupActualHeight];
-  [self.collectionView reloadData];
+  [self reloadData];
   [self.layout invalidateLayout];
   self.statusBox.hidden = YES;
   self.resultsBox.hidden = YES;
@@ -130,7 +131,7 @@ static CGFloat const kAdditionalHeight = 20.;
   self.resultsBox.hidden = YES;
   self.errorBox.hidden = YES;
   self.planningBox.hidden = NO;
-  [self.collectionView reloadData];
+  [self reloadData];
   if (IPAD)
     [self iPadNotReady];
 }
@@ -237,10 +238,12 @@ static CGFloat const kAdditionalHeight = 20.;
   {
     if (prg.second != progress)
       continue;
-    routing::RouterType const router = prg.first;
-    [self.dashboardManager setActiveRouter:router];
-    [self selectRouter:router];
-    switch (router)
+    routing::RouterType const routerType = prg.first;
+    [self selectRouter:routerType];
+    MWMRouter * router = [MWMRouter router];
+    router.type = routerType;
+    [router rebuildWithBestRouter:NO];
+    switch (routerType)
     {
       case routing::RouterType::Vehicle:
         [Statistics
@@ -313,12 +316,6 @@ static CGFloat const kAdditionalHeight = 20.;
   [self.dashboardManager.delegate routePreviewDidChangeFrame:{self.origin, {self.width, selfHeight + kAdditionalHeight}}];
 }
 
-- (void)setDataSource:(id<MWMRoutePreviewDataSource>)dataSource
-{
-  _dataSource = dataSource;
-  [self reloadData];
-}
-
 - (void)snapshotCell:(MWMRoutePointCell *)cell
 {
   UIGraphicsBeginImageContextWithOptions(cell.bounds.size, NO, 0.);
@@ -350,11 +347,6 @@ static CGFloat const kAdditionalHeight = 20.;
 {
   NSUInteger const index = [self.collectionView indexPathForCell:cell].row;
   [self.dashboardManager.delegate didStartEditingRoutePoint:index == 0];
-}
-
-- (void)swapPoints
-{
-  [self.dashboardManager.delegate swapPointsAndRebuildRouteIfPossible];
 }
 
 #pragma mark - PanGestureRecognizer
@@ -419,7 +411,7 @@ static CGFloat const kAdditionalHeight = 20.;
     {
       cell.contentView.alpha = 1.;
       [self.movingCellImage removeFromSuperview];
-      [self swapPoints];
+      [[MWMRouter router] swapPointsAndRebuild];
       [self reloadData];
     }
   }
@@ -446,12 +438,12 @@ static CGFloat const kAdditionalHeight = 20.;
   cell.number.text = @(indexPath.row + 1).stringValue;
   if (indexPath.row == 0)
   {
-    cell.title.text = self.dataSource.source;
+    cell.title.text = [MWMRouter router].startPoint.Name();
     cell.title.placeholder = L(@"p2p_from");
   }
   else
   {
-    cell.title.text = self.dataSource.destination;
+    cell.title.text = [MWMRouter router].finishPoint.Name();
     cell.title.placeholder = L(@"p2p_to");
   }
   cell.delegate = self;

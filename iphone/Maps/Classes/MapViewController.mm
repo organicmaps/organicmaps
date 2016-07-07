@@ -21,9 +21,9 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPageController.h"
 #import "MWMPlacePageEntity.h"
+#import "MWMRouter.h"
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
-#import "MWMTextToSpeech.h"
 #import "MWMWhatsNewBookingBicycleRoutingController.h"
 #import "RouteState.h"
 #import "Statistics.h"
@@ -58,13 +58,6 @@ extern NSString * const kMap2FBLoginSegue = @"Map2FBLogin";
 extern NSString * const kMap2GoogleLoginSegue = @"Map2GoogleLogin";
 extern char const * kAdForbiddenSettingsKey;
 extern char const * kAdServerForbiddenKey;
-
-typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
-{
-  ForceRoutingStateChangeNone,
-  ForceRoutingStateChangeRestoreRoute,
-  ForceRoutingStateChangeStartFollowing
-};
 
 typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
@@ -115,14 +108,13 @@ BOOL gIsFirstMyPositionMode = YES;
 
 @end
 
-@interface MapViewController ()<MTRGNativeAppwallAdDelegate, MWMFrameworkRouteBuilderObserver,
+@interface MapViewController ()<MTRGNativeAppwallAdDelegate,
                                 MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
-                                MWMPageControllerProtocol, MWMLocationObserver>
+                                MWMPageControllerProtocol>
 
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMBottomMenuState menuRestoreState;
 
-@property (nonatomic) ForceRoutingStateChange forceRoutingStateChange;
 @property (nonatomic) BOOL disableStandbyOnLocationStateMode;
 
 @property (nonatomic) UserTouchesAction userTouchesAction;
@@ -135,38 +127,9 @@ BOOL gIsFirstMyPositionMode = YES;
 
 @implementation MapViewController
 
-- (void)updateRoutingInfo
++ (MapViewController *)controller
 {
-  Framework & frm = GetFramework();
-  if (!frm.IsRoutingActive())
-    return;
-
-  location::FollowingInfo res;
-  frm.GetRouteFollowingInfo(res);
-
-  if (res.IsValid())
-    [self.controlsManager updateFollowingInfo:res];
-
-  if (frm.IsOnRoute())
-    [[MWMTextToSpeech tts] playTurnNotifications];
-}
-
-#pragma mark - MWMLocationObserver
-
-- (void)onLocationUpdate:(location::GpsInfo const &)info
-{
-  [self updateRoutingInfo];
-
-  if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
-    [self restoreRoute];
-}
-
-#pragma mark - Restore route
-
-- (void)restoreRoute
-{
-  self.forceRoutingStateChange = ForceRoutingStateChangeStartFollowing;
-  [self.controlsManager restoreRouteTo:self.restoreRouteDestination];
+  return [MapsAppDelegate theApp].mapViewController;
 }
 
 #pragma mark - Map Navigation
@@ -329,7 +292,6 @@ BOOL gIsFirstMyPositionMode = YES;
   GetFramework().InvalidateRendering();
   [self showWelcomeScreenIfNeeded];
   [self showViralAlertIfNeeded];
-  [MWMLocationManager addObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -406,7 +368,6 @@ BOOL gIsFirstMyPositionMode = YES;
   [super viewWillDisappear:animated];
   self.menuRestoreState = self.controlsManager.menuState;
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
-  [MWMLocationManager removeObserver:self];
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent
@@ -471,7 +432,6 @@ BOOL gIsFirstMyPositionMode = YES;
     [self processMyPositionStateModeEvent:mode];
   });
 
-  self.forceRoutingStateChange = ForceRoutingStateChangeNone;
   self.userTouchesAction = UserTouchesActionNone;
   self.menuRestoreState = MWMBottomMenuStateInactive;
   GetFramework().LoadBookmarks();
@@ -545,60 +505,6 @@ BOOL gIsFirstMyPositionMode = YES;
   gIsFirstMyPositionMode = NO;
 }
 
-#pragma mark - MWMFrameworkRouteBuilderObserver
-
-- (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
-                       countries:(storage::TCountriesVec const &)absentCountries
-{
-  switch (code)
-  {
-    case routing::IRouter::ResultCode::NoError:
-    {
-      auto & f = GetFramework();
-      f.DeactivateMapSelection(true);
-      if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
-        [self.controlsManager startNavigation];
-      else
-        [self.controlsManager routingReady];
-      [self updateRoutingInfo];
-      if (f.GetRouter() == routing::RouterType::Bicycle)
-      {
-        NSString * bicycleDisclaimer = @"IsBicycleDisclaimerApproved";
-        NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-        if ([ud boolForKey:bicycleDisclaimer])
-          return;
-        [self presentBicycleRoutingDisclaimerAlert];
-        [ud setBool:YES forKey:bicycleDisclaimer];
-        [ud synchronize];
-      }
-      else
-      {
-        bool isDisclaimerApproved = false;
-        (void)settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
-        if (!isDisclaimerApproved)
-        {
-          [self presentRoutingDisclaimerAlert];
-          settings::Set("IsDisclaimerApproved", true);
-        }
-      }
-      break;
-    }
-    case routing::IRouter::RouteFileNotExist:
-    case routing::IRouter::InconsistentMWMandRoute:
-    case routing::IRouter::NeedMoreMaps:
-    case routing::IRouter::FileTooOld:
-    case routing::IRouter::RouteNotFound:
-      [self presentDownloaderAlert:code countries:absentCountries];
-      break;
-    case routing::IRouter::Cancelled:
-      break;
-    default:
-      [self presentDefaultAlert:code];
-      break;
-  }
-  self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-}
-
 #pragma mark - MWMFrameworkDrapeObserver
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
@@ -653,20 +559,13 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [self.navigationController popToRootViewControllerAnimated:NO];
   self.controlsManager.searchHidden = YES;
-  [self.controlsManager routingHidden];
+  [[MWMRouter router] stop];
   if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
-  {
     [self openBookmarks];
-  }
   else if ([action isEqualToString:@"me.maps.3daction.search"])
-  {
     self.controlsManager.searchHidden = NO;
-  }
   else if ([action isEqualToString:@"me.maps.3daction.route"])
-  {
-    [MapsAppDelegate theApp].routingPlaneMode = MWMRoutingPlaneModePlacePage;
-    [self.controlsManager routingPrepare];
-  }
+    [self.controlsManager onRoutePrepare];
 }
 
 #pragma mark - myTarget
@@ -723,70 +622,9 @@ BOOL gIsFirstMyPositionMode = YES;
 
 #pragma mark - ShowDialog callback
 
-- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
-                     countries:(storage::TCountriesVec const &)countries
-{
-  if (platform::migrate::NeedMigrate())
-  {
-    [self.alertController presentRoutingMigrationAlertWithOkBlock:^
-    {
-      [Statistics logEvent:kStatDownloaderMigrationDialogue
-            withParameters:@{kStatFrom : kStatRouting}];
-      [self openMigration];
-    }];
-  }
-  else if (!countries.empty())
-  {
-    [self.alertController presentDownloaderAlertWithCountries:countries
-        code:code
-        cancelBlock:^
-        {
-          if (code != routing::IRouter::NeedMoreMaps)
-            [self.controlsManager routingHidden];
-        }
-        downloadBlock:^(storage::TCountriesVec const & downloadCountries, TMWMVoidBlock onSuccess)
-        {
-          [MWMStorage downloadNodes:downloadCountries
-                    alertController:self.alertController
-                          onSuccess:onSuccess];
-        }
-        downloadCompleteBlock:^
-        {
-          [self.controlsManager buildRoute];
-        }];
-  }
-  else
-  {
-    [self presentDefaultAlert:code];
-  }
-}
-
 - (void)presentDisabledLocationAlert
 {
   [self.alertController presentDisabledLocationAlert];
-}
-
-- (void)presentDefaultAlert:(routing::IRouter::ResultCode)type
-{
-  [self.alertController presentAlert:type];
-}
-
-- (void)presentRoutingDisclaimerAlert
-{
-  [self.alertController presentRoutingDisclaimerAlert];
-}
-
-- (void)presentBicycleRoutingDisclaimerAlert
-{
-  [self.alertController presentBicycleRoutingDisclaimerAlert];
-}
-
-#pragma mark - Private methods
-
-- (void)setRestoreRouteDestination:(m2::PointD)restoreRouteDestination
-{
-  _restoreRouteDestination = restoreRouteDestination;
-  self.forceRoutingStateChange = ForceRoutingStateChangeRestoreRoute;
 }
 
 - (void)setDisableStandbyOnLocationStateMode:(BOOL)disableStandbyOnLocationStateMode

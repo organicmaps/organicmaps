@@ -1,5 +1,5 @@
 #import "Common.h"
-#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMPlacePageBookmarkCell.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -206,7 +206,7 @@ void performRenderingInConcurrentQueue(TMWMVoidBlock block)
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
-  UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
+  UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
   [vc openUrl:URL];
   return NO;
 }

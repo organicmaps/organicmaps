@@ -13,6 +13,7 @@ using namespace routing::turns;
 
 - (void)updateFollowingInfo:(location::FollowingInfo const &)info
 {
+  _isValid = info.IsValid();
   _timeToTarget = info.m_time;
   _targetDistance = @(info.m_distToTarget.c_str());
   _targetUnits = @(info.m_targetUnitsSuffix.c_str());
@@ -38,7 +39,6 @@ using namespace routing::turns;
     _distanceToTurn = @(dist.c_str());
     _turnUnits = @(units.c_str());
     _streetName = @"";
-//    _lanes = {};
   }
   else
   {
@@ -46,7 +46,6 @@ using namespace routing::turns;
     _distanceToTurn = @(info.m_distToTurn.c_str());
     _turnUnits = @(info.m_turnUnitsSuffix.c_str());
     _streetName = @(info.m_targetName.c_str());
-//    _lanes = info.m_lanes;
     _nextTurnImage = image(info.m_nextTurn, true);
   }
 

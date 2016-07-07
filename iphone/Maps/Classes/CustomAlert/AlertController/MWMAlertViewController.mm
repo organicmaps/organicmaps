@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
+#import "MWMController.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"
 
@@ -13,6 +14,18 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 @end
 
 @implementation MWMAlertViewController
+
++ (MWMAlertViewController *)activeAlertController
+{
+  UIWindow * window = UIApplication.sharedApplication.delegate.window;
+  UIViewController * rootViewController = window.rootViewController;
+  ASSERT([rootViewController isKindOfClass:[UINavigationController class]], ());
+  UINavigationController * navigationController = static_cast<UINavigationController *>(rootViewController);
+  UIViewController * topViewController = navigationController.topViewController;
+  ASSERT([topViewController conformsToProtocol:@protocol(MWMController)], ());
+  UIViewController<MWMController> * mwmController = static_cast<UIViewController<MWMController> *>(topViewController);
+  return mwmController.alertController;
+}
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController
 {

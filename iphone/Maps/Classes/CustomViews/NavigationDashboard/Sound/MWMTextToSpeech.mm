@@ -8,11 +8,38 @@
 #include "Framework.h"
 #include "sound/tts/languages.hpp"
 
-extern NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
-extern NSString * const kUserDefaultsNeedToEnableTTS = @"UserDefaultsNeedToEnableTTS";
-static NSString * const DEFAULT_LANG = @"en-US";
-
 using namespace locale_translator;
+
+namespace
+{
+NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
+NSString * const kIsTTSEnabled = @"UserDefaultsNeedToEnableTTS";
+NSString * const kDefaultLanguage = @"en-US";
+
+vector<pair<string, string>> availableLanguages()
+{
+  NSArray<AVSpeechSynthesisVoice *> * voices = [AVSpeechSynthesisVoice speechVoices];
+  vector<pair<string, string>> native(voices.count);
+  for (AVSpeechSynthesisVoice * v in voices)
+    native.emplace_back(make_pair(bcp47ToTwineLanguage(v.language), [v.language UTF8String]));
+
+  using namespace routing::turns::sound;
+  vector<pair<string, string>> result;
+  for (auto const & p : kLanguageList)
+  {
+    for (pair<string, string> const & lang : native)
+    {
+      if (lang.first == p.first)
+      {
+        // Twine names are equal. Make a pair: bcp47 name, localized name.
+        result.emplace_back(make_pair(lang.second, p.second));
+        break;
+      }
+    }
+  }
+  return result;
+}
+}  // namespace
 
 @interface MWMTextToSpeech() <AVSpeechSynthesizerDelegate>
 {
@@ -47,7 +74,7 @@ using namespace locale_translator;
   {
     _availableLanguages = availableLanguages();
 
-    NSString * saved = self.savedLanguage;
+    NSString * saved = [MWMTextToSpeech savedLanguage];
     NSString * preferedLanguageBcp47;
     if (saved.length)
       preferedLanguageBcp47 = saved;
@@ -61,7 +88,7 @@ using namespace locale_translator;
     if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) != _availableLanguages.end())
       [self setNotificationsLocale:preferedLanguageBcp47];
     else
-      [self setNotificationsLocale:DEFAULT_LANG];
+      [self setNotificationsLocale:kDefaultLanguage];
 
     // Before 9.0 version iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly.
     // It's a work around for iOS 7.x and 8.x.
@@ -77,6 +104,11 @@ using namespace locale_translator;
     }
   }
   return self;
+}
+
++ (NSString *)ttsStatusNotificationKey
+{
+  return @"TTFStatusWasChangedFromSettingsNotification";
 }
 
 - (vector<pair<string, string>>)availableLanguages
@@ -99,38 +131,39 @@ using namespace locale_translator;
   return _speechSynthesizer != nil && _speechVoice != nil;
 }
 
-- (BOOL)isNeedToEnable
++ (BOOL)isTTSEnabled
 {
-  return [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsNeedToEnableTTS];
+  return [[NSUserDefaults standardUserDefaults] boolForKey:kIsTTSEnabled];
 }
 
-- (void)setNeedToEnable:(BOOL)need
++ (void)setTTSEnabled:(BOOL)enabled
 {
+  if ([MWMTextToSpeech isTTSEnabled] == enabled)
+    return;
+  if (!enabled)
+    [[MWMTextToSpeech tts] setActive:NO];
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setBool:need forKey:kUserDefaultsNeedToEnableTTS];
+  [ud setBool:enabled forKey:kIsTTSEnabled];
   [ud synchronize];
+  [[NSNotificationCenter defaultCenter] postNotificationName:[self ttsStatusNotificationKey] object:nil userInfo:nil];
 }
 
-- (void)enable
+- (void)setActive:(BOOL)active
 {
-  [self setNeedToEnable:YES];
-  if (![self isValid])
+  if (![MWMTextToSpeech isTTSEnabled])
+    return;
+  if (active && ![self isValid])
     [self createSynthesizer];
-  GetFramework().EnableTurnNotifications(true);
+  GetFramework().EnableTurnNotifications(active ? true : false);
+  [[NSNotificationCenter defaultCenter] postNotificationName:[MWMTextToSpeech ttsStatusNotificationKey] object:nil userInfo:nil];
 }
 
-- (void)disable
+- (BOOL)active
 {
-  [self setNeedToEnable:NO];
-  GetFramework().EnableTurnNotifications(false);
+  return [MWMTextToSpeech isTTSEnabled] && GetFramework().AreTurnNotificationsEnabled() ? YES : NO;
 }
 
-- (BOOL)isEnable
-{
-  return GetFramework().AreTurnNotificationsEnabled() ? YES : NO;
-}
-
-- (NSString *)savedLanguage
++ (NSString *)savedLanguage
 {
   return [[NSUserDefaults standardUserDefaults] stringForKey:kUserDefaultsTTSLanguageBcp47];
 }
@@ -141,7 +174,7 @@ using namespace locale_translator;
   {
     self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     self.speechSynthesizer.delegate = self;
-    [self createVoice:self.savedLanguage];
+    [self createVoice:[MWMTextToSpeech savedLanguage]];
   });
   // TODO(vbykoianko) Use [NSLocale preferredLanguages] instead of [AVSpeechSynthesisVoice currentLanguageCode].
   // [AVSpeechSynthesisVoice currentLanguageCode] is used now because of we need a language code in BCP-47.
@@ -149,7 +182,7 @@ using namespace locale_translator;
 
 - (void)createVoice:(NSString *)locale
 {
-  NSMutableArray<NSString *> * candidateLocales = [@[DEFAULT_LANG, @"en-GB"] mutableCopy];
+  NSMutableArray<NSString *> * candidateLocales = [@[kDefaultLanguage, @"en-GB"] mutableCopy];
 
   if (locale)
     [candidateLocales insertObject:locale atIndex:0];
@@ -228,30 +261,6 @@ using namespace locale_translator;
 
   for (auto const & text : notifications)
     [self speakOneString:@(text.c_str())];
-}
-
-static vector<pair<string, string>> availableLanguages()
-{
-  NSArray<AVSpeechSynthesisVoice *> * voices = [AVSpeechSynthesisVoice speechVoices];
-  vector<pair<string, string>> native(voices.count);
-  for (AVSpeechSynthesisVoice * v in voices)
-    native.emplace_back(make_pair(bcp47ToTwineLanguage(v.language), [v.language UTF8String]));
-
-  using namespace routing::turns::sound;
-  vector<pair<string, string>> result;
-  for (auto const & p : kLanguageList)
-  {
-    for (pair<string, string> const & lang : native)
-    {
-      if (lang.first == p.first)
-      {
-        // Twine names are equal. Make a pair: bcp47 name, localized name.
-        result.emplace_back(make_pair(lang.second, p.second));
-        break;
-      }
-    }
-  }
-  return result;
 }
 
 - (BOOL)setAudioSessionActive:(BOOL)audioSessionActive

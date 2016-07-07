@@ -1,4 +1,4 @@
-#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMButtonCell.h"
@@ -335,7 +335,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
 - (void)showDropDown
 {
-  UIViewController * parent = static_cast<UIViewController *>([MapsAppDelegate theApp].mapViewController);
+  UIViewController * parent = static_cast<UIViewController *>([MapViewController controller]);
   MWMDropDown * dd = [[MWMDropDown alloc] initWithSuperview:parent.view];
   [dd showWithMessage:L(@"editor_edits_sent_message")];
 }

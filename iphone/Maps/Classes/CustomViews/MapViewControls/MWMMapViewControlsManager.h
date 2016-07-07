@@ -1,6 +1,8 @@
 #import "MWMBottomMenuViewController.h"
 #import "MWMNavigationDashboardManager.h"
-#import "MWMRoutingProtocol.h"
+#import "MWMSearchManager.h"
+
+#include "MWMRoutePoint.h"
 
 #include "map/user_mark.hpp"
 #include "platform/location.hpp"
@@ -8,7 +10,9 @@
 @class MapViewController;
 @class MWMPlacePageEntity;
 
-@interface MWMMapViewControlsManager : NSObject <MWMRoutingProtocol>
+@interface MWMMapViewControlsManager : NSObject
+
++ (MWMMapViewControlsManager *)manager;
 
 @property (nonatomic) BOOL hidden;
 @property (nonatomic) BOOL zoomHidden;
@@ -37,19 +41,25 @@
 
 - (void)dismissPlacePage;
 - (void)showPlacePage:(place_page::Info const &)info;
+- (void)addPlacePageViews:(NSArray *)views;
+- (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
+- (void)dragPlacePage:(CGRect)frame;
 
 #pragma mark - MWMNavigationDashboardManager
 
-- (void)updateFollowingInfo:(location::FollowingInfo const &)info;
-- (void)restoreRouteTo:(m2::PointD const &)to;
-- (void)routingHidden;
-- (void)routingReady;
-- (void)routingPrepare;
-- (void)startNavigation;
-- (void)stopNavigation;
-- (void)handleRoutingError;
-- (void)buildRoute;
+- (void)onRoutePrepare;
+- (void)onRouteRebuild;
+- (void)onRouteError;
+- (void)onRouteReady;
+- (void)onRouteStart;
+- (void)onRouteStop;
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
+
+#pragma mark - MWMSearchManager
+
+- (void)searchViewDidEnterState:(MWMSearchManagerState)state;
+- (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
+- (void)searchFrameUpdated:(CGRect)frame;
 
 @end

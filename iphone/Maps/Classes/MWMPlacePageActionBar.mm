@@ -1,5 +1,6 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMActionBarButton.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMPlacePageActionBar.h"
@@ -190,10 +191,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
     [self.placePageManager routeFrom];
     break;
   case EButton::RouteTo:
-    if (self.isPrepareRouteMode)
-      [self.placePageManager routeTo];
-    else
-      [self.placePageManager buildRoute];
+    [self.placePageManager routeTo];
     break;
   case EButton::Share:
     [self.placePageManager share];
@@ -216,7 +214,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   NSString * title = isTitleNotEmpty ? entity.title : entity.subtitle;
   NSString * subtitle = isTitleNotEmpty ? entity.subtitle : nil;
   
-  UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
+  UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   for (auto const buttonType : m_additionalButtons)
   {

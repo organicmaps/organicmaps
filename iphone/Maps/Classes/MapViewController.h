@@ -13,6 +13,8 @@ namespace search { struct AddressInfo; }
 
 @interface MapViewController : MWMViewController
 
++ (MapViewController *)controller;
+
 // called when app is terminated by system
 - (void)onTerminate;
 - (void)onGetFocus:(BOOL)isOnFocus;
@@ -36,7 +38,6 @@ namespace search { struct AddressInfo; }
 @property (nonatomic, readonly) BOOL isAppWallAdActive;
 
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
-@property (nonatomic) m2::PointD restoreRouteDestination;
 @property (nonatomic) MWMAPIBar * apiBar;
 
 @end

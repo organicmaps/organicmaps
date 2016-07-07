@@ -2,6 +2,7 @@
 
 @interface MWMNavigationDashboardEntity : NSObject
 
+@property (nonatomic, readonly) BOOL isValid;
 @property (nonatomic, readonly) NSString * speed;
 @property (nonatomic, readonly) NSString * speedUnits;
 @property (nonatomic, readonly) NSString * targetDistance;

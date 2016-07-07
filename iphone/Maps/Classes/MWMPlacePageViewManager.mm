@@ -16,10 +16,12 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"
-#import "MWMPlacePageViewManagerDelegate.h"
+#import "MWMRouter.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#include "MWMRoutePoint.h"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "map/place_page_info.hpp"
@@ -28,39 +30,28 @@
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kBookmarksChangedNotification;
 
-@interface MWMPlacePageViewManager () <MWMLocationObserver>
+@interface MWMPlacePageViewManager ()<MWMLocationObserver>
 
-@property (weak, nonatomic) MWMViewController * ownerViewController;
-@property (nonatomic, readwrite) MWMPlacePageEntity * entity;
-@property (nonatomic) MWMPlacePage * placePage;
-@property (nonatomic) MWMDirectionView * directionView;
-
-@property (weak, nonatomic) id<MWMPlacePageViewManagerProtocol> delegate;
+@property(weak, nonatomic) MWMViewController * ownerViewController;
+@property(nonatomic, readwrite) MWMPlacePageEntity * entity;
+@property(nonatomic) MWMPlacePage * placePage;
+@property(nonatomic) MWMDirectionView * directionView;
 
 @end
 
 @implementation MWMPlacePageViewManager
 
 - (instancetype)initWithViewController:(MWMViewController *)viewController
-                              delegate:(id<MWMPlacePageViewManagerProtocol>)delegate
 {
   self = [super init];
   if (self)
-  {
-    self.ownerViewController = viewController;
-    self.delegate = delegate;
-  }
+    _ownerViewController = viewController;
   return self;
 }
 
-- (void)hidePlacePage
-{
-  [self.placePage hide];
-}
-
+- (void)hidePlacePage { [self.placePage hide]; }
 - (void)dismissPlacePage
 {
-  [self.delegate placePageDidClose];
   [self.placePage dismiss];
   [MWMLocationManager removeObserver:self];
   GetFramework().DeactivateMapSelection(false);
@@ -88,7 +79,8 @@ extern NSString * const kBookmarksChangedNotification;
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  [self rotateToOrientation:size.height > size.width ? UIInterfaceOrientationPortrait : UIInterfaceOrientationLandscapeLeft];
+  [self rotateToOrientation:size.height > size.width ? UIInterfaceOrientationPortrait
+                                                     : UIInterfaceOrientationLandscapeLeft];
 }
 
 - (void)rotateToOrientation:(UIInterfaceOrientation)orientation
@@ -133,11 +125,7 @@ extern NSString * const kBookmarksChangedNotification;
   [self.placePage.actionBar mwm_refreshUI];
 }
 
-- (BOOL)hasPlacePage
-{
-  return self.placePage != nil;
-}
-
+- (BOOL)hasPlacePage { return self.placePage != nil; }
 - (void)setPlacePageForiPad
 {
   [self.placePage dismiss];
@@ -155,20 +143,19 @@ extern NSString * const kBookmarksChangedNotification;
 {
   switch (orientation)
   {
-    case UIInterfaceOrientationLandscapeLeft:
-    case UIInterfaceOrientationLandscapeRight:
-      if (![self.placePage isKindOfClass:[MWMiPhoneLandscapePlacePage class]])
-        self.placePage = [[MWMiPhoneLandscapePlacePage alloc] initWithManager:self];
-      break;
+  case UIInterfaceOrientationLandscapeLeft:
+  case UIInterfaceOrientationLandscapeRight:
+    if (![self.placePage isKindOfClass:[MWMiPhoneLandscapePlacePage class]])
+      self.placePage = [[MWMiPhoneLandscapePlacePage alloc] initWithManager:self];
+    break;
 
-    case UIInterfaceOrientationPortrait:
-    case UIInterfaceOrientationPortraitUpsideDown:
-      if (![self.placePage isKindOfClass:[MWMiPhonePortraitPlacePage class]])
-        self.placePage = [[MWMiPhonePortraitPlacePage alloc] initWithManager:self];
-      break;
+  case UIInterfaceOrientationPortrait:
+  case UIInterfaceOrientationPortraitUpsideDown:
+    if (![self.placePage isKindOfClass:[MWMiPhonePortraitPlacePage class]])
+      self.placePage = [[MWMiPhonePortraitPlacePage alloc] initWithManager:self];
+    break;
 
-    case UIInterfaceOrientationUnknown:
-      break;
+  case UIInterfaceOrientationUnknown: break;
   }
 }
 
@@ -176,37 +163,24 @@ extern NSString * const kBookmarksChangedNotification;
 {
   if (controller)
     [self.ownerViewController addChildViewController:controller];
-  [self.delegate addPlacePageViews:views];
-}
-
-- (void)buildRoute
-{
-  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
-                   withParameters:@{kStatValue : kStatDestination}];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
-
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  BOOL const noLocation = location_helpers::isMyPositionPendingOrNoPosition() || !lastLocation;
-  [self.delegate buildRouteFrom:noLocation ? MWMRoutePoint::MWMRoutePointZero()
-                                           : MWMRoutePoint(lastLocation.mercator)
-                             to:self.target];
+  [[MWMMapViewControlsManager manager] addPlacePageViews:views];
 }
 
 - (void)routeFrom
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
-                   withParameters:@{kStatValue : kStatSource}];
+        withParameters:@{kStatValue : kStatSource}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
-  [self.delegate buildRouteFrom:self.target];
+  [[MWMRouter router] buildFromPoint:self.target bestRouter:YES];
   [self hidePlacePage];
 }
 
 - (void)routeTo
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
-                   withParameters:@{kStatValue : kStatDestination}];
+        withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
-  [self.delegate buildRouteTo:self.target];
+  [[MWMRouter router] buildToPoint:self.target bestRouter:YES];
   [self hidePlacePage];
 }
 
@@ -223,10 +197,9 @@ extern NSString * const kBookmarksChangedNotification;
     name = self.entity.bookmarkTitle;
   else
     name = L(@"placepage_unknown_place");
-  
+
   m2::PointD const & org = self.entity.mercator;
-  return self.entity.isMyPosition ? MWMRoutePoint(org)
-                               : MWMRoutePoint(org, name);
+  return self.entity.isMyPosition ? MWMRoutePoint(org) : MWMRoutePoint(org, name);
 }
 
 - (void)share
@@ -235,7 +208,8 @@ extern NSString * const kBookmarksChangedNotification;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   MWMPlacePageEntity * entity = self.entity;
   NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
-  CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.latlon.lat, entity.latlon.lon);
+  CLLocationCoordinate2D const coord =
+      CLLocationCoordinate2DMake(entity.latlon.lat, entity.latlon.lon);
   MWMActivityViewController * shareVC =
       [MWMActivityViewController shareControllerForLocationTitle:title
                                                         location:coord
@@ -246,7 +220,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)book:(BOOL)isDescription
 {
-  NSMutableDictionary * stat = [@{kStatProvider : kStatBooking} mutableCopy];
+  NSMutableDictionary * stat = [@{ kStatProvider : kStatBooking } mutableCopy];
   MWMPlacePageEntity * en = self.entity;
   auto const latLon = en.latlon;
   stat[kStatHotel] = en.hotelId;
@@ -254,10 +228,14 @@ extern NSString * const kBookmarksChangedNotification;
   stat[kStatHotelLon] = @(latLon.lon);
   [Statistics logEvent:isDescription ? kPlacePageHotelDetails : kPlacePageHotelBook
         withParameters:stat
-           atLocation:[MWMLocationManager lastLocation]];
+            atLocation:[MWMLocationManager lastLocation]];
 
-  UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
-  NSURL * url = isDescription ? [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]] : self.entity.bookingUrl;
+  UIViewController * vc =
+      static_cast<UIViewController *>([MapViewController controller]);
+  NSURL * url =
+      isDescription
+          ? [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]]
+          : self.entity.bookingUrl;
   NSAssert(url, @"Booking url can't be nil!");
   [vc openUrl:url];
 }
@@ -266,7 +244,8 @@ extern NSString * const kBookmarksChangedNotification;
 {
   NSString * tel = [self.entity getCellValue:MWMPlacePageCellTypePhoneNumber];
   NSAssert(tel, @"Phone number can't be nil!");
-  NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:tel] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:tel]
+      stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
 }
 
@@ -274,7 +253,7 @@ extern NSString * const kBookmarksChangedNotification;
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.entity.apiURL]];
-  [self.delegate apiBack];
+  [((MapViewController *)self.ownerViewController).apiBar back];
 }
 
 - (void)editPlace
@@ -286,23 +265,25 @@ extern NSString * const kBookmarksChangedNotification;
 - (void)addBusiness
 {
   [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePage}];
-  [self.delegate addPlace:YES hasPoint:NO point:m2::PointD()];
+  [[MWMMapViewControlsManager manager] addPlace:YES hasPoint:NO point:m2::PointD()];
 }
 
 - (void)addPlace
 {
-  [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePageNonBuilding}];
-  [self.delegate addPlace:NO hasPoint:YES point:self.entity.mercator];
+  [Statistics logEvent:kStatEditorAddClick
+        withParameters:@{kStatValue : kStatPlacePageNonBuilding}];
+  [[MWMMapViewControlsManager manager] addPlace:NO hasPoint:YES point:self.entity.mercator];
 }
 
 - (void)addBookmark
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
-                   withParameters:@{kStatValue : kStatAdd}];
+        withParameters:@{kStatValue : kStatAdd}];
   Framework & f = GetFramework();
-  BookmarkData bmData = { self.entity.titleForNewBookmark, f.LastEditedBMType() };
+  BookmarkData bmData = {self.entity.titleForNewBookmark, f.LastEditedBMType()};
   size_t const categoryIndex = f.LastEditedBMCategory();
-  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, self.entity.mercator, bmData);
+  size_t const bookmarkIndex =
+      f.GetBookmarkManager().AddBookmark(categoryIndex, self.entity.mercator, bmData);
   self.entity.bac = {categoryIndex, bookmarkIndex};
   self.entity.bookmarkTitle = @(bmData.GetName().c_str());
   self.entity.bookmarkCategory = @(f.GetBmCategory(categoryIndex)->GetName().c_str());
@@ -316,7 +297,7 @@ extern NSString * const kBookmarksChangedNotification;
 - (void)removeBookmark
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
-                   withParameters:@{kStatValue : kStatRemove}];
+        withParameters:@{kStatValue : kStatRemove}];
   Framework & f = GetFramework();
   BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(self.entity.bac.first);
   if (bookmarkCategory)
@@ -346,7 +327,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)dragPlacePage:(CGRect)frame
 {
-  [self.delegate dragPlacePage:frame];
+  [[MWMMapViewControlsManager manager] dragPlacePage:frame];
 }
 
 - (void)updateDistance
@@ -378,16 +359,18 @@ extern NSString * const kBookmarksChangedNotification;
   [ownerView addSubview:directionView];
   [ownerView endEditing:YES];
   [directionView setNeedsLayout];
-  [self.delegate updateStatusBarStyle];
-  [(MapsAppDelegate *)[UIApplication sharedApplication].delegate disableStandby];
+  MapsAppDelegate * app = [MapsAppDelegate theApp];
+  [app.mapViewController updateStatusBarStyle];
+  [app disableStandby];
   [self updateDistance];
 }
 
 - (void)hideDirectionView
 {
   [self.directionView removeFromSuperview];
-  [self.delegate updateStatusBarStyle];
-  [(MapsAppDelegate *)[UIApplication sharedApplication].delegate enableStandby];
+  MapsAppDelegate * app = [MapsAppDelegate theApp];
+  [app.mapViewController updateStatusBarStyle];
+  [app enableStandby];
 }
 
 - (void)changeHeight:(CGFloat)height
@@ -425,19 +408,7 @@ extern NSString * const kBookmarksChangedNotification;
   return _directionView;
 }
 
-- (BOOL)isDirectionViewShown
-{
-  return self.directionView.superview != nil;
-}
-
-- (void)setTopBound:(CGFloat)topBound
-{
-  _topBound = self.placePage.topBound = topBound;
-}
-
-- (void)setLeftBound:(CGFloat)leftBound
-{
-  _leftBound = self.placePage.leftBound = leftBound;
-}
-
+- (BOOL)isDirectionViewShown { return self.directionView.superview != nil; }
+- (void)setTopBound:(CGFloat)topBound { _topBound = self.placePage.topBound = topBound; }
+- (void)setLeftBound:(CGFloat)leftBound { _leftBound = self.placePage.leftBound = leftBound; }
 @end

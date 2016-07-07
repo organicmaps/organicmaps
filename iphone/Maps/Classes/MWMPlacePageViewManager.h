@@ -1,7 +1,8 @@
+#import "MWMMapViewControlsManager.h"
+
 #include "Framework.h"
 
 @class MWMPlacePageEntity, MWMPlacePageNavigationBar, MWMViewController;
-@protocol MWMPlacePageViewManagerProtocol;
 
 @interface MWMPlacePageViewManager : NSObject
 
@@ -12,15 +13,13 @@
 @property (nonatomic) CGFloat leftBound;
 @property (nonatomic, readonly) BOOL isDirectionViewShown;
 
-- (instancetype)initWithViewController:(MWMViewController *)viewController
-                              delegate:(id<MWMPlacePageViewManagerProtocol>)delegate;
+- (instancetype)initWithViewController:(MWMViewController *)viewController;
 - (void)showPlacePage:(place_page::Info const &)info;
 - (void)refreshPlacePage;
 - (void)mwm_refreshUI;
 - (BOOL)hasPlacePage;
 - (void)dismissPlacePage;
 - (void)hidePlacePage;
-- (void)buildRoute;
 - (void)routeFrom;
 - (void)routeTo;
 - (void)share;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry/point2d.hpp"
+
 class MWMRoutePoint
 {
 public:
@@ -37,6 +39,11 @@ public:
   bool IsMyPosition() const
   {
     return m_isMyPosition;
+  }
+
+  bool IsValid() const
+  {
+    return *this != MWMRoutePoint::MWMRoutePointZero();
   }
 
 private:

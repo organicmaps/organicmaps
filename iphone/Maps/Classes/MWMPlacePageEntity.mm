@@ -181,7 +181,7 @@ void initFieldsMap()
 
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType
 {
-  auto const s = MapsAppDelegate.theApp.mapViewController.controlsManager.navigationState;
+  auto const s = [MapViewController controller].controlsManager.navigationState;
   BOOL const navigationIsHidden = s == MWMNavigationDashboardStateHidden;
   switch (cellType)
   {

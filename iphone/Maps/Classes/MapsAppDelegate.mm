@@ -10,6 +10,7 @@
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
+#import "MWMRouter.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "Preferences.h"
@@ -63,8 +64,6 @@ static NSString * const kBundleVersion = @"BundleVersion";
 extern string const kCountryCodeKey;
 extern string const kUniqueIdKey;
 extern string const kLanguageKey;
-extern NSString * const kUserDefaultsTTSLanguageBcp47;
-extern NSString * const kUserDefaultsNeedToEnableTTS;
 
 extern char const * kAdServerForbiddenKey;
 
@@ -593,10 +592,10 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationDidBecomeActive"));
   [self.mapViewController onGetFocus: YES];
   [self handleURLs];
-  [self restoreRouteState];
   [[Statistics instance] applicationDidBecomeActive];
   GetFramework().SetRenderingEnabled(true);
   [MWMLocationManager applicationDidBecomeActive];
+  [[MWMRouter router] restore];
 }
 
 - (void)dealloc
@@ -811,28 +810,12 @@ using namespace osm_auth_ios;
   return [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
 }
 
-#pragma mark - Route state
-
-- (void)restoreRouteState
-{
-  if (GetFramework().IsRoutingActive())
-    return;
-  RouteState const * const state = [RouteState savedState];
-  if (state.hasActualRoute)
-    self.mapViewController.restoreRouteDestination = state.endPoint;
-  else
-    [RouteState remove];
-}
-
 #pragma mark - TTS
 
 - (void)enableTTSForTheFirstTime
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  if ([ud stringForKey:kUserDefaultsTTSLanguageBcp47].length)
-    return;
-  [ud setBool:YES forKey:kUserDefaultsNeedToEnableTTS];
-  [ud synchronize];
+  if (![MWMTextToSpeech savedLanguage].length)
+    [MWMTextToSpeech setTTSEnabled:YES];
 }
 
 #pragma mark - Standby

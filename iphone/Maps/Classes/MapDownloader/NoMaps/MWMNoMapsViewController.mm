@@ -1,10 +1,11 @@
+#import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"
 
 @implementation MWMNoMapsViewController
 
 - (IBAction)downloadMaps
 {
-  [self.delegate handleDownloadMapsAction];
+  [[MWMMapViewControlsManager manager] actionDownloadMaps:mwm::DownloaderMode::Available];
 }
 
 @end

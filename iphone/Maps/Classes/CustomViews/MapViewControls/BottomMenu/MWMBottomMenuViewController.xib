@@ -104,7 +104,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="goButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="0d6-rz-pEU"/>
+                                        <action selector="routingStartTouchUpInside" destination="-1" eventType="touchUpInside" id="MfT-Tr-kyw"/>
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UhW-en-7qq">
@@ -397,7 +397,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="buttonRedHighlighted"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="stopRoutingTouchUpInside" destination="-1" eventType="touchUpInside" id="IeL-yt-iT2"/>
+                                <action selector="routingStopTouchUpInside" destination="-1" eventType="touchUpInside" id="BSa-BK-A89"/>
                             </connections>
                         </button>
                     </subviews>

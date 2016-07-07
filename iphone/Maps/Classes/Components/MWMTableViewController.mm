@@ -23,7 +23,7 @@
 - (void)mwm_refreshUI
 {
   [self.navigationController.navigationBar mwm_refreshUI];
-  MapViewController * mapViewController = [MapsAppDelegate theApp].mapViewController;
+  MapViewController * mapViewController = [MapViewController controller];
   for (UIViewController * vc in self.navigationController.viewControllers.reverseObjectEnumerator)
   {
     if (![vc isEqual:mapViewController])

@@ -26,22 +26,17 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 
 @protocol MWMNavigationDashboardManagerProtocol <MWMNavigationViewProtocol>
 
-- (void)buildRoute;
-- (BOOL)isPossibleToBuildRoute;
-- (BOOL)didStartRouting;
-- (void)didCancelRouting;
-- (void)updateStatusBarStyle;
 - (void)didStartEditingRoutePoint:(BOOL)isSource;
-- (void)swapPointsAndRebuildRouteIfPossible;
-
 - (void)setMenuState:(MWMBottomMenuState)menuState;
 
 @end
 
 @interface MWMNavigationDashboardManager : NSObject <MWMLocationObserver>
 
++ (MWMNavigationDashboardManager *)manager;
+
 @property (nonatomic, readonly) MWMNavigationDashboardEntity * entity;
-@property (weak, nonatomic, readonly) MWMRoutePreview * routePreview;
+@property (nonatomic, readonly) MWMRoutePreview * routePreview;
 @property (nonatomic) MWMNavigationDashboardState state;
 @property (weak, nonatomic, readonly) id<MWMNavigationDashboardManagerProtocol> delegate;
 @property (nonatomic) CGFloat topBound;
@@ -49,17 +44,10 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 @property (nonatomic, readonly) CGFloat height;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
-- (instancetype)initWithParentView:(UIView *)view infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay delegate:(id<MWMNavigationDashboardManagerProtocol, MWMRoutePreviewDataSource>)delegate;
+- (instancetype)initWithParentView:(UIView *)view infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate;
 - (void)updateFollowingInfo:(location::FollowingInfo const &)info;
 - (void)updateDashboard;
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
-- (void)setActiveRouter:(routing::RouterType)routerType;
 - (void)setRouteBuilderProgress:(CGFloat)progress;
-- (void)showHelperPanels;
-- (void)hideHelperPanels;
-- (void)setupActualRoute;
 - (void)mwm_refreshUI;
 
 @end

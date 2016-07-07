@@ -12,6 +12,7 @@
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMRouter.h"
 #import "MWMSearchManager.h"
 #import "MWMTextToSpeech.h"
 #import "SettingsAndMoreVC.h"
@@ -203,14 +204,14 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [self updateRoutingInfo:self.routingInfo];
 }
 
-- (IBAction)goButtonTouchUpInside
+- (IBAction)routingStartTouchUpInside
 {
-  [self.controller.controlsManager startNavigation];
+  [[MWMRouter router] start];
 }
 
-- (IBAction)stopRoutingTouchUpInside
+- (IBAction)routingStopTouchUpInside
 {
-  [self.controller.controlsManager stopNavigation];
+  [[MWMRouter router] stop];
 }
 
 - (IBAction)soundTouchUpInside:(UIButton *)sender
@@ -218,6 +219,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   BOOL const isEnable = !sender.selected;
   [Statistics logEvent:kStatEventName(kStatNavigationDashboard, isEnable ? kStatOn : kStatOff)];
   [MWMTextToSpeech tts].active = isEnable;
+  sender.selected = isEnable;
 }
 
 #pragma mark - Refresh Collection View layout
@@ -448,14 +450,13 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   MapsAppDelegate * theApp = [MapsAppDelegate theApp];
   if (isSelected)
   {
-    theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
-    [self.controller.controlsManager routingPrepare];
+    [[MWMMapViewControlsManager manager] onRoutePrepare];
   }
   else
   {
     if (theApp.routingPlaneMode == MWMRoutingPlaneModeSearchDestination || theApp.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
       self.controller.controlsManager.searchHidden = YES;
-    [self.controller.controlsManager routingHidden];
+    [[MWMRouter router] stop];
   }
 }
 

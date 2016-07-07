@@ -130,18 +130,6 @@ BOOL keepRunningInBackground()
   return NO;
 }
 
-MWMAlertViewController * alertController()
-{
-  UIWindow * window = UIApplication.sharedApplication.delegate.window;
-  UIViewController * rootViewController = window.rootViewController;
-  ASSERT([rootViewController isKindOfClass:[UINavigationController class]], ());
-  UINavigationController * navigationController = static_cast<UINavigationController *>(rootViewController);
-  UIViewController * topViewController = navigationController.topViewController;
-  ASSERT([topViewController conformsToProtocol:@protocol(MWMController)], ());
-  UIViewController<MWMController> * mwmController = static_cast<UIViewController<MWMController> *>(topViewController);
-  return mwmController.alertController;
-}
-
 void sendInfoToFramework(dispatch_block_t block)
 {
   MapsAppDelegate * delegate = static_cast<MapsAppDelegate *>(UIApplication.sharedApplication.delegate);
@@ -326,10 +314,10 @@ void sendInfoToFramework(dispatch_block_t block)
     case location::ENoError:
       break;
     case location::ENotSupported:
-      [alertController() presentLocationServiceNotSupportedAlert];
+      [[MWMAlertViewController activeAlertController] presentLocationServiceNotSupportedAlert];
       break;
     case location::EDenied:
-      [alertController() presentLocationAlert];
+      [[MWMAlertViewController activeAlertController] presentLocationAlert];
       break;
     case location::EGPSIsOff:
       // iOS shows its own alert.

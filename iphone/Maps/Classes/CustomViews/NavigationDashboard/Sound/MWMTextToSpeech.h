@@ -4,17 +4,18 @@
 @interface MWMTextToSpeech : NSObject
 
 + (instancetype)tts;
++ (BOOL)isTTSEnabled;
++ (void)setTTSEnabled:(BOOL)enabled;
++ (NSString *)savedLanguage;
+
++ (NSString *)ttsStatusNotificationKey;
+
+@property (nonatomic) BOOL active;
 // Returns a list of available languages in the following format:
 // * name in bcp47;
 // * localized name;
 - (vector<std::pair<string, string>>)availableLanguages;
-- (NSString *)savedLanguage;
 - (void)setNotificationsLocale:(NSString *)locale;
-- (BOOL)isNeedToEnable;
-- (void)setNeedToEnable:(BOOL)need;
-- (BOOL)isEnable;
-- (void)enable;
-- (void)disable;
 - (void)playTurnNotifications;
 
 - (instancetype)init __attribute__((unavailable("call tts instead")));
