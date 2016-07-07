@@ -30,7 +30,7 @@ namespace sound
 {
 string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum,
                                              bool useThenInsteadOfDistance, TurnDirection turnDir,
-                                             ::settings::Units lengthUnits) const
+                                             measurement_utils::Units lengthUnits) const
 {
   Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance, turnDir,
                                   lengthUnits);
@@ -151,22 +151,22 @@ void NotificationManager::Enable(bool enable)
   m_enabled = enable;
 }
 
-void NotificationManager::SetLengthUnits(::settings::Units units)
+void NotificationManager::SetLengthUnits(measurement_utils::Units units)
 {
   m_settings.SetLengthUnits(units);
   switch (units)
   {
-  case ::settings::Metric:
+  case measurement_utils::Units::Metric:
     m_settings.SetState(30 /* notificationTimeSeconds */, 200 /* minNotificationDistanceUnits */,
                         2000 /* maxNotificationDistanceUnits */,
                         GetSoundedDistMeters() /* soundedDistancesUnits */,
-                        ::settings::Metric /* lengthUnits */);
+                        measurement_utils::Units::Metric /* lengthUnits */);
     return;
-  case ::settings::Foot:
+  case measurement_utils::Units::Imperial:
     m_settings.SetState(30 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
                         5000 /* maxNotificationDistanceUnits */,
                         GetSoundedDistFeet() /* soundedDistancesUnits */,
-                        ::settings::Foot /* lengthUnits */);
+                        measurement_utils::Units::Imperial /* lengthUnits */);
     return;
   }
 }

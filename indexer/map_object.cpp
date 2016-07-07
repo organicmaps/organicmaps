@@ -166,7 +166,7 @@ string MapObject::GetElevationFormatted() const
   {
     double value;
     if (strings::to_double(m_metadata.Get(feature::Metadata::FMD_ELE), value))
-      return MeasurementUtils::FormatAltitude(value);
+      return measurement_utils::FormatAltitude(value);
     else
       LOG(LWARNING,
           ("Invalid metadata for elevation:", m_metadata.Get(feature::Metadata::FMD_ELE)));

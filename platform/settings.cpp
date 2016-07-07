@@ -1,8 +1,8 @@
-#include "settings.hpp"
-#include "platform.hpp"
+#include "platform/settings.hpp"
+#include "platform/location.hpp"
+#include "platform/platform.hpp"
 
 #include "defines.hpp"
-#include "location.hpp"
 
 #include "coding/reader_streambuf.hpp"
 #include "coding/file_writer.hpp"
@@ -365,22 +365,23 @@ bool FromString<DPairT>(string const & s, DPairT & v)
 }
 
 template <>
-string ToString<Units>(Units const & v)
+string ToString<measurement_utils::Units>(measurement_utils::Units const & v)
 {
   switch (v)
   {
-  case Foot: return "Foot";
-  default: return "Metric";
+  // The value "Foot" is left here for compatibility with old settings.ini files.
+  case measurement_utils::Units::Imperial: return "Foot";
+  case measurement_utils::Units::Metric: return "Metric";
   }
 }
 
 template <>
-bool FromString<Units>(string const & s, Units & v)
+bool FromString<measurement_utils::Units>(string const & s, measurement_utils::Units & v)
 {
   if (s == "Metric")
-    v = Metric;
+    v = measurement_utils::Units::Metric;
   else if (s == "Foot")
-    v = Foot;
+    v = measurement_utils::Units::Imperial;
   else
     return false;
 

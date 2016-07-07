@@ -7,6 +7,7 @@
 #include "routing/turns_notification_manager.hpp"
 
 #include "platform/location.hpp"
+#include "platform/measurement_utils.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
@@ -130,7 +131,7 @@ public:
   // Sound notifications for turn instructions.
   void EnableTurnNotifications(bool enable);
   bool AreTurnNotificationsEnabled() const;
-  void SetTurnNotificationsUnits(settings::Units const units);
+  void SetTurnNotificationsUnits(measurement_utils::Units const units);
   void SetTurnNotificationsLocale(string const & locale);
   string GetTurnNotificationsLocale() const;
   void GenerateTurnNotifications(vector<string> & turnNotifications);

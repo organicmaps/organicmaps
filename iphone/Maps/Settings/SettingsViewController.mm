@@ -88,8 +88,8 @@ typedef NS_ENUM(NSUInteger, Section)
   case SectionMetrics:
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
-    settings::Units units = settings::Metric;
-    (void)settings::Get(settings::kMeasurementUnits, units);
+    auto units = measurement_utils::Units::Metric;
+    UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
     BOOL const selected = units == unitsForIndex(indexPath.row);
     SelectableCell * customCell = (SelectableCell *)cell;
     customCell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -330,9 +330,9 @@ typedef NS_ENUM(NSUInteger, Section)
   }
 }
 
-settings::Units unitsForIndex(NSInteger index)
+measurement_utils::Units unitsForIndex(NSInteger index)
 {
-  return index == 0 ? settings::Metric : settings::Foot;
+  return index == 0 ? measurement_utils::Units::Metric : measurement_utils::Units::Imperial;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -341,9 +341,11 @@ settings::Units unitsForIndex(NSInteger index)
   {
   case SectionMetrics:
   {
-    settings::Units units = unitsForIndex(indexPath.row);
+    auto const units = unitsForIndex(indexPath.row);
     [Statistics logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
-        withParameters:@{kStatValue : (units == settings::Units::Metric ? kStatKilometers : kStatMiles)}];
+          withParameters:@{
+            kStatValue : (units == measurement_utils::Units::Metric ? kStatKilometers : kStatMiles)
+          }];
     settings::Set(settings::kMeasurementUnits, units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
     GetFramework().SetupMeasurementSystem();

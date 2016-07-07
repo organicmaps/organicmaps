@@ -247,7 +247,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   auto formatDistFn = [](double dist, string & value, string & suffix)
   {
     /// @todo Make better formatting of distance and units.
-    MeasurementUtils::FormatDistance(dist, value);
+    UNUSED_VALUE(measurement_utils::FormatDistance(dist, value));
 
     size_t const delim = value.find(' ');
     ASSERT(delim != string::npos, ());
@@ -457,7 +457,7 @@ bool RoutingSession::AreTurnNotificationsEnabled() const
   return m_turnNotificationsMgr.IsEnabled();
 }
 
-void RoutingSession::SetTurnNotificationsUnits(settings::Units const units)
+void RoutingSession::SetTurnNotificationsUnits(measurement_utils::Units const units)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);

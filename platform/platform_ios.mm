@@ -1,4 +1,5 @@
 #include "platform/constants.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_unix_impl.hpp"
 #include "platform/settings.hpp"
@@ -262,12 +263,12 @@ Platform::EConnectionType Platform::ConnectionStatus()
 
 void Platform::SetupMeasurementSystem() const
 {
-  settings::Units u;
-  if (settings::Get(settings::kMeasurementUnits, u))
+  auto units = measurement_utils::Units::Metric;
+  if (settings::Get(settings::kMeasurementUnits, units))
     return;
   BOOL const isMetric = [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
-  u = isMetric ? settings::Metric : settings::Foot;
-  settings::Set(settings::kMeasurementUnits, u);
+  units = isMetric ? measurement_utils::Units::Metric : measurement_utils::Units::Imperial;
+  settings::Set(settings::kMeasurementUnits, units);
 }
 
 ////////////////////////////////////////////////////////////////////////

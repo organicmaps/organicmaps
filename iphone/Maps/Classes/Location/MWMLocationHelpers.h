@@ -2,6 +2,7 @@
 
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -51,13 +52,14 @@ static inline NSString * formattedSpeedAndAltitude(CLLocation * location)
   string result;
   if (location.altitude)
     result = "\xE2\x96\xB2 " /* this is simple mountain symbol */ +
-             MeasurementUtils::FormatAltitude(location.altitude);
+             measurement_utils::FormatAltitude(location.altitude);
   // Speed is actual only for just received location
   if (location.speed > 0. && [location.timestamp timeIntervalSinceNow] >= -2.0)
   {
     if (!result.empty())
       result += "   ";
-    result += getSpeedSymbol(location.speed) + MeasurementUtils::FormatSpeed(location.speed);
+    result += getSpeedSymbol(location.speed) +
+              measurement_utils::FormatSpeedWithDeviceUnits(location.speed);
   }
   return result.empty() ? nil : @(result.c_str());
 }
@@ -68,7 +70,7 @@ static inline NSString * formattedDistance(double const & meters)
     return nil;
 
   string s;
-  MeasurementUtils::FormatDistance(meters, s);
+  measurement_utils::FormatDistance(meters, s);
   return @(s.c_str());
 }
 

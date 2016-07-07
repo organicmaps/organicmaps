@@ -100,8 +100,7 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD c
 }
 
 PreResult2::PreResult2(double lat, double lon)
-  : m_str("(" + MeasurementUtils::FormatLatLon(lat, lon) + ")"),
-    m_resultType(RESULT_LATLON)
+  : m_str("(" + measurement_utils::FormatLatLon(lat, lon) + ")"), m_resultType(RESULT_LATLON)
 {
   m_region.SetParams(string(), MercatorBounds::FromLatLon(lat, lon));
 }

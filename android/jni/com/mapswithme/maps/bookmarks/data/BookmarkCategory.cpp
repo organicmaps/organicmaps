@@ -106,7 +106,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetTrack(
   ASSERT(nTrack, ("Track must not be null with index:)", bmkId));
 
   string formattedLength;
-  MeasurementUtils::FormatDistance(nTrack->GetLengthMeters(), formattedLength);
+  measurement_utils::FormatDistance(nTrack->GetLengthMeters(), formattedLength);
 
   dp::Color nColor = nTrack->GetColor(0);
 
