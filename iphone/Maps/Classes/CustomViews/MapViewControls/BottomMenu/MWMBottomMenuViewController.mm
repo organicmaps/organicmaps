@@ -80,6 +80,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 @property (weak, nonatomic) IBOutlet UIView * progressView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * routingProgress;
+@property (weak, nonatomic) IBOutlet MWMButton * ttsSoundButton;
 
 @end
 
@@ -97,10 +98,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     MWMBottomMenuView * view = (MWMBottomMenuView *)self.view;
     [controller.view addSubview:view];
     view.maxY = controller.view.height;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(searchStateWillChange:)
-                                                 name:kSearchStateWillChangeNotification
-                                               object:nil];
   }
   return self;
 }
@@ -121,6 +118,16 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
   cvLayout.layoutThreshold = kLayoutThreshold;
   ((MWMBottomMenuView *)self.view).layoutThreshold = kLayoutThreshold;
+
+  NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+  [nc addObserver:self
+         selector:@selector(searchStateWillChange:)
+             name:kSearchStateWillChangeNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(ttsButtonStatusChanged:)
+             name:[MWMTextToSpeech ttsStatusNotificationKey]
+           object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -210,12 +217,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   BOOL const isEnable = !sender.selected;
   [Statistics logEvent:kStatEventName(kStatNavigationDashboard, isEnable ? kStatOn : kStatOff)];
-  MWMTextToSpeech * tts = [MWMTextToSpeech tts];
-  if (isEnable)
-    [tts enable];
-  else
-    [tts disable];
-  sender.selected = isEnable;
+  [MWMTextToSpeech tts].active = isEnable;
 }
 
 #pragma mark - Refresh Collection View layout
@@ -250,6 +252,18 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   MWMSearchManagerState state =
       MWMSearchManagerState([[notification userInfo][kSearchStateKey] unsignedIntegerValue]);
   self.searchIsActive = state != MWMSearchManagerStateHidden;
+}
+
+- (void)ttsButtonStatusChanged:(NSNotification *)notification
+{
+  auto & f = GetFramework();
+  if (!f.IsRoutingActive())
+    return;
+  BOOL const isPedestrianRouting = f.GetRouter() == routing::RouterType::Pedestrian;
+  MWMButton * ttsButton = self.ttsSoundButton;
+  ttsButton.hidden = isPedestrianRouting || ![MWMTextToSpeech isTTSEnabled];
+  if (!ttsButton.hidden)
+    ttsButton.selected = [MWMTextToSpeech tts].active;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -541,6 +555,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   if (menuActive)
     [self.controller.view bringSubviewToFront:view];
   [self toggleDimBackgroundVisible:menuActive];
+
+  if (state == MWMBottomMenuStateRoutingExpanded)
+    [self ttsButtonStatusChanged:nil];
+
   if (state == MWMBottomMenuStateInactive || state == MWMBottomMenuStateRouting)
   {
     self.p2pButton.selected = NO;
