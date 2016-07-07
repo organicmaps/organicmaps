@@ -403,23 +403,21 @@ void UniteCBVs(vector<CBV> & cbvs)
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
-Geocoder::Params::Params() : m_mode(Mode::Everywhere), m_accuratePivotCenter(0, 0) {}
-
+Geocoder::Params::Params() : m_mode(Mode::Everywhere) {}
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
-                   my::Cancellable const & cancellable)
+                   PreRanker & preRanker, my::Cancellable const & cancellable)
   : m_index(index)
   , m_infoGetter(infoGetter)
   , m_cancellable(cancellable)
   , m_model(SearchModel::Instance())
   , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, Processor::kMaxViewportRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, m_cancellable)
-  , m_pivotFeatures(index)
   , m_filter(nullptr)
   , m_matcher(nullptr)
   , m_finder(m_cancellable)
   , m_lastMatchedRegion(nullptr)
-  , m_preRanker(nullptr)
+  , m_preRanker(preRanker)
 {
 }
 
@@ -467,7 +465,7 @@ void Geocoder::SetParams(Params const & params)
   LOG(LDEBUG, ("Languages =", m_params.m_langs));
 }
 
-void Geocoder::GoEverywhere(PreRanker & preRanker)
+void Geocoder::GoEverywhere()
 {
 // TODO (@y): remove following code as soon as Geocoder::Go() will
 // work fast for most cases (significantly less than 1 second).
@@ -489,10 +487,10 @@ void Geocoder::GoEverywhere(PreRanker & preRanker)
   vector<shared_ptr<MwmInfo>> infos;
   m_index.GetMwmsInfo(infos);
 
-  GoImpl(preRanker, infos, false /* inViewport */);
+  GoImpl(infos, false /* inViewport */);
 }
 
-void Geocoder::GoInViewport(PreRanker & preRanker)
+void Geocoder::GoInViewport()
 {
   if (m_params.GetNumTokens() == 0)
     return;
@@ -505,13 +503,11 @@ void Geocoder::GoInViewport(PreRanker & preRanker)
                 return !m_params.m_pivot.IsIntersect(info->m_limitRect);
               });
 
-  GoImpl(preRanker, infos, true /* inViewport */);
+  GoImpl(infos, true /* inViewport */);
 }
 
-void Geocoder::GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
+void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 {
-  m_preRanker = &preRanker;
-
   try
   {
     // Tries to find world and fill localities table.
@@ -601,26 +597,24 @@ void Geocoder::GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos
       m_lastMatchedRegion = nullptr;
       MatchRegions(ctx, REGION_TYPE_COUNTRY);
 
-      if (index < numIntersectingMaps || m_preRanker->IsEmpty())
+      if (index < numIntersectingMaps || m_preRanker.IsEmpty())
         MatchAroundPivot(ctx);
     };
 
     // Iterates through all alive mwms and performs geocoding.
     ForEachCountry(infos, processCountry);
+
+    m_preRanker.FinalizeResults();
   }
   catch (CancelException & e)
   {
   }
-
-  // Fill results ranks, as they were missed.
-  FillMissingFieldsInResults();
 }
 
 void Geocoder::ClearCaches()
 {
   m_pivotRectsCache.Clear();
   m_localityRectsCache.Clear();
-  m_pivotFeatures.Clear();
 
   m_matchersCache.clear();
   m_streetsCache.clear();
@@ -974,7 +968,7 @@ void Geocoder::MatchCities(BaseContext & ctx)
 void Geocoder::MatchAroundPivot(BaseContext & ctx)
 {
   auto const features = RetrieveGeometryFeatures(*m_context, m_params.m_pivot, RECT_ID_PIVOT);
-  ViewportFilter filter(features, m_preRanker->Limit() /* threshold */);
+  ViewportFilter filter(features, m_preRanker.Limit() /* threshold */);
   LimitedSearch(ctx, filter);
 }
 
@@ -1337,7 +1331,7 @@ void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, SearchMode
   info.m_startToken = startToken;
   info.m_endToken = endToken;
 
-  m_preRanker->Emplace(id, info);
+  m_preRanker.Emplace(id, info);
 }
 
 void Geocoder::EmitResult(Region const & region, size_t startToken, size_t endToken)
@@ -1355,42 +1349,6 @@ void Geocoder::EmitResult(Region const & region, size_t startToken, size_t endTo
 void Geocoder::EmitResult(City const & city, size_t startToken, size_t endToken)
 {
   EmitResult(city.m_countryId, city.m_featureId, city.m_type, startToken, endToken);
-}
-
-void Geocoder::FillMissingFieldsInResults()
-{
-  MwmSet::MwmId mwmId;
-  MwmSet::MwmHandle mwmHandle;
-  unique_ptr<RankTable> rankTable = make_unique<DummyRankTable>();
-
-  m_preRanker->ForEachInfo([&](FeatureID const & id, PreRankingInfo & info)
-                           {
-                             if (id.m_mwmId != mwmId)
-                             {
-                               mwmId = id.m_mwmId;
-                               mwmHandle = m_index.GetMwmHandleById(mwmId);
-                               rankTable.reset();
-                               if (mwmHandle.IsAlive())
-                               {
-                                 rankTable =
-                                     RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
-                               }
-                               if (!rankTable)
-                                 rankTable = make_unique<DummyRankTable>();
-                             }
-
-                             info.m_rank = rankTable->Get(id.m_index);
-                           });
-
-  if (m_preRanker->Size() > m_preRanker->Limit())
-  {
-    m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
-    m_preRanker->ForEachInfo([&](FeatureID const & id, PreRankingInfo & info)
-                             {
-                               info.m_distanceToPivot =
-                                   m_pivotFeatures.GetDistanceToFeatureMeters(id);
-                             });
-  }
 }
 
 void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)

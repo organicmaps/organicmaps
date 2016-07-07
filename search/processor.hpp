@@ -82,7 +82,6 @@ public:
   // TODO (@y): this function must be removed.
   void SetRankPivot(m2::PointD const & pivot);
   inline void SetMode(Mode mode) { m_mode = mode; }
-  inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
   inline void SetSuggestsEnabled(bool enabled) { m_suggestsEnabled = enabled; }
   inline void SetPosition(m2::PointD const & position) { m_position = position; }
 
@@ -104,8 +103,9 @@ public:
   //@}
 
   void InitParams(QueryParams & params);
-  void InitGeocoderParams(Geocoder::Params & params);
-  void InitRankerParams(Ranker::Params & params);
+  void InitGeocoderParams(Geocoder::Params & params, bool viewportSearch);
+  void InitPreRanker(bool viewportSearch);
+  void InitRanker(bool viewportSearch);
 
   void ClearCaches();
 
@@ -137,7 +137,7 @@ protected:
   template <typename ToDo>
   void ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const;
 
-  m2::PointD GetPivotPoint() const;
+  m2::PointD GetPivotPoint(bool viewportSearch) const;
   m2::RectD GetPivotRect() const;
 
   void SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate);
@@ -156,7 +156,6 @@ protected:
   m2::PointD m_pivot;
   m2::PointD m_position;
   Mode m_mode;
-  bool m_worldSearch;
   bool m_suggestsEnabled;
 
   /// @name Get ranking params.

@@ -1,5 +1,4 @@
 #include "search/ranker.hpp"
-#include "search/pre_ranker.hpp"
 #include "search/string_intersection.hpp"
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
@@ -9,6 +8,7 @@
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace search
 {
@@ -169,7 +169,7 @@ class PreResult2Maker
   {
     auto const & preInfo = res.GetInfo();
 
-    auto const & pivot = m_params.m_accuratePivotCenter;
+    auto const & pivot = m_ranker.m_params.m_accuratePivotCenter;
 
     info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
@@ -271,6 +271,27 @@ public:
   }
 };
 
+Ranker::Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
+               CategoriesHolder const & categories, vector<Suggest> const & suggests,
+               my::Cancellable const & cancellable)
+  : m_reverseGeocoder(index)
+  , m_cancellable(cancellable)
+#ifdef FIND_LOCALITY_TEST
+  , m_locality(&index)
+#endif  // FIND_LOCALITY_TEST
+  , m_index(index)
+  , m_infoGetter(infoGetter)
+  , m_categories(categories)
+  , m_suggests(suggests)
+{
+}
+
+void Ranker::Init(Params const & params)
+{
+  m_params = params;
+  m_preResults1.clear();
+}
+
 bool Ranker::IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values)
 {
   PreResult2::StrictEqualF equalCmp(p);
@@ -284,27 +305,23 @@ bool Ranker::IsResultExists(PreResult2 const & p, vector<IndexedValue> const & v
 void Ranker::MakePreResult2(Geocoder::Params const & geocoderParams, vector<IndexedValue> & cont,
                             vector<FeatureID> & streets)
 {
-  m_preRanker.Filter(m_params.m_viewportSearch);
-
-  // Makes PreResult2 vector.
   PreResult2Maker maker(*this, m_index, m_infoGetter, geocoderParams);
-  m_preRanker.ForEach(
-      [&](PreResult1 const & r)
-      {
-        auto p = maker(r);
-        if (!p)
-          return;
+  for (auto const & r : m_preResults1)
+  {
+    auto p = maker(r);
+    if (!p)
+      return;
 
-        if (geocoderParams.m_mode == Mode::Viewport &&
-            !geocoderParams.m_pivot.IsPointInside(p->GetCenter()))
-          return;
+    if (geocoderParams.m_mode == Mode::Viewport &&
+        !geocoderParams.m_pivot.IsPointInside(p->GetCenter()))
+      return;
 
-        if (p->IsStreet())
-          streets.push_back(p->GetID());
+    if (p->IsStreet())
+      streets.push_back(p->GetID());
 
-        if (!IsResultExists(*p, cont))
-          cont.push_back(IndexedValue(move(p)));
-      });
+    if (!IsResultExists(*p, cont))
+      cont.push_back(IndexedValue(move(p)));
+  };
 }
 
 Result Ranker::MakeResult(PreResult2 const & r) const
@@ -465,7 +482,6 @@ void Ranker::FlushResults(Geocoder::Params const & params, Results & res, size_t
 {
   vector<IndexedValue> values;
   vector<FeatureID> streets;
-
   MakePreResult2(params, values, streets);
   RemoveDuplicatingLinear(values);
   if (values.empty())
@@ -493,7 +509,6 @@ void Ranker::FlushViewportResults(Geocoder::Params const & geocoderParams, Resul
 {
   vector<IndexedValue> values;
   vector<FeatureID> streets;
-
   MakePreResult2(geocoderParams, values, streets);
   RemoveDuplicatingLinear(values);
   if (values.empty())

@@ -75,16 +75,7 @@ public:
     Params();
 
     Mode m_mode;
-
-    // We need to pass both pivot and pivot center because pivot is
-    // usually a rectangle created by radius and center, and due to
-    // precision loss, |m_pivot|.Center() may differ from
-    // |m_accuratePivotCenter|. Therefore |m_pivot| should be used for
-    // fast filtering of features outside of the rectangle, while
-    // |m_accuratePivotCenter| should be used when it's needed to
-    // compute a distance from a feature to the pivot.
     m2::RectD m_pivot;
-    m2::PointD m_accuratePivotCenter;
   };
 
   enum RegionType
@@ -144,7 +135,7 @@ public:
   };
 
   Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
-           my::Cancellable const & cancellable);
+           PreRanker & preRanker, my::Cancellable const & cancellable);
 
   ~Geocoder();
 
@@ -153,8 +144,8 @@ public:
 
   // Starts geocoding, retrieved features will be appended to
   // |results|.
-  void GoEverywhere(PreRanker & preRanker);
-  void GoInViewport(PreRanker & preRanker);
+  void GoEverywhere();
+  void GoInViewport();
 
   void ClearCaches();
 
@@ -180,7 +171,7 @@ private:
     CBV m_features;
   };
 
-  void GoImpl(PreRanker & preRanker, vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
+  void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename TLocality>
   using TLocalitiesCache = map<pair<size_t, size_t>, vector<TLocality>>;
@@ -260,9 +251,6 @@ private:
   void EmitResult(Region const & region, size_t startToken, size_t endToken);
   void EmitResult(City const & city, size_t startToken, size_t endToken);
 
-  // Computes missing fields for all results in |m_preRanker|.
-  void FillMissingFieldsInResults();
-
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all
   // UNCLASSIFIED objects that match to all currently unused tokens.
@@ -316,9 +304,6 @@ private:
   PivotRectsCache m_pivotRectsCache;
   LocalityRectsCache m_localityRectsCache;
 
-  // Cache of nested rects used to estimate distance from a feature to the pivot.
-  NestedRectsCache m_pivotFeatures;
-
   // Cache of street ids in mwms.
   map<MwmSet::MwmId, CBV> m_streetsCache;
 
@@ -344,10 +329,8 @@ private:
   // Stack of layers filled during geocoding.
   vector<FeaturesLayer> m_layers;
 
-  // Non-owning.
-  PreRanker * m_preRanker;
+  PreRanker & m_preRanker;
 };
 
 string DebugPrint(Geocoder::Locality const & locality);
-
 }  // namespace search

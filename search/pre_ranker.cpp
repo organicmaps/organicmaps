@@ -1,6 +1,10 @@
 #include "search/pre_ranker.hpp"
 
+#include "search/dummy_rank_table.hpp"
 #include "search/pre_ranking_info.hpp"
+
+#include "indexer/mwm_set.hpp"
+#include "indexer/rank_table.hpp"
 
 #include "base/stl_helpers.hpp"
 
@@ -42,12 +46,52 @@ struct ComparePreResult1
 };
 }  // namespace
 
-PreRanker::PreRanker(size_t limit) : m_limit(limit) {}
+PreRanker::PreRanker(Index const & index, Ranker & ranker, size_t limit)
+  : m_index(index), m_ranker(ranker), m_limit(limit), m_pivotFeatures(index)
+{
+}
+
+void PreRanker::FillMissingFieldsInResults()
+{
+  MwmSet::MwmId mwmId;
+  MwmSet::MwmHandle mwmHandle;
+  unique_ptr<RankTable> rankTable = make_unique<DummyRankTable>();
+
+  ForEach([&](PreResult1 & r) {
+    FeatureID const & id = r.GetId();
+    PreRankingInfo & info = r.GetInfo();
+    if (id.m_mwmId != mwmId)
+    {
+      mwmId = id.m_mwmId;
+      mwmHandle = m_index.GetMwmHandleById(mwmId);
+      rankTable.reset();
+      if (mwmHandle.IsAlive())
+      {
+        rankTable = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
+      }
+      if (!rankTable)
+        rankTable = make_unique<DummyRankTable>();
+    }
+
+    info.m_rank = rankTable->Get(id.m_index);
+  });
+
+  if (Size() <= Limit())
+    return;
+
+  m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
+  ForEach([&](PreResult1 & r) {
+    FeatureID const & id = r.GetId();
+    PreRankingInfo & info = r.GetInfo();
+
+    info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
+  });
+}
 
 void PreRanker::Filter(bool viewportSearch)
 {
   using TSet = set<PreResult1, LessFeatureID>;
-  TSet theSet;
+  TSet filtered;
 
   sort(m_results.begin(), m_results.end(), ComparePreResult1());
   m_results.erase(unique(m_results.begin(), m_results.end(), my::EqualsBy(&PreResult1::GetId)),
@@ -88,17 +132,27 @@ void PreRanker::Filter(bool viewportSearch)
     minstd_rand engine;
     shuffle(b, e, engine);
   }
-  theSet.insert(m_results.begin(), m_results.begin() + min(m_results.size(), m_limit));
+  filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), m_limit));
 
   if (!viewportSearch)
   {
     size_t n = min(m_results.size(), m_limit);
     nth_element(m_results.begin(), m_results.begin() + n, m_results.end(), &PreResult1::LessRank);
-    theSet.insert(m_results.begin(), m_results.begin() + n);
+    filtered.insert(m_results.begin(), m_results.begin() + n);
   }
 
-  m_results.reserve(theSet.size());
+  m_results.reserve(filtered.size());
   m_results.clear();
-  copy(theSet.begin(), theSet.end(), back_inserter(m_results));
+  copy(filtered.begin(), filtered.end(), back_inserter(m_results));
 }
+
+void PreRanker::FinalizeResults()
+{
+  FillMissingFieldsInResults();
+  Filter(m_viewportSearch);
+  m_ranker.SetPreResults1(move(m_results));
+  m_results.clear();
+}
+
+void PreRanker::ClearCaches() { m_pivotFeatures.Clear(); }
 }  // namespace search
