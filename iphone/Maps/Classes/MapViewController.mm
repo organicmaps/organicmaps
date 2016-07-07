@@ -145,7 +145,7 @@ BOOL gIsFirstMyPositionMode = YES;
   frm.GetRouteFollowingInfo(res);
 
   if (res.IsValid())
-    [self.controlsManager setupRoutingDashboard:res];
+    [self.controlsManager updateFollowingInfo:res];
 
   if (frm.IsOnRoute())
     [[MWMTextToSpeech tts] playTurnNotifications];
@@ -557,7 +557,7 @@ BOOL gIsFirstMyPositionMode = YES;
       auto & f = GetFramework();
       f.DeactivateMapSelection(true);
       if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
-        [self.controlsManager routingNavigation];
+        [self.controlsManager startNavigation];
       else
         [self.controlsManager routingReady];
       [self updateRoutingInfo];

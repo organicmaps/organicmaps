@@ -70,11 +70,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!self)
     return nil;
   self.ownerController = controller;
-  self.sideButtons = [[MWMSideButtons alloc] initWithParentView:controller.view];
-  self.menuController = [[MWMBottomMenuViewController alloc] initWithParentController:controller delegate:self];
-  self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:controller delegate:self];
-  self.navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentView:controller.view delegate:self];
-  self.searchManager = [[MWMSearchManager alloc] initWithParentView:controller.view delegate:self];
   self.hidden = NO;
   self.sideButtonsHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
@@ -113,11 +108,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   switch (code)
   {
     case routing::IRouter::ResultCode::NoError:
-    {
       [self.navigationManager setRouteBuilderProgress:100];
       self.searchHidden = YES;
       break;
-    }
     case routing::IRouter::Cancelled:
     case routing::IRouter::NeedMoreMaps:
       break;
@@ -483,11 +476,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
 }
 
-- (void)setupRoutingDashboard:(location::FollowingInfo const &)info
+- (void)updateFollowingInfo:(location::FollowingInfo const &)info
 {
-  [self.navigationManager setupDashboard:info];
-  if (self.menuController.state == MWMBottomMenuStateText)
-    [self.menuController setStreetName:@(info.m_sourceName.c_str())];
+  [self.navigationManager updateFollowingInfo:info];
 }
 
 - (void)handleRoutingError
@@ -535,9 +526,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
 
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
-  self.menuState = MWMBottomMenuStatePlanning;
   GetFramework().BuildRoute(self.routeSource.Point(), self.routeDestination.Point(), 0 /* timeoutSec */);
-  [self.navigationManager setRouteBuilderProgress:0.];
 }
 
 - (BOOL)isPossibleToBuildRoute
@@ -554,7 +543,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.placePageManager setTopBound:topBound];
 }
 
-- (BOOL)didStartFollowing
+- (BOOL)didStartRouting
 {
   BOOL const isSourceMyPosition = self.routeSource.IsMyPosition();
   BOOL const isDestinationMyPosition = self.routeDestination.IsMyPosition();
@@ -585,15 +574,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.sideButtonsHidden = NO;
   GetFramework().FollowRoute();
   self.disableStandbyOnRouteFollowing = YES;
-  [self.menuController setStreetName:@""];
   MapsAppDelegate * app = MapsAppDelegate.theApp;
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
   [RouteState save];
-  if ([MapsAppDelegate isAutoNightMode])
-  {
-    [MapsAppDelegate changeMapStyleIfNedeed];
-    [app startMapStyleChecker];
-  }
+  [MapsAppDelegate changeMapStyleIfNedeed];
+  [app startMapStyleChecker];
   return YES;
 }
 
@@ -655,7 +640,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     });
   }
   self.navigationManager.state = MWMNavigationDashboardStateReady;
-  self.menuState = MWMBottomMenuStateGo;
 }
 
 - (void)routingHidden
@@ -669,12 +653,17 @@ extern NSString * const kAlohalyticsTapEventKey;
   MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
 }
 
-- (void)routingNavigation
+- (void)startNavigation
 {
-  if (![self didStartFollowing])
+  if (![self didStartRouting])
     return;
   self.navigationManager.state = MWMNavigationDashboardStateNavigation;
   MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModeNone;
+}
+
+- (void)stopNavigation
+{
+  [self didCancelRouting];
 }
 
 - (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing
@@ -701,6 +690,48 @@ extern NSString * const kAlohalyticsTapEventKey;
 }
 
 #pragma mark - Properties
+
+- (MWMSideButtons *)sideButtons
+{
+  if (!_sideButtons)
+    _sideButtons = [[MWMSideButtons alloc] initWithParentView:self.ownerController.view];
+  return _sideButtons;
+}
+
+- (MWMBottomMenuViewController *)menuController
+{
+  if (!_menuController)
+    _menuController =
+        [[MWMBottomMenuViewController alloc] initWithParentController:self.ownerController
+                                                             delegate:self];
+  return _menuController;
+}
+
+- (MWMPlacePageViewManager *)placePageManager
+{
+  if (!_placePageManager)
+    _placePageManager =
+        [[MWMPlacePageViewManager alloc] initWithViewController:self.ownerController delegate:self];
+  return _placePageManager;
+}
+
+- (MWMNavigationDashboardManager *)navigationManager
+{
+  if (!_navigationManager)
+    _navigationManager =
+        [[MWMNavigationDashboardManager alloc] initWithParentView:self.ownerController.view
+                                                      infoDisplay:self.menuController
+                                                         delegate:self];
+  return _navigationManager;
+}
+
+- (MWMSearchManager *)searchManager
+{
+  if (!_searchManager)
+    _searchManager =
+        [[MWMSearchManager alloc] initWithParentView:self.ownerController.view delegate:self];
+  return _searchManager;
+}
 
 @synthesize menuState = _menuState;
 
@@ -730,22 +761,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)setMenuState:(MWMBottomMenuState)menuState
 {
   _menuState = menuState;
-  MWMBottomMenuState const state = self.hidden ? MWMBottomMenuStateHidden : menuState;
-  switch (state)
-  {
-    case MWMBottomMenuStateInactive:
-      [self.menuController setInactive];
-      break;
-    case MWMBottomMenuStatePlanning:
-      [self.menuController setPlanning];
-      break;
-    case MWMBottomMenuStateGo:
-      [self.menuController setGo];
-      break;
-    default:
-      self.menuController.state = state;
-      break;
-  }
+  self.menuController.state = self.hidden ? MWMBottomMenuStateHidden : menuState;
 }
 
 - (MWMBottomMenuState)menuState

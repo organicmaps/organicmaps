@@ -11,12 +11,7 @@ using namespace routing::turns;
 
 @implementation MWMNavigationDashboardEntity
 
-- (void)updateWithFollowingInfo:(location::FollowingInfo const &)info
-{
-  [self configure:info];
-}
-
-- (void)configure:(location::FollowingInfo const &)info
+- (void)updateFollowingInfo:(location::FollowingInfo const &)info
 {
   _timeToTarget = info.m_time;
   _targetDistance = @(info.m_distToTarget.c_str());
@@ -119,6 +114,23 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
   if (!imageName)
     return nil;
   return [UIImage imageNamed:isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
+}
+
+- (NSString *)speed
+{
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation || lastLocation.speed < 0)
+    return nil;
+  auto units = measurement_utils::Units::Metric;
+  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
+  return @(measurement_utils::FormatSpeed(lastLocation.speed, units).c_str());
+}
+
+- (NSString *)speedUnits
+{
+  auto units = measurement_utils::Units::Metric;
+  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
+  return @(measurement_utils::FormatSpeedUnits(units).c_str());
 }
 
 @end

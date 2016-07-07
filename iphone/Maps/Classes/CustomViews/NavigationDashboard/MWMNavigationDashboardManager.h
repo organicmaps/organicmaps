@@ -1,5 +1,7 @@
+#import "MWMBottomMenuView.h"
 #import "MWMCircularProgress.h"
 #import "MWMLocationManager.h"
+#import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationViewProtocol.h"
 #import "MWMRoutePreview.h"
 
@@ -16,19 +18,25 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
   MWMNavigationDashboardStateNavigation
 };
 
+@protocol MWMNavigationDashboardInfoProtocol
+
+- (void)updateRoutingInfo:(MWMNavigationDashboardEntity *)info;
+
+@end
+
 @protocol MWMNavigationDashboardManagerProtocol <MWMNavigationViewProtocol>
 
 - (void)buildRoute;
 - (BOOL)isPossibleToBuildRoute;
-- (BOOL)didStartFollowing;
+- (BOOL)didStartRouting;
 - (void)didCancelRouting;
 - (void)updateStatusBarStyle;
 - (void)didStartEditingRoutePoint:(BOOL)isSource;
 - (void)swapPointsAndRebuildRouteIfPossible;
 
-@end
+- (void)setMenuState:(MWMBottomMenuState)menuState;
 
-@class MWMNavigationDashboardEntity;
+@end
 
 @interface MWMNavigationDashboardManager : NSObject <MWMLocationObserver>
 
@@ -41,8 +49,8 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 @property (nonatomic, readonly) CGFloat height;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
-- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerProtocol, MWMRoutePreviewDataSource>)delegate;
-- (void)setupDashboard:(location::FollowingInfo const &)info;
+- (instancetype)initWithParentView:(UIView *)view infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay delegate:(id<MWMNavigationDashboardManagerProtocol, MWMRoutePreviewDataSource>)delegate;
+- (void)updateFollowingInfo:(location::FollowingInfo const &)info;
 - (void)updateDashboard;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)viewWillTransitionToSize:(CGSize)size

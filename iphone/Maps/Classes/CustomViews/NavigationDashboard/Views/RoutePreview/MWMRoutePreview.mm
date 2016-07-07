@@ -1,6 +1,5 @@
 #import "Common.h"
 #import "MWMCircularProgress.h"
-#import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePointCell.h"
 #import "MWMRoutePointLayout.h"

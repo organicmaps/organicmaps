@@ -323,7 +323,8 @@ using namespace osm_auth_ios;
 
 - (void)startMapStyleChecker
 {
-  NSAssert([MapsAppDelegate isAutoNightMode], @"Invalid auto switcher's state");
+  if (![MapsAppDelegate isAutoNightMode])
+    return;
   self.mapStyleSwitchTimer = [NSTimer scheduledTimerWithTimeInterval:(30 * 60) target:[MapsAppDelegate class]
                                                             selector:@selector(changeMapStyleIfNedeed) userInfo:nil
                                                              repeats:YES];
@@ -349,7 +350,8 @@ using namespace osm_auth_ios;
 
 + (void)changeMapStyleIfNedeed
 {
-  NSAssert([MapsAppDelegate isAutoNightMode], @"Invalid auto switcher's state");
+  if (![MapsAppDelegate isAutoNightMode])
+    return;
   auto & f = GetFramework();
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation || !f.IsRoutingActive())
@@ -362,8 +364,7 @@ using namespace osm_auth_ios;
     auto const dayTime =
     GetDayTime(static_cast<time_t>(NSDate.date.timeIntervalSince1970),
                coord.latitude, coord.longitude);
-    id<MWMController> vc = static_cast<id<MWMController>>(
-                                                          app.mapViewController.navigationController.topViewController);
+    id<MWMController> vc = static_cast<id<MWMController>>(app.mapViewController.navigationController.topViewController);
     auto style = f.GetMapStyle();
     switch (dayTime)
     {

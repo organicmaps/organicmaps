@@ -197,6 +197,8 @@
 		34A62D511C903533007FDCB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4D1C903533007FDCB7 /* Crashlytics.framework */; };
 		34AB04B71CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34AB04B61CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */; };
 		34AB04B81CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34AB04B61CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */; };
+		34AB39C11D2BD8310021857D /* MWMStopButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB39C01D2BD8310021857D /* MWMStopButton.mm */; };
+		34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB39C01D2BD8310021857D /* MWMStopButton.mm */; };
 		34ABA6161C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA6151C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm */; };
 		34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA6151C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm */; };
 		34ABA61B1C2D4DCC00FE1BEC /* UITextField+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA61A1C2D4DCC00FE1BEC /* UITextField+RuntimeAttributes.mm */; };
@@ -1089,6 +1091,8 @@
 		34A62D4C1C903533007FDCB7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		34A62D4D1C903533007FDCB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		34AB04B61CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAdditionalNamePlaceholderTableViewCell.xib; sourceTree = "<group>"; };
+		34AB39BF1D2BD8310021857D /* MWMStopButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStopButton.h; sourceTree = "<group>"; };
+		34AB39C01D2BD8310021857D /* MWMStopButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStopButton.mm; sourceTree = "<group>"; };
 		34ABA6141C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationOSMLoginViewController.h; sourceTree = "<group>"; };
 		34ABA6151C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationOSMLoginViewController.mm; sourceTree = "<group>"; };
 		34ABA6191C2D4DA900FE1BEC /* UITextField+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+RuntimeAttributes.h"; sourceTree = "<group>"; };
@@ -2082,6 +2086,8 @@
 				346EDADA1B9F0E35004F8DB5 /* MWMMultilineLabel.mm */,
 				F6791B111C43DEA7007A8A6E /* MWMStartButton.h */,
 				F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */,
+				34AB39BF1D2BD8310021857D /* MWMStopButton.h */,
+				34AB39C01D2BD8310021857D /* MWMStopButton.mm */,
 				F6FEA82B1C58E89B007223CC /* MWMButton.h */,
 				F6FEA82C1C58E89B007223CC /* MWMButton.mm */,
 				34C9BD061C6DB6F3000DC38D /* MWMController.h */,
@@ -3870,6 +3876,7 @@
 				3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */,
 				342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.mm in Sources */,
 				F6D4A7411CC1643100BD4E5B /* MWMButtonCell.mm in Sources */,
+				34AB39C11D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */,
 				F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */,
 				F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */,
@@ -4097,6 +4104,7 @@
 				6741AA251BF340DE002C974C /* MWMBottomMenuView.mm in Sources */,
 				F6FEA82E1C58F108007223CC /* MWMButton.mm in Sources */,
 				F6D4A7421CC1643100BD4E5B /* MWMButtonCell.mm in Sources */,
+				34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				6741AA271BF340DE002C974C /* MWMBasePlacePageView.mm in Sources */,
 				F64D9C9B1C8861BA0063FA30 /* MWMObjectsCategorySelectorController.mm in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,

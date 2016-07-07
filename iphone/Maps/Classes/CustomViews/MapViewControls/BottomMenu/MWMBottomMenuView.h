@@ -5,9 +5,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuState)
   MWMBottomMenuStateInactive,
   MWMBottomMenuStateActive,
   MWMBottomMenuStateCompact,
-  MWMBottomMenuStateText,
   MWMBottomMenuStatePlanning,
-  MWMBottomMenuStateGo
+  MWMBottomMenuStateGo,
+  MWMBottomMenuStateRouting,
+  MWMBottomMenuStateRoutingExpanded
 };
 
 @interface MWMBottomMenuView : SolidTouchView

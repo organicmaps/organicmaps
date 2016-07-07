@@ -4,7 +4,6 @@
 #import "MWMLanesPanel.h"
 #import "MWMLocationHelpers.h"
 #import "MWMNavigationDashboard.h"
-#import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMNextTurnPanel.h"
 #import "MWMRouteHelperPanelsDrawer.h"
@@ -31,6 +30,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 @property (nonatomic) routing::RouterType activeRouterType;
 
 @property (weak, nonatomic) UIView * ownerView;
+@property (weak, nonatomic) id<MWMNavigationDashboardInfoProtocol> infoDisplay;
 
 @property (nonatomic) MWMNavigationDashboardEntity * entity;
 //@property (nonatomic) MWMLanesPanel * lanesPanel;
@@ -42,12 +42,13 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 @implementation MWMNavigationDashboardManager
 
-- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerProtocol, MWMRoutePreviewDataSource>)delegate
+- (instancetype)initWithParentView:(UIView *)view infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay delegate:(id<MWMNavigationDashboardManagerProtocol, MWMRoutePreviewDataSource>)delegate
 {
   self = [super init];
   if (self)
   {
     _ownerView = view;
+    _infoDisplay = infoDisplay;
     _delegate = delegate;
     BOOL const isPortrait = _ownerView.width < _ownerView.height;
     if (IPAD)
@@ -152,9 +153,9 @@ extern NSString * const kTTSStatusWasChangedNotification;
   return _entity;
 }
 
-- (void)setupDashboard:(location::FollowingInfo const &)info
+- (void)updateFollowingInfo:(location::FollowingInfo const &)info
 {
-  [self.entity updateWithFollowingInfo:info];
+  [self.entity updateFollowingInfo:info];
   [self updateDashboard];
 }
 
@@ -166,6 +167,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 - (void)updateDashboard
 {
+  [self.infoDisplay updateRoutingInfo:self.entity];
   [self.routePreview configureWithEntity:self.entity];
   [self.navigationDashboardLandscape configureWithEntity:self.entity];
   [self.navigationDashboardPortrait configureWithEntity:self.entity];
@@ -282,7 +284,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 - (IBAction)navigationGoPressed:(UIButton *)sender
 {
   [Statistics logEvent:kStatEventName(kStatNavigationDashboard, kStatGo)];
-  if ([self.delegate didStartFollowing])
+  if ([self.delegate didStartRouting])
     self.state = MWMNavigationDashboardStateNavigation;
 }
 
@@ -305,6 +307,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 - (void)showStatePlanning
 {
+  [self.delegate setMenuState:MWMBottomMenuStatePlanning];
   [self.navigationDashboard remove];
   [self.routePreview addToView:self.ownerView];
   [self.routePreview statePlanning];
@@ -312,15 +315,18 @@ extern NSString * const kTTSStatusWasChangedNotification;
 //  [self removePanel:self.lanesPanel];
   [self setupActualRoute];
   [self.routePreview router:self.activeRouterType setState:MWMCircularProgressStateSpinner];
+  [self setRouteBuilderProgress:0.];
 }
 
 - (void)showStateReady
 {
+  [self.delegate setMenuState:MWMBottomMenuStateGo];
   [self.routePreview stateReady];
 }
 
 - (void)showStateNavigation
 {
+  [self.delegate setMenuState:MWMBottomMenuStateRouting];
   [self.routePreview remove];
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
   BOOL const isNeedToEnable = tts.isNeedToEnable;
@@ -373,7 +379,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 - (void)setState:(MWMNavigationDashboardState)state
 {
-  if (_state == state && state != MWMNavigationDashboardStatePlanning)
+  if (_state == state)
     return;
   switch (state)
   {

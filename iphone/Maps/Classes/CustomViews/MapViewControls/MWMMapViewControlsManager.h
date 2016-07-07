@@ -40,12 +40,13 @@
 
 #pragma mark - MWMNavigationDashboardManager
 
-- (void)setupRoutingDashboard:(location::FollowingInfo const &)info;
+- (void)updateFollowingInfo:(location::FollowingInfo const &)info;
 - (void)restoreRouteTo:(m2::PointD const &)to;
 - (void)routingHidden;
 - (void)routingReady;
 - (void)routingPrepare;
-- (void)routingNavigation;
+- (void)startNavigation;
+- (void)stopNavigation;
 - (void)handleRoutingError;
 - (void)buildRoute;
 

@@ -2,6 +2,8 @@
 
 @interface MWMNavigationDashboardEntity : NSObject
 
+@property (nonatomic, readonly) NSString * speed;
+@property (nonatomic, readonly) NSString * speedUnits;
 @property (nonatomic, readonly) NSString * targetDistance;
 @property (nonatomic, readonly) NSString * targetUnits;
 @property (nonatomic, readonly) NSString * distanceToTurn;
@@ -15,7 +17,7 @@
 //@property (nonatomic, readonly) vector<location::FollowingInfo::SingleLaneInfoClient> lanes;
 @property (nonatomic, readonly) BOOL isPedestrian;
 
-- (void)updateWithFollowingInfo:(location::FollowingInfo const &)info;
+- (void)updateFollowingInfo:(location::FollowingInfo const &)info;
 
 + (instancetype)new __attribute__((unavailable("init is not available")));
 

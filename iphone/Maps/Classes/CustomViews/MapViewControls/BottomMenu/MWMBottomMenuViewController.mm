@@ -13,9 +13,12 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMSearchManager.h"
+#import "MWMTextToSpeech.h"
 #import "SettingsAndMoreVC.h"
 #import "Statistics.h"
+#import "TimeUtils.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
 #import "UIKitCategories.h"
 
@@ -29,8 +32,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateWillChangeNotification;
 extern NSString * const kSearchStateKey;
 
-static NSString * const kCollectionCellPortrait = @"MWMBottomMenuCollectionViewPortraitCell";
-static NSString * const kCollectionCelllandscape = @"MWMBottomMenuCollectionViewLandscapeCell";
+namespace
+{
+NSString * const kCollectionCellPortrait = @"MWMBottomMenuCollectionViewPortraitCell";
+NSString * const kCollectionCelllandscape = @"MWMBottomMenuCollectionViewLandscapeCell";
+}  // namespace
 
 static CGFloat const kLayoutThreshold = 420.0;
 
@@ -50,7 +56,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 @property (weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
 
 @property (weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
-@property (weak, nonatomic) IBOutlet UILabel * streetLabel;
 
 @property (weak, nonatomic) id<MWMBottomMenuControllerProtocol> delegate;
 
@@ -61,6 +66,20 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 @property (nonatomic) MWMBottomMenuState restoreState;
 
 @property (nonatomic, readonly) NSUInteger additionalButtonsCount;
+
+@property (weak, nonatomic) MWMNavigationDashboardEntity * routingInfo;
+
+@property (weak, nonatomic) IBOutlet UILabel * speedLabel;
+@property (weak, nonatomic) IBOutlet UILabel * timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel * speedLegendLabel;
+@property (weak, nonatomic) IBOutlet UILabel * distanceLegendLabel;
+@property (weak, nonatomic) IBOutlet UILabel * speedWithLegendLabel;
+@property (weak, nonatomic) IBOutlet UILabel * distanceWithLegendLabel;
+@property (weak, nonatomic) IBOutlet UIPageControl * routingInfoPageControl;
+
+@property (weak, nonatomic) IBOutlet UIView * progressView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * routingProgress;
 
 @end
 
@@ -115,6 +134,90 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [self.view mwm_refreshUI];
 }
 
+#pragma mark - MWMNavigationDashboardInfoProtocol
+
+- (void)updateRoutingInfo:(MWMNavigationDashboardEntity *)info
+{
+  NSDictionary * routingNumberAttributes = @{
+    NSForegroundColorAttributeName : [UIColor blackPrimaryText],
+    NSFontAttributeName : [UIFont bold24]
+  };
+  NSDictionary * routingLegendAttributes = @{
+    NSForegroundColorAttributeName : [UIColor blackSecondaryText],
+    NSFontAttributeName : [UIFont bold14]
+  };
+
+  self.routingInfo = info;
+  if (self.routingInfoPageControl.currentPage == 0)
+  {
+    self.timeLabel.text = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(info.timeToTarget)];
+  }
+  else
+  {
+    NSDate * arrivalDate = [[NSDate date] dateByAddingTimeInterval:info.timeToTarget];
+    self.timeLabel.text = [NSDateFormatter localizedStringFromDate:arrivalDate
+                                                         dateStyle:NSDateFormatterNoStyle
+                                                         timeStyle:NSDateFormatterShortStyle];
+  }
+  self.distanceLabel.text = info.targetDistance;
+  self.distanceLegendLabel.text = info.targetUnits;
+  NSMutableAttributedString * distance =
+      [[NSMutableAttributedString alloc] initWithString:info.targetDistance
+                                             attributes:routingNumberAttributes];
+  [distance
+      appendAttributedString:[[NSAttributedString alloc] initWithString:info.targetUnits
+                                                             attributes:routingLegendAttributes]];
+  self.distanceWithLegendLabel.attributedText = distance;
+
+  self.speedLabel.text = info.speed;
+  self.speedLegendLabel.text = info.speedUnits;
+  NSMutableAttributedString * speed =
+      [[NSMutableAttributedString alloc] initWithString:info.speed
+                                             attributes:routingNumberAttributes];
+  [speed
+      appendAttributedString:[[NSAttributedString alloc] initWithString:info.speedUnits
+                                                             attributes:routingLegendAttributes]];
+  self.speedWithLegendLabel.attributedText = speed;
+
+  [self.progressView layoutIfNeeded];
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+  {
+    self.routingProgress.constant = self.progressView.width * info.progress / 100.;
+    [self.progressView layoutIfNeeded];
+  }];
+}
+
+#pragma mark - Routing
+
+- (IBAction)toggleInfoTouchUpInside
+{
+  self.routingInfoPageControl.currentPage =
+      (self.routingInfoPageControl.currentPage + 1) % self.routingInfoPageControl.numberOfPages;
+  [self updateRoutingInfo:self.routingInfo];
+}
+
+- (IBAction)goButtonTouchUpInside
+{
+  [self.controller.controlsManager startNavigation];
+}
+
+- (IBAction)stopRoutingTouchUpInside
+{
+  [self.controller.controlsManager stopNavigation];
+}
+
+- (IBAction)soundTouchUpInside:(UIButton *)sender
+{
+  BOOL const isEnable = !sender.selected;
+  [Statistics logEvent:kStatEventName(kStatNavigationDashboard, isEnable ? kStatOn : kStatOff)];
+  MWMTextToSpeech * tts = [MWMTextToSpeech tts];
+  if (isEnable)
+    [tts enable];
+  else
+    [tts disable];
+  sender.selected = isEnable;
+}
+
 #pragma mark - Refresh Collection View layout
 
 - (void)refreshLayout
@@ -138,34 +241,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
   [self.additionalButtons reloadData];
-}
-
-#pragma mark - Routing state
-
-- (void)setStreetName:(NSString *)streetName
-{
-  self.state = MWMBottomMenuStateText;
-  self.streetLabel.text = streetName;
-}
-
-- (void)setInactive
-{
-  self.p2pButton.selected = NO;
-  self.state = self.restoreState = MWMBottomMenuStateInactive;
-}
-
-- (void)setPlanning
-{
-  if (IPAD)
-    return;
-  self.state = MWMBottomMenuStatePlanning;
-}
-
-- (void)setGo
-{
-  if (IPAD)
-    return;
-  self.state = MWMBottomMenuStateGo;
 }
 
 #pragma mark - Notifications
@@ -281,7 +356,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [self.delegate actionDownloadMaps:mwm::DownloaderMode::Downloaded];
 }
 
-- (void)menuActionOpenSettings
+- (IBAction)menuActionOpenSettings
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
   self.state = self.restoreState;
@@ -350,12 +425,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   }];
 }
 
-- (IBAction)locationButtonTouchUpInside:(UIButton *)sender
-{
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatLocation}];
-  GetFramework().SwitchMyPositionNextMode();
-}
-
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatPointToPoint}];
@@ -376,7 +445,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   }
 }
 
-- (IBAction)searchButtonTouchUpInside:(UIButton *)sender
+- (IBAction)searchButtonTouchUpInside
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSearch}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
@@ -384,7 +453,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   self.controller.controlsManager.searchHidden = self.searchIsActive;
 }
 
-- (IBAction)bookmarksButtonTouchUpInside:(UIButton *)sender
+- (IBAction)bookmarksButtonTouchUpInside
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatBookmarks}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
@@ -392,7 +461,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [self.controller openBookmarks];
 }
 
-- (IBAction)menuButtonTouchUpInside:(UIButton *)sender
+- (IBAction)menuButtonTouchUpInside
 {
   switch (self.state)
   {
@@ -402,11 +471,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   case MWMBottomMenuStateInactive:
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
-  case MWMBottomMenuStateText:
     [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatExpand}];
     self.state = MWMBottomMenuStateActive;
     break;
   case MWMBottomMenuStateActive:
+  case MWMBottomMenuStateRoutingExpanded:
     [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatCollapse}];
     self.state = self.restoreState;
     break;
@@ -414,11 +483,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatRegular}];
     [self.delegate closeInfoScreens];
     break;
+  case MWMBottomMenuStateRouting:
+    self.state = MWMBottomMenuStateRoutingExpanded;
+    break;
   }
-}
-- (IBAction)goButtonTouchUpInside:(UIButton *)sender
-{
-  [self.controller.controlsManager routingNavigation];
 }
 
 - (void)dimBackgroundTap
@@ -469,13 +537,21 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (void)setState:(MWMBottomMenuState)state
 {
   MWMBottomMenuView * view = (MWMBottomMenuView *)self.view;
-  BOOL const menuActive = (state == MWMBottomMenuStateActive);
+  BOOL const menuActive = (state == MWMBottomMenuStateActive || state == MWMBottomMenuStateRoutingExpanded);
   if (menuActive)
     [self.controller.view bringSubviewToFront:view];
   [self toggleDimBackgroundVisible:menuActive];
+  if (state == MWMBottomMenuStateInactive || state == MWMBottomMenuStateRouting)
+  {
+    self.p2pButton.selected = NO;
+    view.state = self.restoreState = state;
+    return;
+  }
+  if (IPAD && (state == MWMBottomMenuStatePlanning || state == MWMBottomMenuStateGo))
+    return;
   if (view.state == MWMBottomMenuStateCompact &&
       (state == MWMBottomMenuStatePlanning || state == MWMBottomMenuStateGo ||
-       state == MWMBottomMenuStateText))
+       state == MWMBottomMenuStateRouting))
     self.restoreState = state;
   else
     view.state = state;
