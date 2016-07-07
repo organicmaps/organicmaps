@@ -32,10 +32,16 @@ void LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startIndex,
       loadPathGeometry.m_path.clear();
       return;
     }
+
     // Load data from drive.
     FeatureType ft;
     Index::FeaturesLoaderGuard loader(index, mapping.GetMwmId());
-    loader.GetFeatureByIndex(segment.m_fid, ft);
+    if (!loader.GetFeatureByIndex(segment.m_fid, ft))
+    {
+      loadPathGeometry.m_path.clear();
+      return;
+    }
+
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     // Get points in proper direction.

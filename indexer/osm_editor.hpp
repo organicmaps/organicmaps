@@ -113,7 +113,9 @@ public:
   {
     NothingWasChanged,
     SavedSuccessfully,
-    NoFreeSpaceError
+    NoFreeSpaceError,
+    NoUnderlyingMapError,
+    SavingError
   };
   /// Editor checks internally if any feature params were actually edited.
   SaveResult SaveEditedFeature(EditableMapObject const & emo);
@@ -171,6 +173,7 @@ private:
   /// @returns false if fails.
   bool Save(string const & fullFilePath) const;
   void RemoveFeatureFromStorageIfExists(MwmSet::MwmId const & mwmId, uint32_t index);
+  void RemoveFeatureFromStorageIfExists(FeatureID const & fid);
   /// Notify framework that something has changed and should be redisplayed.
   void Invalidate();
 

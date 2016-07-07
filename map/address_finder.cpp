@@ -478,7 +478,10 @@ search::AddressInfo Framework::GetAddressInfoAtPoint(m2::PointD const & pt) cons
 
 search::AddressInfo Framework::GetFeatureAddressInfo(FeatureID const & fid) const
 {
-  return GetFeatureAddressInfo(*GetFeatureByID(fid));
+  FeatureType ft;
+  if (!GetFeatureByID(fid, ft))
+    return {};
+  return GetFeatureAddressInfo(ft);
 }
 
 search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType & ft) const

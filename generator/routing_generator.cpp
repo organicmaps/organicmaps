@@ -176,8 +176,11 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
           {
             FeatureType ft;
             Index::FeaturesLoaderGuard loader(index, mwmId);
-            loader.GetFeatureByIndex(osm2ft.GetFeatureID(startSeg.wayId), ft);
-            LOG(LINFO, ("Double border intersection", wgsIntersection, "rank:", GetWarningRank(ft)));
+            if (loader.GetFeatureByIndex(osm2ft.GetFeatureID(startSeg.wayId), ft))
+            {
+              LOG(LINFO,
+                  ("Double border intersection", wgsIntersection, "rank:", GetWarningRank(ft)));
+            }
           }
         }
       }
@@ -318,7 +321,11 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
       FeatureType ft;
       Index::FeaturesLoaderGuard loader(index, p.first);
-      loader.GetFeatureByIndex(fID, ft);
+      if (!loader.GetFeatureByIndex(fID, ft))
+      {
+        LOG(LWARNING, ("Can't read feature with id:", fID, "for way:", seg.wayId));
+        continue;
+      }
 
       ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 

@@ -7,6 +7,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include "base/macros.hpp"
+
 #include "std/string.hpp"
 #include "std/queue.hpp"
 
@@ -16,17 +18,16 @@ namespace search
 
 class FeatureLoader
 {
-  Index const * m_pIndex;
-  Index::FeaturesLoaderGuard * m_pGuard;
+  Index const & m_index;
+  unique_ptr<Index::FeaturesLoaderGuard> m_guard;
 
   void CreateLoader(MwmSet::MwmId const & mwmId);
 
 public:
-  FeatureLoader(Index const * pIndex);
-  ~FeatureLoader();
+  FeatureLoader(Index const & index);
 
-  void Load(FeatureID const & id, FeatureType & f);
-  void Free();
+  WARN_UNUSED_RESULT bool Load(FeatureID const & id, FeatureType & f);
+  inline void Free() { m_guard.reset(); }
 
   template <class ToDo> void ForEachInRect(m2::RectD const & rect, ToDo toDo);
 };
@@ -251,7 +252,7 @@ class HouseDetector
   double GetApprLengthMeters(int index) const;
 
 public:
-  HouseDetector(Index const * pIndex);
+  HouseDetector(Index const & index);
   ~HouseDetector();
 
   int LoadStreets(vector<FeatureID> const & ids);

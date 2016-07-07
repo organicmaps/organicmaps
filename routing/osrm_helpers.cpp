@@ -101,7 +101,8 @@ void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
       continue;
 
     FeatureType ft;
-    loader.GetFeatureByIndex(segment.m_fid, ft);
+    if (!loader.GetFeatureByIndex(segment.m_fid, ft))
+      continue;
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     // Find whole edge weight by node outgoing point.
@@ -230,7 +231,9 @@ void Point2PhantomNode::MakeResult(vector<FeatureGraphNode> & res, size_t maxCou
       OsrmMappingTypes::FtSeg const & node_seg = segments[j];
       FeatureType feature;
       Index::FeaturesLoaderGuard loader(m_index, m_routingMapping.GetMwmId());
-      loader.GetFeatureByIndex(node_seg.m_fid, feature);
+      if (!loader.GetFeatureByIndex(node_seg.m_fid, feature))
+        continue;
+
       feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
       m2::PointD const featureDirection = feature.GetPoint(node_seg.m_pointEnd) - feature.GetPoint(node_seg.m_pointStart);
       bool const sameDirection = (m2::DotProduct(featureDirection, m_direction) > 0);
