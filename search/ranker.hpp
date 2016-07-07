@@ -70,6 +70,11 @@ public:
 
   void Init(Params const & params);
 
+  inline void SetAccuratePivotCenter(m2::PointD const & center)
+  {
+    m_params.m_accuratePivotCenter = center;
+  }
+
   bool IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values);
 
   void MakePreResult2(Geocoder::Params const & params, vector<IndexedValue> & cont,

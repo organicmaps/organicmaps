@@ -103,9 +103,9 @@ public:
   //@}
 
   void InitParams(QueryParams & params);
-  void InitGeocoderParams(Geocoder::Params & params);
-  void InitPreRanker();
-  void InitRanker();
+  void InitGeocoderParams(Geocoder::Params & params, bool viewportSearch);
+  void InitPreRanker(bool viewportSearch);
+  void InitRanker(bool viewportSearch);
 
   void ClearCaches();
 
@@ -137,7 +137,7 @@ protected:
   template <typename ToDo>
   void ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const;
 
-  m2::PointD GetPivotPoint() const;
+  m2::PointD GetPivotPoint(bool viewportSearch) const;
   m2::RectD GetPivotRect() const;
 
   void SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate);

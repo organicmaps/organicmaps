@@ -38,6 +38,11 @@ public:
 
   inline void Init(Params const & params) { m_params = params; }
   inline void SetViewportSearch(bool viewportSearch) { m_viewportSearch = viewportSearch; }
+  inline void SetAccuratePivotCenter(m2::PointD const & center)
+  {
+    m_params.m_accuratePivotCenter = center;
+  }
+
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
   {
