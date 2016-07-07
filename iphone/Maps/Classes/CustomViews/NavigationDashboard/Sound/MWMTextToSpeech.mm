@@ -14,7 +14,7 @@ static NSString * const DEFAULT_LANG = @"en-US";
 
 using namespace locale_translator;
 
-@interface MWMTextToSpeech()
+@interface MWMTextToSpeech() <AVSpeechSynthesizerDelegate>
 {
   vector<pair<string, string>> _availableLanguages;
 }
@@ -22,6 +22,8 @@ using namespace locale_translator;
 @property (nonatomic) AVSpeechSynthesizer * speechSynthesizer;
 @property (nonatomic) AVSpeechSynthesisVoice * speechVoice;
 @property (nonatomic) float speechRate;
+@property (nonatomic) AVAudioSession * audioSession;
+@property (nonatomic) NSInteger notificationsToSpeak;
 
 @end
 
@@ -64,21 +66,17 @@ using namespace locale_translator;
     // Before 9.0 version iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly.
     // It's a work around for iOS 7.x and 8.x.
     _speechRate = isIOSVersionLessThan(@"7.1.1") ? 0.3 : (isIOSVersionLessThan(@"9.0.0") ? 0.15 : AVSpeechUtteranceDefaultSpeechRate);
+
+    NSError * err = nil;
+    _audioSession = [AVAudioSession sharedInstance];
+    if (![_audioSession setCategory:AVAudioSessionCategoryPlayback
+                        withOptions:AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers
+                              error:&err])
+    {
+      LOG(LWARNING, ("[ setCategory]] error.", [err localizedDescription]));
+    }
   }
   return self;
-}
-
-+ (void)activateAudioSession
-{
-  NSError * err = nil;
-  AVAudioSession * audioSession = [AVAudioSession sharedInstance];
-  if (![audioSession setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&err])
-  {
-    LOG(LWARNING, ("[ setCategory]] error.", [err localizedDescription]));
-    return;
-  }
-  if (![audioSession setActive:YES error:&err])
-    LOG(LWARNING, ("[[AVAudioSession sharedInstance] setActive]] error.", [err localizedDescription]));
 }
 
 - (vector<pair<string, string>>)availableLanguages
@@ -142,6 +140,7 @@ using namespace locale_translator;
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
   {
     self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    self.speechSynthesizer.delegate = self;
     [self createVoice:self.savedLanguage];
   });
   // TODO(vbykoianko) Use [NSLocale preferredLanguages] instead of [AVSpeechSynthesisVoice currentLanguageCode].
@@ -195,7 +194,10 @@ using namespace locale_translator;
 - (void)speakOneString:(NSString *)textToSpeak
 {
   if (!textToSpeak || ![textToSpeak length])
+  {
+    [self reduceNotificationsToSpeak];
     return;
+  }
   
   NSLog(@"Speak text: %@", textToSpeak);
   AVSpeechUtterance * utterance = [AVSpeechUtterance speechUtteranceWithString:textToSpeak];
@@ -215,6 +217,14 @@ using namespace locale_translator;
 
   if (![self isValid])
     return;
+
+  if (!notifications.empty())
+  {
+    BOOL const shouldStartAudioSession = (self.notificationsToSpeak == 0);
+    self.notificationsToSpeak += notifications.size();
+    if (shouldStartAudioSession && ![self setAudioSessionActive:YES])
+      return;
+  }
 
   for (auto const & text : notifications)
     [self speakOneString:@(text.c_str())];
@@ -242,6 +252,36 @@ static vector<pair<string, string>> availableLanguages()
     }
   }
   return result;
+}
+
+- (BOOL)setAudioSessionActive:(BOOL)audioSessionActive
+{
+  NSError * err;
+  if (![self.audioSession setActive:audioSessionActive withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&err])
+  {
+    LOG(LWARNING, ("[[AVAudioSession sharedInstance] setActive]] error.", [err localizedDescription]));
+    return NO;
+  }
+  return YES;
+}
+
+- (void)reduceNotificationsToSpeak
+{
+  self.notificationsToSpeak = MAX(self.notificationsToSpeak - 1, 0);
+  if (self.notificationsToSpeak == 0)
+    [self setAudioSessionActive:NO];
+}
+
+#pragma mark - AVSpeechSynthesizerDelegate
+
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didCancelSpeechUtterance:(AVSpeechUtterance *)utterance
+{
+  [self reduceNotificationsToSpeak];
+}
+
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
+{
+  [self reduceNotificationsToSpeak];
 }
 
 @end

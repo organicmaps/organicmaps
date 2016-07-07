@@ -426,7 +426,6 @@ using namespace osm_auth_ios;
     [self incrementSessionsCountAndCheckForAlert];
 
   [self enableTTSForTheFirstTime];
-  [MWMTextToSpeech activateAudioSession];
 
   return returnValue;
 }
@@ -586,7 +585,6 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationWillEnterForeground"));
   GetFramework().EnterForeground();
-  [MWMTextToSpeech activateAudioSession];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

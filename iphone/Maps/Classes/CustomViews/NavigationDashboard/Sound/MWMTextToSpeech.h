@@ -4,7 +4,6 @@
 @interface MWMTextToSpeech : NSObject
 
 + (instancetype)tts;
-+ (void)activateAudioSession;
 // Returns a list of available languages in the following format:
 // * name in bcp47;
 // * localized name;
