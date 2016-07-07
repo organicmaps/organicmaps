@@ -68,6 +68,8 @@ public:
          CategoriesHolder const & categories, vector<Suggest> const & suggests,
          my::Cancellable const & cancellable);
 
+  void Init(Params const & params);
+
   bool IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values);
 
   void MakePreResult2(Geocoder::Params const & params, vector<IndexedValue> & cont,
@@ -86,8 +88,7 @@ public:
   void FlushResults(Geocoder::Params const & geocoderParams, Results & res, size_t resCount);
   void FlushViewportResults(Geocoder::Params const & geocoderParams, Results & res);
 
-  void SetParams(Params const & params) { m_params = params; }
-  void SetPreResults1(vector<PreResult1> * preResults1) { m_preResults1 = preResults1; }
+  void SetPreResults1(vector<PreResult1> && preResults1) { m_preResults1 = move(preResults1); }
   void ClearCaches();
 
 #ifdef FIND_LOCALITY_TEST
@@ -134,6 +135,6 @@ private:
   CategoriesHolder const & m_categories;
   vector<Suggest> const & m_suggests;
 
-  vector<PreResult1> * m_preResults1 = nullptr;
+  vector<PreResult1> m_preResults1;
 };
 }  // namespace search

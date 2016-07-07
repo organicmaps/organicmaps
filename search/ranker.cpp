@@ -281,6 +281,12 @@ Ranker::Ranker(Index const & index, storage::CountryInfoGetter const & infoGette
 {
 }
 
+void Ranker::Init(Params const & params)
+{
+  m_params = params;
+  m_preResults1.clear();
+}
+
 bool Ranker::IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values)
 {
   PreResult2::StrictEqualF equalCmp(p);
@@ -294,10 +300,8 @@ bool Ranker::IsResultExists(PreResult2 const & p, vector<IndexedValue> const & v
 void Ranker::MakePreResult2(Geocoder::Params const & geocoderParams, vector<IndexedValue> & cont,
                             vector<FeatureID> & streets)
 {
-  if (m_preResults1 == nullptr)
-    return;
   PreResult2Maker maker(*this, m_index, m_infoGetter, geocoderParams);
-  for (auto const & r : *m_preResults1)
+  for (auto const & r : m_preResults1)
   {
     auto p = maker(r);
     if (!p)

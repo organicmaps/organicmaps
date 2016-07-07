@@ -149,8 +149,9 @@ void PreRanker::Filter(bool viewportSearch)
 void PreRanker::FinalizeResults()
 {
   FillMissingFieldsInResults();
-  Filter(m_params.m_viewportSearch);
-  m_ranker.SetPreResults1(&m_results);
+  Filter(m_viewportSearch);
+  m_ranker.SetPreResults1(move(m_results));
+  m_results.clear();
 }
 
 void PreRanker::ClearCaches() { m_pivotFeatures.Clear(); }

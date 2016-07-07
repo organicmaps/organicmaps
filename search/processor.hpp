@@ -104,8 +104,8 @@ public:
 
   void InitParams(QueryParams & params);
   void InitGeocoderParams(Geocoder::Params & params);
-  void InitPreRankerParams(PreRanker::Params & params);
-  void InitRankerParams(Ranker::Params & params);
+  void InitPreRanker();
+  void InitRanker();
 
   void ClearCaches();
 

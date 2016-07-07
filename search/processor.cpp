@@ -133,7 +133,7 @@ void Processor::Init(bool viewportSearch)
   m_tokens.clear();
   m_prefix.clear();
   m_preRanker.Clear();
-  m_preRanker.Init(viewportSearch);
+  m_preRanker.SetViewportSearch(viewportSearch);
 }
 
 void Processor::SetViewport(m2::RectD const & viewport, bool forceUpdate)
@@ -345,11 +345,8 @@ void Processor::Search(Results & results, size_t limit)
   Geocoder::Params geocoderParams;
   InitGeocoderParams(geocoderParams);
 
-  PreRanker::Params preRankerParams;
-  InitPreRankerParams(preRankerParams);
-
-  Ranker::Params rankerParams;
-  InitRankerParams(rankerParams);
+  InitPreRanker();
+  InitRanker();
 
   if (m_tokens.empty())
     m_ranker.SuggestStrings(results);
@@ -369,11 +366,11 @@ void Processor::SearchViewportPoints(Results & results)
 
   PreRanker::Params preRankerParams;
   preRankerParams.m_accuratePivotCenter = geocoderParams.m_pivot.Center();
-  m_preRanker.SetParams(preRankerParams);
+  m_preRanker.Init(preRankerParams);
 
   Ranker::Params rankerParams;
   rankerParams.m_accuratePivotCenter = geocoderParams.m_pivot.Center();
-  m_ranker.SetParams(rankerParams);
+  m_ranker.Init(rankerParams);
 
   m_geocoder.GoInViewport();
   m_ranker.FlushViewportResults(geocoderParams, results);
@@ -601,14 +598,18 @@ void Processor::InitGeocoderParams(Geocoder::Params & params)
   m_geocoder.SetParams(params);
 }
 
-void Processor::InitPreRankerParams(PreRanker::Params & params)
+void Processor::InitPreRanker()
 {
+  PreRanker::Params params;
+
   params.m_accuratePivotCenter = GetPivotPoint();
-  m_preRanker.SetParams(params);
+  m_preRanker.Init(params);
 }
 
-void Processor::InitRankerParams(Ranker::Params & params)
+void Processor::InitRanker()
 {
+  Ranker::Params params;
+
   params.m_currentLocaleCode = m_currentLocaleCode;
   if (m_mode == Mode::Viewport)
     params.m_viewport = GetViewport();
@@ -621,7 +622,7 @@ void Processor::InitRankerParams(Ranker::Params & params)
   params.m_prefix = m_prefix;
   params.m_categoryLocales = GetCategoryLocales();
   params.m_accuratePivotCenter = GetPivotPoint();
-  m_ranker.SetParams(params);
+  m_ranker.Init(params);
 }
 
 void Processor::ClearCaches()

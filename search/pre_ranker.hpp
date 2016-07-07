@@ -1,10 +1,10 @@
 #pragma once
 
-#include "indexer/index.hpp"
-
 #include "search/intermediate_result.hpp"
 #include "search/nested_rects_cache.hpp"
 #include "search/ranker.hpp"
+
+#include "indexer/index.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -23,8 +23,6 @@ class PreRanker
 public:
   struct Params
   {
-    bool m_viewportSearch = false;
-
     // This is different from geocoder's pivot because pivot is
     // usually a rectangle created by radius and center and, due to
     // precision loss, its center may differ from
@@ -36,9 +34,10 @@ public:
     int m_scale = 0;
   };
 
-  explicit PreRanker(Index const & index, Ranker & ranker, size_t limit);
+  PreRanker(Index const & index, Ranker & ranker, size_t limit);
 
-  void Init(bool viewportSearch) { m_params.m_viewportSearch = viewportSearch; }
+  inline void Init(Params const & params) { m_params = params; }
+  inline void SetViewportSearch(bool viewportSearch) { m_viewportSearch = viewportSearch; }
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
   {
@@ -65,7 +64,6 @@ public:
     for_each(m_results.begin(), m_results.end(), forward<TFn>(fn));
   }
 
-  void SetParams(Params const & params) { m_params = params; }
   void ClearCaches();
 
 private:
@@ -74,6 +72,7 @@ private:
   vector<PreResult1> m_results;
   size_t const m_limit;
   Params m_params;
+  bool m_viewportSearch = false;
 
   // Cache of nested rects used to estimate distance from a feature to the pivot.
   NestedRectsCache m_pivotFeatures;
