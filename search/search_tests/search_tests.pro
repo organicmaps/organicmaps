@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = search indexer platform editor geometry coding base protobuf jansson tomcrypt succinct pugixml
+DEPENDENCIES = search indexer platform editor geometry coding base protobuf jansson tomcrypt succinct pugixml stats_client
 
 include($$ROOT_DIR/common.pri)
 

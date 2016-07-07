@@ -8,7 +8,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = generator map routing search storage indexer platform editor geometry coding base \
-               osrm jansson protobuf tomcrypt succinct stats_client pugixml minizip gflags
+               osrm jansson protobuf tomcrypt succinct stats_client pugixml minizip gflags stats_client
 
 include($$ROOT_DIR/common.pri)
 
