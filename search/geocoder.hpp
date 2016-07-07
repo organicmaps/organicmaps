@@ -122,7 +122,7 @@ public:
     Region(Locality const & l, RegionType type) : Locality(l), m_center(0, 0), m_type(type) {}
 
     storage::CountryInfoGetter::TRegionIdSet m_ids;
-    string m_enName;
+    string m_defaultName;
     m2::PointD m_center;
     RegionType m_type;
   };
