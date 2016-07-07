@@ -61,7 +61,7 @@ class Processor : public my::Cancellable
 {
 public:
   // Maximum result candidates count for each viewport/criteria.
-  static size_t const kPreResultsCount = 200;
+  static size_t const kPreResultsCount;
 
   static double const kMinViewportRadiusM;
   static double const kMaxViewportRadiusM;
@@ -84,7 +84,7 @@ public:
   inline void SetMode(Mode mode) { m_mode = mode; }
   inline void SetSuggestsEnabled(bool enabled) { m_suggestsEnabled = enabled; }
   inline void SetPosition(m2::PointD const & position) { m_position = position; }
-
+  inline void SetOnResults(TOnResults const & onResults) { m_onResults = onResults; }
   inline string const & GetPivotRegion() const { return m_region; }
   inline m2::PointD const & GetPosition() const { return m_position; }
 
@@ -92,20 +92,15 @@ public:
   int8_t m_inputLocaleCode, m_currentLocaleCode;
 
   inline bool IsEmptyQuery() const { return (m_prefix.empty() && m_tokens.empty()); }
-
-  /// @name Various search functions.
-  //@{
-  void Search(Results & results, size_t limit);
-  void SearchViewportPoints(Results & results);
+  void Search(SearchParams const & params, m2::RectD const & viewport);
 
   // Tries to generate a (lat, lon) result from |m_query|.
   void SearchCoordinates(Results & res) const;
-  //@}
 
   void InitParams(QueryParams & params);
-  void InitGeocoderParams(Geocoder::Params & params, bool viewportSearch);
-  void InitPreRanker(bool viewportSearch);
-  void InitRanker(bool viewportSearch);
+  void InitGeocoderParams(Geocoder::Params & params);
+  void InitPreRanker();
+  void InitRanker();
 
   void ClearCaches();
 
@@ -137,7 +132,7 @@ protected:
   template <typename ToDo>
   void ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const;
 
-  m2::PointD GetPivotPoint(bool viewportSearch) const;
+  m2::PointD GetPivotPoint() const;
   m2::RectD GetPivotRect() const;
 
   void SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate);
@@ -157,6 +152,7 @@ protected:
   m2::PointD m_position;
   Mode m_mode;
   bool m_suggestsEnabled;
+  TOnResults m_onResults;
 
   /// @name Get ranking params.
   //@{

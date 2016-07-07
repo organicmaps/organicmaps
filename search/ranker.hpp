@@ -5,6 +5,8 @@
 #include "search/intermediate_result.hpp"
 #include "search/keyword_lang_matcher.hpp"
 #include "search/mode.hpp"
+#include "search/params.hpp"
+#include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/suggest.hpp"
 
@@ -62,6 +64,9 @@ public:
     m2::PointD m_accuratePivotCenter = m2::PointD(0, 0);
 
     TLocales m_categoryLocales;
+
+    size_t m_limit;
+    TOnResults m_onResults;
   };
 
   Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
@@ -90,8 +95,9 @@ public:
   void GetBestMatchName(FeatureType const & f, string & name) const;
   void ProcessSuggestions(vector<IndexedValue> & vec, Results & res) const;
 
-  void FlushResults(Geocoder::Params const & geocoderParams, Results & res, size_t resCount);
-  void FlushViewportResults(Geocoder::Params const & geocoderParams, Results & res);
+  Results & GetResults() { return m_results; }
+  void FlushResults(Geocoder::Params const & geocoderParams);
+  void FlushViewportResults(Geocoder::Params const & geocoderParams);
 
   void SetPreResults1(vector<PreResult1> && preResults1) { m_preResults1 = move(preResults1); }
   void ClearCaches();
@@ -141,5 +147,6 @@ private:
   vector<Suggest> const & m_suggests;
 
   vector<PreResult1> m_preResults1;
+  Results m_results;
 };
 }  // namespace search
