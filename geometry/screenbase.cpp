@@ -94,11 +94,8 @@ void ScreenBase::UpdateDependentParameters()
   }
 }
 
-double ScreenBase::CalculatePerspectiveAngle(double scale) const
+double ScreenBase::CalculateAutoPerspectiveAngle(double scale)
 {
-  if (!m_isAutoPerspective)
-    return m_3dAngleX;
-
   if (scale > kStartPerspectiveScale1)
     return 0.0;
 
@@ -115,6 +112,14 @@ double ScreenBase::CalculatePerspectiveAngle(double scale) const
   }
 
   return kMaxPerspectiveAngle2 * 0.99;
+}
+
+double ScreenBase::CalculatePerspectiveAngle(double scale) const
+{
+  if (!m_isAutoPerspective)
+    return m_3dAngleX;
+
+  return CalculateAutoPerspectiveAngle(scale);
 }
 
 void ScreenBase::SetAutoPerspective(bool isAutoPerspective)
@@ -421,10 +426,12 @@ void ScreenBase::ResetPerspective()
   m_isPerspective = false;
   m_isAutoPerspective = false;
 
+  double const old_dy = m_ViewportRect.SizeY() * (m_3dScale - 1.0);
+
+  m_3dScale = 1.0;
   m_3dAngleX = 0.0;
   m_3dMaxAngleX = 0.0;
 
-  double const old_dy = m_ViewportRect.SizeY() * (m_3dScale - 1.0);
   Move(0.0, -old_dy / 2.0);
 }
 

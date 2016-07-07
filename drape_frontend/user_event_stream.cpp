@@ -413,8 +413,8 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   }
   screen.MatchGandP3d(userPos, pixelPos);
 
-  ASSERT_GREATER_OR_EQUAL(zoom, scales::GetUpperWorldScale(), ());
-  ASSERT_LESS_OR_EQUAL(zoom, scales::GetUpperStyleScale(), ());
+  ASSERT_GREATER_OR_EQUAL(preferredZoomLevel, scales::GetUpperWorldScale(), ());
+  ASSERT_LESS_OR_EQUAL(preferredZoomLevel, scales::GetUpperStyleScale(), ());
 
   ShrinkAndScaleInto(screen, df::GetWorldRect());
 
@@ -463,7 +463,9 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
 
 void UserEventStream::SetAutoPerspective(bool isAutoPerspective)
 {
-  if (!isAutoPerspective)
+  if (isAutoPerspective)
+    m_navigator.Enable3dMode();
+  else
     m_navigator.Disable3dMode();
   m_navigator.SetAutoPerspective(isAutoPerspective);
   return;

@@ -147,7 +147,6 @@ double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition, m
 
   double const pixelSpeed = kMaxSpeedScalar * minSize;
   return CalcAnimSpeedDuration(pixelLength, pixelSpeed);
-
 }
 
 //static

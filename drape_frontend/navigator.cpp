@@ -45,7 +45,7 @@ void Navigator::SetFromScreen(ScreenBase const & screen, uint32_t tileSize, doub
     tmp = m_Screen;
     tmp.SetFromRect(m2::AnyRectD(newRect));
 
-    ASSERT(CheckMaxScale(tmp, p.GetTileSize(), p.GetVisualScale()), ());
+    ASSERT(CheckMaxScale(tmp, tileSize, visualScale), ());
   }
 
   m_Screen = tmp;
@@ -284,9 +284,13 @@ void Navigator::SetAutoPerspective(bool enable)
   m_Screen.SetAutoPerspective(enable);
 }
 
-void Navigator::Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV)
+void Navigator::Enable3dMode()
 {
-  m_Screen.ApplyPerspective(currentRotationAngle, maxRotationAngle, angleFOV);
+  if (m_Screen.isPerspective())
+    return;
+  double const angle = m_Screen.CalculateAutoPerspectiveAngle(m_Screen.GetScale());
+  if (angle > 0)
+    m_Screen.ApplyPerspective(angle, angle, m_Screen.GetAngleFOV());
 }
 
 void Navigator::SetRotationIn3dMode(double rotationAngle)

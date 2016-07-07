@@ -33,7 +33,7 @@ MapFollowAnimation::MapFollowAnimation(ScreenBase const & screen,
     m_properties.insert(Animation::Scale);
   if (m_angleInterpolator.IsActive())
     m_properties.insert(Animation::Angle);
-  //if (m_offsetInterpolator.IsActive())
+  if (m_offsetInterpolator.IsActive() || m_scaleInterpolator.IsActive() || m_angleInterpolator.IsActive())
     m_properties.insert(Animation::Position);
 }
 
@@ -117,8 +117,8 @@ bool MapFollowAnimation::GetProperty(TObject object, TProperty property, bool ta
     }
     else
     {
-      double scale = m_scaleInterpolator.GetScale() / m_scaleInterpolator.GetStartScale();
-      double angle = m_angleInterpolator.GetAngle() - m_angleInterpolator.GetStartAngle();
+      double const scale = m_scaleInterpolator.GetScale() / m_scaleInterpolator.GetStartScale();
+      double const angle = m_angleInterpolator.GetAngle() - m_angleInterpolator.GetStartAngle();
       m2::PointD offset = m_offsetInterpolator.GetPosition() * scale;
       offset.Rotate(angle);
       m2::PointD pos = m_globalPosition + offset;
