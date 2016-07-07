@@ -64,7 +64,7 @@ extern string const kCountryCodeKey;
 extern string const kUniqueIdKey;
 extern string const kLanguageKey;
 extern NSString * const kUserDefaultsTTSLanguageBcp47;
-extern NSString * const kUserDafaultsNeedToEnableTTS;
+extern NSString * const kUserDefaultsNeedToEnableTTS;
 
 extern char const * kAdServerForbiddenKey;
 
@@ -830,7 +830,7 @@ using namespace osm_auth_ios;
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   if ([ud stringForKey:kUserDefaultsTTSLanguageBcp47].length)
     return;
-  [ud setBool:YES forKey:kUserDafaultsNeedToEnableTTS];
+  [ud setBool:YES forKey:kUserDefaultsNeedToEnableTTS];
   [ud synchronize];
 }
 

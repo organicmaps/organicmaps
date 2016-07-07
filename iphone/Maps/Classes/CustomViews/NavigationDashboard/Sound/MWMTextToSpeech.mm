@@ -9,7 +9,7 @@
 #include "sound/tts/languages.hpp"
 
 extern NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
-extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnableTTS";
+extern NSString * const kUserDefaultsNeedToEnableTTS = @"UserDefaultsNeedToEnableTTS";
 static NSString * const DEFAULT_LANG = @"en-US";
 
 using namespace locale_translator;
@@ -101,13 +101,13 @@ using namespace locale_translator;
 
 - (BOOL)isNeedToEnable
 {
-  return [[NSUserDefaults standardUserDefaults] boolForKey:kUserDafaultsNeedToEnableTTS];
+  return [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsNeedToEnableTTS];
 }
 
 - (void)setNeedToEnable:(BOOL)need
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setBool:need forKey:kUserDafaultsNeedToEnableTTS];
+  [ud setBool:need forKey:kUserDefaultsNeedToEnableTTS];
   [ud synchronize];
 }
 
