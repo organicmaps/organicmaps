@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = routing indexer platform_tests_support platform editor geometry coding base \
-               osrm protobuf tomcrypt succinct jansson stats_client map pugixml
+               osrm protobuf tomcrypt succinct jansson stats_client map pugixml stats_client
 
 macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 

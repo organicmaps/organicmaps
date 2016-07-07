@@ -4,7 +4,7 @@ CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
-DEPENDENCIES = drape_frontend drape platform indexer geometry coding base expat tomcrypt
+DEPENDENCIES = drape_frontend drape platform indexer geometry coding base expat tomcrypt stats_client
 
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
