@@ -409,7 +409,7 @@ namespace ftype
     string surface_grade;
     bool isHighway = false;
 
-    for (auto & tag : p->m_tags)
+    for (auto const & tag : p->m_tags)
     {
       if (tag.key == "surface")
         surface = tag.value;
@@ -473,6 +473,8 @@ namespace ftype
     char const * layer = nullptr;
 
     bool isSubway = false;
+    bool isBus = false;
+    bool isTram = false;
 
     TagProcessor(p).ApplyRules
     ({
@@ -481,6 +483,9 @@ namespace ftype
       { "layer", "*", [&hasLayer] { hasLayer = true; }},
 
       { "railway", "subway_entrance", [&isSubway] { isSubway = true; }},
+      { "bus", "yes", [&isBus] { isBus = true; }},
+      { "trolleybus", "yes", [&isBus] { isBus = true; }},
+      { "tram", "yes", [&isTram] { isTram = true; }},
 
       /// @todo Unfortunatelly, it's not working in many cases (route=subway, transport=subway).
       /// Actually, it's better to process subways after feature types assignment.
@@ -499,6 +504,24 @@ namespace ftype
     }
 
     p->AddTag("psurface", DetermineSurface(p));
+
+    // Convert public_transport tags to the older schema.
+    for (auto const & tag : p->m_tags)
+    {
+      if (tag.key == "public_transport")
+      {
+        if (tag.value == "platform" && isBus)
+        {
+          if (p->type == OsmElement::EntityType::Node)
+            p->AddTag("highway", "bus_stop");
+          else
+            p->AddTag("highway", "platform");
+        }
+        else if (tag.value == "stop_position" && isTram && p->type == OsmElement::EntityType::Node)
+          p->AddTag("railway", "tram_stop");
+        break;
+      }
+    }
   }
 
   void PostprocessElement(OsmElement * p, FeatureParams & params)
