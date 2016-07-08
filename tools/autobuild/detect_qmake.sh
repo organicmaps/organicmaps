@@ -2,7 +2,7 @@
 set -e -u
 
 # If QMAKE variable is set, use it
-[ -n "${QMAKE-}" -a -x "${QMAKE-}" ] && exit 0
+[ -n "${QMAKE-}" -a -x "${QMAKE-}" ] && return 0
 
 # Add your path into this array
 KNOWN_QMAKE_PATHS=( \
