@@ -706,7 +706,7 @@ UNIT_TEST(OsmType_Subway)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_Types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "newyork"})), (params));
   }
 
