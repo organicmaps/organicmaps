@@ -42,6 +42,8 @@ namespace ftype
           {"proposed", true},
           // [highway=primary][construction=primary] parsed as [highway=construction]
           {"construction", true},
+          // [wheelchair=no] should be processed
+          {"wheelchair", false},
           // process in any case
           {"layer", false},
           // process in any case
@@ -215,7 +217,7 @@ namespace ftype
   public:
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
                  NOBICYCLE, YESBICYCLE, BICYCLE_BIDIR, SURFPGOOD, SURFPBAD, SURFUGOOD, SURFUBAD,
-                 RW_STATION, RW_STATION_SUBWAY };
+                 RW_STATION, RW_STATION_SUBWAY, WHEELCHAIR_YES };
 
     CachedTypes()
     {
@@ -237,6 +239,7 @@ namespace ftype
 
       m_types.push_back(c.GetTypeByPath({ "railway", "station" }));
       m_types.push_back(c.GetTypeByPath({ "railway", "station", "subway" }));
+      m_types.push_back(c.GetTypeByPath({ "wheelchair", "yes" }));
     }
 
     uint32_t Get(EType t) const { return m_types[t]; }
@@ -540,6 +543,12 @@ namespace ftype
         params.AddType(types.Get(CachedTypes::ADDRESS));
       }
     }
+
+    // Process yes/no tags.
+    TagProcessor(p).ApplyRules
+    ({
+      { "wheelchair", "designated", [&params] { params.AddType(types.Get(CachedTypes::WHEELCHAIR_YES)); }},
+    });
 
     bool highwayDone = false;
     bool subwayDone = false;

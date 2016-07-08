@@ -1118,3 +1118,6 @@ psurface|paved_good;1117;
 psurface|paved_bad;1118;
 psurface|unpaved_good;1119;
 psurface|unpaved_bad;1120;
+wheelchair|yes;1121;
+wheelchair|no;1122;
+wheelchair|limited;1123;

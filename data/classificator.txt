@@ -869,4 +869,9 @@ world  +
         waterfall  -
         weir  -
         {}
+    wheelchair  +
+        limited  -
+        no  -
+        yes  -
+        {}
     {}
