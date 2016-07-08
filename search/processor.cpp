@@ -41,6 +41,7 @@
 #include "coding/multilang_utf8_string.hpp"
 #include "coding/reader_wrapper.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
@@ -52,6 +53,8 @@
 #include "std/function.hpp"
 #include "std/iterator.hpp"
 #include "std/limits.hpp"
+
+#include "3party/Alohalytics/src/alohalytics.h"
 
 namespace search
 {
@@ -94,10 +97,40 @@ m2::RectD GetRectAroundPosition(m2::PointD const & position)
   double constexpr kMaxPositionRadiusM = 50.0 * 1000;
   return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
 }
+
+void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Results const & res)
+{
+  size_t const kMaxNumResultsToSend = 10;
+
+  size_t const numResultsToSend = min(kMaxNumResultsToSend, res.GetCount());
+  string resultString = strings::to_string(numResultsToSend);
+  for (size_t i = 0; i < numResultsToSend; ++i)
+    resultString.append("\t" + res.GetResult(i).ToStringForStats());
+
+  string posX, posY;
+  if (params.IsValidPosition())
+  {
+    posX = strings::to_string(MercatorBounds::LonToX(params.m_lon));
+    posY = strings::to_string(MercatorBounds::LatToY(params.m_lat));
+  }
+
+  alohalytics::TStringMap const stats = {
+      {"posX", posX},
+      {"posY", posY},
+      {"viewportMinX", strings::to_string(viewport.minX())},
+      {"viewportMinY", strings::to_string(viewport.minY())},
+      {"viewportMaxX", strings::to_string(viewport.maxX())},
+      {"viewportMaxY", strings::to_string(viewport.maxY())},
+      {"query", params.m_query},
+      {"locale", params.m_inputLocale},
+      {"results", resultString},
+  };
+  alohalytics::LogEvent("searchEmitResultsAndCoords", stats);
+}
 }  // namespace
 
 // static
-size_t const Processor::kPreResultsCount;
+size_t const Processor::kPreResultsCount = 200;
 
 // static
 double const Processor::kMinViewportRadiusM = 5.0 * 1000;
@@ -259,8 +292,10 @@ int8_t Processor::GetLanguage(int id) const
 {
   return m_ranker.GetLanguage(GetLangIndex(id));
 }
-m2::PointD Processor::GetPivotPoint(bool viewportSearch) const
+m2::PointD Processor::GetPivotPoint() const
 {
+  bool const viewportSearch = m_mode == Mode::Viewport;
+
   m2::RectD const & viewport = m_viewport[CURRENT_V];
   if (viewportSearch || !viewport.IsPointInside(GetPosition()))
     return viewport.Center();
@@ -339,31 +374,84 @@ void Processor::ForEachCategoryType(StringSliceBase const & slice, ToDo && todo)
   ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, forward<ToDo>(todo));
 }
 
-void Processor::Search(Results & results, size_t limit)
+void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
 {
+  bool const viewportSearch = m_mode == Mode::Viewport;
+
+  bool rankPivotIsSet = false;
+  if (!viewportSearch && params.IsValidPosition())
+  {
+    m2::PointD const pos = MercatorBounds::FromLatLon(params.m_lat, params.m_lon);
+    if (m2::Inflate(viewport, viewport.SizeX() / 4.0, viewport.SizeY() / 4.0).IsPointInside(pos))
+    {
+      SetRankPivot(pos);
+      rankPivotIsSet = true;
+    }
+  }
+  if (!rankPivotIsSet)
+    SetRankPivot(viewport.Center());
+
+  if (params.IsValidPosition())
+    SetPosition(MercatorBounds::FromLatLon(params.m_lat, params.m_lon));
+  else
+    SetPosition(viewport.Center());
+
+  SetMode(params.GetMode());
+  SetSuggestsEnabled(params.GetSuggestsEnabled());
+  SetInputLocale(params.m_inputLocale);
+
+  ASSERT(!params.m_query.empty(), ());
+  SetQuery(params.m_query);
+  SetViewport(viewport, true /* forceUpdate */);
+  SetOnResults(params.m_onResults);
+
   Geocoder::Params geocoderParams;
-  InitGeocoderParams(geocoderParams, false /* viewportSearch */);
+  InitGeocoder(geocoderParams);
 
-  InitPreRanker(false /* viewportSearch */);
-  InitRanker(false /* viewportSearch */);
+  InitPreRanker();
+  InitRanker();
 
-  if (m_tokens.empty())
-    m_ranker.SuggestStrings(results);
+  try
+  {
+    SearchCoordinates(m_ranker.GetResults());
+  }
+  catch (CancelException const &)
+  {
+    LOG(LDEBUG, ("Search has been cancelled."));
+  }
 
-  m_geocoder.GoEverywhere();
-  m_ranker.FlushResults(geocoderParams, results, limit);
-}
+  try
+  {
+    if (params.m_onStarted)
+      params.m_onStarted();
 
-void Processor::SearchViewportPoints(Results & results)
-{
-  Geocoder::Params geocoderParams;
-  InitGeocoderParams(geocoderParams, true /* viewportSearch */);
+    if (viewportSearch)
+    {
+      m_geocoder.GoInViewport();
+      m_ranker.FlushViewportResults(geocoderParams);
+    }
+    else
+    {
+      if (m_tokens.empty())
+        m_ranker.SuggestStrings(m_ranker.GetResults());
 
-  InitPreRanker(true /* viewportSearch */);
-  InitRanker(true /* viewportSearch */);
+      m_geocoder.GoEverywhere();
+      m_ranker.FlushResults(geocoderParams);
+    }
 
-  m_geocoder.GoInViewport();
-  m_ranker.FlushViewportResults(geocoderParams, results);
+    if (!IsCancelled())
+      params.m_onResults(m_ranker.GetResults());
+  }
+  catch (CancelException const &)
+  {
+    LOG(LDEBUG, ("Search has been cancelled."));
+  }
+
+  if (!viewportSearch && !IsCancelled())
+    SendStatistics(params, viewport, m_ranker.GetResults());
+
+  // Emit finish marker to client.
+  params.m_onResults(Results::GetEndMarker(IsCancelled()));
 }
 
 void Processor::SearchCoordinates(Results & res) const
@@ -580,8 +668,10 @@ void Processor::InitParams(QueryParams & params)
     params.m_langs.insert(GetLanguage(i));
 }
 
-void Processor::InitGeocoderParams(Geocoder::Params & params, bool viewportSearch)
+void Processor::InitGeocoder(Geocoder::Params & params)
 {
+  bool const viewportSearch = m_mode == Mode::Viewport;
+
   InitParams(params);
   params.m_mode = m_mode;
   if (viewportSearch)
@@ -591,21 +681,30 @@ void Processor::InitGeocoderParams(Geocoder::Params & params, bool viewportSearc
   m_geocoder.SetParams(params);
 }
 
-void Processor::InitPreRanker(bool viewportSearch)
+void Processor::InitPreRanker()
 {
   PreRanker::Params params;
 
-  params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
+  params.m_accuratePivotCenter = GetPivotPoint();
   m_preRanker.Init(params);
 }
 
-void Processor::InitRanker(bool viewportSearch)
+void Processor::InitRanker()
 {
+  size_t const kResultsCount = 30;
+  bool const viewportSearch = m_mode == Mode::Viewport;
   Ranker::Params params;
 
   params.m_currentLocaleCode = m_currentLocaleCode;
-  if (m_mode == Mode::Viewport)
+  if (viewportSearch)
+  {
     params.m_viewport = GetViewport();
+    params.m_limit = kPreResultsCount;
+  }
+  else
+  {
+    params.m_limit = kResultsCount;
+  }
   params.m_position = GetPosition();
   params.m_pivotRegion = GetPivotRegion();
   params.m_preferredTypes = m_preferredTypes;
@@ -614,7 +713,8 @@ void Processor::InitRanker(bool viewportSearch)
   params.m_tokens = m_tokens;
   params.m_prefix = m_prefix;
   params.m_categoryLocales = GetCategoryLocales();
-  params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
+  params.m_accuratePivotCenter = GetPivotPoint();
+  params.m_onResults = m_onResults;
   m_ranker.Init(params);
 }
 

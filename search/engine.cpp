@@ -25,14 +25,10 @@
 #include "std/map.hpp"
 #include "std/vector.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
-
 namespace search
 {
 namespace
 {
-int const kResultsCount = 30;
-
 class InitSuggestions
 {
   using TSuggestMap = map<pair<strings::UniString, int8_t>, uint8_t>;
@@ -58,36 +54,6 @@ public:
       suggests.emplace_back(s.first.first, s.second, s.first.second);
   }
 };
-
-void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Results const & res)
-{
-  size_t const kMaxNumResultsToSend = 10;
-
-  size_t const numResultsToSend = min(kMaxNumResultsToSend, res.GetCount());
-  string resultString = strings::to_string(numResultsToSend);
-  for (size_t i = 0; i < numResultsToSend; ++i)
-    resultString.append("\t" + res.GetResult(i).ToStringForStats());
-
-  string posX, posY;
-  if (params.IsValidPosition())
-  {
-    posX = strings::to_string(MercatorBounds::LonToX(params.m_lon));
-    posY = strings::to_string(MercatorBounds::LatToY(params.m_lat));
-  }
-
-  alohalytics::TStringMap const stats = {
-      {"posX", posX},
-      {"posY", posY},
-      {"viewportMinX", strings::to_string(viewport.minX())},
-      {"viewportMinY", strings::to_string(viewport.minY())},
-      {"viewportMaxX", strings::to_string(viewport.maxX())},
-      {"viewportMaxY", strings::to_string(viewport.maxY())},
-      {"query", params.m_query},
-      {"locale", params.m_inputLocale},
-      {"results", resultString},
-  };
-  alohalytics::LogEvent("searchEmitResultsAndCoords", stats);
-}
 }  // namespace
 
 // ProcessorHandle----------------------------------------------------------------------------------
@@ -192,27 +158,6 @@ void Engine::ClearCaches()
               });
 }
 
-void Engine::SetRankPivot(SearchParams const & params, m2::RectD const & viewport,
-                          bool viewportSearch, Processor & processor)
-{
-  if (!viewportSearch && params.IsValidPosition())
-  {
-    m2::PointD const pos = MercatorBounds::FromLatLon(params.m_lat, params.m_lon);
-    if (m2::Inflate(viewport, viewport.SizeX() / 4.0, viewport.SizeY() / 4.0).IsPointInside(pos))
-    {
-      processor.SetRankPivot(pos);
-      return;
-    }
-  }
-
-  processor.SetRankPivot(viewport.Center());
-}
-
-void Engine::EmitResults(SearchParams const & params, Results const & res)
-{
-  params.m_onResults(res);
-}
-
 void Engine::MainLoop(Context & context)
 {
   while (true)
@@ -284,7 +229,6 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
 {
   bool const viewportSearch = params.GetMode() == Mode::Viewport;
 
-  // Initialize query processor.
   processor.Reset();
   processor.Init(viewportSearch);
   handle->Attach(processor);
@@ -300,54 +244,6 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
     return;
   }
 
-  SetRankPivot(params, viewport, viewportSearch, processor);
-
-  if (params.IsValidPosition())
-    processor.SetPosition(MercatorBounds::FromLatLon(params.m_lat, params.m_lon));
-  else
-    processor.SetPosition(viewport.Center());
-
-  processor.SetMode(params.GetMode());
-  processor.SetSuggestsEnabled(params.GetSuggestsEnabled());
-  processor.SetInputLocale(params.m_inputLocale);
-
-  ASSERT(!params.m_query.empty(), ());
-  processor.SetQuery(params.m_query);
-
-  Results res;
-
-  try
-  {
-    processor.SearchCoordinates(res);
-  }
-  catch (CancelException const &)
-  {
-    LOG(LDEBUG, ("Search has been cancelled."));
-  }
-
-  try
-  {
-    if (params.m_onStarted)
-      params.m_onStarted();
-
-    processor.SetViewport(viewport, true /* forceUpdate */);
-    if (viewportSearch)
-      processor.SearchViewportPoints(res);
-    else
-      processor.Search(res, kResultsCount);
-
-    if (!processor.IsCancelled())
-      EmitResults(params, res);
-  }
-  catch (CancelException const &)
-  {
-    LOG(LDEBUG, ("Search has been cancelled."));
-  }
-
-  if (!viewportSearch && !processor.IsCancelled())
-    SendStatistics(params, viewport, res);
-
-  // Emit finish marker to client.
-  params.m_onResults(Results::GetEndMarker(processor.IsCancelled()));
+  processor.Search(params, viewport);
 }
 }  // namespace search

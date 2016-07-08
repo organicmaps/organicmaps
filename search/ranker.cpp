@@ -290,6 +290,7 @@ void Ranker::Init(Params const & params)
 {
   m_params = params;
   m_preResults1.clear();
+  m_results.Clear();
 }
 
 bool Ranker::IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values)
@@ -478,7 +479,7 @@ void Ranker::ProcessSuggestions(vector<IndexedValue> & vec, Results & res) const
   }
 }
 
-void Ranker::FlushResults(Geocoder::Params const & params, Results & res, size_t resCount)
+void Ranker::FlushResults(Geocoder::Params const & params)
 {
   vector<IndexedValue> values;
   vector<FeatureID> streets;
@@ -489,23 +490,23 @@ void Ranker::FlushResults(Geocoder::Params const & params, Results & res, size_t
 
   sort(values.rbegin(), values.rend(), my::LessBy(&IndexedValue::GetRank));
 
-  ProcessSuggestions(values, res);
+  ProcessSuggestions(values, m_results);
 
   // Emit feature results.
-  size_t count = res.GetCount();
-  for (size_t i = 0; i < values.size() && count < resCount; ++i)
+  size_t count = m_results.GetCount();
+  for (size_t i = 0; i < values.size() && count < m_params.m_limit; ++i)
   {
     BailIfCancelled();
 
     LOG(LDEBUG, (values[i]));
 
     auto const & preResult2 = *values[i];
-    if (res.AddResult(MakeResult(preResult2)))
+    if (m_results.AddResult(MakeResult(preResult2)))
       ++count;
   }
 }
 
-void Ranker::FlushViewportResults(Geocoder::Params const & geocoderParams, Results & res)
+void Ranker::FlushViewportResults(Geocoder::Params const & geocoderParams)
 {
   vector<IndexedValue> values;
   vector<FeatureID> streets;
@@ -520,7 +521,7 @@ void Ranker::FlushViewportResults(Geocoder::Params const & geocoderParams, Resul
   {
     BailIfCancelled();
 
-    res.AddResultNoChecks(
+    m_results.AddResultNoChecks(
         (*(values[i]))
             .GenerateFinalResult(m_infoGetter, &m_categories, &m_params.m_preferredTypes,
                                  m_params.m_currentLocaleCode,
