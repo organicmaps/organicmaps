@@ -203,10 +203,10 @@ void RuleDrawer::operator()(FeatureType const & f)
       double const lat = MercatorBounds::YToLat(featureCenter.y);
 
       m2::RectD rectMercator = MercatorBounds::MetresToXY(lon, lat, heightInMeters);
-      areaHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
+      areaHeight = (rectMercator.SizeX() + rectMercator.SizeY()) / 2.0;
 
       rectMercator = MercatorBounds::MetresToXY(lon, lat, minHeigthInMeters);
-      areaMinHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
+      areaMinHeight = (rectMercator.SizeX() + rectMercator.SizeY()) / 2.0;
     }
 
     bool applyPointStyle = s.PointStyleExists();

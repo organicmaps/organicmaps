@@ -19,23 +19,39 @@
 namespace df
 {
 
+double const kDefault3dScale = 1.0;
+
 Navigator::Navigator()
   : m_InAction(false)
 {
 }
 
-void Navigator::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect)
+void Navigator::SetFromScreen(ScreenBase const & screen)
 {
-  m2::RectD const & worldR = df::GetWorldRect();
+  VisualParams const & p = VisualParams::Instance();
+  SetFromScreen(screen, p.GetTileSize(), p.GetVisualScale());
+}
 
-  m_Screen.SetFromRects(glbRect, pxRect);
-  m_Screen = ScaleInto(m_Screen, worldR);
+void Navigator::SetFromScreen(ScreenBase const & screen, uint32_t tileSize, double visualScale)
+{
+  ScreenBase tmp = ScaleInto(screen, df::GetWorldRect());
+
+  if (!CheckMaxScale(tmp, tileSize, visualScale))
+  {
+    int const scale = scales::GetUpperStyleScale() - 1;
+    m2::RectD newRect = df::GetRectForDrawScale(scale, screen.GetOrg());
+    newRect.Scale(m_Screen.GetScale3d());
+    CheckMinMaxVisibleScale(newRect, scale, m_Screen.GetScale3d());
+    tmp = m_Screen;
+    tmp.SetFromRect(m2::AnyRectD(newRect));
+
+    ASSERT(CheckMaxScale(tmp, tileSize, visualScale), ());
+  }
+
+  m_Screen = tmp;
 
   if (!m_InAction)
-  {
-    m_StartScreen.SetFromRects(glbRect, pxRect);
-    m_StartScreen = ScaleInto(m_StartScreen, worldR);
-  }
+    m_StartScreen = tmp;
 }
 
 void Navigator::SetFromRect(m2::AnyRectD const & r)
@@ -46,25 +62,9 @@ void Navigator::SetFromRect(m2::AnyRectD const & r)
 
 void Navigator::SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale)
 {
-  m2::RectD const & worldR = df::GetWorldRect();
-
   ScreenBase tmp = m_Screen;
-
   tmp.SetFromRect(r);
-  tmp = ScaleInto(tmp, worldR);
-  if (!CheckMaxScale(tmp, tileSize, visualScale))
-  {
-    int const scale = scales::GetUpperStyleScale() - 1;
-    m2::RectD newRect = df::GetRectForDrawScale(scale, r.Center());
-    CheckMinMaxVisibleScale(newRect, scale);
-    tmp = m_Screen;
-    tmp.SetFromRect(m2::AnyRectD(newRect));
-    ASSERT(CheckMaxScale(tmp, tileSize, visualScale), ());
-  }
-  m_Screen = tmp;
-
-  if (!m_InAction)
-    m_StartScreen = tmp;
+  SetFromScreen(tmp, tileSize, visualScale);
 }
 
 void Navigator::CenterViewport(m2::PointD const & p)
@@ -85,25 +85,11 @@ void Navigator::OnSize(int w, int h)
 {
   m2::RectD const & worldR = df::GetWorldRect();
 
-  double const fov = m_Screen.GetAngleFOV();
-  double const rotation = m_Screen.GetRotationAngle();
-  if (m_Screen.isPerspective())
-  {
-    m_Screen.ResetPerspective();
-    m_StartScreen.ResetPerspective();
-  }
-
   m_Screen.OnSize(0, 0, w, h);
   m_Screen = ShrinkAndScaleInto(m_Screen, worldR);
 
   m_StartScreen.OnSize(0, 0, w, h);
   m_StartScreen = ShrinkAndScaleInto(m_StartScreen, worldR);
-
-  if (fov != 0.0)
-  {
-    m_Screen.ApplyPerspective(rotation, rotation, fov);
-    m_StartScreen.ApplyPerspective(rotation, rotation, fov);
-  }
 }
 
 m2::PointD Navigator::GtoP(m2::PointD const & pt) const
@@ -194,6 +180,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
 {
   m2::PointD const center3d = oldPt1;
   m2::PointD const center2d = screen.P3dtoP(center3d);
+  m2::PointD const centerG = screen.PtoG(center2d);
   m2::PointD const offset =  center2d - center3d;
   math::Matrix<double, 3, 3> const newM =
       screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,
@@ -201,6 +188,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                                                       doRotateScreen);
   ScreenBase tmp = screen;
   tmp.SetGtoPMatrix(newM);
+  tmp.MatchGandP3d(centerG, center3d);
 
   if (!skipMinScaleAndBordersCheck && !CheckMinScale(tmp))
     return false;
@@ -291,9 +279,18 @@ bool Navigator::IsRotatingDuringScale() const
   return m_IsRotatingDuringScale;
 }
 
-void Navigator::Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV)
+void Navigator::SetAutoPerspective(bool enable)
 {
-  m_Screen.ApplyPerspective(currentRotationAngle, maxRotationAngle, angleFOV);
+  m_Screen.SetAutoPerspective(enable);
+}
+
+void Navigator::Enable3dMode()
+{
+  if (m_Screen.isPerspective())
+    return;
+  double const angle = m_Screen.CalculateAutoPerspectiveAngle(m_Screen.GetScale());
+  if (angle > 0)
+    m_Screen.ApplyPerspective(angle, angle, m_Screen.GetAngleFOV());
 }
 
 void Navigator::SetRotationIn3dMode(double rotationAngle)
@@ -317,36 +314,38 @@ m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
                       m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
 }
 
-void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale)
+void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale, double scale3d)
 {
-  m2::RectD const minRect = df::GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center(), tileSize, visualScale);
+  m2::RectD minRect = df::GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center(), tileSize, visualScale);
+  minRect.Scale(scale3d);
   if (minRect.IsRectInside(rect))
     rect = minRect;
 }
 
-void CheckMinGlobalRect(m2::RectD & rect)
+void CheckMinGlobalRect(m2::RectD & rect, double scale3d)
 {
   VisualParams const & p = VisualParams::Instance();
-  CheckMinGlobalRect(rect, p.GetTileSize(), p.GetVisualScale());
+  CheckMinGlobalRect(rect, p.GetTileSize(), p.GetVisualScale(), scale3d);
 }
 
 void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale,
-                             uint32_t tileSize, double visualScale)
+                             uint32_t tileSize, double visualScale, double scale3d)
 {
-  CheckMinGlobalRect(rect, tileSize, visualScale);
+  CheckMinGlobalRect(rect, tileSize, visualScale, scale3d);
   int scale = df::GetDrawTileScale(rect, tileSize, visualScale);
   if (maxScale != -1 && scale > maxScale)
   {
     // limit on passed maximal scale
     m2::PointD const c = rect.Center();
     rect = df::GetRectForDrawScale(maxScale, c, tileSize, visualScale);
+    rect.Scale(scale3d);
   }
 }
 
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale)
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale, double scale3d)
 {
   VisualParams const & p = VisualParams::Instance();
-  CheckMinMaxVisibleScale(rect, maxScale, p.GetTileSize(), p.GetVisualScale());
+  CheckMinMaxVisibleScale(rect, maxScale, p.GetTileSize(), p.GetVisualScale(), scale3d);
 }
 
 } // namespace df

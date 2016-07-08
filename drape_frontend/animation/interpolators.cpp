@@ -87,8 +87,7 @@ PositionInterpolator::PositionInterpolator()
 {}
 
 PositionInterpolator::PositionInterpolator(double duration, double delay,
-                                           m2::PointD const & startPosition,
-                                           m2::PointD const & endPosition)
+                                           m2::PointD const & startPosition, m2::PointD const & endPosition)
   : Interpolator(duration, delay)
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
@@ -97,14 +96,13 @@ PositionInterpolator::PositionInterpolator(double duration, double delay,
   SetActive(m_startPosition != m_endPosition);
 }
 
-PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition,
-                                           m2::PointD const & endPosition,
+PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition,
                                            ScreenBase const & convertor)
   : PositionInterpolator(0.0 /* delay */, startPosition, endPosition, convertor)
 {}
 
-PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & startPosition,
-                                           m2::PointD const & endPosition,
+PositionInterpolator::PositionInterpolator(double delay,
+                                           m2::PointD const & startPosition, m2::PointD const & endPosition,
                                            ScreenBase const & convertor)
   : Interpolator(PositionInterpolator::GetMoveDuration(startPosition, endPosition, convertor), delay)
   , m_startPosition(startPosition)
@@ -114,20 +112,41 @@ PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & star
   SetActive(m_startPosition != m_endPosition);
 }
 
-PositionInterpolator::PositionInterpolator(m2::PointD const & startPxPosition,
-                                           m2::PointD const & endPxPosition,
-                                           m2::RectD const & pixelRect)
-  : PositionInterpolator(0.0 /* delay */, startPxPosition, endPxPosition, pixelRect)
+PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition,
+                                           m2::RectD const & viewportRect, double scale)
+  : PositionInterpolator(0.0 /* delay */, startPosition, endPosition, viewportRect, scale)
 {}
 
-PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & startPxPosition,
-                                           m2::PointD const & endPxPosition, m2::RectD const & pixelRect)
-  : Interpolator(PositionInterpolator::GetPixelMoveDuration(startPxPosition, endPxPosition, pixelRect), delay)
-  , m_startPosition(startPxPosition)
-  , m_endPosition(endPxPosition)
-  , m_position(startPxPosition)
+PositionInterpolator::PositionInterpolator(double delay,
+                                           m2::PointD const & startPosition, m2::PointD const & endPosition,
+                                           m2::RectD const & viewportRect, double scale)
+  : Interpolator(PositionInterpolator::GetMoveDuration(startPosition, endPosition, viewportRect, scale), delay)
+  , m_startPosition(startPosition)
+  , m_endPosition(endPosition)
+  , m_position(startPosition)
 {
   SetActive(m_startPosition != m_endPosition);
+}
+
+//static
+double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition,
+                              m2::RectD const & viewportRect, double scale)
+{
+  double const kMinMoveDuration = 0.2;
+  double const kMinSpeedScalar = 0.2;
+  double const kMaxSpeedScalar = 7.0;
+  double const kEps = 1e-5;
+
+  double const pixelLength = endPosition.Length(startPosition) / scale;
+  if (pixelLength < kEps)
+    return 0.0;
+
+  double const minSize = min(viewportRect.SizeX(), viewportRect.SizeY());
+  if (pixelLength < kMinSpeedScalar * minSize)
+    return kMinMoveDuration;
+
+  double const pixelSpeed = kMaxSpeedScalar * minSize;
+  return CalcAnimSpeedDuration(pixelLength, pixelSpeed);
 }
 
 //static
@@ -135,31 +154,9 @@ double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition,
                                              m2::PointD const & endPosition,
                                              ScreenBase const & convertor)
 {
-  return GetPixelMoveDuration(convertor.GtoP(startPosition),
-                              convertor.GtoP(endPosition),
-                              convertor.PixelRect());
+  return GetMoveDuration(startPosition, endPosition, convertor.PixelRectIn3d(), convertor.GetScale());
 }
 
-double PositionInterpolator::GetPixelMoveDuration(m2::PointD const & startPosition,
-                                                  m2::PointD const & endPosition,
-                                                  m2::RectD const & pixelRect)
-{
-  double const kMinMoveDuration = 0.2;
-  double const kMinSpeedScalar = 0.2;
-  double const kMaxSpeedScalar = 7.0;
-  double const kEps = 1e-5;
-
-  double const pixelLength = endPosition.Length(startPosition);
-  if (pixelLength < kEps)
-    return 0.0;
-
-  double const minSize = min(pixelRect.SizeX(), pixelRect.SizeY());
-  if (pixelLength < kMinSpeedScalar * minSize)
-    return kMinMoveDuration;
-
-  double const pixelSpeed = kMaxSpeedScalar * minSize;
-  return CalcAnimSpeedDuration(pixelLength, pixelSpeed);
-}
 
 void PositionInterpolator::Advance(double elapsedSeconds)
 {

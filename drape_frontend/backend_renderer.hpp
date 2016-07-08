@@ -63,6 +63,10 @@ private:
   void RecacheChoosePositionMark();
   void RecacheMapShapes();
 
+#ifdef RENRER_DEBUG_INFO_LABELS
+  void RecacheDebugLabels();
+#endif
+
   void AcceptMessage(ref_ptr<Message> message) override;
 
   class Routine : public threads::IRoutine

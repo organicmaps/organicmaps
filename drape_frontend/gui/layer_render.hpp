@@ -58,6 +58,10 @@ public:
                                           ref_ptr<dp::TextureManager> textures);
   drape_ptr<LayerRenderer> RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures);
 
+#ifdef RENRER_DEBUG_INFO_LABELS
+  drape_ptr<LayerRenderer> RecacheDebugLabels(ref_ptr<dp::TextureManager> textures);
+#endif
+
 private:
   m2::PointF CacheCompass(Position const & position, ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
   m2::PointF CacheRuler(Position const & position, ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);

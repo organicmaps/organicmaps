@@ -484,8 +484,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       if (m_pendingFollowRoute != nullptr)
       {
-        FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel, m_pendingFollowRoute->m_preferredZoomLevelIn3d,
-                    m_pendingFollowRoute->m_rotationAngle, m_pendingFollowRoute->m_angleFOV);
+        FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel, m_pendingFollowRoute->m_preferredZoomLevelIn3d);
         m_pendingFollowRoute.reset();
       }
       break;
@@ -522,13 +521,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (m_routeRenderer->GetRouteData() == nullptr)
       {
         m_pendingFollowRoute.reset(
-              new FollowRouteData(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(),
-                                  msg->GetRotationAngle(), msg->GetAngleFOV()));
+              new FollowRouteData(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d()));
         break;
       }
 
-      FollowRoute(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(),
-                  msg->GetRotationAngle(), msg->GetAngleFOV());
+      FollowRoute(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d());
       break;
     }
 
@@ -613,9 +610,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::EnablePerspective:
     {
-      ref_ptr<EnablePerspectiveMessage> const msg = message;
-      AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
-                                          false /* animated */, true /* immediately start */));
+      AddUserEvent(SetAutoPerspectiveEvent(true /* isAutoPerspective */));
       break;
     }
 
@@ -628,11 +623,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (m_enablePerspectiveInNavigation == msg->AllowPerspective() &&
           m_enablePerspectiveInNavigation != screen.isPerspective())
       {
-        if (m_enablePerspectiveInNavigation)
-          AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
-                                              false /* animated */, true /* immediately start */));
-        else
-          AddUserEvent(DisablePerspectiveEvent());
+        AddUserEvent(SetAutoPerspectiveEvent(m_enablePerspectiveInNavigation));
       }
 #endif
 
@@ -648,15 +639,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_enablePerspectiveInNavigation = msg->AllowPerspective();
         if (m_myPositionController->IsInRouting())
         {
-          if (m_enablePerspectiveInNavigation && !screen.isPerspective() && !m_perspectiveDiscarded)
-          {
-            AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
-                                                true /* animated */, true /* immediately start */));
-          }
-          else if (!m_enablePerspectiveInNavigation && (screen.isPerspective() || m_perspectiveDiscarded))
-          {
-            DisablePerspective();
-          }
+          AddUserEvent(SetAutoPerspectiveEvent(m_enablePerspectiveInNavigation));
         }
       }
       break;
@@ -750,18 +733,14 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
   return make_unique<Routine>(*this);
 }
 
-void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d,
-                                   double rotationAngle, double angleFOV)
+void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d)
 {
 
   m_myPositionController->ActivateRouting(!m_enablePerspectiveInNavigation ? preferredZoomLevel
                                                                            : preferredZoomLevelIn3d);
 
   if (m_enablePerspectiveInNavigation)
-  {
-    bool immediatelyStart = !m_myPositionController->IsRotationAvailable();
-    AddUserEvent(EnablePerspectiveEvent(rotationAngle, angleFOV, true /* animated */, immediatelyStart));
-  }
+    AddUserEvent(SetAutoPerspectiveEvent(true /* isAutoPerspective */));
 
   m_overlayTree->SetFollowingMode(true);
 }
@@ -811,17 +790,22 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 
 void FrontendRenderer::OnResize(ScreenBase const & screen)
 {
-  m2::RectD const viewportRect = screen.isPerspective() ? screen.PixelRectIn3d() : screen.PixelRect();
+  m2::RectD const viewportRect = screen.PixelRectIn3d();
+  double const kEps = 1e-5;
+  bool const viewportChanged = !m2::IsEqualSize(m_lastReadedModelView.PixelRectIn3d(), viewportRect, kEps, kEps);
 
   m_myPositionController->UpdatePixelPosition(screen);
-  m_myPositionController->OnNewPixelRect();
 
-  m_viewport.SetViewport(0, 0, viewportRect.SizeX(), viewportRect.SizeY());
-  m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
+  if (viewportChanged)
+  {
+    m_myPositionController->OnNewViewportRect();
+    m_viewport.SetViewport(0, 0, viewportRect.SizeX(), viewportRect.SizeY());
+    m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
+    m_framebuffer->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
+  }
+
   RefreshProjection(screen);
   RefreshPivotTransform(screen);
-
-  m_framebuffer->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
 }
 
 void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
@@ -1069,18 +1053,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   if (m_guiRenderer != nullptr)
-  {
-    if (isPerspective)
-    {
-      ScreenBase modelView2d = modelView;
-      modelView2d.ResetPerspective();
-      m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView2d);
-    }
-    else
-    {
-      m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
-    }
-  }
+    m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
 
@@ -1232,7 +1205,18 @@ void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
 
   m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-  float const zScale = 2.0f / (screen.GetHeight() * screen.GetScale());
+  float zScale;
+  if (screen.isPerspective())
+  {
+    // TODO: Calculate exact value of zScale
+    double const averageScale3d = 3.0;
+    zScale = 2.0f / (screen.PixelRectIn3d().SizeY() * averageScale3d * screen.GetScale());
+  }
+  else
+  {
+    zScale = 2.0f / (screen.GetHeight() * screen.GetScale());
+  }
+
   m_generalUniforms.SetFloatValue("zScale", zScale);
 }
 
@@ -1266,8 +1250,7 @@ void FrontendRenderer::RefreshBgColor()
 
 void FrontendRenderer::DisablePerspective()
 {
-  m_perspectiveDiscarded = false;
-  AddUserEvent(DisablePerspectiveEvent());
+  AddUserEvent(SetAutoPerspectiveEvent(false /* isAutoPerspective */));
 }
 
 void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
@@ -1281,20 +1264,6 @@ void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
   }
 }
 
-void FrontendRenderer::CheckPerspectiveMinScale()
-{
-  if (!m_enablePerspectiveInNavigation || m_userEventStream.IsInPerspectiveAnimation())
-    return;
-
-  bool const switchTo2d = !IsScaleAllowableIn3d(m_currentZoomLevel);
-  if ((!switchTo2d && !m_perspectiveDiscarded) ||
-      (switchTo2d && !m_userEventStream.GetCurrentScreen().isPerspective()))
-    return;
-
-  m_perspectiveDiscarded = switchTo2d;
-  AddUserEvent(SwitchViewModeEvent(switchTo2d));
-}
-
 void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   int const prevZoomLevel = m_currentZoomLevel;
@@ -1304,7 +1273,6 @@ void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
     UpdateCanBeDeletedStatus();
 
   CheckIsometryMinScale(screen);
-  CheckPerspectiveMinScale();
   UpdateDisplacementEnabled();
 }
 
@@ -1430,12 +1398,6 @@ void FrontendRenderer::OnAnimatedScaleEnded()
 void FrontendRenderer::OnAnimationStarted(ref_ptr<Animation> anim)
 {
   m_myPositionController->AnimationStarted(anim);
-}
-
-void FrontendRenderer::OnPerspectiveSwitchRejected()
-{
-   if (m_perspectiveDiscarded)
-     m_perspectiveDiscarded = false;
 }
 
 void FrontendRenderer::OnTouchMapAction()

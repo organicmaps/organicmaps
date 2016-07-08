@@ -145,32 +145,13 @@ struct FollowAndRotateEvent
   bool m_isAnim;
 };
 
-struct EnablePerspectiveEvent
+struct SetAutoPerspectiveEvent
 {
-  EnablePerspectiveEvent(double rotationAngle, double angleFOV,
-                         bool isAnim, bool immediatelyStart)
-    : m_isAnim(isAnim)
-    , m_immediatelyStart(immediatelyStart)
-    , m_rotationAngle(rotationAngle)
-    , m_angleFOV(angleFOV)
+  SetAutoPerspectiveEvent(bool isAutoPerspective)
+    : m_isAutoPerspective(isAutoPerspective)
   {}
 
-  bool m_isAnim;
-  bool m_immediatelyStart;
-  double m_rotationAngle;
-  double m_angleFOV;
-};
-
-struct DisablePerspectiveEvent
-{
-  DisablePerspectiveEvent() {}
-};
-
-struct SwitchViewModeEvent
-{
-  SwitchViewModeEvent(bool to2d): m_to2d(to2d) {}
-
-  bool m_to2d;
+  bool m_isAutoPerspective;
 };
 
 struct RotateEvent
@@ -200,9 +181,7 @@ struct UserEvent
     EVENT_RESIZE,
     EVENT_ROTATE,
     EVENT_FOLLOW_AND_ROTATE,
-    EVENT_ENABLE_PERSPECTIVE,
-    EVENT_DISABLE_PERSPECTIVE,
-    EVENT_SWITCH_VIEW_MODE
+    EVENT_AUTO_PERSPECTIVE
   };
 
   UserEvent(TouchEvent const & e) : m_type(EVENT_TOUCH) { m_touchEvent = e; }
@@ -213,9 +192,7 @@ struct UserEvent
   UserEvent(ResizeEvent const & e) : m_type(EVENT_RESIZE) { m_resize = e; }
   UserEvent(RotateEvent const & e) : m_type(EVENT_ROTATE) { m_rotate = e; }
   UserEvent(FollowAndRotateEvent const & e) : m_type(EVENT_FOLLOW_AND_ROTATE) { m_followAndRotate = e; }
-  UserEvent(EnablePerspectiveEvent const & e) : m_type(EVENT_ENABLE_PERSPECTIVE) { m_enable3dMode = e; }
-  UserEvent(DisablePerspectiveEvent const & e) : m_type(EVENT_DISABLE_PERSPECTIVE) { m_disable3dMode = e; }
-  UserEvent(SwitchViewModeEvent const & e) : m_type(EVENT_SWITCH_VIEW_MODE) { m_switchViewMode = e; }
+  UserEvent(SetAutoPerspectiveEvent const & e) : m_type(EVENT_AUTO_PERSPECTIVE) { m_autoPerspective = e; }
 
   EEventType m_type;
   union
@@ -228,9 +205,7 @@ struct UserEvent
     ResizeEvent m_resize;
     RotateEvent m_rotate;
     FollowAndRotateEvent m_followAndRotate;
-    EnablePerspectiveEvent m_enable3dMode;
-    DisablePerspectiveEvent m_disable3dMode;
-    SwitchViewModeEvent m_switchViewMode;
+    SetAutoPerspectiveEvent m_autoPerspective;
   };
 };
 
@@ -259,7 +234,6 @@ public:
     virtual void OnAnimatedScaleEnded() = 0;
 
     virtual void OnAnimationStarted(ref_ptr<Animation> anim) = 0;
-    virtual void OnPerspectiveSwitchRejected() = 0;
 
     virtual void OnTouchMapAction() = 0;
   };
@@ -269,9 +243,9 @@ public:
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   ScreenBase const & GetCurrentScreen() const;
 
+  void GetTargetScreen(ScreenBase & screen) const;
   m2::AnyRectD GetTargetRect() const;
   bool IsInUserAction() const;
-  bool IsInPerspectiveAnimation() const;
   bool IsWaitingForActionCompletion() const;
 
   void SetListener(ref_ptr<Listener> listener) { m_listener = listener; }
@@ -306,13 +280,10 @@ private:
   bool SetCenter(m2::PointD const & center, int zoom, bool isAnim);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
+  bool SetScreen(ScreenBase const & screen, bool isAnim);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, bool isAnim);
-
-  bool FilterEventWhile3dAnimation(UserEvent::EEventType type) const;
-  void SetEnable3dMode(double maxRotationAngle, double angleFOV,
-                       bool isAnim, bool immediatelyStart);
-  void SetDisable3dModeAnimation();
+  void SetAutoPerspective(bool isAutoPerspective);
 
   m2::AnyRectD GetCurrentRect() const;
 
@@ -357,7 +328,6 @@ private:
   void ResetAnimations(Animation::Type animType, bool finishAll = false);
   void ResetAnimations(Animation::Type animType, string const & customType, bool finishAll = false);
   void ResetMapPlaneAnimations();
-  void ResetAnimationsBeforeSwitch3D();
   bool InterruptFollowAnimations(bool force);
 
   list<UserEvent> m_events;
@@ -383,12 +353,8 @@ private:
   AnimationSystem & m_animationSystem;
 
   bool m_modelViewChanged = false;
-  bool m_viewportChanged = false;
 
-  bool m_perspectiveAnimation = false;
   unique_ptr<UserEvent> m_pendingEvent;
-  double m_discardedFOV = 0.0;
-  double m_discardedAngle = 0.0;
 
   ref_ptr<Listener> m_listener;
 

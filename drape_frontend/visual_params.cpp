@@ -6,6 +6,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "std/limits.hpp"
 #include "std/algorithm.hpp"
 
@@ -268,6 +270,16 @@ int GetDrawTileScale(m2::RectD const & r)
 {
   VisualParams const & p = VisualParams::Instance();
   return GetDrawTileScale(r, p.GetTileSize(), p.GetVisualScale());
+}
+
+double GetZoomLevel(double scale)
+{
+  return my::clamp(fabs(log(scale) / log(2.0)), 1, scales::GetUpperStyleScale());
+}
+
+double GetScale(double zoomLevel)
+{
+  return pow(2.0, -zoomLevel);
 }
 
 } // namespace df

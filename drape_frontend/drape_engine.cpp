@@ -265,11 +265,10 @@ void DrapeEngine::StopLocationFollow()
                                   MessagePriority::High);
 }
 
-void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, double rotationAngle, double angleFOV)
+void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FollowRouteMessage>(preferredZoomLevel, preferredZoomLevel3d,
-                                                                     rotationAngle, angleFOV),
+                                  make_unique_dp<FollowRouteMessage>(preferredZoomLevel, preferredZoomLevel3d),
                                   MessagePriority::High);
 }
 
@@ -380,22 +379,21 @@ void DrapeEngine::SetWidgetLayout(gui::TWidgetsLayoutInfo && info)
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings, double rotationAngle, double angleFOV)
+void DrapeEngine::Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<Allow3dBuildingsMessage>(allow3dBuildings),
                                   MessagePriority::Normal);
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<Allow3dModeMessage>(allowPerspectiveInNavigation, allow3dBuildings,
-                                                                     rotationAngle, angleFOV),
+                                  make_unique_dp<Allow3dModeMessage>(allowPerspectiveInNavigation, allow3dBuildings),
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::EnablePerspective(double rotationAngle, double angleFOV)
+void DrapeEngine::EnablePerspective()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<EnablePerspectiveMessage>(rotationAngle, angleFOV),
+                                  make_unique_dp<EnablePerspectiveMessage>(),
                                   MessagePriority::Normal);
 }
 

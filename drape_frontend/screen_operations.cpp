@@ -240,13 +240,10 @@ ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRe
 bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase & screen)
 {
   m2::PointD const globalScaleCenter = screen.PtoG(screen.P3dtoP(pixelScaleCenter));
-  m2::PointD const pixelCenterOffset = screen.PixelRect().Center() - screen.P3dtoP(pixelScaleCenter);
 
   ScreenBase tmp = screen;
   tmp.Scale(factor);
-
-  m2::PointD newCenter = tmp.PtoG(tmp.GtoP(globalScaleCenter) + pixelCenterOffset);
-  tmp.SetOrg(newCenter);
+  tmp.MatchGandP3d(globalScaleCenter, pixelScaleCenter);
 
   if (!CheckMinScale(tmp))
     return false;

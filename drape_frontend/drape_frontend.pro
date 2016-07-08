@@ -23,12 +23,12 @@ SOURCES += \
     animation/scale_animation.cpp \
     animation/sequence_animation.cpp \
     animation/parallel_animation.cpp \
-    animation/perspective_animation.cpp \
     animation/opacity_animation.cpp \
     animation/show_hide_animation.cpp \
     gui/choose_position_mark.cpp \
     gui/compass.cpp \
     gui/copyright_label.cpp \
+    gui/debug_label.cpp \
     gui/drape_gui.cpp \
     gui/gui_text.cpp \
     gui/layer_render.cpp \
@@ -115,13 +115,13 @@ HEADERS += \
     animation/scale_animation.hpp \
     animation/sequence_animation.hpp \
     animation/parallel_animation.hpp \
-    animation/perspective_animation.hpp \
     animation/opacity_animation.hpp \
     animation/show_hide_animation.hpp \
     animation/value_mapping.hpp \
     gui/choose_position_mark.hpp \
     gui/compass.hpp \
     gui/copyright_label.hpp \
+    gui/debug_label.hpp \
     gui/drape_gui.hpp \
     gui/gui_text.hpp \
     gui/layer_render.hpp \

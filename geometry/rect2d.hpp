@@ -288,6 +288,12 @@ namespace m2
   }
 
   template <typename T>
+  inline bool IsEqualSize(Rect<T> const & r1, Rect<T> const & r2, double epsX, double epsY)
+  {
+    return fabs(r1.SizeX() - r2.SizeX()) < epsX && fabs(r1.SizeY() - r2.SizeY()) < epsY;
+  }
+
+  template <typename T>
   inline m2::Rect<T> const Add(m2::Rect<T> const & r, m2::Point<T> const & p)
   {
     return m2::Rect<T>(

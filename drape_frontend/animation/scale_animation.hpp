@@ -10,7 +10,7 @@ class MapScaleAnimation : public Animation
 {
 public:
   MapScaleAnimation(double startScale, double endScale,
-                    m2::PointD const & globalScaleCenter, m2::PointD const & pixelCenterOffset);
+                    m2::PointD const & globalScaleCenter, m2::PointD const & pxScaleCenter);
 
   Animation::Type GetType() const override { return Animation::MapScale; }
 
@@ -41,7 +41,7 @@ private:
   bool GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const;
 
   ScaleInterpolator m_scaleInterpolator;
-  m2::PointD const m_pixelCenterOffset;
+  m2::PointD const m_pxScaleCenter;
   m2::PointD const m_globalScaleCenter;
   TObjectProperties m_properties;
   TAnimObjects m_objects;

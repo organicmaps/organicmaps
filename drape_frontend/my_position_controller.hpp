@@ -47,7 +47,7 @@ public:
                        bool isFirstLaunch, bool isRoutingActive);
   ~MyPositionController();
 
-  void OnNewPixelRect();
+  void OnNewViewportRect();
   void UpdatePixelPosition(ScreenBase const & screen);
   void SetListener(ref_ptr<Listener> listener);
 
@@ -153,8 +153,6 @@ private:
   double m_lastLocationTimestamp;
 
   m2::RectD m_pixelRect;
-  m2::PointD m_centerPixelPositionRouting;
-  m2::PointD m_centerPixelPosition;
   double m_positionYOffset;
 
   bool m_isVisible;

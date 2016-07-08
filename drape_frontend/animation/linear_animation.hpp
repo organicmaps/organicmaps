@@ -15,6 +15,7 @@ public:
   MapLinearAnimation();
 
   void SetMove(m2::PointD const & startPos, m2::PointD const & endPos, ScreenBase const & convertor);
+  void SetMove(m2::PointD const & startPos, m2::PointD const & endPos, m2::RectD const & viewportRect, double scale);
   void SetRotate(double startAngle, double endAngle);
   void SetScale(double startScale, double endScale);
 

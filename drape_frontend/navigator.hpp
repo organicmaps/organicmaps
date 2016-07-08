@@ -10,6 +10,8 @@
 namespace df
 {
 
+extern double const kDefault3dScale;
+
 /// Calculates screen parameters in navigation (dragging, scaling, etc.).
 class Navigator
 {
@@ -17,9 +19,10 @@ public:
   Navigator();
 
   void SetFromRect(m2::AnyRectD const & r);
-  void CenterViewport(m2::PointD const & p);
-  void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
   void SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale);
+  void SetFromScreen(ScreenBase const & screen);
+  void SetFromScreen(ScreenBase const & screen, uint32_t tileSize, double visualScale);
+  void CenterViewport(m2::PointD const & p);
 
   void OnSize(int w, int h);
 
@@ -43,7 +46,8 @@ public:
   void Scale(m2::PointD const & pixelScaleCenter, double factor);
   bool InAction() const;
 
-  void Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV);
+  void SetAutoPerspective(bool enable);
+  void Enable3dMode();
   void SetRotationIn3dMode(double rotationAngle);
   void Disable3dMode();
 
@@ -75,10 +79,10 @@ private:
 };
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect);
-void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale);
-void CheckMinGlobalRect(m2::RectD & rect);
+void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale, double scale3d = kDefault3dScale);
+void CheckMinGlobalRect(m2::RectD & rect, double scale3d = kDefault3dScale);
 
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, uint32_t tileSize, double visualScale);
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, uint32_t tileSize, double visualScale, double scale3d = kDefault3dScale);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, double scale3d = kDefault3dScale);
 
 }
