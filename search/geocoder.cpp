@@ -604,14 +604,17 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       m_lastMatchedRegion = nullptr;
       MatchRegions(ctx, REGION_TYPE_COUNTRY);
 
-      if (index < numIntersectingMaps || m_preRanker.IsEmpty())
+      if (index < numIntersectingMaps || m_preRanker.NumSentResults() == 0)
         MatchAroundPivot(ctx);
+
+      if (index + 1 >= numIntersectingMaps)
+        m_preRanker.UpdateResults(false /* lastUpdate */);
     };
 
     // Iterates through all alive mwms and performs geocoding.
     ForEachCountry(infos, processCountry);
 
-    m_preRanker.FinalizeResults();
+    m_preRanker.UpdateResults(true /* lastUpdate */);
   }
   catch (CancelException & e)
   {

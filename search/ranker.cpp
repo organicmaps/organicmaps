@@ -8,6 +8,7 @@
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/iterator.hpp"
 #include "std/unique_ptr.hpp"
 
 namespace search
@@ -129,6 +130,9 @@ public:
   }
 };
 }  // namespace
+
+// static
+size_t const Ranker::kBatchSize = 10;
 
 class PreResult2Maker
 {
@@ -284,10 +288,12 @@ Ranker::Ranker(Index const & index, storage::CountryInfoGetter const & infoGette
 {
 }
 
-void Ranker::Init(Params const & params)
+void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams)
 {
   m_params = params;
+  m_geocoderParams = geocoderParams;
   m_preResults1.clear();
+  m_leftovers.clear();
   m_results.Clear();
 }
 
@@ -477,56 +483,64 @@ void Ranker::ProcessSuggestions(vector<IndexedValue> & vec, Results & res) const
   }
 }
 
-void Ranker::FlushResults(Geocoder::Params const & params)
+void Ranker::UpdateResults(bool lastUpdate)
 {
-  vector<IndexedValue> values;
+  BailIfCancelled();
+
+  vector<IndexedValue> values = move(m_leftovers);
+  m_leftovers.clear();
   vector<FeatureID> streets;
-  MakePreResult2(params, values, streets);
+  MakePreResult2(m_geocoderParams, values, streets);
   RemoveDuplicatingLinear(values);
   if (values.empty())
     return;
 
-  sort(values.rbegin(), values.rend(), my::LessBy(&IndexedValue::GetRank));
-
-  ProcessSuggestions(values, m_results);
+  if (m_params.m_viewportSearch)
+  {
+    sort(values.begin(), values.end(), my::LessBy(&IndexedValue::GetDistanceToPivot));
+  }
+  else
+  {
+    sort(values.rbegin(), values.rend(), my::LessBy(&IndexedValue::GetRank));
+    ProcessSuggestions(values, m_results);
+  }
 
   // Emit feature results.
   size_t count = m_results.GetCount();
-  for (size_t i = 0; i < values.size() && count < m_params.m_limit; ++i)
+  size_t i;
+  for (i = 0; i < values.size(); ++i)
   {
+    if (!lastUpdate && i >= kBatchSize && !m_params.m_viewportSearch)
+      break;
     BailIfCancelled();
 
-    LOG(LDEBUG, (values[i]));
+    if (m_params.m_viewportSearch)
+    {
+      m_results.AddResultNoChecks(
+          (*(values[i]))
+              .GenerateFinalResult(m_infoGetter, &m_categories, &m_params.m_preferredTypes,
+                                   m_params.m_currentLocaleCode,
+                                   nullptr /* Viewport results don't need calculated address */));
+    }
+    else
+    {
+      if (count >= m_params.m_limit)
+        break;
 
-    auto const & preResult2 = *values[i];
-    if (m_results.AddResult(MakeResult(preResult2)))
-      ++count;
+      LOG(LDEBUG, (values[i]));
+
+      auto const & preResult2 = *values[i];
+      if (m_results.AddResult(MakeResult(preResult2)))
+        ++count;
+    }
   }
+  move(values.begin() + i, values.end(), back_inserter(m_leftovers));
+
+  m_preResults1.clear();
+  m_params.m_onResults(m_results);
 }
 
-void Ranker::FlushViewportResults(Geocoder::Params const & geocoderParams)
-{
-  vector<IndexedValue> values;
-  vector<FeatureID> streets;
-  MakePreResult2(geocoderParams, values, streets);
-  RemoveDuplicatingLinear(values);
-  if (values.empty())
-    return;
-
-  sort(values.begin(), values.end(), my::LessBy(&IndexedValue::GetDistanceToPivot));
-
-  for (size_t i = 0; i < values.size(); ++i)
-  {
-    BailIfCancelled();
-
-    m_results.AddResultNoChecks(
-        (*(values[i]))
-            .GenerateFinalResult(m_infoGetter, &m_categories, &m_params.m_preferredTypes,
-                                 m_params.m_currentLocaleCode,
-                                 nullptr /* Viewport results don't need calculated address */));
-  }
-}
-
+void Ranker::FlushResults() { UpdateResults(true /* lastUpdate */); }
 void Ranker::ClearCaches()
 {
   m_locality.ClearCache();

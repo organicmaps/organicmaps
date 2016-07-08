@@ -46,12 +46,15 @@ struct ComparePreResult1
 };
 }  // namespace
 
+// static
+size_t const PreRanker::kBatchSize = 100;
+
 PreRanker::PreRanker(Index const & index, Ranker & ranker, size_t limit)
   : m_index(index), m_ranker(ranker), m_limit(limit), m_pivotFeatures(index)
 {
 }
 
-void PreRanker::FillMissingFieldsInResults()
+void PreRanker::FillMissingFieldsInPreResults()
 {
   MwmSet::MwmId mwmId;
   MwmSet::MwmHandle mwmHandle;
@@ -76,7 +79,7 @@ void PreRanker::FillMissingFieldsInResults()
     info.m_rank = rankTable->Get(id.m_index);
   });
 
-  if (Size() <= Limit())
+  if (Size() <= kBatchSize)
     return;
 
   m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
@@ -99,7 +102,7 @@ void PreRanker::Filter(bool viewportSearch)
 
   sort(m_results.begin(), m_results.end(), &PreResult1::LessDistance);
 
-  if (m_limit != 0 && m_results.size() > m_limit)
+  if (m_results.size() > kBatchSize)
   {
     // Priority is some kind of distance from the viewport or
     // position, therefore if we have a bunch of results with the same
@@ -108,15 +111,15 @@ void PreRanker::Filter(bool viewportSearch)
     // feature id) this code randomly selects tail of the
     // sorted-by-priority list of pre-results.
 
-    double const last = m_results[m_limit - 1].GetDistance();
+    double const last = m_results[kBatchSize - 1].GetDistance();
 
-    auto b = m_results.begin() + m_limit - 1;
+    auto b = m_results.begin() + kBatchSize - 1;
     for (; b != m_results.begin() && b->GetDistance() == last; --b)
       ;
     if (b->GetDistance() != last)
       ++b;
 
-    auto e = m_results.begin() + m_limit;
+    auto e = m_results.begin() + kBatchSize;
     for (; e != m_results.end() && e->GetDistance() == last; ++e)
       ;
 
@@ -132,11 +135,11 @@ void PreRanker::Filter(bool viewportSearch)
     minstd_rand engine;
     shuffle(b, e, engine);
   }
-  filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), m_limit));
+  filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), kBatchSize));
 
   if (!viewportSearch)
   {
-    size_t n = min(m_results.size(), m_limit);
+    size_t n = min(m_results.size(), kBatchSize);
     nth_element(m_results.begin(), m_results.begin() + n, m_results.end(), &PreResult1::LessRank);
     filtered.insert(m_results.begin(), m_results.begin() + n);
   }
@@ -146,12 +149,14 @@ void PreRanker::Filter(bool viewportSearch)
   copy(filtered.begin(), filtered.end(), back_inserter(m_results));
 }
 
-void PreRanker::FinalizeResults()
+void PreRanker::UpdateResults(bool lastUpdate)
 {
-  FillMissingFieldsInResults();
+  FillMissingFieldsInPreResults();
   Filter(m_viewportSearch);
+  m_numSentResults += m_results.size();
   m_ranker.SetPreResults1(move(m_results));
   m_results.clear();
+  m_ranker.UpdateResults(lastUpdate);
 }
 
 void PreRanker::ClearCaches() { m_pivotFeatures.Clear(); }

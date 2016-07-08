@@ -100,7 +100,7 @@ public:
   void InitParams(QueryParams & params);
   void InitGeocoder(Geocoder::Params & params);
   void InitPreRanker(Geocoder::Params const & geocoderParams);
-  void InitRanker();
+  void InitRanker(Geocoder::Params const & geocoderParams);
 
   void ClearCaches();
 

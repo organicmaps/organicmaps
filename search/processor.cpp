@@ -165,7 +165,6 @@ void Processor::Init(bool viewportSearch)
 {
   m_tokens.clear();
   m_prefix.clear();
-  m_preRanker.Clear();
   m_preRanker.SetViewportSearch(viewportSearch);
 }
 
@@ -407,7 +406,7 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
   InitGeocoder(geocoderParams);
 
   InitPreRanker(geocoderParams);
-  InitRanker();
+  InitRanker(geocoderParams);
 
   try
   {
@@ -426,7 +425,6 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
     if (viewportSearch)
     {
       m_geocoder.GoInViewport();
-      m_ranker.FlushViewportResults(geocoderParams);
     }
     else
     {
@@ -434,8 +432,9 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
         m_ranker.SuggestStrings(m_ranker.GetResults());
 
       m_geocoder.GoEverywhere();
-      m_ranker.FlushResults(geocoderParams);
     }
+
+    m_ranker.FlushResults();
 
     if (!IsCancelled())
       params.m_onResults(m_ranker.GetResults());
@@ -688,7 +687,7 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams)
   m_preRanker.Init(params);
 }
 
-void Processor::InitRanker()
+void Processor::InitRanker(Geocoder::Params const & geocoderParams)
 {
   size_t const kResultsCount = 30;
   bool const viewportSearch = m_mode == Mode::Viewport;
@@ -713,8 +712,9 @@ void Processor::InitRanker()
   params.m_prefix = m_prefix;
   params.m_categoryLocales = GetCategoryLocales();
   params.m_accuratePivotCenter = GetPivotPoint();
+  params.m_viewportSearch = viewportSearch;
   params.m_onResults = m_onResults;
-  m_ranker.Init(params);
+  m_ranker.Init(params, geocoderParams);
 }
 
 void Processor::ClearCaches()

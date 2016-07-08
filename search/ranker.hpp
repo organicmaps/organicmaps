@@ -49,6 +49,7 @@ public:
     string m_pivotRegion;
     set<uint32_t> m_preferredTypes;
     bool m_suggestsEnabled = false;
+    bool m_viewportSearch = false;
 
     string m_query;
     buffer_vector<strings::UniString, 32> m_tokens;
@@ -64,11 +65,13 @@ public:
     TOnResults m_onResults;
   };
 
+  static size_t const kBatchSize;
+
   Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
          CategoriesHolder const & categories, vector<Suggest> const & suggests,
          my::Cancellable const & cancellable);
 
-  void Init(Params const & params);
+  void Init(Params const & params, Geocoder::Params const & geocoderParams);
 
   inline void SetAccuratePivotCenter(m2::PointD const & center)
   {
@@ -91,8 +94,8 @@ public:
   void ProcessSuggestions(vector<IndexedValue> & vec, Results & res) const;
 
   Results & GetResults() { return m_results; }
-  void FlushResults(Geocoder::Params const & geocoderParams);
-  void FlushViewportResults(Geocoder::Params const & geocoderParams);
+  void UpdateResults(bool lastUpdate);
+  void FlushResults();
 
   void SetPreResults1(vector<PreResult1> && preResults1) { m_preResults1 = move(preResults1); }
   void ClearCaches();
@@ -126,6 +129,7 @@ private:
   friend class PreResult2Maker;
 
   Params m_params;
+  Geocoder::Params m_geocoderParams;
   ReverseGeocoder const m_reverseGeocoder;
   my::Cancellable const & m_cancellable;
   KeywordLangMatcher m_keywordsScorer;
@@ -138,6 +142,7 @@ private:
   vector<Suggest> const & m_suggests;
 
   vector<PreResult1> m_preResults1;
+  vector<IndexedValue> m_leftovers;
   Results m_results;
 };
 }  // namespace search

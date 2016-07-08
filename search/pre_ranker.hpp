@@ -34,9 +34,16 @@ public:
     int m_scale = 0;
   };
 
+  static size_t const kBatchSize;
+
   PreRanker(Index const & index, Ranker & ranker, size_t limit);
 
-  inline void Init(Params const & params) { m_params = params; }
+  inline void Init(Params const & params)
+  {
+    m_numSentResults = 0;
+    m_params = params;
+  }
+
   inline void SetViewportSearch(bool viewportSearch) { m_viewportSearch = viewportSearch; }
   inline void SetAccuratePivotCenter(m2::PointD const & center)
   {
@@ -46,22 +53,24 @@ public:
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
   {
+    if (m_numSentResults >= m_limit)
+      return;
     m_results.emplace_back(forward<TArgs>(args)...);
   }
 
-  // Computes missing fields for all results.
-  void FillMissingFieldsInResults();
+  // Computes missing fields for all pre-results.
+  void FillMissingFieldsInPreResults();
 
   void Filter(bool viewportSearch);
 
-  // This function is used in geocoder to indicate that
+  // Emit a new batch of results up the pipeline (i.e. to ranker).
+  // Use lastUpdate in geocoder to indicate that
   // no more results will be added.
-  void FinalizeResults();
+  void UpdateResults(bool lastUpdate);
 
   inline size_t Size() const { return m_results.size(); }
+  inline size_t NumSentResults() const { return m_numSentResults; }
   inline size_t Limit() const { return m_limit; }
-  inline bool IsEmpty() const { return Size() == 0; }
-  inline void Clear() { m_results.clear(); };
 
   template <typename TFn>
   void ForEach(TFn && fn)
@@ -78,6 +87,9 @@ private:
   size_t const m_limit;
   Params m_params;
   bool m_viewportSearch = false;
+
+  // Amount of results sent up the pipeline.
+  size_t m_numSentResults = 0;
 
   // Cache of nested rects used to estimate distance from a feature to the pivot.
   NestedRectsCache m_pivotFeatures;
