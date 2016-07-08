@@ -225,12 +225,7 @@ void Editor::LoadMapEdits()
             if (!originalFeaturePtr)
             {
               LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
-              // TODO: alohalytics::LogEvent in this function leads to a linker error
-              // with complains on alohalytics::Stats::Instance() reference is missing.
-              // The problem remains even when the whole code but alohalytics::LogEvent
-              // is removed in this function. There are no problems with this call in
-              // other functions.
-              // alohalytics::LogEvent("Editor_MissingFeature_Error");
+              alohalytics::LogEvent("Editor_MissingFeature_Error");
               goto SECTION_END;
             }
 
