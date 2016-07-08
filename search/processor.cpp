@@ -406,7 +406,7 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
   SetOnResults(params.m_onResults);
 
   Geocoder::Params geocoderParams;
-  InitGeocoderParams(geocoderParams);
+  InitGeocoder(geocoderParams);
 
   InitPreRanker();
   InitRanker();
@@ -668,7 +668,7 @@ void Processor::InitParams(QueryParams & params)
     params.m_langs.insert(GetLanguage(i));
 }
 
-void Processor::InitGeocoderParams(Geocoder::Params & params)
+void Processor::InitGeocoder(Geocoder::Params & params)
 {
   bool const viewportSearch = m_mode == Mode::Viewport;
 
@@ -699,11 +699,11 @@ void Processor::InitRanker()
   if (viewportSearch)
   {
     params.m_viewport = GetViewport();
-    params.m_limit = kResultsCount;
+    params.m_limit = kPreResultsCount;
   }
   else
   {
-    params.m_limit = numeric_limits<size_t>::max();
+    params.m_limit = kResultsCount;
   }
   params.m_position = GetPosition();
   params.m_pivotRegion = GetPivotRegion();

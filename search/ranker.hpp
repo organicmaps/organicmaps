@@ -65,7 +65,7 @@ public:
 
     TLocales m_categoryLocales;
 
-    size_t m_limit;
+    size_t m_limit = 0;
     TOnResults m_onResults;
   };
 

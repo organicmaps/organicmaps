@@ -98,7 +98,7 @@ public:
   void SearchCoordinates(Results & res) const;
 
   void InitParams(QueryParams & params);
-  void InitGeocoderParams(Geocoder::Params & params);
+  void InitGeocoder(Geocoder::Params & params);
   void InitPreRanker();
   void InitRanker();
 
