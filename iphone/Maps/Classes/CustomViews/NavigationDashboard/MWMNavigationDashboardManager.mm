@@ -1,13 +1,13 @@
+#import "MWMNavigationDashboardManager.h"
 #import "Common.h"
-#import "Macros.h"
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
 #import "MWMLocationHelpers.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePreview.h"
 #import "MWMRouter.h"
 #import "MWMTextToSpeech.h"
+#import "Macros.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 namespace
@@ -18,18 +18,18 @@ NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
 
 @interface MWMMapViewControlsManager ()
 
-@property (nonatomic) MWMNavigationDashboardManager * navigationManager;
+@property(nonatomic) MWMNavigationDashboardManager * navigationManager;
 
 @end
 
 @interface MWMNavigationDashboardManager ()
 
-@property (nonatomic, readwrite) IBOutlet MWMRoutePreview * routePreview;
+@property(nonatomic, readwrite) IBOutlet MWMRoutePreview * routePreview;
 
-@property (weak, nonatomic) UIView * ownerView;
-@property (weak, nonatomic) id<MWMNavigationDashboardInfoProtocol> infoDisplay;
+@property(weak, nonatomic) UIView * ownerView;
+@property(weak, nonatomic) id<MWMNavigationDashboardInfoProtocol> infoDisplay;
 
-@property (nonatomic) MWMNavigationDashboardEntity * entity;
+@property(nonatomic) MWMNavigationDashboardEntity * entity;
 
 @end
 
@@ -40,7 +40,9 @@ NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
   return [MWMMapViewControlsManager manager].navigationManager;
 }
 
-- (instancetype)initWithParentView:(UIView *)view infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate
+- (instancetype)initWithParentView:(UIView *)view
+                       infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay
+                          delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate
 {
   self = [super init];
   if (self)
@@ -90,18 +92,10 @@ NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
 
 #pragma mark - MWMNavigationGo
 
-- (IBAction)routingStartTouchUpInside
-{
-  [[MWMRouter router] start];
-}
-
+- (IBAction)routingStartTouchUpInside { [[MWMRouter router] start]; }
 #pragma mark - State changes
 
-- (void)hideState
-{
-  [self.routePreview remove];
-}
-
+- (void)hideState { [self.routePreview remove]; }
 - (void)showStatePrepare
 {
   [self.routePreview addToView:self.ownerView];
@@ -129,11 +123,7 @@ NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
   [self.routePreview remove];
 }
 
-- (void)mwm_refreshUI
-{
-  [self.routePreview mwm_refreshUI];
-}
-
+- (void)mwm_refreshUI { [self.routePreview mwm_refreshUI]; }
 #pragma mark - Properties
 
 - (void)setState:(MWMNavigationDashboardState)state
@@ -142,47 +132,32 @@ NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
     return;
   switch (state)
   {
-  case MWMNavigationDashboardStateHidden:
-    [self hideState];
-    break;
-  case MWMNavigationDashboardStatePrepare:
-    [self showStatePrepare];
-    break;
-  case MWMNavigationDashboardStatePlanning:
-    [self showStatePlanning];
-    break;
+  case MWMNavigationDashboardStateHidden: [self hideState]; break;
+  case MWMNavigationDashboardStatePrepare: [self showStatePrepare]; break;
+  case MWMNavigationDashboardStatePlanning: [self showStatePlanning]; break;
   case MWMNavigationDashboardStateError:
-    NSAssert(_state == MWMNavigationDashboardStatePlanning || _state == MWMNavigationDashboardStateReady, @"Invalid state change (error)");
+    NSAssert(
+        _state == MWMNavigationDashboardStatePlanning || _state == MWMNavigationDashboardStateReady,
+        @"Invalid state change (error)");
     [self handleError];
     break;
   case MWMNavigationDashboardStateReady:
     NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (ready)");
     [self showStateReady];
     break;
-  case MWMNavigationDashboardStateNavigation:
-    [self showStateNavigation];
-    break;
+  case MWMNavigationDashboardStateNavigation: [self showStateNavigation]; break;
   }
   _state = state;
   [[MapViewController controller] updateStatusBarStyle];
 }
 
-- (void)setTopBound:(CGFloat)topBound
-{
-  _topBound = self.routePreview.topBound = topBound;
-}
-
-- (void)setLeftBound:(CGFloat)leftBound
-{
-  _leftBound = self.routePreview.leftBound = leftBound;
-}
-
+- (void)setTopBound:(CGFloat)topBound { _topBound = self.routePreview.topBound = topBound; }
+- (void)setLeftBound:(CGFloat)leftBound { _leftBound = self.routePreview.leftBound = leftBound; }
 - (CGFloat)height
 {
   switch (self.state)
   {
-  case MWMNavigationDashboardStateHidden:
-    return 0.0;
+  case MWMNavigationDashboardStateHidden: return 0.0;
   case MWMNavigationDashboardStatePlanning:
   case MWMNavigationDashboardStateReady:
   case MWMNavigationDashboardStateError:
@@ -191,7 +166,7 @@ NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
       return self.topBound;
     return self.routePreview.visibleHeight;
   case MWMNavigationDashboardStateNavigation:
-    return 0.0; // TODO: Replace with real value
+    return 0.0;  // TODO: Replace with real value
   }
 }
 
@@ -224,7 +199,9 @@ NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
 {
   if (!_routePreview)
   {
-    [NSBundle.mainBundle loadNibNamed:IPAD ? kRoutePreviewIPADXibName : kRoutePreviewXibName owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:IPAD ? kRoutePreviewIPADXibName : kRoutePreviewXibName
+                                owner:self
+                              options:nil];
     _routePreview.dashboardManager = self;
     _routePreview.delegate = self.delegate;
   }

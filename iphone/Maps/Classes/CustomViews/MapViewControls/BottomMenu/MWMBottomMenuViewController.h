@@ -15,7 +15,7 @@
 
 @end
 
-@interface MWMBottomMenuViewController : UIViewController <MWMNavigationDashboardInfoProtocol>
+@interface MWMBottomMenuViewController : UIViewController<MWMNavigationDashboardInfoProtocol>
 
 @property(nonatomic) MWMBottomMenuState state;
 @property(weak, nonatomic) IBOutlet MWMButton * p2pButton;

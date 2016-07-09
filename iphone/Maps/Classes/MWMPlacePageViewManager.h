@@ -6,12 +6,12 @@
 
 @interface MWMPlacePageViewManager : NSObject
 
-@property (weak, nonatomic, readonly) MWMViewController * ownerViewController;
-@property (nonatomic, readonly) MWMPlacePageEntity * entity;
-@property (nonatomic) MWMPlacePageNavigationBar * iPhoneNavigationBar;
-@property (nonatomic) CGFloat topBound;
-@property (nonatomic) CGFloat leftBound;
-@property (nonatomic, readonly) BOOL isDirectionViewShown;
+@property(weak, nonatomic, readonly) MWMViewController * ownerViewController;
+@property(nonatomic, readonly) MWMPlacePageEntity * entity;
+@property(nonatomic) MWMPlacePageNavigationBar * iPhoneNavigationBar;
+@property(nonatomic) CGFloat topBound;
+@property(nonatomic) CGFloat leftBound;
+@property(nonatomic, readonly) BOOL isDirectionViewShown;
 
 - (instancetype)initWithViewController:(MWMViewController *)viewController;
 - (void)showPlacePage:(place_page::Info const &)info;

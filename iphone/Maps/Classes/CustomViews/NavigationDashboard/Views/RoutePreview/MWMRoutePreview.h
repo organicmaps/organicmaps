@@ -1,15 +1,15 @@
+#import "MWMCircularProgress.h"
 #import "MWMNavigationView.h"
 
 #include "routing/router.hpp"
 
 @class MWMNavigationDashboardEntity;
 @class MWMNavigationDashboardManager;
-@class MWMCircularProgress;
 
 @interface MWMRoutePreview : MWMNavigationView
 
-@property (weak, nonatomic, readonly) IBOutlet UIButton * extendButton;
-@property (weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;
+@property(weak, nonatomic, readonly) IBOutlet UIButton * extendButton;
+@property(weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;
 
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
 - (void)statePrepare;

@@ -1,14 +1,14 @@
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
+#import "MWMRouter.h"
 #import "MWMAlertViewController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager.h"
-#import "MWMRouter.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "RouteState.h"
 #import "Statistics.h"
 
@@ -33,10 +33,7 @@ MWMRoutePoint lastLocationPoint()
   return lastLocation ? MWMRoutePoint(lastLocation.mercator) : MWMRoutePoint::MWMRoutePointZero();
 }
 
-bool isMarkerPoint(MWMRoutePoint const & point)
-{
-  return point.IsValid() && !point.IsMyPosition();
-}
+bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !point.IsMyPosition(); }
 }  // namespace
 
 @interface MWMRouter ()<MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
@@ -88,7 +85,6 @@ bool isMarkerPoint(MWMRoutePoint const & point)
 }
 
 - (RouterType)type { return GetFramework().GetRouter(); }
-
 - (BOOL)arePointsValidForRouting
 {
   MWMRoutePoint const zeroPoint = MWMRoutePoint::MWMRoutePointZero();
@@ -119,7 +115,9 @@ bool isMarkerPoint(MWMRoutePoint const & point)
   [self rebuildWithBestRouter:bestRouter];
 }
 
-- (void)buildFromPoint:(MWMRoutePoint const &)startPoint toPoint:(MWMRoutePoint const &)finishPoint bestRouter:(BOOL)bestRouter
+- (void)buildFromPoint:(MWMRoutePoint const &)startPoint
+               toPoint:(MWMRoutePoint const &)finishPoint
+            bestRouter:(BOOL)bestRouter
 {
   self.startPoint = startPoint.IsValid() ? startPoint : lastLocationPoint();
   self.finishPoint = finishPoint.IsValid() ? finishPoint : lastLocationPoint();

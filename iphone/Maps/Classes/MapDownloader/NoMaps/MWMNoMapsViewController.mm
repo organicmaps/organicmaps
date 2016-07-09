@@ -1,5 +1,5 @@
-#import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"
+#import "MWMMapViewControlsManager.h"
 
 @implementation MWMNoMapsViewController
 

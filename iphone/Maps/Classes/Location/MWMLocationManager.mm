@@ -1,9 +1,9 @@
+#import "MWMLocationManager.h"
 #import "Common.h"
-#import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
 #import "MWMController.h"
-#import "MWMLocationManager.h"
 #import "MWMLocationPredictor.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -132,31 +132,31 @@ BOOL keepRunningInBackground()
 
 void sendInfoToFramework(dispatch_block_t block)
 {
-  MapsAppDelegate * delegate = static_cast<MapsAppDelegate *>(UIApplication.sharedApplication.delegate);
+  MapsAppDelegate * delegate =
+      static_cast<MapsAppDelegate *>(UIApplication.sharedApplication.delegate);
   if (delegate.isDrapeEngineCreated)
   {
     block();
   }
   else
   {
-    runAsyncOnMainQueue(^
-    {
+    runAsyncOnMainQueue(^{
       sendInfoToFramework(block);
     });
   }
 }
 }  // namespace
 
-@interface MWMLocationManager () <CLLocationManagerDelegate>
+@interface MWMLocationManager ()<CLLocationManagerDelegate>
 
-@property (nonatomic) BOOL started;
-@property (nonatomic) CLLocationManager * locationManager;
-@property (nonatomic) GeoMode geoMode;
-@property (nonatomic) CLHeading * lastHeadingInfo;
-@property (nonatomic) CLLocation * lastLocationInfo;
-@property (nonatomic) location::TLocationError lastLocationStatus;
-@property (nonatomic) MWMLocationPredictor * predictor;
-@property (nonatomic) TObservers * observers;
+@property(nonatomic) BOOL started;
+@property(nonatomic) CLLocationManager * locationManager;
+@property(nonatomic) GeoMode geoMode;
+@property(nonatomic) CLHeading * lastHeadingInfo;
+@property(nonatomic) CLLocation * lastLocationInfo;
+@property(nonatomic) location::TLocationError lastLocationStatus;
+@property(nonatomic) MWMLocationPredictor * predictor;
+@property(nonatomic) TObservers * observers;
 
 @end
 
@@ -168,7 +168,9 @@ void sendInfoToFramework(dispatch_block_t block)
 {
   static MWMLocationManager * manager;
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{ manager = [[super alloc] initManager]; });
+  dispatch_once(&onceToken, ^{
+    manager = [[super alloc] initManager];
+  });
   return manager;
 }
 
@@ -184,8 +186,7 @@ void sendInfoToFramework(dispatch_block_t block)
 
 + (void)addObserver:(TObserver)observer
 {
-  runAsyncOnMainQueue(^
-  {
+  runAsyncOnMainQueue(^{
     MWMLocationManager * manager = [MWMLocationManager manager];
     [manager.observers addObject:observer];
     [manager processLocationUpdate:manager.lastLocationInfo];
@@ -194,8 +195,7 @@ void sendInfoToFramework(dispatch_block_t block)
 
 + (void)removeObserver:(TObserver)observer
 {
-  runAsyncOnMainQueue(^
-  {
+  runAsyncOnMainQueue(^{
     [[MWMLocationManager manager].observers removeObject:observer];
   });
 }
@@ -247,11 +247,10 @@ void sendInfoToFramework(dispatch_block_t block)
 
 - (void)processLocationStatus:(location::TLocationError)locationError
 {
-//  if (self.lastLocationStatus == locationError)
-//    return;
+  //  if (self.lastLocationStatus == locationError)
+  //    return;
   self.lastLocationStatus = locationError;
-  sendInfoToFramework(^
-  {
+  sendInfoToFramework(^{
     if (self.lastLocationStatus != location::TLocationError::ENoError)
       GetFramework().OnLocationError(self.lastLocationStatus);
   });
@@ -265,8 +264,7 @@ void sendInfoToFramework(dispatch_block_t block)
 - (void)processHeadingUpdate:(CLHeading *)headingInfo
 {
   self.lastHeadingInfo = headingInfo;
-  sendInfoToFramework(^
-  {
+  sendInfoToFramework(^{
     GetFramework().OnCompassUpdate(compassInfoFromHeading(self.lastHeadingInfo));
   });
   location::CompassInfo const compassInfo = compassInfoFromHeading(headingInfo);
@@ -293,10 +291,7 @@ void sendInfoToFramework(dispatch_block_t block)
 - (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo
 {
   GpsTracker::Instance().OnLocationUpdated(gpsInfo);
-  sendInfoToFramework([gpsInfo]
-  {
-    GetFramework().OnLocationUpdate(gpsInfo);
-  });
+  sendInfoToFramework([gpsInfo] { GetFramework().OnLocationUpdate(gpsInfo); });
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
@@ -311,17 +306,16 @@ void sendInfoToFramework(dispatch_block_t block)
   _lastLocationStatus = lastLocationStatus;
   switch (lastLocationStatus)
   {
-    case location::ENoError:
-      break;
-    case location::ENotSupported:
-      [[MWMAlertViewController activeAlertController] presentLocationServiceNotSupportedAlert];
-      break;
-    case location::EDenied:
-      [[MWMAlertViewController activeAlertController] presentLocationAlert];
-      break;
-    case location::EGPSIsOff:
-      // iOS shows its own alert.
-      break;
+  case location::ENoError: break;
+  case location::ENotSupported:
+    [[MWMAlertViewController activeAlertController] presentLocationServiceNotSupportedAlert];
+    break;
+  case location::EDenied:
+    [[MWMAlertViewController activeAlertController] presentLocationAlert];
+    break;
+  case location::EGPSIsOff:
+    // iOS shows its own alert.
+    break;
   }
 }
 
@@ -337,34 +331,22 @@ void sendInfoToFramework(dispatch_block_t block)
   {
     switch (f.GetRouter())
     {
-      case routing::RouterType::Vehicle:
-        manager.geoMode = GeoMode::VehicleRouting;
-        break;
-      case routing::RouterType::Pedestrian:
-        manager.geoMode = GeoMode::PedestrianRouting;
-        break;
-      case routing::RouterType::Bicycle:
-        manager.geoMode = GeoMode::BicycleRouting;
-        break;
+    case routing::RouterType::Vehicle: manager.geoMode = GeoMode::VehicleRouting; break;
+    case routing::RouterType::Pedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
+    case routing::RouterType::Bicycle: manager.geoMode = GeoMode::BicycleRouting; break;
     }
   }
   else
   {
     switch (mode)
     {
-      case location::EMyPositionMode::PendingPosition:
-        manager.geoMode = GeoMode::Pending;
-        break;
-      case location::EMyPositionMode::NotFollowNoPosition:
-      case location::EMyPositionMode::NotFollow:
-        manager.geoMode = GeoMode::NotInPosition;
-        break;
-      case location::EMyPositionMode::Follow:
-        manager.geoMode = GeoMode::InPosition;
-        break;
-      case location::EMyPositionMode::FollowAndRotate:
-        manager.geoMode = GeoMode::FollowAndRotate;
-        break;
+    case location::EMyPositionMode::PendingPosition: manager.geoMode = GeoMode::Pending; break;
+    case location::EMyPositionMode::NotFollowNoPosition:
+    case location::EMyPositionMode::NotFollow: manager.geoMode = GeoMode::NotInPosition; break;
+    case location::EMyPositionMode::Follow: manager.geoMode = GeoMode::InPosition; break;
+    case location::EMyPositionMode::FollowAndRotate:
+      manager.geoMode = GeoMode::FollowAndRotate;
+      break;
     }
   }
 }
@@ -376,10 +358,10 @@ void sendInfoToFramework(dispatch_block_t block)
   if (!_predictor)
   {
     __weak MWMLocationManager * weakSelf = self;
-    _predictor = [[MWMLocationPredictor alloc] initWithOnPredictionBlock:^(location::GpsInfo const & gpsInfo)
-    {
-      [weakSelf onLocationUpdate:gpsInfo];
-    }];
+    _predictor = [[MWMLocationPredictor alloc]
+        initWithOnPredictionBlock:^(location::GpsInfo const & gpsInfo) {
+          [weakSelf onLocationUpdate:gpsInfo];
+        }];
   }
   return _predictor;
 }
@@ -388,7 +370,8 @@ void sendInfoToFramework(dispatch_block_t block)
 
 - (void)orientationChanged
 {
-  self.locationManager.headingOrientation = (CLDeviceOrientation)[UIDevice currentDevice].orientation;
+  self.locationManager.headingOrientation =
+      (CLDeviceOrientation)[UIDevice currentDevice].orientation;
 }
 
 - (void)batteryStateChangedNotification:(NSNotification *)notification
@@ -406,19 +389,15 @@ void sendInfoToFramework(dispatch_block_t block)
   CLLocationManager * locationManager = self.locationManager;
   switch (geoMode)
   {
-    case GeoMode::Pending:
-    case GeoMode::InPosition:
-    case GeoMode::NotInPosition:
-    case GeoMode::FollowAndRotate:
-      locationManager.activityType = CLActivityTypeOther;
-      break;
-    case GeoMode::VehicleRouting:
-      locationManager.activityType = CLActivityTypeAutomotiveNavigation;
-      break;
-    case GeoMode::PedestrianRouting:
-    case GeoMode::BicycleRouting:
-      locationManager.activityType = CLActivityTypeFitness;
-      break;
+  case GeoMode::Pending:
+  case GeoMode::InPosition:
+  case GeoMode::NotInPosition:
+  case GeoMode::FollowAndRotate: locationManager.activityType = CLActivityTypeOther; break;
+  case GeoMode::VehicleRouting:
+    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
+    break;
+  case GeoMode::PedestrianRouting:
+  case GeoMode::BicycleRouting: locationManager.activityType = CLActivityTypeFitness; break;
   }
   [self refreshGeoModeSettings];
 }
@@ -426,10 +405,12 @@ void sendInfoToFramework(dispatch_block_t block)
 - (void)refreshGeoModeSettings
 {
   UIDeviceBatteryState const state = [UIDevice currentDevice].batteryState;
-  BOOL const isCharging = (state == UIDeviceBatteryStateCharging || state == UIDeviceBatteryStateFull);
+  BOOL const isCharging =
+      (state == UIDeviceBatteryStateCharging || state == UIDeviceBatteryStateFull);
   GeoModeSettings const settings = kGeoSettings.at(self.geoMode);
   CLLocationManager * locationManager = self.locationManager;
-  locationManager.desiredAccuracy = isCharging ? settings.accuracy.charging : settings.accuracy.battery;
+  locationManager.desiredAccuracy =
+      isCharging ? settings.accuracy.charging : settings.accuracy.battery;
   locationManager.distanceFilter = settings.distanceFilter;
 }
 
@@ -453,7 +434,8 @@ void sendInfoToFramework(dispatch_block_t block)
   [self processHeadingUpdate:heading];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
   CLLocation * location = locations.lastObject;
   // According to documentation, lat and lon are valid only if horizontalAccuracy is non-negative.
@@ -482,23 +464,32 @@ void sendInfoToFramework(dispatch_block_t block)
   {
     _started = [self start];
     device.batteryMonitoringEnabled = YES;
-    [notificationCenter addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
-    [notificationCenter addObserver:self selector:@selector(batteryStateChangedNotification:) name:UIDeviceBatteryStateDidChangeNotification object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(orientationChanged)
+                               name:UIDeviceOrientationDidChangeNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(batteryStateChangedNotification:)
+                               name:UIDeviceBatteryStateDidChangeNotification
+                             object:nil];
   }
   else
   {
     _started = NO;
     [self stop];
     device.batteryMonitoringEnabled = NO;
-    [notificationCenter removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-    [notificationCenter removeObserver:self name:UIDeviceBatteryStateDidChangeNotification object:nil];
+    [notificationCenter removeObserver:self
+                                  name:UIDeviceOrientationDidChangeNotification
+                                object:nil];
+    [notificationCenter removeObserver:self
+                                  name:UIDeviceBatteryStateDidChangeNotification
+                                object:nil];
   }
 }
 
 - (BOOL)start
 {
-  auto const doStart = ^
-  {
+  auto const doStart = ^{
     LOG(LINFO, ("startUpdatingLocation"));
     CLLocationManager * locationManager = self.locationManager;
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
@@ -511,15 +502,11 @@ void sendInfoToFramework(dispatch_block_t block)
   {
     switch ([CLLocationManager authorizationStatus])
     {
-      case kCLAuthorizationStatusAuthorizedWhenInUse:
-      case kCLAuthorizationStatusAuthorizedAlways:
-      case kCLAuthorizationStatusNotDetermined:
-        doStart();
-        return YES;
-      case kCLAuthorizationStatusRestricted:
-      case kCLAuthorizationStatusDenied:
-        [self processLocationStatus:location::EDenied];
-        break;
+    case kCLAuthorizationStatusAuthorizedWhenInUse:
+    case kCLAuthorizationStatusAuthorizedAlways:
+    case kCLAuthorizationStatusNotDetermined: doStart(); return YES;
+    case kCLAuthorizationStatusRestricted:
+    case kCLAuthorizationStatusDenied: [self processLocationStatus:location::EDenied]; break;
     }
   }
   else

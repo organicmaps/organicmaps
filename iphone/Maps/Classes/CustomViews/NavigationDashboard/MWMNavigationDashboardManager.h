@@ -8,8 +8,7 @@
 #include "Framework.h"
 #include "platform/location.hpp"
 
-typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
-{
+typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
   MWMNavigationDashboardStateHidden,
   MWMNavigationDashboardStatePrepare,
   MWMNavigationDashboardStatePlanning,
@@ -24,27 +23,29 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 
 @end
 
-@protocol MWMNavigationDashboardManagerProtocol <MWMNavigationViewProtocol>
+@protocol MWMNavigationDashboardManagerProtocol<MWMNavigationViewProtocol>
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource;
 - (void)setMenuState:(MWMBottomMenuState)menuState;
 
 @end
 
-@interface MWMNavigationDashboardManager : NSObject <MWMLocationObserver>
+@interface MWMNavigationDashboardManager : NSObject<MWMLocationObserver>
 
 + (MWMNavigationDashboardManager *)manager;
 
-@property (nonatomic, readonly) MWMNavigationDashboardEntity * entity;
-@property (nonatomic, readonly) MWMRoutePreview * routePreview;
-@property (nonatomic) MWMNavigationDashboardState state;
-@property (weak, nonatomic, readonly) id<MWMNavigationDashboardManagerProtocol> delegate;
-@property (nonatomic) CGFloat topBound;
-@property (nonatomic) CGFloat leftBound;
-@property (nonatomic, readonly) CGFloat height;
+@property(nonatomic, readonly) MWMNavigationDashboardEntity * entity;
+@property(nonatomic, readonly) MWMRoutePreview * routePreview;
+@property(nonatomic) MWMNavigationDashboardState state;
+@property(weak, nonatomic, readonly) id<MWMNavigationDashboardManagerProtocol> delegate;
+@property(nonatomic) CGFloat topBound;
+@property(nonatomic) CGFloat leftBound;
+@property(nonatomic, readonly) CGFloat height;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
-- (instancetype)initWithParentView:(UIView *)view infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate;
+- (instancetype)initWithParentView:(UIView *)view
+                       infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay
+                          delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate;
 - (void)updateFollowingInfo:(location::FollowingInfo const &)info;
 - (void)updateDashboard;
 - (void)setRouteBuilderProgress:(CGFloat)progress;

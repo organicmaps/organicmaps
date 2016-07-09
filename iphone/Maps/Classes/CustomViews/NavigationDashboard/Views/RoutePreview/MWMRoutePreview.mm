@@ -1,9 +1,9 @@
+#import "MWMRoutePreview.h"
 #import "Common.h"
 #import "MWMCircularProgress.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePointCell.h"
 #import "MWMRoutePointLayout.h"
-#import "MWMRoutePreview.h"
 #import "MWMRouter.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
@@ -12,30 +12,30 @@
 
 static CGFloat constexpr kAdditionalHeight = 20.;
 
-@interface MWMRoutePreview () <MWMRoutePointCellDelegate, MWMCircularProgressProtocol>
+@interface MWMRoutePreview ()<MWMRoutePointCellDelegate, MWMCircularProgressProtocol>
 
-@property (weak, nonatomic) IBOutlet UIView * pedestrian;
-@property (weak, nonatomic) IBOutlet UIView * vehicle;
-@property (weak, nonatomic) IBOutlet UIView * bicycle;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * planningContainerHeight;
-@property (weak, nonatomic, readwrite) IBOutlet UIButton * extendButton;
-@property (weak, nonatomic) IBOutlet UIButton * goButton;
-@property (weak, nonatomic) IBOutlet UICollectionView * collectionView;
-@property (weak, nonatomic) IBOutlet MWMRoutePointLayout * layout;
-@property (weak, nonatomic) IBOutlet UIImageView * arrowImageView;
-@property (weak, nonatomic) IBOutlet UIView * statusBox;
-@property (weak, nonatomic) IBOutlet UIView * planningBox;
-@property (weak, nonatomic) IBOutlet UIView * resultsBox;
-@property (weak, nonatomic) IBOutlet UIView * errorBox;
-@property (weak, nonatomic) IBOutlet UILabel * resultLabel;
-@property (weak, nonatomic) IBOutlet UILabel * arriveLabel;
-@property (weak, nonatomic) IBOutlet UIImageView * completeImageView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * statusBoxHeight;
-@property (nonatomic) UIImageView * movingCellImage;
+@property(weak, nonatomic) IBOutlet UIView * pedestrian;
+@property(weak, nonatomic) IBOutlet UIView * vehicle;
+@property(weak, nonatomic) IBOutlet UIView * bicycle;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * planningContainerHeight;
+@property(weak, nonatomic, readwrite) IBOutlet UIButton * extendButton;
+@property(weak, nonatomic) IBOutlet UIButton * goButton;
+@property(weak, nonatomic) IBOutlet UICollectionView * collectionView;
+@property(weak, nonatomic) IBOutlet MWMRoutePointLayout * layout;
+@property(weak, nonatomic) IBOutlet UIImageView * arrowImageView;
+@property(weak, nonatomic) IBOutlet UIView * statusBox;
+@property(weak, nonatomic) IBOutlet UIView * planningBox;
+@property(weak, nonatomic) IBOutlet UIView * resultsBox;
+@property(weak, nonatomic) IBOutlet UIView * errorBox;
+@property(weak, nonatomic) IBOutlet UILabel * resultLabel;
+@property(weak, nonatomic) IBOutlet UILabel * arriveLabel;
+@property(weak, nonatomic) IBOutlet UIImageView * completeImageView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * statusBoxHeight;
+@property(nonatomic) UIImageView * movingCellImage;
 
-@property (nonatomic) BOOL isNeedToMove;
-@property (nonatomic) NSIndexPath * indexPathOfMovingCell;
+@property(nonatomic) BOOL isNeedToMove;
+@property(nonatomic) NSIndexPath * indexPathOfMovingCell;
 
 @end
 
@@ -58,27 +58,28 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 - (void)setupProgresses
 {
   [self addProgress:self.vehicle imageName:@"ic_drive" routerType:routing::RouterType::Vehicle];
-  [self addProgress:self.pedestrian imageName:@"ic_walk" routerType:routing::RouterType::Pedestrian];
-  [self addProgress:self.bicycle imageName:@"ic_bike_route" routerType:routing::RouterType::Bicycle];
+  [self addProgress:self.pedestrian
+          imageName:@"ic_walk"
+         routerType:routing::RouterType::Pedestrian];
+  [self addProgress:self.bicycle
+          imageName:@"ic_bike_route"
+         routerType:routing::RouterType::Bicycle];
 }
 
-- (void)addProgress:(UIView *)parentView imageName:(NSString *)imageName routerType:(routing::RouterType)routerType
+- (void)addProgress:(UIView *)parentView
+          imageName:(NSString *)imageName
+         routerType:(routing::RouterType)routerType
 {
   MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
-  [progress
-   setImage:[UIImage imageNamed:imageName]
-   forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
-     MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
-     MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
+  [progress setImage:[UIImage imageNamed:imageName]
+           forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
+                      MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
+                      MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
   progress.delegate = self;
   m_progresses[routerType] = progress;
 }
 
-- (void)didMoveToSuperview
-{
-  [self setupActualHeight];
-}
-
+- (void)didMoveToSuperview { [self setupActualHeight]; }
 - (void)addToView:(UIView *)superview
 {
   [super addToView:superview];
@@ -88,20 +89,19 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity
 {
   NSString * eta = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(entity.timeToTarget)];
-  NSString * resultString = [NSString stringWithFormat:@"%@ • %@ %@",
-                             eta,
-                             entity.targetDistance,
-                             entity.targetUnits];
-  NSMutableAttributedString * result = [[NSMutableAttributedString alloc] initWithString:resultString];
+  NSString * resultString =
+      [NSString stringWithFormat:@"%@ • %@ %@", eta, entity.targetDistance, entity.targetUnits];
+  NSMutableAttributedString * result =
+      [[NSMutableAttributedString alloc] initWithString:resultString];
   [result addAttributes:self.etaAttributes range:NSMakeRange(0, eta.length)];
   self.resultLabel.attributedText = result;
   if (!IPAD)
     return;
 
-  NSString * arriveStr = [NSDateFormatter localizedStringFromDate:[[NSDate date]
-                                                                   dateByAddingTimeInterval:entity.timeToTarget]
-                                                        dateStyle:NSDateFormatterNoStyle
-                                                        timeStyle:NSDateFormatterShortStyle];
+  NSString * arriveStr = [NSDateFormatter
+      localizedStringFromDate:[[NSDate date] dateByAddingTimeInterval:entity.timeToTarget]
+                    dateStyle:NSDateFormatterNoStyle
+                    timeStyle:NSDateFormatterShortStyle];
   self.arriveLabel.text = [NSString stringWithFormat:L(@"routing_arrive"), arriveStr.UTF8String];
 }
 
@@ -164,21 +164,19 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 {
   [self layoutIfNeeded];
   self.statusBoxHeight.constant = 76.;
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    [self layoutIfNeeded];
-  }
-  completion:^(BOOL finished)
-  {
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-    {
-      self.arriveLabel.alpha = 1.;
-    }
-    completion:^(BOOL finished)
-    {
-      self.completeImageView.hidden = NO;
-    }];
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{
+        [self layoutIfNeeded];
+      }
+      completion:^(BOOL finished) {
+        [UIView animateWithDuration:kDefaultAnimationDuration
+            animations:^{
+              self.arriveLabel.alpha = 1.;
+            }
+            completion:^(BOOL finished) {
+              self.completeImageView.hidden = NO;
+            }];
+      }];
 }
 
 - (void)iPadNotReady
@@ -187,17 +185,13 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   self.arriveLabel.alpha = 0.;
   [self layoutIfNeeded];
   self.statusBoxHeight.constant = 56.;
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    [self layoutIfNeeded];
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+                     [self layoutIfNeeded];
+                   }];
 }
 
-- (void)reloadData
-{
-  [self.collectionView reloadData];
-}
-
+- (void)reloadData { [self.collectionView reloadData]; }
 - (void)selectRouter:(routing::RouterType)routerType
 {
   for (auto const & progress : m_progresses)
@@ -245,21 +239,18 @@ static CGFloat constexpr kAdditionalHeight = 20.;
     [router rebuildWithBestRouter:NO];
     switch (routerType)
     {
-      case routing::RouterType::Vehicle:
-        [Statistics
-         logEvent:kStatPointToPoint
-         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
-        break;
-      case routing::RouterType::Pedestrian:
-        [Statistics
-         logEvent:kStatPointToPoint
-         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
-        break;
-      case routing::RouterType::Bicycle:
-        [Statistics
-         logEvent:kStatPointToPoint
-         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatBicycle}];
-        break;
+    case routing::RouterType::Vehicle:
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
+      break;
+    case routing::RouterType::Pedestrian:
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
+      break;
+    case routing::RouterType::Bicycle:
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatBicycle}];
+      break;
     }
   }
 }
@@ -277,22 +268,25 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 
 - (CGFloat)visibleHeight
 {
-  return self.planningRouteViewHeight.constant + self.planningContainerHeight.constant + kAdditionalHeight;
+  return self.planningRouteViewHeight.constant + self.planningContainerHeight.constant +
+         kAdditionalHeight;
 }
 
 - (IBAction)extendTap
 {
   BOOL const isExtended = !self.extendButton.selected;
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatExpand)
-                   withParameters:@{kStatValue : (isExtended ? kStatYes : kStatNo)}];
+        withParameters:@{kStatValue : (isExtended ? kStatYes : kStatNo)}];
   self.extendButton.selected = isExtended;
   [self layoutIfNeeded];
   [self setupActualHeight];
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.arrowImageView.transform = isExtended ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
-    [self layoutIfNeeded];
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+                     self.arrowImageView.transform = isExtended
+                                                         ? CGAffineTransformMakeRotation(M_PI)
+                                                         : CGAffineTransformIdentity;
+                     [self layoutIfNeeded];
+                   }];
 }
 
 - (void)setupActualHeight
@@ -313,7 +307,8 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   CGFloat const selfHeight = planningRouteViewHeight + self.planningContainerHeight.constant;
   self.defaultHeight = selfHeight;
   self.height = selfHeight;
-  [self.dashboardManager.delegate routePreviewDidChangeFrame:{self.origin, {self.width, selfHeight + kAdditionalHeight}}];
+  [self.dashboardManager.delegate
+      routePreviewDidChangeFrame:{self.origin, {self.width, selfHeight + kAdditionalHeight}}];
 }
 
 - (void)snapshotCell:(MWMRoutePointCell *)cell
@@ -337,8 +332,10 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 
 - (NSDictionary *)etaAttributes
 {
-  return @{NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-           NSFontAttributeName : UIFont.medium17};
+  return @{
+    NSForegroundColorAttributeName : UIColor.blackPrimaryText,
+    NSFontAttributeName : UIFont.medium17
+  };
 }
 
 #pragma mark - MWMRoutePointCellDelegate
@@ -360,12 +357,12 @@ static CGFloat constexpr kAdditionalHeight = 20.;
     self.isNeedToMove = NO;
     self.indexPathOfMovingCell = [self.collectionView indexPathForCell:cell];
     [self snapshotCell:cell];
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-    {
-      cell.contentView.alpha = 0.;
-      CGFloat const scaleY = 1.05;
-      self.movingCellImage.transform = CGAffineTransformMakeScale(1., scaleY);
-    }];
+    [UIView animateWithDuration:kDefaultAnimationDuration
+                     animations:^{
+                       cell.contentView.alpha = 0.;
+                       CGFloat const scaleY = 1.05;
+                       self.movingCellImage.transform = CGAffineTransformMakeScale(1., scaleY);
+                     }];
   }
 
   if (pan.state == UIGestureRecognizerStateChanged)
@@ -377,11 +374,12 @@ static CGFloat constexpr kAdditionalHeight = 20.;
       if (self.isNeedToMove)
         return;
       self.isNeedToMove = YES;
-      [self.collectionView performBatchUpdates:^
-      {
-        [self.collectionView moveItemAtIndexPath:finalIndexPath toIndexPath:self.indexPathOfMovingCell];
+      [self.collectionView performBatchUpdates:^{
+        [self.collectionView moveItemAtIndexPath:finalIndexPath
+                                     toIndexPath:self.indexPathOfMovingCell];
         self.indexPathOfMovingCell = finalIndexPath;
-      } completion:nil];
+      }
+                                    completion:nil];
     }
     else
     {
@@ -397,15 +395,14 @@ static CGFloat constexpr kAdditionalHeight = 20.;
     if (self.isNeedToMove)
     {
       cell.contentView.alpha = 1.;
-      [self.collectionView performBatchUpdates:^
-      {
-        [self.collectionView moveItemAtIndexPath:self.indexPathOfMovingCell toIndexPath:finalIndexPath];
+      [self.collectionView performBatchUpdates:^{
+        [self.collectionView moveItemAtIndexPath:self.indexPathOfMovingCell
+                                     toIndexPath:finalIndexPath];
       }
-      completion:^(BOOL finished)
-      {
-        [self.movingCellImage removeFromSuperview];
-        self.movingCellImage.transform = CGAffineTransformIdentity;
-      }];
+          completion:^(BOOL finished) {
+            [self.movingCellImage removeFromSuperview];
+            self.movingCellImage.transform = CGAffineTransformIdentity;
+          }];
     }
     else
     {
@@ -421,20 +418,24 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 
 #pragma mark - UICollectionView
 
-@interface MWMRoutePreview (UICollectionView) <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MWMRoutePreview (UICollectionView)<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end
 
 @implementation MWMRoutePreview (UICollectionView)
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section
 {
   return 2;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  MWMRoutePointCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:[MWMRoutePointCell className] forIndexPath:indexPath];
+  MWMRoutePointCell * cell =
+      [collectionView dequeueReusableCellWithReuseIdentifier:[MWMRoutePointCell className]
+                                                forIndexPath:indexPath];
   cell.number.text = @(indexPath.row + 1).stringValue;
   if (indexPath.row == 0)
   {

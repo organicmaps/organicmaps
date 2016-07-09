@@ -1,22 +1,22 @@
+#import "MWMPlacePageViewManager.h"
 #import "Common.h"
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
-#import "MWMActivityViewController.h"
 #import "MWMAPIBar.h"
+#import "MWMActivityViewController.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMDirectionView.h"
 #import "MWMFrameworkListener.h"
-#import "MWMiPadPlacePage.h"
-#import "MWMiPhoneLandscapePlacePage.h"
-#import "MWMiPhonePortraitPlacePage.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageNavigationBar.h"
-#import "MWMPlacePageViewManager.h"
 #import "MWMRouter.h"
+#import "MWMiPadPlacePage.h"
+#import "MWMiPhoneLandscapePlacePage.h"
+#import "MWMiPhonePortraitPlacePage.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -230,8 +230,7 @@ extern NSString * const kBookmarksChangedNotification;
         withParameters:stat
             atLocation:[MWMLocationManager lastLocation]];
 
-  UIViewController * vc =
-      static_cast<UIViewController *>([MapViewController controller]);
+  UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
   NSURL * url =
       isDescription
           ? [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]]
@@ -325,11 +324,7 @@ extern NSString * const kBookmarksChangedNotification;
   [self updateDistance];
 }
 
-- (void)dragPlacePage:(CGRect)frame
-{
-  [[MWMMapViewControlsManager manager] dragPlacePage:frame];
-}
-
+- (void)dragPlacePage:(CGRect)frame { [[MWMMapViewControlsManager manager] dragPlacePage:frame]; }
 - (void)updateDistance
 {
   NSString * distance = [self distance];

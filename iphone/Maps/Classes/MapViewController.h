@@ -1,12 +1,15 @@
+#import <MyTargetSDKCorp/MTRGNativeAppwallAd.h>
 #import "MWMMapDownloaderTypes.h"
 #import "MWMViewController.h"
-#import <MyTargetSDKCorp/MTRGNativeAppwallAd.h>
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "indexer/map_style.hpp"
 
-namespace search { struct AddressInfo; }
+namespace search
+{
+struct AddressInfo;
+}
 
 @class MWMMapViewControlsManager;
 @class MWMAPIBar;
@@ -34,10 +37,10 @@ namespace search { struct AddressInfo; }
 
 - (void)initialize;
 
-@property (nonatomic) MTRGNativeAppwallAd * appWallAd;
-@property (nonatomic, readonly) BOOL isAppWallAdActive;
+@property(nonatomic) MTRGNativeAppwallAd * appWallAd;
+@property(nonatomic, readonly) BOOL isAppWallAdActive;
 
-@property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
-@property (nonatomic) MWMAPIBar * apiBar;
+@property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
+@property(nonatomic) MWMAPIBar * apiBar;
 
 @end

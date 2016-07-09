@@ -1,12 +1,10 @@
+#import "MWMBottomMenuViewController.h"
 #import "Common.h"
 #import "EAGLView.h"
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
 #import "MWMActivityViewController.h"
 #import "MWMBottomMenuCollectionViewCell.h"
 #import "MWMBottomMenuLayout.h"
 #import "MWMBottomMenuView.h"
-#import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
@@ -15,6 +13,8 @@
 #import "MWMRouter.h"
 #import "MWMSearchManager.h"
 #import "MWMTextToSpeech.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "SettingsAndMoreVC.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
@@ -68,20 +68,20 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 @property (nonatomic, readonly) NSUInteger additionalButtonsCount;
 
-@property (weak, nonatomic) MWMNavigationDashboardEntity * routingInfo;
+@property(weak, nonatomic) MWMNavigationDashboardEntity * routingInfo;
 
-@property (weak, nonatomic) IBOutlet UILabel * speedLabel;
-@property (weak, nonatomic) IBOutlet UILabel * timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel * speedLegendLabel;
-@property (weak, nonatomic) IBOutlet UILabel * distanceLegendLabel;
-@property (weak, nonatomic) IBOutlet UILabel * speedWithLegendLabel;
-@property (weak, nonatomic) IBOutlet UILabel * distanceWithLegendLabel;
-@property (weak, nonatomic) IBOutlet UIPageControl * routingInfoPageControl;
+@property(weak, nonatomic) IBOutlet UILabel * speedLabel;
+@property(weak, nonatomic) IBOutlet UILabel * timeLabel;
+@property(weak, nonatomic) IBOutlet UILabel * distanceLabel;
+@property(weak, nonatomic) IBOutlet UILabel * speedLegendLabel;
+@property(weak, nonatomic) IBOutlet UILabel * distanceLegendLabel;
+@property(weak, nonatomic) IBOutlet UILabel * speedWithLegendLabel;
+@property(weak, nonatomic) IBOutlet UILabel * distanceWithLegendLabel;
+@property(weak, nonatomic) IBOutlet UIPageControl * routingInfoPageControl;
 
-@property (weak, nonatomic) IBOutlet UIView * progressView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * routingProgress;
-@property (weak, nonatomic) IBOutlet MWMButton * ttsSoundButton;
+@property(weak, nonatomic) IBOutlet UIView * progressView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * routingProgress;
+@property(weak, nonatomic) IBOutlet MWMButton * ttsSoundButton;
 
 @end
 
@@ -141,7 +141,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   [self.view mwm_refreshUI];
 }
-
 #pragma mark - MWMNavigationDashboardInfoProtocol
 
 - (void)updateRoutingInfo:(MWMNavigationDashboardEntity *)info
@@ -188,11 +187,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   self.speedWithLegendLabel.attributedText = speed;
 
   [self.progressView layoutIfNeeded];
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.routingProgress.constant = self.progressView.width * info.progress / 100.;
-    [self.progressView layoutIfNeeded];
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+                     self.routingProgress.constant = self.progressView.width * info.progress / 100.;
+                     [self.progressView layoutIfNeeded];
+                   }];
 }
 
 #pragma mark - Routing
@@ -204,16 +203,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [self updateRoutingInfo:self.routingInfo];
 }
 
-- (IBAction)routingStartTouchUpInside
-{
-  [[MWMRouter router] start];
-}
-
-- (IBAction)routingStopTouchUpInside
-{
-  [[MWMRouter router] stop];
-}
-
+- (IBAction)routingStartTouchUpInside { [[MWMRouter router] start]; }
+- (IBAction)routingStopTouchUpInside { [[MWMRouter router] stop]; }
 - (IBAction)soundTouchUpInside:(UIButton *)sender
 {
   BOOL const isEnable = !sender.selected;
@@ -498,9 +489,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatRegular}];
     [self.delegate closeInfoScreens];
     break;
-  case MWMBottomMenuStateRouting:
-    self.state = MWMBottomMenuStateRoutingExpanded;
-    break;
+  case MWMBottomMenuStateRouting: self.state = MWMBottomMenuStateRoutingExpanded; break;
   }
 }
 
@@ -552,7 +541,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (void)setState:(MWMBottomMenuState)state
 {
   MWMBottomMenuView * view = (MWMBottomMenuView *)self.view;
-  BOOL const menuActive = (state == MWMBottomMenuStateActive || state == MWMBottomMenuStateRoutingExpanded);
+  BOOL const menuActive =
+      (state == MWMBottomMenuStateActive || state == MWMBottomMenuStateRoutingExpanded);
   if (menuActive)
     [self.controller.view bringSubviewToFront:view];
   [self toggleDimBackgroundVisible:menuActive];

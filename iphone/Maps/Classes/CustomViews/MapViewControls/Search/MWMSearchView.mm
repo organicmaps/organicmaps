@@ -1,7 +1,7 @@
+#import "MWMSearchView.h"
 #import "Common.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMSearchTabButtonsView.h"
-#import "MWMSearchView.h"
 
 static CGFloat constexpr kWidthForiPad = 320.0;
 

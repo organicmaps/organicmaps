@@ -13,7 +13,9 @@
 - (void)swapPointsAndRebuild;
 - (void)buildFromPoint:(MWMRoutePoint const &)start bestRouter:(BOOL)bestRouter;
 - (void)buildToPoint:(MWMRoutePoint const &)finish bestRouter:(BOOL)bestRouter;
-- (void)buildFromPoint:(MWMRoutePoint const &)start toPoint:(MWMRoutePoint const &)finish bestRouter:(BOOL)bestRouter;
+- (void)buildFromPoint:(MWMRoutePoint const &)start
+               toPoint:(MWMRoutePoint const &)finish
+            bestRouter:(BOOL)bestRouter;
 - (void)rebuildWithBestRouter:(BOOL)bestRouter;
 - (void)start;
 - (void)stop;
@@ -23,7 +25,8 @@
 - (instancetype)copy __attribute__((unavailable("call +router instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +router instead")));
 + (instancetype)alloc __attribute__((unavailable("call +router instead")));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +router instead")));
-+ (instancetype)new __attribute__((unavailable("call +router instead")));
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+    __attribute__((unavailable("call +router instead")));
++ (instancetype) new __attribute__((unavailable("call +router instead")));
 
 @end

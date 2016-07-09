@@ -1,6 +1,6 @@
+#import "MWMBottomMenuView.h"
 #import "Common.h"
 #import "EAGLView.h"
-#import "MWMBottomMenuView.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
 #import "MapsAppDelegate.h"
@@ -37,54 +37,55 @@ CGFloat constexpr kThresholdCompact = 321;
 CGFloat constexpr kThresholdRegular = 415;
 CGFloat constexpr kTimeWidthCompact = 112;
 CGFloat constexpr kTimeWidthRegular = 128;
-} // namespace
+}  // namespace
 
 @interface MWMBottomMenuView ()
 
-@property (weak, nonatomic) IBOutlet UIView * mainButtons;
-@property (weak, nonatomic) IBOutlet UIView * separator;
-@property (weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
+@property(weak, nonatomic) IBOutlet UIView * mainButtons;
+@property(weak, nonatomic) IBOutlet UIView * separator;
+@property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * separatorHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * separatorHeight;
 
-@property (weak, nonatomic) IBOutlet UIView * downloadBadge;
+@property(weak, nonatomic) IBOutlet UIView * downloadBadge;
 
-@property (weak, nonatomic) IBOutlet MWMButton * p2pButton;
-@property (weak, nonatomic) IBOutlet MWMButton * searchButton;
-@property (weak, nonatomic) IBOutlet MWMButton * bookmarksButton;
-@property (weak, nonatomic) IBOutlet MWMButton * menuButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * menuButtonWidth;
+@property(weak, nonatomic) IBOutlet MWMButton * p2pButton;
+@property(weak, nonatomic) IBOutlet MWMButton * searchButton;
+@property(weak, nonatomic) IBOutlet MWMButton * bookmarksButton;
+@property(weak, nonatomic) IBOutlet MWMButton * menuButton;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * menuButtonWidth;
 
-@property (weak, nonatomic) IBOutlet UIView * routingView;
-@property (weak, nonatomic) IBOutlet UIButton * goButton;
-@property (weak, nonatomic) IBOutlet UIButton * toggleInfoButton;
-@property (weak, nonatomic) IBOutlet UIView * speedView;
-@property (weak, nonatomic) IBOutlet UIView * timeView;
-@property (weak, nonatomic) IBOutlet UIView * distanceView;
-@property (weak, nonatomic) IBOutlet UIView * progressView;
-@property (weak, nonatomic) IBOutlet UIView * routingAdditionalView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * routingAdditionalViewHeight;
-@property (nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * routingAdditionalButtonsOffset;
-@property (nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * speedDistanceOffset;
-@property (weak, nonatomic) IBOutlet UILabel * speedLabel;
-@property (weak, nonatomic) IBOutlet UILabel * timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel * speedLegendLabel;
-@property (weak, nonatomic) IBOutlet UILabel * distanceLegendLabel;
-@property (weak, nonatomic) IBOutlet UILabel * speedWithLegendLabel;
-@property (weak, nonatomic) IBOutlet UILabel * distanceWithLegendLabel;
+@property(weak, nonatomic) IBOutlet UIView * routingView;
+@property(weak, nonatomic) IBOutlet UIButton * goButton;
+@property(weak, nonatomic) IBOutlet UIButton * toggleInfoButton;
+@property(weak, nonatomic) IBOutlet UIView * speedView;
+@property(weak, nonatomic) IBOutlet UIView * timeView;
+@property(weak, nonatomic) IBOutlet UIView * distanceView;
+@property(weak, nonatomic) IBOutlet UIView * progressView;
+@property(weak, nonatomic) IBOutlet UIView * routingAdditionalView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * routingAdditionalViewHeight;
+@property(nonatomic) IBOutletCollection(NSLayoutConstraint)
+    NSArray * routingAdditionalButtonsOffset;
+@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * speedDistanceOffset;
+@property(weak, nonatomic) IBOutlet UILabel * speedLabel;
+@property(weak, nonatomic) IBOutlet UILabel * timeLabel;
+@property(weak, nonatomic) IBOutlet UILabel * distanceLabel;
+@property(weak, nonatomic) IBOutlet UILabel * speedLegendLabel;
+@property(weak, nonatomic) IBOutlet UILabel * distanceLegendLabel;
+@property(weak, nonatomic) IBOutlet UILabel * speedWithLegendLabel;
+@property(weak, nonatomic) IBOutlet UILabel * distanceWithLegendLabel;
 
-@property (weak, nonatomic) IBOutlet UIPageControl * pageControl;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * pageControlTopOffset;
+@property(weak, nonatomic) IBOutlet UIPageControl * pageControl;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * pageControlTopOffset;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * speedDistanceWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * timeWidth;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * speedDistanceWidth;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * timeWidth;
 
-@property (nonatomic) CGFloat layoutDuration;
+@property(nonatomic) CGFloat layoutDuration;
 
-@property (weak, nonatomic) IBOutlet MWMBottomMenuViewController * owner;
+@property(weak, nonatomic) IBOutlet MWMBottomMenuViewController * owner;
 
 @end
 
@@ -105,7 +106,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
   self.routingAdditionalView.hidden = YES;
   self.restoreState = MWMBottomMenuStateInactive;
   [self.goButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
-  [self.goButton setBackgroundColor:[UIColor linkBlueHighlighted] forState:UIControlStateHighlighted];
+  [self.goButton setBackgroundColor:[UIColor linkBlueHighlighted]
+                           forState:UIControlStateHighlighted];
 }
 
 - (void)layoutSubviews
@@ -116,18 +118,23 @@ CGFloat constexpr kTimeWidthRegular = 128;
     CGFloat const duration = self.layoutDuration;
     self.layoutDuration = 0.0;
     [self layoutIfNeeded];
-    [UIView animateWithDuration:duration animations:^
-    {
-      [self layoutGeometry];
-      [self layoutIfNeeded];
-    }];
+    [UIView animateWithDuration:duration
+                     animations:^{
+                       [self layoutGeometry];
+                       [self layoutIfNeeded];
+                     }];
   }
   else
   {
     [self layoutGeometry];
   }
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ [self updateAlphaAndColor]; }
-                   completion:^(BOOL finished) { [self updateVisibility]; }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{
+        [self updateAlphaAndColor];
+      }
+      completion:^(BOOL finished) {
+        [self updateVisibility];
+      }];
   ((EAGLView *)self.superview).widgetsManager.bottomBound = self.mainButtonsHeight.constant;
   [self updateFonts];
   [super layoutSubviews];
@@ -137,8 +144,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
 {
   switch (self.state)
   {
-  case MWMBottomMenuStateHidden:
-    break;
+  case MWMBottomMenuStateHidden: break;
   case MWMBottomMenuStateInactive:
     self.backgroundColor = [UIColor menuBackground];
     self.bookmarksButton.alpha = 1.0;
@@ -206,7 +212,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
 {
   if (self.state != MWMBottomMenuStateRouting && self.state != MWMBottomMenuStateRoutingExpanded)
     return;
-  UIFont * numberFont = (IPAD || self.width > kThresholdRegular) ? [UIFont bold24] : [UIFont bold22];
+  UIFont * numberFont =
+      (IPAD || self.width > kThresholdRegular) ? [UIFont bold24] : [UIFont bold22];
   UIFont * legendFont = [UIFont bold12];
   self.speedLabel.font = numberFont;
   self.timeLabel.font = numberFont;
@@ -219,8 +226,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
 {
   switch (self.state)
   {
-  case MWMBottomMenuStateHidden:
-    break;
+  case MWMBottomMenuStateHidden: break;
   case MWMBottomMenuStateInactive:
     self.additionalButtons.hidden = YES;
     self.routingView.hidden = YES;
@@ -273,8 +279,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
   case MWMBottomMenuStateInactive:
   case MWMBottomMenuStateCompact:
   case MWMBottomMenuStatePlanning:
-  case MWMBottomMenuStateGo:
-    break;
+  case MWMBottomMenuStateGo: break;
   case MWMBottomMenuStateActive:
   {
     self.separatorHeight.constant = 1.0;
@@ -291,29 +296,27 @@ CGFloat constexpr kTimeWidthRegular = 128;
     }
   }
   break;
-  case MWMBottomMenuStateRouting:
-    [self layoutRoutingGeometry];
-    break;
+  case MWMBottomMenuStateRouting: [self layoutRoutingGeometry]; break;
   case MWMBottomMenuStateRoutingExpanded:
     self.routingAdditionalViewHeight.constant = kAdditionalHeight;
     [self layoutRoutingGeometry];
-  break;
+    break;
   }
   CGFloat const width = MIN(self.superview.width - self.leftBound, self.superview.width);
-  CGFloat const additionalHeight = MAX(self.additionalButtonsHeight.constant, self.routingAdditionalViewHeight.constant);
-  CGFloat const height = self.mainButtonsHeight.constant + self.separatorHeight.constant + additionalHeight;
+  CGFloat const additionalHeight =
+      MAX(self.additionalButtonsHeight.constant, self.routingAdditionalViewHeight.constant);
+  CGFloat const height =
+      self.mainButtonsHeight.constant + self.separatorHeight.constant + additionalHeight;
   self.frame = {{self.superview.width - width, self.superview.height - height}, {width, height}};
 }
 
 - (void)layoutRoutingGeometry
 {
-  auto layoutAdditionalButtonsOffset = ^(CGFloat offset)
-  {
+  auto layoutAdditionalButtonsOffset = ^(CGFloat offset) {
     for (NSLayoutConstraint * constraint in self.routingAdditionalButtonsOffset)
       constraint.constant = offset;
   };
-  auto layoutSpeedDistanceOffset = ^(CGFloat offset)
-  {
+  auto layoutSpeedDistanceOffset = ^(CGFloat offset) {
     for (NSLayoutConstraint * constraint in self.speedDistanceOffset)
       constraint.constant = offset;
   };
@@ -353,7 +356,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
     else
     {
       self.pageControlTopOffset.constant = kPageControlTopOffsetLandscape;
-      self.pageControl.transform = CGAffineTransformMakeScale(kPageControlScaleLandscape, kPageControlScaleLandscape);
+      self.pageControl.transform =
+          CGAffineTransformMakeScale(kPageControlScaleLandscape, kPageControlScaleLandscape);
       self.speedDistanceWidth.constant = kSpeedDistanceWidthLandscape;
       self.mainButtonsHeight.constant = kRoutingMainButtonsHeightLandscape;
       self.menuButtonWidth.constant = kRoutingMenuButtonWidthRegular;
@@ -387,8 +391,9 @@ CGFloat constexpr kTimeWidthRegular = 128;
   NSInteger const stepValue = direct ? 1 : -1;
   NSMutableArray * morphImages = [NSMutableArray arrayWithCapacity:morphImagesCount];
   for (NSUInteger i = startValue, j = 0; i != endValue; i += stepValue, j++)
-    morphImages[j] = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@_%@", morphTemplate, @(i).stringValue,
-                                          [UIColor isNightMode] ? @"dark" : @"light"]];
+    morphImages[j] =
+        [UIImage imageNamed:[NSString stringWithFormat:@"%@%@_%@", morphTemplate, @(i).stringValue,
+                                                       [UIColor isNightMode] ? @"dark" : @"light"]];
   btn.imageView.animationImages = morphImages;
   btn.imageView.animationRepeatCount = 1;
   btn.imageView.image = morphImages.lastObject;
@@ -397,8 +402,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
 
 - (void)refreshMenuButtonState
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
+  dispatch_async(dispatch_get_main_queue(), ^{
     if (self.menuButton.imageView.isAnimating)
     {
       [self refreshMenuButtonState];
@@ -412,17 +416,11 @@ CGFloat constexpr kTimeWidthRegular = 128;
       case MWMBottomMenuStateHidden:
       case MWMBottomMenuStateInactive:
       case MWMBottomMenuStatePlanning:
-      case MWMBottomMenuStateGo:
-        name = @"ic_menu";
-        break;
+      case MWMBottomMenuStateGo: name = @"ic_menu"; break;
       case MWMBottomMenuStateActive:
       case MWMBottomMenuStateRouting:
-      case MWMBottomMenuStateRoutingExpanded:
-        name = @"ic_menu_down";
-        break;
-      case MWMBottomMenuStateCompact:
-        name = @"ic_menu_left";
-        break;
+      case MWMBottomMenuStateRoutingExpanded: name = @"ic_menu_down"; break;
+      case MWMBottomMenuStateCompact: name = @"ic_menu_left"; break;
       }
       UIImage * image = [UIImage imageNamed:name];
       if (isIOS7)
@@ -435,10 +433,11 @@ CGFloat constexpr kTimeWidthRegular = 128;
       else
       {
         BOOL const rotate = (self.state == MWMBottomMenuStateRouting);
-        [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-        {
-          btn.transform = rotate ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
-        }];
+        [UIView animateWithDuration:kDefaultAnimationDuration
+                         animations:^{
+                           btn.transform = rotate ? CGAffineTransformMakeRotation(M_PI)
+                                                  : CGAffineTransformIdentity;
+                         }];
       }
     }
   });
@@ -483,7 +482,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
   auto & s = GetFramework().Storage();
   storage::Storage::UpdateInfo updateInfo{};
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  self.downloadBadge.hidden = (updateInfo.m_numberOfMwmFilesToUpdate == 0) && !platform::migrate::NeedMigrate();
+  self.downloadBadge.hidden =
+      (updateInfo.m_numberOfMwmFilesToUpdate == 0) && !platform::migrate::NeedMigrate();
 }
 
 #pragma mark - Properties
@@ -502,71 +502,70 @@ CGFloat constexpr kTimeWidthRegular = 128;
   BOOL updateMenuButton = YES;
   switch (state)
   {
-    case MWMBottomMenuStateHidden:
-      updateMenuButton = NO;
-      break;
-    case MWMBottomMenuStateInactive:
-    {
-      if (MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
-        _leftBound = 0.0;
-      [self updateBadge];
-      self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
-      self.layoutDuration = (_state == MWMBottomMenuStateCompact && !IPAD) ? 0.0 : kDefaultAnimationDuration;
-      break;
-    }
-    case MWMBottomMenuStateActive:
-      self.restoreState = _state;
-      [self updateMenuButtonFromState:_state toState:state];
-      self.additionalButtons.hidden = NO;
-      self.bookmarksButton.hidden = NO;
-      self.p2pButton.hidden = NO;
-      self.searchButton.hidden = NO;
-      break;
-    case MWMBottomMenuStateCompact:
-      self.layoutDuration = IPAD ? kDefaultAnimationDuration : 0.0;
-      break;
-    case MWMBottomMenuStatePlanning:
-      self.goButton.enabled = NO;
-      self.goButton.hidden = NO;
-      self.toggleInfoButton.hidden = YES;
-      self.speedView.hidden = YES;
-      self.timeView.hidden = YES;
-      self.distanceView.hidden = YES;
-      self.progressView.hidden = YES;
-      self.routingView.hidden = NO;
-      self.routingAdditionalView.hidden = YES;
-      break;
-    case MWMBottomMenuStateGo:
-      self.goButton.enabled = YES;
-      self.goButton.hidden = NO;
-      self.toggleInfoButton.hidden = YES;
-      self.speedView.hidden = YES;
-      self.timeView.hidden = YES;
-      self.distanceView.hidden = YES;
-      self.progressView.hidden = YES;
-      self.routingView.hidden = NO;
-      self.routingAdditionalView.hidden = YES;
-      break;
-    case MWMBottomMenuStateRouting:
-      self.goButton.hidden = YES;
-      self.toggleInfoButton.hidden = NO;
-      self.speedView.hidden = NO;
-      self.timeView.hidden = NO;
-      self.distanceView.hidden = NO;
-      self.progressView.hidden = NO;
-      self.routingView.hidden = NO;
-      self.routingAdditionalView.hidden = YES;
-      break;
-    case MWMBottomMenuStateRoutingExpanded:
-      self.goButton.hidden = YES;
-      self.toggleInfoButton.hidden = NO;
-      self.speedView.hidden = NO;
-      self.timeView.hidden = NO;
-      self.distanceView.hidden = NO;
-      self.progressView.hidden = NO;
-      self.routingView.hidden = NO;
-      self.routingAdditionalView.hidden = NO;
-      break;
+  case MWMBottomMenuStateHidden: updateMenuButton = NO; break;
+  case MWMBottomMenuStateInactive:
+  {
+    if (MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
+      _leftBound = 0.0;
+    [self updateBadge];
+    self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
+    self.layoutDuration =
+        (_state == MWMBottomMenuStateCompact && !IPAD) ? 0.0 : kDefaultAnimationDuration;
+    break;
+  }
+  case MWMBottomMenuStateActive:
+    self.restoreState = _state;
+    [self updateMenuButtonFromState:_state toState:state];
+    self.additionalButtons.hidden = NO;
+    self.bookmarksButton.hidden = NO;
+    self.p2pButton.hidden = NO;
+    self.searchButton.hidden = NO;
+    break;
+  case MWMBottomMenuStateCompact:
+    self.layoutDuration = IPAD ? kDefaultAnimationDuration : 0.0;
+    break;
+  case MWMBottomMenuStatePlanning:
+    self.goButton.enabled = NO;
+    self.goButton.hidden = NO;
+    self.toggleInfoButton.hidden = YES;
+    self.speedView.hidden = YES;
+    self.timeView.hidden = YES;
+    self.distanceView.hidden = YES;
+    self.progressView.hidden = YES;
+    self.routingView.hidden = NO;
+    self.routingAdditionalView.hidden = YES;
+    break;
+  case MWMBottomMenuStateGo:
+    self.goButton.enabled = YES;
+    self.goButton.hidden = NO;
+    self.toggleInfoButton.hidden = YES;
+    self.speedView.hidden = YES;
+    self.timeView.hidden = YES;
+    self.distanceView.hidden = YES;
+    self.progressView.hidden = YES;
+    self.routingView.hidden = NO;
+    self.routingAdditionalView.hidden = YES;
+    break;
+  case MWMBottomMenuStateRouting:
+    self.goButton.hidden = YES;
+    self.toggleInfoButton.hidden = NO;
+    self.speedView.hidden = NO;
+    self.timeView.hidden = NO;
+    self.distanceView.hidden = NO;
+    self.progressView.hidden = NO;
+    self.routingView.hidden = NO;
+    self.routingAdditionalView.hidden = YES;
+    break;
+  case MWMBottomMenuStateRoutingExpanded:
+    self.goButton.hidden = YES;
+    self.toggleInfoButton.hidden = NO;
+    self.speedView.hidden = NO;
+    self.timeView.hidden = NO;
+    self.distanceView.hidden = NO;
+    self.progressView.hidden = NO;
+    self.routingView.hidden = NO;
+    self.routingAdditionalView.hidden = NO;
+    break;
   }
   if (updateMenuButton)
     [self updateMenuButtonFromState:_state toState:state];
