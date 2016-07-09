@@ -74,7 +74,7 @@ int main(int argc, char * argv[])
     {
       auto const & hotel = bookingDataset.GetHotel(j);
       double const distanceMeters = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
-      double score = BookingDataset::ScoreByLinearNormDistance(distanceMeters);
+      double const score = BookingDataset::ScoreByLinearNormDistance(distanceMeters);
 
       bool matched = score > BookingDataset::kOptimalThreshold;
 

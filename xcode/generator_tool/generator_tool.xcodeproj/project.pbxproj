@@ -140,6 +140,11 @@
 		67BC92C51D17FD5800A4A378 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BF1D11775300AE4E3C /* libstb_image.a */; };
 		67BC92C61D17FDE600A4A378 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624CE1D11779700AE4E3C /* OpenGL.framework */; };
 		67BC92C71D17FDF800A4A378 /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B61D11775300AE4E3C /* libapi.a */; };
+		E9502E241D2BD26C00CAB86B /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9502E231D2BD26C00CAB86B /* libalohalitics.a */; };
+		E9502E261D2BD28C00CAB86B /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9502E251D2BD28C00CAB86B /* liboauthcpp.a */; };
+		E9502E281D2BD2CC00CAB86B /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9502E271D2BD2CC00CAB86B /* libopening_hours.a */; };
+		E9502E2D1D2BD47B00CAB86B /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9502E291D2BD34A00CAB86B /* libsearch.a */; };
+		E9502E301D2BD6E600CAB86B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 677E2A091CAAC771001DC42A /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -307,6 +312,12 @@
 		67AB92C61B73D03500AB5194 /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "../../../omim-xcode-build/Debug/libmap.a"; sourceTree = "<group>"; };
 		67AB92C81B73D10200AB5194 /* libosrm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosrm.a; path = "../../../omim-xcode-build/Debug/libosrm.a"; sourceTree = "<group>"; };
 		67AB92CA1B73D10B00AB5194 /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
+		E9502E231D2BD26C00CAB86B /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "/Users/mgsergio/omim/xcode/alohalitics/../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<absolute>"; };
+		E9502E251D2BD28C00CAB86B /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "/Users/mgsergio/omim/xcode/oauthcpp/../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<absolute>"; };
+		E9502E271D2BD2CC00CAB86B /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "/Users/mgsergio/omim/xcode/opening_hours/../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<absolute>"; };
+		E9502E291D2BD34A00CAB86B /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "/Users/mgsergio/omim/xcode/search/../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<absolute>"; };
+		E9502E2B1D2BD44E00CAB86B /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "/Users/mgsergio/omim/xcode/protobuf/../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<absolute>"; };
+		E9502E2E1D2BD5BE00CAB86B /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "/Users/mgsergio/omim/xcode/minizip/../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -342,6 +353,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9502E301D2BD6E600CAB86B /* libz.tbd in Frameworks */,
+				E9502E2D1D2BD47B00CAB86B /* libsearch.a in Frameworks */,
+				E9502E281D2BD2CC00CAB86B /* libopening_hours.a in Frameworks */,
+				E9502E261D2BD28C00CAB86B /* liboauthcpp.a in Frameworks */,
+				E9502E241D2BD26C00CAB86B /* libalohalitics.a in Frameworks */,
 				673746771CF47E83005E6D1F /* Cocoa.framework in Frameworks */,
 				673746701CF47E14005E6D1F /* libeditor.a in Frameworks */,
 				6737466B1CF47D82005E6D1F /* libplatform.a in Frameworks */,
@@ -555,6 +571,12 @@
 		6753414F1A3F54D800A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				E9502E2E1D2BD5BE00CAB86B /* libminizip.a */,
+				E9502E2B1D2BD44E00CAB86B /* libprotobuf.a */,
+				E9502E291D2BD34A00CAB86B /* libsearch.a */,
+				E9502E271D2BD2CC00CAB86B /* libopening_hours.a */,
+				E9502E251D2BD28C00CAB86B /* liboauthcpp.a */,
+				E9502E231D2BD26C00CAB86B /* libalohalitics.a */,
 				670D05AD1B0E08260013A7AC /* defaults.xcconfig */,
 				6737465A1CF46324005E6D1F /* booking_quality_check */,
 				670B84C41A9F73AB00CE4492 /* std */,

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # coding: utf8
 from __future__ import print_function
 
@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(
 
 def load_binary_list(path):
     """
-    Loads binary classifier output.
+    Loads referance binary classifier output.
     """
     bits = []
     with open(path, 'r') as fd:
@@ -46,6 +46,7 @@ def load_score_list(path):
 
 
 def process_options():
+    # TODO(mgsergio): Fix description.
     parser = argparse.ArgumentParser(description="Download and process booking hotels.")
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbose")
     parser.add_argument("-q", "--quiet", action="store_false", dest="verbose")
