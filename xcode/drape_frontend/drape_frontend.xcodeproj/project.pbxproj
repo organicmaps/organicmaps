@@ -21,8 +21,6 @@
 		452C9EDD1CEDCF3200A55E57 /* linear_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ECB1CEDCF3200A55E57 /* linear_animation.hpp */; };
 		452C9EDE1CEDCF3200A55E57 /* parallel_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ECC1CEDCF3200A55E57 /* parallel_animation.cpp */; };
 		452C9EDF1CEDCF3200A55E57 /* parallel_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ECD1CEDCF3200A55E57 /* parallel_animation.hpp */; };
-		452C9EE01CEDCF3200A55E57 /* perspective_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ECE1CEDCF3200A55E57 /* perspective_animation.cpp */; };
-		452C9EE11CEDCF3200A55E57 /* perspective_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ECF1CEDCF3200A55E57 /* perspective_animation.hpp */; };
 		452C9EE21CEDCF3200A55E57 /* scale_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ED01CEDCF3200A55E57 /* scale_animation.cpp */; };
 		452C9EE31CEDCF3200A55E57 /* scale_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ED11CEDCF3200A55E57 /* scale_animation.hpp */; };
 		452C9EE41CEDCF3200A55E57 /* sequence_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ED21CEDCF3200A55E57 /* sequence_animation.cpp */; };
@@ -220,8 +218,6 @@
 		452C9ECB1CEDCF3200A55E57 /* linear_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = linear_animation.hpp; sourceTree = "<group>"; };
 		452C9ECC1CEDCF3200A55E57 /* parallel_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parallel_animation.cpp; sourceTree = "<group>"; };
 		452C9ECD1CEDCF3200A55E57 /* parallel_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = parallel_animation.hpp; sourceTree = "<group>"; };
-		452C9ECE1CEDCF3200A55E57 /* perspective_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = perspective_animation.cpp; sourceTree = "<group>"; };
-		452C9ECF1CEDCF3200A55E57 /* perspective_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = perspective_animation.hpp; sourceTree = "<group>"; };
 		452C9ED01CEDCF3200A55E57 /* scale_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scale_animation.cpp; sourceTree = "<group>"; };
 		452C9ED11CEDCF3200A55E57 /* scale_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scale_animation.hpp; sourceTree = "<group>"; };
 		452C9ED21CEDCF3200A55E57 /* sequence_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sequence_animation.cpp; sourceTree = "<group>"; };
@@ -580,8 +576,6 @@
 				452C9ECB1CEDCF3200A55E57 /* linear_animation.hpp */,
 				452C9ECC1CEDCF3200A55E57 /* parallel_animation.cpp */,
 				452C9ECD1CEDCF3200A55E57 /* parallel_animation.hpp */,
-				452C9ECE1CEDCF3200A55E57 /* perspective_animation.cpp */,
-				452C9ECF1CEDCF3200A55E57 /* perspective_animation.hpp */,
 				452C9ED01CEDCF3200A55E57 /* scale_animation.cpp */,
 				452C9ED11CEDCF3200A55E57 /* scale_animation.hpp */,
 				452C9ED21CEDCF3200A55E57 /* sequence_animation.cpp */,
@@ -742,7 +736,6 @@
 				670947E71BDF9BEC005014C0 /* frontend_renderer.hpp in Headers */,
 				670947911BDF9BE1005014C0 /* intrusive_vector.hpp in Headers */,
 				670947F71BDF9BF5005014C0 /* apply_feature_functors.hpp in Headers */,
-				452C9EE11CEDCF3200A55E57 /* perspective_animation.hpp in Headers */,
 				670947CD1BDF9BE1005014C0 /* tile_info.hpp in Headers */,
 				6709486B1BDF9C7F005014C0 /* circle_info.hpp in Headers */,
 				670947C31BDF9BE1005014C0 /* stylist.hpp in Headers */,
@@ -844,7 +837,6 @@
 				67E91C781BDFC85E005CEE88 /* area_shape.cpp in Sources */,
 				67E91C791BDFC85E005CEE88 /* base_renderer.cpp in Sources */,
 				67E91C7A1BDFC85E005CEE88 /* circle_shape.cpp in Sources */,
-				452C9EE01CEDCF3200A55E57 /* perspective_animation.cpp in Sources */,
 				452C9ED61CEDCF3200A55E57 /* arrow_animation.cpp in Sources */,
 				67E91C7B1BDFC85E005CEE88 /* my_position_controller.cpp in Sources */,
 				454C19BC1CCE3EC0002A2C86 /* animation_system.cpp in Sources */,
