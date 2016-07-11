@@ -195,9 +195,10 @@ void MyPositionController::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2)
 {
   if (IsModeChangeViewport())
   {
-    m2::PointD const oldPt1(pt1);
-    pt1 = GetRotationPixelCenter();
-    pt2 = pt2 - oldPt1 + pt1;
+    m2::PointD const offset = (pt2 - pt1) / 2.0;
+    m2::PointD const center = GetRotationPixelCenter();
+    pt1 = center - offset;
+    pt2 = center + offset;
   }
 }
 
