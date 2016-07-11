@@ -365,14 +365,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)onRouteStart
 {
-  if ([MWMRouter router].startPoint.IsMyPosition())
-  {
-    self.hidden = NO;
-    self.sideButtonsHidden = NO;
-
-    self.disableStandbyOnRouteFollowing = YES;
-    self.navigationManager.state = MWMNavigationDashboardStateNavigation;
-  }
+  self.hidden = NO;
+  self.sideButtonsHidden = NO;
+  self.disableStandbyOnRouteFollowing = YES;
+  self.navigationManager.state = MWMNavigationDashboardStateNavigation;
 }
 
 - (void)onRouteStop
@@ -412,10 +408,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (MWMNavigationDashboardManager *)navigationManager
 {
   if (!_navigationManager)
+  {
     _navigationManager =
         [[MWMNavigationDashboardManager alloc] initWithParentView:self.ownerController.view
-                                                      infoDisplay:self.menuController
                                                          delegate:self];
+    [_navigationManager addInfoDisplay:self.menuController];
+  }
   return _navigationManager;
 }
 

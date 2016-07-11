@@ -1,4 +1,5 @@
 #import "MWMCircularProgress.h"
+#import "MWMNavigationDashboardInfoProtocol.h"
 #import "MWMNavigationView.h"
 
 #include "routing/router.hpp"
@@ -6,7 +7,7 @@
 @class MWMNavigationDashboardEntity;
 @class MWMNavigationDashboardManager;
 
-@interface MWMRoutePreview : MWMNavigationView
+@interface MWMRoutePreview : MWMNavigationView<MWMNavigationDashboardInfoProtocol>
 
 @property(weak, nonatomic, readonly) IBOutlet UIButton * extendButton;
 @property(weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;

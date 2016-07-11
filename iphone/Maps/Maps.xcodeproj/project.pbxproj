@@ -193,6 +193,10 @@
 		349C26B51BB02C6F0005DF2F /* MWMBottomMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B31BB02C6F0005DF2F /* MWMBottomMenuViewController.mm */; };
 		349C26B61BB02C6F0005DF2F /* MWMBottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */; };
 		349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */; };
+		349C3AEC1D33A933002AC7A9 /* MWMNavigationInfoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C3AEB1D33A933002AC7A9 /* MWMNavigationInfoView.mm */; };
+		349C3AED1D33A933002AC7A9 /* MWMNavigationInfoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C3AEB1D33A933002AC7A9 /* MWMNavigationInfoView.mm */; };
+		349C3AEF1D33A96B002AC7A9 /* MWMNavigationInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C3AEE1D33A96B002AC7A9 /* MWMNavigationInfoView.xib */; };
+		349C3AF01D33A96B002AC7A9 /* MWMNavigationInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C3AEE1D33A96B002AC7A9 /* MWMNavigationInfoView.xib */; };
 		34A62D4E1C903533007FDCB7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4C1C903533007FDCB7 /* Fabric.framework */; };
 		34A62D4F1C903533007FDCB7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4C1C903533007FDCB7 /* Fabric.framework */; };
 		34A62D501C903533007FDCB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4D1C903533007FDCB7 /* Crashlytics.framework */; };
@@ -1074,6 +1078,10 @@
 		349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBottomMenuViewController.xib; sourceTree = "<group>"; };
 		349C26B71BB04ED30005DF2F /* MWMBottomMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuView.h; sourceTree = "<group>"; };
 		349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuView.mm; sourceTree = "<group>"; };
+		349C3AEA1D33A933002AC7A9 /* MWMNavigationInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationInfoView.h; sourceTree = "<group>"; };
+		349C3AEB1D33A933002AC7A9 /* MWMNavigationInfoView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationInfoView.mm; sourceTree = "<group>"; };
+		349C3AEE1D33A96B002AC7A9 /* MWMNavigationInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNavigationInfoView.xib; sourceTree = "<group>"; };
+		349C3AF11D33C6EE002AC7A9 /* MWMNavigationDashboardInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardInfoProtocol.h; sourceTree = "<group>"; };
 		34A62D4C1C903533007FDCB7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		34A62D4D1C903533007FDCB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		34AB04B61CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAdditionalNamePlaceholderTableViewCell.xib; sourceTree = "<group>"; };
@@ -2134,6 +2142,10 @@
 				3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */,
 				560634EF1B787EBE00F3D670 /* Sound */,
 				34D783C71B5F9D7800E0C0EE /* Views */,
+				349C3AEA1D33A933002AC7A9 /* MWMNavigationInfoView.h */,
+				349C3AEB1D33A933002AC7A9 /* MWMNavigationInfoView.mm */,
+				349C3AEE1D33A96B002AC7A9 /* MWMNavigationInfoView.xib */,
+				349C3AF11D33C6EE002AC7A9 /* MWMNavigationDashboardInfoProtocol.h */,
 			);
 			name = NavigationDashboard;
 			path = ../NavigationDashboard;
@@ -3353,6 +3365,7 @@
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 				F6ED13561B16439E0095C6DE /* MWMDirectionView.xib in Resources */,
+				349C3AEF1D33A96B002AC7A9 /* MWMNavigationInfoView.xib in Resources */,
 				34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */,
 				34B646C71CEB742500E0C7A5 /* MWMEditorNameFooter.xib in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
@@ -3500,6 +3513,7 @@
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
 				6741A9721BF340DE002C974C /* MWMSearchCommonCell.xib in Resources */,
 				6741A9731BF340DE002C974C /* MWMSearchHistoryMyPositionCell.xib in Resources */,
+				349C3AF01D33A96B002AC7A9 /* MWMNavigationInfoView.xib in Resources */,
 				6741A9741BF340DE002C974C /* resources-6plus_dark in Resources */,
 				34B646C81CEB742600E0C7A5 /* MWMEditorNameFooter.xib in Resources */,
 				3401CD6A1C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib in Resources */,
@@ -3730,6 +3744,7 @@
 				34BC1E561C2ADBD3009BBF51 /* MWMOpeningHoursCommon.mm in Sources */,
 				F653CE161C71F60200A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
 				A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */,
+				349C3AEC1D33A933002AC7A9 /* MWMNavigationInfoView.mm in Sources */,
 				347FD8671C60B2CE002FB65E /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
@@ -3954,6 +3969,7 @@
 				347FD8681C60B2CE002FB65E /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				6741A9FF1BF340DE002C974C /* AddSetVC.mm in Sources */,
 				6741AA011BF340DE002C974C /* MWMSearchTabbedViewLayout.mm in Sources */,
+				349C3AED1D33A933002AC7A9 /* MWMNavigationInfoView.mm in Sources */,
 				6741AA021BF340DE002C974C /* BookmarksRootVC.mm in Sources */,
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
 				34DDD5341BFDB0B600407F2F /* MWMMapDownloaderViewController.mm in Sources */,
