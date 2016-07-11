@@ -13,7 +13,8 @@ public:
                      m2::PointD const & globalUserPosition,
                      m2::PointD const & endPixelPosition,
                      double startScale, double endScale,
-                     double startAngle, double endAngle);
+                     double startAngle, double endAngle,
+                     bool isAutoZoom);
 
   Animation::Type GetType() const override { return Animation::MapFollow; }
 
@@ -40,6 +41,8 @@ public:
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
   bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
+  bool IsAutoZoom() const { return m_isAutoZoom; }
+
   bool HasScale() const;
   bool HasPixelOffset() const;
 
@@ -47,6 +50,7 @@ private:
   bool GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const;
   double CalculateDuration() const;
 
+  bool m_isAutoZoom;
   ScaleInterpolator m_scaleInterpolator;
   AngleInterpolator m_angleInterpolator;
   PositionInterpolator m_offsetInterpolator;

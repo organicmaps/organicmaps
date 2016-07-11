@@ -645,18 +645,21 @@ public:
 class FollowRouteMessage : public Message
 {
 public:
-  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d)
+  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom)
     : m_preferredZoomLevel(preferredZoomLevel)
     , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
+    , m_enableAutoZoom(enableAutoZoom)
   {}
 
   Type GetType() const override { return Message::FollowRoute; }
   int GetPreferredZoomLevel() const { return m_preferredZoomLevel; }
   int GetPreferredZoomLevelIn3d() const { return m_preferredZoomLevelIn3d; }
+  bool EnableAutoZoom() const { return m_enableAutoZoom; }
 
 private:
   int const m_preferredZoomLevel;
   int const m_preferredZoomLevelIn3d;
+  bool const m_enableAutoZoom;
 };
 
 class InvalidateTexturesMessage : public BaseBlockingMessage
@@ -700,6 +703,20 @@ public:
 private:
   bool const m_allowPerspective;
   bool const m_allow3dBuildings;
+};
+
+class AllowAutoZoomMessage : public Message
+{
+public:
+  AllowAutoZoomMessage(bool allowAutoZoom)
+    : m_allowAutoZoom(allowAutoZoom)
+  {}
+
+  Type GetType() const override { return Message::AllowAutoZoom; }
+  bool AllowAutoZoom() const { return m_allowAutoZoom; }
+
+private:
+  bool const m_allowAutoZoom;
 };
 
 class Allow3dBuildingsMessage : public Message

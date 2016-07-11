@@ -34,13 +34,8 @@ public:
     /// Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos"
     virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
                                  int zoomLevel) = 0;
-  };
-
-  // Render bits
-  enum RenderMode
-  {
-    RenderAccuracy = 0x1,
-    RenderMyPosition = 0x2
+    virtual void ChangeModelView(double autoScale,
+                                 m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) = 0;
   };
 
   MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
@@ -67,6 +62,7 @@ public:
   void Rotated();
 
   void ResetRoutingNotFollowTimer();
+  void ResetRoutingNotAutoZoomTimer();
 
   void CorrectScalePoint(m2::PointD & pt) const;
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const;
@@ -74,8 +70,10 @@ public:
 
   void SetRenderShape(drape_ptr<MyPosition> && shape);
 
-  void ActivateRouting(int zoomLevel);
+  void ActivateRouting(int zoomLevel, bool enableAutoZoom);
   void DeactivateRouting();
+
+  void EnableAutoZoomInRouting(bool enableAutoZoom);
 
   void StopLocationFollow();
   void NextMode(ScreenBase const & screen);
@@ -90,7 +88,7 @@ public:
 
   void SetModeListener(location::TMyPositionModeChanged const & fn);
 
-  void Render(uint32_t renderMode, ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+  void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
@@ -115,8 +113,10 @@ private:
   void ChangeModelView(double azimuth);
   void ChangeModelView(m2::RectD const & rect);
   void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel);
+  void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero);
 
   void UpdateViewport(int zoomLevel);
+  bool UpdateViewportWithAutoZoom();
   m2::PointD GetRotationPixelCenter() const;
   m2::PointD GetRoutingRotationPixelCenter() const;
 
@@ -146,9 +146,13 @@ private:
   m2::PointD m_oldPosition; // position in mercator
   double m_oldDrawDirection;
 
+  bool m_enableAutoZoomInRouting;
+  double m_autoScale;
+
   my::Timer m_lastGPSBearing;
   my::Timer m_pendingTimer;
   my::Timer m_routingNotFollowTimer;
+  my::Timer m_routingNotAutoZoomTimer;
   my::Timer m_updateLocationTimer;
   double m_lastLocationTimestamp;
 
@@ -157,6 +161,7 @@ private:
 
   bool m_isVisible;
   bool m_isDirtyViewport;
+  bool m_isDirtyAutoZoom;
   bool m_isPendingAnimation;
 
   using TAnimationCreator = function<void(double)>;
@@ -164,6 +169,9 @@ private:
 
   bool m_isPositionAssigned;
   bool m_isDirectionAssigned;
+
+  bool m_positionIsObsolete;
+  bool m_needBlockAutoZoom;
 
   bool m_notFollowAfterPending;
 };

@@ -56,7 +56,8 @@ public:
     BlockTapEvents,
     SetTimeInBackground,
     SetAddNewPlaceMode,
-    SetDisplacementMode
+    SetDisplacementMode,
+    AllowAutoZoom
   };
 
   virtual ~Message() {}

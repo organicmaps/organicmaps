@@ -108,6 +108,7 @@ char const kRouterTypeKey[] = "router";
 char const kMapStyleKey[] = "MapStyleKeyV1";
 char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
+char const kAllowAutoZoom[] = "AutoZoom";
 
 double const kDistEqualQuery = 100.0;
 
@@ -2287,11 +2288,14 @@ void Framework::FollowRoute()
   if (!m_routingSession.EnableFollowMode())
     return;
 
-  int const scale = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetPedestrianNavigationScale()
-                                                                    : scales::GetNavigationScale();
-  int const scale3d = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetPedestrianNavigation3dScale()
-                                                                      : scales::GetNavigation3dScale();
-  m_drapeEngine->FollowRoute(scale, scale3d);
+  bool const isPedestrianRoute = m_currentRouterType == RouterType::Pedestrian;
+  int const scale = isPedestrianRoute ? scales::GetPedestrianNavigationScale()
+                                      : scales::GetNavigationScale();
+  int const scale3d = isPedestrianRoute ? scales::GetPedestrianNavigation3dScale()
+                                        : scales::GetNavigation3dScale();
+  bool const enableAutoZoom = isPedestrianRoute ? false : LoadAutoZoom();
+
+  m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom);
   m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
 }
 
@@ -2550,6 +2554,23 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 
   if (!settings::Get(kAllow3dBuildingsKey, allow3dBuildings))
     allow3dBuildings = true;
+}
+
+bool Framework::LoadAutoZoom()
+{
+  bool allowAutoZoom = false;
+  settings::Get(kAllowAutoZoom, allowAutoZoom);
+  return allowAutoZoom;
+}
+
+void Framework::AllowAutoZoom(bool allowAutoZoom)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::AllowAutoZoom, _1, allowAutoZoom));
+}
+
+void Framework::SaveAutoZoom(bool allowAutoZoom)
+{
+  settings::Set(kAllowAutoZoom, allowAutoZoom);
 }
 
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position)

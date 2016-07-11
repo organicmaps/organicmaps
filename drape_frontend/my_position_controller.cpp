@@ -28,9 +28,11 @@ double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
 double const kMaxNotFollowRoutingTimeSec = 10.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
+double const kMaxNotAutoZoomRoutingTimeSec = 10.0;
 
 int const kZoomThreshold = 10;
 int const kMaxScaleZoomLevel = 16;
+int const kDefaultAutoZoom = 16;
 
 string LocationModeStatisticsName(location::EMyPositionMode mode)
 {
@@ -63,7 +65,46 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
   return GetZoomLevel(s);
 }
 
+// Calculate zoom value in meters per pixel
+double CalculateZoomBySpeed(double speed)
+{
+  using TSpeedScale = pair<double, double>;
+  static vector<TSpeedScale> scales = {
+    make_pair(20.0,  0.1),
+    make_pair(40.0,  0.25),
+    make_pair(60.0,  0.5),
+    make_pair(80.0,  0.85),
+    make_pair(100.0, 1.75),
+    make_pair(120.0, 3.5),
+  };
 
+  double const kDefaultSpeed = 80.0;
+  if (speed < 0.0)
+    speed = kDefaultSpeed;
+  else
+    speed *= 3.6; // convert speed from m/s to km/h
+
+  size_t i = 0;
+  for (size_t sz = scales.size(); i < sz; ++i)
+    if (scales[i].first >= speed)
+      break;
+
+  if (i == 0)
+    return scales.front().second;
+  if (i == scales.size())
+    return scales.back().second;
+
+  double const minSpeed = scales[i - 1].first;
+  double const maxSpeed = scales[i].first;
+  double const k = (speed - minSpeed) / (maxSpeed - minSpeed);
+
+  double const minScale = scales[i - 1].second;
+  double const maxScale = scales[i].second;
+  double const zoom = minScale + k * (maxScale - minScale);
+  double const vs = df::VisualParams::Instance().GetVisualScale();
+
+  return zoom / vs;
+}
 
 } // namespace
 
@@ -80,14 +121,19 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
   , m_drawDirection(0.0)
   , m_oldPosition(m2::PointD::Zero())
   , m_oldDrawDirection(0.0)
+  , m_enableAutoZoomInRouting(false)
+  , m_autoScale(GetScale(kDefaultAutoZoom))
   , m_lastGPSBearing(false)
   , m_lastLocationTimestamp(0.0)
   , m_positionYOffset(kPositionOffsetY)
   , m_isVisible(false)
   , m_isDirtyViewport(false)
+  , m_isDirtyAutoZoom(false)
   , m_isPendingAnimation(false)
   , m_isPositionAssigned(false)
   , m_isDirectionAssigned(false)
+  , m_positionIsObsolete(false)
+  , m_needBlockAutoZoom(false)
   , m_notFollowAfterPending(false)
 {
   if (m_isFirstLaunch)
@@ -159,11 +205,13 @@ void MyPositionController::DragEnded(m2::PointD const & distance)
 void MyPositionController::ScaleStarted()
 {
   m_needBlockAnimation = true;
+  ResetRoutingNotAutoZoomTimer();
 }
 
 void MyPositionController::ScaleEnded()
 {
   m_needBlockAnimation = false;
+  ResetRoutingNotAutoZoomTimer();
   if (m_wasRotationInScaling)
   {
     m_wasRotationInScaling = false;
@@ -183,6 +231,15 @@ void MyPositionController::ResetRoutingNotFollowTimer()
 {
   if (m_isInRouting)
     m_routingNotFollowTimer.Reset();
+}
+
+void MyPositionController::ResetRoutingNotAutoZoomTimer()
+{
+  if (m_isInRouting && m_enableAutoZoomInRouting)
+  {
+    m_needBlockAutoZoom = true;
+    m_routingNotAutoZoomTimer.Reset();
+  }
 }
 
 void MyPositionController::CorrectScalePoint(m2::PointD & pt) const
@@ -284,6 +341,9 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m_position = MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude);
   m_errorRadius = rect.SizeX() * 0.5;
 
+  double const zoom = CalculateZoomBySpeed(info.m_speed);
+  m_autoScale = zoom * (rect.SizeX() / info.m_horizontalAccuracy);
+
   bool const hasBearing = info.HasBearing();
   if ((isNavigable && hasBearing) ||
       (!isNavigable && hasBearing && info.HasSpeed() && info.m_speed > kMinSpeedThresholdMps))
@@ -351,6 +411,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   }
 
   m_isPositionAssigned = true;
+  m_positionIsObsolete = false;
   SetIsVisible(true);
 
   double const kEps = 1e-5;
@@ -405,8 +466,18 @@ bool MyPositionController::IsInStateWithPosition() const
          m_mode == location::FollowAndRotate;
 }
 
-void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen,
-                                  ref_ptr<dp::GpuProgramManager> mng,
+bool MyPositionController::UpdateViewportWithAutoZoom()
+{
+  if (m_mode == location::FollowAndRotate &&
+      m_isInRouting && m_enableAutoZoomInRouting && !m_needBlockAutoZoom)
+  {
+    ChangeModelView(m_autoScale, m_position, m_drawDirection, GetRoutingRotationPixelCenter());
+    return true;
+  }
+  return false;
+}
+
+void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                                   dp::UniformValuesStorage const & commonUniforms)
 {
   if (IsWaitingForLocation())
@@ -424,29 +495,41 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
 
   if (m_shape != nullptr && IsVisible() && IsModeHasPosition())
   {
-    if (m_isDirtyViewport && !m_needBlockAnimation)
+    if (m_needBlockAutoZoom &&
+        m_routingNotAutoZoomTimer.ElapsedSeconds() >= kMaxNotAutoZoomRoutingTimeSec)
     {
-      UpdateViewport(kDoNotChangeZoom);
+      m_needBlockAutoZoom = false;
+      m_isDirtyAutoZoom = true;
+    }
+
+    if (!m_positionIsObsolete &&
+        m_updateLocationTimer.ElapsedSeconds() >= kMaxUpdateLocationInvervalSec)
+    {
+      m_positionIsObsolete = true;
+      m_autoScale = GetScale(kDefaultAutoZoom);
+      m_isDirtyAutoZoom = true;
+    }
+
+    if ((m_isDirtyViewport || m_isDirtyAutoZoom) && !m_needBlockAnimation)
+    {
+      if (!UpdateViewportWithAutoZoom() && m_isDirtyViewport)
+        UpdateViewport(kDoNotChangeZoom);
       m_isDirtyViewport = false;
+      m_isDirtyAutoZoom = false;
     }
 
     if (!IsModeChangeViewport())
       m_isPendingAnimation = false;
 
+    m_shape->SetPositionObsolete(m_positionIsObsolete);
     m_shape->SetPosition(GetDrawablePosition());
     m_shape->SetAzimuth(GetDrawableAzimut());
     m_shape->SetIsValidAzimuth(IsRotationAvailable());
     m_shape->SetAccuracy(m_errorRadius);
     m_shape->SetRoutingMode(IsInRouting());
 
-    double const updateInterval = m_updateLocationTimer.ElapsedSeconds();
-    m_shape->SetPositionObsolete(updateInterval >= kMaxUpdateLocationInvervalSec);
-
-    if ((renderMode & RenderAccuracy) != 0)
-      m_shape->RenderAccuracy(screen, mng, commonUniforms);
-
-    if ((renderMode & RenderMyPosition) != 0)
-      m_shape->RenderMyPosition(screen, mng, commonUniforms);
+    m_shape->RenderAccuracy(screen, mng, commonUniforms);
+    m_shape->RenderMyPosition(screen, mng, commonUniforms);
   }
 }
 
@@ -475,6 +558,9 @@ void MyPositionController::SetDirection(double bearing)
 
 void MyPositionController::ChangeMode(location::EMyPositionMode newMode)
 {
+  if (m_isInRouting && (m_mode != newMode) && (newMode == location::FollowAndRotate))
+    ResetRoutingNotAutoZoomTimer();
+
   m_mode = newMode;
   if (m_modeChangeCallback != nullptr)
     m_modeChangeCallback(m_mode, m_isInRouting);
@@ -556,6 +642,12 @@ void MyPositionController::ChangeModelView(m2::PointD const & userPos, double az
 {
   if (m_listener)
     m_listener->ChangeModelView(userPos, azimuth, pxZero, zoomLevel);
+}
+
+void MyPositionController::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
+{
+  if (m_listener)
+    m_listener->ChangeModelView(autoScale, userPos, azimuth, pxZero);
 }
 
 void MyPositionController::UpdateViewport(int zoomLevel)
@@ -648,12 +740,22 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
   }
 }
 
-void MyPositionController::ActivateRouting(int zoomLevel)
+void MyPositionController::EnableAutoZoomInRouting(bool enableAutoZoom)
+{
+  if (m_isInRouting)
+  {
+    m_enableAutoZoomInRouting = enableAutoZoom;
+    ResetRoutingNotAutoZoomTimer();
+  }
+}
+
+void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom)
 {
   if (!m_isInRouting)
   {
     m_isInRouting = true;
     m_routingNotFollowTimer.Reset();
+    m_enableAutoZoomInRouting = enableAutoZoom;
 
     if (IsRotationAvailable())
     {

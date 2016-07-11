@@ -130,11 +130,25 @@ struct SetAnyRectEvent
 struct FollowAndRotateEvent
 {
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
+                       double azimuth, double autoScale)
+    : m_userPos(userPos)
+    , m_pixelZero(pixelZero)
+    , m_azimuth(azimuth)
+    , m_preferredZoomLevel(-1)
+    , m_autoScale(autoScale)
+    , m_isAutoScale(true)
+    , m_isAnim(true)
+  {
+  }
+
+  FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
                        double azimuth, int preferredZoomLevel, bool isAnim)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
     , m_preferredZoomLevel(preferredZoomLevel)
+    , m_autoScale(-1.0)
+    , m_isAutoScale(false)
     , m_isAnim(isAnim)
   {}
 
@@ -142,6 +156,8 @@ struct FollowAndRotateEvent
   m2::PointD m_pixelZero;
   double m_azimuth;
   int m_preferredZoomLevel;
+  double m_autoScale;
+  bool m_isAutoScale;
   bool m_isAnim;
 };
 
@@ -282,7 +298,8 @@ private:
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
   bool SetScreen(ScreenBase const & screen, bool isAnim);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
-                          double azimuth, int preferredZoomLevel, bool isAnim);
+                          double azimuth, int preferredZoomLevel, double autoScale,
+                          bool isAnim, bool isAutoScale);
   void SetAutoPerspective(bool isAutoPerspective);
 
   m2::AnyRectD GetCurrentRect() const;

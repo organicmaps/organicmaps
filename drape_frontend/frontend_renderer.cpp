@@ -484,7 +484,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       if (m_pendingFollowRoute != nullptr)
       {
-        FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel, m_pendingFollowRoute->m_preferredZoomLevelIn3d);
+        FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel, m_pendingFollowRoute->m_preferredZoomLevelIn3d,
+                    m_pendingFollowRoute->m_enableAutoZoom);
         m_pendingFollowRoute.reset();
       }
       break;
@@ -520,12 +521,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       // receive FollowRoute message before FlushRoute message, so we need to postpone its processing.
       if (m_routeRenderer->GetRouteData() == nullptr)
       {
-        m_pendingFollowRoute.reset(
-              new FollowRouteData(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d()));
+        m_pendingFollowRoute.reset(new FollowRouteData(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(),
+                                                       msg->EnableAutoZoom()));
         break;
       }
 
-      FollowRoute(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d());
+      FollowRoute(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(), msg->EnableAutoZoom());
       break;
     }
 
@@ -605,6 +606,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       m_gpsTrackRenderer->Update();
 
+      break;
+    }
+
+  case Message::AllowAutoZoom:
+    {
+      ref_ptr<AllowAutoZoomMessage> const msg = message;
+      m_myPositionController->EnableAutoZoomInRouting(msg->AllowAutoZoom());
       break;
     }
 
@@ -720,6 +728,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Invalidate:
     {
       m_myPositionController->ResetRoutingNotFollowTimer();
+      m_myPositionController->ResetRoutingNotAutoZoomTimer();
       break;
     }
 
@@ -733,11 +742,11 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
   return make_unique<Routine>(*this);
 }
 
-void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d)
+void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom)
 {
 
-  m_myPositionController->ActivateRouting(!m_enablePerspectiveInNavigation ? preferredZoomLevel
-                                                                           : preferredZoomLevelIn3d);
+  m_myPositionController->ActivateRouting(!m_enablePerspectiveInNavigation ? preferredZoomLevel : preferredZoomLevelIn3d,
+                                          enableAutoZoom);
 
   if (m_enablePerspectiveInNavigation)
     AddUserEvent(SetAutoPerspectiveEvent(true /* isAutoPerspective */));
@@ -1002,9 +1011,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     }
   }
 
-  m_myPositionController->Render(MyPositionController::RenderAccuracy,
-                                 modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
-
   if (m_framebuffer->IsSupported())
   {
     m_framebuffer->Enable();
@@ -1049,8 +1055,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   m_routeRenderer->RenderRouteSigns(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  m_myPositionController->Render(MyPositionController::RenderMyPosition,
-                                 modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+  m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   if (m_guiRenderer != nullptr)
     m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
@@ -1392,6 +1397,7 @@ void FrontendRenderer::OnScaleEnded()
 
 void FrontendRenderer::OnAnimatedScaleEnded()
 {
+  m_myPositionController->ResetRoutingNotAutoZoomTimer();
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
 }
 
@@ -1622,6 +1628,11 @@ void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimut
                                        m2::PointD const & pxZero, int preferredZoomLevel)
 {
   AddUserEvent(FollowAndRotateEvent(userPos, pxZero, azimuth, preferredZoomLevel, true));
+}
+
+void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
+{
+  AddUserEvent(FollowAndRotateEvent(userPos, pxZero, azimuth, autoScale));
 }
 
 ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)
