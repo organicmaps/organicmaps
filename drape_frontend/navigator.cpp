@@ -178,7 +178,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           bool skipMinScaleAndBordersCheck, bool doRotateScreen,
                           ScreenBase & screen)
 {
-  m2::PointD const center3d = oldPt1;
+  m2::PointD const center3d = (oldPt1 + oldPt2) / 2.0;
   m2::PointD const center2d = screen.P3dtoP(center3d);
   m2::PointD const centerG = screen.PtoG(center2d);
   m2::PointD const offset =  center2d - center3d;
