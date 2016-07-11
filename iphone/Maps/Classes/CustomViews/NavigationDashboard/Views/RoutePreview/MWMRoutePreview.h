@@ -12,7 +12,6 @@
 @property(weak, nonatomic, readonly) IBOutlet UIButton * extendButton;
 @property(weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;
 
-- (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
 - (void)statePrepare;
 - (void)statePlanning;
 - (void)stateError;

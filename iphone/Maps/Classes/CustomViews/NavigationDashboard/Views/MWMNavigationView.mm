@@ -83,7 +83,7 @@ static CGFloat const kStatusbarHeight = 20.0;
 
 - (void)setLeftBound:(CGFloat)leftBound
 {
-  _leftBound = leftBound;
+  _leftBound = MAX(leftBound, 0.0);
   [self setNeedsLayout];
 }
 

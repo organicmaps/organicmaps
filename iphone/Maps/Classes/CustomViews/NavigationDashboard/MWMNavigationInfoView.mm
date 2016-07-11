@@ -48,9 +48,9 @@ CGFloat constexpr kTurnsiPadWidth = 140;
 - (void)remove { self.isVisible = NO; }
 - (void)layoutSubviews
 {
-  if (!CGRectEqualToRect(self.frame, self.superview.bounds))
+  if (!CGRectEqualToRect(self.frame, self.defaultFrame))
   {
-    self.frame = self.superview.bounds;
+    self.frame = self.defaultFrame;
     [self setNeedsLayout];
   }
   if (!self.isVisible)
@@ -105,6 +105,20 @@ CGFloat constexpr kTurnsiPadWidth = 140;
     self.turnsView.hidden = YES;
   }
   self.hidden = self.streetNameView.hidden && self.turnsView.hidden;
+}
+
+#pragma mark - Properties
+
+- (CGRect)defaultFrame
+{
+  return CGRectMake(self.leftBound, 0.0, self.superview.width - self.leftBound,
+                    self.superview.height);
+}
+
+- (void)setLeftBound:(CGFloat)leftBound
+{
+  _leftBound = MAX(leftBound, 0.0);
+  [self setNeedsLayout];
 }
 
 @end

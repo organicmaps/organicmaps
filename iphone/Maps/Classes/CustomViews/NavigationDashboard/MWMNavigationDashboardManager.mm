@@ -173,8 +173,21 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   [[MapViewController controller] updateStatusBarStyle];
 }
 
-- (void)setTopBound:(CGFloat)topBound { _topBound = self.routePreview.topBound = topBound; }
-- (void)setLeftBound:(CGFloat)leftBound { _leftBound = self.routePreview.leftBound = leftBound; }
+- (void)setTopBound:(CGFloat)topBound
+{
+  _topBound = topBound;
+  if (_routePreview)
+    self.routePreview.topBound = topBound;
+}
+- (void)setLeftBound:(CGFloat)leftBound
+{
+  _leftBound = leftBound;
+  if (_routePreview && IPAD)
+    self.routePreview.leftBound = leftBound;
+  if (_navigationInfoView)
+    self.navigationInfoView.leftBound = leftBound;
+}
+
 - (CGFloat)height
 {
   switch (self.state)
