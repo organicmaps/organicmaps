@@ -5,4 +5,4 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_half"
     android:gravity="center"
-    android:numColumns="4"/>
+    android:numColumns="3"/>
