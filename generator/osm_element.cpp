@@ -121,6 +121,20 @@ string OsmElement::ToString(string const & shift) const
   return ss.str();
 }
 
+bool OsmElement::GetTag(string const & key, string & value) const
+{
+  auto const it = find_if(begin(m_tags), end(m_tags), [&key](Tag const & tag)
+  {
+    return tag.key == key;
+  });
+
+  if (it == end(m_tags))
+    return false;
+
+  value = it->value;
+  return true;
+}
+
 string DebugPrint(OsmElement const & e)
 {
   return e.ToString();

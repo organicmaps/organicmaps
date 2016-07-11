@@ -1,4 +1,5 @@
 #include "generator/booking_dataset.hpp"
+#include "generator/booking_scoring.hpp"
 #include "generator/osm_source.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -73,15 +74,15 @@ int main(int argc, char * argv[])
     for (size_t const j : bookingIndexes)
     {
       auto const & hotel = bookingDataset.GetHotel(j);
-      double const distanceMeters = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
-      double const score = BookingDataset::ScoreByLinearNormDistance(distanceMeters);
+      auto const score = booking_scoring::Match(hotel, e);
 
-      bool matched = score > BookingDataset::kOptimalThreshold;
+      double const distanceMeters = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
+      bool matched = score.IsMatched();
 
       outStream << "# ------------------------------------------" << fixed << setprecision(6)
                 << endl;
       outStream << (matched ? 'y' : 'n') << " \t" << i << "\t " << j
-                << " distance: " << distanceMeters << " score: " << score << endl;
+                << " distance: " << distanceMeters << " score: " << score.GetMatchingScore() << endl;
       outStream << "# " << e << endl;
       outStream << "# " << hotel << endl;
       outStream << "# URL: https://www.openstreetmap.org/?mlat=" << hotel.lat

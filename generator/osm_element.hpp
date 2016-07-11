@@ -152,7 +152,8 @@ struct OsmElement
     if (!v.empty())
       AddTag(k, v);
   }
+
+  bool GetTag(string const & key, string & value) const;
 };
 
 string DebugPrint(OsmElement const & e);
-

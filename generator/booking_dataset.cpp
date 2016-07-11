@@ -1,11 +1,11 @@
 #include "generator/booking_dataset.hpp"
 
+#include "generator/booking_scoring.hpp"
+
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/search_delimiters.hpp"
-#include "indexer/search_string_utils.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
@@ -171,45 +171,6 @@ vector<size_t> BookingDataset::GetNearestHotels(double lat, double lon, size_t l
   return indexes;
 }
 
-bool BookingDataset::MatchByName(string const & osmName,
-                                 vector<size_t> const & bookingIndexes) const
-{
-  return false;
-
-  // Match name.
-  //  vector<strings::UniString> osmTokens;
-  //  NormalizeAndTokenizeString(name, osmTokens, search::Delimiters());
-  //
-  //  cout << "\n------------- " << name << endl;
-  //
-  //  bool matched = false;
-  //  for (auto const & index : indexes)
-  //  {
-  //    vector<strings::UniString> bookingTokens;
-  //    NormalizeAndTokenizeString(m_hotels[index].name, bookingTokens, search::Delimiters());
-  //
-  //    map<size_t, vector<pair<size_t, size_t>>> weightPair;
-  //
-  //    for (size_t j = 0; j < osmTokens.size(); ++j)
-  //    {
-  //      for (size_t i = 0; i < bookingTokens.size(); ++i)
-  //      {
-  //        size_t distance = strings::EditDistance(osmTokens[j].begin(), osmTokens[j].end(),
-  //                                                bookingTokens[i].begin(),
-  //                                                bookingTokens[i].end());
-  //        if (distance < 3)
-  //          weightPair[distance].emplace_back(i, j);
-  //      }
-  //    }
-  //
-  //    if (!weightPair.empty())
-  //    {
-  //      cout << m_hotels[e.second] << endl;
-  //      matched = true;
-  //    }
-  //  }
-}
-
 void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) const
 {
   for (auto const & hotel : m_hotels)
@@ -302,13 +263,6 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
   }
 }
 
-// static
-double BookingDataset::ScoreByLinearNormDistance(double distance)
-{
-  distance = my::clamp(distance, 0, kDistanceLimitInMeters);
-  return 1.0 - distance / kDistanceLimitInMeters;
-}
-
 void BookingDataset::LoadHotels(istream & src, string const & addressReferencePath)
 {
   m_hotels.clear();
@@ -374,11 +328,7 @@ bool BookingDataset::MatchWithBooking(OsmElement const & e) const
 
   for (size_t const j : bookingIndexes)
   {
-    auto const & hotel = GetHotel(j);
-    double const distanceMeters = ms::DistanceOnEarth(e.lat, e.lon, hotel.lat, hotel.lon);
-    double score = ScoreByLinearNormDistance(distanceMeters);
-    matched = score > kOptimalThreshold;
-    if (matched)
+    if (booking_scoring::Match(GetHotel(j), e).IsMatched())
       break;
   }
 
