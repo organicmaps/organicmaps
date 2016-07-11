@@ -363,7 +363,6 @@ bool OverlayTree::CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
 void OverlayTree::DeleteHandle(ref_ptr<OverlayHandle> const & handle)
 {
   size_t const deletedCount = m_handlesCache.erase(handle);
-  ASSERT_NOT_EQUAL(deletedCount, 0, ());
   if (deletedCount != 0)
     Erase(handle);
 }
