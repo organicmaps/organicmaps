@@ -410,9 +410,6 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   }
   screen.MatchGandP3d(userPos, pixelPos);
 
-  ASSERT_GREATER_OR_EQUAL(preferredZoomLevel, scales::GetUpperWorldScale(), ());
-  ASSERT_LESS_OR_EQUAL(preferredZoomLevel, scales::GetUpperStyleScale(), ());
-
   ShrinkAndScaleInto(screen, df::GetWorldRect());
 
   if (isAnim)
