@@ -314,9 +314,6 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
     screen.MatchGandP3d(center, screen.PixelRectIn3d().Center());
   }
 
-  ASSERT_GREATER_OR_EQUAL(zoom, scales::GetUpperWorldScale(), ());
-  ASSERT_LESS_OR_EQUAL(zoom, scales::GetUpperStyleScale(), ());
-
   ShrinkAndScaleInto(screen, df::GetWorldRect());
 
   return SetScreen(screen, isAnim);
