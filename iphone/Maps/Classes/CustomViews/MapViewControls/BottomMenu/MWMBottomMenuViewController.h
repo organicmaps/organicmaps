@@ -1,5 +1,6 @@
 #import "MWMBottomMenuView.h"
 #import "MWMMapDownloaderTypes.h"
+#import "MWMNavigationDashboardManager.h"
 
 #include "platform/location.hpp"
 
@@ -14,7 +15,7 @@
 
 @end
 
-@interface MWMBottomMenuViewController : UIViewController
+@interface MWMBottomMenuViewController : UIViewController<MWMNavigationDashboardInfoProtocol>
 
 @property(nonatomic) MWMBottomMenuState state;
 @property(weak, nonatomic) IBOutlet MWMButton * p2pButton;
@@ -23,10 +24,6 @@
 - (instancetype)initWithParentController:(MapViewController *)controller
                                 delegate:(id<MWMBottomMenuControllerProtocol>)delegate;
 
-- (void)setStreetName:(NSString *)streetName;
-- (void)setInactive;
-- (void)setPlanning;
-- (void)setGo;
 - (void)mwm_refreshUI;
 - (void)refreshLayout;
 

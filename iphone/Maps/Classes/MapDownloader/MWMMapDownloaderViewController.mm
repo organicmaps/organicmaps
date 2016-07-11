@@ -1,7 +1,7 @@
+#import "MWMMapDownloaderViewController.h"
 #import "Common.h"
 #import "MWMMapDownloaderExtendedDataSource.h"
 #import "MWMMapDownloaderSearchDataSource.h"
-#import "MWMMapDownloaderViewController.h"
 #import "MWMNoMapsViewController.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
@@ -13,21 +13,21 @@
 namespace
 {
 NSString * const kNoMapsSegue = @"MapDownloaderEmbedNoMapsSegue";
-} // namespace
+}  // namespace
 
 using namespace storage;
 
 @interface MWMBaseMapDownloaderViewController ()
 
-@property (weak, nonatomic) IBOutlet UITableView * tableView;
+@property(weak, nonatomic) IBOutlet UITableView * tableView;
 
-@property (nonatomic) MWMMapDownloaderDataSource * dataSource;
-@property (nonatomic) MWMMapDownloaderDataSource * defaultDataSource;
+@property(nonatomic) MWMMapDownloaderDataSource * dataSource;
+@property(nonatomic) MWMMapDownloaderDataSource * defaultDataSource;
 
-@property (nonatomic, readonly) NSString * parentCountryId;
-@property (nonatomic, readonly) mwm::DownloaderMode mode;
+@property(nonatomic, readonly) NSString * parentCountryId;
+@property(nonatomic, readonly) mwm::DownloaderMode mode;
 
-@property (nonatomic) BOOL showAllMapsButtons;
+@property(nonatomic) BOOL showAllMapsButtons;
 
 - (void)configViews;
 
@@ -37,14 +37,14 @@ using namespace storage;
 
 @end
 
-@interface MWMMapDownloaderViewController () <UISearchBarDelegate, UIScrollViewDelegate, MWMNoMapsViewControllerProtocol>
+@interface MWMMapDownloaderViewController ()<UISearchBarDelegate, UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView * statusBarBackground;
-@property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
-@property (weak, nonatomic) IBOutlet UIView * noMapsContainer;
-@property (nonatomic) MWMNoMapsViewController * noMapsController;
+@property(weak, nonatomic) IBOutlet UIView * statusBarBackground;
+@property(weak, nonatomic) IBOutlet UISearchBar * searchBar;
+@property(weak, nonatomic) IBOutlet UIView * noMapsContainer;
+@property(nonatomic) MWMNoMapsViewController * noMapsController;
 
-@property (nonatomic) MWMMapDownloaderDataSource * searchDataSource;
+@property(nonatomic) MWMMapDownloaderDataSource * searchDataSource;
 
 @end
 
@@ -142,24 +142,19 @@ using namespace storage;
 
 #pragma mark - UIBarPositioningDelegate
 
-- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
-{
-  return UIBarPositionTopAttached;
-}
-
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar { return UIBarPositionTopAttached; }
 #pragma mark - Search
 
 - (void)setupSearchParams
 {
   __weak auto weakSelf = self;
-  m_searchParams.m_onResults = ^(DownloaderSearchResults const & results)
-  {
+  m_searchParams.m_onResults = ^(DownloaderSearchResults const & results) {
     __strong auto self = weakSelf;
     if (!self || results.m_endMarker)
       return;
-    self.searchDataSource = [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results delegate:self];
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
+    self.searchDataSource =
+        [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results delegate:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
       self.dataSource = self.searchDataSource;
       [self reloadTable];
     });
@@ -175,21 +170,14 @@ using namespace storage;
 
 #pragma mark - MWMNoMapsViewControllerProtocol
 
-- (void)handleDownloadMapsAction
-{
-  [self openAvailableMaps];
-}
-
+- (void)handleDownloadMapsAction { [self openAvailableMaps]; }
 #pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
   [super prepareForSegue:segue sender:sender];
   if ([segue.identifier isEqualToString:kNoMapsSegue])
-  {
     self.noMapsController = segue.destinationViewController;
-    self.noMapsController.delegate = self;
-  }
 }
 
 #pragma mark - Configuration

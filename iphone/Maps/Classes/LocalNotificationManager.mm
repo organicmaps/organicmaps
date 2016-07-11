@@ -1,9 +1,9 @@
+#import "LocalNotificationManager.h"
 #import "CLLocation+Mercator.h"
 #import "Common.h"
-#import "LocalNotificationManager.h"
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
 #import "MWMStorage.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
 
@@ -24,16 +24,17 @@ NSString * const kDownloadMapCountryId = @"DownloadMapCountryId";
 
 NSString * const kFlagsKey = @"DownloadMapNotificationFlags";
 
-NSTimeInterval constexpr kRepeatedNotificationIntervalInSeconds = 3 * 30 * 24 * 60 * 60; // three months
-} // namespace
+NSTimeInterval constexpr kRepeatedNotificationIntervalInSeconds =
+    3 * 30 * 24 * 60 * 60;  // three months
+}  // namespace
 
 using namespace storage;
 
-@interface LocalNotificationManager () <CLLocationManagerDelegate, UIAlertViewDelegate>
+@interface LocalNotificationManager ()<CLLocationManagerDelegate, UIAlertViewDelegate>
 
-@property (nonatomic) CLLocationManager * locationManager;
-@property (copy, nonatomic) CompletionHandler downloadMapCompletionHandler;
-@property (weak, nonatomic) NSTimer * timer;
+@property(nonatomic) CLLocationManager * locationManager;
+@property(copy, nonatomic) CompletionHandler downloadMapCompletionHandler;
+@property(weak, nonatomic) NSTimer * timer;
 
 @end
 
@@ -43,25 +44,20 @@ using namespace storage;
 {
   static LocalNotificationManager * manager = nil;
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^
-  {
+  dispatch_once(&onceToken, ^{
     manager = [[self alloc] init];
   });
   return manager;
 }
 
-- (void)dealloc
-{
-  _locationManager.delegate = nil;
-}
-
+- (void)dealloc { _locationManager.delegate = nil; }
 - (void)processNotification:(UILocalNotification *)notification onLaunch:(BOOL)onLaunch
 {
   NSDictionary * userInfo = [notification userInfo];
   if ([userInfo[kDownloadMapActionKey] isEqualToString:kDownloadMapActionName])
   {
     [Statistics logEvent:@"'Download Map' Notification Clicked"];
-    MapViewController * mapViewController = [MapsAppDelegate theApp].mapViewController;
+    MapViewController * mapViewController = [MapViewController controller];
     [mapViewController.navigationController popToRootViewControllerAnimated:NO];
 
     NSString * notificationCountryId = userInfo[kDownloadMapCountryId];
@@ -73,10 +69,11 @@ using namespace storage;
             kStatFrom : kStatMap,
             kStatScenario : kStatDownload
           }];
-    [MWMStorage downloadNode:countryId alertController:mapViewController.alertController onSuccess:^
-    {
-      GetFramework().ShowNode(countryId);
-    }];
+    [MWMStorage downloadNode:countryId
+             alertController:mapViewController.alertController
+                   onSuccess:^{
+                     GetFramework().ShowNode(countryId);
+                   }];
   }
 }
 
@@ -114,7 +111,8 @@ using namespace storage;
   NSDictionary<NSString *, NSDate *> * flags = [ud objectForKey:kFlagsKey];
   NSDate * lastShowDate = flags[countryId];
   return !lastShowDate ||
-         [[NSDate date] timeIntervalSinceDate:lastShowDate] > kRepeatedNotificationIntervalInSeconds;
+         [[NSDate date] timeIntervalSinceDate:lastShowDate] >
+             kRepeatedNotificationIntervalInSeconds;
 }
 
 - (void)markNotificationShownForCountryId:(NSString *)countryId
@@ -166,7 +164,8 @@ using namespace storage;
   NSString * flurryEventName = @"'Download Map' Notification Didn't Schedule";
   UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
 
-  BOOL const inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
+  BOOL const inBackground =
+      [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
   BOOL const onWiFi = (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI);
   if (inBackground && onWiFi)
   {

@@ -11,13 +11,9 @@ using namespace routing::turns;
 
 @implementation MWMNavigationDashboardEntity
 
-- (void)updateWithFollowingInfo:(location::FollowingInfo const &)info
+- (void)updateFollowingInfo:(location::FollowingInfo const &)info
 {
-  [self configure:info];
-}
-
-- (void)configure:(location::FollowingInfo const &)info
-{
+  _isValid = info.IsValid();
   _timeToTarget = info.m_time;
   _targetDistance = @(info.m_distToTarget.c_str());
   _targetUnits = @(info.m_targetUnitsSuffix.c_str());
@@ -43,7 +39,6 @@ using namespace routing::turns;
     _distanceToTurn = @(dist.c_str());
     _turnUnits = @(units.c_str());
     _streetName = @"";
-//    _lanes = {};
   }
   else
   {
@@ -51,7 +46,6 @@ using namespace routing::turns;
     _distanceToTurn = @(info.m_distToTurn.c_str());
     _turnUnits = @(info.m_turnUnitsSuffix.c_str());
     _streetName = @(info.m_targetName.c_str());
-//    _lanes = info.m_lanes;
     _nextTurnImage = image(info.m_nextTurn, true);
   }
 
@@ -119,6 +113,23 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
   if (!imageName)
     return nil;
   return [UIImage imageNamed:isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
+}
+
+- (NSString *)speed
+{
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation || lastLocation.speed < 0)
+    return nil;
+  auto units = measurement_utils::Units::Metric;
+  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
+  return @(measurement_utils::FormatSpeed(lastLocation.speed, units).c_str());
+}
+
+- (NSString *)speedUnits
+{
+  auto units = measurement_utils::Units::Metric;
+  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
+  return @(measurement_utils::FormatSpeedUnits(units).c_str());
 }
 
 @end

@@ -1,18 +1,33 @@
-#import "Common.h"
-#import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
+#import "Common.h"
+#import "MWMController.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"
+#import "MapsAppDelegate.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
-@interface MWMAlertViewController () <UIGestureRecognizerDelegate>
+@interface MWMAlertViewController ()<UIGestureRecognizerDelegate>
 
-@property (weak, nonatomic, readwrite) UIViewController * ownerViewController;
+@property(weak, nonatomic, readwrite) UIViewController * ownerViewController;
 
 @end
 
 @implementation MWMAlertViewController
+
++ (MWMAlertViewController *)activeAlertController
+{
+  UIWindow * window = UIApplication.sharedApplication.delegate.window;
+  UIViewController * rootViewController = window.rootViewController;
+  ASSERT([rootViewController isKindOfClass:[UINavigationController class]], ());
+  UINavigationController * navigationController =
+      static_cast<UINavigationController *>(rootViewController);
+  UIViewController * topViewController = navigationController.topViewController;
+  ASSERT([topViewController conformsToProtocol:@protocol(MWMController)], ());
+  UIViewController<MWMController> * mwmController =
+      static_cast<UIViewController<MWMController> *>(topViewController);
+  return mwmController.alertController;
+}
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController
 {
@@ -22,7 +37,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   return self;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
 {
   for (MWMAlert * alert in self.view.subviews)
     [alert rotate:toInterfaceOrientation duration:duration];
@@ -30,26 +46,15 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 #pragma mark - Actions
 
-- (void)presentRateAlert
-{
-  [self displayAlert:MWMAlert.rateAlert];
-}
-
-- (void)presentLocationAlert
-{
-  [self displayAlert:[MWMAlert locationAlert]];
-}
-
-- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild
+- (void)presentRateAlert { [self displayAlert:MWMAlert.rateAlert]; }
+- (void)presentLocationAlert { [self displayAlert:[MWMAlert locationAlert]]; }
+- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+                             needToRebuild:(BOOL)needToRebuild
 {
   [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:okBlock needToRebuild:needToRebuild]];
 }
 
-- (void)presentFacebookAlert
-{
-  [self displayAlert:MWMAlert.facebookAlert];
-}
-
+- (void)presentFacebookAlert { [self displayAlert:MWMAlert.facebookAlert]; }
 - (void)presentLocationServiceNotSupportedAlert
 {
   [self displayAlert:MWMAlert.locationServiceNotSupportedAlert];
@@ -60,21 +65,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert locationNotFoundAlertWithOkBlock:okBlock]];
 }
 
-- (void)presentNoConnectionAlert
-{
-  [self displayAlert:[MWMAlert noConnectionAlert]];
-}
-
-- (void)presentMigrationProhibitedAlert
-{
-  [self displayAlert:[MWMAlert migrationProhibitedAlert]];
-}
-
-- (void)presentDeleteMapProhibitedAlert
-{
-  [self displayAlert:[MWMAlert deleteMapProhibitedAlert]];
-}
-
+- (void)presentNoConnectionAlert { [self displayAlert:[MWMAlert noConnectionAlert]]; }
+- (void)presentMigrationProhibitedAlert { [self displayAlert:[MWMAlert migrationProhibitedAlert]]; }
+- (void)presentDeleteMapProhibitedAlert { [self displayAlert:[MWMAlert deleteMapProhibitedAlert]]; }
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert unsavedEditsAlertWithOkBlock:okBlock]];
@@ -95,16 +88,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert incorrectFeauturePositionAlert]];
 }
 
-- (void)presentInternalErrorAlert
-{
-  [self displayAlert:[MWMAlert internalErrorAlert]];
-}
-
-- (void)presentNotEnoughSpaceAlert
-{
-  [self displayAlert:[MWMAlert notEnoughSpaceAlert]];
-}
-
+- (void)presentInternalErrorAlert { [self displayAlert:[MWMAlert internalErrorAlert]]; }
+- (void)presentNotEnoughSpaceAlert { [self displayAlert:[MWMAlert notEnoughSpaceAlert]]; }
 - (void)presentInvalidUserNameOrPasswordAlert
 {
   [self displayAlert:[MWMAlert invalidUserNameOrPasswordAlert]];
@@ -130,7 +115,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentRoutingDisclaimerAlert
 {
-  [self displayAlert:[MWMAlert routingDisclaimerAlertWithInitialOrientation:self.ownerViewController.interfaceOrientation]];
+  [self displayAlert:[MWMAlert
+                         routingDisclaimerAlertWithInitialOrientation:self.ownerViewController
+                                                                          .interfaceOrientation]];
 }
 
 - (void)presentBicycleRoutingDisclaimerAlert
@@ -138,11 +125,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert routingBicycleDisclaimerAlert]];
 }
 
-- (void)presentDisabledLocationAlert
-{
-  [self displayAlert:MWMAlert.disabledLocationAlert];
-}
-
+- (void)presentDisabledLocationAlert { [self displayAlert:MWMAlert.disabledLocationAlert]; }
 - (void)presentAlert:(routing::IRouter::ResultCode)type
 {
   [self displayAlert:[MWMAlert alert:type]];
@@ -153,9 +136,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert disableAutoDownloadAlertWithOkBlock:okBlock]];
 }
 
-- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
+- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+                                          cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
 {
-  [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
+  [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock
+                                                          cancelBlock:cancelBlock]];
 }
 
 - (void)presentDownloaderNotEnoughSpaceAlert
@@ -163,9 +148,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert downloaderNotEnoughSpaceAlert]];
 }
 
-- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
+- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+                                           cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
 {
-  [self displayAlert:[MWMAlert downloaderInternalErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
+  [self displayAlert:[MWMAlert downloaderInternalErrorAlertWithOkBlock:okBlock
+                                                           cancelBlock:cancelBlock]];
 }
 
 - (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
@@ -188,20 +175,12 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert deleteFeatureAlertWithBlock:block]];
 }
 
-- (void)presentEditorViralAlert
-{
-  [self displayAlert:[MWMAlert editorViralAlert]];
-}
-
-- (void)presentOsmAuthAlert
-{
-  [self displayAlert:[MWMAlert osmAuthAlert]];
-}
-
+- (void)presentEditorViralAlert { [self displayAlert:[MWMAlert editorViralAlert]]; }
+- (void)presentOsmAuthAlert { [self displayAlert:[MWMAlert osmAuthAlert]]; }
 - (void)displayAlert:(MWMAlert *)alert
 {
-  //TODO(igrechuhin): Remove this check on location manager refactoring.
-  //Workaround for current location manager duplicate error alerts.
+  // TODO(igrechuhin): Remove this check on location manager refactoring.
+  // Workaround for current location manager duplicate error alerts.
   if ([alert isKindOfClass:[MWMLocationAlert class]])
   {
     for (MWMAlert * view in self.view.subviews)
@@ -210,19 +189,18 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
         return;
     }
   }
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    for (MWMAlert * view in self.view.subviews)
-      view.alpha = 0.0;
-  }
-  completion:^(BOOL finished)
-  {
-    for (MWMAlert * view in self.view.subviews)
-    {
-      if (view != alert)
-        view.hidden = YES;
-    }
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{
+        for (MWMAlert * view in self.view.subviews)
+          view.alpha = 0.0;
+      }
+      completion:^(BOOL finished) {
+        for (MWMAlert * view in self.view.subviews)
+        {
+          if (view != alert)
+            view.hidden = YES;
+        }
+      }];
 
   [self removeFromParentViewController];
   alert.alertController = self;
@@ -234,13 +212,13 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
     CGFloat const scale = 1.1;
     alert.transform = CGAffineTransformMakeScale(scale, scale);
   }
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-   {
-     self.view.alpha = 1.;
-     alert.alpha = 1.;
-     if (!isIOS7)
-       alert.transform = CGAffineTransformIdentity;
-   }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+                     self.view.alpha = 1.;
+                     alert.alpha = 1.;
+                     if (!isIOS7)
+                       alert.transform = CGAffineTransformIdentity;
+                   }];
   [MapsAppDelegate.theApp.window endEditing:YES];
 }
 
@@ -251,23 +229,22 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   MWMAlert * showAlert = (subviews.count >= 2 ? subviews[subviews.count - 2] : nil);
   if (showAlert)
     showAlert.hidden = NO;
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    closeAlert.alpha = 0.;
-    if (showAlert)
-      showAlert.alpha = 1.;
-    else
-      self.view.alpha = 0.;
-  }
-  completion:^(BOOL finished)
-  {
-    [closeAlert removeFromSuperview];
-    if (!showAlert)
-    {
-      [self.view removeFromSuperview];
-      [self removeFromParentViewController];
-    }
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{
+        closeAlert.alpha = 0.;
+        if (showAlert)
+          showAlert.alpha = 1.;
+        else
+          self.view.alpha = 0.;
+      }
+      completion:^(BOOL finished) {
+        [closeAlert removeFromSuperview];
+        if (!showAlert)
+        {
+          [self.view removeFromSuperview];
+          [self removeFromParentViewController];
+        }
+      }];
 }
 
 @end

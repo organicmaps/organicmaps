@@ -24,7 +24,7 @@
   [self.navigationController.navigationBar mwm_refreshUI];
   [self.view mwm_refreshUI];
   if (![self isKindOfClass:[MapViewController class]])
-    [[MapsAppDelegate theApp].mapViewController mwm_refreshUI];
+    [[MapViewController controller] mwm_refreshUI];
 }
 
 - (void)viewDidLoad

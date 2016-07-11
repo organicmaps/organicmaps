@@ -15,6 +15,8 @@
 + (UIColor *)linkBlue;
 + (UIColor *)linkBlueHighlighted;
 + (UIColor *)linkBlueDark;
++ (UIColor *)buttonRed;
++ (UIColor *)buttonRedHighlighted;
 + (UIColor *)blackPrimaryText;
 + (UIColor *)blackSecondaryText;
 + (UIColor *)blackStatusBarBackground;

@@ -13,7 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
-                <outlet property="iPadRoutePreview" destination="u2u-Vb-2eH" id="SRD-C4-pK3"/>
+                <outlet property="routePreview" destination="u2u-Vb-2eH" id="VZw-5q-2P6"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -32,7 +32,7 @@
                             </constraints>
                             <state key="normal" image="ic_nav_bar_back"/>
                             <connections>
-                                <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="QZp-W0-W2E"/>
+                                <action selector="routingStopTouchUpInside" destination="-1" eventType="touchUpInside" id="DWh-ls-fCL"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planning Route" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Q7-PE-2D9">
@@ -292,7 +292,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="navigationGoPressed:" destination="-1" eventType="touchUpInside" id="6Mw-RM-bqr"/>
+                                <action selector="routingStartTouchUpInside" destination="-1" eventType="touchUpInside" id="S0p-CT-EfI"/>
                             </connections>
                         </button>
                     </subviews>

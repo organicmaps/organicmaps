@@ -78,7 +78,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
 - (void)openMigration
 {
   [self.pageController close];
-  [MapsAppDelegate.theApp.mapViewController openMigration];
+  [[MapViewController controller] openMigration];
 }
 
 #pragma mark - Properties

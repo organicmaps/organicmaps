@@ -1,10 +1,11 @@
+#import "MWMPlacePageActionBar.h"
 #import "Common.h"
-#import "MapsAppDelegate.h"
 #import "MWMActionBarButton.h"
 #import "MWMBasePlacePageView.h"
-#import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 
@@ -18,16 +19,16 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 }  // namespace
 
-@interface MWMPlacePageActionBar () <MWMActionBarButtonDelegate, UIActionSheetDelegate>
+@interface MWMPlacePageActionBar ()<MWMActionBarButtonDelegate, UIActionSheetDelegate>
 {
   vector<EButton> m_visibleButtons;
   vector<EButton> m_additionalButtons;
 }
 
-@property (weak, nonatomic) MWMPlacePageViewManager * placePageManager;
-@property (copy, nonatomic) IBOutletCollection(UIView) NSArray<UIView *> * buttons;
-@property (weak, nonatomic) IBOutlet UIImageView * separator;
-@property (nonatomic) BOOL isPrepareRouteMode;
+@property(weak, nonatomic) MWMPlacePageViewManager * placePageManager;
+@property(copy, nonatomic) IBOutletCollection(UIView) NSArray<UIView *> * buttons;
+@property(weak, nonatomic) IBOutlet UIImageView * separator;
+@property(nonatomic) BOOL isPrepareRouteMode;
 
 @end
 
@@ -35,8 +36,9 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 + (MWMPlacePageActionBar *)actionBarForPlacePageManager:(MWMPlacePageViewManager *)placePageManager
 {
-  MWMPlacePageActionBar * bar = [[NSBundle.mainBundle
-                                 loadNibNamed:kPlacePageActionBarNibName owner:nil options:nil] firstObject];
+  MWMPlacePageActionBar * bar =
+      [[NSBundle.mainBundle loadNibNamed:kPlacePageActionBarNibName owner:nil options:nil]
+          firstObject];
   [bar configureWithPlacePageManager:placePageManager];
   return bar;
 }
@@ -171,38 +173,20 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 {
   switch (type)
   {
-  case EButton::Api:
-    [self.placePageManager apiBack];
-    break;
-  case EButton::Booking:
-    [self.placePageManager book:NO];
-    break;
-  case EButton::Call:
-    [self.placePageManager call];
-    break;
+  case EButton::Api: [self.placePageManager apiBack]; break;
+  case EButton::Booking: [self.placePageManager book:NO]; break;
+  case EButton::Call: [self.placePageManager call]; break;
   case EButton::Bookmark:
     if (self.isBookmark)
       [self.placePageManager removeBookmark];
     else
       [self.placePageManager addBookmark];
     break;
-  case EButton::RouteFrom:
-    [self.placePageManager routeFrom];
-    break;
-  case EButton::RouteTo:
-    if (self.isPrepareRouteMode)
-      [self.placePageManager routeTo];
-    else
-      [self.placePageManager buildRoute];
-    break;
-  case EButton::Share:
-    [self.placePageManager share];
-    break;
-  case EButton::More:
-    [self showActionSheet];
-    break;
-  case EButton::Spacer:
-    break;
+  case EButton::RouteFrom: [self.placePageManager routeFrom]; break;
+  case EButton::RouteTo: [self.placePageManager routeTo]; break;
+  case EButton::Share: [self.placePageManager share]; break;
+  case EButton::More: [self showActionSheet]; break;
+  case EButton::Spacer: break;
   }
 }
 
@@ -215,8 +199,8 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   BOOL const isTitleNotEmpty = entity.title.length > 0;
   NSString * title = isTitleNotEmpty ? entity.title : entity.subtitle;
   NSString * subtitle = isTitleNotEmpty ? entity.subtitle : nil;
-  
-  UIViewController * vc = static_cast<UIViewController *>(MapsAppDelegate.theApp.mapViewController);
+
+  UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   for (auto const buttonType : m_additionalButtons)
   {
@@ -229,7 +213,11 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
   if (isIOS7)
   {
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:cancel destructiveButtonTitle:nil otherButtonTitles:nil];
+    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title
+                                                              delegate:self
+                                                     cancelButtonTitle:cancel
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:nil];
 
     for (NSString * title in titles)
       [actionSheet addButtonWithTitle:title];
@@ -238,22 +226,29 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   }
   else
   {
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:subtitle preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
+    UIAlertController * alertController =
+        [UIAlertController alertControllerWithTitle:title
+                                            message:subtitle
+                                     preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction * cancelAction =
+        [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
 
     for (auto i = 0; i < titles.count; i++)
     {
-      UIAlertAction * commonAction = [UIAlertAction actionWithTitle:titles[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
-                                      {
-                                        [self tapOnButtonWithType:self->m_additionalButtons[i]];
-                                      }];
+      UIAlertAction * commonAction =
+          [UIAlertAction actionWithTitle:titles[i]
+                                   style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action) {
+                                   [self tapOnButtonWithType:self->m_additionalButtons[i]];
+                                 }];
       [alertController addAction:commonAction];
     }
     [alertController addAction:cancelAction];
 
     if (IPAD)
     {
-      UIPopoverPresentationController * popPresenter = [alertController popoverPresentationController];
+      UIPopoverPresentationController * popPresenter =
+          [alertController popoverPresentationController];
       popPresenter.sourceView = self.shareAnchor;
       popPresenter.sourceRect = self.shareAnchor.bounds;
     }
@@ -272,7 +267,6 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   if (buttonIndex > 0)
     [self tapOnButtonWithType:m_additionalButtons[buttonIndex - 1]];
 }
-
 
 #pragma mark - Layout
 

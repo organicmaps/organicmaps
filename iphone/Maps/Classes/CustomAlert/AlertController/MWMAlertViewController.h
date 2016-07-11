@@ -5,6 +5,8 @@
 
 @interface MWMAlertViewController : UIViewController
 
++ (MWMAlertViewController *)activeAlertController;
+
 @property (weak, nonatomic, readonly) UIViewController * _Null_unspecified ownerViewController;
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;

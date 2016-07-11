@@ -45,15 +45,22 @@ using namespace locale_translator;
   if (currentBcp47Str != standart.first && !currentBcp47Str.empty())
   {
     string const translated = translatedTwine(currentTwineStr);
-    pair<string, string> const cur {currentBcp47Str, translated};
+    pair<string, string> const cur{currentBcp47Str, translated};
     if (translated.empty() || find(v.begin(), v.end(), cur) != v.end())
       _languages.push_back(cur);
     else
       self.isLocaleLanguageAbsent = YES;
   }
-  string const savedLanguage = tts.savedLanguage.UTF8String;
-  if (savedLanguage != currentBcp47Str && savedLanguage != standart.first && !savedLanguage.empty())
-    _languages.emplace_back(make_pair(savedLanguage, translatedTwine(bcp47ToTwineLanguage(tts.savedLanguage))));
+
+  NSString * nsSavedLanguage = [MWMTextToSpeech savedLanguage];
+  if (nsSavedLanguage.length)
+  {
+    string const savedLanguage = nsSavedLanguage.UTF8String;
+    if (savedLanguage != currentBcp47Str && savedLanguage != standart.first &&
+        !savedLanguage.empty())
+      _languages.emplace_back(
+          make_pair(savedLanguage, translatedTwine(bcp47ToTwineLanguage(nsSavedLanguage))));
+  }
 }
 
 - (IBAction)unwind:(id)sender
@@ -113,7 +120,7 @@ using namespace locale_translator;
     SelectableCell * cell = (SelectableCell *)[tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
     pair<string, string> const p = _languages[indexPath.row];
     cell.titleLabel.text = @(p.second.c_str());
-    BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[[MWMTextToSpeech tts] savedLanguage]];
+    BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
     cell.accessoryType = isSelected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     return cell;
   }

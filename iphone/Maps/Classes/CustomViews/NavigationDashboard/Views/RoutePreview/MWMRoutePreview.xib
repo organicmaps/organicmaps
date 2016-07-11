@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
-                <outlet property="iPhoneRoutePreview" destination="aNH-vh-DPz" id="LJx-vU-OCj"/>
+                <outlet property="routePreview" destination="aNH-vh-DPz" id="ORz-pz-7sV"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -31,7 +31,7 @@
                             </constraints>
                             <state key="normal" image="ic_nav_bar_back"/>
                             <connections>
-                                <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="7AZ-ze-wsf"/>
+                                <action selector="routingStopTouchUpInside" destination="-1" eventType="touchUpInside" id="Gvl-qB-zAN"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMt-LJ-mzn" userLabel="Title Box">

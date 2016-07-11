@@ -1,16 +1,19 @@
-#import "MapsAppDelegate.h"
+#import "MWMSearchManager.h"
 #import "MWMConsole.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationManager.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"
-#import "MWMRoutingProtocol.h"
-#import "MWMSearchManager.h"
-#import "MWMSearchTabbedViewController.h"
+#import "MWMRouter.h"
 #import "MWMSearchTabButtonsView.h"
+#import "MWMSearchTabbedViewController.h"
 #import "MWMSearchTableViewController.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#include "MWMRoutePoint.h"
 
 #include "storage/storage_helpers.hpp"
 
@@ -22,7 +25,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 @interface MWMSearchManager ()<MWMSearchTableViewProtocol, MWMSearchTabbedViewProtocol,
                                MWMSearchTabButtonsViewProtocol, UITextFieldDelegate,
-                               MWMFrameworkStorageObserver, MWMNoMapsViewControllerProtocol>
+                               MWMFrameworkStorageObserver>
 
 @property (weak, nonatomic) UIView * parentView;
 @property (nonatomic) IBOutlet MWMSearchView * rootView;
@@ -42,14 +45,11 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 @implementation MWMSearchManager
 
 - (nullable instancetype)initWithParentView:(nonnull UIView *)view
-                                   delegate:(nonnull id<MWMSearchManagerProtocol, MWMSearchViewProtocol, MWMRoutingProtocol>)delegate
 {
   self = [super init];
   if (self)
   {
     [NSBundle.mainBundle loadNibNamed:@"MWMSearchView" owner:self options:nil];
-    self.delegate = delegate;
-    self.rootView.delegate = delegate;
     self.parentView = view;
     self.state = MWMSearchManagerStateHidden;
   }
@@ -175,9 +175,9 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   MapsAppDelegate * a = MapsAppDelegate.theApp;
   MWMRoutePoint const p = MWMRoutePoint::MWMRoutePoint([MWMLocationManager lastLocation].mercator);
   if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
-    [self.delegate buildRouteFrom:p];
+    [[MWMRouter router] buildFromPoint:p bestRouter:YES];
   else if (a.routingPlaneMode == MWMRoutingPlaneModeSearchDestination)
-    [self.delegate buildRouteTo:p];
+    [[MWMRouter router] buildToPoint:p bestRouter:YES];
   else
     NSAssert(false, @"Incorrect state for process my position tap");
   if (!IPAD)
@@ -193,9 +193,9 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   MWMRoutingPlaneMode const m = a.routingPlaneMode;
   MWMRoutePoint const p = {result.GetFeatureCenter(), @(result.GetString().c_str())};
   if (m == MWMRoutingPlaneModeSearchSource)
-    [self.delegate buildRouteFrom:p];
+    [[MWMRouter router] buildFromPoint:p bestRouter:YES];
   else if (m == MWMRoutingPlaneModeSearchDestination)
-     [self.delegate buildRouteTo:p];
+    [[MWMRouter router] buildToPoint:p bestRouter:YES];
   else
     f.ShowSearchResult(result);
   if (!IPAD && a.routingPlaneMode != MWMRoutingPlaneModeNone)
@@ -220,13 +220,6 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
       [self.tableViewController searchText:text
                             forInputLocale:self.searchTextField.textInputMode.primaryLanguage];
   }
-}
-
-#pragma mark - MWMNoMapsViewControllerProtocol
-
-- (void)handleDownloadMapsAction
-{
-  [self.delegate actionDownloadMaps:mwm::DownloaderMode::Available];
 }
 
 #pragma mark - State changes
@@ -313,7 +306,6 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
     {
       UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Mapsme" bundle:[NSBundle mainBundle]];
       self.noMapsController = [storyboard instantiateViewControllerWithIdentifier:@"MWMNoMapsViewController"];
-      self.noMapsController.delegate = self;
     }
     return self.noMapsController;
   }
@@ -392,7 +384,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
     [self changeToMapSearchState];
     break;
   }
-  [self.delegate searchViewDidEnterState:state];
+  [[MWMMapViewControlsManager manager] searchViewDidEnterState:state];
 }
 
 - (UIView *)view

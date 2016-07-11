@@ -1,8 +1,8 @@
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
-#import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageEntity.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageViewManager.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 
@@ -18,7 +18,6 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS"
 
 namespace
 {
-
 NSUInteger gMetaFieldsMap[MWMPlacePageCellTypeCount] = {};
 
 void putFields(NSUInteger eTypeValue, NSUInteger ppValue)
@@ -46,7 +45,7 @@ void initFieldsMap()
   ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypePostcode], Metadata::FMD_POSTCODE, ());
   ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_MAXSPEED], 0, ());
 }
-} // namespace
+}  // namespace
 
 @implementation MWMPlacePageEntity
 {
@@ -105,19 +104,16 @@ void initFieldsMap()
   {
     switch (type)
     {
-      case Metadata::FMD_URL:
-      case Metadata::FMD_WEBSITE:
-      case Metadata::FMD_PHONE_NUMBER:
-      case Metadata::FMD_OPEN_HOURS:
-      case Metadata::FMD_EMAIL:
-      case Metadata::FMD_POSTCODE:
-        [self setMetaField:gMetaFieldsMap[type] value:md.Get(type)];
-        break;
-      case Metadata::FMD_INTERNET:
-        [self setMetaField:gMetaFieldsMap[type] value:L(@"WiFi_available").UTF8String];
-        break;
-      default:
-        break;
+    case Metadata::FMD_URL:
+    case Metadata::FMD_WEBSITE:
+    case Metadata::FMD_PHONE_NUMBER:
+    case Metadata::FMD_OPEN_HOURS:
+    case Metadata::FMD_EMAIL:
+    case Metadata::FMD_POSTCODE: [self setMetaField:gMetaFieldsMap[type] value:md.Get(type)]; break;
+    case Metadata::FMD_INTERNET:
+      [self setMetaField:gMetaFieldsMap[type] value:L(@"WiFi_available").UTF8String];
+      break;
+    default: break;
     }
   }
 }
@@ -134,33 +130,39 @@ void initFieldsMap()
   currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
   currencyFormatter.maximumFractionDigits = 0;
   string const currency = currencyFormatter.currencyCode.UTF8String;
-  GetFramework().GetBookingApi().GetMinPrice(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID),
-                                             currency,
-                                             [self, completion, failure, currency, currencyFormatter](string const & minPrice, string const & priceCurrency)
-  {
-    if (currency != priceCurrency)
-    {
-      failure();
-      return;
-    }
-    NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
-    decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-    NSString * currencyString = [currencyFormatter stringFromNumber:
-                                 [decimalFormatter numberFromString:
-                                  [@(minPrice.c_str()) stringByReplacingOccurrencesOfString:@"."
-                                                                                 withString:decimalFormatter.decimalSeparator]]];
-    NSString * currencyPattern = [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"
-                                                                                           withString:@"%@"];
-    self.bookingOnlinePrice = [NSString stringWithFormat:currencyPattern, currencyString];
-    completion();
-  });
+  GetFramework().GetBookingApi().GetMinPrice(
+      m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID), currency,
+      [self, completion, failure, currency, currencyFormatter](string const & minPrice,
+                                                               string const & priceCurrency) {
+        if (currency != priceCurrency)
+        {
+          failure();
+          return;
+        }
+        NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
+        decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+        NSString * currencyString = [currencyFormatter
+            stringFromNumber:
+                [decimalFormatter
+                    numberFromString:
+                        [@(minPrice.c_str())
+                            stringByReplacingOccurrencesOfString:@"."
+                                                      withString:decimalFormatter
+                                                                     .decimalSeparator]]];
+        NSString * currencyPattern =
+            [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"
+                                                                      withString:@"%@"];
+        self.bookingOnlinePrice = [NSString stringWithFormat:currencyPattern, currencyString];
+        completion();
+      });
 }
 
 - (void)configureBookmark
 {
   auto const bac = m_info.GetBookmarkAndCategory();
   BookmarkCategory * cat = GetFramework().GetBmCategory(bac.first);
-  BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.second))->GetData();
+  BookmarkData const & data =
+      static_cast<Bookmark const *>(cat->GetUserMark(bac.second))->GetData();
 
   self.bookmarkTitle = @(data.GetName().c_str());
   self.bookmarkCategory = @(m_info.GetBookmarkCategoryName().c_str());
@@ -181,29 +183,25 @@ void initFieldsMap()
 
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType
 {
-  auto const s = MapsAppDelegate.theApp.mapViewController.controlsManager.navigationState;
+  auto const s = [MapViewController controller].controlsManager.navigationState;
   BOOL const navigationIsHidden = s == MWMNavigationDashboardStateHidden;
   switch (cellType)
   {
-    case MWMPlacePageCellTypeName:
-      return self.title;
-    case MWMPlacePageCellTypeCoordinate:
-      return [self coordinate];
-    case MWMPlacePageCellTypeAddPlaceButton:
-      return navigationIsHidden && m_info.ShouldShowAddPlace() ? @"" : nil;
-    case MWMPlacePageCellTypeBookmark:
-      return m_info.IsBookmark() ? @"" : nil;
-    case MWMPlacePageCellTypeEditButton:
-      // TODO(Vlad): It's a really strange way to "display" cell if returned text is not nil.
-      return navigationIsHidden && m_info.ShouldShowEditPlace() ? @"" : nil;
-    case MWMPlacePageCellTypeAddBusinessButton:
-      return navigationIsHidden && m_info.ShouldShowAddBusiness() ? @"" : nil;
-    case MWMPlacePageCellTypeWebsite:
-      return m_info.IsSponsoredHotel() ? nil : [self getDefaultField:cellType];
-    case MWMPlacePageCellTypeBookingMore:
-      return m_info.IsSponsoredHotel() ? @(m_info.GetSponsoredDescriptionUrl().c_str()) : nil;
-    default:
-      return [self getDefaultField:cellType];
+  case MWMPlacePageCellTypeName: return self.title;
+  case MWMPlacePageCellTypeCoordinate: return [self coordinate];
+  case MWMPlacePageCellTypeAddPlaceButton:
+    return navigationIsHidden && m_info.ShouldShowAddPlace() ? @"" : nil;
+  case MWMPlacePageCellTypeBookmark: return m_info.IsBookmark() ? @"" : nil;
+  case MWMPlacePageCellTypeEditButton:
+    // TODO(Vlad): It's a really strange way to "display" cell if returned text is not nil.
+    return navigationIsHidden && m_info.ShouldShowEditPlace() ? @"" : nil;
+  case MWMPlacePageCellTypeAddBusinessButton:
+    return navigationIsHidden && m_info.ShouldShowAddBusiness() ? @"" : nil;
+  case MWMPlacePageCellTypeWebsite:
+    return m_info.IsSponsoredHotel() ? nil : [self getDefaultField:cellType];
+  case MWMPlacePageCellTypeBookingMore:
+    return m_info.IsSponsoredHotel() ? @(m_info.GetSponsoredDescriptionUrl().c_str()) : nil;
+  default: return [self getDefaultField:cellType];
   }
 }
 
@@ -220,66 +218,22 @@ void initFieldsMap()
   return url.empty() ? nil : [NSURL URLWithString:@(url.c_str())];
 }
 
-- (place_page::Info const &)info
-{
-  return m_info;
-}
-
-- (FeatureID const &)featureID
-{
-  return m_info.GetID();
-}
-
-- (storage::TCountryId const &)countryId
-{
-   return m_info.m_countryId;
-}
-
-- (BOOL)isMyPosition
-{
-  return m_info.IsMyPosition();
-}
-
-- (BOOL)isBookmark
-{
-  return m_info.IsBookmark();
-}
-
-- (BOOL)isApi
-{
-  return m_info.HasApiUrl();
-}
-
-- (BOOL)isBooking
-{
-  return m_info.IsSponsoredHotel();
-}
-
-- (NSString * )hotelId
+- (place_page::Info const &)info { return m_info; }
+- (FeatureID const &)featureID { return m_info.GetID(); }
+- (storage::TCountryId const &)countryId { return m_info.m_countryId; }
+- (BOOL)isMyPosition { return m_info.IsMyPosition(); }
+- (BOOL)isBookmark { return m_info.IsBookmark(); }
+- (BOOL)isApi { return m_info.HasApiUrl(); }
+- (BOOL)isBooking { return m_info.IsSponsoredHotel(); }
+- (NSString *)hotelId
 {
   return self.isBooking ? @(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID).c_str()) : nil;
 }
 
-- (ms::LatLon)latlon
-{
-  return m_info.GetLatLon();
-}
-
-- (m2::PointD const &)mercator
-{
-  return m_info.GetMercator();
-}
-
-- (NSString *)apiURL
-{
-  return @(m_info.GetApiUrl().c_str());
-}
-
-- (string)titleForNewBookmark
-{
-  return m_info.FormatNewBookmarkName();
-}
-
+- (ms::LatLon)latlon { return m_info.GetLatLon(); }
+- (m2::PointD const &)mercator { return m_info.GetMercator(); }
+- (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
+- (string)titleForNewBookmark { return m_info.FormatNewBookmarkName(); }
 - (NSString *)coordinate
 {
   BOOL const useDMSFormat =
@@ -292,16 +246,8 @@ void initFieldsMap()
 
 #pragma mark - Bookmark editing
 
-- (void)setBac:(BookmarkAndCategory)bac
-{
-  m_info.m_bac = bac;
-}
-
-- (BookmarkAndCategory)bac
-{
-  return m_info.GetBookmarkAndCategory();
-}
-
+- (void)setBac:(BookmarkAndCategory)bac { m_info.m_bac = bac; }
+- (BookmarkAndCategory)bac { return m_info.GetBookmarkAndCategory(); }
 - (NSString *)bookmarkCategory
 {
   if (!_bookmarkCategory)
@@ -347,7 +293,8 @@ void initFieldsMap()
 
   {
     BookmarkCategory::Guard guard(*category);
-    Bookmark * bookmark = static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(self.bac.second));
+    Bookmark * bookmark =
+        static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(self.bac.second));
     if (!bookmark)
       return;
 

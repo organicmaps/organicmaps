@@ -1,13 +1,14 @@
+#import "MWMBottomMenuView.h"
 #import "MWMCircularProgress.h"
 #import "MWMLocationManager.h"
+#import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationViewProtocol.h"
 #import "MWMRoutePreview.h"
 
 #include "Framework.h"
 #include "platform/location.hpp"
 
-typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
-{
+typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
   MWMNavigationDashboardStateHidden,
   MWMNavigationDashboardStatePrepare,
   MWMNavigationDashboardStatePlanning,
@@ -16,42 +17,38 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
   MWMNavigationDashboardStateNavigation
 };
 
-@protocol MWMNavigationDashboardManagerProtocol <MWMNavigationViewProtocol>
+@protocol MWMNavigationDashboardInfoProtocol
 
-- (void)buildRoute;
-- (BOOL)isPossibleToBuildRoute;
-- (BOOL)didStartFollowing;
-- (void)didCancelRouting;
-- (void)updateStatusBarStyle;
-- (void)didStartEditingRoutePoint:(BOOL)isSource;
-- (void)swapPointsAndRebuildRouteIfPossible;
+- (void)updateRoutingInfo:(MWMNavigationDashboardEntity *)info;
 
 @end
 
-@class MWMNavigationDashboardEntity;
+@protocol MWMNavigationDashboardManagerProtocol<MWMNavigationViewProtocol>
 
-@interface MWMNavigationDashboardManager : NSObject <MWMLocationObserver>
+- (void)didStartEditingRoutePoint:(BOOL)isSource;
+- (void)setMenuState:(MWMBottomMenuState)menuState;
 
-@property (nonatomic, readonly) MWMNavigationDashboardEntity * entity;
-@property (weak, nonatomic, readonly) MWMRoutePreview * routePreview;
-@property (nonatomic) MWMNavigationDashboardState state;
-@property (weak, nonatomic, readonly) id<MWMNavigationDashboardManagerProtocol> delegate;
-@property (nonatomic) CGFloat topBound;
-@property (nonatomic) CGFloat leftBound;
-@property (nonatomic, readonly) CGFloat height;
+@end
+
+@interface MWMNavigationDashboardManager : NSObject<MWMLocationObserver>
+
++ (MWMNavigationDashboardManager *)manager;
+
+@property(nonatomic, readonly) MWMNavigationDashboardEntity * entity;
+@property(nonatomic, readonly) MWMRoutePreview * routePreview;
+@property(nonatomic) MWMNavigationDashboardState state;
+@property(weak, nonatomic, readonly) id<MWMNavigationDashboardManagerProtocol> delegate;
+@property(nonatomic) CGFloat topBound;
+@property(nonatomic) CGFloat leftBound;
+@property(nonatomic, readonly) CGFloat height;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
-- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerProtocol, MWMRoutePreviewDataSource>)delegate;
-- (void)setupDashboard:(location::FollowingInfo const &)info;
+- (instancetype)initWithParentView:(UIView *)view
+                       infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay
+                          delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate;
+- (void)updateFollowingInfo:(location::FollowingInfo const &)info;
 - (void)updateDashboard;
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
-- (void)setActiveRouter:(routing::RouterType)routerType;
 - (void)setRouteBuilderProgress:(CGFloat)progress;
-- (void)showHelperPanels;
-- (void)hideHelperPanels;
-- (void)setupActualRoute;
 - (void)mwm_refreshUI;
 
 @end

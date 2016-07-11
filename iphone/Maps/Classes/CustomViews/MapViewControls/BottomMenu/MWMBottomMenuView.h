@@ -1,13 +1,13 @@
 
-typedef NS_ENUM(NSUInteger, MWMBottomMenuState)
-{
+typedef NS_ENUM(NSUInteger, MWMBottomMenuState) {
   MWMBottomMenuStateHidden,
   MWMBottomMenuStateInactive,
   MWMBottomMenuStateActive,
   MWMBottomMenuStateCompact,
-  MWMBottomMenuStateText,
   MWMBottomMenuStatePlanning,
-  MWMBottomMenuStateGo
+  MWMBottomMenuStateGo,
+  MWMBottomMenuStateRouting,
+  MWMBottomMenuStateRoutingExpanded
 };
 
 @interface MWMBottomMenuView : SolidTouchView
