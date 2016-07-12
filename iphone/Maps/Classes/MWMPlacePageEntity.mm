@@ -127,6 +127,8 @@ void initFieldsMap()
   }
 
   NSNumberFormatter * currencyFormatter = [[NSNumberFormatter alloc] init];
+  if (currencyFormatter.currencyCode.length != 3)
+    currencyFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
   currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
   currencyFormatter.maximumFractionDigits = 0;
   string const currency = currencyFormatter.currencyCode.UTF8String;
