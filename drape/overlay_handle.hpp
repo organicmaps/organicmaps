@@ -164,5 +164,6 @@ private:
 };
 
 uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth);
+uint64_t CalculateSpecialModePriority(int specialPriority);
 
 } // namespace dp
