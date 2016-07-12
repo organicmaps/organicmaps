@@ -306,7 +306,7 @@ class RawMemPointStorage : public PointStorage
   vector<LatLon> m_data;
 
 public:
-  explicit RawMemPointStorage(string const & name) : m_file(name), m_data((size_t)0xFFFFFFFF)
+  explicit RawMemPointStorage(string const & name) : m_file(name), m_data(static_cast<size_t>(1) << 33)
   {
     InitStorage<TMode>();
   }
@@ -337,6 +337,7 @@ public:
     int64_t const lat64 = lat * kValueOrder;
     int64_t const lng64 = lng * kValueOrder;
 
+    CHECK_LESS(id, m_data.size(), ("Found node with id", id, "which is bigger than the allocated cache size"));
     LatLon & ll = m_data[id];
     ll.lat = static_cast<int32_t>(lat64);
     ll.lon = static_cast<int32_t>(lng64);
