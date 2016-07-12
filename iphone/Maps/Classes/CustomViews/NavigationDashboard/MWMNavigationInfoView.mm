@@ -1,7 +1,12 @@
 #import "MWMNavigationInfoView.h"
 #import "Common.h"
+#import "MWMLocationHelpers.h"
+#import "MWMLocationManager.h"
+#import "MWMRouter.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
+
+#include "geometry/angles.hpp"
 
 namespace
 {
@@ -9,7 +14,7 @@ CGFloat constexpr kTurnsiPhoneWidth = 96;
 CGFloat constexpr kTurnsiPadWidth = 140;
 }  // namespace
 
-@interface MWMNavigationInfoView ()
+@interface MWMNavigationInfoView ()<MWMLocationObserver>
 
 @property(weak, nonatomic) IBOutlet UIView * streetNameView;
 @property(weak, nonatomic) IBOutlet UILabel * streetNameLabel;
@@ -21,6 +26,8 @@ CGFloat constexpr kTurnsiPadWidth = 140;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsWidth;
 
 @property(nonatomic) BOOL isVisible;
+
+@property(weak, nonatomic) MWMNavigationDashboardEntity * navigationInfo;
 
 @end
 
@@ -62,6 +69,10 @@ CGFloat constexpr kTurnsiPadWidth = 140;
 {
   _isVisible = isVisible;
   [self setNeedsLayout];
+  if (isVisible && [MWMRouter router].type == routing::RouterType::Pedestrian)
+    [MWMLocationManager addObserver:self];
+  else
+    [MWMLocationManager removeObserver:self];
 }
 
 - (CGFloat)visibleHeight { return self.streetNameView.maxY; }
@@ -69,6 +80,7 @@ CGFloat constexpr kTurnsiPadWidth = 140;
 
 - (void)updateNavigationInfo:(MWMNavigationDashboardEntity *)info
 {
+  self.navigationInfo = info;
   if (info.streetName.length != 0)
   {
     self.streetNameView.hidden = NO;
@@ -105,6 +117,21 @@ CGFloat constexpr kTurnsiPadWidth = 140;
     self.turnsView.hidden = YES;
   }
   self.hidden = self.streetNameView.hidden && self.turnsView.hidden;
+}
+
+#pragma mark - MWMLocationObserver
+
+- (void)onHeadingUpdate:(location::CompassInfo const &)info
+{
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation)
+    return;
+
+  CGFloat const angle =
+      ang::AngleTo(lastLocation.mercator,
+                   location_helpers::ToMercator(self.navigationInfo.pedestrianDirectionPosition)) +
+      info.m_bearing;
+  self.nextTurnImageView.transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
 }
 
 #pragma mark - Properties

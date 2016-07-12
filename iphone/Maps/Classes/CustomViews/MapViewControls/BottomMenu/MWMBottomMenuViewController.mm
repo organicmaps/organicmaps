@@ -67,7 +67,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 @property(nonatomic, readonly) NSUInteger additionalButtonsCount;
 
-@property(weak, nonatomic) MWMNavigationDashboardEntity * routingInfo;
+@property(weak, nonatomic) MWMNavigationDashboardEntity * navigationInfo;
 
 @property(weak, nonatomic) IBOutlet UILabel * speedLabel;
 @property(weak, nonatomic) IBOutlet UILabel * timeLabel;
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     NSFontAttributeName : [UIFont bold14]
   };
 
-  self.routingInfo = info;
+  self.navigationInfo = info;
   if (self.routingInfoPageControl.currentPage == 0)
   {
     self.timeLabel.text = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(info.timeToTarget)];
@@ -202,7 +202,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 {
   self.routingInfoPageControl.currentPage =
       (self.routingInfoPageControl.currentPage + 1) % self.routingInfoPageControl.numberOfPages;
-  [self updateNavigationInfo:self.routingInfo];
+  [self updateNavigationInfo:self.navigationInfo];
 }
 
 - (IBAction)routingStartTouchUpInside { [[MWMRouter router] start]; }

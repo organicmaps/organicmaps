@@ -1,6 +1,6 @@
 #import "MWMBottomMenuView.h"
 #import "MWMCircularProgress.h"
-#import "MWMLocationManager.h"
+
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardInfoProtocol.h"
 #import "MWMNavigationViewProtocol.h"
@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 
 @end
 
-@interface MWMNavigationDashboardManager : NSObject<MWMLocationObserver>
+@interface MWMNavigationDashboardManager : NSObject
 
 + (MWMNavigationDashboardManager *)manager;
 

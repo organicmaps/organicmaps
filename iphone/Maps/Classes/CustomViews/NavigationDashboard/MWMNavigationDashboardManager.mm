@@ -204,29 +204,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   }
 }
 
-#pragma mark - MWMLocationObserver
-
-- (void)onHeadingUpdate:(location::CompassInfo const &)info
-{
-  auto & f = GetFramework();
-  if (f.GetRouter() != routing::RouterType::Pedestrian)
-    return;
-
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (!lastLocation)
-    return;
-
-  location::FollowingInfo res;
-  f.GetRouteFollowingInfo(res);
-  if (!res.IsValid())
-    return;
-
-  CGFloat const angle = ang::AngleTo(lastLocation.mercator,
-                                     location_helpers::ToMercator(res.m_pedestrianDirectionPos)) +
-                        info.m_bearing;
-  CGAffineTransform const transform(CGAffineTransformMakeRotation(M_PI_2 - angle));
-}
-
 - (void)addInfoDisplay:(TInfoDisplay)infoDisplay { [self.infoDisplays addObject:infoDisplay]; }
 #pragma mark - Properties
 
