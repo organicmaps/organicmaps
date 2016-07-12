@@ -14,6 +14,7 @@ import os
 import pickle
 import time
 import urllib2
+import re
 
 # init logging
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
@@ -21,7 +22,7 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(
 
 def load_binary_list(path):
     """
-    Loads referance binary classifier output.
+    Loads reference binary classifier output.
     """
     bits = []
     with open(path, 'r') as fd:
@@ -41,7 +42,7 @@ def load_score_list(path):
         for line in fd:
             if (not line.strip()) or line[0] == '#':
                 continue
-            scores.append(float(line[line.rfind(':')+2:]))
+            scores.append(float(re.search(r'result score: (\d*\.\d+)', line).group(1)))
     return scores
 
 

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "generator/booking_dataset.hpp"
-#include "generator/osm_element.hpp"
+
+struct OsmElement;
 
 namespace generator
 {

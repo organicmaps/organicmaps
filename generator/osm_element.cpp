@@ -121,7 +121,7 @@ string OsmElement::ToString(string const & shift) const
   return ss.str();
 }
 
-bool OsmElement::GetTag(string const & key, string & value) const
+string OsmElement::GetTag(string const & key) const
 {
   auto const it = find_if(begin(m_tags), end(m_tags), [&key](Tag const & tag)
   {
@@ -129,10 +129,9 @@ bool OsmElement::GetTag(string const & key, string & value) const
   });
 
   if (it == end(m_tags))
-    return false;
+    return {};
 
-  value = it->value;
-  return true;
+  return it->value;
 }
 
 string DebugPrint(OsmElement const & e)

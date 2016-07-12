@@ -17,7 +17,7 @@ DEFINE_string(osm_file_name, "", "Input .o5m file");
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format");
 DEFINE_string(sample_data, "", "Sample output path");
 DEFINE_uint64(selection_size, 1000, "Selection size");
-DEFINE_uint64(random_seed, minstd_rand::default_seed, "Seed for random shuffle");
+DEFINE_uint64(seed, minstd_rand::default_seed, "Seed for random shuffle");
 
 using namespace generator;
 
@@ -60,7 +60,7 @@ int main(int argc, char * argv[])
   vector<size_t> elementIndexes(elements.size());
   iota(elementIndexes.begin(), elementIndexes.end(), 0);
 
-  shuffle(elementIndexes.begin(), elementIndexes.end(), minstd_rand(FLAGS_random_seed));
+  shuffle(elementIndexes.begin(), elementIndexes.end(), minstd_rand(FLAGS_seed));
   if (FLAGS_selection_size < elementIndexes.size())
     elementIndexes.resize(FLAGS_selection_size);
 
@@ -82,7 +82,11 @@ int main(int argc, char * argv[])
       outStream << "# ------------------------------------------" << fixed << setprecision(6)
                 << endl;
       outStream << (matched ? 'y' : 'n') << " \t" << i << "\t " << j
-                << " distance: " << distanceMeters << " score: " << score.GetMatchingScore() << endl;
+                << "\tdistance: " << distanceMeters
+                << "\tdistance score: " << score.m_linearNormDistanceScore
+                << "\tname score: " << score.m_nameSimilarityScore
+                << "\tresult score: " << score.GetMatchingScore()
+                << endl;
       outStream << "# " << e << endl;
       outStream << "# " << hotel << endl;
       outStream << "# URL: https://www.openstreetmap.org/?mlat=" << hotel.lat

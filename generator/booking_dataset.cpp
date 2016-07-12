@@ -209,7 +209,8 @@ void BookingDataset::BuildFeatures(function<void(OsmElement *)> const & fn) cons
     if (!hotel.houseNumber.empty())
       e.AddTag("addr:housenumber", hotel.houseNumber);
 
-    // TODO(mgsergio): Add a comment or use enum.
+    // Matching booking.com hotel types to OpenStreetMap values.
+    // Booking types are listed in the closed API docs.
     switch (hotel.type)
     {
     case 19:
