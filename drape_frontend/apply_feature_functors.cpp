@@ -201,6 +201,25 @@ m2::PointF GetOffset(CaptionDefProto const * capRule)
   return result;
 }
 
+uint16_t CalculateHotelOverlayPriority(BaseApplyFeature::HotelData const & data)
+{
+  // NOTE: m_rating is in format X[.Y], where X = [0;10], Y = [0;9], e.g. 8.7
+  string s = data.m_rating;
+  s.erase(remove(s.begin(), s.end(), '.'), s.end());
+  s.erase(remove(s.begin(), s.end(), ','), s.end());
+  if (s.empty())
+    return 0;
+
+  // Special case for integer ratings.
+  if (s.length() == data.m_rating.length())
+    s += '0';
+
+  uint result = 0;
+  if (strings::to_uint(s, result))
+    return static_cast<uint16_t>(result);
+  return 0;
+}
+
 } // namespace
 
 BaseApplyFeature::BaseApplyFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
@@ -345,10 +364,10 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_secondaryTextFont = params.m_primaryTextFont;
       params.m_secondaryText = ExtractHotelInfo();
       params.m_secondaryOptional = false;
-      m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params,
-                                              hasPOI, 0 /* textIndex */,
+      uint16_t const priority = CalculateHotelOverlayPriority(m_hotelData);
+      m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, hasPOI, 0 /* textIndex */,
                                               true /* affectedByZoomPriority */,
-                                              dp::displacement::kHotelMode));
+                                              dp::displacement::kHotelMode, priority));
     }
   }
 }
@@ -389,7 +408,11 @@ void ApplyPointFeature::Finish()
                                                  m_hotelData.m_isHotel ? dp::displacement::kDefaultMode :
                                                                          dp::displacement::kAllModes));
     if (m_hotelData.m_isHotel)
-      m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, dp::displacement::kHotelMode));
+    {
+      uint16_t const priority = CalculateHotelOverlayPriority(m_hotelData);
+      m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params,
+                                                   dp::displacement::kHotelMode, priority));
+    }
   }
 }
 
