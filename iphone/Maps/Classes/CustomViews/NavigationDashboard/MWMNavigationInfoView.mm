@@ -358,4 +358,9 @@ BOOL defaultOrientation()
   [self setNeedsLayout];
 }
 
+- (CGFloat)extraCompassBottomOffset
+{
+  return defaultOrientation() || self.searchView.hidden ? 0 : kSearchButtonsViewHeightLandscape;
+}
+
 @end
