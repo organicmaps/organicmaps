@@ -49,6 +49,7 @@ HEADERS += \
     dd_vector.hpp \
     diff.hpp \
     diff_patch_common.hpp \
+    elias_coder.hpp \
     endianness.hpp \
     file_container.hpp \
     file_name_utils.hpp \

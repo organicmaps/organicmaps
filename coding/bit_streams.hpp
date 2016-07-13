@@ -1,12 +1,12 @@
 #pragma once
 
 #include "base/assert.hpp"
+#include "base/bits.hpp"
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
-
 
 namespace
 {
@@ -34,17 +34,19 @@ public:
   }
   
   // Returns the number of bits that have been sent to BitWriter,
-  // including those that are in m_buf and are possibly
-  // not flushed yet.
+  // including those that are in m_buf and are possibly not flushed
+  // yet.
   uint64_t BitsWritten() const { return m_bitsWritten; }
 
-  // Writes n bits starting with the least significant bit.
-  // They are written one byte at a time so endianness is of no concern.
-  // All the other bits except for the first n must be set to zero.
+  // Writes n bits starting with the least significant bit.  They are
+  // written one byte at a time so endianness is of no concern.
   void Write(uint8_t bits, uint8_t n)
   {
     if (n == 0)
       return;
+
+    bits = bits & bits::GetFullMask(n);
+
     ASSERT_LESS_OR_EQUAL(n, CHAR_BIT, ());
     uint32_t bufferedBits = m_bitsWritten % CHAR_BIT;
     m_bitsWritten += n;
@@ -70,21 +72,53 @@ public:
     }
   }
 
+#define WRITE_BYTE()               \
+  {                                \
+    Write(bits, min(kMinBits, n)); \
+    if (n <= kMinBits)             \
+      return;                      \
+    n -= kMinBits;                 \
+    bits >>= kMinBits;             \
+  }
+
   // Same as Write but accept up to 32 bits to write.
   void WriteAtMost32Bits(uint32_t bits, uint8_t n)
   {
+    uint8_t const kMinBits = CHAR_BIT;
+
     ASSERT_LESS_OR_EQUAL(n, 32, ());
 
-    uint8_t constexpr kMinBits = CHAR_BIT;
-    Write(static_cast<uint8_t>(bits), min(n, kMinBits));
-    if (n > kMinBits)
-      WriteAtMost32Bits(bits >> kMinBits, n - kMinBits);
+    WRITE_BYTE();
+    WRITE_BYTE();
+    WRITE_BYTE();
+
+    Write(bits, n);
   }
 
+  // Same as Write but accept up to 64 bits to write.
+  void WriteAtMost64Bits(uint64_t bits, uint8_t n)
+  {
+    uint8_t const kMinBits = CHAR_BIT;
+
+    ASSERT_LESS_OR_EQUAL(n, 64, ());
+
+    WRITE_BYTE();
+    WRITE_BYTE();
+    WRITE_BYTE();
+    WRITE_BYTE();
+    WRITE_BYTE();
+    WRITE_BYTE();
+    WRITE_BYTE();
+
+    Write(bits, n);
+  }
+
+#undef WRITE_BYTE
+
 private:
-  // Writes up to CHAR_BIT-1 last bits if they have not been written yet
-  // and pads them with zeros.
-  // This method cannot be made public because once a byte has been flushed there is no going back.
+  // Writes up to CHAR_BIT-1 last bits if they have not been written
+  // yet and pads them with zeros.  This method cannot be made public
+  // because once a byte has been flushed there is no going back.
   void Flush()
   {
     if (m_bitsWritten % CHAR_BIT != 0)
@@ -105,10 +139,11 @@ public:
   // Returns the total number of bits read from this BitReader.
   uint64_t BitsRead() const { return m_bitsRead; }
 
-  // Reads n bits and returns them as the least significant bits of an 8-bit number.
-  // The underlying m_src is supposed to be byte-aligned (which is the
-  // case when it reads from the place that was written to using BitWriter).
-  // Read may use one lookahead byte.
+  // Reads n bits and returns them as the least significant bits of an
+  // 8-bit number.  The underlying m_src is supposed to be
+  // byte-aligned (which is the case when it reads from the place that
+  // was written to using BitWriter).  Read may use one lookahead
+  // byte.
   uint8_t Read(uint8_t n)
   {
     if (n == 0)
@@ -133,6 +168,52 @@ public:
     }
     return result;
   }
+
+#define READ_BYTE(i)                                                                             \
+  {                                                                                              \
+    result = result | (static_cast<decltype(result)>(Read(min(n, kMinBits))) << (i * kMinBits)); \
+    if (n <= kMinBits)                                                                           \
+      return result;                                                                             \
+    n -= kMinBits;                                                                               \
+  }
+
+  // Same as Read but accept up to 32 bits to read.
+  uint32_t ReadAtMost32Bits(uint8_t n)
+  {
+    uint8_t constexpr kMinBits = CHAR_BIT;
+
+    ASSERT_LESS_OR_EQUAL(n, 32, ());
+
+    uint32_t result = 0;
+
+    READ_BYTE(0);
+    READ_BYTE(1);
+    READ_BYTE(2);
+
+    return result | (static_cast<uint32_t>(Read(n)) << (3 * kMinBits));
+  }
+
+  // Same as Read but accept up to 64 bits to read.
+  uint64_t ReadAtMost64Bits(uint8_t n)
+  {
+    uint8_t constexpr kMinBits = CHAR_BIT;
+
+    ASSERT_LESS_OR_EQUAL(n, 64, ());
+
+    uint64_t result = 0;
+
+    READ_BYTE(0);
+    READ_BYTE(1);
+    READ_BYTE(2);
+    READ_BYTE(3);
+    READ_BYTE(4);
+    READ_BYTE(5);
+    READ_BYTE(6);
+
+    return result | (static_cast<uint64_t>(Read(n)) << (7 * kMinBits));
+  }
+
+#undef READ_BYTE
 
 private:
   TSource & m_src;
