@@ -239,7 +239,9 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     self.forceStateChange = ForceStateChange::Rebuild;
   }
   else
+  {
     [RouteState remove];
+  }
 }
 
 #pragma mark - MWMLocationObserver

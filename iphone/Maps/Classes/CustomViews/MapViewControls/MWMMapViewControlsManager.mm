@@ -252,9 +252,15 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
   CGSize const ownerViewSize = self.ownerController.view.size;
   if (ownerViewSize.width > ownerViewSize.height)
-    self.menuController.leftBound = frame.origin.x + frame.size.width;
+  {
+    CGFloat const leftBound = frame.origin.x + frame.size.width;
+    self.menuController.leftBound = leftBound;
+    [MWMNavigationDashboardManager manager].leftBound = leftBound;
+  }
   else
+  {
     [self.sideButtons setBottomBound:frame.origin.y];
+  }
 }
 
 - (void)addPlacePageViews:(NSArray *)views
@@ -304,7 +310,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   CGFloat const topBound = self.topBound + self.navigationManager.height;
   if (!IPAD)
     [self.sideButtons setTopBound:topBound];
-  [self.placePageManager setTopBound:topBound];
+  BOOL const skipNavDashboardHeight =
+      self.navigationManager.state == MWMNavigationDashboardStateNavigation;
+  [self.placePageManager setTopBound:skipNavDashboardHeight ? self.topBound : topBound];
 }
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource
@@ -365,14 +373,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)onRouteStart
 {
-  if ([MWMRouter router].startPoint.IsMyPosition())
-  {
-    self.hidden = NO;
-    self.sideButtonsHidden = NO;
-
-    self.disableStandbyOnRouteFollowing = YES;
-    self.navigationManager.state = MWMNavigationDashboardStateNavigation;
-  }
+  self.hidden = NO;
+  self.sideButtonsHidden = NO;
+  self.disableStandbyOnRouteFollowing = YES;
+  self.navigationManager.state = MWMNavigationDashboardStateNavigation;
 }
 
 - (void)onRouteStop
@@ -412,10 +416,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (MWMNavigationDashboardManager *)navigationManager
 {
   if (!_navigationManager)
+  {
     _navigationManager =
         [[MWMNavigationDashboardManager alloc] initWithParentView:self.ownerController.view
-                                                      infoDisplay:self.menuController
                                                          delegate:self];
+    [_navigationManager addInfoDisplay:self.menuController];
+  }
   return _navigationManager;
 }
 

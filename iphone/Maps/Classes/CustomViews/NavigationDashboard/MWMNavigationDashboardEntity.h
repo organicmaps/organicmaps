@@ -1,7 +1,10 @@
 #include "platform/location.hpp"
 
+#include "geometry/latlon.hpp"
+
 @interface MWMNavigationDashboardEntity : NSObject
 
+@property(nonatomic, readonly) ms::LatLon pedestrianDirectionPosition;
 @property(nonatomic, readonly) BOOL isValid;
 @property(nonatomic, readonly) NSString * speed;
 @property(nonatomic, readonly) NSString * speedUnits;

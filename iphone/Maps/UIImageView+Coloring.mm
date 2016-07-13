@@ -1,6 +1,6 @@
 #import "Common.h"
-#import "UIImageView+Coloring.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIImageView+Coloring.h"
 
 #import <objc/runtime.h>
 
@@ -9,17 +9,16 @@
 - (void)setMwm_name:(NSString *)mwm_name
 {
   objc_setAssociatedObject(self, @selector(mwm_name), mwm_name, OBJC_ASSOCIATION_COPY_NONATOMIC);
-  self.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@", mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
+  self.image =
+      [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@", mwm_name,
+                                                     [UIColor isNightMode] ? @"dark" : @"light"]];
 }
 
-- (NSString *)mwm_name
-{
-  return objc_getAssociatedObject(self, @selector(mwm_name));
-}
-
+- (NSString *)mwm_name { return objc_getAssociatedObject(self, @selector(mwm_name)); }
 - (void)setMwm_coloring:(MWMImageColoring)mwm_coloring
 {
-  objc_setAssociatedObject(self, @selector(mwm_coloring), @(mwm_coloring), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(mwm_coloring), @(mwm_coloring),
+                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
   if (mwm_coloring == MWMImageColoringOther)
     return;
   if (isIOS7)
@@ -29,7 +28,8 @@
 
 - (MWMImageColoring)mwm_coloring
 {
-  return static_cast<MWMImageColoring>([objc_getAssociatedObject(self, @selector(mwm_coloring)) integerValue]);
+  return static_cast<MWMImageColoring>(
+      [objc_getAssociatedObject(self, @selector(mwm_coloring)) integerValue]);
 }
 
 - (void)applyColoring
@@ -47,7 +47,9 @@
   if (self.mwm_coloring == MWMImageColoringOther)
   {
     if (self.mwm_name)
-      self.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@", self.mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
+      self.image = [UIImage
+          imageNamed:[NSString stringWithFormat:@"%@_%@", self.mwm_name,
+                                                [UIColor isNightMode] ? @"dark" : @"light"]];
     return;
   }
   if (isIOS7)
@@ -59,16 +61,12 @@
 {
   switch (self.mwm_coloring)
   {
-  case MWMImageColoringBlack:
-    return @selector(blackSecondaryText);
-  case MWMImageColoringBlue:
-    return @selector(linkBlue);
-  case MWMImageColoringGray:
-    return @selector(blackHintText);
-  case MWMImageColoringOther:
-    return @selector(white);
-  case MWMImageColoringSeparator:
-    return @selector(blackDividers);
+  case MWMImageColoringWhite: return @selector(white);
+  case MWMImageColoringBlack: return @selector(blackSecondaryText);
+  case MWMImageColoringBlue: return @selector(linkBlue);
+  case MWMImageColoringGray: return @selector(blackHintText);
+  case MWMImageColoringOther: return @selector(white);
+  case MWMImageColoringSeparator: return @selector(blackDividers);
   }
 }
 
@@ -76,6 +74,9 @@
 {
   switch (self.mwm_coloring)
   {
+  case MWMImageColoringWhite:
+    self.tintColor = highlighted ? [UIColor whiteHintText] : [UIColor white];
+    break;
   case MWMImageColoringBlack:
     self.tintColor = highlighted ? [UIColor blackHintText] : [UIColor blackSecondaryText];
     break;
@@ -84,8 +85,7 @@
     break;
   case MWMImageColoringOther:
   case MWMImageColoringBlue:
-  case MWMImageColoringSeparator:
-    break;
+  case MWMImageColoringSeparator: break;
   }
 }
 

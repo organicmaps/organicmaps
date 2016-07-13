@@ -25,16 +25,18 @@ using namespace routing::turns;
     _isPedestrian = YES;
     string distance;
     CLLocationCoordinate2D const & coordinate = lastLocation.coordinate;
-    ms::LatLon const & directionPos = info.m_pedestrianDirectionPos;
+    _pedestrianDirectionPosition = info.m_pedestrianDirectionPos;
     //TODO: Not the best solution, but this solution is temporary and will be replaced in future
-    measurement_utils::FormatDistance(ms::DistanceOnEarth(coordinate.latitude, coordinate.longitude,
-                                                          directionPos.lat, directionPos.lon),
-                                      distance);
+    measurement_utils::FormatDistance(
+        ms::DistanceOnEarth(coordinate.latitude, coordinate.longitude,
+                            _pedestrianDirectionPosition.lat, _pedestrianDirectionPosition.lon),
+        distance);
     istringstream is (distance);
     string dist;
     string units;
     is>>dist;
     is>>units;
+    _pedestrianDirectionPosition = {};
     _nextTurnImage = nil;
     _distanceToTurn = @(dist.c_str());
     _turnUnits = @(units.c_str());

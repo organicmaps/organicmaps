@@ -41,8 +41,7 @@ NSString * const kCollectionCelllandscape = @"MWMBottomMenuCollectionViewLandsca
 
 static CGFloat const kLayoutThreshold = 420.0;
 
-typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
-{
+typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMBottomMenuViewCellAddPlace,
   MWMBottomMenuViewCellDownload,
   MWMBottomMenuViewCellSettings,
@@ -51,24 +50,24 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   MWMBottomMenuViewCellCount
 };
 
-@interface MWMBottomMenuViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MWMBottomMenuViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (weak, nonatomic) MapViewController * controller;
-@property (weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
+@property(weak, nonatomic) MapViewController * controller;
+@property(weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
 
-@property (weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
+@property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 
-@property (weak, nonatomic) id<MWMBottomMenuControllerProtocol> delegate;
+@property(weak, nonatomic) id<MWMBottomMenuControllerProtocol> delegate;
 
-@property (nonatomic) BOOL searchIsActive;
+@property(nonatomic) BOOL searchIsActive;
 
-@property (nonatomic) SolidTouchView * dimBackground;
+@property(nonatomic) SolidTouchView * dimBackground;
 
-@property (nonatomic) MWMBottomMenuState restoreState;
+@property(nonatomic) MWMBottomMenuState restoreState;
 
-@property (nonatomic, readonly) NSUInteger additionalButtonsCount;
+@property(nonatomic, readonly) NSUInteger additionalButtonsCount;
 
-@property(weak, nonatomic) MWMNavigationDashboardEntity * routingInfo;
+@property(weak, nonatomic) MWMNavigationDashboardEntity * navigationInfo;
 
 @property(weak, nonatomic) IBOutlet UILabel * speedLabel;
 @property(weak, nonatomic) IBOutlet UILabel * timeLabel;
@@ -103,11 +102,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   return self;
 }
 
-- (void)dealloc
-{
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
+- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -116,7 +111,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [self.buttonsCollectionView registerNib:[UINib nibWithNibName:kCollectionCelllandscape bundle:nil]
                forCellWithReuseIdentifier:kCollectionCelllandscape];
   MWMBottomMenuLayout * cvLayout =
-  (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
+      (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
   cvLayout.layoutThreshold = kLayoutThreshold;
   ((MWMBottomMenuView *)self.view).layoutThreshold = kLayoutThreshold;
 
@@ -137,13 +132,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [self refreshLayout];
 }
 
-- (void)mwm_refreshUI
-{
-  [self.view mwm_refreshUI];
-}
+- (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
 #pragma mark - MWMNavigationDashboardInfoProtocol
 
-- (void)updateRoutingInfo:(MWMNavigationDashboardEntity *)info
+- (void)updateNavigationInfo:(MWMNavigationDashboardEntity *)info
 {
   NSDictionary * routingNumberAttributes = @{
     NSForegroundColorAttributeName : [UIColor blackPrimaryText],
@@ -154,7 +146,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     NSFontAttributeName : [UIFont bold14]
   };
 
-  self.routingInfo = info;
+  self.navigationInfo = info;
   if (self.routingInfoPageControl.currentPage == 0)
   {
     self.timeLabel.text = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(info.timeToTarget)];
@@ -176,15 +168,25 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
                                                              attributes:routingLegendAttributes]];
   self.distanceWithLegendLabel.attributedText = distance;
 
-  self.speedLabel.text = info.speed;
-  self.speedLegendLabel.text = info.speedUnits;
-  NSMutableAttributedString * speed =
-      [[NSMutableAttributedString alloc] initWithString:info.speed
-                                             attributes:routingNumberAttributes];
-  [speed
-      appendAttributedString:[[NSAttributedString alloc] initWithString:info.speedUnits
-                                                             attributes:routingLegendAttributes]];
-  self.speedWithLegendLabel.attributedText = speed;
+  NSString * currentSpeed = info.speed;
+  if (currentSpeed.length != 0)
+  {
+    self.speedLabel.text = currentSpeed;
+    self.speedLegendLabel.text = info.speedUnits;
+    NSMutableAttributedString * speed =
+        [[NSMutableAttributedString alloc] initWithString:currentSpeed
+                                               attributes:routingNumberAttributes];
+    [speed
+        appendAttributedString:[[NSAttributedString alloc] initWithString:info.speedUnits
+                                                               attributes:routingLegendAttributes]];
+    self.speedWithLegendLabel.attributedText = speed;
+  }
+  else
+  {
+    self.speedLabel.text = @"";
+    self.speedLegendLabel.text = @"";
+    self.speedWithLegendLabel.text = @"";
+  }
 
   [self.progressView layoutIfNeeded];
   [UIView animateWithDuration:kDefaultAnimationDuration
@@ -200,7 +202,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   self.routingInfoPageControl.currentPage =
       (self.routingInfoPageControl.currentPage + 1) % self.routingInfoPageControl.numberOfPages;
-  [self updateRoutingInfo:self.routingInfo];
+  [self updateNavigationInfo:self.navigationInfo];
 }
 
 - (IBAction)routingStartTouchUpInside { [[MWMRouter router] start]; }
@@ -279,8 +281,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   {
   case MWMBottomMenuViewCellAddPlace:
   {
-    BOOL const isEnabled = self.controller.controlsManager.navigationState == MWMNavigationDashboardStateHidden &&
-                           GetFramework().CanEditMap();
+    BOOL const isEnabled =
+        self.controller.controlsManager.navigationState == MWMNavigationDashboardStateHidden &&
+        GetFramework().CanEditMap();
     [cell configureWithImageName:@"ic_add_place"
                            label:L(@"placepage_add_place_button")
                       badgeCount:0
@@ -299,20 +302,28 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   }
   break;
   case MWMBottomMenuViewCellSettings:
-    [cell configureWithImageName:@"ic_menu_settings" label:L(@"settings") badgeCount:0 isEnabled:YES];
+    [cell configureWithImageName:@"ic_menu_settings"
+                           label:L(@"settings")
+                      badgeCount:0
+                       isEnabled:YES];
     break;
   case MWMBottomMenuViewCellShare:
-    [cell configureWithImageName:@"ic_menu_share" label:L(@"share_my_location") badgeCount:0 isEnabled:YES];
+    [cell configureWithImageName:@"ic_menu_share"
+                           label:L(@"share_my_location")
+                      badgeCount:0
+                       isEnabled:YES];
     break;
   case MWMBottomMenuViewCellAd:
   {
     MTRGNativeAppwallBanner * banner = [self.controller.appWallAd.banners firstObject];
     [self.controller.appWallAd handleShow:banner];
-    [cell configureWithImageName:@"ic_menu_showcase" label:L(@"showcase_more_apps") badgeCount:0 isEnabled:YES];
+    [cell configureWithImageName:@"ic_menu_showcase"
+                           label:L(@"showcase_more_apps")
+                      badgeCount:0
+                       isEnabled:YES];
   }
-    break;
-  case MWMBottomMenuViewCellCount:
-    break;
+  break;
+  case MWMBottomMenuViewCellCount: break;
   }
   return cell;
 }
@@ -322,28 +333,18 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (void)collectionView:(nonnull UICollectionView *)collectionView
     didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-  MWMBottomMenuCollectionViewCell * cell = static_cast<MWMBottomMenuCollectionViewCell *>([collectionView cellForItemAtIndexPath:indexPath]);
+  MWMBottomMenuCollectionViewCell * cell = static_cast<MWMBottomMenuCollectionViewCell *>(
+      [collectionView cellForItemAtIndexPath:indexPath]);
   if (!cell.isEnabled)
     return;
   switch (indexPath.item)
   {
-  case MWMBottomMenuViewCellAddPlace:
-    [self menuActionAddPlace];
-    break;
-  case MWMBottomMenuViewCellDownload:
-    [self menuActionDownloadMaps];
-    break;
-  case MWMBottomMenuViewCellSettings:
-    [self menuActionOpenSettings];
-    break;
-  case MWMBottomMenuViewCellShare:
-    [self menuActionShareLocation];
-    break;
-  case MWMBottomMenuViewCellAd:
-    [self menuActionOpenAd];
-    break;
-  case MWMBottomMenuViewCellCount:
-    break;
+  case MWMBottomMenuViewCellAddPlace: [self menuActionAddPlace]; break;
+  case MWMBottomMenuViewCellDownload: [self menuActionDownloadMaps]; break;
+  case MWMBottomMenuViewCellSettings: [self menuActionOpenSettings]; break;
+  case MWMBottomMenuViewCellShare: [self menuActionShareLocation]; break;
+  case MWMBottomMenuViewCellAd: [self menuActionOpenAd]; break;
+  case MWMBottomMenuViewCellCount: break;
   }
 }
 
@@ -401,35 +402,38 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   NSAssert(banners.count != 0, @"Banners collection can not be empty!");
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatMoreApps}];
   self.state = self.restoreState;
-  [self.controller.appWallAd showWithController:self.controller onComplete:^
-  {
-    [Statistics logEvent:kStatMyTargetAppsDisplayed withParameters:@{kStatCount : @(banners.count)}];
-    NSMutableArray<NSString *> * appNames = [@[] mutableCopy];
-    for (MTRGNativeAppwallBanner * banner in banners)
-    {
-      [Statistics logEvent:kStatMyTargetAppsDisplayed withParameters:@{kStatName : banner.title}];
-      [appNames addObject:banner.title];
-    }
-    NSString * appNamesString = [appNames componentsJoinedByString:@";"];
-    [Alohalytics logEvent:kStatMyTargetAppsDisplayed
-           withDictionary:@{
-             kStatCount : @(banners.count),
-             kStatName : appNamesString
-           }];
-  }
-  onError:^(NSError * error)
-  {
-    NSMutableArray<NSString *> * appNames = [@[] mutableCopy];
-    for (MTRGNativeAppwallBanner * banner in banners)
-      [appNames addObject:banner.title];
-    NSString * appNamesString = [appNames componentsJoinedByString:@";"];
-    [Statistics logEvent:kStatMyTargetAppsDisplayed
-                     withParameters:@{
-                       kStatError : error,
-                       kStatCount : @(banners.count),
-                       kStatName : appNamesString
-                     }];
-  }];
+  [self.controller.appWallAd showWithController:self.controller
+      onComplete:^{
+        [Statistics logEvent:kStatMyTargetAppsDisplayed
+              withParameters:@{
+                kStatCount : @(banners.count)
+              }];
+        NSMutableArray<NSString *> * appNames = [@[] mutableCopy];
+        for (MTRGNativeAppwallBanner * banner in banners)
+        {
+          [Statistics logEvent:kStatMyTargetAppsDisplayed
+                withParameters:@{kStatName : banner.title}];
+          [appNames addObject:banner.title];
+        }
+        NSString * appNamesString = [appNames componentsJoinedByString:@";"];
+        [Alohalytics logEvent:kStatMyTargetAppsDisplayed
+               withDictionary:@{
+                 kStatCount : @(banners.count),
+                 kStatName : appNamesString
+               }];
+      }
+      onError:^(NSError * error) {
+        NSMutableArray<NSString *> * appNames = [@[] mutableCopy];
+        for (MTRGNativeAppwallBanner * banner in banners)
+          [appNames addObject:banner.title];
+        NSString * appNamesString = [appNames componentsJoinedByString:@";"];
+        [Statistics logEvent:kStatMyTargetAppsDisplayed
+              withParameters:@{
+                kStatError : error,
+                kStatCount : @(banners.count),
+                kStatName : appNamesString
+              }];
+      }];
 }
 
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
@@ -445,7 +449,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   }
   else
   {
-    if (theApp.routingPlaneMode == MWMRoutingPlaneModeSearchDestination || theApp.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
+    if (theApp.routingPlaneMode == MWMRoutingPlaneModeSearchDestination ||
+        theApp.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
       self.controller.controlsManager.searchHidden = YES;
     [[MWMRouter router] stop];
   }
@@ -471,9 +476,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   switch (self.state)
   {
-  case MWMBottomMenuStateHidden:
-    NSAssert(false, @"Incorrect state");
-    break;
+  case MWMBottomMenuStateHidden: NSAssert(false, @"Incorrect state"); break;
   case MWMBottomMenuStateInactive:
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
@@ -499,7 +502,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   // if dimBackgroundTap is processed first then menuButtonTouchUpInside behaves as if menu is
   // inactive this is wrong case, so we postpone dimBackgroundTap to make sure
   // menuButtonTouchUpInside processed first
-  dispatch_async(dispatch_get_main_queue(), ^{ self.state = self.restoreState; });
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self.state = self.restoreState;
+  });
 }
 
 - (void)toggleDimBackgroundVisible:(BOOL)visible
@@ -507,18 +512,17 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   if (visible)
     [self.controller.view insertSubview:self.dimBackground belowSubview:self.view];
   self.dimBackground.alpha = visible ? 0.0 : 0.8;
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.dimBackground.alpha = visible ? 0.8 : 0.0;
-  }
-  completion:^(BOOL finished)
-  {
-    if (!visible)
-    {
-      [self.dimBackground removeFromSuperview];
-      self.dimBackground = nil;
-    }
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{
+        self.dimBackground.alpha = visible ? 0.8 : 0.0;
+      }
+      completion:^(BOOL finished) {
+        if (!visible)
+        {
+          [self.dimBackground removeFromSuperview];
+          self.dimBackground = nil;
+        }
+      }];
 }
 
 #pragma mark - Properties
@@ -566,42 +570,26 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     view.state = state;
 }
 
-- (MWMBottomMenuState)state
-{
-  return ((MWMBottomMenuView *)self.view).state;
-}
-
+- (MWMBottomMenuState)state { return ((MWMBottomMenuView *)self.view).state; }
 - (void)setRestoreState:(MWMBottomMenuState)restoreState
 {
   ((MWMBottomMenuView *)self.view).restoreState = restoreState;
 }
 
-- (MWMBottomMenuState)restoreState
-{
-  return ((MWMBottomMenuView *)self.view).restoreState;
-}
-
+- (MWMBottomMenuState)restoreState { return ((MWMBottomMenuView *)self.view).restoreState; }
 - (void)setLeftBound:(CGFloat)leftBound
 {
   ((MWMBottomMenuView *)self.view).leftBound = leftBound;
   ((EAGLView *)self.controller.view).widgetsManager.leftBound = leftBound;
 }
 
-- (CGFloat)leftBound
-{
-  return ((MWMBottomMenuView *)self.view).leftBound;
-}
-
+- (CGFloat)leftBound { return ((MWMBottomMenuView *)self.view).leftBound; }
 - (void)setSearchIsActive:(BOOL)searchIsActive
 {
   ((MWMBottomMenuView *)self.view).searchIsActive = searchIsActive;
 }
 
-- (BOOL)searchIsActive
-{
-  return ((MWMBottomMenuView *)self.view).searchIsActive;
-}
-
+- (BOOL)searchIsActive { return ((MWMBottomMenuView *)self.view).searchIsActive; }
 - (NSUInteger)additionalButtonsCount
 {
   return MWMBottomMenuViewCellCount - (self.controller.isAppWallAdActive ? 0 : 1);

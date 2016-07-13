@@ -86,25 +86,6 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   [superview bringSubviewToFront:superview];
 }
 
-- (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity
-{
-  NSString * eta = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(entity.timeToTarget)];
-  NSString * resultString =
-      [NSString stringWithFormat:@"%@ • %@ %@", eta, entity.targetDistance, entity.targetUnits];
-  NSMutableAttributedString * result =
-      [[NSMutableAttributedString alloc] initWithString:resultString];
-  [result addAttributes:self.etaAttributes range:NSMakeRange(0, eta.length)];
-  self.resultLabel.attributedText = result;
-  if (!IPAD)
-    return;
-
-  NSString * arriveStr = [NSDateFormatter
-      localizedStringFromDate:[[NSDate date] dateByAddingTimeInterval:entity.timeToTarget]
-                    dateStyle:NSDateFormatterNoStyle
-                    timeStyle:NSDateFormatterShortStyle];
-  self.arriveLabel.text = [NSString stringWithFormat:L(@"routing_arrive"), arriveStr.UTF8String];
-}
-
 - (void)statePrepare
 {
   for (auto const & progress : m_progresses)
@@ -336,6 +317,27 @@ static CGFloat constexpr kAdditionalHeight = 20.;
     NSForegroundColorAttributeName : UIColor.blackPrimaryText,
     NSFontAttributeName : UIFont.medium17
   };
+}
+
+#pragma mark - MWMNavigationDashboardInfoProtocol
+
+- (void)updateNavigationInfo:(MWMNavigationDashboardEntity *)info
+{
+  NSString * eta = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(info.timeToTarget)];
+  NSString * resultString =
+      [NSString stringWithFormat:@"%@ • %@ %@", eta, info.targetDistance, info.targetUnits];
+  NSMutableAttributedString * result =
+      [[NSMutableAttributedString alloc] initWithString:resultString];
+  [result addAttributes:self.etaAttributes range:NSMakeRange(0, eta.length)];
+  self.resultLabel.attributedText = result;
+  if (!IPAD)
+    return;
+
+  NSString * arriveStr = [NSDateFormatter
+      localizedStringFromDate:[[NSDate date] dateByAddingTimeInterval:info.timeToTarget]
+                    dateStyle:NSDateFormatterNoStyle
+                    timeStyle:NSDateFormatterShortStyle];
+  self.arriveLabel.text = [NSString stringWithFormat:L(@"routing_arrive"), arriveStr.UTF8String];
 }
 
 #pragma mark - MWMRoutePointCellDelegate

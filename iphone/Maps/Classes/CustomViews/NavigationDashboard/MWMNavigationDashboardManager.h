@@ -1,7 +1,8 @@
 #import "MWMBottomMenuView.h"
 #import "MWMCircularProgress.h"
-#import "MWMLocationManager.h"
+
 #import "MWMNavigationDashboardEntity.h"
+#import "MWMNavigationDashboardInfoProtocol.h"
 #import "MWMNavigationViewProtocol.h"
 #import "MWMRoutePreview.h"
 
@@ -17,12 +18,6 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
   MWMNavigationDashboardStateNavigation
 };
 
-@protocol MWMNavigationDashboardInfoProtocol
-
-- (void)updateRoutingInfo:(MWMNavigationDashboardEntity *)info;
-
-@end
-
 @protocol MWMNavigationDashboardManagerProtocol<MWMNavigationViewProtocol>
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource;
@@ -30,7 +25,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 
 @end
 
-@interface MWMNavigationDashboardManager : NSObject<MWMLocationObserver>
+@interface MWMNavigationDashboardManager : NSObject
 
 + (MWMNavigationDashboardManager *)manager;
 
@@ -44,11 +39,12 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view
-                       infoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay
                           delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate;
 - (void)updateFollowingInfo:(location::FollowingInfo const &)info;
 - (void)updateDashboard;
 - (void)setRouteBuilderProgress:(CGFloat)progress;
 - (void)mwm_refreshUI;
+
+- (void)addInfoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay;
 
 @end
