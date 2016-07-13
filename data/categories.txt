@@ -3166,7 +3166,7 @@ hu:Menedék
 th:ที่อยู่อาศัย
 zh-Hans:2庇护所
 ar:مأوى
-da:Hjem|ly|tilflugtssted
+da:Shelter|læskur|hytte
 tr:Barınak
 sv:Logi
 vi:Chổ nương thân
