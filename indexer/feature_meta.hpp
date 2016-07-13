@@ -186,6 +186,27 @@ public:
     MetadataBase::Set(type, s);
   }
 };
+
+class RegionData : public MetadataBase
+{
+public:
+  enum Type
+  {
+    RD_LANGUAGES,  // list of written languages
+    RD_DRIVING,  // left- or right-hand driving (letter 'l' or 'r')
+    RD_TIMEZONE,  // UTC timezone offset, floating signed number of hours: -3, 4.5
+    RD_ADDRESS_FORMAT,  // address format, re: mapzen
+    RD_PHONE_FORMAT,  // list of strings in "+N NNN NN-NN-NN" format
+    RD_POSTCODE_FORMAT,  // list of strings in "AAA ANN" format
+    RD_PUBLIC_HOLIDAYS,  // fixed PH dates
+    RD_ALLOW_HOUSENAMES  // 'y' if housenames are commonly used
+  };
+
+  void Add(Type type, string const & s)
+  {
+    MetadataBase::Set(type, s);
+  }
+};
 }  // namespace feature
 
 // Prints types in osm-friendly format.

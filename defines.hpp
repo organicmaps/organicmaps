@@ -27,6 +27,7 @@
 #define METADATA_INDEX_FILE_TAG "metaidx"
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define RANKS_FILE_TAG "ranks"
+#define REGION_INFO_FILE_TAG "info"
 // Temporary addresses section that is used in search index generation.
 #define SEARCH_TOKENS_FILE_TAG "addrtags"
 
