@@ -7,7 +7,7 @@
 
 namespace
 {
-array<NSString *, 8> const kBookmarkColorsVariant
+array<NSString *, 9> const kBookmarkColorsVariant
 {{
   @"placemark-red",
   @"placemark-yellow",
@@ -16,7 +16,8 @@ array<NSString *, 8> const kBookmarkColorsVariant
   @"placemark-purple",
   @"placemark-orange",
   @"placemark-brown",
-  @"placemark-pink"
+  @"placemark-pink",
+  @"placemark-hotel"
 }};
 
 } // namespace
