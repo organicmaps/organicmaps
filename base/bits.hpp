@@ -2,8 +2,8 @@
 #include "base/assert.hpp"
 
 #include "std/cstdint.hpp"
+#include "std/limits.hpp"
 #include "std/type_traits.hpp"
-
 
 namespace bits
 {
@@ -201,4 +201,11 @@ namespace bits
     while (n != 0) { ++result; n >>= 1; }
     return result;
   }
-}
+
+  inline uint64_t GetFullMask(uint8_t numBits)
+  {
+    ASSERT_LESS_OR_EQUAL(numBits, 64, ());
+    return numBits == 64 ? numeric_limits<uint64_t>::max()
+                         : (static_cast<uint64_t>(1) << numBits) - 1;
+  }
+}  // namespace bits

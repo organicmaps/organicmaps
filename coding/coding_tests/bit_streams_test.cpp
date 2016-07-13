@@ -4,11 +4,15 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
+#include "base/assert.hpp"
+#include "base/bits.hpp"
+
 #include "std/random.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-
+namespace
+{
 UNIT_TEST(BitStreams_Smoke)
 {
   uniform_int_distribution<uint8_t> randomBytesDistribution(0, 255);
@@ -62,3 +66,38 @@ UNIT_TEST(BitStreams_T1)
 
   TEST_EQUAL(buf.size(), 2, ());
 }
+
+UNIT_TEST(BitStreams_Large)
+{
+  using TBuffer = vector<uint8_t>;
+  using TWriter = MemWriter<TBuffer>;
+
+  uint64_t const kMask = 0x0123456789abcdef;
+
+  TBuffer buf;
+  {
+    TWriter w(buf);
+    BitWriter<TWriter> bits(w);
+
+    for (int i = 0; i <= 64; ++i)
+    {
+      if (i <= 32)
+        bits.WriteAtMost32Bits(static_cast<uint32_t>(kMask), i);
+      else
+        bits.WriteAtMost64Bits(kMask, i);
+    }
+  }
+
+  {
+    MemReader r(buf.data(), buf.size());
+    ReaderSource<MemReader> src(r);
+    BitReader<ReaderSource<MemReader>> bits(src);
+    for (int i = 0; i <= 64; ++i)
+    {
+      uint64_t const mask = bits::GetFullMask(i);
+      uint64_t const value = i <= 32 ? bits.ReadAtMost32Bits(i) : bits.ReadAtMost64Bits(i);
+      TEST_EQUAL(value, kMask & mask, (i));
+    }
+  }
+}
+}  // namespace
