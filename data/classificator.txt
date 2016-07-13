@@ -171,6 +171,7 @@ world  +
     building  +
         address  -
         garage  -
+        has_parts  -
         train_station  -
         {}
     building:part  -

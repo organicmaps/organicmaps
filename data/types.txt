@@ -1121,3 +1121,4 @@ psurface|unpaved_bad
 wheelchair|yes
 wheelchair|no
 wheelchair|limited
+building|has_parts

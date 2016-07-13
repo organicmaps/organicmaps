@@ -12423,6 +12423,86 @@ cont {
   }
 }
 cont {
+  name: "building-has_parts"
+  element {
+    scale: 14
+    area {
+      color: 2160707771
+      priority: 1298
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 1724500155
+      priority: 1298
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 868862139
+      priority: 1352
+    }
+    caption {
+      primary {
+        height: 9
+        color: 6645086
+        text: "addr:housename"
+      }
+      priority: 15351
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 12763315
+      priority: 1352
+    }
+    caption {
+      primary {
+        height: 9
+        color: 6381914
+      }
+      secondary {
+        height: 8
+        color: 6381914
+        offset_y: 20
+        text: "int_name"
+      }
+      priority: 15351
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 12763315
+      priority: 1352
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6381914
+      }
+      priority: 15351
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 12763315
+      priority: 1352
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6381914
+      }
+      priority: 15351
+    }
+  }
+}
+cont {
   name: "building-train_station"
   element {
     scale: 13
