@@ -110,6 +110,22 @@ public:
       toDo(ways[i].first, ways[i].second);
   }
 
+  string GetNodeRole(uint64_t const id) const
+  {
+    for (size_t i = 0; i < nodes.size(); ++i)
+      if (nodes[i].first == id)
+        return nodes[i].second;
+    return string();
+  }
+
+  string GetWayRole(uint64_t const id) const
+  {
+    for (size_t i = 0; i < ways.size(); ++i)
+      if (ways[i].first == id)
+        return ways[i].second;
+    return string();
+  }
+
   void Swap(RelationElement & rhs)
   {
     nodes.swap(rhs.nodes);
