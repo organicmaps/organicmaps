@@ -1,4 +1,5 @@
 #import "MWMMapWidgets.h"
+#import "MWMNavigationDashboardManager.h"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "std/unique_ptr.hpp"
@@ -56,8 +57,12 @@
           pivot -= m2::PointF(0.0, self.bottomBound * self.visualScale);
           break;
         case gui::WIDGET_COMPASS:
-          pivot += m2::PointF(self.leftBound, -self.bottomBound) * self.visualScale;
+        {
+          CGFloat const compassBottomBound =
+              self.bottomBound + [MWMNavigationDashboardManager manager].extraCompassBottomOffset;
+          pivot += m2::PointF(self.leftBound, -compassBottomBound) * self.visualScale;
           break;
+        }
         case gui::WIDGET_SCALE_LABEL:
         case gui::WIDGET_CHOOSE_POSITION_MARK:
           break;

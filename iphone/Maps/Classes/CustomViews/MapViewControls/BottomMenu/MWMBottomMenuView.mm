@@ -277,9 +277,13 @@ CGFloat constexpr kTimeWidthRegular = 128;
   {
   case MWMBottomMenuStateHidden: self.minY = self.superview.height; return;
   case MWMBottomMenuStateInactive:
-  case MWMBottomMenuStateCompact:
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo: break;
+  case MWMBottomMenuStateCompact:
+    if (self.restoreState == MWMBottomMenuStateRouting && !IPAD &&
+        UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+      self.mainButtonsHeight.constant = kRoutingMainButtonsHeightLandscape;
+    break;
   case MWMBottomMenuStateActive:
   {
     self.separatorHeight.constant = 1.0;

@@ -104,8 +104,8 @@
                         <constraint firstItem="wpf-tw-Coz" firstAttribute="leading" secondItem="WqK-Yb-PmP" secondAttribute="leading" id="bK5-4Q-Rv9"/>
                         <constraint firstItem="wpf-tw-Coz" firstAttribute="top" secondItem="WqK-Yb-PmP" secondAttribute="top" id="cPc-fO-vAa"/>
                         <constraint firstItem="0YR-3a-ucN" firstAttribute="width" secondItem="DMt-LJ-mzn" secondAttribute="width" id="evf-UV-KzK"/>
-                        <constraint firstAttribute="trailing" secondItem="DrK-vI-WkO" secondAttribute="trailing" constant="8" id="jom-uc-MN0"/>
-                        <constraint firstItem="DrK-vI-WkO" firstAttribute="leading" secondItem="WqK-Yb-PmP" secondAttribute="leading" constant="8" id="kYp-Bb-6dW"/>
+                        <constraint firstAttribute="trailing" secondItem="DrK-vI-WkO" secondAttribute="trailing" priority="999" constant="8" id="jom-uc-MN0"/>
+                        <constraint firstItem="DrK-vI-WkO" firstAttribute="leading" secondItem="WqK-Yb-PmP" secondAttribute="leading" priority="999" constant="8" id="kYp-Bb-6dW"/>
                         <constraint firstItem="DMt-LJ-mzn" firstAttribute="top" secondItem="WqK-Yb-PmP" secondAttribute="top" constant="12" id="qWW-1y-zZG"/>
                         <constraint firstItem="0YR-3a-ucN" firstAttribute="top" secondItem="WqK-Yb-PmP" secondAttribute="top" constant="12" id="zKm-WW-91Y"/>
                     </constraints>
@@ -233,15 +233,15 @@
                     <constraints>
                         <constraint firstItem="8Fm-p4-iHv" firstAttribute="centerY" secondItem="Sr7-UO-G0z" secondAttribute="centerY" id="6Bj-GR-HOL"/>
                         <constraint firstItem="OOA-K7-ybj" firstAttribute="centerY" secondItem="Sr7-UO-G0z" secondAttribute="centerY" id="6Uv-dg-Un3"/>
-                        <constraint firstAttribute="trailing" secondItem="tjE-md-mqu" secondAttribute="trailing" constant="12" id="99x-Ja-4UF"/>
+                        <constraint firstAttribute="trailing" secondItem="tjE-md-mqu" secondAttribute="trailing" priority="999" constant="12" id="99x-Ja-4UF"/>
                         <constraint firstItem="OOA-K7-ybj" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="trailing" id="TAE-ae-pa6"/>
                         <constraint firstItem="tjE-md-mqu" firstAttribute="centerY" secondItem="Sr7-UO-G0z" secondAttribute="centerY" id="ikK-X1-3S9"/>
                         <constraint firstItem="oQc-l8-sZH" firstAttribute="centerY" secondItem="Sr7-UO-G0z" secondAttribute="centerY" id="jmL-Ol-DwJ"/>
-                        <constraint firstItem="oQc-l8-sZH" firstAttribute="leading" secondItem="Sr7-UO-G0z" secondAttribute="leading" constant="8" id="kJx-Hv-da4"/>
+                        <constraint firstItem="oQc-l8-sZH" firstAttribute="leading" secondItem="Sr7-UO-G0z" secondAttribute="leading" priority="999" constant="8" id="kJx-Hv-da4"/>
                         <constraint firstItem="8Fm-p4-iHv" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="trailing" id="pPr-SX-Yd8"/>
                         <constraint firstAttribute="height" constant="48" id="tZt-LS-raP"/>
-                        <constraint firstAttribute="trailing" secondItem="OOA-K7-ybj" secondAttribute="trailing" constant="12" id="uFe-u5-hEf"/>
-                        <constraint firstAttribute="trailing" secondItem="8Fm-p4-iHv" secondAttribute="trailing" constant="12" id="wk4-wb-LAg"/>
+                        <constraint firstAttribute="trailing" secondItem="OOA-K7-ybj" secondAttribute="trailing" priority="999" constant="12" id="uFe-u5-hEf"/>
+                        <constraint firstAttribute="trailing" secondItem="8Fm-p4-iHv" secondAttribute="trailing" priority="999" constant="12" id="wk4-wb-LAg"/>
                         <constraint firstItem="tjE-md-mqu" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="trailing" id="yVc-kD-ck6"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
