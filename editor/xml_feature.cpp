@@ -325,7 +325,7 @@ void XMLFeature::SetUploadError(string const & error)
 
 bool XMLFeature::HasAnyTags() const
 {
-  return m_document.child("tag");
+  return GetRootNode().child("tag");
 }
 
 bool XMLFeature::HasTag(string const & key) const

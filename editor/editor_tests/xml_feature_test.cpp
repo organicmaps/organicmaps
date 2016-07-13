@@ -129,6 +129,32 @@ UNIT_TEST(XMLFeature_ToOSMString)
   TEST_EQUAL(expectedString, feature.ToOSMString(), ());
 }
 
+UNIT_TEST(XMLFeature_HasTags)
+{
+  auto const taggedNode = R"(
+<node lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
+  <tag k="name" v="OSM" />
+  <tag k="amenity" v="atm" />
+</node>
+)";
+  XMLFeature taggedFeature(taggedNode);
+  TEST(taggedFeature.HasAnyTags(), ());
+  TEST(taggedFeature.HasTag("amenity"), ());
+  TEST(taggedFeature.HasKey("amenity"), ());
+  TEST(!taggedFeature.HasTag("name:en"), ());
+  TEST(taggedFeature.HasKey("lon"), ());
+  TEST(!taggedFeature.HasTag("lon"), ());
+  TEST_EQUAL(taggedFeature.GetTagValue("name"), "OSM", ());
+  TEST_EQUAL(taggedFeature.GetTagValue("nope"), "", ());
+
+  constexpr char const * emptyWay = R"(
+<way timestamp="2015-11-27T21:13:32Z"/>
+)";
+  XMLFeature emptyFeature(emptyWay);
+  TEST(!emptyFeature.HasAnyTags(), ());
+  TEST(emptyFeature.HasAttribute("timestamp"), ());
+}
+
 UNIT_TEST(XMLFeature_IsArea)
 {
   constexpr char const * validAreaXml = R"(
