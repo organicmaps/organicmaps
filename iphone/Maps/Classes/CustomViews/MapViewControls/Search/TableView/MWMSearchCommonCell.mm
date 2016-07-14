@@ -1,7 +1,7 @@
 #import "Common.h"
-#import "MapsAppDelegate.h"
 #import "MWMLocationManager.h"
 #import "MWMSearchCommonCell.h"
+#import "MapsAppDelegate.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
@@ -12,14 +12,17 @@
 
 @interface MWMSearchCommonCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel * typeLabel;
-@property (weak, nonatomic) IBOutlet UIView * infoView;
-@property (weak, nonatomic) IBOutlet UILabel * infoLabel;
-@property (weak, nonatomic) IBOutlet UIView * infoRatingView;
-@property (nonatomic) IBOutletCollection(UIImageView) NSArray * infoRatingStars;
-@property (weak, nonatomic) IBOutlet UILabel * locationLabel;
-@property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
-@property (weak, nonatomic) IBOutlet UIView * closedView;
+@property(weak, nonatomic) IBOutlet UILabel * typeLabel;
+@property(weak, nonatomic) IBOutlet UIView * infoView;
+@property(weak, nonatomic) IBOutlet UILabel * infoLabel;
+@property(weak, nonatomic) IBOutlet UIView * infoRatingView;
+@property(nonatomic) IBOutletCollection(UIImageView) NSArray * infoRatingStars;
+@property(weak, nonatomic) IBOutlet UILabel * locationLabel;
+@property(weak, nonatomic) IBOutlet UILabel * distanceLabel;
+@property(weak, nonatomic) IBOutlet UILabel * ratingLabel;
+@property(weak, nonatomic) IBOutlet UILabel * priceLabel;
+
+@property(weak, nonatomic) IBOutlet UIView * closedView;
 
 @end
 
@@ -45,22 +48,25 @@
 
     switch (result.IsOpenNow())
     {
-      case osm::Unknown:
-      // TODO: Correctly handle Open Now = YES value (show "OPEN" mark).
-      case osm::Yes:
-        self.closedView.hidden = YES;
-        break;
-      case osm::No:
-        self.closedView.hidden = NO;
-        break;
+    case osm::Unknown:
+    // TODO: Correctly handle Open Now = YES value (show "OPEN" mark).
+    case osm::Yes: self.closedView.hidden = YES; break;
+    case osm::No: self.closedView.hidden = NO; break;
     }
+
+    auto const & ratingStr = result.GetHotelRating();
+    self.ratingLabel.text =
+        ratingStr.empty() ? @"" : [NSString stringWithFormat:L(@"place_page_booking_rating"),
+                                                              result.GetHotelRating().c_str()];
+    self.priceLabel.text = @(result.GetHotelApproximatePricing().c_str());
     if (result.HasPoint())
     {
       string distanceStr;
       CLLocation * lastLocation = [MWMLocationManager lastLocation];
       if (lastLocation)
       {
-        double const dist = MercatorBounds::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
+        double const dist =
+            MercatorBounds::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
         measurement_utils::FormatDistance(dist, distanceStr);
       }
       self.distanceLabel.text = @(distanceStr.c_str());
@@ -96,17 +102,13 @@
   self.infoView.hidden = NO;
   self.infoRatingView.hidden = NO;
   self.infoLabel.hidden = YES;
-  [self.infoRatingStars enumerateObjectsUsingBlock:^(UIImageView * star, NSUInteger idx, BOOL *stop)
-  {
-    star.highlighted = star.tag <= infoRating;
-  }];
+  [self.infoRatingStars
+      enumerateObjectsUsingBlock:^(UIImageView * star, NSUInteger idx, BOOL * stop) {
+        star.highlighted = star.tag <= infoRating;
+      }];
 }
 
-- (void)clearInfo
-{
-  self.infoView.hidden = YES;
-}
-
+- (void)clearInfo { self.infoView.hidden = YES; }
 - (NSDictionary *)selectedTitleAttributes
 {
   return @{
@@ -123,11 +125,7 @@
   };
 }
 
-+ (CGFloat)defaultCellHeight
-{
-  return 80.0;
-}
-
++ (CGFloat)defaultCellHeight { return 80.0; }
 - (CGFloat)cellHeight
 {
   return ceil([self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
