@@ -311,11 +311,13 @@ void Ranker::MakePreResult2(Geocoder::Params const & geocoderParams, vector<Inde
   {
     auto p = maker(r);
     if (!p)
-      return;
+      continue;
 
     if (geocoderParams.m_mode == Mode::Viewport &&
         !geocoderParams.m_pivot.IsPointInside(p->GetCenter()))
-      return;
+    {
+      continue;
+    }
 
     if (p->IsStreet())
       streets.push_back(p->GetID());

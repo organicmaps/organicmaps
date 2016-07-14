@@ -408,7 +408,7 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
   Geocoder::Params geocoderParams;
   InitGeocoder(geocoderParams);
 
-  InitPreRanker();
+  InitPreRanker(geocoderParams);
   InitRanker();
 
   try
@@ -681,11 +681,12 @@ void Processor::InitGeocoder(Geocoder::Params & params)
   m_geocoder.SetParams(params);
 }
 
-void Processor::InitPreRanker()
+void Processor::InitPreRanker(Geocoder::Params const & geocoderParams)
 {
   PreRanker::Params params;
 
   params.m_accuratePivotCenter = GetPivotPoint();
+  params.m_scale = geocoderParams.m_scale;
   m_preRanker.Init(params);
 }
 
