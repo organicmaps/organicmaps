@@ -21,8 +21,7 @@
 namespace df
 {
 
-double const kArrowSizeX = 2.0;
-double const kArrowSizeY = 3.0;
+double const kArrowSize = 22.0;
 double const kArrow3dScaleMin = 1.0;
 double const kArrow3dScaleMax = 2.2;
 double const kArrow3dMinZoom = 16;
@@ -31,31 +30,33 @@ Arrow3d::Arrow3d()
   : m_state(gpu::ARROW_3D_PROGRAM, dp::GLState::OverlayLayer)
 {
   m_vertices = {
-     0.0f,  0.0f,  -1.0f,
-    -1.0f, -1.0f,  0.0f,
-     0.0f,  2.0f,  0.0f,
-
-     0.0f,  0.0f,  -1.0f,
-     0.0f,  2.0f,  0.0f,
-     1.0f, -1.0f,  0.0f,
-
-     0.0f,  0.0f,  -1.0f,
-     0.0f, -0.5f,  0.0f,
-    -1.0f, -1.0f,  0.0f,
-
-     0.0f,  0.0f,  -1.0f,
-     1.0f, -1.0f,  0.0f,
-     0.0f, -0.5f,  0.0f
+    0.0f, 0.0f, -1.0f, 1.0,    -1.2f, -1.0f, 0.0f, 1.0,   0.0f, 2.0f, 0.0f, 1.0,
+    0.0f, 0.0f, -1.0f, 1.0,    0.0f,  2.0f, 0.0f, 1.0,    1.2f, -1.0f, 0.0f, 1.0,
+    0.0f, 0.0f, -1.0f, 1.0,    0.0f, -0.5f, 0.0f, 1.0,    -1.2f, -1.0f, 0.0f, 1.0,
+    0.0f, 0.0f, -1.0f, 1.0,    1.2f, -1.0f, 0.0f, 1.0,    0.0f, -0.5f, 0.0f, 1.0,
+    
+    0.0f, 2.27f, 0.0f, 0.0,    1.4f, -1.17f, 0.0f, 0.0,   0.0f, 2.0f, 0.0f, 1.0,
+    0.0f, 2.0f, 0.0f, 1.0,     1.4f, -1.17f, 0.0f, 0.0,   1.2f, -1.0f, 0.0f, 1.0,
+    0.0f, 2.27f, 0.0f, 0.0,    0.0f, 2.0f, 0.0f, 1.0,     -1.4f, -1.17f, 0.0f, 0.0,
+    0.0f, 2.0f, 0.0f, 1.0,     -1.2f, -1.0f, 0.0f, 1.0,   -1.4f, -1.17f, 0.0f, 0.0,
+    
+    1.2f, -1.0f, 0.0f, 1.0,    1.4f, -1.17f, 0.0f, 0.0,   0.0f, -0.67f, 0.0f, 0.0,
+    0.0f, -0.5f, 0.0f, 1.0,    1.2f, -1.0f, 0.0f, 1.0,    0.0f, -0.67f, 0.0f, 0.0,
+    -1.2f, -1.0f, 0.0f, 1.0,   0.0f, -0.67f, 0.0f, 0.0,   -1.4f, -1.17f, 0.0f, 0.0,
+    0.0f, -0.5f, 0.0f, 1.0,    0.0f, -0.67f, 0.0f, 0.0,   -1.2f, -1.0f, 0.0f, 1.0,
   };
 
-  m_normals.resize(m_vertices.size());
-  for (size_t triangle = 0; triangle < m_vertices.size() / 9; ++triangle)
+  int constexpr kVerticesInRow = 12;
+  int constexpr kComponentsInVertex = 4;
+  m_normals.reserve(m_vertices.size());
+  for (size_t triangle = 0; triangle < m_vertices.size() / kVerticesInRow; ++triangle)
   {
-    glsl::vec3 v[3];
+    glsl::vec4 v[3];
     for (size_t vertex = 0; vertex < 3; ++vertex)
     {
-      size_t const offset = triangle * 9 + vertex * 3;
-      v[vertex] = glsl::vec3(m_vertices[offset], m_vertices[offset + 1], m_vertices[offset + 2]);
+      size_t const offset = triangle * kVerticesInRow + vertex * kComponentsInVertex;
+      v[vertex] = glsl::vec4(m_vertices[offset], m_vertices[offset + 1],
+                             m_vertices[offset + 2], m_vertices[offset + 3]);
     }
 
     glsl::vec3 normal = glsl::cross(glsl::vec3(v[1].x - v[0].x, v[1].y - v[0].y, v[1].z - v[0].z),
@@ -64,10 +65,9 @@ Arrow3d::Arrow3d()
 
     for (size_t vertex = 0; vertex < 3; ++vertex)
     {
-      size_t const offset = triangle * 9 + vertex * 3;
-      m_normals[offset] = normal.x;
-      m_normals[offset + 1] = normal.y;
-      m_normals[offset + 2] = normal.z;
+      m_normals.push_back(normal.x);
+      m_normals.push_back(normal.y);
+      m_normals.push_back(normal.z);
     }
   }
 }
@@ -153,9 +153,9 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   double const t = (zoomLevel - kArrow3dMinZoom) / (kMaxZoom - kArrow3dMinZoom);
   double const arrowScale = kArrow3dScaleMin * (1.0 - t) + kArrow3dScaleMax * t;
 
-  double const scaleX = m_pixelWidth * arrowScale * 2.0 / screen.PixelRect().SizeX() / kArrowSizeX;
-  double const scaleY = m_pixelHeight * arrowScale * 2.0 / screen.PixelRect().SizeY() / kArrowSizeY;
-  double const scaleZ = scaleX;
+  double const scaleX = kArrowSize * arrowScale * 2.0 / screen.PixelRect().SizeX();
+  double const scaleY = kArrowSize * arrowScale * 2.0 / screen.PixelRect().SizeY();
+  double const scaleZ = screen.isPerspective() ? (0.002 * screen.GetDepth3d()) : 1.0;
 
   m2::PointD const pos = screen.GtoP(m_position);
   double const dX = 2.0 * pos.x / screen.PixelRect().SizeX() - 1.0;
@@ -177,7 +177,8 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   translateM(3, 1) = -dY;
 
   math::Matrix<float, 4, 4> modelTransform = rotateM * scaleM * translateM;
-  modelTransform = modelTransform * math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
+  if (screen.isPerspective())
+    modelTransform = modelTransform * math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
 
   dp::UniformValuesStorage uniforms;
   uniforms.SetMatrix4x4Value("m_transform", modelTransform.m_data);
@@ -190,13 +191,13 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
 
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
   GLFunctions::glEnableVertexAttribute(m_attributePosition);
-  GLFunctions::glVertexAttributePointer(m_attributePosition, 3, gl_const::GLFloatType, false, 0, 0);
+  GLFunctions::glVertexAttributePointer(m_attributePosition, 4, gl_const::GLFloatType, false, 0, 0);
 
   GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
   GLFunctions::glEnableVertexAttribute(m_attributeNormal);
   GLFunctions::glVertexAttributePointer(m_attributeNormal, 3, gl_const::GLFloatType, false, 0, 0);
 
-  GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, m_vertices.size() / 3);
+  GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, m_vertices.size() / 4);
 
   prg->Unbind();
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);

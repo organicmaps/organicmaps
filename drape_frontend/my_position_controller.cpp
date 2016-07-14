@@ -19,8 +19,8 @@ namespace df
 namespace
 {
 
-int const kPositionOffsetY = 75;
-int const kPositionOffsetYIn3D = 80;
+int const kPositionOffsetY = 104;
+int const kPositionOffsetYIn3D = 104;
 double const kGpsBearingLifetimeSec = 5.0;
 double const kMinSpeedThresholdMps = 1.0;
 

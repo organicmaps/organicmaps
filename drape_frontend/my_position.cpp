@@ -113,7 +113,7 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen,
                                   ref_ptr<dp::GpuProgramManager> mng,
                                   dp::UniformValuesStorage const & commonUniforms)
 {
-  if (screen.isPerspective() && m_isRoutingMode && m_showAzimuth)
+  if (m_showAzimuth)
   {
     m_arrow3d.SetPosition(m_position);
     m_arrow3d.SetAzimuth(m_azimuth);
@@ -126,9 +126,7 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen,
     uniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::MY_POSITION_MARK);
     uniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
     uniforms.SetFloatValue("u_opacity", 1.0);
-    RenderPart(mng, uniforms, (m_showAzimuth == true) ?
-                              (m_obsoletePosition ? MY_POSITION_ARROW_GRAY : MY_POSITION_ARROW) :
-                              MY_POSITION_POINT);
+    RenderPart(mng, uniforms, MY_POSITION_POINT);
   }
 }
 
