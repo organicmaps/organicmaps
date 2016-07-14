@@ -22,9 +22,6 @@ public:
   double static constexpr kDistanceLimitInMeters = 150;
   size_t static constexpr kMaxSelectedElements = 3;
 
-  // Calculated with tools/python/booking_hotels_quality.py
-  double static constexpr kOptimalThreshold = 0.709283;
-
   struct Hotel
   {
     enum class Fields
@@ -91,8 +88,6 @@ public:
   bool MatchByName(string const & osmName, vector<size_t> const & bookingIndexes) const;
 
   void BuildFeatures(function<void(OsmElement *)> const & fn) const;
-
-  static double ScoreByLinearNormDistance(double distance);
 
 protected:
   vector<Hotel> m_hotels;

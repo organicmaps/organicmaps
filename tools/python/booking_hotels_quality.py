@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # coding: utf8
 from __future__ import print_function
 
@@ -14,6 +14,7 @@ import os
 import pickle
 import time
 import urllib2
+import re
 
 # init logging
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
@@ -21,7 +22,7 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(
 
 def load_binary_list(path):
     """
-    Loads binary classifier output.
+    Loads reference binary classifier output.
     """
     bits = []
     with open(path, 'r') as fd:
@@ -41,11 +42,12 @@ def load_score_list(path):
         for line in fd:
             if (not line.strip()) or line[0] == '#':
                 continue
-            scores.append(float(line[line.rfind(':')+2:]))
+            scores.append(float(re.search(r'result score: (\d*\.\d+)', line).group(1)))
     return scores
 
 
 def process_options():
+    # TODO(mgsergio): Fix description.
     parser = argparse.ArgumentParser(description="Download and process booking hotels.")
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbose")
     parser.add_argument("-q", "--quiet", action="store_false", dest="verbose")

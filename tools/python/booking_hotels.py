@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # coding: utf8
 from __future__ import print_function
 
@@ -126,7 +126,8 @@ def translate(source, output):
     '''
     Reads *.pkl files and produces a single list of hotels as tab separated values.
     '''
-    files = [filename for filename in os.listdir(source) if filename.endswith('.pkl')]
+    files = [os.path.join(source, filename)
+             for filename in os.listdir(source) if filename.endswith('.pkl')]
 
     data = []
     for filename in sorted(files):
@@ -207,6 +208,7 @@ def process_options():
     if not options.download and not options.translate:
         parser.print_help()
 
+    # TODO(mgsergio): implpement it with argparse facilities.
     if options.translate and not options.output:
         print("--output isn't set")
         parser.print_help()
