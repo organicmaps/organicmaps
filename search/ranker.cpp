@@ -276,9 +276,7 @@ Ranker::Ranker(Index const & index, storage::CountryInfoGetter const & infoGette
                my::Cancellable const & cancellable)
   : m_reverseGeocoder(index)
   , m_cancellable(cancellable)
-#ifdef FIND_LOCALITY_TEST
-  , m_locality(&index)
-#endif  // FIND_LOCALITY_TEST
+  , m_locality(index)
   , m_index(index)
   , m_infoGetter(infoGetter)
   , m_categories(categories)
@@ -332,14 +330,12 @@ Result Ranker::MakeResult(PreResult2 const & r) const
   Result res = r.GenerateFinalResult(m_infoGetter, &m_categories, &m_params.m_preferredTypes,
                                      m_params.m_currentLocaleCode, &m_reverseGeocoder);
   MakeResultHighlight(res);
-#ifdef FIND_LOCALITY_TEST
   if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
   {
     string city;
     m_locality.GetLocality(res.GetFeatureCenter(), city);
     res.AppendCity(city);
   }
-#endif  // FIND_LOCALITY_TEST
 
   res.SetRankingInfo(r.GetRankingInfo());
   return res;
@@ -533,8 +529,6 @@ void Ranker::FlushViewportResults(Geocoder::Params const & geocoderParams)
 
 void Ranker::ClearCaches()
 {
-#ifdef FIND_LOCALITY_TEST
   m_locality.ClearCache();
-#endif  // FIND_LOCALITY_TEST
 }
 }  // namespace search

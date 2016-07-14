@@ -1,26 +1,41 @@
 #include "search/locality_finder.hpp"
 
+#include "search/dummy_rank_table.hpp"
 #include "search/mwm_context.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/index.hpp"
 
+#include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
+
+#include "std/algorithm.hpp"
 
 namespace search
 {
-
+namespace
+{
 double const kMaxCityRadiusMeters = 30000.0;
-double const kInflateRectMercator = 1.0E-3;
+double const kInflateRectMercator = 0.001;
 
 class DoLoader
 {
 public:
-  DoLoader(LocalityFinder const & finder, LocalityFinder::Cache & cache)
-    : m_finder(finder), m_cache(cache)
+  DoLoader(MwmContext const & ctx, LocalityFinder::Cache & cache, RankTable const & ranks,
+           int8_t lang)
+    : m_ctx(ctx), m_cache(cache), m_ranks(ranks), m_lang(lang)
   {
   }
 
-  void operator() (FeatureType & ft) const
+  void operator()(uint32_t id) const
   {
+    if (m_ranks.Get(id) == 0)
+      return;
+
+    FeatureType ft;
+    if (!m_ctx.GetFeature(id, ft))
+      return;
+
     if (ft.GetFeatureType() != feature::GEOM_POINT)
       return;
 
@@ -28,15 +43,12 @@ public:
     switch (IsLocalityChecker::Instance().GetType(ft))
     {
     case CITY:
-    case TOWN:
-      break;
+    case TOWN: break;
     default:  // cache only cities and towns at this moment
       return;
     }
 
-    uint32_t const id = ft.GetID().m_index;
-
-    if (m_cache.m_loaded.count(id) > 0)
+    if (m_cache.m_loadedIds.count(id) > 0)
       return;
 
     uint32_t const population = ftypes::GetPopulation(ft);
@@ -50,66 +62,69 @@ public:
 
     // read item
     string name;
-    if (!ft.GetName(m_finder.m_lang, name))
-      if (!ft.GetName(0, name))
-        return;
+    if (!ft.GetName(m_lang, name) && !ft.GetName(0, name))
+      return;
 
-    LocalityItem item(population, id, name);
+    LocalityItem item(name, population, id);
     m_cache.m_tree.Add(item, rect);
-    m_cache.m_loaded.insert(id);
+    m_cache.m_loadedIds.insert(id);
   }
 
 private:
-  LocalityFinder const & m_finder;
+  MwmContext const & m_ctx;
   LocalityFinder::Cache & m_cache;
+  RankTable const & m_ranks;
+  int8_t const m_lang;
 };
-
 
 class DoSelectLocality
 {
 public:
-  DoSelectLocality(string & name, m2::PointD const & p)
-    : m_name(name) , m_point(p), m_bestValue(numeric_limits<double>::max())
+  DoSelectLocality(string & name, m2::PointD const & pt)
+    : m_name(name), m_pt(pt), m_bestScore(numeric_limits<double>::max())
   {
   }
 
-  void operator() (m2::RectD const & rect, LocalityItem const & item)
+  void operator()(m2::RectD const & rect, LocalityItem const & item)
   {
-    double const d = MercatorBounds::DistanceOnEarth(rect.Center(), m_point);
-    double const value = ftypes::GetPopulationByRadius(d) / static_cast<double>(item.m_population);
-    if (value < m_bestValue)
+    // TODO (@y, @m): replace this naive score by p-values on
+    // multivariate Gaussian.
+    double const distanceMeters = MercatorBounds::DistanceOnEarth(rect.Center(), m_pt);
+    double const score =
+        ftypes::GetPopulationByRadius(distanceMeters) / static_cast<double>(item.m_population);
+    if (score < m_bestScore)
     {
-      m_bestValue = value;
+      m_bestScore = score;
       m_name = item.m_name;
     }
   }
 
 private:
   string & m_name;
-  m2::PointD m_point;
-  double m_bestValue;
+  m2::PointD m_pt;
+  double m_bestScore;
 };
+}  // namespace
 
-
-LocalityItem::LocalityItem(uint32_t population, ID id, string const & name)
+// LocalityItem ------------------------------------------------------------------------------------
+LocalityItem::LocalityItem(string const & name, uint32_t population, uint32_t id)
   : m_name(name), m_population(population), m_id(id)
 {
 }
 
-string DebugPrint(LocalityItem const & item)
+// LocalityFinder ----------------------------------------------------------------------------------
+LocalityFinder::LocalityFinder(Index const & index) : m_index(index), m_lang(0) {}
+
+void LocalityFinder::SetLanguage(int8_t lang)
 {
-  stringstream ss;
-  ss << "Name = " << item.m_name << "Population = " << item.m_population << "ID = " << item.m_id;
-  return ss.str();
+  if (m_lang == lang)
+    return;
+
+  ClearCache();
+  m_lang = lang;
 }
 
-
-LocalityFinder::LocalityFinder(Index const * pIndex)
-  : m_pIndex(pIndex), m_lang(0)
-{
-}
-
-void LocalityFinder::UpdateCache(Cache & cache, m2::PointD const & pt) const
+void LocalityFinder::UpdateCache(Cache & cache, m2::PointD const & pt)
 {
   m2::RectD rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, kMaxCityRadiusMeters);
   if (cache.m_rect.IsRectInside(rect))
@@ -118,19 +133,39 @@ void LocalityFinder::UpdateCache(Cache & cache, m2::PointD const & pt) const
   rect.Add(cache.m_rect);
   rect.Inflate(kInflateRectMercator, kInflateRectMercator);
 
-  vector<shared_ptr<MwmInfo>> mwmsInfo;
-  m_pIndex->GetMwmsInfo(mwmsInfo);
-  for (auto const & info : mwmsInfo)
+  if (!m_worldId.IsAlive())
   {
-    Index::MwmHandle handle = m_pIndex->GetMwmHandleById(info);
-    MwmValue const * value = handle.GetValue<MwmValue>();
-    if (handle.IsAlive() && value->GetHeader().GetType() == feature::DataHeader::world)
+    m_worldId.Reset();
+    m_ranks.reset();
+
+    vector<shared_ptr<MwmInfo>> mwmsInfo;
+    m_index.GetMwmsInfo(mwmsInfo);
+    for (auto const & info : mwmsInfo)
     {
-      cache.m_rect = rect;
-      MwmContext(move(handle)).ForEachFeature(rect, DoLoader(*this, cache));
-      break;
+      MwmSet::MwmId id(info);
+      Index::MwmHandle handle = m_index.GetMwmHandleById(id);
+      MwmValue const * value = handle.GetValue<MwmValue>();
+      if (handle.IsAlive() && value->GetHeader().GetType() == feature::DataHeader::world)
+      {
+        m_worldId = id;
+        m_ranks = RankTable::Load(value->m_cont);
+        break;
+      }
     }
+
+    if (!m_ranks)
+      m_ranks = make_unique<DummyRankTable>();
   }
+
+  ASSERT(m_ranks.get(), ());
+
+  Index::MwmHandle handle = m_index.GetMwmHandleById(m_worldId);
+  if (!handle.IsAlive())
+    return;
+
+  cache.m_rect = rect;
+  MwmContext ctx(move(handle));
+  ctx.ForEachIndex(rect, DoLoader(ctx, cache, *m_ranks, m_lang));
 }
 
 void LocalityFinder::GetLocality(m2::PointD const & pt, string & name)
@@ -150,17 +185,8 @@ void LocalityFinder::GetLocality(m2::PointD const & pt, string & name)
   if (working == nullptr)
   {
     // Find most unused cache.
-    size_t minUsage = numeric_limits<size_t>::max();
-    for (auto & cache : m_caches)
-    {
-      if (cache.m_usage < minUsage)
-      {
-        working = &cache;
-        minUsage = cache.m_usage;
-      }
-    }
-
-    ASSERT(working, ());
+    working =
+        &*min_element(begin(m_caches), end(m_caches), my::LessBy(&LocalityFinder::Cache::m_usage));
     working->Clear();
   }
 
@@ -174,11 +200,12 @@ void LocalityFinder::ClearCache()
     cache.Clear();
 }
 
+// LocalityFinder::Cache ---------------------------------------------------------------------------
 void LocalityFinder::Cache::Clear()
 {
   m_usage = 0;
   m_tree.Clear();
-  m_loaded.clear();
+  m_loadedIds.clear();
   m_rect.MakeEmpty();
 }
 
@@ -188,4 +215,10 @@ void LocalityFinder::Cache::GetLocality(m2::PointD const & pt, string & name)
   m_tree.ForEachInRectEx(m2::RectD(pt, pt), DoSelectLocality(name, pt));
 }
 
+string DebugPrint(LocalityItem const & item)
+{
+  stringstream ss;
+  ss << "Name = " << item.m_name << "Population = " << item.m_population << "ID = " << item.m_id;
+  return ss.str();
 }
+}  // namespace search

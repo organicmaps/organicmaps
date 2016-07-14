@@ -23,7 +23,7 @@ class LocalityFinderTest
   m2::RectD m_worldRect;
 
 public:
-  LocalityFinderTest() : m_finder(&m_index)
+  LocalityFinderTest() : m_finder(m_index)
   {
     classificator::Load();
     m_worldFile = platform::LocalCountryFile::MakeForTesting("World");
