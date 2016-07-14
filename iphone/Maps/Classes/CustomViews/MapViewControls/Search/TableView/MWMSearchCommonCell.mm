@@ -19,6 +19,9 @@
 @property (nonatomic) IBOutletCollection(UIImageView) NSArray * infoRatingStars;
 @property (weak, nonatomic) IBOutlet UILabel * locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
+@property(weak, nonatomic) IBOutlet UILabel * ratingLabel;
+@property(weak, nonatomic) IBOutlet UILabel * priceLabel;
+
 @property (weak, nonatomic) IBOutlet UIView * closedView;
 
 @end
@@ -54,6 +57,12 @@
         self.closedView.hidden = NO;
         break;
     }
+
+    auto const & ratingStr = result.GetHotelRating();
+    self.ratingLabel.text =
+        ratingStr.empty() ? @"" : [NSString stringWithFormat:L(@"place_page_booking_rating"),
+                                                              result.GetHotelRating().c_str()];
+    self.priceLabel.text = @(result.GetHotelApproximatePricing().c_str());
     if (result.HasPoint())
     {
       string distanceStr;
