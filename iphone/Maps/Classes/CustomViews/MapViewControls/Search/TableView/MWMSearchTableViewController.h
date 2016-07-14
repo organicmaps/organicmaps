@@ -7,28 +7,22 @@
 
 namespace search
 {
-  class Result;
+class Result;
 }
 
-@protocol MWMSearchTableViewProtocol <MWMSearchTabbedViewProtocol>
+@protocol MWMSearchTableViewProtocol<MWMSearchTabbedViewProtocol>
 
-@property (weak, nonatomic) MWMSearchTextField * searchTextField;
+@property(weak, nonatomic) MWMSearchTextField * searchTextField;
 
-@property (nonatomic) MWMSearchManagerState state;
+@property(nonatomic) MWMSearchManagerState state;
 
-- (void)processSearchWithResult:(search::Result const &)result
-                          query:(search::QuerySaver::TSearchRequest const &)query;
+- (void)processSearchWithResult:(search::Result const &)result;
 
 @end
 
 @interface MWMSearchTableViewController : MWMViewController
 
-@property (nonatomic) BOOL searchOnMap;
-
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
 - (nonnull instancetype)initWithDelegate:(nonnull id<MWMSearchTableViewProtocol>)delegate;
-
-- (void)searchText:(nonnull NSString *)text forInputLocale:(nullable NSString *)locale;
-- (search::SearchParams const &)searchParams;
 
 @end

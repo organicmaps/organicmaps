@@ -1,15 +1,5 @@
 #import "CLLocation+Mercator.h"
-
-#include "platform/location.hpp"
-
-@protocol MWMLocationObserver <NSObject>
-
-@optional
-- (void)onHeadingUpdate:(location::CompassInfo const &)compassinfo;
-- (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo;
-- (void)onLocationError:(location::TLocationError)locationError;
-
-@end
+#import "MWMLocationObserver.h"
 
 @interface MWMLocationManager : NSObject
 
@@ -29,7 +19,8 @@
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
 + (instancetype)alloc __attribute__((unavailable("call +manager instead")));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +manager instead")));
-+ (instancetype)new __attribute__((unavailable("call +manager instead")));
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+    __attribute__((unavailable("call +manager instead")));
++ (instancetype) new __attribute__((unavailable("call +manager instead")));
 
 @end

@@ -1,22 +1,20 @@
-#import "Macros.h"
-#import "MapsAppDelegate.h"
+#import "MWMSearchTableViewController.h"
 #import "MWMLocationManager.h"
+#import "MWMSearch.h"
 #import "MWMSearchCommonCell.h"
 #import "MWMSearchShowOnMapCell.h"
 #import "MWMSearchSuggestionCell.h"
 #import "MWMSearchTableView.h"
-#import "MWMSearchTableViewController.h"
+#import "Macros.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "ToastView.h"
-
-#include "search/params.hpp"
 
 static NSString * const kTableShowOnMapCell = @"MWMSearchShowOnMapCell";
 static NSString * const kTableSuggestionCell = @"MWMSearchSuggestionCell";
 static NSString * const kTableCommonCell = @"MWMSearchCommonCell";
 
-typedef NS_ENUM(NSUInteger, MWMSearchTableCellType)
-{
+typedef NS_ENUM(NSUInteger, MWMSearchTableCellType) {
   MWMSearchTableCellTypeOnMap,
   MWMSearchTableCellTypeSuggestion,
   MWMSearchTableCellTypeCommon
@@ -26,47 +24,31 @@ NSString * identifierForType(MWMSearchTableCellType type)
 {
   switch (type)
   {
-    case MWMSearchTableCellTypeOnMap:
-      return kTableShowOnMapCell;
-    case MWMSearchTableCellTypeSuggestion:
-      return kTableSuggestionCell;
-    case MWMSearchTableCellTypeCommon:
-      return kTableCommonCell;
+  case MWMSearchTableCellTypeOnMap: return kTableShowOnMapCell;
+  case MWMSearchTableCellTypeSuggestion: return kTableSuggestionCell;
+  case MWMSearchTableCellTypeCommon: return kTableCommonCell;
   }
 }
 
-@interface MWMSearchTableViewController () <UITableViewDataSource, UITableViewDelegate, MWMLocationObserver>
+@interface MWMSearchTableViewController ()<UITableViewDataSource, UITableViewDelegate,
+                                           MWMSearchObserver>
 
-@property (weak, nonatomic) IBOutlet UITableView * tableView;
+@property(weak, nonatomic) IBOutlet UITableView * tableView;
 
-@property (nonatomic) BOOL watchLocationUpdates;
+@property(nonatomic) MWMSearchCommonCell * commonSizingCell;
 
-@property (nonatomic) MWMSearchCommonCell * commonSizingCell;
-
-@property (weak, nonatomic) id<MWMSearchTableViewProtocol> delegate;
+@property(weak, nonatomic) id<MWMSearchTableViewProtocol> delegate;
 
 @end
 
 @implementation MWMSearchTableViewController
-{
-  search::SearchParams searchParams;
-  search::Results searchResults;
-}
 
 - (nonnull instancetype)initWithDelegate:(id<MWMSearchTableViewProtocol>)delegate
 {
   self = [super init];
   if (self)
-  {
-    self.delegate = delegate;
-    [self setupSearchParams];
-  }
+    _delegate = delegate;
   return self;
-}
-
-- (search::SearchParams const &)searchParams
-{
-  return searchParams;
 }
 
 - (void)viewDidLoad
@@ -75,17 +57,20 @@ NSString * identifierForType(MWMSearchTableCellType type)
   [self setupTableView];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-  [super viewDidDisappear:animated];
-  searchResults.Clear();
+  [super viewDidAppear:animated];
+  [MWMSearch addObserver:self];
 }
 
-- (void)mwm_refreshUI
+- (void)viewWillDisappear:(BOOL)animated
 {
-  [self.view mwm_refreshUI];
+  [super viewWillDisappear:animated];
+  [MWMSearch removeObserver:self];
+  [MWMSearch clear];
 }
 
+- (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
 - (void)setupTableView
 {
   [self.tableView registerNib:[UINib nibWithNibName:kTableShowOnMapCell bundle:nil]
@@ -96,37 +81,13 @@ NSString * identifierForType(MWMSearchTableCellType type)
        forCellReuseIdentifier:kTableCommonCell];
 }
 
-- (void)setupSearchParams
-{
-  __weak auto weakSelf = self;
-  searchParams.m_onResults = ^(search::Results const & results)
-  {
-    __strong auto self = weakSelf;
-    if (!self)
-      return;
-    dispatch_async(dispatch_get_main_queue(), [=]()
-    {
-      if (!results.IsEndMarker())
-      {
-        searchResults = results;
-        [self updateSearchResultsInTable];
-      }
-      else if (results.IsEndedNormal())
-      {
-        [self completeSearch];
-        if (IPAD)
-          GetFramework().UpdateUserViewportChanged();
-      }
-    });
-  };
-}
-
 - (MWMSearchTableCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
 {
-  size_t const numSuggests = searchResults.GetSuggestsCount();
+  size_t const numSuggests = [MWMSearch suggestionsCount];
   if (numSuggests > 0)
   {
-    return indexPath.row < numSuggests ? MWMSearchTableCellTypeSuggestion : MWMSearchTableCellTypeCommon;
+    return indexPath.row < numSuggests ? MWMSearchTableCellTypeSuggestion
+                                       : MWMSearchTableCellTypeCommon;
   }
   else
   {
@@ -142,9 +103,9 @@ NSString * identifierForType(MWMSearchTableCellType type)
 {
   MWMSearchTableCellType firstCellType =
       [self cellTypeForIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-  size_t const searchPosition =
+  NSUInteger const searchPosition =
       indexPath.row - (firstCellType == MWMSearchTableCellTypeOnMap ? 1 : 0);
-  return searchResults.GetResult(searchPosition);
+  return [MWMSearch resultAtIndex:searchPosition];
 }
 
 #pragma mark - Layout
@@ -152,33 +113,33 @@ NSString * identifierForType(MWMSearchTableCellType type)
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
-    [self updateSearchResultsInTable];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self onSearchResultsUpdated];
   });
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
-  {
-    [self updateSearchResultsInTable];
-  }
-  completion:nil];
+  [coordinator
+      animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self onSearchResultsUpdated];
+      }
+                      completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  MWMSearchTableCellType firstCellType = [self cellTypeForIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-  NSInteger const count = searchResults.GetCount();
+  MWMSearchTableCellType firstCellType =
+      [self cellTypeForIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
   BOOL const showOnMap = firstCellType == MWMSearchTableCellTypeOnMap;
-  return count + (showOnMap ? 1 : 0);
+  return [MWMSearch resultsCount] + (showOnMap ? 1 : 0);
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMSearchTableCellType const cellType = [self cellTypeForIndexPath:indexPath];
   return [tableView dequeueReusableCellWithIdentifier:identifierForType(cellType)];
@@ -186,7 +147,8 @@ NSString * identifierForType(MWMSearchTableCellType type)
 
 #pragma mark - Config cells
 
-- (void)configSuggestionCell:(MWMSearchSuggestionCell *)cell result:(search::Result &)result
+- (void)configSuggestionCell:(MWMSearchSuggestionCell *)cell
+                      result:(search::Result &)result
                   isLastCell:(BOOL)isLastCell
 {
   [cell config:result];
@@ -195,16 +157,14 @@ NSString * identifierForType(MWMSearchTableCellType type)
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView
+    estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   switch ([self cellTypeForIndexPath:indexPath])
   {
-    case MWMSearchTableCellTypeOnMap:
-      return MWMSearchShowOnMapCell.cellHeight;
-    case MWMSearchTableCellTypeSuggestion:
-      return MWMSearchSuggestionCell.cellHeight;
-    case MWMSearchTableCellTypeCommon:
-      return MWMSearchCommonCell.defaultCellHeight;
+  case MWMSearchTableCellTypeOnMap: return MWMSearchShowOnMapCell.cellHeight;
+  case MWMSearchTableCellTypeSuggestion: return MWMSearchSuggestionCell.cellHeight;
+  case MWMSearchTableCellTypeCommon: return MWMSearchCommonCell.defaultCellHeight;
   }
 }
 
@@ -213,31 +173,29 @@ NSString * identifierForType(MWMSearchTableCellType type)
   MWMSearchTableCellType const cellType = [self cellTypeForIndexPath:indexPath];
   switch (cellType)
   {
-    case MWMSearchTableCellTypeOnMap:
-      return MWMSearchShowOnMapCell.cellHeight;
-    case MWMSearchTableCellTypeSuggestion:
-      return MWMSearchSuggestionCell.cellHeight;
-    case MWMSearchTableCellTypeCommon:
-      [self.commonSizingCell config:[self searchResultForIndexPath:indexPath] forHeight:YES];
-      return self.commonSizingCell.cellHeight;
+  case MWMSearchTableCellTypeOnMap: return MWMSearchShowOnMapCell.cellHeight;
+  case MWMSearchTableCellTypeSuggestion: return MWMSearchSuggestionCell.cellHeight;
+  case MWMSearchTableCellTypeCommon:
+    [self.commonSizingCell config:[self searchResultForIndexPath:indexPath] forHeight:YES];
+    return self.commonSizingCell.cellHeight;
   }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+      willDisplayCell:(UITableViewCell *)cell
+    forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   switch ([self cellTypeForIndexPath:indexPath])
   {
-    case MWMSearchTableCellTypeOnMap:
-      break;
-    case MWMSearchTableCellTypeSuggestion:
-      [self configSuggestionCell:(MWMSearchSuggestionCell *)cell
-                          result:[self searchResultForIndexPath:indexPath]
-                      isLastCell:indexPath.row == searchResults.GetSuggestsCount() - 1];
-      break;
-    case MWMSearchTableCellTypeCommon:
-      [(MWMSearchCommonCell *)cell config:[self searchResultForIndexPath:indexPath] forHeight:NO];
-      break;
+  case MWMSearchTableCellTypeOnMap: break;
+  case MWMSearchTableCellTypeSuggestion:
+    [self configSuggestionCell:(MWMSearchSuggestionCell *)cell
+                        result:[self searchResultForIndexPath:indexPath]
+                    isLastCell:indexPath.row == [MWMSearch suggestionsCount] - 1];
+    break;
+  case MWMSearchTableCellTypeCommon:
+    [(MWMSearchCommonCell *)cell config:[self searchResultForIndexPath:indexPath] forHeight:NO];
+    break;
   }
 }
 
@@ -246,6 +204,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   MWMSearchTableCellType cellType = [self cellTypeForIndexPath:indexPath];
   if (cellType == MWMSearchTableCellTypeOnMap)
   {
+    MWMSearchTextField * textField = self.delegate.searchTextField;
+    [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
     self.delegate.state = MWMSearchManagerStateMapSearch;
   }
   else
@@ -255,24 +215,29 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     {
       NSString * suggestionString = @(result.GetSuggestionString());
       [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-                       withParameters:@{kStatValue : suggestionString, kStatScreen : kStatSearch}];
+            withParameters:@{kStatValue : suggestionString, kStatScreen : kStatSearch}];
       [self.delegate searchText:suggestionString forInputLocale:nil];
     }
     else
-      [self.delegate processSearchWithResult:result query:make_pair(searchParams.m_inputLocale, searchParams.m_query)];
+    {
+      MWMSearchTextField * textField = self.delegate.searchTextField;
+      [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
+      [self.delegate processSearchWithResult:result];
+    }
   }
 }
 
-- (void)completeSearch
+#pragma mark - MWMSearchObserver
+
+- (void)onSearchCompleted
 {
-  self.delegate.searchTextField.isSearching = NO;
   MWMSearchTableView * view = (MWMSearchTableView *)self.view;
-  if (searchResults.GetCount() == 0)
+  if ([MWMSearch resultsCount] == 0)
   {
     view.tableView.hidden = YES;
     view.noResultsView.hidden = NO;
     view.noResultsText.text = L(@"search_not_found_query");
-    if (self.searchOnMap)
+    if ([MWMSearch isSearchOnMap])
       [[[ToastView alloc] initWithMessage:view.noResultsText.text] show];
   }
   else
@@ -282,99 +247,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
-- (void)updateSearchResultsInTable
+- (void)onSearchResultsUpdated
 {
-  if (!IPAD && _searchOnMap)
+  if (!IPAD && [MWMSearch isSearchOnMap])
     return;
 
   self.commonSizingCell = nil;
   [self.tableView reloadData];
 }
 
-#pragma mark - MWMLocationObserver
-
-- (void)onLocationUpdate:(location::GpsInfo const &)info
-{
-  searchParams.SetPosition(info.m_latitude, info.m_longitude);
-  [self updateSearchResultsInTable];
-}
-
-#pragma mark - Search
-
-- (void)searchText:(nonnull NSString *)text forInputLocale:(nullable NSString *)locale
-{
-  if (!text)
-    return;
-
-  if (locale)
-    searchParams.SetInputLocale(locale.UTF8String);
-  searchParams.m_query = text.precomposedStringWithCompatibilityMapping.UTF8String;
-  searchParams.SetForceSearch(true);
-
-  [self updateSearch:YES];
-}
-
-- (void)updateSearch:(BOOL)textChanged
-{
-  Framework & f = GetFramework();
-  if (!searchParams.m_query.empty())
-  {
-    self.watchLocationUpdates = YES;
-
-    if (self.searchOnMap)
-    {
-      if (textChanged)
-        f.CancelInteractiveSearch();
-
-      f.StartInteractiveSearch(searchParams);
-    }
-
-    if (!_searchOnMap)
-    {
-      f.Search(searchParams);
-    }
-    else
-    {
-      if (textChanged)
-      {
-        self.delegate.searchTextField.isSearching = NO;
-        f.UpdateUserViewportChanged();
-      }
-      else
-        f.ShowSearchResults(searchResults);
-    }
-  }
-  else
-  {
-    self.watchLocationUpdates = NO;
-    f.CancelInteractiveSearch();
-  }
-}
-
 #pragma mark - Properties
-
-- (void)setWatchLocationUpdates:(BOOL)watchLocationUpdates
-{
-  if (_watchLocationUpdates == watchLocationUpdates)
-    return;
-  _watchLocationUpdates = watchLocationUpdates;
-  if (watchLocationUpdates)
-    [MWMLocationManager addObserver:self];
-  else
-    [MWMLocationManager removeObserver:self];
-}
-
-@synthesize searchOnMap = _searchOnMap;
-- (void)setSearchOnMap:(BOOL)searchOnMap
-{
-  _searchOnMap = searchOnMap;
-  [self updateSearch:NO];
-}
-
-- (BOOL)searchOnMap
-{
-  return IPAD || _searchOnMap;
-}
 
 - (MWMSearchCommonCell *)commonSizingCell
 {
