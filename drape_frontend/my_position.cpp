@@ -117,7 +117,6 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen,
   {
     m_arrow3d.SetPosition(m_position);
     m_arrow3d.SetAzimuth(m_azimuth);
-
     m_arrow3d.Render(screen, mng);
   }
   else
@@ -198,13 +197,10 @@ void MyPosition::CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,
 
 void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 {
-  int const kSymbolsCount = 3;
-  dp::TextureManager::SymbolRegion pointSymbol, arrowSymbol, arrowGraySymbol;
+  int const kSymbolsCount = 1;
+  dp::TextureManager::SymbolRegion pointSymbol;
   mng->GetSymbolRegion("current-position", pointSymbol);
-  mng->GetSymbolRegion("current-position-compas", arrowSymbol);
-  mng->GetSymbolRegion("current-position-obsolete", arrowGraySymbol);
 
-  m_arrow3d.SetSize(arrowSymbol.GetPixelSize().x, arrowSymbol.GetPixelSize().y);
   m_arrow3d.SetTexture(mng);
 
   ASSERT(pointSymbol.GetTexture() == arrowSymbol.GetTexture(), ());
@@ -212,8 +208,8 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
   dp::GLState state(gpu::MY_POSITION_PROGRAM, dp::GLState::OverlayLayer);
   state.SetColorTexture(pointSymbol.GetTexture());
 
-  dp::TextureManager::SymbolRegion * symbols[kSymbolsCount] = { &pointSymbol, &arrowSymbol, &arrowGraySymbol };
-  EMyPositionPart partIndices[kSymbolsCount] = { MY_POSITION_POINT, MY_POSITION_ARROW, MY_POSITION_ARROW_GRAY };
+  dp::TextureManager::SymbolRegion * symbols[kSymbolsCount] = { &pointSymbol };
+  EMyPositionPart partIndices[kSymbolsCount] = { MY_POSITION_POINT };
   {
     dp::Batcher batcher(kSymbolsCount * dp::Batcher::IndexPerQuad, kSymbolsCount * dp::Batcher::VertexPerQuad);
     dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
@@ -241,4 +237,4 @@ void MyPosition::RenderPart(ref_ptr<dp::GpuProgramManager> mng,
   m_nodes[p.second].Render(mng, uniforms, p.first);
 }
 
-}
+} // namespace df

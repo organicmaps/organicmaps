@@ -91,34 +91,20 @@ void Arrow3d::SetAzimuth(double azimuth)
   m_azimuth = azimuth;
 }
 
-void Arrow3d::SetSize(uint32_t width, uint32_t height)
-{
-  m_pixelWidth = width;
-  m_pixelHeight = height;
-}
-
 void Arrow3d::SetTexture(ref_ptr<dp::TextureManager> texMng)
 {
   m_state.SetColorTexture(texMng->GetSymbolsTexture());
 }
 
-void Arrow3d::Build(ref_ptr<dp::GpuProgram> prg)
+void Arrow3d::Build()
 {
   m_bufferId = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
-
-  m_attributePosition = prg->GetAttributeLocation("a_pos");
-  ASSERT_NOT_EQUAL(m_attributePosition, -1, ());
-
   GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_vertices.size() * sizeof(m_vertices[0]),
                             m_vertices.data(), gl_const::GLStaticDraw);
 
   m_bufferNormalsId = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
-
-  m_attributeNormal = prg->GetAttributeLocation("a_normal");
-  ASSERT_NOT_EQUAL(m_attributeNormal, -1, ());
-
   GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_normals.size() * sizeof(m_normals[0]),
                             m_normals.data(), gl_const::GLStaticDraw);
 
@@ -136,17 +122,58 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
     GLFunctions::glBindVertexArray(0);
 
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ARROW_3D_PROGRAM);
-  prg->Bind();
-
   if (!m_isInitialized)
   {
-    Build(prg);
+    Build();
     m_isInitialized = true;
   }
 
-  dp::ApplyState(m_state, prg);
+  // Render shadow.
+  if (screen.isPerspective())
+  {
+    ref_ptr<dp::GpuProgram> shadowProgram = mng->GetProgram(gpu::ARROW_3D_SHADOW_PROGRAM);
+    RenderArrow(screen, shadowProgram, dp::Color(60, 60, 60, 60), 0.05f);
+  }
 
+  // Render arrow.
+  ref_ptr<dp::GpuProgram> arrowProgram = mng->GetProgram(gpu::ARROW_3D_PROGRAM);
+  RenderArrow(screen, arrowProgram,
+              df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
+                                   m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D), 0.0f);
+
+  arrowProgram->Unbind();
+  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+}
+
+void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> program,
+                          dp::Color const & color, float dz)
+{
+  program->Bind();
+
+  GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
+  uint32_t const attributePosition = program->GetAttributeLocation("a_pos");
+  ASSERT_NOT_EQUAL(attributePosition, -1, ());
+  GLFunctions::glEnableVertexAttribute(attributePosition);
+  GLFunctions::glVertexAttributePointer(attributePosition, 4, gl_const::GLFloatType, false, 0, 0);
+  
+  GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
+  uint32_t const attributeNormal = program->GetAttributeLocation("a_normal");
+  ASSERT_NOT_EQUAL(attributeNormal, -1, ());
+  GLFunctions::glEnableVertexAttribute(attributeNormal);
+  GLFunctions::glVertexAttributePointer(attributeNormal, 3, gl_const::GLFloatType, false, 0, 0);
+  
+  dp::UniformValuesStorage uniforms;
+  math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz);
+  uniforms.SetMatrix4x4Value("m_transform", modelTransform.m_data);
+  glsl::vec4 const c = glsl::ToVec4(color);
+  uniforms.SetFloatValue("u_color", c.r, c.g, c.b, c.a);
+  dp::ApplyState(m_state, program);
+  dp::ApplyUniforms(uniforms, program);
+  GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, m_vertices.size() / 4);
+}
+
+math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz) const
+{
   static double const kLog2 = log(2.0);
   double const kMaxZoom = scales::UPPER_STYLE_SCALE + 1.0;
   double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / kLog2), kArrow3dMinZoom, kMaxZoom);
@@ -175,32 +202,13 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   math::Matrix<float, 4, 4> translateM = math::Identity<float, 4>();
   translateM(3, 0) = dX;
   translateM(3, 1) = -dY;
+  translateM(3, 2) = dz;
 
   math::Matrix<float, 4, 4> modelTransform = rotateM * scaleM * translateM;
   if (screen.isPerspective())
-    modelTransform = modelTransform * math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
+    return modelTransform * math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
 
-  dp::UniformValuesStorage uniforms;
-  uniforms.SetMatrix4x4Value("m_transform", modelTransform.m_data);
-
-  glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
-                                        m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D));
-  uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
-
-  dp::ApplyUniforms(uniforms, prg);
-
-  GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
-  GLFunctions::glEnableVertexAttribute(m_attributePosition);
-  GLFunctions::glVertexAttributePointer(m_attributePosition, 4, gl_const::GLFloatType, false, 0, 0);
-
-  GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
-  GLFunctions::glEnableVertexAttribute(m_attributeNormal);
-  GLFunctions::glVertexAttributePointer(m_attributeNormal, 3, gl_const::GLFloatType, false, 0, 0);
-
-  GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, m_vertices.size() / 4);
-
-  prg->Unbind();
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+  return modelTransform;
 }
 
 }  // namespace df
