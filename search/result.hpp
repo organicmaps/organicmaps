@@ -35,7 +35,8 @@ public:
     int m_stars = 0;          // Valid only if not 0. Used for hotels.
     bool m_isSponsoredHotel = false; // Used for hotels.
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;  // Valid for any result.
-
+    string m_hotelApproximatePricing;
+    string m_hotelRating;
     /// True if the struct is already assigned or need to be calculated otherwise.
     bool m_isInitialized = false;
   };
@@ -59,6 +60,8 @@ public:
   string const & GetAddress() const { return m_address; }
   string const & GetFeatureType() const { return m_type; }
   string const & GetCuisine() const { return m_metadata.m_cuisine; }
+  string const & GetHotelRating() const { return m_metadata.m_hotelRating; }
+  string const & GetHotelApproximatePricing() const { return m_metadata.m_hotelApproximatePricing; }
   //@}
 
   osm::YesNoUnknown IsOpenNow() const { return m_metadata.m_isOpenNow; }
