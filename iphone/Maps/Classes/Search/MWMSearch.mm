@@ -63,7 +63,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
       __strong auto self = weakSelf;
       if (!self)
         return;
-      runAsyncOnMainQueue(^{
+      runAsyncOnMainQueue([self, results] {
         if (!results.IsEndMarker())
         {
           self->m_results = results;
