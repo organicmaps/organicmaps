@@ -207,6 +207,14 @@ protected:
     if (TBase::IsSkipRelation(type) || type == "route")
       return;
 
+    if (type == "building")
+    {
+      // If this way has "outline" role, add [building=has_parts] type.
+      if (e.GetWayRole(m_current->id) == "outline")
+        TBase::AddCustomTag({"building", "has_parts"});
+      return;
+    }
+
     bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
     bool const processAssociatedStreet = type == "associatedStreet" &&
         TBase::IsKeyTagExists("addr:housenumber") && !TBase::IsKeyTagExists("addr:street");

@@ -134,7 +134,8 @@ public:
   {
     string const & relationType = e.GetType();
     if (!(relationType == "multipolygon" || relationType == "route" ||
-          relationType == "boundary" || relationType == "associatedStreet"))
+          relationType == "boundary" || relationType == "associatedStreet" ||
+          relationType == "building"))
       return;
 
     m_relations.Write(id, e);

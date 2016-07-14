@@ -217,6 +217,7 @@ namespace ftype
   public:
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
                  NOBICYCLE, YESBICYCLE, BICYCLE_BIDIR, SURFPGOOD, SURFPBAD, SURFUGOOD, SURFUBAD,
+                 HASPARTS,
                  RW_STATION, RW_STATION_SUBWAY, WHEELCHAIR_YES };
 
     CachedTypes()
@@ -233,6 +234,7 @@ namespace ftype
         {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "bidir_bicycle"},
         {"psurface", "paved_good"}, {"psurface", "paved_bad"},
         {"psurface", "unpaved_good"}, {"psurface", "unpaved_bad"},
+        {"building", "has_parts"}
       };
       for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
@@ -548,6 +550,8 @@ namespace ftype
     TagProcessor(p).ApplyRules
     ({
       { "wheelchair", "designated", [&params] { params.AddType(types.Get(CachedTypes::WHEELCHAIR_YES)); }},
+      { "building:part", "no", [&params] { params.AddType(types.Get(CachedTypes::HASPARTS)); }},
+      { "building:parts", "~", [&params] { params.AddType(types.Get(CachedTypes::HASPARTS)); }},
     });
 
     bool highwayDone = false;
