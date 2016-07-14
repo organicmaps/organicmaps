@@ -1,17 +1,26 @@
 #import "MWMSearchTextField.h"
+#import "MWMSearch.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
+
+@interface MWMSearchTextField ()<MWMSearchObserver>
+
+@property(nonatomic) BOOL isSearching;
+
+@end
 
 @implementation MWMSearchTextField
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
   self = [super initWithCoder:aDecoder];
-  if (!self)
-    return nil;
-  self.isSearching = NO;
-  self.leftViewMode = UITextFieldViewModeAlways;
-  self.textColor = [UIColor blackSecondaryText];
+  if (self)
+  {
+    self.isSearching = NO;
+    self.leftViewMode = UITextFieldViewModeAlways;
+    self.textColor = [UIColor blackSecondaryText];
+    [MWMSearch addObserver:self];
+  }
   return self;
 }
 
@@ -29,8 +38,10 @@
   _isSearching = isSearching;
   if (isSearching)
   {
-    UIActivityIndicatorView * view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    view.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    UIActivityIndicatorView * view = [[UIActivityIndicatorView alloc]
+        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    view.autoresizingMask =
+        UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [view startAnimating];
     view.bounds = self.leftView.bounds;
     self.leftView = view;
@@ -42,4 +53,8 @@
   }
 }
 
+#pragma mark - MWMSearchObserver
+
+- (void)onSearchStarted { self.isSearching = YES; }
+- (void)onSearchCompleted { self.isSearching = NO; }
 @end

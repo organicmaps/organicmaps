@@ -19,11 +19,6 @@ namespace
 using TObserver = id<MWMLocationObserver>;
 using TObservers = NSHashTable<__kindof TObserver>;
 
-void runAsyncOnMainQueue(dispatch_block_t block)
-{
-  dispatch_async(dispatch_get_main_queue(), block);
-}
-
 location::GpsInfo gpsInfoFromLocation(CLLocation * l)
 {
   location::GpsInfo info;
