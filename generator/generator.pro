@@ -15,6 +15,7 @@ QT *= core
 
 SOURCES += \
     booking_dataset.cpp \
+    booking_scoring.cpp \
     borders_generator.cpp \
     borders_loader.cpp \
     check_model.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
 
 HEADERS += \
     booking_dataset.hpp \
+    booking_scoring.hpp \
     borders_generator.hpp \
     borders_loader.hpp \
     check_model.hpp \
@@ -71,4 +73,3 @@ HEADERS += \
     unpack_mwm.hpp \
     ways_merger.hpp \
     world_map_generator.hpp \
-
