@@ -71,7 +71,7 @@ If a previous run ended with an error, the next one will ignore arguments and co
 the same arguments as the previous time. Set `-c` option to ignore the stored status.
 
 Log files for each region and the entire process (`generate_planet.log`) are written to
-`logs` subdirectory of the target. Intermediate data requires around 250 MB of space, and
+`logs` subdirectory of the target. Intermediate data requires around 320 GB of space, and
 to clean it during the process, specify `KEEP_INTDIR=` empty variable.
 
 #### Steps

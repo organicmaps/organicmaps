@@ -23,8 +23,12 @@ DEFINE_int32(searchIconWidth, 24, "width of the search category icon");
 DEFINE_int32(searchIconHeight, 24, "height of the search category icon");
 DEFINE_bool(colorCorrection, false, "apply color correction");
 
+// Used to lock the hash seed, so the order of XML attributes is always the same.
+extern Q_CORE_EXPORT QBasicAtomicInt qt_qhash_seed;
+
 int main(int argc, char *argv[])
 {
+  qt_qhash_seed.store(0);
   google::ParseCommandLineFlags(&argc, &argv, true);
   QApplication app(argc, argv);
 

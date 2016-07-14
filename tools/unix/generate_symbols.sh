@@ -9,17 +9,27 @@ DATA_PATH="$OMIM_PATH/data"
 if [ ! -f $SKIN_GENERATOR ];
 then
   source "$OMIM_PATH/tools/autobuild/detect_qmake.sh"
+
+  # OS-specific parameters
+  if [ "$(uname -s)" == "Darwin" ]; then
+    SPEC=${SPEC:-macx-clang}
+    PROCESSES=$(sysctl -n hw.ncpu)
+  else
+    SPEC=${SPEC:-linux-clang-libc++}
+    PROCESSES=$(nproc)
+  fi
+
   for project in freetype gflags
   do
     cd "$OMIM_PATH/3party/$project"
-    "$QMAKE" $project.pro -r -spec macx-clang CONFIG+=x86_64
-    make
+    "$QMAKE" $project.pro -r -spec $SPEC CONFIG+=x86_64
+    make -j $PROCESSES
   done
   for project in base coding geometry skin_generator
   do
     cd "$OMIM_PATH/$project"
-    "$QMAKE" $project.pro -r -spec macx-clang CONFIG+=x86_64
-    make
+    "$QMAKE" $project.pro -r -spec $SPEC CONFIG+=x86_64
+    make -j $PROCESSES
   done
 fi
 
