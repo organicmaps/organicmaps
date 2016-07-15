@@ -21,6 +21,8 @@ using TObservers = NSHashTable<__kindof TObserver>;
 @property(nonatomic) BOOL searchOnMap;
 
 @property(nonatomic) BOOL textChanged;
+@property(nonatomic) BOOL isSearching;
+@property(nonatomic) BOOL isPendingUpdate;
 
 @property(nonatomic) TObservers * observers;
 
@@ -64,21 +66,46 @@ using TObservers = NSHashTable<__kindof TObserver>;
       if (!self)
         return;
       runAsyncOnMainQueue([self, results] {
-        if (!results.IsEndMarker())
+        if (results.IsEndMarker())
+        {
+          [self onSearchCompleted];
+        }
+        else
         {
           self->m_results = results;
           self.suggestionsCount = results.GetSuggestsCount();
           self.resultsCount = results.GetCount();
           [self onSearchResultsUpdated];
         }
-        else if (results.IsEndedNormal())
-        {
-          [self onSearchCompleted];
-        }
       });
     };
   }
   return self;
+}
+
+- (void)update
+{
+  if (self.isSearching)
+  {
+    self.isPendingUpdate = YES;
+    return;
+  }
+  self.isPendingUpdate = NO;
+  if (m_params.m_query.empty())
+    return;
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (lastLocation)
+    m_params.SetPosition(lastLocation.coordinate.latitude, lastLocation.coordinate.longitude);
+  if (self.searchOnMap)
+    GetFramework().StartInteractiveSearch(m_params);
+  else
+    GetFramework().Search(m_params);
+}
+
+- (void)showResultsOnMap
+{
+  if (self.searchOnMap)
+    GetFramework().ShowSearchResults(m_results);
 }
 
 #pragma mark - Add/Remove Observers
@@ -132,6 +159,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 + (void)clear
 {
+  GetFramework().CancelInteractiveSearch();
   MWMSearch * manager = [MWMSearch manager];
   manager->m_params.Clear();
   manager->m_results.Clear();
@@ -149,34 +177,12 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 + (NSUInteger)suggestionsCount { return [MWMSearch manager].suggestionsCount; }
 + (NSUInteger)resultsCount { return [MWMSearch manager].resultsCount; }
-- (void)update
-{
-  auto & f = GetFramework();
-  f.CancelInteractiveSearch();
-  [self onSearchCompleted];
-  if (m_params.m_query.empty())
-    return;
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (lastLocation)
-    m_params.SetPosition(lastLocation.coordinate.latitude, lastLocation.coordinate.longitude);
-  if (self.searchOnMap)
-  {
-    if (self.textChanged)
-      f.UpdateUserViewportChanged();
-    else
-      f.ShowSearchResults(m_results);
-    f.StartInteractiveSearch(m_params);
-  }
-  else
-  {
-    f.Search(m_params);
-  }
-}
 
 #pragma mark - Notifications
 
 - (void)onSearchStarted
 {
+  self.isSearching = YES;
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchStarted)])
@@ -186,13 +192,15 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onSearchCompleted
 {
+  self.isSearching = NO;
+  if (self.isPendingUpdate)
+    [self update];
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchCompleted)])
       [observer onSearchCompleted];
   }
-  if (IPAD)
-    GetFramework().UpdateUserViewportChanged();
+  [self showResultsOnMap];
 }
 
 - (void)onSearchResultsUpdated

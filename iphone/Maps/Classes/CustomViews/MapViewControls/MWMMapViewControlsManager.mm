@@ -112,6 +112,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (MWMAlertViewController *)alertController { return self.ownerController.alertController; }
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state
 {
+  if (state == MWMSearchManagerStateMapSearch)
+  {
+    [self.navigationManager setMapSearch];
+  }
   if (state == MWMSearchManagerStateHidden)
   {
     if (!IPAD || MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)

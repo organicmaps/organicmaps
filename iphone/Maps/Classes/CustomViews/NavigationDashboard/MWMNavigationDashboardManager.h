@@ -45,6 +45,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 - (void)updateDashboard;
 - (void)setRouteBuilderProgress:(CGFloat)progress;
 - (void)mwm_refreshUI;
+- (void)setMapSearch;
 
 - (void)addInfoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay;
 

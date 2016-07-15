@@ -67,7 +67,6 @@ NSString * identifierForType(MWMSearchTableCellType type)
 {
   [super viewWillDisappear:animated];
   [MWMSearch removeObserver:self];
-  [MWMSearch clear];
 }
 
 - (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
