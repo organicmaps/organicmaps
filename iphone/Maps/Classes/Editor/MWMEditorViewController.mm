@@ -34,6 +34,9 @@ NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
 NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 NSString * const kStreetEditorSegue = @"Editor2StreetEditorSegue";
 NSString * const kCategoryEditorSegue = @"Editor2CategoryEditorSegue";
+
+NSString * const kUDEditorPersonalInfoWarninWasShown = @"PersonalInfoWarningAlertWasShown";
+
 CGFloat const kDefaultHeaderHeight = 28.;
 CGFloat const kDefaultFooterHeight = 32.;
 
@@ -280,6 +283,9 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     [cell.textField becomeFirstResponder];
     return;
   }
+
+  if ([self showPersonalInfoWarningAlertIfNeeded])
+    return;
 
   auto & f = GetFramework();
   auto const & featureID = m_mapObject.GetID();
@@ -1108,6 +1114,24 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
         additionalSkipLanguageCodes:m_newAdditionalLanguages
                selectedLanguageCode:((NSNumber *)sender).integerValue];
   }
+}
+
+#pragma mark - Alert
+
+- (BOOL)showPersonalInfoWarningAlertIfNeeded
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  if ([ud boolForKey:kUDEditorPersonalInfoWarninWasShown])
+    return NO;
+
+  [ud setBool:YES forKey:kUDEditorPersonalInfoWarninWasShown];
+  [ud synchronize];
+
+  [self.alertController presentPersonalInfoWarningAlertWithBlock:^
+  {
+    [self onSave];
+  }];
+  return YES;
 }
 
 @end

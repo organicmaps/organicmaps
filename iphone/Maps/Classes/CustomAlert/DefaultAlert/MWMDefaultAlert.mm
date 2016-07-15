@@ -373,6 +373,18 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)personalInfoWarningAlertWithBlock:(TMWMVoidBlock)block
+{
+  kStatisticsEvent = @"Personal info warning alert";
+  NSString * message = [NSString stringWithFormat:@"%@\n%@", L(@"editor_share_to_all_dialog_message_1"), L(@"editor_share_to_all_dialog_message_2")];
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"editor_share_to_all_dialog_title"
+                                                message:message
+                                       rightButtonTitle:@"editor_report_problem_send_button"
+                                        leftButtonTitle:@"cancel"
+                                      rightButtonAction:block];
+  return alert;
+}
+
 + (instancetype)defaultAlertWithTitle:(nonnull NSString *)title
                               message:(nullable NSString *)message
                      rightButtonTitle:(nonnull NSString *)rightButtonTitle

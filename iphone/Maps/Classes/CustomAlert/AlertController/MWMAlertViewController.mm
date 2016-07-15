@@ -175,6 +175,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert deleteFeatureAlertWithBlock:block]];
 }
 
+- (void)presentPersonalInfoWarningAlertWithBlock:(nonnull TMWMVoidBlock)block
+{
+  [self displayAlert:[MWMAlert personalInfoWarningAlertWithBlock:block]];
+}
+
 - (void)presentEditorViralAlert { [self displayAlert:[MWMAlert editorViralAlert]]; }
 - (void)presentOsmAuthAlert { [self displayAlert:[MWMAlert osmAuthAlert]]; }
 - (void)displayAlert:(MWMAlert *)alert

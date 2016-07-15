@@ -204,6 +204,11 @@
   return [MWMOsmAuthAlert alert];
 }
 
++ (MWMAlert *)personalInfoWarningAlertWithBlock:(TMWMVoidBlock)block
+{
+  return [MWMDefaultAlert personalInfoWarningAlertWithBlock:block];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
 // Should override this method if you want custom relayout after rotation.
