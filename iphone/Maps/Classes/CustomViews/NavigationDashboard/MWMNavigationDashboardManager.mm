@@ -138,6 +138,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   [self.routePreview remove];
   self.routePreview = nil;
   [self.navigationInfoView addToView:self.ownerView];
+  [MWMMapViewControlsManager manager].searchHidden = YES;
 }
 
 - (void)mwm_refreshUI
@@ -244,6 +245,12 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   if (!_navigationInfoView)
     return 0;
   return self.navigationInfoView.extraCompassBottomOffset;
+}
+
+- (void)setMapSearch
+{
+  if (_navigationInfoView)
+    [self.navigationInfoView setMapSearch];
 }
 
 @end

@@ -90,7 +90,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField
 {
-  if (textField.text.length == 0)
+  if (textField.text.length == 0 && self.state != MWMSearchManagerStateHidden)
     [self endSearch];
 }
 
@@ -275,6 +275,15 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   [self.searchTextField resignFirstResponder];
   self.rootView.compact = YES;
   [MWMSearch setSearchOnMap:YES];
+
+  if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateNavigation)
+  {
+    self.searchTextField.text = @"";
+    [self.tabbedController resetSelectedTab];
+    self.tableViewController = nil;
+    self.noMapsController = nil;
+    self.rootView.isVisible = NO;
+  }
 }
 
 #pragma mark - Properties

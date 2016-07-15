@@ -102,9 +102,9 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)buildFromPoint:(MWMRoutePoint const &)startPoint bestRouter:(BOOL)bestRouter
 {
   self.startPoint = startPoint;
-  if (!self.finishPoint.IsValid())
-    self.finishPoint = lastLocationPoint();
   [self rebuildWithBestRouter:bestRouter];
+  if (!self.finishPoint.IsValid())
+    [[MWMMapViewControlsManager manager] onRoutePrepare];
 }
 
 - (void)buildToPoint:(MWMRoutePoint const &)finishPoint bestRouter:(BOOL)bestRouter
