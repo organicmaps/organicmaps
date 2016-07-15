@@ -188,7 +188,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
         {
           m2::PointD pt = screen.PixelRectIn3d().Center();
           breakAnim = SetFollowAndRotate(screen.PtoG(screen.P3dtoP(pt)), pt,
-                                         e.m_rotate.m_targetAzimut, kDoNotChangeZoom, -1.0, true, false);
+                                         e.m_rotate.m_targetAzimut, kDoNotChangeZoom, kDoNotAutoZoom,
+                                         true /* isAnim */, false /* isAutoScale */);
         }
         else
         {

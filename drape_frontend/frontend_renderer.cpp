@@ -728,7 +728,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Invalidate:
     {
       m_myPositionController->ResetRoutingNotFollowTimer();
-      m_myPositionController->ResetRoutingNotAutoZoomTimer();
+      m_myPositionController->ResetBlockAutoZoomTimer();
       break;
     }
 
@@ -1397,7 +1397,7 @@ void FrontendRenderer::OnScaleEnded()
 
 void FrontendRenderer::OnAnimatedScaleEnded()
 {
-  m_myPositionController->ResetRoutingNotAutoZoomTimer();
+  m_myPositionController->ResetBlockAutoZoomTimer();
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
 }
 

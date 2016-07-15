@@ -21,6 +21,7 @@ namespace df
 {
 
 int const kDoNotChangeZoom = -1;
+double const kDoNotAutoZoom = -1.0;
 
 struct Touch
 {
@@ -134,7 +135,7 @@ struct FollowAndRotateEvent
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
-    , m_preferredZoomLevel(-1)
+    , m_preferredZoomLevel(kDoNotChangeZoom)
     , m_autoScale(autoScale)
     , m_isAutoScale(true)
     , m_isAnim(true)
@@ -147,7 +148,7 @@ struct FollowAndRotateEvent
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
     , m_preferredZoomLevel(preferredZoomLevel)
-    , m_autoScale(-1.0)
+    , m_autoScale(kDoNotAutoZoom)
     , m_isAutoScale(false)
     , m_isAnim(isAnim)
   {}

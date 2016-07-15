@@ -196,7 +196,7 @@ ScaleInterpolator::ScaleInterpolator(double delay, double startScale, double end
 // static
 double ScaleInterpolator::GetScaleDuration(double startScale, double endScale, bool isAutoZoom)
 {
-  // Resize 2.0 times should be done for 0.2 seconds.
+  // Resize 2.0 times should be done for 1.5 seconds in autozoom or for 0.2 seconds in usual case.
   double const kPixelSpeed = isAutoZoom ? (2.0 / 1.5) : (2.0 / 0.2);
 
   if (startScale > endScale)

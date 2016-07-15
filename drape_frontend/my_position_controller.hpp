@@ -62,7 +62,7 @@ public:
   void Rotated();
 
   void ResetRoutingNotFollowTimer();
-  void ResetRoutingNotAutoZoomTimer();
+  void ResetBlockAutoZoomTimer();
 
   void CorrectScalePoint(m2::PointD & pt) const;
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const;
@@ -152,7 +152,7 @@ private:
   my::Timer m_lastGPSBearing;
   my::Timer m_pendingTimer;
   my::Timer m_routingNotFollowTimer;
-  my::Timer m_routingNotAutoZoomTimer;
+  my::Timer m_blockAutoZoomTimer;
   my::Timer m_updateLocationTimer;
   double m_lastLocationTimestamp;
 

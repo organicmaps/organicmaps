@@ -28,7 +28,7 @@ double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
 double const kMaxNotFollowRoutingTimeSec = 10.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
-double const kMaxNotAutoZoomRoutingTimeSec = 10.0;
+double const kMaxBlockAutoZoomTimeSec = 10.0;
 
 int const kZoomThreshold = 10;
 int const kMaxScaleZoomLevel = 16;
@@ -70,12 +70,12 @@ double CalculateZoomBySpeed(double speed)
 {
   using TSpeedScale = pair<double, double>;
   static vector<TSpeedScale> scales = {
-    make_pair(20.0,  0.1),
-    make_pair(40.0,  0.25),
-    make_pair(60.0,  0.5),
-    make_pair(80.0,  0.85),
-    make_pair(100.0, 1.75),
-    make_pair(120.0, 3.5),
+    make_pair(20.0,  0.25),
+    make_pair(40.0,  0.5),
+    make_pair(60.0,  1.0),
+    make_pair(80.0,  1.75),
+    make_pair(100.0, 3.5),
+    make_pair(120.0, 7.0),
   };
 
   double const kDefaultSpeed = 80.0;
@@ -89,10 +89,12 @@ double CalculateZoomBySpeed(double speed)
     if (scales[i].first >= speed)
       break;
 
+  double const vs = df::VisualParams::Instance().GetVisualScale();
+
   if (i == 0)
-    return scales.front().second;
+    return scales.front().second / vs;
   if (i == scales.size())
-    return scales.back().second;
+    return scales.back().second / vs;
 
   double const minSpeed = scales[i - 1].first;
   double const maxSpeed = scales[i].first;
@@ -101,7 +103,6 @@ double CalculateZoomBySpeed(double speed)
   double const minScale = scales[i - 1].second;
   double const maxScale = scales[i].second;
   double const zoom = minScale + k * (maxScale - minScale);
-  double const vs = df::VisualParams::Instance().GetVisualScale();
 
   return zoom / vs;
 }
@@ -205,13 +206,13 @@ void MyPositionController::DragEnded(m2::PointD const & distance)
 void MyPositionController::ScaleStarted()
 {
   m_needBlockAnimation = true;
-  ResetRoutingNotAutoZoomTimer();
+  ResetBlockAutoZoomTimer();
 }
 
 void MyPositionController::ScaleEnded()
 {
   m_needBlockAnimation = false;
-  ResetRoutingNotAutoZoomTimer();
+  ResetBlockAutoZoomTimer();
   if (m_wasRotationInScaling)
   {
     m_wasRotationInScaling = false;
@@ -233,12 +234,12 @@ void MyPositionController::ResetRoutingNotFollowTimer()
     m_routingNotFollowTimer.Reset();
 }
 
-void MyPositionController::ResetRoutingNotAutoZoomTimer()
+void MyPositionController::ResetBlockAutoZoomTimer()
 {
   if (m_isInRouting && m_enableAutoZoomInRouting)
   {
     m_needBlockAutoZoom = true;
-    m_routingNotAutoZoomTimer.Reset();
+    m_blockAutoZoomTimer.Reset();
   }
 }
 
@@ -342,7 +343,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m_errorRadius = rect.SizeX() * 0.5;
 
   double const zoom = CalculateZoomBySpeed(info.m_speed);
-  m_autoScale = zoom * (rect.SizeX() / info.m_horizontalAccuracy);
+  m_autoScale = zoom * (m_errorRadius / info.m_horizontalAccuracy);
 
   bool const hasBearing = info.HasBearing();
   if ((isNavigable && hasBearing) ||
@@ -496,7 +497,7 @@ void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProg
   if (m_shape != nullptr && IsVisible() && IsModeHasPosition())
   {
     if (m_needBlockAutoZoom &&
-        m_routingNotAutoZoomTimer.ElapsedSeconds() >= kMaxNotAutoZoomRoutingTimeSec)
+        m_blockAutoZoomTimer.ElapsedSeconds() >= kMaxBlockAutoZoomTimeSec)
     {
       m_needBlockAutoZoom = false;
       m_isDirtyAutoZoom = true;
@@ -559,7 +560,7 @@ void MyPositionController::SetDirection(double bearing)
 void MyPositionController::ChangeMode(location::EMyPositionMode newMode)
 {
   if (m_isInRouting && (m_mode != newMode) && (newMode == location::FollowAndRotate))
-    ResetRoutingNotAutoZoomTimer();
+    ResetBlockAutoZoomTimer();
 
   m_mode = newMode;
   if (m_modeChangeCallback != nullptr)
@@ -745,7 +746,7 @@ void MyPositionController::EnableAutoZoomInRouting(bool enableAutoZoom)
   if (m_isInRouting)
   {
     m_enableAutoZoomInRouting = enableAutoZoom;
-    ResetRoutingNotAutoZoomTimer();
+    ResetBlockAutoZoomTimer();
   }
 }
 
