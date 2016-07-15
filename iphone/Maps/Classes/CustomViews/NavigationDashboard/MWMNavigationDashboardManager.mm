@@ -171,6 +171,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   }
   _state = state;
   [[MapViewController controller] updateStatusBarStyle];
+  [self updateDashboard];
 }
 
 - (void)setTopBound:(CGFloat)topBound
