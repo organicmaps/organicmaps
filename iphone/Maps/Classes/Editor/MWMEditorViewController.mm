@@ -302,6 +302,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
   switch (f.SaveEditedMapObject(m_mapObject))
   {
+  case osm::Editor::NoUnderlyingMapError:
+  case osm::Editor::SavingError:
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    break;
   case osm::Editor::NothingWasChanged:
     [self.navigationController popToRootViewControllerAnimated:YES];
     if (haveNote)
