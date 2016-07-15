@@ -24,4 +24,4 @@
 "NSLocationAlwaysUsageDescription" = "Defining current location in the background is necessary to fully enjoy the functionality of the app. It is mainly used in the options of following the route and saving your recent travelled path.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently travelled track. ]";
+"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently travelled track.";
