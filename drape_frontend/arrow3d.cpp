@@ -1,6 +1,7 @@
 #include "drape_frontend/arrow3d.hpp"
 
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "drape/glconstants.hpp"
 #include "drape/glextensions_list.hpp"
@@ -21,7 +22,7 @@
 namespace df
 {
 
-double const kArrowSize = 22.0;
+double const kArrowSize = 12.0;
 double const kArrow3dScaleMin = 1.0;
 double const kArrow3dScaleMax = 2.2;
 double const kArrow3dMinZoom = 16;
@@ -174,14 +175,18 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> pro
 
 math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz) const
 {
-  static double const kLog2 = log(2.0);
-  double const kMaxZoom = scales::UPPER_STYLE_SCALE + 1.0;
-  double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / kLog2), kArrow3dMinZoom, kMaxZoom);
-  double const t = (zoomLevel - kArrow3dMinZoom) / (kMaxZoom - kArrow3dMinZoom);
-  double const arrowScale = kArrow3dScaleMin * (1.0 - t) + kArrow3dScaleMax * t;
+  double arrowScale = VisualParams::Instance().GetVisualScale() * kArrowSize;
+  if (screen.isPerspective())
+  {
+    static double const kLog2 = log(2.0);
+    double const kMaxZoom = scales::UPPER_STYLE_SCALE + 1.0;
+    double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / kLog2), kArrow3dMinZoom, kMaxZoom);
+    double const t = (zoomLevel - kArrow3dMinZoom) / (kMaxZoom - kArrow3dMinZoom);
+    arrowScale *= (kArrow3dScaleMin * (1.0 - t) + kArrow3dScaleMax * t);
+  }
 
-  double const scaleX = kArrowSize * arrowScale * 2.0 / screen.PixelRect().SizeX();
-  double const scaleY = kArrowSize * arrowScale * 2.0 / screen.PixelRect().SizeY();
+  double const scaleX = arrowScale * 2.0 / screen.PixelRect().SizeX();
+  double const scaleY = arrowScale * 2.0 / screen.PixelRect().SizeY();
   double const scaleZ = screen.isPerspective() ? (0.002 * screen.GetDepth3d()) : 1.0;
 
   m2::PointD const pos = screen.GtoP(m_position);

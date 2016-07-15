@@ -203,8 +203,6 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 
   m_arrow3d.SetTexture(mng);
 
-  ASSERT(pointSymbol.GetTexture() == arrowSymbol.GetTexture(), ());
-  ASSERT(pointSymbol.GetTexture() == arrowGraySymbol.GetTexture(), ());
   dp::GLState state(gpu::MY_POSITION_PROGRAM, dp::GLState::OverlayLayer);
   state.SetColorTexture(pointSymbol.GetTexture());
 
