@@ -211,7 +211,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)updateFollowingInfo
 {
   auto & f = GetFramework();
-  if (!f.IsOnRoute())
+  if (!f.IsRoutingActive())
     return;
   location::FollowingInfo info;
   f.GetRouteFollowingInfo(info);

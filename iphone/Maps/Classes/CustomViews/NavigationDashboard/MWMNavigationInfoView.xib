@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-pG-Wkw" userLabel="Street name">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-pG-Wkw" userLabel="Street name">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ленинградский проспект" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShI-bz-5g8">
@@ -39,7 +39,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns">
                     <rect key="frame" x="8" y="28" width="96" height="153"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wt8-EO-MKz" userLabel="First turn">
