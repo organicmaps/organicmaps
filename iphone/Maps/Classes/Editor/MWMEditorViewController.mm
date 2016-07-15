@@ -404,8 +404,14 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   m_sections.push_back(MWMEditorSectionCategory);
   m_cells[MWMEditorSectionCategory] = kSectionCategoryCellTypes;
   registerCellsForTableView(kSectionCategoryCellTypes, self.tableView);
+  BOOL const isNameEditable = m_mapObject.IsNameEditable();
+  BOOL const isAddressEditable = m_mapObject.IsAddressEditable();
+  BOOL const areEditablePropertiesEmpty = m_mapObject.GetEditableProperties().empty();
+  BOOL const isCreating = self.isCreating;
+  BOOL const isThereNotes =
+      !isCreating && areEditablePropertiesEmpty && !isAddressEditable && !isNameEditable;
 
-  if (m_mapObject.IsNameEditable())
+  if (isNameEditable)
   {
     m_sections.push_back(MWMEditorSectionName);
     m_cells[MWMEditorSectionName] = kSectionNameCellTypes;
@@ -420,7 +426,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     registerCellsForTableView(cells, self.tableView);
     [self.additionalNamesHeader setAdditionalNamesVisible:cells.size() > 2];
   }
-  if (m_mapObject.IsAddressEditable())
+
+  if (isAddressEditable)
   {
     m_sections.push_back(MWMEditorSectionAddress);
     m_cells[MWMEditorSectionAddress] = kSectionAddressCellTypes;
@@ -429,7 +436,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
     registerCellsForTableView(kSectionAddressCellTypes, self.tableView);
   }
-  if (!m_mapObject.GetEditableProperties().empty())
+
+  if (!areEditablePropertiesEmpty)
   {
     auto const cells = cellsForProperties(m_mapObject.GetEditableProperties());
     if (!cells.empty())
@@ -439,11 +447,15 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
       registerCellsForTableView(cells, self.tableView);
     }
   }
-  m_sections.push_back(MWMEditorSectionNote);
-  m_cells[MWMEditorSectionNote] = kSectionNoteCellTypes;
-  registerCellsForTableView(kSectionNoteCellTypes, self.tableView);
 
-  if (self.isCreating)
+  if (isThereNotes)
+  {
+    m_sections.push_back(MWMEditorSectionNote);
+    m_cells[MWMEditorSectionNote] = kSectionNoteCellTypes;
+    registerCellsForTableView(kSectionNoteCellTypes, self.tableView);
+  }
+
+  if (isCreating)
     return;
   m_sections.push_back(MWMEditorSectionButton);
   m_cells[MWMEditorSectionButton] = kSectionButtonCellTypes;
@@ -772,10 +784,13 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   switch (m_sections[section])
   {
   case MWMEditorSectionAddress:
-  case MWMEditorSectionDetails:
   case MWMEditorSectionCategory:
   case MWMEditorSectionAdditionalNames:
   case MWMEditorSectionButton: return nil;
+  case MWMEditorSectionDetails:
+    if (find(m_sections.begin(), m_sections.end(), MWMEditorSectionNote) == m_sections.end())
+      return self.notesFooter;
+    return nil;
   case MWMEditorSectionName: return self.nameFooter;
   case MWMEditorSectionNote: return self.notesFooter;
   }
@@ -791,9 +806,12 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   switch (m_sections[section])
   {
   case MWMEditorSectionAddress:
-  case MWMEditorSectionDetails:
   case MWMEditorSectionCategory:
   case MWMEditorSectionAdditionalNames: return 1.0;
+  case MWMEditorSectionDetails:
+    if (find(m_sections.begin(), m_sections.end(), MWMEditorSectionNote) == m_sections.end())
+      return self.notesFooter.height;
+    return 1.0;
   case MWMEditorSectionNote: return self.notesFooter.height;
   case MWMEditorSectionName: return self.nameFooter.height;
   case MWMEditorSectionButton: return kDefaultFooterHeight;
