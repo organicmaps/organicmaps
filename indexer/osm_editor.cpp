@@ -631,7 +631,7 @@ EditableProperties Editor::GetEditableProperties(FeatureType const & feature) co
   if (GetFeatureStatus(feature.GetID()) != FeatureStatus::Created)
   {
     auto const originalFeaturePtr = m_getOriginalFeatureFn(feature.GetID());
-    if (originalFeaturePtr)
+    if (!originalFeaturePtr)
     {
       LOG(LERROR, ("A feature with id", feature.GetID(), "cannot be loaded."));
       alohalytics::LogEvent("Editor_MissingFeature_Error");
@@ -988,7 +988,7 @@ void Editor::MarkFeatureAsObsolete(FeatureID const & fid)
   // If a feature was modified we can drop all changes since it's now obsolete.
   auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
 
-  if (originalFeaturePtr)
+  if (!originalFeaturePtr)
   {
     LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
     alohalytics::LogEvent("Editor_MissingFeature_Error");
