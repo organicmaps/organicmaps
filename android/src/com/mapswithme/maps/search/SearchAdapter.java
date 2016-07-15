@@ -146,6 +146,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     final TextView mDescription;
     final TextView mRegion;
     final TextView mDistance;
+    final TextView mPriceCategory;
 
     @Override
     int getTintAttr()
@@ -160,25 +161,41 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
       final SpannableStringBuilder tail = new SpannableStringBuilder();
 
       final int stars = Math.min(result.description.stars, 5);
-      if (stars > 0)
+      if (stars > 0 || !result.description.rating.isEmpty())
       {
-        // Colorize last dimmed stars
-        final SpannableStringBuilder sb = new SpannableStringBuilder("★ ★ ★ ★ ★");
-        if (stars < 5)
+        if (stars > 0)
         {
-          final int start = sb.length() - ((5 - stars) * 2 - 1);
-          sb.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.search_star_dimmed)),
-                     start, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+          // Colorize last dimmed stars
+          final SpannableStringBuilder sb = new SpannableStringBuilder("★ ★ ★ ★ ★");
+          if (stars < 5)
+          {
+            final int start = sb.length() - ((5 - stars) * 2 - 1);
+            sb.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.search_star_dimmed)),
+                    start, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+          }
+
+          tail.append(" • ");
+          tail.append(sb);
         }
 
-        tail.append(sb);
+        if (!result.description.rating.isEmpty())
+        {
+          final SpannableStringBuilder sb = new SpannableStringBuilder(
+                  itemView.getResources().getString(R.string.place_page_booking_rating, result.description.rating));
+          sb.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.base_green)),
+                  0, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+          tail
+            .append(" • ")
+            .append(sb);
+        }
       }
       else if (!TextUtils.isEmpty(result.description.cuisine))
-        tail.append(result.description.cuisine);
+      {
+        tail.append(" • " + result.description.cuisine);
+      }
 
-      if (!TextUtils.isEmpty(tail))
-        res.append(" • ")
-           .append(tail);
+      res.append(tail);
 
       return res;
     }
@@ -192,6 +209,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
       mDescription = (TextView) view.findViewById(R.id.description);
       mRegion = (TextView) view.findViewById(R.id.region);
       mDistance = (TextView) view.findViewById(R.id.distance);
+      mPriceCategory = (TextView) view.findViewById(R.id.price_category);
 
       mClosedMarker.setBackgroundDrawable(mClosedMarkerBackground);
     }
@@ -212,6 +230,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
       UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(result));
       UiUtils.setTextAndHideIfEmpty(mRegion, result.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, result.description.distance);
+      UiUtils.setTextAndHideIfEmpty(mPriceCategory, result.description.pricing);
     }
 
     @Override
