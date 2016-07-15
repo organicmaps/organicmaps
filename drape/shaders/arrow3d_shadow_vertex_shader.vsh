@@ -1,5 +1,4 @@
 attribute vec4 a_pos;
-attribute vec3 a_normal;
 
 uniform mat4 m_transform;
 
