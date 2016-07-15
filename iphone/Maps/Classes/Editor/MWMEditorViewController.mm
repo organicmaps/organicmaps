@@ -34,6 +34,9 @@ NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
 NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 NSString * const kStreetEditorSegue = @"Editor2StreetEditorSegue";
 NSString * const kCategoryEditorSegue = @"Editor2CategoryEditorSegue";
+
+NSString * const kUDEditorPersonalInfoWarninWasShown = @"PersonalInfoWarningAlertWasShown";
+
 CGFloat const kDefaultHeaderHeight = 28.;
 CGFloat const kDefaultFooterHeight = 32.;
 
@@ -281,6 +284,9 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     return;
   }
 
+  if ([self showPersonalInfoWarningAlertIfNeeded])
+    return;
+
   auto & f = GetFramework();
   auto const & featureID = m_mapObject.GetID();
   NSDictionary<NSString *, NSString *> * info = @{
@@ -302,6 +308,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
   switch (f.SaveEditedMapObject(m_mapObject))
   {
+  case osm::Editor::NoUnderlyingMapError:
+  case osm::Editor::SavingError:
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    break;
   case osm::Editor::NothingWasChanged:
     [self.navigationController popToRootViewControllerAnimated:YES];
     if (haveNote)
@@ -1040,6 +1050,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
       break;
     }
     case osm::Editor::FeatureStatus::Deleted: break;
+    case osm::Editor::FeatureStatus::Obsolete: break;
     }
   }
 }
@@ -1104,6 +1115,24 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
         additionalSkipLanguageCodes:m_newAdditionalLanguages
                selectedLanguageCode:((NSNumber *)sender).integerValue];
   }
+}
+
+#pragma mark - Alert
+
+- (BOOL)showPersonalInfoWarningAlertIfNeeded
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  if ([ud boolForKey:kUDEditorPersonalInfoWarninWasShown])
+    return NO;
+
+  [ud setBool:YES forKey:kUDEditorPersonalInfoWarninWasShown];
+  [ud synchronize];
+
+  [self.alertController presentPersonalInfoWarningAlertWithBlock:^
+  {
+    [self onSave];
+  }];
+  return YES;
 }
 
 @end

@@ -44,6 +44,7 @@ using TMWMDownloadBlock = void (^)(storage::TCountriesVec const &, TMWMVoidBlock
 + (MWMAlert *)deleteFeatureAlertWithBlock:(TMWMVoidBlock)block;
 + (MWMAlert *)editorViralAlert;
 + (MWMAlert *)osmAuthAlert;
++ (MWMAlert *)personalInfoWarningAlertWithBlock:(TMWMVoidBlock)block;
 - (void)close;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;
