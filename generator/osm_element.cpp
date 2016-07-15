@@ -138,3 +138,10 @@ string DebugPrint(OsmElement const & e)
 {
   return e.ToString();
 }
+
+string DebugPrint(OsmElement::Tag const & tag)
+{
+  stringstream ss;
+  ss << tag.key << '=' << tag.value;
+  return ss.str();
+}
