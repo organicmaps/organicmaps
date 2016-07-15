@@ -103,9 +103,9 @@ void MyPosition::RenderAccuracy(ScreenBase const & screen,
   m2::PointD accuracyPoint(m_position.x + m_accuracy, m_position.y);
   float pixelAccuracy = (screen.GtoP(accuracyPoint) - screen.GtoP(m_position)).Length();
 
-  uniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::POSITION_ACCURACY);
+  uniforms.SetFloatValue("u_position", m_position.x, m_position.y, 0.0f);
   uniforms.SetFloatValue("u_accuracy", pixelAccuracy);
-  uniforms.SetFloatValue("u_opacity", 1.0);
+  uniforms.SetFloatValue("u_opacity", 1.0f);
   RenderPart(mng, uniforms, MY_POSITION_ACCURACY);
 }
 
