@@ -385,7 +385,7 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
 {
   Platform & platform = GetPlatform();
 
-  FilesContainerR readContainer(platform.GetReader(filename));
+  FilesContainerR readContainer(platform.GetReader(filename, "f"));
   if (readContainer.IsExist(SEARCH_INDEX_FILE_TAG) && !forceRebuild)
     return true;
 

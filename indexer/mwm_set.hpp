@@ -8,6 +8,8 @@
 
 #include "base/macros.hpp"
 
+#include "indexer/feature_meta.hpp"
+
 #include "std/atomic.hpp"
 #include "std/deque.hpp"
 #include "std/map.hpp"
@@ -66,6 +68,8 @@ public:
 
   MwmTypeT GetType() const;
 
+  inline feature::RegionData const & GetRegionData() const { return m_data; }
+
   /// Returns the lock counter value for test needs.
   uint8_t GetNumRefs() const { return m_numRefs; }
 
@@ -76,6 +80,8 @@ protected:
     m_status = status;
     return result;
   }
+
+  feature::RegionData m_data;
 
   platform::LocalCountryFile m_file;  ///< Path to the mwm file.
   atomic<Status> m_status;            ///< Current country status.

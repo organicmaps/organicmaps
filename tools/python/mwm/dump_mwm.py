@@ -17,6 +17,7 @@ for tv in tvv:
 v = mwm.read_version()
 print('Format: {0}, version: {1}'.format(v['fmt'], v['version'].strftime('%Y-%m-%d %H:%M')))
 print('Header: {0}'.format(mwm.read_header()))
+print('Region Info: {0}'.format(mwm.read_region_info()))
 print('Metadata count: {0}'.format(len(mwm.read_metadata())))
 
 cross = mwm.read_crossmwm()

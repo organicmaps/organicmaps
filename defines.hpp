@@ -27,7 +27,7 @@
 #define METADATA_INDEX_FILE_TAG "metaidx"
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define RANKS_FILE_TAG "ranks"
-#define REGION_INFO_FILE_TAG "info"
+#define REGION_INFO_FILE_TAG "rgninfo"
 // Temporary addresses section that is used in search index generation.
 #define SEARCH_TOKENS_FILE_TAG "addrtags"
 
@@ -52,6 +52,7 @@
 #define CELL2FEATURE_TMP_EXT ".c2f.tmp"
 
 #define COUNTRIES_FILE "countries.txt"
+#define COUNTRIES_META_FILE "countries_meta.txt"
 #define COUNTRIES_OBSOLETE_FILE "countries_obsolete.txt"
 
 #define WORLD_FILE_NAME "World"

@@ -81,4 +81,32 @@ void FromJSONObjectOptionalField(json_t * root, string const & field, json_int_t
     MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
   result = json_integer_value(val);
 }
+
+void FromJSONObjectOptionalField(json_t * root, string const & field, bool & result, bool def)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+  {
+    result = def;
+    return;
+  }
+  if (!json_is_boolean(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a boolean value."));
+  result = json_is_true(val);
+}
+
+void FromJSONObjectOptionalField(json_t * root, string const & field, json_t *& result)
+{
+  json_t * obj = json_object_get(root, field.c_str());
+  if (!obj)
+  {
+    result = nullptr;
+    return;
+  }
+  if (!json_is_object(obj))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json object."));
+  FromJSON(obj, result);
+}
 }  // namespace my

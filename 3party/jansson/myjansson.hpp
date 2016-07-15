@@ -52,6 +52,8 @@ void FromJSONObject(json_t * root, string const & field, vector<T> & result)
 
 void FromJSONObjectOptionalField(json_t * root, string const & field, string & result);
 void FromJSONObjectOptionalField(json_t * root, string const & field, json_int_t & result);
+void FromJSONObjectOptionalField(json_t * root, string const & field, bool & result, bool def = false);
+void FromJSONObjectOptionalField(json_t * root, string const & field, json_t *& result);
 
 template <typename T>
 void FromJSONObjectOptionalField(json_t * root, string const & field, vector<T> & result)

@@ -132,13 +132,8 @@ public:
   /// Used to normalize tags like "contact:phone" and "phone" to a common metadata enum value.
   static bool TypeFromString(string const & osmTagKey, feature::Metadata::EType & outType);
 
-  void Set(EType type, string const & value)
-  {
-    MetadataBase::Set(type, value);
-  }
-
+  void Set(EType type, string const & value) { MetadataBase::Set(type, value); }
   void Drop(EType type) { Set(type, string()); }
-
   string GetWikiURL() const;
 
   // TODO: Commented code below is now longer neded, but I leave it here
@@ -190,22 +185,40 @@ public:
 class RegionData : public MetadataBase
 {
 public:
-  enum Type
+  enum Type : int8_t
   {
-    RD_LANGUAGES,  // list of written languages
-    RD_DRIVING,  // left- or right-hand driving (letter 'l' or 'r')
-    RD_TIMEZONE,  // UTC timezone offset, floating signed number of hours: -3, 4.5
-    RD_ADDRESS_FORMAT,  // address format, re: mapzen
-    RD_PHONE_FORMAT,  // list of strings in "+N NNN NN-NN-NN" format
+    RD_LANGUAGES,        // list of written languages
+    RD_DRIVING,          // left- or right-hand driving (letter 'l' or 'r')
+    RD_TIMEZONE,         // UTC timezone offset, floating signed number of hours: -3, 4.5
+    RD_ADDRESS_FORMAT,   // address format, re: mapzen
+    RD_PHONE_FORMAT,     // list of strings in "+N NNN NN-NN-NN" format
     RD_POSTCODE_FORMAT,  // list of strings in "AAA ANN" format
     RD_PUBLIC_HOLIDAYS,  // fixed PH dates
     RD_ALLOW_HOUSENAMES  // 'y' if housenames are commonly used
   };
 
-  void Add(Type type, string const & s)
+  // Special values for month references in public holiday definitions.
+  enum PHReference : int8_t
   {
+    PH_EASTER = 20,
+    PH_ORTHODOX_EASTER = 21,
+    PH_VICTORIA_DAY = 22,
+    PH_CANADA_DAY = 23
+  };
+
+  void Set(Type type, string const & s)
+  {
+    CHECK_NOT_EQUAL(type, Type::RD_LANGUAGES, ("Please use RegionData::SetLanguages method"));
     MetadataBase::Set(type, s);
   }
+
+  void SetLanguages(vector<string> const & codes);
+  void GetLanguages(vector<int8_t> & langs) const;
+  bool HasLanguage(int8_t const lang) const;
+  bool IsSingleLanguage(int8_t const lang) const;
+
+  void AddPublicHoliday(int8_t month, int8_t offset);
+  // No public holidays getters until we know what to do with these.
 };
 }  // namespace feature
 
