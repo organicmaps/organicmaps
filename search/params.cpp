@@ -8,7 +8,9 @@
 namespace search
 {
 SearchParams::SearchParams()
-  : m_searchRadiusM(-1.0)
+  : m_lat(0.0)
+  , m_lon(0.0)
+  , m_searchRadiusM(-1.0)
   , m_mode(Mode::Everywhere)
   , m_forceSearch(false)
   , m_validPos(false)
