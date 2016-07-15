@@ -141,6 +141,8 @@ public:
   double GetAngleFOV() const { return m_3dFOV; }
   double GetScale3d() const { return m_3dScale; }
 
+  double GetDepth3d() const { return m_3dFarZ - m_3dNearZ; }
+
   m2::PointD P3dtoP(m2::PointD const & pt) const;
 
   Matrix3dT const & Pto3dMatrix() const { return m_Pto3d; }
