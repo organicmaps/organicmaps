@@ -4,6 +4,7 @@
 #include "search/geocoder.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/keyword_lang_matcher.hpp"
+#include "search/locality_finder.hpp"
 #include "search/mode.hpp"
 #include "search/params.hpp"
 #include "search/result.hpp"
@@ -22,12 +23,6 @@
 #include "std/string.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-
-#define FIND_LOCALITY_TEST
-
-#ifdef FIND_LOCALITY_TEST
-#include "search/locality_finder.hpp"
-#endif  // FIND_LOCALITY_TEST
 
 class CategoriesHolder;
 class Index;
@@ -102,9 +97,7 @@ public:
   void SetPreResults1(vector<PreResult1> && preResults1) { m_preResults1 = move(preResults1); }
   void ClearCaches();
 
-#ifdef FIND_LOCALITY_TEST
   inline void SetLocalityFinderLanguage(int8_t code) { m_locality.SetLanguage(code); }
-#endif  // FIND_LOCALITY_TEST
 
   inline void SetLanguage(pair<int, int> const & ind, int8_t lang)
   {
@@ -137,9 +130,7 @@ private:
   my::Cancellable const & m_cancellable;
   KeywordLangMatcher m_keywordsScorer;
 
-#ifdef FIND_LOCALITY_TEST
   mutable LocalityFinder m_locality;
-#endif  // FIND_LOCALITY_TEST
 
   Index const & m_index;
   storage::CountryInfoGetter const & m_infoGetter;

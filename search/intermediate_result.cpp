@@ -193,12 +193,18 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
                                        set<uint32_t> const * pTypes, int8_t locale,
                                        ReverseGeocoder const * coder) const
 {
+  ReverseGeocoder::Address addr;
+  bool addrComputed = false;
+
   string name = m_str;
   if (coder && name.empty())
   {
     // Insert exact address (street and house number) instead of empty result name.
-    ReverseGeocoder::Address addr;
-    coder->GetNearbyAddress(GetCenter(), addr);
+    if (!addrComputed)
+    {
+      coder->GetNearbyAddress(GetCenter(), addr);
+      addrComputed = true;
+    }
     if (addr.GetDistance() == 0)
       name = FormatStreetAndHouse(addr);
   }
@@ -212,8 +218,11 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
     address = GetRegionName(infoGetter, type);
     if (ftypes::IsAddressObjectChecker::Instance()(m_types))
     {
-      ReverseGeocoder::Address addr;
-      coder->GetNearbyAddress(GetCenter(), addr);
+      if (!addrComputed)
+      {
+        coder->GetNearbyAddress(GetCenter(), addr);
+        addrComputed = true;
+      }
       address = FormatFullAddress(addr, address);
     }
   }

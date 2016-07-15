@@ -188,9 +188,7 @@ void Processor::SetPreferredLocale(string const & locale)
   // Default initialization.
   // If you want to reset input language, call SetInputLocale before search.
   SetInputLocale(locale);
-#ifdef FIND_LOCALITY_TEST
   m_ranker.SetLocalityFinderLanguage(code);
-#endif  // FIND_LOCALITY_TEST
 }
 
 void Processor::SetInputLocale(string const & locale)
