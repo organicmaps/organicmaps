@@ -38,52 +38,51 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener, EditTextDialogFragment.OnTextSaveListener
 {
-  final static String LAST_LOCALIZED_NAME_INDEX = "LastLocalizedNameIndex";
+  final static String LAST_NAME_INDEX = "LastNameIndex";
 
   private TextView mCategory;
-  private View mCardName;
   private View mCardAddress;
   private View mCardMetadata;
-  private EditText mName;
 
-  private RecyclerView mLocalizedNames;
+  private RecyclerView mNamesView;
 
-  private final RecyclerView.AdapterDataObserver mLocalizedNamesObserver = new RecyclerView.AdapterDataObserver()
+  private final RecyclerView.AdapterDataObserver mNamesObserver = new RecyclerView.AdapterDataObserver()
   {
     @Override
     public void onChanged()
     {
-      refreshLocalizedNames();
+      refreshNamesCaption();
     }
 
     @Override
     public void onItemRangeChanged(int positionStart, int itemCount)
     {
-      refreshLocalizedNames();
+      refreshNamesCaption();
     }
 
     @Override
     public void onItemRangeInserted(int positionStart, int itemCount)
     {
-      refreshLocalizedNames();
+      refreshNamesCaption();
     }
 
     @Override
     public void onItemRangeRemoved(int positionStart, int itemCount)
     {
-      refreshLocalizedNames();
+      refreshNamesCaption();
     }
 
     @Override
     public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount)
     {
-      refreshLocalizedNames();
+      refreshNamesCaption();
     }
   };
 
-  private MultilanguageAdapter mLocalizedNamesAdapter;
-  private TextView mLocalizedShow;
-  private boolean mIsLocalizedShown;
+  private MultilanguageAdapter mNamesAdapter;
+  private TextView mNamesCaption;
+  private TextView  mAddLanguage;
+  private TextView  mMoreLanguages;
 
   private TextView mStreet;
   private EditText mHouseNumber;
@@ -130,7 +129,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     initViews(view);
 
     mCategory.setText(Editor.nativeGetCategory());
-    mName.setText(Editor.nativeGetDefaultName());
     final LocalizedStreet street = Editor.nativeGetStreet();
     mStreet.setText(street.defaultName);
 
@@ -200,7 +198,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
-    refreshLocalizedNames();
   }
 
   @Override
@@ -215,7 +212,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     if (!validateFields())
       return false;
 
-    Editor.nativeSetDefaultName(mName.getText().toString());
     Editor.nativeSetHouseNumber(mHouseNumber.getText().toString());
     Editor.nativeSetZipCode(mZipcode.getText().toString());
     Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
@@ -224,7 +220,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetEmail(mEmail.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetOperator(mOperator.getText().toString());
-    Editor.nativeSetLocalizedNames(mParent.getLocalizedNamesAsArray());
+    Editor.nativeSetNames(mParent.getNamesAsArray());
 
     return true;
   }
@@ -287,7 +283,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void refreshEditableFields()
   {
-    UiUtils.showIf(Editor.nativeIsNameEditable(), mCardName);
     UiUtils.showIf(Editor.nativeIsAddressEditable(), mCardAddress);
     UiUtils.showIf(Editor.nativeIsBuilding(), mBlockLevels);
 
@@ -330,30 +325,35 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
   }
 
-  private void initLocalizedNameView(final View view)
+  private void initNamesView(final View view)
   {
-    mLocalizedNames = (RecyclerView) view.findViewById(R.id.recycler);
-    mLocalizedNames.setNestedScrollingEnabled(false);
-    mLocalizedNames.setLayoutManager(new LinearLayoutManager(getActivity()));
-    mLocalizedNamesAdapter = new MultilanguageAdapter(mParent);
-    mLocalizedNames.setAdapter(mLocalizedNamesAdapter);
-    mLocalizedNamesAdapter.registerAdapterDataObserver(mLocalizedNamesObserver);
-    refreshLocalizedNames();
+    mNamesCaption = (TextView) view.findViewById(R.id.show_additional_names);
+    mNamesCaption.setOnClickListener(this);
+    mAddLanguage = (TextView) view.findViewById(R.id.add_langs);
+    mAddLanguage.setOnClickListener(this);
+    mMoreLanguages = (TextView) view.findViewById(R.id.more_names);
+    mMoreLanguages.setOnClickListener(this);
+    mNamesView = (RecyclerView) view.findViewById(R.id.recycler);
+    mNamesView.setNestedScrollingEnabled(false);
+    mNamesView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    mNamesAdapter = new MultilanguageAdapter(mParent);
+    mNamesView.setAdapter(mNamesAdapter);
+    mNamesAdapter.registerAdapterDataObserver(mNamesObserver);
 
     final Bundle args = getArguments();
-    if (args == null || !args.containsKey(LAST_LOCALIZED_NAME_INDEX))
+    if (args == null || !args.containsKey(LAST_NAME_INDEX))
     {
-      showLocalizedNames(false);
+      showAdditionalNames(false);
       return;
     }
-    showLocalizedNames(true);
-    UiUtils.waitLayout(mLocalizedNames, new ViewTreeObserver.OnGlobalLayoutListener()
+    showAdditionalNames(true);
+    UiUtils.waitLayout(mNamesView, new ViewTreeObserver.OnGlobalLayoutListener()
     {
       @Override
       public void onGlobalLayout()
       {
-        LinearLayoutManager lm = (LinearLayoutManager) mLocalizedNames.getLayoutManager();
-        int position = args.getInt(LAST_LOCALIZED_NAME_INDEX);
+        LinearLayoutManager lm = (LinearLayoutManager) mNamesView.getLayoutManager();
+        int position = args.getInt(LAST_NAME_INDEX);
 
         View nameItem = lm.findViewByPosition(position);
 
@@ -378,14 +378,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     // TODO show icon and fill it when core will implement that
     UiUtils.hide(categoryBlock.findViewById(R.id.icon));
     mCategory = (TextView) categoryBlock.findViewById(R.id.name);
-    mCardName = view.findViewById(R.id.cv__name);
     mCardAddress = view.findViewById(R.id.cv__address);
     mCardMetadata = view.findViewById(R.id.cv__metadata);
-    mName = findInput(mCardName);
-    view.findViewById(R.id.add_langs).setOnClickListener(this);
-    mLocalizedShow = (TextView) view.findViewById(R.id.show_langs);
-    mLocalizedShow.setOnClickListener(this);
-    initLocalizedNameView(view);
+    initNamesView(view);
 
     // Address
     view.findViewById(R.id.block_street).setOnClickListener(this);
@@ -484,11 +479,12 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     case R.id.category:
       mParent.editCategory();
       break;
-    case R.id.show_langs:
-      showLocalizedNames(!mIsLocalizedShown);
+    case R.id.more_names:
+    case R.id.show_additional_names:
+      showAdditionalNames(!mNamesAdapter.areAdditionalLanguagesShown());
       break;
     case R.id.add_langs:
-      mParent.addLocalizedLanguage();
+      mParent.addLanguage();
       break;
     case R.id.about_osm:
       startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(Constants.Url.OSM_ABOUT)));
@@ -499,29 +495,43 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
   }
 
-  private void refreshLocalizedNames()
+  private void showAdditionalNames(boolean show)
   {
-    UiUtils.showIf(mLocalizedNamesAdapter.getItemCount() > 0, mLocalizedShow);
+    mNamesAdapter.showAdditionalLanguages(show);
+
+    refreshNamesCaption();
   }
 
-  private void showLocalizedNames(boolean show)
+  private void refreshNamesCaption()
   {
-    mIsLocalizedShown = show;
-    if (show)
-    {
-      UiUtils.show(mLocalizedNames);
-      setLocalizedShowDrawable(R.drawable.ic_expand_less);
-    }
+    if (mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount())
+      setNamesArrowDrawable(null);
+    else if (mNamesAdapter.areAdditionalLanguagesShown())
+      setNamesArrowDrawable(R.drawable.ic_expand_less);
     else
-    {
-      UiUtils.hide(mLocalizedNames);
-      setLocalizedShowDrawable(R.drawable.ic_expand_more);
-    }
+      setNamesArrowDrawable(R.drawable.ic_expand_more);
+
+    boolean showAddLanguage = mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount() ||
+      mNamesAdapter.areAdditionalLanguagesShown();
+
+    UiUtils.showIf(showAddLanguage, mAddLanguage);
+    UiUtils.showIf(!showAddLanguage, mMoreLanguages);
+
   }
 
-  private void setLocalizedShowDrawable(@DrawableRes int right)
+  private void setNamesArrowDrawable(@DrawableRes Integer right)
   {
-    mLocalizedShow.setCompoundDrawablesWithIntrinsicBounds(null, null, Graphics.tint(getActivity(), right, R.attr.iconTint), null);
+    if(null == right)
+    {
+      mNamesCaption.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+      return;
+    }
+
+    mNamesCaption.setCompoundDrawablesWithIntrinsicBounds(
+      null,
+      null,
+      Graphics.tint(getActivity(), right, R.attr.iconTint),
+      null);
   }
 
   private void refreshResetButton()

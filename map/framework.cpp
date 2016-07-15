@@ -3006,3 +3006,8 @@ void Framework::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
   if (type == osm::Editor::NoteProblemType::PlaceDoesNotExist)
     DeactivateMapSelection(true /* notifyUI */);
 }
+
+bool Framework::WasDefaultNameSaved(FeatureID const & fid) const
+{
+  return osm::Editor::Instance().WasDefaultNameSaved(fid);
+}

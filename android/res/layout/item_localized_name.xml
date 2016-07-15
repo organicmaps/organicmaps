@@ -8,7 +8,7 @@
   android:gravity="center_vertical"
   android:orientation="horizontal">
 
-  <com.mapswithme.maps.widget.CustomTextInputLayout
+  <android.support.design.widget.TextInputLayout
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1">
@@ -19,7 +19,7 @@
       android:hint="@string/editor_edit_place_name_hint"
       android:singleLine="true"/>
 
-  </com.mapswithme.maps.widget.CustomTextInputLayout>
+  </android.support.design.widget.TextInputLayout>
 
   <ImageButton
     android:id="@+id/delete"

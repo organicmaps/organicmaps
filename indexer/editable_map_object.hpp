@@ -46,6 +46,18 @@ struct LocalizedName
   string const m_name;
 };
 
+// Class which contains vector of localized names with following priority:
+//  1. Names for Mwm languages
+//  2. User`s language name
+//  3. International name
+//  4. Other names
+// and mandatoryNamesCount - count of names which should be always shown.
+struct NamesDataSource
+{
+  vector<LocalizedName> names;
+  size_t mandatoryNamesCount = 0;
+};
+  
 struct LocalizedStreet
 {
   string m_defaultName;
@@ -67,7 +79,8 @@ public:
   vector<feature::Metadata::EType> const & GetEditableFields() const;
 
   StringUtf8Multilang const & GetName() const;
-  vector<LocalizedName> GetLocalizedNames() const;
+  // See comment for NamesDataSource class.
+  NamesDataSource GetNamesDataSource() const;
   LocalizedStreet const & GetStreet() const;
   vector<LocalizedStreet> const & GetNearbyStreets() const;
   string const & GetHouseNumber() const;
@@ -116,6 +129,24 @@ public:
   static bool ValidatePhone(string const & phone);
   static bool ValidateWebsite(string const & site);
   static bool ValidateEmail(string const & email);
+
+  // TODO dummy, should be removed.
+  static vector<string> const & GetMwmLanguages()
+  {
+    static vector<string> const kNativelanguagesForMwm = {"de", "fr"};
+
+    return kNativelanguagesForMwm;
+  }
+  // TODO dummy, should be removed.
+
+  // Check whether langCode can be used as default name.
+  static bool CanUseAsDefaultName(int8_t const langCode, StringUtf8Multilang const & name,
+                                  vector<string> const & nativeMwmLanguages);
+
+  // See comment for NamesDataSource class.
+  static NamesDataSource GetNamesDataSource(StringUtf8Multilang const & source,
+                                            vector<string> const & nativeMwmLanguages,
+                                            string const & userLanguage);
 
 private:
   string m_houseNumber;

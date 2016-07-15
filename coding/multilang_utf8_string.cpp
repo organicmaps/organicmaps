@@ -28,6 +28,11 @@ StringUtf8Multilang::Languages const g_languages = {{ {"default", "Native for ea
 }};
 }  // namespace
 
+int8_t constexpr StringUtf8Multilang::kUnsupportedLanguageCode;
+int8_t constexpr StringUtf8Multilang::kDefaultCode;
+int8_t constexpr StringUtf8Multilang::kEnglishCode;
+int8_t constexpr StringUtf8Multilang::kInternationalCode;
+
 // static
 StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguages()
 {
