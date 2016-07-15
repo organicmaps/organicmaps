@@ -34,15 +34,9 @@ public:
     int m_scale = 0;
   };
 
-  static size_t const kBatchSize;
-
   PreRanker(Index const & index, Ranker & ranker, size_t limit);
 
-  inline void Init(Params const & params)
-  {
-    m_numSentResults = 0;
-    m_params = params;
-  }
+  void Init(Params const & params);
 
   inline void SetViewportSearch(bool viewportSearch) { m_viewportSearch = viewportSearch; }
   inline void SetAccuratePivotCenter(m2::PointD const & center)

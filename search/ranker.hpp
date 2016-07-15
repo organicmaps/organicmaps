@@ -95,7 +95,7 @@ public:
 
   Results & GetResults() { return m_results; }
   void UpdateResults(bool lastUpdate);
-  void FlushResults();
+  inline void FlushResults() { UpdateResults(true /* lastUpdate */); }
 
   void SetPreResults1(vector<PreResult1> && preResults1) { m_preResults1 = move(preResults1); }
   void ClearCaches();
@@ -142,7 +142,7 @@ private:
   vector<Suggest> const & m_suggests;
 
   vector<PreResult1> m_preResults1;
-  vector<IndexedValue> m_leftovers;
+  vector<IndexedValue> m_tentativeResults;
   Results m_results;
 };
 }  // namespace search

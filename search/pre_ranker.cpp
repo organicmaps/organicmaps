@@ -16,6 +16,8 @@ namespace search
 {
 namespace
 {
+size_t const kBatchSize = 100;
+
 struct LessFeatureID
 {
   using TValue = PreResult1;
@@ -46,12 +48,15 @@ struct ComparePreResult1
 };
 }  // namespace
 
-// static
-size_t const PreRanker::kBatchSize = 100;
-
 PreRanker::PreRanker(Index const & index, Ranker & ranker, size_t limit)
   : m_index(index), m_ranker(ranker), m_limit(limit), m_pivotFeatures(index)
 {
+}
+
+void PreRanker::Init(Params const & params)
+{
+  m_numSentResults = 0;
+  m_params = params;
 }
 
 void PreRanker::FillMissingFieldsInPreResults()

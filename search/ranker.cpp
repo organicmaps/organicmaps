@@ -131,9 +131,6 @@ public:
 };
 }  // namespace
 
-// static
-size_t const Ranker::kBatchSize = 10;
-
 class PreResult2Maker
 {
   Ranker & m_ranker;
@@ -275,6 +272,9 @@ public:
   }
 };
 
+// static
+size_t const Ranker::kBatchSize = 10;
+
 Ranker::Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
                CategoriesHolder const & categories, vector<Suggest> const & suggests,
                my::Cancellable const & cancellable)
@@ -293,7 +293,7 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
   m_params = params;
   m_geocoderParams = geocoderParams;
   m_preResults1.clear();
-  m_leftovers.clear();
+  m_tentativeResults.clear();
   m_results.Clear();
 }
 
@@ -487,28 +487,28 @@ void Ranker::UpdateResults(bool lastUpdate)
 {
   BailIfCancelled();
 
-  vector<IndexedValue> values = move(m_leftovers);
-  m_leftovers.clear();
   vector<FeatureID> streets;
-  MakePreResult2(m_geocoderParams, values, streets);
-  RemoveDuplicatingLinear(values);
-  if (values.empty())
+  MakePreResult2(m_geocoderParams, m_tentativeResults, streets);
+  RemoveDuplicatingLinear(m_tentativeResults);
+  if (m_tentativeResults.empty())
     return;
 
   if (m_params.m_viewportSearch)
   {
-    sort(values.begin(), values.end(), my::LessBy(&IndexedValue::GetDistanceToPivot));
+    sort(m_tentativeResults.begin(), m_tentativeResults.end(),
+         my::LessBy(&IndexedValue::GetDistanceToPivot));
   }
   else
   {
-    sort(values.rbegin(), values.rend(), my::LessBy(&IndexedValue::GetRank));
-    ProcessSuggestions(values, m_results);
+    sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
+         my::LessBy(&IndexedValue::GetRank));
+    ProcessSuggestions(m_tentativeResults, m_results);
   }
 
   // Emit feature results.
   size_t count = m_results.GetCount();
   size_t i;
-  for (i = 0; i < values.size(); ++i)
+  for (i = 0; i < m_tentativeResults.size(); ++i)
   {
     if (!lastUpdate && i >= kBatchSize && !m_params.m_viewportSearch)
       break;
@@ -517,7 +517,7 @@ void Ranker::UpdateResults(bool lastUpdate)
     if (m_params.m_viewportSearch)
     {
       m_results.AddResultNoChecks(
-          (*(values[i]))
+          (*m_tentativeResults[i])
               .GenerateFinalResult(m_infoGetter, &m_categories, &m_params.m_preferredTypes,
                                    m_params.m_currentLocaleCode,
                                    nullptr /* Viewport results don't need calculated address */));
@@ -527,20 +527,19 @@ void Ranker::UpdateResults(bool lastUpdate)
       if (count >= m_params.m_limit)
         break;
 
-      LOG(LDEBUG, (values[i]));
+      LOG(LDEBUG, (m_tentativeResults[i]));
 
-      auto const & preResult2 = *values[i];
+      auto const & preResult2 = *m_tentativeResults[i];
       if (m_results.AddResult(MakeResult(preResult2)))
         ++count;
     }
   }
-  move(values.begin() + i, values.end(), back_inserter(m_leftovers));
+  m_tentativeResults.erase(m_tentativeResults.begin(), m_tentativeResults.begin() + i);
 
   m_preResults1.clear();
   m_params.m_onResults(m_results);
 }
 
-void Ranker::FlushResults() { UpdateResults(true /* lastUpdate */); }
 void Ranker::ClearCaches()
 {
   m_locality.ClearCache();
