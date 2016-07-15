@@ -134,21 +134,21 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   if (screen.isPerspective())
   {
     ref_ptr<dp::GpuProgram> shadowProgram = mng->GetProgram(gpu::ARROW_3D_SHADOW_PROGRAM);
-    RenderArrow(screen, shadowProgram, dp::Color(60, 60, 60, 60), 0.05f);
+    RenderArrow(screen, shadowProgram, dp::Color(60, 60, 60, 60), 0.05f, false /* hasNormals */);
   }
 
   // Render arrow.
   ref_ptr<dp::GpuProgram> arrowProgram = mng->GetProgram(gpu::ARROW_3D_PROGRAM);
-  RenderArrow(screen, arrowProgram,
-              df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
-                                   m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D), 0.0f);
+  dp::Color const color = df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
+                                               m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D);
+  RenderArrow(screen, arrowProgram, color, 0.0f, true /* hasNormals */);
 
   arrowProgram->Unbind();
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
 void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> program,
-                          dp::Color const & color, float dz)
+                          dp::Color const & color, float dz, bool hasNormals)
 {
   program->Bind();
 
@@ -159,11 +159,14 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> pro
   GLFunctions::glVertexAttributePointer(attributePosition, kComponentsInVertex,
                                         gl_const::GLFloatType, false, 0, 0);
   
-  GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
-  uint32_t const attributeNormal = program->GetAttributeLocation("a_normal");
-  ASSERT_NOT_EQUAL(attributeNormal, -1, ());
-  GLFunctions::glEnableVertexAttribute(attributeNormal);
-  GLFunctions::glVertexAttributePointer(attributeNormal, 3, gl_const::GLFloatType, false, 0, 0);
+  if (hasNormals)
+  {
+    GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
+    uint32_t const attributeNormal = program->GetAttributeLocation("a_normal");
+    ASSERT_NOT_EQUAL(attributeNormal, -1, ());
+    GLFunctions::glEnableVertexAttribute(attributeNormal);
+    GLFunctions::glVertexAttributePointer(attributeNormal, 3, gl_const::GLFloatType, false, 0, 0);
+  }
   
   dp::UniformValuesStorage uniforms;
   math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz);
