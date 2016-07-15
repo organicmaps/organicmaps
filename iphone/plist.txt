@@ -170,7 +170,7 @@
 
   [NSLocationWhenInUseUsageDescription]
     comment = Needed to explain why we require access to GPS coordinates when the app is active.
-    en = Determining your location is necessary for navigation and for saving your recently travelled track. ]
+    en = Determining your location is necessary for navigation and for saving your recently travelled track.
     ru = Определение местоположения используется в движении по маршруту и сохранении недавно пройденного пути.
     fr = La définition de l'emplacement actuel est utilisée dans certaines fonctions comme le suivi d'un trajet et la sauvegarde des trajets récemment effectués.
     da = Definition af aktuel placering bruges i indstillingerne for at følge ruten og lagring af din seneste rejserute.
