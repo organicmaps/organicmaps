@@ -27,28 +27,29 @@ double const kArrow3dScaleMin = 1.0;
 double const kArrow3dScaleMax = 2.2;
 double const kArrow3dMinZoom = 16;
 
+int constexpr kComponentsInVertex = 4;
+
 Arrow3d::Arrow3d()
   : m_state(gpu::ARROW_3D_PROGRAM, dp::GLState::OverlayLayer)
 {
   m_vertices = {
-    0.0f, 0.0f, -1.0f, 1.0,    -1.2f, -1.0f, 0.0f, 1.0,   0.0f, 2.0f, 0.0f, 1.0,
-    0.0f, 0.0f, -1.0f, 1.0,    0.0f,  2.0f, 0.0f, 1.0,    1.2f, -1.0f, 0.0f, 1.0,
-    0.0f, 0.0f, -1.0f, 1.0,    0.0f, -0.5f, 0.0f, 1.0,    -1.2f, -1.0f, 0.0f, 1.0,
-    0.0f, 0.0f, -1.0f, 1.0,    1.2f, -1.0f, 0.0f, 1.0,    0.0f, -0.5f, 0.0f, 1.0,
+    0.0f, 0.0f, -1.0f, 1.0f,    -1.2f, -1.0f, 0.0f, 1.0f,   0.0f, 2.0f, 0.0f, 1.0f,
+    0.0f, 0.0f, -1.0f, 1.0f,    0.0f,  2.0f, 0.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,
+    0.0f, 0.0f, -1.0f, 1.0f,    0.0f, -0.5f, 0.0f, 1.0f,    -1.2f, -1.0f, 0.0f, 1.0f,
+    0.0f, 0.0f, -1.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,    0.0f, -0.5f, 0.0f, 1.0f,
     
-    0.0f, 2.27f, 0.0f, 0.0,    1.4f, -1.17f, 0.0f, 0.0,   0.0f, 2.0f, 0.0f, 1.0,
-    0.0f, 2.0f, 0.0f, 1.0,     1.4f, -1.17f, 0.0f, 0.0,   1.2f, -1.0f, 0.0f, 1.0,
-    0.0f, 2.27f, 0.0f, 0.0,    0.0f, 2.0f, 0.0f, 1.0,     -1.4f, -1.17f, 0.0f, 0.0,
-    0.0f, 2.0f, 0.0f, 1.0,     -1.2f, -1.0f, 0.0f, 1.0,   -1.4f, -1.17f, 0.0f, 0.0,
+    0.0f, 2.27f, 0.0f, 0.0f,    1.4f, -1.17f, 0.0f, 0.0f,   0.0f, 2.0f, 0.0f, 1.0f,
+    0.0f, 2.0f, 0.0f, 1.0f,     1.4f, -1.17f, 0.0f, 0.0f,   1.2f, -1.0f, 0.0f, 1.0f,
+    0.0f, 2.27f, 0.0f, 0.0f,    0.0f, 2.0f, 0.0f, 1.0f,     -1.4f, -1.17f, 0.0f, 0.0f,
+    0.0f, 2.0f, 0.0f, 1.0f,     -1.2f, -1.0f, 0.0f, 1.0f,   -1.4f, -1.17f, 0.0f, 0.0f,
     
-    1.2f, -1.0f, 0.0f, 1.0,    1.4f, -1.17f, 0.0f, 0.0,   0.0f, -0.67f, 0.0f, 0.0,
-    0.0f, -0.5f, 0.0f, 1.0,    1.2f, -1.0f, 0.0f, 1.0,    0.0f, -0.67f, 0.0f, 0.0,
-    -1.2f, -1.0f, 0.0f, 1.0,   0.0f, -0.67f, 0.0f, 0.0,   -1.4f, -1.17f, 0.0f, 0.0,
-    0.0f, -0.5f, 0.0f, 1.0,    0.0f, -0.67f, 0.0f, 0.0,   -1.2f, -1.0f, 0.0f, 1.0,
+    1.2f, -1.0f, 0.0f, 1.0f,    1.4f, -1.17f, 0.0f, 0.0f,   0.0f, -0.67f, 0.0f, 0.0f,
+    0.0f, -0.5f, 0.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,    0.0f, -0.67f, 0.0f, 0.0f,
+    -1.2f, -1.0f, 0.0f, 1.0f,   0.0f, -0.67f, 0.0f, 0.0f,   -1.4f, -1.17f, 0.0f, 0.0f,
+    0.0f, -0.5f, 0.0f, 1.0f,    0.0f, -0.67f, 0.0f, 0.0f,   -1.2f, -1.0f, 0.0f, 1.0f,
   };
 
   int constexpr kVerticesInRow = 12;
-  int constexpr kComponentsInVertex = 4;
   m_normals.reserve(m_vertices.size());
   for (size_t triangle = 0; triangle < m_vertices.size() / kVerticesInRow; ++triangle)
   {
@@ -155,7 +156,8 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> pro
   uint32_t const attributePosition = program->GetAttributeLocation("a_pos");
   ASSERT_NOT_EQUAL(attributePosition, -1, ());
   GLFunctions::glEnableVertexAttribute(attributePosition);
-  GLFunctions::glVertexAttributePointer(attributePosition, 4, gl_const::GLFloatType, false, 0, 0);
+  GLFunctions::glVertexAttributePointer(attributePosition, kComponentsInVertex,
+                                        gl_const::GLFloatType, false, 0, 0);
   
   GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
   uint32_t const attributeNormal = program->GetAttributeLocation("a_normal");
@@ -170,7 +172,7 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> pro
   uniforms.SetFloatValue("u_color", c.r, c.g, c.b, c.a);
   dp::ApplyState(m_state, program);
   dp::ApplyUniforms(uniforms, program);
-  GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, m_vertices.size() / 4);
+  GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, m_vertices.size() / kComponentsInVertex);
 }
 
 math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz) const
