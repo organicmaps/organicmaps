@@ -281,6 +281,7 @@ using namespace storage;
   else
   {
     self.downloadProgressView.hidden = NO;
+    [self setNeedsLayout];
     NodeAttrs nodeAttrs;
     GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
     MWMCircularProgress * progress = self.mapDownloadProgress;
