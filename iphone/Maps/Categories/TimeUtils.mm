@@ -1,27 +1,25 @@
-
 #import "TimeUtils.h"
+#import "Common.h"
 
 @implementation NSDateFormatter (Seconds)
 
-+ (NSString *)estimatedArrivalTimeWithSeconds:(NSNumber *)seconds
++ (NSString *)estimatedArrivalTimeWithSeconds:(NSTimeInterval)seconds
 {
-  NSInteger const ti = [seconds integerValue];
-  NSInteger const minutes = ti / 60;
-  NSInteger const hours = minutes / 60;
-  return [NSString stringWithFormat:@"%ld:%02ld", (long)hours, (long)(minutes % 60)];
-}
-
-+ (NSDate *)dateWithString:(NSString *)dateString
-{
-  static NSDateFormatter * dateFormatter;
-  if (!dateFormatter)
+  if (isIOS7)
   {
-    dateFormatter = [NSDateFormatter new];
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+    NSInteger const minutes = seconds / 60;
+    NSInteger const hours = minutes / 60;
+    return [NSString stringWithFormat:@"%ld:%02ld", (long)hours, (long)(minutes % 60)];
   }
-  NSDate * date = [dateFormatter dateFromString:dateString];
-  return date;
+  else
+  {
+    NSDateComponentsFormatter * formatter = [[NSDateComponentsFormatter alloc] init];
+    formatter.allowedUnits = NSCalendarUnitMinute | NSCalendarUnitHour | NSCalendarUnitDay;
+    formatter.maximumUnitCount = 2;
+    formatter.unitsStyle = NSDateComponentsFormatterUnitsStyleAbbreviated;
+    formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorDropAll;
+    return [formatter stringFromTimeInterval:seconds];
+  }
 }
 
 @end

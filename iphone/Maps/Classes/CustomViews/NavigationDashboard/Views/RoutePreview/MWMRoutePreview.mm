@@ -323,7 +323,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 
 - (void)updateNavigationInfo:(MWMNavigationDashboardEntity *)info
 {
-  NSString * eta = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(info.timeToTarget)];
+  NSString * eta = [NSDateFormatter estimatedArrivalTimeWithSeconds:info.timeToTarget];
   NSString * resultString =
       [NSString stringWithFormat:@"%@ • %@ %@", eta, info.targetDistance, info.targetUnits];
   NSMutableAttributedString * result =

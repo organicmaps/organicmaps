@@ -3,7 +3,6 @@
 
 @interface NSDateFormatter (Utils)
 
-+ (NSString *)estimatedArrivalTimeWithSeconds:(NSNumber *)seconds;
-+ (NSDate *)dateWithString:(NSString *)dateString;
++ (NSString *)estimatedArrivalTimeWithSeconds:(NSTimeInterval)seconds;
 
 @end
