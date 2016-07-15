@@ -1067,20 +1067,23 @@ void Framework::StartInteractiveSearch(search::SearchParams const & params)
 {
   using namespace search;
 
+  auto const originalOnResults = params.m_onResults;
+
   m_lastInteractiveSearchParams = params;
   m_lastInteractiveSearchParams.SetForceSearch(false);
   m_lastInteractiveSearchParams.SetMode(search::Mode::Viewport);
   m_lastInteractiveSearchParams.SetSuggestsEnabled(false);
-  m_lastInteractiveSearchParams.m_onResults = [this](Results const & results)
-  {
+  m_lastInteractiveSearchParams.m_onResults = [this, originalOnResults](Results const & results) {
     if (!results.IsEndMarker())
     {
-      GetPlatform().RunOnGuiThread([this, results]()
-      {
+      GetPlatform().RunOnGuiThread([this, results]() {
         if (IsInteractiveSearchActive())
           FillSearchResultsMarks(results);
       });
     }
+
+    if (originalOnResults)
+      originalOnResults(results);
   };
   UpdateUserViewportChanged();
 }
