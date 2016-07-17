@@ -38,7 +38,7 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener, EditTextDialogFragment.OnTextSaveListener
 {
-  final static String LAST_NAME_INDEX = "LastNameIndex";
+  final static String LAST_INDEX_OF_NAMES_ARRAY = "LastIndexOfNamesArray";
 
   private TextView mCategory;
   private View mCardAddress;
@@ -341,7 +341,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mNamesAdapter.registerAdapterDataObserver(mNamesObserver);
 
     final Bundle args = getArguments();
-    if (args == null || !args.containsKey(LAST_NAME_INDEX))
+    if (args == null || !args.containsKey(LAST_INDEX_OF_NAMES_ARRAY))
     {
       showAdditionalNames(false);
       return;
@@ -353,7 +353,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       public void onGlobalLayout()
       {
         LinearLayoutManager lm = (LinearLayoutManager) mNamesView.getLayoutManager();
-        int position = args.getInt(LAST_NAME_INDEX);
+        int position = args.getInt(LAST_INDEX_OF_NAMES_ARRAY);
 
         View nameItem = lm.findViewByPosition(position);
 
@@ -505,7 +505,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private void refreshNamesCaption()
   {
     if (mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount())
-      setNamesArrowDrawable(null);
+      setNamesArrowDrawable(0);
     else if (mNamesAdapter.areAdditionalLanguagesShown())
       setNamesArrowDrawable(R.drawable.ic_expand_less);
     else
@@ -519,9 +519,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   }
 
-  private void setNamesArrowDrawable(@DrawableRes Integer right)
+  private void setNamesArrowDrawable(@DrawableRes int right)
   {
-    if(null == right)
+    if(0 == right)
     {
       mNamesCaption.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
       return;

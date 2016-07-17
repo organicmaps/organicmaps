@@ -180,7 +180,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     mToolbarController.setTitle(getTitle());
     Bundle args = new Bundle();
     if (focusToLastName)
-      args.putInt(EditorFragment.LAST_NAME_INDEX, sNames.size() - 1);
+      args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, sNames.size() - 1);
     final Fragment editorFragment = Fragment.instantiate(getActivity(), EditorFragment.class.getName(), args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, editorFragment, EditorFragment.class.getName())

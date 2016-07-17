@@ -9,8 +9,8 @@ package com.mapswithme.maps.editor.data;
  * and mandatoryNamesCount - count of names which should be always shown.
  */
 public class NamesDataSource {
-        private LocalizedName[] mNames;
-        private int mMandatoryNamesCount;
+        private final LocalizedName[] mNames;
+        private final int mMandatoryNamesCount;
 
         public NamesDataSource(LocalizedName[] names, int mandatoryNamesCount) {
             this.mNames = names;
