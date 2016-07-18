@@ -163,7 +163,20 @@ public class RoutePrefsFragment extends PreferenceFragment
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        Framework.nativeSet3dMode((Boolean)newValue, _3d.buildings);
+        Framework.nativeSet3dMode((Boolean) newValue, _3d.buildings);
+        return true;
+      }
+    });
+
+    boolean autozoomEnabled = Framework.nativeGetAutoZoomEnabled();
+    final TwoStatePreference prefAutoZoom = (TwoStatePreference)findPreference(getString(R.string.pref_auto_zoom));
+    prefAutoZoom.setChecked(autozoomEnabled);
+    prefAutoZoom.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        Framework.nativeSetAutoZoomEnabled((Boolean)newValue);
         return true;
       }
     });

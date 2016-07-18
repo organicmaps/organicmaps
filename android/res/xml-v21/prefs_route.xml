@@ -17,4 +17,10 @@
     android:title="@string/pref_map_3d_title"
     android:switchTextOn=""
     android:switchTextOff=""/>
+
+  <SwitchPreference
+      android:key="@string/pref_auto_zoom"
+      android:title="@string/pref_map_auto_zoom"
+      android:switchTextOn=""
+      android:switchTextOff=""/>
 </PreferenceScreen>

@@ -998,6 +998,23 @@ Java_com_mapswithme_maps_Framework_nativeGet3dMode(JNIEnv * env, jclass, jobject
   env->SetBooleanField(result, buildingsField, buildings);
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetAutoZoomEnabled(JNIEnv * env, jclass, jboolean enabled)
+{
+  bool const autoZoomEnabled = static_cast<bool>(enabled);
+  frm()->SaveAutoZoom(autoZoomEnabled);
+  g_framework->PostDrapeTask([autoZoomEnabled]()
+  {
+    frm()->AllowAutoZoom(autoZoomEnabled);
+  });
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetAutoZoomEnabled(JNIEnv * env, jclass)
+{
+  return frm()->LoadAutoZoom();
+}
+
 // static void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeZoomToPoint(JNIEnv * env, jclass, jdouble lat, jdouble lon, jint zoom, jboolean animate)
