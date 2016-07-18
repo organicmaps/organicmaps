@@ -37,9 +37,10 @@ namespace
 {
 NSString * const kCollectionCellPortrait = @"MWMBottomMenuCollectionViewPortraitCell";
 NSString * const kCollectionCelllandscape = @"MWMBottomMenuCollectionViewLandscapeCell";
-}  // namespace
 
-static CGFloat const kLayoutThreshold = 420.0;
+CGFloat constexpr kLayoutThreshold = 420.0;
+NSTimeInterval constexpr kRoutingDiminishInterval = 5.0;
+}  // namespace
 
 typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMBottomMenuViewCellAddPlace,
@@ -526,6 +527,17 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
       }];
 }
 
+- (void)refreshRoutingDiminishTimer
+{
+  SEL const diminishFunction = @selector(diminishRoutingState);
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:diminishFunction object:self];
+  runAsyncOnMainQueue(^{
+    if (self.state == MWMBottomMenuStateRoutingExpanded)
+      [self performSelector:diminishFunction withObject:self afterDelay:kRoutingDiminishInterval];
+  });
+}
+
+- (void)diminishRoutingState { self.state = MWMBottomMenuStateRouting; }
 #pragma mark - Properties
 
 - (SolidTouchView *)dimBackground
@@ -545,6 +557,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)setState:(MWMBottomMenuState)state
 {
+  [self refreshRoutingDiminishTimer];
   MWMBottomMenuView * view = (MWMBottomMenuView *)self.view;
   BOOL const menuActive =
       (state == MWMBottomMenuStateActive || state == MWMBottomMenuStateRoutingExpanded);
