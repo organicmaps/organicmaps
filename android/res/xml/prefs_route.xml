@@ -13,4 +13,8 @@
   <CheckBoxPreference
     android:key="@string/pref_3d"
     android:title="@string/pref_map_3d_title"/>
+
+  <CheckBoxPreference
+      android:key="@string/pref_auto_zoom"
+      android:title="@string/pref_map_auto_zoom"/>
 </PreferenceScreen>
