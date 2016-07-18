@@ -20,8 +20,6 @@
 		3401CD681C3C03A80028C6F8 /* MWMEditorTextTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3401CD651C3C03A80028C6F8 /* MWMEditorTextTableViewCell.mm */; };
 		3401CD691C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3401CD661C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib */; };
 		3401CD6A1C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3401CD661C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib */; };
-		3401CD711C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3401CD701C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib */; };
-		3401CD721C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3401CD701C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib */; };
 		3401CD761C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3401CD741C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.mm */; };
 		3401CD771C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3401CD741C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.mm */; };
 		3401CD781C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3401CD751C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.xib */; };
@@ -225,10 +223,6 @@
 		34B646BE1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B646BC1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm */; };
 		34B646C01CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B646BF1CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib */; };
 		34B646C11CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B646BF1CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib */; };
-		34B646C41CEB740900E0C7A5 /* MWMEditorNameFooter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B646C31CEB740900E0C7A5 /* MWMEditorNameFooter.mm */; };
-		34B646C51CEB740900E0C7A5 /* MWMEditorNameFooter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B646C31CEB740900E0C7A5 /* MWMEditorNameFooter.mm */; };
-		34B646C71CEB742500E0C7A5 /* MWMEditorNameFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B646C61CEB742500E0C7A5 /* MWMEditorNameFooter.xib */; };
-		34B646C81CEB742600E0C7A5 /* MWMEditorNameFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B646C61CEB742500E0C7A5 /* MWMEditorNameFooter.xib */; };
 		34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */; };
 		34B82AB21B8344E300180497 /* MWMSearchTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB11B8344E300180497 /* MWMSearchTextField.mm */; };
 		34B82ABA1B837FFD00180497 /* MWMSearchHistoryRequestCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB81B837FFD00180497 /* MWMSearchHistoryRequestCell.mm */; };
@@ -881,7 +875,6 @@
 		3401CD641C3C03A80028C6F8 /* MWMEditorTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorTextTableViewCell.h; sourceTree = "<group>"; };
 		3401CD651C3C03A80028C6F8 /* MWMEditorTextTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorTextTableViewCell.mm; sourceTree = "<group>"; };
 		3401CD661C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorTextTableViewCell.xib; sourceTree = "<group>"; };
-		3401CD701C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorNameTableViewCell.xib; sourceTree = "<group>"; };
 		3401CD731C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorSelectTableViewCell.h; sourceTree = "<group>"; };
 		3401CD741C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorSelectTableViewCell.mm; sourceTree = "<group>"; };
 		3401CD751C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorSelectTableViewCell.xib; sourceTree = "<group>"; };
@@ -1112,9 +1105,6 @@
 		34B646BB1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorAdditionalNameTableViewCell.h; sourceTree = "<group>"; };
 		34B646BC1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorAdditionalNameTableViewCell.mm; sourceTree = "<group>"; };
 		34B646BF1CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAdditionalNameTableViewCell.xib; sourceTree = "<group>"; };
-		34B646C21CEB740900E0C7A5 /* MWMEditorNameFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorNameFooter.h; sourceTree = "<group>"; };
-		34B646C31CEB740900E0C7A5 /* MWMEditorNameFooter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorNameFooter.mm; sourceTree = "<group>"; };
-		34B646C61CEB742500E0C7A5 /* MWMEditorNameFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorNameFooter.xib; sourceTree = "<group>"; };
 		34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		34B82AB01B8344E300180497 /* MWMSearchTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTextField.h; sourceTree = "<group>"; };
 		34B82AB11B8344E300180497 /* MWMSearchTextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTextField.mm; sourceTree = "<group>"; };
@@ -2474,7 +2464,6 @@
 				3401CD641C3C03A80028C6F8 /* MWMEditorTextTableViewCell.h */,
 				3401CD651C3C03A80028C6F8 /* MWMEditorTextTableViewCell.mm */,
 				3401CD661C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib */,
-				3401CD701C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib */,
 				3401CD731C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.h */,
 				3401CD741C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.mm */,
 				3401CD751C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.xib */,
@@ -2487,9 +2476,6 @@
 				345FD7DE1CEC7AD400F58045 /* MWMEditorAddAdditionalNameTableViewCell.h */,
 				345FD7DF1CEC7AD400F58045 /* MWMEditorAddAdditionalNameTableViewCell.mm */,
 				345FD7E21CEC7B0C00F58045 /* MWMEditorAddAdditionalNameTableViewCell.xib */,
-				34B646C21CEB740900E0C7A5 /* MWMEditorNameFooter.h */,
-				34B646C31CEB740900E0C7A5 /* MWMEditorNameFooter.mm */,
-				34B646C61CEB742500E0C7A5 /* MWMEditorNameFooter.xib */,
 				345FD7E51CEC7D8400F58045 /* MWMEditorAdditionalNamesHeader.h */,
 				345FD7E61CEC7D8400F58045 /* MWMEditorAdditionalNamesHeader.mm */,
 				345FD7E91CEC7DA800F58045 /* MWMEditorAdditionalNamesHeader.xib */,
@@ -3385,10 +3371,8 @@
 				F6ED13561B16439E0095C6DE /* MWMDirectionView.xib in Resources */,
 				349C3AEF1D33A96B002AC7A9 /* MWMNavigationInfoView.xib in Resources */,
 				34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */,
-				34B646C71CEB742500E0C7A5 /* MWMEditorNameFooter.xib in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
 				34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */,
-				3401CD711C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib in Resources */,
 				3490D2E21CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
 				347FD8751C60B2CE002FB65E /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				6B9978351C89A316003B8AA0 /* editor.config in Resources */,
@@ -3465,7 +3449,6 @@
 				6741A94A1BF340DE002C974C /* resources-6plus_clear in Resources */,
 				6741A94B1BF340DE002C974C /* unicode_blocks.txt in Resources */,
 				6741A94C1BF340DE002C974C /* fonts_blacklist.txt in Resources */,
-				3401CD721C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib in Resources */,
 				F6D4A7441CC1643100BD4E5B /* MWMButtonCell.xib in Resources */,
 				34CCFDE31C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_clear in Resources */,
@@ -3533,7 +3516,6 @@
 				6741A9731BF340DE002C974C /* MWMSearchHistoryMyPositionCell.xib in Resources */,
 				349C3AF01D33A96B002AC7A9 /* MWMNavigationInfoView.xib in Resources */,
 				6741A9741BF340DE002C974C /* resources-6plus_dark in Resources */,
-				34B646C81CEB742600E0C7A5 /* MWMEditorNameFooter.xib in Resources */,
 				3401CD6A1C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib in Resources */,
 				341F99E01C6B1165001C67B8 /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				6741A9751BF340DE002C974C /* WorldCoasts.mwm in Resources */,
@@ -3813,7 +3795,6 @@
 				F64F4B6D1B46A51F0081A24A /* MWMDownloaderDialogCell.mm in Sources */,
 				3491E7CB1C06F1F10042FE24 /* MWMPlacePageButtonCell.mm in Sources */,
 				97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
-				34B646C41CEB740900E0C7A5 /* MWMEditorNameFooter.mm in Sources */,
 				341F99D91C6B1165001C67B8 /* MWMMapDownloaderPlaceTableViewCell.mm in Sources */,
 				345FD7E71CEC7D8400F58045 /* MWMEditorAdditionalNamesHeader.mm in Sources */,
 				341F99D51C6B1165001C67B8 /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
@@ -4039,7 +4020,6 @@
 				6741AA1D1BF340DE002C974C /* MWMDownloadTransitMapAlert.mm in Sources */,
 				341F99DA1C6B1165001C67B8 /* MWMMapDownloaderPlaceTableViewCell.mm in Sources */,
 				341F99D61C6B1165001C67B8 /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
-				34B646C51CEB740900E0C7A5 /* MWMEditorNameFooter.mm in Sources */,
 				6741AA1E1BF340DE002C974C /* LinkCell.mm in Sources */,
 				345FD7E81CEC7D8400F58045 /* MWMEditorAdditionalNamesHeader.mm in Sources */,
 				347FD8701C60B2CE002FB65E /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,

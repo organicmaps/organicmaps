@@ -10,7 +10,6 @@
 #import "MWMEditorAdditionalNamesTableViewController.h"
 #import "MWMEditorCategoryCell.h"
 #import "MWMEditorCommon.h"
-#import "MWMEditorNameFooter.h"
 #import "MWMEditorNotesFooter.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMEditorSwitchTableViewCell.h"
@@ -42,7 +41,6 @@ CGFloat const kDefaultFooterHeight = 32.;
 
 typedef NS_ENUM(NSUInteger, MWMEditorSection) {
   MWMEditorSectionCategory,
-  MWMEditorSectionName,
   MWMEditorSectionAdditionalNames,
   MWMEditorSectionAddress,
   MWMEditorSectionDetails,
@@ -51,7 +49,6 @@ typedef NS_ENUM(NSUInteger, MWMEditorSection) {
 };
 
 vector<MWMPlacePageCellType> const kSectionCategoryCellTypes{MWMPlacePageCellTypeCategory};
-vector<MWMPlacePageCellType> const kSectionNameCellTypes{MWMPlacePageCellTypeName};
 vector<MWMPlacePageCellType> const kSectionAddressCellTypes{
     MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding, MWMPlacePageCellTypeZipCode};
 
@@ -60,7 +57,6 @@ vector<MWMPlacePageCellType> const kSectionButtonCellTypes{MWMPlacePageCellTypeR
 
 MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeCategory, "MWMEditorCategoryCell"},
-    {MWMPlacePageCellTypeName, "MWMEditorNameTableViewCell"},
     {MWMPlacePageCellTypeAdditionalName, "MWMEditorAdditionalNameTableViewCell"},
     {MWMPlacePageCellTypeAddAdditionalName, "MWMEditorAddAdditionalNameTableViewCell"},
     {MWMPlacePageCellTypeAddAdditionalNamePlaceholder,
@@ -87,17 +83,6 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   return haveCell ? @(it->second.c_str()) : @"";
 }
 
-vector<osm::LocalizedName> getAdditionalLocalizedNames(osm::EditableMapObject const & emo)
-{
-  vector<osm::LocalizedName> result;
-  emo.GetName().ForEach([&result](int8_t code, string const & name) -> bool {
-    if (code != StringUtf8Multilang::kDefaultCode)
-      result.push_back({code, name});
-    return true;
-  });
-  return result;
-}
-
 void cleanupAdditionalLanguages(vector<osm::LocalizedName> const & names,
                                 vector<NSInteger> & newAdditionalLanguages)
 {
@@ -113,11 +98,11 @@ void cleanupAdditionalLanguages(vector<osm::LocalizedName> const & names,
 }
 
 vector<MWMPlacePageCellType> cellsForAdditionalNames(
-    vector<osm::LocalizedName> const & names, vector<NSInteger> const & newAdditionalLanguages,
+    osm::NamesDataSource const & ds, vector<NSInteger> const & newAdditionalLanguages,
     BOOL showAdditionalNames)
 {
   vector<MWMPlacePageCellType> res;
-  auto const allNamesSize = names.size() + newAdditionalLanguages.size();
+  auto const allNamesSize = ds.names.size() + newAdditionalLanguages.size();
   if (allNamesSize != 0)
   {
     if (showAdditionalNames)
@@ -126,8 +111,9 @@ vector<MWMPlacePageCellType> cellsForAdditionalNames(
     }
     else
     {
-      res.push_back(MWMPlacePageCellTypeAdditionalName);
-      if (allNamesSize > 1)
+      auto const mandatoryNamesCount = ds.mandatoryNamesCount;
+      res.insert(res.begin(), mandatoryNamesCount, MWMPlacePageCellTypeAdditionalName);
+      if (allNamesSize > mandatoryNamesCount)
         res.push_back(MWMPlacePageCellTypeAddAdditionalNamePlaceholder);
     }
   }
@@ -184,7 +170,6 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 @property(nonatomic) NSMutableArray<NSIndexPath *> * invalidCells;
 @property(nonatomic) MWMEditorAdditionalNamesHeader * additionalNamesHeader;
 @property(nonatomic) MWMEditorNotesFooter * notesFooter;
-@property(nonatomic) MWMEditorNameFooter * nameFooter;
 @property(copy, nonatomic) NSString * note;
 @property(nonatomic) osm::Editor::FeatureStatus featureStatus;
 @property(nonatomic) BOOL isFeatureUploaded;
@@ -363,13 +348,6 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   return _notesFooter;
 }
 
-- (MWMEditorNameFooter *)nameFooter
-{
-  if (!_nameFooter)
-    _nameFooter = [MWMEditorNameFooter footer];
-  return _nameFooter;
-}
-
 #pragma mark - Properties
 
 - (void)setShowAdditionalNames:(BOOL)showAdditionalNames
@@ -423,18 +401,15 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
   if (isNameEditable)
   {
-    m_sections.push_back(MWMEditorSectionName);
-    m_cells[MWMEditorSectionName] = kSectionNameCellTypes;
-    registerCellsForTableView(kSectionNameCellTypes, self.tableView);
-
-    vector<osm::LocalizedName> localizedNames = getAdditionalLocalizedNames(m_mapObject);
+    auto const ds = m_mapObject.GetNamesDataSource();
+    auto const & localizedNames = ds.names;
     cleanupAdditionalLanguages(localizedNames, m_newAdditionalLanguages);
     auto const cells =
-        cellsForAdditionalNames(localizedNames, m_newAdditionalLanguages, self.showAdditionalNames);
+        cellsForAdditionalNames(ds, m_newAdditionalLanguages, self.showAdditionalNames);
     m_sections.push_back(MWMEditorSectionAdditionalNames);
     m_cells[MWMEditorSectionAdditionalNames] = cells;
     registerCellsForTableView(cells, self.tableView);
-    [self.additionalNamesHeader setAdditionalNamesVisible:cells.size() > 2];
+    [self.additionalNamesHeader setAdditionalNamesVisible:cells.size() > ds.mandatoryNamesCount + 1];
   }
 
   if (isAddressEditable)
@@ -564,23 +539,12 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
                            on:m_mapObject.GetInternet() == osm::Internet::Wlan];
     break;
   }
-  case MWMPlacePageCellTypeName:
-  {
-    MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
-    [tCell configWithDelegate:self
-                         icon:nil
-                         text:@(m_mapObject.GetDefaultName().c_str())
-                  placeholder:L(@"name")
-                 keyboardType:UIKeyboardTypeDefault
-               capitalization:UITextAutocapitalizationTypeSentences];
-    break;
-  }
   case MWMPlacePageCellTypeAdditionalName:
   {
     MWMEditorAdditionalNameTableViewCell * tCell =
         static_cast<MWMEditorAdditionalNameTableViewCell *>(cell);
 
-    vector<osm::LocalizedName> const localizedNames = getAdditionalLocalizedNames(m_mapObject);
+    auto const & localizedNames = m_mapObject.GetNamesDataSource().names;
 
     if (indexPath.row < localizedNames.size())
     {
@@ -765,7 +729,6 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 {
   switch (m_sections[section])
   {
-  case MWMEditorSectionName:
   case MWMEditorSectionAdditionalNames:
   case MWMEditorSectionCategory:
   case MWMEditorSectionButton: return nil;
@@ -780,7 +743,6 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   switch (m_sections[section])
   {
   case MWMEditorSectionAdditionalNames: return self.additionalNamesHeader;
-  case MWMEditorSectionName:
   case MWMEditorSectionCategory:
   case MWMEditorSectionButton:
   case MWMEditorSectionNote:
@@ -801,7 +763,6 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     if (find(m_sections.begin(), m_sections.end(), MWMEditorSectionNote) == m_sections.end())
       return self.notesFooter;
     return nil;
-  case MWMEditorSectionName: return self.nameFooter;
   case MWMEditorSectionNote: return self.notesFooter;
   }
 }
@@ -816,14 +777,14 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   switch (m_sections[section])
   {
   case MWMEditorSectionAddress:
-  case MWMEditorSectionCategory:
-  case MWMEditorSectionAdditionalNames: return 1.0;
+      return 1.0;
   case MWMEditorSectionDetails:
     if (find(m_sections.begin(), m_sections.end(), MWMEditorSectionNote) == m_sections.end())
       return self.notesFooter.height;
     return 1.0;
   case MWMEditorSectionNote: return self.notesFooter.height;
-  case MWMEditorSectionName: return self.nameFooter.height;
+  case MWMEditorSectionCategory:
+  case MWMEditorSectionAdditionalNames:
   case MWMEditorSectionButton: return kDefaultFooterHeight;
   }
 }
@@ -907,7 +868,6 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   string const val = changeText.UTF8String;
   switch (cellType)
   {
-  case MWMPlacePageCellTypeName: m_mapObject.SetName(val, StringUtf8Multilang::kDefaultCode); break;
   case MWMPlacePageCellTypePhoneNumber:
     m_mapObject.SetPhone(val);
     if (!osm::EditableMapObject::ValidatePhone(val))

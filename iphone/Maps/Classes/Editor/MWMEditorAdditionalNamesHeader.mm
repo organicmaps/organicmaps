@@ -16,7 +16,7 @@
 {
   MWMEditorAdditionalNamesHeader * h = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorAdditionalNamesHeader className] owner:nil options:nil]
           firstObject];
-  h.label.localizedText = L(@"editor_international_names_subtitle").uppercaseString;
+  h.label.localizedText = L(@"place_name").uppercaseString;
   h.toggleBlock = toggleBlock;
   return h;
 }
