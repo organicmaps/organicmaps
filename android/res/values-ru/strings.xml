@@ -856,7 +856,7 @@
 	<!-- Error that appears after certain time without location. -->
 	<string name="current_location_unknown_message">Местоположение не найдено. Возможно, вы находитесь в помещении или в туннеле.</string>
 	<string name="current_location_unknown_continue_button">Продолжить</string>
-	<string name="current_location_unknown_stop_button">Остановить</string>
+	<string name="current_location_unknown_stop_button">Стоп</string>
 	<string name="current_location_unknown_error_title">Местоположение не найдено.</string>
 	<string name="current_location_unknown_error_message">При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.</string>
 	<string name="whatsnew_update_editor_title">Мы обновили редактор</string>
