@@ -142,6 +142,7 @@ public:
   void ChangeModelView(m2::RectD const & rect) override;
   void ChangeModelView(m2::PointD const & userPos, double azimuth,
                        m2::PointD const & pxZero, int preferredZoomLevel) override;
+  void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) override;
 
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
@@ -221,7 +222,7 @@ private:
   using TRenderGroupRemovePredicate = function<bool(drape_ptr<RenderGroup> const &)>;
   void RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate);
 
-  void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d);
+  void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom);
   void InvalidateRect(m2::RectD const & gRect);
   bool CheckTileGenerations(TileKey const & tileKey);
   void UpdateCanBeDeletedStatus();
@@ -301,13 +302,16 @@ private:
   struct FollowRouteData
   {
     FollowRouteData(int preferredZoomLevel,
-                    int preferredZoomLevelIn3d)
+                    int preferredZoomLevelIn3d,
+                    bool enableAutoZoom)
       : m_preferredZoomLevel(preferredZoomLevel)
       , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
+      , m_enableAutoZoom(enableAutoZoom)
     {}
 
     int m_preferredZoomLevel;
     int m_preferredZoomLevelIn3d;
+    bool m_enableAutoZoom;
   };
 
   unique_ptr<FollowRouteData> m_pendingFollowRoute;

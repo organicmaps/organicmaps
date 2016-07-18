@@ -656,6 +656,10 @@ public:
   void Save3dMode(bool allow3d, bool allow3dBuildings);
   void Load3dMode(bool & allow3d, bool & allow3dBuildings);
 
+  bool LoadAutoZoom();
+  void AllowAutoZoom(bool allowAutoZoom);
+  void SaveAutoZoom(bool allowAutoZoom);
+
 public:
   /// @name Editor interface.
   //@{

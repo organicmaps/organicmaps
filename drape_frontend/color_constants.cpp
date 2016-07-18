@@ -13,7 +13,7 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
   { MapStyleClear,
     {
       { GuiText, dp::Color(77, 77, 77, 221) },
-      { MyPositionAccuracy, dp::Color(30, 150, 240, 20) },
+      { MyPositionAccuracy, dp::Color(0, 0, 0, 20) },
       { Selection, dp::Color(30, 150, 240, 164) },
       { Route, dp::Color(21, 121, 244, 204) },
       { RoutePedestrian, dp::Color(29, 51, 158, 204) },
@@ -29,7 +29,7 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
   { MapStyleDark,
     {
       { GuiText, dp::Color(255, 255, 255, 178) },
-      { MyPositionAccuracy, dp::Color(255, 230, 140, 20) },
+      { MyPositionAccuracy, dp::Color(255, 255, 255, 15) },
       { Selection, dp::Color(255, 230, 140, 164) },
       { Route, dp::Color(255, 202, 40, 180) },
       { RoutePedestrian, dp::Color(255, 152, 0, 180) },

@@ -265,10 +265,10 @@ void DrapeEngine::StopLocationFollow()
                                   MessagePriority::High);
 }
 
-void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d)
+void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FollowRouteMessage>(preferredZoomLevel, preferredZoomLevel3d),
+                                  make_unique_dp<FollowRouteMessage>(preferredZoomLevel, preferredZoomLevel3d, enableAutoZoom),
                                   MessagePriority::High);
 }
 
@@ -376,6 +376,13 @@ void DrapeEngine::SetWidgetLayout(gui::TWidgetsLayoutInfo && info)
   m_widgetsLayout = move(info);
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::AllowAutoZoom(bool allowAutoZoom)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<AllowAutoZoomMessage>(allowAutoZoom),
                                   MessagePriority::Normal);
 }
 

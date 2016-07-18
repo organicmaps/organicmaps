@@ -29,7 +29,7 @@ drape_ptr<MapLinearAnimation> GetSetRectAnimation(ScreenBase const & screen,
                                                   m2::AnyRectD const & startRect, m2::AnyRectD const & endRect);
 
 drape_ptr<MapFollowAnimation> GetFollowAnimation(ScreenBase const & startScreen, m2::PointD const & userPos,
-                                                 double targetScale, double targetAngle, m2::PointD const & endPixelPos);
+                                                 double targetScale, double targetAngle, m2::PointD const & endPixelPos, bool isAutoZoom);
 
 drape_ptr<MapScaleAnimation> GetScaleAnimation(ScreenBase const & startScreen, m2::PointD pxScaleCenter,
                                                m2::PointD glbScaleCenter, double factor);

@@ -188,7 +188,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
         {
           m2::PointD pt = screen.PixelRectIn3d().Center();
           breakAnim = SetFollowAndRotate(screen.PtoG(screen.P3dtoP(pt)), pt,
-                                         e.m_rotate.m_targetAzimut, kDoNotChangeZoom, true);
+                                         e.m_rotate.m_targetAzimut, kDoNotChangeZoom, kDoNotAutoZoom,
+                                         true /* isAnim */, false /* isAutoScale */);
         }
         else
         {
@@ -201,7 +202,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     case UserEvent::EVENT_FOLLOW_AND_ROTATE:
       breakAnim = SetFollowAndRotate(e.m_followAndRotate.m_userPos, e.m_followAndRotate.m_pixelZero,
                                      e.m_followAndRotate.m_azimuth, e.m_followAndRotate.m_preferredZoomLevel,
-                                     e.m_followAndRotate.m_isAnim);
+                                     e.m_followAndRotate.m_autoScale,
+                                     e.m_followAndRotate.m_isAnim, e.m_followAndRotate.m_isAutoScale);
       TouchCancel(m_touches);
       break;
     case UserEvent::EVENT_AUTO_PERSPECTIVE:
@@ -267,7 +269,7 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     if (followAnim != nullptr && followAnim->HasScale())
     {
       // Scaling is not possible if current follow animation does pixel offset.
-      if (followAnim->HasPixelOffset())
+      if (followAnim->HasPixelOffset() && !followAnim->IsAutoZoom())
         return false;
 
       // Reset follow animation with scaling if we apply scale explicitly.
@@ -394,19 +396,20 @@ bool UserEventStream::InterruptFollowAnimations(bool force)
 }
 
 bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
-                                         double azimuth, int preferredZoomLevel, bool isAnim)
+                                         double azimuth, int preferredZoomLevel, double autoScale,
+                                         bool isAnim, bool isAutoScale)
 {
   ScreenBase const & currentScreen = GetCurrentScreen();
   ScreenBase screen = currentScreen;
 
-  if (preferredZoomLevel == kDoNotChangeZoom)
+  if (preferredZoomLevel == kDoNotChangeZoom && !isAutoScale)
   {
     GetTargetScreen(screen);
     screen.SetAngle(-azimuth);
   }
   else
   {
-    screen.SetFromParams(userPos, -azimuth, GetScale(preferredZoomLevel));
+    screen.SetFromParams(userPos, -azimuth, isAutoScale ? autoScale : GetScale(preferredZoomLevel));
   }
   screen.MatchGandP3d(userPos, pixelPos);
 
@@ -436,7 +439,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     else
     {
       // Run follow-and-rotate animation.
-      anim = GetFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos);
+      anim = GetFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos, isAutoScale);
     }
 
     if (preferredZoomLevel != kDoNotChangeZoom)

@@ -85,7 +85,8 @@ drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & startSc
 
   auto followAnim = make_unique_dp<MapFollowAnimation>(tmp, userPos, endPixelPos,
                                                        tmp.GetScale(), targetScale,
-                                                       tmp.GetAngle(), targetAngle);
+                                                       tmp.GetAngle(), targetAngle,
+                                                       false /* isAutoZoom */);
   followAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
 
   sequenceAnim->AddAnimation(move(zoomOutAnim));
@@ -124,10 +125,11 @@ drape_ptr<MapLinearAnimation> GetSetRectAnimation(ScreenBase const & screen,
 }
 
 drape_ptr<MapFollowAnimation> GetFollowAnimation(ScreenBase const & startScreen, m2::PointD const & userPos,
-                                                 double targetScale, double targetAngle, m2::PointD const & endPixelPos)
+                                                 double targetScale, double targetAngle, m2::PointD const & endPixelPos,
+                                                 bool isAutoZoom)
 {
   auto anim = make_unique_dp<MapFollowAnimation>(startScreen, userPos, endPixelPos, startScreen.GetScale(), targetScale,
-                                                 startScreen.GetAngle(), targetAngle);
+                                                 startScreen.GetAngle(), targetAngle, isAutoZoom);
   anim->SetMaxDuration(kMaxAnimationTimeSec);
 
   return anim;

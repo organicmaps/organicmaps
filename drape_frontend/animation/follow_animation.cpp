@@ -13,19 +13,25 @@ MapFollowAnimation::MapFollowAnimation(ScreenBase const & screen,
                                        m2::PointD const & globalUserPosition,
                                        m2::PointD const & endPixelPosition,
                                        double startScale, double endScale,
-                                       double startAngle, double endAngle)
+                                       double startAngle, double endAngle,
+                                       bool isAutoZoom)
   : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
-  , m_scaleInterpolator(startScale, endScale)
+  , m_isAutoZoom(isAutoZoom)
+  , m_scaleInterpolator(startScale, endScale, m_isAutoZoom)
   , m_angleInterpolator(startAngle, endAngle)
   , m_globalPosition(globalUserPosition)
   , m_endPixelPosition(endPixelPosition)
 {
+  m_offset = screen.PtoG(screen.P3dtoP(m_endPixelPosition)) - m_globalPosition;
+  double const scale = m_isAutoZoom ? screen.GetScale() : (startScale + endScale) / 2.0;
+  double const moveDuration = PositionInterpolator::GetMoveDuration(m_offset.Length(), screen.PixelRectIn3d(), scale);
+
+  m_offsetInterpolator = PositionInterpolator(moveDuration, 0.0, m_offset, m2::PointD(0.0, 0.0));
+
   double const duration = CalculateDuration();
+
   m_scaleInterpolator.SetMinDuration(duration);
   m_angleInterpolator.SetMinDuration(duration);
-
-  m_offset = screen.PtoG(screen.P3dtoP(m_endPixelPosition)) - m_globalPosition;
-  m_offsetInterpolator = PositionInterpolator(duration, 0.0, m_offset, m2::PointD(0.0, 0.0));
 
   m_objects.insert(Animation::MapPlane);
 
@@ -63,7 +69,12 @@ void MapFollowAnimation::Finish()
   if (m_angleInterpolator.IsActive())
     m_angleInterpolator.Finish();
   if (m_scaleInterpolator.IsActive())
-    m_scaleInterpolator.Finish();
+  {
+    if (m_isAutoZoom)
+      m_scaleInterpolator.SetActive(false);
+    else
+      m_scaleInterpolator.Finish();
+  }
   if (m_offsetInterpolator.IsActive())
     m_offsetInterpolator.Finish();
   Animation::Finish();
@@ -73,7 +84,7 @@ void MapFollowAnimation::SetMaxDuration(double maxDuration)
 {
   if (m_angleInterpolator.IsActive())
     m_angleInterpolator.SetMaxDuration(maxDuration);
-  if (m_scaleInterpolator.IsActive())
+  if (!m_isAutoZoom && m_scaleInterpolator.IsActive())
     m_scaleInterpolator.SetMaxDuration(maxDuration);
   if (m_offsetInterpolator.IsActive())
     m_offsetInterpolator.SetMaxDuration(maxDuration);
@@ -86,8 +97,10 @@ double MapFollowAnimation::GetDuration() const
 
 double MapFollowAnimation::CalculateDuration() const
 {
-  return max(m_offsetInterpolator.GetDuration(),
-             max(m_angleInterpolator.GetDuration(), m_scaleInterpolator.GetDuration()));
+  double duration = max(m_angleInterpolator.GetDuration(), m_offsetInterpolator.GetDuration());
+  if (!m_isAutoZoom)
+    duration = max(duration, m_scaleInterpolator.GetDuration());
+  return duration;
 }
 
 bool MapFollowAnimation::IsFinished() const
@@ -112,7 +125,8 @@ bool MapFollowAnimation::GetProperty(TObject object, TProperty property, bool ta
     ScreenBase tmp = AnimationSystem::Instance().GetLastScreen();
     if (targetValue)
     {
-      tmp.SetFromParams(m_globalPosition, m_angleInterpolator.GetTargetAngle(), m_scaleInterpolator.GetTargetScale());
+      tmp.SetFromParams(m_globalPosition, m_angleInterpolator.GetTargetAngle(), m_isAutoZoom ? m_scaleInterpolator.GetScale()
+                                                                                             : m_scaleInterpolator.GetTargetScale());
       tmp.MatchGandP3d(m_globalPosition, m_endPixelPosition);
     }
     else
@@ -136,7 +150,8 @@ bool MapFollowAnimation::GetProperty(TObject object, TProperty property, bool ta
   }
   if (property == Animation::Scale)
   {
-    value = PropertyValue(targetValue ? m_scaleInterpolator.GetTargetScale() : m_scaleInterpolator.GetScale());
+    value = PropertyValue((targetValue && !m_isAutoZoom) ? m_scaleInterpolator.GetTargetScale()
+                                                         : m_scaleInterpolator.GetScale());
     return true;
   }
   ASSERT(false, ("Wrong property:", property));

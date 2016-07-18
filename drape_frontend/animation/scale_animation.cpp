@@ -10,7 +10,7 @@ namespace df
 MapScaleAnimation::MapScaleAnimation(double startScale, double endScale, m2::PointD const & globalScaleCenter,
                                      m2::PointD const & pxScaleCenter)
   : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
-  , m_scaleInterpolator(startScale, endScale)
+  , m_scaleInterpolator(startScale, endScale, false /* isAutoZoom */)
   , m_pxScaleCenter(pxScaleCenter)
   , m_globalScaleCenter(globalScaleCenter)
 {

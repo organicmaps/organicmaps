@@ -124,11 +124,13 @@ public:
   void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns,
                 df::ColorConstant color, df::RoutePattern pattern = df::RoutePattern());
   void RemoveRoute(bool deactivateFollowing);
-  void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d);
+  void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom);
   void DeactivateRouteFollowing();
   void SetRoutePoint(m2::PointD const & position, bool isStart, bool isValid);
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
+
+  void AllowAutoZoom(bool allowAutoZoom);
 
   void Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings);
   void EnablePerspective();
