@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */; };
 		3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */; };
+		3D489BC51D3D21FC0052AA38 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D489BC41D3D21FC0052AA38 /* libdrape.a */; };
 		452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC21CEDCF3200A55E57 /* animation.cpp */; };
 		452C9ED51CEDCF3200A55E57 /* animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC31CEDCF3200A55E57 /* animation.hpp */; };
 		452C9ED61CEDCF3200A55E57 /* arrow_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */; };
@@ -206,6 +207,7 @@
 /* Begin PBXFileReference section */
 		3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_utils.cpp; sourceTree = "<group>"; };
 		3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_utils.hpp; sourceTree = "<group>"; };
+		3D489BC41D3D21FC0052AA38 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		452C9EC21CEDCF3200A55E57 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation.cpp; sourceTree = "<group>"; };
 		452C9EC31CEDCF3200A55E57 /* animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation.hpp; sourceTree = "<group>"; };
 		452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = arrow_animation.cpp; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D489BC51D3D21FC0052AA38 /* libdrape.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +420,7 @@
 		670947311BDF9B82005014C0 = {
 			isa = PBXGroup;
 			children = (
+				3D489BC41D3D21FC0052AA38 /* libdrape.a */,
 				6709487E1BDF9F15005014C0 /* defaults.xcconfig */,
 				670947411BDF9B99005014C0 /* drape_frontend */,
 				6709473B1BDF9B82005014C0 /* Products */,
