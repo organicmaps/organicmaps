@@ -519,6 +519,9 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "最近のルート";
 
+/* Settings «Map» category: «Auto zoom» title */
+"pref_map_auto_zoom" = "Auto zoom";
+
 "duration_disabled" = "オフ";
 
 "duration_1_hour" = "1時間";

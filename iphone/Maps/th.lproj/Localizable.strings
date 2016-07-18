@@ -519,6 +519,9 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "เส้นทางล่าสุด";
 
+/* Settings «Map» category: «Auto zoom» title */
+"pref_map_auto_zoom" = "Auto zoom";
+
 "duration_disabled" = "ปิด";
 
 "duration_1_hour" = "1 ชั่วโมง";

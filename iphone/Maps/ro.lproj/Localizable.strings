@@ -519,6 +519,9 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Rute recente";
 
+/* Settings «Map» category: «Auto zoom» title */
+"pref_map_auto_zoom" = "Auto zoom";
+
 "duration_disabled" = "Oprit";
 
 "duration_1_hour" = "1 oră";
