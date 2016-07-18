@@ -21,7 +21,7 @@ static T * Align8Ptr(T * ptr)
 
 inline uint32_t ToAlign8(uint64_t written) { return (0x8 - (written & 0x7)) & 0x7; }
 
-inline bool IsAligned(uint64_t offset) { return ToAlign8(offset) == 0; }
+inline bool IsAlign8(uint64_t offset) { return ToAlign8(offset) == 0; }
 
 template <typename TWriter>
 void WritePadding(TWriter & writer, uint64_t & bytesWritten)
@@ -139,7 +139,7 @@ public:
   typename enable_if<!is_pod<T>::value, FreezeVisitor &>::type operator()(T & val,
                                                                           char const * /* name */)
   {
-    ASSERT(IsAligned(m_writer.Pos()), ());
+    ASSERT(IsAlign8(m_writer.Pos()), ());
     val.map(*this);
     return *this;
   }
@@ -148,7 +148,7 @@ public:
   typename enable_if<is_pod<T>::value, FreezeVisitor &>::type operator()(T & val,
                                                                          char const * /* name */)
   {
-    ASSERT(IsAligned(m_writer.Pos()), ());
+    ASSERT(IsAlign8(m_writer.Pos()), ());
     m_writer.Write(&val, sizeof(T));
     m_bytesWritten += sizeof(T);
     WritePadding(m_writer, m_bytesWritten);
@@ -158,7 +158,7 @@ public:
   template <typename T>
   FreezeVisitor & operator()(succinct::mapper::mappable_vector<T> & vec, char const * /* name */)
   {
-    ASSERT(IsAligned(m_writer.Pos()), ());
+    ASSERT(IsAlign8(m_writer.Pos()), ());
     (*this)(vec.m_size, "size");
 
     size_t const bytes = static_cast<size_t>(vec.m_size * sizeof(T));
@@ -187,7 +187,7 @@ public:
   typename enable_if<!is_pod<T>::value, ReverseFreezeVisitor &>::type operator()(
       T & val, char const * /* name */)
   {
-    ASSERT(IsAligned(m_writer.Pos()), ());
+    ASSERT(IsAlign8(m_writer.Pos()), ());
     val.map(*this);
     return *this;
   }
@@ -196,7 +196,7 @@ public:
   typename enable_if<is_pod<T>::value, ReverseFreezeVisitor &>::type operator()(
       T & val, char const * /* name */)
   {
-    ASSERT(IsAligned(m_writer.Pos()), ());
+    ASSERT(IsAlign8(m_writer.Pos()), ());
     T const reversedVal = ReverseByteOrder(val);
     m_writer.Write(&reversedVal, sizeof(reversedVal));
     m_bytesWritten += sizeof(T);
@@ -208,7 +208,7 @@ public:
   ReverseFreezeVisitor & operator()(succinct::mapper::mappable_vector<T> & vec,
                                     char const * /* name */)
   {
-    ASSERT(IsAligned(m_writer.Pos()), ());
+    ASSERT(IsAlign8(m_writer.Pos()), ());
     (*this)(vec.m_size, "size");
 
     for (auto const & val : vec)

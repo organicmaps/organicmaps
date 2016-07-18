@@ -65,6 +65,7 @@ HEADERS += \
     internal/file_data.hpp \
     internal/xmlparser.hpp \
     matrix_traversal.hpp \
+    memory_region.hpp \
     mmap_reader.hpp \
     multilang_utf8_string.hpp \
     parse_xml.hpp \

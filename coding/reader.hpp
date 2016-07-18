@@ -133,6 +133,52 @@ public:
 };
 
 // Source that reads from a reader.
+class NonOwningReaderSource
+{
+public:
+  NonOwningReaderSource(Reader const & reader) : m_reader(reader), m_pos(0) {}
+
+  void Read(void * p, size_t size)
+  {
+    m_reader.Read(m_pos, p, size);
+    m_pos += size;
+    CheckPosition();
+  }
+
+  void Skip(uint64_t size)
+  {
+    m_pos += size;
+    CheckPosition();
+  }
+
+  uint64_t Pos() const { return m_pos; }
+
+  uint64_t Size() const
+  {
+    CheckPosition();
+    return (m_reader.Size() - m_pos);
+  }
+
+  // unique_ptr<Reader> SubReader(uint64_t size)
+  // {
+  //   uint64_t const pos = m_pos;
+  //   Skip(size);
+  //   return m_reader.SubReader(pos, size);
+  // }
+
+  // unique_ptr<Reader> SubReader() { return SubReader(Size()); }
+
+private:
+  void CheckPosition() const
+  {
+    ASSERT_LESS_OR_EQUAL(m_pos, m_reader.Size(), (m_pos, m_reader.Size()));
+  }
+
+  Reader const & m_reader;
+  uint64_t m_pos;
+};
+
+// Source that reads from a reader.
 template <typename TReader>
 class ReaderSource
 {
