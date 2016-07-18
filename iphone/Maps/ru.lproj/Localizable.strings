@@ -1424,7 +1424,7 @@
 
 "current_location_unknown_continue_button" = "Продолжить";
 
-"current_location_unknown_stop_button" = "Остановить";
+"current_location_unknown_stop_button" = "Стоп";
 
 "current_location_unknown_error_title" = "Местоположение не найдено.";
 

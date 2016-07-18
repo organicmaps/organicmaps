@@ -16908,7 +16908,7 @@
 
   [current_location_unknown_stop_button]
     en = Stop
-    ru = Остановить
+    ru = Стоп
     ar = إيقاف
     cs = Zastavit
     da = Stop
