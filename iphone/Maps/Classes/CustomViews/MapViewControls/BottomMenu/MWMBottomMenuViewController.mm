@@ -169,25 +169,16 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                                                              attributes:routingLegendAttributes]];
   self.distanceWithLegendLabel.attributedText = distance;
 
-  NSString * currentSpeed = info.speed;
-  if (currentSpeed.length != 0)
-  {
-    self.speedLabel.text = currentSpeed;
-    self.speedLegendLabel.text = info.speedUnits;
-    NSMutableAttributedString * speed =
-        [[NSMutableAttributedString alloc] initWithString:currentSpeed
-                                               attributes:routingNumberAttributes];
-    [speed
-        appendAttributedString:[[NSAttributedString alloc] initWithString:info.speedUnits
-                                                               attributes:routingLegendAttributes]];
-    self.speedWithLegendLabel.attributedText = speed;
-  }
-  else
-  {
-    self.speedLabel.text = @"";
-    self.speedLegendLabel.text = @"";
-    self.speedWithLegendLabel.text = @"";
-  }
+  NSString * currentSpeed = info.speed ? info.speed : @"0";
+  self.speedLabel.text = currentSpeed;
+  self.speedLegendLabel.text = info.speedUnits;
+  NSMutableAttributedString * speed =
+      [[NSMutableAttributedString alloc] initWithString:currentSpeed
+                                             attributes:routingNumberAttributes];
+  [speed
+      appendAttributedString:[[NSAttributedString alloc] initWithString:info.speedUnits
+                                                             attributes:routingLegendAttributes]];
+  self.speedWithLegendLabel.attributedText = speed;
 
   [self.progressView layoutIfNeeded];
   [UIView animateWithDuration:kDefaultAnimationDuration
