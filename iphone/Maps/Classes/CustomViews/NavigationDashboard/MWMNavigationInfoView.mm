@@ -7,6 +7,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMRouter.h"
 #import "MWMSearch.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
 
@@ -89,16 +90,7 @@ BOOL defaultOrientation()
 {
   self.isVisible = YES;
   [self setSearchState:NavigationSearchState::MinimizedNormal animated:NO];
-  if (IPAD)
-  {
-    self.turnsWidth.constant = kTurnsiPadWidth;
-    self.distanceToNextTurnLabel.font = [UIFont bold36];
-  }
-  else
-  {
-    self.turnsWidth.constant = kTurnsiPhoneWidth;
-    self.distanceToNextTurnLabel.font = [UIFont bold24];
-  }
+  self.turnsWidth.constant = IPAD ? kTurnsiPadWidth : kTurnsiPhoneWidth;
   NSAssert(superview != nil, @"Superview can't be nil");
   if ([superview.subviews containsObject:self])
     return;
@@ -193,8 +185,25 @@ BOOL defaultOrientation()
     if (isIOS7)
       [self.nextTurnImageView makeImageAlwaysTemplate];
     self.nextTurnImageView.mwm_coloring = MWMImageColoringWhite;
-    self.distanceToNextTurnLabel.text =
-        [NSString stringWithFormat:@"%@%@", info.distanceToTurn, info.turnUnits];
+
+    NSDictionary * turnNumberAttributes = @{
+      NSForegroundColorAttributeName : [UIColor white],
+      NSFontAttributeName : IPAD ? [UIFont bold36] : [UIFont bold24]
+    };
+    NSDictionary * turnLegendAttributes = @{
+      NSForegroundColorAttributeName : [UIColor white],
+      NSFontAttributeName : IPAD ? [UIFont bold24] : [UIFont bold16]
+    };
+
+    NSMutableAttributedString * distance =
+        [[NSMutableAttributedString alloc] initWithString:info.distanceToTurn
+                                               attributes:turnNumberAttributes];
+    [distance
+        appendAttributedString:[[NSAttributedString alloc]
+                                   initWithString:[NSString stringWithFormat:@" %@", info.turnUnits]
+                                       attributes:turnLegendAttributes]];
+
+    self.distanceToNextTurnLabel.attributedText = distance;
     if (info.nextTurnImage)
     {
       self.secondTurnView.hidden = NO;
