@@ -102,12 +102,6 @@ using TObservers = NSHashTable<__kindof TObserver>;
     GetFramework().Search(m_params);
 }
 
-- (void)showResultsOnMap
-{
-  if (self.searchOnMap)
-    GetFramework().ShowSearchResults(m_results);
-}
-
 #pragma mark - Add/Remove Observers
 
 + (void)addObserver:(id<MWMSearchObserver>)observer
@@ -200,7 +194,9 @@ using TObservers = NSHashTable<__kindof TObserver>;
     if ([observer respondsToSelector:@selector(onSearchCompleted)])
       [observer onSearchCompleted];
   }
-  [self showResultsOnMap];
+  // TODO(igrechuhin): Remove this workaround on search interface refactoring.
+  if (IPAD)
+    GetFramework().ShowSearchResults(m_results);
 }
 
 - (void)onSearchResultsUpdated
