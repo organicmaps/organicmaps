@@ -370,7 +370,7 @@
                             <state key="normal" image="ic_voice_on"/>
                             <state key="selected" image="ic_voice_off"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlue"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="soundTouchUpInside:" destination="-1" eventType="touchUpInside" id="CEW-OG-NlS"/>

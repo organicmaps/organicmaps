@@ -207,10 +207,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (IBAction)routingStartTouchUpInside { [[MWMRouter router] start]; }
 - (IBAction)routingStopTouchUpInside { [[MWMRouter router] stop]; }
-- (IBAction)soundTouchUpInside:(UIButton *)sender
+- (IBAction)soundTouchUpInside:(MWMButton *)sender
 {
   BOOL const isEnable = !sender.selected;
   [Statistics logEvent:kStatEventName(kStatNavigationDashboard, isEnable ? kStatOn : kStatOff)];
+  sender.coloring = isEnable ? MWMButtonColoringGray : MWMButtonColoringBlue;
   [MWMTextToSpeech tts].active = isEnable;
   sender.selected = isEnable;
 }
@@ -593,6 +594,15 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (NSUInteger)additionalButtonsCount
 {
   return MWMBottomMenuViewCellCount - (self.controller.isAppWallAdActive ? 0 : 1);
+}
+
+- (void)setTtsSoundButton:(MWMButton *)ttsSoundButton
+{
+  _ttsSoundButton = ttsSoundButton;
+  [_ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_on"] forState:UIControlStateNormal];
+  [_ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"] forState:UIControlStateSelected];
+  [_ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"]
+                   forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
 @end
