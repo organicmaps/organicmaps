@@ -5563,6 +5563,11 @@
     zh-Hant = 最近的軌跡
     sk = Posledná trasa
 
+  [pref_map_auto_zoom]
+    comment = Settings «Map» category: «Auto zoom» title
+    tags = ios, android
+    en = Auto zoom
+
   [duration_disabled]
     tags = ios,android
     en = Off

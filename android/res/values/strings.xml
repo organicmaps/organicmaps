@@ -335,6 +335,8 @@
 	<string name="pref_tts_how_to_set_up_voice">How to set up voice</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Recent track</string>
+	<!-- Settings «Map» category: «Auto zoom» title -->
+	<string name="pref_map_auto_zoom">Auto zoom</string>
 	<string name="duration_disabled">Off</string>
 	<string name="duration_1_hour">1 hour</string>
 	<string name="duration_2_hours">2 hours</string>
