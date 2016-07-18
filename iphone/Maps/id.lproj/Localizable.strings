@@ -1214,8 +1214,6 @@
 
 "place_name" = "Nama tempat";
 
-"place_name_caption" = "Masukkan nama seperti pada tanda atau pelat nama";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Bahasa lainnya";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "Anda tidak memiliki pengeditan lokal";
 
 "editor_no_local_edits_description" = "Ini menunjukkan jumlah saran perubahan dalam peta yang saat ini hanya dapat diakses di perangkat Anda.";
-
-"editor_international_names_subtitle" = "Nama dalam bahasa lain";
 
 "editor_send_to_osm" = "Kirim ke OSM";
 

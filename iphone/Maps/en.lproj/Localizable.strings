@@ -1214,8 +1214,6 @@
 
 "place_name" = "Place Name";
 
-"place_name_caption" = "Enter the name as on the sign or nameplate";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Other Languages";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "You don't have local edits";
 
 "editor_no_local_edits_description" = "This shows the number of your suggested changes on the map that are currently accessible only on your device.";
-
-"editor_international_names_subtitle" = "Name in other languages";
 
 "editor_send_to_osm" = "Send to OSM";
 

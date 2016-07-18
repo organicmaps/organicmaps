@@ -715,7 +715,6 @@
 	<string name="login_with_openstreetmap">Jelentkezz be a www.openstreetmap.org oldalon</string>
 	<string name="edit_place">Hely szerkesztése</string>
 	<string name="place_name">Hely neve</string>
-	<string name="place_name_caption">Adja meg a táblán vagy az utcatáblán megjelenő nevet</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Más nyelv</string>
 	<string name="add_language">Nyelv hozzáadása</string>
@@ -811,7 +810,6 @@
 	<string name="editor_tag_description">Írja ide a működtetésért felelős cég, szervezet vagy magánszemély nevét.</string>
 	<string name="editor_no_local_edits_title">Nincsenek helyi módosításai</string>
 	<string name="editor_no_local_edits_description">Itt a pillanatnyilag csak az Ön készülékén elérhető térképek javasolt módosításainak száma látható.</string>
-	<string name="editor_international_names_subtitle">Név más nyelveken</string>
 	<string name="editor_send_to_osm">Küldés az OSM-nek</string>
 	<string name="editor_remove">Eltávolítás</string>
 	<string name="downloader_my_maps_title">Térképeim</string>

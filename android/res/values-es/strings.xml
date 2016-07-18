@@ -709,7 +709,6 @@
 	<string name="login_with_openstreetmap">Iniciar sesión con www.openstreetmap.org</string>
 	<string name="edit_place">Editar el lugar</string>
 	<string name="place_name">Nombre del lugar</string>
-	<string name="place_name_caption">Introduce el nombre indicado en el letrero o la placa</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Otros idiomas</string>
 	<string name="add_language">Añadir un idioma</string>
@@ -805,7 +804,6 @@
 	<string name="editor_tag_description">Introduzca la empresa, organización o individuo responsable de las instalaciones.</string>
 	<string name="editor_no_local_edits_title">No tiene ediciones locales</string>
 	<string name="editor_no_local_edits_description">Esto muestra el número de sus cambios sugeridos en el mapa que actualmente solo son accesibles desde su dispositivo.</string>
-	<string name="editor_international_names_subtitle">Nombre en otros idiomas</string>
 	<string name="editor_send_to_osm">Enviar a OSM</string>
 	<string name="editor_remove">Eliminar</string>
 	<string name="downloader_my_maps_title">Mis mapas</string>

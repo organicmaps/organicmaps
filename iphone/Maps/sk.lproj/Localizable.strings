@@ -1214,8 +1214,6 @@
 
 "place_name" = "Názov miesta";
 
-"place_name_caption" = "Zadajte názov ako na značke alebo menovke";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Iné jazyky";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "Nemáte miestne poznámky";
 
 "editor_no_local_edits_description" = "Tu sa zobrazuje počet navrhovaných zmien na mape momentálne dostupných len vo vašom zariadení.";
-
-"editor_international_names_subtitle" = "Názov v iných jazykoch";
 
 "editor_send_to_osm" = "Odoslať do OSM";
 

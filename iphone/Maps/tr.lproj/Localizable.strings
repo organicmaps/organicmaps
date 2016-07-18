@@ -1214,8 +1214,6 @@
 
 "place_name" = "Yer ismi";
 
-"place_name_caption" = "İşaret veya tabeladaki gibi ismi girin";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Diğer Diller";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "Yerel düzenlemeniz yok";
 
 "editor_no_local_edits_description" = "Bu, harita üzerinde önerdiğiniz değişikliklerden sadece şu anda cihazınızda erişilebilenlerin sayısını gösterir.";
-
-"editor_international_names_subtitle" = "Diğer dillerdeki adı";
 
 "editor_send_to_osm" = "OSM’ye gönder";
 

@@ -1214,8 +1214,6 @@
 
 "place_name" = "Tên địa điểm";
 
-"place_name_caption" = "Nhập tên theo như trên chữ ký hoặc biển tên";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Ngôn ngữ khác";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "Bạn không có những chỗ sửa cục bộ";
 
 "editor_no_local_edits_description" = "Thông tin này cho biết số thay đổi đề nghị của bạn trên bản đồ hiện chỉ có thể truy cập trên thiết bị của bạn.";
-
-"editor_international_names_subtitle" = "Tên bằng các ngôn ngữ khác";
 
 "editor_send_to_osm" = "Gửi đến OSM";
 

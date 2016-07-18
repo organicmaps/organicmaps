@@ -1214,8 +1214,6 @@
 
 "place_name" = "Platsens namn";
 
-"place_name_caption" = "Ange namnet som på skylten eller på namnbrickan";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Övriga språk";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "Du har inga lokala redigeraingar";
 
 "editor_no_local_edits_description" = "Detta visar antalet föreslagna förändringar på kartan som som endast är tillgängliga på din enhet.";
-
-"editor_international_names_subtitle" = "Namn på andra språk";
 
 "editor_send_to_osm" = "Skicka till OSM";
 

@@ -1214,8 +1214,6 @@
 
 "place_name" = "Locatienaam";
 
-"place_name_caption" = "Voer de naam in zoals die op het bord of naamplaatje wordt weergegeven";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Overige talen";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "U hebt geen lokale bewerkingen";
 
 "editor_no_local_edits_description" = "Dit toont het aantal voorgestelde wijzigingen voor de kaart die momenteel alleen toegankelijk zijn op uw apparaat.";
-
-"editor_international_names_subtitle" = "Naam in andere talen";
 
 "editor_send_to_osm" = "Naar OSM sturen";
 

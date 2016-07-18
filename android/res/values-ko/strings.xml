@@ -710,7 +710,6 @@
 	<string name="login_with_openstreetmap">www.openstreetmap.org에 로그인</string>
 	<string name="edit_place">장소 편집</string>
 	<string name="place_name">지명</string>
-	<string name="place_name_caption">기호 또는 이름판으로 이름 입력</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">다른 언어</string>
 	<string name="add_language">언어 추가</string>
@@ -806,7 +805,6 @@
 	<string name="editor_tag_description">회사, 조직 또는 시설 책임자를 입력하세요.</string>
 	<string name="editor_no_local_edits_title">편집한 지역정보가 없습니다</string>
 	<string name="editor_no_local_edits_description">이는 현재 귀하의 장치에서만 액세스할 수 있으며, 지도에서 만든 변경사항를 보여줍니다.</string>
-	<string name="editor_international_names_subtitle">다른 언어로된 이름</string>
 	<string name="editor_send_to_osm">OSM에 전송</string>
 	<string name="editor_remove">삭제</string>
 	<string name="downloader_my_maps_title">내 지도</string>
