@@ -149,7 +149,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   self.navigationInfo = info;
   if (self.routingInfoPageControl.currentPage == 0)
   {
-    self.timeLabel.text = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(info.timeToTarget)];
+    self.timeLabel.text = [NSDateFormatter estimatedArrivalTimeWithSeconds:info.timeToTarget];
   }
   else
   {
