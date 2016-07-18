@@ -749,8 +749,10 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
     isMapTouch = false;
     break;
   case STATE_TAP_DETECTION:
-    ASSERT_EQUAL(touchCount, 1, ());
-    EndTapDetector(touches[0]);
+    if (touchCount == 1)
+      EndTapDetector(touches[0]);
+    else
+      CancelTapDetector();
     break;
   case STATE_TAP_TWO_FINGERS:
     if (touchCount == 2)
@@ -768,8 +770,15 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
     isMapTouch = EndDrag(touches[0], false /* cancelled */);
     break;
   case STATE_SCALE:
-    ASSERT_EQUAL(touchCount, 2, ());
-    EndScale(touches[0], touches[1]);
+    if (touchCount < 2)
+    {
+      ASSERT_EQUAL(GetValidTouchesCount(m_touches), 2, ());
+      EndScale(m_touches[0], m_touches[1]);
+    }
+    else
+    {
+      EndScale(touches[0], touches[1]);
+    }
     break;
   default:
     ASSERT(false, ());
