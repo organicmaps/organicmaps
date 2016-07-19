@@ -9,6 +9,7 @@
 #import "WebViewController.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
+#import "UIColor+MapsMeColor.h"
 
 #import "UIImageView+Coloring.h"
 
@@ -244,6 +245,7 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
     [vc setSubject:@"MAPS.ME"];
     [vc setToRecipients:@[kiOSEmail]];
     [vc setMessageBody:text isHTML:NO];
+    [vc.navigationBar setTintColor:[UIColor whitePrimaryText]];
     [self presentViewController:vc animated:YES completion:nil];
   }
   else
