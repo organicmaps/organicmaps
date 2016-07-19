@@ -15,7 +15,7 @@ class Altitude
 {
 public:
   Altitude() = default;
-  Altitude(TAltitudes const & altitudes) : m_pointAlt(altitudes) {}
+  explicit Altitude(TAltitudes const & altitudes) : m_pointAlt(altitudes) {}
 
   template <class TSink>
   void Serialize(TAltitude minAltitude, TSink & sink) const

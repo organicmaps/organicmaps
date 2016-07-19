@@ -22,7 +22,7 @@ public:
 
   inline bool IsValid() const { return m_valid; }
 
-  // Returns height in meters at |coord|, or kInvalidAltitude if is not initialized.
+  // Returns height in meters at |coord| or kInvalidAltitude.
   feature::TAltitude GetHeight(ms::LatLon const & coord);
 
   static string GetBase(ms::LatLon coord);

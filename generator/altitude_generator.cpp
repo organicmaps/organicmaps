@@ -73,14 +73,14 @@ public:
         break;
 
       TAltitudes altitudes;
-      bool allPointsValidAltFlag = true;
+      bool valid = true;
       TAltitude minFeatureAltitude = kInvalidAltitude;
       for (size_t i = 0; i < pointsCount; ++i)
       {
         TAltitude const a = m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i)));
         if (a == kInvalidAltitude)
         {
-          allPointsValidAltFlag = false;
+          valid = false;
           break;
         }
 
@@ -91,7 +91,7 @@ public:
 
         altitudes.push_back(a);
       }
-      if (!allPointsValidAltFlag)
+      if (!valid)
         break;
 
       hasAltitude = true;
@@ -107,7 +107,7 @@ public:
     m_altitudeAvailability.push_back(hasAltitude);
   }
 
-  bool HasAltitudeInfo()
+  bool HasAltitudeInfo() const
   {
     return !m_featureAltitudes.empty();
   }
@@ -129,11 +129,11 @@ uint32_t GetFileSize(string const & filePath)
   uint64_t size;
   if (!my::GetFileSize(filePath, size))
   {
-    LOG(LWARNING, ("altitudeAvailability", filePath, "size = 0"));
+    LOG(LERROR, (filePath, "size = 0"));
     return 0;
   }
 
-  LOG(LINFO, ("altitudeAvailability ", filePath, "size =", size, "bytes"));
+  LOG(LINFO, (filePath, "size =", size, "bytes"));
   return size;
 }
 
@@ -221,7 +221,7 @@ void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string 
     uint32_t const featuresTableSize = GetFileSize(featuresTablePath);
 
     FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
-    FileWriter w = cont.GetWriter(ALTITUDE_FILE_TAG);
+    FileWriter w = cont.GetWriter(ALTITUDES_FILE_TAG);
 
     // Writing section with altitude information.
     // Writing altitude section header.
@@ -241,7 +241,7 @@ void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string 
   }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("An exception happend while creating", ALTITUDE_FILE_TAG, "section. ", e.what()));
+    LOG(LERROR, ("An exception happend while creating", ALTITUDES_FILE_TAG, "section. ", e.what()));
   }
 }
 }  // namespace routing

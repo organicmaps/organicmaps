@@ -6,7 +6,7 @@
 
 namespace routing
 {
-/// \returns true if a feature with |types| can be used for any kind of routing.
+/// \returns true when there exists a routing mode where the feature with |types| can be used.
 template <class TList>
 bool IsRoad(TList const & types)
 {

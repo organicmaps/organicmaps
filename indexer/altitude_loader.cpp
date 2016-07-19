@@ -30,7 +30,7 @@ void ReadBuffer(ReaderSource<FilesContainerR::TReader> & rs, vector<char> & buf)
 namespace feature
 {
 AltitudeLoader::AltitudeLoader(MwmValue const * mwmValue)
-  : reader(mwmValue->m_cont.GetReader(ALTITUDE_FILE_TAG)), m_altitudeInfoOffset(0), m_minAltitude(kInvalidAltitude)
+  : reader(mwmValue->m_cont.GetReader(ALTITUDES_FILE_TAG)), m_altitudeInfoOffset(0), m_minAltitude(kInvalidAltitude)
 {
   if (!mwmValue || mwmValue->GetHeader().GetFormat() < version::Format::v8 )
     return;
@@ -54,7 +54,7 @@ AltitudeLoader::AltitudeLoader(MwmValue const * mwmValue)
   {
     m_altitudeInfoOffset = 0;
     m_minAltitude = kInvalidAltitude;
-    LOG(LINFO, ("MWM does not contain", ALTITUDE_FILE_TAG, "section.", e.Msg()));
+    LOG(LINFO, ("MWM does not contain", ALTITUDES_FILE_TAG, "section.", e.Msg()));
   }
 }
 

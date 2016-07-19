@@ -15,7 +15,7 @@ using TAltitudeSectionOffset = uint32_t;
 class AltitudeLoader
 {
 public:
-  AltitudeLoader(MwmValue const * mwmValue);
+  explicit AltitudeLoader(MwmValue const * mwmValue);
 
   TAltitudes GetAltitude(uint32_t featureId, size_t pointCount) const;
 
