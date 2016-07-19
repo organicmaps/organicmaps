@@ -213,7 +213,7 @@ void setPermissionRequested()
 
 + (void)applicationDidBecomeActive
 {
-  if (isPermissionRequested())
+  if (isPermissionRequested() || ![Alohalytics isFirstSession])
     [MWMLocationManager manager].started = YES;
 }
 
