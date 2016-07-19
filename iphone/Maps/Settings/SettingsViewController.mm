@@ -202,7 +202,7 @@ typedef NS_ENUM(NSUInteger, Section)
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = static_cast<SwitchCell *>(cell);
       customCell.switchButton.on = GetFramework().LoadAutoZoom();
-      customCell.titleLabel.text = L(@"pref_autozoom_enable_title");
+      customCell.titleLabel.text = L(@"pref_map_auto_zoom");
       customCell.delegate = self;
       break;
     }
