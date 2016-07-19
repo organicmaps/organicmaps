@@ -39,7 +39,7 @@ namespace df
 
 namespace
 {
-constexpr float kIsometryAngle = math::pi * 80.0f / 180.0f;
+constexpr float kIsometryAngle = math::pi * 76.0f / 180.0f;
 const double VSyncInterval = 0.06;
 //const double VSyncInterval = 0.014;
 
@@ -1210,18 +1210,7 @@ void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
 
   m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-  float zScale;
-  if (screen.isPerspective())
-  {
-    // TODO: Calculate exact value of zScale
-    double const averageScale3d = 3.0;
-    zScale = 2.0f / (screen.PixelRectIn3d().SizeY() * averageScale3d * screen.GetScale());
-  }
-  else
-  {
-    zScale = 2.0f / (screen.GetHeight() * screen.GetScale());
-  }
-
+  float const zScale = screen.GetZScale();
   m_generalUniforms.SetFloatValue("zScale", zScale);
 }
 

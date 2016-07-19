@@ -43,7 +43,7 @@ public:
   {
     m2::PointD pivot = TBase::GetPivot(screen, false);
     if (perspective)
-      pivot = screen.PtoP3d(pivot - m_offset, -m_pivotZ / screen.GetScale()) + m_offset;
+      pivot = screen.PtoP3d(pivot - m_offset, -m_pivotZ) + m_offset;
     return pivot;
   }
 
@@ -54,7 +54,7 @@ public:
       if (IsBillboard())
       {
         m2::PointD const pxPivot = screen.GtoP(m_pivot);
-        m2::PointD const pxPivotPerspective = screen.PtoP3d(pxPivot, -m_pivotZ / screen.GetScale());
+        m2::PointD const pxPivotPerspective = screen.PtoP3d(pxPivot, -m_pivotZ);
 
         m2::RectD pxRectPerspective = GetPixelRect(screen, false);
         pxRectPerspective.Offset(-pxPivot);
