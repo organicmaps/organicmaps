@@ -311,12 +311,18 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)navigationDashBoardDidUpdate
 {
-  CGFloat const topBound = self.topBound + self.navigationManager.height;
-  if (!IPAD)
+  if (IPAD)
+  {
+    [self.placePageManager setTopBound:self.topBound + self.navigationManager.leftHeight];
+  }
+  else
+  {
+    CGFloat const topBound = self.topBound + self.navigationManager.rightHeight;
     [self.sideButtons setTopBound:topBound];
-  BOOL const skipNavDashboardHeight =
-      self.navigationManager.state == MWMNavigationDashboardStateNavigation;
-  [self.placePageManager setTopBound:skipNavDashboardHeight ? self.topBound : topBound];
+    BOOL const skipNavDashboardHeight =
+        self.navigationManager.state == MWMNavigationDashboardStateNavigation;
+    [self.placePageManager setTopBound:skipNavDashboardHeight ? self.topBound : topBound];
+  }
 }
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource

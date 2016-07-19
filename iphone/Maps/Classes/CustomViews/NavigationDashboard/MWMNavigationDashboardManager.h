@@ -36,7 +36,8 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
 @property(nonatomic, readonly) CGFloat extraCompassBottomOffset;
-@property(nonatomic, readonly) CGFloat height;
+@property(nonatomic, readonly) CGFloat leftHeight;
+@property(nonatomic, readonly) CGFloat rightHeight;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view

@@ -111,7 +111,8 @@ BOOL defaultOrientation()
   [super layoutSubviews];
 }
 
-- (CGFloat)visibleHeight { return self.streetNameView.maxY; }
+- (CGFloat)leftHeight { return self.turnsView.maxY; }
+- (CGFloat)rightHeight { return self.streetNameView.maxY; }
 - (void)setMapSearch { [self setSearchState:NavigationSearchState::MinimizedSearch animated:YES]; }
 #pragma mark - Search
 
