@@ -686,7 +686,7 @@ shared_ptr<IVehicleModel> BicycleModelFactory::GetVehicleModelForCountry(string 
     LOG(LDEBUG, ("Bicycle model was found:", country));
     return itr->second;
   }
-  LOG(LDEBUG, ("Bicycle model wasn't found, default model is used instead:", country));
+  LOG(LDEBUG, ("Bicycle model wasn't found, default bicycle model is used instead:", country));
   return BicycleModelFactory::GetVehicleModel();
 }
 }  // routing

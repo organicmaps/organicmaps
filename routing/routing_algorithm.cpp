@@ -20,7 +20,12 @@ inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double sp
 {
   ASSERT(speedMPS > 0.0, ());
   double const distanceM = MercatorBounds::DistanceOnEarth(j1.GetPoint(), j2.GetPoint());
-  double const altidudeDiffM = j2.GetAltitude() - j1.GetAltitude();
+  feature::TAltitude const j1Altitude = j1.GetAltitude();
+  feature::TAltitude const j2Altitude = j2.GetAltitude();
+  if (j1Altitude == feature::kInvalidAltitude || j2Altitude == feature::kInvalidAltitude)
+    return distanceM / speedMPS;
+
+  feature::TAltitude const altidudeDiffM = j2Altitude - j1Altitude;
   return sqrt(distanceM * distanceM + altidudeDiffM * altidudeDiffM) / speedMPS;
 }
 

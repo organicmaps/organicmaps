@@ -81,6 +81,11 @@ private:
 
   struct Value
   {
+    Value(MwmSet::MwmHandle && handle, MwmValue const * MwmValue)
+      : mwmHandle(move(handle)), altitudeLoader(MwmValue)
+    {
+    }
+
     MwmSet::MwmHandle mwmHandle;
     feature::AltitudeLoader altitudeLoader;
   };

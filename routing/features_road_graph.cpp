@@ -263,30 +263,23 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   ri.m_speedKMPH = speedKMPH;
 
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  feature::Altitudes altitudes = value.altitudeLoader.GetAltitudes(featureId.m_index);
-  LOG(LINFO, ("Feature idx =", featureId.m_index, "altitudes.begin =", altitudes.begin,
-              "altitudes.end =", altitudes.end));
+  feature::TAltitudes altitudes = value.altitudeLoader.GetAltitude(featureId.m_index, ft.GetPointsCount());
 
-  // @TODO It's a temprarery solution until a vector of feature altitudes is saved in mwm.
-  bool const isAltidudeValid = altitudes.begin != feature::kInvalidAltitude &&
-                               altitudes.end != feature::kInvalidAltitude;
-  feature::TAltitude pointAlt = altitudes.begin;
   size_t const pointsCount = ft.GetPointsCount();
-  feature::TAltitude const diffAlt =
-      isAltidudeValid ? (altitudes.end - altitudes.begin) / pointsCount : 0;
+  if (altitudes.size() != pointsCount)
+  {
+    ASSERT(false, ("altitudes.size is different from ft.GetPointsCount()"));
+    altitudes.clear();
+  }
 
   ri.m_junctions.clear();
   ri.m_junctions.resize(pointsCount);
   for (size_t i = 0; i < pointsCount; ++i)
   {
-    if (!isAltidudeValid)
-    {
+    if (altitudes.empty())
       ri.m_junctions[i] = Junction(ft.GetPoint(i), feature::kInvalidAltitude);
-      continue;
-    }
-
-    ri.m_junctions[i] = Junction(ft.GetPoint(i), pointAlt);
-    pointAlt += diffAlt;
+    else
+      ri.m_junctions[i] = Junction(ft.GetPoint(i), altitudes[i]);
   }
 }
 
@@ -343,8 +336,7 @@ FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockFeatureMwm(FeatureID con
   if (mwmHandle.IsAlive())
     mwmValue = mwmHandle.GetValue<MwmValue>();
 
-  Value value = {move(mwmHandle), feature::AltitudeLoader(mwmValue)};
-
+  Value value(move(mwmHandle), mwmValue);
   return m_mwmLocks.insert(make_pair(move(mwmId), move(value))).first->second;
 }
 }  // namespace routing

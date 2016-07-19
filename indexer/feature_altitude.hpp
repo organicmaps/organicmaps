@@ -11,44 +11,55 @@ using TAltitude = int16_t;
 using TAltitudes = vector<feature::TAltitude>;
 TAltitude constexpr kInvalidAltitude = numeric_limits<TAltitude>::min();
 
-struct Altitudes
-{
-  Altitudes() = default;
-  Altitudes(TAltitude b, TAltitude e) : begin(b), end(e) {}
-
-  TAltitude begin = kInvalidAltitude;
-  TAltitude end = kInvalidAltitude;
-};
-
 class Altitude
 {
 public:
   Altitude() = default;
-  Altitude(uint32_t featureId, Altitudes const & altitudes)
-    : m_featureId(featureId), m_altitudes(altitudes)
-  {
-  }
+  Altitude(TAltitudes const & altitudes) : m_pointAlt(altitudes) {}
 
   template <class TSink>
-  void Serialize(TSink & sink) const
+  void Serialize(TAltitude minAltitude, TSink & sink) const
   {
-    sink.Write(&m_featureId, sizeof(uint32_t));
-    sink.Write(&m_altitudes.begin, sizeof(TAltitude));
-    sink.Write(&m_altitudes.end, sizeof(TAltitude));
+    CHECK(!m_pointAlt.empty(), ());
+
+    TAltitude prevPntAltitude = minAltitude;
+    for (size_t i = 0; i < m_pointAlt.size(); ++i)
+    {
+      WriteVarInt(sink, static_cast<int32_t>(static_cast<int32_t>(m_pointAlt[i] - prevPntAltitude)));
+      prevPntAltitude = m_pointAlt[i];
+    }
   }
 
-  /// @TODO template <class TSource> void Deserialize(TSource & src) should be implement here.
-  /// But now for test purposes deserialization is done with DDVector construction.
+  template <class TSource>
+  void Deserialize(TAltitude minAltitude, size_t pointCount, TSource & src)
+  {
+    m_pointAlt.clear();
+    if (pointCount == 0)
+    {
+      ASSERT(false, ());
+      return;
+    }
 
-  uint32_t GetFeatureId() const { return m_featureId; }
-  Altitudes const & GetAltitudes() const { return m_altitudes; }
+    m_pointAlt.resize(pointCount);
+    TAltitude prevPntAltitude = minAltitude;
+    for (size_t i = 0; i < pointCount; ++i)
+    {
+      m_pointAlt[i] = static_cast<TAltitude>(ReadVarInt<int32_t>(src) + prevPntAltitude);
+      prevPntAltitude = m_pointAlt[i];
+    }
+  }
+
+  TAltitudes GetAltitudes() const
+  {
+    return m_pointAlt;
+  }
 
 private:
-  /// @TODO Note. Feature id is located here because there's no index for altitudes.
-  /// There's only pairs sorted by feature id. Before merging to master some index has to be
-  /// implemented.
-  /// Don't forget to remove |m_featureId|.
-  uint32_t m_featureId = 0;
-  Altitudes m_altitudes;
+  /// \note |m_pointAlt| is a vector of feature point altitudes. There's two posibilities:
+  /// * |m_pointAlt| is empty. It means no altitude information defines.
+  /// * size of |m_pointAlt| is equal to feature point number. In that case every item of
+  /// |m_pointAlt| defines altitude in meters for every feature point. If altitude is not defined
+  ///  for some feature point corresponding vector items are equel to |kInvalidAltitude|
+  TAltitudes m_pointAlt;
 };
 }  // namespace feature
