@@ -140,6 +140,7 @@ public:
   double GetMaxRotationAngle() const { return m_3dMaxAngleX; }
   double GetAngleFOV() const { return m_3dFOV; }
   double GetScale3d() const { return m_3dScale; }
+  double GetZScale() const;
 
   double GetDepth3d() const { return m_3dFarZ - m_3dNearZ; }
 

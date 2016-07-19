@@ -440,14 +440,19 @@ m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const
   return PtoP3d(pt, 0.0);
 }
 
+double ScreenBase::GetZScale() const
+{
+  double const averageScale3d = m_isPerspective ? 2.7 : 1.0;
+  return 2.0 / (m_Scale * m_ViewportRect.SizeY() * averageScale3d);
+}
+
 m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt, double ptZ) const
 {
   if (!m_isPerspective)
     return pt;
-
   Vector3dT const normalizedPoint{float(2.0 * pt.x / m_PixelRect.SizeX() - 1.0),
                                   -float(2.0 * pt.y / m_PixelRect.SizeY() - 1.0),
-                                  float(2.0 * ptZ / m_PixelRect.SizeY()), 1.0};
+                                  float(ptZ * GetZScale()), 1.0};
 
   Vector3dT const perspectivePoint = normalizedPoint * m_Pto3d;
 
