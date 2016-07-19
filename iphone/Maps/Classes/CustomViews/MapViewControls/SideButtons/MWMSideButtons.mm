@@ -58,6 +58,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
     self.sideView.topBound = 0.0;
     self.sideView.bottomBound = view.height;
     self.zoomSwipeEnabled = NO;
+    self.zoomHidden = NO;
   }
   return self;
 }
