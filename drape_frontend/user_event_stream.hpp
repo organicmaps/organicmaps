@@ -260,8 +260,9 @@ public:
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   ScreenBase const & GetCurrentScreen() const;
 
-  void GetTargetScreen(ScreenBase & screen) const;
-  m2::AnyRectD GetTargetRect() const;
+  void GetTargetScreen(ScreenBase & screen);
+  m2::AnyRectD GetTargetRect();
+
   bool IsInUserAction() const;
   bool IsWaitingForActionCompletion() const;
 

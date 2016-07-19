@@ -32,6 +32,8 @@ drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, d
                                                     m2::PointD const & startPt, m2::PointD const & endPt)
 {
   double const moveDuration = PositionInterpolator::GetMoveDuration(startPt, endPt, screen.PixelRectIn3d(), startScale);
+  ASSERT_GREATER(moveDuration, 0.0, ());
+
   double const scaleFactor = moveDuration / kMaxAnimationTimeSec * 2.0;
 
   auto sequenceAnim = make_unique_dp<SequenceAnimation>();
@@ -65,32 +67,38 @@ drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & startSc
   m2::RectD const viewportRect = startScreen.PixelRectIn3d();
 
   ScreenBase tmp = startScreen;
+  tmp.SetAngle(targetAngle);
   tmp.MatchGandP3d(userPos, viewportRect.Center());
 
   double const moveDuration = PositionInterpolator::GetMoveDuration(startScreen.GetOrg(), tmp.GetOrg(), startScreen);
+  ASSERT_GREATER(moveDuration, 0.0, ());
+
   double const scaleFactor = moveDuration / kMaxAnimationTimeSec * 2.0;
 
   tmp = startScreen;
-  tmp.SetScale(startScreen.GetScale() * scaleFactor);
 
-  auto zoomOutAnim = make_unique_dp<MapLinearAnimation>();
-  zoomOutAnim->SetScale(startScreen.GetScale(), tmp.GetScale());
-  zoomOutAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
+  if (moveDuration > 0.0)
+  {
+    tmp.SetScale(startScreen.GetScale() * scaleFactor);
 
-  tmp.MatchGandP3d(userPos, viewportRect.Center());
+    auto zoomOutAnim = make_unique_dp<MapLinearAnimation>();
+    zoomOutAnim->SetScale(startScreen.GetScale(), tmp.GetScale());
+    zoomOutAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
+    sequenceAnim->AddAnimation(move(zoomOutAnim));
 
-  auto moveAnim = make_unique_dp<MapLinearAnimation>();
-  moveAnim->SetMove(startScreen.GetOrg(), tmp.GetOrg(), viewportRect, tmp.GetScale());
-  moveAnim->SetMaxDuration(kMaxAnimationTimeSec);
+    tmp.MatchGandP3d(userPos, viewportRect.Center());
+
+    auto moveAnim = make_unique_dp<MapLinearAnimation>();
+    moveAnim->SetMove(startScreen.GetOrg(), tmp.GetOrg(), viewportRect, tmp.GetScale());
+    moveAnim->SetMaxDuration(kMaxAnimationTimeSec);
+    sequenceAnim->AddAnimation(move(moveAnim));
+  }
 
   auto followAnim = make_unique_dp<MapFollowAnimation>(tmp, userPos, endPixelPos,
                                                        tmp.GetScale(), targetScale,
                                                        tmp.GetAngle(), targetAngle,
                                                        false /* isAutoZoom */);
   followAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
-
-  sequenceAnim->AddAnimation(move(zoomOutAnim));
-  sequenceAnim->AddAnimation(move(moveAnim));
   sequenceAnim->AddAnimation(move(followAnim));
   return sequenceAnim;
 }

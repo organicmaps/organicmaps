@@ -399,6 +399,10 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
                                          double azimuth, int preferredZoomLevel, double autoScale,
                                          bool isAnim, bool isAutoScale)
 {
+  // Reset current follow-and-rotate animation if possible.
+  if (isAnim && !InterruptFollowAnimations(false /* force */))
+    return false;
+
   ScreenBase const & currentScreen = GetCurrentScreen();
   ScreenBase screen = currentScreen;
 
@@ -417,10 +421,6 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
 
   if (isAnim)
   {
-    // Reset current follow-and-rotate animation if possible.
-    if (!InterruptFollowAnimations(false /* force */))
-      return false;
-
     auto onStartHandler = [this](ref_ptr<Animation> animation)
     {
       if (m_listener)
@@ -497,15 +497,18 @@ m2::AnyRectD UserEventStream::GetCurrentRect() const
   return m_navigator.Screen().GlobalRect();
 }
 
-void UserEventStream::GetTargetScreen(ScreenBase & screen) const
+void UserEventStream::GetTargetScreen(ScreenBase & screen)
 {
-   m_animationSystem.GetTargetScreen(m_navigator.Screen(), screen);
+  m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */, false /* finishAll */);
+  ApplyAnimations();
+
+  m_animationSystem.GetTargetScreen(m_navigator.Screen(), screen);
 }
 
-m2::AnyRectD UserEventStream::GetTargetRect() const
+m2::AnyRectD UserEventStream::GetTargetRect()
 {
   ScreenBase targetScreen;
-  m_animationSystem.GetTargetScreen(m_navigator.Screen(), targetScreen);
+  GetTargetScreen(targetScreen);
   return targetScreen.GlobalRect();
 }
 
