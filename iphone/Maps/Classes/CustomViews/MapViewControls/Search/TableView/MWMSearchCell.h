@@ -4,6 +4,6 @@
 
 @interface MWMSearchCell : MWMTableViewCell
 
-- (void)config:(search::Result &)result;
+- (void)config:(search::Result const &)result;
 
 @end

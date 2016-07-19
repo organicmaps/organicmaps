@@ -98,7 +98,7 @@ NSString * identifierForType(MWMSearchTableCellType type)
   }
 }
 
-- (search::Result &)searchResultForIndexPath:(NSIndexPath *)indexPath
+- (search::Result const &)searchResultForIndexPath:(NSIndexPath *)indexPath
 {
   MWMSearchTableCellType firstCellType =
       [self cellTypeForIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
@@ -147,7 +147,7 @@ NSString * identifierForType(MWMSearchTableCellType type)
 #pragma mark - Config cells
 
 - (void)configSuggestionCell:(MWMSearchSuggestionCell *)cell
-                      result:(search::Result &)result
+                      result:(search::Result const &)result
                   isLastCell:(BOOL)isLastCell
 {
   [cell config:result];
