@@ -1,56 +1,39 @@
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
 #import "MWMFirstLaunchController.h"
 #import "MWMLocationManager.h"
 #import "MWMPageController.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 
 @interface MWMLocationManager ()
 
-@property (nonatomic) BOOL started;
+@property(nonatomic) BOOL started;
 + (MWMLocationManager *)manager;
 
 @end
 
 @interface MWMFirstLaunchController ()
 
-@property (weak, nonatomic) IBOutlet UIView * containerView;
-@property (weak, nonatomic) IBOutlet UIImageView * image;
-@property (weak, nonatomic) IBOutlet UILabel * alertTitle;
-@property (weak, nonatomic) IBOutlet UILabel * alertText;
-@property (weak, nonatomic) IBOutlet UIButton * nextPageButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerHeight;
+@property(weak, nonatomic) IBOutlet UIView * containerView;
+@property(weak, nonatomic) IBOutlet UIImageView * image;
+@property(weak, nonatomic) IBOutlet UILabel * alertTitle;
+@property(weak, nonatomic) IBOutlet UILabel * alertText;
+@property(weak, nonatomic) IBOutlet UIButton * nextPageButton;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerWidth;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerHeight;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * imageMinHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * imageHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * imageMinHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * imageHeight;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleTopOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleImageOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * titleTopOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * titleImageOffset;
 
 @end
 
 namespace
 {
-void requestNotifications()
-{
-  UIApplication * app = [UIApplication sharedApplication];
-  UIUserNotificationType userNotificationTypes =
-      (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
-  if ([app respondsToSelector:@selector(registerUserNotificationSettings:)])
-  {
-    UIUserNotificationSettings * settings =
-        [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
-    [app registerUserNotificationSettings:settings];
-    [app registerForRemoteNotifications];
-  }
-  else
-  {
-    [app registerForRemoteNotificationTypes:userNotificationTypes];
-  }
-}
-
+void requestNotifications() { [MapsAppDelegate initPushNotificationsWithLaunchOptions:nil]; }
 void zoomToCurrentPosition()
 {
   auto & f = GetFramework();
@@ -66,8 +49,7 @@ NSInteger constexpr kRequestLocationPage = 2;
 NSInteger constexpr kRequestNotificationsPage = 3;
 
 NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
-  [^(MWMFirstLaunchController * controller)
-  {
+  [^(MWMFirstLaunchController * controller) {
     controller.image.image = [UIImage imageNamed:@"img_onboarding_offline_maps"];
     controller.alertTitle.text = L(@"onboarding_offline_maps_title");
     controller.alertText.text = L(@"onboarding_offline_maps_message");
@@ -76,8 +58,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
                                   action:@selector(nextPage)
                         forControlEvents:UIControlEventTouchUpInside];
   } copy],
-  [^(MWMFirstLaunchController * controller)
-  {
+  [^(MWMFirstLaunchController * controller) {
     controller.image.image = [UIImage imageNamed:@"img_onboarding_geoposition"];
     controller.alertTitle.text = L(@"onboarding_location_title");
     controller.alertText.text = L(@"onboarding_location_message");
@@ -86,8 +67,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
                                   action:@selector(nextPage)
                         forControlEvents:UIControlEventTouchUpInside];
   } copy],
-  [^(MWMFirstLaunchController * controller)
-  {
+  [^(MWMFirstLaunchController * controller) {
     controller.image.image = [UIImage imageNamed:@"img_onboarding_notification"];
     controller.alertTitle.text = L(@"onboarding_notifications_title");
     controller.alertText.text = L(@"onboarding_notifications_message");
@@ -96,8 +76,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
                                   action:@selector(nextPage)
                         forControlEvents:UIControlEventTouchUpInside];
   } copy],
-  [^(MWMFirstLaunchController * controller)
-  {
+  [^(MWMFirstLaunchController * controller) {
     controller.image.image = [UIImage imageNamed:@"img_onboarding_done"];
     controller.alertTitle.text = L(@"first_launch_congrats_title");
     controller.alertText.text = L(@"first_launch_congrats_text");
@@ -107,20 +86,12 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
                         forControlEvents:UIControlEventTouchUpInside];
   } copy]
 ];
-} // namespace
+}  // namespace
 
 @implementation MWMFirstLaunchController
 
-+ (NSString *)udWelcomeWasShownKey
-{
-  return @"FirstLaunchWelcomeWasShown";
-}
-
-+ (NSArray<TMWMWelcomeConfigBlock> *)pagesConfig
-{
-  return pagesConfigBlocks;
-}
-
++ (NSString *)udWelcomeWasShownKey { return @"FirstLaunchWelcomeWasShown"; }
++ (NSArray<TMWMWelcomeConfigBlock> *)pagesConfig { return pagesConfigBlocks; }
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
@@ -130,11 +101,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
     requestNotifications();
 }
 
-- (void)requestLocation
-{
-  [MWMLocationManager manager].started = YES;
-}
-
+- (void)requestLocation { [MWMLocationManager manager].started = YES; }
 - (void)close
 {
   [self.pageController close];
@@ -150,7 +117,8 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   CGFloat const width = newSize.width;
   CGFloat const height = newSize.height;
   BOOL const hideImage = (self.imageHeight.multiplier * height <= self.imageMinHeight.constant);
-  self.titleImageOffset.priority = hideImage ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
+  self.titleImageOffset.priority =
+      hideImage ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
   self.image.hidden = hideImage;
   self.containerWidth.constant = width;
   self.containerHeight.constant = height;

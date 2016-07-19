@@ -140,6 +140,20 @@ void sendInfoToFramework(dispatch_block_t block)
     });
   }
 }
+
+NSString * const kLocationPermissionRequestedKey = @"kLocationPermissionRequestedKey";
+
+BOOL isPermissionRequested()
+{
+  return [[NSUserDefaults standardUserDefaults] boolForKey:kLocationPermissionRequestedKey];
+}
+
+void setPermissionRequested()
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setBool:YES forKey:kLocationPermissionRequestedKey];
+  [ud synchronize];
+}
 }  // namespace
 
 @interface MWMLocationManager ()<CLLocationManagerDelegate>
@@ -199,13 +213,13 @@ void sendInfoToFramework(dispatch_block_t block)
 
 + (void)applicationDidBecomeActive
 {
-  if (![Alohalytics isFirstSession])
+  if (isPermissionRequested())
     [MWMLocationManager manager].started = YES;
 }
 
 + (void)applicationWillResignActive
 {
-  BOOL const keepRunning = keepRunningInBackground();
+  BOOL const keepRunning = isPermissionRequested() && keepRunningInBackground();
   MWMLocationManager * manager = [MWMLocationManager manager];
   CLLocationManager * locationManager = manager.locationManager;
   if ([locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
@@ -490,6 +504,7 @@ void sendInfoToFramework(dispatch_block_t block)
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
       [locationManager requestWhenInUseAuthorization];
     [locationManager startUpdatingLocation];
+    setPermissionRequested();
     if ([CLLocationManager headingAvailable])
       [locationManager startUpdatingHeading];
   };

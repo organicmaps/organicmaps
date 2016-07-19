@@ -167,7 +167,7 @@ using namespace osm_auth_ios;
 
 #pragma mark - Notifications
 
-- (void)initPushNotificationsWithLaunchOptions:(NSDictionary *)launchOptions
++ (void)initPushNotificationsWithLaunchOptions:(NSDictionary *)launchOptions
 {
   // Do not initialize Pushwoosh for open-source version.
   if (string(PUSHWOOSH_APPLICATION_ID).empty())
@@ -178,8 +178,8 @@ using namespace osm_auth_ios;
                                 objectForInfoDictionaryKey:@"CFBundleDisplayName"]];
   PushNotificationManager * pushManager = [PushNotificationManager pushManager];
 
-  // handling push on app start
-  [pushManager handlePushReceived:launchOptions];
+  if (launchOptions)
+    [pushManager handlePushReceived:launchOptions];
 
   // make sure we count app open in Pushwoosh stats
   [pushManager sendAppOpen];
@@ -431,7 +431,6 @@ using namespace osm_auth_ios;
 
   GetFramework().EnterForeground();
 
-  [self initPushNotificationsWithLaunchOptions:launchOptions];
   [self commonInit];
 
   LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
@@ -441,9 +440,14 @@ using namespace osm_auth_ios;
                    onLaunch:YES];
 
   if ([Alohalytics isFirstSession])
+  {
     [self firstLaunchSetup];
+  }
   else
+  {
     [self incrementSessionsCountAndCheckForAlert];
+    [MapsAppDelegate initPushNotificationsWithLaunchOptions:launchOptions];
+  }
 
   [self enableTTSForTheFirstTime];
 
