@@ -1,3 +1,15 @@
 <resources>
   <dimen name="dialog_max_height">600dp</dimen>
+
+  <dimen name="nav_street_height">56dp</dimen>
+  <dimen name="nav_street_left">152dp</dimen>
+  <dimen name="nav_next_turn_frame">132dp</dimen>
+  <dimen name="nav_next_turn_top">12dp</dimen>
+  <dimen name="nav_next_turn_bottom">9dp</dimen>
+  <dimen name="nav_next_turn_space">9dp</dimen>
+  <dimen name="nav_next_turn_sign">96dp</dimen>
+  <dimen name="nav_next_next_turn_frame">48dp</dimen>
+
+  <dimen name="nav_frame_padding">@dimen/margin_base</dimen>
+  <dimen name="nav_zoom_bottom">250dp</dimen>
 </resources>

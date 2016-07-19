@@ -132,4 +132,20 @@
     <item name="status_folder">@drawable/ic_downloader_folder_night</item>
     <item name="status_folder_done">@drawable/ic_downloader_folder_done_night</item>
   </style>
+
+  <style name="MwmTheme.NavButtons">
+    <item name="nav_zoom_in">@drawable/zoom_in</item>
+    <item name="nav_zoom_out">@drawable/zoom_out</item>
+    <item name="nav_search_closed">@drawable/zoom_in</item>
+    <item name="nav_search_open">@drawable/zoom_out</item>
+    <item name="nav_bookmark">@drawable/zoom_in</item>
+  </style>
+
+  <style name="MwmTheme.NavButtons.Night">
+    <item name="nav_zoom_in">@drawable/ic_zoom_in_night</item>
+    <item name="nav_zoom_out">@drawable/zoom_out_night</item>
+    <item name="nav_search_closed">@drawable/zoom_in_night</item>
+    <item name="nav_search_open">@drawable/zoom_out_night</item>
+    <item name="nav_bookmark">@drawable/zoom_in_night</item>
+  </style>
 </resources>

@@ -66,7 +66,6 @@
       app:secondaryProgressThickness="2dp"/>
 
   <include
-      android:id="@+id/turns"
       layout="@layout/layout_turn_and_street"
       android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"

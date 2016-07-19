@@ -272,7 +272,12 @@ public final class UiUtils
 
   public static int dimen(@DimenRes int id)
   {
-    return MwmApplication.get().getResources().getDimensionPixelSize(id);
+    return dimen(MwmApplication.get(), id);
+  }
+
+  public static int dimen(Context context, @DimenRes int id)
+  {
+    return context.getResources().getDimensionPixelSize(id);
   }
 
   public static int toPx(int dp)

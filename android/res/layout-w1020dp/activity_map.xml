@@ -42,7 +42,7 @@
       tools:visibility="visible"/>
 
     <include
-      layout="@layout/layout_routing_full"
+      layout="@layout/layout_nav"
       android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/margin_half"

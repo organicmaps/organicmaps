@@ -28,6 +28,9 @@
     <attr name="routingSlot" format="reference"/>
     <attr name="routingSlotPressed" format="reference"/>
     <attr name="routingSlotMarker" format="reference"/>
+    <attr name="navPanel" format="color"/>
+    <attr name="navNextTurnFrame" format="reference"/>
+    <attr name="navNextNextTurnFrame" format="reference"/>
 
     <attr name="buttonBackground" format="reference"/>
     <attr name="buttonTextColor" format="color"/>
@@ -45,9 +48,18 @@
     <attr name="myPositionButtonAnimation" format="reference"/>
     <attr name="wheelPendingAnimation" format="reference"/>
 
+    <attr name="navButtonsTheme" format="reference"/>
     <attr name="downloaderTheme" format="reference"/>
 
     <attr name="fabAdd" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="ThemeAttrs.NavButtons">
+    <attr name="nav_zoom_in" format="reference"/>
+    <attr name="nav_zoom_out" format="reference"/>
+    <attr name="nav_search_closed" format="reference"/>
+    <attr name="nav_search_open" format="reference"/>
+    <attr name="nav_bookmark" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.Downloader">

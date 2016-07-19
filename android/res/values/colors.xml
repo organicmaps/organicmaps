@@ -37,6 +37,8 @@
   <color name="bg_panel_night">@color/bg_window_night</color>
   <color name="bg_side_panel">@color/bg_cards</color>
   <color name="bg_side_panel_night">@color/bg_panel_night</color>
+  <color name="bg_nav_panel">#CCFFFFFF</color>
+  <color name="bg_nav_panel_night">#CC2D3237</color>
 
   <color name="bg_dialog_translucent">#BB000000</color>
   <color name="bg_text_translucent">#99FFFFFF</color>

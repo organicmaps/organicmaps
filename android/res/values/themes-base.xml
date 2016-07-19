@@ -44,6 +44,9 @@
     <item name="routingSlot">@drawable/routing_slot_background</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker</item>
+    <item name="navPanel">@color/bg_nav_panel</item>
+    <item name="navNextTurnFrame">@drawable/bg_nav_next_turn</item>
+    <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn</item>
 
     <item name="buttonBackground">@drawable/button</item>
     <item name="buttonTextColor">@color/button_text</item>
@@ -61,6 +64,7 @@
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
 
+    <item name="navButtonsTheme">@style/MwmTheme.NavButtons</item>
     <item name="downloaderTheme">@style/MwmTheme.Downloader</item>
 
     <item name="fabAdd">@drawable/ic_fab_add</item>
@@ -110,6 +114,9 @@
     <item name="routingSlot">@drawable/routing_slot_background_night</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker_night</item>
+    <item name="navPanel">@color/bg_nav_panel_night</item>
+    <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
+    <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
 
     <item name="buttonBackground">@drawable/button_night</item>
     <item name="buttonTextColor">@color/button_text_night</item>
@@ -127,6 +134,7 @@
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending_night</item>
 
+    <item name="navButtonsTheme">@style/MwmTheme.NavButtons.Night</item>
     <item name="downloaderTheme">@style/MwmTheme.Downloader.Night</item>
 
     <item name="fabAdd">@drawable/ic_fab_add_night</item>

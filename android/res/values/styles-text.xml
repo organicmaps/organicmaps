@@ -117,6 +117,23 @@
     <item name="android:textColor">?secondary</item>
   </style>
 
+  <style name="MwmTextAppearance.NavStreet">
+    <item name="android:textSize">@dimen/text_size_nav_street</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
+  <style name="MwmTextAppearance.NavNextTurn">
+    <item name="android:textSize">@dimen/text_size_nav_next_turn</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">?android:textColorPrimaryInverse</item>
+  </style>
+
+  <style name="MwmTextAppearance.NavNextTurn.Exit">
+    <item name="android:textSize">@dimen/text_size_nav_circle_exit</item>
+  </style>
+
   <style name="MwmTextAppearance.PlacePage"
          parent="MwmTextAppearance.Body1"/>
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Nav menu -->
+  <dimen name="nav_menu_height">44dp</dimen>
+</resources>

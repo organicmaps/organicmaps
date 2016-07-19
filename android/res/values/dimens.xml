@@ -25,8 +25,6 @@
   <dimen name="neg_margin_base">-16dp</dimen>
   <dimen name="neg_margin_double">-32dp</dimen>
 
-  <dimen name="margin_navigation_buttons">@dimen/margin_quarter</dimen>
-
   <!-- base sizes -->
   <dimen name="height_block_base">48dp</dimen>
   <dimen name="height_item_oneline">56dp</dimen>
@@ -57,9 +55,6 @@
   <dimen name="margin_direction_around_center">40dp</dimen>
   <dimen name="direction_frame_min_height">36dp</dimen>
 
-  <dimen name="zoom_buttons_top_required_space">266dp</dimen>
-  <dimen name="zoom_buttons_bottom_max_space">228dp</dimen>
-
   <!-- map widgets -->
   <dimen name="margin_compass_left">32dp</dimen>
   <dimen name="margin_compass_bottom">80dp</dimen>
@@ -86,6 +81,22 @@
   <dimen name="menu_line_button_inset_top">-20dp</dimen>
   <dimen name="menu_line_button_inset_edge">-16dp</dimen>
   <dimen name="menu_list_item_height">48dp</dimen>
+
+  <!-- Nav menu -->
+  <dimen name="nav_elevation">6dp</dimen>
+  <dimen name="nav_street_height">44dp</dimen>
+  <dimen name="nav_street_left">104dp</dimen>
+  <dimen name="nav_next_turn_frame">88dp</dimen>
+  <dimen name="nav_next_turn_top">8dp</dimen>
+  <dimen name="nav_next_turn_bottom">6dp</dimen>
+  <dimen name="nav_next_turn_space">6dp</dimen>
+  <dimen name="nav_next_turn_sign">64dp</dimen>
+  <dimen name="nav_next_next_turn_frame">32dp</dimen>
+  <dimen name="nav_menu_height">52dp</dimen>
+
+  <dimen name="nav_frame_padding">@dimen/margin_half</dimen>
+  <dimen name="nav_button">28dp</dimen>
+  <dimen name="nav_zoom_bottom">160dp</dimen>
 
   <dimen name="panel_elevation">12dp</dimen>
   <dimen name="appbar_elevation">4dp</dimen>

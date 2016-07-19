@@ -1,8 +1,6 @@
 <resources>
   <dimen name="dialog_max_height">560dp</dimen>
 
-  <dimen name="routing_pp_height">63dp</dimen>
-
   <!-- direction fragment -->
   <dimen name="margin_direction_small">12dp</dimen>
   <dimen name="margin_direction_big">80dp</dimen>

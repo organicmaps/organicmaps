@@ -1,6 +1,7 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IntRange;
@@ -12,9 +13,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
@@ -32,6 +30,9 @@ import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 @android.support.annotation.UiThread
 public class RoutingController
@@ -705,16 +706,16 @@ public class RoutingController
       mContainer.updatePoints();
   }
 
-  public static CharSequence formatRoutingTime(int seconds, @DimenRes int unitsSize)
+  static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize)
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);
 
-    return hours == 0 ? Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
+    return hours == 0 ? Utils.formatUnitsText(context, R.dimen.text_size_routing_number, unitsSize,
                                               String.valueOf(minutes), "min")
-                      : TextUtils.concat(Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
+                      : TextUtils.concat(Utils.formatUnitsText(context, R.dimen.text_size_routing_number, unitsSize,
                                                                String.valueOf(hours), "h "),
-                                         Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
+                                         Utils.formatUnitsText(context, R.dimen.text_size_routing_number, unitsSize,
                                                                String.valueOf(minutes), "min"));
   }
 

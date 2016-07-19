@@ -26,6 +26,12 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.util.statistics.AlohaHelper;
+
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileWriter;
@@ -34,12 +40,6 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.activity.CustomNavigateUpListener;
-import com.mapswithme.util.statistics.AlohaHelper;
 
 public class Utils
 {
@@ -340,11 +340,11 @@ public class Utils
     NavUtils.navigateUpTo(activity, intent);
   }
 
-  public static SpannableStringBuilder formatUnitsText(@DimenRes int size, @DimenRes int units, String dimension, String unitText)
+  public static SpannableStringBuilder formatUnitsText(Context context, @DimenRes int size, @DimenRes int units, String dimension, String unitText)
   {
     final SpannableStringBuilder res = new SpannableStringBuilder(dimension).append(" ").append(unitText);
-    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(size), false), 0, dimension.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(units), false), dimension.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, size), false), 0, dimension.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, units), false), dimension.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     return res;
   }
 

@@ -89,7 +89,7 @@ public class RoutingInfo
     }
   }
 
-  public enum PedestrianTurnDirection
+  enum PedestrianTurnDirection
   {
     NONE,
     UPSTAIRS,
