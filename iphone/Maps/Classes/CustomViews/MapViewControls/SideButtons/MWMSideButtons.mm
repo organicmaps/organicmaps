@@ -96,6 +96,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
 {
   UIButton * locBtn = self.locationButton;
+  locBtn.hidden = GetFramework().IsOnRoute() && mode == location::FollowAndRotate;
   [locBtn.imageView stopAnimating];
 
   NSArray<UIImage *> * images =
