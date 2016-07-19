@@ -246,7 +246,7 @@
 },
 "Falkland Islands": {
  "driving": "l"
-}
+},
 "Fiji": {
  "driving": "l",
  "languages": ["en", "fj"]
