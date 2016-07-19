@@ -448,10 +448,20 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Obsolete, ("Obsolete feature cannot be modified."));
 
   bool const wasCreatedByUser = IsCreatedFeature(fid);
-  if (wasCreatedByUser && featureStatus == FeatureStatus::Untouched)
+  if (wasCreatedByUser)
   {
     fti.m_status = FeatureStatus::Created;
     fti.m_feature.ReplaceBy(emo);
+
+    if (featureStatus == FeatureStatus::Created)
+    {
+      auto const & editedFeatureInfo = m_features[fid.m_mwmId][fid.m_index];
+      if (AreFeaturesEqualButStreet(fti.m_feature, editedFeatureInfo.m_feature) &&
+          emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
+      {
+        return NothingWasChanged;
+      }
+    }
   }
   else
   {
@@ -469,7 +479,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
         ? *originalFeaturePtr
         : m_features[fid.m_mwmId][fid.m_index].m_feature;
     fti.m_feature.ReplaceBy(emo);
-    bool const sameAsInMWM = featureStatus != FeatureStatus::Created &&
+    bool const sameAsInMWM =
         AreFeaturesEqualButStreet(fti.m_feature, *originalFeaturePtr) &&
         emo.GetStreet().m_defaultName == m_getOriginalFeatureStreetFn(fti.m_feature);
 
@@ -506,9 +516,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
       return NothingWasChanged;
     }
 
-    fti.m_status = featureStatus == FeatureStatus::Created
-      ? FeatureStatus::Created
-      : FeatureStatus::Modified;
+    fti.m_status = FeatureStatus::Modified;
   }
 
   // TODO: What if local client time is absolutely wrong?
