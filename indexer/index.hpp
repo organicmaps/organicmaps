@@ -51,6 +51,7 @@ public:
   void SetTable(MwmInfoEx & info);
 
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
+  inline feature::RegionData const & GetRegionData() const { return m_factory.GetRegionData(); }
   inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
   inline string const & GetCountryFileName() const { return m_file.GetCountryFile().GetName(); }
 };

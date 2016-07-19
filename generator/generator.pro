@@ -9,7 +9,8 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src \
-               $$ROOT_DIR/3party/osrm/osrm-backend/include
+               $$ROOT_DIR/3party/osrm/osrm-backend/include \
+               $$ROOT_DIR/3party/jansson/src
 
 QT *= core
 
@@ -30,6 +31,7 @@ SOURCES += \
     osm_element.cpp \
     osm_id.cpp \
     osm_source.cpp \
+    region_meta.cpp \
     routing_generator.cpp \
     search_index_builder.cpp \
     srtm_parser.cpp \
@@ -63,6 +65,7 @@ HEADERS += \
     osm_translator.hpp \
     osm_xml_source.hpp \
     polygonizer.hpp \
+    region_meta.hpp \
     routing_generator.hpp \
     search_index_builder.hpp \
     srtm_parser.hpp \

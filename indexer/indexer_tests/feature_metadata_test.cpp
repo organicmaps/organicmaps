@@ -100,3 +100,26 @@ UNIT_TEST(Feature_Metadata_GetWikipedia)
   TEST_EQUAL(m.GetWikiURL(), "https://en.wikipedia.org/wiki/Article", ());
 #endif
 }
+
+UNIT_TEST(Feature_Metadata_RegionData_Languages)
+{
+  {
+    feature::RegionData rd;
+    vector<string> const langs = {"ru", "en", "et"};
+    rd.SetLanguages(langs);
+    TEST(rd.HasLanguage(StringUtf8Multilang::GetLangIndex("ru")), ());
+    TEST(rd.HasLanguage(StringUtf8Multilang::GetLangIndex("en")), ());
+    TEST(rd.HasLanguage(StringUtf8Multilang::GetLangIndex("et")), ());
+    TEST(!rd.HasLanguage(StringUtf8Multilang::GetLangIndex("es")), ());
+    TEST(!rd.IsSingleLanguage(StringUtf8Multilang::GetLangIndex("ru")), ());
+  }
+  {
+    feature::RegionData rd;
+    vector<string> const langs = {"et"};
+    rd.SetLanguages(langs);
+    TEST(rd.HasLanguage(StringUtf8Multilang::GetLangIndex("et")), ());
+    TEST(rd.IsSingleLanguage(StringUtf8Multilang::GetLangIndex("et")), ());
+    TEST(!rd.HasLanguage(StringUtf8Multilang::GetLangIndex("en")), ());
+    TEST(!rd.IsSingleLanguage(StringUtf8Multilang::GetLangIndex("en")), ());
+  }
+}
