@@ -659,8 +659,7 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
   for (size_t i = 0; i < ctx.m_features.size(); ++i)
   {
     PrepareRetrievalParams(i, i + 1);
-    ctx.m_features[i] = RetrieveAddressFeatures(m_context->GetId(), m_context->m_value,
-                                                m_cancellable, m_retrievalParams);
+    ctx.m_features[i] = RetrieveAddressFeatures(*m_context, m_cancellable, m_retrievalParams);
   }
 }
 
@@ -1417,8 +1416,7 @@ CBV Geocoder::LoadCategories(MwmContext & context, vector<strings::UniString> co
   for_each(categories.begin(), categories.end(), [&](strings::UniString const & category)
            {
              m_retrievalParams.m_tokens[0][0] = category;
-             CBV cbv(RetrieveAddressFeatures(context.GetId(), context.m_value, m_cancellable,
-                                             m_retrievalParams));
+             CBV cbv(RetrieveAddressFeatures(context, m_cancellable, m_retrievalParams));
              if (!cbv.IsEmpty())
                cbvs.push_back(move(cbv));
            });
@@ -1454,8 +1452,7 @@ CBV Geocoder::LoadVillages(MwmContext & context)
 
 CBV Geocoder::RetrievePostcodeFeatures(MwmContext const & context, TokenSlice const & slice)
 {
-  return CBV(
-      ::search::RetrievePostcodeFeatures(context.GetId(), context.m_value, m_cancellable, slice));
+  return CBV(::search::RetrievePostcodeFeatures(context, m_cancellable, slice));
 }
 
 CBV Geocoder::RetrieveGeometryFeatures(MwmContext const & context, m2::RectD const & rect,
