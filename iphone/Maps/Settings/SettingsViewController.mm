@@ -369,7 +369,7 @@ measurement_utils::Units unitsForIndex(NSInteger index)
   }
   case SectionRouting:
     // Change TTS language
-    if (indexPath.row == 2)
+    if (indexPath.row == 3)
     {
       [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
                      withParameters:@{kStatAction : kStatChangeLanguage}];
