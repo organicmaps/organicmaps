@@ -16,12 +16,14 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "SettingsAndMoreVC.h"
+#import "SettingsViewController.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
 #import "UIKitCategories.h"
+#import "UIViewController+Navigation.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -357,12 +359,22 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [self.delegate actionDownloadMaps:mwm::DownloaderMode::Downloaded];
 }
 
-- (IBAction)menuActionOpenSettings
+- (void)menuActionOpenSettings
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
   self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
-  SettingsAndMoreVC * const vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
+  SettingsAndMoreVC * vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
+  [self.controller.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)menuActionOpenSubSettings
+{
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
+  self.state = self.restoreState;
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsMiles"];
+  SettingsViewController * vc = [self.mainStoryboard
+      instantiateViewControllerWithIdentifier:[SettingsViewController className]];
   [self.controller.navigationController pushViewController:vc animated:YES];
 }
 
