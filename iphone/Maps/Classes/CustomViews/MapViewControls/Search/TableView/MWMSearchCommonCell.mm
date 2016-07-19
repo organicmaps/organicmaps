@@ -28,10 +28,15 @@
 
 @implementation MWMSearchCommonCell
 
-- (void)config:(search::Result &)result forHeight:(BOOL)forHeight
+- (void)config:(search::Result const &)result forHeight:(BOOL)forHeight
 {
   [super config:result];
   self.typeLabel.text = @(result.GetFeatureType().c_str()).capitalizedString;
+  auto const & ratingStr = result.GetHotelRating();
+  self.ratingLabel.text =
+      ratingStr.empty() ? @"" : [NSString stringWithFormat:L(@"place_page_booking_rating"),
+                                                            ratingStr.c_str()];
+  self.priceLabel.text = @(result.GetHotelApproximatePricing().c_str());
   self.locationLabel.text = @(result.GetAddress().c_str());
   [self.locationLabel sizeToFit];
 
@@ -54,11 +59,6 @@
     case osm::No: self.closedView.hidden = NO; break;
     }
 
-    auto const & ratingStr = result.GetHotelRating();
-    self.ratingLabel.text =
-        ratingStr.empty() ? @"" : [NSString stringWithFormat:L(@"place_page_booking_rating"),
-                                                              result.GetHotelRating().c_str()];
-    self.priceLabel.text = @(result.GetHotelApproximatePricing().c_str());
     if (result.HasPoint())
     {
       string distanceStr;

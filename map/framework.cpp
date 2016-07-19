@@ -1341,23 +1341,6 @@ bool Framework::QueryMayBeSkipped(search::SearchParams const & params,
   return true;
 }
 
-void Framework::LoadSearchResultMetadata(search::Result & res) const
-{
-  if (res.m_metadata.m_isInitialized || res.GetResultType() != search::Result::RESULT_FEATURE)
-    return;
-
-  FeatureID const & id = res.GetFeatureID();
-  ASSERT(id.IsValid(), ("Search result doesn't contain valid FeatureID."));
-  // TODO @yunikkk refactor to format search result metadata accordingly with place_page::Info
-
-  FeatureType ft;
-  if (!GetFeatureByID(id, ft))
-    return;
-
-  search::ProcessMetadata(ft, res.m_metadata);
-  // res.m_metadata.m_isInitialized is set to true in ProcessMetadata.
-}
-
 void Framework::ShowSearchResult(search::Result const & res)
 {
   CancelInteractiveSearch();

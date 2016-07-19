@@ -431,8 +431,6 @@ public:
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon) const;
 
-  void LoadSearchResultMetadata(search::Result & res) const;
-
   void ShowSearchResult(search::Result const & res);
   size_t ShowSearchResults(search::Results const & results);
 
