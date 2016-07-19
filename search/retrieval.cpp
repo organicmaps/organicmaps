@@ -198,51 +198,43 @@ void WithSearchTrieRoot(MwmValue & value, TFn && fn)
 // features matching to |params|.
 template <typename TValue>
 unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
-    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
-    QueryParams const & params)
+    MwmContext const & context, my::Cancellable const & cancellable, QueryParams const & params)
 {
-  EditedFeaturesHolder holder(id);
+  EditedFeaturesHolder holder(context.GetId());
   vector<uint64_t> features;
   FeaturesCollector collector(cancellable, features);
 
-  WithSearchTrieRoot<TValue>(value, [&](TrieRoot<TValue> const & root)
-  {
-    MatchFeaturesInTrie(params, root, [&holder](uint32_t featureIndex)
-                        {
-                          return !holder.ModifiedOrDeleted(featureIndex);
-                        },
-                        collector);
+  WithSearchTrieRoot<TValue>(context.m_value, [&](TrieRoot<TValue> const & root) {
+    MatchFeaturesInTrie(
+        params, root,
+        [&holder](uint32_t featureIndex) { return !holder.ModifiedOrDeleted(featureIndex); },
+        collector);
   });
-  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index)
-                                  {
-                                    if (MatchFeatureByName(ft, params))
-                                      features.push_back(index);
-                                  });
+  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
+    if (MatchFeatureByName(ft, params))
+      features.push_back(index);
+  });
   return SortFeaturesAndBuildCBV(move(features));
 }
 
 template <typename TValue>
 unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
-    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
-    TokenSlice const & slice)
+    MwmContext const & context, my::Cancellable const & cancellable, TokenSlice const & slice)
 {
-  EditedFeaturesHolder holder(id);
+  EditedFeaturesHolder holder(context.GetId());
   vector<uint64_t> features;
   FeaturesCollector collector(cancellable, features);
 
-  WithSearchTrieRoot<TValue>(value, [&](TrieRoot<TValue> const & root)
-  {
-    MatchPostcodesInTrie(slice, root, [&holder](uint32_t featureIndex)
-                         {
-                           return !holder.ModifiedOrDeleted(featureIndex);
-                         },
-                         collector);
+  WithSearchTrieRoot<TValue>(context.m_value, [&](TrieRoot<TValue> const & root) {
+    MatchPostcodesInTrie(
+        slice, root,
+        [&holder](uint32_t featureIndex) { return !holder.ModifiedOrDeleted(featureIndex); },
+        collector);
   });
-  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index)
-                                  {
-                                    if (MatchFeatureByPostcode(ft, slice))
-                                      features.push_back(index);
-                                  });
+  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
+    if (MatchFeatureByPostcode(ft, slice))
+      features.push_back(index);
+  });
   return SortFeaturesAndBuildCBV(move(features));
 }
 
@@ -284,52 +276,48 @@ template <template <typename> class T>
 struct Selector
 {
   template <typename... TArgs>
-  unique_ptr<coding::CompressedBitVector> operator()(MwmSet::MwmId const & id, MwmValue & value,
-                                                     TArgs &&... args)
+  unique_ptr<coding::CompressedBitVector> operator()(MwmContext const & context, TArgs &&... args)
   {
-    version::MwmTraits mwmTraits(value.GetMwmVersion().GetFormat());
+    version::MwmTraits mwmTraits(context.m_value.GetMwmVersion().GetFormat());
 
     if (mwmTraits.GetSearchIndexFormat() ==
         version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
     {
       T<FeatureWithRankAndCenter> t;
-      return t(id, value, forward<TArgs>(args)...);
+      return t(context, forward<TArgs>(args)...);
     }
     if (mwmTraits.GetSearchIndexFormat() ==
         version::MwmTraits::SearchIndexFormat::CompressedBitVector)
     {
       T<FeatureIndexValue> t;
-      return t(id, value, forward<TArgs>(args)...);
+      return t(context, forward<TArgs>(args)...);
     }
     return unique_ptr<coding::CompressedBitVector>();
   }
 };
 }  // namespace
 
-unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmId const & id,
-                                                                MwmValue & value,
+unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmContext const & context,
                                                                 my::Cancellable const & cancellable,
                                                                 QueryParams const & params)
 {
   Selector<RetrieveAddressFeaturesAdaptor> selector;
-  return selector(id, value, cancellable, params);
+  return selector(context, cancellable, params);
 }
 
 unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(
-    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
-    TokenSlice const & slice)
+    MwmContext const & context, my::Cancellable const & cancellable, TokenSlice const & slice)
 {
   Selector<RetrievePostcodeFeaturesAdaptor> selector;
-  return selector(id, value, cancellable, slice);
+  return selector(context, cancellable, slice);
 }
 
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
-    MwmContext const & context, my::Cancellable const & cancellable,
-    m2::RectD const & rect, int scale)
+    MwmContext const & context, my::Cancellable const & cancellable, m2::RectD const & rect,
+    int scale)
 {
   covering::IntervalsT coverage;
   CoverRect(rect, scale, coverage);
   return RetrieveGeometryFeaturesImpl(context, cancellable, coverage, scale);
 }
-
 } // namespace search

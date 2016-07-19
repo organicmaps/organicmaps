@@ -491,15 +491,14 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 
   // Tests that postcode is added to the search index.
   {
-    auto handle = m_engine.GetMwmHandleById(countryId);
-    TEST(handle.IsAlive(), ());
+    MwmContext context(m_engine.GetMwmHandleById(countryId));
+    TEST(context.IsAlive(), ());
     my::Cancellable cancellable;
 
     QueryParams params;
     params.m_tokens.emplace_back();
     params.m_tokens.back().push_back(strings::MakeUniString("141702"));
-    auto * value = handle.GetValue<MwmValue>();
-    auto features = RetrievePostcodeFeatures(countryId, *value, cancellable,
+    auto features = RetrievePostcodeFeatures(context, cancellable,
                                              TokenSlice(params, 0, params.m_tokens.size()));
     TEST_EQUAL(1, features->PopCount(), ());
 

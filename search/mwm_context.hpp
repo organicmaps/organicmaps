@@ -32,6 +32,7 @@ private:
 public:
   explicit MwmContext(MwmSet::MwmHandle handle);
 
+  inline bool IsAlive() const { return m_handle.IsAlive(); }
   inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   inline string const & GetName() const { return GetInfo()->GetCountryName(); }
   inline shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
