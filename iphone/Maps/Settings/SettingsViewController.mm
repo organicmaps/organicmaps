@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, Section)
   case SectionMetrics:
     return 2;
   case SectionRouting:
-    return 3;
+    return 4;
   case SectionMap:
     return 5;
   }
@@ -196,8 +196,18 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.delegate = self;
       break;
     }
-    // Change TTS language
+    // Allow autozoom
     case 2:
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+      SwitchCell * customCell = static_cast<SwitchCell *>(cell);
+      customCell.switchButton.on = GetFramework().LoadAutoZoom();
+      customCell.titleLabel.text = L(@"pref_autozoom_enable_title");
+      customCell.delegate = self;
+      break;
+    }
+    // Change TTS language
+    case 3:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
       LinkCell * customCell = (LinkCell *)cell;
@@ -319,6 +329,15 @@ typedef NS_ENUM(NSUInteger, Section)
       [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
                        withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
       [MWMTextToSpeech setTTSEnabled:value];
+    }
+    // Enable autozoom
+    else if (indexPath.row == 2)
+    {
+      [Statistics logEvent:kStatEventName(kStatSettings, kStatAutoZoom)
+                       withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
+      auto & f = GetFramework();
+      f.AllowAutoZoom(value);
+      f.SaveAutoZoom(value);
     }
     break;
 

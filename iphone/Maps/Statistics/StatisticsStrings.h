@@ -14,6 +14,7 @@ static NSString * const kStatApplication = @"Application";
 static NSString * const kStatApply = @"Apply";
 static NSString * const kStatAuthorization = @"Authorization";
 static NSString * const kStatAutoDownload = @"Auto download";
+static NSString * const kStatAutoZoom = @"Autozoom";
 static NSString * const kStatBack = @"Back";
 static NSString * const kStatBannerDescription = @"Banner description";
 static NSString * const kStatBannerTitle = @"Banner title";
