@@ -526,6 +526,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.searchButton.hidden = NO;
     break;
   case MWMBottomMenuStateCompact:
+    if (_state == MWMBottomMenuStateGo)
+      self.restoreState = _state;
     self.layoutDuration = IPAD ? kDefaultAnimationDuration : 0.0;
     break;
   case MWMBottomMenuStatePlanning:

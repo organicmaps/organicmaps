@@ -190,7 +190,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     self.navigationInfoView.leftBound = leftBound;
 }
 
-- (CGFloat)height
+- (CGFloat)leftHeight
 {
   switch (self.state)
   {
@@ -199,10 +199,22 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   case MWMNavigationDashboardStateReady:
   case MWMNavigationDashboardStateError:
   case MWMNavigationDashboardStatePrepare:
-    if (IPAD)
-      return self.topBound;
-    return self.routePreview.visibleHeight;
-  case MWMNavigationDashboardStateNavigation: return self.navigationInfoView.visibleHeight;
+    return IPAD ? self.topBound : self.routePreview.visibleHeight;
+  case MWMNavigationDashboardStateNavigation: return self.navigationInfoView.leftHeight;
+  }
+}
+
+- (CGFloat)rightHeight
+{
+  switch (self.state)
+  {
+  case MWMNavigationDashboardStateHidden: return 0.0;
+  case MWMNavigationDashboardStatePlanning:
+  case MWMNavigationDashboardStateReady:
+  case MWMNavigationDashboardStateError:
+  case MWMNavigationDashboardStatePrepare:
+    return IPAD ? self.topBound : self.routePreview.visibleHeight;
+  case MWMNavigationDashboardStateNavigation: return self.navigationInfoView.rightHeight;
   }
 }
 
