@@ -180,3 +180,55 @@ public:
     }
   }
 };
+
+class OsmTagMixer
+{
+  map<pair<OsmElement::EntityType, uint64_t>, vector<OsmElement::Tag>> m_elements;
+
+public:
+  OsmTagMixer(string const & filePath)
+  {
+    ifstream stream(filePath);
+    vector<string> values;
+    vector<OsmElement::Tag> tags;
+    string line;
+    while (std::getline(stream, line))
+    {
+      if (line.empty() || line.front() == '#')
+        continue;
+
+      strings::ParseCSVRow(line, ',', values);
+      if (values.size() < 3)
+        continue;
+
+      OsmElement::EntityType entityType = OsmElement::StringToEntityType(values[0]);
+      uint64_t id;
+      if (entityType == OsmElement::EntityType::Unknown || !strings::to_uint64(values[1], id))
+        continue;
+
+      for (size_t i = 2; i < values.size(); ++i)
+      {
+        auto p = values[i].find('=');
+        if (p != string::npos)
+          tags.push_back(OsmElement::Tag(values[i].substr(0, p), values[i].substr(p + 1)));
+      }
+
+      if (!tags.empty())
+      {
+        pair<OsmElement::EntityType, uint64_t> elementPair = {entityType, id};
+        m_elements[elementPair].swap(tags);
+      }
+    }
+  }
+
+  void operator()(OsmElement * p)
+  {
+    pair<OsmElement::EntityType, uint64_t> elementId = {p->type, p->id};
+    auto elements = m_elements.find(elementId);
+    if (elements != m_elements.end())
+    {
+      for (OsmElement::Tag tag : elements->second)
+        p->AddTag(tag.key, tag.value);
+    }
+  }
+};

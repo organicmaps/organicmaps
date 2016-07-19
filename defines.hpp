@@ -72,5 +72,6 @@
 #define GPS_TRACK_FILENAME "gps_track.dat"
 
 #define REPLACED_TAGS_FILE "replaced_tags.txt"
+#define MIXED_TAGS_FILE "mixed_tags.txt"
 
 #define LOCALIZATION_DESCRIPTION_SUFFIX " Description"

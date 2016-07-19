@@ -51645,6 +51645,1616 @@ cont {
   }
 }
 cont {
+  name: "olympics-attraction"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-bike_sport"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-live_site"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-official_building"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-stadium"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-stadium_main"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-transport_airport"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-transport_boat"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-transport_bus"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-transport_cable"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-transport_railway"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-transport_subway"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-transport_tram"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "olympics-water_sport"
+  element {
+    scale: 13
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-l"
+      priority: 16864
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
   name: "piste:lift-j-bar"
   element {
     scale: 12
