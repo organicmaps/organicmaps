@@ -15,7 +15,7 @@ area|z10-[natural=beach],
 
 /*LANDUSE 1- */
 
-rea|z10-[aeroway=airport][aerodrome=international],
+area|z10-[aeroway=airport][aerodrome=international],
 area|z10-[aeroway=aerodrome][aerodrome=international],
 area|z12-[aeroway=airport],
 area|z12-[aeroway=aerodrome]
