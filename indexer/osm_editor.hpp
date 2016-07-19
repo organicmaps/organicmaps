@@ -47,11 +47,13 @@ public:
 
   enum class FeatureStatus
   {
-    Untouched,
-    Deleted,
-    Obsolete,  // The feature is obsolete when is marked for deletion via note.
-    Modified,
-    Created
+    Untouched,  // The feature hasn't been saved in the editor.
+    Deleted,    // The feature has been marked as deleted.
+    Obsolete,   // The feature has been marked for deletion via note.
+    Modified,   // The feature has been saved in the editor and differs from the original one.
+    Created     // The feature was created by a user and has been saved in the editor.
+                // Note: If a feature was created by a user but hasn't been saved in the editor yet
+                // its status is Untouched.
   };
 
   static Editor & Instance();
