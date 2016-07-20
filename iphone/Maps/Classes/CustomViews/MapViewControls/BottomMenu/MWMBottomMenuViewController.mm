@@ -197,17 +197,18 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   self.routingInfoPageControl.currentPage =
       (self.routingInfoPageControl.currentPage + 1) % self.routingInfoPageControl.numberOfPages;
   [self updateNavigationInfo:self.navigationInfo];
+  [self refreshRoutingDiminishTimer];
 }
 
 - (IBAction)routingStartTouchUpInside { [[MWMRouter router] start]; }
 - (IBAction)routingStopTouchUpInside { [[MWMRouter router] stop]; }
 - (IBAction)soundTouchUpInside:(MWMButton *)sender
 {
-  BOOL const isEnable = !sender.selected;
+  BOOL const isEnable = sender.selected;
   [Statistics logEvent:kStatEventName(kStatNavigationDashboard, isEnable ? kStatOn : kStatOff)];
-  sender.coloring = isEnable ? MWMButtonColoringGray : MWMButtonColoringBlue;
+  sender.coloring = isEnable ? MWMButtonColoringBlue : MWMButtonColoringGray;
   [MWMTextToSpeech tts].active = isEnable;
-  sender.selected = isEnable;
+  [self refreshRoutingDiminishTimer];
 }
 
 #pragma mark - Refresh Collection View layout
@@ -253,7 +254,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMButton * ttsButton = self.ttsSoundButton;
   ttsButton.hidden = isPedestrianRouting || ![MWMTextToSpeech isTTSEnabled];
   if (!ttsButton.hidden)
-    ttsButton.selected = [MWMTextToSpeech tts].active;
+    ttsButton.selected = ![MWMTextToSpeech tts].active;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -619,6 +620,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [_ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"] forState:UIControlStateSelected];
   [_ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"]
                    forState:UIControlStateSelected | UIControlStateHighlighted];
+  [self ttsButtonStatusChanged:nil];
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @interface MWMTextToSpeech : NSObject
 
-+ (instancetype)tts;
++ (MWMTextToSpeech *)tts;
 + (BOOL)isTTSEnabled;
 + (void)setTTSEnabled:(BOOL)enabled;
 + (NSString *)savedLanguage;
