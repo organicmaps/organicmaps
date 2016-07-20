@@ -8,7 +8,11 @@
 
 #include "Framework.h"
 
-static NSString * const kCollectionCell = @"MWMSearchTabbedCollectionViewCell";
+namespace
+{
+NSString * const kCollectionCell = @"MWMSearchTabbedCollectionViewCell";
+NSString * const kSelectedButtonTagKey = @"MWMSearchTabbedCollectionViewSelectedButtonTag";
+}  // namespace
 
 typedef NS_ENUM(NSInteger, MWMSearchTabbedViewCell)
 {
@@ -63,7 +67,10 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)resetSelectedTab
 {
-  self.selectedButtonTag = GetFramework().GetLastSearchQueries().empty() && !self.historyManager.isRouteSearchMode ? 1 : 0;
+  if (GetFramework().GetLastSearchQueries().empty() && !self.historyManager.isRouteSearchMode)
+    self.selectedButtonTag = 1;
+  else
+    self.selectedButtonTag = [[NSUserDefaults standardUserDefaults] integerForKey:kSelectedButtonTagKey];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -212,12 +219,15 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)setSelectedButton:(MWMSearchTabButtonsView *)selectedButton
 {
-  [self.tabButtons enumerateObjectsUsingBlock:^(MWMSearchTabButtonsView * btn, NSUInteger idx, BOOL *stop)
+  [self.tabButtons enumerateObjectsUsingBlock:^(MWMSearchTabButtonsView * btn, NSUInteger idx, BOOL * stop)
   {
     btn.selected = NO;
   }];
   _selectedButton = selectedButton;
   selectedButton.selected = YES;
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setInteger:selectedButton.tag forKey:kSelectedButtonTagKey];
+  [ud synchronize];
 }
 
 - (void)setDelegate:(id<MWMSearchTabbedViewProtocol>)delegate
