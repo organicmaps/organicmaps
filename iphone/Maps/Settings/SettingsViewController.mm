@@ -186,23 +186,23 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.switchButton.on = on;
       break;
     }
-    // Enable TTS
-    case 1:
-    {
-      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
-      SwitchCell * customCell = (SwitchCell *)cell;
-      customCell.switchButton.on = [MWMTextToSpeech isTTSEnabled];
-      customCell.titleLabel.text = L(@"pref_tts_enable_title");
-      customCell.delegate = self;
-      break;
-    }
     // Allow autozoom
-    case 2:
+    case 1:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = static_cast<SwitchCell *>(cell);
       customCell.switchButton.on = GetFramework().LoadAutoZoom();
       customCell.titleLabel.text = L(@"pref_map_auto_zoom");
+      customCell.delegate = self;
+      break;
+    }
+    // Enable TTS
+    case 2:
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+      SwitchCell * customCell = (SwitchCell *)cell;
+      customCell.switchButton.on = [MWMTextToSpeech isTTSEnabled];
+      customCell.titleLabel.text = L(@"pref_tts_enable_title");
       customCell.delegate = self;
       break;
     }
@@ -323,21 +323,21 @@ typedef NS_ENUM(NSUInteger, Section)
       f.Save3dMode(is3d, _);
       f.Allow3dMode(is3d, _);
     }
-    // Enable TTS
-    else if (indexPath.row == 1)
-    {
-      [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
-                       withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
-      [MWMTextToSpeech setTTSEnabled:value];
-    }
     // Enable autozoom
-    else if (indexPath.row == 2)
+    else if (indexPath.row == 1)
     {
       [Statistics logEvent:kStatEventName(kStatSettings, kStatAutoZoom)
                        withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
       auto & f = GetFramework();
       f.AllowAutoZoom(value);
       f.SaveAutoZoom(value);
+    }
+    // Enable TTS
+    else if (indexPath.row == 2)
+    {
+      [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
+                       withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
+      [MWMTextToSpeech setTTSEnabled:value];
     }
     break;
 
