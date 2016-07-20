@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature_data.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/drawing_rule_def.hpp"
 
 #include "base/buffer_vector.hpp"
@@ -14,6 +15,20 @@ namespace drule { class BaseRule; }
 
 namespace df
 {
+
+class IsBuildingHasPartsChecker : public ftypes::BaseChecker
+{
+  IsBuildingHasPartsChecker();
+public:
+  static IsBuildingHasPartsChecker const & Instance();
+};
+
+class IsBuildingPartChecker : public ftypes::BaseChecker
+{
+  IsBuildingPartChecker();
+public:
+  static IsBuildingPartChecker const & Instance();
+};
 
 struct CaptionDescription
 {
