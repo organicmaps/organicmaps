@@ -1,28 +1,28 @@
 <!DOCTYPE skin>
 <root>
- <file height="1024" width="1024">
+ <file width="1024" height="1024">
   <symbol minX="0" maxX="106" minY="0" maxY="154" name="route_to"/>
   <symbol minX="106" maxX="155" minY="0" maxY="130" name="route_from"/>
   <symbol minX="155" maxX="359" minY="0" maxY="100" name="route-arrow"/>
-  <symbol minX="359" maxX="447" minY="0" maxY="88" name="compass-image"/>
-  <symbol minX="447" maxX="508" minY="0" maxY="61" name="cross_geoposition"/>
-  <symbol minX="508" maxX="560" minY="0" maxY="52" name="search-result-active"/>
-  <symbol minX="560" maxX="587" minY="0" maxY="46" name="placemark-hotel"/>
-  <symbol minX="587" maxX="632" minY="0" maxY="45" name="search-booking"/>
-  <symbol minX="632" maxX="656" minY="0" maxY="45" name="placemark-yellow"/>
-  <symbol minX="656" maxX="680" minY="0" maxY="45" name="placemark-blue"/>
-  <symbol minX="680" maxX="704" minY="0" maxY="45" name="placemark-red"/>
-  <symbol minX="704" maxX="728" minY="0" maxY="45" name="placemark-purple"/>
-  <symbol minX="728" maxX="752" minY="0" maxY="45" name="placemark-brown"/>
-  <symbol minX="752" maxX="776" minY="0" maxY="45" name="placemark-pink"/>
-  <symbol minX="776" maxX="800" minY="0" maxY="45" name="placemark-orange"/>
-  <symbol minX="800" maxX="824" minY="0" maxY="45" name="placemark-green"/>
-  <symbol minX="824" maxX="858" minY="0" maxY="34" name="current-position"/>
-  <symbol minX="858" maxX="889" minY="0" maxY="31" name="archery-l"/>
-  <symbol minX="889" maxX="920" minY="0" maxY="31" name="apartment-l"/>
-  <symbol minX="920" maxX="951" minY="0" maxY="31" name="america-football-l"/>
-  <symbol minX="951" maxX="982" minY="0" maxY="31" name="atm-l"/>
-  <symbol minX="982" maxX="1013" minY="0" maxY="31" name="alpine_hut-l"/>
+  <symbol minX="359" maxX="435" minY="0" maxY="76" name="compass-image"/>
+  <symbol minX="435" maxX="496" minY="0" maxY="61" name="cross_geoposition"/>
+  <symbol minX="496" maxX="548" minY="0" maxY="52" name="search-result-active"/>
+  <symbol minX="548" maxX="575" minY="0" maxY="46" name="placemark-hotel"/>
+  <symbol minX="575" maxX="620" minY="0" maxY="45" name="search-booking"/>
+  <symbol minX="620" maxX="644" minY="0" maxY="45" name="placemark-yellow"/>
+  <symbol minX="644" maxX="668" minY="0" maxY="45" name="placemark-blue"/>
+  <symbol minX="668" maxX="692" minY="0" maxY="45" name="placemark-red"/>
+  <symbol minX="692" maxX="716" minY="0" maxY="45" name="placemark-purple"/>
+  <symbol minX="716" maxX="740" minY="0" maxY="45" name="placemark-brown"/>
+  <symbol minX="740" maxX="764" minY="0" maxY="45" name="placemark-pink"/>
+  <symbol minX="764" maxX="788" minY="0" maxY="45" name="placemark-orange"/>
+  <symbol minX="788" maxX="812" minY="0" maxY="45" name="placemark-green"/>
+  <symbol minX="812" maxX="846" minY="0" maxY="34" name="current-position"/>
+  <symbol minX="846" maxX="877" minY="0" maxY="31" name="archery-l"/>
+  <symbol minX="877" maxX="908" minY="0" maxY="31" name="apartment-l"/>
+  <symbol minX="908" maxX="939" minY="0" maxY="31" name="america-football-l"/>
+  <symbol minX="939" maxX="970" minY="0" maxY="31" name="atm-l"/>
+  <symbol minX="970" maxX="1001" minY="0" maxY="31" name="alpine_hut-l"/>
   <symbol minX="0" maxX="31" minY="154" maxY="185" name="alcohol-l"/>
   <symbol minX="31" maxX="62" minY="154" maxY="185" name="australian-football-l"/>
   <symbol minX="62" maxX="93" minY="154" maxY="185" name="airport-l"/>

@@ -4,18 +4,18 @@
   <symbol minX="0" maxX="55" minY="0" maxY="79" name="route_to"/>
   <symbol minX="55" maxX="82" minY="0" maxY="67" name="route_from"/>
   <symbol minX="82" maxX="186" minY="0" maxY="52" name="route-arrow"/>
-  <symbol minX="186" maxX="232" minY="0" maxY="46" name="compass-image"/>
-  <symbol minX="232" maxX="265" minY="0" maxY="33" name="cross_geoposition"/>
-  <symbol minX="265" maxX="290" minY="0" maxY="30" name="current-position-obsolete"/>
-  <symbol minX="290" maxX="315" minY="0" maxY="30" name="current-position-compas"/>
-  <symbol minX="315" maxX="343" minY="0" maxY="28" name="search-result-active"/>
-  <symbol minX="343" maxX="367" minY="0" maxY="24" name="search-booking"/>
-  <symbol minX="367" maxX="389" minY="0" maxY="22" name="america-football-l"/>
-  <symbol minX="389" maxX="411" minY="0" maxY="22" name="garden-l"/>
-  <symbol minX="411" maxX="433" minY="0" maxY="22" name="airport-l"/>
-  <symbol minX="433" maxX="455" minY="0" maxY="22" name="archery-l"/>
-  <symbol minX="455" maxX="477" minY="0" maxY="22" name="shinto-l"/>
-  <symbol minX="477" maxX="499" minY="0" maxY="22" name="seafood-shop-l"/>
+  <symbol minX="186" maxX="226" minY="0" maxY="40" name="compass-image"/>
+  <symbol minX="226" maxX="259" minY="0" maxY="33" name="cross_geoposition"/>
+  <symbol minX="259" maxX="284" minY="0" maxY="30" name="current-position-obsolete"/>
+  <symbol minX="284" maxX="309" minY="0" maxY="30" name="current-position-compas"/>
+  <symbol minX="309" maxX="337" minY="0" maxY="28" name="search-result-active"/>
+  <symbol minX="337" maxX="361" minY="0" maxY="24" name="search-booking"/>
+  <symbol minX="361" maxX="383" minY="0" maxY="22" name="america-football-l"/>
+  <symbol minX="383" maxX="405" minY="0" maxY="22" name="garden-l"/>
+  <symbol minX="405" maxX="427" minY="0" maxY="22" name="airport-l"/>
+  <symbol minX="427" maxX="449" minY="0" maxY="22" name="archery-l"/>
+  <symbol minX="449" maxX="471" minY="0" maxY="22" name="shinto-l"/>
+  <symbol minX="471" maxX="493" minY="0" maxY="22" name="seafood-shop-l"/>
   <symbol minX="0" maxX="22" minY="79" maxY="101" name="alcohol-l"/>
   <symbol minX="22" maxX="44" minY="79" maxY="101" name="shoes-l"/>
   <symbol minX="44" maxX="66" minY="79" maxY="101" name="atm-l"/>
