@@ -105,6 +105,8 @@ public:
     else
       return false;
   }
+  
+  bool HasString(int8_t lang) const;
 
   int8_t FindString(string const & utf8s) const;
 

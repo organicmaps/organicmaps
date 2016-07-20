@@ -715,5 +715,9 @@ private:
   editor::UserStatsLoader m_userStatsLoader;
   //@}
 
+public:
+  bool OriginalFeatureHasDefaultName(FeatureID const & fid) const;
+
+private:
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };

@@ -1214,8 +1214,6 @@
 
 "place_name" = "Denumire loc";
 
-"place_name_caption" = "Introduceți denumirea așa cum apare ea pe indicator sau plăcuță";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Alte limbi";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "Nu aveți modificări locale";
 
 "editor_no_local_edits_description" = "Acesta arată numărul de modificări sugerate pe hartă care sunt momentan accesibile doar pe dispozitivul dvs.";
-
-"editor_international_names_subtitle" = "Nume în alte limbi";
 
 "editor_send_to_osm" = "Trimitere la OSM";
 

@@ -60,7 +60,9 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     int namesRow = 0;
     namesGrid->addWidget(defaultName, namesRow++, 0, 1, 0);
 
-    for (osm::LocalizedName const & ln : emo.GetLocalizedNames())
+    auto const namesDataSource = emo.GetNamesDataSource();
+
+    for (auto const & ln : namesDataSource.names)
     {
       if (ln.m_code == StringUtf8Multilang::kDefaultCode)
       {

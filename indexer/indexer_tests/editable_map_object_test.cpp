@@ -6,6 +6,11 @@ namespace
 {
 using osm::EditableMapObject;
 
+int8_t const GetLangCode(char const * ch)
+{
+  return StringUtf8Multilang::GetLangIndex(ch);
+}
+  
 UNIT_TEST(EditableMapObject_SetWebsite)
 {
   EditableMapObject emo;
@@ -124,5 +129,99 @@ UNIT_TEST(EditableMapObject_ValidateEmail)
   TEST(!EditableMapObject::ValidateEmail("emai@_l.ab"), ());
   TEST(!EditableMapObject::ValidateEmail("emai@l_.ab"), ());
   TEST(!EditableMapObject::ValidateEmail("email@e#$%&'*+-/=?^`_{}|~.com"), ());
+}
+
+UNIT_TEST(EditableMapObject_CanUseAsDefaultName)
+{
+  EditableMapObject emo;
+  vector<int8_t> const nativeMwmLanguages {GetLangCode("de"), GetLangCode("fr")};
+
+  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("de"), nativeMwmLanguages),
+       ("Check possibility to use Mwm language code"));
+  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("fr"), nativeMwmLanguages),
+       ("Check possibility to use Mwm language code"));
+  TEST(!EditableMapObject::CanUseAsDefaultName(GetLangCode("int_name"), nativeMwmLanguages),
+       ("Check possibility to use international language code"));
+  TEST(!EditableMapObject::CanUseAsDefaultName(100, nativeMwmLanguages),
+       ("Incorrect language code is not supported"));
+  TEST(!EditableMapObject::CanUseAsDefaultName(GetLangCode("en"), {GetLangCode("abcd")}),
+       ("Incorrect Mwm language name is not supported"));
+  TEST(!EditableMapObject::CanUseAsDefaultName(GetLangCode("en"), nativeMwmLanguages),
+       ("Can not to use language which not Mwm language or international"));
+  TEST(!EditableMapObject::CanUseAsDefaultName(GetLangCode("ru"), nativeMwmLanguages),
+       ("Check possibility to use user`s language code"));
+
+  // Trying to use language codes in reverse priority.
+  StringUtf8Multilang names;
+  names.AddString(GetLangCode("fr"), "second mwm language");
+  emo.SetName(names);
+
+  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("fr"), nativeMwmLanguages),
+       ("It is possible to fix typo"));
+
+  names.AddString(GetLangCode("de"), "first mwm language");
+  emo.SetName(names);
+
+  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("de"), nativeMwmLanguages),
+       ("It is possible to fix typo"));
+  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("fr"), nativeMwmLanguages),
+       ("It is possible to fix typo"));
+}
+
+UNIT_TEST(EditableMapObject_GetNamesDataSource)
+{
+  EditableMapObject emo;
+  StringUtf8Multilang names;
+
+  names.AddString(GetLangCode("default"), "Default name");
+  names.AddString(GetLangCode("en"), "Eng name");
+  names.AddString(GetLangCode("int_name"), "Int name");
+  names.AddString(GetLangCode("de"), "De name");
+  names.AddString(GetLangCode("ru"), "Ru name");
+  names.AddString(GetLangCode("sv"), "Sv name");
+  names.AddString(GetLangCode("be"), "By name");
+  names.AddString(GetLangCode("ko"), "Ko name");
+  names.AddString(GetLangCode("it"), "It name");
+  emo.SetName(names);
+
+  vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
+
+  auto const namesDataSource =
+      EditableMapObject::GetNamesDataSource(emo.GetName(), nativeMwmLanguages, GetLangCode("ko"));
+
+  TEST_EQUAL(namesDataSource.names.size(), 9, ("All names except the default should be pushed into "
+                                           "data source plus empty mandatory names"));
+  TEST_EQUAL(namesDataSource.mandatoryNamesCount, 3,
+             ("Mandatory names count should be equal == Mwm languages + user`s language"));
+  TEST_EQUAL(namesDataSource.names[0].m_code, GetLangCode("de"),
+             ("Deutsch name should be first as first language in Mwm"));
+  TEST_EQUAL(namesDataSource.names[1].m_code, GetLangCode("fr"),
+             ("French name should be second as second language in Mwm"));
+  TEST_EQUAL(namesDataSource.names[2].m_code, GetLangCode("ko"),
+             ("Korean name should be third because user`s language should be followed by Mwm languages"));
+
+  {
+    vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
+
+    auto const namesDataSource =
+        EditableMapObject::GetNamesDataSource(emo.GetName(), nativeMwmLanguages, GetLangCode("fr"));
+    TEST_EQUAL(namesDataSource.names.size(), 9,
+               ("All names except the default should be pushed into data source"));
+    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 2,
+               ("Mandatory names count should be equal == Mwm languages + user`s language. "
+                "Excluding repetiton"));
+  }
+  {
+    vector<int8_t> nativeMwmLanguages = {GetLangCode("fr"), GetLangCode("fr")};
+
+    auto const namesDataSource =
+        EditableMapObject::GetNamesDataSource(emo.GetName(), nativeMwmLanguages, GetLangCode("fr"));
+    TEST_EQUAL(namesDataSource.names.size(), 9,
+               ("All names except the default should be pushed into "
+                                             "data source plus empty mandatory names"));
+    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,
+               ("Mandatory names count should be equal == Mwm languages + user`s language. "
+                "Excluding repetiton"));
+  }
 }
 }  // namespace

@@ -713,7 +713,6 @@
 	<string name="login_with_openstreetmap">Entrar com www.openstreetmap.org</string>
 	<string name="edit_place">Editar o local</string>
 	<string name="place_name">Nome do local</string>
-	<string name="place_name_caption">Informe o nome como está indicado na sinalização ou na placa</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Outros idiomas</string>
 	<string name="add_language">Adicionar um idioma</string>
@@ -809,7 +808,6 @@
 	<string name="editor_tag_description">Introduza a empresa, organização ou indivíduo responsável pelas instalações.</string>
 	<string name="editor_no_local_edits_title">Não tem edições locais</string>
 	<string name="editor_no_local_edits_description">Isto demonstra o número das suas alterações sugeridas no mapa que atualmente só são acessíveis no seu dispositivo.</string>
-	<string name="editor_international_names_subtitle">Nome noutras línguas</string>
 	<string name="editor_send_to_osm">Enviar para OSM</string>
 	<string name="editor_remove">Remover</string>
 	<string name="downloader_my_maps_title">Os meus mapas</string>

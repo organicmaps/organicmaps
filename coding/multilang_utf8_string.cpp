@@ -28,6 +28,11 @@ StringUtf8Multilang::Languages const g_languages = {{ {"default", "Native for ea
 }};
 }  // namespace
 
+int8_t constexpr StringUtf8Multilang::kUnsupportedLanguageCode;
+int8_t constexpr StringUtf8Multilang::kDefaultCode;
+int8_t constexpr StringUtf8Multilang::kEnglishCode;
+int8_t constexpr StringUtf8Multilang::kInternationalCode;
+
 // static
 StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguages()
 {
@@ -131,6 +136,17 @@ bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
     i = next;
   }
 
+  return false;
+}
+
+bool StringUtf8Multilang::HasString(int8_t lang) const
+{
+  for(size_t i = 0; i < m_s.size(); i = GetNextIndex(i))
+  {
+    if ((m_s[i] & 0x3F) == lang)
+      return true;
+  }
+  
   return false;
 }
 

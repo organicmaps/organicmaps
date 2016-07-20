@@ -426,6 +426,24 @@ bool Editor::IsCreatedFeature(FeatureID const & fid)
   return fid.m_index >= kStartIndexForCreatedFeatures;
 }
 
+bool Editor::OriginalFeatureHasDefaultName(FeatureID const & fid) const
+{
+  if (IsCreatedFeature(fid))
+    return false;
+
+  auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
+  if (!originalFeaturePtr)
+  {
+    LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
+    alohalytics::LogEvent("Editor_MissingFeature_Error");
+    return false;
+  }
+
+  auto const & names = originalFeaturePtr->GetNames();
+  
+  return names.HasString(StringUtf8Multilang::kDefaultCode);
+}
+
 /// Several cases should be handled while saving changes:
 /// 1) a feature is not in editor's cache
 ///   I. a feature was created

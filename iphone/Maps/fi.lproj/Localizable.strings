@@ -1214,8 +1214,6 @@
 
 "place_name" = "Paikan nimi";
 
-"place_name_caption" = "Syötä nimi kuten nimikyltissä kirjoitettu";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Muut Kielet";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "Sinulla ei ole paikallisia muokkauksia";
 
 "editor_no_local_edits_description" = "Tämä näyttää ehdottamiesi muutosten lukumäärän tällä hetkellä vain sinun laitteessasi saatavissa olevassa kartassa.";
-
-"editor_international_names_subtitle" = "Nimi toisella kielellä";
 
 "editor_send_to_osm" = "Lähetä OSM:ään";
 

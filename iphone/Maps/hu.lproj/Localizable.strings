@@ -1214,8 +1214,6 @@
 
 "place_name" = "Hely neve";
 
-"place_name_caption" = "Adja meg a táblán vagy az utcatáblán megjelenő nevet";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Más nyelv";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "Nincsenek helyi módosításai";
 
 "editor_no_local_edits_description" = "Itt a pillanatnyilag csak az Ön készülékén elérhető térképek javasolt módosításainak száma látható.";
-
-"editor_international_names_subtitle" = "Név más nyelveken";
 
 "editor_send_to_osm" = "Küldés az OSM-nek";
 

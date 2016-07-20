@@ -1214,8 +1214,6 @@
 
 "place_name" = "場所の名前";
 
-"place_name_caption" = "標識や表札の地名を入力";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "その他の言語";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "ローカル編集はできません";
 
 "editor_no_local_edits_description" = "これは、現在お使いのデバイスでのみアクセス可能な、マップ上に提案された変更の数を示しています。";
-
-"editor_international_names_subtitle" = "他の言語での名前";
 
 "editor_send_to_osm" = "OSMに送信";
 

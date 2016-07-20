@@ -1214,8 +1214,6 @@
 
 "place_name" = "Název místa";
 
-"place_name_caption" = "Zadejte název tak, jak je uveden na ceduli nebo vývěsním štítu";
-
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Další jazyky";
 
@@ -1404,8 +1402,6 @@
 "editor_no_local_edits_title" = "Neprovedli jste žádné místní úpravy";
 
 "editor_no_local_edits_description" = "Zde vidíte počet navržených změn, které jsou v tuto chvíli dostupné pouze na Vašem zařízení.";
-
-"editor_international_names_subtitle" = "Název v jiných jazycích";
 
 "editor_send_to_osm" = "Odeslat do OSM";
 

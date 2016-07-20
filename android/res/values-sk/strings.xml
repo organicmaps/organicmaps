@@ -717,7 +717,6 @@
 	<string name="login_with_openstreetmap">Prihlásiť sa cez www.openstreetmap.org</string>
 	<string name="edit_place">Upraviť miesto</string>
 	<string name="place_name">Názov miesta</string>
-	<string name="place_name_caption">Zadajte názov ako na značke alebo menovke</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Iné jazyky</string>
 	<string name="add_language">Pridať jazyk</string>
@@ -813,7 +812,6 @@
 	<string name="editor_tag_description">Zadajte spoločnosť, organizáciu alebo osobu zodpovednú za prevádzku.</string>
 	<string name="editor_no_local_edits_title">Nemáte miestne poznámky</string>
 	<string name="editor_no_local_edits_description">Tu sa zobrazuje počet navrhovaných zmien na mape momentálne dostupných len vo vašom zariadení.</string>
-	<string name="editor_international_names_subtitle">Názov v iných jazykoch</string>
 	<string name="editor_send_to_osm">Odoslať do OSM</string>
 	<string name="editor_remove">Odstrániť</string>
 	<string name="downloader_my_maps_title">Moje mapy</string>
