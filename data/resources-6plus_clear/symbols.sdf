@@ -4,32 +4,32 @@
   <symbol minX="0" maxX="167" minY="0" maxY="244" name="route_to"/>
   <symbol minX="167" maxX="243" minY="0" maxY="206" name="route_from"/>
   <symbol minX="243" maxX="566" minY="0" maxY="158" name="route-arrow"/>
-  <symbol minX="566" maxX="704" minY="0" maxY="138" name="compass-image"/>
-  <symbol minX="704" maxX="799" minY="0" maxY="95" name="cross_geoposition"/>
-  <symbol minX="799" maxX="880" minY="0" maxY="81" name="search-result-active"/>
-  <symbol minX="880" maxX="920" minY="0" maxY="71" name="placemark-hotel"/>
-  <symbol minX="920" maxX="989" minY="0" maxY="69" name="search-booking"/>
-  <symbol minX="989" maxX="1024" minY="0" maxY="69" name="placemark-blue"/>
-  <symbol minX="1024" maxX="1059" minY="0" maxY="69" name="placemark-brown"/>
-  <symbol minX="1059" maxX="1094" minY="0" maxY="69" name="placemark-red"/>
-  <symbol minX="1094" maxX="1129" minY="0" maxY="69" name="placemark-purple"/>
-  <symbol minX="1129" maxX="1164" minY="0" maxY="69" name="placemark-green"/>
-  <symbol minX="1164" maxX="1199" minY="0" maxY="69" name="placemark-pink"/>
-  <symbol minX="1199" maxX="1234" minY="0" maxY="69" name="placemark-orange"/>
-  <symbol minX="1234" maxX="1269" minY="0" maxY="69" name="placemark-yellow"/>
-  <symbol minX="1269" maxX="1327" minY="0" maxY="58" name="archery-l"/>
-  <symbol minX="1327" maxX="1385" minY="0" maxY="58" name="apartment-l"/>
-  <symbol minX="1385" maxX="1443" minY="0" maxY="58" name="america-football-l"/>
-  <symbol minX="1443" maxX="1501" minY="0" maxY="58" name="alpine_hut-l"/>
-  <symbol minX="1501" maxX="1559" minY="0" maxY="58" name="atm-l"/>
-  <symbol minX="1559" maxX="1617" minY="0" maxY="58" name="alcohol-l"/>
-  <symbol minX="1617" maxX="1675" minY="0" maxY="58" name="airport-l"/>
-  <symbol minX="1675" maxX="1733" minY="0" maxY="58" name="australian-football-l"/>
-  <symbol minX="1733" maxX="1791" minY="0" maxY="58" name="zoo-l"/>
-  <symbol minX="1791" maxX="1849" minY="0" maxY="58" name="windmill-l"/>
-  <symbol minX="1849" maxX="1907" minY="0" maxY="58" name="bakery-l"/>
-  <symbol minX="1907" maxX="1965" minY="0" maxY="58" name="wayside_shrine-l"/>
-  <symbol minX="1965" maxX="2023" minY="0" maxY="58" name="waterfall-l"/>
+  <symbol minX="566" maxX="685" minY="0" maxY="119" name="compass-image"/>
+  <symbol minX="685" maxX="780" minY="0" maxY="95" name="cross_geoposition"/>
+  <symbol minX="780" maxX="861" minY="0" maxY="81" name="search-result-active"/>
+  <symbol minX="861" maxX="901" minY="0" maxY="71" name="placemark-hotel"/>
+  <symbol minX="901" maxX="970" minY="0" maxY="69" name="search-booking"/>
+  <symbol minX="970" maxX="1005" minY="0" maxY="69" name="placemark-blue"/>
+  <symbol minX="1005" maxX="1040" minY="0" maxY="69" name="placemark-brown"/>
+  <symbol minX="1040" maxX="1075" minY="0" maxY="69" name="placemark-red"/>
+  <symbol minX="1075" maxX="1110" minY="0" maxY="69" name="placemark-purple"/>
+  <symbol minX="1110" maxX="1145" minY="0" maxY="69" name="placemark-green"/>
+  <symbol minX="1145" maxX="1180" minY="0" maxY="69" name="placemark-pink"/>
+  <symbol minX="1180" maxX="1215" minY="0" maxY="69" name="placemark-orange"/>
+  <symbol minX="1215" maxX="1250" minY="0" maxY="69" name="placemark-yellow"/>
+  <symbol minX="1250" maxX="1308" minY="0" maxY="58" name="archery-l"/>
+  <symbol minX="1308" maxX="1366" minY="0" maxY="58" name="apartment-l"/>
+  <symbol minX="1366" maxX="1424" minY="0" maxY="58" name="america-football-l"/>
+  <symbol minX="1424" maxX="1482" minY="0" maxY="58" name="alpine_hut-l"/>
+  <symbol minX="1482" maxX="1540" minY="0" maxY="58" name="atm-l"/>
+  <symbol minX="1540" maxX="1598" minY="0" maxY="58" name="alcohol-l"/>
+  <symbol minX="1598" maxX="1656" minY="0" maxY="58" name="airport-l"/>
+  <symbol minX="1656" maxX="1714" minY="0" maxY="58" name="australian-football-l"/>
+  <symbol minX="1714" maxX="1772" minY="0" maxY="58" name="zoo-l"/>
+  <symbol minX="1772" maxX="1830" minY="0" maxY="58" name="windmill-l"/>
+  <symbol minX="1830" maxX="1888" minY="0" maxY="58" name="bakery-l"/>
+  <symbol minX="1888" maxX="1946" minY="0" maxY="58" name="wayside_shrine-l"/>
+  <symbol minX="1946" maxX="2004" minY="0" maxY="58" name="waterfall-l"/>
   <symbol minX="0" maxX="58" minY="244" maxY="302" name="bank-l"/>
   <symbol minX="58" maxX="116" minY="244" maxY="302" name="waste-basket-l"/>
   <symbol minX="116" maxX="174" minY="244" maxY="302" name="banknote-l"/>

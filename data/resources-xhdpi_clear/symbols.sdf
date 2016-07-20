@@ -1,18 +1,18 @@
 <!DOCTYPE skin>
 <root>
- <file width="1024" height="1024">
+ <file height="1024" width="1024">
   <symbol minX="0" maxX="140" minY="0" maxY="204" name="route_to"/>
   <symbol minX="140" maxX="204" minY="0" maxY="172" name="route_from"/>
   <symbol minX="204" maxX="474" minY="0" maxY="132" name="route-arrow"/>
-  <symbol minX="474" maxX="590" minY="0" maxY="116" name="compass-image"/>
-  <symbol minX="590" maxX="670" minY="0" maxY="80" name="cross_geoposition"/>
-  <symbol minX="670" maxX="728" minY="0" maxY="79" name="watch-search-result"/>
-  <symbol minX="728" maxX="792" minY="0" maxY="70" name="watch-my-direction"/>
-  <symbol minX="792" maxX="860" minY="0" maxY="68" name="search-result-active"/>
-  <symbol minX="860" maxX="894" minY="0" maxY="60" name="placemark-hotel"/>
-  <symbol minX="894" maxX="924" minY="0" maxY="58" name="placemark-red"/>
-  <symbol minX="924" maxX="982" minY="0" maxY="58" name="search-booking"/>
-  <symbol minX="982" maxX="1012" minY="0" maxY="58" name="placemark-pink"/>
+  <symbol minX="474" maxX="574" minY="0" maxY="100" name="compass-image"/>
+  <symbol minX="574" maxX="654" minY="0" maxY="80" name="cross_geoposition"/>
+  <symbol minX="654" maxX="712" minY="0" maxY="79" name="watch-search-result"/>
+  <symbol minX="712" maxX="776" minY="0" maxY="70" name="watch-my-direction"/>
+  <symbol minX="776" maxX="844" minY="0" maxY="68" name="search-result-active"/>
+  <symbol minX="844" maxX="878" minY="0" maxY="60" name="placemark-hotel"/>
+  <symbol minX="878" maxX="908" minY="0" maxY="58" name="placemark-red"/>
+  <symbol minX="908" maxX="966" minY="0" maxY="58" name="search-booking"/>
+  <symbol minX="966" maxX="996" minY="0" maxY="58" name="placemark-pink"/>
   <symbol minX="0" maxX="30" minY="204" maxY="262" name="placemark-orange"/>
   <symbol minX="30" maxX="60" minY="204" maxY="262" name="placemark-yellow"/>
   <symbol minX="60" maxX="90" minY="204" maxY="262" name="placemark-green"/>
