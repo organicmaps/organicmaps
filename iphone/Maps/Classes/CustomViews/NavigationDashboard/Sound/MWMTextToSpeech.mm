@@ -148,9 +148,9 @@ vector<pair<string, string>> availableLanguages()
   GetFramework().EnableTurnNotifications(active ? true : false);
   runAsyncOnMainQueue(^{
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:[MWMTextToSpeech ttsStatusNotificationKey]
-     object:nil
-     userInfo:nil];
+        postNotificationName:[MWMTextToSpeech ttsStatusNotificationKey]
+                      object:nil
+                    userInfo:nil];
   });
 }
 
