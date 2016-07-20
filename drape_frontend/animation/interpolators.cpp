@@ -93,7 +93,7 @@ PositionInterpolator::PositionInterpolator(double duration, double delay,
   , m_endPosition(endPosition)
   , m_position(startPosition)
 {
-  SetActive(m_startPosition != m_endPosition);
+  SetActive((GetDuration() > 0.0) && (m_startPosition != m_endPosition));
 }
 
 PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition,
@@ -109,7 +109,7 @@ PositionInterpolator::PositionInterpolator(double delay,
   , m_endPosition(endPosition)
   , m_position(startPosition)
 {
-  SetActive(m_startPosition != m_endPosition);
+  SetActive((GetDuration() > 0.0) && (m_startPosition != m_endPosition));
 }
 
 PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition,
@@ -125,7 +125,7 @@ PositionInterpolator::PositionInterpolator(double delay,
   , m_endPosition(endPosition)
   , m_position(startPosition)
 {
-  SetActive(m_startPosition != m_endPosition);
+  SetActive((GetDuration() > 0.0) && (m_startPosition != m_endPosition));
 }
 
 //static
@@ -190,7 +190,7 @@ ScaleInterpolator::ScaleInterpolator(double delay, double startScale, double end
   , m_endScale(endScale)
   , m_scale(startScale)
 {
-  SetActive(m_startScale != m_endScale);
+  SetActive((GetDuration() > 0.0) && (m_startScale != m_endScale));
 }
 
 // static
@@ -231,7 +231,7 @@ AngleInterpolator::AngleInterpolator(double delay, double startAngle, double end
   , m_endAngle(ang::AngleIn2PI(endAngle))
   , m_angle(m_startAngle)
 {
-  SetActive(m_startAngle != m_endAngle);
+  SetActive((GetDuration() > 0.0) && (m_startAngle != m_endAngle));
 }
 
 AngleInterpolator::AngleInterpolator(double delay, double duration, double startAngle, double endAngle)
@@ -240,7 +240,7 @@ AngleInterpolator::AngleInterpolator(double delay, double duration, double start
   , m_endAngle(ang::AngleIn2PI(endAngle))
   , m_angle(m_startAngle)
 {
-  SetActive(m_startAngle != m_endAngle);
+  SetActive((GetDuration() > 0.0) && (m_startAngle != m_endAngle));
 }
 
 // static
