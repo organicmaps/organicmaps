@@ -93,6 +93,8 @@ extern NSString * const kAlohalyticsTapEventKey;
                                 duration:(NSTimeInterval)duration
 {
   [self.menuController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+  // Workaround needs for setting correct left bound while landscape place page is open.
+  self.navigationManager.leftBound = 0;
   [self.placePageManager willRotateToInterfaceOrientation:toInterfaceOrientation];
   [self.searchManager willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
@@ -101,6 +103,8 @@ extern NSString * const kAlohalyticsTapEventKey;
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
   [self.menuController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  // Workaround needs for setting correct left bound while landscape place page is open.
+  self.navigationManager.leftBound = 0;
   [self.placePageManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
