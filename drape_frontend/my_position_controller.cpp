@@ -73,9 +73,9 @@ double CalculateZoomBySpeed(double speed)
     make_pair(20.0,  0.25),
     make_pair(40.0,  0.5),
     make_pair(60.0,  1.0),
-    make_pair(80.0,  1.75),
-    make_pair(100.0, 3.5),
-    make_pair(120.0, 7.0),
+    make_pair(75.0,  1.75),
+    make_pair(85.0, 3.5),
+    make_pair(90.0, 7.0),
   };
 
   double const kDefaultSpeed = 80.0;

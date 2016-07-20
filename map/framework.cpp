@@ -2272,11 +2272,13 @@ void Framework::FollowRoute()
     return;
 
   bool const isPedestrianRoute = m_currentRouterType == RouterType::Pedestrian;
+  bool const enableAutoZoom = isPedestrianRoute ? false : LoadAutoZoom();
   int const scale = isPedestrianRoute ? scales::GetPedestrianNavigationScale()
                                       : scales::GetNavigationScale();
-  int const scale3d = isPedestrianRoute ? scales::GetPedestrianNavigation3dScale()
-                                        : scales::GetNavigation3dScale();
-  bool const enableAutoZoom = isPedestrianRoute ? false : LoadAutoZoom();
+  int scale3d = isPedestrianRoute ? scales::GetPedestrianNavigation3dScale()
+                                  : scales::GetNavigation3dScale();
+  if (enableAutoZoom)
+    ++scale3d;
 
   m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom);
   m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
@@ -2541,7 +2543,7 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 
 bool Framework::LoadAutoZoom()
 {
-  bool allowAutoZoom = false;
+  bool allowAutoZoom = true;
   settings::Get(kAllowAutoZoom, allowAutoZoom);
   return allowAutoZoom;
 }
