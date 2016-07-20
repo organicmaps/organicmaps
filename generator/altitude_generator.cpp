@@ -1,3 +1,4 @@
+#include "generator/altitude_generator.hpp"
 #include "generator/routing_generator.hpp"
 #include "generator/srtm_parser.hpp"
 
@@ -5,7 +6,6 @@
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
 
@@ -37,7 +37,23 @@ using namespace feature;
 
 namespace
 {
+using namespace routing;
+
 TAltitudeSectionVersion constexpr kAltitudeSectionVersion = 1;
+
+class SrtmGetter : public IAltitudeGetter
+{
+public:
+  SrtmGetter(string const & srtmPath) : m_srtmManager(srtmPath) {}
+
+  feature::TAltitude GetAltitude(ms::LatLon const & coord) override
+  {
+    return m_srtmManager.GetHeight(coord);
+  }
+
+private:
+  generator::SrtmTileManager m_srtmManager;
+};
 
 class Processor
 {
@@ -45,7 +61,10 @@ public:
   using TFeatureAltitude = pair<uint32_t, Altitude>;
   using TFeatureAltitudes = vector<TFeatureAltitude>;
 
-  Processor(string const & srtmPath) : m_srtmManager(srtmPath), m_minAltitude(kInvalidAltitude) {}
+  Processor(IAltitudeGetter & altitudeGetter)
+    : m_altitudeGetter(altitudeGetter), m_minAltitude(kInvalidAltitude)
+  {
+  }
 
   TFeatureAltitudes const & GetFeatureAltitudes() const { return m_featureAltitudes; }
 
@@ -77,7 +96,7 @@ public:
       TAltitude minFeatureAltitude = kInvalidAltitude;
       for (size_t i = 0; i < pointsCount; ++i)
       {
-        TAltitude const a = m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i)));
+        TAltitude const a = m_altitudeGetter.GetAltitude(MercatorBounds::ToLatLon(f.GetPoint(i)));
         if (a == kInvalidAltitude)
         {
           valid = false;
@@ -118,7 +137,7 @@ public:
   }
 
 private:
-  generator::SrtmTileManager m_srtmManager;
+  IAltitudeGetter & m_altitudeGetter;
   TFeatureAltitudes m_featureAltitudes;
   vector<bool> m_altitudeAvailability;
   TAltitude m_minAltitude;
@@ -163,15 +182,15 @@ void SerializeHeader(TAltitudeSectionVersion version, TAltitude minAltitude,
 
 namespace routing
 {
-void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string const & countryName)
+void BuildRoadAltitudes(IAltitudeGetter & altitudeGetter, string const & baseDir,
+                        string const & countryName)
 {
   try
   {
     // Preparing altitude information.
-    LOG(LINFO, ("srtmPath =", srtmPath, "baseDir =", baseDir, "countryName =", countryName));
     string const mwmPath = my::JoinFoldersToPath(baseDir, countryName + DATA_FILE_EXTENSION);
 
-    Processor processor(srtmPath);
+    Processor processor(altitudeGetter);
     feature::ForEachFromDat(mwmPath, processor);
     processor.SortFeatureAltitudes();
     Processor::TFeatureAltitudes const & featureAltitudes = processor.GetFeatureAltitudes();
@@ -243,5 +262,12 @@ void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string 
   {
     LOG(LERROR, ("An exception happend while creating", ALTITUDES_FILE_TAG, "section. ", e.what()));
   }
+}
+
+void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string const & countryName)
+{
+  LOG(LINFO, ("srtmPath =", srtmPath, "baseDir =", baseDir, "countryName =", countryName));
+  SrtmGetter srtmGetter(srtmPath);
+  BuildRoadAltitudes(srtmGetter, baseDir, countryName);
 }
 }  // namespace routing
