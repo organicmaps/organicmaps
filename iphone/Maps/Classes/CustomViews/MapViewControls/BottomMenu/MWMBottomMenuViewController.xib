@@ -392,7 +392,7 @@
                                     <integer key="value" value="4"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="current_location_unknown_stop_button"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whitePrimaryText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="buttonRed"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="buttonRedHighlighted"/>
                             </userDefinedRuntimeAttributes>
