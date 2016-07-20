@@ -192,6 +192,8 @@
 		349A357A1B53D4C9009677EE /* MWMCircularProgress.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35761B53D4C9009677EE /* MWMCircularProgress.mm */; };
 		349A357B1B53D4C9009677EE /* MWMCircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A35771B53D4C9009677EE /* MWMCircularProgress.xib */; };
 		349A357C1B53D4C9009677EE /* MWMCircularProgressView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35791B53D4C9009677EE /* MWMCircularProgressView.mm */; };
+		349B49BE1D3F58C3005A3C4E /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349B49BD1D3F58C3005A3C4E /* MyTrackerSDK.framework */; };
+		349B49BF1D3F58C3005A3C4E /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349B49BD1D3F58C3005A3C4E /* MyTrackerSDK.framework */; };
 		349C26B51BB02C6F0005DF2F /* MWMBottomMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B31BB02C6F0005DF2F /* MWMBottomMenuViewController.mm */; };
 		349C26B61BB02C6F0005DF2F /* MWMBottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */; };
 		349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */; };
@@ -262,7 +264,6 @@
 		34C9BD051C6DB693000DC38D /* MWMViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BD011C6DB693000DC38D /* MWMViewController.mm */; };
 		34C9BD091C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BD081C6DBCDA000DC38D /* MWMNavigationController.mm */; };
 		34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BD081C6DBCDA000DC38D /* MWMNavigationController.mm */; };
-		34CA57181C292F17004D9C89 /* MyTrackerSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */; };
 		34CA57191C292F50004D9C89 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */; };
 		34CC4C091B81F3B500E44C1F /* MWMSearchTabbedViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CC4C071B81F3B500E44C1F /* MWMSearchTabbedViewController.mm */; };
 		34CC4C0A1B81F3B500E44C1F /* MWMSearchTabbedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CC4C081B81F3B500E44C1F /* MWMSearchTabbedViewController.xib */; };
@@ -748,7 +749,6 @@
 		F66A8FB21B0A0954001B9C97 /* PlacePageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66A8FB11B0A0954001B9C97 /* PlacePageView.xib */; };
 		F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
-		F696CCBB1C2816FB00150DFD /* MyTrackerSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */; };
 		F6A218491CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */; };
 		F6A2184A1CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */; };
 		F6A750B91BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A750B81BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm */; };
@@ -1079,6 +1079,7 @@
 		349A35771B53D4C9009677EE /* MWMCircularProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMCircularProgress.xib; sourceTree = "<group>"; };
 		349A35781B53D4C9009677EE /* MWMCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCircularProgressView.h; sourceTree = "<group>"; };
 		349A35791B53D4C9009677EE /* MWMCircularProgressView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCircularProgressView.mm; sourceTree = "<group>"; };
+		349B49BD1D3F58C3005A3C4E /* MyTrackerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTrackerSDK.framework; sourceTree = "<group>"; };
 		349C26B21BB02C6F0005DF2F /* MWMBottomMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuViewController.h; sourceTree = "<group>"; };
 		349C26B31BB02C6F0005DF2F /* MWMBottomMenuViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuViewController.mm; sourceTree = "<group>"; };
 		349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBottomMenuViewController.xib; sourceTree = "<group>"; };
@@ -1465,7 +1466,6 @@
 		F66A8FB11B0A0954001B9C97 /* PlacePageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlacePageView.xib; sourceTree = "<group>"; };
 		F6791B111C43DEA7007A8A6E /* MWMStartButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStartButton.h; sourceTree = "<group>"; };
 		F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStartButton.mm; sourceTree = "<group>"; };
-		F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTrackerSDKCorp.framework; sourceTree = "<group>"; };
 		F6A218471CA3F26800BE2CC6 /* MWMEditorViralActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralActivityItem.h; sourceTree = "<group>"; };
 		F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorViralActivityItem.mm; sourceTree = "<group>"; };
 		F6A750B71BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchHistoryMyPositionCell.h; sourceTree = "<group>"; };
@@ -1616,7 +1616,6 @@
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				845C89311C89837900940D7F /* AssetsLibrary.framework in Frameworks */,
-				F696CCBB1C2816FB00150DFD /* MyTrackerSDKCorp.framework in Frameworks */,
 				341876B41C28026D005A0C9A /* CoreVideo.framework in Frameworks */,
 				34751E9E1BFB8E73005299B7 /* MediaPlayer.framework in Frameworks */,
 				34570A411B13229300E6D4FD /* FBSDKLoginKit.framework in Frameworks */,
@@ -1636,6 +1635,7 @@
 				B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */,
 				B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */,
 				B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */,
+				349B49BE1D3F58C3005A3C4E /* MyTrackerSDK.framework in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
 				34A62D501C903533007FDCB7 /* Crashlytics.framework in Frameworks */,
 				97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */,
@@ -1668,7 +1668,6 @@
 				6741AAC61BF356BA002C974C /* libgeometry.a in Frameworks */,
 				34CA57191C292F50004D9C89 /* MediaPlayer.framework in Frameworks */,
 				674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */,
-				34CA57181C292F17004D9C89 /* MyTrackerSDKCorp.framework in Frameworks */,
 				6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */,
 				341876B51C280272005A0C9A /* CoreVideo.framework in Frameworks */,
 				6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */,
@@ -1685,6 +1684,7 @@
 				6741AAD31BF356BA002C974C /* librouting.a in Frameworks */,
 				674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */,
 				6741AAD41BF356BA002C974C /* libsearch.a in Frameworks */,
+				349B49BF1D3F58C3005A3C4E /* MyTrackerSDK.framework in Frameworks */,
 				6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */,
 				6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */,
 				6741AAD71BF356BA002C974C /* libtomcrypt.a in Frameworks */,
@@ -1840,7 +1840,6 @@
 				845C89301C89837900940D7F /* AssetsLibrary.framework */,
 				845C89281C8981CE00940D7F /* HockeySDK.embeddedframework */,
 				340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */,
-				F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */,
 				341F09831C20138100F18AC5 /* libpugixml.a */,
 				3411387C1C15AE73002E3B3E /* libeditor.a */,
 				674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */,
@@ -1848,6 +1847,7 @@
 				674A7E221C0DA55E003D48E1 /* libsdf_image.a */,
 				674A7E231C0DA55E003D48E1 /* libstb_image.a */,
 				34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */,
+				349B49BD1D3F58C3005A3C4E /* MyTrackerSDK.framework */,
 				6741AAA21BF356B9002C974C /* libagg.a */,
 				6741AAA31BF356B9002C974C /* libalohalitics.a */,
 				6741AAA51BF356B9002C974C /* libapi.a */,
