@@ -1,7 +1,7 @@
+#import "MWMSearchTabbedViewController.h"
 #import "MWMSearchCategoriesManager.h"
 #import "MWMSearchHistoryManager.h"
 #import "MWMSearchTabbedCollectionViewCell.h"
-#import "MWMSearchTabbedViewController.h"
 #import "MWMSearchTabbedViewLayout.h"
 #import "MWMSearchTabbedViewProtocol.h"
 #import "Statistics.h"
@@ -14,8 +14,7 @@ NSString * const kCollectionCell = @"MWMSearchTabbedCollectionViewCell";
 NSString * const kSelectedButtonTagKey = @"MWMSearchTabbedCollectionViewSelectedButtonTag";
 }  // namespace
 
-typedef NS_ENUM(NSInteger, MWMSearchTabbedViewCell)
-{
+typedef NS_ENUM(NSInteger, MWMSearchTabbedViewCell) {
   MWMSearchTabbedViewCellHistory,
   MWMSearchTabbedViewCellCategories,
   MWMSearchTabbedViewCellCount
@@ -29,17 +28,17 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
   return left <= offset && offset <= right;
 }
 
-@interface MWMSearchTabbedViewController () <UICollectionViewDataSource, UIScrollViewDelegate>
+@interface MWMSearchTabbedViewController ()<UICollectionViewDataSource, UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UICollectionView * tablesCollectionView;
+@property(weak, nonatomic) IBOutlet UICollectionView * tablesCollectionView;
 
-@property (weak, nonatomic) MWMSearchTabButtonsView * selectedButton;
+@property(weak, nonatomic) MWMSearchTabButtonsView * selectedButton;
 
-@property (nonatomic) MWMSearchHistoryManager * historyManager;
-@property (nonatomic) MWMSearchCategoriesManager * categoriesManager;
+@property(nonatomic) MWMSearchHistoryManager * historyManager;
+@property(nonatomic) MWMSearchCategoriesManager * categoriesManager;
 
-@property (nonatomic) BOOL isRotating;
-@property (nonatomic) NSInteger selectedButtonTag;
+@property(nonatomic) BOOL isRotating;
+@property(nonatomic) NSInteger selectedButtonTag;
 
 @end
 
@@ -60,17 +59,14 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
   [self resetSelectedTab];
 }
 
-- (void)mwm_refreshUI
-{
-  [self.view mwm_refreshUI];
-}
-
+- (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
 - (void)resetSelectedTab
 {
   if (GetFramework().GetLastSearchQueries().empty() && !self.historyManager.isRouteSearchMode)
     self.selectedButtonTag = 1;
   else
-    self.selectedButtonTag = [[NSUserDefaults standardUserDefaults] integerForKey:kSelectedButtonTagKey];
+    self.selectedButtonTag =
+        [[NSUserDefaults standardUserDefaults] integerForKey:kSelectedButtonTagKey];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -87,29 +83,27 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
                                 duration:(NSTimeInterval)duration
 {
   self.isRotating = YES;
-  [UIView animateWithDuration:duration animations:^
-  {
-    [self refreshScrollPosition];
-  }
-  completion:^(BOOL finished)
-  {
-    [self refreshScrollPosition];
-    self.isRotating = NO;
-  }];
+  [UIView animateWithDuration:duration
+      animations:^{
+        [self refreshScrollPosition];
+      }
+      completion:^(BOOL finished) {
+        [self refreshScrollPosition];
+        self.isRotating = NO;
+      }];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
   self.isRotating = YES;
-  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
-  {
-    [self refreshScrollPosition];
-  }
-  completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
-  {
-    self.isRotating = NO;
-  }];
+  [coordinator
+      animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self refreshScrollPosition];
+      }
+      completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        self.isRotating = NO;
+      }];
 }
 
 #pragma mark - Setup
@@ -130,8 +124,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)tabButtonPressed:(MWMSearchTabButtonsView *)sender
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
+  dispatch_async(dispatch_get_main_queue(), ^{
     [self.tablesCollectionView
         scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:sender.tag inSection:0]
                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
@@ -145,27 +138,26 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
   CGFloat const btnMid = position + 0.5 * self.scrollIndicator.width;
   if (self.selectedButton && isOffsetInButton(btnMid, self.selectedButton))
     return;
-  [self.tabButtons enumerateObjectsUsingBlock:^(MWMSearchTabButtonsView * btn, NSUInteger idx, BOOL *stop)
-  {
-    if (isOffsetInButton(btnMid, btn))
-    {
-      switch (btn.tag)
-      {
-      case MWMSearchTabbedViewCellHistory:
-        [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectTab)
-                         withParameters:@{kStatValue : kStatHistory}];
-        break;
-      case MWMSearchTabbedViewCellCategories:
-        [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectTab)
-                         withParameters:@{kStatValue : kStatCategories}];
-        break;
-      default:
-        break;
-      }
-      self.selectedButton = btn;
-      *stop = YES;
-    }
-  }];
+  [self.tabButtons
+      enumerateObjectsUsingBlock:^(MWMSearchTabButtonsView * btn, NSUInteger idx, BOOL * stop) {
+        if (isOffsetInButton(btnMid, btn))
+        {
+          switch (btn.tag)
+          {
+          case MWMSearchTabbedViewCellHistory:
+            [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectTab)
+                  withParameters:@{kStatValue : kStatHistory}];
+            break;
+          case MWMSearchTabbedViewCellCategories:
+            [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectTab)
+                  withParameters:@{kStatValue : kStatCategories}];
+            break;
+          default: break;
+          }
+          self.selectedButton = btn;
+          *stop = YES;
+        }
+      }];
 }
 
 - (void)refreshScrollPosition
@@ -191,14 +183,9 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
   MWMSearchTabbedViewCell cellType = static_cast<MWMSearchTabbedViewCell>(indexPath.item);
   switch (cellType)
   {
-    case MWMSearchTabbedViewCellHistory:
-      [self.historyManager attachCell:cell];
-      break;
-    case MWMSearchTabbedViewCellCategories:
-      [self.categoriesManager attachCell:cell];
-      break;
-    default:
-      break;
+  case MWMSearchTabbedViewCellHistory: [self.historyManager attachCell:cell]; break;
+  case MWMSearchTabbedViewCellCategories: [self.categoriesManager attachCell:cell]; break;
+  default: break;
   }
   return cell;
 }
@@ -219,10 +206,10 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)setSelectedButton:(MWMSearchTabButtonsView *)selectedButton
 {
-  [self.tabButtons enumerateObjectsUsingBlock:^(MWMSearchTabButtonsView * btn, NSUInteger idx, BOOL * stop)
-  {
-    btn.selected = NO;
-  }];
+  [self.tabButtons
+      enumerateObjectsUsingBlock:^(MWMSearchTabButtonsView * btn, NSUInteger idx, BOOL * stop) {
+        btn.selected = NO;
+      }];
   _selectedButton = selectedButton;
   selectedButton.selected = YES;
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
@@ -237,14 +224,14 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)setSelectedButtonTag:(NSInteger)selectedButtonTag
 {
-  [self.tabButtons enumerateObjectsUsingBlock:^(MWMSearchTabButtonsView * btn, NSUInteger idx, BOOL * stop)
-  {
-    if (btn.tag == selectedButtonTag)
-    {
-      self.selectedButton = btn;
-      *stop = YES;
-    }
-  }];
+  [self.tabButtons
+      enumerateObjectsUsingBlock:^(MWMSearchTabButtonsView * btn, NSUInteger idx, BOOL * stop) {
+        if (btn.tag == selectedButtonTag)
+        {
+          self.selectedButton = btn;
+          *stop = YES;
+        }
+      }];
   [self updateScrollPosition:self.selectedButton.minX];
   [self.tablesCollectionView
       scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:selectedButtonTag inSection:0]
@@ -252,9 +239,5 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
                      animated:NO];
 }
 
-- (NSInteger)selectedButtonTag
-{
-  return self.selectedButton.tag;
-}
-
+- (NSInteger)selectedButtonTag { return self.selectedButton.tag; }
 @end
