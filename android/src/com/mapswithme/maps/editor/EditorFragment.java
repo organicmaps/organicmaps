@@ -81,8 +81,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private MultilanguageAdapter mNamesAdapter;
   private TextView mNamesCaption;
-  private TextView  mAddLanguage;
-  private TextView  mMoreLanguages;
+  private TextView mAddLanguage;
+  private TextView mMoreLanguages;
 
   private TextView mStreet;
   private EditText mHouseNumber;
@@ -329,10 +329,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     mNamesCaption = (TextView) view.findViewById(R.id.show_additional_names);
     mNamesCaption.setOnClickListener(this);
+
     mAddLanguage = (TextView) view.findViewById(R.id.add_langs);
     mAddLanguage.setOnClickListener(this);
+
     mMoreLanguages = (TextView) view.findViewById(R.id.more_names);
     mMoreLanguages.setOnClickListener(this);
+
     mNamesView = (RecyclerView) view.findViewById(R.id.recycler);
     mNamesView.setNestedScrollingEnabled(false);
     mNamesView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -505,23 +508,23 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private void refreshNamesCaption()
   {
     if (mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount())
-      setNamesArrowDrawable(0);
+      setNamesArrow(0 /* arrowResourceId */);  // bind arrow with empty resource (do not draw arrow)
     else if (mNamesAdapter.areAdditionalLanguagesShown())
-      setNamesArrowDrawable(R.drawable.ic_expand_less);
+      setNamesArrow(R.drawable.ic_expand_less);
     else
-      setNamesArrowDrawable(R.drawable.ic_expand_more);
+      setNamesArrow(R.drawable.ic_expand_more);
 
     boolean showAddLanguage = mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount() ||
       mNamesAdapter.areAdditionalLanguagesShown();
 
     UiUtils.showIf(showAddLanguage, mAddLanguage);
     UiUtils.showIf(!showAddLanguage, mMoreLanguages);
-
   }
 
-  private void setNamesArrowDrawable(@DrawableRes int right)
+  // Bind arrow in the top right corner of names caption with needed resource.
+  private void setNamesArrow(@DrawableRes int arrowResourceId)
   {
-    if(0 == right)
+    if (arrowResourceId == 0)
     {
       mNamesCaption.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
       return;
@@ -530,7 +533,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mNamesCaption.setCompoundDrawablesWithIntrinsicBounds(
       null,
       null,
-      Graphics.tint(getActivity(), right, R.attr.iconTint),
+      Graphics.tint(getActivity(), arrowResourceId, R.attr.iconTint),
       null);
   }
 

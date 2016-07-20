@@ -49,8 +49,7 @@ struct LocalizedName
 // Class which contains vector of localized names with following priority:
 //  1. Names for Mwm languages
 //  2. User`s language name
-//  3. International name
-//  4. Other names
+//  3. Other names
 // and mandatoryNamesCount - count of names which should be always shown.
 struct NamesDataSource
 {
@@ -130,23 +129,13 @@ public:
   static bool ValidateWebsite(string const & site);
   static bool ValidateEmail(string const & email);
 
-  // TODO dummy, should be removed.
-  static vector<string> const & GetMwmLanguages()
-  {
-    static vector<string> const kNativelanguagesForMwm = {"de", "fr"};
-
-    return kNativelanguagesForMwm;
-  }
-  // TODO dummy, should be removed.
-
   // Check whether langCode can be used as default name.
-  static bool CanUseAsDefaultName(int8_t const langCode, StringUtf8Multilang const & name,
-                                  vector<string> const & nativeMwmLanguages);
+  static bool CanUseAsDefaultName(int8_t const langCode, vector<int8_t> const & nativeMwmLanguages);
 
   // See comment for NamesDataSource class.
   static NamesDataSource GetNamesDataSource(StringUtf8Multilang const & source,
-                                            vector<string> const & nativeMwmLanguages,
-                                            string const & userLanguage);
+                                            vector<int8_t> const & nativeMwmLanguages,
+                                            int8_t const userLanguage);
 
 private:
   string m_houseNumber;

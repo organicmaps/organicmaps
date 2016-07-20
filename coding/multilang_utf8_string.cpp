@@ -139,6 +139,17 @@ bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
   return false;
 }
 
+bool StringUtf8Multilang::HasString(int8_t lang) const
+{
+  for(size_t i = 0; i < m_s.size(); i = GetNextIndex(i))
+  {
+    if ((m_s[i] & 0x3F) == lang)
+      return true;
+  }
+  
+  return false;
+}
+
 namespace
 {
 

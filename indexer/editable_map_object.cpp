@@ -38,25 +38,21 @@ bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode,
   return true;
 }
 
-size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<string> const & mwmLanguages, vector<osm::LocalizedName> & result)
+size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const & mwmLanguages,
+                        vector<osm::LocalizedName> & result)
 {
   size_t count = 0;
-  auto langCode = StringUtf8Multilang::kUnsupportedLanguageCode;
   static size_t const kMaxCountMwmLanguages = 2;
-  
-  for (auto const & language : mwmLanguages)
+
+  for (size_t i = 0; i < mwmLanguages.size() && count < kMaxCountMwmLanguages; ++i)
   {
-    langCode = StringUtf8Multilang::GetLangIndex(language);
-    if (ExtractName(names, langCode, result))
+    if (ExtractName(names, mwmLanguages[i], result))
       ++count;
-    
-    if (count >= kMaxCountMwmLanguages)
-      return count;
   }
   
   return count;
 }
-}
+}  // namespace
 
 namespace osm
 {
@@ -100,37 +96,42 @@ StringUtf8Multilang const & EditableMapObject::GetName() const { return m_name; 
 
 NamesDataSource EditableMapObject::GetNamesDataSource() const
 {
-  return GetNamesDataSource(m_name, GetMwmLanguages(), languages::GetCurrentNorm());
+  const auto mwmInfo = GetID().m_mwmId.GetInfo();
+
+  if (!mwmInfo)
+    return NamesDataSource();
+
+  vector<int8_t> mwmLanguages;
+  mwmInfo->GetRegionData().GetLanguages(mwmLanguages);
+
+  auto const userLangCode = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+
+  return GetNamesDataSource(m_name, mwmLanguages, userLangCode);
 }
 
 // static
 NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const & source,
-                                                      vector<string> const & nativeMwmLanguages,
-                                                      string const & userLanguage)
+                                                      vector<int8_t> const & mwmLanguages,
+                                                      int8_t const userLangCode)
 {
   NamesDataSource result;
   auto & names = result.names;
   auto & mandatoryCount = result.mandatoryNamesCount;
   // Push Mwm languages.
-  mandatoryCount = PushMwmLanguages(source, nativeMwmLanguages, names);
+  mandatoryCount = PushMwmLanguages(source, mwmLanguages, names);
 
   // Push user's language.
-  auto const langCode = StringUtf8Multilang::GetLangIndex(userLanguage);
-  if (ExtractName(source, langCode, names))
-    ++mandatoryCount;
-
-  // Push international language.
-  if (ExtractName(source, StringUtf8Multilang::kInternationalCode, names))
+  if (ExtractName(source, userLangCode, names))
     ++mandatoryCount;
 
   // Push other languages.
-  source.ForEach([&names, mandatoryCount](int8_t code, string const & name) -> bool {
+  source.ForEach([&names, mandatoryCount](int8_t const code, string const & name) -> bool {
     // Exclude default name.
     if (StringUtf8Multilang::kDefaultCode == code)
       return true;
     
     auto const mandatoryNamesEnd = names.begin() + mandatoryCount;
-    // Exclude languages which already in container (languages with top priority).
+    // Exclude languages which are already in container (languages with top priority).
     auto const it = find_if(
         names.begin(), mandatoryNamesEnd,
         [code](LocalizedName const & localizedName) { return localizedName.m_code == code; });
@@ -171,43 +172,36 @@ void EditableMapObject::SetName(string name, int8_t langCode)
     return;
 
   ASSERT_NOT_EQUAL(StringUtf8Multilang::kDefaultCode, langCode,
-                   ("You trying to set ", name,
-                    " as default, but direct editing of default name is deprecated."));
+                   ("Direct editing of default name is deprecated."));
 
-  if (!Editor::Instance().WasDefaultNameSaved(GetID()) &&
-      CanUseAsDefaultName(langCode, m_name, GetMwmLanguages()))
+  if (!Editor::Instance().OriginalFeatureHasDefaultName(GetID()))
   {
-    m_name.AddString(StringUtf8Multilang::kDefaultCode, name);
+    const auto mwmInfo = GetID().m_mwmId.GetInfo();
+
+    if (mwmInfo)
+    {
+      vector<int8_t> mwmLanguages;
+      mwmInfo->GetRegionData().GetLanguages(mwmLanguages);
+
+      if (CanUseAsDefaultName(langCode, mwmLanguages))
+        m_name.AddString(StringUtf8Multilang::kDefaultCode, name);
+    }
   }
 
   m_name.AddString(langCode, name);
 }
 
 // static
-bool EditableMapObject::CanUseAsDefaultName(int8_t const langCode, StringUtf8Multilang const & name,
-                                            vector<string> const & nativeMwmLanguages)
+bool EditableMapObject::CanUseAsDefaultName(int8_t const lang, vector<int8_t> const & mwmLanguages)
 {
-  auto index = StringUtf8Multilang::kUnsupportedLanguageCode;
-  string unused;
-
-  // Languages priority: 1. Mwm languages 2. International language.
-  for (auto const & language : nativeMwmLanguages)
+  for (auto const & mwmLang : mwmLanguages)
   {
-    index = StringUtf8Multilang::GetLangIndex(language);
+    if (StringUtf8Multilang::kUnsupportedLanguageCode == mwmLang)
+      continue;
 
-    if (StringUtf8Multilang::kUnsupportedLanguageCode == index)
-      return false;
-
-    if (langCode == index)
+    if (lang == mwmLang)
       return true;
-
-    // A name with a higher priority was added already.
-    if (name.GetString(index, unused))
-      return false;
   }
-
-  if (langCode == StringUtf8Multilang::kInternationalCode)
-    return true;
 
   return false;
 }

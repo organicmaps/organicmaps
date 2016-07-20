@@ -114,3 +114,18 @@ UNIT_TEST(MultilangString_LangNames)
   auto const international = StringUtf8Multilang::GetLangIndex("int_name");
   TEST_EQUAL(langs[international].m_code, "int_name", ());
 }
+
+UNIT_TEST(MultilangString_HasString)
+{
+  StringUtf8Multilang s;
+  s.AddString(0, "xxx");
+  s.AddString(18, "yyy");
+  s.AddString(63, "zzz");
+  
+  TEST(s.HasString(0), ());
+  TEST(s.HasString(18), ());
+  TEST(s.HasString(63), ());
+  
+  TEST(!s.HasString(1), ());
+  TEST(!s.HasString(32), ());
+}

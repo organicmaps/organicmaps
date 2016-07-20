@@ -3007,7 +3007,7 @@ void Framework::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
     DeactivateMapSelection(true /* notifyUI */);
 }
 
-bool Framework::WasDefaultNameSaved(FeatureID const & fid) const
+bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
 {
-  return osm::Editor::Instance().WasDefaultNameSaved(fid);
+  return osm::Editor::Instance().OriginalFeatureHasDefaultName(fid);
 }

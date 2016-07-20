@@ -73,9 +73,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     sNames.clear();
     for (LocalizedName name : names)
     {
-      if (name.code == LocalizedName.DEFAULT_LANG_CODE)
-        continue;
-      sNames.add(name);
+      addName(name);
     }
   }
 
@@ -160,6 +158,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     case OPENING_HOURS:
     case STREET:
     case CUISINE:
+    case LANGUAGE:
       editMapObject();
       break;
     default:

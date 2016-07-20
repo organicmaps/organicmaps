@@ -62,7 +62,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
 
     auto const namesDataSource = emo.GetNamesDataSource();
 
-    for (osm::LocalizedName const & ln : namesDataSource.names)
+    for (auto const & ln : namesDataSource.names)
     {
       if (ln.m_code == StringUtf8Multilang::kDefaultCode)
       {

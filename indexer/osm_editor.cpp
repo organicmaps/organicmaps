@@ -426,12 +426,9 @@ bool Editor::IsCreatedFeature(FeatureID const & fid)
   return fid.m_index >= kStartIndexForCreatedFeatures;
 }
 
-bool Editor::WasDefaultNameSaved(FeatureID const & fid) const
+bool Editor::OriginalFeatureHasDefaultName(FeatureID const & fid) const
 {
   if (IsCreatedFeature(fid))
-    return false;
-
-  if (FeatureStatus::Created == GetFeatureStatus(fid))
     return false;
 
   auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
@@ -442,7 +439,9 @@ bool Editor::WasDefaultNameSaved(FeatureID const & fid) const
     return false;
   }
 
-  return originalFeaturePtr->HasName();
+  auto const & names = originalFeaturePtr->GetNames();
+  
+  return names.HasString(StringUtf8Multilang::kDefaultCode);
 }
 
 /// Several cases should be handled while saving changes:

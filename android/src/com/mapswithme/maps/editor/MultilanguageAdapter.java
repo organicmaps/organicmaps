@@ -64,18 +64,18 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
     return mAdditionalLanguagesShown;
   }
 
-  public void showAdditionalLanguages(boolean showAdditionalLanguages)
+  public void showAdditionalLanguages(boolean show)
   {
-    if(mAdditionalLanguagesShown == showAdditionalLanguages)
+    if (mAdditionalLanguagesShown == show)
       return;
 
-    mAdditionalLanguagesShown = showAdditionalLanguages;
+    mAdditionalLanguagesShown = show;
 
-    if(mNames.size() !=  mMandatoryNamesCount)
+    if (mNames.size() != mMandatoryNamesCount)
     {
-      if(showAdditionalLanguages)
+      if (show)
       {
-        notifyItemRangeInserted(mMandatoryNamesCount , mNames.size() - mMandatoryNamesCount);
+        notifyItemRangeInserted(mMandatoryNamesCount, mNames.size() - mMandatoryNamesCount);
       }
       else
       {

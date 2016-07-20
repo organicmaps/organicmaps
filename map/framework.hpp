@@ -716,7 +716,7 @@ private:
   //@}
 
 public:
-  bool WasDefaultNameSaved(FeatureID const & fid) const;
+  bool OriginalFeatureHasDefaultName(FeatureID const & fid) const;
 
 private:
   DECLARE_THREAD_CHECKER(m_threadChecker);
