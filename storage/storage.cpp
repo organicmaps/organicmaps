@@ -560,6 +560,11 @@ void Storage::DownloadNextCountryFromQueue()
                                              RetryDownloadNode(country);
                                          }
                                        });
+    TCountriesVec localMaps;
+    GetLocalRealMaps(localMaps);
+    GetPlatform().SendPushWooshTag("map_listing", localMaps);
+    if (!localMaps.empty())
+      GetPlatform().SendPushWooshTag("map_download_discovered");
     return;
   }
 
