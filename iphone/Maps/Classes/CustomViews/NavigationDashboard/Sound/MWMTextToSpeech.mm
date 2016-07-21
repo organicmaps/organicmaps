@@ -56,7 +56,7 @@ vector<pair<string, string>> availableLanguages()
 
 @implementation MWMTextToSpeech
 
-+ (instancetype)tts
++ (MWMTextToSpeech *)tts
 {
   static dispatch_once_t onceToken;
   static MWMTextToSpeech * tts = nil;
@@ -106,6 +106,7 @@ vector<pair<string, string>> availableLanguages()
     {
       LOG(LWARNING, ("[ setCategory]] error.", [err localizedDescription]));
     }
+    self.active = YES;
   }
   return self;
 }
@@ -145,10 +146,12 @@ vector<pair<string, string>> availableLanguages()
   if (active && ![self isValid])
     [self createSynthesizer];
   GetFramework().EnableTurnNotifications(active ? true : false);
-  [[NSNotificationCenter defaultCenter]
-      postNotificationName:[MWMTextToSpeech ttsStatusNotificationKey]
-                    object:nil
-                  userInfo:nil];
+  runAsyncOnMainQueue(^{
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName:[MWMTextToSpeech ttsStatusNotificationKey]
+                      object:nil
+                    userInfo:nil];
+  });
 }
 
 - (BOOL)active
