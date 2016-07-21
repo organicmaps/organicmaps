@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
 
@@ -16,11 +17,15 @@
       android:layout_height="wrap_content"
       android:orientation="vertical">
 
-      <View
+      <include
+        layout="@layout/divider_horizontal"/>
+
+      <include
+        layout="@layout/place_page_bookmark_details"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_half"
-        android:background="?dividerHorizontal"/>
+        tools:visibility="gone"/>
 
       <include layout="@layout/place_page_placename"/>
 
@@ -46,27 +51,13 @@
 
       <include layout="@layout/place_page_more"/>
 
-      <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="@dimen/margin_half"
-        android:layout_marginTop="@dimen/margin_half"
-        android:background="?dividerHorizontal"/>
+      <include layout="@layout/divider_horizontal"/>
 
       <include layout="@layout/place_page_editor"/>
 
       <include layout="@layout/place_page_add_business"/>
 
       <include layout="@layout/place_page_add"/>
-
-      <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_half"/>
-
-      <include
-        layout="@layout/place_page_bookmark_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

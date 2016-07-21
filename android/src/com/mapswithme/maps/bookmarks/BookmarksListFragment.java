@@ -3,7 +3,6 @@ package com.mapswithme.maps.bookmarks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -174,7 +173,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
 
     case R.id.edit:
-      editBookmark(mCategory.getId(), item.getBookmarkId());
+      EditBookmarkFragment.editBookmark(mCategory.getId(), item.getBookmarkId(), getActivity(), getChildFragmentManager());
       break;
 
     case R.id.delete:
@@ -183,16 +182,6 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
     }
     return false;
-  }
-
-  private void editBookmark(int cat, int bmk)
-  {
-    final Bundle args = new Bundle();
-    args.putInt(EditBookmarkFragment.EXTRA_CATEGORY_ID, cat);
-    args.putInt(EditBookmarkFragment.EXTRA_BOOKMARK_ID, bmk);
-    final EditBookmarkFragment fragment = (EditBookmarkFragment) Fragment.instantiate(getActivity(), EditBookmarkFragment.class.getName(), args);
-    fragment.setArguments(args);
-    fragment.show(getChildFragmentManager(), null);
   }
 
   @Override

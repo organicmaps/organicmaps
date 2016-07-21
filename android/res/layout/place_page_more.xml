@@ -5,19 +5,14 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical">
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:layout_marginTop="@dimen/margin_half"
-    android:layout_marginBottom="@dimen/margin_half"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:background="?dividerHorizontal"/>
+
+  <include
+    layout="@layout/divider_horizontal"/>
 
   <TextView
     style="@style/PlacePageMetadataText.Button"
+    android:height="@dimen/height_block_base"
     android:background="?clickableBackground"
-    android:padding="@dimen/margin_half"
-    android:text="@string/details"
-    android:gravity="center"/>
+    android:gravity="center"
+    android:text="@string/details"/>
 </LinearLayout>

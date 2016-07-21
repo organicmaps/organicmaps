@@ -53,7 +53,7 @@ public abstract class BasePlacePageAnimationController
     mFrame = (ViewGroup) placePage.findViewById(R.id.pp__details_frame);
     mDetails = (ScrollView) placePage.findViewById(R.id.pp__details);
     mDetailsContent = mDetails.getChildAt(0);
-    mBookmarkDetails = (ViewGroup) mFrame.findViewById(R.id.rl__bookmark_details);
+    mBookmarkDetails = (ViewGroup) mFrame.findViewById(R.id.bookmark_frame);
     mButtons = (ViewGroup) placePage.findViewById(R.id.pp__buttons);
     initGestureDetector();
 
