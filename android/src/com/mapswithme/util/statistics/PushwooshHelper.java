@@ -10,6 +10,7 @@ import com.mapswithme.maps.Framework;
 import com.pushwoosh.PushManager;
 import com.pushwoosh.SendPushTagsCallBack;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +23,8 @@ public final class PushwooshHelper implements SendPushTagsCallBack
 
   private static final PushwooshHelper sInstance = new PushwooshHelper();
 
-  private Context mContext;
+  private WeakReference<Context> mContext;
+
   private final Object mSyncObject = new Object();
   private AsyncTask<Void, Void, Void> mTask;
   private List<Map<String, Object>> mTagsQueue = new LinkedList<>();
@@ -35,7 +37,7 @@ public final class PushwooshHelper implements SendPushTagsCallBack
   {
     synchronized (mSyncObject)
     {
-      mContext = context;
+      mContext = new WeakReference<>(context);
     }
   }
 
@@ -85,7 +87,11 @@ public final class PushwooshHelper implements SendPushTagsCallBack
         @Override
         protected Void doInBackground(Void... params)
         {
-          PushManager.sendTags(mContext, tagsToSend, PushwooshHelper.this);
+          final Context context = mContext.get();
+          if (context == null)
+            return null;
+
+          PushManager.sendTags(context, tagsToSend, PushwooshHelper.this);
           return null;
         }
       };
