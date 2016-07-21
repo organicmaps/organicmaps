@@ -208,13 +208,8 @@ extern NSString * const kBookmarksChangedNotification;
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatShare)];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   MWMPlacePageEntity * entity = self.entity;
-  NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
-  CLLocationCoordinate2D const coord =
-      CLLocationCoordinate2DMake(entity.latlon.lat, entity.latlon.lon);
   MWMActivityViewController * shareVC =
-      [MWMActivityViewController shareControllerForLocationTitle:title
-                                                        location:coord
-                                                      myPosition:NO];
+      [MWMActivityViewController shareControllerForPlacePageObject:entity];
   [shareVC presentInParentViewController:self.ownerViewController
                               anchorView:self.placePage.actionBar.shareAnchor];
 }
@@ -232,10 +227,7 @@ extern NSString * const kBookmarksChangedNotification;
             atLocation:[MWMLocationManager lastLocation]];
 
   UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
-  NSURL * url =
-      isDescription
-          ? [NSURL URLWithString:[self.entity getCellValue:MWMPlacePageCellTypeBookingMore]]
-          : self.entity.bookingUrl;
+  NSURL * url = isDescription ? self.entity.bookingDescriptionUrl : self.entity.bookingUrl;
   NSAssert(url, @"Booking url can't be nil!");
   [vc openUrl:url];
 }

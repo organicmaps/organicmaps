@@ -7,7 +7,6 @@
 #import "MWMFacebookAlert.h"
 #import "MWMLocationAlert.h"
 #import "MWMOsmAuthAlert.h"
-#import "MWMPedestrianShareAlert.h"
 #import "MWMPlaceDoesntExistAlert.h"
 #import "MWMRateAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
@@ -127,11 +126,6 @@
     case routing::IRouter::NeedMoreMaps:
       return nil;
   }
-}
-
-+ (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch
-{
-  return [MWMPedestrianShareAlert alert:isFirstLaunch];
 }
 
 + (MWMAlert *)incorrectFeauturePositionAlert

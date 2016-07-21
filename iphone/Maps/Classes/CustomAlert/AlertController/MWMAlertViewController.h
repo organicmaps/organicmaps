@@ -5,7 +5,7 @@
 
 @interface MWMAlertViewController : UIViewController
 
-+ (MWMAlertViewController *)activeAlertController;
++ (nonnull MWMAlertViewController *)activeAlertController;
 
 @property (weak, nonatomic, readonly) UIViewController * _Null_unspecified ownerViewController;
 
@@ -31,7 +31,6 @@
 - (void)presentDeleteMapProhibitedAlert;
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentNoWiFiAlertWithOkBlock:(nullable TMWMVoidBlock)okBlock;
-- (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch;
 - (void)presentIncorrectFeauturePositionAlert;
 - (void)presentInternalErrorAlert;
 - (void)presentNotEnoughSpaceAlert;

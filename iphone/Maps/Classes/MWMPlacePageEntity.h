@@ -65,6 +65,7 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 - (m2::PointD const &)mercator;
 - (NSString *)apiURL;
 - (NSURL *)bookingUrl;
+- (NSURL *)bookingDescriptionUrl;
 - (NSString * )hotelId;
 - (string)titleForNewBookmark;
 

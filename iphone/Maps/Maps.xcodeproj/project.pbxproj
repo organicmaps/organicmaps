@@ -33,7 +33,7 @@
 		3406FA181C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
 		3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
 		340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837121B7243CE00B5C185 /* MWMActivityViewController.mm */; };
-		340837161B72451A00B5C185 /* MWMShareLocationActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareLocationActivityItem.mm */; };
+		340837161B72451A00B5C185 /* MWMShareActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareActivityItem.mm */; };
 		340C20E31C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
 		340C20E41C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
 		340E10601B944DAB00D975D5 /* MWMSearchHistoryManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340E105F1B944DAB00D975D5 /* MWMSearchHistoryManager.mm */; };
@@ -132,8 +132,6 @@
 		3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */; };
-		347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */; };
-		347BAC6E1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm */; };
 		347D7C691C2C0703006B2D0A /* UITextView+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347D7C681C2C0703006B2D0A /* UITextView+RuntimeAttributes.mm */; };
 		347D7C6A1C2C0703006B2D0A /* UITextView+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347D7C681C2C0703006B2D0A /* UITextView+RuntimeAttributes.mm */; };
 		347FD8671C60B2CE002FB65E /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347FD84B1C60B2CE002FB65E /* MWMOpeningHoursAddClosedTableViewCell.mm */; };
@@ -220,7 +218,6 @@
 		34ABA62C1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */; };
 		34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */; };
 		34ABA6301C2D58F300FE1BEC /* MWMInputEmailValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */; };
-		34B16C451B72655D000D3A0D /* MWMPedestrianShareAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */; };
 		34B646BD1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B646BC1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm */; };
 		34B646BE1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B646BC1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm */; };
 		34B646C01CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B646BF1CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib */; };
@@ -431,12 +428,11 @@
 		6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */; };
 		6741A99A1BF340DE002C974C /* MWMBookmarkColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6588E321B15D73100EE1E58 /* MWMBookmarkColorViewController.xib */; };
 		6741A99B1BF340DE002C974C /* PlacePageInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6CB215B1AEE704D00FB8963 /* PlacePageInfoCell.xib */; };
-		6741A99D1BF340DE002C974C /* MWMPedestrianShareAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */; };
 		6741A99F1BF340DE002C974C /* 07_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */; };
 		6741A9A21BF340DE002C974C /* CommunityVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A241996B0EC00D72CA7 /* CommunityVC.mm */; };
 		6741A9A31BF340DE002C974C /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
 		6741A9A41BF340DE002C974C /* MWMSearchTabbedViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CC4C071B81F3B500E44C1F /* MWMSearchTabbedViewController.mm */; };
-		6741A9A51BF340DE002C974C /* MWMShareLocationActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareLocationActivityItem.mm */; };
+		6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareActivityItem.mm */; };
 		6741A9A61BF340DE002C974C /* RichTextVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A281996C17300D72CA7 /* RichTextVC.mm */; };
 		6741A9A71BF340DE002C974C /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */; };
 		6741A9A81BF340DE002C974C /* MWMFacebookAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */; };
@@ -497,8 +493,6 @@
 		6741A9F41BF340DE002C974C /* CALayer+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm */; };
 		6741A9F51BF340DE002C974C /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
 		6741A9F61BF340DE002C974C /* MWMExtendedPlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED135A1B18AA930095C6DE /* MWMExtendedPlacePageView.mm */; };
-		6741A9F71BF340DE002C974C /* MWMPedestrianShareAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */; };
-		6741A9F81BF340DE002C974C /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm */; };
 		6741A9F91BF340DE002C974C /* MWMSearchSuggestionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AD41B84746E00180497 /* MWMSearchSuggestionCell.mm */; };
 		6741A9FA1BF340DE002C974C /* MWMBookmarkColorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2E1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm */; };
 		6741A9FC1BF340DE002C974C /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
@@ -887,8 +881,8 @@
 		3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMMapDownloadDialog.xib; sourceTree = "<group>"; };
 		340837111B7243CE00B5C185 /* MWMActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMActivityViewController.h; sourceTree = "<group>"; };
 		340837121B7243CE00B5C185 /* MWMActivityViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMActivityViewController.mm; sourceTree = "<group>"; };
-		340837141B72451A00B5C185 /* MWMShareLocationActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMShareLocationActivityItem.h; sourceTree = "<group>"; };
-		340837151B72451A00B5C185 /* MWMShareLocationActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMShareLocationActivityItem.mm; sourceTree = "<group>"; };
+		340837141B72451A00B5C185 /* MWMShareActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMShareActivityItem.h; sourceTree = "<group>"; };
+		340837151B72451A00B5C185 /* MWMShareActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMShareActivityItem.mm; sourceTree = "<group>"; };
 		340C20E11C3E565600111D22 /* MWMCuisineEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCuisineEditorViewController.h; sourceTree = "<group>"; };
 		340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCuisineEditorViewController.mm; sourceTree = "<group>"; };
 		340C20E51C3E58B000111D22 /* MWMEditorCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorCommon.h; sourceTree = "<group>"; };
@@ -1016,9 +1010,6 @@
 		3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIFont+MapsMeFonts.mm"; sourceTree = "<group>"; };
 		3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "tts-how-to-set-up-voice.html"; path = "../../data/tts-how-to-set-up-voice.html"; sourceTree = "<group>"; };
 		3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tts-how-to-set-up-voice-img"; path = "../../data/tts-how-to-set-up-voice-img"; sourceTree = "<group>"; };
-		347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPedestrianShareAlert.xib; sourceTree = "<group>"; };
-		347BAC6C1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSharePedestrianRoutesToastActivityItem.h; sourceTree = "<group>"; };
-		347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSharePedestrianRoutesToastActivityItem.mm; sourceTree = "<group>"; };
 		347D5CA11D376B9F00FA28DD /* MWMSearchObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchObserver.h; sourceTree = "<group>"; };
 		347D5CA21D376C2C00FA28DD /* MWMLocationObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMLocationObserver.h; sourceTree = "<group>"; };
 		347D7C671C2C0703006B2D0A /* UITextView+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+RuntimeAttributes.h"; sourceTree = "<group>"; };
@@ -1101,8 +1092,6 @@
 		34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMInputPasswordValidator.mm; sourceTree = "<group>"; };
 		34ABA62E1C2D58F300FE1BEC /* MWMInputEmailValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMInputEmailValidator.h; sourceTree = "<group>"; };
 		34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMInputEmailValidator.mm; sourceTree = "<group>"; };
-		34B16C431B72655D000D3A0D /* MWMPedestrianShareAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPedestrianShareAlert.h; sourceTree = "<group>"; };
-		34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPedestrianShareAlert.mm; sourceTree = "<group>"; };
 		34B646BB1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorAdditionalNameTableViewCell.h; sourceTree = "<group>"; };
 		34B646BC1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorAdditionalNameTableViewCell.mm; sourceTree = "<group>"; };
 		34B646BF1CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAdditionalNameTableViewCell.xib; sourceTree = "<group>"; };
@@ -1911,10 +1900,8 @@
 			children = (
 				340837111B7243CE00B5C185 /* MWMActivityViewController.h */,
 				340837121B7243CE00B5C185 /* MWMActivityViewController.mm */,
-				340837141B72451A00B5C185 /* MWMShareLocationActivityItem.h */,
-				340837151B72451A00B5C185 /* MWMShareLocationActivityItem.mm */,
-				347BAC6C1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.h */,
-				347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm */,
+				340837141B72451A00B5C185 /* MWMShareActivityItem.h */,
+				340837151B72451A00B5C185 /* MWMShareActivityItem.mm */,
 				F6A218471CA3F26800BE2CC6 /* MWMEditorViralActivityItem.h */,
 				F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */,
 			);
@@ -2232,16 +2219,6 @@
 			);
 			name = "Input Validators";
 			path = InputValidators;
-			sourceTree = "<group>";
-		};
-		34B16C421B72653B000D3A0D /* PedestrianShareAlert */ = {
-			isa = PBXGroup;
-			children = (
-				34B16C431B72655D000D3A0D /* MWMPedestrianShareAlert.h */,
-				34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */,
-				347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */,
-			);
-			path = PedestrianShareAlert;
 			sourceTree = "<group>";
 		};
 		34B82AB31B83616A00180497 /* HistoryTab */ = {
@@ -2702,7 +2679,6 @@
 				F6BBF2C31B4FFB56000CF8E2 /* LocationAlert */,
 				F64F19801AB81A00006EAF7E /* AlertController */,
 				F6BC1E4F1ACBF97000EF0360 /* FacebookAlert */,
-				34B16C421B72653B000D3A0D /* PedestrianShareAlert */,
 				F64F19841AB81A00006EAF7E /* BaseAlert */,
 				F61579301AC2CE760032D8E9 /* RateAlert */,
 				F64F19871AB81A00006EAF7E /* DefaultAlert */,
@@ -3421,7 +3397,6 @@
 				F64F199A1AB81A00006EAF7E /* MWMAlertViewController.xib in Resources */,
 				F6588E331B15D73100EE1E58 /* MWMBookmarkColorViewController.xib in Resources */,
 				F6CB215C1AEE704D00FB8963 /* PlacePageInfoCell.xib in Resources */,
-				347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */,
 				FAF30A95173AB23900818BF6 /* 07_roboto_medium.ttf in Resources */,
 				34E0EED01CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.xib in Resources */,
 			);
@@ -3567,7 +3542,6 @@
 				6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */,
 				6741A99A1BF340DE002C974C /* MWMBookmarkColorViewController.xib in Resources */,
 				6741A99B1BF340DE002C974C /* PlacePageInfoCell.xib in Resources */,
-				6741A99D1BF340DE002C974C /* MWMPedestrianShareAlert.xib in Resources */,
 				6741A99F1BF340DE002C974C /* 07_roboto_medium.ttf in Resources */,
 				34E0EED11CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.xib in Resources */,
 			);
@@ -3613,7 +3587,7 @@
 				978D4A251996B0EC00D72CA7 /* CommunityVC.mm in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
 				34CC4C091B81F3B500E44C1F /* MWMSearchTabbedViewController.mm in Sources */,
-				340837161B72451A00B5C185 /* MWMShareLocationActivityItem.mm in Sources */,
+				340837161B72451A00B5C185 /* MWMShareActivityItem.mm in Sources */,
 				34F9FB901C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				978D4A291996C17300D72CA7 /* RichTextVC.mm in Sources */,
 				9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */,
@@ -3734,8 +3708,6 @@
 				F6ED135B1B18AA930095C6DE /* MWMExtendedPlacePageView.mm in Sources */,
 				3418CEAE1CBF9E3300641B25 /* MWMNoMapsViewController.mm in Sources */,
 				3401CD7D1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.mm in Sources */,
-				34B16C451B72655D000D3A0D /* MWMPedestrianShareAlert.mm in Sources */,
-				347BAC6E1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */,
 				34B82AD61B84746E00180497 /* MWMSearchSuggestionCell.mm in Sources */,
 				F6C641B01C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm in Sources */,
 				341F99F11C6B4288001C67B8 /* MWMMapDownloaderSearchDataSource.mm in Sources */,
@@ -3839,7 +3811,7 @@
 				34FED5511D21121000183B1B /* CLLocation+Mercator.mm in Sources */,
 				6741A9A31BF340DE002C974C /* main.mm in Sources */,
 				6741A9A41BF340DE002C974C /* MWMSearchTabbedViewController.mm in Sources */,
-				6741A9A51BF340DE002C974C /* MWMShareLocationActivityItem.mm in Sources */,
+				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
 				34F9FB911C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				6741A9A61BF340DE002C974C /* RichTextVC.mm in Sources */,
 				6741A9A71BF340DE002C974C /* UIViewController+Navigation.mm in Sources */,
@@ -3950,9 +3922,7 @@
 				56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */,
 				6741A9F51BF340DE002C974C /* BookmarksVC.mm in Sources */,
 				6741A9F61BF340DE002C974C /* MWMExtendedPlacePageView.mm in Sources */,
-				6741A9F71BF340DE002C974C /* MWMPedestrianShareAlert.mm in Sources */,
 				347FD8741C60B2CE002FB65E /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
-				6741A9F81BF340DE002C974C /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				6741A9F91BF340DE002C974C /* MWMSearchSuggestionCell.mm in Sources */,
 				34ABA61C1C2D4DCC00FE1BEC /* UITextField+RuntimeAttributes.mm in Sources */,
