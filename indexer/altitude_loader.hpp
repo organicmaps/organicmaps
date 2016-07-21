@@ -26,7 +26,7 @@ private:
   vector<char> m_featureTableBuf;
   unique_ptr<succinct::rs_bit_vector> m_altitudeAvailability;
   unique_ptr<succinct::elias_fano> m_featureTable;
-  FilesContainerR::TReader reader;
+  unique_ptr<FilesContainerR::TReader> m_reader;
   TAltitudeSectionOffset m_altitudeInfoOffset;
   TAltitude m_minAltitude;
 };
