@@ -46,6 +46,7 @@
 - (void)presentEditorViralAlert;
 - (void)presentOsmAuthAlert;
 - (void)presentPersonalInfoWarningAlertWithBlock:(nonnull TMWMVoidBlock)block;
+- (void)presentTrackWarningAlertWithCancelBlock:(nonnull TMWMVoidBlock)block;
 - (void)closeAlert;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));

@@ -32,5 +32,6 @@
 + (instancetype)resetChangesAlertWithBlock:(TMWMVoidBlock)block;
 + (instancetype)deleteFeatureAlertWithBlock:(TMWMVoidBlock)block;
 + (instancetype)personalInfoWarningAlertWithBlock:(TMWMVoidBlock)block;
++ (instancetype)trackWarningAlertWithCancelBlock:(TMWMVoidBlock)block;
 
 @end
