@@ -385,6 +385,17 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)trackWarningAlertWithCancelBlock:(TMWMVoidBlock)block
+{
+  kStatisticsEvent = @"Track warning alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"recent_track_background_dialog_title"
+                                                message:@"recent_track_background_dialog_message"
+                                       rightButtonTitle:@"off_recent_track_background_button"
+                                        leftButtonTitle:@"continue_download"
+                                      rightButtonAction:block];
+  return alert;
+}
+
 + (instancetype)defaultAlertWithTitle:(nonnull NSString *)title
                               message:(nullable NSString *)message
                      rightButtonTitle:(nonnull NSString *)rightButtonTitle

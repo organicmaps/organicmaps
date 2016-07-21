@@ -203,6 +203,11 @@
   return [MWMDefaultAlert personalInfoWarningAlertWithBlock:block];
 }
 
++ (MWMAlert *)trackWarningAlertWithCancelBlock:(TMWMVoidBlock)block
+{
+  return [MWMDefaultAlert trackWarningAlertWithCancelBlock:block];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
 // Should override this method if you want custom relayout after rotation.
