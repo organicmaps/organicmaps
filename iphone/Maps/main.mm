@@ -1,3 +1,4 @@
+#import <Pushwoosh/PushNotificationManager.h>
 #import "Common.h"
 #import "MapsAppDelegate.h"
 
@@ -16,7 +17,25 @@ int main(int argc, char * argv[])
 #elif OMIM_PRODUCTION
   my::SetLogMessageFn(platform::LogMessageFabric);
 #endif
-  LOG(LINFO, ("maps.me started, detected CPU cores:", GetPlatform().CpuCores()));
+  auto & p = GetPlatform();
+  LOG(LINFO, ("maps.me started, detected CPU cores:", p.CpuCores()));
+
+  p.SetPushWooshSender([](string const & tag, vector<string> const & values) {
+    if (values.empty() || tag.empty())
+      return;
+    PushNotificationManager * pushManager = [PushNotificationManager pushManager];
+    if (values.size() == 1)
+    {
+      [pushManager setTags:@{ @(tag.c_str()) : @(values.front().c_str()) }];
+    }
+    else
+    {
+      NSMutableArray<NSString *> * tags = [@[] mutableCopy];
+      for (auto const & value : values)
+        [tags addObject:@(value.c_str())];
+      [pushManager setTags:@{ @(tag.c_str()) : tags }];
+    }
+  });
 
   int retVal;
   @autoreleasepool

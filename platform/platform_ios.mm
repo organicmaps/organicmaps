@@ -283,7 +283,8 @@ void Platform::SendPushWooshTag(string const & tag, string const & value)
 
 void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
 {
-  //TODO: implement
+  if (m_pushwooshSender)
+    m_pushwooshSender(tag, values);
 }
 
 ////////////////////////////////////////////////////////////////////////
