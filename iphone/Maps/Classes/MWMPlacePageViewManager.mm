@@ -1,4 +1,5 @@
 #import "MWMPlacePageViewManager.h"
+#import <Pushwoosh/PushNotificationManager.h>
 #import "Common.h"
 #import "MWMAPIBar.h"
 #import "MWMActivityViewController.h"
@@ -258,6 +259,7 @@ extern NSString * const kBookmarksChangedNotification;
 - (void)editPlace
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
+  [[PushNotificationManager pushManager] setTags:@{ @"editor_edit_discovered" : @YES }];
   [(MapViewController *)self.ownerViewController openEditor];
 }
 

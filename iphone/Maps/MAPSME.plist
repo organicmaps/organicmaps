@@ -244,5 +244,7 @@
 			</dict>
 		</dict>
 	</array>
+	<key>PW_USE_GPS</key>
+	<true/>
 </dict>
 </plist>

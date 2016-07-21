@@ -1,4 +1,5 @@
 #import "MWMBottomMenuViewController.h"
+#import <Pushwoosh/PushNotificationManager.h>
 #import "Common.h"
 #import "EAGLView.h"
 #import "MWMActivityViewController.h"
@@ -349,6 +350,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)menuActionAddPlace
 {
   [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatMenu}];
+  [[PushNotificationManager pushManager] setTags:@{ @"editor_add_discovered" : @YES }];
   self.state = self.restoreState;
   [self.delegate addPlace:NO hasPoint:NO point:m2::PointD()];
 }
