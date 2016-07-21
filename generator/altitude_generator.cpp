@@ -15,6 +15,8 @@
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 
+#include "geometry/latlon.hpp"
+
 #include "coding/internal/file_data.hpp"
 
 #include "base/assert.hpp"
@@ -46,9 +48,10 @@ class SrtmGetter : public IAltitudeGetter
 public:
   SrtmGetter(string const & srtmPath) : m_srtmManager(srtmPath) {}
 
-  feature::TAltitude GetAltitude(ms::LatLon const & coord) override
+  // IAltitudeGetter overrides:
+  feature::TAltitude GetAltitude(m2::PointD const & p) override
   {
-    return m_srtmManager.GetHeight(coord);
+    return m_srtmManager.GetHeight(MercatorBounds::ToLatLon(p));
   }
 
 private:
@@ -96,7 +99,7 @@ public:
       TAltitude minFeatureAltitude = kInvalidAltitude;
       for (size_t i = 0; i < pointsCount; ++i)
       {
-        TAltitude const a = m_altitudeGetter.GetAltitude(MercatorBounds::ToLatLon(f.GetPoint(i)));
+        TAltitude const a = m_altitudeGetter.GetAltitude(f.GetPoint(i));
         if (a == kInvalidAltitude)
         {
           valid = false;
@@ -182,8 +185,7 @@ void SerializeHeader(TAltitudeSectionVersion version, TAltitude minAltitude,
 
 namespace routing
 {
-void BuildRoadAltitudes(IAltitudeGetter & altitudeGetter, string const & baseDir,
-                        string const & countryName)
+void BuildRoadAltitudes(string const & baseDir, string const & countryName, IAltitudeGetter & altitudeGetter)
 {
   try
   {
@@ -268,6 +270,6 @@ void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string 
 {
   LOG(LINFO, ("srtmPath =", srtmPath, "baseDir =", baseDir, "countryName =", countryName));
   SrtmGetter srtmGetter(srtmPath);
-  BuildRoadAltitudes(srtmGetter, baseDir, countryName);
+  BuildRoadAltitudes(baseDir, countryName, srtmGetter);
 }
 }  // namespace routing

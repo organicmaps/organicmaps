@@ -1,6 +1,6 @@
 #pragma once
 
-#include "geometry/latlon.hpp"
+#include "geometry/point2d.hpp"
 
 #include "indexer/feature_altitude.hpp"
 
@@ -11,11 +11,11 @@ namespace routing
 class IAltitudeGetter
 {
 public:
-  virtual feature::TAltitude GetAltitude(ms::LatLon const & coord) = 0;
+  virtual feature::TAltitude GetAltitude(m2::PointD const & p) = 0;
 };
 
-void BuildRoadAltitudes(IAltitudeGetter const & altitudeGetter, string const & baseDir,
-                        string const & countryName);
+void BuildRoadAltitudes(string const & baseDir, string const & countryName,
+                        IAltitudeGetter & altitudeGetter);
 void BuildRoadAltitudes(string const & srtmPath, string const & baseDir,
                         string const & countryName);
 }  // namespace routing

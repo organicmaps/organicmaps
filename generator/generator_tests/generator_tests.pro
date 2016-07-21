@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = generator drape_frontend routing search storage indexer drape map platform editor geometry \
+DEPENDENCIES = generator_tests_support generator drape_frontend routing search storage indexer drape map platform editor geometry \
                coding base freetype expat fribidi tomcrypt jansson protobuf osrm stats_client \
                minizip succinct pugixml tess2 gflags oauthcpp
 
@@ -19,6 +19,7 @@ HEADERS += \
 
 SOURCES += \
     ../../testing/testingmain.cpp \
+    altitude_test.cpp \
     check_mwms.cpp \
     coasts_test.cpp \
     feature_builder_test.cpp \
