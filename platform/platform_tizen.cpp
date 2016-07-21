@@ -105,6 +105,22 @@ Platform::EConnectionType Platform::ConnectionStatus()
   return EConnectionType::CONNECTION_NONE;
 }
 
+void Platform::GetSystemFontNames(FilesList & res) const
+{
+}
+
+void Platform::SendPushWooshTag(string const & tag)
+{
+}
+
+void Platform::SendPushWooshTag(string const & tag, string const & value)
+{
+}
+
+void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
+{
+}
+
 extern Platform & GetPlatform()
 {
   static Platform platform;

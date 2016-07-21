@@ -30,6 +30,7 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.PushwooshHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.pushwoosh.PushManager;
 import io.fabric.sdk.android.Fabric;
@@ -253,6 +254,25 @@ public class MwmApplication extends Application
       pushManager.onStartup(this);
       pushManager.registerForPushNotifications();
       pushManager.startTrackingGeoPushes();
+
+      PushwooshHelper.get().setContext(this);
+      PushwooshHelper.get().synchronize();
+    }
+    catch(Exception e)
+    {
+      Log.e("Pushwoosh", e.getLocalizedMessage());
+    }
+  }
+
+  @SuppressWarnings("unused")
+  void sendPushWooshTags(String tag, String[] values)
+  {
+    try
+    {
+      if (values.length == 1)
+        PushwooshHelper.get().sendTag(tag, values[0]);
+      else
+        PushwooshHelper.get().sendTag(tag, values);
     }
     catch(Exception e)
     {

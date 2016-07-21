@@ -29,10 +29,13 @@ namespace android
     bool HasAvailableSpaceForWriting(uint64_t size) const;
     void RunOnGuiThread(TFunctor const & fn);
 
+    void SendPushWooshTag(string const & tag, vector<string> const & values);
+
     static Platform & Instance();
 
   private:
     jobject m_functorProcessObject;
     jmethodID m_functorProcessMethod;
+    jmethodID m_sendPushWooshTagsMethod;
   };
-}
+} // namespace android

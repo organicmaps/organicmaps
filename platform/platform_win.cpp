@@ -180,3 +180,15 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
 void Platform::GetSystemFontNames(FilesList & res) const
 {
 }
+
+void Platform::SendPushWooshTag(string const & tag)
+{
+}
+
+void Platform::SendPushWooshTag(string const & tag, string const & value)
+{
+}
+
+void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
+{
+}

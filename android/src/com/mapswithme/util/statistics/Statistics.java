@@ -380,10 +380,13 @@ public enum Statistics
     }
   }
 
-  public void trackRouteBuild(String from, String to)
+  public void trackRouteBuild(int routerType, MapObject from, MapObject to)
   {
-    trackEvent(EventName.ROUTING_BUILD, params().add(EventParam.FROM, from)
-                                                .add(EventParam.TO, to));
+    trackEvent(EventName.ROUTING_BUILD, params().add(EventParam.FROM, Statistics.getPointType(from))
+        .add(EventParam.TO, Statistics.getPointType(to)));
+
+    boolean isP2P = !MapObject.isOfType(MapObject.MY_POSITION, from) && !MapObject.isOfType(MapObject.MY_POSITION, to);
+    PushwooshHelper.get().sendTag(PushwooshHelper.getRoutingTag(routerType, isP2P));
   }
 
   public void trackEditorLaunch(boolean newObject)
@@ -391,6 +394,8 @@ public enum Statistics
     trackEvent(newObject ? EventName.EDITOR_START_CREATE : EventName.EDITOR_START_EDIT,
                editorMwmParams().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
                                 .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
+
+    PushwooshHelper.get().sendTag(newObject ? PushwooshHelper.ADD_MAP_OBJECT : PushwooshHelper.EDIT_MAP_OBJECT);
   }
 
   public void trackEditorSuccess(boolean newObject)

@@ -271,6 +271,21 @@ void Platform::SetupMeasurementSystem() const
   settings::Set(settings::kMeasurementUnits, units);
 }
 
+void Platform::SendPushWooshTag(string const & tag)
+{
+  SendPushWooshTag(tag, vector<string>{ "1" });
+}
+
+void Platform::SendPushWooshTag(string const & tag, string const & value)
+{
+  SendPushWooshTag(tag, vector<string>{ value });
+}
+
+void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
+{
+  //TODO: implement
+}
+
 ////////////////////////////////////////////////////////////////////////
 extern Platform & GetPlatform()
 {

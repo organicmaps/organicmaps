@@ -69,6 +69,21 @@ void Platform::RunOnGuiThread(TFunctor const & fn)
   android::Platform::Instance().RunOnGuiThread(fn);
 }
 
+void Platform::SendPushWooshTag(string const & tag)
+{
+  SendPushWooshTag(tag, vector<string>{ "1" });
+}
+
+void Platform::SendPushWooshTag(string const & tag, string const & value)
+{
+  SendPushWooshTag(tag, vector<string>{ value });
+}
+
+void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
+{
+  android::Platform::Instance().SendPushWooshTag(tag, values);
+}
+
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   JNIEnv * env = jni::GetEnv();
@@ -94,6 +109,7 @@ namespace android
     m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
     jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
     m_functorProcessMethod = env->GetMethodID(functorProcessClass, "forwardToMainThread", "(J)V");
+    m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags", "(Ljava/lang/String;[Ljava/lang/String;)V");
 
     string const flavor = jni::ToNativeString(env, flavorName);
     string const build = jni::ToNativeString(env, buildType);
@@ -183,7 +199,20 @@ namespace android
     TFunctor * functor = new TFunctor(fn);
     jni::GetEnv()->CallVoidMethod(m_functorProcessObject, m_functorProcessMethod, reinterpret_cast<jlong>(functor));
   }
-}
+
+  void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
+  {
+    if (values.empty())
+      return;
+
+    JNIEnv * env = jni::GetEnv();
+    if (env == nullptr)
+      return;
+
+    env->CallVoidMethod(m_functorProcessObject, m_sendPushWooshTagsMethod, jni::ToJavaString(env, tag),
+                        jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, values)).get());
+  }
+} // namespace android
 
 Platform & GetPlatform()
 {
