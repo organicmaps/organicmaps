@@ -21,6 +21,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -84,49 +85,48 @@ public:
     }
 
     bool hasAltitude = false;
-    do
+    MY_SCOPE_GUARD(removeTmpDir, [&] ()
     {
-      if (!routing::IsRoad(feature::TypesHolder(f)))
-        break;
+      m_altitudeAvailability.push_back(hasAltitude);
+    });
 
-      f.ParseGeometry(FeatureType::BEST_GEOMETRY);
-      size_t const pointsCount = f.GetPointsCount();
-      if (pointsCount == 0)
-        break;
+    if (!routing::IsRoad(feature::TypesHolder(f)))
+      return;
 
-      TAltitudes altitudes;
-      bool valid = true;
-      TAltitude minFeatureAltitude = kInvalidAltitude;
-      for (size_t i = 0; i < pointsCount; ++i)
+    f.ParseGeometry(FeatureType::BEST_GEOMETRY);
+    size_t const pointsCount = f.GetPointsCount();
+    if (pointsCount == 0)
+      return;
+
+    TAltitudes altitudes;
+    bool valid = true;
+    TAltitude minFeatureAltitude = kInvalidAltitude;
+    for (size_t i = 0; i < pointsCount; ++i)
+    {
+      TAltitude const a = m_altitudeGetter.GetAltitude(f.GetPoint(i));
+      if (a == kInvalidAltitude)
       {
-        TAltitude const a = m_altitudeGetter.GetAltitude(f.GetPoint(i));
-        if (a == kInvalidAltitude)
-        {
-          valid = false;
-          break;
-        }
-
-        if (minFeatureAltitude == kInvalidAltitude)
-          minFeatureAltitude = a;
-        else
-          minFeatureAltitude = min(minFeatureAltitude, a);
-
-        altitudes.push_back(a);
+        valid = false;
+        return;
       }
-      if (!valid)
-        break;
 
-      hasAltitude = true;
-      m_featureAltitudes.push_back(make_pair(id, Altitude(move(altitudes))));
-
-      if (m_minAltitude == kInvalidAltitude)
-        m_minAltitude = minFeatureAltitude;
+      if (minFeatureAltitude == kInvalidAltitude)
+        minFeatureAltitude = a;
       else
-        m_minAltitude = min(minFeatureAltitude, m_minAltitude);
-    }
-    while(false);
+        minFeatureAltitude = min(minFeatureAltitude, a);
 
-    m_altitudeAvailability.push_back(hasAltitude);
+      altitudes.push_back(a);
+    }
+    if (!valid)
+      return;
+
+    hasAltitude = true;
+    m_featureAltitudes.push_back(make_pair(id, Altitude(move(altitudes))));
+
+    if (m_minAltitude == kInvalidAltitude)
+      m_minAltitude = minFeatureAltitude;
+    else
+      m_minAltitude = min(minFeatureAltitude, m_minAltitude);
   }
 
   bool HasAltitudeInfo() const
@@ -168,18 +168,6 @@ void MoveFileToAltitudeSection(string const & filePath, uint32_t fileSize, FileW
     LOG(LINFO, (filePath, "size is", fileSize));
   }
   FileWriter::DeleteFileX(filePath);
-}
-
-void SerializeHeader(TAltitudeSectionVersion version, TAltitude minAltitude,
-                     TAltitudeSectionOffset altitudeInfoOffset, FileWriter & w)
-{
-  w.Write(&version, sizeof(version));
-
-  w.Write(&minAltitude, sizeof(minAltitude));
-  LOG(LINFO, ("altitudeAvailability writing minAltitude =", minAltitude));
-
-  w.Write(&altitudeInfoOffset, sizeof(altitudeInfoOffset));
-  LOG(LINFO, ("altitudeAvailability writing altitudeInfoOffset =", altitudeInfoOffset));
 }
 }  // namespace
 
@@ -246,14 +234,14 @@ void BuildRoadAltitudes(string const & baseDir, string const & countryName, IAlt
 
     // Writing section with altitude information.
     // Writing altitude section header.
-    TAltitudeSectionOffset const headerSize = sizeof(kAltitudeSectionVersion) +
-        sizeof(minAltitude) + sizeof(TAltitudeSectionOffset);
+    TAltitudeSectionOffset const headerSize = AltitudeHeader::GetHeaderSize();
     TAltitudeSectionOffset const featuresTableOffset = headerSize +
         sizeof(altitudeAvailabilitySize) + altitudeAvailabilitySize;
     TAltitudeSectionOffset const altitudeInfoOffset = featuresTableOffset +
         sizeof(featuresTableSize) + featuresTableSize;
-    SerializeHeader(kAltitudeSectionVersion, processor.GetMinAltitude(),
-                    altitudeInfoOffset + sizeof(TAltitudeSectionOffset) /* for altitude info size */, w);
+    AltitudeHeader header(kAltitudeSectionVersion, processor.GetMinAltitude(),
+                          altitudeInfoOffset + sizeof(TAltitudeSectionOffset) /* for altitude info size */);
+    header.Serialize(w);
 
     // Coping parts of altitude sections to mwm.
     MoveFileToAltitudeSection(altitudeAvailabilityPath, altitudeAvailabilitySize, w);

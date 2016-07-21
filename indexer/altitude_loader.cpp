@@ -30,7 +30,6 @@ void ReadBuffer(ReaderSource<FilesContainerR::TReader> & rs, vector<char> & buf)
 namespace feature
 {
 AltitudeLoader::AltitudeLoader(MwmValue const * mwmValue)
-  : m_altitudeInfoOffset(0), m_minAltitude(kInvalidAltitude)
 {
   if (!mwmValue || mwmValue->GetHeader().GetFormat() < version::Format::v8 )
     return;
@@ -42,7 +41,7 @@ AltitudeLoader::AltitudeLoader(MwmValue const * mwmValue)
   {
     m_reader = make_unique<FilesContainerR::TReader>(mwmValue->m_cont.GetReader(ALTITUDES_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> rs(*m_reader);
-    DeserializeHeader(rs);
+    m_header.Deserialize(rs);
 
     // Reading rs_bit_vector with altitude availability information.
     ReadBuffer(rs, m_altitudeAvailabilitBuf);
@@ -56,26 +55,14 @@ AltitudeLoader::AltitudeLoader(MwmValue const * mwmValue)
   }
   catch (Reader::OpenException const & e)
   {
-    m_altitudeInfoOffset = 0;
-    m_minAltitude = kInvalidAltitude;
-    LOG(LINFO, ("MWM does not contain", ALTITUDES_FILE_TAG, "section.", e.Msg()));
+    m_header.Reset();
+    LOG(LERROR, ("Error while reading", ALTITUDES_FILE_TAG, "section.", e.Msg()));
   }
-}
-
-void AltitudeLoader::DeserializeHeader(ReaderSource<FilesContainerR::TReader> & rs)
-{
-  TAltitudeSectionVersion version;
-  rs.Read(&version, sizeof(version));
-  LOG(LINFO, ("Reading version =", version));
-  rs.Read(&m_minAltitude, sizeof(m_minAltitude));
-  LOG(LINFO, ("Reading m_minAltitude =", m_minAltitude));
-  rs.Read(&m_altitudeInfoOffset, sizeof(m_altitudeInfoOffset));
-  LOG(LINFO, ("Reading m_altitudeInfoOffset =", m_altitudeInfoOffset));
 }
 
 TAltitudes AltitudeLoader::GetAltitude(uint32_t featureId, size_t pointCount) const
 {
-  if (m_altitudeInfoOffset == 0)
+  if (m_header.altitudeInfoOffset == 0)
   {
     // The version of mwm is less then version::Format::v8 or there's no altitude section in mwm.
     return TAltitudes();
@@ -92,15 +79,15 @@ TAltitudes AltitudeLoader::GetAltitude(uint32_t featureId, size_t pointCount) co
   uint64_t const offset = m_featureTable->select(r);
   CHECK_LESS_OR_EQUAL(offset, m_featureTable->size(), (featureId));
 
-  uint64_t const m_altitudeInfoOffsetInSection = m_altitudeInfoOffset + offset;
-  CHECK_LESS(m_altitudeInfoOffsetInSection, m_reader->Size(), ());
+  uint64_t const altitudeInfoOffsetInSection = m_header.altitudeInfoOffset + offset;
+  CHECK_LESS(altitudeInfoOffsetInSection, m_reader->Size(), ());
 
   try
   {
     Altitude a;
     ReaderSource<FilesContainerR::TReader> rs(*m_reader);
-    rs.Skip(m_altitudeInfoOffsetInSection);
-    a.Deserialize(m_minAltitude, pointCount, rs);
+    rs.Skip(altitudeInfoOffsetInSection);
+    a.Deserialize(m_header.minAltitude, pointCount, rs);
 
     // @TODO(bykoianko) Considers using move semantic for returned value here.
     return a.GetAltitudes();
