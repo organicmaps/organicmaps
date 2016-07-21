@@ -1,7 +1,6 @@
 #import "MWMActivityViewController.h"
 #import "MWMEditorViralActivityItem.h"
-#import "MWMShareLocationActivityItem.h"
-#import "MWMSharePedestrianRoutesToastActivityItem.h"
+#import "MWMShareActivityItem.h"
 
 @interface MWMActivityViewController ()
 
@@ -27,21 +26,17 @@
   return self;
 }
 
-+ (instancetype)shareControllerForLocationTitle:(NSString *)title location:(CLLocationCoordinate2D)location
-                                     myPosition:(BOOL)myPosition
++ (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D const &)location
 {
-  MWMShareLocationActivityItem * item = [[MWMShareLocationActivityItem alloc] initWithTitle:title location:location
-                                                                                 myPosition:myPosition];
+  MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
   return [[self alloc] initWithActivityItem:item];
 }
 
-+ (instancetype)shareControllerForPedestrianRoutesToast
++ (instancetype)shareControllerForPlacePageObject:(MWMPlacePageEntity *)entity
 {
-  MWMSharePedestrianRoutesToastActivityItem * item = [[MWMSharePedestrianRoutesToastActivityItem alloc] init];
-  MWMActivityViewController * vc = [[self alloc] initWithActivityItem:item];
-  if ([vc respondsToSelector:@selector(popoverPresentationController)])
-    vc.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionDown;
-  return vc;
+  MWMShareActivityItem * item =
+      [[MWMShareActivityItem alloc] initForPlacePageObjectWithEntity:entity];
+  return [[self alloc] initWithActivityItem:item];
 }
 
 + (instancetype)shareControllerForEditorViral
@@ -64,16 +59,6 @@
     self.popoverPresentationController.sourceRect = anchorView.bounds;
   }
   [parentVC presentViewController:self animated:YES completion:nil];
-}
-
-- (BOOL)shouldAutorotate
-{
-  return YES;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-  return UIInterfaceOrientationMaskAll;
 }
 
 @end

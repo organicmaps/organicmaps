@@ -216,7 +216,13 @@ void initFieldsMap()
 
 - (NSURL *)bookingUrl
 {
-  auto const & url = m_info.GetSponsoredBookingUrl();
+  return [self sponsoredUrl:NO];
+}
+- (NSURL *)bookingDescriptionUrl { return [self sponsoredUrl:YES]; }
+- (NSURL *)sponsoredUrl:(BOOL)isDescription
+{
+  auto const & url =
+      isDescription ? m_info.GetSponsoredDescriptionUrl() : m_info.GetSponsoredBookingUrl();
   return url.empty() ? nil : [NSURL URLWithString:@(url.c_str())];
 }
 

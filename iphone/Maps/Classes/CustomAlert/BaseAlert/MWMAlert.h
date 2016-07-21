@@ -28,7 +28,6 @@ using TMWMDownloadBlock = void (^)(storage::TCountriesVec const &, TMWMVoidBlock
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)locationServiceNotSupportedAlert;
 + (MWMAlert *)locationNotFoundAlertWithOkBlock:(TMWMVoidBlock)okBlock;
-+ (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch;
 + (MWMAlert *)incorrectFeauturePositionAlert;
 + (MWMAlert *)internalErrorAlert;
 + (MWMAlert *)notEnoughSpaceAlert;

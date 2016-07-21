@@ -15,7 +15,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 @implementation MWMAlertViewController
 
-+ (MWMAlertViewController *)activeAlertController
++ (nonnull MWMAlertViewController *)activeAlertController
 {
   UIWindow * window = UIApplication.sharedApplication.delegate.window;
   UIViewController * rootViewController = window.rootViewController;
@@ -76,11 +76,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)presentNoWiFiAlertWithOkBlock:(nullable TMWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert noWiFiAlertWithOkBlock:okBlock]];
-}
-
-- (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch
-{
-  [self displayAlert:[MWMAlert pedestrianToastShareAlert:isFirstLaunch]];
 }
 
 - (void)presentIncorrectFeauturePositionAlert

@@ -385,7 +385,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMBottomMenuCollectionViewCell * cell =
       (MWMBottomMenuCollectionViewCell *)[self.additionalButtons cellForItemAtIndexPath:cellIndex];
   MWMActivityViewController * shareVC =
-      [MWMActivityViewController shareControllerForLocationTitle:nil location:coord myPosition:YES];
+      [MWMActivityViewController shareControllerForMyPosition:coord];
   [shareVC presentInParentViewController:self.controller anchorView:cell.icon];
 }
 
