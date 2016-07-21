@@ -256,7 +256,7 @@ public:
   }
 };
 
-class MainFeaturesEmitter
+class MainFeaturesEmitter : public EmitterBase
 {
   using TWorldGenerator = WorldMapGenerator<feature::FeaturesCollector>;
   using TCountriesGenerator = CountryMapGenerator<feature::Polygonizer<feature::FeaturesCollector>>;
@@ -324,7 +324,7 @@ public:
       m_world.reset(new TWorldGenerator(info));
   }
 
-  void operator()(FeatureBuilder1 & fb)
+  void operator()(FeatureBuilder1 & fb) override
   {
     static uint32_t const placeType = classif().GetTypeByPath({"place"});
     uint32_t const type = fb.GetParams().FindType(placeType, 1);
@@ -343,7 +343,7 @@ public:
   }
 
   /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
-  bool Finish()
+  bool Finish() override
   {
     m_places.ForEach([this](Place const & p)
     {
@@ -402,7 +402,7 @@ public:
     return true;
   }
 
-  inline void GetNames(vector<string> & names) const
+  void GetNames(vector<string> & names) const override
   {
     if (m_countries)
       names = m_countries->Parent().Names();
@@ -451,6 +451,10 @@ private:
 };
 }  // anonymous namespace
 
+unique_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info)
+{
+  return make_unique<MainFeaturesEmitter>(info);
+}
 
 template <typename TElement, typename TCache>
 void AddElementToCache(TCache & cache, TElement const & em)
@@ -597,7 +601,7 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <class TNodesHolder>
-bool GenerateFeaturesImpl(feature::GenerateInfo & info)
+bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
 {
   try
   {
@@ -607,9 +611,9 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     TDataCache cache(nodes, info);
     cache.LoadIndex();
 
-    MainFeaturesEmitter bucketer(info);
-    OsmToFeatureTranslator<MainFeaturesEmitter, TDataCache> parser(
-        bucketer, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
+    // TODO(mgsergio): Get rid of EmitterBase template parameter.
+    OsmToFeatureTranslator<EmitterBase, TDataCache> parser(
+        emitter, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
         info.GetAddressesFileName());
 
     TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
@@ -670,10 +674,10 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     }
 
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set
-    if (!bucketer.Finish())
+    if (!emitter.Finish())
       return false;
 
-    bucketer.GetNames(info.m_bucketNames);
+    emitter.GetNames(info.m_bucketNames);
   }
   catch (Reader::Exception const & ex)
   {
@@ -718,16 +722,17 @@ bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
   return true;
 }
 
-bool GenerateFeatures(feature::GenerateInfo & info)
+bool GenerateFeatures(feature::GenerateInfo & info, EmitterFactory factory)
 {
+  auto emitter = factory(info);
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateFeaturesImpl<cache::RawFilePointStorage<cache::EMode::Read>>(info);
+      return GenerateFeaturesImpl<cache::RawFilePointStorage<cache::EMode::Read>>(info, *emitter);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateFeaturesImpl<cache::MapFilePointStorage<cache::EMode::Read>>(info);
+      return GenerateFeaturesImpl<cache::MapFilePointStorage<cache::EMode::Read>>(info, *emitter);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateFeaturesImpl<cache::RawMemPointStorage<cache::EMode::Read>>(info);
+      return GenerateFeaturesImpl<cache::RawMemPointStorage<cache::EMode::Read>>(info, *emitter);
   }
   return false;
 }

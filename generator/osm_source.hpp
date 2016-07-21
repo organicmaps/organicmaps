@@ -30,11 +30,24 @@ public:
   uint64_t Read(char * buffer, uint64_t bufferSize);
 };
 
+class FeatureBuilder1;
 
+class EmitterBase
+{
+public:
+  virtual ~EmitterBase() = default;
+  virtual void operator()(FeatureBuilder1 & fb) = 0;
+  virtual bool Finish() { return true; }
+  virtual void GetNames(vector<string> & names) const = 0;
+};
 
-bool GenerateFeatures(feature::GenerateInfo & info);
+unique_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info);
+
+using EmitterFactory = function<unique_ptr<EmitterBase>(feature::GenerateInfo const &)>;
+
+bool GenerateFeatures(feature::GenerateInfo & info,
+                      EmitterFactory factory = MakeMainFeatureEmitter);
 bool GenerateIntermediateData(feature::GenerateInfo & info);
 
 void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *)> processor);
 void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *)> processor);
-
