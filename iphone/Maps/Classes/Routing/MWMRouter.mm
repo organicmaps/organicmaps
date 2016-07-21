@@ -1,4 +1,5 @@
 #import "MWMRouter.h"
+#import <Pushwoosh/PushNotificationManager.h>
 #import "MWMAlertViewController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationHelpers.h"
@@ -133,6 +134,20 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   {
     [Statistics logEvent:kStatPointToPoint
           withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatPointToPoint}];
+    switch (self.type)
+    {
+    case RouterType::Vehicle:
+      [[PushNotificationManager pushManager] setTags:@{ @"routing_p2p_vehicle_discovered" : @YES }];
+      break;
+    case RouterType::Pedestrian:
+      [[PushNotificationManager pushManager] setTags:@{
+        @"routing_p2p_pedestrian_discovered" : @YES
+      }];
+      break;
+    case RouterType::Bicycle:
+      [[PushNotificationManager pushManager] setTags:@{ @"routing_p2p_bicycle_discovered" : @YES }];
+      break;
+    }
   }
 
   if ([self arePointsValidForRouting])
@@ -146,6 +161,18 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
     f.SetRouteFinishPoint(finishPoint, isMarkerPoint(self.finishPoint));
     [[MWMMapViewControlsManager manager] onRouteRebuild];
+    switch (self.type)
+    {
+    case RouterType::Vehicle:
+      [[PushNotificationManager pushManager] setTags:@{ @"routing_vehicle_discovered" : @YES }];
+      break;
+    case RouterType::Pedestrian:
+      [[PushNotificationManager pushManager] setTags:@{ @"routing_pedestrian_discovered" : @YES }];
+      break;
+    case RouterType::Bicycle:
+      [[PushNotificationManager pushManager] setTags:@{ @"routing_bicycle_discovered" : @YES }];
+      break;
+    }
   }
   else
   {
