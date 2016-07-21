@@ -54,6 +54,7 @@ public:
   };
 
   using TFilesWithType = vector<pair<string, EFileType>>;
+  using TPushWooshSenderFn = function<void(string const & tag, vector<string> const & values)>;
 
 protected:
   /// Usually read-only directory for application resources
@@ -85,6 +86,9 @@ protected:
 
   /// Returns last system call error as EError.
   static EError ErrnoToError();
+
+  /// Callback fucntion for setting PushWoosh tags.
+  TPushWooshSenderFn m_pushwooshSender;
 
 public:
   Platform();
@@ -224,6 +228,7 @@ public:
 
   void SetupMeasurementSystem() const;
 
+  void SetPushWooshSender(TPushWooshSenderFn const & fn) { m_pushwooshSender = fn; }
   void SendPushWooshTag(string const & tag);
   void SendPushWooshTag(string const & tag, string const & value);
   void SendPushWooshTag(string const & tag, vector<string> const & values);
