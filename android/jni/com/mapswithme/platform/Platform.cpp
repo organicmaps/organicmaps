@@ -206,10 +206,8 @@ namespace android
       return;
 
     JNIEnv * env = jni::GetEnv();
-    if (env == nullptr)
-      return;
-
-    env->CallVoidMethod(m_functorProcessObject, m_sendPushWooshTagsMethod, jni::ToJavaString(env, tag),
+    env->CallVoidMethod(m_functorProcessObject, m_sendPushWooshTagsMethod,
+                        jni::TScopedLocalRef(env, jni::ToJavaString(env, tag)).get(),
                         jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, values)).get());
   }
 } // namespace android
