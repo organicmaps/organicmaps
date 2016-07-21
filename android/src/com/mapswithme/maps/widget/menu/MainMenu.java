@@ -2,34 +2,27 @@ package com.mapswithme.maps.widget.menu;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
-import com.mapswithme.maps.routing.RoutingInfo;
-import com.mapswithme.maps.widget.RotateByAlphaDrawable;
-import com.mapswithme.maps.widget.TrackedTransitionDrawable;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainMenu
 {
@@ -61,21 +54,19 @@ public class MainMenu
   private final Container mContainer;
   private final ViewGroup mFrame;
   private final View mButtonsFrame;
-  private final View mNavigationFrame;
   private final View mRoutePlanFrame;
   private final View mContentFrame;
   private final View mAnimationSpacer;
   private final View mAnimationSymmetricalGap;
   private final View mNewsMarker;
 
-  private final TextView mCurrentPlace;
   private final TextView mNewsCounter;
 
   private boolean mCollapsed;
   private final List<View> mCollapseViews = new ArrayList<>();
 
   private final MyPositionButton mMyPositionButton;
-  private final Toggle mToggle;
+  private final MenuToggle mToggle;
   private Button mRouteStartButton;
 
   private int mContentHeight;
@@ -83,6 +74,7 @@ public class MainMenu
   // Maps Item into button view placed on mContentFrame
   private final Map<Item, View> mItemViews = new HashMap<>();
 
+  private boolean mLayoutCorrected;
   private boolean mAnimating;
 
   private final MwmActivity.LeftAnimationTrackListener mAnimationTrackListener = new MwmActivity.LeftAnimationTrackListener()
@@ -176,69 +168,6 @@ public class MainMenu
     }
   }
 
-  private class Toggle
-  {
-    final ImageView mButton;
-    final boolean mAlwaysShow;
-
-    final TransitionDrawable mOpenImage;
-    final TransitionDrawable mCollapseImage;
-
-    public Toggle(View frame)
-    {
-      mButton = (ImageView) frame.findViewById(R.id.toggle);
-      mAlwaysShow = (mFrame.findViewById(R.id.disable_toggle) == null);
-      mapItem(Item.TOGGLE, frame);
-
-      int sz = UiUtils.dimen(R.dimen.menu_line_height);
-      Rect bounds = new Rect(0, 0, sz, sz);
-
-      mOpenImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_open, R.attr.iconTint, false)
-                                                                      .setInnerBounds(bounds),
-                                                                  new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight, true)
-                                                                      .setInnerBounds(bounds)
-                                                                      .setBaseAngle(-90) });
-      mCollapseImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_open, R.attr.iconTint, false)
-                                                                          .setInnerBounds(bounds),
-                                                                      new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight, true)
-                                                                          .setInnerBounds(bounds) });
-      mOpenImage.setCrossFadeEnabled(true);
-      mCollapseImage.setCrossFadeEnabled(true);
-    }
-
-    public void setState(State state, boolean animate)
-    {
-      UiUtils.showIf(mAlwaysShow || state.showToggle(), mButton);
-      setCollapsed(mCollapsed, animate);
-    }
-
-    private void transitImage(TransitionDrawable image, boolean forward, boolean animate)
-    {
-      if (!UiUtils.isVisible(mButton))
-        animate = false;
-
-      mButton.setImageDrawable(image);
-
-      if (forward)
-        image.startTransition(animate ? ANIMATION_DURATION : 0);
-      else
-        image.reverseTransition(animate ? ANIMATION_DURATION : 0);
-
-      if (!animate)
-        image.getDrawable(forward ? 1 : 0).setAlpha(0xFF);
-    }
-
-    public void setOpen(boolean open, boolean animate)
-    {
-      transitImage(mOpenImage, open, animate);
-    }
-
-    public void setCollapsed(boolean collapse, boolean animate)
-    {
-      transitImage(mCollapseImage, collapse, animate);
-    }
-  }
-
   private View mapItem(final Item item, View frame)
   {
     View res = frame.findViewById(item.mViewId);
@@ -291,14 +220,9 @@ public class MainMenu
                                                                                 : R.attr.menuBackgroundClosed));
   }
 
-  private boolean isLayoutCorrected()
+  private void correctLayout(final Runnable procAfterCorrection)
   {
-    return UiUtils.isVisible(mFrame);
-  }
-
-  private void correctLayout(@Nullable final Runnable procAfterCorrection)
-  {
-    if (isLayoutCorrected())
+    if (mLayoutCorrected)
       return;
 
     UiUtils.measureView(mContentFrame, new UiUtils.OnViewMeasuredListener()
@@ -307,12 +231,12 @@ public class MainMenu
       public void onViewMeasured(int width, int height)
       {
         mContentHeight = height;
+        mLayoutCorrected = true;
 
         UiUtils.hide(mContentFrame);
-        UiUtils.show(mFrame);
+        UiUtils.showIf(!RoutingController.get().isNavigating(), mFrame);
 
-        if (procAfterCorrection != null)
-          procAfterCorrection.run();
+        procAfterCorrection.run();
       }
     });
   }
@@ -333,21 +257,10 @@ public class MainMenu
       mNewsCounter.setText(String.valueOf(count));
   }
 
-  public void onResume(@Nullable Runnable procAfterCorrection)
+  public void onResume(Runnable procAfterCorrection)
   {
     correctLayout(procAfterCorrection);
     updateMarker();
-  }
-
-  public void updateRoutingInfo(RoutingInfo info)
-  {
-    if (info != null)
-      updateRoutingInfo(info.currentStreet);
-  }
-
-  private void updateRoutingInfo(String info)
-  {
-    mCurrentPlace.setText(info);
   }
 
   private void init()
@@ -366,24 +279,22 @@ public class MainMenu
     setState(State.MENU, false);
   }
 
-  public MainMenu(MwmActivity activity, ViewGroup frame, Container container)
+  public MainMenu(ViewGroup frame, Container container)
   {
     mContainer = container;
     mFrame = frame;
 
     View lineFrame = mFrame.findViewById(R.id.line_frame);
     mButtonsFrame = lineFrame.findViewById(R.id.buttons_frame);
-    mNavigationFrame = lineFrame.findViewById(R.id.navigation_frame);
     mRoutePlanFrame = lineFrame.findViewById(R.id.routing_plan_frame);
     mContentFrame = mFrame.findViewById(R.id.content_frame);
 
     mAnimationSpacer = mFrame.findViewById(R.id.animation_spacer);
     mAnimationSymmetricalGap = mButtonsFrame.findViewById(R.id.symmetrical_gap);
 
-    mCurrentPlace = (TextView) mNavigationFrame.findViewById(R.id.current_place);
-
     mMyPositionButton = new MyPositionButton(lineFrame.findViewById(R.id.my_position));
-    mToggle = new Toggle(lineFrame);
+    mToggle = new MenuToggle(lineFrame);
+    mapItem(Item.TOGGLE, lineFrame);
 
     mNewsMarker = mButtonsFrame.findViewById(R.id.marker);
     mNewsCounter = (TextView) mContentFrame.findViewById(R.id.counter);
@@ -396,38 +307,37 @@ public class MainMenu
 
   public void setState(State state, boolean animateToggle)
   {
-    mToggle.setState(state, animateToggle);
-
-    boolean expandContent;
-    boolean isRouting = state == State.NAVIGATION ||
-                        state == State.ROUTE_PREPARE;
-    if (mRoutePlanFrame == null)
+    if (state != State.NAVIGATION)
     {
-      UiUtils.showIf(state != State.NAVIGATION, mButtonsFrame);
-      expandContent = false;
+      mToggle.show(state.showToggle());
+      mToggle.setCollapsed(mCollapsed, animateToggle);
+
+      boolean expandContent;
+      boolean isRouting = state == State.ROUTE_PREPARE;
+      if (mRoutePlanFrame == null)
+      {
+        UiUtils.show(mButtonsFrame);
+        expandContent = false;
+      } else
+      {
+        UiUtils.showIf(state == State.MENU, mButtonsFrame);
+        UiUtils.showIf(state == State.ROUTE_PREPARE, mRoutePlanFrame);
+        expandContent = isRouting;
+      }
+
+      UiUtils.showIf(expandContent,
+                     mItemViews.get(Item.SEARCH),
+                     mItemViews.get(Item.BOOKMARKS));
+      setVisible(Item.ADD_PLACE, !isRouting && !MapManager.nativeIsLegacyMode());
     }
-    else
-    {
-      UiUtils.showIf(state == State.MENU, mButtonsFrame);
-      UiUtils.showIf(state == State.ROUTE_PREPARE, mRoutePlanFrame);
-      expandContent = isRouting;
-    }
 
-    UiUtils.showIf(state == State.NAVIGATION, mNavigationFrame);
-    UiUtils.showIf(expandContent,
-                   mItemViews.get(Item.SEARCH),
-                   mItemViews.get(Item.BOOKMARKS));
-    setVisible(Item.ADD_PLACE, !isRouting && !MapManager.nativeIsLegacyMode());
-
-    if (isLayoutCorrected())
+    if (mLayoutCorrected)
     {
+      UiUtils.showIf(state != State.NAVIGATION, mFrame);
       mContentFrame.measure(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT);
       mContentHeight = mContentFrame.getMeasuredHeight();
     }
-
-    if (state == State.NAVIGATION)
-      updateRoutingInfo(Framework.nativeGetRouteFollowingInfo());
   }
 
   public boolean isOpen()

@@ -510,7 +510,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMenu()
   {
-    mMainMenu = new MainMenu(this, (ViewGroup) findViewById(R.id.menu_frame), new MainMenu.Container()
+    mMainMenu = new MainMenu((ViewGroup) findViewById(R.id.menu_frame), new MainMenu.Container()
     {
       @Override
       public Activity getActivity()
@@ -1328,7 +1328,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     mNavigationController.update(info);
-    mMainMenu.updateRoutingInfo(info);
+
+    // TODO (trashkalmar or yunikkk): Update anything else
+    //mMainMenu.updateRoutingInfo(info);
 
     TtsPlayer.INSTANCE.playTurnNotifications();
   }

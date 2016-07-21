@@ -3,6 +3,7 @@ package com.mapswithme.maps.routing;
 import android.app.Activity;
 import android.location.Location;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class NavigationController
   private final View mNextNextTurnFrame;
   private final ImageView mNextNextTurnImage;
 
+  private final View mStreetFrame;
   private final TextView mNextStreet;
 
 //  private final TextView mDistanceTotal;
@@ -53,7 +55,8 @@ public class NavigationController
     mNextNextTurnFrame = mTopFrame.findViewById(R.id.nav_next_next_turn_frame);
     mNextNextTurnImage = (ImageView) mNextNextTurnFrame.findViewById(R.id.turn);
 
-    mNextStreet = (TextView) mTopFrame.findViewById(R.id.street);
+    mStreetFrame = mTopFrame.findViewById(R.id.street_frame);
+    mNextStreet = (TextView) mStreetFrame.findViewById(R.id.street);
     View shadow = mTopFrame.findViewById(R.id.shadow_top);
     UiUtils.showIf(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP, shadow);
 
@@ -131,7 +134,10 @@ public class NavigationController
     else
       updateVehicle(info);
 
-    UiUtils.setTextAndHideIfEmpty(mNextStreet, info.nextStreet);
+    boolean hasStreet = !TextUtils.isEmpty(info.nextStreet);
+    UiUtils.showIf(hasStreet, mStreetFrame);
+    if (!TextUtils.isEmpty(info.nextStreet))
+      mNextStreet.setText(info.nextStreet);
 
     /*
     mTimeTotal.setText(RoutingController.formatRoutingTime(mFrame.getContext(),

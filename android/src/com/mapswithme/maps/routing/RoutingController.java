@@ -402,7 +402,7 @@ public class RoutingController
     UiUtils.updateAccentButton(mStartButton);
   }
 
-  public void setStartButton(@Nullable Button button)
+  void setStartButton(@Nullable Button button)
   {
     mLogger.d("setStartButton");
     mStartButton = button;
@@ -488,22 +488,22 @@ public class RoutingController
     return (mWaitingPoiPickSlot != NO_SLOT);
   }
 
-  public BuildState getBuildState()
+  BuildState getBuildState()
   {
     return mBuildState;
   }
 
-  public MapObject getStartPoint()
+  MapObject getStartPoint()
   {
     return mStartPoint;
   }
 
-  public MapObject getEndPoint()
+  MapObject getEndPoint()
   {
     return mEndPoint;
   }
 
-  public RoutingInfo getCachedRoutingInfo()
+  RoutingInfo getCachedRoutingInfo()
   {
     return mCachedRoutingInfo;
   }
@@ -640,7 +640,7 @@ public class RoutingController
     return true;
   }
 
-  public void swapPoints()
+  void swapPoints()
   {
     mLogger.d("swapPoints");
 
@@ -655,7 +655,7 @@ public class RoutingController
     checkAndBuildRoute();
   }
 
-  public void setRouterType(@Framework.RouterType int router)
+  void setRouterType(@Framework.RouterType int router)
   {
     mLogger.d("setRouterType: " + mLastRouterType + " -> " + router);
 
@@ -669,7 +669,7 @@ public class RoutingController
       build();
   }
 
-  public void searchPoi(int slotId)
+  void searchPoi(int slotId)
   {
     mLogger.d("searchPoi: " + slotId);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SEARCH_POINT);

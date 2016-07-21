@@ -51,18 +51,11 @@
         layout="@layout/menu_buttons_line"/>
 
       <include
-        android:id="@+id/navigation_frame"
-        layout="@layout/menu_navigation_line"
-        tools:layout_width="match_parent"
-        tools:layout_height="@dimen/menu_line_height"
-        tools:layout_marginTop="60dp"/>
-
-      <include
         android:id="@+id/routing_plan_frame"
         layout="@layout/menu_route_plan_line"
         tools:layout_width="match_parent"
         tools:layout_height="@dimen/menu_line_height"
-        tools:layout_marginTop="120dp"/>
+        tools:layout_marginTop="60dp"/>
     </FrameLayout>
   </LinearLayout>
 
