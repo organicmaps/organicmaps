@@ -224,6 +224,10 @@ public:
 
   void SetupMeasurementSystem() const;
 
+  void SendPushWooshTag(string const & tag);
+  void SendPushWooshTag(string const & tag, string const & value);
+  void SendPushWooshTag(string const & tag, vector<string> const & values);
+
 private:
   void GetSystemFontNames(FilesList & res) const;
 };

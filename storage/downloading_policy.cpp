@@ -19,7 +19,7 @@ void StorageDownloadingPolicy::ScheduleRetry(storage::TCountriesSet const & fail
       --m_autoRetryCounter;
       func(failedCountries);
     };
-    m_autoRetryWorker.RestartWith([action]{ Platform().RunOnGuiThread(action); });
+    m_autoRetryWorker.RestartWith([action]{ GetPlatform().RunOnGuiThread(action); });
   }
   else
   {
