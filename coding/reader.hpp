@@ -159,15 +159,6 @@ public:
     return (m_reader.Size() - m_pos);
   }
 
-  // unique_ptr<Reader> SubReader(uint64_t size)
-  // {
-  //   uint64_t const pos = m_pos;
-  //   Skip(size);
-  //   return m_reader.SubReader(pos, size);
-  // }
-
-  // unique_ptr<Reader> SubReader() { return SubReader(Size()); }
-
 private:
   void CheckPosition() const
   {

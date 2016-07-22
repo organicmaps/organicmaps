@@ -18,7 +18,7 @@ public:
 class MappedMemoryRegion : public MemoryRegion
 {
 public:
-  MappedMemoryRegion(FilesMappingContainer::Handle && handle) : m_handle(move(handle)) {}
+  explicit MappedMemoryRegion(FilesMappingContainer::Handle && handle) : m_handle(move(handle)) {}
 
   // MemoryRegion overrides:
   uint64_t Size() const override { return m_handle.GetSize(); }
@@ -33,7 +33,7 @@ private:
 class CopiedMemoryRegion : public MemoryRegion
 {
 public:
-  CopiedMemoryRegion(vector<uint8_t> && buffer) : m_buffer(move(buffer)) {}
+  explicit CopiedMemoryRegion(vector<uint8_t> && buffer) : m_buffer(move(buffer)) {}
 
   // MemoryRegion overrides:
   uint64_t Size() const override { return m_buffer.size(); }

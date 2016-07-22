@@ -25,7 +25,7 @@ namespace search
 namespace
 {
 template <typename TCont>
-void EndiannesAwareMap(bool endiannesMismatch, CopiedMemoryRegion & region, TCont & cont)
+void EndiannessAwareMap(bool endiannesMismatch, CopiedMemoryRegion & region, TCont & cont)
 {
   TCont c;
   if (endiannesMismatch)
@@ -45,6 +45,7 @@ void EndiannesAwareMap(bool endiannesMismatch, CopiedMemoryRegion & region, TCon
 // V0 of CentersTable.  Has the following format:
 //
 // File offset (bytes)  Field name          Field size (bytes)
+// 0                    common header       4
 // 4                    positions offset    4
 // 8                    deltas offset       4
 // 12                   end of section      4
@@ -56,23 +57,24 @@ void EndiannesAwareMap(bool endiannesMismatch, CopiedMemoryRegion & region, TCon
 //
 // Identifiers table is a bit-vector with rank-select table, where set
 // bits denote that centers for the corresponding features are in
-// table.  Identifiers table is stored in a native endianness.
+// table.  Identifiers table is stored in the native endianness.
 //
-// Positions table is a elias-fano table, where each entry corresponds
+// Positions table is a Elias-Fano table, where each entry corresponds
 // to the start position of the centers block. Positions table is
-// stored in a native endianness.
+// stored in the native endianness.
 //
-// Deltas is a sequence of blocks, where each block is a sequence of
-// 64 varuints, where each varuint represents an encoded delta of the
-// center from some prediction. For the first center in the block map
-// base point is used as a prediction, for all other centers in the
-// block previous center is used as a prediction. This allows to
-// decode block of 64 consecutive centers at one syscall, and cache
+// Deltas is a sequence of blocks, where each block (with the
+// exception of the last one) is a sequence of kBlockSize varuints,
+// where each varuint represents an encoded delta of the center from
+// some prediction. For the first center in the block map base point
+// is used as a prediction, for all other centers in the block
+// previous center is used as a prediction. This allows to decode
+// block of kBlockSize consecutive centers at one syscall, and cache
 // them in RAM.
 class CentersTableV0 : public CentersTable
 {
 public:
-  static const uint32_t kFrequency = 64;
+  static const uint32_t kBlockSize = 64;
 
   struct Header
   {
@@ -140,13 +142,13 @@ public:
     if (id >= m_ids.size() || !m_ids[id])
       return false;
     uint32_t const rank = static_cast<uint32_t>(m_ids.rank(id));
-    uint32_t const base = rank / kFrequency;
-    uint32_t const offset = rank % kFrequency;
+    uint32_t const base = rank / kBlockSize;
+    uint32_t const offset = rank % kBlockSize;
 
     auto & entry = m_cache[base];
     if (entry.empty())
     {
-      entry.resize(kFrequency);
+      entry.resize(kBlockSize);
 
       uint32_t const start = m_offsets.select(base);
       uint32_t const end = base + 1 < m_offsets.num_ones()
@@ -163,7 +165,7 @@ public:
       uint64_t delta = ReadVarUint<uint64_t>(msource);
       entry[0] = DecodeDelta(delta, m_codingParams.GetBasePoint());
 
-      for (size_t i = 1; i < kFrequency && msource.Size() > 0; ++i)
+      for (size_t i = 1; i < kBlockSize && msource.Size() > 0; ++i)
       {
         delta = ReadVarUint<uint64_t>(msource);
         entry[i] = DecodeDelta(delta, entry[i - 1]);
@@ -184,7 +186,7 @@ private:
       return false;
 
     bool const isHostBigEndian = IsBigEndian();
-    bool const isDataBigEndian = m_header.m_base.m_endiannes == 1;
+    bool const isDataBigEndian = m_header.m_base.m_endianness == 1;
     bool const endiannesMismatch = isHostBigEndian != isDataBigEndian;
 
     {
@@ -192,7 +194,7 @@ private:
       vector<uint8_t> data(idsSize);
       m_reader.Read(sizeof(m_header), data.data(), data.size());
       m_idsRegion = make_unique<CopiedMemoryRegion>(move(data));
-      EndiannesAwareMap(endiannesMismatch, *m_idsRegion, m_ids);
+      EndiannessAwareMap(endiannesMismatch, *m_idsRegion, m_ids);
     }
 
     {
@@ -200,7 +202,7 @@ private:
       vector<uint8_t> data(offsetsSize);
       m_reader.Read(m_header.m_positionsOffset, data.data(), data.size());
       m_offsetsRegion = make_unique<CopiedMemoryRegion>(move(data));
-      EndiannesAwareMap(endiannesMismatch, *m_offsetsRegion, m_offsets);
+      EndiannessAwareMap(endiannesMismatch, *m_offsetsRegion, m_offsets);
     }
 
     return true;
@@ -226,18 +228,18 @@ void CentersTable::Header::Read(Reader & reader)
 {
   NonOwningReaderSource source(reader);
   m_version = ReadPrimitiveFromSource<uint16_t>(source);
-  m_endiannes = ReadPrimitiveFromSource<uint16_t>(source);
+  m_endianness = ReadPrimitiveFromSource<uint16_t>(source);
 }
 
 void CentersTable::Header::Write(Writer & writer)
 {
   WriteToSink(writer, m_version);
-  WriteToSink(writer, m_endiannes);
+  WriteToSink(writer, m_endianness);
 }
 
 bool CentersTable::Header::IsValid() const
 {
-  if (m_endiannes > 1)
+  if (m_endianness > 1)
     return false;
   return true;
 }
@@ -288,13 +290,13 @@ CentersTableBuilder::~CentersTableBuilder()
 
   {
     MemWriter<vector<uint8_t>> writer(deltas);
-    for (size_t i = 0; i < m_centers.size(); i += CentersTableV0::kFrequency)
+    for (size_t i = 0; i < m_centers.size(); i += CentersTableV0::kBlockSize)
     {
       offsets.push_back(deltas.size());
 
       uint64_t delta = EncodeDelta(m_centers[i], m_codingParams.GetBasePoint());
       WriteVarUint(writer, delta);
-      for (size_t j = i + 1; j < i + CentersTableV0::kFrequency && j < m_centers.size(); ++j)
+      for (size_t j = i + 1; j < i + CentersTableV0::kBlockSize && j < m_centers.size(); ++j)
       {
         delta = EncodeDelta(m_centers[j], m_centers[j - 1]);
         WriteVarUint(writer, delta);
@@ -322,7 +324,7 @@ CentersTableBuilder::~CentersTableBuilder()
   int64_t const endOffset = m_writer.Pos();
 
   m_writer.Seek(startOffset);
-  m_writer.Write(&header, sizeof(header));
+  header.Write(m_writer);
   m_writer.Seek(endOffset);
 }
 

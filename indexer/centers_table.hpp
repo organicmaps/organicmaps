@@ -26,10 +26,11 @@ namespace search
 //
 // File offset (bytes)  Field name  Field size (bytes)
 // 0                    version     2
-// 2                    endiannes   2
+// 2                    endianness  2
 //
-// Version and endiannes is always in stored little-endian format.  0
-// value of endiannes means little endian, whereas 1 means big endian.
+// Version and endianness is always in stored little-endian format.  0
+// value of endianness means little endian, whereas 1 means big
+// endian.
 class CentersTable
 {
 public:
@@ -40,7 +41,7 @@ public:
     bool IsValid() const;
 
     uint16_t m_version = 0;
-    uint16_t m_endiannes = 0;
+    uint16_t m_endianness = 0;
   };
 
   static_assert(sizeof(Header) == 4, "Wrong header size");
