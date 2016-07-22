@@ -181,7 +181,6 @@ public class PlacePageView extends RelativeLayout
   {
     HIDDEN,
     PREVIEW,
-    BOOKMARK,
     DETAILS
   }
 
@@ -474,19 +473,8 @@ public class PlacePageView extends RelativeLayout
     mIsFloating = attrArray.getBoolean(R.styleable.PlacePageView_floating, false);
     attrArray.recycle();
 
-    // switch with values from "animationType" from attrs.xml
-    switch (animationType)
-    {
-    case 0:
-      mAnimationController = new PlacePageBottomAnimationController(this);
-      break;
-
-    case 1:
-      mAnimationController = new PlacePageLeftAnimationController(this);
-      break;
-    }
-
-    mAnimationController.initialHide();
+    mAnimationController = animationType == 0 ? new PlacePageBottomAnimationController(this)
+                                              : new PlacePageLeftAnimationController(this);
   }
 
   public void restore()
@@ -967,28 +955,19 @@ public class PlacePageView extends RelativeLayout
 
   private void toggleIsBookmark()
   {
-    if (mMapObject == null)
-      return;
-    // TODO(yunikkk): this can be done by querying place_page::Info::IsBookmark(), without passing any
-    // specific Bookmark object instance.
     if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
-    {
       setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), true);
-      setState(State.DETAILS);
-    }
     else
+      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(BookmarkManager.nativeFormatNewBookmarkName(),
+                                                           mMapObject.getLat(), mMapObject.getLon()), true);
+    post(new Runnable()
     {
-      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(BookmarkManager.nativeFormatNewBookmarkName(), mMapObject.getLat(), mMapObject.getLon()), true);
-      // FIXME this hack is necessary to get correct views height in animation controller. remove after further investigation.
-      post(new Runnable()
+      @Override
+      public void run()
       {
-        @Override
-        public void run()
-        {
-          setState(State.BOOKMARK);
-        }
-      });
-    }
+        setState(State.DETAILS);
+      }
+    });
   }
 
   private void showBigDirection()
@@ -1092,7 +1071,7 @@ public class PlacePageView extends RelativeLayout
     if (mIsDocked || mIsFloating)
       return false;
 
-    if (getState() == State.BOOKMARK || getState() == State.DETAILS)
+    if (getState() == State.DETAILS)
     {
       hide();
       return true;

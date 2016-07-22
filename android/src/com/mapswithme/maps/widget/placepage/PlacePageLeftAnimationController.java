@@ -6,10 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.animation.AccelerateInterpolator;
 
 import com.mapswithme.maps.MwmActivity;
-import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
 
@@ -21,7 +19,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
   }
 
   @Override
-  protected void initialHide()
+  protected void initialVisibility()
   {
     UiUtils.hide(mPlacePage);
   }
@@ -90,23 +88,13 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
   }
 
   @Override
-  public void setState(State state, @MapObject.MapObjectType int type)
-  {
-    if (state == State.PREVIEW && type == MapObject.BOOKMARK)
-      state = State.BOOKMARK;
-
-    super.setState(state, type);
-  }
-
-  @Override
-  protected void onStateChanged(State currentState, State newState)
+  protected void onStateChanged(State currentState, State newState, int type)
   {
     switch (newState)
     {
     case HIDDEN:
       hidePlacePage();
       break;
-    case BOOKMARK:
     case DETAILS:
     case PREVIEW:
       showPlacePage(currentState, newState);
@@ -147,7 +135,6 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
   private void showPlacePage(final State currentState, final State newState)
   {
     UiUtils.show(mPlacePage);
-    UiUtils.showIf(newState == State.BOOKMARK, mBookmarkDetails);
     if (currentState != State.HIDDEN)
       return;
 
@@ -172,9 +159,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
       }
     });
 
-    animator.setDuration(DURATION);
-    animator.setInterpolator(new AccelerateInterpolator());
-    animator.start();
+    startDefaultAnimator(animator);
   }
 
   private void hidePlacePage()
@@ -201,8 +186,6 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
       }
     });
 
-    animator.setDuration(DURATION);
-    animator.setInterpolator(new AccelerateInterpolator());
-    animator.start();
+    startDefaultAnimator(animator);
   }
 }
