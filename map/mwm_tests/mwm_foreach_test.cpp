@@ -247,62 +247,62 @@ public:
   }
 };
 
-void RunTest(string const & countryFileName)
-{
-  model::FeaturesFetcher src1;
-  src1.InitClassificator();
+// void RunTest(string const & countryFileName)
+// {
+//   model::FeaturesFetcher src1;
+//   src1.InitClassificator();
 
-  platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(countryFileName));
-  // Clean indexes to prevent mwm and indexes versions mismatch error.
-  platform::CountryIndexes::DeleteFromDisk(localFile);
-  UNUSED_VALUE(src1.RegisterMap(localFile));
+//   platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(countryFileName));
+//   // Clean indexes to prevent mwm and indexes versions mismatch error.
+//   platform::CountryIndexes::DeleteFromDisk(localFile);
+//   UNUSED_VALUE(src1.RegisterMap(localFile));
 
-  vector<m2::RectD> rects;
-  rects.push_back(src1.GetWorldRect());
+//   vector<m2::RectD> rects;
+//   rects.push_back(src1.GetWorldRect());
 
-  ModelReaderPtr reader = platform::GetCountryReader(localFile, MapOptions::Map);
+//   ModelReaderPtr reader = platform::GetCountryReader(localFile, MapOptions::Map);
 
-  while (!rects.empty())
-  {
-    m2::RectD const r = rects.back();
-    rects.pop_back();
+//   while (!rects.empty())
+//   {
+//     m2::RectD const r = rects.back();
+//     rects.pop_back();
 
-    int const scale = scales::GetScaleLevel(r);
+//     int const scale = scales::GetScaleLevel(r);
 
-    feature_cont_t v1, v2;
-    {
-      AccumulatorBase acc(scale, v1);
-      src1.ForEachFeature(r, acc, scale);
-      sort(v1.begin(), v1.end(), FeatureIDCmp());
-    }
-    {
-      AccumulatorEtalon acc(r, scale, v2);
-      feature::ForEachFromDat(reader, acc);
-      sort(v2.begin(), v2.end(), FeatureIDCmp());
-    }
+//     feature_cont_t v1, v2;
+//     {
+//       AccumulatorBase acc(scale, v1);
+//       src1.ForEachFeature(r, acc, scale);
+//       sort(v1.begin(), v1.end(), FeatureIDCmp());
+//     }
+//     {
+//       AccumulatorEtalon acc(r, scale, v2);
+//       feature::ForEachFromDat(reader, acc);
+//       sort(v2.begin(), v2.end(), FeatureIDCmp());
+//     }
 
-    size_t const emptyInd = size_t(-1);
-    size_t errInd = emptyInd;
-    if (!compare_sequence(v2, v1, FeatureIDCmp(), errInd))
-    {
-      if (errInd != emptyInd)
-      {
-        FindOffset doFind(scale, v2[errInd]);
-        feature::ForEachFromDat(reader, doFind);
-      }
+//     size_t const emptyInd = size_t(-1);
+//     size_t errInd = emptyInd;
+//     if (!compare_sequence(v2, v1, FeatureIDCmp(), errInd))
+//     {
+//       if (errInd != emptyInd)
+//       {
+//         FindOffset doFind(scale, v2[errInd]);
+//         feature::ForEachFromDat(reader, doFind);
+//       }
 
-      TEST(false, ("Failed for rect:", r, "; Scale level:", scale, "; Etalon size:", v2.size(), "; Index size:", v1.size()));
-    }
+//       TEST(false, ("Failed for rect:", r, "; Scale level:", scale, "; Etalon size:", v2.size(), "; Index size:", v1.size()));
+//     }
 
-    if (!v2.empty() && (scale < scales::GetUpperScale()))
-    {
-      m2::RectD r1, r2;
-      r.DivideByGreaterSize(r1, r2);
-      rects.push_back(r1);
-      rects.push_back(r2);
-    }
-  }
-}
+//     if (!v2.empty() && (scale < scales::GetUpperScale()))
+//     {
+//       m2::RectD r1, r2;
+//       r.DivideByGreaterSize(r1, r2);
+//       rects.push_back(r1);
+//       rects.push_back(r2);
+//     }
+//   }
+// }
 
 }
 
