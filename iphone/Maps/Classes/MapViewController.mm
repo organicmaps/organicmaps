@@ -371,15 +371,7 @@ BOOL gIsFirstMyPositionMode = YES;
 - (BOOL)prefersStatusBarHidden { return self.apiBar.isVisible; }
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  BOOL const isNightMode = [UIColor isNightMode];
-  BOOL const isLight =
-      !self.controlsManager.searchHidden ||
-      self.controlsManager.menuState == MWMBottomMenuStateActive ||
-      self.controlsManager.isDirectionViewShown ||
-      (isNightMode && self.controlsManager.navigationState != MWMNavigationDashboardStateHidden) ||
-      MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
-  return (isLight || (!isLight && isNightMode)) ? UIStatusBarStyleLightContent
-                                                : UIStatusBarStyleDefault;
+  return [self.controlsManager preferredStatusBarStyle];
 }
 
 - (void)updateStatusBarStyle { [self setNeedsStatusBarAppearanceUpdate]; }

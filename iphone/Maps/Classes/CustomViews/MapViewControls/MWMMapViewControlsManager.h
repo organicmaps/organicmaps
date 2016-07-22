@@ -14,16 +14,18 @@
 
 + (MWMMapViewControlsManager *)manager;
 
-@property (nonatomic) BOOL hidden;
-@property (nonatomic) BOOL zoomHidden;
-@property (nonatomic) BOOL sideButtonsHidden;
-@property (nonatomic) MWMBottomMenuState menuState;
-@property (nonatomic, readonly) MWMNavigationDashboardState navigationState;
-@property (nonatomic, readonly) MWMPlacePageEntity * placePageEntity;
-@property (nonatomic) BOOL searchHidden;
+@property(nonatomic) BOOL hidden;
+@property(nonatomic) BOOL zoomHidden;
+@property(nonatomic) BOOL sideButtonsHidden;
+@property(nonatomic) MWMBottomMenuState menuState;
+@property(nonatomic, readonly) MWMNavigationDashboardState navigationState;
+@property(nonatomic, readonly) MWMPlacePageEntity * placePageEntity;
+@property(nonatomic) BOOL searchHidden;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
+
+- (UIStatusBarStyle)preferredStatusBarStyle;
 
 #pragma mark - Layout
 
@@ -37,7 +39,7 @@
 
 #pragma mark - MWMPlacePageViewManager
 
-@property (nonatomic, readonly) BOOL isDirectionViewShown;
+@property(nonatomic, readonly) BOOL isDirectionViewShown;
 
 - (void)dismissPlacePage;
 - (void)showPlacePage:(place_page::Info const &)info;
