@@ -25,6 +25,8 @@
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
 
+- (UIStatusBarStyle)preferredStatusBarStyle;
+
 #pragma mark - Layout
 
 - (void)refreshLayout;

@@ -19,6 +19,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -68,6 +69,21 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.sideButtonsHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
   return self;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+  BOOL const isNightMode = [UIColor isNightMode];
+  BOOL const isLight = (self.searchManager.state == MWMSearchManagerStateMapSearch &&
+                        self.navigationState != MWMNavigationDashboardStateNavigation) ||
+                       (self.searchManager.state != MWMSearchManagerStateMapSearch &&
+                        self.searchManager.state != MWMSearchManagerStateHidden) ||
+                       self.navigationState == MWMNavigationDashboardStatePlanning ||
+                       self.menuState == MWMBottomMenuStateActive || self.isDirectionViewShown ||
+                       (isNightMode && self.navigationState != MWMNavigationDashboardStateHidden) ||
+                       MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
+  return (isLight || (!isLight && isNightMode)) ? UIStatusBarStyleLightContent
+                                                : UIStatusBarStyleDefault;
 }
 
 #pragma mark - My Position

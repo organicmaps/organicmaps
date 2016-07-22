@@ -107,6 +107,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   self.routePreview = nil;
   [self.navigationInfoView remove];
   self.navigationInfoView = nil;
+  [MWMMapViewControlsManager manager].searchHidden = YES;
 }
 
 - (void)showStatePrepare
