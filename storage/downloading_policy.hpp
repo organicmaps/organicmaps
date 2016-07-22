@@ -11,7 +11,7 @@ class DownloadingPolicy
 {
 public:
   using TProcessFunc = function<void(storage::TCountriesSet const &)>;
-  virtual bool IsDownloadingAllowed() const { return true; }
+  virtual bool IsDownloadingAllowed() { return true; }
   virtual void ScheduleRetry(storage::TCountriesSet const &, TProcessFunc const &) {}
 };
 
@@ -22,14 +22,21 @@ class StorageDownloadingPolicy : public DownloadingPolicy
   static size_t constexpr kAutoRetryCounterMax = 3;
   size_t m_autoRetryCounter = kAutoRetryCounterMax;
   my::DeferredTask m_autoRetryWorker;
-  
+
+  time_point<steady_clock> m_disableCellularTime;
+
 public:
   StorageDownloadingPolicy() : m_autoRetryWorker(seconds(20)) {}
-  
-  inline void EnableCellularDownload(bool value) { m_cellularDownloadEnabled = value; }
-  inline bool IsCellularDownloadEnabled() const { return m_cellularDownloadEnabled; }
-  inline bool IsAutoRetryDownloadFailed() const { return m_downloadRetryFailed || m_autoRetryCounter == 0; }
+  void EnableCellularDownload(bool enabled);
+  bool IsCellularDownloadEnabled();
 
-  bool IsDownloadingAllowed() const override;
-  void ScheduleRetry(storage::TCountriesSet const & failedCountries, TProcessFunc const & func) override;
+  inline bool IsAutoRetryDownloadFailed() const
+  {
+    return m_downloadRetryFailed || m_autoRetryCounter == 0;
+  }
+
+  // DownloadingPolicy overrides:
+  bool IsDownloadingAllowed() override;
+  void ScheduleRetry(storage::TCountriesSet const & failedCountries,
+                     TProcessFunc const & func) override;
 };
