@@ -268,7 +268,7 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   ri.m_speedKMPH = speedKMPH;
 
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  feature::TAltitudes altitudes = value.altitudeLoader->GetAltitude(featureId.m_index, ft.GetPointsCount());
+  feature::TAltitudes altitudes = value.altitudeLoader->GetAltitudes(featureId.m_index, ft.GetPointsCount());
 
   size_t const pointsCount = ft.GetPointsCount();
   if (altitudes.size() != pointsCount)

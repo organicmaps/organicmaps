@@ -82,7 +82,7 @@ private:
   struct Value
   {
     Value() = default;
-    Value(MwmSet::MwmHandle && handle)
+    explicit Value(MwmSet::MwmHandle && handle)
       : mwmHandle(move(handle))
     {
       if (!mwmHandle.IsAlive())
@@ -90,7 +90,7 @@ private:
         ASSERT(false, ());
         return;
       }
-      altitudeLoader = make_unique<feature::AltitudeLoader>(mwmHandle.GetValue<MwmValue>());
+      altitudeLoader = make_unique<feature::AltitudeLoader>(*mwmHandle.GetValue<MwmValue>());
     }
 
     bool IsAlive() const

@@ -11,13 +11,14 @@ namespace feature
 {
 using TAltitude = int16_t;
 using TAltitudes = vector<feature::TAltitude>;
-using TAltitudeSectionVersion = uint16_t;
 using TAltitudeSectionOffset = uint32_t;
 
 TAltitude constexpr kInvalidAltitude = numeric_limits<TAltitude>::min();
 
 struct AltitudeHeader
 {
+  using TAltitudeSectionVersion = uint16_t;
+
   AltitudeHeader()
   {
     Reset();
@@ -109,10 +110,10 @@ public:
 
 private:
   /// \note |m_altitudes| is a vector of feature point altitudes. There's two posibilities:
-  /// * |m_altitudes| is empty. It means no altitude information defines.
-  /// * size of |m_altitudes| is equal to feature point number. In that case every item of
-  /// |m_altitudes| defines altitude in meters for every feature point. If altitude is not defined
-  ///  for some feature point corresponding vector items are equel to |kInvalidAltitude|
+  /// * |m_altitudes| is empty. It means there is no altitude information for this feature.
+  /// * size of |m_pointAlt| is equal to the number of this feature's points.
+  /// In this case the i'th element of |m_pointAlt| corresponds to the altitude of the
+  /// i'th point of the feature and is set to kInvalidAltitude when there is no information about the point.
   TAltitudes m_altitudes;
 };
 }  // namespace feature

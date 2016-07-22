@@ -134,7 +134,7 @@ void BuildMwmWithoutAltitude(vector<TRounded3DGeom> const & roadFeatures, LocalC
     builder.Add(TestStreet(ConvertTo2DGeom<m2::PointD>(geom3D), string(), string()));
 }
 
-void ReadAndTestAltitudeInfo(MwmValue const * mwmValue, string const & mwmPath, MockAltitudeGetter & altitudeGetter)
+void ReadAndTestAltitudeInfo(MwmValue const & mwmValue, string const & mwmPath, MockAltitudeGetter & altitudeGetter)
 {
   AltitudeLoader const loader(mwmValue);
 
@@ -142,7 +142,7 @@ void ReadAndTestAltitudeInfo(MwmValue const * mwmValue, string const & mwmPath, 
   {
     f.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const pointsCount = f.GetPointsCount();
-    TAltitudes const altitudes = loader.GetAltitude(id, pointsCount);
+    TAltitudes const altitudes = loader.GetAltitudes(id, pointsCount);
 
     if (!routing::IsRoad(feature::TypesHolder(f)))
     {
@@ -191,7 +191,7 @@ void TestAltitudeSection(vector<TRounded3DGeom> const & roadFeatures)
   CHECK(mwmHandle.IsAlive(), ());
 
   string const mwmPath = my::JoinFoldersToPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
-  ReadAndTestAltitudeInfo(mwmHandle.GetValue<MwmValue>(), mwmPath, altitudeGetter);
+  ReadAndTestAltitudeInfo(*mwmHandle.GetValue<MwmValue>(), mwmPath, altitudeGetter);
 }
 } // namespace
 

@@ -12,46 +12,44 @@
 
 namespace
 {
-void ReadBuffer(ReaderSource<FilesContainerR::TReader> & rs, vector<char> & buf)
+void ReadBuffer(ReaderSource<FilesContainerR::TReader> & src, vector<char> & buf)
 {
   uint32_t bufSz = 0;
-  rs.Read(&bufSz, sizeof(bufSz));
-  if (bufSz > rs.Size() + rs.Pos())
+  src.Read(&bufSz, sizeof(bufSz));
+  if (bufSz > src.Size() + src.Pos())
   {
     ASSERT(false, ());
     return;
   }
   buf.clear();
   buf.resize(bufSz);
-  rs.Read(buf.data(), bufSz);
+  src.Read(buf.data(), bufSz);
 }
 } // namespace
 
 namespace feature
 {
-AltitudeLoader::AltitudeLoader(MwmValue const * mwmValue)
+AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
 {
-  if (!mwmValue || mwmValue->GetHeader().GetFormat() < version::Format::v8 )
+  if (mwmValue.GetHeader().GetFormat() < version::Format::v8 )
     return;
 
-  if (!mwmValue->m_cont.IsExist(ALTITUDES_FILE_TAG))
+  if (!mwmValue.m_cont.IsExist(ALTITUDES_FILE_TAG))
     return;
 
   try
   {
-    m_reader = make_unique<FilesContainerR::TReader>(mwmValue->m_cont.GetReader(ALTITUDES_FILE_TAG));
-    ReaderSource<FilesContainerR::TReader> rs(*m_reader);
-    m_header.Deserialize(rs);
+    m_reader = make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(ALTITUDES_FILE_TAG));
+    ReaderSource<FilesContainerR::TReader> src(*m_reader);
+    m_header.Deserialize(src);
 
-    // Reading rs_bit_vector with altitude availability information.
-    ReadBuffer(rs, m_altitudeAvailabilitBuf);
-    m_altitudeAvailability = make_unique<succinct::rs_bit_vector>();
-    succinct::mapper::map(*m_altitudeAvailability, m_altitudeAvailabilitBuf.data());
+    // Reading src_bit_vector with altitude availability information.
+    ReadBuffer(src, m_altitudeAvailabilitBuf);
+    succinct::mapper::map(m_altitudeAvailability, m_altitudeAvailabilitBuf.data());
 
-    // Reading table with altitude ofsets for features.
-    ReadBuffer(rs, m_featureTableBuf);
-    m_featureTable = make_unique<succinct::elias_fano>();
-    succinct::mapper::map(*m_featureTable, m_featureTableBuf.data());
+    // Reading table with altitude offsets for features.
+    ReadBuffer(src, m_featureTableBuf);
+    succinct::mapper::map(m_featureTable, m_featureTableBuf.data());
   }
   catch (Reader::OpenException const & e)
   {
@@ -65,24 +63,28 @@ bool AltitudeLoader::IsAvailable() const
   return m_header.minAltitude != kInvalidAltitude && m_header.altitudeInfoOffset != 0;
 }
 
-TAltitudes AltitudeLoader::GetAltitude(uint32_t featureId, size_t pointCount) const
+TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount) const
 {
   if (m_header.altitudeInfoOffset == 0)
   {
     // The version of mwm is less then version::Format::v8 or there's no altitude section in mwm.
-    return TAltitudes();
+    return m_dummy;
   }
 
-  if (!(*m_altitudeAvailability)[featureId])
+  auto const it = m_cache.find(featureId);
+  if (it != m_cache.end())
+    return it->second;
+
+  if (!m_altitudeAvailability[featureId])
   {
     LOG(LINFO, ("Feature featureId =", featureId, "does not contain any altitude information."));
-    return TAltitudes();
+    return m_cache.insert(make_pair(featureId, TAltitudes())).first->second;
   }
 
-  uint64_t const r = m_altitudeAvailability->rank(featureId);
-  CHECK_LESS(r, m_altitudeAvailability->size(), (featureId));
-  uint64_t const offset = m_featureTable->select(r);
-  CHECK_LESS_OR_EQUAL(offset, m_featureTable->size(), (featureId));
+  uint64_t const r = m_altitudeAvailability.rank(featureId);
+  CHECK_LESS(r, m_altitudeAvailability.size(), (featureId));
+  uint64_t const offset = m_featureTable.select(r);
+  CHECK_LESS_OR_EQUAL(offset, m_featureTable.size(), (featureId));
 
   uint64_t const altitudeInfoOffsetInSection = m_header.altitudeInfoOffset + offset;
   CHECK_LESS(altitudeInfoOffsetInSection, m_reader->Size(), ());
@@ -90,17 +92,16 @@ TAltitudes AltitudeLoader::GetAltitude(uint32_t featureId, size_t pointCount) co
   try
   {
     Altitude a;
-    ReaderSource<FilesContainerR::TReader> rs(*m_reader);
-    rs.Skip(altitudeInfoOffsetInSection);
-    a.Deserialize(m_header.minAltitude, pointCount, rs);
+    ReaderSource<FilesContainerR::TReader> src(*m_reader);
+    src.Skip(altitudeInfoOffsetInSection);
+    a.Deserialize(m_header.minAltitude, pointCount, src);
 
-    // @TODO(bykoianko) Considers using move semantic for returned value here.
-    return a.GetAltitudes();
+    return m_cache.insert(make_pair(featureId, a.GetAltitudes())).first->second;
   }
   catch (Reader::OpenException const & e)
   {
     LOG(LERROR, ("Error while getting mwm data", e.Msg()));
-    return TAltitudes();
+    return m_cache.insert(make_pair(featureId, TAltitudes())).first->second;
   }
 }
 } // namespace feature

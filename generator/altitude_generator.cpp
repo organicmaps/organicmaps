@@ -27,14 +27,14 @@
 
 #include "defines.hpp"
 
-#include "3party/succinct/elias_fano.hpp"
-#include "3party/succinct/mapper.hpp"
-#include "3party/succinct/rs_bit_vector.hpp"
-
 #include "std/algorithm.hpp"
 #include "std/type_traits.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
+
+#include "3party/succinct/elias_fano.hpp"
+#include "3party/succinct/mapper.hpp"
+#include "3party/succinct/rs_bit_vector.hpp"
 
 using namespace feature;
 
@@ -42,7 +42,7 @@ namespace
 {
 using namespace routing;
 
-TAltitudeSectionVersion constexpr kAltitudeSectionVersion = 1;
+AltitudeHeader::TAltitudeSectionVersion constexpr kAltitudeSectionVersion = 1;
 
 class SrtmGetter : public IAltitudeGetter
 {
@@ -151,7 +151,7 @@ uint32_t GetFileSize(string const & filePath)
   uint64_t size;
   if (!my::GetFileSize(filePath, size))
   {
-    LOG(LERROR, (filePath, "size = 0"));
+    LOG(LERROR, (filePath, "Unable to get file size"));
     return 0;
   }
 
@@ -182,14 +182,15 @@ void BuildRoadAltitudes(string const & baseDir, string const & countryName, IAlt
 
     Processor processor(altitudeGetter);
     feature::ForEachFromDat(mwmPath, processor);
-    processor.SortFeatureAltitudes();
-    Processor::TFeatureAltitudes const & featureAltitudes = processor.GetFeatureAltitudes();
 
     if (!processor.HasAltitudeInfo())
     {
       LOG(LINFO, ("No altitude information for road features of mwm", countryName));
       return;
     }
+
+    processor.SortFeatureAltitudes();
+    Processor::TFeatureAltitudes const & featureAltitudes = processor.GetFeatureAltitudes();
 
     // Writing compressed bit vector with features which have altitude information.
     succinct::rs_bit_vector altitudeAvailability(processor.GetAltitudeAvailability());
@@ -216,7 +217,7 @@ void BuildRoadAltitudes(string const & baseDir, string const & countryName, IAlt
     // Writing feature altitude offsets.
     CHECK(is_sorted(offsets.begin(), offsets.end()), ());
     CHECK(adjacent_find(offsets.begin(), offsets.end()) == offsets.end(), ());
-    LOG(LINFO, ("Max altitude info offset =", offsets.back(), "offsets.size() =", offsets.size()));
+    LOG(LINFO, ("Max altitude info offset =", offsets.back(), "number of offsets = =", offsets.size()));
     succinct::elias_fano::elias_fano_builder builder(offsets.back(), offsets.size());
     for (uint32_t offset : offsets)
       builder.push_back(offset);
@@ -243,14 +244,14 @@ void BuildRoadAltitudes(string const & baseDir, string const & countryName, IAlt
                           altitudeInfoOffset + sizeof(TAltitudeSectionOffset) /* for altitude info size */);
     header.Serialize(w);
 
-    // Coping parts of altitude sections to mwm.
+    // Copying parts of altitude sections to mwm.
     MoveFileToAltitudeSection(altitudeAvailabilityPath, altitudeAvailabilitySize, w);
     MoveFileToAltitudeSection(featuresTablePath, featuresTableSize, w);
     MoveFileToAltitudeSection(altitudeInfoPath, altitudeInfoSize, w);
   }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("An exception happend while creating", ALTITUDES_FILE_TAG, "section. ", e.what()));
+    LOG(LERROR, ("An exception happened while creating", ALTITUDES_FILE_TAG, "section. ", e.what()));
   }
 }
 
