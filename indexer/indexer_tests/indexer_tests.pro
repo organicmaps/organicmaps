@@ -20,6 +20,7 @@ SOURCES += \
     categories_test.cpp \
     cell_coverer_test.cpp \
     cell_id_test.cpp \
+    centers_table_test.cpp \
     checker_test.cpp \
     drules_selector_parser_test.cpp \
     editable_map_object_test.cpp \

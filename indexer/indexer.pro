@@ -13,6 +13,7 @@ SOURCES += \
     categories_holder.cpp \
     categories_holder_loader.cpp \
     categories_index.cpp \
+    centers_table.cpp \
     classificator.cpp \
     classificator_loader.cpp \
     coding_params.cpp \
@@ -64,6 +65,7 @@ HEADERS += \
     categories_index.hpp \
     cell_coverer.hpp \
     cell_id.hpp \
+    centers_table.hpp \
     classificator.hpp \
     classificator_loader.hpp \
     coding_params.hpp \
