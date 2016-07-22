@@ -3,6 +3,7 @@
 
 #include "base/logging.hpp"
 
+#include "std/cstdint.hpp"
 #include "std/limits.hpp"
 #include "std/vector.hpp"
 
@@ -64,51 +65,54 @@ class Altitude
 {
 public:
   Altitude() = default;
-  explicit Altitude(TAltitudes const & altitudes) : m_pointAlt(altitudes) {}
+  explicit Altitude(TAltitudes const & altitudes) : m_altitudes(altitudes) {}
 
   template <class TSink>
   void Serialize(TAltitude minAltitude, TSink & sink) const
   {
-    CHECK(!m_pointAlt.empty(), ());
+    CHECK(!m_altitudes.empty(), ());
 
-    TAltitude prevPntAltitude = minAltitude;
-    for (size_t i = 0; i < m_pointAlt.size(); ++i)
-    {
-      WriteVarInt(sink, static_cast<int32_t>(static_cast<int32_t>(m_pointAlt[i] - prevPntAltitude)));
-      prevPntAltitude = m_pointAlt[i];
-    }
+    WriteVarInt(sink, static_cast<int32_t>(m_altitudes[0] - static_cast<int32_t>(minAltitude)));
+    for (size_t i = 1; i < m_altitudes.size(); ++i)
+      WriteVarInt(sink, static_cast<int32_t>(m_altitudes[i]) - static_cast<int32_t>(m_altitudes[i - 1]));
   }
 
   template <class TSource>
   void Deserialize(TAltitude minAltitude, size_t pointCount, TSource & src)
   {
-    m_pointAlt.clear();
+    m_altitudes.clear();
     if (pointCount == 0)
     {
       ASSERT(false, ());
       return;
     }
 
-    m_pointAlt.resize(pointCount);
+    m_altitudes.resize(pointCount);
     TAltitude prevPntAltitude = minAltitude;
     for (size_t i = 0; i < pointCount; ++i)
     {
-      m_pointAlt[i] = static_cast<TAltitude>(ReadVarInt<int32_t>(src) + prevPntAltitude);
-      prevPntAltitude = m_pointAlt[i];
+      m_altitudes[i] = static_cast<TAltitude>(ReadVarInt<int32_t>(src) + prevPntAltitude);
+      if (m_altitudes[i] < minAltitude)
+      {
+        ASSERT(false, ());
+        m_altitudes.clear();
+        return;
+      }
+      prevPntAltitude = m_altitudes[i];
     }
   }
 
   TAltitudes GetAltitudes() const
   {
-    return m_pointAlt;
+    return m_altitudes;
   }
 
 private:
-  /// \note |m_pointAlt| is a vector of feature point altitudes. There's two posibilities:
-  /// * |m_pointAlt| is empty. It means no altitude information defines.
-  /// * size of |m_pointAlt| is equal to feature point number. In that case every item of
-  /// |m_pointAlt| defines altitude in meters for every feature point. If altitude is not defined
+  /// \note |m_altitudes| is a vector of feature point altitudes. There's two posibilities:
+  /// * |m_altitudes| is empty. It means no altitude information defines.
+  /// * size of |m_altitudes| is equal to feature point number. In that case every item of
+  /// |m_altitudes| defines altitude in meters for every feature point. If altitude is not defined
   ///  for some feature point corresponding vector items are equel to |kInvalidAltitude|
-  TAltitudes m_pointAlt;
+  TAltitudes m_altitudes;
 };
 }  // namespace feature

@@ -60,6 +60,11 @@ AltitudeLoader::AltitudeLoader(MwmValue const * mwmValue)
   }
 }
 
+bool AltitudeLoader::IsAvailable() const
+{
+  return m_header.minAltitude != kInvalidAltitude && m_header.altitudeInfoOffset != 0;
+}
+
 TAltitudes AltitudeLoader::GetAltitude(uint32_t featureId, size_t pointCount) const
 {
   if (m_header.altitudeInfoOffset == 0)

@@ -15,6 +15,7 @@ public:
   explicit AltitudeLoader(MwmValue const * mwmValue);
 
   TAltitudes GetAltitude(uint32_t featureId, size_t pointCount) const;
+  bool IsAvailable() const;
 
 private:
   vector<char> m_altitudeAvailabilitBuf;

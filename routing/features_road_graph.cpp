@@ -258,12 +258,17 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
                                         double speedKMPH, RoadInfo & ri) const
 {
   Value const & value = LockFeatureMwm(featureId);
+  if (!value.IsAlive())
+  {
+    ASSERT(false, ());
+    return;
+  }
 
   ri.m_bidirectional = !IsOneWay(ft);
   ri.m_speedKMPH = speedKMPH;
 
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  feature::TAltitudes altitudes = value.altitudeLoader.GetAltitude(featureId.m_index, ft.GetPointsCount());
+  feature::TAltitudes altitudes = value.altitudeLoader->GetAltitude(featureId.m_index, ft.GetPointsCount());
 
   size_t const pointsCount = ft.GetPointsCount();
   if (altitudes.size() != pointsCount)
@@ -329,14 +334,6 @@ FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockFeatureMwm(FeatureID con
   if (itr != m_mwmLocks.end())
     return itr->second;
 
-  MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(mwmId);
-  ASSERT(mwmHandle.IsAlive(), ());
-
-  MwmValue * mwmValue = nullptr;
-  if (mwmHandle.IsAlive())
-    mwmValue = mwmHandle.GetValue<MwmValue>();
-
-  Value value(move(mwmHandle), mwmValue);
-  return m_mwmLocks.insert(make_pair(move(mwmId), move(value))).first->second;
+  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_index.GetMwmHandleById(mwmId)))).first->second;
 }
 }  // namespace routing

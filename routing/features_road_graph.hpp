@@ -81,13 +81,25 @@ private:
 
   struct Value
   {
-    Value(MwmSet::MwmHandle && handle, MwmValue const * mwmValue)
-      : mwmHandle(move(handle)), altitudeLoader(mwmValue)
+    Value() = default;
+    Value(MwmSet::MwmHandle && handle)
+      : mwmHandle(move(handle))
     {
+      if (!mwmHandle.IsAlive())
+      {
+        ASSERT(false, ());
+        return;
+      }
+      altitudeLoader = make_unique<feature::AltitudeLoader>(mwmHandle.GetValue<MwmValue>());
+    }
+
+    bool IsAlive() const
+    {
+      return mwmHandle.IsAlive() && altitudeLoader && altitudeLoader->IsAvailable();
     }
 
     MwmSet::MwmHandle mwmHandle;
-    feature::AltitudeLoader altitudeLoader;
+    unique_ptr<feature::AltitudeLoader> altitudeLoader;
   };
 
   bool IsRoad(FeatureType const & ft) const;
