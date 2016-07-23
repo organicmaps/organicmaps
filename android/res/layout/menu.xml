@@ -21,17 +21,6 @@
       android:id="@+id/line_frame"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
-      <ImageView
-        android:id="@+id/my_position"
-        style="@style/MwmTheme.Menu.Line.Button"
-        android:tint="@null"
-        android:background="@drawable/menu_button_left"
-        android:layout_width="@dimen/menu_line_button_width_edge"
-        android:layout_height="@dimen/menu_line_height"
-        android:paddingLeft="@dimen/margin_half"
-        android:paddingRight="@dimen/margin_half_plus"
-        tools:src="@drawable/anim_myposition_pending"
-        tools:layout_marginTop="60dp"/>
 
       <ImageView
         android:id="@+id/toggle"

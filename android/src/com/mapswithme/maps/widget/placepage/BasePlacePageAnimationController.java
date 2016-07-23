@@ -39,15 +39,21 @@ public abstract class BasePlacePageAnimationController
   protected boolean mIsGestureHandled;
   protected float mDownCoord;
   protected float mTouchSlop;
-  // Visibility
-  protected OnVisibilityChangedListener mVisibilityChangedListener;
+
+  protected OnVisibilityChangedListener mVisibilityListener;
 
   public interface OnVisibilityChangedListener
   {
+
     void onPreviewVisibilityChanged(boolean isVisible);
     void onPlacePageVisibilityChanged(boolean isVisible);
   }
+  protected OnAnimationListener mProgressListener;
 
+  public interface OnAnimationListener
+  {
+    void onProgress(float translationX, float translationY);
+  }
   protected abstract void initGestureDetector();
 
   public BasePlacePageAnimationController(@NonNull PlacePageView placePage)
@@ -77,6 +83,11 @@ public abstract class BasePlacePageAnimationController
     initialVisibility();
   }
 
+  protected void initialVisibility()
+  {
+    UiUtils.invisible(mPlacePage, mPreview, mDetailsFrame, mBookmarkDetails);
+  }
+
   public State getState()
   {
     return mState;
@@ -94,16 +105,16 @@ public abstract class BasePlacePageAnimationController
     });
   }
 
-  protected void initialVisibility()
-  {
-    UiUtils.invisible(mPlacePage, mPreview, mDetailsFrame, mBookmarkDetails);
-  }
-
   protected abstract void onStateChanged(State currentState, State newState, int type);
 
   public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
   {
-    mVisibilityChangedListener = listener;
+    mVisibilityListener = listener;
+  }
+
+  public void setOnProgressListener(OnAnimationListener listener)
+  {
+    mProgressListener = listener;
   }
 
   protected abstract boolean onInterceptTouchEvent(MotionEvent event);
@@ -115,11 +126,19 @@ public abstract class BasePlacePageAnimationController
 
   protected void notifyVisibilityListener(boolean previewShown, boolean ppShown)
   {
-    if (mVisibilityChangedListener != null)
+    if (mVisibilityListener != null)
     {
-      mVisibilityChangedListener.onPreviewVisibilityChanged(previewShown);
-      mVisibilityChangedListener.onPlacePageVisibilityChanged(ppShown);
+      mVisibilityListener.onPreviewVisibilityChanged(previewShown);
+      mVisibilityListener.onPlacePageVisibilityChanged(ppShown);
     }
+  }
+
+  protected void notifyProgress(float translationX, float translationY)
+  {
+    if (mProgressListener == null)
+      return;
+
+    mProgressListener.onProgress(translationX, translationY);
   }
 
   protected void startDefaultAnimator(ValueAnimator animator)

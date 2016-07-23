@@ -4,23 +4,34 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:padding="@dimen/nav_frame_padding"
-  android:layout_marginBottom="@dimen/nav_menu_height">
+  android:layout_marginBottom="@dimen/nav_menu_height"
+  android:padding="@dimen/nav_frame_padding">
+
   <ImageButton
     android:id="@+id/nav_zoom_out"
     style="@style/MwmWidget.MapButton"
-    android:layout_marginBottom="@dimen/nav_zoom_bottom"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
     android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginBottom="@dimen/nav_zoom_bottom"
     tools:src="@drawable/zoom_out"/>
 
   <ImageButton
     android:id="@+id/nav_zoom_in"
     style="@style/MwmWidget.MapButton"
-    android:layout_marginBottom="@dimen/nav_frame_padding"
     android:layout_above="@id/nav_zoom_out"
-    android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginBottom="@dimen/nav_frame_padding"
     tools:src="@drawable/zoom_in"/>
+
+  <!-- TODO set correct colors for button pressed and night states -->
+  <ImageButton
+    android:id="@+id/my_position"
+    style="@style/MwmWidget.MapButton"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:background="@drawable/menu_button_circle"
+    android:contentDescription="@string/my_position"/>
 </RelativeLayout>

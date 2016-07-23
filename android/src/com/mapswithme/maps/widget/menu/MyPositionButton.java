@@ -19,7 +19,7 @@ public class MyPositionButton
   private final ImageView mButton;
   private final SparseArray<Drawable> mIcons = new SparseArray<>();  // Location mode -> Button icon
 
-  MyPositionButton(View button)
+  public MyPositionButton(View button)
   {
     mButton = (ImageView) button;
     mButton.setOnClickListener(new View.OnClickListener()

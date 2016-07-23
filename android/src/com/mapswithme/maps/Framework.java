@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.annotation.UiThread;
 
@@ -140,6 +141,7 @@ public class Framework
 
   public static native void nativeDisableFollowing();
 
+  @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
 
   // When an end user is going to a turn he gets sound turn instructions.
@@ -148,6 +150,7 @@ public class Framework
   // For example if C++ part wants the client to pronounce "Make a right turn." this method returns
   // an array with one string "Make a right turn.". The next call of the method returns nothing.
   // nativeGenerateTurnNotifications shall be called by the client when a new position is available.
+  @Nullable
   public static native String[] nativeGenerateTurnNotifications();
 
   public static native void nativeSetRoutingListener(RoutingListener listener);

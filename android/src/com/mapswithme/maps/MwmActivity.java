@@ -22,6 +22,9 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
+import java.io.Serializable;
+import java.util.Stack;
+
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
@@ -67,6 +70,7 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
+import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
@@ -85,9 +89,6 @@ import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
-
-import java.io.Serializable;
-import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
@@ -134,8 +135,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private FadeView mFadeView;
 
+  // TODO create outer controller
+  private View mZoomFrame;
   private View mNavZoomIn;
   private View mNavZoomOut;
+  private MyPositionButton mNavMyPosition;
 
   private View mPositionChooser;
 
@@ -436,9 +440,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initNavigationButtons()
   {
-    View frame = findViewById(R.id.navigation_buttons);
-    mNavZoomIn = initNavigationButton(frame, R.id.nav_zoom_in, R.attr.nav_zoom_in);
-    mNavZoomOut = initNavigationButton(frame, R.id.nav_zoom_out, R.attr.nav_zoom_out);
+    mZoomFrame = findViewById(R.id.navigation_buttons);
+    mNavZoomIn = initNavigationButton(mZoomFrame, R.id.nav_zoom_in, R.attr.nav_zoom_in);
+    mNavZoomOut = initNavigationButton(mZoomFrame, R.id.nav_zoom_out, R.attr.nav_zoom_out);
+    mNavMyPosition = new MyPositionButton(mZoomFrame.findViewById(R.id.my_position));
   }
 
   private boolean closePlacePage()
@@ -800,6 +805,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void adjustZoomButtons()
   {
     UiUtils.showIf(showZoomButtons(), mNavZoomIn, mNavZoomOut);
+    // TODO animate zoom buttons & myposition
   }
 
   private static boolean showZoomButtons()
@@ -1345,7 +1351,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
-    mMainMenu.getMyPositionButton().update(newMode);
+    mNavMyPosition.update(newMode);
   }
 
   @Override
