@@ -1,6 +1,7 @@
 #include "indexer/altitude_loader.hpp"
 
 #include "coding/reader.hpp"
+#include "coding/succinct_mapper.hpp"
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -12,18 +13,15 @@
 
 namespace
 {
-void ReadBuffer(ReaderSource<FilesContainerR::TReader> & src, vector<char> & buf)
+template<class TCont>
+void Map(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src,
+         TCont & cont, unique_ptr<CopiedMemoryRegion> & region)
 {
-  uint32_t bufSz = 0;
-  src.Read(&bufSz, sizeof(bufSz));
-  if (bufSz > src.Size() + src.Pos())
-  {
-    ASSERT(false, ());
-    return;
-  }
-  buf.clear();
-  buf.resize(bufSz);
-  src.Read(buf.data(), bufSz);
+  vector<uint8_t> data(dataSize);
+  src.Read(data.data(), data.size());
+  region = make_unique<CopiedMemoryRegion>(move(data));
+  coding::MapVisitor visitor(region->ImmutableData());
+  cont.map(visitor);
 }
 } // namespace
 
@@ -43,13 +41,8 @@ AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     m_header.Deserialize(src);
 
-    // Reading src_bit_vector with altitude availability information.
-    ReadBuffer(src, m_altitudeAvailabilitBuf);
-    succinct::mapper::map(m_altitudeAvailability, m_altitudeAvailabilitBuf.data());
-
-    // Reading table with altitude offsets for features.
-    ReadBuffer(src, m_featureTableBuf);
-    succinct::mapper::map(m_featureTable, m_featureTableBuf.data());
+    Map(m_header.GetAltitudeAvailabilitySize(), src, m_altitudeAvailability, m_altitudeAvailabilityRegion);
+    Map(m_header.GetFeatureTableSize(), src, m_featureTable, m_featureTableRegion);
   }
   catch (Reader::OpenException const & e)
   {
@@ -60,12 +53,12 @@ AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
 
 bool AltitudeLoader::IsAvailable() const
 {
-  return m_header.minAltitude != kInvalidAltitude && m_header.altitudeInfoOffset != 0;
+  return m_header.minAltitude != kInvalidAltitude;
 }
 
 TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount) const
 {
-  if (m_header.altitudeInfoOffset == 0)
+  if (!IsAvailable())
   {
     // The version of mwm is less then version::Format::v8 or there's no altitude section in mwm.
     return m_dummy;

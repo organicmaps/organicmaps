@@ -13,6 +13,7 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
+#include "coding/succinct_mapper.hpp"
 #include "coding/varint.hpp"
 
 #include "geometry/latlon.hpp"
@@ -42,7 +43,7 @@ namespace
 {
 using namespace routing;
 
-AltitudeHeader::TAltitudeSectionVersion constexpr kAltitudeSectionVersion = 1;
+AltitudeHeader::TAltitudeSectionVersion constexpr kAltitudeSectionVersion = 0;
 
 class SrtmGetter : public IAltitudeGetter
 {
@@ -72,13 +73,16 @@ public:
 
   TFeatureAltitudes const & GetFeatureAltitudes() const { return m_featureAltitudes; }
 
-  vector<bool> const & GetAltitudeAvailability() const { return m_altitudeAvailability; }
+  succinct::bit_vector_builder & GetAltitudeAvailabilityBuilder()
+  {
+    return m_altitudeAvailabilityBuilder;
+  }
 
   TAltitude GetMinAltitude() const { return m_minAltitude; }
 
   void operator()(FeatureType const & f, uint32_t const & id)
   {
-    if (id != m_altitudeAvailability.size())
+    if (id != m_altitudeAvailabilityBuilder.size())
     {
       LOG(LERROR, ("There's a gap in feature id order."));
       return;
@@ -87,7 +91,7 @@ public:
     bool hasAltitude = false;
     MY_SCOPE_GUARD(removeTmpDir, [&] ()
     {
-      m_altitudeAvailability.push_back(hasAltitude);
+      m_altitudeAvailabilityBuilder.push_back(hasAltitude);
     });
 
     if (!routing::IsRoad(feature::TypesHolder(f)))
@@ -134,120 +138,89 @@ public:
     return !m_featureAltitudes.empty();
   }
 
-  void SortFeatureAltitudes()
+  bool IsFeatureAltitudesSorted()
   {
-    sort(m_featureAltitudes.begin(), m_featureAltitudes.end(), my::LessBy(&Processor::TFeatureAltitude::first));
+    return is_sorted(m_featureAltitudes.begin(), m_featureAltitudes.end(),
+                     my::LessBy(&Processor::TFeatureAltitude::first));
   }
 
 private:
   IAltitudeGetter & m_altitudeGetter;
   TFeatureAltitudes m_featureAltitudes;
-  vector<bool> m_altitudeAvailability;
+  succinct::bit_vector_builder m_altitudeAvailabilityBuilder;
   TAltitude m_minAltitude;
 };
-
-uint32_t GetFileSize(string const & filePath)
-{
-  uint64_t size;
-  if (!my::GetFileSize(filePath, size))
-  {
-    LOG(LERROR, (filePath, "Unable to get file size"));
-    return 0;
-  }
-
-  LOG(LINFO, (filePath, "size =", size, "bytes"));
-  return size;
-}
-
-void MoveFileToAltitudeSection(string const & filePath, uint32_t fileSize, FileWriter & w)
-{
-  {
-    ReaderSource<FileReader> r = FileReader(filePath);
-    w.Write(&fileSize, sizeof(fileSize));
-    rw::ReadAndWrite(r, w);
-    LOG(LINFO, (filePath, "size is", fileSize));
-  }
-  FileWriter::DeleteFileX(filePath);
-}
 }  // namespace
+
+static_assert(sizeof(AltitudeHeader) == 16, "Wrong header size of altitude section.");
 
 namespace routing
 {
-void BuildRoadAltitudes(string const & baseDir, string const & countryName, IAltitudeGetter & altitudeGetter)
+void BuildRoadAltitudes(string const & mwmPath, IAltitudeGetter & altitudeGetter)
 {
   try
   {
     // Preparing altitude information.
-    string const mwmPath = my::JoinFoldersToPath(baseDir, countryName + DATA_FILE_EXTENSION);
-
     Processor processor(altitudeGetter);
     feature::ForEachFromDat(mwmPath, processor);
 
     if (!processor.HasAltitudeInfo())
     {
-      LOG(LINFO, ("No altitude information for road features of mwm", countryName));
+      LOG(LINFO, ("No altitude information for road features of mwm:", mwmPath));
       return;
     }
 
-    processor.SortFeatureAltitudes();
-    Processor::TFeatureAltitudes const & featureAltitudes = processor.GetFeatureAltitudes();
-
-    // Writing compressed bit vector with features which have altitude information.
-    succinct::rs_bit_vector altitudeAvailability(processor.GetAltitudeAvailability());
-    string const altitudeAvailabilityPath = my::JoinFoldersToPath(baseDir, "altitude_availability.bitvector");
-    LOG(LINFO, ("altitudeAvailability succinct::mapper::size_of(altitudeAvailability) =", succinct::mapper::size_of(altitudeAvailability)));
-    succinct::mapper::freeze(altitudeAvailability, altitudeAvailabilityPath.c_str());
-
-    // Writing feature altitude information to a file and memorizing the offsets.
-    string const altitudeInfoPath = my::JoinFoldersToPath(baseDir, "altitude_info");
-    vector<uint32_t> offsets;
-    TAltitude const minAltitude = processor.GetMinAltitude();
-    offsets.reserve(featureAltitudes.size());
-    {
-      FileWriter altitudeInfoW(altitudeInfoPath);
-      for (auto const & a : featureAltitudes)
-      {
-        offsets.push_back(altitudeInfoW.Pos());
-        // Feature altitude serializing.
-        a.second.Serialize(minAltitude, altitudeInfoW);
-      }
-    }
-    LOG(LINFO, ("Altitude was written for", featureAltitudes.size(), "features."));
-
-    // Writing feature altitude offsets.
-    CHECK(is_sorted(offsets.begin(), offsets.end()), ());
-    CHECK(adjacent_find(offsets.begin(), offsets.end()) == offsets.end(), ());
-    LOG(LINFO, ("Max altitude info offset =", offsets.back(), "number of offsets = =", offsets.size()));
-    succinct::elias_fano::elias_fano_builder builder(offsets.back(), offsets.size());
-    for (uint32_t offset : offsets)
-      builder.push_back(offset);
-
-    succinct::elias_fano featureTable(&builder);
-    string const featuresTablePath = my::JoinFoldersToPath(baseDir, "altitude_offsets.elias_fano");
-    succinct::mapper::freeze(featureTable, featuresTablePath.c_str());
-
-    uint32_t const altitudeAvailabilitySize = GetFileSize(altitudeAvailabilityPath);
-    uint32_t const altitudeInfoSize = GetFileSize(altitudeInfoPath);
-    uint32_t const featuresTableSize = GetFileSize(featuresTablePath);
+    CHECK(processor.IsFeatureAltitudesSorted(), ());
 
     FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
     FileWriter w = cont.GetWriter(ALTITUDES_FILE_TAG);
-
-    // Writing section with altitude information.
-    // Writing altitude section header.
-    TAltitudeSectionOffset const headerSize = AltitudeHeader::GetHeaderSize();
-    TAltitudeSectionOffset const featuresTableOffset = headerSize +
-        sizeof(altitudeAvailabilitySize) + altitudeAvailabilitySize;
-    TAltitudeSectionOffset const altitudeInfoOffset = featuresTableOffset +
-        sizeof(featuresTableSize) + featuresTableSize;
-    AltitudeHeader header(kAltitudeSectionVersion, processor.GetMinAltitude(),
-                          altitudeInfoOffset + sizeof(TAltitudeSectionOffset) /* for altitude info size */);
+    AltitudeHeader header;
+    header.minAltitude = processor.GetMinAltitude();
+    int64_t const startOffset = w.Pos();
     header.Serialize(w);
+    {
+      // Altitude availability serialization.
+      coding::FreezeVisitor<Writer> visitor(w);
+      succinct::bit_vector_builder & builder = processor.GetAltitudeAvailabilityBuilder();
+      succinct::rs_bit_vector(&builder).map(visitor);
+    }
+    header.featureTableOffset = w.Pos() - startOffset;
 
-    // Copying parts of altitude sections to mwm.
-    MoveFileToAltitudeSection(altitudeAvailabilityPath, altitudeAvailabilitySize, w);
-    MoveFileToAltitudeSection(featuresTablePath, featuresTableSize, w);
-    MoveFileToAltitudeSection(altitudeInfoPath, altitudeInfoSize, w);
+    vector<uint32_t> offsets;
+    vector<uint8_t> deltas;
+    {
+      // Altitude info serialization to memory.
+      MemWriter<vector<uint8_t>> writer(deltas);
+      Processor::TFeatureAltitudes const & featureAltitudes = processor.GetFeatureAltitudes();
+      for (auto const & a : featureAltitudes)
+      {
+        offsets.push_back(writer.Pos());
+        a.second.Serialize(header.minAltitude, writer);
+      }
+    }
+    {
+      // Altitude offsets serialization.
+      CHECK(is_sorted(offsets.begin(), offsets.end()), ());
+      CHECK(adjacent_find(offsets.begin(), offsets.end()) == offsets.end(), ());
+
+      succinct::elias_fano::elias_fano_builder builder(offsets.back(), offsets.size());
+      for (uint32_t offset : offsets)
+        builder.push_back(offset);
+
+      coding::FreezeVisitor<Writer> visitor(w);
+      succinct::elias_fano(&builder).map(visitor);
+    }
+    // Writing altitude info.
+    header.altitudeInfoOffset = w.Pos() - startOffset;
+    w.Write(deltas.data(), deltas.size());
+    header.endOffset = w.Pos() - startOffset;
+
+    // Rewriting header info.
+    header.version = kAltitudeSectionVersion;
+    int64_t const endOffset = w.Pos();
+    w.Seek(startOffset);
+    header.Serialize(w);
+    w.Seek(endOffset);
   }
   catch (RootException const & e)
   {
@@ -255,10 +228,10 @@ void BuildRoadAltitudes(string const & baseDir, string const & countryName, IAlt
   }
 }
 
-void BuildRoadAltitudes(string const & srtmPath, string const & baseDir, string const & countryName)
+void BuildRoadAltitudes(string const & mwmPath, string const & srtmPath)
 {
-  LOG(LINFO, ("srtmPath =", srtmPath, "baseDir =", baseDir, "countryName =", countryName));
+  LOG(LINFO, ("mwmPath =", mwmPath, "srtmPath =", srtmPath));
   SrtmGetter srtmGetter(srtmPath);
-  BuildRoadAltitudes(baseDir, countryName, srtmGetter);
+  BuildRoadAltitudes(mwmPath, srtmGetter);
 }
 }  // namespace routing

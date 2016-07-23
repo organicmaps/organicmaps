@@ -1,7 +1,7 @@
 #pragma once
 #include "coding/varint.hpp"
 
-#include "base/logging.hpp"
+#include "base/assert.hpp"
 
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
@@ -24,17 +24,14 @@ struct AltitudeHeader
     Reset();
   }
 
-  AltitudeHeader(TAltitudeSectionVersion v, TAltitude min, TAltitudeSectionOffset offset)
-    : version(v), minAltitude(min), altitudeInfoOffset(offset)
-  {
-  }
-
   template <class TSink>
   void Serialize(TSink & sink) const
   {
     sink.Write(&version, sizeof(version));
     sink.Write(&minAltitude, sizeof(minAltitude));
+    sink.Write(&featureTableOffset, sizeof(featureTableOffset));
     sink.Write(&altitudeInfoOffset, sizeof(altitudeInfoOffset));
+    sink.Write(&endOffset, sizeof(endOffset));
   }
 
   template <class TSource>
@@ -42,24 +39,32 @@ struct AltitudeHeader
   {
     src.Read(&version, sizeof(version));
     src.Read(&minAltitude, sizeof(minAltitude));
+    src.Read(&featureTableOffset, sizeof(featureTableOffset));
     src.Read(&altitudeInfoOffset, sizeof(altitudeInfoOffset));
+    src.Read(&endOffset, sizeof(endOffset));
   }
 
-  static size_t GetHeaderSize()
-  {
-    return sizeof(version) + sizeof(minAltitude) + sizeof(altitudeInfoOffset);
-  }
+  // Methods below return sizes of parts of altitude section in bytes.
+  static size_t GetHeaderSize() { return sizeof(AltitudeHeader); }
+
+  size_t GetAltitudeAvailabilitySize() const { return featureTableOffset - GetHeaderSize(); }
+  size_t GetFeatureTableSize() const { return altitudeInfoOffset - featureTableOffset; }
+  size_t GetAltitudeInfo() const { return endOffset - altitudeInfoOffset; }
 
   void Reset()
   {
     version = 1;
     minAltitude = kInvalidAltitude;
+    featureTableOffset = 0;
     altitudeInfoOffset = 0;
+    endOffset = 0;
   }
 
   TAltitudeSectionVersion version;
   TAltitude minAltitude;
+  TAltitudeSectionOffset featureTableOffset;
   TAltitudeSectionOffset altitudeInfoOffset;
+  TAltitudeSectionOffset endOffset;
 };
 
 class Altitude

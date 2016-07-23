@@ -643,7 +643,7 @@ IVehicleModel::RoadAvailability PedestrianModel::GetRoadAvailability(feature::Ty
 }
 
 // static
-PedestrianModel const & PedestrianModel::DefaultInstance()
+PedestrianModel const & PedestrianModel::AllLimitsInstance()
 {
   static PedestrianModel const instance;
   return instance;

@@ -2,6 +2,8 @@
 #include "indexer/feature_altitude.hpp"
 #include "indexer/index.hpp"
 
+#include "coding/memory_region.hpp"
+
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
@@ -18,10 +20,12 @@ public:
   bool IsAvailable() const;
 
 private:
-  vector<char> m_altitudeAvailabilitBuf;
-  vector<char> m_featureTableBuf;
+  unique_ptr<CopiedMemoryRegion> m_altitudeAvailabilityRegion;
+  unique_ptr<CopiedMemoryRegion> m_featureTableRegion;
+
   succinct::rs_bit_vector m_altitudeAvailability;
   succinct::elias_fano m_featureTable;
+
   unique_ptr<FilesContainerR::TReader> m_reader;
   mutable map<uint32_t, TAltitudes> m_cache;
   TAltitudes const m_dummy;

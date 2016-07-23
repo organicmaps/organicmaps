@@ -180,7 +180,8 @@ void TestAltitudeSection(vector<TRounded3DGeom> const & roadFeatures)
   MockAltitudeGetter altitudeGetter(move(altitudes));
 
   // Adding altitude section to mwm.
-  BuildRoadAltitudes(testDirFullPath, kTestMwm, altitudeGetter);
+  string const mwmPath = my::JoinFoldersToPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
+  BuildRoadAltitudes(mwmPath, altitudeGetter);
 
   // Reading from mwm and testing altitue information.
   Index index;
@@ -190,7 +191,6 @@ void TestAltitudeSection(vector<TRounded3DGeom> const & roadFeatures)
   MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
   CHECK(mwmHandle.IsAlive(), ());
 
-  string const mwmPath = my::JoinFoldersToPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
   ReadAndTestAltitudeInfo(*mwmHandle.GetValue<MwmValue>(), mwmPath, altitudeGetter);
 }
 } // namespace

@@ -250,7 +250,10 @@ int main(int argc, char ** argv)
     feature::DumpFeatureNames(datFile, FLAGS_dump_feature_names);
 
   if (!FLAGS_srtm_path.empty())
-    routing::BuildRoadAltitudes(FLAGS_srtm_path, path, FLAGS_output);
+  {
+    string const mwmPath = my::JoinFoldersToPath(path, FLAGS_output + DATA_FILE_EXTENSION);
+    routing::BuildRoadAltitudes(FLAGS_srtm_path, mwmPath);
+  }
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(datFile);

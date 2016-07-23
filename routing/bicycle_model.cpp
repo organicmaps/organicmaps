@@ -639,7 +639,7 @@ bool BicycleModel::IsOneWay(FeatureType const & f) const
 }
 
 // static
-BicycleModel const & BicycleModel::DefaultInstance()
+BicycleModel const & BicycleModel::AllLimitsInstance()
 {
   static BicycleModel const instance;
   return instance;
