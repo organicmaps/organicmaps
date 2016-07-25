@@ -140,6 +140,7 @@ NSString * const kLightFontName = @"HelveticaNeue-Light";
 + (UIFont *)bold17 { return [UIFont boldSystemFontOfSize:17]; }
 + (UIFont *)bold22 { return [UIFont boldSystemFontOfSize:22]; }
 + (UIFont *)bold24 { return [UIFont boldSystemFontOfSize:24]; }
++ (UIFont *)bold28 { return [UIFont boldSystemFontOfSize:28]; }
 + (UIFont *)bold36 { return [UIFont boldSystemFontOfSize:26]; }
 + (UIFont *)bold48 { return [UIFont boldSystemFontOfSize:48]; }
 + (UIFont *)fontWithName:(NSString *)fontName
