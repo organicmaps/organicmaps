@@ -5,18 +5,7 @@
 
 namespace
 {
-  CGFloat bottomBoundLimit(BOOL isPortrait)
-  {
-    if (IPAD)
-      return isPortrait ? 320.0 : 240.0;
-    else
-      return isPortrait ? 180.0 : 60.0;
-  }
-
-  CGFloat zoom2LayoutOffset(BOOL isPortrait)
-  {
-    return IPAD || isPortrait ? 52.0 : 30;
-  }
+CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
 } // namespace
 
 @interface MWMSideButtonsView()
@@ -45,13 +34,14 @@ namespace
   if (self.isPortrait != isPortrait && self.superview)
   {
     self.isPortrait = isPortrait;
-    self.bottomBound = self.superview.height;
-    self.location.minY = self.zoomOut.maxY + zoom2LayoutOffset(isPortrait);
+    CGFloat const zoomOutToLayoutOffset = IPAD || isPortrait ? kZoomOutToLayoutPortraitOffset : self.zoomOut.minY - self.zoomIn.maxY;
+    self.location.minY = self.zoomOut.maxY + zoomOutToLayoutOffset;
     CGSize size = self.defaultBounds.size;
     size.height = self.location.maxY;
     self.defaultBounds.size = size;
   }
   self.bounds = self.defaultBounds;
+  self.bottomBound = self.superview.height;
 
   [self layoutXPosition:self.hidden];
   [self layoutYPosition];
@@ -185,8 +175,8 @@ namespace
 {
   if (!self.superview)
     return _bottomBound;
-  BOOL const isPortrait = self.superview.width < self.superview.height;
-  return MIN(self.superview.height - bottomBoundLimit(isPortrait), _bottomBound);
+  CGFloat const bottomBoundLimit = (self.superview.height - self.zoomOut.maxY) / 2 - (self.location.maxY - self.zoomOut.maxY);
+  return MIN(self.superview.height - bottomBoundLimit, _bottomBound);
 }
 
 @end

@@ -19,13 +19,14 @@ CGFloat constexpr kTurnsiPhoneWidth = 96;
 CGFloat constexpr kTurnsiPadWidth = 140;
 
 CGFloat constexpr kSearchMainButtonBottomOffsetPortrait = 174;
-CGFloat constexpr kSearchMainButtonBottomOffsetLandscape = 48;
+CGFloat constexpr kSearchMainButtonBottomOffsetLandscape = 44;
 
 CGFloat constexpr kSearchButtonsViewHeightPortrait = 200;
 CGFloat constexpr kSearchButtonsViewWidthPortrait = 200;
 CGFloat constexpr kSearchButtonsViewHeightLandscape = 56;
 CGFloat constexpr kSearchButtonsViewWidthLandscape = 286;
 CGFloat constexpr kSearchButtonsSideSize = 44;
+CGFloat constexpr kDefaultExtraCompassBottomOffset = -10;
 
 NSTimeInterval constexpr kCollapseSearchTimeout = 5.0;
 
@@ -103,6 +104,7 @@ BOOL defaultOrientation()
   if (!CGRectEqualToRect(self.frame, self.defaultFrame))
   {
     self.frame = self.defaultFrame;
+    [[MWMMapViewControlsManager manager] navigationDashBoardDidUpdate];
     [self setNeedsLayout];
   }
 
@@ -112,7 +114,7 @@ BOOL defaultOrientation()
 }
 
 - (CGFloat)leftHeight { return self.turnsView.maxY; }
-- (CGFloat)rightHeight { return self.streetNameView.maxY; }
+- (CGFloat)rightHeight { return self.streetNameView.hidden ? 0 : self.streetNameView.maxY; }
 - (void)setMapSearch { [self setSearchState:NavigationSearchState::MinimizedSearch animated:YES]; }
 #pragma mark - Search
 
@@ -223,6 +225,7 @@ BOOL defaultOrientation()
     self.turnsView.hidden = YES;
   }
   self.hidden = self.streetNameView.hidden && self.turnsView.hidden;
+  [self setNeedsLayout];
 }
 
 - (void)layoutSearch
@@ -382,7 +385,7 @@ BOOL defaultOrientation()
 
 - (CGFloat)extraCompassBottomOffset
 {
-  return defaultOrientation() ? 0 : kSearchButtonsViewHeightLandscape;
+  return (defaultOrientation() ? 0 : kSearchButtonsViewHeightLandscape) + kDefaultExtraCompassBottomOffset;
 }
 
 @end

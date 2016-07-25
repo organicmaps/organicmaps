@@ -58,6 +58,8 @@
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
 
+- (void)navigationDashBoardDidUpdate;
+
 #pragma mark - MWMSearchManager
 
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state;

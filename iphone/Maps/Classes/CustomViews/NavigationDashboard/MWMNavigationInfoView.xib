@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -56,6 +56,133 @@
                             <size key="value" width="0.0" height="1"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TMW-aw-1RT">
+                    <rect key="frame" x="-68" y="232" width="200" height="200"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bv-7H-IZt" userLabel="Gas" customClass="MWMButton">
+                            <rect key="frame" x="78" y="14" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" priority="750" constant="44" id="KKe-fH-h2n"/>
+                                <constraint firstAttribute="height" priority="750" constant="44" id="UEW-5h-9Jk"/>
+                            </constraints>
+                            <state key="normal" image="ic_routing_fuel_on"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="sxM-U8-yee"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RP3-01-Pj7" userLabel="Parking" customClass="MWMButton">
+                            <rect key="frame" x="122" y="34" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="750" constant="44" id="iq3-j8-GZG"/>
+                                <constraint firstAttribute="width" priority="750" constant="44" id="lwq-aN-y8y"/>
+                            </constraints>
+                            <state key="normal" image="ic_routing_parking_on"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="uiN-0q-kol"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcK-FI-VXw" userLabel="Food" customClass="MWMButton">
+                            <rect key="frame" x="142" y="78" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" priority="750" constant="44" id="euI-Cb-zo4"/>
+                                <constraint firstAttribute="height" priority="750" constant="44" id="kdi-mH-aab"/>
+                            </constraints>
+                            <state key="normal" image="ic_routing_food_on"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="3le-Cd-rvC"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggf-tc-U3R" userLabel="Shop" customClass="MWMButton">
+                            <rect key="frame" x="122" y="122" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" priority="750" constant="44" id="2g5-C3-nTL"/>
+                                <constraint firstAttribute="height" priority="750" constant="44" id="fKJ-SP-gfS"/>
+                            </constraints>
+                            <state key="normal" image="ic_routing_shop_on"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="hkk-Xo-uPg"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoS-b2-FcN" userLabel="ATM" customClass="MWMButton">
+                            <rect key="frame" x="78" y="142" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" priority="750" constant="44" id="Kvn-g8-63x"/>
+                                <constraint firstAttribute="height" priority="750" constant="44" id="rwg-ce-ESb"/>
+                            </constraints>
+                            <state key="normal" image="ic_routing_atm_on"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="Pqo-CT-Cog"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="GcK-FI-VXw" firstAttribute="trailing" secondItem="Ggf-tc-U3R" secondAttribute="leading" priority="250" id="89h-kJ-0pV"/>
+                        <constraint firstItem="RP3-01-Pj7" firstAttribute="leading" secondItem="2Bv-7H-IZt" secondAttribute="trailing" priority="250" id="C9o-Bx-KXq"/>
+                        <constraint firstAttribute="height" constant="200" id="ClV-rj-I5W"/>
+                        <constraint firstAttribute="trailing" secondItem="Ggf-tc-U3R" secondAttribute="trailing" priority="500" constant="34" id="Cxa-Ms-3ud"/>
+                        <constraint firstItem="uoS-b2-FcN" firstAttribute="centerX" secondItem="TMW-aw-1RT" secondAttribute="centerX" priority="500" id="Fva-Vq-x1E"/>
+                        <constraint firstItem="GcK-FI-VXw" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" id="HaH-4G-jWc"/>
+                        <constraint firstItem="2Bv-7H-IZt" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" priority="250" id="NcX-Rf-Cvm"/>
+                        <constraint firstAttribute="bottom" secondItem="uoS-b2-FcN" secondAttribute="bottom" priority="500" constant="14" id="Skj-gh-LVA"/>
+                        <constraint firstAttribute="bottom" secondItem="Ggf-tc-U3R" secondAttribute="bottom" priority="500" constant="34" id="ZWZ-hv-s2X"/>
+                        <constraint firstAttribute="trailing" secondItem="RP3-01-Pj7" secondAttribute="trailing" priority="500" constant="34" id="ZrU-lQ-I2d"/>
+                        <constraint firstItem="RP3-01-Pj7" firstAttribute="top" secondItem="TMW-aw-1RT" secondAttribute="top" priority="500" constant="34" id="eMY-fr-9hS"/>
+                        <constraint firstItem="2Bv-7H-IZt" firstAttribute="top" secondItem="TMW-aw-1RT" secondAttribute="top" priority="500" constant="14" id="eOX-wt-nUe"/>
+                        <constraint firstItem="RP3-01-Pj7" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" priority="250" id="iSp-hy-tmq"/>
+                        <constraint firstItem="uoS-b2-FcN" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" priority="250" id="j4g-jo-knc"/>
+                        <constraint firstAttribute="trailing" secondItem="GcK-FI-VXw" secondAttribute="trailing" priority="500" constant="14" id="jlf-5n-9UR"/>
+                        <constraint firstAttribute="trailing" secondItem="uoS-b2-FcN" secondAttribute="trailing" priority="250" constant="8" id="lOI-E1-KoS"/>
+                        <constraint firstAttribute="width" constant="200" id="mOu-Vw-eLb"/>
+                        <constraint firstItem="GcK-FI-VXw" firstAttribute="leading" secondItem="RP3-01-Pj7" secondAttribute="trailing" priority="250" id="nxu-rz-dZp"/>
+                        <constraint firstItem="2Bv-7H-IZt" firstAttribute="centerX" secondItem="TMW-aw-1RT" secondAttribute="centerX" priority="500" id="s89-b9-XaO"/>
+                        <constraint firstItem="Ggf-tc-U3R" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" priority="250" id="sVL-ni-mon"/>
+                        <constraint firstItem="2Bv-7H-IZt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TMW-aw-1RT" secondAttribute="leading" id="vbk-wb-RCv"/>
+                        <constraint firstItem="Ggf-tc-U3R" firstAttribute="trailing" secondItem="uoS-b2-FcN" secondAttribute="leading" priority="250" id="vcn-Dj-WUu"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="menuBackground"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NXu-Ad-8Al">
+                    <rect key="frame" x="4" y="240" width="56" height="120"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xna-Q1-7zW" customClass="MWMButton">
+                            <rect key="frame" x="0.0" y="64" width="56" height="56"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="56" id="IJq-4U-XHW"/>
+                                <constraint firstAttribute="height" constant="56" id="cvr-aL-Qfk"/>
+                            </constraints>
+                            <state key="normal" image="ic_routing_search_light"/>
+                            <connections>
+                                <action selector="searchMainButtonTouchUpInside" destination="iN0-l3-epB" eventType="touchUpInside" id="gd5-zu-3i5"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Xna-Q1-7zW" secondAttribute="bottom" id="C90-SI-uLj"/>
+                        <constraint firstItem="Xna-Q1-7zW" firstAttribute="leading" secondItem="NXu-Ad-8Al" secondAttribute="leading" id="CKc-8F-PF1"/>
+                        <constraint firstAttribute="width" constant="56" id="O5H-C7-r4J"/>
+                        <constraint firstAttribute="height" constant="120" id="bgf-pg-gVb"/>
+                    </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns">
                     <rect key="frame" x="8" y="28" width="96" height="153"/>
@@ -171,135 +298,21 @@
                         <constraint firstItem="wt8-EO-MKz" firstAttribute="top" secondItem="Aa6-N8-acP" secondAttribute="top" id="v5F-4v-Sfr"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TMW-aw-1RT">
-                    <rect key="frame" x="-70" y="300" width="200" height="200"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bv-7H-IZt" userLabel="Gas" customClass="MWMButton">
-                            <rect key="frame" x="78" y="14" width="44" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" priority="750" constant="44" id="KKe-fH-h2n"/>
-                                <constraint firstAttribute="height" priority="750" constant="44" id="UEW-5h-9Jk"/>
-                            </constraints>
-                            <state key="normal" image="ic_routing_fuel_on"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="sxM-U8-yee"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RP3-01-Pj7" userLabel="Parking" customClass="MWMButton">
-                            <rect key="frame" x="122" y="34" width="44" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="height" priority="750" constant="44" id="iq3-j8-GZG"/>
-                                <constraint firstAttribute="width" priority="750" constant="44" id="lwq-aN-y8y"/>
-                            </constraints>
-                            <state key="normal" image="ic_routing_parking_on"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="uiN-0q-kol"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcK-FI-VXw" userLabel="Food" customClass="MWMButton">
-                            <rect key="frame" x="142" y="78" width="44" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" priority="750" constant="44" id="euI-Cb-zo4"/>
-                                <constraint firstAttribute="height" priority="750" constant="44" id="kdi-mH-aab"/>
-                            </constraints>
-                            <state key="normal" image="ic_routing_food_on"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="3le-Cd-rvC"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggf-tc-U3R" userLabel="Shop" customClass="MWMButton">
-                            <rect key="frame" x="122" y="122" width="44" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" priority="750" constant="44" id="2g5-C3-nTL"/>
-                                <constraint firstAttribute="height" priority="750" constant="44" id="fKJ-SP-gfS"/>
-                            </constraints>
-                            <state key="normal" image="ic_routing_shop_on"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="hkk-Xo-uPg"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoS-b2-FcN" userLabel="ATM" customClass="MWMButton">
-                            <rect key="frame" x="78" y="142" width="44" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" priority="750" constant="44" id="Kvn-g8-63x"/>
-                                <constraint firstAttribute="height" priority="750" constant="44" id="rwg-ce-ESb"/>
-                            </constraints>
-                            <state key="normal" image="ic_routing_atm_on"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="Pqo-CT-Cog"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="GcK-FI-VXw" firstAttribute="trailing" secondItem="Ggf-tc-U3R" secondAttribute="leading" priority="250" id="89h-kJ-0pV"/>
-                        <constraint firstItem="RP3-01-Pj7" firstAttribute="leading" secondItem="2Bv-7H-IZt" secondAttribute="trailing" priority="250" id="C9o-Bx-KXq"/>
-                        <constraint firstAttribute="height" constant="200" id="ClV-rj-I5W"/>
-                        <constraint firstAttribute="trailing" secondItem="Ggf-tc-U3R" secondAttribute="trailing" priority="500" constant="34" id="Cxa-Ms-3ud"/>
-                        <constraint firstItem="uoS-b2-FcN" firstAttribute="centerX" secondItem="TMW-aw-1RT" secondAttribute="centerX" priority="500" id="Fva-Vq-x1E"/>
-                        <constraint firstItem="GcK-FI-VXw" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" id="HaH-4G-jWc"/>
-                        <constraint firstItem="2Bv-7H-IZt" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" priority="250" id="NcX-Rf-Cvm"/>
-                        <constraint firstAttribute="bottom" secondItem="uoS-b2-FcN" secondAttribute="bottom" priority="500" constant="14" id="Skj-gh-LVA"/>
-                        <constraint firstAttribute="bottom" secondItem="Ggf-tc-U3R" secondAttribute="bottom" priority="500" constant="34" id="ZWZ-hv-s2X"/>
-                        <constraint firstAttribute="trailing" secondItem="RP3-01-Pj7" secondAttribute="trailing" priority="500" constant="34" id="ZrU-lQ-I2d"/>
-                        <constraint firstItem="RP3-01-Pj7" firstAttribute="top" secondItem="TMW-aw-1RT" secondAttribute="top" priority="500" constant="34" id="eMY-fr-9hS"/>
-                        <constraint firstItem="2Bv-7H-IZt" firstAttribute="top" secondItem="TMW-aw-1RT" secondAttribute="top" priority="500" constant="14" id="eOX-wt-nUe"/>
-                        <constraint firstItem="RP3-01-Pj7" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" priority="250" id="iSp-hy-tmq"/>
-                        <constraint firstItem="uoS-b2-FcN" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" priority="250" id="j4g-jo-knc"/>
-                        <constraint firstAttribute="trailing" secondItem="GcK-FI-VXw" secondAttribute="trailing" priority="500" constant="14" id="jlf-5n-9UR"/>
-                        <constraint firstAttribute="trailing" secondItem="uoS-b2-FcN" secondAttribute="trailing" priority="250" constant="8" id="lOI-E1-KoS"/>
-                        <constraint firstAttribute="width" constant="200" id="mOu-Vw-eLb"/>
-                        <constraint firstItem="GcK-FI-VXw" firstAttribute="leading" secondItem="RP3-01-Pj7" secondAttribute="trailing" priority="250" id="nxu-rz-dZp"/>
-                        <constraint firstItem="2Bv-7H-IZt" firstAttribute="centerX" secondItem="TMW-aw-1RT" secondAttribute="centerX" priority="500" id="s89-b9-XaO"/>
-                        <constraint firstItem="Ggf-tc-U3R" firstAttribute="centerY" secondItem="TMW-aw-1RT" secondAttribute="centerY" priority="250" id="sVL-ni-mon"/>
-                        <constraint firstItem="2Bv-7H-IZt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TMW-aw-1RT" secondAttribute="leading" id="vbk-wb-RCv"/>
-                        <constraint firstItem="Ggf-tc-U3R" firstAttribute="trailing" secondItem="uoS-b2-FcN" secondAttribute="leading" priority="250" id="vcn-Dj-WUu"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="menuBackground"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xna-Q1-7zW" customClass="MWMButton">
-                    <rect key="frame" x="4" y="374" width="52" height="52"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="52" id="IJq-4U-XHW"/>
-                        <constraint firstAttribute="height" constant="52" id="cvr-aL-Qfk"/>
-                    </constraints>
-                    <state key="normal" image="ic_routing_search_light"/>
-                    <connections>
-                        <action selector="searchMainButtonTouchUpInside" destination="iN0-l3-epB" eventType="touchUpInside" id="gd5-zu-3i5"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="YYv-pG-Wkw" secondAttribute="trailing" id="15D-kN-gda"/>
-                <constraint firstItem="TMW-aw-1RT" firstAttribute="centerX" secondItem="Xna-Q1-7zW" secondAttribute="centerX" priority="500" id="BCi-8L-WDe"/>
+                <constraint firstItem="TMW-aw-1RT" firstAttribute="centerY" secondItem="Xna-Q1-7zW" secondAttribute="centerY" id="2Sz-uZ-HRW"/>
+                <constraint firstItem="TMW-aw-1RT" firstAttribute="leading" secondItem="Xna-Q1-7zW" secondAttribute="leading" priority="250" constant="-2" id="2op-pB-PGN"/>
+                <constraint firstItem="TMW-aw-1RT" firstAttribute="centerX" secondItem="Xna-Q1-7zW" secondAttribute="centerX" priority="500" id="8al-xh-3sS"/>
+                <constraint firstItem="NXu-Ad-8Al" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="500" id="Ci0-LK-iWk"/>
                 <constraint firstItem="YYv-pG-Wkw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IBQ-gK-Cpe"/>
+                <constraint firstItem="NXu-Ad-8Al" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="K8B-PV-dss"/>
                 <constraint firstItem="YYv-pG-Wkw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Rd5-Hl-fSF"/>
-                <constraint firstItem="TMW-aw-1RT" firstAttribute="leading" secondItem="Xna-Q1-7zW" secondAttribute="leading" priority="250" constant="-2" id="Sxn-9S-2ol"/>
-                <constraint firstItem="TMW-aw-1RT" firstAttribute="centerY" secondItem="Xna-Q1-7zW" secondAttribute="centerY" id="WKU-a9-BaM"/>
                 <constraint firstItem="Aa6-N8-acP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="28" id="goU-O7-rpS"/>
                 <constraint firstItem="ShI-bz-5g8" firstAttribute="leading" secondItem="Aa6-N8-acP" secondAttribute="trailing" priority="999" constant="8" id="mdA-B9-tvQ"/>
                 <constraint firstItem="Aa6-N8-acP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="pXD-dk-ku2"/>
-                <constraint firstItem="Xna-Q1-7zW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="peg-y6-vsC"/>
-                <constraint firstAttribute="bottom" secondItem="Xna-Q1-7zW" secondAttribute="bottom" constant="174" id="sFJ-1E-hky"/>
+                <constraint firstAttribute="bottom" secondItem="NXu-Ad-8Al" secondAttribute="bottom" priority="250" constant="44" id="wMZ-F5-B5V"/>
             </constraints>
             <connections>
                 <outlet property="distanceToNextTurnLabel" destination="KuR-1J-VI2" id="n0i-t9-Vj2"/>
@@ -311,7 +324,6 @@
                 <outlet property="searchFoodButton" destination="GcK-FI-VXw" id="G0h-uf-9uS"/>
                 <outlet property="searchGasButton" destination="2Bv-7H-IZt" id="hUg-CH-kWQ"/>
                 <outlet property="searchMainButton" destination="Xna-Q1-7zW" id="v48-fa-MQE"/>
-                <outlet property="searchMainButtonBottomOffset" destination="sFJ-1E-hky" id="ysB-DO-NgU"/>
                 <outlet property="searchParkingButton" destination="RP3-01-Pj7" id="sdL-mN-sLE"/>
                 <outlet property="searchShopButton" destination="Ggf-tc-U3R" id="RJJ-mh-rwy"/>
                 <outlet property="secondTurnImageView" destination="CKi-sy-dNO" id="A29-2z-4oh"/>
@@ -344,7 +356,8 @@
                 <outletCollection property="searchButtonsSideSize" destination="euI-Cb-zo4" id="W8L-Ax-Ks1"/>
                 <outletCollection property="searchButtons" destination="RP3-01-Pj7" id="1nL-Ib-y49"/>
                 <outletCollection property="searchButtonsSideSize" destination="UEW-5h-9Jk" id="ZWN-om-GgR"/>
-                <outletCollection property="searchLandscapeConstraints" destination="Sxn-9S-2ol" id="g6V-Kv-afo"/>
+                <outletCollection property="searchLandscapeConstraints" destination="wMZ-F5-B5V" id="5kx-kT-ZOQ"/>
+                <outletCollection property="searchLandscapeConstraints" destination="2op-pB-PGN" id="t69-L0-DI2"/>
             </connections>
         </view>
     </objects>
@@ -353,7 +366,7 @@
         <image name="ic_routing_food_on" width="24" height="24"/>
         <image name="ic_routing_fuel_on" width="24" height="24"/>
         <image name="ic_routing_parking_on" width="24" height="24"/>
-        <image name="ic_routing_search_light" width="52" height="52"/>
+        <image name="ic_routing_search_light" width="56" height="56"/>
         <image name="ic_routing_shop_on" width="24" height="24"/>
     </resources>
 </document>
