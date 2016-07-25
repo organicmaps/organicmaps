@@ -187,7 +187,7 @@ BOOL defaultOrientation()
 
     NSDictionary * turnNumberAttributes = @{
       NSForegroundColorAttributeName : [UIColor white],
-      NSFontAttributeName : IPAD ? [UIFont bold36] : [UIFont bold24]
+      NSFontAttributeName : IPAD ? [UIFont bold36] : [UIFont bold28]
     };
     NSDictionary * turnLegendAttributes = @{
       NSForegroundColorAttributeName : [UIColor white],
