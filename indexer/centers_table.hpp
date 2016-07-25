@@ -1,18 +1,16 @@
 #pragma once
 
+#include "indexer/coding_params.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "std/cstdint.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
+class FilesContainerR;
 class Reader;
 class Writer;
-
-namespace serial
-{
-class CodingParams;
-}
 
 namespace search
 {
@@ -64,15 +62,16 @@ private:
 class CentersTableBuilder
 {
 public:
-  CentersTableBuilder(Writer & writer, serial::CodingParams const & codingParams);
-
-  ~CentersTableBuilder();
+  inline void SetCodingParams(serial::CodingParams const & codingParams)
+  {
+    m_codingParams = codingParams;
+  }
 
   void Put(uint32_t featureId, m2::PointD const & center);
+  void Freeze(Writer & writer);
 
 private:
-  Writer & m_writer;
-  serial::CodingParams const & m_codingParams;
+  serial::CodingParams m_codingParams;
 
   vector<m2::PointU> m_centers;
   vector<uint32_t> m_ids;

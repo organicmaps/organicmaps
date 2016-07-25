@@ -1,6 +1,7 @@
 #include "search/pre_ranker.hpp"
 
 #include "search/dummy_rank_table.hpp"
+#include "search/lazy_centers_table.hpp"
 #include "search/pre_ranking_info.hpp"
 
 #include "indexer/mwm_set.hpp"
@@ -64,7 +65,13 @@ void PreRanker::FillMissingFieldsInPreResults()
 {
   MwmSet::MwmId mwmId;
   MwmSet::MwmHandle mwmHandle;
-  unique_ptr<RankTable> rankTable = make_unique<DummyRankTable>();
+  unique_ptr<RankTable> ranks = make_unique<DummyRankTable>();
+  unique_ptr<LazyCentersTable> centers;
+
+  bool const fillCenters = (Size() > kBatchSize);
+
+  if (fillCenters)
+    m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
 
   ForEach([&](PreResult1 & r) {
     FeatureID const & id = r.GetId();
@@ -73,27 +80,32 @@ void PreRanker::FillMissingFieldsInPreResults()
     {
       mwmId = id.m_mwmId;
       mwmHandle = m_index.GetMwmHandleById(mwmId);
-      rankTable.reset();
+      ranks.reset();
+      centers.reset();
       if (mwmHandle.IsAlive())
       {
-        rankTable = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
+        ranks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
+        centers = make_unique<LazyCentersTable>(*mwmHandle.GetValue<MwmValue>());
       }
-      if (!rankTable)
-        rankTable = make_unique<DummyRankTable>();
+      if (!ranks)
+        ranks = make_unique<DummyRankTable>();
     }
 
-    info.m_rank = rankTable->Get(id.m_index);
-  });
+    info.m_rank = ranks->Get(id.m_index);
 
-  if (Size() <= kBatchSize)
-    return;
-
-  m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
-  ForEach([&](PreResult1 & r) {
-    FeatureID const & id = r.GetId();
-    PreRankingInfo & info = r.GetInfo();
-
-    info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
+    if (fillCenters)
+    {
+      m2::PointD center;
+      if (centers && centers->Get(id.m_index, center))
+      {
+        info.m_distanceToPivot =
+            MercatorBounds::DistanceOnEarth(m_params.m_accuratePivotCenter, center);
+      }
+      else
+      {
+        info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
+      }
+    }
   });
 }
 

@@ -15,6 +15,7 @@
 #define OFFSET_EXT ".offs"
 #define ID2REL_EXT ".id2rel"
 
+#define CENTERS_FILE_TAG "centers"
 #define DATA_FILE_TAG "dat"
 #define GEOMETRY_FILE_TAG "geom"
 #define TRIANGLE_FILE_TAG "trg"

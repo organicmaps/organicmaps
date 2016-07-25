@@ -43,11 +43,14 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
   TBuffer buffer;
 
   {
-    MemWriter<TBuffer> writer(buffer);
-    CentersTableBuilder builder(writer, codingParams);
+    CentersTableBuilder builder;
 
+    builder.SetCodingParams(codingParams);
     fv.GetVector().ForEach(
         [&](FeatureType & ft, uint32_t id) { builder.Put(id, feature::GetCenter(ft)); });
+
+    MemWriter<TBuffer> writer(buffer);
+    builder.Freeze(writer);
   }
 
   {
@@ -75,10 +78,14 @@ UNIT_CLASS_TEST(CentersTableTest, Subset)
 
   TBuffer buffer;
   {
-    MemWriter<TBuffer> writer(buffer);
-    CentersTableBuilder builder(writer, codingParams);
+    CentersTableBuilder builder;
+
+    builder.SetCodingParams(codingParams);
     for (auto const & feature : features)
       builder.Put(feature.first, feature.second);
+
+    MemWriter<TBuffer> writer(buffer);
+    builder.Freeze(writer);
   }
 
   {

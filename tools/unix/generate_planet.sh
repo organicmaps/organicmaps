@@ -401,13 +401,13 @@ if [ "$MODE" == "mwm" ]; then
   if [ -n "$OPT_WORLD" ]; then
     (
       "$GENERATOR_TOOL" $PARAMS --planet_version="$MWM_VERSION" --output=World 2>> "$LOG_PATH/World.log"
-      "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$MWM_VERSION" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$MWM_VERSION" --user_resource_path="$DATA_PATH/" -generate_search_index -generate_centers_table --output=World 2>> "$LOG_PATH/World.log"
     ) &
     "$GENERATOR_TOOL" $PARAMS --planet_version="$MWM_VERSION" --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
 
   if [ -z "$NO_REGIONS" ]; then
-    PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
+    PARAMS_WITH_SEARCH="$PARAMS -generate_search_index -generate_centers_table"
     for file in "$INTDIR"/tmp/*.mwm.tmp; do
       if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
         BASENAME="$(basename "$file" .mwm.tmp)"

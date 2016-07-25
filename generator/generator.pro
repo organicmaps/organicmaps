@@ -20,6 +20,7 @@ SOURCES += \
     booking_scoring.cpp \
     borders_generator.cpp \
     borders_loader.cpp \
+    centers_table_builder.cpp \
     check_model.cpp \
     coastlines_generator.cpp \
     dumper.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     booking_scoring.hpp \
     borders_generator.hpp \
     borders_loader.hpp \
+    centers_table_builder.hpp \
     check_model.hpp \
     coastlines_generator.hpp \
     dumper.hpp \

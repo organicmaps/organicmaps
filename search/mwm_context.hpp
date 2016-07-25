@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/house_to_street_table.hpp"
+#include "search/lazy_centers_table.hpp"
 
 #include "indexer/features_vector.hpp"
 #include "indexer/index.hpp"
@@ -21,18 +22,8 @@ void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
 class MwmContext
 {
 public:
-  MwmSet::MwmHandle m_handle;
-  MwmValue & m_value;
-
-private:
-  FeaturesVector m_vector;
-  ScaleIndex<ModelReaderPtr> m_index;
-  unique_ptr<HouseToStreetTable> m_houseToStreetTable;
-
-public:
   explicit MwmContext(MwmSet::MwmHandle handle);
 
-  inline bool IsAlive() const { return m_handle.IsAlive(); }
   inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   inline string const & GetName() const { return GetInfo()->GetCountryName(); }
   inline shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
@@ -78,6 +69,14 @@ public:
 
   bool GetStreetIndex(uint32_t houseId, uint32_t & streetId);
 
+  inline bool GetCenter(uint32_t index, m2::PointD & center)
+  {
+    return m_centers.Get(index, center);
+  }
+
+  MwmSet::MwmHandle m_handle;
+  MwmValue & m_value;
+
 private:
   osm::Editor::FeatureStatus GetEditedStatus(uint32_t index) const
   {
@@ -97,6 +96,11 @@ private:
           },
           i.first, i.second, scale);
   }
+
+  FeaturesVector m_vector;
+  ScaleIndex<ModelReaderPtr> m_index;
+  unique_ptr<HouseToStreetTable> m_houseToStreetTable;
+  LazyCentersTable m_centers;
 
   DISALLOW_COPY_AND_MOVE(MwmContext);
 };

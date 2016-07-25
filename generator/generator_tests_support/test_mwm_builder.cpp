@@ -1,5 +1,6 @@
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
+#include "generator/centers_table_builder.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
@@ -88,6 +89,9 @@ void TestMwmBuilder::Finish()
 
   CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */),
         ("Can't build search index."));
+
+  CHECK(indexer::BuildCentersTableFromDataFile(path, true /* forceRebuild */),
+        ("Can't build centers table."));
 
   CHECK(search::RankTableBuilder::CreateIfNotExists(path), ());
 
