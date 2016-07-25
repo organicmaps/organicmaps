@@ -390,12 +390,10 @@ void IRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) c
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
                                             initializer_list<m2::PointD> const & points)
 {
-  buffer_vector<Junction, 32> junctions;
-  for (auto const & p : points)
-    junctions.emplace_back(MakeJunctionForTesting(p));
-
   IRoadGraph::RoadInfo ri(bidirectional, speedKMPH, {});
-  ri.m_junctions.swap(junctions);
+  for (auto const & p : points)
+    ri.m_junctions.emplace_back(MakeJunctionForTesting(p));
+
   return ri;
 }
 }  // namespace routing

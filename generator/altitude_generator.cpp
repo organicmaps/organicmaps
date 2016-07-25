@@ -15,10 +15,9 @@
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/varint.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "geometry/latlon.hpp"
-
-#include "coding/internal/file_data.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -43,14 +42,12 @@ namespace
 {
 using namespace routing;
 
-AltitudeHeader::TAltitudeSectionVersion constexpr kAltitudeSectionVersion = 0;
-
-class SrtmGetter : public IAltitudeGetter
+class SrtmGetter : public AltitudeGetter
 {
 public:
-  SrtmGetter(string const & srtmPath) : m_srtmManager(srtmPath) {}
+  SrtmGetter(string const & srtmDir) : m_srtmManager(srtmDir) {}
 
-  // IAltitudeGetter overrides:
+  // AltitudeGetter overrides:
   feature::TAltitude GetAltitude(m2::PointD const & p) override
   {
     return m_srtmManager.GetHeight(MercatorBounds::ToLatLon(p));
@@ -63,10 +60,21 @@ private:
 class Processor
 {
 public:
-  using TFeatureAltitude = pair<uint32_t, Altitude>;
-  using TFeatureAltitudes = vector<TFeatureAltitude>;
+  struct FeatureAltitude
+  {
+    FeatureAltitude() : m_featureId(0) {}
+    FeatureAltitude(uint32_t featureId, Altitudes const & altitudes)
+      : m_featureId(featureId), m_altitudes(altitudes)
+    {
+    }
 
-  Processor(IAltitudeGetter & altitudeGetter)
+    uint32_t m_featureId;
+    Altitudes m_altitudes;
+  };
+
+  using TFeatureAltitudes = vector<FeatureAltitude>;
+
+  Processor(AltitudeGetter & altitudeGetter)
     : m_altitudeGetter(altitudeGetter), m_minAltitude(kInvalidAltitude)
   {
   }
@@ -89,7 +97,7 @@ public:
     }
 
     bool hasAltitude = false;
-    MY_SCOPE_GUARD(removeTmpDir, [&] ()
+    MY_SCOPE_GUARD(altitudeAvailabilityBuilding, [&] ()
     {
       m_altitudeAvailabilityBuilder.push_back(hasAltitude);
     });
@@ -103,16 +111,12 @@ public:
       return;
 
     TAltitudes altitudes;
-    bool valid = true;
     TAltitude minFeatureAltitude = kInvalidAltitude;
     for (size_t i = 0; i < pointsCount; ++i)
     {
       TAltitude const a = m_altitudeGetter.GetAltitude(f.GetPoint(i));
       if (a == kInvalidAltitude)
-      {
-        valid = false;
         return;
-      }
 
       if (minFeatureAltitude == kInvalidAltitude)
         minFeatureAltitude = a;
@@ -121,11 +125,9 @@ public:
 
       altitudes.push_back(a);
     }
-    if (!valid)
-      return;
 
     hasAltitude = true;
-    m_featureAltitudes.push_back(make_pair(id, Altitude(move(altitudes))));
+    m_featureAltitudes.emplace_back(id, Altitudes(move(altitudes)));
 
     if (m_minAltitude == kInvalidAltitude)
       m_minAltitude = minFeatureAltitude;
@@ -141,22 +143,20 @@ public:
   bool IsFeatureAltitudesSorted()
   {
     return is_sorted(m_featureAltitudes.begin(), m_featureAltitudes.end(),
-                     my::LessBy(&Processor::TFeatureAltitude::first));
+                     my::LessBy(&Processor::FeatureAltitude::m_featureId));
   }
 
 private:
-  IAltitudeGetter & m_altitudeGetter;
+  AltitudeGetter & m_altitudeGetter;
   TFeatureAltitudes m_featureAltitudes;
   succinct::bit_vector_builder m_altitudeAvailabilityBuilder;
   TAltitude m_minAltitude;
 };
 }  // namespace
 
-static_assert(sizeof(AltitudeHeader) == 16, "Wrong header size of altitude section.");
-
 namespace routing
 {
-void BuildRoadAltitudes(string const & mwmPath, IAltitudeGetter & altitudeGetter)
+void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
 {
   try
   {
@@ -174,8 +174,10 @@ void BuildRoadAltitudes(string const & mwmPath, IAltitudeGetter & altitudeGetter
 
     FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
     FileWriter w = cont.GetWriter(ALTITUDES_FILE_TAG);
+
     AltitudeHeader header;
-    header.minAltitude = processor.GetMinAltitude();
+    header.m_minAltitude = processor.GetMinAltitude();
+
     int64_t const startOffset = w.Pos();
     header.Serialize(w);
     {
@@ -184,7 +186,7 @@ void BuildRoadAltitudes(string const & mwmPath, IAltitudeGetter & altitudeGetter
       succinct::bit_vector_builder & builder = processor.GetAltitudeAvailabilityBuilder();
       succinct::rs_bit_vector(&builder).map(visitor);
     }
-    header.featureTableOffset = w.Pos() - startOffset;
+    header.m_featureTableOffset = w.Pos() - startOffset;
 
     vector<uint32_t> offsets;
     vector<uint8_t> deltas;
@@ -195,7 +197,7 @@ void BuildRoadAltitudes(string const & mwmPath, IAltitudeGetter & altitudeGetter
       for (auto const & a : featureAltitudes)
       {
         offsets.push_back(writer.Pos());
-        a.second.Serialize(header.minAltitude, writer);
+        a.m_altitudes.Serialize(header.m_minAltitude, writer);
       }
     }
     {
@@ -211,27 +213,27 @@ void BuildRoadAltitudes(string const & mwmPath, IAltitudeGetter & altitudeGetter
       succinct::elias_fano(&builder).map(visitor);
     }
     // Writing altitude info.
-    header.altitudeInfoOffset = w.Pos() - startOffset;
+    header.m_altitudesOffset = w.Pos() - startOffset;
     w.Write(deltas.data(), deltas.size());
-    header.endOffset = w.Pos() - startOffset;
+    header.m_endOffset = w.Pos() - startOffset;
 
     // Rewriting header info.
-    header.version = kAltitudeSectionVersion;
     int64_t const endOffset = w.Pos();
     w.Seek(startOffset);
     header.Serialize(w);
     w.Seek(endOffset);
+    LOG(LINFO, (ALTITUDES_FILE_TAG, "section is ready. The size is", endOffset - startOffset));
   }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("An exception happened while creating", ALTITUDES_FILE_TAG, "section. ", e.what()));
+    LOG(LERROR, ("An exception happened while creating", ALTITUDES_FILE_TAG, "section:", e.what()));
   }
 }
 
-void BuildRoadAltitudes(string const & mwmPath, string const & srtmPath)
+void BuildRoadAltitudes(string const & mwmPath, string const & srtmDir)
 {
-  LOG(LINFO, ("mwmPath =", mwmPath, "srtmPath =", srtmPath));
-  SrtmGetter srtmGetter(srtmPath);
+  LOG(LINFO, ("mwmPath =", mwmPath, "srtmDir =", srtmDir));
+  SrtmGetter srtmGetter(srtmDir);
   BuildRoadAltitudes(mwmPath, srtmGetter);
 }
 }  // namespace routing

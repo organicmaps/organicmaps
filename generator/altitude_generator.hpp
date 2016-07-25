@@ -8,7 +8,7 @@
 
 namespace routing
 {
-class IAltitudeGetter
+class AltitudeGetter
 {
 public:
   virtual feature::TAltitude GetAltitude(m2::PointD const & p) = 0;
@@ -22,8 +22,8 @@ public:
 /// 8                   altitude info offset  4
 /// 12                  end of section        4
 /// 16                  altitude availability feat. table offset - 16
-/// feat. table offset  feature table         alt. info offset - f. table offset
-/// alt. info offset    altitude info         alt. info offset - end of section
-void BuildRoadAltitudes(string const & mwmPath, IAltitudeGetter & altitudeGetter);
-void BuildRoadAltitudes(string const & mwmPath, string const & srtmPath);
+/// feat. table offset  feature table         alt. info offset - feat. table offset
+/// alt. info offset    altitude info         end of section - alt. info offset
+void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter);
+void BuildRoadAltitudes(string const & mwmPath, string const & srtmDir);
 }  // namespace routing

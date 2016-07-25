@@ -16,8 +16,8 @@ class AltitudeLoader
 public:
   explicit AltitudeLoader(MwmValue const & mwmValue);
 
-  TAltitudes const & GetAltitudes(uint32_t featureId, size_t pointCount) const;
-  bool IsAvailable() const;
+  TAltitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
+  bool HasAltitudes() const;
 
 private:
   unique_ptr<CopiedMemoryRegion> m_altitudeAvailabilityRegion;
@@ -27,7 +27,7 @@ private:
   succinct::elias_fano m_featureTable;
 
   unique_ptr<FilesContainerR::TReader> m_reader;
-  mutable map<uint32_t, TAltitudes> m_cache;
+  map<uint32_t, TAltitudes> m_cache;
   TAltitudes const m_dummy;
   AltitudeHeader m_header;
 };

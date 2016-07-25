@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "generator/altitude_generator.hpp"
-
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -19,7 +18,8 @@
 
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
-
+#include "platform/platform_tests_support/scoped_dir.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 #include "base/logging.hpp"
@@ -31,12 +31,11 @@ using namespace feature;
 using namespace generator;
 using namespace platform;
 using namespace routing;
-using namespace tests_support;
 
 namespace
 {
 // These tests generate mwms with altitude sections and then check if altitudes
-// in the mwms are correct. The mwms are inited with different sets of features defined below.
+// in the mwms are correct. The mwms are initialized with different sets of features.
 // There are several restrictions for these features:
 // * all of them are linear
 // * all coords of these features should be integer (it's necessary for easy implementation of MockAltitudeGetter)
@@ -49,29 +48,29 @@ string const kTestDir = "altitude_generation_test";
 // Temporary mwm name for testing.
 string const kTestMwm = "test";
 
-struct Rounded3DPoint
+struct Point3D
 {
-  Rounded3DPoint(int32_t x, int32_t y, TAltitude a) : point2D(x, y), altitude(a) {}
+  Point3D(int32_t x, int32_t y, TAltitude a) : m_point(x, y), m_altitude(a) {}
 
-  m2::PointI point2D;
-  TAltitude altitude;
+  m2::PointI m_point;
+  TAltitude m_altitude;
 };
 
-using TRounded3DGeom = vector<Rounded3DPoint>;
+using TPoint3DList = vector<Point3D>;
 
-TRounded3DGeom const kRoad1 = {{0, -1, -1}, {0, 0, 0}, {0, 1, 1}};
-TRounded3DGeom const kRoad2 = {{0, 1, 1}, {5, 1, 1}, {10, 1, 1}};
-TRounded3DGeom const kRoad3 = {{10, 1, 1}, {15, 6, 100}, {20, 11, 110}};
-TRounded3DGeom const kRoad4 = {{-10, 1, -1}, {-20, 6, -100}, {-20, -11, -110}};
+TPoint3DList const kRoad1 = {{0, -1, -1}, {0, 0, 0}, {0, 1, 1}};
+TPoint3DList const kRoad2 = {{0, 1, 1}, {5, 1, 1}, {10, 1, 1}};
+TPoint3DList const kRoad3 = {{10, 1, 1}, {15, 6, 100}, {20, 11, 110}};
+TPoint3DList const kRoad4 = {{-10, 1, -1}, {-20, 6, -100}, {-20, -11, -110}};
 
-class MockAltitudeGetter : public IAltitudeGetter
+class MockAltitudeGetter : public AltitudeGetter
 {
 public:
   using TMockAltitudes = map<m2::PointI, TAltitude>;
 
   MockAltitudeGetter(TMockAltitudes && altitudes) : m_altitudes(altitudes) {}
 
-  // IAltitudeGetter overrides:
+  // AltitudeGetter overrides:
   TAltitude GetAltitude(m2::PointD const & p) override
   {
     m2::PointI const rounded(static_cast<int32_t>(round(p.x)), static_cast<int32_t>(round(p.y)));
@@ -86,57 +85,43 @@ private:
   TMockAltitudes const & m_altitudes;
 };
 
-template<class T>
-vector<T> ConvertTo2DGeom(TRounded3DGeom const & geom3D)
+vector<m2::PointD> ExtractPoints(TPoint3DList const & geom3D)
 {
-  vector<T> dv;
-  dv.clear();
-  for (Rounded3DPoint const & p : geom3D)
-    dv.push_back(T(p.point2D));
-  return dv;
+  vector<m2::PointD> result;
+  for (Point3D const & p : geom3D)
+    result.push_back(m2::PointD(p.m_point));
+  return result;
 }
 
-TAltitudes ConvertToAltitudes(TRounded3DGeom const & geom3D)
-{
-  TAltitudes altitudes;
-  altitudes.clear();
-  for (Rounded3DPoint const & p : geom3D)
-    altitudes.push_back(p.altitude);
-  return altitudes;
-}
-
-void FillAltitudes(vector<TRounded3DGeom> const & roadFeatures,
+void FillAltitudes(vector<TPoint3DList> const & roads,
                    MockAltitudeGetter::TMockAltitudes & altitudes)
 {
-  for (TRounded3DGeom const & geom3D : roadFeatures)
+  for (TPoint3DList const & geom3D : roads)
   {
-    vector<m2::PointI> const featureGeom = ConvertTo2DGeom<m2::PointI>(geom3D);
-    TAltitudes const featureAlt = ConvertToAltitudes(geom3D);
-    CHECK_EQUAL(featureGeom.size(), featureAlt.size(), ());
-    for (size_t i = 0; i < featureGeom.size(); ++i)
+    for (size_t i = 0; i < geom3D.size(); ++i)
     {
-      auto it = altitudes.find(featureGeom[i]);
+      auto it = altitudes.find(geom3D[i].m_point);
       if (it != altitudes.end())
       {
-        CHECK_EQUAL(it->second, featureAlt[i], ("Point", it->first, "is set with two different altitudes."));
+        CHECK_EQUAL(it->second, geom3D[i].m_altitude, ("Point", it->first, "is set with two different altitudes."));
         continue;
       }
-      altitudes[featureGeom[i]] = featureAlt[i];
+      altitudes[geom3D[i].m_point] = geom3D[i].m_altitude;
     }
   }
 }
 
-void BuildMwmWithoutAltitude(vector<TRounded3DGeom> const & roadFeatures, LocalCountryFile & country)
+void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFile & country)
 {
-  TestMwmBuilder builder(country, feature::DataHeader::country);
+  generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
 
-  for (TRounded3DGeom const & geom3D : roadFeatures)
-    builder.Add(TestStreet(ConvertTo2DGeom<m2::PointD>(geom3D), string(), string()));
+  for (TPoint3DList const & geom3D : roads)
+    builder.Add(generator::tests_support::TestStreet(ExtractPoints(geom3D), string(), string()));
 }
 
-void ReadAndTestAltitudeInfo(MwmValue const & mwmValue, string const & mwmPath, MockAltitudeGetter & altitudeGetter)
+void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath, MockAltitudeGetter & altitudeGetter)
 {
-  AltitudeLoader const loader(mwmValue);
+  AltitudeLoader loader(mwmValue);
 
   auto processor = [&altitudeGetter, &loader](FeatureType const & f, uint32_t const & id)
   {
@@ -158,75 +143,71 @@ void ReadAndTestAltitudeInfo(MwmValue const & mwmValue, string const & mwmPath, 
   feature::ForEachFromDat(mwmPath, processor);
 }
 
-void TestAltitudeSection(vector<TRounded3DGeom> const & roadFeatures)
+void TestAltitudesBuilding(vector<TPoint3DList> const & roads)
 {
   classificator::Load();
   Platform & platform = GetPlatform();
   string const testDirFullPath = my::JoinFoldersToPath(platform.WritableDir(), kTestDir);
 
-  MY_SCOPE_GUARD(removeTmpDir, [&] ()
-  {
-    GetPlatform().RmDirRecursively(testDirFullPath);
-  });
-
   // Building mwm without altitude section.
-  platform.MkDir(testDirFullPath);
   LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 1);
-  BuildMwmWithoutAltitude(roadFeatures, country);
+  platform::tests_support::ScopedDir testScopedDir(kTestDir);
+  platform::tests_support::ScopedFile testScopedMwm(country.GetPath(MapOptions::Map));
+  BuildMwmWithoutAltitudes(roads, country);
 
   // Creating MockAltitudeGetter.
   MockAltitudeGetter::TMockAltitudes altitudes;
-  FillAltitudes(roadFeatures, altitudes);
+  FillAltitudes(roads, altitudes);
   MockAltitudeGetter altitudeGetter(move(altitudes));
 
   // Adding altitude section to mwm.
   string const mwmPath = my::JoinFoldersToPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
   BuildRoadAltitudes(mwmPath, altitudeGetter);
 
-  // Reading from mwm and testing altitue information.
+  // Reading from mwm and testing altitude information.
   Index index;
-  pair<MwmSet::MwmId, MwmSet::RegResult> regResult = index.RegisterMap(country);
+  auto const regResult = index.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
   MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
-  CHECK(mwmHandle.IsAlive(), ());
+  TEST(mwmHandle.IsAlive(), ());
 
-  ReadAndTestAltitudeInfo(*mwmHandle.GetValue<MwmValue>(), mwmPath, altitudeGetter);
+  TestAltitudes(*mwmHandle.GetValue<MwmValue>(), mwmPath, altitudeGetter);
+}
+
+UNIT_TEST(AltitudeGenerationTest_ZeroFeatures)
+{
+  vector<TPoint3DList> const roads = {};
+  TestAltitudesBuilding(roads);
+}
+
+UNIT_TEST(AltitudeGenerationTest_OneRoad)
+{
+  vector<TPoint3DList> const roads = {kRoad1};
+  TestAltitudesBuilding(roads);
+}
+
+UNIT_TEST(AltitudeGenerationTest_TwoConnectedRoads)
+{
+  vector<TPoint3DList> const roads = {kRoad1, kRoad2};
+  TestAltitudesBuilding(roads);
+}
+
+UNIT_TEST(AltitudeGenerationTest_TwoDisconnectedRoads)
+{
+  vector<TPoint3DList> const roads = {kRoad1, kRoad3};
+  TestAltitudesBuilding(roads);
+}
+
+UNIT_TEST(AltitudeGenerationTest_ThreeRoads)
+{
+  vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3};
+  TestAltitudesBuilding(roads);
+}
+
+UNIT_TEST(AltitudeGenerationTest_FourRoads)
+{
+  vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3, kRoad4};
+  TestAltitudesBuilding(roads);
 }
 } // namespace
-
-UNIT_TEST(ZeroFeatures_AltitudeGenerationTest)
-{
-  vector<TRounded3DGeom> const roadFeatures = {};
-  TestAltitudeSection(roadFeatures);
-}
-
-UNIT_TEST(OneRoad_AltitudeGenerationTest)
-{
-  vector<TRounded3DGeom> const roadFeatures = {kRoad1};
-  TestAltitudeSection(roadFeatures);
-}
-
-UNIT_TEST(TwoConnectedRoads_AltitudeGenerationTest)
-{
-  vector<TRounded3DGeom> const roadFeatures = {kRoad1, kRoad2};
-  TestAltitudeSection(roadFeatures);
-}
-
-UNIT_TEST(TwoDisconnectedRoads_AltitudeGenerationTest)
-{
-  vector<TRounded3DGeom> const roadFeatures = {kRoad1, kRoad3};
-  TestAltitudeSection(roadFeatures);
-}
-
-UNIT_TEST(ThreeRoads_AltitudeGenerationTest)
-{
-  vector<TRounded3DGeom> const roadFeatures = {kRoad1, kRoad2, kRoad3};
-  TestAltitudeSection(roadFeatures);
-}
-
-UNIT_TEST(FourRoads_AltitudeGenerationTest)
-{
-  vector<TRounded3DGeom> const roadFeatures = {kRoad1, kRoad2, kRoad3, kRoad4};
-  TestAltitudeSection(roadFeatures);
-}

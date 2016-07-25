@@ -82,24 +82,20 @@ private:
   struct Value
   {
     Value() = default;
-    explicit Value(MwmSet::MwmHandle && handle)
-      : mwmHandle(move(handle))
-    {
-      if (!mwmHandle.IsAlive())
-      {
-        ASSERT(false, ());
-        return;
-      }
-      altitudeLoader = make_unique<feature::AltitudeLoader>(*mwmHandle.GetValue<MwmValue>());
-    }
+    explicit Value(MwmSet::MwmHandle && handle);
 
     bool IsAlive() const
     {
-      return mwmHandle.IsAlive() && altitudeLoader && altitudeLoader->IsAvailable();
+      return m_mwmHandle.IsAlive();
     }
 
-    MwmSet::MwmHandle mwmHandle;
-    unique_ptr<feature::AltitudeLoader> altitudeLoader;
+    bool HasAltitudeLoader() const
+    {
+      return m_altitudeLoader && m_altitudeLoader->HasAltitudes();
+    }
+
+    MwmSet::MwmHandle m_mwmHandle;
+    unique_ptr<feature::AltitudeLoader> m_altitudeLoader;
   };
 
   bool IsRoad(FeatureType const & ft) const;
@@ -116,7 +112,7 @@ private:
   void ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft, double speedKMPH,
                        RoadInfo & ri) const;
 
-  Value const & LockFeatureMwm(FeatureID const & featureId) const;
+  Value const & LockMwm(MwmSet::MwmId const & mwmId) const;
 
   Index const & m_index;
   IRoadGraph::Mode const m_mode;

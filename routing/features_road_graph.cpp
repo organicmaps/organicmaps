@@ -38,6 +38,14 @@ string GetFeatureCountryName(FeatureID const featureId)
 }
 }  // namespace
 
+FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle && handle)
+  : m_mwmHandle(move(handle))
+{
+  if (!m_mwmHandle.IsAlive())
+    return;
+
+  m_altitudeLoader = make_unique<feature::AltitudeLoader>(*m_mwmHandle.GetValue<MwmValue>());
+}
 
 FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(unique_ptr<IVehicleModelFactory> && vehicleModelFactory)
   : m_vehicleModelFactory(move(vehicleModelFactory))
@@ -257,24 +265,25 @@ double FeaturesRoadGraph::GetSpeedKMPHFromFt(FeatureType const & ft) const
 void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft,
                                         double speedKMPH, RoadInfo & ri) const
 {
-  Value const & value = LockFeatureMwm(featureId);
+  Value const & value = LockMwm(featureId.m_mwmId);
   if (!value.IsAlive())
-  {
-    ASSERT(false, ());
     return;
-  }
 
   ri.m_bidirectional = !IsOneWay(ft);
   ri.m_speedKMPH = speedKMPH;
 
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  feature::TAltitudes altitudes = value.altitudeLoader->GetAltitudes(featureId.m_index, ft.GetPointsCount());
-
   size_t const pointsCount = ft.GetPointsCount();
-  if (altitudes.size() != pointsCount)
+
+  feature::TAltitudes altitudes;
+  if (value.HasAltitudeLoader())
   {
-    ASSERT(false, ("altitudes.size is different from ft.GetPointsCount()"));
-    altitudes.clear();
+    altitudes = value.m_altitudeLoader->GetAltitudes(featureId.m_index, ft.GetPointsCount());
+    if (altitudes.size() != pointsCount)
+    {
+      ASSERT(false, ("altitudes.size() is different from ft.GetPointsCount()"));
+      altitudes.clear();
+    }
   }
 
   ri.m_junctions.clear();
@@ -325,9 +334,8 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
   return ri;
 }
 
-FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockFeatureMwm(FeatureID const & featureId) const
+FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockMwm(MwmSet::MwmId const & mwmId) const
 {
-  MwmSet::MwmId mwmId = featureId.m_mwmId;
   ASSERT(mwmId.IsAlive(), ());
 
   auto const itr = m_mwmLocks.find(mwmId);

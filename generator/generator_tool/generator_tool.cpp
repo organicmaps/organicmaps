@@ -212,9 +212,12 @@ int main(int argc, char ** argv)
       if (!search::RankTableBuilder::CreateIfNotExists(datFile))
         LOG(LCRITICAL, ("Error generating rank table."));
     }
+
+    if (!FLAGS_srtm_path.empty())
+      routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
   }
 
-  string const datFile = path + FLAGS_output + DATA_FILE_EXTENSION;
+  string const datFile = my::JoinFoldersToPath(path, FLAGS_output + DATA_FILE_EXTENSION);
 
   if (FLAGS_calc_statistics)
   {
@@ -248,12 +251,6 @@ int main(int argc, char ** argv)
 
   if (FLAGS_dump_feature_names != "")
     feature::DumpFeatureNames(datFile, FLAGS_dump_feature_names);
-
-  if (!FLAGS_srtm_path.empty())
-  {
-    string const mwmPath = my::JoinFoldersToPath(path, FLAGS_output + DATA_FILE_EXTENSION);
-    routing::BuildRoadAltitudes(FLAGS_srtm_path, mwmPath);
-  }
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(datFile);

@@ -14,8 +14,8 @@
 namespace
 {
 template<class TCont>
-void Map(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src,
-         TCont & cont, unique_ptr<CopiedMemoryRegion> & region)
+void LoadAndMap(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src,
+                TCont & cont, unique_ptr<CopiedMemoryRegion> & region)
 {
   vector<uint8_t> data(dataSize);
   src.Read(data.data(), data.size());
@@ -41,8 +41,9 @@ AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     m_header.Deserialize(src);
 
-    Map(m_header.GetAltitudeAvailabilitySize(), src, m_altitudeAvailability, m_altitudeAvailabilityRegion);
-    Map(m_header.GetFeatureTableSize(), src, m_featureTable, m_featureTableRegion);
+    LoadAndMap(m_header.GetAltitudeAvailabilitySize(), src, m_altitudeAvailability,
+               m_altitudeAvailabilityRegion);
+    LoadAndMap(m_header.GetFeatureTableSize(), src, m_featureTable, m_featureTableRegion);
   }
   catch (Reader::OpenException const & e)
   {
@@ -51,16 +52,16 @@ AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
   }
 }
 
-bool AltitudeLoader::IsAvailable() const
+bool AltitudeLoader::HasAltitudes() const
 {
-  return m_header.minAltitude != kInvalidAltitude;
+  return m_header.m_minAltitude != kInvalidAltitude;
 }
 
-TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount) const
+TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount)
 {
-  if (!IsAvailable())
+  if (!HasAltitudes())
   {
-    // The version of mwm is less then version::Format::v8 or there's no altitude section in mwm.
+    // The version of mwm is less than version::Format::v8 or there's no altitude section in mwm.
     return m_dummy;
   }
 
@@ -71,7 +72,7 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
   if (!m_altitudeAvailability[featureId])
   {
     LOG(LINFO, ("Feature featureId =", featureId, "does not contain any altitude information."));
-    return m_cache.insert(make_pair(featureId, TAltitudes())).first->second;
+    return m_cache.insert(make_pair(featureId, m_dummy)).first->second;
   }
 
   uint64_t const r = m_altitudeAvailability.rank(featureId);
@@ -79,22 +80,22 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
   uint64_t const offset = m_featureTable.select(r);
   CHECK_LESS_OR_EQUAL(offset, m_featureTable.size(), (featureId));
 
-  uint64_t const altitudeInfoOffsetInSection = m_header.altitudeInfoOffset + offset;
+  uint64_t const altitudeInfoOffsetInSection = m_header.m_altitudesOffset + offset;
   CHECK_LESS(altitudeInfoOffsetInSection, m_reader->Size(), ());
 
   try
   {
-    Altitude a;
+    Altitudes a;
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     src.Skip(altitudeInfoOffsetInSection);
-    a.Deserialize(m_header.minAltitude, pointCount, src);
+    a.Deserialize(m_header.m_minAltitude, pointCount, src);
 
     return m_cache.insert(make_pair(featureId, a.GetAltitudes())).first->second;
   }
   catch (Reader::OpenException const & e)
   {
-    LOG(LERROR, ("Error while getting mwm data", e.Msg()));
-    return m_cache.insert(make_pair(featureId, TAltitudes())).first->second;
+    LOG(LERROR, ("Error while getting altitude data", e.Msg()));
+    return m_cache.insert(make_pair(featureId, m_dummy)).first->second;
   }
 }
 } // namespace feature
