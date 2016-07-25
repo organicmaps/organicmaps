@@ -156,7 +156,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
         case location::PendingPosition:
         {
           NSArray<UIImage *> * images = animationImages(@"btn_pending", 12);
-          locBtn.imageView.animationDuration = 0.8;
+          locBtn.imageView.animationDuration = 1.2;
           locBtn.imageView.animationImages = images;
           locBtn.imageView.animationRepeatCount = 0;
           locBtn.imageView.image = images.lastObject;
