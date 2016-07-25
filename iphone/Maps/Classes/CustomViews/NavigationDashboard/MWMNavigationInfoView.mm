@@ -385,7 +385,8 @@ BOOL defaultOrientation()
 
 - (CGFloat)extraCompassBottomOffset
 {
-  return (defaultOrientation() ? 0 : kSearchButtonsViewHeightLandscape) + kDefaultExtraCompassBottomOffset;
+  return (defaultOrientation() ? 0 : kSearchButtonsViewHeightLandscape) +
+         kDefaultExtraCompassBottomOffset;
 }
 
 @end

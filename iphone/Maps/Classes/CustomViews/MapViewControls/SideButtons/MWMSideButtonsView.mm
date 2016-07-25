@@ -34,7 +34,8 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
   if (self.isPortrait != isPortrait && self.superview)
   {
     self.isPortrait = isPortrait;
-    CGFloat const zoomOutToLayoutOffset = IPAD || isPortrait ? kZoomOutToLayoutPortraitOffset : self.zoomOut.minY - self.zoomIn.maxY;
+    CGFloat const zoomOutToLayoutOffset =
+        IPAD || isPortrait ? kZoomOutToLayoutPortraitOffset : self.zoomOut.minY - self.zoomIn.maxY;
     self.location.minY = self.zoomOut.maxY + zoomOutToLayoutOffset;
     CGSize size = self.defaultBounds.size;
     size.height = self.location.maxY;
@@ -175,7 +176,8 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
 {
   if (!self.superview)
     return _bottomBound;
-  CGFloat const bottomBoundLimit = (self.superview.height - self.zoomOut.maxY) / 2 - (self.location.maxY - self.zoomOut.maxY);
+  CGFloat const bottomBoundLimit =
+      (self.superview.height - self.zoomOut.maxY) / 2 - (self.location.maxY - self.zoomOut.maxY);
   return MIN(self.superview.height - bottomBoundLimit, _bottomBound);
 }
 
