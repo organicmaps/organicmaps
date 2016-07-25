@@ -18,9 +18,6 @@ namespace
 CGFloat constexpr kTurnsiPhoneWidth = 96;
 CGFloat constexpr kTurnsiPadWidth = 140;
 
-CGFloat constexpr kSearchMainButtonBottomOffsetPortrait = 174;
-CGFloat constexpr kSearchMainButtonBottomOffsetLandscape = 44;
-
 CGFloat constexpr kSearchButtonsViewHeightPortrait = 200;
 CGFloat constexpr kSearchButtonsViewWidthPortrait = 200;
 CGFloat constexpr kSearchButtonsViewHeightLandscape = 56;
@@ -68,7 +65,6 @@ BOOL defaultOrientation()
 @property(weak, nonatomic) IBOutlet MWMButton * searchMainButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewHeight;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewWidth;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchMainButtonBottomOffset;
 @property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * searchLandscapeConstraints;
 @property(nonatomic) IBOutletCollection(UIButton) NSArray * searchButtons;
 @property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * searchButtonsSideSize;
@@ -231,8 +227,6 @@ BOOL defaultOrientation()
 - (void)layoutSearch
 {
   BOOL const defaultView = defaultOrientation();
-  self.searchMainButtonBottomOffset.constant =
-      defaultView ? kSearchMainButtonBottomOffsetPortrait : kSearchMainButtonBottomOffsetLandscape;
   CGFloat alpha = 1;
   CGFloat searchButtonsSideSize = kSearchButtonsSideSize;
   if (self.searchState == NavigationSearchState::Maximized)
