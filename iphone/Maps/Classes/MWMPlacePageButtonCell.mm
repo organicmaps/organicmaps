@@ -1,14 +1,14 @@
 #import "MWMPlacePageButtonCell.h"
+#import "MWMFrameworkListener.h"
 #import "MWMPlacePageViewManager.h"
 #import "UIColor+MapsMeColor.h"
-#import "MWMFrameworkListener.h"
 
 @interface MWMPlacePageButtonCell ()<MWMFrameworkStorageObserver>
 
-@property (weak, nonatomic) MWMPlacePageViewManager * manager;
-@property (weak, nonatomic) IBOutlet UIButton * titleButton;
-@property (nonatomic) MWMPlacePageCellType type;
-@property (nonatomic) storage::TCountryId countryId;
+@property(weak, nonatomic) MWMPlacePageViewManager * manager;
+@property(weak, nonatomic) IBOutlet UIButton * titleButton;
+@property(nonatomic) MWMPlacePageCellType type;
+@property(nonatomic) storage::TCountryId countryId;
 
 @end
 
@@ -26,21 +26,11 @@
 {
   switch (self.type)
   {
-  case MWMPlacePageCellTypeEditButton:
-    [self.manager editPlace];
-    break;
-  case MWMPlacePageCellTypeAddBusinessButton:
-    [self.manager addBusiness];
-    break;
-  case MWMPlacePageCellTypeAddPlaceButton:
-    [self.manager addPlace];
-    break;
-  case MWMPlacePageCellTypeBookingMore:
-    [self.manager book:YES];
-    break;
-  default:
-    NSAssert(false, @"Incorrect cell type!");
-    break;
+  case MWMPlacePageCellTypeEditButton: [self.manager editPlace]; break;
+  case MWMPlacePageCellTypeAddBusinessButton: [self.manager addBusiness]; break;
+  case MWMPlacePageCellTypeAddPlaceButton: [self.manager addPlace]; break;
+  case MWMPlacePageCellTypeBookingMore: [self.manager book:YES]; break;
+  default: NSAssert(false, @"Incorrect cell type!"); break;
   }
 }
 
@@ -68,24 +58,22 @@
   _type = type;
   switch (type)
   {
-    case MWMPlacePageCellTypeAddBusinessButton:
-      [self.titleButton setTitle:L(@"placepage_add_business_button") forState:UIControlStateNormal];
-      [MWMFrameworkListener addObserver:self];
-      break;
-    case MWMPlacePageCellTypeEditButton:
-      [self.titleButton setTitle:L(@"edit_place") forState:UIControlStateNormal];
-      [MWMFrameworkListener addObserver:self];
-      break;
-    case MWMPlacePageCellTypeAddPlaceButton:
-      [self.titleButton setTitle:L(@"placepage_add_place_button") forState:UIControlStateNormal];
-      [MWMFrameworkListener addObserver:self];
-      break;
-    case MWMPlacePageCellTypeBookingMore:
-      [self.titleButton setTitle:L(@"details") forState:UIControlStateNormal];
-      break;
-    default:
-      NSAssert(false, @"Invalid place page cell type!");
-      break;
+  case MWMPlacePageCellTypeAddBusinessButton:
+    [self.titleButton setTitle:L(@"placepage_add_business_button") forState:UIControlStateNormal];
+    [MWMFrameworkListener addObserver:self];
+    break;
+  case MWMPlacePageCellTypeEditButton:
+    [self.titleButton setTitle:L(@"edit_place") forState:UIControlStateNormal];
+    [MWMFrameworkListener addObserver:self];
+    break;
+  case MWMPlacePageCellTypeAddPlaceButton:
+    [self.titleButton setTitle:L(@"placepage_add_place_button") forState:UIControlStateNormal];
+    [MWMFrameworkListener addObserver:self];
+    break;
+  case MWMPlacePageCellTypeBookingMore:
+    [self.titleButton setTitle:L(@"details") forState:UIControlStateNormal];
+    break;
+  default: NSAssert(false, @"Invalid place page cell type!"); break;
   }
 }
 
