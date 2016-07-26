@@ -36,9 +36,14 @@
 
 - (void)refreshButtonEnabledState
 {
-  NodeAttrs nodeAttrs;
-  GetFramework().Storage().GetNodeAttrs(self.countryId, nodeAttrs);
-  auto const status = nodeAttrs.m_status;
+  if (self.countryId == kInvalidCountryId)
+  {
+    self.titleButton.enabled = YES;
+    return;
+  }
+  NodeStatuses nodeStatuses;
+  GetFramework().Storage().GetNodeStatuses(self.countryId, nodeStatuses);
+  auto const & status = nodeStatuses.m_status;
   self.titleButton.enabled = status == NodeStatus::OnDisk || status == NodeStatus::OnDiskOutOfDate;
 }
 
