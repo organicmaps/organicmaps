@@ -7,8 +7,8 @@
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
 
-#include "indexer/feature_altitude.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/feature_altitude.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"

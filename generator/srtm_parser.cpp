@@ -145,7 +145,6 @@ void SrtmTile::Invalidate()
 
 // SrtmTileManager ---------------------------------------------------------------------------------
 SrtmTileManager::SrtmTileManager(string const & dir) : m_dir(dir) {}
-
 feature::TAltitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
 {
   string const base = SrtmTile::GetBase(coord);

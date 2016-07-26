@@ -36,21 +36,25 @@ DEFINE_bool(generate_classif, false, "Generate classificator.");
 
 DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(make_coasts, false, "Create intermediate file with coasts data.");
-DEFINE_bool(emit_coasts, false, "Push coasts features from intermediate file to out files/countries.");
+DEFINE_bool(emit_coasts, false,
+            "Push coasts features from intermediate file to out files/countries.");
 
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
-DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry and triangles for features.");
+DEFINE_bool(generate_geometry, false,
+            "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
 DEFINE_bool(type_statistics, false, "Calculate statistics by type for specified mwm bucket files.");
 DEFINE_bool(preload_cache, false, "Preload all ways and relations cache.");
-DEFINE_string(node_storage, "map", "Type of storage for intermediate points representation. Available: raw, map, mem.");
+DEFINE_string(node_storage, "map",
+              "Type of storage for intermediate points representation. Available: raw, map, mem.");
 DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
 DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
 DEFINE_string(intermediate_data_path, "", "Path to stored nodes, ways, relations.");
 DEFINE_bool(generate_world, false, "Generate separate world file.");
-DEFINE_bool(split_by_polygons, false, "Use countries borders to split planet by regions and countries.");
+DEFINE_bool(split_by_polygons, false,
+            "Use countries borders to split planet by regions and countries.");
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count.");
 DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes.");
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
@@ -70,10 +74,11 @@ DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m].");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
 DEFINE_string(booking_reference_path, "", "Path to mwm dataset for match booking addresses.");
-DEFINE_uint64(planet_version, my::SecondsSinceEpoch(), "Version as seconds since epoch, by default - now.");
-DEFINE_string(
-    srtm_path, "",
-    "Path to srtm directory. If it is set, generates section with altitude information about roads.");
+DEFINE_uint64(planet_version, my::SecondsSinceEpoch(),
+              "Version as seconds since epoch, by default - now.");
+DEFINE_string(srtm_path, "",
+              "Path to srtm directory. If it is set, generates section with altitude information "
+              "about roads.");
 
 int main(int argc, char ** argv)
 {

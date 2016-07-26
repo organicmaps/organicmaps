@@ -21,7 +21,6 @@ public:
   void Init(string const & dir, ms::LatLon const & coord);
 
   inline bool IsValid() const { return m_valid; }
-
   // Returns height in meters at |coord| or kInvalidAltitude.
   feature::TAltitude GetHeight(ms::LatLon const & coord);
 
@@ -34,7 +33,6 @@ private:
   };
 
   inline size_t Size() const { return m_data.size() / sizeof(feature::TAltitude); }
-
   void Invalidate();
 
   string m_data;

@@ -9,8 +9,8 @@
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/classificator_loader.hpp"
-#include "indexer/index.hpp"
 #include "indexer/feature_processor.hpp"
+#include "indexer/index.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -38,7 +38,8 @@ namespace
 // in the mwms are correct. The mwms are initialized with different sets of features.
 // There are several restrictions for these features:
 // * all of them are linear
-// * all coords of these features should be integer (it's necessary for easy implementation of MockAltitudeGetter)
+// * all coords of these features should be integer (it's necessary for easy implementation of
+// MockAltitudeGetter)
 // * if accoding to one feature a point has some altitude, the point of another feature
 //   with the same coords has to have the same altitude
 // @TODO(bykoianko) Add ability to add to the tests not road features without altitude information.
@@ -51,7 +52,6 @@ string const kTestMwm = "test";
 struct Point3D
 {
   Point3D(int32_t x, int32_t y, TAltitude a) : m_point(x, y), m_altitude(a) {}
-
   m2::PointI m_point;
   TAltitude m_altitude;
 };
@@ -69,7 +69,6 @@ public:
   using TMockAltitudes = map<m2::PointI, TAltitude>;
 
   MockAltitudeGetter(TMockAltitudes && altitudes) : m_altitudes(altitudes) {}
-
   // AltitudeGetter overrides:
   TAltitude GetAltitude(m2::PointD const & p) override
   {
@@ -103,7 +102,8 @@ void FillAltitudes(vector<TPoint3DList> const & roads,
       auto it = altitudes.find(geom3D[i].m_point);
       if (it != altitudes.end())
       {
-        CHECK_EQUAL(it->second, geom3D[i].m_altitude, ("Point", it->first, "is set with two different altitudes."));
+        CHECK_EQUAL(it->second, geom3D[i].m_altitude,
+                    ("Point", it->first, "is set with two different altitudes."));
         continue;
       }
       altitudes[geom3D[i].m_point] = geom3D[i].m_altitude;
@@ -119,12 +119,12 @@ void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFi
     builder.Add(generator::tests_support::TestStreet(ExtractPoints(geom3D), string(), string()));
 }
 
-void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath, MockAltitudeGetter & altitudeGetter)
+void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath,
+                   MockAltitudeGetter & altitudeGetter)
 {
   AltitudeLoader loader(mwmValue);
 
-  auto processor = [&altitudeGetter, &loader](FeatureType const & f, uint32_t const & id)
-  {
+  auto processor = [&altitudeGetter, &loader](FeatureType const & f, uint32_t const & id) {
     f.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const pointsCount = f.GetPointsCount();
     TAltitudes const altitudes = loader.GetAltitudes(id, pointsCount);
@@ -210,4 +210,4 @@ UNIT_TEST(AltitudeGenerationTest_FourRoads)
   vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3, kRoad4};
   TestAltitudesBuilding(roads);
 }
-} // namespace
+}  // namespace

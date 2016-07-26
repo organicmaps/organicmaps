@@ -11,7 +11,6 @@
 namespace routing
 {
 NearestEdgeFinder::Candidate::Candidate() : m_dist(numeric_limits<double>::max()), m_segId(0) {}
-
 NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point)
     : m_point(point)
 {
@@ -44,8 +43,10 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
       // information.
       bool const isAltitude = res.m_segStart.GetAltitude() != feature::kInvalidAltitude &&
                               res.m_segEnd.GetAltitude() != feature::kInvalidAltitude;
-      feature::TAltitude const projPointAlt = isAltitude ? static_cast<feature::TAltitude>(
-          (res.m_segStart.GetAltitude() + res.m_segEnd.GetAltitude()) / 2) : feature::kInvalidAltitude;
+      feature::TAltitude const projPointAlt =
+          isAltitude ? static_cast<feature::TAltitude>(
+                           (res.m_segStart.GetAltitude() + res.m_segEnd.GetAltitude()) / 2)
+                     : feature::kInvalidAltitude;
       res.m_projPoint = Junction(pt, projPointAlt);
     }
   }

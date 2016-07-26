@@ -20,7 +20,6 @@ namespace feature
 
   public:
     LoaderCurrent(SharedLoadInfo const & info) : BaseT(info) {}
-
     /// LoaderBase overrides:
     virtual uint8_t GetHeader() override;
     void ParseTypes() override;

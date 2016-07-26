@@ -13,9 +13,9 @@
 
 namespace
 {
-template<class TCont>
-void LoadAndMap(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src,
-                TCont & cont, unique_ptr<CopiedMemoryRegion> & region)
+template <class TCont>
+void LoadAndMap(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src, TCont & cont,
+                unique_ptr<CopiedMemoryRegion> & region)
 {
   vector<uint8_t> data(dataSize);
   src.Read(data.data(), data.size());
@@ -23,13 +23,13 @@ void LoadAndMap(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src,
   coding::MapVisitor visitor(region->ImmutableData());
   cont.map(visitor);
 }
-} // namespace
+}  // namespace
 
 namespace feature
 {
 AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
 {
-  if (mwmValue.GetHeader().GetFormat() < version::Format::v8 )
+  if (mwmValue.GetHeader().GetFormat() < version::Format::v8)
     return;
 
   if (!mwmValue.m_cont.IsExist(ALTITUDES_FILE_TAG))
@@ -52,11 +52,7 @@ AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
   }
 }
 
-bool AltitudeLoader::HasAltitudes() const
-{
-  return m_header.m_minAltitude != kInvalidAltitude;
-}
-
+bool AltitudeLoader::HasAltitudes() const { return m_header.m_minAltitude != kInvalidAltitude; }
 TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount)
 {
   if (!HasAltitudes())
@@ -98,4 +94,4 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
     return m_cache.insert(make_pair(featureId, m_dummy)).first->second;
   }
 }
-} // namespace feature
+}  // namespace feature

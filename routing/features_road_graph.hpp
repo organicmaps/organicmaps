@@ -84,16 +84,8 @@ private:
     Value() = default;
     explicit Value(MwmSet::MwmHandle && handle);
 
-    bool IsAlive() const
-    {
-      return m_mwmHandle.IsAlive();
-    }
-
-    bool HasAltitudeLoader() const
-    {
-      return m_altitudeLoader && m_altitudeLoader->HasAltitudes();
-    }
-
+    bool IsAlive() const { return m_mwmHandle.IsAlive(); }
+    bool HasAltitudeLoader() const { return m_altitudeLoader && m_altitudeLoader->HasAltitudes(); }
     MwmSet::MwmHandle m_mwmHandle;
     unique_ptr<feature::AltitudeLoader> m_altitudeLoader;
   };

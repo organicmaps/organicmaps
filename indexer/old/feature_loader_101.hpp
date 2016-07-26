@@ -28,7 +28,6 @@ namespace old_101 { namespace feature
 
   public:
     LoaderImpl(::feature::SharedLoadInfo const & info) : BaseT(info) {}
-
     /// LoaderBase overrides:
     uint8_t GetHeader() override;
     void ParseTypes() override;

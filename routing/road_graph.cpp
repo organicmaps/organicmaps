@@ -67,7 +67,6 @@ void ReverseEdges(size_t beginIdx, IRoadGraph::TEdgeVector & edges)
 // Junction --------------------------------------------------------------------
 
 Junction::Junction() : m_point(m2::PointD::Zero()), m_altitude(feature::kInvalidAltitude) {}
-
 Junction::Junction(m2::PointD const & point, feature::TAltitude altitude)
   : m_point(point), m_altitude(altitude)
 {}
@@ -142,7 +141,6 @@ string DebugPrint(Edge const & r)
 IRoadGraph::RoadInfo::RoadInfo()
   : m_speedKMPH(0.0), m_bidirectional(false)
 {}
-
 IRoadGraph::RoadInfo::RoadInfo(RoadInfo && ri)
   : m_junctions(move(ri.m_junctions))
   , m_speedKMPH(ri.m_speedKMPH)
@@ -158,8 +156,7 @@ IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH,
 void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
   ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
-                                                      bool forward)
-  {
+                                                      bool forward) {
     if (forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
       m_edges.emplace_back(featureId, forward, segId, m_cross, endJunction);
   });
@@ -169,8 +166,7 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, Roa
 void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
   ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
-                                                      bool forward)
-  {
+                                                      bool forward) {
     if (!forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
       m_edges.emplace_back(featureId, !forward, segId, endJunction, m_cross);
   });
@@ -222,7 +218,6 @@ void IRoadGraph::ResetFakes()
 {
   m_outgoingEdges.clear();
 }
-
 void IRoadGraph::AddFakeEdges(Junction const & junction,
                               vector<pair<Edge, Junction>> const & vicinity)
 {

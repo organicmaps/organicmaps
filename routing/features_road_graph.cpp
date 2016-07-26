@@ -38,8 +38,7 @@ string GetFeatureCountryName(FeatureID const featureId)
 }
 }  // namespace
 
-FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle && handle)
-  : m_mwmHandle(move(handle))
+FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle && handle) : m_mwmHandle(move(handle))
 {
   if (!m_mwmHandle.IsAlive())
     return;
@@ -342,6 +341,7 @@ FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockMwm(MwmSet::MwmId const 
   if (itr != m_mwmLocks.end())
     return itr->second;
 
-  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_index.GetMwmHandleById(mwmId)))).first->second;
+  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_index.GetMwmHandleById(mwmId))))
+      .first->second;
 }
 }  // namespace routing

@@ -11,11 +11,11 @@
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/varint.hpp"
-#include "coding/internal/file_data.hpp"
 
 #include "geometry/latlon.hpp"
 
@@ -46,7 +46,6 @@ class SrtmGetter : public AltitudeGetter
 {
 public:
   SrtmGetter(string const & srtmDir) : m_srtmManager(srtmDir) {}
-
   // AltitudeGetter overrides:
   feature::TAltitude GetAltitude(m2::PointD const & p) override
   {
@@ -80,14 +79,12 @@ public:
   }
 
   TFeatureAltitudes const & GetFeatureAltitudes() const { return m_featureAltitudes; }
-
   succinct::bit_vector_builder & GetAltitudeAvailabilityBuilder()
   {
     return m_altitudeAvailabilityBuilder;
   }
 
   TAltitude GetMinAltitude() const { return m_minAltitude; }
-
   void operator()(FeatureType const & f, uint32_t const & id)
   {
     if (id != m_altitudeAvailabilityBuilder.size())
@@ -97,10 +94,8 @@ public:
     }
 
     bool hasAltitude = false;
-    MY_SCOPE_GUARD(altitudeAvailabilityBuilding, [&] ()
-    {
-      m_altitudeAvailabilityBuilder.push_back(hasAltitude);
-    });
+    MY_SCOPE_GUARD(altitudeAvailabilityBuilding,
+                   [&]() { m_altitudeAvailabilityBuilder.push_back(hasAltitude); });
 
     if (!routing::IsRoad(feature::TypesHolder(f)))
       return;
@@ -135,11 +130,7 @@ public:
       m_minAltitude = min(minFeatureAltitude, m_minAltitude);
   }
 
-  bool HasAltitudeInfo() const
-  {
-    return !m_featureAltitudes.empty();
-  }
-
+  bool HasAltitudeInfo() const { return !m_featureAltitudes.empty(); }
   bool IsFeatureAltitudesSorted()
   {
     return is_sorted(m_featureAltitudes.begin(), m_featureAltitudes.end(),

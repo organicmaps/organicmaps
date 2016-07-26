@@ -20,11 +20,7 @@ struct AltitudeHeader
 {
   using TAltitudeSectionVersion = uint16_t;
 
-  AltitudeHeader()
-  {
-    Reset();
-  }
-
+  AltitudeHeader() { Reset(); }
   template <class TSink>
   void Serialize(TSink & sink) const
   {
@@ -46,10 +42,12 @@ struct AltitudeHeader
   }
 
   // Methods below return sizes of parts of altitude section in bytes.
-  size_t GetAltitudeAvailabilitySize() const { return m_featureTableOffset - sizeof(AltitudeHeader); }
+  size_t GetAltitudeAvailabilitySize() const
+  {
+    return m_featureTableOffset - sizeof(AltitudeHeader);
+  }
   size_t GetFeatureTableSize() const { return m_altitudesOffset - m_featureTableOffset; }
   size_t GetAltitudeInfo() const { return m_endOffset - m_altitudesOffset; }
-
   void Reset()
   {
     m_version = 0;
@@ -73,7 +71,6 @@ class Altitudes
 public:
   Altitudes() = default;
   explicit Altitudes(TAltitudes const & altitudes) : m_altitudes(altitudes) {}
-
   template <class TSink>
   void Serialize(TAltitude minAltitude, TSink & sink) const
   {
@@ -81,7 +78,8 @@ public:
 
     WriteVarInt(sink, static_cast<int32_t>(m_altitudes[0]) - static_cast<int32_t>(minAltitude));
     for (size_t i = 1; i < m_altitudes.size(); ++i)
-      WriteVarInt(sink, static_cast<int32_t>(m_altitudes[i]) - static_cast<int32_t>(m_altitudes[i - 1]));
+      WriteVarInt(sink,
+                  static_cast<int32_t>(m_altitudes[i]) - static_cast<int32_t>(m_altitudes[i - 1]));
   }
 
   template <class TSource>
@@ -109,17 +107,14 @@ public:
     }
   }
 
-  TAltitudes GetAltitudes() const
-  {
-    return m_altitudes;
-  }
-
+  TAltitudes GetAltitudes() const { return m_altitudes; }
 private:
   /// \note |m_altitudes| is a vector of feature point altitudes. There's two possibilities:
   /// * |m_altitudes| is empty. It means there is no altitude information for this feature.
   /// * size of |m_pointAlt| is equal to the number of this feature's points.
   /// In this case the i'th element of |m_pointAlt| corresponds to the altitude of the
-  /// i'th point of the feature and is set to kInvalidAltitude when there is no information about the point.
+  /// i'th point of the feature and is set to kInvalidAltitude when there is no information about
+  /// the point.
   TAltitudes m_altitudes;
 };
 }  // namespace feature

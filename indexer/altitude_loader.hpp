@@ -31,4 +31,4 @@ private:
   TAltitudes const m_dummy;
   AltitudeHeader m_header;
 };
-} // namespace feature
+}  // namespace feature

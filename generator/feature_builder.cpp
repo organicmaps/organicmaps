@@ -2,8 +2,8 @@
 
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"
-#include "routing/routing_helpers.hpp"
 #include "routing/pedestrian_model.hpp"
+#include "routing/routing_helpers.hpp"
 
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"

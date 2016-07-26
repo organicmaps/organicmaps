@@ -29,7 +29,6 @@ public:
 
   inline m2::PointD const & GetPoint() const { return m_point; }
   inline feature::TAltitude GetAltitude() const { return m_altitude; }
-
 private:
   friend string DebugPrint(Junction const & r);
 
