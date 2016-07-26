@@ -71,7 +71,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="sxM-U8-yee"/>
+                                <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="14l-BK-iDr"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RP3-01-Pj7" userLabel="Parking" customClass="MWMButton">
@@ -160,30 +160,18 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="menuBackground"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NXu-Ad-8Al">
-                    <rect key="frame" x="4" y="240" width="56" height="120"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xna-Q1-7zW" customClass="MWMButton">
-                            <rect key="frame" x="0.0" y="64" width="56" height="56"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="56" id="IJq-4U-XHW"/>
-                                <constraint firstAttribute="height" constant="56" id="cvr-aL-Qfk"/>
-                            </constraints>
-                            <state key="normal" image="ic_routing_search_light"/>
-                            <connections>
-                                <action selector="searchMainButtonTouchUpInside" destination="iN0-l3-epB" eventType="touchUpInside" id="gd5-zu-3i5"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xna-Q1-7zW" customClass="MWMButton">
+                    <rect key="frame" x="4" y="304" width="56" height="56"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="Xna-Q1-7zW" secondAttribute="bottom" id="C90-SI-uLj"/>
-                        <constraint firstItem="Xna-Q1-7zW" firstAttribute="leading" secondItem="NXu-Ad-8Al" secondAttribute="leading" id="CKc-8F-PF1"/>
-                        <constraint firstAttribute="width" constant="56" id="O5H-C7-r4J"/>
-                        <constraint firstAttribute="height" constant="120" id="bgf-pg-gVb"/>
+                        <constraint firstAttribute="width" constant="56" id="IJq-4U-XHW"/>
+                        <constraint firstAttribute="height" constant="56" id="cvr-aL-Qfk"/>
                     </constraints>
-                </view>
+                    <state key="normal" image="ic_routing_search_light"/>
+                    <connections>
+                        <action selector="searchMainButtonTouchUpInside" destination="iN0-l3-epB" eventType="touchUpInside" id="gd5-zu-3i5"/>
+                    </connections>
+                </button>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns">
                     <rect key="frame" x="8" y="28" width="96" height="153"/>
                     <subviews>
@@ -301,18 +289,18 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="Xna-Q1-7zW" secondAttribute="bottom" priority="250" constant="44" id="0qY-1y-NiH"/>
                 <constraint firstAttribute="trailing" secondItem="YYv-pG-Wkw" secondAttribute="trailing" id="15D-kN-gda"/>
-                <constraint firstItem="TMW-aw-1RT" firstAttribute="centerY" secondItem="Xna-Q1-7zW" secondAttribute="centerY" id="2Sz-uZ-HRW"/>
-                <constraint firstItem="TMW-aw-1RT" firstAttribute="leading" secondItem="Xna-Q1-7zW" secondAttribute="leading" priority="250" constant="-2" id="2op-pB-PGN"/>
-                <constraint firstItem="TMW-aw-1RT" firstAttribute="centerX" secondItem="Xna-Q1-7zW" secondAttribute="centerX" priority="500" id="8al-xh-3sS"/>
-                <constraint firstItem="NXu-Ad-8Al" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="500" id="Ci0-LK-iWk"/>
+                <constraint firstItem="TMW-aw-1RT" firstAttribute="centerY" secondItem="Xna-Q1-7zW" secondAttribute="centerY" id="652-PO-iav"/>
                 <constraint firstItem="YYv-pG-Wkw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IBQ-gK-Cpe"/>
-                <constraint firstItem="NXu-Ad-8Al" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="K8B-PV-dss"/>
+                <constraint firstItem="Xna-Q1-7zW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="J7x-54-WT5"/>
+                <constraint firstItem="Xna-Q1-7zW" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="500" constant="32" id="KQb-ju-1bf"/>
                 <constraint firstItem="YYv-pG-Wkw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Rd5-Hl-fSF"/>
+                <constraint firstItem="TMW-aw-1RT" firstAttribute="leading" secondItem="Xna-Q1-7zW" secondAttribute="leading" priority="250" constant="-2" id="Y9b-UG-buF"/>
+                <constraint firstItem="TMW-aw-1RT" firstAttribute="centerX" secondItem="Xna-Q1-7zW" secondAttribute="centerX" priority="500" id="ctJ-SL-eKZ"/>
                 <constraint firstItem="Aa6-N8-acP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="28" id="goU-O7-rpS"/>
                 <constraint firstItem="ShI-bz-5g8" firstAttribute="leading" secondItem="Aa6-N8-acP" secondAttribute="trailing" priority="999" constant="8" id="mdA-B9-tvQ"/>
                 <constraint firstItem="Aa6-N8-acP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="pXD-dk-ku2"/>
-                <constraint firstAttribute="bottom" secondItem="NXu-Ad-8Al" secondAttribute="bottom" priority="250" constant="44" id="wMZ-F5-B5V"/>
             </constraints>
             <connections>
                 <outlet property="distanceToNextTurnLabel" destination="KuR-1J-VI2" id="n0i-t9-Vj2"/>
@@ -356,8 +344,8 @@
                 <outletCollection property="searchButtonsSideSize" destination="euI-Cb-zo4" id="W8L-Ax-Ks1"/>
                 <outletCollection property="searchButtons" destination="RP3-01-Pj7" id="1nL-Ib-y49"/>
                 <outletCollection property="searchButtonsSideSize" destination="UEW-5h-9Jk" id="ZWN-om-GgR"/>
-                <outletCollection property="searchLandscapeConstraints" destination="wMZ-F5-B5V" id="5kx-kT-ZOQ"/>
-                <outletCollection property="searchLandscapeConstraints" destination="2op-pB-PGN" id="t69-L0-DI2"/>
+                <outletCollection property="searchLandscapeConstraints" destination="0qY-1y-NiH" id="8Yg-cU-neJ"/>
+                <outletCollection property="searchLandscapeConstraints" destination="Y9b-UG-buF" id="cjs-so-6PQ"/>
             </connections>
         </view>
     </objects>
