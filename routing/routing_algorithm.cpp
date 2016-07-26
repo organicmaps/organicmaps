@@ -19,13 +19,11 @@ double constexpr KMPH2MPS = 1000.0 / (60 * 60);
 inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double speedMPS)
 {
   ASSERT(speedMPS > 0.0, ());
-  double const distanceM = MercatorBounds::DistanceOnEarth(j1.GetPoint(), j2.GetPoint());
-  feature::TAltitude const j1Altitude = j1.GetAltitude();
-  feature::TAltitude const j2Altitude = j2.GetAltitude();
-  if (j1Altitude == feature::kInvalidAltitude || j2Altitude == feature::kInvalidAltitude)
-    return distanceM / speedMPS;
+  ASSERT_NOT_EQUAL(j1.GetAltitude(), feature::kInvalidAltitude, ());
+  ASSERT_NOT_EQUAL(j2.GetAltitude(), feature::kInvalidAltitude, ());
 
-  feature::TAltitude const altidudeDiffM = j2Altitude - j1Altitude;
+  double const distanceM = MercatorBounds::DistanceOnEarth(j1.GetPoint(), j2.GetPoint());
+  feature::TAltitude const altidudeDiffM = j2.GetAltitude() - j1.GetAltitude();
   return sqrt(distanceM * distanceM + altidudeDiffM * altidudeDiffM) / speedMPS;
 }
 

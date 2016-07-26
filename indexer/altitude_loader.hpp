@@ -16,10 +16,13 @@ class AltitudeLoader
 public:
   explicit AltitudeLoader(MwmValue const & mwmValue);
 
+  /// \returns altitude of feature with |featureId|. All items of the returned vertor are valid
+  /// or the returned vertor is empty.
   TAltitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
-  bool HasAltitudes() const;
 
 private:
+  bool HasAltitudes() const;
+
   unique_ptr<CopiedMemoryRegion> m_altitudeAvailabilityRegion;
   unique_ptr<CopiedMemoryRegion> m_featureTableRegion;
 
@@ -28,7 +31,6 @@ private:
 
   unique_ptr<FilesContainerR::TReader> m_reader;
   map<uint32_t, TAltitudes> m_cache;
-  TAltitudes const m_dummy;
   AltitudeHeader m_header;
 };
 }  // namespace feature

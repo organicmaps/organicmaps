@@ -275,25 +275,23 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   size_t const pointsCount = ft.GetPointsCount();
 
   feature::TAltitudes altitudes;
-  if (value.HasAltitudeLoader())
+  if (value.m_altitudeLoader)
   {
     altitudes = value.m_altitudeLoader->GetAltitudes(featureId.m_index, ft.GetPointsCount());
-    if (altitudes.size() != pointsCount)
-    {
-      ASSERT(false, ("altitudes.size() is different from ft.GetPointsCount()"));
-      altitudes.clear();
-    }
+  }
+  else
+  {
+    ASSERT(false, ());
+    altitudes = feature::TAltitudes(ft.GetPointsCount(), feature::kDefautlAltitudeMeters);
   }
 
-  ri.m_junctions.clear();
+  CHECK_EQUAL(altitudes.size(), pointsCount,
+              ("altitudeLoader->GetAltitudes(", featureId.m_index, "...) returns wrong alititudes:",
+               altitudes));
+
   ri.m_junctions.resize(pointsCount);
   for (size_t i = 0; i < pointsCount; ++i)
-  {
-    if (altitudes.empty())
-      ri.m_junctions[i] = Junction(ft.GetPoint(i), feature::kInvalidAltitude);
-    else
-      ri.m_junctions[i] = Junction(ft.GetPoint(i), altitudes[i]);
-  }
+    ri.m_junctions[i] = Junction(ft.GetPoint(i), altitudes[i]);
 }
 
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId) const

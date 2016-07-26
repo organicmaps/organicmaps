@@ -79,12 +79,14 @@ public:
   }
 
   TFeatureAltitudes const & GetFeatureAltitudes() const { return m_featureAltitudes; }
+
   succinct::bit_vector_builder & GetAltitudeAvailabilityBuilder()
   {
     return m_altitudeAvailabilityBuilder;
   }
 
   TAltitude GetMinAltitude() const { return m_minAltitude; }
+
   void operator()(FeatureType const & f, uint32_t const & id)
   {
     if (id != m_altitudeAvailabilityBuilder.size())

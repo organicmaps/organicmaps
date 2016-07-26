@@ -53,12 +53,13 @@ AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
 }
 
 bool AltitudeLoader::HasAltitudes() const { return m_header.m_minAltitude != kInvalidAltitude; }
+
 TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount)
 {
   if (!HasAltitudes())
   {
     // The version of mwm is less than version::Format::v8 or there's no altitude section in mwm.
-    return m_dummy;
+    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, kDefautlAltitudeMeters))).first->second;
   }
 
   auto const it = m_cache.find(featureId);
@@ -68,7 +69,7 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
   if (!m_altitudeAvailability[featureId])
   {
     LOG(LINFO, ("Feature featureId =", featureId, "does not contain any altitude information."));
-    return m_cache.insert(make_pair(featureId, m_dummy)).first->second;
+    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
   }
 
   uint64_t const r = m_altitudeAvailability.rank(featureId);
@@ -81,17 +82,26 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
 
   try
   {
-    Altitudes a;
+    Altitudes altitudes;
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     src.Skip(altitudeInfoOffsetInSection);
-    a.Deserialize(m_header.m_minAltitude, pointCount, src);
+    altitudes.Deserialize(m_header.m_minAltitude, pointCount, src);
 
-    return m_cache.insert(make_pair(featureId, a.GetAltitudes())).first->second;
+    TAltitudes pntAlt = altitudes.GetAltitudes();
+    bool const isResultValid = none_of(pntAlt.begin(), pntAlt.end(),
+                                       [](TAltitude a) { return a == kInvalidAltitude; });
+    if (!isResultValid)
+    {
+      ASSERT(false, (pntAlt));
+      return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
+    }
+
+    return m_cache.insert(make_pair(featureId, move(pntAlt))).first->second;
   }
   catch (Reader::OpenException const & e)
   {
     LOG(LERROR, ("Error while getting altitude data", e.Msg()));
-    return m_cache.insert(make_pair(featureId, m_dummy)).first->second;
+    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
   }
 }
 }  // namespace feature
