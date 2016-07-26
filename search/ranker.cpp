@@ -537,6 +537,8 @@ void Ranker::UpdateResults(bool lastUpdate)
   m_tentativeResults.erase(m_tentativeResults.begin(), m_tentativeResults.begin() + i);
 
   m_preResults1.clear();
+
+  BailIfCancelled();
   m_params.m_onResults(m_results);
 }
 
