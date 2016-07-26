@@ -46,7 +46,9 @@ struct AltitudeHeader
   {
     return m_featureTableOffset - sizeof(AltitudeHeader);
   }
+
   size_t GetFeatureTableSize() const { return m_altitudesOffset - m_featureTableOffset; }
+
   size_t GetAltitudeInfo() const { return m_endOffset - m_altitudesOffset; }
   void Reset()
   {
@@ -70,7 +72,9 @@ class Altitudes
 {
 public:
   Altitudes() = default;
+
   explicit Altitudes(TAltitudes const & altitudes) : m_altitudes(altitudes) {}
+
   template <class TSink>
   void Serialize(TAltitude minAltitude, TSink & sink) const
   {
@@ -78,8 +82,10 @@ public:
 
     WriteVarInt(sink, static_cast<int32_t>(m_altitudes[0]) - static_cast<int32_t>(minAltitude));
     for (size_t i = 1; i < m_altitudes.size(); ++i)
+    {
       WriteVarInt(sink,
                   static_cast<int32_t>(m_altitudes[i]) - static_cast<int32_t>(m_altitudes[i - 1]));
+    }
   }
 
   template <class TSource>
