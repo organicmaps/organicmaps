@@ -21,12 +21,13 @@
                         </constraints>
                         <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="Add Language" image="ic_add_light"/>
+                        <state key="normal" title="add_language" image="ic_add_light"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="imageName" value="ic_add"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="add_language"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="addLanguageTap" destination="81H-Jz-Sl2" eventType="touchUpInside" id="Lw7-kU-hIK"/>
