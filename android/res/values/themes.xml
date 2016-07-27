@@ -134,21 +134,11 @@
   </style>
 
   <style name="MwmTheme.NavButtons">
-    <item name="nav_zoom_in">@drawable/zoom_in</item>
-    <item name="nav_zoom_out">@drawable/zoom_out</item>
-    <item name="nav_search_closed">@drawable/zoom_in</item>
-    <item name="nav_search_open">@drawable/zoom_out</item>
-    <item name="nav_bookmark">@drawable/zoom_in</item>
-    <item name="iconTint">@android:color/white</item>
+    <item name="nav_background">@drawable/button_navigation_circle</item>
   </style>
 
   <style name="MwmTheme.NavButtons.Night">
-    <item name="nav_zoom_in">@drawable/ic_zoom_in_night</item>
-    <item name="nav_zoom_out">@drawable/zoom_out_night</item>
-    <item name="nav_search_closed">@drawable/zoom_in_night</item>
-    <item name="nav_search_open">@drawable/zoom_out_night</item>
-    <item name="nav_bookmark">@drawable/zoom_in_night</item>
-    <item name="iconTint">@android:color/darker_gray</item>
+    <item name="nav_background">@drawable/button_navigation_circle_night</item>
   </style>
 
   <style name="MwmTheme.Button" parent="Base.Widget.AppCompat.Button">

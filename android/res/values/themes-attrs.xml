@@ -59,11 +59,7 @@
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">
-    <attr name="nav_zoom_in" format="reference"/>
-    <attr name="nav_zoom_out" format="reference"/>
-    <attr name="nav_search_closed" format="reference"/>
-    <attr name="nav_search_open" format="reference"/>
-    <attr name="nav_bookmark" format="reference"/>
+    <attr name="nav_background" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.Downloader">

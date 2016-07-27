@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.AttrRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -20,7 +18,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 
 import java.io.Serializable;
 import java.util.Stack;
@@ -429,20 +426,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMapFrame.setOnTouchListener(this);
   }
 
-  private View initNavigationButton(View frame, @IdRes int id, @AttrRes int iconAttr)
-  {
-    ImageButton res = (ImageButton) frame.findViewById(id);
-    res.setImageResource(ThemeUtils.getResource(this, R.attr.navButtonsTheme, iconAttr));
-    res.setOnClickListener(this);
-
-    return res;
-  }
-
   private void initNavigationButtons()
   {
     mZoomFrame = findViewById(R.id.navigation_buttons);
-    mNavZoomIn = initNavigationButton(mZoomFrame, R.id.nav_zoom_in, R.attr.nav_zoom_in);
-    mNavZoomOut = initNavigationButton(mZoomFrame, R.id.nav_zoom_out, R.attr.nav_zoom_out);
+    mNavZoomIn = mZoomFrame.findViewById(R.id.nav_zoom_in);
+    mNavZoomIn.setOnClickListener(this);
+    mNavZoomOut = mZoomFrame.findViewById(R.id.nav_zoom_out);
+    mNavZoomOut.setOnClickListener(this);
     mNavMyPosition = new MyPositionButton(mZoomFrame.findViewById(R.id.my_position));
   }
 
