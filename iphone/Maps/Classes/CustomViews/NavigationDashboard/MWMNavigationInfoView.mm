@@ -44,10 +44,7 @@ map<NavigationSearchState, NSString *> const kSearchButtonRequest{
     {NavigationSearchState::MinimizedShop, L(@"shop")},
     {NavigationSearchState::MinimizedATM, L(@"atm")}};
 
-BOOL defaultOrientation()
-{
-  return IPAD || UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
-}
+BOOL defaultOrientation(CGSize const & size) { return IPAD || (size.height > size.width); }
 }  // namespace
 
 @interface MWMNavigationInfoView ()<MWMLocationObserver>
@@ -226,7 +223,7 @@ BOOL defaultOrientation()
 
 - (void)layoutSearch
 {
-  BOOL const defaultView = defaultOrientation();
+  BOOL const defaultView = defaultOrientation(self.frame.size);
   CGFloat alpha = 1;
   CGFloat searchButtonsSideSize = kSearchButtonsSideSize;
   if (self.searchState == NavigationSearchState::Maximized)
@@ -312,8 +309,8 @@ BOOL defaultOrientation()
   [UIView animateWithDuration:kDefaultAnimationDuration
                    animations:^{
                      self.searchButtonsView.layer.cornerRadius =
-                         (defaultOrientation() ? kSearchButtonsViewHeightPortrait
-                                               : kSearchButtonsViewHeightLandscape) /
+                         (defaultOrientation(self.frame.size) ? kSearchButtonsViewHeightPortrait
+                                                              : kSearchButtonsViewHeightLandscape) /
                          2;
                      [self layoutIfNeeded];
                    }];
@@ -379,7 +376,7 @@ BOOL defaultOrientation()
 
 - (CGFloat)extraCompassBottomOffset
 {
-  return (defaultOrientation() ? 0 : kSearchButtonsViewHeightLandscape) +
+  return (defaultOrientation(self.frame.size) ? 0 : kSearchButtonsViewHeightLandscape) +
          kDefaultExtraCompassBottomOffset;
 }
 
