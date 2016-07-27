@@ -37,16 +37,14 @@
   <color name="bg_panel_night">@color/bg_window_night</color>
   <color name="bg_side_panel">@color/bg_cards</color>
   <color name="bg_side_panel_night">@color/bg_panel_night</color>
-  <color name="bg_nav_panel">#CCFFFFFF</color>
-  <color name="bg_nav_panel_night">#CC2D3237</color>
 
   <color name="bg_dialog_translucent">#BB000000</color>
   <color name="bg_text_translucent">#99FFFFFF</color>
 
+  <color name="bg_menu">#CCFFFFFF</color>
+  <color name="bg_menu_night">#CC2D3237</color>
   <color name="bg_menu_open">#FFFFFFFF</color>
   <color name="bg_menu_open_night">#FF2D3237</color>
-  <color name="bg_menu_closed">#CCFFFFFF</color>
-  <color name="bg_menu_closed_night">#CC2D3237</color>
 
   <color name="bg_statusbar">#FF197E46</color>
   <color name="bg_statusbar_night">#FF000000</color>
@@ -84,7 +82,7 @@
   <color name="downloader_gray">#FF999999</color>
 
   <!-- Routing-->
-  <color name="routing_progress">#FF757575</color>
+  <color name="bg_routing_progress">#1F000000</color>
   <color name="routing_slot_background">#FFFFFFFF</color>
   <color name="routing_slot_background_night">@color/bg_panel_night</color>
   <color name="routing_slot_background_pressed">#FFF0F0F0</color>

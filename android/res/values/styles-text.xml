@@ -98,13 +98,19 @@
 
   <style name="MwmTextAppearance.RoutingNumber">
     <item name="android:textSize">@dimen/text_size_routing_number</item>
-    <item name="android:textColor">?android:textColorSecondary</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+    <item name="android:textStyle">bold</item>
   </style>
 
-  <style name="MwmTextAppearance.RoutingDirection">
-    <item name="android:textSize">@dimen/text_size_display_2</item>
-    <item name="android:textColor">?colorAccent</item>
+  <style name="MwmTextAppearance.RoutingDimension">
+    <item name="android:textSize">@dimen/text_size_routing_dimension</item>
+    <item name="android:textColor">?android:textColorSecondary</item>
     <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="MwmTextAppearance.RoutingDimension.Inline"
+         parent="MwmTextAppearance.RoutingNumber">
+    <item name="android:textSize">@dimen/text_size_routing_dimension_inline</item>
   </style>
 
   <style name="MwmTextAppearance.RoutingDetail">

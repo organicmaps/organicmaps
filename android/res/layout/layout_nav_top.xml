@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_street_height"
     android:elevation="@dimen/nav_elevation"
-    android:background="?navPanel">
+    android:background="?menuBackground">
     <TextView
       android:id="@+id/street"
       style="@style/MwmWidget.TextView.NavStreet"

@@ -1,12 +1,8 @@
 package com.mapswithme.maps.widget.menu;
 
-import android.animation.Animator;
-import android.app.Activity;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmActivity;
@@ -16,7 +12,6 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Graphics;
-import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
@@ -24,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainMenu
+public class MainMenu extends BaseMenu
 {
   public enum State
   {
@@ -45,17 +40,13 @@ public class MainMenu
     }
   }
 
-  public static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
   private static final String TAG_COLLAPSE = MwmApplication.get().getString(R.string.tag_menu_collapse);
 
   private final int mButtonsWidth = UiUtils.dimen(R.dimen.menu_line_button_width);
   private final int mPanelWidth = UiUtils.dimen(R.dimen.panel_width);
 
-  private final Container mContainer;
-  private final ViewGroup mFrame;
   private final View mButtonsFrame;
   private final View mRoutePlanFrame;
-  private final View mContentFrame;
   private final View mAnimationSpacer;
   private final View mAnimationSymmetricalGap;
   private final View mNewsMarker;
@@ -69,13 +60,8 @@ public class MainMenu
   private final MenuToggle mToggle;
   private Button mRouteStartButton;
 
-  private int mContentHeight;
-
   // Maps Item into button view placed on mContentFrame
   private final Map<Item, View> mItemViews = new HashMap<>();
-
-  private boolean mLayoutCorrected;
-  private boolean mAnimating;
 
   private final MwmActivity.LeftAnimationTrackListener mAnimationTrackListener = new MwmActivity.LeftAnimationTrackListener()
   {
@@ -127,7 +113,7 @@ public class MainMenu
     }
   };
 
-  public enum Item
+  public enum Item implements BaseMenu.Item
   {
     TOGGLE(R.id.toggle),
     ADD_PLACE(R.id.add_place),
@@ -145,50 +131,25 @@ public class MainMenu
     {
       mViewId = viewId;
     }
-  }
-
-  public interface Container
-  {
-    Activity getActivity();
-    void onItemClick(Item item);
-  }
-
-  private class AnimationListener extends UiUtils.SimpleAnimatorListener
-  {
-    @Override
-    public void onAnimationStart(android.animation.Animator animation)
-    {
-      mAnimating = true;
-    }
 
     @Override
-    public void onAnimationEnd(android.animation.Animator animation)
+    public int getViewId()
     {
-      mAnimating = false;
+      return mViewId;
     }
   }
 
-  private View mapItem(final Item item, View frame)
+  @Override
+  View mapItem(BaseMenu.Item item, View frame)
   {
-    View res = frame.findViewById(item.mViewId);
-    if (res != null)
-    {
-      if (TAG_COLLAPSE.equals(res.getTag()))
-        mCollapseViews.add(res);
+    View res = super.mapItem(item, frame);
+    if (res != null && TAG_COLLAPSE.equals(res.getTag()))
+      mCollapseViews.add(res);
 
-      res.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          mContainer.onItemClick(item);
-        }
-      });
-    }
     return res;
   }
 
-  private void mapItem(Item item)
+  private void mapItem(MainMenu.Item item)
   {
     mapItem(item, mButtonsFrame);
     View view = mapItem(item, mContentFrame);
@@ -198,7 +159,8 @@ public class MainMenu
       Graphics.tint((TextView)view);
   }
 
-  private void adjustCollapsedItems()
+  @Override
+  protected void adjustCollapsedItems()
   {
     for (View v : mCollapseViews)
     {
@@ -209,39 +171,20 @@ public class MainMenu
     if (mAnimationSymmetricalGap == null)
       return;
 
-    LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mAnimationSymmetricalGap.getLayoutParams();
+    ViewGroup.LayoutParams lp = mAnimationSymmetricalGap.getLayoutParams();
     lp.width = (mCollapsed ? 0 : mButtonsWidth);
     mAnimationSymmetricalGap.setLayoutParams(lp);
   }
 
-  private void adjustTransparency()
+  @Override
+  void afterLayoutCorrected(Runnable procAfterCorrection)
   {
-    mFrame.setBackgroundColor(ThemeUtils.getColor(mFrame.getContext(), isOpen() ? R.attr.menuBackgroundOpen
-                                                                                : R.attr.menuBackgroundClosed));
+    UiUtils.showIf(!RoutingController.get().isNavigating(), mFrame);
+    super.afterLayoutCorrected(procAfterCorrection);
   }
 
-  private void correctLayout(final Runnable procAfterCorrection)
-  {
-    if (mLayoutCorrected)
-      return;
-
-    UiUtils.measureView(mContentFrame, new UiUtils.OnViewMeasuredListener()
-    {
-      @Override
-      public void onViewMeasured(int width, int height)
-      {
-        mContentHeight = height;
-        mLayoutCorrected = true;
-
-        UiUtils.hide(mContentFrame);
-        UiUtils.showIf(!RoutingController.get().isNavigating(), mFrame);
-
-        procAfterCorrection.run();
-      }
-    });
-  }
-
-  private void updateMarker()
+  @Override
+  protected void updateMarker()
   {
     UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
     int count = (info == null ? 0 : info.filesCount);
@@ -257,10 +200,10 @@ public class MainMenu
       mNewsCounter.setText(String.valueOf(count));
   }
 
-  public void onResume(Runnable procAfterCorrection)
+  @Override
+  protected void setToggleState(boolean open, boolean animate)
   {
-    correctLayout(procAfterCorrection);
-    updateMarker();
+    mToggle.setOpen(open, animate);
   }
 
   private void init()
@@ -275,26 +218,22 @@ public class MainMenu
     mapItem(Item.SHOWCASE);
 
     adjustCollapsedItems();
-    adjustTransparency();
     setState(State.MENU, false);
   }
 
-  public MainMenu(ViewGroup frame, Container container)
+  public MainMenu(View frame, ItemClickListener<Item> itemClickListener)
   {
-    mContainer = container;
-    mFrame = frame;
+    super(frame, itemClickListener);
 
-    View lineFrame = mFrame.findViewById(R.id.line_frame);
-    mButtonsFrame = lineFrame.findViewById(R.id.buttons_frame);
-    mRoutePlanFrame = lineFrame.findViewById(R.id.routing_plan_frame);
-    mContentFrame = mFrame.findViewById(R.id.content_frame);
+    mButtonsFrame = mLineFrame.findViewById(R.id.buttons_frame);
+    mRoutePlanFrame = mLineFrame.findViewById(R.id.routing_plan_frame);
 
     mAnimationSpacer = mFrame.findViewById(R.id.animation_spacer);
     mAnimationSymmetricalGap = mButtonsFrame.findViewById(R.id.symmetrical_gap);
 
-    mMyPositionButton = new MyPositionButton(lineFrame.findViewById(R.id.my_position));
-    mToggle = new MenuToggle(lineFrame);
-    mapItem(Item.TOGGLE, lineFrame);
+    mMyPositionButton = new MyPositionButton(mLineFrame.findViewById(R.id.my_position));
+    mToggle = new MenuToggle(mLineFrame, getHeightResId());
+    mapItem(Item.TOGGLE, mLineFrame);
 
     mNewsMarker = mButtonsFrame.findViewById(R.id.marker);
     mNewsCounter = (TextView) mContentFrame.findViewById(R.id.counter);
@@ -303,6 +242,12 @@ public class MainMenu
       mRouteStartButton = (Button) mRoutePlanFrame.findViewById(R.id.start);
 
     init();
+  }
+
+  @Override
+  protected int getHeightResId()
+  {
+    return R.dimen.menu_line_height;
   }
 
   public void setState(State state, boolean animateToggle)
@@ -333,115 +278,11 @@ public class MainMenu
 
     if (mLayoutCorrected)
     {
-      UiUtils.showIf(state != State.NAVIGATION, mFrame);
+      show(state != State.NAVIGATION);
       mContentFrame.measure(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT);
       mContentHeight = mContentFrame.getMeasuredHeight();
     }
-  }
-
-  public boolean isOpen()
-  {
-    return UiUtils.isVisible(mContentFrame);
-  }
-
-  public boolean open(boolean animate)
-  {
-    if ((animate && mAnimating) || isOpen())
-      return false;
-
-    UiUtils.show(mContentFrame);
-    adjustCollapsedItems();
-    adjustTransparency();
-    updateMarker();
-
-    mToggle.setOpen(true, animate);
-    if (!animate)
-      return true;
-
-    mFrame.setTranslationY(mContentHeight);
-    mFrame.animate()
-          .setDuration(ANIMATION_DURATION)
-          .translationY(0.0f)
-          .setListener(new AnimationListener())
-          .start();
-
-    return true;
-  }
-
-  public boolean close(boolean animate)
-  {
-    return close(animate, null);
-  }
-
-  public boolean close(boolean animate, @Nullable final Runnable onCloseListener)
-  {
-    if (mAnimating || !isOpen())
-    {
-      if (onCloseListener != null)
-        onCloseListener.run();
-
-      return false;
-    }
-
-    adjustCollapsedItems();
-
-    if (!animate)
-    {
-      UiUtils.hide(mContentFrame);
-      adjustTransparency();
-      updateMarker();
-
-      mToggle.setOpen(false, false);
-
-      if (onCloseListener != null)
-        onCloseListener.run();
-
-      return true;
-    }
-
-    mToggle.setOpen(false, true);
-
-    mFrame.animate()
-          .setDuration(ANIMATION_DURATION)
-          .translationY(mContentHeight)
-          .setListener(new AnimationListener()
-          {
-            @Override
-            public void onAnimationEnd(Animator animation)
-            {
-              super.onAnimationEnd(animation);
-
-              mFrame.setTranslationY(0.0f);
-              UiUtils.hide(mContentFrame);
-              adjustTransparency();
-              updateMarker();
-
-              if (onCloseListener != null)
-                onCloseListener.run();
-            }
-          }).start();
-
-    return true;
-  }
-
-  public void toggle(boolean animate)
-  {
-    if (mAnimating)
-      return;
-
-    boolean show = !isOpen();
-
-    if (show)
-      open(animate);
-    else
-      close(animate);
-  }
-
-  public void show(boolean show)
-  {
-    close(false);
-    UiUtils.showIf(show, mFrame);
   }
 
   public void setEnabled(Item item, boolean enable)
@@ -463,10 +304,6 @@ public class MainMenu
       UiUtils.showIf(show, mItemViews.get(item));
   }
 
-  public View getFrame()
-  {
-    return mFrame;
-  }
 
   public MyPositionButton getMyPositionButton()
   {
@@ -486,10 +323,5 @@ public class MainMenu
   public Button getRouteStartButton()
   {
     return mRouteStartButton;
-  }
-
-  public boolean isAnimating()
-  {
-    return mAnimating;
   }
 }

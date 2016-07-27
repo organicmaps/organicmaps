@@ -28,7 +28,6 @@
     <attr name="routingSlot" format="reference"/>
     <attr name="routingSlotPressed" format="reference"/>
     <attr name="routingSlotMarker" format="reference"/>
-    <attr name="navPanel" format="color"/>
     <attr name="navNextTurnFrame" format="reference"/>
     <attr name="navNextNextTurnFrame" format="reference"/>
 
@@ -42,7 +41,7 @@
 
     <attr name="circleAccent" format="reference"/>
 
-    <attr name="menuBackgroundClosed" format="color"/>
+    <attr name="menuBackground" format="color"/>
     <attr name="menuBackgroundOpen" format="color"/>
 
     <attr name="myPositionButtonAnimation" format="reference"/>

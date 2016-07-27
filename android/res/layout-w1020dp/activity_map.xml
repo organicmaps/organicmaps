@@ -44,8 +44,7 @@
     <include
       layout="@layout/layout_nav"
       android:layout_width="@dimen/panel_width"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_half"
+      android:layout_height="match_parent"
       android:visibility="gone"
       tools:visibility="visible"/>
 

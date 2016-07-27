@@ -12,6 +12,17 @@
     <item name="android:tint">?iconTint</item>
   </style>
 
+  <style name="MwmTheme.Menu.Line.Button.Toggle">
+    <item name="android:layout_width">@dimen/menu_line_button_width_edge</item>
+    <item name="android:layout_height">@dimen/menu_line_height</item>
+    <item name="android:layout_gravity">right</item>
+    <item name="android:paddingLeft">@dimen/margin_half_plus</item>
+    <item name="android:paddingRight">@dimen/margin_half</item>
+    <item name="android:src">@drawable/ic_menu_close</item>
+    <item name="android:background">@drawable/menu_button_right</item>
+    <item name="android:tint">@null</item>
+  </style>
+
   <style name="MwmTheme.Menu.Content.ListItem"
          parent="MwmTextAppearance.Body1">
     <item name="android:layout_width">match_parent</item>

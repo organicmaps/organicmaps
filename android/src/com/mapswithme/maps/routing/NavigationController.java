@@ -12,6 +12,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.widget.menu.NavMenu;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
@@ -19,7 +20,7 @@ public class NavigationController
 {
   private final View mFrame;
   private final View mTopFrame;
-  private final View mBottomFrame;
+  private final NavMenu mNavMenu;
 
   private final ImageView mNextTurnImage;
   private final TextView mNextTurnDistance;
@@ -44,7 +45,7 @@ public class NavigationController
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
     mTopFrame = mFrame.findViewById(R.id.nav_top_frame);
-    mBottomFrame = mFrame.findViewById(R.id.nav_bottom_frame);
+    mNavMenu = createNavMenu();
 
     // Top frame
     View turnFrame = mTopFrame.findViewById(R.id.nav_next_turn_frame);
@@ -78,6 +79,16 @@ public class NavigationController
 //        RoutingController.get().cancel();
 //      }
 //    });
+  }
+
+  private NavMenu createNavMenu() {
+    return new NavMenu(mFrame.findViewById(R.id.nav_bottom_frame), new NavMenu.ItemClickListener<NavMenu.Item>() {
+      @Override
+      public void onItemClick(NavMenu.Item item)
+      {
+
+      }
+    });
   }
 
   private void updateVehicle(RoutingInfo info)
@@ -155,5 +166,10 @@ public class NavigationController
   public void show(boolean show)
   {
     UiUtils.showIf(show, mFrame);
+  }
+
+  public NavMenu getNavMenu()
+  {
+    return mNavMenu;
   }
 }

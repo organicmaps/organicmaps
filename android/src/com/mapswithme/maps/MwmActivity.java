@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -20,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
@@ -64,6 +62,7 @@ import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FadeView;
+import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
@@ -125,6 +124,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private NavigationController mNavigationController;
 
   private MainMenu mMainMenu;
+
   private PanelAnimator mPanelAnimator;
   private OnmapDownloader mOnmapDownloader;
   private MytargetHelper mMytargetHelper;
@@ -346,7 +346,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     mNavigationController = new NavigationController(this);
-    initMenu();
+    initMainMenu();
     initOnmapDownloader();
     initPositionChooser();
   }
@@ -374,7 +374,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (Framework.nativeIsDownloadedMapAtScreenCenter())
           startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
         else
-          UiUtils.showAlertDialog(getActivity(), R.string.message_invalid_feature_position);
+          UiUtils.showAlertDialog(MwmActivity.this, R.string.message_invalid_feature_position);
       }
     });
     UiUtils.hide(mPositionChooser);
@@ -508,16 +508,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu.toggle(true);
   }
 
-  private void initMenu()
+  private void initMainMenu()
   {
-    mMainMenu = new MainMenu((ViewGroup) findViewById(R.id.menu_frame), new MainMenu.Container()
+    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), new BaseMenu.ItemClickListener<MainMenu.Item>()
     {
-      @Override
-      public Activity getActivity()
-      {
-        return MwmActivity.this;
-      }
-
       @Override
       public void onItemClick(MainMenu.Item item)
       {
@@ -613,7 +607,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             @Override
             public void run()
             {
-              startActivity(new Intent(getActivity(), SettingsActivity.class));
+              startActivity(new Intent(MwmActivity.this, SettingsActivity.class));
             }
           });
           break;
@@ -993,21 +987,28 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  private BaseMenu getCurrentMenu()
+  {
+    return (RoutingController.get().isNavigating() ? mNavigationController.getNavMenu() : mMainMenu);
+  }
+
   private void setFullscreen(boolean isFullscreen)
   {
     mIsFullscreen = isFullscreen;
+    final BaseMenu menu = getCurrentMenu();
+
     if (isFullscreen)
     {
-      if (mMainMenu.isAnimating())
+      if (menu.isAnimating())
         return;
 
       mIsFullscreenAnimating = true;
-      Animations.disappearSliding(mMainMenu.getFrame(), Animations.BOTTOM, new Runnable()
+      Animations.disappearSliding(menu.getFrame(), Animations.BOTTOM, new Runnable()
       {
         @Override
         public void run()
         {
-          final int menuHeight = mMainMenu.getFrame().getHeight();
+          final int menuHeight = menu.getFrame().getHeight();
           adjustCompass(0, menuHeight);
           adjustRuler(0, menuHeight);
 
@@ -1022,7 +1023,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      Animations.appearSliding(mMainMenu.getFrame(), Animations.BOTTOM, new Runnable()
+      Animations.appearSliding(menu.getFrame(), Animations.BOTTOM, new Runnable()
       {
         @Override
         public void run()
@@ -1053,7 +1054,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             if (mMainMenu.close(true))
               mFadeView.fadeOut();
           }
-        }, MainMenu.ANIMATION_DURATION * 2);
+        }, BaseMenu.ANIMATION_DURATION * 2);
     }
     else
     {
@@ -1215,6 +1216,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (RoutingController.get().isNavigating())
     {
+      mNavigationController.show(true);
       mMainMenu.setState(MainMenu.State.NAVIGATION, false);
       return;
     }

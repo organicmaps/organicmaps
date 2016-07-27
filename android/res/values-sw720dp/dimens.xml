@@ -12,4 +12,6 @@
 
   <dimen name="nav_frame_padding">@dimen/margin_base</dimen>
   <dimen name="nav_zoom_bottom">250dp</dimen>
+  <dimen name="nav_toggle_margin">16dp</dimen>
+  <dimen name="nav_numbers_margin">16dp</dimen>
 </resources>

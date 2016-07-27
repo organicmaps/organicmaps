@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/nav_bottom_frame"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:layout_gravity="bottom"
->
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/nav_bottom_frame"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_gravity="bottom"
+  android:clickable="true"
+  android:visibility="invisible"
+  tools:visibility="visible">
+  <FrameLayout
+    android:id="@+id/line_frame"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_menu_height">
+    <include layout="@layout/layout_nav_bottom_numbers"/>
 
+    <ImageView
+      android:id="@+id/toggle"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="right|center_vertical"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:scaleType="center"
+      android:tint="?iconTint"
+      tools:src="@drawable/ic_menu_close"/>
+  </FrameLayout>
+
+  <com.mapswithme.maps.widget.FlatProgressView
+    android:id="@+id/progress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:headRadius="@dimen/nav_progress"
+    app:progressColor="?colorAccent"
+    app:headColor="?colorAccent"
+    app:progressThickness="@dimen/nav_progress"
+    app:secondaryProgressColor="@color/bg_routing_progress"
+    app:secondaryProgressThickness="@dimen/nav_progress"/>
+
+  <LinearLayout
+    android:id="@+id/content_frame"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:orientation="horizontal"
+    tools:background="#300000FF">
+
+  </LinearLayout>
 </LinearLayout>

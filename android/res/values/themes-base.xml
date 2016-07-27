@@ -44,7 +44,6 @@
     <item name="routingSlot">@drawable/routing_slot_background</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker</item>
-    <item name="navPanel">@color/bg_nav_panel</item>
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn</item>
 
@@ -58,7 +57,7 @@
 
     <item name="circleAccent">@drawable/circle_accent</item>
 
-    <item name="menuBackgroundClosed">@color/bg_menu_closed</item>
+    <item name="menuBackground">@color/bg_menu</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open</item>
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
@@ -114,7 +113,6 @@
     <item name="routingSlot">@drawable/routing_slot_background_night</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker_night</item>
-    <item name="navPanel">@color/bg_nav_panel_night</item>
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
 
@@ -128,7 +126,7 @@
 
     <item name="circleAccent">@drawable/circle_accent_night</item>
 
-    <item name="menuBackgroundClosed">@color/bg_menu_closed_night</item>
+    <item name="menuBackground">@color/bg_menu_night</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open_night</item>
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>

@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget.menu;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.support.annotation.DimenRes;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,7 +12,7 @@ import com.mapswithme.maps.widget.RotateByAlphaDrawable;
 import com.mapswithme.maps.widget.TrackedTransitionDrawable;
 import com.mapswithme.util.UiUtils;
 
-public class MenuToggle
+class MenuToggle
 {
   private final ImageView mButton;
   private final boolean mAlwaysShow;
@@ -19,12 +20,12 @@ public class MenuToggle
   private final TransitionDrawable mOpenImage;
   private final TransitionDrawable mCollapseImage;
 
-  public MenuToggle(View frame)
+  MenuToggle(View frame, @DimenRes int heightRes)
   {
     mButton = (ImageView) frame.findViewById(R.id.toggle);
     mAlwaysShow = (frame.findViewById(R.id.disable_toggle) == null);
 
-    int sz = UiUtils.dimen(R.dimen.menu_line_height);
+    int sz = UiUtils.dimen(heightRes);
     Rect bounds = new Rect(0, 0, sz, sz);
 
     mOpenImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_open, R.attr.iconTint, false)
@@ -48,25 +49,25 @@ public class MenuToggle
     mButton.setImageDrawable(image);
 
     if (forward)
-      image.startTransition(animate ? MainMenu.ANIMATION_DURATION : 0);
+      image.startTransition(animate ? BaseMenu.ANIMATION_DURATION : 0);
     else
-      image.reverseTransition(animate ? MainMenu.ANIMATION_DURATION : 0);
+      image.reverseTransition(animate ? BaseMenu.ANIMATION_DURATION : 0);
 
     if (!animate)
       image.getDrawable(forward ? 1 : 0).setAlpha(0xFF);
   }
 
-  public void show(boolean show)
+  void show(boolean show)
   {
     UiUtils.showIf(mAlwaysShow || show, mButton);
   }
 
-  public void setOpen(boolean open, boolean animate)
+  void setOpen(boolean open, boolean animate)
   {
     transitImage(mOpenImage, open, animate);
   }
 
-  public void setCollapsed(boolean collapse, boolean animate)
+  void setCollapsed(boolean collapse, boolean animate)
   {
     transitImage(mCollapseImage, collapse, animate);
   }
