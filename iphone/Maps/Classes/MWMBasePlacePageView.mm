@@ -133,6 +133,7 @@ using namespace storage;
 @property (nonatomic) BOOL isBookmarkCellExpanded;
 
 @property (nonatomic) MWMCircularProgress * mapDownloadProgress;
+@property (nonatomic) TMwmSize downloadMapSize;
 
 @end
 
@@ -185,6 +186,8 @@ using namespace storage;
 
 - (void)configure
 {
+  [self configureMapDownloader];
+
   MWMPlacePageEntity * entity = self.entity;
   if (entity.isBookmark)
   {
@@ -205,26 +208,33 @@ using namespace storage;
     self.externalTitleLabel.text = @"";
   }
 
-  self.subtitleLabel.text = entity.subtitle;
-  if (entity.subtitle)
+  NSMutableString * subtitle = [entity.subtitle mutableCopy];
+  NSString * sizeStr = self.downloadProgressView.hidden ? nil : formattedSize(self.downloadMapSize);
+  if (subtitle)
   {
-    NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:entity.subtitle];
-    auto const separatorRanges = [entity.subtitle rangesOfString:@(place_page::Info::kSubtitleSeparator)];
+    NSString * separator = @(place_page::Info::kSubtitleSeparator);
+    if (sizeStr)
+      [subtitle appendString:[NSString stringWithFormat:@"%@%@", separator, sizeStr]];
+    NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:subtitle];
+    auto const separatorRanges = [subtitle rangesOfString:separator];
     if (!separatorRanges.empty())
     {
       for (auto const & r : separatorRanges)
-        [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:r];
-
+        [str addAttributes:@{ NSForegroundColorAttributeName : [UIColor blackHintText] } range:r];
     }
 
-    auto const starsRanges = [entity.subtitle rangesOfString:@(place_page::Info::kStarSymbol)];
+    auto const starsRanges = [subtitle rangesOfString:@(place_page::Info::kStarSymbol)];
     if (!starsRanges.empty())
     {
       for (auto const & r : starsRanges)
-        [str addAttributes:@{NSForegroundColorAttributeName : [UIColor yellow]} range:r];
+        [str addAttributes:@{ NSForegroundColorAttributeName : [UIColor yellow] } range:r];
     }
 
     self.subtitleLabel.attributedText = str;
+  }
+  else
+  {
+    self.subtitleLabel.text = sizeStr;
   }
 
   BOOL const isMyPosition = entity.isMyPosition;
@@ -265,7 +275,6 @@ using namespace storage;
 
   [self.featureTable reloadData];
   [self configureCurrentShedule];
-  [self configureMapDownloader];
   [MWMFrameworkListener addObserver:self];
   [self setNeedsLayout];
   [self layoutIfNeeded];
@@ -285,6 +294,7 @@ using namespace storage;
     NodeAttrs nodeAttrs;
     GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
     MWMCircularProgress * progress = self.mapDownloadProgress;
+    self.downloadMapSize = nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
     switch (nodeAttrs.m_status)
     {
       case NodeStatus::NotDownloaded:
