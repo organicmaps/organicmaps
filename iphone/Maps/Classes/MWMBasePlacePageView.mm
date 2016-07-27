@@ -1,7 +1,5 @@
-#import "Common.h"
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
 #import "MWMBasePlacePageView.h"
+#import "Common.h"
 #import "MWMCircularProgress.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationHelpers.h"
@@ -15,6 +13,8 @@
 #import "MWMPlacePageViewManager.h"
 #import "MWMStorage.h"
 #import "MWMViewController.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "NSString+Categories.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -48,33 +48,26 @@ enum class PlacePageSection
   Booking
 };
 
-vector<MWMPlacePageCellType> const kSectionBookmarkCellTypes {
-  MWMPlacePageCellTypeBookmark
-};
+vector<MWMPlacePageCellType> const kSectionBookmarkCellTypes{MWMPlacePageCellTypeBookmark};
 
-vector<MWMPlacePageCellType> const kSectionMetadataCellTypes {
-    MWMPlacePageCellTypePostcode, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite, MWMPlacePageCellTypeURL,
-    MWMPlacePageCellTypeEmail, MWMPlacePageCellTypeOpenHours, MWMPlacePageCellTypeWiFi, MWMPlacePageCellTypeCoordinate
-};
+vector<MWMPlacePageCellType> const kSectionMetadataCellTypes{
+    MWMPlacePageCellTypePostcode, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite,
+    MWMPlacePageCellTypeURL,      MWMPlacePageCellTypeEmail,       MWMPlacePageCellTypeOpenHours,
+    MWMPlacePageCellTypeWiFi,     MWMPlacePageCellTypeCoordinate};
 
-vector<MWMPlacePageCellType> const kSectionEditingCellTypes {
-  MWMPlacePageCellTypeEditButton,
-  MWMPlacePageCellTypeAddBusinessButton,
-  MWMPlacePageCellTypeAddPlaceButton
-};
+vector<MWMPlacePageCellType> const kSectionEditingCellTypes{MWMPlacePageCellTypeEditButton,
+                                                            MWMPlacePageCellTypeAddBusinessButton,
+                                                            MWMPlacePageCellTypeAddPlaceButton};
 
-vector<MWMPlacePageCellType> const kSectionBookingCellTypes {
-  MWMPlacePageCellTypeBookingMore
-};
+vector<MWMPlacePageCellType> const kSectionBookingCellTypes{MWMPlacePageCellTypeBookingMore};
 
 using TCellTypesSectionMap = pair<vector<MWMPlacePageCellType>, PlacePageSection>;
 
-vector<TCellTypesSectionMap> const kCellTypesSectionMap {
-  {kSectionBookmarkCellTypes, PlacePageSection::Bookmark},
-  {kSectionMetadataCellTypes, PlacePageSection::Metadata},
-  {kSectionEditingCellTypes, PlacePageSection::Editing},
-  {kSectionBookingCellTypes, PlacePageSection::Booking}
-};
+vector<TCellTypesSectionMap> const kCellTypesSectionMap{
+    {kSectionBookmarkCellTypes, PlacePageSection::Bookmark},
+    {kSectionMetadataCellTypes, PlacePageSection::Metadata},
+    {kSectionEditingCellTypes, PlacePageSection::Editing},
+    {kSectionBookingCellTypes, PlacePageSection::Booking}};
 
 MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeWiFi, "PlacePageInfoCell"},
@@ -102,7 +95,8 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 CGFloat placePageWidth()
 {
   CGSize const size = UIScreen.mainScreen.bounds.size;
-  return IPAD ? kMaximumWidth : (size.width > size.height ? MIN(kMaximumWidth, size.height) : size.width);
+  return IPAD ? kMaximumWidth
+              : (size.width > size.height ? MIN(kMaximumWidth, size.height) : size.width);
 }
 
 enum class AttributePosition
@@ -113,7 +107,7 @@ enum class AttributePosition
   Schedule,
   Address
 };
-} // namespace
+}  // namespace
 
 using namespace storage;
 
@@ -126,13 +120,14 @@ using namespace storage;
   map<MWMPlacePageCellType, UITableViewCell *> m_offscreenCells;
 }
 
-@property (weak, nonatomic) MWMPlacePageEntity * entity;
-@property (weak, nonatomic) IBOutlet MWMPlacePage * ownerPlacePage;
+@property(weak, nonatomic) MWMPlacePageEntity * entity;
+@property(weak, nonatomic) IBOutlet MWMPlacePage * ownerPlacePage;
 
-@property (nonatomic, readwrite) BOOL openingHoursCellExpanded;
-@property (nonatomic) BOOL isBookmarkCellExpanded;
+@property(nonatomic, readwrite) BOOL openingHoursCellExpanded;
+@property(nonatomic) BOOL isBookmarkCellExpanded;
 
-@property (nonatomic) MWMCircularProgress * mapDownloadProgress;
+@property(nonatomic) MWMCircularProgress * mapDownloadProgress;
+@property(nonatomic) TMwmSize downloadMapSize;
 
 @end
 
@@ -185,6 +180,8 @@ using namespace storage;
 
 - (void)configure
 {
+  [self configureMapDownloader];
+
   MWMPlacePageEntity * entity = self.entity;
   if (entity.isBookmark)
   {
@@ -205,26 +202,33 @@ using namespace storage;
     self.externalTitleLabel.text = @"";
   }
 
-  self.subtitleLabel.text = entity.subtitle;
-  if (entity.subtitle)
+  NSMutableString * subtitle = [entity.subtitle mutableCopy];
+  NSString * sizeStr = self.downloadProgressView.hidden ? nil : formattedSize(self.downloadMapSize);
+  if (subtitle)
   {
-    NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:entity.subtitle];
-    auto const separatorRanges = [entity.subtitle rangesOfString:@(place_page::Info::kSubtitleSeparator)];
+    NSString * separator = @(place_page::Info::kSubtitleSeparator);
+    if (sizeStr)
+      [subtitle appendString:[NSString stringWithFormat:@"%@%@", separator, sizeStr]];
+    NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:subtitle];
+    auto const separatorRanges = [subtitle rangesOfString:separator];
     if (!separatorRanges.empty())
     {
       for (auto const & r : separatorRanges)
-        [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:r];
-
+        [str addAttributes:@{ NSForegroundColorAttributeName : [UIColor blackHintText] } range:r];
     }
 
-    auto const starsRanges = [entity.subtitle rangesOfString:@(place_page::Info::kStarSymbol)];
+    auto const starsRanges = [subtitle rangesOfString:@(place_page::Info::kStarSymbol)];
     if (!starsRanges.empty())
     {
       for (auto const & r : starsRanges)
-        [str addAttributes:@{NSForegroundColorAttributeName : [UIColor yellow]} range:r];
+        [str addAttributes:@{ NSForegroundColorAttributeName : [UIColor yellow] } range:r];
     }
 
     self.subtitleLabel.attributedText = str;
+  }
+  else
+  {
+    self.subtitleLabel.text = sizeStr;
   }
 
   BOOL const isMyPosition = entity.isMyPosition;
@@ -233,21 +237,19 @@ using namespace storage;
   if (!entity.bookingOnlinePrice.length)
   {
     self.bookingPriceLabel.text = entity.bookingPrice;
-    [entity onlinePricingWithCompletionBlock:^
-    {
+    [entity onlinePricingWithCompletionBlock:^{
       if (!entity.bookingOnlinePrice.length)
         return;
       self.bookingPriceLabel.text = entity.bookingOnlinePrice;
       [self setNeedsLayout];
-      [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-      {
-        [self layoutIfNeeded];
-      }];
+      [UIView animateWithDuration:kDefaultAnimationDuration
+                       animations:^{
+                         [self layoutIfNeeded];
+                       }];
     }
-    failure:^
-    {
-      // TODO(Vlad): Process an error.
-    }];
+                                     failure:^{
+                                         // TODO(Vlad): Process an error.
+                                     }];
   }
   else
   {
@@ -265,7 +267,6 @@ using namespace storage;
 
   [self.featureTable reloadData];
   [self configureCurrentShedule];
-  [self configureMapDownloader];
   [MWMFrameworkListener addObserver:self];
   [self setNeedsLayout];
   [self layoutIfNeeded];
@@ -285,39 +286,39 @@ using namespace storage;
     NodeAttrs nodeAttrs;
     GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
     MWMCircularProgress * progress = self.mapDownloadProgress;
+    self.downloadMapSize = nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
     switch (nodeAttrs.m_status)
     {
-      case NodeStatus::NotDownloaded:
-      case NodeStatus::Partly:
-      {
-        MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
-          MWMCircularProgressStateSelected};
-        [progress setImage:[UIImage imageNamed:@"ic_download"] forStates:affectedStates];
-        [progress setColoring:MWMButtonColoringBlue forStates:affectedStates];
-        progress.state = MWMCircularProgressStateNormal;
-        break;
-      }
-      case NodeStatus::Downloading:
-      {
-        auto const & prg = nodeAttrs.m_downloadingProgress;
-        progress.progress = static_cast<CGFloat>(prg.first) / prg.second;
-        break;
-      }
-      case NodeStatus::InQueue:
-        progress.state = MWMCircularProgressStateSpinner;
-        break;
-      case NodeStatus::Undefined:
-      case NodeStatus::Error:
-        progress.state = MWMCircularProgressStateFailed;
-        break;
-      case NodeStatus::OnDisk:
-      case NodeStatus::OnDiskOutOfDate:
-      {
-        self.downloadProgressView.hidden = YES;
-        [self setNeedsLayout];
-        [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ [self layoutIfNeeded]; }];
-        break;
-      }
+    case NodeStatus::NotDownloaded:
+    case NodeStatus::Partly:
+    {
+      MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
+                                                          MWMCircularProgressStateSelected};
+      [progress setImage:[UIImage imageNamed:@"ic_download"] forStates:affectedStates];
+      [progress setColoring:MWMButtonColoringBlue forStates:affectedStates];
+      progress.state = MWMCircularProgressStateNormal;
+      break;
+    }
+    case NodeStatus::Downloading:
+    {
+      auto const & prg = nodeAttrs.m_downloadingProgress;
+      progress.progress = static_cast<CGFloat>(prg.first) / prg.second;
+      break;
+    }
+    case NodeStatus::InQueue: progress.state = MWMCircularProgressStateSpinner; break;
+    case NodeStatus::Undefined:
+    case NodeStatus::Error: progress.state = MWMCircularProgressStateFailed; break;
+    case NodeStatus::OnDisk:
+    case NodeStatus::OnDiskOutOfDate:
+    {
+      self.downloadProgressView.hidden = YES;
+      [self setNeedsLayout];
+      [UIView animateWithDuration:kDefaultAnimationDuration
+                       animations:^{
+                         [self layoutIfNeeded];
+                       }];
+      break;
+    }
     }
   }
 }
@@ -325,11 +326,12 @@ using namespace storage;
 - (void)configureCurrentShedule
 {
   MWMPlacePageOpeningHoursCell * cell =
-                          static_cast<MWMPlacePageOpeningHoursCell *>(m_offscreenCells[MWMPlacePageCellTypeOpenHours]);
+      static_cast<MWMPlacePageOpeningHoursCell *>(m_offscreenCells[MWMPlacePageCellTypeOpenHours]);
   if (cell)
   {
     self.placeScheduleLabel.text = cell.isClosed ? L(@"closed_now") : L(@"editor_time_open");
-    self.placeScheduleLabel.textColor = cell.isClosed ? [UIColor red] : [UIColor blackSecondaryText];
+    self.placeScheduleLabel.textColor =
+        cell.isClosed ? [UIColor red] : [UIColor blackSecondaryText];
   }
   else
   {
@@ -356,13 +358,16 @@ using namespace storage;
 - (void)setupLabelsWidthWithBoundedWidth:(CGFloat)bound distancePosition:(AttributePosition)position
 {
   auto const defaultMaxWidth = placePageWidth() - kLabelsPadding;
-  CGFloat const labelsMaxWidth = self.downloadProgressView.hidden ? defaultMaxWidth :
-                                            defaultMaxWidth - 2 * kDownloadProgressViewLeftOffset - self.downloadProgressView.width;
+  CGFloat const labelsMaxWidth =
+      self.downloadProgressView.hidden
+          ? defaultMaxWidth
+          : defaultMaxWidth - 2 * kDownloadProgressViewLeftOffset - self.downloadProgressView.width;
   switch (position)
   {
   case AttributePosition::Title:
     self.titleLabel.width = labelsMaxWidth - bound;
-    self.subtitleLabel.width = self.addressLabel.width = self.externalTitleLabel.width = self.placeScheduleLabel.width = 0;
+    self.subtitleLabel.width = self.addressLabel.width = self.externalTitleLabel.width =
+        self.placeScheduleLabel.width = 0;
     break;
   case AttributePosition::ExternalTitle:
     self.addressLabel.width = self.subtitleLabel.width = self.placeScheduleLabel.width = 0;
@@ -418,7 +423,8 @@ using namespace storage;
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  CGFloat const bound = self.distanceLabel.width + kDirectionArrowSide + kOffsetFromDistanceToArrow + kOffsetFromLabelsToDistance;
+  CGFloat const bound = self.distanceLabel.width + kDirectionArrowSide +
+                        kOffsetFromDistanceToArrow + kOffsetFromLabelsToDistance;
   AttributePosition const position = [self distanceAttributePosition];
   [self setupLabelsWidthWithBoundedWidth:bound distancePosition:position];
   [self setupBookingView];
@@ -440,16 +446,17 @@ using namespace storage;
 {
   BOOL const isDownloadProgressViewHidden = self.downloadProgressView.hidden;
   if (!isDownloadProgressViewHidden)
-    self.downloadProgressView.origin = {kDownloadProgressViewLeftOffset, kDownloadProgressViewTopOffset};
+    self.downloadProgressView.origin = {kDownloadProgressViewLeftOffset,
+                                        kDownloadProgressViewTopOffset};
 
-  CGFloat const leftOffset = isDownloadProgressViewHidden ? kLeftOffset : self.downloadProgressView.maxX + kDownloadProgressViewLeftOffset;
+  CGFloat const leftOffset = isDownloadProgressViewHidden
+                                 ? kLeftOffset
+                                 : self.downloadProgressView.maxX + kDownloadProgressViewLeftOffset;
 
-  auto originFrom = ^ CGPoint (UIView * v, BOOL isBigOffset)
-  {
+  auto originFrom = ^CGPoint(UIView * v, BOOL isBigOffset) {
     CGFloat const offset = isBigOffset ? kLabelsBetweenMainOffset : kLabelsBetweenSmallOffset;
     if ([v isKindOfClass:[UILabel class]])
-      return {leftOffset, (static_cast<UILabel *>(v).text.length == 0 ? v.minY : v.maxY) +
-                          offset};
+      return {leftOffset, (static_cast<UILabel *>(v).text.length == 0 ? v.minY : v.maxY) + offset};
     return {leftOffset, v.hidden ? v.minY : v.maxY + offset};
   };
 
@@ -463,22 +470,16 @@ using namespace storage;
 
 - (void)layoutDistanceBoxWithPosition:(AttributePosition)position
 {
-  auto getY = ^ CGFloat (AttributePosition p)
-  {
+  auto getY = ^CGFloat(AttributePosition p) {
     // Have to align distance box for the first label's line.
     CGFloat const defaultCenter = p == AttributePosition::Title ? 12 : 8;
     switch (position)
     {
-    case AttributePosition::Title:
-      return self.titleLabel.minY + defaultCenter;
-    case AttributePosition::ExternalTitle:
-      return self.externalTitleLabel.minY + defaultCenter;
-    case AttributePosition::Subtitle:
-      return self.subtitleLabel.minY + defaultCenter;
-    case AttributePosition::Schedule:
-      return self.placeScheduleLabel.minY + defaultCenter;
-    case AttributePosition::Address:
-      return self.addressLabel.minY + defaultCenter;
+    case AttributePosition::Title: return self.titleLabel.minY + defaultCenter;
+    case AttributePosition::ExternalTitle: return self.externalTitleLabel.minY + defaultCenter;
+    case AttributePosition::Subtitle: return self.subtitleLabel.minY + defaultCenter;
+    case AttributePosition::Schedule: return self.placeScheduleLabel.minY + defaultCenter;
+    case AttributePosition::Address: return self.addressLabel.minY + defaultCenter;
     }
   };
 
@@ -487,28 +488,26 @@ using namespace storage;
   CGFloat const y = getY(position);
   CGPoint const center = {directionX + kDirectionArrowSide / 2, y};
   self.directionArrow.center = center;
-  self.directionButton.origin = {center.x - self.directionButton.width / 2, center.y - self.directionButton.height / 2};
-  self.distanceLabel.center = {distanceX + self.distanceLabel.width / 2, self.directionArrow.center.y};
+  self.directionButton.origin = {center.x - self.directionButton.width / 2,
+                                 center.y - self.directionButton.height / 2};
+  self.distanceLabel.center = {distanceX + self.distanceLabel.width / 2,
+                               self.directionArrow.center.y};
 }
 
 - (void)layoutTableViewWithPosition:(AttributePosition)position
 {
-  auto getY = ^ CGFloat (AttributePosition p)
-  {
+  auto getY = ^CGFloat(AttributePosition p) {
     if (self.bookingView.hidden)
     {
       switch (position)
       {
-      case AttributePosition::Title:
-        return self.titleLabel.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Title: return self.titleLabel.maxY + kBottomPlacePageOffset;
       case AttributePosition::ExternalTitle:
         return self.externalTitleLabel.maxY + kBottomPlacePageOffset;
-      case AttributePosition::Subtitle:
-        return self.subtitleLabel.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Subtitle: return self.subtitleLabel.maxY + kBottomPlacePageOffset;
       case AttributePosition::Schedule:
         return self.placeScheduleLabel.maxY + kBottomPlacePageOffset;
-      case AttributePosition::Address:
-        return self.addressLabel.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Address: return self.addressLabel.maxY + kBottomPlacePageOffset;
       }
     }
     else
@@ -518,10 +517,8 @@ using namespace storage;
       case AttributePosition::Title:
       case AttributePosition::ExternalTitle:
       case AttributePosition::Subtitle:
-      case AttributePosition::Schedule:
-        return self.bookingView.maxY + kBottomPlacePageOffset;
-      case AttributePosition::Address:
-        return self.addressLabel.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Schedule: return self.bookingView.maxY + kBottomPlacePageOffset;
+      case AttributePosition::Address: return self.addressLabel.maxY + kBottomPlacePageOffset;
       }
     }
   };
@@ -537,7 +534,7 @@ using namespace storage;
 - (void)addBookmark
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
-                   withParameters:@{kStatValue : kStatAdd}];
+        withParameters:@{kStatValue : kStatAdd}];
   [self.subtitleLabel sizeToFit];
 
   m_sections.push_back(PlacePageSection::Bookmark);
@@ -549,7 +546,7 @@ using namespace storage;
 - (void)removeBookmark
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
-                   withParameters:@{kStatValue : kStatRemove}];
+        withParameters:@{kStatValue : kStatRemove}];
 
   auto const it = find(m_sections.begin(), m_sections.end(), PlacePageSection::Bookmark);
   if (it != m_sections.end())
@@ -569,10 +566,11 @@ using namespace storage;
   [self fillCell:m_offscreenCells[type] withType:type];
   [self configure];
   [CATransaction begin];
-  [CATransaction setCompletionBlock:^
-  {
-     [self setNeedsLayout];
-     dispatch_async(dispatch_get_main_queue(), ^{ [self.ownerPlacePage refresh]; });
+  [CATransaction setCompletionBlock:^{
+    [self setNeedsLayout];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self.ownerPlacePage refresh];
+    });
   }];
   [CATransaction commit];
 }
@@ -580,7 +578,8 @@ using namespace storage;
 - (IBAction)directionButtonTap
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatCompass)];
-  [self.ownerPlacePage.manager showDirectionViewWithTitle:self.titleLabel.text type:self.subtitleLabel.text];
+  [self.ownerPlacePage.manager showDirectionViewWithTitle:self.titleLabel.text
+                                                     type:self.subtitleLabel.text];
 }
 
 - (void)updateAndLayoutMyPositionSpeedAndAltitude:(NSString *)text
@@ -591,16 +590,8 @@ using namespace storage;
 
 #pragma mark - MWMPlacePageBookmarkDelegate
 
-- (void)reloadBookmark
-{
-  [self reloadBookmarkCell];
-}
-
-- (void)editBookmarkTap
-{
-  [self.ownerPlacePage editBookmark];
-}
-
+- (void)reloadBookmark { [self reloadBookmarkCell]; }
+- (void)editBookmarkTap { [self.ownerPlacePage editBookmark]; }
 - (void)moreTap
 {
   self.isBookmarkCellExpanded = YES;
@@ -609,21 +600,9 @@ using namespace storage;
 
 #pragma mark - MWMPlacePageOpeningHoursCellProtocol
 
-- (BOOL)forcedButton
-{
-  return NO;
-}
-
-- (BOOL)isPlaceholder
-{
-  return NO;
-}
-
-- (BOOL)isEditor
-{
-  return NO;
-}
-
+- (BOOL)forcedButton { return NO; }
+- (BOOL)isPlaceholder { return NO; }
+- (BOOL)isEditor { return NO; }
 - (void)setOpeningHoursCellExpanded:(BOOL)openingHoursCellExpanded
 {
   _openingHoursCellExpanded = openingHoursCellExpanded;
@@ -632,10 +611,11 @@ using namespace storage;
   [self fillCell:m_offscreenCells[MWMPlacePageCellTypeOpenHours] withType:type];
   [tv beginUpdates];
   [CATransaction begin];
-  [CATransaction setCompletionBlock:^
-  {
+  [CATransaction setCompletionBlock:^{
     [self setNeedsLayout];
-    dispatch_async(dispatch_get_main_queue(), ^{ [self.ownerPlacePage refresh]; });
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self.ownerPlacePage refresh];
+    });
   }];
   [tv endUpdates];
   [CATransaction commit];
@@ -672,29 +652,31 @@ using namespace storage;
   MWMPlacePageEntity * entity = self.entity;
   switch (cellType)
   {
-    case MWMPlacePageCellTypeBookmark:
-      [static_cast<MWMPlacePageBookmarkCell *>(cell) configWithText:entity.bookmarkDescription
-                                                           delegate:self
-                                                     placePageWidth:placePageWidth()
-                                                             isOpen:self.isBookmarkCellExpanded
-                                                             isHtml:entity.isHTMLDescription];
-      break;
-    case MWMPlacePageCellTypeOpenHours:
-      [(MWMPlacePageOpeningHoursCell *)cell configWithDelegate:self info:[entity getCellValue:cellType]];
-      break;
-    case MWMPlacePageCellTypeEditButton:
-    case MWMPlacePageCellTypeAddBusinessButton:
-    case MWMPlacePageCellTypeAddPlaceButton:
-    case MWMPlacePageCellTypeBookingMore:
-      [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage.manager forType:cellType];
-      break;
-    default:
-    {
-      MWMPlacePageInfoCell * tCell = (MWMPlacePageInfoCell *)cell;
-      tCell.currentEntity = self.entity;
-      [tCell configureWithType:cellType info:[entity getCellValue:cellType]];
-      break;
-    }
+  case MWMPlacePageCellTypeBookmark:
+    [static_cast<MWMPlacePageBookmarkCell *>(cell) configWithText:entity.bookmarkDescription
+                                                         delegate:self
+                                                   placePageWidth:placePageWidth()
+                                                           isOpen:self.isBookmarkCellExpanded
+                                                           isHtml:entity.isHTMLDescription];
+    break;
+  case MWMPlacePageCellTypeOpenHours:
+    [(MWMPlacePageOpeningHoursCell *)cell configWithDelegate:self
+                                                        info:[entity getCellValue:cellType]];
+    break;
+  case MWMPlacePageCellTypeEditButton:
+  case MWMPlacePageCellTypeAddBusinessButton:
+  case MWMPlacePageCellTypeAddPlaceButton:
+  case MWMPlacePageCellTypeBookingMore:
+    [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage.manager
+                                                forType:cellType];
+    break;
+  default:
+  {
+    MWMPlacePageInfoCell * tCell = (MWMPlacePageInfoCell *)cell;
+    tCell.currentEntity = self.entity;
+    [tCell configureWithType:cellType info:[entity getCellValue:cellType]];
+    break;
+  }
   }
 }
 
@@ -704,20 +686,19 @@ using namespace storage;
   UITableViewCell * cell = [self offscreenCellForCellType:cellType];
   switch (cellType)
   {
-    case MWMPlacePageCellTypeBookmark:
-      return ((MWMPlacePageBookmarkCell *)cell).cellHeight;
-    case MWMPlacePageCellTypeOpenHours:
-      return ((MWMPlacePageOpeningHoursCell *)cell).cellHeight;
-    default:
-    {
-      [cell setNeedsUpdateConstraints];
-      [cell updateConstraintsIfNeeded];
-      cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
-      [cell setNeedsLayout];
-      [cell layoutIfNeeded];
-      CGSize const size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-      return size.height;
-    }
+  case MWMPlacePageCellTypeBookmark: return ((MWMPlacePageBookmarkCell *)cell).cellHeight;
+  case MWMPlacePageCellTypeOpenHours: return ((MWMPlacePageOpeningHoursCell *)cell).cellHeight;
+  default:
+  {
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    CGSize const size =
+        [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height;
+  }
   }
 }
 
@@ -726,12 +707,9 @@ using namespace storage;
   return [self cellsForSection:section].size();
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-  return m_sections.size();
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView { return m_sections.size(); }
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMPlacePageCellType const type = [self cellTypeForIndexPath:indexPath];
   NSString * identifier = reuseIdentifier(type);
@@ -769,7 +747,8 @@ using namespace storage;
   [self configureMapDownloader];
 }
 
-- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
+- (void)processCountry:(TCountryId const &)countryId
+              progress:(MapFilesDownloader::TProgress const &)progress
 {
   if (countryId != self.entity.countryId)
     return;
@@ -786,23 +765,16 @@ using namespace storage;
   MWMAlertViewController * avc = self.ownerPlacePage.manager.ownerViewController.alertController;
   switch (nodeAttrs.m_status)
   {
-    case NodeStatus::NotDownloaded:
-    case NodeStatus::Partly:
-      [MWMStorage downloadNode:countryId alertController:avc onSuccess:nil];
-      break;
-    case NodeStatus::Undefined:
-    case NodeStatus::Error:
-      [MWMStorage retryDownloadNode:countryId];
-      break;
-    case NodeStatus::OnDiskOutOfDate:
-      [MWMStorage updateNode:countryId alertController:avc];
-      break;
-    case NodeStatus::Downloading:
-    case NodeStatus::InQueue:
-      [MWMStorage cancelDownloadNode:countryId];
-      break;
-    case NodeStatus::OnDisk:
-      break;
+  case NodeStatus::NotDownloaded:
+  case NodeStatus::Partly:
+    [MWMStorage downloadNode:countryId alertController:avc onSuccess:nil];
+    break;
+  case NodeStatus::Undefined:
+  case NodeStatus::Error: [MWMStorage retryDownloadNode:countryId]; break;
+  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:countryId alertController:avc]; break;
+  case NodeStatus::Downloading:
+  case NodeStatus::InQueue: [MWMStorage cancelDownloadNode:countryId]; break;
+  case NodeStatus::OnDisk: break;
   }
 }
 
@@ -812,7 +784,8 @@ using namespace storage;
 {
   if (!_mapDownloadProgress)
   {
-    _mapDownloadProgress = [MWMCircularProgress downloaderProgressForParentView:self.downloadProgressView];
+    _mapDownloadProgress =
+        [MWMCircularProgress downloaderProgressForParentView:self.downloadProgressView];
     _mapDownloadProgress.delegate = self;
   }
   return _mapDownloadProgress;
