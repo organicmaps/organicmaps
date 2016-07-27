@@ -115,8 +115,6 @@ public:
     }
   }
 
-  TAltitudes GetAltitudes() const { return m_altitudes; }
-private:
   /// \note |m_altitudes| is a vector of feature point altitudes. There's two possibilities:
   /// * |m_altitudes| is empty. It means there is no altitude information for this feature.
   /// * size of |m_pointAlt| is equal to the number of this feature's points. If so

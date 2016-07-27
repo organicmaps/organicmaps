@@ -87,16 +87,15 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
     src.Skip(altitudeInfoOffsetInSection);
     altitudes.Deserialize(m_header.m_minAltitude, pointCount, src);
 
-    TAltitudes pntAlt = altitudes.GetAltitudes();
-    bool const isResultValid = none_of(pntAlt.begin(), pntAlt.end(),
+    bool const isResultValid = none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
                                        [](TAltitude a) { return a == kInvalidAltitude; });
     if (!isResultValid)
     {
-      ASSERT(false, (pntAlt));
+      ASSERT(false, (altitudes.m_altitudes));
       return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
     }
 
-    return m_cache.insert(make_pair(featureId, move(pntAlt))).first->second;
+    return m_cache.insert(make_pair(featureId, move(altitudes.m_altitudes))).first->second;
   }
   catch (Reader::OpenException const & e)
   {
