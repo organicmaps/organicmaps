@@ -100,6 +100,14 @@
 		F6B283081C1B03320081957A /* gps_track_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B283001C1B03320081957A /* gps_track_storage.hpp */; };
 		F6B283091C1B03320081957A /* gps_track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B283011C1B03320081957A /* gps_track.cpp */; };
 		F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B283021C1B03320081957A /* gps_track.hpp */; };
+		F6DA2A951CCE24DA00F087B5 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F61B26FE62001A525C /* libdrape.a */; };
+		F6DA2A971CCE24DB00F087B5 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A961CCE24DB00F087B5 /* libdrape_frontend.a */; };
+		F6DA2A9E1CCE252600F087B5 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A981CCE252600F087B5 /* libeditor.a */; };
+		F6DA2A9F1CCE252600F087B5 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A991CCE252600F087B5 /* liboauthcpp.a */; };
+		F6DA2AA01CCE252600F087B5 /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A9A1CCE252600F087B5 /* libplatform_tests_support.a */; };
+		F6DA2AA11CCE252600F087B5 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A9B1CCE252600F087B5 /* libpugixml.a */; };
+		F6DA2AA21CCE252600F087B5 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A9C1CCE252600F087B5 /* libsdf_image.a */; };
+		F6DA2AA31CCE252600F087B5 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A9D1CCE252600F087B5 /* libstb_image.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -214,6 +222,13 @@
 		F6B283001C1B03320081957A /* gps_track_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_storage.hpp; sourceTree = "<group>"; };
 		F6B283011C1B03320081957A /* gps_track.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track.cpp; sourceTree = "<group>"; };
 		F6B283021C1B03320081957A /* gps_track.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track.hpp; sourceTree = "<group>"; };
+		F6DA2A961CCE24DB00F087B5 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
+		F6DA2A981CCE252600F087B5 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
+		F6DA2A991CCE252600F087B5 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
+		F6DA2A9A1CCE252600F087B5 /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "/Users/v.mikhaylenko/mapsme/omim/xcode/platform/../../../omim-xcode-build/Debug/libplatform_tests_support.a"; sourceTree = "<absolute>"; };
+		F6DA2A9B1CCE252600F087B5 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
+		F6DA2A9C1CCE252600F087B5 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
+		F6DA2A9D1CCE252600F087B5 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,6 +362,13 @@
 		675345B21A4054AD00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				F6DA2A981CCE252600F087B5 /* libeditor.a */,
+				F6DA2A991CCE252600F087B5 /* liboauthcpp.a */,
+				F6DA2A9A1CCE252600F087B5 /* libplatform_tests_support.a */,
+				F6DA2A9B1CCE252600F087B5 /* libpugixml.a */,
+				F6DA2A9C1CCE252600F087B5 /* libsdf_image.a */,
+				F6DA2A9D1CCE252600F087B5 /* libstb_image.a */,
+				F6DA2A961CCE24DB00F087B5 /* libdrape_frontend.a */,
 				670D05A41B0DF4250013A7AC /* defaults.xcconfig */,
 				674A2A341B2700B2001A525C /* libs */,
 				675345BD1A4054AD00A0A8C3 /* map */,
