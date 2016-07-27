@@ -27,5 +27,4 @@ RouterType FromString(string const & str)
   ASSERT(false, ("Incorrect routing string:", str));
   return RouterType::Vehicle;
 }
-
 } //  namespace routing
