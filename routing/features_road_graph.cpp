@@ -38,6 +38,13 @@ string GetFeatureCountryName(FeatureID const featureId)
 }
 }  // namespace
 
+FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle handle) : m_mwmHandle(move(handle))
+{
+  if (!m_mwmHandle.IsAlive())
+    return;
+
+  m_altitudeLoader = make_unique<feature::AltitudeLoader>(*m_mwmHandle.GetValue<MwmValue>());
+}
 
 FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(unique_ptr<IVehicleModelFactory> && vehicleModelFactory)
   : m_vehicleModelFactory(move(vehicleModelFactory))
@@ -166,7 +173,7 @@ void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
 }
 
 void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t count,
-                                         vector<pair<Edge, m2::PointD>> & vicinities) const
+                                         vector<pair<Edge, Junction>> & vicinities) const
 {
   NearestEdgeFinder finder(point);
 
@@ -254,6 +261,39 @@ double FeaturesRoadGraph::GetSpeedKMPHFromFt(FeatureType const & ft) const
   return m_vehicleModel.GetSpeed(ft);
 }
 
+void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft,
+                                        double speedKMPH, RoadInfo & ri) const
+{
+  Value const & value = LockMwm(featureId.m_mwmId);
+  if (!value.IsAlive())
+    return;
+
+  ri.m_bidirectional = !IsOneWay(ft);
+  ri.m_speedKMPH = speedKMPH;
+
+  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  size_t const pointsCount = ft.GetPointsCount();
+
+  feature::TAltitudes altitudes;
+  if (value.m_altitudeLoader)
+  {
+    altitudes = value.m_altitudeLoader->GetAltitudes(featureId.m_index, ft.GetPointsCount());
+  }
+  else
+  {
+    ASSERT(false, ());
+    altitudes = feature::TAltitudes(ft.GetPointsCount(), feature::kDefaultAltitudeMeters);
+  }
+
+  CHECK_EQUAL(altitudes.size(), pointsCount,
+              ("altitudeLoader->GetAltitudes(", featureId.m_index, "...) returns wrong alititudes:",
+               altitudes));
+
+  ri.m_junctions.resize(pointsCount);
+  for (size_t i = 0; i < pointsCount; ++i)
+    ri.m_junctions[i] = Junction(ft.GetPoint(i), altitudes[i]);
+}
+
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId) const
 {
   bool found = false;
@@ -271,19 +311,12 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
 
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-  ri.m_bidirectional = !IsOneWay(ft);
-  ri.m_speedKMPH = GetSpeedKMPHFromFt(ft);
-  ft.SwapPoints(ri.m_points);
-
-  LockFeatureMwm(featureId);
-
+  ExtractRoadInfo(featureId, ft, GetSpeedKMPHFromFt(ft), ri);
   return ri;
 }
 
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId,
-                                                                  FeatureType & ft,
+                                                                  FeatureType const & ft,
                                                                   double speedKMPH) const
 {
   bool found = false;
@@ -294,31 +327,19 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   // ft must be set
   ASSERT_EQUAL(featureId, ft.GetID(), ());
-
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-  ri.m_bidirectional = !IsOneWay(ft);
-  ri.m_speedKMPH = speedKMPH;
-  ft.SwapPoints(ri.m_points);
-
-  LockFeatureMwm(featureId);
-
+  ExtractRoadInfo(featureId, ft, speedKMPH, ri);
   return ri;
 }
 
-void FeaturesRoadGraph::LockFeatureMwm(FeatureID const & featureId) const
+FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockMwm(MwmSet::MwmId const & mwmId) const
 {
-  MwmSet::MwmId mwmId = featureId.m_mwmId;
   ASSERT(mwmId.IsAlive(), ());
 
   auto const itr = m_mwmLocks.find(mwmId);
   if (itr != m_mwmLocks.end())
-    return;
+    return itr->second;
 
-  MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(mwmId);
-  ASSERT(mwmHandle.IsAlive(), ());
-
-  m_mwmLocks.insert(make_pair(move(mwmId), move(mwmHandle)));
+  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_index.GetMwmHandleById(mwmId))))
+      .first->second;
 }
-
 }  // namespace routing

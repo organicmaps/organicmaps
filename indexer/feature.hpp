@@ -1,5 +1,6 @@
 #pragma once
 #include "indexer/cell_id.hpp"
+#include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 
 #include "geometry/point2d.hpp"

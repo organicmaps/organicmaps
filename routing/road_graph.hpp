@@ -4,6 +4,7 @@
 
 #include "base/string_utils.hpp"
 
+#include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 
 #include "std/initializer_list.hpp"
@@ -19,7 +20,7 @@ class Junction
 {
 public:
   Junction();
-  Junction(m2::PointD const & point);
+  Junction(m2::PointD const & point, feature::TAltitude altitude);
   Junction(Junction const &) = default;
   Junction & operator=(Junction const &) = default;
 
@@ -27,13 +28,20 @@ public:
   inline bool operator<(Junction const & r) const { return m_point < r.m_point; }
 
   inline m2::PointD const & GetPoint() const { return m_point; }
+  inline feature::TAltitude GetAltitude() const { return m_altitude; }
 
 private:
   friend string DebugPrint(Junction const & r);
 
   // Point of the junction
   m2::PointD m_point;
+  feature::TAltitude m_altitude;
 };
+
+inline Junction MakeJunctionForTesting(m2::PointD const & point)
+{
+  return Junction(point, feature::kDefaultAltitudeMeters);
+}
 
 inline bool AlmostEqualAbs(Junction const & lhs, Junction const & rhs)
 {
@@ -101,11 +109,11 @@ public:
   {
     RoadInfo();
     RoadInfo(RoadInfo && ri);
-    RoadInfo(bool bidirectional, double speedKMPH, initializer_list<m2::PointD> const & points);
+    RoadInfo(bool bidirectional, double speedKMPH, initializer_list<Junction> const & points);
     RoadInfo(RoadInfo const &) = default;
     RoadInfo & operator=(RoadInfo const &) = default;
 
-    buffer_vector<m2::PointD, 32> m_points;
+    buffer_vector<Junction, 32> m_junctions;
     double m_speedKMPH;
     bool m_bidirectional;
   };
@@ -114,7 +122,7 @@ public:
   class ICrossEdgesLoader
   {
   public:
-    ICrossEdgesLoader(m2::PointD const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
+    ICrossEdgesLoader(Junction const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
       : m_cross(cross), m_mode(mode), m_edges(edges)
     {
     }
@@ -133,29 +141,30 @@ public:
     template <typename TFn>
     void ForEachEdge(RoadInfo const & roadInfo, TFn && fn)
     {
-      for (size_t i = 0; i < roadInfo.m_points.size(); ++i)
+      for (size_t i = 0; i < roadInfo.m_junctions.size(); ++i)
       {
-        if (!my::AlmostEqualAbs(m_cross, roadInfo.m_points[i], kPointsEqualEpsilon))
+        if (!my::AlmostEqualAbs(m_cross.GetPoint(), roadInfo.m_junctions[i].GetPoint(),
+                                kPointsEqualEpsilon))
           continue;
 
-        if (i < roadInfo.m_points.size() - 1)
+        if (i < roadInfo.m_junctions.size() - 1)
         {
           // Head of the edge.
           // m_cross
           //     o------------>o
-          fn(i, roadInfo.m_points[i + 1], true /* forward */);
+          fn(i, roadInfo.m_junctions[i + 1], true /* forward */);
         }
         if (i > 0)
         {
           // Tail of the edge.
           //                m_cross
           //     o------------>o
-          fn(i - 1, roadInfo.m_points[i - 1],  false /* backward */);
+          fn(i - 1, roadInfo.m_junctions[i - 1], false /* backward */);
         }
       }
     }
 
-    m2::PointD const m_cross;
+    Junction const m_cross;
     IRoadGraph::Mode const m_mode;
     TEdgeVector & m_edges;
   };
@@ -163,8 +172,10 @@ public:
   class CrossOutgoingLoader : public ICrossEdgesLoader
   {
   public:
-    CrossOutgoingLoader(m2::PointD const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, mode, edges) {}
+    CrossOutgoingLoader(Junction const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
+      : ICrossEdgesLoader(cross, mode, edges)
+    {
+    }
 
   private:
     // ICrossEdgesLoader overrides:
@@ -174,8 +185,10 @@ public:
   class CrossIngoingLoader : public ICrossEdgesLoader
   {
   public:
-    CrossIngoingLoader(m2::PointD const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
-      : ICrossEdgesLoader(cross, mode, edges) {}
+    CrossIngoingLoader(Junction const & cross, IRoadGraph::Mode mode, TEdgeVector & edges)
+      : ICrossEdgesLoader(cross, mode, edges)
+    {
+    }
 
   private:
     // ICrossEdgesLoader overrides:
@@ -195,7 +208,7 @@ public:
 
   /// Adds fake edges from fake position rp to real vicinity
   /// positions.
-  void AddFakeEdges(Junction const & junction, vector<pair<Edge, m2::PointD>> const & vicinities);
+  void AddFakeEdges(Junction const & junction, vector<pair<Edge, Junction>> const & vicinities);
 
   /// Returns RoadInfo for a road corresponding to featureId.
   virtual RoadInfo GetRoadInfo(FeatureID const & featureId) const = 0;
@@ -217,7 +230,7 @@ public:
   /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
   /// then returns empty array.
   virtual void FindClosestEdges(m2::PointD const & point, uint32_t count,
-                                vector<pair<Edge, m2::PointD>> & vicinities) const = 0;
+                                vector<pair<Edge, Junction>> & vicinities) const = 0;
 
   /// @return Types for the specified feature
   virtual void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const = 0;
@@ -249,4 +262,7 @@ private:
   // Map of outgoing edges for junction
   map<Junction, TEdgeVector> m_outgoingEdges;
 };
+
+IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
+                                            initializer_list<m2::PointD> const & points);
 }  // namespace routing

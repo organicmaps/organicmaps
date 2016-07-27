@@ -19,7 +19,13 @@ double constexpr KMPH2MPS = 1000.0 / (60 * 60);
 inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double speedMPS)
 {
   ASSERT(speedMPS > 0.0, ());
-  return MercatorBounds::DistanceOnEarth(j1.GetPoint(), j2.GetPoint()) / speedMPS;
+  ASSERT_NOT_EQUAL(j1.GetAltitude(), feature::kInvalidAltitude, ());
+  ASSERT_NOT_EQUAL(j2.GetAltitude(), feature::kInvalidAltitude, ());
+
+  double const distanceM = MercatorBounds::DistanceOnEarth(j1.GetPoint(), j2.GetPoint());
+  double const altitudeDiffM =
+      static_cast<double>(j2.GetAltitude()) - static_cast<double>(j1.GetAltitude());
+  return sqrt(distanceM * distanceM + altitudeDiffM * altitudeDiffM) / speedMPS;
 }
 
 /// A class which represents an weighted edge used by RoadGraph.

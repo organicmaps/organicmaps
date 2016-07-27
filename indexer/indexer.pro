@@ -10,6 +10,7 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
+    altitude_loader.cpp \
     categories_holder.cpp \
     categories_holder_loader.cpp \
     categories_index.cpp \
@@ -61,6 +62,7 @@ SOURCES += \
     types_mapping.cpp \
 
 HEADERS += \
+    altitude_loader.hpp \
     categories_holder.hpp \
     categories_index.hpp \
     cell_coverer.hpp \
@@ -81,6 +83,7 @@ HEADERS += \
     edits_migration.hpp \
     feature.hpp \
     feature_algo.hpp \
+    feature_altitude.hpp \
     feature_covering.hpp \
     feature_data.hpp \
     feature_decl.hpp \

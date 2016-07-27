@@ -84,10 +84,10 @@ void SrtmTile::Init(string const & dir, ms::LatLon const & coord)
   m_valid = true;
 }
 
-SrtmTile::THeight SrtmTile::GetHeight(ms::LatLon const & coord)
+feature::TAltitude SrtmTile::GetHeight(ms::LatLon const & coord)
 {
   if (!IsValid())
-    return kInvalidHeight;
+    return feature::kInvalidAltitude;
 
   double ln = coord.lon - static_cast<int>(coord.lon);
   if (ln < 0)
@@ -103,7 +103,7 @@ SrtmTile::THeight SrtmTile::GetHeight(ms::LatLon const & coord)
   size_t const ix = row * (kArcSecondsInDegree + 1) + col;
 
   if (ix >= Size())
-    return kInvalidHeight;
+    return feature::kInvalidAltitude;
   return ReverseByteOrder(Data()[ix]);
 }
 
@@ -145,8 +145,7 @@ void SrtmTile::Invalidate()
 
 // SrtmTileManager ---------------------------------------------------------------------------------
 SrtmTileManager::SrtmTileManager(string const & dir) : m_dir(dir) {}
-
-SrtmTile::THeight SrtmTileManager::GetHeight(ms::LatLon const & coord)
+feature::TAltitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
 {
   string const base = SrtmTile::GetBase(coord);
   auto it = m_tiles.find(base);

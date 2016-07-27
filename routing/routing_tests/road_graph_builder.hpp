@@ -19,7 +19,7 @@ public:
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgeLoader) const override;
   void FindClosestEdges(m2::PointD const & point, uint32_t count,
-                        vector<pair<routing::Edge, m2::PointD>> & vicinities) const override;
+                        vector<pair<routing::Edge, routing::Junction>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
   void GetJunctionTypes(routing::Junction const & junction, feature::TypesHolder & types) const override;
   routing::IRoadGraph::Mode GetMode() const override;

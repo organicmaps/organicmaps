@@ -49,6 +49,7 @@ SOURCES += \
     turns_tts_text.cpp \
     vehicle_model.cpp \
 
+
 HEADERS += \
     async_router.hpp \
     base/astar_algorithm.hpp \
@@ -79,6 +80,7 @@ HEADERS += \
     router.hpp \
     router_delegate.hpp \
     routing_algorithm.hpp \
+    routing_helpers.hpp \
     routing_mapping.hpp \
     routing_result_graph.hpp \
     routing_session.hpp \

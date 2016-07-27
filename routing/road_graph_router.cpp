@@ -39,7 +39,7 @@ size_t constexpr kTestConnectivityVisitJunctionsLimit = 25;
 uint64_t constexpr kMinPedestrianMwmVersion = 150713;
 
 // Check if the found edges lays on mwm with pedestrian routing support.
-bool CheckMwmVersion(vector<pair<Edge, m2::PointD>> const & vicinities, vector<string> & mwmNames)
+bool CheckMwmVersion(vector<pair<Edge, Junction>> const & vicinities, vector<string> & mwmNames)
 {
   mwmNames.clear();
   for (auto const & vicinity : vicinities)
@@ -92,7 +92,7 @@ bool CheckGraphConnectivity(IRoadGraph const & graph, Junction const & junction,
 
 // Find closest candidates in the world graph
 void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
-                      vector<pair<Edge, m2::PointD>> & vicinity)
+                      vector<pair<Edge, Junction>> & vicinity)
 {
   // WARNING: Take only one vicinity
   // It is an oversimplification that is not as easily
@@ -101,7 +101,7 @@ void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
   // an obstacle.  Using only the closest feature minimizes (but not
   // eliminates) this risk.
 
-  vector<pair<Edge, m2::PointD>> candidates;
+  vector<pair<Edge, Junction>> candidates;
   graph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
 
   vicinity.clear();
@@ -156,7 +156,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   if (!CheckMapExistence(startPoint, route) || !CheckMapExistence(finalPoint, route))
     return IRouter::RouteFileNotExist;
 
-  vector<pair<Edge, m2::PointD>> finalVicinity;
+  vector<pair<Edge, Junction>> finalVicinity;
   FindClosestEdges(*m_roadGraph, finalPoint, finalVicinity);
 
   if (finalVicinity.empty())
@@ -170,7 +170,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
       route.AddAbsentCountry(name);
   }
 
-  vector<pair<Edge, m2::PointD>> startVicinity;
+  vector<pair<Edge, Junction>> startVicinity;
   FindClosestEdges(*m_roadGraph, startPoint, startVicinity);
 
   if (startVicinity.empty())
@@ -186,8 +186,10 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   if (!route.GetAbsentCountries().empty())
     return IRouter::FileTooOld;
 
-  Junction const startPos(startPoint);
-  Junction const finalPos(finalPoint);
+  // Let us assume that the closest to startPoint/finalPoint feature point has the same altitude
+  // with startPoint/finalPoint.
+  Junction const startPos(startPoint, startVicinity.front().second.GetAltitude());
+  Junction const finalPos(finalPoint, finalVicinity.front().second.GetAltitude());
 
   m_roadGraph->ResetFakes();
   m_roadGraph->AddFakeEdges(startPos, startVicinity);

@@ -32,6 +32,7 @@ namespace feature
     TReader GetDataReader() const;
     TReader GetMetadataReader() const;
     TReader GetMetadataIndexReader() const;
+    TReader GetAltitudeReader() const;
     TReader GetGeometryReader(int ind) const;
     TReader GetTrianglesReader(int ind) const;
 

@@ -638,6 +638,13 @@ bool BicycleModel::IsOneWay(FeatureType const & f) const
   return VehicleModel::IsOneWay(f);
 }
 
+// static
+BicycleModel const & BicycleModel::AllLimitsInstance()
+{
+  static BicycleModel const instance;
+  return instance;
+}
+
 BicycleModelFactory::BicycleModelFactory()
 {
   m_models[string()] = make_shared<BicycleModel>(g_bicycleLimitsDefault);
@@ -679,7 +686,7 @@ shared_ptr<IVehicleModel> BicycleModelFactory::GetVehicleModelForCountry(string 
     LOG(LDEBUG, ("Bicycle model was found:", country));
     return itr->second;
   }
-  LOG(LDEBUG, ("Bicycle model wasn't found, default model is used instead:", country));
+  LOG(LDEBUG, ("Bicycle model wasn't found, default bicycle model is used instead:", country));
   return BicycleModelFactory::GetVehicleModel();
 }
 }  // routing

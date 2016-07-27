@@ -15,6 +15,7 @@ INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src \
 QT *= core
 
 SOURCES += \
+    altitude_generator.cpp \
     booking_dataset.cpp \
     booking_scoring.cpp \
     borders_generator.cpp \
@@ -41,6 +42,7 @@ SOURCES += \
     unpack_mwm.cpp \
 
 HEADERS += \
+    altitude_generator.hpp \
     booking_dataset.hpp \
     booking_scoring.hpp \
     borders_generator.hpp \

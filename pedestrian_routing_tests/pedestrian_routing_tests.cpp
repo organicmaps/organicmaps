@@ -4,10 +4,12 @@
 #include "indexer/classificator_loader.hpp"
 
 #include "routing/features_road_graph.hpp"
-#include "routing/road_graph_router.hpp"
-#include "routing/route.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/pedestrian_model.hpp"
+#include "routing/pedestrian_model.hpp"
+#include "routing/road_graph.hpp"
+#include "routing/road_graph_router.hpp"
+#include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -124,7 +126,8 @@ m2::PointD GetPointOnEdge(routing::Edge & e, double posAlong)
   return e.GetStartJunction().GetPoint() + d * posAlong;
 }
 
-void GetNearestPedestrianEdges(Index & index, m2::PointD const & pt, vector<pair<routing::Edge, m2::PointD>> & edges)
+void GetNearestPedestrianEdges(Index & index, m2::PointD const & pt,
+                               vector<pair<routing::Edge, routing::Junction>> & edges)
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   routing::FeaturesRoadGraph roadGraph(index, routing::IRoadGraph::Mode::IgnoreOnewayTag,
@@ -189,11 +192,11 @@ void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & fina
     TEST(id.IsAlive(), ());
   }
 
-  vector<pair<routing::Edge, m2::PointD>> startEdges;
+  vector<pair<routing::Edge, routing::Junction>> startEdges;
   GetNearestPedestrianEdges(index, startPos, startEdges);
   TEST(!startEdges.empty(), ());
 
-  vector<pair<routing::Edge, m2::PointD>> finalEdges;
+  vector<pair<routing::Edge, routing::Junction>> finalEdges;
   GetNearestPedestrianEdges(index, finalPos, finalEdges);
   TEST(!finalEdges.empty(), ());
 
