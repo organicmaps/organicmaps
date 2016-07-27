@@ -103,7 +103,7 @@ if [ "$SOURCE_TYPE" == "pbf" -o "$SOURCE_TYPE" == "bz2" -o "$SOURCE_TYPE" == "os
 fi
 if [ "$SOURCE_TYPE" == "o5m" ]; then
   $GENERATOR_TOOL $INTDIR_FLAG --osm_file_type=o5m --osm_file_name="$SOURCE_FILE" --preprocess=true || fail "Preprocessing failed"
-  $GENERATOR_TOOL $INTDIR_FLAG --osm_file_type=o5m --osm_file_name="$SOURCE_FILE" --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME" --srtm_path="./../../maps/srtm/2000.02.11/"
+  $GENERATOR_TOOL $INTDIR_FLAG --osm_file_type=o5m --osm_file_name="$SOURCE_FILE" --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
 else
   fail "Unsupported source type: $SOURCE_TYPE"
 fi

@@ -220,7 +220,12 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
     w.Seek(startOffset);
     header.Serialize(w);
     w.Seek(endOffset);
-    LOG(LINFO, (ALTITUDES_FILE_TAG, "section is ready. The size is", endOffset - startOffset));
+    LOG(LINFO, (ALTITUDES_FILE_TAG, "section is ready. The size is", endOffset - startOffset,
+                "min altitude is", processor.GetMinAltitude()));
+    if (processor.HasAltitudeInfo())
+      LOG(LINFO, ("Min altitude is", processor.GetMinAltitude()));
+    else
+      LOG(LINFO, ("Min altitude isn't defined."));
   }
   catch (RootException const & e)
   {

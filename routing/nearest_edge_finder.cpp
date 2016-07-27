@@ -41,12 +41,15 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
       feature::TAltitude projPointAlt = feature::kDefaultAltitudeMeters;
       if (segLenM == 0.0)
       {
-        ASSERT(false, (featureId));
+        LOG(LWARNING, ("Length of segment", i, " of feature", featureId, "is zero."));
         projPointAlt = startAlt;
       }
-      double const distFromStartM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), pt);
-      ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (featureId));
-      projPointAlt = startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
+      else
+      {
+        double const distFromStartM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), pt);
+        ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (featureId));
+        projPointAlt = startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
+      }
 
       res.m_dist = d;
       res.m_fid = featureId;
