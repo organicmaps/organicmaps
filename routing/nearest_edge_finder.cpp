@@ -41,12 +41,10 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
       // to segment [res.m_segStart.GetPoint(), res.m_segEnd.GetPoint()].
       // It's necessary to calculate exact value of res.m_projPoint.GetAltitude() by this
       // information.
-      bool const isAltitude = res.m_segStart.GetAltitude() != feature::kInvalidAltitude &&
-                              res.m_segEnd.GetAltitude() != feature::kInvalidAltitude;
+      ASSERT_NOT_EQUAL(res.m_segStart.GetAltitude() , feature::kInvalidAltitude, ());
+      ASSERT_NOT_EQUAL(res.m_segEnd.GetAltitude(), feature::kInvalidAltitude, ());
       feature::TAltitude const projPointAlt =
-          isAltitude ? static_cast<feature::TAltitude>(
-                           (res.m_segStart.GetAltitude() + res.m_segEnd.GetAltitude()) / 2)
-                     : feature::kInvalidAltitude;
+           static_cast<feature::TAltitude>((res.m_segStart.GetAltitude() + res.m_segEnd.GetAltitude()) / 2);
       res.m_projPoint = Junction(pt, projPointAlt);
     }
   }

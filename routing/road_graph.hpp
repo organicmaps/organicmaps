@@ -39,7 +39,7 @@ private:
 
 inline Junction MakeJunctionForTesting(m2::PointD const & point)
 {
-  return Junction(point, feature::kInvalidAltitude);
+  return Junction(point, feature::kDefautlAltitudeMeters);
 }
 
 inline bool AlmostEqualAbs(Junction const & lhs, Junction const & rhs)
