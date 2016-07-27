@@ -47,7 +47,7 @@ bool Uri::Parse()
   return true;
 }
 
-void Uri::ForEachKeyValue(CallbackT const & callback) const
+bool Uri::ForEachKeyValue(CallbackT const & callback) const
 {
   // parse query for keys and values
   size_t const count = m_url.size();
@@ -71,11 +71,13 @@ void Uri::ForEachKeyValue(CallbackT const & callback) const
       else
         key = UrlDecode(m_url.substr(start, end - start));
 
-      callback(key, value);
+      if (!callback(key, value))
+        return false;
     }
 
     start = end + 1;
   }
+  return true;
 }
 
 }

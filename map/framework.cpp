@@ -1749,31 +1749,16 @@ bool Framework::ShowMapForURL(string const & url)
       result = NEED_CLICK;
     }
   }
-  else if (StartsWith(url, "mapswithme://") || StartsWith(url, "mwm://"))
+  else if (StartsWith(url, "mapswithme://") || StartsWith(url, "mwm://") ||
+           StartsWith(url, "mapsme://"))
   {
-    // clear every current API-mark.
-    {
-      UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
-      guard.m_controller.Clear();
-      guard.m_controller.SetIsVisible(true);
-      guard.m_controller.SetIsDrawable(true);
-    }
+    if (!m_ParsedMapApi.GetViewportRect(rect))
+      rect = df::GetWorldRect();
 
-    if (m_ParsedMapApi.SetUriAndParse(url))
-    {
-      if (!m_ParsedMapApi.GetViewportRect(rect))
-        rect = df::GetWorldRect();
-
-      if ((apiMark = m_ParsedMapApi.GetSinglePoint()))
-        result = NEED_CLICK;
-      else
-        result = NO_NEED_CLICK;
-    }
+    if ((apiMark = m_ParsedMapApi.GetSinglePoint()))
+      result = NEED_CLICK;
     else
-    {
-      UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
-      guard.m_controller.SetIsVisible(false);
-    }
+      result = NO_NEED_CLICK;
   }
   else  // Actually, we can parse any geo url scheme with correct coordinates.
   {
@@ -1817,6 +1802,39 @@ bool Framework::ShowMapForURL(string const & url)
   }
 
   return false;
+}
+
+url_scheme::ParsingResult Framework::ParseApiURL(string const & url)
+{
+  using namespace url_scheme;
+  using namespace strings;
+
+  // clear every current API-mark.
+  {
+    UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
+    guard.m_controller.Clear();
+    guard.m_controller.SetIsVisible(true);
+    guard.m_controller.SetIsDrawable(true);
+  }
+
+  if (!StartsWith(url, "mapswithme://") && !StartsWith(url, "mwm://") &&
+      !StartsWith(url, "mapsme://"))
+    return ParsingResult::Incorrect;
+
+  auto const resultType = m_ParsedMapApi.SetUriAndParse(url);
+
+  if (resultType == ParsingResult::Incorrect)
+  {
+    LOG(LWARNING, ("Incorrect api url", url));
+    UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
+    guard.m_controller.SetIsVisible(false);
+  }
+  return resultType;
+}
+
+Framework::TParsedRoutingPointAndType Framework::GetParsedRoutingData() const
+{
+  return {m_ParsedMapApi.GetRoutePoints(), routing::FromString(m_ParsedMapApi.GetRoutingType())};
 }
 
 void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator,
@@ -2240,7 +2258,6 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
   if (IsRoutingActive())
     CloseRouting();
 
-  SetLastUsedRouter(m_currentRouterType);
   m_routingSession.SetUserCurrentPosition(start);
 
   auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
@@ -2310,6 +2327,8 @@ void Framework::SetRouter(RouterType type)
 
   if (m_currentRouterType == type)
     return;
+
+  SetLastUsedRouter(type);
   SetRouterImpl(type);
 }
 

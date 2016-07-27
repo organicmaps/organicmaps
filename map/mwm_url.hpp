@@ -19,7 +19,23 @@ struct ApiPoint
   string m_style;
 };
 
+struct RoutePoint
+{
+  RoutePoint() = default;
+  RoutePoint(m2::PointD const & org, string const & name) : m_org(org), m_name(name) {}
+  m2::PointD m_org = m2::PointD::Zero();
+  string m_name;
+  ;
+};
+
 class Uri;
+
+enum class ParsingResult
+{
+  Incorrect,
+  Map,
+  Route
+};
 
 /// Handles [mapswithme|mwm]://map?params - everything related to displaying info on a map
 class ParsedMapApi
@@ -29,8 +45,8 @@ public:
 
   void SetBookmarkManager(BookmarkManager * manager);
 
-  bool SetUriAndParse(string const & url);
-  bool IsValid() const;
+  ParsingResult SetUriAndParse(string const & url);
+  bool IsValid() const { return m_isValid; }
   string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
   string const & GetAppTitle() const { return m_appTitle; }
   int GetApiVersion() const { return m_version; }
@@ -40,19 +56,24 @@ public:
   /// @name Used in settings map viewport after invoking API.
   bool GetViewportRect(m2::RectD & rect) const;
   ApiMarkPoint const * GetSinglePoint() const;
-
+  vector<RoutePoint> GetRoutePoints() const { return m_routePoints; }
+  string GetRoutingType() const { return m_routingType; }
 private:
-  bool Parse(Uri const & uri);
-  void AddKeyValue(string key, string const & value, vector<ApiPoint> & points);
+  ParsingResult Parse(Uri const & uri);
+  bool AddKeyValue(string key, string const & value, vector<ApiPoint> & points);
+  bool RouteKeyValue(string key, string const & value, vector<string> & pattern);
 
   BookmarkManager * m_bmManager;
+  vector<RoutePoint> m_routePoints;
   string m_globalBackUrl;
   string m_appTitle;
+  string m_routingType;
   int m_version;
   /// Zoom level in OSM format (e.g. from 1.0 to 20.0)
   /// Taken into an account when calculating viewport rect, but only if points count is == 1
   double m_zoomLevel;
-  bool m_goBackOnBalloonClick;
+  bool m_goBackOnBalloonClick = false;
+  bool m_isValid = false;
 };
 
 }

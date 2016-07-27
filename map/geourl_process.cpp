@@ -123,20 +123,19 @@ namespace url_scheme
     {
       return (m_latPriority == m_lonPriority && m_latPriority != -1);
     }
-
-    void operator()(string const & key, string const & value)
+    bool operator()(string const & key, string const & value)
     {
       if (key == "z" || key == "zoom")
       {
         double x;
         if (strings::to_double(value, x))
           m_info.SetZoom(x);
-        return;
+        return true;
       }
 
       int const priority = GetCoordinatesPriority(key);
       if (priority == -1 || priority < m_latPriority || priority < m_lonPriority)
-        return;
+        return false;
 
       if (priority != LL_PRIORITY)
       {
@@ -160,6 +159,7 @@ namespace url_scheme
           }
         }
       }
+      return true;
     }
   };
 

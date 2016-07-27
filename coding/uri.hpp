@@ -13,7 +13,7 @@ namespace url_scheme
 class Uri
 {
 public:
-  typedef function<void (string const &, string const &)> CallbackT;
+  typedef function<bool(string const &, string const &)> CallbackT;
 
   explicit Uri(string const & uri) : m_url(uri) { Init(); }
   Uri(char const * uri, size_t size) : m_url(uri, uri + size) { Init(); }
@@ -21,8 +21,7 @@ public:
   string const & GetScheme() const { return m_scheme; }
   string const & GetPath() const { return m_path; }
   bool IsValid() const { return !m_scheme.empty(); }
-
-  void ForEachKeyValue(CallbackT const & callback) const;
+  bool ForEachKeyValue(CallbackT const & callback) const;
 
 private:
   void Init();

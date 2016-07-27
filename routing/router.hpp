@@ -25,6 +25,7 @@ enum class RouterType
 };
 
 string ToString(RouterType type);
+RouterType FromString(string const & str);
 
 class IRouter
 {
