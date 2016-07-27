@@ -29,6 +29,7 @@ public:
 
   inline m2::PointD const & GetPoint() const { return m_point; }
   inline feature::TAltitude GetAltitude() const { return m_altitude; }
+
 private:
   friend string DebugPrint(Junction const & r);
 
@@ -39,7 +40,7 @@ private:
 
 inline Junction MakeJunctionForTesting(m2::PointD const & point)
 {
-  return Junction(point, feature::kDefautlAltitudeMeters);
+  return Junction(point, feature::kDefaultAltitudeMeters);
 }
 
 inline bool AlmostEqualAbs(Junction const & lhs, Junction const & rhs)

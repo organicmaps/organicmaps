@@ -38,7 +38,7 @@ string GetFeatureCountryName(FeatureID const featureId)
 }
 }  // namespace
 
-FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle && handle) : m_mwmHandle(move(handle))
+FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle handle) : m_mwmHandle(move(handle))
 {
   if (!m_mwmHandle.IsAlive())
     return;
@@ -282,7 +282,7 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   else
   {
     ASSERT(false, ());
-    altitudes = feature::TAltitudes(ft.GetPointsCount(), feature::kDefautlAltitudeMeters);
+    altitudes = feature::TAltitudes(ft.GetPointsCount(), feature::kDefaultAltitudeMeters);
   }
 
   CHECK_EQUAL(altitudes.size(), pointsCount,

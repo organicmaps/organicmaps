@@ -46,6 +46,7 @@ class SrtmGetter : public AltitudeGetter
 {
 public:
   SrtmGetter(string const & srtmDir) : m_srtmManager(srtmDir) {}
+
   // AltitudeGetter overrides:
   feature::TAltitude GetAltitude(m2::PointD const & p) override
   {
@@ -113,7 +114,10 @@ public:
     {
       TAltitude const a = m_altitudeGetter.GetAltitude(f.GetPoint(i));
       if (a == kInvalidAltitude)
+      {
+        // One invalid point invalidates the whole feature.
         return;
+      }
 
       if (minFeatureAltitude == kInvalidAltitude)
         minFeatureAltitude = a;
@@ -133,6 +137,7 @@ public:
   }
 
   bool HasAltitudeInfo() const { return !m_featureAltitudes.empty(); }
+
   bool IsFeatureAltitudesSorted()
   {
     return is_sorted(m_featureAltitudes.begin(), m_featureAltitudes.end(),

@@ -52,6 +52,7 @@ string const kTestMwm = "test";
 struct Point3D
 {
   Point3D(int32_t x, int32_t y, TAltitude a) : m_point(x, y), m_altitude(a) {}
+
   m2::PointI m_point;
   TAltitude m_altitude;
 };

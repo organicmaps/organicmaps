@@ -9,6 +9,8 @@
 
 #include "defines.hpp"
 
+#include "std/algorithm.hpp"
+
 #include "3party/succinct/mapper.hpp"
 
 namespace
@@ -59,7 +61,7 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
   if (!HasAltitudes())
   {
     // The version of mwm is less than version::Format::v8 or there's no altitude section in mwm.
-    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, kDefautlAltitudeMeters))).first->second;
+    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, kDefaultAltitudeMeters))).first->second;
   }
 
   auto const it = m_cache.find(featureId);
@@ -87,9 +89,9 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
     src.Skip(altitudeInfoOffsetInSection);
     altitudes.Deserialize(m_header.m_minAltitude, pointCount, src);
 
-    bool const isResultValid = none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
-                                       [](TAltitude a) { return a == kInvalidAltitude; });
-    if (!isResultValid)
+    bool const allValid = none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
+                                  [](TAltitude a) { return a == kInvalidAltitude; });
+    if (!allValid)
     {
       ASSERT(false, (altitudes.m_altitudes));
       return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;

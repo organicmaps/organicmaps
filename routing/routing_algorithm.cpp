@@ -23,8 +23,9 @@ inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double sp
   ASSERT_NOT_EQUAL(j2.GetAltitude(), feature::kInvalidAltitude, ());
 
   double const distanceM = MercatorBounds::DistanceOnEarth(j1.GetPoint(), j2.GetPoint());
-  feature::TAltitude const altidudeDiffM = j2.GetAltitude() - j1.GetAltitude();
-  return sqrt(distanceM * distanceM + altidudeDiffM * altidudeDiffM) / speedMPS;
+  double const altitudeDiffM =
+      static_cast<double>(j2.GetAltitude()) - static_cast<double>(j1.GetAltitude());
+  return sqrt(distanceM * distanceM + altitudeDiffM * altitudeDiffM) / speedMPS;
 }
 
 /// A class which represents an weighted edge used by RoadGraph.

@@ -32,19 +32,31 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
     double const d = m_point.SquareLength(pt);
     if (d < res.m_dist)
     {
+      Junction const & segStart = roadInfo.m_junctions[i - 1];
+      Junction const & segEnd = roadInfo.m_junctions[i];
+      feature::TAltitude const startAlt = segStart.GetAltitude();
+      feature::TAltitude const endAlt = segEnd.GetAltitude();
+
+      double const segLenM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), segEnd.GetPoint());
+      feature::TAltitude projPointAlt = feature::kDefaultAltitudeMeters;
+      if (segLenM == 0.0)
+      {
+        ASSERT(false, (featureId));
+        projPointAlt = startAlt;
+      }
+      double const distFromStartM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), pt);
+      ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (featureId));
+      projPointAlt = startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
+
       res.m_dist = d;
       res.m_fid = featureId;
       res.m_segId = static_cast<uint32_t>(i - 1);
-      res.m_segStart = roadInfo.m_junctions[i - 1];
-      res.m_segEnd = roadInfo.m_junctions[i];
-      // @TODO res.m_projPoint.GetAltitude() is an altitude of |pt|. |pt| is a projection of m_point
-      // to segment [res.m_segStart.GetPoint(), res.m_segEnd.GetPoint()].
-      // It's necessary to calculate exact value of res.m_projPoint.GetAltitude() by this
-      // information.
+      res.m_segStart = segStart;
+      res.m_segEnd = segEnd;
+
       ASSERT_NOT_EQUAL(res.m_segStart.GetAltitude() , feature::kInvalidAltitude, ());
       ASSERT_NOT_EQUAL(res.m_segEnd.GetAltitude(), feature::kInvalidAltitude, ());
-      feature::TAltitude const projPointAlt =
-           static_cast<feature::TAltitude>((res.m_segStart.GetAltitude() + res.m_segEnd.GetAltitude()) / 2);
+
       res.m_projPoint = Junction(pt, projPointAlt);
     }
   }

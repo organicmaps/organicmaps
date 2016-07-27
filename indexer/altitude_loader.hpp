@@ -16,8 +16,8 @@ class AltitudeLoader
 public:
   explicit AltitudeLoader(MwmValue const & mwmValue);
 
-  /// \returns altitude of feature with |featureId|. All items of the returned vertor are valid
-  /// or the returned vertor is empty.
+  /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
+  /// or the returned vector is empty.
   TAltitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
 
 private:

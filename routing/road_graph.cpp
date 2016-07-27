@@ -66,7 +66,7 @@ void ReverseEdges(size_t beginIdx, IRoadGraph::TEdgeVector & edges)
 
 // Junction --------------------------------------------------------------------
 
-Junction::Junction() : m_point(m2::PointD::Zero()), m_altitude(feature::kDefautlAltitudeMeters) {}
+Junction::Junction() : m_point(m2::PointD::Zero()), m_altitude(feature::kDefaultAltitudeMeters) {}
 Junction::Junction(m2::PointD const & point, feature::TAltitude altitude)
   : m_point(point), m_altitude(altitude)
 {}

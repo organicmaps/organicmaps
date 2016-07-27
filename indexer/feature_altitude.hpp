@@ -15,7 +15,7 @@ using TAltitude = int16_t;
 using TAltitudes = vector<feature::TAltitude>;
 
 TAltitude constexpr kInvalidAltitude = numeric_limits<TAltitude>::min();
-feature::TAltitude constexpr kDefautlAltitudeMeters = 0;
+feature::TAltitude constexpr kDefaultAltitudeMeters = 0;
 
 struct AltitudeHeader
 {
@@ -55,7 +55,7 @@ struct AltitudeHeader
   void Reset()
   {
     m_version = 0;
-    m_minAltitude = kDefautlAltitudeMeters;
+    m_minAltitude = kDefaultAltitudeMeters;
     m_featureTableOffset = 0;
     m_altitudesOffset = 0;
     m_endOffset = 0;

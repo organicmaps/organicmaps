@@ -82,7 +82,7 @@ private:
   struct Value
   {
     Value() = default;
-    explicit Value(MwmSet::MwmHandle && handle);
+    explicit Value(MwmSet::MwmHandle handle);
 
     bool IsAlive() const { return m_mwmHandle.IsAlive(); }
 
