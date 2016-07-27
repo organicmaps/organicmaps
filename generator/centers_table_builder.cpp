@@ -10,7 +10,8 @@
 #include "coding/file_container.hpp"
 
 #include "platform/mwm_traits.hpp"
-#include "platform/platform.hpp"
+
+#include "base/exception.hpp"
 
 #include "defines.hpp"
 
@@ -18,41 +19,49 @@ namespace indexer
 {
 bool BuildCentersTableFromDataFile(string const & filename, bool forceRebuild)
 {
-  search::CentersTableBuilder builder;
-
+  try
   {
-    auto const & platform = GetPlatform();
-    FilesContainerR rcont(platform.GetReader(filename, "f"));
-    if (!forceRebuild && rcont.IsExist(CENTERS_FILE_TAG))
-      return true;
+    search::CentersTableBuilder builder;
 
-    feature::DataHeader header(rcont);
-
-    version::MwmTraits traits(header.GetFormat());
-    if (!traits.HasOffsetsTable())
     {
-      LOG(LERROR, (filename, "does not have an offsets table!"));
-      return false;
+      FilesContainerR rcont(filename);
+      if (!forceRebuild && rcont.IsExist(CENTERS_FILE_TAG))
+        return true;
+
+      feature::DataHeader header(rcont);
+
+      version::MwmTraits const traits(header.GetFormat());
+      if (!traits.HasOffsetsTable())
+      {
+        LOG(LERROR, (filename, "does not have an offsets table!"));
+        return false;
+      }
+
+      auto const table = feature::FeaturesOffsetsTable::Load(rcont);
+      if (!table)
+      {
+        LOG(LERROR, ("Can't load offsets table from:", filename));
+        return false;
+      }
+
+      FeaturesVector const features(rcont, header, table.get());
+
+      builder.SetCodingParams(header.GetDefCodingParams());
+      features.ForEach([&](FeatureType & ft, uint32_t featureId) {
+        builder.Put(featureId, feature::GetCenter(ft));
+      });
     }
-    auto table = feature::FeaturesOffsetsTable::Load(rcont);
-    if (!table)
+
     {
-      LOG(LERROR, ("Can't load offsets table from:", filename));
-      return false;
+      FilesContainerW writeContainer(filename, FileWriter::OP_WRITE_EXISTING);
+      FileWriter writer = writeContainer.GetWriter(CENTERS_FILE_TAG);
+      builder.Freeze(writer);
     }
-
-    FeaturesVector features(rcont, header, table.get());
-
-    builder.SetCodingParams(header.GetDefCodingParams());
-    features.ForEach([&](FeatureType & ft, uint32_t featureId) {
-      builder.Put(featureId, feature::GetCenter(ft));
-    });
   }
-
+  catch (RootException const & e)
   {
-    FilesContainerW writeContainer(filename, FileWriter::OP_WRITE_EXISTING);
-    FileWriter writer = writeContainer.GetWriter(CENTERS_FILE_TAG);
-    builder.Freeze(writer);
+    LOG(LERROR, ("Failed to build centers table:", e.Msg()));
+    return false;
   }
 
   return true;

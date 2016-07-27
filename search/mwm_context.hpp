@@ -9,6 +9,8 @@
 
 #include "base/macros.hpp"
 
+#include "std/shared_ptr.hpp"
+#include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 
 class MwmValue;

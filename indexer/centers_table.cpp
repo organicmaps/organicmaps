@@ -272,7 +272,7 @@ void CentersTableBuilder::Put(uint32_t featureId, m2::PointD const & center)
   m_ids.push_back(featureId);
 }
 
-void CentersTableBuilder::Freeze(Writer & writer)
+void CentersTableBuilder::Freeze(Writer & writer) const
 {
   CentersTableV0::Header header;
 

@@ -22,7 +22,7 @@ public:
     STATE_FAILED
   };
 
-  LazyCentersTable(MwmValue & value);
+  explicit LazyCentersTable(MwmValue & value);
 
   inline State GetState() const { return m_state; }
 

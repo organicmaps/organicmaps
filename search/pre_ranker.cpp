@@ -17,8 +17,6 @@ namespace search
 {
 namespace
 {
-size_t const kBatchSize = 100;
-
 struct LessFeatureID
 {
   using TValue = PreResult1;
@@ -68,7 +66,7 @@ void PreRanker::FillMissingFieldsInPreResults()
   unique_ptr<RankTable> ranks = make_unique<DummyRankTable>();
   unique_ptr<LazyCentersTable> centers;
 
-  bool const fillCenters = (Size() > kBatchSize);
+  bool const fillCenters = (Size() > BatchSize());
 
   if (fillCenters)
     m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
@@ -120,7 +118,7 @@ void PreRanker::Filter(bool viewportSearch)
 
   sort(m_results.begin(), m_results.end(), &PreResult1::LessDistance);
 
-  if (m_results.size() > kBatchSize)
+  if (m_results.size() > BatchSize())
   {
     // Priority is some kind of distance from the viewport or
     // position, therefore if we have a bunch of results with the same
@@ -129,15 +127,15 @@ void PreRanker::Filter(bool viewportSearch)
     // feature id) this code randomly selects tail of the
     // sorted-by-priority list of pre-results.
 
-    double const last = m_results[kBatchSize - 1].GetDistance();
+    double const last = m_results[BatchSize()].GetDistance();
 
-    auto b = m_results.begin() + kBatchSize - 1;
+    auto b = m_results.begin() + BatchSize();
     for (; b != m_results.begin() && b->GetDistance() == last; --b)
       ;
     if (b->GetDistance() != last)
       ++b;
 
-    auto e = m_results.begin() + kBatchSize;
+    auto e = m_results.begin() + BatchSize();
     for (; e != m_results.end() && e->GetDistance() == last; ++e)
       ;
 
@@ -153,11 +151,11 @@ void PreRanker::Filter(bool viewportSearch)
     minstd_rand engine;
     shuffle(b, e, engine);
   }
-  filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), kBatchSize));
+  filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), BatchSize()));
 
   if (!viewportSearch)
   {
-    size_t n = min(m_results.size(), kBatchSize);
+    size_t n = min(m_results.size(), BatchSize());
     nth_element(m_results.begin(), m_results.begin() + n, m_results.end(), &PreResult1::LessRank);
     filtered.insert(m_results.begin(), m_results.begin() + n);
   }

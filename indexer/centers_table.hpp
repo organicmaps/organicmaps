@@ -68,7 +68,7 @@ public:
   }
 
   void Put(uint32_t featureId, m2::PointD const & center);
-  void Freeze(Writer & writer);
+  void Freeze(Writer & writer) const;
 
 private:
   serial::CodingParams m_codingParams;

@@ -137,8 +137,8 @@ int main(int argc, char ** argv)
 
   // Load classificator only when necessary.
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
-      FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_generate_centers_table ||
-      FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
+      FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
+      FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm)
   {
     classificator::Load();

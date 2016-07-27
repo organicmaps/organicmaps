@@ -70,13 +70,9 @@ public:
   Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
          CategoriesHolder const & categories, vector<Suggest> const & suggests,
          my::Cancellable const & cancellable);
+  virtual ~Ranker() = default;
 
   void Init(Params const & params, Geocoder::Params const & geocoderParams);
-
-  inline void SetAccuratePivotCenter(m2::PointD const & center)
-  {
-    m_params.m_accuratePivotCenter = center;
-  }
 
   bool IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values);
 
@@ -93,11 +89,12 @@ public:
   void GetBestMatchName(FeatureType const & f, string & name) const;
   void ProcessSuggestions(vector<IndexedValue> & vec, Results & res) const;
 
-  Results & GetResults() { return m_results; }
-  void UpdateResults(bool lastUpdate);
+  virtual void SetPreResults1(vector<PreResult1> && preResults1) { m_preResults1 = move(preResults1); }
+  virtual void UpdateResults(bool lastUpdate);
+
+  inline Results & GetResults() { return m_results; }
   inline void FlushResults() { UpdateResults(true /* lastUpdate */); }
 
-  void SetPreResults1(vector<PreResult1> && preResults1) { m_preResults1 = move(preResults1); }
   void ClearCaches();
 
   inline void SetLocalityFinderLanguage(int8_t code) { m_locality.SetLanguage(code); }
