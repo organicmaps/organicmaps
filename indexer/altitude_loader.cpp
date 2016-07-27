@@ -87,10 +87,11 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
     Altitudes altitudes;
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     src.Skip(altitudeInfoOffsetInSection);
-    altitudes.Deserialize(m_header.m_minAltitude, pointCount, src);
+    bool const isDeserialized = altitudes.Deserialize(m_header.m_minAltitude, pointCount, src);
 
-    bool const allValid = none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
-                                  [](TAltitude a) { return a == kInvalidAltitude; });
+    bool const allValid = isDeserialized
+        && none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
+                   [](TAltitude a) { return a == kInvalidAltitude; });
     if (!allValid)
     {
       ASSERT(false, (altitudes.m_altitudes));

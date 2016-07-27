@@ -22,6 +22,7 @@ struct AltitudeHeader
   using TAltitudeSectionVersion = uint16_t;
 
   AltitudeHeader() { Reset(); }
+
   template <class TSink>
   void Serialize(TSink & sink) const
   {
@@ -91,13 +92,13 @@ public:
   }
 
   template <class TSource>
-  void Deserialize(TAltitude minAltitude, size_t pointCount, TSource & src)
+  bool Deserialize(TAltitude minAltitude, size_t pointCount, TSource & src)
   {
     m_altitudes.clear();
     if (pointCount == 0)
     {
       ASSERT(false, ());
-      return;
+      return false;
     }
 
     m_altitudes.resize(pointCount);
@@ -109,10 +110,11 @@ public:
       {
         ASSERT(false, ());
         m_altitudes.clear();
-        return;
+        return false;
       }
       prevAltitude = m_altitudes[i];
     }
+    return true;
   }
 
   /// \note |m_altitudes| is a vector of feature point altitudes. There's two possibilities:
