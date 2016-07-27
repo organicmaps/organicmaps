@@ -1749,16 +1749,13 @@ bool Framework::ShowMapForURL(string const & url)
       result = NEED_CLICK;
     }
   }
-  else if (StartsWith(url, "mapswithme://") || StartsWith(url, "mwm://") ||
-           StartsWith(url, "mapsme://"))
+  else if (m_ParsedMapApi.IsValid())
   {
     if (!m_ParsedMapApi.GetViewportRect(rect))
       rect = df::GetWorldRect();
 
-    if ((apiMark = m_ParsedMapApi.GetSinglePoint()))
-      result = NEED_CLICK;
-    else
-      result = NO_NEED_CLICK;
+    apiMark = m_ParsedMapApi.GetSinglePoint();
+    result = apiMark ? NEED_CLICK : NO_NEED_CLICK;
   }
   else  // Actually, we can parse any geo url scheme with correct coordinates.
   {
@@ -1804,12 +1801,11 @@ bool Framework::ShowMapForURL(string const & url)
   return false;
 }
 
-url_scheme::ParsingResult Framework::ParseApiURL(string const & url)
+url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string const & url)
 {
   using namespace url_scheme;
-  using namespace strings;
 
-  // clear every current API-mark.
+  // Clear every current API-mark.
   {
     UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
     guard.m_controller.Clear();
@@ -1817,24 +1813,13 @@ url_scheme::ParsingResult Framework::ParseApiURL(string const & url)
     guard.m_controller.SetIsDrawable(true);
   }
 
-  if (!StartsWith(url, "mapswithme://") && !StartsWith(url, "mwm://") &&
-      !StartsWith(url, "mapsme://"))
-    return ParsingResult::Incorrect;
-
-  auto const resultType = m_ParsedMapApi.SetUriAndParse(url);
-
-  if (resultType == ParsingResult::Incorrect)
-  {
-    LOG(LWARNING, ("Incorrect api url", url));
-    UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
-    guard.m_controller.SetIsVisible(false);
-  }
-  return resultType;
+  return m_ParsedMapApi.SetUriAndParse(url);
 }
 
-Framework::TParsedRoutingPointAndType Framework::GetParsedRoutingData() const
+Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
 {
-  return {m_ParsedMapApi.GetRoutePoints(), routing::FromString(m_ParsedMapApi.GetRoutingType())};
+  return Framework::ParsedRoutingData(m_ParsedMapApi.GetRoutePoints(),
+                                      routing::FromString(m_ParsedMapApi.GetRoutingType()));
 }
 
 void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator,

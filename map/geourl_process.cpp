@@ -123,6 +123,7 @@ namespace url_scheme
     {
       return (m_latPriority == m_lonPriority && m_latPriority != -1);
     }
+
     bool operator()(string const & key, string const & value)
     {
       if (key == "z" || key == "zoom")
@@ -148,14 +149,16 @@ namespace url_scheme
         {
           if (key == "lat")
           {
-            if (m_info.SetLat(x))
-              m_latPriority = priority;
+            if (!m_info.SetLat(x))
+              return false;
+            m_latPriority = priority;
           }
           else
           {
             ASSERT_EQUAL(key, "lon", ());
-            if (m_info.SetLon(x))
-              m_lonPriority = priority;
+            if (!m_info.SetLon(x))
+              return false;
+            m_lonPriority = priority;
           }
         }
       }

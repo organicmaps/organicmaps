@@ -47,7 +47,7 @@ bool Uri::Parse()
   return true;
 }
 
-bool Uri::ForEachKeyValue(CallbackT const & callback) const
+bool Uri::ForEachKeyValue(TCallback const & callback) const
 {
   // parse query for keys and values
   size_t const count = m_url.size();

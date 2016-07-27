@@ -503,10 +503,19 @@ public:
 
   /// Set correct viewport, parse API, show balloon.
   bool ShowMapForURL(string const & url);
-  url_scheme::ParsingResult ParseApiURL(string const & url);
+  url_scheme::ParsedMapApi::ParsingResult ParseAndSetApiURL(string const & url);
 
-  using TParsedRoutingPointAndType = pair<vector<url_scheme::RoutePoint>, routing::RouterType>;
-  TParsedRoutingPointAndType GetParsedRoutingData() const;
+  struct ParsedRoutingData
+  {
+    ParsedRoutingData(vector<url_scheme::RoutePoint> const & points, routing::RouterType type)
+      : m_points(points), m_type(type)
+    {
+    }
+    vector<url_scheme::RoutePoint> m_points;
+    routing::RouterType m_type;
+  };
+
+  ParsedRoutingData GetParsedRoutingData() const;
 
 private:
   // TODO(vng): Uncomment when needed.

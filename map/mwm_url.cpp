@@ -19,7 +19,6 @@
 
 namespace url_scheme
 {
-
 namespace
 {
 string const kLatLon = "ll";
@@ -36,28 +35,23 @@ string const kVersion = "v";
 string const kAppName = "appname";
 string const kBalloonAction = "balloonaction";
 string const kRouteType = "type";
+string const kRouteTypeVehicle = "vehicle";
+string const kRouteTypePedestrian = "pedestrian";
+string const kRouteTypeBicycle = "bicycle";
 
-static int const INVALID_LAT_VALUE = -1000;
-
-bool ParseLatLon(double & lat, double & lon, string const & key, string const & value)
+bool ParseLatLon(string const & key, string const & value, double & lat, double & lon)
 {
   size_t const firstComma = value.find(',');
   if (firstComma == string::npos)
   {
-    LOG(LWARNING, ("Map API: no comma between lat and lon for 'll' key", key, value));
-    return false;
-  }
-
-  if (value.find(',', firstComma + 1) != string::npos)
-  {
-    LOG(LWARNING, ("Map API: more than one comma in a value for 'll' key", key, value));
+    LOG(LWARNING, ("Map API: no comma between lat and lon for key:", key, " value:", value));
     return false;
   }
 
   if (!strings::to_double(value.substr(0, firstComma), lat) ||
       !strings::to_double(value.substr(firstComma + 1), lon))
   {
-    LOG(LWARNING, ("Map API: can't parse lat,lon for 'll' key", key, value));
+    LOG(LWARNING, ("Map API: can't parse lat,lon for key:", key, " value:", value));
     return false;
   }
 
@@ -69,41 +63,41 @@ bool ParseLatLon(double & lat, double & lon, string const & key, string const & 
   return true;
 }
 
-bool IsInvalidApiPoint(ApiPoint const & p) { return p.m_lat == INVALID_LAT_VALUE; }
-
-}  // unnames namespace
-
-ParsedMapApi::ParsedMapApi()
-  : m_bmManager(nullptr)
-  , m_version(0)
-  , m_zoomLevel(0.0)
-  , m_goBackOnBalloonClick(false)
-{
-}
+}  // namespace
 
 void ParsedMapApi::SetBookmarkManager(BookmarkManager * manager)
 {
   m_bmManager = manager;
 }
-ParsingResult ParsedMapApi::SetUriAndParse(string const & url)
+ParsedMapApi::ParsingResult ParsedMapApi::SetUriAndParse(string const & url)
 {
   Reset();
+
+  if (!strings::StartsWith(url, "mapswithme://") && !strings::StartsWith(url, "mwm://") &&
+      !strings::StartsWith(url, "mapsme://"))
+  {
+    return ParsingResult::Incorrect;
+  }
+
   ParsingResult const res = Parse(url_scheme::Uri(url));
   m_isValid = res != ParsingResult::Incorrect;
   return res;
 }
 
-ParsingResult ParsedMapApi::Parse(Uri const & uri)
+ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
 {
   string const & scheme = uri.GetScheme();
   string const & path = uri.GetPath();
   bool const isRoutePath = path == "route";
   if ((scheme != "mapswithme" && scheme != "mwm" && scheme != "mapsme") ||
       (path != "map" && !isRoutePath))
+  {
     return ParsingResult::Incorrect;
+  }
 
   if (isRoutePath)
   {
+    m_routePoints.clear();
     vector<string> pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
     if (!uri.ForEachKeyValue(bind(&ParsedMapApi::RouteKeyValue, this, _1, _2, ref(pattern))))
       return ParsingResult::Incorrect;
@@ -119,41 +113,38 @@ ParsingResult ParsedMapApi::Parse(Uri const & uri)
 
     return ParsingResult::Route;
   }
-  else
+
+  vector<ApiPoint> points;
+  if (!uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2, ref(points))))
+    return ParsingResult::Incorrect;
+
+  if (points.empty())
+    return ParsingResult::Incorrect;
+
+  ASSERT(m_bmManager != nullptr, ());
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
+  for (auto const & p : points)
   {
-    ASSERT(m_bmManager != nullptr, ());
-    UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
-    vector<ApiPoint> points;
-    if (!uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2, ref(points))))
-      return ParsingResult::Incorrect;
-
-    points.erase(remove_if(points.begin(), points.end(), &IsInvalidApiPoint), points.end());
-    if ((isRoutePath && (points.size() < 2 || m_routingType.empty())) || points.empty())
-      return ParsingResult::Incorrect;
-
-    for (auto const & p : points)
-    {
-      m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
-      ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(guard.m_controller.CreateUserMark(glPoint));
-      mark->SetName(p.m_name);
-      mark->SetID(p.m_id);
-      mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
-    }
-
-    return ParsingResult::Map;
+    m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
+    ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(guard.m_controller.CreateUserMark(glPoint));
+    mark->SetName(p.m_name);
+    mark->SetID(p.m_id);
+    mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
   }
+
+  return ParsingResult::Map;
 }
 
 bool ParsedMapApi::RouteKeyValue(string key, string const & value, vector<string> & pattern)
 {
-  if (key != pattern.front())
+  if (pattern.empty() || key != pattern.front())
     return false;
 
   if (key == kSourceLatLon || key == kDestLatLon)
   {
     double lat = 0.0;
     double lon = 0.0;
-    if (!ParseLatLon(lat, lon, key, value))
+    if (!ParseLatLon(key, value, lat, lon))
       return false;
 
     RoutePoint p;
@@ -167,7 +158,7 @@ bool ParsedMapApi::RouteKeyValue(string key, string const & value, vector<string
   else if (key == kRouteType)
   {
     string const lowerValue = strings::MakeLowerCase(value);
-    if (lowerValue == "pedestrian" || lowerValue == "vehicle" || lowerValue == "bicycle")
+    if (lowerValue == kRouteTypePedestrian || lowerValue == kRouteTypeVehicle || lowerValue == kRouteTypeBicycle)
     {
       m_routingType = lowerValue;
     }
@@ -188,16 +179,13 @@ bool ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint
 
   if (key == kLatLon)
   {
-    points.push_back(ApiPoint());
-    points.back().m_lat = INVALID_LAT_VALUE;
-
     double lat = 0.0;
     double lon = 0.0;
-    if (!ParseLatLon(lat, lon, key, value))
+    if (!ParseLatLon(key, value, lat, lon))
       return false;
 
-    points.back().m_lat = lat;
-    points.back().m_lon = lon;
+    ApiPoint pt{.m_lat = lat, .m_lon = lon};
+    points.push_back(pt);
   }
   else if (key == kZoomLevel)
   {

@@ -31,8 +31,8 @@ namespace
       m_m = &m_fm.GetBookmarkManager();
       m_api.SetBookmarkManager(m_m);
 
-      ParsingResult const res = m_api.SetUriAndParse(uriString);
-      if (res != ParsingResult::Incorrect)
+      auto const res = m_api.SetUriAndParse(uriString);
+      if (res != ParsedMapApi::ParsingResult::Incorrect)
       {
         if (!m_api.GetViewportRect(m_viewportRect))
           m_viewportRect = df::GetWorldRect();
@@ -69,6 +69,7 @@ namespace
     {
       return GetMark(index)->GetID() == id;
     }
+
     bool TestRouteType(string const & type) const { return m_api.GetRoutingType() == type; }
   private:
     ApiMarkPoint const * GetMark(int index) const
@@ -88,16 +89,14 @@ namespace
   bool IsValid(Framework & fm, string const & uriString)
   {
     ParsedMapApi api;
-    bool isValid;
     api.SetBookmarkManager(&fm.GetBookmarkManager());
     api.SetUriAndParse(uriString);
-    isValid = api.IsValid();
     {
       UserMarkControllerGuard guard(fm.GetBookmarkManager(), UserMarkType::API_MARK);
       guard.m_controller.Clear();
     }
 
-    return isValid;
+    return api.IsValid();
   }
 }
 
@@ -137,26 +136,27 @@ UNIT_TEST(MapApiInvalidUrl)
   TEST(!IsValid(fm, "mwm://"), ("No parameters"));
   TEST(!IsValid(fm, "mapswithme://map?"), ("No longtitude"));
   TEST(!IsValid(fm, "mapswithme://map?ll=1,2,3"), ("Too many values for ll"));
+  TEST(!IsValid(fm, "mapswithme://fffff://map?ll=1,2"), ());
 }
 
 UNIT_TEST(RouteApiInvalidUrl)
 {
-  Framework fm;
-  TEST(!IsValid(fm, "mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name2"),
+  Framework f;
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name2"),
        ("Route type doesn't exist"));
-  TEST(!IsValid(fm, "mapswithme://route?sll=1,1&saddr=name0"), ("Destination doesn't exist"));
-  TEST(!IsValid(fm, "mapswithme://route?sll=1,1&dll=2,2&type=vehicle"),
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&saddr=name0"), ("Destination doesn't exist"));
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&dll=2,2&type=vehicle"),
        ("Source or destination name doesn't exist"));
-  TEST(!IsValid(fm, "mapswithme://route?saddr=name0&daddr=name1&type=vehicle"), ());
-  TEST(!IsValid(fm, "mapswithme://route?sll=1,1&sll=2.2&type=vehicle"), ());
-  TEST(!IsValid(fm, "mapswithme://route?sll=1,1&dll=2.2&type=666"), ());
-  TEST(!IsValid(fm, "mapswithme://route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&type=vehicle"), ());
-  TEST(!IsValid(fm, "mapswithme://route?sll=1,1&type=vehicle"), ());
-  TEST(!IsValid(fm,
+  TEST(!IsValid(f, "mapswithme://route?saddr=name0&daddr=name1&type=vehicle"), ());
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&sll=2.2&type=vehicle"), ());
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&dll=2.2&type=666"), ());
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&type=vehicle"), ());
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&type=vehicle"), ());
+  TEST(!IsValid(f,
                 "mapswithme://"
                 "route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&sll=1,1&saddr=name0&type=vehicle"),
        ());
-  TEST(!IsValid(fm, "mapswithme://route?type=vehicle"), ());
+  TEST(!IsValid(f, "mapswithme://route?type=vehicle"), ());
 }
 
 UNIT_TEST(MapApiLatLonLimits)
@@ -172,8 +172,7 @@ UNIT_TEST(MapApiPointNameBeforeLatLon)
 {
   ApiTest test("mapswithme://map?n=Name&ll=1,2");
   TEST(!test.IsValid(), ());
-  TEST_EQUAL(test.GetPointCount(), 1, ());
-  TEST(test.TestName(0, ""), ());
+  TEST_EQUAL(test.GetPointCount(), 0, ());
 }
 
 UNIT_TEST(MapApiPointNameOverwritten)
@@ -201,9 +200,7 @@ UNIT_TEST(MapApiInvalidPointLatLonButValidOtherParts)
 {
   ApiTest api("mapswithme://map?ll=1,1,1&n=A&ll=2,2&n=B&ll=3,3,3&n=C");
   TEST(!api.IsValid(), ());
-  TEST_EQUAL(api.GetPointCount(), 1, ());
-  TEST(api.TestLatLon(0, 2, 2), ());
-  TEST(api.TestName(0, "B"), ());
+  TEST_EQUAL(api.GetPointCount(), 0, ());
 }
 
 UNIT_TEST(MapApiPointURLEncoded)

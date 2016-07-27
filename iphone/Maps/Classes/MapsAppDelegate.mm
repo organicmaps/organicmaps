@@ -254,18 +254,20 @@ using namespace osm_auth_ios;
   }
   else if (m_mwmURL)
   {
+    using namespace url_scheme;
+
     string const url = m_mwmURL.UTF8String;
-    auto const parsingType = f.ParseApiURL(url);
+    auto const parsingType = f.ParseAndSetApiURL(url);
     switch (parsingType)
     {
-    case url_scheme::ParsingResult::Incorrect:
+    case ParsedMapApi::ParsingResult::Incorrect:
       LOG(LWARNING, ("Incorrect parsing result for url:", url));
       break;
-    case url_scheme::ParsingResult::Route:
+    case ParsedMapApi::ParsingResult::Route:
     {
       auto const parsedData = f.GetParsedRoutingData();
-      f.SetRouter(parsedData.second);
-      auto const points = parsedData.first;
+      f.SetRouter(parsedData.m_type);
+      auto const points = parsedData.m_points;
       auto const & p1 = points[0];
       auto const & p2 = points[1];
       [[MWMRouter router] buildFromPoint:MWMRoutePoint(p1.m_org, @(p1.m_name.c_str()))
@@ -275,10 +277,12 @@ using namespace osm_auth_ios;
       [self.mapViewController showAPIBar];
       break;
     }
-    case url_scheme::ParsingResult::Map:
-      f.ShowMapForURL(url);
-      [self showMap];
-      [self.mapViewController showAPIBar];
+    case ParsedMapApi::ParsingResult::Map:
+      if (f.ShowMapForURL(url))
+      {
+        [self showMap];
+        [self.mapViewController showAPIBar];
+      }
       break;
     }
   }
