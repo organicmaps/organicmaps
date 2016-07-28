@@ -1,25 +1,37 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.concurrent.TimeUnit;
+
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.settings.SettingsActivity;
+import com.mapswithme.maps.sound.TtsPlayer;
+import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.maps.widget.menu.NavMenu;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
 
 public class NavigationController
 {
   private final View mFrame;
   private final View mTopFrame;
+  private final View mBottomFrame;
   private final NavMenu mNavMenu;
 
   private final ImageView mNextTurnImage;
@@ -32,12 +44,15 @@ public class NavigationController
   private final View mStreetFrame;
   private final TextView mNextStreet;
 
-//  private final TextView mDistanceTotal;
-//  private final TextView mTimeTotal;
-//  private final ImageView mTurnDirection;
-//
-//  private final FlatProgressView mRouteProgress;
-//  private final TextView mTimeArrival;
+  private final TextView mSpeedValue;
+  private final TextView mSpeedUnits;
+  private final TextView mTimeHourValue;
+  private final TextView mTimeHourUnits;
+  private final TextView mTimeMinuteValue;
+  private final TextView mTimeMinuteUnits;
+  private final TextView mDistanceValue;
+  private final TextView mDistanceUnits;
+  private final FlatProgressView mRouteProgress;
 
   private double mNorth;
 
@@ -45,7 +60,9 @@ public class NavigationController
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
     mTopFrame = mFrame.findViewById(R.id.nav_top_frame);
+    mBottomFrame = mFrame.findViewById(R.id.nav_bottom_frame);
     mNavMenu = createNavMenu();
+    mNavMenu.refreshTts();
 
     // Top frame
     View turnFrame = mTopFrame.findViewById(R.id.nav_next_turn_frame);
@@ -61,32 +78,50 @@ public class NavigationController
     View shadow = mTopFrame.findViewById(R.id.shadow_top);
     UiUtils.showIf(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP, shadow);
 
-    // TODO (trashkalmar): Bottom frame
-//    mDistanceTotal = (TextView) mFrame.findViewById(R.id.tv__total_distance);
-//    mTimeTotal = (TextView) mFrame.findViewById(R.id.tv__total_time);
-//    mTimeArrival = (TextView) mFrame.findViewById(R.id.tv__arrival_time);
-//    mTurnDirection = (ImageView) mFrame.findViewById(R.id.iv__turn);
-//
-//    mRouteProgress = (FlatProgressView) mFrame.findViewById(R.id.fp__route_progress);
-//
-//    mFrame.findViewById(R.id.btn__close).setOnClickListener(new View.OnClickListener()
-//    {
-//      @Override
-//      public void onClick(View v)
-//      {
-//        AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
-//        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
-//        RoutingController.get().cancel();
-//      }
-//    });
+    // Bottom frame
+    mSpeedValue = (TextView) mBottomFrame.findViewById(R.id.speed_value);
+    mSpeedUnits = (TextView) mBottomFrame.findViewById(R.id.speed_dimen);
+    mTimeHourValue = (TextView) mBottomFrame.findViewById(R.id.time_hour_value);
+    mTimeHourUnits = (TextView) mBottomFrame.findViewById(R.id.time_hour_dimen);
+    mTimeMinuteValue = (TextView) mBottomFrame.findViewById(R.id.time_minute_value);
+    mTimeMinuteUnits = (TextView) mBottomFrame.findViewById(R.id.time_minute_dimen);
+    mDistanceValue = (TextView) mBottomFrame.findViewById(R.id.distance_value);
+    mDistanceUnits = (TextView) mBottomFrame.findViewById(R.id.distance_dimen);
+    mRouteProgress = (FlatProgressView) mBottomFrame.findViewById(R.id.navigation_progress);
   }
 
-  private NavMenu createNavMenu() {
-    return new NavMenu(mFrame.findViewById(R.id.nav_bottom_frame), new NavMenu.ItemClickListener<NavMenu.Item>() {
+  private NavMenu createNavMenu()
+  {
+    return new NavMenu(mBottomFrame, new NavMenu.ItemClickListener<NavMenu.Item>()
+    {
       @Override
       public void onItemClick(NavMenu.Item item)
       {
-
+        switch (item)
+        {
+        case STOP:
+          RoutingController.get().cancel();
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
+          AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
+          break;
+        case SETTINGS:
+          final MwmActivity parent = ((MwmActivity) mFrame.getContext());
+          parent.closeMenu(Statistics.EventName.ROUTING_SETTINGS, AlohaHelper.MENU_SETTINGS, new Runnable()
+          {
+            @Override
+            public void run()
+            {
+              parent.startActivity(new Intent(parent, SettingsActivity.class));
+            }
+          });
+          break;
+        case TTS_VOLUME:
+          TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
+          mNavMenu.refreshTts();
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
+          AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
+          break;
+        }
       }
     });
   }
@@ -150,22 +185,40 @@ public class NavigationController
     if (!TextUtils.isEmpty(info.nextStreet))
       mNextStreet.setText(info.nextStreet);
 
-    /*
-    mTimeTotal.setText(RoutingController.formatRoutingTime(mFrame.getContext(),
-                                                           info.totalTimeInSeconds,
-                                                           R.dimen.text_size_routing_dimension));
-    mDistanceTotal.setText(Utils.formatUnitsText(mFrame.getContext(),
-                                                 R.dimen.text_size_routing_number,
-                                                 R.dimen.text_size_routing_dimension,
-                                                 info.distToTarget,
-                                                 info.targetUnits));
-    mTimeArrival.setText(RoutingController.formatArrivalTime(info.totalTimeInSeconds));
-    mRouteProgress.setProgress((int) info.completionPercent);*/
+    final Location last = LocationHelper.INSTANCE.getLastKnownLocation();
+    if (last != null)
+    {
+      Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
+      mSpeedValue.setText(speedAndUnits.first);
+      mSpeedUnits.setText(speedAndUnits.second);
+    }
+    updateTime(info.totalTimeInSeconds);
+    mDistanceValue.setText(info.distToTarget);
+    mDistanceUnits.setText(info.targetUnits);
+    mRouteProgress.setProgress((int) info.completionPercent);
+  }
+
+  private void updateTime(int seconds)
+  {
+    final long hours = TimeUnit.SECONDS.toHours(seconds);
+    final long minutes = TimeUnit.MINUTES.toMinutes(seconds) % 60;
+    mTimeMinuteValue.setText(String.valueOf(minutes));
+    // TODO set localized text
+    mTimeMinuteUnits.setText("m");
+    if (hours == 0)
+    {
+      UiUtils.hide(mTimeHourUnits, mTimeHourValue);
+      return;
+    }
+    mTimeHourValue.setText(String.valueOf(hours));
+    // TODO set localized text
+    mTimeHourUnits.setText("h");
   }
 
   public void show(boolean show)
   {
     UiUtils.showIf(show, mFrame);
+    mNavMenu.show(show);
   }
 
   public NavMenu getNavMenu()

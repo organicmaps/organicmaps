@@ -78,6 +78,7 @@ public class AlohaHelper
   public static final String ROUTING_SWAP_POINTS = "routeSwapPoints";
   public static final String ROUTING_TOGGLE = "routeToggle";
   public static final String ROUTING_SEARCH_POINT = "routSearchPoint";
+  public static final String ROUTING_SETTINGS = "routingSettings";
   // search
   public static final String SEARCH_CANCEL = "searchCancel";
   // installation

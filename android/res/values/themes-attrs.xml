@@ -49,6 +49,7 @@
 
     <attr name="navButtonsTheme" format="reference"/>
     <attr name="downloaderTheme" format="reference"/>
+    <attr name="navigationTheme" format="reference"/>
 
     <attr name="fabAdd" format="reference"/>
   </declare-styleable>

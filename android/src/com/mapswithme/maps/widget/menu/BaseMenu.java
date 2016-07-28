@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget.menu;
 import android.animation.Animator;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -76,12 +77,13 @@ public abstract class BaseMenu
                                                                                 : R.attr.menuBackground));
   }
 
-  void afterLayoutCorrected(Runnable procAfterCorrection)
+  void afterLayoutCorrected(@Nullable Runnable procAfterCorrection)
   {
-    procAfterCorrection.run();
+    if (procAfterCorrection != null)
+      procAfterCorrection.run();
   }
 
-  private void correctLayout(final Runnable procAfterCorrection)
+  private void correctLayout(@Nullable final Runnable procAfterCorrection)
   {
     if (mLayoutCorrected)
       return;
@@ -100,13 +102,13 @@ public abstract class BaseMenu
     });
   }
 
-  public void onResume(Runnable procAfterCorrection)
+  public void onResume(@Nullable Runnable procAfterCorrection)
   {
     correctLayout(procAfterCorrection);
     updateMarker();
   }
 
-  BaseMenu(View frame, ItemClickListener<? extends Item> itemClickListener)
+  BaseMenu(@NonNull View frame, @NonNull ItemClickListener<? extends Item> itemClickListener)
   {
     mFrame = frame;
     mItemClickListener = itemClickListener;

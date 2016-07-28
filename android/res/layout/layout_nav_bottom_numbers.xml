@@ -6,8 +6,11 @@
   android:layout_height="@dimen/nav_menu_height"
   android:orientation="horizontal"
   android:paddingLeft="@dimen/nav_numbers_margin"
+  android:paddingStart="@dimen/nav_numbers_margin"
   android:layout_marginRight="@dimen/nav_toggle"
-  tools:background="#3000FF00">
+  android:layout_marginEnd="@dimen/nav_toggle"
+  tools:background="#3000FF00"
+  tools:ignore="RtlSymmetry">
   <!-- Speed -->
   <LinearLayout
     android:id="@+id/speed_frame"
@@ -71,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_quarter"
+        android:layout_marginEnd="@dimen/margin_quarter"
         android:singleLine="true"
         android:textAppearance="@style/MwmTextAppearance.RoutingDimension.Inline"
         tools:text="h"/>
@@ -101,7 +105,8 @@
         android:id="@+id/dot_estimate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_half"
         tools:src="@drawable/news_marker_active"/>
 
       <ImageView

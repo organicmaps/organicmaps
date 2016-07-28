@@ -158,9 +158,9 @@ public enum TtsPlayer
     });
   }
 
-  public boolean isReady()
+  private static boolean isReady()
   {
-    return (mTts != null && !mUnavailable && !mInitializing);
+    return (INSTANCE.mTts != null && !INSTANCE.mUnavailable && !INSTANCE.mInitializing);
   }
 
   private void speak(String textToSpeak)
@@ -202,7 +202,7 @@ public enum TtsPlayer
       }
   }
 
-  public boolean isEnabled()
+  public static boolean isEnabled()
   {
     return (isReady() && nativeAreTurnNotificationsEnabled());
   }

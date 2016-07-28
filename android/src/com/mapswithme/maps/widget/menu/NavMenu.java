@@ -1,23 +1,26 @@
 package com.mapswithme.maps.widget.menu;
 
 import android.animation.ValueAnimator;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.RotateDrawable;
 
 public class NavMenu extends BaseMenu
 {
   private final ImageView mToggle;
   private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_menu_close);
+  private final ImageView mTts;
 
   public enum Item implements BaseMenu.Item
   {
     TOGGLE(R.id.toggle),
-    TTS_VOLUME(R.id.toggle),
-    STOP(R.id.toggle),
-    //OVERVIEW(R.id.toggle), TODO
+    TTS_VOLUME(R.id.tts_volume),
+    STOP(R.id.stop),
+    //OVERVIEW(R.id.), TODO
     SETTINGS(R.id.settings);
 
     private final int mViewId;
@@ -39,7 +42,7 @@ public class NavMenu extends BaseMenu
     super(frame, listener);
 
     mToggle = (ImageView) mLineFrame.findViewById(R.id.toggle);
-    mToggle.setImageDrawable(mToggleImage);
+//    mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
     {
       @Override
@@ -49,7 +52,24 @@ public class NavMenu extends BaseMenu
       }
     });
 
-    setToggleState(false, false);
+//    setToggleState(false, false);
+
+    mapItem(Item.STOP, mFrame);
+    mapItem(Item.SETTINGS, mFrame);
+    mTts = (ImageView) mapItem(Item.TTS_VOLUME, mFrame);
+  }
+
+  @Override
+  public void onResume(@Nullable Runnable procAfterCorrection)
+  {
+    super.onResume(procAfterCorrection);
+    refreshTts();
+  }
+
+  public void refreshTts()
+  {
+    mTts.setImageResource(TtsPlayer.isEnabled() ? R.drawable.ic_voice_on
+                                                : R.drawable.ic_voice_off);
   }
 
   @Override
@@ -57,7 +77,7 @@ public class NavMenu extends BaseMenu
   {
     if (!animate)
     {
-      mToggleImage.setAngle(open ? -90.0f : 90.0f);
+//      mToggleImage.setAngle(open ? -90.0f : 90.0f);
       return;
     }
 

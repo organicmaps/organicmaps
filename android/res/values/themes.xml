@@ -139,6 +139,7 @@
     <item name="nav_search_closed">@drawable/zoom_in</item>
     <item name="nav_search_open">@drawable/zoom_out</item>
     <item name="nav_bookmark">@drawable/zoom_in</item>
+    <item name="iconTint">@android:color/white</item>
   </style>
 
   <style name="MwmTheme.NavButtons.Night">
@@ -147,5 +148,24 @@
     <item name="nav_search_closed">@drawable/zoom_in_night</item>
     <item name="nav_search_open">@drawable/zoom_out_night</item>
     <item name="nav_bookmark">@drawable/zoom_in_night</item>
+    <item name="iconTint">@android:color/darker_gray</item>
   </style>
+
+  <style name="MwmTheme.Button" parent="Base.Widget.AppCompat.Button">
+    <item name="colorButtonNormal">?colorAccent</item>
+  </style>
+
+  <style name="MwmTheme.Button.Red">
+    <item name="colorButtonNormal">@color/base_red</item>
+  </style>
+
+  <style name="MwmTheme.Navigation">
+    <item name="iconTint">@android:color/white</item>
+  </style>
+
+  <!-- TODO get proper color -->
+  <style name="MwmTheme.Navigation.Night">
+    <item name="iconTint">@android:color/darker_gray</item>
+  </style>
+
 </resources>

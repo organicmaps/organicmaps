@@ -116,6 +116,8 @@ public enum Statistics
     public static final String ROUTING_SWAP_POINTS = "Routing. Swap points";
     public static final String ROUTING_TOGGLE = "Routing. Toggle";
     public static final String ROUTING_SEARCH_POINT = "Routing. Search point";
+    public static final String ROUTING_SETTINGS = "Routing. Settings";
+    public static final String ROUTING_TTS_SWITCH = "Routing. Switch tts";
     // editor
     public static final String EDITOR_START_CREATE = "Editor_Add_start";
     public static final String EDITOR_ADD_CLICK = "Editor_Add_click";
