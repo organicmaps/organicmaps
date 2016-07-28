@@ -56,6 +56,7 @@ PreRanker::PreRanker(Index const & index, Ranker & ranker, size_t limit)
 void PreRanker::Init(Params const & params)
 {
   m_numSentResults = 0;
+  m_results.clear();
   m_params = params;
 }
 
