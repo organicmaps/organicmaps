@@ -2,6 +2,7 @@ package com.mapswithme.util;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Pair;
 
 import java.util.Locale;
 
@@ -19,6 +20,8 @@ public class StringUtils
 
   public static native boolean nativeContainsNormalized(String str, String substr);
   public static native String[] nativeFilterContainsNormalized(String[] strings, String substr);
+
+  public static native Pair<String, String> nativeFormatSpeedAndUnits(double metersPerSecond);
 
   /**
    * Removes html tags, generated from edittext content after it's transformed to html.
