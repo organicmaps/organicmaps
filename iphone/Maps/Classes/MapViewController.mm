@@ -24,7 +24,7 @@
 #import "MWMRouter.h"
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
-#import "MWMWhatsNewBookingBicycleRoutingController.h"
+#import "MWMWhatsNewNavigationController.h"
 #import "MapsAppDelegate.h"
 #import "RouteState.h"
 #import "Statistics.h"
@@ -298,8 +298,7 @@ BOOL gIsFirstMyPositionMode = YES;
   if (isIOS7)
     return;
 
-  Class<MWMWelcomeControllerProtocol> whatsNewClass =
-      [MWMWhatsNewBookingBicycleRoutingController class];
+  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewNavigationController class];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   Class<MWMWelcomeControllerProtocol> welcomeClass =
       isFirstSession ? [MWMFirstLaunchController class] : whatsNewClass;
