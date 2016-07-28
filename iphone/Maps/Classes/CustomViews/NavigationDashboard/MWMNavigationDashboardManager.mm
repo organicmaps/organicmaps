@@ -144,8 +144,10 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
 - (void)mwm_refreshUI
 {
-  [self.routePreview mwm_refreshUI];
-  [self.navigationInfoView mwm_refreshUI];
+  if (_routePreview)
+    [self.routePreview mwm_refreshUI];
+  if (_navigationInfoView)
+    [self.navigationInfoView mwm_refreshUI];
 }
 
 #pragma mark - Properties
