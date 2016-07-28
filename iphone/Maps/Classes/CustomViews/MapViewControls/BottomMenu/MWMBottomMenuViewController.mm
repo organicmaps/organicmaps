@@ -12,6 +12,7 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMRouter.h"
+#import "MWMSearch.h"
 #import "MWMSearchManager.h"
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
@@ -202,7 +203,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 }
 
 - (IBAction)routingStartTouchUpInside { [[MWMRouter router] start]; }
-- (IBAction)routingStopTouchUpInside { [[MWMRouter router] stop]; }
+- (IBAction)routingStopTouchUpInside
+{
+  [MWMSearch clear];
+  [[MWMRouter router] stop];
+}
+
 - (IBAction)soundTouchUpInside:(MWMButton *)sender
 {
   BOOL const isEnable = sender.selected;
