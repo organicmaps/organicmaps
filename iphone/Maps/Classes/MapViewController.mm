@@ -298,8 +298,7 @@ BOOL gIsFirstMyPositionMode = YES;
   if (isIOS7)
     return;
 
-  Class<MWMWelcomeControllerProtocol> whatsNewClass =
-      [MWMWhatsNewNavigationController class];
+  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewNavigationController class];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   Class<MWMWelcomeControllerProtocol> welcomeClass =
       isFirstSession ? [MWMFirstLaunchController class] : whatsNewClass;
