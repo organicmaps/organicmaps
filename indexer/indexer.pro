@@ -29,6 +29,7 @@ SOURCES += \
     edits_migration.cpp \
     feature.cpp \
     feature_algo.cpp \
+    feature_altitude.cpp \
     feature_covering.cpp \
     feature_data.cpp \
     feature_decl.cpp \

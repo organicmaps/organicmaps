@@ -1,4 +1,6 @@
 #pragma once
+#include "coding/bit_streams.hpp"
+#include "coding/elias_coder.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
@@ -51,7 +53,7 @@ struct AltitudeHeader
 
   size_t GetFeatureTableSize() const { return m_altitudesOffset - m_featureTableOffset; }
 
-  size_t GetAltitudeInfo() const { return m_endOffset - m_altitudesOffset; }
+  size_t GetAltitudeInfoSize() const { return m_endOffset - m_altitudesOffset; }
 
   void Reset()
   {
@@ -81,40 +83,24 @@ public:
   template <class TSink>
   void Serialize(TAltitude minAltitude, TSink & sink) const
   {
-    CHECK(!m_altitudes.empty(), ());
+    vector<uint32_t> deviations;
+    PrepareSerializationData(minAltitude, deviations);
 
-    WriteVarInt(sink, static_cast<int32_t>(m_altitudes[0]) - static_cast<int32_t>(minAltitude));
-    for (size_t i = 1; i < m_altitudes.size(); ++i)
-    {
-      WriteVarInt(sink,
-                  static_cast<int32_t>(m_altitudes[i]) - static_cast<int32_t>(m_altitudes[i - 1]));
-    }
+    BitWriter<TSink> bits(sink);
+    for (auto const d : deviations)
+      coding::DeltaCoder::Encode(bits, d);
   }
 
   template <class TSource>
   bool Deserialize(TAltitude minAltitude, size_t pointCount, TSource & src)
   {
-    m_altitudes.clear();
-    if (pointCount == 0)
-    {
-      ASSERT(false, ());
-      return false;
-    }
+    vector<uint32_t> deviations(pointCount);
+    BitReader<TSource> bits(src);
 
-    m_altitudes.resize(pointCount);
-    TAltitude prevAltitude = minAltitude;
     for (size_t i = 0; i < pointCount; ++i)
-    {
-      m_altitudes[i] = static_cast<TAltitude>(ReadVarInt<int32_t>(src) + prevAltitude);
-      if (m_altitudes[i] < minAltitude)
-      {
-        ASSERT(false, ());
-        m_altitudes.clear();
-        return false;
-      }
-      prevAltitude = m_altitudes[i];
-    }
-    return true;
+      deviations[i] = coding::DeltaCoder::Decode(bits);
+
+    return FillAltitudesByDeserializedDate(minAltitude, deviations);
   }
 
   /// \note |m_altitudes| is a vector of feature point altitudes. There's two possibilities:
@@ -122,5 +108,9 @@ public:
   /// * size of |m_pointAlt| is equal to the number of this feature's points. If so
   ///   all items of |m_altitudes| have valid value.
   TAltitudes m_altitudes;
+
+private:
+  void PrepareSerializationData(TAltitude minAltitude, vector<uint32_t> & deviations) const;
+  bool FillAltitudesByDeserializedDate(TAltitude minAltitude, vector<uint32_t> const & deviations);
 };
 }  // namespace feature
