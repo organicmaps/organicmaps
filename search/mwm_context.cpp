@@ -14,6 +14,7 @@ MwmContext::MwmContext(MwmSet::MwmHandle handle)
   , m_value(*m_handle.GetValue<MwmValue>())
   , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_table.get())
   , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG), m_value.m_factory)
+  , m_centers(m_value)
 {
 }
 
@@ -44,5 +45,4 @@ bool MwmContext::GetStreetIndex(uint32_t houseId, uint32_t & streetId)
   }
   return m_houseToStreetTable->Get(houseId, streetId);
 }
-
 }  // namespace search

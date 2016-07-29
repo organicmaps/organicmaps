@@ -20,6 +20,8 @@ MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() con
   return HouseToStreetTableFormat::Fixed3BitsDDVector;
 }
 
+bool MwmTraits::HasOffsetsTable() const { return m_versionFormat >= version::Format::v6; }
+
 string DebugPrint(MwmTraits::SearchIndexFormat format)
 {
   switch (format)

@@ -1,6 +1,7 @@
 #include "generator/altitude_generator.hpp"
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
+#include "generator/centers_table_builder.hpp"
 #include "generator/check_model.hpp"
 #include "generator/dumper.hpp"
 #include "generator/feature_generator.hpp"
@@ -213,9 +214,12 @@ int main(int argc, char ** argv)
         LOG(LCRITICAL, ("Error generating search index."));
 
       LOG(LINFO, ("Generating rank table for", datFile));
-
       if (!search::RankTableBuilder::CreateIfNotExists(datFile))
         LOG(LCRITICAL, ("Error generating rank table."));
+
+      LOG(LINFO, ("Generating centers table for", datFile));
+      if (!indexer::BuildCentersTableFromDataFile(datFile, true /* forceRebuild */))
+        LOG(LCRITICAL, ("Error generating centers table."));
     }
 
     if (!FLAGS_srtm_path.empty())

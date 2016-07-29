@@ -1,6 +1,7 @@
 #include "search/pre_ranker.hpp"
 
 #include "search/dummy_rank_table.hpp"
+#include "search/lazy_centers_table.hpp"
 #include "search/pre_ranking_info.hpp"
 
 #include "indexer/mwm_set.hpp"
@@ -16,8 +17,6 @@ namespace search
 {
 namespace
 {
-size_t const kBatchSize = 100;
-
 struct LessFeatureID
 {
   using TValue = PreResult1;
@@ -64,7 +63,13 @@ void PreRanker::FillMissingFieldsInPreResults()
 {
   MwmSet::MwmId mwmId;
   MwmSet::MwmHandle mwmHandle;
-  unique_ptr<RankTable> rankTable = make_unique<DummyRankTable>();
+  unique_ptr<RankTable> ranks = make_unique<DummyRankTable>();
+  unique_ptr<LazyCentersTable> centers;
+
+  bool const fillCenters = (Size() > BatchSize());
+
+  if (fillCenters)
+    m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
 
   ForEach([&](PreResult1 & r) {
     FeatureID const & id = r.GetId();
@@ -73,27 +78,32 @@ void PreRanker::FillMissingFieldsInPreResults()
     {
       mwmId = id.m_mwmId;
       mwmHandle = m_index.GetMwmHandleById(mwmId);
-      rankTable.reset();
+      ranks.reset();
+      centers.reset();
       if (mwmHandle.IsAlive())
       {
-        rankTable = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
+        ranks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
+        centers = make_unique<LazyCentersTable>(*mwmHandle.GetValue<MwmValue>());
       }
-      if (!rankTable)
-        rankTable = make_unique<DummyRankTable>();
+      if (!ranks)
+        ranks = make_unique<DummyRankTable>();
     }
 
-    info.m_rank = rankTable->Get(id.m_index);
-  });
+    info.m_rank = ranks->Get(id.m_index);
 
-  if (Size() <= kBatchSize)
-    return;
-
-  m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
-  ForEach([&](PreResult1 & r) {
-    FeatureID const & id = r.GetId();
-    PreRankingInfo & info = r.GetInfo();
-
-    info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
+    if (fillCenters)
+    {
+      m2::PointD center;
+      if (centers && centers->Get(id.m_index, center))
+      {
+        info.m_distanceToPivot =
+            MercatorBounds::DistanceOnEarth(m_params.m_accuratePivotCenter, center);
+      }
+      else
+      {
+        info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
+      }
+    }
   });
 }
 
@@ -108,7 +118,7 @@ void PreRanker::Filter(bool viewportSearch)
 
   sort(m_results.begin(), m_results.end(), &PreResult1::LessDistance);
 
-  if (m_results.size() > kBatchSize)
+  if (m_results.size() > BatchSize())
   {
     // Priority is some kind of distance from the viewport or
     // position, therefore if we have a bunch of results with the same
@@ -117,15 +127,15 @@ void PreRanker::Filter(bool viewportSearch)
     // feature id) this code randomly selects tail of the
     // sorted-by-priority list of pre-results.
 
-    double const last = m_results[kBatchSize - 1].GetDistance();
+    double const last = m_results[BatchSize()].GetDistance();
 
-    auto b = m_results.begin() + kBatchSize - 1;
+    auto b = m_results.begin() + BatchSize();
     for (; b != m_results.begin() && b->GetDistance() == last; --b)
       ;
     if (b->GetDistance() != last)
       ++b;
 
-    auto e = m_results.begin() + kBatchSize;
+    auto e = m_results.begin() + BatchSize();
     for (; e != m_results.end() && e->GetDistance() == last; ++e)
       ;
 
@@ -141,11 +151,11 @@ void PreRanker::Filter(bool viewportSearch)
     minstd_rand engine;
     shuffle(b, e, engine);
   }
-  filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), kBatchSize));
+  filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), BatchSize()));
 
   if (!viewportSearch)
   {
-    size_t n = min(m_results.size(), kBatchSize);
+    size_t n = min(m_results.size(), BatchSize());
     nth_element(m_results.begin(), m_results.begin() + n, m_results.end(), &PreResult1::LessRank);
     filtered.insert(m_results.begin(), m_results.begin() + n);
   }

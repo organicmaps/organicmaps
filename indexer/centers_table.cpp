@@ -1,10 +1,11 @@
 #include "indexer/centers_table.hpp"
 
-#include "indexer/coding_params.hpp"
+#include "indexer/feature_processor.hpp"
 #include "indexer/geometry_coding.hpp"
 #include "indexer/point_to_int64.hpp"
 
 #include "coding/endianness.hpp"
+#include "coding/file_container.hpp"
 #include "coding/memory_region.hpp"
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
@@ -262,17 +263,21 @@ unique_ptr<CentersTable> CentersTable::Load(Reader & reader,
 }
 
 // CentersTableBuilder -----------------------------------------------------------------------------
-CentersTableBuilder::CentersTableBuilder(Writer & writer, serial::CodingParams const & codingParams)
-  : m_writer(writer), m_codingParams(codingParams)
+void CentersTableBuilder::Put(uint32_t featureId, m2::PointD const & center)
 {
+  if (!m_ids.empty())
+    CHECK_LESS(m_ids.back(), featureId, ());
+
+  m_centers.push_back(PointD2PointU(center, m_codingParams.GetCoordBits()));
+  m_ids.push_back(featureId);
 }
 
-CentersTableBuilder::~CentersTableBuilder()
+void CentersTableBuilder::Freeze(Writer & writer) const
 {
   CentersTableV0::Header header;
 
-  int64_t const startOffset = m_writer.Pos();
-  header.Write(m_writer);
+  int64_t const startOffset = writer.Pos();
+  header.Write(writer);
 
   {
     uint64_t const numBits = m_ids.empty() ? 0 : m_ids.back() + 1;
@@ -281,7 +286,7 @@ CentersTableBuilder::~CentersTableBuilder()
     for (auto const & id : m_ids)
       builder.set(id, true);
 
-    coding::FreezeVisitor<Writer> visitor(m_writer);
+    coding::FreezeVisitor<Writer> visitor(writer);
     succinct::rs_bit_vector(&builder).map(visitor);
   }
 
@@ -310,30 +315,21 @@ CentersTableBuilder::~CentersTableBuilder()
     for (auto const & offset : offsets)
       builder.push_back(offset);
 
-    header.m_positionsOffset = m_writer.Pos();
-    coding::FreezeVisitor<Writer> visitor(m_writer);
+    header.m_positionsOffset = writer.Pos() - startOffset;
+    coding::FreezeVisitor<Writer> visitor(writer);
     succinct::elias_fano(&builder).map(visitor);
   }
 
   {
-    header.m_deltasOffset = m_writer.Pos();
-    m_writer.Write(deltas.data(), deltas.size());
-    header.m_endOffset = m_writer.Pos();
+    header.m_deltasOffset = writer.Pos() - startOffset;
+    writer.Write(deltas.data(), deltas.size());
+    header.m_endOffset = writer.Pos() - startOffset;
   }
 
-  int64_t const endOffset = m_writer.Pos();
+  int64_t const endOffset = writer.Pos();
 
-  m_writer.Seek(startOffset);
-  header.Write(m_writer);
-  m_writer.Seek(endOffset);
-}
-
-void CentersTableBuilder::Put(uint32_t featureId, m2::PointD const & center)
-{
-  if (!m_ids.empty())
-    CHECK_LESS(m_ids.back(), featureId, ());
-
-  m_centers.push_back(PointD2PointU(center, m_codingParams.GetCoordBits()));
-  m_ids.push_back(featureId);
+  writer.Seek(startOffset);
+  header.Write(writer);
+  writer.Seek(endOffset);
 }
 }  // namespace search

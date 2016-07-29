@@ -32,6 +32,8 @@ public:
     // compute the distance from a feature to the pivot.
     m2::PointD m_accuratePivotCenter = m2::PointD(0, 0);
     int m_scale = 0;
+
+    size_t m_batchSize = 100;
   };
 
   PreRanker(Index const & index, Ranker & ranker, size_t limit);
@@ -39,10 +41,6 @@ public:
   void Init(Params const & params);
 
   inline void SetViewportSearch(bool viewportSearch) { m_viewportSearch = viewportSearch; }
-  inline void SetAccuratePivotCenter(m2::PointD const & center)
-  {
-    m_params.m_accuratePivotCenter = center;
-  }
 
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
@@ -63,6 +61,7 @@ public:
   void UpdateResults(bool lastUpdate);
 
   inline size_t Size() const { return m_results.size(); }
+  inline size_t BatchSize() const { return m_params.m_batchSize; }
   inline size_t NumSentResults() const { return m_numSentResults; }
   inline size_t Limit() const { return m_limit; }
 

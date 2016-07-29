@@ -44,6 +44,8 @@ public:
 
   HouseToStreetTableFormat GetHouseToStreetTableFormat() const;
 
+  bool HasOffsetsTable() const;
+
 private:
   version::Format m_versionFormat;
 };

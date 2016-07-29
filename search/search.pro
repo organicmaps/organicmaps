@@ -34,6 +34,7 @@ HEADERS += \
     keyword_lang_matcher.hpp \
     keyword_matcher.hpp \
     latlon_match.hpp \
+    lazy_centers_table.hpp \
     locality.hpp \
     locality_finder.hpp \
     locality_scorer.hpp \
@@ -89,6 +90,7 @@ SOURCES += \
     keyword_lang_matcher.cpp \
     keyword_matcher.cpp \
     latlon_match.cpp \
+    lazy_centers_table.cpp \
     locality.cpp \
     locality_finder.cpp \
     locality_scorer.cpp \
