@@ -127,8 +127,11 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [self dismissPlacePage];
 
-  auto & f = GetFramework();
-  if (switchFullScreenMode && self.controlsManager.searchHidden && !f.IsRouteNavigable())
+  if (!switchFullScreenMode)
+    return;
+
+  MWMMapViewControlsManager * cm = self.controlsManager;
+  if (cm.searchHidden && cm.navigationState == MWMNavigationDashboardStateHidden)
     self.controlsManager.hidden = !self.controlsManager.hidden;
 }
 
