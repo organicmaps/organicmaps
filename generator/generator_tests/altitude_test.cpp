@@ -69,7 +69,24 @@ class MockAltitudeGetter : public AltitudeGetter
 public:
   using TMockAltitudes = map<m2::PointI, TAltitude>;
 
-  MockAltitudeGetter(TMockAltitudes && altitudes) : m_altitudes(altitudes) {}
+  MockAltitudeGetter(vector<TPoint3DList> const & roads)
+  {
+    for (TPoint3DList const & geom3D : roads)
+    {
+      for (size_t i = 0; i < geom3D.size(); ++i)
+      {
+        auto it = m_altitudes.find(geom3D[i].m_point);
+        if (it != m_altitudes.end())
+        {
+          CHECK_EQUAL(it->second, geom3D[i].m_altitude,
+                      ("Point", it->first, "is set with two different altitudes."));
+          continue;
+        }
+        m_altitudes[geom3D[i].m_point] = geom3D[i].m_altitude;
+      }
+    }
+  }
+
   // AltitudeGetter overrides:
   TAltitude GetAltitude(m2::PointD const & p) override
   {
@@ -82,7 +99,17 @@ public:
   }
 
 private:
-  TMockAltitudes const & m_altitudes;
+
+  TMockAltitudes m_altitudes;
+};
+
+class MockNoAltitudeGetter : public AltitudeGetter
+{
+public:
+  TAltitude GetAltitude(m2::PointD const &) override
+  {
+    return kInvalidAltitude;
+  }
 };
 
 vector<m2::PointD> ExtractPoints(TPoint3DList const & geom3D)
@@ -91,25 +118,6 @@ vector<m2::PointD> ExtractPoints(TPoint3DList const & geom3D)
   for (Point3D const & p : geom3D)
     result.push_back(m2::PointD(p.m_point));
   return result;
-}
-
-void FillAltitudes(vector<TPoint3DList> const & roads,
-                   MockAltitudeGetter::TMockAltitudes & altitudes)
-{
-  for (TPoint3DList const & geom3D : roads)
-  {
-    for (size_t i = 0; i < geom3D.size(); ++i)
-    {
-      auto it = altitudes.find(geom3D[i].m_point);
-      if (it != altitudes.end())
-      {
-        CHECK_EQUAL(it->second, geom3D[i].m_altitude,
-                    ("Point", it->first, "is set with two different altitudes."));
-        continue;
-      }
-      altitudes[geom3D[i].m_point] = geom3D[i].m_altitude;
-    }
-  }
 }
 
 void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFile & country)
@@ -121,7 +129,7 @@ void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFi
 }
 
 void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath,
-                   MockAltitudeGetter & altitudeGetter)
+                   AltitudeGetter & altitudeGetter)
 {
   AltitudeLoader loader(mwmValue);
 
@@ -139,12 +147,16 @@ void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath,
     TEST_EQUAL(altitudes.size(), pointsCount, ());
 
     for (size_t i = 0; i < pointsCount; ++i)
-      TEST_EQUAL(altitudeGetter.GetAltitude(f.GetPoint(i)), altitudes[i], ("A wrong altitude"));
+    {
+      TAltitude const fromGetter = altitudeGetter.GetAltitude(f.GetPoint(i));
+      TAltitude const expected = (fromGetter == kInvalidAltitude ? kDefaultAltitudeMeters : fromGetter);
+      TEST_EQUAL(expected, altitudes[i], ("A wrong altitude"));
+    }
   };
   feature::ForEachFromDat(mwmPath, processor);
 }
 
-void TestAltitudesBuilding(vector<TPoint3DList> const & roads)
+void TestAltitudesBuilding(vector<TPoint3DList> const & roads, AltitudeGetter & altitudeGetter)
 {
   classificator::Load();
   Platform & platform = GetPlatform();
@@ -155,11 +167,6 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads)
   platform::tests_support::ScopedDir testScopedDir(kTestDir);
   platform::tests_support::ScopedFile testScopedMwm(country.GetPath(MapOptions::Map));
   BuildMwmWithoutAltitudes(roads, country);
-
-  // Creating MockAltitudeGetter.
-  MockAltitudeGetter::TMockAltitudes altitudes;
-  FillAltitudes(roads, altitudes);
-  MockAltitudeGetter altitudeGetter(move(altitudes));
 
   // Adding altitude section to mwm.
   string const mwmPath = my::JoinFoldersToPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
@@ -176,39 +183,69 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads)
   TestAltitudes(*mwmHandle.GetValue<MwmValue>(), mwmPath, altitudeGetter);
 }
 
+void TestBuildingAllFeaturesHaveAltitude(vector<TPoint3DList> const & roads)
+{
+  MockAltitudeGetter altitudeGetter(roads);
+  TestAltitudesBuilding(roads, altitudeGetter);
+}
+
+void TestBuildingNoFeatureHasAltitude(vector<TPoint3DList> const & roads)
+{
+  MockNoAltitudeGetter altitudeGetter;
+  TestAltitudesBuilding(roads, altitudeGetter);
+}
+
 UNIT_TEST(AltitudeGenerationTest_ZeroFeatures)
 {
   vector<TPoint3DList> const roads = {};
-  TestAltitudesBuilding(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads);
 }
 
 UNIT_TEST(AltitudeGenerationTest_OneRoad)
 {
   vector<TPoint3DList> const roads = {kRoad1};
-  TestAltitudesBuilding(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads);
 }
 
 UNIT_TEST(AltitudeGenerationTest_TwoConnectedRoads)
 {
   vector<TPoint3DList> const roads = {kRoad1, kRoad2};
-  TestAltitudesBuilding(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads);
 }
 
 UNIT_TEST(AltitudeGenerationTest_TwoDisconnectedRoads)
 {
   vector<TPoint3DList> const roads = {kRoad1, kRoad3};
-  TestAltitudesBuilding(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads);
 }
 
 UNIT_TEST(AltitudeGenerationTest_ThreeRoads)
 {
   vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3};
-  TestAltitudesBuilding(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads);
 }
 
 UNIT_TEST(AltitudeGenerationTest_FourRoads)
 {
   vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3, kRoad4};
-  TestAltitudesBuilding(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads);
+}
+
+UNIT_TEST(AltitudeGenerationTest_ZeroFeaturesWithoutAltitude)
+{
+  vector<TPoint3DList> const roads = {};
+  TestBuildingNoFeatureHasAltitude(roads);
+}
+
+UNIT_TEST(AltitudeGenerationTest_OneRoadWithoutAltitude)
+{
+  vector<TPoint3DList> const roads = {kRoad1};
+  TestBuildingNoFeatureHasAltitude(roads);
+}
+
+UNIT_TEST(AltitudeGenerationTest_FourRoadsWithoutAltitude)
+{
+  vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3, kRoad4};
+  TestBuildingNoFeatureHasAltitude(roads);
 }
 }  // namespace
