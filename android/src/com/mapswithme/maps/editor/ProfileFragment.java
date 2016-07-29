@@ -23,8 +23,6 @@ import com.mapswithme.util.UiUtils;
 
 public class ProfileFragment extends AuthFragment implements View.OnClickListener, OsmOAuth.OnUserStatsChanged
 {
-  private View mLocalBlock;
-  private TextView mEditsLocal;
   private View mSentBlock;
   private TextView mEditsSent;
   private TextView mEditsSentDate;
@@ -84,9 +82,6 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     mMore.setOnClickListener(this);
     View editsBlock = view.findViewById(R.id.block_edits);
     UiUtils.show(editsBlock);
-    mLocalBlock = editsBlock.findViewById(R.id.local_edits);
-    ((ImageView) mLocalBlock.findViewById(R.id.image)).setImageResource(R.drawable.ic_device);
-    mEditsLocal = (TextView) mLocalBlock.findViewById(R.id.title);
     mSentBlock = editsBlock.findViewById(R.id.sent_edits);
     mEditsSent = (TextView) mSentBlock.findViewById(R.id.edits_count);
     mEditsSentDate = (TextView) mSentBlock.findViewById(R.id.date_sent);
@@ -109,18 +104,6 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     {
       UiUtils.show(mAuthBlock);
       UiUtils.hide(mMore, mRatingBlock, mSentBlock);
-    }
-
-    final long[] stats = Editor.nativeGetStats();
-    final long localCount = stats[0] - stats[1];
-    if (localCount == 0)
-    {
-      UiUtils.hide(mLocalBlock);
-    }
-    else
-    {
-      UiUtils.show(mLocalBlock);
-      mEditsLocal.setText(String.format(Locale.US, "%s %d", getString(R.string.editor_profile_unsent_changes), localCount));
     }
 
     refreshRatings(0, 0, 0, "");
