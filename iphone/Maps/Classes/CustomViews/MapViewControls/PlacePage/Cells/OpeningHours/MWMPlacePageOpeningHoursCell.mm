@@ -23,6 +23,7 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 
 @property (weak, nonatomic) IBOutlet UILabel * openTime;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * openTimeLeadingOffset;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * openTimeTrailingOffset;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * weekDaysViewHeight;
 @property (nonatomic) CGFloat weekDaysViewEstimatedHeight;
@@ -133,6 +134,7 @@ WeekDayView getWeekDayView()
     if (self.isExpanded)
       [self addClosedDays];
   }
+  self.openTimeTrailingOffset.priority = self.delegate.forcedButton ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
   self.weekDaysViewHeight.constant = ceil(self.weekDaysViewEstimatedHeight);
   [self alignTimeOffsets];
 }
