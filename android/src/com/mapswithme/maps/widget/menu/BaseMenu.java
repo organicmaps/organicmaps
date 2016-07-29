@@ -71,7 +71,7 @@ public abstract class BaseMenu
     return res;
   }
 
-  private void adjustTransparency()
+  protected void adjustTransparency()
   {
     mFrame.setBackgroundColor(ThemeUtils.getColor(mFrame.getContext(), isOpen() ? R.attr.menuBackgroundOpen
                                                                                 : R.attr.menuBackground));

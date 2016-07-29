@@ -97,6 +97,7 @@
   <dimen name="nav_numbers_side_min_width">90dp</dimen>
   <dimen name="nav_numbers_center_min_width">130dp</dimen>
   <dimen name="nav_progress">4dp</dimen>
+  <dimen name="nav_progress_head">2dp</dimen>
   <dimen name="nav_toggle">40dp</dimen>
   <dimen name="nav_toggle_margin">8dp</dimen>
 

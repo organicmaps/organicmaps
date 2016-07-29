@@ -11,13 +11,14 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_street_height"
     android:elevation="@dimen/nav_elevation"
-    android:background="?menuBackground">
+    android:background="?cardBackground">
     <TextView
       android:id="@+id/street"
       style="@style/MwmWidget.TextView.NavStreet"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginLeft="@dimen/nav_street_left"
+      android:layout_marginStart="@dimen/nav_street_left"
       android:maxLines="2"
       android:layout_gravity="center_vertical"
       android:gravity="center"

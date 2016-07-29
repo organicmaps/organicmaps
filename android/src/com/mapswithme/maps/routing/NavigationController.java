@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import com.mapswithme.maps.Framework;
@@ -50,9 +52,13 @@ public class NavigationController
   private final TextView mTimeHourUnits;
   private final TextView mTimeMinuteValue;
   private final TextView mTimeMinuteUnits;
+  private final ImageView mDotTimeLeft;
+  private final ImageView mDotTimeArrival;
   private final TextView mDistanceValue;
   private final TextView mDistanceUnits;
   private final FlatProgressView mRouteProgress;
+
+  private boolean mShowTimeLeft = true;
 
   private double mNorth;
 
@@ -61,6 +67,14 @@ public class NavigationController
     mFrame = activity.findViewById(R.id.navigation_frame);
     mTopFrame = mFrame.findViewById(R.id.nav_top_frame);
     mBottomFrame = mFrame.findViewById(R.id.nav_bottom_frame);
+    mBottomFrame.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        switchTimeFormat();
+      }
+    });
     mNavMenu = createNavMenu();
     mNavMenu.refreshTts();
 
@@ -85,6 +99,8 @@ public class NavigationController
     mTimeHourUnits = (TextView) mBottomFrame.findViewById(R.id.time_hour_dimen);
     mTimeMinuteValue = (TextView) mBottomFrame.findViewById(R.id.time_minute_value);
     mTimeMinuteUnits = (TextView) mBottomFrame.findViewById(R.id.time_minute_dimen);
+    mDotTimeArrival = (ImageView) mBottomFrame.findViewById(R.id.dot_estimate);
+    mDotTimeLeft = (ImageView) mBottomFrame.findViewById(R.id.dot_left);
     mDistanceValue = (TextView) mBottomFrame.findViewById(R.id.distance_value);
     mDistanceUnits = (TextView) mBottomFrame.findViewById(R.id.distance_dimen);
     mRouteProgress = (FlatProgressView) mBottomFrame.findViewById(R.id.navigation_progress);
@@ -200,19 +216,50 @@ public class NavigationController
 
   private void updateTime(int seconds)
   {
+    if (mShowTimeLeft)
+    {
+      updateTimeLeft(seconds);
+      mDotTimeLeft.setEnabled(true);
+      mDotTimeArrival.setEnabled(false);
+    }
+    else
+    {
+      updateTimeEstimate(seconds);
+      mDotTimeLeft.setEnabled(false);
+      mDotTimeArrival.setEnabled(true);
+    }
+  }
+
+  private void updateTimeLeft(int seconds)
+  {
     final long hours = TimeUnit.SECONDS.toHours(seconds);
-    final long minutes = TimeUnit.MINUTES.toMinutes(seconds) % 60;
-    mTimeMinuteValue.setText(String.valueOf(minutes));
+    final long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
+    UiUtils.setTextAndShow(mTimeMinuteValue, String.valueOf(minutes));
     // TODO set localized text
-    mTimeMinuteUnits.setText("m");
+    UiUtils.setTextAndShow(mTimeMinuteUnits, "min");
     if (hours == 0)
     {
       UiUtils.hide(mTimeHourUnits, mTimeHourValue);
       return;
     }
-    mTimeHourValue.setText(String.valueOf(hours));
+    UiUtils.setTextAndShow(mTimeHourValue,String.valueOf(hours));
     // TODO set localized text
-    mTimeHourUnits.setText("h");
+    UiUtils.setTextAndShow(mTimeHourUnits, "h");
+  }
+
+  private void updateTimeEstimate(int seconds)
+  {
+    final Calendar currentTime = Calendar.getInstance();
+    currentTime.add(Calendar.SECOND, seconds);
+    UiUtils.setTextAndShow(mTimeMinuteValue, DateFormat.getTimeInstance(DateFormat.SHORT)
+                                                       .format(currentTime.getTime()));
+    UiUtils.hide(mTimeHourUnits, mTimeHourValue, mTimeMinuteUnits);
+  }
+
+  private void switchTimeFormat()
+  {
+    mShowTimeLeft = !mShowTimeLeft;
+    updateTime(Framework.nativeGetRouteFollowingInfo().totalTimeInSeconds);
   }
 
   public void show(boolean show)

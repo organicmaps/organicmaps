@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- Text colors -->
-  <color name="text_dark">#DE000000</color>
-  <color name="text_dark_subtitle">#8A000000</color>
-  <color name="text_dark_hint">#61000000</color>
-  <color name="text_light">#FFFFFFFF</color>
-  <color name="text_light_subtitle">#B3FFFFFF</color>
-  <color name="text_light_hint">#4CFFFFFF</color>
+  <color name="text_dark">@color/black_primary</color>
+  <color name="text_dark_subtitle">@color/black_secondary</color>
+  <color name="text_dark_hint">@color/black_lightest</color>
+  <color name="text_light">@color/white_primary</color>
+  <color name="text_light_subtitle">@color/white_secondary</color>
+  <color name="text_light_hint">@color/white_lightest</color>
 
   <color name="base_accent">#FF1E96F0</color>
   <color name="base_accent_night">#FFFFE68C</color>
@@ -16,6 +16,13 @@
   <color name="base_red">#FFF54137</color>
   <color name="base_yellow">#FFFFC30A</color>
   <color name="base_green">#FF558B2F</color>
+
+  <color name="black_primary">#DE000000</color> <!-- 87% black -->
+  <color name="black_secondary">#8A000000</color> <!-- 54% black -->
+  <color name="black_lightest">#61000000</color> <!-- 38% black -->
+  <color name="white_primary">@android:color/white</color> <!-- 100% black -->
+  <color name="white_secondary">#B3FFFFFF</color> <!-- 70% white -->
+  <color name="white_lightest">#4CFFFFFF</color> <!-- 50% black -->
 
   <color name="icon_tint">#FF757575</color>
   <color name="icon_tint_night">#FFC4C6C7</color>

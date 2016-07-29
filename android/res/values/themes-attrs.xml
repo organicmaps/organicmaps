@@ -70,4 +70,8 @@
     <attr name="status_folder" format="reference"/>
     <attr name="status_folder_done" format="reference"/>
   </declare-styleable>
+
+  <declare-styleable name="ThemeAttrs.Navigation">
+    <attr name="newsMarker" format="reference"/>
+  </declare-styleable>
 </resources>

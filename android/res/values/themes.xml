@@ -160,12 +160,13 @@
   </style>
 
   <style name="MwmTheme.Navigation">
-    <item name="iconTint">@android:color/white</item>
+    <item name="iconTint">@color/white_primary</item>
+    <item name="newsMarker">@drawable/news_marker</item>
   </style>
 
-  <!-- TODO get proper color -->
   <style name="MwmTheme.Navigation.Night">
-    <item name="iconTint">@android:color/darker_gray</item>
+    <item name="iconTint">@color/black_primary</item>
+    <item name="newsMarker">@drawable/news_marker_night</item>
   </style>
 
 </resources>

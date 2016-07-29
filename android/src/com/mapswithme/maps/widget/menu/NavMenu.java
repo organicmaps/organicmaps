@@ -12,7 +12,7 @@ import com.mapswithme.maps.widget.RotateDrawable;
 public class NavMenu extends BaseMenu
 {
   private final ImageView mToggle;
-  private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_menu_close);
+  private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
   private final ImageView mTts;
 
   public enum Item implements BaseMenu.Item
@@ -42,7 +42,7 @@ public class NavMenu extends BaseMenu
     super(frame, listener);
 
     mToggle = (ImageView) mLineFrame.findViewById(R.id.toggle);
-//    mToggle.setImageDrawable(mToggleImage);
+    //    mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
     {
       @Override
@@ -52,7 +52,7 @@ public class NavMenu extends BaseMenu
       }
     });
 
-//    setToggleState(false, false);
+    //    setToggleState(false, false);
 
     mapItem(Item.STOP, mFrame);
     mapItem(Item.SETTINGS, mFrame);
@@ -77,7 +77,7 @@ public class NavMenu extends BaseMenu
   {
     if (!animate)
     {
-//      mToggleImage.setAngle(open ? -90.0f : 90.0f);
+      //      mToggleImage.setAngle(open ? -90.0f : 90.0f);
       return;
     }
 
@@ -87,7 +87,7 @@ public class NavMenu extends BaseMenu
       @Override
       public void onAnimationUpdate(ValueAnimator animation)
       {
-        float fraction = (float)animation.getAnimatedValue();
+        float fraction = (float) animation.getAnimatedValue();
         mToggleImage.setAngle((1.0f - fraction) * 180.0f);
       }
     });
@@ -101,4 +101,7 @@ public class NavMenu extends BaseMenu
   {
     return R.dimen.nav_menu_height;
   }
+
+  @Override
+  protected void adjustTransparency() {}
 }

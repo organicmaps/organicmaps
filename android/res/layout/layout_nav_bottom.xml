@@ -10,6 +10,7 @@
   android:layout_gravity="bottom"
   android:clickable="true"
   android:visibility="invisible"
+  android:background="?cardBackground"
   tools:visibility="visible">
 
   <FrameLayout
@@ -35,7 +36,7 @@
     android:id="@+id/navigation_progress"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:headRadius="@dimen/nav_progress"
+    app:headRadius="@dimen/nav_progress_head"
     app:progressColor="?colorAccent"
     app:headColor="?colorAccent"
     app:progressThickness="@dimen/nav_progress"
