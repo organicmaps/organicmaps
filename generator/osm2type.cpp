@@ -223,7 +223,7 @@ namespace ftype
     CachedTypes()
     {
       Classificator const & c = classif();
-      
+
       for (auto const & e : (StringIL[]) { {"entrance"}, {"highway"} })
         m_types.push_back(c.GetTypeByPath(e));
 
@@ -648,6 +648,7 @@ namespace ftype
       { "addr:housename", "*", [&params](string & k, string & v) { params.AddHouseName(v); k.clear(); v.clear(); }},
       { "addr:street", "*", [&params](string & k, string & v) { params.AddStreet(v); k.clear(); v.clear(); }},
       //{ "addr:streetnumber", "*", [&params](string & k, string & v) { params.AddStreet(v); k.clear(); v.clear(); }},
+      // This line was first introduced by vng and was never used uncommented.
       //{ "addr:full", "*", [&params](string & k, string & v) { params.AddAddress(v); k.clear(); v.clear(); }},
 
       // addr:postcode must be passed to the metadata processor.

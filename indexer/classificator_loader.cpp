@@ -36,7 +36,7 @@ void ReadCommon(unique_ptr<Reader> classificator,
     c.ReadTypesMapping(s);
   }
 }
-}
+}  // namespace
 
 namespace classificator
 {
@@ -66,4 +66,4 @@ namespace classificator
 
     LOG(LDEBUG, ("Reading of classificator finished"));
   }
-}
+}  // namespace classificator
