@@ -16,6 +16,8 @@ public abstract class BaseMenu
 {
   public static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
 
+  private boolean mIsOpen;
+
   final View mFrame;
   final View mLineFrame;
   final View mContentFrame;
@@ -24,7 +26,7 @@ public abstract class BaseMenu
 
   int mContentHeight;
 
-  boolean mLayoutCorrected;
+  boolean mLayoutMeasured;
   boolean mAnimating;
 
 
@@ -77,15 +79,15 @@ public abstract class BaseMenu
                                                                                 : R.attr.menuBackground));
   }
 
-  void afterLayoutCorrected(@Nullable Runnable procAfterCorrection)
+  void afterLayoutMeasured(@Nullable Runnable procAfterCorrection)
   {
     if (procAfterCorrection != null)
       procAfterCorrection.run();
   }
 
-  private void correctLayout(@Nullable final Runnable procAfterCorrection)
+  protected void measureContent(@Nullable final Runnable procAfterMeasurement)
   {
-    if (mLayoutCorrected)
+    if (mLayoutMeasured)
       return;
 
     UiUtils.measureView(mContentFrame, new UiUtils.OnViewMeasuredListener()
@@ -93,18 +95,21 @@ public abstract class BaseMenu
       @Override
       public void onViewMeasured(int width, int height)
       {
-        mContentHeight = height;
-        mLayoutCorrected = true;
+        if (height != 0)
+        {
+          mContentHeight = height;
+          mLayoutMeasured = true;
 
-        UiUtils.hide(mContentFrame);
-        afterLayoutCorrected(procAfterCorrection);
+          UiUtils.hide(mContentFrame);
+        }
+        afterLayoutMeasured(procAfterMeasurement);
       }
     });
   }
 
-  public void onResume(@Nullable Runnable procAfterCorrection)
+  public void onResume(@Nullable Runnable procAfterMeasurement)
   {
-    correctLayout(procAfterCorrection);
+    measureContent(procAfterMeasurement);
     updateMarker();
   }
 
@@ -121,7 +126,7 @@ public abstract class BaseMenu
 
   public boolean isOpen()
   {
-    return UiUtils.isVisible(mContentFrame);
+    return mIsOpen;
   }
 
   public boolean isAnimating()
@@ -134,12 +139,14 @@ public abstract class BaseMenu
     if ((animate && mAnimating) || isOpen())
       return false;
 
+    mIsOpen = true;
+
     UiUtils.show(mContentFrame);
     adjustCollapsedItems();
     adjustTransparency();
     updateMarker();
 
-    setToggleState(true, animate);
+    setToggleState(mIsOpen, animate);
     if (!animate)
       return true;
 
@@ -168,7 +175,9 @@ public abstract class BaseMenu
       return false;
     }
 
+    mIsOpen = false;
     adjustCollapsedItems();
+    setToggleState(mIsOpen, animate);
 
     if (!animate)
     {
@@ -176,15 +185,11 @@ public abstract class BaseMenu
       adjustTransparency();
       updateMarker();
 
-      setToggleState(false, false);
-
       if (onCloseListener != null)
         onCloseListener.run();
 
       return true;
     }
-
-    setToggleState(false, true);
 
     mFrame.animate()
           .setDuration(ANIMATION_DURATION)
@@ -195,7 +200,6 @@ public abstract class BaseMenu
             public void onAnimationEnd(Animator animation)
             {
               super.onAnimationEnd(animation);
-
               mFrame.setTranslationY(0.0f);
               UiUtils.hide(mContentFrame);
               adjustTransparency();

@@ -36,7 +36,7 @@
     android:layout_height="match_parent"
     android:layout_below="@id/toolbar"
     android:paddingBottom="@dimen/margin_base"
-    android:visibility="gone"/>
+    android:visibility="invisible"/>
 
   <include
     layout="@layout/routing_plan"

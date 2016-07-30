@@ -22,14 +22,14 @@
 
     <ImageView
       android:id="@+id/toggle"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
+      android:layout_width="@dimen/nav_menu_height"
+      android:layout_height="@dimen/nav_menu_height"
       android:layout_gravity="end|center_vertical"
       android:background="?clickableBackground"
       android:scaleType="center"
       android:tint="?iconTint"
       android:clickable="true"
-      android:src="@drawable/ic_menu_close"/>
+      tools:src="@drawable/ic_menu_close"/>
   </FrameLayout>
 
   <com.mapswithme.maps.widget.FlatProgressView
@@ -84,7 +84,6 @@
       android:layout_height="48dp"
       android:scaleType="center"
       android:src="@drawable/ic_voice_on"
-      android:background="?selectableItemBackgroundBorderless"
-      android:tint="?iconTint"/>
+      android:background="?selectableItemBackgroundBorderless"/>
   </LinearLayout>
 </LinearLayout>

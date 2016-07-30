@@ -500,12 +500,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void toggleMenu()
   {
-    if (mMainMenu.isOpen())
-      mFadeView.fadeOut();
-    else
-      mFadeView.fadeIn();
+    getCurrentMenu().toggle(true);
+    refreshFade();
+  }
 
-    mMainMenu.toggle(true);
+  protected void refreshFade()
+  {
+    if (getCurrentMenu().isOpen())
+      mFadeView.fadeIn();
+    else
+      mFadeView.fadeOut();
   }
 
   private void initMainMenu()

@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,21 +23,28 @@ class MenuToggle
 
   MenuToggle(View frame, @DimenRes int heightRes)
   {
+    this(frame, heightRes, R.drawable.ic_menu_open, R.drawable.ic_menu_close);
+  }
+
+  MenuToggle(View frame, @DimenRes int heightRes, @DrawableRes int src, @DrawableRes int dst)
+  {
     mButton = (ImageView) frame.findViewById(R.id.toggle);
     mAlwaysShow = (frame.findViewById(R.id.disable_toggle) == null);
 
     int sz = UiUtils.dimen(heightRes);
     Rect bounds = new Rect(0, 0, sz, sz);
 
-    mOpenImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_open, R.attr.iconTint, false)
-                                                                    .setInnerBounds(bounds),
-                                                                new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight, true)
-                                                                    .setInnerBounds(bounds)
-                                                                    .setBaseAngle(-90) });
-    mCollapseImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_open, R.attr.iconTint, false)
-                                                                        .setInnerBounds(bounds),
-                                                                    new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight, true)
-                                                                        .setInnerBounds(bounds) });
+    mOpenImage = new TrackedTransitionDrawable(new Drawable[]{
+        new RotateByAlphaDrawable(frame.getContext(), src, R.attr.iconTint, false)
+            .setInnerBounds(bounds),
+        new RotateByAlphaDrawable(frame.getContext(), dst, R.attr.iconTintLight, true)
+            .setInnerBounds(bounds)
+            .setBaseAngle(-90)});
+    mCollapseImage = new TrackedTransitionDrawable(new Drawable[]{
+        new RotateByAlphaDrawable(frame.getContext(), src, R.attr.iconTint, false)
+            .setInnerBounds(bounds),
+        new RotateByAlphaDrawable(frame.getContext(), dst, R.attr.iconTintLight, true)
+            .setInnerBounds(bounds)});
     mOpenImage.setCrossFadeEnabled(true);
     mCollapseImage.setCrossFadeEnabled(true);
   }

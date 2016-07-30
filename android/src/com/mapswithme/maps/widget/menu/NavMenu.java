@@ -8,11 +8,12 @@ import android.widget.ImageView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.RotateDrawable;
+import com.mapswithme.util.Graphics;
 
 public class NavMenu extends BaseMenu
 {
-  private final ImageView mToggle;
-  private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
+  private ImageView mToggle;
+  private final RotateDrawable mToggleImage;
   private final ImageView mTts;
 
   public enum Item implements BaseMenu.Item
@@ -42,7 +43,9 @@ public class NavMenu extends BaseMenu
     super(frame, listener);
 
     mToggle = (ImageView) mLineFrame.findViewById(R.id.toggle);
-    //    mToggle.setImageDrawable(mToggleImage);
+    mToggleImage = new RotateDrawable(Graphics.tint(
+        mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTint));
+    mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
     {
       @Override
@@ -52,7 +55,7 @@ public class NavMenu extends BaseMenu
       }
     });
 
-    //    setToggleState(false, false);
+    setToggleState(false, false);
 
     mapItem(Item.STOP, mFrame);
     mapItem(Item.SETTINGS, mFrame);
@@ -60,35 +63,38 @@ public class NavMenu extends BaseMenu
   }
 
   @Override
-  public void onResume(@Nullable Runnable procAfterCorrection)
+  public void onResume(@Nullable Runnable procAfterMeasurement)
   {
-    super.onResume(procAfterCorrection);
+    super.onResume(procAfterMeasurement);
     refreshTts();
   }
 
   public void refreshTts()
   {
-    mTts.setImageResource(TtsPlayer.isEnabled() ? R.drawable.ic_voice_on
-                                                : R.drawable.ic_voice_off);
+    mTts.setImageDrawable(TtsPlayer.isEnabled() ? Graphics.tint(mFrame.getContext(), R.drawable.ic_voice_on,
+                                                                R.attr.colorAccent)
+                                                : Graphics.tint(mFrame.getContext(), R.drawable.ic_voice_off));
+
   }
 
   @Override
   protected void setToggleState(boolean open, boolean animate)
   {
+    final float to = open ? -90.0f : 90.0f;
     if (!animate)
     {
-      //      mToggleImage.setAngle(open ? -90.0f : 90.0f);
+      mToggleImage.setAngle(to);
       return;
     }
 
-    ValueAnimator animator = ValueAnimator.ofFloat(open ? 1.0f : 0, open ? 0 : 1.0f);
+    final float from = -to;
+    ValueAnimator animator = ValueAnimator.ofFloat(from, to);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
       public void onAnimationUpdate(ValueAnimator animation)
       {
-        float fraction = (float) animation.getAnimatedValue();
-        mToggleImage.setAngle((1.0f - fraction) * 180.0f);
+        mToggleImage.setAngle((float) animation.getAnimatedValue());
       }
     });
 
@@ -104,4 +110,11 @@ public class NavMenu extends BaseMenu
 
   @Override
   protected void adjustTransparency() {}
+
+  @Override
+  public void show(boolean show)
+  {
+    super.show(show);
+    measureContent(null);
+  }
 }

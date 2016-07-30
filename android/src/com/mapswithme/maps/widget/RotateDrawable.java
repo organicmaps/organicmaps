@@ -14,8 +14,13 @@ public class RotateDrawable extends Drawable
 
   public RotateDrawable(@DrawableRes int resId)
   {
+    this(MwmApplication.get().getResources().getDrawable(resId));
+  }
+
+  public RotateDrawable(Drawable drawable)
+  {
     super();
-    mBaseDrawable = MwmApplication.get().getResources().getDrawable(resId);
+    mBaseDrawable = drawable;
   }
 
   @Override
