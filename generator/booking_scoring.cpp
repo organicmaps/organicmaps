@@ -1,6 +1,7 @@
 #include "generator/booking_scoring.hpp"
 
 #include "generator/booking_dataset.hpp"
+#include "generator/feature_builder.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -20,7 +21,7 @@ namespace booking_scoring
 namespace
 {
 // Calculated with tools/python/booking_hotels_quality.py.
-double constexpr kOptimalThreshold = 0.317324;
+double constexpr kOptimalThreshold = 0.321098;
 
 template <typename T, typename U>
 struct decay_equiv :
@@ -125,15 +126,17 @@ bool BookingMatchScore::IsMatched() const
   return GetMatchingScore() > kOptimalThreshold;
 }
 
-BookingMatchScore Match(BookingDataset::Hotel const & h, OsmElement const & e)
+BookingMatchScore Match(BookingDataset::Hotel const & h, FeatureBuilder1 const & fb)
 {
   BookingMatchScore score;
 
-  auto const distance = ms::DistanceOnEarth(e.lat, e.lon, h.lat, h.lon);
+  auto const fbCenter = MercatorBounds::ToLatLon(fb.GetKeyPoint());
+  auto const distance = ms::DistanceOnEarth(fbCenter.lat, fbCenter.lon, h.lat, h.lon);
   score.m_linearNormDistanceScore = GetLinearNormDistanceScore(distance);
 
   // TODO(mgsergio): Check all translations and use the best one.
-  score.m_nameSimilarityScore = GetNameSimilarityScore(h.name, e.GetTag("name"));
+  score.m_nameSimilarityScore =
+      GetNameSimilarityScore(h.name, fb.GetName(StringUtf8Multilang::kDefaultCode));
 
   return score;
 }

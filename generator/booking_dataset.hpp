@@ -1,7 +1,5 @@
 #pragma once
 
-#include "generator/osm_element.hpp"
-
 #include "indexer/index.hpp"
 
 #include "search/reverse_geocoder.hpp"
@@ -13,6 +11,8 @@
 
 #include "std/function.hpp"
 #include "std/string.hpp"
+
+class FeatureBuilder1;
 
 namespace generator
 {
@@ -77,8 +77,9 @@ public:
   explicit BookingDataset(string const & dataPath, string const & addressReferencePath = string());
   explicit BookingDataset(istream & dataSource, string const & addressReferencePath = string());
 
-  bool BookingFilter(OsmElement const & e) const;
-  bool TourismFilter(OsmElement const & e) const;
+  /// @returns an index of a matched hotel or numeric_limits<size_t>::max on failure.
+  size_t GetMatchingHotelIndex(FeatureBuilder1 const & e) const;
+  bool TourismFilter(FeatureBuilder1 const & e) const;
 
   inline size_t Size() const { return m_hotels.size(); }
   Hotel const & GetHotel(size_t index) const;
@@ -87,7 +88,8 @@ public:
                                   double maxDistance = 0.0) const;
   bool MatchByName(string const & osmName, vector<size_t> const & bookingIndexes) const;
 
-  void BuildFeatures(function<void(OsmElement *)> const & fn) const;
+  void BuildFeature(FeatureBuilder1 const & fb, size_t hotelIndex,
+                    function<void(FeatureBuilder1 &)> const & fn) const;
 
 protected:
   vector<Hotel> m_hotels;
@@ -100,10 +102,10 @@ protected:
   boost::geometry::index::rtree<TValue, boost::geometry::index::quadratic<16>> m_rtree;
 
   void LoadHotels(istream & path, string const & addressReferencePath);
-  bool MatchWithBooking(OsmElement const & e) const;
-  bool Filter(OsmElement const & e, function<bool(OsmElement const &)> const & fn) const;
+  /// @returns an index of a matched hotel or numeric_limits<size_t>::max() on failure.
+  size_t MatchWithBooking(FeatureBuilder1 const & e) const;
+  bool CanBeBooking(FeatureBuilder1 const & e) const;
 };
 
 ostream & operator<<(ostream & s, BookingDataset::Hotel const & h);
-
 }  // namespace generator

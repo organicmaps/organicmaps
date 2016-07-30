@@ -23,6 +23,7 @@
 #include "coding/parse_xml.hpp"
 
 #include "std/fstream.hpp"
+#include "std/limits.hpp"
 
 #include "defines.hpp"
 
@@ -269,6 +270,8 @@ class MainFeaturesEmitter : public EmitterBase
   string m_srcCoastsFile;
   bool m_failOnCoasts;
 
+  generator::BookingDataset m_bookingDataset;
+
   // TODO(mgsergio): comment.
   m4::Tree<Place> m_places;
 
@@ -288,6 +291,7 @@ class MainFeaturesEmitter : public EmitterBase
 public:
   MainFeaturesEmitter(feature::GenerateInfo const & info)
   : m_failOnCoasts(info.m_failOnCoasts)
+  , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
   {
     Classificator const & c = classif();
 
@@ -329,12 +333,19 @@ public:
     static uint32_t const placeType = classif().GetTypeByPath({"place"});
     uint32_t const type = fb.GetParams().FindType(placeType, 1);
 
+    auto hotelIndex = numeric_limits<size_t>::max();
+
     if (type != ftype::GetEmptyValue() && !fb.GetName().empty())
     {
       m_places.ReplaceEqualInRect(
           Place(fb, type),
           [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },
           [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
+    }
+    else if ((hotelIndex = m_bookingDataset.GetMatchingHotelIndex(fb)) !=
+             numeric_limits<size_t>::max())
+    {
+      m_bookingDataset.BuildFeature(fb, hotelIndex, [this](FeatureBuilder1 & fb) { Emit(fb); });
     }
     else
     {
@@ -621,11 +632,8 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
     OsmTagMixer osmTagMixer(GetPlatform().ResourcesDir() + MIXED_TAGS_FILE);
 
-    // If info.m_bookingDatafileName is empty then no data will be loaded.
-    generator::BookingDataset bookingDataset(info.m_bookingDatafileName,
-                                             info.m_bookingReferenceDir);
-
-    stringstream skippedElements;
+    // TODO(mgsergio): Output skipped elemnts.
+    // stringstream skippedElements;
 
     // Here we can add new tags to element!!!
     auto const fn = [&](OsmElement * e)
@@ -634,11 +642,11 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
       tagAdmixer(e);
       osmTagMixer(e);
 
-      if (bookingDataset.BookingFilter(*e))
-      {
-        skippedElements << e->id << endl;
-        return;
-      }
+      // if (bookingDataset.BookingFilter(*e))
+      // {
+      //   skippedElements << e->id << endl;
+      //   return;
+      // }
 
       parser.EmitElement(e);
     };
@@ -656,22 +664,23 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
 
     LOG(LINFO, ("Processing", info.m_osmFileName, "done."));
 
-    if (!info.m_bookingDatafileName.empty())
-    {
-      bookingDataset.BuildFeatures([&](OsmElement * e) { parser.EmitElement(e); });
-      LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
-      string skippedElementsPath = info.GetIntermediateFileName("skipped_elements", ".lst");
-      ofstream file(skippedElementsPath);
-      if (file.is_open())
-      {
-        file << skippedElements.str();
-        LOG(LINFO, ("Saving skipped elements to", skippedElementsPath, "done."));
-      }
-      else
-      {
-        LOG(LERROR, ("Can't output into", skippedElementsPath));
-      }
-    }
+    // TOFO(mgsergio): Build features in Emitter.
+    // if (!info.m_bookingDatafileName.empty())
+    // {
+    //   bookingDataset.BuildFeatures([&](OsmElement * e) { parser.EmitElement(e); });
+    //   LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
+    //   string skippedElementsPath = info.GetIntermediateFileName("skipped_elements", ".lst");
+    //   ofstream file(skippedElementsPath);
+    //   if (file.is_open())
+    //   {
+    //     file << skippedElements.str();
+    //     LOG(LINFO, ("Saving skipped elements to", skippedElementsPath, "done."));
+    //   }
+    //   else
+    //   {
+    //     LOG(LERROR, ("Can't output into", skippedElementsPath));
+    //   }
+    // }
 
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set
     if (!emitter.Finish())
