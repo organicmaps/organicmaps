@@ -113,15 +113,16 @@ public class NavigationController
       @Override
       public void onItemClick(NavMenu.Item item)
       {
+        final MwmActivity parent = ((MwmActivity) mFrame.getContext());
         switch (item)
         {
         case STOP:
           RoutingController.get().cancel();
           Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
           AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
+          parent.refreshFade();
           break;
         case SETTINGS:
-          final MwmActivity parent = ((MwmActivity) mFrame.getContext());
           parent.closeMenu(Statistics.EventName.ROUTING_SETTINGS, AlohaHelper.MENU_SETTINGS, new Runnable()
           {
             @Override
@@ -137,6 +138,9 @@ public class NavigationController
           Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
           AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
           break;
+        case TOGGLE:
+          mNavMenu.toggle(true);
+          parent.refreshFade();
         }
       }
     });

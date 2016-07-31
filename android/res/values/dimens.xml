@@ -100,6 +100,8 @@
   <dimen name="nav_progress_head">2dp</dimen>
   <dimen name="nav_toggle">40dp</dimen>
   <dimen name="nav_toggle_margin">8dp</dimen>
+  <dimen name="nav_icon_size">48dp</dimen>
+  <dimen name="nav_bottom_gap">12dp</dimen>
 
   <dimen name="nav_frame_padding">@dimen/margin_half</dimen>
   <dimen name="nav_button">28dp</dimen>

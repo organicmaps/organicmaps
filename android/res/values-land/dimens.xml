@@ -11,4 +11,5 @@
   <dimen name="nav_zoom_bottom">80dp</dimen>
   <dimen name="nav_toggle_margin">16dp</dimen>
   <dimen name="nav_numbers_margin">16dp</dimen>
+  <dimen name="nav_bottom_gap">24dp</dimen>
 </resources>

@@ -20,7 +20,7 @@
   <color name="black_primary">#DE000000</color> <!-- 87% black -->
   <color name="black_secondary">#8A000000</color> <!-- 54% black -->
   <color name="black_lightest">#61000000</color> <!-- 38% black -->
-  <color name="white_primary">@android:color/white</color> <!-- 100% black -->
+  <color name="white_primary">@android:color/white</color> <!-- 100% white -->
   <color name="white_secondary">#B3FFFFFF</color> <!-- 70% white -->
   <color name="white_lightest">#4CFFFFFF</color> <!-- 50% black -->
 

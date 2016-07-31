@@ -406,7 +406,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public boolean onTouch()
       {
-        return mMainMenu.close(true);
+        return getCurrentMenu().close(true);
       }
     });
 
@@ -504,7 +504,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshFade();
   }
 
-  protected void refreshFade()
+  public void refreshFade()
   {
     if (getCurrentMenu().isOpen())
       mFadeView.fadeIn();
@@ -872,7 +872,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBackPressed()
   {
-    if (mMainMenu.close(true))
+    if (getCurrentMenu().close(true))
     {
       mFadeView.fadeOut();
       return;

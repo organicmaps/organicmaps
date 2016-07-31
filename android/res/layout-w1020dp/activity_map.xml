@@ -23,6 +23,13 @@
     android:id="@+id/navigation_buttons"
     layout="@layout/map_navigation_buttons"/>
 
+  <com.mapswithme.maps.widget.FadeView
+    android:id="@+id/fade_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:visibility="gone"/>
+
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -58,13 +65,6 @@
       placePage:animationType="left"
       placePage:floating="true"/>
   </LinearLayout>
-
-  <com.mapswithme.maps.widget.FadeView
-    android:id="@+id/fade_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black"
-    android:visibility="gone"/>
 
   <include
     android:id="@+id/menu_frame"

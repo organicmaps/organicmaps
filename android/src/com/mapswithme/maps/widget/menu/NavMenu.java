@@ -46,17 +46,10 @@ public class NavMenu extends BaseMenu
     mToggleImage = new RotateDrawable(Graphics.tint(
         mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTint));
     mToggle.setImageDrawable(mToggleImage);
-    mToggle.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        toggle(true);
-      }
-    });
 
     setToggleState(false, false);
 
+    mapItem(Item.TOGGLE, mLineFrame);
     mapItem(Item.STOP, mFrame);
     mapItem(Item.SETTINGS, mFrame);
     mTts = (ImageView) mapItem(Item.TTS_VOLUME, mFrame);
