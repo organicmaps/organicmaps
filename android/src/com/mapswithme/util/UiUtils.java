@@ -294,6 +294,12 @@ public final class UiUtils
                                                                                     : R.attr.buttonTextColorDisabled));
   }
 
+  public static void updateRedButton(Button button)
+  {
+    button.setTextColor(ThemeUtils.getColor(button.getContext(), button.isEnabled() ? R.attr.redButtonTextColor
+                                                                                    : R.attr.redButtonTextColorDisabled));
+  }
+
   public static void updateAccentButton(Button button)
   {
     button.setTextColor(ThemeUtils.getColor(button.getContext(), button.isEnabled() ? R.attr.accentButtonTextColor

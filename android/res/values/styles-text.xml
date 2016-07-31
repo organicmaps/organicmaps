@@ -72,6 +72,11 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
+  <style name="MwmTextAppearance.Button.Red">
+    <item name="android:textColor">@color/button_red_text</item>
+    <item name="android:textAllCaps">true</item>
+  </style>
+
   <style name="MwmTextAppearance.Toolbar">
     <item name="android:textSize">@dimen/text_size_toolbar</item>
     <item name="android:textColor">@color/text_light</item>

@@ -3,16 +3,17 @@ package com.mapswithme.maps.widget.menu;
 import android.animation.ValueAnimator;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.UiUtils;
 
 public class NavMenu extends BaseMenu
 {
-  private ImageView mToggle;
   private final RotateDrawable mToggleImage;
   private final ImageView mTts;
 
@@ -42,15 +43,16 @@ public class NavMenu extends BaseMenu
   {
     super(frame, listener);
 
-    mToggle = (ImageView) mLineFrame.findViewById(R.id.toggle);
-    mToggleImage = new RotateDrawable(Graphics.tint(
-        mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTint));
-    mToggle.setImageDrawable(mToggleImage);
+    mToggleImage = new RotateDrawable(Graphics.tint(mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight));
+    ImageView toggle = (ImageView) mLineFrame.findViewById(R.id.toggle);
+    toggle.setImageDrawable(mToggleImage);
 
     setToggleState(false, false);
 
     mapItem(Item.TOGGLE, mLineFrame);
-    mapItem(Item.STOP, mFrame);
+    Button stop = (Button) mapItem(Item.STOP, mFrame);
+    UiUtils.updateRedButton(stop);
+
     mapItem(Item.SETTINGS, mFrame);
     mTts = (ImageView) mapItem(Item.TTS_VOLUME, mFrame);
   }

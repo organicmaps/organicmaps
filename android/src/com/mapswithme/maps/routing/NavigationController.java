@@ -10,10 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -29,10 +25,13 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 public class NavigationController
 {
   private final View mFrame;
-  private final View mTopFrame;
   private final View mBottomFrame;
   private final NavMenu mNavMenu;
 
@@ -65,7 +64,6 @@ public class NavigationController
   public NavigationController(Activity activity)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
-    mTopFrame = mFrame.findViewById(R.id.nav_top_frame);
     mBottomFrame = mFrame.findViewById(R.id.nav_bottom_frame);
     mBottomFrame.setOnClickListener(new View.OnClickListener()
     {
@@ -79,17 +77,18 @@ public class NavigationController
     mNavMenu.refreshTts();
 
     // Top frame
-    View turnFrame = mTopFrame.findViewById(R.id.nav_next_turn_frame);
+    View topFrame = mFrame.findViewById(R.id.nav_top_frame);
+    View turnFrame = topFrame.findViewById(R.id.nav_next_turn_frame);
     mNextTurnImage = (ImageView) turnFrame.findViewById(R.id.turn);
     mNextTurnDistance = (TextView) turnFrame.findViewById(R.id.distance);
     mCircleExit = (TextView) turnFrame.findViewById(R.id.circle_exit);
 
-    mNextNextTurnFrame = mTopFrame.findViewById(R.id.nav_next_next_turn_frame);
+    mNextNextTurnFrame = topFrame.findViewById(R.id.nav_next_next_turn_frame);
     mNextNextTurnImage = (ImageView) mNextNextTurnFrame.findViewById(R.id.turn);
 
-    mStreetFrame = mTopFrame.findViewById(R.id.street_frame);
+    mStreetFrame = topFrame.findViewById(R.id.street_frame);
     mNextStreet = (TextView) mStreetFrame.findViewById(R.id.street);
-    View shadow = mTopFrame.findViewById(R.id.shadow_top);
+    View shadow = topFrame.findViewById(R.id.shadow_top);
     UiUtils.showIf(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP, shadow);
 
     // Bottom frame
@@ -221,17 +220,12 @@ public class NavigationController
   private void updateTime(int seconds)
   {
     if (mShowTimeLeft)
-    {
       updateTimeLeft(seconds);
-      mDotTimeLeft.setEnabled(true);
-      mDotTimeArrival.setEnabled(false);
-    }
     else
-    {
       updateTimeEstimate(seconds);
-      mDotTimeLeft.setEnabled(false);
-      mDotTimeArrival.setEnabled(true);
-    }
+
+    mDotTimeLeft.setEnabled(mShowTimeLeft);
+    mDotTimeArrival.setEnabled(!mShowTimeLeft);
   }
 
   private void updateTimeLeft(int seconds)

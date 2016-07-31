@@ -155,10 +155,6 @@
     <item name="colorButtonNormal">?colorAccent</item>
   </style>
 
-  <style name="MwmTheme.Button.Red">
-    <item name="colorButtonNormal">@color/base_red</item>
-  </style>
-
   <style name="MwmTheme.Navigation">
     <item name="iconTint">@color/white_primary</item>
     <item name="newsMarker">@drawable/news_marker</item>

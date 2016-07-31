@@ -55,6 +55,10 @@
     <item name="accentButtonTextColor">@color/button_accent_text</item>
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled</item>
 
+    <item name="redButtonBackground">@drawable/button_red</item>
+    <item name="redButtonTextColor">@color/button_red_text</item>
+    <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
+
     <item name="circleAccent">@drawable/circle_accent</item>
 
     <item name="menuBackground">@color/bg_menu</item>
@@ -124,6 +128,10 @@
     <item name="accentButtonBackground">@drawable/button_accent_night</item>
     <item name="accentButtonTextColor">@color/button_accent_text_night</item>
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled_night</item>
+
+    <item name="redButtonBackground">@drawable/button_red</item>
+    <item name="redButtonTextColor">@color/button_red_text</item>
+    <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
 
     <item name="circleAccent">@drawable/circle_accent_night</item>
 
