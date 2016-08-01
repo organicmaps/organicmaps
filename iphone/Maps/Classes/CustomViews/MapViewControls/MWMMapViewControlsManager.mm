@@ -371,6 +371,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   self.navigationManager.state = MWMNavigationDashboardStatePrepare;
   MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+  self.menuController.p2pButton.selected = YES;
 }
 
 - (void)onRouteRebuild
