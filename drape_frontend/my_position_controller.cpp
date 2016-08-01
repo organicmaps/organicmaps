@@ -26,7 +26,7 @@ double const kMinSpeedThresholdMps = 1.0;
 
 double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
-double const kMaxNotFollowRoutingTimeSec = 10.0;
+double const kMaxNotFollowRoutingTimeSec = 20.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
 double const kMaxBlockAutoZoomTimeSec = 10.0;
 
