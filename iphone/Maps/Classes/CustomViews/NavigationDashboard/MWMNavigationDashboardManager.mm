@@ -154,8 +154,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
 - (void)setState:(MWMNavigationDashboardState)state
 {
-  if (_state == state)
-    return;
   switch (state)
   {
   case MWMNavigationDashboardStateHidden: [self hideState]; break;
