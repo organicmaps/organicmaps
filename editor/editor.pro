@@ -19,6 +19,7 @@ SOURCES += \
   ui2oh.cpp \
   user_stats.cpp \
   xml_feature.cpp \
+  editor_storage.cpp
 
 HEADERS += \
   changeset_wrapper.hpp \
@@ -32,3 +33,4 @@ HEADERS += \
   user_stats.hpp \
   xml_feature.hpp \
   yes_no_unknown.hpp \
+  editor_storage.hpp

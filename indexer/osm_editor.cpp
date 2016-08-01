@@ -14,6 +14,7 @@
 #include "platform/preferred_languages.hpp"
 
 #include "editor/changeset_wrapper.hpp"
+#include "editor/editor_storage.hpp"
 #include "editor/osm_auth.hpp"
 #include "editor/server_api.hpp"
 #include "editor/xml_feature.hpp"
@@ -38,8 +39,8 @@
 #include "std/unordered_set.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
-#include "3party/pugixml/src/pugixml.hpp"
 #include "3party/opening_hours/opening_hours.hpp"
+#include "3party/pugixml/src/pugixml.hpp"
 
 using namespace pugi;
 using feature::EGeomType;
@@ -48,7 +49,6 @@ using editor::XMLFeature;
 
 namespace
 {
-constexpr char const * kEditorXMLFileName = "edits.xml";
 constexpr char const * kXmlRootNode = "mapsme";
 constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";
@@ -73,8 +73,6 @@ bool NeedsUpload(string const & uploadStatus)
       // TODO: Remove this when we have better matching algorithm.
       uploadStatus != kWrongMatch;
 }
-
-string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
 
 /// Compares editable fields connected with feature ignoring street.
 bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
@@ -136,7 +134,10 @@ namespace osm
 // TODO(AlexZ): Normalize osm multivalue strings for correct merging
 // (e.g. insert/remove spaces after ';' delimeter);
 
-Editor::Editor() : m_notes(editor::Notes::MakeNotes()) {}
+Editor::Editor()
+  : m_notes(editor::Notes::MakeNotes())
+  , m_storage(make_unique <editor::StorageLocal> ())
+{}
 
 Editor & Editor::Instance()
 {
@@ -153,16 +154,8 @@ void Editor::LoadMapEdits()
   }
 
   xml_document doc;
-  {
-    string const fullFilePath = GetEditorFilePath();
-    xml_parse_result const res = doc.load_file(fullFilePath.c_str());
-    // Note: status_file_not_found is ok if user has never made any edits.
-    if (res != status_ok && res != status_file_not_found)
-    {
-      LOG(LERROR, ("Can't load map edits from disk:", fullFilePath));
-      return;
-    }
-  }
+  if (!m_storage->Load(doc))
+    return;
 
   array<pair<FeatureStatus, char const *>, 4> const sections =
   {{
@@ -271,12 +264,12 @@ void Editor::LoadMapEdits()
 
   // Save edits with new indexes and mwm version to avoid another migration on next startup.
   if (needRewriteEdits)
-    Save(GetEditorFilePath());
+    Save();
   LOG(LINFO, ("Loaded", modified, "modified,",
               created, "created,", deleted, "deleted and", obsolete, "obsolete features."));
 }
 
-bool Editor::Save(string const & fullFilePath) const
+bool Editor::Save() const
 {
   // TODO(AlexZ): Improve synchronization in Editor code.
   static mutex saveMutex;
@@ -284,7 +277,7 @@ bool Editor::Save(string const & fullFilePath) const
 
   if (m_features.empty())
   {
-    my::DeleteFileX(GetEditorFilePath());
+    m_storage->Reset();
     return true;
   }
 
@@ -330,18 +323,13 @@ bool Editor::Save(string const & fullFilePath) const
     }
   }
 
-  return my::WriteToTempAndRenameToFile(
-      fullFilePath,
-      [&doc](string const & fileName)
-      {
-        return doc.save_file(fileName.data(), "  ");
-      });
+  return m_storage->Save(doc);
 }
 
 void Editor::ClearAllLocalEdits()
 {
   m_features.clear();
-  Save(GetEditorFilePath());
+  Save();
   Invalidate();
 }
 
@@ -360,7 +348,7 @@ void Editor::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   if (m_features.end() != matchedMwm)
   {
     m_features.erase(matchedMwm);
-    Save(GetEditorFilePath());
+    Save();
   }
 }
 
@@ -411,7 +399,7 @@ void Editor::DeleteFeature(FeatureType const & feature)
   fti.m_feature = feature;
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
-  Save(GetEditorFilePath());
+  Save();
 
   Invalidate();
 }
@@ -440,7 +428,7 @@ bool Editor::OriginalFeatureHasDefaultName(FeatureID const & fid) const
   }
 
   auto const & names = originalFeaturePtr->GetNames();
-  
+
   return names.HasString(StringUtf8Multilang::kDefaultCode);
 }
 
@@ -519,7 +507,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
         {
           RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
           // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
-          Save(GetEditorFilePath());
+          Save();
           Invalidate();
           return SavedSuccessfully;
         }
@@ -546,7 +534,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   m_features[fid.m_mwmId][fid.m_index] = move(fti);
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
-  bool const savedSuccessfully = Save(GetEditorFilePath());
+  bool const savedSuccessfully = Save();
   Invalidate();
   return savedSuccessfully ? SavedSuccessfully : NoFreeSpaceError;
 }
@@ -558,7 +546,7 @@ bool Editor::RollBackChanges(FeatureID const & fid)
 
   RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
   Invalidate();
-  return Save(GetEditorFilePath());
+  return Save();
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
@@ -943,7 +931,7 @@ void Editor::SaveUploadedInformation(FeatureTypeInfo const & fromUploader)
   fti.m_uploadAttemptTimestamp = fromUploader.m_uploadAttemptTimestamp;
   fti.m_uploadStatus = fromUploader.m_uploadStatus;
   fti.m_uploadError = fromUploader.m_uploadError;
-  Save(GetEditorFilePath());
+  Save();
 }
 
 // Macros is used to avoid code duplication.
@@ -1025,7 +1013,7 @@ void Editor::MarkFeatureAsObsolete(FeatureID const & fid)
   fti.m_status = FeatureStatus::Obsolete;
   fti.m_modificationTimestamp = time(nullptr);
 
-  Save(GetEditorFilePath());
+  Save();
   Invalidate();
 }
 

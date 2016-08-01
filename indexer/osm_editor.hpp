@@ -21,10 +21,22 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+namespace editor
+{
+class StorageBase;
+}
+
+namespace tests
+{
+class EditorTest;
+}
+
 namespace osm
 {
 class Editor final : public MwmSet::Observer
 {
+  friend class tests::EditorTest;
+
   Editor();
 
 public:
@@ -175,7 +187,7 @@ public:
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   /// @returns false if fails.
-  bool Save(string const & fullFilePath) const;
+  bool Save() const;
   void RemoveFeatureFromStorageIfExists(MwmSet::MwmId const & mwmId, uint32_t index);
   void RemoveFeatureFromStorageIfExists(FeatureID const & fid);
   /// Notify framework that something has changed and should be redisplayed.
@@ -204,7 +216,7 @@ private:
   FeatureTypeInfo const * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index) const;
   FeatureTypeInfo * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index);
   void SaveUploadedInformation(FeatureTypeInfo const & fromUploader);
-
+  
   // TODO(AlexZ): Synchronize multithread access.
   /// Deleted, edited and created features.
   map<MwmSet::MwmId, map<uint32_t, FeatureTypeInfo>> m_features;
@@ -227,6 +239,8 @@ private:
   shared_ptr<editor::Notes> m_notes;
   // Mutex which locks OnMapDeregistered method
   mutex m_mapDeregisteredMutex;
+
+  unique_ptr<editor::StorageBase> m_storage;
 };  // class Editor
 
 string DebugPrint(Editor::FeatureStatus fs);
