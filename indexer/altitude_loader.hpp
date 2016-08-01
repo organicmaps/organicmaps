@@ -20,9 +20,9 @@ public:
   /// or the returned vector is empty.
   TAltitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
 
-private:
   bool HasAltitudes() const;
 
+private:
   unique_ptr<CopiedMemoryRegion> m_altitudeAvailabilityRegion;
   unique_ptr<CopiedMemoryRegion> m_featureTableRegion;
 

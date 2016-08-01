@@ -54,7 +54,10 @@ AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
   }
 }
 
-bool AltitudeLoader::HasAltitudes() const { return m_header.m_minAltitude != kInvalidAltitude; }
+bool AltitudeLoader::HasAltitudes() const
+{
+  return m_reader != nullptr && m_header.m_minAltitude != kInvalidAltitude;
+}
 
 TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount)
 {
