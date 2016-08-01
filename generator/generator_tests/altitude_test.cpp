@@ -73,16 +73,16 @@ public:
   {
     for (TPoint3DList const & geom3D : roads)
     {
-      for (size_t i = 0; i < geom3D.size(); ++i)
+      for (auto const & g : geom3D)
       {
-        auto it = m_altitudes.find(geom3D[i].m_point);
-        if (it != m_altitudes.end())
+        auto const it = m_altitudes.find(g.m_point);
+        if (it != m_altitudes.cend())
         {
-          CHECK_EQUAL(it->second, geom3D[i].m_altitude,
+          CHECK_EQUAL(it->second, g.m_altitude,
                       ("Point", it->first, "is set with two different altitudes."));
           continue;
         }
-        m_altitudes[geom3D[i].m_point] = geom3D[i].m_altitude;
+        m_altitudes[g.m_point] = g.m_altitude;
       }
     }
   }
@@ -129,11 +129,13 @@ void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFi
 }
 
 void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath,
-                   AltitudeGetter & altitudeGetter)
+                   bool hasAltitudeExpected, AltitudeGetter & expectedAltitudes)
 {
   AltitudeLoader loader(mwmValue);
+  TEST_EQUAL(loader.HasAltitudes(), hasAltitudeExpected, ());
 
-  auto processor = [&altitudeGetter, &loader](FeatureType const & f, uint32_t const & id) {
+  auto processor = [&expectedAltitudes, &loader](FeatureType const & f, uint32_t const & id)
+  {
     f.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const pointsCount = f.GetPointsCount();
     TAltitudes const altitudes = loader.GetAltitudes(id, pointsCount);
@@ -148,7 +150,7 @@ void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath,
 
     for (size_t i = 0; i < pointsCount; ++i)
     {
-      TAltitude const fromGetter = altitudeGetter.GetAltitude(f.GetPoint(i));
+      TAltitude const fromGetter = expectedAltitudes.GetAltitude(f.GetPoint(i));
       TAltitude const expected = (fromGetter == kInvalidAltitude ? kDefaultAltitudeMeters : fromGetter);
       TEST_EQUAL(expected, altitudes[i], ("A wrong altitude"));
     }
@@ -156,7 +158,8 @@ void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath,
   feature::ForEachFromDat(mwmPath, processor);
 }
 
-void TestAltitudesBuilding(vector<TPoint3DList> const & roads, AltitudeGetter & altitudeGetter)
+void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeExpected,
+                           AltitudeGetter & altitudeGetter)
 {
   classificator::Load();
   Platform & platform = GetPlatform();
@@ -180,72 +183,72 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, AltitudeGetter & 
   MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
   TEST(mwmHandle.IsAlive(), ());
 
-  TestAltitudes(*mwmHandle.GetValue<MwmValue>(), mwmPath, altitudeGetter);
+  TestAltitudes(*mwmHandle.GetValue<MwmValue>(), mwmPath, hasAltitudeExpected, altitudeGetter);
 }
 
-void TestBuildingAllFeaturesHaveAltitude(vector<TPoint3DList> const & roads)
+void TestBuildingAllFeaturesHaveAltitude(vector<TPoint3DList> const & roads, bool hasAltitudeExpected)
 {
   MockAltitudeGetter altitudeGetter(roads);
-  TestAltitudesBuilding(roads, altitudeGetter);
+  TestAltitudesBuilding(roads, hasAltitudeExpected, altitudeGetter);
 }
 
-void TestBuildingNoFeatureHasAltitude(vector<TPoint3DList> const & roads)
+void TestBuildingNoFeatureHasAltitude(vector<TPoint3DList> const & roads, bool hasAltitudeExpected)
 {
   MockNoAltitudeGetter altitudeGetter;
-  TestAltitudesBuilding(roads, altitudeGetter);
+  TestAltitudesBuilding(roads, hasAltitudeExpected, altitudeGetter);
 }
 
 UNIT_TEST(AltitudeGenerationTest_ZeroFeatures)
 {
   vector<TPoint3DList> const roads = {};
-  TestBuildingAllFeaturesHaveAltitude(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads, false /* hasAltitudeExpected */);
 }
 
 UNIT_TEST(AltitudeGenerationTest_OneRoad)
 {
   vector<TPoint3DList> const roads = {kRoad1};
-  TestBuildingAllFeaturesHaveAltitude(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads, true /* hasAltitudeExpected */);
 }
 
 UNIT_TEST(AltitudeGenerationTest_TwoConnectedRoads)
 {
   vector<TPoint3DList> const roads = {kRoad1, kRoad2};
-  TestBuildingAllFeaturesHaveAltitude(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads, true /* hasAltitudeExpected */);
 }
 
 UNIT_TEST(AltitudeGenerationTest_TwoDisconnectedRoads)
 {
   vector<TPoint3DList> const roads = {kRoad1, kRoad3};
-  TestBuildingAllFeaturesHaveAltitude(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads, true /* hasAltitudeExpected */);
 }
 
 UNIT_TEST(AltitudeGenerationTest_ThreeRoads)
 {
   vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3};
-  TestBuildingAllFeaturesHaveAltitude(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads, true /* hasAltitudeExpected */);
 }
 
 UNIT_TEST(AltitudeGenerationTest_FourRoads)
 {
   vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3, kRoad4};
-  TestBuildingAllFeaturesHaveAltitude(roads);
+  TestBuildingAllFeaturesHaveAltitude(roads, true /* hasAltitudeExpected */);
 }
 
 UNIT_TEST(AltitudeGenerationTest_ZeroFeaturesWithoutAltitude)
 {
   vector<TPoint3DList> const roads = {};
-  TestBuildingNoFeatureHasAltitude(roads);
+  TestBuildingNoFeatureHasAltitude(roads, false /* hasAltitudeExpected */);
 }
 
 UNIT_TEST(AltitudeGenerationTest_OneRoadWithoutAltitude)
 {
   vector<TPoint3DList> const roads = {kRoad1};
-  TestBuildingNoFeatureHasAltitude(roads);
+  TestBuildingNoFeatureHasAltitude(roads, false /* hasAltitudeExpected */);
 }
 
 UNIT_TEST(AltitudeGenerationTest_FourRoadsWithoutAltitude)
 {
   vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3, kRoad4};
-  TestBuildingNoFeatureHasAltitude(roads);
+  TestBuildingNoFeatureHasAltitude(roads, false /* hasAltitudeExpected */);
 }
 }  // namespace
