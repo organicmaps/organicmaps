@@ -18,6 +18,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="490"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" id="Jyu-7X-hXT">
+                    <rect key="frame" x="0.0" y="22" width="320" height="468"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="a4c-bA-qa5">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -214,9 +222,6 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="elN-ZP-7aG" appends="YES" id="hA4-su-nWV"/>
             </connections>
