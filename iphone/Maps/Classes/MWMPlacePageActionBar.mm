@@ -282,4 +282,12 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   }
 }
 
+#pragma mark - Properties
+
+- (void)setIsBookmark:(BOOL)isBookmark
+{
+  _isBookmark = isBookmark;
+  [self configureButtons];
+}
+
 @end
