@@ -738,7 +738,8 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
   for (auto & l : preLocalities)
   {
     FeatureType ft;
-    m_context->GetFeature(l.m_featureId, ft);
+    if (!m_context->GetFeature(l.m_featureId, ft))
+      continue;
 
     auto addRegionMaps = [&](size_t & count, size_t maxCount, RegionType type)
     {
@@ -815,7 +816,8 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
   for (auto & l : preLocalities)
   {
     FeatureType ft;
-    m_context->GetFeature(l.m_featureId, ft);
+    if (!m_context->GetFeature(l.m_featureId, ft))
+      continue;
 
     if (m_model.GetSearchType(ft) != SearchModel::SEARCH_TYPE_VILLAGE)
       continue;
@@ -1102,8 +1104,12 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         filtered = m_filter->Filter(m_postcodes.m_features);
       filtered.ForEach([&](uint32_t id)
                        {
-                         EmitResult(m_context->GetId(), id, GetSearchTypeInGeocoding(ctx, id),
-                                    m_postcodes.m_startToken, m_postcodes.m_endToken);
+                         SearchModel::SearchType searchType;
+                         if (GetSearchTypeInGeocoding(ctx, id, searchType))
+                         {
+                           EmitResult(m_context->GetId(), id, searchType, m_postcodes.m_startToken,
+                                      m_postcodes.m_endToken);
+                         }
                        });
       return;
     }
@@ -1155,7 +1161,9 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
   // any.
   auto clusterize = [&](uint32_t featureId)
   {
-    auto const searchType = GetSearchTypeInGeocoding(ctx, featureId);
+    SearchModel::SearchType searchType;
+    if (!GetSearchTypeInGeocoding(ctx, featureId, searchType))
+      return;
 
     // All SEARCH_TYPE_CITY features were filtered in
     // MatchCities().  All SEARCH_TYPE_STREET features were
@@ -1395,9 +1403,11 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
 
   auto emitUnclassified = [&](uint32_t featureId)
   {
-    auto type = GetSearchTypeInGeocoding(ctx, featureId);
-    if (type == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
-      EmitResult(m_context->GetId(), featureId, type, startToken, curToken);
+    SearchModel::SearchType searchType;
+    if (!GetSearchTypeInGeocoding(ctx, featureId, searchType))
+      return;
+    if (searchType == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
+      EmitResult(m_context->GetId(), featureId, searchType, startToken, curToken);
   };
   allFeatures.ForEach(emitUnclassified);
 }
@@ -1466,17 +1476,28 @@ CBV Geocoder::RetrieveGeometryFeatures(MwmContext const & context, m2::RectD con
   }
 }
 
-SearchModel::SearchType Geocoder::GetSearchTypeInGeocoding(BaseContext const & ctx,
-                                                           uint32_t featureId)
+bool Geocoder::GetSearchTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
+                                        SearchModel::SearchType & searchType)
 {
   if (ctx.m_streets.HasBit(featureId))
-    return SearchModel::SEARCH_TYPE_STREET;
+  {
+    searchType = SearchModel::SEARCH_TYPE_STREET;
+    return true;
+  }
   if (ctx.m_villages.HasBit(featureId))
-    return SearchModel::SEARCH_TYPE_VILLAGE;
+  {
+    searchType = SearchModel::SEARCH_TYPE_VILLAGE;
+    return true;
+  }
 
   FeatureType feature;
-  m_context->GetFeature(featureId, feature);
-  return m_model.GetSearchType(feature);
+  if (m_context->GetFeature(featureId, feature))
+  {
+    searchType = m_model.GetSearchType(feature);
+    return true;
+  }
+
+  return false;
 }
 
 string DebugPrint(Geocoder::Locality const & locality)

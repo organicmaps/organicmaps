@@ -270,7 +270,8 @@ private:
 
   // This is a faster wrapper around SearchModel::GetSearchType(), as
   // it uses pre-loaded lists of streets and villages.
-  SearchModel::SearchType GetSearchTypeInGeocoding(BaseContext const & ctx, uint32_t featureId);
+  WARN_UNUSED_RESULT bool GetSearchTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
+                                                   SearchModel::SearchType & searchType);
 
   Index const & m_index;
 
