@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "有更理想的跨越邊界的路線可用。";
 
-"dialog_routing_always_cross_that_border" = "一律跨越此邊界。";
-
 "not_now" = "現在不要";
 
 "dialog_routing_build_route" = "產生";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "一個不同的問題";
 
-"placepage_add_place_button" = "新增一個地點";
-
 "placepage_report_problem_button" = "回報問題";
 
 "placepage_add_business_button" = "添加組織";
@@ -1543,3 +1539,21 @@
 "refresh" = "更新";
 
 "last_update" = "上次更新於：%s";
+
+"booking_checkin" = "入住： %s";
+
+"booking_checkout" = "退房： %s";
+
+"placepage_add_place_button" = "添加地點到地圖上";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "您想要發給所有用戶嗎？";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "確保您沒有輸入任何個人數據。";
+
+"editor_share_to_all_dialog_message_2" = "我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。";
+
+"navigation_overview_button" = "概覽";
+
+"navigation_stop_button" = "停止";

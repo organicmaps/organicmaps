@@ -211,7 +211,7 @@
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notas</string>
 	<!-- Button text -->
-	<string name="share_by_email">Enviar por e-mail</string>
+	<string name="share_by_email">Enviar por email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Marcapáginas de MAPS.ME compartidos contigo</string>
 	<!-- Email text when sharing bookmarks category -->
@@ -579,7 +579,6 @@
 	<string name="dialog_routing_send_error">Informar el problema</string>
 	<string name="dialog_routing_if_get_cross_route">¿Desea crear una ruta más directa que abarca más de un mapa?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Está disponible una ruta mejor que cruza los límites de este mapa.</string>
-	<string name="dialog_routing_always_cross_that_border">Cruzar siempre este límite</string>
 	<string name="not_now">No ahora</string>
 	<string name="dialog_routing_build_route">Crear</string>
 	<string name="dialog_routing_download_and_build_cross_route">¿Desea descargar el mapa y crear una ruta mejor que abarca más de un mapa?</string>
@@ -756,7 +755,6 @@
 	<string name="editor_edit_place_category_title">Categoría</string>
 	<string name="detailed_problem_description">Descripción al detalle del problema</string>
 	<string name="editor_report_problem_other_title">Un problema diferente</string>
-	<string name="placepage_add_place_button">Añadir un lugar</string>
 	<string name="placepage_report_problem_button">Informar de un problema</string>
 	<string name="placepage_add_business_button">Añadir organización</string>
 	<string name="whatsnew_smallmwm_header">Llevas tiempo pidiéndolo y lo hemos hecho</string>
@@ -876,4 +874,14 @@
 	<string name="whatsnew_cycle_navigation_message">Estamos probando la navegación en bici para la nueva temporada. Prueba tu ruta favorita en bicicleta con MAPS.ME y comparte tu opinión con nosotros.</string>
 	<string name="refresh">Actualizar</string>
 	<string name="last_update">Última actualización: %s</string>
+	<string name="booking_checkin">hora de llegada: %s</string>
+	<string name="booking_checkout">hora de salida: %s</string>
+	<string name="placepage_add_place_button">Añadir un lugar al mapa</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">¿Quieres enviarlo a todos los usuarios?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Asegúrate de que no has introducido ningún dato personal.</string>
+	<string name="editor_share_to_all_dialog_message_2">Comprobaremos los cambios. Si tenemos cualquier pregunta, te contactaremos por correo electrónico.</string>
+	<string name="navigation_overview_button">resumen</string>
+	<string name="navigation_stop_button">parada</string>
 </resources>

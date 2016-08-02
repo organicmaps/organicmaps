@@ -600,7 +600,6 @@
 	<string name="dialog_routing_send_error">回報問題</string>
 	<string name="dialog_routing_if_get_cross_route">您想產生跨越邊界的更好路線嗎？</string>
 	<string name="dialog_routing_cross_route_is_optimal">有更理想的跨越邊界的路線可用。</string>
-	<string name="dialog_routing_always_cross_that_border">一律跨越此邊界。</string>
 	<string name="not_now">現在不要</string>
 	<string name="dialog_routing_build_route">產生</string>
 	<string name="dialog_routing_download_and_build_cross_route">您是否要下載地圖，產生跨越邊界的更好路線？</string>
@@ -781,7 +780,6 @@
 	<string name="editor_edit_place_category_title">類別</string>
 	<string name="detailed_problem_description">問題的詳細描述</string>
 	<string name="editor_report_problem_other_title">一個不同的問題</string>
-	<string name="placepage_add_place_button">新增一個地點</string>
 	<string name="placepage_report_problem_button">回報問題</string>
 	<string name="placepage_add_business_button">添加組織</string>
 	<string name="whatsnew_smallmwm_header">您一直在要求，而我們已經完成</string>
@@ -901,4 +899,14 @@
 	<string name="whatsnew_cycle_navigation_message">我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。</string>
 	<string name="refresh">更新</string>
 	<string name="last_update">上次更新於：%s</string>
+	<string name="booking_checkin">入住： %s</string>
+	<string name="booking_checkout">退房： %s</string>
+	<string name="placepage_add_place_button">添加地點到地圖上</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">您想要發給所有用戶嗎？</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人數據。</string>
+	<string name="editor_share_to_all_dialog_message_2">我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。</string>
+	<string name="navigation_overview_button">概覽</string>
+	<string name="navigation_stop_button">停止</string>
 </resources>

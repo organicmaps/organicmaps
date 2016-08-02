@@ -349,7 +349,7 @@
 "description" = "Notas";
 
 /* Button text */
-"share_by_email" = "Enviar por e-mail";
+"share_by_email" = "Enviar por email";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Marcapáginas de MAPS.ME compartidos contigo";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Está disponible una ruta mejor que cruza los límites de este mapa.";
 
-"dialog_routing_always_cross_that_border" = "Cruzar siempre este límite";
-
 "not_now" = "No ahora";
 
 "dialog_routing_build_route" = "Crear";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "Un problema diferente";
 
-"placepage_add_place_button" = "Añadir un lugar";
-
 "placepage_report_problem_button" = "Informar de un problema";
 
 "placepage_add_business_button" = "Añadir organización";
@@ -1543,3 +1539,21 @@
 "refresh" = "Actualizar";
 
 "last_update" = "Última actualización: %s";
+
+"booking_checkin" = "hora de llegada: %s";
+
+"booking_checkout" = "hora de salida: %s";
+
+"placepage_add_place_button" = "Añadir un lugar al mapa";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "¿Quieres enviarlo a todos los usuarios?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Asegúrate de que no has introducido ningún dato personal.";
+
+"editor_share_to_all_dialog_message_2" = "Comprobaremos los cambios. Si tenemos cualquier pregunta, te contactaremos por correo electrónico.";
+
+"navigation_overview_button" = "resumen";
+
+"navigation_stop_button" = "parada";

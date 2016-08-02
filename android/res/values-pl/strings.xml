@@ -158,9 +158,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Zestaw</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Nie oznaczono jeszcze żadnych zakładek.\nProszę dotknąć dowolnego miejsca na mapie, aby dodać zakładkę.\nMożna importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości e-mail, Dropboxa lub odnośników internetowych.</string>
+	<string name="bookmarks_usage_hint">Nie oznaczono jeszcze żadnych zakładek.\nProszę dotknąć dowolnego miejsca na mapie, aby dodać zakładkę.\nMożna importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości email, Dropboxa lub odnośników internetowych.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Można importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości e-mail, Dropboxa lub odnośników internetowych.</string>
+	<string name="bookmarks_usage_hint_import_only">Można importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości email, Dropboxa lub odnośników internetowych.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ustawienia</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -265,7 +265,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Wiadomość</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Skopiuj odnośnik</string>
 	<!-- Text for the button that returns to caller application -->
@@ -601,7 +601,6 @@
 	<string name="dialog_routing_send_error">Zgłoś problem</string>
 	<string name="dialog_routing_if_get_cross_route">Chcesz wyznaczyć lepszą trasę, obejmującą więcej map?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Dostępna jest lepsza trasa, wykraczająca poza granice bieżącej mapy.</string>
-	<string name="dialog_routing_always_cross_that_border">Zawsze przekraczaj tę granicę</string>
 	<string name="not_now">Nie teraz</string>
 	<string name="dialog_routing_build_route">Wyznacz</string>
 	<string name="dialog_routing_download_and_build_cross_route">Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?</string>
@@ -715,7 +714,7 @@
 	<string name="forgot_password">Nie pamiętasz hasła?</string>
 	<!-- Forgot Password dialog title -->
 	<string name="restore_password">Przypomnij hasło</string>
-	<string name="enter_email_address_to_reset_password">Wpisz adres e-mail, którego użyto podczas rejestracji, a prześlemy Ci link do ponownego utworzenia hasła.</string>
+	<string name="enter_email_address_to_reset_password">Wpisz adres email, którego użyto podczas rejestracji, a prześlemy Ci link do ponownego utworzenia hasła.</string>
 	<string name="reset_password">Resetuj hasło</string>
 	<string name="username">Nazwa użytkownika</string>
 	<string name="osm_account">Konto OSM</string>
@@ -746,7 +745,7 @@
 	<string name="cuisine">Kuchnia</string>
 	<string name="select_cuisine">Wybierz kuchnię</string>
 	<!-- login text field -->
-	<string name="email_or_username">E-mail lub nazwa użytkownika</string>
+	<string name="email_or_username">Email lub nazwa użytkownika</string>
 	<string name="phone">Telefon</string>
 	<string name="please_note">Uwaga!</string>
 	<string name="common_no_wifi_dialog">Brak połączenia Wi-Fi. Czy chcesz kontynuować z użyciem danych pakietowych?</string>
@@ -778,7 +777,6 @@
 	<string name="editor_edit_place_category_title">Kategoria</string>
 	<string name="detailed_problem_description">Szczegółowy opis problemu</string>
 	<string name="editor_report_problem_other_title">Inny problem</string>
-	<string name="placepage_add_place_button">Dodaj miejsce</string>
 	<string name="placepage_report_problem_button">Zgłoś problem</string>
 	<string name="placepage_add_business_button">Dodaj organizację</string>
 	<string name="whatsnew_smallmwm_header">Prosiliście o to, więc to zrobiliśmy</string>
@@ -886,7 +884,7 @@
 	<string name="text_more_button">…więcej</string>
 	<string name="error_enter_correct_phone">Wpisz numer telefonu bez liter</string>
 	<string name="error_enter_correct_web">Wpisz prawidłowy adres strony internetowej</string>
-	<string name="error_enter_correct_email">Wpisz prawidłowy e-mail</string>
+	<string name="error_enter_correct_email">Wpisz prawidłowy email</string>
 	<string name="error_enter_correct">Wpisz prawidłową wartość</string>
 	<string name="editor_profile_changes_for_next_place">Zmiany w następnym miejscu: %d</string>
 	<string name="editor_profile_rating_place">Pozycja w rankingu</string>
@@ -898,4 +896,14 @@
 	<string name="whatsnew_cycle_navigation_message">Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z MAPS.ME i napisz nam, co myślisz o naszej nawigacji.</string>
 	<string name="refresh">Uaktualnić</string>
 	<string name="last_update">Ostatnia aktualizacja: %s</string>
+	<string name="booking_checkin">zameldowanie: %s</string>
+	<string name="booking_checkout">wymeldowanie: %s</string>
+	<string name="placepage_add_place_button">Dodaj miejsce do mapy</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Czy chcesz wysłać je wszystkim użytkownikom?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Upewnij się, że nie podałeś osobistych danych.</string>
+	<string name="editor_share_to_all_dialog_message_2">Zapoznamy się ze zmianami. W przypadku pytań skontaktujemy się z Tobą przez email.</string>
+	<string name="navigation_overview_button">przegląd</string>
+	<string name="navigation_stop_button">stop</string>
 </resources>

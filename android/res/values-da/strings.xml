@@ -220,7 +220,7 @@
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Noter</string>
 	<!-- Button text -->
-	<string name="share_by_email">Del via e-mail</string>
+	<string name="share_by_email">Del via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MAPS.ME bogmærker er blevet delt med dig</string>
 	<!-- Email text when sharing bookmarks category -->
@@ -266,7 +266,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Besked</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopier link</string>
 	<!-- Text for the button that returns to caller application -->
@@ -401,7 +401,7 @@
 	<!-- About text -->
 	<string name="about_text">MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.</string>
 	<!-- Alert text -->
-	<string name="email_error_body">E-mailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %s</string>
+	<string name="email_error_body">Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Mailforsendelsesfejl</string>
 	<!-- Settings item title -->
@@ -590,7 +590,6 @@
 	<string name="dialog_routing_send_error">Anmeld problemet</string>
 	<string name="dialog_routing_if_get_cross_route">Ønsker du at planlægge en mere direkte rute, der strækker sig over mere end ét kort?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Der findes en mere optimal rute, som strækker sig ud over dette korts grænser.</string>
-	<string name="dialog_routing_always_cross_that_border">Kryds altid denne grænse</string>
 	<string name="not_now">Ikke nu</string>
 	<string name="dialog_routing_build_route">Opret</string>
 	<string name="dialog_routing_download_and_build_cross_route">Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?</string>
@@ -702,7 +701,7 @@
 	<string name="forgot_password">Glemt adgangskode?</string>
 	<!-- Forgot Password dialog title -->
 	<string name="restore_password">Genopret adgangskode</string>
-	<string name="enter_email_address_to_reset_password">Indtast den e-mailadresse du anvendte under tilmelding, så sender vi dig linket til at forny din adgangskode.</string>
+	<string name="enter_email_address_to_reset_password">Indtast den emailadresse du anvendte under tilmelding, så sender vi dig linket til at forny din adgangskode.</string>
 	<string name="reset_password">Nulstil adgangskode</string>
 	<string name="username">Brugernavn</string>
 	<string name="osm_account">OSM-konto</string>
@@ -733,7 +732,7 @@
 	<string name="cuisine">Køkken</string>
 	<string name="select_cuisine">Vælg køkken</string>
 	<!-- login text field -->
-	<string name="email_or_username">E-mail eller brugernavn</string>
+	<string name="email_or_username">Email eller brugernavn</string>
 	<string name="phone">Telefon</string>
 	<string name="please_note">Bemærk venligst</string>
 	<string name="common_no_wifi_dialog">Ingen WiFi-forbindelse. Vil du fortsætte med mobildata?</string>
@@ -765,7 +764,6 @@
 	<string name="editor_edit_place_category_title">Kategori</string>
 	<string name="detailed_problem_description">Detaljeret beskrivelse af problemet</string>
 	<string name="editor_report_problem_other_title">Et anderledes problem</string>
-	<string name="placepage_add_place_button">Tilføj et sted</string>
 	<string name="placepage_report_problem_button">Anmeld et problem</string>
 	<string name="placepage_add_business_button">Tilføj organisationen</string>
 	<string name="whatsnew_smallmwm_header">I har bedt om det, og vi har gjort det</string>
@@ -873,7 +871,7 @@
 	<string name="text_more_button">…mere</string>
 	<string name="error_enter_correct_phone">Indtast telefonnummer uden bogstaver</string>
 	<string name="error_enter_correct_web">Indtast en gyldig webadresse</string>
-	<string name="error_enter_correct_email">Indtast en gyldig e-mailadresse</string>
+	<string name="error_enter_correct_email">Indtast en gyldig emailadresse</string>
 	<string name="error_enter_correct">Indtast en gyldig værdi</string>
 	<string name="editor_profile_changes_for_next_place">Ændringer for næste sted: %d</string>
 	<string name="editor_profile_rating_place">Rangorden</string>
@@ -885,4 +883,14 @@
 	<string name="whatsnew_cycle_navigation_message">Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.</string>
 	<string name="refresh">Opdater</string>
 	<string name="last_update">Sidste opdatering: %s</string>
+	<string name="booking_checkin">tjek ind: %s</string>
+	<string name="booking_checkout">tjek ud: %s</string>
+	<string name="placepage_add_place_button">Tilføj et sted på kortet</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Ønsker du at sende det til alle brugere?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke indtastede personlige oplysninger.</string>
+	<string name="editor_share_to_all_dialog_message_2">Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.</string>
+	<string name="navigation_overview_button">oversigt</string>
+	<string name="navigation_stop_button">stop</string>
 </resources>

@@ -666,7 +666,7 @@
 "about_text" = "MAPS.ME erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper MAPS.ME dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra MAPS.ME. Ifall du har problem med appen, tveka inte att kontakta oss på support@maps.me. Vi svarar på alla mail!\n\nGillar du MAPS.ME och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om MAPS.ME för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på http://openstreetmap.org och dina ändringar kommer att finns i MAPS.ME appen när nästa version släpps.";
 
 /* Alert text */
-"email_error_body" = "E-mailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %@";
+"email_error_body" = "Emailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %@";
 
 /* Alert title */
 "email_error_title" = "Fel när mailet skulle skickas";
@@ -968,8 +968,6 @@
 "dialog_routing_if_get_cross_route" = "Vill du skapa en mer direkt väg som sträcker sig över fler än en karta?";
 
 "dialog_routing_cross_route_is_optimal" = "En optimalare väg som sträcker sig utanför den här kartan är tillgänglig.";
-
-"dialog_routing_always_cross_that_border" = "Korsa alltid den här gränsen";
 
 "not_now" = "Inte nu";
 
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "Ett annat problem";
 
-"placepage_add_place_button" = "Lägg till en plats";
-
 "placepage_report_problem_button" = "Rapportera ett problem";
 
 "placepage_add_business_button" = "Lägg till organisation";
@@ -1543,3 +1539,21 @@
 "refresh" = "Uppdatera";
 
 "last_update" = "Senast uppdaterad: %s";
+
+"booking_checkin" = "incheckning: %s";
+
+"booking_checkout" = "utcheckning: %s";
+
+"placepage_add_place_button" = "Lägg till en plats på kartan";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Vill du skicka det till alla användare?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Se till att du inte angett någon personinformation";
+
+"editor_share_to_all_dialog_message_2" = "Vi kommer att kontrollera ändringar. Om vi har några frågor kontaktar vi dig via e-post.";
+
+"navigation_overview_button" = "översikt";
+
+"navigation_stop_button" = "stopp";

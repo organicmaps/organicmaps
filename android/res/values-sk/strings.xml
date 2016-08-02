@@ -261,7 +261,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Správa</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Skopírovať odkaz</string>
 	<!-- Text for the button that returns to caller application -->
@@ -589,7 +589,6 @@
 	<string name="dialog_routing_send_error">Nahláste problém</string>
 	<string name="dialog_routing_if_get_cross_route">Chceli by ste vytvoriť priamejšiu trasu, ktorá zahŕňa viac ako jednu mapu?</string>
 	<string name="dialog_routing_cross_route_is_optimal">K dispozícii je optimálnejšia trasa, ktorá presahuje hranice tejto mapy.</string>
-	<string name="dialog_routing_always_cross_that_border">Vždy prekročiť túto hranicu</string>
 	<string name="not_now">Nie teraz</string>
 	<string name="dialog_routing_build_route">Vytvoriť</string>
 	<string name="dialog_routing_download_and_build_cross_route">Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?</string>
@@ -701,7 +700,7 @@
 	<string name="forgot_password">Zabudli ste heslo?</string>
 	<!-- Forgot Password dialog title -->
 	<string name="restore_password">Obnovenie hesla</string>
-	<string name="enter_email_address_to_reset_password">Zadajte e-mailovú adresu, ktorú ste použili pri registrácii, a my Vám zašleme odkaz na obnovenie hesla.</string>
+	<string name="enter_email_address_to_reset_password">Zadajte emailovú adresu, ktorú ste použili pri registrácii, a my Vám zašleme odkaz na obnovenie hesla.</string>
 	<string name="reset_password">Obnoviť heslo</string>
 	<string name="username">Používateľské meno</string>
 	<string name="osm_account">OSM účet</string>
@@ -732,7 +731,7 @@
 	<string name="cuisine">Kuchyňa</string>
 	<string name="select_cuisine">Vyberte si kuchyňu</string>
 	<!-- login text field -->
-	<string name="email_or_username">E-mail alebo používateľské meno</string>
+	<string name="email_or_username">Email alebo používateľské meno</string>
 	<string name="phone">Telefón</string>
 	<string name="please_note">Upozorňujeme vás, že</string>
 	<string name="common_no_wifi_dialog">Pripojenie k WiFi nie je k dispozícii. Chcete pokračovať s využitím mobilných dát?</string>
@@ -764,7 +763,6 @@
 	<string name="editor_edit_place_category_title">Kategória</string>
 	<string name="detailed_problem_description">Podrobný popis problému</string>
 	<string name="editor_report_problem_other_title">Iný problém</string>
-	<string name="placepage_add_place_button">Pridať miesto</string>
 	<string name="placepage_report_problem_button">Nahlásiť problém</string>
 	<string name="placepage_add_business_button">Pridať organizáciu</string>
 	<string name="whatsnew_smallmwm_header">Dožadovali ste sa toho a my sme vám vyhoveli</string>
@@ -872,7 +870,7 @@
 	<string name="text_more_button">…viac</string>
 	<string name="error_enter_correct_phone">Zadajte telefónne číslo bez písmen</string>
 	<string name="error_enter_correct_web">Zadajte platnú webovú adresu</string>
-	<string name="error_enter_correct_email">Zadajte platný e-mail</string>
+	<string name="error_enter_correct_email">Zadajte platný email</string>
 	<string name="error_enter_correct">Zadajte platnú hodnotu</string>
 	<string name="editor_profile_changes_for_next_place">Zmeny pre ďalšie miesto: %d</string>
 	<string name="editor_profile_rating_place">Hodnotiaca pozícia</string>
@@ -884,4 +882,14 @@
 	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.</string>
 	<string name="refresh">Aktualizovať</string>
 	<string name="last_update">Naposledy aktualizované: %s</string>
+	<string name="booking_checkin">príchod: %s</string>
+	<string name="booking_checkout">odchod: %s</string>
+	<string name="placepage_add_place_button">Pridať miesto na mape</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Odoslať všetkým používateľom?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
+	<string name="editor_share_to_all_dialog_message_2">Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.</string>
+	<string name="navigation_overview_button">zhrnutie</string>
+	<string name="navigation_stop_button">stop</string>
 </resources>

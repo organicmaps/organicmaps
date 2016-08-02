@@ -418,7 +418,7 @@
 "message" = "Správa";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Skopírovať odkaz";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "K dispozícii je optimálnejšia trasa, ktorá presahuje hranice tejto mapy.";
 
-"dialog_routing_always_cross_that_border" = "Vždy prekročiť túto hranicu";
-
 "not_now" = "Nie teraz";
 
 "dialog_routing_build_route" = "Vytvoriť";
@@ -1184,7 +1182,7 @@
 /* Forgot Password dialog title */
 "restore_password" = "Obnovenie hesla";
 
-"enter_email_address_to_reset_password" = "Zadajte e-mailovú adresu, ktorú ste použili pri registrácii, a my Vám zašleme odkaz na obnovenie hesla.";
+"enter_email_address_to_reset_password" = "Zadajte emailovú adresu, ktorú ste použili pri registrácii, a my Vám zašleme odkaz na obnovenie hesla.";
 
 "reset_password" = "Obnoviť heslo";
 
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Vyberte si kuchyňu";
 
 /* login text field */
-"email_or_username" = "E-mail alebo používateľské meno";
+"email_or_username" = "Email alebo používateľské meno";
 
 "phone" = "Telefón";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Podrobný popis problému";
 
 "editor_report_problem_other_title" = "Iný problém";
-
-"placepage_add_place_button" = "Pridať miesto";
 
 "placepage_report_problem_button" = "Nahlásiť problém";
 
@@ -1520,7 +1516,7 @@
 
 "error_enter_correct_web" = "Zadajte platnú webovú adresu";
 
-"error_enter_correct_email" = "Zadajte platný e-mail";
+"error_enter_correct_email" = "Zadajte platný email";
 
 "error_enter_correct" = "Zadajte platnú hodnotu";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Aktualizovať";
 
 "last_update" = "Naposledy aktualizované: %s";
+
+"booking_checkin" = "príchod: %s";
+
+"booking_checkout" = "odchod: %s";
+
+"placepage_add_place_button" = "Pridať miesto na mape";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Odoslať všetkým používateľom?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Nezadávajte žiadne osobné udaje.";
+
+"editor_share_to_all_dialog_message_2" = "Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.";
+
+"navigation_overview_button" = "zhrnutie";
+
+"navigation_stop_button" = "stop";

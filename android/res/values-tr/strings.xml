@@ -592,7 +592,6 @@
 	<string name="dialog_routing_send_error">Hatayı Bildirin</string>
 	<string name="dialog_routing_if_get_cross_route">Bir haritadan daha fazlasına uzanan doğrudan bir güzergah oluşturmak ister misiniz?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Bu haritanın bir kısmından geçen daha uygun bir güzergah mevcut.</string>
-	<string name="dialog_routing_always_cross_that_border">Bu sınırı her zaman geçin</string>
 	<string name="not_now">Şimdi Değil</string>
 	<string name="dialog_routing_build_route">Oluşturun</string>
 	<string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden fazla haritaya uzanan daha uygun bir güzergah oluşturmak ister misiniz?</string>
@@ -767,7 +766,6 @@
 	<string name="editor_edit_place_category_title">Kategori</string>
 	<string name="detailed_problem_description">Sorunun ayrıntılı açıklaması</string>
 	<string name="editor_report_problem_other_title">Farklı bir problem</string>
-	<string name="placepage_add_place_button">Bir yer ekle</string>
 	<string name="placepage_report_problem_button">Bir problem bildirin</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="whatsnew_smallmwm_header">Siz istediniz biz yaptık</string>
@@ -887,4 +885,14 @@
 	<string name="whatsnew_cycle_navigation_message">Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.</string>
 	<string name="refresh">Güncelleştirme</string>
 	<string name="last_update">Son güncelleme: %s</string>
+	<string name="booking_checkin">giriş: %s</string>
+	<string name="booking_checkout">çıkış: %s</string>
+	<string name="placepage_add_place_button">Haritaya bir yer ekleyin</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
+	<string name="editor_share_to_all_dialog_message_2">Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla temasa geçeceğiz.</string>
+	<string name="navigation_overview_button">genel bakış</string>
+	<string name="navigation_stop_button">dur</string>
 </resources>

@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "En mer optimal rute som går utenfor dette kartet er tilgjengelig.";
 
-"dialog_routing_always_cross_that_border" = "Kryss alltid denne grensen";
-
 "not_now" = "Ikke nå";
 
 "dialog_routing_build_route" = "Opprett";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "Et annet problem";
 
-"placepage_add_place_button" = "Legg til et sted";
-
 "placepage_report_problem_button" = "Rapporter et problem";
 
 "placepage_add_business_button" = "Legg til organisasjon";
@@ -1543,3 +1539,21 @@
 "refresh" = "Oppdatere";
 
 "last_update" = "Sist oppdatert: %s";
+
+"booking_checkin" = "sjekk inn: %s";
+
+"booking_checkout" = "sjekk ut: %s";
+
+"placepage_add_place_button" = "Legg til en plass på kartet";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Vil du sende det til alle brukere?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Sørg for at du ikke har skrevet noe personlig informasjon.";
+
+"editor_share_to_all_dialog_message_2" = "Vi vil sjekke endringene. Vi kontakter deg via e-post dersom vi har spørsmål.";
+
+"navigation_overview_button" = "oversikt";
+
+"navigation_stop_button" = "stopp";

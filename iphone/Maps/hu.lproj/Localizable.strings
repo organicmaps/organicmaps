@@ -418,7 +418,7 @@
 "message" = "Üzenet";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Hivatkozás másolása";
@@ -663,13 +663,13 @@
 "about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
-"about_text" = "A MAPS.ME kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a MAPS.ME segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a MAPS.ME-t. Bármely probléma esetén írj nekünk a support@maps.me e-mail címre. Minden levélre válaszolunk!\n\nSzereted a MAPS.ME-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a MAPS.ME-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a http://openstreetmap.org-on és változtatásaid a MAPS.ME következő verziójában már meg fognak jelenni.";
+"about_text" = "A MAPS.ME kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a MAPS.ME segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a MAPS.ME-t. Bármely probléma esetén írj nekünk a support@maps.me email címre. Minden levélre válaszolunk!\n\nSzereted a MAPS.ME-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a MAPS.ME-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a http://openstreetmap.org-on és változtatásaid a MAPS.ME következő verziójában már meg fognak jelenni.";
 
 /* Alert text */
-"email_error_body" = "Az e-mail kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ e-mail címen keresztül.";
+"email_error_body" = "Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.";
 
 /* Alert title */
-"email_error_title" = "Hiba az e-mail küldése során";
+"email_error_title" = "Hiba az email küldése során";
 
 /* Settings item title */
 "pref_calibration_title" = "Iránytű kalibrálás";
@@ -745,7 +745,7 @@
 "routing_failed_route_not_found" = "Nem találtunk útvonalat a kiválasztott kiindulópont és az úti cél között. Kérjük, válasszon másik kiinduló- vagy végpontot.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support@maps.me e-mail címen.";
+"routing_failed_internal_error" = "Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support@maps.me email címen.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Térkép + útvonal letöltése";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Elérhető egy optimálisabb útvonal, amely áthalad a jelenlegi térkép szélén.";
 
-"dialog_routing_always_cross_that_border" = "Mindig haladjon át ezen a határon";
-
 "not_now" = "Most nem";
 
 "dialog_routing_build_route" = "Létrehozás";
@@ -1184,7 +1182,7 @@
 /* Forgot Password dialog title */
 "restore_password" = "Jelszó visszaállítása";
 
-"enter_email_address_to_reset_password" = "Add meg a regisztrációkor használt e-mail-címedet és elküldjük neked a jelszavad megújításához szükséges linket.";
+"enter_email_address_to_reset_password" = "Add meg a regisztrációkor használt email-címedet és elküldjük neked a jelszavad megújításához szükséges linket.";
 
 "reset_password" = "Jelszó visszaállítása";
 
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Válassz Konyhát";
 
 /* login text field */
-"email_or_username" = "E-mail vagy felhasználónév";
+"email_or_username" = "Email vagy felhasználónév";
 
 "phone" = "Telefonszám";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "A probléma részletes leírása";
 
 "editor_report_problem_other_title" = "Különböző probléma";
-
-"placepage_add_place_button" = "Hely hozzáadása";
 
 "placepage_report_problem_button" = "Hibabejelentés";
 
@@ -1520,7 +1516,7 @@
 
 "error_enter_correct_web" = "Adj meg egy érvényes weboldalcímet";
 
-"error_enter_correct_email" = "Adj meg egy érvényes e-mail-címet";
+"error_enter_correct_email" = "Adj meg egy érvényes email-címet";
 
 "error_enter_correct" = "Adj meg egy érvényes értéket";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Frissítés";
 
 "last_update" = "Utolsó frissítés: %s";
+
+"booking_checkin" = "bejelentkezés: %s";
+
+"booking_checkout" = "kijelentkezés: %s";
+
+"placepage_add_place_button" = "Hely hozzáadása a térképhez";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Szeretnéd elküldeni az összes felhasználónak?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.";
+
+"editor_share_to_all_dialog_message_2" = "Ellenőrizni fogjuk a változásokat. Ha bármilyen kérdésünk van, emailben keresünk.";
+
+"navigation_overview_button" = "áttekintés";
+
+"navigation_stop_button" = "megállítás";

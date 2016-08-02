@@ -585,7 +585,6 @@
 	<string name="dialog_routing_send_error">Laporkan Masalah</string>
 	<string name="dialog_routing_if_get_cross_route">Apakah Anda ingin membuat rute yang lebih langsung yang meliputi lebih dari satu peta?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Ada rute yang lebih optimal yang melewati ujung peta ini.</string>
-	<string name="dialog_routing_always_cross_that_border">Selalu lewati batas ini</string>
 	<string name="not_now">Jangan Sekarang</string>
 	<string name="dialog_routing_build_route">Buat</string>
 	<string name="dialog_routing_download_and_build_cross_route">Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?</string>
@@ -760,7 +759,6 @@
 	<string name="editor_edit_place_category_title">Kategori</string>
 	<string name="detailed_problem_description">Gambaran terperinci tentang masalah</string>
 	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
-	<string name="placepage_add_place_button">Tambahkan tempat</string>
 	<string name="placepage_report_problem_button">Laporkan masalah</string>
 	<string name="placepage_add_business_button">Tambahkan organisasi</string>
 	<string name="whatsnew_smallmwm_header">Anda memintanya dan kami telah malakukannya</string>
@@ -880,4 +878,14 @@
 	<string name="whatsnew_cycle_navigation_message">Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.</string>
 	<string name="refresh">Memperbarui</string>
 	<string name="last_update">Pembaruan terakhir: %s</string>
+	<string name="booking_checkin">check-in: %s</string>
+	<string name="booking_checkout">check-out: %s</string>
+	<string name="placepage_add_place_button">Tambahkan tempat ke peta</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Apakah Anda ingin mengirimkannya ke semua pengguna?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
+	<string name="editor_share_to_all_dialog_message_2">Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.</string>
+	<string name="navigation_overview_button">ikhtisar</string>
+	<string name="navigation_stop_button">berhenti</string>
 </resources>

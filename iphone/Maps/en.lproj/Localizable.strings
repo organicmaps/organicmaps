@@ -257,7 +257,7 @@
 "set" = "Set";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.";
+"bookmarks_usage_hint" = "You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from email, Dropbox or weblink.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
 "bookmarks_usage_hint_import_only" = "Bookmarks from other sources can be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "A more optimal route that crosses the edge of this map is available.";
 
-"dialog_routing_always_cross_that_border" = "Always cross this boundary";
-
 "not_now" = "Not Now";
 
 "dialog_routing_build_route" = "Create";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "A different problem";
 
-"placepage_add_place_button" = "Add a place";
-
 "placepage_report_problem_button" = "Report a problem";
 
 "placepage_add_business_button" = "Add business";
@@ -1543,3 +1539,21 @@
 "refresh" = "Update";
 
 "last_update" = "Last update: %s";
+
+"booking_checkin" = "check in: %s";
+
+"booking_checkout" = "check out: %s";
+
+"placepage_add_place_button" = "Add a place to the map";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Do you want to send it to all users?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Make sure you did not enter any personal data.";
+
+"editor_share_to_all_dialog_message_2" = "We will check the changes. If we have any questions we will contact you via email.";
+
+"navigation_overview_button" = "overview";
+
+"navigation_stop_button" = "stop";

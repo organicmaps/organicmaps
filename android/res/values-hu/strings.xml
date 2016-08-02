@@ -263,7 +263,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Üzenet</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Hivatkozás másolása</string>
 	<!-- Text for the button that returns to caller application -->
@@ -396,11 +396,11 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Elsőként szeretnék értesülni a legújabb hírekről frissítésekről és promóciókról. A feliratkozásom bármikor törölhetem.</string>
 	<!-- About text -->
-	<string name="about_text">A MAPS.ME kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a MAPS.ME segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a MAPS.ME-t. Bármely probléma esetén írj nekünk a support@maps.me e-mail címre. Minden levélre válaszolunk!\n\nSzereted a MAPS.ME-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a MAPS.ME-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a http://openstreetmap.org-on és változtatásaid a MAPS.ME következő verziójában már meg fognak jelenni.</string>
+	<string name="about_text">A MAPS.ME kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a MAPS.ME segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a MAPS.ME-t. Bármely probléma esetén írj nekünk a support@maps.me email címre. Minden levélre válaszolunk!\n\nSzereted a MAPS.ME-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a MAPS.ME-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a http://openstreetmap.org-on és változtatásaid a MAPS.ME következő verziójában már meg fognak jelenni.</string>
 	<!-- Alert text -->
-	<string name="email_error_body">Az e-mail kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %s e-mail címen keresztül.</string>
+	<string name="email_error_body">Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %s email címen keresztül.</string>
 	<!-- Alert title -->
-	<string name="email_error_title">Hiba az e-mail küldése során</string>
+	<string name="email_error_title">Hiba az email küldése során</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Iránytű kalibrálás</string>
 	<!-- Search Suggestion -->
@@ -449,7 +449,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Nem találtunk útvonalat a kiválasztott kiindulópont és az úti cél között. Kérjük, válasszon másik kiinduló- vagy végpontot.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support@maps.me e-mail címen.</string>
+	<string name="routing_failed_internal_error">Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support@maps.me email címen.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Térkép + útvonal letöltése</string>
 	<!-- Context menu item for downloader. -->
@@ -587,7 +587,6 @@
 	<string name="dialog_routing_send_error">Probléma bejelentése</string>
 	<string name="dialog_routing_if_get_cross_route">Szeretne egy közvetlenebb útvonalat létrehozni, amely több, mint egy térképen terül el?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Elérhető egy optimálisabb útvonal, amely áthalad a jelenlegi térkép szélén.</string>
-	<string name="dialog_routing_always_cross_that_border">Mindig haladjon át ezen a határon</string>
 	<string name="not_now">Most nem</string>
 	<string name="dialog_routing_build_route">Létrehozás</string>
 	<string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?</string>
@@ -699,7 +698,7 @@
 	<string name="forgot_password">Elfelejtett jelszó?</string>
 	<!-- Forgot Password dialog title -->
 	<string name="restore_password">Jelszó visszaállítása</string>
-	<string name="enter_email_address_to_reset_password">Add meg a regisztrációkor használt e-mail-címedet és elküldjük neked a jelszavad megújításához szükséges linket.</string>
+	<string name="enter_email_address_to_reset_password">Add meg a regisztrációkor használt email-címedet és elküldjük neked a jelszavad megújításához szükséges linket.</string>
 	<string name="reset_password">Jelszó visszaállítása</string>
 	<string name="username">Felhasználónév</string>
 	<string name="osm_account">OSM-felhasználói fiók</string>
@@ -730,7 +729,7 @@
 	<string name="cuisine">Konyha</string>
 	<string name="select_cuisine">Válassz Konyhát</string>
 	<!-- login text field -->
-	<string name="email_or_username">E-mail vagy felhasználónév</string>
+	<string name="email_or_username">Email vagy felhasználónév</string>
 	<string name="phone">Telefonszám</string>
 	<string name="please_note">Megjegyzés</string>
 	<string name="common_no_wifi_dialog">Nincs WiFi-kapcsolat. Szeretnéd folytatni mobil adatforgalom használatával?</string>
@@ -762,7 +761,6 @@
 	<string name="editor_edit_place_category_title">Kategória</string>
 	<string name="detailed_problem_description">A probléma részletes leírása</string>
 	<string name="editor_report_problem_other_title">Különböző probléma</string>
-	<string name="placepage_add_place_button">Hely hozzáadása</string>
 	<string name="placepage_report_problem_button">Hibabejelentés</string>
 	<string name="placepage_add_business_button">Szervezet hozzáadása</string>
 	<string name="whatsnew_smallmwm_header">Te kérted, mi elkészítettük</string>
@@ -869,7 +867,7 @@
 	<string name="text_more_button">…tovább</string>
 	<string name="error_enter_correct_phone">Adj meg egy telefonszámot betűk nélkül</string>
 	<string name="error_enter_correct_web">Adj meg egy érvényes weboldalcímet</string>
-	<string name="error_enter_correct_email">Adj meg egy érvényes e-mail-címet</string>
+	<string name="error_enter_correct_email">Adj meg egy érvényes email-címet</string>
 	<string name="error_enter_correct">Adj meg egy érvényes értéket</string>
 	<string name="editor_profile_changes_for_next_place">Változtatások a jobb helyért: %d</string>
 	<string name="editor_profile_rating_place">Ranglista helyezés</string>
@@ -881,4 +879,14 @@
 	<string name="whatsnew_cycle_navigation_message">Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.</string>
 	<string name="refresh">Frissítés</string>
 	<string name="last_update">Utolsó frissítés: %s</string>
+	<string name="booking_checkin">bejelentkezés: %s</string>
+	<string name="booking_checkout">kijelentkezés: %s</string>
+	<string name="placepage_add_place_button">Hely hozzáadása a térképhez</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Szeretnéd elküldeni az összes felhasználónak?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
+	<string name="editor_share_to_all_dialog_message_2">Ellenőrizni fogjuk a változásokat. Ha bármilyen kérdésünk van, emailben keresünk.</string>
+	<string name="navigation_overview_button">áttekintés</string>
+	<string name="navigation_stop_button">megállítás</string>
 </resources>

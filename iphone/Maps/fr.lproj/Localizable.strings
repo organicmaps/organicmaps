@@ -418,7 +418,7 @@
 "message" = "Message";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Copier le lien";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Un itinéraire plus direct sortant du cadre de cette carte est disponible.";
 
-"dialog_routing_always_cross_that_border" = "Toujours dépasser ce cadre";
-
 "not_now" = "Pas maintenant";
 
 "dialog_routing_build_route" = "Créer";
@@ -1184,7 +1182,7 @@
 /* Forgot Password dialog title */
 "restore_password" = "Réinitialiser le mot de passe";
 
-"enter_email_address_to_reset_password" = "Entrez l'adresse e-mail que vous avez utilisé lors de l'inscription et nous vous ferons parvenir le lien pour renouveler votre mot de passe.";
+"enter_email_address_to_reset_password" = "Entrez l'adresse email que vous avez utilisé lors de l'inscription et nous vous ferons parvenir le lien pour renouveler votre mot de passe.";
 
 "reset_password" = "Réinitialiser le mot de passe";
 
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Sélectionner une cuisine";
 
 /* login text field */
-"email_or_username" = "E-mail ou nom d'utilisateur";
+"email_or_username" = "Email ou nom d'utilisateur";
 
 "phone" = "Numéro de téléphone";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Description détaillée d'un problème";
 
 "editor_report_problem_other_title" = "Un problème différent";
-
-"placepage_add_place_button" = "Ajouter une position";
 
 "placepage_report_problem_button" = "Signaler un problème";
 
@@ -1520,7 +1516,7 @@
 
 "error_enter_correct_web" = "Saisir une adresse Internet valide";
 
-"error_enter_correct_email" = "Saisir un e-mail valide";
+"error_enter_correct_email" = "Saisir un email valide";
 
 "error_enter_correct" = "Saisir une valeur correcte";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Mettre à jour";
 
 "last_update" = "Dernière mise à jour à %s";
+
+"booking_checkin" = "enregistrement : %s";
+
+"booking_checkout" = "départ : %s";
+
+"placepage_add_place_button" = "Ajouter un lieu sur la carte";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Souhaitez-vous l’envoyer à tous les utilisateurs ?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Assurez-vous de n’avoir saisi aucunes données personnelles.";
+
+"editor_share_to_all_dialog_message_2" = "Nous vérifierons les changements. Si nous avons des questions quelles qu’elles soient, nous vous contacterons par courriel.";
+
+"navigation_overview_button" = "aperçu";
+
+"navigation_stop_button" = "stop";

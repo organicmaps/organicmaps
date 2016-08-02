@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Ada rute yang lebih optimal yang melewati ujung peta ini.";
 
-"dialog_routing_always_cross_that_border" = "Selalu lewati batas ini";
-
 "not_now" = "Jangan Sekarang";
 
 "dialog_routing_build_route" = "Buat";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "Masalah yang berbeda";
 
-"placepage_add_place_button" = "Tambahkan tempat";
-
 "placepage_report_problem_button" = "Laporkan masalah";
 
 "placepage_add_business_button" = "Tambahkan organisasi";
@@ -1543,3 +1539,21 @@
 "refresh" = "Memperbarui";
 
 "last_update" = "Pembaruan terakhir: %s";
+
+"booking_checkin" = "check-in: %s";
+
+"booking_checkout" = "check-out: %s";
+
+"placepage_add_place_button" = "Tambahkan tempat ke peta";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Apakah Anda ingin mengirimkannya ke semua pengguna?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Pastikan Anda tidak memasukkan data pribadi apa pun.";
+
+"editor_share_to_all_dialog_message_2" = "Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.";
+
+"navigation_overview_button" = "ikhtisar";
+
+"navigation_stop_button" = "berhenti";

@@ -267,7 +267,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Message</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copier le lien</string>
 	<!-- Text for the button that returns to caller application -->
@@ -597,7 +597,6 @@
 	<string name="dialog_routing_send_error">Signaler le problème</string>
 	<string name="dialog_routing_if_get_cross_route">Voulez-vous créer un itinéraire plus direct s\&#39;étendant sur plus d\&#39;une carte ?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Un itinéraire plus direct sortant du cadre de cette carte est disponible.</string>
-	<string name="dialog_routing_always_cross_that_border">Toujours dépasser ce cadre</string>
 	<string name="not_now">Pas maintenant</string>
 	<string name="dialog_routing_build_route">Créer</string>
 	<string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\&#39;étendant sur plus d\&#39;une carte?</string>
@@ -709,7 +708,7 @@
 	<string name="forgot_password">Mot de passe oublié ?</string>
 	<!-- Forgot Password dialog title -->
 	<string name="restore_password">Réinitialiser le mot de passe</string>
-	<string name="enter_email_address_to_reset_password">Entrez l\&#39;adresse e-mail que vous avez utilisé lors de l\&#39;inscription et nous vous ferons parvenir le lien pour renouveler votre mot de passe.</string>
+	<string name="enter_email_address_to_reset_password">Entrez l\&#39;adresse email que vous avez utilisé lors de l\&#39;inscription et nous vous ferons parvenir le lien pour renouveler votre mot de passe.</string>
 	<string name="reset_password">Réinitialiser le mot de passe</string>
 	<string name="username">Nom d\&#39;utilisateur</string>
 	<string name="osm_account">Compte OSM</string>
@@ -740,7 +739,7 @@
 	<string name="cuisine">Cuisine</string>
 	<string name="select_cuisine">Sélectionner une cuisine</string>
 	<!-- login text field -->
-	<string name="email_or_username">E-mail ou nom d\&#39;utilisateur</string>
+	<string name="email_or_username">Email ou nom d\&#39;utilisateur</string>
 	<string name="phone">Numéro de téléphone</string>
 	<string name="please_note">À noter</string>
 	<string name="common_no_wifi_dialog">Aucune connexion Wi-Fi. Voulez-vous continuer avec les données mobiles ?</string>
@@ -772,7 +771,6 @@
 	<string name="editor_edit_place_category_title">Catégorie</string>
 	<string name="detailed_problem_description">Description détaillée d\&#39;un problème</string>
 	<string name="editor_report_problem_other_title">Un problème différent</string>
-	<string name="placepage_add_place_button">Ajouter une position</string>
 	<string name="placepage_report_problem_button">Signaler un problème</string>
 	<string name="placepage_add_business_button">Ajouter une organisation</string>
 	<string name="whatsnew_smallmwm_header">Vous avez été nombreux à nous le demander et nous avons satisfait votre requête</string>
@@ -880,7 +878,7 @@
 	<string name="text_more_button">…Afficher la suite</string>
 	<string name="error_enter_correct_phone">Saisir un numéro de téléphone sans lettres</string>
 	<string name="error_enter_correct_web">Saisir une adresse Internet valide</string>
-	<string name="error_enter_correct_email">Saisir un e-mail valide</string>
+	<string name="error_enter_correct_email">Saisir un email valide</string>
 	<string name="error_enter_correct">Saisir une valeur correcte</string>
 	<string name="editor_profile_changes_for_next_place">Modifications vers le prochain lieu: %d</string>
 	<string name="editor_profile_rating_place">Notation position</string>
@@ -892,4 +890,14 @@
 	<string name="whatsnew_cycle_navigation_message">Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n\&#39;hésitez pas à nous partager vos impressions.</string>
 	<string name="refresh">Mettre à jour</string>
 	<string name="last_update">Dernière mise à jour à %s</string>
+	<string name="booking_checkin">enregistrement : %s</string>
+	<string name="booking_checkout">départ : %s</string>
+	<string name="placepage_add_place_button">Ajouter un lieu sur la carte</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Souhaitez-vous l’envoyer à tous les utilisateurs ?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir saisi aucunes données personnelles.</string>
+	<string name="editor_share_to_all_dialog_message_2">Nous vérifierons les changements. Si nous avons des questions quelles qu’elles soient, nous vous contacterons par courriel.</string>
+	<string name="navigation_overview_button">aperçu</string>
+	<string name="navigation_stop_button">stop</string>
 </resources>
