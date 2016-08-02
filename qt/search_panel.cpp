@@ -249,12 +249,18 @@ bool SearchPanel::TryDisplacementModeCmd(QString const & str)
   
   if (!isDefaultDisplacementMode && !isHotelDisplacementMode)
     return false;
-  
+
   if (isDefaultDisplacementMode)
-    m_pDrawWidget->GetFramework().SetDisplacementMode(dp::displacement::kDefaultMode);
+  {
+    m_pDrawWidget->GetFramework().SetDisplacementMode(DisplacementModeManager::SLOT_DEBUG,
+                                                      false /* show */);
+  }
   else if (isHotelDisplacementMode)
-    m_pDrawWidget->GetFramework().SetDisplacementMode(dp::displacement::kHotelMode);
-  
+  {
+    m_pDrawWidget->GetFramework().SetDisplacementMode(DisplacementModeManager::SLOT_DEBUG,
+                                                      true /* show */);
+  }
+
   return true;
 }
 

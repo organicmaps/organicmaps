@@ -31,13 +31,18 @@ public:
   /// Metadata for search results. Considered valid if m_resultType == RESULT_FEATURE.
   struct Metadata
   {
-    string m_cuisine;         // Valid only if not empty. Used for restaurants.
-    int m_stars = 0;          // Valid only if not 0. Used for hotels.
-    bool m_isSponsoredHotel = false; // Used for hotels.
-    osm::YesNoUnknown m_isOpenNow = osm::Unknown;  // Valid for any result.
+    string m_cuisine;                              // Valid only if not empty. Used for restaurants.
+
+    // Following fields are used for hotels only.
     string m_hotelApproximatePricing;
     string m_hotelRating;
-    /// True if the struct is already assigned or need to be calculated otherwise.
+    int m_stars = 0;
+    bool m_isSponsoredHotel = false;
+    bool m_isHotel = false;
+
+    osm::YesNoUnknown m_isOpenNow = osm::Unknown;  // Valid for any result.
+
+    // True if the struct is already assigned or need to be calculated otherwise.
     bool m_isInitialized = false;
   };
 
@@ -170,6 +175,9 @@ public:
   typedef vector<Result>::const_iterator IterT;
   inline IterT Begin() const { return m_vec.begin(); }
   inline IterT End() const { return m_vec.end(); }
+
+  inline IterT begin() const { return m_vec.begin(); }
+  inline IterT end() const { return m_vec.end(); }
 
   inline size_t GetCount() const { return m_vec.size(); }
   size_t GetSuggestsCount() const;

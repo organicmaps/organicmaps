@@ -25,9 +25,11 @@ HEADERS += \
     geocoder_context.hpp \
     geometry_cache.hpp \
     geometry_utils.hpp \
+    hotels_classifier.hpp \
     house_detector.hpp \
     house_numbers_matcher.hpp \
     house_to_street_table.hpp \
+    interactive_search_callback.hpp \
     intermediate_result.hpp \
     intersection_result.hpp \
     interval_set.hpp \
@@ -82,9 +84,11 @@ SOURCES += \
     geocoder_context.cpp \
     geometry_cache.cpp \
     geometry_utils.cpp \
+    hotels_classifier.cpp \
     house_detector.cpp \
     house_numbers_matcher.cpp \
     house_to_street_table.cpp \
+    interactive_search_callback.cpp \
     intermediate_result.cpp \
     intersection_result.cpp \
     keyword_lang_matcher.cpp \

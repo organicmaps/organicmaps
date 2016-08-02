@@ -29,7 +29,8 @@ double const DIST_SAME_STREET = 5000.0;
 char const * const kEmptyRatingSymbol = "-";
 char const * const kPricingSymbol = "$";
 
-void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
+void ProcessMetadata(FeatureType const & ft, feature::TypesHolder const & types,
+                     Result::Metadata & meta)
 {
   if (meta.m_isInitialized)
     return;
@@ -56,6 +57,7 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 
   bool const isSponsoredHotel = ftypes::IsBookingChecker::Instance()(ft);
   meta.m_isSponsoredHotel = isSponsoredHotel;
+  meta.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
 
   if (isSponsoredHotel)
   {
@@ -114,7 +116,7 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD c
   m_region.SetParams(fileName, center);
   m_distance = PointDistance(center, pivot);
 
-  ProcessMetadata(f, m_metadata);
+  ProcessMetadata(f, m_types, m_metadata);
 }
 
 PreResult2::PreResult2(double lat, double lon)

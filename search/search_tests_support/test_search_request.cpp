@@ -29,6 +29,19 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams par
   engine.Search(params, viewport);
 }
 
+TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
+                                     string const & locale, Mode mode, m2::RectD const & viewport,
+                                     TOnStarted onStarted, TOnResults onResults)
+{
+  SearchParams params;
+  params.m_query = query;
+  params.m_inputLocale = locale;
+  params.SetMode(mode);
+  params.m_onStarted = move(onStarted);
+  params.m_onResults = move(onResults);
+  engine.Search(params, viewport);
+}
+
 void TestSearchRequest::Wait()
 {
   unique_lock<mutex> lock(m_mu);
