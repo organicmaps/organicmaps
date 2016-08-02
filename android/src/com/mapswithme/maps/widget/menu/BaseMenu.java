@@ -17,6 +17,7 @@ public abstract class BaseMenu
   public static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
 
   private boolean mIsOpen;
+  private boolean mAnimating;
 
   final View mFrame;
   final View mLineFrame;
@@ -27,7 +28,6 @@ public abstract class BaseMenu
   int mContentHeight;
 
   boolean mLayoutMeasured;
-  boolean mAnimating;
 
 
   public interface Item
@@ -85,7 +85,7 @@ public abstract class BaseMenu
       procAfterCorrection.run();
   }
 
-  protected void measureContent(@Nullable final Runnable procAfterMeasurement)
+  void measureContent(@Nullable final Runnable procAfterMeasurement)
   {
     if (mLayoutMeasured)
       return;

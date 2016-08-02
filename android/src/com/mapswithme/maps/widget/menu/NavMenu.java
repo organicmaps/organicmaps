@@ -22,7 +22,6 @@ public class NavMenu extends BaseMenu
     TOGGLE(R.id.toggle),
     TTS_VOLUME(R.id.tts_volume),
     STOP(R.id.stop),
-    //OVERVIEW(R.id.), TODO
     SETTINGS(R.id.settings);
 
     private final int mViewId;

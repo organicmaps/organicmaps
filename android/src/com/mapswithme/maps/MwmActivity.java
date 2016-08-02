@@ -22,9 +22,6 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
-import java.io.Serializable;
-import java.util.Stack;
-
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
@@ -85,6 +82,9 @@ import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
+
+import java.io.Serializable;
+import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
@@ -1339,9 +1339,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     mNavigationController.update(info);
-
-    // TODO (trashkalmar or yunikkk): Update anything else
-    //mMainMenu.updateRoutingInfo(info);
 
     TtsPlayer.INSTANCE.playTurnNotifications();
   }

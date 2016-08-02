@@ -9,7 +9,6 @@
   android:paddingStart="@dimen/nav_numbers_margin"
   android:layout_marginRight="@dimen/nav_toggle"
   android:layout_marginEnd="@dimen/nav_toggle"
-  android:paddingBottom="@dimen/margin_quarter"
   android:background="?clickableBackground"
   tools:background="#3000FF00"
   tools:ignore="RtlSymmetry">
@@ -49,20 +48,18 @@
          android:layout_weight="1"/>
 
   <!-- Time -->
-  <LinearLayout
+  <FrameLayout
     android:id="@+id/time_frame"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:minWidth="@dimen/nav_numbers_center_min_width"
-    android:orientation="vertical"
     android:paddingTop="@dimen/margin_eighth"
-    android:gravity="center_horizontal"
     tools:background="#20FF0000">
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      android:gravity="center_horizontal">
+      android:layout_gravity="center_horizontal">
       <TextView
         android:id="@+id/time_hour_value"
         android:layout_width="wrap_content"
@@ -103,7 +100,8 @@
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       android:theme="?navigationTheme"
-      android:layout_marginTop="@dimen/margin_quarter">
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="30dp">
       <ImageView
         android:id="@+id/dot_left"
         android:layout_width="wrap_content"
@@ -118,7 +116,7 @@
         android:layout_height="wrap_content"
         android:src="?newsMarker"/>
     </LinearLayout>
-  </LinearLayout>
+  </FrameLayout>
 
   <Space android:layout_width="0dp"
          android:layout_height="0dp"

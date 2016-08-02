@@ -17,7 +17,6 @@
     android:id="@+id/line_frame"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_menu_height">
-
     <include layout="@layout/layout_nav_bottom_numbers"/>
 
     <ImageView
@@ -45,11 +44,9 @@
   <FrameLayout
     android:id="@+id/content_frame"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/nav_menu_content_height"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:paddingTop="@dimen/margin_half_plus"
-    android:paddingBottom="@dimen/margin_half_plus"
     android:paddingLeft="@dimen/nav_bottom_gap"
     android:paddingStart="@dimen/nav_bottom_gap"
     android:paddingRight="@dimen/nav_bottom_gap"
@@ -75,7 +72,6 @@
       android:background="?redButtonBackground"
       android:text="@string/current_location_unknown_stop_button"
       android:fontFamily="@string/robotoMedium"
-      android:textAllCaps="true"
       android:textAppearance="@style/MwmTextAppearance.Button.Red"
       tools:ignore="UnusedAttribute"/>
 

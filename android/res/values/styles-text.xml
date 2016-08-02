@@ -74,7 +74,6 @@
 
   <style name="MwmTextAppearance.Button.Red">
     <item name="android:textColor">@color/button_red_text</item>
-    <item name="android:textAllCaps">true</item>
   </style>
 
   <style name="MwmTextAppearance.Toolbar">

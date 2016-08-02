@@ -93,6 +93,7 @@
   <dimen name="nav_next_turn_sign">64dp</dimen>
   <dimen name="nav_next_next_turn_frame">32dp</dimen>
   <dimen name="nav_menu_height">48dp</dimen>
+  <dimen name="nav_menu_content_height">64dp</dimen>
   <dimen name="nav_numbers_margin">8dp</dimen>
   <dimen name="nav_numbers_side_min_width">90dp</dimen>
   <dimen name="nav_numbers_center_min_width">130dp</dimen>
