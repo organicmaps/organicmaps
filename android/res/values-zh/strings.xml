@@ -327,6 +327,7 @@
 	<string name="pref_tts_how_to_set_up_voice">如何设置语音</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">最近的路径</string>
+	<string name="pref_map_auto_zoom">自动缩放</string>
 	<string name="duration_disabled">关闭</string>
 	<string name="duration_1_hour">1小时</string>
 	<string name="duration_2_hours">2小时</string>
@@ -835,7 +836,8 @@
 	<string name="location_services_disabled_message">启用设备设置中的地理位置定位</string>
 	<string name="location_services_disabled_1">1. 打开设置</string>
 	<string name="location_services_disabled_2">2. 点击位置</string>
-	<string name="location_services_disabled_3">3. 选择总是</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. 使用应用时选择</string>
 	<string name="placepage_parking_surface">表面</string>
 	<string name="placepage_parking_multistorey">多层</string>
 	<string name="placepage_parking_underground">地下</string>
@@ -852,8 +854,15 @@
 	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="place_page_booking_rating">评价: %s</string>
 	<string name="place_page_starting_from">从 %s</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="meter">米</string>
+	<string name="kilometer">千米</string>
+	<string name="kilometers_per_hour">公里每小时</string>
+	<string name="mile">英里</string>
+	<string name="foot">英尺</string>
+	<string name="miles_per_hour">英里每小时</string>
+	<string name="day">天</string>
+	<string name="hour">小時</string>
+	<string name="minute">分鐘</string>
 	<string name="placepage_place_description">说明</string>
 	<string name="placepage_more_button">更多</string>
 	<string name="bookingcom_book_button">图书</string>
@@ -871,7 +880,8 @@
 	<string name="editor_status_sending">正在发送…</string>
 	<string name="editor_place_doesnt_exist">位置不存在</string>
 	<string name="text_more_button">…更多</string>
-	<string name="error_enter_correct_phone">输入无字母的电话号码</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">输入正确的电话号码</string>
 	<string name="error_enter_correct_web">输入有效网址</string>
 	<string name="error_enter_correct_email">输入有效电子邮箱</string>
 	<string name="error_enter_correct">输入有效值</string>
@@ -888,11 +898,28 @@
 	<string name="booking_checkin">入住： %s</string>
 	<string name="booking_checkout">退房： %s</string>
 	<string name="placepage_add_place_button">添加地点到地图上</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要发给所有用户吗？</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">确保您没有输入任何个人数据。</string>
 	<string name="editor_share_to_all_dialog_message_2">我们会检查更改。如果我们有任何问题，我们会邮件与您联系。</string>
 	<string name="navigation_overview_button">概览</string>
 	<string name="navigation_stop_button">停止</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">保存书签</string>
+	<string name="bookmarks_empty_message_1">点击★保存收藏地点以便快速访问。</string>
+	<string name="bookmarks_empty_message_2">从邮箱和网页导入书签。</string>
+	<string name="bookmarks_empty_message_3">退房： %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">预订的酒店</string>
+	<string name="place_page_button_read_descriprion">阅读</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">禁止记录您最近去过的路径？</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">或者在booking.com上预订</string>
+	<string name="off_recent_track_background_button">禁用</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">来看看</string>
+	<string name="continue_recent_track_background_button">继续</string>
+	<string name="recent_track_background_dialog_message">MAPS.ME使用背景中的地理位置记录您最近去过的路径。</string>
 </resources>

@@ -519,7 +519,6 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Recent track";
 
-/* Settings «Map» category: «Auto zoom» title */
 "pref_map_auto_zoom" = "Auto zoom";
 
 "duration_disabled" = "Off";
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Tap Location";
 
-"location_services_disabled_3" = "3. Select Always";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Select While Using the App";
 
 "placepage_parking_surface" = "Surface";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
+"mile" = "mi";
+
+"foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "d";
+
+"hour" = "h";
+
+"minute" = "min";
+
 "placepage_place_description" = "Description";
 
 "placepage_more_button" = "More";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…more";
 
-"error_enter_correct_phone" = "Enter a phone number without letters";
+/* Phone number error message */
+"error_enter_correct_phone" = "Enter a valid phone number";
 
 "error_enter_correct_web" = "Enter a valid web address";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Add a place to the map";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Do you want to send it to all users?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "overview";
 
 "navigation_stop_button" = "stop";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Save Bookmarks";
+
+"bookmarks_empty_message_1" = "Tap on ★ to save favorite places for quick access.";
+
+"bookmarks_empty_message_2" = "Import Bookmarks from email and web.";
+
+"bookmarks_empty_message_3" = "check out: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Booked hotels";
+
+"place_page_button_read_descriprion" = "Read";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Disable recording of your recently traveled route?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "or book at booking.com";
+
+"off_recent_track_background_button" = "Disable";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Check out";
+
+"continue_recent_track_background_button" = "Continue";
+
+"recent_track_background_dialog_message" = "MAPS.ME uses your geoposition in the background for recording your recently traveled route.";

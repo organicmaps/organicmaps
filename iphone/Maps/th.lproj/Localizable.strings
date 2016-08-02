@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "เส้นทางล่าสุด";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "ซูมอัตโนมัติ";
 
 "duration_disabled" = "ปิด";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. แตะตำแหน่งที่ตั้ง";
 
-"location_services_disabled_3" = "3. เลือก เสมอ";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. เลือกในขณะใช้แอป";
 
 "placepage_parking_surface" = "กลางแจ้ง";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "กม.";
 
+"kilometers_per_hour" = "กม./ชม.";
+
+"mile" = "ไมล์";
+
+"foot" = "ฟุต";
+
+"miles_per_hour" = "ไมล์/ชม.";
+
+"day" = "ว.";
+
+"hour" = "ชม.";
+
+"minute" = "น.";
+
 "placepage_place_description" = "คำอธิบาย";
 
 "placepage_more_button" = "เพิ่มเติม";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…เพิ่มเติม";
 
-"error_enter_correct_phone" = "กรอกหมายเลขโทรศัพท์โดยไม่ใช้ตัวอักษร";
+/* Phone number error message */
+"error_enter_correct_phone" = "กรอกหมายเลขโทรศัพท์ที่ถูกต้อง";
 
 "error_enter_correct_web" = "กรอกที่อยู่เว็บที่ถูกต้อง";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "เพิ่มสถานที่ไปยังแผนที่";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "ภาพรวม";
 
 "navigation_stop_button" = "หยุด";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "บันทึกบุ๊กมาร์ก";
+
+"bookmarks_empty_message_1" = "แตะ ★ เพื่อบันทึกสถานที่โปรดเพื่อให้เข้าถึงได้อย่างรวดเร็ว";
+
+"bookmarks_empty_message_2" = "นำเข้าบุ๊กมาร์กจาก Mail และเว็บ";
+
+"bookmarks_empty_message_3" = "เช็คเอาท์: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "โรงแรมที่จอง";
+
+"place_page_button_read_descriprion" = "อ่าน";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "ปิดการใช้งานการบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "หรือจองที่ booking.com";
+
+"off_recent_track_background_button" = "ปิดการใช้งาน";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "ตรวจชม";
+
+"continue_recent_track_background_button" = "ดำเนินการต่อ";
+
+"recent_track_background_dialog_message" = "MAPS.ME ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้";

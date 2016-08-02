@@ -324,6 +324,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Ako nastaviť hlas</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Posledná trasa</string>
+	<string name="pref_map_auto_zoom">Automatický zoom</string>
 	<string name="duration_disabled">Vypnúť</string>
 	<string name="duration_1_hour">1 hodina</string>
 	<string name="duration_2_hours">2 hodiny</string>
@@ -832,7 +833,8 @@
 	<string name="location_services_disabled_message">Povoliť prístup ku geolokalizácii v nastaveniach prístroja</string>
 	<string name="location_services_disabled_1">1. Otvorte Nastavenia</string>
 	<string name="location_services_disabled_2">2. Kliknite na položku Lokalita</string>
-	<string name="location_services_disabled_3">3. Vyberte Vždy</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. Vyberte si počas používania aplikácie</string>
 	<string name="placepage_parking_surface">Typ parkoviska</string>
 	<string name="placepage_parking_multistorey">Viacpodlažné</string>
 	<string name="placepage_parking_underground">Podzemné</string>
@@ -851,6 +853,13 @@
 	<string name="place_page_starting_from">od %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
+	<string name="mile">mi</string>
+	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">d</string>
+	<string name="hour">hod</string>
+	<string name="minute">min</string>
 	<string name="placepage_place_description">Popis</string>
 	<string name="placepage_more_button">Viac</string>
 	<string name="bookingcom_book_button">Rezervovať</string>
@@ -868,7 +877,8 @@
 	<string name="editor_status_sending">Odosiela sa…</string>
 	<string name="editor_place_doesnt_exist">Miesto neexistuje</string>
 	<string name="text_more_button">…viac</string>
-	<string name="error_enter_correct_phone">Zadajte telefónne číslo bez písmen</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Zadajte správne telefónne číslo</string>
 	<string name="error_enter_correct_web">Zadajte platnú webovú adresu</string>
 	<string name="error_enter_correct_email">Zadajte platný email</string>
 	<string name="error_enter_correct">Zadajte platnú hodnotu</string>
@@ -885,11 +895,28 @@
 	<string name="booking_checkin">príchod: %s</string>
 	<string name="booking_checkout">odchod: %s</string>
 	<string name="placepage_add_place_button">Pridať miesto na mape</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Odoslať všetkým používateľom?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
 	<string name="editor_share_to_all_dialog_message_2">Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.</string>
 	<string name="navigation_overview_button">zhrnutie</string>
 	<string name="navigation_stop_button">stop</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Uložiť záložky</string>
+	<string name="bookmarks_empty_message_1">Ak si chcete uložiť obľúbené miesta pre rýchly prístup, klepnite na ★.</string>
+	<string name="bookmarks_empty_message_2">Importujte si záložky z emailu a webu.</string>
+	<string name="bookmarks_empty_message_3">odchod: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Rezervované hotely</string>
+	<string name="place_page_button_read_descriprion">Prečítajte si</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Znemožniť nahrávanie vami nedávno precestovanej trasy?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">alebo si rezervujte na booking.com</string>
+	<string name="off_recent_track_background_button">Znemožniť</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">Pozrite si</string>
+	<string name="continue_recent_track_background_button">Pokračovať</string>
+	<string name="recent_track_background_dialog_message">MAPS.ME používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
 </resources>

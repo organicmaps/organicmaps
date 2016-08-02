@@ -325,6 +325,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Így állítsd be a hangot</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Viimeisin reitti</string>
+	<string name="pref_map_auto_zoom">Automaattinen zoomaus</string>
 	<string name="duration_disabled">Pois päältä</string>
 	<string name="duration_1_hour">1 tunti</string>
 	<string name="duration_2_hours">2 tuntia</string>
@@ -829,7 +830,8 @@
 	<string name="location_services_disabled_message">Schakel de toegang tot geolocaties in in de instellingen van het apparaat</string>
 	<string name="location_services_disabled_1">1. Instellingen openen</string>
 	<string name="location_services_disabled_2">2. Tik op locatie</string>
-	<string name="location_services_disabled_3">3. Selecteer \&#39;Altijd\&#39;</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. Valitse sovellusta käytettäessä</string>
 	<string name="placepage_parking_surface">Pinta</string>
 	<string name="placepage_parking_multistorey">Monikerroksinen</string>
 	<string name="placepage_parking_underground">Maan alla</string>
@@ -848,6 +850,13 @@
 	<string name="place_page_starting_from">%s:stä</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
+	<string name="mile">mi</string>
+	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">p</string>
+	<string name="hour">t</string>
+	<string name="minute">min</string>
 	<string name="placepage_place_description">Kuvaus</string>
 	<string name="placepage_more_button">Lisää</string>
 	<string name="bookingcom_book_button">Varaa</string>
@@ -865,7 +874,8 @@
 	<string name="editor_status_sending">Lähetetään…</string>
 	<string name="editor_place_doesnt_exist">Paikkaa ei ole</string>
 	<string name="text_more_button">…Näytä</string>
-	<string name="error_enter_correct_phone">Syötä puhelinnumero ilman kirjaimia</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Syötä kelvollinen puhelinnumero</string>
 	<string name="error_enter_correct_web">Syötä kelvollinen verkko-osoite</string>
 	<string name="error_enter_correct_email">Syötä kelvollinen sähköpostiosoite</string>
 	<string name="error_enter_correct">Syötä kelvollinen arvo</string>
@@ -882,11 +892,28 @@
 	<string name="booking_checkin">kirjaudu sisään: %s</string>
 	<string name="booking_checkout">kirjaudu ulos: %s</string>
 	<string name="placepage_add_place_button">Lisää paikka kartalle</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Haluatko lähettää sen kaikille käyttäjille?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.</string>
 	<string name="editor_share_to_all_dialog_message_2">Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.</string>
 	<string name="navigation_overview_button">yleiskatsaus</string>
 	<string name="navigation_stop_button">lopeta</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Tallenna Kirjanmerkit</string>
+	<string name="bookmarks_empty_message_1">Napsauta ★ tallentaaksesi suosikkipaikkoja.</string>
+	<string name="bookmarks_empty_message_2">Tuo kirjanmerkit sähköpostista ja webistä.</string>
+	<string name="bookmarks_empty_message_3">kirjaudu ulos: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Varatut hotellit</string>
+	<string name="place_page_button_read_descriprion">Lue</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Poistetaanko viimeisen matkareitin tallennus?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">tai varaa booking.comissa</string>
+	<string name="off_recent_track_background_button">Poista</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">Tarkastele</string>
+	<string name="continue_recent_track_background_button">Jatka</string>
+	<string name="recent_track_background_dialog_message">MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.</string>
 </resources>

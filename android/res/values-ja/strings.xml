@@ -318,6 +318,7 @@
 	<string name="pref_tts_how_to_set_up_voice">音声設定の仕方</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">最近のルート</string>
+	<string name="pref_map_auto_zoom">自動ズーム</string>
 	<string name="duration_disabled">オフ</string>
 	<string name="duration_1_hour">1時間</string>
 	<string name="duration_2_hours">2時間</string>
@@ -828,7 +829,8 @@
 	<string name="location_services_disabled_message">デバイスの設定で位置情報へのアクセスを有効にしてください</string>
 	<string name="location_services_disabled_1">1. 設定を開きます</string>
 	<string name="location_services_disabled_2">2. 位置情報をタップします</string>
-	<string name="location_services_disabled_3">3. 「常時」を選択します</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. アプリの使用中を選択してください</string>
 	<string name="placepage_parking_surface">表面</string>
 	<string name="placepage_parking_multistorey">複数階</string>
 	<string name="placepage_parking_underground">地下</string>
@@ -847,6 +849,13 @@
 	<string name="place_page_starting_from">%sから</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">キロメートル毎時</string>
+	<string name="mile">マイル</string>
+	<string name="foot">フィート</string>
+	<string name="miles_per_hour">マイル毎時</string>
+	<string name="day">日</string>
+	<string name="hour">時間</string>
+	<string name="minute">分</string>
 	<string name="placepage_place_description">説明</string>
 	<string name="placepage_more_button">さらに詳しく</string>
 	<string name="bookingcom_book_button">書籍</string>
@@ -864,7 +873,8 @@
 	<string name="editor_status_sending">送信中…</string>
 	<string name="editor_place_doesnt_exist">存在しない場所</string>
 	<string name="text_more_button">…続き</string>
-	<string name="error_enter_correct_phone">文字なしで電話番号を入力してください</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">正しい電話番号を入力してください</string>
 	<string name="error_enter_correct_web">有効なウェブアドレスを入力してください</string>
 	<string name="error_enter_correct_email">有効なメールアドレスを入力してください</string>
 	<string name="error_enter_correct">有効な値を入力してください</string>
@@ -881,11 +891,28 @@
 	<string name="booking_checkin">チェックイン：%s</string>
 	<string name="booking_checkout">チェックアウト：%s</string>
 	<string name="placepage_add_place_button">地図上に場所を追加</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">全てのユーザーに送信しますか？</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
 	<string name="editor_share_to_all_dialog_message_2">弊社で変更を確認します。質問がある場合はメールでご連絡します。</string>
 	<string name="navigation_overview_button">概要</string>
 	<string name="navigation_stop_button">停止</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">ブックマークを保存</string>
+	<string name="bookmarks_empty_message_1">★をタップしてお気に入りの場所にクイックアクセス。</string>
+	<string name="bookmarks_empty_message_2">メールやウェブからブックマークをインポートする。</string>
+	<string name="bookmarks_empty_message_3">チェックアウト：%s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">予約したホテル</string>
+	<string name="place_page_button_read_descriprion">詳細</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">最近の走行ルートの記録を無効にしますか？</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">またはbooking.comで予約</string>
+	<string name="off_recent_track_background_button">無効にする</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">ご覧ください</string>
+	<string name="continue_recent_track_background_button">続行</string>
+	<string name="recent_track_background_dialog_message">MAPS.MEは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
 </resources>

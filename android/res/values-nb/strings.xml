@@ -325,6 +325,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Slik installerer du stemme</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Siste rute</string>
+	<string name="pref_map_auto_zoom">Automatisk zooming</string>
 	<string name="duration_disabled">Av</string>
 	<string name="duration_1_hour">1 time</string>
 	<string name="duration_2_hours">2 timer</string>
@@ -827,7 +828,8 @@
 	<string name="location_services_disabled_message">Tillat bruk av av geografisk lokalisering i enhetens innstillinger</string>
 	<string name="location_services_disabled_1">1. Åpne Innstillinger</string>
 	<string name="location_services_disabled_2">2. Trykk Lokalisering</string>
-	<string name="location_services_disabled_3">3. Velg Alltid</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3.Velg når appen er i bruk</string>
 	<string name="placepage_parking_surface">Åpen plass</string>
 	<string name="placepage_parking_multistorey">Fleretasjers</string>
 	<string name="placepage_parking_underground">Undergrunns</string>
@@ -846,6 +848,13 @@
 	<string name="place_page_starting_from">fra %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/t</string>
+	<string name="mile">mi</string>
+	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">d</string>
+	<string name="hour">t</string>
+	<string name="minute">min</string>
 	<string name="placepage_place_description">Beskrivelse</string>
 	<string name="placepage_more_button">Mer</string>
 	<string name="bookingcom_book_button">Bestill</string>
@@ -863,7 +872,8 @@
 	<string name="editor_status_sending">Sender…</string>
 	<string name="editor_place_doesnt_exist">Sted finnes ikke</string>
 	<string name="text_more_button">…mer</string>
-	<string name="error_enter_correct_phone">Oppgi telefonnummer uten bokstaver</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Skriv riktig telefonnummer</string>
 	<string name="error_enter_correct_web">Oppgi en gyldig nettadresse</string>
 	<string name="error_enter_correct_email">Oppgi en gyldig epostadresse</string>
 	<string name="error_enter_correct">Oppgi en gyldig verdi</string>
@@ -880,11 +890,28 @@
 	<string name="booking_checkin">sjekk inn: %s</string>
 	<string name="booking_checkout">sjekk ut: %s</string>
 	<string name="placepage_add_place_button">Legg til en plass på kartet</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vil du sende det til alle brukere?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke har skrevet noe personlig informasjon.</string>
 	<string name="editor_share_to_all_dialog_message_2">Vi vil sjekke endringene. Vi kontakter deg via e-post dersom vi har spørsmål.</string>
 	<string name="navigation_overview_button">oversikt</string>
 	<string name="navigation_stop_button">stopp</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Lagre bokmerker</string>
+	<string name="bookmarks_empty_message_1">Trykk på ★ for å lagre favorittsteder og få rask tilgang.</string>
+	<string name="bookmarks_empty_message_2">Importer bokmerker fra e-post og nettet.</string>
+	<string name="bookmarks_empty_message_3">sjekk ut: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Bestilte hoteller</string>
+	<string name="place_page_button_read_descriprion">Les</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Deaktivere opptak av nylig reiste rute?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">eller bestill via booking.com</string>
+	<string name="off_recent_track_background_button">Deaktiver</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">Sjekk ut</string>
+	<string name="continue_recent_track_background_button">Fortsett</string>
+	<string name="recent_track_background_dialog_message">MAPS.ME bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.</string>
 </resources>

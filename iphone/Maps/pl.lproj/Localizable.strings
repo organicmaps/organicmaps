@@ -519,7 +519,6 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Ostatnia trasa";
 
-/* Settings «Map» category: «Auto zoom» title */
 "pref_map_auto_zoom" = "Auto zoom";
 
 "duration_disabled" = "Wyłączona";
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Dotknij „Lokalizacja”";
 
-"location_services_disabled_3" = "3. Wybierz „Zawsze”";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Zaznacz Podczas korzystania z aplikacji";
 
 "placepage_parking_surface" = "Powierzchnia";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
+"mile" = "mi";
+
+"foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "d";
+
+"hour" = "godz";
+
+"minute" = "min";
+
 "placepage_place_description" = "Opis";
 
 "placepage_more_button" = "Więcej";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…więcej";
 
-"error_enter_correct_phone" = "Wpisz numer telefonu bez liter";
+/* Phone number error message */
+"error_enter_correct_phone" = "Wprowadź poprawny numer telefonu";
 
 "error_enter_correct_web" = "Wpisz prawidłowy adres strony internetowej";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Dodaj miejsce do mapy";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Czy chcesz wysłać je wszystkim użytkownikom?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "przegląd";
 
 "navigation_stop_button" = "stop";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Zapisz zakładki";
+
+"bookmarks_empty_message_1" = "Stuknij ★, aby zapisać ulubione miejsca w celu szybkiego dostępu.";
+
+"bookmarks_empty_message_2" = "Importuj zakładki z aplikacji Mail i z Sieci.";
+
+"bookmarks_empty_message_3" = "wymeldowanie: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Zarezerwowane hotele";
+
+"place_page_button_read_descriprion" = "Czytaj";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Wyłączyć rejestrowanie niedawno przebytej trasy?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "lub zarezerwuj na booking.com";
+
+"off_recent_track_background_button" = "Wyłącz";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Sprawdź";
+
+"continue_recent_track_background_button" = "Kontynuuj";
+
+"recent_track_background_dialog_message" = "MAPS.ME używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.";

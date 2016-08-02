@@ -324,6 +324,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Como configurar a voz</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Histórico recente</string>
+	<string name="pref_map_auto_zoom">Zoom automático</string>
 	<string name="duration_disabled">Desligado</string>
 	<string name="duration_1_hour">1 hora</string>
 	<string name="duration_2_hours">2 horas</string>
@@ -828,7 +829,8 @@
 	<string name="location_services_disabled_message">Permitir o acesso à geolocalização nas configurações do dispositivo</string>
 	<string name="location_services_disabled_1">1. Abrir configurações</string>
 	<string name="location_services_disabled_2">2. Tocar em localização</string>
-	<string name="location_services_disabled_3">3. Selecionar sempre</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. Selecione Durante Uso do Aplicativo</string>
 	<string name="placepage_parking_surface">Superfície</string>
 	<string name="placepage_parking_multistorey">Vários andares</string>
 	<string name="placepage_parking_underground">Local desconhecido</string>
@@ -846,7 +848,14 @@
 	<string name="place_page_booking_rating">Classificação: %s</string>
 	<string name="place_page_starting_from">a partir de %s</string>
 	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="kilometer">Km</string>
+	<string name="kilometers_per_hour">km/h</string>
+	<string name="mile">M</string>
+	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">d</string>
+	<string name="hour">h</string>
+	<string name="minute">min</string>
 	<string name="placepage_place_description">Descrição</string>
 	<string name="placepage_more_button">Mais</string>
 	<string name="bookingcom_book_button">Livro</string>
@@ -864,7 +873,8 @@
 	<string name="editor_status_sending">A enviar…</string>
 	<string name="editor_place_doesnt_exist">O local não existe</string>
 	<string name="text_more_button">…mais</string>
-	<string name="error_enter_correct_phone">Preencha com o número de telefone sem letras</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Insira o número correto do telefone</string>
 	<string name="error_enter_correct_web">Preencha com um endereço válido na internet</string>
 	<string name="error_enter_correct_email">Preencha com um endereço válido de email</string>
 	<string name="error_enter_correct">Preencha com um valor válido</string>
@@ -881,11 +891,28 @@
 	<string name="booking_checkin">check in: %s</string>
 	<string name="booking_checkout">check out: %s</string>
 	<string name="placepage_add_place_button">Adicionar um local ao mapa</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Deseja enviar para todos os usuários?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Certifique-se de não ter incluído nenhum dado pessoal.</string>
 	<string name="editor_share_to_all_dialog_message_2">Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.</string>
 	<string name="navigation_overview_button">visão geral</string>
 	<string name="navigation_stop_button">parar</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Salvar Favoritos</string>
+	<string name="bookmarks_empty_message_1">Toque em ★ para salvar locais favoritos para rápido acesso.</string>
+	<string name="bookmarks_empty_message_2">Importe favoritos do Mail e da web.</string>
+	<string name="bookmarks_empty_message_3">check out: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Hotéis reservados</string>
+	<string name="place_page_button_read_descriprion">Leia</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Desabilitar registro de sua rota recente?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">ou faça sua reserva em booking.com</string>
+	<string name="off_recent_track_background_button">Desabilitar</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">Procure</string>
+	<string name="continue_recent_track_background_button">Continuar</string>
+	<string name="recent_track_background_dialog_message">O MAPS.ME usa sua localização geográfica em segundo plano para registrar sua rota recente.</string>
 </resources>

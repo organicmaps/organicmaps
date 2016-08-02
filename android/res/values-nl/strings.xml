@@ -325,6 +325,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Hoe stel je de stem in</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Recente route</string>
+	<string name="pref_map_auto_zoom">Automatisch zoomen</string>
 	<string name="duration_disabled">Uit</string>
 	<string name="duration_1_hour">1 uur</string>
 	<string name="duration_2_hours">2 uur</string>
@@ -829,7 +830,8 @@
 	<string name="location_services_disabled_message">Schakel de toegang tot geolocaties in in de instellingen van het apparaat</string>
 	<string name="location_services_disabled_1">1. Instellingen openen</string>
 	<string name="location_services_disabled_2">2. Tik op locatie</string>
-	<string name="location_services_disabled_3">3. Selecteer \&#39;Altijd\&#39;</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. Selecteer Terwijl Je de App Gebruikt</string>
 	<string name="placepage_parking_surface">Boven de grond</string>
 	<string name="placepage_parking_multistorey">Meerlaags</string>
 	<string name="placepage_parking_underground">Onder de grond</string>
@@ -848,6 +850,13 @@
 	<string name="place_page_starting_from">van %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
+	<string name="mile">mijl</string>
+	<string name="foot">voet</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">d</string>
+	<string name="hour">u</string>
+	<string name="minute">min</string>
 	<string name="placepage_place_description">Beschrijving</string>
 	<string name="placepage_more_button">Meer</string>
 	<string name="bookingcom_book_button">Boeken</string>
@@ -865,7 +874,8 @@
 	<string name="editor_status_sending">Verzenden…</string>
 	<string name="editor_place_doesnt_exist">Locatie bestaat niet</string>
 	<string name="text_more_button">…meer</string>
-	<string name="error_enter_correct_phone">Voer een telefoonnummer in zonder letters</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Voer het juiste telefoonnummer in</string>
 	<string name="error_enter_correct_web">Voer een geldig webadres in</string>
 	<string name="error_enter_correct_email">Voer een geldig emailadres in</string>
 	<string name="error_enter_correct">Voer een geldige waarde in</string>
@@ -882,11 +892,28 @@
 	<string name="booking_checkin">inchecken: %s</string>
 	<string name="booking_checkout">uitchecken: %s</string>
 	<string name="placepage_add_place_button">Een plek toevoegen aan de kaart</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Wil je het naar alle gebruikers sturen?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Controleer dat je geen persoonlijke gegevens hebt ingevoerd.</string>
 	<string name="editor_share_to_all_dialog_message_2">We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.</string>
 	<string name="navigation_overview_button">overzicht</string>
 	<string name="navigation_stop_button">stoppen</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Bladwijzers opslaan</string>
+	<string name="bookmarks_empty_message_1">Tik op ★ om favoriete plaatsen op te slaan voor snelle toegang.</string>
+	<string name="bookmarks_empty_message_2">Importeer bladwijzers vanuit email en het internet.</string>
+	<string name="bookmarks_empty_message_3">uitchecken: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Geboekte hotels</string>
+	<string name="place_page_button_read_descriprion">Lezen</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Vastleggen van uw onlangs afgelegde route uitschakelen?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">of boek via booking.com</string>
+	<string name="off_recent_track_background_button">Uitschakelen</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">Bekijk</string>
+	<string name="continue_recent_track_background_button">Verdergaan</string>
+	<string name="recent_track_background_dialog_message">MAPS.ME gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.</string>
 </resources>

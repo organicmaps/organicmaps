@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "최근 추적";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "자동 줌";
 
 "duration_disabled" = "선택 안 함";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. 위치 누르기";
 
-"location_services_disabled_3" = "3. 항상 선택";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. 앱 사용 중에 선택";
 
 "placepage_parking_surface" = "주차공간";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/시";
+
+"mile" = "mi";
+
+"foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "d";
+
+"hour" = "t";
+
+"minute" = "min";
+
 "placepage_place_description" = "설명";
 
 "placepage_more_button" = "자세히";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…기타";
 
-"error_enter_correct_phone" = "문자없이 전화 번호 입력";
+/* Phone number error message */
+"error_enter_correct_phone" = "올바른 전화 번호 입력";
 
 "error_enter_correct_web" = "유효한 웹 주소 입력";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "지도에 장소 추가";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "이를 모든 사용자에게 전송하시겠습니까?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "개요";
 
 "navigation_stop_button" = "중지";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "북마크 저장";
+
+"bookmarks_empty_message_1" = "빠른 액세스를 위해 즐겨찾는 장소에 저장하기 위해 ★를 누릅니다.";
+
+"bookmarks_empty_message_2" = "이메일 및 웹에서 북마크를 가져옵니다.";
+
+"bookmarks_empty_message_3" = "체크아웃: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "호텔 예약함";
+
+"place_page_button_read_descriprion" = "읽기";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "최근 여행한 경로 녹음을 비활성화하시겠습니까?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "또는 booking.com에서 예약";
+
+"off_recent_track_background_button" = "비활성화";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "체크아웃";
+
+"continue_recent_track_background_button" = "계속";
+
+"recent_track_background_dialog_message" = "MAPS.ME는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";

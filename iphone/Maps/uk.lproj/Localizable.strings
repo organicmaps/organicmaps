@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Недавній маршрут";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Автозум";
 
 "duration_disabled" = "Вимкнуто";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Клацніть «Місцезнаходження»";
 
-"location_services_disabled_3" = "3. Виберіть «Завжди»";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Оберіть \"Під час роботи програми\"";
 
 "placepage_parking_surface" = "Відкрите паркування";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "км";
 
+"kilometers_per_hour" = "км/год";
+
+"mile" = "мл";
+
+"foot" = "фут";
+
+"miles_per_hour" = "мл/год";
+
+"day" = "д";
+
+"hour" = "год";
+
+"minute" = "хв";
+
 "placepage_place_description" = "Опис";
 
 "placepage_more_button" = "Ще";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…більше";
 
-"error_enter_correct_phone" = "Введіть номер телефону без літер";
+/* Phone number error message */
+"error_enter_correct_phone" = "Введіть правильний номер телефону";
 
 "error_enter_correct_web" = "Введіть вірну адресу веб-сайту";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Додати на карту";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Надіслати усім користувачам?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "огляд";
 
 "navigation_stop_button" = "стоп";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Зберегти закладки";
+
+"bookmarks_empty_message_1" = "Клацніть по ★, щоб зберегти улюблені місця для швидкого доступу.";
+
+"bookmarks_empty_message_2" = "Імпортувати закладки з Mail та web.";
+
+"bookmarks_empty_message_3" = "виїзд: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Заброньовані готелі";
+
+"place_page_button_read_descriprion" = "Прочитати";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Вимкнути запис нещодавно пройденого шляху?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "або забронюй на booking.com";
+
+"off_recent_track_background_button" = "Вимкнути";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Подивись,";
+
+"continue_recent_track_background_button" = "Продовжити";
+
+"recent_track_background_dialog_message" = "MAPS.ME використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.";

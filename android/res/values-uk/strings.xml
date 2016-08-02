@@ -331,6 +331,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Як налаштувати голосовий контроль</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Недавній маршрут</string>
+	<string name="pref_map_auto_zoom">Автозум</string>
 	<string name="duration_disabled">Вимкнуто</string>
 	<string name="duration_1_hour">1 година</string>
 	<string name="duration_2_hours">2 години</string>
@@ -833,7 +834,8 @@
 	<string name="location_services_disabled_message">Увімкніть доступ до геолокації в налаштуваннях цього пристрою</string>
 	<string name="location_services_disabled_1">1. Відкрийте «Налаштування»</string>
 	<string name="location_services_disabled_2">2. Клацніть «Місцезнаходження»</string>
-	<string name="location_services_disabled_3">3. Виберіть «Завжди»</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. Оберіть \&quot;Під час роботи програми\&quot;</string>
 	<string name="placepage_parking_surface">Відкрите паркування</string>
 	<string name="placepage_parking_multistorey">Багатоповерхове наземне паркування</string>
 	<string name="placepage_parking_underground">Підземне паркування</string>
@@ -852,6 +854,13 @@
 	<string name="place_page_starting_from">від %s</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
+	<string name="kilometers_per_hour">км/год</string>
+	<string name="mile">мл</string>
+	<string name="foot">фут</string>
+	<string name="miles_per_hour">мл/год</string>
+	<string name="day">д</string>
+	<string name="hour">год</string>
+	<string name="minute">хв</string>
 	<string name="placepage_place_description">Опис</string>
 	<string name="placepage_more_button">Ще</string>
 	<string name="bookingcom_book_button">Забронювати</string>
@@ -869,7 +878,8 @@
 	<string name="editor_status_sending">Відправка…</string>
 	<string name="editor_place_doesnt_exist">Місце не існує</string>
 	<string name="text_more_button">…більше</string>
-	<string name="error_enter_correct_phone">Введіть номер телефону без літер</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Введіть правильний номер телефону</string>
 	<string name="error_enter_correct_web">Введіть вірну адресу веб-сайту</string>
 	<string name="error_enter_correct_email">Введіть вірниу адресу електронної пошти</string>
 	<string name="error_enter_correct">Введіть вірне значення</string>
@@ -886,11 +896,28 @@
 	<string name="booking_checkin">заїзд: %s</string>
 	<string name="booking_checkout">виїзд: %s</string>
 	<string name="placepage_add_place_button">Додати на карту</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Надіслати усім користувачам?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
 	<string name="editor_share_to_all_dialog_message_2">Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.</string>
 	<string name="navigation_overview_button">огляд</string>
 	<string name="navigation_stop_button">стоп</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Зберегти закладки</string>
+	<string name="bookmarks_empty_message_1">Клацніть по ★, щоб зберегти улюблені місця для швидкого доступу.</string>
+	<string name="bookmarks_empty_message_2">Імпортувати закладки з Mail та web.</string>
+	<string name="bookmarks_empty_message_3">виїзд: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Заброньовані готелі</string>
+	<string name="place_page_button_read_descriprion">Прочитати</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Вимкнути запис нещодавно пройденого шляху?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">або забронюй на booking.com</string>
+	<string name="off_recent_track_background_button">Вимкнути</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">Подивись,</string>
+	<string name="continue_recent_track_background_button">Продовжити</string>
+	<string name="recent_track_background_dialog_message">MAPS.ME використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.</string>
 </resources>

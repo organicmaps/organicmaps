@@ -325,6 +325,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Làm thế nào để thiết lập tiếng nói</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Tìm kiếm gần đây</string>
+	<string name="pref_map_auto_zoom">Ống dòm tự động</string>
 	<string name="duration_disabled">Tắt</string>
 	<string name="duration_1_hour">1 giờ</string>
 	<string name="duration_2_hours">2 giờ</string>
@@ -829,7 +830,8 @@
 	<string name="location_services_disabled_message">Bật truy cập định vị địa lý trong thiết lập thiết bị</string>
 	<string name="location_services_disabled_1">1. Mở Thiết lập</string>
 	<string name="location_services_disabled_2">2. Chạm mục Địa điểm</string>
-	<string name="location_services_disabled_3">3. Chọn Luôn luôn</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. Chọn Khi Đang Dùng Ứng dụng</string>
 	<string name="placepage_parking_surface">Trên mặt đất</string>
 	<string name="placepage_parking_multistorey">Nhiều tầng</string>
 	<string name="placepage_parking_underground">Dưới mặt đất</string>
@@ -848,6 +850,13 @@
 	<string name="place_page_starting_from">từ %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/giờ</string>
+	<string name="mile">dặm</string>
+	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">ngày</string>
+	<string name="hour">giờ</string>
+	<string name="minute">phút</string>
 	<string name="placepage_place_description">Mô tả</string>
 	<string name="placepage_more_button">Bổ sung</string>
 	<string name="bookingcom_book_button">Đặt trước</string>
@@ -865,7 +874,8 @@
 	<string name="editor_status_sending">Đang gửi …</string>
 	<string name="editor_place_doesnt_exist">Địa điểm không tồn tại</string>
 	<string name="text_more_button">…thêm</string>
-	<string name="error_enter_correct_phone">Nhập số điện thoại không có chữ cái</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Nhập chính xác số điện thoại</string>
 	<string name="error_enter_correct_web">Nhập địa chỉ trang web hợp lệ</string>
 	<string name="error_enter_correct_email">Nhập email hợp lệ</string>
 	<string name="error_enter_correct">Nhập giá trị hợp lệ</string>
@@ -882,11 +892,28 @@
 	<string name="booking_checkin">đăng ký vào: %s</string>
 	<string name="booking_checkout">đăng ký ra: %s</string>
 	<string name="placepage_add_place_button">Thêm địa điểm vào bản đồ</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bạn có muốn gửi cho toàn bộ người dùng?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
 	<string name="editor_share_to_all_dialog_message_2">Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.</string>
 	<string name="navigation_overview_button">tổng quan</string>
 	<string name="navigation_stop_button">dừng</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Lưu Đánh dấu trang</string>
+	<string name="bookmarks_empty_message_1">Chạm vào ★ để lưu địa điểm yêu thích giúp truy cập nhanh.</string>
+	<string name="bookmarks_empty_message_2">Nhập đánh dấu trang từ Hộp thư và trang web.</string>
+	<string name="bookmarks_empty_message_3">đăng ký ra: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Đã đặt trước khách sạn</string>
+	<string name="place_page_button_read_descriprion">Đọc</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Tắt ghi lại tuyến đường đã đi gần đây của bạn?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">hoặc đặt phòng tại booking.com</string>
+	<string name="off_recent_track_background_button">Tắt</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">Xem</string>
+	<string name="continue_recent_track_background_button">Tiếp tục</string>
+	<string name="recent_track_background_dialog_message">MAPS.ME sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
 </resources>
