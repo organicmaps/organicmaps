@@ -173,7 +173,11 @@ def translate(source, output):
                 return ''
         elif field in hotel:
             return hotel[field]
-        raise ValueError('Unknown hotel field: {0}'.format(field))
+        elif field == 'ranking':
+            # This field is not used yet, and booking.com sometimes blocks it.
+            return ''
+        logging.error('Unknown hotel field: {0}, URL: {1}'.format(field, hotel['url']))
+        return ''
 
     with open(output, 'w') as fd:
         for hotel in data:
