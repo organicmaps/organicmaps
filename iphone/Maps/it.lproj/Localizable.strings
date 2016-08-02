@@ -418,7 +418,7 @@
 "message" = "Messaggio";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Copia link";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "È disponibile un percorso migliore che oltrepassa il limite di questa mappa.";
 
-"dialog_routing_always_cross_that_border" = "Oltrepassa sempre questo limite";
-
 "not_now" = "Non ora";
 
 "dialog_routing_build_route" = "Crea";
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Seleziona la cucina";
 
 /* login text field */
-"email_or_username" = "E-mail o nome utente";
+"email_or_username" = "Email o nome utente";
 
 "phone" = "Telefono";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Descrizione dettagliata di un problema";
 
 "editor_report_problem_other_title" = "Un problema diverso";
-
-"placepage_add_place_button" = "Aggiungi un luogo";
 
 "placepage_report_problem_button" = "Riporta un problema";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Aggiornare";
 
 "last_update" = "Ultimo aggiornamento: %s";
+
+"booking_checkin" = "check in: %s";
+
+"booking_checkout" = "check out: %s";
+
+"placepage_add_place_button" = "Aggiungi un luogo sulla mappa";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Vuoi inviarlo a tutti gli utenti?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Assicurati di non aver inserito alcun dato personale.";
+
+"editor_share_to_all_dialog_message_2" = "Controlleremo le modifiche. Se avremo delle domande, ti contatteremo via email.";
+
+"navigation_overview_button" = "panoramica";
+
+"navigation_stop_button" = "ferma";

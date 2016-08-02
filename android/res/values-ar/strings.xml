@@ -592,7 +592,6 @@
 	<string name="dialog_routing_send_error">الإبلاغ عن المشكلة</string>
 	<string name="dialog_routing_if_get_cross_route">هل تريد إنشاء مسار مباشر بشكل أكبر يمتد عبر أكثر من خريطة؟</string>
 	<string name="dialog_routing_cross_route_is_optimal">هناك مسار أفضل يعبر حافة هذه الخريطة.</string>
-	<string name="dialog_routing_always_cross_that_border">اعبر هذه الحدود دائمًا</string>
 	<string name="not_now">ليس الآن</string>
 	<string name="dialog_routing_build_route">إنشاء</string>
 	<string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
@@ -767,7 +766,6 @@
 	<string name="editor_edit_place_category_title">الفئة</string>
 	<string name="detailed_problem_description">وصف مفصل للمشكلة</string>
 	<string name="editor_report_problem_other_title">مشكلة مختلفة</string>
-	<string name="placepage_add_place_button">إضافة مكان</string>
 	<string name="placepage_report_problem_button">الإبلاغ عن مشكلة</string>
 	<string name="placepage_add_business_button">إضافة مؤسسة</string>
 	<string name="whatsnew_smallmwm_header">لقد طلبتم ذلك، وها نحن قد لبينا طلبكم</string>
@@ -887,4 +885,14 @@
 	<string name="whatsnew_cycle_navigation_message">نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.</string>
 	<string name="refresh">تحديث</string>
 	<string name="last_update">أخر تحديث: %s</string>
+	<string name="booking_checkin">موجود في: %s</string>
+	<string name="booking_checkout">غادر: %s</string>
+	<string name="placepage_add_place_button">إضافة مكان ما للخريطة</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">هل ترغب في إرساله لجميع المستخدمين؟</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أي بيانات شخصية.</string>
+	<string name="editor_share_to_all_dialog_message_2">سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسوف نتصل بك عبر البريد الإلكتروني.</string>
+	<string name="navigation_overview_button">استعراض</string>
+	<string name="navigation_stop_button">توقف</string>
 </resources>

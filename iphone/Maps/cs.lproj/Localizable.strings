@@ -257,10 +257,10 @@
 "set" = "Skupina";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z e-mailu, Dropboxu nebo webového odkazu.";
+"bookmarks_usage_hint" = "Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z e-mailu, Dropboxu nebo webového odkazu.";
+"bookmarks_usage_hint_import_only" = "V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.";
 
 /* Settings button in system menu */
 "settings" = "Nastavení";
@@ -349,7 +349,7 @@
 "description" = "Poznámky";
 
 /* Button text */
-"share_by_email" = "Sdílet e-mailem";
+"share_by_email" = "Sdílet emailem";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Sdílené záložky MAPS.ME";
@@ -418,7 +418,7 @@
 "message" = "Zpráva";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Zkopírovat odkaz";
@@ -666,10 +666,10 @@
 "about_text" = "MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, MAPS.ME vám pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také váš názor, jak můžeme MAPS.ME vylepšit. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se vám MAPS.ME a chcete nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n• napište recenzi ve svém obchodu s aplikacemi\n• označte naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n• nebo jen řekněte o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi si ceníme vaší podpory!\n\nP.S. Mapové podklady získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na http://openstreetmap.org, a vaše změny se objeví v příští verzi MAPS.ME. Díky!";
 
 /* Alert text */
-"email_error_body" = "E-mailový klient nebyl ještě nakonfigurován. Nastavte ho, prosím, nebo použijte jiný způsob k našemu kontaktování na %@";
+"email_error_body" = "Emailový klient nebyl ještě nakonfigurován. Nastavte ho, prosím, nebo použijte jiný způsob k našemu kontaktování na %@";
 
 /* Alert title */
-"email_error_title" = "Chyba při odesílání e-mailu";
+"email_error_title" = "Chyba při odesílání emailu";
 
 /* Settings item title */
 "pref_calibration_title" = "Kalibrace kompasu";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "K dispozici je optimálnější trasa, která překračuje hranice této mapy.";
 
-"dialog_routing_always_cross_that_border" = "Vždy překročit tuto hranici";
-
 "not_now" = "Nyní ne";
 
 "dialog_routing_build_route" = "Vytvořit";
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Vybrat kuchyni";
 
 /* login text field */
-"email_or_username" = "E-mail nebo uživatelské jméno";
+"email_or_username" = "Email nebo uživatelské jméno";
 
 "phone" = "Telefon";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Detailní popis problému";
 
 "editor_report_problem_other_title" = "Jiný problém";
-
-"placepage_add_place_button" = "Přidat místo";
 
 "placepage_report_problem_button" = "Nahlásit problém";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Aktualizovat";
 
 "last_update" = "Poslední aktualizace: %s";
+
+"booking_checkin" = "příjezd: %s";
+
+"booking_checkout" = "odjezd: %s";
+
+"placepage_add_place_button" = "Přidat místo na mapu";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Chcete jej poslat všem uživatelům?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Ujistěte se, že jste nezadali žádná osobní data.";
+
+"editor_share_to_all_dialog_message_2" = "Změny ověříme. Budeme-li k vám mít jakékoli dotazy, budeme vás kontaktovat prostřednictvím emailu.";
+
+"navigation_overview_button" = "přehled";
+
+"navigation_stop_button" = "stop";

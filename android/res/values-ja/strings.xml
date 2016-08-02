@@ -585,7 +585,6 @@
 	<string name="dialog_routing_send_error">問題を報告する</string>
 	<string name="dialog_routing_if_get_cross_route">複数マップを利用してより最適なルートを作成しますか？</string>
 	<string name="dialog_routing_cross_route_is_optimal">このマップの境界を越えて複数マップを利用すると、より最適なルートを作成できます。</string>
-	<string name="dialog_routing_always_cross_that_border">常にこの境界を越える</string>
 	<string name="not_now">あとで</string>
 	<string name="dialog_routing_build_route">作成する</string>
 	<string name="dialog_routing_download_and_build_cross_route">マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？</string>
@@ -760,7 +759,6 @@
 	<string name="editor_edit_place_category_title">カテゴリ</string>
 	<string name="detailed_problem_description">問題の詳細な説明</string>
 	<string name="editor_report_problem_other_title">異なる問題</string>
-	<string name="placepage_add_place_button">場所を追加</string>
 	<string name="placepage_report_problem_button">問題を報告</string>
 	<string name="placepage_add_business_button">団体を追加</string>
 	<string name="whatsnew_smallmwm_header">皆様のご要望にお応えして、実現を果たしました</string>
@@ -880,4 +878,14 @@
 	<string name="whatsnew_cycle_navigation_message">新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。</string>
 	<string name="refresh">更新</string>
 	<string name="last_update">最終更新日: %s</string>
+	<string name="booking_checkin">チェックイン：%s</string>
+	<string name="booking_checkout">チェックアウト：%s</string>
+	<string name="placepage_add_place_button">地図上に場所を追加</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">全てのユーザーに送信しますか？</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
+	<string name="editor_share_to_all_dialog_message_2">弊社で変更を確認します。質問がある場合はメールでご連絡します。</string>
+	<string name="navigation_overview_button">概要</string>
+	<string name="navigation_stop_button">停止</string>
 </resources>

@@ -586,7 +586,6 @@
 	<string name="dialog_routing_send_error">Rapporter problemet</string>
 	<string name="dialog_routing_if_get_cross_route">Vil du opprette en mer direkte rute som går over flere kart?</string>
 	<string name="dialog_routing_cross_route_is_optimal">En mer optimal rute som går utenfor dette kartet er tilgjengelig.</string>
-	<string name="dialog_routing_always_cross_that_border">Kryss alltid denne grensen</string>
 	<string name="not_now">Ikke nå</string>
 	<string name="dialog_routing_build_route">Opprett</string>
 	<string name="dialog_routing_download_and_build_cross_route">Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?</string>
@@ -761,7 +760,6 @@
 	<string name="editor_edit_place_category_title">Kategori</string>
 	<string name="detailed_problem_description">Detaljert beskrivelse av problemet</string>
 	<string name="editor_report_problem_other_title">Et annet problem</string>
-	<string name="placepage_add_place_button">Legg til et sted</string>
 	<string name="placepage_report_problem_button">Rapporter et problem</string>
 	<string name="placepage_add_business_button">Legg til organisasjon</string>
 	<string name="whatsnew_smallmwm_header">Dere har bedt om det og vi har fått det til</string>
@@ -879,4 +877,14 @@
 	<string name="whatsnew_cycle_navigation_message">Vi tester sykkelnavigering for den nye sesongen. Prøv din favorittrute med MAPS.ME, og del din vurdering med oss.</string>
 	<string name="refresh">Oppdatere</string>
 	<string name="last_update">Sist oppdatert: %s</string>
+	<string name="booking_checkin">sjekk inn: %s</string>
+	<string name="booking_checkout">sjekk ut: %s</string>
+	<string name="placepage_add_place_button">Legg til en plass på kartet</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Vil du sende det til alle brukere?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke har skrevet noe personlig informasjon.</string>
+	<string name="editor_share_to_all_dialog_message_2">Vi vil sjekke endringene. Vi kontakter deg via e-post dersom vi har spørsmål.</string>
+	<string name="navigation_overview_button">oversikt</string>
+	<string name="navigation_stop_button">stopp</string>
 </resources>

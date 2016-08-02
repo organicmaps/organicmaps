@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "有一条跨越本地图边缘的更佳路线可用。";
 
-"dialog_routing_always_cross_that_border" = "始终跨越此边界线";
-
 "not_now" = "现在不用";
 
 "dialog_routing_build_route" = "创建";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "一个不同的问题";
 
-"placepage_add_place_button" = "添加一个地点";
-
 "placepage_report_problem_button" = "报告一个问题";
 
 "placepage_add_business_button" = "添加组织";
@@ -1543,3 +1539,21 @@
 "refresh" = "更新";
 
 "last_update" = "上次更新于：%s";
+
+"booking_checkin" = "入住： %s";
+
+"booking_checkout" = "退房： %s";
+
+"placepage_add_place_button" = "添加地点到地图上";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "您想要发给所有用户吗？";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "确保您没有输入任何个人数据。";
+
+"editor_share_to_all_dialog_message_2" = "我们会检查更改。如果我们有任何问题，我们会邮件与您联系。";
+
+"navigation_overview_button" = "概览";
+
+"navigation_stop_button" = "停止";

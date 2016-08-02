@@ -268,7 +268,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Сообщение</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Скопировать ссылку</string>
 	<!-- Text for the button that returns to caller application -->
@@ -614,7 +614,6 @@
 	<string name="dialog_routing_send_error">Сообщить об ошибке</string>
 	<string name="dialog_routing_if_get_cross_route">Построить более оптимальный маршрут с пересечением границы карты?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Маршрут с пересечением границы карты более оптимальный.</string>
-	<string name="dialog_routing_always_cross_that_border">Всегда пересекать эту границу</string>
 	<string name="not_now">Не сейчас</string>
 	<string name="dialog_routing_build_route">Построить</string>
 	<string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
@@ -795,7 +794,6 @@
 	<string name="editor_edit_place_category_title">Категория</string>
 	<string name="detailed_problem_description">Подробное описание проблемы</string>
 	<string name="editor_report_problem_other_title">Другая проблема</string>
-	<string name="placepage_add_place_button">Добавить место</string>
 	<string name="placepage_report_problem_button">Сообщить о проблеме</string>
 	<string name="placepage_add_business_button">Добавить организацию</string>
 	<string name="whatsnew_smallmwm_header">Вы долго просили — мы наконец сделали</string>
@@ -915,4 +913,14 @@
 	<string name="whatsnew_cycle_navigation_message">К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому вело маршруту с MAPS.ME и поделитесь с нами впечатлениями.</string>
 	<string name="refresh">Обновить</string>
 	<string name="last_update">Последнее обновление: %s</string>
+	<string name="booking_checkin">заезд: %s</string>
+	<string name="booking_checkout">выезд: %s</string>
+	<string name="placepage_add_place_button">Добавить на карту</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Отправить всем пользователям?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
+	<string name="editor_share_to_all_dialog_message_2">Если при проверке изменений возникнут вопросы, мы напишем вам на email.</string>
+	<string name="navigation_overview_button">обзор</string>
+	<string name="navigation_stop_button">стоп</string>
 </resources>

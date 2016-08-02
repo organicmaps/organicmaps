@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "このマップの境界を越えて複数マップを利用すると、より最適なルートを作成できます。";
 
-"dialog_routing_always_cross_that_border" = "常にこの境界を越える";
-
 "not_now" = "あとで";
 
 "dialog_routing_build_route" = "作成する";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "異なる問題";
 
-"placepage_add_place_button" = "場所を追加";
-
 "placepage_report_problem_button" = "問題を報告";
 
 "placepage_add_business_button" = "団体を追加";
@@ -1543,3 +1539,21 @@
 "refresh" = "更新";
 
 "last_update" = "最終更新日: %s";
+
+"booking_checkin" = "チェックイン：%s";
+
+"booking_checkout" = "チェックアウト：%s";
+
+"placepage_add_place_button" = "地図上に場所を追加";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "全てのユーザーに送信しますか？";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "個人情報を入力していないことを確認してください。";
+
+"editor_share_to_all_dialog_message_2" = "弊社で変更を確認します。質問がある場合はメールでご連絡します。";
+
+"navigation_overview_button" = "概要";
+
+"navigation_stop_button" = "停止";

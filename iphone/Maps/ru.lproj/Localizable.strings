@@ -418,7 +418,7 @@
 "message" = "Сообщение";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Скопировать ссылку";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Маршрут с пересечением границы карты более оптимальный.";
 
-"dialog_routing_always_cross_that_border" = "Всегда пересекать эту границу";
-
 "not_now" = "Не сейчас";
 
 "dialog_routing_build_route" = "Построить";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "Другая проблема";
 
-"placepage_add_place_button" = "Добавить место";
-
 "placepage_report_problem_button" = "Сообщить о проблеме";
 
 "placepage_add_business_button" = "Добавить организацию";
@@ -1543,3 +1539,21 @@
 "refresh" = "Обновить";
 
 "last_update" = "Последнее обновление: %s";
+
+"booking_checkin" = "заезд: %s";
+
+"booking_checkout" = "выезд: %s";
+
+"placepage_add_place_button" = "Добавить на карту";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Отправить всем пользователям?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Убедитесь, что вы не ввели личные данные.";
+
+"editor_share_to_all_dialog_message_2" = "Если при проверке изменений возникнут вопросы, мы напишем вам на email.";
+
+"navigation_overview_button" = "обзор";
+
+"navigation_stop_button" = "стоп";

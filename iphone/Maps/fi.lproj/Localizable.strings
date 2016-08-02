@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Tarjolla on suorempi reitti, joka ylittää tämän kartan reunan.";
 
-"dialog_routing_always_cross_that_border" = "Ylitä aina tämä raja";
-
 "not_now" = "Ei nyt";
 
 "dialog_routing_build_route" = "Luo";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "Eri ongelma";
 
-"placepage_add_place_button" = "Lisää paikka";
-
 "placepage_report_problem_button" = "Ilmoita ongelmasta";
 
 "placepage_add_business_button" = "Lisää organisaatio";
@@ -1543,3 +1539,21 @@
 "refresh" = "Päivitetäänkö";
 
 "last_update" = "Viimeisin päivitys: %s";
+
+"booking_checkin" = "kirjaudu sisään: %s";
+
+"booking_checkout" = "kirjaudu ulos: %s";
+
+"placepage_add_place_button" = "Lisää paikka kartalle";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Haluatko lähettää sen kaikille käyttäjille?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.";
+
+"editor_share_to_all_dialog_message_2" = "Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.";
+
+"navigation_overview_button" = "yleiskatsaus";
+
+"navigation_stop_button" = "lopeta";

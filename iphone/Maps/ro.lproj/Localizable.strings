@@ -257,10 +257,10 @@
 "set" = "Set";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din e-mail, Dropbox sau de la un link web.";
+"bookmarks_usage_hint" = "Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Pot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din e-mail, Dropbox sau de la un link web.";
+"bookmarks_usage_hint_import_only" = "Pot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
 
 /* Settings button in system menu */
 "settings" = "Setări";
@@ -349,7 +349,7 @@
 "description" = "Note";
 
 /* Button text */
-"share_by_email" = "Partajare prin e-mail";
+"share_by_email" = "Partajare prin email";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Marcaje MAPS.ME partajate";
@@ -418,7 +418,7 @@
 "message" = "Tin nhắn";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Copiați link-ul";
@@ -666,10 +666,10 @@
 "about_text" = "MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: http://openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.";
 
 /* Alert text */
-"email_error_body" = "Nu a fost setat clientul de e-mail. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %@.";
+"email_error_body" = "Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %@.";
 
 /* Alert title */
-"email_error_title" = "Eroare trimitere e-mail.";
+"email_error_title" = "Eroare trimitere email.";
 
 /* Settings item title */
 "pref_calibration_title" = "Calibrare busolă";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Este disponibil un traseu mai adecvat care trece de limita acestei hărţi.";
 
-"dialog_routing_always_cross_that_border" = "Întotdeauna să se treacă această limită";
-
 "not_now" = "Nu acum";
 
 "dialog_routing_build_route" = "Creare";
@@ -1184,7 +1182,7 @@
 /* Forgot Password dialog title */
 "restore_password" = "Recuperare parolă";
 
-"enter_email_address_to_reset_password" = "Introduceți adresa de e-mail pe care ați utilizat-o în momentul înregistrării, iar noi vă vom trimite link-ul pentru a vă reînnoi parola.";
+"enter_email_address_to_reset_password" = "Introduceți adresa de email pe care ați utilizat-o în momentul înregistrării, iar noi vă vom trimite link-ul pentru a vă reînnoi parola.";
 
 "reset_password" = "Resetare parolă";
 
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Selectați tipul de bucătărie";
 
 /* login text field */
-"email_or_username" = "Adresa de e-mail sau numele de utilizator";
+"email_or_username" = "Adresa de email sau numele de utilizator";
 
 "phone" = "Telefon";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Descrierea detaliată a problemei";
 
 "editor_report_problem_other_title" = "O problemă diferită";
-
-"placepage_add_place_button" = "Adăugați o locație";
 
 "placepage_report_problem_button" = "Raportați o problemă";
 
@@ -1520,7 +1516,7 @@
 
 "error_enter_correct_web" = "Introduceți o adresă web validă";
 
-"error_enter_correct_email" = "Introduceți o adresă de e-mail validă";
+"error_enter_correct_email" = "Introduceți o adresă de email validă";
 
 "error_enter_correct" = "Introduceți o valoare validă";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Actualizați";
 
 "last_update" = "Ultima actualizare: %s";
+
+"booking_checkin" = "check in: %s";
+
+"booking_checkout" = "check out: %s";
+
+"placepage_add_place_button" = "Adăugați un loc pe hartă";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Doriți să îl trimiteți tuturor utilizatorilor?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Asigurați-vă că nu ați introdus niciun fel de date personale.";
+
+"editor_share_to_all_dialog_message_2" = "Vom verifica modificările. Dacă vor apărea întrebări, vă vom contacta prin email.";
+
+"navigation_overview_button" = "rezumat";
+
+"navigation_stop_button" = "stop";

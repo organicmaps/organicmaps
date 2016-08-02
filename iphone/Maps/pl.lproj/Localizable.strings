@@ -257,10 +257,10 @@
 "set" = "Zestaw";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Nie oznaczono jeszcze żadnych zakładek.\nProszę dotknąć dowolnego miejsca na mapie, aby dodać zakładkę.\nMożna importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości e-mail, Dropboxa lub odnośników internetowych.";
+"bookmarks_usage_hint" = "Nie oznaczono jeszcze żadnych zakładek.\nProszę dotknąć dowolnego miejsca na mapie, aby dodać zakładkę.\nMożna importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości email, Dropboxa lub odnośników internetowych.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Można importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości e-mail, Dropboxa lub odnośników internetowych.";
+"bookmarks_usage_hint_import_only" = "Można importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości email, Dropboxa lub odnośników internetowych.";
 
 /* Settings button in system menu */
 "settings" = "Ustawienia";
@@ -418,7 +418,7 @@
 "message" = "Wiadomość";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Skopiuj odnośnik";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Dostępna jest lepsza trasa, wykraczająca poza granice bieżącej mapy.";
 
-"dialog_routing_always_cross_that_border" = "Zawsze przekraczaj tę granicę";
-
 "not_now" = "Nie teraz";
 
 "dialog_routing_build_route" = "Wyznacz";
@@ -1184,7 +1182,7 @@
 /* Forgot Password dialog title */
 "restore_password" = "Przypomnij hasło";
 
-"enter_email_address_to_reset_password" = "Wpisz adres e-mail, którego użyto podczas rejestracji, a prześlemy Ci link do ponownego utworzenia hasła.";
+"enter_email_address_to_reset_password" = "Wpisz adres email, którego użyto podczas rejestracji, a prześlemy Ci link do ponownego utworzenia hasła.";
 
 "reset_password" = "Resetuj hasło";
 
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Wybierz kuchnię";
 
 /* login text field */
-"email_or_username" = "E-mail lub nazwa użytkownika";
+"email_or_username" = "Email lub nazwa użytkownika";
 
 "phone" = "Telefon";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Szczegółowy opis problemu";
 
 "editor_report_problem_other_title" = "Inny problem";
-
-"placepage_add_place_button" = "Dodaj miejsce";
 
 "placepage_report_problem_button" = "Zgłoś problem";
 
@@ -1520,7 +1516,7 @@
 
 "error_enter_correct_web" = "Wpisz prawidłowy adres strony internetowej";
 
-"error_enter_correct_email" = "Wpisz prawidłowy e-mail";
+"error_enter_correct_email" = "Wpisz prawidłowy email";
 
 "error_enter_correct" = "Wpisz prawidłową wartość";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Uaktualnić";
 
 "last_update" = "Ostatnia aktualizacja: %s";
+
+"booking_checkin" = "zameldowanie: %s";
+
+"booking_checkout" = "wymeldowanie: %s";
+
+"placepage_add_place_button" = "Dodaj miejsce do mapy";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Czy chcesz wysłać je wszystkim użytkownikom?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Upewnij się, że nie podałeś osobistych danych.";
+
+"editor_share_to_all_dialog_message_2" = "Zapoznamy się ze zmianami. W przypadku pytań skontaktujemy się z Tobą przez email.";
+
+"navigation_overview_button" = "przegląd";
+
+"navigation_stop_button" = "stop";

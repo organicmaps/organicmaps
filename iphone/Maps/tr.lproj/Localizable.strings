@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Bu haritanın bir kısmından geçen daha uygun bir güzergah mevcut.";
 
-"dialog_routing_always_cross_that_border" = "Bu sınırı her zaman geçin";
-
 "not_now" = "Şimdi Değil";
 
 "dialog_routing_build_route" = "Oluşturun";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "Farklı bir problem";
 
-"placepage_add_place_button" = "Bir yer ekle";
-
 "placepage_report_problem_button" = "Bir problem bildirin";
 
 "placepage_add_business_button" = "Kuruluş ekle";
@@ -1543,3 +1539,21 @@
 "refresh" = "Güncelleştirme";
 
 "last_update" = "Son güncelleme: %s";
+
+"booking_checkin" = "giriş: %s";
+
+"booking_checkout" = "çıkış: %s";
+
+"placepage_add_place_button" = "Haritaya bir yer ekleyin";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Bunu tüm kullanıcılara göndermek ister misiniz?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Herhangi bir kişisel bilgi girmediğinizden emin olun.";
+
+"editor_share_to_all_dialog_message_2" = "Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla temasa geçeceğiz.";
+
+"navigation_overview_button" = "genel bakış";
+
+"navigation_stop_button" = "dur";

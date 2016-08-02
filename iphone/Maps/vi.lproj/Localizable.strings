@@ -257,7 +257,7 @@
 "set" = "Đặt";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ e-mail, Dropbox hoặc liên kết web.";
+"bookmarks_usage_hint" = "Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
 "bookmarks_usage_hint_import_only" = "Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.";
@@ -418,7 +418,7 @@
 "message" = "Tin nhắn";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Sao chép Liên kết";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Có một tuyến đường tối ưu hơn đi qua cạnh của bản đồ này.";
 
-"dialog_routing_always_cross_that_border" = "Luôn đi qua ranh giới này";
-
 "not_now" = "Lúc khác";
 
 "dialog_routing_build_route" = "Tạo";
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Chọn Ẩm thực";
 
 /* login text field */
-"email_or_username" = "E-mail hoặc tên người dùng";
+"email_or_username" = "Email hoặc tên người dùng";
 
 "phone" = "Điện thoại";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Mô tả chi tiết của vấn đề";
 
 "editor_report_problem_other_title" = "Một vấn đề khác";
-
-"placepage_add_place_button" = "Nhập một địa điểm";
 
 "placepage_report_problem_button" = "Báo cáo vấn đề";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Cập nhật";
 
 "last_update" = "Cập nhật cuối cùng: %s";
+
+"booking_checkin" = "đăng ký vào: %s";
+
+"booking_checkout" = "đăng ký ra: %s";
+
+"placepage_add_place_button" = "Thêm địa điểm vào bản đồ";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Bạn có muốn gửi cho toàn bộ người dùng?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.";
+
+"editor_share_to_all_dialog_message_2" = "Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.";
+
+"navigation_overview_button" = "tổng quan";
+
+"navigation_stop_button" = "dừng";

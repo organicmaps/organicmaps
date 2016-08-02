@@ -592,7 +592,6 @@
 	<string name="dialog_routing_send_error">รายงานปัญหา</string>
 	<string name="dialog_routing_if_get_cross_route">คุณต้องการสร้างเส้นทางที่อ้อมน้อยลงซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
 	<string name="dialog_routing_cross_route_is_optimal">มีเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
-	<string name="dialog_routing_always_cross_that_border">ข้ามขอบเขตนี้เสมอ</string>
 	<string name="not_now">ไว้คราวหลัง</string>
 	<string name="dialog_routing_build_route">สร้าง</string>
 	<string name="dialog_routing_download_and_build_cross_route">คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
@@ -767,7 +766,6 @@
 	<string name="editor_edit_place_category_title">หมวดหมู่</string>
 	<string name="detailed_problem_description">คำอธิบายปัญหาอย่างละเอียด</string>
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
-	<string name="placepage_add_place_button">เพิ่มสถานที่</string>
 	<string name="placepage_report_problem_button">แจ้งปัญหา</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
 	<string name="whatsnew_smallmwm_header">คุณได้ขอมา เราจึงทำมัน</string>
@@ -887,4 +885,14 @@
 	<string name="whatsnew_cycle_navigation_message">เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา</string>
 	<string name="refresh">อัปเดต</string>
 	<string name="last_update">การอัปเดตล่าสุด: %s</string>
+	<string name="booking_checkin">เช็คอิน: %s</string>
+	<string name="booking_checkout">เช็คเอาท์: %s</string>
+	<string name="placepage_add_place_button">เพิ่มสถานที่ไปยังแผนที่</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ</string>
+	<string name="editor_share_to_all_dialog_message_2">เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล</string>
+	<string name="navigation_overview_button">ภาพรวม</string>
+	<string name="navigation_stop_button">หยุด</string>
 </resources>

@@ -349,7 +349,7 @@
 "description" = "Notas";
 
 /* Button text */
-"share_by_email" = "Partilhar por e-mail";
+"share_by_email" = "Partilhar por email";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Os favoritos do MAPS.ME foram partilhados consigo";
@@ -418,7 +418,7 @@
 "message" = "Mensagem";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Copiar hiperligação";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Há uma rota disponível que vai além dos limites desse mapa.";
 
-"dialog_routing_always_cross_that_border" = "Sempre cruzar esse limite";
-
 "not_now" = "Agora Não";
 
 "dialog_routing_build_route" = "Traçar";
@@ -1184,7 +1182,7 @@
 /* Forgot Password dialog title */
 "restore_password" = "Recuperar senha";
 
-"enter_email_address_to_reset_password" = "Digite o endereço de e-mail que você usou ao cadastrar-se, e nós lhe enviaremos o link para renovar a sua senha.";
+"enter_email_address_to_reset_password" = "Digite o endereço de email que você usou ao cadastrar-se, e nós lhe enviaremos o link para renovar a sua senha.";
 
 "reset_password" = "Redefinir senha";
 
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Selecione a Culinária";
 
 /* login text field */
-"email_or_username" = "E-mail ou nome de usuário";
+"email_or_username" = "Email ou nome de usuário";
 
 "phone" = "Telefone";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Descrição detalhada do problema";
 
 "editor_report_problem_other_title" = "Um problema diferente";
-
-"placepage_add_place_button" = "Adicionar um lugar";
 
 "placepage_report_problem_button" = "Comunicar um problema";
 
@@ -1520,7 +1516,7 @@
 
 "error_enter_correct_web" = "Preencha com um endereço válido na internet";
 
-"error_enter_correct_email" = "Preencha com um endereço válido de e-mail";
+"error_enter_correct_email" = "Preencha com um endereço válido de email";
 
 "error_enter_correct" = "Preencha com um valor válido";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Atualizar";
 
 "last_update" = "Última atualização: %s";
+
+"booking_checkin" = "check in: %s";
+
+"booking_checkout" = "check out: %s";
+
+"placepage_add_place_button" = "Adicionar um local ao mapa";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Deseja enviar para todos os usuários?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Certifique-se de não ter incluído nenhum dado pessoal.";
+
+"editor_share_to_all_dialog_message_2" = "Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.";
+
+"navigation_overview_button" = "visão geral";
+
+"navigation_stop_button" = "parar";

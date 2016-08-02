@@ -161,9 +161,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din e-mail, Dropbox sau de la un link web.</string>
+	<string name="bookmarks_usage_hint">Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Pot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din e-mail, Dropbox sau de la un link web.</string>
+	<string name="bookmarks_usage_hint_import_only">Pot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Setări</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -216,7 +216,7 @@
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Note</string>
 	<!-- Button text -->
-	<string name="share_by_email">Partajare prin e-mail</string>
+	<string name="share_by_email">Partajare prin email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Marcaje MAPS.ME partajate</string>
 	<!-- Email text when sharing bookmarks category -->
@@ -262,7 +262,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Tin nhắn</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copiați link-ul</string>
 	<!-- Text for the button that returns to caller application -->
@@ -395,9 +395,9 @@
 	<!-- About text -->
 	<string name="about_text">MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: http://openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.</string>
 	<!-- Alert text -->
-	<string name="email_error_body">Nu a fost setat clientul de e-mail. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %s.</string>
+	<string name="email_error_body">Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %s.</string>
 	<!-- Alert title -->
-	<string name="email_error_title">Eroare trimitere e-mail.</string>
+	<string name="email_error_title">Eroare trimitere email.</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Calibrare busolă</string>
 	<!-- Search Suggestion -->
@@ -583,7 +583,6 @@
 	<string name="dialog_routing_send_error">Raportaţi problema</string>
 	<string name="dialog_routing_if_get_cross_route">Doriţi să creaţi un traseu mai direct care include mai mult decât o hartă?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Este disponibil un traseu mai adecvat care trece de limita acestei hărţi.</string>
-	<string name="dialog_routing_always_cross_that_border">Întotdeauna să se treacă această limită</string>
 	<string name="not_now">Nu acum</string>
 	<string name="dialog_routing_build_route">Creare</string>
 	<string name="dialog_routing_download_and_build_cross_route">Doriţi să descărcaţi harta şi să creaţi un traseu mai direct care include mai mult decât o hartă?</string>
@@ -695,7 +694,7 @@
 	<string name="forgot_password">Ați uitat parola?</string>
 	<!-- Forgot Password dialog title -->
 	<string name="restore_password">Recuperare parolă</string>
-	<string name="enter_email_address_to_reset_password">Introduceți adresa de e-mail pe care ați utilizat-o în momentul înregistrării, iar noi vă vom trimite link-ul pentru a vă reînnoi parola.</string>
+	<string name="enter_email_address_to_reset_password">Introduceți adresa de email pe care ați utilizat-o în momentul înregistrării, iar noi vă vom trimite link-ul pentru a vă reînnoi parola.</string>
 	<string name="reset_password">Resetare parolă</string>
 	<string name="username">Nume de utilizator</string>
 	<string name="osm_account">Cont OSM</string>
@@ -726,7 +725,7 @@
 	<string name="cuisine">Bucătărie</string>
 	<string name="select_cuisine">Selectați tipul de bucătărie</string>
 	<!-- login text field -->
-	<string name="email_or_username">Adresa de e-mail sau numele de utilizator</string>
+	<string name="email_or_username">Adresa de email sau numele de utilizator</string>
 	<string name="phone">Telefon</string>
 	<string name="please_note">Actualizați hărțile</string>
 	<string name="common_no_wifi_dialog">Nu există conexiune WiFi. Doriți să continuați cu conexiunea de pe mobil?</string>
@@ -758,7 +757,6 @@
 	<string name="editor_edit_place_category_title">Categorie</string>
 	<string name="detailed_problem_description">Descrierea detaliată a problemei</string>
 	<string name="editor_report_problem_other_title">O problemă diferită</string>
-	<string name="placepage_add_place_button">Adăugați o locație</string>
 	<string name="placepage_report_problem_button">Raportați o problemă</string>
 	<string name="placepage_add_business_button">Adăugare organizație</string>
 	<string name="whatsnew_smallmwm_header">Ne-ați cerut, iar noi am făcut</string>
@@ -865,7 +863,7 @@
 	<string name="text_more_button">…mai multe</string>
 	<string name="error_enter_correct_phone">Introduceți numărul de telefon fără litere</string>
 	<string name="error_enter_correct_web">Introduceți o adresă web validă</string>
-	<string name="error_enter_correct_email">Introduceți o adresă de e-mail validă</string>
+	<string name="error_enter_correct_email">Introduceți o adresă de email validă</string>
 	<string name="error_enter_correct">Introduceți o valoare validă</string>
 	<string name="editor_profile_changes_for_next_place">Modificări necesare pentru următoarea poziţie: %d</string>
 	<string name="editor_profile_rating_place">Poziţie în clasament</string>
@@ -877,4 +875,14 @@
 	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.</string>
 	<string name="refresh">Actualizați</string>
 	<string name="last_update">Ultima actualizare: %s</string>
+	<string name="booking_checkin">check in: %s</string>
+	<string name="booking_checkout">check out: %s</string>
+	<string name="placepage_add_place_button">Adăugați un loc pe hartă</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Doriți să îl trimiteți tuturor utilizatorilor?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Asigurați-vă că nu ați introdus niciun fel de date personale.</string>
+	<string name="editor_share_to_all_dialog_message_2">Vom verifica modificările. Dacă vor apărea întrebări, vă vom contacta prin email.</string>
+	<string name="navigation_overview_button">rezumat</string>
+	<string name="navigation_stop_button">stop</string>
 </resources>

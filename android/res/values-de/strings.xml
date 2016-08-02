@@ -161,9 +161,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Gruppe</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer E-Mail, Dropbox oder einem Weblink öffnen.</string>
+	<string name="bookmarks_usage_hint">Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer Email, Dropbox oder einem Weblink öffnen.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Lesezeichen von anderen Quellen können importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer E-Mail, Dropbox oder einem Weblink öffnen.</string>
+	<string name="bookmarks_usage_hint_import_only">Lesezeichen von anderen Quellen können importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer Email, Dropbox oder einem Weblink öffnen.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Einstellungen</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -222,7 +222,7 @@
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notizen</string>
 	<!-- Button text -->
-	<string name="share_by_email">Per E-Mail teilen</string>
+	<string name="share_by_email">Per Email teilen</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MAPS.ME-Lesezeichen mit Ihnen geteilt</string>
 	<!-- Email text when sharing bookmarks category -->
@@ -268,7 +268,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Nachricht</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-Mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Link kopieren</string>
 	<!-- Text for the button that returns to caller application -->
@@ -423,9 +423,9 @@
 	<!-- About text -->
 	<string name="about_text">MAPS.ME bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen MAPS.ME, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der MAPS.ME-App.</string>
 	<!-- Alert text -->
-	<string name="email_error_body">Der E-Mail-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %s zu erreichen.</string>
+	<string name="email_error_body">Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %s zu erreichen.</string>
 	<!-- Alert title -->
-	<string name="email_error_title">Fehler beim E-Mail-Versand</string>
+	<string name="email_error_title">Fehler beim Email-Versand</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompass-Kalibrierung</string>
 	<!-- Search Suggestion -->
@@ -612,7 +612,6 @@
 	<string name="dialog_routing_send_error">Dieses Problem melden</string>
 	<string name="dialog_routing_if_get_cross_route">Möchten Sie eine direktere Route erstellen, die mehr als eine Karte umfasst?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Es ist eine bessere Route verfügbar, die den Rand dieser Karte überschreitet.</string>
-	<string name="dialog_routing_always_cross_that_border">Diese Grenze immer überschreiten</string>
 	<string name="not_now">Nicht jetzt</string>
 	<string name="dialog_routing_build_route">Erstellen</string>
 	<string name="dialog_routing_download_and_build_cross_route">Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?</string>
@@ -724,7 +723,7 @@
 	<string name="forgot_password">Passwort vergessen?</string>
 	<!-- Forgot Password dialog title -->
 	<string name="restore_password">Passwort wiederherstellen</string>
-	<string name="enter_email_address_to_reset_password">Geben Sie bitte die E-Mail-Adresse ein, die Sie zur Registrierung verwendet haben. Wir senden Ihnen dann den Link zur Erneuerung Ihres Passworts.</string>
+	<string name="enter_email_address_to_reset_password">Geben Sie bitte die Email-Adresse ein, die Sie zur Registrierung verwendet haben. Wir senden Ihnen dann den Link zur Erneuerung Ihres Passworts.</string>
 	<string name="reset_password">Passwort zurücksetzen</string>
 	<string name="username">Benutzername</string>
 	<string name="osm_account">OSM Konto</string>
@@ -759,7 +758,7 @@
 	<string name="cuisine">Küche</string>
 	<string name="select_cuisine">Küche auswählen</string>
 	<!-- login text field -->
-	<string name="email_or_username">E-Mail oder Benutzername</string>
+	<string name="email_or_username">Email oder Benutzername</string>
 	<string name="phone">Telefon</string>
 	<string name="please_note">Bitte beachten</string>
 	<string name="common_no_wifi_dialog">Keine WLAN-Verbindung. Möchten Sie mit mobilen Daten fortfahren?</string>
@@ -791,7 +790,6 @@
 	<string name="editor_edit_place_category_title">Kategorie</string>
 	<string name="detailed_problem_description">Detaillierte Beschreibung eines Problems</string>
 	<string name="editor_report_problem_other_title">Ein anderes Problem</string>
-	<string name="placepage_add_place_button">Einen Ort hinzufügen</string>
 	<string name="placepage_report_problem_button">Problem melden</string>
 	<string name="placepage_add_business_button">Organisation hinzufügen</string>
 	<string name="whatsnew_smallmwm_header">Sie haben darum gebeten, und wir haben es geschafft</string>
@@ -899,7 +897,7 @@
 	<string name="text_more_button">…Mehr</string>
 	<string name="error_enter_correct_phone">Geben Sie die Telefonnummer ohne Buchstaben ein</string>
 	<string name="error_enter_correct_web">Geben Sie eine gültige Internetadresse ein</string>
-	<string name="error_enter_correct_email">Geben Sie eine gültige E-Mail-Adresse ein</string>
+	<string name="error_enter_correct_email">Geben Sie eine gültige Email-Adresse ein</string>
 	<string name="error_enter_correct">Geben Sie einen gültigen Wert ein</string>
 	<string name="editor_profile_changes_for_next_place">Erforderliche Änderungen für den nächsten Platz: %d</string>
 	<string name="editor_profile_rating_place">Platz im Rating</string>
@@ -911,4 +909,14 @@
 	<string name="whatsnew_cycle_navigation_message">Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.</string>
 	<string name="refresh">Aktualisieren</string>
 	<string name="last_update">Letzte Aktualisierung: %s</string>
+	<string name="booking_checkin">Einchecken: %s</string>
+	<string name="booking_checkout">Auschecken: %s</string>
+	<string name="placepage_add_place_button">Einen Ort zur Karte hinzufügen</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Wollen Sie sie an alle Benutzer senden?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.</string>
+	<string name="editor_share_to_all_dialog_message_2">Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.</string>
+	<string name="navigation_overview_button">Überblick</string>
+	<string name="navigation_stop_button">Stop</string>
 </resources>

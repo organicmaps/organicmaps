@@ -161,7 +161,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Đặt</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ e-mail, Dropbox hoặc liên kết web.</string>
+	<string name="bookmarks_usage_hint">Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.</string>
 	<!-- Settings button in system menu -->
@@ -262,7 +262,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Tin nhắn</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Sao chép Liên kết</string>
 	<!-- Text for the button that returns to caller application -->
@@ -586,7 +586,6 @@
 	<string name="dialog_routing_send_error">Báo cáo vấn đề</string>
 	<string name="dialog_routing_if_get_cross_route">Bạn có muốn tạo một tuyến đường thẳng hơn mà kéo dài trên nhiều bản đồ không?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Có một tuyến đường tối ưu hơn đi qua cạnh của bản đồ này.</string>
-	<string name="dialog_routing_always_cross_that_border">Luôn đi qua ranh giới này</string>
 	<string name="not_now">Lúc khác</string>
 	<string name="dialog_routing_build_route">Tạo</string>
 	<string name="dialog_routing_download_and_build_cross_route">Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?</string>
@@ -729,7 +728,7 @@
 	<string name="cuisine">Ẩm thực</string>
 	<string name="select_cuisine">Chọn Ẩm thực</string>
 	<!-- login text field -->
-	<string name="email_or_username">E-mail hoặc tên người dùng</string>
+	<string name="email_or_username">Email hoặc tên người dùng</string>
 	<string name="phone">Điện thoại</string>
 	<string name="please_note">Xin lưu ý</string>
 	<string name="common_no_wifi_dialog">Không có Wifi. Bạn có muốn tiếp tục dùng dữ liệu di động?</string>
@@ -761,7 +760,6 @@
 	<string name="editor_edit_place_category_title">Thể loại</string>
 	<string name="detailed_problem_description">Mô tả chi tiết của vấn đề</string>
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
-	<string name="placepage_add_place_button">Nhập một địa điểm</string>
 	<string name="placepage_report_problem_button">Báo cáo vấn đề</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="whatsnew_smallmwm_header">Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó</string>
@@ -881,4 +879,14 @@
 	<string name="whatsnew_cycle_navigation_message">Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.</string>
 	<string name="refresh">Cập nhật</string>
 	<string name="last_update">Cập nhật cuối cùng: %s</string>
+	<string name="booking_checkin">đăng ký vào: %s</string>
+	<string name="booking_checkout">đăng ký ra: %s</string>
+	<string name="placepage_add_place_button">Thêm địa điểm vào bản đồ</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Bạn có muốn gửi cho toàn bộ người dùng?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
+	<string name="editor_share_to_all_dialog_message_2">Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.</string>
+	<string name="navigation_overview_button">tổng quan</string>
+	<string name="navigation_stop_button">dừng</string>
 </resources>

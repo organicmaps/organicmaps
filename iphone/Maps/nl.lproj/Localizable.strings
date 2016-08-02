@@ -349,7 +349,7 @@
 "description" = "Notities";
 
 /* Button text */
-"share_by_email" = "Delen via e-mail";
+"share_by_email" = "Delen via email";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Bladwijzers van MAPS.ME met u gedeeld";
@@ -418,7 +418,7 @@
 "message" = "Bericht";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Kopieer koppeling";
@@ -666,10 +666,10 @@
 "about_text" = "MAPS.ME biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nMAPS.ME zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.\n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we MAPS.ME volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@maps.me. We reageren op elke aanvraag!\n\nVindt je MAPS.ME leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren:\n- plaats een beoordeling op je App Market\n- like onze Facebook-pagina http://www.facebook.com/mapswithme\n- of vertel gewoon je ma, vrienden en collega’s over MAPS.ME :) Dank je dat je ons steunt. Wij waarderen dit heel erg!\n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op http://openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in MAPS.ME verschijnen.";
 
 /* Alert text */
-"email_error_body" = "De e-mailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@";
+"email_error_body" = "De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@";
 
 /* Alert title */
-"email_error_title" = "E-mail verzendfout";
+"email_error_title" = "Email verzendfout";
 
 /* Settings item title */
 "pref_calibration_title" = "Kompascalibratie";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Er is een betere route beschikbaar die de grenzen van deze kaart overschrijdt.";
 
-"dialog_routing_always_cross_that_border" = "Deze grens altijd overschrijden";
-
 "not_now" = "Niet nu";
 
 "dialog_routing_build_route" = "Samenstellen";
@@ -1184,7 +1182,7 @@
 /* Forgot Password dialog title */
 "restore_password" = "Wachtwoord herstellen";
 
-"enter_email_address_to_reset_password" = "Voer het e-mailadres in dat u heeft gebruikt tijdens de registratie, dan sturen wij u de link om uw wachtwoord te vernieuwen.";
+"enter_email_address_to_reset_password" = "Voer het emailadres in dat u heeft gebruikt tijdens de registratie, dan sturen wij u de link om uw wachtwoord te vernieuwen.";
 
 "reset_password" = "Wachtwoord resetten";
 
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Selecteer Keuken";
 
 /* login text field */
-"email_or_username" = "E-mailadres of gebruikersnaam";
+"email_or_username" = "Emailadres of gebruikersnaam";
 
 "phone" = "Telefoonnummer";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Gedetailleerde probleemomschrijving";
 
 "editor_report_problem_other_title" = "Een ander probleem";
-
-"placepage_add_place_button" = "Voeg een plaats toe";
 
 "placepage_report_problem_button" = "Meld een probleem";
 
@@ -1520,7 +1516,7 @@
 
 "error_enter_correct_web" = "Voer een geldig webadres in";
 
-"error_enter_correct_email" = "Voer een geldig e-mailadres in";
+"error_enter_correct_email" = "Voer een geldig emailadres in";
 
 "error_enter_correct" = "Voer een geldige waarde in";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Updaten";
 
 "last_update" = "Laatste update: %s";
+
+"booking_checkin" = "inchecken: %s";
+
+"booking_checkout" = "uitchecken: %s";
+
+"placepage_add_place_button" = "Een plek toevoegen aan de kaart";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Wil je het naar alle gebruikers sturen?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Controleer dat je geen persoonlijke gegevens hebt ingevoerd.";
+
+"editor_share_to_all_dialog_message_2" = "We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.";
+
+"navigation_overview_button" = "overzicht";
+
+"navigation_stop_button" = "stoppen";

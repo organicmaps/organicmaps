@@ -590,7 +590,6 @@
 	<string name="dialog_routing_send_error">Повідомити про помилку</string>
 	<string name="dialog_routing_if_get_cross_route">Побудувати більш оптимальний маршрут з перетином межі карти?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Маршрут з перетином межі карти більш оптимальний.</string>
-	<string name="dialog_routing_always_cross_that_border">Завжди перетинати цю межу</string>
 	<string name="not_now">Не зараз</string>
 	<string name="dialog_routing_build_route">Побудувати</string>
 	<string name="dialog_routing_download_and_build_cross_route">Завантажити карту і побудувати більш оптимальний маршрут з перетином межі карти?</string>
@@ -765,7 +764,6 @@
 	<string name="editor_edit_place_category_title">Категорія</string>
 	<string name="detailed_problem_description">Детальний опис проблеми</string>
 	<string name="editor_report_problem_other_title">Інші проблема</string>
-	<string name="placepage_add_place_button">Додати місце</string>
 	<string name="placepage_report_problem_button">Повідомити про проблему</string>
 	<string name="placepage_add_business_button">Додати організацію</string>
 	<string name="whatsnew_smallmwm_header">Ви просили і ми це зробили</string>
@@ -885,4 +883,14 @@
 	<string name="whatsnew_cycle_navigation_message">До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.</string>
 	<string name="refresh">Обновити</string>
 	<string name="last_update">Останнє оновлення: %s</string>
+	<string name="booking_checkin">заїзд: %s</string>
+	<string name="booking_checkout">виїзд: %s</string>
+	<string name="placepage_add_place_button">Додати на карту</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Надіслати усім користувачам?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
+	<string name="editor_share_to_all_dialog_message_2">Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.</string>
+	<string name="navigation_overview_button">огляд</string>
+	<string name="navigation_stop_button">стоп</string>
 </resources>

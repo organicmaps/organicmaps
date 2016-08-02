@@ -215,7 +215,7 @@
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notas</string>
 	<!-- Button text -->
-	<string name="share_by_email">Partilhar por e-mail</string>
+	<string name="share_by_email">Partilhar por email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Os favoritos do MAPS.ME foram partilhados consigo</string>
 	<!-- Email text when sharing bookmarks category -->
@@ -261,7 +261,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Mensagem</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">E-mail</string>
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copiar hiperligação</string>
 	<!-- Text for the button that returns to caller application -->
@@ -585,7 +585,6 @@
 	<string name="dialog_routing_send_error">Relatar o Problema</string>
 	<string name="dialog_routing_if_get_cross_route">Deseja traçar uma rota mais direta, mas que se estenda por mais de um mapa?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Há uma rota disponível que vai além dos limites desse mapa.</string>
-	<string name="dialog_routing_always_cross_that_border">Sempre cruzar esse limite</string>
 	<string name="not_now">Agora Não</string>
 	<string name="dialog_routing_build_route">Traçar</string>
 	<string name="dialog_routing_download_and_build_cross_route">Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?</string>
@@ -697,7 +696,7 @@
 	<string name="forgot_password">Esqueceu sua senha?</string>
 	<!-- Forgot Password dialog title -->
 	<string name="restore_password">Recuperar senha</string>
-	<string name="enter_email_address_to_reset_password">Digite o endereço de e-mail que você usou ao cadastrar-se, e nós lhe enviaremos o link para renovar a sua senha.</string>
+	<string name="enter_email_address_to_reset_password">Digite o endereço de email que você usou ao cadastrar-se, e nós lhe enviaremos o link para renovar a sua senha.</string>
 	<string name="reset_password">Redefinir senha</string>
 	<string name="username">Nome de usuário</string>
 	<string name="osm_account">Conta OSM</string>
@@ -728,7 +727,7 @@
 	<string name="cuisine">Culinária</string>
 	<string name="select_cuisine">Selecione a Culinária</string>
 	<!-- login text field -->
-	<string name="email_or_username">E-mail ou nome de usuário</string>
+	<string name="email_or_username">Email ou nome de usuário</string>
 	<string name="phone">Telefone</string>
 	<string name="please_note">Por favor note</string>
 	<string name="common_no_wifi_dialog">Nenhuma ligação Wi-Fi. Deseja continuar com os dados móveis?</string>
@@ -760,7 +759,6 @@
 	<string name="editor_edit_place_category_title">Categoria</string>
 	<string name="detailed_problem_description">Descrição detalhada do problema</string>
 	<string name="editor_report_problem_other_title">Um problema diferente</string>
-	<string name="placepage_add_place_button">Adicionar um lugar</string>
 	<string name="placepage_report_problem_button">Comunicar um problema</string>
 	<string name="placepage_add_business_button">Adicionar uma organização</string>
 	<string name="whatsnew_smallmwm_header">Vocês têm pedido por isso e nós atendemos</string>
@@ -868,7 +866,7 @@
 	<string name="text_more_button">…mais</string>
 	<string name="error_enter_correct_phone">Preencha com o número de telefone sem letras</string>
 	<string name="error_enter_correct_web">Preencha com um endereço válido na internet</string>
-	<string name="error_enter_correct_email">Preencha com um endereço válido de e-mail</string>
+	<string name="error_enter_correct_email">Preencha com um endereço válido de email</string>
 	<string name="error_enter_correct">Preencha com um valor válido</string>
 	<string name="editor_profile_changes_for_next_place">Alterações para o próximo lugar: %d</string>
 	<string name="editor_profile_rating_place">Posição na classificação</string>
@@ -880,4 +878,14 @@
 	<string name="whatsnew_cycle_navigation_message">Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.</string>
 	<string name="refresh">Atualizar</string>
 	<string name="last_update">Última atualização: %s</string>
+	<string name="booking_checkin">check in: %s</string>
+	<string name="booking_checkout">check out: %s</string>
+	<string name="placepage_add_place_button">Adicionar um local ao mapa</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Deseja enviar para todos os usuários?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Certifique-se de não ter incluído nenhum dado pessoal.</string>
+	<string name="editor_share_to_all_dialog_message_2">Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.</string>
+	<string name="navigation_overview_button">visão geral</string>
+	<string name="navigation_stop_button">parar</string>
 </resources>

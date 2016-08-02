@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Маршрут з перетином межі карти більш оптимальний.";
 
-"dialog_routing_always_cross_that_border" = "Завжди перетинати цю межу";
-
 "not_now" = "Не зараз";
 
 "dialog_routing_build_route" = "Побудувати";
@@ -1310,8 +1308,6 @@
 
 "editor_report_problem_other_title" = "Інші проблема";
 
-"placepage_add_place_button" = "Додати місце";
-
 "placepage_report_problem_button" = "Повідомити про проблему";
 
 "placepage_add_business_button" = "Додати організацію";
@@ -1543,3 +1539,21 @@
 "refresh" = "Обновити";
 
 "last_update" = "Останнє оновлення: %s";
+
+"booking_checkin" = "заїзд: %s";
+
+"booking_checkout" = "виїзд: %s";
+
+"placepage_add_place_button" = "Додати на карту";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Надіслати усім користувачам?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Переконайтеся, що ви не ввели особисті дані.";
+
+"editor_share_to_all_dialog_message_2" = "Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.";
+
+"navigation_overview_button" = "огляд";
+
+"navigation_stop_button" = "стоп";

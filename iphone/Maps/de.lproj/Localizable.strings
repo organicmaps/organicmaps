@@ -257,10 +257,10 @@
 "set" = "Gruppe";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer E-Mail, Dropbox oder einem Weblink öffnen.";
+"bookmarks_usage_hint" = "Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer Email, Dropbox oder einem Weblink öffnen.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Lesezeichen von anderen Quellen können importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer E-Mail, Dropbox oder einem Weblink öffnen.";
+"bookmarks_usage_hint_import_only" = "Lesezeichen von anderen Quellen können importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer Email, Dropbox oder einem Weblink öffnen.";
 
 /* Settings button in system menu */
 "settings" = "Einstellungen";
@@ -349,7 +349,7 @@
 "description" = "Notizen";
 
 /* Button text */
-"share_by_email" = "Per E-Mail teilen";
+"share_by_email" = "Per Email teilen";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "MAPS.ME-Lesezeichen mit Ihnen geteilt";
@@ -418,7 +418,7 @@
 "message" = "Nachricht";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-Mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Link kopieren";
@@ -666,10 +666,10 @@
 "about_text" = "MAPS.ME bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen MAPS.ME, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der MAPS.ME-App.";
 
 /* Alert text */
-"email_error_body" = "Der E-Mail-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.";
+"email_error_body" = "Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.";
 
 /* Alert title */
-"email_error_title" = "Fehler beim E-Mail-Versand";
+"email_error_title" = "Fehler beim Email-Versand";
 
 /* Settings item title */
 "pref_calibration_title" = "Kompass-Kalibrierung";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Es ist eine bessere Route verfügbar, die den Rand dieser Karte überschreitet.";
 
-"dialog_routing_always_cross_that_border" = "Diese Grenze immer überschreiten";
-
 "not_now" = "Nicht jetzt";
 
 "dialog_routing_build_route" = "Erstellen";
@@ -1184,7 +1182,7 @@
 /* Forgot Password dialog title */
 "restore_password" = "Passwort wiederherstellen";
 
-"enter_email_address_to_reset_password" = "Geben Sie bitte die E-Mail-Adresse ein, die Sie zur Registrierung verwendet haben. Wir senden Ihnen dann den Link zur Erneuerung Ihres Passworts.";
+"enter_email_address_to_reset_password" = "Geben Sie bitte die Email-Adresse ein, die Sie zur Registrierung verwendet haben. Wir senden Ihnen dann den Link zur Erneuerung Ihres Passworts.";
 
 "reset_password" = "Passwort zurücksetzen";
 
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Küche auswählen";
 
 /* login text field */
-"email_or_username" = "E-Mail oder Benutzername";
+"email_or_username" = "Email oder Benutzername";
 
 "phone" = "Telefon";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Detaillierte Beschreibung eines Problems";
 
 "editor_report_problem_other_title" = "Ein anderes Problem";
-
-"placepage_add_place_button" = "Einen Ort hinzufügen";
 
 "placepage_report_problem_button" = "Problem melden";
 
@@ -1520,7 +1516,7 @@
 
 "error_enter_correct_web" = "Geben Sie eine gültige Internetadresse ein";
 
-"error_enter_correct_email" = "Geben Sie eine gültige E-Mail-Adresse ein";
+"error_enter_correct_email" = "Geben Sie eine gültige Email-Adresse ein";
 
 "error_enter_correct" = "Geben Sie einen gültigen Wert ein";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Aktualisieren";
 
 "last_update" = "Letzte Aktualisierung: %s";
+
+"booking_checkin" = "Einchecken: %s";
+
+"booking_checkout" = "Auschecken: %s";
+
+"placepage_add_place_button" = "Einen Ort zur Karte hinzufügen";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Wollen Sie sie an alle Benutzer senden?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.";
+
+"editor_share_to_all_dialog_message_2" = "Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.";
+
+"navigation_overview_button" = "Überblick";
+
+"navigation_stop_button" = "Stop";

@@ -349,7 +349,7 @@
 "description" = "Noter";
 
 /* Button text */
-"share_by_email" = "Del via e-mail";
+"share_by_email" = "Del via email";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "MAPS.ME bogmærker er blevet delt med dig";
@@ -418,7 +418,7 @@
 "message" = "Besked";
 
 /* Share by email button text, also used in editor. */
-"email" = "E-mail";
+"email" = "Email";
 
 /* Copy Link */
 "copy_link" = "Kopier link";
@@ -666,7 +666,7 @@
 "about_text" = "MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.";
 
 /* Alert text */
-"email_error_body" = "E-mailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@";
+"email_error_body" = "Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@";
 
 /* Alert title */
 "email_error_title" = "Mailforsendelsesfejl";
@@ -969,8 +969,6 @@
 
 "dialog_routing_cross_route_is_optimal" = "Der findes en mere optimal rute, som strækker sig ud over dette korts grænser.";
 
-"dialog_routing_always_cross_that_border" = "Kryds altid denne grænse";
-
 "not_now" = "Ikke nu";
 
 "dialog_routing_build_route" = "Opret";
@@ -1184,7 +1182,7 @@
 /* Forgot Password dialog title */
 "restore_password" = "Genopret adgangskode";
 
-"enter_email_address_to_reset_password" = "Indtast den e-mailadresse du anvendte under tilmelding, så sender vi dig linket til at forny din adgangskode.";
+"enter_email_address_to_reset_password" = "Indtast den emailadresse du anvendte under tilmelding, så sender vi dig linket til at forny din adgangskode.";
 
 "reset_password" = "Nulstil adgangskode";
 
@@ -1246,7 +1244,7 @@
 "select_cuisine" = "Vælg køkken";
 
 /* login text field */
-"email_or_username" = "E-mail eller brugernavn";
+"email_or_username" = "Email eller brugernavn";
 
 "phone" = "Telefon";
 
@@ -1309,8 +1307,6 @@
 "detailed_problem_description" = "Detaljeret beskrivelse af problemet";
 
 "editor_report_problem_other_title" = "Et anderledes problem";
-
-"placepage_add_place_button" = "Tilføj et sted";
 
 "placepage_report_problem_button" = "Anmeld et problem";
 
@@ -1520,7 +1516,7 @@
 
 "error_enter_correct_web" = "Indtast en gyldig webadresse";
 
-"error_enter_correct_email" = "Indtast en gyldig e-mailadresse";
+"error_enter_correct_email" = "Indtast en gyldig emailadresse";
 
 "error_enter_correct" = "Indtast en gyldig værdi";
 
@@ -1543,3 +1539,21 @@
 "refresh" = "Opdater";
 
 "last_update" = "Sidste opdatering: %s";
+
+"booking_checkin" = "tjek ind: %s";
+
+"booking_checkout" = "tjek ud: %s";
+
+"placepage_add_place_button" = "Tilføj et sted på kortet";
+
+/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+"editor_share_to_all_dialog_title" = "Ønsker du at sende det til alle brugere?";
+
+/* iOS Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Sørg for at du ikke indtastede personlige oplysninger.";
+
+"editor_share_to_all_dialog_message_2" = "Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.";
+
+"navigation_overview_button" = "oversigt";
+
+"navigation_stop_button" = "stop";

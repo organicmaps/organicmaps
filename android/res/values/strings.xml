@@ -163,7 +163,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.</string>
+	<string name="bookmarks_usage_hint">You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from email, Dropbox or weblink.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Bookmarks from other sources can be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.</string>
 	<!-- Settings button in system menu -->
@@ -618,7 +618,6 @@
 	<string name="dialog_routing_send_error">Report the Problem</string>
 	<string name="dialog_routing_if_get_cross_route">Would you like to create a more direct route that spans more than one map?</string>
 	<string name="dialog_routing_cross_route_is_optimal">A more optimal route that crosses the edge of this map is available.</string>
-	<string name="dialog_routing_always_cross_that_border">Always cross this boundary</string>
 	<string name="not_now">Not Now</string>
 	<string name="dialog_routing_build_route">Create</string>
 	<string name="dialog_routing_download_and_build_cross_route">Would you like to download the map and create a more optimal route spanning more than one map?</string>
@@ -801,7 +800,6 @@
 	<string name="editor_edit_place_category_title">Category</string>
 	<string name="detailed_problem_description">Detailed description of a problem</string>
 	<string name="editor_report_problem_other_title">A different problem</string>
-	<string name="placepage_add_place_button">Add a place</string>
 	<string name="placepage_report_problem_button">Report a problem</string>
 	<string name="placepage_add_business_button">Add business</string>
 	<string name="whatsnew_smallmwm_header">You\&#39;ve been asking for it and we\&#39;ve done it</string>
@@ -921,4 +919,14 @@
 	<string name="whatsnew_cycle_navigation_message">We are testing bike navigation for the new season. Try your favorite bike route with MAPS.ME, and share your opinion with us.</string>
 	<string name="refresh">Update</string>
 	<string name="last_update">Last update: %s</string>
+	<string name="booking_checkin">check in: %s</string>
+	<string name="booking_checkout">check out: %s</string>
+	<string name="placepage_add_place_button">Add a place to the map</string>
+	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<string name="editor_share_to_all_dialog_title">Do you want to send it to all users?</string>
+	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any personal data.</string>
+	<string name="editor_share_to_all_dialog_message_2">We will check the changes. If we have any questions we will contact you via email.</string>
+	<string name="navigation_overview_button">overview</string>
+	<string name="navigation_stop_button">stop</string>
 </resources>
