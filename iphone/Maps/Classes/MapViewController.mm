@@ -272,11 +272,6 @@ BOOL gIsFirstMyPositionMode = YES;
   GetFramework().InvalidateRendering();
   [self showWelcomeScreenIfNeeded];
   [self showViralAlertIfNeeded];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-  [super viewDidAppear:animated];
   [self checkAuthorization];
 }
 
@@ -334,7 +329,7 @@ BOOL gIsFirstMyPositionMode = YES;
       !AuthorizationHaveCredentials())
     return;
 
-  if (osm::Editor::Instance().GetStats().m_edits.size() != 2)
+  if (osm::Editor::Instance().GetStats().m_edits.size() < 2)
     return;
 
   if (!Platform::IsConnected())
