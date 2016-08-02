@@ -18707,7 +18707,7 @@
     sv = Vi kommer att kontrollera ändringar. Om vi har några frågor kontaktar vi dig via e-post.
     th = เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล
     tr = Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla temasa geçeceğiz.
-    uk = Якщо при перевірці змін виникнуть питання, ми напишемо Вам на email.
+    uk = Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.
     vi = Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.
     zh-Hans = 我们会检查更改。如果我们有任何问题，我们会邮件与您联系。
     zh-Hant = 我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。
