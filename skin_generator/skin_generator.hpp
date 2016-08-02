@@ -77,7 +77,7 @@ namespace tools
                           string const & skinName,
                           vector<QSize> const & symbolSizes,
                           vector<string> const & suffix);
-      void renderPages();
+      bool renderPages(uint32_t maxSize);
       bool writeToFile(string const & skinName);
       void writeToFileNewStyle(string const & skinName);
     };

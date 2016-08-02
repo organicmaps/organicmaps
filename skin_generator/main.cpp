@@ -1,5 +1,7 @@
 #include "skin_generator.hpp"
 
+#include "base/logging.hpp"
+
 #include <QtCore/QFile>
 #include <QtCore/QString>
 #include <QApplication>
@@ -22,6 +24,7 @@ DEFINE_string(searchIconsSrcPath, "../../data/search-icons/svg", "input path for
 DEFINE_int32(searchIconWidth, 24, "width of the search category icon");
 DEFINE_int32(searchIconHeight, 24, "height of the search category icon");
 DEFINE_bool(colorCorrection, false, "apply color correction");
+DEFINE_int32(maxSize, 2048, "max width/height of output textures");
 
 // Used to lock the hash seed, so the order of XML attributes is always the same.
 extern Q_CORE_EXPORT QBasicAtomicInt qt_qhash_seed;
@@ -42,7 +45,11 @@ int main(int argc, char *argv[])
 
   gen.processSymbols(FLAGS_symbolsDir, FLAGS_skinName, symbolSizes, suffixes);
 
-  gen.renderPages();
+  if (!gen.renderPages(FLAGS_maxSize))
+  {
+    LOG(LINFO, ("Skin generation finished with error."));
+    return 1;
+  }
 
   QString newSkin(FLAGS_skinName.c_str());
   newSkin.replace("basic", "symbols");
