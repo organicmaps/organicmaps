@@ -6,8 +6,7 @@ import android.content.Intent;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.statistics.AlohaHelper;
-
-import ru.mail.android.mytracker.campaign.CampaignReceiver;
+import com.my.tracker.campaign.CampaignReceiver;
 
 /**
  * Custom broadcast receiver to send intent to MyTracker & Alohalytics at the same time
