@@ -34,6 +34,7 @@ usage() {
   echo -e "MODE\tA mode to start with: coast, inter, routing, test, etc."
   echo -e "MAIL\tE-mail address to send notifications"
   echo -e "OSRM_URL\tURL of the osrm server to build world roads."
+  echo -e "SRTM_PATH\tPath to 27k zip files with SRTM data."
   echo
 }
 
@@ -158,9 +159,19 @@ NUM_PROCESSES=${NUM_PROCESSES:-$(($CPUS - 1))}
 STATUS_FILE="$INTDIR/status"
 OSRM_FLAG="$INTDIR/osrm_done"
 SCRIPTS_PATH="$(dirname "$0")"
+if [ -e "$SCRIPTS_PATH/hierarchy_to_countries.py" ]; then
+  # In a compact packaging python scripts may be placed along with shell scripts.
+  PYTHON_SCRIPTS_PATH="$SCRIPTS_PATH"
+else
+  PYTHON_SCRIPTS_PATH="$OMIM_PATH/tools/python"
+fi
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
-ROADS_SCRIPT="$OMIM_PATH/tools/python/road_runner.py"
+ROADS_SCRIPT="$PYTHON_SCRIPTS_PATH/road_runner.py"
+HIERARCHY_SCRIPT="$PYTHON_SCRIPTS_PATH/hierarchy_to_countries.py"
+BOOKING_SCRIPT="$PYTHON_SCRIPTS_PATH/booking_hotels.py"
+BOOKING_FILE="${BOOKING_FILE:-$INTDIR/hotels.csv}"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
+PYTHON="$(which python2.7)"
 MWM_VERSION_FORMAT="%s"
 COUNTRIES_VERSION_FORMAT="%y%m%d"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
@@ -216,6 +227,9 @@ if [ -z "${REGIONS+1}" -a "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n",
   echo "WARNING: You have less than 250 GB for intermediate data, that's not enough for the whole planet."
 fi
 
+# We need osmconvert both for planet/coasts and for getting the timestamp.
+[ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert" -lz
+
 if [ -r "$STATUS_FILE" ]; then
   # Read all control variables from file
   IFS=, read -r OPT_ROUTING OPT_UPDATE OPT_COAST OPT_WORLD NO_REGIONS MODE < "$STATUS_FILE"
@@ -233,7 +247,14 @@ fi
 
 if [ "$MODE" == "coast" ]; then
   putmode
-  [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert" -lz
+
+  # Download booking.com hotels. This takes around 3 hours, just like coastline processing.
+  if [ ! -f "$BOOKING_FILE" -a -n "${BOOKING_USER-}" -a -n "${BOOKING_PASS-}" ]; then
+    log "STATUS" "Step B: Starting background hotels downloading"
+    $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log &
+    echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+  fi
+
   [ ! -x "$OSMCTOOLS/osmupdate"  ] && cc -x c     "$OMIM_PATH/tools/osmctools/osmupdate.c"  -o "$OSMCTOOLS/osmupdate"
   [ ! -x "$OSMCTOOLS/osmfilter"  ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmfilter.c"  -o "$OSMCTOOLS/osmfilter"
   if [ -n "$OPT_DOWNLOAD" ]; then
@@ -305,7 +326,7 @@ if [ "$MODE" == "roads" ]; then
     log "OSRM_URL variable not set. World roads will not be calculated."
   else
     putmode "Step 2a: Generating road networks for the World map"
-    python "$ROADS_SCRIPT" "$INTDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
+    $PYTHON "$ROADS_SCRIPT" "$INTDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
   fi
   MODE=inter
 fi
@@ -374,6 +395,7 @@ if [ "$MODE" == "features" ]; then
   [ -z "$NO_REGIONS" ] && PARAMS_SPLIT="$PARAMS_SPLIT -split_by_polygons"
   [ -n "$OPT_WORLD" ] && PARAMS_SPLIT="$PARAMS_SPLIT -generate_world"
   [ -n "$OPT_WORLD" -a "$NODE_STORAGE" == "map" ] && log "WARNING: generating world files with NODE_STORAGE=map may lead to an out of memory error. Try NODE_STORAGE=mem if it fails."
+  [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
     --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$PLANET_LOG"
   MODE=mwm
@@ -397,21 +419,22 @@ if [ "$MODE" == "mwm" ]; then
   [ -z "$NO_REGIONS" -a -z "$(ls "$INTDIR/tmp" | grep '\.mwm\.tmp')" ] && fail "No .mwm.tmp files found."
   # 3rd pass - do in parallel
   # but separate exceptions for world files to finish them earlier
-  PARAMS="--data_path=$TARGET --intermediate_data_path=$INTDIR/ --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE -generate_geometry -generate_index"
+  PARAMS="--data_path=$TARGET --intermediate_data_path=$INTDIR/ --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE --planet_version=$MWM_VERSION -generate_geometry -generate_index"
   if [ -n "$OPT_WORLD" ]; then
     (
-      "$GENERATOR_TOOL" $PARAMS --planet_version="$MWM_VERSION" --output=World 2>> "$LOG_PATH/World.log"
-      "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$MWM_VERSION" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" $PARAMS --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
     ) &
-    "$GENERATOR_TOOL" $PARAMS --planet_version="$MWM_VERSION" --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
+    "$GENERATOR_TOOL" $PARAMS --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
 
   if [ -z "$NO_REGIONS" ]; then
     PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
+    [ -n "${SRTM_PATH-}" -a -d "${SRTM_PATH-}" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --srtm_path=$SRTM_PATH"
     for file in "$INTDIR"/tmp/*.mwm.tmp; do
       if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
         BASENAME="$(basename "$file" .mwm.tmp)"
-        "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --planet_version="$MWM_VERSION" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+        "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
         forky
       fi
     done
@@ -447,7 +470,7 @@ fi
 if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
   # Update countries list
-  "$SCRIPTS_PATH/../python/hierarchy_to_countries.py" --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$COUNTRIES_VERSION" \
+  $PYTHON $HIERARCHY_SCRIPT --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$COUNTRIES_VERSION" \
     --old "$DATA_PATH/old_vs_new.csv" --osm "$DATA_PATH/borders_vs_osm.csv" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
 
   # A quick fix: chmodding to a+rw all generated files
@@ -455,6 +478,9 @@ if [ "$MODE" == "resources" ]; then
     chmod 0666 "$file"
   done
   chmod 0666 "$TARGET"/countries*.txt
+
+  # Move skipped nodes list from the intermediate directory
+  [ -e "$INTDIR/skipped_elements.lst" ] && mv "$INTDIR/skipped_elements.lst" "$TARGET/skipped_elements.lst"
 
   if [ -n "$OPT_WORLD" ]; then
     # Update external resources
