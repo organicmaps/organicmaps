@@ -48,7 +48,7 @@ dependencies {
   // 3-party
   compile 'com.facebook.android:facebook-android-sdk:4.8.0'
   compile 'com.google.code.gson:gson:2.6.1'
-  compile 'com.pushwoosh:pushwoosh:4.6.1'
+  compile 'com.pushwoosh:pushwoosh:4.6.3'
   compile fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   compile project(":3rd_party:BottomSheet")
