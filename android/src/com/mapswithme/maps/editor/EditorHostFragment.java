@@ -177,6 +177,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     mMode = Mode.MAP_OBJECT;
     ((SearchToolbarController) mToolbarController).showControls(false);
     mToolbarController.setTitle(getTitle());
+    UiUtils.show(mToolbarController.findViewById(R.id.save));
     Bundle args = new Bundle();
     if (focusToLastName)
       args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, sNames.size() - 1);
@@ -210,6 +211,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     for (LocalizedName name : sNames)
       languages.add(name.lang);
     args.putStringArrayList(LanguagesFragment.EXISTING_LOCALIZED_NAMES, languages);
+    UiUtils.hide(mToolbarController.findViewById(R.id.save));
     editWithFragment(Mode.LANGUAGE, R.string.choose_language, args, LanguagesFragment.class, false);
   }
 
