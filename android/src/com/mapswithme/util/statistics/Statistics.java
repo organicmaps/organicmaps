@@ -26,8 +26,8 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
-import ru.mail.android.mytracker.MRMyTracker;
-import ru.mail.android.mytracker.MRMyTrackerParams;
+import com.my.tracker.MyTracker;
+import com.my.tracker.MyTrackerParams;
 
 public enum Statistics
 {
@@ -231,16 +231,16 @@ public enum Statistics
       FlurryAgent.setCaptureUncaughtExceptions(false);
       FlurryAgent.init(context, PrivateVariables.flurryKey());
 
-      MRMyTracker.setDebugMode(BuildConfig.DEBUG);
-      MRMyTracker.createTracker(PrivateVariables.myTrackerKey(), context);
-      final MRMyTrackerParams myParams = MRMyTracker.getTrackerParams();
-      myParams.setTrackingPreinstallsEnabled(true);
+      MyTracker.setDebugMode(BuildConfig.DEBUG);
+      MyTracker.createTracker(PrivateVariables.myTrackerKey(), context);
+      final MyTrackerParams myParams = MyTracker.getTrackerParams();
+      myParams.setDefaultVendorAppPackage();
       myParams.setTrackingLaunchEnabled(true);
-      MRMyTracker.initTracker();
+      MyTracker.initTracker();
     }
     // At the moment, need to always initialize engine for correct JNI http part reusing.
     // Statistics is still enabled/disabled separately and never sent anywhere if turned off.
-    // TODO(AlexZ): Remove this initialization dependency from JNI part.
+    // TODO (AlexZ): Remove this initialization dependency from JNI part.
     org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
     org.alohalytics.Statistics.setup(PrivateVariables.alohalyticsUrl(), context);
   }
@@ -293,7 +293,7 @@ public enum Statistics
     {
       FlurryAgent.onStartSession(activity);
       AppEventsLogger.activateApp(activity);
-      MRMyTracker.onStartActivity(activity);
+      MyTracker.onStartActivity(activity);
       org.alohalytics.Statistics.onStart(activity);
     }
   }
@@ -304,7 +304,7 @@ public enum Statistics
     {
       FlurryAgent.onEndSession(activity);
       AppEventsLogger.deactivateApp(activity);
-      MRMyTracker.onStopActivity(activity);
+      MyTracker.onStopActivity(activity);
       org.alohalytics.Statistics.onStop(activity);
     }
   }
@@ -375,7 +375,7 @@ public enum Statistics
     if (mEnabled)
     {
       final ParameterBuilder params = params().add(EventParam.COUNT, String.valueOf(MapManager.nativeGetDownloadedCount()));
-      MRMyTracker.trackEvent(event, params.get());
+      MyTracker.trackEvent(event, params.get());
       trackEvent(event, params);
     }
   }

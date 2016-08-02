@@ -333,7 +333,7 @@
     <!-- myTracker
          IMPORTANT : we DON'T declare myTracker's broadcast receiver for INSTALL_REFERRER intent, cause we catch it in our custom
          MultipleTrackerReferrerReceiver and then pass it manually to myTracker's one. -->
-    <service android:name="ru.mail.android.mytracker.campaign.CampaignService"/>
+    <service android:name="com.my.tracker.campaign.CampaignService"/>
 
     <!-- Alohalytics -->
     <receiver
