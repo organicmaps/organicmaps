@@ -1,4 +1,5 @@
 #import "MWMSearchTabbedViewController.h"
+#import "Common.h"
 #import "MWMSearchCategoriesManager.h"
 #import "MWMSearchHistoryManager.h"
 #import "MWMSearchTabbedCollectionViewCell.h"
@@ -71,10 +72,17 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)viewWillAppear:(BOOL)animated
 {
+  self.scrollIndicator.hidden = YES;
   [self.tablesCollectionView reloadData];
   [self resetSelectedTab];
   [self refreshScrollPosition];
   [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+  self.scrollIndicator.hidden = NO;
+  [super viewDidAppear:animated];
 }
 
 #pragma mark - Layout
@@ -124,7 +132,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)tabButtonPressed:(MWMSearchTabButtonsView *)sender
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
+  runAsyncOnMainQueue(^{
     [self.tablesCollectionView
         scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:sender.tag inSection:0]
                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
@@ -134,8 +142,12 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)updateScrollPosition:(CGFloat)position
 {
-  self.scrollIndicatorOffset.constant = nearbyint(position);
   CGFloat const btnMid = position + 0.5 * self.scrollIndicator.width;
+  if (isInterfaceRightToLeft())
+    position = self.scrollIndicator.width - position;
+  runAsyncOnMainQueue(^{
+    self.scrollIndicatorOffset.constant = nearbyint(position);
+  });
   if (self.selectedButton && isOffsetInButton(btnMid, self.selectedButton))
     return;
   [self.tabButtons

@@ -1,4 +1,5 @@
 #import "MWMSearchTabbedViewLayout.h"
+#import "Common.h"
 
 @implementation MWMSearchTabbedViewLayout
 
@@ -10,10 +11,14 @@
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  UICollectionViewLayoutAttributes * attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+  UICollectionViewLayoutAttributes * attr =
+      [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
   CGSize const size = self.collectionView.frame.size;
   attr.size = size;
-  attr.center = CGPointMake((indexPath.item + 0.5) * size.width, 0.5 * size.height);
+  CGFloat x = (indexPath.item + 0.5) * size.width;
+  if (isInterfaceRightToLeft())
+    x = self.collectionViewContentSize.width - x;
+  attr.center = CGPointMake(x, 0.5 * size.height);
   return attr;
 }
 
@@ -28,9 +33,5 @@
   return attrs;
 }
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
-{
-  return YES;
-}
-
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds { return YES; }
 @end
