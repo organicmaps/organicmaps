@@ -34,7 +34,14 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
 
 - (UIBarButtonItem *)backButton
 {
-  return [self buttonWithImage:[UIImage imageNamed:@"ic_nav_bar_back"] action:@selector(backTap)];
+  UIImage * backImg = [UIImage imageNamed:@"ic_nav_bar_back"];
+  if (isInterfaceRightToLeft())
+  {
+    backImg = [UIImage imageWithCGImage:backImg.CGImage
+                                  scale:backImg.scale
+                            orientation:UIImageOrientationUpMirrored];
+  }
+  return [self buttonWithImage:backImg action:@selector(backTap)];
 }
 
 - (void)showBackButton
@@ -43,7 +50,5 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
 }
 
 - (void)backTap { [self.navigationController popViewControllerAnimated:YES]; }
-
 - (UIStoryboard *)mainStoryboard { return [UIStoryboard storyboardWithName:@"Mapsme" bundle:nil]; }
-
 @end
