@@ -83,24 +83,33 @@ public:
   template <class TSink>
   void Serialize(TAltitude minAltitude, TSink & sink) const
   {
-    vector<uint32_t> deviations;
-    PrepareSerializationData(minAltitude, deviations);
+    vector<uint32_t> deltas;
+    PrepareSerializationDate(minAltitude, deltas);
 
     BitWriter<TSink> bits(sink);
-    for (auto const d : deviations)
-      coding::DeltaCoder::Encode(bits, d);
+    for (auto const d : deltas)
+      coding::DeltaCoder::Encode(bits, d + 1 /* making it greater than zero */);
   }
 
   template <class TSource>
   bool Deserialize(TAltitude minAltitude, size_t pointCount, TSource & src)
   {
-    vector<uint32_t> deviations(pointCount);
+    vector<uint32_t> deltas(pointCount);
     BitReader<TSource> bits(src);
 
     for (size_t i = 0; i < pointCount; ++i)
-      deviations[i] = coding::DeltaCoder::Decode(bits);
+    {
+      uint32_t const decoded = coding::DeltaCoder::Decode(bits);
+      if (decoded == 0)
+      {
+        ASSERT(false, (i));
+        m_altitudes.clear();
+        return false;
+      }
+      deltas[i] = decoded - 1 /* recovering value */;
+    }
 
-    return FillAltitudesByDeserializedDate(minAltitude, deviations);
+    return FillAltitudesByDeserializedDate(minAltitude, deltas);
   }
 
   /// \note |m_altitudes| is a vector of feature point altitudes. There's two possibilities:
@@ -110,7 +119,7 @@ public:
   TAltitudes m_altitudes;
 
 private:
-  void PrepareSerializationData(TAltitude minAltitude, vector<uint32_t> & deviations) const;
-  bool FillAltitudesByDeserializedDate(TAltitude minAltitude, vector<uint32_t> const & deviations);
+  void PrepareSerializationDate(TAltitude minAltitude, vector<uint32_t> & deltas) const;
+  bool FillAltitudesByDeserializedDate(TAltitude minAltitude, vector<uint32_t> const & deltas);
 };
 }  // namespace feature

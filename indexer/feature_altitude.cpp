@@ -4,50 +4,42 @@
 
 namespace feature
 {
-void Altitudes::PrepareSerializationData(TAltitude minAltitude, vector<uint32_t> & deviations) const
+void Altitudes::PrepareSerializationDate(TAltitude minAltitude, vector<uint32_t> & deltas) const
 {
   CHECK(!m_altitudes.empty(), ());
+  CHECK_LESS_OR_EQUAL(minAltitude, m_altitudes[0], ());
 
-  deviations.clear();
+  deltas.resize(m_altitudes.size());
   uint32_t const firstPntDeviation =
       bits::ZigZagEncode(static_cast<int32_t>(m_altitudes[0]) -
-      static_cast<int32_t>(minAltitude)) + 1 /* making it more than zero */;
-  CHECK_LESS(0, firstPntDeviation, ());
-  deviations.push_back(firstPntDeviation);
+      static_cast<int32_t>(minAltitude));
+
+  deltas[0] = firstPntDeviation;
   for (size_t i = 1; i < m_altitudes.size(); ++i)
   {
-    uint32_t const nextPntDeviation = bits::ZigZagEncode(static_cast<int32_t>(m_altitudes[i]) -
-        static_cast<int32_t>(m_altitudes[i - 1])) + 1 /* making it more than zero */;
-    CHECK_LESS(0, nextPntDeviation, ());
-    deviations.push_back(nextPntDeviation);
+    CHECK_LESS_OR_EQUAL(minAltitude, m_altitudes[i], (i));
+    deltas[i] = bits::ZigZagEncode(static_cast<int32_t>(m_altitudes[i]) -
+        static_cast<int32_t>(m_altitudes[i - 1]));
   }
 }
 
-bool Altitudes::FillAltitudesByDeserializedDate(TAltitude minAltitude, vector<uint32_t> const & deviations)
+bool Altitudes::FillAltitudesByDeserializedDate(TAltitude minAltitude, vector<uint32_t> const & deltas)
 {
-  m_altitudes.clear();
-  if (deviations.size() == 0)
+  m_altitudes.resize(deltas.size());
+  if (deltas.size() == 0)
   {
-    ASSERT(false, ());
+    ASSERT(false, ("A vector of delta altitudes readed from mwm are empty."));
+    m_altitudes.clear();
     return false;
   }
 
-  m_altitudes.resize(deviations.size());
   TAltitude prevAltitude = minAltitude;
-  for (size_t i = 0; i < deviations.size(); ++i)
+  for (size_t i = 0; i < deltas.size(); ++i)
   {
-    if (deviations[i] == 0)
-    {
-      ASSERT(false, (i));
-      m_altitudes.clear();
-      return false;
-    }
-
-    m_altitudes[i] = static_cast<TAltitude>(bits::ZigZagDecode(deviations[i] -
-                                                               1 /* Recovering value */) + prevAltitude);
+    m_altitudes[i] = static_cast<TAltitude>(bits::ZigZagDecode(deltas[i]) + prevAltitude);
     if (m_altitudes[i] < minAltitude)
     {
-      ASSERT(false, (i));
+      ASSERT(false, ("A point altitude readed from file is less then min mwm altitude. Point number in its feature is", i));
       m_altitudes.clear();
       return false;
     }
