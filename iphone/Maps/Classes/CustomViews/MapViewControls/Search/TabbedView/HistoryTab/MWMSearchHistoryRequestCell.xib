@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_history_label" translatesAutoresizingMaskIntoConstraints="NO" id="k5o-Xw-buz" userLabel="Icon">
@@ -34,8 +34,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="244" translatesAutoresizingMaskIntoConstraints="NO" id="t8W-bQ-Jgd" userLabel="Request label" customClass="MWMMultilineLabel">
-                        <rect key="frame" x="60" y="12" width="244" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="244" translatesAutoresizingMaskIntoConstraints="NO" id="t8W-bQ-Jgd" userLabel="Request label">
+                        <rect key="frame" x="60" y="12" width="42" height="20"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
                     <constraint firstItem="L0x-sD-vTW" firstAttribute="leading" secondItem="k5o-Xw-buz" secondAttribute="trailing" constant="16" id="bqE-Pi-Dlv"/>
                     <constraint firstItem="k5o-Xw-buz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="kRk-cw-mQt"/>
                     <constraint firstItem="t8W-bQ-Jgd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="nAw-8U-Ibx"/>
-                    <constraint firstAttribute="trailing" secondItem="t8W-bQ-Jgd" secondAttribute="trailing" constant="16" id="w0g-Q7-D2m"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t8W-bQ-Jgd" secondAttribute="trailing" constant="16" id="w0g-Q7-D2m"/>
                 </constraints>
             </tableViewCellContentView>
             <userDefinedRuntimeAttributes>
