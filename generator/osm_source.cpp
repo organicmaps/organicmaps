@@ -20,10 +20,11 @@
 #include "geometry/mercator.hpp"
 #include "geometry/tree4d.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include "coding/parse_xml.hpp"
 
 #include "std/fstream.hpp"
-#include "std/limits.hpp"
 
 #include "defines.hpp"
 
@@ -188,21 +189,6 @@ public:
 /// Used to make a "good" node for a highway graph with OSRM for low zooms.
 class Place
 {
-  FeatureBuilder1 m_ft;
-  m2::PointD m_pt;
-  uint32_t m_type;
-  double m_thresholdM;
-
-  bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
-  static bool IsEqualTypes(uint32_t t1, uint32_t t2)
-  {
-    // Use 2-arity places comparison for filtering.
-    // ("place-city-capital-2" is equal to "place-city")
-    ftype::TruncValue(t1, 2);
-    ftype::TruncValue(t2, 2);
-    return (t1 == t2);
-  }
-
 public:
   Place(FeatureBuilder1 const & ft, uint32_t type) : m_ft(ft), m_pt(ft.GetKeyPoint()), m_type(type)
   {
@@ -228,7 +214,7 @@ public:
 
   bool IsEqual(Place const & r) const
   {
-    return (IsEqualTypes(m_type, r.m_type) &&
+    return (AreTypesEqual(m_type, r.m_type) &&
             m_ft.GetName() == r.m_ft.GetName() &&
             (IsPoint() || r.IsPoint()) &&
             MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < m_thresholdM);
@@ -241,20 +227,38 @@ public:
     uint8_t const r1 = m_ft.GetRank();
     uint8_t const r2 = r.m_ft.GetRank();
     if (r1 != r2)
-      return (r2 < r1);
+      return r1 > r2;
 
     // Check types length.
     // ("place-city-capital-2" is better than "place-city").
     uint8_t const l1 = ftype::GetLevel(m_type);
     uint8_t const l2 = ftype::GetLevel(r.m_type);
     if (l1 != l2)
-      return (l2 < l1);
+      return l1 > l2;
 
     // Assume that area places has better priority than point places at the very end ...
     /// @todo It was usefull when place=XXX type has any area fill style.
     /// Need to review priority logic here (leave the native osm label).
     return !IsPoint();
   }
+
+private:
+  bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
+
+  static bool AreTypesEqual(uint32_t t1, uint32_t t2)
+  {
+    // Use 2-arity places comparison for filtering.
+    // ("place-city-capital-2" is equal to "place-city")
+    ftype::TruncValue(t1, 2);
+    ftype::TruncValue(t2, 2);
+    return (t1 == t2);
+  }
+
+  FeatureBuilder1 m_ft;
+  m2::PointD m_pt;
+  uint32_t m_type;
+  double m_thresholdM;
+
 };
 
 class MainFeaturesEmitter : public EmitterBase
@@ -294,9 +298,9 @@ class MainFeaturesEmitter : public EmitterBase
 
 public:
   MainFeaturesEmitter(feature::GenerateInfo const & info)
-  : m_skippedElementsPath(info.GetIntermediateFileName("skipped_elements", ".lst"))
-  , m_failOnCoasts(info.m_failOnCoasts)
-  , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
+    : m_skippedElementsPath(info.GetIntermediateFileName("skipped_elements", ".lst"))
+    , m_failOnCoasts(info.m_failOnCoasts)
+    , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
   {
     Classificator const & c = classif();
 
@@ -338,7 +342,7 @@ public:
     static uint32_t const placeType = classif().GetTypeByPath({"place"});
     uint32_t const type = fb.GetParams().FindType(placeType, 1);
 
-    auto hotelIndex = numeric_limits<size_t>::max();
+    auto hotelIndex = generator::BookingDataset::kInvalidHotelIndex;
 
     if (type != ftype::GetEmptyValue() && !fb.GetName().empty())
     {
@@ -348,11 +352,11 @@ public:
           [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
     }
     else if ((hotelIndex = m_bookingDataset.GetMatchingHotelIndex(fb)) !=
-             numeric_limits<size_t>::max())
+             generator::BookingDataset::kInvalidHotelIndex)
     {
       m_skippedElements << DebugPrint(fb.GetMostGenericOsmId()) << endl;
 
-      // Make a hotel a simple building.
+      // Turn a hotel into a simple building.
       if (fb.GetGeomType() == feature::GEOM_AREA)
       {
         // Remove all information about a hotel.
@@ -363,14 +367,13 @@ public:
         meta.Drop(feature::Metadata::EType::FMD_WEBSITE);
         meta.Drop(feature::Metadata::EType::FMD_PHONE_NUMBER);
 
-        auto & types = params.m_Types;
-        types.erase(remove_if(begin(types), end(types), [](uint32_t type)
+        auto const & c = classif();
+        auto const tourism = c.GetTypeByPath({"tourism"});
+        my::EraseIf(params.m_Types, [&c, tourism](uint32_t type)
         {
-          static auto const & c = classif();
-          static auto tourism = c.GetTypeByPath({"tourism"});
           ftype::TruncValue(type, 1);
           return type == tourism;
-        }));
+        });
         fb.SetParams(params);
 
         Emit(fb);
@@ -389,7 +392,7 @@ public:
 
     // Emit all booking objecs to the map.
     for (size_t hotelIndex = 0; hotelIndex < m_bookingDataset.Size(); ++hotelIndex)
-      m_bookingDataset.BuildFeature(hotelIndex, [this](FeatureBuilder1 & fb) { Emit(fb); });
+      m_bookingDataset.BuildHotel(hotelIndex, [this](FeatureBuilder1 & fb) { Emit(fb); });
 
     m_places.ForEach([this](Place const & p)
     {

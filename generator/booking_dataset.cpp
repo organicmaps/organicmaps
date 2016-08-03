@@ -16,7 +16,7 @@
 
 #include "std/fstream.hpp"
 #include "std/iostream.hpp"
-#include "std/limits.hpp"
+
 #include "std/sstream.hpp"
 
 namespace generator
@@ -125,13 +125,15 @@ size_t BookingDataset::GetMatchingHotelIndex(FeatureBuilder1 const & fb) const
 {
   if (CanBeBooking(fb))
     return MatchWithBooking(fb);
-  return numeric_limits<size_t>::max();
+  return kInvalidHotelIndex;
 }
 
-// TODO(mgsergio): rename to ... or delete.
-bool BookingDataset::TourismFilter(FeatureBuilder1 const & fb) const
+bool BookingDataset::CanBeBooking(FeatureBuilder1 const & fb) const
 {
-  return CanBeBooking(fb);
+  if (fb.GetName(StringUtf8Multilang::kDefaultCode).empty())
+    return false;
+
+  return ftypes::IsHotelChecker::Instance()(fb.GetTypes());
 }
 
 BookingDataset::Hotel const & BookingDataset::GetHotel(size_t index) const
@@ -146,17 +148,17 @@ BookingDataset::Hotel & BookingDataset::GetHotel(size_t index)
   return m_hotels[index];
 }
 
-vector<size_t> BookingDataset::GetNearestHotels(double lat, double lon, size_t limit,
-                                                double maxDistance /* = 0.0 */) const
+vector<size_t> BookingDataset::GetNearestHotels(ms::LatLon const & latLon, size_t const limit,
+                                                double const maxDistance /* = 0.0 */) const
 {
   namespace bgi = boost::geometry::index;
 
   vector<size_t> indexes;
-  for_each(bgi::qbegin(m_rtree, bgi::nearest(TPoint(lat, lon), limit)), bgi::qend(m_rtree),
-           [&](TValue const & v)
+  for_each(bgi::qbegin(m_rtree, bgi::nearest(TPoint(latLon.lat, latLon.lon), limit)),
+           bgi::qend(m_rtree), [&](TValue const & v)
            {
              auto const & hotel = GetHotel(v.second);
-             double const dist = ms::DistanceOnEarth(lat, lon, hotel.lat, hotel.lon);
+             double const dist = ms::DistanceOnEarth(latLon.lat, latLon.lon, hotel.lat, hotel.lon);
              if (maxDistance != 0.0 && dist > maxDistance /* max distance in meters */)
                return;
 
@@ -166,15 +168,15 @@ vector<size_t> BookingDataset::GetNearestHotels(double lat, double lon, size_t l
   return indexes;
 }
 
-void BookingDataset::BuildFeature(size_t const hotelIndex,
-                                  function<void(FeatureBuilder1 &)> const & fn) const
+void BookingDataset::BuildHotel(size_t const hotelIndex,
+                                function<void(FeatureBuilder1 &)> const & fn) const
 {
   auto const & hotel = m_hotels[hotelIndex];
 
-  FeatureBuilder1 bookingFb;
+  FeatureBuilder1 fb;
   FeatureParams params;
 
-  bookingFb.SetCenter(MercatorBounds::FromLatLon(hotel.lat, hotel.lon));
+  fb.SetCenter(MercatorBounds::FromLatLon(hotel.lat, hotel.lon));
 
   auto & metadata = params.GetMetadata();
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.id));
@@ -187,10 +189,10 @@ void BookingDataset::BuildFeature(size_t const hotelIndex,
   // TODO(mgsergio): addr:full ???
 
   if (!hotel.street.empty())
-    bookingFb.AddStreet(hotel.street);
+    fb.AddStreet(hotel.street);
 
   if (!hotel.houseNumber.empty())
-    bookingFb.AddHouseNumber(hotel.houseNumber);
+    fb.AddHouseNumber(hotel.houseNumber);
 
   params.AddName(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode),
                  hotel.name);
@@ -199,7 +201,7 @@ void BookingDataset::BuildFeature(size_t const hotelIndex,
     // TODO(mgsergio): Move parsing to the hotel costruction stage.
     vector<string> parts;
     strings::ParseCSVRow(hotel.translations, '|', parts);
-    CHECK(parts.size() % 3 == 0, ());
+    CHECK_EQUAL(parts.size() % 3, 0, ("Invalid translation string:", hotel.translations));
     for (auto i = 0; i < parts.size(); i += 3)
     {
       auto const langCode = StringUtf8Multilang::GetLangIndex(parts[i]);
@@ -261,9 +263,9 @@ void BookingDataset::BuildFeature(size_t const hotelIndex,
     default: params.AddType(clf.GetTypeByPath({"tourism", "hotel"})); break;
   }
 
-  bookingFb.SetParams(params);
+  fb.SetParams(params);
 
-  fn(bookingFb);
+  fn(fb);
 }
 
 void BookingDataset::LoadHotels(istream & src, string const & addressReferencePath)
@@ -315,10 +317,9 @@ size_t BookingDataset::MatchWithBooking(FeatureBuilder1 const & fb) const
   if (name.empty())
     return false;
 
-  auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
   // Find |kMaxSelectedElements| nearest values to a point.
-  auto const bookingIndexes =
-      GetNearestHotels(center.lat, center.lon, kMaxSelectedElements, kDistanceLimitInMeters);
+  auto const bookingIndexes = GetNearestHotels(MercatorBounds::ToLatLon(fb.GetKeyPoint()),
+                                               kMaxSelectedElements, kDistanceLimitInMeters);
 
   for (size_t const j : bookingIndexes)
   {
@@ -326,16 +327,6 @@ size_t BookingDataset::MatchWithBooking(FeatureBuilder1 const & fb) const
       return j;
   }
 
-  return numeric_limits<size_t>::max();
-}
-
-bool BookingDataset::CanBeBooking(FeatureBuilder1 const & fb) const
-{
-  // TODO(mgsergio): Remove me after refactoring is done and tested.
-  // Or remove the entire filter func.
-  if (fb.GetName(StringUtf8Multilang::kDefaultCode).empty())
-    return false;
-
-  return ftypes::IsHotelChecker::Instance()(fb.GetTypes());
+  return kInvalidHotelIndex;
 }
 }  // namespace generator

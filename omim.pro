@@ -34,17 +34,17 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     generator_tool.subdir = generator/generator_tool
     generator_tool.depends = $$SUBDIRS
     SUBDIRS *= generator_tool
-
-    # Booking quality check
-    booking_quality_check.subdir = generator/booking_quality_check
-    booking_quality_check.depends = $$SUBDIRS
-    SUBDIRS *= booking_quality_check
-   }
+  }
 
   # Integration tests dependencies for gtool.
   # TODO(AlexZ): Avoid duplication for routing_integration_tests.
   CONFIG(gtool):!CONFIG(no-tests) {
     SUBDIRS *= map
+
+    # Booking quality check
+    booking_quality_check.subdir = generator/booking_quality_check
+    booking_quality_check.depends = $$SUBDIRS
+    SUBDIRS *= booking_quality_check
 
     routing_integration_tests.subdir = routing/routing_integration_tests
     routing_integration_tests.depends = $$SUBDIRS

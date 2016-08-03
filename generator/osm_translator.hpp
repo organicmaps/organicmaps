@@ -483,8 +483,8 @@ public:
   }
 
 public:
-  OsmToFeatureTranslator(TEmitter & emitter, TCache & holder,
-                         uint32_t coastType, string const & addrFilePath = {})
+  OsmToFeatureTranslator(TEmitter & emitter, TCache & holder, uint32_t coastType,
+                         string const & addrFilePath = {})
     : m_emitter(emitter), m_holder(holder), m_coastType(coastType)
   {
     if (!addrFilePath.empty())

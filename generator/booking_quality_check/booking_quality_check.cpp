@@ -7,6 +7,8 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "coding/file_name_utils.hpp"
+
 #include "std/fstream.hpp"
 #include "std/iostream.hpp"
 #include "std/numeric.hpp"
@@ -14,8 +16,6 @@
 #include "std/unique_ptr.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
-
-// TODO(mgsergio):Unused: DEFINE_bool(generate_classif, false, "Generate classificator.");
 
 DEFINE_string(osm_file_name, "", "Input .o5m file");
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format");
@@ -72,7 +72,7 @@ struct Emitter : public EmitterBase
 
   void operator()(FeatureBuilder1 & fb) override
   {
-    if (m_bookingDataset.TourismFilter(fb))
+    if (m_bookingDataset.CanBeBooking(fb))
       m_features.emplace_back(fb);
   }
 
@@ -96,9 +96,8 @@ struct Emitter : public EmitterBase
     for (size_t i : elementIndexes)
     {
       auto const & fb = m_features[i];
-      auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
       auto const bookingIndexes = m_bookingDataset.GetNearestHotels(
-          center.lat, center.lon,
+          MercatorBounds::ToLatLon(fb.GetKeyPoint()),
           BookingDataset::kMaxSelectedElements,
           BookingDataset::kDistanceLimitInMeters);
 
@@ -167,12 +166,10 @@ feature::GenerateInfo GetGenerateInfo()
   info.SetNodeStorageType("map");
   info.SetOsmFileType("o5m");
 
-  auto const lastSlash = FLAGS_sample_data.rfind("/");
-  if (lastSlash == string::npos)
-    info.m_intermediateDir = ".";
-  else
-    info.m_intermediateDir = FLAGS_sample_data.substr(0, lastSlash);
+  info.m_intermediateDir =  my::GetDirectory(FLAGS_sample_data);
+
   // ...
+
   return info;
 }
 }  // namespace
