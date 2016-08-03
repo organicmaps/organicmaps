@@ -1,17 +1,17 @@
-#import "Common.h"
 #import "MWMEditorSelectTableViewCell.h"
+#import "Common.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 @interface MWMEditorSelectTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView * icon;
-@property (weak, nonatomic) IBOutlet UILabel * label;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * labelLeadingOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * labelTrailingOffset;
-@property (weak, nonatomic) IBOutlet UIImageView * grayArrow;
+@property(weak, nonatomic) IBOutlet UIImageView * icon;
+@property(weak, nonatomic) IBOutlet UILabel * label;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * labelLeadingOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * labelTrailingOffset;
+@property(weak, nonatomic) IBOutlet UIImageView * grayArrow;
 
-@property (weak, nonatomic) id<MWMEditorCellProtocol> delegate;
+@property(weak, nonatomic) id<MWMEditorCellProtocol> delegate;
 
 @end
 
@@ -36,15 +36,12 @@
     self.label.text = placeholder;
     self.label.textColor = [UIColor blackHintText];
   }
-  self.label.preferredMaxLayoutWidth = self.width - self.labelLeadingOffset.constant - self.labelTrailingOffset.constant;
+  self.label.preferredMaxLayoutWidth =
+      self.width - self.labelLeadingOffset.constant - self.labelTrailingOffset.constant;
 
   if (isInterfaceRightToLeft())
     self.grayArrow.transform = CGAffineTransformMakeScale(-1, 1);
 }
 
-- (IBAction)selectAction
-{
-  [self.delegate cellSelect:self];
-}
-
+- (IBAction)selectAction { [self.delegate cellSelect:self]; }
 @end
