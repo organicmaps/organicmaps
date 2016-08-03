@@ -1,4 +1,5 @@
 #pragma once
+
 #include "coding/bit_streams.hpp"
 #include "coding/elias_coder.hpp"
 #include "coding/reader.hpp"
@@ -88,13 +89,13 @@ public:
 
     BitWriter<TSink> bits(sink);
     TAltitude prevAltitude = minAltitude;
-    for (auto const a : m_altitudes)
+    for (auto const altitude : m_altitudes)
     {
-      CHECK_LESS_OR_EQUAL(minAltitude, a, ("A point altitude is less then min mwm altitude"));
-      uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(a) -
+      CHECK_LESS_OR_EQUAL(minAltitude, altitude, ("A point altitude is less than min mwm altitude"));
+      uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(altitude) -
                                                 static_cast<int32_t>(prevAltitude));
       coding::DeltaCoder::Encode(bits, delta + 1 /* making it greater than zero */);
-      prevAltitude = a;
+      prevAltitude = altitude;
     }
   }
 
@@ -109,19 +110,20 @@ public:
 
     for (size_t i = 0; i < pointCount; ++i)
     {
-      uint32_t const decoded = coding::DeltaCoder::Decode(bits);
-      if (decoded == 0)
+      uint32_t const biasedDelta = coding::DeltaCoder::Decode(bits);
+      if (biasedDelta == 0)
       {
         ASSERT(false, ("Decoded altitude delta is zero. Point number in its feature is", i));
         m_altitudes.clear();
         return false;
       }
-      uint32_t const delta = decoded - 1 /* recovering value */;
+      uint32_t const delta = biasedDelta - 1;
 
       m_altitudes[i] = static_cast<TAltitude>(bits::ZigZagDecode(delta) + prevAltitude);
       if (m_altitudes[i] < minAltitude)
       {
-        ASSERT(false, ("A point altitude readed from file is less then min mwm altitude. Point number in its feature is", i));
+        ASSERT(false, ("A point altitude read from file(", m_altitudes[i],
+                       ") is less than min mwm altitude(", minAltitude, "). Point number in its feature is", i));
         m_altitudes.clear();
         return false;
       }
