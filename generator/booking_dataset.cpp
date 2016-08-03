@@ -166,14 +166,14 @@ vector<size_t> BookingDataset::GetNearestHotels(double lat, double lon, size_t l
   return indexes;
 }
 
-void BookingDataset::BuildFeature(FeatureBuilder1 const & /*fb*/, size_t const hotelIndex,
+void BookingDataset::BuildFeature(size_t const hotelIndex,
                                   function<void(FeatureBuilder1 &)> const & fn) const
 {
   auto const & hotel = m_hotels[hotelIndex];
 
   FeatureBuilder1 bookingFb;
   FeatureParams params;
-  // TODO(mgsergio): handle areas.
+
   bookingFb.SetCenter(MercatorBounds::FromLatLon(hotel.lat, hotel.lon));
 
   auto & metadata = params.GetMetadata();
@@ -333,9 +333,6 @@ bool BookingDataset::CanBeBooking(FeatureBuilder1 const & fb) const
 {
   // TODO(mgsergio): Remove me after refactoring is done and tested.
   // Or remove the entire filter func.
-  if (fb.GetGeomType() != feature::GEOM_POINT)
-    return false;
-
   if (fb.GetName(StringUtf8Multilang::kDefaultCode).empty())
     return false;
 

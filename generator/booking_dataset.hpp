@@ -88,8 +88,7 @@ public:
                                   double maxDistance = 0.0) const;
   bool MatchByName(string const & osmName, vector<size_t> const & bookingIndexes) const;
 
-  void BuildFeature(FeatureBuilder1 const & fb, size_t hotelIndex,
-                    function<void(FeatureBuilder1 &)> const & fn) const;
+  void BuildFeature(size_t hotelIndex, function<void(FeatureBuilder1 &)> const & fn) const;
 
 protected:
   vector<Hotel> m_hotels;

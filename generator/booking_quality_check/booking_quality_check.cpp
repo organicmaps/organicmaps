@@ -51,6 +51,13 @@ string PrintBuilder(FeatureBuilder1 const & fb)
   auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
   s << "lat: " << center.lat << " lon: " << center.lon << '\t';
 
+  if (fb.GetGeomType() == feature::GEOM_POINT)
+    s << "GeomType: GEOM_POINT";
+  else if (fb.GetGeomType() == feature::GEOM_AREA)
+    s << "GeomType: GEOM_AREA";
+  else
+    CHECK(false, ());
+
   return s.str();
 }
 

@@ -185,7 +185,7 @@ public:
   }
 };
 
-// TODO(mgsergio): comment
+/// Used to make a "good" node for a highway graph with OSRM for low zooms.
 class Place
 {
   FeatureBuilder1 m_ft;
@@ -267,12 +267,16 @@ class MainFeaturesEmitter : public EmitterBase
   unique_ptr<CoastlineFeaturesGenerator> m_coasts;
   unique_ptr<feature::FeaturesCollector> m_coastsHolder;
 
+  string const m_skippedElementsPath;
+  ostringstream m_skippedElements;
+
   string m_srcCoastsFile;
   bool m_failOnCoasts;
 
   generator::BookingDataset m_bookingDataset;
 
-  // TODO(mgsergio): comment.
+  /// Used to prepare a list of cities to serve as a list of nodes
+  /// for building a highway graph with OSRM for low zooms.
   m4::Tree<Place> m_places;
 
   enum TypeIndex
@@ -290,7 +294,8 @@ class MainFeaturesEmitter : public EmitterBase
 
 public:
   MainFeaturesEmitter(feature::GenerateInfo const & info)
-  : m_failOnCoasts(info.m_failOnCoasts)
+  : m_skippedElementsPath(info.GetIntermediateFileName("skipped_elements", ".lst"))
+  , m_failOnCoasts(info.m_failOnCoasts)
   , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
   {
     Classificator const & c = classif();
@@ -345,7 +350,31 @@ public:
     else if ((hotelIndex = m_bookingDataset.GetMatchingHotelIndex(fb)) !=
              numeric_limits<size_t>::max())
     {
-      m_bookingDataset.BuildFeature(fb, hotelIndex, [this](FeatureBuilder1 & fb) { Emit(fb); });
+      m_skippedElements << DebugPrint(fb.GetMostGenericOsmId()) << endl;
+
+      // Make a hotel a simple building.
+      if (fb.GetGeomType() == feature::GEOM_AREA)
+      {
+        // Remove all information about a hotel.
+        auto params = fb.GetParams();
+        params.ClearName();
+        auto & meta = params.GetMetadata();
+        meta.Drop(feature::Metadata::EType::FMD_STARS);
+        meta.Drop(feature::Metadata::EType::FMD_WEBSITE);
+        meta.Drop(feature::Metadata::EType::FMD_PHONE_NUMBER);
+
+        auto & types = params.m_Types;
+        types.erase(remove_if(begin(types), end(types), [](uint32_t type)
+        {
+          static auto const & c = classif();
+          static auto tourism = c.GetTypeByPath({"tourism"});
+          ftype::TruncValue(type, 1);
+          return type == tourism;
+        }));
+        fb.SetParams(params);
+
+        Emit(fb);
+      }
     }
     else
     {
@@ -356,6 +385,12 @@ public:
   /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
   bool Finish() override
   {
+    DumpSkippedElements();
+
+    // Emit all booking objecs to the map.
+    for (size_t hotelIndex = 0; hotelIndex < m_bookingDataset.Size(); ++hotelIndex)
+      m_bookingDataset.BuildFeature(hotelIndex, [this](FeatureBuilder1 & fb) { Emit(fb); });
+
     m_places.ForEach([this](Place const & p)
     {
       // m_places are no longer used after this point.
@@ -459,11 +494,34 @@ private:
     if (m_countries)
       (*m_countries)(fb);
   }
+
+  void DumpSkippedElements()
+  {
+    auto const skippedElements = m_skippedElements.str();
+
+    if (skippedElements.empty())
+    {
+      LOG(LINFO, ("No osm object was skipped."));
+      return;
+    }
+
+    ofstream file(m_skippedElementsPath, ios_base::app);
+    if (file.is_open())
+    {
+      file << m_skippedElements.str();
+      LOG(LINFO, ("Saving skipped elements to", m_skippedElementsPath, "done."));
+    }
+    else
+    {
+      LOG(LERROR, ("Can't output into", m_skippedElementsPath));
+    }
+  }
 };
 }  // anonymous namespace
 
 unique_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info)
 {
+  LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
   return make_unique<MainFeaturesEmitter>(info);
 }
 
@@ -632,21 +690,12 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
     OsmTagMixer osmTagMixer(GetPlatform().ResourcesDir() + MIXED_TAGS_FILE);
 
-    // TODO(mgsergio): Output skipped elemnts.
-    // stringstream skippedElements;
-
-    // Here we can add new tags to element!!!
+    // Here we can add new tags to the elements!
     auto const fn = [&](OsmElement * e)
     {
       tagReplacer(e);
       tagAdmixer(e);
       osmTagMixer(e);
-
-      // if (bookingDataset.BookingFilter(*e))
-      // {
-      //   skippedElements << e->id << endl;
-      //   return;
-      // }
 
       parser.EmitElement(e);
     };
@@ -663,24 +712,6 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     }
 
     LOG(LINFO, ("Processing", info.m_osmFileName, "done."));
-
-    // TOFO(mgsergio): Build features in Emitter.
-    // if (!info.m_bookingDatafileName.empty())
-    // {
-    //   bookingDataset.BuildFeatures([&](OsmElement * e) { parser.EmitElement(e); });
-    //   LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
-    //   string skippedElementsPath = info.GetIntermediateFileName("skipped_elements", ".lst");
-    //   ofstream file(skippedElementsPath);
-    //   if (file.is_open())
-    //   {
-    //     file << skippedElements.str();
-    //     LOG(LINFO, ("Saving skipped elements to", skippedElementsPath, "done."));
-    //   }
-    //   else
-    //   {
-    //     LOG(LERROR, ("Can't output into", skippedElementsPath));
-    //   }
-    // }
 
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set
     if (!emitter.Finish())

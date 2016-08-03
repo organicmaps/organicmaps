@@ -239,6 +239,11 @@ bool IsDummyName(string const & s)
 // FeatureParams implementation
 /////////////////////////////////////////////////////////////////////////////////////////
 
+void FeatureParams::ClearName()
+{
+  name.Clear();
+}
+
 bool FeatureParams::AddName(string const & lang, string const & s)
 {
   if (IsDummyName(s))

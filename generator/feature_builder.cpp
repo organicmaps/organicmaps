@@ -469,6 +469,25 @@ osm::Id FeatureBuilder1::GetLastOsmId() const
   return m_osmIds.back();
 }
 
+osm::Id FeatureBuilder1::GetMostGenericOsmId() const
+{
+  ASSERT(!m_osmIds.empty(), ());
+  auto result = m_osmIds.front();
+  for (auto const & id : m_osmIds)
+  {
+    if (id.IsRelation())
+    {
+      result = id;
+      break;
+    }
+    else if (result.IsNode() && id.IsWay())
+    {
+      result = id;
+    }
+  }
+  return result;
+}
+
 bool FeatureBuilder1::HasOsmId(osm::Id const & id) const
 {
   for (auto const & cid : m_osmIds)

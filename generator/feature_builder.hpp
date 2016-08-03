@@ -161,12 +161,15 @@ public:
 
   inline FeatureParams const & GetParams() const { return m_params; }
 
-  /// @name For OSM debugging, store original OSM id
+  /// @name For OSM debugging and osm objects replacement, store original OSM id
   //@{
   void AddOsmId(osm::Id id);
   void SetOsmId(osm::Id id);
   osm::Id GetFirstOsmId() const;
   osm::Id GetLastOsmId() const;
+  /// @returns an id of the most general element: node's one if there is no area or relation,
+  /// area's one if there is no relation, and relation id otherwise.
+  osm::Id GetMostGenericOsmId() const;
   bool HasOsmId(osm::Id const & id) const;
   string GetOsmIdsString() const;
   //@}

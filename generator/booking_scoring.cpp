@@ -21,7 +21,7 @@ namespace booking_scoring
 namespace
 {
 // Calculated with tools/python/booking_hotels_quality.py.
-double constexpr kOptimalThreshold = 0.321098;
+double constexpr kOptimalThreshold = 0.304875;
 
 template <typename T, typename U>
 struct decay_equiv :
