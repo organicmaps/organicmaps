@@ -166,19 +166,27 @@ extern NSString * const kAlohalyticsTapEventKey;
   else if (m == MWMRoutingPlaneModePlacePage)
   {
     if (state == MWMSearchManagerStateHidden)
-      return;
-    [UIView animateWithDuration:kDefaultAnimationDuration
-        animations:^{
-          self.navigationManager.routePreview.alpha = 0.;
-        }
-        completion:^(BOOL finished) {
-          MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModeNone;
-          self.navigationManager.routePreview.alpha = 1.;
-          [self.navigationManager.routePreview removeFromSuperview];
-          [[MWMRouter router] stop];
-          self.navigationManager.state = MWMNavigationDashboardStateHidden;
-          self.menuController.p2pButton.selected = NO;
-        }];
+    {
+      [UIView animateWithDuration:kDefaultAnimationDuration
+                       animations:^{
+                         self.navigationManager.routePreview.alpha = 1.;
+                       }];
+    }
+    else
+    {
+      [UIView animateWithDuration:kDefaultAnimationDuration
+          animations:^{
+            self.navigationManager.routePreview.alpha = 0.;
+          }
+          completion:^(BOOL finished) {
+            MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModeNone;
+            self.navigationManager.routePreview.alpha = 1.;
+            [self.navigationManager.routePreview removeFromSuperview];
+            [[MWMRouter router] stop];
+            self.navigationManager.state = MWMNavigationDashboardStateHidden;
+            self.menuController.p2pButton.selected = NO;
+          }];
+    }
   }
 }
 
