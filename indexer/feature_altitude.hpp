@@ -6,6 +6,7 @@
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
+#include "base/bits.hpp"
 
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
@@ -83,33 +84,50 @@ public:
   template <class TSink>
   void Serialize(TAltitude minAltitude, TSink & sink) const
   {
-    vector<uint32_t> deltas;
-    PrepareSerializationDate(minAltitude, deltas);
+    CHECK(!m_altitudes.empty(), ());
 
     BitWriter<TSink> bits(sink);
-    for (auto const d : deltas)
-      coding::DeltaCoder::Encode(bits, d + 1 /* making it greater than zero */);
+    TAltitude prevAltitude = minAltitude;
+    for (auto const a : m_altitudes)
+    {
+      CHECK_LESS_OR_EQUAL(minAltitude, a, ("A point altitude is less then min mwm altitude"));
+      uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(a) -
+                                                static_cast<int32_t>(prevAltitude));
+      coding::DeltaCoder::Encode(bits, delta + 1 /* making it greater than zero */);
+      prevAltitude = a;
+    }
   }
 
   template <class TSource>
   bool Deserialize(TAltitude minAltitude, size_t pointCount, TSource & src)
   {
-    vector<uint32_t> deltas(pointCount);
+    ASSERT_NOT_EQUAL(pointCount, 0, ());
+
     BitReader<TSource> bits(src);
+    TAltitude prevAltitude = minAltitude;
+    m_altitudes.resize(pointCount);
 
     for (size_t i = 0; i < pointCount; ++i)
     {
       uint32_t const decoded = coding::DeltaCoder::Decode(bits);
       if (decoded == 0)
       {
-        ASSERT(false, (i));
+        ASSERT(false, ("Decoded altitude delta is zero. Point number in its feature is", i));
         m_altitudes.clear();
         return false;
       }
-      deltas[i] = decoded - 1 /* recovering value */;
-    }
+      uint32_t const delta = decoded - 1 /* recovering value */;
 
-    return FillAltitudesByDeserializedDate(minAltitude, deltas);
+      m_altitudes[i] = static_cast<TAltitude>(bits::ZigZagDecode(delta) + prevAltitude);
+      if (m_altitudes[i] < minAltitude)
+      {
+        ASSERT(false, ("A point altitude readed from file is less then min mwm altitude. Point number in its feature is", i));
+        m_altitudes.clear();
+        return false;
+      }
+      prevAltitude = m_altitudes[i];
+    }
+    return true;
   }
 
   /// \note |m_altitudes| is a vector of feature point altitudes. There's two possibilities:
@@ -117,9 +135,5 @@ public:
   /// * size of |m_pointAlt| is equal to the number of this feature's points. If so
   ///   all items of |m_altitudes| have valid value.
   TAltitudes m_altitudes;
-
-private:
-  void PrepareSerializationDate(TAltitude minAltitude, vector<uint32_t> & deltas) const;
-  bool FillAltitudesByDeserializedDate(TAltitude minAltitude, vector<uint32_t> const & deltas);
 };
 }  // namespace feature
