@@ -1,4 +1,5 @@
 #import "Common.h"
+#import "UIButton+Orientation.h"
 #import "UIViewController+Navigation.h"
 
 namespace
@@ -23,6 +24,7 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
   CGSize const buttonSize = {image.size.width + kButtonExtraWidth, image.size.height};
   UIButton * button = [[UIButton alloc] initWithFrame:{{}, buttonSize}];
   [button setImage:image forState:UIControlStateNormal];
+  [button matchInterfaceOrientation];
   [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
   return [[UIBarButtonItem alloc] initWithCustomView:button];
 }
@@ -34,14 +36,7 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
 
 - (UIBarButtonItem *)backButton
 {
-  UIImage * backImg = [UIImage imageNamed:@"ic_nav_bar_back"];
-  if (isInterfaceRightToLeft())
-  {
-    backImg = [UIImage imageWithCGImage:backImg.CGImage
-                                  scale:backImg.scale
-                            orientation:UIImageOrientationUpMirrored];
-  }
-  return [self buttonWithImage:backImg action:@selector(backTap)];
+  return [self buttonWithImage:[UIImage imageNamed:@"ic_nav_bar_back"] action:@selector(backTap)];
 }
 
 - (void)showBackButton

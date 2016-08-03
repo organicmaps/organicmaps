@@ -7,6 +7,7 @@
 #import "MWMRouter.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
+#import "UIButton+Orientation.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
@@ -14,6 +15,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 
 @interface MWMRoutePreview ()<MWMRoutePointCellDelegate, MWMCircularProgressProtocol>
 
+@property(weak, nonatomic) IBOutlet UIButton * backButton;
 @property(weak, nonatomic) IBOutlet UIView * pedestrian;
 @property(weak, nonatomic) IBOutlet UIView * vehicle;
 @property(weak, nonatomic) IBOutlet UIView * bicycle;
@@ -53,6 +55,8 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   [self.collectionView registerNib:[UINib nibWithNibName:[MWMRoutePointCell className] bundle:nil]
         forCellWithReuseIdentifier:[MWMRoutePointCell className]];
   [self setupProgresses];
+
+  [self.backButton matchInterfaceOrientation];
 }
 
 - (void)setupProgresses
