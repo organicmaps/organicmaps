@@ -15,6 +15,7 @@ HEADERS += \
     booking_api.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
+    displacement_mode_manager.hpp \
     feature_vec_model.hpp \
     framework.hpp \
     ge0_parser.hpp \
@@ -37,13 +38,14 @@ SOURCES += \
     booking_api.cpp \
     bookmark.cpp \
     bookmark_manager.cpp \
+    displacement_mode_manager.cpp \
     feature_vec_model.cpp \
     framework.cpp \
     ge0_parser.cpp \
     geourl_process.cpp \
     gps_track.cpp \
-    gps_track_filter.cpp \
     gps_track_collection.cpp \
+    gps_track_filter.cpp \
     gps_track_storage.cpp \
     gps_tracker.cpp \
     mwm_url.cpp \

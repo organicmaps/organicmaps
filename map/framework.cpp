@@ -13,6 +13,7 @@
 
 #include "search/engine.hpp"
 #include "search/geometry_utils.hpp"
+#include "search/interactive_search_callback.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/processor_factory.hpp"
 #include "search/result.hpp"
@@ -303,6 +304,10 @@ Framework::Framework()
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
+  , m_displacementModeManager([this](bool show) {
+    int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
+    CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
+  })
   , m_lastReportedCountry(kInvalidCountryId)
 {
   m_startBackgroundTime = my::Timer::LocalTime();
@@ -914,9 +919,9 @@ void Framework::PrepareToShutdown()
   DestroyDrapeEngine();
 }
 
-void Framework::SetDisplacementMode(int mode)
+void Framework::SetDisplacementMode(DisplacementModeManager::Slot slot, bool show)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
+  m_displacementModeManager.Set(slot, show);
 }
 
 void Framework::SaveViewport()
@@ -1066,15 +1071,13 @@ void Framework::InvalidateRect(m2::RectD const & rect)
 
 void Framework::StartInteractiveSearch(search::SearchParams const & params)
 {
-  using namespace search;
-
   auto const originalOnResults = params.m_onResults;
 
-  m_lastInteractiveSearchParams = params;
-  m_lastInteractiveSearchParams.SetForceSearch(false);
-  m_lastInteractiveSearchParams.SetMode(search::Mode::Viewport);
-  m_lastInteractiveSearchParams.SetSuggestsEnabled(false);
-  m_lastInteractiveSearchParams.m_onResults = [this, originalOnResults](Results const & results) {
+  auto setMode = [this]() {
+    SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, true /* show */);
+  };
+
+  auto onResults = [this, originalOnResults](search::Results const & results) {
     if (!results.IsEndMarker())
     {
       GetPlatform().RunOnGuiThread([this, results]() {
@@ -1086,6 +1089,14 @@ void Framework::StartInteractiveSearch(search::SearchParams const & params)
     if (originalOnResults)
       originalOnResults(results);
   };
+
+  m_lastInteractiveSearchParams = params;
+  m_lastInteractiveSearchParams.SetForceSearch(false);
+  m_lastInteractiveSearchParams.SetMode(search::Mode::Viewport);
+  m_lastInteractiveSearchParams.SetSuggestsEnabled(false);
+  m_lastInteractiveSearchParams.m_onResults =
+      search::InteractiveSearchCallback(move(setMode), move(onResults));
+
   UpdateUserViewportChanged();
 }
 
@@ -1474,6 +1485,7 @@ void Framework::CancelInteractiveSearch()
   if (IsInteractiveSearchActive())
   {
     m_lastInteractiveSearchParams.Clear();
+    SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, false /* show */);
     CancelQuery(m_lastProcessorHandle);
   }
 }
@@ -1938,8 +1950,7 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
   CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(), info.GetID(),
                          needAnimation));
 
-  SetDisplacementMode(info.IsHotel() ? dp::displacement::kHotelMode
-                                     : dp::displacement::kDefaultMode);
+  SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION, info.IsHotel() /* show */);
 
   if (m_activateMapSelectionFn)
     m_activateMapSelectionFn(info);
@@ -1958,7 +1969,7 @@ void Framework::DeactivateMapSelection(bool notifyUI)
   if (somethingWasAlreadySelected)
     CallDrapeFunction(bind(&df::DrapeEngine::DeselectObject, _1));
 
-  SetDisplacementMode(dp::displacement::kDefaultMode);
+  SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION, false /* show */);
 }
 
 void Framework::UpdatePlacePageInfoForCurrentSelection()

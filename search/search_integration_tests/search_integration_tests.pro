@@ -21,6 +21,7 @@ SOURCES += \
     ../../testing/testingmain.cpp \
     generate_tests.cpp \
     helpers.cpp \
+    interactive_search_test.cpp \
     pre_ranker_test.cpp \
     processor_test.cpp \
     smoke_test.cpp \

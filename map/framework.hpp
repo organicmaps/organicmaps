@@ -4,9 +4,10 @@
 #include "map/booking_api.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
-#include "map/place_page_info.hpp"
+#include "map/displacement_mode_manager.hpp"
 #include "map/feature_vec_model.hpp"
 #include "map/mwm_url.hpp"
+#include "map/place_page_info.hpp"
 #include "map/track.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
@@ -381,11 +382,13 @@ public:
 
   void PrepareToShutdown();
 
-  void SetDisplacementMode(int mode);
+  void SetDisplacementMode(DisplacementModeManager::Slot slot, bool show);
 
 private:
   void InitCountryInfoGetter();
   void InitSearchEngine();
+
+  DisplacementModeManager m_displacementModeManager;
 
   // Last search query params for the interactive search.
   search::SearchParams m_lastInteractiveSearchParams;

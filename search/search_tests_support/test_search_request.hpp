@@ -34,8 +34,13 @@ public:
   steady_clock::duration ResponseTime() const;
   vector<search::Result> const & Results() const;
 
-private:
+protected:
+  TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
+                    Mode mode, m2::RectD const & viewport, TOnStarted onStarted,
+                    TOnResults onResults);
+
   void SetUpCallbacks(SearchParams & params);
+
   void OnStarted();
   void OnResults(search::Results const & results);
 
