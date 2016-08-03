@@ -36,7 +36,6 @@ using namespace routing::turns;
     string units;
     is>>dist;
     is>>units;
-    _pedestrianDirectionPosition = {};
     _nextTurnImage = nil;
     _distanceToTurn = @(dist.c_str());
     _turnUnits = @(units.c_str());
