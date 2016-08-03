@@ -1,86 +1,166 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
+import android.text.TextUtils;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.settings.SettingsActivity;
+import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FlatProgressView;
-import com.mapswithme.util.Animations;
+import com.mapswithme.maps.widget.menu.NavMenu;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 public class NavigationController
 {
   private final View mFrame;
+  private final View mBottomFrame;
+  private final NavMenu mNavMenu;
 
-  private final TextView mDistanceTotal;
-  private final TextView mTimeTotal;
-  private final ImageView mTurnDirection;
-  private final TextView mExitNumber;
-
-  private final View mNextTurnFrame;
   private final ImageView mNextTurnImage;
+  private final TextView mNextTurnDistance;
+  private final TextView mCircleExit;
 
-  private final TextView mDistanceTurn;
-  private final FlatProgressView mRouteProgress;
+  private final View mNextNextTurnFrame;
+  private final ImageView mNextNextTurnImage;
+
+  private final View mStreetFrame;
   private final TextView mNextStreet;
-  private final TextView mTimeArrival;
+
+  private final TextView mSpeedValue;
+  private final TextView mSpeedUnits;
+  private final TextView mTimeHourValue;
+  private final TextView mTimeHourUnits;
+  private final TextView mTimeMinuteValue;
+  private final TextView mTimeMinuteUnits;
+  private final ImageView mDotTimeLeft;
+  private final ImageView mDotTimeArrival;
+  private final TextView mDistanceValue;
+  private final TextView mDistanceUnits;
+  private final FlatProgressView mRouteProgress;
+
+  private boolean mShowTimeLeft = true;
 
   private double mNorth;
 
   public NavigationController(Activity activity)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
-
-    mDistanceTotal = (TextView) mFrame.findViewById(R.id.tv__total_distance);
-    mTimeTotal = (TextView) mFrame.findViewById(R.id.tv__total_time);
-    mTimeArrival = (TextView) mFrame.findViewById(R.id.tv__arrival_time);
-    mTurnDirection = (ImageView) mFrame.findViewById(R.id.iv__turn);
-    mExitNumber = (TextView) mFrame.findViewById(R.id.tv__exit_num);
-
-    mDistanceTurn = (TextView) mFrame.findViewById(R.id.tv__turn_distance);
-    mRouteProgress = (FlatProgressView) mFrame.findViewById(R.id.fp__route_progress);
-    mNextStreet = (TextView) mFrame.findViewById(R.id.tv__next_street);
-
-    mFrame.findViewById(R.id.btn__close).setOnClickListener(new View.OnClickListener()
+    mBottomFrame = mFrame.findViewById(R.id.nav_bottom_frame);
+    mBottomFrame.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
       {
-        AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
-        RoutingController.get().cancel();
+        switchTimeFormat();
       }
     });
+    mNavMenu = createNavMenu();
+    mNavMenu.refreshTts();
 
-    mNextTurnFrame = mFrame.findViewById(R.id.next_turn_frame);
-    mNextTurnImage = (ImageView) mNextTurnFrame.findViewById(R.id.iv__next_turn);
+    // Top frame
+    View topFrame = mFrame.findViewById(R.id.nav_top_frame);
+    View turnFrame = topFrame.findViewById(R.id.nav_next_turn_frame);
+    mNextTurnImage = (ImageView) turnFrame.findViewById(R.id.turn);
+    mNextTurnDistance = (TextView) turnFrame.findViewById(R.id.distance);
+    mCircleExit = (TextView) turnFrame.findViewById(R.id.circle_exit);
+
+    mNextNextTurnFrame = topFrame.findViewById(R.id.nav_next_next_turn_frame);
+    mNextNextTurnImage = (ImageView) mNextNextTurnFrame.findViewById(R.id.turn);
+
+    mStreetFrame = topFrame.findViewById(R.id.street_frame);
+    mNextStreet = (TextView) mStreetFrame.findViewById(R.id.street);
+    View shadow = topFrame.findViewById(R.id.shadow_top);
+    UiUtils.showIf(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP, shadow);
+
+    // Bottom frame
+    mSpeedValue = (TextView) mBottomFrame.findViewById(R.id.speed_value);
+    mSpeedUnits = (TextView) mBottomFrame.findViewById(R.id.speed_dimen);
+    mTimeHourValue = (TextView) mBottomFrame.findViewById(R.id.time_hour_value);
+    mTimeHourUnits = (TextView) mBottomFrame.findViewById(R.id.time_hour_dimen);
+    mTimeMinuteValue = (TextView) mBottomFrame.findViewById(R.id.time_minute_value);
+    mTimeMinuteUnits = (TextView) mBottomFrame.findViewById(R.id.time_minute_dimen);
+    mDotTimeArrival = (ImageView) mBottomFrame.findViewById(R.id.dot_estimate);
+    mDotTimeLeft = (ImageView) mBottomFrame.findViewById(R.id.dot_left);
+    mDistanceValue = (TextView) mBottomFrame.findViewById(R.id.distance_value);
+    mDistanceUnits = (TextView) mBottomFrame.findViewById(R.id.distance_dimen);
+    mRouteProgress = (FlatProgressView) mBottomFrame.findViewById(R.id.navigation_progress);
+  }
+
+  private NavMenu createNavMenu()
+  {
+    return new NavMenu(mBottomFrame, new NavMenu.ItemClickListener<NavMenu.Item>()
+    {
+      @Override
+      public void onItemClick(NavMenu.Item item)
+      {
+        final MwmActivity parent = ((MwmActivity) mFrame.getContext());
+        switch (item)
+        {
+        case STOP:
+          RoutingController.get().cancel();
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
+          AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
+          parent.refreshFade();
+          break;
+        case SETTINGS:
+          parent.closeMenu(Statistics.EventName.ROUTING_SETTINGS, AlohaHelper.MENU_SETTINGS, new Runnable()
+          {
+            @Override
+            public void run()
+            {
+              parent.startActivity(new Intent(parent, SettingsActivity.class));
+            }
+          });
+          break;
+        case TTS_VOLUME:
+          TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
+          mNavMenu.refreshTts();
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
+          AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
+          break;
+        case TOGGLE:
+          mNavMenu.toggle(true);
+          parent.refreshFade();
+        }
+      }
+    });
   }
 
   private void updateVehicle(RoutingInfo info)
   {
-    mDistanceTurn.setText(Utils.formatUnitsText(R.dimen.text_size_display_1, R.dimen.text_size_toolbar,
-                                                info.distToTurn, info.turnUnits));
-    info.vehicleTurnDirection.setTurnDrawable(mTurnDirection);
+    mNextTurnDistance.setText(Utils.formatUnitsText(mFrame.getContext(),
+                                                    R.dimen.text_size_nav_number,
+                                                    R.dimen.text_size_nav_dimension,
+                                                    info.distToTurn,
+                                                    info.turnUnits));
+    info.vehicleTurnDirection.setTurnDrawable(mNextTurnImage);
     if (RoutingInfo.VehicleTurnDirection.isRoundAbout(info.vehicleTurnDirection))
-      UiUtils.setTextAndShow(mExitNumber, String.valueOf(info.exitNum));
+      UiUtils.setTextAndShow(mCircleExit, String.valueOf(info.exitNum));
     else
-      UiUtils.hide(mExitNumber);
+      UiUtils.hide(mCircleExit);
 
+    UiUtils.showIf(info.vehicleNextTurnDirection.containsNextTurn(), mNextNextTurnFrame);
     if (info.vehicleNextTurnDirection.containsNextTurn())
-    {
-      Animations.appearSliding(mNextTurnFrame, Animations.TOP, null);
-      info.vehicleNextTurnDirection.setNextTurnDrawable(mNextTurnImage);
-    }
-    else
-      Animations.disappearSliding(mNextTurnFrame, Animations.BOTTOM, null);
+      info.vehicleNextTurnDirection.setNextTurnDrawable(mNextNextTurnImage);
   }
 
   private void updatePedestrian(RoutingInfo info)
@@ -91,10 +171,13 @@ public class NavigationController
                                                                            location.getLatitude(), location.getLongitude(),
                                                                            mNorth);
     String[] splitDistance = da.getDistance().split(" ");
-    mDistanceTurn.setText(Utils.formatUnitsText(R.dimen.text_size_display_1, R.dimen.text_size_toolbar,
-                                                splitDistance[0], splitDistance[1]));
+    mNextTurnDistance.setText(Utils.formatUnitsText(mFrame.getContext(),
+                                                    R.dimen.text_size_nav_number,
+                                                    R.dimen.text_size_nav_dimension,
+                                                    splitDistance[0],
+                                                    splitDistance[1]));
     if (info.pedestrianTurnDirection != null)
-      RoutingInfo.PedestrianTurnDirection.setTurnDrawable(mTurnDirection, da);
+      RoutingInfo.PedestrianTurnDirection.setTurnDrawable(mNextTurnImage, da);
   }
 
   public void updateNorth(double north)
@@ -116,18 +199,75 @@ public class NavigationController
     else
       updateVehicle(info);
 
-    mTimeTotal.setText(RoutingController.formatRoutingTime(info.totalTimeInSeconds, R.dimen.text_size_routing_dimension));
-    mDistanceTotal.setText(Utils.formatUnitsText(R.dimen.text_size_routing_number, R.dimen.text_size_routing_dimension,
-                                                 info.distToTarget, info.targetUnits));
-    mTimeArrival.setText(RoutingController.formatArrivalTime(info.totalTimeInSeconds));
-    UiUtils.setTextAndHideIfEmpty(mNextStreet, info.nextStreet);
+    boolean hasStreet = !TextUtils.isEmpty(info.nextStreet);
+    UiUtils.showIf(hasStreet, mStreetFrame);
+    if (!TextUtils.isEmpty(info.nextStreet))
+      mNextStreet.setText(info.nextStreet);
+
+    final Location last = LocationHelper.INSTANCE.getLastKnownLocation();
+    if (last != null)
+    {
+      Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
+      mSpeedValue.setText(speedAndUnits.first);
+      mSpeedUnits.setText(speedAndUnits.second);
+    }
+    updateTime(info.totalTimeInSeconds);
+    mDistanceValue.setText(info.distToTarget);
+    mDistanceUnits.setText(info.targetUnits);
     mRouteProgress.setProgress((int) info.completionPercent);
+  }
+
+  private void updateTime(int seconds)
+  {
+    if (mShowTimeLeft)
+      updateTimeLeft(seconds);
+    else
+      updateTimeEstimate(seconds);
+
+    mDotTimeLeft.setEnabled(mShowTimeLeft);
+    mDotTimeArrival.setEnabled(!mShowTimeLeft);
+  }
+
+  private void updateTimeLeft(int seconds)
+  {
+    final long hours = TimeUnit.SECONDS.toHours(seconds);
+    final long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
+    UiUtils.setTextAndShow(mTimeMinuteValue, String.valueOf(minutes));
+    // TODO set localized text
+    UiUtils.setTextAndShow(mTimeMinuteUnits, "min");
+    if (hours == 0)
+    {
+      UiUtils.hide(mTimeHourUnits, mTimeHourValue);
+      return;
+    }
+    UiUtils.setTextAndShow(mTimeHourValue,String.valueOf(hours));
+    // TODO set localized text
+    UiUtils.setTextAndShow(mTimeHourUnits, "h");
+  }
+
+  private void updateTimeEstimate(int seconds)
+  {
+    final Calendar currentTime = Calendar.getInstance();
+    currentTime.add(Calendar.SECOND, seconds);
+    UiUtils.setTextAndShow(mTimeMinuteValue, DateFormat.getTimeInstance(DateFormat.SHORT)
+                                                       .format(currentTime.getTime()));
+    UiUtils.hide(mTimeHourUnits, mTimeHourValue, mTimeMinuteUnits);
+  }
+
+  private void switchTimeFormat()
+  {
+    mShowTimeLeft = !mShowTimeLeft;
+    updateTime(Framework.nativeGetRouteFollowingInfo().totalTimeInSeconds);
   }
 
   public void show(boolean show)
   {
     UiUtils.showIf(show, mFrame);
-    if (!show)
-      UiUtils.hide(mNextTurnFrame);
+    mNavMenu.show(show);
+  }
+
+  public NavMenu getNavMenu()
+  {
+    return mNavMenu;
   }
 }

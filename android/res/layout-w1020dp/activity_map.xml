@@ -23,6 +23,13 @@
     android:id="@+id/navigation_buttons"
     layout="@layout/map_navigation_buttons"/>
 
+  <com.mapswithme.maps.widget.FadeView
+    android:id="@+id/fade_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:visibility="gone"/>
+
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -42,11 +49,10 @@
       tools:visibility="visible"/>
 
     <include
-      layout="@layout/layout_routing_full"
+      layout="@layout/layout_nav"
       android:layout_width="@dimen/panel_width"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_half"
-      android:visibility="gone"
+      android:layout_height="match_parent"
+      android:visibility="invisible"
       tools:visibility="visible"/>
 
     <com.mapswithme.maps.widget.placepage.PlacePageView
@@ -59,13 +65,6 @@
       placePage:animationType="left"
       placePage:floating="true"/>
   </LinearLayout>
-
-  <com.mapswithme.maps.widget.FadeView
-    android:id="@+id/fade_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black"
-    android:visibility="gone"/>
 
   <include
     android:id="@+id/menu_frame"

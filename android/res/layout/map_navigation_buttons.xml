@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:gravity="right"
-              android:paddingLeft="@dimen/margin_navigation_buttons"
-              android:paddingRight="0dp"
-              android:paddingBottom="@dimen/margin_navigation_buttons">
-  <android.support.v4.widget.Space
-      android:id="@+id/space_bottom"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:layout_weight="1"/>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:padding="@dimen/nav_frame_padding"
+  android:layout_marginBottom="@dimen/nav_menu_height">
+  <ImageButton
+    android:id="@+id/nav_zoom_out"
+    style="@style/MwmWidget.MapButton"
+    android:layout_marginBottom="@dimen/nav_zoom_bottom"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    tools:src="@drawable/zoom_out"/>
 
-  <ImageButton android:id="@+id/map_button_plus"
-               style="@style/MwmWidget.MapButton"
-               android:layout_marginRight="@dimen/margin_quarter"
-               tools:src="@drawable/zoom_in"/>
-
-  <ImageButton android:id="@+id/map_button_minus"
-               style="@style/MwmWidget.MapButton"
-               android:layout_marginRight="@dimen/margin_quarter"
-               tools:src="@drawable/zoom_out"/>
-</LinearLayout>
+  <ImageButton
+    android:id="@+id/nav_zoom_in"
+    style="@style/MwmWidget.MapButton"
+    android:layout_marginBottom="@dimen/nav_frame_padding"
+    android:layout_above="@id/nav_zoom_out"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    tools:src="@drawable/zoom_in"/>
+</RelativeLayout>

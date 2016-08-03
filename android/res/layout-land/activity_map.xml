@@ -32,25 +32,25 @@
     android:visibility="gone"
     tools:visibility="visible"/>
 
-  <include
-    layout="@layout/layout_routing_full"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/toolbar"
-    android:paddingBottom="@dimen/margin_base"
-    android:visibility="gone"
-    tools:visibility="visible"/>
-
-  <include
-    layout="@layout/routing_plan"
-    android:visibility="invisible"/>
-
   <com.mapswithme.maps.widget.FadeView
     android:id="@+id/fade_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
     android:visibility="gone"/>
+
+  <include
+    layout="@layout/layout_nav"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar"
+    android:paddingBottom="@dimen/margin_base"
+    android:visibility="invisible"
+    tools:visibility="visible"/>
+
+  <include
+    layout="@layout/routing_plan"
+    android:visibility="invisible"/>
 
   <include
     android:id="@+id/menu_frame"

@@ -28,7 +28,7 @@
         android:id="@+id/toggle"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="right|center_horizontal"
+        android:layout_gravity="end|center_horizontal"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center"
         tools:src="@drawable/ic_down"/>

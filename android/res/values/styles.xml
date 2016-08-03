@@ -149,6 +149,18 @@
     <item name="android:layout_centerVertical">true</item>
   </style>
 
+  <style name="MwmWidget.TextView.NavStreet">
+    <item name="android:textAppearance">@style/MwmTextAppearance.NavStreet</item>
+  </style>
+
+  <style name="MwmWidget.TextView.NavNextTurn">
+    <item name="android:textAppearance">@style/MwmTextAppearance.NavNextTurn</item>
+  </style>
+
+  <style name="MwmWidget.TextView.NavNextTurn.Exit">
+    <item name="android:textAppearance">@style/MwmTextAppearance.NavNextTurn.Exit</item>
+  </style>
+
   <style name="MwmWidget.FrameLayout.Elevation">
     <item name="android:foreground">@drawable/shadow_top</item>
   </style>

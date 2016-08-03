@@ -1,12 +1,13 @@
 package com.mapswithme.maps;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.AttrRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -18,13 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-
-import java.io.Serializable;
-import java.util.Stack;
 
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
@@ -66,6 +62,7 @@ import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FadeView;
+import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
@@ -85,6 +82,9 @@ import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
+
+import java.io.Serializable;
+import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
@@ -124,14 +124,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private NavigationController mNavigationController;
 
   private MainMenu mMainMenu;
+
   private PanelAnimator mPanelAnimator;
   private OnmapDownloader mOnmapDownloader;
   private MytargetHelper mMytargetHelper;
 
   private FadeView mFadeView;
 
-  private ImageButton mBtnZoomIn;
-  private ImageButton mBtnZoomOut;
+  private View mNavZoomIn;
+  private View mNavZoomOut;
 
   private View mPositionChooser;
 
@@ -345,7 +346,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     mNavigationController = new NavigationController(this);
-    initMenu();
+    initMainMenu();
     initOnmapDownloader();
     initPositionChooser();
   }
@@ -373,7 +374,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (Framework.nativeIsDownloadedMapAtScreenCenter())
           startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
         else
-          UiUtils.showAlertDialog(getActivity(), R.string.message_invalid_feature_position);
+          UiUtils.showAlertDialog(MwmActivity.this, R.string.message_invalid_feature_position);
       }
     });
     UiUtils.hide(mPositionChooser);
@@ -405,7 +406,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public boolean onTouch()
       {
-        return mMainMenu.close(true);
+        return getCurrentMenu().close(true);
       }
     });
 
@@ -421,17 +422,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMapFrame.setOnTouchListener(this);
   }
 
+  private View initNavigationButton(View frame, @IdRes int id, @AttrRes int iconAttr)
+  {
+    ImageButton res = (ImageButton) frame.findViewById(id);
+    res.setImageResource(ThemeUtils.getResource(this, R.attr.navButtonsTheme, iconAttr));
+    res.setOnClickListener(this);
+
+    return res;
+  }
+
   private void initNavigationButtons()
   {
     View frame = findViewById(R.id.navigation_buttons);
-    mBtnZoomIn = (ImageButton) frame.findViewById(R.id.map_button_plus);
-    mBtnZoomIn.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.zoom_in_night
-                                                          : R.drawable.zoom_in);
-    mBtnZoomIn.setOnClickListener(this);
-    mBtnZoomOut = (ImageButton) frame.findViewById(R.id.map_button_minus);
-    mBtnZoomOut.setOnClickListener(this);
-    mBtnZoomOut.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.zoom_out_night
-                                                           : R.drawable.zoom_out);
+    mNavZoomIn = initNavigationButton(frame, R.id.nav_zoom_in, R.attr.nav_zoom_in);
+    mNavZoomOut = initNavigationButton(frame, R.id.nav_zoom_out, R.attr.nav_zoom_out);
   }
 
   private boolean closePlacePage()
@@ -452,7 +456,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (removeCurrentFragment(true))
     {
       InputUtils.hideKeyboard(mFadeView);
-      mFadeView.fadeOut(false);
+      mFadeView.fadeOut();
       return true;
     }
 
@@ -464,7 +468,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Statistics.INSTANCE.trackEvent(statEvent);
     AlohaHelper.logClick(alohaStatEvent);
 
-    mFadeView.fadeOut(false);
+    mFadeView.fadeOut();
     mMainMenu.close(true, procAfterClose);
   }
 
@@ -496,24 +500,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void toggleMenu()
   {
-    if (mMainMenu.isOpen())
-      mFadeView.fadeOut(false);
-    else
-      mFadeView.fadeIn();
-
-    mMainMenu.toggle(true);
+    getCurrentMenu().toggle(true);
+    refreshFade();
   }
 
-  private void initMenu()
+  public void refreshFade()
   {
-    mMainMenu = new MainMenu(this, (ViewGroup) findViewById(R.id.menu_frame), new MainMenu.Container()
-    {
-      @Override
-      public Activity getActivity()
-      {
-        return MwmActivity.this;
-      }
+    if (getCurrentMenu().isOpen())
+      mFadeView.fadeIn();
+    else
+      mFadeView.fadeOut();
+  }
 
+  private void initMainMenu()
+  {
+    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), new BaseMenu.ItemClickListener<MainMenu.Item>()
+    {
       @Override
       public void onItemClick(MainMenu.Item item)
       {
@@ -609,7 +611,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             @Override
             public void run()
             {
-              startActivity(new Intent(getActivity(), SettingsActivity.class));
+              startActivity(new Intent(MwmActivity.this, SettingsActivity.class));
             }
           });
           break;
@@ -747,6 +749,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
     });
     mOnmapDownloader.onResume();
+    mNavigationController.getNavMenu().onResume(null);
   }
 
   @Override
@@ -794,28 +797,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void adjustZoomButtons()
   {
-    final boolean show = showZoomButtons();
-    UiUtils.showIf(show, mBtnZoomIn, mBtnZoomOut);
-
-    if (!show)
-      return;
-
-    mMapFrame.post(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        int height = mMapFrame.getMeasuredHeight();
-        int top = UiUtils.dimen(R.dimen.zoom_buttons_top_required_space);
-        int bottom = UiUtils.dimen(R.dimen.zoom_buttons_bottom_max_space);
-
-        int space = (top + bottom < height ? bottom : height - top);
-
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mBtnZoomOut.getLayoutParams();
-        lp.bottomMargin = space;
-        mBtnZoomOut.setLayoutParams(lp);
-      }
-    });
+    UiUtils.showIf(showZoomButtons(), mNavZoomIn, mNavZoomOut);
   }
 
   private static boolean showZoomButtons()
@@ -890,9 +872,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBackPressed()
   {
-    if (mMainMenu.close(true))
+    if (getCurrentMenu().close(true))
     {
-      mFadeView.fadeOut(false);
+      mFadeView.fadeOut();
       return;
     }
 
@@ -990,7 +972,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePage.setState(State.PREVIEW);
 
     if (UiUtils.isVisible(mFadeView))
-      mFadeView.fadeOut(false);
+      mFadeView.fadeOut();
   }
 
   @Override
@@ -1010,21 +992,33 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  private BaseMenu getCurrentMenu()
+  {
+    return (RoutingController.get().isNavigating() ? mNavigationController.getNavMenu() : mMainMenu);
+  }
+
   private void setFullscreen(boolean isFullscreen)
   {
+    if (RoutingController.get().isNavigating()
+            || RoutingController.get().isBuilding()
+            || RoutingController.get().isPlanning())
+      return;
+
     mIsFullscreen = isFullscreen;
+    final BaseMenu menu = getCurrentMenu();
+
     if (isFullscreen)
     {
-      if (mMainMenu.isAnimating())
+      if (menu.isAnimating())
         return;
 
       mIsFullscreenAnimating = true;
-      Animations.disappearSliding(mMainMenu.getFrame(), Animations.BOTTOM, new Runnable()
+      Animations.disappearSliding(menu.getFrame(), Animations.BOTTOM, new Runnable()
       {
         @Override
         public void run()
         {
-          final int menuHeight = mMainMenu.getFrame().getHeight();
+          final int menuHeight = menu.getFrame().getHeight();
           adjustCompass(0, menuHeight);
           adjustRuler(0, menuHeight);
 
@@ -1033,13 +1027,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       });
       if (showZoomButtons())
       {
-        Animations.disappearSliding(mBtnZoomOut, Animations.RIGHT, null);
-        Animations.disappearSliding(mBtnZoomIn, Animations.RIGHT, null);
+        Animations.disappearSliding(mNavZoomOut, Animations.RIGHT, null);
+        Animations.disappearSliding(mNavZoomIn, Animations.RIGHT, null);
       }
     }
     else
     {
-      Animations.appearSliding(mMainMenu.getFrame(), Animations.BOTTOM, new Runnable()
+      Animations.appearSliding(menu.getFrame(), Animations.BOTTOM, new Runnable()
       {
         @Override
         public void run()
@@ -1050,8 +1044,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       });
       if (showZoomButtons())
       {
-        Animations.appearSliding(mBtnZoomOut, Animations.RIGHT, null);
-        Animations.appearSliding(mBtnZoomIn, Animations.RIGHT, null);
+        Animations.appearSliding(mNavZoomOut, Animations.RIGHT, null);
+        Animations.appearSliding(mNavZoomIn, Animations.RIGHT, null);
       }
     }
   }
@@ -1068,16 +1062,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
           public void run()
           {
             if (mMainMenu.close(true))
-              mFadeView.fadeOut(false);
+              mFadeView.fadeOut();
           }
-        }, MainMenu.ANIMATION_DURATION * 2);
+        }, BaseMenu.ANIMATION_DURATION * 2);
     }
     else
     {
       Framework.nativeDeactivatePopup();
       mPlacePage.saveBookmarkTitle();
       mPlacePage.setMapObject(null, false);
-      mMainMenu.show(true);
     }
   }
 
@@ -1095,12 +1088,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     switch (v.getId())
     {
-    case R.id.map_button_plus:
+    case R.id.nav_zoom_in:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_IN);
       AlohaHelper.logClick(AlohaHelper.ZOOM_IN);
       MapFragment.nativeScalePlus();
       break;
-    case R.id.map_button_minus:
+    case R.id.nav_zoom_out:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_OUT);
       AlohaHelper.logClick(AlohaHelper.ZOOM_OUT);
       MapFragment.nativeScaleMinus();
@@ -1232,6 +1225,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (RoutingController.get().isNavigating())
     {
+      mNavigationController.show(true);
       mMainMenu.setState(MainMenu.State.NAVIGATION, false);
       return;
     }
@@ -1345,7 +1339,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     mNavigationController.update(info);
-    mMainMenu.updateRoutingInfo(info);
 
     TtsPlayer.INSTANCE.playTurnNotifications();
   }

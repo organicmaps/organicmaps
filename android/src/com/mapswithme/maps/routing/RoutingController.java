@@ -1,6 +1,7 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IntRange;
@@ -401,7 +402,7 @@ public class RoutingController
     UiUtils.updateAccentButton(mStartButton);
   }
 
-  public void setStartButton(@Nullable Button button)
+  void setStartButton(@Nullable Button button)
   {
     mLogger.d("setStartButton");
     mStartButton = button;
@@ -487,22 +488,22 @@ public class RoutingController
     return (mWaitingPoiPickSlot != NO_SLOT);
   }
 
-  public BuildState getBuildState()
+  BuildState getBuildState()
   {
     return mBuildState;
   }
 
-  public MapObject getStartPoint()
+  MapObject getStartPoint()
   {
     return mStartPoint;
   }
 
-  public MapObject getEndPoint()
+  MapObject getEndPoint()
   {
     return mEndPoint;
   }
 
-  public RoutingInfo getCachedRoutingInfo()
+  RoutingInfo getCachedRoutingInfo()
   {
     return mCachedRoutingInfo;
   }
@@ -639,7 +640,7 @@ public class RoutingController
     return true;
   }
 
-  public void swapPoints()
+  void swapPoints()
   {
     mLogger.d("swapPoints");
 
@@ -654,7 +655,7 @@ public class RoutingController
     checkAndBuildRoute();
   }
 
-  public void setRouterType(@Framework.RouterType int router)
+  void setRouterType(@Framework.RouterType int router)
   {
     mLogger.d("setRouterType: " + mLastRouterType + " -> " + router);
 
@@ -668,7 +669,7 @@ public class RoutingController
       build();
   }
 
-  public void searchPoi(int slotId)
+  void searchPoi(int slotId)
   {
     mLogger.d("searchPoi: " + slotId);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SEARCH_POINT);
@@ -705,16 +706,16 @@ public class RoutingController
       mContainer.updatePoints();
   }
 
-  public static CharSequence formatRoutingTime(int seconds, @DimenRes int unitsSize)
+  static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize)
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);
 
-    return hours == 0 ? Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
+    return hours == 0 ? Utils.formatUnitsText(context, R.dimen.text_size_routing_number, unitsSize,
                                               String.valueOf(minutes), "min")
-                      : TextUtils.concat(Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
+                      : TextUtils.concat(Utils.formatUnitsText(context, R.dimen.text_size_routing_number, unitsSize,
                                                                String.valueOf(hours), "h "),
-                                         Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
+                                         Utils.formatUnitsText(context, R.dimen.text_size_routing_number, unitsSize,
                                                                String.valueOf(minutes), "min"));
   }
 
