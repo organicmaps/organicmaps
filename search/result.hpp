@@ -42,7 +42,6 @@ public:
 
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;  // Valid for any result.
 
-    // True if the struct is already assigned or need to be calculated otherwise.
     bool m_isInitialized = false;
   };
 

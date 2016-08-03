@@ -6,7 +6,7 @@ namespace search
 {
 class Results;
 
-// A binary classifier, that can be used in conjunction with search
+// A binary classifier that can be used in conjunction with search
 // engine to decide whether the majority of results are hotels or not.
 //
 // *NOTE* This class is NOT thread safe.

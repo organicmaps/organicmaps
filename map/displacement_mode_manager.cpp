@@ -16,7 +16,10 @@ void DisplacementModeManager::Set(Slot slot, bool show)
   else
     m_mask = mask & ~bit;
 
-  if (mask == m_mask)
+  // We are only intersected in states "mask is zero" and "mask is not
+  // zero". Therefore, do nothing if the new state is the same as the
+  // previous state.
+  if ((mask == 0) == (m_mask == 0))
     return;
 
   if (m_mask != 0)

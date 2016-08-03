@@ -1071,29 +1071,31 @@ void Framework::InvalidateRect(m2::RectD const & rect)
 
 void Framework::StartInteractiveSearch(search::SearchParams const & params)
 {
-  auto const onResults = params.m_onResults;
+  auto const originalOnResults = params.m_onResults;
+
+  auto setMode = [this]() {
+    SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, true /* show */);
+  };
+
+  auto onResults = [this, originalOnResults](search::Results const & results) {
+    if (!results.IsEndMarker())
+    {
+      GetPlatform().RunOnGuiThread([this, results]() {
+        if (IsInteractiveSearchActive())
+          FillSearchResultsMarks(results);
+      });
+    }
+
+    if (originalOnResults)
+      originalOnResults(results);
+  };
 
   m_lastInteractiveSearchParams = params;
   m_lastInteractiveSearchParams.SetForceSearch(false);
   m_lastInteractiveSearchParams.SetMode(search::Mode::Viewport);
   m_lastInteractiveSearchParams.SetSuggestsEnabled(false);
-
-  m_lastInteractiveSearchParams.m_onResults = search::InteractiveSearchCallback(
-      [this]() {
-        SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, true /* show */);
-      } /* setMode */,
-      [this, onResults](search::Results const & results) {
-        if (!results.IsEndMarker())
-        {
-          GetPlatform().RunOnGuiThread([this, results]() {
-            if (IsInteractiveSearchActive())
-              FillSearchResultsMarks(results);
-          });
-        }
-
-        if (onResults)
-          onResults(results);
-      } /* onResults */);
+  m_lastInteractiveSearchParams.m_onResults =
+      search::InteractiveSearchCallback(move(setMode), move(onResults));
 
   UpdateUserViewportChanged();
 }
