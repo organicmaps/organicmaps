@@ -627,7 +627,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::EnablePerspective:
     {
-      AddUserEvent(SetAutoPerspectiveEvent(true /* isAutoPerspective */));
+      AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
       break;
     }
 
@@ -640,7 +640,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (m_enablePerspectiveInNavigation == msg->AllowPerspective() &&
           m_enablePerspectiveInNavigation != screen.isPerspective())
       {
-        AddUserEvent(SetAutoPerspectiveEvent(m_enablePerspectiveInNavigation));
+        AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(m_enablePerspectiveInNavigation));
       }
 #endif
 
@@ -657,7 +657,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_myPositionController->EnablePerspectiveInRouting(m_enablePerspectiveInNavigation);
         if (m_myPositionController->IsInRouting())
         {
-          AddUserEvent(SetAutoPerspectiveEvent(m_enablePerspectiveInNavigation));
+          AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(m_enablePerspectiveInNavigation));
         }
       }
       break;
@@ -722,7 +722,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           int zoom = kDoNotChangeZoom;
           if (m_currentZoomLevel < scales::GetAddNewPlaceScale())
             zoom = scales::GetAddNewPlaceScale();
-          AddUserEvent(SetCenterEvent(pt, zoom, true));
+          AddUserEvent(make_unique_dp<SetCenterEvent>(pt, zoom, true));
         }
       }
       break;
@@ -759,7 +759,7 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
                                           enableAutoZoom);
 
   if (m_enablePerspectiveInNavigation)
-    AddUserEvent(SetAutoPerspectiveEvent(true /* isAutoPerspective */));
+    AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
 
   m_overlayTree->SetFollowingMode(true);
 }
@@ -940,7 +940,7 @@ void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
     int zoom = kDoNotChangeZoom;
     if (applyZoom && m_currentZoomLevel < scales::GetAddNewPlaceScale())
       zoom = scales::GetAddNewPlaceScale();
-    AddUserEvent(SetCenterEvent(dest, zoom, true));
+    AddUserEvent(make_unique_dp<SetCenterEvent>(dest, zoom, true));
   }
 }
 
@@ -1254,7 +1254,7 @@ void FrontendRenderer::RefreshBgColor()
 
 void FrontendRenderer::DisablePerspective()
 {
-  AddUserEvent(SetAutoPerspectiveEvent(false /* isAutoPerspective */));
+  AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(false /* isAutoPerspective */));
 }
 
 void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
@@ -1316,13 +1316,14 @@ void FrontendRenderer::OnForceTap(m2::PointD const & pt)
 
 void FrontendRenderer::OnDoubleTap(m2::PointD const & pt)
 {
-  m_userEventStream.AddEvent(ScaleEvent(2.0 /* scale factor */, pt, true /* animated */));
+  m_userEventStream.AddEvent(make_unique_dp<ScaleEvent>(2.0 /* scale factor */, pt, true /* animated */));
 }
 
 void FrontendRenderer::OnTwoFingersTap()
 {
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
-  m_userEventStream.AddEvent(ScaleEvent(0.5 /* scale factor */, screen.PixelRect().Center(), true /* animated */));
+  m_userEventStream.AddEvent(make_unique_dp<ScaleEvent>(0.5 /* scale factor */, screen.PixelRect().Center(),
+                                                        true /* animated */));
 }
 
 bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type)
@@ -1596,9 +1597,9 @@ void FrontendRenderer::ReleaseResources()
   m_contextFactory->getDrawContext()->doneCurrent();
 }
 
-void FrontendRenderer::AddUserEvent(UserEvent const & event)
+void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)
 {
-  m_userEventStream.AddEvent(event);
+  m_userEventStream.AddEvent(move(event));
   if (IsInInfinityWaiting())
     CancelMessageWaiting();
 }
@@ -1610,28 +1611,28 @@ void FrontendRenderer::PositionChanged(m2::PointD const & position)
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel)
 {
-  AddUserEvent(SetCenterEvent(center, zoomLevel, true));
+  AddUserEvent(make_unique_dp<SetCenterEvent>(center, zoomLevel, true));
 }
 
 void FrontendRenderer::ChangeModelView(double azimuth)
 {
-  AddUserEvent(RotateEvent(azimuth));
+  AddUserEvent(make_unique_dp<RotateEvent>(azimuth));
 }
 
 void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
 {
-  AddUserEvent(SetRectEvent(rect, true, kDoNotChangeZoom, true));
+  AddUserEvent(make_unique_dp<SetRectEvent>(rect, true, kDoNotChangeZoom, true));
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,
                                        m2::PointD const & pxZero, int preferredZoomLevel)
 {
-  AddUserEvent(FollowAndRotateEvent(userPos, pxZero, azimuth, preferredZoomLevel, true));
+  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, preferredZoomLevel, true));
 }
 
 void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
 {
-  AddUserEvent(FollowAndRotateEvent(userPos, pxZero, azimuth, autoScale));
+  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, autoScale));
 }
 
 ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)

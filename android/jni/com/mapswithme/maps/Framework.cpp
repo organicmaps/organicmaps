@@ -258,25 +258,29 @@ void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t 
   switch(eventType)
   {
   case MULTITOUCH_DOWN:
-    event.m_type = df::TouchEvent::TOUCH_DOWN;
+    event.SetTouchType(df::TouchEvent::TOUCH_DOWN);
     break;
   case MULTITOUCH_MOVE:
-    event.m_type = df::TouchEvent::TOUCH_MOVE;
+    event.SetTouchType(df::TouchEvent::TOUCH_MOVE);
     break;
   case MULTITOUCH_UP:
-    event.m_type = df::TouchEvent::TOUCH_UP;
+    event.SetTouchType(df::TouchEvent::TOUCH_UP);
     break;
   case MULTITOUCH_CANCEL:
-    event.m_type = df::TouchEvent::TOUCH_CANCEL;
+    event.SetTouchType(df::TouchEvent::TOUCH_CANCEL);
     break;
   default:
     return;
   }
 
-  event.m_touches[0].m_location = m2::PointD(f1.m_x, f1.m_y);
-  event.m_touches[0].m_id = f1.m_id;
-  event.m_touches[1].m_location = m2::PointD(f2.m_x, f2.m_y);
-  event.m_touches[1].m_id = f2.m_id;
+  df::Touch touch;
+  touch.m_location = m2::PointD(f1.m_x, f1.m_y);
+  touch.m_id = f1.m_id;
+  event.SetFirstTouch(touch);
+
+  touch.m_location = m2::PointD(f2.m_x, f2.m_y);
+  touch.m_id = f2.m_id;
+  event.SetSecondTouch(touch);
 
   event.SetFirstMaskedPointer(maskedPointer);
   m_work.TouchEvent(event);

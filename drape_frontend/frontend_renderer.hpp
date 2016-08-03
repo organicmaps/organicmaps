@@ -136,7 +136,7 @@ public:
   void AfterDrawFrame();
 #endif
 
-  void AddUserEvent(UserEvent const & event);
+  void AddUserEvent(drape_ptr<UserEvent> && event);
 
   /// MyPositionController::Listener
   void PositionChanged(m2::PointD const & position) override;

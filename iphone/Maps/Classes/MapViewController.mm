@@ -147,9 +147,9 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   int64_t id = reinterpret_cast<int64_t>(touch);
   int8_t pointerIndex = df::TouchEvent::INVALID_MASKED_POINTER;
-  if (e.m_touches[0].m_id == id)
+  if (e.GetFirstTouch().m_id == id)
     pointerIndex = 0;
-  else if (e.m_touches[1].m_id == id)
+  else if (e.GetSecondTouch().m_id == id)
     pointerIndex = 1;
 
   if (e.GetFirstMaskedPointer() == df::TouchEvent::INVALID_MASKED_POINTER)
@@ -172,19 +172,27 @@ BOOL gIsFirstMyPositionMode = YES;
   df::TouchEvent e;
   UITouch * touch = [allTouches objectAtIndex:0];
   CGPoint const pt = [touch locationInView:v];
-  e.m_type = type;
-  e.m_touches[0].m_id = reinterpret_cast<int64_t>(touch);
-  e.m_touches[0].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+  
+  e.SetTouchType(type);
+  
+  df::Touch t0;
+  t0.m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+  t0.m_id = reinterpret_cast<int64_t>(touch);
   if ([self hasForceTouch])
-    e.m_touches[0].m_force = touch.force / touch.maximumPossibleForce;
+    t0.m_force = touch.force / touch.maximumPossibleForce;
+  e.SetFirstTouch(t0);
+
   if (allTouches.count > 1)
   {
     UITouch * touch = [allTouches objectAtIndex:1];
     CGPoint const pt = [touch locationInView:v];
-    e.m_touches[1].m_id = reinterpret_cast<int64_t>(touch);
-    e.m_touches[1].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+    
+    df::Touch t1;
+    t1.m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+    t1.m_id = reinterpret_cast<int64_t>(touch);
     if ([self hasForceTouch])
-      e.m_touches[1].m_force = touch.force / touch.maximumPossibleForce;
+      t1.m_force = touch.force / touch.maximumPossibleForce;
+    e.SetSecondTouch(t1);
   }
 
   NSArray * toggledTouches = [touches allObjects];

@@ -70,6 +70,16 @@ char const * UserEventStream::END_DOUBLE_TAP_AND_HOLD = "EndDoubleTapAndHold";
 
 uint8_t const TouchEvent::INVALID_MASKED_POINTER = 0xFF;
 
+void TouchEvent::SetFirstTouch(const Touch & touch)
+{
+  m_touches[0] = touch;
+}
+
+void TouchEvent::SetSecondTouch(const Touch & touch)
+{
+  m_touches[1] = touch;
+}
+
 void TouchEvent::PrepareTouches(array<Touch, 2> const & previousTouches)
 {
   if (GetValidTouchesCount(m_touches) == 2 && GetValidTouchesCount(previousTouches) > 0)
@@ -129,17 +139,16 @@ UserEventStream::UserEventStream()
 {
 }
 
-void UserEventStream::AddEvent(UserEvent const & event)
+void UserEventStream::AddEvent(drape_ptr<UserEvent> && event)
 {
   lock_guard<mutex> guard(m_lock);
   UNUSED_VALUE(guard);
-  m_events.push_back(event);
+  m_events.emplace_back(move(event));
 }
 
 ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)
 {
-  list<UserEvent> events;
-
+  TEventsList events;
   {
     lock_guard<mutex> guard(m_lock);
     UNUSED_VALUE(guard);
@@ -149,64 +158,89 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
   m2::RectD const prevPixelRect = GetCurrentScreen().PixelRect();
 
   m_modelViewChanged = !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG;
-  for (UserEvent const & e : events)
+  for (auto const & e : events)
   {
     bool breakAnim = false;
 
-    switch (e.m_type)
+    switch (e->GetType())
     {
-    case UserEvent::EVENT_SCALE:
-      breakAnim = SetScale(e.m_scaleEvent.m_pxPoint, e.m_scaleEvent.m_factor, e.m_scaleEvent.m_isAnim);
-      TouchCancel(m_touches);
-      break;
-    case UserEvent::EVENT_RESIZE:
-      m_navigator.OnSize(e.m_resize.m_width, e.m_resize.m_height);
-      breakAnim = true;
-      TouchCancel(m_touches);
-      if (m_state == STATE_DOUBLE_TAP_HOLD)
-        EndDoubleTapAndHold(m_touches[0]);
-      break;
-    case UserEvent::EVENT_SET_ANY_RECT:
-      breakAnim = SetRect(e.m_anyRect.m_rect, e.m_anyRect.m_isAnim);
-      TouchCancel(m_touches);
-      break;
-    case UserEvent::EVENT_SET_RECT:
-      breakAnim = SetRect(e.m_rectEvent.m_rect, e.m_rectEvent.m_zoom, e.m_rectEvent.m_applyRotation, e.m_rectEvent.m_isAnim);
-      TouchCancel(m_touches);
-      break;
-    case UserEvent::EVENT_SET_CENTER:
-      breakAnim = SetCenter(e.m_centerEvent.m_center, e.m_centerEvent.m_zoom, e.m_centerEvent.m_isAnim);
-      TouchCancel(m_touches);
-      break;
-    case UserEvent::EVENT_TOUCH:
-      breakAnim = ProcessTouch(e.m_touchEvent);
-      break;
-    case UserEvent::EVENT_ROTATE:
+    case UserEvent::Scale:
       {
+        ref_ptr<ScaleEvent> scaleEvent = make_ref(e);
+        breakAnim = SetScale(scaleEvent->GetPxPoint(), scaleEvent->GetFactor(), scaleEvent->IsAnim());
+        TouchCancel(m_touches);
+      }
+      break;
+    case UserEvent::Resize:
+      {
+        ref_ptr<ResizeEvent> resizeEvent = make_ref(e);
+        m_navigator.OnSize(resizeEvent->GetWidth(), resizeEvent->GetHeight());
+        breakAnim = true;
+        TouchCancel(m_touches);
+        if (m_state == STATE_DOUBLE_TAP_HOLD)
+          EndDoubleTapAndHold(m_touches[0]);
+      }
+      break;
+    case UserEvent::SetAnyRect:
+      {
+        ref_ptr<SetAnyRectEvent> anyRectEvent = make_ref(e);
+        breakAnim = SetRect(anyRectEvent->GetRect(), anyRectEvent->IsAnim());
+        TouchCancel(m_touches);
+      }
+      break;
+    case UserEvent::SetRect:
+      {
+        ref_ptr<SetRectEvent> rectEvent = make_ref(e);
+        breakAnim = SetRect(rectEvent->GetRect(), rectEvent->GetZoom(),
+                            rectEvent->GetApplyRotation(), rectEvent->IsAnim());
+        TouchCancel(m_touches);
+      }
+      break;
+    case UserEvent::SetCenter:
+      {
+        ref_ptr<SetCenterEvent> centerEvent = make_ref(e);
+        breakAnim = SetCenter(centerEvent->GetCenter(), centerEvent->GetZoom(), centerEvent->IsAnim());
+        TouchCancel(m_touches);
+      }
+      break;
+    case UserEvent::EventTouch:
+      {
+        ref_ptr<TouchEvent> touchEvent = make_ref(e);
+        breakAnim = ProcessTouch(*touchEvent.get());
+      }
+      break;
+    case UserEvent::Rotate:
+      {
+        ref_ptr<RotateEvent> rotateEvent = make_ref(e);
         ScreenBase const & screen = m_navigator.Screen();
         if (screen.isPerspective())
         {
           m2::PointD pt = screen.PixelRectIn3d().Center();
           breakAnim = SetFollowAndRotate(screen.PtoG(screen.P3dtoP(pt)), pt,
-                                         e.m_rotate.m_targetAzimut, kDoNotChangeZoom, kDoNotAutoZoom,
+                                         rotateEvent->GetTargetAzimuth(), kDoNotChangeZoom, kDoNotAutoZoom,
                                          true /* isAnim */, false /* isAutoScale */);
         }
         else
         {
           m2::AnyRectD dstRect = GetTargetRect();
-          dstRect.SetAngle(e.m_rotate.m_targetAzimut);
+          dstRect.SetAngle(rotateEvent->GetTargetAzimuth());
           breakAnim = SetRect(dstRect, true);
         }
       }
       break;
-    case UserEvent::EVENT_FOLLOW_AND_ROTATE:
-      breakAnim = SetFollowAndRotate(e.m_followAndRotate.m_userPos, e.m_followAndRotate.m_pixelZero,
-                                     e.m_followAndRotate.m_azimuth, e.m_followAndRotate.m_preferredZoomLevel,
-                                     e.m_followAndRotate.m_autoScale,
-                                     e.m_followAndRotate.m_isAnim, e.m_followAndRotate.m_isAutoScale);
+    case UserEvent::FollowAndRotate:
+      {
+        ref_ptr<FollowAndRotateEvent> followEvent = make_ref(e);
+        breakAnim = SetFollowAndRotate(followEvent->GetUserPos(), followEvent->GetPixelZero(),
+                                       followEvent->GetAzimuth(), followEvent->GetPreferredZoomLelel(),
+                                       followEvent->GetAutoScale(), followEvent->IsAnim(), followEvent->IsAutoScale());
+      }
       break;
-    case UserEvent::EVENT_AUTO_PERSPECTIVE:
-      SetAutoPerspective(e.m_autoPerspective.m_isAutoPerspective);
+    case UserEvent::AutoPerspective:
+      {
+        ref_ptr<SetAutoPerspectiveEvent> perspectiveEvent = make_ref(e);
+        SetAutoPerspective(perspectiveEvent->IsAutoPerspective());
+      }
       break;
     default:
       ASSERT(false, ());
@@ -515,25 +549,25 @@ m2::AnyRectD UserEventStream::GetTargetRect()
 
 bool UserEventStream::ProcessTouch(TouchEvent const & touch)
 {
-  ASSERT(touch.m_touches[0].m_id != -1, ());
+  ASSERT(touch.GetFirstTouch().m_id != -1, ());
 
   TouchEvent touchEvent = touch;
   touchEvent.PrepareTouches(m_touches);
   bool isMapTouch = false;
 
-  switch (touchEvent.m_type)
+  switch (touchEvent.GetTouchType())
   {
   case TouchEvent::TOUCH_DOWN:
-    isMapTouch = TouchDown(touchEvent.m_touches);
+    isMapTouch = TouchDown(touchEvent.GetTouches());
     break;
   case TouchEvent::TOUCH_MOVE:
-    isMapTouch = TouchMove(touchEvent.m_touches, touch.m_timeStamp);
+    isMapTouch = TouchMove(touchEvent.GetTouches(), touch.GetTimeStamp());
     break;
   case TouchEvent::TOUCH_CANCEL:
-    isMapTouch = TouchCancel(touchEvent.m_touches);
+    isMapTouch = TouchCancel(touchEvent.GetTouches());
     break;
   case TouchEvent::TOUCH_UP:
-    isMapTouch = TouchUp(touchEvent.m_touches);
+    isMapTouch = TouchUp(touchEvent.GetTouches());
     break;
   default:
     ASSERT(false, ());
