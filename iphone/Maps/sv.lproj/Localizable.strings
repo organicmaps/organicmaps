@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Senaste resväg";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Automatisk zoom";
 
 "duration_disabled" = "Av";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Tryck på Plats";
 
-"location_services_disabled_3" = "3. Välj Alltid";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Välj Medan appen används";
 
 "placepage_parking_surface" = "Yta";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
+"mile" = "mile";
+
+"foot" = "fot";
+
+"miles_per_hour" = "mph";
+
+"day" = "d";
+
+"hour" = "h";
+
+"minute" = "min";
+
 "placepage_place_description" = "Beskrivning";
 
 "placepage_more_button" = "Mer";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…mer";
 
-"error_enter_correct_phone" = "Ange telefonnummer utan bokstäver";
+/* Phone number error message */
+"error_enter_correct_phone" = "Ange korrekt telefonnummer";
 
 "error_enter_correct_web" = "Ange en giltig webadress";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Lägg till en plats på kartan";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Vill du skicka det till alla användare?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "översikt";
 
 "navigation_stop_button" = "stopp";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Spara bokmärken";
+
+"bookmarks_empty_message_1" = "Knacka på ★ för att spara favoritplatser för snabb åtkomst.";
+
+"bookmarks_empty_message_2" = "Importera bokmärken från Mail och webben.";
+
+"bookmarks_empty_message_3" = "utcheckning: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Bokade hotell";
+
+"place_page_button_read_descriprion" = "Läs";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Avaktivera inspelning av din senaste resta rutt?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "eller boka på booking.com";
+
+"off_recent_track_background_button" = "Avaktivera";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Kolla in";
+
+"continue_recent_track_background_button" = "Fortsätt";
+
+"recent_track_background_dialog_message" = "MAPS.ME använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";

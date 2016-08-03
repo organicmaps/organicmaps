@@ -326,6 +326,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Így állítsd be a hangot</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Legutolsó útvonal</string>
+	<string name="pref_map_auto_zoom">Auto-zoom</string>
 	<string name="duration_disabled">Kikapcsolva</string>
 	<string name="duration_1_hour">1 óra</string>
 	<string name="duration_2_hours">2 óra</string>
@@ -829,7 +830,8 @@
 	<string name="location_services_disabled_message">Kapcsolja be a földrajzi helymeghatározást a készülék beállításaiban</string>
 	<string name="location_services_disabled_1">1. Nyissa meg a Beállításokat</string>
 	<string name="location_services_disabled_2">2. Érintse meg a Helyzet gombot</string>
-	<string name="location_services_disabled_3">3. Válassza ki a Mindig gombot</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. Kiválaszt az alkalmazás használata alatt</string>
 	<string name="placepage_parking_surface">Szabadtéri parkoló</string>
 	<string name="placepage_parking_multistorey">Parkolóház</string>
 	<string name="placepage_parking_underground">Föld alatti parkoló</string>
@@ -848,6 +850,13 @@
 	<string name="place_page_starting_from">kezdőár %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
+	<string name="mile">mf</string>
+	<string name="foot">l</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">n</string>
+	<string name="hour">ó</string>
+	<string name="minute">p</string>
 	<string name="placepage_place_description">Leírás</string>
 	<string name="placepage_more_button">Még</string>
 	<string name="bookingcom_book_button">Foglalás</string>
@@ -865,7 +874,8 @@
 	<string name="editor_status_sending">Küldés…</string>
 	<string name="editor_place_doesnt_exist">A hely nem létezik</string>
 	<string name="text_more_button">…tovább</string>
-	<string name="error_enter_correct_phone">Adj meg egy telefonszámot betűk nélkül</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Adja meg a helyes telefonszámot</string>
 	<string name="error_enter_correct_web">Adj meg egy érvényes weboldalcímet</string>
 	<string name="error_enter_correct_email">Adj meg egy érvényes email-címet</string>
 	<string name="error_enter_correct">Adj meg egy érvényes értéket</string>
@@ -882,11 +892,28 @@
 	<string name="booking_checkin">bejelentkezés: %s</string>
 	<string name="booking_checkout">kijelentkezés: %s</string>
 	<string name="placepage_add_place_button">Hely hozzáadása a térképhez</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Szeretnéd elküldeni az összes felhasználónak?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
 	<string name="editor_share_to_all_dialog_message_2">Ellenőrizni fogjuk a változásokat. Ha bármilyen kérdésünk van, emailben keresünk.</string>
 	<string name="navigation_overview_button">áttekintés</string>
 	<string name="navigation_stop_button">megállítás</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Könyvjelzők mentése</string>
+	<string name="bookmarks_empty_message_1">Koppintson a ★-ra a kedvenc helyei mentéséhez, gyors eléréséhez.</string>
+	<string name="bookmarks_empty_message_2">Importálja a könyvjelzőket a levelezésből és a böngészőből.</string>
+	<string name="bookmarks_empty_message_3">kijelentkezés: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Hotelfoglalások</string>
+	<string name="place_page_button_read_descriprion">Olvassa el</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Megszakítod a legutóbb megtett utad rögzítését?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">vagy foglaljon a booking.com-on</string>
+	<string name="off_recent_track_background_button">Megszakítás</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">Tekintse meg</string>
+	<string name="continue_recent_track_background_button">Folytatás</string>
+	<string name="recent_track_background_dialog_message">A MAPS.ME a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
 </resources>

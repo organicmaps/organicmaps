@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Siste rute";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Automatisk zooming";
 
 "duration_disabled" = "Av";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Trykk Lokalisering";
 
-"location_services_disabled_3" = "3. Velg Alltid";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3.Velg når appen er i bruk";
 
 "placepage_parking_surface" = "Åpen plass";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/t";
+
+"mile" = "mi";
+
+"foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "d";
+
+"hour" = "t";
+
+"minute" = "min";
+
 "placepage_place_description" = "Beskrivelse";
 
 "placepage_more_button" = "Mer";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…mer";
 
-"error_enter_correct_phone" = "Oppgi telefonnummer uten bokstaver";
+/* Phone number error message */
+"error_enter_correct_phone" = "Skriv riktig telefonnummer";
 
 "error_enter_correct_web" = "Oppgi en gyldig nettadresse";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Legg til en plass på kartet";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Vil du sende det til alle brukere?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "oversikt";
 
 "navigation_stop_button" = "stopp";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Lagre bokmerker";
+
+"bookmarks_empty_message_1" = "Trykk på ★ for å lagre favorittsteder og få rask tilgang.";
+
+"bookmarks_empty_message_2" = "Importer bokmerker fra e-post og nettet.";
+
+"bookmarks_empty_message_3" = "sjekk ut: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Bestilte hoteller";
+
+"place_page_button_read_descriprion" = "Les";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Deaktivere opptak av nylig reiste rute?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "eller bestill via booking.com";
+
+"off_recent_track_background_button" = "Deaktiver";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Sjekk ut";
+
+"continue_recent_track_background_button" = "Fortsett";
+
+"recent_track_background_dialog_message" = "MAPS.ME bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.";

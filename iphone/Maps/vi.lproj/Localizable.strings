@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Tìm kiếm gần đây";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Ống dòm tự động";
 
 "duration_disabled" = "Tắt";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Chạm mục Địa điểm";
 
-"location_services_disabled_3" = "3. Chọn Luôn luôn";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Chọn Khi Đang Dùng Ứng dụng";
 
 "placepage_parking_surface" = "Trên mặt đất";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/giờ";
+
+"mile" = "dặm";
+
+"foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "ngày";
+
+"hour" = "giờ";
+
+"minute" = "phút";
+
 "placepage_place_description" = "Mô tả";
 
 "placepage_more_button" = "Bổ sung";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…thêm";
 
-"error_enter_correct_phone" = "Nhập số điện thoại không có chữ cái";
+/* Phone number error message */
+"error_enter_correct_phone" = "Nhập chính xác số điện thoại";
 
 "error_enter_correct_web" = "Nhập địa chỉ trang web hợp lệ";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Thêm địa điểm vào bản đồ";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bạn có muốn gửi cho toàn bộ người dùng?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "tổng quan";
 
 "navigation_stop_button" = "dừng";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Lưu Đánh dấu trang";
+
+"bookmarks_empty_message_1" = "Chạm vào ★ để lưu địa điểm yêu thích giúp truy cập nhanh.";
+
+"bookmarks_empty_message_2" = "Nhập đánh dấu trang từ Hộp thư và trang web.";
+
+"bookmarks_empty_message_3" = "đăng ký ra: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Đã đặt trước khách sạn";
+
+"place_page_button_read_descriprion" = "Đọc";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Tắt ghi lại tuyến đường đã đi gần đây của bạn?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "hoặc đặt phòng tại booking.com";
+
+"off_recent_track_background_button" = "Tắt";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Xem";
+
+"continue_recent_track_background_button" = "Tiếp tục";
+
+"recent_track_background_dialog_message" = "MAPS.ME sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.";

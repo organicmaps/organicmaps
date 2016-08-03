@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Posledná trasa";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Automatický zoom";
 
 "duration_disabled" = "Vypnúť";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Kliknite na položku Lokalita";
 
-"location_services_disabled_3" = "3. Vyberte Vždy";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Vyberte si počas používania aplikácie";
 
 "placepage_parking_surface" = "Typ parkoviska";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
+"mile" = "mi";
+
+"foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "d";
+
+"hour" = "hod";
+
+"minute" = "min";
+
 "placepage_place_description" = "Popis";
 
 "placepage_more_button" = "Viac";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…viac";
 
-"error_enter_correct_phone" = "Zadajte telefónne číslo bez písmen";
+/* Phone number error message */
+"error_enter_correct_phone" = "Zadajte správne telefónne číslo";
 
 "error_enter_correct_web" = "Zadajte platnú webovú adresu";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Pridať miesto na mape";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Odoslať všetkým používateľom?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "zhrnutie";
 
 "navigation_stop_button" = "stop";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Uložiť záložky";
+
+"bookmarks_empty_message_1" = "Ak si chcete uložiť obľúbené miesta pre rýchly prístup, klepnite na ★.";
+
+"bookmarks_empty_message_2" = "Importujte si záložky z emailu a webu.";
+
+"bookmarks_empty_message_3" = "odchod: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Rezervované hotely";
+
+"place_page_button_read_descriprion" = "Prečítajte si";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Znemožniť nahrávanie vami nedávno precestovanej trasy?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "alebo si rezervujte na booking.com";
+
+"off_recent_track_background_button" = "Znemožniť";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Pozrite si";
+
+"continue_recent_track_background_button" = "Pokračovať";
+
+"recent_track_background_dialog_message" = "MAPS.ME používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.";

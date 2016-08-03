@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Recente route";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Automatisch zoomen";
 
 "duration_disabled" = "Uit";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Tik op locatie";
 
-"location_services_disabled_3" = "3. Selecteer 'Altijd'";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Selecteer Terwijl Je de App Gebruikt";
 
 "placepage_parking_surface" = "Boven de grond";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
+"mile" = "mijl";
+
+"foot" = "voet";
+
+"miles_per_hour" = "mph";
+
+"day" = "d";
+
+"hour" = "u";
+
+"minute" = "min";
+
 "placepage_place_description" = "Beschrijving";
 
 "placepage_more_button" = "Meer";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…meer";
 
-"error_enter_correct_phone" = "Voer een telefoonnummer in zonder letters";
+/* Phone number error message */
+"error_enter_correct_phone" = "Voer het juiste telefoonnummer in";
 
 "error_enter_correct_web" = "Voer een geldig webadres in";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Een plek toevoegen aan de kaart";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Wil je het naar alle gebruikers sturen?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "overzicht";
 
 "navigation_stop_button" = "stoppen";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Bladwijzers opslaan";
+
+"bookmarks_empty_message_1" = "Tik op ★ om favoriete plaatsen op te slaan voor snelle toegang.";
+
+"bookmarks_empty_message_2" = "Importeer bladwijzers vanuit email en het internet.";
+
+"bookmarks_empty_message_3" = "uitchecken: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Geboekte hotels";
+
+"place_page_button_read_descriprion" = "Lezen";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Vastleggen van uw onlangs afgelegde route uitschakelen?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "of boek via booking.com";
+
+"off_recent_track_background_button" = "Uitschakelen";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Bekijk";
+
+"continue_recent_track_background_button" = "Verdergaan";
+
+"recent_track_background_dialog_message" = "MAPS.ME gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";

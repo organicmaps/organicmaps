@@ -331,6 +331,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Ses nasıl ayarlanır</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">En son yol</string>
+	<string name="pref_map_auto_zoom">Otomatik yakınlaştırma</string>
 	<string name="duration_disabled">Kapalı</string>
 	<string name="duration_1_hour">1 saat</string>
 	<string name="duration_2_hours">2 saat</string>
@@ -835,7 +836,8 @@
 	<string name="location_services_disabled_message">Cihaz ayarlarında konum belirlemeye erişimi etkinleştirin</string>
 	<string name="location_services_disabled_1">1. Ayarları Açın</string>
 	<string name="location_services_disabled_2">2. Konuma Dokunun</string>
-	<string name="location_services_disabled_3">3. Her Zamanı Seçin</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. Uygulamayı Kullanırken Seç</string>
 	<string name="placepage_parking_surface">Yüzey</string>
 	<string name="placepage_parking_multistorey">Çok Katlı</string>
 	<string name="placepage_parking_underground">Metro</string>
@@ -854,6 +856,13 @@
 	<string name="place_page_starting_from">%s’dan</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/s</string>
+	<string name="mile">mil</string>
+	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">g</string>
+	<string name="hour">sa</string>
+	<string name="minute">dk</string>
 	<string name="placepage_place_description">Açıklama</string>
 	<string name="placepage_more_button">Diğer</string>
 	<string name="bookingcom_book_button">Rezervasyon</string>
@@ -871,7 +880,8 @@
 	<string name="editor_status_sending">Gönderiliyor…</string>
 	<string name="editor_place_doesnt_exist">Bu yer mevcut değil</string>
 	<string name="text_more_button">…daha fazla</string>
-	<string name="error_enter_correct_phone">Telefon numarasını harf olmadan girin</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Doğru telefon numarası gir</string>
 	<string name="error_enter_correct_web">Geçerli bir web adresi girin</string>
 	<string name="error_enter_correct_email">Geçerli bir e-posta girin</string>
 	<string name="error_enter_correct">Geçerli bir değer girin</string>
@@ -888,11 +898,28 @@
 	<string name="booking_checkin">giriş: %s</string>
 	<string name="booking_checkout">çıkış: %s</string>
 	<string name="placepage_add_place_button">Haritaya bir yer ekleyin</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla temasa geçeceğiz.</string>
 	<string name="navigation_overview_button">genel bakış</string>
 	<string name="navigation_stop_button">dur</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Yer İşaretlerini Kaydet</string>
+	<string name="bookmarks_empty_message_1">Hızlı erişim için favori yerlere kaydetmek için ★ dokunun.</string>
+	<string name="bookmarks_empty_message_2">E-postadan ve weben yer işaretlerini içe aktarın.</string>
+	<string name="bookmarks_empty_message_3">çıkış: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Ayırtılan oteller</string>
+	<string name="place_page_button_read_descriprion">Oku</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">veya booking.com\&#39;dan yer ayırt</string>
+	<string name="off_recent_track_background_button">Devre Dışı Bırak</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">İncele</string>
+	<string name="continue_recent_track_background_button">Devam Et</string>
+	<string name="recent_track_background_dialog_message">MAPS.ME, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
 </resources>

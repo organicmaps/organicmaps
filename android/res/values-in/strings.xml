@@ -325,6 +325,7 @@
 	<string name="pref_tts_how_to_set_up_voice">Cara mengatur suara</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Jalur terkini</string>
+	<string name="pref_map_auto_zoom">Perbesar otomatis</string>
 	<string name="duration_disabled">Nonaktif</string>
 	<string name="duration_1_hour">1 jam</string>
 	<string name="duration_2_hours">2 jam</string>
@@ -828,7 +829,8 @@
 	<string name="location_services_disabled_message">Izinkan akses ke geolokasi pada pengaturan perangkat</string>
 	<string name="location_services_disabled_1">1. Buka Pengaturan</string>
 	<string name="location_services_disabled_2">2. Ketuk Lokasi</string>
-	<string name="location_services_disabled_3">3. Pilih Selalu</string>
+	<!-- iOS Dialog for the case when the location permission is not granted -->
+	<string name="location_services_disabled_3">3. Pilih While Using the App</string>
 	<string name="placepage_parking_surface">Parkir Luar</string>
 	<string name="placepage_parking_multistorey">Bertingkat</string>
 	<string name="placepage_parking_underground">Bawah Tanah</string>
@@ -847,6 +849,13 @@
 	<string name="place_page_starting_from">dari %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/j</string>
+	<string name="mile">mil</string>
+	<string name="foot">kaki</string>
+	<string name="miles_per_hour">mpj</string>
+	<string name="day">h</string>
+	<string name="hour">j</string>
+	<string name="minute">mnt</string>
 	<string name="placepage_place_description">Deskripsi</string>
 	<string name="placepage_more_button">Lainnya</string>
 	<string name="bookingcom_book_button">Pesan</string>
@@ -864,7 +873,8 @@
 	<string name="editor_status_sending">Mengirim…</string>
 	<string name="editor_place_doesnt_exist">Tempat tidak ada</string>
 	<string name="text_more_button">…selebihnya</string>
-	<string name="error_enter_correct_phone">Masukkan nomor telepon tanpa huruf</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Masukkan nomor telepon yang benar</string>
 	<string name="error_enter_correct_web">Masukkan alamat web valid</string>
 	<string name="error_enter_correct_email">Masukkan surel valid</string>
 	<string name="error_enter_correct">Masukkan nilai valid</string>
@@ -881,11 +891,28 @@
 	<string name="booking_checkin">check-in: %s</string>
 	<string name="booking_checkout">check-out: %s</string>
 	<string name="placepage_add_place_button">Tambahkan tempat ke peta</string>
-	<!-- Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. -->
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Apakah Anda ingin mengirimkannya ke semua pengguna?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.</string>
 	<string name="navigation_overview_button">ikhtisar</string>
 	<string name="navigation_stop_button">berhenti</string>
+	<!-- Text on an empty bookmark page -->
+	<string name="bookmarks_empty_title">Simpan Penanda</string>
+	<string name="bookmarks_empty_message_1">Ketuk pada ★ untuk menyimpan tempat-tempat favorit untuk akses cepat.</string>
+	<string name="bookmarks_empty_message_2">Impor penanda dari email dan web.</string>
+	<string name="bookmarks_empty_message_3">check-out: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Hotel yang dipesan</string>
+	<string name="place_page_button_read_descriprion">Baca</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Nonaktifkan rekaman dari rute yang baru Anda lalui?</string>
+	<!-- If a hotel is being shared -->
+	<string name="sharing_booking">atau pesan di booking.com</string>
+	<string name="off_recent_track_background_button">Nonaktifkan</string>
+	<!-- For sharing via SMS and so on -->
+	<string name="sharing_call_action_look">Lihat</string>
+	<string name="continue_recent_track_background_button">Teruskan</string>
+	<string name="recent_track_background_dialog_message">MAPS.ME menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.</string>
 </resources>

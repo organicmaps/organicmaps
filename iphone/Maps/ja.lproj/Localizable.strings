@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "最近のルート";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "自動ズーム";
 
 "duration_disabled" = "オフ";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. 位置情報をタップします";
 
-"location_services_disabled_3" = "3. 「常時」を選択します";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. アプリの使用中を選択してください";
 
 "placepage_parking_surface" = "表面";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "キロメートル毎時";
+
+"mile" = "マイル";
+
+"foot" = "フィート";
+
+"miles_per_hour" = "マイル毎時";
+
+"day" = "日";
+
+"hour" = "時間";
+
+"minute" = "分";
+
 "placepage_place_description" = "説明";
 
 "placepage_more_button" = "さらに詳しく";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…続き";
 
-"error_enter_correct_phone" = "文字なしで電話番号を入力してください";
+/* Phone number error message */
+"error_enter_correct_phone" = "正しい電話番号を入力してください";
 
 "error_enter_correct_web" = "有効なウェブアドレスを入力してください";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "地図上に場所を追加";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "全てのユーザーに送信しますか？";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "概要";
 
 "navigation_stop_button" = "停止";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "ブックマークを保存";
+
+"bookmarks_empty_message_1" = "★をタップしてお気に入りの場所にクイックアクセス。";
+
+"bookmarks_empty_message_2" = "メールやウェブからブックマークをインポートする。";
+
+"bookmarks_empty_message_3" = "チェックアウト：%s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "予約したホテル";
+
+"place_page_button_read_descriprion" = "詳細";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "最近の走行ルートの記録を無効にしますか？";
+
+/* If a hotel is being shared */
+"sharing_booking" = "またはbooking.comで予約";
+
+"off_recent_track_background_button" = "無効にする";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "ご覧ください";
+
+"continue_recent_track_background_button" = "続行";
+
+"recent_track_background_dialog_message" = "MAPS.MEは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";

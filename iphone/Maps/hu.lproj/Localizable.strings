@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Legutolsó útvonal";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Auto-zoom";
 
 "duration_disabled" = "Kikapcsolva";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Érintse meg a Helyzet gombot";
 
-"location_services_disabled_3" = "3. Válassza ki a Mindig gombot";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Kiválaszt az alkalmazás használata alatt";
 
 "placepage_parking_surface" = "Szabadtéri parkoló";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
+"mile" = "mf";
+
+"foot" = "l";
+
+"miles_per_hour" = "mph";
+
+"day" = "n";
+
+"hour" = "ó";
+
+"minute" = "p";
+
 "placepage_place_description" = "Leírás";
 
 "placepage_more_button" = "Még";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…tovább";
 
-"error_enter_correct_phone" = "Adj meg egy telefonszámot betűk nélkül";
+/* Phone number error message */
+"error_enter_correct_phone" = "Adja meg a helyes telefonszámot";
 
 "error_enter_correct_web" = "Adj meg egy érvényes weboldalcímet";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Hely hozzáadása a térképhez";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Szeretnéd elküldeni az összes felhasználónak?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "áttekintés";
 
 "navigation_stop_button" = "megállítás";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Könyvjelzők mentése";
+
+"bookmarks_empty_message_1" = "Koppintson a ★-ra a kedvenc helyei mentéséhez, gyors eléréséhez.";
+
+"bookmarks_empty_message_2" = "Importálja a könyvjelzőket a levelezésből és a böngészőből.";
+
+"bookmarks_empty_message_3" = "kijelentkezés: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Hotelfoglalások";
+
+"place_page_button_read_descriprion" = "Olvassa el";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Megszakítod a legutóbb megtett utad rögzítését?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "vagy foglaljon a booking.com-on";
+
+"off_recent_track_background_button" = "Megszakítás";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Tekintse meg";
+
+"continue_recent_track_background_button" = "Folytatás";
+
+"recent_track_background_dialog_message" = "A MAPS.ME a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.";

@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Rute recente";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Zoom automat";
 
 "duration_disabled" = "Oprit";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Apăsați pe Localizare";
 
-"location_services_disabled_3" = "3. Selectați Întotdeauna";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Selectați în timp ce folosiți aplicația";
 
 "placepage_parking_surface" = "Suprafață";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
+"mile" = "mi";
+
+"foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "z";
+
+"hour" = "o";
+
+"minute" = "min";
+
 "placepage_place_description" = "Descriere";
 
 "placepage_more_button" = "Mai multe";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…mai multe";
 
-"error_enter_correct_phone" = "Introduceți numărul de telefon fără litere";
+/* Phone number error message */
+"error_enter_correct_phone" = "Introduceți numărul de telefon corect";
 
 "error_enter_correct_web" = "Introduceți o adresă web validă";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Adăugați un loc pe hartă";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Doriți să îl trimiteți tuturor utilizatorilor?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "rezumat";
 
 "navigation_stop_button" = "stop";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Salvare marcaje";
+
+"bookmarks_empty_message_1" = "Atingeți ★ pentru a salva locurile preferate, pentru un acces rapid.";
+
+"bookmarks_empty_message_2" = "Importare marcaje din Mail și web.";
+
+"bookmarks_empty_message_3" = "check out: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Hoteluri rezervate";
+
+"place_page_button_read_descriprion" = "Citiți";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Dezactivați înregistrarea celui mai recent traseu urmat?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "sau rezervați pe booking.com";
+
+"off_recent_track_background_button" = "Dezactivare";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Aruncați o privire";
+
+"continue_recent_track_background_button" = "Continuare";
+
+"recent_track_background_dialog_message" = "MAPS.ME folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.";

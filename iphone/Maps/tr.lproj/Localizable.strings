@@ -519,8 +519,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "En son yol";
 
-/* Settings «Map» category: «Auto zoom» title */
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Otomatik yakınlaştırma";
 
 "duration_disabled" = "Kapalı";
 
@@ -1440,7 +1439,8 @@
 
 "location_services_disabled_2" = "2. Konuma Dokunun";
 
-"location_services_disabled_3" = "3. Her Zamanı Seçin";
+/* iOS Dialog for the case when the location permission is not granted */
+"location_services_disabled_3" = "3. Uygulamayı Kullanırken Seç";
 
 "placepage_parking_surface" = "Yüzey";
 
@@ -1478,6 +1478,20 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/s";
+
+"mile" = "mil";
+
+"foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "g";
+
+"hour" = "sa";
+
+"minute" = "dk";
+
 "placepage_place_description" = "Açıklama";
 
 "placepage_more_button" = "Diğer";
@@ -1512,7 +1526,8 @@
 
 "text_more_button" = "…daha fazla";
 
-"error_enter_correct_phone" = "Telefon numarasını harf olmadan girin";
+/* Phone number error message */
+"error_enter_correct_phone" = "Doğru telefon numarası gir";
 
 "error_enter_correct_web" = "Geçerli bir web adresi girin";
 
@@ -1546,7 +1561,7 @@
 
 "placepage_add_place_button" = "Haritaya bir yer ekleyin";
 
-/* Dialog to inform the user that the information will be visible to everyone, so that they don't post personal opinions, notes to self, etc. */
+/* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bunu tüm kullanıcılara göndermek ister misiniz?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
@@ -1557,3 +1572,32 @@
 "navigation_overview_button" = "genel bakış";
 
 "navigation_stop_button" = "dur";
+
+/* Text on an empty bookmark page */
+"bookmarks_empty_title" = "Yer İşaretlerini Kaydet";
+
+"bookmarks_empty_message_1" = "Hızlı erişim için favori yerlere kaydetmek için ★ dokunun.";
+
+"bookmarks_empty_message_2" = "E-postadan ve weben yer işaretlerini içe aktarın.";
+
+"bookmarks_empty_message_3" = "çıkış: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Ayırtılan oteller";
+
+"place_page_button_read_descriprion" = "Oku";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?";
+
+/* If a hotel is being shared */
+"sharing_booking" = "veya booking.com'dan yer ayırt";
+
+"off_recent_track_background_button" = "Devre Dışı Bırak";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "İncele";
+
+"continue_recent_track_background_button" = "Devam Et";
+
+"recent_track_background_dialog_message" = "MAPS.ME, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
