@@ -246,5 +246,7 @@
 	</array>
 	<key>PW_USE_GPS</key>
 	<true/>
+	<key>Pushwoosh_LOG_LEVEL</key>
+	<string>WARNING</string>
 </dict>
 </plist>
