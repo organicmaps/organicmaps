@@ -48,7 +48,7 @@ public:
 
   // Tries to get |center| of the feature identified by |id|.  Returns
   // false if table does not have entry for the feature.
-  virtual bool Get(uint32_t id, m2::PointD & center) = 0;
+  WARN_UNUSED_RESULT virtual bool Get(uint32_t id, m2::PointD & center) = 0;
 
   // Loads CentersTable instance. Note that |reader| must be alive
   // until the destruction of loaded table. Returns nullptr if
