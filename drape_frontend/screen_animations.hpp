@@ -9,6 +9,8 @@ namespace df
 
 extern string const kPrettyMoveAnim;
 extern string const kPrettyFollowAnim;
+extern string const kParallelFollowAnim;
+extern string const kParallelLinearAnim;
 
 class SequenceAnimation;
 class MapLinearAnimation;

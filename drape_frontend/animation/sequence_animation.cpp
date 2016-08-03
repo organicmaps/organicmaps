@@ -41,6 +41,8 @@ Animation::TObjectProperties const & SequenceAnimation::GetProperties(TObject ob
 
 bool SequenceAnimation::HasProperty(TObject object, TProperty property) const
 {
+  if (!HasObject(object))
+    return false;
   ASSERT(!m_animations.empty(), ());
   return m_animations.front()->HasProperty(object, property);
 }
@@ -94,9 +96,9 @@ bool SequenceAnimation::GetTargetProperty(TObject object, TProperty property, Pr
   return false;
 }
 
-void SequenceAnimation::AddAnimation(drape_ptr<Animation> animation)
+void SequenceAnimation::AddAnimation(drape_ptr<Animation> && animation)
 {
-  m_animations.push_back(move(animation));
+  m_animations.emplace_back(move(animation));
   if (m_animations.size() == 1)
     ObtainObjectProperties();
 }

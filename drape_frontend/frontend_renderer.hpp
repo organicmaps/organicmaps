@@ -140,12 +140,13 @@ public:
 
   /// MyPositionController::Listener
   void PositionChanged(m2::PointD const & position) override;
-  void ChangeModelView(m2::PointD const & center, int zoomLevel) override;
-  void ChangeModelView(double azimuth) override;
-  void ChangeModelView(m2::RectD const & rect) override;
+  void ChangeModelView(m2::PointD const & center, int zoomLevel, TAnimationCreator parallelAnimCreator) override;
+  void ChangeModelView(double azimuth, TAnimationCreator parallelAnimCreator) override;
+  void ChangeModelView(m2::RectD const & rect, TAnimationCreator parallelAnimCreator) override;
   void ChangeModelView(m2::PointD const & userPos, double azimuth,
-                       m2::PointD const & pxZero, int preferredZoomLevel) override;
-  void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) override;
+                       m2::PointD const & pxZero, int preferredZoomLevel, TAnimationCreator parallelAnimCreator) override;
+  void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                       TAnimationCreator parallelAnimCreator) override;
 
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;

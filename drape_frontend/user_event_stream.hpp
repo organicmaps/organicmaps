@@ -23,6 +23,8 @@ namespace df
 int const kDoNotChangeZoom = -1;
 double const kDoNotAutoZoom = -1.0;
 
+using TAnimationCreator = function<drape_ptr<Animation>(double)>;
+
 class UserEvent
 {
 public:
@@ -134,10 +136,12 @@ private:
 class SetCenterEvent : public UserEvent
 {
 public:
-  SetCenterEvent(m2::PointD const & center, int zoom, bool isAnim)
+  SetCenterEvent(m2::PointD const & center, int zoom, bool isAnim,
+                 TAnimationCreator parallelAnimCreator = nullptr)
     : m_center(center)
     , m_zoom(zoom)
     , m_isAnim(isAnim)
+    , m_parallelAnimCreator(parallelAnimCreator)
   {
   }
 
@@ -146,21 +150,25 @@ public:
   m2::PointD const & GetCenter() const { return m_center; }
   int GetZoom() const { return m_zoom; }
   bool IsAnim() const { return m_isAnim; }
+  TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
 
 private:
   m2::PointD m_center; // center point in mercator
   int m_zoom; // if zoom == -1, then zoom level will'n change
   bool m_isAnim;
+  TAnimationCreator m_parallelAnimCreator;
 };
 
 class SetRectEvent : public UserEvent
 {
 public:
-  SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim)
+  SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim,
+               TAnimationCreator parallelAnimCreator = nullptr)
     : m_rect(rect)
     , m_applyRotation(rotate)
     , m_zoom(zoom)
     , m_isAnim(isAnim)
+    , m_parallelAnimCreator(parallelAnimCreator)
   {
   }
 
@@ -170,12 +178,14 @@ public:
   bool GetApplyRotation() const { return m_applyRotation; }
   int GetZoom() const { return m_zoom; }
   bool IsAnim() const { return m_isAnim; }
+  TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
 
 private:
   m2::RectD m_rect; // destination mercator rect
   bool m_applyRotation; // if true, current rotation will be apply to m_rect
   int m_zoom; // if zoom == -1, then zoom level will'n change
   bool m_isAnim;
+  TAnimationCreator m_parallelAnimCreator;
 };
 
 class SetAnyRectEvent : public UserEvent
@@ -200,7 +210,7 @@ class FollowAndRotateEvent : public UserEvent
 {
 public:
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
-                       double azimuth, double autoScale)
+                       double azimuth, double autoScale, TAnimationCreator parallelAnimCreator = nullptr)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
@@ -208,12 +218,13 @@ public:
     , m_autoScale(autoScale)
     , m_isAutoScale(true)
     , m_isAnim(true)
+    , m_parallelAnimCreator(parallelAnimCreator)
   {
   }
 
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
                        double azimuth, int preferredZoomLevel,
-                       bool isAnim)
+                       bool isAnim, TAnimationCreator parallelAnimCreator = nullptr)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
@@ -221,6 +232,7 @@ public:
     , m_autoScale(kDoNotAutoZoom)
     , m_isAutoScale(false)
     , m_isAnim(isAnim)
+    , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
   EEventType GetType() const override { return UserEvent::FollowAndRotate; }
@@ -232,6 +244,7 @@ public:
   double GetAutoScale() const { return m_autoScale; }
   bool IsAutoScale() const { return m_isAutoScale; }
   bool IsAnim() const { return m_isAnim; }
+  TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
 
 private:
   m2::PointD m_userPos;
@@ -241,6 +254,7 @@ private:
   double m_autoScale;
   bool m_isAutoScale;
   bool m_isAnim;
+  TAnimationCreator m_parallelAnimCreator;
 };
 
 class SetAutoPerspectiveEvent : public UserEvent
@@ -261,16 +275,19 @@ private:
 class RotateEvent : public UserEvent
 {
 public:
-  RotateEvent(double targetAzimut)
+  RotateEvent(double targetAzimut, TAnimationCreator parallelAnimCreator = nullptr)
     : m_targetAzimut(targetAzimut)
+    , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
   EEventType GetType() const override { return UserEvent::Rotate; }
 
   double GetTargetAzimuth() const { return m_targetAzimut; }
+  TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
 
 private:
   double m_targetAzimut;
+  TAnimationCreator m_parallelAnimCreator;
 };
 
 class ResizeEvent : public UserEvent
@@ -357,13 +374,18 @@ public:
 
 private:
   bool SetScale(m2::PointD const & pxScaleCenter, double factor, bool isAnim);
-  bool SetCenter(m2::PointD const & center, int zoom, bool isAnim);
-  bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
-  bool SetRect(m2::AnyRectD const & rect, bool isAnim);
-  bool SetScreen(ScreenBase const & screen, bool isAnim);
+  bool SetCenter(m2::PointD const & center, int zoom, bool isAnim,
+                 TAnimationCreator parallelAnimCreator = nullptr);
+  bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
+               TAnimationCreator parallelAnimCreator = nullptr);
+  bool SetRect(m2::AnyRectD const & rect, bool isAnim,
+               TAnimationCreator parallelAnimCreator = nullptr);
+  bool SetScreen(ScreenBase const & screen, bool isAnim,
+                 TAnimationCreator parallelAnimCreator = nullptr);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, double autoScale,
-                          bool isAnim, bool isAutoScale);
+                          bool isAnim, bool isAutoScale,
+                          TAnimationCreator parallelAnimCreator = nullptr);
   void SetAutoPerspective(bool isAutoPerspective);
 
   m2::AnyRectD GetCurrentRect() const;

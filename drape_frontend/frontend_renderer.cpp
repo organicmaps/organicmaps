@@ -1609,30 +1609,32 @@ void FrontendRenderer::PositionChanged(m2::PointD const & position)
   m_userPositionChangedFn(position);
 }
 
-void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel)
+void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel, TAnimationCreator parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<SetCenterEvent>(center, zoomLevel, true));
+  AddUserEvent(make_unique_dp<SetCenterEvent>(center, zoomLevel, true, parallelAnimCreator));
 }
 
-void FrontendRenderer::ChangeModelView(double azimuth)
+void FrontendRenderer::ChangeModelView(double azimuth, TAnimationCreator parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<RotateEvent>(azimuth));
+  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, parallelAnimCreator));
 }
 
-void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
+void FrontendRenderer::ChangeModelView(m2::RectD const & rect, TAnimationCreator parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<SetRectEvent>(rect, true, kDoNotChangeZoom, true));
+  AddUserEvent(make_unique_dp<SetRectEvent>(rect, true, kDoNotChangeZoom, true, parallelAnimCreator));
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,
-                                       m2::PointD const & pxZero, int preferredZoomLevel)
+                                       m2::PointD const & pxZero, int preferredZoomLevel,
+                                       TAnimationCreator parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, preferredZoomLevel, true));
+  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, preferredZoomLevel, true, parallelAnimCreator));
 }
 
-void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
+void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                                       TAnimationCreator parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, autoScale));
+  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, autoScale, parallelAnimCreator));
 }
 
 ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)

@@ -640,32 +640,32 @@ void MyPositionController::OnCompassTapped()
 void MyPositionController::ChangeModelView(m2::PointD const & center, int zoomLevel)
 {
   if (m_listener)
-    m_listener->ChangeModelView(center, zoomLevel);
+    m_listener->ChangeModelView(center, zoomLevel, m_animCreator);
 }
 
 void MyPositionController::ChangeModelView(double azimuth)
 {
   if (m_listener)
-    m_listener->ChangeModelView(azimuth);
+    m_listener->ChangeModelView(azimuth, m_animCreator);
 }
 
 void MyPositionController::ChangeModelView(m2::RectD const & rect)
 {
   if (m_listener)
-    m_listener->ChangeModelView(rect);
+    m_listener->ChangeModelView(rect, m_animCreator);
 }
 
 void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth,
                                            m2::PointD const & pxZero, int zoomLevel)
 {
   if (m_listener)
-    m_listener->ChangeModelView(userPos, azimuth, pxZero, zoomLevel);
+    m_listener->ChangeModelView(userPos, azimuth, pxZero, zoomLevel, m_animCreator);
 }
 
 void MyPositionController::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
 {
   if (m_listener)
-    m_listener->ChangeModelView(autoScale, userPos, azimuth, pxZero);
+    m_listener->ChangeModelView(autoScale, userPos, azimuth, pxZero, m_animCreator);
 }
 
 void MyPositionController::UpdateViewport(int zoomLevel)
@@ -741,10 +741,11 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
   {
     if (IsModeChangeViewport())
     {
-      m_animCreator = [this, oldPos, oldAzimut, moveDuration](double correctedDuration)
+      m_animCreator = [this, oldPos, oldAzimut, moveDuration](double correctedDuration) -> drape_ptr<Animation>
       {
-        AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position,
-            correctedDuration > 0.0 ? correctedDuration : moveDuration, oldAzimut, m_drawDirection));
+        return make_unique_dp<ArrowAnimation>(oldPos, m_position,
+                                              correctedDuration > 0.0 ? correctedDuration : moveDuration,
+                                              oldAzimut, m_drawDirection);
       };
       m_oldPosition = oldPos;
       m_oldDrawDirection = oldAzimut;
