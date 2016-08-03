@@ -5,8 +5,8 @@
 
 #include "Framework.h"
 
-#include "search/params.hpp"
 #include "search/query_saver.hpp"
+#include "search/search_params.hpp"
 
 namespace
 {

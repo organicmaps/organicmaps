@@ -458,13 +458,9 @@ void DrawWidget::wheelEvent(QWheelEvent * e)
   m_framework->Scale(exp(e->delta() / 360.0), m2::PointD(L2D(e->x()), L2D(e->y())), false);
 }
 
-bool DrawWidget::Search(search::SearchParams params)
+bool DrawWidget::Search(search::EverywhereSearchParams const & params)
 {
-  double lat, lon;
-  if (m_framework->GetCurrentPosition(lat, lon))
-    params.SetPosition(lat, lon);
-
-  return m_framework->Search(params);
+  return m_framework->SearchEverywhere(params);
 }
 
 string DrawWidget::GetDistance(search::Result const & res) const

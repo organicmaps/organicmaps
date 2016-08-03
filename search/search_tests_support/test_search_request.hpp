@@ -2,8 +2,8 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "search/params.hpp"
 #include "search/result.hpp"
+#include "search/search_params.hpp"
 
 #include "std/condition_variable.hpp"
 #include "std/mutex.hpp"
@@ -36,8 +36,8 @@ public:
 
 protected:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
-                    Mode mode, m2::RectD const & viewport, TOnStarted onStarted,
-                    TOnResults onResults);
+                    Mode mode, m2::RectD const & viewport, SearchParams::TOnStarted onStarted,
+                    SearchParams::TOnResults onResults);
 
   void SetUpCallbacks(SearchParams & params);
 

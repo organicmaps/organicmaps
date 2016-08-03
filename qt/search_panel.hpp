@@ -1,7 +1,7 @@
 #pragma once
 
 #include "search/result.hpp"
-#include "search/params.hpp"
+#include "search/everywhere_search_params.hpp"
 
 #include "std/vector.hpp"
 
@@ -37,7 +37,7 @@ class SearchPanel : public QWidget
   typedef search::Result ResultT;
   vector<ResultT> m_results;
 
-  search::SearchParams m_params;
+  search::EverywhereSearchParams m_params;
 
   Q_OBJECT
 

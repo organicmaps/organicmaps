@@ -1,7 +1,12 @@
 #include "Framework.hpp"
 
-#include "base/thread.hpp"
+#include "search/everywhere_search_params.hpp"
+#include "search/mode.hpp"
 #include "search/result.hpp"
+#include "search/viewport_search_params.hpp"
+
+#include "base/thread.hpp"
+
 #include "std/atomic.hpp"
 #include "std/mutex.hpp"
 
@@ -183,17 +188,14 @@ extern "C"
 
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang,
-                                                               jlong timestamp, jboolean force, jboolean hasPosition, jdouble lat, jdouble lon)
+                                                               jlong timestamp, jboolean hasPosition, jdouble lat, jdouble lon)
   {
-    search::SearchParams params;
+    search::EverywhereSearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
-    params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
-    params.SetForceSearch(force);
-    if (hasPosition)
-      params.SetPosition(lat, lon);
+    params.m_inputLocale = ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang));
     params.m_onResults = bind(&OnResults, _1, timestamp, false, hasPosition, lat, lon);
 
-    bool const searchStarted = g_framework->NativeFramework()->Search(params);
+    bool const searchStarted = g_framework->NativeFramework()->SearchEverywhere(params);
     if (searchStarted)
       g_queryTimestamp = timestamp;
     return searchStarted;
@@ -203,16 +205,20 @@ extern "C"
   Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(JNIEnv * env, jclass clazz, jbyteArray bytes,
                                                                           jstring lang, jlong timestamp, jboolean isMapAndTable)
   {
-    search::SearchParams params;
-    params.m_query = jni::ToNativeString(env, bytes);
-    params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
+    search::ViewportSearchParams vparams;
+    vparams.m_query = jni::ToNativeString(env, bytes);
+    vparams.m_inputLocale = ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang));
 
-    g_framework->NativeFramework()->StartInteractiveSearch(params);
+    g_framework->NativeFramework()->SearchInViewport(vparams);
 
     if (isMapAndTable)
     {
-      params.m_onResults = bind(&OnResults, _1, timestamp, isMapAndTable, false /* hasPosition */, 0.0, 0.0);
-      if (g_framework->NativeFramework()->Search(params))
+      search::EverywhereSearchParams eparams;
+      eparams.m_query = vparams.m_query;
+      eparams.m_inputLocale = vparams.m_inputLocale;
+      eparams.m_onResults = bind(&OnResults, _1, timestamp, isMapAndTable, false /* hasPosition */,
+                                 0.0 /* lat */, 0.0 /* lon */);
+      if (g_framework->NativeFramework()->SearchEverywhere(eparams))
         g_queryTimestamp = timestamp;
     }
   }
@@ -256,7 +262,7 @@ extern "C"
   {
     GetPlatform().RunOnGuiThread([]()
     {
-      g_framework->NativeFramework()->CancelInteractiveSearch();
+      g_framework->NativeFramework()->CancelSearch(search::Mode::Viewport);
     });
   }
 } // extern "C"

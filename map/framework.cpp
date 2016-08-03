@@ -12,12 +12,13 @@
 #include "routing/routing_algorithm.hpp"
 
 #include "search/engine.hpp"
+#include "search/everywhere_search_params.hpp"
 #include "search/geometry_utils.hpp"
-#include "search/interactive_search_callback.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/processor_factory.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
+#include "search/viewport_search_params.hpp"
 
 #include "storage/storage_helpers.hpp"
 
@@ -138,8 +139,7 @@ void ParseSetGpsTrackMinAccuracyCommand(string const & query)
 // Cancels search query by |handle|.
 void CancelQuery(weak_ptr<search::ProcessorHandle> & handle)
 {
-  auto queryHandle = handle.lock();
-  if (queryHandle)
+  if (auto queryHandle = handle.lock())
     queryHandle->Cancel();
   handle.reset();
 }
@@ -504,8 +504,7 @@ bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, stora
   if (countryId == m_lastReportedCountry)
     m_lastReportedCountry = kInvalidCountryId;
 
-  if (auto handle = m_lastProcessorHandle.lock())
-    handle->Cancel();
+  CancelAllSearches();
 
   m2::RectD rect = MercatorBounds::FullRect();
 
@@ -1045,37 +1044,6 @@ void Framework::InvalidateRect(m2::RectD const & rect)
   CallDrapeFunction(bind(&df::DrapeEngine::InvalidateRect, _1, rect));
 }
 
-void Framework::StartInteractiveSearch(search::SearchParams const & params)
-{
-  auto const originalOnResults = params.m_onResults;
-
-  auto setMode = [this]() {
-    SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, true /* show */);
-  };
-
-  auto onResults = [this, originalOnResults](search::Results const & results) {
-    if (!results.IsEndMarker())
-    {
-      GetPlatform().RunOnGuiThread([this, results]() {
-        if (IsInteractiveSearchActive())
-          FillSearchResultsMarks(results);
-      });
-    }
-
-    if (originalOnResults)
-      originalOnResults(results);
-  };
-
-  m_lastInteractiveSearchParams = params;
-  m_lastInteractiveSearchParams.SetForceSearch(false);
-  m_lastInteractiveSearchParams.SetMode(search::Mode::Viewport);
-  m_lastInteractiveSearchParams.SetSuggestsEnabled(false);
-  m_lastInteractiveSearchParams.m_onResults =
-      search::InteractiveSearchCallback(move(setMode), move(onResults));
-
-  UpdateUserViewportChanged();
-}
-
 void Framework::ClearAllCaches()
 {
   m_model.ClearCaches();
@@ -1109,43 +1077,12 @@ void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & 
 
 void Framework::UpdateUserViewportChanged()
 {
-  if (IsInteractiveSearchActive())
-  {
-    (void)GetCurrentPosition(m_lastInteractiveSearchParams.m_lat,
-                             m_lastInteractiveSearchParams.m_lon);
-    Search(m_lastInteractiveSearchParams);
-  }
-}
+  if (!IsViewportSearchActive())
+    return;
 
-bool Framework::Search(search::SearchParams const & params)
-{
-#ifdef FIXED_LOCATION
-  search::SearchParams rParams(params);
-  if (params.IsValidPosition())
-  {
-    m_fixedPos.GetLat(rParams.m_lat);
-    m_fixedPos.GetLon(rParams.m_lon);
-  }
-#else
-  search::SearchParams const & rParams = params;
-#endif
-
-  ParseSetGpsTrackMinAccuracyCommand(params.m_query);
-  if (ParseEditorDebugCommand(params))
-    return true;
-
-  m2::RectD const viewport = GetCurrentViewport();
-
-  if (QueryMayBeSkipped(rParams, viewport))
-    return false;
-
-  m_lastQueryParams = rParams;
-  m_lastQueryViewport = viewport;
-
-  // Cancels previous search request (if any) and initiates new search request.
-  CancelQuery(m_lastProcessorHandle);
-  m_lastProcessorHandle = m_searchEngine->Search(m_lastQueryParams, m_lastQueryViewport);
-  return true;
+  auto & params = m_searchIntents[static_cast<size_t>(search::Mode::Viewport)].m_params;
+  SetCurrentPositionIfPossible(params);
+  Search(params);
 }
 
 bool Framework::GetGroupCountryIdFromFeature(FeatureType const & ft, string & name) const
@@ -1164,25 +1101,67 @@ bool Framework::GetGroupCountryIdFromFeature(FeatureType const & ft, string & na
   return false;
 }
 
+bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
+{
+  search::SearchParams p;
+  p.m_query = params.m_query;
+  p.SetInputLocale(params.m_inputLocale);
+  p.SetForceSearch(true);
+  p.SetMode(search::Mode::Everywhere);
+  p.SetSuggestsEnabled(true);
+  p.m_onResults = [params](search::Results const & results) {
+    if (params.m_onResults)
+      GetPlatform().RunOnGuiThread([params, results]() { params.m_onResults(results); });
+  };
+  SetCurrentPositionIfPossible(p);
+
+  return Search(p);
+}
+
+bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
+{
+  search::SearchParams p;
+  p.m_query = params.m_query;
+  p.SetInputLocale(params.m_inputLocale);
+  p.SetForceSearch(false);
+  p.SetMode(search::Mode::Viewport);
+  p.SetSuggestsEnabled(false);
+
+  p.m_onStarted = [params]() {
+    if (params.m_onStarted)
+      GetPlatform().RunOnGuiThread([params]() { params.m_onStarted(); });
+  };
+
+  p.m_onResults = search::ViewportSearchCallback(
+      static_cast<search::ViewportSearchCallback::Delegate &>(*this),
+      [params](search::Results const & results) {
+        if (results.IsEndMarker() && params.m_onCompleted)
+          GetPlatform().RunOnGuiThread([params]() { params.m_onCompleted(); });
+      });
+  SetCurrentPositionIfPossible(p);
+
+  return Search(p);
+}
+
 bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
 {
-  search::SearchParams searchParam;
-  searchParam.m_query = params.m_query;
-  searchParam.m_inputLocale = params.m_inputLocale;
-  searchParam.SetMode(search::Mode::World);
-  searchParam.SetSuggestsEnabled(false);
-  searchParam.SetForceSearch(true);
-  searchParam.m_onResults = [this, params](search::Results const & results)
+  search::SearchParams p;
+  p.m_query = params.m_query;
+  p.m_inputLocale = params.m_inputLocale;
+  p.SetMode(search::Mode::Downloader);
+  p.SetSuggestsEnabled(false);
+  p.SetForceSearch(true);
+  p.m_onResults = [this, params](search::Results const & results)
   {
     DownloaderSearchResults downloaderSearchResults;
-    for (auto it = results.Begin(); it != results.End(); ++it)
+    for (auto const & result : results)
     {
-      if (!it->HasPoint())
+      if (!result.HasPoint())
         continue;
 
-      if (it->GetResultType() != search::Result::RESULT_LATLON)
+      if (result.GetResultType() != search::Result::RESULT_LATLON)
       {
-        FeatureID const & fid = it->GetFeatureID();
+        FeatureID const & fid = result.GetFeatureID();
         Index::FeaturesLoaderGuard loader(m_model.GetIndex(), fid.m_mwmId);
         FeatureType ft;
         if (!loader.GetFeatureByIndex(fid.m_index, ft))
@@ -1199,25 +1178,51 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
           if (GetGroupCountryIdFromFeature(ft, groupFeatureName))
           {
             downloaderSearchResults.m_results.emplace_back(groupFeatureName,
-                                                           it->GetString() /* m_matchedName */);
+                                                           result.GetString() /* m_matchedName */);
             continue;
           }
         }
       }
 
-      auto const & mercator = it->GetFeatureCenter();
+      auto const & mercator = result.GetFeatureCenter();
       TCountryId const & countryId = CountryInfoGetter().GetRegionCountryId(mercator);
       if (countryId == kInvalidCountryId)
         continue;
       downloaderSearchResults.m_results.emplace_back(countryId,
-                                                     it->GetString() /* m_matchedName */);
+                                                     result.GetString() /* m_matchedName */);
     }
     downloaderSearchResults.m_query = params.m_query;
     downloaderSearchResults.m_endMarker = results.IsEndMarker();
-    params.m_onResults(downloaderSearchResults);
+
+    if (params.m_onResults)
+    {
+      GetPlatform().RunOnGuiThread(
+          [params, downloaderSearchResults]() { params.m_onResults(downloaderSearchResults); });
+    }
   };
 
-  return Search(searchParam);
+  return Search(p);
+}
+
+void Framework::CancelSearch(search::Mode mode)
+{
+  ASSERT_NOT_EQUAL(mode, search::Mode::Count, ());
+
+  if (mode == search::Mode::Viewport)
+  {
+    ClearSearchResultsMarks();
+    SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, false /* show */);
+  }
+
+  auto & intent = m_searchIntents[static_cast<size_t>(mode)];
+  intent.m_params.Clear();
+  CancelQuery(intent.m_handle);
+}
+
+void Framework::CancelAllSearches()
+{
+  for (size_t i = 0; i < static_cast<size_t>(search::Mode::Count); ++i)
+    CancelSearch(static_cast<search::Mode>(i));
 }
 
 void Framework::MemoryWarning()
@@ -1307,21 +1312,64 @@ string Framework::GetCountryName(m2::PointD const & pt) const
   return info.m_name;
 }
 
-bool Framework::QueryMayBeSkipped(search::SearchParams const & params,
+bool Framework::Search(search::SearchParams const & params)
+{
+  auto const mode = params.GetMode();
+  auto & intent = m_searchIntents[static_cast<size_t>(mode)];
+
+#ifdef FIXED_LOCATION
+  search::SearchParams rParams(params);
+  if (params.IsValidPosition())
+  {
+    m_fixedPos.GetLat(rParams.m_lat);
+    m_fixedPos.GetLon(rParams.m_lon);
+  }
+#else
+  search::SearchParams const & rParams = params;
+#endif
+
+  ParseSetGpsTrackMinAccuracyCommand(params.m_query);
+  if (ParseEditorDebugCommand(params))
+    return true;
+
+  m2::RectD const viewport = GetCurrentViewport();
+
+  if (QueryMayBeSkipped(intent, rParams, viewport))
+    return false;
+
+  intent.m_params = rParams;
+  intent.m_viewport = viewport;
+
+  // Cancels previous search request (if any) and initiates new search request.
+  CancelQuery(intent.m_handle);
+  intent.m_handle = m_searchEngine->Search(intent.m_params, intent.m_viewport);
+
+  return true;
+}
+
+void Framework::SetCurrentPositionIfPossible(search::SearchParams & params)
+{
+  double lat;
+  double lon;
+  if (GetCurrentPosition(lat, lon))
+    params.SetPosition(lat, lon);
+}
+
+bool Framework::QueryMayBeSkipped(SearchIntent const & intent, search::SearchParams const & params,
                                   m2::RectD const & viewport) const
 {
+  auto const & lastParams = intent.m_params;
+  auto const & lastViewport = intent.m_viewport;
+
   if (params.IsForceSearch())
     return false;
-  if (!m_lastQueryParams.IsEqualCommon(params))
+  if (!lastParams.IsEqualCommon(params))
     return false;
-  if (!m_lastQueryViewport.IsValid() ||
-      !search::IsEqualMercator(m_lastQueryViewport, viewport, kDistEqualQuery))
-  {
+  if (!lastViewport.IsValid() || !search::IsEqualMercator(lastViewport, viewport, kDistEqualQuery))
     return false;
-  }
-  if (!m_lastQueryParams.IsSearchAroundPosition() ||
-      ms::DistanceOnEarth(m_lastQueryParams.m_lat, m_lastQueryParams.m_lon, params.m_lat,
-                          params.m_lon) <= kDistEqualQuery)
+  if (!lastParams.IsSearchAroundPosition() ||
+      ms::DistanceOnEarth(lastParams.m_lat, lastParams.m_lon, params.m_lat, params.m_lon) <=
+          kDistEqualQuery)
   {
     return false;
   }
@@ -1330,7 +1378,7 @@ bool Framework::QueryMayBeSkipped(search::SearchParams const & params,
 
 void Framework::ShowSearchResult(search::Result const & res)
 {
-  CancelInteractiveSearch();
+  CancelAllSearches();
   StopLocationFollow();
 
   alohalytics::LogEvent("searchShowResult", {{"pos", strings::to_string(res.GetPositionInResults())},
@@ -1435,7 +1483,6 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
   UserMarkControllerGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
   guard.m_controller.SetIsVisible(true);
   guard.m_controller.SetIsDrawable(true);
-  guard.m_controller.Clear();
 
   size_t const count = results.GetCount();
   for (size_t i = 0; i < count; ++i)
@@ -1455,15 +1502,9 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
   }
 }
 
-void Framework::CancelInteractiveSearch()
+void Framework::ClearSearchResultsMarks()
 {
   UserMarkControllerGuard(m_bmManager, UserMarkType::SEARCH_MARK).m_controller.Clear();
-  if (IsInteractiveSearchActive())
-  {
-    m_lastInteractiveSearchParams.Clear();
-    SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, false /* show */);
-    CancelQuery(m_lastProcessorHandle);
-  }
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,

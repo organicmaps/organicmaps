@@ -7,6 +7,8 @@
 
 #include "map/user_mark.hpp"
 
+#include "search/everywhere_search_params.hpp"
+
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/visual_params.hpp"
@@ -307,10 +309,10 @@ void Framework::Scale(m2::PointD const & centerPt, int targetZoom, bool animate)
   return &m_work;
 }
 
-bool Framework::Search(search::SearchParams const & params)
+bool Framework::Search(search::EverywhereSearchParams const & params)
 {
   m_searchQuery = params.m_query;
-  return m_work.Search(params);
+  return m_work.SearchEverywhere(params);
 }
 
 void Framework::AddLocalMaps()

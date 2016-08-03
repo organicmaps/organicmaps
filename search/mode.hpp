@@ -6,9 +6,10 @@ namespace search
 {
 enum class Mode
 {
-  Viewport,
   Everywhere,
-  World
+  Viewport,
+  Downloader,
+  Count
 };
 
 string DebugPrint(Mode mode);

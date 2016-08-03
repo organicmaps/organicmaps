@@ -1,9 +1,9 @@
 #pragma once
 
-#include "params.hpp"
-#include "processor_factory.hpp"
-#include "result.hpp"
-#include "suggest.hpp"
+#include "search/processor_factory.hpp"
+#include "search/result.hpp"
+#include "search/search_params.hpp"
+#include "search/suggest.hpp"
 
 #include "indexer/categories_holder.hpp"
 

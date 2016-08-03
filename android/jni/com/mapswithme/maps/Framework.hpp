@@ -27,6 +27,11 @@
 #include "std/unique_ptr.hpp"
 #include "std/cstdint.hpp"
 
+namespace search
+{
+struct EverywhereSearchParams;
+}
+
 namespace android
 {
   class Framework
@@ -101,7 +106,7 @@ namespace android
 
     void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
 
-    bool Search(search::SearchParams const & params);
+    bool Search(search::EverywhereSearchParams const & params);
     string GetLastSearchQuery() { return m_searchQuery; }
     void ClearLastSearchQuery() { m_searchQuery.clear(); }
 

@@ -2,7 +2,7 @@
 
 #include "generator/generator_tests_support/test_feature.hpp"
 
-#include "search/interactive_search_callback.hpp"
+#include "search/viewport_search_callback.hpp"
 #include "search/mode.hpp"
 #include "search/search_integration_tests/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
@@ -37,16 +37,33 @@ public:
   }
 };
 
-class InteractiveSearchRequest : public TestSearchRequest
+class TestDelegate : public ViewportSearchCallback::Delegate
+{
+public:
+  TestDelegate(bool & mode) : m_mode(mode) {}
+
+  // ViewportSearchCallback::Delegate overrides:
+  void RunUITask(function<void()> /* fn */) override {}
+  void SetHotelDisplacementMode() override { m_mode = true; }
+  bool IsViewportSearchActive() const override { return true; }
+  void ShowViewportSearchResults(Results const & /* results */) override {}
+  void ClearViewportSearchResults() override {}
+
+ private:
+  bool & m_mode;
+};
+
+class InteractiveSearchRequest : public TestDelegate, public TestSearchRequest
 {
 public:
   InteractiveSearchRequest(TestSearchEngine & engine, string const & query,
                            m2::RectD const & viewport, bool & mode)
-    : TestSearchRequest(
+    : TestDelegate(mode)
+    , TestSearchRequest(
           engine, query, "en" /* locale */, Mode::Viewport, viewport,
           bind(&InteractiveSearchRequest::OnStarted, this),
-          InteractiveSearchCallback([&mode]() { mode = true; },
-                                    bind(&InteractiveSearchRequest::OnResults, this, _1)))
+          ViewportSearchCallback(static_cast<ViewportSearchCallback::Delegate &>(*this),
+                                 bind(&InteractiveSearchRequest::OnResults, this, _1)))
   {
   }
 };

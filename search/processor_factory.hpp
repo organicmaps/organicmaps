@@ -1,7 +1,7 @@
 #pragma once
 
-#include "search/params.hpp"
 #include "search/processor.hpp"
+#include "search/search_params.hpp"
 #include "search/suggest.hpp"
 
 #include "std/unique_ptr.hpp"

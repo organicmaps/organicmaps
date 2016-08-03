@@ -6,9 +6,10 @@ string DebugPrint(Mode mode)
 {
   switch (mode)
   {
-  case Mode::Viewport: return "Viewport";
   case Mode::Everywhere: return "Everywhere";
-  case Mode::World: return "World";
+  case Mode::Viewport: return "Viewport";
+  case Mode::Downloader: return "Downloader";
+  case Mode::Count: return "Count";
   }
   return "Unknown";
 }
