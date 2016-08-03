@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
@@ -8,6 +9,7 @@
 @property (weak, nonatomic) IBOutlet UILabel * label;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * labelLeadingOffset;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * labelTrailingOffset;
+@property (weak, nonatomic) IBOutlet UIImageView * grayArrow;
 
 @property (weak, nonatomic) id<MWMEditorCellProtocol> delegate;
 
@@ -35,6 +37,9 @@
     self.label.textColor = [UIColor blackHintText];
   }
   self.label.preferredMaxLayoutWidth = self.width - self.labelLeadingOffset.constant - self.labelTrailingOffset.constant;
+
+  if (isInterfaceRightToLeft())
+    self.grayArrow.transform = CGAffineTransformMakeScale(-1, 1);
 }
 
 - (IBAction)selectAction

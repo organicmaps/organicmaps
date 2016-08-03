@@ -3,6 +3,7 @@
 #import "MWMPlacePageOpeningHoursDayView.h"
 #import "Statistics.h"
 #import "UIImageView+Coloring.h"
+#import "Common.h"
 
 #include "3party/opening_hours/opening_hours.hpp"
 #include "editor/opening_hours_ui.hpp"
@@ -73,6 +74,8 @@ WeekDayView getWeekDayView()
   self.expandImage.hidden = !delegate.forcedButton;
   self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_right"];
   self.expandImage.mwm_coloring = MWMImageColoringGray;
+  if (isInterfaceRightToLeft())
+    self.expandImage.transform = CGAffineTransformMakeScale(-1, 1);
   NSAssert(info, @"Schedule can not be empty");
   osmoh::OpeningHours oh(info.UTF8String);
   if (MakeTimeTableSet(oh, timeTableSet))
@@ -132,6 +135,9 @@ WeekDayView getWeekDayView()
       self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_down"];
 
     self.expandImage.mwm_coloring = MWMImageColoringGray;
+    if (isInterfaceRightToLeft())
+      self.expandImage.transform = CGAffineTransformMakeScale(-1, 1);
+
     if (self.isExpanded)
       [self addClosedDays];
   }
