@@ -58,11 +58,11 @@ static NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
 extern NSString * const kUDAlreadySharedKey = @"UserAlreadyShared";
 static NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
 static NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
-static NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 static NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 static NSString * const kIOSIDFA = @"IFA";
 static NSString * const kBundleVersion = @"BundleVersion";
 
+extern NSString * const kUDTrackWarningAlertWasShown;
 extern string const kCountryCodeKey;
 extern string const kUniqueIdKey;
 extern string const kLanguageKey;
