@@ -158,7 +158,7 @@ feature::TAltitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
     }
     catch (RootException const & e)
     {
-      LOG(LWARNING, ("Can't init SRTM tile:", base, "reason:", e.Msg()));
+      LOG(LINFO, ("Can't init SRTM tile:", base, "reason:", e.Msg()));
     }
 
     // It's OK to store even invalid tiles and return invalid height
