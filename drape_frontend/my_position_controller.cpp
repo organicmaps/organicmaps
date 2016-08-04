@@ -66,10 +66,10 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
 }
 
 // Calculate zoom value in meters per pixel
-double CalculateZoomBySpeed(double speed)
+double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 {
   using TSpeedScale = pair<double, double>;
-  static vector<TSpeedScale> scales = {
+  static vector<TSpeedScale> scales3d = {
     make_pair(20.0,  0.25),
     make_pair(40.0,  0.5),
     make_pair(60.0,  1.0),
@@ -77,6 +77,17 @@ double CalculateZoomBySpeed(double speed)
     make_pair(85.0, 3.5),
     make_pair(90.0, 7.0),
   };
+
+  static vector<TSpeedScale> scales2d = {
+    make_pair(20.0,  0.7),
+    make_pair(40.0,  1.0),
+    make_pair(60.0,  1.5),
+    make_pair(75.0,  1.75),
+    make_pair(85.0, 3.5),
+    make_pair(90.0, 7.0),
+  };
+
+  vector<TSpeedScale> const & scales = isPerspectiveAllowed ? scales3d : scales2d;
 
   double const kDefaultSpeed = 80.0;
   if (speed < 0.0)
@@ -122,8 +133,10 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
   , m_drawDirection(0.0)
   , m_oldPosition(m2::PointD::Zero())
   , m_oldDrawDirection(0.0)
+  , m_enablePerspectiveInRouting(false)
   , m_enableAutoZoomInRouting(false)
-  , m_autoScale(GetScale(kDefaultAutoZoom))
+  , m_autoScale2d(GetScale(kDefaultAutoZoom))
+  , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearing(false)
   , m_lastLocationTimestamp(0.0)
   , m_positionYOffset(kPositionOffsetY)
@@ -342,8 +355,9 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m_position = MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude);
   m_errorRadius = rect.SizeX() * 0.5;
 
-  double const zoom = CalculateZoomBySpeed(info.m_speed);
-  m_autoScale = zoom * (m_errorRadius / info.m_horizontalAccuracy);
+  double const mercatorPerMeter = m_errorRadius / info.m_horizontalAccuracy;
+  m_autoScale2d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, false /* isPerspectiveAllowed */);
+  m_autoScale3d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, true /* isPerspectiveAllowed */);
 
   bool const hasBearing = info.HasBearing();
   if ((isNavigable && hasBearing) ||
@@ -472,7 +486,8 @@ bool MyPositionController::UpdateViewportWithAutoZoom()
   if (m_mode == location::FollowAndRotate &&
       m_isInRouting && m_enableAutoZoomInRouting && !m_needBlockAutoZoom)
   {
-    ChangeModelView(m_autoScale, m_position, m_drawDirection, GetRoutingRotationPixelCenter());
+    ChangeModelView(m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d,
+                    m_position, m_drawDirection, GetRoutingRotationPixelCenter());
     return true;
   }
   return false;
@@ -507,7 +522,7 @@ void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProg
         m_updateLocationTimer.ElapsedSeconds() >= kMaxUpdateLocationInvervalSec)
     {
       m_positionIsObsolete = true;
-      m_autoScale = GetScale(kDefaultAutoZoom);
+      m_autoScale2d = m_autoScale3d = GetScale(kDefaultAutoZoom);
       m_isDirtyAutoZoom = true;
     }
 
@@ -739,6 +754,11 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
                                                                                   oldAzimut, m_drawDirection));
     }
   }
+}
+
+void MyPositionController::EnablePerspectiveInRouting(bool enablePerspective)
+{
+  m_enablePerspectiveInRouting = enablePerspective;
 }
 
 void MyPositionController::EnableAutoZoomInRouting(bool enableAutoZoom)

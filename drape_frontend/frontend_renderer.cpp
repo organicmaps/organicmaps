@@ -645,6 +645,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (m_enablePerspectiveInNavigation != msg->AllowPerspective())
       {
         m_enablePerspectiveInNavigation = msg->AllowPerspective();
+        m_myPositionController->EnablePerspectiveInRouting(m_enablePerspectiveInNavigation);
         if (m_myPositionController->IsInRouting())
         {
           AddUserEvent(SetAutoPerspectiveEvent(m_enablePerspectiveInNavigation));
