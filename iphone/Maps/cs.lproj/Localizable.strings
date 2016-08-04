@@ -1066,7 +1066,7 @@
 
 "p2p_from_here" = "Z";
 
-"p2p_to_here" = "Cesta od";
+"p2p_to_here" = "Cesta do";
 
 "p2p_only_from_current" = "Navigace je dostupná pouze z vašeho současného umístění.";
 
