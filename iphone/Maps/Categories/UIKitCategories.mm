@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
+#import "UIButton+RuntimeAttributes.h"
 #import "UIKitCategories.h"
 
 #import <SafariServices/SafariServices.h>
@@ -249,6 +250,16 @@
     [self setTitleColor:oppositeHightlighted forState:UIControlStateHighlighted];
   if (oppositeDisabled)
     [self setTitleColor:oppositeDisabled forState:UIControlStateDisabled];
+
+  NSString * backgroundColorName = [self backgroundColorName];
+  NSString * backgroundHighlightedColorName = [self backgroundHighlightedColorName];
+  NSString * backgroundSelectedColorName = [self backgroundSelectedColorName];
+  if (backgroundColorName)
+    [self setBackgroundColorName:backgroundColorName];
+  if (backgroundHighlightedColorName)
+    [self setBackgroundHighlightedColorName:backgroundHighlightedColorName];
+  if (backgroundSelectedColorName)
+    [self setBackgroundSelectedColorName:backgroundSelectedColorName];
 }
 
 @end

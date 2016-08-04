@@ -2,6 +2,7 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
+#import <objc/runtime.h>
 
 @implementation UIButton (RuntimeAttributes)
 
@@ -43,17 +44,35 @@
 
 - (void)setBackgroundColorName:(NSString *)colorName
 {
+  objc_setAssociatedObject(self, @selector(backgroundColorName), colorName, OBJC_ASSOCIATION_COPY_NONATOMIC);
   [self setBackgroundColor:[UIColor colorWithName:colorName] forState:UIControlStateNormal];
+}
+
+- (NSString *)backgroundColorName
+{
+  return objc_getAssociatedObject(self, @selector(backgroundColorName));
 }
 
 - (void)setBackgroundHighlightedColorName:(NSString *)colorName
 {
+  objc_setAssociatedObject(self, @selector(backgroundHighlightedColorName), colorName, OBJC_ASSOCIATION_COPY_NONATOMIC);
   [self setBackgroundColor:[UIColor colorWithName:colorName] forState:UIControlStateHighlighted];
+}
+
+- (NSString *)backgroundHighlightedColorName
+{
+  return objc_getAssociatedObject(self, @selector(backgroundHighlightedColorName));
 }
 
 - (void)setBackgroundSelectedColorName:(NSString *)colorName
 {
+  objc_setAssociatedObject(self, @selector(backgroundSelectedColorName), colorName, OBJC_ASSOCIATION_COPY_NONATOMIC);
   [self setBackgroundColor:[UIColor colorWithName:colorName] forState:UIControlStateSelected];
+}
+
+- (NSString *)backgroundSelectedColorName
+{
+  return objc_getAssociatedObject(self, @selector(backgroundSelectedColorName));
 }
 
 - (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state
