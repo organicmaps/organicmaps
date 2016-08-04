@@ -100,7 +100,8 @@ public:
   }
 
   template <class TSource>
-  bool Deserialize(TAltitude minAltitude, size_t pointCount, TSource & src)
+  bool Deserialize(TAltitude minAltitude, size_t pointCount, string const & countryFileName,
+                   uint32_t featureId, TSource & src)
   {
     ASSERT_NOT_EQUAL(pointCount, 0, ());
 
@@ -113,7 +114,8 @@ public:
       uint32_t const biasedDelta = coding::DeltaCoder::Decode(bits);
       if (biasedDelta == 0)
       {
-        ASSERT(false, ("Decoded altitude delta is zero. Point number in its feature is", i));
+        LOG(LERROR, ("Decoded altitude delta is zero. File", countryFileName,
+                     ". Feature Id", featureId, ". Point number in the feature", i, "."));
         m_altitudes.clear();
         return false;
       }
@@ -122,8 +124,9 @@ public:
       m_altitudes[i] = static_cast<TAltitude>(bits::ZigZagDecode(delta) + prevAltitude);
       if (m_altitudes[i] < minAltitude)
       {
-        ASSERT(false, ("A point altitude read from file(", m_altitudes[i],
-                       ") is less than min mwm altitude(", minAltitude, "). Point number in its feature is", i));
+        LOG(LERROR, ("A point altitude read from file(", m_altitudes[i],
+                     ") is less than min mwm altitude(", minAltitude, "). File ",
+                     countryFileName, ". Feature Id", featureId, ". Point number in the feature", i, "."));
         m_altitudes.clear();
         return false;
       }

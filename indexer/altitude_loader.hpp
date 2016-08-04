@@ -4,6 +4,7 @@
 
 #include "coding/memory_region.hpp"
 
+#include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
@@ -32,5 +33,6 @@ private:
   unique_ptr<FilesContainerR::TReader> m_reader;
   map<uint32_t, TAltitudes> m_cache;
   AltitudeHeader m_header;
+  string m_countryFileName;
 };
 }  // namespace feature

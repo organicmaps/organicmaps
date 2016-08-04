@@ -31,6 +31,8 @@ namespace feature
 {
 AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
 {
+  m_countryFileName = mwmValue.GetCountryFileName();
+
   if (mwmValue.GetHeader().GetFormat() < version::Format::v8)
     return;
 
@@ -50,7 +52,7 @@ AltitudeLoader::AltitudeLoader(MwmValue const & mwmValue)
   catch (Reader::OpenException const & e)
   {
     m_header.Reset();
-    LOG(LERROR, ("Error while reading", ALTITUDES_FILE_TAG, "section.", e.Msg()));
+    LOG(LERROR, ("File", m_countryFileName, "Error while reading", ALTITUDES_FILE_TAG, "section.", e.Msg()));
   }
 }
 
@@ -73,31 +75,34 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
 
   if (!m_altitudeAvailability[featureId])
   {
-    LOG(LINFO, ("Feature featureId =", featureId, "does not contain any altitude information."));
+    LOG(LDEBUG, ("Feature Id", featureId, "of", m_countryFileName,
+                 "does not contain any altitude information."));
     return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
   }
 
   uint64_t const r = m_altitudeAvailability.rank(featureId);
-  CHECK_LESS(r, m_altitudeAvailability.size(), (featureId));
+  CHECK_LESS(r, m_altitudeAvailability.size(), ("Feature Id", featureId, "of", m_countryFileName));
   uint64_t const offset = m_featureTable.select(r);
-  CHECK_LESS_OR_EQUAL(offset, m_featureTable.size(), (featureId));
+  CHECK_LESS_OR_EQUAL(offset, m_featureTable.size(), ("Feature Id", featureId, "of", m_countryFileName));
 
   uint64_t const altitudeInfoOffsetInSection = m_header.m_altitudesOffset + offset;
-  CHECK_LESS(altitudeInfoOffsetInSection, m_reader->Size(), ());
+  CHECK_LESS(altitudeInfoOffsetInSection, m_reader->Size(), ("Feature Id", featureId, "of", m_countryFileName));
 
   try
   {
     Altitudes altitudes;
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     src.Skip(altitudeInfoOffsetInSection);
-    bool const isDeserialized = altitudes.Deserialize(m_header.m_minAltitude, pointCount, src);
+    bool const isDeserialized = altitudes.Deserialize(m_header.m_minAltitude, pointCount,
+                                                      m_countryFileName, featureId,  src);
 
     bool const allValid = isDeserialized
         && none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
                    [](TAltitude a) { return a == kInvalidAltitude; });
     if (!allValid)
     {
-      ASSERT(false, (altitudes.m_altitudes));
+      LOG(LERROR, ("Only a part point of a feature has a valid altitdue. Altitudes: ", altitudes.m_altitudes,
+                   ". Feature Id", featureId, "of", m_countryFileName));
       return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
     }
 
@@ -105,7 +110,7 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
   }
   catch (Reader::OpenException const & e)
   {
-    LOG(LERROR, ("Error while getting altitude data", e.Msg()));
+    LOG(LERROR, ("Feature Id", featureId, "of", m_countryFileName, ". Error while getting altitude data:", e.Msg()));
     return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
   }
 }
