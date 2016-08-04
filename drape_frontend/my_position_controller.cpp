@@ -11,6 +11,8 @@
 
 #include "base/math.hpp"
 
+#include "std/vector.hpp"
+
 #include "3party/Alohalytics/src/alohalytics.h"
 
 namespace df
@@ -69,20 +71,20 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
 double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 {
   using TSpeedScale = pair<double, double>;
-  static vector<TSpeedScale> scales3d = {
-    make_pair(20.0,  0.25),
-    make_pair(40.0,  0.5),
-    make_pair(60.0,  1.0),
-    make_pair(75.0,  1.75),
+  static vector<TSpeedScale> const scales3d = {
+    make_pair(20.0, 0.25),
+    make_pair(40.0, 0.5),
+    make_pair(60.0, 1.0),
+    make_pair(75.0, 1.75),
     make_pair(85.0, 3.5),
     make_pair(90.0, 7.0),
   };
 
-  static vector<TSpeedScale> scales2d = {
-    make_pair(20.0,  0.7),
-    make_pair(40.0,  1.0),
-    make_pair(60.0,  1.5),
-    make_pair(75.0,  1.75),
+  static vector<TSpeedScale> const scales2d = {
+    make_pair(20.0, 0.7),
+    make_pair(40.0, 1.0),
+    make_pair(60.0, 1.5),
+    make_pair(75.0, 1.75),
     make_pair(85.0, 3.5),
     make_pair(90.0, 7.0),
   };
