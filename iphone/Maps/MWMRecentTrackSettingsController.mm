@@ -6,6 +6,8 @@
 
 #include "map/gps_tracker.hpp"
 
+extern NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
+
 typedef NS_ENUM(NSUInteger, DurationInHours)
 {
   One = 1,
@@ -80,7 +82,12 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
   else
   {
     if (!tracker.IsEnabled())
+    {
       tracker.SetEnabled(true);
+      NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+      [ud setBool:NO forKey:kUDTrackWarningAlertWasShown];
+      [ud synchronize];
+    }
     f.ConnectToGpsTracker();
 
     if ([selectedCell isEqual:self.oneHour])
