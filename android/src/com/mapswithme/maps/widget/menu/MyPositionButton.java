@@ -22,6 +22,7 @@ public class MyPositionButton
   public MyPositionButton(View button)
   {
     mButton = (ImageView) button;
+    mIcons.clear();
     mButton.setOnClickListener(new View.OnClickListener()
     {
       @Override
