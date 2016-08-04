@@ -1403,7 +1403,6 @@ void FrontendRenderer::OnAnimatedScaleEnded()
 
 void FrontendRenderer::OnAnimationStarted(ref_ptr<Animation> anim)
 {
-  m_myPositionController->AnimationStarted(anim);
 }
 
 void FrontendRenderer::OnTouchMapAction()

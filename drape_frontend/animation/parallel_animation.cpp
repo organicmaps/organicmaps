@@ -97,6 +97,10 @@ bool ParallelAnimation::GetTargetProperty(TObject object, TProperty property, Pr
 
 void ParallelAnimation::AddAnimation(drape_ptr<Animation> && animation)
 {
+  SetCouldBeInterrupted(CouldBeInterrupted() && animation->CouldBeInterrupted());
+  SetCouldBeBlended(CouldBeBlended() && animation->CouldBeBlended());
+  SetCouldBeRewinded(CouldBeRewinded() && animation->CouldBeRewinded());
+
   m_animations.emplace_back(move(animation));
   ObtainObjectProperties();
 }

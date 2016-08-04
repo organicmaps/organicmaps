@@ -36,6 +36,8 @@ uint64_t const kKineticDelayMs = 500;
 
 float const kForceTapThreshold = 0.75;
 
+double const kDoNotChangeDuration = -1.0;
+
 size_t GetValidTouchesCount(array<Touch, 2> const & touches)
 {
   size_t result = 0;
@@ -303,7 +305,13 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
   if (isAnim)
   {
-    auto const & followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+    auto followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+    if (followAnim == nullptr)
+    {
+      auto const parallelAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Parallel, kParallelFollowAnim.c_str());
+      if (parallelAnim != nullptr)
+        followAnim = parallelAnim->FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+    }
     if (followAnim != nullptr && followAnim->HasScale())
     {
       // Scaling is not possible if current follow animation does pixel offset.
@@ -312,6 +320,7 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
       // Reset follow animation with scaling if we apply scale explicitly.
       ResetAnimations(Animation::MapFollow);
+      ResetAnimations(Animation::Parallel, kParallelFollowAnim);
     }
     
     m2::PointD glbScaleCenter = m_navigator.PtoG(m_navigator.P3dtoP(scaleCenter));
@@ -389,7 +398,7 @@ bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim, TAnim
       {
         drape_ptr<ParallelAnimation> parallelAnim = make_unique_dp<ParallelAnimation>();
         parallelAnim->SetCustomType(kParallelLinearAnim);
-        parallelAnim->AddAnimation(parallelAnimCreator(anim->GetDuration()));
+        parallelAnim->AddAnimation(parallelAnimCreator(kDoNotChangeDuration));
         parallelAnim->AddAnimation(move(anim));
         m_animationSystem.CombineAnimation(move(parallelAnim));
       }
@@ -423,19 +432,17 @@ bool UserEventStream::InterruptFollowAnimations(bool force)
     followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Sequence, kPrettyFollowAnim.c_str());
 
   if (followAnim == nullptr)
-    followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Parallel, kParallelFollowAnim.c_str());
+    followAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Parallel, kParallelFollowAnim.c_str());
 
   if (followAnim == nullptr)
-    followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Parallel, kParallelLinearAnim.c_str());
+    followAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Parallel, kParallelLinearAnim.c_str());
 
   if (followAnim != nullptr)
   {
     if (force || followAnim->CouldBeInterrupted())
       ResetAnimations(followAnim->GetType(), followAnim->GetCustomType());
     else
-    {
       return false;
-    }
   }
   return true;
 }
@@ -491,7 +498,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     {
       drape_ptr<ParallelAnimation> parallelAnim = make_unique_dp<ParallelAnimation>();
       parallelAnim->SetCustomType(kParallelFollowAnim);
-      parallelAnim->AddAnimation(parallelAnimCreator(anim->GetDuration()));
+      parallelAnim->AddAnimation(parallelAnimCreator(anim->GetType() == Animation::MapFollow ? anim->GetDuration() : kDoNotChangeDuration));
       parallelAnim->AddAnimation(move(anim));
       m_animationSystem.CombineAnimation(move(parallelAnim));
     }

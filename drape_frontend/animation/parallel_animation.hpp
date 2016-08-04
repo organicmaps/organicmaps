@@ -39,6 +39,20 @@ public:
   bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
   bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override;
 
+  template<typename T> T const * FindAnimation(Animation::Type type, char const * customType = nullptr) const
+  {
+    for (auto const & anim : m_animations)
+    {
+      if ((anim->GetType() == type) &&
+          (customType == nullptr || strcmp(anim->GetCustomType().c_str(), customType) == 0))
+      {
+        ASSERT(dynamic_cast<T const *>(anim.get()) != nullptr, ());
+        return static_cast<T const *>(anim.get());
+      }
+    }
+    return nullptr;
+  }
+
 private:
   void ObtainObjectProperties();
 

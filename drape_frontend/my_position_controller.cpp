@@ -641,18 +641,21 @@ void MyPositionController::ChangeModelView(m2::PointD const & center, int zoomLe
 {
   if (m_listener)
     m_listener->ChangeModelView(center, zoomLevel, m_animCreator);
+  m_animCreator = nullptr;
 }
 
 void MyPositionController::ChangeModelView(double azimuth)
 {
   if (m_listener)
     m_listener->ChangeModelView(azimuth, m_animCreator);
+  m_animCreator = nullptr;
 }
 
 void MyPositionController::ChangeModelView(m2::RectD const & rect)
 {
   if (m_listener)
     m_listener->ChangeModelView(rect, m_animCreator);
+  m_animCreator = nullptr;
 }
 
 void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth,
@@ -660,12 +663,14 @@ void MyPositionController::ChangeModelView(m2::PointD const & userPos, double az
 {
   if (m_listener)
     m_listener->ChangeModelView(userPos, azimuth, pxZero, zoomLevel, m_animCreator);
+  m_animCreator = nullptr;
 }
 
 void MyPositionController::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
 {
   if (m_listener)
     m_listener->ChangeModelView(autoScale, userPos, azimuth, pxZero, m_animCreator);
+  m_animCreator = nullptr;
 }
 
 void MyPositionController::UpdateViewport(int zoomLevel)
@@ -697,11 +702,14 @@ m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
                     m_pixelRect.maxY() - m_positionYOffset * VisualParams::Instance().GetVisualScale());
 }
 
-m2::PointD MyPositionController::GetDrawablePosition() const
+m2::PointD MyPositionController::GetDrawablePosition()
 {
   m2::PointD position;
   if (AnimationSystem::Instance().GetArrowPosition(position))
+  {
+    m_isPendingAnimation = false;
     return position;
+  }
 
   if (m_isPendingAnimation)
     return m_oldPosition;
@@ -709,28 +717,19 @@ m2::PointD MyPositionController::GetDrawablePosition() const
   return m_position;
 }
 
-double MyPositionController::GetDrawableAzimut() const
+double MyPositionController::GetDrawableAzimut()
 {
   double angle;
   if (AnimationSystem::Instance().GetArrowAngle(angle))
+  {
+    m_isPendingAnimation = false;
     return angle;
+  }
 
   if (m_isPendingAnimation)
     return m_oldDrawDirection;
 
   return m_drawDirection;
-}
-
-void MyPositionController::AnimationStarted(ref_ptr<Animation> anim)
-{
-  if (m_isPendingAnimation && m_animCreator != nullptr && anim != nullptr &&
-      (anim->GetType() == Animation::MapFollow ||
-       anim->GetType() == Animation::MapLinear))
-  {
-    m_isPendingAnimation = false;
-    double const kDoNotChangeDuration = -1.0;
-    m_animCreator(anim->GetType() == Animation::MapFollow ? anim->GetDuration() : kDoNotChangeDuration);
-  }
 }
 
 void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen)
@@ -741,11 +740,11 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
   {
     if (IsModeChangeViewport())
     {
-      m_animCreator = [this, oldPos, oldAzimut, moveDuration](double correctedDuration) -> drape_ptr<Animation>
+      m_animCreator = [this, moveDuration](double correctedDuration) -> drape_ptr<Animation>
       {
-        return make_unique_dp<ArrowAnimation>(oldPos, m_position,
+        return make_unique_dp<ArrowAnimation>(GetDrawablePosition(), m_position,
                                               correctedDuration > 0.0 ? correctedDuration : moveDuration,
-                                              oldAzimut, m_drawDirection);
+                                              GetDrawableAzimut(), m_drawDirection);
       };
       m_oldPosition = oldPos;
       m_oldDrawDirection = oldAzimut;

@@ -293,7 +293,7 @@ void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const
         {
 #ifdef DEBUG_ANIMATIONS
           LOG(LINFO, ("Finish animation", (*it)->GetType(), ", rewind:", rewind,
-                      ", couldBeRewinded:", anim->CouldBeRewinded()));
+                      ", couldBeRewinded:", (*it)->CouldBeRewinded()));
           changed = true;
 #endif
           it = lst.erase(it);

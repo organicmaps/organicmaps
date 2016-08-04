@@ -59,8 +59,6 @@ public:
   void ScaleStarted();
   void ScaleEnded();
 
-  void AnimationStarted(ref_ptr<Animation> anim);
-
   void Rotated();
 
   void ResetRoutingNotFollowTimer();
@@ -100,7 +98,7 @@ public:
   bool IsWaitingForTimers() const;
 
   bool IsWaitingForLocation() const;
-  m2::PointD GetDrawablePosition() const;
+  m2::PointD GetDrawablePosition();
 
 private:
   bool IsModeChangeViewport() const;
@@ -123,7 +121,7 @@ private:
   m2::PointD GetRotationPixelCenter() const;
   m2::PointD GetRoutingRotationPixelCenter() const;
 
-  double GetDrawableAzimut() const;
+  double GetDrawableAzimut();
   void CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen);
 
   bool AlmostCurrentPosition(m2::PointD const & pos) const;
