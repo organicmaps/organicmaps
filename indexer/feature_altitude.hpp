@@ -1,9 +1,13 @@
 #pragma once
+
+#include "coding/bit_streams.hpp"
+#include "coding/elias_coder.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
+#include "base/bits.hpp"
 
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
@@ -51,7 +55,7 @@ struct AltitudeHeader
 
   size_t GetFeatureTableSize() const { return m_altitudesOffset - m_featureTableOffset; }
 
-  size_t GetAltitudeInfo() const { return m_endOffset - m_altitudesOffset; }
+  size_t GetAltitudeInfoSize() const { return m_endOffset - m_altitudesOffset; }
 
   void Reset()
   {
@@ -83,32 +87,46 @@ public:
   {
     CHECK(!m_altitudes.empty(), ());
 
-    WriteVarInt(sink, static_cast<int32_t>(m_altitudes[0]) - static_cast<int32_t>(minAltitude));
-    for (size_t i = 1; i < m_altitudes.size(); ++i)
+    BitWriter<TSink> bits(sink);
+    TAltitude prevAltitude = minAltitude;
+    for (auto const altitude : m_altitudes)
     {
-      WriteVarInt(sink,
-                  static_cast<int32_t>(m_altitudes[i]) - static_cast<int32_t>(m_altitudes[i - 1]));
+      CHECK_LESS_OR_EQUAL(minAltitude, altitude, ("A point altitude is less than min mwm altitude"));
+      uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(altitude) -
+                                                static_cast<int32_t>(prevAltitude));
+      coding::DeltaCoder::Encode(bits, delta + 1 /* making it greater than zero */);
+      prevAltitude = altitude;
     }
   }
 
   template <class TSource>
-  bool Deserialize(TAltitude minAltitude, size_t pointCount, TSource & src)
+  bool Deserialize(TAltitude minAltitude, size_t pointCount, string const & countryFileName,
+                   uint32_t featureId, TSource & src)
   {
-    m_altitudes.clear();
-    if (pointCount == 0)
-    {
-      ASSERT(false, ());
-      return false;
-    }
+    ASSERT_NOT_EQUAL(pointCount, 0, ());
 
-    m_altitudes.resize(pointCount);
+    BitReader<TSource> bits(src);
     TAltitude prevAltitude = minAltitude;
+    m_altitudes.resize(pointCount);
+
     for (size_t i = 0; i < pointCount; ++i)
     {
-      m_altitudes[i] = static_cast<TAltitude>(ReadVarInt<int32_t>(src) + prevAltitude);
+      uint32_t const biasedDelta = coding::DeltaCoder::Decode(bits);
+      if (biasedDelta == 0)
+      {
+        LOG(LERROR, ("Decoded altitude delta is zero. File", countryFileName,
+                     ". Feature Id", featureId, ". Point number in the feature", i, "."));
+        m_altitudes.clear();
+        return false;
+      }
+      uint32_t const delta = biasedDelta - 1;
+
+      m_altitudes[i] = static_cast<TAltitude>(bits::ZigZagDecode(delta) + prevAltitude);
       if (m_altitudes[i] < minAltitude)
       {
-        ASSERT(false, ());
+        LOG(LERROR, ("A point altitude read from file(", m_altitudes[i],
+                     ") is less than min mwm altitude(", minAltitude, "). File ",
+                     countryFileName, ". Feature Id", featureId, ". Point number in the feature", i, "."));
         m_altitudes.clear();
         return false;
       }

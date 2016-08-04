@@ -213,6 +213,7 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
     // Writing altitude info.
     header.m_altitudesOffset = w.Pos() - startOffset;
     w.Write(deltas.data(), deltas.size());
+    w.WritePaddingByEnd(8);
     header.m_endOffset = w.Pos() - startOffset;
 
     // Rewriting header info.
@@ -220,8 +221,7 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
     w.Seek(startOffset);
     header.Serialize(w);
     w.Seek(endOffset);
-    LOG(LINFO, (ALTITUDES_FILE_TAG, "section is ready. The size is", endOffset - startOffset,
-                "min altitude is", processor.GetMinAltitude()));
+    LOG(LINFO, (ALTITUDES_FILE_TAG, "section is ready. The size is", header.m_endOffset));
     if (processor.HasAltitudeInfo())
       LOG(LINFO, ("Min altitude is", processor.GetMinAltitude()));
     else
