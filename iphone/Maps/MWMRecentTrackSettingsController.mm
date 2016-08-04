@@ -8,24 +8,17 @@
 
 extern NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 
-typedef NS_ENUM(NSUInteger, DurationInHours)
-{
-  One = 1,
-  Two = 2,
-  Six = 6,
-  Twelve = 12,
-  Day = 24
-};
+typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve = 12, Day = 24 };
 
 @interface MWMRecentTrackSettingsController ()
 
-@property (weak, nonatomic) IBOutlet SelectableCell * none;
-@property (weak, nonatomic) IBOutlet SelectableCell * oneHour;
-@property (weak, nonatomic) IBOutlet SelectableCell * twoHours;
-@property (weak, nonatomic) IBOutlet SelectableCell * sixHours;
-@property (weak, nonatomic) IBOutlet SelectableCell * twelveHours;
-@property (weak, nonatomic) IBOutlet SelectableCell * oneDay;
-@property (weak, nonatomic) SelectableCell * selectedCell;
+@property(weak, nonatomic) IBOutlet SelectableCell * none;
+@property(weak, nonatomic) IBOutlet SelectableCell * oneHour;
+@property(weak, nonatomic) IBOutlet SelectableCell * twoHours;
+@property(weak, nonatomic) IBOutlet SelectableCell * sixHours;
+@property(weak, nonatomic) IBOutlet SelectableCell * twelveHours;
+@property(weak, nonatomic) IBOutlet SelectableCell * oneDay;
+@property(weak, nonatomic) SelectableCell * selectedCell;
 
 @end
 
@@ -44,24 +37,12 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
   {
     switch (GpsTracker::Instance().GetDuration().count())
     {
-    case One:
-      _selectedCell = self.oneHour;
-      break;
-    case Two:
-      _selectedCell = self.twoHours;
-      break;
-    case Six:
-      _selectedCell = self.sixHours;
-      break;
-    case Twelve:
-      _selectedCell = self.twelveHours;
-      break;
-    case Day:
-      _selectedCell = self.oneDay;
-      break;
-    default:
-      NSAssert(false, @"Incorrect hours value");
-      break;
+    case One: _selectedCell = self.oneHour; break;
+    case Two: _selectedCell = self.twoHours; break;
+    case Six: _selectedCell = self.sixHours; break;
+    case Twelve: _selectedCell = self.twelveHours; break;
+    case Day: _selectedCell = self.oneDay; break;
+    default: NSAssert(false, @"Incorrect hours value"); break;
     }
   }
   self.selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -98,14 +79,13 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
       tracker.SetDuration(hours(Six));
     else if ([selectedCell isEqual:self.twelveHours])
       tracker.SetDuration(hours(Twelve));
-    else 
+    else
       tracker.SetDuration(hours(Day));
 
     statValue = [NSString stringWithFormat:@"%@ hour(s)", @(tracker.GetDuration().count())];
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
-  [Statistics logEvent:kStatChangeRecentTrack
-                   withParameters:@{kStatValue : statValue}];
+  [Statistics logEvent:kStatChangeRecentTrack withParameters:@{kStatValue : statValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
