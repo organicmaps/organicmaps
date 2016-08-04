@@ -1,132 +1,95 @@
+#import "UIKitCategories.h"
 #import "Common.h"
+#import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
-#import "UIButton+RuntimeAttributes.h"
-#import "UIKitCategories.h"
 
 #import <SafariServices/SafariServices.h>
 
 @implementation NSObject (Optimized)
 
-+ (NSString *)className
-{
-  return NSStringFromClass(self);
-}
-
++ (NSString *)className { return NSStringFromClass(self); }
 - (void)performAfterDelay:(NSTimeInterval)delayInSec block:(TMWMVoidBlock)block
 {
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSec * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    block();
-  });
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSec * NSEC_PER_SEC)),
+                 dispatch_get_main_queue(), ^{
+                   block();
+                 });
 }
 
 @end
 
 @implementation UIView (Coordinates)
 
-- (void)setMidX:(CGFloat)midX
-{
-  self.center = CGPointMake(midX, self.center.y);
-}
-
-- (CGFloat)midX
-{
-  return self.center.x;
-}
-
-- (void)setMidY:(CGFloat)midY
-{
-  self.center = CGPointMake(self.center.x, midY);
-}
-
-- (CGFloat)midY
-{
-  return self.center.y;
-}
-
+- (void)setMidX:(CGFloat)midX { self.center = CGPointMake(midX, self.center.y); }
+- (CGFloat)midX { return self.center.x; }
+- (void)setMidY:(CGFloat)midY { self.center = CGPointMake(self.center.x, midY); }
+- (CGFloat)midY { return self.center.y; }
 - (void)setOrigin:(CGPoint)origin
 {
   self.frame = CGRectMake(origin.x, origin.y, self.frame.size.width, self.frame.size.height);
 }
 
-- (CGPoint)origin
-{
-  return self.frame.origin;
-}
-
+- (CGPoint)origin { return self.frame.origin; }
 - (void)setMinX:(CGFloat)minX
 {
   self.frame = CGRectMake(minX, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
 }
 
-- (CGFloat)minX
-{
-  return self.frame.origin.x;
-}
-
+- (CGFloat)minX { return self.frame.origin.x; }
 - (void)setMinY:(CGFloat)minY
 {
   self.frame = CGRectMake(self.frame.origin.x, minY, self.frame.size.width, self.frame.size.height);
 }
 
-- (CGFloat)minY
-{
-  return self.frame.origin.y;
-}
-
+- (CGFloat)minY { return self.frame.origin.y; }
 - (void)setMaxX:(CGFloat)maxX
 {
-  self.frame = CGRectMake(maxX - self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+  self.frame = CGRectMake(maxX - self.frame.size.width, self.frame.origin.y, self.frame.size.width,
+                          self.frame.size.height);
 }
 
-- (CGFloat)maxX
-{
-  return self.frame.origin.x + self.frame.size.width;
-}
-
+- (CGFloat)maxX { return self.frame.origin.x + self.frame.size.width; }
 - (void)setMaxY:(CGFloat)maxY
 {
-  self.frame = CGRectMake(self.frame.origin.x, maxY - self.frame.size.height, self.frame.size.width, self.frame.size.height);
+  self.frame = CGRectMake(self.frame.origin.x, maxY - self.frame.size.height, self.frame.size.width,
+                          self.frame.size.height);
 }
 
-- (CGFloat)maxY
-{
-  return self.frame.origin.y + self.frame.size.height;
-}
-
+- (CGFloat)maxY { return self.frame.origin.y + self.frame.size.height; }
 - (void)setWidth:(CGFloat)width
 {
   self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.size.height);
 }
 
-- (CGFloat)width
-{
-  return self.frame.size.width;
-}
-
+- (CGFloat)width { return self.frame.size.width; }
 - (void)setHeight:(CGFloat)height
 {
   self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, height);
 }
 
-- (CGFloat)height
-{
-  return self.frame.size.height;
-}
-
-- (CGSize)size
-{
-  return self.frame.size;
-}
-
+- (CGFloat)height { return self.frame.size.height; }
+- (CGSize)size { return self.frame.size; }
 - (void)setSize:(CGSize)size
 {
   self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, size.width, size.height);
 }
 
-+ (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay damping:(double)dampingRatio initialVelocity:(double)springVelocity options:(UIViewAnimationOptions)options animations:(TMWMVoidBlock)animations completion:(void (^)(BOOL))completion
++ (void)animateWithDuration:(NSTimeInterval)duration
+                      delay:(NSTimeInterval)delay
+                    damping:(double)dampingRatio
+            initialVelocity:(double)springVelocity
+                    options:(UIViewAnimationOptions)options
+                 animations:(TMWMVoidBlock)animations
+                 completion:(void (^)(BOOL))completion
 {
-  [UIView animateWithDuration:duration delay:delay usingSpringWithDamping:dampingRatio initialSpringVelocity:springVelocity options:options animations:animations completion:completion];
+  [UIView animateWithDuration:duration
+                        delay:delay
+       usingSpringWithDamping:dampingRatio
+        initialSpringVelocity:springVelocity
+                      options:options
+                   animations:animations
+                   completion:completion];
 }
 
 - (void)sizeToIntegralFit
@@ -141,9 +104,13 @@
 
 - (void)rateVersionFrom:(NSString *)launchPlaceName
 {
-  NSString * urlString = isIOS7 ?
-  [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id510623322?mt=8&at=1l3v7ya&ct=%@", launchPlaceName] :
-  @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=510623322&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software";
+  NSString * urlString =
+      isIOS7 ? [NSString stringWithFormat:
+                             @"itms-apps://itunes.apple.com/app/id510623322?mt=8&at=1l3v7ya&ct=%@",
+                             launchPlaceName]
+             : @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/"
+               @"viewContentsUserReviews?id=510623322&onlyLatestVersion=true&pageNumber=0&"
+               @"sortOrdering=1&type=Purple+Software";
   [self openURL:[NSURL URLWithString:urlString]];
 }
 
@@ -155,7 +122,6 @@
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {}
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {}
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {}
-
 @end
 
 @implementation UIView (Refresh)
@@ -321,24 +287,15 @@
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {}
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {}
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {}
-
 @end
 
 @implementation UINavigationController (Autorotate)
 
-- (BOOL)shouldAutorotate
-{
-  return [[self.viewControllers lastObject] shouldAutorotate];
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-  return UIInterfaceOrientationMaskAll;
-}
-
+- (BOOL)shouldAutorotate { return [[self.viewControllers lastObject] shouldAutorotate]; }
+- (NSUInteger)supportedInterfaceOrientations { return UIInterfaceOrientationMaskAll; }
 @end
 
-@interface UIViewController (SafariDelegateImpl) <SFSafariViewControllerDelegate>
+@interface UIViewController (SafariDelegateImpl)<SFSafariViewControllerDelegate>
 
 @end
 
@@ -361,7 +318,8 @@
   // TODO(Vlad): Correct implementation of navigation controller's buttons.
   /*
   NSString * scheme = url.scheme;
-  NSAssert(([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]), @"Incorrect url's scheme!");
+  NSAssert(([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]), @"Incorrect
+  url's scheme!");
   if ((isIOS7 || isIOS8))
   {
     UIApplication * app = [UIApplication sharedApplication];

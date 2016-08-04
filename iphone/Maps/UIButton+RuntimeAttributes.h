@@ -2,7 +2,7 @@
 
 @interface UIButton (RuntimeAttributes)
 
-@property (nonatomic) NSString * localizedText;
+@property(nonatomic) NSString * localizedText;
 
 - (void)setBackgroundColorName:(NSString *)colorName;
 - (NSString *)backgroundColorName;

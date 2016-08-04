@@ -1,8 +1,8 @@
+#import <objc/runtime.h>
 #import "Macros.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
-#import <objc/runtime.h>
 
 @implementation UIButton (RuntimeAttributes)
 
@@ -12,16 +12,8 @@
   [self setTitle:L(localizedText) forState:UIControlStateDisabled];
 }
 
-- (NSString *)localizedText
-{
-  return L([self titleForState:UIControlStateNormal]);
-}
-
-- (void)setFontName:(NSString *)fontName
-{
-  self.titleLabel.font = [UIFont fontWithName:fontName];
-}
-
+- (NSString *)localizedText { return L([self titleForState:UIControlStateNormal]); }
+- (void)setFontName:(NSString *)fontName { self.titleLabel.font = [UIFont fontWithName:fontName]; }
 - (void)setTextColorName:(NSString *)colorName
 {
   [self setTitleColor:[UIColor colorWithName:colorName] forState:UIControlStateNormal];
@@ -44,7 +36,8 @@
 
 - (void)setBackgroundColorName:(NSString *)colorName
 {
-  objc_setAssociatedObject(self, @selector(backgroundColorName), colorName, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(backgroundColorName), colorName,
+                           OBJC_ASSOCIATION_COPY_NONATOMIC);
   [self setBackgroundColor:[UIColor colorWithName:colorName] forState:UIControlStateNormal];
 }
 
@@ -55,7 +48,8 @@
 
 - (void)setBackgroundHighlightedColorName:(NSString *)colorName
 {
-  objc_setAssociatedObject(self, @selector(backgroundHighlightedColorName), colorName, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(backgroundHighlightedColorName), colorName,
+                           OBJC_ASSOCIATION_COPY_NONATOMIC);
   [self setBackgroundColor:[UIColor colorWithName:colorName] forState:UIControlStateHighlighted];
 }
 
@@ -66,7 +60,8 @@
 
 - (void)setBackgroundSelectedColorName:(NSString *)colorName
 {
-  objc_setAssociatedObject(self, @selector(backgroundSelectedColorName), colorName, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(backgroundSelectedColorName), colorName,
+                           OBJC_ASSOCIATION_COPY_NONATOMIC);
   [self setBackgroundColor:[UIColor colorWithName:colorName] forState:UIControlStateSelected];
 }
 
