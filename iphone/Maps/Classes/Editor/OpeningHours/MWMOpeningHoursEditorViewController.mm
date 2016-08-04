@@ -1,5 +1,5 @@
-#import "MWMOpeningHoursAddScheduleTableViewCell.h"
 #import "MWMOpeningHoursEditorViewController.h"
+#import "MWMOpeningHoursAddScheduleTableViewCell.h"
 #import "MWMOpeningHoursModel.h"
 #import "MWMOpeningHoursSection.h"
 #import "MWMTextView.h"
@@ -19,21 +19,21 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 @interface MWMOpeningHoursEditorViewController ()<UITableViewDelegate, UITableViewDataSource,
                                                   UITextViewDelegate, MWMOpeningHoursModelProtocol>
 
-@property (weak, nonatomic, readwrite) IBOutlet UITableView * tableView;
-@property (weak, nonatomic, readwrite) IBOutlet UIView * advancedEditor;
-@property (weak, nonatomic, readwrite) IBOutlet MWMTextView * editorView;
-@property (weak, nonatomic) IBOutlet UIView * helpView;
-@property (weak, nonatomic) IBOutlet UIWebView * help;
-@property (weak, nonatomic, readwrite) IBOutlet NSLayoutConstraint * ohTextViewHeight;
-@property (weak, nonatomic) IBOutlet UIView * exampleValuesSeparator;
-@property (weak, nonatomic) IBOutlet UIImageView * exampleValuesExpandView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * exampesButtonBottomOffset;
-@property (weak, nonatomic, readwrite) IBOutlet UIButton * toggleModeButton;
+@property(weak, nonatomic, readwrite) IBOutlet UITableView * tableView;
+@property(weak, nonatomic, readwrite) IBOutlet UIView * advancedEditor;
+@property(weak, nonatomic, readwrite) IBOutlet MWMTextView * editorView;
+@property(weak, nonatomic) IBOutlet UIView * helpView;
+@property(weak, nonatomic) IBOutlet UIWebView * help;
+@property(weak, nonatomic, readwrite) IBOutlet NSLayoutConstraint * ohTextViewHeight;
+@property(weak, nonatomic) IBOutlet UIView * exampleValuesSeparator;
+@property(weak, nonatomic) IBOutlet UIImageView * exampleValuesExpandView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * exampesButtonBottomOffset;
+@property(weak, nonatomic, readwrite) IBOutlet UIButton * toggleModeButton;
 
-@property (nonatomic) BOOL exampleExpanded;
-@property (nonatomic) BOOL isSimpleMode;
+@property(nonatomic) BOOL exampleExpanded;
+@property(nonatomic) BOOL isSimpleMode;
 
-@property (nonatomic) MWMOpeningHoursModel * model;
+@property(nonatomic) MWMOpeningHoursModel * model;
 
 @end
 
@@ -63,19 +63,21 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 {
   [kMWMOpeningHoursEditorTableCells
       enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, NSString * identifier,
-                                          BOOL * _Nonnull stop)
-  {
-    [self.tableView registerNib:[UINib nibWithNibName:identifier bundle:nil]
-         forCellReuseIdentifier:identifier];
-  }];
+                                          BOOL * _Nonnull stop) {
+        [self.tableView registerNib:[UINib nibWithNibName:identifier bundle:nil]
+             forCellReuseIdentifier:identifier];
+      }];
 }
 
 - (void)configAdvancedEditor
 {
   [self.editorView setTextContainerInset:{.top = 12, .left = 10, .bottom = 12, .right = 10}];
-  self.editorView.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
-  NSString * path = [[NSBundle mainBundle] pathForResource:@"opening_hours_how_to_edit" ofType:@"html"];
-  NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+  self.editorView.keyboardAppearance =
+      [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
+  NSString * path =
+      [[NSBundle mainBundle] pathForResource:@"opening_hours_how_to_edit" ofType:@"html"];
+  NSString * html =
+      [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
   NSURL * baseURL = [NSURL fileURLWithPath:path];
   [self.help loadHTMLString:html baseURL:baseURL];
 }
@@ -88,11 +90,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 #pragma mark - Actions
 
-- (void)onCancel
-{
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
+- (void)onCancel { [self.navigationController popViewControllerAnimated:YES]; }
 - (void)onDone
 {
   [self.model storeCachedData];
@@ -129,7 +127,8 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 #pragma mark - Fill cells with data
 
-- (void)fillCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (void)fillCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell
+     atIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   if (indexPath.section < self.model.count)
     [self.model fillCell:cell atIndexPath:indexPath];
@@ -139,7 +138,8 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 #pragma mark - UITableViewDataSource
 
-- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
+                  cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   return [tableView dequeueReusableCellWithIdentifier:[self cellIdentifierForIndexPath:indexPath]];
 }
@@ -158,17 +158,21 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView
+    heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   return [self heightForRowAtIndexPath:indexPath];
 }
 
-- (CGFloat)tableView:(UITableView * _Nonnull)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView
+    estimatedHeightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   return [self heightForRowAtIndexPath:indexPath];
 }
 
-- (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (void)tableView:(UITableView * _Nonnull)tableView
+      willDisplayCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell
+    forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   [self fillCell:cell atIndexPath:indexPath];
 }
@@ -179,25 +183,19 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 {
   _exampleExpanded = exampleExpanded;
   self.help.hidden = !exampleExpanded;
-  self.exampesButtonBottomOffset.priority = exampleExpanded ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
+  self.exampesButtonBottomOffset.priority =
+      exampleExpanded ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
   self.exampleValuesSeparator.hidden = !exampleExpanded;
-  self.exampleValuesExpandView.image = [UIImage imageNamed:exampleExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
+  self.exampleValuesExpandView.image =
+      [UIImage imageNamed:exampleExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
   if (exampleExpanded)
     [self.editorView resignFirstResponder];
   else
     [self.editorView becomeFirstResponder];
 }
 
-- (IBAction)toggleExample
-{
-  self.exampleExpanded = !self.exampleExpanded;
-}
-
-- (IBAction)toggleMode
-{
-  self.isSimpleMode = !self.isSimpleMode;
-}
-
+- (IBAction)toggleExample { self.exampleExpanded = !self.exampleExpanded; }
+- (IBAction)toggleMode { self.isSimpleMode = !self.isSimpleMode; }
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -217,9 +215,5 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
   self.toggleModeButton.enabled = self.model.isSimpleModeCapable;
 }
 
-- (BOOL)isSimpleMode
-{
-  return self.model.isSimpleMode;
-}
-
+- (BOOL)isSimpleMode { return self.model.isSimpleMode; }
 @end

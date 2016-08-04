@@ -1,11 +1,11 @@
-#import "UIColor+MapsMeColor.h"
 #import "RichTextVC.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
 @interface RichTextVC ()
 
-@property (nonatomic) NSString * text;
-@property (nonatomic) UITextView * textView;
+@property(nonatomic) NSString * text;
+@property(nonatomic) UITextView * textView;
 
 @end
 
@@ -39,7 +39,8 @@
       _textView.textContainerInset = UIEdgeInsetsMake(10, 5, 10, 5);
     _textView.font = [UIFont regular16];
     _textView.dataDetectorTypes = UIDataDetectorTypeLink;
-    _textView.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
+    _textView.keyboardAppearance =
+        [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   }
   return _textView;
 }

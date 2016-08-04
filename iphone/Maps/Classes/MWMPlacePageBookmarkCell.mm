@@ -57,7 +57,8 @@ void performRenderingInConcurrentQueue(TMWMVoidBlock block)
 {
   self.delegate = delegate;
   self.textView.width = width - 2 * kTextViewLeft;
-  self.textView.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
+  self.textView.keyboardAppearance =
+      [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   BOOL const isEmpty = text.length == 0;
   if (isEmpty)
     [self configEmptyDescription];
