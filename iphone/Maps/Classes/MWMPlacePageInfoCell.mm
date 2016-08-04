@@ -6,6 +6,7 @@
 #import "Statistics.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "platform/settings.hpp"
 #include "platform/measurement_utils.hpp"
@@ -29,7 +30,11 @@
 {
   [super awakeFromNib];
   if ([self.textContainer isKindOfClass:[UITextView class]])
-    [(UITextView *)self.textContainer setTextContainerInset:{.top = 12}];
+  {
+    UITextView * textView = (UITextView *)self.textContainer;
+    [textView setTextContainerInset:{.top = 12}];
+    textView.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
+  }
 }
 
 - (void)configureWithType:(MWMPlacePageCellType)type info:(NSString *)info;

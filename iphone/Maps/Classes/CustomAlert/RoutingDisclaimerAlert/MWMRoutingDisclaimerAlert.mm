@@ -34,6 +34,7 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
                                                       attributes:@{NSFontAttributeName : UIFont.regular14,
                                                         NSForegroundColorAttributeName : UIColor.blackSecondaryText}];
   [alert.textView sizeToFit];
+  alert.textView.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   UIWindow * window = UIApplication.sharedApplication.keyWindow;
   CGFloat height;
   if (isIOS7)

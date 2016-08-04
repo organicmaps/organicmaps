@@ -3,6 +3,7 @@
 #import "MWMOpeningHoursModel.h"
 #import "MWMOpeningHoursSection.h"
 #import "MWMTextView.h"
+#import "UIColor+MapsMeColor.h"
 
 extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
   @(MWMOpeningHoursEditorDaysSelectorCell) : @"MWMOpeningHoursDaysSelectorTableViewCell",
@@ -72,6 +73,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 - (void)configAdvancedEditor
 {
   [self.editorView setTextContainerInset:{.top = 12, .left = 10, .bottom = 12, .right = 10}];
+  self.editorView.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   NSString * path = [[NSBundle mainBundle] pathForResource:@"opening_hours_how_to_edit" ofType:@"html"];
   NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
   NSURL * baseURL = [NSURL fileURLWithPath:path];

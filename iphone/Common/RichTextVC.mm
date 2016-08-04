@@ -1,4 +1,4 @@
-
+#import "UIColor+MapsMeColor.h"
 #import "RichTextVC.h"
 #import "UIFont+MapsMeFonts.h"
 
@@ -39,6 +39,7 @@
       _textView.textContainerInset = UIEdgeInsetsMake(10, 5, 10, 5);
     _textView.font = [UIFont regular16];
     _textView.dataDetectorTypes = UIDataDetectorTypeLink;
+    _textView.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   }
   return _textView;
 }
