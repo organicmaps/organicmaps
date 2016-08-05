@@ -1,6 +1,7 @@
+#import "MWMSideButtons.h"
 #import "Common.h"
 #import "MWMButton.h"
-#import "MWMSideButtons.h"
+#import "MWMRouter.h"
 #import "MWMSideButtonsView.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -8,8 +9,8 @@
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
-#include "platform/settings.hpp"
 #include "indexer/scales.hpp"
+#include "platform/settings.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 
@@ -31,17 +32,17 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 }
 }  // namespace
 
-@interface MWMSideButtons()
+@interface MWMSideButtons ()
 
-@property (nonatomic) IBOutlet MWMSideButtonsView * sideView;
-@property (weak, nonatomic) IBOutlet MWMButton * zoomInButton;
-@property (weak, nonatomic) IBOutlet MWMButton * zoomOutButton;
-@property (weak, nonatomic) IBOutlet MWMButton * locationButton;
+@property(nonatomic) IBOutlet MWMSideButtonsView * sideView;
+@property(weak, nonatomic) IBOutlet MWMButton * zoomInButton;
+@property(weak, nonatomic) IBOutlet MWMButton * zoomOutButton;
+@property(weak, nonatomic) IBOutlet MWMButton * locationButton;
 
-@property (nonatomic) BOOL zoomSwipeEnabled;
-@property (nonatomic, readonly) BOOL isZoomEnabled;
+@property(nonatomic) BOOL zoomSwipeEnabled;
+@property(nonatomic, readonly) BOOL isZoomEnabled;
 
-@property (nonatomic) location::EMyPositionMode locationMode;
+@property(nonatomic) location::EMyPositionMode locationMode;
 
 @end
 
@@ -63,16 +64,8 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
   return self;
 }
 
-- (void)setTopBound:(CGFloat)bound
-{
-  self.sideView.topBound = bound;
-}
-
-- (void)setBottomBound:(CGFloat)bound
-{
-  self.sideView.bottomBound = bound;
-}
-
+- (void)setTopBound:(CGFloat)bound { self.sideView.topBound = bound; }
+- (void)setBottomBound:(CGFloat)bound { self.sideView.bottomBound = bound; }
 - (void)zoomIn
 {
   [Statistics logEvent:kStatEventName(kStatZoom, kStatIn)];
@@ -142,8 +135,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 
 - (void)refreshLocationButtonState:(location::EMyPositionMode)state
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
+  dispatch_async(dispatch_get_main_queue(), ^{
     if (self.locationButton.imageView.isAnimating)
     {
       [self refreshLocationButtonState:state];
@@ -153,26 +145,20 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
       MWMButton * locBtn = self.locationButton;
       switch (state)
       {
-        case location::PendingPosition:
-        {
-          NSArray<UIImage *> * images = animationImages(@"btn_pending", 12);
-          locBtn.imageView.animationDuration = 1.2;
-          locBtn.imageView.animationImages = images;
-          locBtn.imageView.animationRepeatCount = 0;
-          locBtn.imageView.image = images.lastObject;
-          [locBtn.imageView startAnimating];
-          break;
-        }
-        case location::NotFollow:
-        case location::NotFollowNoPosition:
-          locBtn.imageName = @"btn_get_position";
-          break;
-        case location::Follow:
-          locBtn.imageName = @"btn_follow";
-          break;
-        case location::FollowAndRotate:
-          locBtn.imageName = @"btn_follow_and_rotate";
-          break;
+      case location::PendingPosition:
+      {
+        NSArray<UIImage *> * images = animationImages(@"btn_pending", 12);
+        locBtn.imageView.animationDuration = 1.2;
+        locBtn.imageView.animationImages = images;
+        locBtn.imageView.animationRepeatCount = 0;
+        locBtn.imageView.image = images.lastObject;
+        [locBtn.imageView startAnimating];
+        break;
+      }
+      case location::NotFollow:
+      case location::NotFollowNoPosition: locBtn.imageName = @"btn_get_position"; break;
+      case location::Follow: locBtn.imageName = @"btn_follow"; break;
+      case location::FollowAndRotate: locBtn.imageName = @"btn_follow_and_rotate"; break;
       }
     }
   });
@@ -180,11 +166,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 
 #pragma mark - Actions
 
-- (IBAction)zoomTouchDown:(UIButton *)sender
-{
-  self.zoomSwipeEnabled = YES;
-}
-
+- (IBAction)zoomTouchDown:(UIButton *)sender { self.zoomSwipeEnabled = YES; }
 - (IBAction)zoomTouchUpInside:(UIButton *)sender
 {
   self.zoomSwipeEnabled = NO;
@@ -194,17 +176,14 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
     [self zoomOut];
 }
 
-- (IBAction)zoomTouchUpOutside:(UIButton *)sender
-{
-  self.zoomSwipeEnabled = NO;
-}
-
+- (IBAction)zoomTouchUpOutside:(UIButton *)sender { self.zoomSwipeEnabled = NO; }
 - (IBAction)zoomSwipe:(UIPanGestureRecognizer *)sender
 {
   if (!self.zoomSwipeEnabled)
     return;
   UIView * const superview = self.sideView.superview;
-  CGFloat const translation = -[sender translationInView:superview].y / superview.bounds.size.height;
+  CGFloat const translation =
+      -[sender translationInView:superview].y / superview.bounds.size.height;
 
   CGFloat const scaleFactor = exp(translation);
   GetFramework().Scale(scaleFactor, false);
@@ -225,24 +204,15 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
   return zoomButtonsEnabled;
 }
 
-- (BOOL)zoomHidden
-{
-  return self.sideView.zoomHidden;
-}
-
+- (BOOL)zoomHidden { return self.sideView.zoomHidden; }
 - (void)setZoomHidden:(BOOL)zoomHidden
 {
-  self.sideView.zoomHidden = [self isZoomEnabled] ? zoomHidden : YES;
+  if (GetFramework().IsRoutingActive())
+    self.sideView.zoomHidden = NO;
+  else
+    self.sideView.zoomHidden = [self isZoomEnabled] ? zoomHidden : YES;
 }
 
-- (BOOL)hidden
-{
-  return self.sideView.hidden;
-}
-
-- (void)setHidden:(BOOL)hidden
-{
-  [self.sideView setHidden:hidden animated:YES];
-}
-
+- (BOOL)hidden { return self.sideView.hidden; }
+- (void)setHidden:(BOOL)hidden { [self.sideView setHidden:hidden animated:YES]; }
 @end
