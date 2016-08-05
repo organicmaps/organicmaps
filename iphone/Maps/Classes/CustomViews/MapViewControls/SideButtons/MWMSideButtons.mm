@@ -1,6 +1,7 @@
+#import "MWMSideButtons.h"
 #import "Common.h"
 #import "MWMButton.h"
-#import "MWMSideButtons.h"
+#import "MWMRouter.h"
 #import "MWMSideButtonsView.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -232,7 +233,10 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 
 - (void)setZoomHidden:(BOOL)zoomHidden
 {
-  self.sideView.zoomHidden = [self isZoomEnabled] ? zoomHidden : YES;
+  if (GetFramework().IsRoutingActive())
+    self.sideView.zoomHidden = NO;
+  else
+    self.sideView.zoomHidden = [self isZoomEnabled] ? zoomHidden : YES;
 }
 
 - (BOOL)hidden

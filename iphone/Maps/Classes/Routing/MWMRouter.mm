@@ -219,9 +219,9 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)stop
 {
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
-  [[MWMMapViewControlsManager manager] onRouteStop];
   [self resetPoints];
   [self doStop];
+  [[MWMMapViewControlsManager manager] onRouteStop];
 }
 
 - (void)doStop

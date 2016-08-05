@@ -413,6 +413,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)onRouteStart
 {
   self.hidden = NO;
+  self.sideButtons.zoomHidden = self.zoomHidden;
   self.sideButtonsHidden = NO;
   self.disableStandbyOnRouteFollowing = YES;
   self.navigationManager.state = MWMNavigationDashboardStateNavigation;
@@ -420,6 +421,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)onRouteStop
 {
+  self.sideButtons.zoomHidden = self.zoomHidden;
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
   self.disableStandbyOnRouteFollowing = NO;
   self.menuState = MWMBottomMenuStateInactive;
