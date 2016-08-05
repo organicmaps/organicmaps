@@ -270,7 +270,8 @@ void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const
     if (predicate(anim))
     {
 #ifdef DEBUG_ANIMATIONS
-      LOG(LINFO, ("Finish animation", anim->GetType(), ", rewind:", rewind));
+      LOG(LINFO, ("Finish animation", anim->GetType(), ", rewind:", rewind,
+                  ", couldBeRewinded:", anim->CouldBeRewinded()));
       changed = true;
 #endif
       finishAnimations.splice(finishAnimations.end(), frontList, it++);
@@ -291,7 +292,8 @@ void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const
         if (predicate(*it))
         {
 #ifdef DEBUG_ANIMATIONS
-          LOG(LINFO, ("Finish animation", (*it)->GetType(), ", rewind:", rewind));
+          LOG(LINFO, ("Finish animation", (*it)->GetType(), ", rewind:", rewind,
+                      ", couldBeRewinded:", anim->CouldBeRewinded()));
           changed = true;
 #endif
           it = lst.erase(it);
@@ -306,7 +308,7 @@ void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const
 
   for (auto & anim : finishAnimations)
   {
-    if (rewind)
+    if (rewind && anim->CouldBeRewinded())
       anim->Finish();
     SaveAnimationResult(*anim);
   }

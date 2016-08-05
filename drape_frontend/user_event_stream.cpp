@@ -390,7 +390,9 @@ bool UserEventStream::InterruptFollowAnimations(bool force)
         ResetAnimations(Animation::Arrow);
     }
     else
+    {
       return false;
+    }
   }
   return true;
 }
