@@ -1,13 +1,13 @@
 #import "MWMMapWidgets.h"
-#import "MWMNavigationDashboardManager.h"
 #import "Common.h"
+#import "MWMNavigationDashboardManager.h"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "std/unique_ptr.hpp"
 
 @interface MWMMapWidgets ()
 
-@property (nonatomic) float visualScale;
+@property(nonatomic) float visualScale;
 
 @end
 
@@ -21,10 +21,8 @@
   self.visualScale = p.m_visualScale;
   m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), p.m_visualScale));
   m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
-  m_skin->ForEach([&p](gui::EWidget widget, gui::Position const & pos)
-  {
-    p.m_widgetsInitInfo[widget] = pos;
-  });
+  m_skin->ForEach(
+      [&p](gui::EWidget widget, gui::Position const & pos) { p.m_widgetsInitInfo[widget] = pos; });
 #ifdef DEBUG
   p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABEL] = gui::Position(dp::LeftBottom);
 #endif
@@ -48,25 +46,23 @@
   }
   else
   {
-    m_skin->ForEach([&layout, &self](gui::EWidget w, gui::Position const & pos)
-    {
+    m_skin->ForEach([&layout, &self](gui::EWidget w, gui::Position const & pos) {
       m2::PointF pivot = pos.m_pixelPivot;
       switch (w)
       {
-        case gui::WIDGET_RULER:
-        case gui::WIDGET_COPYRIGHT:
-          pivot -= m2::PointF(0.0, self.bottomBound * self.visualScale);
-          break;
-        case gui::WIDGET_COMPASS:
-        {
-          CGFloat const compassBottomBound =
-              self.bottomBound + [MWMNavigationDashboardManager manager].extraCompassBottomOffset;
-          pivot += m2::PointF(self.leftBound, -compassBottomBound) * self.visualScale;
-          break;
-        }
-        case gui::WIDGET_SCALE_LABEL:
-        case gui::WIDGET_CHOOSE_POSITION_MARK:
-          break;
+      case gui::WIDGET_RULER:
+      case gui::WIDGET_COPYRIGHT:
+        pivot -= m2::PointF(0.0, self.bottomBound * self.visualScale);
+        break;
+      case gui::WIDGET_COMPASS:
+      {
+        CGFloat const compassBottomBound =
+            self.bottomBound + [MWMNavigationDashboardManager manager].extraCompassBottomOffset;
+        pivot += m2::PointF(self.leftBound, -compassBottomBound) * self.visualScale;
+        break;
+      }
+      case gui::WIDGET_SCALE_LABEL:
+      case gui::WIDGET_CHOOSE_POSITION_MARK: break;
       }
       layout[w] = pivot;
     });
