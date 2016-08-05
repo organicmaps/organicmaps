@@ -1,5 +1,6 @@
 #import "MWMMapWidgets.h"
 #import "MWMNavigationDashboardManager.h"
+#import "Common.h"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "std/unique_ptr.hpp"
@@ -83,12 +84,17 @@
 
 - (void)setLeftBound:(CGFloat)leftBound
 {
-  _leftBound = MAX(leftBound, 0.0);
+  CGFloat const newLeftBound = MAX(leftBound, 0.0);
+  if (equalScreenDimensions(_leftBound, newLeftBound))
+    return;
+  _leftBound = newLeftBound;
   [self layoutWidgets];
 }
 
 - (void)setBottomBound:(CGFloat)bottomBound
 {
+  if (equalScreenDimensions(_bottomBound, bottomBound))
+    return;
   _bottomBound = bottomBound;
   [self layoutWidgets];
 }
