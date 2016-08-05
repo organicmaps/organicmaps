@@ -7,6 +7,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMRouter.h"
 #import "MWMSearch.h"
+#import "MapViewController.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
@@ -44,7 +45,12 @@ map<NavigationSearchState, NSString *> const kSearchButtonRequest{
     {NavigationSearchState::MinimizedShop, L(@"shop")},
     {NavigationSearchState::MinimizedATM, L(@"atm")}};
 
-BOOL defaultOrientation(CGSize const & size) { return IPAD || (size.height > size.width); }
+BOOL defaultOrientation(CGSize const & size)
+{
+  CGSize const & mapViewSize = [MapViewController controller].view.frame.size;
+  CGFloat const minWidth = MIN(mapViewSize.width, mapViewSize.height);
+  return IPAD || (size.height > size.width && size.width >= minWidth);
+}
 }  // namespace
 
 @interface MWMNavigationInfoView ()<MWMLocationObserver>
@@ -301,7 +307,10 @@ BOOL defaultOrientation(CGSize const & size) { return IPAD || (size.height > siz
 
 - (void)setFrame:(CGRect)frame
 {
-  if (CGRectEqualToRect(self.frame, frame))
+  CGSize const & oldSize = self.frame.size;
+  CGSize const & size = frame.size;
+  if (CGRectEqualToRect(self.frame, frame) || (equalScreenDimensions(oldSize.width, size.width) &&
+                                               equalScreenDimensions(oldSize.height, size.height)))
     return;
   super.frame = frame;
   [self layoutIfNeeded];
