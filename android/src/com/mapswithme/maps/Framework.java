@@ -8,6 +8,8 @@ import android.support.annotation.UiThread;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import com.mapswithme.maps.api.ParsedRoutingData;
+import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingInfo;
@@ -103,6 +105,9 @@ public class Framework
   public static native long nativeGetDataVersion();
 
   public static native void nativeClearApiPoints();
+  @ParsedUrlMwmRequest.ParsingResult
+  public static native int nativeParseAndSetApiUrl(String url);
+  public static native ParsedRoutingData nativeGetParsedRoutingData();
 
   public static native void nativeDeactivatePopup();
 

@@ -540,6 +540,37 @@ Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass cla
   guard.m_controller.Clear();
 }
 
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeParseAndSetApiUrl(JNIEnv * env, jclass clazz, jstring url)
+{
+  return static_cast<jint>(frm()->ParseAndSetApiURL(jni::ToNativeString(env, url)));
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetParsedRoutingData(JNIEnv * env, jclass clazz)
+{
+  using namespace url_scheme;
+  static jclass const pointClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/api/RoutePoint");
+  // Java signature : RoutePoint(double lat, double lon, String name)
+  static jmethodID const pointConstructor = jni::GetConstructorID(env, pointClazz, "(DDLjava/lang/String;)V");
+
+  static jclass const routeDataClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/api/ParsedRoutingData");
+  // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType) {
+  static jmethodID const routeDataConstructor = jni::GetConstructorID(env, routeDataClazz, "([Lcom/mapswithme/maps/api/RoutePoint;I)V");
+
+  auto const & routingData = frm()->GetParsedRoutingData();
+  jobjectArray points = jni::ToJavaArray(env, pointClazz, routingData.m_points,
+                                         [](JNIEnv * env, RoutePoint const & point)
+                                         {
+                                           jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
+                                           return env->NewObject(pointClazz, pointConstructor,
+                                                                 MercatorBounds::YToLat(point.m_org.y),
+                                                                 MercatorBounds::XToLon(point.m_org.x), name.get());
+                                         });
+
+  return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type);
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jclass clazz, jobject jListener)
 {

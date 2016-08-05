@@ -254,7 +254,7 @@ public class RoutingController
     Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
   }
 
-  private void showDisclaimer(final MapObject endPoint)
+  private void showDisclaimer(final MapObject startPoint, final MapObject endPoint)
   {
     StringBuilder builder = new StringBuilder();
     for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
@@ -273,23 +273,28 @@ public class RoutingController
           public void onClick(DialogInterface dlg, int which)
           {
             Config.acceptRoutingDisclaimer();
-            prepare(endPoint);
+            prepare(startPoint, endPoint);
           }
         }).show();
   }
 
   public void prepare(@Nullable MapObject endPoint)
   {
+    prepare(LocationHelper.INSTANCE.getMyPosition(), endPoint);
+  }
+
+  public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
+  {
     mLogger.d("prepare (" + (endPoint == null ? "route)" : "p2p)"));
 
     if (!Config.isRoutingDisclaimerAccepted())
     {
-      showDisclaimer(endPoint);
+      showDisclaimer(startPoint, endPoint);
       return;
     }
 
     cancel();
-    mStartPoint = LocationHelper.INSTANCE.getMyPosition();
+    mStartPoint = startPoint;
     mEndPoint = endPoint;
     setState(State.PREPARE);
 

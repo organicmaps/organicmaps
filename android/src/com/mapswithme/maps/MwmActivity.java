@@ -26,6 +26,9 @@ import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.api.ParsedRoutingData;
+import com.mapswithme.maps.api.ParsedUrlMwmRequest;
+import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -1137,7 +1140,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public boolean run(MwmActivity target)
     {
-      return MapFragment.nativeShowMapForUrl(mUrl);
+      final @ParsedUrlMwmRequest.ParsingResult int result = Framework.nativeParseAndSetApiUrl(mUrl);
+      switch (result)
+      {
+      case ParsedUrlMwmRequest.RESULT_INCORRECT:
+        // TODO handle error
+        break;
+      case ParsedUrlMwmRequest.RESULT_MAP:
+        return MapFragment.nativeShowMapForUrl(mUrl);
+      case ParsedUrlMwmRequest.RESULT_ROUTE:
+        final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
+        RoutingController.get().setRouterType(data.mRouterType);
+        final RoutePoint from = data.mPoints[0];
+        final RoutePoint to = data.mPoints[1];
+        RoutingController.get().prepare(new MapObject(MapObject.API_POINT, from.mName, "", "",
+                                                      from.mLat, from.mLon, ""),
+                                        new MapObject(MapObject.API_POINT, to.mName, "", "",
+                                                      to.mLat, to.mLon, ""));
+        return true;
+      }
+
+      return false;
     }
   }
 
