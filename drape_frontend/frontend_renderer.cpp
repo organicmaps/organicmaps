@@ -143,7 +143,8 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   ASSERT(m_userPositionChangedFn, ());
 
   m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode, params.m_timeInBackground,
-                                                        params.m_firstLaunch, params.m_isRoutingActive));
+                                                        params.m_firstLaunch, params.m_isRoutingActive,
+                                                        params.m_isAutozoomEnabled));
   m_myPositionController->SetModeListener(params.m_myPositionModeCallback);
 
   StartThread();

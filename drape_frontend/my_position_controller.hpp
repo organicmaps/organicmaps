@@ -39,7 +39,7 @@ public:
   };
 
   MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
-                       bool isFirstLaunch, bool isRoutingActive);
+                       bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled);
   ~MyPositionController();
 
   void OnNewViewportRect();

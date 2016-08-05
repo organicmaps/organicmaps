@@ -123,7 +123,7 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 } // namespace
 
 MyPositionController::MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
-                                           bool isFirstLaunch, bool isRoutingActive)
+                                           bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled)
   : m_mode(location::PendingPosition)
   , m_desiredInitMode(initMode)
   , m_isFirstLaunch(isFirstLaunch)
@@ -136,7 +136,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
   , m_oldPosition(m2::PointD::Zero())
   , m_oldDrawDirection(0.0)
   , m_enablePerspectiveInRouting(false)
-  , m_enableAutoZoomInRouting(false)
+  , m_enableAutoZoomInRouting(isAutozoomEnabled)
   , m_autoScale2d(GetScale(kDefaultAutoZoom))
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearing(false)

@@ -47,7 +47,8 @@ public:
            bool showChoosePositionMark,
            vector<m2::TriangleD> && boundAreaTriangles,
            bool firstLaunch,
-           bool isRoutingActive)
+           bool isRoutingActive,
+           bool isAutozoomEnabled)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
@@ -61,6 +62,7 @@ public:
       , m_boundAreaTriangles(move(boundAreaTriangles))
       , m_isFirstLaunch(firstLaunch)
       , m_isRoutingActive(isRoutingActive)
+      , m_isAutozoomEnabled(isAutozoomEnabled)
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -76,6 +78,7 @@ public:
     vector<m2::TriangleD> m_boundAreaTriangles;
     bool m_isFirstLaunch;
     bool m_isRoutingActive;
+    bool m_isAutozoomEnabled;
   };
 
   DrapeEngine(Params && params);
