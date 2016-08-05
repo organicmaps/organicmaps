@@ -17,12 +17,11 @@ import com.mapswithme.util.statistics.Statistics;
 public class MyPositionButton
 {
   private final ImageView mButton;
-  private final SparseArray<Drawable> mIcons = new SparseArray<>();  // Location mode -> Button icon
+  private static final SparseArray<Drawable> mIcons = new SparseArray<>(); // Location mode -> Button icon
 
   public MyPositionButton(View button)
   {
     mButton = (ImageView) button;
-    mIcons.clear();
     mButton.setOnClickListener(new View.OnClickListener()
     {
       @Override
@@ -72,5 +71,10 @@ public class MyPositionButton
 
     if (image instanceof AnimationDrawable)
       ((AnimationDrawable) image).start();
+  }
+
+  public static void clearCache()
+  {
+    mIcons.clear();
   }
 }

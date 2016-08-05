@@ -137,7 +137,7 @@
     <item name="nav_background">@drawable/button_navigation_circle</item>
   </style>
 
-  <style name="MwmTheme.NavButtons.Night">
+  <style name="MwmTheme.NavButtons.Night" parent="MwmTheme.Night">
     <item name="nav_background">@drawable/button_navigation_circle_night</item>
   </style>
 
@@ -150,7 +150,7 @@
     <item name="newsMarker">@drawable/news_marker</item>
   </style>
 
-  <style name="MwmTheme.Navigation.Night">
+  <style name="MwmTheme.Navigation.Night" parent="MwmTheme.Night">
     <item name="iconTint">@color/black_primary</item>
     <item name="newsMarker">@drawable/news_marker_night</item>
   </style>
