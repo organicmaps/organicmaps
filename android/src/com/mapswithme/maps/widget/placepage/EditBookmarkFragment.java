@@ -46,7 +46,6 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     final EditBookmarkFragment fragment = (EditBookmarkFragment) Fragment.instantiate(context, name, args);
     fragment.setArguments(args);
     fragment.show(manager, name);
-
   }
 
   public EditBookmarkFragment() {}

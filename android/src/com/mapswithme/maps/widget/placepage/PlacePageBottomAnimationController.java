@@ -111,7 +111,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
 
   private boolean isDetailsScrollable()
   {
-    return mDetailsFrame.getHeight() != mDetailsContent.getHeight();
+    return mDetailsFrame.getHeight() < mDetailsContent.getHeight();
   }
 
   private boolean canScroll(float delta)
@@ -241,10 +241,6 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
 
   /**
    * Prepares widgets for animating, places them vertically accordingly to their supposed positions.
-   *
-   * @param currentState
-   * @param newState
-   * @param type
    */
   private void prepareYTranslations(State currentState, State newState, @MapObject.MapObjectType int type)
   {
@@ -404,6 +400,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
       mCurrentAnimator.removeAllUpdateListeners();
       mCurrentAnimator.removeAllListeners();
       mCurrentAnimator.end();
+      mCurrentAnimator = null;
     }
   }
 

@@ -33,8 +33,6 @@
     android:paddingStart="@dimen/margin_base"
     android:text="@string/placepage_edit_bookmark_button"/>
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="?dividerHorizontal"/>
+  <include
+    layout="@layout/divider_horizontal"/>
 </LinearLayout>

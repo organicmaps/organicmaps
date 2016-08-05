@@ -76,9 +76,9 @@ import com.mapswithme.util.statistics.Statistics;
 
 
 public class PlacePageView extends RelativeLayout
-    implements View.OnClickListener,
-               View.OnLongClickListener,
-               SponsoredHotel.OnPriceReceivedListener
+                        implements View.OnClickListener,
+                                   View.OnLongClickListener,
+                                   SponsoredHotel.OnPriceReceivedListener
 {
   private static final String PREF_USE_DMS = "use_dms";
 
@@ -368,7 +368,8 @@ public class PlacePageView extends RelativeLayout
                                 public void run()
                                 {
                                   Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                                                 Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                                 Statistics.params()
+                                                                           .add(Statistics.EventParam.ACTION, "download")
                                                                            .add(Statistics.EventParam.FROM, "placepage")
                                                                            .add("is_auto", "false")
                                                                            .add("scenario", (mCurrentCountry.isExpandable() ? "download_group"
@@ -377,15 +378,15 @@ public class PlacePageView extends RelativeLayout
                               });
                             }
                           }).setOnCancelClickListener(new OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            MapManager.nativeCancel(mCurrentCountry.id);
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                           Statistics.params().add(Statistics.EventParam.FROM, "placepage"));
-          }
-        });
+                          {
+                            @Override
+                            public void onClick(View v)
+                            {
+                              MapManager.nativeCancel(mCurrentCountry.id);
+                              Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                                             Statistics.params().add(Statistics.EventParam.FROM, "placepage"));
+                            }
+                          });
 
     mDownloaderInfo = (TextView) mPreview.findViewById(R.id.tv__downloader_details);
 
@@ -537,7 +538,7 @@ public class PlacePageView extends RelativeLayout
 
   /**
    * @param mapObject new MapObject
-   * @param force     if true, new object'll be set without comparison with the old one
+   * @param force if true, new object'll be set without comparison with the old one
    */
   public void setMapObject(MapObject mapObject, boolean force)
   {
@@ -1083,10 +1084,10 @@ public class PlacePageView extends RelativeLayout
   private static boolean isInvalidDownloaderStatus(int status)
   {
     return (status != CountryItem.STATUS_DOWNLOADABLE &&
-                status != CountryItem.STATUS_ENQUEUED &&
-                status != CountryItem.STATUS_FAILED &&
-                status != CountryItem.STATUS_PARTLY &&
-                status != CountryItem.STATUS_PROGRESS);
+            status != CountryItem.STATUS_ENQUEUED &&
+            status != CountryItem.STATUS_FAILED &&
+            status != CountryItem.STATUS_PARTLY &&
+            status != CountryItem.STATUS_PROGRESS);
   }
 
   private void updateDownloader(CountryItem country)
