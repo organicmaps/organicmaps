@@ -222,6 +222,8 @@ public:
 
   FeatureParams() : m_geomType(0xFF), m_reverseGeometry(false) {}
 
+  void ClearName();
+
   bool AddName(string const & lang, string const & s);
   bool AddHouseName(string const & s);
   bool AddHouseNumber(string houseNumber);

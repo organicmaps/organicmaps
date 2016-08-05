@@ -122,6 +122,23 @@ UNIT_TEST(FBuilder_Waterfall)
   TEST_EQUAL(fb2.GetTypesCount(), 1, ());
 }
 
+UNIT_TEST(FBbuilder_GetMostGeneralOsmId)
+{
+  FeatureBuilder1 fb;
+
+  fb.AddOsmId(osm::Id::Node(1));
+  TEST_EQUAL(fb.GetMostGenericOsmId(), osm::Id::Node(1), ());
+
+  fb.AddOsmId(osm::Id::Node(2));
+  fb.AddOsmId(osm::Id::Way(1));
+  TEST_EQUAL(fb.GetMostGenericOsmId(), osm::Id::Way(1), ());
+
+  fb.AddOsmId(osm::Id::Node(3));
+  fb.AddOsmId(osm::Id::Way(2));
+  fb.AddOsmId(osm::Id::Relation(1));
+  TEST_EQUAL(fb.GetMostGenericOsmId(), osm::Id::Relation(1), ());
+}
+
 UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
 {
   classificator::Load();

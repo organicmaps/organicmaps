@@ -41,6 +41,11 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
   CONFIG(gtool):!CONFIG(no-tests) {
     SUBDIRS *= map
 
+    # Booking quality check
+    booking_quality_check.subdir = generator/booking_quality_check
+    booking_quality_check.depends = $$SUBDIRS
+    SUBDIRS *= booking_quality_check
+
     routing_integration_tests.subdir = routing/routing_integration_tests
     routing_integration_tests.depends = $$SUBDIRS
     routing_consistency_tests.subdir = routing/routing_consistency_tests

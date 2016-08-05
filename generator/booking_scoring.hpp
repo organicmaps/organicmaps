@@ -2,7 +2,7 @@
 
 #include "generator/booking_dataset.hpp"
 
-struct OsmElement;
+class FeatureBuilder1;
 
 namespace generator
 {
@@ -17,6 +17,6 @@ struct BookingMatchScore
   double m_nameSimilarityScore{};
 };
 
-BookingMatchScore Match(BookingDataset::Hotel const & h, OsmElement const & e);
+BookingMatchScore Match(BookingDataset::Hotel const & h, FeatureBuilder1 const & fb);
 }  // namespace booking_scoring
 }  // namespace generator

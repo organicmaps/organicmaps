@@ -1,7 +1,5 @@
 #pragma once
 
-#include "generator/osm_element.hpp"
-
 #include "indexer/index.hpp"
 
 #include "search/reverse_geocoder.hpp"
@@ -12,15 +10,19 @@
 #include "boost/geometry/index/rtree.hpp"
 
 #include "std/function.hpp"
+#include "std/limits.hpp"
 #include "std/string.hpp"
+
+class FeatureBuilder1;
 
 namespace generator
 {
 class BookingDataset
 {
 public:
-  double static constexpr kDistanceLimitInMeters = 150;
-  size_t static constexpr kMaxSelectedElements = 3;
+  static double constexpr kDistanceLimitInMeters = 150;
+  static size_t constexpr kMaxSelectedElements = 3;
+  static size_t constexpr kInvalidHotelIndex = numeric_limits<size_t>::max();
 
   struct Hotel
   {
@@ -77,33 +79,34 @@ public:
   explicit BookingDataset(string const & dataPath, string const & addressReferencePath = string());
   explicit BookingDataset(istream & dataSource, string const & addressReferencePath = string());
 
-  bool BookingFilter(OsmElement const & e) const;
-  bool TourismFilter(OsmElement const & e) const;
+  /// @return an index of a matched hotel or kInvalidHotelIndex on failure.
+  size_t GetMatchingHotelIndex(FeatureBuilder1 const & fb) const;
+  /// @return true if |fb| is a hotel with a name.
+  bool CanBeBooking(FeatureBuilder1 const & fb) const;
 
   inline size_t Size() const { return m_hotels.size(); }
   Hotel const & GetHotel(size_t index) const;
   Hotel & GetHotel(size_t index);
-  vector<size_t> GetNearestHotels(double lat, double lon, size_t limit,
+  vector<size_t> GetNearestHotels(ms::LatLon const & latLon, size_t limit,
                                   double maxDistance = 0.0) const;
   bool MatchByName(string const & osmName, vector<size_t> const & bookingIndexes) const;
 
-  void BuildFeatures(function<void(OsmElement *)> const & fn) const;
+  void BuildHotel(size_t hotelIndex, function<void(FeatureBuilder1 &)> const & fn) const;
 
 protected:
   vector<Hotel> m_hotels;
 
-  // create the rtree using default constructor
   using TPoint = boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian>;
   using TBox = boost::geometry::model::box<TPoint>;
   using TValue = pair<TBox, size_t>;
 
+  // Create the rtree using default constructor.
   boost::geometry::index::rtree<TValue, boost::geometry::index::quadratic<16>> m_rtree;
 
   void LoadHotels(istream & path, string const & addressReferencePath);
-  bool MatchWithBooking(OsmElement const & e) const;
-  bool Filter(OsmElement const & e, function<bool(OsmElement const &)> const & fn) const;
+  /// @return an index of a matched hotel or numeric_limits<size_t>::max() on failure.
+  size_t MatchWithBooking(FeatureBuilder1 const & e) const;
 };
 
 ostream & operator<<(ostream & s, BookingDataset::Hotel const & h);
-
 }  // namespace generator

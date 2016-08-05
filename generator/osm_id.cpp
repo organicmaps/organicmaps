@@ -38,9 +38,19 @@ uint64_t Id::OsmId() const
   return m_encodedId & RESET;
 }
 
+bool Id::IsNode() const
+{
+  return ((m_encodedId & NODE) == NODE);
+}
+
 bool Id::IsWay() const
 {
   return ((m_encodedId & WAY) == WAY);
+}
+
+bool Id::IsRelation() const
+{
+  return ((m_encodedId & RELATION) == RELATION);
 }
 
 string Id::Type() const
