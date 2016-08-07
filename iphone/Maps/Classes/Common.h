@@ -20,7 +20,7 @@ static NSString * const kHaveAppleWatch = @"HaveAppleWatch";
 
 static CGFloat const kDefaultAnimationDuration = .2;
 
-static inline NSString * const kApplicationGroupIdentifier()
+static inline NSString * kApplicationGroupIdentifier()
 {
   static NSString * const productionGroupIdentifier = @"group.mapsme.watchkit.production";
   static NSString * const developerGroupIdentifier = @"group.mapsme.watchkit";
