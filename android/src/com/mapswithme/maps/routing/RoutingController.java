@@ -660,7 +660,7 @@ public class RoutingController
     checkAndBuildRoute();
   }
 
-  void setRouterType(@Framework.RouterType int router)
+  public void setRouterType(@Framework.RouterType int router)
   {
     mLogger.d("setRouterType: " + mLastRouterType + " -> " + router);
 
