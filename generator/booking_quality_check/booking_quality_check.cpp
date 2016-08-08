@@ -106,6 +106,7 @@ struct Emitter : public EmitterBase
         auto const & hotel = m_bookingDataset.GetHotel(j);
         auto const score = booking_scoring::Match(hotel, fb);
 
+        auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
         double const distanceMeters = ms::DistanceOnEarth(center.lat, center.lon,
                                                           hotel.lat, hotel.lon);
         auto const matched = score.IsMatched();
