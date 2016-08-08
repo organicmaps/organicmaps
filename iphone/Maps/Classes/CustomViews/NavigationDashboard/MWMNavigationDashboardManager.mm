@@ -62,6 +62,12 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
 - (void)updateFollowingInfo:(location::FollowingInfo const &)info
 {
+  if (GetFramework().IsRouteFinished())
+  {
+    [[MWMRouter router] stop];
+    return;
+  }
+
   [self.entity updateFollowingInfo:info];
   [self updateDashboard];
 }

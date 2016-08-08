@@ -6,6 +6,7 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MWMSearch.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
@@ -228,6 +229,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)stop
 {
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
+  [MWMSearch clear];
   [self resetPoints];
   [self doStop];
   [[MWMMapViewControlsManager manager] onRouteStop];
@@ -278,11 +280,11 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   auto & f = GetFramework();
   if (f.IsRoutingActive())
   {
-    [self updateFollowingInfo];
-
     MWMTextToSpeech * tts = [MWMTextToSpeech tts];
     if (f.IsOnRoute() && tts.active)
       [tts playTurnNotifications];
+
+    [self updateFollowingInfo];
   }
   else
   {
