@@ -33,12 +33,13 @@ public:
 
 private:
 
-  void AddTestValue(string const & key, string const & value)
+  bool AddTestValue(string const & key, string const & value)
   {
     TEST(!m_keyValuePairs.empty(), ("Failed for uri = ", m_uri, "Passed KV = ", key, value));
     TEST_EQUAL(m_keyValuePairs.front().first,  key, ());
     TEST_EQUAL(m_keyValuePairs.front().second, value, ());
     m_keyValuePairs.pop();
+    return true;
   }
 
   string m_uri, m_scheme, m_path;
