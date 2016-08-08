@@ -11878,7 +11878,7 @@
     en = Route to
     ru = Сюда
     ar = الطريق إلى
-    cs = Cesta od
+    cs = Cesta do
     da = Rute til
     nl = Route naar
     fi = Reitin loppupiste

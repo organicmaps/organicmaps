@@ -645,7 +645,7 @@
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Plánování…</string>
 	<string name="p2p_from_here">Z</string>
-	<string name="p2p_to_here">Cesta od</string>
+	<string name="p2p_to_here">Cesta do</string>
 	<string name="p2p_only_from_current">Navigace je dostupná pouze z vašeho současného umístění.</string>
 	<string name="p2p_reroute_from_current">Chcete, abychom naplánovali trasu z vašeho současného umístění?</string>
 	<string name="whats_new_next_button">Další</string>

@@ -3407,7 +3407,7 @@ th:เมือง|เมืองหลวง
 zh-Hans:资本
 ar:مدينة
 da:Kapital
-tr:Sermaye
+tr:Başkent
 sv:Huvudstad|stad
 vi:Thủ đô
 id:Ibu kota
