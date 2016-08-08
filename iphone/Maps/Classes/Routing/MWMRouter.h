@@ -13,6 +13,9 @@
 - (void)swapPointsAndRebuild;
 - (void)buildFromPoint:(MWMRoutePoint const &)start bestRouter:(BOOL)bestRouter;
 - (void)buildToPoint:(MWMRoutePoint const &)finish bestRouter:(BOOL)bestRouter;
+- (void)buildFromPoint:(MWMRoutePoint const &)start
+               toPoint:(MWMRoutePoint const &)finish
+            bestRouter:(BOOL)bestRouter;
 - (void)rebuildWithBestRouter:(BOOL)bestRouter;
 - (void)start;
 - (void)stop;

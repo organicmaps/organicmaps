@@ -254,11 +254,36 @@ using namespace osm_auth_ios;
   }
   else if (m_mwmURL)
   {
-    if (f.ShowMapForURL([m_mwmURL UTF8String]))
+    using namespace url_scheme;
+
+    string const url = m_mwmURL.UTF8String;
+    auto const parsingType = f.ParseAndSetApiURL(url);
+    switch (parsingType)
     {
-      [[Statistics instance] logApiUsage:m_sourceApplication];
+    case ParsedMapApi::ParsingResult::Incorrect:
+      LOG(LWARNING, ("Incorrect parsing result for url:", url));
+      break;
+    case ParsedMapApi::ParsingResult::Route:
+    {
+      auto const parsedData = f.GetParsedRoutingData();
+      f.SetRouter(parsedData.m_type);
+      auto const points = parsedData.m_points;
+      auto const & p1 = points[0];
+      auto const & p2 = points[1];
+      [[MWMRouter router] buildFromPoint:MWMRoutePoint(p1.m_org, @(p1.m_name.c_str()))
+                                 toPoint:MWMRoutePoint(p2.m_org, @(p2.m_name.c_str()))
+                              bestRouter:YES];
       [self showMap];
       [self.mapViewController showAPIBar];
+      break;
+    }
+    case ParsedMapApi::ParsingResult::Map:
+      if (f.ShowMapForURL(url))
+      {
+        [self showMap];
+        [self.mapViewController showAPIBar];
+      }
+      break;
     }
   }
   else if (m_fileURL)
@@ -802,7 +827,8 @@ using namespace osm_auth_ios;
     m_geoURL = [url absoluteString];
     return YES;
   }
-  else if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"])
+  else if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"] ||
+           [scheme isEqualToString:@"mapsme"])
   {
     m_mwmURL = [url absoluteString];
     return YES;

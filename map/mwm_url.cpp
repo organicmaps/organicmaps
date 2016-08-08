@@ -19,58 +19,112 @@
 
 namespace url_scheme
 {
-
 namespace
 {
+string const kLatLon = "ll";
+string const kSourceLatLon = "sll";
+string const kDestLatLon = "dll";
+string const kZoomLevel = "z";
+string const kName = "n";
+string const kSourceName = "saddr";
+string const kDestName = "daddr";
+string const kId = "id";
+string const kStyle = "s";
+string const kBackUrl = "backurl";
+string const kVersion = "v";
+string const kAppName = "appname";
+string const kBalloonAction = "balloonaction";
+string const kRouteType = "type";
+string const kRouteTypeVehicle = "vehicle";
+string const kRouteTypePedestrian = "pedestrian";
+string const kRouteTypeBicycle = "bicycle";
 
-static int const INVALID_LAT_VALUE = -1000;
-
-bool IsInvalidApiPoint(ApiPoint const & p) { return p.m_lat == INVALID_LAT_VALUE; }
-
-}  // unnames namespace
-
-ParsedMapApi::ParsedMapApi()
-  : m_bmManager(nullptr)
-  , m_version(0)
-  , m_zoomLevel(0.0)
-  , m_goBackOnBalloonClick(false)
+bool ParseLatLon(string const & key, string const & value, double & lat, double & lon)
 {
+  size_t const firstComma = value.find(',');
+  if (firstComma == string::npos)
+  {
+    LOG(LWARNING, ("Map API: no comma between lat and lon for key:", key, " value:", value));
+    return false;
+  }
+
+  if (!strings::to_double(value.substr(0, firstComma), lat) ||
+      !strings::to_double(value.substr(firstComma + 1), lon))
+  {
+    LOG(LWARNING, ("Map API: can't parse lat,lon for key:", key, " value:", value));
+    return false;
+  }
+
+  if (!MercatorBounds::ValidLat(lat) || !MercatorBounds::ValidLon(lon))
+  {
+    LOG(LWARNING, ("Map API: incorrect value for lat and/or lon", key, value, lat, lon));
+    return false;
+  }
+  return true;
 }
+
+}  // namespace
 
 void ParsedMapApi::SetBookmarkManager(BookmarkManager * manager)
 {
   m_bmManager = manager;
 }
-
-bool ParsedMapApi::SetUriAndParse(string const & url)
+ParsedMapApi::ParsingResult ParsedMapApi::SetUriAndParse(string const & url)
 {
   Reset();
-  return Parse(url_scheme::Uri(url));
+
+  if (!strings::StartsWith(url, "mapswithme://") && !strings::StartsWith(url, "mwm://") &&
+      !strings::StartsWith(url, "mapsme://"))
+  {
+    return ParsingResult::Incorrect;
+  }
+
+  ParsingResult const res = Parse(url_scheme::Uri(url));
+  m_isValid = res != ParsingResult::Incorrect;
+  return res;
 }
 
-bool ParsedMapApi::IsValid() const
-{
-  ASSERT(m_bmManager != nullptr, ());
-  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
-  return guard.m_controller.GetUserMarkCount() > 0;
-}
-
-bool ParsedMapApi::Parse(Uri const & uri)
+ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
 {
   string const & scheme = uri.GetScheme();
-  if ((scheme != "mapswithme" && scheme != "mwm") || uri.GetPath() != "map")
-    return false;
+  string const & path = uri.GetPath();
+  bool const isRoutePath = path == "route";
+  if ((scheme != "mapswithme" && scheme != "mwm" && scheme != "mapsme") ||
+      (path != "map" && !isRoutePath))
+  {
+    return ParsingResult::Incorrect;
+  }
+
+  if (isRoutePath)
+  {
+    m_routePoints.clear();
+    vector<string> pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
+    if (!uri.ForEachKeyValue(bind(&ParsedMapApi::RouteKeyValue, this, _1, _2, ref(pattern))))
+      return ParsingResult::Incorrect;
+
+    if (pattern.size() != 0)
+      return ParsingResult::Incorrect;
+
+    if (m_routePoints.size() != 2)
+    {
+      ASSERT(false, ());
+      return ParsingResult::Incorrect;
+    }
+
+    return ParsingResult::Route;
+  }
+
+  vector<ApiPoint> points;
+  if (!uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2, ref(points))))
+    return ParsingResult::Incorrect;
+
+  if (points.empty())
+    return ParsingResult::Incorrect;
 
   ASSERT(m_bmManager != nullptr, ());
   UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
-
-  vector<ApiPoint> points;
-  uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2, ref(points)));
-  points.erase(remove_if(points.begin(), points.end(), &IsInvalidApiPoint), points.end());
-
-  for (size_t i = 0; i < points.size(); ++i)
+  for (auto const & p : points)
   {
-    ApiPoint const & p = points[i];
     m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
     ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(guard.m_controller.CreateUserMark(glPoint));
     mark->SetName(p.m_name);
@@ -78,76 +132,103 @@ bool ParsedMapApi::Parse(Uri const & uri)
     mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
   }
 
+  return ParsingResult::Map;
+}
+
+bool ParsedMapApi::RouteKeyValue(string key, string const & value, vector<string> & pattern)
+{
+  if (pattern.empty() || key != pattern.front())
+    return false;
+
+  if (key == kSourceLatLon || key == kDestLatLon)
+  {
+    double lat = 0.0;
+    double lon = 0.0;
+    if (!ParseLatLon(key, value, lat, lon))
+      return false;
+
+    RoutePoint p;
+    p.m_org = MercatorBounds::FromLatLon(lat, lon);
+    m_routePoints.push_back(p);
+  }
+  else if (key == kSourceName || key == kDestName)
+  {
+    m_routePoints.back().m_name = value;
+  }
+  else if (key == kRouteType)
+  {
+    string const lowerValue = strings::MakeLowerCase(value);
+    if (lowerValue == kRouteTypePedestrian || lowerValue == kRouteTypeVehicle || lowerValue == kRouteTypeBicycle)
+    {
+      m_routingType = lowerValue;
+    }
+    else
+    {
+      LOG(LWARNING, ("Incorrect routing type:", value));
+      return false;
+    }
+  }
+
+  pattern.erase(pattern.begin());
   return true;
 }
 
-void ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint> & points)
+bool ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint> & points)
 {
   strings::AsciiToLower(key);
 
-  if (key == "ll")
+  if (key == kLatLon)
   {
-    points.push_back(ApiPoint());
-    points.back().m_lat = INVALID_LAT_VALUE;
-
-    size_t const firstComma = value.find(',');
-    if (firstComma == string::npos)
-    {
-      LOG(LWARNING, ("Map API: no comma between lat and lon for 'll' key", key, value));
-      return;
-    }
-
-    if (value.find(',', firstComma + 1) != string::npos)
-    {
-      LOG(LWARNING, ("Map API: more than one comma in a value for 'll' key", key, value));
-      return;
-    }
-
     double lat = 0.0;
     double lon = 0.0;
-    if (!strings::to_double(value.substr(0, firstComma), lat) ||
-        !strings::to_double(value.substr(firstComma + 1), lon))
-    {
-      LOG(LWARNING, ("Map API: can't parse lat,lon for 'll' key", key, value));
-      return;
-    }
+    if (!ParseLatLon(key, value, lat, lon))
+      return false;
 
-    if (!MercatorBounds::ValidLat(lat) || !MercatorBounds::ValidLon(lon))
-    {
-      LOG(LWARNING, ("Map API: incorrect value for lat and/or lon", key, value, lat, lon));
-      return;
-    }
-
-    points.back().m_lat = lat;
-    points.back().m_lon = lon;
+    ApiPoint pt{.m_lat = lat, .m_lon = lon};
+    points.push_back(pt);
   }
-  else if (key == "z")
+  else if (key == kZoomLevel)
   {
     if (!strings::to_double(value, m_zoomLevel))
       m_zoomLevel = 0.0;
   }
-  else if (key == "n")
+  else if (key == kName)
   {
     if (!points.empty())
+    {
       points.back().m_name = value;
+    }
     else
+    {
       LOG(LWARNING, ("Map API: Point name with no point. 'll' should come first!"));
+      return false;
+    }
   }
-  else if (key == "id")
+  else if (key == kId)
   {
     if (!points.empty())
+    {
       points.back().m_id = value;
+    }
     else
+    {
       LOG(LWARNING, ("Map API: Point url with no point. 'll' should come first!"));
+      return false;
+    }
   }
-  else if (key == "s")
+  else if (key == kStyle)
   {
     if (!points.empty())
+    {
       points.back().m_style = value;
+    }
     else
+    {
       LOG(LWARNING, ("Map API: Point style with no point. 'll' should come first!"));
+      return false;
+    }
   }
-  else if (key == "backurl")
+  else if (key == kBackUrl)
   {
     // Fix missing :// in back url, it's important for iOS
     if (value.find("://") == string::npos)
@@ -155,19 +236,20 @@ void ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint
     else
       m_globalBackUrl = value;
   }
-  else if (key == "v")
+  else if (key == kVersion)
   {
     if (!strings::to_int(value, m_version))
       m_version = 0;
   }
-  else if (key == "appname")
+  else if (key == kAppName)
   {
     m_appTitle = value;
   }
-  else if (key == "balloonaction")
+  else if (key == kBalloonAction)
   {
     m_goBackOnBalloonClick = true;
   }
+  return true;
 }
 
 void ParsedMapApi::Reset()
