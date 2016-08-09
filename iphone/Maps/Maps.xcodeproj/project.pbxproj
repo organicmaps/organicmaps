@@ -3195,10 +3195,18 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 					6741A93D1BF340DE002C974C = {
 						DevelopmentTeam = 3T6FSDE8C7;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
