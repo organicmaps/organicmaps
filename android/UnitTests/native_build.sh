@@ -17,7 +17,7 @@ done
 
 
 
-declare -r NDK_ABI=armeabi-v7a-hard
+declare -r NDK_ABI=armeabi-v7a
 
 declare -r PROP_DEBUG_NDK_FLAGS="-j8 V=1 NDK_DEBUG=1 DEBUG=1 APP_ABI=$NDK_ABI"
 declare -r PROP_RELEASE_NDK_FLAGS="-j8 V=1 NDK_DEBUG=0 PRODUCTION=1 APP_ABI=$NDK_ABI"
