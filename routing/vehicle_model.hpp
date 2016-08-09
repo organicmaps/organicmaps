@@ -1,9 +1,8 @@
 #pragma once
-#include "base/buffer_vector.hpp"
-
 #include "std/cstdint.hpp"
 #include "std/initializer_list.hpp"
 #include "std/shared_ptr.hpp"
+#include "std/string.hpp"
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -90,12 +89,18 @@ public:
   }
 
 protected:
+  struct AdditionalRoadTags
+  {
+    initializer_list<char const *> m_hwtag;
+    double m_speedKmPerH;
+  };
+
   /// @returns a special restriction which is set to the feature.
   virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
 
   /// Used in derived class constructors only. Not for public use.
   void SetAdditionalRoadTypes(Classificator const & c,
-                              initializer_list<char const *> const * arr, size_t sz);
+                              vector<AdditionalRoadTags> const & additionalTags);
 
   /// \returns true if |types| is a oneway feature.
   /// \note According to OSM, tag "oneway" could have value "-1". That means it's a oneway feature
@@ -109,9 +114,21 @@ protected:
   double m_maxSpeedKMpH;
 
 private:
+  struct AdditionalRoadTypes
+  {
+    AdditionalRoadTypes(Classificator const & c, AdditionalRoadTags const & tag);
+
+    bool operator==(AdditionalRoadTypes const & rhs) const { return m_type == rhs.m_type; }
+
+    uint32_t const m_type;
+    double const m_speedKmPerH;
+  };
+
+  vector<AdditionalRoadTypes>::const_iterator GetRoadTypeIter(uint32_t type) const;
+
   unordered_map<uint32_t, double> m_types;
 
-  buffer_vector<uint32_t, 4> m_addRoadTypes;
+  vector<AdditionalRoadTypes> m_addRoadTypes;
   uint32_t m_onewayType;
 };
 

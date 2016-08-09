@@ -607,11 +607,11 @@ void BicycleModel::Init()
   m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
   m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
 
-  initializer_list<char const *> arr[] = {
-      hwtagYesBicycle, {"route", "ferry"}, {"man_made", "pier"},
+  vector<AdditionalRoadTags> additionalTags = {
+      { hwtagYesBicycle, m_maxSpeedKMpH }, {{"route", "ferry"}, m_maxSpeedKMpH}, {{"man_made", "pier"}, 7.0 },
   };
 
-  SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
+  SetAdditionalRoadTypes(classif(), additionalTags);
 }
 
 IVehicleModel::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const

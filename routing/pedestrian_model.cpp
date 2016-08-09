@@ -626,11 +626,11 @@ void PedestrianModel::Init()
   m_noFootType = classif().GetTypeByPath({ "hwtag", "nofoot" });
   m_yesFootType = classif().GetTypeByPath(hwtagYesFoot);
 
-  initializer_list<char const *> arr[] = {
-      hwtagYesFoot, {"route", "ferry"}, {"man_made", "pier"},
+  vector<AdditionalRoadTags> additionalTags = {
+      { hwtagYesFoot, m_maxSpeedKMpH }, {{"route", "ferry"}, m_maxSpeedKMpH }, {{"man_made", "pier"}, 4.0 },
   };
 
-  SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
+  SetAdditionalRoadTypes(classif(), additionalTags);
 }
 
 IVehicleModel::RoadAvailability PedestrianModel::GetRoadAvailability(feature::TypesHolder const & types) const

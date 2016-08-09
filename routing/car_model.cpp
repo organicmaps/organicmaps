@@ -4,6 +4,8 @@
 
 #include "indexer/classificator.hpp"
 
+#include "std/vector.hpp"
+
 namespace
 {
 
@@ -42,15 +44,15 @@ namespace routing
 CarModel::CarModel()
   : VehicleModel(classif(), s_carLimits)
 {
-  initializer_list<char const *> arr[] =
+  vector<AdditionalRoadTags> additionalTags =
   {
-    { "route", "ferry", "motorcar" },
-    { "route", "ferry", "motor_vehicle" },
-    { "railway", "rail", "motor_vehicle" },
-    { "route", "shuttle_train"},
+    {{ "route", "ferry", "motorcar" }, 15.0 },
+    {{ "route", "ferry", "motor_vehicle" }, 15.0 },
+    {{ "railway", "rail", "motor_vehicle" }, 40.0 },
+    {{ "route", "shuttle_train"}, 40.0 },
   };
 
-  SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
+  SetAdditionalRoadTypes(classif(), additionalTags);
 }
 
 // static
