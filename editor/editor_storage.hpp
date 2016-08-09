@@ -1,11 +1,6 @@
 #pragma once
 
-#include "std/unique_ptr.hpp"
-
-namespace pugi
-{
-class xml_document;
-}
+#include "3party/pugixml/src/pugixml.hpp"
 
 namespace editor
 {
@@ -13,31 +8,33 @@ namespace editor
 class StorageBase
 {
 public:
-  virtual ~StorageBase() {}
+  virtual ~StorageBase() = default;
+
   virtual bool Save(pugi::xml_document const & doc) = 0;
   virtual bool Load(pugi::xml_document & doc) = 0;
   virtual void Reset() = 0;
 };
 
-// Class which save/load edits to/from local file.
-class StorageLocal : public StorageBase
+// Class which saves/loads edits to/from local file.
+class LocalStorage : public StorageBase
 {
 public:
+  // StorageBase overrides:
   bool Save(pugi::xml_document const & doc) override;
   bool Load(pugi::xml_document & doc) override;
   void Reset() override;
 };
 
-// Class which save/load edits to/from xml_document class instance.
-class StorageMemory : public StorageBase
+// Class which saves/loads edits to/from xml_document class instance.
+class InMemoryStorage : public StorageBase
 {
 public:
-  StorageMemory();
+  // StorageBase overrides:
   bool Save(pugi::xml_document const & doc) override;
   bool Load(pugi::xml_document & doc) override;
   void Reset() override;
 
 private:
-  unique_ptr<pugi::xml_document> m_doc;
+  pugi::xml_document m_doc;
 };
-}
+}  // namespace editor

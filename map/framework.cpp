@@ -388,33 +388,9 @@ Framework::Framework()
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 
   osm::Editor & editor = osm::Editor::Instance();
-  editor.SetMwmIdByNameAndVersionFn([this](string const & name) -> MwmSet::MwmId
-  {
-    return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
-  });
+
+  editor.SetIndex(m_model.GetIndex());
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
-  editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> unique_ptr<FeatureType>
-  {
-    unique_ptr<FeatureType> feature(new FeatureType());
-    Index::FeaturesLoaderGuard const guard(m_model.GetIndex(), fid.m_mwmId);
-    if (!guard.GetOriginalFeatureByIndex(fid.m_index, *feature))
-      return nullptr;
-    feature->ParseEverything();
-    return feature;
-  });
-  editor.SetFeatureOriginalStreetFn([this](FeatureType & ft) -> string
-  {
-    search::ReverseGeocoder const coder(m_model.GetIndex());
-    auto const streets = coder.GetNearbyFeatureStreets(ft);
-    if (streets.second < streets.first.size())
-      return streets.first[streets.second].m_name;
-    return {};
-  });
-  // Due to floating points accuracy issues (geometry is saved in editor up to 7 digits
-  // after dicimal poin) some feature vertexes are threated as external to a given feature.
-  auto const pointToFeatureDistanceToleranceInMeters = 1e-2;
-  editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2,
-                                         pointToFeatureDistanceToleranceInMeters));
   editor.LoadMapEdits();
 
   m_model.GetIndex().AddObserver(editor);
@@ -1822,51 +1798,11 @@ Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
                                       routing::FromString(m_ParsedMapApi.GetRoutingType()));
 }
 
-void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator,
-                                      double featureDistanceToleranceInMeters) const
-{
-  constexpr double kSelectRectWidthInMeters = 1.1;
-  constexpr double kMetersToLinearFeature = 3;
-  constexpr int kScale = scales::GetUpperScale();
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
-  m_model.ForEachFeature(rect, [&](FeatureType & ft)
-  {
-    switch (ft.GetFeatureType())
-    {
-    case feature::GEOM_POINT:
-      if (rect.IsPointInside(ft.GetCenter()))
-        fn(ft);
-      break;
-    case feature::GEOM_LINE:
-      if (feature::GetMinDistanceMeters(ft, mercator) < kMetersToLinearFeature)
-        fn(ft);
-      break;
-    case feature::GEOM_AREA:
-      {
-        auto limitRect = ft.GetLimitRect(kScale);
-        // Be a little more tolerant. When used by editor mercator is given
-        // with some error, so we must extend limit rect a bit.
-        limitRect.Inflate(MercatorBounds::GetCellID2PointAbsEpsilon(),
-                          MercatorBounds::GetCellID2PointAbsEpsilon());
-        if (limitRect.IsPointInside(mercator) &&
-            feature::GetMinDistanceMeters(ft, mercator) <= featureDistanceToleranceInMeters)
-        {
-          fn(ft);
-        }
-      }
-      break;
-    case feature::GEOM_UNDEFINED:
-      ASSERT(false, ("case feature::GEOM_UNDEFINED"));
-      break;
-    }
-  }, kScale);
-}
-
 unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
 {
   unique_ptr<FeatureType> poi, line, area;
   uint32_t const coastlineType = classif().GetCoastType();
-  ForEachFeatureAtPoint([&, coastlineType](FeatureType & ft)
+  indexer::ForEachFeatureAtPoint(m_model.GetIndex(), [&, coastlineType](FeatureType & ft)
   {
     // TODO @alexz
     // remove manual parsing after refactoring with usermarks'll be finished

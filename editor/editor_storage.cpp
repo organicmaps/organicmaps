@@ -8,31 +8,31 @@
 
 #include "std/string.hpp"
 
-#include "3party/pugixml/src/pugixml.hpp"
-
 using namespace pugi;
 
 namespace
 {
-constexpr char const * kEditorXMLFileName = "edits.xml";
+char const * kEditorXMLFileName = "edits.xml";
+
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
 }  // namespace
 
 namespace editor
 {
-bool StorageLocal::Save(xml_document const & doc)
+// StorageLocal ------------------------------------------------------------------------------------
+bool LocalStorage::Save(xml_document const & doc)
 {
   auto const editorFilePath = GetEditorFilePath();
   return my::WriteToTempAndRenameToFile(editorFilePath, [&doc](string const & fileName) {
-    return doc.save_file(fileName.data(), "  ");
+    return doc.save_file(fileName.data(), "  " /* indent */);
   });
 }
 
-bool StorageLocal::Load(xml_document & doc)
+bool LocalStorage::Load(xml_document & doc)
 {
   auto const editorFilePath = GetEditorFilePath();
   auto const result = doc.load_file(editorFilePath.c_str());
-  // Note: status_file_not_found is ok if user has never made any edits.
+  // Note: status_file_not_found is ok if a user has never made any edits.
   if (result != status_ok && result != status_file_not_found)
   {
     LOG(LERROR, ("Can't load map edits from disk:", editorFilePath));
@@ -42,30 +42,26 @@ bool StorageLocal::Load(xml_document & doc)
   return true;
 }
 
-void StorageLocal::Reset()
+void LocalStorage::Reset()
 {
   my::DeleteFileX(GetEditorFilePath());
 }
 
-
-StorageMemory::StorageMemory()
-  : m_doc(make_unique <xml_document> ())
-{}
-
-bool StorageMemory::Save(xml_document const & doc)
+// StorageMemory -----------------------------------------------------------------------------------
+bool InMemoryStorage::Save(xml_document const & doc)
 {
-  m_doc->reset(doc);
+  m_doc.reset(doc);
   return true;
 }
 
-bool StorageMemory::Load(xml_document & doc)
+bool InMemoryStorage::Load(xml_document & doc)
 {
-  doc.reset(*m_doc);
+  doc.reset(m_doc);
   return true;
 }
 
-void StorageMemory::Reset()
+void InMemoryStorage::Reset()
 {
-  m_doc->reset();
+  m_doc.reset();
 }
 }  // namespace editor

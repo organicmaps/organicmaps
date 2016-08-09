@@ -20,6 +20,7 @@
 #include "indexer/data_header.hpp"
 #include "indexer/map_style.hpp"
 #include "indexer/new_feature_categories.hpp"
+#include "indexer/index_helpers.hpp"
 
 #include "editor/user_stats.hpp"
 
@@ -549,9 +550,11 @@ public:
   /// Ignores coastlines and prefers buildings over other area features.
   /// @returns nullptr if no feature was found at the given mercator point.
   unique_ptr<FeatureType> GetFeatureAtPoint(m2::PointD const & mercator) const;
-  using TFeatureTypeFn = function<void(FeatureType &)>;
-  void ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator,
-                             double featureDistanceToleranceInMeters = 0.0) const;
+  template <typename TFn>
+  void ForEachFeatureAtPoint(TFn && fn, m2::PointD const & mercator) const
+  {
+    indexer::ForEachFeatureAtPoint(m_model.GetIndex(), fn, mercator, 0.0);
+  }
   /// Set parse to false if you don't need all feature fields ready.
   /// TODO(AlexZ): Refactor code which uses this method to get rid of it.
   /// FeatureType instances shoud not be used outside ForEach* core methods.

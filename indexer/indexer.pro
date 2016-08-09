@@ -45,6 +45,7 @@ SOURCES += \
     geometry_serialization.cpp \
     index.cpp \
     index_builder.cpp \
+    index_helpers.cpp \
     map_object.cpp \
     map_style.cpp \
     map_style_reader.cpp \
@@ -59,7 +60,7 @@ SOURCES += \
     search_delimiters.cpp \    # it's in indexer because of CategoriesHolder dependency.
     search_string_utils.cpp \  # it's in indexer because of CategoriesHolder dependency.
     string_slice.cpp \
-    types_mapping.cpp \
+    types_mapping.cpp
 
 HEADERS += \
     altitude_loader.hpp \
@@ -101,6 +102,7 @@ HEADERS += \
     geometry_serialization.hpp \
     index.hpp \
     index_builder.hpp \
+    index_helpers.hpp \
     interval_index.hpp \
     interval_index_builder.hpp \
     interval_index_iface.hpp \
@@ -130,7 +132,7 @@ HEADERS += \
     trie_builder.hpp \
     trie_reader.hpp \
     types_mapping.hpp \
-    unique_index.hpp \
+    unique_index.hpp
 
 
 OTHER_FILES += drules_struct.proto

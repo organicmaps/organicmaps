@@ -24,18 +24,23 @@
 namespace editor
 {
 class StorageBase;
-}
+}  // namespace editor
 
-namespace tests
+namespace editor
+{
+namespace testing
 {
 class EditorTest;
-}
+}  // namespace testing
+}  // namespace editor
+
+class Index;
 
 namespace osm
 {
 class Editor final : public MwmSet::Observer
 {
-  friend class tests::EditorTest;
+  friend class editor::testing::EditorTest;
 
   Editor();
 
@@ -69,12 +74,10 @@ public:
   };
 
   static Editor & Instance();
+  // Reference to the index will be used in editor functors, it should not be temporary object.
+  void SetIndex(Index const & index);
 
-  void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn const & fn) { m_mwmIdByMapNameFn = fn; }
   void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
-  void SetFeatureLoaderFn(TFeatureLoaderFn const & fn) { m_getOriginalFeatureFn = fn; }
-  void SetFeatureOriginalStreetFn(TFeatureOriginalStreetFn const & fn) { m_getOriginalFeatureStreetFn = fn; }
-  void SetForEachFeatureAtPointFn(TForEachFeaturesNearByFn const & fn) { m_forEachFeatureAtPointFn = fn; }
 
   void LoadMapEdits();
   /// Resets editor to initial state: no any edits or created/deleted features.

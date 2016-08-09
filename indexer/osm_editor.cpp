@@ -8,6 +8,9 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/osm_editor.hpp"
+#include "indexer/index_helpers.hpp"
+
+#include "search/reverse_geocoder.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -136,13 +139,49 @@ namespace osm
 
 Editor::Editor()
   : m_notes(editor::Notes::MakeNotes())
-  , m_storage(make_unique <editor::StorageLocal> ())
+  , m_storage(make_unique<editor::LocalStorage>())
 {}
 
 Editor & Editor::Instance()
 {
   static Editor instance;
   return instance;
+}
+
+void Editor::SetIndex(Index const & index)
+{
+  m_mwmIdByMapNameFn = [&index](string const & name) -> MwmSet::MwmId
+  {
+    return index.GetMwmIdByCountryFile(platform::CountryFile(name));
+  };
+
+  m_getOriginalFeatureFn = [&index](FeatureID const & fid) -> unique_ptr<FeatureType>
+  {
+    unique_ptr<FeatureType> feature(new FeatureType());
+    Index::FeaturesLoaderGuard const guard(index, fid.m_mwmId);
+    if (!guard.GetOriginalFeatureByIndex(fid.m_index, *feature))
+      return nullptr;
+    feature->ParseEverything();
+    return feature;
+  };
+
+  m_getOriginalFeatureStreetFn = [&index](FeatureType & ft) -> string
+  {
+    search::ReverseGeocoder const coder(index);
+    auto const streets = coder.GetNearbyFeatureStreets(ft);
+    if (streets.second < streets.first.size())
+      return streets.first[streets.second].m_name;
+    return {};
+  };
+
+  // Due to floating points accuracy issues (geometry is saved in editor up to 7 digits
+  // after decimal point) some feature vertexes are threated as external to a given feature.
+  auto const toleranceInMeters = 1e-2;
+  m_forEachFeatureAtPointFn =
+      [&index, toleranceInMeters](TFeatureTypeFn && fn, m2::PointD const & mercator)
+  {
+    indexer::ForEachFeatureAtPoint(index, move(fn), mercator, toleranceInMeters);
+  };
 }
 
 void Editor::LoadMapEdits()
