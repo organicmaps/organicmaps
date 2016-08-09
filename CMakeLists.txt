@@ -2,6 +2,39 @@ cmake_minimum_required(VERSION 3.2)
 
 project(omim C CXX)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+# Set environment variables
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+
+if ($ENV{QT_PATH})
+  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} $ENV{QT_PATH})
+else()
+  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/usr/local/opt/qt5")
+endif()
+
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release")
+endif()
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  add_definitions(-DDEBUG)
+endif()
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+  add_definitions(-DRELEASE)
+endif()
+
+if (NOT SKIP_TESTS)
+  set(SKIP_TESTS FALSE)
+endif()
+
+add_definitions(-DBUILD_DESIGNER)
+
+# End of setting environment variables
+
 # Set target platform:
 function(omim_set_platform_var PLATFORM_VAR pattern)
   set(${PLATFORM_VAR} FALSE PARENT_SCOPE)

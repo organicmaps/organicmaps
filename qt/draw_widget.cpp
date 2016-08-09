@@ -513,7 +513,7 @@ void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
 
 void DrawWidget::RefreshDrawingRules()
 {
-  SetMapStyle(MapStyleLight);
+  SetMapStyle(MapStyleClear);
 }
 
 }

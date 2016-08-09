@@ -57,34 +57,8 @@ bool DeleteNotUploadedEditsConfirmation()
 }
 }  // namespace
 
-namespace
-{
-MapOptions GetMapOptionsAvailableForDownload(Storage & st, TCountryId const & countryIndex)
-{
-  platform::CountryFile const & countryFile = st.GetCountryFile(countryIndex);
-  bool const hasCarRouting = (0 != countryFile.GetRemoteSize(MapOptions::CarRouting));
-
-  MapOptions options = MapOptions::Map;
-  if (hasCarRouting)
-    options = SetOptions(options, MapOptions::CarRouting);
-
-  return options;
-}
-}  // namespace
-
 namespace qt
 {
-  /// adds custom sorting for "Size" column
-  class QTreeWidgetItemWithCustomSorting : public QTreeWidgetItem
-  {
-  public:
-    virtual bool operator<(QTreeWidgetItem const & other) const
-    {
-      return data(KColumnIndexSize, Qt::UserRole).toULongLong() < other.data(KColumnIndexSize, Qt::UserRole).toULongLong();
-    }
-  };
-
-
   UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
     : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint),
       m_framework(framework),

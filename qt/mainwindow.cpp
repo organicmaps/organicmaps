@@ -116,12 +116,15 @@ extern char const * kTokenSecretSetting;
 
 MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3, QString const & mapcssFilePath /*= QString()*/)
   : m_Docks{}
+  , m_locationService(CreateDesktopLocationService(*this))
+#ifdef BUILD_DESIGNER
+  , m_mapcssFilePath(mapcssFilePath)
   , m_pBuildStyleAction(nullptr)
+  , m_pRecalculateGeomIndex(nullptr)
   , m_pDrawDebugRectAction(nullptr)
   , m_pGetStatisticsAction(nullptr)
   , m_pRunTestsAction(nullptr)
-  , m_locationService(CreateDesktopLocationService(*this))
-  , m_mapcssFilePath(mapcssFilePath)
+#endif
 {
   // Always runs on the first desktop
   QDesktopWidget const * desktop(QApplication::desktop());
@@ -425,6 +428,13 @@ void MainWindow::CreateNavigationBar()
                                                 SLOT(OnBuildStyle()));
       m_pBuildStyleAction->setCheckable(false);
       m_pBuildStyleAction->setToolTip(tr("Build style"));
+
+      m_pRecalculateGeomIndex = pToolBar->addAction(QIcon(":/navig64/geom.png"),
+                                                    tr("Recalculate geometry index"),
+                                                    this,
+                                                    SLOT(OnRecalculateGeomIndex()));
+      m_pRecalculateGeomIndex->setCheckable(false);
+      m_pRecalculateGeomIndex->setToolTip(tr("Recalculate geometry index"));
     }
 
     // Add "Debug style" button
@@ -666,10 +676,42 @@ void MainWindow::OnBuildStyle()
   {
     build_style::BuildAndApply(m_mapcssFilePath);
     // m_pDrawWidget->RefreshDrawingRules();
-    build_style::NeedRecalculate = true;
-    QMainWindow::close();
+
+    bool enabled = false;
+    settings::Get(kEnabledAutoRegenGeomIndex, enabled);
+    if (enabled)
+    {
+      build_style::NeedRecalculate = true;
+      QMainWindow::close();
+    }
   }
-  catch (exception & e)
+  catch (std::exception & e)
+  {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Error");
+    msgBox.setText(e.what());
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+  }
+}
+
+void MainWindow::OnRecalculateGeomIndex()
+{
+  try
+  {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Warning");
+    msgBox.setText("Geometry index will be regenerated. It can take a while.\nApplication may be closed and reopened!");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    if (msgBox.exec() == QMessageBox::Yes)
+    {
+      build_style::NeedRecalculate = true;
+      QMainWindow::close();
+    }
+  }
+  catch (std::exception & e)
   {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Error");
@@ -695,7 +737,7 @@ void MainWindow::OnGetStatistics()
     InfoDialog dlg(QString("Style statistics"), text, NULL);
     dlg.exec();
   }
-  catch (exception & e)
+  catch (std::exception & e)
   {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Error");
@@ -714,7 +756,7 @@ void MainWindow::OnRunTests()
     InfoDialog dlg(QString("Style tests: ") + (res.first ? "OK" : "FAILED"), res.second, NULL);
     dlg.exec();
   }
-  catch (exception & e)
+  catch (std::exception & e)
   {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Error");

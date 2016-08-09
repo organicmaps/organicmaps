@@ -44,10 +44,10 @@ cp "$OMIM_PATH/tools/python/recalculate_geom_index.py" "$MAC_RESOURCES/recalcula
 # Copy all drules and  resources (required for test environment)
 rm -rf $MAC_RESOURCES/drules_proto*
 rm -rf $MAC_RESOURCES/resources-*
-for i in ldpi mdpi hdpi xhdpi xxhdpi 6plus; do
-  cp -r $OMIM_PATH/data/resources-${i}_legacy/ $MAC_RESOURCES/resources-$i/
+for i in mdpi hdpi xhdpi xxhdpi 6plus; do
+  cp -r $OMIM_PATH/data/resources-${i}_clear/ $MAC_RESOURCES/resources-$i/
 done
-cp $OMIM_PATH/data/drules_proto_legacy.bin $MAC_RESOURCES/drules_proto.bin
+cp $OMIM_PATH/data/drules_proto_clear.bin $MAC_RESOURCES/drules_proto.bin
 for i in resources-default countries-strings cuisine-strings WorldCoasts_obsolete.mwm countries.txt cuisines.txt countries_obsolete.txt packed_polygons.bin packed_polygons_obsolete.bin; do
   cp -r $OMIM_PATH/data/$i $MAC_RESOURCES/
 done

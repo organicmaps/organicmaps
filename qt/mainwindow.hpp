@@ -39,7 +39,9 @@ class MainWindow : public QMainWindow, location::LocationObserver
   QAction * m_selectFinishRoutePoint;
   QAction * m_selectIntermediateRoutePoint;
 #ifdef BUILD_DESIGNER
+  QString const m_mapcssFilePath;
   QAction * m_pBuildStyleAction;
+  QAction * m_pRecalculateGeomIndex;
   QAction * m_pDrawDebugRectAction;
   QAction * m_pGetStatisticsAction;
   QAction * m_pRunTestsAction;
@@ -58,16 +60,13 @@ class MainWindow : public QMainWindow, location::LocationObserver
 
   // This object is managed by Qt memory system.
   TrafficMode * m_trafficMode = nullptr;
-    
-  QString const m_mapcssFilePath;
 
   Q_OBJECT
 
 public:
   MainWindow(Framework & framework, bool apiOpenGLES3, QString const & mapcssFilePath = QString());
 
-  virtual void OnLocationError(location::TLocationError errorCode);
-  virtual void OnLocationUpdated(location::GpsInfo const & info);
+Q_OBJECT
 
   static void SetDefaultSurfaceFormat(bool apiOpenGLES3);
 
@@ -126,10 +125,11 @@ protected Q_SLOTS:
   void OnClearRoute();
     
 #ifdef BUILD_DESIGNER
-  void OnBuildStyle();
-  void OnDebugStyle();
-  void OnGetStatistics();
-  void OnRunTests();
+    void OnBuildStyle();
+    void OnRecalculateGeomIndex();
+    void OnDebugStyle();
+    void OnGetStatistics();
+    void OnRunTests();
 #endif // BUILD_DESIGNER
 };
 }

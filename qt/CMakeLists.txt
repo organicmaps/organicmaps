@@ -22,6 +22,18 @@ set(
   SRC
   about.cpp
   about.hpp
+  build_style/build_common.cpp
+  build_style/build_common.h
+  build_style/build_drules.cpp
+  build_style/build_drules.h
+  build_style/build_skins.cpp
+  build_style/build_skins.h
+  build_style/build_statistics.cpp
+  build_style/build_statistics.h
+  build_style/build_style.cpp
+  build_style/build_style.h
+  build_style/run_tests.cpp
+  build_style/run_tests.h
   create_feature_dialog.cpp
   create_feature_dialog.hpp
   draw_widget.cpp

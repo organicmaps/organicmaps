@@ -57,12 +57,21 @@ void BuildAndApply(QString const & mapcssFile)
   if (!QDir().mkdir(outputDir))
     throw runtime_error("Unable to make the output directory");
 
-  auto future = std::async(BuildSkins, styleDir, outputDir);
-  BuildDrawingRules(mapcssFile, outputDir);
-  future.get(); // may rethrow exception from the BuildSkin
+  bool const hasSymbols = QDir(styleDir + "symbols/").exists();
+  if (hasSymbols)
+  {
+    auto future = std::async(BuildSkins, styleDir, outputDir);
+    BuildDrawingRules(mapcssFile, outputDir);
+    future.get(); // may rethrow exception from the BuildSkin
 
-  ApplyDrawingRules(outputDir);
-  ApplySkins(outputDir);
+    ApplyDrawingRules(outputDir);
+    ApplySkins(outputDir);
+  }
+  else
+  {
+    BuildDrawingRules(mapcssFile, outputDir);
+    ApplyDrawingRules(outputDir);
+  }
 }
 
 void RunRecalculationGeometryScript(QString const & mapcssFile)

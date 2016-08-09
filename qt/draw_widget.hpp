@@ -59,6 +59,7 @@ public:
   void PrepareShutdown();
 
   Framework & GetFramework() { return m_framework; }
+
   void SetMapStyle(MapStyle mapStyle);
 
   void SetRouter(routing::RouterType routerType);

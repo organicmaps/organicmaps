@@ -38,10 +38,14 @@ std::string GetStyleRulesSuffix(MapStyle mapStyle)
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
   return kSuffixClear;
+#endif // BUILD_DESIGNER
 }
 
 std::string GetStyleResourcesSuffix(MapStyle mapStyle)
 {
+#ifdef BUILD_DESIGNER
+  return string();
+#else
   // We use the same resources for default and vehicle styles
   // to avoid textures duplication and package size increasing.
   switch (mapStyle)

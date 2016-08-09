@@ -29,6 +29,10 @@
 
 using namespace measurement_utils;
 
+#ifdef BUILD_DESIGNER
+string const kEnabledAutoRegenGeomIndex = "EnabledAutoRegenGeomIndex";
+#endif
+
 namespace qt
 {
   PreferencesDialog::PreferencesDialog(QWidget * parent)
@@ -67,6 +71,18 @@ namespace qt
       connect(m_pUnits, SIGNAL(buttonClicked(int)), this, SLOT(OnUnitsChanged(int)));
     }
 
+  #ifdef BUILD_DESIGNER
+    QCheckBox * checkBox = new QCheckBox("Enable auto regeneration of geometry index");
+    {
+      bool enabled = false;
+      if (!settings::Get(kEnabledAutoRegenGeomIndex, enabled))
+      {
+        settings::Set(kEnabledAutoRegenGeomIndex, false);
+      }
+      checkBox->setChecked(enabled);
+      connect(checkBox, SIGNAL(stateChanged(int)), this, SLOT(OnEnabledAutoRegenGeomIndex(int)));
+    }
+  #endif
 
     QHBoxLayout * bottomLayout = new QHBoxLayout();
     {
@@ -82,6 +98,9 @@ namespace qt
 
     QVBoxLayout * finalLayout = new QVBoxLayout();
     finalLayout->addWidget(radioBox);
+  #ifdef BUILD_DESIGNER
+    finalLayout->addWidget(checkBox);
+  #endif
     finalLayout->addLayout(bottomLayout);
     setLayout(finalLayout);
   }
@@ -104,4 +123,11 @@ namespace qt
 
     settings::Set(kMeasurementUnits, u);
   }
+
+#ifdef BUILD_DESIGNER
+  void PreferencesDialog::OnEnabledAutoRegenGeomIndex(int i)
+  {
+    settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i));
+  }
+#endif
 }
