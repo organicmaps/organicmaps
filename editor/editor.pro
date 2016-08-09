@@ -19,7 +19,7 @@ SOURCES += \
   server_api.cpp \
   ui2oh.cpp \
   user_stats.cpp \
-  xml_feature.cpp
+  xml_feature.cpp \
 
 HEADERS += \
   changeset_wrapper.hpp \
@@ -33,4 +33,4 @@ HEADERS += \
   ui2oh.hpp \
   user_stats.hpp \
   xml_feature.hpp \
-  yes_no_unknown.hpp
+  yes_no_unknown.hpp \

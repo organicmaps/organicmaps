@@ -16,7 +16,7 @@ QT *= core
 HEADERS += \
     osm_editor_test.hpp \
     test_mwm_set.hpp \
-    test_polylines.hpp
+    test_polylines.hpp \
 
 SOURCES += \
     ../../testing/testingmain.cpp \
@@ -49,4 +49,4 @@ SOURCES += \
     test_polylines.cpp \
     test_type.cpp \
     trie_test.cpp \
-    visibility_test.cpp
+    visibility_test.cpp \
