@@ -4,7 +4,7 @@ import unittest
 
 import logging
 import subprocess
-from os.path import abspath, join
+from os.path import abspath, join, dirname
 from os import listdir
 
 EXPECTED_PERMISSIONS = {
@@ -52,9 +52,20 @@ class TestPermissions(unittest.TestCase):
         self.apk = self.find_apks()
 
 
+    def contains_correct_files(self, my_path):
+        dir_contents = listdir(my_path)
+        return (
+            "strings.txt" in dir_contents or
+            "android" in dir_contents or
+            "drape_frontend" in dir_contents
+        )
+
+
     def find_omim_path(self):
-        my_path = abspath(__file__)
-        return my_path[:my_path.index("omim") + len("omim")]
+        my_path = abspath(join(dirname(__file__), "..", ".."))
+        if self.contains_correct_files(my_path):
+            return my_path
+        raise IOError("Couldn't find a candidate for the project root path")
 
 
     def find_apks(self):
