@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -27,8 +26,7 @@ public class MyPositionButton
       @Override
       public void onClick(View v)
       {
-        LocationHelper.INSTANCE.onMyPositionButtonClicked();
-
+        LocationState.nativeSwitchToNextMode();
         Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
         AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
       }
