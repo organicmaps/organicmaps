@@ -47,6 +47,7 @@ double constexpr kSpeedStepsKMpH = 1.0;
 double constexpr kSpeedPedestrianKMpH = 5.0;
 double constexpr kSpeedFootwayKMpH = 7.0;
 double constexpr kSpeedPlatformKMpH = 3.0;
+double constexpr kSpeedPierKMpH = 7.0;
 
 // Default
 routing::VehicleModel::InitListT const g_bicycleLimitsDefault =
@@ -607,8 +608,10 @@ void BicycleModel::Init()
   m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
   m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
 
-  vector<AdditionalRoadTags> additionalTags = {
-      { hwtagYesBicycle, m_maxSpeedKMpH }, {{"route", "ferry"}, m_maxSpeedKMpH}, {{"man_made", "pier"}, 7.0 },
+  vector<AdditionalRoadTags> const additionalTags = {
+      {hwtagYesBicycle, m_maxSpeedKMpH},
+      {{"route", "ferry"}, m_maxSpeedKMpH},
+      {{"man_made", "pier"}, kSpeedPierKMpH},
   };
 
   SetAdditionalRoadTypes(classif(), additionalTags);

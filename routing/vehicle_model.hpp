@@ -92,7 +92,7 @@ protected:
   struct AdditionalRoadTags
   {
     initializer_list<char const *> m_hwtag;
-    double m_speedKmPerH;
+    double m_speedKMpH;
   };
 
   /// @returns a special restriction which is set to the feature.
@@ -114,21 +114,20 @@ protected:
   double m_maxSpeedKMpH;
 
 private:
-  struct AdditionalRoadTypes
+  struct AdditionalRoadType
   {
-    AdditionalRoadTypes(Classificator const & c, AdditionalRoadTags const & tag);
+    AdditionalRoadType(Classificator const & c, AdditionalRoadTags const & tag);
 
-    bool operator==(AdditionalRoadTypes const & rhs) const { return m_type == rhs.m_type; }
-
+    bool operator==(AdditionalRoadType const & rhs) const { return m_type == rhs.m_type; }
     uint32_t const m_type;
-    double const m_speedKmPerH;
+    double const m_speedKMpH;
   };
 
-  vector<AdditionalRoadTypes>::const_iterator GetRoadTypeIter(uint32_t type) const;
+  vector<AdditionalRoadType>::const_iterator GetRoadTypeIter(uint32_t type) const;
 
   unordered_map<uint32_t, double> m_types;
 
-  vector<AdditionalRoadTypes> m_addRoadTypes;
+  vector<AdditionalRoadType> m_addRoadTypes;
   uint32_t m_onewayType;
 };
 

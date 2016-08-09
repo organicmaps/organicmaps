@@ -47,6 +47,7 @@ double constexpr kSpeedStepsKMpH = 4.9;
 double constexpr kSpeedPedestrianKMpH = 5.0;
 double constexpr kSpeedFootwayKMpH = 5.0;
 double constexpr kSpeedPlatformKMpH = 5.0;
+double constexpr kSpeedPierKMpH = 4.0;
 
 // Default
 routing::VehicleModel::InitListT const g_pedestrianLimitsDefault =
@@ -626,8 +627,10 @@ void PedestrianModel::Init()
   m_noFootType = classif().GetTypeByPath({ "hwtag", "nofoot" });
   m_yesFootType = classif().GetTypeByPath(hwtagYesFoot);
 
-  vector<AdditionalRoadTags> additionalTags = {
-      { hwtagYesFoot, m_maxSpeedKMpH }, {{"route", "ferry"}, m_maxSpeedKMpH }, {{"man_made", "pier"}, 4.0 },
+  vector<AdditionalRoadTags> const additionalTags = {
+      {hwtagYesFoot, m_maxSpeedKMpH},
+      {{"route", "ferry"}, m_maxSpeedKMpH},
+      {{"man_made", "pier"}, kSpeedPierKMpH},
   };
 
   SetAdditionalRoadTypes(classif(), additionalTags);

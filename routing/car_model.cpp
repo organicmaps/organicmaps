@@ -8,26 +8,47 @@
 
 namespace
 {
+double constexpr kSpeedMotorwayKMpH = 90.0;
+double constexpr kSpeedMotorwayLinkKMpH = 75.0;
+double constexpr kSpeedTrunkKMpH = 85.0;
+double constexpr kSpeedTrunkLinkKMpH = 70.0;
+double constexpr kSpeedPrimaryKMpH = 65.0;
+double constexpr kSpeedPrimaryLinkKMpH = 60.0;
+double constexpr kSpeedSecondaryKMpH = 55.0;
+double constexpr kSpeedSecondaryLinkKMpH = 50.0;
+double constexpr kSpeedTertiaryKMpH = 40.0;
+double constexpr kSpeedTertiaryLinkKMpH = 30.0;
+double constexpr kSpeedResidentialKMpH = 25.0;
+double constexpr kSpeedPedestrianKMpH = 25.0;
+double constexpr kSpeedUnclassifiedKMpH = 25.0;
+double constexpr kSpeedServiceKMpH = 15.0;
+double constexpr kSpeedLivingStreetKMpH = 10.0;
+double constexpr kSpeedRoadKMpH = 10.0;
+double constexpr kSpeedTrackKMpH = 5.0;
+double constexpr kSpeedFerryMotorcarKMpH = 15.0;
+double constexpr kSpeedFerryMotorcarVehicleKMpH = 15.0;
+double constexpr kSpeedRailMotorcarVehicleKMpH = 25.0;
+double constexpr kSpeedShuttleTrainKMpH = 25.0;
 
 routing::VehicleModel::InitListT const s_carLimits =
 {
-  { {"highway", "motorway"},       90 },
-  { {"highway", "trunk"},          85 },
-  { {"highway", "motorway_link"},  75 },
-  { {"highway", "trunk_link"},     70 },
-  { {"highway", "primary"},        65 },
-  { {"highway", "primary_link"},   60 },
-  { {"highway", "secondary"},      55 },
-  { {"highway", "secondary_link"}, 50 },
-  { {"highway", "tertiary"},       40 },
-  { {"highway", "tertiary_link"},  30 },
-  { {"highway", "residential"},    25 },
-  { {"highway", "pedestrian"},     25 },
-  { {"highway", "unclassified"},   25 },
-  { {"highway", "service"},        15 },
-  { {"highway", "living_street"},  10 },
-  { {"highway", "road"},           10 },
-  { {"highway", "track"},          5  },
+  { {"highway", "motorway"},       kSpeedMotorwayKMpH },
+  { {"highway", "trunk"},          kSpeedTrunkKMpH },
+  { {"highway", "motorway_link"},  kSpeedMotorwayLinkKMpH },
+  { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
+  { {"highway", "primary"},        kSpeedPrimaryKMpH },
+  { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
+  { {"highway", "secondary"},      kSpeedSecondaryKMpH },
+  { {"highway", "secondary_link"}, kSpeedSecondaryLinkKMpH },
+  { {"highway", "tertiary"},       kSpeedTertiaryKMpH },
+  { {"highway", "tertiary_link"},  kSpeedTertiaryLinkKMpH },
+  { {"highway", "residential"},    kSpeedResidentialKMpH },
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "unclassified"},   kSpeedUnclassifiedKMpH },
+  { {"highway", "service"},        kSpeedServiceKMpH },
+  { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
+  { {"highway", "road"},           kSpeedRoadKMpH },
+  { {"highway", "track"},          kSpeedTrackKMpH  },
   /// @todo: Add to classificator
   //{ {"highway", "shuttle_train"},  10 },
   //{ {"highway", "ferry"},          5  },
@@ -44,12 +65,11 @@ namespace routing
 CarModel::CarModel()
   : VehicleModel(classif(), s_carLimits)
 {
-  vector<AdditionalRoadTags> additionalTags =
-  {
-    {{ "route", "ferry", "motorcar" }, 15.0 },
-    {{ "route", "ferry", "motor_vehicle" }, 15.0 },
-    {{ "railway", "rail", "motor_vehicle" }, 40.0 },
-    {{ "route", "shuttle_train"}, 40.0 },
+  vector<AdditionalRoadTags> const additionalTags = {
+      {{"route", "ferry", "motorcar"}, kSpeedFerryMotorcarKMpH},
+      {{"route", "ferry", "motor_vehicle"}, kSpeedFerryMotorcarVehicleKMpH},
+      {{"railway", "rail", "motor_vehicle"}, kSpeedRailMotorcarVehicleKMpH},
+      {{"route", "shuttle_train"}, kSpeedShuttleTrainKMpH},
   };
 
   SetAdditionalRoadTypes(classif(), additionalTags);
