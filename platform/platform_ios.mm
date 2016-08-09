@@ -10,15 +10,15 @@
 
 #include <mach/mach.h>
 
-#include <net/if_dl.h>
 #include <net/if.h>
+#include <net/if_dl.h>
 
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
 #if !defined(IFT_ETHER)
-  #define IFT_ETHER 0x6 /* Ethernet CSMACD */
+#define IFT_ETHER 0x6 /* Ethernet CSMACD */
 #endif
 
 #import "../iphone/Maps/Classes/Common.h"
@@ -46,7 +46,8 @@ Platform::Platform()
   m_resourcesDir = [path UTF8String];
   m_resourcesDir += "/";
 
-  NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSArray * dirPaths =
+      NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString * docsDir = [dirPaths firstObject];
   m_writableDir = [docsDir UTF8String];
   m_writableDir += "/";
@@ -62,7 +63,8 @@ Platform::Platform()
   }
 
   UIDevice * device = [UIDevice currentDevice];
-  NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName, device.systemVersion);
+  NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName,
+        device.systemVersion);
 
   [pool release];
 }
@@ -93,20 +95,12 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 
 unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & searchScope) const
 {
-  return make_unique<FileReader>(ReadPathForFile(file, searchScope),
-                                 READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+  return make_unique<FileReader>(ReadPathForFile(file, searchScope), READER_CHUNK_LOG_SIZE,
+                                 READER_CHUNK_LOG_COUNT);
 }
 
-int Platform::VideoMemoryLimit() const
-{
-  return 8 * 1024 * 1024;
-}
-
-int Platform::PreCachingDepth() const
-{
-  return 2;
-}
-
+int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
+int Platform::PreCachingDepth() const { return 2; }
 static string GetDeviceUid()
 {
   NSString * uid = @"";
@@ -126,27 +120,22 @@ static string GetMacAddress()
     ifaddrs * currentAddr = addresses;
     do
     {
-      if (currentAddr->ifa_addr->sa_family == AF_LINK
-          && ((const struct sockaddr_dl *) currentAddr->ifa_addr)->sdl_type == IFT_ETHER)
+      if (currentAddr->ifa_addr->sa_family == AF_LINK &&
+          ((const struct sockaddr_dl *)currentAddr->ifa_addr)->sdl_type == IFT_ETHER)
       {
-        const struct sockaddr_dl * dlAddr = (const struct sockaddr_dl *) currentAddr->ifa_addr;
+        const struct sockaddr_dl * dlAddr = (const struct sockaddr_dl *)currentAddr->ifa_addr;
         const char * base = &dlAddr->sdl_data[dlAddr->sdl_nlen];
         result.assign(base, dlAddr->sdl_alen);
         break;
       }
       currentAddr = currentAddr->ifa_next;
-    }
-    while (currentAddr->ifa_next);
+    } while (currentAddr->ifa_next);
     freeifaddrs(addresses);
   }
   return result;
 }
 
-string Platform::UniqueClientId() const
-{
-  return HashUniqueID(GetMacAddress() + GetDeviceUid());
-}
-
+string Platform::UniqueClientId() const { return HashUniqueID(GetMacAddress() + GetDeviceUid()); }
 static void PerformImpl(void * obj)
 {
   Platform::TFunctor * f = reinterpret_cast<Platform::TFunctor *>(obj);
@@ -158,16 +147,14 @@ string Platform::GetMemoryInfo() const
 {
   struct task_basic_info info;
   mach_msg_type_number_t size = sizeof(info);
-  kern_return_t const kerr = task_info(mach_task_self(),
-                                 TASK_BASIC_INFO,
-                                 (task_info_t)&info,
-                                 &size);
+  kern_return_t const kerr =
+      task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
   stringstream ss;
   if (kerr == KERN_SUCCESS)
   {
     ss << "Memory info: Resident_size = " << info.resident_size / 1024
-      << "KB; virtual_size = " << info.resident_size / 1024 << "KB; suspend_count = " << info.suspend_count
-      << " policy = " << info.policy;
+       << "KB; virtual_size = " << info.resident_size / 1024
+       << "KB; suspend_count = " << info.suspend_count << " policy = " << info.policy;
   }
   else
   {
@@ -186,10 +173,10 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
   int priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
   switch (p)
   {
-    case EPriorityBackground: priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND; break;
-    case EPriorityDefault: priority = DISPATCH_QUEUE_PRIORITY_DEFAULT; break;
-    case EPriorityHigh: priority = DISPATCH_QUEUE_PRIORITY_HIGH; break;
-    case EPriorityLow: priority = DISPATCH_QUEUE_PRIORITY_LOW; break;
+  case EPriorityBackground: priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND; break;
+  case EPriorityDefault: priority = DISPATCH_QUEUE_PRIORITY_DEFAULT; break;
+  case EPriorityHigh: priority = DISPATCH_QUEUE_PRIORITY_HIGH; break;
+  case EPriorityLow: priority = DISPATCH_QUEUE_PRIORITY_LOW; break;
   }
   dispatch_async_f(dispatch_get_global_queue(priority, 0), new TFunctor(fn), &PerformImpl);
 }
@@ -200,7 +187,8 @@ Platform::EConnectionType Platform::ConnectionStatus()
   bzero(&zero, sizeof(zero));
   zero.sin_len = sizeof(zero);
   zero.sin_family = AF_INET;
-  SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr*)&zero);
+  SCNetworkReachabilityRef reachability =
+      SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)&zero);
   if (!reachability)
     return EConnectionType::CONNECTION_NONE;
   SCNetworkReachabilityFlags flags;
@@ -208,7 +196,8 @@ Platform::EConnectionType Platform::ConnectionStatus()
   CFRelease(reachability);
   if (!gotFlags || ((flags & kSCNetworkReachabilityFlagsReachable) == 0))
     return EConnectionType::CONNECTION_NONE;
-  SCNetworkReachabilityFlags userActionRequired = kSCNetworkReachabilityFlagsConnectionRequired | kSCNetworkReachabilityFlagsInterventionRequired;
+  SCNetworkReachabilityFlags userActionRequired = kSCNetworkReachabilityFlagsConnectionRequired |
+                                                  kSCNetworkReachabilityFlagsInterventionRequired;
   if ((flags & userActionRequired) == userActionRequired)
     return EConnectionType::CONNECTION_NONE;
   if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
@@ -222,19 +211,16 @@ void Platform::SetupMeasurementSystem() const
   auto units = measurement_utils::Units::Metric;
   if (settings::Get(settings::kMeasurementUnits, units))
     return;
-  BOOL const isMetric = [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
+  BOOL const isMetric =
+      [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
   units = isMetric ? measurement_utils::Units::Metric : measurement_utils::Units::Imperial;
   settings::Set(settings::kMeasurementUnits, units);
 }
 
-void Platform::SendPushWooshTag(string const & tag)
-{
-  SendPushWooshTag(tag, vector<string>{ "1" });
-}
-
+void Platform::SendPushWooshTag(string const & tag) { SendPushWooshTag(tag, vector<string>{"1"}); }
 void Platform::SendPushWooshTag(string const & tag, string const & value)
 {
-  SendPushWooshTag(tag, vector<string>{ value });
+  SendPushWooshTag(tag, vector<string>{value});
 }
 
 void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
