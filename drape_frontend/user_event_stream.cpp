@@ -754,8 +754,9 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
   switch (m_state)
   {
   case STATE_EMPTY:
+  case STATE_WAIT_DOUBLE_TAP:
     isMapTouch = false;
-    // Can be if long tap or double tap detected
+    // Can be if long tap or double tap detected.
     break;
   case STATE_FILTER:
     ASSERT_EQUAL(touchCount, 1, ());
