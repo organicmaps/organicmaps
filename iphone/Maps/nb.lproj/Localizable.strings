@@ -221,7 +221,7 @@
 "download_country_failed" = "Nedlasting av %@ mislyktes";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Lisää uusi valikoima";
+"add_new_set" = "Legg til nytt sett";
 
 /* Place Page - Add To Bookmarks button */
 "add_to_bookmarks" = "Legg til i bokmerker";

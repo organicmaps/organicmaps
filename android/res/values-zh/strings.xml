@@ -855,7 +855,7 @@
 	<string name="place_page_booking_rating">评价: %s</string>
 	<string name="place_page_starting_from">从 %s</string>
 	<string name="meter">米</string>
-	<string name="kilometer">千米</string>
+	<string name="kilometer">公里</string>
 	<string name="kilometers_per_hour">公里每小时</string>
 	<string name="mile">英里</string>
 	<string name="foot">英尺</string>
