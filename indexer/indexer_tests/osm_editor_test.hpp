@@ -39,18 +39,18 @@ private:
   template <typename TBuildFn>
   MwmSet::MwmId ConstructTestMwm(TBuildFn && fn)
   {
-    return BuildMwm("TestCountry", feature::DataHeader::country, forward<TBuildFn>(fn));
+    return BuildMwm("TestCountry", forward<TBuildFn>(fn));
   }
 
   template <typename TBuildFn>
-  MwmSet::MwmId BuildMwm(string const & name, feature::DataHeader::MapType type, TBuildFn && fn)
+  MwmSet::MwmId BuildMwm(string const & name, TBuildFn && fn)
   {
     m_mwmFiles.emplace_back(GetPlatform().WritableDir(), platform::CountryFile(name), 0 /* version */);
     auto & file = m_mwmFiles.back();
     Cleanup(file);
 
     {
-      generator::tests_support::TestMwmBuilder builder(file, type);
+      generator::tests_support::TestMwmBuilder builder(file, feature::DataHeader::country);
       fn(builder);
     }
 
@@ -58,12 +58,11 @@ private:
     CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());
 
     auto const & id = result.first;
-    if (type == feature::DataHeader::country)
-    {
-      auto const & info = id.GetInfo();
-      if (info)
-        m_infoGetter.AddCountry(storage::CountryDef(name, info->m_limitRect));
-    }
+
+    auto const & info = id.GetInfo();
+    if (info)
+      m_infoGetter.AddCountry(storage::CountryDef(name, info->m_limitRect));
+
     return id;
   }
 

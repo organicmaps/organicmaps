@@ -460,14 +460,14 @@ void EditorTest::OnMapDeregisteredTest()
 {
   auto & editor = osm::Editor::Instance();
 
-  auto const gbMwmId = BuildMwm("GB", feature::DataHeader::country, [](TestMwmBuilder & builder)
+  auto const gbMwmId = BuildMwm("GB", [](TestMwmBuilder & builder)
   {
     TestCafe cafeLondon(m2::PointD(1.0, 1.0), "London Cafe", "en");
     builder.Add(cafeLondon);
   });
   ASSERT(gbMwmId.IsAlive(), ());
 
-  auto const rfMwmId = BuildMwm("RF", feature::DataHeader::country, [](TestMwmBuilder & builder)
+  auto const rfMwmId = BuildMwm("RF", [](TestMwmBuilder & builder)
   {
     TestCafe cafeMoscow(m2::PointD(2.0, 2.0), "Moscow Cafe", "en");
     builder.Add(cafeMoscow);
@@ -572,14 +572,14 @@ void EditorTest::HaveMapEditsToUploadTest()
 {
   auto & editor = osm::Editor::Instance();
 
-  auto const gbMwmId = BuildMwm("GB", feature::DataHeader::country, [](TestMwmBuilder & builder)
+  auto const gbMwmId = BuildMwm("GB", [](TestMwmBuilder & builder)
   {
     TestCafe cafeLondon(m2::PointD(1.0, 1.0), "London Cafe", "en");
     builder.Add(cafeLondon);
   });
   ASSERT(gbMwmId.IsAlive(), ());
 
-  auto const rfMwmId = BuildMwm("RF", feature::DataHeader::country, [](TestMwmBuilder & builder)
+  auto const rfMwmId = BuildMwm("RF", [](TestMwmBuilder & builder)
   {
     TestCafe cafeMoscow(m2::PointD(2.0, 2.0), "Moscow Cafe", "ru");
     builder.Add(cafeMoscow);
