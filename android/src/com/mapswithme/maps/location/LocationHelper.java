@@ -74,6 +74,9 @@ public enum LocationHelper
                             location.getAltitude(),
                             location.getSpeed(),
                             location.getBearing());
+
+      if (mUiCallback != null)
+        mUiCallback.onLocationUpdated(location);
     }
 
     @Override
