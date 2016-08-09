@@ -4,14 +4,17 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = indexer platform editor geometry coding base protobuf tomcrypt \
-               succinct opening_hours pugixml stats_client \
+DEPENDENCIES =  search_tests_support generator_tests_support platform_tests_support \
+                generator search routing indexer storage editor platform coding geometry \
+                base stats_client jansson tess2 protobuf tomcrypt succinct opening_hours \
+                pugixml
 
 include($$ROOT_DIR/common.pri)
 
 QT *= core
 
 HEADERS += \
+    osm_editor_test.hpp \
     test_mwm_set.hpp \
     test_polylines.hpp \
 
@@ -34,6 +37,7 @@ SOURCES += \
     index_test.cpp \
     interval_index_test.cpp \
     mwm_set_test.cpp \
+    osm_editor_test.cpp \
     point_to_int64_test.cpp \
     postcodes_matcher_tests.cpp \
     rank_table_test.cpp \

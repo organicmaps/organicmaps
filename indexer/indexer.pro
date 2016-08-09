@@ -45,6 +45,7 @@ SOURCES += \
     geometry_serialization.cpp \
     index.cpp \
     index_builder.cpp \
+    index_helpers.cpp \
     map_object.cpp \
     map_style.cpp \
     map_style_reader.cpp \
@@ -101,6 +102,7 @@ HEADERS += \
     geometry_serialization.hpp \
     index.hpp \
     index_builder.hpp \
+    index_helpers.hpp \
     interval_index.hpp \
     interval_index_builder.hpp \
     interval_index_iface.hpp \
