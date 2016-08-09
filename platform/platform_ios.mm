@@ -35,52 +35,8 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <netinet/in.h>
 
-namespace
-{
-void migrateFromSharedGroupIfRequired()
-{
-  NSUserDefaults * settings =
-      [[NSUserDefaults alloc] initWithSuiteName:kApplicationGroupIdentifier()];
-  if (![settings boolForKey:kHaveAppleWatch])
-    return;
-
-  NSFileManager * fileManager = [NSFileManager defaultManager];
-  NSURL * privateURL =
-      [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-  NSURL * sharedURL =
-      [fileManager containerURLForSecurityApplicationGroupIdentifier:kApplicationGroupIdentifier()];
-
-  NSDirectoryEnumerator * dirEnum =
-      [fileManager enumeratorAtURL:sharedURL
-          includingPropertiesForKeys:nil
-                             options:NSDirectoryEnumerationSkipsSubdirectoryDescendants |
-                                     NSDirectoryEnumerationSkipsPackageDescendants |
-                                     NSDirectoryEnumerationSkipsHiddenFiles
-                        errorHandler:nil];
-
-  NSURL * sourceURL = nil;
-  while ((sourceURL = [dirEnum nextObject]))
-  {
-    NSString * fileName = [sourceURL lastPathComponent];
-    NSURL * destinationURL = [privateURL URLByAppendingPathComponent:fileName];
-    NSError * error = nil;
-    [fileManager moveItemAtURL:sourceURL toURL:destinationURL error:&error];
-    if (error && [error.domain isEqualToString:NSCocoaErrorDomain] &&
-        error.code == NSFileWriteFileExistsError)
-    {
-      [fileManager removeItemAtURL:destinationURL error:nil];
-      [fileManager moveItemAtURL:sourceURL toURL:destinationURL error:nil];
-    }
-  }
-
-  [settings setBool:NO forKey:kHaveAppleWatch];
-  [settings synchronize];
-}
-}  // namespace
-
 Platform::Platform()
 {
-  migrateFromSharedGroupIfRequired();
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
   m_isTablet = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
