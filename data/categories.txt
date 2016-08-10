@@ -5879,7 +5879,7 @@ zh-Hans:宠物店
 zh-Hant:寵物店
 
 tourism-zoo|@tourism
-eu:2Zoo
+en:2Zoo
 ru:2Зоопарк
 ar:حديقة حيوان
 cs:zoologická zahrada
