@@ -137,7 +137,7 @@
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Nedlasting av %s mislyktes</string>
 	<!-- Add New Bookmark Set dialog title -->
-	<string name="add_new_set">Lisää uusi valikoima</string>
+	<string name="add_new_set">Legg til nytt sett</string>
 	<!-- Place Page - Add To Bookmarks button -->
 	<string name="add_to_bookmarks">Legg til i bokmerker</string>
 	<!-- Bookmark Color dialog title -->

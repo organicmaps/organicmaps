@@ -139,7 +139,7 @@
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download has failed</string>
 	<!-- Add New Bookmark Set dialog title -->
-	<string name="add_new_set">Add new Set</string>
+	<string name="add_new_set">Add New Set</string>
 	<!-- Place Page - Add To Bookmarks button -->
 	<string name="add_to_bookmarks">Add to Bookmarks</string>
 	<!-- Bookmark Color dialog title -->

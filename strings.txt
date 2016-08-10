@@ -2377,7 +2377,7 @@
   [add_new_set]
     comment = Add New Bookmark Set dialog title
     tags = ios,tizen
-    en = Add new Set
+    en = Add New Set
     ru = Добавить группу
     ar = إضافة مجموعة جديدة
     cs = Přidat novou skupinu záložek
@@ -2391,7 +2391,7 @@
     it = Aggiungi un nuovo Set
     ja = 新しいセットを作成
     ko = 새로운 세트 추가
-    nb = Lisää uusi valikoima
+    nb = Legg til nytt sett
     pl = Dodaj nowy zestaw
     pt = Adicionar novo conjunto
     ro = Adăugare la „Marcaje”
@@ -11972,7 +11972,7 @@
     da = Næste
     nl = Volgende
     fi = Seuraava
-    fr = Neste
+    fr = Suivant
     de = Weiter
     hu = Következő
     id = Berikut
@@ -17657,8 +17657,8 @@
     tr = km
     uk = км
     vi = km
-    zh-Hans = 千米
-    zh-Hant = 千米
+    zh-Hans = 公里
+    zh-Hant = 公里
     sk = km
 
   [kilometers_per_hour]
@@ -17713,7 +17713,7 @@
     sv = mile
     th = ไมล์
     tr = mil
-    uk = мл
+    uk = ми
     vi = dặm
     zh-Hans = 英里
     zh-Hant = 英里
@@ -17760,7 +17760,7 @@
     de = mph
     hu = mph
     id = mpj
-    it = miglia orarie (mph)
+    it = mph
     ja = マイル毎時
     ko = mph
     nb = mph
@@ -17771,7 +17771,7 @@
     sv = mph
     th = ไมล์/ชม.
     tr = mph
-    uk = мл/год
+    uk = ми/год
     vi = mph
     zh-Hans = 英里每小时
     zh-Hant = 英里每小時

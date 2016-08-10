@@ -19,7 +19,7 @@ hu:Élelmiszer
 th:อาหาร
 zh-Hans:食物
 ar:الطعام
-da:Mad
+da:Fødevarer
 tr:Yemek
 sv:Mat
 he:אוכל
@@ -54,7 +54,7 @@ tr:Ulaşım
 sv:Transport
 he:תחבורה
 id:Transportasi
-vi:giao thông
+vi:Giao thông
 ro:Transport
 nb:Transport
 fi:Liikenne
@@ -79,7 +79,7 @@ hu:Benzinkút
 th:ก๊าซ
 zh-Hans:汽油
 ar:الغاز
-da:Benzin
+da:Brændstof
 tr:Benzin
 sv:Bensin
 he:גז
@@ -201,7 +201,7 @@ hu:Látnivaló
 th:สถานที่ท่องเที่ยว
 zh-Hans:景点
 ar:سياحة
-da:Seværdigheder
+da:Turisme|Seværdigheder
 tr:Görülecek yerler
 sv:Sevärdheter
 he:נקודות עיניין
@@ -250,7 +250,7 @@ uk:3Банкомат|гроші
 de:3Geldautomat|Bankomat|Geld
 fr:3GAB|3DAB|argent
 it:3Bancomat|soldi
-es:3Cajero automático|atm|dinero
+es:3Atm|dinero
 ko:Atm|돈
 ja:1ATM|atm|お金|マネー|金|引き出し|預金|振り込み
 cs:3Bankomat|spořitelna|peníze
@@ -323,7 +323,7 @@ hu:3Pénzváltó|pénz
 th:1แลกเปลี่ยนเงินตรา|หลักสูตร|เงิน
 zh-Hans:1货币兑换|兑换|钱
 ar:صرف العملات|الصرف|الأموال
-da:3Veksel|3penge
+da:3Vekselbureau|3penge
 tr:3Döviz bürosu|3para
 sv:3Valutaväxling|3växling|pengar
 vi:2Tỉ giá hiện tại|tỉ giá
@@ -366,7 +366,7 @@ amenity-pub
 en:2Pub|bar|beer|food|U+1F37A|U+1F37B
 ar:بار|الحانة|خمارة์|بيرة ์|شراب|الطعام
 cs:Hospoda|Bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
-da:Værtshus|kro|bar|øl|drink|mad
+da:Værtshus|kro|bar|pub|øl|drink|mad
 de:Kneipe|Bar|Kneipe|Bier|Essen
 es:Pub|Bar|comer
 fi:Pubi|Baari|ruoka
@@ -500,7 +500,7 @@ hu:3Benzinkút|benzin
 th:3ปั๊มน้ำมัน|เชื้อเพลิง|ก๊าซ
 zh-Hans:1加油站|燃料|汽油
 ar:1محطة وقود|وقود|غاز|الغاز
-da:3Tankstation|benzin
+da:3Tankstation|benzin|brændstof
 tr:3Benzin istasyonu|2gaz
 sv:3Bensinstation|3bränsle|2gas|3bensin
 vi:Trạm xăng|khí đốt
@@ -560,7 +560,7 @@ hu:2Bolt
 th:2ร้านค้า
 zh-Hans:商店
 ar:متجر|المتجر
-da:2Butik
+da:2Butik|forretning
 tr:2Mağaza
 sv:2Butik
 vi:Cửa hàng
@@ -606,7 +606,7 @@ shop-convenience
 en:4Convenience Store|shop|U+1F3EC|U+1F3EA
 ar:متجر|متجر صغير|المتجر
 cs:Smíšené zboží|koloniál|obchod
-da:Dagligvarebutik|døgnbutik|døgnkiosk|kiosk|butik
+da:Døgnbutik|døgnkiosk|kiosk|butik
 de:Gemischtwarenladen|Geschäft
 es:Chino|tienda
 fi:Lähikauppa|kauppa
@@ -924,7 +924,7 @@ shop-jewelry
 en:Jewelry|U+1F48D|2shop
 ru:Ювелирный магазин|2магазин
 fr:Bijouterie|2magasin
-da:Smykkebutik|smykker|2butik
+da:Smykkebutik|smykker|juveler|2butik
 id:Perhiasan|2toko
 ko:보석류|1쇼핑|가게
 sv:Smycken|2butik
@@ -1117,7 +1117,7 @@ hu:3Bevásárlóközpont|bolt
 th:3ซูเปอร์มาร์เก็ต|ร้านค้า
 zh-Hans:超市|商店
 ar:سوبر ماركت|متجر|المتجر
-da:3Supermarked|butik
+da:3Supermarked|dagligvarebutik|butik
 tr:3Süpermarket|mağaza
 sv:3Stormarknad|butik
 vi:Siêu thị|cửa hàng
@@ -1149,7 +1149,7 @@ pl:Centrum handlowe|sklep
 pt:O Shopping|compras
 ro:Mall-ul|magazin
 ru:Торговый центр|магазин
-sk:the Mall|obchod
+sk:The Mall|obchod
 sv:Gallerian|butik
 sw:Ununuzi maduka|duka
 th:เดอะมอลล์|ร้านค้า
@@ -1277,7 +1277,7 @@ shop-laundry
 en:4Laundry|laundromat
 ar:مغسلة|غسيل ملابس
 cs:4Prádelna|veřejná prádelna
-da:4Vaskeri|mønstvask
+da:4Vaskeri|møntvask
 de:Wäscherei|Waschsalon
 es:Lavandería
 fi:4Pesula
@@ -1440,7 +1440,7 @@ hu:4Kerékpár üzlet|kerékpár|kocsi|bolt
 th:4จักรยาน|ร้าน|ร้านค้า
 zh-Hans:自行车店|商店
 ar:متجر دراجات
-da:3Cykelforretning|cykler|butik
+da:3Cykelforretning|cykelhandler|cykler|butik
 tr:Bisiklet|mağaza
 sv:4Cykelaffär|cykel|cykel|butik
 vi:3Cửa hàng xe đạp|cửa hàng
@@ -1470,7 +1470,7 @@ hu:Trafik|bolt
 th:ร้าน|ร้านค้า
 zh-Hans:商店
 ar:كشك|المتجر
-da:Kiosk|butik
+da:Kiosk|pølsevogn|butik
 tr:Mağaza
 sv:Kiosk|butik
 vi:Cửa hàng
@@ -1649,7 +1649,7 @@ hu:2Komp|közlekedés
 th:2เฟอร์รี่|สถานี|การขนส่ง
 zh-Hans:1渡轮|终点站|交通
 ar:مركب|محطة|نقل|النقل
-da:2Færge|terminal|transport
+da:2Færge|færgehavn|terminal|transport
 tr:3Feribot|terminal|ulaşım
 sv:3Färja|terminal|transport
 vi:Phà|bến tàu xe|giao thông
@@ -1679,7 +1679,7 @@ hu:3Taxi|szállítás
 th:3แท็กซี่|การขนส่ง
 zh-Hans:出租车|交通
 ar:تكسي|نقل|النقل
-da:3Tax|taxa|transport
+da:3Taxi|taxa|transport
 tr:3Taksi|ulaşım
 sv:3Taxi|transport
 vi:3Taxi|giao thông
@@ -1769,7 +1769,7 @@ hu:3Szobor|3látnivaló|Műalkotás
 th:งานศิลปะ|3การท่องเที่ยว|สถานที่ท่องเที่ยว
 zh-Hans:1旅游|景点
 ar:سياحة|مناظر
-da:3Seværdighed|3turisme|3sightseeing|3seværdigheder
+da:3Kunstværk|3turisme|3sightseeing|3seværdigheder
 tr:3Turizm|3görülecek yerler
 sv:3Konstverk|3turism|3sevärdheter
 vi:3Du lịch|diểm tham quan
@@ -1799,7 +1799,7 @@ hu:4Kilátó|kirándulás|látványosság|látnivaló|túrizmus
 th:3จุดชมวิว|การท่องเที่ยว|สถานที่ท่องเที่ยว
 zh-Hans:1观点|旅游|景点
 ar:أماكن مراقبة|سياحة|مناظر
-da:4Synspunkt|turisme|sightseeing|seværdigheder
+da:Udsigtspunkt|turisme|sightseeing|seværdigheder
 tr:3Bakış|3turizm|3görülecek yerler
 sv:4Utsiktsplats|turism|sevärdheter
 vi:Điểm nhìn|diểm tham quan
@@ -2182,7 +2182,7 @@ hu:3Emlékmű|látnivaló|túrizmus|látványosság
 th:ที่ระลึก|สถานที่ท่องเที่ยว
 zh-Hans:纪念馆|景点
 ar:مبنى او نصب تزكارى
-da:Mindested|seværdigheder
+da:Mindesmærke|mindesten|seværdigheder
 tr:Anıt|abide|cazibe merkezleri|turizm|görülecek yerler
 sv:3Minnesmärke|monument|attraktion|turism|sevärdheter
 vi:3Đài tưởng niệm|diểm tham quan
@@ -2272,7 +2272,7 @@ hu:Kastély|látnivaló|túrizmus|látványosság
 th:ปราสาท|การท่องเที่ยว|สถานที่ท่องเที่ยว
 zh-Hans:城堡|景点|旅游
 ar:قلعةأماكن الجذب|سياحة|مناظر
-da:Slot|seværdigheder|turisme
+da:Slot|borg|seværdigheder|turisme
 tr:Kale|cazibe merkezleri|turizm|görülecek yerler
 sv:Slott|attraktion|turism|sevärdheter
 vi:Pháo đài|diểm tham quan
@@ -2392,7 +2392,7 @@ hu:4Kerékpárkölcsönző|kerékpár|3bérlet
 th:4จักรยานให้เช่า|4จักรยาน|บริการรถเช่า|
 zh-Hans:1自行车租赁
 ar:استئجار دراجات
-da:4Cykel
+da:4Cykeludlejning|udlejning|cykel
 tr:Bisiklet kiralama|4Bisiklet
 sv:4Cykeluthyrning|cykel|cykel|3uthyrning
 vi:Cho thuê xe đạp
@@ -2721,7 +2721,7 @@ hu:Temető
 th:สุสาน
 zh-Hans:墓地
 ar:مقبرة
-da:Kirkegård|gravsted
+da:Kirkegård|gravplads
 tr:3Mezarlık
 sv:Kyrkogård
 vi:Bãi tha ma
@@ -2751,7 +2751,7 @@ hu:4Kórház|klinika|3orvos
 th:3โรงพยาบาล|3คลินิก|แพทย์
 zh-Hans:医院|诊所|医生|医院
 ar:المستشفى|عيادة
-da:4Hospital|klinik
+da:4Hospital|sygehus
 tr:4Hastane|3klinik|doktor
 sv:4Sjukhus|klinik|3läkare
 vi:Bệnh viện
@@ -2794,7 +2794,7 @@ amenity-doctors
 en:Doctor|clinic|U+1F489|U+1F3E5|U+1F691|hospital
 ar:مكتب طبيب|عيادة|المستشفى
 cs:Lékařská ordinace|Klinika|nemocnice
-da:Lægekontor|Klinik|hospital
+da:Lægekontor|lægehus|klinik|hospital
 de:Arztpraxis|Klinik|Krankenhaus
 es:Consulta del médico|Clínica|hospital
 fi:Lääkärin vastaanotto|Klinikka|sairaala
@@ -2866,7 +2866,7 @@ hu:Céllövölde
 th:จุดล่าสัตว์
 zh-Hans:狩猎屋
 ar:منصة صيد
-da:Jagt|jagtsted
+da:Jagtsted|hochsitz
 tr:Avlanma alanı
 sv:Jakttorn
 vi:Điểm săn bắn
@@ -2956,7 +2956,7 @@ hu:3Parkoló
 th:3ที่จอดรถ
 zh-Hans:1停车
 ar:الاصطفاف
-da:3Parkering
+da:3Parkeringsplads
 tr:3Otopark
 sv:3Parkering
 vi:Đỗ xe
@@ -3016,7 +3016,7 @@ hu:3Levelesláda|posta
 th:3ตู้จดหมาย|ไปรษณีย์
 zh-Hans:1邮箱|邮政
 ar:صندوق بريد|البريد
-da:3Postboks|3postboks|p/o|post
+da:3Postboks|3postboks|postkasse|p/o|post
 tr:3Posta kutusu|posta
 sv:3Postlåda|post
 vi:Hòm thư|Bưu điện
@@ -3046,7 +3046,7 @@ hu:3Posta
 th:3ไปรษณีย์
 zh-Hans:1邮政
 ar:البريد
-da:3Post
+da:3Postkontor|posthus|post
 tr:3Postane|posta
 sv:3Post
 vi:Bưu điện
@@ -3060,7 +3060,7 @@ amenity-waste_disposal
 en:Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
 ar:القمامة|ﺔﻣﺎﻤﻗ
 cs:Odpadky|koš|popelnice|uložiště odpadu
-da:Bortskaffelse af affald|Skraldespand|Genbrug|skrald
+da:Bortskaffelse af affald|skraldespand|skrald
 de:Müllcontainer|Mülltonne|Abfälle|Müll
 el:Σκουπίδια
 es:Basura
@@ -3316,7 +3316,7 @@ hu:Ország
 th:ประเทศ
 zh-Hans:国家
 ar:دولة
-da:Land
+da:Land|stat
 tr:Ülke
 sv:Land
 vi:Trường đại học
@@ -3407,7 +3407,7 @@ th:เมือง|เมืองหลวง
 zh-Hans:资本
 ar:مدينة
 da:Kapital
-tr:Başkent
+tr:Sermaye
 sv:Huvudstad|stad
 vi:Thủ đô
 id:Ibu kota
@@ -3793,7 +3793,7 @@ hu:Ösvény
 th:เส้นทาง
 zh-Hans:路径
 ar:طريق
-da:Sti|gangsti|vej
+da:Sti|gangsti|trin|trappe
 tr:Yol
 sv:Väg
 vi:Đường
@@ -3823,7 +3823,7 @@ hu:Utca|út|u
 th:ถนน
 zh-Hans:街头
 ar:شارع
-da:Gade
+da:Gade|vej|stræde
 tr:Cadde
 sv:Gata|väg
 vi:Phố
@@ -3850,7 +3850,7 @@ hu:4Kijárat|4csatlakozás
 th:4ทางออก
 zh-Hans:2出口|连接点
 ar:مخرج|تقاطع
-da:2Udgang|kryds|vejkryds
+da:2Motorvejsafkørsel|afkørsel
 tr:2Çıkış|3kavşak
 sv:3Avfart|3korsning
 vi:Lối ra
@@ -3880,7 +3880,7 @@ hu:Csúcs|hegy
 th:จุดสูงสุด|ภูเขา
 zh-Hans:1峰|山
 ar:قمة|جبل
-da:2Bjerg|bjergtop
+da:2Bjerg|bjergtop|tinde|bakketop
 tr:2Zirve|dağ
 sv:Bergstopp|berg
 vi:Đỉnh
@@ -4000,7 +4000,7 @@ hu:Erdő
 th:ป่า
 zh-Hans:森林
 ar:غابة
-da:Skov
+da:Skov|plantage
 tr:Orman
 sv:Skog
 vi:Rừng
@@ -4060,7 +4060,7 @@ hu:3Hostel|szálloda|szállás
 th:3หอพัก|โรงแรม|โมเทล
 zh-Hans:2旅馆|旅店
 ar:نزُل|فندق|فندق رخيص|الفندق
-da:3Hostel|kro|vandrerhjem|hotel|motel
+da:3Hostel|kro|vandrerhjem|hotel|motel|herberg
 tr:3Pansiyon|otel|motel
 sv:3Vandrarhem|hotell|motell
 vi:Nhà trọ|khách sạn
@@ -4238,7 +4238,7 @@ hu:3Repülőtér|3repülő
 th:3สนามบิน|เครื่องบิน
 zh-Hans:机场|飞机
 ar:مطار|طائرة
-da:3Lufthavn|fly
+da:3Lufthavn|flyveplads|fly
 tr:3Havaalanıuçak|
 sv:3Flygplats|3flygplan
 vi:Sân bay
@@ -4328,7 +4328,7 @@ hu:Sportközpont|sport
 th:กีฬา
 zh-Hans:运动
 ar:رياضة
-da:Sport
+da:Idrætscenter|sportshal|sport
 tr:Spor
 sv:Sportcenter|sport
 vi:Thể thao
@@ -4388,7 +4388,7 @@ hu:Sportpálya|oszlop|sport
 th:พื้นสนามกีฬา|ขว้าง|กีฬา
 zh-Hans:2球场|运动
 ar:ميدان اللعب|رياضة |ملاعب رياضية
-da:Teltplads|fiskested|fodboldbane|bane|sportsplads
+da:Sportsplads|fodboldbane|tennisbane|bane
 tr:Spor sahası|alan|spor
 sv:Idrottsplats|bana|sport
 vi:Sân vận động|đường pích
@@ -4418,7 +4418,7 @@ hu:4Úszómedence|sport
 th:4สระว่ายน้ำ
 zh-Hans:2游泳池|运动
 ar:حوض سباحة|رياضة
-da:2Pool|svømmingpool|swimmingpool
+da:2Svømmebassin|swimmingpool|sport
 tr:2Yüzme havuzu|spor
 sv:4Simbassäng|sport
 vi:Bể bơi
@@ -4568,7 +4568,7 @@ hu:Forrás
 th:ฤดูใบไม้ผลิ
 zh-Hans:海湾
 ar:خليجc
-da:Springflod|kilde
+da:Kilde|kildevæld
 tr:Pınar
 sv:Vattenkälla
 vi:Suối
@@ -4658,7 +4658,7 @@ hu:4Karaván pihenő|kemping
 th:4ขบวนนักเดินทาง
 zh-Hans:房车宿营地
 ar:موقع البيت المتنقل
-da:Campingvogn|husvogn
+da:Autocamperplads|husvogn
 tr:4Karavan alanı
 sv:4Husvagnsplats
 vi:Khu lễ hội hóa trang
@@ -5067,7 +5067,7 @@ craft-shoemaker
 en:Shoe Repair
 ar:تصليح الاحذية
 cs:Opravna obuvi
-da:Sko reparation
+da:Skomager|skoreparation
 de:Schuhreparatur
 es:Zapatero|zapatería
 fi:Suutari
@@ -5677,7 +5677,7 @@ en:Emergency Phone
 ru:Телефон для экстренных вызовов
 ar:هاتف الطوارئ
 cs:Tísňového volání
-da:Emergency telefon
+da:Nødtelefon
 de:Nottelefon
 el:τηλεφώνου έκτακτης ανάγκης
 es:Teléfono de emergencia
@@ -5825,7 +5825,7 @@ en:Chemist Shop
 ru:Бытовая химия
 ar:صيدلية
 cs:Drogerie
-da:Medicinbutik|Drugstore
+da:Materialist|Drugstore
 de:Drogerie
 es:Droguería
 fi:Apteekki
@@ -5944,7 +5944,7 @@ en:Community Centre
 ru:Культурно-досуговый центр|Дом культуры
 ar:مركز اجتماعي
 cs:Kulturní centrum
-da:Medborgerhus
+da:Medborgerhus|forsamlingshus
 de:Bürgerhaus
 es:Centro comunitario
 fi:Monitoimitalo
@@ -5973,7 +5973,7 @@ en:Courthouse
 ru:Суд
 ar:محكمة
 cs:Soud
-da:Retsbygning
+da:Domhus|retsbygning
 de:Justizgebäude
 es:Juzgado
 fi:Oikeustalo
@@ -6002,7 +6002,7 @@ en:Cigarette Dispenser
 ru:Сигаретный автомат
 ar:ماكينة بيع سجائر
 cs:Automat na cigarety
-da:Cigaretmaskine
+da:Cigaretautomat
 de:Zigarettenautomat
 es:Máquina de tabaco
 fi:Savukeautomaatti
@@ -6031,7 +6031,7 @@ en:Drink Dispenser
 ru:Автомат с напитками
 ar:ماكينة بيع مشروبات
 cs:Automat na nápoje
-da:Automat for drikkevarer
+da:Automat for drikkevarer|drikkevarer
 de:Getränkeautomat
 es:Máquina de bebidas
 fi:Juoma-automaatti
@@ -6147,7 +6147,7 @@ en:Factory Chimney
 ru:Заводская труба
 ar:مدخنة مصنع
 cs:Tovární komín
-da:Fabriksskorsten
+da:Fabriksskorsten|skorsten
 de:Fabrikschornstein
 es:Chimenea de fábrica
 fi:Tehtaan piippu
@@ -6321,7 +6321,7 @@ en:Wine Shop
 ru:Винный магазин
 ar:متجر مشروبات روحية
 cs:Vinařství
-da:Spiritushandel
+da:Vinhandel
 de:Wein- und Spirituosengeschäft
 es:Establecimiento de bebidas alcohólicas
 fi:Alkoholimyymälä
@@ -6556,7 +6556,7 @@ en:Block
 ru:Блок
 ar:حاجز
 cs:Blok
-da:Blok
+da:Blokering
 de:Block
 es:Bloqueo
 fi:Este
@@ -6585,7 +6585,7 @@ en:Pillar
 ru:Столбик
 ar:عمود حاجز قصير
 cs:Pilíř
-da:Søjle
+da:Søjle|pæl
 de:Säule
 es:Pilar
 fi:Tolppa
@@ -6643,7 +6643,7 @@ en:Entrance
 ru:Проход
 ar:مدخل الحاجز
 cs:Vstup
-da:Indgang
+da:Gennemgang
 de:Durchgang
 es:Entrada
 fi:Sisäänkäynti
@@ -6672,7 +6672,7 @@ en:Gate
 ru:Ворота
 ar:بوابة
 cs:Brána
-da:Port
+da:Port|led|låge
 de:Tor
 es:Puerta
 fi:Portti
@@ -7135,7 +7135,7 @@ leisure-sports_centre-climbing
 en:Climbing Centre
 ru:Скалодром
 fr:Centre d'escalade
-da:Klatring center
+da:Klatrecenter
 id:Pusat Peralatan Mendaki
 ko:등반 센터
 sv:Klättercentrum

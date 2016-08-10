@@ -855,9 +855,9 @@
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
 	<string name="kilometers_per_hour">км/год</string>
-	<string name="mile">мл</string>
+	<string name="mile">ми</string>
 	<string name="foot">фут</string>
-	<string name="miles_per_hour">мл/год</string>
+	<string name="miles_per_hour">ми/год</string>
 	<string name="day">д</string>
 	<string name="hour">год</string>
 	<string name="minute">хв</string>
