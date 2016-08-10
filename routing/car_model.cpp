@@ -30,31 +30,30 @@ double constexpr kSpeedFerryMotorcarVehicleKMpH = 15.0;
 double constexpr kSpeedRailMotorcarVehicleKMpH = 25.0;
 double constexpr kSpeedShuttleTrainKMpH = 25.0;
 
-routing::VehicleModel::InitListT const s_carLimits =
-{
-  { {"highway", "motorway"},       kSpeedMotorwayKMpH },
-  { {"highway", "trunk"},          kSpeedTrunkKMpH },
-  { {"highway", "motorway_link"},  kSpeedMotorwayLinkKMpH },
-  { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
-  { {"highway", "primary"},        kSpeedPrimaryKMpH },
-  { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
-  { {"highway", "secondary"},      kSpeedSecondaryKMpH },
-  { {"highway", "secondary_link"}, kSpeedSecondaryLinkKMpH },
-  { {"highway", "tertiary"},       kSpeedTertiaryKMpH },
-  { {"highway", "tertiary_link"},  kSpeedTertiaryLinkKMpH },
-  { {"highway", "residential"},    kSpeedResidentialKMpH },
-  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
-  { {"highway", "unclassified"},   kSpeedUnclassifiedKMpH },
-  { {"highway", "service"},        kSpeedServiceKMpH },
-  { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
-  { {"highway", "road"},           kSpeedRoadKMpH },
-  { {"highway", "track"},          kSpeedTrackKMpH  },
-  /// @todo: Add to classificator
-  //{ {"highway", "shuttle_train"},  10 },
-  //{ {"highway", "ferry"},          5  },
-  //{ {"highway", "default"},        10 },
-  /// @todo: Check type
-  //{ {"highway", "construction"},   40 },
+routing::VehicleModel::InitListT const s_carLimits = {
+    {{"highway", "motorway"}, kSpeedMotorwayKMpH},
+    {{"highway", "trunk"}, kSpeedTrunkKMpH},
+    {{"highway", "motorway_link"}, kSpeedMotorwayLinkKMpH},
+    {{"highway", "trunk_link"}, kSpeedTrunkLinkKMpH},
+    {{"highway", "primary"}, kSpeedPrimaryKMpH},
+    {{"highway", "primary_link"}, kSpeedPrimaryLinkKMpH},
+    {{"highway", "secondary"}, kSpeedSecondaryKMpH},
+    {{"highway", "secondary_link"}, kSpeedSecondaryLinkKMpH},
+    {{"highway", "tertiary"}, kSpeedTertiaryKMpH},
+    {{"highway", "tertiary_link"}, kSpeedTertiaryLinkKMpH},
+    {{"highway", "residential"}, kSpeedResidentialKMpH},
+    {{"highway", "pedestrian"}, kSpeedPedestrianKMpH},
+    {{"highway", "unclassified"}, kSpeedUnclassifiedKMpH},
+    {{"highway", "service"}, kSpeedServiceKMpH},
+    {{"highway", "living_street"}, kSpeedLivingStreetKMpH},
+    {{"highway", "road"}, kSpeedRoadKMpH},
+    {{"highway", "track"}, kSpeedTrackKMpH},
+    /// @todo: Add to classificator
+    //{ {"highway", "shuttle_train"},  10 },
+    //{ {"highway", "ferry"},          5  },
+    //{ {"highway", "default"},        10 },
+    /// @todo: Check type
+    //{ {"highway", "construction"},   40 },
 };
 
 }  // namespace

@@ -13,7 +13,7 @@
 namespace routing
 {
 VehicleModel::AdditionalRoadType::AdditionalRoadType(Classificator const & c,
-                                                       AdditionalRoadTags const & tag)
+                                                     AdditionalRoadTags const & tag)
   : m_type(c.GetTypeByPath(tag.m_hwtag)), m_speedKMpH(tag.m_speedKMpH)
 {
 }
