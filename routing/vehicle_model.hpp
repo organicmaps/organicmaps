@@ -123,7 +123,7 @@ private:
     double const m_speedKMpH;
   };
 
-  vector<AdditionalRoadType>::const_iterator GetRoadTypeIter(uint32_t type) const;
+  vector<AdditionalRoadType>::const_iterator FindRoadType(uint32_t type) const;
 
   unordered_map<uint32_t, double> m_types;
 
