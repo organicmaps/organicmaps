@@ -111,7 +111,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 - (void)buildToPoint:(MWMRoutePoint const &)finishPoint bestRouter:(BOOL)bestRouter
 {
-  if (!self.startPoint.IsValid())
+  if (!self.startPoint.IsValid() && !finishPoint.IsMyPosition())
     self.startPoint = lastLocationPoint();
   self.finishPoint = finishPoint;
   [self rebuildWithBestRouter:bestRouter];
@@ -160,33 +160,28 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     }
   }
 
-  if ([self arePointsValidForRouting])
+  if (![self arePointsValidForRouting])
+    return;
+  auto & f = GetFramework();
+  auto const & startPoint = self.startPoint.Point();
+  auto const & finishPoint = self.finishPoint.Point();
+  if (bestRouter)
+    self.type = GetFramework().GetBestRouter(startPoint, finishPoint);
+  f.BuildRoute(startPoint, finishPoint, 0 /* timeoutSec */);
+  f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
+  f.SetRouteFinishPoint(finishPoint, isMarkerPoint(self.finishPoint));
+  [[MWMMapViewControlsManager manager] onRouteRebuild];
+  switch (self.type)
   {
-    auto & f = GetFramework();
-    auto const & startPoint = self.startPoint.Point();
-    auto const & finishPoint = self.finishPoint.Point();
-    if (bestRouter)
-      self.type = GetFramework().GetBestRouter(startPoint, finishPoint);
-    f.BuildRoute(startPoint, finishPoint, 0 /* timeoutSec */);
-    f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
-    f.SetRouteFinishPoint(finishPoint, isMarkerPoint(self.finishPoint));
-    [[MWMMapViewControlsManager manager] onRouteRebuild];
-    switch (self.type)
-    {
-    case RouterType::Vehicle:
-      [[PushNotificationManager pushManager] setTags:@{ @"routing_vehicle_discovered" : @YES }];
-      break;
-    case RouterType::Pedestrian:
-      [[PushNotificationManager pushManager] setTags:@{ @"routing_pedestrian_discovered" : @YES }];
-      break;
-    case RouterType::Bicycle:
-      [[PushNotificationManager pushManager] setTags:@{ @"routing_bicycle_discovered" : @YES }];
-      break;
-    }
-  }
-  else
-  {
-    [self doStop];
+  case RouterType::Vehicle:
+    [[PushNotificationManager pushManager] setTags:@{ @"routing_vehicle_discovered" : @YES }];
+    break;
+  case RouterType::Pedestrian:
+    [[PushNotificationManager pushManager] setTags:@{ @"routing_pedestrian_discovered" : @YES }];
+    break;
+  case RouterType::Bicycle:
+    [[PushNotificationManager pushManager] setTags:@{ @"routing_bicycle_discovered" : @YES }];
+    break;
   }
 }
 
@@ -405,6 +400,28 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   {
     [activeAlertController presentAlert:code];
   }
+}
+
+#pragma mark - Properties
+
+- (void)setStartPoint:(MWMRoutePoint)startPoint
+{
+  if (_startPoint == startPoint)
+    return;
+  _startPoint = startPoint;
+  if (startPoint == self.finishPoint)
+    self.finishPoint = MWMRoutePoint::MWMRoutePointZero();
+  [[MWMNavigationDashboardManager manager].routePreview reloadData];
+}
+
+- (void)setFinishPoint:(MWMRoutePoint)finishPoint
+{
+  if (_finishPoint == finishPoint)
+    return;
+  _finishPoint = finishPoint;
+  if (finishPoint == self.startPoint)
+    self.startPoint = MWMRoutePoint::MWMRoutePointZero();
+  [[MWMNavigationDashboardManager manager].routePreview reloadData];
 }
 
 @end
