@@ -70,3 +70,10 @@ UNIT_TEST(RussiaMoscowKashirskoe16ToCapLongRoute)
       integration::GetBicycleComponents(), MercatorBounds::FromLatLon(55.66230, 37.63214), {0., 0.},
       MercatorBounds::FromLatLon(55.68895, 37.70286), 7057.0);
 }
+
+UNIT_TEST(RussiaKerchStraitFerryRoute)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(45.4167, 36.7658), {0.0, 0.0},
+      MercatorBounds::FromLatLon(45.3653, 36.6161), 18000.0);
+}
