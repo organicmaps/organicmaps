@@ -5878,6 +5878,38 @@ vi:Cửa Hàng Vật Nuôi
 zh-Hans:宠物店
 zh-Hant:寵物店
 
+tourism-zoo|@tourism
+eu:2Zoo
+ru:2Зоопарк
+ar:حديقة حيوان
+cs:zoologická zahrada
+da:Zoo
+de:Zoo
+el:Ζωολογικός κήπος
+es:Zoo
+fi:Eläintarha
+fr:Zoo
+he:גַן חַיוֹת
+hu:Állatkert
+id:Kebun binatang
+it:Zoo
+ja:動物園
+ko:동물원
+nb:Dyrehage
+nl:Dierentuin
+pl:Ogród zoologiczny
+pt:Jardim zoológico
+ro:Grădină zoologică
+sk:zoologická záhrada
+sv:Zoo
+sw:Zoo
+th:สวนสัตว์
+tr:Hayvanat bahçesi
+uk:Зоопарк
+vi:vườn bách thú
+zh-Hans:动物园
+zh-Hant:動物園
+
 tourism-information-office|@tourism
 en:Tourist Office
 ru:Туристический офис
