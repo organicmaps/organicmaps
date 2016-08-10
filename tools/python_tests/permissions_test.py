@@ -6,6 +6,7 @@ import logging
 import subprocess
 from os.path import abspath, join, dirname
 from os import listdir
+import sys
 
 EXPECTED_PERMISSIONS = {
     "uses-permission: android.permission.WRITE_EXTERNAL_STORAGE",
@@ -26,6 +27,9 @@ EXPECTED_PERMISSIONS = {
     "uses-permission: com.amazon.device.messaging.permission.RECEIVE",
 }
 
+logger = logging.getLogger()
+logger.level = logging.DEBUG
+logger.addHandler(logging.StreamHandler(sys.stdout))
 
 def new_lines(iterable):
     return "\n".join(iterable)
@@ -74,7 +78,10 @@ class TestPermissions(unittest.TestCase):
             lambda s: "universal" in s and "unaligned" not in s,
             listdir(apk_path)
         )[0]
-        return join(apk_path, apk)
+        apk_path = join(apk_path, apk)
+        logging.info("Using apk at {}".format(apk_path))
+
+        return apk_path
 
 
     def find_aapt(self):
@@ -84,8 +91,12 @@ class TestPermissions(unittest.TestCase):
             for line in filter(lambda s: s != "" and not s.startswith("#"), map(lambda s: s.strip(), props)):
                 if line.startswith("sdk.dir"):
                     path = line.split("=")[1].strip()
-                    return join(path, "platforms", "android-6", "tools", "aapt")
+                    aapt_path = join(path, "platforms", "android-6", "tools", "aapt")
+                    logging.info("Using aapt at {}".format(aapt_path))
+                    return aapt_path
+        logging.info("Couldn't find aapt")
         return None
+
 
 
     def test_permissions(self):
