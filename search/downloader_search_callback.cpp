@@ -1,0 +1,101 @@
+#include "search/downloader_search_callback.hpp"
+
+#include "search/result.hpp"
+
+#include "storage/country_info_getter.hpp"
+#include "storage/storage.hpp"
+
+#include "indexer/index.hpp"
+
+#include "base/string_utils.hpp"
+
+namespace
+{
+bool GetGroupCountryIdFromFeature(FeatureType const & ft, string & name)
+{
+  int8_t langIndices[] = {StringUtf8Multilang::kEnglishCode, StringUtf8Multilang::kDefaultCode,
+                          StringUtf8Multilang::kInternationalCode};
+
+  for (auto const langIndex : langIndices)
+  {
+    if (!ft.GetName(langIndex, name))
+      continue;
+    if (storage::Storage().IsCoutryIdCountryTreeInnerNode(name))
+      return true;
+  }
+  return false;
+}
+}  // namespace
+
+namespace search
+{
+DownloaderSearchCallback::DownloaderSearchCallback(Index const & index,
+                                                   storage::CountryInfoGetter const & infoGetter,
+                                                   storage::DownloaderSearchParams params)
+  : m_index(index), m_infoGetter(infoGetter), m_params(move(params))
+{
+}
+
+void DownloaderSearchCallback::operator()(search::Results const & results)
+{
+  storage::DownloaderSearchResults downloaderSearchResults;
+
+  for (auto const & result : results)
+  {
+    if (!result.HasPoint())
+      continue;
+
+    if (result.GetResultType() != search::Result::RESULT_LATLON)
+    {
+      FeatureID const & fid = result.GetFeatureID();
+      Index::FeaturesLoaderGuard loader(m_index, fid.m_mwmId);
+      FeatureType ft;
+      if (!loader.GetFeatureByIndex(fid.m_index, ft))
+      {
+        LOG(LERROR, ("Feature can't be loaded:", fid));
+        continue;
+      }
+
+      ftypes::Type const type = ftypes::IsLocalityChecker::Instance().GetType(ft);
+
+      if (type == ftypes::COUNTRY || type == ftypes::STATE)
+      {
+        string groupFeatureName;
+        if (GetGroupCountryIdFromFeature(ft, groupFeatureName))
+        {
+          storage::DownloaderSearchResult downloaderResult(groupFeatureName,
+                                                           result.GetString() /* m_matchedName */);
+          if (m_uniqueResults.find(downloaderResult) == m_uniqueResults.end())
+          {
+            m_uniqueResults.insert(downloaderResult);
+            downloaderSearchResults.m_results.push_back(downloaderResult);
+          }
+          continue;
+        }
+      }
+    }
+
+    auto const & mercator = result.GetFeatureCenter();
+    storage::TCountryId const & countryId = m_infoGetter.GetRegionCountryId(mercator);
+    if (countryId == storage::kInvalidCountryId)
+      continue;
+
+    storage::DownloaderSearchResult downloaderResult(countryId,
+                                                     result.GetString() /* m_matchedName */);
+    if (m_uniqueResults.find(downloaderResult) == m_uniqueResults.end())
+    {
+      m_uniqueResults.insert(downloaderResult);
+      downloaderSearchResults.m_results.push_back(downloaderResult);
+    }
+  }
+
+  downloaderSearchResults.m_query = m_params.m_query;
+  downloaderSearchResults.m_endMarker = results.IsEndMarker();
+
+  if (m_params.m_onResults)
+  {
+    GetPlatform().RunOnGuiThread(
+        [this, downloaderSearchResults]() { m_params.m_onResults(downloaderSearchResults); });
+  }
+}
+}  // namespace search

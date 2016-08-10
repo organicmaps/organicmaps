@@ -12,6 +12,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 
+#include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
 #include "search/everywhere_search_params.hpp"
 #include "search/geometry_utils.hpp"
@@ -1093,22 +1094,6 @@ void Framework::UpdateUserViewportChanged()
   Search(params);
 }
 
-bool Framework::GetGroupCountryIdFromFeature(FeatureType const & ft, string & name) const
-{
-  int8_t langIndices[] = { StringUtf8Multilang::kEnglishCode,
-                           StringUtf8Multilang::kDefaultCode,
-                           StringUtf8Multilang::kInternationalCode };
-
-  for (auto const langIndex : langIndices)
-  {
-    if (!ft.GetName(langIndex, name))
-      continue;
-    if (Storage().IsCoutryIdCountryTreeInnerNode(name))
-      return true;
-  }
-  return false;
-}
-
 bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
 {
   search::SearchParams p;
@@ -1159,56 +1144,8 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   p.SetMode(search::Mode::Downloader);
   p.SetSuggestsEnabled(false);
   p.SetForceSearch(true);
-  p.m_onResults = [this, params](search::Results const & results)
-  {
-    DownloaderSearchResults downloaderSearchResults;
-    for (auto const & result : results)
-    {
-      if (!result.HasPoint())
-        continue;
-
-      if (result.GetResultType() != search::Result::RESULT_LATLON)
-      {
-        FeatureID const & fid = result.GetFeatureID();
-        Index::FeaturesLoaderGuard loader(m_model.GetIndex(), fid.m_mwmId);
-        FeatureType ft;
-        if (!loader.GetFeatureByIndex(fid.m_index, ft))
-        {
-          LOG(LERROR, ("Feature can't be loaded:", fid));
-          continue;
-        }
-
-        ftypes::Type const type = ftypes::IsLocalityChecker::Instance().GetType(ft);
-
-        if (type == ftypes::COUNTRY || type == ftypes::STATE)
-        {
-          string groupFeatureName;
-          if (GetGroupCountryIdFromFeature(ft, groupFeatureName))
-          {
-            downloaderSearchResults.m_results.emplace_back(groupFeatureName,
-                                                           result.GetString() /* m_matchedName */);
-            continue;
-          }
-        }
-      }
-
-      auto const & mercator = result.GetFeatureCenter();
-      TCountryId const & countryId = CountryInfoGetter().GetRegionCountryId(mercator);
-      if (countryId == kInvalidCountryId)
-        continue;
-      downloaderSearchResults.m_results.emplace_back(countryId,
-                                                     result.GetString() /* m_matchedName */);
-    }
-    downloaderSearchResults.m_query = params.m_query;
-    downloaderSearchResults.m_endMarker = results.IsEndMarker();
-
-    if (params.m_onResults)
-    {
-      GetPlatform().RunOnGuiThread(
-          [params, downloaderSearchResults]() { params.m_onResults(downloaderSearchResults); });
-    }
-  };
-
+  p.m_onResults = search::DownloaderSearchCallback(m_model.GetIndex(), CountryInfoGetter(),
+                                                   params);
   return Search(p);
 }
 

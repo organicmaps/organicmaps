@@ -15,6 +15,18 @@ struct DownloaderSearchResult
   {
   }
 
+  bool operator==(DownloaderSearchResult const & rhs) const
+  {
+    return m_countryId == rhs.m_countryId && m_matchedName == rhs.m_matchedName;
+  }
+
+  bool operator<(DownloaderSearchResult const & rhs) const
+  {
+    if (m_countryId != rhs.m_countryId)
+      return m_countryId < rhs.m_countryId;
+    return m_matchedName < rhs.m_matchedName;
+  }
+
   TCountryId m_countryId;
   /// \brief |m_matchedName| is a name of found feature in case of searching in World.mwm
   /// and is a local name of mwm (group or leaf) in case of searching in country tree.
