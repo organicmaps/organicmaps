@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.RotateDrawable;
@@ -53,6 +54,7 @@ public class NavMenu extends BaseMenu
     UiUtils.updateRedButton(stop);
 
     mapItem(Item.SETTINGS, mFrame);
+
     mTts = (ImageView) mapItem(Item.TTS_VOLUME, mFrame);
   }
 
@@ -68,7 +70,6 @@ public class NavMenu extends BaseMenu
     mTts.setImageDrawable(TtsPlayer.isEnabled() ? Graphics.tint(mFrame.getContext(), R.drawable.ic_voice_on,
                                                                 R.attr.colorAccent)
                                                 : Graphics.tint(mFrame.getContext(), R.drawable.ic_voice_off));
-
   }
 
   @Override
@@ -110,5 +111,7 @@ public class NavMenu extends BaseMenu
   {
     super.show(show);
     measureContent(null);
+
+    UiUtils.showIf(show && Framework.nativeGetRouter() != Framework.ROUTER_TYPE_PEDESTRIAN, mTts);
   }
 }
