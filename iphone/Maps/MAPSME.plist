@@ -245,7 +245,7 @@
 		</dict>
 	</array>
 	<key>PW_USE_GPS</key>
-	<true/>
+	<false/>
 	<key>Pushwoosh_LOG_LEVEL</key>
 	<string>WARNING</string>
 </dict>
