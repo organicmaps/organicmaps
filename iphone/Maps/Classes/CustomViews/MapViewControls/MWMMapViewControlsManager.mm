@@ -136,9 +136,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [self.navigationManager setMapSearch];
   }
+  MWMRoutingPlaneMode const m = MapsAppDelegate.theApp.routingPlaneMode;
   if (state == MWMSearchManagerStateHidden)
   {
-    if (!IPAD || MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
+    if (!IPAD || m == MWMRoutingPlaneModeNone)
     {
       self.hidden = NO;
       self.leftBound = self.topBound = 0.0;
@@ -147,7 +148,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.ownerController setNeedsStatusBarAppearanceUpdate];
   if (!IPAD || (state != MWMSearchManagerStateDefault && state != MWMSearchManagerStateHidden))
     return;
-  MWMRoutingPlaneMode const m = MapsAppDelegate.theApp.routingPlaneMode;
   if (m == MWMRoutingPlaneModeSearchSource || m == MWMRoutingPlaneModeSearchDestination)
   {
     [UIView animateWithDuration:kDefaultAnimationDuration
@@ -386,8 +386,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (IPAD)
     self.searchManager.state = MWMSearchManagerStateHidden;
-
-  [self.navigationManager.routePreview reloadData];
 
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
 }
