@@ -50,7 +50,6 @@ vector<pair<string, string>> availableLanguages()
 @property(nonatomic) AVSpeechSynthesisVoice * speechVoice;
 @property(nonatomic) float speechRate;
 @property(nonatomic) AVAudioSession * audioSession;
-@property(nonatomic) NSInteger notificationsToSpeak;
 
 @end
 
@@ -141,10 +140,11 @@ vector<pair<string, string>> availableLanguages()
 
 - (void)setActive:(BOOL)active
 {
-  if (![MWMTextToSpeech isTTSEnabled])
+  if (![MWMTextToSpeech isTTSEnabled] || self.active == active)
     return;
   if (active && ![self isValid])
     [self createSynthesizer];
+  [self setAudioSessionActive:active];
   GetFramework().EnableTurnNotifications(active ? true : false);
   runAsyncOnMainQueue(^{
     [[NSNotificationCenter defaultCenter]
@@ -225,12 +225,6 @@ vector<pair<string, string>> availableLanguages()
 
 - (void)speakOneString:(NSString *)textToSpeak
 {
-  if (!textToSpeak || ![textToSpeak length])
-  {
-    [self reduceNotificationsToSpeak];
-    return;
-  }
-
   NSLog(@"Speak text: %@", textToSpeak);
   AVSpeechUtterance * utterance = [AVSpeechUtterance speechUtteranceWithString:textToSpeak];
   utterance.voice = self.speechVoice;
@@ -247,16 +241,9 @@ vector<pair<string, string>> availableLanguages()
   vector<string> notifications;
   frm.GenerateTurnNotifications(notifications);
 
+  [self setActive:YES];
   if (![self isValid])
     return;
-
-  if (!notifications.empty())
-  {
-    BOOL const shouldStartAudioSession = (self.notificationsToSpeak == 0);
-    self.notificationsToSpeak += notifications.size();
-    if (shouldStartAudioSession && ![self setAudioSessionActive:YES])
-      return;
-  }
 
   for (auto const & text : notifications)
     [self speakOneString:@(text.c_str())];
@@ -274,27 +261,6 @@ vector<pair<string, string>> availableLanguages()
     return NO;
   }
   return YES;
-}
-
-- (void)reduceNotificationsToSpeak
-{
-  self.notificationsToSpeak = MAX(self.notificationsToSpeak - 1, 0);
-  if (self.notificationsToSpeak == 0)
-    [self setAudioSessionActive:NO];
-}
-
-#pragma mark - AVSpeechSynthesizerDelegate
-
-- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
-    didCancelSpeechUtterance:(AVSpeechUtterance *)utterance
-{
-  [self reduceNotificationsToSpeak];
-}
-
-- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
-    didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
-{
-  [self reduceNotificationsToSpeak];
 }
 
 @end
