@@ -893,11 +893,7 @@
 	<string name="editor_profile_changes_for_next_place">Modifications vers le prochain lieu: %d</string>
 	<string name="editor_profile_rating_place">Notation position</string>
 	<string name="booking_dialog_not_connect_header">Pour réserver l\&#39;hôtel, veuillez activer votre connexion Internet</string>
-	<string name="whatsnew_booking_header">Réservez un hôtel depuis l\&#39;application</string>
-	<string name="whatsnew_booking_message">Lorsque vous recherchez un hôtel, la carte indiquera le prix, la catégorie et l\&#39;évaluation des hôtels disponibles.</string>
 	<string name="button_try">Essayer</string>
-	<string name="whatsnew_cycle_navigation_header">Navigation à vélo (version bêta)</string>
-	<string name="whatsnew_cycle_navigation_message">Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n\&#39;hésitez pas à nous partager vos impressions.</string>
 	<string name="refresh">Mettre à jour</string>
 	<string name="last_update">Dernière mise à jour à %s</string>
 	<string name="booking_checkin">enregistrement : %s</string>

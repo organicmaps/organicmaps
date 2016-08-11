@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "โปรดเชื่อมต่อกับอินเตอร์เน็ตเพื่อจองโรงแรมนี้";
 
-"whatsnew_booking_header" = "จองโรงแรมจากแอพ";
-
-"whatsnew_booking_message" = "หากคุณกำลังมองหาโรงแรมอยู่ แผนที่จะแสดงหมวดหมู่ราคา และเรตติ้งของโรงแรม";
-
 "button_try" = "ลองดู";
-
-"whatsnew_cycle_navigation_header" = "การนำทางจักรยาน (beta-version)";
-
-"whatsnew_cycle_navigation_message" = "เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา";
 
 "refresh" = "อัปเดต";
 

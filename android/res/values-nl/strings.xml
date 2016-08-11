@@ -882,11 +882,7 @@
 	<string name="editor_profile_changes_for_next_place">Wijzigingen tot de volgende positie: %d</string>
 	<string name="editor_profile_rating_place">Positie in klassement</string>
 	<string name="booking_dialog_not_connect_header">Maak verbinding met internet om het hotel te boeken</string>
-	<string name="whatsnew_booking_header">Boek een hotel via de app</string>
-	<string name="whatsnew_booking_message">Als u een hotel zoekt, toont de kaart de prijscategorie en de beoordeling.</string>
 	<string name="button_try">Proberen</string>
-	<string name="whatsnew_cycle_navigation_header">Fietsnavigatie (bèta-versie)</string>
-	<string name="whatsnew_cycle_navigation_message">We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.</string>
 	<string name="refresh">Updaten</string>
 	<string name="last_update">Laatste update: %s</string>
 	<string name="booking_checkin">inchecken: %s</string>

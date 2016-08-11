@@ -881,11 +881,7 @@
 	<string name="editor_profile_changes_for_next_place">次の場所への変更：%d</string>
 	<string name="editor_profile_rating_place">ランキングポジション</string>
 	<string name="booking_dialog_not_connect_header">ホテルを予約するには、インターネット接続を有効にしてください</string>
-	<string name="whatsnew_booking_header">アプリからホテルを予約する</string>
-	<string name="whatsnew_booking_message">ホテルを探すと、地図にホテルの価格帯と評価が表示されます。</string>
 	<string name="button_try">試してみる</string>
-	<string name="whatsnew_cycle_navigation_header">バイクナビゲーション（ベータ版）</string>
-	<string name="whatsnew_cycle_navigation_message">新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。</string>
 	<string name="refresh">更新</string>
 	<string name="last_update">最終更新日: %s</string>
 	<string name="booking_checkin">チェックイン：%s</string>

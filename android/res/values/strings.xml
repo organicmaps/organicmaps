@@ -920,11 +920,7 @@
 	<string name="editor_profile_changes_for_next_place">Changes to the next place: %d</string>
 	<string name="editor_profile_rating_place">Ranking position</string>
 	<string name="booking_dialog_not_connect_header">To book the hotel, please enable your Internet connection</string>
-	<string name="whatsnew_booking_header">Book a hotel from the app</string>
-	<string name="whatsnew_booking_message">When you look for a hotel, the map will show the hotels’ price category and rating.</string>
 	<string name="button_try">Try it</string>
-	<string name="whatsnew_cycle_navigation_header">Bike navigation (beta version)</string>
-	<string name="whatsnew_cycle_navigation_message">We are testing bike navigation for the new season. Try your favorite bike route with MAPS.ME, and share your opinion with us.</string>
 	<string name="refresh">Update</string>
 	<string name="last_update">Last update: %s</string>
 	<string name="booking_checkin">check in: %s</string>

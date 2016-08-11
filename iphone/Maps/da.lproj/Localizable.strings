@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "For at booke hotellet, bedes du aktivere din internetforbindelse";
 
-"whatsnew_booking_header" = "Book et hotel fra appen";
-
-"whatsnew_booking_message" = "Når du leder efter et hotel, vil kortet vise hotellernes priskategori og vurdering.";
-
 "button_try" = "Prøv det";
-
-"whatsnew_cycle_navigation_header" = "Cykelnavigation (beta-version)";
-
-"whatsnew_cycle_navigation_message" = "Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.";
 
 "refresh" = "Opdater";
 

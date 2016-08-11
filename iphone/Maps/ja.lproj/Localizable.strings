@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "ホテルを予約するには、インターネット接続を有効にしてください";
 
-"whatsnew_booking_header" = "アプリからホテルを予約する";
-
-"whatsnew_booking_message" = "ホテルを探すと、地図にホテルの価格帯と評価が表示されます。";
-
 "button_try" = "試してみる";
-
-"whatsnew_cycle_navigation_header" = "バイクナビゲーション（ベータ版）";
-
-"whatsnew_cycle_navigation_message" = "新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。";
 
 "refresh" = "更新";
 

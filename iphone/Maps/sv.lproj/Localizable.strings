@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "Var vänlig aktivera din internetanslutning för att göra hotellbokningen";
 
-"whatsnew_booking_header" = "Boka ett hotell från appen";
-
-"whatsnew_booking_message" = "När du letar efter ett hotell kommer kartan visa hotellets priskategori och bedömning.";
-
 "button_try" = "Prova det";
-
-"whatsnew_cycle_navigation_header" = "Cykelnavigering (betaversion)";
-
-"whatsnew_cycle_navigation_message" = "Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.";
 
 "refresh" = "Uppdatera";
 

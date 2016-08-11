@@ -878,11 +878,7 @@
 	<string name="editor_profile_changes_for_next_place">Modificări necesare pentru următoarea poziţie: %d</string>
 	<string name="editor_profile_rating_place">Poziţie în clasament</string>
 	<string name="booking_dialog_not_connect_header">Pentru a face o rezervare la un hotel, activaţi conexiunea la Internet</string>
-	<string name="whatsnew_booking_header">Rezervare hotel din aplicaţie</string>
-	<string name="whatsnew_booking_message">Dacă sunteţi în căutarea unui hotel, harta vă va arăta categoriile de preţuri practicate de hoteluri şi evaluarea lor.</string>
 	<string name="button_try">Încercaţi-o</string>
-	<string name="whatsnew_cycle_navigation_header">Navigaţie pentru biciclete (versiune beta)</string>
-	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.</string>
 	<string name="refresh">Actualizați</string>
 	<string name="last_update">Ultima actualizare: %s</string>
 	<string name="booking_checkin">check in: %s</string>
