@@ -272,7 +272,7 @@ using namespace osm_auth_ios;
       auto const & p2 = points[1];
       [[MWMRouter router] buildFromPoint:MWMRoutePoint(p1.m_org, @(p1.m_name.c_str()))
                                  toPoint:MWMRoutePoint(p2.m_org, @(p2.m_name.c_str()))
-                              bestRouter:YES];
+                              bestRouter:NO];
       [self showMap];
       [self.mapViewController showAPIBar];
       break;
