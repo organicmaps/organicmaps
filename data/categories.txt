@@ -779,7 +779,7 @@ shop-alcohol
 en:Liquor Store|liquor|U+1F377|2shop
 ru:Магазин алкоголя|4алкоголь|3винный|3вино-водочный|2магазин
 fr:Magasin de vins et spiritueux|vins et spiritueux|2magasin
-da:Vinhandel|alkohol|sprut|spiritus|2butik
+da:Alkohol|vinhandel|sprut|spiritus|2butik
 id:Toko alkohol|minuman keras|2toko
 ko:주류 샵|1쇼핑|가게
 sv:Spritaffär|alkohol|2butik
