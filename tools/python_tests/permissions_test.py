@@ -31,15 +31,12 @@ SPLIT_RE = re.compile("[\.\-]")
 APK_RE = re.compile(".*universal(?!.*?unaligned).*$")
 PROP_RE = re.compile("(?!\s*?#).*$")
 CLEAN_PERM_RE = re.compile("(name='|'$)", re.MULTILINE)
+AAPT_VERSION_PREFIX_LEN = len("Android Asset Packaging Tool, v")
 
 
 logger = logging.getLogger()
 logger.level = logging.DEBUG
 logger.addHandler(logging.StreamHandler(sys.stdout))
-
-
-def join_by_new_lines(iterable):
-    return "\n".join(iterable)
 
 
 def exec_shell(executable, flags):
@@ -59,9 +56,10 @@ def exec_shell(executable, flags):
 class TestPermissions(unittest.TestCase):
     def setUp(self):
         self.omim_path = self.find_omim_path()
-        self.build_tools_version = self.get_build_tools_version()
-        self.aapt = self.find_aapt()
+        self.aapt = self.find_aapt(self.get_build_tools_version())
         self.apk = self.find_apks()
+        self.permissions = self.get_actual_permissions()
+        self.failure_description = self.get_failure_description()
 
 
     def get_build_tools_version(self):
@@ -92,7 +90,7 @@ class TestPermissions(unittest.TestCase):
         on_disk = listdir(apk_path)
         print(on_disk)
         apks = filter(APK_RE.match, on_disk)
-        if len(apks) < 1:
+        if not apks:
             raise IOError("Couldn't find an APK")
         apk_path = path.join(apk_path, apks[0])
         logging.info("Using apk at {}".format(apk_path))
@@ -113,20 +111,20 @@ class TestPermissions(unittest.TestCase):
         raise IOError("Couldn't find property {} in file {}".format(prop, props_path))
 
 
-    def find_aapt(self):
+    def find_aapt(self, build_tools_version):
         local_props_path = path.join(self.omim_path, "android", "local.properties")
         sdk_path = self.get_property("sdk.dir", local_props_path)
-        aapt_path = self.find_aapt_in_platforms(sdk_path)
+        aapt_path = self.find_aapt_in_platforms(sdk_path, build_tools_version)
 
         logging.info("Using aapt at {}".format(aapt_path))
         return aapt_path
 
 
-    def find_aapt_in_platforms(self, platforms_path):
+    def find_aapt_in_platforms(self, platforms_path, build_tools_version):
         aapts = {}
         candidates = exec_shell("find", "{} -name aapt".format(platforms_path))
         for c in candidates:
-            if "build-tools/{}".format(self.build_tools_version) in c:
+            if "build-tools/{}".format(build_tools_version) in c:
                 return c
 
             try:
@@ -143,29 +141,35 @@ class TestPermissions(unittest.TestCase):
 
 
     def get_aapt_version(self, candidate):
-        return SPLIT_RE.split(exec_shell(candidate, "v")[0][31:])
+        return SPLIT_RE.split(exec_shell(candidate, "v")[0][AAPT_VERSION_PREFIX_LEN:])
 
 
-    def test_permissions(self):
-        """Check whether we have added or removed any permissions"""
+    def get_actual_permissions(self):
         permissions = exec_shell(self.aapt, "dump permissions {0}".format(self.apk))
         permissions = filter(
             lambda s: s.startswith("permission:") or s.startswith("uses-permission:"),
             permissions
         )
 
-        permissions = set(
+        return set(
             map(lambda s: CLEAN_PERM_RE.sub("", s), permissions)
         )
 
-        description = "Expected: {}\n\nActual: {}\n\nAdded: {}\n\nRemoved: {}".format(
+
+    def get_failure_description(self):
+        join_by_new_lines = lambda iterable: "\n".join(iterable)
+
+        return "Expected: {}\n\nActual: {}\n\nAdded: {}\n\nRemoved: {}".format(
             join_by_new_lines(EXPECTED_PERMISSIONS),
-            join_by_new_lines(permissions),
-            join_by_new_lines(permissions - EXPECTED_PERMISSIONS),
-            join_by_new_lines(EXPECTED_PERMISSIONS - permissions)
+            join_by_new_lines(self.permissions),
+            join_by_new_lines(self.permissions - EXPECTED_PERMISSIONS),
+            join_by_new_lines(EXPECTED_PERMISSIONS - self.permissions)
         )
 
-        self.assertEqual(EXPECTED_PERMISSIONS, permissions, description)
+
+    def test_permissions(self):
+        """Check whether we have added or removed any permissions"""
+        self.assertEqual(EXPECTED_PERMISSIONS, self.permissions, self.failure_description)
 
 
 if __name__ == "__main__":
