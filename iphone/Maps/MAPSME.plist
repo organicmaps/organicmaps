@@ -63,6 +63,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>mapswithme</string>
+				<string>mapsme</string>
 				<string>ge0</string>
 				<string>geo</string>
 				<string>fb185237551520383</string>
