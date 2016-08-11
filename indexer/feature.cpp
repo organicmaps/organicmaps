@@ -1,17 +1,15 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_loader_base.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/osm_editor.hpp"
 
 #include "geometry/distance.hpp"
 #include "geometry/robust_orientation.hpp"
-
-#include "platform/preferred_languages.hpp"
 
 #include "base/range_iterator.hpp"
 #include "base/stl_helpers.hpp"
@@ -499,79 +497,22 @@ FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
   return geom_stat_t(sz, m_triangles.size());
 }
 
-struct BestMatchedLangNames
-{
-  string m_defaultName;
-  string m_nativeName;
-  string m_intName;
-  string m_englishName;
-
-  bool operator()(int8_t code, string const & name)
-  {
-    int8_t const defaultCode = StringUtf8Multilang::kDefaultCode;
-    static int8_t const nativeCode = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-    int8_t const intCode = StringUtf8Multilang::kInternationalCode;
-    int8_t const englishCode = StringUtf8Multilang::kEnglishCode;
-
-    if (code == defaultCode)
-      m_defaultName = name;
-    else if (code == nativeCode)
-      m_nativeName = name;
-    else if (code == intCode)
-    {
-      // There are many "junk" names in Arabian island.
-      m_intName = name.substr(0, name.find_first_of(','));
-      // int_name should be used as name:en when name:en not found
-      if ((nativeCode == englishCode) && m_nativeName.empty())
-        m_nativeName = m_intName;
-    }
-    else if (code == englishCode)
-      m_englishName = name;
-    return true;
-  }
-};
-
 void FeatureType::GetPreferredNames(string & defaultName, string & intName) const
 {
+  if (!HasName())
+    return;
+
   ParseCommon();
-
-  BestMatchedLangNames matcher;
-  ForEachName(matcher);
-
-  defaultName.swap(matcher.m_defaultName);
-
-  if (!matcher.m_nativeName.empty())
-    intName.swap(matcher.m_nativeName);
-  else if (!matcher.m_intName.empty())
-    intName.swap(matcher.m_intName);
-  else
-    intName.swap(matcher.m_englishName);
-
-  if (defaultName.empty())
-    defaultName.swap(intName);
-  else
-  {
-    // filter out similar intName
-    if (!intName.empty() && defaultName.find(intName) != string::npos)
-      intName.clear();
-  }
+  ::GetPreferredNames(GetID(), GetNames(), defaultName, intName);
 }
 
 void FeatureType::GetReadableName(string & name) const
 {
+  if (!HasName())
+    return;
+
   ParseCommon();
-
-  BestMatchedLangNames matcher;
-  ForEachName(matcher);
-
-  if (!matcher.m_nativeName.empty())
-    name.swap(matcher.m_nativeName);
-  else if (!matcher.m_defaultName.empty())
-    name.swap(matcher.m_defaultName);
-  else if (!matcher.m_intName.empty())
-    name.swap(matcher.m_intName);
-  else
-    name.swap(matcher.m_englishName);
+  ::GetReadableName(GetID(), GetNames(), name);
 }
 
 string FeatureType::GetHouseNumber() const

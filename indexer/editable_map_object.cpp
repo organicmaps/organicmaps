@@ -96,7 +96,7 @@ StringUtf8Multilang const & EditableMapObject::GetName() const { return m_name; 
 
 NamesDataSource EditableMapObject::GetNamesDataSource() const
 {
-  const auto mwmInfo = GetID().m_mwmId.GetInfo();
+  auto const mwmInfo = GetID().m_mwmId.GetInfo();
 
   if (!mwmInfo)
     return NamesDataSource();
