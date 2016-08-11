@@ -1,15 +1,86 @@
+#include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/classificator.hpp"
-#include "indexer/feature_data.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/point2d.hpp"
+
+#include "platform/preferred_languages.hpp"
+
+#include "coding/multilang_utf8_string.hpp"
 
 #include "base/base.hpp"
 
 #include "std/vector.hpp"
 
+namespace
+{
+void GetMwmLangName(FeatureID const & id, StringUtf8Multilang const & src, string & out)
+{
+  auto const mwmInfo = id.m_mwmId.GetInfo();
+
+  if (!mwmInfo)
+    return;
+
+  vector<int8_t> mwmLangCodes;
+  mwmInfo->GetRegionData().GetLanguages(mwmLangCodes);
+
+  for (auto const code : mwmLangCodes)
+  {
+    if (src.GetString(code, out))
+      return;
+  }
+}
+
+void GetNames(FeatureID const & id, StringUtf8Multilang const & src, string & primary,
+              string & secondary)
+{
+  vector<int8_t> primaryCodes = {StringUtf8Multilang::kDefaultCode};
+  vector<int8_t> secondaryCodes = {StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()),
+                                   StringUtf8Multilang::kInternationalCode,
+                                   StringUtf8Multilang::kEnglishCode};
+
+  auto primaryIndex = primaryCodes.size();
+  auto secondaryIndex = secondaryCodes.size();
+
+  primary.clear();
+  secondary.clear();
+
+  auto const findAndSet = [](vector<int8_t> const & langs, int8_t const code, string const & name,
+                               size_t & bestIndex, string & outName)
+  {
+    auto const it = find(langs.begin(), langs.end(), code);
+    if (it != langs.end() && bestIndex > distance(langs.begin(), it))
+    {
+      bestIndex = distance(langs.begin(), it);
+      outName = name;
+    }
+  };
+
+  src.ForEach([&](int8_t code, string const & name)
+  {
+    if (primaryIndex != 0)
+      findAndSet(primaryCodes, code, name, primaryIndex, primary);
+
+    if (secondaryIndex != 0)
+      findAndSet(secondaryCodes, code, name, secondaryIndex, secondary);
+
+    return true;
+  });
+
+  if (primary.empty())
+    GetMwmLangName(id, src, primary);
+
+  if (secondaryIndex < secondaryCodes.size() &&
+      secondaryCodes[secondaryIndex] == StringUtf8Multilang::kInternationalCode)
+  {
+    // There are many "junk" names in Arabian island.
+    secondary = secondary.substr(0, secondary.find_first_of(','));
+  }
+}
+}  // namespace
 
 namespace feature
 {
@@ -147,4 +218,41 @@ int GetFeatureViewportScale(TypesHolder const & types)
   return impl::GetFeatureEstimator().GetViewportScale(types);
 }
 
+void GetPreferredNames(FeatureID const & id, StringUtf8Multilang const & src, string & primary,
+                       string & secondary)
+{
+  // Primary name using priority:
+  // - default name;
+  // - country language name.
+  // Secondary name using priority:
+  // - device language name;
+  // - international name;
+  // - english name.
+  GetNames(id, src, primary, secondary);
+
+  if (primary.empty())
+  {
+    primary.swap(secondary);
+  }
+  else
+  {
+    // Filter out similar intName.
+    if (!secondary.empty() && primary.find(secondary) != string::npos)
+      secondary.clear();
+  }
+}
+
+void GetReadableName(FeatureID const & id, StringUtf8Multilang const & src, string & out)
+{
+  // Names using priority:
+  // - device language name;
+  // - international name;
+  // - english name;
+  // - default name;
+  // - country language name.
+  // Secondary name is preffered to display on the map and place page.
+  string primary, secondary;
+  GetNames(id, src, primary, secondary);
+  out = secondary.empty() ? primary : secondary;
+}
 } // namespace feature

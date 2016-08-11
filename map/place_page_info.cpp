@@ -1,8 +1,7 @@
 #include "place_page_info.hpp"
 
+#include "indexer/feature_utils.hpp"
 #include "indexer/osm_editor.hpp"
-
-#include "platform/preferred_languages.hpp"
 
 namespace place_page
 {
@@ -48,16 +47,10 @@ string Info::GetTitle() const
   if (!m_customName.empty())
     return m_customName;
 
-  // Prefer names in native language over default ones.
-  int8_t const langCode = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  if (langCode != StringUtf8Multilang::kUnsupportedLanguageCode)
-  {
-    string native;
-    if (m_name.GetString(langCode, native))
-      return native;
-  }
+  string name;
+  feature::GetReadableName(GetID(), m_name, name);
 
-  return GetDefaultName();
+  return name;
 }
 
 string Info::GetSubtitle() const
