@@ -784,21 +784,21 @@ bool OpeningHours::IsTwentyFourHours() const
 
 bool OpeningHours::HasWeekdaySelector() const
 {
-  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasWeekdays));
+  return std::any_of(m_rule.cbegin(), m_rule.cend(), std::mem_fn(&osmoh::RuleSequence::HasWeekdays));
 }
 
 bool OpeningHours::HasMonthSelector() const
 {
-  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasMonths));
+  return std::any_of(m_rule.cbegin(), m_rule.cend(), std::mem_fn(&osmoh::RuleSequence::HasMonths));
 }
 
 bool OpeningHours::HasWeekSelector() const
 {
-  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasWeeks));
+  return std::any_of(m_rule.cbegin(), m_rule.cend(), std::mem_fn(&osmoh::RuleSequence::HasWeeks));
 }
 
 bool OpeningHours::HasYearSelector() const
 {
-  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasYears));
+  return std::any_of(m_rule.cbegin(), m_rule.cend(), std::mem_fn(&osmoh::RuleSequence::HasYears));
 }
 } // namespace osmoh
