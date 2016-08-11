@@ -4,6 +4,7 @@ import logging
 import re
 import subprocess
 import sys
+import string
 import unittest
 from os import listdir, path
 from os.path import abspath, dirname, isfile
@@ -27,12 +28,18 @@ EXPECTED_PERMISSIONS = {
     "uses-permission: com.amazon.device.messaging.permission.RECEIVE",
 }
 
+SPLIT_RE = re.compile("[\.\-]")
+APK_RE = re.compile(".*universal(?!.*?unaligned).*$")
+PROP_RE = re.compile("(?!\s*?#).*$")
+CLEAN_PERM_RE = re.compile("(name='|'$)", re.MULTILINE)
+
+
 logger = logging.getLogger()
 logger.level = logging.DEBUG
 logger.addHandler(logging.StreamHandler(sys.stdout))
 
 
-def new_lines(iterable):
+def join_by_new_lines(iterable):
     return "\n".join(iterable)
 
 
@@ -83,27 +90,28 @@ class TestPermissions(unittest.TestCase):
 
     def find_apks(self):
         apk_path = path.join(self.omim_path, "android", "build", "outputs", "apk")
-        apk = filter(
-            lambda s: "universal" in s and "unaligned" not in s,
-            listdir(apk_path)
-        )[0]
-        apk_path = path.join(apk_path, apk)
+        on_disk = listdir(apk_path)
+        print(on_disk)
+        apks = filter(APK_RE.match, on_disk)
+        if len(apks) < 1:
+            raise IOError("Couldn't find an APK")
+        apk_path = path.join(apk_path, apks[0])
         logging.info("Using apk at {}".format(apk_path))
 
         return apk_path
 
 
-    def get_property(self, property, props_path):
+    def get_property(self, prop, props_path):
         if not isfile(props_path):
             raise IOError("Properties file does not exist: {}".format(props_path))
 
         logging.info("local props: {}".format(props_path))
         with open(props_path) as props:
-            for line in filter(lambda s: s != "" and not s.startswith("#"), map(lambda s: s.strip(), props)):
-                if line.startswith(property):
+            for line in filter(PROP_RE.match, map(string.strip, props)):
+                if line.startswith(prop):
                     return line.split("=")[1].strip()
 
-        raise IOError("Couldn't find property {} in file {}".format(property, props_path))
+        raise IOError("Couldn't find property {} in file {}".format(prop, props_path))
 
 
     def find_aapt(self):
@@ -116,7 +124,6 @@ class TestPermissions(unittest.TestCase):
 
 
     def find_aapt_in_platforms(self, platforms_path):
-        pat = re.compile("[\.\-]")
         aapts = {}
         candidates = exec_shell("find", "{} -name aapt".format(platforms_path))
         for c in candidates:
@@ -124,45 +131,39 @@ class TestPermissions(unittest.TestCase):
                 return c
 
             try:
-                version = tuple(map(lambda s: int(s), pat.split(exec_shell(c, "v")[0][31:])))
+                version = tuple(map(int, self.get_aapt_version(c)))
                 aapts[version] = c
             except:
                 # Do nothing, because aapt version contains non-numeric symbols
                 pass
 
-        max_version = sorted(aapts.keys(), reverse=True)[0]
+        max_version = sorted(aapts.iterkeys(), reverse=True)[0]
         logging.info("Max aapt version: {}".format(max_version))
 
         return aapts[max_version]
 
 
-    def clean_up_permissions(self, permissions):
-        ret = set()
-        for p in permissions:
-            if "name='" in p:
-                p = p.replace("name='", "")
-                p = p.replace("'", "")
-            ret.add(p)
-        return ret
+    def get_aapt_version(self, candidate):
+        return SPLIT_RE.split(exec_shell(candidate, "v")[0][31:])
 
 
     def test_permissions(self):
         """Check whether we have added or removed any permissions"""
         permissions = exec_shell(self.aapt, "dump permissions {0}".format(self.apk))
-        permissions = set(
-            filter(
-                lambda s: s.startswith("permission:") or s.startswith("uses-permission:"),
-                permissions
-            )
+        permissions = filter(
+            lambda s: s.startswith("permission:") or s.startswith("uses-permission:"),
+            permissions
         )
 
-        permissions = self.clean_up_permissions(permissions)
+        permissions = set(
+            map(lambda s: CLEAN_PERM_RE.sub("", s), permissions)
+        )
 
         description = "Expected: {}\n\nActual: {}\n\nAdded: {}\n\nRemoved: {}".format(
-            new_lines(EXPECTED_PERMISSIONS),
-            new_lines(permissions),
-            new_lines(permissions - EXPECTED_PERMISSIONS),
-            new_lines(EXPECTED_PERMISSIONS - permissions)
+            join_by_new_lines(EXPECTED_PERMISSIONS),
+            join_by_new_lines(permissions),
+            join_by_new_lines(permissions - EXPECTED_PERMISSIONS),
+            join_by_new_lines(EXPECTED_PERMISSIONS - permissions)
         )
 
         self.assertEqual(EXPECTED_PERMISSIONS, permissions, description)
