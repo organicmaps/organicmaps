@@ -194,9 +194,9 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
   TEST_EQUAL(namesDataSource.mandatoryNamesCount, 4,
              ("Mandatory names count should be equal to Mwm languages + user`s language"));
   TEST_EQUAL(namesDataSource.names[0].m_code, GetLangCode("de"),
-             ("German must be the first because it is first in the list of languages for MWM"));
+             ("German must be first because it is first in the list of languages for MWM"));
   TEST_EQUAL(namesDataSource.names[1].m_code, GetLangCode("fr"),
-             ("German must be the second because it is second in the list of languages for MWM"));
+             ("French must be second because it is second in the list of languages for MWM"));
   TEST_EQUAL(namesDataSource.names[2].m_code, GetLangCode("en"),
              ("English name should be placed after Mwm languages"));
   TEST_EQUAL(namesDataSource.names[3].m_code, GetLangCode("ko"),
@@ -212,7 +212,7 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
                 "the data source, except the default one."));
     TEST_EQUAL(namesDataSource.mandatoryNamesCount, 3,
                ("Mandatory names count should be equal to MWM languages + "
-                "english language + user`s language. Excluding repetiton"));
+                "The English language + user`s language. Excluding repetiton"));
   }
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("fr"), GetLangCode("en")};
@@ -224,7 +224,7 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
                 "the data source, except the default one."));
     TEST_EQUAL(namesDataSource.mandatoryNamesCount, 2,
                ("Mandatory names count should be equal to MWM languages + "
-                "english language + user`s language. Excluding repetiton"));
+                "The English language + user`s language. Excluding repetiton"));
   }
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("en"), GetLangCode("en")};
@@ -236,7 +236,7 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
                 "the data source, except the default one."));
     TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,
                ("Mandatory names count should be equal to MWM languages + "
-                "english language + user`s language. Excluding repetiton"));
+                "The English language + user`s language. Excluding repetiton"));
   }
 }
 }  // namespace
