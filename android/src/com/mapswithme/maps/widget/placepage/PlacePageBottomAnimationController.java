@@ -29,6 +29,8 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
   private final AnimationHelper mAnimationHelper = new AnimationHelper();
   private ValueAnimator mCurrentAnimator;
 
+  private boolean mShouldHandleGesture;
+
   private class AnimationHelper
   {
     final View.OnLayoutChangeListener mListener = new View.OnLayoutChangeListener()
@@ -74,14 +76,19 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     {
     case MotionEvent.ACTION_DOWN:
       if (!isInsideView(event.getY()))
+      {
+        mShouldHandleGesture = false;
         break;
+      }
 
+      mShouldHandleGesture = true;
       mIsGestureHandled = false;
       mDownCoord = event.getY();
       break;
     case MotionEvent.ACTION_MOVE:
       final float delta = mDownCoord - event.getY();
-      if (Math.abs(delta) > mTouchSlop
+      if (mShouldHandleGesture
+              && Math.abs(delta) > mTouchSlop
               && !isDetailsScroll(mDownCoord, delta)
               && isInsideView(mDownCoord))
         return true;
