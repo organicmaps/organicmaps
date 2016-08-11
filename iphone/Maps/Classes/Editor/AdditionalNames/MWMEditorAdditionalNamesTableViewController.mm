@@ -27,6 +27,7 @@ additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
   self.delegate = delegate;
   m_name = name;
   m_additionalSkipLanguageCodes = additionalSkipLanguageCodes;
+  m_additionalSkipLanguageCodes.push_back(StringUtf8Multilang::kDefaultCode);
   self.selectedLanguageCode = selectedLanguageCode;
 }
 

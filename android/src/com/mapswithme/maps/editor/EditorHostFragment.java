@@ -210,6 +210,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     ArrayList<String> languages = new ArrayList<>(sNames.size());
     for (LocalizedName name : sNames)
       languages.add(name.lang);
+    languages.add(LocalizedName.DEFAULT_LANG_NAME);
     args.putStringArrayList(LanguagesFragment.EXISTING_LOCALIZED_NAMES, languages);
     UiUtils.hide(mToolbarController.findViewById(R.id.save));
     editWithFragment(Mode.LANGUAGE, R.string.choose_language, args, LanguagesFragment.class, false);
