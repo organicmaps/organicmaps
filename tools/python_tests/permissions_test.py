@@ -4,7 +4,6 @@ import logging
 import re
 import subprocess
 import sys
-import string
 import unittest
 from os import listdir, path
 from os.path import abspath, dirname, isfile
@@ -107,7 +106,7 @@ class TestPermissions(unittest.TestCase):
 
         logging.info("local props: {}".format(props_path))
         with open(props_path) as props:
-            for line in filter(PROP_RE.match, map(string.strip, props)):
+            for line in filter(PROP_RE.match, props):
                 if line.startswith(prop):
                     return line.split("=")[1].strip()
 
@@ -133,7 +132,7 @@ class TestPermissions(unittest.TestCase):
             try:
                 version = tuple(map(int, self.get_aapt_version(c)))
                 aapts[version] = c
-            except:
+            except ValueError:
                 # Do nothing, because aapt version contains non-numeric symbols
                 pass
 
