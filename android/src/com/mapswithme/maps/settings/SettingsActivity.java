@@ -16,10 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseActivity;
@@ -32,6 +28,10 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SettingsActivity extends PreferenceActivity
                            implements BaseActivity
@@ -217,6 +217,7 @@ public class SettingsActivity extends PreferenceActivity
   {
     super.onStart();
     mActivityDelegate.onStart();
+    invalidateHeaders();
   }
 
   @Override
