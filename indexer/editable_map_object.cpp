@@ -120,6 +120,10 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
   // Push Mwm languages.
   mandatoryCount = PushMwmLanguages(source, mwmLanguages, names);
 
+  // Push english name.
+  if (ExtractName(source, StringUtf8Multilang::kEnglishCode, names))
+    ++mandatoryCount;
+  
   // Push user's language.
   if (ExtractName(source, userLangCode, names))
     ++mandatoryCount;
