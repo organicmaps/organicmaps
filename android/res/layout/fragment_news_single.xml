@@ -25,7 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/margin_base"
       android:layout_gravity="center_horizontal"
-      android:src="@drawable/img_news_booking"
+      android:src="@drawable/img_whatsnew_booking_improved"
       android:tag="@string/tag_height_limited"/>
 
     <TextView
