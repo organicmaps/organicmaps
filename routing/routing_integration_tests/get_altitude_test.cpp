@@ -24,8 +24,8 @@ namespace
 {
 using namespace feature;
 
-void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const minAltitudeMeters,
-                                  TAltitude const maxAltitudeMeters)
+void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const altitudeLowerBoundMeters,
+                                  TAltitude const altitudeUpperBoundMeters)
 {
   Index index;
   platform::LocalCountryFile const country = platform::LocalCountryFile::MakeForTesting(countryId);
@@ -56,20 +56,23 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const minA
 
     TAltitudes altitudes = altitudeLoader->GetAltitudes(id, pointsCount);
     TEST(!altitudes.empty(),
-         ("Empty altidude vector. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
+         ("Empty altitude vector. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
 
-    for (auto const alitude : altitudes)
+    for (auto const altitude : altitudes)
     {
-      TEST_EQUAL(my::clamp(alitude, minAltitudeMeters, maxAltitudeMeters), alitude,
-                 ("Unexpected altidude. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
+      TEST_EQUAL(my::clamp(altitude, altitudeLowerBoundMeters, altitudeUpperBoundMeters), altitude,
+                 ("Unexpected altitude. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
     }
   });
 }
 
 UNIT_TEST(AllMwmFeaturesGetAltitudeTest)
 {
-  TestAltitudeOfAllMwmFeatures("Russia_Moscow", 50 /* minAltitudeMeters */, 300 /* maxAltitudeMeters */);
-  TestAltitudeOfAllMwmFeatures("Nepal_Kathmandu", 250 /* minAltitudeMeters */, 6000 /* maxAltitudeMeters */);
-  TestAltitudeOfAllMwmFeatures("Netherlands_North Holland_Amsterdam", -25 /* minAltitudeMeters */, 50 /* maxAltitudeMeters */);
+  TestAltitudeOfAllMwmFeatures("Russia_Moscow", 50 /* altitudeLowerBoundMeters */,
+                               300 /* altitudeUpperBoundMeters */);
+  TestAltitudeOfAllMwmFeatures("Nepal_Kathmandu", 250 /* altitudeLowerBoundMeters */,
+                               6000 /* altitudeUpperBoundMeters */);
+  TestAltitudeOfAllMwmFeatures("Netherlands_North Holland_Amsterdam", -25 /* altitudeLowerBoundMeters */,
+                               50 /* altitudeUpperBoundMeters */);
 }
 }  // namespace
