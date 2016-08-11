@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-import unittest
-
 import logging
+import re
 import subprocess
-from os.path import abspath, join, dirname
-from os import listdir
 import sys
+import unittest
+from os import listdir, path
+from os.path import abspath, dirname, isfile
 
 EXPECTED_PERMISSIONS = {
     "uses-permission: android.permission.WRITE_EXTERNAL_STORAGE",
@@ -31,6 +31,7 @@ logger = logging.getLogger()
 logger.level = logging.DEBUG
 logger.addHandler(logging.StreamHandler(sys.stdout))
 
+
 def new_lines(iterable):
     return "\n".join(iterable)
 
@@ -52,8 +53,16 @@ def exec_shell(executable, flags):
 class TestPermissions(unittest.TestCase):
     def setUp(self):
         self.omim_path = self.find_omim_path()
+        self.build_tools_version = self.get_build_tools_version()
         self.aapt = self.find_aapt()
         self.apk = self.find_apks()
+
+
+    def get_build_tools_version(self):
+        return self.get_property(
+            "propBuildToolsVersion",
+            path.join(self.omim_path, "android", "gradle.properties")
+        )
 
 
     def contains_correct_files(self, my_path):
@@ -66,37 +75,75 @@ class TestPermissions(unittest.TestCase):
 
 
     def find_omim_path(self):
-        my_path = abspath(join(dirname(__file__), "..", ".."))
+        my_path = abspath(path.join(dirname(__file__), "..", ".."))
         if self.contains_correct_files(my_path):
             return my_path
         raise IOError("Couldn't find a candidate for the project root path")
 
 
     def find_apks(self):
-        apk_path = join(self.omim_path, "android", "build", "outputs", "apk")
+        apk_path = path.join(self.omim_path, "android", "build", "outputs", "apk")
         apk = filter(
             lambda s: "universal" in s and "unaligned" not in s,
             listdir(apk_path)
         )[0]
-        apk_path = join(apk_path, apk)
+        apk_path = path.join(apk_path, apk)
         logging.info("Using apk at {}".format(apk_path))
 
         return apk_path
 
 
-    def find_aapt(self):
-        local_props_path = join(self.omim_path, "android", "local.properties")
-        logging.info("local props: {}".format(local_props_path))
-        with open(local_props_path) as props:
-            for line in filter(lambda s: s != "" and not s.startswith("#"), map(lambda s: s.strip(), props)):
-                if line.startswith("sdk.dir"):
-                    path = line.split("=")[1].strip()
-                    aapt_path = join(path, "platforms", "android-6", "tools", "aapt")
-                    logging.info("Using aapt at {}".format(aapt_path))
-                    return aapt_path
-        logging.info("Couldn't find aapt")
-        return None
+    def get_property(self, property, props_path):
+        if not isfile(props_path):
+            raise IOError("Properties file does not exist: {}".format(props_path))
 
+        logging.info("local props: {}".format(props_path))
+        with open(props_path) as props:
+            for line in filter(lambda s: s != "" and not s.startswith("#"), map(lambda s: s.strip(), props)):
+                if line.startswith(property):
+                    return line.split("=")[1].strip()
+
+        raise IOError("Couldn't find property {} in file {}".format(property, props_path))
+
+
+    def find_aapt(self):
+        local_props_path = path.join(self.omim_path, "android", "local.properties")
+        sdk_path = self.get_property("sdk.dir", local_props_path)
+        aapt_path = self.find_aapt_in_platforms(sdk_path)
+
+        logging.info("Using aapt at {}".format(aapt_path))
+        return aapt_path
+
+
+    def find_aapt_in_platforms(self, platforms_path):
+        pat = re.compile("[\.\-]")
+        aapts = {}
+        candidates = exec_shell("find", "{} -name aapt".format(platforms_path))
+        for c in candidates:
+            if "build-tools/{}".format(self.build_tools_version) in c:
+                return c
+
+            try:
+                version = tuple(map(lambda s: int(s), pat.split(exec_shell(c, "v")[0][31:])))
+                aapts[version] = c
+            except:
+                # Do nothing, because aapt version contains non-numeric symbols
+                pass
+
+        max_version = sorted(aapts.keys(), reverse=True)[0]
+        logging.info("Max aapt version: {}".format(max_version))
+
+        return aapts[max_version]
+
+
+    def clean_up_permissions(self, permissions):
+        ret = set()
+        for p in permissions:
+            if "name='" in p:
+                p = p.replace("name='", "")
+                p = p.replace("'", "")
+            ret.add(p)
+        return ret
 
 
     def test_permissions(self):
@@ -109,7 +156,9 @@ class TestPermissions(unittest.TestCase):
             )
         )
 
-        description = "Expected: {}\n\nActual: {}\n\n:Added: {}\n\nRemoved: {}".format(
+        permissions = self.clean_up_permissions(permissions)
+
+        description = "Expected: {}\n\nActual: {}\n\nAdded: {}\n\nRemoved: {}".format(
             new_lines(EXPECTED_PERMISSIONS),
             new_lines(permissions),
             new_lines(permissions - EXPECTED_PERMISSIONS),
