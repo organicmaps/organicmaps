@@ -638,6 +638,11 @@ public enum LocationHelper
       addListener(mLocationListener, true);
   }
 
+  public void addLocationListener()
+  {
+    addListener(mLocationListener, true);
+  }
+
   private void compareWithPreviousCallback()
   {
     if (mPrevUiCallback != null)

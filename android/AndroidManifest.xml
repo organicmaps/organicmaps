@@ -34,6 +34,7 @@
   <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
+  <uses-permission android:name="android.permission.ACCESS_GPS"/>
 
   <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
@@ -389,5 +390,13 @@
         <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
       </intent-filter>
     </receiver>
+
+    <receiver android:name="com.mapswithme.maps.location.GPSCheck" >
+      <intent-filter>
+        <action android:name="android.location.PROVIDERS_CHANGED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+
   </application>
 </manifest>
