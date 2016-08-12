@@ -956,4 +956,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Bike navigation takes into account terrain data.\n• We create easier routes taking into account road inclines.</string>
 	<string name="whatsnew_booking_2_header">Easy hotel search</string>
 	<string name="whatsnew_booking_2_message">The search results show the hotel rating and price category.</string>
+	<string name="whatsnew_cycle_navigation_header">Bike navigation (beta version)</string>
+	<string name="whatsnew_cycle_navigation_message">We are testing bike navigation for the new season. Try your favorite bike route with MAPS.ME, and share your opinion with us.</string>
 </resources>

@@ -924,4 +924,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• การนำทางจักรยานพิจารณาถึงข้อมูลด้านภูมิประเทศ\n• เราสร้างเส้นทางที่ง่ายยิ่งขึ้นโดยพิจารณาถึงความลาดเอียงของถนน</string>
 	<string name="whatsnew_booking_2_header">การค้นหาโรงแรมอย่างง่ายดาย</string>
 	<string name="whatsnew_booking_2_message">ผลการค้นหาจะแสดงการให้คะแนนโรงแรมและหมวดหมู่ราคา</string>
+	<string name="whatsnew_cycle_navigation_header">การนำทางจักรยาน (beta-version)</string>
+	<string name="whatsnew_cycle_navigation_message">เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา</string>
 </resources>

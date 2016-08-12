@@ -921,4 +921,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Navigácia na bicykle berie do úvahy terénne dáta.\n• Tvoríme ľahšie trasy s prihliadnutím na sklon ciest.</string>
 	<string name="whatsnew_booking_2_header">Jednoduché vyhľadávanie hotelov</string>
 	<string name="whatsnew_booking_2_message">Výsledky vyhľadávania ukazujú hodnotenie hotelov a cenové kategórie.</string>
+	<string name="whatsnew_cycle_navigation_header">Navigácia pre cyklistov (beta verzia)</string>
+	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.</string>
 </resources>

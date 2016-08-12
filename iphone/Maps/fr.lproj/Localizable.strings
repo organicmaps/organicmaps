@@ -1605,3 +1605,7 @@
 "whatsnew_booking_2_header" = "Recherche d'hôtel simplifiée";
 
 "whatsnew_booking_2_message" = "Affichage des évaluations et catégorie de prix des hôtels dans les résultats de recherche.";
+
+"whatsnew_cycle_navigation_header" = "Navigation à vélo (version bêta)";
+
+"whatsnew_cycle_navigation_message" = "Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n'hésitez pas à nous partager vos impressions.";

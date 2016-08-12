@@ -929,4 +929,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Prise en compte des données de terrain dans les paramètres de navigation.\n• Prise en compte des pentes facilitant la création d\&#39;itinéraires.</string>
 	<string name="whatsnew_booking_2_header">Recherche d\&#39;hôtel simplifiée</string>
 	<string name="whatsnew_booking_2_message">Affichage des évaluations et catégorie de prix des hôtels dans les résultats de recherche.</string>
+	<string name="whatsnew_cycle_navigation_header">Navigation à vélo (version bêta)</string>
+	<string name="whatsnew_cycle_navigation_message">Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n\&#39;hésitez pas à nous partager vos impressions.</string>
 </resources>

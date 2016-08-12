@@ -935,4 +935,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Nawigacja dla rowerów bierze pod uwagę dane terenu.\n• Tworzymy łatwiejsze trasy, biorąc pod uwagę nachylenie dróg.</string>
 	<string name="whatsnew_booking_2_header">Łatwe wyszukiwanie hoteli</string>
 	<string name="whatsnew_booking_2_message">Wyniki wyszukiwania pokazują kategorie oceny hoteli i ceny.</string>
+	<string name="whatsnew_cycle_navigation_header">Nawigacja rowerowa (wersja beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z MAPS.ME i napisz nam, co myślisz o naszej nawigacji.</string>
 </resources>

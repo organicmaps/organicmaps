@@ -1605,3 +1605,7 @@
 "whatsnew_booking_2_header" = "Kolay otel arama";
 
 "whatsnew_booking_2_message" = "Arama sonuçları otel puan ve fiyat kategorisini gösterir.";
+
+"whatsnew_cycle_navigation_header" = "Bisiklet navigasyonu (beta sürüm)";
+
+"whatsnew_cycle_navigation_message" = "Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.";

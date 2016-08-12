@@ -1605,3 +1605,7 @@
 "whatsnew_booking_2_header" = "Helppo hotellihaku";
 
 "whatsnew_booking_2_message" = "Hakutulokset näyttävät hotellin arvostelut ja hintaluokan.";
+
+"whatsnew_cycle_navigation_header" = "Polkupyöränavigointi (betaversio)";
+
+"whatsnew_cycle_navigation_message" = "Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.";

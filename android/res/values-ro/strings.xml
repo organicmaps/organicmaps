@@ -914,4 +914,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Navigația pentru biciclete ia în considerare caracteristicile traseului.\n• Creăm trasee mai ușoare, luând în considerare gradul de înclinare al drumului.</string>
 	<string name="whatsnew_booking_2_header">Căutarea hotelurilor este mai ușoară</string>
 	<string name="whatsnew_booking_2_message">Rezultatele de căutare indică nota hotelului și categoria de preț.</string>
+	<string name="whatsnew_cycle_navigation_header">Navigaţie pentru biciclete (versiune beta)</string>
+	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.</string>
 </resources>

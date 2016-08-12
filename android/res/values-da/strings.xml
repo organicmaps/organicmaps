@@ -922,4 +922,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Cykelnavigation tager forbehold for terrænet.\n• Vi opretter lettere ruter baseret på vejens hældning.</string>
 	<string name="whatsnew_booking_2_header">Enkel hotelsøgning</string>
 	<string name="whatsnew_booking_2_message">Søgeresultaterne viser hotelbedømmelser og priskategori.</string>
+	<string name="whatsnew_cycle_navigation_header">Cykelnavigation (beta-version)</string>
+	<string name="whatsnew_cycle_navigation_message">Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.</string>
 </resources>

@@ -917,4 +917,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• A navegação de bicicletas leva em consideração dados de terrenos.\n• Criamos rotas mais fáceis levando inclinação da estrada em consideração.</string>
 	<string name="whatsnew_booking_2_header">Busca fácil de hotel</string>
 	<string name="whatsnew_booking_2_message">Os resultados de busca mostram a avaliação do hotel e a categoria de preço.</string>
+	<string name="whatsnew_cycle_navigation_header">Navegação para bicicleta (versão beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.</string>
 </resources>

@@ -918,4 +918,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Phần mềm dẫn đường dành cho điện thoại dựa trên các dữ liệu về địa hình.\n• Chúng tôi tạo nên những tuyến đường tối ưu dựa trên độ dốc của con đường.</string>
 	<string name="whatsnew_booking_2_header">Tìm kiếm khách sạn dễ dàng</string>
 	<string name="whatsnew_booking_2_message">Kết quả tìm kiếm cho thấy các đánh giá và mức giá của khách sạn.</string>
+	<string name="whatsnew_cycle_navigation_header">Định vị xe đạp (phiên bản beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.</string>
 </resources>

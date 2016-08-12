@@ -917,4 +917,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• La navigazione con biciclette prende in considerazione i dati sul terreno.\n• Abbiamo creato dei percorsi più semplici che prendono in considerazione le pendenze del terreno.</string>
 	<string name="whatsnew_booking_2_header">Ricerca di hotel semplificata</string>
 	<string name="whatsnew_booking_2_message">I risultati di ricerca mostrano la valutazione dell\&#39;hotel e la categoria del prezzo.</string>
+	<string name="whatsnew_cycle_navigation_header">Navigazione in bici (versione beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Stiamo collaudando la navigazione in bici per la nuova stagione. Prova il tuo itinerario ciclistico preferito con MAPS.ME e condividi con noi le tue opinioni.</string>
 </resources>

@@ -918,4 +918,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• A biciklinavigáció figyelembe veszi a terepadatokat.\n• Az út meredekségét figyelembe véve alakítjuk ki az könnyebb útvonalat.</string>
 	<string name="whatsnew_booking_2_header">Könnyű szállodakeresés</string>
 	<string name="whatsnew_booking_2_message">A keresési eredmények megjelenítik a szálloda értékelését és árkategóriáját.</string>
+	<string name="whatsnew_cycle_navigation_header">Kerékpáros navigáció (béta verzió)</string>
+	<string name="whatsnew_cycle_navigation_message">Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.</string>
 </resources>

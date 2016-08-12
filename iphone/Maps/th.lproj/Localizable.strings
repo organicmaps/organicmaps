@@ -1605,3 +1605,7 @@
 "whatsnew_booking_2_header" = "การค้นหาโรงแรมอย่างง่ายดาย";
 
 "whatsnew_booking_2_message" = "ผลการค้นหาจะแสดงการให้คะแนนโรงแรมและหมวดหมู่ราคา";
+
+"whatsnew_cycle_navigation_header" = "การนำทางจักรยาน (beta-version)";
+
+"whatsnew_cycle_navigation_message" = "เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา";

@@ -924,4 +924,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• تضع ملاحة الدراجات بيانات التضاريس في الاعتبار.\n• نحن نخلق طرق أسهل مع الأخذ بعين الاعتبار منحدرات الطريق.</string>
 	<string name="whatsnew_booking_2_header">البحث بسهولة عن فندق</string>
 	<string name="whatsnew_booking_2_message">تظهر نتائج البحث التقييم والفئة السعرية للفندق.</string>
+	<string name="whatsnew_cycle_navigation_header">التوجيه الملاحي مع الدراجات (إصدار تجريبي)</string>
+	<string name="whatsnew_cycle_navigation_message">نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.</string>
 </resources>

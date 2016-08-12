@@ -918,4 +918,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Pyörän navigointi ottaa maaperän huomioon.\n• Loimme helpompia reittejä huomioiden mäet.</string>
 	<string name="whatsnew_booking_2_header">Helppo hotellihaku</string>
 	<string name="whatsnew_booking_2_message">Hakutulokset näyttävät hotellin arvostelut ja hintaluokan.</string>
+	<string name="whatsnew_cycle_navigation_header">Polkupyöränavigointi (betaversio)</string>
+	<string name="whatsnew_cycle_navigation_message">Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.</string>
 </resources>
