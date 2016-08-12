@@ -45,7 +45,7 @@ public final class TrackRecorder
     {
       log("onLocationUpdated()");
       setAwaitTimeout(LOCATION_TIMEOUT_MIN_MS);
-      LocationHelper.INSTANCE.onLocationUpdated(location, false);
+      LocationHelper.INSTANCE.onLocationUpdated(location);
       TrackRecorderWakeService.stop();
     }
 
