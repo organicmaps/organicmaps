@@ -237,12 +237,14 @@ public enum LocationHelper
       startInternal();
   }
 
-  public void onLocationUpdated(@NonNull Location location)
+  public void onLocationUpdated(@NonNull Location location, boolean notify)
   {
     mSavedLocation = location;
     mMyPosition = null;
     mSavedLocationTime = System.currentTimeMillis();
-    notifyLocationUpdated();
+
+    if (notify)
+      notifyLocationUpdated();
   }
 
   /**

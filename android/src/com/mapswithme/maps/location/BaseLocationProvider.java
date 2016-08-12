@@ -41,7 +41,7 @@ abstract class BaseLocationProvider implements LocationListener
     if (isLocationBetterThanLast(location))
     {
       LocationHelper.INSTANCE.resetMagneticField(location);
-      LocationHelper.INSTANCE.onLocationUpdated(location);
+      LocationHelper.INSTANCE.onLocationUpdated(location, true);
     }
   }
 
