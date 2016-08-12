@@ -139,6 +139,12 @@ Default is 40.
 * `DELTA_WITH`: a path to an older map directory, to compare with the freshly
 generated data in the testing step.
 Can be empty. Example: `$(ls ../../data/borders/{UK*,Ireland}.poly)`.
+* `OSRM_URL`: address of an OSRM server to calculate worldwide routes.
+* `SRTM_PATH`: a path to `*.zip` files with SRTM data.
+* `OSC`: a path to an osmChange file to apply after updating the planet.
+* `BOOKING_FILE`: a path to hotels.csv with booking data.
+* `BOOKING_USER` and `BOOKING_PATH`: user name and password for booking.com API
+to download hotels data.
 
 ### Testing
 
