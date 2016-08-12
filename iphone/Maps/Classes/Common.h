@@ -87,6 +87,12 @@ static inline BOOL equalScreenDimensions(CGFloat left, CGFloat right)
   return fabs(left - right) < 0.5;
 }
 
+static inline CGFloat statusBarHeight()
+{
+  CGSize const statusBarSize = [UIApplication sharedApplication].statusBarFrame.size;
+  return MIN(statusBarSize.height, statusBarSize.width);
+}
+
 static inline void runAsyncOnMainQueue(dispatch_block_t block)
 {
   dispatch_async(dispatch_get_main_queue(), block);
