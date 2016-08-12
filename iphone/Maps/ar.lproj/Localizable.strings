@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "استمرار";
 
 "recent_track_background_dialog_message" = "يستخدم MAPS.ME موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.";
+
+"whatsnew_car_navigation_header" = "ملاحة المركبات سهلة الاستخدام";
+
+"whatsnew_car_navigation_message" = "• تستحوذ عناصر الملاحة على مساحة أقل.\n• نحن نعرض السرعة كما وأضفنا كذلك التكبير التلقائي.";
+
+"whatsnew_cycle_navigation_2_header" = "ملاحة الدراجات";
+
+"whatsnew_cycle_navigation_2_message" = "• تضع ملاحة الدراجات بيانات التضاريس في الاعتبار.\n• نحن نخلق طرق أسهل مع الأخذ بعين الاعتبار منحدرات الطريق.";
+
+"whatsnew_booking_2_header" = "البحث بسهولة عن فندق";
+
+"whatsnew_booking_2_message" = "تظهر نتائج البحث التقييم والفئة السعرية للفندق.";

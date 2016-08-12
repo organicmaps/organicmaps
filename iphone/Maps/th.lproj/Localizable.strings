@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "ดำเนินการต่อ";
 
 "recent_track_background_dialog_message" = "MAPS.ME ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้";
+
+"whatsnew_car_navigation_header" = "การนำทางยานพาหนะอย่างเป็นมิตรต่อผู้ใช้";
+
+"whatsnew_car_navigation_message" = "• องค์ประกอบการนำทางใช้พื้นที่น้อยลง\n• เราแสดงความเร็ว และได้เพิ่มการซูมอัตโนมัติ";
+
+"whatsnew_cycle_navigation_2_header" = "การนำทางจักรยาน";
+
+"whatsnew_cycle_navigation_2_message" = "• การนำทางจักรยานพิจารณาถึงข้อมูลด้านภูมิประเทศ\n• เราสร้างเส้นทางที่ง่ายยิ่งขึ้นโดยพิจารณาถึงความลาดเอียงของถนน";
+
+"whatsnew_booking_2_header" = "การค้นหาโรงแรมอย่างง่ายดาย";
+
+"whatsnew_booking_2_message" = "ผลการค้นหาจะแสดงการให้คะแนนโรงแรมและหมวดหมู่ราคา";

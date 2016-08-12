@@ -916,4 +916,10 @@
 	<string name="sharing_call_action_look">Bekijk</string>
 	<string name="continue_recent_track_background_button">Verdergaan</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.</string>
+	<string name="whatsnew_car_navigation_header">Gebruikersvriendelijke voertuignavigatie</string>
+	<string name="whatsnew_car_navigation_message">• De navigatie-elementen nemen minder ruimte in beslag.\n• We tonen de snelheid en hebben automatisch zoomen toegevoegd.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Fietsnavigatie</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Fietsnavigatie houdt rekening met terreingegevens.\n• We maken eenvoudigere routes waarbij rekening wordt gehouden met hellingen.</string>
+	<string name="whatsnew_booking_2_header">Eenvoudig zoeken naar hotels</string>
+	<string name="whatsnew_booking_2_message">De zoekresultaten voor hotels tonen de hotelbeoordeling en prijscategorie.</string>
 </resources>

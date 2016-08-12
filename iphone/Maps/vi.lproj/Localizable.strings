@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "Tiếp tục";
 
 "recent_track_background_dialog_message" = "MAPS.ME sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.";
+
+"whatsnew_car_navigation_header" = "Phần mềm dẫn đường dành cho xe cộ thân thiện với người dùng";
+
+"whatsnew_car_navigation_message" = "• Các thành phần của phần mềm dẫn đường chiếm ít bộ nhớ.\n• Phần mềm có hiển thị tốc độ và đã được thêm tính năng tự động thu phóng.";
+
+"whatsnew_cycle_navigation_2_header" = "Phần mềm dẫn đường dành cho xe đạp";
+
+"whatsnew_cycle_navigation_2_message" = "• Phần mềm dẫn đường dành cho điện thoại dựa trên các dữ liệu về địa hình.\n• Chúng tôi tạo nên những tuyến đường tối ưu dựa trên độ dốc của con đường.";
+
+"whatsnew_booking_2_header" = "Tìm kiếm khách sạn dễ dàng";
+
+"whatsnew_booking_2_message" = "Kết quả tìm kiếm cho thấy các đánh giá và mức giá của khách sạn.";

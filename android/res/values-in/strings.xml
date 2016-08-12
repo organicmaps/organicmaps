@@ -915,4 +915,10 @@
 	<string name="sharing_call_action_look">Lihat</string>
 	<string name="continue_recent_track_background_button">Teruskan</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.</string>
+	<string name="whatsnew_car_navigation_header">Navigasi kendaraan yang mudah digunakan</string>
+	<string name="whatsnew_car_navigation_message">• Elemen-elemen navigasi membutuhkan ruang lebih sedikit\n• Kami menampilkan kecepatan dan telah menambahkan zoom otomatis</string>
+	<string name="whatsnew_cycle_navigation_2_header">Navigasi sepeda</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Navigasi sepeda menghitung data medan\n• Kami membuat rute lebih mudah dengan menghitung kemiringan jalan</string>
+	<string name="whatsnew_booking_2_header">Pencarian hotel mudah</string>
+	<string name="whatsnew_booking_2_message">Hasil pencarian menampilkan kategori peringkat dan harga hotel</string>
 </resources>

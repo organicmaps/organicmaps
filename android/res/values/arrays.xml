@@ -97,8 +97,9 @@
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whatsnew_booking_message</item>
-    <item>@string/whatsnew_cycle_navigation_message</item>
+    <item>@string/whatsnew_car_navigation_message</item>
+    <item>@string/whatsnew_cycle_navigation_2_message</item>
+    <item>@string/whatsnew_booking_2_message</item>
   </string-array>
 
   <string-array name="news_messages_2">

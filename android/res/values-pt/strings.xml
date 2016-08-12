@@ -915,4 +915,10 @@
 	<string name="sharing_call_action_look">Procure</string>
 	<string name="continue_recent_track_background_button">Continuar</string>
 	<string name="recent_track_background_dialog_message">O MAPS.ME usa sua localização geográfica em segundo plano para registrar sua rota recente.</string>
+	<string name="whatsnew_car_navigation_header">Navegação de veículos de fácil utilização</string>
+	<string name="whatsnew_car_navigation_message">• Os elementos da navegação ocupam menos espaço.\n• Exibimos a velocidade e acrescentamos ampliação automática.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Navegação de bicicletas</string>
+	<string name="whatsnew_cycle_navigation_2_message">• A navegação de bicicletas leva em consideração dados de terrenos.\n• Criamos rotas mais fáceis levando inclinação da estrada em consideração.</string>
+	<string name="whatsnew_booking_2_header">Busca fácil de hotel</string>
+	<string name="whatsnew_booking_2_message">Os resultados de busca mostram a avaliação do hotel e a categoria de preço.</string>
 </resources>

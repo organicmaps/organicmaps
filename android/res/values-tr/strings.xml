@@ -922,4 +922,10 @@
 	<string name="sharing_call_action_look">İncele</string>
 	<string name="continue_recent_track_background_button">Devam Et</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
+	<string name="whatsnew_car_navigation_header">Kullanıcı dostu araç navigasyonu</string>
+	<string name="whatsnew_car_navigation_message">• Navigasyon ögeleri daha az yer kaplıyor.\n• Hızı gösteriyoruz ve otomatik yakınlaştırma ilave ettik.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Bisiklet navigasyonu</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Bisiklet navigasyonu arazi verilerini hesaba katar.\n• Yol eğimlerini hesaba katarak daha kolay rotalar oluşturuyoruz.</string>
+	<string name="whatsnew_booking_2_header">Kolay otel arama</string>
+	<string name="whatsnew_booking_2_message">Arama sonuçları otel puan ve fiyat kategorisini gösterir.</string>
 </resources>

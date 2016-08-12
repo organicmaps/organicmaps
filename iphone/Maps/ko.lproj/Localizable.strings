@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "계속";
 
 "recent_track_background_dialog_message" = "MAPS.ME는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
+
+"whatsnew_car_navigation_header" = "사용자 친화적인 차량 네비게이션";
+
+"whatsnew_car_navigation_message" = "• 탐색 요소는 더 적은 공간을 차지합니다.\n• 저희는 속도를 표시하고 자동 줌을 추가했습니다.";
+
+"whatsnew_cycle_navigation_2_header" = "자전거 네비게이션";
+
+"whatsnew_cycle_navigation_2_message" = "• 자전거 탐색은 계정 지형 데이터를 고려합니다.\n• 저희는 계정 도로 경사를 고려하여 쉽게 경로를 만들 수 있습니다.";
+
+"whatsnew_booking_2_header" = "쉬운 호텔 검색";
+
+"whatsnew_booking_2_message" = "검색 결과는 호텔 평가 및 가격 범주를 표시합니다.";

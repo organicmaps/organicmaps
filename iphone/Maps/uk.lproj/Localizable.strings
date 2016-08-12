@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "Продовжити";
 
 "recent_track_background_dialog_message" = "MAPS.ME використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.";
+
+"whatsnew_car_navigation_header" = "Режим автонавігації став зручнішим";
+
+"whatsnew_car_navigation_message" = "• Елементи навігації займають менше місця.\n• Показуємо швидкість і додали автозум.";
+
+"whatsnew_cycle_navigation_2_header" = "Велонавігація";
+
+"whatsnew_cycle_navigation_2_message" = "• Велонавігація враховує дані про рельєф.\n• Ми будуємо оптимальний маршрут з урахуванням перепаду висот.";
+
+"whatsnew_booking_2_header" = "Пошук готелів став простішим";
+
+"whatsnew_booking_2_message" = "При пошуку відображається рейтинг і цінова категорія готелю.";

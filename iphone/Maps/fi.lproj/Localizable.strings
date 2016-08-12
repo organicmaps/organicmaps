@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "Jatka";
 
 "recent_track_background_dialog_message" = "MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.";
+
+"whatsnew_car_navigation_header" = "Käyttäjäystävällinen kulkuneuvon navigointi";
+
+"whatsnew_car_navigation_message" = "• Navigointielementit vievät vähemmän tilaa.\n• Näytämme nopeutesi ja lisäsimme automaattisen zoomauksen.";
+
+"whatsnew_cycle_navigation_2_header" = "Pyörän navigointi";
+
+"whatsnew_cycle_navigation_2_message" = "• Pyörän navigointi ottaa maaperän huomioon.\n• Loimme helpompia reittejä huomioiden mäet.";
+
+"whatsnew_booking_2_header" = "Helppo hotellihaku";
+
+"whatsnew_booking_2_message" = "Hakutulokset näyttävät hotellin arvostelut ja hintaluokan.";
