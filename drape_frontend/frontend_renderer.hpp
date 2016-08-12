@@ -243,6 +243,8 @@ private:
 
   void ProcessSelection(ref_ptr<SelectObjectMessage> msg);
 
+  void OnCacheRouteArrows(int routeIndex, vector<ArrowBorders> const & borders);
+
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
   struct RenderLayer

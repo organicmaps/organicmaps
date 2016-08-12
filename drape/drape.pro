@@ -33,7 +33,7 @@ OTHER_FILES += \
     shaders/my_position_shader.vsh \
     shaders/path_symbol_vertex_shader.vsh \
     shaders/position_accuracy3d_shader.vsh \
-    shaders/route_arrow_fragment_shader.fsh \
+    shaders/route_arrow_vertex_shader.vsh \
     shaders/route_dash_fragment_shader.fsh \
     shaders/route_fragment_shader.fsh \
     shaders/route_vertex_shader.vsh \

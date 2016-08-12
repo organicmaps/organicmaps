@@ -18,6 +18,16 @@ namespace df
 
 double const kArrowSize = 0.001;
 
+// Constants below depend on arrow texture.
+double const kArrowHeadSize = 124.0 / 400.0;
+float const kArrowHeadFactor = 124.0f / 96.0f;
+
+double const kArrowTailSize = 20.0 / 400.0;
+float const kArrowTailFactor = 20.0f / 96.0f;
+
+double const kArrowHeightFactor = 96.0 / 36.0;
+double const kArrowAspect = 400.0 / 192.0;
+
 struct RoutePattern
 {
   bool m_isDashed = false;
@@ -33,13 +43,6 @@ struct RoutePattern
   {}
 };
 
-struct RouteJoinBounds
-{
-  double m_start = 0;
-  double m_end = 0;
-  double m_offset = 0;
-};
-
 struct RouteRenderProperty
 {
   dp::GLState m_state;
@@ -47,24 +50,21 @@ struct RouteRenderProperty
   RouteRenderProperty() : m_state(0, dp::GLState::GeometryLayer) {}
 };
 
-struct ArrowRenderProperty
+struct ArrowBorders
 {
-  vector<RouteJoinBounds> m_joinsBounds;
-  vector<double> m_turns;
-  double m_start;
-  double m_end;
-  RouteRenderProperty m_arrow;
+  double m_startDistance = 0;
+  double m_endDistance = 0;
+  int m_groupIndex = 0;
 };
 
 struct RouteData
 {
+  int m_routeIndex;
   m2::PolylineD m_sourcePolyline;
   vector<double> m_sourceTurns;
   df::ColorConstant m_color;
-  m2::RectF m_arrowTextureRect;
   double m_length;
   RouteRenderProperty m_route;
-  vector<drape_ptr<ArrowRenderProperty>> m_arrows;
   RoutePattern m_pattern;
 };
 
@@ -76,24 +76,32 @@ struct RouteSignData
   m2::PointD m_position;
 };
 
+struct RouteArrowsData
+{
+  RouteRenderProperty m_arrows;
+};
+
 class RouteShape
 {
 public:
-  RouteShape(CommonViewParams const & params);
-  void CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData & routeSignData);
-  void Draw(ref_ptr<dp::TextureManager> textures, RouteData & routeData);
+  using RV = gpu::RouteVertex;
+  using TGeometryBuffer = buffer_vector<RV, 128>;
+  using AV = gpu::SolidTexturingVertex;
+  using TArrowGeometryBuffer = buffer_vector<AV, 128>;
+
+  static void CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & routeData);
+  static void CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData & routeSignData);
+  static void CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
+                               vector<ArrowBorders> const & borders, RouteArrowsData & routeArrowsData);
 
 private:
-  using RV = gpu::RouteVertex;
-  using TGeometryBuffer = buffer_vector<gpu::RouteVertex, 128>;
-
-  void PrepareGeometry(bool isRoute, vector<m2::PointD> const & path,
-                       TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry,
-                       vector<RouteJoinBounds> & joinsBounds, double & outputLength);
-  void BatchGeometry(dp::GLState const & state, TGeometryBuffer & geometry,
-                     TGeometryBuffer & joinsGeometry, RouteRenderProperty & property);
-
-  CommonViewParams m_params;
+  static void PrepareGeometry(vector<m2::PointD> const & path, TGeometryBuffer & geometry,
+                              TGeometryBuffer & joinsGeometry, double & outputLength);
+  static void PrepareArrowGeometry(vector<m2::PointD> const & path, m2::RectF const & texRect, float depth,
+                                   TArrowGeometryBuffer & geometry, TArrowGeometryBuffer & joinsGeometry);
+  static void BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, size_t geomSize,
+                            ref_ptr<void> joinsGeometry, size_t joinsGeomSize,
+                            dp::BindingInfo const & bindingInfo, RouteRenderProperty & property);
 };
 
 } // namespace df

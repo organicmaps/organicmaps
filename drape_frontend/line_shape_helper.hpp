@@ -3,6 +3,8 @@
 #include "drape/drape_global.hpp"
 #include "drape/glsl_types.hpp"
 
+#include "geometry/rect2d.hpp"
+
 #include "std/vector.hpp"
 
 namespace df
@@ -55,7 +57,8 @@ void ConstructLineSegments(vector<m2::PointD> const & path, vector<LineSegment> 
 void UpdateNormals(LineSegment * segment, LineSegment * prevSegment, LineSegment * nextSegment);
 
 void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                         float halfWidth, bool isLeft, float widthScalar, vector<glsl::vec2> & normals);
+                         float halfWidth, bool isLeft, float widthScalar, vector<glsl::vec2> & normals,
+                         vector<glsl::vec2> * uv = nullptr);
 
 void GenerateCapNormals(dp::LineCap capType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
                         glsl::vec2 const & direction, float halfWidth, bool isStart, vector<glsl::vec2> & normals);

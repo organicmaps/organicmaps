@@ -89,6 +89,26 @@ public:
     return m_points[idx];
   }
 
+  Point<T> GetPointByDistance(T distance) const
+  {
+    if (distance < 0)
+      return m_points.front();
+
+    T dist = 0;
+    for (size_t i = 1; i < m_points.size(); ++i)
+    {
+      T const oldDist = dist;
+      dist += m_points[i - 1].Length(m_points[i]);
+      if (distance <= dist)
+      {
+        T const t = (distance - oldDist) / (dist - oldDist);
+        return m_points[i - 1] * (1 - t) + m_points[i] * t;
+      }
+    }
+
+    return m_points.back();
+  }
+
   vector<Point<T> > const & GetPoints() const { return m_points; }
 
   friend string DebugPrint(PolylineT<T> const & p)

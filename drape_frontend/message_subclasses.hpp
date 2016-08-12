@@ -589,6 +589,24 @@ private:
   bool const m_isValid;
 };
 
+class CacheRouteArrowsMessage : public Message
+{
+public:
+  CacheRouteArrowsMessage(int routeIndex, vector<ArrowBorders> const & borders)
+    : m_routeIndex(routeIndex)
+    , m_borders(borders)
+  {}
+
+  Type GetType() const override { return Message::CacheRouteArrows; }
+
+  int GetRouteIndex() const { return m_routeIndex; }
+  vector<ArrowBorders> const & GetBorders() const { return m_borders; }
+
+private:
+  int m_routeIndex;
+  vector<ArrowBorders> m_borders;
+};
+
 class RemoveRouteMessage : public Message
 {
 public:
@@ -616,6 +634,20 @@ public:
 
 private:
   drape_ptr<RouteData> m_routeData;
+};
+
+class FlushRouteArrowsMessage : public Message
+{
+public:
+  FlushRouteArrowsMessage(drape_ptr<RouteArrowsData> && routeArrowsData)
+    : m_routeArrowsData(move(routeArrowsData))
+  {}
+
+  Type GetType() const override { return Message::FlushRouteArrows; }
+  drape_ptr<RouteArrowsData> && AcceptRouteArrowsData() { return move(m_routeArrowsData); }
+
+private:
+  drape_ptr<RouteArrowsData> m_routeArrowsData;
 };
 
 class FlushRouteSignMessage : public Message
