@@ -54,6 +54,9 @@ if [ -n "$DELTA_WITH" ]; then
   echo
   echo "### SIZE DIFFERENCE WITH $DELTA_WITH"
   python "$SCRIPT_PATH/diff_size.py" "$TARGET" "$DELTA_WITH" 5
+  echo
+  echo "Size of old data: $(ls -l "$DELTA_WITH/*.mwm" | awk '{ total += $5 }; END { print total/1024/1024/1024 }') GB"
+  echo "Size of new data: $(ls -l     "$TARGET/*.mwm" | awk '{ total += $5 }; END { print total/1024/1024/1024 }') GB"
 fi
 
 # For generator_tool, we create a temporary directory with symlinks to all maps
@@ -108,7 +111,7 @@ echo '### INTEGRATION TESTS'
 # Step 5: run consistency tests
 echo
 echo '### CONSISTENCY TEST'
-"$(dirname "$GENERATOR_TOOL")/routing_consistency_test" "--data_path=$FTARGET/../" "--user_resource_path=$OMIM_PATH/data/" "--input_file=$OMIM_PATH/data/routing_statistics.log" 2>&1
+"$(dirname "$GENERATOR_TOOL")/routing_consistency_test" "--data_path=$FTARGET/../" "--user_resource_path=$OMIM_PATH/data/" "--input_file=$OMIM_PATH/data/routing_statistics.log" 2>&1 || true
 
 # Clean the temporary directory
 rm -r "$FTARGET"

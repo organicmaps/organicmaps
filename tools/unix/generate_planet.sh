@@ -278,6 +278,10 @@ if [ "$MODE" == "coast" ]; then
       (
         cd "$OSMCTOOLS" # osmupdate requires osmconvert in a current directory
         ./osmupdate --drop-author --drop-version --out-o5m -v "$PLANET_ABS" "$PLANET_ABS.new.o5m"
+        if [ -f "${OSC-}" ]; then
+          ./osmconvert "$PLANET_ABS.new.o5m" "$OSC" -o="$PLANET_ABS.merged.o5m"
+          mv -f "$PLANET_ABS.merged.o5m" "$PLANET_ABS.new.o5m"
+        fi
       ) >> "$PLANET_LOG" 2>&1
       mv "$PLANET.new.o5m" "$PLANET"
     fi
