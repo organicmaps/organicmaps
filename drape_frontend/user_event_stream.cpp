@@ -651,11 +651,6 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
     isMapTouch = false;
     break;
   case STATE_TAP_DETECTION:
-    if (CheckDrag(touches, kDragThreshold))
-      CancelTapDetector();
-    else
-      EndTapDetector(touches[0]);
-    break;
   case STATE_WAIT_DOUBLE_TAP:
     if (CheckDrag(touches, kDragThreshold))
       CancelTapDetector();
