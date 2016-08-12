@@ -47,17 +47,38 @@ namespace languages
 
 void GetSystemPreferred(vector<string> & languages)
 {
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
-  // Mac and iOS implementation
-  CFArrayRef langs = CFLocaleCopyPreferredLanguages();
-  char buf[30];
-  for (CFIndex i = 0; i < CFArrayGetCount(langs); ++i)
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE) || defined(OMIM_OS_LINUX)
+  // check environment variables
+  char const * p = getenv("LANGUAGE");
+  if (p && strlen(p))  // LANGUAGE can contain several values divided by ':'
   {
-    CFStringRef strRef = (CFStringRef)CFArrayGetValueAtIndex(langs, i);
-    CFStringGetCString(strRef, buf, 30, kCFStringEncodingUTF8);
-    languages.push_back(buf);
+    string const str(p);
+    strings::SimpleTokenizer iter(str, ":");
+    for (; iter; ++iter)
+      languages.push_back(*iter);
   }
-  CFRelease(langs);
+  else if ((p = getenv("LC_ALL")))
+    languages.push_back(p);
+  else if ((p = getenv("LC_MESSAGES")))
+    languages.push_back(p);
+  else if ((p = getenv("LANG")))
+    languages.push_back(p);
+
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
+  else
+  {
+    // Mac and iOS implementation
+    CFArrayRef langs = CFLocaleCopyPreferredLanguages();
+    char buf[30];
+    for (CFIndex i = 0; i < CFArrayGetCount(langs); ++i)
+    {
+      CFStringRef strRef = (CFStringRef)CFArrayGetValueAtIndex(langs, i);
+      CFStringGetCString(strRef, buf, 30, kCFStringEncodingUTF8);
+      languages.push_back(buf);
+    }
+    CFRelease(langs);
+  }
+#endif
 
 #elif defined(OMIM_OS_WINDOWS)
   // if we're on Vista or above, take list of preferred languages
@@ -99,26 +120,6 @@ void GetSystemPreferred(vector<string> & languages)
         break;
       }
   }
-
-#elif defined(OMIM_OS_LINUX)
-  // check environment variables
-  char const * p = getenv("LANGUAGE");
-  if (p && strlen(p)) // LANGUAGE can contain several values divided by ':'
-  {
-    string const str(p);
-    strings::SimpleTokenizer iter(str, ":");
-    while (iter)
-    {
-      languages.push_back(*iter);
-      ++iter;
-    }
-  }
-  else if ((p = getenv("LC_ALL")))
-    languages.push_back(p);
-  else if ((p = getenv("LC_MESSAGES")))
-    languages.push_back(p);
-  else if ((p = getenv("LANG")))
-    languages.push_back(p);
 
 #elif defined(OMIM_OS_ANDROID)
   languages.push_back(GetAndroidSystemLanguage());
