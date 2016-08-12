@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "Fortsetzen";
 
 "recent_track_background_dialog_message" = "MAPS.ME verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.";
+
+"whatsnew_car_navigation_header" = "Benutzerfreundliche Fahrzeug-Navigation";
+
+"whatsnew_car_navigation_message" = "• Die Navigationselemente benötigen weniger Platz.\n• Wir zeigen die Geschwindigkeit und haben Auto-Zoom hinzugefügt.";
+
+"whatsnew_cycle_navigation_2_header" = "Fahrrad-Navigation";
+
+"whatsnew_cycle_navigation_2_message" = "• Fahrrad-Navigation berechnet jetzt auch Geländedaten.\n• Wir erstellen weniger anstrengende Routen, um Gefälle zu berücksichtigen.";
+
+"whatsnew_booking_2_header" = "Einfache Hotelsuche";
+
+"whatsnew_booking_2_message" = "Die Suchergebnisse zeigen die Bewertung und die Preiskategorie des Hotels.";

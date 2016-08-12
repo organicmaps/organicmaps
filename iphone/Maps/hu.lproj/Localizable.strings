@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "Folytatás";
 
 "recent_track_background_dialog_message" = "A MAPS.ME a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.";
+
+"whatsnew_car_navigation_header" = "Felhasználóbarát járműnavigáció";
+
+"whatsnew_car_navigation_message" = "• A navigációs elemek kevesebb helyet foglalnak.\n• Megjelenítjük a sebességet és hozzáadtunk egy automatikus nagyítási lehetőséget is.";
+
+"whatsnew_cycle_navigation_2_header" = "Biciklinavigáció";
+
+"whatsnew_cycle_navigation_2_message" = "• A biciklinavigáció figyelembe veszi a terepadatokat.\n• Az út meredekségét figyelembe véve alakítjuk ki az könnyebb útvonalat.";
+
+"whatsnew_booking_2_header" = "Könnyű szállodakeresés";
+
+"whatsnew_booking_2_message" = "A keresési eredmények megjelenítik a szálloda értékelését és árkategóriáját.";

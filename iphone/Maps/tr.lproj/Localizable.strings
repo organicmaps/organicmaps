@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "Devam Et";
 
 "recent_track_background_dialog_message" = "MAPS.ME, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
+
+"whatsnew_car_navigation_header" = "Kullanıcı dostu araç navigasyonu";
+
+"whatsnew_car_navigation_message" = "• Navigasyon ögeleri daha az yer kaplıyor.\n• Hızı gösteriyoruz ve otomatik yakınlaştırma ilave ettik.";
+
+"whatsnew_cycle_navigation_2_header" = "Bisiklet navigasyonu";
+
+"whatsnew_cycle_navigation_2_message" = "• Bisiklet navigasyonu arazi verilerini hesaba katar.\n• Yol eğimlerini hesaba katarak daha kolay rotalar oluşturuyoruz.";
+
+"whatsnew_booking_2_header" = "Kolay otel arama";
+
+"whatsnew_booking_2_message" = "Arama sonuçları otel puan ve fiyat kategorisini gösterir.";

@@ -919,4 +919,10 @@
 	<string name="sharing_call_action_look">Pozrite si</string>
 	<string name="continue_recent_track_background_button">Pokračovať</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
+	<string name="whatsnew_car_navigation_header">Užívateľsky prívetivá navigácia do vozidiel</string>
+	<string name="whatsnew_car_navigation_message">• Navigačné prvky zaberajú menej miesta.\n• Zobrazujeme rýchlosť a pridali sme auto zoom.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Navigácia na bicykle</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Navigácia na bicykle berie do úvahy terénne dáta.\n• Tvoríme ľahšie trasy s prihliadnutím na sklon ciest.</string>
+	<string name="whatsnew_booking_2_header">Jednoduché vyhľadávanie hotelov</string>
+	<string name="whatsnew_booking_2_message">Výsledky vyhľadávania ukazujú hodnotenie hotelov a cenové kategórie.</string>
 </resources>

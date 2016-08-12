@@ -916,4 +916,10 @@
 	<string name="sharing_call_action_look">Tekintse meg</string>
 	<string name="continue_recent_track_background_button">Folytatás</string>
 	<string name="recent_track_background_dialog_message">A MAPS.ME a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
+	<string name="whatsnew_car_navigation_header">Felhasználóbarát járműnavigáció</string>
+	<string name="whatsnew_car_navigation_message">• A navigációs elemek kevesebb helyet foglalnak.\n• Megjelenítjük a sebességet és hozzáadtunk egy automatikus nagyítási lehetőséget is.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Biciklinavigáció</string>
+	<string name="whatsnew_cycle_navigation_2_message">• A biciklinavigáció figyelembe veszi a terepadatokat.\n• Az út meredekségét figyelembe véve alakítjuk ki az könnyebb útvonalat.</string>
+	<string name="whatsnew_booking_2_header">Könnyű szállodakeresés</string>
+	<string name="whatsnew_booking_2_message">A keresési eredmények megjelenítik a szálloda értékelését és árkategóriáját.</string>
 </resources>

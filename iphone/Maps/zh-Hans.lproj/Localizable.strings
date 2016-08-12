@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "继续";
 
 "recent_track_background_dialog_message" = "MAPS.ME使用背景中的地理位置记录您最近去过的路径。";
+
+"whatsnew_car_navigation_header" = "方便用户使用的车辆导航";
+
+"whatsnew_car_navigation_message" = "• 导航元素所占用的空间更小。\n• 我们显示了速度并且已经添加了自动缩放功能。";
+
+"whatsnew_cycle_navigation_2_header" = "自行车导航";
+
+"whatsnew_cycle_navigation_2_message" = "• 自行车导航考虑了地形数据。\n• 考虑到道路斜坡，我们创建了更加优化便捷的路线。";
+
+"whatsnew_booking_2_header" = "便捷的酒店搜索";
+
+"whatsnew_booking_2_message" = "该搜索结果显示酒店星级和价格分类。";

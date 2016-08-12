@@ -954,4 +954,10 @@
 	<string name="sharing_call_action_look">Check out</string>
 	<string name="continue_recent_track_background_button">Continue</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME uses your geoposition in the background for recording your recently traveled route.</string>
+	<string name="whatsnew_car_navigation_header">User-friendly vehicle navigation</string>
+	<string name="whatsnew_car_navigation_message">• The navigation elements take up less space.\n• We display the speed and have added auto zoom.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Bike navigation</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Bike navigation takes into account terrain data.\n• We create easier routes taking into account road inclines.</string>
+	<string name="whatsnew_booking_2_header">Easy hotel search</string>
+	<string name="whatsnew_booking_2_message">The search results show the hotel rating and price category.</string>
 </resources>

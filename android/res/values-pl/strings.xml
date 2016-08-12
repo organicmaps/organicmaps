@@ -933,4 +933,10 @@
 	<string name="sharing_call_action_look">Sprawdź</string>
 	<string name="continue_recent_track_background_button">Kontynuuj</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.</string>
+	<string name="whatsnew_car_navigation_header">Przyjazna użytkownikowi nawigacja dla pojazdów</string>
+	<string name="whatsnew_car_navigation_message">• Elementy nawigacji zajmują mniej miejsca.\n• Wyświetlamy prędkość i dodaliśmy automatyczny zoom.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Nawigacja dla rowerów</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Nawigacja dla rowerów bierze pod uwagę dane terenu.\n• Tworzymy łatwiejsze trasy, biorąc pod uwagę nachylenie dróg.</string>
+	<string name="whatsnew_booking_2_header">Łatwe wyszukiwanie hoteli</string>
+	<string name="whatsnew_booking_2_message">Wyniki wyszukiwania pokazują kategorie oceny hoteli i ceny.</string>
 </resources>

@@ -911,4 +911,10 @@
 	<string name="sharing_call_action_look">Comprueba</string>
 	<string name="continue_recent_track_background_button">Continuar</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME usa tu geolocalización en segundo plano para registrar tu ruta recorrida recientemente.</string>
+	<string name="whatsnew_car_navigation_header">Navegación en vehículo intuitiva</string>
+	<string name="whatsnew_car_navigation_message">• Los elementos de navegación ocupan menos espacio.\n• Se muestra la velocidad y se ha añadido zoom automático.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Navegación en bicicleta</string>
+	<string name="whatsnew_cycle_navigation_2_message">• La navegación en bicicleta tiene en cuenta la información del terreno.\n• Hemos creado rutas más fáciles basándonos en las inclinaciones de carretera.</string>
+	<string name="whatsnew_booking_2_header">Búsqueda de hoteles fácil</string>
+	<string name="whatsnew_booking_2_message">Los resultados de búsqueda muestran la valoración del hotel y la categoría de precios.</string>
 </resources>

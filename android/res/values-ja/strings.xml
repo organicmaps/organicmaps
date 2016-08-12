@@ -915,4 +915,10 @@
 	<string name="sharing_call_action_look">ご覧ください</string>
 	<string name="continue_recent_track_background_button">続行</string>
 	<string name="recent_track_background_dialog_message">MAPS.MEは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
+	<string name="whatsnew_car_navigation_header">ユーザーフレンドリーなカーナビゲーション</string>
+	<string name="whatsnew_car_navigation_message">• ナビゲーションエレメントに必要なスペースが削減されました。\n• 速度の表示と自動ズームが追加されました。</string>
+	<string name="whatsnew_cycle_navigation_2_header">自転車用ナビゲーション</string>
+	<string name="whatsnew_cycle_navigation_2_message">• 自転車用ナビゲーションはサイクリングコースのデータも使用します。\n• 道の傾斜を考え、最も走りやすいルートを作成します。</string>
+	<string name="whatsnew_booking_2_header">簡単ホテル検索</string>
+	<string name="whatsnew_booking_2_message">検索結果にホテルの評価と宿泊料カテゴリーが表示されます。</string>
 </resources>

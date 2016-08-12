@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "Pokračovat";
 
 "recent_track_background_dialog_message" = "MAPS.ME používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.";
+
+"whatsnew_car_navigation_header" = "Uživatelsky přívětivá navigace pro vozidla";
+
+"whatsnew_car_navigation_message" = "• Navigační prvky zabírají méně místa.\n• Zobrazujeme rychlost a přidali jsme automatické zvětšení.";
+
+"whatsnew_cycle_navigation_2_header" = "Navigace pro kola";
+
+"whatsnew_cycle_navigation_2_message" = "• Navigace pro kola bere v potaz data o terénu.\n• Bereme v úvahu sklon cesty a vytváříme snazší trasy.";
+
+"whatsnew_booking_2_header" = "Snadné hledání hotelu";
+
+"whatsnew_booking_2_message" = "Výsledky hledání zobrazují hodnocení a cenovou kategorii hotelu.";

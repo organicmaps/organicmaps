@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "Fortsett";
 
 "recent_track_background_dialog_message" = "MAPS.ME bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.";
+
+"whatsnew_car_navigation_header" = "Brukervennlig navigeringssystem for kjøretøy";
+
+"whatsnew_car_navigation_message" = "• Navigeringselementene tar mindre plass.\n• Programmet viser farten du reiser i og innebærer en automatisk zoomingsfunksjon.";
+
+"whatsnew_cycle_navigation_2_header" = "Sykkelnavigasjon";
+
+"whatsnew_cycle_navigation_2_message" = "• Sykkelnavigasjon medberegner informasjon om terrenget.\n• Programmet viser hvilke stier som er enklere og mindre bratt.";
+
+"whatsnew_booking_2_header" = "Forenkelt hotellsøk";
+
+"whatsnew_booking_2_message" = "Søkeresultatene rangerer hotellene etter omdømme og priskategorier.";

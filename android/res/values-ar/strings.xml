@@ -922,4 +922,10 @@
 	<string name="sharing_call_action_look">انظر</string>
 	<string name="continue_recent_track_background_button">استمرار</string>
 	<string name="recent_track_background_dialog_message">يستخدم MAPS.ME موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.</string>
+	<string name="whatsnew_car_navigation_header">ملاحة المركبات سهلة الاستخدام</string>
+	<string name="whatsnew_car_navigation_message">• تستحوذ عناصر الملاحة على مساحة أقل.\n• نحن نعرض السرعة كما وأضفنا كذلك التكبير التلقائي.</string>
+	<string name="whatsnew_cycle_navigation_2_header">ملاحة الدراجات</string>
+	<string name="whatsnew_cycle_navigation_2_message">• تضع ملاحة الدراجات بيانات التضاريس في الاعتبار.\n• نحن نخلق طرق أسهل مع الأخذ بعين الاعتبار منحدرات الطريق.</string>
+	<string name="whatsnew_booking_2_header">البحث بسهولة عن فندق</string>
+	<string name="whatsnew_booking_2_message">تظهر نتائج البحث التقييم والفئة السعرية للفندق.</string>
 </resources>

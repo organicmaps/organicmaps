@@ -1601,3 +1601,15 @@
 "continue_recent_track_background_button" = "Fortsätt";
 
 "recent_track_background_dialog_message" = "MAPS.ME använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
+
+"whatsnew_car_navigation_header" = "Användarvänlig fordonsnavigering";
+
+"whatsnew_car_navigation_message" = "• Navigeringselementen tar upp mindre plats.\n• Vi visar hastigheten och har tillagd automatiskt zoom.";
+
+"whatsnew_cycle_navigation_2_header" = "Cykelnavigering";
+
+"whatsnew_cycle_navigation_2_message" = "• Cykelnavigering tar med terrängdata i beräkningen.\n• Vi skapar lättare rutter med väglutningar i beräkningen.";
+
+"whatsnew_booking_2_header" = "Enkel hotellsökning";
+
+"whatsnew_booking_2_message" = "Sökresultaten visar hotellbetyget och priskategorin.";
