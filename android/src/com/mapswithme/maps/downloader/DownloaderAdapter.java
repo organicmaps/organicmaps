@@ -240,7 +240,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       ci.update();
 
-      LinearLayoutManager lm = (LinearLayoutManager)mRecycler.getLayoutManager();
+      LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
       int first = lm.findFirstVisibleItemPosition();
       int last = lm.findLastVisibleItemPosition();
       if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION)
@@ -258,11 +258,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
       for (MapManager.StorageCallbackData item : data)
+      {
         if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
         {
           MapManager.showError(mActivity, item, null);
           break;
         }
+      }
 
       if (mSearchResultsMode)
       {
@@ -270,7 +272,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           updateItem(item.countryId);
       }
       else
+      {
         refreshData();
+      }
     }
 
     @Override
@@ -519,7 +523,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       if (mItem.status == CountryItem.STATUS_ENQUEUED || mItem.status == CountryItem.STATUS_PROGRESS)
         size = mItem.enqueuedSize;
       else
-        size = (mMyMapsMode ? mItem.size : mItem.totalSize);
+        size = ((!mSearchResultsMode && mMyMapsMode) ? mItem.size : mItem.totalSize);
 
       mSize.setText(StringUtils.getFileSizeString(size));
       mStatusIcon.update(mItem);
@@ -585,9 +589,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   void refreshData()
   {
-    mSearchResultsMode = false;
-    mSearchQuery = null;
-
     mItems.clear();
 
     String parent = getCurrentRootId();
@@ -610,12 +611,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     processData();
   }
 
-  void cancelSearch()
-  {
-    if (mSearchResultsMode)
-      refreshData();
-  }
-
   void setSearchResultsMode(Collection<CountryItem> results, String query)
   {
     mSearchResultsMode = true;
@@ -624,6 +619,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mItems.clear();
     mItems.addAll(results);
     processData();
+  }
+
+  void resetSearchResultsMode()
+  {
+    mSearchResultsMode = false;
+    mSearchQuery = null;
+    refreshData();
   }
 
   private void processData()
@@ -719,7 +721,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     if (!refresh)
       return;
 
-    refreshData();
+    if (mSearchResultsMode)
+      resetSearchResultsMode();
+    else
+      refreshData();
     mFragment.update();
   }
 
