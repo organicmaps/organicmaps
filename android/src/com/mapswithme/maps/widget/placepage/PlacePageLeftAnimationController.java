@@ -30,7 +30,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
     switch (event.getAction())
     {
     case MotionEvent.ACTION_DOWN:
-      mIsGestureHandled = false;
+      mIsDragging = false;
       mDownCoord = event.getX();
       break;
     case MotionEvent.ACTION_MOVE:
@@ -69,20 +69,18 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
         final boolean isHorizontal = Math.abs(distanceX) > X_TO_Y_SCROLL_RATIO * Math.abs(distanceY);
         final boolean isInRange = Math.abs(distanceX) > X_MIN && Math.abs(distanceX) < X_MAX;
 
-        if (isHorizontal && isInRange)
+        if (!isHorizontal || !isInRange)
+          return false;;
+
+        if (!mIsDragging)
         {
-          if (!mIsGestureHandled)
-          {
-            if (distanceX > 0)
-              mPlacePage.hide();
+          if (distanceX > 0)
+            mPlacePage.hide();
 
-            mIsGestureHandled = true;
-          }
-
-          return true;
+          mIsDragging = true;
         }
 
-        return false;
+        return true;
       }
     });
   }

@@ -29,7 +29,8 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
   private final AnimationHelper mAnimationHelper = new AnimationHelper();
   private ValueAnimator mCurrentAnimator;
 
-  private boolean mShouldHandleGesture;
+  private boolean mIsGestureStartedInsideView;
+  private boolean mIsGestureFinished;
 
   private class AnimationHelper
   {
@@ -77,21 +78,23 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     case MotionEvent.ACTION_DOWN:
       if (!isInsideView(event.getY()))
       {
-        mShouldHandleGesture = false;
+        mIsGestureStartedInsideView = false;
         break;
       }
 
-      mShouldHandleGesture = true;
-      mIsGestureHandled = false;
+      mIsGestureStartedInsideView = true;
+      mIsDragging = false;
+      mIsGestureFinished = false;
       mDownCoord = event.getY();
       break;
     case MotionEvent.ACTION_MOVE:
+      if (!mIsGestureStartedInsideView)
+        break;
+
       final float delta = mDownCoord - event.getY();
-      if (mShouldHandleGesture
-              && Math.abs(delta) > mTouchSlop
-              && !isDetailsScroll(mDownCoord, delta)
-              && isInsideView(mDownCoord))
+      if (Math.abs(delta) > mTouchSlop && !isDetailsScroll(mDownCoord, delta))
         return true;
+
       break;
     }
 
@@ -129,11 +132,20 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
   @Override
   protected boolean onTouchEvent(@NonNull MotionEvent event)
   {
-    if (!isInsideView(event.getY()))
+    if (mIsGestureFinished)
       return false;
 
-    if (event.getAction() == MotionEvent.ACTION_UP)
+    final boolean finishedDrag = (mIsDragging &&
+                                      (event.getAction() == MotionEvent.ACTION_UP ||
+                                       event.getAction() == MotionEvent.ACTION_CANCEL));
+    if (!mIsGestureStartedInsideView ||
+        !isInsideView(event.getY()) ||
+        finishedDrag)
+    {
+      mIsGestureFinished = true;
       finishDrag();
+      return false;
+    }
 
     super.onTouchEvent(event);
     return true;
@@ -153,11 +165,11 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
 
         if (isVertical)
         {
-          mIsGestureHandled = true;
+          mIsDragging = true;
           translateBy(-distanceY);
         }
 
-        return mIsGestureHandled;
+        return true;
       }
 
       @Override
