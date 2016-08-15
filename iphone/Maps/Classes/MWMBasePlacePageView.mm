@@ -24,6 +24,7 @@
 #include "3party/opening_hours/opening_hours.hpp"
 #include "editor/opening_hours_ui.hpp"
 #include "editor/ui2oh.hpp"
+#include "platform/local_country_file_utils.hpp"
 
 namespace
 {
@@ -275,7 +276,7 @@ using namespace storage;
 - (void)configureMapDownloader
 {
   TCountryId const & countryId = self.entity.countryId;
-  if (countryId == kInvalidCountryId)
+  if (countryId == kInvalidCountryId || platform::migrate::NeedMigrate())
   {
     self.downloadProgressView.hidden = YES;
   }
