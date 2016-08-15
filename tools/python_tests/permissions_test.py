@@ -19,18 +19,20 @@ EXPECTED_PERMISSIONS = {
     "uses-permission: android.permission.WAKE_LOCK",
     "uses-permission: android.permission.GET_ACCOUNTS",
     "uses-permission: com.google.android.c2dm.permission.RECEIVE",
-    "permission: com.mapswithme.maps.pro.beta.permission.C2D_MESSAGE",
-    "uses-permission: com.mapswithme.maps.pro.beta.permission.C2D_MESSAGE",
+    "permission: com.mapswithme.maps.pro.permission.C2D_MESSAGE",
+    "uses-permission: com.mapswithme.maps.pro.permission.C2D_MESSAGE",
     "uses-permission: android.permission.VIBRATE",
-    "permission: com.mapswithme.maps.pro.beta.permission.RECEIVE_ADM_MESSAGE",
-    "uses-permission: com.mapswithme.maps.pro.beta.permission.RECEIVE_ADM_MESSAGE",
+    "permission: com.mapswithme.maps.pro.permission.RECEIVE_ADM_MESSAGE",
+    "uses-permission: com.mapswithme.maps.pro.permission.RECEIVE_ADM_MESSAGE",
     "uses-permission: com.amazon.device.messaging.permission.RECEIVE",
 }
 
 SPLIT_RE = re.compile("[\.\-]")
 APK_RE = re.compile(".*universal(?!.*?unaligned).*$")
 PROP_RE = re.compile("(?!\s*?#).*$")
-CLEAN_PERM_RE = re.compile("(name='|'$)", re.MULTILINE)
+CLEAN_PERM_RE = re.compile("(name='|'$|debug\.|beta\.)", re.MULTILINE)
+BUILD_TYPE = r = re.compile(".*(debug|release|beta).*")
+
 AAPT_VERSION_PREFIX_LEN = len("Android Asset Packaging Tool, v")
 
 
@@ -59,7 +61,16 @@ class TestPermissions(unittest.TestCase):
         self.aapt = self.find_aapt(self.get_build_tools_version())
         self.apk = self.find_apks()
         self.permissions = self.get_actual_permissions()
+        if self.get_build_type() == "debug":
+            logging.info("The build type is DEBUG")
+            global EXPECTED_PERMISSIONS
+            EXPECTED_PERMISSIONS.add("uses-permission: android.permission.READ_LOGS")
+
         self.failure_description = self.get_failure_description()
+
+    def get_build_type(self):
+        apk_name = path.basename(self.apk)
+        return BUILD_TYPE.findall(apk_name)[0]
 
 
     def get_build_tools_version(self):
@@ -157,9 +168,9 @@ class TestPermissions(unittest.TestCase):
 
 
     def get_failure_description(self):
-        join_by_new_lines = lambda iterable: "\n".join(iterable)
+        join_by_new_lines = lambda iterable: "\n".join(sorted(iterable))
 
-        return "Expected: {}\n\nActual: {}\n\nAdded: {}\n\nRemoved: {}".format(
+        return "Expected:\n{}\n\nActual:\n{}\n\nAdded:\n{}\n\nRemoved:\n{}".format(
             join_by_new_lines(EXPECTED_PERMISSIONS),
             join_by_new_lines(self.permissions),
             join_by_new_lines(self.permissions - EXPECTED_PERMISSIONS),
