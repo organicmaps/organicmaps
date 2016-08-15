@@ -268,7 +268,7 @@ BOOL defaultOrientation(CGSize const & size)
       ang::AngleTo(lastLocation.mercator,
                    location_helpers::ToMercator(self.navigationInfo.pedestrianDirectionPosition)) +
       info.m_bearing;
-  self.nextTurnImageView.transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
+  self.nextTurnImageView.layer.transform = CATransform3DMakeRotation(M_PI_2 - angle, 0, 0, 1);
 }
 
 #pragma mark - SolidTouchView
