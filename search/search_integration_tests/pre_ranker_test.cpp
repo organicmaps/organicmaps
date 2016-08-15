@@ -39,17 +39,6 @@ namespace search
 {
 namespace
 {
-// Returns the boundary such that at least |size| elements from
-// |distance| are less than or equal to the boundary.
-double GetBoundary(vector<double> const & distances, size_t size)
-{
-  CHECK_LESS_OR_EQUAL(size, distances.size(), ());
-  my::limited_priority_queue<double> queue(size);
-  for (auto const & distance : distances)
-    queue.push(distance);
-  return queue.empty() ? 0.0 : queue.top();
-}
-
 class TestRanker : public Ranker
 {
 public:
@@ -96,7 +85,9 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   // number of results is larger than batch size, and that PreRanker
   // emits results nearest to the pivot.
 
-  m2::PointD const kPivot(0.5, 0.5);
+  m2::PointD const kPivot(0, 0);
+  m2::RectD const kViewport(m2::PointD(-5, -5), m2::PointD(5, 5));
+
   size_t const kBatchSize = 50;
 
   vector<TestPOI> pois;
@@ -122,6 +113,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
 
   PreRanker preRanker(m_engine, ranker, pois.size());
   PreRanker::Params params;
+  params.m_viewport = kViewport;
   params.m_accuratePivotCenter = kPivot;
   params.m_scale = scales::GetUpperScale();
   params.m_batchSize = kBatchSize;
@@ -152,8 +144,6 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   TEST(ranker.Finished(), ());
   TEST_EQUAL(results.size(), kBatchSize, ());
 
-  double const boundary = GetBoundary(distances, kBatchSize);
-
   vector<bool> checked(pois.size());
   for (size_t i = 0; i < results.size(); ++i)
   {
@@ -161,7 +151,6 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
     TEST_LESS(index, pois.size(), ());
 
     TEST(!checked[index], (index));
-    TEST_LESS_OR_EQUAL(results[i].GetDistance(), boundary, ());
     TEST(my::AlmostEqualAbs(distances[index], results[i].GetDistance(), 1e-3),
          (distances[index], results[i].GetDistance()));
     checked[index] = true;

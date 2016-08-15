@@ -84,6 +84,10 @@ public:
   inline void SetMode(Mode mode) { m_mode = mode; }
   inline void SetSuggestsEnabled(bool enabled) { m_suggestsEnabled = enabled; }
   inline void SetPosition(m2::PointD const & position) { m_position = position; }
+  inline void SetMinDistanceOnMapBetweenResults(double distance)
+  {
+    m_minDistanceOnMapBetweenResults = distance;
+  }
   inline void SetOnResults(SearchParams::TOnResults const & onResults) { m_onResults = onResults; }
   inline string const & GetPivotRegion() const { return m_region; }
   inline m2::PointD const & GetPosition() const { return m_position; }
@@ -150,6 +154,7 @@ protected:
   m2::RectD m_viewport[COUNT_V];
   m2::PointD m_pivot;
   m2::PointD m_position;
+  double m_minDistanceOnMapBetweenResults;
   Mode m_mode;
   bool m_suggestsEnabled;
   SearchParams::TOnResults m_onResults;

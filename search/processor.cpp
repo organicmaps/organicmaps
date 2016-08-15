@@ -142,6 +142,7 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   : m_categories(categories)
   , m_infoGetter(infoGetter)
   , m_position(0, 0)
+  , m_minDistanceOnMapBetweenResults(0.0)
   , m_mode(Mode::Everywhere)
   , m_suggestsEnabled(true)
   , m_preRanker(index, m_ranker, kPreResultsCount)
@@ -392,6 +393,8 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
     SetPosition(MercatorBounds::FromLatLon(params.m_lat, params.m_lon));
   else
     SetPosition(viewport.Center());
+
+  SetMinDistanceOnMapBetweenResults(params.m_minDistanceOnMapBetweenResults);
 
   SetMode(params.GetMode());
   SetSuggestsEnabled(params.GetSuggestsEnabled());
@@ -680,10 +683,18 @@ void Processor::InitGeocoder(Geocoder::Params & params)
 
 void Processor::InitPreRanker(Geocoder::Params const & geocoderParams)
 {
+  bool const viewportSearch = m_mode == Mode::Viewport;
+
   PreRanker::Params params;
 
+  if (viewportSearch)
+  {
+    params.m_viewport = GetViewport();
+    params.m_minDistanceOnMapBetweenResults = m_minDistanceOnMapBetweenResults;
+  }
   params.m_accuratePivotCenter = GetPivotPoint();
   params.m_scale = geocoderParams.m_scale;
+
   m_preRanker.Init(params);
 }
 

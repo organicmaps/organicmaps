@@ -1,0 +1,33 @@
+#include "search/nearby_points_sweeper.hpp"
+
+namespace search
+{
+// NearbyPointsSweeper::Event ----------------------------------------------------------------------
+NearbyPointsSweeper::Event::Event(Type type, double y, double x, size_t index)
+  : m_type(type), m_y(y), m_x(x), m_index(index)
+{
+}
+
+bool NearbyPointsSweeper::Event::operator<(Event const & rhs) const
+{
+  if (m_y != rhs.m_y)
+    return m_y < rhs.m_y;
+
+  if (m_type != rhs.m_type)
+    return m_type < rhs.m_type;
+
+  if (m_x != rhs.m_x)
+    return m_x < rhs.m_x;
+
+  return m_index < rhs.m_index;
+}
+
+// NearbyPointsSweeper -----------------------------------------------------------------------------
+NearbyPointsSweeper::NearbyPointsSweeper(double eps) : m_eps(eps) {}
+
+void NearbyPointsSweeper::Add(double x, double y, size_t index)
+{
+  m_events.emplace_back(Event::TYPE_SEGMENT_START, y - m_eps * 0.5, x, index);
+  m_events.emplace_back(Event::TYPE_SEGMENT_END, y + m_eps * 0.5, x, index);
+}
+}  // namespace search
