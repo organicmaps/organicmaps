@@ -3,7 +3,9 @@ package com.mapswithme.maps.location;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +28,8 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
+
+import static com.mapswithme.maps.background.AppBackgroundTracker.*;
 
 public enum LocationHelper
 {
@@ -58,6 +62,25 @@ public enum LocationHelper
     void onCompassUpdated(@NonNull CompassData compass);
     boolean shouldNotifyLocationNotFound();
   }
+
+  private final GPSCheck mReceiver = new GPSCheck();
+
+  private final OnTransitionListener mOnTransition = new OnTransitionListener()
+  {
+    @Override
+    public void onTransit(boolean foreground)
+    {
+      if (foreground)
+      {
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        MwmApplication.get().registerReceiver(mReceiver, filter);
+        return;
+      }
+      MwmApplication.get().unregisterReceiver(mReceiver);
+    }
+  };
 
   private final LocationListener mLocationListener = new LocationListener()
   {
@@ -150,7 +173,6 @@ public enum LocationHelper
   private boolean mHighAccuracy;
   private CompassData mCompassData;
 
-
   @SuppressWarnings("FieldCanBeLocal")
   private final LocationState.ModeChangeListener mModeChangeListener = new LocationState.ModeChangeListener()
   {
@@ -219,6 +241,7 @@ public enum LocationHelper
 
     calcParams();
     initProvider(false);
+    MwmApplication.get().backgroundTracker().addListener(mOnTransition);
   }
 
   public void initProvider(boolean forceNative)
