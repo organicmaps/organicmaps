@@ -7,6 +7,7 @@ import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
@@ -209,7 +210,24 @@ public enum LocationHelper
   {
     mLogger.d("ctor()");
 
+    // We're trying to catch a nasty bug that (we hope) happen during
+    // LocationHelper construction, when Framework is not initialized
+    // yet.  Therefore, this logging is temprorary and must be removed
+    // after investigation.
+
+    Log.i("LocationHelper", "Before nativeSetListener() call");
+    {
+      StringBuilder sb = new StringBuilder();
+      StackTraceElement[] st = Thread.currentThread().getStackTrace();
+      for (StackTraceElement e : st)
+        sb.append(e.toString() + "\n");
+      Log.i("LocationHelper", sb.toString());
+    }
+    
     LocationState.nativeSetListener(mModeChangeListener);
+
+    Log.i("LocationHelper", "After nativeSetListener() call");
+
     calcParams();
     initProvider(false);
   }
