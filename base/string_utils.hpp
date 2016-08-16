@@ -306,6 +306,17 @@ void Tokenize(string const & str, char const * delims, TFunctor && f)
   }
 }
 
+template <template <typename ...> class Collection = vector>
+Collection<string> Tokenize(string const & str, char const * delims)
+{
+  Collection<string> c;
+  Tokenize(str, delims, [&c](string const & str)
+  {
+    c.insert(end(c), str);
+  });
+  return c;
+}
+
 /// Splits a string by the delimiter, keeps empty parts, on an empty string returns an empty vector.
 /// Does not support quoted columns, newlines in columns and escaped quotes.
 void ParseCSVRow(string const & s, char const delimiter, vector<string> & target);
