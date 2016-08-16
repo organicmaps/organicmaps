@@ -210,23 +210,12 @@ public enum LocationHelper
   {
     mLogger.d("ctor()");
 
-    // We're trying to catch a nasty bug that (we hope) happen during
-    // LocationHelper construction, when Framework is not initialized
-    // yet.  Therefore, this logging is temprorary and must be removed
-    // after investigation.
-
-    Log.i("LocationHelper", "Before nativeSetListener() call");
-    {
-      StringBuilder sb = new StringBuilder();
-      StackTraceElement[] st = Thread.currentThread().getStackTrace();
-      for (StackTraceElement e : st)
-        sb.append(e.toString() + "\n");
-      Log.i("LocationHelper", sb.toString());
-    }
-    
+    // TODO consider refactoring.
+    // Actually we shouldn't initialize Framework here,
+    // to allow app components to retrieve location updates without all heavy framework's stuff initialized.
+    // For now this is necessary to connect mModeChangeListener below.
+    MwmApplication.get().initNativeCore();
     LocationState.nativeSetListener(mModeChangeListener);
-
-    Log.i("LocationHelper", "After nativeSetListener() call");
 
     calcParams();
     initProvider(false);
