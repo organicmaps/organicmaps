@@ -24,7 +24,8 @@ static NSString * const kETAKey = @"eta";
   if (self)
   {
     _forceStateChange = MWMRouterForceStateChange::None;
-    NSDictionary * const stateDict = [NSDictionary dictionaryWithContentsOfURL:[MWMRouterSavedState stateFileURL]];
+    NSDictionary * const stateDict =
+        [NSDictionary dictionaryWithContentsOfURL:[MWMRouterSavedState stateFileURL]];
     if (stateDict)
     {
       m2::PointD point;
@@ -67,7 +68,8 @@ static NSString * const kETAKey = @"eta";
 
 + (NSURL *)stateFileURL
 {
-  return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"route_info.ini"]];
+  return [NSURL
+      fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"route_info.ini"]];
 }
 
 + (void)restore

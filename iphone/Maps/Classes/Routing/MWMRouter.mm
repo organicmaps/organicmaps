@@ -6,12 +6,12 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MWMRouterSavedState.h"
 #import "MWMSearch.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
-#import "MWMRouterSavedState.h"
 #import "Statistics.h"
 
 #include "Framework.h"
