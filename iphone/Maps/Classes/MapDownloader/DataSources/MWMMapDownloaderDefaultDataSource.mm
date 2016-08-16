@@ -21,7 +21,7 @@ auto compareStrings = ^NSComparisonResult(NSString * s1, NSString * s2)
 
 auto compareLocalNames = ^NSComparisonResult(NSString * s1, NSString * s2)
 {
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   string const l1 = s.GetNodeLocalName(s1.UTF8String);
   string const l2 = s.GetNodeLocalName(s2.UTF8String);
   return compareStrings(@(l1.c_str()), @(l2.c_str()));
@@ -52,7 +52,7 @@ using namespace mwm;
   if (self)
   {
     m_parentId = countryId.UTF8String;
-    _isParentRoot = (m_parentId == GetFramework().Storage().GetRootId());
+    _isParentRoot = (m_parentId == GetFramework().GetStorage().GetRootId());
     [self load];
   }
   return self;
@@ -60,7 +60,7 @@ using namespace mwm;
 
 - (void)load
 {
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   TCountriesVec downloadedChildren;
   TCountriesVec availableChildren;
   s.GetChildrenInGroups(m_parentId, downloadedChildren, availableChildren, true /* keepAvailableChildren */);
@@ -82,7 +82,7 @@ using namespace mwm;
   NSMutableSet<NSString *> * indexSet = [NSMutableSet setWithCapacity:availableChildren.size()];
   NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> * availableCountries = [@{} mutableCopy];
   BOOL const isParentRoot = self.isParentRoot;
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   for (auto const & countryId : availableChildren)
   {
     NSString * nsCountryId = @(countryId.c_str());
@@ -163,7 +163,7 @@ using namespace mwm;
     if ([self isButtonCell:section])
       return @"";
     NodeAttrs nodeAttrs;
-    GetFramework().Storage().GetNodeAttrs(m_parentId, nodeAttrs);
+    GetFramework().GetStorage().GetNodeAttrs(m_parentId, nodeAttrs);
     if (nodeAttrs.m_localMwmSize == 0)
       return [NSString stringWithFormat:@"%@", L(@"downloader_downloaded_subtitle")];
     else
@@ -182,7 +182,7 @@ using namespace mwm;
   if ([self isButtonCell:indexPath.section])
     return NO;
   NodeAttrs nodeAttrs;
-  GetFramework().Storage().GetNodeAttrs([self countryIdForIndexPath:indexPath].UTF8String, nodeAttrs);
+  GetFramework().GetStorage().GetNodeAttrs([self countryIdForIndexPath:indexPath].UTF8String, nodeAttrs);
   NodeStatus const status = nodeAttrs.m_status;
   return (status == NodeStatus::OnDisk || status == NodeStatus::OnDiskOutOfDate || nodeAttrs.m_localMwmCounter != 0);
 }
@@ -208,7 +208,7 @@ using namespace mwm;
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
 {
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   TCountriesVec children;
   s.GetChildren([self countryIdForIndexPath:indexPath].UTF8String, children);
   BOOL const haveChildren = !children.empty();

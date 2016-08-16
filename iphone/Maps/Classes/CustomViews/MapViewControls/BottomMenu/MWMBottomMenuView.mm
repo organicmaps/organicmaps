@@ -483,7 +483,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.downloadBadge.hidden = YES;
     return;
   }
-  auto & s = GetFramework().Storage();
+  auto & s = GetFramework().GetStorage();
   storage::Storage::UpdateInfo updateInfo{};
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
   self.downloadBadge.hidden =

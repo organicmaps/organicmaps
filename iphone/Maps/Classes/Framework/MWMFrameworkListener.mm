@@ -127,7 +127,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 - (void)registerStorageObserver
 {
   TObservers * observers = self.storageObservers;
-  auto & s = GetFramework().Storage();
+  auto & s = GetFramework().GetStorage();
   s.Subscribe([observers](TCountryId const & countryId)
   {
     for (TStorageObserver observer in observers)

@@ -10,10 +10,8 @@ class Index;
 namespace storage
 {
 class CountryInfoGetter;
+class Storage;
 }  // namespace storage
-
-// todo(@m)
-// add tests
 
 namespace search
 {
@@ -28,6 +26,7 @@ public:
   using TOnResults = storage::DownloaderSearchParams::TOnResults;
 
   DownloaderSearchCallback(Index const & index, storage::CountryInfoGetter const & infoGetter,
+                           storage::Storage const & storage,
                            storage::DownloaderSearchParams params);
 
   void operator()(search::Results const & results);
@@ -37,6 +36,7 @@ private:
 
   Index const & m_index;
   storage::CountryInfoGetter const & m_infoGetter;
+  storage::Storage const & m_storage;
   storage::DownloaderSearchParams m_params;
 };
 }  // namespace search

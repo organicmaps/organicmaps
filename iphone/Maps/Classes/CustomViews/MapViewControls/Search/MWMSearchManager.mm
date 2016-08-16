@@ -211,7 +211,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 {
   using namespace storage;
   NodeStatuses nodeStatuses{};
-  GetFramework().Storage().GetNodeStatuses(countryId, nodeStatuses);
+  GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
   if (nodeStatuses.m_status != NodeStatus::OnDisk)
     return;
   [self updateTopController];
@@ -303,7 +303,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 - (UIViewController *)topController
 {
   if (self.state == MWMSearchManagerStateHidden ||
-      GetFramework().Storage().HaveDownloadedCountries())
+      GetFramework().GetStorage().HaveDownloadedCountries())
   {
     return self.tabbedController;
   }

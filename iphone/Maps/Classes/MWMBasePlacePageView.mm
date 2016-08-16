@@ -285,7 +285,7 @@ using namespace storage;
     self.downloadProgressView.hidden = NO;
     [self setNeedsLayout];
     NodeAttrs nodeAttrs;
-    GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
+    GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);
     MWMCircularProgress * progress = self.mapDownloadProgress;
     self.downloadMapSize = nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
     switch (nodeAttrs.m_status)
@@ -762,7 +762,7 @@ using namespace storage;
 {
   TCountryId const & countryId = self.entity.countryId;
   NodeAttrs nodeAttrs;
-  GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
+  GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);
   MWMAlertViewController * avc = self.ownerPlacePage.manager.ownerViewController.alertController;
   switch (nodeAttrs.m_status)
   {

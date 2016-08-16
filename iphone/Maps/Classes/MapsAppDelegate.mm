@@ -865,7 +865,7 @@ using namespace osm_auth_ios;
 
 - (void)updateApplicationIconBadgeNumber
 {
-  auto & s = GetFramework().Storage();
+  auto & s = GetFramework().GetStorage();
   storage::Storage::UpdateInfo updateInfo{};
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
   [UIApplication sharedApplication].applicationIconBadgeNumber =

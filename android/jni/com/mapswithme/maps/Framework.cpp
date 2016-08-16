@@ -232,16 +232,16 @@ bool Framework::GetChoosePositionMode()
   return m_isChoosePositionMode;
 }
 
-Storage & Framework::Storage()
+Storage & Framework::GetStorage()
 {
-  return m_work.Storage();
+  return m_work.GetStorage();
 }
 
 void Framework::ShowNode(TCountryId const & idx, bool zoomToDownloadButton)
 {
   if (zoomToDownloadButton)
   {
-    m2::RectD const rect = CalcLimitRect(idx, m_work.Storage(), m_work.CountryInfoGetter());
+    m2::RectD const rect = CalcLimitRect(idx, m_work.GetStorage(), m_work.GetCountryInfoGetter());
     m_work.SetViewportCenter(rect.Center(), 10);
   }
   else
@@ -352,7 +352,7 @@ void Framework::DeactivatePopup()
 string Framework::GetOutdatedCountriesString()
 {
   vector<Country const *> countries;
-  class Storage const & storage = Storage();
+  class Storage const & storage = GetStorage();
   storage.GetOutdatedCountries(countries);
 
   string res;
@@ -487,17 +487,17 @@ storage::TCountryId Framework::PreMigrate(ms::LatLon const & position, Storage::
 
 bool Framework::IsAutoRetryDownloadFailed()
 {
-  return m_work.DownloadingPolicy().IsAutoRetryDownloadFailed();
+  return m_work.GetDownloadingPolicy().IsAutoRetryDownloadFailed();
 }
 
 bool Framework::IsDownloadOn3gEnabled()
 {
-  return m_work.DownloadingPolicy().IsCellularDownloadEnabled();
+  return m_work.GetDownloadingPolicy().IsCellularDownloadEnabled();
 }
 
 void Framework::EnableDownloadOn3g()
 {
-  m_work.DownloadingPolicy().EnableCellularDownload(true);
+  m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
 
@@ -1098,7 +1098,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsDownloadedMapAtScreenCenter(JNIEnv *, jclass)
 {
   ::Framework * fr = frm();
-  return storage::IsPointCoveredByDownloadedMaps(fr->GetViewportCenter(), fr->Storage(), fr->CountryInfoGetter());
+  return storage::IsPointCoveredByDownloadedMaps(fr->GetViewportCenter(), fr->GetStorage(), fr->GetCountryInfoGetter());
 }
 
 JNIEXPORT jstring JNICALL

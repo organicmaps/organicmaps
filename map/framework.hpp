@@ -237,10 +237,10 @@ public:
   string GetCountryName(m2::PointD const & pt) const;
   //@}
 
-  storage::Storage & Storage() { return m_storage; }
-  storage::Storage const & Storage() const { return m_storage; }
-  storage::CountryInfoGetter & CountryInfoGetter() { return *m_infoGetter; }
-  StorageDownloadingPolicy & DownloadingPolicy() { return m_storageDownloadingPolicy; }
+  storage::Storage & GetStorage() { return m_storage; }
+  storage::Storage const & GetStorage() const { return m_storage; }
+  storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
+  StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
   /// @name Bookmarks, Tracks and other UserMarks
   //@{

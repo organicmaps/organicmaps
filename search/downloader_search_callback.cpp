@@ -11,7 +11,8 @@
 
 namespace
 {
-bool GetGroupCountryIdFromFeature(FeatureType const & ft, string & name)
+bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType const & ft,
+                                  string & name)
 {
   int8_t langIndices[] = {StringUtf8Multilang::kEnglishCode, StringUtf8Multilang::kDefaultCode,
                           StringUtf8Multilang::kInternationalCode};
@@ -20,7 +21,7 @@ bool GetGroupCountryIdFromFeature(FeatureType const & ft, string & name)
   {
     if (!ft.GetName(langIndex, name))
       continue;
-    if (storage::Storage().IsCoutryIdCountryTreeInnerNode(name))
+    if (storage.IsCoutryIdCountryTreeInnerNode(name))
       return true;
   }
   return false;
@@ -31,8 +32,9 @@ namespace search
 {
 DownloaderSearchCallback::DownloaderSearchCallback(Index const & index,
                                                    storage::CountryInfoGetter const & infoGetter,
+                                                   storage::Storage const & storage,
                                                    storage::DownloaderSearchParams params)
-  : m_index(index), m_infoGetter(infoGetter), m_params(move(params))
+  : m_index(index), m_infoGetter(infoGetter), m_storage(storage), m_params(move(params))
 {
 }
 
@@ -61,7 +63,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
       if (type == ftypes::COUNTRY || type == ftypes::STATE)
       {
         string groupFeatureName;
-        if (GetGroupCountryIdFromFeature(ft, groupFeatureName))
+        if (GetGroupCountryIdFromFeature(m_storage, ft, groupFeatureName))
         {
           storage::DownloaderSearchResult downloaderResult(groupFeatureName,
                                                            result.GetString() /* m_matchedName */);
@@ -94,8 +96,9 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
 
   if (m_params.m_onResults)
   {
+    auto onResults = m_params.m_onResults;
     GetPlatform().RunOnGuiThread(
-        [this, downloaderSearchResults]() { m_params.m_onResults(downloaderSearchResults); });
+        [onResults, downloaderSearchResults]() { onResults(downloaderSearchResults); });
   }
 }
 }  // namespace search

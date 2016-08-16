@@ -268,7 +268,7 @@ TCountryId Framework::PreMigrate(ms::LatLon const & position,
                            Storage::TChangeCountryFunction const & change,
                            Storage::TProgressFunction const & progress)
 {
-  Storage().PrefetchMigrateData();
+  GetStorage().PrefetchMigrateData();
 
   auto const infoGetter =
       CountryInfoReader::CreateCountryInfoReaderOneComponentMwms(GetPlatform());
@@ -279,8 +279,8 @@ TCountryId Framework::PreMigrate(ms::LatLon const & position,
   if (currentCountryId == kInvalidCountryId)
     return kInvalidCountryId;
 
-  Storage().GetPrefetchStorage()->Subscribe(change, progress);
-  Storage().GetPrefetchStorage()->DownloadNode(currentCountryId);
+  GetStorage().GetPrefetchStorage()->Subscribe(change, progress);
+  GetStorage().GetPrefetchStorage()->DownloadNode(currentCountryId);
   return currentCountryId;
 }
 
@@ -296,10 +296,10 @@ void Framework::Migrate(bool keepDownloaded)
   m_searchEngine.reset();
   m_infoGetter.reset();
   TCountriesVec existedCountries;
-  Storage().DeleteAllLocalMaps(&existedCountries);
+  GetStorage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
   m_model.Clear();
-  Storage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
+  GetStorage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
   InitCountryInfoGetter();
   InitSearchEngine();
   RegisterAllMaps();
@@ -483,7 +483,7 @@ void Framework::ShowNode(storage::TCountryId const & countryId)
 {
   StopLocationFollow();
 
-  ShowRect(CalcLimitRect(countryId, Storage(), CountryInfoGetter()));
+  ShowRect(CalcLimitRect(countryId, GetStorage(), GetCountryInfoGetter()));
 }
 
 void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
@@ -556,7 +556,7 @@ bool Framework::HasUnsavedEdits(storage::TCountryId const & countryId)
     hasUnsavedChanges |= osm::Editor::Instance().HaveMapEditsToUpload(
           m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(fileName)));
   };
-  Storage().ForEachInSubtree(countryId, forEachInSubtree);
+  GetStorage().ForEachInSubtree(countryId, forEachInSubtree);
   return hasUnsavedChanges;
 }
 
@@ -575,7 +575,7 @@ void Framework::RegisterAllMaps()
     settings::Get("DisableFastMigrate", disableFastMigrate);
     if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
     {
-      Storage().PrefetchMigrateData();
+      GetStorage().PrefetchMigrateData();
       Migrate();
       return;
     }
@@ -717,7 +717,7 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   {
     size_t const level = isState ? 1 : 0;
     TCountriesVec countries;
-    Storage().GetTopmostNodesFor(info.m_countryId, countries, level);
+    GetStorage().GetTopmostNodesFor(info.m_countryId, countries, level);
     if (countries.size() == 1)
       info.m_countryId = countries.front();
   }
@@ -1144,8 +1144,7 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   p.SetMode(search::Mode::Downloader);
   p.SetSuggestsEnabled(false);
   p.SetForceSearch(true);
-  p.m_onResults = search::DownloaderSearchCallback(m_model.GetIndex(), CountryInfoGetter(),
-                                                   params);
+  p.m_onResults = search::DownloaderSearchCallback(m_model.GetIndex(), GetCountryInfoGetter(), GetStorage(), params);
   return Search(p);
 }
 

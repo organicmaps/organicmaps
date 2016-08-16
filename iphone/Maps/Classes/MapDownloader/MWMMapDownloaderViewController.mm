@@ -78,7 +78,7 @@ using namespace storage;
 
 - (void)checkAndConfigNoMapsView
 {
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   if (![self.parentCountryId isEqualToString:@(s.GetRootId().c_str())])
     return;
   if (self.mode == mwm::DownloaderMode::Available || self.dataSource == self.searchDataSource ||

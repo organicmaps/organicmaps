@@ -34,7 +34,7 @@ using namespace storage;
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
     return;
-  auto & countryInfoGetter = GetFramework().CountryInfoGetter();
+  auto & countryInfoGetter = GetFramework().GetCountryInfoGetter();
   TCountriesVec closestCoutryIds;
   countryInfoGetter.GetRegionsCountryId(lastLocation.mercator, closestCoutryIds);
   NSMutableArray<NSString *> * nearmeCountries = [@[] mutableCopy];

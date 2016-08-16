@@ -25,7 +25,7 @@ UNIT_TEST(StorageFastMigrationTests)
   WritableDirChanger writableDirChanger(kMapTestDir);
 
   Framework f;
-  auto & s = f.Storage();
+  auto & s = f.GetStorage();
 
   uint32_t version;
   TEST(settings::Get("LastMigration", version), ("LastMigration didn't set"));
@@ -44,13 +44,13 @@ UNIT_TEST(StorageMigrationTests)
   settings::Set("DisableFastMigrate", true);
 
   Framework f;
-  auto & s = f.Storage();
+  auto & s = f.GetStorage();
 
   auto statePrefetchChanged = [&](TCountryId const & id)
   {
-    Status const nextStatus = f.Storage().GetPrefetchStorage()->CountryStatusEx(id);
+    Status const nextStatus = f.GetStorage().GetPrefetchStorage()->CountryStatusEx(id);
     LOG_SHORT(LINFO, (id, "status :", nextStatus));
-    if (!f.Storage().GetPrefetchStorage()->IsDownloadInProgress())
+    if (!f.GetStorage().GetPrefetchStorage()->IsDownloadInProgress())
     {
       LOG_SHORT(LINFO, ("All prefetched. Ready to migrate."));
       testing::StopEventLoop();
@@ -59,7 +59,7 @@ UNIT_TEST(StorageMigrationTests)
 
   auto stateChanged = [&](TCountryId const & id)
   {
-    if (!f.Storage().IsDownloadInProgress())
+    if (!f.GetStorage().IsDownloadInProgress())
     {
       LOG_SHORT(LINFO, ("All downloaded. Check consistency."));
       testing::StopEventLoop();
@@ -87,7 +87,7 @@ UNIT_TEST(StorageMigrationTests)
     TEST(s.IsNodeDownloaded(countryId), (countryId));
 
   TEST_NOT_EQUAL(f.PreMigrate(curPos, statePrefetchChanged, progressChanged), kInvalidCountryId, ());
-  TEST(f.Storage().GetPrefetchStorage()->IsDownloadInProgress(), ("Empty queue"));
+  TEST(f.GetStorage().GetPrefetchStorage()->IsDownloadInProgress(), ("Empty queue"));
   // Wait for downloading complete.
   testing::RunEventLoop();
 

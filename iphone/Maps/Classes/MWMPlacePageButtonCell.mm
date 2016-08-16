@@ -16,7 +16,7 @@
 
 - (void)config:(MWMPlacePageViewManager *)manager forType:(MWMPlacePageCellType)type
 {
-  self.countryId = GetFramework().CountryInfoGetter().GetRegionCountryId(manager.entity.mercator);
+  self.countryId = GetFramework().GetCountryInfoGetter().GetRegionCountryId(manager.entity.mercator);
   self.manager = manager;
   self.type = type;
   [self refreshButtonEnabledState];
@@ -42,7 +42,7 @@
     return;
   }
   NodeStatuses nodeStatuses;
-  GetFramework().Storage().GetNodeStatuses(self.countryId, nodeStatuses);
+  GetFramework().GetStorage().GetNodeStatuses(self.countryId, nodeStatuses);
   auto const & status = nodeStatuses.m_status;
   self.titleButton.enabled = status == NodeStatus::OnDisk || status == NodeStatus::OnDiskOutOfDate;
 }

@@ -172,8 +172,8 @@ using namespace storage;
     CLLocation * lastLocation = [locations lastObject];
     auto const & mercator = lastLocation.mercator;
     auto & f = GetFramework();
-    auto const & countryInfoGetter = f.CountryInfoGetter();
-    if (!IsPointCoveredByDownloadedMaps(mercator, f.Storage(), countryInfoGetter))
+    auto const & countryInfoGetter = f.GetCountryInfoGetter();
+    if (!IsPointCoveredByDownloadedMaps(mercator, f.GetStorage(), countryInfoGetter))
     {
       NSString * countryId = @(countryInfoGetter.GetRegionCountryId(mercator).c_str());
       if ([self shouldShowNotificationForCountryId:countryId])

@@ -56,7 +56,7 @@ extern NSString * const kLargeCountryCellIdentifier;
 
 - (NSString *)parentCountryId
 {
-  return @(GetFramework().Storage().GetRootId().c_str());
+  return @(GetFramework().GetStorage().GetRootId().c_str());
 }
 
 - (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath
@@ -68,7 +68,7 @@ extern NSString * const kLargeCountryCellIdentifier;
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
 {
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   NSString * countryId = [self countryIdForIndexPath:indexPath];
   TCountriesVec children;
   s.GetChildren(countryId.UTF8String, children);
