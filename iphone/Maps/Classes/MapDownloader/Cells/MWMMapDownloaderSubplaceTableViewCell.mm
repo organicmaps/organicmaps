@@ -1,32 +1,24 @@
-#import "Common.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
+#import "Common.h"
 #import "UIFont+MapsMeFonts.h"
-
-namespace
-{
-  NSDictionary * const kSelectedSubPlaceAttrs = @{ NSFontAttributeName : [UIFont bold14] };
-  NSDictionary * const kUnselectedSubPlaceAttrs = @{ NSFontAttributeName : [UIFont regular14] };
-} // namespace
 
 @interface MWMMapDownloaderTableViewCell ()
 
-- (NSAttributedString *)matchedString:(NSString *)str selectedAttrs:(NSDictionary *)selectedAttrs unselectedAttrs:(NSDictionary *)unselectedAttrs;
+- (NSAttributedString *)matchedString:(NSString *)str
+                        selectedAttrs:(NSDictionary *)selectedAttrs
+                      unselectedAttrs:(NSDictionary *)unselectedAttrs;
 
 @end
 
 @interface MWMMapDownloaderSubplaceTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel * subPlace;
+@property(weak, nonatomic) IBOutlet UILabel * subPlace;
 
 @end
 
 @implementation MWMMapDownloaderSubplaceTableViewCell
 
-+ (CGFloat)estimatedHeight
-{
-  return 82.0;
-}
-
++ (CGFloat)estimatedHeight { return 82.0; }
 - (void)layoutSubviews
 {
   [super layoutSubviews];
@@ -39,9 +31,11 @@ namespace
 
 - (void)setSubplaceText:(NSString *)text
 {
+  NSDictionary * const selectedSubPlaceAttrs = @{NSFontAttributeName : [UIFont bold14]};
+  NSDictionary * const unselectedSubPlaceAttrs = @{NSFontAttributeName : [UIFont regular14]};
   self.subPlace.attributedText = [self matchedString:text
-                                       selectedAttrs:kSelectedSubPlaceAttrs
-                                     unselectedAttrs:kUnselectedSubPlaceAttrs];
+                                       selectedAttrs:selectedSubPlaceAttrs
+                                     unselectedAttrs:unselectedSubPlaceAttrs];
 }
 
 @end

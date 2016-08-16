@@ -19,7 +19,6 @@
 - (void)rebuildWithBestRouter:(BOOL)bestRouter;
 - (void)start;
 - (void)stop;
-- (void)restore;
 
 - (instancetype)init __attribute__((unavailable("call +router instead")));
 - (instancetype)copy __attribute__((unavailable("call +router instead")));

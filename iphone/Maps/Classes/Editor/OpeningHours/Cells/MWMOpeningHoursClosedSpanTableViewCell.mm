@@ -1,6 +1,6 @@
 #import "MWMOpeningHoursClosedSpanTableViewCell.h"
-#import "UIFont+MapsMeFonts.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 
 static NSString * const kLabelText = L(@"editor_hours_closed");
 
@@ -13,35 +13,30 @@ CGFloat labelWidth()
   return label.width;
 }
 
-static CGFloat const kLabelWidth = labelWidth();
-
 BOOL isCompactForCellWidth(CGFloat width)
 {
-  CGFloat const widthOfAllElementsWithoutLabel = 234.0;
+  static CGFloat const kLabelWidth = labelWidth();
+  CGFloat constexpr widthOfAllElementsWithoutLabel = 234.0;
   CGFloat const maxLabelWidthForCompactCell = width - widthOfAllElementsWithoutLabel;
   return kLabelWidth < maxLabelWidthForCompactCell;
 }
 
 @interface MWMOpeningHoursClosedSpanTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel * hoursClosedLabel;
-@property (weak, nonatomic) IBOutlet UILabel * timeSpanLabel;
+@property(weak, nonatomic) IBOutlet UILabel * hoursClosedLabel;
+@property(weak, nonatomic) IBOutlet UILabel * timeSpanLabel;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * timeSpanHorizontalAlignment;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * timeSpanVerticalAlignment;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * hoursClosedTrailing;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * timeSpanHorizontalAlignment;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * timeSpanVerticalAlignment;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * hoursClosedTrailing;
 
-@property (nonatomic) BOOL isCompact;
+@property(nonatomic) BOOL isCompact;
 
 @end
 
 @implementation MWMOpeningHoursClosedSpanTableViewCell
 
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-  return isCompactForCellWidth(width) ? 44.0 : 64.0;
-}
-
++ (CGFloat)heightForWidth:(CGFloat)width { return isCompactForCellWidth(width) ? 44.0 : 64.0; }
 - (void)awakeFromNib
 {
   [super awakeFromNib];
@@ -102,11 +97,7 @@ BOOL isCompactForCellWidth(CGFloat width)
 
 #pragma mark - Actions
 
-- (IBAction)cancelTap
-{
-  [self.section removeClosedTime:self.row];
-}
-
+- (IBAction)cancelTap { [self.section removeClosedTime:self.row]; }
 - (IBAction)expandTap
 {
   if (!self.isVisible)

@@ -73,11 +73,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
+  MWMSearchManagerState const searchManagerState =
+      _searchManager ? _searchManager.state : MWMSearchManagerStateHidden;
   BOOL const isNightMode = [UIColor isNightMode];
-  BOOL const isLight = (self.searchManager.state == MWMSearchManagerStateMapSearch &&
+  BOOL const isLight = (searchManagerState == MWMSearchManagerStateMapSearch &&
                         self.navigationState != MWMNavigationDashboardStateNavigation) ||
-                       (self.searchManager.state != MWMSearchManagerStateMapSearch &&
-                        self.searchManager.state != MWMSearchManagerStateHidden) ||
+                       (searchManagerState != MWMSearchManagerStateMapSearch &&
+                        searchManagerState != MWMSearchManagerStateHidden) ||
                        self.navigationState == MWMNavigationDashboardStatePlanning ||
                        self.menuState == MWMBottomMenuStateActive || self.isDirectionViewShown ||
                        (isNightMode && self.navigationState != MWMNavigationDashboardStateHidden) ||
@@ -512,7 +514,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (MWMNavigationDashboardState)navigationState { return self.navigationManager.state; }
 - (MWMPlacePageEntity *)placePageEntity { return self.placePageManager.entity; }
-- (BOOL)isDirectionViewShown { return self.placePageManager.isDirectionViewShown; }
+- (BOOL)isDirectionViewShown
+{
+  return _placePageManager ? _placePageManager.isDirectionViewShown : NO;
+}
+
 - (void)setTopBound:(CGFloat)topBound
 {
   if (IPAD)

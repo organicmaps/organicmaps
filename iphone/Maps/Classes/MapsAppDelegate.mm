@@ -13,11 +13,11 @@
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
 #import "MWMRouter.h"
+#import "MWMRouterSavedState.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "Preferences.h"
-#import "RouteState.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
@@ -627,7 +627,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationWillResignActive"));
   [self.mapViewController onGetFocus:NO];
   [self.mapViewController.appWallAd close];
-  [RouteState save];
+  [MWMRouterSavedState store];
   GetFramework().SetRenderingEnabled(false);
   [MWMLocationManager applicationWillResignActive];
 }
@@ -664,7 +664,7 @@ using namespace osm_auth_ios;
   [[Statistics instance] applicationDidBecomeActive];
   GetFramework().SetRenderingEnabled(true);
   [MWMLocationManager applicationDidBecomeActive];
-  [[MWMRouter router] restore];
+  [MWMRouterSavedState restore];
 }
 
 - (void)dealloc
