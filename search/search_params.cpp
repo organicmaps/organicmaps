@@ -1,9 +1,8 @@
-#include "params.hpp"
+#include "search/search_params.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
-
 
 namespace search
 {
@@ -37,10 +36,8 @@ bool SearchParams::GetSearchRect(m2::RectD & rect) const
 
 bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 {
-  return (m_query == rhs.m_query &&
-          m_inputLocale == rhs.m_inputLocale &&
-          m_validPos == rhs.m_validPos &&
-          m_mode == rhs.m_mode &&
+  return (m_query == rhs.m_query && m_inputLocale == rhs.m_inputLocale &&
+          m_validPos == rhs.m_validPos && m_mode == rhs.m_mode &&
           m_searchRadiusM == rhs.m_searchRadiusM);
 }
 
@@ -51,4 +48,4 @@ string DebugPrint(SearchParams const & params)
      << ", Mode = " << DebugPrint(params.m_mode) << " }";
   return ss.str();
 }
-} // namespace search
+}  // namespace search

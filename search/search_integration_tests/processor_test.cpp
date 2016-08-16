@@ -267,7 +267,7 @@ UNIT_CLASS_TEST(ProcessorTest, SearchByName)
   SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
   {
     TRules rules = {ExactMatch(worldId, london)};
-    TEST(ResultsMatch("london", Mode::World, rules), ());
+    TEST(ResultsMatch("london", Mode::Downloader, rules), ());
   }
   {
     TRules rules = {ExactMatch(worldId, london), ExactMatch(wonderlandId, cafe)};
@@ -291,7 +291,7 @@ UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
     SearchParams params;
     params.m_query = "londo";
     params.m_inputLocale = "en";
-    params.SetMode(Mode::World);
+    params.SetMode(Mode::Downloader);
     params.SetSuggestsEnabled(false);
 
     TestSearchRequest request(m_engine, params, m_viewport);

@@ -1,8 +1,8 @@
 #include "search/engine.hpp"
 
 #include "search/geometry_utils.hpp"
-#include "search/params.hpp"
 #include "search/processor.hpp"
+#include "search/search_params.hpp"
 
 #include "storage/country_info_getter.hpp"
 

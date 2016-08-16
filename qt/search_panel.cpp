@@ -117,10 +117,8 @@ void SearchPanel::OnSearchResult(ResultsT * results)
   {
     ClearResults();
 
-    for (ResultsT::IterT i = results->Begin(); i != results->End(); ++i)
+    for (auto const & res : *results)
     {
-      ResultT const & res = *i;
-
       QString const name = QString::fromStdString(res.GetString());
       QString strHigh;
       int pos = 0;
@@ -298,7 +296,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   {
     ClearResults();
 
-    m_pDrawWidget->GetFramework().CancelInteractiveSearch();
+    m_pDrawWidget->GetFramework().CancelSearch(search::Mode::Everywhere);
 
     // hide X button
     m_pClearButton->setVisible(false);
@@ -324,7 +322,7 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
 
 void SearchPanel::hideEvent(QHideEvent *)
 {
-  m_pDrawWidget->GetFramework().CancelInteractiveSearch();
+  m_pDrawWidget->GetFramework().CancelSearch(search::Mode::Everywhere);
 }
 
 void SearchPanel::OnAnimationTimer()

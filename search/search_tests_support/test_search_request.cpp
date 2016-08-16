@@ -31,7 +31,8 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams par
 
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport,
-                                     TOnStarted onStarted, TOnResults onResults)
+                                     SearchParams::TOnStarted onStarted,
+                                     SearchParams::TOnResults onResults)
 {
   SearchParams params;
   params.m_query = query;
@@ -88,7 +89,7 @@ void TestSearchRequest::OnResults(search::Results const & results)
   }
   else
   {
-    m_results.assign(results.Begin(), results.End());
+    m_results.assign(results.begin(), results.end());
   }
 }
 }  // namespace tests_support

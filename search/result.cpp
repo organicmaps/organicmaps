@@ -319,10 +319,10 @@ string DebugPrint(AddressInfo const & info)
   return info.FormatNameAndAddress();
 }
 
-string DebugPrint(Result const & r)
+string DebugPrint(Result const & result)
 {
-  return "Result { Name: " + r.GetString() + "; Type: " + r.GetFeatureType() +
-         "; Info: " + DebugPrint(r.GetRankingInfo()) + " }";
+  return "Result { Name: " + result.GetString() + "; Type: " + result.GetFeatureType() +
+         "; Info: " + DebugPrint(result.GetRankingInfo()) + " }";
 }
 
 }  // namespace search

@@ -6,9 +6,9 @@
 #include "search/keyword_lang_matcher.hpp"
 #include "search/locality_finder.hpp"
 #include "search/mode.hpp"
-#include "search/params.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
+#include "search/search_params.hpp"
 #include "search/suggest.hpp"
 
 #include "indexer/categories_holder.hpp"
@@ -62,7 +62,7 @@ public:
     TLocales m_categoryLocales;
 
     size_t m_limit = 0;
-    TOnResults m_onResults;
+    SearchParams::TOnResults m_onResults;
   };
 
   static size_t const kBatchSize;

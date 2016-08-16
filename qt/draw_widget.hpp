@@ -4,13 +4,15 @@
 
 #include "map/framework.hpp"
 
+#include "search/everywhere_search_params.hpp"
+
 #include "drape_frontend/gui/skin.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 
-#include "std/unique_ptr.hpp"
-#include "std/mutex.hpp"
 #include "std/condition_variable.hpp"
+#include "std/mutex.hpp"
+#include "std/unique_ptr.hpp"
 
 #include <QtWidgets/QOpenGLWidget>
 
@@ -52,7 +54,7 @@ namespace qt
 
     void SetScaleControl(QScaleSlider * pScale);
 
-    bool Search(search::SearchParams params);
+    bool Search(search::EverywhereSearchParams const & params);
     string GetDistance(search::Result const & res) const;
     void ShowSearchResult(search::Result const & res);
 

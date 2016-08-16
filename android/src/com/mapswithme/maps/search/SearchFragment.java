@@ -412,7 +412,7 @@ public class SearchFragment extends BaseMwmFragment
     }
     else
     {
-      if (!SearchEngine.search(getQuery(), mLastQueryTimestamp, true, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
+      if (!SearchEngine.search(getQuery(), mLastQueryTimestamp, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
         return;
     }
 

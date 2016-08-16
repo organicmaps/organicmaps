@@ -1,10 +1,10 @@
 #pragma once
 #include "search/geocoder.hpp"
 #include "search/mode.hpp"
-#include "search/params.hpp"
 #include "search/pre_ranker.hpp"
-#include "search/ranker.hpp"
 #include "search/rank_table_cache.hpp"
+#include "search/ranker.hpp"
+#include "search/search_params.hpp"
 #include "search/search_trie.hpp"
 #include "search/suggest.hpp"
 #include "search/token_slice.hpp"
@@ -84,7 +84,7 @@ public:
   inline void SetMode(Mode mode) { m_mode = mode; }
   inline void SetSuggestsEnabled(bool enabled) { m_suggestsEnabled = enabled; }
   inline void SetPosition(m2::PointD const & position) { m_position = position; }
-  inline void SetOnResults(TOnResults const & onResults) { m_onResults = onResults; }
+  inline void SetOnResults(SearchParams::TOnResults const & onResults) { m_onResults = onResults; }
   inline string const & GetPivotRegion() const { return m_region; }
   inline m2::PointD const & GetPosition() const { return m_position; }
 
@@ -152,7 +152,7 @@ protected:
   m2::PointD m_position;
   Mode m_mode;
   bool m_suggestsEnabled;
-  TOnResults m_onResults;
+  SearchParams::TOnResults m_onResults;
 
   /// @name Get ranking params.
   //@{

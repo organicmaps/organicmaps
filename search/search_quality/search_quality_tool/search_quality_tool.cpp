@@ -1,4 +1,4 @@
-#include "search/params.hpp"
+#include "search/search_params.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"

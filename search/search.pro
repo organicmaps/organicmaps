@@ -16,6 +16,7 @@ HEADERS += \
     common.hpp \
     dummy_rank_table.hpp \
     engine.hpp \
+    everywhere_search_params.hpp \
     feature_offset_match.hpp \
     features_filter.hpp \
     features_layer.hpp \
@@ -29,7 +30,6 @@ HEADERS += \
     house_detector.hpp \
     house_numbers_matcher.hpp \
     house_to_street_table.hpp \
-    interactive_search_callback.hpp \
     intermediate_result.hpp \
     intersection_result.hpp \
     interval_set.hpp \
@@ -44,7 +44,6 @@ HEADERS += \
     model.hpp \
     mwm_context.hpp \
     nested_rects_cache.hpp \
-    params.hpp \
     pre_ranker.hpp \
     pre_ranking_info.hpp \
     processor.hpp \
@@ -61,6 +60,7 @@ HEADERS += \
     retrieval.hpp \
     reverse_geocoder.hpp \
     search_index_values.hpp \
+    search_params.hpp \
     search_trie.hpp \
     stats_cache.hpp \
     street_vicinity_loader.hpp \
@@ -70,6 +70,8 @@ HEADERS += \
     token_slice.hpp \
     types_skipper.hpp \
     utils.hpp \
+    viewport_search_callback.hpp \
+    viewport_search_params.hpp
 
 SOURCES += \
     approximate_string_match.cpp \
@@ -88,7 +90,6 @@ SOURCES += \
     house_detector.cpp \
     house_numbers_matcher.cpp \
     house_to_street_table.cpp \
-    interactive_search_callback.cpp \
     intermediate_result.cpp \
     intersection_result.cpp \
     keyword_lang_matcher.cpp \
@@ -102,7 +103,6 @@ SOURCES += \
     model.cpp \
     mwm_context.cpp \
     nested_rects_cache.cpp \
-    params.cpp \
     pre_ranker.cpp \
     pre_ranking_info.cpp \
     processor.cpp \
@@ -117,7 +117,9 @@ SOURCES += \
     result.cpp \
     retrieval.cpp \
     reverse_geocoder.cpp \
+    search_params.cpp \
     street_vicinity_loader.cpp \
     streets_matcher.cpp \
     token_slice.cpp \
     types_skipper.cpp \
+    viewport_search_callback.cpp

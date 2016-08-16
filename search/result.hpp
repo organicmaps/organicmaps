@@ -15,7 +15,6 @@
 
 namespace search
 {
-
 // Search result. Search returns a list of them, ordered by score.
 class Result
 {
@@ -152,14 +151,14 @@ class Results
 public:
   Results() : m_status(NONE) {}
 
-  /// @name To implement end of search notification.
-  //@{
   static Results GetEndMarker(bool isCancelled) { return Results(isCancelled); }
+
   bool IsEndMarker() const { return (m_status != NONE); }
   bool IsEndedNormal() const { return (m_status == ENDED); }
-  //@}
+  bool IsEndedCancelled() const { return m_status == ENDED_CANCELLED; }
 
   bool AddResult(Result && res);
+
   /// Fast function that don't do any duplicates checks.
   /// Used in viewport search only.
   void AddResultNoChecks(Result && res)
@@ -172,8 +171,6 @@ public:
   inline void Clear() { m_vec.clear(); }
 
   typedef vector<Result>::const_iterator IterT;
-  inline IterT Begin() const { return m_vec.begin(); }
-  inline IterT End() const { return m_vec.end(); }
 
   inline IterT begin() const { return m_vec.begin(); }
   inline IterT end() const { return m_vec.end(); }
@@ -221,11 +218,10 @@ struct AddressInfo
   // Caroline, 7 vulica Frunze, Minsk, Belarus
   string FormatNameAndAddress(AddressType type = DEFAULT) const;
 
-  friend string DebugPrint(AddressInfo const & info);
-
   void Clear();
+
+  friend string DebugPrint(AddressInfo const & info);
 };
 
-string DebugPrint(search::Result const &);
-
+string DebugPrint(search::Result const & result);
 }  // namespace search

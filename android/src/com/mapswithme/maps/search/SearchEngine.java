@@ -93,14 +93,13 @@ public enum SearchEngine implements NativeSearchListener,
 
   /**
    * @param timestamp Search results are filtered according to it after multiple requests.
-   * @param force     Should be false for repeating requests with the same query.
    * @return whether search was actually started.
    */
-  public static boolean search(String query, long timestamp, boolean force, boolean hasLocation, double lat, double lon)
+  public static boolean search(String query, long timestamp, boolean hasLocation, double lat, double lon)
   {
     try
     {
-      return nativeRunSearch(query.getBytes("utf-8"), Language.getKeyboardLocale(), timestamp, force, hasLocation, lat, lon);
+      return nativeRunSearch(query.getBytes("utf-8"), Language.getKeyboardLocale(), timestamp, hasLocation, lat, lon);
     } catch (UnsupportedEncodingException ignored) { }
 
     return false;
@@ -155,7 +154,7 @@ public enum SearchEngine implements NativeSearchListener,
   /**
    * @param bytes utf-8 formatted bytes of query.
    */
-  private static native boolean nativeRunSearch(byte[] bytes, String language, long timestamp, boolean force, boolean hasLocation, double lat, double lon);
+  private static native boolean nativeRunSearch(byte[] bytes, String language, long timestamp, boolean hasLocation, double lat, double lon);
 
   /**
    * @param bytes utf-8 formatted query bytes

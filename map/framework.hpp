@@ -25,7 +25,9 @@
 #include "editor/user_stats.hpp"
 
 #include "search/engine.hpp"
+#include "search/mode.hpp"
 #include "search/query_saver.hpp"
+#include "search/viewport_search_callback.hpp"
 
 #include "storage/downloader_search_params.hpp"
 #include "storage/downloading_policy.hpp"
@@ -33,6 +35,7 @@
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
+#include "platform/platform.hpp"
 
 #include "routing/router.hpp"
 #include "routing/routing_session.hpp"
@@ -58,9 +61,11 @@ class EditableMapObject;
 
 namespace search
 {
-  class Result;
-  class Results;
-  struct AddressInfo;
+class Result;
+class Results;
+struct AddressInfo;
+struct EverywhereSearchParams;
+struct ViewportSearchParams;
 }
 
 namespace storage
@@ -82,7 +87,7 @@ namespace df
 /// build version for screenshots.
 //#define FIXED_LOCATION
 
-class Framework
+class Framework : public search::ViewportSearchCallback::Delegate
 {
   DISALLOW_COPY(Framework);
 
@@ -271,6 +276,27 @@ public:
   BookmarkAndCategory FindBookmark(UserMark const * mark) const;
   BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 
+protected:
+  // search::ViewportSearchCallback::Delegate overrides:
+  void RunUITask(function<void()> fn) override { GetPlatform().RunOnGuiThread(move(fn)); }
+
+  void SetHotelDisplacementMode() override
+  {
+    SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, true /* show */);
+  }
+
+  bool IsViewportSearchActive() const override
+  {
+    return !m_searchIntents[static_cast<size_t>(search::Mode::Viewport)].m_params.m_query.empty();
+  }
+
+  void ShowViewportSearchResults(search::Results const & results) override
+  {
+    FillSearchResultsMarks(results);
+  }
+
+  void ClearViewportSearchResults() override { ClearSearchResultsMarks(); }
+
 private:
   void ActivateMapSelection(bool needAnimation,
                             df::SelectionShape::ESelectedObject selectionType,
@@ -386,37 +412,44 @@ public:
   void SetDisplacementMode(DisplacementModeManager::Slot slot, bool show);
 
 private:
+  struct SearchIntent
+  {
+    search::SearchParams m_params;
+    weak_ptr<search::ProcessorHandle> m_handle;
+    m2::RectD m_viewport;
+  };
+
   void InitCountryInfoGetter();
   void InitSearchEngine();
 
   DisplacementModeManager m_displacementModeManager;
 
-  // Last search query params for the interactive search.
-  search::SearchParams m_lastInteractiveSearchParams;
-
   bool m_connectToGpsTrack; // need to connect to tracker when Drape is being constructed
 
+  void Search(SearchIntent const & intent);
+
+  void SetCurrentPositionIfPossible(search::SearchParams & params);
+
   void FillSearchResultsMarks(search::Results const & results);
+
+  void ClearSearchResultsMarks();
 
   void OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel);
 
   storage::TCountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;
 
-  // Search query params and viewport for the latest search
-  // query. These fields are used to check whether a new search query
-  // can be skipped. Note that these fields are not guarded by a mutex
-  // because we're assuming that they will be accessed only from the
-  // UI thread.
-  search::SearchParams m_lastQueryParams;
-  m2::RectD m_lastQueryViewport;
+  // Descriptions of last search queries for different modes. May be
+  // used for search requests skipping. This field is not guarded
+  // because it must be used from the UI thread only.
+  SearchIntent m_searchIntents[static_cast<size_t>(search::Mode::Count)];
 
-  // A handle for the latest search processor.
-  weak_ptr<search::ProcessorHandle> m_lastProcessorHandle;
+  bool Search(search::SearchParams const & params);
 
   // Returns true when |params| and |viewport| are almost the same as
-  // the latest search query's params and viewport.
-  bool QueryMayBeSkipped(search::SearchParams const & params, m2::RectD const & viewport) const;
+  // the latest search query's params and viewport in the |intent|.
+  bool QueryMayBeSkipped(SearchIntent const & intent, search::SearchParams const & params,
+                         m2::RectD const & viewport) const;
 
   void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                                       pair<size_t, size_t> const & toRemove);
@@ -427,20 +460,22 @@ public:
 
   void UpdateUserViewportChanged();
 
-  /// Call this function before entering search GUI.
-  /// While it's loading, we can cache features in viewport.
-  bool Search(search::SearchParams const & params);
-  /// Searches for mwm based on |params|.
-  /// Calling |params::m_onResults| for returning the result.
+  /// Search everywhere.
+  bool SearchEverywhere(search::EverywhereSearchParams const & params);
+
+  /// Search in the viewport.
+  bool SearchInViewport(search::ViewportSearchParams const & params);
+
+  /// Search for maps by countries or cities.
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);
+
+  void CancelSearch(search::Mode mode);
+  void CancelAllSearches();
+
   bool GetCurrentPosition(double & lat, double & lon) const;
 
   void ShowSearchResult(search::Result const & res);
   size_t ShowSearchResults(search::Results const & results);
-
-  void StartInteractiveSearch(search::SearchParams const & params);
-  bool IsInteractiveSearchActive() const { return !m_lastInteractiveSearchParams.m_query.empty(); }
-  void CancelInteractiveSearch();
 
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
   void SaveSearchQuery(TSearchRequest const & query) { m_searchQuerySaver.Add(query); }
