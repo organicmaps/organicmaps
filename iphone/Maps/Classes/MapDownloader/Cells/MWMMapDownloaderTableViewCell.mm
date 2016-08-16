@@ -7,12 +7,6 @@
 
 #include "Framework.h"
 
-namespace
-{
-  NSDictionary * const kSelectedTitleAttrs = @{ NSFontAttributeName : [UIFont bold17] };
-  NSDictionary * const kUnselectedTitleAttrs = @{ NSFontAttributeName : [UIFont regular17] };
-} // namespace
-
 @interface MWMMapDownloaderTableViewCell () <MWMCircularProgressProtocol>
 
 @property (nonatomic) MWMCircularProgress * progress;
@@ -75,9 +69,12 @@ namespace
 - (void)config:(storage::NodeAttrs const &)nodeAttrs
 {
   [self configProgress:nodeAttrs];
+
+  NSDictionary * const selectedTitleAttrs = @{ NSFontAttributeName : [UIFont bold17] };
+  NSDictionary * const unselectedTitleAttrs = @{ NSFontAttributeName : [UIFont regular17] };
   self.title.attributedText = [self matchedString:@(nodeAttrs.m_nodeLocalName.c_str())
-                                    selectedAttrs:kSelectedTitleAttrs
-                                  unselectedAttrs:kUnselectedTitleAttrs];
+                                    selectedAttrs:selectedTitleAttrs
+                                  unselectedAttrs:unselectedTitleAttrs];
   TMwmSize const size = self.mode == mwm::DownloaderMode::Downloaded
                             ? nodeAttrs.m_downloadingMwmSize
                             : nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;

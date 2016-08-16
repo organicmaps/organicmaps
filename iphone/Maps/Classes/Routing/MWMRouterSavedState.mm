@@ -1,24 +1,30 @@
-#import "RouteState.h"
+#import "MWMRouterSavedState.h"
+#import "MWMRouter.h"
 
 #include "Framework.h"
 
 static NSString * const kEndPointKey = @"endPoint";
 static NSString * const kETAKey = @"eta";
 
-@interface RouteState()
+@implementation MWMRouterSavedState
 
-@property (nonatomic) NSDate * eta;
-
-@end
-
-@implementation RouteState
-
-+ (instancetype)savedState
++ (instancetype)state
 {
-  RouteState * const state = [[super alloc] init];
-  if (state)
+  static MWMRouterSavedState * state;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    state = [[super alloc] initState];
+  });
+  return state;
+}
+
+- (instancetype)initState
+{
+  self = [super init];
+  if (self)
   {
-    NSDictionary * const stateDict = [NSDictionary dictionaryWithContentsOfURL:[RouteState stateFileURL]];
+    _forceStateChange = MWMRouterForceStateChange::None;
+    NSDictionary * const stateDict = [NSDictionary dictionaryWithContentsOfURL:[MWMRouterSavedState stateFileURL]];
     if (stateDict)
     {
       m2::PointD point;
@@ -29,15 +35,16 @@ static NSString * const kETAKey = @"eta";
       if (endPointData && eta)
       {
         [endPointData getBytes:&point length:size];
-        state.endPoint = point;
-        state.eta = eta;
+        _restorePoint = MWMRoutePoint(point, @"Destination");
+        if ([eta compare:[NSDate date]] == NSOrderedDescending)
+          _forceStateChange = MWMRouterForceStateChange::Rebuild;
       }
     }
   }
-  return state;
+  return self;
 }
 
-+ (void)save
++ (void)store
 {
   Framework & f = GetFramework();
   if (!f.IsOnRoute())
@@ -50,12 +57,12 @@ static NSString * const kETAKey = @"eta";
   NSGetSizeAndAlignment(@encode(m2::PointD), &size, nullptr);
   stateDict[kEndPointKey] = [NSData dataWithBytes:&endPoint length:size];
   stateDict[kETAKey] = [NSDate dateWithTimeIntervalSinceNow:routeInfo.m_time];
-  [stateDict writeToURL:[RouteState stateFileURL] atomically:YES];
+  [stateDict writeToURL:[MWMRouterSavedState stateFileURL] atomically:YES];
 }
 
 + (void)remove
 {
-  [[NSFileManager defaultManager] removeItemAtURL:[RouteState stateFileURL] error:nil];
+  [[NSFileManager defaultManager] removeItemAtURL:[MWMRouterSavedState stateFileURL] error:nil];
 }
 
 + (NSURL *)stateFileURL
@@ -63,11 +70,12 @@ static NSString * const kETAKey = @"eta";
   return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"route_info.ini"]];
 }
 
-#pragma mark - Properties
-
-- (BOOL)hasActualRoute
++ (void)restore
 {
-  return [self.eta compare:[NSDate date]] == NSOrderedDescending;
+  if (GetFramework().IsRoutingActive())
+    return;
+  if ([MWMRouterSavedState state].forceStateChange == MWMRouterForceStateChange::None)
+    [MWMRouterSavedState remove];
 }
 
 @end

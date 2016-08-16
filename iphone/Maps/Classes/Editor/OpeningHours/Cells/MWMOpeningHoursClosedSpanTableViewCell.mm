@@ -13,11 +13,10 @@ CGFloat labelWidth()
   return label.width;
 }
 
-static CGFloat const kLabelWidth = labelWidth();
-
 BOOL isCompactForCellWidth(CGFloat width)
 {
-  CGFloat const widthOfAllElementsWithoutLabel = 234.0;
+  static CGFloat const kLabelWidth = labelWidth();
+  CGFloat constexpr widthOfAllElementsWithoutLabel = 234.0;
   CGFloat const maxLabelWidthForCompactCell = width - widthOfAllElementsWithoutLabel;
   return kLabelWidth < maxLabelWidthForCompactCell;
 }

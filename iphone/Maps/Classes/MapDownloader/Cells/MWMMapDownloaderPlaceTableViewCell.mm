@@ -4,12 +4,6 @@
 
 #include "Framework.h"
 
-namespace
-{
-  NSDictionary * const kSelectedAreaAttrs = @{ NSFontAttributeName : [UIFont bold12] };
-  NSDictionary * const kUnselectedAreaAttrs = @{ NSFontAttributeName : [UIFont regular12] };
-} // namespace
-
 @interface MWMMapDownloaderTableViewCell ()
 
 - (NSAttributedString *)matchedString:(NSString *)str selectedAttrs:(NSDictionary *)selectedAttrs unselectedAttrs:(NSDictionary *)unselectedAttrs;
@@ -46,21 +40,23 @@ namespace
 {
   [super config:nodeAttrs];
   BOOL isDescriptionVisible = NO;
+  NSDictionary * const selectedAreaAttrs = @{ NSFontAttributeName : [UIFont bold12] };
+  NSDictionary * const unselectedAreaAttrs = @{ NSFontAttributeName : [UIFont regular12] };
   if (self.needDisplayArea && nodeAttrs.m_topmostParentInfo.size() == 1)
   {
     string const & areaName = nodeAttrs.m_topmostParentInfo[0].m_localName;
     isDescriptionVisible = (areaName != GetFramework().Storage().GetRootId());
     if (isDescriptionVisible)
       self.descriptionLabel.attributedText = [self matchedString:@(areaName.c_str())
-                                                   selectedAttrs:kSelectedAreaAttrs
-                                                 unselectedAttrs:kUnselectedAreaAttrs];
+                                                   selectedAttrs:selectedAreaAttrs
+                                                 unselectedAttrs:unselectedAreaAttrs];
   }
   else if (!nodeAttrs.m_nodeLocalDescription.empty())
   {
     isDescriptionVisible = YES;
     self.descriptionLabel.attributedText = [self matchedString:@(nodeAttrs.m_nodeLocalDescription.c_str())
-                                                 selectedAttrs:kSelectedAreaAttrs
-                                               unselectedAttrs:kUnselectedAreaAttrs];
+                                                 selectedAttrs:selectedAreaAttrs
+                                               unselectedAttrs:unselectedAreaAttrs];
   }
   self.descriptionLabel.hidden = !isDescriptionVisible;
   self.titleBottomOffset.priority = isDescriptionVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;

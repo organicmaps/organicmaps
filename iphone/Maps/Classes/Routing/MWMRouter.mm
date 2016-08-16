@@ -11,7 +11,7 @@
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
-#import "RouteState.h"
+#import "MWMRouterSavedState.h"
 #import "Statistics.h"
 
 #include "Framework.h"
@@ -22,13 +22,6 @@ using namespace routing;
 
 namespace
 {
-enum class ForceStateChange
-{
-  None,
-  Rebuild,
-  Start
-};
-
 MWMRoutePoint lastLocationPoint()
 {
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
@@ -42,8 +35,6 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 @property(nonatomic, readwrite) MWMRoutePoint startPoint;
 @property(nonatomic, readwrite) MWMRoutePoint finishPoint;
-@property(nonatomic, readwrite) MWMRoutePoint restorePoint;
-@property(nonatomic) ForceStateChange forceStateChange;
 
 @end
 
@@ -65,7 +56,6 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   if (self)
   {
     [self resetPoints];
-    self.forceStateChange = ForceStateChange::None;
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
   }
@@ -203,7 +193,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     [[MWMMapViewControlsManager manager] onRouteStart];
     MapsAppDelegate * app = [MapsAppDelegate theApp];
     app.routingPlaneMode = MWMRoutingPlaneModeNone;
-    [RouteState save];
+    [MWMRouterSavedState store];
     [MapsAppDelegate changeMapStyleIfNedeed];
     [app startMapStyleChecker];
   }
@@ -235,7 +225,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   GetFramework().CloseRouting();
   MapsAppDelegate * app = [MapsAppDelegate theApp];
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
-  [RouteState remove];
+  [MWMRouterSavedState remove];
   if ([MapsAppDelegate isAutoNightMode])
     [MapsAppDelegate resetToDefaultMapStyle];
   [app showAlertIfRequired];
@@ -250,22 +240,6 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   f.GetRouteFollowingInfo(info);
   if (info.IsValid())
     [[MWMNavigationDashboardManager manager] updateFollowingInfo:info];
-}
-
-- (void)restore
-{
-  if (GetFramework().IsRoutingActive())
-    return;
-  RouteState * state = [RouteState savedState];
-  if (state.hasActualRoute)
-  {
-    self.restorePoint = MWMRoutePoint(state.endPoint, @"Destination");
-    self.forceStateChange = ForceStateChange::Rebuild;
-  }
-  else
-  {
-    [RouteState remove];
-  }
 }
 
 #pragma mark - MWMLocationObserver
@@ -283,11 +257,12 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   }
   else
   {
-    if (self.forceStateChange == ForceStateChange::Rebuild)
+    MWMRouterSavedState * state = [MWMRouterSavedState state];
+    if (state.forceStateChange == MWMRouterForceStateChange::Rebuild)
     {
-      self.forceStateChange = ForceStateChange::Start;
+      state.forceStateChange = MWMRouterForceStateChange::Start;
       self.type = GetFramework().GetLastUsedRouter();
-      [self buildToPoint:self.restorePoint bestRouter:NO];
+      [self buildToPoint:state.restorePoint bestRouter:NO];
     }
   }
 }
@@ -297,13 +272,14 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
                        countries:(storage::TCountriesVec const &)absentCountries
 {
+  MWMRouterSavedState * state = [MWMRouterSavedState state];
   switch (code)
   {
   case routing::IRouter::ResultCode::NoError:
   {
     auto & f = GetFramework();
     f.DeactivateMapSelection(true);
-    if (self.forceStateChange == ForceStateChange::Start)
+    if (state.forceStateChange == MWMRouterForceStateChange::Start)
       [self start];
     else
       [[MWMMapViewControlsManager manager] onRouteReady];
@@ -357,7 +333,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     [[MWMMapViewControlsManager manager] onRouteError];
     break;
   }
-  self.forceStateChange = ForceStateChange::None;
+  state.forceStateChange = MWMRouterForceStateChange::None;
 }
 
 - (void)processRouteBuilderProgress:(CGFloat)progress

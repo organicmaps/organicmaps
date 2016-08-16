@@ -26,7 +26,7 @@
 #import "MWMTableViewController.h"
 #import "MWMWhatsNewNavigationController.h"
 #import "MapsAppDelegate.h"
-#import "RouteState.h"
+#import "MWMRouterSavedState.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
