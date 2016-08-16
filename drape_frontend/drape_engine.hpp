@@ -5,6 +5,7 @@
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/selection_shape.hpp"
+#include "drape_frontend/traffic_generator.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
 #include "drape/pointers.hpp"
@@ -160,6 +161,9 @@ public:
 
   void RequestSymbolsSize(vector<string> const & symbols,
                           TRequestSymbolsSizeCallback const & callback);
+
+  void AddTrafficSegments(vector<pair<uint64_t, m2::PolylineD>> const & segments);
+  void UpdateTraffic(vector<TrafficSegmentData> const & segmentsData);
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);

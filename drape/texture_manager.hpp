@@ -102,6 +102,7 @@ public:
   bool AreGlyphsReady(strings::UniString const & str) const;
 
   ref_ptr<Texture> GetSymbolsTexture() const;
+  ref_ptr<Texture> GetTrafficArrowTexture() const;
 
 private:
   struct GlyphGroup
@@ -238,6 +239,8 @@ private:
   drape_ptr<Texture> m_stipplePenTexture;
   drape_ptr<Texture> m_colorTexture;
   list<drape_ptr<Texture>> m_glyphTextures;
+
+  drape_ptr<Texture> m_trafficArrowTexture;
 
   drape_ptr<GlyphManager> m_glyphManager;
   drape_ptr<HWTextureAllocator> m_textureAllocator;

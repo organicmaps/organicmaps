@@ -61,7 +61,8 @@ void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl
                          vector<glsl::vec2> * uv = nullptr);
 
 void GenerateCapNormals(dp::LineCap capType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                        glsl::vec2 const & direction, float halfWidth, bool isStart, vector<glsl::vec2> & normals);
+                        glsl::vec2 const & direction, float halfWidth, bool isStart, vector<glsl::vec2> & normals,
+                        int segmentsCount = 8);
 
 glsl::vec2 GetNormal(LineSegment const & segment, bool isLeft, ENormalType normalType);
 

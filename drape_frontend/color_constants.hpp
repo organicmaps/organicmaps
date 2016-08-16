@@ -21,6 +21,9 @@ enum ColorConstant
   TrackCarSpeed,
   TrackPlaneSpeed,
   TrackUnknownDistance,
+  TrafficNormal,
+  TrafficSlow,
+  TrafficVerySlow
 };
 
 dp::Color GetColorConstant(MapStyle style, ColorConstant constant);

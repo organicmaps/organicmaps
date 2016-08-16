@@ -524,4 +524,18 @@ void DrapeEngine::RequestSymbolsSize(vector<string> const & symbols,
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::AddTrafficSegments(vector<pair<uint64_t, m2::PolylineD>> const & segments)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<AddTrafficSegmentsMessage>(segments),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::UpdateTraffic(vector<TrafficSegmentData> const & segmentsData)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<UpdateTrafficMessage>(segmentsData),
+                                  MessagePriority::Normal);
+}
+
 } // namespace df

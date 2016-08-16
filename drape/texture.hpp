@@ -22,7 +22,7 @@ public:
     Glyph,
     StipplePen,
     Color,
-    UniformValue
+    Static
   };
 
   class Key
