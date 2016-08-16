@@ -63,22 +63,31 @@ public enum LocationHelper
     boolean shouldNotifyLocationNotFound();
   }
 
-  private final GPSCheck mReceiver = new GPSCheck();
-
   private final OnTransitionListener mOnTransition = new OnTransitionListener()
   {
+    private final GPSCheck mReceiver = new GPSCheck();
+    private boolean mReceiverRegistered;
+
     @Override
     public void onTransit(boolean foreground)
     {
-      if (foreground)
+      if (foreground && !mReceiverRegistered)
       {
         final IntentFilter filter = new IntentFilter();
         filter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
+
         MwmApplication.get().registerReceiver(mReceiver, filter);
+        mReceiverRegistered = true;
         return;
       }
-      MwmApplication.get().unregisterReceiver(mReceiver);
+
+      if (!foreground && mReceiverRegistered)
+      {
+        MwmApplication.get().unregisterReceiver(mReceiver);
+        mReceiverRegistered = false;
+        return;
+      }
     }
   };
 
