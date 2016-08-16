@@ -241,7 +241,7 @@ public enum LocationHelper
 
     calcParams();
     initProvider(false);
-    MwmApplication.get().backgroundTracker().addListener(mOnTransition);
+    MwmApplication.backgroundTracker().addListener(mOnTransition);
   }
 
   public void initProvider(boolean forceNative)
