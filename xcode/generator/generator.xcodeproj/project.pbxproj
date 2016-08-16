@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D51BC481D5E50F700F1FA8D /* centers_table_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */; };
+		3D51BC491D5E50F700F1FA8D /* centers_table_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */; };
+		3D51BC521D5E512500F1FA8D /* altitude_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */; };
+		3D51BC531D5E512500F1FA8D /* altitude_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC4B1D5E512500F1FA8D /* altitude_generator.hpp */; };
+		3D51BC561D5E512500F1FA8D /* region_meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC4E1D5E512500F1FA8D /* region_meta.cpp */; };
+		3D51BC571D5E512500F1FA8D /* region_meta.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC4F1D5E512500F1FA8D /* region_meta.hpp */; };
+		3D51BC581D5E512500F1FA8D /* srtm_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC501D5E512500F1FA8D /* srtm_parser.cpp */; };
+		3D51BC591D5E512500F1FA8D /* srtm_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC511D5E512500F1FA8D /* srtm_parser.hpp */; };
 		670B84BC1A8CDB0000CE4492 /* osm_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670B84BA1A8CDB0000CE4492 /* osm_source.cpp */; };
 		670B84BD1A8CDB0000CE4492 /* osm_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670B84BB1A8CDB0000CE4492 /* osm_source.hpp */; };
 		6726C1D51A4AFEF4005EEA39 /* osm2meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1D31A4AFEF4005EEA39 /* osm2meta.cpp */; };
@@ -68,6 +76,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = centers_table_builder.cpp; sourceTree = "<group>"; };
+		3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = centers_table_builder.hpp; sourceTree = "<group>"; };
+		3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = altitude_generator.cpp; sourceTree = "<group>"; };
+		3D51BC4B1D5E512500F1FA8D /* altitude_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = altitude_generator.hpp; sourceTree = "<group>"; };
+		3D51BC4E1D5E512500F1FA8D /* region_meta.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = region_meta.cpp; sourceTree = "<group>"; };
+		3D51BC4F1D5E512500F1FA8D /* region_meta.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = region_meta.hpp; sourceTree = "<group>"; };
+		3D51BC501D5E512500F1FA8D /* srtm_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = srtm_parser.cpp; sourceTree = "<group>"; };
+		3D51BC511D5E512500F1FA8D /* srtm_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = srtm_parser.hpp; sourceTree = "<group>"; };
 		670B84BA1A8CDB0000CE4492 /* osm_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_source.cpp; sourceTree = "<group>"; };
 		670B84BB1A8CDB0000CE4492 /* osm_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_source.hpp; sourceTree = "<group>"; };
 		670D05AC1B0E07C30013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
@@ -173,6 +189,14 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */,
+				3D51BC4B1D5E512500F1FA8D /* altitude_generator.hpp */,
+				3D51BC4E1D5E512500F1FA8D /* region_meta.cpp */,
+				3D51BC4F1D5E512500F1FA8D /* region_meta.hpp */,
+				3D51BC501D5E512500F1FA8D /* srtm_parser.cpp */,
+				3D51BC511D5E512500F1FA8D /* srtm_parser.hpp */,
+				3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */,
+				3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */,
 				E9502E311D34012200CAB86B /* booking_scoring.cpp */,
 				E9502E321D34012200CAB86B /* booking_scoring.hpp */,
 				677E2A111CAACC5F001DC42A /* tag_admixer.hpp */,
@@ -268,12 +292,14 @@
 				6753406F1A3F2A7400A0A8C3 /* feature_merger.hpp in Headers */,
 				6753406A1A3F2A7400A0A8C3 /* feature_builder.hpp in Headers */,
 				675340741A3F2A7400A0A8C3 /* generate_info.hpp in Headers */,
+				3D51BC571D5E512500F1FA8D /* region_meta.hpp in Headers */,
 				677E2A161CAACC5F001DC42A /* tag_admixer.hpp in Headers */,
 				675340861A3F2A7400A0A8C3 /* tesselator.hpp in Headers */,
 				67A0FEBF1CEB467F008F2A61 /* booking_dataset.hpp in Headers */,
 				6753405F1A3F2A7400A0A8C3 /* borders_loader.hpp in Headers */,
 				675340801A3F2A7400A0A8C3 /* polygonizer.hpp in Headers */,
 				675340941C5231BA002CF0D9 /* search_index_builder.hpp in Headers */,
+				3D51BC591D5E512500F1FA8D /* srtm_parser.hpp in Headers */,
 				677E2A181CAACC5F001DC42A /* towns_dumper.hpp in Headers */,
 				675340821A3F2A7400A0A8C3 /* routing_generator.hpp in Headers */,
 				675340841A3F2A7400A0A8C3 /* statistics.hpp in Headers */,
@@ -283,7 +309,9 @@
 				675340711A3F2A7400A0A8C3 /* feature_sorter.hpp in Headers */,
 				675340611A3F2A7400A0A8C3 /* check_model.hpp in Headers */,
 				6726C1D61A4AFEF4005EEA39 /* osm2meta.hpp in Headers */,
+				3D51BC491D5E50F700F1FA8D /* centers_table_builder.hpp in Headers */,
 				6753407B1A3F2A7400A0A8C3 /* osm_id.hpp in Headers */,
+				3D51BC531D5E512500F1FA8D /* altitude_generator.hpp in Headers */,
 				675340731A3F2A7400A0A8C3 /* gen_mwm_info.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +403,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6753406C1A3F2A7400A0A8C3 /* feature_generator.cpp in Sources */,
+				3D51BC561D5E512500F1FA8D /* region_meta.cpp in Sources */,
+				3D51BC521D5E512500F1FA8D /* altitude_generator.cpp in Sources */,
+				3D51BC581D5E512500F1FA8D /* srtm_parser.cpp in Sources */,
 				6753407A1A3F2A7400A0A8C3 /* osm_id.cpp in Sources */,
 				675340871A3F2A7400A0A8C3 /* unpack_mwm.cpp in Sources */,
 				670B84BC1A8CDB0000CE4492 /* osm_source.cpp in Sources */,
@@ -390,6 +421,7 @@
 				675340691A3F2A7400A0A8C3 /* feature_builder.cpp in Sources */,
 				677E2A171CAACC5F001DC42A /* towns_dumper.cpp in Sources */,
 				6753405C1A3F2A7400A0A8C3 /* borders_generator.cpp in Sources */,
+				3D51BC481D5E50F700F1FA8D /* centers_table_builder.cpp in Sources */,
 				675340671A3F2A7400A0A8C3 /* dumper.cpp in Sources */,
 				E9502E331D34012200CAB86B /* booking_scoring.cpp in Sources */,
 				675340831A3F2A7400A0A8C3 /* statistics.cpp in Sources */,
@@ -451,6 +483,7 @@
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -494,6 +527,7 @@
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -541,7 +575,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -556,7 +590,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -415,9 +415,8 @@ bool Editor::IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) cons
   return info && info->m_uploadStatus == kUploaded;
 }
 
-void Editor::DeleteFeature(FeatureType const & feature)
+void Editor::DeleteFeature(FeatureID const & fid)
 {
-  FeatureID const & fid = feature.GetID();
   auto const mwm = m_features.find(fid.m_mwmId);
   if (mwm != m_features.end())
   {
@@ -430,16 +429,10 @@ void Editor::DeleteFeature(FeatureType const & feature)
     }
   }
 
-  FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
-  fti.m_status = FeatureStatus::Deleted;
-  // TODO: What if local client time is absolutely wrong?
-  fti.m_modificationTimestamp = time(nullptr);
-  // TODO: We don't really need to serialize whole feature. Improve this code in the future.
-  fti.m_feature = feature;
+  MarkFeatureWithStatus(fid, FeatureStatus::Deleted);
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save();
-
   Invalidate();
 }
 
@@ -491,6 +484,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
 
   auto const featureStatus = GetFeatureStatus(fid.m_mwmId, fid.m_index);
   ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Obsolete, ("Obsolete feature cannot be modified."));
+  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Unexpected feature status."));
 
   bool const wasCreatedByUser = IsCreatedFeature(fid);
   if (wasCreatedByUser)
@@ -510,8 +504,6 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   }
   else
   {
-    ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Unexpected feature status."));
-
     auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
     if (!originalFeaturePtr)
     {
@@ -1037,20 +1029,7 @@ void Editor::MarkFeatureAsObsolete(FeatureID const & fid)
     return;
   }
 
-  auto & fti = m_features[fid.m_mwmId][fid.m_index];
-  // If a feature was modified we can drop all changes since it's now obsolete.
-  auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
-
-  if (!originalFeaturePtr)
-  {
-    LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
-    alohalytics::LogEvent("Editor_MissingFeature_Error");
-    return;
-  }
-
-  fti.m_feature = *originalFeaturePtr;
-  fti.m_status = FeatureStatus::Obsolete;
-  fti.m_modificationTimestamp = time(nullptr);
+  MarkFeatureWithStatus(fid, FeatureStatus::Obsolete);
 
   Save();
   Invalidate();
@@ -1144,6 +1123,24 @@ void Editor::UploadNotes(string const & key, string const & secret)
 {
   alohalytics::LogEvent("Editor_UploadNotes", strings::to_string(m_notes->NotUploadedNotesCount()));
   m_notes->Upload(OsmOAuth::ServerAuth({key, secret}));
+}
+
+void Editor::MarkFeatureWithStatus(FeatureID const & fid, FeatureStatus status)
+{
+  auto & fti = m_features[fid.m_mwmId][fid.m_index];
+
+  auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
+
+  if (!originalFeaturePtr)
+  {
+    LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
+    alohalytics::LogEvent("Editor_MissingFeature_Error");
+    return;
+  }
+
+  fti.m_feature = *originalFeaturePtr;
+  fti.m_status = status;
+  fti.m_modificationTimestamp = time(nullptr);
 }
 
 string DebugPrint(Editor::FeatureStatus fs)

@@ -31,6 +31,17 @@
 		3D489BC81D3D22190052AA38 /* string_slice_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BA91D3D1F8A0052AA38 /* string_slice_tests.cpp */; };
 		3D489BF31D4F87740052AA38 /* osm_editor_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BF11D4F87740052AA38 /* osm_editor_test.cpp */; };
 		3D489BF41D4F87740052AA38 /* osm_editor_test.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D489BF21D4F87740052AA38 /* osm_editor_test.hpp */; };
+		3D51BC311D5E4B7300F1FA8D /* osm_editor_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BF11D4F87740052AA38 /* osm_editor_test.cpp */; };
+		3D51BC331D5E4BB000F1FA8D /* osm_editor_test.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D489BF21D4F87740052AA38 /* osm_editor_test.hpp */; };
+		3D51BC351D5E4BF600F1FA8D /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D51BC341D5E4BF600F1FA8D /* libsearch.a */; };
+		3D51BC371D5E4C3900F1FA8D /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D51BC361D5E4C3900F1FA8D /* libstorage.a */; };
+		3D51BC3B1D5E4C5D00F1FA8D /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D51BC3A1D5E4C5D00F1FA8D /* libplatform_tests_support.a */; };
+		3D51BC3D1D5E4C6400F1FA8D /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D51BC3C1D5E4C6400F1FA8D /* libgenerator_tests_support.a */; };
+		3D51BC3F1D5E4C8800F1FA8D /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D51BC3E1D5E4C8800F1FA8D /* librouting.a */; };
+		3D51BC411D5E4CFA00F1FA8D /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D51BC401D5E4CFA00F1FA8D /* libtess2.a */; };
+		3D51BC421D5E4D3800F1FA8D /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D51BC381D5E4C4300F1FA8D /* libgenerator.a */; };
+		3D51BC431D5E4E2B00F1FA8D /* test_mwm_set.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56C74C2D1C749E8100B71B9F /* test_mwm_set.hpp */; };
+		3D51BC451D5E4EBF00F1FA8D /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D51BC441D5E4EBF00F1FA8D /* libsearch_tests_support.a */; };
 		3D928F671D50F9FE001670E0 /* index_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D928F651D50F9FE001670E0 /* index_helpers.cpp */; };
 		3D928F681D50F9FE001670E0 /* index_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D928F661D50F9FE001670E0 /* index_helpers.hpp */; };
 		56C74C1C1C749E4700B71B9F /* categories_holder_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C74C121C749E4700B71B9F /* categories_holder_loader.cpp */; };
@@ -220,6 +231,14 @@
 		3D489BA91D3D1F8A0052AA38 /* string_slice_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_slice_tests.cpp; sourceTree = "<group>"; };
 		3D489BF11D4F87740052AA38 /* osm_editor_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_editor_test.cpp; sourceTree = "<group>"; };
 		3D489BF21D4F87740052AA38 /* osm_editor_test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_editor_test.hpp; sourceTree = "<group>"; };
+		3D51BC341D5E4BF600F1FA8D /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
+		3D51BC361D5E4C3900F1FA8D /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
+		3D51BC381D5E4C4300F1FA8D /* libgenerator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator.a; path = "../../../omim-xcode-build/Debug/libgenerator.a"; sourceTree = "<group>"; };
+		3D51BC3A1D5E4C5D00F1FA8D /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "../../../omim-xcode-build/Debug/libplatform_tests_support.a"; sourceTree = "<group>"; };
+		3D51BC3C1D5E4C6400F1FA8D /* libgenerator_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator_tests_support.a; path = "../../../omim-xcode-build/Debug/libgenerator_tests_support.a"; sourceTree = "<group>"; };
+		3D51BC3E1D5E4C8800F1FA8D /* librouting.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting.a; path = "../../../omim-xcode-build/Debug/librouting.a"; sourceTree = "<group>"; };
+		3D51BC401D5E4CFA00F1FA8D /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<group>"; };
+		3D51BC441D5E4EBF00F1FA8D /* libsearch_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch_tests_support.a; path = "../../../omim-xcode-build/Debug/libsearch_tests_support.a"; sourceTree = "<group>"; };
 		3D928F651D50F9FE001670E0 /* index_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = index_helpers.cpp; sourceTree = "<group>"; };
 		3D928F661D50F9FE001670E0 /* index_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = index_helpers.hpp; sourceTree = "<group>"; };
 		56C74C121C749E4700B71B9F /* categories_holder_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = categories_holder_loader.cpp; sourceTree = "<group>"; };
@@ -383,6 +402,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D51BC451D5E4EBF00F1FA8D /* libsearch_tests_support.a in Frameworks */,
+				3D51BC421D5E4D3800F1FA8D /* libgenerator.a in Frameworks */,
+				3D51BC411D5E4CFA00F1FA8D /* libtess2.a in Frameworks */,
+				3D51BC3F1D5E4C8800F1FA8D /* librouting.a in Frameworks */,
+				3D51BC3D1D5E4C6400F1FA8D /* libgenerator_tests_support.a in Frameworks */,
+				3D51BC3B1D5E4C5D00F1FA8D /* libplatform_tests_support.a in Frameworks */,
+				3D51BC371D5E4C3900F1FA8D /* libstorage.a in Frameworks */,
+				3D51BC351D5E4BF600F1FA8D /* libsearch.a in Frameworks */,
 				670BAAAC1D0B07AA000302DA /* libcoding.a in Frameworks */,
 				670BAAC81D0B0B77000302DA /* SystemConfiguration.framework in Frameworks */,
 				670BAAC41D0B0865000302DA /* IOKit.framework in Frameworks */,
@@ -417,6 +444,14 @@
 		670BAACC1D0B0F0A000302DA /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				3D51BC441D5E4EBF00F1FA8D /* libsearch_tests_support.a */,
+				3D51BC401D5E4CFA00F1FA8D /* libtess2.a */,
+				3D51BC3E1D5E4C8800F1FA8D /* librouting.a */,
+				3D51BC3C1D5E4C6400F1FA8D /* libgenerator_tests_support.a */,
+				3D51BC3A1D5E4C5D00F1FA8D /* libplatform_tests_support.a */,
+				3D51BC381D5E4C4300F1FA8D /* libgenerator.a */,
+				3D51BC361D5E4C3900F1FA8D /* libstorage.a */,
+				3D51BC341D5E4BF600F1FA8D /* libsearch.a */,
 				670BAAC71D0B0B77000302DA /* SystemConfiguration.framework */,
 				670BAAC51D0B086E000302DA /* CFNetwork.framework */,
 				670BAAC31D0B0865000302DA /* IOKit.framework */,
@@ -644,6 +679,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		3D51BC321D5E4B9200F1FA8D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D51BC431D5E4E2B00F1FA8D /* test_mwm_set.hpp in Headers */,
+				3D51BC331D5E4BB000F1FA8D /* osm_editor_test.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		675340981A3F53CB00A0A8C3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -735,6 +779,7 @@
 				670C61211AB0661100C38A8C /* Sources */,
 				670C61221AB0661100C38A8C /* Frameworks */,
 				670C61231AB0661100C38A8C /* CopyFiles */,
+				3D51BC321D5E4B9200F1FA8D /* Headers */,
 			);
 			buildRules = (
 			);
@@ -802,6 +847,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D51BC311D5E4B7300F1FA8D /* osm_editor_test.cpp in Sources */,
 				670BAA9D1D0B06E1000302DA /* interval_index_test.cpp in Sources */,
 				670BAAA31D0B06E1000302DA /* test_type.cpp in Sources */,
 				670BAA961D0B06E1000302DA /* cell_id_test.cpp in Sources */,
