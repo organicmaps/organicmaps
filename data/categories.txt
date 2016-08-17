@@ -3207,7 +3207,7 @@ fi:Puhelin
 sw:Simu
 
 amenity-toilets
-en:3Toilet|wc|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
+en:3Toilet|wc|5restroom|4bathroom|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
 ru:3Туалет
 uk:3Туалет
 de:WC|3Toilette
