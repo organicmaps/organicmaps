@@ -242,6 +242,16 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     [[MWMNavigationDashboardManager manager] updateFollowingInfo:info];
 }
 
+- (void)showDisclaimer
+{
+  bool isDisclaimerApproved = false;
+  UNUSED_VALUE(settings::Get("IsDisclaimerApproved", isDisclaimerApproved));
+  if (isDisclaimerApproved)
+    return;
+  [[MWMAlertViewController activeAlertController] presentRoutingDisclaimerAlert];
+  settings::Set("IsDisclaimerApproved", true);
+}
+
 #pragma mark - MWMLocationObserver
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
@@ -284,33 +294,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     else
       [[MWMMapViewControlsManager manager] onRouteReady];
     [self updateFollowingInfo];
-    switch ([self type])
-    {
-    case RouterType::Vehicle:
-    case RouterType::Pedestrian:
-    {
-      bool isDisclaimerApproved = false;
-      (void)settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
-      if (!isDisclaimerApproved)
-      {
-        [[MWMAlertViewController activeAlertController] presentRoutingDisclaimerAlert];
-        settings::Set("IsDisclaimerApproved", true);
-      }
-      break;
-    }
-    case RouterType::Bicycle:
-    {
-      NSString * bicycleDisclaimer = @"IsBicycleDisclaimerApproved";
-      NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-      if (![ud boolForKey:bicycleDisclaimer])
-      {
-        [[MWMAlertViewController activeAlertController] presentBicycleRoutingDisclaimerAlert];
-        [ud setBool:YES forKey:bicycleDisclaimer];
-        [ud synchronize];
-      }
-      break;
-    }
-    }
+    [self showDisclaimer];
     [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:100];
     [MWMMapViewControlsManager manager].searchHidden = YES;
     break;
