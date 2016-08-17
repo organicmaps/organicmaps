@@ -53,17 +53,22 @@ size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const 
   return count;
 }
 
-string const kWebSiteProtocols[] = {"http://", "https://"};
-string const kWebSiteProtocolByDefault = "http://";
+char const * const kWebsiteProtocols[] = {"http://", "https://"};
+size_t const kWebsiteProtocolDefaultIndex = 0;
+
+size_t GetProtocolNameLength(string const & website)
+{
+  for (auto const & protocol : kWebsiteProtocols)
+  {
+    if (strings::StartsWith(website, protocol))
+      return strlen(protocol);
+  }
+  return 0;
+}
 
 bool IsProtocolSpecified(string const & website)
 {
-  for (auto const & protocol : kWebSiteProtocols)
-  {
-    if (strings::StartsWith(website, protocol.c_str()))
-      return true;
-  }
-  return false;
+  return GetProtocolNameLength(website) > 0;
 }
 }  // namespace
 
@@ -281,7 +286,7 @@ void EditableMapObject::SetEmail(string const & email)
 void EditableMapObject::SetWebsite(string website)
 {
   if (!website.empty() && !IsProtocolSpecified(website))
-    website = kWebSiteProtocolByDefault + website;
+    website = kWebsiteProtocols[kWebsiteProtocolDefaultIndex] + website;
 
   m_metadata.Set(feature::Metadata::FMD_WEBSITE, website);
   m_metadata.Drop(feature::Metadata::FMD_URL);
@@ -453,15 +458,7 @@ bool EditableMapObject::ValidateWebsite(string const & site)
   if (site.empty())
     return true;
 
-  size_t startPos = 0;
-  for (auto const & protocol : kWebSiteProtocols)
-  {
-    if (strings::StartsWith(site, protocol.c_str()))
-    {
-      startPos = protocol.size();
-      break;
-    }
-  }
+  auto const startPos = GetProtocolNameLength(site);
 
   if (startPos >= site.size())
     return false;
