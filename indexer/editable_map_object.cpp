@@ -52,6 +52,19 @@ size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const 
   
   return count;
 }
+
+string const kWebSiteProtocols[] = {"http://", "https://"};
+string const kWebSiteProtocolByDefault = "http://";
+
+bool IsProtocolSpecified(string const & website)
+{
+  for (auto const & protocol : kWebSiteProtocols)
+  {
+    if (strings::StartsWith(website, protocol.c_str()))
+      return true;
+  }
+  return false;
+}
 }  // namespace
 
 namespace osm
@@ -267,12 +280,9 @@ void EditableMapObject::SetEmail(string const & email)
 
 void EditableMapObject::SetWebsite(string website)
 {
-  if (!website.empty() &&
-      !strings::StartsWith(website, "http://") &&
-      !strings::StartsWith(website, "https://"))
-  {
-    website = "http://" + website;
-  }
+  if (!website.empty() && !IsProtocolSpecified(website))
+    website = kWebSiteProtocolByDefault + website;
+
   m_metadata.Set(feature::Metadata::FMD_WEBSITE, website);
   m_metadata.Drop(feature::Metadata::FMD_URL);
 }
@@ -443,8 +453,21 @@ bool EditableMapObject::ValidateWebsite(string const & site)
   if (site.empty())
     return true;
 
+  size_t startPos = 0;
+  for (auto const & protocol : kWebSiteProtocols)
+  {
+    if (strings::StartsWith(site, protocol.c_str()))
+    {
+      startPos = protocol.size();
+      break;
+    }
+  }
+
+  if (startPos >= site.size())
+    return false;
+
   // Site should contain at least one dot but not at the begining/end.
-  if ('.' == site.front() || '.' == site.back())
+  if ('.' == site[startPos] || '.' == site.back())
     return false;
 
   if (string::npos == site.find("."))
