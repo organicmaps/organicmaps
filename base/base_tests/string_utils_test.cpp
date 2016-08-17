@@ -456,8 +456,8 @@ UNIT_TEST(Tokenize)
 {
   {
     initializer_list<string> expected{"acb", "def", "ghi"};
-    TEST_EQUAL(strings::Tokenize<vector>("acb def ghi", " "), vector<string>(expected), ());
-    TEST_EQUAL(strings::Tokenize<set>("acb def ghi", " "), set<string>(expected), ());
+    TEST_EQUAL(strings::Tokenize<vector>("acb def ghi", " " /* delims */), vector<string>(expected), ());
+    TEST_EQUAL(strings::Tokenize<set>("acb def ghi", " " /* delims */), set<string>(expected), ());
   }
   {
     static_assert(is_same<vector<string>, decltype(strings::Tokenize("", ""))>::value);

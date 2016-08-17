@@ -11,6 +11,7 @@
 
 #include "std/function.hpp"
 #include "std/limits.hpp"
+#include "std/map.hpp"
 #include "std/string.hpp"
 
 class FeatureBuilder1;
@@ -22,7 +23,7 @@ class BookingDataset
 public:
   static double constexpr kDistanceLimitInMeters = 150;
   static size_t constexpr kMaxSelectedElements = 3;
-  static size_t constexpr kInvalidHotelIndex = numeric_limits<size_t>::max();
+  static auto constexpr kInvalidHotelIndex = numeric_limits<uint32_t>::max();
 
   struct Hotel
   {
@@ -44,6 +45,7 @@ public:
       Counter
     };
 
+    // TODO(mgsergio): Make a separate type for this or an alias.
     uint32_t id = 0;
     double lat = 0.0;
     double lon = 0.0;
@@ -85,23 +87,25 @@ public:
   bool CanBeBooking(FeatureBuilder1 const & fb) const;
 
   inline size_t Size() const { return m_hotels.size(); }
-  Hotel const & GetHotel(size_t index) const;
-  Hotel & GetHotel(size_t index);
-  vector<size_t> GetNearestHotels(ms::LatLon const & latLon, size_t limit,
-                                  double maxDistance = 0.0) const;
+  Hotel const & GetHotelById(uint32_t id) const;
+  Hotel & GetHotelById(uint32_t id);
+  vector<uint32_t> GetNearestHotels(ms::LatLon const & latLon, size_t limit,
+                                    double maxDistance = 0.0) const;
   bool MatchByName(string const & osmName, vector<size_t> const & bookingIndexes) const;
 
-  void BuildHotel(size_t hotelIndex, function<void(FeatureBuilder1 &)> const & fn) const;
+  void BuildHotels(function<void(FeatureBuilder1 &)> const & fn) const;
 
 protected:
-  vector<Hotel> m_hotels;
+  map<uint32_t, Hotel> m_hotels;
 
   using TPoint = boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian>;
   using TBox = boost::geometry::model::box<TPoint>;
-  using TValue = pair<TBox, size_t>;
+  using TValue = pair<TBox, uint32_t>;
 
   // Create the rtree using default constructor.
   boost::geometry::index::rtree<TValue, boost::geometry::index::quadratic<16>> m_rtree;
+
+  void BuildHotel(Hotel const & hotel, function<void(FeatureBuilder1 &)> const & fn) const;
 
   void LoadHotels(istream & path, string const & addressReferencePath);
   /// @return an index of a matched hotel or numeric_limits<size_t>::max() on failure.

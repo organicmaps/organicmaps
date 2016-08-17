@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base/buffer_vector.hpp"
+#include "base/stl_add.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
@@ -310,10 +311,7 @@ template <template <typename ...> class Collection = vector>
 Collection<string> Tokenize(string const & str, char const * delims)
 {
   Collection<string> c;
-  Tokenize(str, delims, [&c](string const & str)
-  {
-    c.insert(end(c), str);
-  });
+  Tokenize(str, delims, MakeInsertFunctor(c));
   return c;
 }
 

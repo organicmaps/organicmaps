@@ -32,7 +32,7 @@ public:
   }
   void operator() (typename ContainerT::value_type const & t) const
   {
-    m_Container.insert(t);
+    m_Container.insert(end(m_Container), t);
   }
 };
 
