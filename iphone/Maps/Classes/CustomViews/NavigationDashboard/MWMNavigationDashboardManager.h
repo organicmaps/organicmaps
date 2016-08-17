@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource;
 - (void)setMenuState:(MWMBottomMenuState)menuState;
+- (void)setMenuRestoreState:(MWMBottomMenuState)menuState;
 
 @end
 

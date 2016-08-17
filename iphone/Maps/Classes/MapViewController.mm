@@ -105,7 +105,6 @@ BOOL gIsFirstMyPositionMode = YES;
                                 MWMFrameworkStorageObserver, MWMPageControllerProtocol>
 
 @property(nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
-@property(nonatomic) MWMBottomMenuState menuRestoreState;
 
 @property(nonatomic) BOOL disableStandbyOnLocationStateMode;
 
@@ -264,7 +263,7 @@ BOOL gIsFirstMyPositionMode = YES;
                                                   name:UIDeviceOrientationDidChangeNotification
                                                 object:nil];
 
-  self.controlsManager.menuState = self.menuRestoreState;
+  self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self refreshAd];
 
@@ -344,7 +343,7 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-  self.menuRestoreState = self.controlsManager.menuState;
+  self.controlsManager.menuRestoreState = self.controlsManager.menuState;
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(orientationChanged:)
                                                name:UIDeviceOrientationDidChangeNotification
@@ -356,7 +355,7 @@ BOOL gIsFirstMyPositionMode = YES;
                    completion:(TMWMVoidBlock)completion
 {
   if (isIOS7)
-    self.menuRestoreState = self.controlsManager.menuState;
+    self.controlsManager.menuRestoreState = self.controlsManager.menuState;
   [super presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
@@ -399,7 +398,6 @@ BOOL gIsFirstMyPositionMode = YES;
   });
 
   self.userTouchesAction = UserTouchesActionNone;
-  self.menuRestoreState = MWMBottomMenuStateInactive;
   GetFramework().LoadBookmarks();
   [MWMFrameworkListener addObserver:self];
 }
