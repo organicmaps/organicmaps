@@ -68,6 +68,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.hidden = NO;
   self.sideButtonsHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
+  self.menuRestoreState = MWMBottomMenuStateInactive;
   return self;
 }
 

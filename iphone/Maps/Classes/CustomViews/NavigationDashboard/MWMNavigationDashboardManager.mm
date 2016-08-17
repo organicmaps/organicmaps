@@ -128,24 +128,30 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 - (void)showStatePlanning
 {
   [self showStatePrepare];
-  [self.delegate setMenuState:MWMBottomMenuStatePlanning];
+  [self setMenuState:MWMBottomMenuStatePlanning];
   [self.routePreview router:[MWMRouter router].type setState:MWMCircularProgressStateSpinner];
   [self setRouteBuilderProgress:0.];
 }
 
 - (void)showStateReady
 {
-  [self.delegate setMenuState:MWMBottomMenuStateGo];
+  [self setMenuState:MWMBottomMenuStateGo];
   [self.routePreview stateReady];
 }
 
 - (void)showStateNavigation
 {
-  [self.delegate setMenuState:MWMBottomMenuStateRouting];
+  [self setMenuState:MWMBottomMenuStateRouting];
   [self.routePreview remove];
   self.routePreview = nil;
   [self.navigationInfoView addToView:self.ownerView];
   [MWMMapViewControlsManager manager].searchHidden = YES;
+}
+
+- (void)setMenuState:(MWMBottomMenuState)menuState
+{
+  [self.delegate setMenuState:menuState];
+  [self.delegate setMenuRestoreState:menuState];
 }
 
 - (void)mwm_refreshUI
