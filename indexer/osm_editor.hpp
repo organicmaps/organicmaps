@@ -112,7 +112,7 @@ public:
   bool IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const;
 
   /// Marks feature as "deleted" from MwM file.
-  void DeleteFeature(FeatureType const & feature);
+  void DeleteFeature(FeatureID const & fid);
 
   /// @returns false if feature wasn't edited.
   /// @param outFeature is valid only if true was returned.
@@ -219,7 +219,9 @@ private:
   FeatureTypeInfo const * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index) const;
   FeatureTypeInfo * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index);
   void SaveUploadedInformation(FeatureTypeInfo const & fromUploader);
-  
+
+  void MarkFeatureWithStatus(FeatureID const & fid, FeatureStatus status);
+
   // TODO(AlexZ): Synchronize multithread access.
   /// Deleted, edited and created features.
   map<MwmSet::MwmId, map<uint32_t, FeatureTypeInfo>> m_features;

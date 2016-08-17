@@ -2960,13 +2960,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
 
 void Framework::DeleteFeature(FeatureID const & fid) const
 {
-  // TODO(AlexZ): Use FeatureID in the editor interface.
-
-  FeatureType ft;
-  if (!GetFeatureByID(fid, ft))
-    return;
-
-  osm::Editor::Instance().DeleteFeature(ft);
+  osm::Editor::Instance().DeleteFeature(fid);
   if (m_selectedFeature == fid)
     m_selectedFeature = FeatureID();
 }

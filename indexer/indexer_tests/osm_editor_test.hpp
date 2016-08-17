@@ -23,6 +23,7 @@ public:
 
   void GetFeatureTypeInfoTest();
   void GetEditedFeatureTest();
+  void SetIndexTest();
   void GetEditedFeatureStreetTest();
   void OriginalFeatureHasDefaultNameTest();
   void GetFeatureStatusTest();
@@ -34,6 +35,12 @@ public:
   void RollBackChangesTest();
   void HaveMapEditsOrNotesToUploadTest();
   void HaveMapEditsToUploadTest();
+  void GetStatsTest();
+  void IsCreatedFeatureTest();
+  void ForEachFeatureInMwmRectAndScaleTest();
+  void CreateNoteTest();
+  void LoadMapEditsTest();
+  void SaveEditedFeatureTest();
 
 private:
   template <typename TBuildFn>
@@ -43,9 +50,9 @@ private:
   }
 
   template <typename TBuildFn>
-  MwmSet::MwmId BuildMwm(string const & name, TBuildFn && fn)
+  MwmSet::MwmId BuildMwm(string const & name, TBuildFn && fn, int64_t version = 0)
   {
-    m_mwmFiles.emplace_back(GetPlatform().WritableDir(), platform::CountryFile(name), 0 /* version */);
+    m_mwmFiles.emplace_back(GetPlatform().WritableDir(), platform::CountryFile(name), version);
     auto & file = m_mwmFiles.back();
     Cleanup(file);
 
@@ -63,10 +70,13 @@ private:
     if (info)
       m_infoGetter.AddCountry(storage::CountryDef(name, info->m_limitRect));
 
+    CHECK(id.IsAlive(), ());
+
     return id;
   }
 
   void Cleanup(platform::LocalCountryFile const & map);
+  bool RemoveMwm(MwmSet::MwmId const & mwmId);
 
   Index m_index;
   storage::CountryInfoGetterForTesting m_infoGetter;
