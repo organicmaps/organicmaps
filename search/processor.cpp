@@ -437,10 +437,7 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
       m_geocoder.GoEverywhere();
     }
 
-    m_ranker.FlushResults();
-
-    if (!IsCancelled())
-      params.m_onResults(m_ranker.GetResults());
+    m_ranker.UpdateResults(true /* lastUpdate */);
   }
   catch (CancelException const &)
   {

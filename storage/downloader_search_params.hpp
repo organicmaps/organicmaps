@@ -52,4 +52,9 @@ struct DownloaderSearchParams
   string m_query;
   string m_inputLocale;
 };
+
+inline string DebugPrint(DownloaderSearchResult const & r)
+{
+  return "(" + r.m_countryId + " " + r.m_matchedName + ")";
+}
 }  // namespace storage

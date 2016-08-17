@@ -1144,7 +1144,9 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   p.SetMode(search::Mode::Downloader);
   p.SetSuggestsEnabled(false);
   p.SetForceSearch(true);
-  p.m_onResults = search::DownloaderSearchCallback(m_model.GetIndex(), GetCountryInfoGetter(), GetStorage(), params);
+  p.m_onResults = search::DownloaderSearchCallback(
+      static_cast<search::DownloaderSearchCallback::Delegate &>(*this), m_model.GetIndex(),
+      GetCountryInfoGetter(), GetStorage(), params);
   return Search(p);
 }
 

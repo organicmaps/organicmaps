@@ -7,6 +7,7 @@
 
 #include "indexer/index.hpp"
 
+#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 namespace
@@ -30,11 +31,15 @@ bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType 
 
 namespace search
 {
-DownloaderSearchCallback::DownloaderSearchCallback(Index const & index,
+DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate, Index const & index,
                                                    storage::CountryInfoGetter const & infoGetter,
                                                    storage::Storage const & storage,
                                                    storage::DownloaderSearchParams params)
-  : m_index(index), m_infoGetter(infoGetter), m_storage(storage), m_params(move(params))
+  : m_delegate(delegate)
+  , m_index(index)
+  , m_infoGetter(infoGetter)
+  , m_storage(storage)
+  , m_params(move(params))
 {
 }
 
@@ -76,7 +81,6 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
         }
       }
     }
-
     auto const & mercator = result.GetFeatureCenter();
     storage::TCountryId const & countryId = m_infoGetter.GetRegionCountryId(mercator);
     if (countryId == storage::kInvalidCountryId)
@@ -97,7 +101,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
   if (m_params.m_onResults)
   {
     auto onResults = m_params.m_onResults;
-    GetPlatform().RunOnGuiThread(
+    m_delegate.RunUITask(
         [onResults, downloaderSearchResults]() { onResults(downloaderSearchResults); });
   }
 }

@@ -24,6 +24,7 @@
 
 #include "editor/user_stats.hpp"
 
+#include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
 #include "search/mode.hpp"
 #include "search/query_saver.hpp"
@@ -71,6 +72,7 @@ struct ViewportSearchParams;
 namespace storage
 {
 class CountryInfoGetter;
+struct DownloaderSearchParams;
 }
 
 namespace routing { namespace turns{ class Settings; } }
@@ -87,7 +89,8 @@ namespace df
 /// build version for screenshots.
 //#define FIXED_LOCATION
 
-class Framework : public search::ViewportSearchCallback::Delegate
+class Framework : public search::ViewportSearchCallback::Delegate,
+                  public search::DownloaderSearchCallback::Delegate
 {
   DISALLOW_COPY(Framework);
 

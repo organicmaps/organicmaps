@@ -23,9 +23,18 @@ class Results;
 class DownloaderSearchCallback
 {
 public:
+  class Delegate
+  {
+  public:
+    virtual ~Delegate() = default;
+
+    virtual void RunUITask(function<void()> fn) = 0;
+  };
+
   using TOnResults = storage::DownloaderSearchParams::TOnResults;
 
-  DownloaderSearchCallback(Index const & index, storage::CountryInfoGetter const & infoGetter,
+  DownloaderSearchCallback(Delegate & delegate, Index const & index,
+                           storage::CountryInfoGetter const & infoGetter,
                            storage::Storage const & storage,
                            storage::DownloaderSearchParams params);
 
@@ -34,6 +43,7 @@ public:
 private:
   set<storage::DownloaderSearchResult> m_uniqueResults;
 
+  Delegate & m_delegate;
   Index const & m_index;
   storage::CountryInfoGetter const & m_infoGetter;
   storage::Storage const & m_storage;
