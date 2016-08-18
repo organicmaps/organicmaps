@@ -45,6 +45,8 @@ namespace android
 
     string m_searchQuery;
 
+    bool m_isContextDestroyed;
+
     map<gui::EWidget, gui::Position> m_guiPositions;
 
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
@@ -73,10 +75,9 @@ namespace android
     void Invalidate();
 
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch);
-    void DeleteDrapeEngine();
     bool IsDrapeEngineCreated();
 
-    void DetachSurface();
+    void DetachSurface(bool destroyContext);
     void AttachSurface(JNIEnv * env, jobject jSurface);
 
     void SetMapStyle(MapStyle mapStyle);
@@ -151,10 +152,6 @@ namespace android
     void ApplyWidgets();
     void CleanWidgets();
 
-    using TDrapeTask = function<void()>;
-    // Posts a task which must be executed when Drape Engine is alive.
-    void PostDrapeTask(TDrapeTask && task);
-
     void SetPlacePageInfo(place_page::Info const & info);
     place_page::Info & GetPlacePageInfo();
     void RequestBookingMinPrice(string const & hotelId, string const & currency, function<void(string const &, string const &)> const & callback);
@@ -167,13 +164,6 @@ namespace android
     bool IsAutoRetryDownloadFailed();
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
-
-  private:
-    vector<TDrapeTask> m_drapeTasksQueue;
-    mutex m_drapeQueueMutex;
-
-    // This method must be executed under mutex m_drapeQueueMutex.
-    void ExecuteDrapeTasks();
   };
 }
 

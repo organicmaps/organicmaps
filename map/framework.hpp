@@ -392,7 +392,11 @@ public:
   bool IsDrapeEngineCreated() const { return m_drapeEngine != nullptr; }
   void DestroyDrapeEngine();
   /// Called when graphics engine should be temporarily paused and then resumed.
-  void SetRenderingEnabled(bool enable);
+  void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory);
+  void SetRenderingDisabled(bool destroyContext);
+
+  void UpdateDrapeEngine(int width, int height);
+
 private:
   /// Depends on initialized Drape engine.
   void SaveViewport();

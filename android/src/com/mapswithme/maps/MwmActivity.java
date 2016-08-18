@@ -751,8 +751,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void recreate()
   {
-    // Explicitly destroy engine before activity recreation.
-    mMapFragment.destroyEngine();
+    // Explicitly destroy context before activity recreation.
+    mMapFragment.destroyContext();
     super.recreate();
   }
 

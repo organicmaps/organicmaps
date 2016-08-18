@@ -52,7 +52,7 @@ public class MapFragment extends BaseMwmFragment
   private int mHeight;
   private int mWidth;
   private boolean mRequireResize;
-  private boolean mEngineCreated;
+  private boolean mContextCreated;
   private boolean mFirstStart;
   private static boolean sWasCopyrightDisplayed;
 
@@ -98,7 +98,7 @@ public class MapFragment extends BaseMwmFragment
                       UiUtils.dimen(R.dimen.margin_compass_left) + offsetX,
                       mHeight - UiUtils.dimen(R.dimen.margin_compass_bottom) + offsetY,
                       ANCHOR_CENTER);
-    if (forceRedraw && mEngineCreated)
+    if (forceRedraw && mContextCreated)
       nativeApplyWidgets();
   }
 
@@ -108,7 +108,7 @@ public class MapFragment extends BaseMwmFragment
                       mWidth - UiUtils.dimen(R.dimen.margin_ruler_right) + offsetX,
                       mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom) + offsetY,
                       ANCHOR_RIGHT_BOTTOM);
-    if (forceRedraw && mEngineCreated)
+    if (forceRedraw && mContextCreated)
       nativeApplyWidgets();
   }
 
@@ -141,6 +141,7 @@ public class MapFragment extends BaseMwmFragment
     if (nativeIsEngineCreated())
     {
       nativeAttachSurface(surface);
+      mContextCreated = true;
       mRequireResize = true;
       return;
     }
@@ -154,20 +155,20 @@ public class MapFragment extends BaseMwmFragment
     final float exactDensityDpi = metrics.densityDpi;
 
     mFirstStart = ((MwmActivity) getMwmActivity()).isFirstStart();
-    mEngineCreated = nativeCreateEngine(surface, (int) exactDensityDpi, mFirstStart);
-    if (!mEngineCreated)
+    if (!nativeCreateEngine(surface, (int) exactDensityDpi, mFirstStart))
     {
       reportUnsupported();
       return;
     }
 
+    mContextCreated = true;
     onRenderingInitialized();
   }
 
   @Override
   public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
   {
-    if (!mEngineCreated ||
+    if (!mContextCreated ||
         (!mRequireResize && surfaceHolder.isCreating()))
       return;
 
@@ -181,22 +182,22 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
-    if (!mEngineCreated)
+    if (!mContextCreated)
       return;
 
     if (getActivity() == null || !getActivity().isChangingConfigurations())
-      destroyEngine();
+      destroyContext();
     else
-      nativeDetachSurface();
+      nativeDetachSurface(false);
   }
 
-  void destroyEngine()
+  void destroyContext()
   {
-    if (!mEngineCreated)
+    if (!mContextCreated)
       return;
 
-    nativeDestroyEngine();
-    mEngineCreated = false;
+    nativeDetachSurface(true);
+    mContextCreated = false;
   }
 
   @Override
@@ -281,9 +282,8 @@ public class MapFragment extends BaseMwmFragment
   static native boolean nativeShowMapForUrl(String url);
   static native boolean nativeIsEngineCreated();
   private static native boolean nativeCreateEngine(Surface surface, int density, boolean firstLaunch);
-  private static native void nativeDestroyEngine();
   private static native void nativeAttachSurface(Surface surface);
-  private static native void nativeDetachSurface();
+  private static native void nativeDetachSurface(boolean destroyContext);
   private static native void nativeSurfaceChanged(int w, int h);
   private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
   private static native void nativeSetupWidget(int widget, float x, float y, int anchor);

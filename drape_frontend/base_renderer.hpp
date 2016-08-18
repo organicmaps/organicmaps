@@ -40,7 +40,9 @@ public:
 
   bool CanReceiveMessages();
 
-  void SetRenderingEnabled(bool const isEnabled);
+  void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory);
+  void SetRenderingDisabled(bool const destroyContext);
+
   bool IsRenderingEnabled() const;
 
 protected:
@@ -55,6 +57,9 @@ protected:
 
   virtual unique_ptr<threads::IRoutine> CreateRoutine() = 0;
 
+  virtual void OnContextCreate() = 0;
+  virtual void OnContextDestroy() = 0;
+
 private:
   using TCompletionHandler = function<void()>;
 
@@ -67,7 +72,9 @@ private:
   TCompletionHandler m_renderingEnablingCompletionHandler;
   bool m_wasNotified;
 
-  void SetRenderingEnabled(bool const isEnabled, TCompletionHandler completionHandler);
+  atomic<bool> m_wasContextReset;
+
+  void SetRenderingEnabled(bool const isEnabled);
   void Notify();
   void WakeUp();
 };

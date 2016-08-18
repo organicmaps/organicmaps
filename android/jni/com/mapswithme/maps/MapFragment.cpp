@@ -69,12 +69,6 @@ Java_com_mapswithme_maps_MapFragment_nativeCreateEngine(JNIEnv * env, jclass cla
   return g_framework->CreateDrapeEngine(env, surface, density, firstLaunch);
 }
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeDestroyEngine(JNIEnv * env, jclass clazz)
-{
-  g_framework->DeleteDrapeEngine();
-}
-
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeIsEngineCreated(JNIEnv * env, jclass clazz)
 {
@@ -88,9 +82,9 @@ Java_com_mapswithme_maps_MapFragment_nativeAttachSurface(JNIEnv * env, jclass cl
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeDetachSurface(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_MapFragment_nativeDetachSurface(JNIEnv * env, jclass clazz, jboolean destroyContext)
 {
-  g_framework->DetachSurface();
+  g_framework->DetachSurface(destroyContext);
 }
 
 JNIEXPORT void JNICALL

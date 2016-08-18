@@ -151,6 +151,8 @@ public:
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
   unique_ptr<threads::IRoutine> CreateRoutine() override;
+  void OnContextCreate() override;
+  void OnContextDestroy() override;
 
 private:
   void OnResize(ScreenBase const & screen);
@@ -324,6 +326,8 @@ private:
   vector<m2::TriangleD> m_dragBoundArea;
 
   drape_ptr<SelectObjectMessage> m_selectObjectMessage;
+
+  bool m_needRestoreSize;
 
 #ifdef DEBUG
   bool m_isTeardowned;

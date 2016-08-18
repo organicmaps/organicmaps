@@ -35,6 +35,7 @@ public:
   void SetRouteArrows(drape_ptr<RouteArrowsData> && routeArrowsData, ref_ptr<dp::GpuProgramManager> mng);
 
   void Clear(bool keepDistanceFromBegin = false);
+  void ClearGLDependentResources();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
@@ -54,6 +55,8 @@ private:
 
   float m_currentHalfWidth = 0.0f;
   float m_currentAlpha = 0.0f;
+
+  bool m_invalidGLResources = false;
 };
 
 } // namespace df

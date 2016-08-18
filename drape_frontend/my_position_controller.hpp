@@ -69,6 +69,7 @@ public:
   void CorrectGlobalScalePoint(m2::PointD & pt) const;
 
   void SetRenderShape(drape_ptr<MyPosition> && shape);
+  void ResetRenderShape();
 
   void ActivateRouting(int zoomLevel, bool enableAutoZoom);
   void DeactivateRouting();

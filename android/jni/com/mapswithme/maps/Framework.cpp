@@ -63,6 +63,7 @@ enum MultiTouchAction
 
 Framework::Framework()
   : m_lastCompass(0.0)
+  , m_isContextDestroyed(false)
   , m_currentMode(location::PendingPosition)
   , m_isCurrentModeInitialized(false)
   , m_isChoosePositionMode(false)
@@ -143,21 +144,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   m_work.CreateDrapeEngine(make_ref(m_contextFactory), move(p));
   m_work.EnterForeground();
 
-  // Execute drape tasks which set up custom state.
-  {
-    lock_guard<mutex> lock(m_drapeQueueMutex);
-    if (!m_drapeTasksQueue.empty())
-      ExecuteDrapeTasks();
-  }
-
   return true;
-}
-
-void Framework::DeleteDrapeEngine()
-{
-  m_work.EnterBackground();
-
-  m_work.DestroyDrapeEngine();
 }
 
 bool Framework::IsDrapeEngineCreated()
@@ -171,9 +158,16 @@ void Framework::Resize(int w, int h)
   m_work.OnSize(w, h);
 }
 
-void Framework::DetachSurface()
+void Framework::DetachSurface(bool destroyContext)
 {
-  m_work.SetRenderingEnabled(false);
+  LOG(LWARNING, ("Detach surface"));
+  if (destroyContext)
+  {
+    LOG(LWARNING, ("Destroy context"));
+    m_isContextDestroyed = true;
+    m_work.EnterBackground();
+  }
+  m_work.SetRenderingDisabled(destroyContext);
 
   ASSERT(m_contextFactory != nullptr, ());
   AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
@@ -182,11 +176,24 @@ void Framework::DetachSurface()
 
 void Framework::AttachSurface(JNIEnv * env, jobject jSurface)
 {
+  LOG(LWARNING, ("Attach surface"));
+
   ASSERT(m_contextFactory != nullptr, ());
   AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
   factory->SetSurface(env, jSurface);
 
-  m_work.SetRenderingEnabled(true);
+  ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
+
+  m_work.SetRenderingEnabled(factory);
+
+  if (m_isContextDestroyed)
+  {
+    LOG(LWARNING, ("Recover resources, size:", factory->GetWidth(), factory->GetHeight()));
+    m_work.UpdateDrapeEngine(factory->GetWidth(), factory->GetHeight());
+    m_isContextDestroyed = false;
+
+    m_work.EnterForeground();
+  }
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)
@@ -196,6 +203,7 @@ void Framework::SetMapStyle(MapStyle mapStyle)
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
+  LOG(LWARNING, ("MarkMapStyle"));
   m_work.MarkMapStyle(mapStyle);
 }
 
@@ -435,23 +443,6 @@ void Framework::CleanWidgets()
 void Framework::SetupMeasurementSystem()
 {
   m_work.SetupMeasurementSystem();
-}
-
-void Framework::PostDrapeTask(TDrapeTask && task)
-{
-  ASSERT(task != nullptr, ());
-  lock_guard<mutex> lock(m_drapeQueueMutex);
-  if (IsDrapeEngineCreated())
-    task();
-  else
-    m_drapeTasksQueue.push_back(move(task));
-}
-
-void Framework::ExecuteDrapeTasks()
-{
-  for (auto & task : m_drapeTasksQueue)
-    task();
-  m_drapeTasksQueue.clear();
 }
 
 void Framework::SetPlacePageInfo(place_page::Info const & info)
@@ -803,20 +794,15 @@ Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass,
                                                     jdouble startLat,  jdouble startLon,
                                                     jdouble finishLat, jdouble finishLon)
 {
-  g_framework->PostDrapeTask([startLat, startLon, finishLat, finishLon]()
-  {
-    frm()->BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
-                      MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */);
-  });
+  frm()->BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
+                    MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */);
+
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeFollowRoute(JNIEnv * env, jclass)
 {
-  g_framework->PostDrapeTask([]()
-  {
-    frm()->FollowRoute();
-  });
+  frm()->FollowRoute();
 }
 
 JNIEXPORT void JNICALL
@@ -1013,10 +999,7 @@ Java_com_mapswithme_maps_Framework_nativeSet3dMode(JNIEnv * env, jclass, jboolea
   bool const allow3dBuildings = static_cast<bool>(allowBuildings);
 
   g_framework->Save3dMode(allow3d, allow3dBuildings);
-  g_framework->PostDrapeTask([allow3d, allow3dBuildings]()
-  {
-    g_framework->Set3dMode(allow3d, allow3dBuildings);
-  });
+  g_framework->Set3dMode(allow3d, allow3dBuildings);
 }
 
 JNIEXPORT void JNICALL
@@ -1040,10 +1023,7 @@ Java_com_mapswithme_maps_Framework_nativeSetAutoZoomEnabled(JNIEnv * env, jclass
 {
   bool const autoZoomEnabled = static_cast<bool>(enabled);
   frm()->SaveAutoZoom(autoZoomEnabled);
-  g_framework->PostDrapeTask([autoZoomEnabled]()
-  {
-    frm()->AllowAutoZoom(autoZoomEnabled);
-  });
+  frm()->AllowAutoZoom(autoZoomEnabled);
 }
 
 JNIEXPORT jboolean JNICALL

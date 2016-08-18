@@ -229,7 +229,7 @@ void RouteRenderer::UpdateRoute(ScreenBase const & screen, TCacheRouteArrowsCall
 void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                                 dp::UniformValuesStorage const & commonUniforms)
 {
-  if (!m_routeData)
+  if (!m_routeData || m_invalidGLResources)
     return;
 
   // Render route.
@@ -284,6 +284,9 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
 void RouteRenderer::RenderRouteSigns(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                                      dp::UniformValuesStorage const & commonUniforms)
 {
+  if (m_invalidGLResources)
+    return;
+
   if (m_startRouteSign)
   {
     ASSERT(m_startRouteSign->m_isValid, ());
@@ -301,6 +304,9 @@ void RouteRenderer::RenderRouteSign(drape_ptr<RouteSignData> const & sign, Scree
                                     ref_ptr<dp::GpuProgramManager> mng,
                                     dp::UniformValuesStorage const & commonUniforms)
 {
+  if (m_invalidGLResources)
+    return;
+
   dp::GLState const & state = sign->m_sign.m_state;
 
   dp::UniformValuesStorage uniforms = commonUniforms;
@@ -322,6 +328,8 @@ void RouteRenderer::RenderRouteSign(drape_ptr<RouteSignData> const & sign, Scree
 
 void RouteRenderer::SetRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::GpuProgramManager> mng)
 {
+  m_invalidGLResources = false;
+
   m_routeData = move(routeData);
   m_arrowBorders.clear();
 
@@ -331,6 +339,8 @@ void RouteRenderer::SetRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::
 
 void RouteRenderer::SetRouteSign(drape_ptr<RouteSignData> && routeSignData, ref_ptr<dp::GpuProgramManager> mng)
 {
+  m_invalidGLResources = false;
+
   if (routeSignData->m_isStart)
   {
     if (!routeSignData->m_isValid)
@@ -373,6 +383,8 @@ drape_ptr<RouteData> const & RouteRenderer::GetRouteData() const
 void RouteRenderer::SetRouteArrows(drape_ptr<RouteArrowsData> && routeArrowsData,
                                    ref_ptr<dp::GpuProgramManager> mng)
 {
+  m_invalidGLResources = false;
+
   m_routeArrows = move(routeArrowsData);
   BuildBuckets(m_routeArrows->m_arrows, mng);
 }
@@ -387,6 +399,19 @@ void RouteRenderer::Clear(bool keepDistanceFromBegin)
 
   if (!keepDistanceFromBegin)
     m_distanceFromBegin = 0.0;
+}
+
+void RouteRenderer::ClearGLDependentResources()
+{
+  m_invalidGLResources = true;
+
+  if (m_routeData != nullptr)
+    m_routeData->m_route.m_buckets.clear();
+  if (m_startRouteSign != nullptr)
+    m_startRouteSign->m_sign.m_buckets.clear();
+  if (m_finishRouteSign != nullptr)
+    m_finishRouteSign->m_sign.m_buckets.clear();
+  m_routeArrows.reset();
 }
 
 void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)

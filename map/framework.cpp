@@ -290,7 +290,7 @@ void Framework::Migrate(bool keepDownloaded)
   // If we do not suspend drape, it tries to access framework fields (i.e. m_infoGetter) which are null
   // while migration is performed.
   if (m_drapeEngine && m_isRenderingEnabled)
-    m_drapeEngine->SetRenderingEnabled(false);
+    m_drapeEngine->SetRenderingDisabled(false);
   m_selectedFeature = FeatureID();
   m_searchEngine.reset();
   m_infoGetter.reset();
@@ -303,7 +303,7 @@ void Framework::Migrate(bool keepDownloaded)
   InitSearchEngine();
   RegisterAllMaps();
   if (m_drapeEngine && m_isRenderingEnabled)
-    m_drapeEngine->SetRenderingEnabled(true);
+    m_drapeEngine->SetRenderingEnabled(nullptr);
   InvalidateRect(MercatorBounds::FullRect());
 }
 
@@ -1659,6 +1659,15 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   });
 }
 
+void Framework::UpdateDrapeEngine(int width, int height)
+{
+  if (m_drapeEngine)
+  {
+    m_drapeEngine->Update(width, height);
+    InvalidateUserMarks();
+  }
+}
+
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
 {
   return make_ref(m_drapeEngine);
@@ -1670,11 +1679,18 @@ void Framework::DestroyDrapeEngine()
   m_drapeEngine.reset();
 }
 
-void Framework::SetRenderingEnabled(bool enable)
+void Framework::SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory)
 {
-  m_isRenderingEnabled = enable;
+  m_isRenderingEnabled = true;
   if (m_drapeEngine)
-    m_drapeEngine->SetRenderingEnabled(enable);
+    m_drapeEngine->SetRenderingEnabled(contextFactory);
+}
+
+void Framework::SetRenderingDisabled(bool destroyContext)
+{
+  m_isRenderingEnabled = false;
+  if (m_drapeEngine)
+    m_drapeEngine->SetRenderingDisabled(destroyContext);
 }
 
 void Framework::ConnectToGpsTracker()

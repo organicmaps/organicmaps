@@ -92,6 +92,24 @@ DrapeEngine::~DrapeEngine()
   m_textureManager->Release();
 }
 
+void DrapeEngine::Update(int w, int h)
+{
+  LOG(LWARNING, (w, h));
+
+  RecacheGui(false);
+
+  UpdateMapStyleMessage::Blocker blocker;
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<UpdateMapStyleMessage>(blocker),
+                                  MessagePriority::High);
+  blocker.Wait();
+
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
+                                  MessagePriority::Normal);
+  ResizeImpl(w, h);
+}
+
 void DrapeEngine::Resize(int w, int h)
 {
   if (m_viewport.GetHeight() != h || m_viewport.GetWidth() != w)
@@ -151,12 +169,20 @@ void DrapeEngine::UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvide
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::SetRenderingEnabled(bool const isEnabled)
+void DrapeEngine::SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory)
 {
-  m_frontend->SetRenderingEnabled(isEnabled);
-  m_backend->SetRenderingEnabled(isEnabled);
+  m_backend->SetRenderingEnabled(contextFactory);
+  m_frontend->SetRenderingEnabled(contextFactory);
 
-  LOG(LDEBUG, (isEnabled ? "Rendering enabled" : "Rendering disabled"));
+  LOG(LDEBUG, ("Rendering enabled"));
+}
+
+void DrapeEngine::SetRenderingDisabled(bool const destroyContext)
+{
+  m_frontend->SetRenderingDisabled(destroyContext);
+  m_backend->SetRenderingDisabled(destroyContext);
+
+  LOG(LDEBUG, ("Rendering disabled"));
 }
 
 void DrapeEngine::InvalidateRect(m2::RectD const & rect)

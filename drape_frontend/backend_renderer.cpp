@@ -319,16 +319,33 @@ void BackendRenderer::ReleaseResources()
   m_contextFactory->getResourcesUploadContext()->doneCurrent();
 }
 
+void BackendRenderer::OnContextCreate()
+{
+  LOG(LWARNING, ("On context create."));
+  m_contextFactory->waitForInitialization();
+  m_contextFactory->getResourcesUploadContext()->makeCurrent();
+
+  GLFunctions::Init();
+
+  InitGLDependentResource();
+}
+
+void BackendRenderer::OnContextDestroy()
+{
+  LOG(LWARNING, ("On context destroy."));
+  m_readManager->InvalidateAll();
+  m_batchersPool.reset();
+  m_texMng->Release();
+
+  m_contextFactory->getResourcesUploadContext()->doneCurrent();
+}
+
 BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(renderer) {}
 
 void BackendRenderer::Routine::Do()
 {
-  m_renderer.m_contextFactory->waitForInitialization();
-
-  m_renderer.m_contextFactory->getResourcesUploadContext()->makeCurrent();
-  GLFunctions::Init();
-
-  m_renderer.InitGLDependentResource();
+  LOG(LWARNING, ("Start routine."));
+  m_renderer.OnContextCreate();
 
   while (!IsCancelled())
   {

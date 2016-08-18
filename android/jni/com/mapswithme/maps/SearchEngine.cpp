@@ -240,21 +240,14 @@ extern "C"
   {
     lock_guard<mutex> guard(g_resultsMutex);
     Result const & result = g_results.GetResult(index);
-    g_framework->PostDrapeTask([result]()
-    {
-      g_framework->NativeFramework()->ShowSearchResult(result);
-    });
+    g_framework->NativeFramework()->ShowSearchResult(result);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowAllResults(JNIEnv * env, jclass clazz)
   {
     lock_guard<mutex> guard(g_resultsMutex);
-    auto const & results = g_results;
-    g_framework->PostDrapeTask([results]()
-    {
-      g_framework->NativeFramework()->ShowSearchResults(results);
-    });
+    g_framework->NativeFramework()->ShowSearchResults(g_results);
   }
 
   JNIEXPORT void JNICALL
