@@ -61,7 +61,9 @@ extern NSString * const kLargeCountryCellIdentifier;
 
 - (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath
 {
-  return self.searchCountryIds[indexPath.row];
+  if (indexPath.row < self.searchCountryIds.count)
+    return self.searchCountryIds[indexPath.row];
+  return @(kInvalidCountryId.c_str());
 }
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
