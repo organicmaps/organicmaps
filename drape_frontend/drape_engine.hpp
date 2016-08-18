@@ -148,6 +148,11 @@ public:
 
   void SetDisplacementMode(int mode);
 
+  using TRequestSymbolsSizeCallback = function<void(vector<m2::PointU> const &)>;
+
+  void RequestSymbolsSize(vector<string> const & symbols,
+                          TRequestSymbolsSizeCallback const & callback);
+
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);

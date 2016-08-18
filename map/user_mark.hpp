@@ -50,6 +50,14 @@ protected:
   mutable UserMarkContainer * m_container;
 };
 
+enum SearchMarkType
+{
+  DefaultSearchMark = 0,
+  BookingSearchMark,
+
+  SearchMarkTypesCount
+};
+
 class SearchMarkPoint : public UserMark
 {
 public:

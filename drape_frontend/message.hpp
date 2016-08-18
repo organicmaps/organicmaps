@@ -57,7 +57,8 @@ public:
     SetTimeInBackground,
     SetAddNewPlaceMode,
     SetDisplacementMode,
-    AllowAutoZoom
+    AllowAutoZoom,
+    RequestSymbolsSize
   };
 
   virtual ~Message() {}
