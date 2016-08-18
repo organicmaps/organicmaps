@@ -13,8 +13,6 @@ namespace
 {
 using TObserver = id<MWMSearchObserver>;
 using TObservers = NSHashTable<__kindof TObserver>;
-
-NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
 }  // namespace
 
 @interface MWMSearch ()
@@ -27,6 +25,8 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
 @property(nonatomic) BOOL viewportSearchActive;
 
 @property(nonatomic) TObservers * observers;
+
+@property(nonatomic) NSTimeInterval lastSearchTimestamp;
 
 @end
 
@@ -59,15 +59,19 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
 
 - (void)updateCallbacks
 {
+  NSTimeInterval const timestamp = [NSDate date].timeIntervalSince1970;
+  self.lastSearchTimestamp = timestamp;
   __weak auto weakSelf = self;
-  m_everywhereParams.m_onResults = [weakSelf](search::Results const & results) {
+  m_everywhereParams.m_onResults = [weakSelf, timestamp](search::Results const & results) {
     __strong auto self = weakSelf;
     if (!self)
+      return;
+    if (timestamp != self.lastSearchTimestamp)
       return;
     if (results.IsEndMarker())
     {
       self.everywhereSearchActive = NO;
-      [self delayedOnSearchCompleted];
+      [self onSearchCompleted];
     }
     else
     {
@@ -93,7 +97,7 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
     if (!self)
       return;
     self.viewportSearchActive = NO;
-    [self delayedOnSearchCompleted];
+    [self onSearchCompleted];
   };
 }
 
@@ -123,13 +127,6 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
     }
   }
   [self onSearchStarted];
-}
-
-- (void)delayedOnSearchCompleted
-{
-  SEL const selector = @selector(onSearchCompleted);
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
-  [self performSelector:selector withObject:nil afterDelay:kOnSearchCompletedDelay];
 }
 
 #pragma mark - Add/Remove Observers
@@ -206,8 +203,6 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
 
 - (void)onSearchStarted
 {
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onSearchCompleted) object:nil];
-
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchStarted)])

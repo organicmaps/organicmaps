@@ -3,6 +3,11 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
+namespace
+{
+NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
+}  // namespace
+
 @interface MWMSearchTextField ()<MWMSearchObserver>
 
 @property(nonatomic) BOOL isSearching;
@@ -16,7 +21,7 @@
   self = [super initWithCoder:aDecoder];
   if (self)
   {
-    self.isSearching = NO;
+    [self setStaticIcon];
     self.leftViewMode = UITextFieldViewModeAlways;
     self.textColor = [UIColor blackSecondaryText];
     [MWMSearch addObserver:self];
@@ -35,6 +40,8 @@
 
 - (void)setIsSearching:(BOOL)isSearching
 {
+  if (_isSearching == isSearching)
+    return;
   _isSearching = isSearching;
   if (isSearching)
   {
@@ -48,13 +55,32 @@
   }
   else
   {
-    self.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_search"]];
-    static_cast<UIImageView *>(self.leftView).mwm_coloring = MWMImageColoringBlack;
+    [self setStaticIcon];
   }
 }
 
+- (void)setStaticIcon
+{
+  self.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_search"]];
+  static_cast<UIImageView *>(self.leftView).mwm_coloring = MWMImageColoringBlack;
+}
+
+- (void)stopSpinner { self.isSearching = NO; }
 #pragma mark - MWMSearchObserver
 
-- (void)onSearchStarted { self.isSearching = YES; }
-- (void)onSearchCompleted { self.isSearching = NO; }
+- (void)onSearchStarted
+{
+  [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                           selector:@selector(stopSpinner)
+                                             object:nil];
+  self.isSearching = YES;
+}
+
+- (void)onSearchCompleted
+{
+  SEL const selector = @selector(stopSpinner);
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
+  [self performSelector:selector withObject:nil afterDelay:kOnSearchCompletedDelay];
+}
+
 @end

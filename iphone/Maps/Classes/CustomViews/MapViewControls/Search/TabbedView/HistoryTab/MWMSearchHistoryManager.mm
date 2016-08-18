@@ -1,11 +1,11 @@
+#import "MWMSearchHistoryManager.h"
 #import "Common.h"
-#import "Macros.h"
-#import "MapsAppDelegate.h"
 #import "MWMLocationManager.h"
 #import "MWMSearchHistoryClearCell.h"
-#import "MWMSearchHistoryManager.h"
 #import "MWMSearchHistoryMyPositionCell.h"
 #import "MWMSearchHistoryRequestCell.h"
+#import "Macros.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 #include "Framework.h"
@@ -16,9 +16,9 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 
 @interface MWMSearchHistoryManager ()
 
-@property (weak, nonatomic) MWMSearchTabbedCollectionViewCell * cell;
+@property(weak, nonatomic) MWMSearchTabbedCollectionViewCell * cell;
 
-@property (nonatomic) MWMSearchHistoryRequestCell * sizingCell;
+@property(nonatomic) MWMSearchHistoryRequestCell * sizingCell;
 
 @end
 
@@ -50,13 +50,13 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView registerNib:[UINib nibWithNibName:kRequestCellIdentifier bundle:nil]
-    forCellReuseIdentifier:kRequestCellIdentifier];
+        forCellReuseIdentifier:kRequestCellIdentifier];
     [tableView registerNib:[UINib nibWithNibName:kClearCellIdentifier bundle:nil]
-    forCellReuseIdentifier:kClearCellIdentifier];
+        forCellReuseIdentifier:kClearCellIdentifier];
     if (isRouteSearch)
     {
       [tableView registerNib:[UINib nibWithNibName:kMyPositionCellIdentifier bundle:nil]
-      forCellReuseIdentifier:kMyPositionCellIdentifier];
+          forCellReuseIdentifier:kMyPositionCellIdentifier];
     }
     [tableView reloadData];
   }
@@ -80,6 +80,13 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
   return @([self queryAtIndex:i].second.c_str());
 }
 
+- (BOOL)isRequestCell:(NSIndexPath *)indexPath
+{
+  NSUInteger const row = indexPath.row;
+  BOOL const isRouteSearch = self.isRouteSearchMode;
+  return isRouteSearch ? row > 0 : row < GetFramework().GetLastSearchQueries().size();
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -87,66 +94,62 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
   return GetFramework().GetLastSearchQueries().size() + 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSUInteger const row = indexPath.row;
-  BOOL const isRouteSearch = self.isRouteSearchMode;
-  BOOL const isRequestCell = isRouteSearch ? row > 0 : row < GetFramework().GetLastSearchQueries().size();
-  if (isRequestCell)
+  if ([self isRequestCell:indexPath])
     return [tableView dequeueReusableCellWithIdentifier:kRequestCellIdentifier];
   else
-    return [tableView dequeueReusableCellWithIdentifier:isRouteSearch ? kMyPositionCellIdentifier : kClearCellIdentifier];
+    return [tableView dequeueReusableCellWithIdentifier:self.isRouteSearchMode
+                                                            ? kMyPositionCellIdentifier
+                                                            : kClearCellIdentifier];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView
+    estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSUInteger const row = indexPath.row;
-  BOOL const isRouteSearch = self.isRouteSearchMode;
-  BOOL const isRequestCell = isRouteSearch ? row > 0 : row < GetFramework().GetLastSearchQueries().size();
-  if (isRequestCell)
+  if ([self isRequestCell:indexPath])
     return MWMSearchHistoryRequestCell.defaultCellHeight;
   else
-    return isRouteSearch ? MWMSearchHistoryMyPositionCell.cellHeight : MWMSearchHistoryClearCell.cellHeight;
+    return self.isRouteSearchMode ? MWMSearchHistoryMyPositionCell.cellHeight
+                                  : MWMSearchHistoryClearCell.cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSUInteger const row = indexPath.row;
-  BOOL const isRouteSearch = self.isRouteSearchMode;
-  BOOL const isRequestCell = isRouteSearch ? row > 0 : row < GetFramework().GetLastSearchQueries().size();
-  if (isRequestCell)
+  if ([self isRequestCell:indexPath])
   {
     [self.sizingCell config:[self stringAtIndex:row]];
     return self.sizingCell.cellHeight;
   }
   else
-    return isRouteSearch ? MWMSearchHistoryMyPositionCell.cellHeight : MWMSearchHistoryClearCell.cellHeight;
+    return self.isRouteSearchMode ? MWMSearchHistoryMyPositionCell.cellHeight
+                                  : MWMSearchHistoryClearCell.cellHeight;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(MWMSearchHistoryRequestCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+      willDisplayCell:(UITableViewCell *)cell
+    forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  size_t const size = GetFramework().GetLastSearchQueries().size() + (self.isRouteSearchMode ? 1 : 0);
-  NSUInteger const row = indexPath.row;
-  BOOL const isRequestCell = self.isRouteSearchMode ? row != 0 : row < size;
-  if (isRequestCell)
-    [cell config:[self stringAtIndex:indexPath.row]];
+  if (![cell isKindOfClass:[MWMSearchHistoryRequestCell class]])
+    return;
+  MWMSearchHistoryRequestCell * tCell = static_cast<MWMSearchHistoryRequestCell *>(cell);
+  [tCell config:[self stringAtIndex:indexPath.row]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  Framework & f = GetFramework();
-  NSUInteger const row = indexPath.row;
   BOOL const isRouteSearch = self.isRouteSearchMode;
-  BOOL const isRequestCell = isRouteSearch ? row != 0 : row < f.GetLastSearchQueries().size();
-  if (isRequestCell)
+  if ([self isRequestCell:indexPath])
   {
-    search::QuerySaver::TSearchRequest const & query = [self queryAtIndex:isRouteSearch ? indexPath.row - 1 : indexPath.row];
+    search::QuerySaver::TSearchRequest const & query =
+        [self queryAtIndex:isRouteSearch ? indexPath.row - 1 : indexPath.row];
     NSString * queryText = @(query.second.c_str());
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-                     withParameters:@{kStatValue : queryText, kStatScreen : kStatHistory}];
+          withParameters:@{kStatValue : queryText, kStatScreen : kStatHistory}];
     [self.delegate searchText:queryText forInputLocale:@(query.first.c_str())];
   }
   else
@@ -154,24 +157,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     if (isRouteSearch)
     {
       [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-                       withParameters:@{kStatValue : kStatMyPosition, kStatScreen : kStatHistory}];
+            withParameters:@{kStatValue : kStatMyPosition, kStatScreen : kStatHistory}];
       [self.delegate tapMyPositionFromHistory];
       return;
     }
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-                     withParameters:@{kStatValue : kStatClear, kStatScreen : kStatHistory}];
-    f.ClearSearchHistory();
+          withParameters:@{kStatValue : kStatClear, kStatScreen : kStatHistory}];
+    GetFramework().ClearSearchHistory();
     MWMSearchTabbedCollectionViewCell * cell = self.cell;
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-    {
-      cell.tableView.alpha = 0.0;
-      cell.noResultsView.alpha = 1.0;
-    }
-    completion:^(BOOL finished)
-    {
-      cell.tableView.hidden = YES;
-      cell.noResultsView.hidden = NO;
-    }];
+    [UIView animateWithDuration:kDefaultAnimationDuration
+        animations:^{
+          cell.tableView.alpha = 0.0;
+          cell.noResultsView.alpha = 1.0;
+        }
+        completion:^(BOOL finished) {
+          cell.tableView.hidden = YES;
+          cell.noResultsView.hidden = NO;
+        }];
   }
 }
 

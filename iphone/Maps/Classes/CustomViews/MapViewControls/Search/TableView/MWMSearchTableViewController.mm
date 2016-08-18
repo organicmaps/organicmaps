@@ -57,10 +57,11 @@ NSString * identifierForType(MWMSearchTableCellType type)
   [self setupTableView];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-  [super viewDidAppear:animated];
+  [super viewWillAppear:animated];
   [MWMSearch addObserver:self];
+  [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
