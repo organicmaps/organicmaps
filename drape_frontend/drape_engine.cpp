@@ -473,4 +473,12 @@ void DrapeEngine::SetDisplacementMode(int mode)
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::RequestSymbolsSize(vector<string> const & symbols,
+                                     TRequestSymbolsSizeCallback const & callback)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<RequestSymbolsSizeMessage>(symbols, callback),
+                                  MessagePriority::Normal);
+}
+
 } // namespace df

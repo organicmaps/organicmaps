@@ -114,6 +114,13 @@ char const kAllowAutoZoom[] = "AutoZoom";
 
 double const kDistEqualQuery = 100.0;
 
+// Must correspond SearchMarkType.
+vector<string> kSearchMarks =
+{
+  "search-result",
+  "search-booking"
+};
+
 // TODO!
 // To adjust GpsTrackFilter was added secret command "?gpstrackaccuracy:xxx;"
 // where xxx is a new value for horizontal accuracy.
@@ -1633,6 +1640,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     place_page::Info info;
     ActivateMapSelection(false, OnTapEventImpl(*m_lastTapEvent, info), info);
   }
+
+  m_drapeEngine->RequestSymbolsSize(kSearchMarks, [this](vector<m2::PointU> const & sizes)
+  {
+    GetPlatform().RunOnGuiThread([this, sizes](){ m_searchMarksSizes = sizes; });
+  });
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -2586,6 +2598,18 @@ vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
 void Framework::BlockTapEvents(bool block)
 {
   CallDrapeFunction(bind(&df::DrapeEngine::BlockTapEvents, _1, block));
+}
+
+m2::PointD Framework::GetSearchMarkSize(SearchMarkType searchMarkType)
+{
+  if (m_searchMarksSizes.empty())
+    return m2::PointD();
+
+  ASSERT_LESS(static_cast<size_t>(searchMarkType), m_searchMarksSizes.size(), ());
+  m2::PointU const pixelSize = m_searchMarksSizes[searchMarkType];
+
+  double const pixelToMercator = m_currentModelView.GetScale();
+  return m2::PointD(pixelToMercator * pixelSize.x, pixelToMercator * pixelSize.y);
 }
 
 namespace feature

@@ -274,6 +274,22 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_readManager->Allow3dBuildings(msg->Allow3dBuildings());
       break;
     }
+  case Message::RequestSymbolsSize:
+    {
+      ref_ptr<RequestSymbolsSizeMessage> msg = message;
+      auto const & symbols = msg->GetSymbols();
+
+      vector<m2::PointU> sizes(symbols.size());
+      for (size_t i = 0; i < symbols.size(); i++)
+      {
+        dp::TextureManager::SymbolRegion region;
+        m_texMng->GetSymbolRegion(symbols[i], region);
+        sizes[i] = region.GetPixelSize();
+      }
+      msg->InvokeCallback(sizes);
+
+      break;
+    }
   default:
     ASSERT(false, ());
     break;
