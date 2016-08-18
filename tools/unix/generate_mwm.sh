@@ -18,7 +18,6 @@
 
 set -u
 set -e
-set -x
 
 if [ $# -lt 1 ]; then
   echo
