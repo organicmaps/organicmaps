@@ -157,3 +157,5 @@ fi
 rm -f "$TARGET/$BASE_NAME.mwm.osm2ft"
 # Remove temporary offsets table
 [ -d "$TARGET/$BASE_NAME" ] && rm -r "$TARGET/$BASE_NAME"
+
+exit 0 #added so that the exit code of the script is 0, and not whatever the [ -d ] returns
