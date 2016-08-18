@@ -198,7 +198,7 @@ using namespace mwm;
 {
   NSInteger const section = indexPath.section;
   NSInteger const row = indexPath.row;
-  if (self.downloadedCountries)
+  if (row < self.downloadedCountries.count)
     return self.downloadedCountries[row];
   NSString * index = self.indexes[section];
   NSArray<NSString *> * availableCountries = self.availableCountries[index];
