@@ -129,7 +129,10 @@ public final class PushwooshHelper implements SendPushTagsCallBack
         synchronized (mSyncObject)
         {
           if (e != null)
-            Log.e("Pushwoosh", e.getLocalizedMessage());
+          {
+            String msg = e.getLocalizedMessage();
+            Log.e("Pushwoosh", msg != null ? msg : "onSentTagsError");
+          }
           mTask = null;
         }
       }
