@@ -65,16 +65,14 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
   static_cast<UIImageView *>(self.leftView).mwm_coloring = MWMImageColoringBlack;
 }
 
-- (void)stopSpinner
-{
-  self.isSearching = NO;
-}
-
+- (void)stopSpinner { self.isSearching = NO; }
 #pragma mark - MWMSearchObserver
 
 - (void)onSearchStarted
 {
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopSpinner) object:nil];
+  [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                           selector:@selector(stopSpinner)
+                                             object:nil];
   self.isSearching = YES;
 }
 

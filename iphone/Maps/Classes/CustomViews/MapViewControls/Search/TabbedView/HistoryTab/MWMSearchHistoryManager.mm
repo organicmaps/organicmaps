@@ -1,11 +1,11 @@
+#import "MWMSearchHistoryManager.h"
 #import "Common.h"
-#import "Macros.h"
-#import "MapsAppDelegate.h"
 #import "MWMLocationManager.h"
 #import "MWMSearchHistoryClearCell.h"
-#import "MWMSearchHistoryManager.h"
 #import "MWMSearchHistoryMyPositionCell.h"
 #import "MWMSearchHistoryRequestCell.h"
+#import "Macros.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 #include "Framework.h"
@@ -16,9 +16,9 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 
 @interface MWMSearchHistoryManager ()
 
-@property (weak, nonatomic) MWMSearchTabbedCollectionViewCell * cell;
+@property(weak, nonatomic) MWMSearchTabbedCollectionViewCell * cell;
 
-@property (nonatomic) MWMSearchHistoryRequestCell * sizingCell;
+@property(nonatomic) MWMSearchHistoryRequestCell * sizingCell;
 
 @end
 
@@ -50,13 +50,13 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView registerNib:[UINib nibWithNibName:kRequestCellIdentifier bundle:nil]
-    forCellReuseIdentifier:kRequestCellIdentifier];
+        forCellReuseIdentifier:kRequestCellIdentifier];
     [tableView registerNib:[UINib nibWithNibName:kClearCellIdentifier bundle:nil]
-    forCellReuseIdentifier:kClearCellIdentifier];
+        forCellReuseIdentifier:kClearCellIdentifier];
     if (isRouteSearch)
     {
       [tableView registerNib:[UINib nibWithNibName:kMyPositionCellIdentifier bundle:nil]
-      forCellReuseIdentifier:kMyPositionCellIdentifier];
+          forCellReuseIdentifier:kMyPositionCellIdentifier];
     }
     [tableView reloadData];
   }
@@ -94,22 +94,27 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
   return GetFramework().GetLastSearchQueries().size() + 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if ([self isRequestCell:indexPath])
     return [tableView dequeueReusableCellWithIdentifier:kRequestCellIdentifier];
   else
-    return [tableView dequeueReusableCellWithIdentifier:self.isRouteSearchMode ? kMyPositionCellIdentifier : kClearCellIdentifier];
+    return [tableView dequeueReusableCellWithIdentifier:self.isRouteSearchMode
+                                                            ? kMyPositionCellIdentifier
+                                                            : kClearCellIdentifier];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView
+    estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if ([self isRequestCell:indexPath])
     return MWMSearchHistoryRequestCell.defaultCellHeight;
   else
-    return self.isRouteSearchMode ? MWMSearchHistoryMyPositionCell.cellHeight : MWMSearchHistoryClearCell.cellHeight;
+    return self.isRouteSearchMode ? MWMSearchHistoryMyPositionCell.cellHeight
+                                  : MWMSearchHistoryClearCell.cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,10 +126,13 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     return self.sizingCell.cellHeight;
   }
   else
-    return self.isRouteSearchMode ? MWMSearchHistoryMyPositionCell.cellHeight : MWMSearchHistoryClearCell.cellHeight;
+    return self.isRouteSearchMode ? MWMSearchHistoryMyPositionCell.cellHeight
+                                  : MWMSearchHistoryClearCell.cellHeight;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+      willDisplayCell:(UITableViewCell *)cell
+    forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (![cell isKindOfClass:[MWMSearchHistoryRequestCell class]])
     return;
@@ -137,10 +145,11 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
   BOOL const isRouteSearch = self.isRouteSearchMode;
   if ([self isRequestCell:indexPath])
   {
-    search::QuerySaver::TSearchRequest const & query = [self queryAtIndex:isRouteSearch ? indexPath.row - 1 : indexPath.row];
+    search::QuerySaver::TSearchRequest const & query =
+        [self queryAtIndex:isRouteSearch ? indexPath.row - 1 : indexPath.row];
     NSString * queryText = @(query.second.c_str());
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-                     withParameters:@{kStatValue : queryText, kStatScreen : kStatHistory}];
+          withParameters:@{kStatValue : queryText, kStatScreen : kStatHistory}];
     [self.delegate searchText:queryText forInputLocale:@(query.first.c_str())];
   }
   else
@@ -148,24 +157,23 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     if (isRouteSearch)
     {
       [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-                       withParameters:@{kStatValue : kStatMyPosition, kStatScreen : kStatHistory}];
+            withParameters:@{kStatValue : kStatMyPosition, kStatScreen : kStatHistory}];
       [self.delegate tapMyPositionFromHistory];
       return;
     }
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-                     withParameters:@{kStatValue : kStatClear, kStatScreen : kStatHistory}];
+          withParameters:@{kStatValue : kStatClear, kStatScreen : kStatHistory}];
     GetFramework().ClearSearchHistory();
     MWMSearchTabbedCollectionViewCell * cell = self.cell;
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-    {
-      cell.tableView.alpha = 0.0;
-      cell.noResultsView.alpha = 1.0;
-    }
-    completion:^(BOOL finished)
-    {
-      cell.tableView.hidden = YES;
-      cell.noResultsView.hidden = NO;
-    }];
+    [UIView animateWithDuration:kDefaultAnimationDuration
+        animations:^{
+          cell.tableView.alpha = 0.0;
+          cell.noResultsView.alpha = 1.0;
+        }
+        completion:^(BOOL finished) {
+          cell.tableView.hidden = YES;
+          cell.noResultsView.hidden = NO;
+        }];
   }
 }
 

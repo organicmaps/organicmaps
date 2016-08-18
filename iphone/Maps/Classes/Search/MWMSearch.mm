@@ -59,8 +59,8 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)updateCallbacks
 {
-   NSTimeInterval const timestamp = [NSDate date].timeIntervalSince1970;
-   self.lastSearchTimestamp = timestamp;
+  NSTimeInterval const timestamp = [NSDate date].timeIntervalSince1970;
+  self.lastSearchTimestamp = timestamp;
   __weak auto weakSelf = self;
   m_everywhereParams.m_onResults = [weakSelf, timestamp](search::Results const & results) {
     __strong auto self = weakSelf;
