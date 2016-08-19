@@ -28,18 +28,8 @@ public:
                     Mode mode, m2::RectD const & viewport);
   TestSearchRequest(TestSearchEngine & engine, SearchParams params, m2::RectD const & viewport);
 
-  // Initiates the search.
-  void Start();
-
-  // Waits for the search to finish.
-  void Wait();
-
   // Initiates the search and waits for it to finish.
   void Run();
-
-  // Sets the onResults callback without breaking the synchronization
-  // introduced by OnResults().
-  void SetCustomOnResults(SearchParams::TOnResults const & customOnResults);
 
   // Call these functions only after call to Wait().
   steady_clock::duration ResponseTime() const;
@@ -50,10 +40,19 @@ protected:
                     Mode mode, m2::RectD const & viewport, SearchParams::TOnStarted onStarted,
                     SearchParams::TOnResults onResults);
 
+  // Initiates the search.
+  void Start();
+
+  // Waits for the search to finish.
+  void Wait();
+
   void SetUpCallbacks();
 
   void OnStarted();
   void OnResults(search::Results const & results);
+
+  // Overrides the default onResults callback.
+  void SetCustomOnResults(SearchParams::TOnResults const & onResults);
 
   condition_variable m_cv;
   mutable mutex m_mu;
