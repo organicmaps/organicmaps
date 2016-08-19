@@ -6,6 +6,7 @@ from collections import defaultdict
 from datetime import datetime
 import argparse
 import base64
+import eviltransform
 import json
 import logging
 import os
@@ -134,6 +135,12 @@ def translate(source, output):
         logging.info('Processing {0}'.format(filename))
         with open(filename, 'rb') as fd:
             data += pickle.load(fd)
+
+    # Fix chinese coordinates
+    for hotel in data:
+        if hotel['countrycode'] == 'cn' and 'location' in hotel:
+            hotel['location']['latitude'], hotel['location']['longitude'] = eviltransform.gcj2wgs_exact(
+                float(hotel['location']['latitude']), float(hotel['location']['longitude']))
 
     # Dict of dicts city_id -> { currency -> [prices] }
     cities = defaultdict(lambda: defaultdict(list))
