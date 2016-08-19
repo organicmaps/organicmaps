@@ -113,21 +113,29 @@
   self.isAnimatingTransition = YES;
   __weak auto weakSelf = self;
   NSArray<UIViewController *> * viewControllers = @[ currentController ];
-  UIPageViewControllerNavigationDirection const direction = UIPageViewControllerNavigationDirectionForward;
+  UIPageViewControllerNavigationDirection const direction =
+      UIPageViewControllerNavigationDirectionForward;
+  // Workaround for crash: http://crashes.to/s/8101d0400f6
+  // Related discussions: http://stackoverflow.com/questions/14220289/removing-a-view-controller-from-uipageviewcontroller
+  //                      http://stackoverflow.com/questions/25740245/assertion-failure-in-uipageviewcontroller
   [self setViewControllers:viewControllers
                  direction:direction
                   animated:YES
-                completion:^(BOOL finished)
-  {
-    if (finished)
-    {
-      dispatch_async(dispatch_get_main_queue(), ^
-      {
-        weakSelf.isAnimatingTransition = NO;
-        [weakSelf setViewControllers:viewControllers direction:direction animated:NO completion:nil];
-      });
-    }
-  }];
+                completion:^(BOOL finished) {
+                  if (finished)
+                  {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                      [weakSelf setViewControllers:viewControllers
+                                         direction:direction
+                                          animated:NO
+                                        completion:^(BOOL finished) {
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                            weakSelf.isAnimatingTransition = NO;
+                                          });
+                                        }];
+                    });
+                  }
+                }];
 }
 
 - (void)setPageControllerDataSource:(MWMPageControllerDataSource *)pageControllerDataSource
