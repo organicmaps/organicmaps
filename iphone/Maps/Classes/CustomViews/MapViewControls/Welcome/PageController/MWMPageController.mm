@@ -5,27 +5,32 @@
 
 @interface MWMPageController ()
 
-@property (nonatomic) SolidTouchView * iPadBackgroundView;
-@property (weak, nonatomic) UIViewController<MWMPageControllerProtocol> * parent;
-@property (nonatomic) Class<MWMWelcomeControllerProtocol> welcomeClass;
+@property(nonatomic) SolidTouchView * iPadBackgroundView;
+@property(weak, nonatomic) UIViewController<MWMPageControllerProtocol> * parent;
+@property(nonatomic) Class<MWMWelcomeControllerProtocol> welcomeClass;
 
-@property (nonatomic) MWMPageControllerDataSource * pageControllerDataSource;
-@property (nonatomic) MWMWelcomeController * currentController;
-@property (nonatomic) BOOL isAnimatingTransition;
+@property(nonatomic) MWMPageControllerDataSource * pageControllerDataSource;
+@property(nonatomic) MWMWelcomeController * currentController;
+@property(nonatomic) BOOL isAnimatingTransition;
 
 @end
 
 @implementation MWMPageController
 
-+ (instancetype)pageControllerWithParent:(UIViewController<MWMPageControllerProtocol> *)parentViewController welcomeClass:(Class<MWMWelcomeControllerProtocol>)welcomeClass
++ (instancetype)pageControllerWithParent:
+                    (UIViewController<MWMPageControllerProtocol> *)parentViewController
+                            welcomeClass:(Class<MWMWelcomeControllerProtocol>)welcomeClass
 {
   NSAssert(parentViewController != nil, @"Parent view controller can't be nil!");
-  MWMPageControllerDataSource * dataSource = [[MWMPageControllerDataSource alloc] initWithWelcomeClass:welcomeClass];
+  MWMPageControllerDataSource * dataSource =
+      [[MWMPageControllerDataSource alloc] initWithWelcomeClass:welcomeClass];
   MWMPageController * pageController = nil;
   if ([dataSource presentationCountForPageViewController:pageController] == 1)
-    pageController = [[MWMWelcomeController welcomeStoryboard] instantiateViewControllerWithIdentifier:@"MWMPageCurlController"];
+    pageController = [[MWMWelcomeController welcomeStoryboard]
+        instantiateViewControllerWithIdentifier:@"MWMPageCurlController"];
   else
-    pageController = [[MWMWelcomeController welcomeStoryboard] instantiateViewControllerWithIdentifier:@"MWMPageScrollController"];
+    pageController = [[MWMWelcomeController welcomeStoryboard]
+        instantiateViewControllerWithIdentifier:@"MWMPageScrollController"];
   pageController.pageControllerDataSource = dataSource;
   pageController.parent = parentViewController;
   pageController.welcomeClass = welcomeClass;
@@ -48,15 +53,15 @@
   MWMWelcomeController * current = self.currentController;
   [Statistics logEvent:kStatEventName(kStatWhatsNew, [[current class] udWelcomeWasShownKey])
         withParameters:@{kStatAction : kStatNext}];
-  self.currentController = static_cast<MWMWelcomeController *>(
-      [self.pageControllerDataSource pageViewController:self
-                      viewControllerAfterViewController:current]);
+  self.currentController = static_cast<MWMWelcomeController *>([self.pageControllerDataSource
+                     pageViewController:self
+      viewControllerAfterViewController:current]);
 }
 
 - (void)show
 {
   [Statistics logEvent:kStatEventName(kStatWhatsNew, [self.welcomeClass udWelcomeWasShownKey])
-      withParameters:@{kStatAction : kStatOpen}];
+        withParameters:@{kStatAction : kStatOpen}];
   [self configure];
   if (IPAD)
     [self.parent.view addSubview:self.iPadBackgroundView];
@@ -87,25 +92,23 @@
   }
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
   [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
-  {
-    if (IPAD)
-      self.view.center = {size.width / 2, size.height / 2};
-    else
-      self.view.origin = {};
-  } completion:nil];
+  [coordinator
+      animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        if (IPAD)
+          self.view.center = {size.width / 2, size.height / 2};
+        else
+          self.view.origin = {};
+      }
+                      completion:nil];
 }
 
 #pragma mark - Properties
 
-- (MWMWelcomeController *)currentController
-{
-  return self.viewControllers.firstObject;
-}
-
+- (MWMWelcomeController *)currentController { return self.viewControllers.firstObject; }
 - (void)setCurrentController:(MWMWelcomeController *)currentController
 {
   if (!currentController || self.isAnimatingTransition)
@@ -116,8 +119,9 @@
   UIPageViewControllerNavigationDirection const direction =
       UIPageViewControllerNavigationDirectionForward;
   // Workaround for crash: http://crashes.to/s/8101d0400f6
-  // Related discussions: http://stackoverflow.com/questions/14220289/removing-a-view-controller-from-uipageviewcontroller
-  //                      http://stackoverflow.com/questions/25740245/assertion-failure-in-uipageviewcontroller
+  // Related discussions:
+  // http://stackoverflow.com/questions/14220289/removing-a-view-controller-from-uipageviewcontroller
+  // http://stackoverflow.com/questions/25740245/assertion-failure-in-uipageviewcontroller
   [self setViewControllers:viewControllers
                  direction:direction
                   animated:YES
