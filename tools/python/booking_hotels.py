@@ -6,13 +6,13 @@ from collections import defaultdict
 from datetime import datetime
 import argparse
 import base64
+import eviltransform
 import json
 import logging
 import os
 import pickle
 import time
 import urllib2
-import eviltransform
 
 # Initialize logging.
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
