@@ -886,11 +886,7 @@
 	<string name="editor_profile_changes_for_next_place">Ändringar av nästa plats: %d</string>
 	<string name="editor_profile_rating_place">Rankning</string>
 	<string name="booking_dialog_not_connect_header">Var vänlig aktivera din internetanslutning för att göra hotellbokningen</string>
-	<string name="whatsnew_booking_header">Boka ett hotell från appen</string>
-	<string name="whatsnew_booking_message">När du letar efter ett hotell kommer kartan visa hotellets priskategori och bedömning.</string>
 	<string name="button_try">Prova det</string>
-	<string name="whatsnew_cycle_navigation_header">Cykelnavigering (betaversion)</string>
-	<string name="whatsnew_cycle_navigation_message">Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.</string>
 	<string name="refresh">Uppdatera</string>
 	<string name="last_update">Senast uppdaterad: %s</string>
 	<string name="booking_checkin">incheckning: %s</string>
@@ -926,4 +922,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Cykelnavigering tar med terrängdata i beräkningen.\n• Vi skapar lättare rutter med väglutningar i beräkningen.</string>
 	<string name="whatsnew_booking_2_header">Enkel hotellsökning</string>
 	<string name="whatsnew_booking_2_message">Sökresultaten visar hotellbetyget och priskategorin.</string>
+	<string name="whatsnew_cycle_navigation_header">Cykelnavigering (betaversion)</string>
+	<string name="whatsnew_cycle_navigation_message">Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.</string>
 </resources>

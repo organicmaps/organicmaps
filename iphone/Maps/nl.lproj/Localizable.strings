@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "Maak verbinding met internet om het hotel te boeken";
 
-"whatsnew_booking_header" = "Boek een hotel via de app";
-
-"whatsnew_booking_message" = "Als u een hotel zoekt, toont de kaart de prijscategorie en de beoordeling.";
-
 "button_try" = "Proberen";
-
-"whatsnew_cycle_navigation_header" = "Fietsnavigatie (bèta-versie)";
-
-"whatsnew_cycle_navigation_message" = "We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.";
 
 "refresh" = "Updaten";
 
@@ -1613,3 +1605,7 @@
 "whatsnew_booking_2_header" = "Eenvoudig zoeken naar hotels";
 
 "whatsnew_booking_2_message" = "De zoekresultaten voor hotels tonen de hotelbeoordeling en prijscategorie.";
+
+"whatsnew_cycle_navigation_header" = "Fietsnavigatie (bèta-versie)";
+
+"whatsnew_cycle_navigation_message" = "We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.";

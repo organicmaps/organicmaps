@@ -76,6 +76,7 @@ public:
     : m_couldBeInterrupted(couldBeInterrupted)
     , m_couldBeBlended(couldBeBlended)
     , m_interruptedOnCombine(false)
+    , m_couldBeRewinded(true)
   {}
 
   virtual void OnStart() { if (m_onStartAction != nullptr) m_onStartAction(this); }
@@ -114,6 +115,9 @@ public:
 
   void SetCouldBeInterrupted(bool enable) { m_couldBeInterrupted = enable; }
   void SetCouldBeBlended(bool enable) { m_couldBeBlended = enable; }
+  
+  void SetCouldBeRewinded(bool enable) { m_couldBeRewinded = enable; }
+  bool CouldBeRewinded() const { return m_couldBeRewinded; }
 
 protected:
   TAction m_onStartAction;
@@ -126,6 +130,8 @@ protected:
   bool m_couldBeBlended;
   // Animation must be interrupted in case of combining another animation.
   bool m_interruptedOnCombine;
+  // Animation could be rewinded in case of finishing.
+  bool m_couldBeRewinded;
 };
 
 } // namespace df

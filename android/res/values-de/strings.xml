@@ -912,11 +912,7 @@
 	<string name="editor_profile_changes_for_next_place">Erforderliche Änderungen für den nächsten Platz: %d</string>
 	<string name="editor_profile_rating_place">Platz im Rating</string>
 	<string name="booking_dialog_not_connect_header">Für die Hotelbuchung benötigen Sie eine Internetverbindung</string>
-	<string name="whatsnew_booking_header">Buchung von Hotels über die App</string>
-	<string name="whatsnew_booking_message">Wenn Sie nach einem Hotel suchen, werden in der Karte die Preiskategorie und die Bewertung des Hotels angezeigt.</string>
 	<string name="button_try">Probieren Sie es aus</string>
-	<string name="whatsnew_cycle_navigation_header">Fahrradnavigation (Betaversion)</string>
-	<string name="whatsnew_cycle_navigation_message">Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.</string>
 	<string name="refresh">Aktualisieren</string>
 	<string name="last_update">Letzte Aktualisierung: %s</string>
 	<string name="booking_checkin">Einchecken: %s</string>
@@ -952,4 +948,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Fahrrad-Navigation berechnet jetzt auch Geländedaten.\n• Wir erstellen weniger anstrengende Routen, um Gefälle zu berücksichtigen.</string>
 	<string name="whatsnew_booking_2_header">Einfache Hotelsuche</string>
 	<string name="whatsnew_booking_2_message">Die Suchergebnisse zeigen die Bewertung und die Preiskategorie des Hotels.</string>
+	<string name="whatsnew_cycle_navigation_header">Fahrradnavigation (Betaversion)</string>
+	<string name="whatsnew_cycle_navigation_message">Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.</string>
 </resources>

@@ -253,7 +253,6 @@ public class MwmApplication extends Application
 
       pushManager.onStartup(this);
       pushManager.registerForPushNotifications();
-      pushManager.startTrackingGeoPushes();
 
       PushwooshHelper.get().setContext(this);
       PushwooshHelper.get().synchronize();

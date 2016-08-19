@@ -4460,8 +4460,8 @@ sw:Jengo
 
 amenity-police
 en:4Police|U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
-ru:4Милиция|4полиция
-uk:4Міліція|4поліція
+ru:4Полиция|4милиция
+uk:4Поліція|4Міліція
 de:4Polizeistation|Polizeiwache|Polizei
 fr:4Police|4gendarmerie
 it:Posto di polizia|4polizia

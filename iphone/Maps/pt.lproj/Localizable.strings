@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "Para reservar o hotel, ative a sua ligação à Internet";
 
-"whatsnew_booking_header" = "Reservar um hotel a partir da aplicação";
-
-"whatsnew_booking_message" = "Quando procurar um hotel, o mapa irá exibir a categoria de preço e a classificação do hotel.";
-
 "button_try" = "Experimente";
-
-"whatsnew_cycle_navigation_header" = "Navegação para bicicleta (versão beta)";
-
-"whatsnew_cycle_navigation_message" = "Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.";
 
 "refresh" = "Atualizar";
 
@@ -1613,3 +1605,7 @@
 "whatsnew_booking_2_header" = "Busca fácil de hotel";
 
 "whatsnew_booking_2_message" = "Os resultados de busca mostram a avaliação do hotel e a categoria de preço.";
+
+"whatsnew_cycle_navigation_header" = "Navegação para bicicleta (versão beta)";
+
+"whatsnew_cycle_navigation_message" = "Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.";

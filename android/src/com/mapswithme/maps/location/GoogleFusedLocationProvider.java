@@ -42,7 +42,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   protected boolean start()
   {
-    if (mGoogleApiClient == null || mGoogleApiClient.isConnected() || mGoogleApiClient.isConnecting())
+    if (mGoogleApiClient.isConnected() || mGoogleApiClient.isConnecting())
       return true;
 
     mLocationRequest = LocationRequest.create();
@@ -65,9 +65,6 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   protected void stop()
   {
-    if (mGoogleApiClient == null)
-      return;
-
     if (mGoogleApiClient.isConnected())
       LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
 

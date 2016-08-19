@@ -6,11 +6,17 @@
 
 #include "base/macros.hpp"
 
-#include "std/limits.hpp"
+#include "std/algorithm.hpp"
 #include "std/initializer_list.hpp"
+#include "std/limits.hpp"
 
 namespace routing
 {
+VehicleModel::AdditionalRoadType::AdditionalRoadType(Classificator const & c,
+                                                     AdditionalRoadTags const & tag)
+  : m_type(c.GetTypeByPath(tag.m_hwtag)), m_speedKMpH(tag.m_speedKMpH)
+{
+}
 
 VehicleModel::VehicleModel(Classificator const & c, InitListT const & speedLimits)
   : m_maxSpeedKMpH(0),
@@ -24,10 +30,13 @@ VehicleModel::VehicleModel(Classificator const & c, InitListT const & speedLimit
 }
 
 void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
-                                          initializer_list<char const *> const * arr, size_t sz)
+                                          vector<AdditionalRoadTags> const & additionalTags)
 {
-  for (size_t i = 0; i < sz; ++i)
-    m_addRoadTypes.push_back(c.GetTypeByPath(arr[i]));
+  for (auto const & tag : additionalTags)
+  {
+    m_addRoadTypes.emplace_back(c, tag);
+    m_maxSpeedKMpH = max(m_maxSpeedKMpH, tag.m_speedKMpH);
+  }
 }
 
 double VehicleModel::GetSpeed(FeatureType const & f) const
@@ -40,7 +49,7 @@ double VehicleModel::GetSpeed(FeatureType const & f) const
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
     return GetMinTypeSpeed(types);
 
-  return 0.0;
+  return 0.0 /* Speed */;
 }
 
 double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
@@ -52,11 +61,15 @@ double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
     auto it = m_types.find(type);
     if (it != m_types.end())
       speed = min(speed, it->second);
+
+    auto const addRoadInfoIter = FindRoadType(type);
+    if (addRoadInfoIter != m_addRoadTypes.cend())
+      speed = min(speed, addRoadInfoIter->m_speedKMpH);
   }
   if (speed <= m_maxSpeedKMpH)
     return speed;
 
-  return 0.0;
+  return 0.0 /* Speed */;
 }
 
 bool VehicleModel::IsOneWay(FeatureType const & f) const
@@ -83,13 +96,20 @@ bool VehicleModel::IsRoad(FeatureType const & f) const
 
 bool VehicleModel::IsRoadType(uint32_t type) const
 {
-  return find(m_addRoadTypes.begin(), m_addRoadTypes.end(), type) != m_addRoadTypes.end() ||
+  return FindRoadType(type) != m_addRoadTypes.cend() ||
          m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end();
 }
 
 IVehicleModel::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const & /* types */) const
 {
   return RoadAvailability::Unknown;
+}
+
+vector<VehicleModel::AdditionalRoadType>::const_iterator VehicleModel::FindRoadType(
+    uint32_t type) const
+{
+  return find_if(m_addRoadTypes.begin(), m_addRoadTypes.cend(),
+                 [&type](AdditionalRoadType const & t) { return t.m_type == type; });
 }
 
 string DebugPrint(IVehicleModel::RoadAvailability const l)

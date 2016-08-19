@@ -877,11 +877,7 @@
 	<string name="editor_profile_changes_for_next_place">Cambios para la próxima posición: %d</string>
 	<string name="editor_profile_rating_place">Posición en la clasificación</string>
 	<string name="booking_dialog_not_connect_header">Para reservar el hotel, habilita tu conexión a Internet</string>
-	<string name="whatsnew_booking_header">Reserva un hotel desde la aplicación</string>
-	<string name="whatsnew_booking_message">Cuando busques un hotel, el mapa mostrará la categoría de precio y clasificación de los hoteles.</string>
 	<string name="button_try">Pruébalo</string>
-	<string name="whatsnew_cycle_navigation_header">Navegación en bici (versión beta)</string>
-	<string name="whatsnew_cycle_navigation_message">Estamos probando la navegación en bici para la nueva temporada. Prueba tu ruta favorita en bicicleta con MAPS.ME y comparte tu opinión con nosotros.</string>
 	<string name="refresh">Actualizar</string>
 	<string name="last_update">Última actualización: %s</string>
 	<string name="booking_checkin">hora de llegada: %s</string>
@@ -917,4 +913,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• La navegación en bicicleta tiene en cuenta la información del terreno.\n• Hemos creado rutas más fáciles basándonos en las inclinaciones de carretera.</string>
 	<string name="whatsnew_booking_2_header">Búsqueda de hoteles fácil</string>
 	<string name="whatsnew_booking_2_message">Los resultados de búsqueda muestran la valoración del hotel y la categoría de precios.</string>
+	<string name="whatsnew_cycle_navigation_header">Navegación en bici (versión beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Estamos probando la navegación en bici para la nueva temporada. Prueba tu ruta favorita en bicicleta con MAPS.ME y comparte tu opinión con nosotros.</string>
 </resources>

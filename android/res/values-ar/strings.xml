@@ -888,11 +888,7 @@
 	<string name="editor_profile_changes_for_next_place">التغييرات في المكان التالي: %d</string>
 	<string name="editor_profile_rating_place">المركز في التصنيف</string>
 	<string name="booking_dialog_not_connect_header">لحجز الفندق، يُرجى تمكين الاتصال بالإنترنت</string>
-	<string name="whatsnew_booking_header">حجز فندق من التطبيق</string>
-	<string name="whatsnew_booking_message">عندما تبحث عن فندق، ستعرض لك الخريطة فئة أسعار وتصنيف الفندق.</string>
 	<string name="button_try">جربه</string>
-	<string name="whatsnew_cycle_navigation_header">التوجيه الملاحي مع الدراجات (إصدار تجريبي)</string>
-	<string name="whatsnew_cycle_navigation_message">نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.</string>
 	<string name="refresh">تحديث</string>
 	<string name="last_update">أخر تحديث: %s</string>
 	<string name="booking_checkin">موجود في: %s</string>
@@ -928,4 +924,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• تضع ملاحة الدراجات بيانات التضاريس في الاعتبار.\n• نحن نخلق طرق أسهل مع الأخذ بعين الاعتبار منحدرات الطريق.</string>
 	<string name="whatsnew_booking_2_header">البحث بسهولة عن فندق</string>
 	<string name="whatsnew_booking_2_message">تظهر نتائج البحث التقييم والفئة السعرية للفندق.</string>
+	<string name="whatsnew_cycle_navigation_header">التوجيه الملاحي مع الدراجات (إصدار تجريبي)</string>
+	<string name="whatsnew_cycle_navigation_message">نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.</string>
 </resources>

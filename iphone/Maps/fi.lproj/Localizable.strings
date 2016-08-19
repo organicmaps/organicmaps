@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "Ota käyttöön internet-yhteytesi varataksesi hotellin";
 
-"whatsnew_booking_header" = "Varaa hotelli sovelluksesta";
-
-"whatsnew_booking_message" = "Etsiessäsi hotellia kartta näyttää hotellien hintaluokan ja luokituksen.";
-
 "button_try" = "Kokeile sitä";
-
-"whatsnew_cycle_navigation_header" = "Polkupyöränavigointi (betaversio)";
-
-"whatsnew_cycle_navigation_message" = "Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.";
 
 "refresh" = "Päivitetäänkö";
 
@@ -1613,3 +1605,7 @@
 "whatsnew_booking_2_header" = "Helppo hotellihaku";
 
 "whatsnew_booking_2_message" = "Hakutulokset näyttävät hotellin arvostelut ja hintaluokan.";
+
+"whatsnew_cycle_navigation_header" = "Polkupyöränavigointi (betaversio)";
+
+"whatsnew_cycle_navigation_message" = "Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.";

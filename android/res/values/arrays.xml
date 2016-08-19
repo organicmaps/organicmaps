@@ -87,13 +87,15 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_news_booking</item>
-    <item>@drawable/img_news_bicycle</item>
+    <item>@drawable/img_whatsnew_car_navigation</item>
+    <item>@drawable/img_whatsnew_cycle_navigation_improved</item>
+    <item>@drawable/img_whatsnew_booking_improved</item>
   </integer-array>
 
   <string-array name="news_titles">
-    <item>@string/whatsnew_booking_header</item>
-    <item>@string/whatsnew_cycle_navigation_header</item>
+    <item>@string/whatsnew_car_navigation_header</item>
+    <item>@string/whatsnew_cycle_navigation_2_header</item>
+    <item>@string/whatsnew_booking_2_header</item>
   </string-array>
 
   <string-array name="news_messages_1">
@@ -105,14 +107,17 @@
   <string-array name="news_messages_2">
     <item/>
     <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_switch_titles">
     <item/>
     <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_switch_subtitles">
+    <item/>
     <item/>
     <item/>
   </string-array>

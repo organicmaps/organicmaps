@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -17,9 +16,9 @@ import com.mapswithme.util.statistics.Statistics;
 public class MyPositionButton
 {
   private final ImageView mButton;
-  private final SparseArray<Drawable> mIcons = new SparseArray<>();  // Location mode -> Button icon
+  private static final SparseArray<Drawable> mIcons = new SparseArray<>(); // Location mode -> Button icon
 
-  MyPositionButton(View button)
+  public MyPositionButton(View button)
   {
     mButton = (ImageView) button;
     mButton.setOnClickListener(new View.OnClickListener()
@@ -27,8 +26,7 @@ public class MyPositionButton
       @Override
       public void onClick(View v)
       {
-        LocationHelper.INSTANCE.onMyPositionButtonClicked();
-
+        LocationState.nativeSwitchToNextMode();
         Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
         AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
       }
@@ -71,5 +69,10 @@ public class MyPositionButton
 
     if (image instanceof AnimationDrawable)
       ((AnimationDrawable) image).start();
+  }
+
+  public static void clearCache()
+  {
+    mIcons.clear();
   }
 }

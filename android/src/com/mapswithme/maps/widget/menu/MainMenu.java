@@ -1,5 +1,12 @@
 package com.mapswithme.maps.widget.menu;
 
+import android.animation.Animator;
+import android.app.Activity;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -56,7 +63,6 @@ public class MainMenu extends BaseMenu
   private boolean mCollapsed;
   private final List<View> mCollapseViews = new ArrayList<>();
 
-  private final MyPositionButton mMyPositionButton;
   private final MenuToggle mToggle;
   private Button mRouteStartButton;
 
@@ -231,7 +237,6 @@ public class MainMenu extends BaseMenu
     mAnimationSpacer = mFrame.findViewById(R.id.animation_spacer);
     mAnimationSymmetricalGap = mButtonsFrame.findViewById(R.id.symmetrical_gap);
 
-    mMyPositionButton = new MyPositionButton(mLineFrame.findViewById(R.id.my_position));
     mToggle = new MenuToggle(mLineFrame, getHeightResId());
     mapItem(Item.TOGGLE, mLineFrame);
 
@@ -304,11 +309,6 @@ public class MainMenu extends BaseMenu
       UiUtils.showIf(show, mItemViews.get(item));
   }
 
-
-  public MyPositionButton getMyPositionButton()
-  {
-    return mMyPositionButton;
-  }
 
   public MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
   {

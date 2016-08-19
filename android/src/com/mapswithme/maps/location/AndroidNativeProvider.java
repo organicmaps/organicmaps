@@ -3,9 +3,9 @@ package com.mapswithme.maps.location;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.mapswithme.maps.MwmApplication;
@@ -27,7 +27,7 @@ class AndroidNativeProvider extends BaseLocationProvider
     if (mIsActive)
       return true;
 
-    List<String> providers = filterProviders();
+    List<String> providers = filterProviders(mLocationManager);
     if (providers.isEmpty())
       return false;
 
@@ -37,13 +37,16 @@ class AndroidNativeProvider extends BaseLocationProvider
 
     LocationHelper.INSTANCE.startSensors();
 
-    Location location = findBestNotExpiredLocation(providers, LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT);
+    Location location = findBestNotExpiredLocation(mLocationManager, providers,
+                                                   LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT);
     if (!isLocationBetterThanLast(location))
     {
       location = LocationHelper.INSTANCE.getSavedLocation();
       if (location == null || LocationUtils.isExpired(location, LocationHelper.INSTANCE.getSavedLocationTime(),
                                                       LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
+      {
         return true;
+      }
     }
 
     onLocationChanged(location);
@@ -58,35 +61,35 @@ class AndroidNativeProvider extends BaseLocationProvider
   }
 
   @Nullable
-  Location findBestNotExpiredLocation(List<String> providers, long expirationMs)
+  public static Location findBestNotExpiredLocation(long expirationMillis)
+  {
+    final LocationManager manager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
+    return findBestNotExpiredLocation(manager,
+                                      filterProviders(manager),
+                                      expirationMillis);
+  }
+
+  @Nullable
+  public static Location findBestNotExpiredLocation(LocationManager manager, List<String> providers, long expirationMillis)
   {
     Location res = null;
     for (final String pr : providers)
     {
-      final Location l = mLocationManager.getLastKnownLocation(pr);
-      if (l != null && !LocationUtils.isExpired(l, l.getTime(), expirationMs))
-      {
-        if (res == null || res.getAccuracy() > l.getAccuracy())
-          res = l;
-      }
+      final Location last = manager.getLastKnownLocation(pr);
+      if (last == null || LocationUtils.isExpired(last, last.getTime(), expirationMillis))
+        continue;
+
+      if (res == null || res.getAccuracy() > last.getAccuracy())
+        res = last;
     }
     return res;
   }
 
-  List<String> filterProviders()
+  @NonNull
+  public static List<String> filterProviders(LocationManager locationManager)
   {
-    List<String> allProviders = mLocationManager.getProviders(false);
-    List<String> res = new ArrayList<>(allProviders.size());
-
-    for (final String provider : allProviders)
-    {
-      if (LocationManager.PASSIVE_PROVIDER.equals(provider))
-        continue;
-
-      if (mLocationManager.isProviderEnabled(provider))
-        res.add(provider);
-    }
-
+    final List<String> res = locationManager.getProviders(true /* enabledOnly */);
+    res.remove(LocationManager.PASSIVE_PROVIDER);
     return res;
   }
 }

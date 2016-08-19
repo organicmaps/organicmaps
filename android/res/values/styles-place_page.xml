@@ -33,6 +33,7 @@
   <style name="PlacePageItemFrame">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">@dimen/height_block_base</item>
     <item name="android:orientation">horizontal</item>
     <item name="android:paddingBottom">@dimen/margin_half</item>
     <item name="android:paddingLeft">@dimen/margin_base</item>
@@ -54,6 +55,7 @@
 
   <style name="PlacePageMetadataText.Button">
     <item name="android:textAllCaps">true</item>
+    <item name="android:gravity">center_vertical</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage.Accent</item>
   </style>
 

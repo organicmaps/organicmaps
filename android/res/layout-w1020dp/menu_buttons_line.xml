@@ -3,15 +3,11 @@
   android:layout_width="match_parent"
   android:layout_height="@dimen/menu_line_height"
   android:orientation="horizontal">
-  <!-- Gap for MyPosition button -->
-  <View
-    android:layout_width="@dimen/menu_line_button_width_edge"
-    android:layout_height="match_parent"/>
 
   <!-- Fake view to make layout symmetrical -->
   <Space
     android:id="@+id/symmetrical_gap"
-    android:layout_width="160dp"
+    android:layout_width="228dp"
     android:layout_height="match_parent"/>
 
   <!-- Anchor ID. Disables menu toggle button if present. -->

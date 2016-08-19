@@ -204,7 +204,6 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
                                      e.m_followAndRotate.m_azimuth, e.m_followAndRotate.m_preferredZoomLevel,
                                      e.m_followAndRotate.m_autoScale,
                                      e.m_followAndRotate.m_isAnim, e.m_followAndRotate.m_isAutoScale);
-      TouchCancel(m_touches);
       break;
     case UserEvent::EVENT_AUTO_PERSPECTIVE:
       SetAutoPerspective(e.m_autoPerspective.m_isAutoPerspective);
@@ -390,7 +389,9 @@ bool UserEventStream::InterruptFollowAnimations(bool force)
         ResetAnimations(Animation::Arrow);
     }
     else
+    {
       return false;
+    }
   }
   return true;
 }
@@ -605,11 +606,16 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
+bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshold) const
+{
+  return m_startDragOrg.SquareLength(touches[0].m_location) > threshold;
+}
+
 bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestamp)
 {
   if (m_listener)
     m_listener->OnTouchMapAction();
-
+  
   double const kDragThreshold = my::sq(VisualParams::Instance().GetDragThreshold());
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
@@ -619,7 +625,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
   case STATE_EMPTY:
     if (touchCount == 1)
     {
-      if (m_startDragOrg.SquareLength(touches[0].m_location) > kDragThreshold)
+      if (CheckDrag(touches, kDragThreshold))
         BeginDrag(touches[0], timestamp);
       else
         isMapTouch = false;
@@ -646,13 +652,13 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
     break;
   case STATE_TAP_DETECTION:
   case STATE_WAIT_DOUBLE_TAP:
-    if (m_startDragOrg.SquareLength(touches[0].m_location) > kDragThreshold)
+    if (CheckDrag(touches, kDragThreshold))
       CancelTapDetector();
     else
       isMapTouch = false;
     break;
   case STATE_WAIT_DOUBLE_TAP_HOLD:
-    if (m_startDragOrg.SquareLength(touches[0].m_location) > kDragThreshold)
+    if (CheckDrag(touches, kDragThreshold))
       StartDoubleTapAndHold(touches[0]);
     break;
   case STATE_DOUBLE_TAP_HOLD:
@@ -743,8 +749,9 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
   switch (m_state)
   {
   case STATE_EMPTY:
+  case STATE_WAIT_DOUBLE_TAP:
     isMapTouch = false;
-    // Can be if long tap or double tap detected
+    // Can be if long tap or double tap detected.
     break;
   case STATE_FILTER:
     ASSERT_EQUAL(touchCount, 1, ());

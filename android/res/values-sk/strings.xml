@@ -885,11 +885,7 @@
 	<string name="editor_profile_changes_for_next_place">Zmeny pre ďalšie miesto: %d</string>
 	<string name="editor_profile_rating_place">Hodnotiaca pozícia</string>
 	<string name="booking_dialog_not_connect_header">Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu</string>
-	<string name="whatsnew_booking_header">Rezervujte si hotel z aplikácie</string>
-	<string name="whatsnew_booking_message">Keď hľadáte hotel, na mape sa zobrazia cenové kategórie a hodnotenia hotelov.</string>
 	<string name="button_try">Vyskúšajte to</string>
-	<string name="whatsnew_cycle_navigation_header">Navigácia pre cyklistov (beta verzia)</string>
-	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.</string>
 	<string name="refresh">Aktualizovať</string>
 	<string name="last_update">Naposledy aktualizované: %s</string>
 	<string name="booking_checkin">príchod: %s</string>
@@ -925,4 +921,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Navigácia na bicykle berie do úvahy terénne dáta.\n• Tvoríme ľahšie trasy s prihliadnutím na sklon ciest.</string>
 	<string name="whatsnew_booking_2_header">Jednoduché vyhľadávanie hotelov</string>
 	<string name="whatsnew_booking_2_message">Výsledky vyhľadávania ukazujú hodnotenie hotelov a cenové kategórie.</string>
+	<string name="whatsnew_cycle_navigation_header">Navigácia pre cyklistov (beta verzia)</string>
+	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.</string>
 </resources>

@@ -1,11 +1,15 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.animation.TimeInterpolator;
+import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.ScrollView;
 
 import com.mapswithme.maps.MwmApplication;
@@ -20,13 +24,13 @@ import com.mapswithme.util.UiUtils;
 public abstract class BasePlacePageAnimationController
 {
   protected static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_placepage);
-
+  protected static final TimeInterpolator INTERPOLATOR = new AccelerateInterpolator();
   protected State mState = State.HIDDEN;
 
   protected PlacePageView mPlacePage;
   protected ViewGroup mPreview;
-  protected ViewGroup mFrame;
-  protected ScrollView mDetails;
+  protected ViewGroup mDetailsFrame;
+  protected ScrollView mDetailsScroll;
   protected View mDetailsContent;
   protected ViewGroup mBookmarkDetails;
   protected ViewGroup mButtons;
@@ -35,70 +39,82 @@ public abstract class BasePlacePageAnimationController
   protected boolean mIsGestureHandled;
   protected float mDownCoord;
   protected float mTouchSlop;
-  // Visibility
-  protected OnVisibilityChangedListener mVisibilityChangedListener;
+
+  protected OnVisibilityChangedListener mVisibilityListener;
 
   public interface OnVisibilityChangedListener
   {
+
     void onPreviewVisibilityChanged(boolean isVisible);
     void onPlacePageVisibilityChanged(boolean isVisible);
   }
+  protected OnAnimationListener mProgressListener;
 
+  public interface OnAnimationListener
+  {
+    void onProgress(float translationX, float translationY);
+  }
   protected abstract void initGestureDetector();
 
   public BasePlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     mPlacePage = placePage;
     mPreview = (ViewGroup) placePage.findViewById(R.id.pp__preview);
-    mFrame = (ViewGroup) placePage.findViewById(R.id.pp__details_frame);
-    mDetails = (ScrollView) placePage.findViewById(R.id.pp__details);
-    mDetailsContent = mDetails.getChildAt(0);
-    mBookmarkDetails = (ViewGroup) mFrame.findViewById(R.id.rl__bookmark_details);
+    mDetailsFrame = (ViewGroup) placePage.findViewById(R.id.pp__details_frame);
+    mDetailsScroll = (ScrollView) placePage.findViewById(R.id.pp__details);
+    mDetailsContent = mDetailsScroll.getChildAt(0);
+    mBookmarkDetails = (ViewGroup) mDetailsFrame.findViewById(R.id.bookmark_frame);
     mButtons = (ViewGroup) placePage.findViewById(R.id.pp__buttons);
     initGestureDetector();
 
     mTouchSlop = ViewConfiguration.get(mPlacePage.getContext()).getScaledTouchSlop();
 
     if (mPlacePage.isFloating() || mPlacePage.isDocked())
-      mFrame.setPadding(mFrame.getPaddingLeft(), mFrame.getPaddingTop(), mFrame.getPaddingRight(),
-                        UiUtils.dimen(R.dimen.place_page_buttons_height));
+      mDetailsFrame.setPadding(mDetailsFrame.getPaddingLeft(), mDetailsFrame.getPaddingTop(), mDetailsFrame.getPaddingRight(),
+                               UiUtils.dimen(R.dimen.place_page_buttons_height));
 
     if (mPlacePage.isDocked())
     {
-      ViewGroup.LayoutParams lp = mFrame.getLayoutParams();
+      ViewGroup.LayoutParams lp = mDetailsFrame.getLayoutParams();
       lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
-      mFrame.setLayoutParams(lp);
+      mDetailsFrame.setLayoutParams(lp);
     }
+
+    initialVisibility();
   }
 
-  public void setState(State state, @MapObject.MapObjectType int type)
+  protected void initialVisibility()
   {
-    State newState = state;
-    if (type == MapObject.BOOKMARK && state == State.DETAILS)
-      newState = State.BOOKMARK;
-
-    if (newState != mState)
-    {
-      onStateChanged(mState, newState);
-      mState = newState;
-    }
+    UiUtils.invisible(mPlacePage, mPreview, mDetailsFrame, mBookmarkDetails);
   }
-
-  protected void initialHide()
-  {
-    UiUtils.invisible(mPlacePage);
-  }
-
-  protected abstract void onStateChanged(State currentState, State newState);
 
   public State getState()
   {
     return mState;
   }
 
+  public void setState(final State state, @MapObject.MapObjectType final int type)
+  {
+    mPlacePage.post(new Runnable() {
+      @Override
+      public void run()
+      {
+        onStateChanged(mState, state, type);
+        mState = state;
+      }
+    });
+  }
+
+  protected abstract void onStateChanged(State currentState, State newState, int type);
+
   public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
   {
-    mVisibilityChangedListener = listener;
+    mVisibilityListener = listener;
+  }
+
+  public void setOnProgressListener(OnAnimationListener listener)
+  {
+    mProgressListener = listener;
   }
 
   protected abstract boolean onInterceptTouchEvent(MotionEvent event);
@@ -110,12 +126,30 @@ public abstract class BasePlacePageAnimationController
 
   protected void notifyVisibilityListener(boolean previewShown, boolean ppShown)
   {
-    if (mVisibilityChangedListener != null)
+    if (mVisibilityListener != null)
     {
-      mVisibilityChangedListener.onPreviewVisibilityChanged(previewShown);
-      mVisibilityChangedListener.onPlacePageVisibilityChanged(ppShown);
+      mVisibilityListener.onPreviewVisibilityChanged(previewShown);
+      mVisibilityListener.onPlacePageVisibilityChanged(ppShown);
     }
   }
 
-  protected void alignDetailsFrame() {}
+  protected void notifyProgress(float translationX, float translationY)
+  {
+    if (mProgressListener == null)
+      return;
+
+    mProgressListener.onProgress(translationX, translationY);
+  }
+
+  protected void startDefaultAnimator(ValueAnimator animator)
+  {
+    startDefaultAnimator(animator, new AccelerateInterpolator());
+  }
+
+  protected void startDefaultAnimator(ValueAnimator animator, Interpolator interpolator)
+  {
+    animator.setDuration(DURATION);
+    animator.setInterpolator(interpolator == null ? INTERPOLATOR : interpolator);
+    animator.start();
+  }
 }

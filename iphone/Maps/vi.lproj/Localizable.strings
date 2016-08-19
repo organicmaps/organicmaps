@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "Để đặt khách sạn, vui lòng bật kết nối Internet";
 
-"whatsnew_booking_header" = "Đặt khách sạn từ ứng dụng";
-
-"whatsnew_booking_message" = "Khi tìm khách sạn, bản đồ sẽ hiển thị đánh giá và giá của các khách sạn.";
-
 "button_try" = "Hãy thử xem";
-
-"whatsnew_cycle_navigation_header" = "Định vị xe đạp (phiên bản beta)";
-
-"whatsnew_cycle_navigation_message" = "Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.";
 
 "refresh" = "Cập nhật";
 
@@ -1613,3 +1605,7 @@
 "whatsnew_booking_2_header" = "Tìm kiếm khách sạn dễ dàng";
 
 "whatsnew_booking_2_message" = "Kết quả tìm kiếm cho thấy các đánh giá và mức giá của khách sạn.";
+
+"whatsnew_cycle_navigation_header" = "Định vị xe đạp (phiên bản beta)";
+
+"whatsnew_cycle_navigation_message" = "Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.";

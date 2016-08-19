@@ -85,7 +85,8 @@ public:
            bool allow3dBuildings,
            bool blockTapEvents,
            bool firstLaunch,
-           bool isRoutingActive)
+           bool isRoutingActive,
+           bool isAutozoomEnabled)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
@@ -99,6 +100,7 @@ public:
       , m_blockTapEvents(blockTapEvents)
       , m_firstLaunch(firstLaunch)
       , m_isRoutingActive(isRoutingActive)
+      , m_isAutozoomEnabled(isAutozoomEnabled)
     {}
 
     Viewport m_viewport;
@@ -113,6 +115,7 @@ public:
     bool m_blockTapEvents;
     bool m_firstLaunch;
     bool m_isRoutingActive;
+    bool m_isAutozoomEnabled;
   };
 
   FrontendRenderer(Params const & params);

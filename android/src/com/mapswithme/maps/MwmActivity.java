@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.AttrRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -20,7 +18,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.ImageButton;
+
+import java.io.Serializable;
+import java.util.Stack;
 
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
@@ -53,7 +53,6 @@ import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.NewsFragment;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
@@ -67,6 +66,7 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
+import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
@@ -85,9 +85,6 @@ import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
-
-import java.io.Serializable;
-import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
@@ -134,8 +131,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private FadeView mFadeView;
 
+  // TODO create outer controller
+  private View mZoomFrame;
   private View mNavZoomIn;
   private View mNavZoomOut;
+  private MyPositionButton mNavMyPosition;
 
   private View mPositionChooser;
 
@@ -425,20 +425,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMapFrame.setOnTouchListener(this);
   }
 
-  private View initNavigationButton(View frame, @IdRes int id, @AttrRes int iconAttr)
-  {
-    ImageButton res = (ImageButton) frame.findViewById(id);
-    res.setImageResource(ThemeUtils.getResource(this, R.attr.navButtonsTheme, iconAttr));
-    res.setOnClickListener(this);
-
-    return res;
-  }
-
   private void initNavigationButtons()
   {
-    View frame = findViewById(R.id.navigation_buttons);
-    mNavZoomIn = initNavigationButton(frame, R.id.nav_zoom_in, R.attr.nav_zoom_in);
-    mNavZoomOut = initNavigationButton(frame, R.id.nav_zoom_out, R.attr.nav_zoom_out);
+    mZoomFrame = findViewById(R.id.navigation_buttons);
+    mNavZoomIn = mZoomFrame.findViewById(R.id.nav_zoom_in);
+    mNavZoomIn.setOnClickListener(this);
+    mNavZoomOut = mZoomFrame.findViewById(R.id.nav_zoom_out);
+    mNavZoomOut.setOnClickListener(this);
+    mNavMyPosition = new MyPositionButton(mZoomFrame.findViewById(R.id.my_position));
   }
 
   private boolean closePlacePage()
@@ -666,7 +660,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!mPlacePage.isHidden())
     {
       outState.putBoolean(STATE_PP_OPENED, true);
-      mPlacePage.saveBookmarkTitle();
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
 
@@ -801,6 +794,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void adjustZoomButtons()
   {
     UiUtils.showIf(showZoomButtons(), mNavZoomIn, mNavZoomOut);
+    // TODO animate zoom buttons & myposition
   }
 
   private static boolean showZoomButtons()
@@ -970,7 +964,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setFullscreen(false);
 
-    mPlacePage.saveBookmarkTitle();
     mPlacePage.setMapObject(object, true);
     mPlacePage.setState(State.PREVIEW);
 
@@ -1072,7 +1065,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       Framework.nativeDeactivatePopup();
-      mPlacePage.saveBookmarkTitle();
       mPlacePage.setMapObject(null, false);
     }
   }
@@ -1348,11 +1340,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
-    mMainMenu.getMyPositionButton().update(newMode);
+    mNavMyPosition.update(newMode);
   }
 
   @Override
-  public void onLocationUpdated(Location location)
+  public void onLocationUpdated(@NonNull Location location)
   {
     if (!mPlacePage.isHidden())
       mPlacePage.refreshLocation(location);
@@ -1360,14 +1352,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!RoutingController.get().isNavigating())
       return;
 
-    RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-    mNavigationController.update(info);
+    mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
 
     TtsPlayer.INSTANCE.playTurnNotifications();
   }
 
   @Override
-  public void onCompassUpdated(CompassData compass)
+  public void onCompassUpdated(@NonNull CompassData compass)
   {
     MapFragment.nativeCompassUpdated(compass.getMagneticNorth(), compass.getTrueNorth(), false);
     mPlacePage.refreshAzimuth(compass.getNorth());

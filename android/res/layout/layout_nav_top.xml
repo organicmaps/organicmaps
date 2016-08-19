@@ -81,6 +81,7 @@
     android:layout_below="@id/nav_next_turn_frame"
     android:layout_alignLeft="@id/nav_next_turn_frame"
     android:layout_alignRight="@id/nav_next_turn_frame"
+    android:layout_alignEnd="@id/nav_next_turn_frame"
     android:background="?navNextNextTurnFrame"
     android:elevation="@dimen/nav_elevation"
     android:visibility="gone"
@@ -90,6 +91,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      tools:src="@drawable/ic_close"/>
+      android:tint="?iconTint"
+      tools:src="@drawable/ic_then_left_sharp"/>
   </FrameLayout>
 </RelativeLayout>

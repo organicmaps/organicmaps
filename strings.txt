@@ -18561,64 +18561,6 @@
     zh-Hant = 要預訂酒店，請啟用您的網際網路連線
     sk = Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu
 
-  [whatsnew_booking_header]
-    en = Book a hotel from the app
-    ru = Бронируй отель из приложения
-    ar = حجز فندق من التطبيق
-    cs = Rezervujte si hotel přímo v aplikaci
-    da = Book et hotel fra appen
-    nl = Boek een hotel via de app
-    fi = Varaa hotelli sovelluksesta
-    fr = Réservez un hôtel depuis l'application
-    de = Buchung von Hotels über die App
-    hu = Szálloda foglalása az alkalmazásból
-    id = Pesan hotel dari aplikasi
-    it = Prenota un hotel tramite l'app
-    ja = アプリからホテルを予約する
-    ko = 앱에서 호텔 예약하기
-    nb = Reserver hotellrom fra appen
-    pl = Zarezerwuj pokój w hotelu za pomocą aplikacji
-    pt = Reservar um hotel a partir da aplicação
-    ro = Rezervare hotel din aplicaţie
-    es = Reserva un hotel desde la aplicación
-    sv = Boka ett hotell från appen
-    th = จองโรงแรมจากแอพ
-    tr = Uygulama üzerinden otel rezervasyonu yapın
-    uk = Бронюй готель з додатку
-    vi = Đặt khách sạn từ ứng dụng
-    zh-Hans = 使用应用程序订房间
-    zh-Hant = 從應用程式預訂酒店
-    sk = Rezervujte si hotel z aplikácie
-
-  [whatsnew_booking_message]
-    en = When you look for a hotel, the map will show the hotels’ price category and rating.
-    ru = При выборе отелей на карте будут отображаться ценовая категория и рейтинг заведения.
-    ar = عندما تبحث عن فندق، ستعرض لك الخريطة فئة أسعار وتصنيف الفندق.
-    cs = Aplikace vám k výsledkům vyhledávání hotelů ukáže jejich cenovou skupinu a hodnocení.
-    da = Når du leder efter et hotel, vil kortet vise hotellernes priskategori og vurdering.
-    nl = Als u een hotel zoekt, toont de kaart de prijscategorie en de beoordeling.
-    fi = Etsiessäsi hotellia kartta näyttää hotellien hintaluokan ja luokituksen.
-    fr = Lorsque vous recherchez un hôtel, la carte indiquera le prix, la catégorie et l'évaluation des hôtels disponibles.
-    de = Wenn Sie nach einem Hotel suchen, werden in der Karte die Preiskategorie und die Bewertung des Hotels angezeigt.
-    hu = Amikor szállodát keresel, az alkalmazás megjeleníti a hotel árkategóriáját és értékelését.
-    id = Saat Anda mencari hotel, peta akan menampilkan kategori harga dan nilai hotel.
-    it = Quando cerchi un hotel, la mappa li visualizza mostrando le categorie di prezzo e le recensioni.
-    ja = ホテルを探すと、地図にホテルの価格帯と評価が表示されます。
-    ko = 호텔을 검색하면 가격대와 등급이 함께 표시됩니다.
-    nb = Når du leter etter hotell, vil kartet fortelle deg hotellenes priskategori og rangering.
-    pl = Podczas wyszukiwania hoteli mapa pokazuje cenę, kategorię i ocenę hotelu.
-    pt = Quando procurar um hotel, o mapa irá exibir a categoria de preço e a classificação do hotel.
-    ro = Dacă sunteţi în căutarea unui hotel, harta vă va arăta categoriile de preţuri practicate de hoteluri şi evaluarea lor.
-    es = Cuando busques un hotel, el mapa mostrará la categoría de precio y clasificación de los hoteles.
-    sv = När du letar efter ett hotell kommer kartan visa hotellets priskategori och bedömning.
-    th = หากคุณกำลังมองหาโรงแรมอยู่ แผนที่จะแสดงหมวดหมู่ราคา และเรตติ้งของโรงแรม
-    tr = Bir otel aradığınızda, harita otellerin fiyat kategorisini ve puanlarını gösterir.
-    uk = Під час вибору готелів на карті буде відображено цінову категорію та рейтинг закладу.
-    vi = Khi tìm khách sạn, bản đồ sẽ hiển thị đánh giá và giá của các khách sạn.
-    zh-Hans = 当您查找酒店时，地图能够显示酒店价格类别和评价。
-    zh-Hant = 當您尋找酒店時，此地圖可以顯示該酒店的價格類型與評比。
-    sk = Keď hľadáte hotel, na mape sa zobrazia cenové kategórie a hodnotenia hotelov.
-
   [button_try]
     en = Try it
     ru = Попробовать
@@ -18647,64 +18589,6 @@
     zh-Hans = 试一试
     zh-Hant = 試用
     sk = Vyskúšajte to
-
-  [whatsnew_cycle_navigation_header]
-    en = Bike navigation (beta version)
-    ru = Велонавигация (бета-версия)
-    ar = التوجيه الملاحي مع الدراجات (إصدار تجريبي)
-    cs = Navigace pro kola (beta verze)
-    da = Cykelnavigation (beta-version)
-    nl = Fietsnavigatie (bèta-versie)
-    fi = Polkupyöränavigointi (betaversio)
-    fr = Navigation à vélo (version bêta)
-    de = Fahrradnavigation (Betaversion)
-    hu = Kerékpáros navigáció (béta verzió)
-    id = Navigasi bersepeda (versi beta)
-    it = Navigazione in bici (versione beta)
-    ja = バイクナビゲーション（ベータ版）
-    ko = 자전거 네비게이션 (베타 버전)
-    nb = Sykkelnavigering (betaversjon)
-    pl = Nawigacja rowerowa (wersja beta)
-    pt = Navegação para bicicleta (versão beta)
-    ro = Navigaţie pentru biciclete (versiune beta)
-    es = Navegación en bici (versión beta)
-    sv = Cykelnavigering (betaversion)
-    th = การนำทางจักรยาน (beta-version)
-    tr = Bisiklet navigasyonu (beta sürüm)
-    uk = Велонавігація (бета-версія)
-    vi = Định vị xe đạp (phiên bản beta)
-    zh-Hans = 自行车导航 (beta 版)
-    zh-Hant = 自行車導航（beta 版）
-    sk = Navigácia pre cyklistov (beta verzia)
-
-  [whatsnew_cycle_navigation_message]
-    en = We are testing bike navigation for the new season. Try your favorite bike route with MAPS.ME, and share your opinion with us.
-    ru = К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому вело маршруту с MAPS.ME и поделитесь с нами впечатлениями.
-    ar = نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.
-    cs = Tuto sezónu testujeme novou navigaci pro kola. Projeďte si svou oblíbenou trasu s MAPS.ME a podělte se s námi o svůj názor.
-    da = Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.
-    nl = We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.
-    fi = Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.
-    fr = Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n'hésitez pas à nous partager vos impressions.
-    de = Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.
-    hu = Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.
-    id = Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.
-    it = Stiamo collaudando la navigazione in bici per la nuova stagione. Prova il tuo itinerario ciclistico preferito con MAPS.ME e condividi con noi le tue opinioni.
-    ja = 新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。
-    ko = 저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. MAPS.ME에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.
-    nb = Vi tester sykkelnavigering for den nye sesongen. Prøv din favorittrute med MAPS.ME, og del din vurdering med oss.
-    pl = Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z MAPS.ME i napisz nam, co myślisz o naszej nawigacji.
-    pt = Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.
-    ro = În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.
-    es = Estamos probando la navegación en bici para la nueva temporada. Prueba tu ruta favorita en bicicleta con MAPS.ME y comparte tu opinión con nosotros.
-    sv = Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.
-    th = เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา
-    tr = Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.
-    uk = До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.
-    vi = Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.
-    zh-Hans = 正在测试自行车导航。试一下使用 MAPS.ME 寻找您最喜爱的自行车路线并与我们分享您的意见。
-    zh-Hant = 我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。
-    sk = Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.
 
   [refresh]
     en = Update
@@ -19524,3 +19408,61 @@
     zh-Hans = 该搜索结果显示酒店星级和价格分类。
     zh-Hant = 該搜索結果顯示酒店星級和價格分類。
     sk = Výsledky vyhľadávania ukazujú hodnotenie hotelov a cenové kategórie.
+
+  [whatsnew_cycle_navigation_header]
+    en = Bike navigation (beta version)
+    ru = Велонавигация (бета-версия)
+    ar = التوجيه الملاحي مع الدراجات (إصدار تجريبي)
+    cs = Navigace pro kola (beta verze)
+    da = Cykelnavigation (beta-version)
+    nl = Fietsnavigatie (bèta-versie)
+    fi = Polkupyöränavigointi (betaversio)
+    fr = Navigation à vélo (version bêta)
+    de = Fahrradnavigation (Betaversion)
+    hu = Kerékpáros navigáció (béta verzió)
+    id = Navigasi bersepeda (versi beta)
+    it = Navigazione in bici (versione beta)
+    ja = バイクナビゲーション（ベータ版）
+    ko = 자전거 네비게이션 (베타 버전)
+    nb = Sykkelnavigering (betaversjon)
+    pl = Nawigacja rowerowa (wersja beta)
+    pt = Navegação para bicicleta (versão beta)
+    ro = Navigaţie pentru biciclete (versiune beta)
+    es = Navegación en bici (versión beta)
+    sv = Cykelnavigering (betaversion)
+    th = การนำทางจักรยาน (beta-version)
+    tr = Bisiklet navigasyonu (beta sürüm)
+    uk = Велонавігація (бета-версія)
+    vi = Định vị xe đạp (phiên bản beta)
+    zh-Hans = 自行车导航 (beta 版)
+    zh-Hant = 自行車導航（beta 版）
+    sk = Navigácia pre cyklistov (beta verzia)
+
+  [whatsnew_cycle_navigation_message]
+    en = We are testing bike navigation for the new season. Try your favorite bike route with MAPS.ME, and share your opinion with us.
+    ru = К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому веломаршруту с MAPS.ME и поделитесь с нами впечатлениями.
+    ar = نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.
+    cs = Tuto sezónu testujeme novou navigaci pro kola. Projeďte si svou oblíbenou trasu s MAPS.ME a podělte se s námi o svůj názor.
+    da = Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.
+    nl = We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.
+    fi = Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.
+    fr = Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n'hésitez pas à nous partager vos impressions.
+    de = Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.
+    hu = Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.
+    id = Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.
+    it = Stiamo collaudando la navigazione in bici per la nuova stagione. Prova il tuo itinerario ciclistico preferito con MAPS.ME e condividi con noi le tue opinioni.
+    ja = 新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。
+    ko = 저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. MAPS.ME에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.
+    nb = Vi tester sykkelnavigering for den nye sesongen. Prøv din favorittrute med MAPS.ME, og del din vurdering med oss.
+    pl = Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z MAPS.ME i napisz nam, co myślisz o naszej nawigacji.
+    pt = Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.
+    ro = În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.
+    es = Estamos probando la navegación en bici para la nueva temporada. Prueba tu ruta favorita en bicicleta con MAPS.ME y comparte tu opinión con nosotros.
+    sv = Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.
+    th = เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา
+    tr = Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.
+    uk = До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.
+    vi = Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.
+    zh-Hans = 正在测试自行车导航。试一下使用 MAPS.ME 寻找您最喜爱的自行车路线并与我们分享您的意见。
+    zh-Hant = 我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。
+    sk = Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.

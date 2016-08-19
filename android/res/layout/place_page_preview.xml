@@ -7,13 +7,15 @@
   android:gravity="center_vertical"
   android:orientation="horizontal"
   android:padding="@dimen/margin_base">
+
   <include
     android:id="@+id/downloader_status_frame"
     layout="@layout/downloader_status"
     android:layout_width="@dimen/downloader_status_size"
     android:layout_height="@dimen/downloader_status_size"
-    android:layout_marginTop="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_half"
     android:visibility="gone"
     tools:visibility="visible"/>
 
@@ -21,68 +23,74 @@
     android:id="@+id/tv__title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_toRightOf="@id/downloader_status_frame"
     android:layout_alignWithParentIfMissing="true"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:layout_toEndOf="@id/downloader_status_frame"
+    android:layout_toRightOf="@id/downloader_status_frame"
+    android:ellipsize="end"
     android:fontFamily="@string/robotoMedium"
     android:maxLines="@integer/pp_title_lines"
     android:textAppearance="@style/MwmTextAppearance.Title"
-    android:ellipsize="end"
     tools:background="#C0800000"
+    tools:ignore="UnusedAttribute"
     tools:text="Title"/>
 
-  <LinearLayout
-    android:id="@+id/subtitle_frame"
+  <TextView
+    android:id="@+id/tv__subtitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:minHeight="@dimen/direction_frame_min_height"
-    android:layout_below="@id/tv__title"
-    android:layout_toRightOf="@id/downloader_status_frame"
     android:layout_alignWithParentIfMissing="true"
+    android:layout_below="@id/tv__title"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:layout_toEndOf="@id/downloader_status_frame"
+    android:layout_toLeftOf="@+id/direction_frame"
+    android:layout_toRightOf="@id/downloader_status_frame"
+    android:layout_toStartOf="@+id/direction_frame"
+    android:lines="1"
+    android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+    tools:background="#300000F0"
+    tools:text="Subtitle, very very very very very very very long"/>
+
+  <LinearLayout
+    android:id="@+id/direction_frame"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/direction_frame_min_height"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignWithParentIfMissing="true"
+    android:layout_below="@id/tv__title"
+    android:background="?selectableItemBackground"
     android:gravity="center_vertical"
-    tools:background="#300000F0">
-    <TextView
-      android:id="@+id/tv__subtitle"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-      android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-      tools:text="Subtitle"/>
+    android:minHeight="@dimen/direction_frame_min_height"
+    android:orientation="horizontal"
+    tools:background="#111111F0">
 
-    <LinearLayout
-      android:id="@+id/direction_frame"
+    <com.mapswithme.maps.widget.ArrowView
+      android:id="@+id/av__direction"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/direction_frame_min_height"
-      android:orientation="horizontal"
-      android:gravity="center_vertical"
-      android:background="?selectableItemBackground"
-      tools:ignore="UselessParent">
-      <com.mapswithme.maps.widget.ArrowView
-        android:id="@+id/av__direction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_marginRight="@dimen/margin_half"
-        android:scaleType="center"
-        android:src="?ppArrowDrawable"/>
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_marginRight="@dimen/margin_half"
+      android:scaleType="center"
+      android:src="?ppArrowDrawable"/>
 
-      <TextView
-        android:id="@+id/tv__straight_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
-        tools:text="2000 km"/>
-    </LinearLayout>
+    <TextView
+      android:id="@+id/tv__straight_distance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+      tools:text="2000 km"/>
   </LinearLayout>
 
   <TextView
     android:id="@+id/tv__downloader_details"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@id/subtitle_frame"
-    android:layout_toRightOf="@id/downloader_status_frame"
     android:layout_alignWithParentIfMissing="true"
+    android:layout_below="@id/tv__subtitle"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:layout_toEndOf="@id/downloader_status_frame"
+    android:layout_toRightOf="@id/downloader_status_frame"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
     android:visibility="gone"
     tools:background="#8000F000"
@@ -94,9 +102,9 @@
     android:id="@+id/tv__opened_till"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_half"
-    android:layout_below="@id/tv__downloader_details"
     android:layout_alignWithParentIfMissing="true"
+    android:layout_below="@id/tv__downloader_details"
+    android:layout_marginTop="@dimen/margin_quarter"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
     android:visibility="gone"
     tools:background="#80FFF000"
@@ -107,10 +115,11 @@
     android:id="@+id/hotel_info_frame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_half"
-    android:layout_below="@id/tv__opened_till"
     android:layout_alignWithParentIfMissing="true"
+    android:layout_below="@id/tv__opened_till"
+    android:layout_marginTop="@dimen/margin_quarter"
     tools:background="#8000FFFF">
+
     <TextView
       android:id="@+id/tv__hotel_rating"
       android:layout_width="0dp"
@@ -134,9 +143,9 @@
     android:id="@+id/tv__address"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_half"
-    android:layout_below="@id/hotel_info_frame"
     android:layout_alignWithParentIfMissing="true"
+    android:layout_below="@id/hotel_info_frame"
+    android:layout_marginTop="@dimen/margin_half"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
     tools:background="#60000000"
     tools:text="Lenina str, 10"/>

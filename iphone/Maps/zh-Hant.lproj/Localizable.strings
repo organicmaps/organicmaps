@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "要預訂酒店，請啟用您的網際網路連線";
 
-"whatsnew_booking_header" = "從應用程式預訂酒店";
-
-"whatsnew_booking_message" = "當您尋找酒店時，此地圖可以顯示該酒店的價格類型與評比。";
-
 "button_try" = "試用";
-
-"whatsnew_cycle_navigation_header" = "自行車導航（beta 版）";
-
-"whatsnew_cycle_navigation_message" = "我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。";
 
 "refresh" = "更新";
 
@@ -1613,3 +1605,7 @@
 "whatsnew_booking_2_header" = "便捷的酒店搜索";
 
 "whatsnew_booking_2_message" = "該搜索結果顯示酒店星級和價格分類。";
+
+"whatsnew_cycle_navigation_header" = "自行車導航（beta 版）";
+
+"whatsnew_cycle_navigation_message" = "我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。";

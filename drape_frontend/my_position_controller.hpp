@@ -39,7 +39,7 @@ public:
   };
 
   MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
-                       bool isFirstLaunch, bool isRoutingActive);
+                       bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled);
   ~MyPositionController();
 
   void OnNewViewportRect();
@@ -73,6 +73,7 @@ public:
   void ActivateRouting(int zoomLevel, bool enableAutoZoom);
   void DeactivateRouting();
 
+  void EnablePerspectiveInRouting(bool enablePerspective);
   void EnableAutoZoomInRouting(bool enableAutoZoom);
 
   void StopLocationFollow();
@@ -146,8 +147,10 @@ private:
   m2::PointD m_oldPosition; // position in mercator
   double m_oldDrawDirection;
 
+  bool m_enablePerspectiveInRouting;
   bool m_enableAutoZoomInRouting;
-  double m_autoScale;
+  double m_autoScale2d;
+  double m_autoScale3d;
 
   my::Timer m_lastGPSBearing;
   my::Timer m_pendingTimer;

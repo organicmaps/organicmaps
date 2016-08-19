@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "لحجز الفندق، يُرجى تمكين الاتصال بالإنترنت";
 
-"whatsnew_booking_header" = "حجز فندق من التطبيق";
-
-"whatsnew_booking_message" = "عندما تبحث عن فندق، ستعرض لك الخريطة فئة أسعار وتصنيف الفندق.";
-
 "button_try" = "جربه";
-
-"whatsnew_cycle_navigation_header" = "التوجيه الملاحي مع الدراجات (إصدار تجريبي)";
-
-"whatsnew_cycle_navigation_message" = "نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.";
 
 "refresh" = "تحديث";
 
@@ -1613,3 +1605,7 @@
 "whatsnew_booking_2_header" = "البحث بسهولة عن فندق";
 
 "whatsnew_booking_2_message" = "تظهر نتائج البحث التقييم والفئة السعرية للفندق.";
+
+"whatsnew_cycle_navigation_header" = "التوجيه الملاحي مع الدراجات (إصدار تجريبي)";
+
+"whatsnew_cycle_navigation_message" = "نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.";

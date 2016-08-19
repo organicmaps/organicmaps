@@ -888,11 +888,7 @@
 	<string name="editor_profile_changes_for_next_place">เปลี่ยนไปยังสถานที่ถัดไป: %d</string>
 	<string name="editor_profile_rating_place">ลำดับของตำแหน่ง</string>
 	<string name="booking_dialog_not_connect_header">โปรดเชื่อมต่อกับอินเตอร์เน็ตเพื่อจองโรงแรมนี้</string>
-	<string name="whatsnew_booking_header">จองโรงแรมจากแอพ</string>
-	<string name="whatsnew_booking_message">หากคุณกำลังมองหาโรงแรมอยู่ แผนที่จะแสดงหมวดหมู่ราคา และเรตติ้งของโรงแรม</string>
 	<string name="button_try">ลองดู</string>
-	<string name="whatsnew_cycle_navigation_header">การนำทางจักรยาน (beta-version)</string>
-	<string name="whatsnew_cycle_navigation_message">เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา</string>
 	<string name="refresh">อัปเดต</string>
 	<string name="last_update">การอัปเดตล่าสุด: %s</string>
 	<string name="booking_checkin">เช็คอิน: %s</string>
@@ -928,4 +924,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• การนำทางจักรยานพิจารณาถึงข้อมูลด้านภูมิประเทศ\n• เราสร้างเส้นทางที่ง่ายยิ่งขึ้นโดยพิจารณาถึงความลาดเอียงของถนน</string>
 	<string name="whatsnew_booking_2_header">การค้นหาโรงแรมอย่างง่ายดาย</string>
 	<string name="whatsnew_booking_2_message">ผลการค้นหาจะแสดงการให้คะแนนโรงแรมและหมวดหมู่ราคา</string>
+	<string name="whatsnew_cycle_navigation_header">การนำทางจักรยาน (beta-version)</string>
+	<string name="whatsnew_cycle_navigation_message">เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา</string>
 </resources>

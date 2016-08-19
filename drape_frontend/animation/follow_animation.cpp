@@ -41,6 +41,10 @@ MapFollowAnimation::MapFollowAnimation(ScreenBase const & screen,
     m_properties.insert(Animation::Angle);
   if (m_offsetInterpolator.IsActive() || m_scaleInterpolator.IsActive() || m_angleInterpolator.IsActive())
     m_properties.insert(Animation::Position);
+
+  // If MapFollowAnimation affects only angles, disable rewinding.
+  SetCouldBeRewinded(!m_angleInterpolator.IsActive() || m_scaleInterpolator.IsActive() ||
+                     m_offsetInterpolator.IsActive());
 }
 
 Animation::TObjectProperties const & MapFollowAnimation::GetProperties(TObject object) const

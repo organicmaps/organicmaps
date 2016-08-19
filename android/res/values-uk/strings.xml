@@ -886,11 +886,7 @@
 	<string name="editor_profile_changes_for_next_place">Виправлень до наступного місця: %d</string>
 	<string name="editor_profile_rating_place">Місце у рейтингу</string>
 	<string name="booking_dialog_not_connect_header">Для бронювання готелів потрібен доступ до інтернету</string>
-	<string name="whatsnew_booking_header">Бронюй готель з додатку</string>
-	<string name="whatsnew_booking_message">Під час вибору готелів на карті буде відображено цінову категорію та рейтинг закладу.</string>
 	<string name="button_try">Спробувати</string>
-	<string name="whatsnew_cycle_navigation_header">Велонавігація (бета-версія)</string>
-	<string name="whatsnew_cycle_navigation_message">До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.</string>
 	<string name="refresh">Обновити</string>
 	<string name="last_update">Останнє оновлення: %s</string>
 	<string name="booking_checkin">заїзд: %s</string>
@@ -926,4 +922,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Велонавігація враховує дані про рельєф.\n• Ми будуємо оптимальний маршрут з урахуванням перепаду висот.</string>
 	<string name="whatsnew_booking_2_header">Пошук готелів став простішим</string>
 	<string name="whatsnew_booking_2_message">При пошуку відображається рейтинг і цінова категорія готелю.</string>
+	<string name="whatsnew_cycle_navigation_header">Велонавігація (бета-версія)</string>
+	<string name="whatsnew_cycle_navigation_message">До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.</string>
 </resources>

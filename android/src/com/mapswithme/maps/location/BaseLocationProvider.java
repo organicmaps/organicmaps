@@ -4,6 +4,7 @@ package com.mapswithme.maps.location;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.log.Logger;
@@ -21,7 +22,7 @@ abstract class BaseLocationProvider implements LocationListener
     return (newLocation.getAccuracy() < lastAccuracy);
   }
 
-  final boolean isLocationBetterThanLast(Location newLocation)
+  final boolean isLocationBetterThanLast(@Nullable Location newLocation)
   {
     if (newLocation == null)
       return false;
@@ -41,6 +42,7 @@ abstract class BaseLocationProvider implements LocationListener
     {
       LocationHelper.INSTANCE.resetMagneticField(location);
       LocationHelper.INSTANCE.onLocationUpdated(location);
+      LocationHelper.INSTANCE.notifyLocationUpdated();
     }
   }
 
@@ -62,6 +64,9 @@ abstract class BaseLocationProvider implements LocationListener
     sLogger.d("Status changed for location provider: ", provider, status);
   }
 
+  /**
+   * @return whether location polling was started successfully.
+   */
   protected abstract boolean start();
   protected abstract void stop();
 }

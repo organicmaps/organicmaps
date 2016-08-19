@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "Bunlar, onaylanmış harita değişiklikleridir";
 
-"whatsnew_booking_header" = "Uygulama üzerinden otel rezervasyonu yapın";
-
-"whatsnew_booking_message" = "Bir otel aradığınızda, harita otellerin fiyat kategorisini ve puanlarını gösterir.";
-
 "button_try" = "Deneyin";
-
-"whatsnew_cycle_navigation_header" = "Bisiklet navigasyonu (beta sürüm)";
-
-"whatsnew_cycle_navigation_message" = "Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.";
 
 "refresh" = "Güncelleştirme";
 
@@ -1613,3 +1605,7 @@
 "whatsnew_booking_2_header" = "Kolay otel arama";
 
 "whatsnew_booking_2_message" = "Arama sonuçları otel puan ve fiyat kategorisini gösterir.";
+
+"whatsnew_cycle_navigation_header" = "Bisiklet navigasyonu (beta sürüm)";
+
+"whatsnew_cycle_navigation_message" = "Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.";

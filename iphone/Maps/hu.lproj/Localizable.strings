@@ -1541,15 +1541,7 @@
 
 "booking_dialog_not_connect_header" = "A szálloda lefoglalásához csatlakozzon az internethez";
 
-"whatsnew_booking_header" = "Szálloda foglalása az alkalmazásból";
-
-"whatsnew_booking_message" = "Amikor szállodát keresel, az alkalmazás megjeleníti a hotel árkategóriáját és értékelését.";
-
 "button_try" = "Próbáld ki";
-
-"whatsnew_cycle_navigation_header" = "Kerékpáros navigáció (béta verzió)";
-
-"whatsnew_cycle_navigation_message" = "Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.";
 
 "refresh" = "Frissítés";
 
@@ -1613,3 +1605,7 @@
 "whatsnew_booking_2_header" = "Könnyű szállodakeresés";
 
 "whatsnew_booking_2_message" = "A keresési eredmények megjelenítik a szálloda értékelését és árkategóriáját.";
+
+"whatsnew_cycle_navigation_header" = "Kerékpáros navigáció (béta verzió)";
+
+"whatsnew_cycle_navigation_message" = "Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.";

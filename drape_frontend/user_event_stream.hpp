@@ -349,6 +349,8 @@ private:
   void ResetMapPlaneAnimations();
   bool InterruptFollowAnimations(bool force);
 
+  bool CheckDrag(array<Touch, 2> const & touches, double threshold) const;
+
   list<UserEvent> m_events;
   mutable mutex m_lock;
 

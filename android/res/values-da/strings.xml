@@ -886,11 +886,7 @@
 	<string name="editor_profile_changes_for_next_place">Ændringer for næste sted: %d</string>
 	<string name="editor_profile_rating_place">Rangorden</string>
 	<string name="booking_dialog_not_connect_header">For at booke hotellet, bedes du aktivere din internetforbindelse</string>
-	<string name="whatsnew_booking_header">Book et hotel fra appen</string>
-	<string name="whatsnew_booking_message">Når du leder efter et hotel, vil kortet vise hotellernes priskategori og vurdering.</string>
 	<string name="button_try">Prøv det</string>
-	<string name="whatsnew_cycle_navigation_header">Cykelnavigation (beta-version)</string>
-	<string name="whatsnew_cycle_navigation_message">Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.</string>
 	<string name="refresh">Opdater</string>
 	<string name="last_update">Sidste opdatering: %s</string>
 	<string name="booking_checkin">tjek ind: %s</string>
@@ -926,4 +922,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Cykelnavigation tager forbehold for terrænet.\n• Vi opretter lettere ruter baseret på vejens hældning.</string>
 	<string name="whatsnew_booking_2_header">Enkel hotelsøgning</string>
 	<string name="whatsnew_booking_2_message">Søgeresultaterne viser hotelbedømmelser og priskategori.</string>
+	<string name="whatsnew_cycle_navigation_header">Cykelnavigation (beta-version)</string>
+	<string name="whatsnew_cycle_navigation_message">Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.</string>
 </resources>

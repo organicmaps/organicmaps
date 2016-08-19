@@ -889,11 +889,7 @@
 	<string name="editor_profile_changes_for_next_place">Změny v dalším místě: %d</string>
 	<string name="editor_profile_rating_place">Pořadí v hodnocení</string>
 	<string name="booking_dialog_not_connect_header">Chcete-li si rezervovat hotel, aktivujte připojení k internetu</string>
-	<string name="whatsnew_booking_header">Rezervujte si hotel přímo v aplikaci</string>
-	<string name="whatsnew_booking_message">Aplikace vám k výsledkům vyhledávání hotelů ukáže jejich cenovou skupinu a hodnocení.</string>
 	<string name="button_try">Vyzkoušet</string>
-	<string name="whatsnew_cycle_navigation_header">Navigace pro kola (beta verze)</string>
-	<string name="whatsnew_cycle_navigation_message">Tuto sezónu testujeme novou navigaci pro kola. Projeďte si svou oblíbenou trasu s MAPS.ME a podělte se s námi o svůj názor.</string>
 	<string name="refresh">Aktualizovat</string>
 	<string name="last_update">Poslední aktualizace: %s</string>
 	<string name="booking_checkin">příjezd: %s</string>
@@ -929,4 +925,6 @@
 	<string name="whatsnew_cycle_navigation_2_message">• Navigace pro kola bere v potaz data o terénu.\n• Bereme v úvahu sklon cesty a vytváříme snazší trasy.</string>
 	<string name="whatsnew_booking_2_header">Snadné hledání hotelu</string>
 	<string name="whatsnew_booking_2_message">Výsledky hledání zobrazují hodnocení a cenovou kategorii hotelu.</string>
+	<string name="whatsnew_cycle_navigation_header">Navigace pro kola (beta verze)</string>
+	<string name="whatsnew_cycle_navigation_message">Tuto sezónu testujeme novou navigaci pro kola. Projeďte si svou oblíbenou trasu s MAPS.ME a podělte se s námi o svůj názor.</string>
 </resources>
