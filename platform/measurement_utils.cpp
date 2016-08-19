@@ -44,7 +44,10 @@ bool FormatDistanceImpl(double m, string & res,
     res = ToStringPrecision(v, v >= 10.0 ? 0 : 1) + high;
   }
   else
-    res = ToStringPrecision(lowV, 0) + low;
+  {
+    // To display unit number only if <= 100.
+    res = ToStringPrecision(lowV <= 100.0 ? lowV : round(lowV / 10) * 10, 0) + low;
+  }
 
   return true;
 }
