@@ -41,7 +41,7 @@ public:
     params.SetSuggestsEnabled(false);
 
     auto request = make_unique<TestSearchRequest>(m_engine, params, m_viewport);
-    request->Wait();
+    request->Run();
     return request;
   }
 
@@ -295,7 +295,7 @@ UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
     params.SetSuggestsEnabled(false);
 
     TestSearchRequest request(m_engine, params, m_viewport);
-    request.Wait();
+    request.Run();
     TRules rules = {ExactMatch(worldId, london1), ExactMatch(worldId, london2)};
 
     TEST(MatchResults(rules, request.Results()), ());

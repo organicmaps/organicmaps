@@ -101,17 +101,17 @@ UNIT_CLASS_TEST(SmokeTest, NotPrefixFreeNames)
   m2::RectD const viewport(m2::PointD(0, 0), m2::PointD(100, 100));
   {
     TestSearchRequest request(m_engine, "a ", "en", Mode::Viewport, viewport);
-    request.Wait();
+    request.Run();
     TEST_EQUAL(1, request.Results().size(), ());
   }
   {
     TestSearchRequest request(m_engine, "aa ", "en", Mode::Viewport, viewport);
-    request.Wait();
+    request.Run();
     TEST_EQUAL(2, request.Results().size(), ());
   }
   {
     TestSearchRequest request(m_engine, "aaa ", "en", search::Mode::Viewport, viewport);
-    request.Wait();
+    request.Run();
     TEST_EQUAL(3, request.Results().size(), ());
   }
 }

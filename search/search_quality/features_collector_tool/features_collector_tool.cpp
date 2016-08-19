@@ -254,7 +254,7 @@ int main(int argc, char * argv[])
     params.SetPosition(latLon.lat, latLon.lon);
     params.SetSuggestsEnabled(false);
     TestSearchRequest request(engine, params, sample.m_viewport);
-    request.Wait();
+    request.Run();
 
     auto const & results = request.Results();
 
