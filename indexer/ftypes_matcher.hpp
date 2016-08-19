@@ -173,6 +173,16 @@ public:
   static vector<string> const & GetHotelTags();
 };
 
+// WiFi is a type in classificator.txt,
+// it should be checked for filling metadata in MapObject.
+class IsWifiChecker : public BaseChecker
+{
+  IsWifiChecker();
+
+public:
+  static IsWifiChecker const & Instance();
+};
+
 /// Type of locality (do not change values and order - they have detalization order)
 /// COUNTRY < STATE < CITY < ...
 enum Type { NONE = -1, COUNTRY = 0, STATE, CITY, TOWN, VILLAGE, LOCALITY_COUNT };

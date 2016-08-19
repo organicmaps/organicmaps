@@ -142,21 +142,11 @@ editor::XMLFeature FeatureType::ToXML(bool serializeType) const
     feature::TypesHolder th(*this);
     // TODO(mgsergio): Use correct sorting instead of SortBySpec based on the config.
     th.SortBySpec();
-    Classificator & cl = classif();
-    static const uint32_t internetType = cl.GetTypeByPath({"internet_access"});
     // TODO(mgsergio): Either improve "OSM"-compatible serialization for more complex types,
     // or save all our types directly, to restore and reuse them in migration of modified features.
     for (uint32_t const type : th)
     {
-      { // Avoid serialization of "internet" type, it is set separately in the Editor.
-        // Otherwise we can't reset "internet" to "Unknown" state.
-        uint32_t truncatedType = type;
-        ftype::TruncValue(truncatedType, 1);
-        if (truncatedType == internetType)
-          continue;
-      }
-
-      string const strType = cl.GetReadableObjectName(type);
+      string const strType = classif().GetReadableObjectName(type);
       strings::SimpleTokenizer iter(strType, "-");
       string const k = *iter;
       if (++iter)

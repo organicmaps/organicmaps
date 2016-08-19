@@ -66,10 +66,16 @@ namespace feature
     }
 
     /// Accumulation function.
-    inline void operator() (uint32_t type)
+    void Add(uint32_t type)
     {
       ASSERT_LESS(m_size, kMaxTypesCount, ());
-      m_types[m_size++] = type;
+      if (m_size < kMaxTypesCount)
+        m_types[m_size++] = type;
+    }
+
+    inline void operator() (uint32_t type)
+    {
+      Add(type);
     }
 
     /// @name Selectors.

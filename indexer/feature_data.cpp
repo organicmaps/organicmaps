@@ -38,7 +38,7 @@ TypesHolder::TypesHolder(FeatureBase const & f)
 {
   f.ForEachType([this](uint32_t type)
   {
-    this->operator()(type);
+    Add(type);
   });
 }
 

@@ -228,7 +228,7 @@ void EditableMapObject::SetType(uint32_t featureType)
     // TODO(mgsergio): Replace by correct sorting from editor's config.
     copy.SortBySpec();
     m_types.Remove(*copy.begin());
-    m_types.operator ()(featureType);
+    m_types.Add(featureType);
   }
 }
 
@@ -280,6 +280,13 @@ void EditableMapObject::SetWebsite(string website)
 void EditableMapObject::SetInternet(Internet internet)
 {
   m_metadata.Set(feature::Metadata::FMD_INTERNET, DebugPrint(internet));
+
+  static const uint32_t wifiType = classif().GetTypeByPath({"internet_access", "wlan"});
+
+  if (m_types.Has(wifiType) && internet != Internet::Wlan)
+    m_types.Remove(wifiType);
+  else if (!m_types.Has(wifiType) && internet == Internet::Wlan)
+    m_types.Add(wifiType);
 }
 
 void EditableMapObject::SetStars(int stars)
