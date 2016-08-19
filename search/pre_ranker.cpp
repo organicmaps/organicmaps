@@ -228,7 +228,12 @@ void PreRanker::UpdateResults(bool lastUpdate)
     m_currEmit.swap(m_prevEmit);
 }
 
-void PreRanker::ClearCaches() { m_pivotFeatures.Clear(); }
+void PreRanker::ClearCaches()
+{
+  m_pivotFeatures.Clear();
+  m_prevEmit.clear();
+  m_currEmit.clear();
+}
 
 void PreRanker::FilterForViewportSearch()
 {

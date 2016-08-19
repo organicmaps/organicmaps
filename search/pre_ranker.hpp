@@ -95,10 +95,10 @@ private:
   // Cache of nested rects used to estimate distance from a feature to the pivot.
   NestedRectsCache m_pivotFeatures;
 
-  // A set of ids for features that are emit during the current search session.
+  // A set of ids for features that are emitted during the current search session.
   set<FeatureID> m_currEmit;
 
-  // A set of ids for features that were emit during the previous
+  // A set of ids for features that were emitted during the previous
   // search session.  They're used for filtering of current search in
   // viewport results, because we need to give more priority to
   // results that were on map previously.
