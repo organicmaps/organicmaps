@@ -78,6 +78,7 @@ trap "rm -rf \"${INTDIR}\"" EXIT SIGINT SIGTERM
 # Create MWM file
 INTDIR_FLAG="--intermediate_data_path=$INTDIR/ --node_storage=map"
 GENERATE_EVERYTHING='--generate_features=true --generate_geometry=true --generate_index=true --generate_search_index=true'
+[ -n "${HOTELS-}" ] && GENERATE_EVERYTHING="$GENERATE_EVERYTHING --booking_data=$HOTELS"
 COASTS="${COASTS-WorldCoasts.geom}"
 if [ -f "$COASTS" ]; then
   if [ ! -f "$TBORDERS/$BASE_NAME.poly" ]; then
