@@ -41,16 +41,6 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   m_params.m_onResults = move(onResults);
 }
 
-void TestSearchRequest::Start() { m_engine.Search(m_params, m_viewport); }
-void TestSearchRequest::Wait()
-{
-  unique_lock<mutex> lock(m_mu);
-  m_cv.wait(lock, [this]()
-  {
-    return m_done;
-  });
-}
-
 void TestSearchRequest::Run()
 {
   Start();
@@ -71,18 +61,21 @@ vector<search::Result> const & TestSearchRequest::Results() const
   return m_results;
 }
 
+void TestSearchRequest::Start()
+{
+  m_engine.Search(m_params, m_viewport);
+}
+
+void TestSearchRequest::Wait()
+{
+  unique_lock<mutex> lock(m_mu);
+  m_cv.wait(lock, [this]() { return m_done; });
+}
+
 void TestSearchRequest::SetUpCallbacks()
 {
   m_params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
   m_params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
-}
-
-void TestSearchRequest::SetCustomOnResults(SearchParams::TOnResults const & customOnResults)
-{
-  m_params.m_onResults = [this, customOnResults](search::Results const & results) {
-    OnResults(results);
-    customOnResults(results);
-  };
 }
 
 void TestSearchRequest::OnStarted()
@@ -104,6 +97,11 @@ void TestSearchRequest::OnResults(search::Results const & results)
   {
     m_results.assign(results.begin(), results.end());
   }
+}
+
+void TestSearchRequest::SetCustomOnResults(SearchParams::TOnResults const & onResults)
+{
+  m_params.m_onResults = onResults;
 }
 }  // namespace tests_support
 }  // namespace search

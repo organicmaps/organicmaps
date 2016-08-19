@@ -317,7 +317,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
 
   for (auto & q : queries)
   {
-    q.m_request->Wait();
+    q.m_request->Run();
 
     LOG(LDEBUG, (q.m_query, q.m_request->Results()));
     int pos =
@@ -459,7 +459,7 @@ int main(int argc, char * argv[])
   vector<double> responseTimes(queries.size());
   for (size_t i = 0; i < queries.size(); ++i)
   {
-    requests[i]->Wait();
+    requests[i]->Run();
     auto rt = duration_cast<milliseconds>(requests[i]->ResponseTime()).count();
     responseTimes[i] = static_cast<double>(rt) / 1000;
     PrintTopResults(MakePrefixFree(queries[i]), requests[i]->Results(), FLAGS_top,
