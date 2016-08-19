@@ -28,7 +28,18 @@ public:
                     Mode mode, m2::RectD const & viewport);
   TestSearchRequest(TestSearchEngine & engine, SearchParams params, m2::RectD const & viewport);
 
+  // Initiates the search.
+  void Start();
+
+  // Waits for the search to finish.
   void Wait();
+
+  // Initiates the search and waits for it to finish.
+  void Run();
+
+  // Sets the onResults callback without breaking the synchronization
+  // introduced by OnResults().
+  void SetCustomOnResults(SearchParams::TOnResults const & customOnResults);
 
   // Call these functions only after call to Wait().
   steady_clock::duration ResponseTime() const;
@@ -39,7 +50,7 @@ protected:
                     Mode mode, m2::RectD const & viewport, SearchParams::TOnStarted onStarted,
                     SearchParams::TOnResults onResults);
 
-  void SetUpCallbacks(SearchParams & params);
+  void SetUpCallbacks();
 
   void OnStarted();
   void OnResults(search::Results const & results);
@@ -53,6 +64,10 @@ protected:
   my::Timer m_timer;
   steady_clock::duration m_startTime;
   steady_clock::duration m_endTime;
+
+  TestSearchEngine & m_engine;
+  SearchParams m_params;
+  m2::RectD m_viewport;
 };
 }  // namespace tests_support
 }  // namespace search

@@ -59,12 +59,11 @@ public:
   InteractiveSearchRequest(TestSearchEngine & engine, string const & query,
                            m2::RectD const & viewport, bool & mode)
     : TestDelegate(mode)
-    , TestSearchRequest(
-          engine, query, "en" /* locale */, Mode::Viewport, viewport,
-          bind(&InteractiveSearchRequest::OnStarted, this),
-          ViewportSearchCallback(static_cast<ViewportSearchCallback::Delegate &>(*this),
-                                 bind(&InteractiveSearchRequest::OnResults, this, _1)))
+    , TestSearchRequest(engine, query, "en" /* locale */, Mode::Viewport, viewport)
   {
+    SetCustomOnResults(
+        ViewportSearchCallback(static_cast<ViewportSearchCallback::Delegate &>(*this),
+                               bind(&InteractiveSearchRequest::OnResults, this, _1)));
   }
 };
 
@@ -101,7 +100,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
     bool mode = false;
     InteractiveSearchRequest request(
         m_engine, "cafe", m2::RectD(m2::PointD(-1.5, -1.5), m2::PointD(-0.5, -0.5)), mode);
-    request.Wait();
+    request.Run();
 
     TRules const rules = {ExactMatch(id, cafes[0]), ExactMatch(id, cafes[1]),
                           ExactMatch(id, cafes[2]), ExactMatch(id, cafes[3])};
@@ -114,7 +113,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
     bool mode = false;
     InteractiveSearchRequest request(m_engine, "hotel",
                                      m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)), mode);
-    request.Wait();
+    request.Run();
 
     TRules const rules = {ExactMatch(id, hotels[0]), ExactMatch(id, hotels[1]),
                           ExactMatch(id, hotels[2]), ExactMatch(id, hotels[3])};

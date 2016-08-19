@@ -13,36 +13,35 @@ namespace tests_support
 {
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport)
+  : m_engine(engine), m_viewport(viewport)
 {
-  SearchParams params;
-  params.m_query = query;
-  params.m_inputLocale = locale;
-  params.SetMode(mode);
-  SetUpCallbacks(params);
-  engine.Search(params, viewport);
+  m_params.m_query = query;
+  m_params.m_inputLocale = locale;
+  m_params.SetMode(mode);
+  SetUpCallbacks();
 }
 
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams params,
                                      m2::RectD const & viewport)
+  : m_engine(engine), m_params(params), m_viewport(viewport)
 {
-  SetUpCallbacks(params);
-  engine.Search(params, viewport);
+  SetUpCallbacks();
 }
 
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport,
                                      SearchParams::TOnStarted onStarted,
                                      SearchParams::TOnResults onResults)
+  : m_engine(engine), m_viewport(viewport)
 {
-  SearchParams params;
-  params.m_query = query;
-  params.m_inputLocale = locale;
-  params.SetMode(mode);
-  params.m_onStarted = move(onStarted);
-  params.m_onResults = move(onResults);
-  engine.Search(params, viewport);
+  m_params.m_query = query;
+  m_params.m_inputLocale = locale;
+  m_params.SetMode(mode);
+  m_params.m_onStarted = move(onStarted);
+  m_params.m_onResults = move(onResults);
 }
 
+void TestSearchRequest::Start() { m_engine.Search(m_params, m_viewport); }
 void TestSearchRequest::Wait()
 {
   unique_lock<mutex> lock(m_mu);
@@ -50,6 +49,12 @@ void TestSearchRequest::Wait()
   {
     return m_done;
   });
+}
+
+void TestSearchRequest::Run()
+{
+  Start();
+  Wait();
 }
 
 steady_clock::duration TestSearchRequest::ResponseTime() const
@@ -66,10 +71,18 @@ vector<search::Result> const & TestSearchRequest::Results() const
   return m_results;
 }
 
-void TestSearchRequest::SetUpCallbacks(SearchParams & params)
+void TestSearchRequest::SetUpCallbacks()
 {
-  params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
-  params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
+  m_params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
+  m_params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
+}
+
+void TestSearchRequest::SetCustomOnResults(SearchParams::TOnResults const & customOnResults)
+{
+  m_params.m_onResults = [this, customOnResults](search::Results const & results) {
+    OnResults(results);
+    customOnResults(results);
+  };
 }
 
 void TestSearchRequest::OnStarted()

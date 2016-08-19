@@ -52,7 +52,7 @@ bool SearchTest::ResultsMatch(string const & query,
                               vector<shared_ptr<tests_support::MatchingRule>> const & rules)
 {
   tests_support::TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);
-  request.Wait();
+  request.Run();
   return MatchResults(m_engine, rules, request.Results());
 }
 
@@ -60,7 +60,7 @@ bool SearchTest::ResultsMatch(string const & query, Mode mode,
                               vector<shared_ptr<tests_support::MatchingRule>> const & rules)
 {
   tests_support::TestSearchRequest request(m_engine, query, "en", mode, m_viewport);
-  request.Wait();
+  request.Run();
   return MatchResults(m_engine, rules, request.Results());
 }
 
