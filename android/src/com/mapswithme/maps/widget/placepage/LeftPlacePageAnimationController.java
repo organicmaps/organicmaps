@@ -11,9 +11,9 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
 
-class PlacePageLeftAnimationController extends BasePlacePageAnimationController
+class LeftPlacePageAnimationController extends BasePlacePageAnimationController
 {
-  public PlacePageLeftAnimationController(@NonNull PlacePageView placePage)
+  public LeftPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
   }

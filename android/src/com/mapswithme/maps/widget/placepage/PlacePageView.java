@@ -474,8 +474,8 @@ public class PlacePageView extends RelativeLayout
     mIsFloating = attrArray.getBoolean(R.styleable.PlacePageView_floating, false);
     attrArray.recycle();
 
-    mAnimationController = animationType == 0 ? new PlacePageBottomAnimationController(this)
-                                              : new PlacePageLeftAnimationController(this);
+    mAnimationController = animationType == 0 ? new BottomPlacePageAnimationController(this)
+                                              : new LeftPlacePageAnimationController(this);
   }
 
   public void restore()

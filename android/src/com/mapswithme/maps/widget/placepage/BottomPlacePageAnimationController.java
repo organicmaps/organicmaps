@@ -21,9 +21,9 @@ import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
-class PlacePageBottomAnimationController extends BasePlacePageAnimationController
+class BottomPlacePageAnimationController extends BasePlacePageAnimationController
 {
-  private static final String TAG = PlacePageBottomAnimationController.class.getSimpleName();
+  private static final String TAG = BottomPlacePageAnimationController.class.getSimpleName();
   private final ViewGroup mLayoutToolbar;
 
   private final AnimationHelper mAnimationHelper = new AnimationHelper();
@@ -48,7 +48,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     };
   }
 
-  public PlacePageBottomAnimationController(@NonNull PlacePageView placePage)
+  public BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
     mLayoutToolbar = (LinearLayout) mPlacePage.findViewById(R.id.toolbar_layout);
