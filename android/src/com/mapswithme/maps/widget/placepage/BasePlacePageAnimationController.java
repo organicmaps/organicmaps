@@ -36,7 +36,7 @@ public abstract class BasePlacePageAnimationController
   protected ViewGroup mButtons;
   // Gestures
   protected GestureDetectorCompat mGestureDetector;
-  protected boolean mIsGestureHandled;
+  protected boolean mIsDragging;
   protected float mDownCoord;
   protected float mTouchSlop;
 
