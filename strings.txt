@@ -17935,7 +17935,7 @@
     hu = Foglalás
     id = Pesan
     it = Prenota
-    ja = 書籍
+    ja = 予約
     ko = 예약
     nb = Bestill
     pl = Zarezerwuj
@@ -17947,8 +17947,8 @@
     tr = Rezervasyon
     uk = Забронювати
     vi = Đặt trước
-    zh-Hans = 图书
-    zh-Hant = 圖書
+    zh-Hans = 预約
+    zh-Hant = 預約
     sk = Rezervovať
 
   [placepage_call_button]
