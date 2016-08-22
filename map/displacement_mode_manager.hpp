@@ -2,6 +2,7 @@
 
 #include "std/cstdint.hpp"
 #include "std/function.hpp"
+#include "std/limits.hpp"
 #include "std/mutex.hpp"
 
 // This class should be used as a single point to control whether
