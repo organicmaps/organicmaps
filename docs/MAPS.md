@@ -1,7 +1,7 @@
 # MWM Files
 
 MAPS.ME uses maps in its own vector format, MWM. It contains classified features sorted and simplified by zoom level.
-For car routing, it needs a separate routing index in a `.mwm.routing` file. We build maps for the entire planet:
+It also can include a pre-calculated routing index for car routing. We build maps for the entire planet:
 
 * [daily.mapswithme.com/direct/latest](http://direct.mapswithme.com/direct/latest/) - official maps bundled with releases.
 
@@ -36,14 +36,14 @@ A car routing index will be built when you specify a second parameter: either a 
 with a routing profile, or any gibberish, in which case a default `car.lua` from omim repository
 would be used. For example:
 
-    omim/tools/unix/generate_mwm.sh source.pbf asdf
+    omim/tools/unix/generate_mwm.sh source.pbf any_random_string_asdf
 
-Inter-mwm navigation requires another index inside a `.mwm.routing` file. To build it, you would need
+Inter-mwm navigation requires another index. To build it, you would need
 border polygons for not only the source region, but all regions neighbouring it. The source border polygon
 must have the same name as the source file (e.g. `Armenia.poly` for `Armenia.pbf`), and in the target
 directory shouldn't be a `borders` subdirectory. With all that, just use this line:
 
-    BORDERS_PATH=/path/to/polygons omim/tools/unix/generate_mwm.sh source.pbf asd
+    BORDERS_PATH=/path/to/polygons omim/tools/unix/generate_mwm.sh source.pbf any_random_string_asdf
 
 ### The Planet
 
@@ -59,7 +59,7 @@ This is a shortcut for following options:
 variable if it's not in `$HOME/planet/planet-latest.o5m`).
 * `-l`: filter and process coastlines, creating `WorldCoasts.geom` and `.rawgeom` files.
 * `-w`: generate overview maps, `World.mwm` and `WorldCoasts.mwm`.
-* `-r`: generate routing indices, `.mwm.routing` file for each `.mwm`.
+* `-r`: include for each `.mwm` routing index and keep a non routing version as `.mwm.norouting`.
 
 All border polygons from `BORDERS_PATH` are processed into MWM files by default. You can
 specify only required polygons in `REGIONS` variable, or set it to empty value, so no regular
@@ -90,7 +90,7 @@ asynchronously if `ASYNC_PBF=1` variable is set.
 * Step 3 (`inter`): generating intermediate data for the planet.
 * Step 4 (`features`): generating features for each region, splitting the planet.
 * Step 5 (`mwm`): building the resulting MWMs.
-* Step 6 (`routing`): building `.mwm.routing` files out of MWMs and `.osrm` files.
+* Step 6 (`routing`): building routing indices out of *.osrm* files.
 * Step 7 (`resources`): updating resource and map lists.
 * Step 8 (`test`): calling `test_planet.sh` to run routing tests.
 
