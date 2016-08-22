@@ -113,7 +113,7 @@ fi
 [ -n "${CLEAN_BORDERS-}" ] && rm -r "$TBORDERS"
 
 if [ $# -gt 1 ]; then
-  # Create .mwm.routing file
+  # Create .mwm with routing index and a .mwm.norouting file
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
   OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OMIM_PATH/../osrm-backend-release}"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" -a -x "$SCRIPT_PATH/bin/osrm-extract" ] && OSRM_BUILD_PATH="$SCRIPT_PATH/bin"
