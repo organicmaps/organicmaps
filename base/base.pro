@@ -54,6 +54,7 @@ HEADERS += \
     matrix.hpp \
     mem_trie.hpp \
     mutex.hpp \
+    newtype.hpp \
     object_tracker.hpp \
     observer_list.hpp \
     range_iterator.hpp \

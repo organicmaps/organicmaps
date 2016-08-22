@@ -23,6 +23,7 @@ SOURCES += \
   const_helper.cpp \
   containers_test.cpp \
   logging_test.cpp \
+  newtype_test.cpp \
   math_test.cpp \
   matrix_test.cpp \
   mem_trie_test.cpp \
