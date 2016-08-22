@@ -30,7 +30,7 @@ bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode,
 
   if (result.end() != it)
     return false;
-  
+
   string name;
   names.GetString(langCode, name);
   result.emplace_back(langCode, name);
@@ -49,7 +49,7 @@ size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const 
     if (ExtractName(names, mwmLanguages[i], result))
       ++count;
   }
-  
+
   return count;
 }
 
@@ -141,7 +141,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
   // Push english name.
   if (ExtractName(source, StringUtf8Multilang::kEnglishCode, names))
     ++mandatoryCount;
-  
+
   // Push user's language.
   if (ExtractName(source, userLangCode, names))
     ++mandatoryCount;
@@ -151,7 +151,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
     // Exclude default name.
     if (StringUtf8Multilang::kDefaultCode == code)
       return true;
-    
+
     auto const mandatoryNamesEnd = names.begin() + mandatoryCount;
     // Exclude languages which are already in container (languages with top priority).
     auto const it = find_if(
@@ -160,7 +160,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
 
     if (mandatoryNamesEnd == it)
       names.emplace_back(code, name);
-    
+
     return true;
   });
 
@@ -246,7 +246,7 @@ void EditableMapObject::SetType(uint32_t featureType)
     // TODO(mgsergio): Replace by correct sorting from editor's config.
     copy.SortBySpec();
     m_types.Remove(*copy.begin());
-    m_types.operator ()(featureType);
+    m_types.Add(featureType);
   }
 }
 
@@ -295,6 +295,13 @@ void EditableMapObject::SetWebsite(string website)
 void EditableMapObject::SetInternet(Internet internet)
 {
   m_metadata.Set(feature::Metadata::FMD_INTERNET, DebugPrint(internet));
+
+  static auto const wifiType = classif().GetTypeByPath({"internet_access", "wlan"});
+
+  if (m_types.Has(wifiType) && internet != Internet::Wlan)
+    m_types.Remove(wifiType);
+  else if (!m_types.Has(wifiType) && internet == Internet::Wlan)
+    m_types.Add(wifiType);
 }
 
 void EditableMapObject::SetStars(int stars)

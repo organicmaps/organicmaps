@@ -20,7 +20,15 @@ constexpr char const * kWlan = "wlan";
 constexpr char const * kWired = "wired";
 constexpr char const * kYes = "yes";
 constexpr char const * kNo = "no";
+
+void SetInetIfNeeded(FeatureType const & ft, feature::Metadata & metadata)
+{
+  if (!ftypes::IsWifiChecker::Instance()(ft) || metadata.Has(feature::Metadata::FMD_INTERNET))
+    return;
+
+  metadata.Set(feature::Metadata::FMD_INTERNET, kWlan);
 }
+}  // namespace
 
 string DebugPrint(osm::Internet internet)
 {
@@ -66,6 +74,8 @@ void MapObject::SetFromFeatureType(FeatureType const & ft)
   m_featureID = ft.GetID();
   ASSERT(m_featureID.IsValid(), ());
   m_geomType = ft.GetFeatureType();
+
+  SetInetIfNeeded(ft, m_metadata);
 }
 
 FeatureID const & MapObject::GetID() const { return m_featureID; }

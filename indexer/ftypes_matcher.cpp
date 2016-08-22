@@ -146,7 +146,7 @@ IsPeakChecker::IsPeakChecker()
 
 IsPeakChecker const & IsPeakChecker::Instance()
 {
-  static const IsPeakChecker inst;
+  static IsPeakChecker const inst;
   return inst;
 }
 
@@ -158,7 +158,7 @@ IsATMChecker::IsATMChecker()
 
 IsATMChecker const & IsATMChecker::Instance()
 {
-  static const IsATMChecker inst;
+  static IsATMChecker const inst;
   return inst;
 }
 
@@ -171,7 +171,7 @@ IsSpeedCamChecker::IsSpeedCamChecker()
 // static
 IsSpeedCamChecker const & IsSpeedCamChecker::Instance()
 {
-  static const IsSpeedCamChecker instance;
+  static IsSpeedCamChecker const instance;
   return instance;
 }
 
@@ -183,7 +183,7 @@ IsFuelStationChecker::IsFuelStationChecker()
 
 IsFuelStationChecker const & IsFuelStationChecker::Instance()
 {
-  static const IsFuelStationChecker inst;
+  static IsFuelStationChecker const inst;
   return inst;
 }
 
@@ -195,7 +195,7 @@ IsRailwayStationChecker::IsRailwayStationChecker()
 
 IsRailwayStationChecker const & IsRailwayStationChecker::Instance()
 {
-  static const IsRailwayStationChecker inst;
+  static IsRailwayStationChecker const inst;
   return inst;
 }
 
@@ -230,7 +230,7 @@ IsStreetChecker::IsStreetChecker()
 
 IsStreetChecker const & IsStreetChecker::Instance()
 {
-  static const IsStreetChecker inst;
+  static IsStreetChecker const inst;
   return inst;
 }
 
@@ -245,7 +245,7 @@ IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
 
 IsAddressObjectChecker const & IsAddressObjectChecker::Instance()
 {
-  static const IsAddressObjectChecker inst;
+  static IsAddressObjectChecker const inst;
   return inst;
 }
 
@@ -263,7 +263,7 @@ IsVillageChecker::IsVillageChecker()
 
 IsVillageChecker const & IsVillageChecker::Instance()
 {
-  static const IsVillageChecker inst;
+  static IsVillageChecker const inst;
   return inst;
 }
 
@@ -275,7 +275,7 @@ IsOneWayChecker::IsOneWayChecker()
 
 IsOneWayChecker const & IsOneWayChecker::Instance()
 {
-  static const IsOneWayChecker inst;
+  static IsOneWayChecker const inst;
   return inst;
 }
 
@@ -287,7 +287,7 @@ IsRoundAboutChecker::IsRoundAboutChecker()
 
 IsRoundAboutChecker const & IsRoundAboutChecker::Instance()
 {
-  static const IsRoundAboutChecker inst;
+  static IsRoundAboutChecker const inst;
   return inst;
 }
 
@@ -306,7 +306,7 @@ IsLinkChecker::IsLinkChecker()
 
 IsLinkChecker const & IsLinkChecker::Instance()
 {
-  static const IsLinkChecker inst;
+  static IsLinkChecker const inst;
   return inst;
 }
 
@@ -317,7 +317,7 @@ IsBuildingChecker::IsBuildingChecker() : BaseChecker(1 /* level */)
 
 IsBuildingChecker const & IsBuildingChecker::Instance()
 {
-  static const IsBuildingChecker inst;
+  static IsBuildingChecker const inst;
   return inst;
 }
 
@@ -346,14 +346,14 @@ IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1 /* level */)
 
 IsBuildingPartChecker const & IsBuildingPartChecker::Instance()
 {
-  static const IsBuildingPartChecker inst;
+  static IsBuildingPartChecker const inst;
   return inst;
 }
 
 IsBridgeChecker::IsBridgeChecker() : BaseChecker(3 /* level */) {}
 IsBridgeChecker const & IsBridgeChecker::Instance()
 {
-  static const IsBridgeChecker inst;
+  static IsBridgeChecker const inst;
   return inst;
 }
 
@@ -365,7 +365,7 @@ bool IsBridgeChecker::IsMatched(uint32_t type) const
 IsTunnelChecker::IsTunnelChecker() : BaseChecker(3 /* level */) {}
 IsTunnelChecker const & IsTunnelChecker::Instance()
 {
-  static const IsTunnelChecker inst;
+  static IsTunnelChecker const inst;
   return inst;
 }
 
@@ -421,7 +421,7 @@ IsBookingChecker::IsBookingChecker()
 
 IsBookingChecker const & IsBookingChecker::Instance()
 {
-  static const IsBookingChecker inst;
+  static IsBookingChecker const inst;
   return inst;
 }
 
@@ -434,7 +434,7 @@ IsHotelChecker::IsHotelChecker()
 
 IsHotelChecker const & IsHotelChecker::Instance()
 {
-  static const IsHotelChecker inst;
+  static IsHotelChecker const inst;
   return inst;
 }
 
@@ -443,6 +443,17 @@ vector<string> const & IsHotelChecker::GetHotelTags()
   static vector<string> hotelTags = {"hotel",       "apartment", "camp_site", "chalet",
                                      "guest_house", "hostel",    "motel",     "resort"};
   return hotelTags;
+}
+
+IsWifiChecker::IsWifiChecker()
+{
+  m_types.push_back(classif().GetTypeByPath({"internet_access", "wlan"}));
+}
+
+IsWifiChecker const & IsWifiChecker::Instance()
+{
+  static IsWifiChecker const instance;
+  return instance;
 }
 
 uint32_t GetPopulation(FeatureType const & ft)
