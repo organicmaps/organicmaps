@@ -254,7 +254,7 @@ UNIT_TEST(EditableMapObject_SetInternet)
   }
 
   EditableMapObject emo;
-  const uint32_t wifiType = classif().GetTypeByPath({"internet_access", "wlan"});
+  auto const wifiType = classif().GetTypeByPath({"internet_access", "wlan"});
   emo.SetType(wifiType);
 
   auto types = emo.GetTypes();
