@@ -10,6 +10,7 @@
 #include "std/regex.hpp"
 #include "std/sstream.hpp"
 #include "std/string.hpp"
+#include "std/type_traits.hpp"
 
 #include "3party/utfcpp/source/utf8/unchecked.h"
 
@@ -314,6 +315,9 @@ Collection<string> Tokenize(string const & str, char const * delims)
   Tokenize(str, delims, MakeInsertFunctor(c));
   return c;
 }
+
+static_assert(is_same<vector<string>, decltype(strings::Tokenize("", ""))>::value,
+              "Tokenize() should return vector<string> by default.");
 
 /// Splits a string by the delimiter, keeps empty parts, on an empty string returns an empty vector.
 /// Does not support quoted columns, newlines in columns and escaped quotes.

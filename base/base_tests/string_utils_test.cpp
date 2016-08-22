@@ -7,7 +7,6 @@
 #include "std/fstream.hpp"
 #include "std/iomanip.hpp"
 #include "std/map.hpp"
-#include "std/type_traits.hpp"
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
@@ -458,9 +457,6 @@ UNIT_TEST(Tokenize)
     initializer_list<string> expected{"acb", "def", "ghi"};
     TEST_EQUAL(strings::Tokenize<vector>("acb def ghi", " " /* delims */), vector<string>(expected), ());
     TEST_EQUAL(strings::Tokenize<set>("acb def ghi", " " /* delims */), set<string>(expected), ());
-  }
-  {
-    static_assert(is_same<vector<string>, decltype(strings::Tokenize("", ""))>::value);
   }
 }
 
