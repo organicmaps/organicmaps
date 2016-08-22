@@ -4,11 +4,12 @@
 
 #include "search/reverse_geocoder.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/osm_editor.hpp"
 #include "indexer/index_helpers.hpp"
+#include "indexer/indexer_tests_support/helpers.hpp"
+#include "indexer/osm_editor.hpp"
 
 #include "editor/editor_storage.hpp"
 
@@ -17,6 +18,7 @@
 #include "coding/file_name_utils.hpp"
 
 using namespace generator::tests_support;
+using namespace indexer::tests_support;
 
 namespace
 {
@@ -68,17 +70,6 @@ void FillEditableMapObject(osm::Editor const & editor, FeatureType const & ft, o
   emo.SetFromFeatureType(ft);
   emo.SetHouseNumber(ft.GetHouseNumber());
   emo.SetEditableProperties(editor.GetEditableProperties(ft));
-}
-
-template <typename TFn>
-void EditFeature(FeatureType const & ft, TFn && fn)
-{
-  auto & editor = osm::Editor::Instance();
-
-  osm::EditableMapObject emo;
-  FillEditableMapObject(editor, ft, emo);
-  fn(emo);
-  TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
 }
 
 void SetBuildingLevelsToOne(FeatureType const & ft)
@@ -153,10 +144,7 @@ EditorTest::EditorTest()
     LOG(LERROR, ("Classificator read error: ", e.what()));
   }
 
-  auto & editor = osm::Editor::Instance();
-  editor.SetIndex(m_index);
-  editor.m_storage = make_unique<editor::InMemoryStorage>();
-  editor.ClearAllLocalEdits();
+  indexer::tests_support::SetUpEditorForTesting(m_index);
 }
 
 EditorTest::~EditorTest()

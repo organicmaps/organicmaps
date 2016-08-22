@@ -12,6 +12,7 @@ HEADERS += \
     algos.hpp \
     approximate_string_match.hpp \
     cancel_exception.hpp \
+    categories_set.hpp \
     cbv.hpp \
     common.hpp \
     displayed_categories.hpp \

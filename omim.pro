@@ -108,6 +108,9 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     platform_tests_support.subdir = platform/platform_tests_support
     SUBDIRS *= platform_tests_support
 
+    indexer_tests_support.subdir = indexer/indexer_tests_support
+    SUBDIRS *= indexer_tests_support
+
     # Tests binaries.
     base_tests.subdir = base/base_tests
     base_tests.depends = base
@@ -123,7 +126,8 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
 
     indexer_tests.subdir = indexer/indexer_tests
     indexer_tests.depends = 3party base coding geometry platform editor storage routing indexer \
-                            platform_tests_support search_tests_support generator_tests_support
+                            platform_tests_support search_tests_support generator_tests_support \
+                            indexer_tests_support
 
     SUBDIRS *= indexer_tests
 
@@ -197,7 +201,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
 
     search_integration_tests.subdir = search/search_integration_tests
     search_integration_tests.depends = $$MapDepLibs search_tests_support \
-                                       generator_tests_support generator
+                                       generator_tests_support indexer_tests_support generator
     SUBDIRS *= search_integration_tests
 
     search_quality_tests.subdir = search/search_quality/search_quality_tests

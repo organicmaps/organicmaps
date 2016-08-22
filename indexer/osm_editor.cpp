@@ -17,7 +17,6 @@
 #include "platform/preferred_languages.hpp"
 
 #include "editor/changeset_wrapper.hpp"
-#include "editor/editor_storage.hpp"
 #include "editor/osm_auth.hpp"
 #include "editor/server_api.hpp"
 #include "editor/xml_feature.hpp"

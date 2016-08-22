@@ -1,9 +1,6 @@
 #include "search/query_params.hpp"
 
 #include "indexer/feature_impl.hpp"
-#include "indexer/scales.hpp"
-
-#include "base/assert.hpp"
 
 #include "std/algorithm.hpp"
 
@@ -11,6 +8,7 @@ namespace search
 {
 namespace
 {
+// TODO (@y, @m): reuse this class in search::Processor.
 class DoAddStreetSynonyms
 {
 public:
@@ -57,79 +55,44 @@ private:
 };
 }  // namespace
 
-QueryParams::QueryParams() : m_scale(scales::GetUpperScale()) {}
-
 void QueryParams::Clear()
 {
   m_tokens.clear();
   m_prefixTokens.clear();
-  m_isCategorySynonym.clear();
+  m_types.clear();
   m_langs.clear();
   m_scale = scales::GetUpperScale();
 }
 
-void QueryParams::EraseTokens(vector<size_t> & eraseInds)
+bool QueryParams::IsCategorySynonym(size_t i) const
 {
-  eraseInds.erase(unique(eraseInds.begin(), eraseInds.end()), eraseInds.end());
-  ASSERT(is_sorted(eraseInds.begin(), eraseInds.end()), ());
-
-  // fill temporary vector
-  vector<TSynonymsVector> newTokens;
-
-  size_t skipI = 0;
-  size_t const count = m_tokens.size();
-  size_t const eraseCount = eraseInds.size();
-  for (size_t i = 0; i < count; ++i)
-  {
-    if (skipI < eraseCount && eraseInds[skipI] == i)
-      ++skipI;
-    else
-      newTokens.push_back(move(m_tokens[i]));
-  }
-
-  // assign to m_tokens
-  newTokens.swap(m_tokens);
-
-  if (skipI < eraseCount)
-  {
-    // it means that we need to skip prefix tokens
-    ASSERT_EQUAL(skipI + 1, eraseCount, (eraseInds));
-    ASSERT_EQUAL(eraseInds[skipI], count, (eraseInds));
-    m_prefixTokens.clear();
-  }
+  ASSERT_LESS(i, GetNumTokens(), ());
+  return !m_types[i].empty();
 }
 
-void QueryParams::ProcessAddressTokens()
+bool QueryParams::IsPrefixToken(size_t i) const
 {
-  // Erases all number tokens.
-  // Assumes that USA street name numbers are end with "st, nd, rd, th" suffixes.
-  vector<size_t> toErase;
-  ForEachToken([&toErase](QueryParams::TString const & s, size_t i)
-               {
-                 if (feature::IsNumber(s))
-                   toErase.push_back(i);
-               });
-  EraseTokens(toErase);
-
-  // Adds synonyms for N, NE, NW, etc.
-  ForEachToken(DoAddStreetSynonyms(*this));
+  ASSERT_LESS(i, GetNumTokens(), ());
+  return i == m_tokens.size();
 }
 
 QueryParams::TSynonymsVector const & QueryParams::GetTokens(size_t i) const
 {
-  ASSERT_LESS_OR_EQUAL(i, m_tokens.size(), ());
+  ASSERT_LESS(i, GetNumTokens(), ());
   return i < m_tokens.size() ? m_tokens[i] : m_prefixTokens;
 }
 
 QueryParams::TSynonymsVector & QueryParams::GetTokens(size_t i)
 {
-  ASSERT_LESS_OR_EQUAL(i, m_tokens.size(), ());
+  ASSERT_LESS(i, GetNumTokens(), ());
   return i < m_tokens.size() ? m_tokens[i] : m_prefixTokens;
 }
 
 bool QueryParams::IsNumberTokens(size_t start, size_t end) const
 {
   ASSERT_LESS(start, end, ());
+  ASSERT_LESS_OR_EQUAL(end, GetNumTokens(), ());
+
   for (; start != end; ++start)
   {
     bool number = false;
@@ -146,24 +109,6 @@ bool QueryParams::IsNumberTokens(size_t start, size_t end) const
   }
 
   return true;
-}
-
-template <class ToDo>
-void QueryParams::ForEachToken(ToDo && toDo)
-{
-  size_t const count = m_tokens.size();
-  for (size_t i = 0; i < count; ++i)
-  {
-    ASSERT(!m_tokens[i].empty(), ());
-    ASSERT(!m_tokens[i].front().empty(), ());
-    toDo(m_tokens[i].front(), i);
-  }
-
-  if (!m_prefixTokens.empty())
-  {
-    ASSERT(!m_prefixTokens.front().empty(), ());
-    toDo(m_prefixTokens.front(), count);
-  }
 }
 
 string DebugPrint(search::QueryParams const & params)

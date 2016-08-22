@@ -51,7 +51,7 @@ TokenSliceNoCategories::TokenSliceNoCategories(QueryParams const & params, size_
   m_indexes.reserve(endToken - startToken);
   for (size_t i = startToken; i < endToken; ++i)
   {
-    if (!m_params.m_isCategorySynonym[i])
+    if (!m_params.IsCategorySynonym(i))
       m_indexes.push_back(i);
   }
 }
