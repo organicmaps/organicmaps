@@ -6831,11 +6831,11 @@
   [tell_friends_text]
     comment = Share with friends: sharing text
     tags = android
-    en = Hi! Install Maps.me!
-    ru = Привет! Установи Maps.me!
+    en = Hi! Install MAPS.ME!
+    ru = Привет! Установи MAPS.ME!
     de = Hallo! Installiere dir MAPS.ME!
-    pl = Cześć! Zainstaluj Maps.me!
-    zh-Hant = 嗨！安裝 Maps.me！
+    pl = Cześć! Zainstaluj MAPS.ME!
+    zh-Hant = 嗨！安裝 MAPS.ME！
 
   [help]
     comment = Text in menu
