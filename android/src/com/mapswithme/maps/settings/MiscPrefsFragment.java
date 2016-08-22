@@ -8,6 +8,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -49,8 +50,13 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue)
         {
-          Config.setUseGoogleService((Boolean) newValue);
-          // TODO (trashkalmar): Reinitialize location provider
+          boolean oldVal = Config.useGoogleServices();
+          boolean newVal = ((Boolean) newValue).booleanValue();
+          if (oldVal == newVal)
+            return true;
+
+          Config.setUseGoogleService(newVal);
+          LocationHelper.INSTANCE.initProvider(false);
           return true;
         }
       });
