@@ -57,7 +57,7 @@ public:
     if (p->IsDrawableAny())
     {
       TypesHolder holder(m_geomType);
-      holder(type);
+      holder.Add(type);
 
       pair<int, int> const range = GetDrawableScaleRangeForRules(holder, m_rules);
       if (range.first == -1 || range.second == -1)

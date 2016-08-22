@@ -45,7 +45,7 @@ void CheckSpeed(initializer_list<uint32_t> const & types, double expectedSpeed)
   TestVehicleModel vehicleModel;
   feature::TypesHolder h;
   for (uint32_t t : types)
-    h(t);
+    h.Add(t);
 
   TEST_EQUAL(vehicleModel.GetMinTypeSpeed(h), expectedSpeed, ());
 }
@@ -55,7 +55,7 @@ void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
   TestVehicleModel vehicleModel;
   feature::TypesHolder h;
   for (uint32_t t : types)
-    h(t);
+    h.Add(t);
 
   TEST_EQUAL(vehicleModel.HasOneWayType(h), expectedValue, ());
 }

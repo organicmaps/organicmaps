@@ -73,11 +73,6 @@ namespace feature
         m_types[m_size++] = type;
     }
 
-    inline void operator() (uint32_t type)
-    {
-      Add(type);
-    }
-
     /// @name Selectors.
     //@{
     inline EGeomType GetGeoType() const { return m_geoType; }

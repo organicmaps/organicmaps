@@ -244,14 +244,7 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
 
 UNIT_TEST(EditableMapObject_SetInternet)
 {
-  try
-  {
-    classificator::Load();
-  }
-  catch (RootException const & e)
-  {
-    LOG(LERROR, ("Classificator read error: ", e.what()));
-  }
+  classificator::Load();
 
   EditableMapObject emo;
   auto const wifiType = classif().GetTypeByPath({"internet_access", "wlan"});
@@ -260,13 +253,13 @@ UNIT_TEST(EditableMapObject_SetInternet)
   auto types = emo.GetTypes();
   TEST(types.Has(wifiType), ());
 
-  auto const setInternetAndCheck = [wifiType](EditableMapObject & emo, osm::Internet internet, bool wifiExpected)
+  auto const setInternetAndCheck = [wifiType](EditableMapObject & emo, osm::Internet internet, bool hasWifi)
   {
     emo.SetInternet(internet);
 
     TEST_EQUAL(emo.GetInternet(), internet, ());
     auto const & types = emo.GetTypes();
-    TEST_EQUAL(types.Has(wifiType), wifiExpected, ());
+    TEST_EQUAL(types.Has(wifiType), hasWifi, ());
   };
 
   setInternetAndCheck(emo, osm::Internet::No, false);
@@ -274,9 +267,6 @@ UNIT_TEST(EditableMapObject_SetInternet)
   setInternetAndCheck(emo, osm::Internet::Wired, false);
   setInternetAndCheck(emo, osm::Internet::Wlan, true);
   setInternetAndCheck(emo, osm::Internet::Unknown, false);
-  setInternetAndCheck(emo, osm::Internet::No, false);
-  setInternetAndCheck(emo, osm::Internet::Wlan, true);
-
 
   EditableMapObject bunkerEmo;
   bunkerEmo.SetType(classif().GetTypeByPath({"military", "bunker"}));
