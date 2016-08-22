@@ -250,7 +250,7 @@ uk:3Банкомат|гроші
 de:3Geldautomat|Bankomat|Geld
 fr:3GAB|3DAB|argent
 it:3Bancomat|soldi
-es:3Atm|dinero
+es:3Cajero automático|atm|dinero
 ko:Atm|돈
 ja:1ATM|atm|お金|マネー|金|引き出し|預金|振り込み
 cs:3Bankomat|spořitelna|peníze
