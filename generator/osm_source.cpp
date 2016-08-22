@@ -391,8 +391,7 @@ public:
     DumpSkippedElements();
 
     // Emit all booking objecs to the map.
-    for (size_t hotelIndex = 0; hotelIndex < m_bookingDataset.Size(); ++hotelIndex)
-      m_bookingDataset.BuildHotel(hotelIndex, [this](FeatureBuilder1 & fb) { Emit(fb); });
+    m_bookingDataset.BuildHotels([this](FeatureBuilder1 & fb) { Emit(fb); });
 
     m_places.ForEach([this](Place const & p)
     {

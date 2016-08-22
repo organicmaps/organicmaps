@@ -34,5 +34,4 @@ public:
 };
 
 string DebugPrint(osm::Id const & id);
-
 } // namespace osm

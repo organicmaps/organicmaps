@@ -16,7 +16,6 @@
 
 #include "std/fstream.hpp"
 #include "std/iostream.hpp"
-
 #include "std/sstream.hpp"
 
 namespace generator
@@ -65,8 +64,8 @@ BookingDataset::Hotel::Hotel(string const & src)
 ostream & operator<<(ostream & s, BookingDataset::Hotel const & h)
 {
   s << fixed << setprecision(7);
-  return s << "Name: " << h.name << "\t Address: " << h.address << "\t lat: " << h.lat
-           << " lon: " << h.lon;
+  return s << "Id: " << h.id << "\t Name: " << h.name << "\t Address: " << h.address
+           << "\t lat: " << h.lat << " lon: " << h.lon;
 }
 
 BookingDataset::AddressMatcher::AddressMatcher()
@@ -136,28 +135,30 @@ bool BookingDataset::CanBeBooking(FeatureBuilder1 const & fb) const
   return ftypes::IsHotelChecker::Instance()(fb.GetTypes());
 }
 
-BookingDataset::Hotel const & BookingDataset::GetHotel(size_t index) const
+BookingDataset::Hotel const & BookingDataset::GetHotelById(uint32_t const id) const
 {
-  ASSERT_LESS(index, m_hotels.size(), ());
-  return m_hotels[index];
+  auto const it = m_hotels.find(id);
+  CHECK(it != end(m_hotels), ("Got wrong hotel id:", id));
+  return it->second;
 }
 
-BookingDataset::Hotel & BookingDataset::GetHotel(size_t index)
+BookingDataset::Hotel & BookingDataset::GetHotelById(uint32_t const id)
 {
-  ASSERT_LESS(index, m_hotels.size(), ());
-  return m_hotels[index];
+  auto it = m_hotels.find(id);
+  CHECK(it != end(m_hotels), ("Got wrong hotel id:", id));
+  return it->second;
 }
 
-vector<size_t> BookingDataset::GetNearestHotels(ms::LatLon const & latLon, size_t const limit,
-                                                double const maxDistance /* = 0.0 */) const
+vector<uint32_t> BookingDataset::GetNearestHotels(ms::LatLon const & latLon, size_t const limit,
+                                                  double const maxDistance /* = 0.0 */) const
 {
   namespace bgi = boost::geometry::index;
 
-  vector<size_t> indexes;
+  vector<uint32_t> indexes;
   for_each(bgi::qbegin(m_rtree, bgi::nearest(TPoint(latLon.lat, latLon.lon), limit)),
-           bgi::qend(m_rtree), [&](TValue const & v)
+           bgi::qend(m_rtree), [this, &latLon, &indexes, maxDistance](TValue const & v)
            {
-             auto const & hotel = GetHotel(v.second);
+             auto const & hotel = GetHotelById(v.second);
              double const dist = ms::DistanceOnEarth(latLon.lat, latLon.lon, hotel.lat, hotel.lon);
              if (maxDistance != 0.0 && dist > maxDistance /* max distance in meters */)
                return;
@@ -168,11 +169,15 @@ vector<size_t> BookingDataset::GetNearestHotels(ms::LatLon const & latLon, size_
   return indexes;
 }
 
-void BookingDataset::BuildHotel(size_t const hotelIndex,
+void BookingDataset::BuildHotels(function<void(FeatureBuilder1 &)> const & fn) const
+{
+  for (auto const & item : m_hotels)
+    BuildHotel(item.second, fn);
+}
+
+void BookingDataset::BuildHotel(Hotel const & hotel,
                                 function<void(FeatureBuilder1 &)> const & fn) const
 {
-  auto const & hotel = m_hotels[hotelIndex];
-
   FeatureBuilder1 fb;
   FeatureParams params;
 
@@ -274,7 +279,10 @@ void BookingDataset::LoadHotels(istream & src, string const & addressReferencePa
   m_rtree.clear();
 
   for (string line; getline(src, line);)
-    m_hotels.emplace_back(line);
+  {
+    Hotel hotel(line);
+    m_hotels.emplace(hotel.id, hotel);
+  }
 
   if (!addressReferencePath.empty())
   {
@@ -287,8 +295,9 @@ void BookingDataset::LoadHotels(istream & src, string const & addressReferencePa
 
     size_t matchedNum = 0;
     size_t emptyAddr = 0;
-    for (Hotel & hotel : m_hotels)
+    for (auto & item : m_hotels)
     {
+      auto & hotel = item.second;
       addressMatcher(hotel);
 
       if (hotel.address.empty())
@@ -301,12 +310,11 @@ void BookingDataset::LoadHotels(istream & src, string const & addressReferencePa
     platform.SetWritableDirForTests(backupPath);
   }
 
-  size_t counter = 0;
-  for (auto const & hotel : m_hotels)
+  for (auto const & item : m_hotels)
   {
+    auto const & hotel = item.second;
     TBox b(TPoint(hotel.lat, hotel.lon), TPoint(hotel.lat, hotel.lon));
-    m_rtree.insert(make_pair(b, counter));
-    ++counter;
+    m_rtree.insert(make_pair(b, hotel.id));
   }
 }
 
@@ -321,9 +329,9 @@ size_t BookingDataset::MatchWithBooking(FeatureBuilder1 const & fb) const
   auto const bookingIndexes = GetNearestHotels(MercatorBounds::ToLatLon(fb.GetKeyPoint()),
                                                kMaxSelectedElements, kDistanceLimitInMeters);
 
-  for (size_t const j : bookingIndexes)
+  for (uint32_t const j : bookingIndexes)
   {
-    if (booking_scoring::Match(GetHotel(j), fb).IsMatched())
+    if (booking_scoring::Match(GetHotelById(j), fb).IsMatched())
       return j;
   }
 

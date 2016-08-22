@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base/buffer_vector.hpp"
+#include "base/stl_add.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
@@ -304,6 +305,14 @@ void Tokenize(string const & str, char const * delims, TFunctor && f)
     f(*iter);
     ++iter;
   }
+}
+
+template <template <typename ...> class Collection = vector>
+Collection<string> Tokenize(string const & str, char const * delims)
+{
+  Collection<string> c;
+  Tokenize(str, delims, MakeInsertFunctor(c));
+  return c;
 }
 
 /// Splits a string by the delimiter, keeps empty parts, on an empty string returns an empty vector.
