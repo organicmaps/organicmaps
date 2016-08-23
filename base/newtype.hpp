@@ -1,5 +1,6 @@
 #pragma once
 
+#include "std/iostream.hpp"
 #include "std/type_traits.hpp"
 
 namespace my
@@ -18,10 +19,14 @@ class NewType
                 "NewType can be used only with integral and floating point type.");
 
 public:
+  using RepType = Type;
+
   template <typename V, impl::IsConvertibleGuard<V, Type> = nullptr>
-  explicit NewType(V const & v) : m_value(v)
+  constexpr explicit NewType(V const & v) : m_value(v)
   {
   }
+
+  constexpr NewType() = default;
 
   template <typename V, impl::IsConvertibleGuard<V, Type> = nullptr>
   NewType & Set(V const & v)
@@ -135,8 +140,27 @@ public:
 private:
   Type m_value;
 };
+
+namespace newtype_default_output
+{
+template <typename Type, typename Tag>
+string SimpleDebugPrint(NewType<Type, Tag> const & nt)
+{
+  return DebugPrint(nt.Get());
+}
+}  // namespace newtype_default_output
 }  // namespace my
 
 #define NEWTYPE(REPR, NAME)                     \
   struct NAME ## _tag;                          \
   using NAME = my::NewType<REPR, NAME ## _tag>
+
+#define NEWTYPE_SIMPLE_OUTPUT(NAME)                                     \
+  inline string DebugPrint(NAME const & nt)                             \
+  {                                                                     \
+    return my::newtype_default_output::SimpleDebugPrint(nt);            \
+  }                                                                     \
+  inline ostream & operator<<(ostream & ost, NAME const & nt)           \
+  {                                                                     \
+    return ost << my::newtype_default_output::SimpleDebugPrint(nt);     \
+  }

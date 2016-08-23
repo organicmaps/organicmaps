@@ -96,4 +96,19 @@ UNIT_TEST(NewTypeMember_Operations)
   a ^= Int(7);
   TEST_EQUAL(a, Int(10 ^ 7), ());
 }
+
+namespace test_output
+{
+NEWTYPE_SIMPLE_OUTPUT(Int);
+}  // namespace test_output
+
+UNIT_TEST(NewType_SimpleOutPut)
+{
+  using namespace test_output;
+  TEST_EQUAL(test_output::DebugPrint(Int(10)), "10", ());
+
+  ostringstream sstr;
+  sstr << Int(20);
+  TEST_EQUAL(sstr.str(), "20", ());
+}
 }  // namespace
