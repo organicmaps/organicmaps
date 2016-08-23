@@ -63,13 +63,6 @@
       tools:buttonTint="?iconTintLight"/>
   </RadioGroup>
 
-  <ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignTop="@id/route_type"
-    android:layout_alignRight="@id/route_type"
-    android:src="@drawable/ic_bicycle_beta"/>
-
   <LinearLayout
     android:id="@+id/numbers"
     android:layout_width="wrap_content"
