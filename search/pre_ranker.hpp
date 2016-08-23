@@ -7,11 +7,14 @@
 #include "indexer/index.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "base/macros.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
+#include "std/random.hpp"
+#include "std/set.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -23,6 +26,9 @@ class PreRanker
 public:
   struct Params
   {
+    m2::RectD m_viewport;
+    double m_minDistanceOnMapBetweenResults = 0.0;
+
     // This is different from geocoder's pivot because pivot is
     // usually a rectangle created by radius and center and, due to
     // precision loss, its center may differ from
@@ -74,6 +80,8 @@ public:
   void ClearCaches();
 
 private:
+  void FilterForViewportSearch();
+
   Index const & m_index;
   Ranker & m_ranker;
   vector<PreResult1> m_results;
@@ -86,6 +94,17 @@ private:
 
   // Cache of nested rects used to estimate distance from a feature to the pivot.
   NestedRectsCache m_pivotFeatures;
+
+  // A set of ids for features that are emitted during the current search session.
+  set<FeatureID> m_currEmit;
+
+  // A set of ids for features that were emitted during the previous
+  // search session.  They're used for filtering of current search in
+  // viewport results, because we need to give more priority to
+  // results that were on map previously.
+  set<FeatureID> m_prevEmit;
+
+  minstd_rand m_rng;
 
   DISALLOW_COPY_AND_MOVE(PreRanker);
 };

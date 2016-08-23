@@ -2,6 +2,7 @@
 #include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
+#include "map/user_mark.hpp"
 
 #include "defines.hpp"
 
@@ -1349,6 +1350,15 @@ bool Framework::Search(search::SearchParams const & params)
 
   // Cancels previous search request (if any) and initiates new search request.
   CancelQuery(intent.m_handle);
+
+  {
+    m2::PointD const defaultMarkSize = GetSearchMarkSize(SearchMarkType::DefaultSearchMark);
+    m2::PointD const bookingMarkSize = GetSearchMarkSize(SearchMarkType::BookingSearchMark);
+    double const eps =
+        max(max(defaultMarkSize.x, defaultMarkSize.y), max(bookingMarkSize.x, bookingMarkSize.y));
+    intent.m_params.m_minDistanceOnMapBetweenResults = eps;
+  }
+
   intent.m_handle = m_searchEngine->Search(intent.m_params, intent.m_viewport);
 
   return true;

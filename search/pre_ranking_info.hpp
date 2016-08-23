@@ -2,6 +2,8 @@
 
 #include "search/model.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "std/cstdint.hpp"
 
 namespace search
@@ -13,6 +15,9 @@ struct PreRankingInfo
   // An abstract distance from the feature to the pivot.  Measurement
   // units do not matter here.
   double m_distanceToPivot = 0;
+
+  m2::PointD m_center = m2::PointD::Zero();
+  bool m_centerLoaded = false;
 
   // Tokens [m_startToken, m_endToken) match to the feature name or
   // house number.

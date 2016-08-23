@@ -43,6 +43,7 @@ HEADERS += \
     mode.hpp \
     model.hpp \
     mwm_context.hpp \
+    nearby_points_sweeper.hpp \
     nested_rects_cache.hpp \
     pre_ranker.hpp \
     pre_ranking_info.hpp \
@@ -102,6 +103,7 @@ SOURCES += \
     mode.cpp \
     model.cpp \
     mwm_context.cpp \
+    nearby_points_sweeper.cpp \
     nested_rects_cache.cpp \
     pre_ranker.cpp \
     pre_ranking_info.cpp \

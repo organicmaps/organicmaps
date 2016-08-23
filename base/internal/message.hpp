@@ -27,6 +27,7 @@ template <typename U, typename V> inline string DebugPrint(pair<U, V> const & p)
 template <typename T> inline string DebugPrint(list<T> const & v);
 template <typename T> inline string DebugPrint(vector<T> const & v);
 template <typename T, typename C = less<T>> inline string DebugPrint(set<T, C> const & v);
+template <typename T, typename C = less<T>> inline string DebugPrint(multiset<T, C> const & v);
 template <typename U, typename V, typename C = less<U>> inline string DebugPrint(map<U, V, C> const & v);
 template <typename T> inline string DebugPrint(initializer_list<T> const & v);
 template <typename T> inline string DebugPrint(unique_ptr<T> const & v);
@@ -105,6 +106,11 @@ template <typename T> inline string DebugPrint(list<T> const & v)
 }
 
 template <typename T, typename C> inline string DebugPrint(set<T, C> const & v)
+{
+  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+}
+
+template <typename T, typename C> inline string DebugPrint(multiset<T, C> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
