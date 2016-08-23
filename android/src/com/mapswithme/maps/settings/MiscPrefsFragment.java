@@ -52,11 +52,11 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
         {
           boolean oldVal = Config.useGoogleServices();
           boolean newVal = ((Boolean) newValue).booleanValue();
-          if (oldVal == newVal)
-            return true;
-
-          Config.setUseGoogleService(newVal);
-          LocationHelper.INSTANCE.initProvider(false);
+          if (oldVal != newVal)
+          {
+            Config.setUseGoogleService(newVal);
+            LocationHelper.INSTANCE.initProvider(false /* forceNative */);
+          }
           return true;
         }
       });

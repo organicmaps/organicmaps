@@ -255,6 +255,10 @@ public enum LocationHelper
 
   public void initProvider(boolean forceNative)
   {
+    mActive = !mListeners.isEmpty();
+    if (mActive)
+      stopInternal();
+
     final MwmApplication application = MwmApplication.get();
     final boolean containsGoogleServices = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(application) == ConnectionResult.SUCCESS;
     final boolean googleServicesTurnedInSettings = Config.useGoogleServices();
