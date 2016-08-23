@@ -74,6 +74,7 @@ private:
 
   atomic<bool> m_wasContextReset;
 
+  bool FilterGLContextDependentMessage(ref_ptr<Message> msg);
   void SetRenderingEnabled(bool const isEnabled);
   void Notify();
   void WakeUp();

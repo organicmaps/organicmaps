@@ -68,6 +68,7 @@ DrapeEngine::DrapeEngine(Params && params)
   m_widgetsInfo = move(params.m_info);
 
   RecacheGui(false);
+  RecacheMapShapes();
 
   if (params.m_showChoosePositionMark)
     EnableChoosePositionMode(true, move(params.m_boundAreaTriangles), false, m2::PointD());
@@ -97,16 +98,17 @@ void DrapeEngine::Update(int w, int h)
   LOG(LWARNING, (w, h));
 
   RecacheGui(false);
+  RecacheMapShapes();
 
-  UpdateMapStyleMessage::Blocker blocker;
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<UpdateMapStyleMessage>(blocker),
+                                  make_unique_dp<RecoverGLResourcesMessage>(),
                                   MessagePriority::High);
-  blocker.Wait();
 
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
                                   MessagePriority::Normal);
+
+
   ResizeImpl(w, h);
 }
 
@@ -211,6 +213,13 @@ void DrapeEngine::UpdateMapStyle()
                                     make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
                                     MessagePriority::Normal);
   }
+}
+
+void DrapeEngine::RecacheMapShapes()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<MapShapesRecacheMessage>(),
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::RecacheGui(bool needResetOldGui)

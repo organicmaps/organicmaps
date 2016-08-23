@@ -169,6 +169,7 @@ private:
 
   void ResizeImpl(int w, int h);
   void RecacheGui(bool needResetOldGui);
+  void RecacheMapShapes();
 
 private:
   drape_ptr<FrontendRenderer> m_frontend;

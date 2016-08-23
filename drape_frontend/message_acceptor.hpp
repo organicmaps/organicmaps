@@ -33,6 +33,10 @@ protected:
   size_t GetQueueSize() const;
 #endif
 
+  using TFilterMessageFn = function<bool (ref_ptr<Message>)>;
+  void EnableMessageFiltering(TFilterMessageFn needFilterMessageFn);
+  void DisableMessageFiltering();
+
 private:
   friend class ThreadsCommutator;
 
@@ -40,6 +44,7 @@ private:
 
   MessageQueue m_messageQueue;
   atomic<bool> m_infinityWaiting;
+  TFilterMessageFn m_needFilterMessageFn;
 };
 
 } // namespace df

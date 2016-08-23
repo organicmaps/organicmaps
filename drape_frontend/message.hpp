@@ -26,6 +26,7 @@ public:
     GuiLayerRecached,
     GuiRecache,
     GuiLayerLayout,
+    MapShapesRecache,
     MapShapes,
     ChangeMyPostitionMode,
     CompassInfo,
@@ -60,11 +61,13 @@ public:
     SetAddNewPlaceMode,
     SetDisplacementMode,
     AllowAutoZoom,
-    RequestSymbolsSize
+    RequestSymbolsSize,
+    RecoverGLResources
   };
 
   virtual ~Message() {}
   virtual Type GetType() const { return Unknown; }
+  virtual bool IsGLContextDependent() const { return false; }
 };
 
 enum class MessagePriority

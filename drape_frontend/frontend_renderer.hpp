@@ -215,6 +215,7 @@ private:
   };
 
   void ReleaseResources();
+  void UpdateGLResources();
 
   void BeginUpdateOverlayTree(ScreenBase const & modelView);
   void UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup);

@@ -80,6 +80,19 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
   CancelWaitImpl();
 }
 
+void MessageQueue::FilterMessages(TFilterMessageFn needFilterMessageFn)
+{
+  lock_guard<mutex> lock(m_mutex);
+  auto iter = m_messages.begin();
+  while (iter != m_messages.end())
+  {
+    if (needFilterMessageFn(make_ref(iter->first)))
+      iter = m_messages.erase(iter);
+    else
+      ++iter;
+  }
+}
+
 #ifdef DEBUG_MESSAGE_QUEUE
 
 bool MessageQueue::IsEmpty() const

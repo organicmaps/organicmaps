@@ -176,6 +176,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       break;
     }
+  case Message::MapShapesRecache:
+    {
+      RecacheMapShapes();
+      break;
+    }
   case Message::MapShapeReaded:
     {
       ref_ptr<MapShapeReadedMessage> msg = message;
@@ -374,7 +379,7 @@ void BackendRenderer::InitGLDependentResource()
 
   m_texMng->Init(params);
 
-  RecacheMapShapes();
+  //RecacheMapShapes();
 }
 
 void BackendRenderer::RecacheMapShapes()

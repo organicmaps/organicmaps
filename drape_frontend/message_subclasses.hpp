@@ -121,6 +121,7 @@ public:
   {}
 
   Type GetType() const override { return Message::FlushTile; }
+  bool IsGLContextDependent() const override { return true; }
 
   dp::GLState const & GetState() const { return m_state; }
   drape_ptr<dp::RenderBucket> && AcceptBuffer() { return move(m_buffer); }
@@ -136,6 +137,8 @@ public:
   FlushOverlaysMessage(TOverlaysRenderData && data) : m_data(move(data)) {}
 
   Type GetType() const override { return Message::FlushOverlays; }
+  bool IsGLContextDependent() const override { return true; }
+
   TOverlaysRenderData && AcceptRenderData() { return move(m_data); }
 
 private:
@@ -265,6 +268,7 @@ public:
   {}
 
   Type GetType() const override { return Message::GuiLayerRecached; }
+  bool IsGLContextDependent() const override { return true; }
 
   drape_ptr<gui::LayerRenderer> && AcceptRenderer() { return move(m_renderer); }
   bool NeedResetOldGui() const { return m_needResetOldGui; }
@@ -290,6 +294,14 @@ public:
 private:
   gui::TWidgetsInitInfo m_initInfo;
   bool const m_needResetOldGui;
+};
+
+class MapShapesRecacheMessage : public Message
+{
+public:
+  MapShapesRecacheMessage() = default;
+
+  Type GetType() const override { return Message::MapShapesRecache; }
 };
 
 class GuiLayerLayoutMessage : public Message
@@ -380,6 +392,7 @@ public:
   {}
 
   Type GetType() const override { return Message::MapShapes; }
+  bool IsGLContextDependent() const override { return true; }
 
   drape_ptr<MyPosition> && AcceptShape() { return move(m_shape); }
   drape_ptr<SelectionShape> AcceptSelection() { return move(m_selection); }
@@ -630,6 +643,8 @@ public:
   {}
 
   Type GetType() const override { return Message::FlushRoute; }
+  bool IsGLContextDependent() const override { return true; }
+
   drape_ptr<RouteData> && AcceptRouteData() { return move(m_routeData); }
 
 private:
@@ -658,6 +673,8 @@ public:
   {}
 
   Type GetType() const override { return Message::FlushRouteSign; }
+  bool IsGLContextDependent() const override { return true; }
+
   drape_ptr<RouteSignData> && AcceptRouteSignData() { return move(m_routeSignData); }
 
 private:
@@ -710,6 +727,14 @@ public:
   InvalidateMessage(){}
 
   Type GetType() const override { return Message::Invalidate; }
+};
+
+class RecoverGLResourcesMessage : public Message
+{
+public:
+  RecoverGLResourcesMessage(){}
+
+  Type GetType() const override { return Message::RecoverGLResources; }
 };
 
 class DeactivateRouteFollowingMessage : public Message
@@ -792,6 +817,8 @@ public:
   {}
 
   Type GetType() const override { return Message::FlushGpsTrackPoints; }
+  bool IsGLContextDependent() const override { return true; }
+
   drape_ptr<GpsTrackRenderData> && AcceptRenderData() { return move(m_renderData); }
 
 private:

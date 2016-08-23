@@ -549,6 +549,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::RecoverGLResources:
+    {
+      UpdateGLResources();
+      break;
+    }
+
   case Message::UpdateMapStyle:
     {
       // Clear all graphics.
@@ -576,46 +582,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         blocker.Wait();
       }
 
-      // Invalidate route.
-      if (m_routeRenderer->GetStartPoint())
-      {
-        m2::PointD const & position = m_routeRenderer->GetStartPoint()->m_position;
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CacheRouteSignMessage>(position, true /* isStart */,
-                                                                        true /* isValid */),
-                                  MessagePriority::High);
-      }
-      if (m_routeRenderer->GetFinishPoint())
-      {
-        m2::PointD const & position = m_routeRenderer->GetFinishPoint()->m_position;
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CacheRouteSignMessage>(position, false /* isStart */,
-                                                                        true /* isValid */),
-                                  MessagePriority::High);
-      }
-
-      auto const & routeData = m_routeRenderer->GetRouteData();
-      if (routeData != nullptr)
-      {
-        auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline,
-                                                               routeData->m_sourceTurns,
-                                                               routeData->m_color,
-                                                               routeData->m_pattern);
-        m_routeRenderer->Clear(true /* keepDistanceFromBegin */);
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
-                                  MessagePriority::Normal);
-      }
-
-      // Request new tiles.
-      ScreenBase screen = m_userEventStream.GetCurrentScreen();
-      m_lastReadedModelView = screen;
-      m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<UpdateReadManagerMessage>(),
-                                MessagePriority::UberHighSingleton);
-
-      m_gpsTrackRenderer->Update();
-
+      UpdateGLResources();
       break;
     }
 
@@ -751,6 +718,50 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
 {
   return make_unique<Routine>(*this);
+}
+
+void FrontendRenderer::UpdateGLResources()
+{
+  // Invalidate route.
+  if (m_routeRenderer->GetStartPoint())
+  {
+    m2::PointD const & position = m_routeRenderer->GetStartPoint()->m_position;
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<CacheRouteSignMessage>(position, true /* isStart */,
+                                                                    true /* isValid */),
+                              MessagePriority::High);
+  }
+
+  if (m_routeRenderer->GetFinishPoint())
+  {
+    m2::PointD const & position = m_routeRenderer->GetFinishPoint()->m_position;
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<CacheRouteSignMessage>(position, false /* isStart */,
+                                                                    true /* isValid */),
+                              MessagePriority::High);
+  }
+
+  auto const & routeData = m_routeRenderer->GetRouteData();
+  if (routeData != nullptr)
+  {
+    auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline,
+                                                           routeData->m_sourceTurns,
+                                                           routeData->m_color,
+                                                           routeData->m_pattern);
+    m_routeRenderer->Clear(true /* keepDistanceFromBegin */);
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
+                              MessagePriority::Normal);
+  }
+
+  // Request new tiles.
+  ScreenBase screen = m_userEventStream.GetCurrentScreen();
+  m_lastReadedModelView = screen;
+  m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                            make_unique_dp<UpdateReadManagerMessage>(),
+                            MessagePriority::UberHighSingleton);
+
+  m_gpsTrackRenderer->Update();
 }
 
 void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom)

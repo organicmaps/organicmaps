@@ -23,8 +23,22 @@ bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
   return true;
 }
 
+void MessageAcceptor::EnableMessageFiltering(TFilterMessageFn needFilterMessageFn)
+{
+  m_needFilterMessageFn = needFilterMessageFn;
+  m_messageQueue.FilterMessages(needFilterMessageFn);
+}
+
+void MessageAcceptor::DisableMessageFiltering()
+{
+  m_needFilterMessageFn = nullptr;
+}
+
 void MessageAcceptor::PostMessage(drape_ptr<Message> && message, MessagePriority priority)
 {
+  if (m_needFilterMessageFn != nullptr && m_needFilterMessageFn(make_ref(message)))
+    return;
+
   m_messageQueue.PushMessage(move(message), priority);
 }
 
