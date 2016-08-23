@@ -14,6 +14,7 @@ HEADERS += \
     cancel_exception.hpp \
     cbv.hpp \
     common.hpp \
+    displayed_categories.hpp \
     dummy_rank_table.hpp \
     engine.hpp \
     everywhere_search_params.hpp \
@@ -77,6 +78,7 @@ HEADERS += \
 SOURCES += \
     approximate_string_match.cpp \
     cbv.cpp \
+    displayed_categories.cpp \
     dummy_rank_table.cpp \
     engine.cpp \
     features_filter.cpp \

@@ -1,64 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!-- IMPORTANT : order of items in 'search_category_icon_ids' and 'search_category_name_ids' should be identical. -->
-  <array name="search_category_icon_ids">
-    <item>@drawable/ic_category_food</item>
-    <item>@drawable/ic_category_hotel</item>
-    <item>@drawable/ic_category_tourism</item>
-    <item>@drawable/ic_category_wifi</item>
-    <item>@drawable/ic_category_transport</item>
-    <item>@drawable/ic_category_fuel</item>
-    <item>@drawable/ic_category_parking</item>
-    <item>@drawable/ic_category_shop</item>
-    <item>@drawable/ic_category_atm</item>
-    <item>@drawable/ic_category_bank</item>
-    <item>@drawable/ic_category_entertainment</item>
-    <item>@drawable/ic_category_hospital</item>
-    <item>@drawable/ic_category_pharmacy</item>
-    <item>@drawable/ic_category_police</item>
-    <item>@drawable/ic_category_toilet</item>
-    <item>@drawable/ic_category_post</item>
-  </array>
-
-  <array name="search_category_icon_night_ids">
-    <item>@drawable/ic_category_food_night</item>
-    <item>@drawable/ic_category_hotel_night</item>
-    <item>@drawable/ic_category_tourism_night</item>
-    <item>@drawable/ic_category_wifi_night</item>
-    <item>@drawable/ic_category_transport_night</item>
-    <item>@drawable/ic_category_fuel_night</item>
-    <item>@drawable/ic_category_parking_night</item>
-    <item>@drawable/ic_category_shop_night</item>
-    <item>@drawable/ic_category_atm_night</item>
-    <item>@drawable/ic_category_bank_night</item>
-    <item>@drawable/ic_category_entertainment_night</item>
-    <item>@drawable/ic_category_hospital_night</item>
-    <item>@drawable/ic_category_pharmacy_night</item>
-    <item>@drawable/ic_category_police_night</item>
-    <item>@drawable/ic_category_toilet_night</item>
-    <item>@drawable/ic_category_post_night</item>
-  </array>
-
-  <array name="search_category_name_ids">
-    <item>@string/food</item>
-    <item>@string/hotel</item>
-    <item>@string/tourism</item>
-    <item>@string/wifi</item>
-    <item>@string/transport</item>
-    <item>@string/fuel</item>
-    <item>@string/parking</item>
-    <item>@string/shop</item>
-    <item>@string/atm</item>
-    <item>@string/bank</item>
-    <item>@string/entertainment</item>
-    <item>@string/hospital</item>
-    <item>@string/pharmacy</item>
-    <item>@string/police</item>
-    <item>@string/toilet</item>
-    <item>@string/post</item>
-  </array>
-
   <!-- First start screen -->
   <integer-array name="first_start_images">
     <item>@drawable/img_first_start_offline</item>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0810EC361D6D9D2E00ABFEE7 /* displayed_categories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0810EC341D6D9D2E00ABFEE7 /* displayed_categories.cpp */; };
+		0810EC371D6D9D2E00ABFEE7 /* displayed_categories.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0810EC351D6D9D2E00ABFEE7 /* displayed_categories.hpp */; };
 		342D83341D5233B3000D8AEA /* hotels_classifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 342D83301D5233B3000D8AEA /* hotels_classifier.cpp */; };
 		342D83351D5233B3000D8AEA /* hotels_classifier.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 342D83311D5233B3000D8AEA /* hotels_classifier.hpp */; };
 		3441CE4F1CFC1D7000CF30D4 /* processor_factory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3441CE4A1CFC1D7000CF30D4 /* processor_factory.hpp */; };
@@ -164,6 +166,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0810EC341D6D9D2E00ABFEE7 /* displayed_categories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = displayed_categories.cpp; sourceTree = "<group>"; };
+		0810EC351D6D9D2E00ABFEE7 /* displayed_categories.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = displayed_categories.hpp; sourceTree = "<group>"; };
 		342D83301D5233B3000D8AEA /* hotels_classifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hotels_classifier.cpp; sourceTree = "<group>"; };
 		342D83311D5233B3000D8AEA /* hotels_classifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hotels_classifier.hpp; sourceTree = "<group>"; };
 		3441CE4A1CFC1D7000CF30D4 /* processor_factory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = processor_factory.hpp; sourceTree = "<group>"; };
@@ -409,6 +413,8 @@
 		675346B21A4055CF00A0A8C3 /* search */ = {
 			isa = PBXGroup;
 			children = (
+				0810EC341D6D9D2E00ABFEE7 /* displayed_categories.cpp */,
+				0810EC351D6D9D2E00ABFEE7 /* displayed_categories.hpp */,
 				3469FAD01D6C5D9C00F35A88 /* everywhere_search_params.hpp */,
 				3469FAD11D6C5D9C00F35A88 /* nearby_points_sweeper.cpp */,
 				3469FAD21D6C5D9C00F35A88 /* nearby_points_sweeper.hpp */,
@@ -575,6 +581,7 @@
 				345C8DB41D2D15A50037E3A6 /* streets_matcher.hpp in Headers */,
 				345C8DB21D2D15A50037E3A6 /* geocoder_context.hpp in Headers */,
 				56D5456F1C74A48C00E3719C /* mode.hpp in Headers */,
+				0810EC371D6D9D2E00ABFEE7 /* displayed_categories.hpp in Headers */,
 				347F332A1C4540A8009758CC /* search_index_values.hpp in Headers */,
 				34B1CB791D22905800B59423 /* ranker.hpp in Headers */,
 				347F33161C4540A8009758CC /* cancel_exception.hpp in Headers */,
@@ -749,6 +756,7 @@
 				345C8DB11D2D15A50037E3A6 /* geocoder_context.cpp in Sources */,
 				F652D8BF1CFDE1E800FC29A0 /* engine.cpp in Sources */,
 				675346DD1A40560D00A0A8C3 /* approximate_string_match.cpp in Sources */,
+				0810EC361D6D9D2E00ABFEE7 /* displayed_categories.cpp in Sources */,
 				675346E51A40560D00A0A8C3 /* intermediate_result.cpp in Sources */,
 				F652D9021CFDE21900FC29A0 /* pre_ranking_info.cpp in Sources */,
 				347F33261C4540A8009758CC /* reverse_geocoder.cpp in Sources */,
