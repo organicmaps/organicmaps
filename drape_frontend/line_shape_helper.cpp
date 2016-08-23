@@ -126,7 +126,8 @@ void UpdateNormals(LineSegment * segment, LineSegment * prevSegment, LineSegment
 }
 
 void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                         float halfWidth, bool isLeft, float widthScalar, vector<glsl::vec2> & normals)
+                         float halfWidth, bool isLeft, float widthScalar, vector<glsl::vec2> & normals,
+                         vector<glsl::vec2> * uv)
 {
   float const eps = 1e-5;
   if (fabs(glsl::dot(normal1, normal2) - 1.0f) < eps)
@@ -140,6 +141,13 @@ void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl
     normals.push_back(glsl::vec2(0.0f, 0.0f));
     normals.push_back(isLeft ? n1 : n2);
     normals.push_back(isLeft ? n2 : n1);
+
+    if (uv != nullptr)
+    {
+      uv->push_back(glsl::vec2(0.5f, 0.5f));
+      uv->push_back(isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f));
+      uv->push_back(isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f));
+    }
   }
   else if (joinType == dp::LineJoin::MiterJoin)
   {
@@ -155,6 +163,17 @@ void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl
     normals.push_back(glsl::vec2(0.0f, 0.0f));
     normals.push_back(isLeft ? averageNormal : n2);
     normals.push_back(isLeft ? n2 : averageNormal);
+
+    if (uv != nullptr)
+    {
+      uv->push_back(glsl::vec2(0.5f, 0.5f));
+      uv->push_back(isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f));
+      uv->push_back(isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f));
+
+      uv->push_back(glsl::vec2(0.5f, 0.5f));
+      uv->push_back(isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f));
+      uv->push_back(isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f));
+    }
   }
   else
   {
@@ -176,6 +195,13 @@ void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl
       normals.push_back(glsl::vec2(0.0f, 0.0f));
       normals.push_back(isLeft ? glsl::vec2(n1.x, n1.y) : glsl::vec2(n2.x, n2.y));
       normals.push_back(isLeft ? glsl::vec2(n2.x, n2.y) : glsl::vec2(n1.x, n1.y));
+
+      if (uv != nullptr)
+      {
+        uv->push_back(glsl::vec2(0.5f, 0.5f));
+        uv->push_back(isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f));
+        uv->push_back(isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f));
+      }
     }
   }
 }

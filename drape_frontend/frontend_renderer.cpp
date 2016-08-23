@@ -500,6 +500,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::FlushRouteArrows:
+    {
+      ref_ptr<FlushRouteArrowsMessage> msg = message;
+      drape_ptr<RouteArrowsData> routeArrowsData = msg->AcceptRouteArrowsData();
+      m_routeRenderer->SetRouteArrows(move(routeArrowsData), make_ref(m_gpuProgramManager));
+      break;
+    }
+
   case Message::RemoveRoute:
     {
       ref_ptr<RemoveRouteMessage> msg = message;
@@ -1640,6 +1648,7 @@ void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
   RefreshPivotTransform(modelView);
 
   m_myPositionController->UpdatePixelPosition(modelView);
+  m_routeRenderer->UpdateRoute(modelView, bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
 }
 
 void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
@@ -1672,6 +1681,13 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
 {
   m_modelViewChangedFn(modelView);
+}
+
+void FrontendRenderer::OnCacheRouteArrows(int routeIndex, vector<ArrowBorders> const & borders)
+{
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                            make_unique_dp<CacheRouteArrowsMessage>(routeIndex, borders),
+                            MessagePriority::Normal);
 }
 
 FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetLayerID(dp::GLState const & state)

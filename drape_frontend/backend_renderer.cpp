@@ -46,6 +46,11 @@ BackendRenderer::BackendRenderer(Params const & params)
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                               make_unique_dp<FlushRouteSignMessage>(move(routeSignData)),
                               MessagePriority::Normal);
+  }, [this](drape_ptr<RouteArrowsData> && routeArrowsData)
+  {
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<FlushRouteArrowsMessage>(move(routeArrowsData)),
+                              MessagePriority::Normal);
   });
 
   StartThread();
@@ -240,12 +245,18 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_routeBuilder->BuildSign(msg->GetPosition(), msg->IsStart(), msg->IsValid(), m_texMng);
       break;
     }
+  case Message::CacheRouteArrows:
+    {
+      ref_ptr<CacheRouteArrowsMessage> msg = message;
+      m_routeBuilder->BuildArrows(msg->GetRouteIndex(), msg->GetBorders(), m_texMng);
+      break;
+    }
   case Message::RemoveRoute:
     {
       ref_ptr<RemoveRouteMessage> msg = message;
-
-      // we have to resend the message to FR, because it guaranties that
-      // RemoveRouteMessage will be precessed after FlushRouteMessage
+      m_routeBuilder->ClearRouteCache();
+      // We have to resend the message to FR, because it guaranties that
+      // RemoveRouteMessage will be processed after FlushRouteMessage.
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<RemoveRouteMessage>(msg->NeedDeactivateFollowing()),
                                 MessagePriority::Normal);
