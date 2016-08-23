@@ -59,7 +59,7 @@
 
 - (void)setSize:(CGSize)size
 {
-  CGSize const iPadSize = {520.0, 534.0};
+  CGSize const iPadSize = {520.0, 600.0};
   CGSize const newSize = IPAD ? iPadSize : size;
   self.parentViewController.view.size = newSize;
 }
