@@ -342,8 +342,6 @@ public:
     static uint32_t const placeType = classif().GetTypeByPath({"place"});
     uint32_t const type = fb.GetParams().FindType(placeType, 1);
 
-    auto hotelIndex = generator::BookingDataset::kInvalidHotelIndex;
-
     if (type != ftype::GetEmptyValue() && !fb.GetName().empty())
     {
       m_places.ReplaceEqualInRect(
@@ -351,7 +349,7 @@ public:
           [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },
           [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
     }
-    else if ((hotelIndex = m_bookingDataset.GetMatchingHotelIndex(fb)) !=
+    else if (m_bookingDataset.GetMatchingHotelId(fb) !=
              generator::BookingDataset::kInvalidHotelIndex)
     {
       m_skippedElements << DebugPrint(fb.GetMostGenericOsmId()) << endl;

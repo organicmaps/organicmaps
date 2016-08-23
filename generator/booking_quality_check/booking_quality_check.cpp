@@ -139,10 +139,11 @@ feature::GenerateInfo GetGenerateInfo()
 struct SampleItem
 {
   enum MatchStatus {Uninitialized, Yes, No};
+  using BookingId = BookingDataset::BookingID;
 
   SampleItem() = default;
 
-  SampleItem(osm::Id const & osmId, uint32_t const bookingId, MatchStatus const match = Uninitialized)
+  SampleItem(osm::Id const & osmId, BookingId const bookingId, MatchStatus const match = Uninitialized)
    : m_osmId(osmId)
    , m_bookingId(bookingId)
    , m_match(match)
@@ -150,7 +151,7 @@ struct SampleItem
   }
 
   osm::Id m_osmId;
-  uint32_t m_bookingId = BookingDataset::kInvalidHotelIndex;
+  BookingId m_bookingId = BookingDataset::kInvalidHotelIndex;
 
   MatchStatus m_match = Uninitialized;
 };

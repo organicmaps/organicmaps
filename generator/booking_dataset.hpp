@@ -4,6 +4,8 @@
 
 #include "search/reverse_geocoder.hpp"
 
+#include "base/newtype.hpp"
+
 #include "boost/geometry.hpp"
 #include "boost/geometry/geometries/point.hpp"
 #include "boost/geometry/geometries/box.hpp"
@@ -21,9 +23,11 @@ namespace generator
 class BookingDataset
 {
 public:
+  NEWTYPE(uint32_t, BookingId);
+
   static double constexpr kDistanceLimitInMeters = 150;
   static size_t constexpr kMaxSelectedElements = 3;
-  static auto constexpr kInvalidHotelIndex = numeric_limits<uint32_t>::max();
+  static BookingId const kInvalidHotelIndex;
 
   struct Hotel
   {
@@ -45,8 +49,7 @@ public:
       Counter
     };
 
-    // TODO(mgsergio): Make a separate type for this or an alias.
-    uint32_t id = 0;
+    BookingId id{kInvalidHotelIndex};
     double lat = 0.0;
     double lon = 0.0;
     string name;
@@ -81,26 +84,26 @@ public:
   explicit BookingDataset(string const & dataPath, string const & addressReferencePath = string());
   explicit BookingDataset(istream & dataSource, string const & addressReferencePath = string());
 
-  /// @return an index of a matched hotel or kInvalidHotelIndex on failure.
-  size_t GetMatchingHotelIndex(FeatureBuilder1 const & fb) const;
+  /// @return an id of a matched hotel or kInvalidHotelIndex on failure.
+  BookingId GetMatchingHotelId(FeatureBuilder1 const & fb) const;
   /// @return true if |fb| is a hotel with a name.
   bool CanBeBooking(FeatureBuilder1 const & fb) const;
 
   inline size_t Size() const { return m_hotels.size(); }
-  Hotel const & GetHotelById(uint32_t id) const;
-  Hotel & GetHotelById(uint32_t id);
-  vector<uint32_t> GetNearestHotels(ms::LatLon const & latLon, size_t limit,
-                                    double maxDistance = 0.0) const;
+  Hotel const & GetHotelById(BookingId id) const;
+  Hotel & GetHotelById(BookingId id);
+  vector<BookingId> GetNearestHotels(ms::LatLon const & latLon, size_t limit,
+                                     double maxDistance = 0.0) const;
   bool MatchByName(string const & osmName, vector<size_t> const & bookingIndexes) const;
 
   void BuildHotels(function<void(FeatureBuilder1 &)> const & fn) const;
 
 protected:
-  map<uint32_t, Hotel> m_hotels;
+  map<BookingId, Hotel> m_hotels;
 
   using TPoint = boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian>;
   using TBox = boost::geometry::model::box<TPoint>;
-  using TValue = pair<TBox, uint32_t>;
+  using TValue = pair<TBox, BookingId>;
 
   // Create the rtree using default constructor.
   boost::geometry::index::rtree<TValue, boost::geometry::index::quadratic<16>> m_rtree;
@@ -108,9 +111,11 @@ protected:
   void BuildHotel(Hotel const & hotel, function<void(FeatureBuilder1 &)> const & fn) const;
 
   void LoadHotels(istream & path, string const & addressReferencePath);
-  /// @return an index of a matched hotel or numeric_limits<size_t>::max() on failure.
-  size_t MatchWithBooking(FeatureBuilder1 const & e) const;
+  /// @return an id of a matched hotel or kInvalidHotelIndex on failure.
+  BookingId MatchWithBooking(FeatureBuilder1 const & e) const;
 };
 
 ostream & operator<<(ostream & s, BookingDataset::Hotel const & h);
+
+NEWTYPE_SIMPLE_OUTPUT(BookingDataset::BookingId);
 }  // namespace generator
