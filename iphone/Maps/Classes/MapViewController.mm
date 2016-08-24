@@ -129,6 +129,9 @@ BOOL gIsFirstMyPositionMode = YES;
   if (!switchFullScreenMode)
     return;
 
+  if ([MapsAppDelegate theApp].hasApiURL)
+    return;
+
   MWMMapViewControlsManager * cm = self.controlsManager;
   if (cm.searchHidden && cm.navigationState == MWMNavigationDashboardStateHidden)
     self.controlsManager.hidden = !self.controlsManager.hidden;
