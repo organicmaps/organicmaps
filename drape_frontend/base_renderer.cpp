@@ -14,6 +14,7 @@ BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name, Params const & pa
   , m_isEnabled(true)
   , m_renderingEnablingCompletionHandler(nullptr)
   , m_wasNotified(false)
+  , m_wasContextReset(false)
 {
   m_commutator->RegisterThread(m_threadName, this);
 }

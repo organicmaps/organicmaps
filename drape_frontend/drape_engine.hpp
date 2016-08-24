@@ -104,7 +104,7 @@ public:
   void ChangeVisibilityUserMarksLayer(TileKey const & tileKey, bool isVisible);
   void UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider);
 
-  void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory);
+  void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory = nullptr);
   void SetRenderingDisabled(bool const destroyContext);
   void InvalidateRect(m2::RectD const & rect);
   void UpdateMapStyle();

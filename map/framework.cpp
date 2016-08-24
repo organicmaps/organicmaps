@@ -189,9 +189,6 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   GpsInfo rInfo(info);
 #endif
 
-#ifdef OMIM_OS_ANDROID
-  m_lastGPSInfo.reset(new GpsInfo(rInfo));
-#endif
   location::RouteMatchingInfo routeMatchingInfo;
   CheckLocationForRouting(rInfo);
 
@@ -210,9 +207,6 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
   CompassInfo const & rInfo = info;
 #endif
 
-#ifdef OMIM_OS_ANDROID
-  m_lastCompassInfo.reset(new CompassInfo(rInfo));
-#endif
   CallDrapeFunction(bind(&df::DrapeEngine::SetCompassInfo, _1, rInfo));
 }
 
@@ -303,7 +297,7 @@ void Framework::Migrate(bool keepDownloaded)
   InitSearchEngine();
   RegisterAllMaps();
   if (m_drapeEngine && m_isRenderingEnabled)
-    m_drapeEngine->SetRenderingEnabled(nullptr);
+    m_drapeEngine->SetRenderingEnabled();
   InvalidateRect(MercatorBounds::FullRect());
 }
 
@@ -1623,15 +1617,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   InvalidateUserMarks();
 
-#ifdef OMIM_OS_ANDROID
-  // In case of the engine reinitialization recover compass and location data
-  // for correct my position state.
-  if (m_lastCompassInfo != nullptr)
-    OnCompassUpdate(*m_lastCompassInfo.release());
-  if (m_lastGPSInfo != nullptr)
-    OnLocationUpdate(*m_lastGPSInfo.release());
-#endif
-
   Allow3dMode(allow3d, allow3dBuildings);
   LoadViewport();
 
@@ -1646,13 +1631,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 
-  // In case of the engine reinitialization simulate the last tap to show selection mark.
-  if (m_lastTapEvent)
-  {
-    place_page::Info info;
-    ActivateMapSelection(false, OnTapEventImpl(*m_lastTapEvent, info), info);
-  }
-
   m_drapeEngine->RequestSymbolsSize(kSearchMarks, [this](vector<m2::PointU> const & sizes)
   {
     GetPlatform().RunOnGuiThread([this, sizes](){ m_searchMarksSizes = sizes; });
@@ -1664,7 +1642,14 @@ void Framework::UpdateDrapeEngine(int width, int height)
   if (m_drapeEngine)
   {
     m_drapeEngine->Update(width, height);
+
     InvalidateUserMarks();
+
+    if (m_lastTapEvent)
+    {
+      place_page::Info info;
+      ActivateMapSelection(false, OnTapEventImpl(*m_lastTapEvent, info), info);
+    }
   }
 }
 
