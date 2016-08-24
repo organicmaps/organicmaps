@@ -9,17 +9,16 @@
 
 static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 
-@interface MWMSearchCategoriesManager ()
-@property(nonatomic) vector<string> kCategories;
-@end
-
 @implementation MWMSearchCategoriesManager
+{
+  vector<string> m_categories;
+}
 
 - (instancetype)init
 {
   self = [super init];
   if (self)
-    _kCategories = search::GetDisplayedCategories();
+    m_categories = search::GetDisplayedCategories();
   return self;
 }
 
@@ -40,7 +39,7 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return self.kCategories.size();
+  return m_categories.size();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,12 +57,12 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 - (void)tableView:(UITableView *)tableView willDisplayCell:(MWMSearchCategoryCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  [cell setCategory:@(self.kCategories[indexPath.row].c_str())];
+  [cell setCategory:@(m_categories[indexPath.row].c_str())];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString * string = @(self.kCategories[indexPath.row].c_str());
+  NSString * string = @(m_categories[indexPath.row].c_str());
   [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
                    withParameters:@{kStatValue : string, kStatScreen : kStatCategories}];
   [self.delegate searchText:[L(string) stringByAppendingString:@" "] forInputLocale:nil];

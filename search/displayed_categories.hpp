@@ -5,8 +5,8 @@
 
 namespace search
 {
-// Returns a list of english names of displayed categories for a
-// categories search tab. It's guaranteed that the list is the same
-// during the application lifetime.
+// Returns a list of English names of displayed categories for the
+// categories search tab. It's guaranteed that the list remains the
+// same during the application lifetime.
 vector<string> const & GetDisplayedCategories();
 }  // namespace search
