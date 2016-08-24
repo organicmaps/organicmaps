@@ -24,29 +24,14 @@
 using namespace generator::tests_support;
 using namespace search::tests_support;
 
-using TRules = vector<shared_ptr<MatchingRule>>;
-
-namespace storage
-{
-class TestMapFilesDownloader : public HttpMapFilesDownloader
-{
-public:
-  // MapFilesDownloader overrides:
-  void GetServersList(int64_t const mapVersion, string const & mapFileName,
-                      TServersListCallback const & callback) override
-  {
-  }
-};
-}  // namespace storage
-
 namespace search
 {
 namespace
 {
-string const kCountriesTxt = string(R"({
+string const kCountriesTxt = R"({
   "id": "Countries",
   "v": )" + strings::to_string(0 /* version */) +
-                                    R"(,
+                             R"(,
   "g": [
       {
        "id": "Flatland",
@@ -86,7 +71,17 @@ string const kCountriesTxt = string(R"({
         }
        ]
       }
-   ]})");
+   ]})";
+
+class TestMapFilesDownloader : public storage::HttpMapFilesDownloader
+{
+public:
+  // MapFilesDownloader overrides:
+  void GetServersList(int64_t const mapVersion, string const & mapFileName,
+                      TServersListCallback const & callback) override
+  {
+  }
+};
 
 class TestDelegate : public DownloaderSearchCallback::Delegate
 {
@@ -100,7 +95,7 @@ class DownloaderSearchRequest : public TestSearchRequest, public TestDelegate
 public:
   DownloaderSearchRequest(TestSearchEngine & engine, string const & query)
     : TestSearchRequest(engine, MakeSearchParams(query), m2::RectD(0, 0, 1, 1) /* viewport */)
-    , m_storage(kCountriesTxt, make_unique<storage::TestMapFilesDownloader>())
+    , m_storage(kCountriesTxt, make_unique<TestMapFilesDownloader>())
     , m_downloaderCallback(static_cast<DownloaderSearchCallback::Delegate &>(*this),
                            m_engine /* index */, m_engine.GetCountryInfoGetter(), m_storage,
                            MakeDownloaderParams(query))
@@ -110,11 +105,12 @@ public:
 
   void OnResultsDownloader(search::Results const & results)
   {
-    OnResults(results);
     m_downloaderCallback(results);
+    OnResults(results);
   }
 
   vector<storage::DownloaderSearchResult> const & GetResults() const { return m_downloaderResults; }
+
 private:
   search::SearchParams MakeSearchParams(string const & query)
   {
@@ -156,22 +152,10 @@ private:
 
 class DownloaderSearchTest : public SearchTest
 {
-};
-
-template <typename T>
-void TestResults(vector<T> received, vector<T> expected)
-{
-  sort(received.begin(), received.end());
-  sort(expected.begin(), expected.end());
-  TEST_EQUAL(expected, received, ());
-}
-
-UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
-{
-  vector<TestCountry> worldCountries;
-  vector<TestCity> worldCities;
-  auto addRegion = [&](string const & countryName, string const & regionName, m2::PointD const & p1,
-                       m2::PointD const & p2) {
+public:
+  void AddRegion(string const & countryName, string const & regionName, m2::PointD const & p1,
+                 m2::PointD const & p2)
+  {
     TestPOI cornerPost1(p1, regionName + " corner post 1", "en");
     TestPOI cornerPost2(p2, regionName + " corner post 2", "en");
     TestCity capital((p1 + p2) * 0.5, regionName + " capital", "en", 0 /* rank */);
@@ -185,24 +169,43 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
       {
         // Add the country feature to one region only.
         builder.Add(country);
-        worldCountries.push_back(country);
+        m_worldCountries.push_back(country);
       }
     });
-    worldCities.push_back(capital);
+    m_worldCities.push_back(capital);
   };
 
-  addRegion("Flatland", "Square One", m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0));
-  addRegion("", "Square Two", m2::PointD(1.0, 1.0), m2::PointD(3.0, 3.0));
-  addRegion("Wonderland", "Shortpondland", m2::PointD(-1.0, -1.0), m2::PointD(0.0, 0.0));
-  addRegion("", "Longpondland", m2::PointD(-3.0, -3.0), m2::PointD(-1.0, -1.0));
-
-  auto const worldId = BuildWorld([&](TestMwmBuilder & builder)
+  void BuildWorld()
   {
-    for (auto const & ft : worldCountries)
-      builder.Add(ft);
-    for (auto const & ft : worldCities)
-      builder.Add(ft);
-  });
+    SearchTest::BuildWorld([&](TestMwmBuilder & builder)
+    {
+      for (auto const & ft : m_worldCountries)
+        builder.Add(ft);
+      for (auto const & ft : m_worldCities)
+        builder.Add(ft);
+    });
+  }
+
+private:
+  vector<TestCountry> m_worldCountries;
+  vector<TestCity> m_worldCities;
+};
+
+template <typename T>
+void TestResults(vector<T> received, vector<T> expected)
+{
+  sort(received.begin(), received.end());
+  sort(expected.begin(), expected.end());
+  TEST_EQUAL(expected, received, ());
+}
+
+UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
+{
+  AddRegion("Flatland", "Square One", m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0));
+  AddRegion("", "Square Two", m2::PointD(1.0, 1.0), m2::PointD(3.0, 3.0));
+  AddRegion("Wonderland", "Shortpondland", m2::PointD(-1.0, -1.0), m2::PointD(0.0, 0.0));
+  AddRegion("", "Longpondland", m2::PointD(-3.0, -3.0), m2::PointD(-1.0, -1.0));
+  BuildWorld();
 
   {
     DownloaderSearchRequest request(m_engine, "square one");
@@ -225,6 +228,15 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
     request.Run();
 
     TestResults(request.GetResults(), {storage::DownloaderSearchResult("Flatland", "Flatland")});
+  }
+
+  {
+    DownloaderSearchRequest request(m_engine, "square");
+    request.Run();
+
+    TestResults(request.GetResults(),
+                {storage::DownloaderSearchResult("Square One", "Square One capital"),
+                 storage::DownloaderSearchResult("Square Two", "Square Two capital")});
   }
 }
 }  // namespace

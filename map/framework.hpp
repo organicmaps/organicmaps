@@ -30,7 +30,6 @@
 #include "search/query_saver.hpp"
 #include "search/viewport_search_callback.hpp"
 
-#include "storage/downloader_search_params.hpp"
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
 

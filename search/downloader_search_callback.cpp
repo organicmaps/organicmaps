@@ -15,14 +15,15 @@ namespace
 bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType const & ft,
                                   string & name)
 {
-  int8_t langIndices[] = {StringUtf8Multilang::kEnglishCode, StringUtf8Multilang::kDefaultCode,
-                          StringUtf8Multilang::kInternationalCode};
+  int8_t const langIndices[] = {StringUtf8Multilang::kEnglishCode,
+                                StringUtf8Multilang::kDefaultCode,
+                                StringUtf8Multilang::kInternationalCode};
 
   for (auto const langIndex : langIndices)
   {
     if (!ft.GetName(langIndex, name))
       continue;
-    if (storage.IsCoutryIdCountryTreeInnerNode(name))
+    if (storage.IsInnerNode(name))
       return true;
   }
   return false;

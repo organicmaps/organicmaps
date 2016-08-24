@@ -482,8 +482,10 @@ public:
 
   TCountryId FindCountryIdByFile(string const & name) const;
 
-  bool IsCoutryIdCountryTreeLeaf(TCountryId const & countryId) const;
-  bool IsCoutryIdCountryTreeInnerNode(TCountryId const & countryId) const;
+  // These two functions check whether |countryId| is a leaf
+  // or an inner node of the country tree.
+  bool IsLeaf(TCountryId const & countryId) const;
+  bool IsInnerNode(TCountryId const & countryId) const;
 
   TLocalAndRemoteSize CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const;
   platform::CountryFile const & GetCountryFile(TCountryId const & countryId) const;

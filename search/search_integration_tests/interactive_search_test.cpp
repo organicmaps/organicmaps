@@ -13,8 +13,6 @@
 using namespace generator::tests_support;
 using namespace search::tests_support;
 
-using TRules = vector<shared_ptr<MatchingRule>>;
-
 namespace search
 {
 namespace

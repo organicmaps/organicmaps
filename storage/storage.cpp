@@ -271,7 +271,7 @@ void Storage::RegisterAllLocalMaps()
     LocalCountryFile const & localFile = *i;
     string const & name = localFile.GetCountryName();
     TCountryId countryId = FindCountryIdByFile(name);
-    if (IsCoutryIdCountryTreeLeaf(countryId))
+    if (IsLeaf(countryId))
       RegisterCountryFiles(countryId, localFile.GetDirectory(), localFile.GetVersion());
     else
       RegisterFakeCountryFiles(localFile);
@@ -315,20 +315,20 @@ Country const & Storage::CountryByCountryId(TCountryId const & countryId) const
   return node->Value();
 }
 
-bool Storage::IsCoutryIdCountryTreeLeaf(TCountryId const & countryId) const
+bool Storage::IsLeaf(TCountryId const & countryId) const
 {
   if (!IsCountryIdValid(countryId))
     return false;
   TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
-  return node != nullptr && node->ChildrenCount() == 0 /* countryId is a leaf. */;
+  return node != nullptr && node->ChildrenCount() == 0;
 }
 
-bool Storage::IsCoutryIdCountryTreeInnerNode(TCountryId const & countryId) const
+bool Storage::IsInnerNode(TCountryId const & countryId) const
 {
   if (!IsCountryIdValid(countryId))
     return false;
   TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
-  return node != nullptr && node->ChildrenCount() != 0 /* countryId is an inner node. */;
+  return node != nullptr && node->ChildrenCount() != 0;
 }
 
 TLocalAndRemoteSize Storage::CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const
@@ -362,7 +362,7 @@ Storage::TLocalFilePtr Storage::GetLatestLocalFile(CountryFile const & countryFi
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   TCountryId const countryId = FindCountryIdByFile(countryFile.GetName());
-  if (IsCoutryIdCountryTreeLeaf(countryId))
+  if (IsLeaf(countryId))
   {
     TLocalFilePtr localFile = GetLatestLocalFile(countryId);
     if (localFile)
@@ -514,7 +514,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
   }
 
   TCountryId const countryId = FindCountryIdByFile(countryFile.GetName());
-  if (!(IsCoutryIdCountryTreeLeaf(countryId)))
+  if (!(IsLeaf(countryId)))
   {
     LOG(LERROR, ("Removed files for an unknown country:", localFile));
     return;

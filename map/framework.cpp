@@ -22,6 +22,7 @@
 #include "search/reverse_geocoder.hpp"
 #include "search/viewport_search_params.hpp"
 
+#include "storage/downloader_search_params.hpp"
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/color_constants.hpp"

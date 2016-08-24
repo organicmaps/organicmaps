@@ -31,8 +31,6 @@ public:
     virtual void RunUITask(function<void()> fn) = 0;
   };
 
-  using TOnResults = storage::DownloaderSearchParams::TOnResults;
-
   DownloaderSearchCallback(Delegate & delegate, Index const & index,
                            storage::CountryInfoGetter const & infoGetter,
                            storage::Storage const & storage,
