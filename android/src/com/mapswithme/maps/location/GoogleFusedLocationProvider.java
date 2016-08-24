@@ -112,7 +112,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
           break;
 
         case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-          // Location settings are not satisfied, but this can be fixed by showing the user a dialog.
+          // Location settings are not satisfied. AndroidNativeProvider should be used.
           resolveError(status);
           return;
 
@@ -131,15 +131,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     if (LocationHelper.INSTANCE.isLocationStopped())
       return;
 
-    LocationHelper.INSTANCE.stop();
-    Activity activity = MwmApplication.backgroundTracker().getTopActivity();
-    if (activity != null)
-    {
-      try
-      {
-        status.startResolutionForResult(activity, LocationHelper.REQUEST_RESOLVE_ERROR);
-      } catch (IntentSender.SendIntentException ignored) {}
-    }
+    LocationHelper.INSTANCE.initProvider(true /* forceNative */);
   }
 
   private void requestLocationUpdates()
