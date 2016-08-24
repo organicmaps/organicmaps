@@ -32,6 +32,8 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode) {
 
 + (MapsAppDelegate *)theApp;
 
+- (BOOL)hasApiURL;
+
 + (void)initPushNotificationsWithLaunchOptions:(NSDictionary *)launchOptions;
 
 - (void)enableStandby;
