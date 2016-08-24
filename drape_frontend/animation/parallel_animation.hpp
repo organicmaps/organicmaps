@@ -44,7 +44,7 @@ public:
     for (auto const & anim : m_animations)
     {
       if ((anim->GetType() == type) &&
-          (customType == nullptr || strcmp(anim->GetCustomType().c_str(), customType) == 0))
+          (customType == nullptr || anim->GetCustomType() == customType))
       {
         ASSERT(dynamic_cast<T const *>(anim.get()) != nullptr, ());
         return static_cast<T const *>(anim.get());

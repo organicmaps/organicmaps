@@ -28,9 +28,9 @@ using TAnimationCreator = function<drape_ptr<Animation>(double)>;
 class UserEvent
 {
 public:
-  enum EEventType
+  enum class EventType
   {
-    EventTouch,
+    Touch,
     Scale,
     SetCenter,
     SetRect,
@@ -42,7 +42,7 @@ public:
   };
 
   virtual ~UserEvent() {}
-  virtual EEventType GetType() const = 0;
+  virtual EventType GetType() const = 0;
 };
 
 struct Touch
@@ -72,12 +72,13 @@ public:
 
   static uint8_t const INVALID_MASKED_POINTER;
 
-  EEventType GetType() const override { return UserEvent::EventTouch; }
+  EventType GetType() const override { return UserEvent::EventType::Touch; }
 
   ETouchType GetTouchType() const { return m_type; }
   void SetTouchType(ETouchType touchType) { m_type = touchType; }
 
   double GetTimeStamp() const { return m_timeStamp; }
+  void SetTimeStamp(double timeStamp) { m_timeStamp = timeStamp; }
 
   array<Touch, 2> const & GetTouches() const { return m_touches; }
 
@@ -121,7 +122,7 @@ public:
   {
   }
 
-  EEventType GetType() const override { return UserEvent::Scale; }
+  EventType GetType() const override { return UserEvent::EventType::Scale; }
 
   double GetFactor() const { return m_factor; }
   m2::PointD const & GetPxPoint() const { return m_pxPoint; }
@@ -137,7 +138,7 @@ class SetCenterEvent : public UserEvent
 {
 public:
   SetCenterEvent(m2::PointD const & center, int zoom, bool isAnim,
-                 TAnimationCreator parallelAnimCreator = nullptr)
+                 TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_center(center)
     , m_zoom(zoom)
     , m_isAnim(isAnim)
@@ -145,7 +146,7 @@ public:
   {
   }
 
-  EEventType GetType() const override { return UserEvent::SetCenter; }
+  EventType GetType() const override { return UserEvent::EventType::SetCenter; }
 
   m2::PointD const & GetCenter() const { return m_center; }
   int GetZoom() const { return m_zoom; }
@@ -163,7 +164,7 @@ class SetRectEvent : public UserEvent
 {
 public:
   SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim,
-               TAnimationCreator parallelAnimCreator = nullptr)
+               TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_rect(rect)
     , m_applyRotation(rotate)
     , m_zoom(zoom)
@@ -172,7 +173,7 @@ public:
   {
   }
 
-  EEventType GetType() const override { return UserEvent::SetRect; }
+  EventType GetType() const override { return UserEvent::EventType::SetRect; }
 
   m2::RectD const & GetRect() const { return m_rect; }
   bool GetApplyRotation() const { return m_applyRotation; }
@@ -196,7 +197,7 @@ public:
     , m_isAnim(isAnim)
   {}
 
-  EEventType GetType() const override { return UserEvent::SetAnyRect; }
+  EventType GetType() const override { return UserEvent::EventType::SetAnyRect; }
 
   m2::AnyRectD const & GetRect() const { return m_rect; }
   bool IsAnim() const { return m_isAnim; }
@@ -210,7 +211,7 @@ class FollowAndRotateEvent : public UserEvent
 {
 public:
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
-                       double azimuth, double autoScale, TAnimationCreator parallelAnimCreator = nullptr)
+                       double azimuth, double autoScale, TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
@@ -224,7 +225,7 @@ public:
 
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
                        double azimuth, int preferredZoomLevel,
-                       bool isAnim, TAnimationCreator parallelAnimCreator = nullptr)
+                       bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
@@ -235,7 +236,7 @@ public:
     , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
-  EEventType GetType() const override { return UserEvent::FollowAndRotate; }
+  EventType GetType() const override { return UserEvent::EventType::FollowAndRotate; }
 
   m2::PointD const & GetUserPos() const { return m_userPos; }
   m2::PointD const & GetPixelZero() const { return m_pixelZero; }
@@ -264,7 +265,7 @@ public:
     : m_isAutoPerspective(isAutoPerspective)
   {}
 
-  EEventType GetType() const override { return UserEvent::AutoPerspective; }
+  EventType GetType() const override { return UserEvent::EventType::AutoPerspective; }
 
   bool IsAutoPerspective() const { return m_isAutoPerspective; }
 
@@ -275,12 +276,12 @@ private:
 class RotateEvent : public UserEvent
 {
 public:
-  RotateEvent(double targetAzimut, TAnimationCreator parallelAnimCreator = nullptr)
+  RotateEvent(double targetAzimut, TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_targetAzimut(targetAzimut)
     , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
-  EEventType GetType() const override { return UserEvent::Rotate; }
+  EventType GetType() const override { return UserEvent::EventType::Rotate; }
 
   double GetTargetAzimuth() const { return m_targetAzimut; }
   TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
@@ -295,7 +296,7 @@ class ResizeEvent : public UserEvent
 public:
   ResizeEvent(uint32_t w, uint32_t h) : m_width(w), m_height(h) {}
 
-  EEventType GetType() const override { return UserEvent::Resize; }
+  EventType GetType() const override { return UserEvent::EventType::Resize; }
 
   uint32_t GetWidth() const { return m_width; }
   uint32_t GetHeight() const { return m_height; }
@@ -328,8 +329,6 @@ public:
     virtual void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const = 0;
     virtual void OnScaleEnded() = 0;
     virtual void OnAnimatedScaleEnded() = 0;
-
-    virtual void OnAnimationStarted(ref_ptr<Animation> anim) = 0;
 
     virtual void OnTouchMapAction() = 0;
   };
@@ -373,13 +372,16 @@ public:
 #endif
 
 private:
-  bool SetScale(m2::PointD const & pxScaleCenter, double factor, bool isAnim);
-  bool SetCenter(m2::PointD const & center, int zoom, bool isAnim,
-                 TAnimationCreator parallelAnimCreator = nullptr);
+  bool OnSetScale(ref_ptr<ScaleEvent> scaleEvent);
+  bool OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent);
+  bool OnSetRect(ref_ptr<SetRectEvent> rectEvent);
+  bool OnSetCenter(ref_ptr<SetCenterEvent> centerEvent);
+  bool OnRotate(ref_ptr<RotateEvent> rotateEvent);
+
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
                TAnimationCreator parallelAnimCreator = nullptr);
-  bool SetRect(m2::AnyRectD const & rect, bool isAnim,
-               TAnimationCreator parallelAnimCreator = nullptr);
+  bool SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator parallelAnimCreator = nullptr);
+
   bool SetScreen(ScreenBase const & screen, bool isAnim,
                  TAnimationCreator parallelAnimCreator = nullptr);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
