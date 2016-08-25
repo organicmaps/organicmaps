@@ -1,4 +1,4 @@
-#include "generator/booking_dataset.hpp"
+#include "generator/aggregating_sponsored_dataset.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/intermediate_data.hpp"
@@ -277,7 +277,7 @@ class MainFeaturesEmitter : public EmitterBase
   string m_srcCoastsFile;
   bool m_failOnCoasts;
 
-  generator::BookingDataset m_bookingDataset;
+  generator::AggregatingSponsoredDataset m_dataset;
 
   /// Used to prepare a list of cities to serve as a list of nodes
   /// for building a highway graph with OSRM for low zooms.
@@ -300,7 +300,7 @@ public:
   MainFeaturesEmitter(feature::GenerateInfo const & info)
     : m_skippedElementsPath(info.GetIntermediateFileName("skipped_elements", ".lst"))
     , m_failOnCoasts(info.m_failOnCoasts)
-    , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
+    , m_dataset(info)
   {
     Classificator const & c = classif();
 
@@ -349,7 +349,7 @@ public:
           [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },
           [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
     }
-    else if (m_bookingDataset.FindMatchingObjectId(fb) !=
+    else if (m_dataset.FindMatchingObjectId(fb) !=
              generator::SponsoredDatasetBase::kInvalidObjectId)
     {
       m_skippedElements << DebugPrint(fb.GetMostGenericOsmId()) << endl;
@@ -389,7 +389,7 @@ public:
     DumpSkippedElements();
 
     // Emit all booking objecs to the map.
-    m_bookingDataset.BuildOsmObjects([this](FeatureBuilder1 & fb) { Emit(fb); });
+    m_dataset.BuildOsmObjects([this](FeatureBuilder1 & fb) { Emit(fb); });
 
     m_places.ForEach([this](Place const & p)
     {

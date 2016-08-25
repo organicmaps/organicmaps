@@ -1,5 +1,7 @@
 #include "generator/sponsored_dataset.hpp"
 
+#include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -7,10 +9,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/limits.hpp"
-
 #include "std/fstream.hpp"
 #include "std/iostream.hpp"
+#include "std/limits.hpp"
 
 namespace generator
 {
@@ -29,6 +30,38 @@ string EscapeTabs(string const & str)
   return ss.str();
 }
 }  // namespace
+
+SponsoredDataset::AddressMatcher::AddressMatcher()
+{
+  vector<platform::LocalCountryFile> localFiles;
+
+  Platform & platform = GetPlatform();
+  platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
+                                                  -1 /* latestVersion */, localFiles);
+
+  for (platform::LocalCountryFile const & localFile : localFiles)
+  {
+    LOG(LINFO, ("Found mwm:", localFile));
+    try
+    {
+      m_index.RegisterMap(localFile);
+    }
+    catch (RootException const & ex)
+    {
+      CHECK(false, ("Bad mwm file:", localFile));
+    }
+  }
+
+  m_coder = make_unique<search::ReverseGeocoder>(m_index);
+}
+
+void SponsoredDataset::AddressMatcher::operator()(Object & object)
+{
+  search::ReverseGeocoder::Address addr;
+  m_coder->GetNearbyAddress(MercatorBounds::FromLatLon(object.lat, object.lon), addr);
+  object.street = addr.GetStreetName();
+  object.houseNumber = addr.GetHouseNumber();
+}
 
 SponsoredDataset::Object::Object(string const & src)
 {
@@ -151,18 +184,18 @@ void SponsoredDatasetBase::LoadData(istream & src, string const & addressReferen
     string const backupPath = platform.WritableDir();
     platform.SetWritableDirForTests(addressReferencePath);
 
-    //TODO(mgsergio): AddressMatcher addressMatcher;
+    AddressMatcher addressMatcher;
 
     size_t matchedNum = 0;
     size_t emptyAddr = 0;
     for (auto & item : m_hotels)
     {
-      auto & hotel = item.second;
-      // TODO(mgsergio): addressMatcher(hotel);
+      auto & object = item.second;
+      addressMatcher(object);
 
-      if (hotel.address.empty())
+      if (object.address.empty())
         ++emptyAddr;
-      if (hotel.IsAddressPartsFilled())
+      if (object.IsAddressPartsFilled())
         ++matchedNum;
     }
     LOG(LINFO,

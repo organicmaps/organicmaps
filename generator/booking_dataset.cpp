@@ -10,38 +10,6 @@
 
 namespace generator
 {
-// BookingDataset::AddressMatcher::AddressMatcher()
-// {
-//   vector<platform::LocalCountryFile> localFiles;
-
-//   Platform & platform = GetPlatform();
-//   platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
-//                                                   -1 /* latestVersion */, localFiles);
-
-//   for (platform::LocalCountryFile const & localFile : localFiles)
-//   {
-//     LOG(LINFO, ("Found mwm:", localFile));
-//     try
-//     {
-//       m_index.RegisterMap(localFile);
-//     }
-//     catch (RootException const & ex)
-//     {
-//       CHECK(false, ("Bad mwm file:", localFile));
-//     }
-//   }
-
-//   m_coder = make_unique<search::ReverseGeocoder>(m_index);
-// }
-
-// void BookingDataset::AddressMatcher::operator()(Hotel & hotel)
-// {
-//   search::ReverseGeocoder::Address addr;
-//   m_coder->GetNearbyAddress(MercatorBounds::FromLatLon(hotel.lat, hotel.lon), addr);
-//   hotel.street = addr.GetStreetName();
-//   hotel.houseNumber = addr.GetHouseNumber();
-// }
-
 bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const
 {
   if (fb.GetName(StringUtf8Multilang::kDefaultCode).empty())
@@ -59,6 +27,7 @@ void BookingDataset::BuildObject(SponsoredDataset::Object const & hotel,
   fb.SetCenter(MercatorBounds::FromLatLon(hotel.lat, hotel.lon));
 
   auto & metadata = params.GetMetadata();
+  // TODO(mgsergio): Rename FMD_SPONSORED_ID to FMD_BOOKING_ID.
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.id.Get()));
   metadata.Set(feature::Metadata::FMD_WEBSITE, hotel.descUrl);
   metadata.Set(feature::Metadata::FMD_RATING, strings::to_string(hotel.ratingUser));

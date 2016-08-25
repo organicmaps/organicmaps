@@ -6,15 +6,15 @@
 
 #include "base/newtype.hpp"
 
-#include "boost/geometry.hpp"
-#include "boost/geometry/geometries/point.hpp"
-#include "boost/geometry/geometries/box.hpp"
-#include "boost/geometry/index/rtree.hpp"
-
 #include "std/function.hpp"
 #include "std/limits.hpp"
 #include "std/map.hpp"
 #include "std/string.hpp"
+
+#include "boost/geometry.hpp"
+#include "boost/geometry/geometries/point.hpp"
+#include "boost/geometry/geometries/box.hpp"
+#include "boost/geometry/index/rtree.hpp"
 
 class FeatureBuilder1;
 
@@ -71,20 +71,20 @@ public:
     inline bool IsAddressPartsFilled() const { return !street.empty() || !houseNumber.empty(); }
   };
 
-  // class AddressMatcher
-  // {
-  //   Index m_index;
-  //   unique_ptr<search::ReverseGeocoder> m_coder;
+  class AddressMatcher
+  {
+    Index m_index;
+    unique_ptr<search::ReverseGeocoder> m_coder;
 
-  // public:
-  //   AddressMatcher();
-  //   void operator()(Hotel & hotel);
-  // };
+  public:
+    AddressMatcher();
+    void operator()(Object & object);
+  };
 
   virtual ~SponsoredDataset() = default;
 
-  // TODO(mgsergio): Comment /// @return an id of a matched hotel or kInvalidHotelIndex on failure.
-  virtual ObjectId FindMatchingObjectId(FeatureBuilder1 const & e) const = 0;
+  /// @return an id of a matched object or kInvalidObjectId on failure.
+  virtual ObjectId FindMatchingObjectId(FeatureBuilder1 const & fb) const = 0;
 
   virtual size_t Size() const = 0;
 
@@ -111,7 +111,6 @@ public:
   /// @return true if |fb| satisfies some necesary conditions to match one or serveral
   /// objects from dataset.
   virtual bool NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const = 0;
-  /// @return an id of a matched object or kInvalidObjectId on failure.
   ObjectId FindMatchingObjectId(FeatureBuilder1 const & e) const override;
 
   void BuildOsmObjects(function<void(FeatureBuilder1 &)> const & fn) const override;
@@ -131,6 +130,6 @@ protected:
   void LoadData(istream & src, string const & addressReferencePath);
 
   /// @return an id of a matched object or kInvalidObjectId on failure.
-  virtual ObjectId FindMatchingObjectIdImpl(FeatureBuilder1 const & e) const = 0;
+  virtual ObjectId FindMatchingObjectIdImpl(FeatureBuilder1 const & fb) const = 0;
 };
 }  // namespace generator
