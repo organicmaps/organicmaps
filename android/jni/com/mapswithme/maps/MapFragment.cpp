@@ -75,10 +75,10 @@ Java_com_mapswithme_maps_MapFragment_nativeIsEngineCreated(JNIEnv * env, jclass 
   return g_framework->IsDrapeEngineCreated();
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeAttachSurface(JNIEnv * env, jclass clazz, jobject surface)
 {
-  g_framework->AttachSurface(env, surface);
+  return g_framework->AttachSurface(env, surface);
 }
 
 JNIEXPORT void JNICALL

@@ -319,6 +319,7 @@ void BackendRenderer::ReleaseResources()
   m_readManager.reset();
   m_batchersPool.reset();
   m_routeBuilder.reset();
+  m_overlays.clear();
 
   m_texMng->Release();
   m_contextFactory->getResourcesUploadContext()->doneCurrent();
@@ -326,7 +327,7 @@ void BackendRenderer::ReleaseResources()
 
 void BackendRenderer::OnContextCreate()
 {
-  LOG(LWARNING, ("On context create."));
+  LOG(LINFO, ("On context create."));
   m_contextFactory->waitForInitialization();
   m_contextFactory->getResourcesUploadContext()->makeCurrent();
 
@@ -337,10 +338,11 @@ void BackendRenderer::OnContextCreate()
 
 void BackendRenderer::OnContextDestroy()
 {
-  LOG(LWARNING, ("On context destroy."));
+  LOG(LINFO, ("On context destroy."));
   m_readManager->InvalidateAll();
   m_batchersPool.reset();
   m_texMng->Release();
+  m_overlays.clear();
 
   m_contextFactory->getResourcesUploadContext()->doneCurrent();
 }
@@ -349,7 +351,7 @@ BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(rende
 
 void BackendRenderer::Routine::Do()
 {
-  LOG(LWARNING, ("Start routine."));
+  LOG(LINFO, ("Start routine."));
   m_renderer.OnContextCreate();
 
   while (!IsCancelled())
@@ -378,8 +380,6 @@ void BackendRenderer::InitGLDependentResource()
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
   m_texMng->Init(params);
-
-  //RecacheMapShapes();
 }
 
 void BackendRenderer::RecacheMapShapes()

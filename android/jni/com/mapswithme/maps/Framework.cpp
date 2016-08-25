@@ -125,7 +125,10 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new AndroidOGLContextFactory(env, jSurface));
   AndroidOGLContextFactory const * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
   if (!factory->IsValid())
+  {
+    LOG(LWARNING, ("Invalid GL context."));
     return false;
+  }
 
   ::Framework::DrapeCreationParams p;
   p.m_surfaceWidth = factory->GetWidth();
@@ -160,10 +163,10 @@ void Framework::Resize(int w, int h)
 
 void Framework::DetachSurface(bool destroyContext)
 {
-  LOG(LWARNING, ("Detach surface"));
+  LOG(LINFO, ("Detach surface."));
   if (destroyContext)
   {
-    LOG(LWARNING, ("Destroy context"));
+    LOG(LINFO, ("Destroy context."));
     m_isContextDestroyed = true;
     m_work.EnterBackground();
   }
@@ -174,13 +177,19 @@ void Framework::DetachSurface(bool destroyContext)
   factory->ResetSurface();
 }
 
-void Framework::AttachSurface(JNIEnv * env, jobject jSurface)
+bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
 {
-  LOG(LWARNING, ("Attach surface"));
+  LOG(LINFO, ("Attach surface."));
 
   ASSERT(m_contextFactory != nullptr, ());
   AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
   factory->SetSurface(env, jSurface);
+
+  if (!factory->IsValid())
+  {
+    LOG(LWARNING, ("Invalid GL context."));
+    return false;
+  }
 
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
 
@@ -188,12 +197,14 @@ void Framework::AttachSurface(JNIEnv * env, jobject jSurface)
 
   if (m_isContextDestroyed)
   {
-    LOG(LWARNING, ("Recover resources, size:", factory->GetWidth(), factory->GetHeight()));
+    LOG(LINFO, ("Recover GL resources, viewport size:", factory->GetWidth(), factory->GetHeight()));
     m_work.UpdateDrapeEngine(factory->GetWidth(), factory->GetHeight());
     m_isContextDestroyed = false;
 
     m_work.EnterForeground();
   }
+
+  return true;
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)
@@ -203,7 +214,6 @@ void Framework::SetMapStyle(MapStyle mapStyle)
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
-  LOG(LWARNING, ("MarkMapStyle"));
   m_work.MarkMapStyle(mapStyle);
 }
 

@@ -1470,7 +1470,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 
 void FrontendRenderer::OnContextDestroy()
 {
-  LOG(LWARNING, ("On context destroy."));
+  LOG(LINFO, ("On context destroy."));
 
   // Clear all graphics.
   for (RenderLayer & layer : m_layers)
@@ -1501,7 +1501,7 @@ void FrontendRenderer::OnContextDestroy()
 
 void FrontendRenderer::OnContextCreate()
 {
-  LOG(LWARNING, ("On context create."));
+  LOG(LINFO, ("On context create."));
 
   m_contextFactory->waitForInitialization();
 
@@ -1546,7 +1546,7 @@ FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(ren
 
 void FrontendRenderer::Routine::Do()
 {
-  LOG(LWARNING, ("Start routine"));
+  LOG(LINFO, ("Start routine."));
 
   gui::DrapeGui::Instance().ConnectOnCompassTappedHandler(bind(&FrontendRenderer::OnCompassTapped, &m_renderer));
   m_renderer.m_myPositionController->SetListener(ref_ptr<MyPositionController::Listener>(&m_renderer));

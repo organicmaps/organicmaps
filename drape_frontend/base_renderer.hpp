@@ -71,7 +71,6 @@ private:
   atomic<bool> m_isEnabled;
   TCompletionHandler m_renderingEnablingCompletionHandler;
   bool m_wasNotified;
-
   atomic<bool> m_wasContextReset;
 
   bool FilterGLContextDependentMessage(ref_ptr<Message> msg);

@@ -95,8 +95,6 @@ DrapeEngine::~DrapeEngine()
 
 void DrapeEngine::Update(int w, int h)
 {
-  LOG(LWARNING, (w, h));
-
   RecacheGui(false);
   RecacheMapShapes();
 

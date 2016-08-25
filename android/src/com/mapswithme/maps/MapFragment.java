@@ -140,7 +140,11 @@ public class MapFragment extends BaseMwmFragment
     final Surface surface = surfaceHolder.getSurface();
     if (nativeIsEngineCreated())
     {
-      nativeAttachSurface(surface);
+      if (!nativeAttachSurface(surface))
+      {
+        reportUnsupported();
+        return;
+      }
       mContextCreated = true;
       mRequireResize = true;
       return;
@@ -282,7 +286,7 @@ public class MapFragment extends BaseMwmFragment
   static native boolean nativeShowMapForUrl(String url);
   static native boolean nativeIsEngineCreated();
   private static native boolean nativeCreateEngine(Surface surface, int density, boolean firstLaunch);
-  private static native void nativeAttachSurface(Surface surface);
+  private static native boolean nativeAttachSurface(Surface surface);
   private static native void nativeDetachSurface(boolean destroyContext);
   private static native void nativeSurfaceChanged(int w, int h);
   private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);

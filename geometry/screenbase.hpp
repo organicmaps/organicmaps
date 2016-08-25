@@ -156,7 +156,7 @@ public:
   m2::PointD PtoP3d(m2::PointD const & pt) const;
   m2::PointD PtoP3d(m2::PointD const & pt, double ptZ) const;
 
-  m2::RectD PixelRectIn3d() const
+  m2::RectD const & PixelRectIn3d() const
   {
     return m_ViewportRect;
   }

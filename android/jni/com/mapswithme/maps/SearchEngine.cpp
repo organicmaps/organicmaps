@@ -238,16 +238,21 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
   {
-    lock_guard<mutex> guard(g_resultsMutex);
-    Result const & result = g_results.GetResult(index);
+    unique_lock<mutex> guard(g_resultsMutex);
+    Result const result = g_results.GetResult(index);
+    guard.unlock();
     g_framework->NativeFramework()->ShowSearchResult(result);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowAllResults(JNIEnv * env, jclass clazz)
   {
-    lock_guard<mutex> guard(g_resultsMutex);
-    g_framework->NativeFramework()->ShowSearchResults(g_results);
+    Results results;
+    {
+      lock_guard<mutex> guard(g_resultsMutex);
+      results = g_results;
+    }
+    g_framework->NativeFramework()->ShowSearchResults(results);
   }
 
   JNIEXPORT void JNICALL

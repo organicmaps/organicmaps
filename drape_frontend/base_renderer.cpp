@@ -42,7 +42,7 @@ void BaseRenderer::StopThread()
 
 void BaseRenderer::SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory)
 {
-  if (m_wasContextReset)
+  if (m_wasContextReset && contextFactory != nullptr)
     m_contextFactory = contextFactory;
   SetRenderingEnabled(true);
 }

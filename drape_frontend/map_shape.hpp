@@ -74,6 +74,7 @@ public:
   {}
 
   Type GetType() const override { return Message::MapShapeReaded; }
+  bool IsGLContextDependent() const override { return true; }
   TMapShapes const & GetShapes() { return m_shapes; }
 
 private:

@@ -25,6 +25,8 @@ bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
 
 void MessageAcceptor::EnableMessageFiltering(TFilterMessageFn needFilterMessageFn)
 {
+  ASSERT(needFilterMessageFn != nullptr, ());
+
   m_needFilterMessageFn = needFilterMessageFn;
   m_messageQueue.FilterMessages(needFilterMessageFn);
 }

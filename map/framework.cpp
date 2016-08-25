@@ -284,7 +284,7 @@ void Framework::Migrate(bool keepDownloaded)
   // If we do not suspend drape, it tries to access framework fields (i.e. m_infoGetter) which are null
   // while migration is performed.
   if (m_drapeEngine && m_isRenderingEnabled)
-    m_drapeEngine->SetRenderingDisabled(false);
+    m_drapeEngine->SetRenderingDisabled(true);
   m_selectedFeature = FeatureID();
   m_searchEngine.reset();
   m_infoGetter.reset();
@@ -297,7 +297,11 @@ void Framework::Migrate(bool keepDownloaded)
   InitSearchEngine();
   RegisterAllMaps();
   if (m_drapeEngine && m_isRenderingEnabled)
+  {
     m_drapeEngine->SetRenderingEnabled();
+    UpdateDrapeEngine(m_currentModelView.PixelRectIn3d().SizeX(),
+                      m_currentModelView.PixelRectIn3d().SizeY());
+  }
   InvalidateRect(MercatorBounds::FullRect());
 }
 

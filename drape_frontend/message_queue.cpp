@@ -82,14 +82,15 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
 
 void MessageQueue::FilterMessages(TFilterMessageFn needFilterMessageFn)
 {
+  ASSERT(needFilterMessageFn != nullptr, ());
+
   lock_guard<mutex> lock(m_mutex);
-  auto iter = m_messages.begin();
-  while (iter != m_messages.end())
+  for (auto it = m_messages.begin(); it != m_messages.end(); )
   {
-    if (needFilterMessageFn(make_ref(iter->first)))
-      iter = m_messages.erase(iter);
+    if (needFilterMessageFn(make_ref(it->first)))
+      it = m_messages.erase(it);
     else
-      ++iter;
+      ++it;
   }
 }
 

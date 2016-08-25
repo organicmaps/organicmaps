@@ -78,7 +78,7 @@ namespace android
     bool IsDrapeEngineCreated();
 
     void DetachSurface(bool destroyContext);
-    void AttachSurface(JNIEnv * env, jobject jSurface);
+    bool AttachSurface(JNIEnv * env, jobject jSurface);
 
     void SetMapStyle(MapStyle mapStyle);
     void MarkMapStyle(MapStyle mapStyle);
