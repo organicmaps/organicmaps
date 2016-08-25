@@ -32,22 +32,32 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   CategoriesAdapter(Fragment fragment)
   {
-    TypedArray categories = fragment.getActivity().getResources().obtainTypedArray(R.array.search_category_name_ids);
-    TypedArray icons = fragment.getActivity().getResources().obtainTypedArray(ThemeUtils.isNightTheme() ? R.array.search_category_icon_night_ids
-                                                                                                        : R.array.search_category_icon_ids);
-    int len = categories.length();
-    if (icons.length() != len)
-      throw new IllegalStateException("Categories and icons arrays must have the same length.");
+    final String packageName = fragment.getActivity().getPackageName();
+    final boolean isNightTheme = ThemeUtils.isNightTheme();
+    final Resources resources = fragment.getActivity().getResources();
+
+    final String[] categories = DisplayedCategories.get();
+
+    final int len = categories.length;
 
     mCategoryResIds = new int[len];
     mIconResIds = new int[len];
     for (int i = 0; i < len; i++)
     {
-      mCategoryResIds[i] = categories.getResourceId(i, 0);
-      mIconResIds[i] = icons.getResourceId(i, 0);
+      mCategoryResIds[i] = resources.getIdentifier(categories[i], "string", packageName);
+      if (mCategoryResIds[i] == 0)
+      {
+        throw new IllegalStateException(
+            "Can't get string resource id for category:" + categories[i]);
+      }
+
+      String iconId = "ic_category_" + categories[i];
+      if (isNightTheme)
+        iconId = iconId + "_night";
+      mIconResIds[i] = resources.getIdentifier(iconId, "drawable", packageName);
+      if (mIconResIds[i] == 0)
+        throw new IllegalStateException("Can't get icon resource id:" + iconId);
     }
-    categories.recycle();
-    icons.recycle();
 
     if (fragment instanceof OnCategorySelectedListener)
       mListener = (OnCategorySelectedListener) fragment;

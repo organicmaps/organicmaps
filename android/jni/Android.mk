@@ -72,6 +72,7 @@ LOCAL_HEADER_FILES := \
 LOCAL_SRC_FILES := \
 	com/mapswithme/core/jni_helper.cpp \
 	com/mapswithme/core/logging.cpp \
+	com/mapswithme/maps/DisplayedCategories.cpp \
 	com/mapswithme/maps/Framework.cpp \
 	com/mapswithme/maps/bookmarks/data/Bookmark.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp \
