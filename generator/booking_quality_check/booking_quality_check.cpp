@@ -101,7 +101,7 @@ public:
 
   void operator()(FeatureBuilder1 & fb) override
   {
-    if (m_bookingDataset.CanBeBooking(fb))
+    if (m_bookingDataset.NecessaryMatchingConditionHolds(fb))
       m_features.emplace(fb.GetMostGenericOsmId(), fb);
   }
 
@@ -139,11 +139,11 @@ feature::GenerateInfo GetGenerateInfo()
 struct SampleItem
 {
   enum MatchStatus {Uninitialized, Yes, No};
-  using BookingId = BookingDataset::BookingID;
+  using ObjectId = SponsoredDataset::ObjectId;
 
   SampleItem() = default;
 
-  SampleItem(osm::Id const & osmId, BookingId const bookingId, MatchStatus const match = Uninitialized)
+  SampleItem(osm::Id const & osmId, ObjectId const bookingId, MatchStatus const match = Uninitialized)
    : m_osmId(osmId)
    , m_bookingId(bookingId)
    , m_match(match)
@@ -151,7 +151,7 @@ struct SampleItem
   }
 
   osm::Id m_osmId;
-  BookingId m_bookingId = BookingDataset::kInvalidHotelIndex;
+  ObjectId m_bookingId = SponsoredDataset::kInvalidObjectId;
 
   MatchStatus m_match = Uninitialized;
 };
@@ -179,7 +179,7 @@ SampleItem ReadSampleItem(string const & str)
                                 "due to wrong number of fields."));
 
   item.m_osmId = ReadDebuggedPrintedOsmId(parts[0]);
-  if (!strings::to_uint(parts[1], item.m_bookingId))
+  if (!strings::to_uint(parts[1], item.m_bookingId.Get()))
     MYTHROW(ParseError, ("Can't make uint32 from string:", parts[1]));
   item.m_match = ReadMatchStatus(parts[2]);
 
@@ -219,7 +219,7 @@ void GenerateFactors(BookingDataset const & booking, map<osm::Id, FeatureBuilder
 {
   for (auto const & item : sampleItems)
   {
-    auto const & hotel = booking.GetHotelById(item.m_bookingId);
+    auto const & hotel = booking.GetObjectById(item.m_bookingId);
     auto const & feature = features.at(item.m_osmId);
 
     auto const score = booking_scoring::Match(hotel, feature);

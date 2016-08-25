@@ -17,6 +17,6 @@ struct BookingMatchScore
   double m_nameSimilarityScore{};
 };
 
-BookingMatchScore Match(BookingDataset::Hotel const & h, FeatureBuilder1 const & fb);
+BookingMatchScore Match(BookingDataset::Object const & h, FeatureBuilder1 const & fb);
 }  // namespace booking_scoring
 }  // namespace generator

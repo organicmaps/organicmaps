@@ -126,7 +126,7 @@ bool BookingMatchScore::IsMatched() const
   return GetMatchingScore() > kOptimalThreshold;
 }
 
-BookingMatchScore Match(BookingDataset::Hotel const & h, FeatureBuilder1 const & fb)
+BookingMatchScore Match(BookingDataset::Object const & h, FeatureBuilder1 const & fb)
 {
   BookingMatchScore score;
 

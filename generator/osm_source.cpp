@@ -349,8 +349,8 @@ public:
           [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },
           [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
     }
-    else if (m_bookingDataset.GetMatchingHotelId(fb) !=
-             generator::BookingDataset::kInvalidHotelIndex)
+    else if (m_bookingDataset.FindMatchingObjectId(fb) !=
+             generator::SponsoredDatasetBase::kInvalidObjectId)
     {
       m_skippedElements << DebugPrint(fb.GetMostGenericOsmId()) << endl;
 
@@ -389,7 +389,7 @@ public:
     DumpSkippedElements();
 
     // Emit all booking objecs to the map.
-    m_bookingDataset.BuildHotels([this](FeatureBuilder1 & fb) { Emit(fb); });
+    m_bookingDataset.BuildOsmObjects([this](FeatureBuilder1 & fb) { Emit(fb); });
 
     m_places.ForEach([this](Place const & p)
     {
