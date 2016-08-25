@@ -30,7 +30,7 @@ public:
   bool GetProperty(TObject object, TProperty property, PropertyValue &value) const override;
   bool GetTargetProperty(TObject object, TProperty property, PropertyValue &value) const override;
 
-  void AddAnimation(drape_ptr<Animation> animation);
+  void AddAnimation(drape_ptr<Animation> && animation);
 
   void OnStart() override;
   void OnFinish() override;

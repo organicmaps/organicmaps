@@ -12,6 +12,8 @@ namespace df
 
 string const kPrettyMoveAnim = "PrettyMove";
 string const kPrettyFollowAnim = "PrettyFollow";
+string const kParallelFollowAnim = "ParallelFollow";
+string const kParallelLinearAnim = "ParallelLinear";
 
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen)
 {

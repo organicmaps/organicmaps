@@ -136,16 +136,17 @@ public:
   void AfterDrawFrame();
 #endif
 
-  void AddUserEvent(UserEvent const & event);
+  void AddUserEvent(drape_ptr<UserEvent> && event);
 
   /// MyPositionController::Listener
   void PositionChanged(m2::PointD const & position) override;
-  void ChangeModelView(m2::PointD const & center, int zoomLevel) override;
-  void ChangeModelView(double azimuth) override;
-  void ChangeModelView(m2::RectD const & rect) override;
-  void ChangeModelView(m2::PointD const & userPos, double azimuth,
-                       m2::PointD const & pxZero, int preferredZoomLevel) override;
-  void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) override;
+  void ChangeModelView(m2::PointD const & center, int zoomLevel, TAnimationCreator const & parallelAnimCreator) override;
+  void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) override;
+  void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) override;
+  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                       int preferredZoomLevel, TAnimationCreator const & parallelAnimCreator) override;
+  void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                       TAnimationCreator const & parallelAnimCreator) override;
 
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
@@ -197,7 +198,6 @@ private:
   void CorrectGlobalScalePoint(m2::PointD & pt) const override;
   void OnScaleEnded() override;
   void OnAnimatedScaleEnded() override;
-  void OnAnimationStarted(ref_ptr<Animation> anim) override;
   void OnTouchMapAction() override;
 
   class Routine : public threads::IRoutine

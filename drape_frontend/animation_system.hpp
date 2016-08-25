@@ -30,8 +30,8 @@ public:
   bool AnimationExists(Animation::TObject object) const;
   bool HasAnimations() const;
 
-  void CombineAnimation(drape_ptr<Animation> animation);
-  void PushAnimation(drape_ptr<Animation> animation);
+  void CombineAnimation(drape_ptr<Animation> && animation);
+  void PushAnimation(drape_ptr<Animation> && animation);
 
   void FinishAnimations(Animation::Type type, bool rewind, bool finishAll);
   void FinishAnimations(Animation::Type type, string const & customType, bool rewind, bool finishAll);

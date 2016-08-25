@@ -159,7 +159,7 @@ AnimationSystem & AnimationSystem::Instance()
   return animSystem;
 }
 
-void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
+void AnimationSystem::CombineAnimation(drape_ptr<Animation> && animation)
 {
 #ifdef DEBUG_ANIMATIONS
   LOG(LINFO, ("Combine animation", animation->GetType()));
@@ -233,7 +233,7 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> animation)
   PushAnimation(move(animation));
 }
 
-void AnimationSystem::PushAnimation(drape_ptr<Animation> animation)
+void AnimationSystem::PushAnimation(drape_ptr<Animation> && animation)
 {
 #ifdef DEBUG_ANIMATIONS
   LOG(LINFO, ("Push animation", animation->GetType()));
@@ -293,7 +293,7 @@ void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const
         {
 #ifdef DEBUG_ANIMATIONS
           LOG(LINFO, ("Finish animation", (*it)->GetType(), ", rewind:", rewind,
-                      ", couldBeRewinded:", anim->CouldBeRewinded()));
+                      ", couldBeRewinded:", (*it)->CouldBeRewinded()));
           changed = true;
 #endif
           it = lst.erase(it);

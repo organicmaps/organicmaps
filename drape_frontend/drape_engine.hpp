@@ -157,7 +157,7 @@ public:
                           TRequestSymbolsSizeCallback const & callback);
 
 private:
-  void AddUserEvent(UserEvent const & e);
+  void AddUserEvent(drape_ptr<UserEvent> && e);
   void ModelViewChanged(ScreenBase const & screen);
 
   void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);

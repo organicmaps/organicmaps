@@ -15,7 +15,9 @@
 
 namespace df
 {
+
 class Animation;
+using TAnimationCreator = function<drape_ptr<Animation>(double)>;
 
 class MyPositionController
 {
@@ -26,16 +28,16 @@ public:
     virtual ~Listener() {}
     virtual void PositionChanged(m2::PointD const & position) = 0;
     /// Show map with center in "center" point and current zoom
-    virtual void ChangeModelView(m2::PointD const & center, int zoomLevel) = 0;
+    virtual void ChangeModelView(m2::PointD const & center, int zoomLevel, TAnimationCreator const & parallelAnimCreator) = 0;
     /// Change azimuth of current ModelView
-    virtual void ChangeModelView(double azimuth) = 0;
+    virtual void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) = 0;
     /// Somehow show map that "rect" will see
-    virtual void ChangeModelView(m2::RectD const & rect) = 0;
+    virtual void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) = 0;
     /// Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos"
     virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                                 int zoomLevel) = 0;
-    virtual void ChangeModelView(double autoScale,
-                                 m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) = 0;
+                                 int zoomLevel, TAnimationCreator const & parallelAnimCreator) = 0;
+    virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                                 TAnimationCreator const & parallelAnimCreator) = 0;
   };
 
   MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
@@ -56,8 +58,6 @@ public:
 
   void ScaleStarted();
   void ScaleEnded();
-
-  void AnimationStarted(ref_ptr<Animation> anim);
 
   void Rotated();
 
@@ -98,7 +98,7 @@ public:
   bool IsWaitingForTimers() const;
 
   bool IsWaitingForLocation() const;
-  m2::PointD GetDrawablePosition() const;
+  m2::PointD GetDrawablePosition();
 
 private:
   bool IsModeChangeViewport() const;
@@ -121,7 +121,7 @@ private:
   m2::PointD GetRotationPixelCenter() const;
   m2::PointD GetRoutingRotationPixelCenter() const;
 
-  double GetDrawableAzimut() const;
+  double GetDrawableAzimut();
   void CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen);
 
   bool AlmostCurrentPosition(m2::PointD const & pos) const;
@@ -167,7 +167,6 @@ private:
   bool m_isDirtyAutoZoom;
   bool m_isPendingAnimation;
 
-  using TAnimationCreator = function<void(double)>;
   TAnimationCreator m_animCreator;
 
   bool m_isPositionAssigned;

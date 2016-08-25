@@ -107,27 +107,27 @@ void DrapeEngine::Invalidate()
 
 void DrapeEngine::AddTouchEvent(TouchEvent const & event)
 {
-  AddUserEvent(event);
+  AddUserEvent(make_unique_dp<TouchEvent>(event));
 }
 
 void DrapeEngine::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
 {
-  AddUserEvent(ScaleEvent(factor, pxPoint, isAnim));
+  AddUserEvent(make_unique_dp<ScaleEvent>(factor, pxPoint, isAnim));
 }
 
 void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim)
 {
-  AddUserEvent(SetCenterEvent(centerPt, zoom, isAnim));
+  AddUserEvent(make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim));
 }
 
 void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim)
 {
-  AddUserEvent(SetRectEvent(rect, applyRotation, zoom, isAnim));
+  AddUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim));
 }
 
 void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
 {
-  AddUserEvent(SetAnyRectEvent(rect, isAnim));
+  AddUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim));
 }
 
 void DrapeEngine::ClearUserMarksLayer(df::TileKey const & tileKey)
@@ -194,9 +194,9 @@ void DrapeEngine::RecacheGui(bool needResetOldGui)
                                   MessagePriority::High);
 }
 
-void DrapeEngine::AddUserEvent(UserEvent const & e)
+void DrapeEngine::AddUserEvent(drape_ptr<UserEvent> && e)
 {
-  m_frontend->AddUserEvent(e);
+  m_frontend->AddUserEvent(move(e));
 }
 
 void DrapeEngine::ModelViewChanged(ScreenBase const & screen)
@@ -228,7 +228,7 @@ void DrapeEngine::ResizeImpl(int w, int h)
 {
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
   m_viewport.SetViewport(0, 0, w, h);
-  AddUserEvent(ResizeEvent(w, h));
+  AddUserEvent(make_unique_dp<ResizeEvent>(w, h));
 }
 
 void DrapeEngine::SetCompassInfo(location::CompassInfo const & info)

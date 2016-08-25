@@ -36,18 +36,17 @@ public:
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override {}
   void CorrectGlobalScalePoint(m2::PointD & pt) const override {}
   void OnScaleEnded() override {}
-  void OnAnimationStarted(ref_ptr<df::Animation> /* anim */) override {}
   void OnTouchMapAction() override {}
   void OnAnimatedScaleEnded() override {}
 
   void AddUserEvent(df::TouchEvent const & event)
   {
-    m_stream.AddEvent(event);
+    m_stream.AddEvent(make_unique_dp<df::TouchEvent>(event));
   }
 
   void SetRect(m2::RectD const & r)
   {
-    m_stream.AddEvent(df::SetRectEvent(r, false, -1, false /* isAnim */));
+    m_stream.AddEvent(make_unique_dp<df::SetRectEvent>(r, false, -1, false /* isAnim */));
   }
 
   void AddExpectation(char const * action)
@@ -82,14 +81,20 @@ int touchTimeStamp = 1;
 df::TouchEvent MakeTouchEvent(m2::PointD const & pt1, m2::PointD const & pt2, df::TouchEvent::ETouchType type)
 {
   df::TouchEvent e;
-  e.m_touches[0].m_location = pt1;
-  e.m_touches[0].m_id = 1;
-  e.m_touches[1].m_location = pt2;
-  e.m_touches[1].m_id = 2;
-  e.m_type = type;
+  df::Touch t1;
+  t1.m_location = pt1;
+  t1.m_id = 1;
+  e.SetFirstTouch(t1);
+
+  df::Touch t2;
+  t2.m_location = pt2;
+  t2.m_id = 2;
+  e.SetSecondTouch(t2);
+
+  e.SetTouchType(type);
   e.SetFirstMaskedPointer(0);
   e.SetSecondMaskedPointer(1);
-  e.m_timeStamp = touchTimeStamp++;
+  e.SetTimeStamp(touchTimeStamp++);
 
   return e;
 }
@@ -97,11 +102,15 @@ df::TouchEvent MakeTouchEvent(m2::PointD const & pt1, m2::PointD const & pt2, df
 df::TouchEvent MakeTouchEvent(m2::PointD const & pt, df::TouchEvent::ETouchType type)
 {
   df::TouchEvent e;
-  e.m_touches[0].m_location = pt;
-  e.m_touches[0].m_id = 1;
-  e.m_type = type;
+
+  df::Touch t1;
+  t1.m_location = pt;
+  t1.m_id = 1;
+  e.SetFirstTouch(t1);
+
+  e.SetTouchType(type);
   e.SetFirstMaskedPointer(0);
-  e.m_timeStamp = touchTimeStamp++;
+  e.SetTimeStamp(touchTimeStamp++);
 
   return e;
 }

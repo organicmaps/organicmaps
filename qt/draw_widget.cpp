@@ -425,10 +425,12 @@ void DrawWidget::keyPressEvent(QKeyEvent * e)
       e->key() == Qt::Key_Control)
   {
     df::TouchEvent event;
-    event.m_type = df::TouchEvent::TOUCH_DOWN;
-    event.m_touches[0].m_id = 0;
-    event.m_touches[0].m_location = m2::PointD(L2D(QCursor::pos().x()), L2D(QCursor::pos().y()));
-    event.m_touches[1] = GetSymmetrical(event.m_touches[0]);
+    event.SetTouchType(df::TouchEvent::TOUCH_DOWN);
+    df::Touch touch;
+    touch.m_id = 0;
+    touch.m_location = m2::PointD(L2D(QCursor::pos().x()), L2D(QCursor::pos().y()));
+    event.SetFirstTouch(touch);
+    event.SetSecondTouch(GetSymmetrical(touch));
 
     m_framework->TouchEvent(event);
   }
@@ -442,10 +444,12 @@ void DrawWidget::keyReleaseEvent(QKeyEvent * e)
       e->key() == Qt::Key_Control)
   {
     df::TouchEvent event;
-    event.m_type = df::TouchEvent::TOUCH_UP;
-    event.m_touches[0].m_id = 0;
-    event.m_touches[0].m_location = m2::PointD(L2D(QCursor::pos().x()), L2D(QCursor::pos().y()));
-    event.m_touches[1] = GetSymmetrical(event.m_touches[0]);
+    event.SetTouchType(df::TouchEvent::TOUCH_UP);
+    df::Touch touch;
+    touch.m_id = 0;
+    touch.m_location = m2::PointD(L2D(QCursor::pos().x()), L2D(QCursor::pos().y()));
+    event.SetFirstTouch(touch);
+    event.SetSecondTouch(GetSymmetrical(touch));
 
     m_framework->TouchEvent(event);
   }
@@ -645,10 +649,10 @@ df::Touch DrawWidget::GetSymmetrical(df::Touch const & touch)
 df::TouchEvent DrawWidget::GetTouchEvent(QMouseEvent * e, df::TouchEvent::ETouchType type)
 {
   df::TouchEvent event;
-  event.m_type = type;
-  event.m_touches[0] = GetTouch(e);
+  event.SetTouchType(type);
+  event.SetFirstTouch(GetTouch(e));
   if (IsRotation(e))
-    event.m_touches[1] = GetSymmetrical(event.m_touches[0]);
+    event.SetSecondTouch(GetSymmetrical(event.GetFirstTouch()));
 
   return event;
 }
