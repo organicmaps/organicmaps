@@ -16,9 +16,7 @@ void main(void)
   if (a_animate > 0.0)
     normal = u_interpolationT * normal;
 
-  // Here we intentionally decrease precision of 'pivot' calculation
-  // to eliminate jittering effect in process of billboard reconstruction.
-  lowp vec4 pivot = vec4(a_position.xyz, 1.0) * modelView;
+  vec4 pivot = vec4(a_position.xyz, 1.0) * modelView;
   vec4 offset = vec4(normal, 0.0, 0.0) * projection;
 
   vec4 projectedPivot = pivot * projection;

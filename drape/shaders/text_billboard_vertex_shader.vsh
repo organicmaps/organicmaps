@@ -20,9 +20,7 @@ varying vec2 v_maskTexCoord;
 
 void main()
 {
-  // Here we intentionally decrease precision of 'pivot' calculation
-  // to eliminate jittering effect in process of billboard reconstruction.
-  lowp vec4 pivot = vec4(a_position.xyz, 1.0) * modelView;
+  vec4 pivot = vec4(a_position.xyz, 1.0) * modelView;
   vec4 offset = vec4(a_normal, 0.0, 0.0) * projection;
   
   float pivotZ = a_position.w;
