@@ -153,7 +153,7 @@ public:
   };
 
 private:
-  using TCountryTreeHashTable = unordered_multimap<TKey, Node *>;
+  using TCountryTreeHashTable = multimap<TKey, Node *>;
 
 public:
   bool IsEmpty() const { return m_countryTree == nullptr; }
