@@ -5,10 +5,7 @@
 #include "search/result.hpp"
 #include "search/viewport_search_params.hpp"
 
-#include "base/thread.hpp"
-
-#include "std/atomic.hpp"
-#include "std/mutex.hpp"
+#include "std/cstdint.hpp"
 
 #include "../core/jni_helper.hpp"
 #include "../platform/Language.hpp"
@@ -24,9 +21,9 @@ namespace
 // Currently we cannot serialize FeatureID of search result properly.
 // Cache is needed to show results on the map after click in the list of results.
 Results g_results;
-mutex g_resultsMutex;
+
 // Timestamp of last search query. Results with older stamps are ignored.
-atomic<long long> g_queryTimestamp;
+uint64_t g_queryTimestamp;
 // Implements 'NativeSearchListener' java interface.
 jobject g_javaListener;
 jmethodID g_updateResultsId;
@@ -102,7 +99,7 @@ jobject ToJavaResult(Result & result, bool hasPosition, double lat, double lon)
 jobjectArray BuildJavaResults(Results const & results, bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
-  lock_guard<mutex> guard(g_resultsMutex);
+
   g_results = results;
 
   int const count = g_results.GetCount();
@@ -139,7 +136,6 @@ void OnResults(Results const & results, long long timestamp, bool isMapAndTable,
 jobjectArray BuildJavaMapResults(vector<storage::DownloaderSearchResult> const & results)
 {
   JNIEnv * env = jni::GetEnv();
-  lock_guard<mutex> guard(g_resultsMutex);
 
   int const count = results.size();
   jobjectArray const res = env->NewObjectArray(count, g_mapResultClass, nullptr);
@@ -238,21 +234,13 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
   {
-    unique_lock<mutex> guard(g_resultsMutex);
-    Result const result = g_results.GetResult(index);
-    guard.unlock();
-    g_framework->NativeFramework()->ShowSearchResult(result);
+    g_framework->NativeFramework()->ShowSearchResult(g_results.GetResult(index));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowAllResults(JNIEnv * env, jclass clazz)
   {
-    Results results;
-    {
-      lock_guard<mutex> guard(g_resultsMutex);
-      results = g_results;
-    }
-    g_framework->NativeFramework()->ShowSearchResults(results);
+    g_framework->NativeFramework()->ShowSearchResults(g_results);
   }
 
   JNIEXPORT void JNICALL
