@@ -4631,38 +4631,6 @@
     he = שלח סטטיסטיקה
     sk = Odosielať štatistiky
 
-  [allow_statistics_hint]
-    comment = Hint near allow statictics checkbox
-    tags = ios,android
-    en = Allow us to collect usage statistics to improve the app
-    ru = Разрешить сбор статистики. Это помогает нам совершенствовать приложение.
-    ar = اسمح لنا بجمع احصائيات الاستخدام من أجل تحسين التطبيق
-    cs = Dovol nám, prosím, shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšovat
-    da = Tillad os at indhendte brugsstatistikker for at forbedre vores app
-    nl = Sta ons toe om gebruiksstatistieken te verzamelen om de app te verbeteren
-    fi = Salli meidän kerätä tilastotietoja parantaaksemme sovellusta
-    fr = Nous permet de collecter des statistiques d'utilisation pour améliorer l'appli
-    de = Erlauben Sie uns das Sammeln von Nutzungsstatistiken zur Verbesserung der App
-    hu = Használati adatok gyűjtésének jóváhagyása a program továbbfejlesztéséhez.
-    id = Izinkan kami mengumpulkan statistik penggunaan untuk mengembangkan aplikasi
-    it = Consentici di raccogliere le statistiche di utilizzo al fine di migliorare l'app
-    ja = アプリを向上できるよう、使用状況の統計を収集させてください
-    ko = 앱을 개선하기 위해 사용 통계를 수집하도록 허용
-    nb = Tillat oss å innhente bruksstatistikk for å forbedre appen
-    pl = Zezwala na zbieranie statystyk używania aplikacji, w celu jej dalszego doskonalenia
-    pt = Permitir que recolhamos estatísticas de utilização para melhorar a aplicação
-    ro = Permiteți-ne să colectăm statistici de utilizare, pentru a ne îmbunătăți aplicația.
-    es = Permítenos recopilar estadísticas de uso para mejorar la aplicación
-    sv = Tillåt oss samla in användningsstatistik för att förbättra appen
-    th = อนุญาตให้เราเก็บการใช้สถิติเพื่อปรับปรุงแอป
-    tr = Uygulamayı geliştirebilmemiz için kullanım istatistikleri toplamamıza izin ver
-    uk = Просимо дозволити нам збирати статистичні дані по використанню, щоб поліпшити застосунок
-    vi = Cho phép chúng tôi thu thập thống kê sử dụng để nâng cao ứng dụng
-    zh-Hans = 允许我们收集使用统计数据来提高应用程序
-    zh-Hant = 它收集使用數據以幫助我們打造更好的應用程式
-    he = הרשה לנו לאסוף סטטיסטיקת  שימוש כדי לשפר הישום.
-    sk = Dovoľte nám, prosím, zhromaždovať štatistické údaje o využívaní pre zlepšenie aplikácie
-
   [info]
     comment = place preview title
     tags = ios
@@ -6602,12 +6570,6 @@
     zh-Hant = 網站
     sk = Webové stránky
 
-  [blog]
-    comment = Text in menu
-    tags = android
-    en = Blog
-    ru = Блог
-
   [maps_me_community]
     comment = Text in menu
     tags = ios, android
@@ -6819,35 +6781,6 @@
     he = דרגו את האפליקציה
     sk = Ohodnotiť aplikáciu
 
-  [rate_gp]
-    comment = Rate in Google Play (Android only)
-    tags = android
-    en = Rate on Google Play
-    fr = Évaluer sur Google Play
-    ru = Оценить в Google Play
-    de = Bei Google Play bewerten
-    pl = Oceń w Google Play
-    zh-Hant = 在 Google Play 評分
-
-  [tell_friends]
-    comment = Share with friends: menu item title
-    tags = android
-    en = Tell a Friend
-    fr = Recommander à un ami
-    ru = Рассказать друзьям
-    de = Einem Freund empfehlen
-    pl = Powiadom znajomego
-
-  [tell_friends_text]
-    comment = Share with friends: sharing text
-    tags = android
-    en = Hi! Install MAPS.ME!
-    ru = Привет! Установи MAPS.ME!
-    fr = Salut ! Installe MAPS.ME !
-    de = Hallo! Installiere dir MAPS.ME!
-    pl = Cześć! Zainstaluj MAPS.ME!
-    zh-Hant = 嗨！安裝 MAPS.ME！
-
   [help]
     comment = Text in menu
     tags = ios, android
@@ -7007,15 +6940,6 @@
     zh-Hant = 我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。
     he = אני מעוניין להיות הראשון שיקבל עדכונים על חדשות ומבצעים. אני יכול לבטל את המינוי שלי בכל עת.
     sk = Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.
-
-  [about_description]
-    comment = About short text (below logo)
-    tags = ios, android
-    en = Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!
-    fr = L'application la plus utile pour les voyageurs, a été créé avec la participation des équipes Mail.Ru Group et OpenStreetMap.
-    ru = Объединив усилия Mail.Ru Group и данные OpenStreetMap, мы создаем незаменимое приложение для путешествий.
-    de = Gemeinsame Bemühungen der Mail.Ru-Gruppe und OpenStreetMap machen die nützlichste Anwendung für Reisende!
-    pl = Najbardziej użyteczna aplikacja dla podróżników, powstała przy udziale zespołów Mail.Ru i OpenStreetMap.
 
   [about_text]
     comment = About text
@@ -19483,3 +19407,70 @@
     zh-Hans = 正在测试自行车导航。试一下使用 MAPS.ME 寻找您最喜爱的自行车路线并与我们分享您的意见。
     zh-Hant = 我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。
     sk = Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.
+
+  [rate_gp]
+    comment = Rate on Google Play (Android only)
+    tags = android
+    en = Rate on Google Play
+    ru = Оценить в Google Play
+    de = Bei Google Play bewerten
+    pl = Oceń w Google Play
+    zh-Hant = 在 Google Play 評分
+
+  [tell_friends]
+    comment = Share with friends: menu item title
+    tags = android
+    en = Tell a Friend
+    ru = Рассказать друзьям
+    de = Einem Freund empfehlen
+    pl = Powiadom znajomego
+
+  [tell_friends_text]
+    comment = Share with friends: sharing text
+    tags = android
+    en = Hi! Install MAPS.ME!
+    ru = Привет! Установи MAPS.ME!
+    de = Hallo! Installiere dir MAPS.ME!
+    pl = Cześć! Zainstaluj MAPS.ME!
+    zh-Hant = 嗨！安裝 MAPS.ME！
+
+  [about_description]
+    comment = About short text (below logo)
+    tags = ios, android
+    en = MAPS.ME is an essential offline application for travelling. MAPS.ME is based on OpenStreetMap data and allows editing it.
+    ru = MAPS.ME — незаменимое приложение для путешествий, работающее без подключения к интернету. MAPS.ME использует данные OpenStreetMap и позволяет их улучшать.
+
+  [blog]
+    comment = Text in menu
+    tags = android
+    en = Blog
+    ru = Блог
+
+  [allow_statistics_hint]
+    comment = Hint near allow statictics checkbox
+    tags = ios,android
+    en = Collecting usage statistics helps us improve the app.
+    ru = Сбор статистики помогает нам совершенствовать приложение.
+
+  [general_settings]
+    en = General settings
+    ru = Общие настройки
+
+  [date]
+    en = Date %d
+    ru = Дата %d
+
+  [something_is_not_working]
+    comment = "Report a bug" -> "Generaal Feedback" -> "Something is not working"
+    en = Something is not working
+    ru = Что-то не работает
+
+  [accept]
+    comment = For the first routing
+    en = Accept
+    ru = Принять
+
+  [decline]
+    comment = For the first routing
+    en = Decline
+    ru = Отклонить
