@@ -10,7 +10,7 @@
 #include "search/search_tests_support/test_search_request.hpp"
 
 #include "storage/downloader_search_params.hpp"
-#include "storage/http_map_files_downloader.hpp"
+#include "storage/map_files_downloader.hpp"
 #include "storage/storage.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -73,7 +73,7 @@ string const kCountriesTxt = R"({
       }
    ]})";
 
-class TestMapFilesDownloader : public storage::HttpMapFilesDownloader
+class TestMapFilesDownloader : public storage::MapFilesDownloader
 {
 public:
   // MapFilesDownloader overrides:
@@ -81,6 +81,18 @@ public:
                       TServersListCallback const & callback) override
   {
   }
+
+  void DownloadMapFile(vector<string> const & urls, string const & path, int64_t size,
+                       TFileDownloadedCallback const & onDownloaded,
+                       TDownloadingProgressCallback const & onProgress) override
+  {
+  }
+
+  TProgress GetDownloadingProgress() override { return TProgress{}; }
+  
+  bool IsIdle() override { return false; }
+  
+  void Reset() override {}
 };
 
 class TestDelegate : public DownloaderSearchCallback::Delegate
