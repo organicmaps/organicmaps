@@ -58,6 +58,9 @@ public:
 protected:
   unique_ptr<threads::IRoutine> CreateRoutine() override;
 
+  void OnContextCreate() override;
+  void OnContextDestroy() override;
+
 private:
   void RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool needResetOldGui);
   void RecacheChoosePositionMark();

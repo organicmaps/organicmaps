@@ -160,7 +160,9 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
 
   m2::RectD const prevPixelRect = GetCurrentScreen().PixelRect();
 
+  viewportChanged = false;
   m_modelViewChanged = !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG;
+
   for (auto const & e : events)
   {
     bool breakAnim = false;
@@ -178,6 +180,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       {
         ref_ptr<ResizeEvent> resizeEvent = make_ref(e);
         m_navigator.OnSize(resizeEvent->GetWidth(), resizeEvent->GetHeight());
+        viewportChanged = true;
         breakAnim = true;
         TouchCancel(m_touches);
         if (m_state == STATE_DOUBLE_TAP_HOLD)
@@ -258,7 +261,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
   modelViewChanged = m_modelViewChanged;
 
   double const kEps = 1e-5;
-  viewportChanged = !m2::IsEqualSize(prevPixelRect, GetCurrentScreen().PixelRect(), kEps, kEps);
+  viewportChanged |= !m2::IsEqualSize(prevPixelRect, GetCurrentScreen().PixelRect(), kEps, kEps);
   m_modelViewChanged = false;
 
   return m_navigator.Screen();

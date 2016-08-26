@@ -34,6 +34,7 @@ public:
 
   void Update();
   void Clear();
+  void ClearRenderData();
 
 private:
   float CalculateRadius(ScreenBase const & screen) const;

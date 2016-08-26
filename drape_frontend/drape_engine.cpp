@@ -68,6 +68,7 @@ DrapeEngine::DrapeEngine(Params && params)
   m_widgetsInfo = move(params.m_info);
 
   RecacheGui(false);
+  RecacheMapShapes();
 
   if (params.m_showChoosePositionMark)
     EnableChoosePositionMode(true, move(params.m_boundAreaTriangles), false, m2::PointD());
@@ -90,6 +91,23 @@ DrapeEngine::~DrapeEngine()
 
   gui::DrapeGui::Instance().Destroy();
   m_textureManager->Release();
+}
+
+void DrapeEngine::Update(int w, int h)
+{
+  RecacheGui(false);
+  RecacheMapShapes();
+
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<RecoverGLResourcesMessage>(),
+                                  MessagePriority::High);
+
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
+                                  MessagePriority::Normal);
+
+
+  ResizeImpl(w, h);
 }
 
 void DrapeEngine::Resize(int w, int h)
@@ -151,12 +169,20 @@ void DrapeEngine::UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvide
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::SetRenderingEnabled(bool const isEnabled)
+void DrapeEngine::SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory)
 {
-  m_frontend->SetRenderingEnabled(isEnabled);
-  m_backend->SetRenderingEnabled(isEnabled);
+  m_backend->SetRenderingEnabled(contextFactory);
+  m_frontend->SetRenderingEnabled(contextFactory);
 
-  LOG(LDEBUG, (isEnabled ? "Rendering enabled" : "Rendering disabled"));
+  LOG(LDEBUG, ("Rendering enabled"));
+}
+
+void DrapeEngine::SetRenderingDisabled(bool const destroyContext)
+{
+  m_frontend->SetRenderingDisabled(destroyContext);
+  m_backend->SetRenderingDisabled(destroyContext);
+
+  LOG(LDEBUG, ("Rendering disabled"));
 }
 
 void DrapeEngine::InvalidateRect(m2::RectD const & rect)
@@ -185,6 +211,13 @@ void DrapeEngine::UpdateMapStyle()
                                     make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
                                     MessagePriority::Normal);
   }
+}
+
+void DrapeEngine::RecacheMapShapes()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<MapShapesRecacheMessage>(),
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::RecacheGui(bool needResetOldGui)

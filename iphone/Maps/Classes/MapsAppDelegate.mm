@@ -633,7 +633,7 @@ using namespace osm_auth_ios;
   [self.mapViewController onGetFocus:NO];
   [self.mapViewController.appWallAd close];
   [MWMRouterSavedState store];
-  GetFramework().SetRenderingEnabled(false);
+  GetFramework().SetRenderingDisabled(false);
   [MWMLocationManager applicationWillResignActive];
 }
 
@@ -667,7 +667,7 @@ using namespace osm_auth_ios;
   [self.mapViewController onGetFocus:YES];
   [self handleURLs];
   [[Statistics instance] applicationDidBecomeActive];
-  GetFramework().SetRenderingEnabled(true);
+  GetFramework().SetRenderingEnabled();
   [MWMLocationManager applicationDidBecomeActive];
   [MWMRouterSavedState restore];
 }

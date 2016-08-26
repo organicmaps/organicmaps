@@ -333,10 +333,6 @@ public:
 
 private:
   unique_ptr<df::TapInfo> m_lastTapEvent;
-#ifdef OMIM_OS_ANDROID
-  unique_ptr<location::CompassInfo> m_lastCompassInfo;
-  unique_ptr<location::GpsInfo> m_lastGPSInfo;
-#endif
 
   void OnTapEvent(df::TapInfo const & tapInfo);
   /// outInfo is valid only if return value is not df::SelectionShape::OBJECT_EMPTY.
@@ -394,7 +390,11 @@ public:
   bool IsDrapeEngineCreated() const { return m_drapeEngine != nullptr; }
   void DestroyDrapeEngine();
   /// Called when graphics engine should be temporarily paused and then resumed.
-  void SetRenderingEnabled(bool enable);
+  void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory = nullptr);
+  void SetRenderingDisabled(bool destroyContext);
+
+  void UpdateDrapeEngine(int width, int height);
+
 private:
   /// Depends on initialized Drape engine.
   void SaveViewport();

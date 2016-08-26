@@ -129,6 +129,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_userPositionChangedFn(params.m_positionChangedFn)
   , m_requestedTiles(params.m_requestedTiles)
   , m_maxGeneration(0)
+  , m_needRestoreSize(false)
 {
 #ifdef DRAW_INFO
   m_tpf = 0.0;
@@ -548,6 +549,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::RecoverGLResources:
+    {
+      UpdateGLResources();
+      break;
+    }
+
   case Message::UpdateMapStyle:
     {
       // Clear all graphics.
@@ -575,46 +582,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         blocker.Wait();
       }
 
-      // Invalidate route.
-      if (m_routeRenderer->GetStartPoint())
-      {
-        m2::PointD const & position = m_routeRenderer->GetStartPoint()->m_position;
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CacheRouteSignMessage>(position, true /* isStart */,
-                                                                        true /* isValid */),
-                                  MessagePriority::High);
-      }
-      if (m_routeRenderer->GetFinishPoint())
-      {
-        m2::PointD const & position = m_routeRenderer->GetFinishPoint()->m_position;
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CacheRouteSignMessage>(position, false /* isStart */,
-                                                                        true /* isValid */),
-                                  MessagePriority::High);
-      }
-
-      auto const & routeData = m_routeRenderer->GetRouteData();
-      if (routeData != nullptr)
-      {
-        auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline,
-                                                               routeData->m_sourceTurns,
-                                                               routeData->m_color,
-                                                               routeData->m_pattern);
-        m_routeRenderer->Clear(true /* keepDistanceFromBegin */);
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
-                                  MessagePriority::Normal);
-      }
-
-      // Request new tiles.
-      ScreenBase screen = m_userEventStream.GetCurrentScreen();
-      m_lastReadedModelView = screen;
-      m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<UpdateReadManagerMessage>(),
-                                MessagePriority::UberHighSingleton);
-
-      m_gpsTrackRenderer->Update();
-
+      UpdateGLResources();
       break;
     }
 
@@ -752,6 +720,50 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
   return make_unique<Routine>(*this);
 }
 
+void FrontendRenderer::UpdateGLResources()
+{
+  // Invalidate route.
+  if (m_routeRenderer->GetStartPoint())
+  {
+    m2::PointD const & position = m_routeRenderer->GetStartPoint()->m_position;
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<CacheRouteSignMessage>(position, true /* isStart */,
+                                                                    true /* isValid */),
+                              MessagePriority::High);
+  }
+
+  if (m_routeRenderer->GetFinishPoint())
+  {
+    m2::PointD const & position = m_routeRenderer->GetFinishPoint()->m_position;
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<CacheRouteSignMessage>(position, false /* isStart */,
+                                                                    true /* isValid */),
+                              MessagePriority::High);
+  }
+
+  auto const & routeData = m_routeRenderer->GetRouteData();
+  if (routeData != nullptr)
+  {
+    auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline,
+                                                           routeData->m_sourceTurns,
+                                                           routeData->m_color,
+                                                           routeData->m_pattern);
+    m_routeRenderer->Clear(true /* keepDistanceFromBegin */);
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
+                              MessagePriority::Normal);
+  }
+
+  // Request new tiles.
+  ScreenBase screen = m_userEventStream.GetCurrentScreen();
+  m_lastReadedModelView = screen;
+  m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                            make_unique_dp<UpdateReadManagerMessage>(),
+                            MessagePriority::UberHighSingleton);
+
+  m_gpsTrackRenderer->Update();
+}
+
 void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom)
 {
 
@@ -819,8 +831,13 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   {
     m_myPositionController->OnNewViewportRect();
     m_viewport.SetViewport(0, 0, viewportRect.SizeX(), viewportRect.SizeY());
+  }
+
+  if (viewportChanged || m_needRestoreSize)
+  {
     m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
     m_framebuffer->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
+    m_needRestoreSize = false;
   }
 
   RefreshProjection(screen);
@@ -1451,23 +1468,48 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   return tiles;
 }
 
-FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}
-
-void FrontendRenderer::Routine::Do()
+void FrontendRenderer::OnContextDestroy()
 {
-  m_renderer.m_contextFactory->waitForInitialization();
+  LOG(LINFO, ("On context destroy."));
 
-  gui::DrapeGui::Instance().ConnectOnCompassTappedHandler(bind(&FrontendRenderer::OnCompassTapped, &m_renderer));
-  m_renderer.m_myPositionController->SetListener(ref_ptr<MyPositionController::Listener>(&m_renderer));
-  m_renderer.m_userEventStream.SetListener(ref_ptr<UserEventStream::Listener>(&m_renderer));
+  // Clear all graphics.
+  for (RenderLayer & layer : m_layers)
+  {
+    layer.m_renderGroups.clear();
+    layer.m_isDirty = false;
+  }
 
-  dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
+  m_userMarkRenderGroups.clear();
+  m_guiRenderer.reset();
+  m_selectionShape.release();
+  m_framebuffer.reset();
+  m_transparentLayer.reset();
+
+  m_myPositionController->ResetRenderShape();
+  m_routeRenderer->ClearGLDependentResources();
+  m_gpsTrackRenderer->ClearRenderData();
+
+#ifdef RENDER_DEBUG_RECTS
+  dp::DebugRectRenderer::Instance().Destroy();
+#endif
+
+  m_gpuProgramManager.reset();
+  m_contextFactory->getDrawContext()->doneCurrent();
+
+  m_needRestoreSize = true;
+}
+
+void FrontendRenderer::OnContextCreate()
+{
+  LOG(LINFO, ("On context create."));
+
+  m_contextFactory->waitForInitialization();
+
+  dp::OGLContext * context = m_contextFactory->getDrawContext();
   context->makeCurrent();
-  m_renderer.m_framebuffer->SetDefaultContext(context);
+
   GLFunctions::Init();
   GLFunctions::AttachCache(this_thread::get_id());
-
-  dp::SupportManager::Instance().Init();
 
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
   GLFunctions::glEnable(gl_const::GLDepthTest);
@@ -1481,7 +1523,10 @@ void FrontendRenderer::Routine::Do()
   GLFunctions::glEnable(gl_const::GLCullFace);
   GLFunctions::glEnable(gl_const::GLScissorTest);
 
-  m_renderer.m_gpuProgramManager->Init();
+  dp::SupportManager::Instance().Init();
+
+  m_gpuProgramManager = make_unique_dp<dp::GpuProgramManager>();
+  m_gpuProgramManager->Init();
 
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
@@ -1489,6 +1534,25 @@ void FrontendRenderer::Routine::Do()
 #ifdef RENDER_DEBUG_RECTS
   dp::DebugRectRenderer::Instance().Init(make_ref(m_renderer.m_gpuProgramManager));
 #endif
+
+  // resources recovering
+  m_framebuffer.reset(new Framebuffer());
+  m_framebuffer->SetDefaultContext(context);
+
+  m_transparentLayer.reset(new TransparentLayer());
+}
+
+FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}
+
+void FrontendRenderer::Routine::Do()
+{
+  LOG(LINFO, ("Start routine."));
+
+  gui::DrapeGui::Instance().ConnectOnCompassTappedHandler(bind(&FrontendRenderer::OnCompassTapped, &m_renderer));
+  m_renderer.m_myPositionController->SetListener(ref_ptr<MyPositionController::Listener>(&m_renderer));
+  m_renderer.m_userEventStream.SetListener(ref_ptr<UserEventStream::Listener>(&m_renderer));
+
+  m_renderer.OnContextCreate();
 
   double const kMaxInactiveSeconds = 2.0;
 
@@ -1498,6 +1562,8 @@ void FrontendRenderer::Routine::Do()
   double frameTime = 0.0;
   bool modelViewChanged = true;
   bool viewportChanged = true;
+
+  dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
 
   while (!IsCancelled())
   {

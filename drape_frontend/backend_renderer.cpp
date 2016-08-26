@@ -176,6 +176,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       break;
     }
+  case Message::MapShapesRecache:
+    {
+      RecacheMapShapes();
+      break;
+    }
   case Message::MapShapeReaded:
     {
       ref_ptr<MapShapeReadedMessage> msg = message;
@@ -314,8 +319,31 @@ void BackendRenderer::ReleaseResources()
   m_readManager.reset();
   m_batchersPool.reset();
   m_routeBuilder.reset();
+  m_overlays.clear();
 
   m_texMng->Release();
+  m_contextFactory->getResourcesUploadContext()->doneCurrent();
+}
+
+void BackendRenderer::OnContextCreate()
+{
+  LOG(LINFO, ("On context create."));
+  m_contextFactory->waitForInitialization();
+  m_contextFactory->getResourcesUploadContext()->makeCurrent();
+
+  GLFunctions::Init();
+
+  InitGLDependentResource();
+}
+
+void BackendRenderer::OnContextDestroy()
+{
+  LOG(LINFO, ("On context destroy."));
+  m_readManager->InvalidateAll();
+  m_batchersPool.reset();
+  m_texMng->Release();
+  m_overlays.clear();
+
   m_contextFactory->getResourcesUploadContext()->doneCurrent();
 }
 
@@ -323,12 +351,8 @@ BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(rende
 
 void BackendRenderer::Routine::Do()
 {
-  m_renderer.m_contextFactory->waitForInitialization();
-
-  m_renderer.m_contextFactory->getResourcesUploadContext()->makeCurrent();
-  GLFunctions::Init();
-
-  m_renderer.InitGLDependentResource();
+  LOG(LINFO, ("Start routine."));
+  m_renderer.OnContextCreate();
 
   while (!IsCancelled())
   {
@@ -356,8 +380,6 @@ void BackendRenderer::InitGLDependentResource()
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
   m_texMng->Init(params);
-
-  RecacheMapShapes();
 }
 
 void BackendRenderer::RecacheMapShapes()

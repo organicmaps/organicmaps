@@ -285,6 +285,11 @@ void MyPositionController::SetRenderShape(drape_ptr<MyPosition> && shape)
   m_shape = move(shape);
 }
 
+void MyPositionController::ResetRenderShape()
+{
+  m_shape.reset();
+}
+
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
   string const kAlohalyticsClickEvent = "$onClick";

@@ -27,6 +27,9 @@ public:
   void CancelWait();
   void ClearQuery();
 
+  using TFilterMessageFn = function<bool(ref_ptr<Message>)>;
+  void FilterMessages(TFilterMessageFn needFilterMessageFn);
+
 #ifdef DEBUG_MESSAGE_QUEUE
   bool IsEmpty() const;
   size_t GetSize() const;

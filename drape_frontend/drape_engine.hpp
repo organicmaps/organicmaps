@@ -84,6 +84,8 @@ public:
   DrapeEngine(Params && params);
   ~DrapeEngine();
 
+  void Update(int w, int h);
+
   void Resize(int w, int h);
   void Invalidate();
 
@@ -102,7 +104,8 @@ public:
   void ChangeVisibilityUserMarksLayer(TileKey const & tileKey, bool isVisible);
   void UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider);
 
-  void SetRenderingEnabled(bool const isEnabled);
+  void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory = nullptr);
+  void SetRenderingDisabled(bool const destroyContext);
   void InvalidateRect(m2::RectD const & rect);
   void UpdateMapStyle();
 
@@ -166,6 +169,7 @@ private:
 
   void ResizeImpl(int w, int h);
   void RecacheGui(bool needResetOldGui);
+  void RecacheMapShapes();
 
 private:
   drape_ptr<FrontendRenderer> m_frontend;

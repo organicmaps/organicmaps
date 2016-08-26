@@ -37,10 +37,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeShowBookmarkOnMap(
     JNIEnv * env, jobject thiz, jint c, jint b)
 {
   BookmarkAndCategory bnc = BookmarkAndCategory(c,b);
-  g_framework->PostDrapeTask([bnc]()
-  {
-    frm()->ShowBookmark(bnc);
-  });
+  frm()->ShowBookmark(bnc);
 }
 
 JNIEXPORT void JNICALL
