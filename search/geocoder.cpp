@@ -170,46 +170,6 @@ private:
   LazyRankTable m_ranks;
 };
 
-class StreetCategories
-{
-public:
-  static StreetCategories const & Instance()
-  {
-    static StreetCategories const instance;
-    return instance;
-  }
-
-  template <typename TFn>
-  void ForEach(TFn && fn) const
-  {
-    for_each(m_categories.cbegin(), m_categories.cend(), forward<TFn>(fn));
-  }
-
-  bool Contains(strings::UniString const & category) const
-  {
-    return binary_search(m_categories.cbegin(), m_categories.cend(), category);
-  }
-
-  vector<strings::UniString> const & GetCategories() const { return m_categories; }
-
-private:
-  StreetCategories()
-  {
-    auto const & classificator = classif();
-    auto addCategory = [&](uint32_t type)
-    {
-      uint32_t const index = classificator.GetIndexForType(type);
-      m_categories.push_back(FeatureTypeToString(index));
-    };
-    ftypes::IsStreetChecker::Instance().ForEachType(addCategory);
-    sort(m_categories.begin(), m_categories.end());
-  }
-
-  vector<strings::UniString> m_categories;
-
-  DISALLOW_COPY_AND_MOVE(StreetCategories);
-};
-
 void JoinQueryTokens(QueryParams const & params, size_t curToken, size_t endToken,
                      strings::UniString const & sep, strings::UniString & res)
 {
@@ -243,22 +203,6 @@ WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType const & ft, string & affi
   if (ft.GetName(StringUtf8Multilang::kEnglishCode, affiliation) && !affiliation.empty())
     return true;
   return false;
-}
-
-// todo(@m) Refactor at least here, or even at indexer/ftypes_matcher.hpp.
-vector<strings::UniString> GetVillageCategories()
-{
-  vector<strings::UniString> categories;
-
-  auto const & classificator = classif();
-  auto addCategory = [&](uint32_t type)
-  {
-    uint32_t const index = classificator.GetIndexForType(type);
-    categories.push_back(FeatureTypeToString(index));
-  };
-  ftypes::IsVillageChecker::Instance().ForEachType(addCategory);
-
-  return categories;
 }
 
 bool HasSearchIndex(MwmValue const & value) { return value.m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
@@ -427,6 +371,8 @@ Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoG
   , m_lastMatchedRegion(nullptr)
   , m_preRanker(preRanker)
 {
+  ftypes::IsStreetChecker::Instance().ForEachType([this](uint32_t type) { m_streets.Add(type); });
+  ftypes::IsVillageChecker::Instance().ForEachType([this](uint32_t type) { m_villages.Add(type); });
 }
 
 Geocoder::~Geocoder() {}
@@ -462,8 +408,10 @@ void Geocoder::SetParams(Params const & params)
     {
       auto b = synonyms.begin();
       auto e = synonyms.end();
-      auto const & categories = StreetCategories::Instance();
-      synonyms.erase(remove_if(b + 1, e, bind(&StreetCategories::Contains, cref(categories), _1)),
+      synonyms.erase(remove_if(b + 1, e,
+                               [this](strings::UniString const & synonym) {
+                                 return m_streets.HasKey(synonym);
+                               }),
                      e);
     }
   }
@@ -639,6 +587,7 @@ void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
 
   m_retrievalParams.m_tokens.clear();
   m_retrievalParams.m_prefixTokens.clear();
+  m_retrievalParams.m_types.clear();
 
   // TODO (@y): possibly it's not cheap to copy vectors of strings.
   // Profile it, and in case of serious performance loss, refactor
@@ -649,6 +598,8 @@ void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
       m_retrievalParams.m_tokens.push_back(m_params.m_tokens[i]);
     else
       m_retrievalParams.m_prefixTokens = m_params.m_prefixTokens;
+
+    m_retrievalParams.m_types.push_back(m_params.m_types[i]);
   }
 }
 
@@ -1413,24 +1364,29 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
   allFeatures.ForEach(emitUnclassified);
 }
 
-CBV Geocoder::LoadCategories(MwmContext & context, vector<strings::UniString> const & categories)
+CBV Geocoder::LoadCategories(MwmContext & context, CategoriesSet const & categories)
 {
   ASSERT(context.m_handle.IsAlive(), ());
   ASSERT(HasSearchIndex(context.m_value), ());
 
   m_retrievalParams.m_tokens.resize(1);
   m_retrievalParams.m_tokens[0].resize(1);
+
   m_retrievalParams.m_prefixTokens.clear();
+
+  m_retrievalParams.m_types.resize(1);
+  m_retrievalParams.m_types[0].resize(1);
 
   vector<CBV> cbvs;
 
-  for_each(categories.begin(), categories.end(), [&](strings::UniString const & category)
-           {
-             m_retrievalParams.m_tokens[0][0] = category;
-             CBV cbv(RetrieveAddressFeatures(context, m_cancellable, m_retrievalParams));
-             if (!cbv.IsEmpty())
-               cbvs.push_back(move(cbv));
-           });
+  categories.ForEach([&](strings::UniString const & key, uint32_t const type) {
+    m_retrievalParams.m_tokens[0][0] = key;
+    m_retrievalParams.m_types[0][0] = type;
+
+    CBV cbv(RetrieveAddressFeatures(context, m_cancellable, m_retrievalParams));
+    if (!cbv.IsEmpty())
+      cbvs.push_back(move(cbv));
+  });
 
   UniteCBVs(cbvs);
   if (cbvs.empty())
@@ -1449,7 +1405,7 @@ CBV Geocoder::LoadStreets(MwmContext & context)
   if (it != m_streetsCache.cend())
     return it->second;
 
-  auto streets = LoadCategories(context, StreetCategories::Instance().GetCategories());
+  auto streets = LoadCategories(context, m_streets);
   m_streetsCache[mwmId] = streets;
   return streets;
 }
@@ -1458,7 +1414,7 @@ CBV Geocoder::LoadVillages(MwmContext & context)
 {
   if (!context.m_handle.IsAlive() || !HasSearchIndex(context.m_value))
     return CBV();
-  return LoadCategories(context, GetVillageCategories());
+  return LoadCategories(context, m_villages);
 }
 
 CBV Geocoder::RetrievePostcodeFeatures(MwmContext const & context, TokenSlice const & slice)

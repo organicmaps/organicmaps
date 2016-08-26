@@ -7,9 +7,9 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = search_tests_support generator_tests_support generator routing search storage \
-               stats_client indexer platform editor geometry coding base tess2 protobuf \
-               tomcrypt jansson succinct pugixml opening_hours
+DEPENDENCIES = generator_tests_support search_tests_support indexer_tests_support generator \
+               routing search storage stats_client indexer platform editor geometry coding base \
+               tess2 protobuf tomcrypt jansson succinct pugixml opening_hours
 
 include($$ROOT_DIR/common.pri)
 
@@ -25,6 +25,7 @@ SOURCES += \
     interactive_search_test.cpp \
     pre_ranker_test.cpp \
     processor_test.cpp \
+    search_edited_features_test.cpp \
     smoke_test.cpp \
 
 HEADERS += \

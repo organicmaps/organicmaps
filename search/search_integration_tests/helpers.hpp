@@ -8,6 +8,10 @@
 #include "storage/country_decl.hpp"
 #include "storage/country_info_getter.hpp"
 
+#include "indexer/feature.hpp"
+#include "indexer/feature_decl.hpp"
+#include "indexer/index.hpp"
+#include "indexer/indexer_tests_support/helpers.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -16,7 +20,7 @@
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 
-#include "base/logging.hpp"
+#include "base/assert.hpp"
 
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
@@ -37,6 +41,7 @@ public:
   using TRules = vector<shared_ptr<tests_support::MatchingRule>>;
 
   SearchTest();
+
   ~SearchTest();
 
   // Registers country in internal records. Note that physical country
@@ -84,6 +89,15 @@ public:
   MwmSet::MwmId BuildCountry(string const & name, TBuildFn && fn)
   {
     return BuildMwm(name, feature::DataHeader::country, forward<TBuildFn>(fn));
+  }
+
+  template <typename TEditorFn>
+  void EditFeature(FeatureID const & id, TEditorFn && fn)
+  {
+    Index::FeaturesLoaderGuard loader(m_engine, id.m_mwmId);
+    FeatureType ft;
+    CHECK(loader.GetFeatureByIndex(id.m_index, ft), ());
+    indexer::tests_support::EditFeature(ft, forward<TEditorFn>(fn));
   }
 
   inline void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }

@@ -4,6 +4,7 @@
 #include "search/search_tests_support/test_search_request.hpp"
 
 #include "indexer/classificator_loader.hpp"
+#include "indexer/indexer_tests_support/helpers.hpp"
 #include "indexer/map_style.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
@@ -26,6 +27,7 @@ SearchTest::SearchTest()
   , m_engine(make_unique<storage::CountryInfoGetterForTesting>(), make_unique<ProcessorFactory>(),
              Engine::Params())
 {
+  indexer::tests_support::SetUpEditorForTesting(m_engine);
 }
 
 SearchTest::~SearchTest()

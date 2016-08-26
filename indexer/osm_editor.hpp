@@ -10,6 +10,7 @@
 
 #include "editor/editor_config.hpp"
 #include "editor/editor_notes.hpp"
+#include "editor/editor_storage.hpp"
 #include "editor/xml_feature.hpp"
 
 #include "base/timer.hpp"
@@ -20,11 +21,6 @@
 #include "std/mutex.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-
-namespace editor
-{
-class StorageBase;
-}  // namespace editor
 
 namespace editor
 {
@@ -74,8 +70,14 @@ public:
   };
 
   static Editor & Instance();
+
   // Reference to the index will be used in editor functors, it should not be temporary object.
   void SetIndex(Index const & index);
+
+  inline void SetStorageForTesting(unique_ptr<editor::StorageBase> storage)
+  {
+    m_storage = move(storage);
+  }
 
   void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
 

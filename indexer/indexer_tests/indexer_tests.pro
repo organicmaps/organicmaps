@@ -4,10 +4,10 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES =  search_tests_support generator_tests_support platform_tests_support \
-                generator search routing indexer storage editor platform coding geometry \
-                base stats_client jansson tess2 protobuf tomcrypt succinct opening_hours \
-                pugixml
+DEPENDENCIES =  generator_tests_support search_tests_support indexer_tests_support \
+                platform_tests_support generator search routing indexer storage editor \
+                platform coding geometry base stats_client jansson tess2 protobuf tomcrypt \
+                succinct opening_hours pugixml
 
 include($$ROOT_DIR/common.pri)
 

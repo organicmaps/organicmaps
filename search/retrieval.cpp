@@ -10,6 +10,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/index.hpp"
 #include "indexer/osm_editor.hpp"
 #include "indexer/scales.hpp"
@@ -106,7 +107,8 @@ unique_ptr<coding::CompressedBitVector> SortFeaturesAndBuildCBV(vector<uint64_t>
   return coding::CompressedBitVectorBuilder::FromBitPositions(move(features));
 }
 
-/// Check that any from first matches any from second.
+// Checks that any from the |second| matches any from the |first|.  In
+// ambiguous case when |second| is empty, returns true.
 template <class TComp, class T>
 bool IsFirstMatchesSecond(vector<T> const & first, vector<T> const & second, TComp const & comp)
 {
@@ -124,34 +126,54 @@ bool IsFirstMatchesSecond(vector<T> const & first, vector<T> const & second, TCo
   return false;
 }
 
-bool MatchFeatureByName(FeatureType const & ft, QueryParams const & params)
+bool MatchFeatureByNameAndType(FeatureType const & ft, QueryParams const & params)
 {
   using namespace strings;
+
+  auto const prefixMatch = [](UniString const & s1, UniString const & s2) {
+    return StartsWith(s1, s2);
+  };
+
+  auto const fullMatch = [](UniString const & s1, UniString const & s2) { return s1 == s2; };
+
+  feature::TypesHolder th(ft);
 
   bool matched = false;
   ft.ForEachName([&](int8_t lang, string const & utf8Name)
   {
-    if (utf8Name.empty() || params.m_langs.count(lang) == 0)
-      return true;
+    if (utf8Name.empty() || !params.IsLangExist(lang))
+      return true /* continue ForEachName */;
 
     vector<UniString> nameTokens;
     NormalizeAndTokenizeString(utf8Name, nameTokens, Delimiters());
 
-    auto const matchPrefix = [](UniString const & s1, UniString const & s2)
+    for (size_t i = 0; i < params.GetNumTokens(); ++i)
     {
-      return StartsWith(s1, s2);
-    };
-    if (!IsFirstMatchesSecond(nameTokens, params.m_prefixTokens, matchPrefix))
-      return true;
+      auto const isPrefix = params.IsPrefixToken(i);
+      auto const & syms = params.GetTokens(i);
 
-    for (auto const & synonyms : params.m_tokens)
-    {
-      if (!IsFirstMatchesSecond(nameTokens, synonyms, equal_to<UniString>()))
-        return true;
+      if (!IsFirstMatchesSecond(nameTokens, syms, isPrefix ? prefixMatch : fullMatch))
+      {
+        // Checks types in case of names mismatch.
+        auto const & types = params.m_types[i];
+        auto typeMatched = false;
+
+        for (auto const & type : types)
+        {
+          if (th.Has(type))
+          {
+            typeMatched = true;
+            break;
+          }
+        }
+
+        if (!typeMatched)
+          return true /* continue ForEachName */;
+      }
     }
 
     matched = true;
-    return false;
+    return false /* break ForEachName */;
   });
 
   return matched;
@@ -211,7 +233,7 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
         collector);
   });
   holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
-    if (MatchFeatureByName(ft, params))
+    if (MatchFeatureByNameAndType(ft, params))
       features.push_back(index);
   });
   return SortFeaturesAndBuildCBV(move(features));

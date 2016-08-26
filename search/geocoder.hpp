@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/cancel_exception.hpp"
+#include "search/categories_set.hpp"
 #include "search/features_layer.hpp"
 #include "search/features_layer_path_finder.hpp"
 #include "search/geocoder_context.hpp"
@@ -256,7 +257,7 @@ private:
   // UNCLASSIFIED objects that match to all currently unused tokens.
   void MatchUnclassified(BaseContext & ctx, size_t curToken);
 
-  CBV LoadCategories(MwmContext & context, vector<strings::UniString> const & categories);
+  CBV LoadCategories(MwmContext & context, CategoriesSet const & categories);
 
   CBV LoadStreets(MwmContext & context);
 
@@ -278,6 +279,9 @@ private:
   storage::CountryInfoGetter const & m_infoGetter;
 
   my::Cancellable const & m_cancellable;
+
+  CategoriesSet m_streets;
+  CategoriesSet m_villages;
 
   // Geocoder params.
   Params m_params;
