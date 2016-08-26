@@ -17,8 +17,6 @@ using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace search;
 
-using TRules = vector<shared_ptr<MatchingRule>>;
-
 namespace
 {
 class SearchEditedFeaturesTest : public SearchTest

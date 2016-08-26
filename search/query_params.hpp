@@ -34,7 +34,7 @@ struct QueryParams
   TSynonymsVector const & GetTokens(size_t i) const;
   TSynonymsVector & GetTokens(size_t i);
 
-  // Returns true if all tokens in [start, end) range has intergral
+  // Returns true if all tokens in [start, end) range have integral
   // synonyms.
   bool IsNumberTokens(size_t start, size_t end) const;
 

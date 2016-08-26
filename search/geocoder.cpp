@@ -362,8 +362,6 @@ Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoG
   : m_index(index)
   , m_infoGetter(infoGetter)
   , m_cancellable(cancellable)
-  , m_streets(ftypes::IsStreetChecker::Instance())
-  , m_villages(ftypes::IsVillageChecker::Instance())
   , m_model(SearchModel::Instance())
   , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, Processor::kMaxViewportRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, m_cancellable)
@@ -373,6 +371,8 @@ Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoG
   , m_lastMatchedRegion(nullptr)
   , m_preRanker(preRanker)
 {
+  ftypes::IsStreetChecker::Instance().ForEachType([this](uint32_t type) { m_streets.Add(type); });
+  ftypes::IsVillageChecker::Instance().ForEachType([this](uint32_t type) { m_villages.Add(type); });
 }
 
 Geocoder::~Geocoder() {}
@@ -408,7 +408,11 @@ void Geocoder::SetParams(Params const & params)
     {
       auto b = synonyms.begin();
       auto e = synonyms.end();
-      synonyms.erase(remove_if(b + 1, e, bind(&CategoriesSet::HasKey, cref(m_streets), _1)), e);
+      synonyms.erase(remove_if(b + 1, e,
+                               [this](strings::UniString const & synonym) {
+                                 return m_streets.HasKey(synonym);
+                               }),
+                     e);
     }
   }
 
@@ -1375,9 +1379,9 @@ CBV Geocoder::LoadCategories(MwmContext & context, CategoriesSet const & categor
 
   vector<CBV> cbvs;
 
-  categories.ForEach([&](Category const & category) {
-    m_retrievalParams.m_tokens[0][0] = category.m_key;
-    m_retrievalParams.m_types[0][0] = category.m_type;
+  categories.ForEach([&](strings::UniString const & key, uint32_t const type) {
+    m_retrievalParams.m_tokens[0][0] = key;
+    m_retrievalParams.m_types[0][0] = type;
 
     CBV cbv(RetrieveAddressFeatures(context, m_cancellable, m_retrievalParams));
     if (!cbv.IsEmpty())

@@ -149,16 +149,16 @@ bool MatchFeatureByNameAndType(FeatureType const & ft, QueryParams const & param
 
     for (size_t i = 0; i < params.GetNumTokens(); ++i)
     {
-      bool const isPrefix = params.IsPrefixToken(i);
+      auto const isPrefix = params.IsPrefixToken(i);
       auto const & syms = params.GetTokens(i);
 
       if (!IsFirstMatchesSecond(nameTokens, syms, isPrefix ? prefixMatch : fullMatch))
       {
         // Checks types in case of names mismatch.
         auto const & types = params.m_types[i];
-        bool typeMatched = false;
+        auto typeMatched = false;
 
-        for (auto const type : types)
+        for (auto const & type : types)
         {
           if (th.Has(type))
           {
