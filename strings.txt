@@ -4,7 +4,7 @@
     comment = About button text (should be short)
     tags = tizen
     en = About
-    ru = О программе
+    ru = О приложении
     ar = نبذة عنا
     cs = O aplikaci
     da = Om app
@@ -5536,7 +5536,7 @@
     comment = Settings «Map» category: «Record track» title
     tags = ios,android
     en = Recent track
-    ru = Недавно пройденный путь
+    ru = Недавний путь
     ar = المسار الأخير
     cs = Nedávné cesty
     da = Seneste sti
@@ -6841,7 +6841,7 @@
     comment = Text in menu
     tags = ios, android
     en = Help
-    ru = Помощь
+    ru = Справка
     ar = مساعدة
     cs = Nápověda
     da = Hjælp

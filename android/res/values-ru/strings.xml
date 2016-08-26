@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- About button text (should be short) -->
-	<string name="about">О программе</string>
+	<string name="about">О приложении</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Назад</string>
 	<!-- Button text (should be short) -->
@@ -332,7 +332,7 @@
 	<string name="pref_tts_other_section_title">Другой</string>
 	<string name="pref_tts_how_to_set_up_voice">Как настроить голос</string>
 	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">Недавно пройденный путь</string>
+	<string name="pref_track_record_title">Недавний путь</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
 	<string name="duration_disabled">Выключено</string>
 	<string name="duration_1_hour">1 час</string>
@@ -412,7 +412,7 @@
 	<!-- Share with friends: sharing text -->
 	<string name="tell_friends_text">Привет! Установи MAPS.ME!</string>
 	<!-- Text in menu -->
-	<string name="help">Помощь</string>
+	<string name="help">Справка</string>
 	<!-- Text in menu -->
 	<string name="copyright">Копирайт</string>
 	<!-- Text in menu -->
