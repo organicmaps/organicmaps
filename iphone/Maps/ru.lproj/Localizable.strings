@@ -7,7 +7,7 @@
 /********** Strings **********/
 
 /* About button text (should be short) */
-"about" = "О программе";
+"about" = "О приложении";
 
 /* Button text (should be short) */
 "back" = "Назад";
@@ -517,7 +517,7 @@
 "pref_tts_how_to_set_up_voice" = "Как настроить голос";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Недавно пройденный путь";
+"pref_track_record_title" = "Недавний путь";
 
 "pref_map_auto_zoom" = "Автозум";
 
@@ -644,7 +644,7 @@
 "tell_friends_text" = "Привет! Установи MAPS.ME!";
 
 /* Text in menu */
-"help" = "Помощь";
+"help" = "Справка";
 
 /* Text in menu */
 "copyright" = "Копирайт";
