@@ -34,6 +34,8 @@ public:
 class SearchTest : public TestWithClassificator
 {
 public:
+  using TRules = vector<shared_ptr<tests_support::MatchingRule>>;
+
   SearchTest();
   ~SearchTest();
 
@@ -85,15 +87,11 @@ public:
   }
 
   inline void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }
+  bool ResultsMatch(string const & query, TRules const & rules);
 
-  bool ResultsMatch(string const & query,
-                    vector<shared_ptr<tests_support::MatchingRule>> const & rules);
+  bool ResultsMatch(string const & query, string const & locale, TRules const & rules);
 
-  bool ResultsMatch(string const & query, string const & locale,
-                    vector<shared_ptr<tests_support::MatchingRule>> const & rules);
-
-  bool ResultsMatch(string const & query, Mode mode,
-                    vector<shared_ptr<tests_support::MatchingRule>> const & rules);
+  bool ResultsMatch(string const & query, Mode mode, TRules const & rules);
 
   size_t CountFeatures(m2::RectD const & rect);
 

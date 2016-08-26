@@ -98,7 +98,7 @@ CGFloat const kAnimationDuration = .05;
 
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   TMwmSize totalSize = 0;
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   for (auto const & countryId : countries)
   {
     storage::NodeAttrs attrs;
@@ -134,8 +134,8 @@ CGFloat const kAnimationDuration = .05;
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
-  auto const & s = GetFramework().Storage();
-  auto const & p = GetFramework().DownloadingPolicy();
+  auto const & s = GetFramework().GetStorage();
+  auto const & p = GetFramework().GetDownloadingPolicy();
   if (s.CheckFailedCountries(m_countries))
   {
     if (p.IsAutoRetryDownloadFailed())
@@ -153,7 +153,7 @@ CGFloat const kAnimationDuration = .05;
 
 - (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
 {
-  auto const overallProgress = GetFramework().Storage().GetOverallProgress(m_countries);
+  auto const overallProgress = GetFramework().GetStorage().GetOverallProgress(m_countries);
   CGFloat const progressValue = static_cast<CGFloat>(overallProgress.first) / overallProgress.second;
   self.progress.progress = progressValue;
   self.titleLabel.text = [NSString stringWithFormat:@"%@%@%%", L(@"downloading"), @(floor(progressValue * 100))];

@@ -93,7 +93,6 @@ public:
   virtual void UpdateResults(bool lastUpdate);
 
   inline Results & GetResults() { return m_results; }
-  inline void FlushResults() { UpdateResults(true /* lastUpdate */); }
 
   void ClearCaches();
 

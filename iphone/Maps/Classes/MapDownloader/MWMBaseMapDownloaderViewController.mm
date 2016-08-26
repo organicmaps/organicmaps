@@ -142,7 +142,7 @@ using namespace mwm;
   else
   {
     NodeAttrs nodeAttrs;
-    GetFramework().Storage().GetNodeAttrs(self.parentCountryId.UTF8String, nodeAttrs);
+    GetFramework().GetStorage().GetNodeAttrs(self.parentCountryId.UTF8String, nodeAttrs);
     self.title = @(nodeAttrs.m_nodeLocalName.c_str());
   }
 
@@ -187,7 +187,7 @@ using namespace mwm;
   }
 
   BOOL needReload = NO;
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   s.ForEachInSubtree(self.parentCountryId.UTF8String,
                      [&needReload, &countryId](TCountryId const & descendantId, bool groupNode)
                      {
@@ -264,7 +264,7 @@ using namespace mwm;
 
 - (void)configAllMapsView
 {
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   TCountryId const parentCountryId = self.parentCountryId.UTF8String;
   if (self.dataSource != self.defaultDataSource)
   {
@@ -487,7 +487,7 @@ using namespace mwm;
 
 - (void)showActionSheetForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   NodeAttrs nodeAttrs;
   NSAssert(self.dataSource != nil, @"Datasource is nil.");
   NSString * countyId = [self.dataSource countryIdForIndexPath:indexPath];
@@ -585,7 +585,7 @@ using namespace mwm;
     [alertController addAction:action];
   }
 
-  auto const & s = GetFramework().Storage();
+  auto const & s = GetFramework().GetStorage();
   if (buttons & DownloadAction)
   {
     NodeAttrs nodeAttrs;
@@ -688,7 +688,7 @@ using namespace mwm;
 
 - (void)openAvailableMaps
 {
-  BOOL const isParentRoot = [self.parentCountryId isEqualToString:@(GetFramework().Storage().GetRootId().c_str())];
+  BOOL const isParentRoot = [self.parentCountryId isEqualToString:@(GetFramework().GetStorage().GetRootId().c_str())];
   NSString * identifier = isParentRoot ? kControllerIdentifier : kBaseControllerIdentifier;
   MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
   [vc setParentCountryId:self.parentCountryId mode:DownloaderMode::Available];

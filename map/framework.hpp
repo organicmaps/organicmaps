@@ -24,12 +24,12 @@
 
 #include "editor/user_stats.hpp"
 
+#include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
 #include "search/mode.hpp"
 #include "search/query_saver.hpp"
 #include "search/viewport_search_callback.hpp"
 
-#include "storage/downloader_search_params.hpp"
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
 
@@ -71,6 +71,7 @@ struct ViewportSearchParams;
 namespace storage
 {
 class CountryInfoGetter;
+struct DownloaderSearchParams;
 }
 
 namespace routing { namespace turns{ class Settings; } }
@@ -87,7 +88,8 @@ namespace df
 /// build version for screenshots.
 //#define FIXED_LOCATION
 
-class Framework : public search::ViewportSearchCallback::Delegate
+class Framework : public search::ViewportSearchCallback::Delegate,
+                  public search::DownloaderSearchCallback::Delegate
 {
   DISALLOW_COPY(Framework);
 
@@ -237,10 +239,10 @@ public:
   string GetCountryName(m2::PointD const & pt) const;
   //@}
 
-  storage::Storage & Storage() { return m_storage; }
-  storage::Storage const & Storage() const { return m_storage; }
-  storage::CountryInfoGetter & CountryInfoGetter() { return *m_infoGetter; }
-  StorageDownloadingPolicy & DownloadingPolicy() { return m_storageDownloadingPolicy; }
+  storage::Storage & GetStorage() { return m_storage; }
+  storage::Storage const & GetStorage() const { return m_storage; }
+  storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
+  StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
   /// @name Bookmarks, Tracks and other UserMarks
   //@{
@@ -457,7 +459,6 @@ private:
 
   void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                                       pair<size_t, size_t> const & toRemove);
-  bool GetGroupCountryIdFromFeature(FeatureType const & ft, string & name) const;
 
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;

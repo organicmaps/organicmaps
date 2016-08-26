@@ -32,7 +32,7 @@ BOOL canAutoDownload(TCountryId const & countryId)
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
     return NO;
-  auto const & countryInfoGetter = GetFramework().CountryInfoGetter();
+  auto const & countryInfoGetter = GetFramework().GetCountryInfoGetter();
   if (countryId != countryInfoGetter.GetRegionCountryId(lastLocation.mercator))
     return NO;
   return !platform::migrate::NeedMigrate();
@@ -101,8 +101,8 @@ using namespace storage;
 - (void)configDialog
 {
   auto & f = GetFramework();
-  auto const & s = f.Storage();
-  auto const & p = f.DownloadingPolicy();
+  auto const & s = f.GetStorage();
+  auto const & p = f.GetDownloadingPolicy();
 
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(m_countryId, nodeAttrs);

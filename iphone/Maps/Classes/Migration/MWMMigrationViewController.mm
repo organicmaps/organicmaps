@@ -82,7 +82,7 @@ using namespace storage;
     if (m_countryId == kInvalidCountryId || m_countryId != countryId)
       return;
     auto & f = GetFramework();
-    auto s = f.Storage().GetPrefetchStorage();
+    auto s = f.GetStorage().GetPrefetchStorage();
     NodeStatuses nodeStatuses{};
     s->GetNodeStatuses(countryId, nodeStatuses);
     switch (nodeStatuses.m_status)
@@ -121,12 +121,12 @@ using namespace storage;
   MWMAlertViewController * avc = self.alertController;
   auto const retryBlock = ^
   {
-    GetFramework().Storage().GetPrefetchStorage()->RetryDownloadNode(self->m_countryId);
+    GetFramework().GetStorage().GetPrefetchStorage()->RetryDownloadNode(self->m_countryId);
     [self setState:MWMMigrationViewState::Processing];
   };
   auto const cancelBlock = ^
   {
-    GetFramework().Storage().GetPrefetchStorage()->CancelDownloadNode(self->m_countryId);
+    GetFramework().GetStorage().GetPrefetchStorage()->CancelDownloadNode(self->m_countryId);
   };
   switch (errorCode)
   {
@@ -154,7 +154,7 @@ using namespace storage;
   if (state == MWMMigrationViewState::Processing)
   {
     NodeAttrs nodeAttrs;
-    GetFramework().Storage().GetPrefetchStorage()->GetNodeAttrs(m_countryId, nodeAttrs);
+    GetFramework().GetStorage().GetPrefetchStorage()->GetNodeAttrs(m_countryId, nodeAttrs);
     migrationView.nodeLocalName = @(nodeAttrs.m_nodeLocalName.c_str());
     self.navigationItem.leftBarButtonItem.enabled = NO;
   }
@@ -169,7 +169,7 @@ using namespace storage;
 
 - (void)progressButtonPressed:(MWMCircularProgress *)progress
 {
-  GetFramework().Storage().GetPrefetchStorage()->CancelDownloadNode(m_countryId);
+  GetFramework().GetStorage().GetPrefetchStorage()->CancelDownloadNode(m_countryId);
   [self setState:MWMMigrationViewState::Default];
 }
 
@@ -180,7 +180,7 @@ using namespace storage;
   if ([segue.identifier isEqualToString:kDownloaderSegue])
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
-    [dvc setParentCountryId:@(GetFramework().Storage().GetRootId().c_str()) mode:mwm::DownloaderMode::Downloaded];
+    [dvc setParentCountryId:@(GetFramework().GetStorage().GetRootId().c_str()) mode:mwm::DownloaderMode::Downloaded];
   }
 }
 

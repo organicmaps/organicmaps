@@ -15,11 +15,11 @@ using namespace storage;
      alertController:(MWMAlertViewController *)alertController
            onSuccess:(TMWMVoidBlock)onSuccess
 {
-  if (IsEnoughSpaceForDownload(countryId, GetFramework().Storage()))
+  if (IsEnoughSpaceForDownload(countryId, GetFramework().GetStorage()))
   {
     [self checkConnectionAndPerformAction:[countryId, onSuccess]
     {
-      GetFramework().Storage().DownloadNode(countryId);
+      GetFramework().GetStorage().DownloadNode(countryId);
       if (onSuccess)
         onSuccess();
     } alertController:alertController];
@@ -32,17 +32,17 @@ using namespace storage;
 
 + (void)retryDownloadNode:(TCountryId const &)countryId
 {
-  GetFramework().Storage().RetryDownloadNode(countryId);
+  GetFramework().GetStorage().RetryDownloadNode(countryId);
 }
 
 + (void)updateNode:(TCountryId const &)countryId
    alertController:(MWMAlertViewController *)alertController
 {
-  if (IsEnoughSpaceForUpdate(countryId, GetFramework().Storage()))
+  if (IsEnoughSpaceForUpdate(countryId, GetFramework().GetStorage()))
   {
     [self checkConnectionAndPerformAction:[countryId]
     {
-      GetFramework().Storage().UpdateNode(countryId);
+      GetFramework().GetStorage().UpdateNode(countryId);
     } alertController:alertController];
   }
   else
@@ -64,18 +64,18 @@ using namespace storage;
   {
     [alertController presentUnsavedEditsAlertWithOkBlock:[countryId]
     {
-      GetFramework().Storage().DeleteNode(countryId);
+      GetFramework().GetStorage().DeleteNode(countryId);
     }];
   }
   else
   {
-    f.Storage().DeleteNode(countryId);
+    f.GetStorage().DeleteNode(countryId);
   }
 }
 
 + (void)cancelDownloadNode:(TCountryId const &)countryId
 {
-  GetFramework().Storage().CancelDownloadNode(countryId);
+  GetFramework().GetStorage().CancelDownloadNode(countryId);
 }
 
 + (void)showNode:(TCountryId const &)countryId
@@ -91,14 +91,14 @@ using namespace storage;
                                      [](size_t const & size, TCountryId const & countryId)
                                      {
                                        NodeAttrs nodeAttrs;
-                                       GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
+                                       GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);
                                        return size + nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
                                      });
   if (GetPlatform().GetWritableStorageStatus(requiredSize) == Platform::TStorageStatus::STORAGE_OK)
   {
     [self checkConnectionAndPerformAction:[countryIds, onSuccess]
     {
-      auto & s = GetFramework().Storage();
+      auto & s = GetFramework().GetStorage();
       for (auto const & countryId : countryIds)
         s.DownloadNode(countryId);
       if (onSuccess)
@@ -124,11 +124,11 @@ using namespace storage;
       break;
     case Platform::EConnectionType::CONNECTION_WWAN:
     {
-      if (!GetFramework().DownloadingPolicy().IsCellularDownloadEnabled())
+      if (!GetFramework().GetDownloadingPolicy().IsCellularDownloadEnabled())
       {
         [alertController presentNoWiFiAlertWithOkBlock:[action]
         {
-          GetFramework().DownloadingPolicy().EnableCellularDownload(true);
+          GetFramework().GetDownloadingPolicy().EnableCellularDownload(true);
           action();
         }];
       }

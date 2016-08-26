@@ -124,14 +124,14 @@ void DrawWidget::UpdateCountryStatus(storage::TCountryId const & countryId)
   if (m_currentCountryChanged != nullptr)
   {
     string countryName = countryId;
-    auto status = m_framework->Storage().CountryStatusEx(countryId);
+    auto status = m_framework->GetStorage().CountryStatusEx(countryId);
 
     uint8_t progressInPercentage = 0;
     storage::MapFilesDownloader::TProgress progressInByte = make_pair(0, 0);
     if (!countryId.empty())
     {
       storage::NodeAttrs nodeAttrs;
-      m_framework->Storage().GetNodeAttrs(countryId, nodeAttrs);
+      m_framework->GetStorage().GetNodeAttrs(countryId, nodeAttrs);
       progressInByte = nodeAttrs.m_downloadingProgress;
       if (progressInByte.second != 0)
         progressInPercentage = static_cast<int8_t>(100 * progressInByte.first / progressInByte.second);
@@ -155,7 +155,7 @@ void DrawWidget::SetCurrentCountryChangedListener(DrawWidget::TCurrentCountryCha
 
 void DrawWidget::DownloadCountry(storage::TCountryId const & countryId)
 {
-  m_framework->Storage().DownloadNode(countryId);
+  m_framework->GetStorage().DownloadNode(countryId);
   if (!m_countryId.empty())
     UpdateCountryStatus(m_countryId);
 }

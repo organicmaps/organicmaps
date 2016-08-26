@@ -15,6 +15,7 @@ HEADERS += \
     cbv.hpp \
     common.hpp \
     displayed_categories.hpp \
+    downloader_search_callback.hpp \
     dummy_rank_table.hpp \
     engine.hpp \
     everywhere_search_params.hpp \
@@ -79,6 +80,7 @@ SOURCES += \
     approximate_string_match.cpp \
     cbv.cpp \
     displayed_categories.cpp \
+    downloader_search_callback.cpp \
     dummy_rank_table.cpp \
     engine.cpp \
     features_filter.cpp \

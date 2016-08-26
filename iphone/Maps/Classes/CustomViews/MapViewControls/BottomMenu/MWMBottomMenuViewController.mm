@@ -289,7 +289,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   }
   case MWMBottomMenuViewCellDownload:
   {
-    auto & s = GetFramework().Storage();
+    auto & s = GetFramework().GetStorage();
     storage::Storage::UpdateInfo updateInfo{};
     s.GetUpdateInfo(s.GetRootId(), updateInfo);
     [cell configureWithImageName:@"ic_menu_download"

@@ -43,7 +43,7 @@
   if (self.needDisplayArea && nodeAttrs.m_topmostParentInfo.size() == 1)
   {
     string const & areaName = nodeAttrs.m_topmostParentInfo[0].m_localName;
-    isDescriptionVisible = (areaName != GetFramework().Storage().GetRootId());
+    isDescriptionVisible = (areaName != GetFramework().GetStorage().GetRootId());
     if (isDescriptionVisible)
       self.descriptionLabel.attributedText = [self matchedString:@(areaName.c_str())
                                                    selectedAttrs:selectedAreaAttrs

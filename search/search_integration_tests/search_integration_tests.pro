@@ -19,6 +19,7 @@ macx-*: LIBS *= "-framework IOKit"
 
 SOURCES += \
     ../../testing/testingmain.cpp \
+    downloader_search_test.cpp \
     generate_tests.cpp \
     helpers.cpp \
     interactive_search_test.cpp \

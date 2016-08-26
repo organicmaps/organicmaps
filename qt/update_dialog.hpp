@@ -55,7 +55,7 @@ namespace qt
     storage::TCountryId GetCountryIdByTreeItem(QTreeWidgetItem *);
 
   private:
-    inline storage::Storage & GetStorage() const { return m_framework.Storage(); }
+    inline storage::Storage & GetStorage() const { return m_framework.GetStorage(); }
 
     QTreeWidget * m_tree;
     Framework & m_framework;

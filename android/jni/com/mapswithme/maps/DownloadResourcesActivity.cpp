@@ -186,7 +186,7 @@ extern "C"
 
     GetServerListFromRequest(req, curFile.m_urls);
 
-    storage::Storage const & storage = g_framework->Storage();
+    storage::Storage const & storage = g_framework->GetStorage();
     for (size_t i = 0; i < curFile.m_urls.size(); ++i)
     {
       curFile.m_urls[i] = storage.GetFileDownloadUrl(curFile.m_urls[i], curFile.m_fileName);

@@ -12,6 +12,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 
+#include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
 #include "search/everywhere_search_params.hpp"
 #include "search/geometry_utils.hpp"
@@ -21,6 +22,7 @@
 #include "search/reverse_geocoder.hpp"
 #include "search/viewport_search_params.hpp"
 
+#include "storage/downloader_search_params.hpp"
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/color_constants.hpp"
@@ -267,7 +269,7 @@ TCountryId Framework::PreMigrate(ms::LatLon const & position,
                            Storage::TChangeCountryFunction const & change,
                            Storage::TProgressFunction const & progress)
 {
-  Storage().PrefetchMigrateData();
+  GetStorage().PrefetchMigrateData();
 
   auto const infoGetter =
       CountryInfoReader::CreateCountryInfoReaderOneComponentMwms(GetPlatform());
@@ -278,8 +280,8 @@ TCountryId Framework::PreMigrate(ms::LatLon const & position,
   if (currentCountryId == kInvalidCountryId)
     return kInvalidCountryId;
 
-  Storage().GetPrefetchStorage()->Subscribe(change, progress);
-  Storage().GetPrefetchStorage()->DownloadNode(currentCountryId);
+  GetStorage().GetPrefetchStorage()->Subscribe(change, progress);
+  GetStorage().GetPrefetchStorage()->DownloadNode(currentCountryId);
   return currentCountryId;
 }
 
@@ -295,10 +297,10 @@ void Framework::Migrate(bool keepDownloaded)
   m_searchEngine.reset();
   m_infoGetter.reset();
   TCountriesVec existedCountries;
-  Storage().DeleteAllLocalMaps(&existedCountries);
+  GetStorage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
   m_model.Clear();
-  Storage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
+  GetStorage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
   InitCountryInfoGetter();
   InitSearchEngine();
   RegisterAllMaps();
@@ -482,7 +484,7 @@ void Framework::ShowNode(storage::TCountryId const & countryId)
 {
   StopLocationFollow();
 
-  ShowRect(CalcLimitRect(countryId, Storage(), CountryInfoGetter()));
+  ShowRect(CalcLimitRect(countryId, GetStorage(), GetCountryInfoGetter()));
 }
 
 void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
@@ -555,7 +557,7 @@ bool Framework::HasUnsavedEdits(storage::TCountryId const & countryId)
     hasUnsavedChanges |= osm::Editor::Instance().HaveMapEditsToUpload(
           m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(fileName)));
   };
-  Storage().ForEachInSubtree(countryId, forEachInSubtree);
+  GetStorage().ForEachInSubtree(countryId, forEachInSubtree);
   return hasUnsavedChanges;
 }
 
@@ -574,7 +576,7 @@ void Framework::RegisterAllMaps()
     settings::Get("DisableFastMigrate", disableFastMigrate);
     if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
     {
-      Storage().PrefetchMigrateData();
+      GetStorage().PrefetchMigrateData();
       Migrate();
       return;
     }
@@ -716,7 +718,7 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   {
     size_t const level = isState ? 1 : 0;
     TCountriesVec countries;
-    Storage().GetTopmostNodesFor(info.m_countryId, countries, level);
+    GetStorage().GetTopmostNodesFor(info.m_countryId, countries, level);
     if (countries.size() == 1)
       info.m_countryId = countries.front();
   }
@@ -1093,22 +1095,6 @@ void Framework::UpdateUserViewportChanged()
   Search(params);
 }
 
-bool Framework::GetGroupCountryIdFromFeature(FeatureType const & ft, string & name) const
-{
-  int8_t langIndices[] = { StringUtf8Multilang::kEnglishCode,
-                           StringUtf8Multilang::kDefaultCode,
-                           StringUtf8Multilang::kInternationalCode };
-
-  for (auto const langIndex : langIndices)
-  {
-    if (!ft.GetName(langIndex, name))
-      continue;
-    if (Storage().IsCoutryIdCountryTreeInnerNode(name))
-      return true;
-  }
-  return false;
-}
-
 bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
 {
   search::SearchParams p;
@@ -1159,56 +1145,9 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   p.SetMode(search::Mode::Downloader);
   p.SetSuggestsEnabled(false);
   p.SetForceSearch(true);
-  p.m_onResults = [this, params](search::Results const & results)
-  {
-    DownloaderSearchResults downloaderSearchResults;
-    for (auto const & result : results)
-    {
-      if (!result.HasPoint())
-        continue;
-
-      if (result.GetResultType() != search::Result::RESULT_LATLON)
-      {
-        FeatureID const & fid = result.GetFeatureID();
-        Index::FeaturesLoaderGuard loader(m_model.GetIndex(), fid.m_mwmId);
-        FeatureType ft;
-        if (!loader.GetFeatureByIndex(fid.m_index, ft))
-        {
-          LOG(LERROR, ("Feature can't be loaded:", fid));
-          continue;
-        }
-
-        ftypes::Type const type = ftypes::IsLocalityChecker::Instance().GetType(ft);
-
-        if (type == ftypes::COUNTRY || type == ftypes::STATE)
-        {
-          string groupFeatureName;
-          if (GetGroupCountryIdFromFeature(ft, groupFeatureName))
-          {
-            downloaderSearchResults.m_results.emplace_back(groupFeatureName,
-                                                           result.GetString() /* m_matchedName */);
-            continue;
-          }
-        }
-      }
-
-      auto const & mercator = result.GetFeatureCenter();
-      TCountryId const & countryId = CountryInfoGetter().GetRegionCountryId(mercator);
-      if (countryId == kInvalidCountryId)
-        continue;
-      downloaderSearchResults.m_results.emplace_back(countryId,
-                                                     result.GetString() /* m_matchedName */);
-    }
-    downloaderSearchResults.m_query = params.m_query;
-    downloaderSearchResults.m_endMarker = results.IsEndMarker();
-
-    if (params.m_onResults)
-    {
-      GetPlatform().RunOnGuiThread(
-          [params, downloaderSearchResults]() { params.m_onResults(downloaderSearchResults); });
-    }
-  };
-
+  p.m_onResults = search::DownloaderSearchCallback(
+      static_cast<search::DownloaderSearchCallback::Delegate &>(*this), m_model.GetIndex(),
+      GetCountryInfoGetter(), GetStorage(), params);
   return Search(p);
 }
 

@@ -40,7 +40,7 @@ UNIT_TEST(SmallMwms_3levels_Test)
   Platform & platform = GetPlatform();
 
   Framework f;
-  auto & storage = f.Storage();
+  auto & storage = f.GetStorage();
   string const version = strings::to_string(storage.GetCurrentDataVersion());
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 

@@ -50,6 +50,8 @@
 		349B65891D4F21E5001798E2 /* lazy_centers_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 349B65871D4F21E5001798E2 /* lazy_centers_table.cpp */; };
 		349B658A1D4F21E5001798E2 /* lazy_centers_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 349B65881D4F21E5001798E2 /* lazy_centers_table.hpp */; };
 		34B1CB791D22905800B59423 /* ranker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34B1CB771D22905800B59423 /* ranker.hpp */; };
+		397AFE061D6C9AC700F583E7 /* downloader_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 397AFE041D6C9AC700F583E7 /* downloader_search_callback.cpp */; };
+		397AFE071D6C9AC700F583E7 /* downloader_search_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 397AFE051D6C9AC700F583E7 /* downloader_search_callback.hpp */; };
 		56D5456E1C74A48C00E3719C /* mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D5456C1C74A48C00E3719C /* mode.cpp */; };
 		56D5456F1C74A48C00E3719C /* mode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D5456D1C74A48C00E3719C /* mode.hpp */; };
 		670F88741CE4C032003F68BA /* types_skipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F88721CE4C032003F68BA /* types_skipper.cpp */; };
@@ -209,6 +211,8 @@
 		349B65871D4F21E5001798E2 /* lazy_centers_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lazy_centers_table.cpp; sourceTree = "<group>"; };
 		349B65881D4F21E5001798E2 /* lazy_centers_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lazy_centers_table.hpp; sourceTree = "<group>"; };
 		34B1CB771D22905800B59423 /* ranker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ranker.hpp; sourceTree = "<group>"; };
+		397AFE041D6C9AC700F583E7 /* downloader_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloader_search_callback.cpp; sourceTree = "<group>"; };
+		397AFE051D6C9AC700F583E7 /* downloader_search_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_search_callback.hpp; sourceTree = "<group>"; };
 		56D5456C1C74A48C00E3719C /* mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mode.cpp; sourceTree = "<group>"; };
 		56D5456D1C74A48C00E3719C /* mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mode.hpp; sourceTree = "<group>"; };
 		670D05A31B0DF3C30013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
@@ -415,6 +419,8 @@
 			children = (
 				0810EC341D6D9D2E00ABFEE7 /* displayed_categories.cpp */,
 				0810EC351D6D9D2E00ABFEE7 /* displayed_categories.hpp */,
+				397AFE041D6C9AC700F583E7 /* downloader_search_callback.cpp */,
+				397AFE051D6C9AC700F583E7 /* downloader_search_callback.hpp */,
 				3469FAD01D6C5D9C00F35A88 /* everywhere_search_params.hpp */,
 				3469FAD11D6C5D9C00F35A88 /* nearby_points_sweeper.cpp */,
 				3469FAD21D6C5D9C00F35A88 /* nearby_points_sweeper.hpp */,
@@ -589,6 +595,7 @@
 				3441CE4F1CFC1D7000CF30D4 /* processor_factory.hpp in Headers */,
 				675346DE1A40560D00A0A8C3 /* approximate_string_match.hpp in Headers */,
 				3465B2831D5DE71A0021E14D /* search_params.hpp in Headers */,
+				397AFE071D6C9AC700F583E7 /* downloader_search_callback.hpp in Headers */,
 				675346EE1A40560D00A0A8C3 /* locality_finder.hpp in Headers */,
 				675346EC1A40560D00A0A8C3 /* latlon_match.hpp in Headers */,
 				3465B2851D5DE71A0021E14D /* viewport_search_callback.hpp in Headers */,
@@ -791,6 +798,7 @@
 				F652D90B1CFDE21900FC29A0 /* street_vicinity_loader.cpp in Sources */,
 				675346ED1A40560D00A0A8C3 /* locality_finder.cpp in Sources */,
 				56D5456E1C74A48C00E3719C /* mode.cpp in Sources */,
+				397AFE061D6C9AC700F583E7 /* downloader_search_callback.cpp in Sources */,
 				F652D8EC1CFDE21900FC29A0 /* features_layer_path_finder.cpp in Sources */,
 				3441CE521CFC1D7000CF30D4 /* query_params.cpp in Sources */,
 				670F88741CE4C032003F68BA /* types_skipper.cpp in Sources */,

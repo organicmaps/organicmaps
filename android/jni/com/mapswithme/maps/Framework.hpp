@@ -61,7 +61,7 @@ namespace android
   public:
     Framework();
 
-    storage::Storage & Storage();
+    storage::Storage & GetStorage();
 
     void ShowNode(storage::TCountryId const & countryId, bool zoomToDownloadButton);
 

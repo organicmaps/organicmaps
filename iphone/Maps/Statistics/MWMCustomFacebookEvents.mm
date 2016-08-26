@@ -75,16 +75,16 @@ static int gStorageSubscriptionId = kNotSubscribed;
     {
       if (gStorageSubscriptionId == kNotSubscribed)
       {
-        gStorageSubscriptionId = GetFramework().Storage().Subscribe([](storage::TCountryId const &)
+        gStorageSubscriptionId = GetFramework().GetStorage().Subscribe([](storage::TCountryId const &)
         {
-          if (GetFramework().Storage().GetDownloadedFilesCount() >= 2)
+          if (GetFramework().GetStorage().GetDownloadedFilesCount() >= 2)
           {
             [FBSDKAppEvents logEvent:kDownloadedSecondMapEvent];
             [MWMCustomFacebookEvents markEventAsAlreadyFired:kDownloadedSecondMapEvent];
             // We can't unsubscribe from this callback immediately now, it will crash Storage's observers notification.
             dispatch_async(dispatch_get_main_queue(),
             ^{
-              GetFramework().Storage().Unsubscribe(gStorageSubscriptionId);
+              GetFramework().GetStorage().Unsubscribe(gStorageSubscriptionId);
               gStorageSubscriptionId = kNotSubscribed;
             });
             [Alohalytics logEvent:kDownloadedSecondMapEvent];

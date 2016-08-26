@@ -402,7 +402,7 @@ namespace qt
     m_tree->setSortingEnabled(false);
     m_tree->clear();
 
-    TCountryId const rootId = m_framework.Storage().GetRootId();
+    TCountryId const rootId = m_framework.GetStorage().GetRootId();
     FillTreeImpl(nullptr /* parent */, rootId, filter);
 
     // Expand the root.

@@ -268,8 +268,8 @@ extern NSString * const kAlohalyticsTapEventKey;
       doneBlock:^{
         auto & f = GetFramework();
 
-        if (IsPointCoveredByDownloadedMaps(f.GetViewportCenter(), f.Storage(),
-                                           f.CountryInfoGetter()))
+        if (IsPointCoveredByDownloadedMaps(f.GetViewportCenter(), f.GetStorage(),
+                                           f.GetCountryInfoGetter()))
           [self.ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
         else
           [self.ownerController.alertController presentIncorrectFeauturePositionAlert];

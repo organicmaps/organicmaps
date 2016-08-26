@@ -488,7 +488,7 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
   NodeStatuses nodeStatuses{};
-  GetFramework().Storage().GetNodeStatuses(countryId, nodeStatuses);
+  GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
   if (nodeStatuses.m_status != NodeStatus::Error)
     return;
   switch (nodeStatuses.m_error)
@@ -614,7 +614,7 @@ BOOL gIsFirstMyPositionMode = YES;
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
     NSNumber * mode = sender;
-    [dvc setParentCountryId:@(GetFramework().Storage().GetRootId().c_str())
+    [dvc setParentCountryId:@(GetFramework().GetStorage().GetRootId().c_str())
                        mode:static_cast<mwm::DownloaderMode>(mode.integerValue)];
   }
   else if ([segue.identifier isEqualToString:kMap2FBLoginSegue])
