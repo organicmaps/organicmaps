@@ -3,6 +3,7 @@
 #import "SelectableCell.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
+#import "MWMSettings.h"
 
 #include "Framework.h"
 
@@ -21,7 +22,7 @@
 {
   [super viewDidLoad];
   self.title = L(@"pref_map_style_title");
-  if ([MapsAppDelegate isAutoNightMode])
+  if ([MWMSettings autoNightModeEnabled])
   {
     self.autoSwitch.accessoryType = UITableViewCellAccessoryCheckmark;
     _selectedCell = self.autoSwitch;

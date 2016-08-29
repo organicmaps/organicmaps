@@ -31,6 +31,7 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIViewController+Navigation.h"
+#import "MWMSettings.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -57,8 +58,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 extern NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 extern NSString * const kMap2FBLoginSegue = @"Map2FBLogin";
 extern NSString * const kMap2GoogleLoginSegue = @"Map2GoogleLogin";
-extern char const * kAdForbiddenSettingsKey;
-extern char const * kAdServerForbiddenKey;
 
 typedef NS_ENUM(NSUInteger, UserTouchesAction) {
   UserTouchesActionNone,
@@ -542,11 +541,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)refreshAd
 {
-  bool adServerForbidden = false;
-  (void)settings::Get(kAdServerForbiddenKey, adServerForbidden);
-  bool adForbidden = false;
-  (void)settings::Get(kAdForbiddenSettingsKey, adForbidden);
-  if (isIOS7 || adServerForbidden || adForbidden)
+  if (isIOS7 || [MWMSettings adServerForbidden] || [MWMSettings adForbidden])
   {
     self.appWallAd = nil;
     return;

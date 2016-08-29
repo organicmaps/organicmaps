@@ -10,12 +10,11 @@
 #import "MWMStorage.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
+#import "MWMSettings.h"
 
 #include "Framework.h"
 
 #include "platform/local_country_file_utils.hpp"
-
-extern char const * kAutoDownloadEnabledKey;
 
 namespace
 {
@@ -23,9 +22,7 @@ CGSize constexpr kInitialDialogSize = {200, 200};
 
 BOOL canAutoDownload(TCountryId const & countryId)
 {
-  bool autoDownloadEnabled = true;
-  (void)settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
-  if (!autoDownloadEnabled)
+  if (![MWMSettings autoDownloadEnabled])
     return NO;
   if (GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_WIFI)
     return NO;

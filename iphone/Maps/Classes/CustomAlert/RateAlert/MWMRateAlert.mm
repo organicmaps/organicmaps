@@ -11,7 +11,7 @@
 #include "platform/platform.hpp"
 
 extern NSString * const kUDAlreadyRatedKey;
-extern NSDictionary * const deviceNames;
+extern NSDictionary * const kDeviceNames;
 extern NSString * const kLocaleUsedInSupportEmails;
 extern NSString * const kRateAlertEventName = @"rateAlertEvent";
 static NSString * const kRateAlertNibName = @"MWMRateAlert";
@@ -153,7 +153,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString * machine = @(systemInfo.machine);
-    NSString * device = deviceNames[machine];
+    NSString * device = kDeviceNames[machine];
     if (!device)
       device = machine;
     NSString * languageCode = [[NSLocale preferredLanguages] firstObject];

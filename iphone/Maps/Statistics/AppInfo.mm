@@ -18,6 +18,7 @@ extern string const kLanguageKey = "Language";
 @property (nonatomic) NSString * bundleVersion;
 @property (nonatomic) NSString * deviceInfo;
 @property (nonatomic) NSUUID * advertisingId;
+@property (nonatomic) NSDate * buildDate;
 
 @end
 
@@ -113,6 +114,22 @@ extern string const kLanguageKey = "Language";
 {
   NSArray * languages = [NSLocale preferredLanguages];
   return languages.count == 0 ? nil : languages[0];
+}
+
+- (NSDate *)buildDate
+{
+  if (!_buildDate)
+  {
+    NSString * dateStr =
+    [NSString stringWithFormat:@"%@ %@", [NSString stringWithUTF8String:__DATE__],
+     [NSString stringWithUTF8String:__TIME__]];
+
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"LLL d yyyy HH:mm:ss"];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    _buildDate = [dateFormatter dateFromString:dateStr];
+  }
+  return _buildDate;
 }
 
 @end

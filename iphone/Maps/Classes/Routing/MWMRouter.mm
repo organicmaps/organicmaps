@@ -13,6 +13,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "MWMSettings.h"
 
 #include "Framework.h"
 
@@ -226,7 +227,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   MapsAppDelegate * app = [MapsAppDelegate theApp];
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
   [MWMRouterSavedState remove];
-  if ([MapsAppDelegate isAutoNightMode])
+  if ([MWMSettings autoNightModeEnabled])
     [MapsAppDelegate resetToDefaultMapStyle];
   [app showAlertIfRequired];
 }

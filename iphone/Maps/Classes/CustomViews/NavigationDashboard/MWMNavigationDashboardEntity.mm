@@ -2,6 +2,7 @@
 #import "MapsAppDelegate.h"
 #import "MWMLocationManager.h"
 #import "MWMNavigationDashboardEntity.h"
+#import "MWMSettings.h"
 
 #include "Framework.h"
 #include "geometry/distance_on_sphere.hpp"
@@ -121,15 +122,13 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation || lastLocation.speed < 0)
     return nil;
-  auto units = measurement_utils::Units::Metric;
-  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
+  auto const units = [MWMSettings measurementUnits];
   return @(measurement_utils::FormatSpeed(lastLocation.speed, units).c_str());
 }
 
 - (NSString *)speedUnits
 {
-  auto units = measurement_utils::Units::Metric;
-  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
+  auto const units = [MWMSettings measurementUnits];
   return @(measurement_utils::FormatSpeedUnits(units).c_str());
 }
 

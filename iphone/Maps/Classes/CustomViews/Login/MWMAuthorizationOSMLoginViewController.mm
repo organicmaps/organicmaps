@@ -3,9 +3,9 @@
 #import "MWMAuthorizationOSMLoginViewController.h"
 #import "MWMCircularProgress.h"
 #import "Statistics.h"
-#import "SettingsAndMoreVC.h"
 #import "UIColor+MapsMeColor.h"
 #import "UITextField+RuntimeAttributes.h"
+#import "MWMSettingsViewController.h"
 
 #include "private.h"
 #include "editor/server_api.hpp"
@@ -162,7 +162,7 @@ using namespace osm;
           UIViewController * svc = nil;
           for (UIViewController * vc in self.navigationController.viewControllers)
           {
-            if ([vc isKindOfClass:[SettingsAndMoreVC class]])
+            if ([vc isKindOfClass:[MWMSettingsViewController class]])
             {
               svc = vc;
               break;

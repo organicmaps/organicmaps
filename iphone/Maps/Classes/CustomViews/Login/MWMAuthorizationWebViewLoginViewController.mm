@@ -4,7 +4,7 @@
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMCircularProgress.h"
 #import "Statistics.h"
-#import "SettingsAndMoreVC.h"
+#import "MWMSettingsViewController.h"
 
 #include "base/logging.hpp"
 #include "editor/osm_auth.hpp"
@@ -174,7 +174,7 @@ NSString * getVerifier(NSString * urlString)
         UIViewController * svc = nil;
         for (UIViewController * vc in self.navigationController.viewControllers)
         {
-          if ([vc isKindOfClass:[SettingsAndMoreVC class]])
+          if ([vc isKindOfClass:[MWMSettingsViewController class]])
           {
             svc = vc;
             break;

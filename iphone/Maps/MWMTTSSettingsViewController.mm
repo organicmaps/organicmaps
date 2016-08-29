@@ -108,26 +108,47 @@ using namespace locale_translator;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   if (section == 0)
-    return _languages.size() + 1;
+    return _languages.size() + 2;
   else
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 0 && indexPath.row != _languages.size())
+  if (indexPath.section == 0)
   {
-    SelectableCell * cell = (SelectableCell *)[tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
-    pair<string, string> const p = _languages[indexPath.row];
-    cell.titleLabel.text = @(p.second.c_str());
-    BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
-    cell.accessoryType = isSelected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    return cell;
+    if (indexPath.row == 0)
+    {
+      SelectableCell * cell = (SelectableCell *)[tableView
+          dequeueReusableCellWithIdentifier:[SelectableCell className]];
+      cell.titleLabel.text = L(@"duration_disabled");
+      cell.accessoryType = [MWMTextToSpeech isTTSEnabled] ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+      return cell;
+    }
+    else
+    {
+      NSInteger const row = indexPath.row - 1;
+      if (row == _languages.size())
+      {
+        LinkCell * cell = (LinkCell *)[tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
+        cell.titleLabel.text = L(@"pref_tts_other_section_title");
+        return cell;
+      }
+      else
+      {
+        SelectableCell * cell = (SelectableCell *)[tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
+        pair<string, string> const p = _languages[row];
+        cell.titleLabel.text = @(p.second.c_str());
+        BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
+        cell.accessoryType = [MWMTextToSpeech isTTSEnabled] && isSelected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+        return cell;
+      }
+    }
   }
   else
   {
     LinkCell * cell = (LinkCell *)[tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
-    cell.titleLabel.text = indexPath.section == 0 ? L(@"pref_tts_other_section_title") : L(@"pref_tts_how_to_set_up_voice");
+    cell.titleLabel.text = L(@"pref_tts_how_to_set_up_voice");
     return cell;
   }
 }
@@ -136,16 +157,30 @@ using namespace locale_translator;
 {
   if (indexPath.section == 0)
   {
-    if (indexPath.row == _languages.size())
+    if (indexPath.row == 0)
     {
-      [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
-                       withParameters:@{kStatValue : kStatOther}];
-      [self performSegueWithIdentifier:kSelectTTSLanguageSegueName sender:nil];
+      [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
+            withParameters:@{kStatValue : kStatOff}];
+      [MWMTextToSpeech setTTSEnabled:NO];
+      [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     }
     else
     {
-      [[MWMTextToSpeech tts] setNotificationsLocale:@(_languages[indexPath.row].first.c_str())];
-      [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+      [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
+            withParameters:@{kStatValue : kStatOn}];
+      [MWMTextToSpeech setTTSEnabled:YES];
+      NSInteger const row = indexPath.row - 1;
+      if (row == _languages.size())
+      {
+        [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
+              withParameters:@{kStatValue : kStatOther}];
+        [self performSegueWithIdentifier:kSelectTTSLanguageSegueName sender:nil];
+      }
+      else
+      {
+        [[MWMTextToSpeech tts] setNotificationsLocale:@(_languages[row].first.c_str())];
+        [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+      }
     }
   }
   else if (indexPath.section == 1)

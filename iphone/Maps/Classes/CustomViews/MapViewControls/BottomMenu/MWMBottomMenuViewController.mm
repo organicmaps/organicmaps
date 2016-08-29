@@ -16,8 +16,7 @@
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
-#import "SettingsAndMoreVC.h"
-#import "SettingsViewController.h"
+#import "MWMSettingsViewController.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
 #import "UIColor+MapsMeColor.h"
@@ -362,23 +361,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [self.delegate actionDownloadMaps:mwm::DownloaderMode::Downloaded];
 }
 
-- (void)menuActionOpenSettings
+- (IBAction)menuActionOpenSettings
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
   self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
-  SettingsAndMoreVC * vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
-  [self.controller.navigationController pushViewController:vc animated:YES];
-}
-
-- (IBAction)menuActionOpenSubSettings
-{
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
-  self.state = self.restoreState;
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsMiles"];
-  SettingsViewController * vc = [self.mainStoryboard
-      instantiateViewControllerWithIdentifier:[SettingsViewController className]];
-  [self.controller.navigationController pushViewController:vc animated:YES];
+  [self.controller performSegueWithIdentifier:@"Map2Settings" sender:nil];
 }
 
 - (void)menuActionShareLocation
