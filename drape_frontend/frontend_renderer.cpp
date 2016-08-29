@@ -1532,7 +1532,7 @@ void FrontendRenderer::OnContextCreate()
   blendingParams.Apply();
 
 #ifdef RENDER_DEBUG_RECTS
-  dp::DebugRectRenderer::Instance().Init(make_ref(m_renderer.m_gpuProgramManager));
+  dp::DebugRectRenderer::Instance().Init(make_ref(m_gpuProgramManager));
 #endif
 
   // resources recovering
