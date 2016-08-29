@@ -93,12 +93,22 @@ NSString * const kiOSEmail = @"ios@maps.me";
   [super viewDidLoad];
 
   self.title = L(@"help");
-  NSString * path = [[NSBundle mainBundle] pathForResource:@"faq" ofType:@"html"];
-  NSString * html =
-      [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-  self.aboutViewController =
-      [[WebViewController alloc] initWithHtml:html baseUrl:nil andTitleOrNil:nil];
-  self.aboutViewController.openInSafari = YES;
+
+  NSString * html;
+  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+  {
+    NSString * path = [[NSBundle mainBundle] pathForResource:@"faq" ofType:@"html"];
+    html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    self.aboutViewController =
+        [[WebViewController alloc] initWithHtml:html baseUrl:nil andTitleOrNil:nil];
+  }
+  else
+  {
+    NSURL * url = [NSURL URLWithString:@"https://support.maps.me"];
+    self.aboutViewController = [[WebViewController alloc] initWithUrl:url andTitleOrNil:nil];
+  }
+
+  self.aboutViewController.openInSafari = NO;
   UIView * aboutView = self.aboutViewController.view;
   [self addChildViewController:self.aboutViewController];
   [self.view addSubview:aboutView];
