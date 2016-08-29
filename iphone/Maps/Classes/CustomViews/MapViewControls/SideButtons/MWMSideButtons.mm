@@ -2,10 +2,10 @@
 #import "Common.h"
 #import "MWMButton.h"
 #import "MWMRouter.h"
+#import "MWMSettings.h"
 #import "MWMSideButtonsView.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
-#import "MWMSettings.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 

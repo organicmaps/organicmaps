@@ -1,10 +1,10 @@
-#import "AppInfo.h"
-#import "MWMAlertViewController.h"
 #import "MWMRateAlert.h"
-#import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
+#import "AppInfo.h"
+#import "MWMAlertViewController.h"
+#import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -19,13 +19,13 @@ static NSString * const kRateEmail = @"rating@maps.me";
 
 static NSString * const kStatisticsEvent = @"Rate Alert";
 
-@interface MWMRateAlert () <MFMailComposeViewControllerDelegate>
+@interface MWMRateAlert ()<MFMailComposeViewControllerDelegate>
 
-@property (nonatomic) IBOutletCollection(UIButton) NSArray * buttons;
-@property (nonatomic, weak) IBOutlet UIButton * rateButton;
-@property (nonatomic, weak) IBOutlet UILabel * title;
-@property (nonatomic, weak) IBOutlet UILabel * message;
-@property (nonatomic) NSUInteger selectedTag;
+@property(nonatomic) IBOutletCollection(UIButton) NSArray * buttons;
+@property(nonatomic, weak) IBOutlet UIButton * rateButton;
+@property(nonatomic, weak) IBOutlet UILabel * title;
+@property(nonatomic, weak) IBOutlet UILabel * message;
+@property(nonatomic) NSUInteger selectedTag;
 
 @end
 
@@ -34,7 +34,8 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 + (instancetype)alert
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
-  MWMRateAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kRateAlertNibName owner:self options:nil] firstObject];
+  MWMRateAlert * alert =
+      [[[NSBundle mainBundle] loadNibNamed:kRateAlertNibName owner:self options:nil] firstObject];
   [alert configureButtons];
   return alert;
 }
@@ -83,22 +84,14 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
   self.selectedTag = tag;
 }
 
-- (IBAction)starHighlighted:(UIButton *)sender
-{
-  [self setHighlighted:sender.tag];
-}
-
+- (IBAction)starHighlighted:(UIButton *)sender { [self setHighlighted:sender.tag]; }
 - (IBAction)starTouchCanceled
 {
   for (UIButton * b in self.buttons)
     b.highlighted = NO;
 }
 
-- (IBAction)starDragInside:(UIButton *)sender
-{
-  [self setHighlighted:sender.tag];
-}
-
+- (IBAction)starDragInside:(UIButton *)sender { [self setHighlighted:sender.tag]; }
 - (void)setHighlighted:(NSUInteger)tag
 {
   for (UIButton * b in self.buttons)
@@ -121,7 +114,9 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 {
   NSUInteger const tag = self.selectedTag;
   [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatRate)
-                   withParameters:@{kStatValue : @(tag).stringValue}];
+        withParameters:@{
+          kStatValue : @(tag).stringValue
+        }];
   if (tag == 5)
   {
     [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
@@ -158,33 +153,35 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
       device = machine;
     NSString * languageCode = [[NSLocale preferredLanguages] firstObject];
     NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
-                                              displayNameForKey:NSLocaleLanguageCode
-                                                          value:languageCode];
+        displayNameForKey:NSLocaleLanguageCode
+                    value:languageCode];
     NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
-                                            displayNameForKey:NSLocaleCountryCode
-                                                        value:locale];
+        displayNameForKey:NSLocaleCountryCode
+                    value:locale];
     NSString * bundleVersion = AppInfo.sharedInfo.bundleVersion;
-    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@", device,
-                                                              [UIDevice currentDevice].systemVersion,
-                                                              bundleVersion,
-                                                              language,
-                                                              country];
+    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@",
+                                                 device, [UIDevice currentDevice].systemVersion,
+                                                 bundleVersion, language, country];
     MFMailComposeViewController * mailController = [[MFMailComposeViewController alloc] init];
     mailController.mailComposeDelegate = self;
-    [mailController setSubject:[NSString stringWithFormat:@"%@ : %@", L(@"rating_just_rated"), @(self.selectedTag)]];
-    [mailController setToRecipients:@[kRateEmail]];
+    [mailController setSubject:[NSString stringWithFormat:@"%@ : %@", L(@"rating_just_rated"),
+                                                          @(self.selectedTag)]];
+    [mailController setToRecipients:@[ kRateEmail ]];
     [mailController setMessageBody:text isHTML:NO];
     mailController.navigationBar.tintColor = [UIColor blackColor];
-    [self.alertController.ownerViewController presentViewController:mailController animated:YES completion:nil];
+    [self.alertController.ownerViewController presentViewController:mailController
+                                                           animated:YES
+                                                         completion:nil];
   }
   else
   {
     NSString * text = [NSString stringWithFormat:L(@"email_error_body"), kRateEmail];
-    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title") message:text
-                                                               delegate:nil
-                                                      cancelButtonTitle:L(@"ok")
-                                                      otherButtonTitles:nil] show];
+    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title")
+                                message:text
+                               delegate:nil
+                      cancelButtonTitle:L(@"ok")
+                      otherButtonTitles:nil] show];
   }
 }
 
@@ -194,11 +191,12 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError *)error
 {
-  [self.alertController.ownerViewController dismissViewControllerAnimated:YES completion:^
-   {
-     [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatClose)];
-     [self close];
-   }];
+  [self.alertController.ownerViewController
+      dismissViewControllerAnimated:YES
+                         completion:^{
+                           [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatClose)];
+                           [self close];
+                         }];
 }
 
 @end

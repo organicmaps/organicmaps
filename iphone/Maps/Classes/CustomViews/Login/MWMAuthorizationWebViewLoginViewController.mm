@@ -1,10 +1,10 @@
+#import "MWMAuthorizationWebViewLoginViewController.h"
 #import "Common.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMCircularProgress.h"
-#import "Statistics.h"
 #import "MWMSettingsViewController.h"
+#import "Statistics.h"
 
 #include "base/logging.hpp"
 #include "editor/osm_auth.hpp"
@@ -17,8 +17,8 @@ NSString * const kVerifierKey = @"oauth_verifier";
 
 BOOL checkURLHasVerifierKey(NSString * urlString)
 {
-  return isIOS7 ? [urlString rangeOfString:kVerifierKey].location != NSNotFound :
-                  [urlString containsString:kVerifierKey];
+  return isIOS7 ? [urlString rangeOfString:kVerifierKey].location != NSNotFound
+                : [urlString containsString:kVerifierKey];
 }
 
 BOOL checkURLNeedsReload(NSString * urlString)
@@ -27,7 +27,6 @@ BOOL checkURLNeedsReload(NSString * urlString)
   if (!isIOS7)
     return hasSlashSuffix || [urlString containsString:@"/welcome"];
   return hasSlashSuffix || ([urlString rangeOfString:@"/welcome"].location != NSNotFound);
-
 }
 
 NSString * getVerifier(NSString * urlString)
@@ -47,12 +46,12 @@ NSString * getVerifier(NSString * urlString)
 }
 }  // namespace
 
-@interface MWMAuthorizationWebViewLoginViewController () <UIWebViewDelegate>
+@interface MWMAuthorizationWebViewLoginViewController ()<UIWebViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIWebView * webView;
-@property (weak, nonatomic) IBOutlet UIView * spinnerView;
+@property(weak, nonatomic) IBOutlet UIWebView * webView;
+@property(weak, nonatomic) IBOutlet UIView * spinnerView;
 
-@property (nonatomic) MWMCircularProgress * spinner;
+@property(nonatomic) MWMCircularProgress * spinner;
 
 @end
 
@@ -83,26 +82,20 @@ NSString * getVerifier(NSString * urlString)
 - (void)loadAuthorizationPage
 {
   [self startSpinner];
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
-  {
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     OsmOAuth const auth = OsmOAuth::ServerAuth();
     try
     {
       OsmOAuth::TUrlRequestToken urt;
       switch (self.authType)
       {
-      case MWMWebViewAuthorizationTypeGoogle:
-        urt = auth.GetGoogleOAuthURL();
-        break;
-      case MWMWebViewAuthorizationTypeFacebook:
-        urt = auth.GetFacebookOAuthURL();
-        break;
+      case MWMWebViewAuthorizationTypeGoogle: urt = auth.GetGoogleOAuthURL(); break;
+      case MWMWebViewAuthorizationTypeFacebook: urt = auth.GetFacebookOAuthURL(); break;
       }
       self->m_requestToken = urt.second;
       NSURL * url = [NSURL URLWithString:@(urt.first.c_str())];
       NSURLRequest * request = [NSURLRequest requestWithURL:url];
-      dispatch_async(dispatch_get_main_queue(), ^
-      {
+      dispatch_async(dispatch_get_main_queue(), ^{
         [self stopSpinner];
         self.webView.hidden = NO;
         [self.webView loadRequest:request];
@@ -110,8 +103,7 @@ NSString * getVerifier(NSString * urlString)
     }
     catch (exception const & ex)
     {
-      dispatch_async(dispatch_get_main_queue(), ^
-      {
+      dispatch_async(dispatch_get_main_queue(), ^{
         [self stopSpinner];
         [self.alertController presentInternalErrorAlert];
       });
@@ -140,16 +132,15 @@ NSString * getVerifier(NSString * urlString)
 {
   switch (self.authType)
   {
-    case MWMWebViewAuthorizationTypeGoogle: return kStatGoogle;
-    case MWMWebViewAuthorizationTypeFacebook: return kStatFacebook;
+  case MWMWebViewAuthorizationTypeGoogle: return kStatGoogle;
+  case MWMWebViewAuthorizationTypeFacebook: return kStatFacebook;
   }
 }
 
 - (void)checkAuthorization:(NSString *)verifier
 {
   [self startSpinner];
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
-  {
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     OsmOAuth const auth = OsmOAuth::ServerAuth();
     TKeySecret ks;
     try
@@ -159,18 +150,20 @@ NSString * getVerifier(NSString * urlString)
     catch (exception const & ex)
     {
       LOG(LWARNING, ("checkAuthorization error", ex.what()));
-      [Statistics logEvent:@"Editor_Auth_request_result" withParameters:@{kStatIsSuccess : kStatNo,
-                                                                         kStatErrorData : @(ex.what()),
-                                                                         kStatType : self.authTypeAsString}];
+      [Statistics logEvent:@"Editor_Auth_request_result"
+            withParameters:@{
+              kStatIsSuccess : kStatNo,
+              kStatErrorData : @(ex.what()),
+              kStatType : self.authTypeAsString
+            }];
     }
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
+    dispatch_async(dispatch_get_main_queue(), ^{
       [self stopSpinner];
       if (OsmOAuth::IsValid(ks))
       {
         osm_auth_ios::AuthorizationStoreCredentials(ks);
-        [Statistics logEvent:@"Editor_Auth_request_result" withParameters:@{kStatIsSuccess : kStatYes,
-                                                                           kStatType : self.authTypeAsString}];
+        [Statistics logEvent:@"Editor_Auth_request_result"
+              withParameters:@{kStatIsSuccess : kStatYes, kStatType : self.authTypeAsString}];
         UIViewController * svc = nil;
         for (UIViewController * vc in self.navigationController.viewControllers)
         {
@@ -197,18 +190,10 @@ NSString * getVerifier(NSString * urlString)
 
 #pragma mark - Actions
 
-- (void)onCancel
-{
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
+- (void)onCancel { [self.navigationController popViewControllerAnimated:YES]; }
 #pragma mark - UIWebViewDelegate
 
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-  [self startSpinner];
-}
-
+- (void)webViewDidStartLoad:(UIWebView *)webView { [self startSpinner]; }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
   [self stopSpinner];

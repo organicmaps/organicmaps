@@ -1,11 +1,11 @@
+#import "MWMTTSSettingsViewController.h"
+#import <AVFoundation/AVFoundation.h>
 #import "LinkCell.h"
 #import "MWMTextToSpeech.h"
-#import "MWMTTSSettingsViewController.h"
 #import "SelectableCell.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "WebViewController.h"
-#import <AVFoundation/AVFoundation.h>
 
 #include "LocaleTranslator.h"
 
@@ -19,7 +19,7 @@ using namespace locale_translator;
   vector<pair<string, string>> _languages;
 }
 
-@property (nonatomic) BOOL isLocaleLanguageAbsent;
+@property(nonatomic) BOOL isLocaleLanguageAbsent;
 
 @end
 
@@ -73,21 +73,15 @@ using namespace locale_translator;
   }
   switch (size)
   {
-    case 1:
-      _languages.push_back(_additionalTTSLanguage);
-      break;
-    case 2:
-      if (self.isLocaleLanguageAbsent)
-        _languages[size - 1] = _additionalTTSLanguage;
-      else
-        _languages.push_back(_additionalTTSLanguage);
-      break;
-    case 3:
+  case 1: _languages.push_back(_additionalTTSLanguage); break;
+  case 2:
+    if (self.isLocaleLanguageAbsent)
       _languages[size - 1] = _additionalTTSLanguage;
-      break;
-    default:
-      NSAssert(false, @"Incorrect language's count");
-      break;
+    else
+      _languages.push_back(_additionalTTSLanguage);
+    break;
+  case 3: _languages[size - 1] = _additionalTTSLanguage; break;
+  default: NSAssert(false, @"Incorrect language's count"); break;
   }
   [self.tableView reloadData];
 }
@@ -100,11 +94,7 @@ using namespace locale_translator;
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-  return 2;
-}
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView { return 2; }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   if (section == 0)
@@ -113,7 +103,8 @@ using namespace locale_translator;
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (indexPath.section == 0)
   {
@@ -130,24 +121,30 @@ using namespace locale_translator;
       NSInteger const row = indexPath.row - 1;
       if (row == _languages.size())
       {
-        LinkCell * cell = (LinkCell *)[tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
+        LinkCell * cell =
+            (LinkCell *)[tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
         cell.titleLabel.text = L(@"pref_tts_other_section_title");
         return cell;
       }
       else
       {
-        SelectableCell * cell = (SelectableCell *)[tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
+        SelectableCell * cell = (SelectableCell *)[tableView
+            dequeueReusableCellWithIdentifier:[SelectableCell className]];
         pair<string, string> const p = _languages[row];
         cell.titleLabel.text = @(p.second.c_str());
-        BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
-        cell.accessoryType = [MWMTextToSpeech isTTSEnabled] && isSelected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+        BOOL const isSelected =
+            [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
+        cell.accessoryType = [MWMTextToSpeech isTTSEnabled] && isSelected
+                                 ? UITableViewCellAccessoryCheckmark
+                                 : UITableViewCellAccessoryNone;
         return cell;
       }
     }
   }
   else
   {
-    LinkCell * cell = (LinkCell *)[tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
+    LinkCell * cell =
+        (LinkCell *)[tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
     cell.titleLabel.text = L(@"pref_tts_how_to_set_up_voice");
     return cell;
   }
@@ -162,7 +159,8 @@ using namespace locale_translator;
       [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
             withParameters:@{kStatValue : kStatOff}];
       [MWMTextToSpeech setTTSEnabled:NO];
-      [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+      [tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+               withRowAnimation:UITableViewRowAnimationFade];
     }
     else
     {
@@ -179,17 +177,23 @@ using namespace locale_translator;
       else
       {
         [[MWMTextToSpeech tts] setNotificationsLocale:@(_languages[row].first.c_str())];
-        [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+                 withRowAnimation:UITableViewRowAnimationFade];
       }
     }
   }
   else if (indexPath.section == 1)
   {
     [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatHelp)];
-    NSString * path = [[NSBundle mainBundle] pathForResource:@"tts-how-to-set-up-voice" ofType:@"html"];
-    NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSString * path =
+        [[NSBundle mainBundle] pathForResource:@"tts-how-to-set-up-voice" ofType:@"html"];
+    NSString * html =
+        [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     NSURL * baseURL = [NSURL fileURLWithPath:path];
-    WebViewController * vc = [[WebViewController alloc] initWithHtml:html baseUrl:baseURL andTitleOrNil:L(@"pref_tts_how_to_set_up_voice")];
+    WebViewController * vc =
+        [[WebViewController alloc] initWithHtml:html
+                                        baseUrl:baseURL
+                                  andTitleOrNil:L(@"pref_tts_how_to_set_up_voice")];
     [self.navigationController pushViewController:vc animated:YES];
   }
 }

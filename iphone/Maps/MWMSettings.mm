@@ -7,14 +7,15 @@
 
 extern char const * kStatisticsEnabledSettingsKey;
 
-namespace {
-  char const * kAdForbiddenSettingsKey = "AdForbidden";
-  char const * kAdServerForbiddenKey = "AdServerForbidden";
-  char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
-  char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
-  char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
+namespace
+{
+char const * kAdForbiddenSettingsKey = "AdForbidden";
+char const * kAdServerForbiddenKey = "AdServerForbidden";
+char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
+char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
+char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
 
-  NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
+NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 }  // namespace
 
 @implementation MWMSettings

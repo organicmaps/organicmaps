@@ -14,13 +14,13 @@
 #import "MWMLocationManager.h"
 #import "MWMRouter.h"
 #import "MWMRouterSavedState.h"
+#import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
-#import "MWMSettings.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -231,11 +231,7 @@ using namespace osm_auth_ios;
   return ((EAGLView *)self.mapViewController.view).drapeEngineCreated;
 }
 
-- (BOOL)hasApiURL
-{
-  return m_geoURL || m_mwmURL || m_fileURL;
-}
-
+- (BOOL)hasApiURL { return m_geoURL || m_mwmURL || m_fileURL; }
 - (void)handleURLs
 {
   if (!self.isDrapeEngineCreated)

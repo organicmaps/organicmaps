@@ -1,18 +1,18 @@
-#import "MapsAppDelegate.h"
 #import "MWMNightModeController.h"
+#import "MWMSettings.h"
+#import "MapsAppDelegate.h"
 #import "SelectableCell.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
-#import "MWMSettings.h"
 
 #include "Framework.h"
 
 @interface MWMNightModeController ()
 
-@property (weak, nonatomic) IBOutlet SelectableCell * autoSwitch;
-@property (weak, nonatomic) IBOutlet SelectableCell * on;
-@property (weak, nonatomic) IBOutlet SelectableCell * off;
-@property (weak, nonatomic) SelectableCell * selectedCell;
+@property(weak, nonatomic) IBOutlet SelectableCell * autoSwitch;
+@property(weak, nonatomic) IBOutlet SelectableCell * on;
+@property(weak, nonatomic) IBOutlet SelectableCell * off;
+@property(weak, nonatomic) SelectableCell * selectedCell;
 
 @end
 
@@ -41,8 +41,7 @@
     _selectedCell = self.off;
     break;
   case MapStyleMerged:
-  case MapStyleCount:
-    break;
+  case MapStyleCount: break;
   }
 }
 
@@ -87,8 +86,7 @@
     statValue = kStatValue;
   }
 
-  [Statistics logEvent:kStatNightMode
-                   withParameters:@{kStatValue : statValue}];
+  [Statistics logEvent:kStatNightMode withParameters:@{kStatValue : statValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

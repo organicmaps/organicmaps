@@ -1,11 +1,11 @@
 #import "MWMSettingsViewController.h"
 #import "LinkCell.h"
-#import "SwitchCell.h"
+#import "LocaleTranslator.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMSettings.h"
 #import "MWMTextToSpeech.h"
-#import "LocaleTranslator.h"
 #import "Statistics.h"
+#import "SwitchCell.h"
 #import "WebViewController.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -16,25 +16,25 @@
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMSettingsViewController () <SwitchCellDelegate>
+@interface MWMSettingsViewController ()<SwitchCellDelegate>
 
-@property (weak, nonatomic) IBOutlet LinkCell * profileCell;
+@property(weak, nonatomic) IBOutlet LinkCell * profileCell;
 
-@property (weak, nonatomic) IBOutlet LinkCell * unitsCell;
-@property (weak, nonatomic) IBOutlet SwitchCell * zoomButtonsCell;
-@property (weak, nonatomic) IBOutlet SwitchCell * is3dCell;
-@property (weak, nonatomic) IBOutlet SwitchCell * autoDownloadCell;
-@property (weak, nonatomic) IBOutlet LinkCell * recentTrackCell;
-@property (weak, nonatomic) IBOutlet SwitchCell * compassCalibrationCell;
-@property (weak, nonatomic) IBOutlet SwitchCell * statisticsCell;
+@property(weak, nonatomic) IBOutlet LinkCell * unitsCell;
+@property(weak, nonatomic) IBOutlet SwitchCell * zoomButtonsCell;
+@property(weak, nonatomic) IBOutlet SwitchCell * is3dCell;
+@property(weak, nonatomic) IBOutlet SwitchCell * autoDownloadCell;
+@property(weak, nonatomic) IBOutlet LinkCell * recentTrackCell;
+@property(weak, nonatomic) IBOutlet SwitchCell * compassCalibrationCell;
+@property(weak, nonatomic) IBOutlet SwitchCell * statisticsCell;
 
-@property (weak, nonatomic) IBOutlet LinkCell * nightModeCell;
-@property (weak, nonatomic) IBOutlet SwitchCell * perspectiveViewCell;
-@property (weak, nonatomic) IBOutlet SwitchCell * autoZoomCell;
-@property (weak, nonatomic) IBOutlet LinkCell * voiceInstructionsCell;
+@property(weak, nonatomic) IBOutlet LinkCell * nightModeCell;
+@property(weak, nonatomic) IBOutlet SwitchCell * perspectiveViewCell;
+@property(weak, nonatomic) IBOutlet SwitchCell * autoZoomCell;
+@property(weak, nonatomic) IBOutlet LinkCell * voiceInstructionsCell;
 
-@property (weak, nonatomic) IBOutlet LinkCell * helpCell;
-@property (weak, nonatomic) IBOutlet LinkCell * aboutCell;
+@property(weak, nonatomic) IBOutlet LinkCell * helpCell;
+@property(weak, nonatomic) IBOutlet LinkCell * aboutCell;
 
 @end
 
@@ -63,19 +63,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   NSString * userName = osm_auth_ios::OSMUserName();
   self.profileCell.infoLabel.text = userName.length != 0 ? userName : @"";
-
 }
 
 - (void)configCommonSection
 {
   switch ([MWMSettings measurementUnits])
   {
-    case measurement_utils::Units::Metric:
-      self.unitsCell.infoLabel.text = L(@"kilometres");
-      break;
-    case measurement_utils::Units::Imperial:
-      self.unitsCell.infoLabel.text = L(@"miles");
-      break;
+  case measurement_utils::Units::Metric: self.unitsCell.infoLabel.text = L(@"kilometres"); break;
+  case measurement_utils::Units::Imperial: self.unitsCell.infoLabel.text = L(@"miles"); break;
   }
 
   self.zoomButtonsCell.switchButton.on = [MWMSettings zoomButtonsEnabled];
@@ -97,12 +92,12 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     switch (GpsTracker::Instance().GetDuration().count())
     {
-      case 1: self.recentTrackCell.infoLabel.text = L(@"duration_1_hour"); break;
-      case 2: self.recentTrackCell.infoLabel.text = L(@"duration_2_hours"); break;
-      case 6: self.recentTrackCell.infoLabel.text = L(@"duration_6_hours"); break;
-      case 12: self.recentTrackCell.infoLabel.text = L(@"duration_12_hours"); break;
-      case 24: self.recentTrackCell.infoLabel.text = L(@"duration_1_day"); break;
-      default: NSAssert(false, @"Incorrect hours value"); break;
+    case 1: self.recentTrackCell.infoLabel.text = L(@"duration_1_hour"); break;
+    case 2: self.recentTrackCell.infoLabel.text = L(@"duration_2_hours"); break;
+    case 6: self.recentTrackCell.infoLabel.text = L(@"duration_6_hours"); break;
+    case 12: self.recentTrackCell.infoLabel.text = L(@"duration_12_hours"); break;
+    case 24: self.recentTrackCell.infoLabel.text = L(@"duration_1_day"); break;
+    default: NSAssert(false, @"Incorrect hours value"); break;
     }
   }
 
@@ -123,8 +118,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     switch (GetFramework().GetMapStyle())
     {
-      case MapStyleDark: self.nightModeCell.infoLabel.text = L(@"pref_map_style_night"); break;
-      default: self.nightModeCell.infoLabel.text = L(@"pref_map_style_default"); break;
+    case MapStyleDark: self.nightModeCell.infoLabel.text = L(@"pref_map_style_night"); break;
+    default: self.nightModeCell.infoLabel.text = L(@"pref_map_style_default"); break;
     }
   }
 
@@ -192,7 +187,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   else if (cell == self.statisticsCell)
   {
     [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleStatistics)
-          withParameters: @{kStatAction : kStatToggleStatistics, kStatValue : (value ? kStatOn : kStatOff)}];
+          withParameters:@{
+            kStatAction : kStatToggleStatistics,
+            kStatValue : (value ? kStatOn : kStatOff)
+          }];
     if (value)
       [[Statistics instance] enableOnNextAppLaunch];
     else
@@ -272,10 +270,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   switch (section)
   {
-    case 1: return L(@"general_settings");
-    case 2: return L(@"prefs_group_route");
-    case 3: return L(@"info");
-    default: return nil;
+  case 1: return L(@"general_settings");
+  case 2: return L(@"prefs_group_route");
+  case 3: return L(@"info");
+  default: return nil;
   }
 }
 
@@ -283,8 +281,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   switch (section)
   {
-    case 1: return L(@"allow_statistics_hint");
-    default: return nil;
+  case 1: return L(@"allow_statistics_hint");
+  default: return nil;
   }
 }
 

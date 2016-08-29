@@ -1,8 +1,8 @@
 #import "AppInfo.h"
+#import <AdSupport/ASIdentifierManager.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <sys/utsname.h>
-#import <AdSupport/ASIdentifierManager.h>
 
 #include "platform/settings.hpp"
 
@@ -10,15 +10,14 @@ extern string const kCountryCodeKey = "CountryCode";
 extern string const kUniqueIdKey = "UniqueId";
 extern string const kLanguageKey = "Language";
 
+@interface AppInfo ()
 
-@interface AppInfo()
-
-@property (nonatomic) NSString * countryCode;
-@property (nonatomic) NSString * uniqueId;
-@property (nonatomic) NSString * bundleVersion;
-@property (nonatomic) NSString * deviceInfo;
-@property (nonatomic) NSUUID * advertisingId;
-@property (nonatomic) NSDate * buildDate;
+@property(nonatomic) NSString * countryCode;
+@property(nonatomic) NSString * uniqueId;
+@property(nonatomic) NSString * bundleVersion;
+@property(nonatomic) NSString * deviceInfo;
+@property(nonatomic) NSUUID * advertisingId;
+@property(nonatomic) NSDate * buildDate;
 
 @end
 
@@ -28,8 +27,7 @@ extern string const kLanguageKey = "Language";
 {
   static AppInfo * appInfo;
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^
-  {
+  dispatch_once(&onceToken, ^{
     appInfo = [[self alloc] init];
   });
   return appInfo;
@@ -49,23 +47,26 @@ extern string const kLanguageKey = "Language";
   {
     CTTelephonyNetworkInfo * networkInfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier * carrier = networkInfo.subscriberCellularProvider;
-    if ([carrier.isoCountryCode length]) // if device can access sim card info
+    if ([carrier.isoCountryCode length])  // if device can access sim card info
       _countryCode = [carrier.isoCountryCode uppercaseString];
-    else // else, getting system country code
+    else  // else, getting system country code
       _countryCode = [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] uppercaseString];
 
     std::string codeString;
-    if (settings::Get(kCountryCodeKey, codeString)) // if country code stored in settings
+    if (settings::Get(kCountryCodeKey, codeString))  // if country code stored in settings
     {
-      if (carrier.isoCountryCode) // if device can access sim card info
-        settings::Set(kCountryCodeKey, std::string([_countryCode UTF8String])); // then save new code instead
+      if (carrier.isoCountryCode)  // if device can access sim card info
+        settings::Set(kCountryCodeKey,
+                      std::string([_countryCode UTF8String]));  // then save new code instead
       else
-        _countryCode = @(codeString.c_str()); // if device can NOT access sim card info then using saved code
+        _countryCode =
+            @(codeString.c_str());  // if device can NOT access sim card info then using saved code
     }
     else
     {
       if (_countryCode)
-        settings::Set(kCountryCodeKey, std::string([_countryCode UTF8String])); // saving code first time
+        settings::Set(kCountryCodeKey,
+                      std::string([_countryCode UTF8String]));  // saving code first time
       else
         _countryCode = @"";
     }
@@ -78,14 +79,14 @@ extern string const kLanguageKey = "Language";
   if (!_uniqueId)
   {
     string uniqueString;
-    if (settings::Get(kUniqueIdKey, uniqueString)) // if id stored in settings
+    if (settings::Get(kUniqueIdKey, uniqueString))  // if id stored in settings
     {
       _uniqueId = @(uniqueString.c_str());
     }
-    else // if id not stored in settings
+    else  // if id not stored in settings
     {
       _uniqueId = [[UIDevice currentDevice].identifierForVendor UUIDString];
-      if (_uniqueId) // then saving in settings
+      if (_uniqueId)  // then saving in settings
         settings::Set(kUniqueIdKey, std::string([_uniqueId UTF8String]));
     }
   }
@@ -121,8 +122,8 @@ extern string const kLanguageKey = "Language";
   if (!_buildDate)
   {
     NSString * dateStr =
-    [NSString stringWithFormat:@"%@ %@", [NSString stringWithUTF8String:__DATE__],
-     [NSString stringWithUTF8String:__TIME__]];
+        [NSString stringWithFormat:@"%@ %@", [NSString stringWithUTF8String:__DATE__],
+                                   [NSString stringWithUTF8String:__TIME__]];
 
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"LLL d yyyy HH:mm:ss"];

@@ -1,10 +1,10 @@
 #import "MWMHelpController.h"
-#import "Common.h"
-#import "WebViewController.h"
 #import <MessageUI/MFMailComposeViewController.h>
-#import "Statistics.h"
 #import <sys/utsname.h>
+#import "Common.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
+#import "WebViewController.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -13,62 +13,62 @@
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kLocaleUsedInSupportEmails = @"en_gb";
 extern NSDictionary * const kDeviceNames = @{
-                                     @"i386" : @"Simulator",
-                                     @"iPad1,1" : @"iPad WiFi",
-                                     @"iPad1,2" : @"iPad GSM",
-                                     @"iPad2,1" : @"iPad 2 WiFi",
-                                     @"iPad2,2" : @"iPad 2 CDMA",
-                                     @"iPad2,2" : @"iPad 2 GSM",
-                                     @"iPad2,3" : @"iPad 2 GSM EV-DO",
-                                     @"iPad2,4" : @"iPad 2",
-                                     @"iPad2,5" : @"iPad Mini WiFi",
-                                     @"iPad2,6" : @"iPad Mini GSM",
-                                     @"iPad2,7" : @"iPad Mini CDMA",
-                                     @"iPad3,1" : @"iPad 3rd gen. WiFi",
-                                     @"iPad3,2" : @"iPad 3rd gen. GSM",
-                                     @"iPad3,3" : @"iPad 3rd gen. CDMA",
-                                     @"iPad3,4" : @"iPad 4th gen. WiFi",
-                                     @"iPad3,5" : @"iPad 4th gen. GSM",
-                                     @"iPad3,6" : @"iPad 4th gen. CDMA",
-                                     @"iPad4,1" : @"iPad Air WiFi",
-                                     @"iPad4,2" : @"iPad Air GSM",
-                                     @"iPad4,3" : @"iPad Air CDMA",
-                                     @"iPad4,4" : @"iPad Mini 2nd gen. WiFi",
-                                     @"iPad4,5" : @"iPad Mini 2nd gen. GSM",
-                                     @"iPad4,6" : @"iPad Mini 2nd gen. CDMA",
-                                     @"iPad5,3" : @"iPad Air 2 WiFi",
-                                     @"iPad5,4" : @"iPad Air 2 GSM",
-                                     @"iPad6,3" : @"iPad Pro (9.7 inch) WiFi",
-                                     @"iPad6,4" : @"iPad Pro (9.7 inch) GSM",
-                                     @"iPad6,7" : @"iPad Pro (12.9 inch) WiFi",
-                                     @"iPad6,8" : @"iPad Pro (12.9 inch) GSM",
-                                     @"iPhone1,1" : @"iPhone",
-                                     @"iPhone1,2" : @"iPhone 3G",
-                                     @"iPhone2,1" : @"iPhone 3GS",
-                                     @"iPhone3,1" : @"iPhone 4 GSM",
-                                     @"iPhone3,2" : @"iPhone 4 CDMA",
-                                     @"iPhone3,3" : @"iPhone 4 GSM EV-DO",
-                                     @"iPhone4,1" : @"iPhone 4S",
-                                     @"iPhone4,2" : @"iPhone 4S",
-                                     @"iPhone4,3" : @"iPhone 4S",
-                                     @"iPhone5,1" : @"iPhone 5",
-                                     @"iPhone5,2" : @"iPhone 5",
-                                     @"iPhone5,3" : @"iPhone 5c",
-                                     @"iPhone5,4" : @"iPhone 5c",
-                                     @"iPhone6,1" : @"iPhone 5s",
-                                     @"iPhone6,2" : @"iPhone 5s",
-                                     @"iPhone7,1" : @"iPhone 6 Plus",
-                                     @"iPhone7,2" : @"iPhone 6",
-                                     @"iPhone8,1" : @"iPhone 6s",
-                                     @"iPhone8,2" : @"iPhone 6s Plus",
-                                     @"iPhone8,4" : @"iPhone SE",
-                                     @"iPod1,1" : @"iPod Touch",
-                                     @"iPod2,1" : @"iPod Touch 2nd gen.",
-                                     @"iPod3,1" : @"iPod Touch 3rd gen.",
-                                     @"iPod4,1" : @"iPod Touch 4th gen.",
-                                     @"iPod5,1" : @"iPod Touch 5th gen.",
-                                     @"x86_64" : @"Simulator",
-                                     };
+  @"i386" : @"Simulator",
+  @"iPad1,1" : @"iPad WiFi",
+  @"iPad1,2" : @"iPad GSM",
+  @"iPad2,1" : @"iPad 2 WiFi",
+  @"iPad2,2" : @"iPad 2 CDMA",
+  @"iPad2,2" : @"iPad 2 GSM",
+  @"iPad2,3" : @"iPad 2 GSM EV-DO",
+  @"iPad2,4" : @"iPad 2",
+  @"iPad2,5" : @"iPad Mini WiFi",
+  @"iPad2,6" : @"iPad Mini GSM",
+  @"iPad2,7" : @"iPad Mini CDMA",
+  @"iPad3,1" : @"iPad 3rd gen. WiFi",
+  @"iPad3,2" : @"iPad 3rd gen. GSM",
+  @"iPad3,3" : @"iPad 3rd gen. CDMA",
+  @"iPad3,4" : @"iPad 4th gen. WiFi",
+  @"iPad3,5" : @"iPad 4th gen. GSM",
+  @"iPad3,6" : @"iPad 4th gen. CDMA",
+  @"iPad4,1" : @"iPad Air WiFi",
+  @"iPad4,2" : @"iPad Air GSM",
+  @"iPad4,3" : @"iPad Air CDMA",
+  @"iPad4,4" : @"iPad Mini 2nd gen. WiFi",
+  @"iPad4,5" : @"iPad Mini 2nd gen. GSM",
+  @"iPad4,6" : @"iPad Mini 2nd gen. CDMA",
+  @"iPad5,3" : @"iPad Air 2 WiFi",
+  @"iPad5,4" : @"iPad Air 2 GSM",
+  @"iPad6,3" : @"iPad Pro (9.7 inch) WiFi",
+  @"iPad6,4" : @"iPad Pro (9.7 inch) GSM",
+  @"iPad6,7" : @"iPad Pro (12.9 inch) WiFi",
+  @"iPad6,8" : @"iPad Pro (12.9 inch) GSM",
+  @"iPhone1,1" : @"iPhone",
+  @"iPhone1,2" : @"iPhone 3G",
+  @"iPhone2,1" : @"iPhone 3GS",
+  @"iPhone3,1" : @"iPhone 4 GSM",
+  @"iPhone3,2" : @"iPhone 4 CDMA",
+  @"iPhone3,3" : @"iPhone 4 GSM EV-DO",
+  @"iPhone4,1" : @"iPhone 4S",
+  @"iPhone4,2" : @"iPhone 4S",
+  @"iPhone4,3" : @"iPhone 4S",
+  @"iPhone5,1" : @"iPhone 5",
+  @"iPhone5,2" : @"iPhone 5",
+  @"iPhone5,3" : @"iPhone 5c",
+  @"iPhone5,4" : @"iPhone 5c",
+  @"iPhone6,1" : @"iPhone 5s",
+  @"iPhone6,2" : @"iPhone 5s",
+  @"iPhone7,1" : @"iPhone 6 Plus",
+  @"iPhone7,2" : @"iPhone 6",
+  @"iPhone8,1" : @"iPhone 6s",
+  @"iPhone8,2" : @"iPhone 6s Plus",
+  @"iPhone8,4" : @"iPhone SE",
+  @"iPod1,1" : @"iPod Touch",
+  @"iPod2,1" : @"iPod Touch 2nd gen.",
+  @"iPod3,1" : @"iPod Touch 3rd gen.",
+  @"iPod4,1" : @"iPod Touch 4th gen.",
+  @"iPod5,1" : @"iPod Touch 5th gen.",
+  @"x86_64" : @"Simulator",
+};
 
 namespace
 {
@@ -199,23 +199,23 @@ NSString * const kiOSEmail = @"ios@maps.me";
   struct utsname systemInfo;
   uname(&systemInfo);
   NSString * machine =
-  [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+      [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
   NSString * device = kDeviceNames[machine];
   if (!device)
     device = machine;
   NSString * languageCode = [[NSLocale preferredLanguages] firstObject];
   NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
-                         displayNameForKey:NSLocaleLanguageCode
-                         value:languageCode];
+      displayNameForKey:NSLocaleLanguageCode
+                  value:languageCode];
   NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
   NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
-                        displayNameForKey:NSLocaleCountryCode
-                        value:locale];
+      displayNameForKey:NSLocaleCountryCode
+                  value:locale];
   NSString * bundleVersion =
-  [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+      [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
   NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@", device,
-                     [UIDevice currentDevice].systemVersion,
-                     bundleVersion, language, country];
+                                               [UIDevice currentDevice].systemVersion,
+                                               bundleVersion, language, country];
   NSString * alohalyticsId = [Alohalytics installationId];
   if (alohalyticsId)
     text = [NSString stringWithFormat:@"%@\n- %@", text, alohalyticsId];
@@ -232,18 +232,24 @@ NSString * const kiOSEmail = @"ios@maps.me";
     vc.mailComposeDelegate = self;
     [vc setSubject:subject];
     [vc setMessageBody:text isHTML:NO];
-    [vc setToRecipients:@[email]];
+    [vc setToRecipients:@[ email ]];
     [vc.navigationBar setTintColor:[UIColor whitePrimaryText]];
     [self presentViewController:vc animated:YES completion:nil];
   }
   else
   {
     NSString * text = [NSString stringWithFormat:L(@"email_error_body"), email];
-    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title") message:text delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
+    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title")
+                                message:text
+                               delegate:nil
+                      cancelButtonTitle:L(@"ok")
+                      otherButtonTitles:nil] show];
   }
 }
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error
 {
   [self dismissViewControllerAnimated:YES completion:nil];
 }

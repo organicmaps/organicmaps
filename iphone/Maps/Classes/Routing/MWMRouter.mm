@@ -8,12 +8,12 @@
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRouterSavedState.h"
 #import "MWMSearch.h"
+#import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "MWMSettings.h"
 
 #include "Framework.h"
 
