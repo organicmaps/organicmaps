@@ -358,7 +358,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="menuActionOpenSubSettings" destination="-1" eventType="touchUpInside" id="C7M-L9-gWG"/>
+                                <action selector="menuActionOpenSettings" destination="-1" eventType="touchUpInside" id="CTJ-mX-3im"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6M-3k-tKX" customClass="MWMButton">
