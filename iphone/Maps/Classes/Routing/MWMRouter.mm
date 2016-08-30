@@ -8,6 +8,7 @@
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRouterSavedState.h"
 #import "MWMSearch.h"
+#import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
@@ -226,7 +227,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   MapsAppDelegate * app = [MapsAppDelegate theApp];
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
   [MWMRouterSavedState remove];
-  if ([MapsAppDelegate isAutoNightMode])
+  if ([MWMSettings autoNightModeEnabled])
     [MapsAppDelegate resetToDefaultMapStyle];
   [app showAlertIfRequired];
 }

@@ -14,10 +14,10 @@
 #import "MWMLocationManager.h"
 #import "MWMRouter.h"
 #import "MWMRouterSavedState.h"
+#import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
-#import "Preferences.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
@@ -66,8 +66,6 @@ extern NSString * const kUDTrackWarningAlertWasShown;
 extern string const kCountryCodeKey;
 extern string const kUniqueIdKey;
 extern string const kLanguageKey;
-
-extern char const * kAdServerForbiddenKey;
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -233,11 +231,7 @@ using namespace osm_auth_ios;
   return ((EAGLView *)self.mapViewController.view).drapeEngineCreated;
 }
 
-- (BOOL)hasApiURL
-{
-  return m_geoURL || m_mwmURL || m_fileURL;
-}
-
+- (BOOL)hasApiURL { return m_geoURL || m_mwmURL || m_fileURL; }
 - (void)handleURLs
 {
   if (!self.isDrapeEngineCreated)
@@ -329,7 +323,7 @@ using namespace osm_auth_ios;
 {
   [HttpThread setDownloadIndicatorProtocol:self];
   InitLocalizedStrings();
-  [Preferences setup];
+  GetFramework().SetupMeasurementSystem();
   [MWMFrameworkListener addObserver:self];
   [MapsAppDelegate customizeAppearance];
 
@@ -344,7 +338,7 @@ using namespace osm_auth_ios;
 - (void)determineMapStyle
 {
   auto & f = GetFramework();
-  if ([MapsAppDelegate isAutoNightMode])
+  if ([MWMSettings autoNightModeEnabled])
   {
     f.SetMapStyle(MapStyleClear);
     [UIColor setNightMode:NO];
@@ -357,21 +351,14 @@ using namespace osm_auth_ios;
 
 + (void)setAutoNightModeOff:(BOOL)off
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setBool:off forKey:kUDAutoNightModeOff];
-  [ud synchronize];
+  [MWMSettings setAutoNightModeEnabled:!off];
   if (!off)
     [MapsAppDelegate.theApp stopMapStyleChecker];
 }
 
-+ (BOOL)isAutoNightMode
-{
-  return ![[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightModeOff];
-}
-
 - (void)startMapStyleChecker
 {
-  if (![MapsAppDelegate isAutoNightMode])
+  if (![MWMSettings autoNightModeEnabled])
     return;
   self.mapStyleSwitchTimer =
       [NSTimer scheduledTimerWithTimeInterval:(30 * 60)
@@ -398,7 +385,7 @@ using namespace osm_auth_ios;
 
 + (void)changeMapStyleIfNedeed
 {
-  if (![MapsAppDelegate isAutoNightMode])
+  if (![MWMSettings autoNightModeEnabled])
     return;
   auto & f = GetFramework();
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
@@ -1083,8 +1070,8 @@ using namespace osm_auth_ios;
   NSURLSessionDataTask * task = [session
         dataTaskWithURL:url
       completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
-        bool adServerForbidden = (error || [(NSHTTPURLResponse *)response statusCode] != 200);
-        settings::Set(kAdServerForbiddenKey, adServerForbidden);
+        bool const adServerForbidden = (error || [(NSHTTPURLResponse *)response statusCode] != 200);
+        [MWMSettings setAdServerForbidden:adServerForbidden];
         dispatch_async(dispatch_get_main_queue(), ^{
           [self.mapViewController refreshAd];
         });

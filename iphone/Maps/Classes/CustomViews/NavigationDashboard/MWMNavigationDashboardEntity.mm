@@ -1,7 +1,8 @@
-#import "Common.h"
-#import "MapsAppDelegate.h"
-#import "MWMLocationManager.h"
 #import "MWMNavigationDashboardEntity.h"
+#import "Common.h"
+#import "MWMLocationManager.h"
+#import "MWMSettings.h"
+#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 #include "geometry/distance_on_sphere.hpp"
@@ -26,16 +27,16 @@ using namespace routing::turns;
     string distance;
     CLLocationCoordinate2D const & coordinate = lastLocation.coordinate;
     _pedestrianDirectionPosition = info.m_pedestrianDirectionPos;
-    //TODO: Not the best solution, but this solution is temporary and will be replaced in future
+    // TODO: Not the best solution, but this solution is temporary and will be replaced in future
     measurement_utils::FormatDistance(
         ms::DistanceOnEarth(coordinate.latitude, coordinate.longitude,
                             _pedestrianDirectionPosition.lat, _pedestrianDirectionPosition.lon),
         distance);
-    istringstream is (distance);
+    istringstream is(distance);
     string dist;
     string units;
-    is>>dist;
-    is>>units;
+    is >> dist;
+    is >> units;
     _nextTurnImage = nil;
     _distanceToTurn = @(dist.c_str());
     _turnUnits = @(units.c_str());
@@ -69,47 +70,23 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
   NSString * imageName;
   switch (t)
   {
-    case TurnDirection::TurnSlightRight:
-      imageName = @"slight_right";
-      break;
-    case TurnDirection::TurnRight:
-      imageName = @"simple_right";
-      break;
-    case TurnDirection::TurnSharpRight:
-      imageName = @"sharp_right";
-      break;
-    case TurnDirection::TurnSlightLeft:
-      imageName = @"slight_left";
-      break;
-    case TurnDirection::TurnLeft:
-      imageName = @"simple_left";
-      break;
-    case TurnDirection::TurnSharpLeft:
-      imageName = @"sharp_left";
-      break;
-    case TurnDirection::UTurnLeft:
-      imageName = @"uturn_left";
-      break;
-    case TurnDirection::UTurnRight:
-      imageName = @"uturn_right";
-      break;
-    case TurnDirection::ReachedYourDestination:
-      imageName = @"finish_point";
-      break;
-    case TurnDirection::LeaveRoundAbout:
-    case TurnDirection::EnterRoundAbout:
-      imageName = @"round";
-      break;
-    case TurnDirection::GoStraight:
-      imageName = @"straight";
-      break;
-    case TurnDirection::StartAtEndOfStreet:
-    case TurnDirection::StayOnRoundAbout:
-    case TurnDirection::TakeTheExit:
-    case TurnDirection::Count:
-    case TurnDirection::NoTurn:
-      imageName = isNextTurn ? nil : @"straight";
-      break;
+  case TurnDirection::TurnSlightRight: imageName = @"slight_right"; break;
+  case TurnDirection::TurnRight: imageName = @"simple_right"; break;
+  case TurnDirection::TurnSharpRight: imageName = @"sharp_right"; break;
+  case TurnDirection::TurnSlightLeft: imageName = @"slight_left"; break;
+  case TurnDirection::TurnLeft: imageName = @"simple_left"; break;
+  case TurnDirection::TurnSharpLeft: imageName = @"sharp_left"; break;
+  case TurnDirection::UTurnLeft: imageName = @"uturn_left"; break;
+  case TurnDirection::UTurnRight: imageName = @"uturn_right"; break;
+  case TurnDirection::ReachedYourDestination: imageName = @"finish_point"; break;
+  case TurnDirection::LeaveRoundAbout:
+  case TurnDirection::EnterRoundAbout: imageName = @"round"; break;
+  case TurnDirection::GoStraight: imageName = @"straight"; break;
+  case TurnDirection::StartAtEndOfStreet:
+  case TurnDirection::StayOnRoundAbout:
+  case TurnDirection::TakeTheExit:
+  case TurnDirection::Count:
+  case TurnDirection::NoTurn: imageName = isNextTurn ? nil : @"straight"; break;
   }
   if (!imageName)
     return nil;
@@ -121,15 +98,13 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation || lastLocation.speed < 0)
     return nil;
-  auto units = measurement_utils::Units::Metric;
-  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
+  auto const units = [MWMSettings measurementUnits];
   return @(measurement_utils::FormatSpeed(lastLocation.speed, units).c_str());
 }
 
 - (NSString *)speedUnits
 {
-  auto units = measurement_utils::Units::Metric;
-  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
+  auto const units = [MWMSettings measurementUnits];
   return @(measurement_utils::FormatSpeedUnits(units).c_str());
 }
 

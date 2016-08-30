@@ -23,6 +23,7 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMRouter.h"
 #import "MWMRouterSavedState.h"
+#import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
 #import "MWMWhatsNewNavigationController.h"
@@ -57,8 +58,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 extern NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 extern NSString * const kMap2FBLoginSegue = @"Map2FBLogin";
 extern NSString * const kMap2GoogleLoginSegue = @"Map2GoogleLogin";
-extern char const * kAdForbiddenSettingsKey;
-extern char const * kAdServerForbiddenKey;
 
 typedef NS_ENUM(NSUInteger, UserTouchesAction) {
   UserTouchesActionNone,
@@ -172,9 +171,9 @@ BOOL gIsFirstMyPositionMode = YES;
   df::TouchEvent e;
   UITouch * touch = [allTouches objectAtIndex:0];
   CGPoint const pt = [touch locationInView:v];
-  
+
   e.SetTouchType(type);
-  
+
   df::Touch t0;
   t0.m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
   t0.m_id = reinterpret_cast<int64_t>(touch);
@@ -186,7 +185,7 @@ BOOL gIsFirstMyPositionMode = YES;
   {
     UITouch * touch = [allTouches objectAtIndex:1];
     CGPoint const pt = [touch locationInView:v];
-    
+
     df::Touch t1;
     t1.m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
     t1.m_id = reinterpret_cast<int64_t>(touch);
@@ -542,11 +541,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)refreshAd
 {
-  bool adServerForbidden = false;
-  (void)settings::Get(kAdServerForbiddenKey, adServerForbidden);
-  bool adForbidden = false;
-  (void)settings::Get(kAdForbiddenSettingsKey, adForbidden);
-  if (isIOS7 || adServerForbidden || adForbidden)
+  if (isIOS7 || [MWMSettings adServerForbidden] || [MWMSettings adForbidden])
   {
     self.appWallAd = nil;
     return;

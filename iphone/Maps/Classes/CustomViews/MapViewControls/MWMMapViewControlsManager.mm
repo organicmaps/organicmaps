@@ -225,8 +225,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
 }
 
-#pragma mark - MWMBottomMenuControllerProtocol
-
 - (void)closeInfoScreens
 {
   if (IPAD)
@@ -244,15 +242,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
 }
 
-#pragma mark - MWMBottomMenuControllerProtocol
-
 - (void)didFinishAddingPlace
 {
   self.menuState = MWMBottomMenuStateInactive;
   static_cast<EAGLView *>(self.ownerController.view).widgetsManager.fullScreen = NO;
 }
-
-#pragma mark - MWMBottomMenuControllerProtocol
 
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point
 {

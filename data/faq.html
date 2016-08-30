@@ -10,25 +10,58 @@
       display: none;
     }
     dt {
-      font-style: italic;
-      font-weight: bold;
-      font-size: 1.1em;
-      padding-top: 0.8em;
-      border-top: 1px solid green;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+
+	line-height: 1.4;
     }
     dd {
-      margin: 0.5em 0 2.0em 0;
+	margin-top: 0.5em;
+	margin-right: 0;
+	margin-left: 0;
+	margin-bottom: 16px;
+	font-size: 14px;
+	color: #757575;
+	line-height: 1.4;
+	padding-bottom: 24px;
+	border-bottom: 1px solid #E0E0E0; 
     }
+
     dl {
       margin: 0 0 2em 0;
     }
     body {
-      font-family: "Helvetica Neue", "Roboto", "Arial", "sans-serif";
+	margin-right: 16px;
+	margin-left: 16px;
+	margin-bottom: 16px;
+	font-family: "Helvetica Neue", "Roboto", "Arial", "sans-serif";
+	color: #000000;
     }
 
     html {
       -webkit-text-size-adjust: none;
     }
+
+  a {
+	color: #1E96F0;
+	text-decoration: none;
+}
+
+  h3 {
+	font-size: 21px;
+	line-height: 1.1;
+	padding-top: 12px;
+	
+}
+
+  .contentTable {
+	color: #757575;
+	font-size: 13px;
+	line-height: 2;
+	padding-bottom: 24px;
+	border-bottom: 1px solid #E0E0E0; 
+}
 
   </style>
 
@@ -52,52 +85,57 @@
 
 <body onload="showLanguage()">
 
+<h3 lang="en">Frequently Asked Questions</h3>
+<h3 lang="ru">Часто задаваемые вопросы</h3>
+<h3 lang="de">FAQ</h3>
+<h3 lang="es">FAQ</h3>
 
 <div class="contentTable">
 <ul>
-<li><a lang="en" href="#mapdata">Map data</a>
+<li><a href="#mapdata" class="link" lang="en">Map data</a>
     <a lang="ru" href="#mapdata">Картографические данные</a>
     <a lang="de" href="#mapdata">Kartendaten</a>
     <a lang="es" href="#mapdata">Datos de los mapas</a></li>
-<li><a lang="en" href="#mapeditor">Map editor</a>
+<li><a href="#mapeditor" class="link" lang="en">Map editor</a>
     <a lang="ru" href="#mapeditor">Редактор карты</a>
     <a lang="de" href="#mapeditor">Karten-Editor</a>
     <a lang="es" href="#mapeditor">Editor de mapas</a></li>
-<li><a lang="en" href="#gps">GPS and positioning</a>
+<li><a href="#gps" class="link" lang="en">GPS and positioning</a>
     <a lang="ru" href="#gps">GPS и определение позиции</a>
     <a lang="de" href="#gps">GPS</a>
     <a lang="es" href="#gps">GPS</a></li>
-<li><a lang="en" href="#navigation">Navigation, routing and tracks</a>
+<li><a href="#navigation" class="link" lang="en">Navigation, routing and tracks</a>
     <a lang="ru" href="#navigation">Навигация, маршруты и треки</a>
     <a lang="de" href="#navigation">Navigation, routing and tracks</a>
     <a lang="es" href="#navigation">Navegación, rutas e itinerarios</a></li>
-<li><a lang="en" href="#search">Search</a>
+<li><a href="#search" class="link" lang="en">Search</a>
     <a lang="ru" href="#search">Поиск</a>
     <a lang="de" href="#search">Suchen</a>
     <a lang="es" href="#search">Búsqueda</a></li>
-<li><a lang="en" href="#bookmarks">Bookmarks (pins)</a>
+<li><a href="#bookmarks" class="link" lang="en">Bookmarks (pins)</a>
     <a lang="ru" href="#bookmarks">Метки (закладки, пины)</a>
     <a lang="de" href="#bookmarks">Lesezeichen (Pins)</a>
     <a lang="es" href="#bookmarks">Marcadores</a></li>
-<li><a lang="en" href="#settings">App Settings</a>
+<li><a href="#settings" class="link" lang="en">App Settings</a>
     <a lang="ru" href="#settings">Настройки</a>
     <a lang="de" href="#settings">Präferenzen</a>
     <a lang="es" href="#settings">Preferencias</a></li>
-<li><a lang="en" href="#problems">Problems with the app</a>
+<li><a href="#problems" class="link" lang="en">Problems with the app</a>
     <a lang="ru" href="#problems">Проблемы с приложением</a>
     <a lang="de" href="#problems">Probleme mit der App</a>
     <a lang="es" href="#problems">Problemas con la aplicación</a></li>
-<li><a lang="en" href="#miscellaneous">Miscellaneous</a>
+<li><a href="#miscellaneous" class="link" lang="en">Miscellaneous</a>
     <a lang="ru" href="#miscellaneous">Разное</a>
     <a lang="de" href="#miscellaneous">Sonstiges</a>
     <a lang="es" href="#miscellaneous">Misceláneo</a></li>
+
 </ul>
 </div>
 
 
 
 
-<h3 lang="en">Map data</h3>
+<h3 class="title" lang="en">Map data</h3>
 <h3 lang="ru">Картографические данные</h3>
 <h3 lang="de">Kartendaten</h3>
 <h3 lang="es">Datos de los mapas</h3>
@@ -109,15 +147,15 @@
 <dt lang="de">Auf der Karte fehlen Orte oder sie haben falsche Namen.</dt>
 <dt lang="es">Algunos lugares no aparecen en el mapa o tienen un nombre incorrecto.</dt>
 <dd lang="en">Here at MAPS.ME we develop the app and its algorithms, but we get all the data
-from <a href="http://www.openstreetmap.org/">OpenStreetMap</a> (OSM). This is a mapping project
+from <a href="http://www.openstreetmap.org/" class="link">OpenStreetMap</a> (OSM). This is a mapping project
 similar to Wikipedia, where anybody can create and edit maps.
 <p></p>
 If you see incorrect information, or if you find that some objects are missing on the map, you
-can become an OSM contributor and improve the map. It’s simple and fun – you just need to <a href="https://www.openstreetmap.org/user/new">register
+can become an OSM contributor and improve the map. It’s simple and fun – you just need to <a href="https://www.openstreetmap.org/user/new" class="link">register
 on their website</a>.
 <p></p>
 You can also add new places, edit existing POI and building info (addresses, opening hours,
-names) <a href="https://support.maps.me/hc/en-us/sections/201941155-Map-editor">directly
+names) <a href="https://support.maps.me/hc/en-us/sections/201941155-Map-editor" class="link">directly
 from MAPS.ME</a>. Once you log in with your account your edits will be automatically uploaded
 to OSM. Please be careful when editing, as your edits will be seen by the whole OSM community.
 
@@ -182,7 +220,7 @@ de tiempo que la comunidad abierta trace el mapa de todo el planeta.</dd>
 settings. Please try again later or use a different Wi-Fi access point. In addition, make sure,
 that you have enough free space to download maps.
 <p></p>
-If you have a slow internet connection, you can <a href="http://direct.mapswithme.com/direct/latest/">download
+If you have a slow internet connection, you can <a href="http://direct.mapswithme.com/direct/latest/" class="link">download
 maps</a> directly via PC and then transfer them to the MAPS.ME folder on your device. On Android
 maps (.mwm files) are stored at MapsWithMe folder. On iOS, you need to connect your device to
 a computer and copy maps via iTunes (select your device, then Apps – scroll down the page, select
@@ -261,7 +299,7 @@ detailliert sie ist?</dt>
 <dt lang="es">¿Cómo puedo saber si MAPS.ME tiene el mapa de un país determinado y el nivel de
 detalle?</dt>
 <dd lang="en">MAPS.ME has maps for every country in the world, including islands. You can check
-how detailed they are on <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a></dd>
+how detailed they are on <a href="http://www.openstreetmap.org/" class="link">OpenStreetMap.org</a></dd>
 <dd lang="ru">В приложении есть карты всех стран мира, включая острова. Детализацию вы можете
 проверить <a href="http://www.openstreetmap.org/">на сайте OpenStreetMap.org</a></dd>
 <dd lang="de">MAPS.ME enthält Karten für jedes Land weltweit, einschließlich der Inseln. Sie
@@ -361,7 +399,7 @@ cambios se cargarán automáticamente a OSM.</dd>
 and tap Done in the top right-hand corner. Then select a category, for example cafe, add the
 info and tap Save. If you want to delete added place, tap Edit place – scroll page down and
 select Remove. Please be very careful when adding new places: once your edits have been uploaded
-to OSM, you should delete them directly at <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a>.</dd>
+to OSM, you should delete them directly at <a href="http://www.openstreetmap.org/" class="link">OpenStreetMap.org</a>.</dd>
 <dd lang="ru">Нажмите кнопку меню и выберите Добавить место. Потяните карту, чтобы выбрать правильное
 местоположение объекта и нажмите Готово в правом верхнем углу. Затем выберите категорию, например,
 кафе, добавьте информацию и нажмите Сохранить. Чтобы удалить добавленный объект, нажмите Редактировать
@@ -386,7 +424,7 @@ cargado a OSM, debes eliminarlas directamente en <a href="http://www.openstreetm
 <dt lang="de">Wie kann ich Orte auf der Karte verschieben oder löschen?</dt>
 <dt lang="es">¿Cómo puedo desplazar o eliminar lugares del mapa?</dt>
 <dd lang="en">You can leave a note for OSM contributors with the description of the issue if
-you tap Edit place on a place page. Alternatively, you can do it yourself at <a href="http://www.openstreetmap.org/">OpenStreetMap</a>.</dd>
+you tap Edit place on a place page. Alternatively, you can do it yourself at <a href="http://www.openstreetmap.org/" class="link">OpenStreetMap</a>.</dd>
 <dd lang="ru">Вы можете оставить заметку для участников OSM с описанием проблемы, нажав на место,
 раскрыв белую панель и выбрав Редактировать место. Также вы можете внести изменения самостоятельно
 на сайте <a href="http://www.openstreetmap.org/">OpenStreetMap</a>.</dd>
@@ -446,7 +484,6 @@ We recommend you to check info about place and add your changes (if necessary) d
 <li>информация о категории объекта была удалена в OSM</li>
 <li>добавление информации к некоторым сложным геометрическим объектам не поддерживается в текущей
 версии редактора.</li></ul>
-<p></p>
 Рекомендуем проверить информацию об объекте и при необходимости внести изменения напрямую на
 сайте Openstreetmap.org.</dd>
 <dd lang="de">Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind und den richtigen
@@ -636,6 +673,18 @@ haya bloqueado algún servicio antivirus, por lo que comprueba también estos aj
 a habilitar (o a deshabilitar si ya está habilitado) «Usar Servicios de Google Play» en los
 ajustes de la aplicación y, a continuación, reinicia el dispositivo.</dd>
 
+<dt lang="en">How can I see my current speed and altitude?</dt>
+<dt lang="ru">Как посмотреть мою текущую скорость и высоту над уровнем моря?</dt>
+<dt lang="de">Wo kann ich meine aktuelle Geschwindigkeit und Höhe ablesen?</dt>
+<dt lang="es">¿Cómo consulto la velocidad a la que voy y la altitud a la que me encuentro?</dt>
+<dd lang="en">Make sure that you get GPS signal and then select your current position on the
+map.</dd>
+<dd lang="ru">Когда позиция определилась с помощью GPS-спутников (не по Wi-Fi или сотовой сети),
+выберите ваше текущее местоположение на карте.</dd>
+<dd lang="de">Stellen Sie sicher, dass Sie ein GPS-Signal empfangen und wählen Sie Ihre aktuelle
+Position auf der Karte.</dd>
+<dd lang="es">Comprueba que captas una señal de GPS y selecciona tu posición en el mapa.</dd>
+
 <dt lang="en">What does the auto-follow mode stand for and how can I activate it?</dt>
 <dt lang="ru">Что такое режим автоследования и как мне его активировать?</dt>
 <dt lang="de">Wofür steht der Modus „Automatisch folgen“ und wie kann ich ihn aktivieren?</dt>
@@ -686,35 +735,33 @@ want to go. Tap the "Route" icon in the pop-up window. You can change the route 
 the Car, Pedestrian or Bike icon. If you want to choose a different start location, tap “Route”
 icon on the main screen. You will see the Planning Route window. Tap “From” to select a start
 point, tap “To” for a destination point. Press "Start" to begin moving (navigation is only available
-when you create a route from your current location). Press the arrow sign in the lower right corner
-of the screen and tap Stop to finish the route.</dd>
+when you create a route from your current location). Press the cross in the top left corner
+of the screen to finish the route.</dd>
 <dd lang="ru">Убедитесь, что ваше местоположение определено, затем выберите на карте точку,
 к которой хотите проложить маршрут. В выпадающем меню нажмите иконку "Маршрут". Тип маршрута
 можно изменить, нажав на иконку автомобиля, пешехода или велосипеда вверху экрана. Чтобы изменить
 точку старта, нажмите на кнопку “Маршрут” на главном экране, откроется окно “Планирование маршрута”,
 здесь вы можете задать начальную и конечную точки маршрута. Для движения по маршруту, нажмите
 кнопку “Начать” (навигация доступна только из текущего местоположения). Чтобы закончить движение
-по маршруту нажмите на значок стрелки в правом нижнем углу экрана и нажмите Стоп.</dd>
+по маршруту нажмите на крестик в левом верхнем углу экрана.</dd>
 <dd lang="de">Stellen Sie sicher, dass Ihre Position bestimmt ist und wählen Sie dann mit Ihrem
 Finger einen Punkt auf der Karte, wohin Sie möchten. Tippen Sie im Popup-fenster auf das Symbol
-"Route“. Sie können den Routentyp ändern, indem Sie oben im Bildschirm auf das Symbol "Auto", "Fußgänger"
-oder "Fahrrad" drücken. Falls Sie einen anderen Startpunkt wählen möchten, tippen Sie auf das "Route"-Symbol
-auf dem Hauptbildschirm. Dort sehen Sie das Routenplanungs-Fenster. Tippen Sie auf "Von“, um
-einen Startpunkt zu wählen und tippen Sie auf "Nach“, um das Ziel zu wählen. Drücken Sie auf
-"Start“, um zu beginnen. (Navigation ist nur verfügbar, wenn Sie eine neue Route von Ihrer aktuellen
-Position aus berechnen lassen). Drücken Sie auf "Start“ und fahren Sie los. Drücken Sie die 
-Pfeil-Zeichen in der rechten unteren Ecke
-des Bildschirms und tippen Sie auf "Anhalten" um die Strecke zu beenden.</dd>
+„Route“. Sie können den Routentyp ändern, indem Sie oben im Bildschirm auf das Symbol „Fußgänger“
+oder „Auto“ drücken. Falls Sie einen anderen Startpunkt wählen möchten, tippen Sie auf das „Route“-Symbol
+auf dem Hauptbildschirm. Dort sehen Sie das Routenplanungs-Fenster. Tippen Sie auf „Von“, um
+einen Startpunkt zu wählen und tippen Sie auf „Nach“, um das Ziel zu wählen. Drücken Sie auf
+„Start“, um zu beginnen. (Navigation ist nur verfügbar, wenn Sie eine neue Route von Ihrer aktuellen
+Position aus berechnen lassen). Drücken Sie auf „Start“ und fahren Sie los. Drücken Sie auf
+das Kreuz oben links im Bildschirm, um die Route fertigzustellen.</dd>
 <dd lang="es">Confirma que se haya establecido tu posición; a continuación, elige con el dedo
-el punto del mapa al que quieras ir. Toca el icono "Ruta" en la ventana emergente. Para cambiar
-el tipo de ruta, pulsa los iconos "En 
-automóvil", "A pie" o "En bicicleta" situados en la parte superior de la pantalla.
+el punto del mapa al que quieras ir. Toca el icono «Ruta» en la ventana emergente. Para cambiar
+el tipo de ruta, pulsa los iconos «A pie» o «En coche» situados en la parte superior de la pantalla.
 Si quieres elegir otra ubicación de inicio, pulsa el icono «Ruta» en la pantalla principal.
-Aparecerá la ventana de Planificación de ruta. Pulsa en "Desde" para seleccionar un punto de
+Aparecerá la ventana de Planificación de ruta. Pulsa en «Desde» para seleccionar un punto de
 partida y pulsa en «A» para un punto de destino. Presiona el botón «Inicio» para empezar a moverte
 (la navegación solo está disponible cuando se crea una ruta desde tu ubicación actual). Pulsa
-"Empezar" para empezar a moverte. Pulse el signo de la flecha en la esquina inferior derecha
-de la pantalla y toque "Detener" para finalizar la ruta.</dd>
+«Empezar» para empezar a moverte. Pulsa la «X» situada en la esquina superior izquierda de la
+pantalla para finalizar la ruta.</dd>
 
 <dt lang="en">How can I manage voice instructions settings?</dt>
 <dt lang="ru">Настройки голосовой навигации.</dt>

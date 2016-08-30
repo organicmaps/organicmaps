@@ -1,38 +1,37 @@
+#import "MWMAuthorizationOSMLoginViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMAuthorizationOSMLoginViewController.h"
 #import "MWMCircularProgress.h"
+#import "MWMSettingsViewController.h"
 #import "Statistics.h"
-#import "SettingsAndMoreVC.h"
 #import "UIColor+MapsMeColor.h"
 #import "UITextField+RuntimeAttributes.h"
 
-#include "private.h"
+#include "base/logging.hpp"
 #include "editor/server_api.hpp"
 #include "platform/platform.hpp"
-#include "base/logging.hpp"
+#include "private.h"
 
-typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
-{
-  MWMFieldCorrectNO       = 0,
-  MWMFieldCorrectLogin    = 1 << 0,
+typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect) {
+  MWMFieldCorrectNO = 0,
+  MWMFieldCorrectLogin = 1 << 0,
   MWMFieldCorrectPassword = 1 << 1,
   MWMFieldCorrectAll = MWMFieldCorrectLogin | MWMFieldCorrectPassword
 };
 
 using namespace osm;
 
-@interface MWMAuthorizationOSMLoginViewController () <UITextFieldDelegate>
+@interface MWMAuthorizationOSMLoginViewController ()<UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField * loginTextField;
-@property (weak, nonatomic) IBOutlet UITextField * passwordTextField;
-@property (weak, nonatomic) IBOutlet UIButton * loginButton;
-@property (weak, nonatomic) IBOutlet UIButton * forgotButton;
-@property (weak, nonatomic) IBOutlet UIView * spinnerView;
+@property(weak, nonatomic) IBOutlet UITextField * loginTextField;
+@property(weak, nonatomic) IBOutlet UITextField * passwordTextField;
+@property(weak, nonatomic) IBOutlet UIButton * loginButton;
+@property(weak, nonatomic) IBOutlet UIButton * forgotButton;
+@property(weak, nonatomic) IBOutlet UIView * spinnerView;
 
-@property (nonatomic) MWMFieldCorrect isCorrect;
+@property(nonatomic) MWMFieldCorrect isCorrect;
 
-@property (nonatomic) MWMCircularProgress * spinner;
+@property(nonatomic) MWMCircularProgress * spinner;
 
 @end
 
@@ -54,19 +53,13 @@ using namespace osm;
     [self.loginTextField becomeFirstResponder];
 }
 
-- (BOOL)shouldAutorotate
-{
-  return NO;
-}
-
-- (void)checkConnection
-{
-  self.forgotButton.enabled = Platform::IsConnected();
-}
-
+- (BOOL)shouldAutorotate { return NO; }
+- (void)checkConnection { self.forgotButton.enabled = Platform::IsConnected(); }
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (BOOL)textField:(UITextField *)textField
+    shouldChangeCharactersInRange:(NSRange)range
+                replacementString:(NSString *)string
 {
   NSString * newString =
       [textField.text stringByReplacingCharactersInRange:range withString:string];
@@ -135,8 +128,7 @@ using namespace osm;
   if (Platform::IsConnected())
   {
     [self startSpinner];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
-    {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
       string const username = self.loginTextField.text.UTF8String;
       string const password = self.passwordTextField.text.UTF8String;
       OsmOAuth auth = OsmOAuth::ServerAuth();
@@ -147,22 +139,24 @@ using namespace osm;
       catch (exception const & ex)
       {
         LOG(LWARNING, ("Error login", ex.what()));
-        [Statistics logEvent:@"Editor_Auth_request_result" withParameters:@{kStatIsSuccess : kStatNo,
-                                                                           kStatErrorData : @(ex.what()),
-                                                                           kStatType : kStatOSM}];
+        [Statistics logEvent:@"Editor_Auth_request_result"
+              withParameters:@{
+                kStatIsSuccess : kStatNo,
+                kStatErrorData : @(ex.what()),
+                kStatType : kStatOSM
+              }];
       }
-      dispatch_async(dispatch_get_main_queue(), ^
-      {
+      dispatch_async(dispatch_get_main_queue(), ^{
         [self stopSpinner];
         if (auth.IsAuthorized())
         {
           osm_auth_ios::AuthorizationStoreCredentials(auth.GetKeySecret());
-          [Statistics logEvent:@"Editor_Auth_request_result" withParameters:@{kStatIsSuccess : kStatYes,
-                                                                             kStatType : kStatOSM}];
+          [Statistics logEvent:@"Editor_Auth_request_result"
+                withParameters:@{kStatIsSuccess : kStatYes, kStatType : kStatOSM}];
           UIViewController * svc = nil;
           for (UIViewController * vc in self.navigationController.viewControllers)
           {
-            if ([vc isKindOfClass:[SettingsAndMoreVC class]])
+            if ([vc isKindOfClass:[MWMSettingsViewController class]])
             {
               svc = vc;
               break;
@@ -186,11 +180,7 @@ using namespace osm;
   }
 }
 
-- (IBAction)cancel
-{
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
+- (IBAction)cancel { [self.navigationController popViewControllerAnimated:YES]; }
 - (IBAction)forgotPassword
 {
   [self openUrl:[NSURL URLWithString:@(OsmOAuth::ServerAuth().GetResetPasswordURL().c_str())]];
