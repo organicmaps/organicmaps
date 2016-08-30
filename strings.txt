@@ -2288,7 +2288,7 @@
     da = Du har ikke brug for MAPS.ME Lite længere, så du kan godt afinstallere den.
     nl = U heeft MAPS.ME Lite niet meer nodig, dus u kunt de app deïnstalleren
     fi = Et tarvitse enää MAPS.ME Lite:ä, joten voit poistaa sen.
-    fr = Vous n'avez plus besoin de MAPS.ME Lite, pouvez donc le désinstaller.
+    fr = Vous n'avez plus besoin de MAPS.ME Lite, vous pouvez donc le désinstaller.
     de = Sie benötigen MAPS.ME Lite nicht mehr und können es deinstallieren.
     hu = Már nincs szüksége a MAPS.ME lite alkalmazásra, nyugodtan letörölheti.
     id = Anda tidak lagi memerlukan MAPS.ME Lite, sehingga Anda dapat menghapusnya.
@@ -4348,7 +4348,7 @@
     da = Hey, her er jeg nu: %1$@. Tryk på dette link %2$@ eller dette %3$@ for at se stedet på kortet. Tak.
     nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
     fi = Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.
-    fr = Bonjour,\n\nJe suis actuelement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
+    fr = Bonjour,\n\nJe suis actuellement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
     de = Hi,\n\nich bin gerade hier: %1$@. Klicke den Link %2$@ oder %3$@, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.
     hu = Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.
     id = Hai,\n\nSekarang saya ada di sini: %1$@. Klik tautan ini %2$@ atau yang ini %3$@ untuk melihat tempatnya di peta.\n\nTerima kasih.
@@ -6420,7 +6420,7 @@
     cs = Plná verze MAPS.ME je dnes zdarma! Stáhněte si ji nyní a dejte vědět přátelům.
     da = Fuld version af MAPS.ME er gratis i dag! Download nu og fortæl dine venner om det.
     nl = Volledige versie van MAPS.ME is nu gratis! Download nu en vertel het je vrienden.
-    fr = Version complète de MAPS.ME est gratuit aujoud'hui ! Téléchargez-le maintenant et dites-le à vos amis.
+    fr = Version complète de MAPS.ME gratuite aujourd'hui ! Téléchargez-le maintenant et dites-le à vos amis.
     de = MAPS.ME heute gratis! Jetzt runterladen & Ihre Freunde informieren
     hu = A teljes verzió MAPS.ME ma ingyenes! Töltsd le most és meséld el barátaidnak.
     it = Versione completa di MAPS.ME è oggi gratis! Scaricala ora e dillo ai tuoi amici!
@@ -6734,6 +6734,7 @@
     comment = Settings: Send feedback button and dialog title
     tags = android
     en = Feedback
+    fr = Avis
     ru = Связаться с нами
     de = Rückmeldung
     pl = Zgłoś opinię
@@ -6742,6 +6743,7 @@
     comment = Settings: "Send general feedback" button
     tags = android
     en = General feedback
+    fr = Avis général
     ru = Отправить отзыв
     de = Allgemeine Rückmeldung
     pl = Ogólne opinie
@@ -6815,6 +6817,7 @@
     comment = Rate in Google Play (Android only)
     tags = android
     en = Rate on Google Play
+    fr = Évaluer sur Google Play
     ru = Оценить в Google Play
     de = Bei Google Play bewerten
     pl = Oceń w Google Play
@@ -6824,6 +6827,7 @@
     comment = Share with friends: menu item title
     tags = android
     en = Tell a Friend
+    fr = Recommander à un ami
     ru = Рассказать друзьям
     de = Einem Freund empfehlen
     pl = Powiadom znajomego
@@ -6833,6 +6837,7 @@
     tags = android
     en = Hi! Install MAPS.ME!
     ru = Привет! Установи MAPS.ME!
+    fr = Salut ! Installe MAPS.ME !
     de = Hallo! Installiere dir MAPS.ME!
     pl = Cześć! Zainstaluj MAPS.ME!
     zh-Hant = 嗨！安裝 MAPS.ME！
@@ -6911,7 +6916,7 @@
     da = Rapportér fejl
     nl = Meld een fout
     fi = Ilmoita virheestä
-    fr = Signaler un bogue
+    fr = Signaler un bug
     de = Fehler melden
     hu = Hibabejelentés
     id = Laporkan gangguan
@@ -7001,6 +7006,7 @@
     comment = About short text (below logo)
     tags = ios, android
     en = Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!
+    fr = L'application la plus utile pour les voyageurs, a été créé avec la participation des équipes Mail.Ru Group et OpenStreetMap.
     ru = Объединив усилия Mail.Ru Group и данные OpenStreetMap, мы создаем незаменимое приложение для путешествий.
     de = Gemeinsame Bemühungen der Mail.Ru-Gruppe und OpenStreetMap machen die nützlichste Anwendung für Reisende!
     pl = Najbardziej użyteczna aplikacja dla podróżników, powstała przy udziale zespołów Mail.Ru i OpenStreetMap.
@@ -7237,7 +7243,7 @@
     da = Opdatér alle
     nl = Update alles
     fi = Päivitä kaikki
-    fr = Mettre à jour tout
+    fr = Tout mettre à jour
     de = Alle aktualisieren
     hu = Mindegyik frissítése
     id = Perbarui semua
@@ -7893,7 +7899,7 @@
     da = Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.
     nl = Er is geen route gevonden tussen het geselecteerde beginpunt en de bestemming. Gelieve een andere beginpunt of een eindbestemming te kiezen.
     fi = Lähtöpisteen ja määränpään välillä ei löytynyt reittiä. Valitse toinen lähtöpiste tai määränpää.
-    fr = Il n'existe aucun itinéraire entre l'origine et la destination choisies. Veuillez sélectionner un point de départ ou d'arrivée différent.
+    fr = Il n'existe aucun itinéraire entre l'origine et la destination choisie. Veuillez sélectionner un point de départ ou d'arrivée différent.
     de = Es wurde keine Route zwischen dem ausgewählten Ausgangspunkt und Ziel gefunden. Bitte wählen Sie einen anderen Start- oder Endpunkt.
     hu = Nem találtunk útvonalat a kiválasztott kiindulópont és az úti cél között. Kérjük, válasszon másik kiinduló- vagy végpontot.
     id = Tidak ada rute yang ditemukan antara tempat asal dan tujuan yang dipilih. Mohon pilih titik mulai atau tujuan yang berbeda.
@@ -8400,7 +8406,7 @@
     da = Jeg har netop bedømt jeres app
     nl = Ik heb je app zojuist gewaardeerd
     fi = Olen juuri arvostellut sovelluksesi.
-    fr = je viens d'évaluer votre appli
+    fr = Je viens d'évaluer votre appli
     de = Ich habe gerade Ihre App bewertet
     hu = Most értékeltem az alkalmazásodat
     id = Saya baru saja menilai app Anda
@@ -8720,7 +8726,7 @@
     da = Download opdaterede kort og routing data for at få alle MAPS.ME funktioner.
     nl = Download bijgewerkte kaart en routegegevens om alle functies van MAPS.ME te krijgen.
     fi = Lataa päivitetty kartta ja reititysdata saadaksesi kaikki MAPS.ME -ominaisuudet.
-    fr = des cartes actualisées et des données de routage pour obtenir toutes les fonctionnalités de MAPS.ME.
+    fr = Des cartes actualisées et des données de routage pour obtenir toutes les fonctionnalités de MAPS.ME.
     de = Laden Sie die aktualisierte Karte und Daten der Routenplanung herunter, um alle MAPS.ME-Funktionen zu nutzen.
     hu = Frissített térkép és útvonaltervezési adatok letöltése az összes MAPS.ME tulajdonság megszerzése érdekében.
     id = Unduh peta yang diperbarui dan data perutean untuk mendapatkan semua fitur MAPS.ME.
@@ -8784,7 +8790,7 @@
     da = Yderligere data er påkrævet for at oprette ruter fra din placering.
     nl = Aanvullende gegevens die nodig zijn om routes te maken vanaf uw locatie.
     fi = Lisädata, jotka vaaditaan reittien luomiseen sijainnistasi.
-    fr = des données supplémentaires nécessaires pour créer des itinéraires depuis votre localisation.
+    fr = Des données supplémentaires nécessaires pour créer des itinéraires depuis votre localisation.
     de = Es sind Zusatzdaten erforderlich, um die Route ab Ihrem Standort zu erstellen.
     hu = További adatok szükségesek a kiinduló pontról történő útvonaltervezéshez
     id = Data tambahan yang diperlukan untuk membuat rute dari lokasi Anda.
@@ -8816,7 +8822,7 @@
     da = Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.
     nl = Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.
     fi = Reittien luonti vaatii omasta sijainnistasi päämääriin johtavien karttojen lataamiseen ja päivitykseen.
-    fr = la création d'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.
+    fr = La création d'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.
     de = Zum Erstellen einer Route müssen alle Karten von Ihrem Standort bis zum Ziel heruntergeladen und aktualisiert worden sein.
     hu = Útvonal tervezéséhez a kiindulási pont és a célútvonal összes térképét szükséges letölteni és frissíteni.
     id = Membuat rute memerlukan semua peta dari lokasi Anda ke tujuan yang diunduh dan diperbarui.
@@ -8911,7 +8917,7 @@
     da = Du kommer til at downloade %@ MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.
     nl = U gaat %@ MB downloaden met behulp van mobiele data (roaming). Dit kan leiden tot extra kosten, afhankelijk van het mobiele data-abonnement van uw aanbieder.
     fi = Olet lataamassa %@ MB Mobiilidatan (roaming-lataus) avulla. Tämä voi johtaa lisämaksuihin, riippuen matkapuhelinliittymäsi palveluntarjoajasta.
-    fr = Vous allez télécharger %@ Mo à l'aide de données mobiles (frais d' itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.
+    fr = Vous allez télécharger %@ Mo à l'aide de données mobiles (frais d'itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.
     de = Sie sind im Begriff, %@ MB unter Nutzung einer mobilen Datenverbindung (mit Roaming) herunterzuladen. Dies kann je nach Anbieter Ihres mobilen Datentarifs zusätzliche Kosten verursachen.
     hu = %@ MB-nyi adatot készül letölteni mobilján (roamingon) keresztül. Ez további költségekkel járhat, a mobilcsomagjától függően.
     id = Anda akan mengunduh %@ MB menggunakan Data Seluler (dalam Roaming). Hal ini dapat mengakibatkan biaya tambahan, tergantung pada paket data seluler operator.
@@ -11623,6 +11629,7 @@
     comment = Showcase menu item.
     tags = ios
     en = Plan your trip
+    fr = Planifiez votre voyage
     ru = Подготовься к путешествию
     pl = Zaplanuj podróż
     es = Planifica tu viaje
@@ -11661,6 +11668,7 @@
     comment = Place Page link to Wikipedia article (if map object has it).
     tags = ios, android
     en = Wikipedia
+    fr = Wikipédia
     zh-Hant = 維基百科
 
   [p2p_route_planning]
@@ -13973,6 +13981,7 @@
     comment = small button to open list with names in different languages
     tags = ios, android
     en = Show More
+    fr = Voir plus
     ru = Показать больше
     de = Mehr anzeigen
     zh-Hant = 顯示更多
@@ -13981,6 +13990,7 @@
     comment = small button to close list with names in different languages
     tags = ios, android
     en = Show Less
+    fr = Voir moins
     ru = Показать меньше
     de = Weniger anzeigen
     zh-Hant = 顯示較少
