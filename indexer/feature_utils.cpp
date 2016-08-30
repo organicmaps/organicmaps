@@ -37,6 +37,12 @@ void GetMwmLangName(FeatureID const & id, StringUtf8Multilang const & src, strin
 void GetNames(FeatureID const & id, StringUtf8Multilang const & src, string & primary,
               string & secondary)
 {
+  primary.clear();
+  secondary.clear();
+
+  if (src.IsEmpty())
+    return;
+
   vector<int8_t> primaryCodes = {StringUtf8Multilang::kDefaultCode};
   vector<int8_t> secondaryCodes = {StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()),
                                    StringUtf8Multilang::kInternationalCode,
@@ -44,9 +50,6 @@ void GetNames(FeatureID const & id, StringUtf8Multilang const & src, string & pr
 
   auto primaryIndex = primaryCodes.size();
   auto secondaryIndex = secondaryCodes.size();
-
-  primary.clear();
-  secondary.clear();
 
   auto const findAndSet = [](vector<int8_t> const & langs, int8_t const code, string const & name,
                                size_t & bestIndex, string & outName)

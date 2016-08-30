@@ -28,6 +28,7 @@ SOURCES += \
     drules_selector_parser_test.cpp \
     editable_map_object_test.cpp \
     feature_metadata_test.cpp \
+    feature_names_test.cpp \
     feature_xml_test.cpp \
     features_offsets_table_test.cpp \
     features_vector_test.cpp \
