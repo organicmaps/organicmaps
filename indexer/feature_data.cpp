@@ -88,6 +88,7 @@ public:
       { "hwtag" },
       { "psurface" },
       { "internet_access" },
+      { "wheelchair" },
     };
 
     AddTypes(arr1);
@@ -99,6 +100,7 @@ public:
       { "amenity", "bench" },
       { "amenity", "shelter" },
       { "building", "address" },
+      { "building", "has_parts" },
       { "sponsored", "booking" },
     };
 
