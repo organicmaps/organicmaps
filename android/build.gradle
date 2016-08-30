@@ -7,7 +7,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.2.3'
+    classpath 'com.android.tools.build:gradle:+'
     classpath 'io.fabric.tools:gradle:1.+'
   }
 }
@@ -58,7 +58,7 @@ dependencies {
   // TODO remove this library when default LinearLayoutManager will be fixed.
   compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
   compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
-  //Glide
+  // Glide
   compile 'com.github.bumptech.glide:glide:3.7.0'
   // Java concurrency annotations
   compile 'net.jcip:jcip-annotations:1.0'
