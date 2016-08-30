@@ -214,14 +214,14 @@ void CaptionDescription::FormatCaptions(FeatureType const & f,
 {
   if (!auxCaptionExists && !m_auxText.empty() && type != feature::GEOM_LINE)
   {
-    f.GetReadableName(m_mainText);
-    if (m_mainText == m_auxText)
-      m_auxText.clear();
+    m_mainText.swap(m_auxText);
+    m_auxText.clear();
   }
 
   if (mainTextType == drule::text_type_housenumber)
   {
-    m_mainText = move(m_houseNumber);
+    m_mainText.swap(m_houseNumber);
+    m_houseNumber.clear();
   }
   else if (mainTextType == drule::text_type_name)
   {
