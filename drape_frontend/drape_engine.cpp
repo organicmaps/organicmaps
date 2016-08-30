@@ -102,11 +102,6 @@ void DrapeEngine::Update(int w, int h)
                                   make_unique_dp<RecoverGLResourcesMessage>(),
                                   MessagePriority::High);
 
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
-                                  MessagePriority::Normal);
-
-
   ResizeImpl(w, h);
 }
 
@@ -204,13 +199,7 @@ void DrapeEngine::UpdateMapStyle()
   }
 
   // Recache gui after updating of style.
-  {
-    RecacheGui(false);
-
-    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                    make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
-                                    MessagePriority::Normal);
-  }
+  RecacheGui(false);
 }
 
 void DrapeEngine::RecacheMapShapes()
@@ -408,6 +397,12 @@ void DrapeEngine::SetRoutePoint(m2::PointD const & position, bool isStart, bool 
 void DrapeEngine::SetWidgetLayout(gui::TWidgetsLayoutInfo && info)
 {
   m_widgetsLayout = move(info);
+  for (auto const & layout : m_widgetsLayout)
+  {
+    auto const itInfo = m_widgetsInfo.find(layout.first);
+    if (itInfo != m_widgetsInfo.end())
+      itInfo->second.m_pixelPivot = layout.second;
+  }
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
                                   MessagePriority::Normal);

@@ -287,6 +287,7 @@ public:
   {}
 
   Type GetType() const override { return Message::GuiRecache;}
+  bool IsGLContextDependent() const override { return true; }
 
   gui::TWidgetsInitInfo const & GetInitInfo() const { return m_initInfo; }
   bool NeedResetOldGui() const { return m_needResetOldGui; }
@@ -302,6 +303,7 @@ public:
   MapShapesRecacheMessage() = default;
 
   Type GetType() const override { return Message::MapShapesRecache; }
+  bool IsGLContextDependent() const override { return true; }
 };
 
 class GuiLayerLayoutMessage : public Message
@@ -312,6 +314,7 @@ public:
   {}
 
   Type GetType() const override { return GuiLayerLayout; }
+  bool IsGLContextDependent() const override { return true; }
 
   gui::TWidgetsLayoutInfo const & GetLayoutInfo() const { return m_layoutInfo; }
   gui::TWidgetsLayoutInfo AcceptLayoutInfo() { return move(m_layoutInfo); }
@@ -735,6 +738,7 @@ public:
   RecoverGLResourcesMessage(){}
 
   Type GetType() const override { return Message::RecoverGLResources; }
+  bool IsGLContextDependent() const override { return true; }
 };
 
 class DeactivateRouteFollowingMessage : public Message

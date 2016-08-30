@@ -748,7 +748,7 @@ void FrontendRenderer::UpdateGLResources()
                                                            routeData->m_sourceTurns,
                                                            routeData->m_color,
                                                            routeData->m_pattern);
-    m_routeRenderer->Clear(true /* keepDistanceFromBegin */);
+    m_routeRenderer->ClearGLDependentResources();
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
                               MessagePriority::Normal);
   }
