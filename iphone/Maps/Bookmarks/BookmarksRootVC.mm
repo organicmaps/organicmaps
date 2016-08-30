@@ -214,7 +214,7 @@
     f.font = [cell.textLabel.font fontWithSize:[cell.textLabel.font pointSize]];
     f.tag = TEXTFIELD_TAG;
     f.delegate = self;
-    f.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    f.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     cell.textLabel.hidden = YES;
     cell.detailTextLabel.hidden = YES;
     cell.accessoryType = UITableViewCellAccessoryNone;
