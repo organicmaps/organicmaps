@@ -17,6 +17,7 @@
       android:id="@+id/input"
       style="@style/MwmWidget.Editor.FieldLayout.EditText"
       android:hint="@string/editor_edit_place_name_hint"
+      android:inputType="textCapSentences"
       android:singleLine="true"/>
 
   </android.support.design.widget.TextInputLayout>
