@@ -23,6 +23,7 @@ public:
   bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 1); }
 
   m2::PolylineD const & GetPolyline() const { return m_poly; }
+  vector<double> const & GetSegDistanceM() const { return m_segDistance; }
 
   double GetTotalDistanceM() const;
   double GetDistanceFromBeginM() const;

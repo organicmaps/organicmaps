@@ -9,6 +9,7 @@
 
 #include "coding/reader_wrapper.hpp"
 
+#include "indexer/feature_altitude.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
@@ -19,6 +20,7 @@
 
 #include "geometry/distance.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/queue.hpp"
 #include "std/set.hpp"
 
@@ -247,10 +249,15 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
   if (m_directionsEngine)
     m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, geometry, cancellable);
 
+  feature::TAltitudes altitudes(path.size());
+  for (size_t i = 0; i < path.size(); ++i)
+    altitudes[i] = path[i].GetAltitude();
+
   route.SetGeometry(geometry.begin(), geometry.end());
-  route.SetSectionTimes(times);
-  route.SetTurnInstructions(turnsDir);
-  route.SetStreetNames(streetNames);
+  route.SwapSectionTimes(times);
+  route.SwapTurnInstructions(turnsDir);
+  route.SwapStreetNames(streetNames);
+  route.SwapAltitudes(altitudes);
 }
 
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn)

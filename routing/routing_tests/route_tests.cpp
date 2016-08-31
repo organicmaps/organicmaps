@@ -50,7 +50,7 @@ UNIT_TEST(DistanceToCurrentTurnTest)
   Route route("TestRouter");
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
   vector<turns::TurnItem> turns(kTestTurns);
-  route.SetTurnInstructions(turns);
+  route.SwapTurnInstructions(turns);
 
   double distance;
   turns::TurnItem turn;
@@ -85,7 +85,7 @@ UNIT_TEST(NextTurnTest)
   Route route("TestRouter");
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
   vector<turns::TurnItem> turns(kTestTurns);
-  route.SetTurnInstructions(turns);
+  route.SwapTurnInstructions(turns);
 
   double distance, nextDistance;
   turns::TurnItem turn;
@@ -114,7 +114,7 @@ UNIT_TEST(NextTurnsTest)
   Route route("TestRouter");
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
   vector<turns::TurnItem> turns(kTestTurns);
-  route.SetTurnInstructions(turns);
+  route.SwapTurnInstructions(turns);
   vector<turns::TurnItemDist> turnsDist;
 
   {
@@ -165,9 +165,9 @@ UNIT_TEST(RouteNameTest)
 
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
   vector<turns::TurnItem> turns(kTestTurns);
-  route.SetTurnInstructions(turns);
+  route.SwapTurnInstructions(turns);
   Route::TStreets names(kTestNames);
-  route.SetStreetNames(names);
+  route.SwapStreetNames(names);
 
   string name;
   route.GetCurrentStreetName(name);

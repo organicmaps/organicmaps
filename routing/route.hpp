@@ -1,10 +1,13 @@
 #pragma once
 
-#include "base/followed_polyline.hpp"
-#include "routing_settings.hpp"
-#include "turns.hpp"
+#include "routing/routing_settings.hpp"
+#include "routing/turns.hpp"
+
+#include "indexer/feature_altitude.hpp"
 
 #include "geometry/polyline2d.hpp"
+
+#include "base/followed_polyline.hpp"
 
 #include "std/vector.hpp"
 #include "std/set.hpp"
@@ -52,19 +55,24 @@ public:
     Update();
   }
 
-  inline void SetTurnInstructions(TTurns & v)
+  inline void SwapTurnInstructions(TTurns & v)
   {
     swap(m_turns, v);
   }
 
-  inline void SetSectionTimes(TTimes & v)
+  inline void SwapSectionTimes(TTimes & v)
   {
     swap(m_times, v);
   }
 
-  inline void SetStreetNames(TStreets & v)
+  inline void SwapStreetNames(TStreets & v)
   {
     swap(m_streets, v);
+  }
+
+  inline void SwapAltitudes(feature::TAltitudes & v)
+  {
+    swap(m_altitudes, v);
   }
 
   uint32_t GetTotalTimeSec() const;
@@ -75,6 +83,8 @@ public:
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
   TTurns const & GetTurns() const { return m_turns; }
+  feature::TAltitudes const & GetAltitudes() const { return m_altitudes; }
+  vector<double> const & GetSegDistanceM() const { return m_poly.GetSegDistanceM(); }
   void GetTurnsDistances(vector<double> & distances) const;
   string const & GetName() const { return m_name; }
   bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
@@ -148,6 +158,7 @@ private:
   TTurns m_turns;
   TTimes m_times;
   TStreets m_streets;
+  feature::TAltitudes m_altitudes;
 
   mutable double m_currentTime;
 };

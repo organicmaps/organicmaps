@@ -1,5 +1,6 @@
 #include "map/framework.hpp"
 #include "map/ge0_parser.hpp"
+#include "map/generate_chart.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/user_mark.hpp"
@@ -79,6 +80,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
+#include "std/deque.hpp"
 #include "std/target_os.hpp"
 #include "std/vector.hpp"
 
@@ -2980,4 +2982,31 @@ void Framework::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
 bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
 {
   return osm::Editor::Instance().OriginalFeatureHasDefaultName(fid);
+}
+
+bool Framework::HasRouteAltitude() const
+{
+  return m_routingSession.HasRouteAltitude();
+}
+
+bool Framework::GenerateRouteAltitudeChart(size_t width, size_t height, bool day,
+                                           vector<uint8_t> & imageRGBAData) const
+{
+  feature::TAltitudes altitudes;
+  if (!m_routingSession.GetRouteAltitudes(altitudes) && altitudes.empty())
+    return false;
+  deque<double> segDistanceM;
+  if (!m_routingSession.GetSegDistanceM(segDistanceM) && segDistanceM.empty())
+    return false;
+  segDistanceM.push_front(0.0);
+
+  if (altitudes.size() != segDistanceM.size())
+  {
+    LOG(LERROR, ("The route is in inconsistent state. Size of altitudes is", altitudes.size(),
+                 ". Number of segment is", segDistanceM.size()));
+  }
+
+  // @TODO It's necessary to normalize and center altitude information.
+  GenerateChart(width, height, segDistanceM, altitudes, day, imageRGBAData);
+  return true;
 }

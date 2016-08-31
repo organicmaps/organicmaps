@@ -366,9 +366,9 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
   }
 
   route.SetGeometry(points.begin(), points.end());
-  route.SetTurnInstructions(turnsDir);
-  route.SetSectionTimes(times);
-  route.SetStreetNames(streets);
+  route.SwapTurnInstructions(turnsDir);
+  route.SwapSectionTimes(times);
+  route.SwapStreetNames(streets);
   return NoError;
 }
 
@@ -504,9 +504,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     }
 
     route.SetGeometry(points.begin(), points.end());
-    route.SetTurnInstructions(turnsDir);
-    route.SetSectionTimes(times);
-    route.SetStreetNames(streets);
+    route.SwapTurnInstructions(turnsDir);
+    route.SwapSectionTimes(times);
+    route.SwapStreetNames(streets);
 
     return NoError;
   }
