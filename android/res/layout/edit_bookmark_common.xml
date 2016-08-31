@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/name"
-        android:inputType="textCapWords"
+        android:inputType="textCapSentences"
         android:singleLine="true"/>
 
     </com.mapswithme.maps.widget.CustomTextInputLayout>
