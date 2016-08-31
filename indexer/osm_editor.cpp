@@ -138,7 +138,8 @@ namespace osm
 // (e.g. insert/remove spaces after ';' delimeter);
 
 Editor::Editor()
-  : m_notes(editor::Notes::MakeNotes())
+  : m_configLoader(m_config)
+  , m_notes(editor::Notes::MakeNotes())
   , m_storage(make_unique<editor::LocalStorage>())
 {}
 
@@ -701,7 +702,7 @@ EditableProperties Editor::GetEditableProperties(FeatureType const & feature) co
 EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder const & types) const
 {
   editor::TypeAggregatedDescription desc;
-  if (m_config.GetTypeDescription(types.ToObjectNames(), desc))
+  if (m_config.Get()->GetTypeDescription(types.ToObjectNames(), desc))
     return {desc.GetEditableFields(), desc.IsNameEditable(), desc.IsAddressEditable()};
   return {};
 }
@@ -1062,7 +1063,7 @@ Editor::Stats Editor::GetStats() const
 
 NewFeatureCategories Editor::GetNewFeatureCategories() const
 {
-  return NewFeatureCategories(m_config);
+  return NewFeatureCategories(*(m_config.Get()));
 }
 
 FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id)

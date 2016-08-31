@@ -2,11 +2,8 @@
 
 #include "indexer/feature_meta.hpp"
 
-#include "base/exception.hpp"
-
-#include "std/set.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
-#include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
@@ -36,27 +33,39 @@ struct TypeAggregatedDescription
   bool m_address = false;
 };
 
-DECLARE_EXCEPTION(ConfigLoadError, RootException);
-
 class EditorConfig
 {
 public:
-  EditorConfig(string const & fileName = "editor.config");
+  EditorConfig() = default;
 
   // TODO(mgsergio): Reduce overhead by matching uint32_t types instead of strings.
-  bool GetTypeDescription(vector<string> classificatorTypes, TypeAggregatedDescription & outDesc) const;
+  bool GetTypeDescription(vector<string> classificatorTypes,
+                          TypeAggregatedDescription & outDesc) const;
   vector<string> GetTypesThatCanBeAdded() const;
 
-  bool EditingEnable() const;
-
-  void Reload();
+  void SetConfig(pugi::xml_document const & doc);
 
   // TODO(mgsergio): Implement this getter to avoid hard-code in XMLFeature::ApplyPatch.
   // It should return [[phone, contact:phone], [website, contact:website, url], ...].
   //vector<vector<string>> GetAlternativeFields() const;
 
 private:
-  string const m_fileName;
   pugi::xml_document m_document;
+};
+
+// Class which provides methods for EditorConfig concurrently using.
+class EditorConfigWrapper
+{
+public:
+  EditorConfigWrapper() = default;
+
+  void Set(shared_ptr<EditorConfig> config) { atomic_store(&m_config, config); }
+  shared_ptr<EditorConfig const> Get() const { return atomic_load(&m_config); }
+
+private:
+  shared_ptr<EditorConfig> m_config = make_shared<EditorConfig>();
+
+  // Just in case someone tryes to pass EditorConfigWrapper by value instead of referense.
+  DISALLOW_COPY_AND_MOVE(EditorConfigWrapper);
 };
 }  // namespace editor

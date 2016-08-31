@@ -10,6 +10,7 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
   changeset_wrapper.cpp \
+  config_loader.cpp \
   editor_config.cpp \
   editor_notes.cpp \
   editor_storage.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
   changeset_wrapper.hpp \
+  config_loader.hpp \
   editor_config.hpp \
   editor_notes.hpp \
   editor_storage.hpp \

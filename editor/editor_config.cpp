@@ -1,9 +1,5 @@
 #include "editor/editor_config.hpp"
 
-#include "platform/platform.hpp"
-
-#include "coding/reader.hpp"
-
 #include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
@@ -114,12 +110,6 @@ vector<pugi::xml_node> GetPrioritizedTypes(pugi::xml_node const & node)
 
 namespace editor
 {
-EditorConfig::EditorConfig(string const & fileName)
-    : m_fileName(fileName)
-{
-  Reload();
-}
-
 bool EditorConfig::GetTypeDescription(vector<string> classificatorTypes,
                                       TypeAggregatedDescription & outDesc) const
 {
@@ -152,18 +142,15 @@ bool EditorConfig::GetTypeDescription(vector<string> classificatorTypes,
 vector<string> EditorConfig::GetTypesThatCanBeAdded() const
 {
   auto const xpathResult = m_document.select_nodes("/mapsme/editor/types/type[not(@can_add='no' or @editable='no')]");
+
   vector<string> result;
   for (auto const xNode : xpathResult)
     result.emplace_back(xNode.node().attribute("id").value());
   return result;
 }
 
-void EditorConfig::Reload()
+void EditorConfig::SetConfig(pugi::xml_document const & doc)
 {
-  string content;
-  auto const reader = GetPlatform().GetReader(m_fileName);
-  reader->ReadAsString(content);
-  if (!m_document.load_buffer(content.data(), content.size()))
-    MYTHROW(ConfigLoadError, ("Can't parse config"));
+  m_document.reset(doc);
 }
 }  // namespace editor

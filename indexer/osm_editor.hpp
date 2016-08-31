@@ -8,6 +8,7 @@
 #include "indexer/mwm_set.hpp"
 #include "indexer/new_feature_categories.hpp"
 
+#include "editor/config_loader.hpp"
 #include "editor/editor_config.hpp"
 #include "editor/editor_notes.hpp"
 #include "editor/xml_feature.hpp"
@@ -238,7 +239,8 @@ private:
   TForEachFeaturesNearByFn m_forEachFeatureAtPointFn;
 
   /// Contains information about what and how can be edited.
-  editor::EditorConfig m_config;
+  editor::EditorConfigWrapper m_config;
+  editor::ConfigLoader m_configLoader;
 
   /// Notes to be sent to osm.
   shared_ptr<editor::Notes> m_notes;
