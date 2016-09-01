@@ -2,16 +2,14 @@
 
 #include "editor/editor_storage.hpp"
 
-#include "std/unique_ptr.hpp"
-
 namespace indexer
 {
 namespace tests_support
 {
-void SetUpEditorForTesting(Index & index)
+void SetUpEditorForTesting(unique_ptr<osm::Editor::Delegate> delegate)
 {
   auto & editor = osm::Editor::Instance();
-  editor.SetIndex(index);
+  editor.SetDelegate(move(delegate));
   editor.SetStorageForTesting(make_unique<editor::InMemoryStorage>());
   editor.ClearAllLocalEdits();
 }

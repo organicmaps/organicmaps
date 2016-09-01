@@ -2,7 +2,7 @@
 
 #include "indexer/indexer_tests/osm_editor_test.hpp"
 
-#include "search/reverse_geocoder.hpp"
+#include "search/editor_delegate.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -16,6 +16,8 @@
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_name_utils.hpp"
+
+#include "std/unique_ptr.hpp"
 
 using namespace generator::tests_support;
 using namespace indexer::tests_support;
@@ -144,7 +146,7 @@ EditorTest::EditorTest()
     LOG(LERROR, ("Classificator read error: ", e.what()));
   }
 
-  indexer::tests_support::SetUpEditorForTesting(m_index);
+  indexer::tests_support::SetUpEditorForTesting(make_unique<search::EditorDelegate>(m_index));
 }
 
 EditorTest::~EditorTest()
@@ -232,7 +234,7 @@ void EditorTest::SetIndexTest()
     builder.Add(TestCafe({4.0, 4.0}, "London Cafe", "en"));
   });
 
-  auto const mwmId = editor.m_mwmIdByMapNameFn("GB");
+  auto const mwmId = editor.GetMwmIdByMapName("GB");
 
   TEST_EQUAL(gbMwmId, mwmId, ());
 
@@ -241,28 +243,28 @@ void EditorTest::SetIndexTest()
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
   {
-    auto const firstPtr = editor.m_getOriginalFeatureFn(ft.GetID());
+    auto const firstPtr = editor.GetOriginalFeature(ft.GetID());
     TEST(firstPtr, ());
     SetBuildingLevelsToOne(ft);
-    auto const secondPtr = editor.m_getOriginalFeatureFn(ft.GetID());
+    auto const secondPtr = editor.GetOriginalFeature(ft.GetID());
     TEST(secondPtr, ());
     TEST_EQUAL(firstPtr->GetID(), secondPtr->GetID(), ());
   });
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
   {
-    TEST_EQUAL(editor.m_getOriginalFeatureStreetFn(ft), "Test street", ());
+    TEST_EQUAL(editor.GetOriginalFeatureStreet(ft), "Test street", ());
 
     EditFeature(ft, [](osm::EditableMapObject & emo)
     {
       osm::LocalizedStreet ls{"Some street", ""};
       emo.SetStreet(ls);
     });
-    TEST_EQUAL(editor.m_getOriginalFeatureStreetFn(ft), "Test street", ());
+    TEST_EQUAL(editor.GetOriginalFeatureStreet(ft), "Test street", ());
   });
 
   uint32_t counter = 0;
-  editor.m_forEachFeatureAtPointFn([&counter](FeatureType & ft)
+  editor.ForEachFeatureAtPoint([&counter](FeatureType & ft)
   {
     ++counter;
   }, {100.0, 100.0});
@@ -270,7 +272,7 @@ void EditorTest::SetIndexTest()
   TEST_EQUAL(counter, 0, ());
 
   counter = 0;
-  editor.m_forEachFeatureAtPointFn([&counter](FeatureType & ft)
+  editor.ForEachFeatureAtPoint([&counter](FeatureType & ft)
   {
     ++counter;
   }, {3.0, 3.0});
@@ -278,7 +280,7 @@ void EditorTest::SetIndexTest()
   TEST_EQUAL(counter, 1, ());
 
   counter = 0;
-  editor.m_forEachFeatureAtPointFn([&counter](FeatureType & ft)
+  editor.ForEachFeatureAtPoint([&counter](FeatureType & ft)
   {
     ++counter;
   }, {1.0, 1.0});
@@ -286,7 +288,7 @@ void EditorTest::SetIndexTest()
   TEST_EQUAL(counter, 2, ());
 
   counter = 0;
-  editor.m_forEachFeatureAtPointFn([&counter](FeatureType & ft)
+  editor.ForEachFeatureAtPoint([&counter](FeatureType & ft)
   {
     ++counter;
   }, {4.0, 4.0});

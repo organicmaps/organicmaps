@@ -51,6 +51,16 @@ public:
   using TForEachFeaturesNearByFn =
       function<void(TFeatureTypeFn && /*fn*/, m2::PointD const & /*mercator*/)>;
 
+  struct Delegate
+  {
+    virtual ~Delegate() = default;
+
+    virtual MwmSet::MwmId GetMwmIdByMapName(string const & name) const = 0;
+    virtual unique_ptr<FeatureType> GetOriginalFeature(FeatureID const & fid) const = 0;
+    virtual string GetOriginalFeatureStreet(FeatureType & ft) const = 0;
+    virtual void ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & point) const = 0;
+  };
+
   enum class UploadResult
   {
     Success,
@@ -72,8 +82,7 @@ public:
 
   static Editor & Instance();
 
-  // Reference to the index will be used in editor functors, it should not be temporary object.
-  void SetIndex(Index const & index);
+  inline void SetDelegate(unique_ptr<Delegate> delegate) { m_delegate = move(delegate); }
 
   inline void SetStorageForTesting(unique_ptr<editor::StorageBase> storage)
   {
@@ -225,20 +234,20 @@ private:
 
   void MarkFeatureWithStatus(FeatureID const & fid, FeatureStatus status);
 
+  // These methods are just checked wrappers around Delegate.
+  MwmSet::MwmId GetMwmIdByMapName(string const & name);
+  unique_ptr<FeatureType> GetOriginalFeature(FeatureID const & fid) const;
+  string GetOriginalFeatureStreet(FeatureType & ft) const;
+  void ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & point) const;
+
   // TODO(AlexZ): Synchronize multithread access.
   /// Deleted, edited and created features.
   map<MwmSet::MwmId, map<uint32_t, FeatureTypeInfo>> m_features;
 
-  /// Get MwmId for each map, used in FeatureIDs and to check if edits are up-to-date.
-  TMwmIdByMapNameFn m_mwmIdByMapNameFn;
+  unique_ptr<Delegate> m_delegate;
+
   /// Invalidate map viewport after edits.
   TInvalidateFn m_invalidateFn;
-  /// Get FeatureType from mwm.
-  TFeatureLoaderFn m_getOriginalFeatureFn;
-  /// Get feature original street name or empty string.
-  TFeatureOriginalStreetFn m_getOriginalFeatureStreetFn;
-  /// Iterate over all features in some area that includes given point.
-  TForEachFeaturesNearByFn m_forEachFeatureAtPointFn;
 
   /// Contains information about what and how can be edited.
   editor::EditorConfigWrapper m_config;

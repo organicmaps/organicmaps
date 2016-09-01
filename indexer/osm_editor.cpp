@@ -10,8 +10,6 @@
 #include "indexer/osm_editor.hpp"
 #include "indexer/index_helpers.hpp"
 
-#include "search/reverse_geocoder.hpp"
-
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -140,7 +138,8 @@ Editor::Editor()
   : m_configLoader(m_config)
   , m_notes(editor::Notes::MakeNotes())
   , m_storage(make_unique<editor::LocalStorage>())
-{}
+{
+}
 
 Editor & Editor::Instance()
 {
@@ -148,47 +147,11 @@ Editor & Editor::Instance()
   return instance;
 }
 
-void Editor::SetIndex(Index const & index)
-{
-  m_mwmIdByMapNameFn = [&index](string const & name) -> MwmSet::MwmId
-  {
-    return index.GetMwmIdByCountryFile(platform::CountryFile(name));
-  };
-
-  m_getOriginalFeatureFn = [&index](FeatureID const & fid) -> unique_ptr<FeatureType>
-  {
-    unique_ptr<FeatureType> feature(new FeatureType());
-    Index::FeaturesLoaderGuard const guard(index, fid.m_mwmId);
-    if (!guard.GetOriginalFeatureByIndex(fid.m_index, *feature))
-      return nullptr;
-    feature->ParseEverything();
-    return feature;
-  };
-
-  m_getOriginalFeatureStreetFn = [&index](FeatureType & ft) -> string
-  {
-    search::ReverseGeocoder const coder(index);
-    auto const streets = coder.GetNearbyFeatureStreets(ft);
-    if (streets.second < streets.first.size())
-      return streets.first[streets.second].m_name;
-    return {};
-  };
-
-  // Due to floating points accuracy issues (geometry is saved in editor up to 7 digits
-  // after decimal point) some feature vertexes are threated as external to a given feature.
-  auto const toleranceInMeters = 1e-2;
-  m_forEachFeatureAtPointFn =
-      [&index, toleranceInMeters](TFeatureTypeFn && fn, m2::PointD const & mercator)
-  {
-    indexer::ForEachFeatureAtPoint(index, move(fn), mercator, toleranceInMeters);
-  };
-}
-
 void Editor::LoadMapEdits()
 {
-  if (!m_mwmIdByMapNameFn)
+  if (!m_delegate)
   {
-    LOG(LERROR, ("Can't load any map edits, MwmIdByNameAndVersionFn has not been set."));
+    LOG(LERROR, ("Can't load any map edits, delegate has not been set."));
     return;
   }
 
@@ -213,7 +176,7 @@ void Editor::LoadMapEdits()
   {
     string const mapName = mwm.attribute("name").as_string("");
     int64_t const mapVersion = mwm.attribute("version").as_llong(0);
-    MwmSet::MwmId const mwmId = m_mwmIdByMapNameFn(mapName);
+    MwmSet::MwmId const mwmId = GetMwmIdByMapName(mapName);
     // TODO(mgsergio, AlexZ): Is it normal to have isMwmIdAlive and mapVersion
     // NOT equal to mwmId.GetInfo()->GetVersion() at the same time?
     auto const needMigrateEdits = !mwmId.IsAlive() || mapVersion != mwmId.GetInfo()->GetVersion();
@@ -235,10 +198,15 @@ void Editor::LoadMapEdits()
             goto SECTION_END;
           }
 
+          TForEachFeaturesNearByFn forEach = [this](TFeatureTypeFn && fn,
+                                                    m2::PointD const & point) {
+            return ForEachFeatureAtPoint(move(fn), point);
+          };
+
           // TODO(mgsergio): Deleted features are not properly handled yet.
           auto const fid = needMigrateEdits
                                ? editor::MigrateFeatureIndex(
-                                     m_forEachFeatureAtPointFn, xml, section.first,
+                                     forEach, xml, section.first,
                                      [this, &mwmId] { return GenerateNewFeatureId(mwmId); })
                                : FeatureID(mwmId, xml.GetMWMFeatureIndex());
 
@@ -253,7 +221,7 @@ void Editor::LoadMapEdits()
           }
           else
           {
-            auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
+            auto const originalFeaturePtr = GetOriginalFeature(fid);
             if (!originalFeaturePtr)
             {
               LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
@@ -451,7 +419,7 @@ bool Editor::OriginalFeatureHasDefaultName(FeatureID const & fid) const
   if (IsCreatedFeature(fid))
     return false;
 
-  auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
+  auto const originalFeaturePtr = GetOriginalFeature(fid);
   if (!originalFeaturePtr)
   {
     LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
@@ -504,7 +472,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   }
   else
   {
-    auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
+    auto const originalFeaturePtr = GetOriginalFeature(fid);
     if (!originalFeaturePtr)
     {
       LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
@@ -518,7 +486,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     fti.m_feature.ReplaceBy(emo);
     bool const sameAsInMWM =
         AreFeaturesEqualButStreet(fti.m_feature, *originalFeaturePtr) &&
-        emo.GetStreet().m_defaultName == m_getOriginalFeatureStreetFn(fti.m_feature);
+        emo.GetStreet().m_defaultName == GetOriginalFeatureStreet(fti.m_feature);
 
     if (featureStatus != FeatureStatus::Untouched)
     {
@@ -675,7 +643,7 @@ EditableProperties Editor::GetEditableProperties(FeatureType const & feature) co
   // Disable opening hours editing if opening hours cannot be parsed.
   if (GetFeatureStatus(feature.GetID()) != FeatureStatus::Created)
   {
-    auto const originalFeaturePtr = m_getOriginalFeatureFn(feature.GetID());
+    auto const originalFeaturePtr = GetOriginalFeature(feature.GetID());
     if (!originalFeaturePtr)
     {
       LOG(LERROR, ("A feature with id", feature.GetID(), "cannot be loaded."));
@@ -837,7 +805,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
                 feature.SetTagValue(kAddrStreetTag, fti.m_street);
               ourDebugFeatureString = DebugPrint(feature);
 
-              auto const originalFeaturePtr = m_getOriginalFeatureFn(fti.m_feature.GetID());
+              auto const originalFeaturePtr = GetOriginalFeature(fti.m_feature.GetID());
               if (!originalFeaturePtr)
               {
                 LOG(LERROR, ("A feature with id", fti.m_feature.GetID(), "cannot be loaded."));
@@ -866,7 +834,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
             break;
 
           case FeatureStatus::Deleted:
-            auto const originalFeaturePtr = m_getOriginalFeatureFn(fti.m_feature.GetID());
+            auto const originalFeaturePtr = GetOriginalFeature(fti.m_feature.GetID());
             if (!originalFeaturePtr)
             {
               LOG(LERROR, ("A feature with id", fti.m_feature.GetID(), "cannot be loaded."));
@@ -1129,7 +1097,7 @@ void Editor::MarkFeatureWithStatus(FeatureID const & fid, FeatureStatus status)
 {
   auto & fti = m_features[fid.m_mwmId][fid.m_index];
 
-  auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
+  auto const originalFeaturePtr = GetOriginalFeature(fid);
 
   if (!originalFeaturePtr)
   {
@@ -1141,6 +1109,46 @@ void Editor::MarkFeatureWithStatus(FeatureID const & fid, FeatureStatus status)
   fti.m_feature = *originalFeaturePtr;
   fti.m_status = status;
   fti.m_modificationTimestamp = time(nullptr);
+}
+
+MwmSet::MwmId Editor::GetMwmIdByMapName(string const & name)
+{
+  if (!m_delegate)
+  {
+    LOG(LERROR, ("Can't get mwm id by map name:", name, ", delegate is not set."));
+    return {};
+  }
+  return m_delegate->GetMwmIdByMapName(name);
+}
+
+unique_ptr<FeatureType> Editor::GetOriginalFeature(FeatureID const & fid) const
+{
+  if (!m_delegate)
+  {
+    LOG(LERROR, ("Can't get original feature by id:", fid, ", delegate is not set."));
+    return {};
+  }
+  return m_delegate->GetOriginalFeature(fid);
+}
+
+string Editor::GetOriginalFeatureStreet(FeatureType & ft) const
+{
+  if (!m_delegate)
+  {
+    LOG(LERROR, ("Can't get feature street, delegate is not set."));
+    return {};
+  }
+  return m_delegate->GetOriginalFeatureStreet(ft);
+}
+
+void Editor::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & point) const
+{
+  if (!m_delegate)
+  {
+    LOG(LERROR, ("Can't load features in point's vicinity, delegate is not set."));
+    return;
+  }
+  m_delegate->ForEachFeatureAtPoint(move(fn), point);
 }
 
 string DebugPrint(Editor::FeatureStatus fs)

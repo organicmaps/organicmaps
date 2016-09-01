@@ -18,6 +18,7 @@ HEADERS += \
     displayed_categories.hpp \
     downloader_search_callback.hpp \
     dummy_rank_table.hpp \
+    editor_delegate.hpp \
     engine.hpp \
     everywhere_search_params.hpp \
     feature_offset_match.hpp \
@@ -83,6 +84,7 @@ SOURCES += \
     displayed_categories.cpp \
     downloader_search_callback.cpp \
     dummy_rank_table.cpp \
+    editor_delegate.cpp \
     engine.cpp \
     features_filter.cpp \
     features_layer.cpp \
