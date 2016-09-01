@@ -6,7 +6,6 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
 
-#include "std/atomic.hpp"
 #include "std/fstream.hpp"
 #include "std/iterator.hpp"
 
@@ -69,25 +68,6 @@ ConfigLoader::~ConfigLoader()
 
 void ConfigLoader::LoadFromServer()
 {
-  auto const saveAndReload = [this](pugi::xml_document const & doc)
-  {
-    if (doc.empty())
-      return false;
-
-    auto const filePath = GetConfigFilePath();
-    auto const result =
-      my::WriteToTempAndRenameToFile(filePath, [&doc](string const & fileName)
-      {
-        return doc.save_file(fileName.c_str(), "  ");
-      });
-
-    if (!result)
-      return false;
-
-    ResetConfig(doc);
-    return true;
-  };
-
   auto const hash = LoadHash(GetHashFilePath());
 
   try
@@ -101,7 +81,7 @@ void ConfigLoader::LoadFromServer()
       pugi::xml_document doc;
       GetRemoteConfig(doc);
 
-      if (saveAndReload(doc))
+      if (SaveAndReload(doc))
         SaveHash(remoteHash, GetHashFilePath());
 
     } while (m_waiter.Wait(kSynchroTimeout));
@@ -112,6 +92,25 @@ void ConfigLoader::LoadFromServer()
   }
 }
 
+bool ConfigLoader::SaveAndReload(pugi::xml_document const & doc)
+{
+  if (doc.empty())
+    return false;
+
+  auto const filePath = GetConfigFilePath();
+  auto const result =
+    my::WriteToTempAndRenameToFile(filePath, [&doc](string const & fileName)
+    {
+      return doc.save_file(fileName.c_str(), "  ");
+    });
+
+  if (!result)
+    return false;
+
+  ResetConfig(doc);
+  return true;
+}
+
 void ConfigLoader::ResetConfig(pugi::xml_document const & doc)
 {
   auto config = make_shared<EditorConfig>();
@@ -119,7 +118,7 @@ void ConfigLoader::ResetConfig(pugi::xml_document const & doc)
   m_config.Set(config);
 }
 
-//static
+// static
 void ConfigLoader::LoadFromLocal(pugi::xml_document & doc)
 {
   string content;

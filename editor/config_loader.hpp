@@ -63,6 +63,7 @@ public:
 
 private:
   void LoadFromServer();
+  bool SaveAndReload(pugi::xml_document const & doc);
   void ResetConfig(pugi::xml_document const & doc);
 
   EditorConfigWrapper & m_config;
