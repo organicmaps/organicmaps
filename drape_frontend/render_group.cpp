@@ -88,9 +88,15 @@ void RenderGroup::Render(ScreenBase const & screen)
   for(auto & renderBucket : m_renderBuckets)
     renderBucket->GetBuffer()->Build(shader);
 
-  auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
+  // Set tile-based model-view matrix.
+  {
+    math::Matrix<float, 4, 4> mv = GetTileKey().GetTileBasedModelView(screen);
+    m_uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  }
+
   int programIndex = m_state.GetProgramIndex();
   int program3dIndex = m_state.GetProgram3dIndex();
+  auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
   if (programIndex == gpu::TEXT_OUTLINED_PROGRAM ||
       program3dIndex == gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM)
   {
@@ -215,6 +221,10 @@ void UserMarkRenderGroup::UpdateAnimation()
 void UserMarkRenderGroup::Render(ScreenBase const & screen)
 {
   BaseRenderGroup::Render(screen);
+
+  math::Matrix<float, 4, 4> mv = screen.GetModelView();
+  m_uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+
   ref_ptr<dp::GpuProgram> shader = screen.isPerspective() ? m_shader3d : m_shader;
   dp::ApplyUniforms(m_uniforms, shader);
   if (m_renderBucket != nullptr)

@@ -30,7 +30,7 @@ public:
   void SetTexture(ref_ptr<dp::TextureManager> texMng);
   void SetPositionObsolete(bool obsolete);
 
-  void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng);
+  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng);
 
 private:
   void Build();

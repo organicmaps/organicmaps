@@ -319,8 +319,8 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
 
 void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
-  unique_ptr<PathTextLayout> layout = make_unique<PathTextLayout>(strings::MakeUniString(m_params.m_text),
-                                                                  m_params.m_textFont.m_size, textures);
+  auto layout = make_unique<PathTextLayout>(m_params.m_tileCenter, strings::MakeUniString(m_params.m_text),
+                                            m_params.m_textFont.m_size, textures);
 
   uint32_t glyphCount = layout->GetGlyphCount();
   if (glyphCount == 0)

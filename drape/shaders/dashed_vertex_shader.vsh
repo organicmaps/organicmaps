@@ -11,6 +11,8 @@ varying vec2 v_colorTexCoord;
 varying vec2 v_maskTexCoord;
 varying vec2 v_halfLength;
 
+const float kShapeCoordScalar = 1000.0;
+
 void main(void)
 {
   vec2 normal = a_normal.xy;
@@ -23,7 +25,7 @@ void main(void)
     transformedAxisPos = transformedAxisPos + normalize(shiftPos - transformedAxisPos) * halfWidth;
   }
 
-  float uOffset = min(length(vec4(1, 0, 0, 0) * modelView) * a_maskTexCoord.x, 1.0);
+  float uOffset = min(length(vec4(kShapeCoordScalar, 0, 0, 0) * modelView) * a_maskTexCoord.x, 1.0);
   v_colorTexCoord = a_colorTexCoord;
   v_maskTexCoord = vec2(a_maskTexCoord.y + uOffset * a_maskTexCoord.z, a_maskTexCoord.w);
   v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));

@@ -46,4 +46,13 @@ int ClipTileZoomByMaxDataZoom(int zoom)
   return zoom <= upperScale ? zoom : upperScale;
 }
 
+TileKey GetTileKeyByPoint(m2::PointD const & pt, int zoom)
+{
+  ASSERT_GREATER(zoom, 0, ());
+  double const range = MercatorBounds::maxX - MercatorBounds::minX;
+  double const rectSize = range / (1 << (zoom - 1));
+  return TileKey(static_cast<int>(floor(pt.x / rectSize)),
+                 static_cast<int>(floor(pt.y / rectSize)), zoom);
+}
+
 } // namespace df

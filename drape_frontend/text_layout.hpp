@@ -55,7 +55,7 @@ protected:
 
 class StraightTextLayout : public TextLayout
 {
-  typedef TextLayout TBase;
+  using TBase = TextLayout;
 public:
   StraightTextLayout(strings::UniString const & text,
                      float fontSize,
@@ -82,9 +82,9 @@ private:
 
 class PathTextLayout : public TextLayout
 {
-  typedef TextLayout TBase;
+  using TBase = TextLayout;
 public:
-  PathTextLayout(strings::UniString const & text,
+  PathTextLayout(m2::PointD const & tileCenter, strings::UniString const & text,
                  float fontSize, ref_ptr<dp::TextureManager> textures);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
@@ -107,6 +107,8 @@ public:
 
 private:
   static float CalculateTextLength(float textPixelLength);
+
+  m2::PointD m_tileCenter;
 };
 
 class SharedTextLayout

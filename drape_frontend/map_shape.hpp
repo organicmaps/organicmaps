@@ -5,6 +5,8 @@
 
 #include "drape/pointers.hpp"
 
+#include "geometry/point2d.hpp"
+
 namespace dp
 {
   class Batcher;
@@ -32,6 +34,11 @@ public:
 
   void SetFeatureMinZoom(int minZoom) { m_minZoom = minZoom; }
   int GetFeatureMinZoom() const { return m_minZoom; }
+
+  static m2::PointD ConvertPt(m2::PointD const & basePt, m2::PointD const & tileCenter, double scalar)
+  {
+    return (basePt - tileCenter) * scalar;
+  }
 
 private:
   int m_minZoom = 0;

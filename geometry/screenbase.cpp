@@ -509,3 +509,24 @@ bool ScreenBase::IsReverseProjection3d(m2::PointD const & pt) const
   Vector3dT const perspectivePoint = normalizedPoint * m_Pto3d;
   return perspectivePoint(0, 3) < 0.0;
 }
+
+ScreenBase::Matrix3dT ScreenBase::GetModelView() const
+{
+  return ScreenBase::Matrix3dT { m_GtoP(0, 0), m_GtoP(1, 0), 0, m_GtoP(2, 0),
+                                 m_GtoP(0, 1), m_GtoP(1, 1), 0, m_GtoP(2, 1),
+                                 0, 0, 1, 0,
+                                 0, 0, 0, 1 };
+}
+
+ScreenBase::Matrix3dT ScreenBase::GetModelView(m2::PointD const & pivot, double scalar) const
+{
+  MatrixT const & m = m_GtoP;
+  double const s = 1.0 / scalar;
+  return ScreenBase::Matrix3dT
+  {
+    s * m(0, 0), s * m(1, 0), 0, m(2, 0) + pivot.x * m(0, 0) + pivot.y * m(1, 0),
+    s * m(0, 1), s * m(1, 1), 0, m(2, 1) + pivot.x * m(0, 1) + pivot.y * m(1, 1),
+    0, 0, 1, 0,
+    0, 0, 0, 1
+  };
+}

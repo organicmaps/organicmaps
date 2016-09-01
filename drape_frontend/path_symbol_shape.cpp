@@ -40,7 +40,7 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
   glsl::vec2 dummy(0.0, 0.0);
   while (!splineIter.BeginAgain())
   {
-    glsl::vec2 pivot = glsl::ToVec2(splineIter.m_pos);
+    glsl::vec2 const pivot = glsl::ToVec2(ConvertPt(splineIter.m_pos, m_params.m_tileCenter, kShapeCoordScalar));
     glsl::vec2 n = halfH * glsl::normalize(glsl::vec2(-splineIter.m_dir.y, splineIter.m_dir.x));
     glsl::vec2 d = halfW * glsl::normalize(glsl::vec2(splineIter.m_dir.x, splineIter.m_dir.y));
     float nLength = glsl::length(n) * pToGScale;

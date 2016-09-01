@@ -23,6 +23,7 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline, vector<double> con
   routeData->m_sourcePolyline = routePolyline;
   routeData->m_sourceTurns = turns;
   routeData->m_pattern = pattern;
+  routeData->m_pivot = routePolyline.GetLimitRect().Center();
   RouteShape::CacheRoute(textures, *routeData.get());
   m_routeCache.insert(make_pair(routeData->m_routeIndex, routePolyline));
 
@@ -63,6 +64,7 @@ void RouteBuilder::BuildArrows(int routeIndex, vector<ArrowBorders> const & bord
     return;
 
   drape_ptr<RouteArrowsData> routeArrowsData = make_unique_dp<RouteArrowsData>();
+  routeArrowsData->m_pivot = it->second.GetLimitRect().Center();
   RouteShape::CacheRouteArrows(textures, it->second, borders, *routeArrowsData.get());
 
   // Flush route arrows geometry.

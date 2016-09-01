@@ -161,7 +161,7 @@ private:
   void MergeBuckets();
   void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group);
   void RefreshProjection(ScreenBase const & screen);
-  void RefreshModelView(ScreenBase const & screen);
+  void RefreshZScale(ScreenBase const & screen);
   void RefreshPivotTransform(ScreenBase const & screen);
   void RefreshBgColor();
 

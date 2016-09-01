@@ -1,5 +1,8 @@
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/tile_utils.hpp"
 
 #include "drape/constants.hpp"
 #include "drape/glsl_func.hpp"
@@ -95,21 +98,26 @@ void MyPosition::SetPositionObsolete(bool obsolete)
   m_arrow3d.SetPositionObsolete(obsolete);
 }
 
-void MyPosition::RenderAccuracy(ScreenBase const & screen,
-                        ref_ptr<dp::GpuProgramManager> mng,
-                        dp::UniformValuesStorage const & commonUniforms)
+void MyPosition::RenderAccuracy(ScreenBase const & screen, int zoomLevel,
+                                ref_ptr<dp::GpuProgramManager> mng,
+                                dp::UniformValuesStorage const & commonUniforms)
 {
   dp::UniformValuesStorage uniforms = commonUniforms;
   m2::PointD accuracyPoint(m_position.x + m_accuracy, m_position.y);
   float pixelAccuracy = (screen.GtoP(accuracyPoint) - screen.GtoP(m_position)).Length();
 
-  uniforms.SetFloatValue("u_position", m_position.x, m_position.y, 0.0f);
+  TileKey const key = GetTileKeyByPoint(m_position, ClipTileZoomByMaxDataZoom(zoomLevel));
+  math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
+  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+
+  m2::PointD const pos = MapShape::ConvertPt(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
+  uniforms.SetFloatValue("u_position", pos.x, pos.y, 0.0f);
   uniforms.SetFloatValue("u_accuracy", pixelAccuracy);
   uniforms.SetFloatValue("u_opacity", 1.0f);
   RenderPart(mng, uniforms, MY_POSITION_ACCURACY);
 }
 
-void MyPosition::RenderMyPosition(ScreenBase const & screen,
+void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
                                   ref_ptr<dp::GpuProgramManager> mng,
                                   dp::UniformValuesStorage const & commonUniforms)
 {
@@ -117,12 +125,17 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen,
   {
     m_arrow3d.SetPosition(m_position);
     m_arrow3d.SetAzimuth(m_azimuth);
-    m_arrow3d.Render(screen, mng);
+    m_arrow3d.Render(screen, zoomLevel, mng);
   }
   else
   {
     dp::UniformValuesStorage uniforms = commonUniforms;
-    uniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::MY_POSITION_MARK);
+    TileKey const key = GetTileKeyByPoint(m_position, ClipTileZoomByMaxDataZoom(zoomLevel));
+    math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
+    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+
+    m2::PointD const pos = MapShape::ConvertPt(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
+    uniforms.SetFloatValue("u_position", pos.x, pos.y, dp::depth::MY_POSITION_MARK);
     uniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
     uniforms.SetFloatValue("u_opacity", 1.0);
     RenderPart(mng, uniforms, MY_POSITION_POINT);

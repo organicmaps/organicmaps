@@ -222,13 +222,15 @@ uint16_t CalculateHotelOverlayPriority(BaseApplyFeature::HotelData const & data)
 
 } // namespace
 
-BaseApplyFeature::BaseApplyFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                                   int minVisibleScale, uint8_t rank, CaptionDescription const & caption)
+BaseApplyFeature::BaseApplyFeature(m2::PointD const & tileCenter,
+                                   TInsertShapeFn const & insertShape, FeatureID const & id,
+                                   int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
   : m_insertShape(insertShape)
   , m_id(id)
-  , m_captions(caption)
+  , m_captions(captions)
   , m_minVisibleScale(minVisibleScale)
   , m_rank(rank)
+  , m_tileCenter(tileCenter)
 {
   ASSERT(m_insertShape != nullptr, ());
 }
@@ -283,10 +285,11 @@ void BaseApplyFeature::SetHotelData(HotelData && hotelData)
   m_hotelData = move(hotelData);
 }
 
-ApplyPointFeature::ApplyPointFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
+ApplyPointFeature::ApplyPointFeature(m2::PointD const & tileCenter,
+                                     TInsertShapeFn const & insertShape, FeatureID const & id,
                                      int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
                                      float posZ)
-  : TBase(insertShape, id, minVisibleScale, rank, captions)
+  : TBase(tileCenter, insertShape, id, minVisibleScale, rank, captions)
   , m_posZ(posZ)
   , m_hasPoint(false)
   , m_hasArea(false)
@@ -338,6 +341,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
   if (capRule && isNode)
   {
     TextViewParams params;
+    params.m_tileCenter = m_tileCenter;
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
@@ -381,6 +385,7 @@ void ApplyPointFeature::Finish()
   else if (m_circleRule)
   {
     CircleViewParams params(m_id);
+    params.m_tileCenter = m_tileCenter;
     params.m_depth = m_circleDepth;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
@@ -393,6 +398,7 @@ void ApplyPointFeature::Finish()
   else if (m_symbolRule)
   {
     PoiSymbolViewParams params(m_id);
+    params.m_tileCenter = m_tileCenter;
     params.m_depth = m_symbolDepth;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
@@ -416,9 +422,12 @@ void ApplyPointFeature::Finish()
   }
 }
 
-ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, m2::RectD tileRect, float minPosZ,
-                                   float posZ, int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
-  : TBase(insertShape, id, minVisibleScale, rank, captions, posZ)
+ApplyAreaFeature::ApplyAreaFeature(m2::PointD const & tileCenter,
+                                   TInsertShapeFn const & insertShape, FeatureID const & id,
+                                   m2::RectD tileRect, float minPosZ,
+                                   float posZ, int minVisibleScale, uint8_t rank,
+                                   CaptionDescription const & captions)
+  : TBase(tileCenter, insertShape, id, minVisibleScale, rank, captions, posZ)
   , m_minPosZ(minPosZ)
   , m_isBuilding(posZ > 0.0f)
   , m_tileRect(tileRect)
@@ -575,6 +584,7 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
   if (areaRule && !m_triangles.empty())
   {
     AreaViewParams params;
+    params.m_tileCenter = m_tileCenter;
     params.m_depth = depth;
     params.m_color = ToDrapeColor(areaRule->color());
     params.m_minVisibleScale = m_minVisibleScale;
@@ -595,17 +605,18 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     TBase::ProcessRule(rule);
 }
 
-ApplyLineFeature::ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID const & id, m2::RectD tileRect,
-                                   int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
-                                   double currentScaleGtoP, bool simplify, size_t pointsCount)
-  : TBase(insertShape, id, minVisibleScale, rank, captions)
+ApplyLineFeature::ApplyLineFeature(m2::PointD const & tileCenter, double currentScaleGtoP,
+                                   TInsertShapeFn const & insertShape, FeatureID const & id,
+                                   m2::RectD const & clipRect, int minVisibleScale, uint8_t rank,
+                                   CaptionDescription const & captions, bool simplify, size_t pointsCount)
+  : TBase(tileCenter, insertShape, id, minVisibleScale, rank, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
   , m_sqrScale(math::sqr(m_currentScaleGtoP))
   , m_simplify(simplify)
   , m_initialPointsCount(pointsCount)
   , m_shieldDepth(0.0)
   , m_shieldRule(nullptr)
-  , m_tileRect(tileRect)
+  , m_clipRect(move(clipRect))
 #ifdef CALC_FILTERED_POINTS
   , m_readedCount(0)
 #endif
@@ -659,7 +670,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
   LineDefProto const * pLineRule = pRule->GetLine();
   ShieldRuleProto const * pShieldRule = pRule->GetShield();
 
-  m_clippedSplines = m2::ClipSplineByRect(m_tileRect, m_spline);
+  m_clippedSplines = m2::ClipSplineByRect(m_clipRect, m_spline);
 
   if (m_clippedSplines.empty())
     return;
@@ -671,6 +682,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     CaptionDefProtoToFontDecl(pCaptionRule, fontDecl);
 
     PathTextViewParams params;
+    params.m_tileCenter = m_tileCenter;
     params.m_featureID = m_id;
     params.m_depth = depth;
     params.m_minVisibleScale = m_minVisibleScale;
@@ -689,6 +701,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     {
       PathSymProto const & symRule = pLineRule->pathsym();
       PathSymbolViewParams params;
+      params.m_tileCenter = m_tileCenter;
       params.m_depth = depth;
       params.m_minVisibleScale = m_minVisibleScale;
       params.m_rank = m_rank;
@@ -704,6 +717,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     else
     {
       LineViewParams params;
+      params.m_tileCenter = m_tileCenter;
       Extract(pLineRule, params);
       params.m_depth = depth;
       params.m_minVisibleScale = m_minVisibleScale;
@@ -741,6 +755,7 @@ void ApplyLineFeature::Finish()
   float const mainScale = df::VisualParams::Instance().GetVisualScale();
 
   TextViewParams viewParams;
+  viewParams.m_tileCenter = m_tileCenter;
   viewParams.m_depth = m_shieldDepth;
   viewParams.m_minVisibleScale = m_minVisibleScale;
   viewParams.m_rank = m_rank;

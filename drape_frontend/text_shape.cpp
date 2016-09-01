@@ -197,7 +197,8 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   textures->GetColorRegion(font.m_color, color);
   textures->GetColorRegion(font.m_outlineColor, outline);
 
-  layout.Cache(glsl::vec4(glsl::ToVec2(m_basePoint), m_params.m_depth, -m_params.m_posZ),
+  glsl::vec2 const pt = glsl::ToVec2(ConvertPt(m_basePoint, m_params.m_tileCenter, kShapeCoordScalar));
+  layout.Cache(glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ),
                baseOffset, color, staticBuffer, dynamicBuffer);
 
   dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
@@ -244,7 +245,8 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   textures->GetColorRegion(font.m_color, color);
   textures->GetColorRegion(font.m_outlineColor, outline);
 
-  layout.Cache(glsl::vec4(glsl::ToVec2(m_basePoint), m_params.m_depth, -m_params.m_posZ),
+  glsl::vec2 const pt = glsl::ToVec2(ConvertPt(m_basePoint, m_params.m_tileCenter, kShapeCoordScalar));
+  layout.Cache(glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ),
                baseOffset, color, outline, staticBuffer, dynamicBuffer);
 
   dp::GLState state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::OverlayLayer);

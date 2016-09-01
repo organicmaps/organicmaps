@@ -16,8 +16,8 @@ varying vec2 v_colorTexCoords;
 
 void main(void)
 {
-  lowp vec4 p = vec4(a_position, 1) * modelView;
-  highp vec4 pos = vec4(a_normal.xy, 0, 0) + p;
+  vec4 p = vec4(a_position, 1) * modelView;
+  vec4 pos = vec4(a_normal.xy, 0, 0) + p;
   pos = pos * projection;
 
   float w = pos.w;

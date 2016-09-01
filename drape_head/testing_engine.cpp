@@ -506,8 +506,8 @@ void TestingEngine::DrawImpl()
   }
 
   {
-    vector<m2::PointF> trg{ m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 30.0f), m2::PointD(112.0f, 28.0f),
-                            m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 28.0f), m2::PointD(110.0f, 28.0f) };
+    vector<m2::PointD> trg{ m2::PointD(110.0, 30.0), m2::PointD(112.0, 30.0), m2::PointD(112.0, 28.0),
+                            m2::PointD(110.0, 30.0), m2::PointD(112.0, 28.0), m2::PointD(110.0, 28.0) };
     vector<df::BuildingEdge> edges;
     AreaViewParams p;
     p.m_color = dp::Color::White();

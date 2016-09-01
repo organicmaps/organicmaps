@@ -1027,12 +1027,14 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     {
       ASSERT(m_myPositionController->IsModeHasPosition(), ());
       m_selectionShape->SetPosition(m_myPositionController->Position());
-      m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+      m_selectionShape->Render(modelView, m_currentZoomLevel,
+                               make_ref(m_gpuProgramManager), m_generalUniforms);
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
     {
       if (!isPerspective && m_layers[RenderLayer::Geometry3dID].m_renderGroups.empty())
-        m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+        m_selectionShape->Render(modelView, m_currentZoomLevel,
+                                 make_ref(m_gpuProgramManager), m_generalUniforms);
       else
         hasSelectedPOI = true;
     }
@@ -1057,19 +1059,18 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   if (hasSelectedPOI)
   {
     GLFunctions::glDisable(gl_const::GLDepthTest);
-    m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+    m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
   }
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClearDepth();
   RenderOverlayLayer(modelView);
 
-  m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel,
-                                  make_ref(m_gpuProgramManager), m_generalUniforms);
+  m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   GLFunctions::glDisable(gl_const::GLDepthTest);
   if (m_selectionShape != nullptr && m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
-    m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+    m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   m_routeRenderer->RenderRoute(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
@@ -1082,7 +1083,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   m_routeRenderer->RenderRouteSigns(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+  m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   if (m_guiRenderer != nullptr)
     m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
@@ -1223,22 +1224,9 @@ void FrontendRenderer::RefreshProjection(ScreenBase const & screen)
   m_generalUniforms.SetMatrix4x4Value("projection", m.data());
 }
 
-void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
+void FrontendRenderer::RefreshZScale(ScreenBase const & screen)
 {
-  ScreenBase::MatrixT const & m = screen.GtoPMatrix();
-  math::Matrix<float, 4, 4> mv;
-
-  /// preparing ModelView matrix
-
-  mv(0, 0) = m(0, 0); mv(0, 1) = m(1, 0); mv(0, 2) = 0; mv(0, 3) = m(2, 0);
-  mv(1, 0) = m(0, 1); mv(1, 1) = m(1, 1); mv(1, 2) = 0; mv(1, 3) = m(2, 1);
-  mv(2, 0) = 0;       mv(2, 1) = 0;       mv(2, 2) = 1; mv(2, 3) = 0;
-  mv(3, 0) = m(0, 2); mv(3, 1) = m(1, 2); mv(3, 2) = 0; mv(3, 3) = m(2, 2);
-
-  m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
-
-  float const zScale = screen.GetZScale();
-  m_generalUniforms.SetFloatValue("zScale", zScale);
+  m_generalUniforms.SetFloatValue("zScale", screen.GetZScale());
 }
 
 void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
@@ -1708,7 +1696,7 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
 
 void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
 {
-  RefreshModelView(modelView);
+  RefreshZScale(modelView);
   RefreshPivotTransform(modelView);
 
   m_myPositionController->UpdatePixelPosition(modelView);

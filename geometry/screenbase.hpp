@@ -165,6 +165,9 @@ public:
   m2::RectD CalculatePixelRect(double scale) const;
   double CalculatePerspectiveAngle(double scale) const;
 
+  Matrix3dT GetModelView() const;
+  Matrix3dT GetModelView(m2::PointD const & pivot, double scalar) const;
+
   static double CalculateAutoPerspectiveAngle(double scale);
 
   /// Compute arbitrary pixel transformation, that translates the (oldPt1, oldPt2) -> (newPt1, newPt2)

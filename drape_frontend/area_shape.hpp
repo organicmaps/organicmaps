@@ -21,13 +21,13 @@ struct BuildingEdge
 class AreaShape : public MapShape
 {
 public:
-  AreaShape(vector<m2::PointF> && triangleList, vector<BuildingEdge> && buildingEdges,
+  AreaShape(vector<m2::PointD> && triangleList, vector<BuildingEdge> && buildingEdges,
             AreaViewParams const & params);
 
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
 
 private:
-  vector<m2::PointF> m_vertexes;
+  vector<m2::PointD> m_vertexes;
   vector<BuildingEdge> m_buildingEdges;
   AreaViewParams m_params;
 };

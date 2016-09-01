@@ -28,4 +28,7 @@ bool IsNeighbours(TileKey const & tileKey1, TileKey const & tileKey2);
 /// This function performs clipping by maximum zoom label available for map data.
 int ClipTileZoomByMaxDataZoom(int zoom);
 
+/// This function returns tile key by point on specific zoom level.
+TileKey GetTileKeyByPoint(m2::PointD const & pt, int zoom);
+
 } // namespace df

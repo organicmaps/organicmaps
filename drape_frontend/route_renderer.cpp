@@ -1,4 +1,5 @@
 #include "drape_frontend/route_renderer.hpp"
+#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 
 #include "drape/glsl_func.hpp"
@@ -238,6 +239,8 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
 
     // Set up uniforms.
     dp::UniformValuesStorage uniforms = commonUniforms;
+    math::Matrix<float, 4, 4> mv = screen.GetModelView(m_routeData->m_pivot, kShapeCoordScalar);
+    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
     glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
                                                                m_routeData->m_color));
     uniforms.SetFloatValue("u_color", color.r, color.g, color.b, m_currentAlpha);
@@ -269,6 +272,8 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
 
     // set up shaders and apply common uniforms
     dp::UniformValuesStorage uniforms = commonUniforms;
+    math::Matrix<float, 4, 4> mv = screen.GetModelView(m_routeArrows->m_pivot, kShapeCoordScalar);
+    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
     uniforms.SetFloatValue("u_arrowHalfWidth", m_currentHalfWidth * kArrowHeightFactor);
     uniforms.SetFloatValue("u_opacity", 1.0f);
 
@@ -305,8 +310,9 @@ void RouteRenderer::RenderRouteSign(drape_ptr<RouteSignData> const & sign, Scree
     return;
 
   dp::GLState const & state = sign->m_sign.m_state;
-
   dp::UniformValuesStorage uniforms = commonUniforms;
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(sign->m_position, 1.0);
+  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
   uniforms.SetFloatValue("u_opacity", 1.0f);
 
   ref_ptr<dp::GpuProgram> program = screen.isPerspective() ? mng->GetProgram(state.GetProgram3dIndex())
