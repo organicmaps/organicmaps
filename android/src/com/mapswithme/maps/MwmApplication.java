@@ -107,6 +107,9 @@ public class MwmApplication extends Application
     initHockeyApp();
     initCrashlytics();
     initPushWoosh();
+    // Workaround to initialize alohalytics for transferring http requests.
+    // Http wrapper should be cut out from the alohalytics in the future.
+    Statistics s = Statistics.INSTANCE;
 
     String settingsPath = getSettingsPath();
     new File(settingsPath).mkdirs();
