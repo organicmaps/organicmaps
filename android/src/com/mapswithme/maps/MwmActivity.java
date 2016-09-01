@@ -3,6 +3,8 @@ package com.mapswithme.maps;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -156,6 +159,83 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     void onTrackLeftAnimation(float offset);
   }
+
+  public interface VisibleRectListener
+  {
+    void onVisibleRectChanged(Rect rect);
+  }
+
+  class VisibleRectMeasurer implements View.OnLayoutChangeListener
+  {
+    private VisibleRectListener m_listener;
+    private Rect mScreenFullRect = null;
+    private Rect mLastVisibleRect = null;
+    private boolean mPlacePageVisible = false;
+
+    public VisibleRectMeasurer(VisibleRectListener listener)
+    {
+      m_listener = listener;
+    }
+
+    public void setPlacePageVisible(boolean visible)
+    {
+      int orientation = MwmActivity.this.getResources().getConfiguration().orientation;
+      if(orientation == Configuration.ORIENTATION_LANDSCAPE)
+      {
+        mPlacePageVisible = visible;
+        recalculateVisibleRect(mScreenFullRect);
+      }
+    }
+
+    public void setPreviewVisible(boolean visible)
+    {
+      int orientation = MwmActivity.this.getResources().getConfiguration().orientation;
+      if(orientation == Configuration.ORIENTATION_PORTRAIT)
+      {
+        mPlacePageVisible = visible;
+        recalculateVisibleRect(mScreenFullRect);
+      }
+    }
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                               int oldLeft, int oldTop, int oldRight, int oldBottom)
+    {
+      mScreenFullRect = new Rect(left, top, right, bottom);
+      if (mPlacePageVisible && mPlacePage.GetPreview().getVisibility() != View.VISIBLE)
+        mPlacePageVisible = false;
+      recalculateVisibleRect(mScreenFullRect);
+    }
+
+    private void recalculateVisibleRect(Rect r)
+    {
+      if (r == null)
+        return;
+
+      int orientation = MwmActivity.this.getResources().getConfiguration().orientation;
+
+      Rect rect = new Rect(r.left, r.top, r.right, r.bottom);
+      if (mPlacePageVisible)
+      {
+        int[] loc = new int[2];
+        mPlacePage.GetPreview().getLocationOnScreen(loc);
+
+        if(orientation == Configuration.ORIENTATION_PORTRAIT)
+          rect.bottom = loc[1];
+        else
+          rect.left = mPlacePage.GetPreview().getWidth() + loc[0];
+      }
+
+      if (mLastVisibleRect == null || !mLastVisibleRect.equals(rect))
+      {
+        mLastVisibleRect = new Rect(rect.left, rect.top, rect.right, rect.bottom);
+        if (m_listener != null)
+          m_listener.onVisibleRectChanged(rect);
+      }
+    }
+  }
+
+  private VisibleRectMeasurer mVisibleRectMeasurer;
 
   public static Intent createShowMapIntent(Context context, String countryId, boolean doAutoDownload)
   {
@@ -338,6 +418,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController = new FloatingSearchToolbarController(this);
     processIntent(getIntent());
     SharingHelper.prepare();
+
+    mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
+      @Override
+      public void onVisibleRectChanged(Rect rect) {
+        Framework.nativeSetVisibleRect(rect.left, rect.top, rect.right, rect.bottom);
+      }
+    });
+    getWindow().getDecorView().addOnLayoutChangeListener(mVisibleRectMeasurer);
   }
 
   private void initViews()
@@ -1070,6 +1158,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
+    mVisibleRectMeasurer.setPreviewVisible(isVisible);
+
     if (isVisible)
     {
       if (mMainMenu.isAnimating() || mMainMenu.isOpen())
@@ -1093,6 +1183,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
+    mVisibleRectMeasurer.setPlacePageVisible(isVisible);
+
     Statistics.INSTANCE.trackEvent(isVisible ? Statistics.EventName.PP_OPEN
                                              : Statistics.EventName.PP_CLOSE);
     AlohaHelper.logClick(isVisible ? AlohaHelper.PP_OPEN

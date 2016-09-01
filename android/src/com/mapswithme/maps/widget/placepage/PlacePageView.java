@@ -202,6 +202,8 @@ public class PlacePageView extends RelativeLayout
     init(attrs, defStyleAttr);
   }
 
+  public ViewGroup GetPreview() { return mPreview; }
+
   private void initViews()
   {
     LayoutInflater.from(getContext()).inflate(R.layout.place_page, this);
