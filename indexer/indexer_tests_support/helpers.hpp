@@ -3,6 +3,8 @@
 #include "indexer/editable_map_object.hpp"
 #include "indexer/osm_editor.hpp"
 
+#include "std/unique_ptr.hpp"
+
 #include "base/assert.hpp"
 
 class Index;
@@ -11,7 +13,7 @@ namespace indexer
 {
 namespace tests_support
 {
-void SetUpEditorForTesting(Index & index);
+void SetUpEditorForTesting(unique_ptr<osm::Editor::Delegate> delegate);
 
 template <typename TFn>
 void EditFeature(FeatureType const & ft, TFn && fn)

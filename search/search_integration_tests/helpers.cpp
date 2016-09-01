@@ -1,5 +1,6 @@
 #include "search/search_integration_tests/helpers.hpp"
 
+#include "search/editor_delegate.hpp"
 #include "search/processor_factory.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
@@ -27,7 +28,7 @@ SearchTest::SearchTest()
   , m_engine(make_unique<storage::CountryInfoGetterForTesting>(), make_unique<ProcessorFactory>(),
              Engine::Params())
 {
-  indexer::tests_support::SetUpEditorForTesting(m_engine);
+  indexer::tests_support::SetUpEditorForTesting(make_unique<EditorDelegate>(m_engine));
 }
 
 SearchTest::~SearchTest()

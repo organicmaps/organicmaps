@@ -13,6 +13,7 @@
 #include "routing/routing_algorithm.hpp"
 
 #include "search/downloader_search_callback.hpp"
+#include "search/editor_delegate.hpp"
 #include "search/engine.hpp"
 #include "search/everywhere_search_params.hpp"
 #include "search/geometry_utils.hpp"
@@ -397,7 +398,7 @@ Framework::Framework()
 
   osm::Editor & editor = osm::Editor::Instance();
 
-  editor.SetIndex(m_model.GetIndex());
+  editor.SetDelegate(make_unique<search::EditorDelegate>(m_model.GetIndex()));
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
   editor.LoadMapEdits();
 
