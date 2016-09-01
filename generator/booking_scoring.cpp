@@ -131,12 +131,12 @@ BookingMatchScore Match(BookingDataset::Object const & h, FeatureBuilder1 const 
   BookingMatchScore score;
 
   auto const fbCenter = MercatorBounds::ToLatLon(fb.GetKeyPoint());
-  auto const distance = ms::DistanceOnEarth(fbCenter.lat, fbCenter.lon, h.lat, h.lon);
+  auto const distance = ms::DistanceOnEarth(fbCenter.lat, fbCenter.lon, h.m_lat, h.m_lon);
   score.m_linearNormDistanceScore = GetLinearNormDistanceScore(distance);
 
   // TODO(mgsergio): Check all translations and use the best one.
   score.m_nameSimilarityScore =
-      GetNameSimilarityScore(h.name, fb.GetName(StringUtf8Multilang::kDefaultCode));
+      GetNameSimilarityScore(h.m_name, fb.GetName(StringUtf8Multilang::kDefaultCode));
 
   return score;
 }

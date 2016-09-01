@@ -37,7 +37,6 @@ SOURCES += \
     region_meta.cpp \
     routing_generator.cpp \
     search_index_builder.cpp \
-    sponsored_dataset.cpp \
     srtm_parser.cpp \
     statistics.cpp \
     tesselator.cpp \
@@ -76,6 +75,7 @@ HEADERS += \
     routing_generator.hpp \
     search_index_builder.hpp \
     sponsored_dataset.hpp \
+    sponsored_dataset_inl.hpp \
     srtm_parser.hpp \
     statistics.hpp \
     tag_admixer.hpp \

@@ -349,8 +349,7 @@ public:
           [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },
           [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
     }
-    else if (m_dataset.FindMatchingObjectId(fb) !=
-             generator::SponsoredDatasetBase::kInvalidObjectId)
+    else if (m_dataset.IsMatched(fb))
     {
       m_skippedElements << DebugPrint(fb.GetMostGenericOsmId()) << endl;
 

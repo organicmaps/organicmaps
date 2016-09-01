@@ -10,6 +10,60 @@
 
 namespace generator
 {
+namespace
+{
+string EscapeTabs(string const & str)
+{
+  stringstream ss;
+  for (char c : str)
+  {
+    if (c == '\t')
+      ss << "\\t";
+    else
+      ss << c;
+  }
+  return ss.str();
+}
+}  // namespace
+
+// BookingHotel ------------------------------------------------------------------------------------
+
+BookingHotel::BookingHotel(string const & src)
+{
+  vector<string> rec;
+  strings::ParseCSVRow(src, '\t', rec);
+  CHECK(rec.size() == FieldsCount(), ("Error parsing hotels.tsv line:", EscapeTabs(src)));
+
+  strings::to_uint(rec[Index(Fields::Id)], m_id.Get());
+  // TODO(mgsergio): Use ms::LatLon.
+  strings::to_double(rec[Index(Fields::Latitude)], m_lat);
+  strings::to_double(rec[Index(Fields::Longtitude)], m_lon);
+
+  m_name = rec[Index(Fields::Name)];
+  m_address = rec[Index(Fields::Address)];
+
+  strings::to_uint(rec[Index(Fields::Stars)], m_stars);
+  strings::to_uint(rec[Index(Fields::PriceCategory)], m_priceCategory);
+  strings::to_double(rec[Index(Fields::RatingBooking)], m_ratingBooking);
+  strings::to_double(rec[Index(Fields::RatingUsers)], m_ratingUser);
+
+  m_descUrl = rec[Index(Fields::DescUrl)];
+
+  strings::to_uint(rec[Index(Fields::Type)], m_type);
+
+  m_translations = rec[Index(Fields::Translations)];
+}
+
+ostream & operator<<(ostream & s, BookingHotel const & h)
+{
+  s << fixed << setprecision(7);
+  return s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address
+           << "\t lat: " << h.m_lat << " lon: " << h.m_lon;
+}
+
+// BookingDataset ----------------------------------------------------------------------------------
+
+template <>
 bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const
 {
   if (fb.GetName(StringUtf8Multilang::kDefaultCode).empty())
@@ -18,39 +72,40 @@ bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb)
   return ftypes::IsHotelChecker::Instance()(fb.GetTypes());
 }
 
-void BookingDataset::BuildObject(SponsoredDataset::Object const & hotel,
+template <>
+void BookingDataset::BuildObject(Object const & hotel,
                                  function<void(FeatureBuilder1 &)> const & fn) const
 {
   FeatureBuilder1 fb;
   FeatureParams params;
 
-  fb.SetCenter(MercatorBounds::FromLatLon(hotel.lat, hotel.lon));
+  fb.SetCenter(MercatorBounds::FromLatLon(hotel.m_lat, hotel.m_lon));
 
   auto & metadata = params.GetMetadata();
   // TODO(mgsergio): Rename FMD_SPONSORED_ID to FMD_BOOKING_ID.
-  metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.id.Get()));
-  metadata.Set(feature::Metadata::FMD_WEBSITE, hotel.descUrl);
-  metadata.Set(feature::Metadata::FMD_RATING, strings::to_string(hotel.ratingUser));
-  metadata.Set(feature::Metadata::FMD_STARS, strings::to_string(hotel.stars));
-  metadata.Set(feature::Metadata::FMD_PRICE_RATE, strings::to_string(hotel.priceCategory));
+  metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.m_id.Get()));
+  metadata.Set(feature::Metadata::FMD_WEBSITE, hotel.m_descUrl);
+  metadata.Set(feature::Metadata::FMD_RATING, strings::to_string(hotel.m_ratingUser));
+  metadata.Set(feature::Metadata::FMD_STARS, strings::to_string(hotel.m_stars));
+  metadata.Set(feature::Metadata::FMD_PRICE_RATE, strings::to_string(hotel.m_priceCategory));
 
   // params.AddAddress(hotel.address);
   // TODO(mgsergio): addr:full ???
 
-  if (!hotel.street.empty())
-    fb.AddStreet(hotel.street);
+  if (!hotel.m_street.empty())
+    fb.AddStreet(hotel.m_street);
 
-  if (!hotel.houseNumber.empty())
-    fb.AddHouseNumber(hotel.houseNumber);
+  if (!hotel.m_houseNumber.empty())
+    fb.AddHouseNumber(hotel.m_houseNumber);
 
   params.AddName(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode),
-                 hotel.name);
-  if (!hotel.translations.empty())
+                 hotel.m_name);
+  if (!hotel.m_translations.empty())
   {
     // TODO(mgsergio): Move parsing to the hotel costruction stage.
     vector<string> parts;
-    strings::ParseCSVRow(hotel.translations, '|', parts);
-    CHECK_EQUAL(parts.size() % 3, 0, ("Invalid translation string:", hotel.translations));
+    strings::ParseCSVRow(hotel.m_translations, '|', parts);
+    CHECK_EQUAL(parts.size() % 3, 0, ("Invalid translation string:", hotel.m_translations));
     for (auto i = 0; i < parts.size(); i += 3)
     {
       auto const langCode = StringUtf8Multilang::GetLangIndex(parts[i]);
@@ -63,7 +118,7 @@ void BookingDataset::BuildObject(SponsoredDataset::Object const & hotel,
   params.AddType(clf.GetTypeByPath({"sponsored", "booking"}));
   // Matching booking.com hotel types to OpenStreetMap values.
   // Booking types are listed in the closed API docs.
-  switch (hotel.type)
+  switch (hotel.m_type)
   {
     case 19:
     case 205: params.AddType(clf.GetTypeByPath({"tourism", "motel"})); break;
@@ -117,12 +172,13 @@ void BookingDataset::BuildObject(SponsoredDataset::Object const & hotel,
   fn(fb);
 }
 
+template <>
 BookingDataset::ObjectId BookingDataset::FindMatchingObjectIdImpl(FeatureBuilder1 const & fb) const
 {
   auto const name = fb.GetName(StringUtf8Multilang::kDefaultCode);
 
   if (name.empty())
-    return kInvalidObjectId;
+    return Object::InvalidObjectId();
 
   // Find |kMaxSelectedElements| nearest values to a point.
   auto const bookingIndexes = GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()),
@@ -134,6 +190,6 @@ BookingDataset::ObjectId BookingDataset::FindMatchingObjectIdImpl(FeatureBuilder
       return j;
   }
 
-  return kInvalidObjectId;
+  return Object::InvalidObjectId();
 }
 }  // namespace generator

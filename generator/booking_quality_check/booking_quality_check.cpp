@@ -136,10 +136,11 @@ feature::GenerateInfo GetGenerateInfo()
   return info;
 }
 
+template <typename Object>
 struct SampleItem
 {
   enum MatchStatus {Uninitialized, Yes, No};
-  using ObjectId = SponsoredDataset::ObjectId;
+  using ObjectId = typename Object::ObjectId;
 
   SampleItem() = default;
 
@@ -151,28 +152,30 @@ struct SampleItem
   }
 
   osm::Id m_osmId;
-  ObjectId m_bookingId = SponsoredDataset::kInvalidObjectId;
+  ObjectId m_bookingId = Object::InvalidObjectId();
 
   MatchStatus m_match = Uninitialized;
 };
 
-SampleItem::MatchStatus ReadMatchStatus(string const & str)
+template <typename Object>
+typename SampleItem<Object>::MatchStatus ReadMatchStatus(string const & str)
 {
   if (str == "Yes")
-    return SampleItem::Yes;
+    return SampleItem<Object>::Yes;
 
   if (str == "No")
-    return SampleItem::No;
+    return SampleItem<Object>::No;
 
   if (str == "Uninitialized")
-    return SampleItem::Uninitialized;
+    return SampleItem<Object>::Uninitialized;
 
   MYTHROW(ParseError, ("Can't make SampleItem::MatchStatus from string:", str));
 }
 
-SampleItem ReadSampleItem(string const & str)
+template <typename Object>
+SampleItem<Object> ReadSampleItem(string const & str)
 {
-  SampleItem item;
+  SampleItem<Object> item;
 
   auto const parts = strings::Tokenize(str, "\t");
   CHECK_EQUAL(parts.size(), 3, ("Cant't make SampleItem from string:", str,
@@ -181,21 +184,22 @@ SampleItem ReadSampleItem(string const & str)
   item.m_osmId = ReadDebuggedPrintedOsmId(parts[0]);
   if (!strings::to_uint(parts[1], item.m_bookingId.Get()))
     MYTHROW(ParseError, ("Can't make uint32 from string:", parts[1]));
-  item.m_match = ReadMatchStatus(parts[2]);
+  item.m_match = ReadMatchStatus<Object>(parts[2]);
 
   return item;
 }
 
-vector<SampleItem> ReadSample(istream & ist)
+template <typename Object>
+vector<SampleItem<Object>> ReadSample(istream & ist)
 {
-  vector<SampleItem> result;
+  vector<SampleItem<Object>> result;
 
   size_t lineNumber = 1;
   try
   {
     for (string line; getline(ist, line); ++lineNumber)
     {
-      result.emplace_back(ReadSampleItem(line));
+      result.emplace_back(ReadSampleItem<Object>(line));
     }
   }
   catch (ParseError const & e)
@@ -207,15 +211,17 @@ vector<SampleItem> ReadSample(istream & ist)
   return result;
 }
 
-vector<SampleItem> ReadSampleFromFile(string const & name)
+template <typename Object>
+vector<SampleItem<Object>> ReadSampleFromFile(string const & name)
 {
   ifstream ist(name);
   CHECK(ist.is_open(), ("Can't open file:", name, strerror(errno)));
-  return ReadSample(ist);
+  return ReadSample<Object>(ist);
 }
 
+template <typename Object>
 void GenerateFactors(BookingDataset const & booking, map<osm::Id, FeatureBuilder1> const & features,
-                     vector<SampleItem> const & sampleItems, ostream & ost)
+                     vector<SampleItem<Object>> const & sampleItems, ostream & ost)
 {
   for (auto const & item : sampleItems)
   {
@@ -226,13 +232,13 @@ void GenerateFactors(BookingDataset const & booking, map<osm::Id, FeatureBuilder
 
     auto const center = MercatorBounds::ToLatLon(feature.GetKeyPoint());
     double const distanceMeters = ms::DistanceOnEarth(center.lat, center.lon,
-                                                      hotel.lat, hotel.lon);
+                                                      hotel.m_lat, hotel.m_lon);
     auto const matched = score.IsMatched();
 
     ost << "# ------------------------------------------" << fixed << setprecision(6)
         << endl;
     ost << (matched ? 'y' : 'n') << " \t" << DebugPrint(feature.GetMostGenericOsmId())
-        << "\t " << hotel.id
+        << "\t " << hotel.m_id
         << "\tdistance: " << distanceMeters
         << "\tdistance score: " << score.m_linearNormDistanceScore
         << "\tname score: " << score.m_nameSimilarityScore
@@ -240,8 +246,8 @@ void GenerateFactors(BookingDataset const & booking, map<osm::Id, FeatureBuilder
         << endl;
     ost << "# " << PrintBuilder(feature) << endl;
     ost << "# " << hotel << endl;
-    ost << "# URL: https://www.openstreetmap.org/?mlat=" << hotel.lat
-        << "&mlon=" << hotel.lon << "#map=18/" << hotel.lat << "/" << hotel.lon << endl;
+    ost << "# URL: https://www.openstreetmap.org/?mlat=" << hotel.m_lat
+        << "&mlon=" << hotel.m_lon << "#map=18/" << hotel.m_lat << "/" << hotel.m_lon << endl;
   }
 }
 }  // namespace
@@ -278,7 +284,7 @@ int main(int argc, char * argv[])
     return make_unique<Emitter>(booking, features);
   });
 
-  auto const sample = ReadSampleFromFile(FLAGS_sample);
+  auto const sample = ReadSampleFromFile<BookingHotel>(FLAGS_sample);
   LOG(LINFO, ("Sample size is", sample.size()));
   {
     ofstream ost(FLAGS_factors);

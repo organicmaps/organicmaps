@@ -8,22 +8,20 @@
 
 namespace generator
 {
-class AggregatingSponsoredDataset : public SponsoredDataset
+class AggregatingSponsoredDataset
 {
 public:
   explicit AggregatingSponsoredDataset(feature::GenerateInfo const & info)
+    : m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
   {
-    m_datasets.emplace_back(make_unique<BookingDataset>(info.m_bookingDatafileName,
-                                                        info.m_bookingReferenceDir));
   }
 
-  ObjectId FindMatchingObjectId(FeatureBuilder1 const & e) const override;
+  bool IsMatched(FeatureBuilder1 const & e) const;
+  void BuildOsmObjects(function<void(FeatureBuilder1 &)> const & fn) const;
 
-  size_t Size() const override;
-
-  void BuildOsmObjects(function<void(FeatureBuilder1 &)> const & fn) const override;
+  size_t Size() const;
 
 private:
-  vector<unique_ptr<SponsoredDatasetBase>> m_datasets;
+  BookingDataset m_bookingDataset;
 };
 }  // namespace generator;

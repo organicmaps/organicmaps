@@ -2,23 +2,18 @@
 
 namespace generator
 {
-SponsoredDataset::ObjectId AggregatingSponsoredDataset::FindMatchingObjectId(FeatureBuilder1 const & fb) const
+bool AggregatingSponsoredDataset::IsMatched(FeatureBuilder1 const & fb) const
 {
-  // There is only one source for now.
-  return m_datasets[0]->FindMatchingObjectId(fb);
-}
-
-size_t AggregatingSponsoredDataset::Size() const
-{
-  size_t count{};
-  for (auto const & ds : m_datasets)
-    count += ds->Size();
-  return count;
+  return m_bookingDataset.FindMatchingObjectId(fb) != BookingHotel::InvalidObjectId();
 }
 
 void AggregatingSponsoredDataset::BuildOsmObjects(function<void(FeatureBuilder1 &)> const & fn) const
 {
-  for (auto const & ds : m_datasets)
-    ds->BuildOsmObjects(fn);
+  m_bookingDataset.BuildOsmObjects(fn);
+}
+
+size_t AggregatingSponsoredDataset::Size() const
+{
+  return m_bookingDataset.Size();
 }
 }  // namespace generator
