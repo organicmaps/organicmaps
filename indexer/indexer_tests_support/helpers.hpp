@@ -3,9 +3,9 @@
 #include "indexer/editable_map_object.hpp"
 #include "indexer/osm_editor.hpp"
 
-#include "std/unique_ptr.hpp"
-
 #include "base/assert.hpp"
+
+#include "std/unique_ptr.hpp"
 
 class Index;
 
