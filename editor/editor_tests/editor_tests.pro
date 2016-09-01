@@ -4,7 +4,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = editor platform_tests_support platform geometry coding base stats_client opening_hours pugixml oauthcpp
+DEPENDENCIES = editor platform_tests_support platform geometry coding base \
+               stats_client opening_hours pugixml oauthcpp tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
@@ -14,6 +15,7 @@ HEADERS += \
 
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
+    config_loader_test.cpp \
     editor_config_test.cpp \
     editor_notes_test.cpp \
     opening_hours_ui_test.cpp \

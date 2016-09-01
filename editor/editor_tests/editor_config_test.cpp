@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "editor/config_loader.hpp"
 #include "editor/editor_config.hpp"
 
 #include "base/stl_helpers.hpp"
@@ -20,7 +21,11 @@ UNIT_TEST(EditorConfig_TypeDescription)
     feature::Metadata::FMD_EMAIL
   };
 
+  pugi::xml_document doc;
+  ConfigLoader::LoadFromLocal(doc);
+
   EditorConfig config;
+  config.SetConfig(doc);
 
   {
     editor::TypeAggregatedDescription desc;
@@ -57,9 +62,13 @@ UNIT_TEST(EditorConfig_TypeDescription)
   // TODO(mgsergio): Test case with priority="high" when there is one on editor.config.
 }
 
-UNIT_TEST(EditorConfig_GetTypesThatGenBeAdded)
+UNIT_TEST(EditorConfig_GetTypesThatCanBeAdded)
 {
+  pugi::xml_document doc;
+  ConfigLoader::LoadFromLocal(doc);
+
   EditorConfig config;
+  config.SetConfig(doc);
 
   auto const types = config.GetTypesThatCanBeAdded();
   TEST(find(begin(types), end(types), "amenity-cafe") != end(types), ());
