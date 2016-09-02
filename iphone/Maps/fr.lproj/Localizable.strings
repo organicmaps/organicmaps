@@ -212,7 +212,7 @@
 "advise_update_maps" = "Des mises à jour sont disponibles pour ces cartes :";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Vous n'avez plus besoin de MAPS.ME Lite, pouvez donc le désinstaller.";
+"suggest_uninstall_lite" = "Vous n'avez plus besoin de MAPS.ME Lite, vous pouvez donc le désinstaller.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@, téléchargement réussi";
@@ -406,7 +406,7 @@
 "my_position_share_email_subject" = "Hé, regarde ma position actuelle sur la carte MAPS.ME !";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Bonjour,\n\nJe suis actuelement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
+"my_position_share_email" = "Bonjour,\n\nJe suis actuellement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "Partager par message";
@@ -590,7 +590,7 @@
 "download_map_notification" = "Télécharger la carte de l'endroit où vous êtes";
 
 /* text of notification */
-"pro_version_is_free_today" = "Version complète de MAPS.ME est gratuit aujoud'hui ! Téléchargez-le maintenant et dites-le à vos amis.";
+"pro_version_is_free_today" = "Version complète de MAPS.ME gratuite aujourd'hui ! Téléchargez-le maintenant et dites-le à vos amis.";
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Nous transférons vos cartes téléchargées de MAPS.ME Lite vers MAPS.ME. Cela peut prendre quelques minutes.";
@@ -623,10 +623,10 @@
 "contact_us" = "Contactez-nous";
 
 /* Settings: Send feedback button and dialog title */
-"feedback" = "Feedback";
+"feedback" = "Avis";
 
 /* Settings: "Send general feedback" button */
-"feedback_general" = "General feedback";
+"feedback_general" = "Avis général";
 
 /* Text in menu */
 "subscribe_to_news" = "S'abonner à nos informations";
@@ -635,13 +635,13 @@
 "rate_the_app" = "Évaluer l'appli";
 
 /* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
+"rate_gp" = "Évaluer sur Google Play";
 
 /* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
+"tell_friends" = "Recommander à un ami";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
+"tell_friends_text" = "Salut ! Installe MAPS.ME !";
 
 /* Text in menu */
 "help" = "Aide";
@@ -650,7 +650,7 @@
 "copyright" = "Tous droits réservés";
 
 /* Text in menu */
-"report_a_bug" = "Signaler un bogue";
+"report_a_bug" = "Signaler un bug";
 
 /* Email subject */
 "subscribe_me_subject" = "Veuillez m'inscrire à la lettre d'information de MAPS.ME";
@@ -659,7 +659,7 @@
 "subscribe_me_body" = "Informez-moi en priorité des dernières nouvelles, des mises à jour et des promotions. Je peux annuler mon abonnement à tout moment.";
 
 /* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
+"about_description" = "L'application la plus utile pour les voyageurs, a été créé avec la participation des équipes Mail.Ru Group et OpenStreetMap.";
 
 /* About text */
 "about_text" = "MAPS.ME offre les cartes hors ligne les plus rapides de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant, l'hôtel, la banque, la station d'essence, etc. les plus proches. Ceci sans aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d'améliorer MAPS.ME. Si vous avez quelque problème avec l'appli, n'hésitez pas à nous contacter à support@maps.me. Nous répondons à toutes les demandes !\n\nVous aimez-vous MAPS.ME et souhaitez nous soutenir ? Il existe des moyens simples et tout à fait gratuits :\n\n- Publier une critique sur votre boutique d'applis\n- aimez notre page Facebook http://www.facebook.com/mapswithme\n- ou parlez simplement de MAPS.ME à votre maman, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions beaucoup votre soutien !\n\nP.S. : nous prenons les données cartographiques d'OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez corriger les cartes directement sur http://openstreetmap.org, et vos modifications apparaîtront dans l'appli MAPS.ME lors la prochaine version.";
@@ -683,7 +683,7 @@
 "routing_update_maps" = "La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.";
 
 /* Update all button text */
-"downloader_update_all_button" = "Mettre à jour tout";
+"downloader_update_all_button" = "Tout mettre à jour";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Tout annuler";
@@ -741,7 +741,7 @@
 "routing_failed_cross_mwm_building" = "Les itinéraires entièrement contenus sur une seule carte peuvent être créés.";
 
 /* RouteNotFound */
-"routing_failed_route_not_found" = "Il n'existe aucun itinéraire entre l'origine et la destination choisies. Veuillez sélectionner un point de départ ou d'arrivée différent.";
+"routing_failed_route_not_found" = "Il n'existe aucun itinéraire entre l'origine et la destination choisie. Veuillez sélectionner un point de départ ou d'arrivée différent.";
 
 /* InternalError */
 "routing_failed_internal_error" = "Une erreur interne s'est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.";
@@ -788,7 +788,7 @@
 "pref_use_google_play" = "Utilisez l'application Google Play Services pour obtenir votre emplacement actuel";
 
 /* Text for rating dialog */
-"rating_just_rated" = "je viens d'évaluer votre appli";
+"rating_just_rated" = "Je viens d'évaluer votre appli";
 
 /* Text for rating dialog */
 "rating_user_since" = "J'utilise MAPS.ME depuis %@";
@@ -818,16 +818,16 @@
 "routing_download_map" = "Téléchargez des cartes";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "des cartes actualisées et des données de routage pour obtenir toutes les fonctionnalités de MAPS.ME.";
+"routing_download_map_and_routing" = "Des cartes actualisées et des données de routage pour obtenir toutes les fonctionnalités de MAPS.ME.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Recevez des données de routage";
 
 /* Text for routing error dialog */
-"routing_get_additional_data" = "des données supplémentaires nécessaires pour créer des itinéraires depuis votre localisation.";
+"routing_get_additional_data" = "Des données supplémentaires nécessaires pour créer des itinéraires depuis votre localisation.";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "la création d'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.";
+"routing_requires_all_map" = "La création d'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.";
 
 /* Text for routing error dialog */
 "routing_not_enough_space" = "Pas assez d'espace";
@@ -836,7 +836,7 @@
 "routing_download_more_than_avail" = "Vous devez télécharger %@ Mo, mais seulement %@ Mo sont disponibles.";
 
 /* Text for routing error dialog */
-"routing_download_roaming" = "Vous allez télécharger %@ Mo à l'aide de données mobiles (frais d' itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.";
+"routing_download_roaming" = "Vous allez télécharger %@ Mo à l'aide de données mobiles (frais d'itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.";
 
 /* bookmark button text */
 "bookmark" = "signet";
@@ -1045,12 +1045,12 @@
 "showcase_settings_title" = "Afficher les offres";
 
 /* Showcase menu item. */
-"showcase_plan_your_trip" = "Plan your trip";
+"showcase_plan_your_trip" = "Planifiez votre voyage";
 
 "showcase_more_apps" = "Plus d'applications My.com";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "Wikipédia";
 
 "p2p_route_planning" = "Planification d’itinéraire";
 
@@ -1215,10 +1215,10 @@
 "other_languages" = "Autres langues";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "Voir plus";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "Voir moins";
 
 "add_language" = "Ajouter une langue";
 

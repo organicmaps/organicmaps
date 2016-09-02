@@ -130,7 +130,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Des mises à jour sont disponibles pour ces cartes :</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Vous n\&#39;avez plus besoin de MAPS.ME Lite, pouvez donc le désinstaller.</string>
+	<string name="suggest_uninstall_lite">Vous n\&#39;avez plus besoin de MAPS.ME Lite, vous pouvez donc le désinstaller.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s, téléchargement réussi</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -259,7 +259,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hé, regarde ma position actuelle sur la carte MAPS.ME !</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Bonjour,\n\nJe suis actuelement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</string>
+	<string name="my_position_share_email">Bonjour,\n\nJe suis actuellement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Partager par message</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -373,7 +373,7 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Télécharger la carte de l\&#39;endroit où vous êtes</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Version complète de MAPS.ME est gratuit aujoud\&#39;hui ! Téléchargez-le maintenant et dites-le à vos amis.</string>
+	<string name="pro_version_is_free_today">Version complète de MAPS.ME gratuite aujourd\&#39;hui ! Téléchargez-le maintenant et dites-le à vos amis.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Nous transférons vos cartes téléchargées de MAPS.ME Lite vers MAPS.ME. Cela peut prendre quelques minutes.</string>
 	<!-- Message to display when maps moved. -->
@@ -392,20 +392,32 @@
 	<string name="follow_on_twitter">Suivre sur Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Contactez-nous</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Avis</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Avis général</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">S\&#39;abonner à nos informations</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">Évaluer l\&#39;appli</string>
+	<!-- Rate in Google Play (Android only) -->
+	<string name="rate_gp">Évaluer sur Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Recommander à un ami</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Salut ! Installe MAPS.ME !</string>
 	<!-- Text in menu -->
 	<string name="help">Aide</string>
 	<!-- Text in menu -->
 	<string name="copyright">Tous droits réservés</string>
 	<!-- Text in menu -->
-	<string name="report_a_bug">Signaler un bogue</string>
+	<string name="report_a_bug">Signaler un bug</string>
 	<!-- Email subject -->
 	<string name="subscribe_me_subject">Veuillez m\&#39;inscrire à la lettre d\&#39;information de MAPS.ME</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Informez-moi en priorité des dernières nouvelles, des mises à jour et des promotions. Je peux annuler mon abonnement à tout moment.</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">L\&#39;application la plus utile pour les voyageurs, a été créé avec la participation des équipes Mail.Ru Group et OpenStreetMap.</string>
 	<!-- About text -->
 	<string name="about_text">MAPS.ME offre les cartes hors ligne les plus rapides de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant, l\&#39;hôtel, la banque, la station d\&#39;essence, etc. les plus proches. Ceci sans aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d\&#39;améliorer MAPS.ME. Si vous avez quelque problème avec l\&#39;appli, n\&#39;hésitez pas à nous contacter à support@maps.me. Nous répondons à toutes les demandes !\n\nVous aimez-vous MAPS.ME et souhaitez nous soutenir ? Il existe des moyens simples et tout à fait gratuits :\n\n- Publier une critique sur votre boutique d\&#39;applis\n- aimez notre page Facebook http://www.facebook.com/mapswithme\n- ou parlez simplement de MAPS.ME à votre maman, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions beaucoup votre soutien !\n\nP.S. : nous prenons les données cartographiques d\&#39;OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez corriger les cartes directement sur http://openstreetmap.org, et vos modifications apparaîtront dans l\&#39;appli MAPS.ME lors la prochaine version.</string>
 	<!-- Alert text -->
@@ -421,7 +433,7 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all_button">Mettre à jour tout</string>
+	<string name="downloader_update_all_button">Tout mettre à jour</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Tout annuler</string>
 	<!-- Downloaded maps category -->
@@ -458,7 +470,7 @@
 	<!-- PointsInDifferentMWM -->
 	<string name="routing_failed_cross_mwm_building">Les itinéraires entièrement contenus sur une seule carte peuvent être créés.</string>
 	<!-- RouteNotFound -->
-	<string name="routing_failed_route_not_found">Il n\&#39;existe aucun itinéraire entre l\&#39;origine et la destination choisies. Veuillez sélectionner un point de départ ou d\&#39;arrivée différent.</string>
+	<string name="routing_failed_route_not_found">Il n\&#39;existe aucun itinéraire entre l\&#39;origine et la destination choisie. Veuillez sélectionner un point de départ ou d\&#39;arrivée différent.</string>
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">Une erreur interne s\&#39;est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.</string>
 	<!-- Context menu item for downloader. -->
@@ -489,7 +501,7 @@
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Utilisez l\&#39;application Google Play Services pour obtenir votre emplacement actuel</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">je viens d\&#39;évaluer votre appli</string>
+	<string name="rating_just_rated">Je viens d\&#39;évaluer votre appli</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_user_since">J\&#39;utilise MAPS.ME depuis %s</string>
 	<!-- Text for rating dialog -->
@@ -509,19 +521,19 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Téléchargez des cartes</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">des cartes actualisées et des données de routage pour obtenir toutes les fonctionnalités de MAPS.ME.</string>
+	<string name="routing_download_map_and_routing">Des cartes actualisées et des données de routage pour obtenir toutes les fonctionnalités de MAPS.ME.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Recevez des données de routage</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_get_additional_data">des données supplémentaires nécessaires pour créer des itinéraires depuis votre localisation.</string>
+	<string name="routing_get_additional_data">Des données supplémentaires nécessaires pour créer des itinéraires depuis votre localisation.</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_requires_all_map">la création d\&#39;un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.</string>
+	<string name="routing_requires_all_map">La création d\&#39;un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Pas assez d\&#39;espace</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_more_than_avail">Vous devez télécharger %1$s Mo, mais seulement %2$s Mo sont disponibles.</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_roaming">Vous allez télécharger %s Mo à l\&#39;aide de données mobiles (frais d\&#39; itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.</string>
+	<string name="routing_download_roaming">Vous allez télécharger %s Mo à l\&#39;aide de données mobiles (frais d\&#39;itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">signet</string>
 	<!-- map is not downloaded -->
@@ -641,7 +653,11 @@
 	<string name="clear_search">Effacer l\&#39;historique de recherche</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Afficher les offres</string>
+	<!-- Showcase menu item. -->
+	<string name="showcase_plan_your_trip">Planifiez votre voyage</string>
 	<string name="showcase_more_apps">Plus d\&#39;applications My.com</string>
+	<!-- Place Page link to Wikipedia article (if map object has it). -->
+	<string name="read_in_wikipedia">Wikipédia</string>
 	<string name="p2p_route_planning">Planification d’itinéraire</string>
 	<string name="p2p_your_location">Votre emplacement</string>
 	<string name="p2p_from">Le lieu de départ</string>
@@ -727,6 +743,10 @@
 	<string name="place_name">Nom du lieu</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Autres langues</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Voir plus</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Voir moins</string>
 	<string name="add_language">Ajouter une langue</string>
 	<string name="street">Rue</string>
 	<!-- Editable House Number text field (in address block). -->
