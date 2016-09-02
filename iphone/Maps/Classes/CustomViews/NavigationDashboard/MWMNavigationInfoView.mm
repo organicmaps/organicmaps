@@ -59,6 +59,7 @@ BOOL defaultOrientation(CGSize const & size)
 @property(weak, nonatomic) IBOutlet UILabel * streetNameLabel;
 @property(weak, nonatomic) IBOutlet UIView * turnsView;
 @property(weak, nonatomic) IBOutlet UIImageView * nextTurnImageView;
+@property(weak, nonatomic) IBOutlet UILabel * roundTurnLabel;
 @property(weak, nonatomic) IBOutlet UILabel * distanceToNextTurnLabel;
 @property(weak, nonatomic) IBOutlet UIView * secondTurnView;
 @property(weak, nonatomic) IBOutlet UIImageView * secondTurnImageView;
@@ -187,6 +188,16 @@ BOOL defaultOrientation(CGSize const & size)
     if (isIOS7)
       [self.nextTurnImageView makeImageAlwaysTemplate];
     self.nextTurnImageView.mwm_coloring = MWMImageColoringWhite;
+
+    if (info.roundExitNumber == 0)
+    {
+      self.roundTurnLabel.hidden = YES;
+    }
+    else
+    {
+      self.roundTurnLabel.hidden = NO;
+      self.roundTurnLabel.text = @(info.roundExitNumber).stringValue;
+    }
 
     NSDictionary * turnNumberAttributes = @{
       NSForegroundColorAttributeName : [UIColor white],
