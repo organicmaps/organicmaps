@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -185,11 +185,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="teB-QQ-oib">
+                                            <rect key="frame" x="30" y="22" width="12" height="29"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
+                                        <constraint firstItem="teB-QQ-oib" firstAttribute="centerX" secondItem="AJe-8N-rpk" secondAttribute="centerX" id="00j-DX-kej"/>
                                         <constraint firstItem="AJe-8N-rpk" firstAttribute="leading" secondItem="tnR-CA-hkI" secondAttribute="leading" id="Tae-YV-lwB"/>
                                         <constraint firstAttribute="bottom" secondItem="AJe-8N-rpk" secondAttribute="bottom" id="Wwf-8B-PvC"/>
+                                        <constraint firstItem="teB-QQ-oib" firstAttribute="centerY" secondItem="AJe-8N-rpk" secondAttribute="centerY" id="YC1-n7-f1q"/>
                                         <constraint firstAttribute="width" secondItem="tnR-CA-hkI" secondAttribute="height" multiplier="1:1" id="aPD-g3-T2h"/>
                                         <constraint firstItem="AJe-8N-rpk" firstAttribute="top" secondItem="tnR-CA-hkI" secondAttribute="top" id="uM5-Zp-UMt"/>
                                         <constraint firstAttribute="trailing" secondItem="AJe-8N-rpk" secondAttribute="trailing" id="yRy-fp-msB"/>
@@ -305,6 +316,7 @@
             <connections>
                 <outlet property="distanceToNextTurnLabel" destination="KuR-1J-VI2" id="n0i-t9-Vj2"/>
                 <outlet property="nextTurnImageView" destination="AJe-8N-rpk" id="iMm-9u-rPI"/>
+                <outlet property="roundTurnLabel" destination="teB-QQ-oib" id="5p2-zz-Pe9"/>
                 <outlet property="searchATMButton" destination="uoS-b2-FcN" id="Sp2-hc-Lob"/>
                 <outlet property="searchButtonsView" destination="TMW-aw-1RT" id="bQd-e2-Jey"/>
                 <outlet property="searchButtonsViewHeight" destination="ClV-rj-I5W" id="egz-NO-EAn"/>
