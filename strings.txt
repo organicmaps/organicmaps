@@ -229,7 +229,7 @@
     cs = Stáhnout mapy
     da = Download kort
     nl = Gedownloade Kaarten
-    fi = Lataa kartat
+    fi = Lataa karttoja
     fr = Télécharger des cartes
     de = Karten herunterladen
     hu = Térképek letöltése
@@ -1373,7 +1373,7 @@
     cs = Stahování selhalo
     da = Download mislykket
     nl = Downloaden is niet gelukt
-    fi = Ladataan epäonnistui
+    fi = Lataus epäonnistui
     fr = Échec lors du téléchargement
     de = Herunterladen fehlgeschlagen
     hu = Letöltése sikertelen
@@ -2832,7 +2832,7 @@
     cs = Nastavení
     da = Indstillinger
     nl = İnstellingen
-    fi = İnstellingen
+    fi = Asetukset
     fr = Paramètres
     de = Einstellungen
     hu = Beállítások
@@ -2960,7 +2960,7 @@
     cs = Tato akce může trvat několik minut.\nProsím čekejte…
     da = Dette kan tage flere minutter.\nVent venligst…
     nl = Dit kan enkele minuten duren.\nEven geduld…
-    fi = Tämä voi kestää useita minuutteja.Odota hetkinen…
+    fi = Tämä voi kestää useita minuutteja.\nOdota hetki…
     fr = Ceci peut prendre plusieurs minutes.\nVeuillez patienter…
     de = Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…
     hu = Ez több percig is eltarthat.\nKérjük várjon…
@@ -4194,7 +4194,7 @@
     cs = Koukni na mou značku na mapě. Otevři odkaz: %1$@ nebo %2$@
     da = Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me/get
     nl = Bekijk mijn pin op de kaart. Open %1$@ of %2$@
-    fi = Hei, se merket mitt på MAPS.ME! %1$@ eller %2$@ Har du ikke installert offline-kart? Last dem ned her: http://maps.me/get
+    fi = Hei, katso merkintäni MAPS.ME-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: http://maps.me/get
     fr = Hé, regarde mon épingle sur MAPS.ME ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get
     de = Siehe meine Markierung auf MAPS.ME an. %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: http://maps.me/get
     hu = Nézd meg a MAPS.ME jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
@@ -4225,7 +4225,7 @@
     cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
     da = Hey, tjek min nuværende lokation ud på MAPS.ME! %1$@ or %2$@. Har du ikke offline kort? Download her: http://maps.me/get
     nl = Kijk waar ik nu ben. Open %1$@ of %2$@
-    fi = Hei, se posisjonen min på MAPS.ME! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: http://maps.me/get
+    fi = Hei, katso sijaintini MAPS.ME-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: http://maps.me/get
     fr = Hé, regarde ma position actuelle sur MAPS.ME ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get
     de = Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: http://maps.me/get
     hu = Nézd meg a MAPS.ME helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
@@ -4257,7 +4257,7 @@
     cs = Koukni na moji značku na mapě v MAPS.ME
     da = Hey, tjek min knappenål på MAPS.ME kortet ud!
     nl = Kijk naar mijn pin op MAPS.ME kaart
-    fi = Hei, se merket mitt på MAPS.ME-kartet
+    fi = Hei, katso merkintäni MAPS.ME-kartalla
     fr = Hé, regarde mon épingle sur la carte MAPS.ME !
     de = Schau dir meine Stecknadel auf der MAPS.ME-Karte an
     hu = Nézze meg a MAPS.ME jelzőmet
@@ -4866,7 +4866,7 @@
     cs = Stopy
     da = Ruter
     nl = Tracks
-    fi = Raidat
+    fi = Reitit
     fr = Parcours
     de = Strecken
     hu = Csoportok
@@ -5423,7 +5423,7 @@
     cs = Není dostupná
     da = Ikke til rådighed
     nl = Niet beschikbaar
-    fi = Non disponible
+    fi = Ei saatavilla
     fr = Non disponible
     de = Nicht verfügbar
     hu = Nem áll rendelkezésre
@@ -5454,7 +5454,7 @@
     cs = Ostatní
     da = Andet
     nl = Andere
-    fi = Egyéb
+    fi = Muu
     fr = Autre
     de = Weitere
     hu = Egyéb
@@ -5484,7 +5484,7 @@
     cs = Jak nastavit hlas
     da = Sådan indstiller du tale
     nl = Hoe stel je de stem in
-    fi = Így állítsd be a hangot
+    fi = Kuinka asettaa ääni
     fr = Comment configurer la voix
     de = Navi-Stimme konfigurieren
     hu = Így állítsd be a hangot
@@ -7328,7 +7328,7 @@
     cs = Poblíž mě
     da = I nærheden
     nl = Bij mij in de buurt
-    fi = Minun lähelläni
+    fi = Lähelläni
     fr = Près de moi
     de = In meiner Nähe
     hu = A közelemben
@@ -7701,7 +7701,7 @@
     cs = K vytvoření trasy jsou zapotřebí další data. Chcete je stáhnout nyní?
     da = Yderligere data er nødvendig, for at oprette en rute. Begynde download?
     nl = Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?
-    fi = Lisädata, jotka vaaditaan reittien luomiseen sijainnistasi.
+    fi = Reitin luomiseksi on ladattava lisää dataa. Ladatataanko data nyt?
     fr = Des données supplémentaires sont nécessaires pour créer un itinéraire. Vous désirez lancer le téléchargement ?
     de = Zusätzliche Daten werden zum Erstellen der Route benötigt. Mit dem Herunterladen beginnen?
     hu = Útvonaltervezéshez további adatok is szükségesek. Elkezded a letöltést?
@@ -8084,7 +8084,7 @@
     cs = Opakovat
     da = Gentag
     nl = Herhalen
-    fi = Toista
+    fi = Yritä uudelleen
     fr = Répéter
     de = Wiederholen
     hu = Ismétlés
@@ -8752,7 +8752,7 @@
     cs = Naplánování trasy vyžaduje stažení a aktualizaci všech map z vašeho umístění do cílového umístění.
     da = Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.
     nl = Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.
-    fi = Reittien luonti vaatii omasta sijainnistasi päämääriin johtavien karttojen lataamiseen ja päivitykseen.
+    fi = Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.
     fr = La création d'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.
     de = Zum Erstellen einer Route müssen alle Karten von Ihrem Standort bis zum Ziel heruntergeladen und aktualisiert worden sein.
     hu = Útvonal tervezéséhez a kiindulási pont és a célútvonal összes térképét szükséges letölteni és frissíteni.
@@ -8913,7 +8913,7 @@
     cs = Mapa vaší polohy není stažena
     da = Kortet for dit område er ikke downloadet
     nl = De kaart voor uw locatie is niet gedownload
-    fi = Olinpaikkasi karttaa ei ole ladattu
+    fi = Nykyisen sijaintisi karttaa ei ole ladattu
     fr = La carte pour votre emplacement n'est pas téléchargée
     de = Es gibt keine Karte für Ihren Standort
     hu = A helyszínéhez tartozó térképet letöltöttük
@@ -8975,7 +8975,7 @@
     cs = Stáhněte si mapu své polohy
     da = Download kortet for dit område
     nl = Download de kaart voor uw locatie
-    fi = Lataa olinpaikkasi kartta
+    fi = Lataa nykyisen sijaintisi kartta
     fr = Télécharger la carte de l'endroit où vous êtes
     de = Laden Sie die Karte für Ihren Standort herunter
     hu = Töltse le a térképet a helyszínéhez
@@ -9006,7 +9006,7 @@
     cs = Stáhněte si do svého iPhonu mapu své současné polohy
     da = Download kortet for din placering til din iPhone
     nl = Download de kaart van uw huidige lokatie op uw iPhone
-    fi = Lataa tämän hetkisen olinpaikkasi kartta iPhoneesi
+    fi = Lataa tämän hetkisen sijaintisi kartta iPhoneesi
     fr = Téléchargez la carte de l'endroit où vous vous trouvez sur votre iPhone
     de = Laden Sie eine Karte für Ihre aktuelle Position auf Ihrem iPhone herunter
     hu = Töltse le a térképet iPhone-jára jelenlegi helyzetének meghatározásához
@@ -10713,7 +10713,7 @@
     cs = Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.
     da = For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.
     nl = Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.
-    fi = Lataa kartta aloittaksesi haun ja luodaksesi reittejä. Tämän jälkeen et enää tule tarvitsemaan Internet-yhteyttä.
+    fi = Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.
     fr = Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte, et vous n'aurez plus besoin de connexion Internet.
     de = Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.
     hu = Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.
@@ -12112,7 +12112,7 @@
     cs = Pokročilý režim
     da = Avanceret tilstand
     nl = Geavanceerde modus
-    fi = Kehittynyt malli
+    fi = Edistynyt tila
     fr = Mode avancé
     de = Erweiterter Modus
     hu = Haladó mód
@@ -12142,7 +12142,7 @@
     cs = Jednoduchý režim
     da = Enkel tilstand
     nl = Eenvoudige modus
-    fi = Yksinkertainen malli
+    fi = Yksinkertainen tila
     fr = Mode simple
     de = Einfachmodus
     hu = Egyszerű mód
@@ -12262,7 +12262,7 @@
     cs = Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.
     da = Du har lavet en redigeringsfejl. Ret den, eller skift til enkel tilstand.
     nl = U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.
-    fi = Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen malliin.
+    fi = Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen tilaan.
     fr = Vous avez fait une erreur d'édition. Veuillez la corriger ou passer en mode simple.
     de = Es ist ein Bearbeitungsfehler aufgetreten. Bitte korrigieren oder zum Einfachmodus wechseln.
     hu = Szerkesztési hibát vétett. Javítsa ki vagy váltson egyszerű módba.
@@ -13183,7 +13183,7 @@
     cs = Nemáte účet u OpenStreetMap?
     da = Ingen konto på OpenStreetMap?
     nl = Geen account bij OpenStreetMap?
-    fi = Eikö sinulla ole tiliä OpenStreetMap?
+    fi = Eikö sinulla ole OpenStreetMap tiliä?
     fr = Vous n'avez pas de compte sur OpenStreetMap?
     de = Kein Konto bei OpenStreetMap?
     hu = Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?
@@ -13273,7 +13273,7 @@
     cs = Neplatné uživatelské jméno nebo heslo.
     da = Ugyldigt brugernavn eller adgangskode.
     nl = Ongeldige gebruikersnaam of ongeldig wachtwoord.
-    fi = Virheellinen Käyttäjätunnus tai Salasana
+    fi = Virheellinen käyttäjätunnus tai salasana
     fr = Nom d'utilisateur ou mot de passe invalide.
     de = Ungültiger Benutzername oder Passwort.
     hu = Érvénytelen felhasználónév vagy jelszó.
@@ -13786,7 +13786,7 @@
     cs = Upravit místo
     da = Redigér stedet
     nl = De locatie bewerken
-    fi = Muokkaa sijaintia
+    fi = Muokkaa kohdetta
     fr = Modifier le lieu
     de = Platz bearbeiten
     hu = Hely szerkesztése
@@ -14153,7 +14153,7 @@
     cs = PSČ
     da = Postnummer
     nl = Postcode
-    fi = Postikoodi
+    fi = Postinumero
     fr = Code postal
     de = Postleitzahl
     hu = Irányítószám
@@ -14213,7 +14213,7 @@
     cs = Vybrat kuchyni
     da = Vælg køkken
     nl = Selecteer Keuken
-    fi = Valitse Ruokalaji
+    fi = Valitse ruokalaji
     fr = Sélectionner une cuisine
     de = Küche auswählen
     hu = Válassz Konyhát
@@ -15800,7 +15800,7 @@
     cs = Objekt zde nemůže být umístěn
     da = Et objekt kan ikke placeres her
     nl = Hier kan geen object worden geplaatst
-    fi = Objektia ei voida asettaa tänne
+    fi = Kohdetta ei voida asettaa tänne
     fr = Aucun objet ne peut être localisé ici
     de = Ein Objekt kann hier nicht positioniert werden
     hu = Célpont áthelyezése ide nem lehetséges
@@ -15917,7 +15917,7 @@
     cs = Vylepšil jsem mapy MAPS.ME
     da = Jeg forbedrede MAPS.ME kortene
     nl = Ik heb de MAPS.ME-kaarten verbeterd
-    fi = Minä paransin MAPS.ME-karttoja
+    fi = Paransin MAPS.ME-karttoja
     fr = J'ai amélioré les cartes de MAPS.ME
     de = Ich habe die MAPS.ME-Karten verbessert
     hu = Én fejlesztettem a MAPS.ME térképeket
@@ -16623,7 +16623,7 @@
     cs = Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.
     da = Download kort for at finde position og navigere offline.
     nl = Download kaarten om de locatie te zoeken en offline te navigeren.
-    fi = Lataa kartat löytääksesi paikan ja navigoidaksesi offline.
+    fi = Lataa kartattoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.
     fr = Téléchargez des cartes pour rechercher l'emplacement et naviguer hors ligne
     de = Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.
     hu = Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.
@@ -16682,7 +16682,7 @@
     cs = Pokračovat se zjišťováním současné polohy?
     da = Fortsæt med at registrere din aktuelle position?
     nl = Doorgaan met het detecteren van uw huidige locatie?
-    fi = Jatketaanko nykyisen paikkasi havaitsemista?
+    fi = Jatketaanko nykyisen sijaintisi havaitsemista?
     fr = Continuer la détection de votre emplacement actuel ?
     de = Standortsuche fortsetzen?
     hu = Folytatja tartózkodási helyének keresését?
@@ -16712,7 +16712,7 @@
     cs = Nezjistili jsme vaši současnou polohu. Možná jste v budově nebo tunelu.
     da = Aktuel placering er ukendt. Måske er du i en bygning eller i en tunnel.
     nl = Huidige locatie is onbekend. Misschien bevindt u zich in een gebouw of tunnel.
-    fi = Nykyinen paikka on tuntematon. Kenties olet rakennuksessa tai tunnelissa.
+    fi = Nykyistä sijaintiasi ei voitu määrittää. Kenties olet rakennuksessa tai tunnelissa.
     fr = L'emplacement actuel est inconnu. Vous êtes peut-être dans un immeuble ou sous un tunnel.
     de = Standort nicht gefunden. Möglicherweise befinden Sie sich in einem Gebäude oder einem Tunnel.
     hu = Tartózkodási helye ismeretlen. Lehet, hogy épületben vagy alagútban tartózkodik.
@@ -16799,7 +16799,7 @@
     cs = Současná poloha nezjištěna.
     da = Aktuel position er ukendt.
     nl = Huidige locatie is onbekend.
-    fi = Nykyinen paikka on tuntematon.
+    fi = Nykyinen sijainti on tuntematon.
     fr = L'emplacement actuel est inconnu.
     de = Standort nicht gefunden.
     id = Lokasi saat ini tidak diketahui.
@@ -16827,7 +16827,7 @@
     cs = Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.
     da = Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.
     nl = Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.
-    fi = Tapahtui virhe etsittäessä paikkaasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.
+    fi = Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.
     fr = Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que le périphérique fonctionne correctement et réessayez ultérieurement
     de = Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.
     hu = Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.
@@ -16944,7 +16944,7 @@
     cs = Určení polohy je zakázáno
     da = Placeringsservices er slået fra
     nl = Locatie-identificatie is uitgeschakeld
-    fi = Locatie-identificatie is uitgeschakeld
+    fi = Sijaintipalvelut on poistettu käytöstä
     fr = L'identification de la localisation est désactivée
     de = Standort-Identifizierung ist deaktiviert
     hu = Helyzetmeghatározás kikapcsolva
@@ -17005,7 +17005,7 @@
     cs = 1. Otevřete Nastavení
     da = 1. Åbn Indstillinger
     nl = 1. Instellingen openen
-    fi = 1. Instellingen openen
+    fi = 1. Avaa asetukset
     fr = 1. Ouvrir Paramètres
     de = 1. Einstellungen öffnen
     hu = 1. Nyissa meg a Beállításokat
@@ -17472,7 +17472,7 @@
     cs = Nonstop
     da = 24 / 7
     nl = Dag en nacht
-    fi = 24_7
+    fi = 24 / 7
     fr = 24h/24 et 7j/7
     de = Durchgehend geöffnet
     hu = 24 órás
@@ -18259,7 +18259,7 @@
     cs = Místo neexistuje
     da = Stedet eksisterer ikke
     nl = Locatie bestaat niet
-    fi = Paikkaa ei ole
+    fi = Paikkaa ei ole olemassa
     fr = La place n'existe pas
     de = Dieser Ort existiert nicht
     hu = A hely nem létezik
@@ -18550,7 +18550,7 @@
     cs = Aktualizovat
     da = Opdater
     nl = Updaten
-    fi = Päivitetäänkö
+    fi = Päivitä
     fr = Mettre à jour
     de = Aktualisieren
     hu = Frissítés
