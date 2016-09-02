@@ -1,4 +1,5 @@
 #import "MWMNavigationDashboardManager.h"
+#import <AudioToolbox/AudioServices.h>
 #import "Common.h"
 #import "MWMLocationHelpers.h"
 #import "MWMMapViewControlsManager.h"
@@ -65,6 +66,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   if (GetFramework().IsRouteFinished())
   {
     [[MWMRouter router] stop];
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     return;
   }
 
