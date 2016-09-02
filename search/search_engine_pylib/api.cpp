@@ -78,7 +78,7 @@ struct LatLon
   string ToString() const
   {
     ostringstream os;
-    os << "lat:" << m_lat << ", lon:" << m_lon;
+    os << "lat: " << m_lat << ", lon: " << m_lon;
     return os.str();
   }
 
@@ -168,7 +168,7 @@ struct SearchEngineProxy
 {
   SearchEngineProxy()
   {
-    CHECK(g_storage.get() != nullptr, ("init() is not called."));
+    CHECK(g_storage.get() != nullptr, ("init() was not called."));
     auto & platform = GetPlatform();
     auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
     infoGetter->InitAffiliationsInfo(&g_storage->GetAffiliations());
@@ -208,6 +208,7 @@ struct SearchEngineProxy
       results.append(Result(result));
     return results;
   }
+
   shared_ptr<search::tests_support::TestSearchEngine> m_engine;
 };
 }  // namespace

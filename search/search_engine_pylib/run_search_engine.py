@@ -8,8 +8,8 @@ import search_engine_pylib as search
 
 
 DIR = os.path.dirname(__file__)
-RESOURCE_PATH = os.path.realpath(os.path.join(DIR, '..', 'data'))
-MWM_PATH = os.path.realpath(os.path.join(DIR, '..', 'data'))
+RESOURCE_PATH = os.path.realpath(os.path.join(DIR, '..', '..', 'data'))
+MWM_PATH = os.path.realpath(os.path.join(DIR, '..', '..', 'data'))
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-r', metavar='RESOURCE_PATH', default=RESOURCE_PATH, help='Path to resources directory.')

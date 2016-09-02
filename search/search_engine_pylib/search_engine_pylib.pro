@@ -18,11 +18,32 @@ INCLUDEPATH -= $$ROOT_DIR/3party/boost
 # We do not support search_engine_pylib for other combinations of
 # OS and c++ standard library.
 macx-clang {
-    INCLUDEPATH += /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
-    LIBS += -L/System/Library/Frameworks/Python.framework/Versions/2.7/lib -lpython2.7
+    QMAKE_LFLAGS_PLUGIN += -bundle
+
+    LIBRARY_PYTHON=/Library/Frameworks/Python.framework/Versions/2.7
+    SYSTEM_LIBRARY_PYTHON=/System/Library/Frameworks/Python.framework/Versions/2.7
+
+    exists($$LIBRARY_PYTHON) {
+        INCLUDEPATH += $$LIBRARY_PYTHON/include/python2.7
+        LIBS += -L$$LIBRARY_PYTHON/lib -lpython2.7
+    } else:exists($$SYSTEM_LIBRARY_PYTHON) {
+        INCLUDEPATH += $$SYSTEM_LIBRARY_PYTHON/include/python2.7
+        LIBS += -L$$SYSTEM_LIBRARY_PYTHON/lib -lpython2.7
+    } else {
+        error("Can't find Python2.7")
+    }
+
+    LIBS *= "-framework IOKit"
+    LIBS *= "-framework SystemConfiguration"
+
+    LIBS *= -L/usr/local/opt/qt5/lib
+    LIBS *= "-framework QtCore"
+    LIBS *= "-framework QtNetwork"
 
     INCLUDEPATH += /usr/local/include
     LIBS += -L/usr/local/lib -lboost_python
+
+    INCLUDEPATH += /usr/local/opt/qt5/include
 } else:linux-clang {
     INCLUDEPATH += /usr/include
     LIBS += -L/usr/lib/x86_64-linux-gnu/ -lboost_python
