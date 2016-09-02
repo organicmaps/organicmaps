@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
     <title>atm-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="atm-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#252522" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M5.72222,8 C5.32211,8 5,8.3221 5,8.7223 L5,15.2778 C5,15.6779 5.32211,16 5.72222,16 L17.27778,16 C17.67789,16 18,15.6779 18,15.2778 L18,8.7223 C18,8.3221 17.67789,8 17.27778,8 L5.72222,8 Z M5.5,9.5 L17.5,9.5 L17.5,11 L5.5,11 L5.5,9.5 Z M6,13.5 L8,13.5 L8,15 L6,15 L6,13.5 Z M12,14.2777 L17,14.2777 L17,15 L12,15 L12,14.2777 Z" id="rect10401-9-copy" fill-opacity="0.7" fill="#FFFFFF"></path>
+    <g id="POI-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-1" transform="translate(-534.000000, -65.000000)">
+            <g id="atm-m" transform="translate(534.000000, 65.000000)">
+                <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+                <ellipse id="Oval-1-Copy-40" fill="#252522" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+                <path d="M14.4503498,12.2398469 C14.6251832,12.0903116 14.8522161,12 15.1003498,12 C15.6528277,12 16.1006996,12.4477152 16.1006996,13 C16.1006996,13.5522847 15.6528277,14 15.1003498,14 C14.8522161,14 14.6251832,13.9096884 14.4503498,13.7601531 C14.2755164,13.9096884 14.0484835,14 13.8003498,14 C13.2478719,14 12.8,13.5522847 12.8,13 C12.8,12.4477152 13.2478719,12 13.8003498,12 C14.0484835,12 14.2755164,12.0903116 14.4503498,12.2398469 Z M16.5087347,16 C17.3323378,16 18,15.3255921 18,14.4971008 L18,10.5 L5,10.5 L5,14.4971007 C5,15.327129 5.66254437,15.9999999 6.4912653,15.9999999 L16.5087347,16 Z M6.24649465,7 C5.55807466,7 5,7.55483103 5,8.25 L5,9.5 L18,9.5 L18,8.25 C18,7.55964406 17.4414062,7 16.7535053,7 L6.24649465,7 Z M6.5,13 L8.5,13 L8.5,14 L6.5,14 L6.5,13 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
+            </g>
         </g>
     </g>
 </svg>
