@@ -1,14 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
     <title>restaurant-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="13.5" cy="13.5" rx="12.5" ry="12.5"></ellipse>
+    </defs>
     <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="restaurant-l">
-            <ellipse id="Oval-1-Copy-39" fill-opacity="0.6" fill="#FFFFFF" cx="13.5" cy="13.5" rx="13.5" ry="13.5"></ellipse>
-            <ellipse id="Oval-1-Copy-38" fill="#AB842F" cx="13.5" cy="13.5" rx="12.5" ry="12.5"></ellipse>
-            <path d="M8.5,4 C8,4 8,4.5 8,4.5 L8,10.5 C8,11 8.5,11.5 9,12 C9.5,12.5 9.5,13 9.5,13.5 L9.5,15 C9.5,15.5 9,21.5 9,21.5 C8.9617,21.9985 9.5,23 10.5,23 C11.5,23 12.03846,22 12,21.5 C12,21.5 11.5,15.5 11.5,15 L11.5,13.5 C11.5,13 11.5,12.5 12,12 C12.46054,11.539461 13,11 13,10.5 L13,4.5 C13,4.5 13,4 12.5,4 C12,4 12,4.5 12,4.5 L12,9 C12,9 12,9.5 11.5,9.5 C11,9.5 11,9 11,9 L11,4.5 C11,4.5 11,4 10.5,4 C10,4 10,4.5 10,4.5 L10,9 C10,9 10,9.5 9.5,9.5 C9,9.5 9,9 9,9 L9,4.5 C9,4.5 9,4 8.5,4 L8.5,4 Z M19,4 C18,4 16.13246,4.2351 15.5,5.5 C15,6.5 15,9 15,10 L15,15 C15,15.5 15.5,16 16,16 L17,16 L17,22 C17,22.5 17.5,23 18,23 C18.5,23 19,22.5 19,22 L19,4 Z" id="path5304" fill="#FFFFFF"></path>
+        <g id="Artboard-1" transform="translate(-137.000000, -396.000000)">
+            <g id="restaurant-l" transform="translate(137.000000, 396.000000)">
+                <ellipse id="Oval-1-Copy-39" fill-opacity="0.6" fill="#FFFFFF" cx="13.5" cy="13.5" rx="13.5" ry="13.5"></ellipse>
+                <g id="Oval-1-Copy-38">
+                    <use fill="#AB842F" xlink:href="#path-1"></use>
+                    <use fill="#BB9342" xlink:href="#path-1"></use>
+                </g>
+                <path d="M11.5,11 L11.5,6.75939238 C11.5,6.33999155 11.1671014,6 10.75,6 L10.75,6 C10.3357864,6 10,6.32806396 10,6.75939238 L10,11 L8.5,11 L8.5,6.75939238 C8.5,6.33999155 8.16710138,6 7.75,6 L7.75,6 C7.33578644,6 7,6.32806396 7,6.75939238 L7,11 C7,12.84 8.5,14 10,14 L9.7858189,19.9970707 C9.76603667,20.5509732 10.1938648,21 10.75,21 L10.75,21 C11.3022847,21 11.7343614,20.5621186 11.7141811,19.9970707 L11.5,14 C13,14 14.5,12.84 14.5,11 L14.5,6.75939238 C14.5,6.33999155 14.1671014,6 13.75,6 L13.75,6 C13.3357864,6 13,6.32806396 13,6.75939238 L13,11 L11.5,11 Z M16,15 L18,15 L18,20.009222 C18,20.5564136 18.4438648,21 19,21 L19,21 C19.5522847,21 20,20.5510798 20,19.992516 L20,6 C17.68,6 16,7.68 16,9 L16,15 Z" id="Shape" fill="#FFFFFF"></path>
+            </g>
         </g>
     </g>
 </svg>

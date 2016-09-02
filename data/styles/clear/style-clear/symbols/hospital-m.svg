@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
     <title>hospital-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="hospital-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#C15746" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M10,5 C9.446,5 9,5.446 9,6 L9,9 L6,9 C5.446,9 5,9.446 5,10 L5,13 C5,13.554 5.474429,14.1752 6,14 L9,14 L9,17 C9,17.554 9.446,18 10,18 L13,18 C13.554,18 14,17.554 14,17 L14,14 L17,14 C17.554,14 18,13.554 18,13 L18,10 C18,9.446 17.554,9 17,9 L14,9 L14,6 C14,5.446 13.554,5 13,5 L10,5 Z" id="rect8206-4-3-copy" fill="#FFFFFF"></path>
+        <g id="Artboard-1" transform="translate(-174.000000, -250.000000)">
+            <g id="hospital-m" transform="translate(174.000000, 250.000000)">
+                <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+                <ellipse id="Oval-1-Copy-40" fill="#C15746" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            </g>
+            <path d="M187.5,259.5 L187.5,255.998502 C187.5,255.447489 187.04809,255 186.490631,255 L184.509369,255 C183.943353,255 183.5,255.447045 183.5,255.998502 L183.5,259.5 L179.998502,259.5 C179.447489,259.5 179,259.95191 179,260.509369 L179,262.490631 C179,263.056647 179.447045,263.5 179.998502,263.5 L183.5,263.5 L183.5,267.001498 C183.5,267.552511 183.95191,268 184.509369,268 L186.490631,268 C187.056647,268 187.5,267.552955 187.5,267.001498 L187.5,263.5 L191.001498,263.5 C191.552511,263.5 192,263.04809 192,262.490631 L192,260.509369 C192,259.943353 191.552955,259.5 191.001498,259.5 L187.5,259.5 Z" id="Combined-Shape" fill="#FFFFFF"></path>
         </g>
     </g>
 </svg>
