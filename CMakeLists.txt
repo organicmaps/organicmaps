@@ -12,7 +12,7 @@ find_package(Threads)
 
 get_filename_component(PROJECT_SOURCE_DIR . ABSOLUTE)
 
-include_directories(${CMAKE_HOME_DIRECTORY})
+include_directories(${CMAKE_HOME_DIRECTORY} ${PROJECT_SOURCE_DIR}/3party/jansson/src)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
@@ -54,3 +54,4 @@ endfunction()
 
 add_subdirectory(base)
 add_subdirectory(geometry)
+add_subdirectory(storage)
