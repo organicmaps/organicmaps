@@ -116,9 +116,5 @@ NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
   return enabled;
 }
 
-+ (void)setRoutingDisclaimerApproved
-{
-  settings::Set(kRoutingDisclaimerApprovedKey, true);
-}
-
++ (void)setRoutingDisclaimerApproved { settings::Set(kRoutingDisclaimerApprovedKey, true); }
 @end

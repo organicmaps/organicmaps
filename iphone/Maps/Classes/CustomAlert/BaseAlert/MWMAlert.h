@@ -6,7 +6,7 @@ using TMWMDownloadBlock = void (^)(storage::TCountriesVec const &, TMWMVoidBlock
 @class MWMAlertViewController;
 @interface MWMAlert : UIView
 
-@property (weak, nonatomic) MWMAlertViewController * alertController;
+@property(weak, nonatomic) MWMAlertViewController * alertController;
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
 + (MWMAlert *)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock;
@@ -18,7 +18,8 @@ using TMWMDownloadBlock = void (^)(storage::TCountriesVec const &, TMWMVoidBlock
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;
-+ (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation okBlock:(TMWMVoidBlock)block;
++ (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation
+                                                   okBlock:(TMWMVoidBlock)block;
 + (MWMAlert *)disabledLocationAlert;
 + (MWMAlert *)noWiFiAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)noConnectionAlert;
@@ -33,9 +34,11 @@ using TMWMDownloadBlock = void (^)(storage::TCountriesVec const &, TMWMVoidBlock
 + (MWMAlert *)invalidUserNameOrPasswordAlert;
 + (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 + (MWMAlert *)disableAutoDownloadAlertWithOkBlock:(TMWMVoidBlock)okBlock;
-+ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock;
++ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock
+                                         cancelBlock:(TMWMVoidBlock)cancelBlock;
 + (MWMAlert *)downloaderNotEnoughSpaceAlert;
-+ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock;
++ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock
+                                          cancelBlock:(TMWMVoidBlock)cancelBlock;
 + (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)placeDoesntExistAlertWithBlock:(MWMStringBlock)block;
 + (MWMAlert *)resetChangesAlertWithBlock:(TMWMVoidBlock)block;

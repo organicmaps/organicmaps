@@ -204,8 +204,8 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
       MWMAlertViewController * alertController = [MWMAlertViewController activeAlertController];
       CLLocation * lastLocation = [MWMLocationManager lastLocation];
       BOOL const needToRebuild = lastLocation &&
-      !location_helpers::isMyPositionPendingOrNoPosition() &&
-      !self.finishPoint.IsMyPosition();
+                                 !location_helpers::isMyPositionPendingOrNoPosition() &&
+                                 !self.finishPoint.IsMyPosition();
       [alertController presentPoint2PointAlertWithOkBlock:^{
         [self buildFromPoint:lastLocationPoint() bestRouter:NO];
       }
