@@ -39,7 +39,8 @@ SOURCES += \
   booking_tests.cpp \
   bookmarks_test.cpp \
   feature_getters_tests.cpp \
-  ge0_parser_tests.cpp  \
+  ge0_parser_tests.cpp \
+  generate_chart_tests.cpp \
   geourl_test.cpp \
   gps_track_collection_test.cpp \
   gps_track_storage_test.cpp \
