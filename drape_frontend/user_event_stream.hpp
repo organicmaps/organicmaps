@@ -378,17 +378,20 @@ private:
   bool OnSetCenter(ref_ptr<SetCenterEvent> centerEvent);
   bool OnRotate(ref_ptr<RotateEvent> rotateEvent);
 
+  bool SetAngle(double azimuth, TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
-               TAnimationCreator parallelAnimCreator = nullptr);
-  bool SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator parallelAnimCreator = nullptr);
+               TAnimationCreator const & parallelAnimCreator = nullptr);
+  bool SetRect(m2::AnyRectD const & rect, bool isAnim,
+               TAnimationCreator const & parallelAnimCreator = nullptr);
 
   bool SetScreen(ScreenBase const & screen, bool isAnim,
-                 TAnimationCreator parallelAnimCreator = nullptr);
+                 TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, double autoScale,
                           bool isAnim, bool isAutoScale,
-                          TAnimationCreator parallelAnimCreator = nullptr);
+                          TAnimationCreator const & parallelAnimCreator = nullptr);
   void SetAutoPerspective(bool isAutoPerspective);
+  void CheckAutoRotate();
 
   m2::AnyRectD GetCurrentRect() const;
 

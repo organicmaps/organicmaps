@@ -374,22 +374,27 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
 
 bool UserEventStream::OnRotate(ref_ptr<RotateEvent> rotateEvent)
 {
-  ScreenBase const & screen = m_navigator.Screen();
+  return SetAngle(rotateEvent->GetTargetAzimuth(), rotateEvent->GetParallelAnimCreator());
+}
+
+bool UserEventStream::SetAngle(double azimuth, TAnimationCreator const & parallelAnimCreator)
+{
+  ScreenBase screen;
+  GetTargetScreen(screen);
   if (screen.isPerspective())
   {
     m2::PointD pt = screen.PixelRectIn3d().Center();
     return SetFollowAndRotate(screen.PtoG(screen.P3dtoP(pt)), pt,
-                              rotateEvent->GetTargetAzimuth(), kDoNotChangeZoom, kDoNotAutoZoom,
+                              azimuth, kDoNotChangeZoom, kDoNotAutoZoom,
                               true /* isAnim */, false /* isAutoScale */,
-                              rotateEvent->GetParallelAnimCreator());
+                              parallelAnimCreator);
   }
 
-  m2::AnyRectD dstRect = GetTargetRect();
-  dstRect.SetAngle(rotateEvent->GetTargetAzimuth());
-  return SetRect(dstRect, true, rotateEvent->GetParallelAnimCreator());
+  screen.SetAngle(azimuth);
+  return SetScreen(screen, true /* isAnim */, parallelAnimCreator);
 }
 
-bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, TAnimationCreator parallelAnimCreator)
+bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, TAnimationCreator const & parallelAnimCreator)
 {
   CheckMinGlobalRect(rect, kDefault3dScale);
   CheckMinMaxVisibleScale(rect, zoom, kDefault3dScale);
@@ -397,7 +402,7 @@ bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool
   return SetRect(targetRect, isAnim, parallelAnimCreator);
 }
 
-bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator parallelAnimCreator)
+bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator const & parallelAnimCreator)
 {
   ScreenBase tmp = GetCurrentScreen();
   tmp.SetFromRects(rect, tmp.PixelRectIn3d());
@@ -406,7 +411,7 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimation
   return SetScreen(tmp, isAnim, parallelAnimCreator);
 }
 
-bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim, TAnimationCreator parallelAnimCreator)
+bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim, TAnimationCreator const & parallelAnimCreator)
 {
   if (isAnim)
   {
@@ -470,7 +475,7 @@ bool UserEventStream::InterruptFollowAnimations(bool force)
 
 bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                                          double azimuth, int preferredZoomLevel, double autoScale,
-                                         bool isAnim, bool isAutoScale, TAnimationCreator parallelAnimCreator)
+                                         bool isAnim, bool isAutoScale, TAnimationCreator const & parallelAnimCreator)
 {
   // Reset current follow-and-rotate animation if possible.
   if (isAnim && !InterruptFollowAnimations(false /* force */))
@@ -587,6 +592,16 @@ m2::AnyRectD UserEventStream::GetTargetRect()
   ScreenBase targetScreen;
   GetTargetScreen(targetScreen);
   return targetScreen.GlobalRect();
+}
+
+void UserEventStream::CheckAutoRotate()
+{
+  if (GetCurrentScreen().isPerspective())
+    return;
+  double kMaxAutoRotateAngle = 25.0 * math::pi / 180.0;
+  double const angle = fabs(GetCurrentScreen().GetAngle());
+  if (angle < kMaxAutoRotateAngle || (2 * math::pi - angle) < kMaxAutoRotateAngle)
+    SetAngle(0.0);
 }
 
 bool UserEventStream::ProcessTouch(TouchEvent const & touch)
@@ -936,6 +951,8 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
   m_startDragOrg = m2::PointD::Zero();
   m_navigator.StopDrag(t.m_location);
 
+  CheckAutoRotate();
+
   if (cancelled)
   {
     m_scroller.CancelGrab();
@@ -1015,6 +1032,7 @@ void UserEventStream::EndScale(const Touch & t1, const Touch & t2)
   m_navigator.StopScale(touch1, touch2);
 
   m_kineticTimer.Reset();
+  CheckAutoRotate();
 }
 
 void UserEventStream::BeginTapDetector()
