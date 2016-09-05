@@ -1,4 +1,4 @@
-#include "map/generate_chart.hpp"
+#include "map/chart_generator.hpp"
 
 #include "base/assert.hpp"
 

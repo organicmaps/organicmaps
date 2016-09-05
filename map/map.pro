@@ -15,11 +15,11 @@ HEADERS += \
     booking_api.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
+    chart_generator.hpp \
     displacement_mode_manager.hpp \
     feature_vec_model.hpp \
     framework.hpp \
     ge0_parser.hpp \
-    generate_chart.hpp \
     geourl_process.hpp \
     gps_track.hpp \
     gps_track_collection.hpp \
@@ -39,11 +39,11 @@ SOURCES += \
     booking_api.cpp \
     bookmark.cpp \
     bookmark_manager.cpp \
+    chart_generator.cpp \
     displacement_mode_manager.cpp \
     feature_vec_model.cpp \
     framework.cpp \
     ge0_parser.cpp \
-    generate_chart.cpp \
     geourl_process.cpp \
     gps_track.cpp \
     gps_track_collection.cpp \

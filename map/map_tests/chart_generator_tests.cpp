@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "map/generate_chart.hpp"
+#include "map/chart_generator.hpp"
 
 #include "base/math.hpp"
 
@@ -103,10 +103,6 @@ UNIT_TEST(GenerateChartTest)
   vector<uint8_t> frameBuffer;
 
   GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, false /* day */, frameBuffer);
-  LOG(LINFO, (frameBuffer[0]));
-  LOG(LINFO, (frameBuffer[1]));
-  LOG(LINFO, (frameBuffer[2]));
-  LOG(LINFO, (frameBuffer[3]));
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 255 /* expectedR */, 255 /* expectedG */,
                255 /* expectedB */, 0 /* expectedA */),
        ());

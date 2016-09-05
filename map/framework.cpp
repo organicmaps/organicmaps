@@ -1,6 +1,6 @@
 #include "map/framework.hpp"
 #include "map/ge0_parser.hpp"
-#include "map/generate_chart.hpp"
+#include "map/chart_generator.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/user_mark.hpp"
@@ -2985,11 +2985,12 @@ bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
 }
 
 bool Framework::HasRouteAltitude() const { return m_routingSession.HasRouteAltitude(); }
+
 bool Framework::GenerateRouteAltitudeChart(size_t width, size_t height, bool day,
                                            vector<uint8_t> & imageRGBAData) const
 {
   feature::TAltitudes altitudes;
-  if (!m_routingSession.GetRouteAltitudes(altitudes) && altitudes.empty())
+  if (!m_routingSession.GetRouteAltitudes(altitudes))
     return false;
   deque<double> segDistanceM;
   if (!m_routingSession.GetSegDistanceM(segDistanceM) && segDistanceM.empty())
@@ -3002,7 +3003,6 @@ bool Framework::GenerateRouteAltitudeChart(size_t width, size_t height, bool day
                  ". Number of segment is", segDistanceM.size()));
   }
 
-  // @TODO It's necessary to normalize and center altitude information.
   GenerateChart(width, height, segDistanceM, altitudes, day, imageRGBAData);
   return true;
 }

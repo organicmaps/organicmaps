@@ -148,6 +148,7 @@ public:
   double GetCompletionPercent() const;
 
   void EmitCloseRoutingEvent() const;
+  bool HasRouteAltitudeImpl() const;
 
 private:
   struct DoReadyCallback
@@ -174,8 +175,6 @@ private:
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RemoveRouteImpl();
-
-  bool HasRouteAltitudeImpl() const;
 
 private:
   unique_ptr<AsyncRouter> m_router;
