@@ -44,8 +44,10 @@ public:
                        bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled);
   ~MyPositionController();
 
-  void OnNewViewportRect();
-  void UpdatePixelPosition(ScreenBase const & screen);
+  void UpdatePosition();
+  void OnUpdateScreen(ScreenBase const & screen);
+  void SetVisibleViewport(m2::RectD const & rect);
+
   void SetListener(ref_ptr<Listener> listener);
 
   m2::PointD const & Position() const;
@@ -97,12 +99,12 @@ public:
   bool IsInRouting() const { return m_isInRouting; }
   bool IsRouteFollowingActive() const;
   bool IsWaitingForTimers() const;
+  bool IsModeChangeViewport() const;
 
   bool IsWaitingForLocation() const;
   m2::PointD GetDrawablePosition();
 
 private:
-  bool IsModeChangeViewport() const;
   void ChangeMode(location::EMyPositionMode newMode);
   void SetDirection(double bearing);
   
@@ -161,6 +163,7 @@ private:
   double m_lastLocationTimestamp;
 
   m2::RectD m_pixelRect;
+  m2::RectD m_visiblePixelRect;
   double m_positionYOffset;
 
   bool m_isVisible;

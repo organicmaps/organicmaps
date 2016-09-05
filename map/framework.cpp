@@ -948,6 +948,11 @@ m2::PointD Framework::GetPixelCenter() const
                                             : m_currentModelView.PixelRect().Center();
 }
 
+m2::PointD Framework::GetVisiblePixelCenter() const
+{
+  return m_visibleViewport.Center();
+}
+
 m2::PointD const & Framework::GetViewportCenter() const
 {
   return m_currentModelView.GetOrg();
@@ -966,6 +971,14 @@ void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel)
 m2::RectD Framework::GetCurrentViewport() const
 {
   return m_currentModelView.ClipRect();
+}
+
+void Framework::SetVisibleViewport(m2::RectD const & rect)
+{
+  if (m_drapeEngine == nullptr)
+    return;
+  m_visibleViewport = rect;
+  m_drapeEngine->SetVisibleViewport(rect);
 }
 
 void Framework::ShowRect(m2::RectD const & rect, int maxScale)
@@ -1016,7 +1029,7 @@ void Framework::Scale(Framework::EScaleMode mode, m2::PointD const & pxPoint, bo
 
 void Framework::Scale(double factor, bool isAnim)
 {
-  Scale(factor, GetPixelCenter(), isAnim);
+  Scale(factor, GetVisiblePixelCenter(), isAnim);
 }
 
 void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)

@@ -134,6 +134,7 @@ protected:
   search::QuerySaver m_searchQuerySaver;
 
   ScreenBase m_currentModelView;
+  m2::RectD m_visibleViewport;
 
   using TViewportChanged = df::DrapeEngine::TModelViewListenerFn;
   TViewportChanged m_viewportChanged;
@@ -531,12 +532,14 @@ public:
   void ShowAll();
 
   m2::PointD GetPixelCenter() const;
+  m2::PointD GetVisiblePixelCenter() const;
 
   m2::PointD const & GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);
   void SetViewportCenter(m2::PointD const & pt, int zoomLevel);
 
   m2::RectD GetCurrentViewport() const;
+  void SetVisibleViewport(m2::RectD const & rect);
 
   /// - Check minimal visible scale according to downloaded countries.
   void ShowRect(m2::RectD const & rect, int maxScale = -1);

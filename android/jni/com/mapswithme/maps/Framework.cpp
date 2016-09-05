@@ -1171,7 +1171,7 @@ Java_com_mapswithme_maps_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, jint left, jint top, jint right, jint bottom)
 {
-  //TODO: call framework method
+  frm()->SetVisibleViewport(m2::RectD(left, top, right, bottom));
 }
 
 } // extern "C"

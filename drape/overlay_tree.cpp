@@ -367,6 +367,23 @@ void OverlayTree::DeleteHandle(ref_ptr<OverlayHandle> const & handle)
     Erase(handle);
 }
 
+bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & featureRect)
+{
+  if (!m_selectedFeatureID.IsValid())
+    return false;
+
+  featureRect.MakeEmpty();
+  for (auto const & handle : m_handlesCache)
+  {
+    if (handle->IsVisible() && handle->GetFeatureID() == m_selectedFeatureID)
+    {
+      m2::RectD rect = handle->GetPixelRect(screen, screen.isPerspective());
+      featureRect.Add(rect);
+    }
+  }
+  return true;
+}
+
 void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result) const
 {
   ScreenBase const & screen = m_traits.m_modelView;

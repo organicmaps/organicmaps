@@ -203,6 +203,7 @@ private:
   void OnScaleEnded() override;
   void OnAnimatedScaleEnded() override;
   void OnTouchMapAction() override;
+  bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, m2::PointD & gOffset) override;
 
   class Routine : public threads::IRoutine
   {

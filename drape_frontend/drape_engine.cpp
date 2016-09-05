@@ -111,6 +111,13 @@ void DrapeEngine::Resize(int w, int h)
     ResizeImpl(w, h);
 }
 
+void DrapeEngine::SetVisibleViewport(m2::RectD const & rect) const
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetVisibleViewportMessage>(rect),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::Invalidate()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
