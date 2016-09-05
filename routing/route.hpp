@@ -55,26 +55,10 @@ public:
     Update();
   }
 
-  inline void SwapTurnInstructions(TTurns & v)
-  {
-    swap(m_turns, v);
-  }
-
-  inline void SwapSectionTimes(TTimes & v)
-  {
-    swap(m_times, v);
-  }
-
-  inline void SwapStreetNames(TStreets & v)
-  {
-    swap(m_streets, v);
-  }
-
-  inline void SwapAltitudes(feature::TAltitudes & v)
-  {
-    swap(m_altitudes, v);
-  }
-
+  inline void SwapTurnInstructions(TTurns & v) { swap(m_turns, v); }
+  inline void SwapSectionTimes(TTimes & v) { swap(m_times, v); }
+  inline void SwapStreetNames(TStreets & v) { swap(m_streets, v); }
+  inline void SwapAltitudes(feature::TAltitudes & v) { swap(m_altitudes, v); }
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
 

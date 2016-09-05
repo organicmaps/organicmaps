@@ -24,7 +24,6 @@ public:
 
   m2::PolylineD const & GetPolyline() const { return m_poly; }
   vector<double> const & GetSegDistanceM() const { return m_segDistance; }
-
   double GetTotalDistanceM() const;
   double GetDistanceFromBeginM() const;
   double GetDistanceToEndM() const;

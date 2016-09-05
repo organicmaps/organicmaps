@@ -2984,11 +2984,7 @@ bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
   return osm::Editor::Instance().OriginalFeatureHasDefaultName(fid);
 }
 
-bool Framework::HasRouteAltitude() const
-{
-  return m_routingSession.HasRouteAltitude();
-}
-
+bool Framework::HasRouteAltitude() const { return m_routingSession.HasRouteAltitude(); }
 bool Framework::GenerateRouteAltitudeChart(size_t width, size_t height, bool day,
                                            vector<uint8_t> & imageRGBAData) const
 {

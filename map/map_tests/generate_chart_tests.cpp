@@ -25,13 +25,13 @@ bool AlmostEqualAbs(vector<double> const & v1, vector<double> const & v2)
   return true;
 }
 
-bool IsColor(vector<uint8_t> const & frameBuffer, size_t startColorIdx,
-             uint8_t expectedR, uint8_t expectedG, uint8_t expectedB, uint8_t expectedA)
+bool IsColor(vector<uint8_t> const & frameBuffer, size_t startColorIdx, uint8_t expectedR,
+             uint8_t expectedG, uint8_t expectedB, uint8_t expectedA)
 {
   CHECK_LESS(startColorIdx + kBPP, frameBuffer.size(), ());
 
-  return frameBuffer[startColorIdx] == expectedR && frameBuffer[startColorIdx + 1] == expectedG
-      && frameBuffer[startColorIdx + 2] == expectedB && frameBuffer[startColorIdx + 3] == expectedA;
+  return frameBuffer[startColorIdx] == expectedR && frameBuffer[startColorIdx + 1] == expectedG &&
+         frameBuffer[startColorIdx + 2] == expectedB && frameBuffer[startColorIdx + 3] == expectedA;
 }
 
 UNIT_TEST(NormalizeChartDataZeroTest)
@@ -54,8 +54,8 @@ UNIT_TEST(NormalizeChartDataTest)
   vector<double> uniformAltitudeDataM;
   NormalizeChartData(distanceDataM, altitudeDataM, 10 /* resultPointCount */, uniformAltitudeDataM);
 
-  vector<double> const expectedUniformAltitudeDataM =
-      {-9.0, -6.0, -3.0, 0.0, 3.0, 6.0, 9.0, 12.0, 15.0, 18.0};
+  vector<double> const expectedUniformAltitudeDataM = {-9.0, -6.0, -3.0, 0.0,  3.0,
+                                                       6.0,  9.0,  12.0, 15.0, 18.0};
   TEST(AlmostEqualAbs(uniformAltitudeDataM, expectedUniformAltitudeDataM), ());
 }
 
@@ -88,9 +88,11 @@ UNIT_TEST(GenerateChartByPointsTest)
 
   GenerateChartByPoints(width, 40 /* height */, geometry, true /* day */, frameBuffer);
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 30 /* expectedR */, 150 /* expectedG */,
-               240 /* expectedB */, 255 /* expectedA */), ());
-  TEST(IsColor(frameBuffer, kBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */, 255 /* expectedG */,
-               255 /* expectedB */, 0 /* expectedA */), ());
+               240 /* expectedB */, 255 /* expectedA */),
+       ());
+  TEST(IsColor(frameBuffer, kBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */,
+               255 /* expectedG */, 255 /* expectedB */, 0 /* expectedA */),
+       ());
 }
 
 UNIT_TEST(GenerateChartTest)
@@ -106,8 +108,10 @@ UNIT_TEST(GenerateChartTest)
   LOG(LINFO, (frameBuffer[2]));
   LOG(LINFO, (frameBuffer[3]));
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 255 /* expectedR */, 255 /* expectedG */,
-               255 /* expectedB */, 0 /* expectedA */), ());
-  TEST(IsColor(frameBuffer, kBPP * 3 * width - kBPP /* startColorIdx */, 255 /* expectedR */, 230 /* expectedG */,
-               140 /* expectedB */, 255 /* expectedA */), ());
+               255 /* expectedB */, 0 /* expectedA */),
+       ());
+  TEST(IsColor(frameBuffer, kBPP * 3 * width - kBPP /* startColorIdx */, 255 /* expectedR */,
+               230 /* expectedG */, 140 /* expectedB */, 255 /* expectedA */),
+       ());
 }
 }  // namespace

@@ -9,8 +9,8 @@
 
 #include "coding/reader_wrapper.hpp"
 
-#include "indexer/feature_altitude.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_altitude.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 

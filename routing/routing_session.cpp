@@ -523,11 +523,7 @@ void RoutingSession::EmitCloseRoutingEvent() const
       alohalytics::Location::FromLatLon(lastGoodPoint.lat, lastGoodPoint.lon));
 }
 
-bool RoutingSession::HasRouteAltitudeImpl() const
-{
-  return !m_route.GetAltitudes().empty();
-}
-
+bool RoutingSession::HasRouteAltitudeImpl() const { return !m_route.GetAltitudes().empty(); }
 bool RoutingSession::HasRouteAltitude() const
 {
   threads::MutexGuard guard(m_routeSessionMutex);

@@ -10,8 +10,9 @@
 /// \brief fills uniformAltitudeDataM with altitude data which evenly distributed by
 /// |resultPointCount| points. |distanceDataM| and |altitudeDataM| form a curve of route altitude.
 /// This method is used to generalize and evenly distribute points of the chart.
-void NormalizeChartData(deque<double> const & distanceDataM, feature::TAltitudes const & altitudeDataM,
-                        size_t resultPointCount, vector<double> & uniformAltitudeDataM);
+void NormalizeChartData(deque<double> const & distanceDataM,
+                        feature::TAltitudes const & altitudeDataM, size_t resultPointCount,
+                        vector<double> & uniformAltitudeDataM);
 
 /// \brief fills |yAxisDataPxl|. |yAxisDataPxl| is formed to pevent displaying
 /// big waves on the chart in case of small deviation in absolute values in |yAxisData|.
@@ -30,8 +31,8 @@ void GenerateYAxisChartData(size_t height, double minMetersPerPxl,
 /// \param frameBuffer is a vector for a result image. It's resized in this method.
 /// It's filled with RGBA(8888) image date.
 void GenerateChartByPoints(size_t width, size_t height, vector<m2::PointD> const & geometry,
-                          bool day, vector<uint8_t> & frameBuffer);
+                           bool day, vector<uint8_t> & frameBuffer);
 
-void GenerateChart(size_t width, size_t height,
-                   deque<double> const & distanceDataM, feature::TAltitudes const & altitudeDataM,
-                   bool day, vector<uint8_t> & frameBuffer);
+void GenerateChart(size_t width, size_t height, deque<double> const & distanceDataM,
+                   feature::TAltitudes const & altitudeDataM, bool day,
+                   vector<uint8_t> & frameBuffer);
