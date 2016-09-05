@@ -108,11 +108,12 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
                                             downloadCompleteBlock:downloadCompleteBlock]];
 }
 
-- (void)presentRoutingDisclaimerAlert
+- (void)presentRoutingDisclaimerAlertWithOkBlock:(TMWMVoidBlock)block
 {
-  [self displayAlert:[MWMAlert
-                         routingDisclaimerAlertWithInitialOrientation:self.ownerViewController
-                                                                          .interfaceOrientation]];
+  [self
+      displayAlert:[MWMAlert routingDisclaimerAlertWithInitialOrientation:self.ownerViewController
+                                                                              .interfaceOrientation
+                                                                  okBlock:block]];
 }
 
 - (void)presentDisabledLocationAlert { [self displayAlert:MWMAlert.disabledLocationAlert]; }

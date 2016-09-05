@@ -178,37 +178,51 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 - (void)start
 {
-  if (self.startPoint.IsMyPosition())
-    [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
-          withParameters:@{kStatValue : kStatFromMyPosition}];
-  else if (self.finishPoint.IsMyPosition())
-    [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
-          withParameters:@{kStatValue : kStatToMyPosition}];
-  else
-    [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
-          withParameters:@{kStatValue : kStatPointToPoint}];
+  auto const doStart = ^{
+    if (self.startPoint.IsMyPosition())
+      [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
+            withParameters:@{kStatValue : kStatFromMyPosition}];
+    else if (self.finishPoint.IsMyPosition())
+      [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
+            withParameters:@{kStatValue : kStatToMyPosition}];
+    else
+      [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
+            withParameters:@{kStatValue : kStatPointToPoint}];
 
-  if (self.startPoint.IsMyPosition())
+    if (self.startPoint.IsMyPosition())
+    {
+      GetFramework().FollowRoute();
+      [[MWMMapViewControlsManager manager] onRouteStart];
+      MapsAppDelegate * app = [MapsAppDelegate theApp];
+      app.routingPlaneMode = MWMRoutingPlaneModeNone;
+      [MWMRouterSavedState store];
+      [MapsAppDelegate changeMapStyleIfNedeed];
+      [app startMapStyleChecker];
+    }
+    else
+    {
+      MWMAlertViewController * alertController = [MWMAlertViewController activeAlertController];
+      CLLocation * lastLocation = [MWMLocationManager lastLocation];
+      BOOL const needToRebuild = lastLocation &&
+                                 !location_helpers::isMyPositionPendingOrNoPosition() &&
+                                 !self.finishPoint.IsMyPosition();
+      [alertController presentPoint2PointAlertWithOkBlock:^{
+        [self buildFromPoint:lastLocationPoint() bestRouter:NO];
+      }
+                                            needToRebuild:needToRebuild];
+    }
+  };
+
+  if ([MWMSettings routingDisclaimerApproved])
   {
-    GetFramework().FollowRoute();
-    [[MWMMapViewControlsManager manager] onRouteStart];
-    MapsAppDelegate * app = [MapsAppDelegate theApp];
-    app.routingPlaneMode = MWMRoutingPlaneModeNone;
-    [MWMRouterSavedState store];
-    [MapsAppDelegate changeMapStyleIfNedeed];
-    [app startMapStyleChecker];
+    doStart();
   }
   else
   {
-    MWMAlertViewController * alertController = [MWMAlertViewController activeAlertController];
-    CLLocation * lastLocation = [MWMLocationManager lastLocation];
-    BOOL const needToRebuild = lastLocation &&
-                               !location_helpers::isMyPositionPendingOrNoPosition() &&
-                               !self.finishPoint.IsMyPosition();
-    [alertController presentPoint2PointAlertWithOkBlock:^{
-      [self buildFromPoint:lastLocationPoint() bestRouter:NO];
-    }
-                                          needToRebuild:needToRebuild];
+    [[MWMAlertViewController activeAlertController] presentRoutingDisclaimerAlertWithOkBlock:^{
+      doStart();
+      [MWMSettings setRoutingDisclaimerApproved];
+    }];
   }
 }
 
@@ -241,16 +255,6 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   f.GetRouteFollowingInfo(info);
   if (info.IsValid())
     [[MWMNavigationDashboardManager manager] updateFollowingInfo:info];
-}
-
-- (void)showDisclaimer
-{
-  bool isDisclaimerApproved = false;
-  UNUSED_VALUE(settings::Get("IsDisclaimerApproved", isDisclaimerApproved));
-  if (isDisclaimerApproved)
-    return;
-  [[MWMAlertViewController activeAlertController] presentRoutingDisclaimerAlert];
-  settings::Set("IsDisclaimerApproved", true);
 }
 
 #pragma mark - MWMLocationObserver
@@ -295,7 +299,6 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     else
       [[MWMMapViewControlsManager manager] onRouteReady];
     [self updateFollowingInfo];
-    [self showDisclaimer];
     [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:100];
     [MWMMapViewControlsManager manager].searchHidden = YES;
     break;

@@ -2,6 +2,7 @@
 
 @interface MWMRoutingDisclaimerAlert : MWMAlert
 
-+ (instancetype)alertWithInitialOrientation:(UIInterfaceOrientation)orientation;
++ (instancetype)alertWithInitialOrientation:(UIInterfaceOrientation)orientation
+                                    okBlock:(TMWMVoidBlock)block;
 
 @end

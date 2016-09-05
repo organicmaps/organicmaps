@@ -12,12 +12,14 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 @property(weak, nonatomic) IBOutlet UITextView * textView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * textViewHeight;
+@property(copy, nonatomic) TMWMVoidBlock okBlock;
 
 @end
 
 @implementation MWMRoutingDisclaimerAlert
 
 + (instancetype)alertWithInitialOrientation:(UIInterfaceOrientation)orientation
+                                    okBlock:(TMWMVoidBlock)block
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMRoutingDisclaimerAlert * alert =
@@ -45,12 +47,20 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
   else
     height = window.height;
   [alert invalidateTextViewHeight:alert.textView.height withHeight:height];
+  alert.okBlock = block;
   return alert;
 }
 
 - (IBAction)okTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
+  self.okBlock();
+  [self close];
+}
+
+- (IBAction)cancelTap
+{
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatCancel}];
   [self close];
 }
 

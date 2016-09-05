@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Medium</string>
             <string>HelveticaNeue-Medium</string>
             <string>HelveticaNeue-Medium</string>
         </mutableArray>
@@ -68,10 +69,9 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCY-1G-NL5" userLabel="right">
-                            <rect key="frame" x="0.0" y="93" width="280" height="44"/>
+                            <rect key="frame" x="141" y="93" width="139" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="AAv-pX-uuc"/>
-                                <constraint firstAttribute="width" constant="280" id="lvU-ua-qht"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                             <state key="normal" title="right">
@@ -80,7 +80,7 @@
                             </state>
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="accept"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
@@ -88,6 +88,33 @@
                                 <action selector="okTap" destination="Ie9-JJ-hnZ" eventType="touchUpInside" id="vfz-Rd-Kh6"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfV-qu-qmI" userLabel="left">
+                            <rect key="frame" x="0.0" y="93" width="140" height="44"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                            <state key="normal" title="left">
+                                <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="decline"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="cancelTap" destination="Ie9-JJ-hnZ" eventType="touchUpInside" id="KWl-Dn-BpU"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="930-J1-9o0" userLabel="vDivider">
+                            <rect key="frame" x="140" y="93" width="1" height="44"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="mf2-e7-Qg6"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="0.88" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -95,12 +122,20 @@
                         <constraint firstAttribute="width" secondItem="XIL-q9-MMp" secondAttribute="width" id="3m7-Ha-HlN"/>
                         <constraint firstItem="XIL-q9-MMp" firstAttribute="top" secondItem="lbr-Xd-hLF" secondAttribute="bottom" constant="20" id="4k1-g8-WZV"/>
                         <constraint firstAttribute="trailing" secondItem="aCY-1G-NL5" secondAttribute="trailing" id="BcN-zR-SdX"/>
+                        <constraint firstItem="930-J1-9o0" firstAttribute="bottom" secondItem="aCY-1G-NL5" secondAttribute="bottom" id="F4d-Td-XJg"/>
+                        <constraint firstItem="JfV-qu-qmI" firstAttribute="width" secondItem="aCY-1G-NL5" secondAttribute="width" id="KAH-qc-1f1"/>
                         <constraint firstAttribute="width" constant="280" id="KpN-ir-OWh"/>
                         <constraint firstAttribute="centerX" secondItem="lbr-Xd-hLF" secondAttribute="centerX" id="KuP-DA-FWV"/>
+                        <constraint firstItem="JfV-qu-qmI" firstAttribute="bottom" secondItem="aCY-1G-NL5" secondAttribute="bottom" id="MPL-wr-BbK"/>
+                        <constraint firstItem="aCY-1G-NL5" firstAttribute="leading" secondItem="930-J1-9o0" secondAttribute="trailing" id="N4p-JX-gzl"/>
                         <constraint firstAttribute="centerX" secondItem="S3s-j7-v6E" secondAttribute="centerX" id="Oag-6s-ais"/>
                         <constraint firstItem="S3s-j7-v6E" firstAttribute="top" secondItem="Ogu-AE-Ohh" secondAttribute="top" constant="20" id="OoP-Qp-YIb"/>
+                        <constraint firstItem="JfV-qu-qmI" firstAttribute="leading" secondItem="Ogu-AE-Ohh" secondAttribute="leading" id="VYG-iz-HL8"/>
                         <constraint firstAttribute="bottom" secondItem="aCY-1G-NL5" secondAttribute="bottom" id="WB8-od-eAG"/>
+                        <constraint firstItem="930-J1-9o0" firstAttribute="top" secondItem="aCY-1G-NL5" secondAttribute="top" id="aP7-3d-zW1"/>
+                        <constraint firstItem="JfV-qu-qmI" firstAttribute="top" secondItem="aCY-1G-NL5" secondAttribute="top" id="b8D-tm-ZFK"/>
                         <constraint firstAttribute="centerX" secondItem="XIL-q9-MMp" secondAttribute="centerX" id="bas-rx-OTg"/>
+                        <constraint firstItem="930-J1-9o0" firstAttribute="leading" secondItem="JfV-qu-qmI" secondAttribute="trailing" id="gTM-qA-I1T"/>
                         <constraint firstItem="aCY-1G-NL5" firstAttribute="top" secondItem="XIL-q9-MMp" secondAttribute="bottom" id="swb-Yx-lVo"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
