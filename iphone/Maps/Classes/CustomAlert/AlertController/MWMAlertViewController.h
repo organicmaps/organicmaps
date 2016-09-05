@@ -20,7 +20,7 @@
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
-- (void)presentRoutingDisclaimerAlert;
+- (void)presentRoutingDisclaimerAlertWithOkBlock:(nonnull nonnull TMWMVoidBlock)block;
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlert;
 - (void)presentLocationServiceNotSupportedAlert;

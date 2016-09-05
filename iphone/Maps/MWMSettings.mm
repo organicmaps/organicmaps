@@ -14,6 +14,7 @@ char const * kAdServerForbiddenKey = "AdServerForbidden";
 char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
 char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
 char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
+char const * kRoutingDisclaimerApprovedKey = "IsDisclaimerApproved";
 
 NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 }  // namespace
@@ -106,6 +107,18 @@ NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setBool:!autoNightModeEnabled forKey:kUDAutoNightModeOff];
   [ud synchronize];
+}
+
++ (BOOL)routingDisclaimerApproved
+{
+  bool enabled = false;
+  UNUSED_VALUE(settings::Get(kRoutingDisclaimerApprovedKey, enabled));
+  return enabled;
+}
+
++ (void)setRoutingDisclaimerApproved
+{
+  settings::Set(kRoutingDisclaimerApprovedKey, true);
 }
 
 @end

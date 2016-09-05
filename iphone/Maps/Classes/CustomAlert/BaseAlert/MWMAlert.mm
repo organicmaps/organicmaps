@@ -33,9 +33,9 @@
   return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];
 }
 
-+ (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation
++ (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation okBlock:(TMWMVoidBlock)block
 {
-  return [MWMRoutingDisclaimerAlert alertWithInitialOrientation:orientation];
+  return [MWMRoutingDisclaimerAlert alertWithInitialOrientation:orientation okBlock:block];
 }
 
 + (MWMAlert *)disabledLocationAlert

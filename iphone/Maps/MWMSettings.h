@@ -24,4 +24,7 @@
 + (BOOL)autoNightModeEnabled;
 + (void)setAutoNightModeEnabled:(BOOL)autoNightModeEnabled;
 
++ (BOOL)routingDisclaimerApproved;
++ (void)setRoutingDisclaimerApproved;
+
 @end
