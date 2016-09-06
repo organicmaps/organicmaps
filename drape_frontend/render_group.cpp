@@ -88,9 +88,15 @@ void RenderGroup::Render(ScreenBase const & screen)
   for(auto & renderBucket : m_renderBuckets)
     renderBucket->GetBuffer()->Build(shader);
 
-  auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
+  // Set tile-based model-view matrix.
+  {
+    math::Matrix<float, 4, 4> mv = GetTileKey().GetTileBasedModelView(screen);
+    m_uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  }
+
   int programIndex = m_state.GetProgramIndex();
   int program3dIndex = m_state.GetProgram3dIndex();
+  auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
   if (programIndex == gpu::TEXT_OUTLINED_PROGRAM ||
       program3dIndex == gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM)
   {
@@ -186,12 +192,12 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
   return false;
 }
 
-UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state,
-                                         TileKey const & tileKey,
+UserMarkRenderGroup::UserMarkRenderGroup(size_t layerId, dp::GLState const & state, TileKey const & tileKey,
                                          drape_ptr<dp::RenderBucket> && bucket)
   : TBase(state, tileKey)
   , m_renderBucket(move(bucket))
   , m_animation(new OpacityAnimation(0.25 /*duration*/, 0.0 /* minValue */, 1.0 /* maxValue*/))
+  , m_layerId(layerId)
 {
   m_mapping.AddRangePoint(0.6, 1.3);
   m_mapping.AddRangePoint(0.85, 0.8);
@@ -215,6 +221,13 @@ void UserMarkRenderGroup::UpdateAnimation()
 void UserMarkRenderGroup::Render(ScreenBase const & screen)
 {
   BaseRenderGroup::Render(screen);
+
+  // Set tile-based model-view matrix.
+  {
+    math::Matrix<float, 4, 4> mv = GetTileKey().GetTileBasedModelView(screen);
+    m_uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  }
+
   ref_ptr<dp::GpuProgram> shader = screen.isPerspective() ? m_shader3d : m_shader;
   dp::ApplyUniforms(m_uniforms, shader);
   if (m_renderBucket != nullptr)
@@ -222,6 +235,11 @@ void UserMarkRenderGroup::Render(ScreenBase const & screen)
     m_renderBucket->GetBuffer()->Build(shader);
     m_renderBucket->Render();
   }
+}
+
+size_t UserMarkRenderGroup::GetLayerId() const
+{
+  return m_layerId;
 }
 
 string DebugPrint(RenderGroup const & group)

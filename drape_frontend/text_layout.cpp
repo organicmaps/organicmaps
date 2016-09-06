@@ -1,6 +1,5 @@
 #include "drape_frontend/text_layout.hpp"
-#include "drape_frontend/visual_params.hpp"
-
+#include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/fribidi.hpp"
@@ -436,8 +435,9 @@ void StraightTextLayout::Cache(glm::vec4 const & pivot, glm::vec2 const & pixelO
   }
 }
 
-PathTextLayout::PathTextLayout(strings::UniString const & text, float fontSize,
-                               ref_ptr<dp::TextureManager> textures)
+PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, strings::UniString const & text,
+                               float fontSize, ref_ptr<dp::TextureManager> textures)
+  : m_tileCenter(tileCenter)
 {
   Init(fribidi::log2vis(text), fontSize, textures);
 }
@@ -481,6 +481,8 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
   glsl::vec2 pxPivot = glsl::ToVec2(iter.m_pos);
   buffer.resize(4 * m_metrics.size());
+
+  glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter, kShapeCoordScalar)), depth, 0.0f);
   for (size_t i = 0; i < m_metrics.size(); ++i)
   {
     GlyphRegion const & g = m_metrics[i];
@@ -501,7 +503,6 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
     size_t baseIndex = 4 * i;
 
-    glsl::vec4 pivot(glsl::ToVec2(globalPivot), depth, 0.0f);
     buffer[baseIndex + 0] = gpu::TextDynamicVertex(pivot, formingVector + normal * bottomVector + tangent * xOffset);
     buffer[baseIndex + 1] = gpu::TextDynamicVertex(pivot, formingVector + normal * upVector + tangent * xOffset);
     buffer[baseIndex + 2] = gpu::TextDynamicVertex(pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));

@@ -1,4 +1,6 @@
 #include "drape_frontend/tile_key.hpp"
+
+#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
 #include "indexer/scales.hpp"
@@ -78,6 +80,11 @@ m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
   double const startY = m_y * rectSize;
 
   return m2::RectD (startX, startY, startX + rectSize, startY + rectSize);
+}
+
+math::Matrix<float, 4, 4> TileKey::GetTileBasedModelView(ScreenBase const & screen) const
+{
+  return screen.GetModelView(GetGlobalRect().Center(), kShapeCoordScalar);
 }
 
 string DebugPrint(TileKey const & key)

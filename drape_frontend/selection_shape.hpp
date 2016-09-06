@@ -35,8 +35,7 @@ public:
   void SetPosition(m2::PointD const & position) { m_position = position; }
   void Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate);
   void Hide();
-  void Render(ScreenBase const & screen,
-              ref_ptr<dp::GpuProgramManager> mng,
+  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
   ESelectedObject GetSelectedObject() const;

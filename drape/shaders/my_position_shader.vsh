@@ -21,9 +21,9 @@ void main(void)
   rotation[2] = vec4(0.0, 0.0, 1.0, 0.0);
   rotation[3] = vec4(0.0, 0.0, 0.0, 1.0);
 
-  lowp vec4 pos = vec4(u_position, 1.0) * modelView;
-  highp vec4 normal = vec4(a_normal, 0, 0);
-  highp vec4 shiftedPos = normal * rotation + pos;
+  vec4 pos = vec4(u_position, 1.0) * modelView;
+  vec4 normal = vec4(a_normal, 0, 0);
+  vec4 shiftedPos = normal * rotation + pos;
 
   shiftedPos = shiftedPos * projection;
   float w = shiftedPos.w;

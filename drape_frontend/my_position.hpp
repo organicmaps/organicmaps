@@ -28,11 +28,11 @@ public:
   void SetRoutingMode(bool routingMode);
   void SetPositionObsolete(bool obsolete);
 
-  void RenderAccuracy(ScreenBase const & screen,
+  void RenderAccuracy(ScreenBase const & screen, int zoomLevel,
                       ref_ptr<dp::GpuProgramManager> mng,
                       dp::UniformValuesStorage const & commonUniforms);
 
-  void RenderMyPosition(ScreenBase const & screen,
+  void RenderMyPosition(ScreenBase const & screen, int zoomLevel,
                         ref_ptr<dp::GpuProgramManager> mng,
                         dp::UniformValuesStorage const & commonUniforms);
 

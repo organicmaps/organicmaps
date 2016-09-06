@@ -118,7 +118,7 @@ void Arrow3d::SetPositionObsolete(bool obsolete)
   m_obsoletePosition = obsolete;
 }
 
-void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng)
+void Arrow3d::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng)
 {
   // Unbind current VAO, because glVertexAttributePointer and glEnableVertexAttribute can affect it.
   if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
@@ -170,7 +170,7 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> pro
   
   dp::UniformValuesStorage uniforms;
   math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz);
-  uniforms.SetMatrix4x4Value("m_transform", modelTransform.m_data);
+  uniforms.SetMatrix4x4Value("u_transform", modelTransform.m_data);
   glsl::vec4 const c = glsl::ToVec4(color);
   uniforms.SetFloatValue("u_color", c.r, c.g, c.b, c.a);
   dp::ApplyState(m_state, program);

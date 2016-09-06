@@ -1,5 +1,8 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/attribute_provider.hpp"
@@ -125,7 +128,7 @@ void SelectionShape::Hide()
   m_selectedObject = OBJECT_EMPTY;
 }
 
-void SelectionShape::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng,
                             dp::UniformValuesStorage const & commonUniforms)
 {
   ShowHideAnimation::EState state = m_animation.GetState();
@@ -133,7 +136,12 @@ void SelectionShape::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMan
       state == ShowHideAnimation::STATE_SHOW_DIRECTION)
   {
     dp::UniformValuesStorage uniforms = commonUniforms;
-    uniforms.SetFloatValue("u_position", m_position.x, m_position.y, -m_positionZ);
+    TileKey const key = GetTileKeyByPoint(m_position, ClipTileZoomByMaxDataZoom(zoomLevel));
+    math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
+    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+
+    m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
+    uniforms.SetFloatValue("u_position", pos.x, pos.y, -m_positionZ);
 
     float accuracy = m_mapping.GetValue(m_animation.GetT());
     if (screen.isPerspective())

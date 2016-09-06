@@ -248,23 +248,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       dp::GLState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      if (!IsUserMarkLayer(key))
-      {
-        if (key.m_zoomLevel == m_currentZoomLevel && CheckTileGenerations(key))
-        {
-          PrepareBucket(state, bucket);
-          AddToRenderGroup(state, move(bucket), key);
-        }
-      }
-      else
+      if (key.m_zoomLevel == m_currentZoomLevel && CheckTileGenerations(key))
       {
         PrepareBucket(state, bucket);
-
-        ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
-        ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
-
-        m_userMarkRenderGroups.emplace_back(make_unique_dp<UserMarkRenderGroup>(state, key, move(bucket)));
-        m_userMarkRenderGroups.back()->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
+        AddToRenderGroup(state, move(bucket), key);
       }
       break;
     }
@@ -275,7 +262,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       TOverlaysRenderData renderData = msg->AcceptRenderData();
       for (auto & overlayRenderData : renderData)
       {
-        ASSERT(!IsUserMarkLayer(overlayRenderData.m_tileKey), ());
         if (overlayRenderData.m_tileKey.m_zoomLevel == m_currentZoomLevel &&
             CheckTileGenerations(overlayRenderData.m_tileKey))
         {
@@ -315,30 +301,46 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::FlushUserMarks:
+    {
+      ref_ptr<FlushUserMarksMessage> msg = message;
+      size_t const layerId = msg->GetLayerId();
+      for (UserMarkShape & shape : msg->GetShapes())
+      {
+        PrepareBucket(shape.m_state, shape.m_bucket);
+        auto program = m_gpuProgramManager->GetProgram(shape.m_state.GetProgramIndex());
+        auto program3d = m_gpuProgramManager->GetProgram(shape.m_state.GetProgram3dIndex());
+        auto group = make_unique_dp<UserMarkRenderGroup>(layerId, shape.m_state, shape.m_tileKey,
+                                                         move(shape.m_bucket));
+        m_userMarkRenderGroups.push_back(move(group));
+        m_userMarkRenderGroups.back()->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
+      }
+      break;
+    }
+
   case Message::ClearUserMarkLayer:
     {
-      TileKey const & tileKey = ref_ptr<ClearUserMarkLayerMessage>(message)->GetKey();
-      auto const functor = [&tileKey](drape_ptr<UserMarkRenderGroup> const & g)
+      ref_ptr<ClearUserMarkLayerMessage> msg = message;
+      size_t const layerId = msg->GetLayerId();
+      auto const functor = [&layerId](drape_ptr<UserMarkRenderGroup> const & g)
       {
-        return g->GetTileKey() == tileKey;
+        return g->GetLayerId() == layerId;
       };
 
       auto const iter = remove_if(m_userMarkRenderGroups.begin(),
                                   m_userMarkRenderGroups.end(),
                                   functor);
-
       m_userMarkRenderGroups.erase(iter, m_userMarkRenderGroups.end());
       break;
     }
 
   case Message::ChangeUserMarkLayerVisibility:
     {
-      ref_ptr<ChangeUserMarkLayerVisibilityMessage> m = message;
-      TileKey const & key = m->GetKey();
-      if (m->IsVisible())
-        m_userMarkVisibility.insert(key);
+      ref_ptr<ChangeUserMarkLayerVisibilityMessage> msg = message;
+      if (msg->IsVisible())
+        m_userMarkVisibility.insert(msg->GetLayerId());
       else
-        m_userMarkVisibility.erase(key);
+        m_userMarkVisibility.erase(msg->GetLayerId());
       break;
     }
 
@@ -1027,12 +1029,14 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     {
       ASSERT(m_myPositionController->IsModeHasPosition(), ());
       m_selectionShape->SetPosition(m_myPositionController->Position());
-      m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+      m_selectionShape->Render(modelView, m_currentZoomLevel,
+                               make_ref(m_gpuProgramManager), m_generalUniforms);
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
     {
       if (!isPerspective && m_layers[RenderLayer::Geometry3dID].m_renderGroups.empty())
-        m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+        m_selectionShape->Render(modelView, m_currentZoomLevel,
+                                 make_ref(m_gpuProgramManager), m_generalUniforms);
       else
         hasSelectedPOI = true;
     }
@@ -1057,32 +1061,26 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   if (hasSelectedPOI)
   {
     GLFunctions::glDisable(gl_const::GLDepthTest);
-    m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+    m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
   }
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClearDepth();
   RenderOverlayLayer(modelView);
 
-  m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel,
-                                  make_ref(m_gpuProgramManager), m_generalUniforms);
+  m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   GLFunctions::glDisable(gl_const::GLDepthTest);
   if (m_selectionShape != nullptr && m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
-    m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+    m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   m_routeRenderer->RenderRoute(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  for (drape_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
-  {
-    ASSERT(group.get() != nullptr, ());
-    if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
-      RenderSingleGroup(modelView, make_ref(group));
-  }
+  RenderUserMarksLayer(modelView);
 
   m_routeRenderer->RenderRouteSigns(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+  m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   if (m_guiRenderer != nullptr)
     m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
@@ -1125,6 +1123,20 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
+}
+
+void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
+{
+  double const kExtension = 1.1;
+  m2::RectD screenRect = modelView.ClipRect();
+  screenRect.Scale(kExtension);
+  for (auto const & group : m_userMarkRenderGroups)
+  {
+    ASSERT(group.get() != nullptr, ());
+    if (m_userMarkVisibility.find(group->GetLayerId()) != m_userMarkVisibility.end() &&
+        screenRect.IsIntersect(group->GetTileKey().GetGlobalRect()))
+      RenderSingleGroup(modelView, make_ref(group));
+  }
 }
   
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
@@ -1223,22 +1235,9 @@ void FrontendRenderer::RefreshProjection(ScreenBase const & screen)
   m_generalUniforms.SetMatrix4x4Value("projection", m.data());
 }
 
-void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
+void FrontendRenderer::RefreshZScale(ScreenBase const & screen)
 {
-  ScreenBase::MatrixT const & m = screen.GtoPMatrix();
-  math::Matrix<float, 4, 4> mv;
-
-  /// preparing ModelView matrix
-
-  mv(0, 0) = m(0, 0); mv(0, 1) = m(1, 0); mv(0, 2) = 0; mv(0, 3) = m(2, 0);
-  mv(1, 0) = m(0, 1); mv(1, 1) = m(1, 1); mv(1, 2) = 0; mv(1, 3) = m(2, 1);
-  mv(2, 0) = 0;       mv(2, 1) = 0;       mv(2, 2) = 1; mv(2, 3) = 0;
-  mv(3, 0) = m(0, 2); mv(3, 1) = m(1, 2); mv(3, 2) = 0; mv(3, 3) = m(2, 2);
-
-  m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
-
-  float const zScale = screen.GetZScale();
-  m_generalUniforms.SetFloatValue("zScale", zScale);
+  m_generalUniforms.SetFloatValue("zScale", screen.GetZScale());
 }
 
 void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
@@ -1708,7 +1707,7 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
 
 void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
 {
-  RefreshModelView(modelView);
+  RefreshZScale(modelView);
   RefreshPivotTransform(modelView);
 
   m_myPositionController->UpdatePixelPosition(modelView);

@@ -62,6 +62,7 @@ struct RouteData
   int m_routeIndex;
   m2::PolylineD m_sourcePolyline;
   vector<double> m_sourceTurns;
+  m2::PointD m_pivot;
   df::ColorConstant m_color;
   double m_length;
   RouteRenderProperty m_route;
@@ -79,6 +80,7 @@ struct RouteSignData
 struct RouteArrowsData
 {
   RouteRenderProperty m_arrows;
+  m2::PointD m_pivot;
 };
 
 class RouteShape
@@ -95,9 +97,11 @@ public:
                                vector<ArrowBorders> const & borders, RouteArrowsData & routeArrowsData);
 
 private:
-  static void PrepareGeometry(vector<m2::PointD> const & path, TGeometryBuffer & geometry,
-                              TGeometryBuffer & joinsGeometry, double & outputLength);
-  static void PrepareArrowGeometry(vector<m2::PointD> const & path, m2::RectF const & texRect, float depth,
+  static void PrepareGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,
+                              TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry,
+                              double & outputLength);
+  static void PrepareArrowGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,
+                                   m2::RectF const & texRect, float depth,
                                    TArrowGeometryBuffer & geometry, TArrowGeometryBuffer & joinsGeometry);
   static void BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, size_t geomSize,
                             ref_ptr<void> joinsGeometry, size_t joinsGeomSize,

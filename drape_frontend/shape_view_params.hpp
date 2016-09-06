@@ -12,11 +12,14 @@
 namespace df
 {
 
+double const kShapeCoordScalar = 1000;
+
 struct CommonViewParams
 {
   float m_depth = 0.0f;
   int m_minVisibleScale = 0;
   uint8_t m_rank = 0;
+  m2::PointD m_tileCenter;
 };
 
 struct PoiSymbolViewParams : CommonViewParams

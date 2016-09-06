@@ -73,13 +73,6 @@ public:
     m_joinGeom.reserve(joinsSize);
   }
 
-  void GetTexturingInfo(float const globalLength, int & steps, float & maskSize)
-  {
-    UNUSED_VALUE(globalLength);
-    UNUSED_VALUE(steps);
-    UNUSED_VALUE(maskSize);
-  }
-
   dp::BindingInfo const & GetBindingInfo() override
   {
     return TVertex::GetBindingInfo();
@@ -136,42 +129,6 @@ public:
   }
 
 protected:
-  vector<glsl::vec2> const & GenerateCap(LineSegment const & segment, EPointType type,
-                                         float sign, bool isStart)
-  {
-    m_normalBuffer.clear();
-    m_normalBuffer.reserve(24);
-
-    GenerateCapNormals(m_params.m_cap,
-                       segment.m_leftNormals[type],
-                       segment.m_rightNormals[type],
-                       sign * segment.m_tangent,
-                       GetHalfWidth(), isStart, m_normalBuffer);
-
-    return m_normalBuffer;
-  }
-
-  vector<glsl::vec2> const & GenerateJoin(LineSegment const & seg1, LineSegment const & seg2)
-  {
-    m_normalBuffer.clear();
-    m_normalBuffer.reserve(24);
-
-    glsl::vec2 n1 = seg1.m_hasLeftJoin[EndPoint] ? seg1.m_leftNormals[EndPoint] :
-                                                   seg1.m_rightNormals[EndPoint];
-
-    glsl::vec2 n2 = seg2.m_hasLeftJoin[StartPoint] ? seg2.m_leftNormals[StartPoint] :
-                                                     seg2.m_rightNormals[StartPoint];
-
-    float widthScalar = seg1.m_hasLeftJoin[EndPoint] ? seg1.m_rightWidthScalar[EndPoint].x :
-                                                       seg1.m_leftWidthScalar[EndPoint].x;
-
-    GenerateJoinNormals(m_params.m_join, n1, n2, GetHalfWidth(),
-                        seg1.m_hasLeftJoin[EndPoint], widthScalar, m_normalBuffer);
-
-    return m_normalBuffer;
-  }
-
-protected:
   using V = TVertex;
   using TGeometryBuffer = vector<V>;
 
@@ -200,8 +157,7 @@ class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
       : m_position(pos)
       , m_normal(normal)
       , m_color(color)
-    {
-    }
+    {}
 
     TPosition m_position;
     TNormal m_normal;
@@ -326,11 +282,10 @@ public:
     , m_baseGtoPScale(params.m_baseGtoP)
   {}
 
-  void GetTexturingInfo(float const globalLength, int & steps, float & maskSize)
+  int GetDashesCount(float const globalLength) const
   {
     float const pixelLen = globalLength * m_baseGtoPScale;
-    steps = static_cast<int>((pixelLen + m_texCoordGen.GetMaskLength() - 1) / m_texCoordGen.GetMaskLength());
-    maskSize = globalLength / steps;
+    return static_cast<int>((pixelLen + m_texCoordGen.GetMaskLength() - 1) / m_texCoordGen.GetMaskLength());
   }
 
   dp::GLState GetState() override
@@ -381,16 +336,16 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
     if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
       continue;
 
-    glsl::vec2 const p1 = glsl::vec2(path[i - 1].x, path[i - 1].y);
-    glsl::vec2 const p2 = glsl::vec2(path[i].x, path[i].y);
+    glsl::vec2 const p1 = glsl::ToVec2(ConvertToLocal(path[i - 1], m_params.m_tileCenter, kShapeCoordScalar));
+    glsl::vec2 const p2 = glsl::ToVec2(ConvertToLocal(path[i], m_params.m_tileCenter, kShapeCoordScalar));
     glsl::vec2 tangent, leftNormal, rightNormal;
     CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 
     // calculate number of steps to cover line segment
-    float const initialGlobalLength = glsl::length(p2 - p1);
-    int steps = 1;
-    float maskSize = initialGlobalLength;
-    builder.GetTexturingInfo(initialGlobalLength, steps, maskSize);
+    float const initialGlobalLength = static_cast<float>((path[i] - path[i - 1]).Length());
+    int const steps = max(1, builder.GetDashesCount(initialGlobalLength));
+    float const maskSize = glsl::length(p2 - p1) / steps;
+    float const offsetSize = initialGlobalLength / steps;
 
     // generate vertices
     float currentSize = 0;
@@ -402,8 +357,8 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
 
       builder.SubmitVertex(currentStartPivot, rightNormal, false /* isLeft */, 0.0);
       builder.SubmitVertex(currentStartPivot, leftNormal, true /* isLeft */, 0.0);
-      builder.SubmitVertex(newPivot, rightNormal, false /* isLeft */, maskSize);
-      builder.SubmitVertex(newPivot, leftNormal, true /* isLeft */, maskSize);
+      builder.SubmitVertex(newPivot, rightNormal, false /* isLeft */, offsetSize);
+      builder.SubmitVertex(newPivot, leftNormal, true /* isLeft */, offsetSize);
 
       currentStartPivot = newPivot;
     }
@@ -424,7 +379,7 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
     generateJoins = false;
 
   // build geometry
-  glsl::vec2 firstPoint = glsl::vec2(path.front().x, path.front().y);
+  glsl::vec2 firstPoint = glsl::ToVec2(ConvertToLocal(path.front(), m_params.m_tileCenter, kShapeCoordScalar));
   glsl::vec2 lastPoint;
   bool hasConstructedSegments = false;
   for (size_t i = 1; i < path.size(); ++i)
@@ -432,8 +387,8 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
     if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
       continue;
 
-    glsl::vec2 const p1 = glsl::vec2(path[i - 1].x, path[i - 1].y);
-    glsl::vec2 const p2 = glsl::vec2(path[i].x, path[i].y);
+    glsl::vec2 const p1 = glsl::ToVec2(ConvertToLocal(path[i - 1], m_params.m_tileCenter, kShapeCoordScalar));
+    glsl::vec2 const p2 = glsl::ToVec2(ConvertToLocal(path[i], m_params.m_tileCenter, kShapeCoordScalar));
     glsl::vec2 tangent, leftNormal, rightNormal;
     CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 

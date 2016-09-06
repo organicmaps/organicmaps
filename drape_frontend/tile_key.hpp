@@ -1,6 +1,9 @@
 #pragma once
 
 #include "geometry/rect2d.hpp"
+#include "geometry/screenbase.hpp"
+
+#include "base/matrix.hpp"
 
 namespace df
 {
@@ -23,6 +26,8 @@ struct TileKey
   bool EqualStrict(TileKey const & other) const;
 
   m2::RectD GetGlobalRect(bool clipByDataMaxZoom = true) const;
+
+  math::Matrix<float, 4, 4> GetTileBasedModelView(ScreenBase const & screen) const;
 
   int m_x;
   int m_y;

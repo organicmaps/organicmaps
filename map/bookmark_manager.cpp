@@ -148,7 +148,7 @@ size_t BookmarkManager::LastEditedBMCategory()
   }
 
   if (m_categories.empty())
-    m_categories.push_back(new BookmarkCategory(m_framework.GetStringsBundle().GetString("my_places"), m_framework));
+    CreateBmCategory(m_framework.GetStringsBundle().GetString("my_places"));
 
   return 0;
 }

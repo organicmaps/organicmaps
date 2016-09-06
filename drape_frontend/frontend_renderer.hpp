@@ -37,6 +37,7 @@
 #include "std/function.hpp"
 #include "std/map.hpp"
 #include "std/array.hpp"
+#include "std/unordered_set.hpp"
 
 namespace dp
 {
@@ -161,7 +162,7 @@ private:
   void MergeBuckets();
   void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group);
   void RefreshProjection(ScreenBase const & screen);
-  void RefreshModelView(ScreenBase const & screen);
+  void RefreshZScale(ScreenBase const & screen);
   void RefreshPivotTransform(ScreenBase const & screen);
   void RefreshBgColor();
 
@@ -170,6 +171,7 @@ private:
   void Render2dLayer(ScreenBase const & modelView);
   void Render3dLayer(ScreenBase const & modelView);
   void RenderOverlayLayer(ScreenBase const & modelView);
+  void RenderUserMarksLayer(ScreenBase const & modelView);
   //////
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   void PrepareScene(ScreenBase const & modelView);
@@ -270,7 +272,7 @@ private:
 
   array<RenderLayer, RenderLayer::LayerCountID> m_layers;
   vector<drape_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
-  set<TileKey> m_userMarkVisibility;
+  unordered_set<size_t> m_userMarkVisibility;
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPositionController> m_myPositionController;

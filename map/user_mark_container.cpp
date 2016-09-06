@@ -13,58 +13,47 @@
 
 namespace
 {
-  class FindMarkFunctor
+
+class FindMarkFunctor
+{
+public:
+  FindMarkFunctor(UserMark ** mark, double & minD, m2::AnyRectD const & rect)
+    : m_mark(mark)
+    , m_minD(minD)
+    , m_rect(rect)
   {
-  public:
-    FindMarkFunctor(UserMark ** mark, double & minD, m2::AnyRectD const & rect)
-      : m_mark(mark)
-      , m_minD(minD)
-      , m_rect(rect)
-    {
-      m_globalCenter = rect.GlobalCenter();
-    }
-
-    void operator()(UserMark * mark)
-    {
-      m2::PointD const & org = mark->GetPivot();
-      if (m_rect.IsPointInside(org))
-      {
-        double minDCandidate = m_globalCenter.SquareLength(org);
-        if (minDCandidate < m_minD)
-        {
-          *m_mark = mark;
-          m_minD = minDCandidate;
-        }
-      }
-    }
-
-    UserMark ** m_mark;
-    double & m_minD;
-    m2::AnyRectD const & m_rect;
-    m2::PointD m_globalCenter;
-  };
-
-  df::TileKey CreateTileKey(UserMarkContainer const * cont)
-  {
-    switch (cont->GetType())
-    {
-    case UserMarkType::API_MARK:
-      return df::GetApiTileKey();
-    case UserMarkType::SEARCH_MARK:
-      return df::GetSearchTileKey();
-    case UserMarkType::BOOKMARK_MARK:
-      return df::GetBookmarkTileKey(reinterpret_cast<size_t>(cont));
-    case UserMarkType::DEBUG_MARK:
-      return df::GetDebugTileKey();
-    }
-
-    ASSERT(false, ());
-    return df::TileKey();
+    m_globalCenter = rect.GlobalCenter();
   }
 
-  size_t const VisibleFlag = 0;
-  size_t const DrawableFlag = 1;
+  void operator()(UserMark * mark)
+  {
+    m2::PointD const & org = mark->GetPivot();
+    if (m_rect.IsPointInside(org))
+    {
+      double minDCandidate = m_globalCenter.SquareLength(org);
+      if (minDCandidate < m_minD)
+      {
+        *m_mark = mark;
+        m_minD = minDCandidate;
+      }
+    }
+  }
+
+  UserMark ** m_mark;
+  double & m_minD;
+  m2::AnyRectD const & m_rect;
+  m2::PointD m_globalCenter;
+};
+
+size_t const VisibleFlag = 0;
+size_t const DrawableFlag = 1;
+
+size_t GenerateLayerId(UserMarkContainer const * cont)
+{
+  return reinterpret_cast<size_t>(cont);
 }
+
+} // namespace
 
 UserMarkContainer::UserMarkContainer(double layerDepth, UserMarkType type, Framework & fm)
   : m_framework(fm)
@@ -97,9 +86,11 @@ UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, do
 
 namespace
 {
+
 unique_ptr<PoiMarkPoint> g_selectionUserMark;
 unique_ptr<MyPositionMarkPoint> g_myPosition;
-}
+
+} // namespace
 
 void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)
 {
@@ -135,15 +126,15 @@ void UserMarkContainer::ReleaseController()
   if (engine == nullptr)
     return;
 
-  df::TileKey key = CreateTileKey(this);
-  engine->ChangeVisibilityUserMarksLayer(key, IsVisible() && IsDrawable());
+  size_t const layerId = GenerateLayerId(this);
+  engine->ChangeVisibilityUserMarksLayer(layerId, IsVisible() && IsDrawable());
 
   if (IsDirty())
   {
     if (GetUserPointCount() == 0 && GetUserLineCount() == 0)
-      engine->ClearUserMarksLayer(key);
+      engine->ClearUserMarksLayer(layerId);
     else
-      engine->UpdateUserMarksLayer(key, this);
+      engine->UpdateUserMarksLayer(layerId, this);
   }
 }
 

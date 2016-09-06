@@ -56,6 +56,11 @@ inline vec2 ToVec2(m2::PointD const & pt)
   return glsl::vec2(pt.x, pt.y);
 }
 
+inline m2::PointD FromVec2(glsl::vec2 const & pt)
+{
+  return m2::PointD(pt.x, pt.y);
+}
+
 inline vec4 ToVec4(dp::Color const & color)
 {
   return glsl::vec4(double(color.GetRed()) / 255,

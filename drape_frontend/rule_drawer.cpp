@@ -162,8 +162,8 @@ void RuleDrawer::operator()(FeatureType const & f)
       // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
       is3dBuilding = (ftypes::IsBuildingChecker::Instance()(f) ||
                       ftypes::IsBuildingPartChecker::Instance()(f)) &&
-          !ftypes::IsBridgeChecker::Instance()(f) &&
-          !ftypes::IsTunnelChecker::Instance()(f);
+                      !ftypes::IsBridgeChecker::Instance()(f) &&
+                      !ftypes::IsTunnelChecker::Instance()(f);
     }
 
     m2::PointD featureCenter;
@@ -220,8 +220,9 @@ void RuleDrawer::operator()(FeatureType const & f)
     if (applyPointStyle || is3dBuilding)
       minVisibleScale = feature::GetMinDrawableScale(f);
 
-    ApplyAreaFeature apply(insertShape, f.GetID(), m_globalRect, areaMinHeight, areaHeight,
-                           minVisibleScale, f.GetRank(), s.GetCaptionDescription());
+    ApplyAreaFeature apply(m_globalRect.Center(), insertShape, f.GetID(), m_globalRect,
+                           areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
+                           s.GetCaptionDescription());
     f.ForEachTriangle(apply, zoomLevel);
     apply.SetHotelData(ExtractHotelData(f));
     if (applyPointStyle)
@@ -235,8 +236,9 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(insertShape, f.GetID(), m_globalRect, minVisibleScale, f.GetRank(),
-                           s.GetCaptionDescription(), m_currentScaleGtoP,
+    ApplyLineFeature apply(m_globalRect.Center(), m_currentScaleGtoP,
+                           insertShape, f.GetID(), m_globalRect, minVisibleScale,
+                           f.GetRank(), s.GetCaptionDescription(),
                            zoomLevel >= kLineSimplifyLevelStart && zoomLevel <= kLineSimplifyLevelEnd,
                            f.GetPointsCount());
     f.ForEachPoint(apply, zoomLevel);
@@ -253,7 +255,7 @@ void RuleDrawer::operator()(FeatureType const & f)
     ASSERT(s.PointStyleExists(), ());
 
     minVisibleScale = feature::GetMinDrawableScale(f);
-    ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(),
+    ApplyPointFeature apply(m_globalRect.Center(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
                             s.GetCaptionDescription(), 0.0f /* posZ */);
     apply.SetHotelData(ExtractHotelData(f));
     f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
@@ -277,6 +279,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   m2::SharedSpline spline(path);
   df::LineViewParams p;
+  p.m_tileCenter = m_globalRect.Center();
   p.m_baseGtoPScale = 1.0;
   p.m_cap = dp::ButtCap;
   p.m_color = dp::Color::Red();
@@ -287,6 +290,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   insertShape(make_unique_dp<LineShape>(spline, p));
 
   df::TextViewParams tp;
+  tp.m_tileCenter = m_globalRect.Center();
   tp.m_anchor = dp::Center;
   tp.m_depth = 20000;
   tp.m_primaryText = strings::to_string(key.m_x) + " " +

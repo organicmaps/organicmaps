@@ -1,5 +1,7 @@
 #include "drape_frontend/gps_track_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/glsl_func.hpp"
@@ -227,11 +229,14 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
       m_handlesCache.push_back(make_pair(handle, 0));
     }
 
+    m_pivot = screen.GlobalRect().Center();
+
     size_t cacheIndex = 0;
     if (m_points.size() == 1)
     {
       dp::Color const color = GetColorBySpeed(m_points.front().m_speedMPS);
-      m_handlesCache[cacheIndex].first->SetPoint(0, m_points.front().m_point, m_radius, color);
+      m2::PointD const pt = MapShape::ConvertToLocal(m_points.front().m_point, m_pivot, kShapeCoordScalar);
+      m_handlesCache[cacheIndex].first->SetPoint(0, pt, m_radius, color);
       m_handlesCache[cacheIndex].second++;
     }
     else
@@ -248,7 +253,8 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
         if (screen.ClipRect().IsIntersect(pointRect))
         {
           dp::Color const color = CalculatePointColor(static_cast<size_t>(it.GetIndex()), pt, it.GetLength(), it.GetFullLength());
-          m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, pt, m_radius, color);
+          m2::PointD const convertedPt = MapShape::ConvertToLocal(pt, m_pivot, kShapeCoordScalar);
+          m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, convertedPt, m_radius, color);
           m_handlesCache[cacheIndex].second++;
           if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
             cacheIndex++;
@@ -266,7 +272,8 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
 #ifdef SHOW_RAW_POINTS
       for (size_t i = 0; i < m_points.size(); i++)
       {
-        m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, m_points[i].m_point, m_radius * 1.2, dp::Color(0, 0, 255, 255));
+        m2::PointD const convertedPt = MapShape::ConvertToLocal(m_points[i].m_point, m_pivot, kShapeCoordScalar);
+        m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, convertedPt, m_radius * 1.2, dp::Color(0, 0, 255, 255));
         m_handlesCache[cacheIndex].second++;
         if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
           cacheIndex++;
@@ -292,6 +299,8 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
 
   // Render points.
   dp::UniformValuesStorage uniforms = commonUniforms;
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(m_pivot, kShapeCoordScalar);
+  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
   uniforms.SetFloatValue("u_opacity", 1.0f);
   ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::TRACK_POINT_PROGRAM);
   program->Bind();

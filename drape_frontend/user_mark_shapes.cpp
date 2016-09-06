@@ -1,6 +1,9 @@
-#include "user_mark_shapes.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
 
-#include "line_shape.hpp"
+#include "drape_frontend/line_shape.hpp"
+#include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/tile_utils.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/shader_def.hpp"
@@ -10,40 +13,6 @@
 
 namespace df
 {
-
-namespace
-{
-  int const ZUserMarksLayer = -1;
-  int const YSearchMarksLayer = 1;
-  int const YApiMarksLayer = 2;
-  int const YBookmarksLayer = 3;
-  int const YDebugLayer = 4;
-}
-
-TileKey GetSearchTileKey()
-{
-  return TileKey(0, YSearchMarksLayer, ZUserMarksLayer);
-}
-
-TileKey GetApiTileKey()
-{
-  return TileKey(0, YApiMarksLayer, ZUserMarksLayer);
-}
-
-TileKey GetDebugTileKey()
-{
-  return TileKey(0, YDebugLayer, ZUserMarksLayer);
-}
-
-TileKey GetBookmarkTileKey(size_t categoryIndex)
-{
-  return TileKey(categoryIndex, YBookmarksLayer, ZUserMarksLayer);
-}
-
-bool IsUserMarkLayer(TileKey const & tileKey)
-{
-  return tileKey.m_zoomLevel == ZUserMarksLayer;
-}
 
 namespace
 {
@@ -87,8 +56,7 @@ struct UserPointVertex : gpu::BaseVertex
     , m_normal(normal)
     , m_texCoord(texCoord)
     , m_isAnim(isAnim ? 1.0 : -1.0)
-  {
-  }
+  {}
 
   static dp::BindingInfo GetBinding()
   {
@@ -110,104 +78,143 @@ struct UserPointVertex : gpu::BaseVertex
 
 using UPV = UserPointVertex;
 
-void CacheUserPoints(UserMarksProvider const * provider,
-                     ref_ptr<dp::Batcher> batcher,
-                     ref_ptr<dp::TextureManager> textures)
+void CacheUserPoints(UserMarksProvider const * provider, ref_ptr<dp::TextureManager> textures,
+                     TUserMarkShapes & outShapes)
 {
   size_t markCount = provider->GetUserPointCount();
   if (markCount == 0)
     return;
 
-  uint32_t vertexCount = dp::Batcher::VertexPerQuad * markCount; // 4 vertex per quad
-
-  buffer_vector<UPV, 1024> buffer;
-  buffer.reserve(vertexCount);
-
-  vector<UserPointMark const *> marks;
-  marks.reserve(markCount);
+  int const kZoomLevel = 10;
+  map<TileKey, vector<UserPointMark const *>> marks;
   for (size_t i = 0; i < markCount; ++i)
-    marks.push_back(provider->GetUserPointMark(i));
-
-  sort(marks.begin(), marks.end(), [](UserPointMark const * v1, UserPointMark const * v2)
   {
-    return v1->GetPivot().y < v2->GetPivot().y;
-  });
-
-  dp::TextureManager::SymbolRegion region;
-  for (size_t i = 0; i < marks.size(); ++i)
-  {
-    UserPointMark const * pointMark = marks[i];
-    textures->GetSymbolRegion(pointMark->GetSymbolName(), region);
-    m2::RectF const & texRect = region.GetTexRect();
-    m2::PointF pxSize = region.GetPixelSize();
-    dp::Anchor anchor = pointMark->GetAnchor();
-    glsl::vec3 pos = glsl::vec3(glsl::ToVec2(pointMark->GetPivot()), pointMark->GetDepth());
-    bool runAnim = pointMark->RunCreationAnim();
-
-    glsl::vec2 left, right, up, down;
-    AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
-    AlignVertical(pxSize.y * 0.5f, anchor, up, down);
-
-    m2::PointD const pixelOffset = pointMark->GetPixelOffset();
-    glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
-
-    buffer.emplace_back(pos, left + down + offset, glsl::ToVec2(texRect.LeftTop()), runAnim);
-    buffer.emplace_back(pos, left + up + offset, glsl::ToVec2(texRect.LeftBottom()), runAnim);
-    buffer.emplace_back(pos, right + down + offset, glsl::ToVec2(texRect.RightTop()), runAnim);
-    buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
+    UserPointMark const * userMark = provider->GetUserPointMark(i);
+    TileKey const tileKey = GetTileKeyByPoint(userMark->GetPivot(), kZoomLevel);
+    marks[tileKey].push_back(userMark);
   }
 
-  dp::GLState state(gpu::BOOKMARK_PROGRAM, dp::GLState::UserMarkLayer);
-  state.SetProgram3dIndex(gpu::BOOKMARK_BILLBOARD_PROGRAM);
-  state.SetColorTexture(region.GetTexture());
+  for (auto it = marks.begin(); it != marks.end(); ++it)
+  {
+    TileKey const & key = it->first;
+    m2::PointD const tileCenter = key.GetGlobalRect().Center();
 
-  dp::AttributeProvider attribProvider(1, buffer.size());
-  attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
+    sort(it->second.begin(), it->second.end(), [](UserPointMark const * v1, UserPointMark const * v2)
+    {
+      return v1->GetPivot().y < v2->GetPivot().y;
+    });
 
-  batcher->InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
+    dp::TextureManager::SymbolRegion region;
+
+    uint32_t const vertexCount = static_cast<uint32_t>(it->second.size()) * dp::Batcher::VertexPerQuad;
+    uint32_t const indicesCount = static_cast<uint32_t>(it->second.size()) * dp::Batcher::IndexPerQuad;
+    buffer_vector<UPV, 128> buffer;
+    buffer.reserve(vertexCount);
+
+    for (size_t i = 0; i < it->second.size(); ++i)
+    {
+      UserPointMark const * pointMark = it->second[i];
+      textures->GetSymbolRegion(pointMark->GetSymbolName(), region);
+      m2::RectF const & texRect = region.GetTexRect();
+      m2::PointF const pxSize = region.GetPixelSize();
+      dp::Anchor const anchor = pointMark->GetAnchor();
+      m2::PointD const pt = MapShape::ConvertToLocal(pointMark->GetPivot(), tileCenter, kShapeCoordScalar);
+      glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), pointMark->GetDepth());
+      bool const runAnim = pointMark->RunCreationAnim();
+
+      glsl::vec2 left, right, up, down;
+      AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
+      AlignVertical(pxSize.y * 0.5f, anchor, up, down);
+
+      m2::PointD const pixelOffset = pointMark->GetPixelOffset();
+      glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
+
+      buffer.emplace_back(pos, left + down + offset, glsl::ToVec2(texRect.LeftTop()), runAnim);
+      buffer.emplace_back(pos, left + up + offset, glsl::ToVec2(texRect.LeftBottom()), runAnim);
+      buffer.emplace_back(pos, right + down + offset, glsl::ToVec2(texRect.RightTop()), runAnim);
+      buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
+    }
+
+    dp::GLState state(gpu::BOOKMARK_PROGRAM, dp::GLState::UserMarkLayer);
+    state.SetProgram3dIndex(gpu::BOOKMARK_BILLBOARD_PROGRAM);
+    state.SetColorTexture(region.GetTexture());
+    state.SetTextureFilter(gl_const::GLNearest);
+
+    dp::Batcher batcher(indicesCount, vertexCount);
+    dp::SessionGuard guard(batcher, [&key, &outShapes](dp::GLState const & state,
+                                                       drape_ptr<dp::RenderBucket> && b)
+    {
+      outShapes.emplace_back(UserMarkShape(state, move(b), key));
+    });
+    dp::AttributeProvider attribProvider(1, buffer.size());
+    attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
+    batcher.InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
+  }
 }
 
-void CacheUserLines(UserMarksProvider const * provider,
-                    ref_ptr<dp::Batcher> batcher,
-                    ref_ptr<dp::TextureManager> textures)
+void CacheUserLines(UserMarksProvider const * provider, ref_ptr<dp::TextureManager> textures,
+                    TUserMarkShapes & outShapes)
 {
+  int const kZoomLevel = 10;
+  map<TileKey, vector<pair<UserLineMark const *, m2::SharedSpline>>> userLines;
   for (size_t i = 0; i < provider->GetUserLineCount(); ++i)
   {
     UserLineMark const * line = provider->GetUserLineMark(i);
-    size_t pointCount = line->GetPointCount();
+    size_t const pointCount = line->GetPointCount();
 
     vector<m2::PointD> points;
+    m2::RectD rect;
     points.reserve(pointCount);
     for (size_t i = 0; i < pointCount; ++i)
-      points.push_back(line->GetPoint(i));
-
-    m2::SharedSpline spline(points);
-
-    for (size_t layerIndex = 0; layerIndex < line->GetLayerCount(); ++layerIndex)
     {
-      LineViewParams params;
-      params.m_baseGtoPScale = 1.0f;
-      params.m_cap = dp::RoundCap;
-      params.m_join = dp::RoundJoin;
-      params.m_color = line->GetColor(layerIndex);
-      params.m_depth = line->GetLayerDepth(layerIndex);
-      params.m_width = line->GetWidth(layerIndex);
-      params.m_minVisibleScale = 1;
-      params.m_rank = 0;
+      points.push_back(line->GetPoint(i));
+      rect.Add(points.back());
+    }
 
-      LineShape(spline, params).Draw(batcher, textures);
+    TileKey const tileKey = GetTileKeyByPoint(rect.Center(), kZoomLevel);
+    userLines[tileKey].push_back(make_pair(line, m2::SharedSpline(points)));
+  }
+
+  int const kBatchSize = 5000;
+  for (auto it = userLines.begin(); it != userLines.end(); ++it)
+  {
+    TileKey const & key = it->first;
+    dp::Batcher batcher(kBatchSize, kBatchSize);
+    dp::SessionGuard guard(batcher, [&key, &outShapes](dp::GLState const & state,
+                                                       drape_ptr<dp::RenderBucket> && b)
+    {
+      outShapes.emplace_back(UserMarkShape(state, move(b), key));
+    });
+    for (auto const & lineData : it->second)
+    {
+      UserLineMark const * line = lineData.first;
+      for (size_t layerIndex = 0; layerIndex < line->GetLayerCount(); ++layerIndex)
+      {
+        LineViewParams params;
+        params.m_tileCenter = key.GetGlobalRect().Center();
+        params.m_baseGtoPScale = 1.0f;
+        params.m_cap = dp::RoundCap;
+        params.m_join = dp::RoundJoin;
+        params.m_color = line->GetColor(layerIndex);
+        params.m_depth = line->GetLayerDepth(layerIndex);
+        params.m_width = line->GetWidth(layerIndex);
+        params.m_minVisibleScale = 1;
+        params.m_rank = 0;
+
+        LineShape(lineData.second, params).Draw(make_ref(&batcher), textures);
+      }
     }
   }
 }
 
 } // namespace
 
-void CacheUserMarks(UserMarksProvider const * provider,
-                    ref_ptr<dp::Batcher> batcher,
-                    ref_ptr<dp::TextureManager> textures)
+TUserMarkShapes CacheUserMarks(UserMarksProvider const * provider, ref_ptr<dp::TextureManager> textures)
 {
-  CacheUserPoints(provider, batcher, textures);
-  CacheUserLines(provider, batcher, textures);
+  TUserMarkShapes shapes;
+  CacheUserPoints(provider, textures, shapes);
+  CacheUserLines(provider, textures, shapes);
+  return shapes;
 }
 
 } // namespace df

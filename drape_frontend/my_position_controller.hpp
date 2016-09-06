@@ -90,7 +90,7 @@ public:
 
   void SetModeListener(location::TMyPositionModeChanged const & fn);
 
-  void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
