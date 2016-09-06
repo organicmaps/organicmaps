@@ -140,7 +140,7 @@ void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp
     math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
     uniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-    m2::PointD const pos = MapShape::ConvertPt(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
+    m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
     uniforms.SetFloatValue("u_position", pos.x, pos.y, -m_positionZ);
 
     float accuracy = m_mapping.GetValue(m_animation.GetT());

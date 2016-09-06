@@ -143,24 +143,24 @@ void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
   AddUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim));
 }
 
-void DrapeEngine::ClearUserMarksLayer(df::TileKey const & tileKey)
+void DrapeEngine::ClearUserMarksLayer(size_t layerId)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ClearUserMarkLayerMessage>(tileKey),
+                                  make_unique_dp<ClearUserMarkLayerMessage>(layerId),
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::ChangeVisibilityUserMarksLayer(TileKey const & tileKey, bool isVisible)
+void DrapeEngine::ChangeVisibilityUserMarksLayer(size_t layerId, bool isVisible)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ChangeUserMarkLayerVisibilityMessage>(tileKey, isVisible),
+                                  make_unique_dp<ChangeUserMarkLayerVisibilityMessage>(layerId, isVisible),
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider)
+void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provider)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateUserMarkLayerMessage>(tileKey, provider),
+                                  make_unique_dp<UpdateUserMarkLayerMessage>(layerId, provider),
                                   MessagePriority::Normal);
 }
 

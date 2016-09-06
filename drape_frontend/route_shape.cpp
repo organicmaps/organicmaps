@@ -142,10 +142,10 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
                  (i < segments.size() - 1) ? &segments[i + 1] : nullptr);
 
     // Generate main geometry.
-    m2::PointD const startPt = MapShape::ConvertPt(glsl::FromVec2(segments[i].m_points[StartPoint]),
-                                                   pivot, kShapeCoordScalar);
-    m2::PointD const endPt = MapShape::ConvertPt(glsl::FromVec2(segments[i].m_points[EndPoint]),
-                                                 pivot, kShapeCoordScalar);
+    m2::PointD const startPt = MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[StartPoint]),
+                                                        pivot, kShapeCoordScalar);
+    m2::PointD const endPt = MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[EndPoint]),
+                                                      pivot, kShapeCoordScalar);
 
     glsl::vec3 const startPivot = glsl::vec3(glsl::ToVec2(startPt), kDepth);
     glsl::vec3 const endPivot = glsl::vec3(glsl::ToVec2(endPt), kDepth);
@@ -248,10 +248,10 @@ void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & path, m2::Point
                  (i < segments.size() - 1) ? &segments[i + 1] : nullptr);
 
     // Generate main geometry.
-    m2::PointD const startPt = MapShape::ConvertPt(glsl::FromVec2(segments[i].m_points[StartPoint]),
-                                                   pivot, kShapeCoordScalar);
-    m2::PointD const endPt = MapShape::ConvertPt(glsl::FromVec2(segments[i].m_points[EndPoint]),
-                                                 pivot, kShapeCoordScalar);
+    m2::PointD const startPt = MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[StartPoint]),
+                                                        pivot, kShapeCoordScalar);
+    m2::PointD const endPt = MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[EndPoint]),
+                                                      pivot, kShapeCoordScalar);
 
     glsl::vec4 const startPivot = glsl::vec4(glsl::ToVec2(startPt), depth, 1.0);
     glsl::vec4 const endPivot = glsl::vec4(glsl::ToVec2(endPt), depth, 1.0);

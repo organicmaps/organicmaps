@@ -99,7 +99,7 @@ class ApplyAreaFeature : public ApplyPointFeature
 public:
   ApplyAreaFeature(m2::PointD const & tileCenter,
                    TInsertShapeFn const & insertShape, FeatureID const & id,
-                   m2::RectD tileRect, float minPosZ,
+                   m2::RectD const & clipRect, float minPosZ,
                    float posZ, int minVisibleScale, uint8_t rank,
                    CaptionDescription const & captions);
 
@@ -125,7 +125,7 @@ private:
   vector<pair<TEdge, int>> m_edges;
   float const m_minPosZ;
   bool const m_isBuilding;
-  m2::RectD m_tileRect;
+  m2::RectD m_clipRect;
 };
 
 class ApplyLineFeature : public BaseApplyFeature

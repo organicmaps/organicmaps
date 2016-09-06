@@ -25,7 +25,7 @@ void CircleShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager>
   dp::TextureManager::ColorRegion region;
   textures->GetColorRegion(m_params.m_color, region);
   glsl::vec2 const colorPoint(glsl::ToVec2(region.GetTexRect().Center()));
-  glsl::vec2 const pt = glsl::ToVec2(ConvertPt(m_pt, m_params.m_tileCenter, kShapeCoordScalar));
+  glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_pt, m_params.m_tileCenter, kShapeCoordScalar));
 
   buffer_vector<gpu::SolidTexturingVertex, 22> vertexes;
   vertexes.push_back(gpu::SolidTexturingVertex

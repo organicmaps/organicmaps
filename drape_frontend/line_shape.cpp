@@ -336,8 +336,8 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
     if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
       continue;
 
-    glsl::vec2 const p1 = glsl::ToVec2(ConvertPt(path[i - 1], m_params.m_tileCenter, kShapeCoordScalar));
-    glsl::vec2 const p2 = glsl::ToVec2(ConvertPt(path[i], m_params.m_tileCenter, kShapeCoordScalar));
+    glsl::vec2 const p1 = glsl::ToVec2(ConvertToLocal(path[i - 1], m_params.m_tileCenter, kShapeCoordScalar));
+    glsl::vec2 const p2 = glsl::ToVec2(ConvertToLocal(path[i], m_params.m_tileCenter, kShapeCoordScalar));
     glsl::vec2 tangent, leftNormal, rightNormal;
     CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 
@@ -379,7 +379,7 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
     generateJoins = false;
 
   // build geometry
-  glsl::vec2 firstPoint = glsl::ToVec2(ConvertPt(path.front(), m_params.m_tileCenter, kShapeCoordScalar));
+  glsl::vec2 firstPoint = glsl::ToVec2(ConvertToLocal(path.front(), m_params.m_tileCenter, kShapeCoordScalar));
   glsl::vec2 lastPoint;
   bool hasConstructedSegments = false;
   for (size_t i = 1; i < path.size(); ++i)
@@ -387,8 +387,8 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
     if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
       continue;
 
-    glsl::vec2 const p1 = glsl::ToVec2(ConvertPt(path[i - 1], m_params.m_tileCenter, kShapeCoordScalar));
-    glsl::vec2 const p2 = glsl::ToVec2(ConvertPt(path[i], m_params.m_tileCenter, kShapeCoordScalar));
+    glsl::vec2 const p1 = glsl::ToVec2(ConvertToLocal(path[i - 1], m_params.m_tileCenter, kShapeCoordScalar));
+    glsl::vec2 const p2 = glsl::ToVec2(ConvertToLocal(path[i], m_params.m_tileCenter, kShapeCoordScalar));
     glsl::vec2 tangent, leftNormal, rightNormal;
     CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 

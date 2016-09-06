@@ -248,23 +248,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       dp::GLState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      if (!IsUserMarkLayer(key))
-      {
-        if (key.m_zoomLevel == m_currentZoomLevel && CheckTileGenerations(key))
-        {
-          PrepareBucket(state, bucket);
-          AddToRenderGroup(state, move(bucket), key);
-        }
-      }
-      else
+      if (key.m_zoomLevel == m_currentZoomLevel && CheckTileGenerations(key))
       {
         PrepareBucket(state, bucket);
-
-        ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
-        ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
-
-        m_userMarkRenderGroups.emplace_back(make_unique_dp<UserMarkRenderGroup>(state, key, move(bucket)));
-        m_userMarkRenderGroups.back()->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
+        AddToRenderGroup(state, move(bucket), key);
       }
       break;
     }
@@ -275,7 +262,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       TOverlaysRenderData renderData = msg->AcceptRenderData();
       for (auto & overlayRenderData : renderData)
       {
-        ASSERT(!IsUserMarkLayer(overlayRenderData.m_tileKey), ());
         if (overlayRenderData.m_tileKey.m_zoomLevel == m_currentZoomLevel &&
             CheckTileGenerations(overlayRenderData.m_tileKey))
         {
@@ -315,30 +301,46 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::FlushUserMarks:
+    {
+      ref_ptr<FlushUserMarksMessage> msg = message;
+      size_t const layerId = msg->GetLayerId();
+      for (UserMarkShape & shape : msg->GetShapes())
+      {
+        PrepareBucket(shape.m_state, shape.m_bucket);
+        auto program = m_gpuProgramManager->GetProgram(shape.m_state.GetProgramIndex());
+        auto program3d = m_gpuProgramManager->GetProgram(shape.m_state.GetProgram3dIndex());
+        auto group = make_unique_dp<UserMarkRenderGroup>(layerId, shape.m_state, shape.m_tileKey,
+                                                         move(shape.m_bucket));
+        m_userMarkRenderGroups.push_back(move(group));
+        m_userMarkRenderGroups.back()->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
+      }
+      break;
+    }
+
   case Message::ClearUserMarkLayer:
     {
-      TileKey const & tileKey = ref_ptr<ClearUserMarkLayerMessage>(message)->GetKey();
-      auto const functor = [&tileKey](drape_ptr<UserMarkRenderGroup> const & g)
+      ref_ptr<ClearUserMarkLayerMessage> msg = message;
+      size_t const layerId = msg->GetLayerId();
+      auto const functor = [&layerId](drape_ptr<UserMarkRenderGroup> const & g)
       {
-        return g->GetTileKey() == tileKey;
+        return g->GetLayerId() == layerId;
       };
 
       auto const iter = remove_if(m_userMarkRenderGroups.begin(),
                                   m_userMarkRenderGroups.end(),
                                   functor);
-
       m_userMarkRenderGroups.erase(iter, m_userMarkRenderGroups.end());
       break;
     }
 
   case Message::ChangeUserMarkLayerVisibility:
     {
-      ref_ptr<ChangeUserMarkLayerVisibilityMessage> m = message;
-      TileKey const & key = m->GetKey();
-      if (m->IsVisible())
-        m_userMarkVisibility.insert(key);
+      ref_ptr<ChangeUserMarkLayerVisibilityMessage> msg = message;
+      if (msg->IsVisible())
+        m_userMarkVisibility.insert(msg->GetLayerId());
       else
-        m_userMarkVisibility.erase(key);
+        m_userMarkVisibility.erase(msg->GetLayerId());
       break;
     }
 
@@ -1074,12 +1076,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   m_routeRenderer->RenderRoute(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  for (drape_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
-  {
-    ASSERT(group.get() != nullptr, ());
-    if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
-      RenderSingleGroup(modelView, make_ref(group));
-  }
+  RenderUserMarksLayer(modelView);
 
   m_routeRenderer->RenderRouteSigns(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
@@ -1126,6 +1123,20 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
+}
+
+void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
+{
+  double const kExtension = 1.1;
+  m2::RectD screenRect = modelView.ClipRect();
+  screenRect.Scale(kExtension);
+  for (auto const & group : m_userMarkRenderGroups)
+  {
+    ASSERT(group.get() != nullptr, ());
+    if (m_userMarkVisibility.find(group->GetLayerId()) != m_userMarkVisibility.end() &&
+        screenRect.IsIntersect(group->GetTileKey().GetGlobalRect()))
+      RenderSingleGroup(modelView, make_ref(group));
+  }
 }
   
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)

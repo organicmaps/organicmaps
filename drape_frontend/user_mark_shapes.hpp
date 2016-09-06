@@ -12,12 +12,22 @@
 
 namespace df
 {
-  TileKey GetSearchTileKey();
-  TileKey GetApiTileKey();
-  TileKey GetDebugTileKey();
-  TileKey GetBookmarkTileKey(size_t categoryIndex);
-  bool IsUserMarkLayer(TileKey const & tileKey);
 
-  void CacheUserMarks(UserMarksProvider const * provider, ref_ptr<dp::Batcher> batcher,
-                      ref_ptr<dp::TextureManager> textures);
+struct UserMarkShape
+{
+  dp::GLState m_state;
+  drape_ptr<dp::RenderBucket> m_bucket;
+  TileKey m_tileKey;
+
+  UserMarkShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
+                TileKey const & tileKey)
+    : m_state(state), m_bucket(move(bucket)), m_tileKey(tileKey)
+  {}
+};
+
+using TUserMarkShapes = vector<UserMarkShape>;
+
+TUserMarkShapes CacheUserMarks(UserMarksProvider const * provider,
+                               ref_ptr<dp::TextureManager> textures);
+
 } // namespace df

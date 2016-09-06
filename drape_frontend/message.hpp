@@ -23,6 +23,7 @@ public:
     ClearUserMarkLayer,
     ChangeUserMarkLayerVisibility,
     UpdateUserMarkLayer,
+    FlushUserMarks,
     GuiLayerRecached,
     GuiRecache,
     GuiLayerLayout,

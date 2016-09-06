@@ -136,7 +136,7 @@ public:
   };
 
   BookmarkCategory(string const & name, Framework & framework);
-  ~BookmarkCategory();
+  ~BookmarkCategory() override;
 
   size_t GetUserLineCount() const override;
   df::UserLineMark const * GetUserLineMark(size_t index) const override;

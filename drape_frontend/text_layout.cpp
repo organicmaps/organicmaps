@@ -482,7 +482,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
   glsl::vec2 pxPivot = glsl::ToVec2(iter.m_pos);
   buffer.resize(4 * m_metrics.size());
 
-  glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertPt(globalPivot, m_tileCenter, kShapeCoordScalar)), depth, 0.0f);
+  glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter, kShapeCoordScalar)), depth, 0.0f);
   for (size_t i = 0; i < m_metrics.size(); ++i)
   {
     GlyphRegion const & g = m_metrics[i];

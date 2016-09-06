@@ -192,12 +192,12 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
   return false;
 }
 
-UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state,
-                                         TileKey const & tileKey,
+UserMarkRenderGroup::UserMarkRenderGroup(size_t layerId, dp::GLState const & state, TileKey const & tileKey,
                                          drape_ptr<dp::RenderBucket> && bucket)
   : TBase(state, tileKey)
   , m_renderBucket(move(bucket))
   , m_animation(new OpacityAnimation(0.25 /*duration*/, 0.0 /* minValue */, 1.0 /* maxValue*/))
+  , m_layerId(layerId)
 {
   m_mapping.AddRangePoint(0.6, 1.3);
   m_mapping.AddRangePoint(0.85, 0.8);
@@ -222,8 +222,11 @@ void UserMarkRenderGroup::Render(ScreenBase const & screen)
 {
   BaseRenderGroup::Render(screen);
 
-  math::Matrix<float, 4, 4> mv = screen.GetModelView();
-  m_uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  // Set tile-based model-view matrix.
+  {
+    math::Matrix<float, 4, 4> mv = GetTileKey().GetTileBasedModelView(screen);
+    m_uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  }
 
   ref_ptr<dp::GpuProgram> shader = screen.isPerspective() ? m_shader3d : m_shader;
   dp::ApplyUniforms(m_uniforms, shader);
@@ -232,6 +235,11 @@ void UserMarkRenderGroup::Render(ScreenBase const & screen)
     m_renderBucket->GetBuffer()->Build(shader);
     m_renderBucket->Render();
   }
+}
+
+size_t UserMarkRenderGroup::GetLayerId() const
+{
+  return m_layerId;
 }
 
 string DebugPrint(RenderGroup const & group)

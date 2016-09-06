@@ -235,7 +235,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
     if (m_points.size() == 1)
     {
       dp::Color const color = GetColorBySpeed(m_points.front().m_speedMPS);
-      m2::PointD const pt = MapShape::ConvertPt(m_points.front().m_point, m_pivot, kShapeCoordScalar);
+      m2::PointD const pt = MapShape::ConvertToLocal(m_points.front().m_point, m_pivot, kShapeCoordScalar);
       m_handlesCache[cacheIndex].first->SetPoint(0, pt, m_radius, color);
       m_handlesCache[cacheIndex].second++;
     }
@@ -253,7 +253,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
         if (screen.ClipRect().IsIntersect(pointRect))
         {
           dp::Color const color = CalculatePointColor(static_cast<size_t>(it.GetIndex()), pt, it.GetLength(), it.GetFullLength());
-          m2::PointD const convertedPt = MapShape::ConvertPt(pt, m_pivot, kShapeCoordScalar);
+          m2::PointD const convertedPt = MapShape::ConvertToLocal(pt, m_pivot, kShapeCoordScalar);
           m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, convertedPt, m_radius, color);
           m_handlesCache[cacheIndex].second++;
           if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
@@ -272,7 +272,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
 #ifdef SHOW_RAW_POINTS
       for (size_t i = 0; i < m_points.size(); i++)
       {
-        m2::PointD const convertedPt = MapShape::ConvertPt(m_points[i].m_point, m_pivot, kShapeCoordScalar);
+        m2::PointD const convertedPt = MapShape::ConvertToLocal(m_points[i].m_point, m_pivot, kShapeCoordScalar);
         m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, convertedPt, m_radius * 1.2, dp::Color(0, 0, 255, 255));
         m_handlesCache[cacheIndex].second++;
         if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())

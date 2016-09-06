@@ -424,13 +424,13 @@ void ApplyPointFeature::Finish()
 
 ApplyAreaFeature::ApplyAreaFeature(m2::PointD const & tileCenter,
                                    TInsertShapeFn const & insertShape, FeatureID const & id,
-                                   m2::RectD tileRect, float minPosZ,
+                                   m2::RectD const & clipRect, float minPosZ,
                                    float posZ, int minVisibleScale, uint8_t rank,
                                    CaptionDescription const & captions)
   : TBase(tileCenter, insertShape, id, minVisibleScale, rank, captions, posZ)
   , m_minPosZ(minPosZ)
   , m_isBuilding(posZ > 0.0f)
-  , m_tileRect(tileRect)
+  , m_clipRect(clipRect)
 {}
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
@@ -459,9 +459,9 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
   };
 
   if (m2::CrossProduct(p2 - p1, p3 - p1) < 0)
-    m2::ClipTriangleByRect(m_tileRect, p1, p2, p3, clipFunctor);
+    m2::ClipTriangleByRect(m_clipRect, p1, p2, p3, clipFunctor);
   else
-    m2::ClipTriangleByRect(m_tileRect, p1, p3, p2, clipFunctor);
+    m2::ClipTriangleByRect(m_clipRect, p1, p3, p2, clipFunctor);
 }
 
 void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2,

@@ -262,7 +262,7 @@ Batcher * BatcherFactory::GetNew() const
   return new Batcher(kIndexBufferSize, kVertexBufferSize);
 }
 
-SessionGuard::SessionGuard(Batcher & batcher, const Batcher::TFlushFn & flusher)
+SessionGuard::SessionGuard(Batcher & batcher, Batcher::TFlushFn const & flusher)
   : m_batcher(batcher)
 {
   m_batcher.StartSession(flusher);

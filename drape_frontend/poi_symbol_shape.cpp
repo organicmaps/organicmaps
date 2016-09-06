@@ -108,7 +108,7 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
   dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
 
-  glsl::vec2 const pt = glsl::ToVec2(ConvertPt(m_pt, m_params.m_tileCenter, kShapeCoordScalar));
+  glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_pt, m_params.m_tileCenter, kShapeCoordScalar));
   glsl::vec4 const position = glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ);
   m2::PointU const pixelSize = region.GetPixelSize();
 

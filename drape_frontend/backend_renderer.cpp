@@ -221,18 +221,19 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::UpdateUserMarkLayer:
     {
       ref_ptr<UpdateUserMarkLayerMessage> msg = message;
-      TileKey const & key = msg->GetKey();
 
       UserMarksProvider const * marksProvider = msg->StartProcess();
       if (marksProvider->IsDirty())
       {
+        size_t const layerId = msg->GetLayerId();
         m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ClearUserMarkLayerMessage>(key),
+                                  make_unique_dp<ClearUserMarkLayerMessage>(layerId),
                                   MessagePriority::Normal);
 
-        m_batchersPool->ReserveBatcher(key);
-        CacheUserMarks(marksProvider, m_batchersPool->GetTileBatcher(key), m_texMng);
-        m_batchersPool->ReleaseBatcher(key);
+        TUserMarkShapes shapes = CacheUserMarks(marksProvider, m_texMng);
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<FlushUserMarksMessage>(layerId, move(shapes)),
+                                  MessagePriority::Normal);
       }
       msg->EndProcess();
       break;

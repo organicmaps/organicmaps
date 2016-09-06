@@ -13,6 +13,7 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/viewport.hpp"
 
 #include "geometry/polyline2d.hpp"
@@ -191,20 +192,33 @@ private:
   bool m_needInvalidateAll;
 };
 
-class ClearUserMarkLayerMessage : public BaseTileMessage
+class BaseUserMarkLayerMessage : public Message
 {
 public:
-  ClearUserMarkLayerMessage(TileKey const & tileKey)
-    : BaseTileMessage(tileKey) {}
+  BaseUserMarkLayerMessage(size_t layerId)
+    : m_layerId(layerId)
+  {}
+
+  size_t GetLayerId() const { return m_layerId; }
+
+private:
+  size_t m_layerId;
+};
+
+class ClearUserMarkLayerMessage : public BaseUserMarkLayerMessage
+{
+public:
+  ClearUserMarkLayerMessage(size_t layerId)
+    : BaseUserMarkLayerMessage(layerId) {}
 
   Type GetType() const override { return Message::ClearUserMarkLayer; }
 };
 
-class ChangeUserMarkLayerVisibilityMessage : public BaseTileMessage
+class ChangeUserMarkLayerVisibilityMessage : public BaseUserMarkLayerMessage
 {
 public:
-  ChangeUserMarkLayerVisibilityMessage(TileKey const & tileKey, bool isVisible)
-    : BaseTileMessage(tileKey)
+  ChangeUserMarkLayerVisibilityMessage(size_t layerId, bool isVisible)
+    : BaseUserMarkLayerMessage(layerId)
     , m_isVisible(isVisible) {}
 
   Type GetType() const override { return Message::ChangeUserMarkLayerVisibility; }
@@ -215,17 +229,17 @@ private:
   bool m_isVisible;
 };
 
-class UpdateUserMarkLayerMessage : public BaseTileMessage
+class UpdateUserMarkLayerMessage : public BaseUserMarkLayerMessage
 {
 public:
-  UpdateUserMarkLayerMessage(TileKey const & tileKey, UserMarksProvider * provider)
-    : BaseTileMessage(tileKey)
+  UpdateUserMarkLayerMessage(size_t layerId, UserMarksProvider * provider)
+    : BaseUserMarkLayerMessage(layerId)
     , m_provider(provider)
   {
     m_provider->IncrementCounter();
   }
 
-  ~UpdateUserMarkLayerMessage()
+  ~UpdateUserMarkLayerMessage() override
   {
     ASSERT(m_inProcess == false, ());
     m_provider->DecrementCounter();
@@ -257,6 +271,23 @@ private:
 #ifdef DEBUG
   bool m_inProcess;
 #endif
+};
+
+class FlushUserMarksMessage : public BaseUserMarkLayerMessage
+{
+public:
+  FlushUserMarksMessage(size_t layerId, TUserMarkShapes && shapes)
+    : BaseUserMarkLayerMessage(layerId)
+    , m_shapes(move(shapes))
+  {}
+
+  Type GetType() const override { return Message::FlushUserMarks; }
+  bool IsGLContextDependent() const override { return true; }
+
+  TUserMarkShapes & GetShapes() { return m_shapes; }
+
+private:
+  TUserMarkShapes m_shapes;
 };
 
 class GuiLayerRecachedMessage : public Message

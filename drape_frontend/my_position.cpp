@@ -110,7 +110,7 @@ void MyPosition::RenderAccuracy(ScreenBase const & screen, int zoomLevel,
   math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
   uniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-  m2::PointD const pos = MapShape::ConvertPt(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
+  m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
   uniforms.SetFloatValue("u_position", pos.x, pos.y, 0.0f);
   uniforms.SetFloatValue("u_accuracy", pixelAccuracy);
   uniforms.SetFloatValue("u_opacity", 1.0f);
@@ -134,7 +134,7 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
     math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
     uniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-    m2::PointD const pos = MapShape::ConvertPt(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
+    m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
     uniforms.SetFloatValue("u_position", pos.x, pos.y, dp::depth::MY_POSITION_MARK);
     uniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
     uniforms.SetFloatValue("u_opacity", 1.0);

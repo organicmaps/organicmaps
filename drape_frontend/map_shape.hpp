@@ -35,7 +35,7 @@ public:
   void SetFeatureMinZoom(int minZoom) { m_minZoom = minZoom; }
   int GetFeatureMinZoom() const { return m_minZoom; }
 
-  static m2::PointD ConvertPt(m2::PointD const & basePt, m2::PointD const & tileCenter, double scalar)
+  static m2::PointD ConvertToLocal(m2::PointD const & basePt, m2::PointD const & tileCenter, double scalar)
   {
     return (basePt - tileCenter) * scalar;
   }

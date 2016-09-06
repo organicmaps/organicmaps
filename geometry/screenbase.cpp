@@ -512,10 +512,13 @@ bool ScreenBase::IsReverseProjection3d(m2::PointD const & pt) const
 
 ScreenBase::Matrix3dT ScreenBase::GetModelView() const
 {
-  return ScreenBase::Matrix3dT { m_GtoP(0, 0), m_GtoP(1, 0), 0, m_GtoP(2, 0),
-                                 m_GtoP(0, 1), m_GtoP(1, 1), 0, m_GtoP(2, 1),
-                                 0, 0, 1, 0,
-                                 0, 0, 0, 1 };
+  return ScreenBase::Matrix3dT
+  {
+    m_GtoP(0, 0), m_GtoP(1, 0), 0, m_GtoP(2, 0),
+    m_GtoP(0, 1), m_GtoP(1, 1), 0, m_GtoP(2, 1),
+    0, 0, 1, 0,
+    0, 0, 0, 1
+  };
 }
 
 ScreenBase::Matrix3dT ScreenBase::GetModelView(m2::PointD const & pivot, double scalar) const
