@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -2815,18 +2815,18 @@
                                         <rect key="frame" x="16" y="0.0" width="400" height="432"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87G-jh-N8H" userLabel="CenteredView">
-                                                <rect key="frame" x="0.0" y="89" width="400" height="254"/>
+                                                <rect key="frame" x="0.0" y="92" width="400" height="249"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_no_maps" translatesAutoresizingMaskIntoConstraints="NO" id="vI9-fc-FO2">
-                                                        <rect key="frame" x="120" y="0.0" width="161" height="161"/>
+                                                        <rect key="frame" x="120" y="0.0" width="160" height="160"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="vI9-fc-FO2" secondAttribute="height" multiplier="1:1" id="f4J-1R-ewM"/>
-                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="220" id="jwh-bM-u0p"/>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="160" id="jwh-bM-u0p"/>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="100" id="tfm-Ad-ziW"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас нет загруженных карт" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abh-G0-Alr" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="181" width="400" height="24"/>
+                                                        <rect key="frame" x="0.0" y="180" width="400" height="24"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -2837,7 +2837,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaW-Ad-mYI" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="221" width="400" height="33"/>
+                                                        <rect key="frame" x="0.0" y="216" width="400" height="33"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -2851,7 +2851,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
                                                 <constraints>
-                                                    <constraint firstItem="LaW-Ad-mYI" firstAttribute="top" secondItem="abh-G0-Alr" secondAttribute="bottom" constant="16" id="33n-qj-bSE"/>
+                                                    <constraint firstItem="LaW-Ad-mYI" firstAttribute="top" secondItem="abh-G0-Alr" secondAttribute="bottom" constant="12" id="33n-qj-bSE"/>
                                                     <constraint firstItem="vI9-fc-FO2" firstAttribute="centerX" secondItem="87G-jh-N8H" secondAttribute="centerX" id="AmC-lf-x4q"/>
                                                     <constraint firstAttribute="bottom" secondItem="LaW-Ad-mYI" secondAttribute="bottom" id="ApJ-u8-amn"/>
                                                     <constraint firstItem="vI9-fc-FO2" firstAttribute="top" secondItem="87G-jh-N8H" secondAttribute="top" id="KrD-Yc-xwh"/>
@@ -3652,7 +3652,7 @@
         <image name="ic_arrow_gray_right" width="28" height="28"/>
         <image name="ic_nav_bar_back" width="14" height="22"/>
         <image name="imgLogo" width="120" height="120"/>
-        <image name="img_no_maps" width="160" height="160"/>
+        <image name="img_no_maps" width="240" height="240"/>
         <image name="img_whatsnew_migration" width="240" height="240"/>
         <image name="login_facebook" width="28" height="28"/>
         <image name="login_google" width="28" height="28"/>
