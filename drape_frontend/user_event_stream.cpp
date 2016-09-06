@@ -598,9 +598,9 @@ void UserEventStream::CheckAutoRotate()
 {
   if (GetCurrentScreen().isPerspective())
     return;
-  double kMaxAutoRotateAngle = 25.0 * math::pi / 180.0;
+  double const kMaxAutoRotateAngle = 25.0 * math::pi / 180.0;
   double const angle = fabs(GetCurrentScreen().GetAngle());
-  if (angle < kMaxAutoRotateAngle || (2 * math::pi - angle) < kMaxAutoRotateAngle)
+  if (angle < kMaxAutoRotateAngle || (math::twicePi - angle) < kMaxAutoRotateAngle)
     SetAngle(0.0);
 }
 
