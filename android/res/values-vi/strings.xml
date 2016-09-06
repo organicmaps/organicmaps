@@ -185,13 +185,14 @@
 	<!-- Search Suggestion -->
 	<string name="food">ẩm thực</string>
 	<!-- Search Suggestion -->
-	<string name="transport">giao thông</string>
+	<string name="transport">Giao thông</string>
 	<!-- Search Suggestion -->
 	<string name="fuel">Khí đốt</string>
 	<!-- Search Suggestion -->
 	<string name="parking">đỗ xe</string>
 	<!-- Search Suggestion -->
 	<string name="shop">Cửa hàng</string>
+	<!-- Search Suggestion -->
 	<string name="hotel">Khách sạn</string>
 	<!-- Search Suggestion -->
 	<string name="tourism">Diểm tham quan</string>
