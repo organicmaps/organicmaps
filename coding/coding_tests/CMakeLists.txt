@@ -1,17 +1,11 @@
 #add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
 
 set(
-    HEADERS
-    coder_test.hpp
-    reader_test.hpp
-)
-
-
-set(
-    SOURCES
+    SRC
     base64_for_user_id_test.cpp
     base64_test.cpp
     bit_streams_test.cpp
+    coder_test.hpp
     coder_util_test.cpp
     compressed_bit_vector_test.cpp
     dd_vector_test.cpp
@@ -31,6 +25,7 @@ set(
     png_decoder_test.cpp
     reader_cache_test.cpp
     reader_test.cpp
+    reader_test.hpp
     reader_writer_ops_test.cpp
     sha2_test.cpp
     simple_dense_coding_test.cpp
@@ -48,6 +43,5 @@ set(
     ${PROJECT_SOURCE_DIR}/testing/testingmain.cpp
 )
 
-set(SRC ${HEADERS} ${SOURCES})
-
-omim_add_test(coding_tests "${SRC}" coding)
+omim_add_test(coding_tests ${SRC})
+omim_link_libraries(coding_test coding)

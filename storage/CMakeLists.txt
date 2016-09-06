@@ -1,5 +1,7 @@
 #add_subdirectory(storage_tests)
 
+include_directories(${PROJECT_SOURCE_DIR}/3party/jansson/src)
+
 set(
     SRC
     app_store.hpp
@@ -29,7 +31,6 @@ set(
     storage_defines.hpp
     storage_helpers.cpp
     storage_helpers.hpp
-
 )
 
 omim_add_library(storage ${SRC})
