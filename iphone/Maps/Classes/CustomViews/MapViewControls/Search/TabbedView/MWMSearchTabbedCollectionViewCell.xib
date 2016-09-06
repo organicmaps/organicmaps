@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -18,11 +18,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tableView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZi-Dr-fme">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="91" width="320" height="279"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4et-v9-C1K" userLabel="image">
                                 <rect key="frame" x="80" y="30" width="160" height="160"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="Elm-p4-rns"/>
                                     <constraint firstAttribute="width" constant="160" id="pph-sj-ip8"/>
@@ -30,7 +29,6 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="qRp-Py-eMV" userLabel="title">
                                 <rect key="frame" x="16" y="196" width="288" height="24"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -40,8 +38,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9f9-p6-shw" userLabel="text">
-                                <rect key="frame" x="16" y="231" width="288" height="17"/>
-                                <animations/>
+                                <rect key="frame" x="16" y="232" width="288" height="17"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -51,7 +48,6 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4et-v9-C1K" firstAttribute="centerX" secondItem="qRp-Py-eMV" secondAttribute="centerX" id="A8Z-gH-n7A"/>
@@ -60,6 +56,7 @@
                             <constraint firstAttribute="trailing" secondItem="qRp-Py-eMV" secondAttribute="trailing" constant="16" id="OnQ-hw-8Qo"/>
                             <constraint firstItem="4et-v9-C1K" firstAttribute="top" secondItem="bZi-Dr-fme" secondAttribute="top" constant="30" id="PG3-C8-s7d"/>
                             <constraint firstItem="9f9-p6-shw" firstAttribute="leading" secondItem="bZi-Dr-fme" secondAttribute="leading" constant="16" id="QtL-o4-uh6"/>
+                            <constraint firstAttribute="bottom" secondItem="9f9-p6-shw" secondAttribute="bottom" constant="30" id="V26-lW-Es9"/>
                             <constraint firstItem="9f9-p6-shw" firstAttribute="centerX" secondItem="qRp-Py-eMV" secondAttribute="centerX" id="auk-Vm-3Fi"/>
                             <constraint firstItem="qRp-Py-eMV" firstAttribute="top" secondItem="bZi-Dr-fme" secondAttribute="top" constant="196" id="sBL-ds-ryp"/>
                             <constraint firstAttribute="centerX" secondItem="4et-v9-C1K" secondAttribute="centerX" id="vMr-Wp-rze"/>
@@ -70,19 +67,18 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="bZi-Dr-fme" secondAttribute="bottom" id="00h-aM-pMh"/>
+                <constraint firstItem="bZi-Dr-fme" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="42P-nF-WN0"/>
                 <constraint firstItem="YiJ-rH-z7n" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="45o-kh-87P"/>
+                <constraint firstItem="bZi-Dr-fme" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="LTb-rP-ug4"/>
+                <constraint firstItem="bZi-Dr-fme" firstAttribute="height" relation="lessThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="height" priority="750" id="WPe-En-tpb"/>
                 <constraint firstAttribute="trailing" secondItem="YiJ-rH-z7n" secondAttribute="trailing" id="ak8-yj-yjX"/>
                 <constraint firstAttribute="trailing" secondItem="bZi-Dr-fme" secondAttribute="trailing" id="eaC-cR-1Zf"/>
                 <constraint firstAttribute="bottom" secondItem="YiJ-rH-z7n" secondAttribute="bottom" id="fWe-9o-p8Q"/>
                 <constraint firstItem="bZi-Dr-fme" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iAx-ah-Ee9"/>
-                <constraint firstItem="bZi-Dr-fme" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jEf-rw-JMK"/>
                 <constraint firstItem="YiJ-rH-z7n" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="tGS-fN-aa6"/>
             </constraints>
             <userDefinedRuntimeAttributes>
