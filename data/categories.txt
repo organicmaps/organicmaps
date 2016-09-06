@@ -19,7 +19,7 @@ hu:Élelmiszer
 th:อาหาร
 zh-Hans:食物
 ar:الطعام
-da:Fødevarer
+da:Mad
 tr:Yemek
 sv:Mat
 he:אוכל
@@ -79,7 +79,7 @@ hu:Benzinkút
 th:ก๊าซ
 zh-Hans:汽油
 ar:الغاز
-da:Brændstof
+da:Brændstof|Benzin
 tr:Benzin
 sv:Bensin
 he:גז
@@ -195,7 +195,7 @@ nl:Toerisme
 ru:Достопримечательность
 uk:Пам’ятні місця
 zh-Hant:旅遊景點
-pl:Osobliwości miasta
+pl:Osobliwości miasta|Atrakcje turystyczne
 pt:Vistas
 hu:Látnivaló
 th:สถานที่ท่องเที่ยว
@@ -241,67 +241,123 @@ ro:Divertisment
 nb:Underholdning
 fi:Viihde
 
-# Categories translations
+@atm
+en:ATM
+ru:3Банкомат
+ar:ماكينةالصرافالآلي
+cs:3Bankomat
+da:3Hæveautomat
+nl:3Geldautomaat
+fi:Pankkiautomaatti
+fr:GAB
+de:3Geldautomat
+hu:4Pénzautomata
+id:2ATM
+it:3Bancomat
+ja:1ATM
+ko:ATM
+nb:Minibank
+pl:5Bankomat
+pt:3Multibanco
+ro:3Bancomat
+es:ATM
+sv:3Bankomat
+th:2เอทีเอ็ม
+tr:3Bankamatik
+uk:3Банкомат
+vi:ATM
+zh-Hans:自动取款机
+zh-Hant:1自動櫃員機
+he:כספומט
+sk:3Bankomat
+sw:Benki|fedha
 
-amenity-atm
-en:3ATM|money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
-ru:3Банкомат|деньги
-uk:3Банкомат|гроші
-de:3Geldautomat|Bankomat|Geld
-fr:3GAB|3DAB|argent
-it:3Bancomat|soldi
-es:3Cajero automático|atm|dinero
-ko:Atm|돈
-ja:1ATM|atm|お金|マネー|金|引き出し|預金|振り込み
-cs:3Bankomat|spořitelna|peníze
-sk:3Bankomat|sporiteľna|peniaze
-nl:3Geldautomaat|geld
-zh-Hant:1自動櫃員機|1atm|理財|錢|金錢
-pl:5Bankomat|pieniądze
-pt:3Multibanco|dinheiro
-hu:4Pénzautomata|pénz|ATM
-th:2เอทีเอ็ม|เงิน|atm
-zh-Hans:自动取款机|钱|atm
+amenity-atm|@atm
+en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+ru:деньги
+uk:гроші
+de:Bankomat|Geld
+fr:DAB|argent
+it:soldi
+es:3Cajero automático|dinero
+ko:돈
+ja:atm|お金|マネー|金|引き出し|預金|振り込み
+cs:spořitelna|peníze
+sk:sporiteľna|peniaze
+nl:geld
+zh-Hant:1atm|理財|錢|金錢
+pl:pieniądze
+pt:dinheiro
+hu:pénz|ATM
+th:เงิน|atm
+zh-Hans:钱|atm
 ar:ماكينة الصراف الآلي|الأموال|فلوس|atm
-da:3Hæveautomat|penge
-tr:3Bankamatik|atm|3para
-sv:3Bankomat|pengar
+da:penge
+tr:atm|3para
+sv:pengar
 vi:2Máy atm|tiền
-id:2Atm|uang
-ro:3Bancomat|bani
-nb:2Penger|minibank
-fi:2Raha|pankkiautomaatti
+id:uang
+ro:bani
+nb:2Penger
+fi:2Raha
+
+@bank
+en:3Bank
+ru:3Банк
+ar:البنك
+cs:3Banka
+da:3Bank
+nl:3Bank
+fi:3Pankki
+fr:3Banque
+de:3Bank
+hu:3Bank
+id:3Bank
+it:3Banca
+ja:1銀行
+ko:1은행
+nb:3Bank
+pl:3Bank
+pt:3Banco
+ro:3Bancă
+es:3Banco
+sv:3Bank
+th:3ธนาคาร
+tr:3Banka
+uk:3Банк
+vi:3Ngânhàng
+zh-Hans:1银行
+zh-Hant:1銀行
+he:בנק
+sk:3Banka
 sw:Benki|fedha
 
-amenity-bank
-en:3Bank|money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
-ru:3Банк|деньги
-uk:3Банк|гроші
-de:3Bank|Geld
-fr:3Banque|argent
-it:3Banca|soldi
-es:3Banco|dinero
-ko:1은행|돈
-ja:1銀行|バンク|お金|マネー|金|引き出し|預金|振り込み
-cs:3Banka|peníze
-sk:3Banka|peniaze
-nl:3Bank|geld
-zh-Hant:1銀行|錢
-pl:3Bank|pieniądze
-pt:3Banco|dinheiro
-hu:3Bank|pénz
-th:3ธนาคาร|เงิน
-zh-Hans:1银行|钱
+amenity-bank|@bank
+en:money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+ru:деньги
+uk:гроші
+de:Geld
+fr:argent
+it:soldi
+es:dinero
+ko:돈
+ja:バンク|お金|マネー|金|引き出し|預金|振り込み
+cs:peníze
+sk:peniaze
+nl:geld
+zh-Hant:錢
+pl:pieniądze
+pt:dinheiro
+hu:pénz
+th:เงิน
+zh-Hans:钱
 ar:البنك|الأموال
-da:3Bank|3penge
-tr:3Banka|3para
-sv:3Bank|pengar
+da:3penge
+tr:3para
+sv:pengar
 vi:3Ngân hàng|tiền
-id:3Bank|uang
-ro:3Bancă|bani
-nb:3Bank
-fi:3Pankki
-sw:Benki|fedha
+id:uang
+ro:bani
 
 amenity-bureau_de_change
 en:3Currency Exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -2731,35 +2787,61 @@ nb:Gravplass
 fi:Hautausmaa
 sw:Makabulini
 
-amenity-hospital
-en:4Hospital|clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
-ru:4Больница|4госпиталь|врач|доктор
-uk:4Лікарня|клініка|лікар|травмпункт
-de:4Krankenhaus|Spital|3Arzt|Doktor|medizinische Einrichtung|Gesundheitswesen
-fr:4Hôpital|clinique|3médecin|3docteur
-it:4Ospedale
-es:4Hospital
-ko:병원|병원|의사|의사가
-ja:病院|クリニック|医師|医者|ドクター|救急|診療
-cs:4Nemocnice|klinika|pohotovost|zdravotnické centrum|3lékař|doktor
-sk:4Nemocnica|klinika|pohotovosť|zdravotnícke zariadenie|3lekár|doktor
-nl:4Ziekenhuis|kliniek|hospitaal|tandarts|3dokter
-zh-Hant:1醫院|醫生|診所|醫療|診療
-pl:4Szpital|klinika|lekarz|doktor|leczenie
-pt:3Hospital|4Clínica|3médico|hospital
-hu:4Kórház|klinika|3orvos
-th:3โรงพยาบาล|3คลินิก|แพทย์
-zh-Hans:医院|诊所|医生|医院
-ar:المستشفى|عيادة
-da:4Hospital|sygehus
-tr:4Hastane|3klinik|doktor
-sv:4Sjukhus|klinik|3läkare
-vi:Bệnh viện
-id:Rumah sakit
-ro:Spital
-nb:Sykehus
+@hospital
+en:4Hospital
+ru:4Больница
+ar:المستشفى
+cs:4Nemocnice
+da:4Hospital
+nl:4Ziekenhuis
 fi:Sairaala
-sw:Hospitali|zahanati|daktari
+fr:4Hôpital
+de:4Krankenhaus
+hu:4Kórház
+id:Rumahsakit|Rumah sakit
+it:4Ospedale
+ja:病院
+ko:병원
+nb:Sykehus
+pl:4Szpital
+pt:3Hospital
+ro:Spital
+es:4Hospital
+sv:4Sjukhus
+th:3คลินิก
+tr:4Hastane
+uk:4Лікарня
+vi:Bệnhviện|Bệnh viện
+zh-Hans:医院
+zh-Hant:1醫院
+el:Νοσοκομείο
+he:ביתחולים
+sk:4Nemocnica
+sw:Hospitali
+
+amenity-hospital|@hospital
+en:clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
+ru:4госпиталь|врач|доктор
+uk:клініка|лікар|травмпункт
+de:Spital|3Arzt|Doktor|medizinische Einrichtung|Gesundheitswesen
+fr:clinique|3médecin|3docteur
+ko:의사|의사가
+ja:クリニック|医師|医者|ドクター|救急|診療
+cs:klinika|pohotovost|zdravotnické centrum|3lékař|doktor
+sk:klinika|pohotovosť|zdravotnícke zariadenie|3lekár|doktor
+nl:kliniek|hospitaal|tandarts|3dokter
+zh-Hant:醫生|診所|醫療|診療
+pl:klinika|lekarz|doktor|leczenie
+pt:4Clínica|3médico|hospital
+hu:klinika|3orvos
+th:3โรงพยาบาล|แพทย์
+zh-Hans:诊所|医生
+ar:المستشفى|عيادة
+da:sygehus
+tr:3klinik|doktor
+sv:klinik|3läkare
+vi:Bệnh viện
+sw:zahanati|daktari
 
 amenity-clinic
 en:Clinic|1hospital|doctor|U+1F3E5|U+1F489
@@ -2966,35 +3048,53 @@ nb:3Parkering
 fi:3Parkkipaikka
 sw:Maegesho
 
-amenity-pharmacy
-en:3Pharmacy|3drugstore|apothecary|dispensary|U+1F489|U+1F48A
+@pharmacy
+en:3Pharmacy
 ru:3Аптека
-uk:3Аптека|3ліки
-de:3Apotheke
-fr:3Pharmacie|dispensaire
-it:3Farmacia
-es:3Farmacia
-ko:1약국|약물 매장|약종상
-ja:1薬局|ドラッグストア|薬剤師|調剤|薬屋
-cs:3Lékárna
-sk:3Lekáreň
-nl:3Apotheek|verdeelstation
-zh-Hant:1藥局|成藥
-pl:3Apteka
-pt:3Farmacêutico|3farmácia
-hu:3Gyógyszertár
-th:3ร้านขายยา|เภสัชกร
-zh-Hans:1药店|药店|药剂师
 ar:الصيدلية
+cs:3Lékárna
 da:3Apotek
-tr:3Eczane
-sv:3Apotek|apotekare
-vi:3Hiệu thuốc
+nl:3Apotheek
+fi:Apteekki
+fr:3Pharmacie
+de:3Apotheke
+hu:3Gyógyszertár
 id:3Apotek
-ro:3Farmacie
+it:3Farmacia
+ja:1薬局
+ko:1약국
 nb:3Apotek
-fi:3Farmasia
+pl:3Apteka
+pt:3Farmácia
+ro:3Farmacie
+es:Farmacia
+sv:3Apotek
+th:3ร้านขายยา
+tr:3Eczane
+uk:3Аптека
+vi:Hiệuthuốc
+zh-Hans:1药店
+zh-Hant:1藥局
+he:ביתמרקחת
+sk:3Lekáreň
 sw:Duka la dawa
+
+amenity-pharmacy|@pharmacy
+en:3drugstore|apothecary|dispensary|U+1F489|U+1F48A
+uk:3ліки
+fr:dispensaire
+es:3Farmacia
+ko:약물 매장|약종상
+ja:ドラッグストア|薬剤師|調剤|薬屋
+nl:verdeelstation
+zh-Hant:成藥
+pt:3Farmacêutico
+th:เภสัชกร
+zh-Hans:药店|药剂师
+ar:الصيدلية
+sv:apotekare
+vi:3Hiệu thuốc
+fi:3Farmasia
 
 amenity-post_box
 en:3Postbox|post|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
@@ -3026,35 +3126,52 @@ nb:Postboks
 fi:Postilaatikko
 sw:Sanduku la posta
 
-amenity-post_office
-en:3Post|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
+@post
+en:3Post
 ru:3Почта
-uk:3Пошта
-de:3Post|Postamt
-fr:3Poste|3comptoir postal
-it:3Posta
-es:4Oficina de correos|3post
-ko:1우편
-ja:1郵便局
-cs:3Pošta
-sk:3Pošta|poštový úrad
-nl:3Postkantoor|post
-zh-Hant:1郵局|郵筒
-pl:4Poczta|listy
-pt:3Correios
-hu:3Posta
-th:3ไปรษณีย์
-zh-Hans:1邮政
 ar:البريد
-da:3Postkontor|posthus|post
-tr:3Postane|posta
+cs:3Pošta
+da:Post
+nl:Post
+fi:Posti
+fr:3Poste
+de:3Post
+hu:3Posta
+id:Pos
+it:3Posta
+ja:1郵便局
+ko:1우편
+nb:Post
+pl:4Poczta
+pt:3Correios
+ro:Poştă
+es:Oficinadecorreos
 sv:3Post
+th:3ไปรษณีย์
+tr:Posta
+uk:3Пошта
+vi:Bưuđiện
+zh-Hans:1邮政
+zh-Hant:1郵局
+he:דואר
+sk:3Pošta
+sw:Posta
+
+amenity-post_office|@post
+en:U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
+de:Postamt
+fr:3comptoir postal
+es:4Oficina de correos|3post
+sk:poštový úrad
+nl:3Postkantoor
+zh-Hant:郵筒
+pl:listy
+ar:البريد
+da:3Postkontor|posthus
+tr:3Postane
 vi:Bưu điện
 id:Kantor pos
 ro:Oficiul postal
-nb:Post
-fi:Posti
-sw:Posta
 
 amenity-waste_disposal
 en:Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
@@ -3206,35 +3323,52 @@ nb:Telefon
 fi:Puhelin
 sw:Simu
 
-amenity-toilets
-en:3Toilet|wc|5restroom|4bathroom|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
+@toilet
+en:3Toilet
 ru:3Туалет
-uk:3Туалет
-de:WC|3Toilette
-fr:3Toilettes|wc
-it:WC|3toilette
-es:3Servicios sanitario|3lavabo|inodoro|baño
-ko:1화장실
-ja:1トイレ|お手洗い|便所|厠
-cs:3Záchody|wc|toalety
-sk:3Toalety|záchody|wc
-nl:3Toilet|wc
-zh-Hant:1廁所|2洗手間|wc
-pl:3Toaleta|wc|ubikacja|wychodek
-pt:WC
-hu:3Mosdó|WC
-th:3ห้องน้ำ
-zh-Hans:1厕所
 ar:الحمام
+cs:3Záchody
 da:3Toilet
-tr:3Tuvalet
-sv:3Toalett
-vi:Nhà vệ sinh
+nl:3Toilet
+fi:WC
+fr:3Toilettes
+de:3Toilette
+hu:3Mosdó
 id:Toilet
-ro:Toaletă
+it:3Toilette
+ja:1トイレ
+ko:1화장실
 nb:Toalett
-fi:Wc
+pl:3Toaleta
+pt:WC
+ro:Toaletă
+es:Serviciossanitario
+sv:3Toalett
+th:3ห้องน้ำ
+tr:3Tuvalet
+uk:3Туалет
+vi:Nhàvệsinh
+zh-Hans:1厕所
+zh-Hant:1廁所
+he:שירותים
+sk:Záchody
 sw:Choo
+
+amenity-toilets|@toilet
+en:wc|5restroom|4bathroom|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
+de:WC
+fr:wc
+it:WC
+es:3Servicios sanitario|3lavabo|inodoro|baño
+ja:お手洗い|便所|厠
+cs:wc|toalety
+sk:3Toalety|wc
+nl:wc
+zh-Hant:2洗手間|wc
+pl:wc|ubikacja|wychodek
+hu:WC
+ar:الحمام
+vi:Nhà vệ sinh
 
 amenity-university
 en:4University|U+1F393
@@ -4458,35 +4592,51 @@ nb:Bygning
 fi:Rakennus
 sw:Jengo
 
-amenity-police
-en:4Police|U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
-ru:4Полиция|4милиция
-uk:4Поліція|4Міліція
-de:4Polizeistation|Polizeiwache|Polizei
-fr:4Police|4gendarmerie
-it:Posto di polizia|4polizia
-es:4Policía
-ko:1치안대|보안대|경찰
-ja:1屯所|警察|ポリス|交番|お巡りさん|おまわりさん|通報
-cs:4Policie|4bezpečnost
-sk:3Polícia|3policajná stanica
-nl:4Politie
-zh-Hant:1警察局|警察|警員
-pl:4Policja|komisariat
-pt:4Polícia
-hu:4Rendőrség
-th:4ตำรวจ
-zh-Hans:2警察
+@police
+en:4Police
+ru:4Полиция
 ar:الشرطة
+cs:4Policie
 da:4Politi
-tr:3Polis
-sv:4Polis
-vi:Cảnh sát
-id:Polisi
-ro:Poliție
-nb:Politi
+nl:4Politie
 fi:Poliisi
+fr:4Police|4gendarmerie
+de:4Polizeistation
+hu:4Rendőrség
+id:Polisi
+it:4Polizia
+ja:警察
+ko:1치안대
+nb:Politi
+pl:4Policja
+pt:4Polícia
+ro:Poliție
+es:4Policía
+sv:4Polis
+th:4ตำรวจ
+tr:3Polis
+uk:4Міліція
+vi:Cảnhsát
+zh-Hans:2警察
+zh-Hant:1警察局
+he:משטרה
+sk:3Polícia
 sw:Polisi
+
+amenity-police|@police
+en:U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
+ru:4милиция
+uk:4Поліція
+de:Polizeiwache|Polizei
+it:Posto di polizia
+ko:보안대|경찰
+ja:1屯所|ポリス|交番|お巡りさん|おまわりさん|通報
+cs:4bezpečnost
+sk:3policajná stanica
+zh-Hant:警察|警員
+pl:komisariat
+ar:الشرطة
+vi:Cảnh sát
 
 amenity-embassy
 en:4Embassy
@@ -5208,35 +5358,65 @@ nb:Hav
 fi:Valtameri
 sw:Bahari
 
-internet_access|internet_access-wlan
-en:WiFi|3Internet|U+1F4F6
-cs:WiFi|3Internet
-sk:WiFi|3Internet
-de:3Internet|Internetzugang|WiFi
-es:WiFi|3Internet
-fr:WiFi|3Internet
-it:WiFi|3Internet
-ja:無線LAN|3インターネット|WiFi|3Internet
-ko:WiFi 인터넷|3인터넷|3Internet
-nl:WiFi|3Internet
-ru:WiFi|3Интернет|вайфай|Internet
-uk:WiFi|3Інтернет|Internet
-zh-Hant:無線網絡|3互聯網|WiFi|3Internet
-pl:WiFi|3Internet
-pt:WiFi|3Internet
+@wifi
+en:WiFi
+ru:WiFi
+ar:وايفاي
+cs:WiFi
+da:WiFi
+nl:WiFi
+fi:WiFi
+fr:WiFi
+de:WLAN|WiFi
+hu:WiFi
+id:WiFi
+it:WiFi
+ja:無線LAN
+ko:WiFi인터넷|WiFi 인터넷|
+nb:WiFi
+pl:WiFi
+pt:WiFi
+ro:WiFi
+es:WiFi
+th:WiFi
+tr:WiFi
+uk:WiFi
+vi:WiFi
+zh-Hans:无线网络
+zh-Hant:無線網路
+sk:WiFi
+sv:WiFi
+sw:WiFi
+
+internet_access|internet_access-wlan|@wifi
+en:3Internet|U+1F4F6
+cs:3Internet
+sk:3Internet
+de:3Internet|Internetzugang
+es:3Internet
+fr:3Internet
+it:3Internet
+ja:3インターネット|WiFi|3Internet
+ko:3인터넷|3Internet
+nl:3Internet
+ru:3Интернет|вайфай|Internet
+uk:3Інтернет|Internet
+zh-Hant:3互聯網|WiFi|3Internet
+pl:3Internet
+pt:3Internet
 hu:WiFi|3Internet
-th:WiFi|3อินเทอร์เน็ต|3Internet
-zh-Hans:无线网络|3互联网|WiFi|3Internet
+th:3อินเทอร์เน็ต|3Internet
+zh-Hans:3互联网|WiFi|3Internet
 ar:واي فاي|الإنترنت|WiFi|3Internet
-da:WiFi|3Internet
-tr:WiFi|3Internet
-sv:WiFi|3Internet
-vi:WiFi|3Internet
-id:WiFi|3Internet
-ro:WiFi|3Internet
-nb:WiFi|3Internet
-fi:WiFi|3Internet
-sw:WiFi|intaneti
+da:3Internet
+tr:3Internet
+sv:3Internet
+vi:3Internet
+id:3Internet
+ro:3Internet
+nb:3Internet
+fi:3Internet
+sw:intaneti
 
 natural-beach
 en:Beach|U+1F459

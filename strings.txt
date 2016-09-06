@@ -3246,7 +3246,7 @@
     th = การขนส่ง
     tr = Ulaşım
     uk = Транспорт
-    vi = giao thông
+    vi = Giao thông
     zh-Hans = 交通
     zh-Hant = 運輸
     he = תחבורה
@@ -3351,6 +3351,7 @@
     sw = Duka
 
   [hotel]
+    comment = Search Suggestion
     tags = ios,android,tizen
     en = Hotel
     ru = Гостиница
