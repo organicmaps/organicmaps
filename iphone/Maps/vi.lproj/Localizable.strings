@@ -302,7 +302,7 @@
 "food" = "ẩm thực";
 
 /* Search Suggestion */
-"transport" = "giao thông";
+"transport" = "Giao thông";
 
 /* Search Suggestion */
 "fuel" = "Khí đốt";
@@ -313,6 +313,7 @@
 /* Search Suggestion */
 "shop" = "Cửa hàng";
 
+/* Search Suggestion */
 "hotel" = "Khách sạn";
 
 /* Search Suggestion */
