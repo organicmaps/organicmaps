@@ -28,12 +28,12 @@ public:
 
   // IDirectionsEngine override:
   void Generate(IRoadGraph const & graph, vector<Junction> const & path, Route::TTimes & times,
-                Route::TTurns & turns, vector<m2::PointD> & routeGeometry,
+                Route::TTurns & turns, vector<Junction> & routeGeometry,
                 my::Cancellable const & cancellable) override;
 
 private:
   Index::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
-  void LoadPathGeometry(FeatureID const & featureId, vector<m2::PointD> const & path,
+  void LoadPathGeometry(FeatureID const & featureId, vector<Junction> const & path,
                         LoadedPathSegment & pathSegment);
 
   TAdjacentEdgesMap m_adjacentEdges;

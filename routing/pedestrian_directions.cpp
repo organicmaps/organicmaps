@@ -20,14 +20,6 @@ bool HasType(uint32_t type, feature::TypesHolder const & types)
   }
   return false;
 }
-
-void Convert(vector<routing::Junction> const & path, vector<m2::PointD> & geometry)
-{
-  size_t const pathSize = path.size();
-  geometry.resize(pathSize);
-  for (size_t i = 0; i < pathSize; ++i)
-    geometry[i] = path[i].GetPoint();
-}
 }  // namespace
 
 namespace routing
@@ -42,7 +34,7 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine()
 
 void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
                                           Route::TTimes & times, Route::TTurns & turns,
-                                          vector<m2::PointD> & routeGeometry,
+                                          vector<Junction> & routeGeometry,
                                           my::Cancellable const & cancellable)
 {
   times.clear();
@@ -64,7 +56,7 @@ void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junct
   }
 
   CalculateTurns(graph, routeEdges, turns, cancellable);
-  Convert(path, routeGeometry);
+  routeGeometry = path;
 }
 
 void PedestrianDirectionsEngine::CalculateTurns(IRoadGraph const & graph,

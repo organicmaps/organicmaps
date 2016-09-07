@@ -17,7 +17,7 @@ public:
 
   virtual void Generate(IRoadGraph const & graph, vector<Junction> const & path,
                         Route::TTimes & times, Route::TTurns & turns,
-                        vector<m2::PointD> & routeGeometry,
+                        vector<Junction> & routeGeometry,
                         my::Cancellable const & cancellable) = 0;
 
 protected:

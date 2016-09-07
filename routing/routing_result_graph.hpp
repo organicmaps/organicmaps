@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/loaded_path_segment.hpp"
+#include "routing/road_graph.hpp"
 #include "routing/turn_candidate.hpp"
 
 #include "std/vector.hpp"
@@ -24,8 +25,8 @@ public:
                                 m2::PointD const & junctionPoint, size_t & ingoingCount,
                                 TurnCandidates & outgoingTurns) const = 0;
   virtual double GetPathLength() const = 0;
-  virtual m2::PointD const & GetStartPoint() const = 0;
-  virtual m2::PointD const & GetEndPoint() const = 0;
+  virtual Junction const & GetStartPoint() const = 0;
+  virtual Junction const & GetEndPoint() const = 0;
 
   virtual ~IRoutingResult() = default;
 };

@@ -3001,6 +3001,7 @@ bool Framework::GenerateRouteAltitudeChart(size_t width, size_t height, bool day
   {
     LOG(LERROR, ("The route is in inconsistent state. Size of altitudes is", altitudes.size(),
                  ". Number of segment is", segDistanceM.size()));
+    return false;
   }
 
   GenerateChart(width, height, segDistanceM, altitudes, day, imageRGBAData);

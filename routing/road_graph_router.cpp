@@ -243,17 +243,18 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
 
   Route::TTimes times;
   Route::TTurns turnsDir;
-  vector<m2::PointD> geometry;
+  vector<Junction> junctions;
   // @TODO(bykoianko) streetNames is not filled in Generate(). It should be done.
   Route::TStreets streetNames;
   if (m_directionsEngine)
-    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, geometry, cancellable);
+    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, junctions, cancellable);
 
-  feature::TAltitudes altitudes(path.size());
-  for (size_t i = 0; i < path.size(); ++i)
-    altitudes[i] = path[i].GetAltitude();
+  vector<m2::PointD> routeGeometry;
+  JunctionsToPoints(junctions, routeGeometry);
+  feature::TAltitudes altitudes;
+  JunctionsToAltitudes(junctions, altitudes);
 
-  route.SetGeometry(geometry.begin(), geometry.end());
+  route.SetGeometry(routeGeometry.begin(), routeGeometry.end());
   route.SwapSectionTimes(times);
   route.SwapTurnInstructions(turnsDir);
   route.SwapStreetNames(streetNames);

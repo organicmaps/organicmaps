@@ -153,9 +153,15 @@ public:
 
   double GetPathLength() const override { return m_rawResult.shortestPathLength; }
 
-  m2::PointD const & GetStartPoint() const override { return m_rawResult.sourceEdge.segmentPoint; }
+  Junction const & GetStartPoint() const override
+  {
+    return Junction(m_rawResult.sourceEdge.segmentPoint, feature::kDefaultAltitudeMeters);
+  }
 
-  m2::PointD const & GetEndPoint() const override { return m_rawResult.targetEdge.segmentPoint; }
+  Junction const & GetEndPoint() const override
+  {
+    return Junction(m_rawResult.targetEdge.segmentPoint, feature::kDefaultAltitudeMeters);
+  }
 
   OSRMRoutingResult(Index const & index, RoutingMapping & mapping, RawRoutingResult & result)
     : m_rawResult(result), m_index(index), m_routingMapping(mapping)
@@ -325,13 +331,18 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     Route::TTurns mwmTurnsDir;
     Route::TTimes mwmTimes;
     Route::TStreets mwmStreets;
-    vector<m2::PointD> mwmPoints;
+    vector<Junction> mwmJunctions;
+
     OSRMRoutingResult resultGraph(*m_pIndex, *mwmMapping, routingResult);
-    if (MakeTurnAnnotation(resultGraph, delegate, mwmPoints, mwmTurnsDir, mwmTimes, mwmStreets) != NoError)
+    if (MakeTurnAnnotation(resultGraph, delegate, mwmJunctions, mwmTurnsDir, mwmTimes, mwmStreets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk for", mwmMapping->GetCountryName()));
       return RouteNotFound;
     }
+
+    vector<m2::PointD> mwmPoints;
+    JunctionsToPoints(mwmJunctions, mwmPoints);
+
     // Connect annotated route.
     auto const pSize = static_cast<uint32_t>(points.size());
     for (auto turn : mwmTurnsDir)
@@ -494,14 +505,17 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     Route::TTurns turnsDir;
     Route::TTimes times;
     Route::TStreets streets;
-    vector<m2::PointD> points;
+    vector<Junction> junctions;
 
     OSRMRoutingResult resultGraph(*m_pIndex, *startMapping, routingResult);
-    if (MakeTurnAnnotation(resultGraph, delegate, points, turnsDir, times, streets) != NoError)
+    if (MakeTurnAnnotation(resultGraph, delegate, junctions, turnsDir, times, streets) != NoError)
     {
       LOG(LWARNING, ("Can't load road path data from disk!"));
       return RouteNotFound;
     }
+
+    vector<m2::PointD> points;
+    JunctionsToPoints(junctions, points);
 
     route.SetGeometry(points.begin(), points.end());
     route.SwapTurnInstructions(turnsDir);
