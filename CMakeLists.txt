@@ -6,7 +6,6 @@ add_compile_options(
     "-Wall"
     "-pedantic"
     "-std=c++11"
-    "-O3"
 )
 
 find_package(Threads)
