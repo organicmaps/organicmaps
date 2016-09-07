@@ -232,16 +232,11 @@ void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & path, m2::Point
   segments.reserve(path.size() - 1);
   ConstructLineSegments(path, segments);
 
-  float finalLength = 0.0f;
-  for (size_t i = 0; i < segments.size(); i++)
-    finalLength += glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
-
   m2::RectF tr = texRect;
   tr.setMinX(texRect.minX() * (1.0 - kArrowTailSize) + texRect.maxX() * kArrowTailSize);
   tr.setMaxX(texRect.minX() * kArrowHeadSize + texRect.maxX() * (1.0 - kArrowHeadSize));
 
   // Build geometry.
-  float length = 0;
   for (size_t i = 0; i < segments.size(); i++)
   {
     UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
@@ -256,25 +251,24 @@ void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & path, m2::Point
     glsl::vec4 const startPivot = glsl::vec4(glsl::ToVec2(startPt), depth, 1.0);
     glsl::vec4 const endPivot = glsl::vec4(glsl::ToVec2(endPt), depth, 1.0);
 
-    float const endLength = length + glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
-
     glsl::vec2 const leftNormalStart = GetNormal(segments[i], true /* isLeft */, StartNormal);
     glsl::vec2 const rightNormalStart = GetNormal(segments[i], false /* isLeft */, StartNormal);
     glsl::vec2 const leftNormalEnd = GetNormal(segments[i], true /* isLeft */, EndNormal);
     glsl::vec2 const rightNormalEnd = GetNormal(segments[i], false /* isLeft */, EndNormal);
 
-    float const startU = length / finalLength;
-    float const endU = endLength / finalLength;
+    glsl::vec2 const uvCenter = GetUV(tr, 0.5f, 0.5f);
+    glsl::vec2 const uvLeft = GetUV(tr, 0.5f, 0.0f);
+    glsl::vec2 const uvRight = GetUV(tr, 0.5f, 1.0f);
 
-    geometry.push_back(AV(startPivot, glsl::vec2(0, 0), GetUV(tr, startU, 0.5f)));
-    geometry.push_back(AV(startPivot, leftNormalStart, GetUV(tr, startU, 0.0f)));
-    geometry.push_back(AV(endPivot, glsl::vec2(0, 0), GetUV(tr, endU, 0.5f)));
-    geometry.push_back(AV(endPivot, leftNormalEnd, GetUV(tr, endU, 0.0f)));
+    geometry.push_back(AV(startPivot, glsl::vec2(0, 0), uvCenter));
+    geometry.push_back(AV(startPivot, leftNormalStart, uvLeft));
+    geometry.push_back(AV(endPivot, glsl::vec2(0, 0), uvCenter));
+    geometry.push_back(AV(endPivot, leftNormalEnd, uvLeft));
 
-    geometry.push_back(AV(startPivot, rightNormalStart, GetUV(tr, startU, 1.0f)));
-    geometry.push_back(AV(startPivot, glsl::vec2(0, 0), GetUV(tr, startU, 0.5f)));
-    geometry.push_back(AV(endPivot, rightNormalEnd, GetUV(tr, endU, 1.0f)));
-    geometry.push_back(AV(endPivot, glsl::vec2(0, 0), GetUV(tr, endU, 0.5f)));
+    geometry.push_back(AV(startPivot, rightNormalStart, uvRight));
+    geometry.push_back(AV(startPivot, glsl::vec2(0, 0), uvCenter));
+    geometry.push_back(AV(endPivot, rightNormalEnd, uvRight));
+    geometry.push_back(AV(endPivot, glsl::vec2(0, 0), uvCenter));
 
     // Generate joins.
     if (segments[i].m_generateJoin && i < segments.size() - 1)
@@ -338,8 +332,6 @@ void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & path, m2::Point
 
       GenerateArrowsTriangles(startPivot, normals, texRect, uv, false /* normalizedUV */, joinsGeometry);
     }
-
-    length = endLength;
   }
 }
 
