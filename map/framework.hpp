@@ -120,8 +120,8 @@ protected:
 
   model::FeaturesFetcher m_model;
 
-  // The order matters here: DisplayedCategories may be used only when
-  // classificator is loaded (by |m_model|).
+  // The order matters here: DisplayedCategories may be used only
+  // after classificator is loaded by |m_model|.
   unique_ptr<search::DisplayedCategories> m_displayedCategories;
 
   // The order matters here: storage::CountryInfoGetter and

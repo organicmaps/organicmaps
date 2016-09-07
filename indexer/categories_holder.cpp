@@ -27,7 +27,7 @@ int8_t const CategoriesHolder::kUnsupportedLocaleCode = -1;
 // translation to categories.txt. When editing, keep in mind to check
 // CategoriesHolder::MapLocaleToInteger() and
 // CategoriesHolder::MapIntegerToLocale() as their implementations
-// highly depend on the contents of the variable.
+// strongly depend on the contents of the variable.
 vector<CategoriesHolder::Mapping> const CategoriesHolder::kLocaleMapping = {{"en", 1},
                                                                             {"ru", 2},
                                                                             {"uk", 3},

@@ -18,6 +18,8 @@ public:
   // of resources ids.
   static vector<string> const & GetKeys();
 
+  // Calls |fn| on each pair (synonym name, synonym locale) for the
+  // |key|.
   template <typename Fn>
   void ForEachSynonym(string const & key, Fn && fn) const
   {

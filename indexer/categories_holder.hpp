@@ -6,6 +6,7 @@
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
 
@@ -129,7 +130,7 @@ public:
   }
 
   // Converts any language |locale| from UI to the corresponding
-  // internal integer code
+  // internal integer code.
   static int8_t MapLocaleToInteger(string const & locale);
 
   // Returns corresponding string representation for an internal
