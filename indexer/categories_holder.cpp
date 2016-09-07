@@ -22,8 +22,12 @@ enum State
 // static
 int8_t const CategoriesHolder::kEnglishCode = 1;
 int8_t const CategoriesHolder::kUnsupportedLocaleCode = -1;
-// *NOTE* These constants should be updated when
-// adding new translation to categories.txt.
+
+// *NOTE* These constants should be updated when adding new
+// translation to categories.txt. When editing, keep in mind to check
+// CategoriesHolder::MapLocaleToInteger() and
+// CategoriesHolder::MapIntegerToLocale() as their implementations
+// highly depend on the contents of the variable.
 vector<CategoriesHolder::Mapping> const CategoriesHolder::kLocaleMapping = {{"en", 1},
                                                                             {"ru", 2},
                                                                             {"uk", 3},
@@ -111,6 +115,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
 {
   m_type2cat.clear();
   m_name2type.clear();
+  m_groupTranslations.clear();
 
   State state = EParseTypes;
   string line;
@@ -118,7 +123,6 @@ void CategoriesHolder::LoadFromStream(istream & s)
   Category cat;
   vector<uint32_t> types;
   vector<string> currentGroups;
-  multimap<string, Category::Name> groupTranslations;
 
   Classificator const & c = classif();
 
@@ -184,9 +188,11 @@ void CategoriesHolder::LoadFromStream(istream & s)
         {
           for (string const & group : currentGroups)
           {
-            auto trans = groupTranslations.equal_range(group);
-            for (auto it = trans.first; it != trans.second; ++it)
-              cat.m_synonyms.push_back(it->second);
+            auto it = m_groupTranslations.find(group);
+            if (it == m_groupTranslations.end())
+              continue;
+            for (auto const & synonym : it->second)
+              cat.m_synonyms.push_back(synonym);
           }
         }
 
@@ -242,7 +248,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
         if (currentGroups.size() == 1 && types.empty())
         {
           // Not a translation, but a category group definition
-          groupTranslations.emplace(currentGroups[0], name);
+          m_groupTranslations[currentGroups[0]].push_back(name);
         }
         else
           cat.m_synonyms.push_back(name);
@@ -308,6 +314,7 @@ bool CategoriesHolder::IsTypeExist(uint32_t type) const
   return range.first != range.second;
 }
 
+// static
 int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
 {
   ASSERT(!kLocaleMapping.empty(), ());
@@ -337,4 +344,12 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
   }
 
   return kUnsupportedLocaleCode;
+}
+
+// static
+string CategoriesHolder::MapIntegerToLocale(int8_t code)
+{
+  if (code <= 0 || code > kLocaleMapping.size())
+    return string();
+  return kLocaleMapping[code - 1].m_name;
 }

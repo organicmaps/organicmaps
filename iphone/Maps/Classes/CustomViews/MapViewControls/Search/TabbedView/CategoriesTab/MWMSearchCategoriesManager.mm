@@ -18,7 +18,7 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 {
   self = [super init];
   if (self)
-    m_categories = search::GetDisplayedCategories();
+    m_categories = search::DisplayedCategories::GetKeys();
   return self;
 }
 

@@ -5,8 +5,8 @@
 extern "C"
 {
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_search_DisplayedCategories_nativeGet(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_search_DisplayedCategories_nativeGetKeys(JNIEnv * env, jclass clazz)
 {
-  return jni::ToJavaStringArray(env, search::GetDisplayedCategories());
+  return jni::ToJavaStringArray(env, search::DisplayedCategories::GetKeys());
 }
 }  // extern "C"

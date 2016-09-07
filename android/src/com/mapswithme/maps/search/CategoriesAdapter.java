@@ -36,22 +36,20 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     final boolean isNightTheme = ThemeUtils.isNightTheme();
     final Resources resources = fragment.getActivity().getResources();
 
-    final String[] categories = DisplayedCategories.get();
+    final String[] keys = DisplayedCategories.getKeys();
+    final int numKeys = keys.length;
 
-    final int len = categories.length;
-
-    mCategoryResIds = new int[len];
-    mIconResIds = new int[len];
-    for (int i = 0; i < len; i++)
+    mCategoryResIds = new int[numKeys];
+    mIconResIds = new int[numKeys];
+    for (int i = 0; i < numKeys; i++)
     {
-      mCategoryResIds[i] = resources.getIdentifier(categories[i], "string", packageName);
-      if (mCategoryResIds[i] == 0)
-      {
-        throw new IllegalStateException(
-            "Can't get string resource id for category:" + categories[i]);
-      }
+      String key = keys[i];
 
-      String iconId = "ic_category_" + categories[i];
+      mCategoryResIds[i] = resources.getIdentifier(key, "string", packageName);
+      if (mCategoryResIds[i] == 0)
+        throw new IllegalStateException("Can't get string resource id for category:" + key);
+
+      String iconId = "ic_category_" + key;
       if (isNightTheme)
         iconId = iconId + "_night";
       mIconResIds[i] = resources.getIdentifier(iconId, "drawable", packageName);
