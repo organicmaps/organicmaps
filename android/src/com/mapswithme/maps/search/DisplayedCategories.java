@@ -2,7 +2,7 @@ package com.mapswithme.maps.search;
 
 class DisplayedCategories
 {
-  public static String[] get() { return nativeGet(); }
+  public static String[] getKeys() { return nativeGetKeys(); }
 
-  private static native String[] nativeGet();
+  private static native String[] nativeGetKeys();
 }

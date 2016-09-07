@@ -6,6 +6,7 @@
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
 
@@ -41,6 +42,8 @@ public:
     int8_t m_code;
   };
 
+  using GroupTranslations = unordered_map<string, vector<Category::Name>>;
+
 private:
   typedef strings::UniString StringT;
   typedef multimap<uint32_t, shared_ptr<Category> > Type2CategoryContT;
@@ -49,6 +52,7 @@ private:
 
   Type2CategoryContT m_type2cat;
   Name2CatContT m_name2type;
+  GroupTranslations m_groupTranslations;
 
 public:
   static int8_t const kEnglishCode;
@@ -107,6 +111,8 @@ public:
     }
   }
 
+  inline GroupTranslations const & GetGroupTranslations() const { return m_groupTranslations; }
+
   /// Search name for type with preffered locale language.
   /// If no name for this language, return first (en) name.
   /// @return false if no categories for type.
@@ -123,8 +129,14 @@ public:
     m_name2type.swap(r.m_name2type);
   }
 
-  /// Converts any language locale from UI to internal integer code
+  // Converts any language |locale| from UI to the corresponding
+  // internal integer code.
   static int8_t MapLocaleToInteger(string const & locale);
+
+  // Returns corresponding string representation for an internal
+  // integer |code|. Returns an empty string in case of invalid
+  // |code|.
+  static string MapIntegerToLocale(int8_t code);
 
 private:
   void AddCategory(Category & cat, vector<uint32_t> & types);

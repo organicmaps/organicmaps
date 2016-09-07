@@ -24,6 +24,7 @@
 
 #include "editor/user_stats.hpp"
 
+#include "search/displayed_categories.hpp"
 #include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
 #include "search/mode.hpp"
@@ -117,12 +118,15 @@ protected:
 
   StringsBundle m_stringsBundle;
 
+  model::FeaturesFetcher m_model;
+
+  // The order matters here: DisplayedCategories may be used only
+  // after classificator is loaded by |m_model|.
+  unique_ptr<search::DisplayedCategories> m_displayedCategories;
+
   // The order matters here: storage::CountryInfoGetter and
   // m_model::FeaturesFetcher must be initialized before
   // search::Engine and, therefore, destroyed after search::Engine.
-
-  model::FeaturesFetcher m_model;
-
   unique_ptr<storage::CountryInfoGetter> m_infoGetter;
 
   unique_ptr<search::Engine> m_searchEngine;
@@ -241,6 +245,10 @@ public:
 
   storage::Storage & GetStorage() { return m_storage; }
   storage::Storage const & GetStorage() const { return m_storage; }
+  search::DisplayedCategories const & GetDisplayedCategories() const
+  {
+    return *m_displayedCategories;
+  }
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 

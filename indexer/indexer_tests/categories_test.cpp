@@ -107,6 +107,18 @@ UNIT_TEST(LoadCategories)
   TEST_EQUAL(count, 3, ());
 }
 
+UNIT_TEST(CategoriesHolder_Smoke)
+{
+  auto const & mappings = CategoriesHolder::kLocaleMapping;
+  for (size_t i = 0; i < mappings.size(); ++i)
+  {
+    auto const & mapping  = mappings[i];
+    TEST_EQUAL(i + 1, mapping.m_code, ());
+    TEST_EQUAL(i + 1, CategoriesHolder::MapLocaleToInteger(mapping.m_name), ());
+    TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(i + 1), mapping.m_name, ());
+  }
+}
+
 UNIT_TEST(CategoriesIndex_Smoke)
 {
   classificator::Load();
