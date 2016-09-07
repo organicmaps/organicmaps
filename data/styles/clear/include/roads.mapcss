@@ -1935,18 +1935,27 @@ line|z15-[tunnel?]::tunnelblack
 
 /* line|z15-[highway=primary][hwtag=oneway]::arrows <-- не работает по типам магистралей */
 
+line|z15[hwtag=oneway]::arrows
+{
+  pattern-offset: 80;
+  z-index: 1000;
+  pattern-image: arrow-xs.svg;
+  pattern-spacing: 160;
+  z-index: 1000;
+}
+
 line|z16[hwtag=oneway]::arrows
 {
-  pattern-offset: 160;
+  pattern-offset: 120;
   z-index: 1000;
   pattern-image: arrow-s.svg;
   pattern-spacing: 160;
-  z-index: 500;
+  z-index: 1000;
 }
 
 line|z17[hwtag=oneway]::arrows
 {
-  pattern-offset: 200;
+  pattern-offset: 160;
   z-index: 1000;
   pattern-image: arrow-s.svg;
   pattern-spacing: 200;
