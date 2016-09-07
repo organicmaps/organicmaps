@@ -726,7 +726,7 @@ public:
   void SaveAutoZoom(bool allowAutoZoom);
 
   bool HasRouteAltitude() const;
-  bool GenerateRouteAltitudeChart(size_t width, size_t height, bool day,
+  bool GenerateRouteAltitudeChart(size_t width, size_t height,
                                   vector<uint8_t> & imageRGBAData) const;
 
 public:

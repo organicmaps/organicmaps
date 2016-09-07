@@ -2986,7 +2986,7 @@ bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
 
 bool Framework::HasRouteAltitude() const { return m_routingSession.HasRouteAltitude(); }
 
-bool Framework::GenerateRouteAltitudeChart(size_t width, size_t height, bool day,
+bool Framework::GenerateRouteAltitudeChart(size_t width, size_t height,
                                            vector<uint8_t> & imageRGBAData) const
 {
   feature::TAltitudes altitudes;
@@ -3004,6 +3004,7 @@ bool Framework::GenerateRouteAltitudeChart(size_t width, size_t height, bool day
     return false;
   }
 
+  bool day = (GetMapStyle() != MapStyleDark);
   GenerateChart(width, height, segDistanceM, altitudes, day, imageRGBAData);
   return true;
 }
