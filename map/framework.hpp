@@ -416,6 +416,7 @@ public:
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
+  bool IsLightMapTheme() const;
 
   void SetupMeasurementSystem();
 
@@ -726,7 +727,7 @@ public:
   void SaveAutoZoom(bool allowAutoZoom);
 
   bool HasRouteAltitude() const;
-  bool GenerateRouteAltitudeChart(size_t width, size_t height,
+  bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                                   vector<uint8_t> & imageRGBAData) const;
 
 public:

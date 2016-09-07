@@ -4,13 +4,15 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/deque.hpp"
+#include "std/cstdint.hpp"
 #include "std/vector.hpp"
 
+namespace maps
+{
 /// \brief fills uniformAltitudeDataM with altitude data which evenly distributed by
 /// |resultPointCount| points. |distanceDataM| and |altitudeDataM| form a curve of route altitude.
 /// This method is used to generalize and evenly distribute points of the chart.
-void NormalizeChartData(deque<double> const & distanceDataM,
+bool NormalizeChartData(vector<double> const & distanceDataM,
                         feature::TAltitudes const & altitudeDataM, size_t resultPointCount,
                         vector<double> & uniformAltitudeDataM);
 
@@ -20,7 +22,7 @@ void NormalizeChartData(deque<double> const & distanceDataM,
 /// \param minMetersInPixel minimum meter number per height pixel.
 /// \param altitudeDataM altitude data vector in meters.
 /// \param yAxisDataPxl Y-axis data of altitude chart in pixels.
-void GenerateYAxisChartData(size_t height, double minMetersPerPxl,
+void GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
                             vector<double> const & altitudeDataM, vector<double> & yAxisDataPxl);
 
 /// \brief generates chart image on a canvas with size |width|, |height| with |geometry|.
@@ -28,11 +30,14 @@ void GenerateYAxisChartData(size_t height, double minMetersPerPxl,
 /// \param width is result image width in pixels.
 /// \param height is result image height in pixels.
 /// \param geometry is points which is used to draw a curve of the chart.
+/// \param lightTheme is true for light theme image colors
+/// and false for night image colors.
 /// \param frameBuffer is a vector for a result image. It's resized in this method.
 /// It's filled with RGBA(8888) image date.
-void GenerateChartByPoints(size_t width, size_t height, vector<m2::PointD> const & geometry,
-                           bool day, vector<uint8_t> & frameBuffer);
+void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry,
+                           bool lightTheme, vector<uint8_t> & frameBuffer);
 
-void GenerateChart(size_t width, size_t height, deque<double> const & distanceDataM,
-                   feature::TAltitudes const & altitudeDataM, bool day,
+bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & distanceDataM,
+                   feature::TAltitudes const & altitudeDataM, bool lightTheme,
                    vector<uint8_t> & frameBuffer);
+}  // namespace maps

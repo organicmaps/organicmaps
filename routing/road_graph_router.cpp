@@ -255,10 +255,10 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
   JunctionsToAltitudes(junctions, altitudes);
 
   route.SetGeometry(routeGeometry.begin(), routeGeometry.end());
-  route.SwapSectionTimes(times);
-  route.SwapTurnInstructions(turnsDir);
-  route.SwapStreetNames(streetNames);
-  route.SwapAltitudes(altitudes);
+  route.SetSectionTimes(move(times));
+  route.SetTurnInstructions(move(turnsDir));
+  route.SetStreetNames(move(streetNames));
+  route.SetAltitudes(move(altitudes));
 }
 
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn)

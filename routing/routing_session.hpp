@@ -15,7 +15,6 @@
 #include "base/mutex.hpp"
 
 #include "std/atomic.hpp"
-#include "std/deque.hpp"
 #include "std/limits.hpp"
 #include "std/unique_ptr.hpp"
 
@@ -106,15 +105,15 @@ public:
   inline void SetState(State state) { m_state = state; }
 
   Route const & GetRoute() const { return m_route; }
-  /// \returns true if any altitude information along |m_route| is available and
+  /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
   bool HasRouteAltitude() const;
   /// \brief copies route altitude information to |routeAltitudes| if any is available and
-  /// returns true. If no route altitude information is available returns false.
+  /// returns true. If there's no navigation route, the method returns false.
   bool GetRouteAltitudes(feature::TAltitudes & routeAltitudes) const;
   /// \brief copies distance from route beginning to ends of route segments in meters and
   /// returns true. If the route is not valid returns false.
-  bool GetSegDistanceM(deque<double> & routeSegDistanceM) const;
+  bool GetSegDistanceM(vector<double> & routeSegDistanceM) const;
 
   State OnLocationPositionChanged(location::GpsInfo const & info, Index const & index);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
@@ -148,7 +147,6 @@ public:
   double GetCompletionPercent() const;
 
   void EmitCloseRoutingEvent() const;
-  bool HasRouteAltitudeImpl() const;
 
 private:
   struct DoReadyCallback
@@ -175,6 +173,8 @@ private:
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RemoveRouteImpl();
+
+  bool HasRouteAltitudeImpl() const;
 
 private:
   unique_ptr<AsyncRouter> m_router;

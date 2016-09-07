@@ -25,8 +25,8 @@ public:
                                 m2::PointD const & junctionPoint, size_t & ingoingCount,
                                 TurnCandidates & outgoingTurns) const = 0;
   virtual double GetPathLength() const = 0;
-  virtual Junction const & GetStartPoint() const = 0;
-  virtual Junction const & GetEndPoint() const = 0;
+  virtual Junction GetStartPoint() const = 0;
+  virtual Junction GetEndPoint() const = 0;
 
   virtual ~IRoutingResult() = default;
 };

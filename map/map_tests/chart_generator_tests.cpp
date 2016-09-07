@@ -4,7 +4,6 @@
 
 #include "base/math.hpp"
 
-#include "std/deque.hpp"
 #include "std/vector.hpp"
 
 namespace
@@ -34,39 +33,50 @@ bool IsColor(vector<uint8_t> const & frameBuffer, size_t startColorIdx, uint8_t 
          frameBuffer[startColorIdx + 2] == expectedB && frameBuffer[startColorIdx + 3] == expectedA;
 }
 
-UNIT_TEST(NormalizeChartDataZeroTest)
+UNIT_TEST(NormalizeChartData_SmokeTest)
 {
-  deque<double> const distanceDataM = {0.0, 0.0, 0.0};
+  vector<double> const distanceDataM = {0.0, 0.0, 0.0};
   feature::TAltitudes const altitudeDataM = {0, 0, 0};
 
   vector<double> uniformAltitudeDataM;
-  NormalizeChartData(distanceDataM, altitudeDataM, 2 /* resultPointCount */, uniformAltitudeDataM);
+  TEST(maps::NormalizeChartData(distanceDataM, altitudeDataM, 2 /* resultPointCount */, uniformAltitudeDataM),
+       ());
 
   vector<double> const expectedUniformAltitudeDataM = {0.0, 0.0};
   TEST_EQUAL(expectedUniformAltitudeDataM, uniformAltitudeDataM, ());
 }
 
-UNIT_TEST(NormalizeChartDataTest)
+UNIT_TEST(NormalizeChartData_Test)
 {
-  deque<double> const distanceDataM = {0.0, 2.0, 4.0, 6.0};
+  vector<double> const distanceDataM = {0.0, 2.0, 4.0, 6.0};
   feature::TAltitudes const altitudeDataM = {-9, 0, 9, 18};
 
   vector<double> uniformAltitudeDataM;
-  NormalizeChartData(distanceDataM, altitudeDataM, 10 /* resultPointCount */, uniformAltitudeDataM);
+  TEST(maps::NormalizeChartData(distanceDataM, altitudeDataM, 10 /* resultPointCount */, uniformAltitudeDataM),
+       ());
 
   vector<double> const expectedUniformAltitudeDataM = {-9.0, -6.0, -3.0, 0.0,  3.0,
                                                        6.0,  9.0,  12.0, 15.0, 18.0};
   TEST(AlmostEqualAbs(uniformAltitudeDataM, expectedUniformAltitudeDataM), ());
 }
 
-UNIT_TEST(GenerateYAxisChartDataZeroTest)
+UNIT_TEST(GenerateYAxisChartData_SmokeTest)
 {
   vector<double> const altitudeDataM = {0.0, 0.0};
   vector<double> yAxisDataPxl;
 
-  GenerateYAxisChartData(30 /* height */, 1.0 /* minMetersPerPxl */, altitudeDataM, yAxisDataPxl);
+  maps::GenerateYAxisChartData(30 /* height */, 1.0 /* minMetersPerPxl */, altitudeDataM, yAxisDataPxl);
   vector<double> expecttedYAxisDataPxl = {28.0, 28.0};
   TEST(AlmostEqualAbs(yAxisDataPxl, expecttedYAxisDataPxl), ());
+}
+
+UNIT_TEST(GenerateYAxisChartData_EmptyAltitudeDataTest)
+{
+  vector<double> const altitudeDataM = {};
+  vector<double> yAxisDataPxl;
+
+  maps::GenerateYAxisChartData(30 /* height */, 1.0 /* minMetersPerPxl */, altitudeDataM, yAxisDataPxl);
+  TEST(yAxisDataPxl.empty(), ());
 }
 
 UNIT_TEST(GenerateYAxisChartDataTest)
@@ -74,19 +84,19 @@ UNIT_TEST(GenerateYAxisChartDataTest)
   vector<double> const altitudeDataM = {0.0, 2.0, 0.0, -2.0, 1.0};
   vector<double> yAxisDataPxl;
 
-  GenerateYAxisChartData(100 /* height */, 1.0 /* minMetersPerPxl */, altitudeDataM, yAxisDataPxl);
+  maps::GenerateYAxisChartData(100 /* height */, 1.0 /* minMetersPerPxl */, altitudeDataM, yAxisDataPxl);
   vector<double> expecttedYAxisDataPxl = {96.0, 94.0, 96.0, 98.0, 95.0};
   TEST(AlmostEqualAbs(yAxisDataPxl, expecttedYAxisDataPxl), ());
 }
 
-UNIT_TEST(GenerateChartByPointsTest)
+UNIT_TEST(GenerateChartByPoints_Test)
 {
   vector<m2::PointD> const geometry = {{0.0, 0.0}, {10.0, 10.0}};
 
   size_t constexpr width = 40;
   vector<uint8_t> frameBuffer;
 
-  GenerateChartByPoints(width, 40 /* height */, geometry, true /* day */, frameBuffer);
+  maps::GenerateChartByPoints(width, 40 /* height */, geometry, true /* day */, frameBuffer);
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 30 /* expectedR */, 150 /* expectedG */,
                240 /* expectedB */, 255 /* expectedA */),
        ());
@@ -95,14 +105,16 @@ UNIT_TEST(GenerateChartByPointsTest)
        ());
 }
 
-UNIT_TEST(GenerateChartTest)
+UNIT_TEST(GenerateChart_Test)
 {
   size_t constexpr width = 50;
-  deque<double> const distanceDataM = {0.0, 100.0};
+  vector<double> const distanceDataM = {0.0, 100.0};
   feature::TAltitudes const & altitudeDataM = {0, 1000};
   vector<uint8_t> frameBuffer;
 
-  GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, false /* day */, frameBuffer);
+  TEST(maps::GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, false /* day */,
+                           frameBuffer),
+       ());
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 255 /* expectedR */, 255 /* expectedG */,
                255 /* expectedB */, 0 /* expectedA */),
        ());

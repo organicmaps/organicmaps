@@ -1,6 +1,6 @@
 #include "map/framework.hpp"
-#include "map/ge0_parser.hpp"
 #include "map/chart_generator.hpp"
+#include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/user_mark.hpp"
@@ -80,7 +80,6 @@
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
-#include "std/deque.hpp"
 #include "std/target_os.hpp"
 #include "std/vector.hpp"
 
@@ -1695,6 +1694,11 @@ MapStyle Framework::GetMapStyle() const
   return GetStyleReader().GetCurrentStyle();
 }
 
+bool Framework::IsLightMapTheme() const
+{
+  return GetMapStyle() != MapStyleDark;
+}
+
 void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
@@ -2986,25 +2990,17 @@ bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
 
 bool Framework::HasRouteAltitude() const { return m_routingSession.HasRouteAltitude(); }
 
-bool Framework::GenerateRouteAltitudeChart(size_t width, size_t height,
+bool Framework::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                                            vector<uint8_t> & imageRGBAData) const
 {
   feature::TAltitudes altitudes;
   if (!m_routingSession.GetRouteAltitudes(altitudes))
     return false;
-  deque<double> segDistanceM;
+  vector<double> segDistanceM;
   if (!m_routingSession.GetSegDistanceM(segDistanceM) && segDistanceM.empty())
     return false;
-  segDistanceM.push_front(0.0);
+  segDistanceM.insert(segDistanceM.begin(), 0.0);
 
-  if (altitudes.size() != segDistanceM.size())
-  {
-    LOG(LERROR, ("The route is in inconsistent state. Size of altitudes is", altitudes.size(),
-                 ". Number of segment is", segDistanceM.size()));
-    return false;
-  }
-
-  bool day = (GetMapStyle() != MapStyleDark);
-  GenerateChart(width, height, segDistanceM, altitudes, day, imageRGBAData);
-  return true;
+  return maps::GenerateChart(width, height, segDistanceM, altitudes,
+                             IsLightMapTheme(), imageRGBAData);
 }

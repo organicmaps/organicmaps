@@ -56,13 +56,13 @@ public:
 
   double GetPathLength() const override { return m_routeLength; }
 
-  Junction const & GetStartPoint() const override
+  Junction GetStartPoint() const override
   {
     CHECK(!m_routeEdges.empty(), ());
     return m_routeEdges.front().GetStartJunction();
   }
 
-  Junction const & GetEndPoint() const override
+  Junction GetEndPoint() const override
   {
     CHECK(!m_routeEdges.empty(), ());
     return m_routeEdges.back().GetEndJunction();

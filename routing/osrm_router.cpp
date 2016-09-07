@@ -153,12 +153,12 @@ public:
 
   double GetPathLength() const override { return m_rawResult.shortestPathLength; }
 
-  Junction const & GetStartPoint() const override
+  Junction GetStartPoint() const override
   {
     return Junction(m_rawResult.sourceEdge.segmentPoint, feature::kDefaultAltitudeMeters);
   }
 
-  Junction const & GetEndPoint() const override
+  Junction GetEndPoint() const override
   {
     return Junction(m_rawResult.targetEdge.segmentPoint, feature::kDefaultAltitudeMeters);
   }
@@ -377,9 +377,9 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
   }
 
   route.SetGeometry(points.begin(), points.end());
-  route.SwapTurnInstructions(turnsDir);
-  route.SwapSectionTimes(times);
-  route.SwapStreetNames(streets);
+  route.SetTurnInstructions(move(turnsDir));
+  route.SetSectionTimes(move(times));
+  route.SetStreetNames(move(streets));
   return NoError;
 }
 
@@ -518,9 +518,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     JunctionsToPoints(junctions, points);
 
     route.SetGeometry(points.begin(), points.end());
-    route.SwapTurnInstructions(turnsDir);
-    route.SwapSectionTimes(times);
-    route.SwapStreetNames(streets);
+    route.SetTurnInstructions(move(turnsDir));
+    route.SetSectionTimes(move(times));
+    route.SetStreetNames(move(streets));
 
     return NoError;
   }
