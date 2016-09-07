@@ -64,6 +64,7 @@ class TileReadStartMessage : public MapShapeMessage
 public:
   TileReadStartMessage(TileKey const & key) : MapShapeMessage(key) {}
   Type GetType() const override { return Message::TileReadStarted; }
+  bool IsGLContextDependent() const override { return true; }
 };
 
 class TileReadEndMessage : public MapShapeMessage
@@ -71,6 +72,7 @@ class TileReadEndMessage : public MapShapeMessage
 public:
   TileReadEndMessage(TileKey const & key) : MapShapeMessage(key) {}
   Type GetType() const override { return Message::TileReadEnded; }
+  bool IsGLContextDependent() const override { return true; }
 };
 
 class MapShapeReadedMessage : public MapShapeMessage
