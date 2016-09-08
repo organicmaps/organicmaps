@@ -29,7 +29,15 @@ string GetHashFilePath() { return GetPlatform().WritablePathForFile(kHashFileNam
 string RunSimpleHttpRequest(string const & url)
 {
   HTTPClientPlatformWrapper request(url);
-  auto const result = request.RunHTTPRequest();
+  bool result = false;
+  try
+  {
+    result = request.RunHTTPRequest();
+  }
+  catch (runtime_error const & ex)
+  {
+     LOG(LWARNING, ("Exception from HTTPClientPlatformWrapper::RunHTTPRequest, message: ", ex.what()));
+  }
 
   if (result && !request.was_redirected() && request.error_code() == 200)  // 200 - http status OK
   {
@@ -122,11 +130,26 @@ void ConfigLoader::ResetConfig(pugi::xml_document const & doc)
 void ConfigLoader::LoadFromLocal(pugi::xml_document & doc)
 {
   string content;
-  auto const reader = GetPlatform().GetReader(kConfigFileName);
-  reader->ReadAsString(content);
+  unique_ptr<ModelReader> reader;
+
+  try
+  {
+    reader = GetPlatform().GetReader(kConfigFileName);
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LERROR, (ex.Msg()));
+    return;
+  }
+
+  if (reader)
+    reader->ReadAsString(content);
 
   if (!doc.load_buffer(content.data(), content.size()))
-    MYTHROW(ConfigLoadError, ("Can't parse config"));
+  {
+    LOG(LERROR, ("Config can not be loaded."));
+    doc.reset();
+  }
 }
 
 // static
