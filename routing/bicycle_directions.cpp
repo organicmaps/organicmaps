@@ -56,16 +56,16 @@ public:
 
   double GetPathLength() const override { return m_routeLength; }
 
-  m2::PointD const & GetStartPoint() const override
+  Junction GetStartPoint() const override
   {
     CHECK(!m_routeEdges.empty(), ());
-    return m_routeEdges.front().GetStartJunction().GetPoint();
+    return m_routeEdges.front().GetStartJunction();
   }
 
-  m2::PointD const & GetEndPoint() const override
+  Junction GetEndPoint() const override
   {
     CHECK(!m_routeEdges.empty(), ());
-    return m_routeEdges.back().GetEndJunction().GetPoint();
+    return m_routeEdges.back().GetEndJunction();
   }
 
 private:
@@ -82,7 +82,7 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index) : m_index(
 
 void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
                                        Route::TTimes & times, Route::TTurns & turns,
-                                       vector<m2::PointD> & routeGeometry,
+                                       vector<Junction> & routeGeometry,
                                        my::Cancellable const & cancellable)
 {
   times.clear();
@@ -159,10 +159,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
 
     LoadedPathSegment pathSegment;
     if (inFeatureId.IsValid())
-    {
-      LoadPathGeometry(inFeatureId, {prevJunction.GetPoint(), currJunction.GetPoint()},
-                       pathSegment);
-    }
+      LoadPathGeometry(inFeatureId, {prevJunction, currJunction}, pathSegment);
 
     m_adjacentEdges.insert(make_pair(inFeatureId.m_index, move(adjacentEdges)));
     m_pathSegments.push_back(move(pathSegment));
@@ -172,6 +169,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   RouterDelegate delegate;
   Route::TTimes turnAnnotationTimes;
   Route::TStreets streetNames;
+
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, turnAnnotationTimes, streetNames);
 }
 
@@ -183,7 +181,7 @@ Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId co
 }
 
 void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId,
-                                               vector<m2::PointD> const & path,
+                                               vector<Junction> const & path,
                                                LoadedPathSegment & pathSegment)
 {
   pathSegment.Clear();

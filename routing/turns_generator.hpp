@@ -43,7 +43,7 @@ using TGetIndexFunction = function<size_t(pair<size_t, size_t>)>;
  * \return routing operation result code.
  */
 IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
-                                       RouterDelegate const & delegate, vector<m2::PointD> & points,
+                                       RouterDelegate const & delegate, vector<Junction> & points,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
                                        Route::TStreets & streets);
 
@@ -72,7 +72,7 @@ double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t end
  * \brief Selects lanes which are recommended for an end user.
  */
 void SelectRecommendedLanes(Route::TTurns & turnsDir);
-void FixupTurns(vector<m2::PointD> const & points, Route::TTurns & turnsDir);
+void FixupTurns(vector<Junction> const & points, Route::TTurns & turnsDir);
 inline size_t GetFirstSegmentPointIndex(pair<size_t, size_t> const & p) { return p.first; }
 
 TurnDirection InvertDirection(TurnDirection dir);

@@ -12,7 +12,7 @@ public:
 
   // IDirectionsEngine override:
   void Generate(IRoadGraph const & graph, vector<Junction> const & path, Route::TTimes & times,
-                Route::TTurns & turns, vector<m2::PointD> & routeGeometry,
+                Route::TTurns & turns, vector<Junction> & routeGeometry,
                 my::Cancellable const & cancellable) override;
 
 private:

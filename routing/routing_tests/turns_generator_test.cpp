@@ -123,11 +123,11 @@ UNIT_TEST(TestFixupTurns)
   m2::RectD const kSquareNearZero = MercatorBounds::MetresToXY(kSquareCenterLonLat.x,
                                                                kSquareCenterLonLat.y, kHalfSquareSideMeters);
   // Removing a turn in case staying on a roundabout.
-  vector<m2::PointD> const pointsMerc1 = {
-    { kSquareNearZero.minX(), kSquareNearZero.minY()},
-    { kSquareNearZero.minX(), kSquareNearZero.maxY() },
-    { kSquareNearZero.maxX(), kSquareNearZero.maxY() },
-    { kSquareNearZero.maxX(), kSquareNearZero.minY() }
+  vector<Junction> const pointsMerc1 = {
+    {{ kSquareNearZero.minX(), kSquareNearZero.minY() }, feature::kDefaultAltitudeMeters},
+    {{ kSquareNearZero.minX(), kSquareNearZero.maxY() }, feature::kDefaultAltitudeMeters},
+    {{ kSquareNearZero.maxX(), kSquareNearZero.maxY() }, feature::kDefaultAltitudeMeters},
+    {{ kSquareNearZero.maxX(), kSquareNearZero.minY() }, feature::kDefaultAltitudeMeters},
   };
   // The constructor TurnItem(uint32_t idx, TurnDirection t, uint32_t exitNum = 0)
   // is used for initialization of vector<TurnItem> below.
@@ -143,10 +143,11 @@ UNIT_TEST(TestFixupTurns)
   TEST_EQUAL(turnsDir1, expectedTurnDir1, ());
 
   // Merging turns which are close to each other.
-  vector<m2::PointD> const pointsMerc2 = {
-    { kSquareNearZero.minX(), kSquareNearZero.minY()},
-    { kSquareCenterLonLat.x, kSquareCenterLonLat.y },
-    { kSquareNearZero.maxX(), kSquareNearZero.maxY() }};
+  vector<Junction> const pointsMerc2 = {
+    {{ kSquareNearZero.minX(), kSquareNearZero.minY()}, feature::kDefaultAltitudeMeters},
+    {{ kSquareCenterLonLat.x, kSquareCenterLonLat.y }, feature::kDefaultAltitudeMeters},
+    {{ kSquareNearZero.maxX(), kSquareNearZero.maxY() }, feature::kDefaultAltitudeMeters},
+  };
   Route::TTurns turnsDir2 = {{0, TurnDirection::GoStraight},
                              {1, TurnDirection::TurnLeft},
                              {2, TurnDirection::ReachedYourDestination}};
@@ -157,10 +158,11 @@ UNIT_TEST(TestFixupTurns)
   TEST_EQUAL(turnsDir2, expectedTurnDir2, ());
 
   // No turn is removed.
-  vector<m2::PointD> const pointsMerc3 = {
-    { kSquareNearZero.minX(), kSquareNearZero.minY()},
-    { kSquareNearZero.minX(), kSquareNearZero.maxY() },
-    { kSquareNearZero.maxX(), kSquareNearZero.maxY() }};
+  vector<Junction> const pointsMerc3 = {
+    {{ kSquareNearZero.minX(), kSquareNearZero.minY()}, feature::kDefaultAltitudeMeters},
+    {{ kSquareNearZero.minX(), kSquareNearZero.maxY() }, feature::kDefaultAltitudeMeters},
+    {{ kSquareNearZero.maxX(), kSquareNearZero.maxY() }, feature::kDefaultAltitudeMeters},
+  };
   Route::TTurns turnsDir3 = {{1, TurnDirection::TurnRight},
                              {2, TurnDirection::ReachedYourDestination}};
 

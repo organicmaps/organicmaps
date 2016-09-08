@@ -10,6 +10,7 @@
 #include "coding/reader_wrapper.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/feature_altitude.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 
@@ -19,6 +20,7 @@
 
 #include "geometry/distance.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/queue.hpp"
 #include "std/set.hpp"
 
@@ -241,16 +243,22 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
 
   Route::TTimes times;
   Route::TTurns turnsDir;
-  vector<m2::PointD> geometry;
+  vector<Junction> junctions;
   // @TODO(bykoianko) streetNames is not filled in Generate(). It should be done.
   Route::TStreets streetNames;
   if (m_directionsEngine)
-    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, geometry, cancellable);
+    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, junctions, cancellable);
 
-  route.SetGeometry(geometry.begin(), geometry.end());
-  route.SetSectionTimes(times);
-  route.SetTurnInstructions(turnsDir);
-  route.SetStreetNames(streetNames);
+  vector<m2::PointD> routeGeometry;
+  JunctionsToPoints(junctions, routeGeometry);
+  feature::TAltitudes altitudes;
+  JunctionsToAltitudes(junctions, altitudes);
+
+  route.SetGeometry(routeGeometry.begin(), routeGeometry.end());
+  route.SetSectionTimes(move(times));
+  route.SetTurnInstructions(move(turnsDir));
+  route.SetStreetNames(move(streetNames));
+  route.SetAltitudes(move(altitudes));
 }
 
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn)

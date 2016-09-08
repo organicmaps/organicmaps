@@ -105,6 +105,15 @@ public:
   inline void SetState(State state) { m_state = state; }
 
   Route const & GetRoute() const { return m_route; }
+  /// \returns true if altitude information along |m_route| is available and
+  /// false otherwise.
+  bool HasRouteAltitude() const;
+
+  /// \brief copies distance from route beginning to ends of route segments in meters and
+  /// route altitude information to |routeSegDistanceM| and |routeAltitudes|.
+  /// \returns true if there is valid route information. If the route is not valid returns false.
+  bool GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
+                                      feature::TAltitudes & routeAltitudesM) const;
 
   State OnLocationPositionChanged(location::GpsInfo const & info, Index const & index);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
@@ -164,6 +173,8 @@ private:
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RemoveRouteImpl();
+
+  bool HasRouteAltitudeImpl() const;
 
 private:
   unique_ptr<AsyncRouter> m_router;

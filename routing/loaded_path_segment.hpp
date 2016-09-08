@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/osrm_helpers.hpp"
+#include "routing/road_graph.hpp"
 #include "routing/turns.hpp"
 #include "routing/turn_candidate.hpp"
 
@@ -25,7 +26,7 @@ struct FeatureGraphNode;
  */
 struct LoadedPathSegment
 {
-  vector<m2::PointD> m_path;
+  vector<Junction> m_path;
   vector<turns::SingleLaneInfo> m_lanes;
   string m_name;
   TEdgeWeight m_weight; /*!< Time in seconds to pass the segment. */

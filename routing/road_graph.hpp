@@ -265,4 +265,18 @@ private:
 
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
                                             initializer_list<m2::PointD> const & points);
+
+inline void JunctionsToPoints(vector<Junction> const & junctions, vector<m2::PointD> & points)
+{
+  points.resize(junctions.size());
+  for (size_t i = 0; i < junctions.size(); ++i)
+    points[i] = junctions[i].GetPoint();
+}
+
+inline void JunctionsToAltitudes(vector<Junction> const & junctions, feature::TAltitudes & altitudes)
+{
+  altitudes.resize(junctions.size());
+  for (size_t i = 0; i < junctions.size(); ++i)
+    altitudes[i] = junctions[i].GetAltitude();
+}
 }  // namespace routing

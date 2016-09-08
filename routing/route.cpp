@@ -41,6 +41,7 @@ void Route::Swap(Route & rhs)
   swap(m_times, rhs.m_times);
   swap(m_streets, rhs.m_streets);
   m_absentCountries.swap(rhs.m_absentCountries);
+  m_altitudes.swap(rhs.m_altitudes);
 }
 
 void Route::AddAbsentCountry(string const & name)

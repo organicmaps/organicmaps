@@ -15,6 +15,7 @@ HEADERS += \
     booking_api.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
+    chart_generator.hpp \
     displacement_mode_manager.hpp \
     feature_vec_model.hpp \
     framework.hpp \
@@ -38,6 +39,7 @@ SOURCES += \
     booking_api.cpp \
     bookmark.cpp \
     bookmark_manager.cpp \
+    chart_generator.cpp \
     displacement_mode_manager.cpp \
     feature_vec_model.cpp \
     framework.cpp \

@@ -725,6 +725,16 @@ public:
   void AllowAutoZoom(bool allowAutoZoom);
   void SaveAutoZoom(bool allowAutoZoom);
 
+  /// \returns true if altitude information along |m_route| is available and
+  /// false otherwise.
+  bool HasRouteAltitude() const;
+  /// \brief Generates 4 bytes per point image (RGBA) and put the data to |imageRGBAData|.
+  /// \returns If there is valid route info and returns true and false otherwise.
+  /// \note If HasRouteAltitude() method returns true, GenerateRouteAltitudeChart(...)
+  /// could return false if route was deleted or rebuilt between the calls.
+  bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
+                                  vector<uint8_t> & imageRGBAData) const;
+
 public:
   /// @name Editor interface.
   //@{

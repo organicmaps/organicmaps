@@ -1,4 +1,5 @@
 #include "map/framework.hpp"
+#include "map/chart_generator.hpp"
 #include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
@@ -2982,4 +2983,20 @@ void Framework::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
 bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
 {
   return osm::Editor::Instance().OriginalFeatureHasDefaultName(fid);
+}
+
+bool Framework::HasRouteAltitude() const { return m_routingSession.HasRouteAltitude(); }
+
+bool Framework::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
+                                           vector<uint8_t> & imageRGBAData) const
+{
+  feature::TAltitudes altitudes;
+  vector<double> segDistance;
+
+  if (!m_routingSession.GetRouteAltitudesAndDistancesM(segDistance, altitudes))
+    return false;
+  segDistance.insert(segDistance.begin(), 0.0);
+
+  return maps::GenerateChart(width, height, segDistance, altitudes,
+                             GetMapStyle(), imageRGBAData);
 }

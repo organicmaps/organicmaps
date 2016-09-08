@@ -1,4 +1,5 @@
 #include "routing/osrm_path_segment_factory.hpp"
+#include "routing/road_graph.hpp"
 #include "routing/routing_mapping.hpp"
 
 #include "indexer/feature.hpp"
@@ -56,13 +57,13 @@ void LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startIndex,
     if (startIdx < endIdx)
     {
       for (auto idx = startIdx; idx <= endIdx; ++idx)
-        loadPathGeometry.m_path.push_back(ft.GetPoint(idx));
+        loadPathGeometry.m_path.emplace_back(ft.GetPoint(idx), feature::kDefaultAltitudeMeters);
     }
     else
     {
       // I use big signed type because endIdx can be 0.
       for (int64_t idx = startIdx; idx >= static_cast<int64_t>(endIdx); --idx)
-        loadPathGeometry.m_path.push_back(ft.GetPoint(idx));
+        loadPathGeometry.m_path.emplace_back(ft.GetPoint(idx), feature::kDefaultAltitudeMeters);
     }
 
     // Load lanes if it is a last segment before junction.

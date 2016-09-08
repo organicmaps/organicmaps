@@ -193,7 +193,7 @@ TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & l
  * shift belongs to a  range [0, abs(end - start)].
  * \return an ingoing or outgoing point for a turn calculation.
  */
-m2::PointD GetPointForTurn(vector<m2::PointD> const & path, m2::PointD const & junctionPoint,
+m2::PointD GetPointForTurn(vector<Junction> const & path, m2::PointD const & junctionPoint,
                            size_t const maxPointsCount, double const minDistMeters,
                            function<size_t(const size_t start, const size_t end, const size_t shift)> GetPointIndex)
 {
@@ -210,7 +210,7 @@ m2::PointD GetPointForTurn(vector<m2::PointD> const & path, m2::PointD const & j
 
   for (size_t i = 1; i <= usedFtPntNum; ++i)
   {
-    nextPoint = path[GetPointIndex(0, numSegPoints, i)];
+    nextPoint = path[GetPointIndex(0, numSegPoints, i)].GetPoint();
 
     // TODO The code below is a stub for compatability with older versions with this function.
     // Remove it, fix tests cases when it works (integration test
@@ -254,7 +254,7 @@ bool TurnInfo::IsSegmentsValid() const
 }
 
 IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
-                                       RouterDelegate const & delegate, vector<m2::PointD> & points,
+                                       RouterDelegate const & delegate, vector<Junction> & junctions,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
                                        Route::TStreets & streets)
 {
@@ -279,13 +279,13 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
 
     // Street names. I put empty names too, to avoid freezing old street name while riding on
     // unnamed street.
-    streets.emplace_back(max(points.size(), static_cast<size_t>(1)) - 1, loadedSegmentIt->m_name);
+    streets.emplace_back(max(junctions.size(), static_cast<size_t>(1)) - 1, loadedSegmentIt->m_name);
 
     // Turns information.
-    if (!points.empty() && skipTurnSegments == 0)
+    if (!junctions.empty() && skipTurnSegments == 0)
     {
       turns::TurnItem turnItem;
-      turnItem.m_index = static_cast<uint32_t>(points.size() - 1);
+      turnItem.m_index = static_cast<uint32_t>(junctions.size() - 1);
 
       size_t segmentIndex = distance(loadedSegments.begin(), loadedSegmentIt);
       skipTurnSegments = CheckUTurnOnRoute(loadedSegments, segmentIndex, turnItem);
@@ -297,14 +297,14 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
 
 #ifdef DEBUG
       double distMeters = 0.0;
-      for (size_t k = lastIdx + 1; k < points.size(); ++k)
-        distMeters += MercatorBounds::DistanceOnEarth(points[k - 1], points[k]);
+      for (size_t k = lastIdx + 1; k < junctions.size(); ++k)
+        distMeters += MercatorBounds::DistanceOnEarth(junctions[k - 1].GetPoint(), junctions[k].GetPoint());
       LOG(LDEBUG, ("Speed:", 3.6 * distMeters / nodeTimeSeconds, "kmph; Dist:", distMeters, "Time:",
-                   nodeTimeSeconds, "s", lastIdx, "e", points.size(), "source:",
+                   nodeTimeSeconds, "s", lastIdx, "e", junctions.size(), "source:",
                    turnItem.m_sourceName, "target:", turnItem.m_targetName));
-      lastIdx = points.size();
+      lastIdx = junctions.size();
 #endif
-      times.push_back(Route::TTimeItem(points.size(), estimatedTime));
+      times.push_back(Route::TTimeItem(junctions.size(), estimatedTime));
 
       //  Lane information.
       if (turnItem.m_turn != turns::TurnDirection::NoTurn)
@@ -319,22 +319,22 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
       --skipTurnSegments;
 
     // Path geometry.
-    points.insert(points.end(), loadedSegmentIt->m_path.begin(), loadedSegmentIt->m_path.end());
+    junctions.insert(junctions.end(), loadedSegmentIt->m_path.begin(), loadedSegmentIt->m_path.end());
   }
 
-  // Path found. Points will be replaced by start and end edges points.
-  if (points.size() == 1)
-    points.push_back(points.front());
+  // Path found. Points will be replaced by start and end edges junctions.
+  if (junctions.size() == 1)
+    junctions.push_back(junctions.front());
 
-  if (points.size() < 2)
+  if (junctions.size() < 2)
     return IRouter::ResultCode::RouteNotFound;
 
-  points.front() = result.GetStartPoint();
-  points.back() = result.GetEndPoint();
+  junctions.front() = result.GetStartPoint();
+  junctions.back() = result.GetEndPoint();
 
-  times.push_back(Route::TTimeItem(points.size() - 1, estimatedTime));
-  turnsDir.emplace_back(turns::TurnItem(static_cast<uint32_t>(points.size()) - 1, turns::TurnDirection::ReachedYourDestination));
-  turns::FixupTurns(points, turnsDir);
+  times.push_back(Route::TTimeItem(junctions.size() - 1, estimatedTime));
+  turnsDir.emplace_back(turns::TurnItem(static_cast<uint32_t>(junctions.size()) - 1, turns::TurnDirection::ReachedYourDestination));
+  turns::FixupTurns(junctions, turnsDir);
 
 #ifdef DEBUG
   for (auto t : turnsDir)
@@ -349,7 +349,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
   {
     double dist = 0;
     for (size_t i = last + 1; i <= t.first; ++i)
-      dist += MercatorBounds::DistanceOnEarth(points[i - 1], points[i]);
+      dist += MercatorBounds::DistanceOnEarth(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
 
     double time = t.second - lastTime;
 
@@ -376,23 +376,23 @@ double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t end
   return mercatorDistanceBetweenTurns;
 }
 
-void FixupTurns(vector<m2::PointD> const & points, Route::TTurns & turnsDir)
+void FixupTurns(vector<Junction> const & junctions, Route::TTurns & turnsDir)
 {
   double const kMergeDistMeters = 30.0;
   // For turns that are not EnterRoundAbout exitNum is always equal to zero.
-  // If a turn is EnterRoundAbout exitNum is a number of turns between two points:
+  // If a turn is EnterRoundAbout exitNum is a number of turns between two junctions:
   // (1) the route enters to the roundabout;
   // (2) the route leaves the roundabout;
   uint32_t exitNum = 0;
-  // If a roundabout is worked up the roundabout value points to the turn
+  // If a roundabout is worked up the roundabout value junctions to the turn
   // of the enter to the roundabout. If not, roundabout is equal to nullptr.
   TurnItem * roundabout = nullptr;
 
-  auto routeDistanceMeters = [&points](uint32_t start, uint32_t end)
+  auto routeDistanceMeters = [&junctions](uint32_t start, uint32_t end)
   {
     double res = 0.0;
     for (uint32_t i = start + 1; i < end; ++i)
-      res += MercatorBounds::DistanceOnEarth(points[i - 1], points[i]);
+      res += MercatorBounds::DistanceOnEarth(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
     return res;
   };
 
@@ -568,11 +568,11 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
 
   ASSERT(!turnInfo.m_ingoing.m_path.empty(), ());
   ASSERT(!turnInfo.m_outgoing.m_path.empty(), ());
-  ASSERT_LESS(MercatorBounds::DistanceOnEarth(turnInfo.m_ingoing.m_path.back(),
-                                              turnInfo.m_outgoing.m_path.front()),
+  ASSERT_LESS(MercatorBounds::DistanceOnEarth(turnInfo.m_ingoing.m_path.back().GetPoint(),
+                                              turnInfo.m_outgoing.m_path.front().GetPoint()),
               kFeaturesNearTurnMeters, ());
 
-  m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back();
+  m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
   m2::PointD const ingoingPoint = GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint,
                                                   kMaxPointsCount, kMinDistMeters,
                                                   GetIngoingPointIndex);
@@ -592,7 +592,7 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
     return;
 
   ASSERT_GREATER(turnInfo.m_ingoing.m_path.size(), 1, ());
-  m2::PointD const ingoingPointOneSegment = turnInfo.m_ingoing.m_path[turnInfo.m_ingoing.m_path.size() - 2];
+  m2::PointD const ingoingPointOneSegment = turnInfo.m_ingoing.m_path[turnInfo.m_ingoing.m_path.size() - 2].GetPoint();
   TurnCandidates nodes;
   size_t ingoingCount;
   result.GetPossibleTurns(turnInfo.m_ingoing.m_nodeId, ingoingPointOneSegment, junctionPoint,
@@ -702,8 +702,8 @@ size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
       if (path[path.size() - 2] == checkedSegment.m_path[1])
         return 0;
 
-      m2::PointD const v1 = path[path.size() - 1] - path[path.size() - 2];
-      m2::PointD const v2 = checkedSegment.m_path[1] - checkedSegment.m_path[0];
+      m2::PointD const v1 = path[path.size() - 1].GetPoint() - path[path.size() - 2].GetPoint();
+      m2::PointD const v2 = checkedSegment.m_path[1].GetPoint() - checkedSegment.m_path[0].GetPoint();
 
       auto angle = ang::TwoVectorsAngle(m2::PointD::Zero(), v1, v2);
 
@@ -711,7 +711,7 @@ size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
         return 0;
 
       // Determine turn direction.
-      m2::PointD const junctionPoint = masterSegment.m_path.back();
+      m2::PointD const junctionPoint = masterSegment.m_path.back().GetPoint();
       m2::PointD const ingoingPoint = GetPointForTurn(masterSegment.m_path, junctionPoint,
                                                       kMaxPointsCount, kMinDistMeters,
                                                       GetIngoingPointIndex);
