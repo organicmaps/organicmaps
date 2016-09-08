@@ -108,12 +108,12 @@ public:
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
   bool HasRouteAltitude() const;
-  /// \brief copies route altitude information to |routeAltitudes| if any is available and
-  /// returns true. If there's no navigation route, the method returns false.
-  bool GetRouteAltitudes(feature::TAltitudes & routeAltitudes) const;
+
   /// \brief copies distance from route beginning to ends of route segments in meters and
-  /// returns true. If the route is not valid returns false.
-  bool GetSegDistanceM(vector<double> & routeSegDistanceM) const;
+  /// route altitude information to |routeSegDistanceM| and |routeAltitudes|.
+  /// \returns true if there is valid route information. If the route is not valid returns false.
+  bool GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
+                                      feature::TAltitudes & routeAltitudesM) const;
 
   State OnLocationPositionChanged(location::GpsInfo const & info, Index const & index);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;

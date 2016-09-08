@@ -534,21 +534,15 @@ bool RoutingSession::HasRouteAltitude() const
   return HasRouteAltitudeImpl();
 }
 
-bool RoutingSession::GetRouteAltitudes(feature::TAltitudes & routeAltitudes) const
+bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
+                                                    feature::TAltitudes & routeAltitudesM) const
 {
   threads::MutexGuard guard(m_routeSessionMutex);
-  if (!HasRouteAltitudeImpl())
+  if (!m_route.IsValid() || !HasRouteAltitudeImpl())
     return false;
-  routeAltitudes.assign(m_route.GetAltitudes().begin(), m_route.GetAltitudes().end());
-  return true;
-}
 
-bool RoutingSession::GetSegDistanceM(vector<double> & routeSegDistanceM) const
-{
-  threads::MutexGuard guard(m_routeSessionMutex);
-  if (!m_route.IsValid())
-    return false;
   routeSegDistanceM = m_route.GetSegDistanceM();
+  routeAltitudesM.assign(m_route.GetAltitudes().cbegin(), m_route.GetAltitudes().cend());
   return true;
 }
 

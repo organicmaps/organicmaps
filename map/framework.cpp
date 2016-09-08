@@ -2989,13 +2989,12 @@ bool Framework::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                                            vector<uint8_t> & imageRGBAData) const
 {
   feature::TAltitudes altitudes;
-  if (!m_routingSession.GetRouteAltitudes(altitudes))
-    return false;
-  vector<double> segDistanceM;
-  if (!m_routingSession.GetSegDistanceM(segDistanceM))
-    return false;
-  segDistanceM.insert(segDistanceM.begin(), 0.0);
+  vector<double> segDistance;
 
-  return maps::GenerateChart(width, height, segDistanceM, altitudes,
+  if (!m_routingSession.GetRouteAltitudesAndDistancesM(segDistance, altitudes))
+    return false;
+  segDistance.insert(segDistance.begin(), 0.0);
+
+  return maps::GenerateChart(width, height, segDistance, altitudes,
                              GetMapStyle(), imageRGBAData);
 }
