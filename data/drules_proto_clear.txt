@@ -39507,7 +39507,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "stadium"
+      name: "stadium-s"
       apply_for_type: 1
       priority: 16854
       min_distance: 16
@@ -39524,7 +39524,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "stadium"
+      name: "stadium-s"
       apply_for_type: 1
       priority: 16854
       min_distance: 16
@@ -39545,7 +39545,7 @@ cont {
       priority: -15146
     }
     symbol {
-      name: "pitch-m"
+      name: "stadium-m"
       apply_for_type: 1
       priority: 16854
       min_distance: 8
@@ -39566,7 +39566,7 @@ cont {
       priority: -15146
     }
     symbol {
-      name: "pitch-m"
+      name: "stadium-m"
       apply_for_type: 1
       priority: 16854
       min_distance: 8
@@ -39587,7 +39587,7 @@ cont {
       priority: -15146
     }
     symbol {
-      name: "pitch-l"
+      name: "stadium-l"
       apply_for_type: 1
       priority: 16854
       min_distance: 8
@@ -39608,7 +39608,7 @@ cont {
       priority: -15146
     }
     symbol {
-      name: "pitch-l"
+      name: "stadium-l"
       apply_for_type: 1
       priority: 16854
       min_distance: 8
@@ -39629,7 +39629,7 @@ cont {
       priority: -15146
     }
     symbol {
-      name: "pitch-l"
+      name: "stadium-l"
       apply_for_type: 1
       priority: 16854
       min_distance: 8
