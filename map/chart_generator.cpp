@@ -140,9 +140,11 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
 bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
                             vector<double> const & altitudeDataM, vector<double> & yAxisDataPxl)
 {
-  yAxisDataPxl.clear();
   if (altitudeDataM.empty())
+  {
+    yAxisDataPxl.clear();
     return true;
+  }
 
   uint32_t constexpr kHeightIndentPxl = 2;
   uint32_t heightIndentPxl = kHeightIndentPxl;
@@ -164,9 +166,9 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
     return false;
   }
 
-  size_t const altitudeDataSz = altitudeDataM.size();
-  yAxisDataPxl.resize(altitudeDataSz);
-  for (size_t i = 0; i < altitudeDataSz; ++i)
+  size_t const altitudeDataSize = altitudeDataM.size();
+  yAxisDataPxl.resize(altitudeDataSize);
+  for (size_t i = 0; i < altitudeDataSize; ++i)
     yAxisDataPxl[i] = height - heightIndentPxl - (altitudeDataM[i] - minAltM) / metersPerPxl;
 
   return true;
@@ -268,7 +270,6 @@ bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & dista
       geometry[i] = m2::PointD(i * oneSegLenPix, yAxisDataPxl[i]);
   }
 
-  frameBuffer.clear();
   GenerateChartByPoints(width, height, geometry, mapStyle, frameBuffer);
   return true;
 }
