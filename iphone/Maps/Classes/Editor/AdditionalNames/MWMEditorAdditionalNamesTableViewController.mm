@@ -27,7 +27,6 @@ additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
   self.delegate = delegate;
   m_name = name;
   m_additionalSkipLanguageCodes = additionalSkipLanguageCodes;
-  m_additionalSkipLanguageCodes.push_back(StringUtf8Multilang::kDefaultCode);
   self.selectedLanguageCode = selectedLanguageCode;
 }
 
@@ -40,25 +39,34 @@ additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  auto const getIndex = [](string const & lang) { return StringUtf8Multilang::GetLangIndex(lang); };
   StringUtf8Multilang::Languages const & supportedLanguages = StringUtf8Multilang::GetSupportedLanguages();
   m_languages.clear();
+  if (self.selectedLanguageCode == StringUtf8Multilang::kDefaultCode ||
+      self.selectedLanguageCode == StringUtf8Multilang::kInternationalCode)
+  {
+    return;
+  }
+  auto const kDefaultCode = StringUtf8Multilang::kDefaultCode;
   for (auto const & language : supportedLanguages)
   {
-    int8_t const languageIndex = StringUtf8Multilang::GetLangIndex(language.m_code);
-    string tmpStr;
-    if (self.selectedLanguageCode == StringUtf8Multilang::kDefaultCode ||
-        self.selectedLanguageCode == StringUtf8Multilang::kInternationalCode ||
-        (self.selectedLanguageCode == NSNotFound && m_name.GetString(languageIndex, tmpStr)))
+    auto const langIndex = getIndex(language.m_code);
+    if (self.selectedLanguageCode == NSNotFound && langIndex != kDefaultCode && m_name.HasString(langIndex))
       continue;
-    auto it = find(m_additionalSkipLanguageCodes.begin(), m_additionalSkipLanguageCodes.end(), languageIndex);
+    auto it = find(m_additionalSkipLanguageCodes.begin(), m_additionalSkipLanguageCodes.end(), langIndex);
     if (it == m_additionalSkipLanguageCodes.end())
       m_languages.push_back(language);
   }
   sort(m_languages.begin(), m_languages.end(),
-       [](StringUtf8Multilang::Lang const & a, StringUtf8Multilang::Lang const & b)
-  {
-    return string(a.m_code) < string(b.m_code);
-  });
+       [&getIndex, kDefaultCode](StringUtf8Multilang::Lang const & lhs, StringUtf8Multilang::Lang const & rhs) {
+         // Default name can be changed in advanced mode, but it should be last in list of names.
+         if (getIndex(lhs.m_code) == kDefaultCode && getIndex(rhs.m_code) != kDefaultCode)
+           return false;
+         if (getIndex(lhs.m_code) != kDefaultCode && getIndex(rhs.m_code) == kDefaultCode)
+           return true;
+
+         return string(lhs.m_code) < string(rhs.m_code);
+       });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

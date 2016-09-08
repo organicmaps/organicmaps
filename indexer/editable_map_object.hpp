@@ -38,25 +38,49 @@ struct LocalizedName
   LocalizedName(int8_t code, string const & name);
   LocalizedName(string const & langCode, string const & name);
 
-  // m_code, m_lang and m_langName are defined in StringUtf8Multilang.
+  /// m_code, m_lang and m_langName are defined in StringUtf8Multilang.
   int8_t const m_code;
-  // Non-owning pointers to internal static char const * array.
+  /// Non-owning pointers to internal static char const * array.
   char const * const m_lang;
   char const * const m_langName;
   string const m_name;
 };
 
-// Class which contains vector of localized names with following priority:
-//  1. Names for Mwm languages
-//  2. User`s language name
-//  3. Other names
-// and mandatoryNamesCount - count of names which should be always shown.
+/// Class which contains vector of localized names with following priority:
+///  1. Names for Mwm languages
+///  2. User`s language name
+///  3. Other names
+/// and mandatoryNamesCount - count of names which should be always shown.
 struct NamesDataSource
 {
   vector<LocalizedName> names;
   size_t mandatoryNamesCount = 0;
 };
-  
+
+struct FakeName
+{
+  FakeName(int8_t code, string filledName)
+    : m_code(code)
+    , m_filledName(filledName)
+  {
+  }
+
+  int8_t m_code;
+  string m_filledName;
+};
+/// Contains information about fake names which were added for user convenience.
+struct FakeNames
+{
+  void Clear()
+  {
+    m_names.clear();
+    m_defaultName.clear();
+  }
+
+  vector<FakeName> m_names;
+  string m_defaultName;
+};
+
 struct LocalizedStreet
 {
   string m_defaultName;
@@ -78,8 +102,8 @@ public:
   vector<feature::Metadata::EType> const & GetEditableFields() const;
 
   StringUtf8Multilang const & GetName() const;
-  // See comment for NamesDataSource class.
-  NamesDataSource GetNamesDataSource() const;
+  /// See comment for NamesDataSource class.
+  NamesDataSource GetNamesDataSource();
   LocalizedStreet const & GetStreet() const;
   vector<LocalizedStreet> const & GetNearbyStreets() const;
   string const & GetHouseNumber() const;
@@ -120,6 +144,13 @@ public:
 
   /// Special mark that it's a point feature, not area or line.
   void SetPointType();
+  /// Enables advanced mode with direct access to default name and disables any recalculations.
+  void EnableNamesAdvancedMode() { m_namesAdvancedMode = true; }
+  bool IsNamesAdvancedModeEnabled() const { return m_namesAdvancedMode; }
+  /// Remove blank names for advanced mode.
+  void RemoveBlankNames();
+  /// Calls RemoveBlankNames or RemoveFakeNames depending on mode.
+  void RemoveNeedlessNames();
 
   static bool ValidateBuildingLevels(string const & buildingLevels);
   static bool ValidateHouseNumber(string const & houseNumber);
@@ -129,18 +160,22 @@ public:
   static bool ValidateWebsite(string const & site);
   static bool ValidateEmail(string const & email);
 
-  // Check whether langCode can be used as default name.
+  /// Check whether langCode can be used as default name.
   static bool CanUseAsDefaultName(int8_t const langCode, vector<int8_t> const & nativeMwmLanguages);
 
-  // See comment for NamesDataSource class.
+  /// See comment for NamesDataSource class.
   static NamesDataSource GetNamesDataSource(StringUtf8Multilang const & source,
                                             vector<int8_t> const & nativeMwmLanguages,
                                             int8_t const userLanguage);
+  /// Removes fake names (which were added for user convenience) from name.
+  static void RemoveFakeNames(FakeNames const & fakeNames, StringUtf8Multilang & name);
 
 private:
   string m_houseNumber;
   LocalizedStreet m_street;
   vector<LocalizedStreet> m_nearbyStreets;
   EditableProperties m_editableProperties;
+  FakeNames m_fakeNames;
+  bool m_namesAdvancedMode = false;
 };
 }  // namespace osm

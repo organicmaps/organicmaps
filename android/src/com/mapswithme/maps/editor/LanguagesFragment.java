@@ -41,6 +41,12 @@ public class LanguagesFragment extends BaseMwmRecyclerFragment
     {
       @Override
       public int compare(Language lhs, Language rhs) {
+        // Default name can be changed, but it should be last in list of names.
+        if (lhs.isDefaultLang() && !rhs.isDefaultLang())
+          return 1;
+        if (!lhs.isDefaultLang() && rhs.isDefaultLang())
+          return -1;
+
         return lhs.name.compareTo(rhs.name);
       }
     });

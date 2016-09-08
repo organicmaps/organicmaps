@@ -559,10 +559,19 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     {
       NSInteger const newAdditionalNameIndex = indexPath.row - localizedNames.size();
       NSInteger const langCode = m_newAdditionalLanguages[newAdditionalNameIndex];
+
+      string name;
+      // Default name can be changed in advanced mode.
+      if (langCode == StringUtf8Multilang::kDefaultCode)
+      {
+        name = m_mapObject.GetDefaultName();
+        m_mapObject.EnableNamesAdvancedMode();
+      }
+
       [tCell configWithDelegate:self
                        langCode:langCode
                        langName:@(StringUtf8Multilang::GetLangNameByCode(langCode))
-                           name:@""
+                           name:@(name.c_str())
                    keyboardType:UIKeyboardTypeDefault];
     }
     break;
