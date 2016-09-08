@@ -37,7 +37,7 @@
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
-	<string name="kilometres">Kilometres</string>
+	<string name="kilometres">Kilometers</string>
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">Leave a Review</string>
 	<!-- View and button titles for accessibility -->
@@ -183,7 +183,7 @@
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Measurement units</string>
 	<!-- Detailed description of Measurement Units settings button -->
-	<string name="measurement_units_summary">Choose between miles and kilometres</string>
+	<string name="measurement_units_summary">Choose between miles and kilometers</string>
 	<!-- Do search in all sources -->
 	<string name="search_mode_all">Everywhere</string>
 	<!-- Do search near my position only -->

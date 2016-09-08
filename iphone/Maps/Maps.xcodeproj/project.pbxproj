@@ -1310,6 +1310,9 @@
 		845C89321C8983F300940D7F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		845C89331C8983F300940D7F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		845C89341C8983F300940D7F /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		84DBC4C01D81B1B000CC1804 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "en-GB"; path = "en-GB.lproj/LocalNotifications.plist"; sourceTree = "<group>"; };
+		84DBC4C11D81B1B100CC1804 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		84DBC4C21D81B1B100CC1804 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		972CDCC51887F1B7006641CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		974386DB19373EA400FD5659 /* ToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastView.h; sourceTree = "<group>"; };
@@ -3270,6 +3273,7 @@
 				nb,
 				vi,
 				id,
+				"en-GB",
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -4093,6 +4097,7 @@
 				3434D7801BD12B2000C77E44 /* zh-Hans */,
 				3434D7811BD12B2000C77E44 /* de */,
 				3434D7821BD12B2000C77E44 /* fr */,
+				84DBC4C11D81B1B100CC1804 /* en-GB */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4101,6 +4106,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B0DFE6301A1B78A200B6C35E /* en */,
+				84DBC4C01D81B1B000CC1804 /* en-GB */,
 			);
 			name = LocalNotifications.plist;
 			sourceTree = "<group>";
@@ -4135,6 +4141,7 @@
 				F60699001B429CC8002BECBB /* nb */,
 				F60699011B429D08002BECBB /* vi */,
 				F60699021B429D23002BECBB /* id */,
+				84DBC4C21D81B1B100CC1804 /* en-GB */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
