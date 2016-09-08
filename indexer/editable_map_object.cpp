@@ -96,10 +96,10 @@ osm::FakeNames MakeFakeSource(StringUtf8Multilang const & source,
       fakeSource.AddString(code, defaultName);
     }
 
-    fakeNames.names.push_back({code, tempName});
+    fakeNames.m_names.emplace_back(code, tempName);
   }
 
-  fakeNames.defaultName = defaultName;
+  fakeNames.m_defaultName = defaultName;
 
   return fakeNames;
 }
@@ -141,14 +141,14 @@ void RemoveFakesFromName(osm::FakeNames const & fakeNames, StringUtf8Multilang &
   string defaultName;
   name.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
 
-  for (auto const & item : fakeNames.names)
+  for (auto const & item : fakeNames.m_names)
   {
     string tempName;
     if (!name.GetString(item.m_code, tempName))
       continue;
     // No need to save in case when name is empty, duplicate of default name or was not changed.
     if (tempName.empty() || tempName == defaultName ||
-        (tempName == item.m_filledName && tempName == fakeNames.defaultName))
+        (tempName == item.m_filledName && tempName == fakeNames.m_defaultName))
     {
       codesToExclude.push_back(item.m_code);
     }
@@ -334,7 +334,7 @@ bool EditableMapObject::CanUseAsDefaultName(int8_t const lang, vector<int8_t> co
 // static
 void EditableMapObject::RemoveFakeNames(FakeNames const & fakeNames, StringUtf8Multilang & name)
 {
-  if (fakeNames.names.empty())
+  if (fakeNames.m_names.empty())
     return;
 
   int8_t newDefaultNameCode = StringUtf8Multilang::kUnsupportedLanguageCode;
@@ -343,7 +343,7 @@ void EditableMapObject::RemoveFakeNames(FakeNames const & fakeNames, StringUtf8M
   name.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
 
   // New default name calculation priority: 1. name on mwm language, 2. english name.
-  for (auto it = fakeNames.names.rbegin(); it != fakeNames.names.rend(); ++it)
+  for (auto it = fakeNames.m_names.rbegin(); it != fakeNames.m_names.rend(); ++it)
   {
     string tempName;
     if (!name.GetString(it->m_code, tempName))
@@ -359,7 +359,7 @@ void EditableMapObject::RemoveFakeNames(FakeNames const & fakeNames, StringUtf8M
   }
 
   // If all previously filled fake names were changed - try to change the default name.
-  if (changedCount == fakeNames.names.size())
+  if (changedCount == fakeNames.m_names.size())
   {
     if (!TryToFillDefaultNameFromCode(newDefaultNameCode, name))
       TryToFillDefaultNameFromAnyLanguage(name);

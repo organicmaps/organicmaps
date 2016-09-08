@@ -59,7 +59,13 @@ struct NamesDataSource
 
 struct FakeName
 {
-  int8_t m_code;
+  FakeName(int8_t code, string filledName)
+    : m_code(code)
+    , m_filledName(filledName)
+  {
+  }
+
+  int8_t m_code = StringUtf8Multilang::kUnsupportedLanguageCode;
   string m_filledName;
 };
 /// Contains information about fake names which were added for user convenience.
@@ -67,12 +73,12 @@ struct FakeNames
 {
   void Clear()
   {
-    names.clear();
-    defaultName.clear();
+    m_names.clear();
+    m_defaultName.clear();
   }
 
-  vector<FakeName> names;
-  string defaultName;
+  vector<FakeName> m_names;
+  string m_defaultName;
 };
 
 struct LocalizedStreet
