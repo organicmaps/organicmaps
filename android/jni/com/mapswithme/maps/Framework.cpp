@@ -5,6 +5,7 @@
 #include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 
+#include "map/chart_generator.hpp"
 #include "map/user_mark.hpp"
 
 #include "search/everywhere_search_params.hpp"
@@ -889,6 +890,51 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
       info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon, info.m_exitNum, info.m_time, jLanes);
   ASSERT(result, (jni::DescribeException()));
   return result;
+}
+
+JNIEXPORT jintArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass, jint width, jint height)
+{
+  ::Framework * fr = frm();
+  ASSERT(fr, ());
+  vector<uint8_t> imageRGBAData;
+
+  if (!fr->GenerateRouteAltitudeChart(width, height, imageRGBAData))
+  {
+    LOG(LWARNING, ("Cann't generate route altitude image."));
+    return nullptr;
+  }
+
+  size_t const imageRGBADataSize = imageRGBAData.size();
+  if (imageRGBADataSize == 0)
+  {
+    LOG(LWARNING, ("GenerateRouteAltitudeChart returns true but the vector with altitude image bits is empty."));
+    return nullptr;
+  }
+
+  size_t const pxlCount = width * height;
+  if (maps::kAlitudeChartBPP * pxlCount != imageRGBAData.size())
+  {
+    LOG(LWARNING, ("Wrong size of vector with altitude image bits. Expected size:", pxlCount, ". Real size:", imageRGBAData.size()));
+    return nullptr;
+  }
+
+  jintArray imageRGBADataArray = env->NewIntArray(imageRGBADataSize);
+  ASSERT(imageRGBADataArray, ());
+  jint * arrayElements = env->GetIntArrayElements(imageRGBADataArray, 0);
+  ASSERT(arrayElements, ());
+
+  for (size_t i = 0; i < imageRGBADataSize; ++i)
+  {
+    size_t const shiftInBytes = i * maps::kAlitudeChartBPP;
+    arrayElements[i] = (imageRGBAData[shiftInBytes + 3] << 24) /* alpha */
+        | (imageRGBAData[shiftInBytes] << 16) /* red */
+        | (imageRGBAData[shiftInBytes + 1] << 8) /* green */
+        | (imageRGBAData[shiftInBytes + 2]); /* blue */
+  }
+  env->ReleaseIntArrayElements(imageRGBADataArray, arrayElements, 0);
+
+  return imageRGBADataArray;
 }
 
 JNIEXPORT void JNICALL

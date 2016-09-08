@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import android.graphics.Bitmap;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -66,6 +67,25 @@ public class Framework
   public static String getHttpGe0Url(double lat, double lon, double zoomLevel, String name)
   {
     return nativeGetGe0Url(lat, lon, zoomLevel, name).replaceFirst(Constants.Url.GE0_PREFIX, Constants.Url.HTTP_GE0_PREFIX);
+  }
+
+  /**
+   * Generates Bitmap with route altitude image chart taking into account current map style.
+   * @param width is width of the image.
+   * @param height is height of the image.
+   * @return Bitmap if there's pedestrian of bicycle route and null otherwise.
+   */
+  @Nullable
+  public static Bitmap GenerateRouteAltitudeChart(int width, int height)
+  {
+    if (width <= 0 || height <= 0)
+      return null;
+
+    final int[] altitudeChartBits = Framework.nativeGenerateRouteAltitudeChartBits(width, height);
+    if (altitudeChartBits == null)
+      return null;
+
+    return Bitmap.createBitmap(altitudeChartBits, width, height, Bitmap.Config.ARGB_8888);
   }
 
   public static native void nativeShowTrackRect(int category, int track);
@@ -143,6 +163,9 @@ public class Framework
 
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
+
+  @Nullable
+  public static native final int [] nativeGenerateRouteAltitudeChartBits(int width, int height);
 
   // When an end user is going to a turn he gets sound turn instructions.
   // If C++ part wants the client to pronounce an instruction nativeGenerateTurnNotifications returns
