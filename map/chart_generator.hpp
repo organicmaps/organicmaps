@@ -22,7 +22,7 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
 /// \param minMetersInPixel minimum meter number per height pixel.
 /// \param altitudeDataM altitude data vector in meters.
 /// \param yAxisDataPxl Y-axis data of altitude chart in pixels.
-void GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
+bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
                             vector<double> const & altitudeDataM, vector<double> & yAxisDataPxl);
 
 /// \brief generates chart image on a canvas with size |width|, |height| with |geometry|.

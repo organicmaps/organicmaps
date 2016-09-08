@@ -57,9 +57,9 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
 {
   double constexpr kEpsilon = 1e-6;
 
-  if (distanceDataM.empty() || resultPointCount == 0 || resultPointCount == 1 ||
-      distanceDataM.size() != altitudeDataM.size())
+  if (distanceDataM.size() != altitudeDataM.size())
   {
+    LOG(LERROR, ("Altitude and distance data have different size."));
     return false;
   }
 
@@ -69,8 +69,11 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
     return false;
   }
 
-  double const routeLenM = distanceDataM.back();
-  double const stepLenM = routeLenM / static_cast<double>(resultPointCount - 1);
+  if (distanceDataM.empty() || resultPointCount == 0)
+  {
+    uniformAltitudeDataM.clear();
+    return true;
+  }
 
   auto const calculateAltitude = [&](double distFormStartM) {
     if (distFormStartM <= distanceDataM.front())
@@ -97,19 +100,27 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
            k * (distFormStartM - distanceDataM[prevPointIdx]);
   };
 
+  double const routeLenM = distanceDataM.back();
   uniformAltitudeDataM.resize(resultPointCount);
+  if (resultPointCount == 1)
+  {
+    uniformAltitudeDataM[0] = calculateAltitude(routeLenM / 2.0);
+    return true;
+  }
+
+  double const stepLenM = routeLenM / static_cast<double>(resultPointCount - 1);
   for (size_t i = 0; i < resultPointCount; ++i)
     uniformAltitudeDataM[i] = calculateAltitude(static_cast<double>(i) * stepLenM);
 
   return true;
 }
 
-void GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
+bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
                             vector<double> const & altitudeDataM, vector<double> & yAxisDataPxl)
 {
   yAxisDataPxl.clear();
   if (altitudeDataM.empty())
-    return;
+    return true;
 
   uint32_t constexpr kHeightIndentPxl = 2;
   uint32_t heightIndent = kHeightIndentPxl;
@@ -128,20 +139,22 @@ void GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
   if (meterPerPxl == 0.0)
   {
     LOG(LERROR, ("meterPerPxl == 0.0"));
-    return;
+    return false;
   }
 
   size_t const altitudeDataSz = altitudeDataM.size();
   yAxisDataPxl.resize(altitudeDataSz);
   for (size_t i = 0; i < altitudeDataSz; ++i)
     yAxisDataPxl[i] = height - heightIndent - (altitudeDataM[i] - minAltM) / meterPerPxl;
+
+  return true;
 }
 
 void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry,
                            bool lightTheme, vector<uint8_t> & frameBuffer)
 {
   frameBuffer.clear();
-  if (width == 0 || height == 0 || geometry.empty())
+  if (width == 0 || height == 0)
     return;
 
   agg::rgba8 const kBackgroundColor = agg::rgba8(255, 255, 255, 0);
@@ -166,14 +179,19 @@ void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   frameBuffer.assign(width * kBPP * height, 0);
   renderBuffer.attach(&frameBuffer[0], static_cast<unsigned>(width),
                       static_cast<unsigned>(height), static_cast<int>(width * kBPP));
+
+  // Background.
   baseRenderer.reset_clipping(true);
-  unsigned op = pixelFormat.comp_op();
+  unsigned const op = pixelFormat.comp_op();
   pixelFormat.comp_op(agg::comp_op_src);
   baseRenderer.clear(kBackgroundColor);
   pixelFormat.comp_op(op);
 
   agg::rasterizer_scanline_aa<> rasterizer;
   rasterizer.clip_box(0, 0, width, height);
+
+  if (geometry.empty())
+    return; /* No chart line to draw. */
 
   // Polygon under chart line.
   agg::path_storage underChartGeometryPath;
@@ -210,24 +228,24 @@ bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & dista
     return false;
   }
 
-  if (altitudeDataM.empty())
-    return false;
-
   vector<double> uniformAltitudeDataM;
   if (!NormalizeChartData(distanceDataM, altitudeDataM, width, uniformAltitudeDataM))
     return false;
 
   vector<double> yAxisDataPxl;
-  GenerateYAxisChartData(height, 1.0 /* minMetersPerPxl */, uniformAltitudeDataM, yAxisDataPxl);
-
-  size_t const uniformAltitudeDataSize = yAxisDataPxl.size();
-  if (uniformAltitudeDataSize <= 1)
+  if (!GenerateYAxisChartData(height, 1.0 /* minMetersPerPxl */, uniformAltitudeDataM, yAxisDataPxl))
     return false;
 
-  double const oneSegLenPix = static_cast<double>(width) / (uniformAltitudeDataSize - 1);
+  size_t const uniformAltitudeDataSize = yAxisDataPxl.size();
   vector<m2::PointD> geometry(uniformAltitudeDataSize);
-  for (size_t i = 0; i < uniformAltitudeDataSize; ++i)
-    geometry[i] = m2::PointD(i * oneSegLenPix, yAxisDataPxl[i]);
+
+  if (uniformAltitudeDataSize != 0)
+  {
+    double const oneSegLenPix =
+        static_cast<double>(width) / (uniformAltitudeDataSize == 1 ? 1 : (uniformAltitudeDataSize - 1));
+    for (size_t i = 0; i < uniformAltitudeDataSize; ++i)
+      geometry[i] = m2::PointD(i * oneSegLenPix, yAxisDataPxl[i]);
+  }
 
   frameBuffer.clear();
   GenerateChartByPoints(width, height, geometry, lightTheme, frameBuffer);
