@@ -65,7 +65,7 @@ struct FakeName
   {
   }
 
-  int8_t m_code = StringUtf8Multilang::kUnsupportedLanguageCode;
+  int8_t m_code;
   string m_filledName;
 };
 /// Contains information about fake names which were added for user convenience.
