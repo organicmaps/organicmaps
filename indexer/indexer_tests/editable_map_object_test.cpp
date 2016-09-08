@@ -12,6 +12,32 @@ int8_t GetLangCode(char const * ch)
 {
   return StringUtf8Multilang::GetLangIndex(ch);
 }
+
+struct ExpectedName
+{
+  string m_lang;
+  string m_value;
+};
+
+void CheckExpectations(StringUtf8Multilang const s, vector<ExpectedName> const expectations)
+{
+  size_t counter = 0;
+  s.ForEach([&expectations, &counter](int8_t const code, string const & name) {
+    auto const it = find_if(expectations.begin(), expectations.end(), [&code](ExpectedName const & item)
+    {
+      return GetLangCode(item.m_lang.c_str()) == code;
+    });
+
+    if (it == expectations.end())
+      TEST(false, ("Unexpected language code:", code));
+
+    TEST_EQUAL(name, it->m_value, ());
+    ++counter;
+    return true;
+  });
+
+  TEST_EQUAL(counter, expectations.size(), ());
+}
   
 UNIT_TEST(EditableMapObject_SetWebsite)
 {
@@ -288,5 +314,282 @@ UNIT_TEST(EditableMapObject_SetInternet)
   setInternetAndCheck(bunkerEmo, osm::Internet::Unknown, false);
   setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
   setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
+}
+
+UNIT_TEST(EditableMapObject_RemoveFakeNames)
+{
+  EditableMapObject emo;
+  StringUtf8Multilang name;
+  osm::FakeNames fakeNames;
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "Default name");
+  name.AddString(GetLangCode("en"), "Default name");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Default name"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "Changed name");
+  name.AddString(GetLangCode("en"), "Default name");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Default name"}, {"ru", "Changed name"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "Default name");
+  name.AddString(GetLangCode("en"), "Changed name");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Default name"}, {"en", "Changed name"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "Changed name");
+  name.AddString(GetLangCode("en"), "Changed name");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Changed name"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "Changed name ru");
+  name.AddString(GetLangCode("en"), "Changed name en");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Changed name ru"}, {"en", "Changed name en"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Changed by other logic");
+  name.AddString(GetLangCode("ru"), "Default name");
+  name.AddString(GetLangCode("en"), "Changed name en");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Changed by other logic"}, {"en", "Changed name en"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Changed by other logic");
+  name.AddString(GetLangCode("ru"), "Changed name ru");
+  name.AddString(GetLangCode("en"), "Changed name en");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Changed name ru"}, {"en", "Changed name en"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Changed by other logic");
+  name.AddString(GetLangCode("ru"), "Default name");
+  name.AddString(GetLangCode("en"), "Default name");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Changed by other logic"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "");
+  name.AddString(GetLangCode("en"), "Changed name en");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Changed name en"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "");
+  name.AddString(GetLangCode("en"), "");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Default name"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Changed by other logic");
+  name.AddString(GetLangCode("ru"), "");
+  name.AddString(GetLangCode("en"), "");
+  name.AddString(GetLangCode("de"), "Deutch name");
+  fakeNames.names.push_back({GetLangCode("ru"), "Default name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Deutch name"}, {"de", "Deutch name"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "Test name");
+  name.AddString(GetLangCode("en"), "Default name");
+  fakeNames.names.push_back({GetLangCode("ru"), "Test name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Default name"}, {"ru", "Test name"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "Test name changed");
+  name.AddString(GetLangCode("en"), "Default name changed");
+  fakeNames.names.push_back({GetLangCode("ru"), "Test name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Default name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Test name changed"}, {"en", "Default name changed"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "Test name");
+  name.AddString(GetLangCode("en"), "Second test name changed");
+  fakeNames.names.push_back({GetLangCode("ru"), "Test name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Second test name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Default name"}, {"ru", "Test name"}, {"en", "Second test name changed"}});
+
+  name.Clear();
+  fakeNames.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "");
+  name.AddString(GetLangCode("en"), "Second test name changed");
+  fakeNames.names.push_back({GetLangCode("ru"), "Test name"});
+  fakeNames.names.push_back({GetLangCode("en"), "Second test name"});
+  fakeNames.defaultName = "Default name";
+
+  EditableMapObject::RemoveFakeNames(fakeNames, name);
+
+  CheckExpectations(name, {{"default", "Second test name changed"}});
+}
+
+UNIT_TEST(EditableMapObject_RemoveBlankNames)
+{
+  auto const getCountOfNames = [](StringUtf8Multilang const & names) {
+    size_t counter = 0;
+    names.ForEach([&counter](int8_t const, string const &) {
+      ++counter;
+      return true;
+    });
+
+    return counter;
+  };
+
+  StringUtf8Multilang name;
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "Ru name");
+  name.AddString(GetLangCode("en"), "En name");
+  name.AddString(GetLangCode("de"), "De name");
+
+  EditableMapObject emo;
+  emo.SetName(name);
+  emo.RemoveBlankNames();
+
+  TEST_EQUAL(getCountOfNames(emo.GetName()), 4, ());
+
+  name.Clear();
+
+  name.AddString(GetLangCode("default"), "");
+  name.AddString(GetLangCode("ru"), "Ru name");
+  name.AddString(GetLangCode("en"), "En name");
+  name.AddString(GetLangCode("de"), "");
+
+  emo.SetName(name);
+  emo.RemoveBlankNames();
+
+  TEST_EQUAL(getCountOfNames(emo.GetName()), 2, ());
+
+  name.Clear();
+
+  name.AddString(GetLangCode("default"), "Default name");
+  name.AddString(GetLangCode("ru"), "");
+  name.AddString(GetLangCode("en"), "");
+  name.AddString(GetLangCode("de"), "");
+
+  emo.SetName(name);
+  emo.RemoveBlankNames();
+
+  TEST_EQUAL(getCountOfNames(emo.GetName()), 1, ());
+
+  name.Clear();
+
+  name.AddString(GetLangCode("default"), "");
+  name.AddString(GetLangCode("ru"), "");
+  name.AddString(GetLangCode("en"), "");
+  name.AddString(GetLangCode("de"), "De name");
+
+  emo.SetName(name);
+  emo.RemoveBlankNames();
+
+  TEST_EQUAL(getCountOfNames(emo.GetName()), 1, ());
 }
 }  // namespace

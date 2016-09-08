@@ -247,6 +247,8 @@ Java_com_mapswithme_maps_editor_Editor_nativeSaveEditedFeature(JNIEnv *, jclass)
   case osm::Editor::SavedSuccessfully:
     return true;
   case osm::Editor::NoFreeSpaceError:
+  case osm::Editor::NoUnderlyingMapError:
+  case osm::Editor::SavingError:
     return false;
   }
 }
@@ -310,6 +312,18 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jc
   jint mandatoryNamesCount = namesDataSource.mandatoryNamesCount;
 
   return env->NewObject(g_namesDataSourceClassID, g_namesDataSourceConstructorID, names, mandatoryNamesCount);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetDefaultName(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetDefaultName());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeEnableNamesAdvancedMode(JNIEnv *, jclass)
+{
+  g_editableMapObject.EnableNamesAdvancedMode();
 }
 
 JNIEXPORT void JNICALL

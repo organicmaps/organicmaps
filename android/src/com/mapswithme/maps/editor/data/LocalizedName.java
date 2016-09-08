@@ -4,9 +4,6 @@ import android.support.annotation.NonNull;
 
 public class LocalizedName
 {
-  // StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode)
-  public static final String DEFAULT_LANG_NAME = "default";
-
   public int code;
   @NonNull public String name;
   @NonNull public String lang;
