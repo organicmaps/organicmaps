@@ -55,7 +55,7 @@ public:
     Update();
   }
 
-  inline void SetTurnInstructions(TTurns &&v) { m_turns = move(v); }
+  inline void SetTurnInstructions(TTurns && v) { m_turns = move(v); }
   inline void SetSectionTimes(TTimes && v) { m_times = move(v); }
   inline void SetStreetNames(TStreets && v) { m_streets = move(v); }
   inline void SetAltitudes(feature::TAltitudes && v) { m_altitudes = move(v); }

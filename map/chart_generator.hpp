@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature_altitude.hpp"
+#include "indexer/map_style.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -30,14 +31,13 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
 /// \param width is result image width in pixels.
 /// \param height is result image height in pixels.
 /// \param geometry is points which is used to draw a curve of the chart.
-/// \param lightTheme is true for light theme image colors
-/// and false for night image colors.
+/// \param mapStyle is a current map style.
 /// \param frameBuffer is a vector for a result image. It's resized in this method.
 /// It's filled with RGBA(8888) image date.
 void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry,
-                           bool lightTheme, vector<uint8_t> & frameBuffer);
+                           MapStyle mapStyle, vector<uint8_t> & frameBuffer);
 
 bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & distanceDataM,
-                   feature::TAltitudes const & altitudeDataM, bool lightTheme,
+                   feature::TAltitudes const & altitudeDataM, MapStyle mapStyle,
                    vector<uint8_t> & frameBuffer);
 }  // namespace maps

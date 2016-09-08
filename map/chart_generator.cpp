@@ -47,6 +47,38 @@ struct BlendAdaptor
     }
   }
 };
+
+agg::rgba8 GetLineColor(MapStyle mapStyle)
+{
+  switch (mapStyle)
+  {
+  case MapStyleCount:
+    LOG(LERROR, ("Wrong map style param."));
+    // No need break or return here.
+  case MapStyleDark:
+    return agg::rgba8(255, 230, 140, 255);
+  case MapStyleLight:
+  case MapStyleClear:
+  case MapStyleMerged:
+    return agg::rgba8(30, 150, 240, 255);
+  }
+}
+
+agg::rgba8 GetCurveColor(MapStyle mapStyle)
+{
+  switch (mapStyle)
+  {
+  case MapStyleCount:
+    LOG(LERROR, ("Wrong map style param."));
+    // No need break or return here.
+  case MapStyleDark:
+    return agg::rgba8(255, 230, 140, 20);
+  case MapStyleLight:
+  case MapStyleClear:
+  case MapStyleMerged:
+    return agg::rgba8(30, 150, 240, 20);
+  }
+}
 }  // namespace
 
 namespace maps
@@ -82,13 +114,8 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
       return static_cast<double>(altitudeDataM.back());
 
     auto const lowerIt = lower_bound(distanceDataM.cbegin(), distanceDataM.cend(), distFormStartM);
-    if (lowerIt == distanceDataM.cbegin())
-      return static_cast<double>(altitudeDataM.front());
-    if (lowerIt == distanceDataM.cend())
-      return static_cast<double>(altitudeDataM.back());
-
     size_t const nextPointIdx = distance(distanceDataM.cbegin(), lowerIt);
-    CHECK_LESS(0, nextPointIdx, ("distFormStartM is greater than 0 but nextPointIdx == 0."));
+    ASSERT_LESS(0, nextPointIdx, ("distFormStartM is greater than 0 but nextPointIdx == 0."));
     size_t const prevPointIdx = nextPointIdx - 1;
 
     if (my::AlmostEqualAbs(distanceDataM[prevPointIdx], distanceDataM[nextPointIdx], kEpsilon))
@@ -102,13 +129,8 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
 
   double const routeLenM = distanceDataM.back();
   uniformAltitudeDataM.resize(resultPointCount);
-  if (resultPointCount == 1)
-  {
-    uniformAltitudeDataM[0] = calculateAltitude(routeLenM / 2.0);
-    return true;
-  }
+  double const stepLenM = resultPointCount <= 1 ? 0.0 : routeLenM / (resultPointCount - 1);
 
-  double const stepLenM = routeLenM / static_cast<double>(resultPointCount - 1);
   for (size_t i = 0; i < resultPointCount; ++i)
     uniformAltitudeDataM[i] = calculateAltitude(static_cast<double>(i) * stepLenM);
 
@@ -123,44 +145,43 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
     return true;
 
   uint32_t constexpr kHeightIndentPxl = 2;
-  uint32_t heightIndent = kHeightIndentPxl;
+  uint32_t heightIndentPxl = kHeightIndentPxl;
   if (height <= 2 * kHeightIndentPxl)
   {
     LOG(LERROR, ("Chart height is less or equal than 2 * kHeightIndentPxl (", 2 * kHeightIndentPxl, ")"));
-    heightIndent = 0;
+    heightIndentPxl = 0;
   }
 
   auto const minMaxAltitudeIt = minmax_element(altitudeDataM.begin(), altitudeDataM.end());
   double const minAltM = *minMaxAltitudeIt.first;
   double const maxAltM = *minMaxAltitudeIt.second;
   double const deltaAltM = maxAltM - minAltM;
-  uint32_t const drawHeightPxl = height - 2 * heightIndent;
-  double const meterPerPxl = max(minMetersPerPxl, deltaAltM / static_cast<double>(drawHeightPxl));
-  if (meterPerPxl == 0.0)
+  uint32_t const drawHeightPxl = height - 2 * heightIndentPxl;
+  double const metersPerPxl = max(minMetersPerPxl, deltaAltM / static_cast<double>(drawHeightPxl));
+  if (metersPerPxl == 0.0)
   {
-    LOG(LERROR, ("meterPerPxl == 0.0"));
+    LOG(LERROR, ("metersPerPxl == 0.0"));
     return false;
   }
 
   size_t const altitudeDataSz = altitudeDataM.size();
   yAxisDataPxl.resize(altitudeDataSz);
   for (size_t i = 0; i < altitudeDataSz; ++i)
-    yAxisDataPxl[i] = height - heightIndent - (altitudeDataM[i] - minAltM) / meterPerPxl;
+    yAxisDataPxl[i] = height - heightIndentPxl - (altitudeDataM[i] - minAltM) / metersPerPxl;
 
   return true;
 }
 
 void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry,
-                           bool lightTheme, vector<uint8_t> & frameBuffer)
+                           MapStyle mapStyle, vector<uint8_t> & frameBuffer)
 {
   frameBuffer.clear();
   if (width == 0 || height == 0)
     return;
 
   agg::rgba8 const kBackgroundColor = agg::rgba8(255, 255, 255, 0);
-  agg::rgba8 const kLineColor =
-      lightTheme ? agg::rgba8(30, 150, 240, 255) : agg::rgba8(255, 230, 140, 255);
-  agg::rgba8 const kCurveColor = lightTheme ? agg::rgba8(30, 150, 240, 20) : agg::rgba8(255, 230, 140, 20);
+  agg::rgba8 const kLineColor = GetLineColor(mapStyle);
+  agg::rgba8 const kCurveColor = GetCurveColor(mapStyle);
   double constexpr kLineWidthPxl = 2.0;
   uint32_t constexpr kBPP = 4;
 
@@ -218,7 +239,7 @@ void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
 }
 
 bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & distanceDataM,
-                   feature::TAltitudes const & altitudeDataM, bool lightTheme,
+                   feature::TAltitudes const & altitudeDataM, MapStyle mapStyle,
                    vector<uint8_t> & frameBuffer)
 {
   if (distanceDataM.size() != altitudeDataM.size())
@@ -248,7 +269,7 @@ bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & dista
   }
 
   frameBuffer.clear();
-  GenerateChartByPoints(width, height, geometry, lightTheme, frameBuffer);
+  GenerateChartByPoints(width, height, geometry, mapStyle, frameBuffer);
   return true;
 }
 }  // namespace maps

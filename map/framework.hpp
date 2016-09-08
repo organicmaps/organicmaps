@@ -416,7 +416,6 @@ public:
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
-  bool IsLightMapTheme() const;
 
   void SetupMeasurementSystem();
 

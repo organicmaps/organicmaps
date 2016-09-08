@@ -525,8 +525,7 @@ void RoutingSession::EmitCloseRoutingEvent() const
 
 bool RoutingSession::HasRouteAltitudeImpl() const
 {
-  return !m_route.GetAltitudes().empty()
-      && m_route.GetAltitudes().size() == m_route.GetSegDistanceM().size() + 1;
+  return m_route.GetAltitudes().size() == m_route.GetSegDistanceM().size() + 1;
 }
 
 bool RoutingSession::HasRouteAltitude() const

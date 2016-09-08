@@ -116,7 +116,7 @@ UNIT_TEST(GenerateYAxisChartData_EmptyAltitudeDataTest)
   TEST(yAxisDataPxl.empty(), ());
 }
 
-UNIT_TEST(GenerateYAxisChartDataTest)
+UNIT_TEST(GenerateYAxisChartData_Test)
 {
   vector<double> const altitudeDataM = {0.0, 2.0, 0.0, -2.0, 1.0};
   vector<double> yAxisDataPxl;
@@ -133,7 +133,7 @@ UNIT_TEST(GenerateChartByPoints_NoGeometryTest)
   size_t constexpr height = 40;
   vector<uint8_t> frameBuffer;
 
-  maps::GenerateChartByPoints(width, height, geometry, true /* lightTheme */, frameBuffer);
+  maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer);
   TestAngleColors(width, height, frameBuffer, 255 /* expectedR */, 255 /* expectedG */,
                   255 /* expectedB */, 0 /* expectedA */);
 }
@@ -145,7 +145,7 @@ UNIT_TEST(GenerateChartByPoints_OnePointTest)
   size_t constexpr height = 40;
   vector<uint8_t> frameBuffer;
 
-  maps::GenerateChartByPoints(width, height, geometry, true /* lightTheme */, frameBuffer);
+  maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer);
   TestAngleColors(width, height, frameBuffer, 255 /* expectedR */, 255 /* expectedG */,
                   255 /* expectedB */, 0 /* expectedA */);
 }
@@ -158,7 +158,7 @@ UNIT_TEST(GenerateChartByPoints_Test)
   size_t constexpr height = 40;
   vector<uint8_t> frameBuffer;
 
-  maps::GenerateChartByPoints(width, height, geometry, true /* lightTheme */, frameBuffer);
+  maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer);
 
   TEST_EQUAL(frameBuffer.size(), width * height * kBPP, ());
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 30 /* expectedR */, 150 /* expectedG */,
@@ -176,7 +176,7 @@ UNIT_TEST(GenerateChart_NoPointsTest)
   feature::TAltitudes const & altitudeDataM = {};
   vector<uint8_t> frameBuffer;
 
-  TEST(maps::GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, false /* lightTheme */,
+  TEST(maps::GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, MapStyleDark /* mapStyle */,
                            frameBuffer),
        ());
   TestAngleColors(width, 50 /* height */, frameBuffer, 255 /* expectedR */, 255 /* expectedG */,
@@ -191,7 +191,7 @@ UNIT_TEST(GenerateChart_OnePointTest)
   feature::TAltitudes const & altitudeDataM = {0};
   vector<uint8_t> frameBuffer;
 
-  TEST(maps::GenerateChart(width, height, distanceDataM, altitudeDataM, false /* lightTheme */,
+  TEST(maps::GenerateChart(width, height, distanceDataM, altitudeDataM, MapStyleDark /* mapStyle */,
                            frameBuffer),
        ());
   TEST_EQUAL(frameBuffer.size(), width * height * kBPP, ());
@@ -208,7 +208,7 @@ UNIT_TEST(GenerateChart_EmptyRectTest)
   feature::TAltitudes const & altitudeDataM = {};
   vector<uint8_t> frameBuffer;
 
-  TEST(maps::GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, false /* lightTheme */,
+  TEST(maps::GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, MapStyleDark /* mapStyle */,
                            frameBuffer),
        ());
   TEST(frameBuffer.empty(), ());
@@ -221,7 +221,7 @@ UNIT_TEST(GenerateChart_Test)
   feature::TAltitudes const & altitudeDataM = {0, 1000};
   vector<uint8_t> frameBuffer;
 
-  TEST(maps::GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, false /* lightTheme */,
+  TEST(maps::GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, MapStyleDark /* mapStyle */,
                            frameBuffer),
        ());
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 255 /* expectedR */, 255 /* expectedG */,

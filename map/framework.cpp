@@ -1694,11 +1694,6 @@ MapStyle Framework::GetMapStyle() const
   return GetStyleReader().GetCurrentStyle();
 }
 
-bool Framework::IsLightMapTheme() const
-{
-  return GetMapStyle() != MapStyleDark;
-}
-
 void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
@@ -2997,10 +2992,10 @@ bool Framework::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
   if (!m_routingSession.GetRouteAltitudes(altitudes))
     return false;
   vector<double> segDistanceM;
-  if (!m_routingSession.GetSegDistanceM(segDistanceM) && segDistanceM.empty())
+  if (!m_routingSession.GetSegDistanceM(segDistanceM))
     return false;
   segDistanceM.insert(segDistanceM.begin(), 0.0);
 
   return maps::GenerateChart(width, height, segDistanceM, altitudes,
-                             IsLightMapTheme(), imageRGBAData);
+                             GetMapStyle(), imageRGBAData);
 }
