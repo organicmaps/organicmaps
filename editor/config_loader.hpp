@@ -44,8 +44,6 @@ private:
   condition_variable m_event;
 };
 
-DECLARE_EXCEPTION(ConfigLoadError, RootException);
-
 // Class which loads config from local drive, checks hash
 // for config on server and downloads new config if needed.
 class ConfigLoader
