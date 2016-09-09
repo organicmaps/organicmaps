@@ -1,22 +1,22 @@
+#import "MWMSideButtonsView.h"
 #import "Common.h"
 #import "MWMButton.h"
 #import "MWMMapViewControlsCommon.h"
-#import "MWMSideButtonsView.h"
 
 namespace
 {
 CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
-} // namespace
+}  // namespace
 
-@interface MWMSideButtonsView()
+@interface MWMSideButtonsView ()
 
-@property (nonatomic) CGRect defaultBounds;
+@property(nonatomic) CGRect defaultBounds;
 
-@property (weak, nonatomic) IBOutlet MWMButton * zoomIn;
-@property (weak, nonatomic) IBOutlet MWMButton * zoomOut;
-@property (weak, nonatomic) IBOutlet MWMButton * location;
+@property(weak, nonatomic) IBOutlet MWMButton * zoomIn;
+@property(weak, nonatomic) IBOutlet MWMButton * zoomOut;
+@property(weak, nonatomic) IBOutlet MWMButton * location;
 
-@property (nonatomic) BOOL isPortrait;
+@property(nonatomic) BOOL isPortrait;
 
 @end
 
@@ -57,27 +57,23 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
     self.maxX = self.superview.width - kViewControlsOffsetToBounds;
 }
 
-- (void)layoutYPosition
-{
-  self.maxY = self.bottomBound;
-}
-
+- (void)layoutYPosition { self.maxY = self.bottomBound; }
 - (void)fadeZoomButtonsShow:(BOOL)show
 {
   CGFloat const alpha = show ? 1.0 : 0.0;
-  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^
-  {
-    self.zoomIn.alpha = alpha;
-    self.zoomOut.alpha = alpha;
-  }];
+  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount)
+                   animations:^{
+                     self.zoomIn.alpha = alpha;
+                     self.zoomOut.alpha = alpha;
+                   }];
 }
 
 - (void)fadeLocationButtonShow:(BOOL)show
 {
-  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^
-  {
-    self.location.alpha = show ? 1.0 : 0.0;
-  }];
+  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount)
+                   animations:^{
+                     self.location.alpha = show ? 1.0 : 0.0;
+                   }];
 }
 
 - (void)animate
@@ -131,15 +127,14 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
     if (!hidden)
       self.hidden = NO;
     [self layoutXPosition:!hidden];
-    [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^
-    {
-      [self layoutXPosition:hidden];
-    }
-    completion:^(BOOL finished)
-    {
-      if (hidden)
-        self.hidden = YES;
-    }];
+    [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount)
+        animations:^{
+          [self layoutXPosition:hidden];
+        }
+        completion:^(BOOL finished) {
+          if (hidden)
+            self.hidden = YES;
+        }];
   }
   else
   {
@@ -157,11 +152,7 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
   [self animate];
 }
 
-- (CGFloat)topBound
-{
-  return MAX(0.0, _topBound);
-}
-
+- (CGFloat)topBound { return MAX(0.0, _topBound); }
 @synthesize bottomBound = _bottomBound;
 
 - (void)setBottomBound:(CGFloat)bottomBound

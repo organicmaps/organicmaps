@@ -1,11 +1,11 @@
-#import "Common.h"
 #import "MWMNavigationView.h"
+#import "Common.h"
 
 @interface MWMNavigationView ()
 
-@property (nonatomic) BOOL isVisible;
+@property(nonatomic) BOOL isVisible;
 
-@property (weak, nonatomic, readwrite) IBOutlet UIView * contentView;
+@property(weak, nonatomic, readwrite) IBOutlet UIView * contentView;
 
 @end
 
@@ -31,26 +31,21 @@
   [superview addSubview:self];
 }
 
-- (void)remove
-{
-  self.isVisible = NO;
-}
-
+- (void)remove { self.isVisible = NO; }
 - (void)layoutSubviews
 {
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    if (!CGRectEqualToRect(self.frame, self.defaultFrame))
-      self.frame = self.defaultFrame;
-    CGFloat const sbHeight = statusBarHeight();
-    self.statusbarBackground.frame = CGRectMake(0.0, -sbHeight, self.width, sbHeight);
-    [self.delegate navigationDashBoardDidUpdate];
-  }
-  completion:^(BOOL finished)
-  {
-    if (!self.isVisible)
-      [self removeFromSuperview];
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{
+        if (!CGRectEqualToRect(self.frame, self.defaultFrame))
+          self.frame = self.defaultFrame;
+        CGFloat const sbHeight = statusBarHeight();
+        self.statusbarBackground.frame = CGRectMake(0.0, -sbHeight, self.width, sbHeight);
+        [self.delegate navigationDashBoardDidUpdate];
+      }
+      completion:^(BOOL finished) {
+        if (!self.isVisible)
+          [self removeFromSuperview];
+      }];
   [super layoutSubviews];
 }
 

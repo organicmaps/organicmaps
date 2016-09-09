@@ -92,7 +92,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * timeWidth;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * goButtonWidth;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * estimateLabelTopOffset;
-@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * heightProfileContainerVerticalOrientation;
+@property(nonatomic) IBOutletCollection(NSLayoutConstraint)
+    NSArray * heightProfileContainerVerticalOrientation;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * routingViewManuButtonPffset;
 
 @property(nonatomic) CGFloat layoutDuration;

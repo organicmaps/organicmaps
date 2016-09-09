@@ -75,28 +75,28 @@ static CGFloat constexpr kAdditionalHeight = 20.;
          routerType:(routing::RouterType)routerType
 {
   MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
-  MWMCircularProgressStateVec const imageStates = {MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
-    MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
-    MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted};
+  MWMCircularProgressStateVec const imageStates = {
+      MWMCircularProgressStateNormal,   MWMCircularProgressStateFailed,
+      MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
+      MWMCircularProgressStateSpinner,  MWMCircularProgressStateCompleted};
   [progress setImage:[UIImage imageNamed:imageName] forStates:imageStates];
 
-  [progress setColoring:MWMButtonColoringGray
-              forStates:{MWMCircularProgressStateNormal}];
+  [progress setColoring:MWMButtonColoringGray forStates:{MWMCircularProgressStateNormal}];
 
   [progress setColoring:MWMButtonColoringWhiteText
-              forStates:{MWMCircularProgressStateFailed,
-                MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
-                MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
+              forStates:{MWMCircularProgressStateFailed, MWMCircularProgressStateSelected,
+                         MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner,
+                         MWMCircularProgressStateCompleted}];
 
   [progress setSpinnerBackgroundColor:[UIColor clearColor]];
-  [progress setColor:[UIColor whiteColor] forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
+  [progress setColor:[UIColor whiteColor]
+           forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
 
   progress.delegate = self;
   m_progresses[routerType] = progress;
 }
 
 - (void)didMoveToSuperview { [self setupActualHeight]; }
-
 - (void)statePrepare
 {
   for (auto const & progress : m_progresses)
@@ -159,7 +159,9 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 - (void)iPadReady
 {
   [self layoutIfNeeded];
-  self.statusBoxHeight.constant = self.resultsBoxHeight.constant + ([MWMRouter hasRouteAltitude] ? self.heightBoxHeight.constant : 0);
+  self.statusBoxHeight.constant =
+      self.resultsBoxHeight.constant +
+      ([MWMRouter hasRouteAltitude] ? self.heightBoxHeight.constant : 0);
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
         [self layoutIfNeeded];
@@ -272,11 +274,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   return {{origin, self.topBound}, {width, self.superview.height - kAdditionalHeight}};
 }
 
-- (CGFloat)visibleHeight
-{
-  return self.planningRouteViewHeight.constant + kAdditionalHeight;
-}
-
+- (CGFloat)visibleHeight { return self.planningRouteViewHeight.constant + kAdditionalHeight; }
 - (IBAction)extendTap
 {
   BOOL const isExtended = !self.extendButton.selected;

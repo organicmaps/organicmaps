@@ -57,18 +57,15 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   return router;
 }
 
-+ (BOOL)hasRouteAltitude
-{
-  return GetFramework().HasRouteAltitude();
-}
-
++ (BOOL)hasRouteAltitude { return GetFramework().HasRouteAltitude(); }
 - (instancetype)initRouter
 {
   self = [super init];
   if (self)
   {
     self.altitudeImagesData = [@{} mutableCopy];
-    self.renderAltitudeImagesQueue = dispatch_queue_create(kRenderAltitudeImagesQueueLabel, DISPATCH_QUEUE_SERIAL);
+    self.renderAltitudeImagesQueue =
+        dispatch_queue_create(kRenderAltitudeImagesQueueLabel, DISPATCH_QUEUE_SERIAL);
     [self resetPoints];
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
@@ -279,7 +276,8 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     if (![MWMRouter hasRouteAltitude])
       return;
     CGFloat const screenScale = [UIScreen mainScreen].scale;
-    CGSize const scaledSize = {.width = size.width * screenScale, .height = size.height * screenScale};
+    CGSize const scaledSize = {.width = size.width * screenScale,
+                               .height = size.height * screenScale};
     uint32_t const width = static_cast<uint32_t>(scaledSize.width);
     uint32_t const height = static_cast<uint32_t>(scaledSize.height);
     if (width == 0 || height == 0)
@@ -300,7 +298,9 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
     UIImage * altitudeImage = [UIImage imageWithRGBAData:imageData width:width height:height];
     if (altitudeImage)
-      dispatch_async(dispatch_get_main_queue(), ^{ block(altitudeImage); });
+      dispatch_async(dispatch_get_main_queue(), ^{
+        block(altitudeImage);
+      });
   });
 }
 
