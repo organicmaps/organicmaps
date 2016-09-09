@@ -3,6 +3,9 @@
 #import "MWMLocationManager.h"
 #import "MWMSettings.h"
 #import "MapsAppDelegate.h"
+#import "TimeUtils.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
 #include "geometry/distance_on_sphere.hpp"
@@ -50,6 +53,18 @@ using namespace routing::turns;
     _streetName = @(info.m_targetName.c_str());
     _nextTurnImage = image(info.m_nextTurn, true);
   }
+
+  NSDictionary * etaAttributes = @{
+    NSForegroundColorAttributeName : UIColor.blackPrimaryText,
+    NSFontAttributeName : UIFont.medium17
+  };
+  NSString * eta = [NSDateFormatter estimatedArrivalTimeWithSeconds:_timeToTarget];
+  NSString * resultString =
+      [NSString stringWithFormat:@"%@ • %@ %@", eta, _targetDistance, _targetUnits];
+  NSMutableAttributedString * result =
+      [[NSMutableAttributedString alloc] initWithString:resultString];
+  [result addAttributes:etaAttributes range:NSMakeRange(0, eta.length)];
+  _estimate = [result copy];
 
   TurnDirection const turn = info.m_turn;
   _turnImage = image(turn, false);
