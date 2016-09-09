@@ -72,6 +72,16 @@ UINib * const progressViewNib = [UINib nibWithNibName:@"MWMCircularProgress" bun
   self.nextProgressToAnimate = nil;
 }
 
+- (void)setSpinnerColoring:(MWMImageColoring)coloring
+{
+  [self.rootView setSpinnerColoring:coloring];
+}
+
+- (void)setSpinnerBackgroundColor:(nonnull UIColor *)backgroundColor
+{
+  [self.rootView setSpinnerBackgroundColor:backgroundColor];
+}
+
 - (void)setImage:(nonnull UIImage *)image forStates:(MWMCircularProgressStateVec const &)states
 {
   for (auto const & state : states)
