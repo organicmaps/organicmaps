@@ -33,7 +33,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular24"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
