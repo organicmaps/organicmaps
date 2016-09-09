@@ -1,4 +1,5 @@
 #import "MapsAppDelegate.h"
+#import <CoreSpotlight/CoreSpotlight.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Pushwoosh/PushNotificationManager.h>
@@ -12,8 +13,10 @@
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMRouter.h"
 #import "MWMRouterSavedState.h"
+#import "MWMSearch+CoreSpotlight.h"
 #import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MWMTextToSpeech.h"
@@ -658,6 +661,34 @@ using namespace osm_auth_ios;
   GetFramework().SetRenderingEnabled();
   [MWMLocationManager applicationDidBecomeActive];
   [MWMRouterSavedState restore];
+  [MWMSearch addCategoriesToSpotlight];
+}
+
+- (BOOL)application:(UIApplication *)application
+    continueUserActivity:(NSUserActivity *)userActivity
+      restorationHandler:(void (^)(NSArray * restorableObjects))restorationHandler
+{
+  if (![userActivity.activityType isEqualToString:CSSearchableItemActionType])
+    return NO;
+  NSString * searchString = userActivity.title;
+  if (!searchString)
+    return NO;
+
+  if (!self.isDrapeEngineCreated)
+  {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self application:application
+          continueUserActivity:userActivity
+            restorationHandler:restorationHandler];
+    });
+  }
+  else
+  {
+    [[MWMMapViewControlsManager manager] searchText:[searchString stringByAppendingString:@" "]
+                                     forInputLocale:[MWMSettings spotlightLocaleLanguageId]];
+  }
+
+  return YES;
 }
 
 - (void)dealloc

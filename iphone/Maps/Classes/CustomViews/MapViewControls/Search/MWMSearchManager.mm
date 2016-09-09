@@ -262,6 +262,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (void)changeToTableSearchState
 {
+  [self changeToDefaultState];
   self.rootView.compact = NO;
   self.rootView.tabBarIsVisible = NO;
   [MWMSearch setSearchOnMap:NO];
@@ -271,6 +272,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (void)changeToMapSearchState
 {
+  [self changeToDefaultState];
   GetFramework().DeactivateMapSelection(true);
   [self.searchTextField resignFirstResponder];
   self.rootView.compact = YES;

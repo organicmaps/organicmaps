@@ -66,5 +66,6 @@
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state;
 - (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
 - (void)searchFrameUpdated:(CGRect)frame;
+- (void)searchText:(NSString *)text forInputLocale:(NSString *)locale;
 
 @end
