@@ -1,6 +1,7 @@
 #pragma once
 
 #include "std/algorithm.hpp"
+#include "std/auto_ptr.hpp"
 #include "std/functional.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -80,28 +81,29 @@ struct Equals<false, T, C>
 };
 }  // namespace impl
 
-// Sorts and removes duplicate entries from |v|.
-template <typename T>
-void SortUnique(vector<T> & v)
+// Sorts and removes duplicate entries from |c|.
+template <typename T, template <typename, typename = allocator<T>> class Container>
+void SortUnique(Container<T> & c)
 {
-  sort(v.begin(), v.end());
-  v.erase(unique(v.begin(), v.end()), v.end());
+  sort(c.begin(), c.end());
+  c.erase(unique(c.begin(), c.end()), c.end());
 }
 
-// Sorts according to |comp| and removes duplicate entries according to |pred| from |v|.
+// Sorts according to |comp| and removes duplicate entries according to |pred| from |c|.
 // Note. If several entries are equal according to |pred| an arbitrary entry of them
-// is left in |v| after a call of this function.
-template <typename T, typename TLess, typename TEquals>
-void SortUnique(vector<T> & v, TLess && less, TEquals && equals)
+// is left in |c| after a call of this function.
+template <typename T, template <typename, typename = allocator<T>> class Container,
+          typename TLess, typename TEquals>
+void SortUnique(Container<T> & c, TLess && less, TEquals && equals)
 {
-  sort(v.begin(), v.end(), forward<TLess>(less));
-  v.erase(unique(v.begin(), v.end(), forward<TEquals>(equals)), v.end());
+  sort(c.begin(), c.end(), forward<TLess>(less));
+  c.erase(unique(c.begin(), c.end(), forward<TEquals>(equals)), c.end());
 }
 
-template <typename T, class TFn>
-void EraseIf(vector<T> & v, TFn && fn)
+template <typename T, template <typename, typename = allocator<T>> class Container, class TFn>
+void EraseIf(Container<T> & c, TFn && fn)
 {
-  v.erase(remove_if(v.begin(), v.end(), forward<TFn>(fn)), v.end());
+  c.erase(remove_if(c.begin(), c.end(), forward<TFn>(fn)), c.end());
 }
 
 // Creates a comparer being able to compare two instances of class C
