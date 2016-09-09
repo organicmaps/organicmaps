@@ -6,12 +6,11 @@
 
 @end
 
-IB_DESIGNABLE
 @interface MWMSearchTabButtonsView : UIView
 
 @property (nonatomic) BOOL selected;
 
-@property (nonatomic) IBInspectable UIImage * iconImage;
-@property (nonatomic) IBInspectable NSString * localizedText;
+@property (nonatomic) UIImage * iconImage;
+@property (nonatomic) NSString * localizedText;
 
 @end
