@@ -17,6 +17,7 @@ char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
 char const * kRoutingDisclaimerApprovedKey = "IsDisclaimerApproved";
 
 NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
+NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 }  // namespace
 
 @implementation MWMSettings
@@ -117,4 +118,16 @@ NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 }
 
 + (void)setRoutingDisclaimerApproved { settings::Set(kRoutingDisclaimerApprovedKey, true); }
++ (NSString *)spotlightLocaleLanguageId
+{
+  return [[NSUserDefaults standardUserDefaults] stringForKey:kSpotlightLocaleLanguageId];
+}
+
++ (void)setSpotlightLocaleLanguageId:(NSString *)spotlightLocaleLanguageId
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setObject:spotlightLocaleLanguageId forKey:kSpotlightLocaleLanguageId];
+  [ud synchronize];
+}
+
 @end

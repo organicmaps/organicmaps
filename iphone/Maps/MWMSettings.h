@@ -27,4 +27,7 @@
 + (BOOL)routingDisclaimerApproved;
 + (void)setRoutingDisclaimerApproved;
 
++ (NSString *)spotlightLocaleLanguageId;
++ (void)setSpotlightLocaleLanguageId:(NSString *)spotlightLocaleLanguageId;
+
 @end
