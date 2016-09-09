@@ -80,7 +80,7 @@
       android:layout_width="@dimen/nav_icon_size"
       android:layout_height="@dimen/nav_icon_size"
       android:scaleType="center"
-      android:layout_gravity="center_vertical|right"
+      android:layout_gravity="center_vertical|end"
       android:src="@drawable/ic_voice_on"
       android:background="?selectableItemBackgroundBorderless"/>
   </FrameLayout>

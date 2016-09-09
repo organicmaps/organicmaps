@@ -73,5 +73,6 @@
 
   <declare-styleable name="ThemeAttrs.Navigation">
     <attr name="newsMarker" format="reference"/>
+    <attr name="searchLayoutBackground" format="reference"/>
   </declare-styleable>
 </resources>

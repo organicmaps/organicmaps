@@ -6,4 +6,5 @@
   android:layout_height="match_parent">
   <include layout="@layout/layout_nav_top"/>
   <include layout="@layout/layout_nav_bottom"/>
+  <include layout="@layout/layout_nav_search"/>
 </FrameLayout>

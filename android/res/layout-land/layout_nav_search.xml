@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:theme="?navButtonsTheme"
+  tools:background="@color/bg_primary">
+
+  <LinearLayout
+    android:id="@+id/search_frame"
+    android:layout_width="286dp"
+    android:layout_height="56dp"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="46dp"
+    android:background="?searchLayoutBackground"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_quarter"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <ImageView
+      android:id="@+id/search_fuel"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:layout_marginLeft="60dp"
+      android:src="@drawable/ic_routing_fuel_on"/>
+
+    <ImageView
+      android:id="@+id/search_parking"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:src="@drawable/ic_routing_parking_on"/>
+
+    <ImageView
+      android:id="@+id/search_food"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:src="@drawable/ic_routing_food_on"/>
+
+    <ImageView
+      android:id="@+id/search_shop"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:src="@drawable/ic_routing_shop_on"/>
+
+    <ImageView
+      android:id="@+id/search_atm"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:src="@drawable/ic_routing_atm_on"/>
+
+  </LinearLayout>
+
+  <ImageButton
+    android:id="@+id/btn_search"
+    style="@style/MwmWidget.SearchNavigationButton"
+    android:layout_width="64dp"
+    android:layout_height="64dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginBottom="42dp"
+    android:background="?nav_background"
+    android:src="@drawable/ic_menu_search"
+    android:tint="@null"/>
+
+</RelativeLayout>
