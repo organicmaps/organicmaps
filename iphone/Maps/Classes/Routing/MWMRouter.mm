@@ -129,7 +129,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 - (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
-  [self.altitudeImagesData removeAllObjects];
+  [self clearAltitudeImagesData];
 
   if (self.startPoint.IsMyPosition())
   {
@@ -249,7 +249,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 - (void)doStop
 {
-  [self.altitudeImagesData removeAllObjects];
+  [self clearAltitudeImagesData];
   GetFramework().CloseRouting();
   MapsAppDelegate * app = [MapsAppDelegate theApp];
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
@@ -298,9 +298,18 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
     UIImage * altitudeImage = [UIImage imageWithRGBAData:imageData width:width height:height];
     if (altitudeImage)
+    {
       dispatch_async(dispatch_get_main_queue(), ^{
         block(altitudeImage);
       });
+    }
+  });
+}
+
+- (void)clearAltitudeImagesData
+{
+  dispatch_async(self.renderAltitudeImagesQueue, ^{
+    [self.altitudeImagesData removeAllObjects];
   });
 }
 

@@ -5,10 +5,13 @@
 
 #include "std/map.hpp"
 
-static CGFloat const kLineWidth = 2.0;
-static NSString * const kAnimationKey = @"CircleAnimation";
+namespace
+{
+CGFloat const kLineWidth = 2.0;
+NSString * const kAnimationKey = @"CircleAnimation";
 
-static inline CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_PI_2; }
+CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_PI_2; }
+}  // namespace
 @interface MWMCircularProgressView ()
 
 @property(nonatomic) CAShapeLayer * backgroundLayer;
