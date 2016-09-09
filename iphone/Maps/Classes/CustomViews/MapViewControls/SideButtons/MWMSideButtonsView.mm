@@ -176,8 +176,7 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
 {
   if (!self.superview)
     return _bottomBound;
-  CGFloat const bottomBoundLimit =
-      (self.superview.height - self.zoomOut.maxY) / 2 - (self.location.maxY - self.zoomOut.maxY);
+  CGFloat const bottomBoundLimit = (self.superview.height - self.location.maxY) / 2;
   return MIN(self.superview.height - bottomBoundLimit, _bottomBound);
 }
 

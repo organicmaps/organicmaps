@@ -28,10 +28,7 @@
   NSAssert(superview != nil, @"Superview can't be nil");
   if ([superview.subviews containsObject:self])
     return;
-  if (IPAD)
-    [superview addSubview:self];
-  else
-    [superview insertSubview:self atIndex:0];
+  [superview addSubview:self];
 }
 
 - (void)remove

@@ -80,6 +80,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 @property(weak, nonatomic) IBOutlet UILabel * speedWithLegendLabel;
 @property(weak, nonatomic) IBOutlet UILabel * distanceWithLegendLabel;
 @property(weak, nonatomic) IBOutlet UIPageControl * routingInfoPageControl;
+@property(weak, nonatomic) IBOutlet UILabel * estimateLabel;
 
 @property(weak, nonatomic) IBOutlet UIView * progressView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * routingProgress;
@@ -149,6 +150,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     NSFontAttributeName : [UIFont bold14]
   };
 
+  self.estimateLabel.attributedText = info.estimate;
   self.navigationInfo = info;
   if (self.routingInfoPageControl.currentPage == 0)
   {
