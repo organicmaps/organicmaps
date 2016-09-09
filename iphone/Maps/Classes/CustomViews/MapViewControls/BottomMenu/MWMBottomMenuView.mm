@@ -3,6 +3,7 @@
 #import "EAGLView.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
+#import "MWMRouter.h"
 #import "MapsAppDelegate.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
@@ -17,6 +18,8 @@ namespace
 {
 CGFloat constexpr kAdditionalHeight = 64;
 CGFloat constexpr kDefaultMainButtonsHeight = 48;
+CGFloat constexpr kBicyclePlanningMainButtonsHeightLandscape = 62;
+CGFloat constexpr kBicyclePlanningMainButtonsHeightRegular = 94;
 CGFloat constexpr kDefaultMenuButtonWidth = 60;
 CGFloat constexpr kRoutingAdditionalButtonsOffsetCompact = 0;
 CGFloat constexpr kRoutingAdditionalButtonsOffsetRegular = 48;
@@ -30,6 +33,8 @@ CGFloat constexpr kSpeedDistanceOffsetRegular = 16;
 CGFloat constexpr kSpeedDistanceWidthCompact = 72;
 CGFloat constexpr kSpeedDistanceWidthLandscape = 128;
 CGFloat constexpr kSpeedDistanceWidthRegular = 88;
+CGFloat constexpr kGoButtonWidthLandscape = 128;
+CGFloat constexpr kGoButtonWidthRegular = 96;
 CGFloat constexpr kPageControlTopOffsetRegular = 0;
 CGFloat constexpr kPageControlTopOffsetLandscape = -8;
 CGFloat constexpr kPageControlScaleLandscape = 0.7;
@@ -76,12 +81,20 @@ CGFloat constexpr kTimeWidthRegular = 128;
 @property(weak, nonatomic) IBOutlet UILabel * distanceLegendLabel;
 @property(weak, nonatomic) IBOutlet UILabel * speedWithLegendLabel;
 @property(weak, nonatomic) IBOutlet UILabel * distanceWithLegendLabel;
+@property(weak, nonatomic) IBOutlet UILabel * estimateLabel;
+@property(weak, nonatomic) IBOutlet UIView * heightProfileContainer;
+@property(weak, nonatomic) IBOutlet UIImageView * heightProfileImage;
 
 @property(weak, nonatomic) IBOutlet UIPageControl * pageControl;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * pageControlTopOffset;
 
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * speedDistanceWidth;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * timeWidth;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * goButtonWidth;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * estimateLabelTopOffset;
+@property(nonatomic) IBOutletCollection(NSLayoutConstraint)
+    NSArray * heightProfileContainerVerticalOrientation;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * routingViewManuButtonPffset;
 
 @property(nonatomic) CGFloat layoutDuration;
 
@@ -97,6 +110,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
   self.additionalButtons.hidden = YES;
   self.downloadBadge.hidden = YES;
   self.goButton.hidden = YES;
+  self.estimateLabel.hidden = YES;
+  self.heightProfileContainer.hidden = YES;
   self.toggleInfoButton.hidden = YES;
   self.speedView.hidden = YES;
   self.timeView.hidden = YES;
@@ -137,6 +152,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
       }];
   ((EAGLView *)self.superview).widgetsManager.bottomBound = self.mainButtonsHeight.constant;
   [self updateFonts];
+  [self updateHeightProfile];
   [super layoutSubviews];
 }
 
@@ -147,6 +163,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
   case MWMBottomMenuStateHidden: break;
   case MWMBottomMenuStateInactive:
     self.backgroundColor = [UIColor menuBackground];
+    self.menuButton.alpha = 1.0;
     self.bookmarksButton.alpha = 1.0;
     self.downloadBadge.alpha = 1.0;
     self.routingView.alpha = 0.0;
@@ -156,6 +173,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     break;
   case MWMBottomMenuStateActive:
     self.backgroundColor = [UIColor white];
+    self.menuButton.alpha = 1.0;
     self.bookmarksButton.alpha = 1.0;
     self.downloadBadge.alpha = 0.0;
     self.routingView.alpha = 0.0;
@@ -171,6 +189,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
       self.p2pButton.alpha = 0.0;
       self.searchButton.alpha = 0.0;
     }
+    self.menuButton.alpha = 1.0;
     self.downloadBadge.alpha = 0.0;
     self.routingView.alpha = 0.0;
     self.routingAdditionalView.alpha = 0.0;
@@ -178,10 +197,13 @@ CGFloat constexpr kTimeWidthRegular = 128;
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
     self.backgroundColor = [UIColor white];
+    self.menuButton.alpha = 0.0;
     self.downloadBadge.alpha = 1.0;
     self.bookmarksButton.alpha = 0.0;
     self.routingView.alpha = 1.0;
     self.goButton.alpha = 1.0;
+    self.estimateLabel.alpha = 1.0;
+    self.heightProfileContainer.alpha = 1.0;
     self.speedView.alpha = 0.0;
     self.timeView.alpha = 0.0;
     self.distanceView.alpha = 0.0;
@@ -193,10 +215,13 @@ CGFloat constexpr kTimeWidthRegular = 128;
   case MWMBottomMenuStateRouting:
   case MWMBottomMenuStateRoutingExpanded:
     self.backgroundColor = [UIColor white];
+    self.menuButton.alpha = 1.0;
     self.downloadBadge.alpha = 0.0;
     self.bookmarksButton.alpha = 0.0;
     self.routingView.alpha = 1.0;
     self.goButton.alpha = 0.0;
+    self.estimateLabel.alpha = 0.0;
+    self.heightProfileContainer.alpha = 0.0;
     self.speedView.alpha = 1.0;
     self.timeView.alpha = 1.0;
     self.distanceView.alpha = 1.0;
@@ -220,6 +245,18 @@ CGFloat constexpr kTimeWidthRegular = 128;
   self.distanceLabel.font = numberFont;
   self.speedLegendLabel.font = legendFont;
   self.distanceLegendLabel.font = legendFont;
+}
+
+- (void)updateHeightProfile
+{
+  if (self.heightProfileContainer.hidden || ![MWMRouter hasRouteAltitude])
+    return;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [[MWMRouter router] routeAltitudeImageForSize:self.heightProfileImage.frame.size
+                                       completion:^(UIImage * image) {
+                                         self.heightProfileImage.image = image;
+                                       }];
+  });
 }
 
 - (void)updateVisibility
@@ -250,6 +287,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     break;
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
+    self.menuButton.hidden = YES;
     self.bookmarksButton.hidden = YES;
     self.p2pButton.hidden = YES;
     self.searchButton.hidden = YES;
@@ -272,13 +310,36 @@ CGFloat constexpr kTimeWidthRegular = 128;
   self.additionalButtonsHeight.constant = 0.0;
   self.menuButtonWidth.constant = kDefaultMenuButtonWidth;
   self.mainButtonsHeight.constant = kDefaultMainButtonsHeight;
+  self.routingViewManuButtonPffset.priority = UILayoutPriorityDefaultHigh;
   self.routingAdditionalViewHeight.constant = 0.0;
   switch (self.state)
   {
   case MWMBottomMenuStateHidden: self.minY = self.superview.height; return;
-  case MWMBottomMenuStateInactive:
+  case MWMBottomMenuStateInactive: break;
   case MWMBottomMenuStatePlanning:
-  case MWMBottomMenuStateGo: break;
+    [self layoutPlanningGeometry];
+    self.mainButtonsHeight.constant = 0.0;
+    break;
+  case MWMBottomMenuStateGo:
+  {
+    [self layoutPlanningGeometry];
+    if ([MWMRouter hasRouteAltitude])
+    {
+      BOOL const isLandscape = self.width > self.layoutThreshold;
+      if (isLandscape)
+      {
+        self.mainButtonsHeight.constant = kBicyclePlanningMainButtonsHeightLandscape;
+      }
+      else
+      {
+        self.estimateLabelTopOffset.priority = UILayoutPriorityDefaultHigh;
+        for (NSLayoutConstraint * constraint in self.heightProfileContainerVerticalOrientation)
+          constraint.priority = UILayoutPriorityDefaultHigh;
+        self.mainButtonsHeight.constant = kBicyclePlanningMainButtonsHeightRegular;
+      }
+    }
+    break;
+  }
   case MWMBottomMenuStateCompact:
     if (self.restoreState == MWMBottomMenuStateRouting && !IPAD &&
         UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
@@ -312,6 +373,16 @@ CGFloat constexpr kTimeWidthRegular = 128;
   CGFloat const height =
       self.mainButtonsHeight.constant + self.separatorHeight.constant + additionalHeight;
   self.frame = {{self.superview.width - width, self.superview.height - height}, {width, height}};
+}
+
+- (void)layoutPlanningGeometry
+{
+  BOOL const isLandscape = self.width > self.layoutThreshold;
+  self.estimateLabelTopOffset.priority = UILayoutPriorityDefaultLow;
+  self.routingViewManuButtonPffset.priority = UILayoutPriorityDefaultLow;
+  for (NSLayoutConstraint * constraint in self.heightProfileContainerVerticalOrientation)
+    constraint.priority = UILayoutPriorityDefaultLow;
+  self.goButtonWidth.constant = isLandscape ? kGoButtonWidthLandscape : kGoButtonWidthRegular;
 }
 
 - (void)layoutRoutingGeometry
@@ -513,6 +584,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
       _leftBound = 0.0;
     [self updateBadge];
     self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
+    self.menuButton.hidden = NO;
     self.layoutDuration =
         (_state == MWMBottomMenuStateCompact && !IPAD) ? 0.0 : kDefaultAnimationDuration;
     break;
@@ -520,6 +592,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
   case MWMBottomMenuStateActive:
     self.restoreState = _state;
     [self updateMenuButtonFromState:_state toState:state];
+    self.menuButton.hidden = NO;
     self.additionalButtons.hidden = NO;
     self.bookmarksButton.hidden = NO;
     self.p2pButton.hidden = NO;
@@ -529,10 +602,13 @@ CGFloat constexpr kTimeWidthRegular = 128;
     if (_state == MWMBottomMenuStateGo)
       self.restoreState = _state;
     self.layoutDuration = IPAD ? kDefaultAnimationDuration : 0.0;
+    self.menuButton.hidden = NO;
     break;
   case MWMBottomMenuStatePlanning:
     self.goButton.enabled = NO;
     self.goButton.hidden = NO;
+    self.estimateLabel.hidden = YES;
+    self.heightProfileContainer.hidden = YES;
     self.toggleInfoButton.hidden = YES;
     self.speedView.hidden = YES;
     self.timeView.hidden = YES;
@@ -544,6 +620,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
   case MWMBottomMenuStateGo:
     self.goButton.enabled = YES;
     self.goButton.hidden = NO;
+    self.estimateLabel.hidden = NO;
+    self.heightProfileContainer.hidden = ![MWMRouter hasRouteAltitude];
     self.toggleInfoButton.hidden = YES;
     self.speedView.hidden = YES;
     self.timeView.hidden = YES;
@@ -553,7 +631,10 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingAdditionalView.hidden = YES;
     break;
   case MWMBottomMenuStateRouting:
+    self.menuButton.hidden = NO;
     self.goButton.hidden = YES;
+    self.estimateLabel.hidden = YES;
+    self.heightProfileContainer.hidden = YES;
     self.toggleInfoButton.hidden = NO;
     self.speedView.hidden = NO;
     self.timeView.hidden = NO;
@@ -563,7 +644,10 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingAdditionalView.hidden = YES;
     break;
   case MWMBottomMenuStateRoutingExpanded:
+    self.menuButton.hidden = NO;
     self.goButton.hidden = YES;
+    self.estimateLabel.hidden = YES;
+    self.heightProfileContainer.hidden = YES;
     self.toggleInfoButton.hidden = NO;
     self.speedView.hidden = NO;
     self.timeView.hidden = NO;

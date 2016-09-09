@@ -20,6 +20,7 @@
 @property(nonatomic, readonly) CGFloat progress;
 //@property (nonatomic, readonly) vector<location::FollowingInfo::SingleLaneInfoClient> lanes;
 @property(nonatomic, readonly) BOOL isPedestrian;
+@property(nonatomic, readonly) NSAttributedString * estimate;
 
 - (void)updateFollowingInfo:(location::FollowingInfo const &)info;
 

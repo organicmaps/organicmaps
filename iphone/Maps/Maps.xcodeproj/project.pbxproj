@@ -313,6 +313,8 @@
 		34DCDE3B1C75CE1F00652CAC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347FD85A1C60B2CE002FB65E /* MWMOpeningHoursDeleteScheduleTableViewCell.mm */; };
 		34DDD5341BFDB0B600407F2F /* MWMMapDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342AF0DF1BE24E9A0016F3AE /* MWMMapDownloaderViewController.mm */; };
 		34DDD5351BFDB0C600407F2F /* MWMBaseMapDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */; };
+		34E0B8491D7EED0C00735786 /* UIImage+RGBAData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E0B8481D7EED0C00735786 /* UIImage+RGBAData.mm */; };
+		34E0B84A1D7EED0C00735786 /* UIImage+RGBAData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E0B8481D7EED0C00735786 /* UIImage+RGBAData.mm */; };
 		34E0EECE1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E0EECC1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.mm */; };
 		34E0EECF1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E0EECC1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.mm */; };
 		34E0EED01CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E0EECD1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.xib */; };
@@ -1206,6 +1208,8 @@
 		34D37E151CD2373C001DEFC3 /* MWMMapDownloaderCellHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderCellHeader.h; sourceTree = "<group>"; };
 		34D37E161CD2373C001DEFC3 /* MWMMapDownloaderCellHeader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloaderCellHeader.mm; sourceTree = "<group>"; };
 		34DCDE3D1C76195F00652CAC /* MWMMapDownloaderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderProtocol.h; sourceTree = "<group>"; };
+		34E0B8471D7EEC2A00735786 /* UIImage+RGBAData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+RGBAData.h"; sourceTree = "<group>"; };
+		34E0B8481D7EED0C00735786 /* UIImage+RGBAData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+RGBAData.mm"; sourceTree = "<group>"; };
 		34E0EECA1CC4F36B008E4919 /* MWMMapDownloaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderTypes.h; sourceTree = "<group>"; };
 		34E0EECB1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderButtonTableViewCell.h; sourceTree = "<group>"; };
 		34E0EECC1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloaderButtonTableViewCell.mm; sourceTree = "<group>"; };
@@ -2566,6 +2570,8 @@
 				F64DA8011C524BDE00330E9E /* UISwitch+RuntimeAttributes.m */,
 				34FED54E1D21121000183B1B /* CLLocation+Mercator.h */,
 				34FED54F1D21121000183B1B /* CLLocation+Mercator.mm */,
+				34E0B8471D7EEC2A00735786 /* UIImage+RGBAData.h */,
+				34E0B8481D7EED0C00735786 /* UIImage+RGBAData.mm */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -3663,6 +3669,7 @@
 				342EE4111C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
 				3438CDFC1B862F5C0051AA78 /* MWMSearchContentView.mm in Sources */,
 				34479C7C1C60C6130065D261 /* MWMFrameworkListener.mm in Sources */,
+				34E0B8491D7EED0C00735786 /* UIImage+RGBAData.mm in Sources */,
 				3485C0121B85C20E00F7712D /* MWMSearchTableViewController.mm in Sources */,
 				345A2DCB1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm in Sources */,
 				34D37E171CD2373C001DEFC3 /* MWMMapDownloaderCellHeader.mm in Sources */,
@@ -3891,6 +3898,7 @@
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
 				34DDD5351BFDB0C600407F2F /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				6741A9CE1BF340DE002C974C /* MWMSearchManager.mm in Sources */,
+				34E0B84A1D7EED0C00735786 /* UIImage+RGBAData.mm in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
 				345A2DCC1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm in Sources */,
 				34D37E181CD2373C001DEFC3 /* MWMMapDownloaderCellHeader.mm in Sources */,

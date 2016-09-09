@@ -6,10 +6,7 @@
 #import "MWMRoutePointLayout.h"
 #import "MWMRouter.h"
 #import "Statistics.h"
-#import "TimeUtils.h"
 #import "UIButton+Orientation.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 static CGFloat constexpr kAdditionalHeight = 20.;
 
@@ -20,7 +17,6 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 @property(weak, nonatomic) IBOutlet UIView * vehicle;
 @property(weak, nonatomic) IBOutlet UIView * bicycle;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * planningContainerHeight;
 @property(weak, nonatomic, readwrite) IBOutlet UIButton * extendButton;
 @property(weak, nonatomic) IBOutlet UIButton * goButton;
 @property(weak, nonatomic) IBOutlet UICollectionView * collectionView;
@@ -29,11 +25,15 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 @property(weak, nonatomic) IBOutlet UIView * statusBox;
 @property(weak, nonatomic) IBOutlet UIView * planningBox;
 @property(weak, nonatomic) IBOutlet UIView * resultsBox;
+@property(weak, nonatomic) IBOutlet UIView * heightBox;
 @property(weak, nonatomic) IBOutlet UIView * errorBox;
 @property(weak, nonatomic) IBOutlet UILabel * resultLabel;
 @property(weak, nonatomic) IBOutlet UILabel * arriveLabel;
-@property(weak, nonatomic) IBOutlet UIImageView * completeImageView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * statusBoxHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * resultsBoxHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * heightBoxHeight;
+@property(weak, nonatomic) IBOutlet UIImageView * heightProfileImage;
+
 @property(nonatomic) UIImageView * movingCellImage;
 
 @property(nonatomic) BOOL isNeedToMove;
@@ -75,21 +75,28 @@ static CGFloat constexpr kAdditionalHeight = 20.;
          routerType:(routing::RouterType)routerType
 {
   MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
-  [progress setImage:[UIImage imageNamed:imageName]
-           forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
-                      MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
-                      MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
+  MWMCircularProgressStateVec const imageStates = {
+      MWMCircularProgressStateNormal,   MWMCircularProgressStateFailed,
+      MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
+      MWMCircularProgressStateSpinner,  MWMCircularProgressStateCompleted};
+  [progress setImage:[UIImage imageNamed:imageName] forStates:imageStates];
+
+  [progress setColoring:MWMButtonColoringGray forStates:{MWMCircularProgressStateNormal}];
+
+  [progress setColoring:MWMButtonColoringWhiteText
+              forStates:{MWMCircularProgressStateFailed, MWMCircularProgressStateSelected,
+                         MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner,
+                         MWMCircularProgressStateCompleted}];
+
+  [progress setSpinnerBackgroundColor:[UIColor clearColor]];
+  [progress setColor:[UIColor whiteColor]
+           forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
+
   progress.delegate = self;
   m_progresses[routerType] = progress;
 }
 
 - (void)didMoveToSuperview { [self setupActualHeight]; }
-- (void)addToView:(UIView *)superview
-{
-  [super addToView:superview];
-  [superview bringSubviewToFront:superview];
-}
-
 - (void)statePrepare
 {
   for (auto const & progress : m_progresses)
@@ -103,6 +110,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   [self.layout invalidateLayout];
   self.statusBox.hidden = YES;
   self.resultsBox.hidden = YES;
+  self.heightBox.hidden = YES;
   self.planningBox.hidden = YES;
   self.errorBox.hidden = YES;
 }
@@ -114,6 +122,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   self.goButton.enabled = NO;
   self.statusBox.hidden = NO;
   self.resultsBox.hidden = YES;
+  self.heightBox.hidden = YES;
   self.errorBox.hidden = YES;
   self.planningBox.hidden = NO;
   [self reloadData];
@@ -128,6 +137,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   self.statusBox.hidden = NO;
   self.planningBox.hidden = YES;
   self.resultsBox.hidden = YES;
+  self.heightBox.hidden = YES;
   self.errorBox.hidden = NO;
   if (IPAD)
     [self iPadNotReady];
@@ -141,6 +151,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   self.planningBox.hidden = YES;
   self.errorBox.hidden = YES;
   self.resultsBox.hidden = NO;
+  self.heightBox.hidden = ![MWMRouter hasRouteAltitude];
   if (IPAD)
     [self iPadReady];
 }
@@ -148,7 +159,9 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 - (void)iPadReady
 {
   [self layoutIfNeeded];
-  self.statusBoxHeight.constant = 76.;
+  self.statusBoxHeight.constant =
+      self.resultsBoxHeight.constant +
+      ([MWMRouter hasRouteAltitude] ? self.heightBoxHeight.constant : 0);
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
         [self layoutIfNeeded];
@@ -159,17 +172,28 @@ static CGFloat constexpr kAdditionalHeight = 20.;
               self.arriveLabel.alpha = 1.;
             }
             completion:^(BOOL finished) {
-              self.completeImageView.hidden = NO;
+              [self updateHeightProfile];
             }];
       }];
 }
 
+- (void)updateHeightProfile
+{
+  if (![MWMRouter hasRouteAltitude])
+    return;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [[MWMRouter router] routeAltitudeImageForSize:self.heightProfileImage.frame.size
+                                       completion:^(UIImage * image) {
+                                         self.heightProfileImage.image = image;
+                                       }];
+  });
+}
+
 - (void)iPadNotReady
 {
-  self.completeImageView.hidden = YES;
   self.arriveLabel.alpha = 0.;
   [self layoutIfNeeded];
-  self.statusBoxHeight.constant = 56.;
+  self.statusBoxHeight.constant = self.resultsBoxHeight.constant;
   [UIView animateWithDuration:kDefaultAnimationDuration
                    animations:^{
                      [self layoutIfNeeded];
@@ -188,8 +212,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 {
   [super layoutSubviews];
   [self setupActualHeight];
-  if (IPAD)
-    [self.delegate routePreviewDidChangeFrame:self.frame];
+  [self.delegate routePreviewDidChangeFrame:self.frame];
   [super layoutSubviews];
 }
 
@@ -251,12 +274,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   return {{origin, self.topBound}, {width, self.superview.height - kAdditionalHeight}};
 }
 
-- (CGFloat)visibleHeight
-{
-  return self.planningRouteViewHeight.constant + self.planningContainerHeight.constant +
-         kAdditionalHeight;
-}
-
+- (CGFloat)visibleHeight { return self.planningRouteViewHeight.constant + kAdditionalHeight; }
 - (IBAction)extendTap
 {
   BOOL const isExtended = !self.extendButton.selected;
@@ -287,13 +305,10 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   }
   BOOL const isPortrait = self.superview.height > self.superview.width;
   CGFloat const height = isPortrait ? 140. : 96.;
-  CGFloat const planningRouteViewHeight = self.extendButton.selected ? height : 44.;
-  self.planningRouteViewHeight.constant = planningRouteViewHeight;
-  CGFloat const selfHeight = planningRouteViewHeight + self.planningContainerHeight.constant;
+  CGFloat const selfHeight = self.extendButton.selected ? height : 44.;
+  self.planningRouteViewHeight.constant = selfHeight;
   self.defaultHeight = selfHeight;
   self.height = selfHeight;
-  [self.dashboardManager.delegate
-      routePreviewDidChangeFrame:{self.origin, {self.width, selfHeight + kAdditionalHeight}}];
 }
 
 - (void)snapshotCell:(MWMRoutePointCell *)cell
@@ -315,25 +330,11 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   l.rasterizationScale = [[UIScreen mainScreen] scale];
 }
 
-- (NSDictionary *)etaAttributes
-{
-  return @{
-    NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-    NSFontAttributeName : UIFont.medium17
-  };
-}
-
 #pragma mark - MWMNavigationDashboardInfoProtocol
 
 - (void)updateNavigationInfo:(MWMNavigationDashboardEntity *)info
 {
-  NSString * eta = [NSDateFormatter estimatedArrivalTimeWithSeconds:info.timeToTarget];
-  NSString * resultString =
-      [NSString stringWithFormat:@"%@ • %@ %@", eta, info.targetDistance, info.targetUnits];
-  NSMutableAttributedString * result =
-      [[NSMutableAttributedString alloc] initWithString:resultString];
-  [result addAttributes:self.etaAttributes range:NSMakeRange(0, eta.length)];
-  self.resultLabel.attributedText = result;
+  self.resultLabel.attributedText = info.estimate;
   if (!IPAD)
     return;
 

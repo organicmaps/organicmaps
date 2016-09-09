@@ -11,6 +11,8 @@
 		342D833B1D5233E8000D8AEA /* displacement_mode_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 342D83391D5233E8000D8AEA /* displacement_mode_manager.hpp */; };
 		34583BCF1C88556800F94664 /* place_page_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BCD1C88556800F94664 /* place_page_info.cpp */; };
 		34583BD01C88556800F94664 /* place_page_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BCE1C88556800F94664 /* place_page_info.hpp */; };
+		348AB57C1D7EE0C6009F8301 /* chart_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */; };
+		348AB57D1D7EE0C6009F8301 /* chart_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 348AB57B1D7EE0C6009F8301 /* chart_generator.hpp */; };
 		34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34921F611BFA0A6900737D6E /* api_mark_point.hpp */; };
 		45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45201E921CE4AC90008A4842 /* api_mark_point.cpp */; };
 		670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E393E1C46C5C700E9C0A6 /* gps_tracker.cpp */; };
@@ -100,14 +102,6 @@
 		F6B283081C1B03320081957A /* gps_track_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B283001C1B03320081957A /* gps_track_storage.hpp */; };
 		F6B283091C1B03320081957A /* gps_track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B283011C1B03320081957A /* gps_track.cpp */; };
 		F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B283021C1B03320081957A /* gps_track.hpp */; };
-		F6DA2A951CCE24DA00F087B5 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F61B26FE62001A525C /* libdrape.a */; };
-		F6DA2A971CCE24DB00F087B5 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A961CCE24DB00F087B5 /* libdrape_frontend.a */; };
-		F6DA2A9E1CCE252600F087B5 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A981CCE252600F087B5 /* libeditor.a */; };
-		F6DA2A9F1CCE252600F087B5 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A991CCE252600F087B5 /* liboauthcpp.a */; };
-		F6DA2AA01CCE252600F087B5 /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A9A1CCE252600F087B5 /* libplatform_tests_support.a */; };
-		F6DA2AA11CCE252600F087B5 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A9B1CCE252600F087B5 /* libpugixml.a */; };
-		F6DA2AA21CCE252600F087B5 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A9C1CCE252600F087B5 /* libsdf_image.a */; };
-		F6DA2AA31CCE252600F087B5 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DA2A9D1CCE252600F087B5 /* libstb_image.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -127,6 +121,8 @@
 		342D83391D5233E8000D8AEA /* displacement_mode_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = displacement_mode_manager.hpp; sourceTree = "<group>"; };
 		34583BCD1C88556800F94664 /* place_page_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = place_page_info.cpp; sourceTree = "<group>"; };
 		34583BCE1C88556800F94664 /* place_page_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = place_page_info.hpp; sourceTree = "<group>"; };
+		348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chart_generator.cpp; sourceTree = "<group>"; };
+		348AB57B1D7EE0C6009F8301 /* chart_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chart_generator.hpp; sourceTree = "<group>"; };
 		34921F611BFA0A6900737D6E /* api_mark_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = api_mark_point.hpp; sourceTree = "<group>"; };
 		45201E921CE4AC90008A4842 /* api_mark_point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_mark_point.cpp; sourceTree = "<group>"; };
 		670D05A41B0DF4250013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
@@ -389,6 +385,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */,
+				348AB57B1D7EE0C6009F8301 /* chart_generator.hpp */,
 				342D83381D5233E8000D8AEA /* displacement_mode_manager.cpp */,
 				342D83391D5233E8000D8AEA /* displacement_mode_manager.hpp */,
 				34583BCD1C88556800F94664 /* place_page_info.cpp */,
@@ -451,6 +449,7 @@
 				34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */,
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
 				6753464B1A4054E800A0A8C3 /* bookmark.hpp in Headers */,
+				348AB57D1D7EE0C6009F8301 /* chart_generator.hpp in Headers */,
 				6753469E1A4054E800A0A8C3 /* user_mark_container.hpp in Headers */,
 				675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */,
 				F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */,
@@ -575,6 +574,7 @@
 				674C38621BFF3095000D603B /* user_mark.cpp in Sources */,
 				675346641A4054E800A0A8C3 /* framework.cpp in Sources */,
 				6753466A1A4054E800A0A8C3 /* geourl_process.cpp in Sources */,
+				348AB57C1D7EE0C6009F8301 /* chart_generator.cpp in Sources */,
 				342D833A1D5233E8000D8AEA /* displacement_mode_manager.cpp in Sources */,
 				45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */,
 				675346661A4054E800A0A8C3 /* ge0_parser.cpp in Sources */,

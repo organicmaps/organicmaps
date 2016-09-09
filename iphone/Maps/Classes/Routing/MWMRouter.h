@@ -6,6 +6,8 @@
 
 + (MWMRouter *)router;
 
++ (BOOL)hasRouteAltitude;
+
 @property(nonatomic, readonly) MWMRoutePoint startPoint;
 @property(nonatomic, readonly) MWMRoutePoint finishPoint;
 @property(nonatomic) routing::RouterType type;
@@ -19,6 +21,7 @@
 - (void)rebuildWithBestRouter:(BOOL)bestRouter;
 - (void)start;
 - (void)stop;
+- (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageBlock)block;
 
 - (instancetype)init __attribute__((unavailable("call +router instead")));
 - (instancetype)copy __attribute__((unavailable("call +router instead")));

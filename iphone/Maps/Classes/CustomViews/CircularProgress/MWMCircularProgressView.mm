@@ -1,35 +1,33 @@
-#import "Common.h"
-#import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
+#import "Common.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 #include "std/map.hpp"
 
-static CGFloat const kLineWidth = 2.0;
-static NSString * const kAnimationKey = @"CircleAnimation";
-
-static inline CGFloat angleWithProgress(CGFloat progress)
+namespace
 {
-  return 2.0 * M_PI * progress - M_PI_2;
-}
+CGFloat const kLineWidth = 2.0;
+NSString * const kAnimationKey = @"CircleAnimation";
 
+CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_PI_2; }
+}  // namespace
 @interface MWMCircularProgressView ()
 
-@property (nonatomic) CAShapeLayer * backgroundLayer;
-@property (nonatomic) CAShapeLayer * progressLayer;
+@property(nonatomic) CAShapeLayer * backgroundLayer;
+@property(nonatomic) CAShapeLayer * progressLayer;
 
-@property (nonatomic, readonly) CGColorRef backgroundLayerColor;
-@property (nonatomic, readonly) CGColorRef progressLayerColor;
+@property(nonatomic) UIColor * spinnerBackgroundColor;
+@property(nonatomic, readonly) CGColorRef progressLayerColor;
 
-@property (nonatomic) NSMutableDictionary * images;
-@property (nonatomic) NSMutableDictionary * colors;
+@property(nonatomic) NSMutableDictionary * images;
+@property(nonatomic) NSMutableDictionary * colors;
 
-@property (weak, nonatomic) IBOutlet MWMCircularProgress * owner;
-@property (weak, nonatomic) IBOutlet UIImageView * spinner;
-@property (weak, nonatomic) IBOutlet MWMButton * button;
+@property(weak, nonatomic) IBOutlet MWMCircularProgress * owner;
+@property(weak, nonatomic) IBOutlet UIImageView * spinner;
+@property(weak, nonatomic) IBOutlet MWMButton * button;
 
-@property (nonatomic) BOOL suspendRefreshProgress;
+@property(nonatomic) BOOL suspendRefreshProgress;
 
 @end
 
@@ -59,9 +57,11 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 - (void)setupColors
 {
   self.colors = [NSMutableDictionary dictionary];
-  self.spinner.mwm_coloring = MWMImageColoringGray;
-  UIColor * progressColor = [UIColor linkBlue];
+  UIColor * progressColor = [_spinnerBackgroundColor isEqual:[UIColor clearColor]]
+                                ? [UIColor whiteColor]
+                                : [UIColor linkBlue];
   UIColor * clearColor = [UIColor clearColor];
+  [self setSpinnerColoring:MWMImageColoringGray];
   [self setColor:clearColor forState:MWMCircularProgressStateNormal];
   [self setColor:clearColor forState:MWMCircularProgressStateSelected];
   [self setColor:progressColor forState:MWMCircularProgressStateProgress];
@@ -97,6 +97,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   [self.layer addSublayer:self.progressLayer];
 }
 
+- (void)setSpinnerColoring:(MWMImageColoring)coloring { self.spinner.mwm_coloring = coloring; }
 - (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state
 {
   self.images[@(state)] = image;
@@ -123,7 +124,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
     return;
   self.backgroundLayer.fillColor = self.progressLayer.fillColor = UIColor.clearColor.CGColor;
   self.backgroundLayer.lineWidth = self.progressLayer.lineWidth = kLineWidth;
-  self.backgroundLayer.strokeColor = self.backgroundLayerColor;
+  self.backgroundLayer.strokeColor = self.spinnerBackgroundColor.CGColor;
   self.progressLayer.strokeColor = self.progressLayerColor;
   CGRect rect = CGRectInset(self.bounds, kLineWidth, kLineWidth);
   self.backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
@@ -135,7 +136,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 {
   if (progress > 0.0)
   {
-    self.state = progress < 1.0 ? MWMCircularProgressStateProgress : MWMCircularProgressStateCompleted;
+    self.state =
+        progress < 1.0 ? MWMCircularProgressStateProgress : MWMCircularProgressStateCompleted;
     [self stopSpinner];
   }
   CGFloat const outerRadius = self.width / 2.0;
@@ -160,9 +162,14 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   }
   NSUInteger const animationImagesCount = 12;
   NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
-  NSString * postfix = ([UIColor isNightMode] && !self.isInvertColor) || (![UIColor isNightMode] && self.isInvertColor) ? @"dark" : @"light";
+  NSString * postfix = ([UIColor isNightMode] && !self.isInvertColor) ||
+                               (![UIColor isNightMode] && self.isInvertColor) ||
+                               _spinnerBackgroundColor
+                           ? @"dark"
+                           : @"light";
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
-    animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i+1), postfix]];
+    animationImages[i] =
+        [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i + 1), postfix]];
 
   self.spinner.animationDuration = 0.8;
   self.spinner.animationImages = animationImages;
@@ -188,7 +195,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   animation.repeatCount = 1;
   animation.fromValue = @(fromValue / toValue);
   animation.toValue = @1;
-  animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+  animation.timingFunction =
+      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
   animation.delegate = self.owner;
   [self.progressLayer addAnimation:animation forKey:kAnimationKey];
 }
@@ -207,14 +215,14 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   [self refreshProgress];
 }
 
-- (CGColorRef)backgroundLayerColor
+- (UIColor *)spinnerBackgroundColor
 {
+  if (_spinnerBackgroundColor)
+    return _spinnerBackgroundColor;
   switch (self.state)
   {
-    case MWMCircularProgressStateProgress:
-      return [UIColor pressBackground].CGColor;
-    default:
-      return [UIColor clearColor].CGColor;
+  case MWMCircularProgressStateProgress: return [UIColor pressBackground];
+  default: return [UIColor clearColor];
   }
 }
 
@@ -232,11 +240,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
     [self refreshProgress];
 }
 
-- (BOOL)animating
-{
-  return [self.progressLayer animationForKey:kAnimationKey] != nil;
-}
-
+- (BOOL)animating { return [self.progressLayer animationForKey:kAnimationKey] != nil; }
 - (void)setSuspendRefreshProgress:(BOOL)suspendRefreshProgress
 {
   _suspendRefreshProgress = suspendRefreshProgress;
