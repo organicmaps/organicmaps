@@ -29,9 +29,6 @@ inline void CoverRect(double minX, double minY,
                       size_t cells_count, int maxDepth,
                       vector<CellIdT> & cells)
 {
-  ASSERT_LESS(minX, maxX, ());
-  ASSERT_LESS(minY, maxY, ());
-
   if (minX < BoundsT::minX) minX = BoundsT::minX;
   if (minY < BoundsT::minY) minY = BoundsT::minY;
   if (maxX > BoundsT::maxX) maxX = BoundsT::maxX;
