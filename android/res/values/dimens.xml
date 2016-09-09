@@ -130,4 +130,16 @@
   <dimen name="editor_margin_left_plus">72dp</dimen>
   <dimen name="editor_auth_btn_height">36dp</dimen>
   <dimen name="editor_margin_timetable_left">50dp</dimen>
+
+  <!-- Phone bottom panel -->
+  <dimen name="altitude_chart_container_padding_left">16dp</dimen>
+  <dimen name="altitude_chart_margin_bottom">12dp</dimen>
+  <dimen name="altitude_chart_margin_top">14dp</dimen>
+  <dimen name="altitude_chart_time_distance_height">20dp</dimen>
+  <dimen name="altitude_chart_time_distance_text_size">16sp</dimen>
+  <dimen name="altitude_chart_time_distance_margin_bottom">10dp</dimen>
+  <dimen name="altitude_chart_image_height">40dp</dimen>
+  <dimen name="altitude_chart_image_width">232dp</dimen>
+  <dimen name="start_button_size">96dp</dimen>
+
 </resources>
