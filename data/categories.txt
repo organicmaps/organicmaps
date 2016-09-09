@@ -60,34 +60,34 @@ nb:Transport
 fi:Liikenne
 
 @fuel
-en:Gas
-cs:Čerpací stanice
-sk:Čerpacia stanica
-de:Tankstelle
-es:Gasolinera
-fr:Essence
-it:Stazione di rifornimento
-ja:ガソリンスタンド
-ko:연료
-nl:Benzine
-ru:Заправка
-uk:Заправка
-zh-Hant:加油站
-pl:Stacja benzynowa
-pt:Combustível
-hu:Benzinkút
-th:ก๊าซ
-zh-Hans:汽油
-ar:الغاز
+en:2Gas
+ru:3Заправка
+ar:1الغاز
+cs:2Čerpací stanice
 da:Brændstof|Benzin
-tr:Benzin
-sv:Bensin
+de:3Tankstelle
+es:3Gasolinera
+fi:3Huoltoasema
+fr:3Essence
 he:גז
+hu:Benzinkút
 id:Bahan bakar
-vi:Khí đốt
-ro:Benzină
+it:3Stazione di rifornimento
+ja:1ガソリンスタンド
+ko:연료
 nb:Drivstoff
-fi:Huoltoasema
+nl:3Benzine
+pl:3Stacja benzynowa
+pt:3Combustível
+ro:Benzină
+sk:3Čerpacia stanica
+sv:3Bensin
+th:ก๊าซ
+tr:Benzin
+uk:Заправка
+vi:Khí đốt
+zh-Hans:汽油
+zh-Hant:加油站
 
 @parking
 en:Parking
@@ -536,35 +536,32 @@ nb:3Restaurant|mat
 fi:3Ravintola|ruoka
 sw:Hoteli|restorenti|mgahawa|chakula
 
-amenity-fuel
-en:Gas Station|3fuel|2gas|U+26FD
-ru:3Заправка|бензин|топливо|азс
-uk:3Заправка|бензин|газ
-de:3Tankstelle|Tankstation
-fr:Station-service|3carburant|2essence
-it:3Stazione di rifornimento
-es:3Gasolinera
-ko:1가스가 역|연료|가스
-ja:1ガソリンスタンド|ガスステーション|ガス|燃料|軽油|給油
-cs:3Čerpací stanice|2pumpa
-sk:3Čerpacia stanica|3benzínová pumpa
-nl:3Tankstation|2benzine|3brandstof
-zh-Hant:1加油站|2加氣站|汽油|加油|天然氣
-pl:3Stacja benzynowa|3benzyna|4paliwo
-pt:3Combustível|gás
-hu:3Benzinkút|benzin
-th:3ปั๊มน้ำมัน|เชื้อเพลิง|ก๊าซ
-zh-Hans:1加油站|燃料|汽油
-ar:1محطة وقود|وقود|غاز|الغاز
+amenity-fuel|@fuel
+en:Gas Station|3fuel|petrol|petrol station|U+26FD
+ru:Бензин|топливо|азс
+ar:محطة وقود|وقود|غاز
+cs:2pumpa
 da:3Tankstation|benzin|brændstof
-tr:3Benzin istasyonu|2gaz
-sv:3Bensinstation|3bränsle|2gas|3bensin
-vi:Trạm xăng|khí đốt
+de:Tankstation
+fr:Station-service|3carburant
+hu:3Benzinkút|benzin
 id:Pompa bensin|bahan bakar
-ro:3Benzinărie|benzină
-nb:3Bensinstasjon|drivstoff
-fi:3Huoltoasema
+ja:ガスステーション|ガス|燃料|軽油|給油
+ko:1가스가 역|가스
+nb:3Bensinstasjon
+nl:3Tankstation|3brandstof
+pl:3Benzyna|4paliwo
+pt:gás
+ro:3Benzinărie
+sk:3benzínová pumpa
+sv:3Bensinstation|3bränsle|2gas
 sw:Sheli|mafuta
+th:3ปั๊มน้ำมัน|เชื้อเพลิง
+tr:3Benzin istasyonu|2gaz
+uk:3бензин|газ
+vi:Trạm xăng
+zh-Hans:1加油站|燃料
+zh-Hant:2加氣站|汽油|加油|天然氣
 
 shop-bakery
 en:3Bakery|shop|U+1F35E
@@ -3355,7 +3352,7 @@ sk:Záchody
 sw:Choo
 
 amenity-toilets|@toilet
-en:wc|5restroom|4bathroom|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
+en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
 de:WC
 fr:wc
 it:WC
@@ -4729,7 +4726,7 @@ fi:Lähde
 sw:Chemchemi
 
 shop-car_repair
-en:3Car Repair Shop|4service station|auto|U+1F527
+en:3Car Repair Shop|4service station|auto|garage|U+1F527
 ru:3СТО|3автомастерская|автосервис|авто
 uk:3СТО|3автомайстерня|автосервіс|ремонт авто
 de:3Autowerkstatt|Kfz|Auto
@@ -5972,7 +5969,7 @@ zh-Hans:水井
 zh-Hant:水井
 
 shop-car_repair-tyres
-en:Tyre Repair
+en:Tyre Repair|tire repair|tyre|tire
 ru:Шиномонтаж
 ar:إصلاح إطارات
 cs:Pneuservis
@@ -7341,7 +7338,7 @@ nl:Klimhal
 pt:Ginásio de escalada
 
 leisure-sports_centre-shooting
-en:Shooting Range
+en:Shooting Range|rifle range
 ru:Тир|стрельбище
 fr:Centre de tir
 da:Skydebane
@@ -7370,7 +7367,7 @@ nl:Schietbaan
 pt:Clube de tiro
 
 leisure-sports_centre-swimming
-en:Swimming Centre
+en:Swimming Centre|swimming pool
 ru:Плавательный бассейн
 fr:Piscine
 da:Svømmecenter

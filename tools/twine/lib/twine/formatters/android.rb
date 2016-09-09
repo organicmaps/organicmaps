@@ -12,7 +12,7 @@ module Twine
         'zh' => 'zh-Hans',
         'zh-rCN' => 'zh-Hans',
         'zh-rHK' => 'zh-Hant',
-        'en-rGB' => 'en-UK',
+        'en-rGB' => 'en-GB',
         'in' => 'id'
         # TODO: spanish
       ]

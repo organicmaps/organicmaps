@@ -14,7 +14,7 @@ MANY_DOTS = re.compile(r"\.{4,}")
 SPACE_PUNCTUATION = re.compile(r"\s[.,?!:;]")
 PLACEHOLDERS = re.compile(r"(%\d*\$@|%[@dqus]|\^)")
 
-ITUNES_LANGS = ["en", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de", "hu", "id", "it", "ja", "ko", "nb", "pl", "pt", "ro", "sl", "es", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant"]
+ITUNES_LANGS = ["en", "en-GB", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de", "hu", "id", "it", "ja", "ko", "nb", "pl", "pt", "ro", "sl", "es", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant"]
 
 SIMILARITY_THRESHOLD = 20.0 #%
 
