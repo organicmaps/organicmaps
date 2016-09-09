@@ -65,13 +65,13 @@ ConfigLoader::ConfigLoader(EditorConfigWrapper & config) : m_config(config)
   pugi::xml_document doc;
   LoadFromLocal(doc);
   ResetConfig(doc);
-  m_loaderThread = thread(&ConfigLoader::LoadFromServer, this);
+  //m_loaderThread = thread(&ConfigLoader::LoadFromServer, this);
 }
 
 ConfigLoader::~ConfigLoader()
 {
   m_waiter.Interrupt();
-  m_loaderThread.join();
+  //m_loaderThread.join();
 }
 
 void ConfigLoader::LoadFromServer()
