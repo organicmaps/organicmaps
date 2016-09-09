@@ -100,8 +100,6 @@ double getExactDPI(double contentScaleFactor)
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref(m_factory), move(p));
 
-  _drapeEngineCreated = YES;
-
   LOG(LINFO, ("EAGLView createDrapeEngine Ended"));
 }
 
@@ -124,6 +122,7 @@ double getExactDPI(double contentScaleFactor)
   {
     GetFramework().OnSize(width, height);
     [self.widgetsManager resize:CGSizeMake(width, height)];
+    self->_drapeEngineCreated = YES;
   });
 }
 
@@ -133,10 +132,7 @@ double getExactDPI(double contentScaleFactor)
   int h = height * self.contentScaleFactor;
 
   if (GetFramework().GetDrapeEngine() == nullptr)
-  {
     [self createDrapeEngineWithWidth:w height:h];
-    return;
-  }
 
   [self applyOnSize:w withHeight:h];
 }
